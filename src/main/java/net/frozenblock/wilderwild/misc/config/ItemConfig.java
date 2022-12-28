@@ -20,7 +20,7 @@ public final class ItemConfig implements ConfigData {
     @ConfigEntry.Gui.CollapsibleObject
     public final AncientHornConfig ancientHorn = new AncientHornConfig();
 
-    public static class AncientHornConfig {
+    protected static class AncientHornConfig {
 		public boolean ancientHornCanSummonWarden = DefaultItemConfig.AncientHornConfig.ancientHornCanSummonWarden;
 		public int ancientHornLifespan = DefaultItemConfig.AncientHornConfig.ancientHornLifespan;
 		public int ancientHornMobDamage = DefaultItemConfig.AncientHornConfig.ancientHornMobDamage;

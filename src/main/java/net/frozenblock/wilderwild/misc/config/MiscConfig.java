@@ -23,13 +23,13 @@ public final class MiscConfig implements ConfigData {
 	@ConfigEntry.Gui.CollapsibleObject
 	public BiomeMusicConfig biomeMusic = new BiomeMusicConfig();
 
-	public static class BiomeAmbienceConfig {
+	protected static class BiomeAmbienceConfig {
 		public boolean deepDarkAmbience = DefaultMiscConfig.BiomeAmbienceConfig.deepDarkAmbience;
 		public boolean dripstoneCavesAmbience = DefaultMiscConfig.BiomeAmbienceConfig.dripstoneCavesAmbience;
 		public boolean lushCavesAmbience = DefaultMiscConfig.BiomeAmbienceConfig.lushCavesAmbience;
 	}
 
-	public static class BiomeMusicConfig {
+	protected static class BiomeMusicConfig {
 		public boolean birchForestMusic = DefaultMiscConfig.BiomeMusicConfig.birchForestMusic;
 		public boolean flowerForestMusic = DefaultMiscConfig.BiomeMusicConfig.flowerForestMusic;
 	}

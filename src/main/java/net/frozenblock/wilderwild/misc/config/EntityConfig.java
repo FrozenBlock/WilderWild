@@ -23,24 +23,32 @@ public final class EntityConfig implements ConfigData {
 	public final EnderManConfig enderMan = new EnderManConfig();
 
 	@ConfigEntry.Gui.CollapsibleObject
-	public final WardenConfig warden = new WardenConfig();
-
-	@ConfigEntry.Gui.CollapsibleObject
 	public final FireflyConfig firefly = new FireflyConfig();
 
 	@ConfigEntry.Gui.CollapsibleObject
 	public final JellyfishConfig jellyfish = new JellyfishConfig();
 
-	public static class AllayConfig {
+	@ConfigEntry.Gui.CollapsibleObject
+	public final WardenConfig warden = new WardenConfig();
+
+	protected static class AllayConfig {
 		public boolean keyframeAllayDance = DefaultEntityConfig.AllayConfig.keyframeAllayDance;
 	}
 
-	public static class EnderManConfig {
+	protected static class EnderManConfig {
 		public boolean angerLoopSound = DefaultEntityConfig.EnderManConfig.angerLoopSound;
 		public boolean movingStareSound = DefaultEntityConfig.EnderManConfig.movingStareSound;
 	}
 
-	public static class WardenConfig {
+	protected static class FireflyConfig {
+		public int fireflySpawnCap = DefaultEntityConfig.FireflyConfig.fireflySpawnCap;
+	}
+
+	protected static class JellyfishConfig {
+		public int jellyfishSpawnCap = DefaultEntityConfig.JellyfishConfig.jellyfishSpawnCap;
+	}
+
+	protected static class WardenConfig {
 		public boolean wardenAttacksInstantly = DefaultEntityConfig.WardenConfig.wardenAttacksInstantly;
 		public boolean wardenCustomTendrils = DefaultEntityConfig.WardenConfig.wardenCustomTendrils;
 		public boolean wardenBedrockSniff = DefaultEntityConfig.WardenConfig.wardenBedrockSniff;
@@ -48,14 +56,6 @@ public final class EntityConfig implements ConfigData {
 		public boolean wardenEmergesFromCommand = DefaultEntityConfig.WardenConfig.wardenEmergesFromCommand;
 		public boolean wardenEmergesFromEgg = DefaultEntityConfig.WardenConfig.wardenEmergesFromEgg;
 		public boolean wardenSwimAnimation = DefaultEntityConfig.WardenConfig.wardenSwimAnimation;
-	}
-
-	public static class FireflyConfig {
-		public int fireflySpawnCap = DefaultEntityConfig.FireflyConfig.fireflySpawnCap;
-	}
-
-	public static class JellyfishConfig {
-		public int jellyfishSpawnCap = DefaultEntityConfig.JellyfishConfig.jellyfishSpawnCap;
 	}
 
 	public boolean unpassableRail = DefaultEntityConfig.unpassableRail;

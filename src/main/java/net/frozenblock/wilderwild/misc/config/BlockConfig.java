@@ -20,7 +20,7 @@ public final class BlockConfig implements ConfigData {
 	@ConfigEntry.Gui.CollapsibleObject
 	public final StoneChestConfig stoneChest = new StoneChestConfig();
 
-	public static class BlockSoundsConfig {
+	protected static class BlockSoundsConfig {
 		public boolean cactusSounds = DefaultBlockConfig.BlockSoundsConfig.cactusSounds;
 		public boolean claySounds = DefaultBlockConfig.BlockSoundsConfig.claySounds;
 		public boolean coarseDirtSounds = DefaultBlockConfig.BlockSoundsConfig.coarseDirtSounds;
@@ -38,7 +38,7 @@ public final class BlockConfig implements ConfigData {
 		public boolean witherRoseSounds = DefaultBlockConfig.BlockSoundsConfig.witherRoseSounds;
 	}
 
-	public static class StoneChestConfig {
+	protected static class StoneChestConfig {
 		public int stoneChestTimer = DefaultBlockConfig.StoneChestConfig.stoneChestTimer;
 	}
 

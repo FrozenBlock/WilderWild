@@ -20,7 +20,7 @@ public final class WorldgenConfig implements ConfigData {
     @ConfigEntry.Gui.CollapsibleObject
     public final BiomePlacement biomePlacement = new BiomePlacement();
 
-    public static class BiomePlacement {
+    protected static class BiomePlacement {
         //public boolean modifyDesertPlacement = DefaultWorldgenConfig.BiomePlacement.modifyDesertPlacement;
         //public boolean modifyBadlandsPlacement = DefaultWorldgenConfig.BiomePlacement.modifyBadlandsPlacement;
         public boolean modifyWindsweptSavannaPlacement = DefaultWorldgenConfig.BiomePlacement.modifyWindsweptSavannaPlacement;
