@@ -64,6 +64,7 @@ accessible    field    net/minecraft/world/CompoundContainer    container1    Ln
 accessible    field    net/minecraft/world/CompoundContainer    container2    Lnet/minecraft/world/Container;
 accessible    method    net/minecraft/world/level/block/AbstractCauldronBlock    canReceiveStalactiteDrip    (Lnet/minecraft/world/level/material/Fluid;)Z
 accessible    method    net/minecraft/world/level/block/PointedDripstoneBlock$FluidInfo    <init>    (Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/material/Fluid;Lnet/minecraft/world/level/block/state/BlockState;)V
+accessible    field    net/minecraft/world/level/block/MultifaceSpreader    config    Lnet/minecraft/world/level/block/MultifaceSpreader$SpreadConfig;
 
 # Block Entities
 accessible    field    net/minecraft/world/level/block/entity/RandomizableContainerBlockEntity    lootTable    Lnet/minecraft/resources/ResourceLocation;

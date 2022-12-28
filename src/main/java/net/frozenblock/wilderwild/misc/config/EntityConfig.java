@@ -9,6 +9,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.api.FrozenConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultEntityConfig;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 
@@ -22,9 +23,6 @@ public final class EntityConfig implements ConfigData {
 	public final EnderManConfig enderMan = new EnderManConfig();
 
 	@ConfigEntry.Gui.CollapsibleObject
-	public final WardenConfig warden = new WardenConfig();
-
-	@ConfigEntry.Gui.CollapsibleObject
 	public final FireflyConfig firefly = new FireflyConfig();
 
 	@ConfigEntry.Gui.CollapsibleObject
@@ -33,39 +31,42 @@ public final class EntityConfig implements ConfigData {
 	@ConfigEntry.Gui.CollapsibleObject
 	public final TumbleweedConfig tumbleweed = new TumbleweedConfig();
 
-	public static class AllayConfig {
-		public boolean keyframeAllayDance = true;
+	@ConfigEntry.Gui.CollapsibleObject
+	public final WardenConfig warden = new WardenConfig();
+
+	protected static class AllayConfig {
+		public boolean keyframeAllayDance = DefaultEntityConfig.AllayConfig.KEYFRAME_ALLAY_DANCE;
 	}
 
-	public static class EnderManConfig {
-		public boolean angerLoopSound = true;
-		public boolean movingStareSound = true;
+	protected static class EnderManConfig {
+		public boolean angerLoopSound = DefaultEntityConfig.EnderManConfig.ANGER_LOOP_SOUND;
+		public boolean movingStareSound = DefaultEntityConfig.EnderManConfig.MOVING_STARE_SOUND;
 	}
 
-	public static class WardenConfig {
-		public boolean wardenAttacksInstantly = true;
-		public boolean wardenCustomTendrils = true;
-		public boolean wardenBedrockSniff = true;
-		public boolean wardenDyingAnimation = true;
-		public boolean wardenEmergesFromCommand = false;
-		public boolean wardenEmergesFromEgg = false;
-		public boolean wardenSwimAnimation = true;
+	protected static class FireflyConfig {
+		public int fireflySpawnCap = DefaultEntityConfig.FireflyConfig.FIREFLY_SPAWN_CAP;
 	}
 
-	public static class FireflyConfig {
-		public int fireflySpawnCap = 56;
-	}
-
-	public static class JellyfishConfig {
-		public int jellyfishSpawnCap = 30;
+	protected static class JellyfishConfig {
+		public int jellyfishSpawnCap = DefaultEntityConfig.JellyfishConfig.JELLYFISH_SPAWN_CAP;
 	}
 
 	public static class TumbleweedConfig {
-		public int tumbleweedSpawnCap = 16;
-		public boolean canBeLeashed = false;
+		public int tumbleweedSpawnCap = DefaultEntityConfig.TumbleweedConfig.TUMBLEWEED_SPAWN_CAP;
+		public boolean canBeLeashed = DefaultEntityConfig.TumbleweedConfig.CAN_BE_LEASHED;
 	}
 
-	public boolean unpassableRail = false;
+	protected static class WardenConfig {
+		public boolean wardenAttacksInstantly = DefaultEntityConfig.WardenConfig.WARDEN_ATTACKS_INSTANTLY;
+		public boolean wardenCustomTendrils = DefaultEntityConfig.WardenConfig.WARDEN_CUSTOM_TENDRILS;
+		public boolean wardenBedrockSniff = DefaultEntityConfig.WardenConfig.WARDEN_BEDROCK_SNIFF;
+		public boolean wardenDyingAnimation = DefaultEntityConfig.WardenConfig.WARDEN_DYING_ANIMATION;
+		public boolean wardenEmergesFromCommand = DefaultEntityConfig.WardenConfig.WARDEN_EMERGES_FROM_COMMAND;
+		public boolean wardenEmergesFromEgg = DefaultEntityConfig.WardenConfig.WARDEN_EMERGES_FROM_EGG;
+		public boolean wardenSwimAnimation = DefaultEntityConfig.WardenConfig.WARDEN_SWIM_ANIMATION;
+	}
+
+	public boolean unpassableRail = DefaultEntityConfig.UNPASSABLE_RAIL;
 
 	@Environment(EnvType.CLIENT)
 	static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
@@ -78,14 +79,14 @@ public final class EntityConfig implements ConfigData {
 		var warden = config.warden;
 		category.setBackground(WilderSharedConstants.id("textures/config/entity.png"));
 		var unpassableRail = category.addEntry(entryBuilder.startBooleanToggle(text("unpassable_rail"), config.unpassableRail)
-				.setDefaultValue(false)
+				.setDefaultValue(DefaultEntityConfig.UNPASSABLE_RAIL)
 				.setSaveConsumer(newValue -> config.unpassableRail = newValue)
 				.setTooltip(tooltip("unpassable_rail"))
 				.requireRestart()
 				.build());
 
 		var keyframeAllayDance = entryBuilder.startBooleanToggle(text("keyframe_allay_dance"), allay.keyframeAllayDance)
-				.setDefaultValue(true)
+				.setDefaultValue(DefaultEntityConfig.AllayConfig.KEYFRAME_ALLAY_DANCE)
 				.setSaveConsumer(newValue -> allay.keyframeAllayDance = newValue)
 				.setTooltip(tooltip("keyframe_allay_dance"))
 				.requireRestart()
@@ -98,12 +99,12 @@ public final class EntityConfig implements ConfigData {
 		);
 
 		var angerLoopSound = entryBuilder.startBooleanToggle(text("anger_loop_sound"), enderMan.angerLoopSound)
-				.setDefaultValue(true)
+				.setDefaultValue(DefaultEntityConfig.EnderManConfig.ANGER_LOOP_SOUND)
 				.setSaveConsumer(newValue -> enderMan.angerLoopSound = newValue)
 				.setTooltip(tooltip("anger_loop_sound"))
 				.build();
 		var movingStareSound = entryBuilder.startBooleanToggle(text("moving_stare_sound"), enderMan.movingStareSound)
-				.setDefaultValue(true)
+				.setDefaultValue(DefaultEntityConfig.EnderManConfig.MOVING_STARE_SOUND)
 				.setSaveConsumer(newValue -> enderMan.movingStareSound = newValue)
 				.setTooltip(tooltip("moving_stare_sound"))
 				.build();
@@ -115,7 +116,7 @@ public final class EntityConfig implements ConfigData {
 		);
 
 		var fireflySpawnCap = entryBuilder.startIntSlider(text("firefly_spawn_cap"), firefly.fireflySpawnCap, 0, 100)
-				.setDefaultValue(56)
+				.setDefaultValue(DefaultEntityConfig.FireflyConfig.FIREFLY_SPAWN_CAP)
 				.setSaveConsumer(newValue -> firefly.fireflySpawnCap = newValue)
 				.setTooltip(tooltip("firefly_spawn_cap"))
 				.requireRestart()
@@ -128,7 +129,7 @@ public final class EntityConfig implements ConfigData {
         );
 
 		var jellyfishSpawnCap = entryBuilder.startIntSlider(text("jellyfish_spawn_cap"), jellyfish.jellyfishSpawnCap, 0, 100)
-				.setDefaultValue(30)
+				.setDefaultValue(DefaultEntityConfig.JellyfishConfig.JELLYFISH_SPAWN_CAP)
 				.setSaveConsumer(newValue -> jellyfish.jellyfishSpawnCap = newValue)
 				.setTooltip(tooltip("jellyfish_spawn_cap"))
 				.requireRestart()
@@ -141,14 +142,14 @@ public final class EntityConfig implements ConfigData {
         );
 
 		var tumbleweedSpawnCap = entryBuilder.startIntSlider(text("tumbleweed_spawn_cap"), tumbleweed.tumbleweedSpawnCap, 0, 100)
-				.setDefaultValue(16)
+				.setDefaultValue(DefaultEntityConfig.TumbleweedConfig.TUMBLEWEED_SPAWN_CAP)
 				.setSaveConsumer(newValue -> tumbleweed.tumbleweedSpawnCap = newValue)
 				.setTooltip(tooltip("tumbleweed_spawn_cap"))
 				.requireRestart()
 				.build();
 
 		var leashedTumbleweed = entryBuilder.startBooleanToggle(text("leashed_tumbleweed"), tumbleweed.canBeLeashed)
-				.setDefaultValue(false)
+				.setDefaultValue(DefaultEntityConfig.TumbleweedConfig.CAN_BE_LEASHED)
 				.setSaveConsumer(newValue -> tumbleweed.canBeLeashed = newValue)
 				.setTooltip(tooltip("leashed_tumbleweed"))
 				.requireRestart()
@@ -162,55 +163,48 @@ public final class EntityConfig implements ConfigData {
 		);
 
 		var instantAttack = entryBuilder.startBooleanToggle(text("warden_attacks_instantly"), warden.wardenAttacksInstantly)
-				.setDefaultValue(true)
+				.setDefaultValue(DefaultEntityConfig.WardenConfig.WARDEN_ATTACKS_INSTANTLY)
 				.setSaveConsumer(newValue -> warden.wardenAttacksInstantly = newValue)
 				.setTooltip(tooltip("warden_attacks_instantly"))
 				.build();
 		var dying = entryBuilder.startBooleanToggle(text("warden_dying_animation"), warden.wardenDyingAnimation)
-				.setDefaultValue(true)
+				.setDefaultValue(DefaultEntityConfig.WardenConfig.WARDEN_DYING_ANIMATION)
 				.setSaveConsumer(newValue -> warden.wardenDyingAnimation = newValue)
 				.setTooltip(tooltip("warden_dying_animation"))
 				.build();
 		var command = entryBuilder.startBooleanToggle(text("warden_emerges_from_command"), warden.wardenEmergesFromCommand)
-				.setDefaultValue(false)
+				.setDefaultValue(DefaultEntityConfig.WardenConfig.WARDEN_EMERGES_FROM_COMMAND)
 				.setSaveConsumer(newValue -> warden.wardenEmergesFromCommand = newValue)
 				.setTooltip(tooltip("warden_emerges_from_command"))
 				.build();
-		var emerging = entryBuilder.startBooleanToggle(text("warden_emerges_from_egg"), warden.wardenEmergesFromEgg)
-				.setDefaultValue(false)
+		var egg = entryBuilder.startBooleanToggle(text("warden_emerges_from_egg"), warden.wardenEmergesFromEgg)
+				.setDefaultValue(DefaultEntityConfig.WardenConfig.WARDEN_EMERGES_FROM_EGG)
 				.setSaveConsumer(newValue -> warden.wardenEmergesFromEgg = newValue)
 				.setTooltip(tooltip("warden_emerges_from_egg"))
 				.build();
 		var swimming = entryBuilder.startBooleanToggle(text("warden_swim_animation"), warden.wardenSwimAnimation)
-				.setDefaultValue(true)
+				.setDefaultValue(DefaultEntityConfig.WardenConfig.WARDEN_SWIM_ANIMATION)
 				.setSaveConsumer(newValue -> warden.wardenSwimAnimation = newValue)
 				.setTooltip(tooltip("warden_swim_animation"))
 				.build();
 		var tendrils = entryBuilder.startBooleanToggle(text("warden_custom_tendrils"), warden.wardenCustomTendrils)
-				.setDefaultValue(true)
+				.setDefaultValue(DefaultEntityConfig.WardenConfig.WARDEN_CUSTOM_TENDRILS)
 				.setSaveConsumer(newValue -> warden.wardenCustomTendrils = newValue)
 				.setYesNoTextSupplier(bool -> text("warden_custom_tendrils." + bool))
 				.setTooltip(tooltip("warden_custom_tendrils"))
 				.build();
 		var sniff = entryBuilder.startBooleanToggle(text("warden_bedrock_sniff"), warden.wardenBedrockSniff)
-				.setDefaultValue(true)
+				.setDefaultValue(DefaultEntityConfig.WardenConfig.WARDEN_BEDROCK_SNIFF)
 				.setSaveConsumer(newValue -> warden.wardenBedrockSniff = newValue)
 				.setYesNoTextSupplier(bool -> text("warden_bedrock_sniff." + bool))
 				.setTooltip(tooltip("warden_bedrock_sniff"))
+				.requireRestart()
 				.build();
 
 		var wardenCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("warden"),
 				false,
 				tooltip("warden"),
-				instantAttack, dying, command, emerging, swimming, tendrils, sniff
+				instantAttack, dying, command, egg, swimming, tendrils, sniff
 		);
 	}
-
-
-	//public static final EnumConfigOption<ModMenuConfig.ModsButtonStyle> MODS_BUTTON_STYLE = new EnumConfigOption<>("mods_button_style", ModMenuConfig.ModsButtonStyle.CLASSIC);
-	//public static final StringSetConfigOption HIDDEN_MODS = new StringSetConfigOption("hidden_mods", new HashSet<>());
-    /*public static EntityConfig get() {
-        AutoConfig.register(EntityConfig.class, GsonConfigSerializer::new);
-        return AutoConfig.getConfigHolder(EntityConfig.class).getConfig();
-    }*/
 }
