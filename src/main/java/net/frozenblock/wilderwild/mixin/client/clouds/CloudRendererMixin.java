@@ -25,21 +25,21 @@ public class CloudRendererMixin {
 
 	@ModifyVariable(method = "renderClouds", at = @At(value = "STORE"), ordinal = 5)
 	private double modifyX(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX) {
-		return ClothConfigInteractionHandler.cloudMovement()
+		return ClothConfigInteractionHandler.cloudMovement() && ClientWindManager.shouldUseWind()
 				? (camX / 12.0) - ClientWindManager.getCloudX(partialTick)
 				: original;
 	}
 
 	@ModifyVariable(method = "renderClouds", at = @At("STORE"), ordinal = 6)
 	private double modifyY(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX, double camY) {
-		return ClothConfigInteractionHandler.cloudMovement()
+		return ClothConfigInteractionHandler.cloudMovement() && ClientWindManager.shouldUseWind()
 				? this.wilderWild$cloudHeight - camY + 0.33D + Mth.clamp(ClientWindManager.getCloudY(partialTick), -10, 10)
 				: original;
 	}
 
 	@ModifyVariable(method = "renderClouds", at = @At("STORE"), ordinal = 7)
 	private double modifyZ(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX, double camY, double camZ) {
-		return ClothConfigInteractionHandler.cloudMovement()
+		return ClothConfigInteractionHandler.cloudMovement() && ClientWindManager.shouldUseWind()
 				? (camZ / 12.0D + 0.33000001311302185D) - ClientWindManager.getCloudZ(partialTick)
 				: original;
 	}
