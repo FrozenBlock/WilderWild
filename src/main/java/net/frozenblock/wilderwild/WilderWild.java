@@ -1,16 +1,12 @@
 package net.frozenblock.wilderwild;
 
-import com.chocohead.mm.api.ClassTinkerers;
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.serialization.Codec;
-import java.util.HashMap;
-import java.util.Map;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
-import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
@@ -40,18 +36,9 @@ import net.frozenblock.wilderwild.world.feature.WilderTreeConfigured;
 import net.frozenblock.wilderwild.world.feature.WilderTreePlaced;
 import net.frozenblock.wilderwild.world.feature.features.AlgaeFeature;
 import net.frozenblock.wilderwild.world.feature.features.CattailFeature;
-import net.frozenblock.wilderwild.world.feature.features.ColumnWithDiskFeature;
-import net.frozenblock.wilderwild.world.feature.features.DownwardsPillarFeature;
 import net.frozenblock.wilderwild.world.feature.features.NematocystFeature;
-import net.frozenblock.wilderwild.world.feature.features.NoisePathFeature;
-import net.frozenblock.wilderwild.world.feature.features.NoisePathUnderWaterFeature;
-import net.frozenblock.wilderwild.world.feature.features.NoisePlantFeature;
 import net.frozenblock.wilderwild.world.feature.features.ShelfFungusFeature;
-import net.frozenblock.wilderwild.world.feature.features.UpwardsPillarFeature;
-import net.frozenblock.wilderwild.world.feature.features.config.ColumnWithDiskFeatureConfig;
-import net.frozenblock.wilderwild.world.feature.features.config.PathFeatureConfig;
 import net.frozenblock.wilderwild.world.feature.features.config.ShelfFungusFeatureConfig;
-import net.frozenblock.wilderwild.world.feature.features.config.WilderPillarConfig;
 import net.frozenblock.wilderwild.world.gen.WilderWorldGen;
 import net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
@@ -60,10 +47,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.RandomSource;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -76,55 +61,16 @@ import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixerBuilder;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixes;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public final class WilderWild implements ModInitializer {
-	/**
-	 * @deprecated Use {@link WilderSharedConstants#MOD_ID} instead.
-	 */
-	@Deprecated(forRemoval = true)
-    public static final String MOD_ID = "wilderwild";
-	/**
-	 * @deprecated Use {@link WilderSharedConstants#LOGGER} instead.
-	 */
-	@Deprecated(forRemoval = true)
-    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-	/**
-	 * @deprecated Use {@link WilderSharedConstants#DEV_LOGGING} instead.
-	 */
-	@Deprecated(forRemoval = true)
-    public static boolean DEV_LOGGING = false;
-    /**
-     * Used for features that may be unstable and crash in public builds.
-     * <p>
-     * It's smart to use this for at least registries.
-	 * @deprecated Use {@link WilderSharedConstants#UNSTABLE_LOGGING} instead.
-     */
-	@Deprecated(forRemoval = true)
-    public static boolean UNSTABLE_LOGGING = FabricLoader.getInstance().isDevelopmentEnvironment();
 
 	public static final TrunkPlacerType<StraightTrunkWithLogs> STRAIGHT_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("straight_trunk_logs_placer", StraightTrunkWithLogs.CODEC);
     public static final TrunkPlacerType<FallenTrunkWithLogs> FALLEN_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("fallen_trunk_logs_placer", FallenTrunkWithLogs.CODEC);
     public static final TrunkPlacerType<BaobabTrunkPlacer> BAOBAB_TRUNK_PLACER = registerTrunk("baobab_trunk_placer", BaobabTrunkPlacer.CODEC);
     public static final Feature<ShelfFungusFeatureConfig> SHELF_FUNGUS_FEATURE = new ShelfFungusFeature(ShelfFungusFeatureConfig.CODEC);
     public static final CattailFeature CATTAIL_FEATURE = new CattailFeature(ProbabilityFeatureConfiguration.CODEC);
-    public static final AlgaeFeature ALGAE_FEATURE = new AlgaeFeature(ProbabilityFeatureConfiguration.CODEC);
-    public static final NoisePathFeature NOISE_PATH_FEATURE = new NoisePathFeature(PathFeatureConfig.CODEC);
-    public static final NoisePlantFeature NOISE_PLANT_FEATURE = new NoisePlantFeature(PathFeatureConfig.CODEC);
-    public static final NoisePathUnderWaterFeature NOISE_PATH_UNDER_WATER_FEATURE = new NoisePathUnderWaterFeature(PathFeatureConfig.CODEC);
-    public static final ColumnWithDiskFeature COLUMN_WITH_DISK_FEATURE = new ColumnWithDiskFeature(ColumnWithDiskFeatureConfig.CODEC);
-    public static final UpwardsPillarFeature UPWARDS_PILLAR_FEATURE = new UpwardsPillarFeature(WilderPillarConfig.CODEC);
-    public static final DownwardsPillarFeature DOWNWARDS_PILLAR_FEATURE = new DownwardsPillarFeature(WilderPillarConfig.CODEC);
+    public static final AlgaeFeature ALGAE_FEATURE = new AlgaeFeature(ProbabilityFeatureConfiguration.CODEC);;
     public static final NematocystFeature NEMATOCYST_FEATURE = new NematocystFeature(MultifaceGrowthConfiguration.CODEC);
-
-	/**
-	 * @deprecated Use {@link WilderSharedConstants#random()} instead.
-	 */
-	@Deprecated(forRemoval = true)
-    public static RandomSource random() {
-        return RandomSource.create();
-    }
 
     @Override
     public void onInitialize() {
@@ -156,12 +102,6 @@ public final class WilderWild implements ModInitializer {
         Registry.register(Registry.FEATURE, id("shelf_fungus_feature"), SHELF_FUNGUS_FEATURE);
         Registry.register(Registry.FEATURE, id("cattail_feature"), CATTAIL_FEATURE);
         Registry.register(Registry.FEATURE, id("algae_feature"), ALGAE_FEATURE);
-        Registry.register(Registry.FEATURE, id("noise_path_feature"), NOISE_PATH_FEATURE);
-        Registry.register(Registry.FEATURE, id("noise_plant_feature"), NOISE_PLANT_FEATURE);
-        Registry.register(Registry.FEATURE, id("noise_path_under_water_feature"), NOISE_PATH_UNDER_WATER_FEATURE);
-        Registry.register(Registry.FEATURE, id("column_with_disk_feature"), COLUMN_WITH_DISK_FEATURE);
-        Registry.register(Registry.FEATURE, id("upwards_pillar"), UPWARDS_PILLAR_FEATURE);
-        Registry.register(Registry.FEATURE, id("downwards_pillar"), DOWNWARDS_PILLAR_FEATURE);
         Registry.register(Registry.FEATURE, id("nematocyst_feature"), NEMATOCYST_FEATURE);
 
 

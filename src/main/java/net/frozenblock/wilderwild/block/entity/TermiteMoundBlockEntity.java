@@ -5,6 +5,7 @@ import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.ArrayList;
 import java.util.List;
+import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
@@ -120,7 +121,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             }
         }
         while (this.termites.size() > maxTermites) {
-            Termite termite = this.termites.get(WilderSharedConstants.random().nextInt(this.termites.size()));
+            Termite termite = this.termites.get(AdvancedMath.random().nextInt(this.termites.size()));
             level.playSound(null, termite.pos, RegisterSounds.BLOCK_TERMITE_MOUND_ENTER, SoundSource.NEUTRAL, 1.0F, 1.0F);
             level.gameEvent(null, GameEvent.TELEPORT, Vec3.atCenterOf(termite.pos));
             this.termites.remove(termite);

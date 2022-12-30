@@ -6,6 +6,7 @@ import java.util.Optional;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
 import net.frozenblock.lib.damagesource.api.FrozenProjectileDamageSource;
+import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
@@ -134,7 +135,7 @@ public class AncientHornProjectile extends AbstractArrow {
 		this.baseTick();
 		if (this.bubbles > 0 && this.level instanceof ServerLevel server) {
 			--this.bubbles;
-			EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.position(), RandomSource.create().nextDouble() > 0.7 ? 1 : 0, 20 + WilderSharedConstants.random().nextInt(40), 0.05, server.random.nextIntBetweenInclusive(1, 3));
+			EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.position(), AdvancedMath.random().nextDouble() > 0.7 ? 1 : 0, 20 + AdvancedMath.random().nextInt(40), 0.05, server.random.nextIntBetweenInclusive(1, 3));
 		}
 		if (this.aliveTicks > ClothConfigInteractionHandler.hornLifespan()) {
 			this.remove(RemovalReason.DISCARDED);
@@ -322,7 +323,7 @@ public class AncientHornProjectile extends AbstractArrow {
 					server.setBlockAndUpdate(pos, blockState.setValue(RegisterProperties.HICCUPPING, true));
 				}
 				if (SculkSensorBlock.canActivate(blockState)) {
-					SculkSensorBlock.activate(null, level, pos, this.level.getBlockState(pos), WilderSharedConstants.random().nextInt(15));
+					SculkSensorBlock.activate(null, level, pos, this.level.getBlockState(pos), AdvancedMath.random().nextInt(15));
 					this.level.gameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);
 					setCooldown(getCooldown(this.getOwner(), SENSOR_COOLDOWN));
 				}

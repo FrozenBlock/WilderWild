@@ -67,7 +67,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 
                 if (!AdvancedMath.squareBetween(x, z, 1, 2)) { // only sides
 
-                    if (RandomSource.create().nextDouble() <= percentage / 100) {
+                    if (AdvancedMath.random().nextDouble() <= percentage / 100) {
 						switch (x) {
 							case 0 -> {
 								setLogs(level, replacer, random, mutable, config, center, x - 1, 0, z, height / 2);
@@ -125,12 +125,12 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
                         dir1 = Direction.EAST;
                         dir2 = Direction.SOUTH;
                     }
-                    if (RandomSource.create().nextDouble() <= toppercentage / 100) {
+                    if (AdvancedMath.random().nextDouble() <= toppercentage / 100) {
                         list.add(generateBranch(dir1, dir2, 1F / 4F, height, height / 4, 4, level, replacer, random, mutable, config, center, x, z));
                     }
-                    if (RandomSource.create().nextDouble() <= branchpercentage / 100) {
+                    if (AdvancedMath.random().nextDouble() <= branchpercentage / 100) {
                         float min = 1F / 3F, max = 1F;
-                        float p = ((RandomSource.create().nextFloat() * (max - min)) + min);
+                        float p = ((AdvancedMath.random().nextFloat() * (max - min)) + min);
                         list.add(generateBranch(dir1, dir2, p, height, height, 4, level, replacer, random, mutable, config, center, x, z));
                     }
                 }
@@ -142,7 +142,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
     private FoliagePlacer.FoliageAttachment generateBranch(Direction dir1, Direction dir2, float yequation, int h, int minh, int l, LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, BlockPos.MutableBlockPos mutable, TreeConfiguration config, BlockPos startPos, int x, int z) {
         FoliagePlacer.FoliageAttachment node = null;
 
-        int height = (int) ((RandomSource.create().nextDouble() * (h - minh)) + minh);
+        int height = (int) ((AdvancedMath.random().nextDouble() * (h - minh)) + minh);
 
         for (int l1 = 1; l1 <= l; l1++) {
             int eq = (int) Math.floor(yequation * l1);

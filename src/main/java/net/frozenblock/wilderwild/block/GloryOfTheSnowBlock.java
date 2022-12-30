@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.block;
 
 import java.util.List;
+import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.FlowerColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -52,7 +53,7 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
     @Override
     public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, RandomSource random) {
         if (random.nextFloat() > 0.9F && state.getValue(COLORS) == FlowerColor.NONE) {
-            level.setBlockAndUpdate(pos, state.setValue(COLORS, COLOR_LIST.get(WilderSharedConstants.random().nextInt(COLOR_LIST.size()))));
+            level.setBlockAndUpdate(pos, state.setValue(COLORS, COLOR_LIST.get(AdvancedMath.random().nextInt(COLOR_LIST.size()))));
         }
     }
 
@@ -102,6 +103,6 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
     public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
         WilderSharedConstants.log("Glory Of The Snow Bonemealed @ " + pos, WilderSharedConstants.DEV_LOGGING);
         level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
-        level.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FLOWER_COLOR, this.COLOR_LIST.get(WilderSharedConstants.random().nextInt(this.COLOR_LIST.size()))));
+        level.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FLOWER_COLOR, this.COLOR_LIST.get(AdvancedMath.random().nextInt(this.COLOR_LIST.size()))));
     }
 }

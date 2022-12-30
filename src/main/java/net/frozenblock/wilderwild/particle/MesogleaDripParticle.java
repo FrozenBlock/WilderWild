@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.particle;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -409,7 +410,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
     static class DripLandParticle extends MesogleaDripParticle {
         DripLandParticle(ClientLevel clientLevel, double d, double e, double f) {
             super(clientLevel, d, e, f);
-            this.lifetime = (int) (16.0 / (RandomSource.create().nextDouble() * 0.8 + 0.2));
+            this.lifetime = (int) (16.0 / (AdvancedMath.random().nextDouble() * 0.8 + 0.2));
             this.scale(0.7F);
         }
     }
@@ -417,7 +418,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
     @Environment(value = EnvType.CLIENT)
     static class FallingParticle extends MesogleaDripParticle {
         FallingParticle(ClientLevel clientLevel, double d, double e, double f) {
-            this(clientLevel, d, e, f, (int) (64.0 / (RandomSource.create().nextDouble() * 0.8 + 0.2)));
+            this(clientLevel, d, e, f, (int) (64.0 / (AdvancedMath.random().nextDouble() * 0.8 + 0.2)));
             this.scale(0.7F);
         }
 

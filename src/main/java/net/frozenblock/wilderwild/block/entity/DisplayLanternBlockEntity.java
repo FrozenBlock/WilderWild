@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.ai.FireflyAi;
@@ -133,8 +134,8 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	}
 
 	public void addFirefly(FireflyBottle bottle, String name) {
-		Vec3 newVec = new Vec3(0.5 + (0.15 - RandomSource.create().nextDouble() * 0.3), 0, 0.5 + (0.15 - RandomSource.create().nextDouble() * 0.3));
-		this.fireflies.add(new FireflyInLantern(newVec, bottle.color, name, RandomSource.create().nextDouble() > 0.7, RandomSource.create().nextInt(20), 0));
+		Vec3 newVec = new Vec3(0.5 + (0.15 - AdvancedMath.random().nextDouble() * 0.3), 0, 0.5 + (0.15 - AdvancedMath.random().nextDouble() * 0.3));
+		this.fireflies.add(new FireflyInLantern(newVec, bottle.color, name, AdvancedMath.random().nextDouble() > 0.7, AdvancedMath.random().nextInt(20), 0));
 	}
 
 	public void removeFirefly(FireflyInLantern firefly) {
