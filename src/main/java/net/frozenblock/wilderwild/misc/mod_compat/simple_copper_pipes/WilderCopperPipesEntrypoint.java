@@ -179,7 +179,7 @@ public class WilderCopperPipesEntrypoint implements CopperPipeEntrypoint {
 			level.addFreshEntity(coconut);
 		});
 
-		PoweredPipeDispenses.register(RegisterBlocks.TUMBLEWEED.asItem(), (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
+		PoweredPipeDispenses.register(Registry.ITEM.get(WilderSharedConstants.id("tumbleweed")), (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
 			double d = position.x();
 			double e = position.y();
 			double f = position.z();
@@ -200,7 +200,7 @@ public class WilderCopperPipesEntrypoint implements CopperPipeEntrypoint {
 			double velY = axis == Direction.Axis.Y ? (double) (i * offY * 2) : (corroded ? random1 : random1 * 0.1D);
 			double velZ = axis == Direction.Axis.Z ? (double) (i * offZ * 2) : (corroded ? random2 : random2 * 0.1D);
 			Tumbleweed tumbleweed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
-			tumbleweed.setDeltaMovement(velX, velY, velZ);
+			tumbleweed.setDeltaMovement(velX * 0.2, velY * 0.2, velZ * 0.2);
 			tumbleweed.setPos(d, e, f);
 			level.addFreshEntity(tumbleweed);
 		});
