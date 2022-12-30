@@ -3,6 +3,7 @@
   "minVersion": "0.8.5",
   "package": "net.frozenblock.wilderwild.mixin",
   "compatibilityLevel": "JAVA_17",
+  "plugin": "net.frozenblock.wilderwild.mixin.WilderWildMixinPlugin",
   "mixins": [
     "server.general.AbstractArrowMixin",
     "server.general.AllayMixin",
@@ -70,7 +71,8 @@
     "client.general.LiquidBlockRendererMixin",
     "client.shrieker_gargling.LevelRendererMixin",
     "client.warden.animation.WardenAnimationOverwrites",
-    "client.warden.swim.WardenModelMixin"
+    "client.warden.swim.WardenModelMixin",
+    "sodium.FluidRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
