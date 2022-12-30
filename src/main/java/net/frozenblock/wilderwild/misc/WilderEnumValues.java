@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.misc;
 
-import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.vehicle.Boat;
 
 public final class WilderEnumValues {
@@ -13,11 +12,4 @@ public final class WilderEnumValues {
     public static Boat.Type CYPRESS;
     public static Boat.Type PALM;
 
-	static {
-		MobCategory.values();
-	}
-
-	public static MobCategory FIREFLIES;
-	public static MobCategory JELLYFISH;
-	public static MobCategory TUMBLEWEED;
 }

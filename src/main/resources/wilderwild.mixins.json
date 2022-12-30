@@ -24,7 +24,6 @@
     "server.general.GoatMixin",
     "server.general.InstrumentItemMixin",
     "server.general.LeavesBlockMixin",
-    "server.general.MobCategoryMixin",
     "server.general.MobMixin",
     "server.general.SculkBlockMixin",
     "server.general.SculkSensorBlockEntityMixin",

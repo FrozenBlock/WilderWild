@@ -39,15 +39,15 @@
     "fabric-datagen": [
       "net.frozenblock.wilderwild.misc.WilderWildDataGenerator"
     ],
-	"mm:early_risers": [
-	  "net.frozenblock.wilderwild.EarlyRiser"
-	],
 	"frozenlib:main": [
 	  "net.frozenblock.wilderwild.FrozenLibIntegration"
 	],
 	"frozenlib:events": [
 	  "net.frozenblock.wilderwild.registry.RegisterWorldgen"
 	],
+    "frozenlib:mob_categories": [
+      "net.frozenblock.wilderwild.WilderMobCategories"
+    ],
 	"modmenu": [
 	  "net.frozenblock.wilderwild.misc.config.ModMenuIntegration"
 	],
@@ -64,7 +64,6 @@
   "accessWidener": "wilderwild.accesswidener",
   "depends": {
 	"frozenlib": ">=1.1.7-",
-	"mm": ">=2.3",
 	"nbtcrafting": ">=2.2.3",
 	"fabricloader": ">=0.14.8",
 	"fabric-api": ">=0.66.0",
