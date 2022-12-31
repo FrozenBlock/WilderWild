@@ -117,7 +117,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
             vertexConsumer = vertexConsumers.getBuffer(layers.get(FireflyColor.ON.getKey()));
         }
 
-        float color = (flickers ? (int) ((255 * (Math.cos(((age + tickDelta) * pi) * 0.025))) + 127.5) : (int) Math.max((255 * (Math.cos(((age + tickDelta) * pi) * 0.05))), 0)) / 255F;
+        int color = flickers ? (int) ((255 * (Math.cos(((age + tickDelta) * pi) * 0.025))) + 127.5) : (int) Math.max((255 * (Math.cos(((age + tickDelta) * pi) * 0.05))), 0);
 
         vertexConsumer
                 .vertex(matrix4f, -0.5F, -0.5F, 0.0F)
