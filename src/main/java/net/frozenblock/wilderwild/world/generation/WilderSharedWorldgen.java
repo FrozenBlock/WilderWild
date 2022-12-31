@@ -254,13 +254,16 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static SurfaceRules.RuleSource oasisRules() {
-		return SurfaceRules.sequence(SurfaceRules.ifTrue(
+		SurfaceRules.RuleSource oasis = SurfaceRules.sequence(SurfaceRules.ifTrue(
 						SurfaceRules.isBiome(RegisterWorldgen.OASIS),
-						SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, SANDSTONE), SAND)),
+						SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR,
+										SurfaceRules.sequence(SurfaceRules.ifTrue(
+												SurfaceRules.ON_CEILING, SANDSTONE), SAND)),
 								SurfaceRules.ifTrue(SurfaceRules.VERY_DEEP_UNDER_FLOOR, SANDSTONE)
 						)
 				)
 		);
+		return SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.waterStartCheck(-6, -1), oasis), SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SurfaceRules.ifTrue(SurfaceRules.waterBlockCheck(-1, 0), oasis)));
 	}
 
 	public static SurfaceRules.SequenceRuleSource betaBeaches() {
