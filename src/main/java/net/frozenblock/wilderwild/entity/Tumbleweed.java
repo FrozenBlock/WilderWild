@@ -12,6 +12,8 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -134,19 +136,19 @@ public class Tumbleweed extends Mob {
 		if (deltaPos.horizontalDistance() != 0) {
 			this.setYRot(-((float) (Mth.atan2(deltaPos.x * 10, deltaPos.z * 10) * 57.2957763671875D) - 90));
 		}
+		this.prevPitch = this.pitch;
+		this.prevRoll = this.roll;
+		this.pitch = (float) (this.prevPitch + deltaPos.z * rotationAmount);
+		this.roll = (float) (this.prevRoll + deltaPos.x * rotationAmount);
+		if (this.pitch > 360F) {
+			this.pitch -= 360F;
+			this.prevPitch -=360F;
+		}
+		if (this.roll > 360F) {
+			this.roll -= 360F;
+			this.prevRoll -=360F;
+		}
 		if (this.level.isClientSide) {
-			this.prevPitch = this.pitch;
-			this.prevRoll = this.roll;
-			this.pitch = (float) (this.prevPitch + deltaPos.z * rotationAmount);
-			this.roll = (float) (this.prevRoll + deltaPos.x * rotationAmount);
-			if (this.pitch > 360F) {
-				this.pitch -= 360F;
-				this.prevPitch -=360F;
-			}
-			if (this.roll > 360F) {
-				this.roll -= 360F;
-				this.prevRoll -=360F;
-			}
 			this.itemX = this.getItemX();
 			this.itemZ = this.getItemZ();
 		} else if (!this.isRemoved()) {
@@ -325,6 +327,42 @@ public class Tumbleweed extends Mob {
 	}
 
 	@Override
+	public Packet<?> getAddEntityPacket() {
+		ClientboundAddEntityPacket packet = new ClientboundAddEntityPacket(
+				this.getId(),
+				this.getUUID(),
+				this.getX(),
+				this.getY(),
+				this.getZ(),
+				this.pitch,
+				this.roll,
+				this.getType(),
+				0,
+				this.getDeltaMovement(),
+				this.yHeadRot
+		);
+		return packet;
+	}
+
+	@Override
+	public void recreateFromPacket(ClientboundAddEntityPacket packet) {
+		double d = packet.getX();
+		double e = packet.getY();
+		double f = packet.getZ();
+		this.roll = packet.getYRot();
+		this.pitch = packet.getXRot();
+		this.syncPacketPositionCodec(d, e, f);
+		this.yBodyRot = packet.getYHeadRot();
+		this.yHeadRot = packet.getYHeadRot();
+		this.yBodyRotO = this.yBodyRot;
+		this.yHeadRotO = this.yHeadRot;
+		this.setId(packet.getId());
+		this.setUUID(packet.getUUID());
+		this.absMoveTo(d, e, f, 0, 0);
+		this.setDeltaMovement(packet.getXa(), packet.getYa(), packet.getZa());
+	}
+
+	@Override
 	public void readAdditionalSaveData(@NotNull CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
 		this.spawnedFromShears = compound.getBoolean("spawned_from_shears");
@@ -332,6 +370,8 @@ public class Tumbleweed extends Mob {
 		this.isItemNatural = compound.getBoolean("is_tumbleweed_item_natural");
 		this.setItemX(compound.getFloat("item_x"));
 		this.setItemZ(compound.getFloat("item_z"));
+		this.pitch = compound.getFloat("tumble_pitch");
+		this.roll = compound.getFloat("tumble_roll");
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
 		ContainerHelper.loadAllItems(compound, this.inventory);
 	}
@@ -344,6 +384,8 @@ public class Tumbleweed extends Mob {
 		compound.putBoolean("is_tumbleweed_item_natural", this.isItemNatural);
 		compound.putFloat("item_x", this.getItemX());
 		compound.putFloat("item_z", this.getItemZ());
+		compound.putFloat("tumble_pitch", this.pitch);
+		compound.putFloat("tumble_roll", this.roll);
 		ContainerHelper.saveAllItems(compound, this.inventory);
 	}
 
