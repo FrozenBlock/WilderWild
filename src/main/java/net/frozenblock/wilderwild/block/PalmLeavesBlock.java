@@ -72,7 +72,7 @@ public class PalmLeavesBlock extends LeavesBlock implements BonemealableBlock {
 	}
 
 	public static BlockState updateDistance(BlockState state, LevelReader level, BlockPos pos) {
-		int dist = Mth.clamp((int) (PalmCrownBlockEntity.PalmCrownPositions.distanceToClosestPalmCrown(level, pos, 12) * 0.57), 1, 7);
+		int dist = Mth.clamp((int) (PalmCrownBlockEntity.PalmCrownPositions.distanceToClosestPalmCrown(level, pos, 7)), 1, 7);
 		int i = 7;
 		boolean validCrown = false;
 		for (BlockPos blockPos : BlockPos.betweenClosed(pos.offset(-1, -1, -1), pos.offset(1, 1, 1))) {
