@@ -15,19 +15,9 @@ public class SurfaceRuleDataMixin {
 	private static SurfaceRules.RuleSource overworldLike(SurfaceRules.RuleSource rule, boolean abovePreliminarySurface, boolean bedrockRoof, boolean bedrockFloor) {
 		if (FrozenBools.IS_QUILT || FrozenBools.HAS_TERRABLENDER) {
 			return SurfaceRules.sequence(
-					WilderSharedWorldgen.cypressSurfaceRules(),
-					WilderSharedWorldgen.warmRiverRules(),
-					WilderSharedWorldgen.oasisRules(),
-					WilderSharedWorldgen.gravelBetaBeaches(),
-					WilderSharedWorldgen.sandBetaBeaches(),
-					WilderSharedWorldgen.multilayerSandBetaBeaches(),
+					WilderSharedWorldgen.surfaceRules(),
 					rule,
-					WilderSharedWorldgen.cypressSurfaceRules(),
-					WilderSharedWorldgen.warmRiverRules(),
-					WilderSharedWorldgen.oasisRules(),
-					WilderSharedWorldgen.gravelBetaBeaches(),
-					WilderSharedWorldgen.sandBetaBeaches(),
-					WilderSharedWorldgen.multilayerSandBetaBeaches()
+					WilderSharedWorldgen.surfaceRules()
 			);
 		}
 		return rule;
