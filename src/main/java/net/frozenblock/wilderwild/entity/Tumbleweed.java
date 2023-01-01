@@ -142,11 +142,11 @@ public class Tumbleweed extends Mob {
 		this.roll = (float) (this.prevRoll + deltaPos.x * rotationAmount);
 		if (this.pitch > 360F) {
 			this.pitch -= 360F;
-			this.prevPitch -=360F;
+			this.prevPitch -= 360F;
 		}
 		if (this.roll > 360F) {
 			this.roll -= 360F;
-			this.prevRoll -=360F;
+			this.prevRoll -= 360F;
 		}
 		if (this.level.isClientSide) {
 			this.itemX = this.getItemX();

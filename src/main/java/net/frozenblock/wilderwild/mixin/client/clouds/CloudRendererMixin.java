@@ -40,7 +40,7 @@ public class CloudRendererMixin {
 	@ModifyVariable(method = "renderClouds", at = @At("STORE"), ordinal = 7)
 	private double modifyZ(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX, double camY, double camZ) {
 		return ClothConfigInteractionHandler.cloudMovement() && ClientWindManager.shouldUseWind()
-				? (camZ / 12.0D + 0.33000001311302185D) - ClientWindManager.getCloudZ(partialTick)
+				? (camZ / 12.0D + 0.33D) - ClientWindManager.getCloudZ(partialTick)
 				: original;
 	}
 }
