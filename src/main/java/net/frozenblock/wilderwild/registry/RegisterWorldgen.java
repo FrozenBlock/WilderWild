@@ -1,6 +1,8 @@
 package net.frozenblock.wilderwild.registry;
 
+import java.util.ArrayList;
 import net.frozenblock.lib.mobcategory.api.FrozenMobCategories;
+import net.frozenblock.lib.worldgen.surface.api.FrozenPresetBoundRuleSource;
 import net.frozenblock.lib.worldgen.surface.api.entrypoint.FrozenSurfaceRuleEntrypoint;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
@@ -31,8 +33,6 @@ import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.SurfaceRules;
-import java.util.Map;
 
 public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 
@@ -340,10 +340,10 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 	}
 
 	@Override
-	public void addRuleSources(Map<SurfaceRules.RuleSource, ResourceLocation> context) {
-		context.put(WilderSharedWorldgen.surfaceRules(), new ResourceLocation("overworld"));
-		context.put(WilderSharedWorldgen.surfaceRules(), new ResourceLocation("large_biomes"));
-		context.put(WilderSharedWorldgen.surfaceRules(), new ResourceLocation("amplified"));
+	public void addRuleSources(ArrayList<FrozenPresetBoundRuleSource> context) {
+		context.add(new FrozenPresetBoundRuleSource(new ResourceLocation("overworld"), WilderSharedWorldgen.surfaceRules()));
+		context.add(new FrozenPresetBoundRuleSource(new ResourceLocation("large_biomes"), WilderSharedWorldgen.surfaceRules()));
+		context.add(new FrozenPresetBoundRuleSource(new ResourceLocation("amplified"), WilderSharedWorldgen.surfaceRules()));
 		WilderSharedConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
 	}
 }
