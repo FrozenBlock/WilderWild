@@ -44,6 +44,7 @@ public final class WorldgenConfig implements ConfigData {
                 .setDefaultValue(DefaultWorldgenConfig.BETA_BEACHES)
                 .setSaveConsumer(newValue -> config.betaBeaches = newValue)
                 .setTooltip(tooltip("beta_beaches"))
+                .requireRestart()
                 .build());
         /*
         var badlands = category.addEntry(entryBuilder.startBooleanToggle(text("modify_badlands_placement"), biomePlacement.modifyBadlandsPlacement)
