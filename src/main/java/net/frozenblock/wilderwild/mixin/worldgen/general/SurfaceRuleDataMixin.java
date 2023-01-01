@@ -13,7 +13,7 @@ public class SurfaceRuleDataMixin {
 
 	@ModifyVariable(method = "overworldLike", at = @At("STORE"), ordinal = 8)
 	private static SurfaceRules.RuleSource overworldLike(SurfaceRules.RuleSource rule, boolean abovePreliminarySurface, boolean bedrockRoof, boolean bedrockFloor) {
-		if (FrozenBools.IS_QUILT || FrozenBools.HAS_TERRABLENDER) {
+		if (FrozenBools.HAS_TERRABLENDER) {
 			return SurfaceRules.sequence(
 					WilderSharedWorldgen.surfaceRules(),
 					rule,
