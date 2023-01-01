@@ -16,8 +16,22 @@ public class SurfaceRuleDataMixin {
 		if (FrozenBools.IS_QUILT || FrozenBools.HAS_TERRABLENDER) {
 			return SurfaceRules.sequence(
 					WilderSharedWorldgen.surfaceRules(),
+					WilderSharedWorldgen.ruleSource9OasisRules(),
 					rule,
-					WilderSharedWorldgen.surfaceRules()
+					WilderSharedWorldgen.surfaceRules(),
+					WilderSharedWorldgen.ruleSource9OasisRules()
+			);
+		}
+		return rule;
+	}
+
+	@ModifyVariable(method = "overworldLike", at = @At("STORE"), ordinal = 3)
+	private static SurfaceRules.RuleSource overworldLike2(SurfaceRules.RuleSource rule, boolean abovePreliminarySurface, boolean bedrockRoof, boolean bedrockFloor) {
+		if (FrozenBools.IS_QUILT || FrozenBools.HAS_TERRABLENDER) {
+			return SurfaceRules.sequence(
+					WilderSharedWorldgen.ruleSource4OasisRules(),
+					rule,
+					WilderSharedWorldgen.ruleSource4OasisRules()
 			);
 		}
 		return rule;
