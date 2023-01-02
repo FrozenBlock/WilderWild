@@ -43,7 +43,8 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 		BlockPos blockPos = foliageAttachment.pos().above(l);
 		blockSetter.accept(blockPos.below(), RegisterBlocks.PALM_CROWN.defaultBlockState());
 		Vec3 origin = new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ());
-		int radius = this.radius.sample(random);
+		double minRadius = this.radius.getMinValue();
+		double radius = minRadius + ((this.radius.getMaxValue() - minRadius) * random.nextDouble());
 		double minus = (Math.PI * radius) / (radius * radius);
 		int fronds = this.fronds.sample(random);
 		double rotAngle = 360 / (double) fronds;
