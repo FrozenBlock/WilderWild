@@ -130,9 +130,7 @@ public final class WilderSharedWorldgen {
 		list.add(warmRiverRules());
 		list.add(oasisRules());
 		if (ClothConfigInteractionHandler.betaBeaches()) {
-			list.add(gravelBetaBeaches());
-			list.add(sandBetaBeaches());
-			list.add(multilayerSandBetaBeaches());
+			list.add(betaBeaches());
 		}
 		return FrozenSurfaceRules.sequence(list);
 	}
@@ -166,22 +164,42 @@ public final class WilderSharedWorldgen {
 		list.add(
 				SurfaceRules.sequence(
 						SurfaceRules.ifTrue(
-								SurfaceRules.ON_FLOOR,
-								SurfaceRules.ifTrue(
-										SurfaceRules.waterBlockCheck(-1, 0),
-										SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.OASIS), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, SANDSTONE), SAND))
-								)
-						),
-						SurfaceRules.ifTrue(
 								SurfaceRules.waterStartCheck(-6, -1),
 								SurfaceRules.sequence(
 										SurfaceRules.ifTrue(
 												SurfaceRules.UNDER_FLOOR,
-												SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.OASIS), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, SANDSTONE), SAND))
+												SurfaceRules.ifTrue(
+														SurfaceRules.isBiome(RegisterWorldgen.OASIS),
+														SurfaceRules.sequence(
+																SurfaceRules.ifTrue(
+																		SurfaceRules.ON_CEILING,
+																		SANDSTONE
+																),
+																SAND
+														)
+												)
 										),
 										SurfaceRules.ifTrue(
 												SurfaceRules.isBiome(RegisterWorldgen.OASIS),
-												SurfaceRules.ifTrue(SurfaceRules.VERY_DEEP_UNDER_FLOOR, SANDSTONE)
+												SurfaceRules.ifTrue(
+														SurfaceRules.VERY_DEEP_UNDER_FLOOR,
+														SANDSTONE)
+										)
+								)
+						),
+						SurfaceRules.ifTrue(
+								SurfaceRules.ON_FLOOR,
+								SurfaceRules.ifTrue(
+										SurfaceRules.waterBlockCheck(-1, 0),
+										SurfaceRules.ifTrue(
+												SurfaceRules.isBiome(RegisterWorldgen.OASIS),
+												SurfaceRules.sequence(
+														SurfaceRules.ifTrue(
+																SurfaceRules.ON_CEILING,
+																SANDSTONE
+														),
+														SAND
+												)
 										)
 								)
 						)
@@ -271,20 +289,6 @@ public final class WilderSharedWorldgen {
 	public static SurfaceRules.RuleSource oasisRules() {
 		return SurfaceRules.sequence(
 				SurfaceRules.ifTrue(
-						SurfaceRules.ON_FLOOR,
-						SurfaceRules.ifTrue(
-								SurfaceRules.waterBlockCheck(-1, 0),
-								SurfaceRules.ifTrue(
-										SurfaceRules.isBiome(RegisterWorldgen.OASIS),
-										SurfaceRules.sequence(
-												SurfaceRules.ifTrue(
-														SurfaceRules.ON_CEILING,
-														SANDSTONE),
-												SAND)
-								)
-						)
-				),
-				SurfaceRules.ifTrue(
 						SurfaceRules.waterStartCheck(-6, -1),
 						SurfaceRules.sequence(
 								SurfaceRules.ifTrue(
@@ -294,21 +298,37 @@ public final class WilderSharedWorldgen {
 												SurfaceRules.sequence(
 														SurfaceRules.ifTrue(
 																SurfaceRules.ON_CEILING,
-																SANDSTONE),
-														SAND)
+																SANDSTONE
+														),
+														SAND
+												)
 										)
 								),
 								SurfaceRules.ifTrue(
 										SurfaceRules.isBiome(RegisterWorldgen.OASIS),
-										SurfaceRules.ifTrue(SurfaceRules.VERY_DEEP_UNDER_FLOOR, SANDSTONE)
+										SurfaceRules.ifTrue(
+												SurfaceRules.VERY_DEEP_UNDER_FLOOR,
+												SANDSTONE)
+								)
+						)
+				),
+				SurfaceRules.ifTrue(
+						SurfaceRules.ON_FLOOR,
+						SurfaceRules.ifTrue(
+								SurfaceRules.waterBlockCheck(-1, 0),
+								SurfaceRules.ifTrue(
+										SurfaceRules.isBiome(RegisterWorldgen.OASIS),
+										SurfaceRules.sequence(
+												SurfaceRules.ifTrue(
+														SurfaceRules.ON_CEILING,
+														SANDSTONE
+												),
+												SAND
+										)
 								)
 						)
 				)
 		);
-	}
-
-	public static SurfaceRules.RuleSource ruleSource4OasisRules() {
-		return SurfaceRules.ifTrue(SurfaceRules.isBiome(RegisterWorldgen.OASIS), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, SANDSTONE), SAND));
 	}
 
 	public static SurfaceRules.SequenceRuleSource betaBeaches() {
