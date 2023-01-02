@@ -37,6 +37,6 @@ public final class WilderSpawns {
 
     public static void addRabbits() {
     BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.FOREST, Biomes.FLOWER_FOREST),
-                MobCategory.AMBIENT, EntityType.RABBIT, 10, 2, 4);
+                MobCategory.CREATURE, EntityType.RABBIT, 10, 2, 4);
     }
 }
