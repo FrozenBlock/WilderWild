@@ -26,6 +26,8 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 		return foliagePlacerParts(builder).and((IntProvider.codec(0, 16).fieldOf("fronds")).forGetter(placer -> placer.fronds));
 	}
 
+	private static final double SURROUNDING_LEAF_THRESHOLD = 0.25;
+
 	public PalmFoliagePlacer(IntProvider intProvider, IntProvider intProvider2, IntProvider fronds) {
 		super(intProvider, intProvider2);
 		this.fronds = fronds;
@@ -83,11 +85,11 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 	}
 
 	public static boolean shouldPlaceAbove(double d) {
-		return d > 0.35;
+		return d > 0.5 + SURROUNDING_LEAF_THRESHOLD;
 	}
 
 	public static boolean shouldPlaceBelow(double d) {
-		return d < 0.65;
+		return d < 0.5 - SURROUNDING_LEAF_THRESHOLD;
 	}
 
 	public int foliageHeight(RandomSource randomSource, int i, TreeConfiguration treeConfiguration) {
