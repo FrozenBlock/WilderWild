@@ -2,8 +2,7 @@ package net.frozenblock.wilderwild.registry;
 
 import java.util.ArrayList;
 import net.frozenblock.lib.mobcategory.api.FrozenMobCategories;
-import net.frozenblock.lib.worldgen.surface.api.FrozenPresetBoundRuleSource;
-import net.frozenblock.lib.worldgen.surface.api.entrypoint.FrozenSurfaceRuleEntrypoint;
+import net.frozenblock.lib.worldgen.surface.api.entrypoint.FrozenOverworldSurfaceRuleEntrypoint;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
@@ -21,7 +20,6 @@ import net.minecraft.data.worldgen.placement.CavePlacements;
 import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
 import net.minecraft.world.entity.EntityType;
@@ -33,8 +31,9 @@ import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.SurfaceRules;
 
-public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
+public final class RegisterWorldgen implements FrozenOverworldSurfaceRuleEntrypoint {
 
 	public static final ResourceKey<Biome> CYPRESS_WETLANDS = register("cypress_wetlands");
 	public static final ResourceKey<Biome> JELLYFISH_CAVES = register("jellyfish_caves");
@@ -340,10 +339,8 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 	}
 
 	@Override
-	public void addRuleSources(ArrayList<FrozenPresetBoundRuleSource> context) {
-		context.add(new FrozenPresetBoundRuleSource(new ResourceLocation("overworld"), WilderSharedWorldgen.surfaceRules()));
-		context.add(new FrozenPresetBoundRuleSource(new ResourceLocation("large_biomes"), WilderSharedWorldgen.surfaceRules()));
-		context.add(new FrozenPresetBoundRuleSource(new ResourceLocation("amplified"), WilderSharedWorldgen.surfaceRules()));
+	public void addOverworldRuleSources(ArrayList<SurfaceRules.RuleSource> context) {
+		context.add(WilderSharedWorldgen.surfaceRules());
 		WilderSharedConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
 	}
 }
