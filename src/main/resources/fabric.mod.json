@@ -42,7 +42,7 @@
 	"frozenlib:main": [
 	  "net.frozenblock.wilderwild.FrozenLibIntegration"
 	],
-	"frozenlib:overworld_surfacerules": [
+	"frozenlib:surfacerules": [
 	  "net.frozenblock.wilderwild.registry.RegisterWorldgen"
 	],
     "frozenlib:mob_categories": [
