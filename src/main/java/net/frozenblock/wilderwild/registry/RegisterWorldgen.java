@@ -245,6 +245,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		}
 		addBasicFeatures(builder, MIXED_FOREST);
 		BiomeDefaultFeatures.addForestFlowers(builder);
+		BiomeDefaultFeatures.addForestGrass(builder);
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
 	}
