@@ -1,5 +1,7 @@
 package net.frozenblock.wilderwild.registry;
 
+import net.frozenblock.lib.worldgen.surface.api.FrozenPresetBoundRuleSource;
+import net.frozenblock.lib.worldgen.surface.api.FrozenSurfaceRuleEntrypoint;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderEnumValues;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -29,11 +31,13 @@ import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.SurfaceRules;
 import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.frozenblock.worldgen.surface_rule.api.SurfaceRuleContext;
 import org.quiltmc.qsl.frozenblock.worldgen.surface_rule.api.SurfaceRuleEvents;
+import java.util.ArrayList;
 
-public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifierCallback {
+public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 
 	public static final ResourceKey<Biome> CYPRESS_WETLANDS = register("cypress_wetlands");
 	public static final ResourceKey<Biome> JELLYFISH_CAVES = register("jellyfish_caves");
@@ -47,7 +51,7 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 		WilderNoise.init();
 	}
 
-	@Override
+	/*@Override
 	public void modifyOverworldRules(SurfaceRuleContext.@NotNull Overworld context) {
 		context.materialRules().add(0, WilderSharedWorldgen.cypressSurfaceRules());
 		context.materialRules().add(WilderSharedWorldgen.cypressSurfaceRules());
@@ -56,7 +60,7 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 			context.materialRules().add(WilderSharedWorldgen.betaBeaches());
 		}
 		WilderSharedConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
-	}
+	}*/
 
 	// SPONGEBOB
     /*@Override
@@ -238,4 +242,24 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldModifi
 		builder.addSpawn(WilderEnumValues.FIREFLIES, new MobSpawnSettings.SpawnerData(RegisterEntities.FIREFLY, 1, 2, 6));
 	}
 
+	@Override
+	public void addOverworldSurfaceRules(ArrayList<SurfaceRules.RuleSource> context) {
+		context.add(WilderSharedWorldgen.surfaceRules());
+		WilderSharedConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
+	}
+
+	@Override
+	public void addNetherSurfaceRules(ArrayList<SurfaceRules.RuleSource> context) {
+
+	}
+
+	@Override
+	public void addEndSurfaceRules(ArrayList<SurfaceRules.RuleSource> context) {
+
+	}
+
+	@Override
+	public void addSurfaceRules(ArrayList<FrozenPresetBoundRuleSource> context) {
+
+	}
 }
