@@ -83,7 +83,8 @@
       "wilderwild:mixed_trees",
       "wilderwild:fallen_trees_mixed_placed",
       "minecraft:glow_lichen",
-      "minecraft:forest_flowers"
+      "minecraft:forest_flowers",
+      "minecraft:patch_grass_forest"
     ],
     [
       "wilderwild:coarse_dirt_path_5",
