@@ -1,5 +1,5 @@
 {
-  "type": "wilderwild:column_with_disk_feature",
+  "type": "frozenlib:column_with_disk_feature",
   "config": {
     "columnBlock": {
       "Name": "wilderwild:termite_mound",
