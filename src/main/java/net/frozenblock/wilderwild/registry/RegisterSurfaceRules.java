@@ -1,17 +1,21 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.lib.FrozenBools;
+import net.frozenblock.lib.worldgen.surface.api.FrozenPresetBoundRuleSource;
+import net.frozenblock.lib.worldgen.surface.api.FrozenSurfaceRuleEntrypoint;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.world.gen.WilderSharedWorldgen;
+import net.minecraft.world.level.levelgen.SurfaceRules;
 import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.frozenblock.worldgen.surface_rule.api.SurfaceRuleContext;
 import org.quiltmc.qsl.frozenblock.worldgen.surface_rule.api.SurfaceRuleEvents;
+import java.util.ArrayList;
 
-public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldModifierCallback {
+public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint {
 
-	@Override
+	/*@Override
 	public void modifyOverworldRules(SurfaceRuleContext.@NotNull Overworld context) {
 		if (!FrozenBools.HAS_TERRABLENDER) {
 			context.ruleSources().add(0, WilderSharedWorldgen.cypressSurfaceRules());
@@ -22,7 +26,7 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldMo
 			}
 			WilderSharedConstants.log("Wilder Wild's Overworld Surface Rules have been added!", WilderSharedConstants.UNSTABLE_LOGGING);
 		}
-	}
+	}*/
 
 	// SPONGEBOB
     /*@Override
@@ -31,4 +35,25 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldMo
         context.materialRules().add(0, FrozenSurfaceRules.makeStateRule(Blocks.SPONGE));
         WilderSharedConstants.log("SPONGEBOB", WilderSharedConstants.UNSTABLE_LOGGING);
     }*/
+
+	@Override
+	public void addOverworldSurfaceRules(ArrayList<SurfaceRules.RuleSource> context) {
+		context.add(WilderSharedWorldgen.surfaceRules());
+		WilderSharedConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
+	}
+
+	@Override
+	public void addNetherSurfaceRules(ArrayList<SurfaceRules.RuleSource> context) {
+
+	}
+
+	@Override
+	public void addEndSurfaceRules(ArrayList<SurfaceRules.RuleSource> context) {
+
+	}
+
+	@Override
+	public void addSurfaceRules(ArrayList<FrozenPresetBoundRuleSource> context) {
+
+	}
 }
