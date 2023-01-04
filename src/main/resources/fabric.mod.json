@@ -31,7 +31,7 @@
 	"frozenlib:main": [
 	  "net.frozenblock.wilderwild.FrozenLibIntegration"
 	],
-	"frozenlib:events": [
+	"frozenlib:surfacerules": [
 	  "net.frozenblock.wilderwild.registry.RegisterSurfaceRules"
 	],
 	"modmenu": [
@@ -51,6 +51,7 @@
   "depends": {
 	"frozenlib": ">=1.1.7-",
 	"mm": ">=2.3",
+    "nbtcrafting": ">=2.2.3",
 	"fabricloader": ">=0.14.11",
 	"fabric-api": ">=0.68.1",
 	"minecraft": "1.19.3",
@@ -61,7 +62,6 @@
   },
   "suggests": {
 	"cloth-config": "*",
-    "nbtcrafting": ">=2.2.3",
 	"terrablender": "*"
   },
   "custom": {
