@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
+import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
@@ -58,7 +59,7 @@ public class SculkShriekerBlockEntityMixin {
             if (shrieker.getBlockState().getValue(BlockStateProperties.WATERLOGGED)) {//TODO: fix this. i want it to emit a constant flow of bubbles but it just doesnt
                 if (this.wilderWild$bubbles > 0 && level != null) {
                     --this.wilderWild$bubbles;
-                    EasyPacket.EasyFloatingSculkBubblePacket.createParticle(level, Vec3.atCenterOf(shrieker.getBlockPos()), RandomSource.create().nextDouble() > 0.7 ? 1 : 0, 20 + WilderSharedConstants.random().nextInt(80), 0.075, level.random.nextIntBetweenInclusive(8, 14));
+                    EasyPacket.EasyFloatingSculkBubblePacket.createParticle(level, Vec3.atCenterOf(shrieker.getBlockPos()), AdvancedMath.random().nextDouble() > 0.7 ? 1 : 0, 20 + AdvancedMath.random().nextInt(80), 0.075, level.random.nextIntBetweenInclusive(8, 14));
                 }
             }
         }

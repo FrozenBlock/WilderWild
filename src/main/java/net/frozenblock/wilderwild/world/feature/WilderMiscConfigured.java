@@ -39,7 +39,7 @@ public final class WilderMiscConfigured {
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> DEEPSLATE_POOL = key("deepslate_pool");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> STONE_POOL = key("stone_pool");
-	public static final ResourceKey<ConfiguredFeature<?, ?>> MESOGLEA_PILLAR = key("blue_mesoglea_pillar");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> UPWARDS_MESOGLEA_PILLAR = key("blue_mesoglea_pillar");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> PURPLE_MESOGLEA_PILLAR = key("purple_mesoglea_pillar");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> DOWNWARDS_MESOGLEA_PILLAR = key("downwards_blue_mesoglea_pillar");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> DOWNWARDS_PURPLE_MESOGLEA_PILLAR = key("downwards_purple_mesoglea_pillar");

@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class NematocystBlock extends FaceClusterBlock {
 
-    private final MultifaceSpreader spreader = new MultifaceSpreader(this);
+    private final NematocystSpreader spreader = new NematocystSpreader(this);
 
     public NematocystBlock(int height, int xzOffset, Properties properties) {
         super(height, xzOffset, properties);
@@ -33,7 +33,8 @@ public class NematocystBlock extends FaceClusterBlock {
     }
 
     @Override
-    public MultifaceSpreader getSpreader() {
+	@NotNull
+    public NematocystSpreader getSpreader() {
         return this.spreader;
     }
 }

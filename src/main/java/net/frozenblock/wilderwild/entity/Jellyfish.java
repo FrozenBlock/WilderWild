@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import net.frozenblock.lib.entity.api.NoFlopAbstractFish;
+import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.entity.ai.JellyfishAi;
 import net.frozenblock.wilderwild.misc.JellyfishVariant;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
@@ -105,9 +106,9 @@ public class Jellyfish extends NoFlopAbstractFish {
         Holder<Biome> biome = level.getBiome(this.blockPosition());
 		this.setVariant(JellyfishVariant.PINK);
         if (biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)) {
-            this.setVariant(PEARLESCENT_VARIANTS.get(RandomSource.create().nextInt(PEARLESCENT_VARIANTS.size())));
+            this.setVariant(PEARLESCENT_VARIANTS.get(AdvancedMath.random().nextInt(PEARLESCENT_VARIANTS.size())));
         } else {
-            this.setVariant(COLORED_VARIANTS.get(RandomSource.create().nextInt(COLORED_VARIANTS.size())));
+            this.setVariant(COLORED_VARIANTS.get(AdvancedMath.random().nextInt(COLORED_VARIANTS.size())));
         }
         return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
     }

@@ -1,10 +1,14 @@
 package net.frozenblock.wilderwild.world.feature;
 
+import java.util.List;
+import net.frozenblock.lib.feature.FrozenFeatures;
+import net.frozenblock.lib.feature.features.config.ColumnWithDiskFeatureConfig;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.FlowerColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.world.feature.features.config.ShelfFungusFeatureConfig;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
@@ -18,7 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
 
-public final class WilderConfiguredFeatures  {
+public final class WilderConfiguredFeatures {
 	private WilderConfiguredFeatures() {
 		throw new UnsupportedOperationException("WilderConfiguredFeatures contains only static declarations.");
 	}

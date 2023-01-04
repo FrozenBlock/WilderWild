@@ -8,8 +8,8 @@ import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.api.FrozenConfig;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultWorldgenConfig;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.*;
 
 @Config(name = "worldgen")
@@ -19,20 +19,20 @@ public final class WorldgenConfig implements ConfigData {
     @ConfigEntry.Gui.CollapsibleObject
     public final BiomePlacement biomePlacement = new BiomePlacement();
 
-    public static class BiomePlacement {
-        //public boolean modifyDesertPlacement = true;
-        //public boolean modifyBadlandsPlacement = true;
-        public boolean modifyWindsweptSavannaPlacement = true;
-        public boolean modifyJunglePlacement = true;
-        public boolean modifySwampPlacement = true;
-        public boolean modifyMangroveSwampPlacement = true;
+    protected static class BiomePlacement {
+        //public boolean modifyDesertPlacement = DefaultWorldgenConfig.BiomePlacement.modifyDesertPlacement;
+        //public boolean modifyBadlandsPlacement = DefaultWorldgenConfig.BiomePlacement.modifyBadlandsPlacement;
+        public boolean modifyWindsweptSavannaPlacement = DefaultWorldgenConfig.BiomePlacement.MODIFY_WINDSWEPT_SAVANNA_PLACEMENT;
+        public boolean modifyJunglePlacement = DefaultWorldgenConfig.BiomePlacement.MODIFY_JUNGLE_PLACEMENT;
+        public boolean modifySwampPlacement = DefaultWorldgenConfig.BiomePlacement.MODIFY_SWAMP_PLACEMENT;
+        public boolean modifyMangroveSwampPlacement = DefaultWorldgenConfig.BiomePlacement.MODIFY_MANGROVE_SWAMP_PLACEMENT;
     }
 
-    public boolean betaBeaches = true;
-    public boolean dyingTrees = true;
-    public boolean fallenLogs = true;
-    public boolean wilderWildTreeGen = true;
-    public boolean wilderWildGrassGen = true;
+    public boolean betaBeaches = DefaultWorldgenConfig.BETA_BEACHES;
+    public boolean dyingTrees = DefaultWorldgenConfig.DYING_TREES;
+    public boolean fallenLogs = DefaultWorldgenConfig.FALLEN_LOGS;
+    public boolean wilderWildTreeGen = DefaultWorldgenConfig.WILDER_WILD_TREE_GEN;
+    public boolean wilderWildGrassGen = DefaultWorldgenConfig.WILDER_WILD_GRASS_GEN;
 
     @Environment(EnvType.CLIENT)
     static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
@@ -40,21 +40,21 @@ public final class WorldgenConfig implements ConfigData {
         var biomePlacement = config.biomePlacement;
         category.setBackground(WilderSharedConstants.id("textures/config/worldgen.png"));
         var betaBeaches = category.addEntry(entryBuilder.startBooleanToggle(text("beta_beaches"), config.betaBeaches)
-                .setDefaultValue(true)
+                .setDefaultValue(DefaultWorldgenConfig.BETA_BEACHES)
                 .setSaveConsumer(newValue -> config.betaBeaches = newValue)
                 .setTooltip(tooltip("beta_beaches"))
                 .requireRestart()
                 .build());
         /*
         var badlands = category.addEntry(entryBuilder.startBooleanToggle(text("modify_badlands_placement"), biomePlacement.modifyBadlandsPlacement)
-                .setDefaultValue(true)
+                .setDefaultValue(DefaultWorldgenConfig.BiomePlacement.modifyBadlandsPlacement)
                 .setSaveConsumer(newValue -> biomePlacement.modifyBadlandsPlacement = newValue)
                 .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
                 .setTooltip(tooltip("modify_badlands_placement"))
                 .requireRestart()
                 .build());
         var desert = category.addEntry(entryBuilder.startBooleanToggle(text("modify_desert_placement"), biomePlacement.modifyDesertPlacement)
-                .setDefaultValue(true)
+                .setDefaultValue(DefaultWorldgenConfig.BiomePlacement.modifyDesertPlacement)
                 .setSaveConsumer(newValue -> biomePlacement.modifyDesertPlacement = newValue)
                 .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
                 .setTooltip(tooltip("modify_desert_placement"))
@@ -62,28 +62,28 @@ public final class WorldgenConfig implements ConfigData {
                 .build());
          */
         var jungle = entryBuilder.startBooleanToggle(text("modify_jungle_placement"), biomePlacement.modifyJunglePlacement)
-                .setDefaultValue(true)
+                .setDefaultValue(DefaultWorldgenConfig.BiomePlacement.MODIFY_JUNGLE_PLACEMENT)
                 .setSaveConsumer(newValue -> biomePlacement.modifyJunglePlacement = newValue)
                 .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
                 .setTooltip(tooltip("modify_jungle_placement"))
                 .requireRestart()
                 .build();
         var mangroveSwamp = entryBuilder.startBooleanToggle(text("modify_mangrove_swamp_placement"), biomePlacement.modifyMangroveSwampPlacement)
-                .setDefaultValue(true)
+                .setDefaultValue(DefaultWorldgenConfig.BiomePlacement.MODIFY_MANGROVE_SWAMP_PLACEMENT)
                 .setSaveConsumer(newValue -> biomePlacement.modifyMangroveSwampPlacement = newValue)
                 .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
                 .setTooltip(tooltip("modify_mangrove_swamp_placement"))
                 .requireRestart()
                 .build();
         var swamp = entryBuilder.startBooleanToggle(text("modify_swamp_placement"), biomePlacement.modifySwampPlacement)
-                .setDefaultValue(true)
+                .setDefaultValue(DefaultWorldgenConfig.BiomePlacement.MODIFY_SWAMP_PLACEMENT)
                 .setSaveConsumer(newValue -> biomePlacement.modifySwampPlacement = newValue)
                 .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
                 .setTooltip(tooltip("modify_swamp_placement"))
                 .requireRestart()
                 .build();
         var windsweptSavanna = entryBuilder.startBooleanToggle(text("modify_windswept_savanna_placement"), biomePlacement.modifyWindsweptSavannaPlacement)
-                .setDefaultValue(true)
+                .setDefaultValue(DefaultWorldgenConfig.BiomePlacement.MODIFY_WINDSWEPT_SAVANNA_PLACEMENT)
                 .setSaveConsumer(newValue -> biomePlacement.modifyWindsweptSavannaPlacement = newValue)
                 .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
                 .setTooltip(tooltip("modify_windswept_savanna_placement"))
@@ -97,28 +97,28 @@ public final class WorldgenConfig implements ConfigData {
         );
 
         /*var dyingTrees = category.addEntry(entryBuilder.startBooleanToggle(text("dying_trees"), config.dyingTrees)
-                .setDefaultValue(true)
+                .setDefaultValue(DefaultWorldgenConfig.dyingTrees)
                 .setSaveConsumer(newValue -> config.dyingTrees = newValue)
                 .setTooltip(tooltip("dying_trees"))
                 .requireRestart()
                 .build()
         );*/
         var fallenLogs = category.addEntry(entryBuilder.startBooleanToggle(text("fallen_logs"), config.fallenLogs)
-                .setDefaultValue(true)
+                .setDefaultValue(DefaultWorldgenConfig.FALLEN_LOGS)
                 .setSaveConsumer(newValue -> config.fallenLogs = newValue)
                 .setTooltip(tooltip("fallen_logs"))
                 .requireRestart()
                 .build()
         );
         var wilderWildGrass = category.addEntry(entryBuilder.startBooleanToggle(text("wilder_wild_grass"), config.wilderWildGrassGen)
-                .setDefaultValue(true)
+                .setDefaultValue(DefaultWorldgenConfig.WILDER_WILD_GRASS_GEN)
                 .setSaveConsumer(newValue -> config.wilderWildGrassGen = newValue)
                 .setTooltip(tooltip("wilder_wild_grass"))
                 .requireRestart()
                 .build()
         );
         var wilderWildTrees = category.addEntry(entryBuilder.startBooleanToggle(text("wilder_wild_trees"), config.wilderWildTreeGen)
-                .setDefaultValue(true)
+                .setDefaultValue(DefaultWorldgenConfig.WILDER_WILD_TREE_GEN)
                 .setSaveConsumer(newValue -> config.wilderWildTreeGen = newValue)
                 .setTooltip(tooltip("wilder_wild_trees"))
                 .requireRestart()
