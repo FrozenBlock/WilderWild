@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         # Use these Java versions
-        java: 17    # Current Java LTS & minimum supported by Minecraft
+        java: [17]    # Current Java LTS & minimum supported by Minecraft
         # and run on both Linux and Windows
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
