@@ -12,8 +12,5 @@ public final class BlenderInitializer implements TerraBlenderApi {
     public void onTerraBlenderInitialized() {
         // Set the weight to the number of biome modifications made by the mod.
         Regions.register(new WilderOverworldRegion(WilderSharedConstants.id("overworld"), 10));
-
-        // Register our surface rules
-        SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.OVERWORLD, WilderSharedConstants.MOD_ID, WilderSharedWorldgen.rawSurfaceRules());
     }
 }
