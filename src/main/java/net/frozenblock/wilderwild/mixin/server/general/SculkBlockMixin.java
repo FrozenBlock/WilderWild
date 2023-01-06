@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
 import java.util.Iterator;
+import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -116,7 +117,7 @@ public abstract class SculkBlockMixin {
                     canReturn = true;
                     growthState = RegisterBlocks.HANGING_TENDRIL.defaultBlockState();
                     WilderSharedConstants.log("Chose Hanging Tendril", WilderSharedConstants.DEV_LOGGING);
-                    if (isWorldGen && RandomSource.create().nextDouble() > 0.6) {
+                    if (isWorldGen && AdvancedMath.random().nextDouble() > 0.6) {
                         growthSpawnCost = 0;
                     }
                 }

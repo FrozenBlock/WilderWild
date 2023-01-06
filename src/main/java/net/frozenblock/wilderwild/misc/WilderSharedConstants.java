@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
+import net.frozenblock.lib.math.api.AdvancedMath;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
@@ -28,7 +29,7 @@ public class WilderSharedConstants {
 	public static final int DATA_VERSION = 10;
 
 	public static RandomSource random() {
-		return RandomSource.create();
+		return AdvancedMath.random();
 	}
 
 	// LOGGING
@@ -40,7 +41,8 @@ public class WilderSharedConstants {
 
 	public static void logInsane(String string, boolean shouldLog) {
 		if (shouldLog) {
-			for (int i = 0; i < RandomSource.create().nextDouble() * 5; i++) {
+			var amount = random().nextDouble() * 5;
+			for (int i = 0; i < amount; i++) {
 				WilderSharedConstants.LOGGER.warn(string);
 				WilderSharedConstants.LOGGER.error(string);
 				WilderSharedConstants.LOGGER.warn(string);

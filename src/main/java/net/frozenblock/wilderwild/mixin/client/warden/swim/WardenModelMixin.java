@@ -1,5 +1,7 @@
 package net.frozenblock.wilderwild.mixin.client.warden.swim;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.entity.render.animations.CustomWardenAnimations;
 import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
@@ -18,6 +20,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
+@Environment(EnvType.CLIENT)
 @Mixin(WardenModel.class)
 public class WardenModelMixin<T extends Warden> {
 

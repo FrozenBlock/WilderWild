@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.entity;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
+import net.frozenblock.lib.math.api.AdvancedMath;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
@@ -561,7 +562,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
             if (colors.isEmpty()) {
                 return null;
             }
-            return colors.get((int) (WilderSharedConstants.random().nextDouble() * colors.size()));
+            return colors.get(AdvancedMath.random().nextInt(colors.size()));
         }
 
     }

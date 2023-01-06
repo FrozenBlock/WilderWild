@@ -1,5 +1,7 @@
 package net.frozenblock.wilderwild.mixin.client.allay;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.entity.render.animations.CustomAllayAnimations;
 import net.frozenblock.wilderwild.entity.render.animations.WilderAllay;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
@@ -17,6 +19,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@Environment(EnvType.CLIENT)
 @Mixin(AllayModel.class)
 public abstract class AllayModelMixin extends HierarchicalModel<Allay> implements ArmedModel {
 

@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes;
 
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.FrozenMain;
+import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
@@ -149,7 +150,7 @@ public class WilderCopperPipesEntrypoint implements CopperPipeEntrypoint {
                 UniformInt ran2 = UniformInt.of(-1, 1);
                 UniformInt ran3 = UniformInt.of(-3, 3);
                 for (int o = 0; o < random.nextIntBetweenInclusive(1, 4); ++o) {
-                    EasyPacket.EasyFloatingSculkBubblePacket.createParticle(level, new Vec3(d + (double) ran1.sample(level.random) * 0.1D, e + (double) ran2.sample(level.random) * 0.1D, f + (double) ran3.sample(level.random) * 0.1D), RandomSource.create().nextDouble() > 0.7 ? 1 : 0, random.nextIntBetweenInclusive(60, 80), velY * 0.05, 1);
+                    EasyPacket.EasyFloatingSculkBubblePacket.createParticle(level, new Vec3(d + (double) ran1.sample(level.random) * 0.1D, e + (double) ran2.sample(level.random) * 0.1D, f + (double) ran3.sample(level.random) * 0.1D), AdvancedMath.random().nextDouble() > 0.7 ? 1 : 0, random.nextIntBetweenInclusive(60, 80), velY * 0.05, 1);
                 }
             }
         });

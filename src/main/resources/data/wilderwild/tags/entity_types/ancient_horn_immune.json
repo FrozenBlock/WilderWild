@@ -3,6 +3,18 @@
 	"minecraft:wither",
 	"minecraft:warden",
 	"minecraft:ender_dragon",
-    "wilderwild:tumbleweed"
+    "wilderwild:tumbleweed",
+    {
+      "id": "sculk_worm:sculk_segment_entity",
+      "required": false
+    },
+    {
+      "id": "sculk_worm:sculk_watcher_entity",
+      "required": false
+    },
+    {
+      "id": "sculk_worm:sculk_worm_entity",
+      "required": false
+    }
   ]
 }

@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.damagesource.api.FrozenProjectileDamageSource;
+import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
@@ -126,7 +127,7 @@ public class AncientHornProjectile extends AbstractArrow {
 		this.baseTick();
 		if (this.bubbles > 0 && this.level instanceof ServerLevel server) {
 			--this.bubbles;
-			EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.position(), RandomSource.create().nextDouble() > 0.7 ? 1 : 0, 20 + WilderSharedConstants.random().nextInt(40), 0.05, server.random.nextIntBetweenInclusive(1, 3));
+			EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.position(), AdvancedMath.random().nextDouble() > 0.7 ? 1 : 0, 20 + AdvancedMath.random().nextInt(40), 0.05, server.random.nextIntBetweenInclusive(1, 3));
 		}
 		if (this.aliveTicks > ClothConfigInteractionHandler.hornLifespan()) {
 			this.remove(RemovalReason.DISCARDED);
@@ -310,22 +311,22 @@ public class AncientHornProjectile extends AbstractArrow {
             } else if (blockState.getBlock() == Blocks.SCULK_SENSOR) {
                 BlockPos pos = result.getBlockPos();
 				WilderSharedConstants.log(Blocks.SCULK_SENSOR, pos, "Horn Projectile Touched", WilderSharedConstants.UNSTABLE_LOGGING);
-                if (blockState.getValue(RegisterProperties.HICCUPPING)) {
-                    server.setBlockAndUpdate(pos, blockState.setValue(RegisterProperties.HICCUPPING, false));
-                } else {
-                    server.setBlockAndUpdate(pos, blockState.setValue(RegisterProperties.HICCUPPING, true));
-                }
-                if (SculkSensorBlock.canActivate(blockState)) {
-                    SculkSensorBlock.activate(null, level, pos, this.level.getBlockState(pos), WilderSharedConstants.random().nextInt(15));
-                    this.level.gameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);
-                    setCooldown(getCooldown(this.getOwner(), SENSOR_COOLDOWN));
-                }
-            }
-        }
-        this.setSoundEvent(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE);
-        this.setShotFromCrossbow(false);
-        this.remove(RemovalReason.DISCARDED);
-    }
+				if (blockState.getValue(RegisterProperties.HICCUPPING)) {
+					server.setBlockAndUpdate(pos, blockState.setValue(RegisterProperties.HICCUPPING, false));
+				} else {
+					server.setBlockAndUpdate(pos, blockState.setValue(RegisterProperties.HICCUPPING, true));
+				}
+				if (SculkSensorBlock.canActivate(blockState)) {
+					SculkSensorBlock.activate(null, level, pos, this.level.getBlockState(pos), AdvancedMath.random().nextInt(15));
+					this.level.gameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);
+					setCooldown(getCooldown(this.getOwner(), SENSOR_COOLDOWN));
+				}
+			}
+		}
+		this.setSoundEvent(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE);
+		this.setShotFromCrossbow(false);
+		this.remove(RemovalReason.DISCARDED);
+	}
 
 	private static void trySpawnWarden(ServerLevel level, BlockPos pos) {
 		if (level.getGameRules().getBoolean(GameRules.RULE_DO_WARDEN_SPAWNING)) {
