@@ -89,9 +89,6 @@ public final class WilderPlacedFeatures {
 	public static final Holder<PlacedFeature> PALM_RARE = PlacementUtils.register("palm_rare",
 			WilderConfiguredFeatures.PALMS_OASIS, treePlacement(RarityFilter.onAverageOnceEvery(52)));
 	//MUSHROOMS
-    public static final Holder<PlacedFeature> BROWN_SHELF_FUNGUS_PLACED = register("brown_shelf_fungus_placed",
-            WilderConfiguredFeatures.BROWN_SHELF_FUNGUS_CONFIGURED, RarityFilter.onAverageOnceEvery(1), CountPlacement.of(11), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, InSquarePlacement.spread(), SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, 0, 128), BiomeFilter.biome());
-
     public static final ResourceKey<PlacedFeature> RED_SHELF_FUNGUS_PLACED = key("red_shelf_fungus_placed");
 
     public static final ResourceKey<PlacedFeature> BROWN_MUSHROOM_PLACED = key("brown_mushroom_placed");
@@ -174,16 +171,6 @@ public final class WilderPlacedFeatures {
     public static final ResourceKey<PlacedFeature> PATCH_ALGAE_5 = key("patch_algae_5");
 	public static final Holder<PlacedFeature> TUMBLEWEED = register("tumbleweed",
 			WilderConfiguredFeatures.TUMBLEWEED, RarityFilter.onAverageOnceEvery(9), CountPlacement.of(1), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
-
-    public static final Holder<PlacedFeature> JELLYFISH_CAVES_BLUE_MESOGLEA = register(
-            "blue_mesoglea",
-            WilderConfiguredFeatures.JELLYFISH_CAVES_BLUE_MESOGLEA,
-            CountPlacement.of(9),
-            InSquarePlacement.spread(),
-            PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-            EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 1),
-            RandomOffsetPlacement.vertical(ConstantInt.of(1)),
-            BiomeFilter.biome());
 
     public static final ResourceKey<PlacedFeature> PATCH_BERRY_FOREST = key("patch_berry_forest");
 

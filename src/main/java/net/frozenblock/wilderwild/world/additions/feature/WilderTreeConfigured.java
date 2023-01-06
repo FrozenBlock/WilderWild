@@ -135,7 +135,7 @@ public final class WilderTreeConfigured {
 				new TwoLayersFeatureSize(1, 0, 1));
 	}
 
-    private static TreeConfiguration.TreeConfigurationBuilder new_birch() {
+    public static TreeConfiguration.TreeConfigurationBuilder new_birch() {
         return builder(Blocks.BIRCH_LOG, Blocks.BIRCH_LEAVES, 8, 5, 4, 0.15F, UniformInt.of(1, 2), UniformInt.of(1, 3), ConstantInt.of(1), 2).ignoreVines();
     }
 

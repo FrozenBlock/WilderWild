@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.entity.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
@@ -70,9 +70,9 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 		poseStack.pushPose();
 		poseStack.translate(0, 1.3, 0);
 		poseStack.pushPose();
-		poseStack.mulPose(Vector3f.XP.rotation(Mth.lerp(partialTick, this.prevPitch, this.pitch) * pi180));
+		poseStack.mulPose(Axis.XP.rotation(Mth.lerp(partialTick, this.prevPitch, this.pitch) * pi180));
 		poseStack.pushPose();
-		poseStack.mulPose(Vector3f.ZP.rotation(Mth.lerp(partialTick, this.prevRoll, this.roll) * pi180));
+		poseStack.mulPose(Axis.ZP.rotation(Mth.lerp(partialTick, this.prevRoll, this.roll) * pi180));
 		poseStack.pushPose();
 		this.bone.render(poseStack, vertexConsumer, packedLight, blackOverlay, red, green, blue, alpha);
 		poseStack.popPose();

@@ -6,7 +6,7 @@ import net.frozenblock.lib.worldgen.surface.api.FrozenSurfaceRuleEntrypoint;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
-import net.frozenblock.wilderwild.world.gen.WilderSharedWorldgen;
+import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.frozenblock.worldgen.surface_rule.api.SurfaceRuleContext;

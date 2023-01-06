@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.entity.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWildClient;
@@ -41,9 +41,9 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<
 		if (!stack.isEmpty()) {
 			poseStack.pushPose();
 			poseStack.translate(entity.itemX, 0.4375, entity.itemZ);
-			poseStack.mulPose(Vector3f.XP.rotation(-Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * pi180));
+			poseStack.mulPose(Axis.XP.rotation(-Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * pi180));
 			poseStack.pushPose();
-			poseStack.mulPose(Vector3f.ZP.rotation(Mth.lerp(partialTick, entity.prevRoll, entity.roll) * pi180));
+			poseStack.mulPose(Axis.ZP.rotation(Mth.lerp(partialTick, entity.prevRoll, entity.roll) * pi180));
 			this.itemRenderer.renderStatic(stack, ItemTransforms.TransformType.GROUND, packedLight, OverlayTexture.NO_OVERLAY, poseStack, buffer, 1);
 			poseStack.popPose();
 			poseStack.popPose();
