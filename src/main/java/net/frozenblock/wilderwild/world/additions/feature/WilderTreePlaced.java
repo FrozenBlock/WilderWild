@@ -1,0 +1,98 @@
+package net.frozenblock.wilderwild.world.additions.feature;
+
+import java.util.List;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
+import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.placement.PlacementModifier;
+
+public final class WilderTreePlaced {
+	private WilderTreePlaced() {
+		throw new UnsupportedOperationException("WilderTreePlaced contains only static declarations.");
+	}
+
+	public static final List<PlacementModifier> SNOW_TREE_FILTER_DECORATOR = List.of(
+			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.not(BlockPredicate.matchesBlocks(Blocks.POWDER_SNOW)), 8),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.SNOW_BLOCK, Blocks.POWDER_SNOW))
+	);
+
+    //BIRCH
+    public static final ResourceKey<PlacedFeature> BIRCH_CHECKED = key("birch_checked");
+    public static final ResourceKey<PlacedFeature> BIRCH_BEES_0004 = key("birch_bees_0004");
+    public static final ResourceKey<PlacedFeature> DYING_BIRCH = key("dying_birch");
+    public static final ResourceKey<PlacedFeature> SHORT_BIRCH = key("short_birch");
+    public static final ResourceKey<PlacedFeature> DYING_SHORT_BIRCH = key("dying_short_birch");
+    public static final ResourceKey<PlacedFeature> SHORT_BIRCH_BEES_0004 = key("short_birch_bees_0004");
+    public static final ResourceKey<PlacedFeature> DYING_SUPER_BIRCH = key("dying_super_birch");
+    public static final ResourceKey<PlacedFeature> SUPER_BIRCH_BEES_0004 = key("super_birch_bees_0004");
+    public static final ResourceKey<PlacedFeature> SUPER_BIRCH_BEES = key("super_birch_bees");
+    public static final ResourceKey<PlacedFeature> FALLEN_BIRCH_CHECKED = key("fallen_birch_checked");
+
+    //OAK
+    public static final ResourceKey<PlacedFeature> OAK_CHECKED = key("oak_checked");
+    public static final ResourceKey<PlacedFeature> DYING_OAK_CHECKED = key("dying_oak_checked");
+    public static final ResourceKey<PlacedFeature> OAK_BEES_0004 = key("oak_bees_00004");
+    public static final ResourceKey<PlacedFeature> SHORT_OAK_CHECKED = key("short_oak_checked");
+    public static final ResourceKey<PlacedFeature> FANCY_OAK_CHECKED = key("fancy_oak_checked");
+    public static final ResourceKey<PlacedFeature> DYING_FANCY_OAK_CHECKED = key("dying_fancy_oak_checked");
+    public static final ResourceKey<PlacedFeature> DYING_FANCY_OAK_BEES_0004 = key("dying_fancy_oak_bees_0004");
+    public static final ResourceKey<PlacedFeature> FANCY_OAK_BEES_0004 = key("fancy_oak_bees_0004");
+    public static final ResourceKey<PlacedFeature> FANCY_OAK_BEES = key("fancy_oak_bees");
+    public static final ResourceKey<PlacedFeature> FALLEN_OAK_CHECKED = key("fallen_oak_checked");
+
+    //DARK OAK
+    public static final ResourceKey<PlacedFeature> TALL_DARK_OAK_CHECKED = key("tall_dark_oak_checked");
+    public static final ResourceKey<PlacedFeature> DYING_TALL_DARK_OAK_CHECKED = key("dying_tall_dark_oak_checked");
+    public static final ResourceKey<PlacedFeature> DYING_DARK_OAK_CHECKED = key("dying_dark_oak_checked");
+
+    //SWAMP TREE
+    public static final ResourceKey<PlacedFeature> SWAMP_TREE_CHECKED = key("swamp_tree_checked");
+
+    //SPRUCE
+    public static final ResourceKey<PlacedFeature> SPRUCE_CHECKED = key("spruce_checked");
+    public static final ResourceKey<PlacedFeature> SPRUCE_ON_SNOW = key("spruce_on_snow");
+    public static final ResourceKey<PlacedFeature> SPRUCE_SHORT_CHECKED = key("spruce_short_checked");
+    public static final ResourceKey<PlacedFeature> FUNGUS_PINE_CHECKED = key("fungus_pine_checked");
+    public static final ResourceKey<PlacedFeature> DYING_FUNGUS_PINE_CHECKED = key("dying_fungus_pine_checked");
+    public static final ResourceKey<PlacedFeature> FUNGUS_PINE_ON_SNOW = key("fungus_pine_on_snow");
+    public static final ResourceKey<PlacedFeature> MEGA_FUNGUS_SPRUCE_CHECKED = key("mega_fungus_spruce_checked");
+    public static final ResourceKey<PlacedFeature> MEGA_FUNGUS_PINE_CHECKED = key("mega_fungus_pine_checked");
+    public static final ResourceKey<PlacedFeature> DYING_MEGA_FUNGUS_PINE_CHECKED = key("dying_mega_fungus_pine_checked");
+    public static final ResourceKey<PlacedFeature> FALLEN_SPRUCE_CHECKED = key("fallen_spruce_checked");
+
+    //BAOBAB
+    public static final ResourceKey<PlacedFeature> BAOBAB = key("baobab");
+    public static final ResourceKey<PlacedFeature> BAOBAB_TALL = key("baobab_tall");
+
+    //CYPRESS
+    public static final ResourceKey<PlacedFeature> CYPRESS = key("cypress");
+    public static final ResourceKey<PlacedFeature> FUNGUS_CYPRESS = key("fungus_cypress");
+    public static final ResourceKey<PlacedFeature> SHORT_CYPRESS = key("short_cypress");
+    public static final ResourceKey<PlacedFeature> SHORT_FUNGUS_CYPRESS = key("short_fungus_cypress");
+    public static final ResourceKey<PlacedFeature> SWAMP_CYPRESS = key("swamp_cypress");
+    public static final ResourceKey<PlacedFeature> FALLEN_CYPRESS_CHECKED = key("fallen_cypress_checked");
+	//TREE ON SAND
+	public static final BlockPredicate SAND_TREE_PREDICATE = BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.RED_SAND, Blocks.SAND);
+	public static final List<PlacementModifier> SAND_TREE_FILTER_DECORATOR = List.of(EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.not(BlockPredicate.matchesBlocks(Blocks.SANDSTONE)), 8), BlockPredicateFilter.forPredicate(SAND_TREE_PREDICATE));
+	//SHRUB
+	public static final Holder<PlacedFeature> BIG_SHRUB_CHECKED = PlacementUtils.register("big_shrub_checked", WilderTreeConfigured.BIG_SHRUB, SAND_TREE_FILTER_DECORATOR);
+	//PALM
+	public static final Holder<PlacedFeature> PALM_CHECKED = PlacementUtils.register("palm_checked", WilderTreeConfigured.PALM, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.COCONUT));
+	public static final Holder<PlacedFeature> TALL_PALM_CHECKED = PlacementUtils.register("tall_palm_checked", WilderTreeConfigured.TALL_PALM, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.COCONUT));
+	public static final Holder<PlacedFeature> TALL_WINE_PALM_CHECKED = PlacementUtils.register("tall_wine_palm_checked", WilderTreeConfigured.TALL_WINE_PALM, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.COCONUT));
+	public static final Holder<PlacedFeature> SMALL_WINE_PALM_CHECKED = PlacementUtils.register("small_wine_palm_checked", WilderTreeConfigured.SMALL_WINE_PALM, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.COCONUT));
+
+	public static ResourceKey<PlacedFeature> key(String path) {
+		return ResourceKey.create(Registries.PLACED_FEATURE, WilderSharedConstants.id(path));
+	}
+}

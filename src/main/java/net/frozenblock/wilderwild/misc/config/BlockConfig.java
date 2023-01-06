@@ -10,7 +10,8 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.api.FrozenConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultBlockConfig;
-import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.*;
+import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
+import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 
 @Config(name = "block")
 public final class BlockConfig implements ConfigData {
@@ -45,6 +46,7 @@ public final class BlockConfig implements ConfigData {
     public boolean mcLiveSensorTendrils = DefaultBlockConfig.MC_LIVE_SENSOR_TENDRILS;
     public boolean shriekerGargling = DefaultBlockConfig.SHRIEKER_GARGLING;
     public boolean soulFireSounds = DefaultBlockConfig.SOUL_FIRE_SOUNDS;
+	public boolean billboardTendrils = DefaultBlockConfig.BILLBOARD_TENDRILS;
 
     @Environment(EnvType.CLIENT)
     static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
@@ -71,6 +73,13 @@ public final class BlockConfig implements ConfigData {
                 .setTooltip(tooltip("soul_fire_sounds"))
                 .build()
         );
+
+		var billboardTendrils = category.addEntry(entryBuilder.startBooleanToggle(text("billboard_tendrils"), config.billboardTendrils)
+				.setDefaultValue(DefaultBlockConfig.BILLBOARD_TENDRILS)
+				.setSaveConsumer(newValue -> config.billboardTendrils = newValue)
+				.setTooltip(tooltip("billboard_tendrils"))
+				.build()
+		);
 
         /*var displayLanternCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("display_lantern"),
                 false,

@@ -11,7 +11,6 @@ import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -27,10 +26,10 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
+import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class DisplayLanternBlockEntityRenderer<T extends DisplayLanternBlockEntity> implements BlockEntityRenderer<T> {
-
     private static final float pi = (float) Math.PI;
     private static final Quaternionf one80Quat = Axis.YP.rotationDegrees(180.0F);
     private final ItemRenderer itemRenderer;
@@ -43,7 +42,7 @@ public class DisplayLanternBlockEntityRenderer<T extends DisplayLanternBlockEnti
     private static final RenderType NECTAR_OVERLAY = RenderType.entityTranslucentEmissive(WilderSharedConstants.id("textures/entity/firefly/nectar_overlay.png"), true);
 
     public DisplayLanternBlockEntityRenderer(Context ctx) {
-        ModelPart root = ctx.bakeLayer(WilderWildClient.DISPLAY_LANTERN);
+        ctx.bakeLayer(WilderWildClient.DISPLAY_LANTERN);
         this.itemRenderer = ctx.getItemRenderer();
     }
 
@@ -52,7 +51,8 @@ public class DisplayLanternBlockEntityRenderer<T extends DisplayLanternBlockEnti
         return LayerDefinition.create(modelData, 64, 64);
     }
 
-    public void render(T lantern, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
+	@Override
+    public void render(T lantern, float tickDelta, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
 		Quaternionf cam = Minecraft.getInstance().gameRenderer.getMainCamera().rotation();
         Optional<ItemStack> stack = lantern.getItem();
         if (!lantern.invEmpty() && stack.isPresent()) {

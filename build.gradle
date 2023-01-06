@@ -148,17 +148,11 @@ dependencies {
 		include(modImplementation("maven.modrinth:frozenlib:${frozenlib_version}"))
 	}
 
-	// Fabric-ASM
-	include(modImplementation("com.github.Chocohead:Fabric-ASM:${fabric_asm_version}"))
-
 	// CaffeineConfig
 	//include(modImplementation("net.caffeinemc:mixin-config:1.0.0+1.17"))
 
 	// Lunade
 	modCompileOnly("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
-
-	//Tom's Simple Storage
-	modImplementation("maven.modrinth:toms-storage:${tomsstorage_version}")
 
 	// Mod Menu
 	modImplementation("com.terraformersmc:modmenu:${modmenu_version}")

@@ -20,7 +20,6 @@ public class FireflyHide extends MoveToBlockBehavior<Firefly> {
 	@Override
 	public void start(@NotNull ServerLevel level, @NotNull Firefly entity, long gameTime) {
 		super.start(level, entity, gameTime);
-		entity.despawning = true;
 	}
 
 	@Override

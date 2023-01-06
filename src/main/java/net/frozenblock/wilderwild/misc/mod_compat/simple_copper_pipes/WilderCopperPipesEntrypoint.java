@@ -1,32 +1,44 @@
 package net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes;
 
+import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.FrozenMain;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
+import net.frozenblock.wilderwild.entity.CoconutProjectile;
+import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.lunade.copper.CopperPipeEntrypoint;
+import net.lunade.copper.CopperPipeMain;
 import net.lunade.copper.FittingPipeDispenses;
 import net.lunade.copper.PipeMovementRestrictions;
+import net.lunade.copper.PoweredPipeDispenses;
 import net.lunade.copper.RegisterPipeNbtMethods;
+import net.lunade.copper.block_entity.CopperPipeEntity;
 import net.lunade.copper.blocks.CopperPipe;
+import net.lunade.copper.pipe_nbt.MoveablePipeDataHandler;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.DustColorTransitionOptions;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 
 public class WilderCopperPipesEntrypoint implements CopperPipeEntrypoint {
-    public static final ResourceLocation horn = new ResourceLocation(WilderSharedConstants.MOD_ID, "ancient_horn");
+	public static final ResourceLocation HORN = WilderSharedConstants.id("ancient_horn");
 
     @Override
     public void init() {
@@ -143,6 +155,57 @@ public class WilderCopperPipesEntrypoint implements CopperPipeEntrypoint {
             }
         });
 
+		PoweredPipeDispenses.register(RegisterItems.COCONUT, (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
+			double d = position.x();
+			double e = position.y();
+			double f = position.z();
+			RandomSource random = level.random;
+			double random1 = random.nextDouble() * 10.0D - 5D;
+			double random2 = random.nextDouble() * 10.0D - 5D;
+			Direction.Axis axis = direction.getAxis();
+			if (axis == Direction.Axis.Y) {
+				e -= 0.125D;
+			} else {
+				e -= 0.15625D;
+			}
+
+			int offX = direction.getStepX();
+			int offY = direction.getStepY();
+			int offZ = direction.getStepZ();
+			double velX = axis == Direction.Axis.X ? (double) (i * offX * 2) : (axis == Direction.Axis.Z ? (corroded ? random2 : random2 * 0.1D) : (corroded ? random1 : random1 * 0.1D));
+			double velY = axis == Direction.Axis.Y ? (double) (i * offY * 2) : (corroded ? random1 : random1 * 0.1D);
+			double velZ = axis == Direction.Axis.Z ? (double) (i * offZ * 2) : (corroded ? random2 : random2 * 0.1D);
+			CoconutProjectile coconut = new CoconutProjectile(level, d, e, f);
+			coconut.shoot(velX, velY, velZ, 0.8F, 0.8F);
+			level.addFreshEntity(coconut);
+		});
+
+		PoweredPipeDispenses.register(Registry.ITEM.get(WilderSharedConstants.id("tumbleweed")), (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
+			double d = position.x();
+			double e = position.y();
+			double f = position.z();
+			RandomSource random = level.random;
+			double random1 = random.nextDouble() * 10.0D - 5D;
+			double random2 = random.nextDouble() * 10.0D - 5D;
+			Direction.Axis axis = direction.getAxis();
+			if (axis == Direction.Axis.Y) {
+				e -= 0.125D;
+			} else {
+				e -= 0.15625D;
+			}
+
+			int offX = direction.getStepX();
+			int offY = direction.getStepY();
+			int offZ = direction.getStepZ();
+			double velX = axis == Direction.Axis.X ? (double) (i * offX * 2) : (axis == Direction.Axis.Z ? (corroded ? random2 : random2 * 0.1D) : (corroded ? random1 : random1 * 0.1D));
+			double velY = axis == Direction.Axis.Y ? (double) (i * offY * 2) : (corroded ? random1 : random1 * 0.1D);
+			double velZ = axis == Direction.Axis.Z ? (double) (i * offZ * 2) : (corroded ? random2 : random2 * 0.1D);
+			Tumbleweed tumbleweed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
+			tumbleweed.setDeltaMovement(velX * 0.2, velY * 0.2, velZ * 0.2);
+			tumbleweed.setPos(d, e, f);
+			level.addFreshEntity(tumbleweed);
+		});
+
         PipeMovementRestrictions.register(WilderSharedConstants.id("stone_chest"),
                 ((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false),
                 ((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false));
@@ -153,5 +216,24 @@ public class WilderCopperPipesEntrypoint implements CopperPipeEntrypoint {
     public void initDevOnly() {
 
     }
+
+	public static boolean addHornNbtToBlock(ServerLevel level, BlockPos pos, Entity owner) {
+		BlockEntity entity = level.getBlockEntity(pos);
+		if (entity != null) {
+			if (entity instanceof CopperPipeEntity pipe) {
+				level.playSound(null, pos, CopperPipeMain.ITEM_IN, SoundSource.BLOCKS, 0.2F, (level.random.nextFloat() * 0.25F) + 0.8F);
+				pipe.moveablePipeDataHandler.addSaveableMoveablePipeNbt(new MoveablePipeDataHandler.SaveableMovablePipeNbt().withVec3d(owner.position()).withVec3d2(owner.position()).withString(owner.getStringUUID()).withOnlyThroughOnePipe(true).withOnlyUseableOnce(true).withNBTID(HORN));
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean isCopperPipe(BlockState state) {
+		if (FrozenBools.HAS_SIMPLE_COPPER_PIPES) {
+			return state.getBlock() instanceof CopperPipe;
+		}
+		return false;
+	}
 
 }

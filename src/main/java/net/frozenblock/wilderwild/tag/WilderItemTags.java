@@ -11,6 +11,9 @@ public final class WilderItemTags {
 	}
 
     public static final TagKey<Item> GOAT_DROP_MUSIC_DISCS = bind("goat_drop_music_discs");
+	public static final TagKey<Item> TUMBLEWEED_COMMON = bind("tumbleweed_common");
+	public static final TagKey<Item> TUMBLEWEED_MEDIUM = bind("tumbleweed_medium");
+	public static final TagKey<Item> TUMBLEWEED_RARE = bind("tumbleweed_rare");
 
     private static TagKey<Item> bind(String path) {
         return TagKey.create(Registries.ITEM, WilderSharedConstants.id(path));

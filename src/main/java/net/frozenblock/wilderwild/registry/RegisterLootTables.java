@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.minecraft.advancements.critereon.EntityPredicate;
@@ -61,6 +60,24 @@ public final class RegisterLootTables {
                 tableBuilder.withPool(pool);
             }
         });
+		//COCONUT
+		LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
+			if (BuiltInLootTables.VILLAGE_DESERT_HOUSE.equals(id) && source.isBuiltin()) {
+				LootPool.Builder pool = LootPool.lootPool()
+						.add(LootItem.lootTableItem(RegisterItems.COCONUT).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
+
+				tableBuilder.withPool(pool);
+			}
+		});
+		//PALM LOG
+		LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
+			if (BuiltInLootTables.VILLAGE_DESERT_HOUSE.equals(id) && source.isBuiltin()) {
+				LootPool.Builder pool = LootPool.lootPool()
+						.add(LootItem.lootTableItem(RegisterBlocks.PALM_LOG.asItem()).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
+
+				tableBuilder.withPool(pool);
+			}
+		});
         //GOAT
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
             if (EntityType.GOAT.getDefaultLootTable().equals(id) && source.isBuiltin()) {

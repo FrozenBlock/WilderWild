@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.registry;
 
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -31,11 +30,20 @@ public final class RegisterSounds {
 
     //BLOCK
 
+	public static final SoundEvent BLOCK_ALGAE_PLACE = register("block.algae.place");
+	public static final SoundEvent BLOCK_ALGAE_HIT = register("block.algae.hit");
+	public static final SoundEvent BLOCK_ALGAE_BREAK = register("block.algae.break");
+	public static final SoundEvent BLOCK_ALGAE_STEP = register("block.algae.step");
+	public static final SoundEvent BLOCK_ALGAE_FALL = register("block.algae.fall");
+
     public static final SoundEvent BLOCK_BAOBAB_NUT_PLACE = register("block.baobab_nut.place");
     public static final SoundEvent BLOCK_BAOBAB_NUT_HIT = register("block.baobab_nut.hit");
     public static final SoundEvent BLOCK_BAOBAB_NUT_BREAK = register("block.baobab_nut.break");
     public static final SoundEvent BLOCK_BAOBAB_NUT_STEP = register("block.baobab_nut.step");
     public static final SoundEvent BLOCK_BAOBAB_NUT_FALL = register("block.baobab_nut.fall");
+
+	public static final SoundEvent BLOCK_CHEST_CLOSE_UNDERWATER = register("block.chest.close_underwater");
+	public static final SoundEvent BLOCK_CHEST_OPEN_UNDERWATER = register("block.chest.open_underwater");
 
     public static final SoundEvent BLOCK_CLAY_PLACE = register("block.clay.place");
     public static final SoundEvent BLOCK_CLAY_HIT = register("block.clay.hit");
@@ -54,6 +62,13 @@ public final class RegisterSounds {
     public static final SoundEvent BLOCK_COBWEB_BREAK = register("block.cobweb.break");
     public static final SoundEvent BLOCK_COBWEB_STEP = register("block.cobweb.step");
     public static final SoundEvent BLOCK_COBWEB_FALL = register("block.cobweb.fall");
+
+	public static final SoundEvent BLOCK_COCONUT_PLACE = register("block.coconut.place");
+	public static final SoundEvent BLOCK_COCONUT_HIT = register("block.coconut.hit");
+	public static final SoundEvent BLOCK_COCONUT_BREAK = register("block.coconut.break");
+	public static final SoundEvent BLOCK_COCONUT_STEP = register("block.coconut.step");
+	public static final SoundEvent BLOCK_COCONUT_FALL = register("block.coconut.fall");
+	public static final SoundEvent BLOCK_COCONUT_CRACK = register("block.coconut.crack");
 
     public static final SoundEvent BLOCK_DISPLAY_LANTERN_NECTAR_LOOP = register("block.display_lantern.nectar_inside_loop");
 
@@ -82,6 +97,8 @@ public final class RegisterSounds {
     public static final SoundEvent BLOCK_HANGING_TENDRIL_STEP = register("block.hanging_tendril.step");
     public static final SoundEvent BLOCK_HANGING_TENDRIL_FALL = register("block.hanging_tendril.fall");
     public static final SoundEvent BLOCK_HANGING_TENDRIL_WRING = register("block.hanging_tendril.wring");
+	public static final SoundEvent BLOCK_HANGING_TENDRIL_CLICKING = register("block.hanging_tendril.clicking");
+	public static final SoundEvent BLOCK_HANGING_TENDRIL_CLICKING_STOP = register("block.hanging_tendril.clicking_stop");
 
     public static final SoundEvent BLOCK_HOLLOWED_LOG_PLACE = register("block.hollowed_log.place");
     public static final SoundEvent BLOCK_HOLLOWED_LOG_HIT = register("block.hollowed_log.hit");
@@ -137,6 +154,12 @@ public final class RegisterSounds {
     public static final SoundEvent BLOCK_OSSEOUS_SCULK_STEP = register("block.osseous_sculk.step");
     public static final SoundEvent BLOCK_OSSEOUS_SCULK_FALL = register("block.osseous_sculk.fall");
 
+	public static final SoundEvent BLOCK_PALM_CROWN_PLACE = register("block.palm_crown.place");
+	public static final SoundEvent BLOCK_PALM_CROWN_HIT = register("block.palm_crown.hit");
+	public static final SoundEvent BLOCK_PALM_CROWN_BREAK = register("block.palm_crown.break");
+	public static final SoundEvent BLOCK_PALM_CROWN_STEP = register("block.palm_crown.step");
+	public static final SoundEvent BLOCK_PALM_CROWN_FALL = register("block.palm_crown.fall");
+
     public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_PLACE = register("block.reinforced_deepslate.place");
     public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_HIT = register("block.reinforced_deepslate.hit");
     public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_BREAK = register("block.reinforced_deepslate.break");
@@ -150,9 +173,13 @@ public final class RegisterSounds {
     public static final SoundEvent BLOCK_SCULK_SHRIEKER_GARGLE = register("block.sculk_shrieker.gargle");
 
     public static final SoundEvent BLOCK_STONE_CHEST_CLOSE_START = register("block.stone_chest.close_start");
+	public static final SoundEvent BLOCK_STONE_CHEST_CLOSE_START_UNDERWATER = register("block.stone_chest.close_start_underwater");
     public static final SoundEvent BLOCK_STONE_CHEST_SLAM = register("block.stone_chest.slam");
+	public static final SoundEvent BLOCK_STONE_CHEST_SLAM_UNDERWATER = register("block.stone_chest.slam_underwater");
     public static final SoundEvent BLOCK_STONE_CHEST_OPEN = register("block.stone_chest.open");
+	public static final SoundEvent BLOCK_STONE_CHEST_OPEN_UNDERWATER = register("block.stone_chest.open_underwater");
     public static final SoundEvent BLOCK_STONE_CHEST_LIFT = register("block.stone_chest.lift");
+	public static final SoundEvent BLOCK_STONE_CHEST_LIFT_UNDERWATER = register("block.stone_chest.lift_underwater");
     public static final SoundEvent BLOCK_STONE_CHEST_ITEM_CRUMBLE = register("block.stone_chest.item_crumble");
 
     public static final SoundEvent BLOCK_SUGAR_CANE_PLACE = register("block.sugar_cane.place");
@@ -163,6 +190,13 @@ public final class RegisterSounds {
 
     public static final SoundEvent BLOCK_TERMITE_MOUND_ENTER = register("block.termite_mound.enter");
     public static final SoundEvent BLOCK_TERMITE_MOUND_EXIT = register("block.termite_mound.exit");
+
+	public static final SoundEvent BLOCK_TUMBLEWEED_PLANT_PLACE = register("block.tumbleweed_plant.place");
+	public static final SoundEvent BLOCK_TUMBLEWEED_PLANT_HIT = register("block.tumbleweed_plant.hit");
+	public static final SoundEvent BLOCK_TUMBLEWEED_PLANT_BREAK = register("block.tumbleweed_plant.break");
+	public static final SoundEvent BLOCK_TUMBLEWEED_PLANT_STEP = register("block.tumbleweed_plant.step");
+	public static final SoundEvent BLOCK_TUMBLEWEED_PLANT_FALL = register("block.tumbleweed_plant.fall");
+	public static final SoundEvent BLOCK_TUMBLEWEED_SHEAR = register("block.tumbleweed_plant.shear");
 
     //ENTITY
 
@@ -183,11 +217,15 @@ public final class RegisterSounds {
     public static final SoundEvent ENTITY_JELLYFISH_AMBIENT = register("entity.jellyfish.ambient");
     public static final SoundEvent ENTITY_JELLYFISH_HURT = register("entity.jellyfish.hurt");
     public static final SoundEvent ENTITY_JELLYFISH_SWIM = register("entity.jellyfish.swim");
-    //TODO: UNIQUE FLOP SOUNDS
+
     public static final SoundEvent ENTITY_JELLYFISH_FLOP = register("entity.jellyfish.flop");
-    //TODO: UNIQUE DEATH SOUNDS
+
     public static final SoundEvent ENTITY_JELLYFISH_DEATH_WATER = register("entity.jellyfish.death_water");
     public static final SoundEvent ENTITY_JELLYFISH_DEATH = register("entity.jellyfish.death");
+
+	public static final SoundEvent ENTITY_TUMBLEWEED_BOUNCE = register("entity.tumbleweed.bounce");
+	public static final SoundEvent ENTITY_TUMBLEWEED_BREAK = register("entity.tumbleweed.break");
+	public static final SoundEvent ENTITY_TUMBLEWEED_DAMAGE = register("entity.tumbleweed.damage");
 
     public static final SoundEvent ENTITY_WARDEN_KIRBY_DEATH = register("entity.warden.kirby_death");
     public static final SoundEvent ENTITY_WARDEN_DYING = register("entity.warden.dying");
@@ -209,6 +247,10 @@ public final class RegisterSounds {
     public static final SoundEvent ITEM_BUCKET_FILL_JELLYFISH = register("item.bucket.fill_jellyfish");
     public static final SoundEvent ITEM_BUCKET_EMPTY_JELLYFISH = register("item.bucket.empty_jellyfish");
 
+	public static final SoundEvent ITEM_COCONUT_LAND_BREAK = register("item.coconut.land_break");
+	public static final SoundEvent ITEM_COCONUT_LAND = register("item.coconut.land");
+	public static final SoundEvent ITEM_COCONUT_HIT_HEAD = register("item.coconut.hit_head");
+
     public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_SAX_START = registerForHolder("item.copper_horn.sax.start");
     public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_SAX_LOOP = registerForHolder("item.copper_horn.sax.loop");
 
@@ -229,6 +271,19 @@ public final class RegisterSounds {
 
     public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_TROMBONE_START = registerForHolder("item.copper_horn.trombone.start");
     public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_TROMBONE_LOOP = registerForHolder("item.copper_horn.trombone.loop");
+
+	public static final SoundEvent ITEM_ENDERPEARL_LAND = register("item.enderpearl.land");
+	public static final SoundEvent ITEM_EGG_LAND = register("item.egg.land");
+
+	public static final SoundEvent ITEM_SNOWBALL_LAND = register("item.snowball.land");
+
+	public static final SoundEvent ITEM_POTION_SPLASH = register("item.potion.splash");
+
+	public static final SoundEvent ITEM_EXPERIENCE_BOTTLE_SPLASH = register("item.experience_bottle.splash");
+
+	public static final SoundEvent ITEM_POTION_MAGIC = register("item.potion.magic");
+
+	public static final SoundEvent ITEM_POTION_LINGERING = register("item.potion.lingering");
 
     //MISC
 

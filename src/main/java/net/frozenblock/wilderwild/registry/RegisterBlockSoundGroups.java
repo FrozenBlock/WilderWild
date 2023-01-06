@@ -9,6 +9,14 @@ public final class RegisterBlockSoundGroups {
 		throw new UnsupportedOperationException("RegisterBlockEntities contains only static declarations.");
 	}
 
+	public static final SoundType ALGAE = new SoundType(1.0F, 1.0F,
+			BLOCK_ALGAE_BREAK,
+			BLOCK_ALGAE_STEP,
+			BLOCK_ALGAE_PLACE,
+			BLOCK_ALGAE_HIT,
+			BLOCK_ALGAE_FALL
+	);
+
     public static final SoundType BAOBAB_NUT = new SoundType(1.0F, 1.0F,
             BLOCK_BAOBAB_NUT_BREAK,
             BLOCK_BAOBAB_NUT_STEP,
@@ -16,6 +24,14 @@ public final class RegisterBlockSoundGroups {
             BLOCK_BAOBAB_NUT_HIT,
             BLOCK_BAOBAB_NUT_FALL
     );
+
+	public static final SoundType COCONUT = new SoundType(1.0F, 1.0F,
+			BLOCK_COCONUT_BREAK,
+			BLOCK_COCONUT_STEP,
+			BLOCK_COCONUT_PLACE,
+			BLOCK_COCONUT_HIT,
+			BLOCK_COCONUT_FALL
+	);
 
     public static final SoundType CLAY_BLOCK = new SoundType(1.0F, 1.0F,
             BLOCK_CLAY_BREAK,
@@ -138,11 +154,11 @@ public final class RegisterBlockSoundGroups {
     );
 
     public static final SoundType LILYPAD = new SoundType(1.0F, 1.0F,
+            SoundEvents.BIG_DRIPLEAF_BREAK,
+            SoundEvents.BIG_DRIPLEAF_STEP,
             SoundEvents.LILY_PAD_PLACE,
-            SoundEvents.LILY_PAD_PLACE,
-            SoundEvents.LILY_PAD_PLACE,
-            SoundEvents.LILY_PAD_PLACE,
-            SoundEvents.LILY_PAD_PLACE
+            SoundEvents.BIG_DRIPLEAF_HIT,
+            SoundEvents.BIG_DRIPLEAF_FALL
     );
 
     public static final SoundType SUGARCANE = new SoundType(1.0F, 1.0F,
@@ -168,6 +184,22 @@ public final class RegisterBlockSoundGroups {
             RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_HIT,
             RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_FALL
     );
+
+	public static final SoundType TUMBLEWEED_PLANT = new SoundType(1.0F, 1.0F,
+			BLOCK_TUMBLEWEED_PLANT_BREAK,
+			BLOCK_TUMBLEWEED_PLANT_STEP,
+			BLOCK_TUMBLEWEED_PLANT_PLACE,
+			BLOCK_TUMBLEWEED_PLANT_HIT,
+			BLOCK_TUMBLEWEED_PLANT_FALL
+	);
+
+	public static final SoundType PALM_CROWN = new SoundType(1.0F, 1.0F,
+			BLOCK_PALM_CROWN_BREAK,
+			BLOCK_PALM_CROWN_STEP,
+			BLOCK_PALM_CROWN_PLACE,
+			BLOCK_PALM_CROWN_HIT,
+			BLOCK_PALM_CROWN_FALL
+	);
 
     public static final SoundType FUNNY = new SoundType(1.0F, 1.0F,
             SoundEvents.ANVIL_PLACE,

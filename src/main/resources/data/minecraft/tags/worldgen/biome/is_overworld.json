@@ -2,6 +2,9 @@
   "values": [
 	"wilderwild:cypress_wetlands",
 	"wilderwild:jellyfish_caves",
-	"wilderwild:mixed_forest"
+	"wilderwild:mixed_forest",
+    "wilderwild:warm_river",
+    "wilderwild:oasis"
+
   ]
 }

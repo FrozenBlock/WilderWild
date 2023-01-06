@@ -5,14 +5,17 @@ import com.mojang.serialization.Codec;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.FrozenBools;
+import net.frozenblock.lib.mobcategory.api.FrozenMobCategories;
+import net.frozenblock.wilderwild.block.entity.PalmCrownBlockEntity;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.FireflyColor;
-import net.frozenblock.wilderwild.misc.WilderEnumValues;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.datafixer.NematocystStateFix;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
@@ -22,20 +25,27 @@ import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterGameEvents;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterLootTables;
-import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterResources;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.registry.WilderRegistry;
-import net.frozenblock.wilderwild.world.feature.features.AlgaeFeature;
-import net.frozenblock.wilderwild.world.feature.features.CattailFeature;
-import net.frozenblock.wilderwild.world.feature.features.NematocystFeature;
-import net.frozenblock.wilderwild.world.feature.features.ShelfFungusFeature;
-import net.frozenblock.wilderwild.world.feature.features.config.ShelfFungusFeatureConfig;
-import net.frozenblock.wilderwild.world.gen.WilderWorldGen;
-import net.frozenblock.wilderwild.world.gen.trunk.BaobabTrunkPlacer;
-import net.frozenblock.wilderwild.world.gen.trunk.FallenTrunkWithLogs;
-import net.frozenblock.wilderwild.world.gen.trunk.StraightTrunkWithLogs;
+import net.frozenblock.wilderwild.world.additions.feature.WilderConfiguredFeatures;
+import net.frozenblock.wilderwild.world.additions.feature.WilderMiscConfigured;
+import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
+import net.frozenblock.wilderwild.world.additions.feature.WilderTreeConfigured;
+import net.frozenblock.wilderwild.world.additions.feature.WilderTreePlaced;
+import net.frozenblock.wilderwild.world.additions.gen.WilderWorldGen;
+import net.frozenblock.wilderwild.world.generation.features.AlgaeFeature;
+import net.frozenblock.wilderwild.world.generation.features.CattailFeature;
+import net.frozenblock.wilderwild.world.generation.features.NematocystFeature;
+import net.frozenblock.wilderwild.world.generation.features.ShelfFungusFeature;
+import net.frozenblock.wilderwild.world.generation.features.config.ShelfFungusFeatureConfig;
+import net.frozenblock.wilderwild.world.generation.foliage.PalmFoliagePlacer;
+import net.frozenblock.wilderwild.world.generation.foliage.ShortPalmFoliagePlacer;
+import net.frozenblock.wilderwild.world.generation.trunk.BaobabTrunkPlacer;
+import net.frozenblock.wilderwild.world.generation.trunk.FallenTrunkWithLogs;
+import net.frozenblock.wilderwild.world.generation.trunk.PalmTrunkPlacer;
+import net.frozenblock.wilderwild.world.generation.trunk.StraightTrunkWithLogs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -46,10 +56,11 @@ import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import org.jetbrains.annotations.NotNull;
@@ -62,10 +73,13 @@ public final class WilderWild implements ModInitializer {
 	public static final TrunkPlacerType<StraightTrunkWithLogs> STRAIGHT_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("straight_trunk_logs_placer", StraightTrunkWithLogs.CODEC);
     public static final TrunkPlacerType<FallenTrunkWithLogs> FALLEN_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("fallen_trunk_logs_placer", FallenTrunkWithLogs.CODEC);
     public static final TrunkPlacerType<BaobabTrunkPlacer> BAOBAB_TRUNK_PLACER = registerTrunk("baobab_trunk_placer", BaobabTrunkPlacer.CODEC);
+	public static final TrunkPlacerType<PalmTrunkPlacer> PALM_TRUNK_PLACER = registerTrunk("palm_trunk_placer", PalmTrunkPlacer.CODEC);
     public static final Feature<ShelfFungusFeatureConfig> SHELF_FUNGUS_FEATURE = new ShelfFungusFeature(ShelfFungusFeatureConfig.CODEC);
     public static final CattailFeature CATTAIL_FEATURE = new CattailFeature(ProbabilityFeatureConfiguration.CODEC);
-    public static final AlgaeFeature ALGAE_FEATURE = new AlgaeFeature(ProbabilityFeatureConfiguration.CODEC);;
+    public static final AlgaeFeature ALGAE_FEATURE = new AlgaeFeature(ProbabilityFeatureConfiguration.CODEC);
     public static final NematocystFeature NEMATOCYST_FEATURE = new NematocystFeature(MultifaceGrowthConfiguration.CODEC);
+    public static final FoliagePlacerType<PalmFoliagePlacer> PALM_FOLIAGE_PLACER =  registerFoliage("palm_foliage_placer", PalmFoliagePlacer.CODEC);
+	public static final FoliagePlacerType<ShortPalmFoliagePlacer> SHORT_PALM_FOLIAGE_PLACER =  registerFoliage("short_palm_foliage_placer", ShortPalmFoliagePlacer.CODEC);
 
     @Override
     public void onInitialize() {
@@ -74,6 +88,7 @@ public final class WilderWild implements ModInitializer {
 
         WilderRegistry.initRegistry();
         RegisterBlocks.registerBlocks();
+        RegisterItems.registerBlockItems();
         RegisterItems.registerItems();
         RegisterGameEvents.registerEvents();
 		WilderWorldGen.generateWildWorldGen();
@@ -99,6 +114,10 @@ public final class WilderWild implements ModInitializer {
         if (FrozenBools.HAS_TERRALITH) {
             terralith();
         }
+
+		ServerLifecycleEvents.SERVER_STOPPED.register((server) -> PalmCrownBlockEntity.PalmCrownPositions.clearAll());
+
+		ServerTickEvents.START_SERVER_TICK.register((listener) -> PalmCrownBlockEntity.PalmCrownPositions.clearAndSwitch());
 
         WilderSharedConstants.stopMeasuring(this);
     }
@@ -139,6 +158,8 @@ public final class WilderWild implements ModInitializer {
 		builder.addFixer(new NematocystStateFix(schemaV9, "purple_pearlescent_nematocyst_fix", WilderSharedConstants.id("purple_pearlescent_nematocyst")));
 		builder.addFixer(new NematocystStateFix(schemaV9, "red_nematocyst_fix", WilderSharedConstants.id("red_nematocyst")));
 		builder.addFixer(new NematocystStateFix(schemaV9, "yellow_nematocyst_fix", WilderSharedConstants.id("yellow_nematocyst")));
+		Schema schemaV10 = builder.addSchema(10, NamespacedSchema::new);
+		SimpleFixes.addBlockRenameFix(builder, "Rename palm_sapling to coconut", WilderSharedConstants.id("palm_sapling"), WilderSharedConstants.id("coconut"), schemaV10);
 
         QuiltDataFixes.buildAndRegisterFixer(mod, builder);
         log("DataFixes for Wilder Wild have been applied", true);
@@ -154,17 +175,9 @@ public final class WilderWild implements ModInitializer {
         Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/thermal_caves"), FireflyColor.ORANGE);
 
         BiomeModifications.addSpawn(BiomeSelectors.includeByKey(ResourceKey.create(Registries.BIOME, new ResourceLocation("terralith", "cave/underground_jungle"))),
-				WilderEnumValues.FIREFLIES, RegisterEntities.FIREFLY, 12, 2, 4);
+                FrozenMobCategories.getCategory(WilderSharedConstants.MOD_ID, "fireflies"), RegisterEntities.FIREFLY, 12, 2, 4);
 
 		WilderRegistry.MULTILAYER_SAND_BEACH_BIOMES.add(ResourceKey.create(Registries.BIOME, new ResourceLocation("terralith", "arid_highlands")));
-    }
-
-    public static boolean isCopperPipe(BlockState state) {
-        if (FrozenBools.HAS_SIMPLE_COPPER_PIPES) {
-            ResourceLocation id = BuiltInRegistries.BLOCK.getKey(state.getBlock());
-            return id.getNamespace().equals("lunade") && id.getPath().contains("pipe");
-        }
-        return false;
     }
 
     // LOGGING
@@ -220,6 +233,10 @@ public final class WilderWild implements ModInitializer {
     private static <P extends TrunkPlacer> TrunkPlacerType<P> registerTrunk(String id, Codec<P> codec) {
         return Registry.register(BuiltInRegistries.TRUNK_PLACER_TYPE, WilderSharedConstants.id(id), new TrunkPlacerType<>(codec));
     }
+
+	private static <P extends FoliagePlacer> FoliagePlacerType<P> registerFoliage(String id, Codec<P> codec) {
+		return Registry.register(BuiltInRegistries.FOLIAGE_PLACER_TYPE, id(id), new FoliagePlacerType<>(codec));
+	}
 
     // GAME RULES
     public static final GameRules.Key<GameRules.BooleanValue> STONE_CHEST_CLOSES =

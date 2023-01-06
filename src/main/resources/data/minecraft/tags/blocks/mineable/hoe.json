@@ -8,6 +8,9 @@
 	"wilderwild:sculk_wall",
 	"wilderwild:hanging_tendril",
 	"wilderwild:baobab_leaves",
-	"wilderwild:cypress_leaves"
+	"wilderwild:cypress_leaves",
+    "wilderwild:palm_leaves",
+    "wilderwild:tumbleweed_plant",
+    "wilderwild:tumbleweed"
   ]
 }

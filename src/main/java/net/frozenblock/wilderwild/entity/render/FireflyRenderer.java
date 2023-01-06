@@ -18,9 +18,9 @@ import net.minecraft.resources.ResourceLocation;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
+import org.jetbrains.annotations.NotNull;
 
 public class FireflyRenderer extends EntityRenderer<Firefly> {
-
     //CREDIT TO magistermaks ON GITHUB!!
 
     public FireflyRenderer(EntityRendererProvider.Context ctx) {
@@ -49,7 +49,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
     private static final float pi = (float) Math.PI;
 
     @Override
-    public void render(Firefly entity, float yaw, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light) {
+    public void render(Firefly entity, float yaw, float tickDelta, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light) {
         boolean nectar = false;
 
         if (entity.hasCustomName()) {

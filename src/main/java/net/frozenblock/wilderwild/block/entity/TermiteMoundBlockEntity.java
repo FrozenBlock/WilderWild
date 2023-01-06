@@ -6,7 +6,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
@@ -45,41 +44,6 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 
     public TermiteMoundBlockEntity(BlockPos pos, BlockState state) {
         super(RegisterBlockEntities.TERMITE_MOUND, pos, state);
-    }
-
-    @Override
-    protected void saveAdditional(@NotNull CompoundTag tag) {
-        super.saveAdditional(tag);
-        tag.putInt("ticksToNextTermite", this.ticksToNextTermite);
-        tag.putInt("ticksToCheckLight", this.ticksToCheckLight);
-        tag.putInt("lastLight", this.lastLight);
-        Logger logger = WilderSharedConstants.LOGGER;
-        Termite.CODEC.listOf()
-                .encodeStart(NbtOps.INSTANCE, this.termites)
-                .resultOrPartial(logger::error)
-                .ifPresent((cursorsNbt) -> tag.put("termites", cursorsNbt));
-    }
-
-    @Override
-    public void load(@NotNull CompoundTag tag) {
-        super.load(tag);
-        this.ticksToNextTermite = tag.getInt("ticksToNextTermite");
-        this.ticksToCheckLight = tag.getInt("ticksToCheckLight");
-        this.lastLight = tag.getInt("lastLight");
-        if (tag.contains("termites", 9)) {
-            this.termites.clear();
-            Logger logger = WilderSharedConstants.LOGGER;
-            Termite.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE, tag.getList("termites", 10)))
-                    .resultOrPartial(logger::error)
-                    .ifPresent(termitesAllAllAll -> {
-                        int max = this.level != null ? maxTermites(this.level, this.lastLight, this.getBlockState().getValue(RegisterProperties.NATURAL)) : 5;
-                        int i = Math.min(termitesAllAllAll.size(), max);
-
-                        for (int j = 0; j < i; ++j) {
-                            this.termites.add(termitesAllAllAll.get(j));
-                        }
-                    });
-        }
     }
 
     public void addTermite(BlockPos pos) {
@@ -149,6 +113,41 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         }
         return finalLight;
     }
+
+	@Override
+	protected void saveAdditional(@NotNull CompoundTag tag) {
+		super.saveAdditional(tag);
+		tag.putInt("ticksToNextTermite", this.ticksToNextTermite);
+		tag.putInt("ticksToCheckLight", this.ticksToCheckLight);
+		tag.putInt("lastLight", this.lastLight);
+		Logger logger = WilderSharedConstants.LOGGER;
+		Termite.CODEC.listOf()
+				.encodeStart(NbtOps.INSTANCE, this.termites)
+				.resultOrPartial(logger::error)
+				.ifPresent((cursorsNbt) -> tag.put("termites", cursorsNbt));
+	}
+
+	@Override
+	public void load(@NotNull CompoundTag tag) {
+		super.load(tag);
+		this.ticksToNextTermite = tag.getInt("ticksToNextTermite");
+		this.ticksToCheckLight = tag.getInt("ticksToCheckLight");
+		this.lastLight = tag.getInt("lastLight");
+		if (tag.contains("termites", 9)) {
+			this.termites.clear();
+			Logger logger = WilderSharedConstants.LOGGER;
+			Termite.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE, tag.getList("termites", 10)))
+					.resultOrPartial(logger::error)
+					.ifPresent(termitesAllAllAll -> {
+						int max = this.level != null ? maxTermites(this.level, this.lastLight, this.getBlockState().getValue(RegisterProperties.NATURAL)) : 5;
+						int i = Math.min(termitesAllAllAll.size(), max);
+
+						for (int j = 0; j < i; ++j) {
+							this.termites.add(termitesAllAllAll.get(j));
+						}
+					});
+		}
+	}
 
     public static class Termite {
         public BlockPos mound;

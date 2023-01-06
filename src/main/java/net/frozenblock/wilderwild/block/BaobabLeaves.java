@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public class BaobabLeaves extends LeavesBlock implements BonemealableBlock {
+
     public BaobabLeaves(BlockBehaviour.Properties settings) {
         super(settings);
     }

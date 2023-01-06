@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
+import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
@@ -8,7 +9,6 @@ import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -78,11 +78,6 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 		BlockPos blockPos = ctx.getClickedPos();
 		FluidState fluidState = ctx.getLevel().getFluidState(blockPos);
 		return this.defaultBlockState().setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
-	}
-
-	@Override
-	public boolean isRandomlyTicking(@NotNull BlockState state) {
-		return true;
 	}
 
 	@Override
@@ -166,13 +161,14 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
 		return !level.isClientSide ? createTickerHelper(type, RegisterBlockEntities.HANGING_TENDRIL, (worldx, pos, statex, blockEntity) ->
 			blockEntity.serverTick(worldx, pos, statex)
-		) : null;
+		) : createTickerHelper(type, RegisterBlockEntities.HANGING_TENDRIL, (worldx, pos, statex, blockEntity) ->
+				blockEntity.clientTick(statex));
 	}
 
 	@Override
 	@NotNull
 	public RenderShape getRenderShape(@NotNull BlockState state) {
-		return RenderShape.MODEL;
+		return ClothConfigInteractionHandler.billboardTendrils() ? RenderShape.INVISIBLE : RenderShape.MODEL;
 	}
 
 	@Override
@@ -195,11 +191,15 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 		return getPhase(state) == SculkSensorPhase.INACTIVE;
 	}
 
+	public static boolean isActive(BlockState state) {
+		return getPhase(state) == SculkSensorPhase.ACTIVE;
+	}
+
 	public static void setCooldown(Level level, BlockPos pos, BlockState state) {
 		level.setBlock(pos, state.setValue(HANGING_TENDRIL_PHASE, SculkSensorPhase.COOLDOWN), 3);
 		level.scheduleTick(pos, state.getBlock(), 1);
 		if (!(Boolean) state.getValue(WATERLOGGED)) {
-			level.playSound(null, pos, SoundEvents.SCULK_CLICKING_STOP, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.2F + 1.0F);
+			level.playSound(null, pos, RegisterSounds.BLOCK_HANGING_TENDRIL_CLICKING_STOP, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.2F + 0.8F);
 		}
 		updateNeighbors(level, pos);
 	}
@@ -210,7 +210,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 		updateNeighbors(level, pos);
 		level.gameEvent(entity, event, pos);
 		if (!state.getValue(WATERLOGGED)) {
-			level.playSound(null, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, SoundEvents.SCULK_CLICKING, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.2F + 1.0F);
+			level.playSound(null, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, RegisterSounds.BLOCK_HANGING_TENDRIL_CLICKING, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.2F + 0.8F);
 		}
 	}
 
@@ -254,68 +254,44 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 		return getPhase(state) == SculkSensorPhase.ACTIVE || state.getValue(WRINGING_OUT);
 	}
 
-	public static HangingTendrilBlockEntity getEntity(Level level, BlockPos pos) {
-		BlockEntity entity = level.getBlockEntity(pos);
-		if (entity != null) {
-			if (entity instanceof HangingTendrilBlockEntity wigglyTendril) {
-				return wigglyTendril;
-			}
-		}
-		return null;
-	}
+    @Override
+    public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+        if (isInactive(state) && !state.getValue(WRINGING_OUT)) {
+            if (level.isClientSide) {
+                return InteractionResult.SUCCESS;
+            } else {
+                if (level.getBlockEntity(pos) instanceof HangingTendrilBlockEntity tendrilEntity) {
+                    if (tendrilEntity.storedXP > 0) {
+                        level.setBlockAndUpdate(pos, state.setValue(WRINGING_OUT, true));
+                        level.playSound(null,
+                                pos,
+                                RegisterSounds.BLOCK_HANGING_TENDRIL_WRING,
+                                SoundSource.BLOCKS,
+                                1F,
+                                level.random.nextFloat() * 0.1F + 0.9F
+                        );
+                        tendrilEntity.ringOutTicksLeft = 5;
+                        return InteractionResult.SUCCESS;
+                    }
+                }
+            }
+        }
+        return InteractionResult.PASS;
+    }
 
-	public static HangingTendrilBlockEntity getEntity(LevelAccessor level, BlockPos pos) {
-		BlockEntity entity = level.getBlockEntity(pos);
-		if (entity != null) {
-			if (entity instanceof HangingTendrilBlockEntity wigglyTendril) {
-				return wigglyTendril;
-			}
-		}
-		return null;
-	}
-
-	@Override
-	@NotNull
-	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
-		if (isInactive(state) && !state.getValue(WRINGING_OUT)) {
-			if (level.isClientSide) {
-				return InteractionResult.SUCCESS;
-			} else {
-				HangingTendrilBlockEntity tendrilEntity = getEntity(level, pos);
-				if (tendrilEntity != null) {
-					if (tendrilEntity.storedXP > 0) {
-						level.setBlockAndUpdate(pos, state.setValue(WRINGING_OUT, true));
-						level.playSound(
-								null,
-								pos,
-								RegisterSounds.BLOCK_HANGING_TENDRIL_WRING,
-								SoundSource.BLOCKS,
-								1F,
-								level.random.nextFloat() * 0.1F + 0.9F
-						);
-						tendrilEntity.ringOutTicksLeft = 5;
-						return InteractionResult.SUCCESS;
-					}
-				}
-			}
-		}
-		return InteractionResult.PASS;
-	}
-
-	@Override
-	public int attemptUseCharge(SculkSpreader.ChargeCursor cursor, @NotNull LevelAccessor level, @NotNull BlockPos catalystPos, @NotNull RandomSource random, @NotNull SculkSpreader spreadManager, boolean shouldConvertToBlock) {
-		HangingTendrilBlockEntity tendrilEntity = getEntity(level, cursor.getPos());
-		if (tendrilEntity != null) {
-			if (tendrilEntity.storedXP < 900) {
-				if (cursor.getCharge() > 1) {
-					tendrilEntity.storedXP = tendrilEntity.storedXP + 2;
-					return cursor.getCharge() - 2;
-				} else {
-					++tendrilEntity.storedXP;
-					return cursor.getCharge() - 1;
-				}
-			}
-		}
-		return cursor.getCharge();
-	}
+    @Override
+    public int attemptUseCharge(SculkSpreader.ChargeCursor cursor, @NotNull LevelAccessor level, @NotNull BlockPos catalystPos, @NotNull RandomSource random, @NotNull SculkSpreader spreadManager, boolean shouldConvertToBlock) {
+        if (level.getBlockEntity(cursor.getPos()) instanceof HangingTendrilBlockEntity tendrilEntity) {
+            if (tendrilEntity.storedXP < 900) {
+                if (cursor.getCharge() > 1) {
+                    tendrilEntity.storedXP = tendrilEntity.storedXP + 2;
+                    return cursor.getCharge() - 2;
+                } else {
+                    ++tendrilEntity.storedXP;
+                    return cursor.getCharge() - 1;
+                }
+            }
+        }
+        return cursor.getCharge();
+    }
 }

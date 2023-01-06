@@ -10,7 +10,8 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.api.FrozenConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultEntityConfig;
-import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.*;
+import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
+import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 
 @Config(name = "entity")
 public final class EntityConfig implements ConfigData {
@@ -26,6 +27,9 @@ public final class EntityConfig implements ConfigData {
 
 	@ConfigEntry.Gui.CollapsibleObject
 	public final JellyfishConfig jellyfish = new JellyfishConfig();
+
+	@ConfigEntry.Gui.CollapsibleObject
+	public final TumbleweedConfig tumbleweed = new TumbleweedConfig();
 
 	@ConfigEntry.Gui.CollapsibleObject
 	public final WardenConfig warden = new WardenConfig();
@@ -47,6 +51,11 @@ public final class EntityConfig implements ConfigData {
 		public int jellyfishSpawnCap = DefaultEntityConfig.JellyfishConfig.JELLYFISH_SPAWN_CAP;
 	}
 
+	public static class TumbleweedConfig {
+		public int tumbleweedSpawnCap = DefaultEntityConfig.TumbleweedConfig.TUMBLEWEED_SPAWN_CAP;
+		public boolean leashedTumbleweed = DefaultEntityConfig.TumbleweedConfig.LEASHED_TUMBLEWEED;
+	}
+
 	protected static class WardenConfig {
 		public boolean wardenAttacksInstantly = DefaultEntityConfig.WardenConfig.WARDEN_ATTACKS_INSTANTLY;
 		public boolean wardenCustomTendrils = DefaultEntityConfig.WardenConfig.WARDEN_CUSTOM_TENDRILS;
@@ -66,6 +75,7 @@ public final class EntityConfig implements ConfigData {
 		var enderMan = config.enderMan;
 		var firefly = config.firefly;
 		var jellyfish = config.jellyfish;
+		var tumbleweed = config.tumbleweed;
 		var warden = config.warden;
 		category.setBackground(WilderSharedConstants.id("textures/config/entity.png"));
 		var unpassableRail = category.addEntry(entryBuilder.startBooleanToggle(text("unpassable_rail"), config.unpassableRail)
@@ -130,6 +140,27 @@ public final class EntityConfig implements ConfigData {
                 tooltip("jellyfish"),
 				jellyfishSpawnCap
         );
+
+		var tumbleweedSpawnCap = entryBuilder.startIntSlider(text("tumbleweed_spawn_cap"), tumbleweed.tumbleweedSpawnCap, 0, 100)
+				.setDefaultValue(DefaultEntityConfig.TumbleweedConfig.TUMBLEWEED_SPAWN_CAP)
+				.setSaveConsumer(newValue -> tumbleweed.tumbleweedSpawnCap = newValue)
+				.setTooltip(tooltip("tumbleweed_spawn_cap"))
+				.requireRestart()
+				.build();
+
+		var leashedTumbleweed = entryBuilder.startBooleanToggle(text("leashed_tumbleweed"), tumbleweed.leashedTumbleweed)
+				.setDefaultValue(DefaultEntityConfig.TumbleweedConfig.LEASHED_TUMBLEWEED)
+				.setSaveConsumer(newValue -> tumbleweed.leashedTumbleweed = newValue)
+				.setTooltip(tooltip("leashed_tumbleweed"))
+				.requireRestart()
+				.build();
+
+		var tumbleweedCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("tumbleweed"),
+				false,
+				tooltip("tumbleweed"),
+				tumbleweedSpawnCap,
+				leashedTumbleweed
+		);
 
 		var instantAttack = entryBuilder.startBooleanToggle(text("warden_attacks_instantly"), warden.wardenAttacksInstantly)
 				.setDefaultValue(DefaultEntityConfig.WardenConfig.WARDEN_ATTACKS_INSTANTLY)

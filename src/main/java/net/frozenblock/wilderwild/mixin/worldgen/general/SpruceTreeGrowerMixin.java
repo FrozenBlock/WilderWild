@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.mixin.worldgen.general;
 
-import net.frozenblock.wilderwild.world.feature.WilderTreeConfigured;
+import net.frozenblock.wilderwild.world.additions.feature.WilderTreeConfigured;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.grower.SpruceTreeGrower;

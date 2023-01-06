@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
+import net.frozenblock.wilderwild.misc.interfaces.SculkShriekerTickInterface;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
@@ -9,6 +10,8 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SculkShriekerBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -20,6 +23,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SculkShriekerBlock.class)
 public class SculkShriekerBlockMixin extends BaseEntityBlock {
@@ -45,8 +49,15 @@ public class SculkShriekerBlockMixin extends BaseEntityBlock {
         }
     }
 
+	@Inject(at = @At("HEAD"), method = "getTicker", cancellable = true)
+	public <T extends BlockEntity> void getTicker(Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> blockEntityType, CallbackInfoReturnable<BlockEntityTicker<T>> info) {
+		if (!level.isClientSide) {
+			info.setReturnValue(BaseEntityBlock.createTickerHelper(blockEntityType, BlockEntityType.SCULK_SHRIEKER, (_world, pos, _state, blockEntity) -> ((SculkShriekerTickInterface)blockEntity).tickServer(_world, pos)));
+		}
+	}
+
     @Shadow
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		throw new AssertionError("Mixin injection failed - WilderWild SculkShriekerBlockMixin.");
     }
 

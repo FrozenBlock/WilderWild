@@ -35,6 +35,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -53,9 +54,10 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
     public int cooldownTicks;
     public boolean closing;
     public boolean lootGenerated;
+	public int stoneBubbleTicks;
+	public boolean canStoneBubble = true;
 
-    public boolean hasUpdated = false;
-    public boolean shouldSkip = false;
+	public boolean shouldSkip = false;
 
     public StoneChestBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(RegisterBlockEntities.STONE_CHEST, blockPos, blockState);
@@ -72,6 +74,8 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
         this.closing = tag.getBoolean("closing");
         this.shouldSkip = tag.getBoolean("shouldSkip");
         this.lootGenerated = tag.getBoolean("lootGenerated");
+		this.stoneBubbleTicks = tag.getInt("stoneBubbleTicks");
+		this.canStoneBubble = tag.getBoolean("canStoneBubble");
     }
 
     @Override
@@ -85,6 +89,8 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
         tag.putBoolean("closing", this.closing);
         tag.putBoolean("shouldSkip", this.shouldSkip);
         tag.putBoolean("lootGenerated", this.lootGenerated);
+		tag.putInt("stoneBubbleTicks", this.stoneBubbleTicks);
+		tag.putBoolean("canStoneBubble", this.canStoneBubble);
     }
 
     public float getOpenProgress(float delta) {
@@ -98,6 +104,16 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
             if (blockEntity.cooldownTicks > 0) {
                 --blockEntity.cooldownTicks;
             }
+			if (!blockEntity.canStoneBubble) {
+				blockEntity.stoneBubbleTicks = 0;
+			} else if (blockEntity.stoneBubbleTicks > 0) {
+				blockEntity.stoneBubbleTicks -= 1;
+				int random = level.random.nextInt(2, 5);
+				serverLevel.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, random, 0.21875F, 0, 0.21875F, 0.15D);
+				if (blockEntity.stoneBubbleTicks <= 0) {
+					blockEntity.canStoneBubble = false;
+				}
+			}
             boolean canClose = level.getGameRules().getBoolean(WilderWild.STONE_CHEST_CLOSES);
             blockEntity.prevOpenProgress = blockEntity.openProgress;
             if (blockEntity.stillLidTicks > 0) {
@@ -107,14 +123,14 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
                 blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.0425F);
                 if (!blockEntity.closing) {
                     blockEntity.closing = true;
-                    playSound(serverLevel, pos, state, RegisterSounds.BLOCK_STONE_CHEST_CLOSE_START, 0.3F);
+                    playSound(serverLevel, pos, state, RegisterSounds.BLOCK_STONE_CHEST_CLOSE_START, RegisterSounds.BLOCK_STONE_CHEST_CLOSE_START_UNDERWATER, 0.3F);
                 }
                 if (blockEntity.openProgress <= 0F) {
                     blockEntity.onLidSlam(serverLevel, pos, state, stoneChest);
                 }
             }
             if (isLeft(state)) {
-                blockEntity.syncLidValuesWith(serverLevel, pos, state, stoneChest);
+                blockEntity.syncLidValuesWith(stoneChest);
             }
         }
         blockEntity.shouldSkip = false;
@@ -140,7 +156,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
         }
         blockEntity.shouldSkip = false;
         if (isLeft(state)) {
-            blockEntity.syncLidValuesWith(level, pos, state, stoneChest);
+            blockEntity.syncLidValuesWith(stoneChest);
         }
     }
 
@@ -167,7 +183,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
                     server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), otherPos.getX() + 0.5, otherPos.getY() + 0.625, otherPos.getZ() + 0.5, level.random.nextIntBetweenInclusive(3, (int) (this.highestLidPoint * 10) + (state.getValue(RegisterProperties.ANCIENT) ? 4 : 2)), 0.21875F, 0, 0.21875F, 0.05D);
                 }
             }
-            playSound(level, pos, state, RegisterSounds.BLOCK_STONE_CHEST_SLAM, 0.5F + (this.highestLidPoint / 5F));
+            playSound(level, pos, state, RegisterSounds.BLOCK_STONE_CHEST_SLAM, RegisterSounds.BLOCK_STONE_CHEST_SLAM_UNDERWATER, 0.5F + (this.highestLidPoint / 5F));
         }
         this.closing = false;
         this.cooldownTicks = 15;
@@ -183,7 +199,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
         return !(player.distanceToSqr((double) this.worldPosition.getX() + 0.5, (double) this.worldPosition.getY() + 0.5, (double) this.worldPosition.getZ() + 0.5) > 64.0) && ((!this.closing && this.openProgress >= 0.3));
     }
 
-    public void syncLidValuesWith(Level level, BlockPos pos, BlockState state, StoneChestBlockEntity otherStoneChest) {
+    public void syncLidValuesWith(StoneChestBlockEntity otherStoneChest) {
         if (otherStoneChest != null) {
             otherStoneChest.openProgress = this.openProgress;
             otherStoneChest.prevOpenProgress = this.prevOpenProgress;
@@ -255,6 +271,16 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
         return this.saveWithoutMetadata();
     }
 
+	public void bubble() {
+		if (this.canStoneBubble && this.stoneBubbleTicks <= 0 && this.getBlockState().getValue(BlockStateProperties.WATERLOGGED)) {
+			this.stoneBubbleTicks = 5;
+			StoneChestBlockEntity otherChest = getOtherEntity(this.getLevel(), this.getBlockPos(), this.getBlockState());
+			if (otherChest != null) {
+				otherChest.stoneBubbleTicks = 5;
+			}
+		}
+	}
+
     public static StoneChestBlockEntity getOtherEntity(Level level, BlockPos pos, BlockState state) {
         ChestType chestType = state.getValue(ChestBlock.TYPE);
         double x = pos.getX();
@@ -295,8 +321,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
         } else if (chestType == ChestType.LEFT) {
             return source;
         }
-        BlockPos newPos = new BlockPos(d, e, f);
-        BlockEntity be = level.getBlockEntity(newPos);
+        BlockEntity be = level.getBlockEntity(new BlockPos(d, e, f));
         StoneChestBlockEntity entity = null;
         if (be instanceof StoneChestBlockEntity stone) {
             entity = stone;
@@ -371,7 +396,8 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
         }
     };
 
-    public static void playSound(Level level, BlockPos pos, BlockState state, SoundEvent soundEvent, float volume) {
+    public static void playSound(Level level, BlockPos pos, BlockState state, SoundEvent soundEvent, SoundEvent waterSound, float volume) {
+		boolean waterlogged = state.getValue(BlockStateProperties.WATERLOGGED);
         ChestType chestType = state.getValue(ChestBlock.TYPE);
         double x = (double) pos.getX() + 0.5;
         double y = (double) pos.getY() + 0.5;
@@ -385,7 +411,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
             x -= (double) direction.getStepX() * 0.5;
             z -= (double) direction.getStepZ() * 0.5;
         }
-        level.playSound(null, x, y, z, soundEvent, SoundSource.BLOCKS, volume, level.random.nextFloat() * 0.18F + 0.9F);
+        level.playSound(null, x, y, z, waterlogged ? waterSound : soundEvent, SoundSource.BLOCKS, volume, level.random.nextFloat() * 0.18F + 0.9F);
     }
 
 }

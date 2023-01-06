@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.logging.LogUtils;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.minecraft.core.BlockPos;
@@ -16,6 +15,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class SeedingDandelionBlock extends FlowerBlock {
+
     public SeedingDandelionBlock(MobEffect suspiciousStewEffect, int effectDuration, Properties settings) {
         super(suspiciousStewEffect, effectDuration, settings);
     }
@@ -31,7 +31,7 @@ public class SeedingDandelionBlock extends FlowerBlock {
     public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
         if (level instanceof ServerLevel server) {
             if (server.random.nextFloat() > 0.95) {
-                EasyPacket.EasySeedPacket.createParticle(level, Vec3.atCenterOf(pos).add(0, 0.3, 0), server.random.nextIntBetweenInclusive(1, 3), false, 32);
+                EasyPacket.EasySeedPacket.createParticle(level, Vec3.atCenterOf(pos).add(0, 0.3, 0), server.random.nextIntBetweenInclusive(1, 3), false);
             }
         }
     }
@@ -40,7 +40,7 @@ public class SeedingDandelionBlock extends FlowerBlock {
     public void playerWillDestroy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
         super.playerWillDestroy(level, pos, state, player);
         if (level instanceof ServerLevel server) {
-            EasyPacket.EasySeedPacket.createParticle(level, Vec3.atCenterOf(pos).add(0, 0.3, 0), server.random.nextIntBetweenInclusive(3, 7), false, 32);
+            EasyPacket.EasySeedPacket.createParticle(level, Vec3.atCenterOf(pos).add(0, 0.3, 0), server.random.nextIntBetweenInclusive(3, 7), false);
         }
     }
 }

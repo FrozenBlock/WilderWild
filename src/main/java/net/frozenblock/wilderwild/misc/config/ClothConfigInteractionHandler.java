@@ -161,6 +161,22 @@ public final class ClothConfigInteractionHandler {
 		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.witherRoseSounds() : BlockSoundsConfig.WITHER_ROSE_SOUNDS;
 	}
 
+	public static boolean snowballLandingSounds() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.snowballLandingSounds() : ProjectileLandingSoundsConfig.SNOWBALL_LANDING_SOUNDS;
+	}
+
+	public static boolean eggLandingSounds() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.eggLandingSounds() : ProjectileLandingSoundsConfig.EGG_LANDING_SOUNDS;
+	}
+
+	public static boolean enderPearlLandingSounds() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.enderPearlLandingSounds() : ProjectileLandingSoundsConfig.ENDER_PEARL_LANDING_SOUNDS;
+	}
+
+	public static boolean potionLandingSounds() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.potionLandingSounds() : ProjectileLandingSoundsConfig.POTION_LANDING_SOUNDS;
+	}
+
 	public static int stoneChestTimer() {
 		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.stoneChestTimer() : StoneChestConfig.STONE_CHEST_TIMER;
 	}
@@ -187,6 +203,14 @@ public final class ClothConfigInteractionHandler {
 
 	public static int jellyfishSpawnCap() {
 		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.jellyfishSpawnCap() : JellyfishConfig.JELLYFISH_SPAWN_CAP;
+	}
+
+	public static int tumbleweedSpawnCap() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.tumbleweedSpawnCap() : TumbleweedConfig.TUMBLEWEED_SPAWN_CAP;
+	}
+
+	public static boolean leashedTumbleweed() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.leashedTumbleweed() : TumbleweedConfig.LEASHED_TUMBLEWEED;
 	}
 
 	public static boolean wardenAttacksInstantly() {
@@ -223,6 +247,14 @@ public final class ClothConfigInteractionHandler {
 
 	public static boolean soulFireSounds() {
 		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.soulFireSounds() : SOUL_FIRE_SOUNDS;
+	}
+
+	public static boolean billboardTendrils() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.billboardTendrils() : BILLBOARD_TENDRILS;
+	}
+
+	public static boolean cloudMovement() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.cloudMovement() : CLOUD_MOVEMENT;
 	}
 
 	public static boolean deepDarkAmbience() {

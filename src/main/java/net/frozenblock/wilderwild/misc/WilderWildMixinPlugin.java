@@ -15,6 +15,7 @@ public class WilderWildMixinPlugin extends AbstractCaffeineConfigMixinPlugin {
 		return CaffeineConfig.builder(MOD_NAME)
 				.addMixinOption("client", true)
 				.addMixinOption("client.allay", true)
+				.addMixinOption("client.clouds", true)
 				.addMixinOption("client.easter", true)
 				.addMixinOption("client.general", true)
 				.addMixinOption("client.shrieker_gargling", true)

@@ -15,10 +15,12 @@ public final class ClothConfigCloserInteractionHandler {
 	private static final WorldgenConfig.BiomePlacement BIOME_PLACEMENT = WORLDGEN.biomePlacement;
 	private static final BlockConfig.BlockSoundsConfig BLOCK_SOUNDS = BLOCK.blockSounds;
 	private static final EntityConfig.EnderManConfig ENDER_MAN = ENTITY.enderMan;
+	private static final ItemConfig.ProjectileLandingSoundsConfig PROJECTILE_LANDING_SOUNDS = WilderWildConfig.get().item.projectileLandingSounds;
 	private static final BlockConfig.StoneChestConfig STONE_CHEST = BLOCK.stoneChest;
 	private static final EntityConfig.WardenConfig WARDEN = ENTITY.warden;
 	private static final EntityConfig.FireflyConfig FIREFLY = ENTITY.firefly;
 	private static final EntityConfig.JellyfishConfig JELLYFISH = ENTITY.jellyfish;
+	private static final EntityConfig.TumbleweedConfig TUMBLEWEED = ENTITY.tumbleweed;
 
 	// BLOCK
 
@@ -173,6 +175,22 @@ public final class ClothConfigCloserInteractionHandler {
 		return BLOCK_SOUNDS.witherRoseSounds;
 	}
 
+	public static boolean snowballLandingSounds() {
+		return PROJECTILE_LANDING_SOUNDS.snowballLandingSounds;
+	}
+
+	public static boolean eggLandingSounds() {
+		return PROJECTILE_LANDING_SOUNDS.eggLandingSounds;
+	}
+
+	public static boolean enderPearlLandingSounds() {
+		return PROJECTILE_LANDING_SOUNDS.enderPearlLandingSounds;
+	}
+
+	public static boolean potionLandingSounds() {
+		return PROJECTILE_LANDING_SOUNDS.potionLandingSounds;
+	}
+
 	public static int stoneChestTimer() {
 		return STONE_CHEST.stoneChestTimer;
 	}
@@ -187,6 +205,10 @@ public final class ClothConfigCloserInteractionHandler {
 
 	public static int jellyfishSpawnCap() {
 		return JELLYFISH.jellyfishSpawnCap;
+	}
+
+	public static int tumbleweedSpawnCap() {
+		return TUMBLEWEED.tumbleweedSpawnCap;
 	}
 
 	public static boolean keyframeAllayDance() {
@@ -237,6 +259,14 @@ public final class ClothConfigCloserInteractionHandler {
 		return BLOCK.soulFireSounds;
 	}
 
+	public static boolean billboardTendrils() {
+		return BLOCK.billboardTendrils;
+	}
+
+	public static boolean cloudMovement() {
+		return MISC.cloudMovement;
+	}
+
 	public static boolean deepDarkAmbience() {
 		return BIOME_AMBIENCE.deepDarkAmbience;
 	}
@@ -255,6 +285,10 @@ public final class ClothConfigCloserInteractionHandler {
 
 	public static boolean flowerForestMusic() {
 		return BIOME_MUSIC.flowerForestMusic;
+	}
+
+	public static boolean leashedTumbleweed() {
+		return TUMBLEWEED.leashedTumbleweed;
 	}
 
 }

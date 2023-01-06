@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 import net.frozenblock.lib.math.api.AdvancedMath;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Optional;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.ai.FireflyAi;
 import net.frozenblock.wilderwild.misc.FireflyColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -80,7 +82,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
     private static final EntityDataAccessor<Float> PREV_SCALE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<FireflyColor> COLOR = SynchedEntityData.defineId(Firefly.class, FireflyColor.SERIALIZER);
 
-
     public boolean natural;
     public boolean hasHome;
     public boolean despawning;
@@ -115,8 +116,8 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
-        this.natural = reason == MobSpawnType.NATURAL || reason == MobSpawnType.CHUNK_GENERATION;
-        this.hasHome = true;
+        this.natural = reason == MobSpawnType.NATURAL || reason == MobSpawnType.CHUNK_GENERATION || reason == MobSpawnType.SPAWNER;
+		this.hasHome = this.hasHome || !this.natural;
         FireflyAi.rememberHome(this, this.blockPosition());
 
         if (reason == MobSpawnType.COMMAND) {
@@ -257,7 +258,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
     }
 
     @Override
-    public float getWalkTargetValue(@NotNull BlockPos pos, LevelReader level) {
+    public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
         return 0.0F;
     }
 
@@ -314,8 +315,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
                 this.setDeltaMovement(this.getDeltaMovement().scale(0.9100000262260437));
             }
         }
-
-        this.calculateEntityAnimation(this, false);
     }
 
     @Override

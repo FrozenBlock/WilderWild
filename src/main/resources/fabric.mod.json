@@ -5,7 +5,21 @@
   "name": "Wilder Wild",
   "description": "Overhauls the Wild Update, adding features and improving existing ones.",
   "authors": [
-	"FrozenBlock"
+    "FrozenBlock"
+  ],
+  "contributors": [
+    "Luna",
+    "Treetrain1",
+    "Merp",
+    "Soro",
+    "Liukrast",
+    "Xfrtrex",
+    "Osmiooo",
+    "AlexTheDolphin0",
+    "SaishoVibes",
+    "zozozrob_",
+    "Enri",
+    "LudoCrypt"
   ],
   "contact": {
 	"homepage": "https://www.curseforge.com/minecraft/mc-mods/wilder-wild",
@@ -25,15 +39,18 @@
     "fabric-datagen": [
       "net.frozenblock.wilderwild.misc.WilderWildDataGenerator"
     ],
-	"mm:early_risers": [
-	  "net.frozenblock.wilderwild.EarlyRiser"
-	],
 	"frozenlib:main": [
 	  "net.frozenblock.wilderwild.FrozenLibIntegration"
 	],
 	"frozenlib:surfacerules": [
 	  "net.frozenblock.wilderwild.registry.RegisterSurfaceRules"
 	],
+    "frozenlib:mob_categories": [
+      "net.frozenblock.wilderwild.WilderMobCategories"
+    ],
+    "frozenlib:modmenu_badges": [
+      "net.frozenblock.wilderwild.WilderModMenuBadges"
+    ],
 	"modmenu": [
 	  "net.frozenblock.wilderwild.misc.config.ModMenuIntegration"
 	],
@@ -50,7 +67,6 @@
   "accessWidener": "wilderwild.accesswidener",
   "depends": {
 	"frozenlib": ">=1.1.7-",
-	"mm": ">=2.3",
     "nbtcrafting": ">=2.2.3",
 	"fabricloader": ">=0.14.11",
 	"fabric-api": ">=0.68.1",
@@ -73,7 +89,11 @@
 	"modmenu": {
 	  "links": {
 		"modmenu.discord": "https://discord.gg/EpkBWm844s"
-	  }
+	  },
+      "badges": [
+        "frozenblock",
+        "indev"
+      ]
 	}
   }
 }

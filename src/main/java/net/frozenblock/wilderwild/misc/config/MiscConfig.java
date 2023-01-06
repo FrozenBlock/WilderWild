@@ -16,6 +16,8 @@ import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 @Config(name = "misc")
 public final class MiscConfig implements ConfigData {
 
+	public boolean cloudMovement = DefaultMiscConfig.CLOUD_MOVEMENT;
+
 	@ConfigEntry.Gui.CollapsibleObject
 	public BiomeAmbienceConfig biomeAmbience = new BiomeAmbienceConfig();
 
@@ -39,6 +41,13 @@ public final class MiscConfig implements ConfigData {
 		var biomeAmbience = config.biomeAmbience;
 		var biomeMusic = config.biomeMusic;
 		category.setBackground(WilderSharedConstants.id("textures/config/misc.png"));
+
+		var cloudMovement = category.addEntry(entryBuilder.startBooleanToggle(text("cloud_movement"), config.cloudMovement)
+				.setDefaultValue(DefaultMiscConfig.CLOUD_MOVEMENT)
+				.setSaveConsumer(newValue -> config.cloudMovement = newValue)
+				.setTooltip(tooltip("cloud_movement"))
+				.build()
+		);
 
 		var deepDarkAmbience = entryBuilder.startBooleanToggle(text("deep_dark_ambience"), biomeAmbience.deepDarkAmbience)
 				.setDefaultValue(DefaultMiscConfig.BiomeAmbienceConfig.DEEP_DARK_AMBIENCE)

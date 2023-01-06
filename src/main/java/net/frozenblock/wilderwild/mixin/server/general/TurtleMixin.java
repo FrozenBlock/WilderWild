@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.mixin.server.general;
 
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.entity.ai.TurtleNearestAttackableGoal;
-import net.frozenblock.wilderwild.misc.TurtleCooldownInterface;
+import net.frozenblock.wilderwild.misc.interfaces.TurtleCooldownInterface;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;

@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.block;
 
-import java.util.ArrayList;
 import java.util.List;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.Util;
