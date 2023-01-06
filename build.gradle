@@ -128,8 +128,7 @@ dependencies {
 	mappings(loom.layered {
 		// please annoy treetrain if this doesnt work
 		it.mappings("org.quiltmc:quilt-mappings:${minecraft_version}+build.${quilt_mappings}:intermediary-v2")
-		//it.mappings("org.quiltmc:quilt-mappings:${minecraft_version}+build.${quilt_mappings}:intermediary-v2")
-		//it.parchment("org.parchmentmc.data:parchment-1.19.2:${parchment_mappings}@zip")
+		it.parchment("org.parchmentmc.data:parchment-1.19.3:${parchment_mappings}@zip")
 		it.officialMojangMappings {
 			setNameSyntheticMembers(false)
 		}
