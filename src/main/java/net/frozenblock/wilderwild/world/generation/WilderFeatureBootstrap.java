@@ -354,7 +354,7 @@ public class WilderFeatureBootstrap {
 						)
 				)
 		);
-		var smallSponge = register(entries, WilderConfiguredFeatures.SMALL_SPONGE_CONFIGURED,
+		var smallSponge = register(entries, WilderConfiguredFeatures.SMALL_SPONGE,
 				WilderWild.SMALL_SPONGE_FEATURE,
 				new SmallSpongeFeatureConfig(
 						(SmallSpongeBlock) RegisterBlocks.SMALL_SPONGE,
