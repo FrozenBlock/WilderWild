@@ -17,6 +17,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
 import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
+import net.frozenblock.wilderwild.block.SmallSpongeBlock;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
@@ -28,6 +29,7 @@ import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
 import net.frozenblock.wilderwild.world.additions.feature.WilderTreeConfigured;
 import net.frozenblock.wilderwild.world.additions.feature.WilderTreePlaced;
 import net.frozenblock.wilderwild.world.generation.features.config.ShelfFungusFeatureConfig;
+import net.frozenblock.wilderwild.world.generation.features.config.SmallSpongeFeatureConfig;
 import net.frozenblock.wilderwild.world.generation.treedecorators.LeavesAroundTopLogDecorator;
 import net.frozenblock.wilderwild.world.generation.trunk.BaobabTrunkPlacer;
 import net.minecraft.core.BlockPos;
@@ -352,6 +354,16 @@ public class WilderFeatureBootstrap {
 						)
 				)
 		);
+		var smallSponge = register(entries, WilderConfiguredFeatures.SMALL_SPONGE_CONFIGURED,
+				WilderWild.SMALL_SPONGE_FEATURE,
+				new SmallSpongeFeatureConfig(
+						(SmallSpongeBlock) RegisterBlocks.SMALL_SPONGE,
+						20,
+						true,
+						true,
+						true,
+						WilderBlockTags.SMALL_SPONGE_GROWS_ON)
+		);
 	}
 
 	public static void bootstrapPlaced(BootstapContext<PlacedFeature> entries) {
@@ -559,6 +571,7 @@ public class WilderFeatureBootstrap {
 		var patchCactusOasis = configuredFeatures.getOrThrow(WilderConfiguredFeatures.PATCH_CACTUS_OASIS);
 		var patchCactusTall = configuredFeatures.getOrThrow(WilderConfiguredFeatures.PATCH_CACTUS_TALL);
 		var tumbleweed = configuredFeatures.getOrThrow(WilderConfiguredFeatures.TUMBLEWEED);
+		var smallSponge = configuredFeatures.getOrThrow(WilderConfiguredFeatures.SMALL_SPONGE_CONFIGURED);
 
 		register(entries, WilderPlacedFeatures.FALLEN_TREES_MIXED_PLACED, fallenTreesMixed, RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
@@ -965,6 +978,13 @@ public class WilderFeatureBootstrap {
 		register(entries, WilderPlacedFeatures.NEMATOCYST_PURPLE,
 				nematocystPurple,
 				CountPlacement.of(ConstantInt.of(64)),
+				InSquarePlacement.spread(),
+				PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+				BiomeFilter.biome()
+		);
+		register(entries, WilderPlacedFeatures.SMALL_SPONGES,
+				smallSponge,
+				CountPlacement.of(ConstantInt.of(72)),
 				InSquarePlacement.spread(),
 				PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 				BiomeFilter.biome()

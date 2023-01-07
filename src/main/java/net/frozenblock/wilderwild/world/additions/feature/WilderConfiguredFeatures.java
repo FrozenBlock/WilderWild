@@ -118,8 +118,7 @@ public final class WilderConfiguredFeatures {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> UPSIDE_DOWN_PURPLE_MESOGLEA = key("upside_down_purple_mesoglea");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> NEMATOCYST = key("nematocyst");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> NEMATOCYST_PURPLE = key("nematocyst_purple");
-	public static final Holder<ConfiguredFeature<SmallSpongeFeatureConfig, ?>> SMALL_SPONGE_CONFIGURED =
-			register("small_sponges", WilderWild.SMALL_SPONGE_FEATURE, new SmallSpongeFeatureConfig((SmallSpongeBlock) RegisterBlocks.SMALL_SPONGE, 20, true, true, true, WilderBlockTags.SMALL_SPONGE_GROWS_ON));
+	public static final ResourceKey<ConfiguredFeature<?, ?>> SMALL_SPONGE_CONFIGURED = key("small_sponges");
 
 	public static ResourceKey<ConfiguredFeature<?, ?>> key(String path) {
 		return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(WilderSharedConstants.MOD_ID, path));

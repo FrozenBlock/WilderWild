@@ -176,14 +176,7 @@ public final class WilderPlacedFeatures {
 
     public static final ResourceKey<PlacedFeature> NEMATOCYST = key("nematocyst");
     public static final ResourceKey<PlacedFeature> NEMATOCYST_PURPLE = key("nematocyst_purple");
-	public static final Holder<PlacedFeature> SMALL_SPONGES = PlacementUtils.register(
-			"small_sponges",
-			WilderConfiguredFeatures.SMALL_SPONGE_CONFIGURED,
-			CountPlacement.of(ConstantInt.of(72)),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			BiomeFilter.biome()
-	);
+	public static final ResourceKey<PlacedFeature> SMALL_SPONGES = key("small_sponges");
 
 	public static ResourceKey<PlacedFeature> key(String path) {
 		return ResourceKey.create(Registries.PLACED_FEATURE, WilderSharedConstants.id(path));
