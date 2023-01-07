@@ -36,7 +36,7 @@ public final class WilderMiscPlaced {
 	// TAIGA
 	public static final ResourceKey<PlacedFeature> COARSE_PATH = key("coarse_dirt_path");
 	public static final ResourceKey<PlacedFeature> COARSE_PATH_5 = key("coarse_dirt_path_5");
-	public static final ResourceKey<PlacedFeature> FOREST_ROCK_TAIGA = WilderPlacedFeatures.register("forest_rock_taiga", MiscOverworldFeatures.FOREST_ROCK, RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+	public static final ResourceKey<PlacedFeature> FOREST_ROCK_TAIGA = key("forest_rock_taiga");
 	// CYPRESS WETLANDS
 	public static final ResourceKey<PlacedFeature> UNDER_WATER_SAND_PATH = WilderPlacedFeatures.register("under_water_sand_path", WilderMiscConfigured.UNDER_WATER_SAND_PATH, InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_TOP_SOLID, BiomeFilter.biome());
 	public static final ResourceKey<PlacedFeature> UNDER_WATER_GRAVEL_PATH = WilderPlacedFeatures.register("under_water_gravel_path", WilderMiscConfigured.UNDER_WATER_GRAVEL_PATH, InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_TOP_SOLID, BiomeFilter.biome());
@@ -73,7 +73,7 @@ public final class WilderMiscPlaced {
         return List.of(countModifier, InSquarePlacement.spread(), heightModifier, BiomeFilter.biome());
     }
 
-    private static List<PlacementModifier> modifiersWithCount(int count, PlacementModifier heightModifier) {
+    public static List<PlacementModifier> modifiersWithCount(int count, PlacementModifier heightModifier) {
         return modifiers(CountPlacement.of(count), heightModifier);
     }
 

@@ -72,7 +72,7 @@ public class CopperHorn extends InstrumentItem {
             var instrumentHolder = optional.get();
             var instrument = instrumentHolder.value();
             user.startUsingItem(usedHand);
-            playSound(instrument, user, level);
+            playSound(instrument, user, level, instrumentHolder);
             return InteractionResultHolder.consume(itemStack);
         } else {
             return InteractionResultHolder.fail(itemStack);

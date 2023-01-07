@@ -43,7 +43,7 @@ public class WilderCopperPipesEntrypoint implements CopperPipeEntrypoint {
     @Override
     public void init() {
         WilderSharedConstants.log("WILDERWILD AND COPPER PIPES SECRET LOG MESSAGE UNLOCKED!!!", true);
-        RegisterPipeNbtMethods.register(horn, (nbt, level, pos, blockState, copperPipeEntity) -> {
+        RegisterPipeNbtMethods.register(HORN, (nbt, level, pos, blockState, copperPipeEntity) -> {
             if (!nbt.getCanOnlyBeUsedOnce() || nbt.getUseCount() < 1) {
                 BlockState state = level.getBlockState(pos);
                 if (state.getBlock() instanceof CopperPipe pipe) {
@@ -180,7 +180,7 @@ public class WilderCopperPipesEntrypoint implements CopperPipeEntrypoint {
 			level.addFreshEntity(coconut);
 		});
 
-		PoweredPipeDispenses.register(Registry.ITEM.get(WilderSharedConstants.id("tumbleweed")), (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
+		PoweredPipeDispenses.register(BuiltInRegistries.ITEM.get(WilderSharedConstants.id("tumbleweed")), (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
 			double d = position.x();
 			double e = position.y();
 			double f = position.z();

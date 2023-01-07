@@ -6,7 +6,6 @@ import net.frozenblock.lib.worldgen.surface.api.FrozenPresetBoundRuleSource;
 import net.frozenblock.lib.worldgen.surface.api.FrozenSurfaceRuleEntrypoint;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
-import net.frozenblock.wilderwild.world.feature.WilderFeatureBootstrap;
 import net.minecraft.core.registries.Registries;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;

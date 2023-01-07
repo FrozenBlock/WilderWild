@@ -114,7 +114,7 @@ public final class RegisterItems {
 	// INSTRUMENT
     public static final AncientHorn ANCIENT_HORN = new AncientHorn(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC), WilderInstrumentTags.ANCIENT_HORNS);
     public static final ResourceKey<Instrument> ANCIENT_HORN_INSTRUMENT = ResourceKey.create(Registries.INSTRUMENT, WilderSharedConstants.id("ancient_horn"));
-    public static final CopperHorn COPPER_HORN = new CopperHorn(new FabricItemSettings().maxCount(1), WilderInstrumentTags.COPPER_HORNS, 0);
+    public static final CopperHorn COPPER_HORN = new CopperHorn(new FabricItemSettings().maxCount(1), WilderInstrumentTags.COPPER_HORNS);
     public static final ResourceKey<Instrument> SAX_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WilderSharedConstants.id("sax_copper_horn"));
     public static final ResourceKey<Instrument> TUBA_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WilderSharedConstants.id("tuba_copper_horn"));
     public static final ResourceKey<Instrument> FLUTE_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WilderSharedConstants.id("flute_copper_horn"));
@@ -125,13 +125,13 @@ public final class RegisterItems {
 
     public static void registerBlockItems() {
         WilderSharedConstants.logWild("Registering Block Items for", WilderSharedConstants.UNSTABLE_LOGGING);
-        Registry.register(Registry.ITEM, WilderSharedConstants.id("baobab_nut"), BAOBAB_NUT);
+        Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id("baobab_nut"), BAOBAB_NUT);
 
-        Registry.register(Registry.ITEM, WilderSharedConstants.id("baobab_sign"), BAOBAB_SIGN);
-        Registry.register(Registry.ITEM, WilderSharedConstants.id("cypress_sign"), CYPRESS_SIGN);
-        Registry.register(Registry.ITEM, WilderSharedConstants.id("palm_sign"), PALM_SIGN);
+        Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id("baobab_sign"), BAOBAB_SIGN);
+        Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id("cypress_sign"), CYPRESS_SIGN);
+        Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id("palm_sign"), PALM_SIGN);
 
-        Registry.register(Registry.ITEM, WilderSharedConstants.id("pollen"), POLLEN);
+        Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id("pollen"), POLLEN);
     }
     public static void registerItems() {
         WilderSharedConstants.logWild("Registering Items for", WilderSharedConstants.UNSTABLE_LOGGING);

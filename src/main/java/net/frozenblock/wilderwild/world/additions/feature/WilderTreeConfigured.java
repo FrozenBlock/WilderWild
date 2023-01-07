@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.world.additions.feature;
 
+import java.util.List;
 import java.util.OptionalInt;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
 import net.frozenblock.wilderwild.block.CoconutBlock;
@@ -30,6 +31,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.MangrovePropaguleBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.featuresize.ThreeLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
@@ -38,9 +40,11 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.BushFoliagePlac
 import net.minecraft.world.level.levelgen.feature.foliageplacers.DarkOakFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.RandomizedIntStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.BeehiveDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.DarkOakTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 
 
 public final class WilderTreeConfigured {
@@ -59,7 +63,7 @@ public final class WilderTreeConfigured {
     public static final HeightBasedVineTrunkDecorator VINES_08_UNDER_260_075 = new HeightBasedVineTrunkDecorator(0.8F, 260, 0.75F);
     public static final BeehiveDecorator NEW_BEES_0004 = new BeehiveDecorator(0.004F);
     public static final BeehiveDecorator NEW_BEES = new BeehiveDecorator(1.0F);
-
+	//BIRCH
 	public static final ResourceKey<ConfiguredFeature<?, ?>> BIRCH = key("birch");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> BIRCH_BEES_0004 = key("birch_bees_0004");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> DYING_BIRCH = key("dying_birch");
@@ -70,6 +74,7 @@ public final class WilderTreeConfigured {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SHORT_BIRCH = key("short_birch");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> DYING_SHORT_BIRCH = key("dying_short_birch");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SUPER_BIRCH_BEES = key("super_birch_bees");
+	//OAK
 	public static final ResourceKey<ConfiguredFeature<?, ?>> OAK = key("oak");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SHORT_OAK = key("short_oak");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> OAK_BEES_0004 = key("oak_bees_0004");
@@ -83,7 +88,9 @@ public final class WilderTreeConfigured {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> DYING_DARK_OAK = key("dying_dark_oak");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TALL_DARK_OAK = key("tall_dark_oak");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> DYING_TALL_DARK_OAK = key("dying_tall_dark_oak");
+	//SWAMP TREE
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SWAMP_TREE = key("swamp_tree");
+	//SPRUCE
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SPRUCE = key("spruce");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SPRUCE_SHORT = key("spruce_short");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> FUNGUS_PINE = key("fungus_pine");
@@ -92,14 +99,29 @@ public final class WilderTreeConfigured {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> MEGA_FUNGUS_PINE = key("mega_fungus_pine");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> DYING_MEGA_FUNGUS_PINE = key("dying_mega_fungus_pine");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_SPRUCE_TREE = key("fallen_spruce_tree");
+	//BAOBAB
 	public static final ResourceKey<ConfiguredFeature<?, ?>> BAOBAB = key("baobab");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> BAOBAB_TALL = key("baobab_tall");
+	//CYPRESS
 	public static final ResourceKey<ConfiguredFeature<?, ?>> CYPRESS = key("cypress");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_CYPRESS_TREE = key("fallen_cypress_tree");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> FUNGUS_CYPRESS = key("fungus_cypress");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SHORT_CYPRESS = key("short_cypress");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SHORT_FUNGUS_CYPRESS = key("short_fungus_cypress");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SWAMP_CYPRESS = key("swamp_cypress");
+	//BIG SHRUB
+	public static final ResourceKey<ConfiguredFeature<?, ?>> BIG_SHRUB = WilderConfiguredFeatures.register("big_shrub", Feature.TREE, (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.OAK_LOG), new StraightTrunkPlacer(1, 0, 0), BlockStateProvider.simple(Blocks.OAK_LEAVES), new BushFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), 2), new TwoLayersFeatureSize(0, 0, 0))).dirt(BlockStateProvider.simple(Blocks.COARSE_DIRT)).build());
+	//PALM
+	public static final ResourceKey<ConfiguredFeature<?, ?>> PALM = WilderConfiguredFeatures.register("palm", Feature.TREE, palmBuilder(RegisterBlocks.PALM_LOG, RegisterBlocks.PALM_LEAVES, 6, 2, 1, 1, 3, 4, 9)
+			.decorators(List.of(new LeavesAroundTopLogDecorator(0.25F, 0, 0, new RandomizedIntStateProvider(BlockStateProvider.simple(RegisterBlocks.COCONUT.defaultBlockState().setValue(BlockStateProperties.HANGING, true)), CoconutBlock.AGE, ConstantInt.of(0)), 4, List.of(Direction.DOWN)))).build());
+
+	public static final ResourceKey<ConfiguredFeature<?, ?>> TALL_PALM = WilderConfiguredFeatures.register("tall_palm", Feature.TREE, palmBuilder(RegisterBlocks.PALM_LOG, RegisterBlocks.PALM_LEAVES, 8, 3, 2, 1, 3, 5, 10)
+			.decorators(List.of(new LeavesAroundTopLogDecorator(0.25F, 0, 0, new RandomizedIntStateProvider(BlockStateProvider.simple(RegisterBlocks.COCONUT.defaultBlockState().setValue(BlockStateProperties.HANGING, true)), CoconutBlock.AGE, ConstantInt.of(0)), 4, List.of(Direction.DOWN)))).build());
+
+	public static final ResourceKey<ConfiguredFeature<?, ?>> SMALL_WINE_PALM = WilderConfiguredFeatures.register("small_wine_palm", Feature.TREE, winePalmBuilder(RegisterBlocks.PALM_LOG, RegisterBlocks.PALM_LEAVES, 5, 1, 2, 2).build());
+
+	public static final ResourceKey<ConfiguredFeature<?, ?>> TALL_WINE_PALM = WilderConfiguredFeatures.register("tall_wine_palm", Feature.TREE, winePalmBuilder(RegisterBlocks.PALM_LOG, RegisterBlocks.PALM_LEAVES, 10, 3, 3, 2)
+			.decorators(List.of(new LeavesAroundTopLogDecorator(0.3F, 0, 0, new RandomizedIntStateProvider(BlockStateProvider.simple(RegisterBlocks.COCONUT.defaultBlockState().setValue(BlockStateProperties.HANGING, true)), CoconutBlock.AGE, ConstantInt.of(0)), 4, List.of(Direction.DOWN)))).build());
 
 	public static ResourceKey<ConfiguredFeature<?, ?>> key(String path) {
 		return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(WilderSharedConstants.MOD_ID, path));

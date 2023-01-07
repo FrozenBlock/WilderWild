@@ -132,7 +132,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
     }
 
 	@Override
-	public boolean isValidBonemealTarget(@NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
+	public boolean isValidBonemealTarget(@NotNull LevelReader world, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
 		return !isHanging(state) || !isFullyGrown(state);
 	}
 
