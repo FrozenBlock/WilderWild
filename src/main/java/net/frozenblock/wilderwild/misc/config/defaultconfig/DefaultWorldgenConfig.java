@@ -11,6 +11,14 @@ public class DefaultWorldgenConfig {
 		public static final boolean MODIFY_MANGROVE_SWAMP_PLACEMENT = true;
 	}
 
+	public static class Biomes {
+		public static final boolean WARM_RIVER = true;
+		public static final boolean OASIS = true;
+		public static final boolean JELLYFISH_CAVES = true;
+		public static final boolean MIXED_FOREST = true;
+		public static final boolean CYPRESS_WETLANDS = true;
+	}
+
 	public static final boolean BETA_BEACHES = true;
 	public static final boolean DYING_TREES = true;
 	public static final boolean FALLEN_LOGS = true;
