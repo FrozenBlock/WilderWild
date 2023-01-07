@@ -1,17 +1,10 @@
 package net.frozenblock.wilderwild.registry;
 
-import java.util.ArrayList;
 import net.frozenblock.lib.mobcategory.api.FrozenMobCategories;
-import net.frozenblock.lib.worldgen.surface.api.FrozenPresetBoundRuleSource;
-import net.frozenblock.lib.worldgen.surface.api.FrozenSurfaceRuleEntrypoint;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
-import net.minecraft.core.registries.Registries;
-import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
-import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
-import net.frozenblock.wilderwild.world.generation.noise.WilderNoise;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
@@ -33,7 +26,6 @@ import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.SurfaceRules;
 
 public final class RegisterWorldgen {
 	private RegisterWorldgen() {
