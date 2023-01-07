@@ -1,9 +1,7 @@
 package net.frozenblock.wilderwild.world.generation.features;
 
 import com.mojang.serialization.Codec;
-import java.util.Iterator;
 import java.util.List;
-import net.frozenblock.wilderwild.block.SmallSpongeBlock;
 import net.frozenblock.wilderwild.world.generation.features.config.SmallSpongeFeatureConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -58,36 +56,22 @@ public class SmallSpongeFeature extends Feature<SmallSpongeFeatureConfig> {
 	}
 
 	public static boolean generate(WorldGenLevel level, BlockPos pos, BlockState state, SmallSpongeFeatureConfig config, RandomSource random, List<Direction> directions) {
-		BlockPos.MutableBlockPos mutable = pos.mutable();
-		Iterator<Direction> var7 = directions.iterator();
+		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 
-		Direction direction;
-		Direction placementDirection;
-		BlockState blockState;
-		do {
-			if (!var7.hasNext()) {
-				return false;
+		for(Direction direction : directions) {
+			BlockState blockState = level.getBlockState(mutableBlockPos.setWithOffset(pos, direction));
+			if (blockState.is(config.canPlaceOn)) {
+				BlockState blockState2 = config.sponge.getStateForPlacement(state, level, pos, direction);
+				if (blockState2 == null) {
+					return false;
+				}
+
+				level.setBlock(pos, blockState2, 3);
+				level.getChunk(pos).markPosForPostprocessing(pos);
+				return true;
 			}
-
-			direction = var7.next();
-			blockState = level.getBlockState(mutable.setWithOffset(pos, direction));
-			placementDirection = direction;
-			if (placementDirection.getAxis() == Direction.Axis.Y) {
-				placementDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-			} else {
-				placementDirection = placementDirection.getOpposite();
-			}
-		} while (!blockState.is(config.canPlaceOn));
-
-		BlockState blockState2 = config.sponge.defaultBlockState().setValue(SmallSpongeBlock.FACING, placementDirection).setValue(SmallSpongeBlock.FACE, SmallSpongeBlock.getFace(direction)).setValue(SmallSpongeBlock.STAGE, random.nextInt(2));
-		if (blockState2 == null) {
-			return false;
-		} else if (blockState2.getValue(SmallSpongeBlock.WATERLOGGED)) {
-			level.setBlock(pos, blockState2, 3);
-			level.getChunk(pos).markPosForPostprocessing(pos);
-
-			return true;
 		}
+
 		return false;
 	}
 

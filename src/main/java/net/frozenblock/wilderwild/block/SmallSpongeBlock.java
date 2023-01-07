@@ -97,6 +97,33 @@ public class SmallSpongeBlock extends FaceAttachedHorizontalDirectionalBlock imp
         return null;
     }
 
+	public boolean isValidStateForPlacement(BlockGetter level, BlockState state, BlockPos pos, Direction direction) {
+		BlockPos blockPos = pos.relative(direction);
+		return canAttachTo(level, direction, blockPos, level.getBlockState(blockPos));
+	}
+
+	public static boolean canAttachTo(BlockGetter level, Direction direction, BlockPos pos, BlockState state) {
+		return Block.isFaceFull(state.getBlockSupportShape(level, pos), direction.getOpposite()) || Block.isFaceFull(state.getCollisionShape(level, pos), direction.getOpposite());
+	}
+
+	@Nullable
+	public BlockState getStateForPlacement(BlockState currentState, BlockGetter level, BlockPos pos, Direction lookingDirection) {
+		if (!this.isValidStateForPlacement(level, currentState, pos, lookingDirection)) {
+			return null;
+		} else {
+			BlockState blockState;
+			if (currentState.is(this)) {
+				blockState = currentState;
+			} else if (currentState.getFluidState().isSourceOfType(Fluids.WATER)) {
+				blockState = this.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true);
+			} else {
+				blockState = this.defaultBlockState();
+			}
+
+			return blockState.setValue(SmallSpongeBlock.FACING, lookingDirection.getOpposite());
+		}
+	}
+
     public static AttachFace getFace(Direction direction) {
         if (direction.getAxis() == Direction.Axis.Y) {
             return direction == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR;
