@@ -128,8 +128,11 @@ public final class RegisterItems {
         Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id("baobab_nut"), BAOBAB_NUT);
 
         Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id("baobab_sign"), BAOBAB_SIGN);
+		Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id("baobab_hanging_sign"), BAOBAB_HANGING_SIGN);
         Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id("cypress_sign"), CYPRESS_SIGN);
+		Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id("cypress_hanging_sign"), CYPRESS_HANGING_SIGN);
         Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id("palm_sign"), PALM_SIGN);
+		Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id("palm_hanging_sign"), PALM_HANGING_SIGN);
 
         Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id("pollen"), POLLEN);
     }
