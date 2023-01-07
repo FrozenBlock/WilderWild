@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.world.generation.features;
 
 import com.mojang.serialization.Codec;
 import java.util.List;
+import net.frozenblock.wilderwild.block.SmallSpongeBlock;
 import net.frozenblock.wilderwild.world.generation.features.config.SmallSpongeFeatureConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -68,7 +69,7 @@ public class SmallSpongeFeature extends Feature<SmallSpongeFeatureConfig> {
 
 				level.setBlock(pos, blockState2, 3);
 				level.getChunk(pos).markPosForPostprocessing(pos);
-				return true;
+				return blockState2.getValue(SmallSpongeBlock.WATERLOGGED);
 			}
 		}
 

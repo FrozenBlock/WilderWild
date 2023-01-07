@@ -347,7 +347,7 @@ public final class WilderPlacedFeatures {
 	public static final Holder<PlacedFeature> SMALL_SPONGES = PlacementUtils.register(
 			"small_sponges",
 			WilderConfiguredFeatures.SMALL_SPONGE_CONFIGURED,
-			CountPlacement.of(ConstantInt.of(64)),
+			CountPlacement.of(ConstantInt.of(72)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			BiomeFilter.biome()
