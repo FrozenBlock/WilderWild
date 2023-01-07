@@ -485,7 +485,7 @@ public final class WilderConfiguredFeatures {
 			)
 	);
 
-	public static final Holder<ConfiguredFeature<SmallSpongeFeatureConfig, ?>> SMALL_SPONGE_CONFIGURED =
+	public static final Holder<ConfiguredFeature<SmallSpongeFeatureConfig, ?>> SMALL_SPONGE =
 			register("small_sponges", WilderWild.SMALL_SPONGE_FEATURE, new SmallSpongeFeatureConfig((SmallSpongeBlock) RegisterBlocks.SMALL_SPONGE, 20, true, true, true, WilderBlockTags.SMALL_SPONGE_GROWS_ON));
 
     public static void registerConfiguredFeatures() {
