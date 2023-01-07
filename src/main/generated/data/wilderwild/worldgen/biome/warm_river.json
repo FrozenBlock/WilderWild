@@ -6,14 +6,11 @@
       "minecraft:canyon"
     ]
   },
-  "downfall": 0.4,
+  "downfall": 0.0,
   "effects": {
-    "additions_sound": {
-      "sound": "wilderwild:ambient.jellyfish_caves.additions",
-      "tick_chance": 5.0E-4
-    },
-    "ambient_sound": "wilderwild:ambient.jellyfish_caves.loop",
-    "fog_color": 0,
+    "fog_color": 12638463,
+    "foliage_color": 11445290,
+    "grass_color": 12564309,
     "mood_sound": {
       "block_search_extent": 8,
       "offset": 2.0,
@@ -24,11 +21,11 @@
       "max_delay": 24000,
       "min_delay": 12000,
       "replace_current_music": false,
-      "sound": "wilderwild:music.overworld.jellyfish_caves"
+      "sound": "minecraft:music.game"
     },
-    "sky_color": 7907327,
-    "water_color": 9817343,
-    "water_fog_color": 6069471
+    "sky_color": 7515647,
+    "water_color": 4566514,
+    "water_fog_color": 267827
   },
   "features": [
     [],
@@ -40,9 +37,8 @@
       "minecraft:amethyst_geode"
     ],
     [
-      "minecraft:monster_room_deep",
-      "wilderwild:jellyfish_deepslate_pool",
-      "wilderwild:jellyfish_stone_pool"
+      "minecraft:monster_room",
+      "minecraft:monster_room_deep"
     ],
     [],
     [],
@@ -70,40 +66,35 @@
       "minecraft:ore_diamond_buried",
       "minecraft:ore_lapis",
       "minecraft:ore_lapis_buried",
-      "minecraft:ore_copper_large",
+      "minecraft:ore_copper",
       "minecraft:underwater_magma",
       "minecraft:disk_sand",
       "minecraft:disk_clay",
       "minecraft:disk_gravel",
-      "wilderwild:ore_calcite"
-    ],
-    [
-      "wilderwild:blue_mesoglea",
-      "wilderwild:purple_mesoglea",
-      "wilderwild:upside_down_blue_mesoglea",
-      "wilderwild:upside_down_purple_mesoglea",
-      "wilderwild:blue_mesoglea_pillar",
-      "wilderwild:purple_mesoglea_pillar"
+      "wilderwild:under_water_clay_path_beach",
+      "wilderwild:under_water_gravel_path_river"
     ],
     [],
     [
+      "minecraft:spring_water",
+      "minecraft:spring_lava"
+    ],
+    [
       "minecraft:glow_lichen",
-      "minecraft:patch_tall_grass_2",
-      "minecraft:trees_plains",
-      "minecraft:flower_plains",
-      "minecraft:patch_grass_plain",
+      "minecraft:trees_water",
+      "minecraft:flower_default",
+      "minecraft:patch_grass_badlands",
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal",
       "minecraft:patch_sugar_cane",
       "minecraft:patch_pumpkin",
-      "wilderwild:nematocyst",
-      "wilderwild:nematocyst_purple"
+      "minecraft:seagrass_river"
     ],
     [
       "minecraft:freeze_top_layer"
     ]
   ],
-  "precipitation": "rain",
+  "precipitation": "none",
   "spawn_costs": {},
   "spawners": {
     "ambient": [
@@ -165,6 +156,12 @@
         "maxCount": 1,
         "minCount": 1,
         "weight": 5
+      },
+      {
+        "type": "minecraft:drowned",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 100
       }
     ],
     "underground_water_creature": [
@@ -175,11 +172,25 @@
         "weight": 10
       }
     ],
-    "water_ambient": [],
-    "water_creature": [],
+    "water_ambient": [
+      {
+        "type": "minecraft:salmon",
+        "maxCount": 5,
+        "minCount": 1,
+        "weight": 5
+      }
+    ],
+    "water_creature": [
+      {
+        "type": "minecraft:squid",
+        "maxCount": 4,
+        "minCount": 1,
+        "weight": 2
+      }
+    ],
     "wilderwildfireflies": [],
     "wilderwildjellyfish": [],
     "wilderwildtumbleweed": []
   },
-  "temperature": 0.8
+  "temperature": 1.5
 }

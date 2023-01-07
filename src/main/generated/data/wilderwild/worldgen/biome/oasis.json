@@ -6,14 +6,11 @@
       "minecraft:canyon"
     ]
   },
-  "downfall": 0.4,
+  "downfall": 0.0,
   "effects": {
-    "additions_sound": {
-      "sound": "wilderwild:ambient.jellyfish_caves.additions",
-      "tick_chance": 5.0E-4
-    },
-    "ambient_sound": "wilderwild:ambient.jellyfish_caves.loop",
-    "fog_color": 0,
+    "fog_color": 12638463,
+    "foliage_color": 3193611,
+    "grass_color": 8569413,
     "mood_sound": {
       "block_search_extent": 8,
       "offset": 2.0,
@@ -24,11 +21,11 @@
       "max_delay": 24000,
       "min_delay": 12000,
       "replace_current_music": false,
-      "sound": "wilderwild:music.overworld.jellyfish_caves"
+      "sound": "minecraft:music.game"
     },
-    "sky_color": 7907327,
-    "water_color": 9817343,
-    "water_fog_color": 6069471
+    "sky_color": 7254527,
+    "water_color": 4566514,
+    "water_fog_color": 267827
   },
   "features": [
     [],
@@ -37,14 +34,17 @@
       "minecraft:lake_lava_surface"
     ],
     [
-      "minecraft:amethyst_geode"
+      "minecraft:amethyst_geode",
+      "wilderwild:sand_pool",
+      "wilderwild:grass_path"
     ],
     [
-      "minecraft:monster_room_deep",
-      "wilderwild:jellyfish_deepslate_pool",
-      "wilderwild:jellyfish_stone_pool"
+      "minecraft:monster_room",
+      "minecraft:monster_room_deep"
     ],
-    [],
+    [
+      "minecraft:desert_well"
+    ],
     [],
     [
       "minecraft:ore_dirt",
@@ -70,40 +70,33 @@
       "minecraft:ore_diamond_buried",
       "minecraft:ore_lapis",
       "minecraft:ore_lapis_buried",
-      "minecraft:ore_copper_large",
+      "minecraft:ore_copper",
       "minecraft:underwater_magma",
-      "minecraft:disk_sand",
-      "minecraft:disk_clay",
-      "minecraft:disk_gravel",
-      "wilderwild:ore_calcite"
-    ],
-    [
-      "wilderwild:blue_mesoglea",
-      "wilderwild:purple_mesoglea",
-      "wilderwild:upside_down_blue_mesoglea",
-      "wilderwild:upside_down_purple_mesoglea",
-      "wilderwild:blue_mesoglea_pillar",
-      "wilderwild:purple_mesoglea_pillar"
+      "wilderwild:under_water_clay_path_beach",
+      "wilderwild:ore_packed_mud"
     ],
     [],
     [
-      "minecraft:glow_lichen",
-      "minecraft:patch_tall_grass_2",
-      "minecraft:trees_plains",
-      "minecraft:flower_plains",
-      "minecraft:patch_grass_plain",
-      "minecraft:brown_mushroom_normal",
-      "minecraft:red_mushroom_normal",
-      "minecraft:patch_sugar_cane",
-      "minecraft:patch_pumpkin",
-      "wilderwild:nematocyst",
-      "wilderwild:nematocyst_purple"
+      "minecraft:spring_water",
+      "minecraft:spring_lava"
     ],
     [
-      "minecraft:freeze_top_layer"
+      "minecraft:glow_lichen",
+      "minecraft:brown_mushroom_normal",
+      "minecraft:red_mushroom_normal",
+      "minecraft:patch_sugar_cane_desert",
+      "minecraft:seagrass_river",
+      "wilderwild:oasis_grass_placed",
+      "wilderwild:oasis_bush_placed",
+      "wilderwild:oasis_cactus_placed",
+      "wilderwild:palms_oasis"
+    ],
+    [
+      "minecraft:freeze_top_layer",
+      "wilderwild:moss_path"
     ]
   ],
-  "precipitation": "rain",
+  "precipitation": "none",
   "spawn_costs": {},
   "spawners": {
     "ambient": [
@@ -115,7 +108,14 @@
       }
     ],
     "axolotls": [],
-    "creature": [],
+    "creature": [
+      {
+        "type": "minecraft:rabbit",
+        "maxCount": 3,
+        "minCount": 2,
+        "weight": 4
+      }
+    ],
     "misc": [],
     "monster": [
       {
@@ -128,13 +128,13 @@
         "type": "minecraft:zombie",
         "maxCount": 4,
         "minCount": 4,
-        "weight": 95
+        "weight": 19
       },
       {
         "type": "minecraft:zombie_villager",
         "maxCount": 1,
         "minCount": 1,
-        "weight": 5
+        "weight": 1
       },
       {
         "type": "minecraft:skeleton",
@@ -165,6 +165,12 @@
         "maxCount": 1,
         "minCount": 1,
         "weight": 5
+      },
+      {
+        "type": "minecraft:husk",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 80
       }
     ],
     "underground_water_creature": [
@@ -181,5 +187,5 @@
     "wilderwildjellyfish": [],
     "wilderwildtumbleweed": []
   },
-  "temperature": 0.8
+  "temperature": 2.0
 }

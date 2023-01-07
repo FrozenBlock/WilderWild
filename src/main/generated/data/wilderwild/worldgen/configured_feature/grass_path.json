@@ -1,0 +1,31 @@
+{
+  "type": "frozenlib:noise_path_swap_under_water_feature",
+  "config": {
+    "block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:grass_block",
+        "Properties": {
+          "snowy": "false"
+        }
+      }
+    },
+    "maxThresh": 1.0,
+    "minThresh": 0.4,
+    "multiplier": 0.15,
+    "multiplyY": false,
+    "noise": 4,
+    "radius": 11,
+    "replaceable": [
+      "minecraft:sand",
+      "minecraft:sandstone"
+    ],
+    "useY": false,
+    "waterPathBlock": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:dirt"
+      }
+    }
+  }
+}

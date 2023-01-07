@@ -1,0 +1,19 @@
+{
+  "type": "frozenlib:noise_path_feature",
+  "config": {
+    "block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:coarse_dirt"
+      }
+    },
+    "maxThresh": 1.0,
+    "minThresh": 0.2,
+    "multiplier": 0.15,
+    "multiplyY": true,
+    "noise": 2,
+    "radius": 8,
+    "replaceable": "minecraft:red_sand",
+    "useY": true
+  }
+}

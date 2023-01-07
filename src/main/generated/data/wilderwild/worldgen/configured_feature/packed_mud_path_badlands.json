@@ -1,0 +1,30 @@
+{
+  "type": "frozenlib:noise_path_feature",
+  "config": {
+    "block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:packed_mud"
+      }
+    },
+    "maxThresh": 1.0,
+    "minThresh": 0.2,
+    "multiplier": 0.7,
+    "multiplyY": true,
+    "noise": 3,
+    "radius": 4,
+    "replaceable": [
+      "minecraft:terracotta",
+      "minecraft:red_sand",
+      "minecraft:red_sandstone",
+      "minecraft:terracotta",
+      "minecraft:white_terracotta",
+      "minecraft:brown_terracotta",
+      "minecraft:red_terracotta",
+      "minecraft:orange_terracotta",
+      "minecraft:yellow_terracotta",
+      "minecraft:light_gray_terracotta"
+    ],
+    "useY": true
+  }
+}

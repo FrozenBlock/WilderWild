@@ -1,0 +1,78 @@
+{
+  "type": "minecraft:tree",
+  "config": {
+    "decorators": [
+      {
+        "type": "wilderwild:leaves_around_top_decorator",
+        "blockProvider": {
+          "type": "minecraft:randomized_int_state_provider",
+          "property": "age",
+          "source": {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "wilderwild:coconut",
+              "Properties": {
+                "age": "0",
+                "hanging": "true",
+                "stage": "0"
+              }
+            }
+          },
+          "values": 0
+        },
+        "directions": [
+          "down"
+        ],
+        "exclusionRadiusXZ": 0,
+        "exclusionRadiusY": 0,
+        "probability": 0.3,
+        "requiredEmptyBlocks": 4
+      }
+    ],
+    "dirt_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:dirt"
+      }
+    },
+    "foliage_placer": {
+      "type": "wilderwild:short_palm_foliage_placer",
+      "offset": 0,
+      "radius": 2
+    },
+    "foliage_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "wilderwild:palm_leaves",
+        "Properties": {
+          "distance": "7",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      }
+    },
+    "force_dirt": false,
+    "ignore_vines": false,
+    "minimum_size": {
+      "type": "minecraft:two_layers_feature_size",
+      "limit": 1,
+      "lower_size": 0,
+      "upper_size": 1
+    },
+    "trunk_placer": {
+      "type": "minecraft:straight_trunk_placer",
+      "base_height": 10,
+      "height_rand_a": 3,
+      "height_rand_b": 3
+    },
+    "trunk_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "wilderwild:palm_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    }
+  }
+}

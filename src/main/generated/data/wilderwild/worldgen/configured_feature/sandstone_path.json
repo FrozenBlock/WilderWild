@@ -1,0 +1,19 @@
+{
+  "type": "frozenlib:noise_path_feature",
+  "config": {
+    "block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:sandstone"
+      }
+    },
+    "maxThresh": 1.0,
+    "minThresh": 0.4,
+    "multiplier": 0.2,
+    "multiplyY": true,
+    "noise": 2,
+    "radius": 10,
+    "replaceable": "minecraft:sand",
+    "useY": true
+  }
+}
