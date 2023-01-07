@@ -44,21 +44,23 @@ public class WilderOverworldRegion extends Region {
 					.offset(0.0F)
 					.build();
 
-			swampPointsCypress.forEach(point -> {
-				builder.replaceParameter(point,
-						Climate.parameters(
-								WilderSharedWorldgen.CypressWetlands.TEMPERATURE,
-								WilderSharedWorldgen.CypressWetlands.HUMIDITY,
-								WilderSharedWorldgen.CypressWetlands.CONTINENTALNESS,
-								WilderSharedWorldgen.CypressWetlands.EROSION,
-								point.depth(),
-								point.weirdness(),
-								WilderSharedWorldgen.CypressWetlands.OFFSET
-						)
-				);
+			if (ClothConfigInteractionHandler.cypressWetlands()) {
+				swampPointsCypress.forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.CypressWetlands.TEMPERATURE,
+									WilderSharedWorldgen.CypressWetlands.HUMIDITY,
+									WilderSharedWorldgen.CypressWetlands.CONTINENTALNESS,
+									WilderSharedWorldgen.CypressWetlands.EROSION,
+									point.depth(),
+									point.weirdness(),
+									WilderSharedWorldgen.CypressWetlands.OFFSET
+							)
+					);
 
-				builder.replaceBiome(point, RegisterWorldgen.CYPRESS_WETLANDS);
-			});
+					builder.replaceBiome(point, RegisterWorldgen.CYPRESS_WETLANDS);
+				});
+			}
 
 			// DON'T CHANGE THESE PARAMETERS. THESE ARE THE PARAMETERS OF MANGROVE SWAMPS
 			List<Climate.ParameterPoint> mangroveSwampPointsCypress = new ParameterUtils.ParameterPointListBuilder()
@@ -71,21 +73,23 @@ public class WilderOverworldRegion extends Region {
 					.offset(0.0F)
 					.build();
 
-			mangroveSwampPointsCypress.forEach(point -> {
-				builder.replaceParameter(point,
-						Climate.parameters(
-								WilderSharedWorldgen.CypressWetlands.TEMPERATURE,
-								WilderSharedWorldgen.CypressWetlands.HUMIDITY,
-								WilderSharedWorldgen.CypressWetlands.CONTINENTALNESS,
-								WilderSharedWorldgen.CypressWetlands.EROSION,
-								point.depth(),
-								point.weirdness(),
-								WilderSharedWorldgen.CypressWetlands.OFFSET
-						)
-				);
+			if (ClothConfigInteractionHandler.cypressWetlands()) {
+				mangroveSwampPointsCypress.forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.CypressWetlands.TEMPERATURE,
+									WilderSharedWorldgen.CypressWetlands.HUMIDITY,
+									WilderSharedWorldgen.CypressWetlands.CONTINENTALNESS,
+									WilderSharedWorldgen.CypressWetlands.EROSION,
+									point.depth(),
+									point.weirdness(),
+									WilderSharedWorldgen.CypressWetlands.OFFSET
+							)
+					);
 
-				builder.replaceBiome(point, RegisterWorldgen.CYPRESS_WETLANDS);
-			});
+					builder.replaceBiome(point, RegisterWorldgen.CYPRESS_WETLANDS);
+				});
+			}
 
 			// DON'T CHANGE THESE PARAMETERS. THESE ARE THE PARAMETERS OF DRIPSTONE CAVES
 			List<Climate.ParameterPoint> dripstoneCavesPoints = new ParameterUtils.ParameterPointListBuilder()
@@ -98,20 +102,22 @@ public class WilderOverworldRegion extends Region {
 					.offset(0.0F)
 					.build();
 
-			dripstoneCavesPoints.forEach(point -> {
-				builder.replaceParameter(point,
-						WilderSharedWorldgen.semiDeepParameters(
-								WilderSharedWorldgen.JellyfishCaves.TEMPERATURE,
-								WilderSharedWorldgen.JellyfishCaves.HUMIDITY,
-								WilderSharedWorldgen.JellyfishCaves.CONTINENTALNESS,
-								WilderSharedWorldgen.JellyfishCaves.EROSION,
-								WilderSharedWorldgen.JellyfishCaves.WEIRDNESS,
-								WilderSharedWorldgen.JellyfishCaves.OFFSET
-						)
-				);
+			if (ClothConfigInteractionHandler.jellyfishCaves()) {
+				dripstoneCavesPoints.forEach(point -> {
+					builder.replaceParameter(point,
+							WilderSharedWorldgen.semiDeepParameters(
+									WilderSharedWorldgen.JellyfishCaves.TEMPERATURE,
+									WilderSharedWorldgen.JellyfishCaves.HUMIDITY,
+									WilderSharedWorldgen.JellyfishCaves.CONTINENTALNESS,
+									WilderSharedWorldgen.JellyfishCaves.EROSION,
+									WilderSharedWorldgen.JellyfishCaves.WEIRDNESS,
+									WilderSharedWorldgen.JellyfishCaves.OFFSET
+							)
+					);
 
-				builder.replaceBiome(point, RegisterWorldgen.JELLYFISH_CAVES);
-			});
+					builder.replaceBiome(point, RegisterWorldgen.JELLYFISH_CAVES);
+				});
+			}
 
 			// DON'T CHANGE THESE PARAMETERS. THESE ARE THE PARAMETERS OF DESERTS
 			List<Climate.ParameterPoint> desertPoints = new ParameterUtils.ParameterPointListBuilder()
@@ -124,21 +130,23 @@ public class WilderOverworldRegion extends Region {
 					.offset(0.0F)
 					.build();
 
-			desertPoints.forEach(point -> {
-				builder.replaceParameter(point,
-						Climate.parameters(
-								WilderSharedWorldgen.Oasis.WARM_RANGE,
-								WilderSharedWorldgen.Oasis.HUMIDITY_DRY,
-								WilderSharedWorldgen.Oasis.CONTINENTALNESS,
-								WilderSharedWorldgen.Oasis.EROSION,
-								point.depth(),
-								point.weirdness(),
-								WilderSharedWorldgen.Oasis.OFFSET
-						)
-				);
+			if (ClothConfigInteractionHandler.oasis()) {
+				desertPoints.forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.Oasis.WARM_RANGE,
+									WilderSharedWorldgen.Oasis.HUMIDITY_DRY,
+									WilderSharedWorldgen.Oasis.CONTINENTALNESS,
+									WilderSharedWorldgen.Oasis.EROSION,
+									point.depth(),
+									point.weirdness(),
+									WilderSharedWorldgen.Oasis.OFFSET
+							)
+					);
 
-				builder.replaceBiome(point, RegisterWorldgen.OASIS);
-			});
+					builder.replaceBiome(point, RegisterWorldgen.OASIS);
+				});
+			}
 
 			// DON'T CHANGE THESE PARAMETERS. THESE ARE THE PARAMETERS OF RIVERS
 			List<Climate.ParameterPoint> riverPoints = new ParameterUtils.ParameterPointListBuilder()
@@ -151,21 +159,23 @@ public class WilderOverworldRegion extends Region {
 					.offset(0.0F)
 					.build();
 
-			riverPoints.forEach(point -> {
-				builder.replaceParameter(point,
-						Climate.parameters(
-								WilderSharedWorldgen.WarmRiver.WARM_RANGE,
-								WilderSharedWorldgen.WarmRiver.HUMIDITY,
-								point.continentalness(),
-								point.erosion(),
-								point.depth(),
-								point.weirdness(),
-								point.offset()
-						)
-				);
+			if (ClothConfigInteractionHandler.warmRiver()) {
+				riverPoints.forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.WarmRiver.WARM_RANGE,
+									WilderSharedWorldgen.WarmRiver.HUMIDITY,
+									point.continentalness(),
+									point.erosion(),
+									point.depth(),
+									point.weirdness(),
+									point.offset()
+							)
+					);
 
-				builder.replaceBiome(point, RegisterWorldgen.WARM_RIVER);
-			});
+					builder.replaceBiome(point, RegisterWorldgen.WARM_RIVER);
+				});
+			}
 
 			if (ClothConfigInteractionHandler.modifyMangroveSwampPlacement()) {
 				// DON'T CHANGE THESE PARAMETERS. THESE ARE THE PARAMETERS OF MANGROVE SWAMPS

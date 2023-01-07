@@ -20,6 +20,9 @@ public final class WorldgenConfig implements ConfigData {
     @ConfigEntry.Gui.CollapsibleObject
     public final BiomePlacement biomePlacement = new BiomePlacement();
 
+	@ConfigEntry.Gui.CollapsibleObject
+	public final Biomes biomes = new Biomes();
+
     protected static class BiomePlacement {
         //public boolean modifyDesertPlacement = DefaultWorldgenConfig.BiomePlacement.modifyDesertPlacement;
         //public boolean modifyBadlandsPlacement = DefaultWorldgenConfig.BiomePlacement.modifyBadlandsPlacement;
@@ -28,6 +31,14 @@ public final class WorldgenConfig implements ConfigData {
         public boolean modifySwampPlacement = DefaultWorldgenConfig.BiomePlacement.MODIFY_SWAMP_PLACEMENT;
         public boolean modifyMangroveSwampPlacement = DefaultWorldgenConfig.BiomePlacement.MODIFY_MANGROVE_SWAMP_PLACEMENT;
     }
+
+	protected static class Biomes {
+		public boolean warmRiver = DefaultWorldgenConfig.Biomes.WARM_RIVER;
+		public boolean oasis = DefaultWorldgenConfig.Biomes.OASIS;
+		public boolean jellyfishCaves = DefaultWorldgenConfig.Biomes.JELLYFISH_CAVES;
+		public boolean mixedForest = DefaultWorldgenConfig.Biomes.MIXED_FOREST;
+		public boolean cypressWetlands = DefaultWorldgenConfig.Biomes.CYPRESS_WETLANDS;
+	}
 
     public boolean betaBeaches = DefaultWorldgenConfig.BETA_BEACHES;
     public boolean dyingTrees = DefaultWorldgenConfig.DYING_TREES;
@@ -39,6 +50,7 @@ public final class WorldgenConfig implements ConfigData {
     static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
         var config = WilderWildConfig.get().worldgen;
         var biomePlacement = config.biomePlacement;
+		var biomes = config.biomes;
         category.setBackground(WilderSharedConstants.id("textures/config/worldgen.png"));
         var betaBeaches = category.addEntry(entryBuilder.startBooleanToggle(text("beta_beaches"), config.betaBeaches)
                 .setDefaultValue(DefaultWorldgenConfig.BETA_BEACHES)
@@ -96,6 +108,48 @@ public final class WorldgenConfig implements ConfigData {
                 tooltip("biome_placement"),
                 jungle, mangroveSwamp, swamp, windsweptSavanna
         );
+
+		var cypressWetlands = entryBuilder.startBooleanToggle(text("cypress_wetlands"), biomes.cypressWetlands)
+				.setDefaultValue(DefaultWorldgenConfig.Biomes.CYPRESS_WETLANDS)
+				.setSaveConsumer(newValue -> biomes.cypressWetlands = newValue)
+				.setYesNoTextSupplier(bool -> text("biome." + bool))
+				.setTooltip(tooltip("cypress_wetlands"))
+				.requireRestart()
+				.build();
+		var mixedForest = entryBuilder.startBooleanToggle(text("mixed_forest"), biomes.mixedForest)
+				.setDefaultValue(DefaultWorldgenConfig.Biomes.MIXED_FOREST)
+				.setSaveConsumer(newValue -> biomes.mixedForest = newValue)
+				.setYesNoTextSupplier(bool -> text("biome." + bool))
+				.setTooltip(tooltip("mixed_forest"))
+				.requireRestart()
+				.build();
+		var jellyfishCaves = entryBuilder.startBooleanToggle(text("jellyfish_caves"), biomes.jellyfishCaves)
+				.setDefaultValue(DefaultWorldgenConfig.Biomes.JELLYFISH_CAVES)
+				.setSaveConsumer(newValue -> biomes.jellyfishCaves = newValue)
+				.setYesNoTextSupplier(bool -> text("biome." + bool))
+				.setTooltip(tooltip("jellyfish_caves"))
+				.requireRestart()
+				.build();
+		var oasis = entryBuilder.startBooleanToggle(text("oasis"), biomes.oasis)
+				.setDefaultValue(DefaultWorldgenConfig.Biomes.OASIS)
+				.setSaveConsumer(newValue -> biomes.oasis = newValue)
+				.setYesNoTextSupplier(bool -> text("biome." + bool))
+				.setTooltip(tooltip("oasis"))
+				.requireRestart()
+				.build();
+		var warmRiver = entryBuilder.startBooleanToggle(text("warm_river"), biomes.warmRiver)
+				.setDefaultValue(DefaultWorldgenConfig.Biomes.WARM_RIVER)
+				.setSaveConsumer(newValue -> biomes.warmRiver = newValue)
+				.setYesNoTextSupplier(bool -> text("biome." + bool))
+				.setTooltip(tooltip("warm_river"))
+				.requireRestart()
+				.build();
+
+		var biomeCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("biomes"),
+				false,
+				tooltip("biomes"),
+				cypressWetlands, mixedForest, jellyfishCaves, oasis, warmRiver
+		);
 
         /*var dyingTrees = category.addEntry(entryBuilder.startBooleanToggle(text("dying_trees"), config.dyingTrees)
                 .setDefaultValue(DefaultWorldgenConfig.dyingTrees)
