@@ -9,15 +9,18 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider
 import net.frozenblock.lib.feature.FrozenFeatures;
 import net.frozenblock.lib.feature.features.config.ColumnWithDiskFeatureConfig;
 import net.frozenblock.lib.feature.features.config.PathFeatureConfig;
+import net.frozenblock.lib.feature.features.config.PathSwapUnderWaterFeatureConfig;
 import net.frozenblock.lib.feature.features.config.PillarFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeatureUtils;
 import net.frozenblock.lib.worldgen.feature.api.FrozenPlacementUtils;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
+import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.frozenblock.wilderwild.world.additions.feature.WilderConfiguredFeatures;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscConfigured;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
@@ -25,6 +28,7 @@ import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
 import net.frozenblock.wilderwild.world.additions.feature.WilderTreeConfigured;
 import net.frozenblock.wilderwild.world.additions.feature.WilderTreePlaced;
 import net.frozenblock.wilderwild.world.generation.features.config.ShelfFungusFeatureConfig;
+import net.frozenblock.wilderwild.world.generation.treedecorators.LeavesAroundTopLogDecorator;
 import net.frozenblock.wilderwild.world.generation.trunk.BaobabTrunkPlacer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -46,6 +50,7 @@ import net.minecraft.data.worldgen.placement.TreePlacements;
 import static net.minecraft.data.worldgen.placement.VegetationPlacements.*;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.valueproviders.BiasedToBottomInt;
 import net.minecraft.util.valueproviders.ClampedInt;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -60,6 +65,7 @@ import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.BlockColumnConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.DiskConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
@@ -76,6 +82,7 @@ import net.minecraft.world.level.levelgen.feature.featuresize.ThreeLayersFeature
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.AcaciaFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.BushFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.DarkOakFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.MegaPineFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.PineFoliagePlacer;
@@ -164,6 +171,14 @@ public class WilderFeatureBootstrap {
 		var shortCypress = register(entries, WilderTreeConfigured.SHORT_CYPRESS, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(RegisterBlocks.CYPRESS_LOG), new StraightTrunkPlacer(3, 2, 3), BlockStateProvider.simple(RegisterBlocks.CYPRESS_LEAVES), new SpruceFoliagePlacer(ConstantInt.of(1), UniformInt.of(1, 3), UniformInt.of(4, 6)), new TwoLayersFeatureSize(2, 1, 2)).decorators(ImmutableList.of(WilderTreeConfigured.VINES_012_UNDER_76)).ignoreVines().build());
 		var shortFungusCypress = register(entries, WilderTreeConfigured.SHORT_FUNGUS_CYPRESS, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(RegisterBlocks.CYPRESS_LOG), new StraightTrunkPlacer(4, 3, 1), BlockStateProvider.simple(RegisterBlocks.CYPRESS_LEAVES), new SpruceFoliagePlacer(ConstantInt.of(1), UniformInt.of(1, 3), UniformInt.of(6, 8)), new TwoLayersFeatureSize(2, 1, 2)).decorators(ImmutableList.of(WilderTreeConfigured.SHELF_FUNGUS_006_ONLY_BROWN, WilderTreeConfigured.VINES_008_UNDER_82)).ignoreVines().build());
 		var swampCypress = register(entries, WilderTreeConfigured.SWAMP_CYPRESS, Feature.TREE, (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(RegisterBlocks.CYPRESS_LOG), new UpwardsBranchingTrunkPlacer(15, 5, 2, UniformInt.of(4, 5), 0.2F, UniformInt.of(1, 3), BuiltInRegistries.BLOCK.getOrCreateTag(BlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH)), BlockStateProvider.simple(RegisterBlocks.CYPRESS_LEAVES), new RandomSpreadFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), ConstantInt.of(2), 14), new TwoLayersFeatureSize(1, 0, 1))).decorators(ImmutableList.of(new LeaveVineDecorator(0.1F), WilderTreeConfigured.SHELF_FUNGUS_006_ONLY_BROWN, WilderTreeConfigured.VINES_008_UNDER_82)).build());
+		var bigShrub = register(entries, WilderTreeConfigured.BIG_SHRUB, Feature.TREE, (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.OAK_LOG), new StraightTrunkPlacer(1, 0, 0), BlockStateProvider.simple(Blocks.OAK_LEAVES), new BushFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), 2), new TwoLayersFeatureSize(0, 0, 0))).dirt(BlockStateProvider.simple(Blocks.COARSE_DIRT)).build());
+		var palm = register(entries, WilderTreeConfigured.PALM, Feature.TREE, WilderTreeConfigured.palmBuilder(RegisterBlocks.PALM_LOG, RegisterBlocks.PALM_LEAVES, 6, 2, 1, 1, 3, 4, 9)
+				.decorators(List.of(new LeavesAroundTopLogDecorator(0.25F, 0, 0, new RandomizedIntStateProvider(BlockStateProvider.simple(RegisterBlocks.COCONUT.defaultBlockState().setValue(BlockStateProperties.HANGING, true)), CoconutBlock.AGE, ConstantInt.of(0)), 4, List.of(Direction.DOWN)))).build());
+		var tallPalm = register(entries, WilderTreeConfigured.TALL_PALM, Feature.TREE, WilderTreeConfigured.palmBuilder(RegisterBlocks.PALM_LOG, RegisterBlocks.PALM_LEAVES, 8, 3, 2, 1, 3, 5, 10)
+				.decorators(List.of(new LeavesAroundTopLogDecorator(0.25F, 0, 0, new RandomizedIntStateProvider(BlockStateProvider.simple(RegisterBlocks.COCONUT.defaultBlockState().setValue(BlockStateProperties.HANGING, true)), CoconutBlock.AGE, ConstantInt.of(0)), 4, List.of(Direction.DOWN)))).build());
+		var smallWinePalm = register(entries, WilderTreeConfigured.SMALL_WINE_PALM, Feature.TREE, WilderTreeConfigured.winePalmBuilder(RegisterBlocks.PALM_LOG, RegisterBlocks.PALM_LEAVES, 5, 1, 2, 2).build());
+		var tallWinePalm = register(entries, WilderTreeConfigured.TALL_WINE_PALM, Feature.TREE, WilderTreeConfigured.winePalmBuilder(RegisterBlocks.PALM_LOG, RegisterBlocks.PALM_LEAVES, 10, 3, 3, 2)
+				.decorators(List.of(new LeavesAroundTopLogDecorator(0.3F, 0, 0, new RandomizedIntStateProvider(BlockStateProvider.simple(RegisterBlocks.COCONUT.defaultBlockState().setValue(BlockStateProperties.HANGING, true)), CoconutBlock.AGE, ConstantInt.of(0)), 4, List.of(Direction.DOWN)))).build());
 
 		WilderSharedConstants.logWild("Registering WilderMiscConfigured for", true);
 
@@ -181,6 +196,8 @@ public class WilderFeatureBootstrap {
 		var underWaterClayPathBeach = register(entries, WilderMiscConfigured.UNDER_WATER_CLAY_PATH_BEACH, FrozenFeatures.NOISE_PATH_UNDER_WATER_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.CLAY), 14, 2, 0.10, 0.5, 0.85, true, true, HolderSet.direct(Blocks.SAND.builtInRegistryHolder())));
 		var underWaterGravelPathRiver = register(entries, WilderMiscConfigured.UNDER_WATER_GRAVEL_PATH_RIVER, FrozenFeatures.NOISE_PATH_UNDER_WATER_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.GRAVEL), 14, 2, 0.10, 0.5, 0.85, true, true, HolderSet.direct(Blocks.SAND.builtInRegistryHolder())));
 		var orePackedMud = register(entries, WilderMiscConfigured.ORE_PACKED_MUD, Feature.ORE, new OreConfiguration(WilderMiscConfigured.PACKED_MUD_REPLACEABLE, Blocks.PACKED_MUD.defaultBlockState(), 40));
+		var coarseDirtPathSmall = register(entries, WilderMiscConfigured.COARSE_DIRT_PATH_SMALL, FrozenFeatures.NOISE_PATH_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.COARSE_DIRT), 8, 2, 0.15, 0.2, 1, true, true, HolderSet.direct(Blocks.RED_SAND.builtInRegistryHolder())));
+		var packedMudPathBadlands = register(entries, WilderMiscConfigured.PACKED_MUD_PATH_BADLANDS, FrozenFeatures.NOISE_PATH_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.PACKED_MUD), 4, 3, 0.7, 0.2, 1, true, true, HolderSet.direct(Blocks.TERRACOTTA.builtInRegistryHolder(), Blocks.RED_SAND.builtInRegistryHolder(), Blocks.RED_SANDSTONE.builtInRegistryHolder(), Blocks.TERRACOTTA.builtInRegistryHolder(), Blocks.WHITE_TERRACOTTA.builtInRegistryHolder(), Blocks.BROWN_TERRACOTTA.builtInRegistryHolder(), Blocks.RED_TERRACOTTA.builtInRegistryHolder(), Blocks.ORANGE_TERRACOTTA.builtInRegistryHolder(), Blocks.YELLOW_TERRACOTTA.builtInRegistryHolder(), Blocks.LIGHT_GRAY_TERRACOTTA.builtInRegistryHolder())));
 		var oreCalcite = register(entries, WilderMiscConfigured.ORE_CALCITE, Feature.ORE, new OreConfiguration(WilderMiscConfigured.NATURAL_STONE, Blocks.CALCITE.defaultBlockState(), 64));
 		var deepslatePool = register(entries, WilderMiscConfigured.DEEPSLATE_POOL, Feature.WATERLOGGED_VEGETATION_PATCH, new VegetationPatchConfiguration(BlockTags.LUSH_GROUND_REPLACEABLE, BlockStateProvider.simple(Blocks.DEEPSLATE), PlacementUtils.inlinePlaced(blankShutUp), CaveSurface.FLOOR, ConstantInt.of(4), 0.8F, 2, 0.000F, UniformInt.of(12, 15), 0.7F));
 		var stonePool = register(entries, WilderMiscConfigured.STONE_POOL, Feature.WATERLOGGED_VEGETATION_PATCH, new VegetationPatchConfiguration(BlockTags.LUSH_GROUND_REPLACEABLE, BlockStateProvider.simple(Blocks.STONE), PlacementUtils.inlinePlaced(blankShutUp), CaveSurface.FLOOR, ConstantInt.of(4), 0.8F, 2, 0.000F, UniformInt.of(12, 15), 0.7F));
@@ -188,6 +205,9 @@ public class WilderFeatureBootstrap {
 		var purpleMesogleaPillar = register(entries, WilderMiscConfigured.PURPLE_MESOGLEA_PILLAR, FrozenFeatures.UPWARDS_PILLAR_FEATURE, new PillarFeatureConfig(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true), UniformInt.of(4, 12), HolderSet.direct(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(), RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(), Blocks.WATER.builtInRegistryHolder())));
 		var downwardsMesogleaPillar = register(entries, WilderMiscConfigured.DOWNWARDS_MESOGLEA_PILLAR, FrozenFeatures.DOWNWARDS_PILLAR_FEATURE, new PillarFeatureConfig(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true), UniformInt.of(3, 10), HolderSet.direct(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(), RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(), Blocks.WATER.builtInRegistryHolder())));
 		var downwardsPurpleMesogleaPillar = register(entries, WilderMiscConfigured.DOWNWARDS_PURPLE_MESOGLEA_PILLAR, FrozenFeatures.DOWNWARDS_PILLAR_FEATURE, new PillarFeatureConfig(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true), UniformInt.of(3, 10), HolderSet.direct(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(), RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(), Blocks.WATER.builtInRegistryHolder())));
+		var sandPool = register(entries, WilderMiscConfigured.SAND_POOL, FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH, new VegetationPatchConfiguration(WilderBlockTags.SAND_POOL_REPLACEABLE, BlockStateProvider.simple(Blocks.SAND), PlacementUtils.inlinePlaced(blankShutUp), CaveSurface.FLOOR, ConstantInt.of(5), 0.8F, 1, 0.000F, UniformInt.of(8, 14), 0.7F));
+		var grassPath = register(entries, WilderMiscConfigured.GRASS_PATH, FrozenFeatures.NOISE_PATH_SWAP_UNDER_WATER_FEATURE, new PathSwapUnderWaterFeatureConfig(BlockStateProvider.simple(Blocks.GRASS_BLOCK), BlockStateProvider.simple(Blocks.DIRT), 11, 4, 0.15, 0.4, 1.0, false, false, HolderSet.direct(Blocks.SAND.builtInRegistryHolder(), Blocks.SANDSTONE.builtInRegistryHolder())));
+		var mossPathOasis = register(entries, WilderMiscConfigured.MOSS_PATH_OASIS, FrozenFeatures.NOISE_PATH_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.MOSS_BLOCK), 9, 2, 0.10, 0.12, 1, true, true, HolderSet.direct(Blocks.SAND.builtInRegistryHolder())));
 
 		WilderSharedConstants.logWild("Registering WilderConfiguredFeatures for", true);
 		var placedFallenBirchChecked = placedFeatures.getOrThrow(WilderTreePlaced.FALLEN_BIRCH_CHECKED);
@@ -228,6 +248,11 @@ public class WilderFeatureBootstrap {
 		var placedShortCypress = placedFeatures.getOrThrow(WilderTreePlaced.SHORT_CYPRESS);
 		var placedSwampCypress = placedFeatures.getOrThrow(WilderTreePlaced.SWAMP_CYPRESS);
 		var placedFungusCypress = placedFeatures.getOrThrow(WilderTreePlaced.FUNGUS_CYPRESS);
+		var placedBigShrubChecked = placedFeatures.getOrThrow(WilderTreePlaced.BIG_SHRUB_CHECKED);
+		var placedPalmChecked = placedFeatures.getOrThrow(WilderTreePlaced.PALM_CHECKED);
+		var placedTallPalmChecked = placedFeatures.getOrThrow(WilderTreePlaced.TALL_PALM_CHECKED);
+		var placedTallWinePalmChecked = placedFeatures.getOrThrow(WilderTreePlaced.TALL_WINE_PALM_CHECKED);
+		var placedSmallWinePalmChecked = placedFeatures.getOrThrow(WilderTreePlaced.SMALL_WINE_PALM_CHECKED);
 
 		var fallenTreesMixed = register(entries, WilderConfiguredFeatures.FALLEN_TREES_MIXED, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of((new WeightedPlacedFeature(placedFallenSpruceChecked, 0.4F)), new WeightedPlacedFeature(placedFallenBirchChecked, 0.3F)), placedFallenOakChecked));
 		var fallenBirch = register(entries, WilderConfiguredFeatures.FALLEN_BIRCH, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(placedFallenBirchChecked, 1.0F)), placedFallenBirchChecked));
@@ -254,12 +279,20 @@ public class WilderFeatureBootstrap {
 		var cypressWetlandsTrees = register(entries, WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(placedCypress, 0.37F), new WeightedPlacedFeature(placedShortCypress, 0.25F), new WeightedPlacedFeature(placedSwampCypress, 0.81F), new WeightedPlacedFeature(placedOakChecked, 0.1F)), placedFungusCypress));
 		var cypressWetlandsTreesSapling = register(entries, WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES_SAPLING, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(placedCypress, 0.4F), new WeightedPlacedFeature(placedShortCypress, 0.15F), new WeightedPlacedFeature(placedSwampCypress, 0.81F)), placedFungusCypress));
 		var cypressWetlandsTreesWater = register(entries, WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES_WATER, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(placedCypress, 0.2F), new WeightedPlacedFeature(placedShortCypress, 0.1F), new WeightedPlacedFeature(placedSwampCypress, 0.85F)), placedFungusCypress));
+		var bigShrubs = register(entries, WilderConfiguredFeatures.BIG_SHRUBS, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(placedBigShrubChecked, 1.0F)), placedBigShrubChecked));
+		var palms = register(entries, WilderConfiguredFeatures.PALMS, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(placedTallWinePalmChecked, 0.1F), new WeightedPlacedFeature(placedTallPalmChecked, 0.4F)), placedPalmChecked));
+		var palmsOasis = register(entries, WilderConfiguredFeatures.PALMS_OASIS, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(placedTallPalmChecked, 0.5F), new WeightedPlacedFeature(placedTallWinePalmChecked, 0.1F), new WeightedPlacedFeature(placedSmallWinePalmChecked, 0.37F)), placedPalmChecked));
 		var seedingDandelion = register(entries, WilderConfiguredFeatures.SEEDING_DANDELION, Feature.FLOWER, FeatureUtils.simpleRandomPatchConfiguration(48, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(RegisterBlocks.SEEDING_DANDELION)))));
 		var carnation = register(entries, WilderConfiguredFeatures.CARNATION, Feature.FLOWER, FeatureUtils.simpleRandomPatchConfiguration(48, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(RegisterBlocks.CARNATION)))));
 		var datura = register(entries, WilderConfiguredFeatures.DATURA, Feature.FLOWER, FeatureUtils.simpleRandomPatchConfiguration(64, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(RegisterBlocks.DATURA)))));
 		var flowerPlains = register(entries, WilderConfiguredFeatures.FLOWER_PLAINS, Feature.FLOWER, new RandomPatchConfiguration(64, 6, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new NoiseThresholdProvider(2345L, new NormalNoise.NoiseParameters(0, 1.0), 0.005F, -0.8F, 0.33333334F, Blocks.DANDELION.defaultBlockState(), List.of(Blocks.ORANGE_TULIP.defaultBlockState(), Blocks.RED_TULIP.defaultBlockState(), Blocks.PINK_TULIP.defaultBlockState(), Blocks.WHITE_TULIP.defaultBlockState()), List.of(RegisterBlocks.SEEDING_DANDELION.defaultBlockState(), Blocks.POPPY.defaultBlockState(), Blocks.AZURE_BLUET.defaultBlockState(), Blocks.OXEYE_DAISY.defaultBlockState(), Blocks.CORNFLOWER.defaultBlockState()))))));
 		var milkweed = register(entries, WilderConfiguredFeatures.MILKWEED, Feature.FLOWER, FeatureUtils.simpleRandomPatchConfiguration(32, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(RegisterBlocks.MILKWEED)))));
 		var gloryOfTheSnow = register(entries, WilderConfiguredFeatures.GLORY_OF_THE_SNOW, Feature.FLOWER, FeatureUtils.simpleRandomPatchConfiguration(64, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new WeightedStateProvider(WilderConfiguredFeatures.GLORY_OF_THE_SNOW_POOL)))));
+		var oasisGrass = register(entries, WilderConfiguredFeatures.OASIS_GRASS, Feature.RANDOM_PATCH, FeatureUtils.simpleRandomPatchConfiguration(35, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new WeightedStateProvider(WilderConfiguredFeatures.OASIS_GRASS_POOL)))));
+		var oasisBush = register(entries, WilderConfiguredFeatures.OASIS_BUSH, Feature.RANDOM_PATCH, FeatureUtils.simpleRandomPatchConfiguration(23, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new WeightedStateProvider(WilderConfiguredFeatures.OASIS_BUSH_POOL)))));
+		var desertBush = register(entries, WilderConfiguredFeatures.DESERT_BUSH, Feature.RANDOM_PATCH, FeatureUtils.simpleRandomPatchConfiguration(8, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new WeightedStateProvider(WilderConfiguredFeatures.DESERT_BUSH_POOL)))));
+		var patchCactusOasis = register(entries, WilderConfiguredFeatures.PATCH_CACTUS_OASIS, Feature.RANDOM_PATCH, FeatureUtils.simpleRandomPatchConfiguration(10, PlacementUtils.inlinePlaced(Feature.BLOCK_COLUMN, BlockColumnConfiguration.simple(BiasedToBottomInt.of(3, 5), BlockStateProvider.simple(Blocks.CACTUS)), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.wouldSurvive(Blocks.CACTUS.defaultBlockState(), BlockPos.ZERO))))));
+		var patchCactusTall = register(entries, WilderConfiguredFeatures.PATCH_CACTUS_TALL, Feature.RANDOM_PATCH, FeatureUtils.simpleRandomPatchConfiguration(8, PlacementUtils.inlinePlaced(Feature.BLOCK_COLUMN, BlockColumnConfiguration.simple(BiasedToBottomInt.of(4, 5), BlockStateProvider.simple(Blocks.CACTUS)), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.wouldSurvive(Blocks.CACTUS.defaultBlockState(), BlockPos.ZERO))))));
 		var largeFernAndGrass = register(entries, WilderConfiguredFeatures.LARGE_FERN_AND_GRASS, Feature.RANDOM_PATCH, FeatureUtils.simpleRandomPatchConfiguration(36, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new WeightedStateProvider(WilderConfiguredFeatures.LARGE_FERN_AND_GRASS_POOL)))));
 		var pollen = register(entries, WilderConfiguredFeatures.POLLEN, Feature.MULTIFACE_GROWTH, new MultifaceGrowthConfiguration((MultifaceBlock) RegisterBlocks.POLLEN_BLOCK, 20, true, true, true, 0.5F, HolderSet.direct(Block::builtInRegistryHolder, Blocks.GRASS_BLOCK, Blocks.BIRCH_LEAVES, Blocks.OAK_LEAVES, Blocks.OAK_LOG)));
 		var brownShelfFungus = register(entries, WilderConfiguredFeatures.BROWN_SHELF_FUNGUS, WilderWild.SHELF_FUNGUS_FEATURE, new ShelfFungusFeatureConfig((ShelfFungusBlock) RegisterBlocks.BROWN_SHELF_FUNGUS, 20, true, true, true, HolderSet.direct(Block::builtInRegistryHolder, Blocks.MANGROVE_LOG, Blocks.DARK_OAK_LOG, RegisterBlocks.HOLLOWED_BIRCH_LOG, RegisterBlocks.HOLLOWED_OAK_LOG, Blocks.MYCELIUM, Blocks.MUSHROOM_STEM, RegisterBlocks.HOLLOWED_SPRUCE_LOG)));
@@ -268,6 +301,7 @@ public class WilderFeatureBootstrap {
 		var patchFloweredWaterlily = register(entries, WilderConfiguredFeatures.PATCH_FLOWERED_WATERLILY, Feature.RANDOM_PATCH, new RandomPatchConfiguration(10, 7, 3, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(RegisterBlocks.FLOWERING_LILY_PAD)))));
 		var patchAlgae = register(entries, WilderConfiguredFeatures.PATCH_ALGAE, WilderWild.ALGAE_FEATURE, new ProbabilityFeatureConfiguration(0.8F));
 		var termite = register(entries, WilderConfiguredFeatures.TERMITE, FrozenFeatures.COLUMN_WITH_DISK_FEATURE, new ColumnWithDiskFeatureConfig(RegisterBlocks.TERMITE_MOUND.defaultBlockState().setValue(RegisterProperties.NATURAL, true), UniformInt.of(4, 9), UniformInt.of(3, 7), UniformInt.of(1, 3), HolderSet.direct(Block::builtInRegistryHolder, Blocks.GRASS_BLOCK, Blocks.STONE, Blocks.DIORITE, Blocks.ANDESITE, Blocks.GRANITE), HolderSet.direct(Block::builtInRegistryHolder, Blocks.COARSE_DIRT, Blocks.SAND, Blocks.PACKED_MUD)));
+		var tumbleweed = register(entries, WilderConfiguredFeatures.TUMBLEWEED, Feature.FLOWER, FeatureUtils.simpleRandomPatchConfiguration(5, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new WeightedStateProvider(WilderConfiguredFeatures.TUMBLEWEED_PLANT_POOL)))));
 		var blueMesoglea = register(entries, WilderConfiguredFeatures.BLUE_MESOGLEA, Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(BlockTags.LUSH_GROUND_REPLACEABLE, BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)), PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(CaveFeatures.DRIPLEAF)), CaveSurface.FLOOR, ConstantInt.of(3), 0.8F, 2, 0.04F, UniformInt.of(4, 14), 0.7F));
 		var blueMesogleaPool = register(entries, WilderConfiguredFeatures.BLUE_MESOGLEA_POOL, Feature.WATERLOGGED_VEGETATION_PATCH, new VegetationPatchConfiguration(BlockTags.LUSH_GROUND_REPLACEABLE, BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)), PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(CaveFeatures.DRIPLEAF)), CaveSurface.FLOOR, ConstantInt.of(3), 0.8F, 5, 0.04F, UniformInt.of(4, 14), 0.7F));
 		var jellyfishCavesBlueMesoglea = register(entries, WilderConfiguredFeatures.JELLYFISH_CAVES_BLUE_MESOGLEA, Feature.RANDOM_BOOLEAN_SELECTOR, new RandomBooleanFeatureConfiguration(PlacementUtils.inlinePlaced(blueMesoglea), PlacementUtils.inlinePlaced(blueMesogleaPool)));
@@ -365,6 +399,11 @@ public class WilderFeatureBootstrap {
 		var shortFungusCypress = configuredFeatures.getOrThrow(WilderTreeConfigured.SHORT_FUNGUS_CYPRESS);
 		var swampCypress = configuredFeatures.getOrThrow(WilderTreeConfigured.SWAMP_CYPRESS);
 		var fallenCypressTree = configuredFeatures.getOrThrow(WilderTreeConfigured.FALLEN_CYPRESS_TREE);
+		var bigShrub = configuredFeatures.getOrThrow(WilderTreeConfigured.BIG_SHRUB);
+		var palm = configuredFeatures.getOrThrow(WilderTreeConfigured.PALM);
+		var tallPalm = configuredFeatures.getOrThrow(WilderTreeConfigured.TALL_PALM);
+		var tallWinePalm = configuredFeatures.getOrThrow(WilderTreeConfigured.TALL_WINE_PALM);
+		var smallWinePalm = configuredFeatures.getOrThrow(WilderTreeConfigured.SMALL_WINE_PALM);
 
 		var placedBirchChecked = register(entries, WilderTreePlaced.BIRCH_CHECKED, birch, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
 		var placedBirchBees0004 = register(entries, WilderTreePlaced.BIRCH_BEES_0004, birchBees0004, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
@@ -408,6 +447,11 @@ public class WilderFeatureBootstrap {
 		var placedShortFungusCypress = register(entries, WilderTreePlaced.SHORT_FUNGUS_CYPRESS, shortFungusCypress, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING));
 		var placedSwampCypress = register(entries, WilderTreePlaced.SWAMP_CYPRESS, swampCypress, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING));
 		var placedFallenCypressChecked = register(entries, WilderTreePlaced.FALLEN_CYPRESS_CHECKED, fallenCypressTree, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING));
+		var placedBigShrubChecked = register(entries, WilderTreePlaced.BIG_SHRUB_CHECKED, bigShrub, WilderTreePlaced.SAND_TREE_FILTER_DECORATOR);
+		var placedPalmChecked = register(entries, WilderTreePlaced.PALM_CHECKED, palm, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.COCONUT));
+		var placedTallPalmChecked = register(entries, WilderTreePlaced.TALL_PALM_CHECKED, tallPalm, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.COCONUT));
+		var placedTallWinePalmChecked = register(entries, WilderTreePlaced.TALL_WINE_PALM_CHECKED, tallWinePalm, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.COCONUT));
+		var placedSmallWinePalmChecked = register(entries, WilderTreePlaced.SMALL_WINE_PALM_CHECKED, smallWinePalm, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.COCONUT));
 
 		WilderSharedConstants.logWild("Registering WilderMiscPlaced for", true);
 		var diskMud = configuredFeatures.getOrThrow(WilderMiscConfigured.DISK_MUD);
@@ -422,11 +466,16 @@ public class WilderFeatureBootstrap {
 		var underWaterClayPathBeach = configuredFeatures.getOrThrow(WilderMiscConfigured.UNDER_WATER_CLAY_PATH_BEACH);
 		var underWaterGravelPathRiver = configuredFeatures.getOrThrow(WilderMiscConfigured.UNDER_WATER_GRAVEL_PATH_RIVER);
 		var orePackedMud = configuredFeatures.getOrThrow(WilderMiscConfigured.ORE_PACKED_MUD);
+		var coarseDirtPathSmall = configuredFeatures.getOrThrow(WilderMiscConfigured.COARSE_DIRT_PATH_SMALL);
+		var packedMudPathBadlands = configuredFeatures.getOrThrow(WilderMiscConfigured.PACKED_MUD_PATH_BADLANDS);
 		var oreCalcite = configuredFeatures.getOrThrow(WilderMiscConfigured.ORE_CALCITE);
 		var mesogleaPillar = configuredFeatures.getOrThrow(WilderMiscConfigured.UPWARDS_MESOGLEA_PILLAR);
 		var purpleMesogleaPillar = configuredFeatures.getOrThrow(WilderMiscConfigured.PURPLE_MESOGLEA_PILLAR);
 		var deepslatePool = configuredFeatures.getOrThrow(WilderMiscConfigured.DEEPSLATE_POOL);
 		var stonePool = configuredFeatures.getOrThrow(WilderMiscConfigured.STONE_POOL);
+		var sandPool = configuredFeatures.getOrThrow(WilderMiscConfigured.SAND_POOL);
+		var grassPath = configuredFeatures.getOrThrow(WilderMiscConfigured.GRASS_PATH);
+		var mossPathOasis = configuredFeatures.getOrThrow(WilderMiscConfigured.MOSS_PATH_OASIS);
 
 		var placedDiskMud = register(entries, WilderMiscPlaced.DISK_MUD, diskMud, CountPlacement.of(1), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_TOP_SOLID, RandomOffsetPlacement.vertical(ConstantInt.of(-1)), BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.GRASS_BLOCK, Blocks.DIRT)), BiomeFilter.biome());
 		var placedMudPath = register(entries, WilderMiscPlaced.MUD_PATH, mudPath, RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
@@ -441,6 +490,8 @@ public class WilderFeatureBootstrap {
 		var placedUnderWaterClayPathBeach = register(entries, WilderMiscPlaced.UNDER_WATER_CLAY_PATH_BEACH, underWaterClayPathBeach, RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 		var placedUnderWaterGravelPathRiver = register(entries, WilderMiscPlaced.UNDER_WATER_GRAVEL_PATH_RIVER, underWaterGravelPathRiver, RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 		var placedOrePackedMud = register(entries, WilderMiscPlaced.ORE_PACKED_MUD, orePackedMud, WilderMiscPlaced.modifiersWithCount(5, HeightRangePlacement.uniform(VerticalAnchor.absolute(42), VerticalAnchor.absolute(250))));
+		var placedCoarseDirtPathSmall = register(entries, WilderMiscPlaced.COARSE_DIRT_PATH_SMALL, coarseDirtPathSmall, RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+		var placedPackedMudWithBadlands = register(entries, WilderMiscPlaced.PACKED_MUD_PATH_BADLANDS, packedMudPathBadlands, RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 		var placedOreCalcite = register(entries, WilderMiscPlaced.ORE_CALCITE, oreCalcite, WilderMiscPlaced.modifiersWithCount(2, HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(64))));
 		var placedMesogleaPillar = register(entries, WilderMiscPlaced.MESOGLEA_PILLAR, mesogleaPillar, CountPlacement.of(7), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.top()), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), WilderMiscPlaced.ONLY_IN_WATER_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
 		var placedPurpleMesogleaPillar = register(entries, WilderMiscPlaced.PURPLE_MESOGLEA_PILLAR, purpleMesogleaPillar, CountPlacement.of(7), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.top()), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), WilderMiscPlaced.ONLY_IN_WATER_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
@@ -450,6 +501,9 @@ public class WilderFeatureBootstrap {
 		var placedStonePool = register(entries, WilderMiscPlaced.STONE_POOL, stonePool, RarityFilter.onAverageOnceEvery(13), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(5), VerticalAnchor.aboveBottom(108)), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
 		var placedJellyfishDeepslatePool = register(entries, WilderMiscPlaced.JELLYFISH_DEEPSLATE_POOL, deepslatePool, CountPlacement.of(30), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(67)), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
 		var placedJellyfishStonePool = register(entries, WilderMiscPlaced.JELLYFISH_STONE_POOL, stonePool, CountPlacement.of(30), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(68), VerticalAnchor.top()), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
+		var placedSandPool = register(entries, WilderMiscPlaced.SAND_POOL, sandPool, CountPlacement.of(1), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(63), VerticalAnchor.aboveBottom(256)), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
+		var placedGrassPath = register(entries, WilderMiscPlaced.GRASS_PATH, grassPath, CountPlacement.of(4), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+		var placedMossPathOasis = register(entries, WilderMiscPlaced.MOSS_PATH_OASIS, mossPathOasis, RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
 		WilderSharedConstants.logWild("Registering WilderPlacedFeatures for", true);
 		var fallenTreesMixed = configuredFeatures.getOrThrow(WilderConfiguredFeatures.FALLEN_TREES_MIXED);
@@ -496,7 +550,15 @@ public class WilderFeatureBootstrap {
 		var upsideDownPurpleMesoglea = configuredFeatures.getOrThrow(WilderConfiguredFeatures.UPSIDE_DOWN_PURPLE_MESOGLEA);
 		var nematocyst = configuredFeatures.getOrThrow(WilderConfiguredFeatures.NEMATOCYST);
 		var nematocystPurple = configuredFeatures.getOrThrow(WilderConfiguredFeatures.NEMATOCYST_PURPLE);
-
+		var bigShrubs = configuredFeatures.getOrThrow(WilderConfiguredFeatures.BIG_SHRUBS);
+		var palms = configuredFeatures.getOrThrow(WilderConfiguredFeatures.PALMS);
+		var palmsOasis = configuredFeatures.getOrThrow(WilderConfiguredFeatures.PALMS_OASIS);
+		var oasisGrass = configuredFeatures.getOrThrow(WilderConfiguredFeatures.OASIS_GRASS);
+		var oasisBush = configuredFeatures.getOrThrow(WilderConfiguredFeatures.OASIS_BUSH);
+		var desertBush = configuredFeatures.getOrThrow(WilderConfiguredFeatures.DESERT_BUSH);
+		var patchCactusOasis = configuredFeatures.getOrThrow(WilderConfiguredFeatures.PATCH_CACTUS_OASIS);
+		var patchCactusTall = configuredFeatures.getOrThrow(WilderConfiguredFeatures.PATCH_CACTUS_TALL);
+		var tumbleweed = configuredFeatures.getOrThrow(WilderConfiguredFeatures.TUMBLEWEED);
 
 		register(entries, WilderPlacedFeatures.FALLEN_TREES_MIXED_PLACED, fallenTreesMixed, RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
@@ -627,6 +689,22 @@ public class WilderFeatureBootstrap {
 				SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, 0, 128),
 				BiomeFilter.biome()
 		);
+		register(entries, WilderPlacedFeatures.BIG_SHRUB,
+				bigShrubs,
+				treePlacement(RarityFilter.onAverageOnceEvery(5))
+		);
+		register(entries, WilderPlacedFeatures.PALM,
+				palms,
+				treePlacement(RarityFilter.onAverageOnceEvery(4))
+		);
+		register(entries, WilderPlacedFeatures.PALMS_OASIS,
+				palmsOasis,
+				treePlacement(RarityFilter.onAverageOnceEvery(3))
+		);
+		register(entries, WilderPlacedFeatures.PALM_RARE,
+				palmsOasis,
+				treePlacement(RarityFilter.onAverageOnceEvery(52))
+		);
 		register(entries, WilderPlacedFeatures.RED_SHELF_FUNGUS_PLACED,
 				redShelfFungus,
 				RarityFilter.onAverageOnceEvery(1), CountPlacement.of(11),
@@ -659,6 +737,32 @@ public class WilderFeatureBootstrap {
 		register(entries, WilderPlacedFeatures.MIXED_MUSHROOMS_PLACED,
 				VegetationFeatures.MUSHROOM_ISLAND_VEGETATION,
 				RarityFilter.onAverageOnceEvery(75),
+				InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP,
+				BiomeFilter.biome()
+		);
+		register(entries, WilderPlacedFeatures.OASIS_GRASS_PLACED,
+				oasisGrass,
+				worldSurfaceSquaredWithCount(19)
+		);
+		register(entries, WilderPlacedFeatures.OASIS_BUSH_PLACED,
+				oasisBush,
+				worldSurfaceSquaredWithCount(2)
+		);
+		register(entries, WilderPlacedFeatures.DESERT_BUSH_PLACED,
+				desertBush,
+				RarityFilter.onAverageOnceEvery(7),
+				InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BiomeFilter.biome()
+		);
+		register(entries, WilderPlacedFeatures.OASIS_CACTUS_PLACED,
+				patchCactusOasis,
+				RarityFilter.onAverageOnceEvery(2),
+				InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP,
+				BiomeFilter.biome()
+		);
+		register(entries, WilderPlacedFeatures.TALL_CACTUS_PLACED,
+				patchCactusTall,
+				RarityFilter.onAverageOnceEvery(8),
 				InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP,
 				BiomeFilter.biome()
 		);
@@ -797,6 +901,12 @@ public class WilderFeatureBootstrap {
 				patchAlgae,
 				RarityFilter.onAverageOnceEvery(5),
 				InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP,
+				BiomeFilter.biome()
+		);
+		register(entries, WilderPlacedFeatures.TUMBLEWEED,
+				tumbleweed,
+				RarityFilter.onAverageOnceEvery(9),
+				CountPlacement.of(1), PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 				BiomeFilter.biome()
 		);
 		register(entries, WilderPlacedFeatures.PATCH_BERRY_FOREST,

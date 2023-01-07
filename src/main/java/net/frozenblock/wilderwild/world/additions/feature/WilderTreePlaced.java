@@ -85,12 +85,12 @@ public final class WilderTreePlaced {
 	public static final BlockPredicate SAND_TREE_PREDICATE = BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.RED_SAND, Blocks.SAND);
 	public static final List<PlacementModifier> SAND_TREE_FILTER_DECORATOR = List.of(EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.not(BlockPredicate.matchesBlocks(Blocks.SANDSTONE)), 8), BlockPredicateFilter.forPredicate(SAND_TREE_PREDICATE));
 	//SHRUB
-	public static final ResourceKey<PlacedFeature> BIG_SHRUB_CHECKED = PlacementUtils.register("big_shrub_checked", WilderTreeConfigured.BIG_SHRUB, SAND_TREE_FILTER_DECORATOR);
+	public static final ResourceKey<PlacedFeature> BIG_SHRUB_CHECKED = key("big_shrub_checked");
 	//PALM
-	public static final ResourceKey<PlacedFeature> PALM_CHECKED = PlacementUtils.register("palm_checked", WilderTreeConfigured.PALM, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.COCONUT));
-	public static final ResourceKey<PlacedFeature> TALL_PALM_CHECKED = PlacementUtils.register("tall_palm_checked", WilderTreeConfigured.TALL_PALM, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.COCONUT));
-	public static final ResourceKey<PlacedFeature> TALL_WINE_PALM_CHECKED = PlacementUtils.register("tall_wine_palm_checked", WilderTreeConfigured.TALL_WINE_PALM, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.COCONUT));
-	public static final ResourceKey<PlacedFeature> SMALL_WINE_PALM_CHECKED = PlacementUtils.register("small_wine_palm_checked", WilderTreeConfigured.SMALL_WINE_PALM, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.COCONUT));
+	public static final ResourceKey<PlacedFeature> PALM_CHECKED = key("palm_checked");
+	public static final ResourceKey<PlacedFeature> TALL_PALM_CHECKED = key("tall_palm_checked");
+	public static final ResourceKey<PlacedFeature> TALL_WINE_PALM_CHECKED = key("tall_wine_palm_checked");
+	public static final ResourceKey<PlacedFeature> SMALL_WINE_PALM_CHECKED = key("small_wine_palm_checked");
 
 	public static ResourceKey<PlacedFeature> key(String path) {
 		return ResourceKey.create(Registries.PLACED_FEATURE, WilderSharedConstants.id(path));

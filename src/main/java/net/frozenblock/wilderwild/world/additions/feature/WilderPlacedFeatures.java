@@ -77,17 +77,13 @@ public final class WilderPlacedFeatures {
 
     //MUSHROOMS
     public static final ResourceKey<PlacedFeature> BROWN_SHELF_FUNGUS_PLACED = key("brown_shelf_fungus_placed");
-	public static final ResourceKey<PlacedFeature> BIG_SHRUB = PlacementUtils.register("big_shrub",
-			WilderConfiguredFeatures.BIG_SHRUBS, treePlacement(RarityFilter.onAverageOnceEvery(5)));
+	public static final ResourceKey<PlacedFeature> BIG_SHRUB = key("big_shrub");
 
-	public static final ResourceKey<PlacedFeature> PALM = PlacementUtils.register("palm_placed",
-			WilderConfiguredFeatures.PALMS, treePlacement(RarityFilter.onAverageOnceEvery(4)));
+	public static final ResourceKey<PlacedFeature> PALM = key("palm_placed");
 
-	public static final ResourceKey<PlacedFeature> PALMS_OASIS = PlacementUtils.register("palms_oasis",
-			WilderConfiguredFeatures.PALMS_OASIS, treePlacement(RarityFilter.onAverageOnceEvery(3)));
+	public static final ResourceKey<PlacedFeature> PALMS_OASIS = key("palms_oasis");
 
-	public static final ResourceKey<PlacedFeature> PALM_RARE = PlacementUtils.register("palm_rare",
-			WilderConfiguredFeatures.PALMS_OASIS, treePlacement(RarityFilter.onAverageOnceEvery(52)));
+	public static final ResourceKey<PlacedFeature> PALM_RARE = key("palm_rare");
 	//MUSHROOMS
     public static final ResourceKey<PlacedFeature> RED_SHELF_FUNGUS_PLACED = key("red_shelf_fungus_placed");
 
@@ -102,23 +98,17 @@ public final class WilderPlacedFeatures {
     public static final ResourceKey<PlacedFeature> MIXED_MUSHROOMS_PLACED = key("mixed_mushroom_placed");
 
     //GRASS AND FERNS
-	public static final ResourceKey<PlacedFeature> OASIS_GRASS_PLACED = register("oasis_grass_placed",
-			WilderConfiguredFeatures.OASIS_GRASS, worldSurfaceSquaredWithCount(19));
+	public static final ResourceKey<PlacedFeature> OASIS_GRASS_PLACED = key("oasis_grass_placed");
 
-	public static final ResourceKey<PlacedFeature> OASIS_BUSH_PLACED = register("oasis_bush_placed",
-			WilderConfiguredFeatures.OASIS_BUSH, worldSurfaceSquaredWithCount(2));
+	public static final ResourceKey<PlacedFeature> OASIS_BUSH_PLACED = key("oasis_bush_placed");
 
-	public static final ResourceKey<PlacedFeature> DESERT_BUSH_PLACED = register("desert_bush_placed",
-			WilderConfiguredFeatures.DESERT_BUSH, RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+	public static final ResourceKey<PlacedFeature> DESERT_BUSH_PLACED = key("desert_bush_placed");
 
-	public static final ResourceKey<PlacedFeature> OASIS_CACTUS_PLACED = register("oasis_cactus_placed",
-			WilderConfiguredFeatures.PATCH_CACTUS_OASIS, RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+	public static final ResourceKey<PlacedFeature> OASIS_CACTUS_PLACED = key("oasis_cactus_placed");
 
-	public static final ResourceKey<PlacedFeature> TALL_CACTUS_PLACED = register("tall_cactus_placed",
-			WilderConfiguredFeatures.PATCH_CACTUS_TALL, RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+	public static final ResourceKey<PlacedFeature> TALL_CACTUS_PLACED = key("tall_cactus_placed");
 
-	public static final ResourceKey<PlacedFeature> GRASS_PLACED = register("grass_placed",
-            VegetationFeatures.PATCH_GRASS_JUNGLE, worldSurfaceSquaredWithCount(20));
+	public static final ResourceKey<PlacedFeature> GRASS_PLACED = key("grass_placed");
 
     public static final ResourceKey<PlacedFeature> RARE_GRASS_PLACED = key("rare_grass_placed");
 
@@ -169,8 +159,7 @@ public final class WilderPlacedFeatures {
     public static final ResourceKey<PlacedFeature> PATCH_ALGAE = key("patch_algae");
 
     public static final ResourceKey<PlacedFeature> PATCH_ALGAE_5 = key("patch_algae_5");
-	public static final ResourceKey<PlacedFeature> TUMBLEWEED = register("tumbleweed",
-			WilderConfiguredFeatures.TUMBLEWEED, RarityFilter.onAverageOnceEvery(9), CountPlacement.of(1), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+	public static final ResourceKey<PlacedFeature> TUMBLEWEED = key("tumbleweed");
 
     public static final ResourceKey<PlacedFeature> PATCH_BERRY_FOREST = key("patch_berry_forest");
 

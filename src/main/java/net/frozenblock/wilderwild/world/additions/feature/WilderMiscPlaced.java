@@ -38,36 +38,36 @@ public final class WilderMiscPlaced {
 	public static final ResourceKey<PlacedFeature> COARSE_PATH_5 = key("coarse_dirt_path_5");
 	public static final ResourceKey<PlacedFeature> FOREST_ROCK_TAIGA = key("forest_rock_taiga");
 	// CYPRESS WETLANDS
-	public static final ResourceKey<PlacedFeature> UNDER_WATER_SAND_PATH = WilderPlacedFeatures.register("under_water_sand_path", WilderMiscConfigured.UNDER_WATER_SAND_PATH, InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_TOP_SOLID, BiomeFilter.biome());
-	public static final ResourceKey<PlacedFeature> UNDER_WATER_GRAVEL_PATH = WilderPlacedFeatures.register("under_water_gravel_path", WilderMiscConfigured.UNDER_WATER_GRAVEL_PATH, InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_TOP_SOLID, BiomeFilter.biome());
-	public static final ResourceKey<PlacedFeature> UNDER_WATER_CLAY_PATH = WilderPlacedFeatures.register("under_water_clay_path", WilderMiscConfigured.UNDER_WATER_CLAY_PATH, InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_TOP_SOLID, BiomeFilter.biome());
+	public static final ResourceKey<PlacedFeature> UNDER_WATER_SAND_PATH = key("under_water_sand_path");
+	public static final ResourceKey<PlacedFeature> UNDER_WATER_GRAVEL_PATH = key("under_water_gravel_path");
+	public static final ResourceKey<PlacedFeature> UNDER_WATER_CLAY_PATH = key("under_water_clay_path");
 	// BEACH AND RIVER
-	public static final ResourceKey<PlacedFeature> UNDER_WATER_CLAY_PATH_BEACH = WilderPlacedFeatures.register("under_water_clay_path_beach", WilderMiscConfigured.UNDER_WATER_CLAY_PATH_BEACH, RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
-	public static final ResourceKey<PlacedFeature> UNDER_WATER_GRAVEL_PATH_RIVER = WilderPlacedFeatures.register("under_water_gravel_path_river", WilderMiscConfigured.UNDER_WATER_GRAVEL_PATH_RIVER, RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+	public static final ResourceKey<PlacedFeature> UNDER_WATER_CLAY_PATH_BEACH = key("under_water_clay_path_beach");
+	public static final ResourceKey<PlacedFeature> UNDER_WATER_GRAVEL_PATH_RIVER = key("under_water_gravel_path_river");
 	// SAVANNA
-	public static final ResourceKey<PlacedFeature> PACKED_MUD_PATH = WilderPlacedFeatures.register("packed_mud_path", WilderMiscConfigured.PACKED_MUD_PATH, RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+	public static final ResourceKey<PlacedFeature> PACKED_MUD_PATH = key("packed_mud_path");
 	// JUNGLE
-	public static final ResourceKey<PlacedFeature> MOSS_PATH = WilderPlacedFeatures.register("moss_path", WilderMiscConfigured.MOSS_PATH, RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+	public static final ResourceKey<PlacedFeature> MOSS_PATH = key("moss_path");
 	// DESERT
-	public static final ResourceKey<PlacedFeature> ORE_PACKED_MUD = WilderPlacedFeatures.register("ore_packed_mud", WilderMiscConfigured.ORE_PACKED_MUD, modifiersWithCount(5, HeightRangePlacement.uniform(VerticalAnchor.absolute(42), VerticalAnchor.absolute(250))));
-	public static final ResourceKey<PlacedFeature> SANDSTONE_PATH = WilderPlacedFeatures.register("sandstone_path", WilderMiscConfigured.SANDSTONE_PATH, RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+	public static final ResourceKey<PlacedFeature> ORE_PACKED_MUD = key("ore_packed_mud");
+	public static final ResourceKey<PlacedFeature> SANDSTONE_PATH = key("sandstone_path");
 	// BADLANDS
-	public static final ResourceKey<PlacedFeature> COARSE_DIRT_PATH_SMALL = WilderPlacedFeatures.register("coarse_dirt_path_small", WilderMiscConfigured.COARSE_DIRT_PATH_SMALL, RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
-	public static final ResourceKey<PlacedFeature> PACKED_MUD_PATH_BADLANDS = WilderPlacedFeatures.register("packed_mud_path_badlands", WilderMiscConfigured.PACKED_MUD_PATH_BADLANDS, RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+	public static final ResourceKey<PlacedFeature> COARSE_DIRT_PATH_SMALL = key("coarse_dirt_path_small");
+	public static final ResourceKey<PlacedFeature> PACKED_MUD_PATH_BADLANDS = key("packed_mud_path_badlands");
 	// JELLYFISH CAVES
-	public static final ResourceKey<PlacedFeature> EXTRA_GLOW_LICHEN = WilderPlacedFeatures.register("extra_glow_lichen", CaveFeatures.GLOW_LICHEN, CountPlacement.of(UniformInt.of(104, 157)), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, InSquarePlacement.spread(), SurfaceRelativeThresholdFilter.of(Heightmap.Types.OCEAN_FLOOR_WG, Integer.MIN_VALUE, -13), BiomeFilter.biome());
-	public static final ResourceKey<PlacedFeature> STONE_POOL = WilderPlacedFeatures.register("stone_pool", WilderMiscConfigured.STONE_POOL, RarityFilter.onAverageOnceEvery(13), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(5), VerticalAnchor.aboveBottom(108)), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
-	public static final ResourceKey<PlacedFeature> DEEPSLATE_POOL = WilderPlacedFeatures.register("deepslate_pool", WilderMiscConfigured.DEEPSLATE_POOL, RarityFilter.onAverageOnceEvery(13), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.absolute(5)), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
-	public static final ResourceKey<PlacedFeature> ORE_CALCITE = WilderPlacedFeatures.register("ore_calcite", WilderMiscConfigured.ORE_CALCITE, modifiersWithCount(2, HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(64))));
+	public static final ResourceKey<PlacedFeature> EXTRA_GLOW_LICHEN = key("extra_glow_lichen");
+	public static final ResourceKey<PlacedFeature> STONE_POOL = key("stone_pool");
+	public static final ResourceKey<PlacedFeature> DEEPSLATE_POOL = key("deepslate_pool");
+	public static final ResourceKey<PlacedFeature> ORE_CALCITE = key("ore_calcite");
 	public static final BlockPredicate ONLY_IN_WATER_PREDICATE = BlockPredicate.matchesBlocks(Blocks.WATER);
-	public static final ResourceKey<PlacedFeature> JELLYFISH_DEEPSLATE_POOL = WilderPlacedFeatures.register("jellyfish_deepslate_pool", WilderMiscConfigured.DEEPSLATE_POOL, CountPlacement.of(30), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(67)), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
-	public static final ResourceKey<PlacedFeature> JELLYFISH_STONE_POOL = WilderPlacedFeatures.register("jellyfish_stone_pool", WilderMiscConfigured.STONE_POOL, CountPlacement.of(30), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(68), VerticalAnchor.top()), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
-	public static final ResourceKey<PlacedFeature> MESOGLEA_PILLAR = WilderPlacedFeatures.register("blue_mesoglea_pillar", WilderMiscConfigured.UPWARDS_MESOGLEA_PILLAR, CountPlacement.of(7), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.top()), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), ONLY_IN_WATER_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
-	public static final ResourceKey<PlacedFeature> PURPLE_MESOGLEA_PILLAR = WilderPlacedFeatures.register("purple_mesoglea_pillar", WilderMiscConfigured.PURPLE_MESOGLEA_PILLAR, CountPlacement.of(7), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.top()), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), ONLY_IN_WATER_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
+	public static final ResourceKey<PlacedFeature> JELLYFISH_DEEPSLATE_POOL = key("jellyfish_deepslate_pool");
+	public static final ResourceKey<PlacedFeature> JELLYFISH_STONE_POOL = key("jellyfish_stone_pool");
+	public static final ResourceKey<PlacedFeature> MESOGLEA_PILLAR = key("blue_mesoglea_pillar");
+	public static final ResourceKey<PlacedFeature> PURPLE_MESOGLEA_PILLAR = key("purple_mesoglea_pillar");
 	// OASIS
-	public static final ResourceKey<PlacedFeature> SAND_POOL = WilderPlacedFeatures.register("sand_pool", WilderMiscConfigured.SAND_POOL, CountPlacement.of(1), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(63), VerticalAnchor.aboveBottom(256)), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
-	public static final ResourceKey<PlacedFeature> GRASS_PATH = WilderPlacedFeatures.register("grass_path", WilderMiscConfigured.GRASS_PATH, CountPlacement.of(4), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
-	public static final ResourceKey<PlacedFeature> MOSS_PATH_OASIS = WilderPlacedFeatures.register("moss_path_oasis", WilderMiscConfigured.MOSS_PATH_OASIS, RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+	public static final ResourceKey<PlacedFeature> SAND_POOL = key("sand_pool");
+	public static final ResourceKey<PlacedFeature> GRASS_PATH = key("grass_path");
+	public static final ResourceKey<PlacedFeature> MOSS_PATH_OASIS = key("moss_path_oasis");
 
 	private static List<PlacementModifier> modifiers(PlacementModifier countModifier, PlacementModifier heightModifier) {
         return List.of(countModifier, InSquarePlacement.spread(), heightModifier, BiomeFilter.biome());
