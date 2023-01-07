@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.block;
 
+import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -90,6 +91,7 @@ public class SmallSpongeBlock extends FaceAttachedHorizontalDirectionalBlock imp
             } else {
                 blockState = this.defaultBlockState().setValue(FACE, AttachFace.WALL).setValue(FACING, direction.getOpposite()).setValue(WATERLOGGED, waterlogged);
             }
+
             if (blockState.canSurvive(context.getLevel(), context.getClickedPos())) {
                 return blockState;
             }
@@ -120,7 +122,13 @@ public class SmallSpongeBlock extends FaceAttachedHorizontalDirectionalBlock imp
 				blockState = this.defaultBlockState();
 			}
 
-			return blockState.setValue(SmallSpongeBlock.FACING, lookingDirection.getOpposite());
+			if (lookingDirection.getAxis() == Direction.Axis.Y) {
+				blockState = blockState.setValue(FACE, lookingDirection == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR).setValue(FACING, Direction.Plane.HORIZONTAL.getRandomDirection(EasyNoiseSampler.localRandom));
+			} else {
+				blockState = blockState.setValue(FACE, AttachFace.WALL).setValue(FACING, lookingDirection.getOpposite());
+			}
+
+			return blockState.setValue(SmallSpongeBlock.STAGE, EasyNoiseSampler.localRandom.nextInt(0, 2));
 		}
 	}
 
