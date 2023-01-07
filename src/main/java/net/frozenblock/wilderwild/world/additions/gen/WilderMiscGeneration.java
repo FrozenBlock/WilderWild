@@ -57,5 +57,8 @@ public final class WilderMiscGeneration {
 		BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.DESERT),
 				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.SANDSTONE_PATH.unwrapKey().orElseThrow());
 
+		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SMALL_SPONGE),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SMALL_SPONGES.unwrapKey().orElseThrow());
+
     }
 }

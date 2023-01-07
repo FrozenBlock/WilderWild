@@ -154,6 +154,12 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
 					.add(Biomes.DARK_FOREST)
 					.add(Biomes.TAIGA);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SMALL_SPONGE)
+					.add(Biomes.WARM_OCEAN)
+					.add(Biomes.LUKEWARM_OCEAN)
+					.add(Biomes.DEEP_LUKEWARM_OCEAN)
+					.add(RegisterWorldgen.JELLYFISH_CAVES);
 		}
 
 		private void generateStructureTags() {
