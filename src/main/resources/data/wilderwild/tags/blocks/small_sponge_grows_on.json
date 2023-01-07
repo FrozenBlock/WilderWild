@@ -1,0 +1,15 @@
+{
+  "values": [
+	"minecraft:stone",
+	"minecraft:deepslate",
+    "minecraft:tuff",
+    "minecraft:diorite",
+    "minecraft:andesite",
+    "minecraft:granite",
+    "minecraft:sand",
+    "minecraft:gravel",
+    "minecraft:sponge",
+    "wilderwild:blue_pearlescent_mesoglea",
+    "wilderwild:purple_pearlescent_mesoglea"
+  ]
+}

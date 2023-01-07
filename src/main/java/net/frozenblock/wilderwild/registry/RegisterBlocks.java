@@ -40,6 +40,7 @@ import net.frozenblock.wilderwild.block.SculkStairsBlock;
 import net.frozenblock.wilderwild.block.SculkWallBlock;
 import net.frozenblock.wilderwild.block.SeedingDandelionBlock;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
+import net.frozenblock.wilderwild.block.SmallSpongeBlock;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
 import net.frozenblock.wilderwild.block.TermiteMound;
 import net.frozenblock.wilderwild.block.TumbleweedBlock;
@@ -511,6 +512,8 @@ public final class RegisterBlocks {
     public static final Block BROWN_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM_BLOCK).luminance(1).collidable(false).nonOpaque().sounds(RegisterBlockSoundGroups.MUSHROOM));
     public static final Block RED_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.RED_MUSHROOM_BLOCK).collidable(false).nonOpaque().sounds(RegisterBlockSoundGroups.MUSHROOM));
     public static final Block POLLEN_BLOCK = new PollenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(BlockBehaviour.OffsetType.NONE).color(MaterialColor.SAND).sound(SoundType.VINE));
+	//TODO: Rename & Sponge Sounds
+	public static final Block SMALL_SPONGE = new SmallSpongeBlock(FabricBlockSettings.copyOf(Blocks.SPONGE).collidable(false).nonOpaque().sounds(SoundType.WET_GRASS));
 
     public static void registerNotSoPlants() {
         registerBlock(false, "pollen", POLLEN_BLOCK);
@@ -518,6 +521,7 @@ public final class RegisterBlocks {
 		registerBlockAfter(true, Items.RED_MUSHROOM, "brown_shelf_fungus", BROWN_SHELF_FUNGUS, CreativeModeTabs.NATURAL_BLOCKS);
 		Registry.register(BuiltInRegistries.BLOCK, WilderSharedConstants.id("algae"), ALGAE);
 		Registry.register(BuiltInRegistries.BLOCK, WilderSharedConstants.id("flowering_lily_pad"), FLOWERING_LILY_PAD);
+		registerBlock(false, "small_sponge", SMALL_SPONGE, CreativeModeTabs.NATURAL_BLOCKS);
     }
 
     // BLOCK FAMILIES

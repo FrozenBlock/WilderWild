@@ -40,7 +40,9 @@ import net.frozenblock.wilderwild.world.generation.features.AlgaeFeature;
 import net.frozenblock.wilderwild.world.generation.features.CattailFeature;
 import net.frozenblock.wilderwild.world.generation.features.NematocystFeature;
 import net.frozenblock.wilderwild.world.generation.features.ShelfFungusFeature;
+import net.frozenblock.wilderwild.world.generation.features.SmallSpongeFeature;
 import net.frozenblock.wilderwild.world.generation.features.config.ShelfFungusFeatureConfig;
+import net.frozenblock.wilderwild.world.generation.features.config.SmallSpongeFeatureConfig;
 import net.frozenblock.wilderwild.world.generation.foliage.PalmFoliagePlacer;
 import net.frozenblock.wilderwild.world.generation.foliage.ShortPalmFoliagePlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.BaobabTrunkPlacer;
@@ -76,6 +78,7 @@ public final class WilderWild implements ModInitializer {
     public static final TrunkPlacerType<BaobabTrunkPlacer> BAOBAB_TRUNK_PLACER = registerTrunk("baobab_trunk_placer", BaobabTrunkPlacer.CODEC);
 	public static final TrunkPlacerType<PalmTrunkPlacer> PALM_TRUNK_PLACER = registerTrunk("palm_trunk_placer", PalmTrunkPlacer.CODEC);
     public static final Feature<ShelfFungusFeatureConfig> SHELF_FUNGUS_FEATURE = new ShelfFungusFeature(ShelfFungusFeatureConfig.CODEC);
+	public static final Feature<SmallSpongeFeatureConfig> SMALL_SPONGE_FEATURE = new SmallSpongeFeature(SmallSpongeFeatureConfig.CODEC);
     public static final CattailFeature CATTAIL_FEATURE = new CattailFeature(ProbabilityFeatureConfiguration.CODEC);
     public static final AlgaeFeature ALGAE_FEATURE = new AlgaeFeature(ProbabilityFeatureConfiguration.CODEC);
     public static final NematocystFeature NEMATOCYST_FEATURE = new NematocystFeature(MultifaceGrowthConfiguration.CODEC);
@@ -107,7 +110,7 @@ public final class WilderWild implements ModInitializer {
         Registry.register(BuiltInRegistries.FEATURE, WilderSharedConstants.id("cattail_feature"), CATTAIL_FEATURE);
         Registry.register(BuiltInRegistries.FEATURE, WilderSharedConstants.id("algae_feature"), ALGAE_FEATURE);
         Registry.register(BuiltInRegistries.FEATURE, WilderSharedConstants.id("nematocyst_feature"), NEMATOCYST_FEATURE);
-
+		Registry.register(BuiltInRegistries.FEATURE, WilderSharedConstants.id("small_sponge_feature"), SMALL_SPONGE_FEATURE);
 
         TermiteMoundBlockEntity.Termite.addDegradableBlocks();
         TermiteMoundBlockEntity.Termite.addNaturalDegradableBlocks();
