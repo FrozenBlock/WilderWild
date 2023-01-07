@@ -571,7 +571,7 @@ public class WilderFeatureBootstrap {
 		var patchCactusOasis = configuredFeatures.getOrThrow(WilderConfiguredFeatures.PATCH_CACTUS_OASIS);
 		var patchCactusTall = configuredFeatures.getOrThrow(WilderConfiguredFeatures.PATCH_CACTUS_TALL);
 		var tumbleweed = configuredFeatures.getOrThrow(WilderConfiguredFeatures.TUMBLEWEED);
-		var smallSponge = configuredFeatures.getOrThrow(WilderConfiguredFeatures.SMALL_SPONGE_CONFIGURED);
+		var smallSponge = configuredFeatures.getOrThrow(WilderConfiguredFeatures.SMALL_SPONGE);
 
 		register(entries, WilderPlacedFeatures.FALLEN_TREES_MIXED_PLACED, fallenTreesMixed, RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
@@ -984,7 +984,7 @@ public class WilderFeatureBootstrap {
 		);
 		register(entries, WilderPlacedFeatures.SMALL_SPONGES,
 				smallSponge,
-				CountPlacement.of(ConstantInt.of(72)),
+				CountPlacement.of(ConstantInt.of(82)),
 				InSquarePlacement.spread(),
 				PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 				BiomeFilter.biome()
