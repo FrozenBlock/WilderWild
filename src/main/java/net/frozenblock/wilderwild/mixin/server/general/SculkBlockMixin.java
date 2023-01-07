@@ -110,7 +110,7 @@ public abstract class SculkBlockMixin {
         BlockState growthState = null;
         boolean isWorldGen = sculkChargeHandler.isWorldGeneration();
         boolean canReturn = false;
-		BlockPos originalChargePos = new BlockPos(aboveChargePos.getX(), aboveChargePos.getY(), aboveChargePos.getZ());
+		BlockPos newChargePos = new BlockPos(aboveChargePos.getX(), aboveChargePos.getY(), aboveChargePos.getZ());
 
         BlockState stateDown = level.getBlockState(chargePos.below());
         Block blockDown = stateDown.getBlock();
@@ -119,7 +119,7 @@ public abstract class SculkBlockMixin {
                 int pillarHeight = (int) Mth.clamp(EasyNoiseSampler.sample(EasyNoiseSampler.perlinXoro, chargePos.below(), WILDERWILD$RANDOMNESS, false, false) * WILDERWILD$HEIGHT_MULTIPLIER, 2, WILDERWILD$MAX_HEIGHT);
                 canReturn = true;
                 growthState = RegisterBlocks.OSSEOUS_SCULK.defaultBlockState().setValue(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight).setValue(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight + 1).setValue(OsseousSculkBlock.UPSIDEDOWN, true);
-				aboveChargePos = chargePos.below();
+				newChargePos = chargePos.below();
 			} else if (level.getBlockState(chargePos.below().below()).getBlock() == Blocks.AIR && level.getBlockState(chargePos.below().below().below()).getBlock() == Blocks.AIR) {
 				canReturn = true;
 				growthState = RegisterBlocks.HANGING_TENDRIL.defaultBlockState();
@@ -127,7 +127,7 @@ public abstract class SculkBlockMixin {
 				if (isWorldGen && AdvancedMath.random().nextDouble() > 0.6) {
 					growthSpawnCost = 0;
 				}
-				aboveChargePos = chargePos.below();
+				newChargePos = chargePos.below();
 			}
         }
 
@@ -149,18 +149,20 @@ public abstract class SculkBlockMixin {
         }
 
         if (canReturn && growthState != null) {
-            level.setBlock(aboveChargePos, growthState, 3);
+            level.setBlock(newChargePos, growthState, 3);
 
-            if (isWorldGen && level.getBlockState(aboveChargePos).getBlock() == RegisterBlocks.OSSEOUS_SCULK) {
+            if (isWorldGen && level.getBlockState(newChargePos).getBlock() == RegisterBlocks.OSSEOUS_SCULK) {
                 int growthAmount = Math.max(0, growthState.getValue(OsseousSculkBlock.HEIGHT_LEFT) - random.nextInt(2));
                 for (int a = 0; a < growthAmount; a++) {
-                    OsseousSculkBlock.worldGenSpread(aboveChargePos, level, random);
+                    OsseousSculkBlock.worldGenSpread(newChargePos, level, random);
                 }
             }
             cir.setReturnValue(Math.max(0, chargeAmount - growthSpawnCost));
-            level.playSound(null, aboveChargePos, growthState.getSoundType().getPlaceSound(), SoundSource.BLOCKS, 1.0F, 1.0F);
+            level.playSound(null, newChargePos, growthState.getSoundType().getPlaceSound(), SoundSource.BLOCKS, 1.0F, 1.0F);
         } else {
-			aboveChargePos = originalChargePos;
+			if (this.wilderwild$isPlacingBelow) {
+				cir.setReturnValue(chargeAmount);
+			}
 		}
     }
 
