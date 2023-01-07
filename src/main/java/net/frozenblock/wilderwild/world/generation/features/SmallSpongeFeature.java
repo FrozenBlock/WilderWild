@@ -67,9 +67,11 @@ public class SmallSpongeFeature extends Feature<SmallSpongeFeatureConfig> {
 					return false;
 				}
 
-				level.setBlock(pos, blockState2, 3);
-				level.getChunk(pos).markPosForPostprocessing(pos);
-				return blockState2.getValue(SmallSpongeBlock.WATERLOGGED);
+				if (blockState2.getValue(SmallSpongeBlock.WATERLOGGED)) {
+					level.setBlock(pos, blockState2, 3);
+					level.getChunk(pos).markPosForPostprocessing(pos);
+					return true;
+				}
 			}
 		}
 
