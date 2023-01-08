@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import java.util.List;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.entity.render.WilderWardenModel;
+import net.frozenblock.wilderwild.entity.render.animations.WilderWardenModel;
 import net.minecraft.client.model.WardenModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.world.entity.monster.warden.Warden;

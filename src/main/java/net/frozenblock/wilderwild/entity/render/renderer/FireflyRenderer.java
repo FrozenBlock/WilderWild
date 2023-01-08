@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.entity.render;
+package net.frozenblock.wilderwild.entity.render.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -160,7 +160,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Firefly entity) {
+    public ResourceLocation getTextureLocation(@NotNull Firefly entity) {
         return TEXTURE;
     }
 

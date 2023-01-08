@@ -385,12 +385,12 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
         this.setPrevScale(this.getScale());
 
         if (this.despawning) {
-            this.setScale(this.getScale() - 0.0375F);
+            this.setScale(this.getScale() - 0.5F);
             if (this.getScale() < 0.0F) {
                 this.discard();
             }
         } else if (this.getScale() < 1.5F) {
-            this.setScale(Math.min(this.getScale() + 0.0125F, 1.5F));
+            this.setScale(Math.min(this.getScale() + 0.025F, 1.5F));
         }
     }
 
