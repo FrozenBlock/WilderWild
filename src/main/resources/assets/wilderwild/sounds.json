@@ -1687,7 +1687,11 @@
   },
   "entity.firefly.hide": {
     "sounds": [
-      "block/beehive/enter"
+      "wilderwild:block/leaves/step1",
+      "wilderwild:block/leaves/step2",
+      "wilderwild:block/leaves/step3",
+      "wilderwild:block/leaves/step4",
+      "wilderwild:block/leaves/step5"
     ],
     "subtitle": "subtitles.entity.firefly.hide"
   },
