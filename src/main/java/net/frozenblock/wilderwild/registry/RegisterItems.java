@@ -87,7 +87,6 @@ public final class RegisterItems {
 	public static final Item PALM_BOAT_ITEM = new BoatItem(false, WilderEnumValues.PALM, new FabricItemSettings().maxCount(1));
 	public static final Item PALM_CHEST_BOAT_ITEM = new BoatItem(true, WilderEnumValues.PALM, new FabricItemSettings().maxCount(1));
 
-
     //public static final Item PRICKLY_PEAR = new PrickOnUseBlockItem(RegisterBlocks.PRICKLY_PEAR_CACTUS, new FabricItemSettings().food(RegisterFood.PRICKLY_PEAR), 2F, RegisterSounds.PLAYER_HURT_CACTUS, "prickly_pear");
     //public static final Item PEELED_PRICKLY_PEAR = new Item(new FabricItemSettings().food(Foods.APPLE));
 
@@ -136,17 +135,18 @@ public final class RegisterItems {
 
         Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id("pollen"), POLLEN);
     }
+
     public static void registerItems() {
         WilderSharedConstants.logWild("Registering Items for", WilderSharedConstants.UNSTABLE_LOGGING);
 		//BOATS
-		registerItemAfter(Items.MANGROVE_CHEST_BOAT, CYPRESS_CHEST_BOAT_ITEM, "cypress_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItemAfter(Items.MANGROVE_CHEST_BOAT, CYPRESS_BOAT_ITEM, "cypress_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItemAfter(Items.MANGROVE_CHEST_BOAT, BAOBAB_CHEST_BOAT_ITEM, "baobab_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItemAfter(Items.MANGROVE_CHEST_BOAT, BAOBAB_BOAT_ITEM, "baobab_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItemAfter(Items.MANGROVE_CHEST_BOAT, PALM_BOAT_ITEM, "palm_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItemAfter(Items.MANGROVE_CHEST_BOAT, PALM_CHEST_BOAT_ITEM, "palm_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerItemAfter(BAOBAB_BOAT_ITEM, BAOBAB_CHEST_BOAT_ITEM, "baobab_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerItemAfter(BAOBAB_CHEST_BOAT_ITEM, CYPRESS_CHEST_BOAT_ITEM, "cypress_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerItemAfter(CYPRESS_CHEST_BOAT_ITEM, CYPRESS_BOAT_ITEM, "cypress_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerItemAfter(CYPRESS_BOAT_ITEM, PALM_BOAT_ITEM, "palm_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerItemAfter(PALM_BOAT_ITEM, PALM_CHEST_BOAT_ITEM, "palm_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
 
-		registerItemAfter(Items.BEETROOT_SEEDS, MILKWEED_POD, "milkweed_pod", CreativeModeTabs.NATURAL_BLOCKS);
+		registerItemBefore(Items.INK_SAC, MILKWEED_POD, "milkweed_pod", CreativeModeTabs.INGREDIENTS);
 		registerItemBefore(Items.MUSIC_DISC_5, MUSIC_DISC_BENEATH, "music_disc_beneath", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItemBefore(Items.MUSIC_DISC_OTHERSIDE, MUSIC_DISC_GOAT_HORN_SYMPHONY, "music_disc_goathorn_symphony", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItemAfter(Items.MUSIC_DISC_5, MUSIC_DISC_BACK, "music_disc_back", CreativeModeTabs.TOOLS_AND_UTILITIES);
@@ -154,7 +154,11 @@ public final class RegisterItems {
 		registerItemAfter(Items.HUSK_SPAWN_EGG, JELLYFISH_SPAWN_EGG, "jellyfish_spawn_egg", CreativeModeTabs.SPAWN_EGGS);
 		registerItemAfter(JELLYFISH_SPAWN_EGG, TUMBLEWEED_SPAWN_EGG, "tumbleweed_spawn_egg", CreativeModeTabs.SPAWN_EGGS);
 		registerItemAfter(Items.AXOLOTL_BUCKET, JELLYFISH_BUCKET, "jellyfish_bucket", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItem(SPLIT_COCONUT, "split_coconut", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerItemAfter(Items.GLOW_BERRIES, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.FOOD_AND_DRINKS);
+		registerItemAfter(Items.MANGROVE_PROPAGULE, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.NATURAL_BLOCKS);
+		registerItemAfter(Items.EGG, COCONUT, "coconut", CreativeModeTabs.COMBAT);
+		registerItemAfter(RegisterBlocks.CYPRESS_SAPLING, COCONUT, "coconut", CreativeModeTabs.NATURAL_BLOCKS);
+		registerItemAfter(BAOBAB_NUT, SPLIT_COCONUT, "split_coconut", CreativeModeTabs.FOOD_AND_DRINKS);
 
         Registry.register(BuiltInRegistries.INSTRUMENT, ANCIENT_HORN_INSTRUMENT, new Instrument(RegisterSounds.ITEM_ANCIENT_HORN_CALL, 300, 256.0F));
         Registry.register(BuiltInRegistries.INSTRUMENT, SAX_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_SAX_LOOP, 32767, 64.0F));
@@ -171,9 +175,6 @@ public final class RegisterItems {
 
         //Registry.register(Registry.ITEM, WilderSharedConstants.id("prickly_pear"), PRICKLY_PEAR);
         //Registry.register(Registry.ITEM, WilderSharedConstants.id("peeled_prickly_pear"), PEELED_PRICKLY_PEAR);
-
-		registerItemAfter(Items.MANGROVE_PROPAGULE, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.NATURAL_BLOCKS);
-		registerItemAfter(Items.GLOW_BERRIES, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.FOOD_AND_DRINKS);
 
 		registerItem(FIREFLY_BOTTLE, "firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItem(WHITE_FIREFLY_BOTTLE, "white_firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);

@@ -285,7 +285,7 @@ public final class RegisterBlocks {
 		String wood = "baobab";
 		//BAOBAB IN BUILDING BLOCKS
 		registerBlockAfter(true, Items.MANGROVE_BUTTON,wood + "_log", BAOBAB_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, HOLLOWED_BAOBAB_LOG,wood + "_wood", BAOBAB_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(true, BAOBAB_LOG,wood + "_wood", BAOBAB_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(true, BAOBAB_WOOD,"stripped_" + wood + "_log", STRIPPED_BAOBAB_LOG, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(true, STRIPPED_BAOBAB_LOG,"stripped_" + wood + "_wood", STRIPPED_BAOBAB_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(true, STRIPPED_BAOBAB_WOOD, wood + "_planks", BAOBAB_PLANKS, CreativeModeTabs.BUILDING_BLOCKS);
@@ -298,8 +298,8 @@ public final class RegisterBlocks {
 		registerBlockAfter(true, BAOBAB_TRAPDOOR,wood + "_pressure_plate", BAOBAB_PRESSURE_PLATE, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(true, BAOBAB_PRESSURE_PLATE,wood + "_button", BAOBAB_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
 		//BAOBAB IN NATURE
-		registerBlockBefore(true, Items.CRIMSON_STEM,wood + "_log", BAOBAB_LOG, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(true, Items.AZALEA_LEAVES,wood + "_leaves", BAOBAB_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(true, HOLLOWED_MANGROVE_LOG,wood + "_log", BAOBAB_LOG, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(true, Items.MUDDY_MANGROVE_ROOTS,wood + "_leaves", BAOBAB_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
 
 		wood = "cypress";
 		//CYPRESS IN BUILDING BLOCKS
@@ -317,8 +317,8 @@ public final class RegisterBlocks {
 		registerBlockAfter(true, CYPRESS_TRAPDOOR,wood + "_pressure_plate", CYPRESS_PRESSURE_PLATE, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(true, CYPRESS_PRESSURE_PLATE,wood + "_button", CYPRESS_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
 		//CYPRESS IN NATURE
-		registerBlockBefore(true, Items.CRIMSON_STEM,wood + "_log", CYPRESS_LOG, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(true, Items.AZALEA_LEAVES,wood + "_leaves", CYPRESS_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(true, HOLLOWED_BAOBAB_LOG,wood + "_log", CYPRESS_LOG, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(true, BAOBAB_LEAVES,wood + "_leaves", CYPRESS_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
 
 		wood = "palm";
 		//PALM IN BUILDING BLOCKS
@@ -336,9 +336,9 @@ public final class RegisterBlocks {
 		registerBlockAfter(true, PALM_TRAPDOOR, wood + "_pressure_plate", PALM_PRESSURE_PLATE, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(true, PALM_PRESSURE_PLATE, wood + "_button", PALM_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
 		//PALM IN NATURE
-		registerBlockBefore(true, Items.CRIMSON_STEM, wood + "_log", PALM_LOG, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(true, Items.AZALEA_LEAVES, wood + "_crown", PALM_CROWN, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(true, PALM_CROWN, wood + "_leaves", PALM_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(true, HOLLOWED_CYPRESS_LOG, wood + "_log", PALM_LOG, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(true,PALM_LOG, wood + "_crown", PALM_CROWN, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(true, CYPRESS_LEAVES, wood + "_leaves", PALM_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
 
         registerBlock(false, baobab + "_nut", BAOBAB_NUT);
         registerBlock(false, "potted_" + baobab + "_nut", POTTED_BAOBAB_NUT);
@@ -346,7 +346,6 @@ public final class RegisterBlocks {
 		registerBlockAfter(true, Items.MANGROVE_PROPAGULE,cypress + "_sapling", CYPRESS_SAPLING, CreativeModeTabs.NATURAL_BLOCKS);
         registerBlock(false, "potted_" + cypress + "_sapling", POTTED_CYPRESS_SAPLING);
 		registerBlock(false, "coconut", COCONUT);
-		Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id("coconut"), RegisterItems.COCONUT);
 		registerBlock(false, "potted_coconut", POTTED_COCONUT);
 
         registerBlock(false, baobab + "_sign", BAOBAB_SIGN_BLOCK);
@@ -385,11 +384,11 @@ public final class RegisterBlocks {
 		registerBlockAfter(true, Items.DARK_OAK_LOG, "hollowed_dark_oak_log", HOLLOWED_DARK_OAK_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(true, Items.MANGROVE_LOG, "hollowed_mangrove_log", HOLLOWED_MANGROVE_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockBefore(true, BAOBAB_WOOD, "hollowed_baobab_log", HOLLOWED_BAOBAB_LOG,CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(true, Items.CRIMSON_STEM, "hollowed_baobab_log", HOLLOWED_BAOBAB_LOG, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(true, BAOBAB_LOG, "hollowed_baobab_log", HOLLOWED_BAOBAB_LOG, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockBefore(true, CYPRESS_WOOD, "hollowed_cypress_log", HOLLOWED_CYPRESS_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(true, Items.CRIMSON_STEM,"hollowed_cypress_log", HOLLOWED_CYPRESS_LOG, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(true, CYPRESS_LOG,"hollowed_cypress_log", HOLLOWED_CYPRESS_LOG, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockBefore(true, PALM_WOOD, "hollowed_palm_log", HOLLOWED_PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(true, Items.CRIMSON_STEM, "hollowed_palm_log", HOLLOWED_PALM_LOG, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(true, PALM_LOG, "hollowed_palm_log", HOLLOWED_PALM_LOG, CreativeModeTabs.NATURAL_BLOCKS);
     }
 
     // SCULK
