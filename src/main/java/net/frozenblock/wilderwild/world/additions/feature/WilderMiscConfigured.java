@@ -60,6 +60,7 @@ public final class WilderMiscConfigured {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> DOWNWARDS_PURPLE_MESOGLEA_PILLAR = key("downwards_purple_mesoglea_pillar");
 	// OASIS
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SAND_POOL = key("sand_pool");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> MESSY_SAND_POOL = key("messy_sand_pool");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> GRASS_PATH = key("grass_path");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> MOSS_PATH_OASIS = key("moss_path_oasis");
 

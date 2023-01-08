@@ -66,6 +66,7 @@ public final class WilderMiscPlaced {
 	public static final ResourceKey<PlacedFeature> PURPLE_MESOGLEA_PILLAR = key("purple_mesoglea_pillar");
 	// OASIS
 	public static final ResourceKey<PlacedFeature> SAND_POOL = key("sand_pool");
+	public static final ResourceKey<PlacedFeature> MESSY_SAND_POOL = key("messy_sand_pool");
 	public static final ResourceKey<PlacedFeature> GRASS_PATH = key("grass_path");
 	public static final ResourceKey<PlacedFeature> MOSS_PATH_OASIS = key("moss_path_oasis");
 

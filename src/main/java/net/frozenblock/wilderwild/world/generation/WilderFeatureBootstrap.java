@@ -66,6 +66,7 @@ import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.LakeFeature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockColumnConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.DiskConfiguration;
@@ -208,6 +209,7 @@ public class WilderFeatureBootstrap {
 		var downwardsMesogleaPillar = register(entries, WilderMiscConfigured.DOWNWARDS_MESOGLEA_PILLAR, FrozenFeatures.DOWNWARDS_PILLAR_FEATURE, new PillarFeatureConfig(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true), UniformInt.of(3, 10), HolderSet.direct(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(), RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(), Blocks.WATER.builtInRegistryHolder())));
 		var downwardsPurpleMesogleaPillar = register(entries, WilderMiscConfigured.DOWNWARDS_PURPLE_MESOGLEA_PILLAR, FrozenFeatures.DOWNWARDS_PILLAR_FEATURE, new PillarFeatureConfig(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true), UniformInt.of(3, 10), HolderSet.direct(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(), RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(), Blocks.WATER.builtInRegistryHolder())));
 		var sandPool = register(entries, WilderMiscConfigured.SAND_POOL, FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH, new VegetationPatchConfiguration(WilderBlockTags.SAND_POOL_REPLACEABLE, BlockStateProvider.simple(Blocks.SAND), PlacementUtils.inlinePlaced(blankShutUp), CaveSurface.FLOOR, ConstantInt.of(5), 0.8F, 1, 0.000F, UniformInt.of(8, 14), 0.7F));
+		var messySandPool = register(entries, WilderMiscConfigured.MESSY_SAND_POOL, Feature.LAKE, new LakeFeature.Configuration(BlockStateProvider.simple(Blocks.WATER.defaultBlockState()), BlockStateProvider.simple(Blocks.SAND.defaultBlockState())));
 		var grassPath = register(entries, WilderMiscConfigured.GRASS_PATH, FrozenFeatures.NOISE_PATH_SWAP_UNDER_WATER_FEATURE, new PathSwapUnderWaterFeatureConfig(BlockStateProvider.simple(Blocks.GRASS_BLOCK), BlockStateProvider.simple(Blocks.DIRT), 11, 4, 0.15, 0.4, 1.0, false, false, HolderSet.direct(Blocks.SAND.builtInRegistryHolder(), Blocks.SANDSTONE.builtInRegistryHolder())));
 		var mossPathOasis = register(entries, WilderMiscConfigured.MOSS_PATH_OASIS, FrozenFeatures.NOISE_PATH_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.MOSS_BLOCK), 9, 2, 0.10, 0.12, 1, true, true, HolderSet.direct(Blocks.SAND.builtInRegistryHolder())));
 
@@ -486,6 +488,7 @@ public class WilderFeatureBootstrap {
 		var deepslatePool = configuredFeatures.getOrThrow(WilderMiscConfigured.DEEPSLATE_POOL);
 		var stonePool = configuredFeatures.getOrThrow(WilderMiscConfigured.STONE_POOL);
 		var sandPool = configuredFeatures.getOrThrow(WilderMiscConfigured.SAND_POOL);
+		var messySandPool = configuredFeatures.getOrThrow(WilderMiscConfigured.MESSY_SAND_POOL);
 		var grassPath = configuredFeatures.getOrThrow(WilderMiscConfigured.GRASS_PATH);
 		var mossPathOasis = configuredFeatures.getOrThrow(WilderMiscConfigured.MOSS_PATH_OASIS);
 
@@ -514,6 +517,7 @@ public class WilderFeatureBootstrap {
 		var placedJellyfishDeepslatePool = register(entries, WilderMiscPlaced.JELLYFISH_DEEPSLATE_POOL, deepslatePool, CountPlacement.of(30), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(67)), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
 		var placedJellyfishStonePool = register(entries, WilderMiscPlaced.JELLYFISH_STONE_POOL, stonePool, CountPlacement.of(30), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(68), VerticalAnchor.top()), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
 		var placedSandPool = register(entries, WilderMiscPlaced.SAND_POOL, sandPool, CountPlacement.of(1), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(63), VerticalAnchor.aboveBottom(256)), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
+		var placedMessySandPool = register(entries, WilderMiscPlaced.MESSY_SAND_POOL, sandPool, CountPlacement.of(3), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(63), VerticalAnchor.aboveBottom(256)), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
 		var placedGrassPath = register(entries, WilderMiscPlaced.GRASS_PATH, grassPath, CountPlacement.of(4), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 		var placedMossPathOasis = register(entries, WilderMiscPlaced.MOSS_PATH_OASIS, mossPathOasis, RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
