@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.entity.render;
+package net.frozenblock.wilderwild.entity.render.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -8,6 +8,7 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.lib.entity.api.rendering.FrozenRenderType;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
+import net.frozenblock.wilderwild.entity.render.model.AncientHornProjectileModel;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;

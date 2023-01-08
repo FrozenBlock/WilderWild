@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.entity.render;
+package net.frozenblock.wilderwild.entity.render.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

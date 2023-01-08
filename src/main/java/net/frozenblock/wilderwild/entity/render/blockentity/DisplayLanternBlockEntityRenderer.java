@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.entity.render;
+package net.frozenblock.wilderwild.entity.render.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -9,6 +9,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
+import net.frozenblock.wilderwild.entity.render.renderer.FireflyRenderer;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
