@@ -15,6 +15,7 @@ import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.registry.WilderRegistry;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
+import net.frozenblock.wilderwild.world.generation.conditionsource.BetaBeachConditionSource;
 import net.frozenblock.wilderwild.world.generation.noise.WilderNoise;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.block.Block;
@@ -206,8 +207,8 @@ public final class WilderSharedWorldgen {
 		);
 	}
 
-	public static SurfaceRules.SequenceRuleSource betaBeaches() {
-		return (SurfaceRules.SequenceRuleSource) SurfaceRules.sequence(gravelBetaBeaches(), sandBetaBeaches(), multilayerSandBetaBeaches());
+	public static SurfaceRules.RuleSource betaBeaches() {
+		return SurfaceRules.ifTrue(BetaBeachConditionSource.betaBeachConditionSource(1), SurfaceRules.sequence(gravelBetaBeaches(), sandBetaBeaches(), multilayerSandBetaBeaches()));
 	}
 
 	public static SurfaceRules.RuleSource gravelBetaBeaches() {
