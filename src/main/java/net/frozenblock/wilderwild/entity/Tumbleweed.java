@@ -435,7 +435,7 @@ public class Tumbleweed extends Mob {
 		return this.entityData.get(ITEM_STACK);
 	}
 
-	private static final float maxItemOffset = 0.5F;
+	private static final float maxItemOffset = 0.25F;
 	public void randomizeItemOffsets() {
 		this.setItemX((this.random.nextFloat() * (this.random.nextBoolean() ? 1 : -1)) * maxItemOffset);
 		this.setItemZ((this.random.nextFloat() * (this.random.nextBoolean() ? 1 : -1)) * maxItemOffset);
