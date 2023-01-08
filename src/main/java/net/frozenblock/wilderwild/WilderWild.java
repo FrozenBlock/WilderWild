@@ -36,6 +36,7 @@ import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
 import net.frozenblock.wilderwild.world.additions.feature.WilderTreeConfigured;
 import net.frozenblock.wilderwild.world.additions.feature.WilderTreePlaced;
 import net.frozenblock.wilderwild.world.additions.gen.WilderWorldGen;
+import net.frozenblock.wilderwild.world.generation.conditionsource.BetaBeachConditionSource;
 import net.frozenblock.wilderwild.world.generation.features.AlgaeFeature;
 import net.frozenblock.wilderwild.world.generation.features.CattailFeature;
 import net.frozenblock.wilderwild.world.generation.features.NematocystFeature;
@@ -105,6 +106,8 @@ public final class WilderWild implements ModInitializer {
         RegisterParticles.registerParticles();
 		RegisterResources.register();
 		RegisterProperties.init();
+
+		Registry.register(BuiltInRegistries.MATERIAL_CONDITION, WilderSharedConstants.id("beta_beach_condition_source"), BetaBeachConditionSource.CODEC.codec());
 
         Registry.register(BuiltInRegistries.FEATURE, WilderSharedConstants.id("shelf_fungus_feature"), SHELF_FUNGUS_FEATURE);
         Registry.register(BuiltInRegistries.FEATURE, WilderSharedConstants.id("cattail_feature"), CATTAIL_FEATURE);
