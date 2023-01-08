@@ -18,6 +18,8 @@ accessible    method    net/minecraft/world/item/ItemCooldowns$CooldownInstance 
 accessible    field    net/minecraft/world/item/ItemStack    tag    Lnet/minecraft/nbt/CompoundTag;
 accessible    method    net/minecraft/world/item/CreativeModeTabs    generateInstrumentTypes    (Lnet/minecraft/world/item/CreativeModeTab$Output;Lnet/minecraft/world/item/Item;Lnet/minecraft/tags/TagKey;Lnet/minecraft/world/item/CreativeModeTab$TabVisibility;)V
 accessible    class    net/minecraft/world/item/CreativeModeTab$TabVisibility
+accessible    class    Lnet/minecraft/world/item/RecordItem
+accessible    method    Lnet/minecraft/world/item/RecordItem    <init>    (ILnet/minecraft/sounds/SoundEvent;Lnet/minecraft/world/item/Item$Properties;I)V
 
 # Structures
 accessible    method    net/minecraft/world/level/levelgen/structure/StructurePiece    getWorldPos    (III)Lnet/minecraft/core/BlockPos$MutableBlockPos;
