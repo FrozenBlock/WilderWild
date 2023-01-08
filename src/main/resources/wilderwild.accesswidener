@@ -16,6 +16,8 @@ accessible    field    net/minecraft/world/item/ItemCooldowns$CooldownInstance  
 accessible    field    net/minecraft/world/item/ItemCooldowns$CooldownInstance    endTime    I
 accessible    method    net/minecraft/world/item/ItemCooldowns$CooldownInstance    <init>    (II)V
 accessible    field    net/minecraft/world/item/ItemStack    tag    Lnet/minecraft/nbt/CompoundTag;
+accessible    class    Lnet/minecraft/world/item/RecordItem
+accessible    method    Lnet/minecraft/world/item/RecordItem    <init>    (ILnet/minecraft/sounds/SoundEvent;Lnet/minecraft/world/item/Item$Properties;I)V
 
 # Structures
 accessible    method    net/minecraft/world/level/levelgen/structure/StructurePiece    getWorldPos    (III)Lnet/minecraft/core/BlockPos$MutableBlockPos;
