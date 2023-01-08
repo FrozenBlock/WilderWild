@@ -144,6 +144,27 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.SWAMP_TREES)
 					.add(Biomes.SWAMP);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.GRAVEL_BEACH)
+					.add(Biomes.BIRCH_FOREST)
+					.add(Biomes.FROZEN_RIVER)
+					.add(RegisterWorldgen.MIXED_FOREST)
+					.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
+					.add(Biomes.OLD_GROWTH_PINE_TAIGA)
+					.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA)
+					.add(Biomes.TAIGA)
+					.add(Biomes.SNOWY_TAIGA);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.SAND_BEACHES)
+					.add(Biomes.DARK_FOREST)
+					.add(Biomes.FLOWER_FOREST)
+					.add(Biomes.FOREST);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.MULTI_LAYER_SAND_BEACHES)
+					.add(Biomes.BAMBOO_JUNGLE)
+					.add(Biomes.JUNGLE)
+					.add(Biomes.SAVANNA)
+					.add(Biomes.SPARSE_JUNGLE);
 		}
 
 		private void generateFeatureTags() {
