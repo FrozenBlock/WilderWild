@@ -65,7 +65,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
         int overlay = getOverlay(entity, 0);
 
         matrices.pushPose();
-        matrices.scale(scale, scale, isEntityUpsideDown(entity) ? -scale : scale);
+        matrices.scale(isEntityUpsideDown(entity) ? -scale : scale, scale, scale);
         matrices.translate(0, yOffset, 0);
         matrices.mulPose(this.entityRenderDispatcher.cameraOrientation());
         matrices.mulPose(one80Quat);
