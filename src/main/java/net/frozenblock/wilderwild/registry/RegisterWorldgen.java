@@ -1,8 +1,8 @@
 package net.frozenblock.wilderwild.registry;
 
-import net.frozenblock.lib.worldgen.surface.api.FrozenPresetBoundRuleSource;
+import java.util.ArrayList;
+import net.frozenblock.lib.worldgen.surface.api.FrozenDimensionBoundRuleSource;
 import net.frozenblock.lib.worldgen.surface.api.FrozenSurfaceRuleEntrypoint;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderEnumValues;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
@@ -32,10 +32,6 @@ import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.SurfaceRules;
-import org.jetbrains.annotations.NotNull;
-import org.quiltmc.qsl.frozenblock.worldgen.surface_rule.api.SurfaceRuleContext;
-import org.quiltmc.qsl.frozenblock.worldgen.surface_rule.api.SurfaceRuleEvents;
-import java.util.ArrayList;
 
 public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 
@@ -260,7 +256,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 	}
 
 	@Override
-	public void addSurfaceRules(ArrayList<FrozenPresetBoundRuleSource> context) {
+	public void addSurfaceRules(ArrayList<FrozenDimensionBoundRuleSource> context) {
 
 	}
 }
