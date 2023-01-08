@@ -85,7 +85,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
     public int homeCheckCooldown;
     public boolean wasNamedNectar;
     public boolean shouldCheckSpawn = true;
-	public int shouldHideCooldown = 100;
 
     public Firefly(EntityType<? extends Firefly> entityType, Level level) {
         super(entityType, level);
@@ -272,7 +271,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 
     public boolean shouldHide() {
 		return this.natural
-				&& this.shouldHideCooldown <= 0
 				&& !this.level.getBiome(this.blockPosition()).is(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)
 				&& this.getLevel().isDay()
 				&& this.getLevel().getBrightness(LightLayer.SKY, this.blockPosition()) >= 7;
@@ -384,11 +382,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
             }
         }
 
-		if (this.shouldHideCooldown < 0) {
-			this.shouldHideCooldown = 120;
-		}
-		--this.shouldHideCooldown;
-
         this.setPrevScale(this.getScale());
 
         if (this.despawning) {
@@ -491,7 +484,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
         compound.putInt("homeCheckCooldown", this.homeCheckCooldown);
         compound.putBoolean("wasNamedNectar", this.wasNamedNectar);
         compound.putBoolean("shouldCheckSpawn", this.shouldCheckSpawn);
-		compound.putInt("shouldHideCooldown", this.shouldHideCooldown);
     }
 
     @Override
@@ -512,7 +504,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
         this.homeCheckCooldown = compound.getInt("homeCheckCooldown");
         this.wasNamedNectar = compound.getBoolean("wasNamedNectar");
         this.shouldCheckSpawn = compound.getBoolean("shouldCheckSpawn");
-		this.shouldHideCooldown = compound.getInt("shouldHideCooldown");
     }
 
     @Override
