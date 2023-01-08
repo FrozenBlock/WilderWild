@@ -353,6 +353,15 @@ public final class WilderPlacedFeatures {
 			BiomeFilter.biome()
 	);
 
+	public static final Holder<PlacedFeature> SMALL_SPONGES_RARE = PlacementUtils.register(
+			"small_sponges_rare",
+			WilderConfiguredFeatures.SMALL_SPONGE,
+			CountPlacement.of(ConstantInt.of(42)),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			BiomeFilter.biome()
+	);
+
     public static void init() {
     }
 
