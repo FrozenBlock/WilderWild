@@ -324,7 +324,8 @@ public final class RegisterBlocks {
 		//PALM IN BUILDING BLOCKS
 		registerBlockAfter(true, CYPRESS_BUTTON, wood + "_log", PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(true, PALM_LOG, wood + "_wood", PALM_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, PALM_WOOD, "stripped_" + wood + "_log", STRIPPED_PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(true, PALM_WOOD, wood + "_crown", PALM_CROWN, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(true, PALM_CROWN, "stripped_" + wood + "_log", STRIPPED_PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(true, STRIPPED_PALM_LOG, "stripped_" + wood + "_wood", STRIPPED_PALM_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(true, STRIPPED_PALM_WOOD, wood + "_planks", PALM_PLANKS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(true, PALM_PLANKS, wood + "_stairs", PALM_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
@@ -336,7 +337,7 @@ public final class RegisterBlocks {
 		registerBlockAfter(true, PALM_TRAPDOOR, wood + "_pressure_plate", PALM_PRESSURE_PLATE, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(true, PALM_PRESSURE_PLATE, wood + "_button", PALM_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
 		//PALM IN NATURE
-		registerBlockAfter(true, HOLLOWED_CYPRESS_LOG, wood + "_log", PALM_LOG, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(true, CYPRESS_LOG, wood + "_log", PALM_LOG, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(true,PALM_LOG, wood + "_crown", PALM_CROWN, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(true, CYPRESS_LEAVES, wood + "_leaves", PALM_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
 
@@ -390,7 +391,7 @@ public final class RegisterBlocks {
 		registerBlockBefore(true, CYPRESS_WOOD, "hollowed_cypress_log", HOLLOWED_CYPRESS_LOG, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(true, CYPRESS_LOG,"hollowed_cypress_log", HOLLOWED_CYPRESS_LOG, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockBefore(true, PALM_WOOD, "hollowed_palm_log", HOLLOWED_PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, PALM_LOG, "hollowed_palm_log", HOLLOWED_PALM_LOG, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(true, PALM_CROWN, "hollowed_palm_log", HOLLOWED_PALM_LOG, CreativeModeTabs.NATURAL_BLOCKS);
     }
 
     // SCULK
