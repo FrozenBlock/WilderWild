@@ -71,9 +71,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class Firefly extends PathfinderMob implements FlyingAnimal {
 
-    protected static final ImmutableList<SensorType<? extends Sensor<? super Firefly>>> SENSORS = ImmutableList.of(
-			SensorType.NEAREST_LIVING_ENTITIES
-	);
+    protected static final ImmutableList<SensorType<? extends Sensor<? super Firefly>>> SENSORS = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES);
+
     protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES = ImmutableList.of(MemoryModuleType.PATH, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.LOOK_TARGET, MemoryModuleType.HOME);
     private static final EntityDataAccessor<Boolean> FROM_BOTTLE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FLICKERS = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
@@ -116,7 +115,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
-        this.natural = reason == MobSpawnType.NATURAL || reason == MobSpawnType.CHUNK_GENERATION || reason == MobSpawnType.SPAWNER;
+        this.natural = reason == MobSpawnType.NATURAL || reason == MobSpawnType.CHUNK_GENERATION || reason == MobSpawnType.SPAWNER || reason == MobSpawnType.SPAWN_EGG || reason == MobSpawnType.COMMAND;
 		this.hasHome = this.hasHome || !this.natural;
         FireflyAi.rememberHome(this, this.blockPosition());
 
