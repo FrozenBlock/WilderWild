@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
+import static net.minecraft.client.renderer.entity.LivingEntityRenderer.isEntityUpsideDown;
 
 public class FireflyRenderer extends EntityRenderer<Firefly> {
     //CREDIT TO magistermaks ON GITHUB!!
@@ -64,7 +65,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
         int overlay = getOverlay(entity, 0);
 
         matrices.pushPose();
-        matrices.scale(scale, scale, scale);
+        matrices.scale(isEntityUpsideDown(entity) ? -scale : scale, scale, scale);
         matrices.translate(0, yOffset, 0);
         matrices.mulPose(this.entityRenderDispatcher.cameraOrientation());
         matrices.mulPose(one80Quat);
