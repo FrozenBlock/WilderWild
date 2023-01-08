@@ -298,8 +298,8 @@ public final class RegisterBlocks {
 		registerBlockAfter(true, BAOBAB_TRAPDOOR,wood + "_pressure_plate", BAOBAB_PRESSURE_PLATE, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(true, BAOBAB_PRESSURE_PLATE,wood + "_button", BAOBAB_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
 		//BAOBAB IN NATURE
-		registerBlockAfter(true, HOLLOWED_MANGROVE_LOG,wood + "_log", BAOBAB_LOG, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(true, Items.MUDDY_MANGROVE_ROOTS,wood + "_leaves", BAOBAB_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(true, Items.MANGROVE_LOG,wood + "_log", BAOBAB_LOG, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(true, Items.FLOWERING_AZALEA_LEAVES,wood + "_leaves", BAOBAB_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
 
 		wood = "cypress";
 		//CYPRESS IN BUILDING BLOCKS
@@ -382,7 +382,9 @@ public final class RegisterBlocks {
 		registerBlockAfter(true, Items.JUNGLE_LOG, "hollowed_jungle_log", HOLLOWED_JUNGLE_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(true, Items.ACACIA_LOG, "hollowed_acacia_log", HOLLOWED_ACACIA_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(true, Items.DARK_OAK_LOG, "hollowed_dark_oak_log", HOLLOWED_DARK_OAK_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, Items.MANGROVE_LOG, "hollowed_mangrove_log", HOLLOWED_MANGROVE_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(true, BAOBAB_LOG, "hollowed_mangrove_log", HOLLOWED_MANGROVE_LOG, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(true, Items.MANGROVE_LOG, "hollowed_mangrove_log", HOLLOWED_MANGROVE_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+
 		registerBlockBefore(true, BAOBAB_WOOD, "hollowed_baobab_log", HOLLOWED_BAOBAB_LOG,CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(true, BAOBAB_LOG, "hollowed_baobab_log", HOLLOWED_BAOBAB_LOG, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockBefore(true, CYPRESS_WOOD, "hollowed_cypress_log", HOLLOWED_CYPRESS_LOG, CreativeModeTabs.BUILDING_BLOCKS);
