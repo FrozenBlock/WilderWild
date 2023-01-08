@@ -31,8 +31,8 @@ public final class BetaBeachConditionSource implements SurfaceRules.ConditionSou
 	}
 
 	public SurfaceRules.Condition apply(SurfaceRules.Context context) {
-		class BetaBeachConditionSource extends SurfaceRules.LazyYCondition {
-			BetaBeachConditionSource(SurfaceRules.Context context) {
+		class BetaBeachCondition extends SurfaceRules.LazyYCondition {
+			BetaBeachCondition(SurfaceRules.Context context) {
 				super(context);
 			}
 
@@ -41,7 +41,7 @@ public final class BetaBeachConditionSource implements SurfaceRules.ConditionSou
 			}
 		}
 
-		return new BetaBeachConditionSource(context);
+		return new BetaBeachCondition(context);
 	}
 
 	public boolean equals(Object object) {
