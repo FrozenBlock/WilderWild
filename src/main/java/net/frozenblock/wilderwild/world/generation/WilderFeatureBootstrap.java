@@ -989,6 +989,13 @@ public class WilderFeatureBootstrap {
 				PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 				BiomeFilter.biome()
 		);
+		register(entries, WilderPlacedFeatures.SMALL_SPONGES_RARE,
+				smallSponge,
+				CountPlacement.of(ConstantInt.of(42)),
+				InSquarePlacement.spread(),
+				PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+				BiomeFilter.biome()
+		);
 	}
 
 	public static void bootstrap(FabricDynamicRegistryProvider.Entries entries) {
