@@ -126,12 +126,12 @@ public final class RegisterItems {
         WilderSharedConstants.logWild("Registering Block Items for", WilderSharedConstants.UNSTABLE_LOGGING);
         Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id("baobab_nut"), BAOBAB_NUT);
 
-        Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id("baobab_sign"), BAOBAB_SIGN);
-		Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id("baobab_hanging_sign"), BAOBAB_HANGING_SIGN);
-        Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id("cypress_sign"), CYPRESS_SIGN);
-		Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id("cypress_hanging_sign"), CYPRESS_HANGING_SIGN);
-        Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id("palm_sign"), PALM_SIGN);
-		Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id("palm_hanging_sign"), PALM_HANGING_SIGN);
+		registerItemAfter(Items.MANGROVE_SIGN, BAOBAB_SIGN, "baobab_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
+		registerItemAfter(BAOBAB_SIGN, BAOBAB_HANGING_SIGN, "baobab_hanging_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
+		registerItemAfter(BAOBAB_HANGING_SIGN, CYPRESS_SIGN, "cypress_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
+		registerItemAfter(CYPRESS_SIGN, CYPRESS_HANGING_SIGN, "cypress_hanging_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
+		registerItemAfter(CYPRESS_HANGING_SIGN, PALM_SIGN, "palm_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
+		registerItemAfter(PALM_SIGN, PALM_HANGING_SIGN, "palm_hanging_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
 
         Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id("pollen"), POLLEN);
     }
