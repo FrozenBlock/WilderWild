@@ -164,7 +164,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.BAMBOO_JUNGLE)
 					.add(Biomes.JUNGLE)
 					.add(Biomes.SAVANNA)
-					.add(Biomes.SPARSE_JUNGLE);
+					.add(Biomes.SPARSE_JUNGLE)
+					.addOptional(new ResourceLocation("terralith", "arid_highlands"));
 		}
 
 		private void generateFeatureTags() {

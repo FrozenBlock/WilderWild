@@ -4,6 +4,10 @@
     "minecraft:bamboo_jungle",
     "minecraft:jungle",
     "minecraft:savanna",
-    "minecraft:sparse_jungle"
+    "minecraft:sparse_jungle",
+    {
+      "id": "terralith:arid_highlands",
+      "required": false
+    }
   ]
 }
