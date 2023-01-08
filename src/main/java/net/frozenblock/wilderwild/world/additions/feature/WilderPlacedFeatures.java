@@ -1,17 +1,8 @@
 package net.frozenblock.wilderwild.world.additions.feature;
 
-import java.util.List;
-import com.google.common.collect.ImmutableList;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.util.valueproviders.ConstantInt;
-import net.minecraft.world.level.levelgen.placement.BiomeFilter;
-import net.minecraft.world.level.levelgen.placement.CountPlacement;
-import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
-import net.minecraft.world.level.levelgen.placement.NoiseThresholdCountPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 public final class WilderPlacedFeatures {
@@ -175,8 +166,15 @@ public final class WilderPlacedFeatures {
             "upside_down_purple_mesoglea");
 
     public static final ResourceKey<PlacedFeature> NEMATOCYST = key("nematocyst");
+
     public static final ResourceKey<PlacedFeature> NEMATOCYST_PURPLE = key("nematocyst_purple");
+
 	public static final ResourceKey<PlacedFeature> SMALL_SPONGES = key("small_sponges");
+
+	public static final ResourceKey<PlacedFeature> SMALL_SPONGES_RARE = key("small_sponges_rare");
+
+    public static void init() {
+    }
 
 	public static ResourceKey<PlacedFeature> key(String path) {
 		return ResourceKey.create(Registries.PLACED_FEATURE, WilderSharedConstants.id(path));

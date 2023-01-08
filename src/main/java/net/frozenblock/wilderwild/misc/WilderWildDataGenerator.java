@@ -222,10 +222,12 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.TAIGA);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SMALL_SPONGE)
-					.add(Biomes.WARM_OCEAN)
+					.add(Biomes.WARM_OCEAN);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SMALL_SPONGE_RARE)
 					.add(Biomes.LUKEWARM_OCEAN)
 					.add(Biomes.DEEP_LUKEWARM_OCEAN)
-					.add(RegisterWorldgen.JELLYFISH_CAVES);
+					.add(Biomes.LUSH_CAVES);
 		}
 
 		private void generateStructureTags() {

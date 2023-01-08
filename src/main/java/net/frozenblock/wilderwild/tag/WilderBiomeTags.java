@@ -37,6 +37,7 @@ public final class WilderBiomeTags {
     public static final TagKey<Biome> MEADOW = bind("meadow");
 	public static final TagKey<Biome> FOREST_GRASS = bind("forest_grass");
 	public static final TagKey<Biome> HAS_SMALL_SPONGE = bind("has_small_sponge");
+	public static final TagKey<Biome> HAS_SMALL_SPONGE_RARE = bind("has_small_sponge_rare");
 
     private static TagKey<Biome> bind(String path) {
         return TagKey.create(Registries.BIOME, WilderSharedConstants.id(path));

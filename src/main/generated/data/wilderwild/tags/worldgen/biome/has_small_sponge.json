@@ -1,9 +1,6 @@
 {
   "replace": false,
   "values": [
-    "minecraft:warm_ocean",
-    "minecraft:lukewarm_ocean",
-    "minecraft:deep_lukewarm_ocean",
-    "wilderwild:jellyfish_caves"
+    "minecraft:warm_ocean"
   ]
 }
