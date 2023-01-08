@@ -10,9 +10,10 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
 import net.frozenblock.lib.worldgen.surface.FrozenSurfaceRules;
 import static net.frozenblock.lib.worldgen.surface.FrozenSurfaceRules.*;
+import net.frozenblock.lib.worldgen.surface.impl.BiomeTagConditionSource;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
-import net.frozenblock.wilderwild.registry.WilderRegistry;
+import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.generation.noise.WilderNoise;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.block.Block;
@@ -135,133 +136,6 @@ public final class WilderSharedWorldgen {
 		return FrozenSurfaceRules.sequence(list);
 	}
 
-	public static SurfaceRules.SequenceRuleSource rawSurfaceRules() {
-		List<SurfaceRules.RuleSource> list = new ArrayList<>();
-		list.add(
-				SurfaceRules.ifTrue(
-						SurfaceRules.ON_FLOOR,
-						SurfaceRules.ifTrue(
-								SurfaceRules.isBiome(RegisterWorldgen.CYPRESS_WETLANDS),
-								SurfaceRules.ifTrue(
-										SurfaceRules.yBlockCheck(VerticalAnchor.absolute(60), 0),
-										SurfaceRules.ifTrue(
-												SurfaceRules.not(SurfaceRules.yBlockCheck(VerticalAnchor.absolute(63), 0)),
-												SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.SWAMP, 0.0), WATER)
-										)
-								)
-						)
-				)
-		);
-		list.add(
-				SurfaceRules.sequence(SurfaceRules.ifTrue(
-						SurfaceRules.isBiome(RegisterWorldgen.WARM_RIVER),
-						SurfaceRules.ifTrue(
-								SurfaceRules.yBlockCheck(VerticalAnchor.absolute(32), 0), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.DEEP_UNDER_FLOOR, SAND), SANDSTONE))
-						)
-				)
-		);
-
-		list.add(
-				SurfaceRules.sequence(
-						SurfaceRules.ifTrue(
-								SurfaceRules.waterStartCheck(-6, -1),
-								SurfaceRules.sequence(
-										SurfaceRules.ifTrue(
-												SurfaceRules.UNDER_FLOOR,
-												SurfaceRules.ifTrue(
-														SurfaceRules.isBiome(RegisterWorldgen.OASIS),
-														SurfaceRules.sequence(
-																SurfaceRules.ifTrue(
-																		SurfaceRules.ON_CEILING,
-																		SANDSTONE
-																),
-																SAND
-														)
-												)
-										),
-										SurfaceRules.ifTrue(
-												SurfaceRules.isBiome(RegisterWorldgen.OASIS),
-												SurfaceRules.ifTrue(
-														SurfaceRules.VERY_DEEP_UNDER_FLOOR,
-														SANDSTONE)
-										)
-								)
-						),
-						SurfaceRules.ifTrue(
-								SurfaceRules.ON_FLOOR,
-								SurfaceRules.ifTrue(
-										SurfaceRules.waterBlockCheck(-1, 0),
-										SurfaceRules.ifTrue(
-												SurfaceRules.isBiome(RegisterWorldgen.OASIS),
-												SurfaceRules.sequence(
-														SurfaceRules.ifTrue(
-																SurfaceRules.ON_CEILING,
-																SANDSTONE
-														),
-														SAND
-												)
-										)
-								)
-						)
-				)
-		);
-
-		if (ClothConfigInteractionHandler.betaBeaches()) {
-			list.add(
-					SurfaceRules.sequence(
-							SurfaceRules.ifTrue(
-									SurfaceRules.UNDER_FLOOR,
-									SurfaceRules.ifTrue(
-											FrozenSurfaceRules.isBiome(WilderRegistry.GRAVEL_BEACH_BIOMES),
-											SurfaceRules.ifTrue(
-													SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
-													SurfaceRules.ifTrue(
-															SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
-															SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.GRAVEL_BEACH_KEY, 0.12, 1.7976931348623157E308), GRAVEL)
-													)
-											)
-									)
-							)
-					)
-			);
-			list.add(
-					SurfaceRules.sequence(
-							SurfaceRules.ifTrue(
-									SurfaceRules.DEEP_UNDER_FLOOR,
-									SurfaceRules.ifTrue(
-											FrozenSurfaceRules.isBiome(WilderRegistry.SAND_BEACH_BIOMES),
-											SurfaceRules.ifTrue(
-													SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
-													SurfaceRules.ifTrue(
-															SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
-															SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH_KEY, 0.12, 1.7976931348623157E308), SAND)
-													)
-											)
-									)
-							)
-					)
-			);
-			list.add(
-					SurfaceRules.sequence(
-							SurfaceRules.ifTrue(
-									SurfaceRules.DEEP_UNDER_FLOOR,
-									SurfaceRules.ifTrue(
-											FrozenSurfaceRules.isBiome(WilderRegistry.MULTILAYER_SAND_BEACH_BIOMES),
-											SurfaceRules.ifTrue(
-													SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
-													SurfaceRules.ifTrue(
-															SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(64), 0)),
-															SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH_KEY, 0.12, 1.7976931348623157E308), SAND)
-													)
-											)
-									)
-							)
-					)
-			);
-		}
-		return FrozenSurfaceRules.sequence(list);
-	}
-
     public static SurfaceRules.RuleSource cypressSurfaceRules() {
         return SurfaceRules.ifTrue(
                 SurfaceRules.ON_FLOOR,
@@ -340,7 +214,7 @@ public final class WilderSharedWorldgen {
 				SurfaceRules.ifTrue(
 						SurfaceRules.UNDER_FLOOR,
 						SurfaceRules.ifTrue(
-								FrozenSurfaceRules.isBiome(WilderRegistry.GRAVEL_BEACH_BIOMES),
+								BiomeTagConditionSource.isBiomeTag(WilderBiomeTags.GRAVEL_BEACH),
 								SurfaceRules.ifTrue(
 										SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
 										SurfaceRules.ifTrue(
@@ -358,7 +232,7 @@ public final class WilderSharedWorldgen {
 				SurfaceRules.ifTrue(
 						SurfaceRules.DEEP_UNDER_FLOOR,
 						SurfaceRules.ifTrue(
-								FrozenSurfaceRules.isBiome(WilderRegistry.SAND_BEACH_BIOMES),
+								BiomeTagConditionSource.isBiomeTag(WilderBiomeTags.SAND_BEACHES),
 								SurfaceRules.ifTrue(
 										SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
 										SurfaceRules.ifTrue(
@@ -376,7 +250,7 @@ public final class WilderSharedWorldgen {
 				SurfaceRules.ifTrue(
 						SurfaceRules.DEEP_UNDER_FLOOR,
 						SurfaceRules.ifTrue(
-								FrozenSurfaceRules.isBiome(WilderRegistry.MULTILAYER_SAND_BEACH_BIOMES),
+								BiomeTagConditionSource.isBiomeTag(WilderBiomeTags.MULTI_LAYER_SAND_BEACHES),
 								SurfaceRules.ifTrue(
 										SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
 										SurfaceRules.ifTrue(

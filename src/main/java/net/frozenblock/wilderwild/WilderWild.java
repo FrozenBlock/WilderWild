@@ -180,8 +180,6 @@ public final class WilderWild implements ModInitializer {
 
         BiomeModifications.addSpawn(BiomeSelectors.includeByKey(ResourceKey.create(Registries.BIOME, new ResourceLocation("terralith", "cave/underground_jungle"))),
                 FrozenMobCategories.getCategory(WilderSharedConstants.MOD_ID, "fireflies"), RegisterEntities.FIREFLY, 12, 2, 4);
-
-		WilderRegistry.MULTILAYER_SAND_BEACH_BIOMES.add(ResourceKey.create(Registries.BIOME, new ResourceLocation("terralith", "arid_highlands")));
     }
 
     // LOGGING
