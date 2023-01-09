@@ -132,9 +132,7 @@ public final class WilderSharedWorldgen {
 		list.add(cypressSurfaceRules());
 		list.add(warmRiverRules());
 		list.add(oasisRules());
-		if (ClothConfigInteractionHandler.betaBeaches()) {
-			list.add(betaBeaches());
-		}
+		list.add(betaBeaches());
 		return FrozenSurfaceRules.sequence(list);
 	}
 
