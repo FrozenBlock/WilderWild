@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.block;
 
+import java.util.Objects;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.minecraft.core.BlockPos;
@@ -28,6 +29,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterloggedBlock {
@@ -39,12 +41,14 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
     }
 
     @Override
-    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+    public void entityInside(BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
         if (state.getValue(WATERLOGGED)) {
             if (entity instanceof ItemEntity item) {
                 item.makeStuckInBlock(state, new Vec3(0.999D, 0.999D, 0.999D));
                 item.setDeltaMovement(item.getDeltaMovement().add(0, 0.025, 0));
-            } //else if (!entity.getType().is(WilderEntityTags.CAN_SWIM_IN_MESOGLEA)) {
+            }
+			//TODO: Create new slowdown that ONLY triggers for one block instead of all inside. Interface?
+			//else if (!entity.getType().is(WilderEntityTags.CAN_SWIM_IN_MESOGLEA)) {
             //entity.setDeltaMovement(entity.getDeltaMovement().multiply(0.9, 0.9, 0.9));
             //}
             if (entity instanceof Boat boat) {
@@ -59,7 +63,7 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
     }
 
     @Override
-    public VoxelShape getCollisionShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+    public VoxelShape getCollisionShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
         if (collisionContext instanceof EntityCollisionContext && ((EntityCollisionContext) collisionContext).getEntity() != null) {
             return blockState.getValue(WATERLOGGED) ? Shapes.empty() : super.getCollisionShape(blockState, blockGetter, blockPos, collisionContext);
         }
@@ -67,7 +71,7 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
     }
 
     @Override
-    public void animateTick(BlockState blockState, Level level, BlockPos blockPos, RandomSource randomSource) {
+    public void animateTick(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull RandomSource randomSource) {
         super.animateTick(blockState, level, blockPos, randomSource);
         if (randomSource.nextInt(0, 50) == 0 && (blockState.getValue(WATERLOGGED) || level.getFluidState(blockPos.above()).is(FluidTags.WATER)) && level.getFluidState(blockPos.below()).isEmpty() && level.getBlockState(blockPos.below()).isAir()) {
             ParticleOptions particle = blockState.is(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA) ? RegisterParticles.BLUE_PEARLESCENT_HANGING_MESOGLEA :
@@ -82,7 +86,7 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
     }
 
     @Override
-    public int getLightBlock(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
+    public int getLightBlock(BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos) {
         return blockState.getValue(WATERLOGGED) ? 2 : 5;
     }
 
@@ -90,12 +94,11 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
         FluidState fluidState = blockPlaceContext.getLevel().getFluidState(blockPlaceContext.getClickedPos());
-        boolean bl = fluidState.getType() == Fluids.WATER;
-        return super.getStateForPlacement(blockPlaceContext).setValue(WATERLOGGED, bl);
+        return Objects.requireNonNull(super.getStateForPlacement(blockPlaceContext)).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
     }
 
     @Override
-    public BlockState updateShape(BlockState blockState, Direction direction, BlockState blockState2, LevelAccessor levelAccessor, BlockPos blockPos, BlockPos blockPos2) {
+    public BlockState updateShape(BlockState blockState, @NotNull Direction direction, @NotNull BlockState blockState2, @NotNull LevelAccessor levelAccessor, @NotNull BlockPos blockPos, @NotNull BlockPos blockPos2) {
         if (blockState.getValue(WATERLOGGED)) {
             levelAccessor.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
         }
@@ -116,7 +119,7 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
     }
 
     @Override
-    public boolean skipRendering(BlockState blockState, BlockState blockState2, Direction direction) {
+    public boolean skipRendering(@NotNull BlockState blockState, BlockState blockState2, @NotNull Direction direction) {
         if (blockState2.is(this)) {
             return true;
         }

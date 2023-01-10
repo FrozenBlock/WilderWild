@@ -80,8 +80,7 @@ import org.jetbrains.annotations.Nullable;
 //TODO: Fix rendering (Renders too bright or too dark depending on direction; renders under other translucents like water, doesn't render further than 8 block away)
 
 public class AncientHornProjectile extends AbstractArrow {
-	private static final TagKey<Block> NON_COLLIDE =
-			WilderBlockTags.ANCIENT_HORN_NON_COLLIDE;
+	private static final TagKey<Block> NON_COLLIDE = WilderBlockTags.ANCIENT_HORN_NON_COLLIDE;
 	public static final int DEFAULT_LIFESPAN = 300;
 	private boolean shot;
 	private boolean leftOwner;
@@ -116,21 +115,13 @@ public class AncientHornProjectile extends AbstractArrow {
 		return this.aliveTicks;
 	}
 
-	public boolean isShotByPlayer() {
-		return this.shotByPlayer;
-	}
+    public void setShotByPlayer(final boolean bl) {
+        this.shotByPlayer = bl;
+    }
 
-	public void setShotByPlayer(final boolean bl) {
-		this.shotByPlayer = bl;
-	}
-
-	public int getBubbles() {
-		return this.bubbles;
-	}
-
-	public void setBubbles(final int amount) {
-		this.bubbles = amount;
-	}
+    public void setBubbles(final int amount) {
+        this.bubbles = amount;
+    }
 
 	@Override
 	public void tick() {
@@ -285,39 +276,39 @@ public class AncientHornProjectile extends AbstractArrow {
 				}
 			}
 		}
-		blockState.onProjectileHit(this.level, blockState, result, this);
-		Vec3 hitVec = result.getLocation().subtract(this.getX(), this.getY(), this.getZ());
-		this.setDeltaMovement(hitVec);
-		Vec3 hitNormal = hitVec.normalize().scale(0.05000000074505806D);
-		this.setPosRaw(this.getX() - hitNormal.x, this.getY() - hitNormal.y, this.getZ() - hitNormal.z);
-		this.playSound(this.getHitGroundSoundEvent(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
-		this.inGround = true;
-		this.shakeTime = 7;
-		this.setCritArrow(false);
-		if (this.level instanceof ServerLevel server && canInteract()) {
-			if (blockState.getBlock() == Blocks.SCULK_SHRIEKER) { //SCULK SHRIEKER
-				if (ClothConfigInteractionHandler.hornCanSummonWarden()) {
-					BlockPos pos = result.getBlockPos();
-					WilderSharedConstants.log(Blocks.SCULK_SHRIEKER, pos, "Horn Projectile Touched", WilderSharedConstants.UNSTABLE_LOGGING);
-					if (blockState.getValue(RegisterProperties.SOULS_TAKEN) < 2 && !blockState.getValue(SculkShriekerBlock.SHRIEKING)) {
-						if (!blockState.getValue(SculkShriekerBlock.CAN_SUMMON)) {
-							server.setBlockAndUpdate(pos, blockState.setValue(RegisterProperties.SOULS_TAKEN, blockState.getValue(RegisterProperties.SOULS_TAKEN) + 1));
-						} else {
-							server.setBlockAndUpdate(pos, blockState.setValue(SculkShriekerBlock.CAN_SUMMON, false));
-						}
-						server.sendParticles(ParticleTypes.SCULK_SOUL, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.15D, (double) pos.getZ() + 0.5D, 1, 0.2D, 0.0D, 0.2D, 0.0D);
-						trySpawnWarden(server, pos);
-						Warden.applyDarknessAround(server, Vec3.atCenterOf(this.blockPosition()), null, 40);
-						server.levelEvent(LevelEvent.PARTICLES_SCULK_SHRIEK, pos, 0);
-						server.gameEvent(GameEvent.SHRIEK, pos, GameEvent.Context.of(owner));
-						setCooldown(getCooldown(this.getOwner(), SHRIEKER_COOLDOWN));
-						this.setSoundEvent(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE);
-						this.setShotFromCrossbow(false);
-						this.remove(RemovalReason.DISCARDED);
-					}
-				}
-			} else if (blockState.getBlock() == Blocks.SCULK_SENSOR) {
-				BlockPos pos = result.getBlockPos();
+        blockState.onProjectileHit(this.level, blockState, result, this);
+        Vec3 hitVec = result.getLocation().subtract(this.getX(), this.getY(), this.getZ());
+        this.setDeltaMovement(hitVec);
+        Vec3 hitNormal = hitVec.normalize().scale(0.05000000074505806D);
+        this.setPosRaw(this.getX() - hitNormal.x, this.getY() - hitNormal.y, this.getZ() - hitNormal.z);
+        this.playSound(this.getHitGroundSoundEvent(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+        this.inGround = true;
+        this.shakeTime = 7;
+        this.setCritArrow(false);
+        if (this.level instanceof ServerLevel server && canInteract()) {
+            if (blockState.getBlock() == Blocks.SCULK_SHRIEKER) {
+                if (ClothConfigInteractionHandler.hornCanSummonWarden()) {
+                    BlockPos pos = result.getBlockPos();
+                    WilderSharedConstants.log(Blocks.SCULK_SHRIEKER, pos, "Horn Projectile Touched", WilderSharedConstants.UNSTABLE_LOGGING);
+                    if (blockState.getValue(RegisterProperties.SOULS_TAKEN) < 2 && !blockState.getValue(SculkShriekerBlock.SHRIEKING)) {
+                        if (!blockState.getValue(SculkShriekerBlock.CAN_SUMMON)) {
+                            server.setBlockAndUpdate(pos, blockState.setValue(RegisterProperties.SOULS_TAKEN, blockState.getValue(RegisterProperties.SOULS_TAKEN) + 1));
+                        } else {
+                            server.setBlockAndUpdate(pos, blockState.setValue(SculkShriekerBlock.CAN_SUMMON, false));
+                        }
+                        server.sendParticles(ParticleTypes.SCULK_SOUL, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.15D, (double) pos.getZ() + 0.5D, 1, 0.2D, 0.0D, 0.2D, 0.0D);
+                        trySpawnWarden(server, pos);
+                        Warden.applyDarknessAround(server, Vec3.atCenterOf(this.blockPosition()), null, 40);
+                        server.levelEvent(LevelEvent.PARTICLES_SCULK_SHRIEK, pos, 0);
+                        server.gameEvent(GameEvent.SHRIEK, pos, GameEvent.Context.of(owner));
+                        setCooldown(getCooldown(this.getOwner(), SHRIEKER_COOLDOWN));
+                        this.setSoundEvent(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE);
+                        this.setShotFromCrossbow(false);
+                        this.remove(RemovalReason.DISCARDED);
+                    }
+                }
+            } else if (blockState.getBlock() == Blocks.SCULK_SENSOR) {
+                BlockPos pos = result.getBlockPos();
 				WilderSharedConstants.log(Blocks.SCULK_SENSOR, pos, "Horn Projectile Touched", WilderSharedConstants.UNSTABLE_LOGGING);
 				if (blockState.getValue(RegisterProperties.HICCUPPING)) {
 					server.setBlockAndUpdate(pos, blockState.setValue(RegisterProperties.HICCUPPING, false));
@@ -497,67 +488,63 @@ public class AncientHornProjectile extends AbstractArrow {
 		return true;
 	}
 
-	private void hitEntity(Entity entity) {
-		int damage = this.getDamage(entity);
-		Entity owner = this.getOwner();
-		if (entity != owner) {
-			DamageSource damageSource;
-			if (owner == null) {
-				damageSource = FrozenProjectileDamageSource.source("ancient_horn", this, this);
-			} else {
-				damageSource = FrozenProjectileDamageSource.source("ancient_horn", this, owner);
-				if (owner instanceof LivingEntity) {
-					((LivingEntity) owner).setLastHurtMob(entity);
-				}
-			}
-			int fireTicks = entity.getRemainingFireTicks();
-			if (this.isOnFire()) {
-				entity.setSecondsOnFire(5);
-			}
-			if (entity instanceof Warden warden && owner != null && canInteract()) {
-				WilderSharedConstants.log(warden, "Horn Projectile Touched", WilderSharedConstants.DEV_LOGGING);
-				warden.increaseAngerAt(owner, AngerLevel.ANGRY.getMinimumAnger() + 20, true);
-				warden.playSound(SoundEvents.WARDEN_TENDRIL_CLICKS, 5.0F, warden.getVoicePitch());
-				this.discard();
-			} else if (!entity.getType().is(WilderEntityTags.ANCIENT_HORN_IMMUNE)) {
-				if (entity.hurt(damageSource, (float) damage)) {
-					if (entity instanceof LivingEntity livingEntity) {
-						Level level = this.getLevel();
-						WilderSharedConstants.log(livingEntity, "Horn Projectile Touched", WilderSharedConstants.DEV_LOGGING);
-						if (!this.level.isClientSide && owner instanceof LivingEntity) {
-							EnchantmentHelper.doPostHurtEffects(livingEntity, owner);
-							EnchantmentHelper.doPostDamageEffects((LivingEntity) owner, livingEntity);
-						}
-						this.doPostHurtEffects(livingEntity);
-                        /*if (livingEntity instanceof Player && owner instanceof ServerPlayer && !this.isSilent()) {
-                            ((ServerPlayer) owner).connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.ARROW_HIT_PLAYER, 0.0F));
-                            FlyBySoundPacket.createFlybySound(level, this, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_FLYBY, SoundSource.PLAYERS, 1.0F, 0.7F);
-                        }*/
-						if (livingEntity.isDeadOrDying() && level instanceof ServerLevel server) {
-							server.sendParticles(ParticleTypes.SCULK_SOUL, livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ(), 1, 0.2D, 0.0D, 0.2D, 0.0D);
-							if (this.getOwner() != null) {
-								if (this.getOwner() instanceof ServerPlayer serverPlayer) {
-									addCooldown(livingEntity.getExperienceReward() * 10);
-									EasyPacket.EasyCompetitionPacket.sendAncientHornKillInfo(level, serverPlayer, livingEntity);
-								}
-							}
-						}
-					}
-					this.playSound(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE, 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
-				} else {
-					entity.setRemainingFireTicks(fireTicks);
-					if (!this.level.isClientSide && this.getDeltaMovement().lengthSqr() < 1.0E-7D) {
-						this.discard();
-					}
-				}
-			} else {
-				entity.setRemainingFireTicks(fireTicks);
-				if (!this.level.isClientSide && this.getDeltaMovement().lengthSqr() < 1.0E-7D) {
-					this.discard();
-				}
-			}
-		}
-	}
+    private void hitEntity(Entity entity) {
+        int damage = this.getDamage(entity);
+        Entity owner = this.getOwner();
+        if (entity != owner) {
+            DamageSource damageSource;
+            if (owner == null) {
+                damageSource = FrozenProjectileDamageSource.source("ancient_horn", this, this);
+            } else {
+                damageSource = FrozenProjectileDamageSource.source("ancient_horn", this, owner);
+                if (owner instanceof LivingEntity) {
+                    ((LivingEntity) owner).setLastHurtMob(entity);
+                }
+            }
+            int fireTicks = entity.getRemainingFireTicks();
+            if (this.isOnFire()) {
+                entity.setSecondsOnFire(5);
+            }
+            if (entity instanceof Warden warden && owner != null && canInteract()) {
+                WilderSharedConstants.log(warden, "Horn Projectile Touched", WilderSharedConstants.DEV_LOGGING);
+                warden.increaseAngerAt(owner, AngerLevel.ANGRY.getMinimumAnger() + 20, true);
+                warden.playSound(SoundEvents.WARDEN_TENDRIL_CLICKS, 5.0F, warden.getVoicePitch());
+                this.discard();
+            } else if (!entity.getType().is(WilderEntityTags.ANCIENT_HORN_IMMUNE)) {
+                if (entity.hurt(damageSource, (float) damage)) {
+                    if (entity instanceof LivingEntity livingEntity) {
+                        Level level = this.getLevel();
+                        WilderSharedConstants.log(livingEntity, "Horn Projectile Touched", WilderSharedConstants.DEV_LOGGING);
+                        if (!this.level.isClientSide && owner instanceof LivingEntity) {
+                            EnchantmentHelper.doPostHurtEffects(livingEntity, owner);
+                            EnchantmentHelper.doPostDamageEffects((LivingEntity) owner, livingEntity);
+                        }
+                        this.doPostHurtEffects(livingEntity);
+                        if (livingEntity.isDeadOrDying() && level instanceof ServerLevel server) {
+                            server.sendParticles(ParticleTypes.SCULK_SOUL, livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ(), 1, 0.2D, 0.0D, 0.2D, 0.0D);
+                            if (this.getOwner() != null) {
+                                if (this.getOwner() instanceof ServerPlayer serverPlayer) {
+                                    addCooldown(livingEntity.getExperienceReward() * 10);
+                                    EasyPacket.EasyCompetitionPacket.sendAncientHornKillInfo(level, serverPlayer, livingEntity);
+                                }
+                            }
+                        }
+                    }
+                    this.playSound(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE, 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+                } else {
+                    entity.setRemainingFireTicks(fireTicks);
+                    if (!this.level.isClientSide && this.getDeltaMovement().lengthSqr() < 1.0E-7D) {
+                        this.discard();
+                    }
+                }
+            } else {
+                entity.setRemainingFireTicks(fireTicks);
+                if (!this.level.isClientSide && this.getDeltaMovement().lengthSqr() < 1.0E-7D) {
+                    this.discard();
+                }
+            }
+        }
+    }
 
 	@Override
 	public boolean dampensVibrations() {

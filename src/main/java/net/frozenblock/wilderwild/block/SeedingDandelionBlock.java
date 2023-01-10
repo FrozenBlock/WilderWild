@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.logging.LogUtils;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.minecraft.core.BlockPos;
@@ -16,6 +15,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class SeedingDandelionBlock extends FlowerBlock {
+
     public SeedingDandelionBlock(MobEffect suspiciousStewEffect, int effectDuration, Properties settings) {
         super(suspiciousStewEffect, effectDuration, settings);
     }

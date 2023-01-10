@@ -10,7 +10,6 @@ import java.util.Objects;
 import java.util.Optional;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.ai.FireflyAi;
 import net.frozenblock.wilderwild.item.FireflyBottle;
@@ -43,8 +42,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	public NonNullList<ItemStack> inventory;
 	private final ArrayList<FireflyInLantern> fireflies = new ArrayList<>();
 
-	public int age;
-	public boolean hasUpdated = false;
+    public int age;
 
 	public DisplayLanternBlockEntity(BlockPos pos, BlockState blockState) {
 		super(RegisterBlockEntities.DISPLAY_LANTERN, pos, blockState);
@@ -220,12 +218,10 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 			this.y = y;
 		}
 
-		private boolean isNectar = false;
-
 		public void tick(Level level, BlockPos pos) {
-			this.age += 1;
-			this.y = Math.sin(this.age * 0.03) * 0.15;
-			this.isNectar = this.getCustomName().toLowerCase().contains("nectar");
+            this.age += 1;
+            this.y = Math.sin(this.age * 0.03) * 0.15;
+			boolean isNectar = this.getCustomName().toLowerCase().contains("nectar");
 
 			if (isNectar != wasNamedNectar) {
 				if (isNectar) {

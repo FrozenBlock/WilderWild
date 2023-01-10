@@ -50,13 +50,8 @@ public class BaobabNutBlock extends SaplingBlock {
     }
 
     @Override
-    protected boolean mayPlaceOn(@NotNull BlockState floor, @NotNull BlockGetter level, @NotNull BlockPos pos) {
-        return super.mayPlaceOn(floor, level, pos);
-    }
-
-    @Override
     @Nullable
-    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+    public BlockState getStateForPlacement(@NotNull BlockPlaceContext ctx) {
         return Objects.requireNonNull(super.getStateForPlacement(ctx)).setValue(AGE, 2);
     }
 
@@ -74,37 +69,37 @@ public class BaobabNutBlock extends SaplingBlock {
     }
 
     @Override
-    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+    public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
         return isHanging(state) ? level.getBlockState(pos.above()).is(RegisterBlocks.BAOBAB_LEAVES) : super.canSurvive(state, level, pos);
     }
 
     @Override
-    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (!isHanging(state)) {
-            if (random.nextInt(7) == 0) {
-                this.advanceTree(level, pos, state, random);
-            }
-
-        } else {
-            if (!isFullyGrown(state)) {
-                level.setBlock(pos, state.cycle(AGE), 2);
-            }
-
-        }
+    public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+		if (level.getMaxLocalRawBrightness(pos.above()) >= 9) {
+			if (!isHanging(state)) {
+				if (random.nextInt(7) == 0) {
+					this.advanceTree(level, pos, state, random);
+				}
+			} else {
+				if (random.nextDouble() < 0.4 && !isFullyGrown(state)) {
+					level.setBlock(pos, state.cycle(AGE), 2);
+				}
+			}
+		}
     }
 
 	@Override
-	public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state, boolean isClient) {
+	public boolean isValidBonemealTarget(@NotNull LevelReader world, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
 		return !isHanging(state) || !isFullyGrown(state);
 	}
 
 	@Override
-    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
         return isHanging(state) ? !isFullyGrown(state) : super.isBonemealSuccess(level, random, pos, state);
     }
 
 	@Override
-    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+    public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
         if (isHanging(state) && !isFullyGrown(state)) {
             level.setBlock(pos, state.cycle(AGE), 2);
         } else {
@@ -114,13 +109,13 @@ public class BaobabNutBlock extends SaplingBlock {
     }
 
 	@Override
-	public void onProjectileHit(Level world, BlockState state, BlockHitResult hit, Projectile projectile) {
+	public void onProjectileHit(Level world, @NotNull BlockState state, BlockHitResult hit, @NotNull Projectile projectile) {
 		world.destroyBlock(hit.getBlockPos(), true, projectile);
 	}
 
 	@Override //Only collision with projectiles so you can shoot them down
-	public VoxelShape getCollisionShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
-		if (collisionContext instanceof EntityCollisionContext entityCollision) {
+	public VoxelShape getCollisionShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
+		if (collisionContext instanceof EntityCollisionContext entityCollision && isHanging(blockState)) {
 			if (entityCollision.getEntity() != null) {
 				return !(entityCollision.getEntity() instanceof Projectile) ? Shapes.empty() : super.getCollisionShape(blockState, blockGetter, blockPos, collisionContext);
 			}
@@ -133,7 +128,7 @@ public class BaobabNutBlock extends SaplingBlock {
     }
 
     private static boolean isFullyGrown(BlockState state) {
-        return state.getValue(AGE) == 2;
+        return state.getValue(AGE) == MAX_AGE;
     }
 
     public static BlockState getDefaultHangingState() {

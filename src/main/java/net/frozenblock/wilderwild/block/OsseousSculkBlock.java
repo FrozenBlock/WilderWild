@@ -26,6 +26,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.NotNull;
 
 public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehaviour {
+	private static final ConstantInt EXPERIENCE = ConstantInt.of(3);
 
     public OsseousSculkBlock(Properties settings) {
         super(settings);
@@ -36,7 +37,7 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
     public void spawnAfterBreak(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull ItemStack stack, boolean dropExperience) {
         super.spawnAfterBreak(state, level, pos, stack, dropExperience);
         if (dropExperience) {
-            this.tryDropExperience(level, pos, stack, ConstantInt.of(3));
+            this.tryDropExperience(level, pos, stack, EXPERIENCE);
         }
     }
 
@@ -248,28 +249,29 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
         return null;
     }
 
-    public static BlockPos getBottom(LevelAccessor level, BlockPos pos, int max) {
-        for (int i = 0; i < max; i++) {
-            Block block = level.getBlockState(pos).getBlock();
-            if (block != RegisterBlocks.OSSEOUS_SCULK) {
-                return null;
-            }
+	public static BlockPos getBottom(LevelAccessor level, BlockPos pos, int max) {
+		for (int i = 0; i < max; i++) {
+			Block block = level.getBlockState(pos).getBlock();
+			if (block != RegisterBlocks.OSSEOUS_SCULK) {
+				return null;
+			}
 			BlockState state = level.getBlockState(pos);
-            Direction direction = getDir(state.getValue(AXIS), state.getValue(UPSIDEDOWN)).getOpposite();
-            if (level.getBlockState(pos.relative(direction)).is(Blocks.SCULK)) {
-                return pos;
-            }
-            pos = pos.relative(direction);
-        }
-        return null;
-    }
+			Direction direction = getDir(state.getValue(AXIS), state.getValue(UPSIDEDOWN)).getOpposite();
+			if (level.getBlockState(pos.relative(direction)).is(Blocks.SCULK)) {
+				return pos;
+			}
+			pos = pos.relative(direction);
+		}
+		return null;
+	}
 
+	@Override
     public int updateDecayDelay(int oldDecay) {
         return 1;
     }
 
+	@Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(HEIGHT_LEFT).add(BlockStateProperties.AXIS).add(UPSIDEDOWN).add(TOTAL_HEIGHT);
     }
-
 }

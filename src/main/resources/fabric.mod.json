@@ -50,7 +50,6 @@
   "accessWidener": "wilderwild.accesswidener",
   "depends": {
 	"frozenlib": ">=1.1.7-",
-	"mm": ">=2.3",
     "nbtcrafting": ">=2.2.3",
 	"fabricloader": ">=0.14.11",
 	"fabric-api": ">=0.68.1",

@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.item;
 
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.minecraft.server.level.ServerLevel;

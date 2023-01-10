@@ -28,12 +28,14 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWat
         this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0).setValue(WATERLOGGED, false));
     }
 
+	@Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, net.minecraft.world.level.block.state.BlockState> builder) {
-        builder.add(STAGE).add(WATERLOGGED);
+		super.createBlockStateDefinition(builder);
+        builder.add(WATERLOGGED);
     }
 
     @Override
-    protected boolean mayPlaceOn(@NotNull BlockState floor, BlockGetter level, BlockPos pos) {
+    protected boolean mayPlaceOn(@NotNull BlockState floor, @NotNull BlockGetter level, @NotNull BlockPos pos) {
         return super.mayPlaceOn(floor, level, pos) || floor.is(Blocks.CLAY) || floor.is(Blocks.MUD) || floor.is(Blocks.SAND);
     }
 
@@ -44,6 +46,7 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWat
         return Objects.requireNonNull(super.getStateForPlacement(ctx)).setValue(WATERLOGGED, bl);
     }
 
+	@Override
     public BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
         if (state.getValue(WATERLOGGED)) {
             level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
@@ -52,6 +55,7 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWat
         return direction == Direction.UP && !state.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
     }
 
+	@Override
     public FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
