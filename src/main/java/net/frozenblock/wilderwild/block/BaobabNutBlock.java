@@ -127,7 +127,7 @@ public class BaobabNutBlock extends SaplingBlock {
     }
 
     private static boolean isFullyGrown(BlockState state) {
-        return state.getValue(AGE) == 2;
+        return state.getValue(AGE) == MAX_AGE;
     }
 
     public static BlockState getDefaultHangingState() {
