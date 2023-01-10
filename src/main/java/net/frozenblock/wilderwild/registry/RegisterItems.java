@@ -76,7 +76,7 @@ public final class RegisterItems {
 
     public static final AncientHorn ANCIENT_HORN = new AncientHorn(new FabricItemSettings().group(CreativeModeTab.TAB_MISC).maxCount(1).rarity(Rarity.EPIC), WilderInstrumentTags.ANCIENT_HORNS);
     public static final ResourceKey<Instrument> ANCIENT_HORN_INSTRUMENT = ResourceKey.create(Registry.INSTRUMENT_REGISTRY, WilderSharedConstants.id("ancient_horn"));
-    public static final CopperHorn COPPER_HORN = new CopperHorn(new FabricItemSettings().group(CreativeModeTab.TAB_MISC).maxCount(1), WilderInstrumentTags.COPPER_HORNS, 0);
+    public static final CopperHorn COPPER_HORN = new CopperHorn(new FabricItemSettings().group(CreativeModeTab.TAB_MISC).maxCount(1), WilderInstrumentTags.COPPER_HORNS);
     public static final ResourceKey<Instrument> SAX_COPPER_HORN = ResourceKey.create(Registry.INSTRUMENT_REGISTRY, WilderSharedConstants.id("sax_copper_horn"));
     public static final ResourceKey<Instrument> TUBA_COPPER_HORN = ResourceKey.create(Registry.INSTRUMENT_REGISTRY, WilderSharedConstants.id("tuba_copper_horn"));
     public static final ResourceKey<Instrument> FLUTE_COPPER_HORN = ResourceKey.create(Registry.INSTRUMENT_REGISTRY, WilderSharedConstants.id("flute_copper_horn"));

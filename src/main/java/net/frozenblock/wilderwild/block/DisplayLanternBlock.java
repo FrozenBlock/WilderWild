@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
 import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.misc.FireflyColor;

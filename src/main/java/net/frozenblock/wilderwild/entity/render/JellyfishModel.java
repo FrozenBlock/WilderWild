@@ -22,7 +22,6 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
-
     private final ModelPart root;
     private final ModelPart body;
     private final ModelPart tentacleBase;
@@ -57,24 +56,22 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         MeshDefinition meshDefinition = new MeshDefinition();
         PartDefinition partDefinition = meshDefinition.getRoot();
         PartDefinition bone = partDefinition.addOrReplaceChild("bone", CubeListBuilder.create(), PartPose.offset(0.0F, 14.0F, 0.0F));
-        PartDefinition body = bone.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -2.0F, -4.0F, 8.0F, 5.0F, 8.0F, new CubeDeformation(0.0F))
+        bone.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -2.0F, -4.0F, 8.0F, 5.0F, 8.0F, new CubeDeformation(0.0F))
                 .texOffs(4, 13).addBox(-3.0F, -1.0F, -3.0F, 6.0F, 3.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
-        PartDefinition tentacleBase = bone.addOrReplaceChild("tentacleBase", CubeListBuilder.create(), PartPose.offset(0.0F, 6.0F, 0.0F));
-        PartDefinition tentacle1 = tentacleBase.addOrReplaceChild("tentacle1", CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 10.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, -3.0F));
-        PartDefinition tentacle2 = tentacleBase.addOrReplaceChild("tentacle2", CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 10.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(2.5F, 0.0F, -2.5F, 0.0F, -0.7854F, 0.0F));
-        PartDefinition tentacle3 = tentacleBase.addOrReplaceChild("tentacle3", CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 10.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(3.0F, 0.0F, 0.0F, 0.0F, -1.5708F, 0.0F));
-        PartDefinition tentacle4 = tentacleBase.addOrReplaceChild("tentacle4", CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 10.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(2.5F, 0.0F, 2.5F, 0.0F, -2.3562F, 0.0F));
-        PartDefinition tentacle5 = tentacleBase.addOrReplaceChild("tentacle5", CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 10.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 3.0F, 0.0F, 3.1416F, 0.0F));
-        PartDefinition tentacle6 = tentacleBase.addOrReplaceChild("tentacle6", CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 10.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-2.5F, 0.0F, 2.5F, 0.0F, 2.3562F, 0.0F));
-        PartDefinition tentacle7 = tentacleBase.addOrReplaceChild("tentacle7", CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 10.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-3.0F, 0.0F, 0.0F, 0.0F, 1.5708F, 0.0F));
-        PartDefinition tentacle8 = tentacleBase.addOrReplaceChild("tentacle8", CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 10.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-2.5F, 0.0F, -2.5F, 0.0F, 0.7854F, 0.0F));
+		PartDefinition tentacleBase = bone.addOrReplaceChild("tentacleBase", CubeListBuilder.create(), PartPose.offset(0.0F, 6.0F, 0.0F));
+        tentacleBase.addOrReplaceChild("tentacle1", CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 10.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, -3.0F));
+        tentacleBase.addOrReplaceChild("tentacle2", CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 10.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(2.5F, 0.0F, -2.5F, 0.0F, -0.7854F, 0.0F));
+        tentacleBase.addOrReplaceChild("tentacle3", CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 10.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(3.0F, 0.0F, 0.0F, 0.0F, -1.5708F, 0.0F));
+        tentacleBase.addOrReplaceChild("tentacle4", CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 10.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(2.5F, 0.0F, 2.5F, 0.0F, -2.3562F, 0.0F));
+        tentacleBase.addOrReplaceChild("tentacle5", CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 10.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 3.0F, 0.0F, 3.1416F, 0.0F));
+        tentacleBase.addOrReplaceChild("tentacle6", CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 10.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-2.5F, 0.0F, 2.5F, 0.0F, 2.3562F, 0.0F));
+        tentacleBase.addOrReplaceChild("tentacle7", CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 10.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-3.0F, 0.0F, 0.0F, 0.0F, 1.5708F, 0.0F));
+        tentacleBase.addOrReplaceChild("tentacle8", CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 10.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-2.5F, 0.0F, -2.5F, 0.0F, 0.7854F, 0.0F));
         return LayerDefinition.create(meshDefinition, 64, 64);
     }
 
     public float xRot;
-    public float zRot;
     public float tentXRot;
-    public float tentZRot;
 
     public float red;
     public float green;
@@ -84,13 +81,11 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     public void renderToBuffer(PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         poseStack.pushPose();
         poseStack.mulPose(Vector3f.XP.rotationDegrees(this.xRot));
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(this.zRot));
         this.body.render(poseStack, buffer, packedLight, packedOverlay, this.red, this.green, this.blue, alpha);
         poseStack.popPose();
 
         poseStack.pushPose();
         poseStack.mulPose(Vector3f.XP.rotationDegrees(this.tentXRot));
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(this.tentZRot));
         this.tentacleBase.render(poseStack, buffer, packedLight, packedOverlay, this.red, this.green, this.blue, alpha);
         poseStack.popPose();
     }
@@ -101,9 +96,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     @Override
     public void prepareMobModel(T jelly, float limbSwing, float limbSwimgAmount, float partialTick) {
         this.xRot = -(jelly.xRot1 + partialTick * (jelly.xBodyRot - jelly.xRot1));
-        this.zRot = -(jelly.zRot1 + partialTick * (jelly.zBodyRot - jelly.zRot1));
         this.tentXRot = -(jelly.xRot6 + partialTick * (jelly.xRot5 - jelly.xRot6));
-        this.tentZRot = -(jelly.zRot6 + partialTick * (jelly.zRot5 - jelly.zRot6));
     }
 
     @Override
@@ -113,13 +106,13 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         float tentRot = fasterRotLerp(movementDelta, (float) (-Math.sin((ageInTicks - 10) * 0.1F) * 0.2F) + eightPi, (float) (-Math.sin(animation + 5) * 20 - 7.5F) * pi180);
 
         this.tentacle1.xRot = tentRot;
+		this.tentacle2.xRot = tentRot;
         this.tentacle3.xRot = tentRot;
+		this.tentacle4.xRot = tentRot;
         this.tentacle5.xRot = tentRot;
+		this.tentacle6.xRot = tentRot;
         this.tentacle7.xRot = tentRot;
-        this.tentacle2.xRot = tentRot;
-        this.tentacle4.xRot = tentRot;
-        this.tentacle6.xRot = tentRot;
-        this.tentacle8.xRot = tentRot;
+		this.tentacle8.xRot = tentRot;
 
         //SQUASH & STRETCH
         float sin = (float) -Math.sin(animation);

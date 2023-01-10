@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.block;
 
 import java.util.List;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.FlowerColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;

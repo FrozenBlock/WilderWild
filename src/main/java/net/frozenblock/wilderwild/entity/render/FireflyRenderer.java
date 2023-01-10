@@ -8,7 +8,6 @@ import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.FireflyColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -19,9 +18,9 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 public class FireflyRenderer extends EntityRenderer<Firefly> {
-
     //CREDIT TO magistermaks ON GITHUB!!
 
     public FireflyRenderer(EntityRendererProvider.Context ctx) {
@@ -50,7 +49,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
     private static final float pi = (float) Math.PI;
 
     @Override
-    public void render(Firefly entity, float yaw, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light) {
+    public void render(Firefly entity, float yaw, float tickDelta, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light) {
         boolean nectar = false;
 
         if (entity.hasCustomName()) {

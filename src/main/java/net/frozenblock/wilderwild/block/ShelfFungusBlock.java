@@ -48,7 +48,7 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
     }
 
     @Override
-    public InteractionResult use(BlockState state, @NotNull Level level, BlockPos pos, Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+    public InteractionResult use(BlockState state, @NotNull Level level, @NotNull BlockPos pos, Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
         ItemStack itemStack = player.getItemInHand(hand);
         int i = state.getValue(STAGE);
         if (i > 1 && itemStack.is(Items.SHEARS)) {
