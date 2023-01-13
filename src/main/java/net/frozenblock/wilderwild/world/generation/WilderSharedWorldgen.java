@@ -8,7 +8,6 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
-import net.frozenblock.lib.worldgen.surface.FrozenSurfaceRules;
 import static net.frozenblock.lib.worldgen.surface.FrozenSurfaceRules.*;
 import net.frozenblock.lib.worldgen.surface.impl.BiomeTagConditionSource;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
@@ -160,6 +159,19 @@ public final class WilderSharedWorldgen {
 				SurfaceRules.isBiome(RegisterWorldgen.OASIS),
 				SurfaceRules.sequence(
 						SurfaceRules.ifTrue(
+								SurfaceRules.ON_FLOOR,
+								SurfaceRules.ifTrue(
+										SurfaceRules.waterBlockCheck(-1, 0),
+										SurfaceRules.sequence(
+												SurfaceRules.ifTrue(
+														SurfaceRules.ON_CEILING,
+														SANDSTONE
+												),
+												SAND
+										)
+								)
+						),
+						SurfaceRules.ifTrue(
 								SurfaceRules.waterStartCheck(-6, -1),
 								SurfaceRules.sequence(
 										SurfaceRules.ifTrue(
@@ -175,19 +187,6 @@ public final class WilderSharedWorldgen {
 										SurfaceRules.ifTrue(
 												SurfaceRules.VERY_DEEP_UNDER_FLOOR,
 												SANDSTONE
-										)
-								)
-						),
-						SurfaceRules.ifTrue(
-								SurfaceRules.ON_FLOOR,
-								SurfaceRules.ifTrue(
-										SurfaceRules.waterBlockCheck(-1, 0),
-										SurfaceRules.sequence(
-												SurfaceRules.ifTrue(
-														SurfaceRules.ON_CEILING,
-														SANDSTONE
-												),
-												SAND
 										)
 								)
 						)
