@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.mixin;
 
 import net.fabricmc.loader.api.FabricLoader;
+import net.frozenblock.lib.FrozenBools;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
@@ -23,8 +24,8 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 
 	@Override
 	public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-		if (mixinClassName.contains("sodium")) {
-			return FabricLoader.getInstance().getModContainer("sodium").isPresent();
+		if (FrozenBools.HAS_SODIUM) {
+			return mixinClassName.contains("sodium") && !mixinClassName.contains("LiquidBlockRenderer");
 		}
 		return true;
 	}
