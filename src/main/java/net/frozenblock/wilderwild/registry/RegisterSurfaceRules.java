@@ -11,7 +11,10 @@ public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint {
 
 	@Override
 	public void addOverworldSurfaceRules(ArrayList<SurfaceRules.RuleSource> context) {
-		context.add(WilderSharedWorldgen.surfaceRules());
+		context.add(WilderSharedWorldgen.cypressSurfaceRules());
+		context.add(WilderSharedWorldgen.oasisRules());
+		context.add(WilderSharedWorldgen.betaBeaches());
+		context.add(WilderSharedWorldgen.warmRiverRules());
 		WilderSharedConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
 	}
 
