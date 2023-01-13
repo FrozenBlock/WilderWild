@@ -1,13 +1,11 @@
 package net.frozenblock.wilderwild.mixin;
 
-import net.fabricmc.loader.api.FabricLoader;
+import java.util.List;
+import java.util.Set;
 import net.frozenblock.lib.FrozenBools;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
-
-import java.util.List;
-import java.util.Set;
 
 public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 	private static final String MIXIN_PATH = "net.frozenblock.wilderwild.mixin.";
@@ -24,8 +22,11 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 
 	@Override
 	public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-		if (FrozenBools.HAS_SODIUM) {
-			return mixinClassName.contains("sodium") && !mixinClassName.contains("LiquidBlockRenderer");
+		if (mixinClassName.contains("sodium")) {
+			return FrozenBools.HAS_SODIUM;
+		}
+		if (mixinClassName.contains("LiquidBlockRenderer")) {
+			return !FrozenBools.HAS_SODIUM;
 		}
 		return true;
 	}
