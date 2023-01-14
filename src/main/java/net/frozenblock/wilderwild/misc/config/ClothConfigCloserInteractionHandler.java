@@ -89,11 +89,11 @@ public final class ClothConfigCloserInteractionHandler {
 	}
 
 	public static boolean generateOasis() {
-		return BIOMES.generateOasis;
+		return BIOME_GENERATION.generateOasis;
 	}
 
 	public static boolean generateWarmRiver() {
-		return BIOMES.generateWarmRiver;
+		return BIOME_GENERATION.generateWarmRiver;
 	}
 
 	public static boolean fallenLogs() {

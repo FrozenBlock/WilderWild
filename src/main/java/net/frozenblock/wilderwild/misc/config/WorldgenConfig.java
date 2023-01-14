@@ -36,7 +36,7 @@ public final class WorldgenConfig implements ConfigData {
 		public boolean generateJellyfishCaves = DefaultWorldgenConfig.BiomeGeneration.GENERATE_JELLYFISH_CAVES;
 		public boolean generateMixedForest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_MIXED_FOREST;
 		public boolean generateOasis = DefaultWorldgenConfig.BiomeGeneration.GENERATE_OASIS;
-		public boolean generateWarmRiver = DefaultWorldgenConfig.BiomeGEneration.GENERATE_WARM_RIVER;
+		public boolean generateWarmRiver = DefaultWorldgenConfig.BiomeGeneration.GENERATE_WARM_RIVER;
 	}
 
     public boolean betaBeaches = DefaultWorldgenConfig.BETA_BEACHES;
@@ -76,13 +76,13 @@ public final class WorldgenConfig implements ConfigData {
 				.requireRestart()
 				.build();
 		var oasis = entryBuilder.startBooleanToggle(text("generate_oasis"), biomes.generateOasis)
-				.setDefaultValue(DefaultWorldgenConfig.Biomes.GENERATE_OASIS)
+				.setDefaultValue(DefaultWorldgenConfig.BiomeGeneration.GENERATE_OASIS)
 				.setSaveConsumer(newValue -> biomes.generateOasis = newValue)
 				.setTooltip(tooltip("generate_oasis"))
 				.requireRestart()
 				.build();
 		var warmRiver = entryBuilder.startBooleanToggle(text("generate_warm_river"), biomes.generateWarmRiver)
-				.setDefaultValue(DefaultWorldgenConfig.Biomes.GENERATE_WARM_RIVER)
+				.setDefaultValue(DefaultWorldgenConfig.BiomeGeneration.GENERATE_WARM_RIVER)
 				.setSaveConsumer(newValue -> biomes.generateWarmRiver = newValue)
 				.setTooltip(tooltip("generate_warm_river"))
 				.requireRestart()

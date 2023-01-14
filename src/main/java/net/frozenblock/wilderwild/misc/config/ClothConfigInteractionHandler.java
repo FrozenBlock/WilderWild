@@ -70,11 +70,11 @@ public final class ClothConfigInteractionHandler {
 	}
 
 	public static boolean generateOasis() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.generateOasis() : Biomes.GENERATE_OASIS;
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.generateOasis() : BiomeGeneration.GENERATE_OASIS;
 	}
 
 	public static boolean generateWarmRiver() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.generateWarmRiver() : Biomes.GENERATE_WARM_RIVER;
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.generateWarmRiver() : BiomeGeneration.GENERATE_WARM_RIVER;
 	}
 
 	public static boolean dyingTrees() {
