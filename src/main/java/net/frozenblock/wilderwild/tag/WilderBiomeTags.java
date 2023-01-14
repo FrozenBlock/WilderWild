@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.tag;
 
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.tags.TagKey;
@@ -33,6 +32,10 @@ public final class WilderBiomeTags {
     public static final TagKey<Biome> DARK_FOREST = bind("dark_forest");
     public static final TagKey<Biome> MEADOW = bind("meadow");
 	public static final TagKey<Biome> FOREST_GRASS = bind("forest_grass");
+
+	public static final TagKey<Biome> GRAVEL_BEACH = bind("gravel_beaches");
+	public static final TagKey<Biome> SAND_BEACHES = bind("sand_beaches");
+	public static final TagKey<Biome> MULTI_LAYER_SAND_BEACHES = bind("multi_layer_sand_beaches");
 
     private static TagKey<Biome> bind(String path) {
         return TagKey.create(Registry.BIOME_REGISTRY, WilderSharedConstants.id(path));

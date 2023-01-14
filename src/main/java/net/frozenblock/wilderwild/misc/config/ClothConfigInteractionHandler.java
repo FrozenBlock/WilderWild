@@ -57,6 +57,18 @@ public final class ClothConfigInteractionHandler {
 		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.modifyWindsweptSavannaPlacement() : BiomePlacement.MODIFY_WINDSWEPT_SAVANNA_PLACEMENT;
 	}
 
+	public static boolean jellyfishCaves() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.jellyfishCaves() : Biomes.JELLYFISH_CAVES;
+	}
+
+	public static boolean mixedForest() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.mixedForest() : Biomes.MIXED_FOREST;
+	}
+
+	public static boolean cypressWetlands() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.cypressWetlands() : Biomes.CYPRESS_WETLANDS;
+	}
+
 	public static boolean dyingTrees() {
 		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.dyingTrees() : DYING_TREES;
 	}

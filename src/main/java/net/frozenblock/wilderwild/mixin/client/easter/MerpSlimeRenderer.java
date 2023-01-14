@@ -3,7 +3,6 @@ package net.frozenblock.wilderwild.mixin.client.easter;
 import java.util.Objects;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.entity.SlimeRenderer;

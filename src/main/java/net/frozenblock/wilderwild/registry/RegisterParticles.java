@@ -3,7 +3,6 @@ package net.frozenblock.wilderwild.registry;
 import com.mojang.serialization.Codec;
 import java.util.function.Function;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;

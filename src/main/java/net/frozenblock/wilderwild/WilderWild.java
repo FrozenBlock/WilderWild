@@ -167,8 +167,6 @@ public final class WilderWild implements ModInitializer {
 
         BiomeModifications.addSpawn(BiomeSelectors.includeByKey(ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("terralith", "cave/underground_jungle"))),
                 WilderEnumValues.FIREFLIES, RegisterEntities.FIREFLY, 12, 2, 4);
-
-		WilderRegistry.MULTILAYER_SAND_BEACH_BIOMES.add(ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("terralith", "arid_highlands")));
     }
 
     public static boolean isCopperPipe(BlockState state) {

@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.misc;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
@@ -12,8 +11,6 @@ import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.core.Registry;
-import net.minecraft.data.models.BlockModelGenerators;
-import net.minecraft.data.models.ItemModelGenerators;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
@@ -132,6 +129,28 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.SWAMP_TREES)
 					.add(Biomes.SWAMP);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.GRAVEL_BEACH)
+					.add(Biomes.BIRCH_FOREST)
+					.add(Biomes.FROZEN_RIVER)
+					.add(RegisterWorldgen.MIXED_FOREST)
+					.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
+					.add(Biomes.OLD_GROWTH_PINE_TAIGA)
+					.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA)
+					.add(Biomes.TAIGA)
+					.add(Biomes.SNOWY_TAIGA);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.SAND_BEACHES)
+					.add(Biomes.DARK_FOREST)
+					.add(Biomes.FLOWER_FOREST)
+					.add(Biomes.FOREST);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.MULTI_LAYER_SAND_BEACHES)
+					.add(Biomes.BAMBOO_JUNGLE)
+					.add(Biomes.JUNGLE)
+					.add(Biomes.SAVANNA)
+					.add(Biomes.SPARSE_JUNGLE)
+					.addOptional(new ResourceLocation("terralith", "arid_highlands"));
 		}
 
 		private void generateFeatureTags() {
@@ -295,8 +314,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(RegisterBlocks.HOLLOWED_JUNGLE_LOG)
 					.add(RegisterBlocks.HOLLOWED_MANGROVE_LOG)
 					.add(RegisterBlocks.HOLLOWED_SPRUCE_LOG)
-					.add(RegisterBlocks.HOLLOWED_CYPRESS_LOG)
-					.add(RegisterBlocks.HOLLOWED_BAOBAB_LOG);
+					.add(RegisterBlocks.HOLLOWED_BAOBAB_LOG)
+					.add(RegisterBlocks.HOLLOWED_CYPRESS_LOG);
 
 			this.getOrCreateTagBuilder(WilderBlockTags.KILLS_TERMITE)
 					.add(Blocks.POWDER_SNOW)

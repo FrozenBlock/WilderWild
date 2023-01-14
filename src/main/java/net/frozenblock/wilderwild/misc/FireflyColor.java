@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.misc;
 
 import com.mojang.serialization.Codec;
 import java.util.List;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.WilderRegistry;
 import net.minecraft.Util;
 import net.minecraft.core.Registry;

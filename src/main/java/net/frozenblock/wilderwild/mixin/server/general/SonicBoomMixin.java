@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
-import net.frozenblock.wilderwild.WilderWild;
+import java.util.function.Consumer;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -30,7 +30,6 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-import java.util.function.Consumer;
 
 @Mixin(value = SonicBoom.class, priority = 1001)
 public class SonicBoomMixin implements WilderSonicBoom {

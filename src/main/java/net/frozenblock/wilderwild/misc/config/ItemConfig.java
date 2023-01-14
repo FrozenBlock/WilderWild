@@ -10,7 +10,8 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.api.FrozenConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultItemConfig;
-import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.*;
+import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
+import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 
 @Config(name = "item")
 public final class ItemConfig implements ConfigData {

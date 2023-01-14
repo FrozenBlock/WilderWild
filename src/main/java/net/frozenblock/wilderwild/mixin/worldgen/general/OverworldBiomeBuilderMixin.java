@@ -28,7 +28,7 @@ public final class OverworldBiomeBuilderMixin {
         parameters.accept(Pair.of(Climate.parameters(temperature, humidity, continentalness, erosion, Climate.Parameter.span(0.0F, 1.0F), weirdness, offset), biome));
     }
 
-    @Inject(method = "<init>", at = @At("TAIL"))
+	@Inject(method = "<init>", at = @At("TAIL"))
     private void injectBiomes(CallbackInfo ci) {
         if (ClothConfigInteractionHandler.modifyJunglePlacement()) {
             MIDDLE_BIOMES_VARIANT[4][3] = Biomes.JUNGLE;
@@ -39,85 +39,96 @@ public final class OverworldBiomeBuilderMixin {
     @Inject(method = "addLowSlice", at = @At("TAIL")) // also can be injectLowBiomes
     private void injectBiomesNearRivers(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo ci) {
         if (!FrozenBools.HAS_TERRABLENDER) {
-            this.addSurfaceBiome(
-                    parameters,
-                    WilderSharedWorldgen.MixedForest.TEMPERATURE,
-                    WilderSharedWorldgen.MixedForest.HUMIDITY,
-                    WilderSharedWorldgen.MixedForest.CONTINENTALNESS,
-                    WilderSharedWorldgen.MixedForest.LOW_EROSION,
-                    weirdness,
-                    WilderSharedWorldgen.MixedForest.OFFSET,
-                    RegisterWorldgen.MIXED_FOREST
-            );
-            this.addSurfaceBiome(
-                    parameters,
-                    WilderSharedWorldgen.CypressWetlands.TEMPERATURE,
-                    WilderSharedWorldgen.CypressWetlands.HUMIDITY,
-                    WilderSharedWorldgen.CypressWetlands.CONTINENTALNESS,
-                    WilderSharedWorldgen.CypressWetlands.EROSION,
-                    weirdness,
-                    WilderSharedWorldgen.CypressWetlands.OFFSET,
-                    RegisterWorldgen.CYPRESS_WETLANDS
-            );
+			if (ClothConfigInteractionHandler.mixedForest()) {
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.MixedForest.TEMPERATURE,
+						WilderSharedWorldgen.MixedForest.HUMIDITY,
+						WilderSharedWorldgen.MixedForest.CONTINENTALNESS,
+						WilderSharedWorldgen.MixedForest.LOW_EROSION,
+						weirdness,
+						WilderSharedWorldgen.MixedForest.OFFSET,
+						RegisterWorldgen.MIXED_FOREST
+				);
+			}
+			if (ClothConfigInteractionHandler.cypressWetlands()) {
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.CypressWetlands.TEMPERATURE,
+						WilderSharedWorldgen.CypressWetlands.HUMIDITY,
+						WilderSharedWorldgen.CypressWetlands.CONTINENTALNESS,
+						WilderSharedWorldgen.CypressWetlands.EROSION,
+						weirdness,
+						WilderSharedWorldgen.CypressWetlands.OFFSET,
+						RegisterWorldgen.CYPRESS_WETLANDS
+				);
+			}
         }
     }
 
     @Inject(method = "addMidSlice", at = @At("TAIL")) // also can be injectMidBiomes
     private void injectMixedBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo ci) {
         if (!FrozenBools.HAS_TERRABLENDER) {
-            this.addSurfaceBiome(
-                    parameters,
-                    WilderSharedWorldgen.MixedForest.TEMPERATURE,
-                    WilderSharedWorldgen.MixedForest.HUMIDITY,
-                    WilderSharedWorldgen.MixedForest.CONTINENTALNESS,
-                    WilderSharedWorldgen.MixedForest.MID_EROSION,
-                    weirdness,
-                    WilderSharedWorldgen.MixedForest.OFFSET,
-                    RegisterWorldgen.MIXED_FOREST
-            );
-
-            this.addSurfaceBiome(
-                    parameters,
-                    WilderSharedWorldgen.CypressWetlands.TEMPERATURE,
-                    WilderSharedWorldgen.CypressWetlands.HUMIDITY,
-                    WilderSharedWorldgen.CypressWetlands.CONTINENTALNESS,
-                    WilderSharedWorldgen.CypressWetlands.EROSION,
-                    weirdness,
-                    WilderSharedWorldgen.CypressWetlands.OFFSET,
-                    RegisterWorldgen.CYPRESS_WETLANDS
-            );
+			if (ClothConfigInteractionHandler.mixedForest()) {
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.MixedForest.TEMPERATURE,
+						WilderSharedWorldgen.MixedForest.HUMIDITY,
+						WilderSharedWorldgen.MixedForest.CONTINENTALNESS,
+						WilderSharedWorldgen.MixedForest.MID_EROSION,
+						weirdness,
+						WilderSharedWorldgen.MixedForest.OFFSET,
+						RegisterWorldgen.MIXED_FOREST
+				);
+			}
+			if (ClothConfigInteractionHandler.cypressWetlands()) {
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.CypressWetlands.TEMPERATURE,
+						WilderSharedWorldgen.CypressWetlands.HUMIDITY,
+						WilderSharedWorldgen.CypressWetlands.CONTINENTALNESS,
+						WilderSharedWorldgen.CypressWetlands.EROSION,
+						weirdness,
+						WilderSharedWorldgen.CypressWetlands.OFFSET,
+						RegisterWorldgen.CYPRESS_WETLANDS
+				);
+			}
         }
     }
 
     @Inject(method = "addValleys", at = @At("TAIL")) // can also be injectValleyBiomes
     private void injectRiverBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo ci) {
         if (!FrozenBools.HAS_TERRABLENDER) {
-            this.addSurfaceBiome(
-                    parameters,
-                    WilderSharedWorldgen.CypressWetlands.TEMPERATURE,
-                    WilderSharedWorldgen.CypressWetlands.HUMIDITY,
-                    WilderSharedWorldgen.CypressWetlands.CONTINENTALNESS,
-                    WilderSharedWorldgen.CypressWetlands.EROSION,
-                    weirdness,
-                    WilderSharedWorldgen.CypressWetlands.OFFSET,
-                    RegisterWorldgen.CYPRESS_WETLANDS
-            );
+			if (ClothConfigInteractionHandler.cypressWetlands()) {
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.CypressWetlands.TEMPERATURE,
+						WilderSharedWorldgen.CypressWetlands.HUMIDITY,
+						WilderSharedWorldgen.CypressWetlands.CONTINENTALNESS,
+						WilderSharedWorldgen.CypressWetlands.EROSION,
+						weirdness,
+						WilderSharedWorldgen.CypressWetlands.OFFSET,
+						RegisterWorldgen.CYPRESS_WETLANDS
+				);
+			}
         }
     }
 
     @Inject(method = "addUndergroundBiomes", at = @At("TAIL"))
     private void addUndergroundBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, CallbackInfo ci) {
         if (!FrozenBools.HAS_TERRABLENDER) {
-            addSemiDeepBiome(
-                    consumer,
-                    WilderSharedWorldgen.JellyfishCaves.TEMPERATURE,
-                    WilderSharedWorldgen.JellyfishCaves.HUMIDITY,
-                    WilderSharedWorldgen.JellyfishCaves.CONTINENTALNESS,
-                    WilderSharedWorldgen.JellyfishCaves.EROSION,
-                    WilderSharedWorldgen.JellyfishCaves.WEIRDNESS,
-                    WilderSharedWorldgen.JellyfishCaves.OFFSET,
-                    RegisterWorldgen.JELLYFISH_CAVES
-            );
+			if (ClothConfigInteractionHandler.jellyfishCaves()) {
+				addSemiDeepBiome(
+						consumer,
+						WilderSharedWorldgen.JellyfishCaves.TEMPERATURE,
+						WilderSharedWorldgen.JellyfishCaves.HUMIDITY,
+						WilderSharedWorldgen.JellyfishCaves.CONTINENTALNESS,
+						WilderSharedWorldgen.JellyfishCaves.EROSION,
+						WilderSharedWorldgen.JellyfishCaves.WEIRDNESS,
+						WilderSharedWorldgen.JellyfishCaves.OFFSET,
+						RegisterWorldgen.JELLYFISH_CAVES
+				);
+			}
         }
     }
 
