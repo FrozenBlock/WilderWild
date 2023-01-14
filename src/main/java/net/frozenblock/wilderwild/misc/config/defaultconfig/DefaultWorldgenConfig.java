@@ -11,7 +11,7 @@ public class DefaultWorldgenConfig {
 		public static final boolean MODIFY_MANGROVE_SWAMP_PLACEMENT = true;
 	}
 
-	public static class Biomes {
+	public static class BiomeGeneration {
 		public static final boolean GENERATE_CYPRESS_WETLANDS = true;
 		public static final boolean GENERATE_JELLYFISH_CAVES = true;
 		public static final boolean GENERATE_MIXED_FOREST = true;
