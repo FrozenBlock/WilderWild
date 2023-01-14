@@ -245,12 +245,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		context.add(WilderSharedWorldgen.betaBeaches());
 		WilderSharedConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
 	}
-
-	@Override
-	public void addOverworldSurfaceRulesNoPrelimSurface(ArrayList<SurfaceRules.RuleSource> context) {
-		
-	}
-
+	
 	@Override
 	public void addNetherSurfaceRules(ArrayList<SurfaceRules.RuleSource> context) {
 
