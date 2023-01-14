@@ -15,13 +15,12 @@ import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 
 @Config(name = "worldgen")
 public final class WorldgenConfig implements ConfigData {
-    //public static final EnumConfigOption<ModMenuConfig.ModsButtonStyle> MODS_BUTTON_STYLE = new EnumConfigOption<>("mods_button_style", ModMenuConfig.ModsButtonStyle.CLASSIC);
+
+	@ConfigEntry.Gui.CollapsibleObject
+	public final BiomeGeneration biomeGeneration = new BiomeGeneration();
 
     @ConfigEntry.Gui.CollapsibleObject
     public final BiomePlacement biomePlacement = new BiomePlacement();
-
-	@ConfigEntry.Gui.CollapsibleObject
-	public final Biomes biomes = new Biomes();
 
     protected static class BiomePlacement {
         //public boolean modifyDesertPlacement = DefaultWorldgenConfig.BiomePlacement.modifyDesertPlacement;
@@ -32,10 +31,10 @@ public final class WorldgenConfig implements ConfigData {
         public boolean modifyMangroveSwampPlacement = DefaultWorldgenConfig.BiomePlacement.MODIFY_MANGROVE_SWAMP_PLACEMENT;
     }
 
-	protected static class Biomes {
-		public boolean jellyfishCaves = DefaultWorldgenConfig.Biomes.JELLYFISH_CAVES;
-		public boolean mixedForest = DefaultWorldgenConfig.Biomes.MIXED_FOREST;
-		public boolean cypressWetlands = DefaultWorldgenConfig.Biomes.CYPRESS_WETLANDS;
+	protected static class BiomeGeneration {
+		public boolean generateCypressWetlands = DefaultWorldgenConfig.BiomeGeneration.GENERATE_CYPRESS_WETLANDS;
+		public boolean generateJellyfishCaves = DefaultWorldgenConfig.BiomeGeneration.GENERATE_JELLYFISH_CAVES;
+		public boolean generateMixedForest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_MIXED_FOREST;
 	}
 
     public boolean betaBeaches = DefaultWorldgenConfig.BETA_BEACHES;
@@ -48,13 +47,39 @@ public final class WorldgenConfig implements ConfigData {
     static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
         var config = WilderWildConfig.get().worldgen;
         var biomePlacement = config.biomePlacement;
-		var biomes = config.biomes;
+		var biomes = config.biomeGeneration;
         category.setBackground(WilderSharedConstants.id("textures/config/worldgen.png"));
         var betaBeaches = category.addEntry(entryBuilder.startBooleanToggle(text("beta_beaches"), config.betaBeaches)
                 .setDefaultValue(DefaultWorldgenConfig.BETA_BEACHES)
                 .setSaveConsumer(newValue -> config.betaBeaches = newValue)
                 .setTooltip(tooltip("beta_beaches"))
                 .build());
+
+		var cypressWetlands = entryBuilder.startBooleanToggle(text("generate_cypress_wetlands"), biomes.generateCypressWetlands)
+				.setDefaultValue(DefaultWorldgenConfig.BiomeGeneration.GENERATE_CYPRESS_WETLANDS)
+				.setSaveConsumer(newValue -> biomes.generateCypressWetlands = newValue)
+				.setTooltip(tooltip("generate_cypress_wetlands"))
+				.requireRestart()
+				.build();
+		var jellyfishCaves = entryBuilder.startBooleanToggle(text("generate_jellyfish_caves"), biomes.generateJellyfishCaves)
+				.setDefaultValue(DefaultWorldgenConfig.BiomeGeneration.GENERATE_JELLYFISH_CAVES)
+				.setSaveConsumer(newValue -> biomes.generateJellyfishCaves = newValue)
+				.setTooltip(tooltip("generate_jellyfish_caves"))
+				.requireRestart()
+				.build();
+		var mixedForest = entryBuilder.startBooleanToggle(text("generate_mixed_forest"), biomes.generateMixedForest)
+				.setDefaultValue(DefaultWorldgenConfig.BiomeGeneration.GENERATE_MIXED_FOREST)
+				.setSaveConsumer(newValue -> biomes.generateMixedForest = newValue)
+				.setTooltip(tooltip("generate_mixed_forest"))
+				.requireRestart()
+				.build();
+
+		var biomeGenerationCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("biome_generation"),
+				false,
+				tooltip("biome_generation"),
+				cypressWetlands, jellyfishCaves, mixedForest
+		);
+
         /*
         var badlands = category.addEntry(entryBuilder.startBooleanToggle(text("modify_badlands_placement"), biomePlacement.modifyBadlandsPlacement)
                 .setDefaultValue(DefaultWorldgenConfig.BiomePlacement.modifyBadlandsPlacement)
@@ -105,34 +130,6 @@ public final class WorldgenConfig implements ConfigData {
                 tooltip("biome_placement"),
                 jungle, mangroveSwamp, swamp, windsweptSavanna
         );
-
-		var cypressWetlands = entryBuilder.startBooleanToggle(text("cypress_wetlands"), biomes.cypressWetlands)
-				.setDefaultValue(DefaultWorldgenConfig.Biomes.CYPRESS_WETLANDS)
-				.setSaveConsumer(newValue -> biomes.cypressWetlands = newValue)
-				.setYesNoTextSupplier(bool -> text("biome." + bool))
-				.setTooltip(tooltip("cypress_wetlands"))
-				.requireRestart()
-				.build();
-		var mixedForest = entryBuilder.startBooleanToggle(text("mixed_forest"), biomes.mixedForest)
-				.setDefaultValue(DefaultWorldgenConfig.Biomes.MIXED_FOREST)
-				.setSaveConsumer(newValue -> biomes.mixedForest = newValue)
-				.setYesNoTextSupplier(bool -> text("biome." + bool))
-				.setTooltip(tooltip("mixed_forest"))
-				.requireRestart()
-				.build();
-		var jellyfishCaves = entryBuilder.startBooleanToggle(text("jellyfish_caves"), biomes.jellyfishCaves)
-				.setDefaultValue(DefaultWorldgenConfig.Biomes.JELLYFISH_CAVES)
-				.setSaveConsumer(newValue -> biomes.jellyfishCaves = newValue)
-				.setYesNoTextSupplier(bool -> text("biome." + bool))
-				.setTooltip(tooltip("jellyfish_caves"))
-				.requireRestart()
-				.build();
-
-		var biomeCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("biomes"),
-				false,
-				tooltip("biomes"),
-				cypressWetlands, mixedForest, jellyfishCaves
-		);
 
         /*var dyingTrees = category.addEntry(entryBuilder.startBooleanToggle(text("dying_trees"), config.dyingTrees)
                 .setDefaultValue(DefaultWorldgenConfig.dyingTrees)

@@ -12,8 +12,8 @@ public final class ClothConfigCloserInteractionHandler {
 	private static final ItemConfig.AncientHornConfig ANCIENT_HORN = ITEM.ancientHorn;
 	private static final MiscConfig.BiomeAmbienceConfig BIOME_AMBIENCE = MISC.biomeAmbience;
 	private static final MiscConfig.BiomeMusicConfig BIOME_MUSIC = MISC.biomeMusic;
+	private static final WorldgenConfig.BiomeGeneration BIOME_GENERATION = WORLDGEN.biomeGeneration;
 	private static final WorldgenConfig.BiomePlacement BIOME_PLACEMENT = WORLDGEN.biomePlacement;
-	private static final WorldgenConfig.Biomes BIOMES = WORLDGEN.biomes;
 	private static final BlockConfig.BlockSoundsConfig BLOCK_SOUNDS = BLOCK.blockSounds;
 	private static final EntityConfig.EnderManConfig ENDER_MAN = ENTITY.enderMan;
 	private static final BlockConfig.StoneChestConfig STONE_CHEST = BLOCK.stoneChest;
@@ -74,16 +74,16 @@ public final class ClothConfigCloserInteractionHandler {
 		return WORLDGEN.dyingTrees;
 	}
 
-	public static boolean cypressWetlands() {
-		return BIOMES.cypressWetlands;
+	public static boolean generateCypressWetlands() {
+		return BIOME_GENERATION.generateCypressWetlands;
 	}
 
-	public static boolean mixedForest() {
-		return BIOMES.mixedForest;
+	public static boolean generateMixedForest() {
+		return BIOME_GENERATION.generateMixedForest;
 	}
 
-	public static boolean jellyfishCaves() {
-		return BIOMES.jellyfishCaves;
+	public static boolean generateJellyfishCaves() {
+		return BIOME_GENERATION.generateJellyfishCaves;
 	}
 
 	public static boolean fallenLogs() {

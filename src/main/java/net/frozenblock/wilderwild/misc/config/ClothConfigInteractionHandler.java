@@ -57,16 +57,16 @@ public final class ClothConfigInteractionHandler {
 		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.modifyWindsweptSavannaPlacement() : BiomePlacement.MODIFY_WINDSWEPT_SAVANNA_PLACEMENT;
 	}
 
-	public static boolean jellyfishCaves() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.jellyfishCaves() : Biomes.JELLYFISH_CAVES;
+	public static boolean generateCypressWetlands() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.generateCypressWetlands() : BiomeGeneration.GENERATE_CYPRESS_WETLANDS;
 	}
 
-	public static boolean mixedForest() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.mixedForest() : Biomes.MIXED_FOREST;
+	public static boolean generateJellyfishCaves() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.generateJellyfishCaves() : BiomeGeneration.GENERATE_JELLYFISH_CAVES;
 	}
 
-	public static boolean cypressWetlands() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.cypressWetlands() : Biomes.CYPRESS_WETLANDS;
+	public static boolean generateMixedForest() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.generateMixedForest() : BiomeGeneration.GENERATE_MIXED_FOREST;
 	}
 
 	public static boolean dyingTrees() {
