@@ -12,7 +12,7 @@ import static net.frozenblock.lib.worldgen.surface.FrozenSurfaceRules.*;
 import net.frozenblock.lib.worldgen.surface.impl.BiomeTagConditionSource;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
-import net.frozenblock.wilderwild.world.generation.conditionsource.BetaBeachConditionSource;
+import net.frozenblock.wilderwild.world.gen.conditionsource.BetaBeachConditionSource;
 import net.frozenblock.wilderwild.world.gen.noise.WilderNoise;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.block.Block;
