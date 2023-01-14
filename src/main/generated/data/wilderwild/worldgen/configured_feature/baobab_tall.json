@@ -69,7 +69,16 @@
       "type": "wilderwild:baobab_trunk_placer",
       "base_height": 16,
       "height_rand_a": 4,
-      "height_rand_b": 2
+      "height_rand_b": 2,
+      "inside_block_state": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "wilderwild:stripped_baobab_log",
+          "Properties": {
+            "axis": "y"
+          }
+        }
+      }
     },
     "trunk_provider": {
       "type": "minecraft:simple_state_provider",
