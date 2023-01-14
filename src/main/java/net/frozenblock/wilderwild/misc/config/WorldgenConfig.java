@@ -15,13 +15,12 @@ import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 
 @Config(name = "worldgen")
 public final class WorldgenConfig implements ConfigData {
-    //public static final EnumConfigOption<ModMenuConfig.ModsButtonStyle> MODS_BUTTON_STYLE = new EnumConfigOption<>("mods_button_style", ModMenuConfig.ModsButtonStyle.CLASSIC);
+
+	@ConfigEntry.Gui.CollapsibleObject
+	public final BiomeGeneration biomeGeneration = new BiomeGeneration();
 
     @ConfigEntry.Gui.CollapsibleObject
     public final BiomePlacement biomePlacement = new BiomePlacement();
-
-	@ConfigEntry.Gui.CollapsibleObject
-	public final Biomes biomes = new Biomes();
 
     protected static class BiomePlacement {
         //public boolean modifyDesertPlacement = DefaultWorldgenConfig.BiomePlacement.modifyDesertPlacement;
@@ -32,12 +31,12 @@ public final class WorldgenConfig implements ConfigData {
         public boolean modifyMangroveSwampPlacement = DefaultWorldgenConfig.BiomePlacement.MODIFY_MANGROVE_SWAMP_PLACEMENT;
     }
 
-	protected static class Biomes {
-		public boolean generateCypressWetlands = DefaultWorldgenConfig.Biomes.GENERATE_CYPRESS_WETLANDS;
-		public boolean generateJellyfishCaves = DefaultWorldgenConfig.Biomes.GENERATE_JELLYFISH_CAVES;
-		public boolean generateMixedForest = DefaultWorldgenConfig.Biomes.GENERATE_MIXED_FOREST;
-		public boolean generateOasis = DefaultWorldgenConfig.Biomes.GENERATE_OASIS;
-		public boolean generateWarmRiver = DefaultWorldgenConfig.Biomes.GENERATE_WARM_RIVER;
+	protected static class BiomeGeneration {
+		public boolean generateCypressWetlands = DefaultWorldgenConfig.BiomeGeneration.GENERATE_CYPRESS_WETLANDS;
+		public boolean generateJellyfishCaves = DefaultWorldgenConfig.BiomeGeneration.GENERATE_JELLYFISH_CAVES;
+		public boolean generateMixedForest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_MIXED_FOREST;
+		public boolean generateOasis = DefaultWorldgenConfig.BiomeGeneration.GENERATE_OASIS;
+		public boolean generateWarmRiver = DefaultWorldgenConfig.BiomeGEneration.GENERATE_WARM_RIVER;
 	}
 
     public boolean betaBeaches = DefaultWorldgenConfig.BETA_BEACHES;
@@ -50,7 +49,7 @@ public final class WorldgenConfig implements ConfigData {
     static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
         var config = WilderWildConfig.get().worldgen;
         var biomePlacement = config.biomePlacement;
-		var biomes = config.biomes;
+		var biomes = config.biomeGeneration;
         category.setBackground(WilderSharedConstants.id("textures/config/worldgen.png"));
         var betaBeaches = category.addEntry(entryBuilder.startBooleanToggle(text("beta_beaches"), config.betaBeaches)
                 .setDefaultValue(DefaultWorldgenConfig.BETA_BEACHES)
@@ -59,19 +58,19 @@ public final class WorldgenConfig implements ConfigData {
                 .build());
 
 		var cypressWetlands = entryBuilder.startBooleanToggle(text("generate_cypress_wetlands"), biomes.generateCypressWetlands)
-				.setDefaultValue(DefaultWorldgenConfig.Biomes.GENERATE_CYPRESS_WETLANDS)
+				.setDefaultValue(DefaultWorldgenConfig.BiomeGeneration.GENERATE_CYPRESS_WETLANDS)
 				.setSaveConsumer(newValue -> biomes.generateCypressWetlands = newValue)
 				.setTooltip(tooltip("generate_cypress_wetlands"))
 				.requireRestart()
 				.build();
 		var jellyfishCaves = entryBuilder.startBooleanToggle(text("generate_jellyfish_caves"), biomes.generateJellyfishCaves)
-				.setDefaultValue(DefaultWorldgenConfig.Biomes.GENERATE_JELLYFISH_CAVES)
+				.setDefaultValue(DefaultWorldgenConfig.BiomeGeneration.GENERATE_JELLYFISH_CAVES)
 				.setSaveConsumer(newValue -> biomes.generateJellyfishCaves = newValue)
 				.setTooltip(tooltip("generate_jellyfish_caves"))
 				.requireRestart()
 				.build();
 		var mixedForest = entryBuilder.startBooleanToggle(text("generate_mixed_forest"), biomes.generateMixedForest)
-				.setDefaultValue(DefaultWorldgenConfig.Biomes.GENERATE_MIXED_FOREST)
+				.setDefaultValue(DefaultWorldgenConfig.BiomeGeneration.GENERATE_MIXED_FOREST)
 				.setSaveConsumer(newValue -> biomes.generateMixedForest = newValue)
 				.setTooltip(tooltip("generate_mixed_forest"))
 				.requireRestart()
