@@ -25,7 +25,7 @@ public class DefaultEntityConfig {
 	}
 
 	public static class WardenConfig {
-		public static final boolean WARDEN_ATTACKS_INSTANTLY = true;
+		public static final boolean WARDEN_ATTACKS_IMMEDIATELY = true;
 		public static final boolean WARDEN_CUSTOM_TENDRILS = true;
 		public static final boolean WARDEN_BEDROCK_SNIFF = true;
 		public static final boolean WARDEN_DYING_ANIMATION = true;

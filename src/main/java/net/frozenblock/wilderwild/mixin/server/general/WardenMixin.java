@@ -143,7 +143,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 				&& !warden.isDiggingOrEmerging()
 				&& !warden.hasPose(Pose.DYING)
 				&& !warden.hasPose(Pose.ROARING)
-				&& ClothConfigInteractionHandler.wardenAttacksInstantly()
+				&& ClothConfigInteractionHandler.wardenAttacksImmediately()
 		) {
 			if (!(entity instanceof Player player)) {
 				warden.increaseAngerAt(entity, AngerLevel.ANGRY.getMinimumAnger() + 20, false);
