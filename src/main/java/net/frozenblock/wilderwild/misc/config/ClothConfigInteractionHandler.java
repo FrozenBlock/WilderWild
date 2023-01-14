@@ -57,24 +57,24 @@ public final class ClothConfigInteractionHandler {
 		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.modifyWindsweptSavannaPlacement() : BiomePlacement.MODIFY_WINDSWEPT_SAVANNA_PLACEMENT;
 	}
 
-	public static boolean warmRiver() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.warmRiver() : Biomes.WARM_RIVER;
+	public static boolean generateCypressWetlands() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.generateCypressWetlands() : Biomes.GENERATE_CYPRESS_WETLANDS;
 	}
 
-	public static boolean oasis() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.oasis() : Biomes.OASIS;
+	public static boolean generateJellyfishCaves() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.generateJellyfishCaves() : Biomes.GENERATE_JELLYFISH_CAVES;
 	}
 
-	public static boolean jellyfishCaves() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.jellyfishCaves() : Biomes.JELLYFISH_CAVES;
+	public static boolean generateMixedForest() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.generateMixedForest() : Biomes.GENERATE_MIXED_FOREST;
 	}
 
-	public static boolean mixedForest() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.mixedForest() : Biomes.MIXED_FOREST;
+	public static boolean generateOasis() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.generateOasis() : Biomes.GENERATE_OASIS;
 	}
 
-	public static boolean cypressWetlands() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.cypressWetlands() : Biomes.CYPRESS_WETLANDS;
+	public static boolean generateWarmRiver() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.generateWarmRiver() : Biomes.GENERATE_WARM_RIVER;
 	}
 
 	public static boolean dyingTrees() {

@@ -12,11 +12,11 @@ public class DefaultWorldgenConfig {
 	}
 
 	public static class Biomes {
-		public static final boolean WARM_RIVER = true;
-		public static final boolean OASIS = true;
-		public static final boolean JELLYFISH_CAVES = true;
-		public static final boolean MIXED_FOREST = true;
-		public static final boolean CYPRESS_WETLANDS = true;
+		public static final boolean GENERATE_CYPRESS_WETLANDS = true;
+		public static final boolean GENERATE_JELLYFISH_CAVES = true;
+		public static final boolean GENERATE_MIXED_FOREST = true;
+		public static final boolean GENERATE_OASIS = true;
+		public static final boolean GENERATE_WARM_RIVER = true;
 	}
 
 	public static final boolean BETA_BEACHES = true;
