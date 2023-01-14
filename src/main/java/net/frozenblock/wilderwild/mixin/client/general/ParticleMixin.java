@@ -38,17 +38,17 @@ public abstract class ParticleMixin {
 		if (Particle.class.cast(this) instanceof DripParticle dripParticle) {
 			if (((WilderDripSuspendedParticleInterface)dripParticle).usesWind()) {
 				Vec3 wind = ClientWindManager.getWindMovement(this.level, new BlockPos(this.x, this.y, this.z), 1.5, 1);
-				this.xd += wind.x * 0.0005;
-				this.yd += wind.y * 0.00000025;
-				this.zd += wind.z * 0.0005;
+				this.xd += wind.x * 0.001;
+				this.yd += wind.y * 0.00005;
+				this.zd += wind.z * 0.001;
 			}
 		}
 		if (Particle.class.cast(this) instanceof SuspendedParticle suspendedParticle) {
 			if (((WilderDripSuspendedParticleInterface)suspendedParticle).usesWind()) {
 				Vec3 wind = ClientWindManager.getWindMovement(this.level, new BlockPos(this.x, this.y, this.z), 1.5, 1);
-				this.xd += wind.x * 0.0005;
-				this.yd += wind.y * 0.00000025;
-				this.zd += wind.z * 0.0005;
+				this.xd += wind.x * 0.001;
+				this.yd += wind.y * 0.00005;
+				this.zd += wind.z * 0.001;
 			}
 		}
 	}
