@@ -2,8 +2,6 @@ package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
-import net.frozenblock.lib.feature_flag.api.FrozenFeatureFlags;
-import net.frozenblock.wilderwild.misc.WilderFeatureFlags;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 
 public final class RegisterResources {

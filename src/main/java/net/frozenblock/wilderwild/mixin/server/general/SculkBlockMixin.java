@@ -100,6 +100,19 @@ public abstract class SculkBlockMixin {
 		}
     }
 
+	@Unique
+	private boolean wilderwild$isPlacingBelow;
+
+	@Unique
+	private boolean wilderwild$canPlaceOsseousSculk;
+
+    @Inject(at = @At("HEAD"), method = "attemptUseCharge")
+    public void setSeed(SculkSpreader.ChargeCursor charge, LevelAccessor level, BlockPos catalystPos, RandomSource random, SculkSpreader sculkChargeHandler, boolean spread, CallbackInfoReturnable<Integer> info) {
+        if (level.getServer() != null && level.getServer().overworld().getSeed() != EasyNoiseSampler.seed) {
+			EasyNoiseSampler.setSeed(level.getServer().overworld().getSeed());
+		}
+    }
+
     @Redirect(method = "attemptUseCharge", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkBlock;canPlaceGrowth(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)Z"))
     private boolean newWorldgenCharge(LevelAccessor levelAccessor, BlockPos blockPos, SculkSpreader.ChargeCursor charge, LevelAccessor level, BlockPos pos, RandomSource random, SculkSpreader sculkChargeHandler, boolean spread) {
         return this.canPlaceGrowth(levelAccessor, blockPos, sculkChargeHandler.isWorldGeneration());

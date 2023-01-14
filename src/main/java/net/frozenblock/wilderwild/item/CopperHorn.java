@@ -72,14 +72,14 @@ public class CopperHorn extends InstrumentItem {
             var instrumentHolder = optional.get();
             var instrument = instrumentHolder.value();
             user.startUsingItem(usedHand);
-            playSound(instrument, user, level, instrumentHolder);
+            playSound(instrument, user, level);
             return InteractionResultHolder.consume(itemStack);
         } else {
             return InteractionResultHolder.fail(itemStack);
         }
     }
 
-    private static void playSound(Instrument instrument, Player user, Level level, Holder<Instrument> instrumentHolder) {
+    private static void playSound(Instrument instrument, Player user, Level level) {
         SoundEvent soundEvent = instrument.soundEvent().value();
         float range = instrument.range() / 16.0F;
         int note = (int) ((-user.getXRot() + 90) / 7.5);

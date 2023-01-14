@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
 import java.util.function.Consumer;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;

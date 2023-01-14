@@ -5,7 +5,6 @@ import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.Map;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.additions.structure.AbandonedCabinGenerator;
