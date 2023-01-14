@@ -33,9 +33,9 @@ public final class WorldgenConfig implements ConfigData {
     }
 
 	protected static class Biomes {
-		public boolean jellyfishCaves = DefaultWorldgenConfig.Biomes.JELLYFISH_CAVES;
-		public boolean mixedForest = DefaultWorldgenConfig.Biomes.MIXED_FOREST;
-		public boolean cypressWetlands = DefaultWorldgenConfig.Biomes.CYPRESS_WETLANDS;
+		public boolean generateCypressWetlands = DefaultWorldgenConfig.Biomes.GENERATE_CYPRESS_WETLANDS;
+		public boolean generateJellyfishCaves = DefaultWorldgenConfig.Biomes.GENERATE_JELLYFISH_CAVES;
+		public boolean generateMixedForest = DefaultWorldgenConfig.Biomes.GENERATE_MIXED_FOREST;
 	}
 
     public boolean betaBeaches = DefaultWorldgenConfig.BETA_BEACHES;
@@ -55,6 +55,32 @@ public final class WorldgenConfig implements ConfigData {
                 .setSaveConsumer(newValue -> config.betaBeaches = newValue)
                 .setTooltip(tooltip("beta_beaches"))
                 .build());
+
+		var cypressWetlands = entryBuilder.startBooleanToggle(text("generate_cypress_wetlands"), biomes.generateCypressWetlands)
+				.setDefaultValue(DefaultWorldgenConfig.Biomes.GENERATE_CYPRESS_WETLANDS)
+				.setSaveConsumer(newValue -> biomes.generateCypressWetlands = newValue)
+				.setTooltip(tooltip("generate_cypress_wetlands"))
+				.requireRestart()
+				.build();
+		var jellyfishCaves = entryBuilder.startBooleanToggle(text("generate_jellyfish_caves"), biomes.generateJellyfishCaves)
+				.setDefaultValue(DefaultWorldgenConfig.Biomes.GENERATE_JELLYFISH_CAVES)
+				.setSaveConsumer(newValue -> biomes.generateJellyfishCaves = newValue)
+				.setTooltip(tooltip("generate_jellyfish_caves"))
+				.requireRestart()
+				.build();
+		var mixedForest = entryBuilder.startBooleanToggle(text("generate_mixed_forest"), biomes.generateMixedForest)
+				.setDefaultValue(DefaultWorldgenConfig.Biomes.GENERATE_MIXED_FOREST)
+				.setSaveConsumer(newValue -> biomes.generateMixedForest = newValue)
+				.setTooltip(tooltip("generate_mixed_forest"))
+				.requireRestart()
+				.build();
+
+		var biomeGenerationCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("biome_generation"),
+				false,
+				tooltip("biome_generation"),
+				cypressWetlands, jellyfishCaves, mixedForest
+		);
+
         /*
         var badlands = category.addEntry(entryBuilder.startBooleanToggle(text("modify_badlands_placement"), biomePlacement.modifyBadlandsPlacement)
                 .setDefaultValue(DefaultWorldgenConfig.BiomePlacement.modifyBadlandsPlacement)
@@ -105,34 +131,6 @@ public final class WorldgenConfig implements ConfigData {
                 tooltip("biome_placement"),
                 jungle, mangroveSwamp, swamp, windsweptSavanna
         );
-
-		var cypressWetlands = entryBuilder.startBooleanToggle(text("cypress_wetlands"), biomes.cypressWetlands)
-				.setDefaultValue(DefaultWorldgenConfig.Biomes.CYPRESS_WETLANDS)
-				.setSaveConsumer(newValue -> biomes.cypressWetlands = newValue)
-				.setYesNoTextSupplier(bool -> text("biome." + bool))
-				.setTooltip(tooltip("cypress_wetlands"))
-				.requireRestart()
-				.build();
-		var mixedForest = entryBuilder.startBooleanToggle(text("mixed_forest"), biomes.mixedForest)
-				.setDefaultValue(DefaultWorldgenConfig.Biomes.MIXED_FOREST)
-				.setSaveConsumer(newValue -> biomes.mixedForest = newValue)
-				.setYesNoTextSupplier(bool -> text("biome." + bool))
-				.setTooltip(tooltip("mixed_forest"))
-				.requireRestart()
-				.build();
-		var jellyfishCaves = entryBuilder.startBooleanToggle(text("jellyfish_caves"), biomes.jellyfishCaves)
-				.setDefaultValue(DefaultWorldgenConfig.Biomes.JELLYFISH_CAVES)
-				.setSaveConsumer(newValue -> biomes.jellyfishCaves = newValue)
-				.setYesNoTextSupplier(bool -> text("biome." + bool))
-				.setTooltip(tooltip("jellyfish_caves"))
-				.requireRestart()
-				.build();
-
-		var biomeCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("biomes"),
-				false,
-				tooltip("biomes"),
-				cypressWetlands, mixedForest, jellyfishCaves
-		);
 
         /*var dyingTrees = category.addEntry(entryBuilder.startBooleanToggle(text("dying_trees"), config.dyingTrees)
                 .setDefaultValue(DefaultWorldgenConfig.dyingTrees)

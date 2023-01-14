@@ -74,16 +74,16 @@ public final class ClothConfigCloserInteractionHandler {
 		return WORLDGEN.dyingTrees;
 	}
 
-	public static boolean cypressWetlands() {
-		return BIOMES.cypressWetlands;
+	public static boolean generateCypressWetlands() {
+		return BIOMES.generateCypressWetlands;
 	}
 
-	public static boolean mixedForest() {
-		return BIOMES.mixedForest;
+	public static boolean generateMixedForest() {
+		return BIOMES.generateMixedForest;
 	}
 
-	public static boolean jellyfishCaves() {
-		return BIOMES.jellyfishCaves;
+	public static boolean generateJellyfishCaves() {
+		return BIOMES.generateJellyfishCaves;
 	}
 
 	public static boolean fallenLogs() {
