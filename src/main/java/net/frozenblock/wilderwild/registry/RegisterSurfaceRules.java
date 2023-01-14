@@ -19,6 +19,11 @@ public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint {
 	}
 
 	@Override
+	public void addOverworldSurfaceRulesNoPrelimSurface(ArrayList<SurfaceRules.RuleSource> context) {
+		
+	}
+
+	@Override
 	public void addNetherSurfaceRules(ArrayList<SurfaceRules.RuleSource> context) {
 
 	}
