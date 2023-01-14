@@ -244,8 +244,8 @@ public final class ClothConfigCloserInteractionHandler {
 		return ENDER_MAN.movingStareSound;
 	}
 
-	public static boolean wardenAttacksInstantly() {
-		return WARDEN.wardenAttacksInstantly;
+	public static boolean wardenAttacksImmediately() {
+		return WARDEN.wardenAttacksImmediately;
 	}
 
 	public static boolean wardenCustomTendrils() {
