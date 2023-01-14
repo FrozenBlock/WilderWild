@@ -18,8 +18,6 @@ import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.misc.interfaces.WilderEnderman;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.*;
-import static net.frozenblock.wilderwild.registry.RegisterBlocks.BAOBAB_LEAVES;
-import static net.frozenblock.wilderwild.registry.RegisterBlocks.CYPRESS_LEAVES;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.damagesource.DamageSource;
@@ -28,6 +26,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.InstrumentItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import static net.frozenblock.wilderwild.registry.RegisterBlocks.*;
 import static net.minecraft.world.level.block.Blocks.*;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.SoundType;
@@ -120,7 +119,7 @@ public final class FrozenLibIntegration implements FrozenMainEntrypoint {
 			addBlock(DEAD_BUSH, SoundType.NETHER_SPROUTS);
 		}
 		if (ClothConfigInteractionHandler.flowerSounds()) {
-			addBlocks(new Block[]{DANDELION, POPPY, BLUE_ORCHID, ALLIUM, AZURE_BLUET, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, CORNFLOWER, LILY_OF_THE_VALLEY}, FLOWER);
+			addBlocks(new Block[]{DANDELION, POPPY, BLUE_ORCHID, ALLIUM, AZURE_BLUET, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, CORNFLOWER, LILY_OF_THE_VALLEY, SEEDING_DANDELION, CARNATION, GLORY_OF_THE_SNOW}, FLOWER);
 		}
 		if (ClothConfigInteractionHandler.frostedIceSounds()) {
 			addBlocks(new Block[]{FROSTED_ICE}, ICE_BLOCKS);
@@ -130,7 +129,7 @@ public final class FrozenLibIntegration implements FrozenMainEntrypoint {
 		}
 		if (ClothConfigInteractionHandler.leafSounds()) {
 			addBlockTag(BlockTags.LEAVES, LEAVES);
-			addBlocks(new Block[]{ACACIA_LEAVES, BIRCH_LEAVES, DARK_OAK_LEAVES, JUNGLE_LEAVES, MANGROVE_LEAVES, OAK_LEAVES, SPRUCE_LEAVES, BAOBAB_LEAVES, CYPRESS_LEAVES}, LEAVES);
+			addBlocks(new Block[]{ACACIA_LEAVES, BIRCH_LEAVES, DARK_OAK_LEAVES, JUNGLE_LEAVES, MANGROVE_LEAVES, OAK_LEAVES, SPRUCE_LEAVES, BAOBAB_LEAVES, CYPRESS_LEAVES, PALM_LEAVES}, LEAVES);
 			if (FabricLoader.getInstance().isModLoaded("betternether")) {
 				addBlock("betternether", "willow_leaves", LEAVES);
 				addBlock("betternether", "rubeous_leaves", LEAVES);
