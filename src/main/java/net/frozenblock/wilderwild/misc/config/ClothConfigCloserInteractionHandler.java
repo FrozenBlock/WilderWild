@@ -88,12 +88,12 @@ public final class ClothConfigCloserInteractionHandler {
 		return BIOMES.generateJellyfishCaves;
 	}
 
-	public static boolean oasis() {
-		return BIOMES.oasis;
+	public static boolean generateOasis() {
+		return BIOMES.generateOasis;
 	}
 
-	public static boolean warmRiver() {
-		return BIOMES.warmRiver;
+	public static boolean generateWarmRiver() {
+		return BIOMES.generateWarmRiver;
 	}
 
 	public static boolean fallenLogs() {

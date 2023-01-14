@@ -65,7 +65,7 @@ public final class OverworldBiomeBuilderMixin {
 						RegisterWorldgen.CYPRESS_WETLANDS
 				);
 			}
-			if (ClothConfigInteractionHandler.oasis()) {
+			if (ClothConfigInteractionHandler.generateOasis()) {
 				this.addSurfaceBiome(
 						parameters,
 						WilderSharedWorldgen.Oasis.WARM_RANGE,
@@ -107,7 +107,7 @@ public final class OverworldBiomeBuilderMixin {
 						RegisterWorldgen.CYPRESS_WETLANDS
 				);
 			}
-			if (ClothConfigInteractionHandler.oasis()) {
+			if (ClothConfigInteractionHandler.generateOasis()) {
 				this.addSurfaceBiome(
 						parameters,
 						WilderSharedWorldgen.Oasis.WARM_RANGE,
@@ -137,7 +137,7 @@ public final class OverworldBiomeBuilderMixin {
 						RegisterWorldgen.CYPRESS_WETLANDS
 				);
 			}
-			if (ClothConfigInteractionHandler.oasis()) {
+			if (ClothConfigInteractionHandler.generateOasis()) {
 				this.addSurfaceBiome(
 						parameters,
 						WilderSharedWorldgen.Oasis.WARM_RANGE,
@@ -212,7 +212,7 @@ public final class OverworldBiomeBuilderMixin {
 	@Inject(method = "addValleys", at = @At("HEAD"))
 	private void addValleys(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, Climate.Parameter weirdness, CallbackInfo info) {
 		if (ClothConfigInteractionHandler.modifyJunglePlacement()) {
-			ResourceKey<Biome> newRiver = ClothConfigInteractionHandler.warmRiver() ? RegisterWorldgen.WARM_RIVER : Biomes.RIVER;
+			ResourceKey<Biome> newRiver = ClothConfigInteractionHandler.generateWarmRiver() ? RegisterWorldgen.WARM_RIVER : Biomes.RIVER;
 			this.addSurfaceBiome(
 					consumer,
 					this.temperatures[3],
@@ -294,7 +294,7 @@ public final class OverworldBiomeBuilderMixin {
 					newRiver
 			);
 		} else {
-			ResourceKey<Biome> newRiver = ClothConfigInteractionHandler.warmRiver() ? RegisterWorldgen.WARM_RIVER : Biomes.RIVER;
+			ResourceKey<Biome> newRiver = ClothConfigInteractionHandler.generateWarmRiver() ? RegisterWorldgen.WARM_RIVER : Biomes.RIVER;
 			this.addSurfaceBiome(
 					consumer,
 					this.temperatures[3],

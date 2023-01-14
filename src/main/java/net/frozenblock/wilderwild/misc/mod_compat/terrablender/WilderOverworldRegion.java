@@ -132,7 +132,7 @@ public class WilderOverworldRegion extends Region {
 					.offset(0.0F)
 					.build();
 
-			if (ClothConfigInteractionHandler.oasis()) {
+			if (ClothConfigInteractionHandler.generateOasis()) {
 				desertPoints.forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -161,7 +161,7 @@ public class WilderOverworldRegion extends Region {
 					.offset(0.0F)
 					.build();
 
-			if (ClothConfigInteractionHandler.warmRiver()) {
+			if (ClothConfigInteractionHandler.generateWarmRiver()) {
 				riverPoints.forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
