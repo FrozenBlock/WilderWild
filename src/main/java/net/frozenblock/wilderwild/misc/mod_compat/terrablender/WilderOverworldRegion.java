@@ -31,7 +31,9 @@ public class WilderOverworldRegion extends Region {
 	public void addBiomes(Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper) {
 		this.addModifiedVanillaOverworldBiomes(mapper, builder -> {
 			// This will not grant the exact parameters as defined in SharedWorldgen. Instead, it will replace a part of old growth birch forests with mixed forests.
-			builder.replaceBiome(Biomes.OLD_GROWTH_BIRCH_FOREST, RegisterWorldgen.MIXED_FOREST);
+			if (ClothConfigInteractionHandler.generateMixedForest()) {
+				builder.replaceBiome(Biomes.OLD_GROWTH_BIRCH_FOREST, RegisterWorldgen.MIXED_FOREST);
+			}
 
 			// DON'T CHANGE THESE PARAMETERS. THESE ARE THE PARAMETERS OF SWAMPS
 			List<Climate.ParameterPoint> swampPointsCypress = new ParameterUtils.ParameterPointListBuilder()
@@ -44,7 +46,7 @@ public class WilderOverworldRegion extends Region {
 					.offset(0.0F)
 					.build();
 
-			if (ClothConfigInteractionHandler.cypressWetlands()) {
+			if (ClothConfigInteractionHandler.generateCypressWetlands()) {
 				swampPointsCypress.forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -73,7 +75,7 @@ public class WilderOverworldRegion extends Region {
 					.offset(0.0F)
 					.build();
 
-			if (ClothConfigInteractionHandler.cypressWetlands()) {
+			if (ClothConfigInteractionHandler.generateCypressWetlands()) {
 				mangroveSwampPointsCypress.forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -102,7 +104,7 @@ public class WilderOverworldRegion extends Region {
 					.offset(0.0F)
 					.build();
 
-			if (ClothConfigInteractionHandler.jellyfishCaves()) {
+			if (ClothConfigInteractionHandler.generateJellyfishCaves()) {
 				dripstoneCavesPoints.forEach(point -> {
 					builder.replaceParameter(point,
 							WilderSharedWorldgen.semiDeepParameters(
@@ -130,7 +132,7 @@ public class WilderOverworldRegion extends Region {
 					.offset(0.0F)
 					.build();
 
-			if (ClothConfigInteractionHandler.oasis()) {
+			if (ClothConfigInteractionHandler.generateOasis()) {
 				desertPoints.forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -159,7 +161,7 @@ public class WilderOverworldRegion extends Region {
 					.offset(0.0F)
 					.build();
 
-			if (ClothConfigInteractionHandler.warmRiver()) {
+			if (ClothConfigInteractionHandler.generateWarmRiver()) {
 				riverPoints.forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
