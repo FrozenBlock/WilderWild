@@ -1,8 +1,5 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
-import net.frozenblock.wilderwild.entity.ai.WardenLookControl;
-import net.frozenblock.wilderwild.entity.ai.WardenMoveControl;
-import net.frozenblock.wilderwild.entity.ai.WardenNavigation;
 import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
 import net.frozenblock.wilderwild.misc.SwimmingWarden;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
@@ -17,9 +14,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.TagKey;
-import net.minecraft.util.Mth;
 import net.minecraft.util.Unit;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -30,12 +24,10 @@ import net.minecraft.world.entity.EntityEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.warden.AngerLevel;
 import net.minecraft.world.entity.monster.warden.Warden;
@@ -46,9 +38,6 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.GameEventListener;
-import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -154,7 +143,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 				&& !warden.isDiggingOrEmerging()
 				&& !warden.hasPose(Pose.DYING)
 				&& !warden.hasPose(Pose.ROARING)
-				&& ClothConfigInteractionHandler.wardenAttacksInstantly()
+				&& ClothConfigInteractionHandler.wardenAttacksImmediately()
 		) {
 			if (!(entity instanceof Player player)) {
 				warden.increaseAngerAt(entity, AngerLevel.ANGRY.getMinimumAnger() + 20, false);

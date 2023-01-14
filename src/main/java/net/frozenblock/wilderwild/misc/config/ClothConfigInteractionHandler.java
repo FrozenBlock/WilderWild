@@ -201,8 +201,8 @@ public final class ClothConfigInteractionHandler {
 		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.jellyfishSpawnCap() : JellyfishConfig.JELLYFISH_SPAWN_CAP;
 	}
 
-	public static boolean wardenAttacksInstantly() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.wardenAttacksInstantly() : WardenConfig.WARDEN_ATTACKS_INSTANTLY;
+	public static boolean wardenAttacksImmediately() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.wardenAttacksImmediately() : WardenConfig.WARDEN_ATTACKS_IMMEDIATELY;
 	}
 
 	public static boolean wardenCustomTendrils() {
