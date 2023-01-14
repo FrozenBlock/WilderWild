@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.world.gen.conditionsource;
+package net.frozenblock.wilderwild.world.generation.conditionsource;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
