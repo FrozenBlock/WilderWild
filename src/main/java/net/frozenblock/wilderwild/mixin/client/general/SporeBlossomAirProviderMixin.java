@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(SuspendedParticle.SporeBlossomAirProvider.class)
 public class SporeBlossomAirProviderMixin {
 
-	@Inject(method = "tick", at = @At("TAIL"))
+	@Inject(method = "createParticle", at = @At("TAIL"))
 	public void createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, CallbackInfoReturnable<Particle> info) {
 		if (info.getReturnValue() instanceof SuspendedParticle suspendedParticle) {
 			((WilderDripSuspendedParticleInterface)suspendedParticle).setUsesWind(true);
