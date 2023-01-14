@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild;
 
 import java.util.ArrayList;
-import net.frozenblock.modmenu.entrypoint.FrozenModMenuEntrypoint;
+import net.frozenblock.modmenu.api.FrozenModMenuEntrypoint;
 import net.frozenblock.modmenu.impl.FrozenModMenuBadge;
 
 public class WilderModMenuBadges extends FrozenModMenuEntrypoint {

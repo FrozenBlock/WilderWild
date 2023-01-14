@@ -1,8 +1,6 @@
 package net.frozenblock.wilderwild.misc.mod_compat.terrablender;
 
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
 import terrablender.api.Regions;
 import terrablender.api.SurfaceRuleManager;
 import terrablender.api.TerraBlenderApi;
