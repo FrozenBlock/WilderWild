@@ -85,14 +85,14 @@ public class WilderSharedConstants {
 	public static void startMeasuring(Object object) {
 		long started = System.nanoTime();
 		String name = object.getClass().getName();
-		WilderSharedConstants.LOGGER.error("Started measuring {}", name.substring(name.lastIndexOf(".") + 1));
+		WilderSharedConstants.LOGGER.info("Started measuring {}", name.substring(name.lastIndexOf(".") + 1));
 		INSTANT_MAP.put(object, started);
 	}
 
 	public static void stopMeasuring(Object object) {
 		if (INSTANT_MAP.containsKey(object)) {
 			String name = object.getClass().getName();
-			WilderSharedConstants.LOGGER.error("{} took {} nanoseconds", name.substring(name.lastIndexOf(".") + 1), System.nanoTime() - INSTANT_MAP.get(object));
+			WilderSharedConstants.LOGGER.info("{} took {} nanoseconds", name.substring(name.lastIndexOf(".") + 1), System.nanoTime() - INSTANT_MAP.get(object));
 			INSTANT_MAP.remove(object);
 		}
 	}
