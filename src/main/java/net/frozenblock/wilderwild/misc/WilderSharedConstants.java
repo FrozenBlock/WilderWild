@@ -1,5 +1,7 @@
 package net.frozenblock.wilderwild.misc;
 
+import java.util.HashMap;
+import java.util.Map;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.math.api.AdvancedMath;
@@ -10,8 +12,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.Block;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.util.HashMap;
-import java.util.Map;
 
 public class WilderSharedConstants {
 	public static final String MOD_ID = "wilderwild";

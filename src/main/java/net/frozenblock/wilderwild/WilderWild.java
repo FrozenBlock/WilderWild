@@ -153,10 +153,8 @@ public final class WilderWild implements ModInitializer {
         Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/thermal_caves"), FireflyColor.RED);
         Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/thermal_caves"), FireflyColor.ORANGE);
 
-        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(ResourceKey.create(Registries.BIOME, new ResourceLocation("terralith", "cave/underground_jungle"))),
-				WilderEnumValues.FIREFLIES, RegisterEntities.FIREFLY, 12, 2, 4);
-
-		WilderRegistry.MULTILAYER_SAND_BEACH_BIOMES.add(ResourceKey.create(Registries.BIOME, new ResourceLocation("terralith", "arid_highlands")));
+        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("terralith", "cave/underground_jungle"))),
+                WilderEnumValues.FIREFLIES, RegisterEntities.FIREFLY, 12, 2, 4);
     }
 
     public static boolean isCopperPipe(BlockState state) {

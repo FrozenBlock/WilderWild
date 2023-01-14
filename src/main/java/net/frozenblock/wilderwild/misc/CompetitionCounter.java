@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.util.Objects;
-import net.frozenblock.wilderwild.WilderWild;
 import net.minecraft.client.Minecraft;
 
 public class CompetitionCounter {

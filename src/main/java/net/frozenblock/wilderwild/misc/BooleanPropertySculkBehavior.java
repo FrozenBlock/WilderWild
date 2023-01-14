@@ -10,19 +10,13 @@ import net.minecraft.world.level.block.SculkBehaviour;
 import net.minecraft.world.level.block.SculkSpreader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class BooleanPropertySculkBehavior implements SculkBehaviour {
-    public final BooleanProperty changingProperty;
-    public final boolean propertySetValue;
+public record BooleanPropertySculkBehavior(BooleanProperty changingProperty, boolean propertySetValue) implements SculkBehaviour {
 
-    public BooleanPropertySculkBehavior(BooleanProperty changingProperty, boolean propertySetValue) {
-        this.changingProperty = changingProperty;
-        this.propertySetValue = propertySetValue;
-    }
-
-    @Override
-    public int attemptUseCharge(SculkSpreader.ChargeCursor cursor, LevelAccessor level, BlockPos catalystPos, RandomSource random, SculkSpreader spreadManager, boolean shouldConvertToBlock) {
+	@Override
+    public int attemptUseCharge(SculkSpreader.ChargeCursor cursor, LevelAccessor level, @NotNull BlockPos catalystPos, @NotNull RandomSource random, @NotNull SculkSpreader spreadManager, boolean shouldConvertToBlock) {
         BlockState placementState = null;
         BlockPos cursorPos = cursor.getPos();
         BlockState currentState = level.getBlockState(cursorPos);
@@ -40,7 +34,7 @@ public class BooleanPropertySculkBehavior implements SculkBehaviour {
     }
 
     @Override
-    public boolean attemptSpreadVein(LevelAccessor level, BlockPos pos, BlockState state, @Nullable Collection<Direction> directions, boolean markForPostProcessing) {
+    public boolean attemptSpreadVein(LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable Collection<Direction> directions, boolean markForPostProcessing) {
         BlockState placementState = null;
         BlockState currentState = level.getBlockState(pos);
         if (currentState.hasProperty(this.changingProperty)) {

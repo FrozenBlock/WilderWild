@@ -16,7 +16,9 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import org.jetbrains.annotations.NotNull;
 
+@Environment(EnvType.CLIENT)
 public class FloatingSculkBubbleParticle extends RisingParticle {
     private final SpriteSet spriteProvider;
     private final SoundEvent sound;
@@ -51,7 +53,7 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
         return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
     }
 
-    public void setSpriteFromAge(SpriteSet spriteProvider) {
+    public void setSpriteFromAge(@NotNull SpriteSet spriteProvider) {
         if (!this.removed) {
             int i = this.age < 3 ? this.age : (this.age < this.stayInflatedTime ? 3 : this.age - (this.stayInflatedTime) + 4);
             this.setSprite(spriteProvider.get(i, 7));
@@ -156,7 +158,7 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
         }
 
         @Override
-        public Particle createParticle(SimpleParticleType defaultParticleType, ClientLevel clientLevel, double x, double y, double z, double size, double maxAge, double yVel) {
+        public Particle createParticle(@NotNull SimpleParticleType defaultParticleType, @NotNull ClientLevel clientLevel, double x, double y, double z, double size, double maxAge, double yVel) {
             FloatingSculkBubbleParticle bubble = new FloatingSculkBubbleParticle(clientLevel, x, y, z, size, maxAge, yVel, this.spriteProvider);
             bubble.setAlpha(1.0F);
             return bubble;

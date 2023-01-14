@@ -5,7 +5,21 @@
   "name": "Wilder Wild",
   "description": "Overhauls the Wild Update, adding features and improving existing ones.",
   "authors": [
-	"FrozenBlock"
+    "FrozenBlock"
+  ],
+  "contributors": [
+    "Luna",
+    "Treetrain1",
+    "Merp",
+    "Soro",
+    "Liukrast",
+    "Xfrtrex",
+    "Osmiooo",
+    "AlexTheDolphin0",
+    "SaishoVibes",
+    "zozozrob_",
+    "Enri",
+    "LudoCrypt"
   ],
   "contact": {
 	"homepage": "https://www.curseforge.com/minecraft/mc-mods/wilder-wild",
@@ -25,9 +39,6 @@
     "fabric-datagen": [
       "net.frozenblock.wilderwild.misc.WilderWildDataGenerator"
     ],
-	"mm:early_risers": [
-	  "net.frozenblock.wilderwild.EarlyRiser"
-	],
 	"frozenlib:main": [
 	  "net.frozenblock.wilderwild.FrozenLibIntegration"
 	],
@@ -72,7 +83,10 @@
 	"modmenu": {
 	  "links": {
 		"modmenu.discord": "https://discord.gg/EpkBWm844s"
-	  }
+	  },
+      "badges": [
+        "frozenblock"
+      ]
 	}
   }
 }
