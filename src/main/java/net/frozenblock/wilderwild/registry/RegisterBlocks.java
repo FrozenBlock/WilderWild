@@ -595,7 +595,9 @@ public final class RegisterBlocks {
         registerNotSoPlants();
         registerMisc();
         registerBlockProperties();
+    }
 
+	public static void registerDispenses() {
 		DispenserBlock.registerBehavior(RegisterItems.COCONUT, new AbstractProjectileDispenseBehavior() {
 			protected Projectile getProjectile(@NotNull Level level, @NotNull Position position, @NotNull ItemStack stack) {
 				return new CoconutProjectile(level, position.x(), position.y(), position.z());
@@ -624,7 +626,7 @@ public final class RegisterBlocks {
 				return stack;
 			}
 		});
-    }
+	}
 
     private static void registerBlock(boolean registerBlockItem, String path, Block block, CreativeModeTab... tabs) {
 		if (registerBlockItem) {
