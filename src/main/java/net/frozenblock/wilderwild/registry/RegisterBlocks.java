@@ -508,7 +508,6 @@ public final class RegisterBlocks {
 		registerBlockAfter(true, Items.PEONY, "tumbleweed_plant", TUMBLEWEED_PLANT, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(true, TUMBLEWEED_PLANT, "tumbleweed", TUMBLEWEED, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock(false, "potted_tumbleweed_plant", POTTED_TUMBLEWEED_PLANT);
-		registerBlockItem("tumbleweed", BuiltInRegistries.BLOCK.get(WilderSharedConstants.id("tumbleweed")), CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock(false, "prickly_pear", PRICKLY_PEAR_CACTUS);
 		registerBlock(false, "potted_prickly_pear", POTTED_PRICKLY_PEAR);
     }

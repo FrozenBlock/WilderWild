@@ -180,7 +180,7 @@ public class WilderCopperPipesEntrypoint implements CopperPipeEntrypoint {
 			level.addFreshEntity(coconut);
 		});
 
-		PoweredPipeDispenses.register(BuiltInRegistries.ITEM.get(WilderSharedConstants.id("tumbleweed")), (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
+		PoweredPipeDispenses.register(RegisterItems.TUMBLEWEED, (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
 			double d = position.x();
 			double e = position.y();
 			double f = position.z();
