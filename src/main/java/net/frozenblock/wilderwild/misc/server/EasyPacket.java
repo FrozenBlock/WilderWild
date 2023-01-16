@@ -50,15 +50,15 @@ public class EasyPacket {
     }
 
     public static class EasyFloatingSculkBubblePacket {
-        public static void createParticle(Level level, Vec3 pos, int size, int maxAge, double yVel, int count) {
+        public static void createParticle(Level level, Vec3 pos, double size, int maxAge, double yVel, int count) {
             if (level.isClientSide)
                 throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK SPAWN ON SERVER NEXT TIME PLS");
             FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
             byteBuf.writeDouble(pos.x);
             byteBuf.writeDouble(pos.y);
             byteBuf.writeDouble(pos.z);
-            byteBuf.writeVarInt(size);
-            byteBuf.writeVarInt(maxAge);
+            byteBuf.writeDouble(size);
+            byteBuf.writeInt(maxAge);
             byteBuf.writeDouble(yVel);
             byteBuf.writeVarInt(count);
             for (ServerPlayer player : PlayerLookup.around((ServerLevel) level, pos, 32)) {
