@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
+import net.frozenblock.lib.item.api.PrickOnUseBlockItem;
 import net.frozenblock.wilderwild.item.AncientHorn;
 import net.frozenblock.wilderwild.item.CoconutItem;
 import net.frozenblock.wilderwild.item.CopperHorn;
@@ -15,6 +16,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -64,9 +66,8 @@ public final class RegisterItems {
     public static final Item PALM_BOAT_ITEM = new BoatItem(false, WilderEnumValues.PALM, new FabricItemSettings().maxCount(1).group(CreativeModeTab.TAB_TRANSPORTATION));
     public static final Item PALM_CHEST_BOAT_ITEM = new BoatItem(true, WilderEnumValues.PALM, new FabricItemSettings().maxCount(1).group(CreativeModeTab.TAB_TRANSPORTATION));
 
-
-    //public static final Item PRICKLY_PEAR = new PrickOnUseBlockItem(RegisterBlocks.PRICKLY_PEAR_CACTUS, new FabricItemSettings().group(CreativeModeTab.TAB_FOOD).food(RegisterFood.PRICKLY_PEAR), 2F, RegisterSounds.PLAYER_HURT_CACTUS, "prickly_pear");
-    //public static final Item PEELED_PRICKLY_PEAR = new Item(new FabricItemSettings().group(CreativeModeTab.TAB_FOOD).food(Foods.APPLE));
+    public static final Item PRICKLY_PEAR = new PrickOnUseBlockItem(RegisterBlocks.PRICKLY_PEAR_CACTUS, new FabricItemSettings().group(CreativeModeTab.TAB_FOOD).food(RegisterFood.PRICKLY_PEAR), 2F, RegisterSounds.PLAYER_HURT_CACTUS, "prickly_pear");
+    public static final Item PEELED_PRICKLY_PEAR = new Item(new FabricItemSettings().group(CreativeModeTab.TAB_FOOD).food(Foods.APPLE));
 
     public static final Item FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().group(CreativeModeTab.TAB_MISC).maxCount(32), FireflyColor.ON);
     public static final Item BLACK_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().group(CreativeModeTab.TAB_MISC).maxCount(32), FireflyColor.BLACK);
@@ -108,6 +109,8 @@ public final class RegisterItems {
         Registry.register(Registry.ITEM, WilderSharedConstants.id("palm_sign"), PALM_SIGN);
 
         Registry.register(Registry.ITEM, WilderSharedConstants.id("pollen"), POLLEN);
+
+		Registry.register(Registry.ITEM, WilderSharedConstants.id("prickly_pear"), PRICKLY_PEAR);
     }
     public static void registerItems() {
 		WilderSharedConstants.logWild("Registering Items for", WilderSharedConstants.UNSTABLE_LOGGING);
@@ -128,6 +131,7 @@ public final class RegisterItems {
 		Registry.register(Registry.ITEM, WilderSharedConstants.id("tumbleweed_spawn_egg"), TUMBLEWEED_SPAWN_EGG);
         Registry.register(Registry.ITEM, WilderSharedConstants.id("jellyfish_bucket"), JELLYFISH_BUCKET);
 		Registry.register(Registry.ITEM, WilderSharedConstants.id("split_coconut"), SPLIT_COCONUT);
+		Registry.register(Registry.ITEM, WilderSharedConstants.id("peeled_prickly_pear"), PEELED_PRICKLY_PEAR);
 
         Registry.register(Registry.INSTRUMENT, ANCIENT_HORN_INSTRUMENT, new Instrument(RegisterSounds.ITEM_ANCIENT_HORN_CALL, 300, 256.0F));
         Registry.register(Registry.INSTRUMENT, SAX_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_SAX_LOOP, 32767, 64.0F));
@@ -137,17 +141,6 @@ public final class RegisterItems {
         Registry.register(Registry.INSTRUMENT, CLARINET_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_CLARINET_LOOP, 32767, 64.0F));
         Registry.register(Registry.INSTRUMENT, TRUMPET_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_TRUMPET_LOOP, 32767, 64.0F));
         Registry.register(Registry.INSTRUMENT, TROMBONE_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_TROMBONE_LOOP, 32767, 64.0F));
-        //StartingSounds.STARTING_SOUNDS.put(SAX_COPPER_HORN, RegisterSounds.ITEM_COPPER_HORN_SAX_START);
-        //StartingSounds.STARTING_SOUNDS.put(TUBA_COPPER_HORN, RegisterSounds.ITEM_COPPER_HORN_TUBA_START);
-        //StartingSounds.STARTING_SOUNDS.put(FLUTE_COPPER_HORN, RegisterSounds.ITEM_COPPER_HORN_FLUTE_START);
-        //StartingSounds.STARTING_SOUNDS.put(OBOE_COPPER_HORN, RegisterSounds.ITEM_COPPER_HORN_OBOE_START);
-        //StartingSounds.STARTING_SOUNDS.put(CLARINET_COPPER_HORN, RegisterSounds.ITEM_COPPER_HORN_CLARINET_START);
-        //StartingSounds.STARTING_SOUNDS.put(TRUMPET_COPPER_HORN, RegisterSounds.ITEM_COPPER_HORN_TRUMPET_START);
-        //StartingSounds.STARTING_SOUNDS.put(TROMBONE_COPPER_HORN, RegisterSounds.ITEM_COPPER_HORN_TROMBONE_START);
-
-
-        //Registry.register(Registry.ITEM, WilderSharedConstants.id("prickly_pear"), PRICKLY_PEAR);
-        //Registry.register(Registry.ITEM, WilderSharedConstants.id("peeled_prickly_pear"), PEELED_PRICKLY_PEAR);
 
         Registry.register(Registry.ITEM, WilderSharedConstants.id("firefly_bottle"), FIREFLY_BOTTLE);
         Registry.register(Registry.ITEM, WilderSharedConstants.id("magenta_firefly_bottle"), MAGENTA_FIREFLY_BOTTLE);

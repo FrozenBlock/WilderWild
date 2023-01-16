@@ -554,13 +554,6 @@
     ],
     "subtitle": "subtitles.block.generic.break"
   },
-  "block.coconut.crack": {
-    "sounds": [
-      "wilderwild:block/coconut/crack1",
-      "wilderwild:block/coconut/crack2"
-    ],
-    "subtitle": "subtitles.block.coconut.split"
-  },
   "block.coconut.fall": {
     "sounds": [
       "wilderwild:block/coconut/step1",
