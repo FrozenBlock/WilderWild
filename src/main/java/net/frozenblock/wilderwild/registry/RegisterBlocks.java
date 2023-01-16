@@ -416,7 +416,6 @@ public final class RegisterBlocks {
 		registerBlock("tumbleweed_plant", TUMBLEWEED_PLANT, CreativeModeTab.TAB_DECORATIONS);
 		registerBlockWithoutBlockItem("potted_tumbleweed_plant", POTTED_TUMBLEWEED_PLANT);
 		registerBlockWithoutBlockItem("tumbleweed", TUMBLEWEED);
-		registerBlockItem("tumbleweed", Registry.BLOCK.get(WilderSharedConstants.id("tumbleweed")), CreativeModeTab.TAB_DECORATIONS);
 		registerBlockWithoutBlockItem("prickly_pear", PRICKLY_PEAR_CACTUS);
 		registerBlockWithoutBlockItem("potted_prickly_pear", POTTED_PRICKLY_PEAR);
     }
