@@ -388,11 +388,13 @@ public final class RegisterBlocks {
     public static final Block ALGAE = new AlgaeBlock(FabricBlockSettings.of(ALGAE_MATERIAL).breakInstantly().nonOpaque().noCollision().sounds(RegisterBlockSoundTypes.ALGAE));
 	public static final Block BUSH = new BushBlock(FabricBlockSettings.of(Material.PLANT).breakInstantly().nonOpaque().noCollision().sounds(SoundType.GRASS));
 	public static final Block TUMBLEWEED_PLANT = new TumbleweedPlantBlock(FabricBlockSettings.of(Material.PLANT).nonOpaque().sounds(RegisterBlockSoundTypes.TUMBLEWEED_PLANT).randomTicks());
+	public static final Block POTTED_TUMBLEWEED_PLANT = new FlowerPotBlock(TUMBLEWEED_PLANT, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
 	public static final Block TUMBLEWEED = new TumbleweedBlock(FabricBlockSettings.of(Material.PLANT).breakInstantly().nonOpaque().sounds(RegisterBlockSoundTypes.TUMBLEWEED_PLANT).randomTicks());
 
     public static final Block POTTED_BIG_DRIPLEAF = new FlowerPotBlock(Blocks.BIG_DRIPLEAF, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
     public static final Block POTTED_SMALL_DRIPLEAF = new FlowerPotBlock(Blocks.SMALL_DRIPLEAF, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
     public static final Block POTTED_GRASS = new FlowerPotBlock(Blocks.GRASS, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
+	public static final Block POTTED_PRICKLY_PEAR = new FlowerPotBlock(PRICKLY_PEAR_CACTUS, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
 
     public static void registerPlants() {
         registerBlockWithoutBlockItem("potted_big_dripleaf", POTTED_BIG_DRIPLEAF);
@@ -412,9 +414,11 @@ public final class RegisterBlocks {
         registerBlock("cattail", CATTAIL, CreativeModeTab.TAB_DECORATIONS);
 		registerBlock("bush", BUSH, CreativeModeTab.TAB_DECORATIONS);
 		registerBlock("tumbleweed_plant", TUMBLEWEED_PLANT, CreativeModeTab.TAB_DECORATIONS);
+		registerBlockWithoutBlockItem("potted_tumbleweed_plant", POTTED_TUMBLEWEED_PLANT);
 		registerBlockWithoutBlockItem("tumbleweed", TUMBLEWEED);
 		registerBlockItem("tumbleweed", Registry.BLOCK.get(WilderSharedConstants.id("tumbleweed")), CreativeModeTab.TAB_DECORATIONS);
 		registerBlockWithoutBlockItem("prickly_pear", PRICKLY_PEAR_CACTUS);
+		registerBlockWithoutBlockItem("potted_prickly_pear", POTTED_PRICKLY_PEAR);
     }
 
     public static final Block BROWN_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM_BLOCK).luminance(1).collidable(false).nonOpaque().sounds(RegisterBlockSoundTypes.MUSHROOM));
