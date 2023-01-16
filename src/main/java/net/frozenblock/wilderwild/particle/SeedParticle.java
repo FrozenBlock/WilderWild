@@ -2,24 +2,23 @@ package net.frozenblock.wilderwild.particle;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.lib.math.api.AdvancedMath;
+import net.frozenblock.lib.wind.api.ClientWindManager;
+import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.TextureSheetParticle;
-import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class PollenParticle extends TextureSheetParticle {
+public class SeedParticle extends TextureSheetParticle {
     public double windIntensity;
 
-    PollenParticle(ClientLevel level, SpriteSet spriteProvider, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
+    SeedParticle(ClientLevel level, SpriteSet spriteProvider, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
         super(level, x, y - 0.125D, z, velocityX, velocityY, velocityZ);
         this.setSize(0.01F, 0.02F);
         this.pickSprite(spriteProvider);
@@ -47,21 +46,26 @@ public class PollenParticle extends TextureSheetParticle {
     }
 
     @Environment(EnvType.CLIENT)
-    public static class PollenFactory implements ParticleProvider<SimpleParticleType> {
+    public static class Factory implements ParticleProvider<SeedParticleOptions> {
         private final SpriteSet spriteProvider;
 
-        public PollenFactory(SpriteSet spriteProvider) {
+        public Factory(SpriteSet spriteProvider) {
             this.spriteProvider = spriteProvider;
         }
 
-        public Particle createParticle(@NotNull SimpleParticleType defaultParticleType, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {
-            PollenParticle pollenParticle = new PollenParticle(clientLevel, this.spriteProvider, x, y, z, 0.0D, -0.800000011920929D, 0.0D) {
-            };
-            pollenParticle.lifetime = Mth.randomBetweenInclusive(clientLevel.random, 500, 1000);
-            pollenParticle.gravity = 0.01F;
-            pollenParticle.setColor(250F / 255F, 171F / 255F, 28F / 255F);
-			pollenParticle.windIntensity = 0.05;
-            return pollenParticle;
+        @Override
+        public Particle createParticle(@NotNull SeedParticleOptions options, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+            double windex = options.isControlled() ? xSpeed * 1.1 : ClientWindManager.getWindX(1) * 1.1;
+            double windZ = options.isControlled() ? zSpeed * 1.1 : ClientWindManager.getWindZ(1) * 1.1;
+            SeedParticle seedParticle = new SeedParticle(level, this.spriteProvider, x, y, z, windex, -0.800000011920929D, windZ);
+			seedParticle.lifetime = Mth.randomBetweenInclusive(level.random, 500, 1000);
+			seedParticle.gravity = 0.01F;
+			seedParticle.xd = (windex + level.random.triangle(0, 0.8)) / 17;
+			seedParticle.zd = (windZ + level.random.triangle(0, 0.8)) / 17;
+			seedParticle.setColor(250F / 255F, 250F / 255F, 250F / 255F);
+			seedParticle.windIntensity = options.isControlled() ? 0.5 : 1;
+            return seedParticle;
         }
     }
+
 }

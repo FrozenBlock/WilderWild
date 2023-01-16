@@ -17,24 +17,26 @@ import net.frozenblock.lib.menu.api.Panoramas;
 import net.frozenblock.lib.menu.api.Splashes;
 import net.frozenblock.lib.sound.api.FlyBySoundHub;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
-import net.frozenblock.wilderwild.entity.render.model.AncientHornProjectileModel;
-import net.frozenblock.wilderwild.entity.render.renderer.AncientHornProjectileRenderer;
 import net.frozenblock.wilderwild.entity.render.blockentity.DisplayLanternBlockEntityRenderer;
-import net.frozenblock.wilderwild.entity.render.renderer.FireflyRenderer;
-import net.frozenblock.wilderwild.entity.render.model.JellyfishModel;
-import net.frozenblock.wilderwild.entity.render.renderer.JellyfishRenderer;
-import net.frozenblock.wilderwild.entity.render.blockentity.StoneChestBlockEntityRenderer;
-import net.frozenblock.wilderwild.entity.render.model.TumbleweedModel;
-import net.frozenblock.wilderwild.entity.render.renderer.TumbleweedRenderer;
 import net.frozenblock.wilderwild.entity.render.blockentity.HangingTendrilBlockEntityRenderer;
 import net.frozenblock.wilderwild.entity.render.blockentity.SculkSensorBlockEntityRenderer;
+import net.frozenblock.wilderwild.entity.render.blockentity.StoneChestBlockEntityRenderer;
+import net.frozenblock.wilderwild.entity.render.model.AncientHornProjectileModel;
+import net.frozenblock.wilderwild.entity.render.model.JellyfishModel;
+import net.frozenblock.wilderwild.entity.render.model.TumbleweedModel;
+import net.frozenblock.wilderwild.entity.render.renderer.AncientHornProjectileRenderer;
+import net.frozenblock.wilderwild.entity.render.renderer.FireflyRenderer;
+import net.frozenblock.wilderwild.entity.render.renderer.JellyfishRenderer;
+import net.frozenblock.wilderwild.entity.render.renderer.TumbleweedRenderer;
 import net.frozenblock.wilderwild.misc.CompetitionCounter;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.MesogleaDripParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
+import net.frozenblock.wilderwild.particle.SeedParticle;
 import net.frozenblock.wilderwild.particle.TermiteParticle;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
+import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
@@ -48,11 +50,10 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
-import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.Registry;
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
@@ -175,10 +176,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		var particleRegistry = ParticleFactoryRegistry.getInstance();
 
 		particleRegistry.register(RegisterParticles.POLLEN, PollenParticle.PollenFactory::new);
-		particleRegistry.register(RegisterParticles.DANDELION_SEED, PollenParticle.DandelionFactory::new);
-		particleRegistry.register(RegisterParticles.CONTROLLED_DANDELION_SEED, PollenParticle.ControlledDandelionFactory::new);
-		particleRegistry.register(RegisterParticles.MILKWEED_SEED, PollenParticle.MilkweedFactory::new);
-		particleRegistry.register(RegisterParticles.CONTROLLED_MILKWEED_SEED, PollenParticle.ControlledMilkweedFactory::new);
+		particleRegistry.register(RegisterParticles.SEED, SeedParticle.Factory::new);
 		particleRegistry.register(RegisterParticles.FLOATING_SCULK_BUBBLE, FloatingSculkBubbleParticle.BubbleFactory::new);
 		particleRegistry.register(RegisterParticles.TERMITE, TermiteParticle.Factory::new);
 		particleRegistry.register(RegisterParticles.BLUE_PEARLESCENT_HANGING_MESOGLEA, MesogleaDripParticle.BPMesogleaHangProvider::new);
@@ -323,12 +321,12 @@ public final class WilderWildClient implements ClientModInitializer {
 		ClientPlayNetworking.registerGlobalReceiver(WilderWild.SEED_PACKET, (ctx, handler, byteBuf, responseSender) -> {
 			Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
 			int count = byteBuf.readVarInt();
-			ParticleOptions particle = byteBuf.readBoolean() ? RegisterParticles.MILKWEED_SEED : RegisterParticles.DANDELION_SEED;
+			boolean milkweed = byteBuf.readBoolean();
 			ctx.execute(() -> {
 				if (Minecraft.getInstance().level == null)
 					throw new IllegalStateException("why is your world null");
 				for (int i = 0; i < count; i++) {
-					Minecraft.getInstance().level.addParticle(particle, pos.x, pos.y, pos.z, 0, 0, 0);
+					Minecraft.getInstance().level.addParticle(new SeedParticleOptions(milkweed, false), pos.x, pos.y, pos.z, 0, 0, 0);
 				}
 			});
 		});
@@ -341,12 +339,12 @@ public final class WilderWildClient implements ClientModInitializer {
 			double vely = byteBuf.readDouble();
 			double velz = byteBuf.readDouble();
 			int count = byteBuf.readVarInt();
-			ParticleOptions particle = byteBuf.readBoolean() ? RegisterParticles.CONTROLLED_MILKWEED_SEED : RegisterParticles.CONTROLLED_DANDELION_SEED;
+			boolean milkweed = byteBuf.readBoolean();
 			ctx.execute(() -> {
 				if (Minecraft.getInstance().level == null)
 					throw new IllegalStateException("why is your world null");
 				for (int i = 0; i < count; i++) {
-					Minecraft.getInstance().level.addParticle(particle, pos.x, pos.y, pos.z, velx, vely, velz);
+					Minecraft.getInstance().level.addParticle(new SeedParticleOptions(milkweed, true), pos.x, pos.y, pos.z, velx, vely, velz);
 				}
 			});
 		});
