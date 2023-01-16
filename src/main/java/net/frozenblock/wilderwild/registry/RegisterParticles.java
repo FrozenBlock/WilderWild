@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import java.util.function.Function;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
@@ -19,7 +20,7 @@ public final class RegisterParticles {
     public static final SimpleParticleType CONTROLLED_DANDELION_SEED = FabricParticleTypes.simple();
     public static final SimpleParticleType MILKWEED_SEED = FabricParticleTypes.simple();
     public static final SimpleParticleType CONTROLLED_MILKWEED_SEED = FabricParticleTypes.simple();
-    public static final SimpleParticleType FLOATING_SCULK_BUBBLE = FabricParticleTypes.simple();
+    public static final ParticleType<FloatingSculkBubbleParticleOptions> FLOATING_SCULK_BUBBLE = register("floating_sculk_bubble", false, FloatingSculkBubbleParticleOptions.DESERIALIZER, particleType -> FloatingSculkBubbleParticleOptions.CODEC);
     public static final SimpleParticleType TERMITE = FabricParticleTypes.simple();
     public static final SimpleParticleType BLUE_PEARLESCENT_HANGING_MESOGLEA = FabricParticleTypes.simple();
     public static final SimpleParticleType BLUE_PEARLESCENT_FALLING_MESOGLEA = FabricParticleTypes.simple();
@@ -50,7 +51,6 @@ public final class RegisterParticles {
         Registry.register(Registry.PARTICLE_TYPE, WilderSharedConstants.id("controlled_dandelion_seed"), CONTROLLED_DANDELION_SEED);
         Registry.register(Registry.PARTICLE_TYPE, WilderSharedConstants.id("milkweed_seed"), MILKWEED_SEED);
         Registry.register(Registry.PARTICLE_TYPE, WilderSharedConstants.id("controlled_milkweed_seed"), CONTROLLED_MILKWEED_SEED);
-        Registry.register(Registry.PARTICLE_TYPE, WilderSharedConstants.id("floating_sculk_bubble"), FLOATING_SCULK_BUBBLE);
         Registry.register(Registry.PARTICLE_TYPE, WilderSharedConstants.id("termite"), TERMITE);
         Registry.register(Registry.PARTICLE_TYPE, WilderSharedConstants.id("blue_pearlescent_hanging_mesoglea_drip"), BLUE_PEARLESCENT_HANGING_MESOGLEA);
         Registry.register(Registry.PARTICLE_TYPE, WilderSharedConstants.id("blue_pearlescent_falling_mesoglea_drip"), BLUE_PEARLESCENT_FALLING_MESOGLEA);

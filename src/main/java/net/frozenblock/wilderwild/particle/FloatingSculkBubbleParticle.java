@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.particle;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.math.api.AdvancedMath;
+import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -11,11 +12,10 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.RisingParticle;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
@@ -31,20 +31,18 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
         return 240;
     }
 
-    protected FloatingSculkBubbleParticle(ClientLevel clientLevel, double x, double y, double z, double size, double maxAge, double yVel, SpriteSet spriteProvider) {
+    protected FloatingSculkBubbleParticle(ClientLevel clientLevel, double x, double y, double z, double size, int maxAge, Vec3 velocity, SpriteSet spriteProvider) {
         super(clientLevel, x, y, z, 0, 0, 0);
-        this.xd = (AdvancedMath.random().nextDouble() - 0.5) / 9.5;
-        this.zd = (AdvancedMath.random().nextDouble() - 0.5) / 9.5;
         this.spriteProvider = spriteProvider;
         this.setSpriteFromAge(spriteProvider);
-        this.yd = yVel;
+        this.xd = velocity.x();
+		this.yd = velocity.y();
+		this.zd = velocity.z();
         this.sound = size <= 0 ? RegisterSounds.PARTICLE_FLOATING_SCULK_BUBBLE_POP : RegisterSounds.PARTICLE_FLOATING_SCULK_BUBBLE_BIG_POP;
         if (size >= 1) {
             this.scale((float) (1.4F + size));
-            this.xd = (AdvancedMath.random().nextDouble() - 0.5) / 10.5;
-            this.zd = (AdvancedMath.random().nextDouble() - 0.5) / 10.5;
         }
-        this.lifetime = (int) Math.max(maxAge, 10);
+        this.lifetime = Math.max(maxAge, 10);
         this.stayInflatedTime = (4 - this.lifetime) * -1;
     }
 
@@ -150,7 +148,7 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
     }
 
     @Environment(EnvType.CLIENT)
-    public static class BubbleFactory implements ParticleProvider<SimpleParticleType> {
+    public static class BubbleFactory implements ParticleProvider<FloatingSculkBubbleParticleOptions> {
         private final SpriteSet spriteProvider;
 
         public BubbleFactory(SpriteSet spriteProvider) {
@@ -158,8 +156,8 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
         }
 
         @Override
-        public Particle createParticle(@NotNull SimpleParticleType defaultParticleType, @NotNull ClientLevel clientLevel, double x, double y, double z, double size, double maxAge, double yVel) {
-            FloatingSculkBubbleParticle bubble = new FloatingSculkBubbleParticle(clientLevel, x, y, z, size, maxAge, yVel, this.spriteProvider);
+        public Particle createParticle(@NotNull FloatingSculkBubbleParticleOptions options, @NotNull ClientLevel clientLevel, double x, double y, double z, double xd, double yd, double zd) {
+            FloatingSculkBubbleParticle bubble = new FloatingSculkBubbleParticle(clientLevel, x, y, z, options.getSize(), options.getMaxAge(), options.getVelocity(), this.spriteProvider);
             bubble.setAlpha(1.0F);
             return bubble;
         }

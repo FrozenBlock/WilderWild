@@ -34,6 +34,7 @@ import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.MesogleaDripParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
 import net.frozenblock.wilderwild.particle.TermiteParticle;
+import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
@@ -111,7 +112,7 @@ public final class WilderWildClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.PINK_GLORY_OF_THE_SNOW, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW, RenderType.cutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.BUSH, RenderType.cutout());
-        //BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CYPRESS_ROOTS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.PRICKLY_PEAR_CACTUS, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.TERMITE_MOUND, RenderType.solid());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.DISPLAY_LANTERN, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_ACACIA_LOG, RenderType.cutout());
@@ -298,15 +299,21 @@ public final class WilderWildClient implements ClientModInitializer {
 	private static void receiveEasyEchoerBubblePacket() {
 		ClientPlayNetworking.registerGlobalReceiver(WilderWild.FLOATING_SCULK_BUBBLE_PACKET, (ctx, handler, byteBuf, responseSender) -> {
 			Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
-			int size = byteBuf.readVarInt();
-			int age = byteBuf.readVarInt();
+			double size = byteBuf.readDouble();
+			int age = byteBuf.readInt();
 			double yVel = byteBuf.readDouble();
 			int count = byteBuf.readVarInt();
 			ctx.execute(() -> {
 				if (Minecraft.getInstance().level == null)
 					throw new IllegalStateException("why is your world null");
 				for (int i = 0; i < count; i++) {
-					Minecraft.getInstance().level.addParticle(RegisterParticles.FLOATING_SCULK_BUBBLE, pos.x, pos.y, pos.z, size, age, yVel);
+					double xVel = (AdvancedMath.random().nextDouble() - 0.5) / 9.5;
+					double zVel = (AdvancedMath.random().nextDouble() - 0.5) / 9.5;
+					if (size >= 1) {
+						xVel = (AdvancedMath.random().nextDouble() - 0.5) / 10.5;
+						zVel = (AdvancedMath.random().nextDouble() - 0.5) / 10.5;
+					}
+					Minecraft.getInstance().level.addParticle(new FloatingSculkBubbleParticleOptions(size, age, new Vec3(xVel, yVel, zVel)), pos.x, pos.y, pos.z, 0, 0, 0);
 				}
 			});
 		});
