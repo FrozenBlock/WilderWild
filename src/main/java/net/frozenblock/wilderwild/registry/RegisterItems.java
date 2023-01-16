@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.registry;
 
+import java.util.Optional;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
@@ -70,7 +71,7 @@ public final class RegisterItems {
 	public static final Item COCONUT = new CoconutItem(RegisterBlocks.COCONUT, new FabricItemSettings());
 
 	public static final Item POLLEN = new BlockItem(RegisterBlocks.POLLEN_BLOCK, new FabricItemSettings());
-	public static final Item TUMBLEWEED = new BlockItem(RegisterBlocks.TUMBLEWEED, new FabricItemSettings());
+	public static Optional<Item> TUMBLEWEED = Optional.empty();;
 
 	// ITEMS
     public static final MilkweedPod MILKWEED_POD = new MilkweedPod(new FabricItemSettings().maxCount(64));
@@ -137,7 +138,8 @@ public final class RegisterItems {
 		registerItemAfter(BAOBAB_SIGN, BAOBAB_HANGING_SIGN, "baobab_hanging_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
 
         Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id("pollen"), POLLEN);
-		registerItemAfter(RegisterBlocks.TUMBLEWEED_PLANT, TUMBLEWEED, "tumbleweed", CreativeModeTabs.NATURAL_BLOCKS);
+		registerItemAfter(RegisterBlocks.TUMBLEWEED_PLANT, new BlockItem(RegisterBlocks.TUMBLEWEED, new FabricItemSettings()), "tumbleweed", CreativeModeTabs.NATURAL_BLOCKS);
+		TUMBLEWEED = BuiltInRegistries.ITEM.getOptional(WilderSharedConstants.id("tumbleweed"));
 		registerItemAfter(Blocks.CACTUS, PRICKLY_PEAR, "prickly_pear", CreativeModeTabs.NATURAL_BLOCKS);
     }
 
