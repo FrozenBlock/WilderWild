@@ -93,7 +93,6 @@ public final class WilderWild implements ModInitializer {
 
         WilderRegistry.initRegistry();
         RegisterBlocks.registerBlocks();
-        RegisterItems.registerBlockItems();
         RegisterItems.registerItems();
         WilderConfiguredFeatures.registerConfiguredFeatures();
         WilderPlacedFeatures.init();
@@ -104,6 +103,8 @@ public final class WilderWild implements ModInitializer {
         RegisterGameEvents.registerEvents();
         RegisterWorldgen.registerWorldgen();
         RegisterStructures.init();
+		RegisterItems.registerBlockItems();
+		RegisterBlocks.registerDispenses();
 
         RegisterSounds.init();
         RegisterBlockSoundTypes.init();
