@@ -4,8 +4,8 @@ import static net.frozenblock.wilderwild.registry.RegisterSounds.*;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.block.SoundType;
 
-public final class RegisterBlockSoundGroups {
-	private RegisterBlockSoundGroups() {
+public final class RegisterBlockSoundTypes {
+	private RegisterBlockSoundTypes() {
 		throw new UnsupportedOperationException("RegisterBlockEntities contains only static declarations.");
 	}
 

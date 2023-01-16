@@ -68,7 +68,6 @@ public final class RegisterSounds {
 	public static final SoundEvent BLOCK_COCONUT_BREAK = register("block.coconut.break");
 	public static final SoundEvent BLOCK_COCONUT_STEP = register("block.coconut.step");
 	public static final SoundEvent BLOCK_COCONUT_FALL = register("block.coconut.fall");
-	public static final SoundEvent BLOCK_COCONUT_CRACK = register("block.coconut.crack");
 
     public static final SoundEvent BLOCK_DISPLAY_LANTERN_NECTAR_LOOP = register("block.display_lantern.nectar_inside_loop");
 
@@ -214,11 +213,8 @@ public final class RegisterSounds {
     public static final SoundEvent ENTITY_JELLYFISH_STING = register("entity.jellyfish.sting");
     public static final SoundEvent ENTITY_JELLYFISH_AMBIENT_WATER = register("entity.jellyfish.ambient_water");
     public static final SoundEvent ENTITY_JELLYFISH_HURT_WATER = register("entity.jellyfish.hurt_water");
-    public static final SoundEvent ENTITY_JELLYFISH_AMBIENT = register("entity.jellyfish.ambient");
     public static final SoundEvent ENTITY_JELLYFISH_HURT = register("entity.jellyfish.hurt");
     public static final SoundEvent ENTITY_JELLYFISH_SWIM = register("entity.jellyfish.swim");
-
-    public static final SoundEvent ENTITY_JELLYFISH_FLOP = register("entity.jellyfish.flop");
 
     public static final SoundEvent ENTITY_JELLYFISH_DEATH_WATER = register("entity.jellyfish.death_water");
     public static final SoundEvent ENTITY_JELLYFISH_DEATH = register("entity.jellyfish.death");
@@ -251,25 +247,18 @@ public final class RegisterSounds {
 	public static final SoundEvent ITEM_COCONUT_LAND = register("item.coconut.land");
 	public static final SoundEvent ITEM_COCONUT_HIT_HEAD = register("item.coconut.hit_head");
 
-    public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_SAX_START = registerForHolder("item.copper_horn.sax.start");
     public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_SAX_LOOP = registerForHolder("item.copper_horn.sax.loop");
 
-    public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_TUBA_START = registerForHolder("item.copper_horn.tuba.start");
     public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_TUBA_LOOP = registerForHolder("item.copper_horn.tuba.loop");
 
-    public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_FLUTE_START = registerForHolder("item.copper_horn.flute.start");
     public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_FLUTE_LOOP = registerForHolder("item.copper_horn.flute.loop");
 
-    public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_OBOE_START = registerForHolder("item.copper_horn.oboe.start");
     public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_OBOE_LOOP = registerForHolder("item.copper_horn.oboe.loop");
 
-    public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_CLARINET_START = registerForHolder("item.copper_horn.clarinet.start");
     public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_CLARINET_LOOP = registerForHolder("item.copper_horn.clarinet.loop");
 
-    public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_TRUMPET_START = registerForHolder("item.copper_horn.trumpet.start");
     public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_TRUMPET_LOOP = registerForHolder("item.copper_horn.trumpet.loop");
 
-    public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_TROMBONE_START = registerForHolder("item.copper_horn.trombone.start");
     public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_TROMBONE_LOOP = registerForHolder("item.copper_horn.trombone.loop");
 
 	public static final SoundEvent ITEM_ENDERPEARL_LAND = register("item.enderpearl.land");

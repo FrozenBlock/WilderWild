@@ -144,7 +144,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return this.isInWaterOrBubble() ? RegisterSounds.ENTITY_JELLYFISH_AMBIENT_WATER : RegisterSounds.ENTITY_JELLYFISH_AMBIENT;
+        return this.isInWaterOrBubble() ? RegisterSounds.ENTITY_JELLYFISH_AMBIENT_WATER : null;
     }
 
     @Override

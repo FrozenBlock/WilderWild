@@ -44,6 +44,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.GameRules;
@@ -124,7 +125,7 @@ public class Tumbleweed extends Mob {
 
 	@Override
 	protected void dropAllDeathLoot(@NotNull DamageSource damageSource) {
-		if (!this.isSilkTouch(damageSource)) {
+		if (!this.isSilkTouchOrShears(damageSource)) {
 			super.dropAllDeathLoot(damageSource);
 		}
 	}
@@ -259,10 +260,10 @@ public class Tumbleweed extends Mob {
 		return this.getPosition(0).subtract(this.getPosition(1));
 	}
 
-	public boolean isSilkTouch(DamageSource damageSource) {
+	public boolean isSilkTouchOrShears(DamageSource damageSource) {
 		if (damageSource.getDirectEntity() instanceof Player player) {
 			ItemStack stack = player.getMainHandItem();
-			return EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0;
+			return EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0 || stack.is(Items.SHEARS);
 		}
 		return false;
 	}
@@ -329,7 +330,7 @@ public class Tumbleweed extends Mob {
 
 	@Override
 	public Packet<ClientGamePacketListener> getAddEntityPacket() {
-		ClientboundAddEntityPacket packet = new ClientboundAddEntityPacket(
+		return new ClientboundAddEntityPacket(
 				this.getId(),
 				this.getUUID(),
 				this.getX(),
@@ -342,7 +343,6 @@ public class Tumbleweed extends Mob {
 				this.getDeltaMovement(),
 				this.yHeadRot
 		);
-		return packet;
 	}
 
 	@Override
@@ -401,10 +401,9 @@ public class Tumbleweed extends Mob {
 	@Override
 	public void die(@NotNull DamageSource damageSource) {
 		super.die(damageSource);
-		if (damageSource.getDirectEntity() instanceof Player player) {
-			if (this.level.getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS) && !damageSource.isCreativePlayer()) {
-				ItemStack stack = player.getMainHandItem();
-				if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0) {
+		if (damageSource.getDirectEntity() instanceof Player) {
+			if (this.level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT) && !damageSource.isCreativePlayer()) {
+				if (isSilkTouchOrShears(damageSource)) {
 					this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), new ItemStack(RegisterBlocks.TUMBLEWEED)));
 				}
 			}

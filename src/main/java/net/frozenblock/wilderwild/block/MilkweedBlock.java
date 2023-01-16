@@ -39,7 +39,7 @@ public class MilkweedBlock extends TallFlowerBlock {
 
     @Override
     public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, RandomSource random) {
-        if (random.nextFloat() > 0.8F) {
+        if (random.nextFloat() > 0.83F) {
             if (state.is(RegisterBlocks.MILKWEED)) {
                 if (state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER) {
                     if (state.getValue(BlockStateProperties.AGE_3) < 3) {

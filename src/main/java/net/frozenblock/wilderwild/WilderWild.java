@@ -19,7 +19,7 @@ import net.frozenblock.wilderwild.misc.FireflyColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.datafixer.NematocystStateFix;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
-import net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups;
+import net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterGameEvents;
@@ -99,7 +99,7 @@ public final class WilderWild implements ModInitializer {
 		WilderWorldGen.generateWildWorldGen();
 
         RegisterSounds.init();
-        RegisterBlockSoundGroups.init();
+        RegisterBlockSoundTypes.init();
         RegisterBlockEntities.register();
         RegisterEntities.init();
         RegisterLootTables.init();
