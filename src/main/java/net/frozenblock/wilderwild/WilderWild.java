@@ -18,6 +18,7 @@ import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.FireflyColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.datafixer.NematocystStateFix;
+import net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.WilderCopperPipesEntrypoint;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
@@ -129,6 +130,10 @@ public final class WilderWild implements ModInitializer {
         if (FrozenBools.HAS_TERRALITH) {
             terralith();
         }
+
+		if (FrozenBools.HAS_SIMPLE_COPPER_PIPES) {
+			WilderCopperPipesEntrypoint.init();
+		}
 
 		ServerLifecycleEvents.SERVER_STOPPED.register((server) -> PalmCrownBlockEntity.PalmCrownPositions.clearAll());
 

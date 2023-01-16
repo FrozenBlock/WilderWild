@@ -28,6 +28,7 @@ import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.material.Fluids;
+import java.util.Optional;
 
 public final class RegisterItems {
 	private RegisterItems() {
@@ -47,7 +48,7 @@ public final class RegisterItems {
 	public static final Item COCONUT = new CoconutItem(RegisterBlocks.COCONUT, new FabricItemSettings().group(CreativeModeTab.TAB_DECORATIONS));
 
     public static final Item POLLEN = new BlockItem(RegisterBlocks.POLLEN_BLOCK, new FabricItemSettings().group(CreativeModeTab.TAB_DECORATIONS));
-	public static final Item TUMBLEWEED = new BlockItem(RegisterBlocks.TUMBLEWEED, new FabricItemSettings().group(CreativeModeTab.TAB_DECORATIONS));
+	public static Optional<Item> TUMBLEWEED = Optional.empty();
 
     // ITEMS
     public static final MilkweedPod MILKWEED_POD = new MilkweedPod(new FabricItemSettings().group(CreativeModeTab.TAB_MISC).maxCount(64));
@@ -110,7 +111,7 @@ public final class RegisterItems {
         Registry.register(Registry.ITEM, WilderSharedConstants.id("palm_sign"), PALM_SIGN);
 
         Registry.register(Registry.ITEM, WilderSharedConstants.id("pollen"), POLLEN);
-		Registry.register(Registry.ITEM, WilderSharedConstants.id("tumbleweed"), TUMBLEWEED);
+		TUMBLEWEED = Optional.of(Registry.register(Registry.ITEM, WilderSharedConstants.id("tumbleweed"), new BlockItem(Registry.BLOCK.get(WilderSharedConstants.id("tumbleweed")), new FabricItemSettings().group(CreativeModeTab.TAB_DECORATIONS))));
 		Registry.register(Registry.ITEM, WilderSharedConstants.id("prickly_pear"), PRICKLY_PEAR);
     }
     public static void registerItems() {

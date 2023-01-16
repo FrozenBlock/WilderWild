@@ -9,11 +9,9 @@ import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.lunade.copper.CopperPipeEntrypoint;
 import net.lunade.copper.CopperPipeMain;
 import net.lunade.copper.FittingPipeDispenses;
 import net.lunade.copper.PipeMovementRestrictions;
@@ -37,11 +35,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 
-public class WilderCopperPipesEntrypoint implements CopperPipeEntrypoint {
+public class WilderCopperPipesEntrypoint  {
 	public static final ResourceLocation HORN = WilderSharedConstants.id("ancient_horn");
 
-    @Override
-    public void init() {
+    public static void init() {
         WilderSharedConstants.log("WILDERWILD AND COPPER PIPES SECRET LOG MESSAGE UNLOCKED!!!", true);
         RegisterPipeNbtMethods.register(HORN, (nbt, level, pos, blockState, copperPipeEntity) -> {
             if (!nbt.getCanOnlyBeUsedOnce() || nbt.getUseCount() < 1) {
@@ -180,7 +177,7 @@ public class WilderCopperPipesEntrypoint implements CopperPipeEntrypoint {
 			level.addFreshEntity(coconut);
 		});
 
-		PoweredPipeDispenses.register(RegisterItems.TUMBLEWEED, (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
+		PoweredPipeDispenses.register(RegisterItems.TUMBLEWEED.get(), (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
 			double d = position.x();
 			double e = position.y();
 			double f = position.z();
@@ -209,11 +206,6 @@ public class WilderCopperPipesEntrypoint implements CopperPipeEntrypoint {
         PipeMovementRestrictions.register(WilderSharedConstants.id("stone_chest"),
                 ((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false),
                 ((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false));
-
-    }
-
-    @Override
-    public void initDevOnly() {
 
     }
 
