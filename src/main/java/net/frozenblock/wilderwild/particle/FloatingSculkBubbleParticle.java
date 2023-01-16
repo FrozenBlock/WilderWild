@@ -136,7 +136,7 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
         if (this.age == this.stayInflatedTime + 1) {
             Minecraft client = Minecraft.getInstance();
             if (client != null) {
-                level.playSound(client.player, this.x, this.y, this.z, this.sound, SoundSource.BLOCKS, 0.4F, level.random.nextFloat() * 0.2F + 0.8F);
+                level.playSound(client.player, this.x, this.y, this.z, this.sound, SoundSource.NEUTRAL, 0.4F, level.random.nextFloat() * 0.2F + 0.8F);
                 this.setParticleSpeed(0, 0, 0);
             }
         }
