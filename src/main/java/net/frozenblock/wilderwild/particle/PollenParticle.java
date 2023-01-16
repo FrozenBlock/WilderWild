@@ -10,9 +10,11 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.TextureSheetParticle;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
@@ -33,13 +35,14 @@ public class PollenParticle extends TextureSheetParticle {
     @Override
     public void tick() {
         super.tick();
-		this.windIntensity *= 0.94F;
+		this.windIntensity *= 0.945F;
 		boolean onGround = this.onGround;
 		double multXZ = (onGround ? 0.0005 : 0.007) * this.windIntensity;
 		double multY = (onGround ? 0.0005 : 0.0035) * this.windIntensity;
-		this.xd += ClientWindManager.getWindX(1F) * multXZ;
-		this.yd += (ClientWindManager.getWindY(1F) + 0.1) * multY;
-		this.zd += ClientWindManager.getWindZ(1F) * multXZ;
+		Vec3 wind = ClientWindManager.getWindMovement(this.level, new BlockPos(this.x, this.y, this.z));
+		this.xd += wind.x() * multXZ;
+		this.yd += (wind.y() + 0.1) * multY;
+		this.zd += wind.z() * multXZ;
     }
 
     public ParticleRenderType getRenderType() {
