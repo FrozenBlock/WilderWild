@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
+import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -23,7 +24,7 @@ public class SeedingDandelionBlock extends FlowerBlock {
 	@Override
     public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, RandomSource random) {
         if (random.nextFloat() > 0.95) {
-            level.addParticle(RegisterParticles.DANDELION_SEED, pos.getX() + 0.5, pos.getY() + 0.8, pos.getZ() + 0.5, 0.0D, 0.0D, 0.0D);
+            level.addParticle(new SeedParticleOptions(false, false), pos.getX() + 0.5, pos.getY() + 0.8, pos.getZ() + 0.5, 0.0D, 0.0D, 0.0D);
         }
     }
 
