@@ -414,8 +414,8 @@ public final class RegisterBlocks {
         registerBlock("cattail", CATTAIL, CreativeModeTab.TAB_DECORATIONS);
 		registerBlock("bush", BUSH, CreativeModeTab.TAB_DECORATIONS);
 		registerBlock("tumbleweed_plant", TUMBLEWEED_PLANT, CreativeModeTab.TAB_DECORATIONS);
+		registerBlock("tumbleweed", TUMBLEWEED, CreativeModeTab.TAB_DECORATIONS);
 		registerBlockWithoutBlockItem("potted_tumbleweed_plant", POTTED_TUMBLEWEED_PLANT);
-		registerBlockWithoutBlockItem("tumbleweed", TUMBLEWEED);
 		registerBlockWithoutBlockItem("prickly_pear", PRICKLY_PEAR_CACTUS);
 		registerBlockWithoutBlockItem("potted_prickly_pear", POTTED_PRICKLY_PEAR);
     }
