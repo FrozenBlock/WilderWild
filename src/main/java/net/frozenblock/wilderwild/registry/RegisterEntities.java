@@ -54,7 +54,7 @@ public final class RegisterEntities {
 		EasterEggs.registerEaster();
     }
 
-    private static <E extends Entity, T extends EntityType<E>> EntityType<E> register(String path, T entityType) {
+    private static <E extends Entity, T extends EntityType<E>> T register(String path, T entityType) {
         return Registry.register(Registry.ENTITY_TYPE, WilderSharedConstants.id(path), entityType);
     }
 }
