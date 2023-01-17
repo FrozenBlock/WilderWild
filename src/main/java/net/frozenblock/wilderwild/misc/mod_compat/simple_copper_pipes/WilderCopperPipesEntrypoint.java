@@ -177,7 +177,7 @@ public class WilderCopperPipesEntrypoint  {
 			level.addFreshEntity(coconut);
 		});
 
-		PoweredPipeDispenses.register(RegisterItems.TUMBLEWEED.get(), (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
+		PoweredPipeDispenses.register(BuiltInRegistries.ITEM.get(WilderSharedConstants.id("tumbleweed")), (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
 			double d = position.x();
 			double e = position.y();
 			double f = position.z();

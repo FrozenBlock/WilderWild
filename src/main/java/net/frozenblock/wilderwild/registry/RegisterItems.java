@@ -71,7 +71,6 @@ public final class RegisterItems {
 	public static final Item COCONUT = new CoconutItem(RegisterBlocks.COCONUT, new FabricItemSettings());
 
 	public static final Item POLLEN = new BlockItem(RegisterBlocks.POLLEN_BLOCK, new FabricItemSettings());
-	public static Optional<Item> TUMBLEWEED = Optional.empty();;
 
 	// ITEMS
     public static final MilkweedPod MILKWEED_POD = new MilkweedPod(new FabricItemSettings().maxCount(64));
@@ -139,7 +138,6 @@ public final class RegisterItems {
 
         Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id("pollen"), POLLEN);
 		registerItemAfter(RegisterBlocks.TUMBLEWEED_PLANT, new BlockItem(RegisterBlocks.TUMBLEWEED, new FabricItemSettings()), "tumbleweed", CreativeModeTabs.NATURAL_BLOCKS);
-		TUMBLEWEED = BuiltInRegistries.ITEM.getOptional(WilderSharedConstants.id("tumbleweed"));
 		registerItemAfter(Blocks.CACTUS, PRICKLY_PEAR, "prickly_pear", CreativeModeTabs.NATURAL_BLOCKS);
     }
 
