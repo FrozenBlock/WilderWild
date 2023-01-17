@@ -46,7 +46,7 @@
 	  "net.frozenblock.wilderwild.registry.RegisterSurfaceRules"
 	],
     "frozenlib:mob_categories": [
-      "net.frozenblock.wilderwild.WilderMobCategories"
+      "net.frozenblock.wilderwild.WilderWild"
     ],
 	"modmenu": [
 	  "net.frozenblock.wilderwild.misc.config.ModMenuIntegration"

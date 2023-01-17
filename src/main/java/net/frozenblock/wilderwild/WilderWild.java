@@ -12,11 +12,14 @@ import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.mobcategory.api.FrozenMobCategories;
+import net.frozenblock.lib.mobcategory.api.entrypoint.FrozenMobCategoryEntrypoint;
+import net.frozenblock.lib.mobcategory.impl.FrozenMobCategory;
 import net.frozenblock.wilderwild.block.entity.PalmCrownBlockEntity;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.FireflyColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.misc.datafixer.NematocystStateFix;
 import net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.WilderCopperPipesEntrypoint;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
@@ -72,8 +75,9 @@ import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixerBuilder;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixes;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
+import java.util.ArrayList;
 
-public final class WilderWild implements ModInitializer {
+public final class WilderWild extends FrozenMobCategoryEntrypoint implements ModInitializer {
 
 	public static final TrunkPlacerType<StraightTrunkWithLogs> STRAIGHT_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("straight_trunk_logs_placer", StraightTrunkWithLogs.CODEC);
     public static final TrunkPlacerType<FallenTrunkWithLogs> FALLEN_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("fallen_trunk_logs_placer", FallenTrunkWithLogs.CODEC);
@@ -135,6 +139,13 @@ public final class WilderWild implements ModInitializer {
 
         WilderSharedConstants.stopMeasuring(this);
     }
+
+	@Override
+	public void newCategories(ArrayList<FrozenMobCategory> context) {
+		context.add(FrozenMobCategoryEntrypoint.createCategory(WilderSharedConstants.MOD_ID, "fireflies", ClothConfigInteractionHandler.fireflySpawnCap(), true, false, 80));
+		context.add(FrozenMobCategoryEntrypoint.createCategory(WilderSharedConstants.MOD_ID, "jellyfish", ClothConfigInteractionHandler.jellyfishSpawnCap(), true, false, 64));
+		context.add(FrozenMobCategoryEntrypoint.createCategory(WilderSharedConstants.MOD_ID, "tumbleweed", ClothConfigInteractionHandler.tumbleweedSpawnCap(), true, false, 64));
+	}
 
     private static void applyDataFixes(final @NotNull ModContainer mod) {
         log("Applying DataFixes for Wilder Wild with Data Version " + WilderSharedConstants.DATA_VERSION, true);
