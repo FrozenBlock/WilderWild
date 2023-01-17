@@ -609,55 +609,56 @@ public final class RegisterBlocks {
 
     private static void registerFlammability() {
         WilderSharedConstants.logWild("Registering Flammability for", WilderSharedConstants.UNSTABLE_LOGGING);
-        FlammableBlockRegistry.getDefaultInstance().add(POLLEN_BLOCK, 100, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(SEEDING_DANDELION, 100, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(CARNATION, 100, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(CATTAIL, 100, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(DATURA, 100, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(MILKWEED, 100, 60);
+		var flammableBlockRegistry = FlammableBlockRegistry.getDefaultInstance();
+        flammableBlockRegistry.add(RegisterBlocks.POLLEN_BLOCK, 100, 60);
+        flammableBlockRegistry.add(RegisterBlocks.SEEDING_DANDELION, 100, 60);
+        flammableBlockRegistry.add(RegisterBlocks.CARNATION, 100, 60);
+        flammableBlockRegistry.add(RegisterBlocks.CATTAIL, 100, 60);
+        flammableBlockRegistry.add(RegisterBlocks.DATURA, 100, 60);
+        flammableBlockRegistry.add(RegisterBlocks.MILKWEED, 100, 60);
 
-        FlammableBlockRegistry.getDefaultInstance().add(HOLLOWED_BIRCH_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(HOLLOWED_OAK_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(HOLLOWED_ACACIA_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(HOLLOWED_JUNGLE_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(HOLLOWED_DARK_OAK_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(HOLLOWED_MANGROVE_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(HOLLOWED_SPRUCE_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(HOLLOWED_BAOBAB_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(BAOBAB_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(STRIPPED_BAOBAB_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(BAOBAB_WOOD, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(STRIPPED_BAOBAB_WOOD, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(BAOBAB_PLANKS, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(BAOBAB_STAIRS, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(BAOBAB_DOOR, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(BAOBAB_FENCE, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(BAOBAB_SLAB, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(BAOBAB_FENCE_GATE, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(BAOBAB_PRESSURE_PLATE, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(BAOBAB_TRAPDOOR, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(BAOBAB_LEAVES, 100, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(BAOBAB_BUTTON, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(BAOBAB_SIGN_BLOCK, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(BAOBAB_WALL_SIGN, 5, 20);
+        flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_BIRCH_LOG, 5, 5);
+        flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_OAK_LOG, 5, 5);
+        flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_ACACIA_LOG, 5, 5);
+        flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_JUNGLE_LOG, 5, 5);
+        flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_DARK_OAK_LOG, 5, 5);
+        flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_MANGROVE_LOG, 5, 5);
+        flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_SPRUCE_LOG, 5, 5);
+        flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_BAOBAB_LOG, 5, 5);
+        flammableBlockRegistry.add(RegisterBlocks.BAOBAB_LOG, 5, 5);
+        flammableBlockRegistry.add(RegisterBlocks.STRIPPED_BAOBAB_LOG, 5, 5);
+        flammableBlockRegistry.add(RegisterBlocks.BAOBAB_WOOD, 5, 5);
+        flammableBlockRegistry.add(RegisterBlocks.STRIPPED_BAOBAB_WOOD, 5, 5);
+        flammableBlockRegistry.add(RegisterBlocks.BAOBAB_PLANKS, 5, 20);
+        flammableBlockRegistry.add(RegisterBlocks.BAOBAB_STAIRS, 5, 20);
+        flammableBlockRegistry.add(RegisterBlocks.BAOBAB_DOOR, 5, 20);
+        flammableBlockRegistry.add(RegisterBlocks.BAOBAB_FENCE, 5, 20);
+        flammableBlockRegistry.add(RegisterBlocks.BAOBAB_SLAB, 5, 20);
+        flammableBlockRegistry.add(RegisterBlocks.BAOBAB_FENCE_GATE, 5, 20);
+        flammableBlockRegistry.add(RegisterBlocks.BAOBAB_PRESSURE_PLATE, 5, 20);
+        flammableBlockRegistry.add(RegisterBlocks.BAOBAB_TRAPDOOR, 5, 20);
+        flammableBlockRegistry.add(RegisterBlocks.BAOBAB_LEAVES, 100, 60);
+        flammableBlockRegistry.add(RegisterBlocks.BAOBAB_BUTTON, 5, 20);
+        flammableBlockRegistry.add(RegisterBlocks.BAOBAB_SIGN_BLOCK, 5, 20);
+        flammableBlockRegistry.add(RegisterBlocks.BAOBAB_WALL_SIGN, 5, 20);
 
-        FlammableBlockRegistry.getDefaultInstance().add(HOLLOWED_CYPRESS_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(CYPRESS_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(STRIPPED_CYPRESS_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(CYPRESS_WOOD, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(STRIPPED_CYPRESS_WOOD, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(CYPRESS_PLANKS, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(CYPRESS_STAIRS, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(CYPRESS_DOOR, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(CYPRESS_FENCE, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(CYPRESS_SLAB, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(CYPRESS_FENCE_GATE, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(CYPRESS_PRESSURE_PLATE, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(CYPRESS_TRAPDOOR, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(CYPRESS_LEAVES, 100, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(CYPRESS_BUTTON, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(CYPRESS_SIGN_BLOCK, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(CYPRESS_WALL_SIGN, 5, 20);
+        flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_CYPRESS_LOG, 5, 5);
+        flammableBlockRegistry.add(RegisterBlocks.CYPRESS_LOG, 5, 5);
+        flammableBlockRegistry.add(RegisterBlocks.STRIPPED_CYPRESS_LOG, 5, 5);
+        flammableBlockRegistry.add(RegisterBlocks.CYPRESS_WOOD, 5, 5);
+        flammableBlockRegistry.add(RegisterBlocks.STRIPPED_CYPRESS_WOOD, 5, 5);
+        flammableBlockRegistry.add(RegisterBlocks.CYPRESS_PLANKS, 5, 20);
+        flammableBlockRegistry.add(RegisterBlocks.CYPRESS_STAIRS, 5, 20);
+        flammableBlockRegistry.add(RegisterBlocks.CYPRESS_DOOR, 5, 20);
+        flammableBlockRegistry.add(RegisterBlocks.CYPRESS_FENCE, 5, 20);
+        flammableBlockRegistry.add(RegisterBlocks.CYPRESS_SLAB, 5, 20);
+        flammableBlockRegistry.add(RegisterBlocks.CYPRESS_FENCE_GATE, 5, 20);
+        flammableBlockRegistry.add(RegisterBlocks.CYPRESS_PRESSURE_PLATE, 5, 20);
+        flammableBlockRegistry.add(RegisterBlocks.CYPRESS_TRAPDOOR, 5, 20);
+        flammableBlockRegistry.add(RegisterBlocks.CYPRESS_LEAVES, 100, 60);
+        flammableBlockRegistry.add(RegisterBlocks.CYPRESS_BUTTON, 5, 20);
+        flammableBlockRegistry.add(RegisterBlocks.CYPRESS_SIGN_BLOCK, 5, 20);
+        flammableBlockRegistry.add(RegisterBlocks.CYPRESS_WALL_SIGN, 5, 20);
     }
 
     private static void registerFuels() {
@@ -680,43 +681,6 @@ public final class RegisterBlocks {
             }
             return false;
         });
-		BonemealBehaviors.BONEMEAL_BEHAVIORS.put(BROWN_SHELF_FUNGUS, (context, world, pos, state, face, horizontal) -> {
-			if (state.getValue(RegisterProperties.FUNGUS_STAGE) < 4) {
-				WilderSharedConstants.log("Shelf Fungus Bonemealed @ " + pos + " with FungusStage of " + state.getValue(RegisterProperties.FUNGUS_STAGE), WilderSharedConstants.DEV_LOGGING);
-				if (!world.isClientSide) {
-					world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
-					world.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FUNGUS_STAGE, state.getValue(RegisterProperties.FUNGUS_STAGE) + 1));
-					return true;
-				}
-			}
-			return false;
-		});
-		BonemealBehaviors.BONEMEAL_BEHAVIORS.put(RED_SHELF_FUNGUS, (context, world, pos, state, face, horizontal) -> {
-			if (state.getValue(RegisterProperties.FUNGUS_STAGE) < 4) {
-				WilderSharedConstants.log("Shelf Fungus Bonemealed @ " + pos + " with FungusStage of " + state.getValue(RegisterProperties.FUNGUS_STAGE), WilderSharedConstants.DEV_LOGGING);
-				if (!world.isClientSide) {
-					world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
-					world.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FUNGUS_STAGE, state.getValue(RegisterProperties.FUNGUS_STAGE) + 1));
-					return true;
-				}
-			}
-			return false;
-		});
-		BonemealBehaviors.BONEMEAL_BEHAVIORS.put(ALGAE, (context, world, pos, state, face, horizontal) -> {
-			WilderSharedConstants.log("Algae Bonemealed @ " + pos, WilderSharedConstants.DEV_LOGGING);
-			if (!world.isClientSide) {
-				for (Direction offset : AlgaeBlock.shuffleOffsets(world.getRandom())) {
-					BlockPos blockPos = pos.relative(offset);
-					if (world.getBlockState(blockPos).isAir() && state.getBlock().canSurvive(state, world, blockPos)) {
-						world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
-						world.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, blockPos, 0);
-						world.setBlockAndUpdate(blockPos, state);
-						return true;
-					}
-				}
-			}
-			return false;
-		});
     }
 
 }

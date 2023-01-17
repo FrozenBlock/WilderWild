@@ -139,12 +139,10 @@ public abstract class SculkBlockMixin {
         if (level.getBlockState(chargePos).is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || level.getBlockState(chargePos).is(WilderBlockTags.SCULK_STAIR_REPLACEABLE)) {
             canReturn = true;
             growthState = RegisterBlocks.SCULK_STAIRS.defaultBlockState();
-        }
-        if (level.getBlockState(chargePos).is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || level.getBlockState(chargePos).is(WilderBlockTags.SCULK_SLAB_REPLACEABLE)) {
+        } else if (level.getBlockState(chargePos).is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || level.getBlockState(chargePos).is(WilderBlockTags.SCULK_SLAB_REPLACEABLE)) {
             canReturn = true;
             growthState = RegisterBlocks.SCULK_SLAB.defaultBlockState();
-        }
-        if (level.getBlockState(chargePos).is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || level.getBlockState(chargePos).is(WilderBlockTags.SCULK_WALL_REPLACEABLE)) {
+        } else if (level.getBlockState(chargePos).is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || level.getBlockState(chargePos).is(WilderBlockTags.SCULK_WALL_REPLACEABLE)) {
             canReturn = true;
             growthState = RegisterBlocks.SCULK_WALL.defaultBlockState();
         }
