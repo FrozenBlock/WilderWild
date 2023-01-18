@@ -4,6 +4,10 @@
     {
       "id": "wilderwild:mixed_forest",
       "required": false
+    },
+    {
+      "id": "wilderwild:birch_taiga",
+      "required": false
     }
   ]
 }
