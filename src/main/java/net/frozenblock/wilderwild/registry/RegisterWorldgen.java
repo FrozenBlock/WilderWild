@@ -55,23 +55,6 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
         WilderNoise.init();
     }
 
-	/*
-	@Override
-	public void modifyOverworldRules(SurfaceRuleContext.@NotNull Overworld context) {
-		context.materialRules().add(0, WilderSharedWorldgen.surfaceRules());
-		context.materialRules().add(WilderSharedWorldgen.surfaceRules());
-		WilderSharedConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
-	}
-	 */
-
-	// SPONGEBOB
-    /*@Override
-    public void modifyNetherRules(SurfaceRuleContext.@NotNull Nether context) {
-        /*context.materialRules().clear();
-        context.materialRules().add(0, FrozenSurfaceRules.makeStateRule(Blocks.SPONGE));
-        WilderSharedConstants.log("SPONGEBOB", WilderSharedConstants.UNSTABLE_LOGGING);
-    }*/
-
 	private static ResourceKey<Biome> register(String name) {
 		return ResourceKey.create(Registry.BIOME_REGISTRY, WilderSharedConstants.id(name));
 	}
@@ -227,8 +210,6 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 								.waterFogColor(329011)
 								.fogColor(12638463)
 								.skyColor(OverworldBiomes.taiga(false).getSkyColor())
-								.foliageColorOverride(5879634)
-								.grassColorOverride(8437607)
 								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
 								.backgroundMusic(musicSound).build())
 				.mobSpawnSettings(builder.build())
@@ -354,15 +335,15 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		if (ClothConfigInteractionHandler.fallenLogs()) {
 			builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_BIRCH_AND_SPRUCE_PLACED);
 		}
-		builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderPlacedFeatures.BROWN_SHELF_FUNGUS_PLACED);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DATURA_BIRCH);
 		addBasicFeatures(builder, BIRCH_TAIGA);
-		BiomeDefaultFeatures.addTaigaGrass(builder);
-		BiomeDefaultFeatures.addDefaultFlowers(builder);
-		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
-		BiomeDefaultFeatures.addCommonBerryBushes(builder);
+		BiomeDefaultFeatures.addFerns(builder);
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
+		BiomeDefaultFeatures.addTaigaTrees(builder);
+		BiomeDefaultFeatures.addDefaultFlowers(builder);
+		BiomeDefaultFeatures.addTaigaGrass(builder);
+		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
+		BiomeDefaultFeatures.addCommonBerryBushes(builder);
 	}
 
 	private static void addBasicFeatures(BiomeGenerationSettings.Builder builder, ResourceKey<Biome> biome) {
