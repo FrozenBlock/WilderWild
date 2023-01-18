@@ -58,8 +58,6 @@ public class FireflyColor {
     }
 
     static {
-        WilderSharedConstants.log("OH MY GOODNESS GRACIOUS", true);
-        WilderSharedConstants.log(String.valueOf(EntityDataSerializers.getSerializedId(SERIALIZER)), true);
         EntityDataSerializers.registerSerializer(SERIALIZER);
     }
 }
