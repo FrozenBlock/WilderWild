@@ -59,7 +59,7 @@ public final class OverworldBiomeBuilderMixin {
 						WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
 						WilderSharedWorldgen.BirchTaiga.HUMIDITY,
 						WilderSharedWorldgen.BirchTaiga.CONTINENTALNESS,
-						WilderSharedWorldgen.BirchTaiga.EROSION_HIGH,
+						WilderSharedWorldgen.BirchTaiga.EROSION,
 						weirdness,
 						WilderSharedWorldgen.BirchTaiga.OFFSET,
 						RegisterWorldgen.BIRCH_TAIGA
@@ -113,7 +113,7 @@ public final class OverworldBiomeBuilderMixin {
 						WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
 						WilderSharedWorldgen.BirchTaiga.HUMIDITY,
 						WilderSharedWorldgen.BirchTaiga.CONTINENTALNESS,
-						WilderSharedWorldgen.BirchTaiga.EROSION_LOW,
+						WilderSharedWorldgen.BirchTaiga.EROSION,
 						weirdness,
 						WilderSharedWorldgen.BirchTaiga.OFFSET,
 						RegisterWorldgen.BIRCH_TAIGA

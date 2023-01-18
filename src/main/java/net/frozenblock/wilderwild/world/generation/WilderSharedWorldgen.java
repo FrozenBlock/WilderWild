@@ -77,10 +77,9 @@ public final class WilderSharedWorldgen {
 
 	public static final class BirchTaiga {
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.COOL, Temperature.NEUTRAL);
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.DRY, Humidity.WET);
+		public static final Climate.Parameter HUMIDITY = Humidity.WET;
 		public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.INLAND, Continentalness.FAR_INLAND);
-		public static final Climate.Parameter EROSION_LOW = Climate.Parameter.span(Erosion.EROSION_1, Erosion.EROSION_3);
-		public static final Climate.Parameter EROSION_HIGH = Climate.Parameter.span(Erosion.EROSION_4, Erosion.EROSION_5);
+		public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_2, Erosion.EROSION_5);
 		public static final List<Climate.Parameter> LOW_WEIRDNESS = new ArrayList<>() {{
 			add(Weirdness.LOW_SLICE_NORMAL_DESCENDING);
 			add(Weirdness.LOW_SLICE_VARIANT_ASCENDING);
