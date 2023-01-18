@@ -150,11 +150,11 @@ public final class WilderConfiguredFeatures {
 							new WeightedPlacedFeature(WilderTreePlaced.FUNGUS_PINE_CHECKED, 0.086F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_FUNGUS_PINE_CHECKED, 0.02F),
 							new WeightedPlacedFeature(WilderTreePlaced.NEW_SPRUCE_SHORT_CHECKED, 0.155F),
-							new WeightedPlacedFeature(WilderTreePlaced.NEW_SPRUCE_CHECKED, 0.37F),
+							new WeightedPlacedFeature(WilderTreePlaced.NEW_BIRCH_CHECKED, 0.37F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.01F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.01F),
 							new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED, 0.13F),
-							new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.325F)), WilderTreePlaced.NEW_SPRUCE_CHECKED));
+							new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.325F)), WilderTreePlaced.NEW_BIRCH_CHECKED));
 
     public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> NEW_DARK_FOREST_VEGETATION =
             register("dark_forest_vegetation", Feature.RANDOM_SELECTOR,
