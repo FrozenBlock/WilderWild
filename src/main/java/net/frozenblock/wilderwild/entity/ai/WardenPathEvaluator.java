@@ -18,19 +18,21 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class WardenPathEvaluator extends WalkNodeEvaluator {
-    private float oldWalkablePenalty;
+	private final boolean prefersShallowSwimming;
+    private float oldWalkableCost;
     private float oldWaterBorderPenalty;
 
     private final Long2ObjectMap<BlockPathTypes> nodeTypes = new Long2ObjectOpenHashMap<>();
 
-    public WardenPathEvaluator() {
+    public WardenPathEvaluator(boolean prefersShallowSwimming) {
+		this.prefersShallowSwimming = prefersShallowSwimming;
     }
 
     @Override
     public void prepare(@NotNull PathNavigationRegion level, @NotNull Mob mob) {
         super.prepare(level, mob);
         mob.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-        this.oldWalkablePenalty = mob.getPathfindingMalus(BlockPathTypes.WALKABLE);
+        this.oldWalkableCost = mob.getPathfindingMalus(BlockPathTypes.WALKABLE);
         mob.setPathfindingMalus(BlockPathTypes.WALKABLE, 0.0F);
         this.oldWaterBorderPenalty = mob.getPathfindingMalus(BlockPathTypes.WATER_BORDER);
         mob.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 4.0F);
@@ -38,86 +40,71 @@ public class WardenPathEvaluator extends WalkNodeEvaluator {
 
     @Override
     public void done() {
-        this.mob.setPathfindingMalus(BlockPathTypes.WALKABLE, this.oldWalkablePenalty);
+        this.mob.setPathfindingMalus(BlockPathTypes.WALKABLE, this.oldWalkableCost);
         this.mob.setPathfindingMalus(BlockPathTypes.WATER_BORDER, this.oldWaterBorderPenalty);
         super.done();
     }
 
-    @Nullable
     @Override
+	@NotNull
     public Node getStart() {
-        if (this.isEntityTouchingWaterOrLava(this.mob)) {
-            return this.getStartNode(
-                    new BlockPos(
-                            Mth.floor(this.mob.getBoundingBox().minX),
-                            Mth.floor(this.mob.getBoundingBox().minY + 0.5),
-                            Mth.floor(this.mob.getBoundingBox().minZ)
-                    )
-            );
-        } else {
-            return super.getStart();
-        }
+		return !this.isEntityTouchingWaterOrLava(this.mob)
+				? super.getStart()
+				: this.getStartNode(
+						new BlockPos(
+								Mth.floor(this.mob.getBoundingBox().minX),
+								Mth.floor(this.mob.getBoundingBox().minY + 0.5),
+								Mth.floor(this.mob.getBoundingBox().minZ)
+						)
+		);
     }
 
 	@Override
-    protected BlockPathTypes getBlockPathType(@NotNull Mob entity, BlockPos pos) {
-        return this.getCachedBlockType(entity, pos.getX(), pos.getY(), pos.getZ());
-    }
-
-    @Override
-    protected BlockPathTypes getCachedBlockType(@NotNull Mob entity, int x, int y, int z) {
-        return this.nodeTypes
-                .computeIfAbsent(
-                        BlockPos.asLong(x, y, z),
-                        (l -> this.getBlockPathType(
-                                this.level, x, y, z, entity, this.entityWidth, this.entityHeight, this.entityDepth, this.canOpenDoors(), this.canPassDoors()
-                        ))
-                );
-    }
-
-    @Nullable
-    @Override
-    public Target getGoal(double x, double y, double z) {
-        return this.isEntityTouchingWaterOrLava(this.mob) ? this.getTargetFromNode(super.getNode(Mth.floor(x), Mth.floor(y + 0.5), Mth.floor(z))) : super.getGoal(x, y, z);
-    }
+	public Target getGoal(double x, double y, double z) {
+		return !this.isEntitySubmergedInWaterOrLava(this.mob)
+				? super.getGoal(x, y, z)
+				: this.getTargetFromNode(this.getNode(Mth.floor(x), Mth.floor(y + 0.5), Mth.floor(z)));
+	}
 
     @Override
     public int getNeighbors(Node @NotNull [] successors, @NotNull Node node) {
-        if (isEntityTouchingWaterOrLava(this.mob)) {
-            int i = super.getNeighbors(successors, node);
-            BlockPathTypes pathNodeType = this.getCachedBlockType(this.mob, node.x, node.y + 1, node.z);
-            BlockPathTypes pathNodeType2 = this.getCachedBlockType(this.mob, node.x, node.y, node.z);
-            int j;
-            if (this.mob.getPathfindingMalus(pathNodeType) >= 0.0F && pathNodeType2 != BlockPathTypes.STICKY_HONEY) {
-                j = Mth.floor(Math.max(1.0F, this.mob.maxUpStep));
-            } else {
-                j = 0;
-            }
+		if (!isEntitySubmergedInWaterOrLava(this.mob)) {
+			return super.getNeighbors(successors, node);
+		} else {
+			int i = super.getNeighbors(successors, node);
+			BlockPathTypes blockPathTypes = this.getCachedBlockType(this.mob, node.x, node.y + 1, node.z);
+			BlockPathTypes blockPathTypes2 = this.getCachedBlockType(this.mob, node.x, node.y, node.z);
+			int j;
+			if (this.mob.getPathfindingMalus(blockPathTypes) >= 0.0F && blockPathTypes2 != BlockPathTypes.STICKY_HONEY) {
+				j = Mth.floor(Math.max(1.0F, this.mob.maxUpStep));
+			} else {
+				j = 0;
+			}
 
-            double d = this.getFloorLevel(new BlockPos(node.x, node.y, node.z));
-            Node pathNode = this.findAcceptedNode(node.x, node.y + 1, node.z, Math.max(0, j - 1), d, Direction.UP, pathNodeType2);
-            Node pathNode2 = this.findAcceptedNode(node.x, node.y - 1, node.z, j, d, Direction.DOWN, pathNodeType2);
-            if (this.isValidAquaticAdjacentSuccessor(pathNode, node)) {
-                successors[i++] = pathNode;
-            }
+			double d = this.getFloorLevel(new BlockPos(node.x, node.y, node.z));
+			Node node2 = this.findAcceptedNode(node.x, node.y + 1, node.z, Math.max(0, j - 1), d, Direction.UP, blockPathTypes2);
+			Node node3 = this.findAcceptedNode(node.x, node.y - 1, node.z, j, d, Direction.DOWN, blockPathTypes2);
+			if (this.isVerticalNeighborValid(node2, node)) {
+				successors[i++] = node2;
+			}
 
-            if (this.isValidAquaticAdjacentSuccessor(pathNode2, node) && pathNodeType2 != BlockPathTypes.TRAPDOOR) {
-                successors[i++] = pathNode2;
-            }
+			if (this.isVerticalNeighborValid(node3, node) && blockPathTypes2 != BlockPathTypes.TRAPDOOR) {
+				successors[i++] = node3;
+			}
 
-            return i;
-        } else {
-            return super.getNeighbors(successors, node);
-        }
+			for(int k = 0; k < i; ++k) {
+				Node node4 = successors[k];
+				if (node4.type == BlockPathTypes.WATER && this.prefersShallowSwimming && node4.y < this.mob.level.getSeaLevel() - 10) {
+					++node4.costMalus;
+				}
+			}
+
+			return i;
+		}
     }
 
-    private boolean isValidAquaticAdjacentSuccessor(@Nullable Node node, Node successor) {
+    private boolean isVerticalNeighborValid(@Nullable Node node, Node successor) {
         return this.isNeighborValid(node, successor) && node.type == BlockPathTypes.WATER;
-    }
-
-    @Override
-    protected double getFloorLevel(@NotNull BlockPos pos) {
-        return this.isEntityTouchingWaterOrLava(this.mob) ? (double) pos.getY() + 0.5 : super.getFloorLevel(pos);
     }
 
     @Override
@@ -126,7 +113,8 @@ public class WardenPathEvaluator extends WalkNodeEvaluator {
     }
 
     @Override
-    public BlockPathTypes getBlockPathType(BlockGetter level, int x, int y, int z) {
+	@NotNull
+    public BlockPathTypes getBlockPathType(@NotNull BlockGetter level, int x, int y, int z) {
         BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
         BlockPathTypes pathNodeType = getBlockPathTypeRaw(level, mutable.set(x, y, z));
         if (pathNodeType == BlockPathTypes.WATER || pathNodeType == BlockPathTypes.LAVA) {
@@ -143,7 +131,7 @@ public class WardenPathEvaluator extends WalkNodeEvaluator {
                 return BlockPathTypes.LAVA;
             }
         } else {
-            return super.getBlockPathType(level, x, y, z);
+            return getBlockPathTypeStatic(level, mutable);
         }
     }
 

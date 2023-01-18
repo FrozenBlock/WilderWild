@@ -23,7 +23,7 @@ public class WardenNavigation extends GroundPathNavigation {
 
     @Override
     public PathFinder createPathFinder(int range) {
-        this.nodeEvaluator = new WardenPathEvaluator();
+        this.nodeEvaluator = new WardenPathEvaluator(false);
         this.nodeEvaluator.setCanPassDoors(true);
         return new PathFinder(this.nodeEvaluator, range) {
 			@Override

@@ -56,7 +56,7 @@ public final class RegisterWorldgen {
         addMixedForestFeatures(builder2);
         Music musicSound = Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS);
         return new Biome.BiomeBuilder()
-                .precipitation(Biome.Precipitation.RAIN)
+                .hasPrecipitation(true)
                 .temperature(0.7F)
                 .downfall(0.7F)
                 .specialEffects(
@@ -84,7 +84,7 @@ public final class RegisterWorldgen {
         addCypressWetlandsFeatures(builder2);
         Music musicSound = Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS);
         return new Biome.BiomeBuilder()
-                .precipitation(Biome.Precipitation.RAIN)
+                .hasPrecipitation(true)
                 .temperature(0.6F)
                 .downfall(0.7F)
                 .specialEffects(
@@ -111,7 +111,7 @@ public final class RegisterWorldgen {
         addJellyfishCavesFeatures(builder2);
         Music music = Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_JELLYFISH_CAVES);
         return new Biome.BiomeBuilder()
-                .precipitation(Biome.Precipitation.RAIN)
+                .hasPrecipitation(true)
                 .temperature(0.8F)
                 .downfall(0.4F)
                 .specialEffects(
