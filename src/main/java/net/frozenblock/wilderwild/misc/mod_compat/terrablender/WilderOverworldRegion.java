@@ -35,6 +35,10 @@ public class WilderOverworldRegion extends Region {
 				builder.replaceBiome(Biomes.OLD_GROWTH_BIRCH_FOREST, RegisterWorldgen.MIXED_FOREST);
 			}
 
+			if (ClothConfigInteractionHandler.generateBirchTaiga()) {
+				builder.replaceBiome(Biomes.OLD_GROWTH_BIRCH_FOREST, RegisterWorldgen.BIRCH_TAIGA);
+			}
+
 			// DON'T CHANGE THESE PARAMETERS. THESE ARE THE PARAMETERS OF SWAMPS
 			List<Climate.ParameterPoint> swampPointsCypress = new ParameterUtils.ParameterPointListBuilder()
 					.temperature(Climate.Parameter.span(Temperature.COOL, Temperature.NEUTRAL))

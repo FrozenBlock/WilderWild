@@ -9,37 +9,9 @@ import static net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultWorldg
 
 public final class ClothConfigInteractionHandler {
 
-	// BLOCK
-
-
-
-	// ENTITY
-
-
-
-	// ITEM
-
-
-
-	// WORLDGEN
-
-
-
-	// MISC
-
-
-
 	public static boolean betaBeaches() {
 		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.betaBeaches() : BETA_BEACHES;
 	}
-
-	/*public static boolean modifyDesertPlacement() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.modifyDesertPlacement() : BiomePlacement.MODIFY_DESERT_PLACEMENT;
-	}
-
-	public static boolean modifyBadlandsPlacement() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.modifyBadlandsPlacement() : BiomePlacement.MODIFY_BADLANDS_PLACEMENT;
-	}*/
 
 	public static boolean modifyJunglePlacement() {
 		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.modifyJunglePlacement() : BiomePlacement.MODIFY_JUNGLE_PLACEMENT;
@@ -75,6 +47,10 @@ public final class ClothConfigInteractionHandler {
 
 	public static boolean generateWarmRiver() {
 		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.generateWarmRiver() : BiomeGeneration.GENERATE_WARM_RIVER;
+	}
+
+	public static boolean generateBirchTaiga() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.generateBirchTaiga() : BiomeGeneration.GENERATE_BIRCH_TAIGA;
 	}
 
 	public static boolean dyingTrees() {

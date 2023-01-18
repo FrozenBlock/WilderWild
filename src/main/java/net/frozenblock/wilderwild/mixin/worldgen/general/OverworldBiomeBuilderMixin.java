@@ -53,6 +53,18 @@ public final class OverworldBiomeBuilderMixin {
 						RegisterWorldgen.MIXED_FOREST
 				);
 			}
+			if (ClothConfigInteractionHandler.generateBirchTaiga()) {
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
+						WilderSharedWorldgen.BirchTaiga.HUMIDITY,
+						WilderSharedWorldgen.BirchTaiga.CONTINENTALNESS,
+						WilderSharedWorldgen.BirchTaiga.EROSION,
+						weirdness,
+						WilderSharedWorldgen.BirchTaiga.OFFSET,
+						RegisterWorldgen.BIRCH_TAIGA
+				);
+			}
 			if (ClothConfigInteractionHandler.generateCypressWetlands()) {
 				this.addSurfaceBiome(
 						parameters,
@@ -93,6 +105,18 @@ public final class OverworldBiomeBuilderMixin {
 						weirdness,
 						WilderSharedWorldgen.MixedForest.OFFSET,
 						RegisterWorldgen.MIXED_FOREST
+				);
+			}
+			if (ClothConfigInteractionHandler.generateBirchTaiga()) {
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
+						WilderSharedWorldgen.BirchTaiga.HUMIDITY,
+						WilderSharedWorldgen.BirchTaiga.CONTINENTALNESS,
+						WilderSharedWorldgen.BirchTaiga.EROSION,
+						weirdness,
+						WilderSharedWorldgen.BirchTaiga.OFFSET,
+						RegisterWorldgen.BIRCH_TAIGA
 				);
 			}
 			if (ClothConfigInteractionHandler.generateCypressWetlands()) {

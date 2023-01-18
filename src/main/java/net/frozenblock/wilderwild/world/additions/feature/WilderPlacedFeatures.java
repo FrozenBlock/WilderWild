@@ -45,6 +45,10 @@ public final class WilderPlacedFeatures {
             WilderConfiguredFeatures.FALLEN_TREES_MIXED, RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
             PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
+    public static final Holder<PlacedFeature> FALLEN_BIRCH_AND_SPRUCE_PLACED = register("fallen_birch_and_spruce_placed",
+            WilderConfiguredFeatures.FALLEN_BIRCH_AND_SPRUCE, RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
+            PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+
     public static final Holder<PlacedFeature> FALLEN_OAK_AND_SPRUCE_PLACED = register("fallen_oak_and_spruce_placed",
             WilderConfiguredFeatures.FALLEN_SPRUCE_AND_OAK, RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(),
             PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
@@ -122,6 +126,9 @@ public final class WilderPlacedFeatures {
 
     public static final Holder<PlacedFeature> MIXED_TREES = register("mixed_trees",
             WilderConfiguredFeatures.MIXED_TREES, treePlacement(PlacementUtils.countExtra(10, 0.1F, 1)));
+
+    public static final Holder<PlacedFeature> TAIGA_BIRCH_TREES = register("taiga_birch_trees",
+            WilderConfiguredFeatures.TAIGA_BIRCH_TREES, treePlacement(PlacementUtils.countExtra(10, 0.1F, 1)));
 
     public static final Holder<PlacedFeature> CYPRESS_WETLANDS_TREES = register("cypress_wetlands_trees",
             WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES, CountPlacement.of(28), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome(), BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(RegisterBlocks.CYPRESS_SAPLING.defaultBlockState(), BlockPos.ZERO)));

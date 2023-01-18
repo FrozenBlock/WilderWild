@@ -23,39 +23,10 @@ public final class ClothConfigCloserInteractionHandler {
 	private static final EntityConfig.JellyfishConfig JELLYFISH = ENTITY.jellyfish;
 	private static final EntityConfig.TumbleweedConfig TUMBLEWEED = ENTITY.tumbleweed;
 
-	// BLOCK
-
-
-
-	// ENTITY
-
-
-
-	// ITEM
-
-
-
-	// WORLDGEN
-
-
-
-	// MISC
-
-
-
 	public static boolean betaBeaches() {
 		return WilderWildConfig.get().worldgen.betaBeaches;
 	}
 
-	/*
-		public static boolean modifyDesertPlacement() {
-			return BIOME_PLACEMENT.modifyDesertPlacement;
-		}
-
-		public static boolean modifyBadlandsPlacement() {
-			return BIOME_PLACEMENT.modifyBadlandsPlacement;
-		}
-	*/
 	public static boolean modifyJunglePlacement() {
 		return BIOME_PLACEMENT.modifyJunglePlacement;
 	}
@@ -94,6 +65,10 @@ public final class ClothConfigCloserInteractionHandler {
 
 	public static boolean generateWarmRiver() {
 		return BIOME_GENERATION.generateWarmRiver;
+	}
+
+	public static boolean generateBirchTaiga() {
+		return BIOME_GENERATION.generateBirchTaiga;
 	}
 
 	public static boolean fallenLogs() {

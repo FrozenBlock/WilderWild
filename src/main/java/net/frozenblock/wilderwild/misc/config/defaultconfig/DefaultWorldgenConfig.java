@@ -3,8 +3,6 @@ package net.frozenblock.wilderwild.misc.config.defaultconfig;
 public class DefaultWorldgenConfig {
 
 	public static class BiomePlacement {
-		//public static final boolean MODIFY_DESERT_PLACEMENT = true;
-		//public boolean MODIFY_BADLANDS_PLACEMENT = true;
 		public static final boolean MODIFY_WINDSWEPT_SAVANNA_PLACEMENT = true;
 		public static final boolean MODIFY_JUNGLE_PLACEMENT = true;
 		public static final boolean MODIFY_SWAMP_PLACEMENT = true;
@@ -17,6 +15,7 @@ public class DefaultWorldgenConfig {
 		public static final boolean GENERATE_MIXED_FOREST = true;
 		public static final boolean GENERATE_OASIS = true;
 		public static final boolean GENERATE_WARM_RIVER = true;
+		public static final boolean GENERATE_BIRCH_TAIGA = false;
 	}
 
 	public static final boolean BETA_BEACHES = true;
