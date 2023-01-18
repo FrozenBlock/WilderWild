@@ -155,7 +155,7 @@ dependencies {
 	modCompileOnly("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
 
 	//Tom's Simple Storage
-	modImplementation("maven.modrinth:toms-storage:${tomsstorage_version}")
+	modCompileOnly("maven.modrinth:toms-storage:${tomsstorage_version}")
 
 	// Mod Menu
 	modImplementation("com.terraformersmc:modmenu:${modmenu_version}")
@@ -174,7 +174,7 @@ dependencies {
 	include(modImplementation("net.caffeinemc:mixin-config:1.0.0+1.17"))
 
 	// TerraBlender
-	modImplementation("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
+	modCompileOnly("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
 
 	// Sodium
 	modCompileOnly("maven.modrinth:sodium:${sodium_version}")
