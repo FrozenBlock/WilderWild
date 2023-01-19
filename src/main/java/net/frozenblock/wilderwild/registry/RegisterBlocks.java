@@ -12,6 +12,7 @@ import net.frozenblock.lib.block.api.FrozenSignBlock;
 import net.frozenblock.lib.block.api.FrozenWallSignBlock;
 import net.frozenblock.lib.block.api.FrozenWoodTypes;
 import net.frozenblock.lib.impl.BonemealBehaviors;
+import net.frozenblock.lib.shovel.impl.ShovelBehaviors;
 import net.frozenblock.wilderwild.block.AlgaeBlock;
 import net.frozenblock.wilderwild.block.BaobabLeaves;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
@@ -584,6 +585,7 @@ public final class RegisterBlocks {
         registerFlammability();
         registerFuels();
         registerBonemeal();
+		registerShovel();
     }
 
     private static boolean never(BlockState state, BlockGetter level, BlockPos pos) {
@@ -724,7 +726,6 @@ public final class RegisterBlocks {
 
     private static void registerBonemeal() {
         BonemealBehaviors.BONEMEAL_BEHAVIORS.put(Blocks.LILY_PAD, (context, level, pos, state, face, horizontal) -> {
-            WilderSharedConstants.log(Blocks.LILY_PAD, pos, "Bonemeal", WilderSharedConstants.DEV_LOGGING);
             if (!level.isClientSide) {
                 level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
                 level.setBlockAndUpdate(pos, RegisterBlocks.FLOWERING_LILY_PAD.defaultBlockState());
@@ -733,7 +734,6 @@ public final class RegisterBlocks {
             return false;
         });
 		BonemealBehaviors.BONEMEAL_BEHAVIORS.put(Blocks.DANDELION, (context, level, pos, state, face, horizontal) -> {
-			WilderSharedConstants.log(Blocks.DANDELION, pos, "Bonemeal", WilderSharedConstants.DEV_LOGGING);
 			if (!level.isClientSide) {
 				level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
 				level.setBlockAndUpdate(pos, RegisterBlocks.SEEDING_DANDELION.defaultBlockState());
@@ -742,5 +742,79 @@ public final class RegisterBlocks {
 			return false;
 		});
     }
+
+	private static void registerShovel() {
+		//TODO: Scooping Sounds
+		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.OAK_LOG, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().isVertical()) {
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_OAK_LOG.defaultBlockState());
+				return true;
+			}
+			return false;
+		});
+		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.BIRCH_LOG, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().isVertical()) {
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_BIRCH_LOG.defaultBlockState());
+				return true;
+			}
+			return false;
+		});
+		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.SPRUCE_LOG, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().isVertical()) {
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_SPRUCE_LOG.defaultBlockState());
+				return true;
+			}
+			return false;
+		});
+		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.DARK_OAK_LOG, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().isVertical()) {
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_DARK_OAK_LOG.defaultBlockState());
+				return true;
+			}
+			return false;
+		});
+		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.JUNGLE_LOG, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().isVertical()) {
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_JUNGLE_LOG.defaultBlockState());
+				return true;
+			}
+			return false;
+		});
+		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.ACACIA_LOG, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().isVertical()) {
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_ACACIA_LOG.defaultBlockState());
+				return true;
+			}
+			return false;
+		});
+		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.MANGROVE_LOG, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().isVertical()) {
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_MANGROVE_LOG.defaultBlockState());
+				return true;
+			}
+			return false;
+		});
+		ShovelBehaviors.SHOVEL_BEHAVIORS.put(RegisterBlocks.BAOBAB_LOG, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().isVertical()) {
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_BAOBAB_LOG.defaultBlockState());
+				return true;
+			}
+			return false;
+		});
+		ShovelBehaviors.SHOVEL_BEHAVIORS.put(RegisterBlocks.CYPRESS_LOG, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().isVertical()) {
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_CYPRESS_LOG.defaultBlockState());
+				return true;
+			}
+			return false;
+		});
+		ShovelBehaviors.SHOVEL_BEHAVIORS.put(RegisterBlocks.PALM_LOG, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().isVertical()) {
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_PALM_LOG.defaultBlockState());
+				return true;
+			}
+			return false;
+		});
+	}
 
 }
