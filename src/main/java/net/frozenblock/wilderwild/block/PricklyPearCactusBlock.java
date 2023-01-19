@@ -104,14 +104,12 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 			ItemStack stack = new ItemStack(RegisterItems.PRICKLY_PEAR);
 			stack.setCount(level.random.nextIntBetweenInclusive(1, 2));
 			popResource(level, pos, stack);
-			if (itemStack.is(Items.SHEARS)) {
-				if (!level.isClientSide) {
+			if (!level.isClientSide) {
+				if (itemStack.is(Items.SHEARS)) {
 					level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
 					itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
 					level.gameEvent(player, GameEvent.SHEAR, pos);
-				}
-			} else {
-				if (!level.isClientSide) {
+				} else {
 					//TODO: Pick Prickly Pear Sound
 					level.playSound(null, pos, SoundEvents.CAVE_VINES_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, 1.0F);
 					level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
