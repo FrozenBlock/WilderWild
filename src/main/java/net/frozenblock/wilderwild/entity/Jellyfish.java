@@ -105,6 +105,16 @@ public class Jellyfish extends NoFlopAbstractFish {
         return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
     }
 
+	public void setVariantFromPos(Level level, BlockPos pos) {
+		Holder<Biome> biome = level.getBiome(pos);
+		this.setVariant(JellyfishVariant.PINK);
+		if (biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)) {
+			this.setVariant(PEARLESCENT_VARIANTS.get(AdvancedMath.random().nextInt(PEARLESCENT_VARIANTS.size())));
+		} else {
+			this.setVariant(COLORED_VARIANTS.get(AdvancedMath.random().nextInt(COLORED_VARIANTS.size())));
+		}
+	}
+
     public static boolean canSpawn(EntityType<Jellyfish> type, ServerLevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
         Holder<Biome> biome = level.getBiome(pos);
 

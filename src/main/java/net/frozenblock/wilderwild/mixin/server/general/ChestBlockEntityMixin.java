@@ -1,6 +1,8 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
+import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.misc.interfaces.ChestBlockEntityInterface;
+import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -37,6 +39,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 
 	@Unique int bubbleTicks;
 	@Unique boolean canBubble = true;
+	@Unique boolean hasJellyfish = true;
 
 	@Shadow @Final @Mutable
 	private ContainerOpenersCounter openersCounter;
@@ -105,12 +108,14 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	public void load(CompoundTag tag, CallbackInfo info) {
 		this.bubbleTicks = tag.getInt("bubbleTicks");
 		this.canBubble = tag.getBoolean("canBubble");
+		this.hasJellyfish = tag.getBoolean("hasJellyfish");
 	}
 
 	@Inject(at = @At(value = "TAIL"), method = "saveAdditional")
 	public void saveAdditional(CompoundTag tag, CallbackInfo info) {
 		tag.putInt("bubbleTicks", this.bubbleTicks);
 		tag.putBoolean("canBubble", this.canBubble);
+		tag.putBoolean("hasJellyfish", this.hasJellyfish);
 	}
 
 	@Override
@@ -120,7 +125,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 
 	@Override
 	public void setCanBubble(boolean b) {
-		this.canBubble = false;
+		this.canBubble = b;
 	}
 
 	@Override
@@ -131,6 +136,36 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	@Override
 	public int getBubbleTick() {
 		return this.bubbleTicks;
+	}
+
+	@Override
+	public boolean getHasJellyfish() {
+		return this.hasJellyfish;
+	}
+
+	@Override
+	public void releaseJellyfish() {
+		ChestBlockEntity chest = ChestBlockEntity.class.cast(this);
+		if (this.hasJellyfish && chest.getBlockState().getValue(BlockStateProperties.WATERLOGGED) && chest.getLevel() != null) {
+			Level level = chest.getLevel();
+			ChestBlockEntity otherChest = getOtherEntity(level, chest.getBlockPos(), chest.getBlockState());
+			this.hasJellyfish = false;
+			if (otherChest != null) {
+				((ChestBlockEntityInterface)otherChest).setHasJellyfish(false);
+			}
+			Jellyfish jellyfish = new Jellyfish(RegisterEntities.JELLYFISH, level);
+			BlockPos chestPos = chest.getBlockPos();
+			jellyfish.setVariantFromPos(level, chestPos);
+			double additionalX = otherChest != null ? otherChest.getBlockPos().getX() - chestPos.getX() * 0.5 : 0;
+			double additionalZ = otherChest != null ? otherChest.getBlockPos().getZ() - chestPos.getZ() * 0.5 : 0;
+			jellyfish.setPos(chestPos.getX() + 0.5 + additionalX, chestPos.getY() + 0.7, chestPos.getZ() + 0.5 + additionalZ);
+			level.addFreshEntity(jellyfish);
+		}
+	}
+
+	@Override
+	public void setHasJellyfish(boolean b) {
+		this.hasJellyfish = b;
 	}
 
 	@Shadow

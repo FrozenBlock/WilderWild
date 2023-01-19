@@ -11,4 +11,10 @@ public interface ChestBlockEntityInterface {
 	int getBubbleTick();
 
 	void bubble();
+
+	void setHasJellyfish(boolean b);
+
+	boolean getHasJellyfish();
+
+	void releaseJellyfish();
 }
