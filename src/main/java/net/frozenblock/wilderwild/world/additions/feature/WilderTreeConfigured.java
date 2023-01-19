@@ -15,6 +15,7 @@ import net.frozenblock.wilderwild.world.generation.treedecorators.LeavesAroundTo
 import net.frozenblock.wilderwild.world.generation.treedecorators.ShelfFungusTreeDecorator;
 import net.frozenblock.wilderwild.world.generation.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.FallenTrunkWithLogs;
+import net.frozenblock.wilderwild.world.generation.trunk.JuniperTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.PalmTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.StraightTrunkWithLogs;
 import net.minecraft.core.Direction;
@@ -146,6 +147,9 @@ public final class WilderTreeConfigured {
 
 	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> TALL_WINE_PALM = WilderConfiguredFeatures.register("tall_wine_palm", Feature.TREE, winePalmBuilder(RegisterBlocks.PALM_LOG, RegisterBlocks.PALM_LEAVES, 10, 3, 3, 2)
 			.decorators(List.of(new LeavesAroundTopLogDecorator(0.3F, 0, 0, new RandomizedIntStateProvider(BlockStateProvider.simple(RegisterBlocks.COCONUT.defaultBlockState().setValue(BlockStateProperties.HANGING, true)), CoconutBlock.AGE, ConstantInt.of(0)), 4, List.of(Direction.DOWN)))).build());
+
+	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> JUNIPER = WilderConfiguredFeatures.register("juniper", Feature.TREE, (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(RegisterBlocks.CYPRESS_LOG), new JuniperTrunkPlacer(5, 1, 1), BlockStateProvider.simple(RegisterBlocks.CYPRESS_LEAVES), new RandomSpreadFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), ConstantInt.of(2), 4), new TwoLayersFeatureSize(1, 0, 1))).build());
+
 
 	private static TreeConfiguration.TreeConfigurationBuilder builder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, float logChance, IntProvider maxLogs, IntProvider logHeightFromTop, IntProvider extraBranchLength, int radius) {
         return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new StraightTrunkWithLogs(baseHeight, firstRandomHeight, secondRandomHeight, logChance, maxLogs, logHeightFromTop, extraBranchLength),
