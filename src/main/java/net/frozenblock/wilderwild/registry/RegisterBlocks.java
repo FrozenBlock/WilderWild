@@ -586,25 +586,27 @@ public final class RegisterBlocks {
     }
 
     private static void registerComposting() {
-        CompostingChanceRegistry.INSTANCE.add(CARNATION, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(CATTAIL, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(DATURA, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(MILKWEED, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(RegisterItems.MILKWEED_POD, 0.25F);
-        CompostingChanceRegistry.INSTANCE.add(SEEDING_DANDELION, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(FLOWERING_LILY_PAD, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(BROWN_SHELF_FUNGUS, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(RED_SHELF_FUNGUS, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(CYPRESS_LEAVES, 0.3F);
-        CompostingChanceRegistry.INSTANCE.add(BAOBAB_LEAVES, 0.3F);
-        CompostingChanceRegistry.INSTANCE.add(RegisterItems.BAOBAB_NUT, 0.3F);
-        CompostingChanceRegistry.INSTANCE.add(CYPRESS_SAPLING, 0.3F);
-        CompostingChanceRegistry.INSTANCE.add(GLORY_OF_THE_SNOW, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(BLUE_GLORY_OF_THE_SNOW, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(WHITE_GLORY_OF_THE_SNOW, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(PINK_GLORY_OF_THE_SNOW, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(PURPLE_GLORY_OF_THE_SNOW, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(ALGAE, 0.3F);
+		var registry = CompostingChanceRegistry.INSTANCE;
+
+        registry.add(CARNATION, 0.65F);
+        registry.add(CATTAIL, 0.65F);
+        registry.add(DATURA, 0.65F);
+        registry.add(MILKWEED, 0.65F);
+        registry.add(RegisterItems.MILKWEED_POD, 0.25F);
+        registry.add(SEEDING_DANDELION, 0.65F);
+        registry.add(FLOWERING_LILY_PAD, 0.65F);
+        registry.add(BROWN_SHELF_FUNGUS, 0.65F);
+        registry.add(RED_SHELF_FUNGUS, 0.65F);
+        registry.add(CYPRESS_LEAVES, 0.3F);
+        registry.add(BAOBAB_LEAVES, 0.3F);
+        registry.add(RegisterItems.BAOBAB_NUT, 0.3F);
+        registry.add(CYPRESS_SAPLING, 0.3F);
+        registry.add(GLORY_OF_THE_SNOW, 0.65F);
+        registry.add(BLUE_GLORY_OF_THE_SNOW, 0.65F);
+        registry.add(WHITE_GLORY_OF_THE_SNOW, 0.65F);
+        registry.add(PINK_GLORY_OF_THE_SNOW, 0.65F);
+        registry.add(PURPLE_GLORY_OF_THE_SNOW, 0.65F);
+        registry.add(ALGAE, 0.3F);
     }
 
     private static void registerFlammability() {
