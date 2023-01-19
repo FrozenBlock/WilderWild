@@ -67,7 +67,8 @@ public final class WilderMiscPlaced {
 	public static final Holder<PlacedFeature> MESSY_SAND_POOL = WilderPlacedFeatures.register("messy_sand_pool", WilderMiscConfigured.MESSY_SAND_POOL, CountPlacement.of(2), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(63), VerticalAnchor.aboveBottom(256)), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
 	public static final Holder<PlacedFeature> GRASS_PATH = WilderPlacedFeatures.register("grass_path", WilderMiscConfigured.GRASS_PATH, CountPlacement.of(4), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 	public static final Holder<PlacedFeature> MOSS_PATH_OASIS = WilderPlacedFeatures.register("moss_path_oasis", WilderMiscConfigured.MOSS_PATH_OASIS, RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
-
+	// BIRCH TAIGA
+	public static final Holder<PlacedFeature> COARSE_PATH_10 = WilderPlacedFeatures.register("coarse_dirt_path_10", WilderMiscConfigured.COARSE_PATH, RarityFilter.onAverageOnceEvery(10), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 	private static List<PlacementModifier> modifiers(PlacementModifier countModifier, PlacementModifier heightModifier) {
         return List.of(countModifier, InSquarePlacement.spread(), heightModifier, BiomeFilter.biome());
     }
