@@ -33,7 +33,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-//TODO: Move to FrozenBlock eventually
 @Mixin(ChestBlockEntity.class)
 public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 
@@ -156,8 +155,8 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 			Jellyfish jellyfish = new Jellyfish(RegisterEntities.JELLYFISH, level);
 			BlockPos chestPos = chest.getBlockPos();
 			jellyfish.setVariantFromPos(level, chestPos);
-			double additionalX = otherChest != null ? otherChest.getBlockPos().getX() - chestPos.getX() * -0.5 : 0;
-			double additionalZ = otherChest != null ? otherChest.getBlockPos().getZ() - chestPos.getZ() * -0.5 : 0;
+			double additionalX = otherChest != null ? otherChest.getBlockPos().getX() - chestPos.getX() * 0.25 : 0;
+			double additionalZ = otherChest != null ? otherChest.getBlockPos().getZ() - chestPos.getZ() * 0.25 : 0;
 			jellyfish.setPos(chestPos.getX() + 0.5 + additionalX, chestPos.getY() + 0.75, chestPos.getZ() + 0.5 + additionalZ);
 			level.addFreshEntity(jellyfish);
 		}
