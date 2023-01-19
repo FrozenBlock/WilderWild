@@ -89,6 +89,14 @@ public final class RegisterBlockSoundTypes {
             BLOCK_HOLLOWED_LOG_FALL
     );
 
+	public static final SoundType HOLLOWED_STEM = new SoundType(1.0F, 1.0F,
+			BLOCK_HOLLOWED_STEM_BREAK,
+			BLOCK_HOLLOWED_STEM_STEP,
+			BLOCK_HOLLOWED_STEM_PLACE,
+			BLOCK_HOLLOWED_STEM_HIT,
+			BLOCK_HOLLOWED_STEM_FALL
+	);
+
     public static final SoundType ECHO_GLASS = new SoundType(1.0F, 1.25F,
             RegisterSounds.BLOCK_ECHO_GLASS_BREAK,
             RegisterSounds.BLOCK_ECHO_GLASS_STEP,

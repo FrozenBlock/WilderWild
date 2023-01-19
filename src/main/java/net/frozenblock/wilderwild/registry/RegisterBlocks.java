@@ -67,6 +67,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -568,7 +569,7 @@ public final class RegisterBlocks {
 	private static HollowedLogBlock createHollowedStemBlock(MaterialColor mapColor) {
 		return new HollowedLogBlock(FabricBlockSettings.of(Material.NETHER_WOOD,
 						(state) -> mapColor)
-				.strength(2.0F).sound(RegisterBlockSoundTypes.HOLLOWED_LOG));
+				.strength(2.0F).sound(RegisterBlockSoundTypes.HOLLOWED_STEM));
 	}
 
     public static void registerBlockProperties() {
@@ -763,6 +764,7 @@ public final class RegisterBlocks {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
+					level.playSound(null, pos, RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.85F + (level.random.nextFloat() * 0.25F));
 				}
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_OAK_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
@@ -773,6 +775,7 @@ public final class RegisterBlocks {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
+					level.playSound(null, pos, RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.85F + (level.random.nextFloat() * 0.25F));
 				}
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_BIRCH_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
@@ -783,6 +786,7 @@ public final class RegisterBlocks {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
+					level.playSound(null, pos, RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.85F + (level.random.nextFloat() * 0.25F));
 				}
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_SPRUCE_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
@@ -793,6 +797,7 @@ public final class RegisterBlocks {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
+					level.playSound(null, pos, RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.85F + (level.random.nextFloat() * 0.25F));
 				}
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_DARK_OAK_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
@@ -803,6 +808,7 @@ public final class RegisterBlocks {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
+					level.playSound(null, pos, RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.85F + (level.random.nextFloat() * 0.25F));
 				}
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_JUNGLE_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
@@ -813,6 +819,7 @@ public final class RegisterBlocks {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
+					level.playSound(null, pos, RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.85F + (level.random.nextFloat() * 0.25F));
 				}
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_ACACIA_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
@@ -823,6 +830,7 @@ public final class RegisterBlocks {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
+					level.playSound(null, pos, RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.85F + (level.random.nextFloat() * 0.25F));
 				}
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_MANGROVE_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
@@ -833,6 +841,7 @@ public final class RegisterBlocks {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
+					level.playSound(null, pos, RegisterSounds.SHOVEL_STEM_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.85F + (level.random.nextFloat() * 0.25F));
 				}
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_CRIMSON_STEM.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
@@ -843,6 +852,7 @@ public final class RegisterBlocks {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
+					level.playSound(null, pos, RegisterSounds.SHOVEL_STEM_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.85F + (level.random.nextFloat() * 0.25F));
 				}
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_WARPED_STEM.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
@@ -853,6 +863,7 @@ public final class RegisterBlocks {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
+					level.playSound(null, pos, RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.85F + (level.random.nextFloat() * 0.25F));
 				}
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_BAOBAB_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
@@ -863,6 +874,7 @@ public final class RegisterBlocks {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
+					level.playSound(null, pos, RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.85F + (level.random.nextFloat() * 0.25F));
 				}
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_CYPRESS_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
@@ -873,6 +885,7 @@ public final class RegisterBlocks {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
+					level.playSound(null, pos, RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.85F + (level.random.nextFloat() * 0.25F));
 				}
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_PALM_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
