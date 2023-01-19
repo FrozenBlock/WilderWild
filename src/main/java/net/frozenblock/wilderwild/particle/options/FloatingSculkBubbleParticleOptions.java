@@ -6,9 +6,9 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Locale;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
-import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -78,7 +78,7 @@ public class FloatingSculkBubbleParticleOptions implements ParticleOptions {
 	}
 
 	public String writeToString() {
-		return String.format(Locale.ROOT, "%s %.2f %d %.2f %.2f %.2f", Registry.PARTICLE_TYPE.getKey(this.getType()), this.getSize(), this.getMaxAge(), this.velocity.x(), this.velocity.y(), this.velocity.z());
+		return String.format(Locale.ROOT, "%s %.2f %d %.2f %.2f %.2f", BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), this.getSize(), this.getMaxAge(), this.velocity.x(), this.velocity.y(), this.velocity.z());
 	}
 
 	public double getSize() {

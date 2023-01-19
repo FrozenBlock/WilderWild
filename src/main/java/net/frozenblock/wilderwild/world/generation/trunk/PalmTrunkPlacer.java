@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.world.generation.trunk;
 
 import com.google.common.collect.Lists;
-import com.mojang.math.Vector3f;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.ArrayList;
@@ -19,6 +18,7 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Vector3f;
 
 public class PalmTrunkPlacer extends TrunkPlacer {
 	public static final Codec<PalmTrunkPlacer> CODEC = RecordCodecBuilder.create(instance -> PalmTrunkPlacer.trunkPlacerParts(instance).apply(instance, PalmTrunkPlacer::new));

@@ -224,6 +224,7 @@ public class WilderFeatureBootstrap {
 		var placedDyingOakChecked = placedFeatures.getOrThrow(WilderTreePlaced.DYING_OAK_CHECKED);
 		var placedShortOakChecked = placedFeatures.getOrThrow(WilderTreePlaced.SHORT_OAK_CHECKED);
 		var placedOakBees0004 = placedFeatures.getOrThrow(WilderTreePlaced.OAK_BEES_0004);
+		var placedBirch = placedFeatures.getOrThrow(WilderTreePlaced.BIRCH_CHECKED);
 		var placedDyingBirch = placedFeatures.getOrThrow(WilderTreePlaced.DYING_BIRCH);
 		var placedBirchBees0004 = placedFeatures.getOrThrow(WilderTreePlaced.BIRCH_BEES_0004);
 		var placedDyingSuperBirch = placedFeatures.getOrThrow(WilderTreePlaced.DYING_SUPER_BIRCH);
@@ -270,6 +271,8 @@ public class WilderFeatureBootstrap {
 		var treesBirchTall = register(entries, WilderConfiguredFeatures.TREES_BIRCH_TALL, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(placedShortBirchBees0004, 0.002F), new WeightedPlacedFeature(placedDyingShortBirch, 0.0001F), new WeightedPlacedFeature(placedDyingSuperBirch, 0.032F), new WeightedPlacedFeature(placedBirchBees0004, 0.02F), new WeightedPlacedFeature(placedDyingBirch, 0.017F)), placedSuperBirchBees0004));
 		var treesFlowerForest = register(entries, WilderConfiguredFeatures.TREES_FLOWER_FOREST, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(placedShortBirchBees0004, 0.2F), new WeightedPlacedFeature(placedDyingShortBirch, 0.035F), new WeightedPlacedFeature(placedDyingOakChecked, 0.05F), new WeightedPlacedFeature(placedDyingFancyOakBees0004, 0.063F), new WeightedPlacedFeature(placedFancyOakBees0004, 0.205F), new WeightedPlacedFeature(placedShortOakChecked, 0.095F)), placedOakBees0004));
 		var mixedTrees = register(entries, WilderConfiguredFeatures.MIXED_TREES, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(placedSpruceChecked, 0.39F), new WeightedPlacedFeature(placedFungusPineChecked, 0.086F), new WeightedPlacedFeature(placedDyingFungusPineChecked, 0.02F), new WeightedPlacedFeature(placedSpruceShortChecked, 0.13F), new WeightedPlacedFeature(placedFancyOakBees0004, 0.37F), new WeightedPlacedFeature(placedDyingFancyOakBees0004, 0.025F), new WeightedPlacedFeature(placedDyingOakChecked, 0.01F), new WeightedPlacedFeature(placedDyingShortBirch, 0.01F), new WeightedPlacedFeature(placedShortOakChecked, 0.13F), new WeightedPlacedFeature(placedShortBirch, 0.325F)), placedOakChecked));
+		var birchTaigaTrees = register(entries, WilderConfiguredFeatures.BIRCH_TAIGA_TREES, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(placedSpruceChecked, 0.39F), new WeightedPlacedFeature(placedFungusPineChecked, 0.086F), new WeightedPlacedFeature(placedDyingFungusPineChecked, 0.02F), new WeightedPlacedFeature(placedSpruceShortChecked, 0.155F), new WeightedPlacedFeature(placedBirch, 0.37F), new WeightedPlacedFeature(placedDyingBirch, 0.01F), new WeightedPlacedFeature(placedDyingShortBirch, 0.01F), new WeightedPlacedFeature(placedShortBirch, 0.455F)), placedBirch));
+		var fallenBirchAndSpruce = register(entries, WilderConfiguredFeatures.FALLEN_BIRCH_AND_SPRUCE, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of((new WeightedPlacedFeature(placedFallenSpruceChecked, 0.6F)), new WeightedPlacedFeature(placedFallenBirchChecked, 0.4F)), placedFallenSpruceChecked));
 		var darkForestVegetation = register(entries, WilderConfiguredFeatures.DARK_FOREST_VEGETATION, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(TreeFeatures.HUGE_BROWN_MUSHROOM)), 0.025F), new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(TreeFeatures.HUGE_RED_MUSHROOM)), 0.05F), new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.DARK_OAK_CHECKED), 0.55F), new WeightedPlacedFeature(placedDyingDarkOakChecked, 0.075F), new WeightedPlacedFeature(placedShortBirch, 0.2F), new WeightedPlacedFeature(placedDyingShortBirch, 0.015F), new WeightedPlacedFeature(placedTallDarkOakChecked, 0.35F), new WeightedPlacedFeature(placedDyingTallDarkOakChecked, 0.048F), new WeightedPlacedFeature(placedDyingFancyOakChecked, 0.02F), new WeightedPlacedFeature(placedDyingOakChecked, 0.012F), new WeightedPlacedFeature(placedFancyOakChecked, 0.185F)), placedOakChecked));
 		var treesTaiga = register(entries, WilderConfiguredFeatures.TREES_TAIGA, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(placedFungusPineChecked, 0.33333334F), new WeightedPlacedFeature(placedDyingFungusPineChecked, 0.075F)), placedSpruceChecked));
 		var shortTreesTaiga = register(entries, WilderConfiguredFeatures.SHORT_TREES_TAIGA, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(placedSpruceShortChecked, 0.33333334F)), placedSpruceShortChecked));
@@ -528,6 +531,7 @@ public class WilderFeatureBootstrap {
 		var fallenCypressAndOak = configuredFeatures.getOrThrow(WilderConfiguredFeatures.FALLEN_CYPRESS_AND_OAK);
 		var fallenBirch = configuredFeatures.getOrThrow(WilderConfiguredFeatures.FALLEN_BIRCH);
 		var fallenSpruce = configuredFeatures.getOrThrow(WilderConfiguredFeatures.FALLEN_SPRUCE);
+		var fallenBirchAndSpruce = configuredFeatures.getOrThrow(WilderConfiguredFeatures.FALLEN_BIRCH_AND_SPRUCE);
 		var treesPlains = configuredFeatures.getOrThrow(WilderConfiguredFeatures.TREES_PLAINS);
 		var treesBirchAndOak = configuredFeatures.getOrThrow(WilderConfiguredFeatures.TREES_BIRCH_AND_OAK);
 		var treesFlowerForest = configuredFeatures.getOrThrow(WilderConfiguredFeatures.TREES_FLOWER_FOREST);
@@ -544,6 +548,7 @@ public class WilderFeatureBootstrap {
 		var windsweptSavannaTrees = configuredFeatures.getOrThrow(WilderConfiguredFeatures.WINDSWEPT_SAVANNA_TREES);
 		var savannaTrees = configuredFeatures.getOrThrow(WilderConfiguredFeatures.SAVANNA_TREES);
 		var mixedTrees = configuredFeatures.getOrThrow(WilderConfiguredFeatures.MIXED_TREES);
+		var birchTaigaTrees = configuredFeatures.getOrThrow(WilderConfiguredFeatures.BIRCH_TAIGA_TREES);
 		var cypressWetlandsTrees = configuredFeatures.getOrThrow(WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES);
 		var cypressWetlandsTreesWater = configuredFeatures.getOrThrow(WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES_WATER);
 		var brownShelfFungus = configuredFeatures.getOrThrow(WilderConfiguredFeatures.BROWN_SHELF_FUNGUS);
@@ -598,6 +603,10 @@ public class WilderFeatureBootstrap {
 		);
 		register(entries, WilderPlacedFeatures.FALLEN_SPRUCE_PLACED,
 				fallenSpruce, RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+		);
+		register(entries, WilderPlacedFeatures.FALLEN_BIRCH_AND_SPRUCE_PLACED,
+				fallenBirchAndSpruce, RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 		register(entries, WilderPlacedFeatures.TREES_PLAINS,
@@ -684,6 +693,10 @@ public class WilderFeatureBootstrap {
 		register(entries, WilderPlacedFeatures.MIXED_TREES,
 				mixedTrees,
 				treePlacement(PlacementUtils.countExtra(10, 0.1F, 1))
+		);
+		register(entries, WilderPlacedFeatures.BIRCH_TAIGA_TREES,
+				birchTaigaTrees,
+				treePlacement(CountPlacement.of(3))
 		);
 		register(entries, WilderPlacedFeatures.CYPRESS_WETLANDS_TREES,
 				cypressWetlandsTrees,

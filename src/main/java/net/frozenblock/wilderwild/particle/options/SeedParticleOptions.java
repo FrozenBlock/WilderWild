@@ -9,6 +9,7 @@ import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import org.jetbrains.annotations.NotNull;
 
@@ -56,7 +57,7 @@ public class SeedParticleOptions implements ParticleOptions {
 	}
 
 	public String writeToString() {
-		return String.format(Locale.ROOT, "%s %b %b", Registry.PARTICLE_TYPE.getKey(this.getType()), this.isMilkweed, this.controlled);
+		return String.format(Locale.ROOT, "%s %b %b", BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), this.isMilkweed, this.controlled);
 	}
 
 	public boolean isMilkweed() {
