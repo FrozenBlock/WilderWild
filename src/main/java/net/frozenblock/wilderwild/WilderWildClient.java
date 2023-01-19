@@ -330,7 +330,7 @@ public final class WilderWildClient implements ClientModInitializer {
 				if (Minecraft.getInstance().level == null)
 					throw new IllegalStateException("why is your world null");
 				for (int i = 0; i < count; i++) {
-					Minecraft.getInstance().level.addParticle(new SeedParticleOptions(milkweed, false), pos.x, pos.y, pos.z, 0, 0, 0);
+					ctx.level.addParticle(new SeedParticleOptions(milkweed, false), pos.x, pos.y, pos.z, 0, 0, 0);
 				}
 			});
 		});
@@ -348,7 +348,7 @@ public final class WilderWildClient implements ClientModInitializer {
 				if (Minecraft.getInstance().level == null)
 					throw new IllegalStateException("why is your world null");
 				for (int i = 0; i < count; i++) {
-					Minecraft.getInstance().level.addParticle(new SeedParticleOptions(milkweed, true), pos.x, pos.y, pos.z, velx, vely, velz);
+					ctx.level.addParticle(new SeedParticleOptions(milkweed, true), pos.x, pos.y, pos.z, velx, vely + (ctx.level.random.nextDouble() * 0.07), velz);
 				}
 			});
 		});
@@ -362,7 +362,7 @@ public final class WilderWildClient implements ClientModInitializer {
 				if (Minecraft.getInstance().level == null)
 					throw new IllegalStateException("why is your world null");
 				for (int i = 0; i < count; i++) {
-					Minecraft.getInstance().level.addParticle(RegisterParticles.TERMITE, pos.x, pos.y, pos.z, AdvancedMath.randomPosNeg() / 14, AdvancedMath.randomPosNeg() / 14, AdvancedMath.randomPosNeg() / 14);
+					ctx.level.addParticle(RegisterParticles.TERMITE, pos.x, pos.y, pos.z, AdvancedMath.randomPosNeg() / 14, AdvancedMath.randomPosNeg() / 14, AdvancedMath.randomPosNeg() / 14);
 				}
 			});
 		});
