@@ -866,6 +866,15 @@ public final class RegisterBlocks {
             }
             return false;
         });
+		BonemealBehaviors.BONEMEAL_BEHAVIORS.put(Blocks.DANDELION, (context, level, pos, state, face, horizontal) -> {
+			WilderSharedConstants.log(Blocks.DANDELION, pos, "Bonemeal", WilderSharedConstants.DEV_LOGGING);
+			if (!level.isClientSide) {
+				level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
+				level.setBlockAndUpdate(pos, RegisterBlocks.SEEDING_DANDELION.defaultBlockState());
+				return true;
+			}
+			return false;
+		});
     }
 
 }

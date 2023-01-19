@@ -69,6 +69,8 @@ public final class WilderMiscPlaced {
 	public static final ResourceKey<PlacedFeature> MESSY_SAND_POOL = key("messy_sand_pool");
 	public static final ResourceKey<PlacedFeature> GRASS_PATH = key("grass_path");
 	public static final ResourceKey<PlacedFeature> MOSS_PATH_OASIS = key("moss_path_oasis");
+	//BIRCH TAIGA
+	public static final ResourceKey<PlacedFeature> COARSE_PATH_10 = key("coarse_dirt_path_10");
 
 	private static List<PlacementModifier> modifiers(PlacementModifier countModifier, PlacementModifier heightModifier) {
         return List.of(countModifier, InSquarePlacement.spread(), heightModifier, BiomeFilter.biome());

@@ -127,7 +127,7 @@ public final class RegisterItems {
 
     public static void registerBlockItems() {
         WilderSharedConstants.logWild("Registering Block Items for", WilderSharedConstants.UNSTABLE_LOGGING);
-        Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id("baobab_nut"), BAOBAB_NUT);
+		registerItemAfter(Items.GLOW_BERRIES, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.FOOD_AND_DRINKS);
 
 		registerItemAfter(Items.MANGROVE_SIGN, BAOBAB_SIGN, "baobab_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
 		registerItemAfter(BAOBAB_SIGN, PALM_HANGING_SIGN, "palm_hanging_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
@@ -136,7 +136,7 @@ public final class RegisterItems {
 		registerItemAfter(BAOBAB_SIGN, CYPRESS_SIGN, "cypress_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
 		registerItemAfter(BAOBAB_SIGN, BAOBAB_HANGING_SIGN, "baobab_hanging_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
 
-        Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id("pollen"), POLLEN);
+		registerItemAfter(Items.GLOW_LICHEN, POLLEN, "pollen", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemAfter(RegisterBlocks.TUMBLEWEED_PLANT, new BlockItem(RegisterBlocks.TUMBLEWEED, new FabricItemSettings()), "tumbleweed", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemAfter(Blocks.CACTUS, PRICKLY_PEAR, "prickly_pear", CreativeModeTabs.NATURAL_BLOCKS);
     }
@@ -198,7 +198,6 @@ public final class RegisterItems {
 		registerItem(MAGENTA_FIREFLY_BOTTLE, "magenta_firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItem(PINK_FIREFLY_BOTTLE, "pink_firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
 
-		registerItemAfter(Items.GLOW_LICHEN, POLLEN, "pollen", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemBefore(Items.LILY_PAD, new AlgaeItem(RegisterBlocks.ALGAE, new FabricItemSettings()), "algae", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemAfter(Items.LILY_PAD, new FloweredLilyPadItem(RegisterBlocks.FLOWERING_LILY_PAD, new FabricItemSettings()), "flowering_lily_pad", CreativeModeTabs.NATURAL_BLOCKS);
 

@@ -46,7 +46,6 @@ public final class RegisterParticles {
     public static void registerParticles() {
         WilderSharedConstants.logWild("Registering Particles for", WilderSharedConstants.UNSTABLE_LOGGING);
         Registry.register(BuiltInRegistries.PARTICLE_TYPE, WilderSharedConstants.id("pollen"), POLLEN);
-        Registry.register(BuiltInRegistries.PARTICLE_TYPE, WilderSharedConstants.id("floating_sculk_bubble"), FLOATING_SCULK_BUBBLE);
         Registry.register(BuiltInRegistries.PARTICLE_TYPE, WilderSharedConstants.id("termite"), TERMITE);
         Registry.register(BuiltInRegistries.PARTICLE_TYPE, WilderSharedConstants.id("blue_pearlescent_hanging_mesoglea_drip"), BLUE_PEARLESCENT_HANGING_MESOGLEA);
         Registry.register(BuiltInRegistries.PARTICLE_TYPE, WilderSharedConstants.id("blue_pearlescent_falling_mesoglea_drip"), BLUE_PEARLESCENT_FALLING_MESOGLEA);
