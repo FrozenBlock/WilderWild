@@ -52,6 +52,7 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 		if (level.getBlockEntity(pos) instanceof ChestBlockEntity sourceChest) {
 			ChestBlockEntity chest = getLeftEntity(level, pos, state, sourceChest);
 			((ChestBlockEntityInterface) chest).bubble();
+			((ChestBlockEntityInterface) chest).releaseJellyfish();
 		}
 	}
 
