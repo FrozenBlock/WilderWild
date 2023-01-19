@@ -27,7 +27,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-//TODO: Move to FrozenBlock eventually
 @Mixin(ChestBlock.class)
 public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntity> {
 
@@ -64,13 +63,13 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 			BlockState otherState = otherChest.getBlockState();
 			boolean wasLogged = blockStateUnneeded.getValue(BlockStateProperties.WATERLOGGED);
 			if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
-				if (!otherState.getValue(BlockStateProperties.WATERLOGGED)) {
-					if (level.getBlockEntity(currentPos) instanceof ChestBlockEntity chest) {
+				if (level.getBlockEntity(currentPos) instanceof ChestBlockEntity chest) {
+					((ChestBlockEntityInterface) chest).setHasJellyfish(false);
+					((ChestBlockEntityInterface) otherChest).setHasJellyfish(false);
+					if (!otherState.getValue(BlockStateProperties.WATERLOGGED)) {
 						((ChestBlockEntityInterface) chest).setCanBubble(true);
 						((ChestBlockEntityInterface) otherChest).setCanBubble(true);
-					}
-				} else if (!((ChestBlockEntityInterface) otherChest).getCanBubble()) {
-					if (level.getBlockEntity(currentPos) instanceof ChestBlockEntity chest) {
+					} else if (!((ChestBlockEntityInterface) otherChest).getCanBubble()) {
 						((ChestBlockEntityInterface) chest).setCanBubble(false);
 						((ChestBlockEntityInterface) otherChest).setCanBubble(false);
 					}
@@ -81,6 +80,7 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 			if (level.getBlockEntity(currentPos) instanceof ChestBlockEntity chest) {
 				if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
 					((ChestBlockEntityInterface) chest).setCanBubble(true);
+					((ChestBlockEntityInterface) chest).setHasJellyfish(false);
 				}
 			}
 		}
