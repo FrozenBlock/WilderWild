@@ -895,7 +895,7 @@ public final class RegisterBlocks {
 		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.OAK_LOG, (context, level, pos, state, face, horizontal) -> {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
-					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX(), pos.getY(), pos.getZ(), level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
+					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
 				}
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_OAK_LOG.defaultBlockState());
 				return true;
@@ -905,7 +905,7 @@ public final class RegisterBlocks {
 		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.BIRCH_LOG, (context, level, pos, state, face, horizontal) -> {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
-					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX(), pos.getY(), pos.getZ(), level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
+					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
 				}
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_BIRCH_LOG.defaultBlockState());
 				return true;
@@ -915,7 +915,7 @@ public final class RegisterBlocks {
 		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.SPRUCE_LOG, (context, level, pos, state, face, horizontal) -> {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
-					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX(), pos.getY(), pos.getZ(), level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
+					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
 				}
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_SPRUCE_LOG.defaultBlockState());
 				return true;
@@ -925,7 +925,7 @@ public final class RegisterBlocks {
 		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.DARK_OAK_LOG, (context, level, pos, state, face, horizontal) -> {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
-					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX(), pos.getY(), pos.getZ(), level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
+					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
 				}
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_DARK_OAK_LOG.defaultBlockState());
 				return true;
@@ -935,7 +935,7 @@ public final class RegisterBlocks {
 		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.JUNGLE_LOG, (context, level, pos, state, face, horizontal) -> {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
-					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX(), pos.getY(), pos.getZ(), level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
+					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
 				}
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_JUNGLE_LOG.defaultBlockState());
 				return true;
@@ -945,7 +945,7 @@ public final class RegisterBlocks {
 		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.ACACIA_LOG, (context, level, pos, state, face, horizontal) -> {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
-					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX(), pos.getY(), pos.getZ(), level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
+					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
 				}
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_ACACIA_LOG.defaultBlockState());
 				return true;
@@ -955,7 +955,7 @@ public final class RegisterBlocks {
 		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.MANGROVE_LOG, (context, level, pos, state, face, horizontal) -> {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
-					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX(), pos.getY(), pos.getZ(), level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
+					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
 				}
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_MANGROVE_LOG.defaultBlockState());
 				return true;
@@ -965,7 +965,7 @@ public final class RegisterBlocks {
 		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.CRIMSON_STEM, (context, level, pos, state, face, horizontal) -> {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
-					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX(), pos.getY(), pos.getZ(), level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
+					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
 				}
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_CRIMSON_STEM.defaultBlockState());
 				return true;
@@ -975,7 +975,7 @@ public final class RegisterBlocks {
 		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.WARPED_STEM, (context, level, pos, state, face, horizontal) -> {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
-					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX(), pos.getY(), pos.getZ(), level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
+					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
 				}
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_WARPED_STEM.defaultBlockState());
 				return true;
@@ -985,7 +985,7 @@ public final class RegisterBlocks {
 		ShovelBehaviors.SHOVEL_BEHAVIORS.put(RegisterBlocks.BAOBAB_LOG, (context, level, pos, state, face, horizontal) -> {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
-					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX(), pos.getY(), pos.getZ(), level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
+					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
 				}
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_BAOBAB_LOG.defaultBlockState());
 				return true;
@@ -995,7 +995,7 @@ public final class RegisterBlocks {
 		ShovelBehaviors.SHOVEL_BEHAVIORS.put(RegisterBlocks.CYPRESS_LOG, (context, level, pos, state, face, horizontal) -> {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
-					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX(), pos.getY(), pos.getZ(), level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
+					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
 				}
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_CYPRESS_LOG.defaultBlockState());
 				return true;
@@ -1005,7 +1005,7 @@ public final class RegisterBlocks {
 		ShovelBehaviors.SHOVEL_BEHAVIORS.put(RegisterBlocks.PALM_LOG, (context, level, pos, state, face, horizontal) -> {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
-					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX(), pos.getY(), pos.getZ(), level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
+					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
 				}
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_PALM_LOG.defaultBlockState());
 				return true;
