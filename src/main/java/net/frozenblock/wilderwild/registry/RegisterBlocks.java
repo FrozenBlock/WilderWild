@@ -15,6 +15,7 @@ import net.frozenblock.lib.block.api.FrozenWallSignBlock;
 import net.frozenblock.lib.block.api.FrozenWoodTypes;
 import net.frozenblock.lib.impl.BonemealBehaviors;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
+import net.frozenblock.lib.shovel.impl.ShovelBehaviors;
 import net.frozenblock.wilderwild.block.AlgaeBlock;
 import net.frozenblock.wilderwild.block.BaobabLeaves;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
@@ -374,6 +375,8 @@ public final class RegisterBlocks {
     public static final Block HOLLOWED_ACACIA_LOG = createHollowedLogBlock(MaterialColor.COLOR_ORANGE, MaterialColor.STONE);
     public static final Block HOLLOWED_DARK_OAK_LOG = createHollowedLogBlock(MaterialColor.COLOR_BROWN, MaterialColor.COLOR_BROWN);
     public static final Block HOLLOWED_MANGROVE_LOG = createHollowedLogBlock(MaterialColor.COLOR_RED, MaterialColor.PODZOL);
+	public static final Block HOLLOWED_CRIMSON_STEM = createHollowedStemBlock(MaterialColor.CRIMSON_STEM);
+	public static final Block HOLLOWED_WARPED_STEM = createHollowedStemBlock(MaterialColor.WARPED_STEM);
     public static final Block HOLLOWED_BAOBAB_LOG = createHollowedLogBlock(MaterialColor.COLOR_ORANGE, MaterialColor.COLOR_BROWN);
     public static final Block HOLLOWED_CYPRESS_LOG = createHollowedLogBlock(MaterialColor.COLOR_LIGHT_GRAY, MaterialColor.STONE);
 	public static final Block HOLLOWED_PALM_LOG = createHollowedLogBlock(PALM_PLANKS_COLOR, PALM_BARK_COLOR);
@@ -385,6 +388,8 @@ public final class RegisterBlocks {
 		registerBlockAfter(true, Items.JUNGLE_LOG, "hollowed_jungle_log", HOLLOWED_JUNGLE_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(true, Items.ACACIA_LOG, "hollowed_acacia_log", HOLLOWED_ACACIA_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(true, Items.DARK_OAK_LOG, "hollowed_dark_oak_log", HOLLOWED_DARK_OAK_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(true, Items.CRIMSON_STEM, "hollowed_crimson_stem", HOLLOWED_CRIMSON_STEM, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(true, Items.WARPED_STEM, "hollowed_warped_stem", HOLLOWED_WARPED_STEM, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockBefore(true, BAOBAB_LOG, "hollowed_mangrove_log", HOLLOWED_MANGROVE_LOG, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(true, Items.MANGROVE_LOG, "hollowed_mangrove_log", HOLLOWED_MANGROVE_LOG, CreativeModeTabs.BUILDING_BLOCKS);
 
@@ -690,6 +695,13 @@ public final class RegisterBlocks {
                 .strength(2.0F).sound(RegisterBlockSoundTypes.HOLLOWED_LOG));
     }
 
+	private static HollowedLogBlock createHollowedStemBlock(MaterialColor mapColor) {
+		return new HollowedLogBlock(FabricBlockSettings.of(Material.NETHER_WOOD,
+						(state) -> mapColor)
+				//TODO: Hollowed Stem Sounds
+				.strength(2.0F).sound(RegisterBlockSoundTypes.HOLLOWED_LOG));
+	}
+
     public static void registerBlockProperties() {
         TermiteMoundBlockEntity.Termite.addDegradable(BAOBAB_LOG, HOLLOWED_BAOBAB_LOG);
         TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_BAOBAB_LOG, Blocks.AIR);
@@ -718,6 +730,7 @@ public final class RegisterBlocks {
         registerFlammability();
         registerFuels();
         registerBonemeal();
+		registerShovel();
     }
 
     private static boolean never(BlockState state, BlockGetter level, BlockPos pos) {
@@ -858,7 +871,6 @@ public final class RegisterBlocks {
 
     private static void registerBonemeal() {
         BonemealBehaviors.BONEMEAL_BEHAVIORS.put(Blocks.LILY_PAD, (context, level, pos, state, face, horizontal) -> {
-            WilderSharedConstants.log(Blocks.LILY_PAD, pos, "Bonemeal", WilderSharedConstants.DEV_LOGGING);
             if (!level.isClientSide) {
                 level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
                 level.setBlockAndUpdate(pos, FLOWERING_LILY_PAD.defaultBlockState());
@@ -867,7 +879,6 @@ public final class RegisterBlocks {
             return false;
         });
 		BonemealBehaviors.BONEMEAL_BEHAVIORS.put(Blocks.DANDELION, (context, level, pos, state, face, horizontal) -> {
-			WilderSharedConstants.log(Blocks.DANDELION, pos, "Bonemeal", WilderSharedConstants.DEV_LOGGING);
 			if (!level.isClientSide) {
 				level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
 				level.setBlockAndUpdate(pos, RegisterBlocks.SEEDING_DANDELION.defaultBlockState());
@@ -876,5 +887,93 @@ public final class RegisterBlocks {
 			return false;
 		});
     }
+
+	private static void registerShovel() {
+		//TODO: Scooping Sounds
+		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.OAK_LOG, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().isVertical()) {
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_OAK_LOG.defaultBlockState());
+				return true;
+			}
+			return false;
+		});
+		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.BIRCH_LOG, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().isVertical()) {
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_BIRCH_LOG.defaultBlockState());
+				return true;
+			}
+			return false;
+		});
+		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.SPRUCE_LOG, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().isVertical()) {
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_SPRUCE_LOG.defaultBlockState());
+				return true;
+			}
+			return false;
+		});
+		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.DARK_OAK_LOG, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().isVertical()) {
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_DARK_OAK_LOG.defaultBlockState());
+				return true;
+			}
+			return false;
+		});
+		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.JUNGLE_LOG, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().isVertical()) {
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_JUNGLE_LOG.defaultBlockState());
+				return true;
+			}
+			return false;
+		});
+		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.ACACIA_LOG, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().isVertical()) {
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_ACACIA_LOG.defaultBlockState());
+				return true;
+			}
+			return false;
+		});
+		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.MANGROVE_LOG, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().isVertical()) {
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_MANGROVE_LOG.defaultBlockState());
+				return true;
+			}
+			return false;
+		});
+		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.CRIMSON_STEM, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().isVertical()) {
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_CRIMSON_STEM.defaultBlockState());
+				return true;
+			}
+			return false;
+		});
+		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.WARPED_STEM, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().isVertical()) {
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_WARPED_STEM.defaultBlockState());
+				return true;
+			}
+			return false;
+		});
+		ShovelBehaviors.SHOVEL_BEHAVIORS.put(RegisterBlocks.BAOBAB_LOG, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().isVertical()) {
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_BAOBAB_LOG.defaultBlockState());
+				return true;
+			}
+			return false;
+		});
+		ShovelBehaviors.SHOVEL_BEHAVIORS.put(RegisterBlocks.CYPRESS_LOG, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().isVertical()) {
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_CYPRESS_LOG.defaultBlockState());
+				return true;
+			}
+			return false;
+		});
+		ShovelBehaviors.SHOVEL_BEHAVIORS.put(RegisterBlocks.PALM_LOG, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().isVertical()) {
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_PALM_LOG.defaultBlockState());
+				return true;
+			}
+			return false;
+		});
+	}
 
 }

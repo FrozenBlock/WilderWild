@@ -10,6 +10,8 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -26,6 +28,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -33,7 +36,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlock {
-    protected static final VoxelShape OUTLINE_SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 16.0D, 14.0D);
+    protected static final VoxelShape OUTLINE_SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 13.0D, 13.0D);
 
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 
@@ -49,20 +52,30 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if (!isFullyGrown(state)) {
-			if (random.nextInt(0, 2) == 0) {
+			if (random.nextInt(0, 3) == 0) {
 				level.setBlockAndUpdate(pos, state.setValue(AGE, state.getValue(AGE) + 1));
 			}
 		}
 	}
 
 	@Override
-	public VoxelShape getCollisionShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
+	public VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
 		return Shapes.empty();
 	}
 
 	@Override
 	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
 		return OUTLINE_SHAPE;
+	}
+
+	@Override
+	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Entity entity) {
+		entity.hurt(DamageSource.CACTUS, 0.5F);
+	}
+
+	@Override
+	public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull PathComputationType type) {
+		return false;
 	}
 
 	@Override
@@ -87,15 +100,22 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 	@Override
 	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		ItemStack itemStack = player.getItemInHand(hand);
-		if (itemStack.is(Items.SHEARS) && isFullyGrown(state)) {
+		if (isFullyGrown(state)) {
+			level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
+			ItemStack stack = new ItemStack(RegisterItems.PRICKLY_PEAR);
+			stack.setCount(level.random.nextIntBetweenInclusive(1, 2));
+			popResource(level, pos, stack);
 			if (!level.isClientSide) {
-				level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
-				level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
-				ItemStack stack = new ItemStack(RegisterItems.PRICKLY_PEAR);
-				stack.setCount(level.random.nextIntBetweenInclusive(1, 2));
-				popResource(level, pos, stack);
-				itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
-				level.gameEvent(player, GameEvent.SHEAR, pos);
+				if (itemStack.is(Items.SHEARS)) {
+					level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
+					itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
+					level.gameEvent(player, GameEvent.SHEAR, pos);
+				} else {
+					//TODO: Pick Prickly Pear Sound
+					level.playSound(null, pos, SoundEvents.CAVE_VINES_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, 1.0F);
+					level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+					player.hurt(DamageSource.CACTUS, 1F);
+				}
 			}
 			return InteractionResult.sidedSuccess(level.isClientSide);
 		} else {
