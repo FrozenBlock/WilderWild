@@ -289,6 +289,8 @@ public final class RegisterBlocks {
     public static final Block HOLLOWED_ACACIA_LOG = createHollowedLogBlock(MaterialColor.COLOR_ORANGE, MaterialColor.STONE);
     public static final Block HOLLOWED_DARK_OAK_LOG = createHollowedLogBlock(MaterialColor.COLOR_BROWN, MaterialColor.COLOR_BROWN);
     public static final Block HOLLOWED_MANGROVE_LOG = createHollowedLogBlock(MaterialColor.COLOR_RED, MaterialColor.PODZOL);
+	public static final Block HOLLOWED_CRIMSON_STEM = createHollowedStemBlock(MaterialColor.CRIMSON_STEM);
+	public static final Block HOLLOWED_WARPED_STEM = createHollowedStemBlock(MaterialColor.WARPED_STEM);
     public static final Block HOLLOWED_BAOBAB_LOG = createHollowedLogBlock(MaterialColor.COLOR_ORANGE, MaterialColor.COLOR_BROWN);
     public static final Block HOLLOWED_CYPRESS_LOG = createHollowedLogBlock(MaterialColor.COLOR_LIGHT_GRAY, MaterialColor.STONE);
 	public static final Block HOLLOWED_PALM_LOG = createHollowedLogBlock(PALM_PLANKS_COLOR, PALM_BARK_COLOR);
@@ -301,6 +303,8 @@ public final class RegisterBlocks {
         registerBlock("hollowed_acacia_log", HOLLOWED_ACACIA_LOG, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("hollowed_dark_oak_log", HOLLOWED_DARK_OAK_LOG, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("hollowed_mangrove_log", HOLLOWED_MANGROVE_LOG, CreativeModeTab.TAB_DECORATIONS);
+		registerBlock("hollowed_crimson_stem", HOLLOWED_CRIMSON_STEM, CreativeModeTab.TAB_DECORATIONS);
+		registerBlock("hollowed_warped_stem", HOLLOWED_WARPED_STEM, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("hollowed_baobab_log", HOLLOWED_BAOBAB_LOG, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("hollowed_cypress_log", HOLLOWED_CYPRESS_LOG, CreativeModeTab.TAB_DECORATIONS);
 		registerBlock("hollowed_palm_log", HOLLOWED_PALM_LOG, CreativeModeTab.TAB_DECORATIONS);
@@ -557,6 +561,12 @@ public final class RegisterBlocks {
                 .strength(2.0F).sound(RegisterBlockSoundTypes.HOLLOWED_LOG));
     }
 
+	private static HollowedLogBlock createHollowedStemBlock(MaterialColor mapColor) {
+		return new HollowedLogBlock(FabricBlockSettings.of(Material.NETHER_WOOD,
+						(state) -> mapColor)
+				.strength(2.0F).sound(RegisterBlockSoundTypes.HOLLOWED_LOG));
+	}
+
     public static void registerBlockProperties() {
         TermiteMoundBlockEntity.Termite.addDegradable(BAOBAB_LOG, HOLLOWED_BAOBAB_LOG);
         TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_BAOBAB_LOG, Blocks.AIR);
@@ -790,6 +800,20 @@ public final class RegisterBlocks {
 		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.MANGROVE_LOG, (context, level, pos, state, face, horizontal) -> {
 			if (!level.isClientSide && face.getAxis().isVertical()) {
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_MANGROVE_LOG.defaultBlockState());
+				return true;
+			}
+			return false;
+		});
+		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.CRIMSON_STEM, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().isVertical()) {
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_CRIMSON_STEM.defaultBlockState());
+				return true;
+			}
+			return false;
+		});
+		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.WARPED_STEM, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().isVertical()) {
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_WARPED_STEM.defaultBlockState());
 				return true;
 			}
 			return false;

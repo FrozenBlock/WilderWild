@@ -336,6 +336,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptionalTag(ConventionalBlockTags.GLASS_PANES)
 					.add(RegisterBlocks.ECHO_GLASS);
 
+			this.getOrCreateTagBuilder(ConventionalBlockTags.GLASS_BLOCKS)
+					.add(RegisterBlocks.ECHO_GLASS);
+
 			this.getOrCreateTagBuilder(WilderBlockTags.BUSH_MAY_PLACE_ON)
 					.addOptionalTag(BlockTags.SAND)
 					.addOptionalTag(BlockTags.DIRT);
@@ -348,6 +351,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(RegisterBlocks.HOLLOWED_JUNGLE_LOG)
 					.add(RegisterBlocks.HOLLOWED_MANGROVE_LOG)
 					.add(RegisterBlocks.HOLLOWED_SPRUCE_LOG)
+					.add(RegisterBlocks.HOLLOWED_WARPED_STEM)
+					.add(RegisterBlocks.HOLLOWED_CRIMSON_STEM)
 					.add(RegisterBlocks.HOLLOWED_BAOBAB_LOG)
 					.add(RegisterBlocks.HOLLOWED_CYPRESS_LOG)
 					.add(RegisterBlocks.HOLLOWED_PALM_LOG);
@@ -397,7 +402,15 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Blocks.REDSTONE_WIRE)
 					.add(Blocks.REDSTONE_BLOCK)
 					.add(Blocks.REDSTONE_TORCH)
-					.add(Blocks.REDSTONE_WALL_TORCH);
+					.add(Blocks.REDSTONE_WALL_TORCH)
+					.addOptional(ResourceKey.create(
+							Registry.BLOCK_REGISTRY,
+							WilderSharedConstants.id("hollowed_crimson_stem")
+					))
+					.addOptional(ResourceKey.create(
+							Registry.BLOCK_REGISTRY,
+							WilderSharedConstants.id("hollowed_warped_stem")
+					));
 
 			this.getOrCreateTagBuilder(WilderBlockTags.TERMITE_BREAKABLE)
 					.addOptionalTag(BlockTags.LEAVES)
