@@ -764,7 +764,7 @@ public final class RegisterBlocks {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
 				}
-				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_OAK_LOG.defaultBlockState());
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_OAK_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
 			}
 			return false;
@@ -774,7 +774,7 @@ public final class RegisterBlocks {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
 				}
-				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_BIRCH_LOG.defaultBlockState());
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_BIRCH_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
 			}
 			return false;
@@ -784,7 +784,7 @@ public final class RegisterBlocks {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
 				}
-				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_SPRUCE_LOG.defaultBlockState());
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_SPRUCE_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
 			}
 			return false;
@@ -794,7 +794,7 @@ public final class RegisterBlocks {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
 				}
-				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_DARK_OAK_LOG.defaultBlockState());
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_DARK_OAK_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
 			}
 			return false;
@@ -804,7 +804,7 @@ public final class RegisterBlocks {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
 				}
-				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_JUNGLE_LOG.defaultBlockState());
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_JUNGLE_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
 			}
 			return false;
@@ -814,7 +814,7 @@ public final class RegisterBlocks {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
 				}
-				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_ACACIA_LOG.defaultBlockState());
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_ACACIA_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
 			}
 			return false;
@@ -824,7 +824,7 @@ public final class RegisterBlocks {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
 				}
-				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_MANGROVE_LOG.defaultBlockState());
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_MANGROVE_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
 			}
 			return false;
@@ -834,7 +834,7 @@ public final class RegisterBlocks {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
 				}
-				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_CRIMSON_STEM.defaultBlockState());
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_CRIMSON_STEM.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
 			}
 			return false;
@@ -844,7 +844,7 @@ public final class RegisterBlocks {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
 				}
-				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_WARPED_STEM.defaultBlockState());
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_WARPED_STEM.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
 			}
 			return false;
@@ -854,7 +854,7 @@ public final class RegisterBlocks {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
 				}
-				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_BAOBAB_LOG.defaultBlockState());
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_BAOBAB_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
 			}
 			return false;
@@ -864,7 +864,7 @@ public final class RegisterBlocks {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
 				}
-				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_CYPRESS_LOG.defaultBlockState());
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_CYPRESS_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
 			}
 			return false;
@@ -874,7 +874,7 @@ public final class RegisterBlocks {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
 				}
-				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_PALM_LOG.defaultBlockState());
+				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_PALM_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
 			}
 			return false;
