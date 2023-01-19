@@ -1,7 +1,7 @@
 {
-	"textures": {
-		"particle": "#inner"
-	},
+    "textures": {
+      "particle": "#inner"
+    },
 	"elements": [
 		{
 			"name": "long",
@@ -51,8 +51,8 @@
 				"east": {"uv": [3, 0, 13, 16], "texture": "#outer"},
 				"south": {"uv": [0, 0, 3, 16], "texture": "#outer", "cullface": "south"},
 				"west": {"uv": [3, 0, 13, 16], "texture": "#inner", "cullface": "west"},
-				"up": {"uv": [13, 3, 16, 13], "texture": "#top"},
-				"down": {"uv": [13, 3, 16, 13], "texture": "#top"}
+				"up": {"uv": [0, 3, 3, 13], "texture": "#top"},
+				"down": {"uv": [0, 3, 3, 13], "texture": "#top"}
 			}
 		}
 	],
