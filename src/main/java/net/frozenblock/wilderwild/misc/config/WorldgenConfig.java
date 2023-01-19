@@ -23,8 +23,6 @@ public final class WorldgenConfig implements ConfigData {
     public final BiomePlacement biomePlacement = new BiomePlacement();
 
     protected static class BiomePlacement {
-        //public boolean modifyDesertPlacement = DefaultWorldgenConfig.BiomePlacement.modifyDesertPlacement;
-        //public boolean modifyBadlandsPlacement = DefaultWorldgenConfig.BiomePlacement.modifyBadlandsPlacement;
         public boolean modifyWindsweptSavannaPlacement = DefaultWorldgenConfig.BiomePlacement.MODIFY_WINDSWEPT_SAVANNA_PLACEMENT;
         public boolean modifyJunglePlacement = DefaultWorldgenConfig.BiomePlacement.MODIFY_JUNGLE_PLACEMENT;
         public boolean modifySwampPlacement = DefaultWorldgenConfig.BiomePlacement.MODIFY_SWAMP_PLACEMENT;
@@ -37,6 +35,7 @@ public final class WorldgenConfig implements ConfigData {
 		public boolean generateMixedForest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_MIXED_FOREST;
 		public boolean generateOasis = DefaultWorldgenConfig.BiomeGeneration.GENERATE_OASIS;
 		public boolean generateWarmRiver = DefaultWorldgenConfig.BiomeGeneration.GENERATE_WARM_RIVER;
+		public boolean generateBirchTaiga = DefaultWorldgenConfig.BiomeGeneration.GENERATE_BIRCH_TAIGA;
 	}
 
     public boolean betaBeaches = DefaultWorldgenConfig.BETA_BEACHES;
@@ -87,11 +86,17 @@ public final class WorldgenConfig implements ConfigData {
 				.setTooltip(tooltip("generate_warm_river"))
 				.requireRestart()
 				.build();
+		var birchTaiga = entryBuilder.startBooleanToggle(text("generate_birch_taiga"), biomes.generateBirchTaiga)
+				.setDefaultValue(DefaultWorldgenConfig.BiomeGeneration.GENERATE_BIRCH_TAIGA)
+				.setSaveConsumer(newValue -> biomes.generateBirchTaiga = newValue)
+				.setTooltip(tooltip("generate_birch_taiga"))
+				.requireRestart()
+				.build();
 
 		var biomeGenerationCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("biome_generation"),
 				false,
 				tooltip("biome_generation"),
-				cypressWetlands, jellyfishCaves, mixedForest, oasis, warmRiver
+				cypressWetlands, jellyfishCaves, mixedForest, oasis, warmRiver, birchTaiga
 		);
 
         /*

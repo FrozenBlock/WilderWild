@@ -153,6 +153,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.WINDSWEPT_SAVANNA)
 					.add(Biomes.WINDSWEPT_SAVANNA);
+
+			this.getOrCreateTagBuilder(BiomeTags.IS_TAIGA)
+					.addOptional(RegisterWorldgen.BIRCH_TAIGA);
 		}
 
 		private void generateClimateAndVegetationTags() {
@@ -165,10 +168,12 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.CYPRESS_WETLANDS);
 
 			this.getOrCreateTagBuilder(ConventionalBiomeTags.TREE_CONIFEROUS)
-					.addOptional(RegisterWorldgen.MIXED_FOREST);
+					.addOptional(RegisterWorldgen.MIXED_FOREST)
+					.addOptional(RegisterWorldgen.BIRCH_TAIGA);
 
 			this.getOrCreateTagBuilder(ConventionalBiomeTags.TREE_DECIDUOUS)
-					.addOptional(RegisterWorldgen.MIXED_FOREST);
+					.addOptional(RegisterWorldgen.MIXED_FOREST)
+					.addOptional(RegisterWorldgen.BIRCH_TAIGA);
 		}
 
 		private void generateUtilityTags() {
@@ -219,7 +224,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.OLD_GROWTH_PINE_TAIGA)
 					.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA)
 					.add(Biomes.TAIGA)
-					.add(Biomes.SNOWY_TAIGA);
+					.add(Biomes.SNOWY_TAIGA)
+					.addOptional(RegisterWorldgen.BIRCH_TAIGA);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.SAND_BEACHES)
 					.add(Biomes.DARK_FOREST)
@@ -241,7 +247,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.BIRCH_FOREST)
 					.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
 					.add(Biomes.DARK_FOREST)
-					.add(Biomes.TAIGA);
+					.add(Biomes.TAIGA)
+					.addOptional(RegisterWorldgen.BIRCH_TAIGA);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SMALL_SPONGE)
 					.add(Biomes.WARM_OCEAN);

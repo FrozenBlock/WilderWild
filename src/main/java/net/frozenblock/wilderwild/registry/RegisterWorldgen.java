@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.lib.mobcategory.api.FrozenMobCategories;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
 import net.minecraft.core.registries.Registries;
@@ -37,6 +38,7 @@ public final class RegisterWorldgen {
     public static final ResourceKey<Biome> MIXED_FOREST = register("mixed_forest");
 	public static final ResourceKey<Biome> WARM_RIVER = register("warm_river");
 	public static final ResourceKey<Biome> OASIS = register("oasis");
+	public static final ResourceKey<Biome> BIRCH_TAIGA = register("birch_taiga");
 
 	public static void bootstrap(BootstapContext<Biome> context) {
 		context.register(RegisterWorldgen.CYPRESS_WETLANDS, RegisterWorldgen.cypressWetlands(context));
@@ -44,6 +46,7 @@ public final class RegisterWorldgen {
 		context.register(RegisterWorldgen.MIXED_FOREST, RegisterWorldgen.mixedForest(context));
 		context.register(RegisterWorldgen.WARM_RIVER, RegisterWorldgen.warmRiver(context));
 		context.register(RegisterWorldgen.OASIS, RegisterWorldgen.oasis(context));
+		context.register(RegisterWorldgen.BIRCH_TAIGA, RegisterWorldgen.birchTaiga(context));
 	}
 
     private static ResourceKey<Biome> register(String name) {
@@ -193,6 +196,33 @@ public final class RegisterWorldgen {
 				.build();
 	}
 
+	public static Biome birchTaiga(BootstapContext<Biome> entries) {
+		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
+		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
+		BiomeDefaultFeatures.commonSpawns(builder);
+		BiomeDefaultFeatures.farmAnimals(builder);
+		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 2, 4, 4)).addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 2, 2, 3));
+		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
+		addBirchTaigaFeatures(builder2);
+		Music musicSound = Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS);
+		return new Biome.BiomeBuilder()
+				.precipitation(Biome.Precipitation.RAIN)
+				.temperature(0.3F)
+				.downfall(0.8F)
+				.specialEffects(
+						new BiomeSpecialEffects.Builder()
+								.waterColor(4159204)
+								.waterFogColor(329011)
+								.fogColor(12638463)
+								.skyColor(OverworldBiomes.calculateSkyColor(0.3F))
+								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+								.backgroundMusic(musicSound).build())
+				.mobSpawnSettings(builder.build())
+				.generationSettings(builder2.build())
+				.build();
+	}
+
 	public static void addCypressPaths(BiomeGenerationSettings.Builder builder) {
 		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_SAND_PATH);
 		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_GRAVEL_PATH);
@@ -298,6 +328,24 @@ public final class RegisterWorldgen {
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.OASIS_BUSH_PLACED);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.OASIS_CACTUS_PLACED);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PALMS_OASIS);
+	}
+
+	public static void addBirchTaigaFeatures(BiomeGenerationSettings.Builder builder) {
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SEEDING_DANDELION_MIXED);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MIXED_MUSHROOMS_PLACED);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BIRCH_TAIGA_TREES);
+		if (ClothConfigInteractionHandler.fallenLogs()) {
+			builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_BIRCH_AND_SPRUCE_PLACED);
+		}
+		addBasicFeatures(builder, BIRCH_TAIGA);
+		BiomeDefaultFeatures.addFerns(builder);
+		BiomeDefaultFeatures.addDefaultOres(builder);
+		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
+		BiomeDefaultFeatures.addTaigaTrees(builder);
+		BiomeDefaultFeatures.addDefaultFlowers(builder);
+		BiomeDefaultFeatures.addTaigaGrass(builder);
+		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
+		BiomeDefaultFeatures.addCommonBerryBushes(builder);
 	}
 
 	private static void addBasicFeatures(BiomeGenerationSettings.Builder builder, ResourceKey<Biome> biome) {

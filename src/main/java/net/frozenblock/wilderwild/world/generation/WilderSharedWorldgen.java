@@ -75,6 +75,29 @@ public final class WilderSharedWorldgen {
         public static final float OFFSET = 0.0F;
     }
 
+	public static final class BirchTaiga {
+		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.COOL, Temperature.NEUTRAL);
+		public static final Climate.Parameter HUMIDITY = Humidity.WET;
+		public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.INLAND, Continentalness.FAR_INLAND);
+		public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_1, Erosion.EROSION_6);
+		public static final List<Climate.Parameter> LOW_WEIRDNESS = new ArrayList<>() {{
+			add(Weirdness.LOW_SLICE_NORMAL_DESCENDING);
+			add(Weirdness.LOW_SLICE_VARIANT_ASCENDING);
+		}};
+		public static final List<Climate.Parameter> MID_WEIRDNESS = new ArrayList<>() {{
+			add(Weirdness.MID_SLICE_NORMAL_ASCENDING);
+			add(Weirdness.MID_SLICE_NORMAL_DESCENDING);
+			add(Weirdness.MID_SLICE_VARIANT_ASCENDING);
+			add(Weirdness.MID_SLICE_VARIANT_DESCENDING);
+		}};
+		public static final List<Climate.Parameter> WEIRDNESS = new ArrayList<>() {{
+			addAll(LOW_WEIRDNESS);
+			addAll(MID_WEIRDNESS);
+		}};
+		public static final Climate.Parameter DEPTH = Depth.SURFACE;
+		public static final float OFFSET = 0.0F;
+	}
+
     public static final class JellyfishCaves {
         public static final Climate.Parameter TEMPERATURE = Temperature.FULL_RANGE;
         public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.DRY, Humidity.HUMID);

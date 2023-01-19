@@ -23,6 +23,8 @@ public final class WilderPlacedFeatures {
 
     public static final ResourceKey<PlacedFeature> FALLEN_SPRUCE_PLACED = key("fallen_spruce_placed");
 
+	public static final ResourceKey<PlacedFeature> FALLEN_BIRCH_AND_SPRUCE_PLACED = key("fallen_birch_and_spruce_placed");
+
     //TREES
     public static final ResourceKey<PlacedFeature> TREES_PLAINS = key("trees_plains");
 
@@ -61,6 +63,8 @@ public final class WilderPlacedFeatures {
     public static final ResourceKey<PlacedFeature> TREES_SWAMP = key("trees_swamp");
 
     public static final ResourceKey<PlacedFeature> MIXED_TREES = key("mixed_trees");
+
+	public static final ResourceKey<PlacedFeature> BIRCH_TAIGA_TREES = key("birch_taiga_trees");
 
     public static final ResourceKey<PlacedFeature> CYPRESS_WETLANDS_TREES = key("cypress_wetlands_trees");
 

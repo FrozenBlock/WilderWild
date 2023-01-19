@@ -65,6 +65,7 @@ public class SeedParticle extends TextureSheetParticle {
 			seedParticle.gravity = 0.01F;
 			seedParticle.xd = (windex + level.random.triangle(0, 0.8)) / 17;
 			seedParticle.zd = (windZ + level.random.triangle(0, 0.8)) / 17;
+			seedParticle.yd = options.isControlled() ? ySpeed : seedParticle.yd;
 			seedParticle.setColor(250F / 255F, 250F / 255F, 250F / 255F);
 			seedParticle.windIntensity = options.isControlled() ? 0.5 : 1;
             return seedParticle;
