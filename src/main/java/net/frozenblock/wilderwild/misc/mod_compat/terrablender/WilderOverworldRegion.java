@@ -7,6 +7,7 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Depth;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
+import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
@@ -30,24 +31,118 @@ public class WilderOverworldRegion extends Region {
 	@Override
 	public void addBiomes(Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper) {
 		this.addModifiedVanillaOverworldBiomes(mapper, builder -> {
-			// This will not grant the exact parameters as defined in SharedWorldgen. Instead, it will replace a part of old growth birch forests with mixed forests.
+
+			OverworldBiomeBuilderParameters.BiomeParameters oldGrowthBirchForest = OverworldBiomeBuilderParameters.getParameters(Biomes.OLD_GROWTH_BIRCH_FOREST.location());
+			List<Climate.ParameterPoint> oldGrowthBirchForestPoints = new ParameterUtils.ParameterPointListBuilder()
+					.temperature(oldGrowthBirchForest.temperatures.toArray(new Climate.Parameter[0]))
+					.humidity(oldGrowthBirchForest.humidities.toArray(new Climate.Parameter[0]))
+					.continentalness(oldGrowthBirchForest.continentalnesses.toArray(new Climate.Parameter[0]))
+					.erosion(oldGrowthBirchForest.erosions.toArray(new Climate.Parameter[0]))
+					.depth(oldGrowthBirchForest.depths.toArray(new Climate.Parameter[0]))
+					.weirdness(oldGrowthBirchForest.weirdnesses.toArray(new Climate.Parameter[0]))
+					.offset(oldGrowthBirchForest.offsets.toArray(new Float[0]))
+					.build();
+
 			if (ClothConfigInteractionHandler.generateMixedForest()) {
-				builder.replaceBiome(Biomes.OLD_GROWTH_BIRCH_FOREST, RegisterWorldgen.MIXED_FOREST);
+				oldGrowthBirchForestPoints.forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.CypressWetlands.TEMPERATURE,
+									WilderSharedWorldgen.CypressWetlands.HUMIDITY,
+									WilderSharedWorldgen.CypressWetlands.CONTINENTALNESS,
+									WilderSharedWorldgen.CypressWetlands.EROSION,
+									point.depth(),
+									point.weirdness(),
+									WilderSharedWorldgen.CypressWetlands.OFFSET
+							)
+					);
+
+					builder.replaceBiome(point, RegisterWorldgen.MIXED_FOREST);
+				});
 			}
+
+			OverworldBiomeBuilderParameters.BiomeParameters taiga = OverworldBiomeBuilderParameters.getParameters(Biomes.TAIGA.location());
+			List<Climate.ParameterPoint> taigaPoints = new ParameterUtils.ParameterPointListBuilder()
+					.temperature(taiga.temperatures.toArray(new Climate.Parameter[0]))
+					.humidity(taiga.humidities.toArray(new Climate.Parameter[0]))
+					.continentalness(taiga.continentalnesses.toArray(new Climate.Parameter[0]))
+					.erosion(taiga.erosions.toArray(new Climate.Parameter[0]))
+					.depth(taiga.depths.toArray(new Climate.Parameter[0]))
+					.weirdness(taiga.weirdnesses.toArray(new Climate.Parameter[0]))
+					.offset(taiga.offsets.toArray(new Float[0]))
+					.build();
 
 			if (ClothConfigInteractionHandler.generateBirchTaiga()) {
-				builder.replaceBiome(Biomes.OLD_GROWTH_BIRCH_FOREST, RegisterWorldgen.BIRCH_TAIGA);
+				taigaPoints.forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
+									WilderSharedWorldgen.BirchTaiga.HUMIDITY,
+									WilderSharedWorldgen.BirchTaiga.CONTINENTALNESS,
+									WilderSharedWorldgen.BirchTaiga.EROSION,
+									point.depth(),
+									point.weirdness(),
+									WilderSharedWorldgen.BirchTaiga.OFFSET
+							)
+					);
+
+					builder.replaceBiome(point, RegisterWorldgen.BIRCH_TAIGA);
+				});
 			}
 
-			// DON'T CHANGE THESE PARAMETERS. THESE ARE THE PARAMETERS OF SWAMPS
+			OverworldBiomeBuilderParameters.BiomeParameters flowerForest = OverworldBiomeBuilderParameters.getParameters(Biomes.FLOWER_FOREST.location());
+			List<Climate.ParameterPoint> flowerForestPoints = new ParameterUtils.ParameterPointListBuilder()
+					.temperature(flowerForest.temperatures.toArray(new Climate.Parameter[0]))
+					.humidity(flowerForest.humidities.toArray(new Climate.Parameter[0]))
+					.continentalness(flowerForest.continentalnesses.toArray(new Climate.Parameter[0]))
+					.erosion(flowerForest.erosions.toArray(new Climate.Parameter[0]))
+					.depth(flowerForest.depths.toArray(new Climate.Parameter[0]))
+					.weirdness(flowerForest.weirdnesses.toArray(new Climate.Parameter[0]))
+					.offset(flowerForest.offsets.toArray(new Float[0]))
+					.build();
+
+			if (ClothConfigInteractionHandler.generateFlowerField()) {
+				flowerForestPoints.forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.FlowerField.TEMPERATURE,
+									WilderSharedWorldgen.FlowerField.HUMIDITY_A,
+									point.continentalness(),
+									point.erosion(),
+									point.depth(),
+									point.weirdness(),
+									WilderSharedWorldgen.FlowerField.OFFSET
+							)
+					);
+
+					builder.replaceBiome(point, RegisterWorldgen.FLOWER_FIELD);
+				});
+				flowerForestPoints.forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.FlowerField.TEMPERATURE,
+									WilderSharedWorldgen.FlowerField.HUMIDITY_B,
+									point.continentalness(),
+									point.erosion(),
+									point.depth(),
+									point.weirdness(),
+									WilderSharedWorldgen.FlowerField.OFFSET
+							)
+					);
+
+					builder.replaceBiome(point, RegisterWorldgen.FLOWER_FIELD);
+				});
+			}
+
+			OverworldBiomeBuilderParameters.BiomeParameters swamp = OverworldBiomeBuilderParameters.getParameters(Biomes.SWAMP.location());
 			List<Climate.ParameterPoint> swampPointsCypress = new ParameterUtils.ParameterPointListBuilder()
-					.temperature(Climate.Parameter.span(Temperature.COOL, Temperature.NEUTRAL))
-					.humidity(Humidity.FULL_RANGE)
-					.continentalness(Climate.Parameter.span(Continentalness.NEAR_INLAND, Continentalness.FAR_INLAND))
-					.erosion(Erosion.EROSION_6)
-					.depth(Depth.SURFACE, Depth.FLOOR)
-					.weirdness(Weirdness.VALLEY, Weirdness.LOW_SLICE_NORMAL_DESCENDING, Weirdness.LOW_SLICE_VARIANT_ASCENDING, Weirdness.MID_SLICE_NORMAL_ASCENDING, Weirdness.MID_SLICE_NORMAL_DESCENDING, Weirdness.MID_SLICE_VARIANT_ASCENDING, Weirdness.MID_SLICE_VARIANT_DESCENDING)
-					.offset(0.0F)
+					.temperature(swamp.temperatures.toArray(new Climate.Parameter[0]))
+					.humidity(swamp.humidities.toArray(new Climate.Parameter[0]))
+					.continentalness(swamp.continentalnesses.toArray(new Climate.Parameter[0]))
+					.erosion(swamp.erosions.toArray(new Climate.Parameter[0]))
+					.depth(swamp.depths.toArray(new Climate.Parameter[0]))
+					.weirdness(swamp.weirdnesses.toArray(new Climate.Parameter[0]))
+					.offset(swamp.offsets.toArray(new Float[0]))
 					.build();
 
 			if (ClothConfigInteractionHandler.generateCypressWetlands()) {
@@ -68,15 +163,15 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			// DON'T CHANGE THESE PARAMETERS. THESE ARE THE PARAMETERS OF MANGROVE SWAMPS
+			OverworldBiomeBuilderParameters.BiomeParameters mangroveSwamp = OverworldBiomeBuilderParameters.getParameters(Biomes.MANGROVE_SWAMP.location());
 			List<Climate.ParameterPoint> mangroveSwampPointsCypress = new ParameterUtils.ParameterPointListBuilder()
-					.temperature(Climate.Parameter.span(Temperature.WARM, Temperature.HOT))
-					.humidity(Humidity.FULL_RANGE)
-					.continentalness(Climate.Parameter.span(Continentalness.NEAR_INLAND, Continentalness.FAR_INLAND))
-					.erosion(Erosion.EROSION_6)
-					.depth(Depth.SURFACE, Depth.FLOOR)
-					.weirdness(Weirdness.VALLEY, Weirdness.LOW_SLICE_NORMAL_DESCENDING, Weirdness.LOW_SLICE_VARIANT_ASCENDING, Weirdness.MID_SLICE_NORMAL_ASCENDING, Weirdness.MID_SLICE_NORMAL_DESCENDING, Weirdness.MID_SLICE_VARIANT_ASCENDING, Weirdness.MID_SLICE_VARIANT_DESCENDING)
-					.offset(0.0F)
+					.temperature(mangroveSwamp.temperatures.toArray(new Climate.Parameter[0]))
+					.humidity(mangroveSwamp.humidities.toArray(new Climate.Parameter[0]))
+					.continentalness(mangroveSwamp.continentalnesses.toArray(new Climate.Parameter[0]))
+					.erosion(mangroveSwamp.erosions.toArray(new Climate.Parameter[0]))
+					.depth(mangroveSwamp.depths.toArray(new Climate.Parameter[0]))
+					.weirdness(mangroveSwamp.weirdnesses.toArray(new Climate.Parameter[0]))
+					.offset(mangroveSwamp.offsets.toArray(new Float[0]))
 					.build();
 
 			if (ClothConfigInteractionHandler.generateCypressWetlands()) {
@@ -97,15 +192,15 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			// DON'T CHANGE THESE PARAMETERS. THESE ARE THE PARAMETERS OF DRIPSTONE CAVES
+			OverworldBiomeBuilderParameters.BiomeParameters dripstoneCaves = OverworldBiomeBuilderParameters.getParameters(Biomes.DRIPSTONE_CAVES.location());
 			List<Climate.ParameterPoint> dripstoneCavesPoints = new ParameterUtils.ParameterPointListBuilder()
-					.temperature(Temperature.FULL_RANGE)
-					.humidity(Humidity.FULL_RANGE)
-					.continentalness(Climate.Parameter.span(0.8F, 1.0F))
-					.erosion(Erosion.FULL_RANGE)
-					.depth(Climate.Parameter.span(0.2F, 0.9F))
-					.weirdness(Weirdness.FULL_RANGE)
-					.offset(0.0F)
+					.temperature(dripstoneCaves.temperatures.toArray(new Climate.Parameter[0]))
+					.humidity(dripstoneCaves.humidities.toArray(new Climate.Parameter[0]))
+					.continentalness(dripstoneCaves.continentalnesses.toArray(new Climate.Parameter[0]))
+					.erosion(dripstoneCaves.erosions.toArray(new Climate.Parameter[0]))
+					.depth(dripstoneCaves.depths.toArray(new Climate.Parameter[0]))
+					.weirdness(dripstoneCaves.weirdnesses.toArray(new Climate.Parameter[0]))
+					.offset(dripstoneCaves.offsets.toArray(new Float[0]))
 					.build();
 
 			if (ClothConfigInteractionHandler.generateJellyfishCaves()) {
@@ -125,15 +220,15 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			// DON'T CHANGE THESE PARAMETERS. THESE ARE THE PARAMETERS OF DESERTS
+			OverworldBiomeBuilderParameters.BiomeParameters desert = OverworldBiomeBuilderParameters.getParameters(Biomes.DESERT.location());
 			List<Climate.ParameterPoint> desertPoints = new ParameterUtils.ParameterPointListBuilder()
-					.temperature(Temperature.HOT)
-					.humidity(Humidity.WET, Humidity.HUMID, Humidity.NEUTRAL, Humidity.DRY, Humidity.ARID)
-					.continentalness(Continentalness.COAST, Continentalness.MID_INLAND, Continentalness.FAR_INLAND)
-					.erosion(Erosion.EROSION_4, Erosion.EROSION_6, Erosion.EROSION_0, Erosion.EROSION_1, Erosion.EROSION_2, Erosion.EROSION_3)
-					.depth(Depth.SURFACE, Depth.FLOOR)
-					.weirdness(Weirdness.MID_SLICE_VARIANT_DESCENDING, Weirdness.MID_SLICE_NORMAL_DESCENDING, Weirdness.MID_SLICE_VARIANT_ASCENDING, Weirdness.MID_SLICE_NORMAL_ASCENDING, Weirdness.LOW_SLICE_VARIANT_ASCENDING, Weirdness.LOW_SLICE_NORMAL_DESCENDING)
-					.offset(0.0F)
+					.temperature(desert.temperatures.toArray(new Climate.Parameter[0]))
+					.humidity(desert.humidities.toArray(new Climate.Parameter[0]))
+					.continentalness(desert.continentalnesses.toArray(new Climate.Parameter[0]))
+					.erosion(desert.erosions.toArray(new Climate.Parameter[0]))
+					.depth(desert.depths.toArray(new Climate.Parameter[0]))
+					.weirdness(desert.weirdnesses.toArray(new Climate.Parameter[0]))
+					.offset(desert.offsets.toArray(new Float[0]))
 					.build();
 
 			if (ClothConfigInteractionHandler.generateOasis()) {
@@ -154,15 +249,15 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			// DON'T CHANGE THESE PARAMETERS. THESE ARE THE PARAMETERS OF RIVERS
+			OverworldBiomeBuilderParameters.BiomeParameters river = OverworldBiomeBuilderParameters.getParameters(Biomes.RIVER.location());
 			List<Climate.ParameterPoint> riverPoints = new ParameterUtils.ParameterPointListBuilder()
-					.temperature(Climate.Parameter.span(Temperature.COOL, Temperature.HOT))
-					.humidity(Humidity.FULL_RANGE)
-					.continentalness(Continentalness.COAST, Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND), Climate.Parameter.span(Continentalness.INLAND, Continentalness.FAR_INLAND))
-					.erosion(Climate.Parameter.span(Erosion.EROSION_0, Erosion.EROSION_1), Erosion.EROSION_6, Climate.Parameter.span(Erosion.EROSION_2, Erosion.EROSION_5))
-					.depth(Depth.SURFACE, Depth.FLOOR)
-					.weirdness(ParameterUtils.Weirdness.VALLEY)
-					.offset(0.0F)
+					.temperature(river.temperatures.toArray(new Climate.Parameter[0]))
+					.humidity(river.humidities.toArray(new Climate.Parameter[0]))
+					.continentalness(river.continentalnesses.toArray(new Climate.Parameter[0]))
+					.erosion(river.erosions.toArray(new Climate.Parameter[0]))
+					.depth(river.depths.toArray(new Climate.Parameter[0]))
+					.weirdness(river.weirdnesses.toArray(new Climate.Parameter[0]))
+					.offset(river.offsets.toArray(new Float[0]))
 					.build();
 
 			if (ClothConfigInteractionHandler.generateWarmRiver()) {
@@ -184,15 +279,14 @@ public class WilderOverworldRegion extends Region {
 			}
 
 			if (ClothConfigInteractionHandler.modifyMangroveSwampPlacement()) {
-				// DON'T CHANGE THESE PARAMETERS. THESE ARE THE PARAMETERS OF MANGROVE SWAMPS
 				List<Climate.ParameterPoint> mangroveSwampPoints = new ParameterUtils.ParameterPointListBuilder()
-						.temperature(Climate.Parameter.span(Temperature.WARM, Temperature.HOT))
-						.humidity(Humidity.FULL_RANGE)
-						.continentalness(Climate.Parameter.span(Continentalness.NEAR_INLAND, Continentalness.FAR_INLAND))
-						.erosion(Erosion.EROSION_6)
-						.depth(Depth.SURFACE, Depth.FLOOR)
-						.weirdness(Weirdness.VALLEY, Weirdness.LOW_SLICE_NORMAL_DESCENDING, Weirdness.LOW_SLICE_VARIANT_ASCENDING, Weirdness.MID_SLICE_NORMAL_ASCENDING, Weirdness.MID_SLICE_NORMAL_DESCENDING, Weirdness.MID_SLICE_VARIANT_ASCENDING, Weirdness.MID_SLICE_VARIANT_DESCENDING)
-						.offset(0.0F)
+						.temperature(mangroveSwamp.temperatures.toArray(new Climate.Parameter[0]))
+						.humidity(mangroveSwamp.humidities.toArray(new Climate.Parameter[0]))
+						.continentalness(mangroveSwamp.continentalnesses.toArray(new Climate.Parameter[0]))
+						.erosion(mangroveSwamp.erosions.toArray(new Climate.Parameter[0]))
+						.depth(mangroveSwamp.depths.toArray(new Climate.Parameter[0]))
+						.weirdness(mangroveSwamp.weirdnesses.toArray(new Climate.Parameter[0]))
+						.offset(mangroveSwamp.offsets.toArray(new Float[0]))
 						.build();
 
 				mangroveSwampPoints.forEach(point ->
@@ -211,15 +305,14 @@ public class WilderOverworldRegion extends Region {
 			}
 
 			if (ClothConfigInteractionHandler.modifySwampPlacement()) {
-				// DON'T CHANGE THESE PARAMETERS. THESE ARE THE PARAMETERS OF SWAMPS
 				List<Climate.ParameterPoint> swampPoints = new ParameterUtils.ParameterPointListBuilder()
-						.temperature(Climate.Parameter.span(Temperature.COOL, Temperature.NEUTRAL))
-						.humidity(Humidity.FULL_RANGE)
-						.continentalness(Climate.Parameter.span(Continentalness.NEAR_INLAND, Continentalness.FAR_INLAND))
-						.erosion(Erosion.EROSION_6)
-						.depth(Depth.SURFACE, Depth.FLOOR)
-						.weirdness(Weirdness.VALLEY, Weirdness.LOW_SLICE_NORMAL_DESCENDING, Weirdness.LOW_SLICE_VARIANT_ASCENDING, Weirdness.MID_SLICE_NORMAL_ASCENDING, Weirdness.MID_SLICE_NORMAL_DESCENDING, Weirdness.MID_SLICE_VARIANT_ASCENDING, Weirdness.MID_SLICE_VARIANT_DESCENDING)
-						.offset(0.0F)
+						.temperature(swamp.temperatures.toArray(new Climate.Parameter[0]))
+						.humidity(swamp.humidities.toArray(new Climate.Parameter[0]))
+						.continentalness(swamp.continentalnesses.toArray(new Climate.Parameter[0]))
+						.erosion(swamp.erosions.toArray(new Climate.Parameter[0]))
+						.depth(swamp.depths.toArray(new Climate.Parameter[0]))
+						.weirdness(swamp.weirdnesses.toArray(new Climate.Parameter[0]))
+						.offset(swamp.offsets.toArray(new Float[0]))
 						.build();
 
 				swampPoints.forEach(point ->
