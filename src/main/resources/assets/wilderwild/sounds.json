@@ -2137,17 +2137,17 @@
   },
   "block.log_hollowed": {
     "sounds": [
-      "wilderwild:item/shovel/hollow1",
-      "wilderwild:item/shovel/hollow2",
-      "wilderwild:item/shovel/hollow3"
+      "wilderwild:block/hollowing/hollow1",
+      "wilderwild:block/hollowing/hollow2",
+      "wilderwild:block/hollowing/hollow3"
     ],
     "subtitle": "subtitles.block.log_hollowed"
   },
   "block.stem_hollowed": {
     "sounds": [
-      "wilderwild:item/shovel/hollow1",
-      "wilderwild:item/shovel/hollow2",
-      "wilderwild:item/shovel/hollow3"
+      "wilderwild:block/hollowing/hollow1",
+      "wilderwild:block/hollowing/hollow2",
+      "wilderwild:block/hollowing/hollow3"
     ],
     "subtitle": "subtitles.block.stem_hollowed"
   },

@@ -108,8 +108,8 @@ public final class RegisterSounds {
 	public static final SoundEvent BLOCK_HOLLOWED_STEM_STEP = register("block.hollowed_stem.step");
 	public static final SoundEvent BLOCK_HOLLOWED_STEM_FALL = register("block.hollowed_stem.fall");
 
-	public static final SoundEvent SHOVEL_LOG_HOLLOWED = register("item.shovel.log_hollowed");
-	public static final SoundEvent SHOVEL_STEM_HOLLOWED = register("item.shovel.stem_hollowed");
+	public static final SoundEvent LOG_HOLLOWED = register("block.log_hollowed");
+	public static final SoundEvent STEM_HOLLOWED = register("block.stem_hollowed");
 
     public static final SoundEvent BLOCK_ICE_PLACE = register("block.ice.place");
     public static final SoundEvent BLOCK_ICE_HIT = register("block.ice.hit");
