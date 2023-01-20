@@ -77,7 +77,7 @@ public final class WilderSharedWorldgen {
     }
 
 	public static final class BirchTaiga {
-		public static final Climate.Parameter TEMPERATURE = FrozenBiomeParameters.inBetween(Temperature.COOL, Temperature.NEUTRAL);
+		public static final Climate.Parameter TEMPERATURE = FrozenBiomeParameters.inBetweenTighter(Temperature.COOL, Temperature.NEUTRAL);
 		public static final Climate.Parameter HUMIDITY = Humidity.WET;
 		public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
 		public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_1, Erosion.EROSION_6);
