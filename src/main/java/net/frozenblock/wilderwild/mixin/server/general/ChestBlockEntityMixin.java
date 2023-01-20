@@ -38,7 +38,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 
 	@Unique int bubbleTicks;
 	@Unique boolean canBubble = true;
-	@Unique boolean hasJellyfish = true;
+	@Unique boolean hasJellyfish = false;
 
 	@Shadow @Final @Mutable
 	private ContainerOpenersCounter openersCounter;
@@ -157,7 +157,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 			double additionalX = otherChest != null ? otherChest.getBlockPos().getX() - chestPos.getX() * 0.25 : 0;
 			double additionalZ = otherChest != null ? otherChest.getBlockPos().getZ() - chestPos.getZ() * 0.25 : 0;
 			jellyfish.setPos(chestPos.getX() + 0.5 + additionalX, chestPos.getY() + 0.75, chestPos.getZ() + 0.5 + additionalZ);
-			jellyfish.setDeltaMovement(0, 0.2 + level.random.nextDouble() * 0.1, 0);
+			jellyfish.setDeltaMovement(0, 0.1 + level.random.nextDouble() * 0.07, 0);
 			level.addFreshEntity(jellyfish);
 		}
 	}
