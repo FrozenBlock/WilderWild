@@ -85,7 +85,7 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static final class FlowerField {
-		public static final Climate.Parameter TEMPERATURE = FrozenBiomeParameters.inBetween(Temperature.COOL, Temperature.NEUTRAL);
+		public static final Climate.Parameter TEMPERATURE = FrozenBiomeParameters.inBetweenTighter(Temperature.COOL, Temperature.NEUTRAL);
 		public static final Climate.Parameter HUMIDITY_A = Humidity.ARID;
 		public static final Climate.Parameter HUMIDITY_B = FrozenBiomeParameters.inBetweenTighter(Humidity.ARID, Humidity.DRY);
 		public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
