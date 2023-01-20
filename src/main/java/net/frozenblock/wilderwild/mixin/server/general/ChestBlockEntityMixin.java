@@ -91,7 +91,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 		ChestBlockEntity chest = ChestBlockEntity.class.cast(this);
 		if (chest.getLevel() instanceof ServerLevel server && chest.getBlockState().getValue(BlockStateProperties.WATERLOGGED) && this.getCanBubble()) {
 			BlockPos pos = chest.getBlockPos();
-			server.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, server.random.nextInt(10, 18), 0.21875F, 0, 0.21875F, 0.25D);
+			server.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, server.random.nextInt(18, 25), 0.21875F, 0, 0.21875F, 0.25D);
 		}
 	}
 
@@ -104,7 +104,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 				chest.setBubbleTicks(0);
 			} else if (chest.getBubbleTick() > 0) {
 				chest.setBubbleTicks(chest.getBubbleTick() - 1);
-				server.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, level.random.nextInt(2, 7), 0.21875F, 0, 0.21875F, 0.2D);
+				server.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, level.random.nextInt(4, 10), 0.21875F, 0, 0.21875F, 0.2D);
 				if (chest.getBubbleTick() <= 0) {
 					chest.setCanBubble(false);
 				}

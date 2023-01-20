@@ -267,17 +267,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
         return this.saveWithoutMetadata();
     }
 
-	public void bubble() {
-		ChestBlockEntityInterface chestBlockEntityInterface = (ChestBlockEntityInterface)this;
-		if (chestBlockEntityInterface.getCanBubble()&& chestBlockEntityInterface.getBubbleTick() <= 0 && this.getBlockState().getValue(BlockStateProperties.WATERLOGGED)) {
-			chestBlockEntityInterface.setBubbleTicks(5);
-			StoneChestBlockEntity otherChest = getOtherEntity(this.getLevel(), this.getBlockPos(), this.getBlockState());
-			if (otherChest != null) {
-				((ChestBlockEntityInterface)otherChest).setBubbleTicks(5);
-			}
-		}
-	}
-
     public static StoneChestBlockEntity getOtherEntity(Level level, BlockPos pos, BlockState state) {
         ChestType chestType = state.getValue(ChestBlock.TYPE);
         double x = pos.getX();
