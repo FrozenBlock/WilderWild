@@ -98,7 +98,7 @@ public final class OverworldBiomeBuilderMixin {
 						WilderSharedWorldgen.FlowerField.EROSION,
 						weirdness,
 						WilderSharedWorldgen.FlowerField.OFFSET,
-						RegisterWorldgen.BIRCH_TAIGA
+						RegisterWorldgen.FLOWER_FIELD
 				);
 				this.addSurfaceBiome(
 						parameters,
@@ -108,7 +108,7 @@ public final class OverworldBiomeBuilderMixin {
 						WilderSharedWorldgen.FlowerField.EROSION,
 						weirdness,
 						WilderSharedWorldgen.FlowerField.OFFSET,
-						RegisterWorldgen.BIRCH_TAIGA
+						RegisterWorldgen.FLOWER_FIELD
 				);
 			}
         }
@@ -174,7 +174,7 @@ public final class OverworldBiomeBuilderMixin {
 						WilderSharedWorldgen.FlowerField.EROSION,
 						weirdness,
 						WilderSharedWorldgen.FlowerField.OFFSET,
-						RegisterWorldgen.BIRCH_TAIGA
+						RegisterWorldgen.FLOWER_FIELD
 				);
 				this.addSurfaceBiome(
 						parameters,
@@ -184,7 +184,7 @@ public final class OverworldBiomeBuilderMixin {
 						WilderSharedWorldgen.FlowerField.EROSION,
 						weirdness,
 						WilderSharedWorldgen.FlowerField.OFFSET,
-						RegisterWorldgen.BIRCH_TAIGA
+						RegisterWorldgen.FLOWER_FIELD
 				);
 			}
         }
