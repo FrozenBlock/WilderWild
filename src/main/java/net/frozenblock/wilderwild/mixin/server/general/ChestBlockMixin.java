@@ -4,6 +4,8 @@ import java.util.function.Supplier;
 import net.frozenblock.wilderwild.misc.interfaces.ChestBlockEntityInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.Container;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -20,11 +22,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ChestBlock.class)
@@ -51,7 +55,7 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 		if (level.getBlockEntity(pos) instanceof ChestBlockEntity sourceChest) {
 			ChestBlockEntity chest = getLeftEntity(level, pos, state, sourceChest);
 			((ChestBlockEntityInterface) chest).bubble();
-			((ChestBlockEntityInterface) chest).releaseJellyfish();
+			((ChestBlockEntityInterface) chest).releaseJellyfish(level, state, pos);
 		}
 	}
 
@@ -83,6 +87,14 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 					((ChestBlockEntityInterface) chest).setHasJellyfish(false);
 				}
 			}
+		}
+	}
+
+	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/Containers;dropContents(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/Container;)V", shift = At.Shift.AFTER), method = "getTicker", cancellable = true)
+	public void onRemove(BlockState state, @NotNull Level level, @NotNull BlockPos pos, BlockState newState, boolean isMoving, CallbackInfo info) {
+		if (level.getBlockEntity(pos) instanceof ChestBlockEntity chestBlockEntity) {
+			((ChestBlockEntityInterface)chestBlockEntity).bubbleBurst();
+			((ChestBlockEntityInterface)chestBlockEntity).releaseJellyfish(level, state, pos);
 		}
 	}
 

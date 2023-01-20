@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.frozenblock.lib.storage.api.NoInteractionStorage;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
+import net.frozenblock.wilderwild.misc.interfaces.ChestBlockEntityInterface;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -54,8 +55,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
     public int cooldownTicks;
     public boolean closing;
     public boolean lootGenerated;
-	public int stoneBubbleTicks;
-	public boolean canStoneBubble = true;
 
 	public boolean shouldSkip = false;
 
@@ -74,8 +73,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
         this.closing = tag.getBoolean("closing");
         this.shouldSkip = tag.getBoolean("shouldSkip");
         this.lootGenerated = tag.getBoolean("lootGenerated");
-		this.stoneBubbleTicks = tag.getInt("stoneBubbleTicks");
-		this.canStoneBubble = tag.getBoolean("canStoneBubble");
     }
 
     @Override
@@ -89,8 +86,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
         tag.putBoolean("closing", this.closing);
         tag.putBoolean("shouldSkip", this.shouldSkip);
         tag.putBoolean("lootGenerated", this.lootGenerated);
-		tag.putInt("stoneBubbleTicks", this.stoneBubbleTicks);
-		tag.putBoolean("canStoneBubble", this.canStoneBubble);
     }
 
     public float getOpenProgress(float delta) {
@@ -104,14 +99,15 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
             if (blockEntity.cooldownTicks > 0) {
                 --blockEntity.cooldownTicks;
             }
-			if (!blockEntity.canStoneBubble) {
-				blockEntity.stoneBubbleTicks = 0;
-			} else if (blockEntity.stoneBubbleTicks > 0) {
-				blockEntity.stoneBubbleTicks -= 1;
+			ChestBlockEntityInterface chestBlockEntityInterface = (ChestBlockEntityInterface)blockEntity;
+			if (!chestBlockEntityInterface.getCanBubble()) {
+				chestBlockEntityInterface.setBubbleTicks(0);
+			} else if (chestBlockEntityInterface.getBubbleTick() > 0) {
+				chestBlockEntityInterface.setBubbleTicks(-1);
 				int random = level.random.nextInt(2, 5);
 				serverLevel.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, random, 0.21875F, 0, 0.21875F, 0.15D);
-				if (blockEntity.stoneBubbleTicks <= 0) {
-					blockEntity.canStoneBubble = false;
+				if (chestBlockEntityInterface.getBubbleTick() <= 0) {
+					chestBlockEntityInterface.setCanBubble(false);
 				}
 			}
             boolean canClose = level.getGameRules().getBoolean(WilderWild.STONE_CHEST_CLOSES);
@@ -272,11 +268,12 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
     }
 
 	public void bubble() {
-		if (this.canStoneBubble && this.stoneBubbleTicks <= 0 && this.getBlockState().getValue(BlockStateProperties.WATERLOGGED)) {
-			this.stoneBubbleTicks = 5;
+		ChestBlockEntityInterface chestBlockEntityInterface = (ChestBlockEntityInterface)this;
+		if (chestBlockEntityInterface.getCanBubble()&& chestBlockEntityInterface.getBubbleTick() <= 0 && this.getBlockState().getValue(BlockStateProperties.WATERLOGGED)) {
+			chestBlockEntityInterface.setBubbleTicks(5);
 			StoneChestBlockEntity otherChest = getOtherEntity(this.getLevel(), this.getBlockPos(), this.getBlockState());
 			if (otherChest != null) {
-				otherChest.stoneBubbleTicks = 5;
+				((ChestBlockEntityInterface)otherChest).setBubbleTicks(5);
 			}
 		}
 	}

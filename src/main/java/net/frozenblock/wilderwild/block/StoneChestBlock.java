@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.function.BiPredicate;
 import java.util.function.Supplier;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
+import net.frozenblock.wilderwild.misc.interfaces.ChestBlockEntityInterface;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -256,13 +257,13 @@ public class StoneChestBlock extends ChestBlock {
 			if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
 				if (!otherState.getValue(BlockStateProperties.WATERLOGGED)) {
 					if (level.getBlockEntity(currentPos) instanceof StoneChestBlockEntity chest) {
-						chest.canStoneBubble = true;
-						otherChest.canStoneBubble = true;
+						((ChestBlockEntityInterface)chest).setCanBubble(true);
+						((ChestBlockEntityInterface)otherChest).setCanBubble(true);
 					}
-				} else if (!otherChest.canStoneBubble) {
+				} else if (!((ChestBlockEntityInterface)otherChest).getCanBubble()) {
 					if (level.getBlockEntity(currentPos) instanceof StoneChestBlockEntity chest) {
-						chest.canStoneBubble = false;
-						otherChest.canStoneBubble = false;
+						((ChestBlockEntityInterface)chest).setCanBubble(false);
+						((ChestBlockEntityInterface)otherChest).setCanBubble(false);
 					}
 				}
 			}
@@ -270,7 +271,7 @@ public class StoneChestBlock extends ChestBlock {
 			boolean wasLogged = oldState.getValue(BlockStateProperties.WATERLOGGED);
 			if (level.getBlockEntity(currentPos) instanceof StoneChestBlockEntity chest) {
 				if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
-					chest.canStoneBubble = true;
+					((ChestBlockEntityInterface)chest).setCanBubble(true);
 				}
 			}
 		}
@@ -301,7 +302,7 @@ public class StoneChestBlock extends ChestBlock {
 		StoneChestBlockEntity otherChest = getOtherChest(level, pos, retState);
 		if (otherChest != null) {
 			if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity chest) {
-				chest.canStoneBubble = otherChest.canStoneBubble;
+				((ChestBlockEntityInterface)chest).setCanBubble(((ChestBlockEntityInterface)otherChest).getCanBubble());
 			}
 		}
 		return retState;
@@ -321,6 +322,9 @@ public class StoneChestBlock extends ChestBlock {
         if (!level.isClientSide) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof StoneChestBlockEntity stoneChestBlock) {
+				((ChestBlockEntityInterface)this).releaseJellyfish(level, state, pos);
+				((ChestBlockEntityInterface)this).bubbleBurst();
+
                 stoneChestBlock.unpackLootTable(null);
                 ArrayList<ItemStack> ancientItems = stoneChestBlock.ancientItems();
                 if (!ancientItems.isEmpty()) {

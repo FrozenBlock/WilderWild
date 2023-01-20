@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
 import net.frozenblock.wilderwild.entity.Jellyfish;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.interfaces.ChestBlockEntityInterface;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -85,6 +86,15 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 		}
 	}
 
+	@Override
+	public void bubbleBurst() {
+		ChestBlockEntity chest = ChestBlockEntity.class.cast(this);
+		if (chest.getLevel() instanceof ServerLevel server && chest.getBlockState().getValue(BlockStateProperties.WATERLOGGED) && this.getCanBubble()) {
+			BlockPos pos = chest.getBlockPos();
+			server.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, server.random.nextInt(10, 18), 0.21875F, 0, 0.21875F, 0.25D);
+		}
+	}
+
 	@Inject(at = @At(value = "TAIL"), method = "lidAnimateTick", cancellable = true)
 	private static void tick(Level level, BlockPos pos, BlockState state, ChestBlockEntity blockEntity, CallbackInfo info) {
 		if (level instanceof ServerLevel server) {
@@ -94,7 +104,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 				chest.setBubbleTicks(0);
 			} else if (chest.getBubbleTick() > 0) {
 				chest.setBubbleTicks(chest.getBubbleTick() - 1);
-				server.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, level.random.nextInt(2, 7), 0.21875F, 0, 0.21875F, 0.15D);
+				server.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, level.random.nextInt(2, 7), 0.21875F, 0, 0.21875F, 0.2D);
 				if (chest.getBubbleTick() <= 0) {
 					chest.setCanBubble(false);
 				}
@@ -142,11 +152,11 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	}
 
 	@Override
-	public void releaseJellyfish() {
+	public void releaseJellyfish(Level level, BlockState state, BlockPos pos) {
 		ChestBlockEntity chest = ChestBlockEntity.class.cast(this);
-		if (this.hasJellyfish && chest.getBlockState().getValue(BlockStateProperties.WATERLOGGED) && chest.getLevel() != null) {
-			Level level = chest.getLevel();
-			ChestBlockEntity otherChest = getOtherEntity(level, chest.getBlockPos(), chest.getBlockState());
+		if (this.hasJellyfish && state.getValue(BlockStateProperties.WATERLOGGED)) {
+			WilderSharedConstants.log("RELEASED JELLY", WilderSharedConstants.UNSTABLE_LOGGING);
+			ChestBlockEntity otherChest = getOtherEntity(level, pos, state);
 			this.hasJellyfish = false;
 			if (otherChest != null) {
 				((ChestBlockEntityInterface)otherChest).setHasJellyfish(false);
