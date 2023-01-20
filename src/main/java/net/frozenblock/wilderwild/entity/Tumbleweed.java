@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.entity;
 import java.util.List;
 import net.frozenblock.lib.tag.api.TagUtils;
 import net.frozenblock.lib.wind.api.WindManager;
+import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -156,7 +157,7 @@ public class Tumbleweed extends Mob {
 			this.heal(1F);
 			double brightness = this.level.getBrightness(LightLayer.SKY, this.blockPosition());
 			Player entity = this.level.getNearestPlayer(this, -1.0);
-			if ((brightness < 7 && !this.requiresCustomPersistence() && (entity == null || entity.distanceTo(this) > 24)) || (this.wasTouchingWater)) {
+			if ((brightness < 7 && !this.requiresCustomPersistence() && (entity == null || entity.distanceTo(this) > 24)) || (this.wasTouchingWater && !(this.getFeetBlockState().getBlock() instanceof MesogleaBlock))) {
 				++this.ticksSinceActive;
 				if (this.ticksSinceActive >= 200) {
 					this.destroy(false);
