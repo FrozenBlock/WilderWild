@@ -52,7 +52,7 @@
     "worldgen.general.MangroveTreeGrowerMixin",
     "worldgen.general.OakTreeGrowerMixin",
     "worldgen.general.OverworldBiomeBuilderMixin",
-    "worldgen.general.ShipwreckPiecesMixin",
+    "worldgen.general.ShipwreckPieceMixin",
     "worldgen.general.SpruceTreeGrowerMixin",
     "worldgen.general.StructuresMixin",
     "worldgen.general.SwampHutPieceMixin"

@@ -12,11 +12,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value = ShipwreckPieces.class)
-public class ShipwreckPiecesMixin {
+@Mixin(value = ShipwreckPieces.ShipwreckPiece.class)
+public class ShipwreckPieceMixin {
 
-    @Inject(method = "handleDataMarker", at = @At("HEAD"), cancellable = true)
-    public void getConfiguredFeature(String name, BlockPos pos, ServerLevelAccessor level, RandomSource random, BoundingBox box, CallbackInfo info) {
+    @Inject(method = "handleDataMarker", at = @At("HEAD"))
+    public void handleDataMarker(String name, BlockPos pos, ServerLevelAccessor level, RandomSource random, BoundingBox box, CallbackInfo info) {
 		if (level.getBlockEntity(pos.below()) instanceof ChestBlockEntity chestBlockEntity && random.nextBoolean() && random.nextBoolean()) {
 			((ChestBlockEntityInterface)chestBlockEntity).setHasJellyfish(true);
 		}
