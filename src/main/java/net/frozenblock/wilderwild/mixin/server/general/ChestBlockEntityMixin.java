@@ -94,8 +94,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 				chest.setBubbleTicks(0);
 			} else if (chest.getBubbleTick() > 0) {
 				chest.setBubbleTicks(chest.getBubbleTick() - 1);
-				int random = level.random.nextInt(2, 5);
-				server.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, random, 0.21875F, 0, 0.21875F, 0.15D);
+				server.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, level.random.nextInt(2, 7), 0.21875F, 0, 0.21875F, 0.15D);
 				if (chest.getBubbleTick() <= 0) {
 					chest.setCanBubble(false);
 				}
@@ -158,6 +157,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 			double additionalX = otherChest != null ? otherChest.getBlockPos().getX() - chestPos.getX() * 0.25 : 0;
 			double additionalZ = otherChest != null ? otherChest.getBlockPos().getZ() - chestPos.getZ() * 0.25 : 0;
 			jellyfish.setPos(chestPos.getX() + 0.5 + additionalX, chestPos.getY() + 0.75, chestPos.getZ() + 0.5 + additionalZ);
+			jellyfish.setDeltaMovement(0, 0.2 + level.random.nextDouble() * 0.1, 0);
 			level.addFreshEntity(jellyfish);
 		}
 	}
