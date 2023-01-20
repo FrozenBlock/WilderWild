@@ -917,6 +917,60 @@
 	],
 	"subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.hollowed_stem.break": {
+    "sounds": [
+      "wilderwild:block/hollowed_stem/break1",
+      "wilderwild:block/hollowed_stem/break2",
+      "wilderwild:block/hollowed_stem/break3",
+      "wilderwild:block/hollowed_stem/break4",
+      "wilderwild:block/hollowed_stem/break5",
+      "wilderwild:block/hollowed_stem/break6"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.hollowed_stem.fall": {
+    "sounds": [
+      "wilderwild:block/hollowed_stem/step1",
+      "wilderwild:block/hollowed_stem/step2",
+      "wilderwild:block/hollowed_stem/step3",
+      "wilderwild:block/hollowed_stem/step4",
+      "wilderwild:block/hollowed_stem/step5",
+      "wilderwild:block/hollowed_stem/step6"
+    ]
+  },
+  "block.hollowed_stem.hit": {
+    "sounds": [
+      "wilderwild:block/hollowed_stem/step1",
+      "wilderwild:block/hollowed_stem/step2",
+      "wilderwild:block/hollowed_stem/step3",
+      "wilderwild:block/hollowed_stem/step4",
+      "wilderwild:block/hollowed_stem/step5",
+      "wilderwild:block/hollowed_stem/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.hollowed_stem.place": {
+    "sounds": [
+      "wilderwild:block/hollowed_stem/break1",
+      "wilderwild:block/hollowed_stem/break2",
+      "wilderwild:block/hollowed_stem/break3",
+      "wilderwild:block/hollowed_stem/break4",
+      "wilderwild:block/hollowed_stem/break5",
+      "wilderwild:block/hollowed_stem/break6"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.hollowed_stem.step": {
+    "sounds": [
+      "wilderwild:block/hollowed_stem/step1",
+      "wilderwild:block/hollowed_stem/step2",
+      "wilderwild:block/hollowed_stem/step3",
+      "wilderwild:block/hollowed_stem/step4",
+      "wilderwild:block/hollowed_stem/step5",
+      "wilderwild:block/hollowed_stem/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.ice.break": {
 	"sounds": [
 	  "wilderwild:block/ice/break1",
@@ -2080,6 +2134,22 @@
       "wilderwild:item/potion/lingering1"
     ],
     "subtitle": "subtitles.entity.potion.linger"
+  },
+  "item.shovel.log_hollowed": {
+    "sounds": [
+      "wilderwild:item/shovel/hollow1",
+      "wilderwild:item/shovel/hollow2",
+      "wilderwild:item/shovel/hollow3"
+    ],
+    "subtitle": "subtitles.item.shovel.log_hollowed"
+  },
+  "item.shovel.stem_hollowed": {
+    "sounds": [
+      "wilderwild:item/shovel/hollow1",
+      "wilderwild:item/shovel/hollow2",
+      "wilderwild:item/shovel/hollow3"
+    ],
+    "subtitle": "subtitles.item.shovel.stem_hollowed"
   },
   "music.overworld.wild_forests": {
 	"sounds": [

@@ -3,7 +3,7 @@
   "group": "bark",
   "key": {
 	"#": {
-	  "item": "wilderwild:hollowed_cypress_log"
+	  "item": "wilderwild:hollowed_crimson_stem"
 	}
   },
   "pattern": [
@@ -12,6 +12,6 @@
   ],
   "result": {
 	"count": 3,
-	"item": "wilderwild:cypress_wood"
+	"item": "minecraft:crimson_hyphae"
   }
 }

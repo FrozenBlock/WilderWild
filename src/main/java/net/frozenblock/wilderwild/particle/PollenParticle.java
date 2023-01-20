@@ -58,8 +58,7 @@ public class PollenParticle extends TextureSheetParticle {
         }
 
         public Particle createParticle(@NotNull SimpleParticleType defaultParticleType, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {
-            PollenParticle pollenParticle = new PollenParticle(clientLevel, this.spriteProvider, x, y, z, 0.0D, -0.800000011920929D, 0.0D) {
-            };
+            PollenParticle pollenParticle = new PollenParticle(clientLevel, this.spriteProvider, x, y, z, 0.0D, -0.800000011920929D, 0.0D);
             pollenParticle.lifetime = Mth.randomBetweenInclusive(clientLevel.random, 500, 1000);
             pollenParticle.gravity = 0.01F;
             pollenParticle.setColor(250F / 255F, 171F / 255F, 28F / 255F);

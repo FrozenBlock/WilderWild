@@ -6,6 +6,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import net.frozenblock.lib.math.api.AdvancedMath;
+import net.frozenblock.wilderwild.block.HollowedLogBlock;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
@@ -31,6 +32,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -206,6 +208,9 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                                 setState = setState.setValue(BlockStateProperties.AXIS, axis);
                             }
                             level.setBlockAndUpdate(this.pos, setState);
+							if (setState.getBlock() instanceof HollowedLogBlock) {
+								level.playSound(null, pos, setState.getMaterial().equals(Material.NETHER_WOOD) ? RegisterSounds.SHOVEL_STEM_HOLLOWED : RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
+							}
                         }
                     }
                 } else {
