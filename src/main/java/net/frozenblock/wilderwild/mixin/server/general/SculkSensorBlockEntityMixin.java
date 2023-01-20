@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.mixin.server.general;
 
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.SculkSensorTickInterface;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
@@ -37,11 +36,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(SculkSensorBlockEntity.class)
 public final class SculkSensorBlockEntityMixin extends BlockEntity implements SculkSensorTickInterface {
 
-    public int animTicks;
-    public int prevAnimTicks;
-    public int age;
-    public boolean active;
-    public boolean prevActive;
+	@Unique
+    public int wilderWild$animTicks;
+
+	@Unique
+    public int wilderWild$prevAnimTicks;
+
+	@Unique
+    public int wilderWild$age;
+
+	@Unique
+    public boolean wilderWild$active;
+
+	@Unique
+    public boolean wilderWild$prevActive;
 
     private SculkSensorBlockEntityMixin(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -79,28 +87,28 @@ public final class SculkSensorBlockEntityMixin extends BlockEntity implements Sc
                 level.playSound(null, pos, RegisterSounds.BLOCK_SCULK_SENSOR_HICCUP, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.1F + 0.7F);
             }
         }
-        this.prevAnimTicks = this.animTicks;
-        if (this.animTicks > 0) {
-            --this.animTicks;
+        this.wilderWild$prevAnimTicks = this.wilderWild$animTicks;
+        if (this.wilderWild$animTicks > 0) {
+            --this.wilderWild$animTicks;
         }
-        ++this.age;
-        this.active = state.getValue(BlockStateProperties.SCULK_SENSOR_PHASE) == SculkSensorPhase.ACTIVE;
-        if (this.active != this.prevActive || this.animTicks == 10) {
+        ++this.wilderWild$age;
+        this.wilderWild$active = state.getValue(BlockStateProperties.SCULK_SENSOR_PHASE) == SculkSensorPhase.ACTIVE;
+        if (this.wilderWild$active != this.wilderWild$prevActive || this.wilderWild$animTicks == 10) {
             for (ServerPlayer player : PlayerLookup.tracking(level, pos)) {
                 player.connection.send(sensor.getUpdatePacket());
             }
         }
-        this.prevActive = this.active;
+        this.wilderWild$prevActive = this.wilderWild$active;
     }
 
 	@Unique
     @Override
     public void tickClient(Level level, BlockPos pos, BlockState state) {
-		this.prevAnimTicks = this.animTicks;
-        if (this.animTicks > 0) {
-            --this.animTicks;
+		this.wilderWild$prevAnimTicks = this.wilderWild$animTicks;
+        if (this.wilderWild$animTicks > 0) {
+            --this.wilderWild$animTicks;
         }
-        ++this.age;
+        ++this.wilderWild$age;
     }
 
 	@Unique
@@ -124,55 +132,55 @@ public final class SculkSensorBlockEntityMixin extends BlockEntity implements Sc
 	@Unique
     @Override
     public int getAge() {
-        return this.age;
+        return this.wilderWild$age;
     }
 
 	@Unique
     @Override
     public int getAnimTicks() {
-        return this.animTicks;
+        return this.wilderWild$animTicks;
     }
 
 	@Unique
     @Override
     public int getPrevAnimTicks() {
-        return this.prevAnimTicks;
+        return this.wilderWild$prevAnimTicks;
     }
 
 	@Unique
     @Override
     public boolean isActive() {
-        return this.active;
+        return this.wilderWild$active;
     }
 
 	@Unique
     @Override
     public void setActive(boolean active) {
-        this.active = active;
+        this.wilderWild$active = active;
     }
 
 	@Unique
     @Override
     public void setAnimTicks(int i) {
-        this.animTicks = i;
+        this.wilderWild$animTicks = i;
     }
 
     @Inject(at = @At("TAIL"), method = "load")
     private void load(CompoundTag nbt, CallbackInfo info) {
-        this.age = nbt.getInt("age");
-        this.animTicks = nbt.getInt("animTicks");
-        this.prevAnimTicks = nbt.getInt("prevAnimTicks");
-        this.active = nbt.getBoolean("active");
-        this.prevActive = nbt.getBoolean("prevActive");
+        this.wilderWild$age = nbt.getInt("age");
+        this.wilderWild$animTicks = nbt.getInt("animTicks");
+        this.wilderWild$prevAnimTicks = nbt.getInt("prevAnimTicks");
+        this.wilderWild$active = nbt.getBoolean("active");
+        this.wilderWild$prevActive = nbt.getBoolean("prevActive");
     }
 
     @Inject(at = @At("TAIL"), method = "saveAdditional")
 	private void saveAdditional(CompoundTag nbt, CallbackInfo info) {
-        nbt.putInt("age", this.age);
-        nbt.putInt("animTicks", this.animTicks);
-        nbt.putInt("prevAnimTicks", this.prevAnimTicks);
-        nbt.putBoolean("active", this.active);
-        nbt.putBoolean("prevActive", this.prevActive);
+        nbt.putInt("age", this.wilderWild$age);
+        nbt.putInt("animTicks", this.wilderWild$animTicks);
+        nbt.putInt("prevAnimTicks", this.wilderWild$prevAnimTicks);
+        nbt.putBoolean("active", this.wilderWild$active);
+        nbt.putBoolean("prevActive", this.wilderWild$prevActive);
     }
 
 }
