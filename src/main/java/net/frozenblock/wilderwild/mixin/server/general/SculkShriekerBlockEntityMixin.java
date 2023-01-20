@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.interfaces.SculkShriekerTickInterface;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
@@ -10,8 +9,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.SculkShriekerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -42,7 +39,6 @@ public class SculkShriekerBlockEntityMixin implements SculkShriekerTickInterface
         SculkShriekerBlockEntity entity = SculkShriekerBlockEntity.class.cast(this);
         BlockState blockState = entity.getBlockState();
         if (blockState.getValue(RegisterProperties.SOULS_TAKEN) == 2) {
-            WilderSharedConstants.log(Blocks.SCULK_SHRIEKER, entity.getBlockPos(), "All Souls Have Already Been Taken, Cannot Warn", WilderSharedConstants.DEV_LOGGING);
             info.setReturnValue(false);
             info.cancel();
         }

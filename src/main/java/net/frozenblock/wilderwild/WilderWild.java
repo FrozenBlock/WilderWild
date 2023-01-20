@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild;
 
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.serialization.Codec;
+import java.util.ArrayList;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
@@ -76,7 +77,6 @@ import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixerBuilder;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixes;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
-import java.util.ArrayList;
 
 public final class WilderWild extends FrozenMobCategoryEntrypoint implements ModInitializer {
 
@@ -281,9 +281,6 @@ public final class WilderWild extends FrozenMobCategoryEntrypoint implements Mod
     public static final ResourceLocation HORN_PROJECTILE_PACKET_ID = WilderSharedConstants.id("ancient_horn_projectile_packet");
     public static final ResourceLocation SENSOR_HICCUP_PACKET = WilderSharedConstants.id("sensor_hiccup_packet");
     public static final ResourceLocation JELLY_STING_PACKET = WilderSharedConstants.id("jelly_sting_packet");
-
-	public static final ResourceLocation ANCIENT_HORN_KILL_NOTIFY_PACKET = WilderSharedConstants.id("ancient_horn_kill_notify_packet");
-	public static final ResourceLocation CAPTURE_FIREFLY_NOTIFY_PACKET = WilderSharedConstants.id("capture_firefly_notify_packet");
 
 	/**
 	 * @deprecated Use {@link WilderSharedConstants#id(String)} instead.

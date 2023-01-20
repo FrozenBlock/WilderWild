@@ -39,7 +39,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import net.minecraft.util.SpawnUtil;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -346,7 +345,6 @@ public class AncientHornProjectile extends AbstractArrow {
 		if (insideState.is(RegisterBlocks.HANGING_TENDRIL) && this.level instanceof ServerLevel server && canInteract()) { //HANGING TENDRIL
 			BlockPos pos = this.blockPosition();
 			BlockEntity entity = this.level.getBlockEntity(pos);
-			WilderSharedConstants.log(RegisterBlocks.HANGING_TENDRIL, pos, "Horn Projectile Touched", WilderSharedConstants.DEV_LOGGING);
 			if (entity instanceof HangingTendrilBlockEntity tendril) {
 				WilderSharedConstants.log("Horn Projectile Found Hanging Tendril Entity", WilderSharedConstants.UNSTABLE_LOGGING);
 				this.playSound(this.getHitGroundSoundEvent(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
@@ -504,7 +502,6 @@ public class AncientHornProjectile extends AbstractArrow {
                 entity.setSecondsOnFire(5);
             }
             if (entity instanceof Warden warden && owner != null && canInteract()) {
-                WilderSharedConstants.log(warden, "Horn Projectile Touched", WilderSharedConstants.DEV_LOGGING);
                 warden.increaseAngerAt(owner, AngerLevel.ANGRY.getMinimumAnger() + 20, true);
                 warden.playSound(SoundEvents.WARDEN_TENDRIL_CLICKS, 5.0F, warden.getVoicePitch());
                 this.discard();
@@ -512,7 +509,6 @@ public class AncientHornProjectile extends AbstractArrow {
                 if (entity.hurt(damageSource, (float) damage)) {
                     if (entity instanceof LivingEntity livingEntity) {
                         Level level = this.getLevel();
-                        WilderSharedConstants.log(livingEntity, "Horn Projectile Touched", WilderSharedConstants.DEV_LOGGING);
                         if (!this.level.isClientSide && owner instanceof LivingEntity) {
                             EnchantmentHelper.doPostHurtEffects(livingEntity, owner);
                             EnchantmentHelper.doPostDamageEffects((LivingEntity) owner, livingEntity);

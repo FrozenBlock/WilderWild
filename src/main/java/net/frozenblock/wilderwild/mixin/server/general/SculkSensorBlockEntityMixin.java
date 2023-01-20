@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.mixin.server.general;
 
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.interfaces.SculkSensorTickInterface;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterGameEvents;
@@ -71,7 +70,6 @@ public final class SculkSensorBlockEntityMixin extends BlockEntity implements Sc
                 EasyPacket.EasySensorHiccupPacket.createParticle(level, new Vec3(x, y, z));
             }
             if (SculkSensorBlock.canActivate(state) && level.random.nextInt(320) <= 1) {
-                WilderSharedConstants.log("Sensor Hiccups " + pos, WilderSharedConstants.DEV_LOGGING);
                 SculkSensorBlock.activate(null, level, pos, state, AdvancedMath.random().nextInt(15));
                 level.gameEvent(null, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
                 level.gameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);

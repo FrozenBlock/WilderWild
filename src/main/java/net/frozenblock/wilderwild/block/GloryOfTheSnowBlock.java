@@ -3,7 +3,6 @@ package net.frozenblock.wilderwild.block;
 import java.util.List;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.misc.FlowerColor;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
@@ -100,7 +99,6 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
 
     @Override
     public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-        WilderSharedConstants.log("Glory Of The Snow Bonemealed @ " + pos, WilderSharedConstants.DEV_LOGGING);
         level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, pos, 0);
         level.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FLOWER_COLOR, this.COLOR_LIST.get(AdvancedMath.random().nextInt(this.COLOR_LIST.size()))));
     }

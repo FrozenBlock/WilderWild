@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 public class WilderSharedConstants {
 	public static final String MOD_ID = "wilderwild";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+	@Deprecated(forRemoval = true)
 	public static boolean DEV_LOGGING = false;
 	/**
 	 * Used for features that may be unstable and crash in public builds.

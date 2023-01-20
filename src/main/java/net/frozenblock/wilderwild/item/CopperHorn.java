@@ -76,7 +76,6 @@ public class CopperHorn extends InstrumentItem {
     @Override
 	@NotNull
     public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player user, @NotNull InteractionHand usedHand) {
-        WilderSharedConstants.log(user, "Used Copper Horn", WilderSharedConstants.DEV_LOGGING);
         ItemStack itemStack = user.getItemInHand(usedHand);
         Optional<Holder<Instrument>> optional = this.getInstrument(itemStack);
         if (optional.isPresent()) {

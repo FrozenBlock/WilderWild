@@ -28,7 +28,6 @@ import net.frozenblock.wilderwild.entity.render.renderer.AncientHornProjectileRe
 import net.frozenblock.wilderwild.entity.render.renderer.FireflyRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.JellyfishRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.TumbleweedRenderer;
-import net.frozenblock.wilderwild.misc.CompetitionCounter;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.MesogleaDripParticle;
@@ -236,8 +235,6 @@ public final class WilderWildClient implements ClientModInitializer {
 		receiveSensorHiccupPacket();
 		receiveJellyStingPacket();
 
-		receiveFireflyCaptureInfoPacket();
-		receiveAncientHornKillInfoPacket();
 		FlyBySoundHub.AUTO_ENTITIES_AND_SOUNDS.put(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, new FlyBySoundHub.FlyBySound(1.0F, 0.5F, SoundSource.PLAYERS, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_FLYBY));
 
 		ItemProperties.register(RegisterItems.ANCIENT_HORN, WilderSharedConstants.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
@@ -279,7 +276,6 @@ public final class WilderWildClient implements ClientModInitializer {
 			Vec3 pos = AncientHornProjectile.EntitySpawnPacket.PacketBufUtil.readVec3d(byteBuf);
 			float pitch = AncientHornProjectile.EntitySpawnPacket.PacketBufUtil.readAngle(byteBuf);
 			float yaw = AncientHornProjectile.EntitySpawnPacket.PacketBufUtil.readAngle(byteBuf);
-			WilderSharedConstants.log("Receiving Ancient Horn Projectile Packet At " + pos, WilderSharedConstants.DEV_LOGGING);
 			ctx.execute(() -> {
 				if (Minecraft.getInstance().level == null)
 					throw new IllegalStateException("Tried to spawn entity in a null world!");
@@ -383,30 +379,6 @@ public final class WilderWildClient implements ClientModInitializer {
 					double f = (double) (i & 255) / 255.0D;
 					level.addParticle(ParticleTypes.ENTITY_EFFECT, pos.x, pos.y, pos.z, d, e, f);
 				}
-			});
-		});
-	}
-
-	private static void receiveFireflyCaptureInfoPacket() {
-		ClientPlayNetworking.registerGlobalReceiver(WilderWild.CAPTURE_FIREFLY_NOTIFY_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-			boolean creative = byteBuf.readBoolean();
-			boolean natural = byteBuf.readBoolean();
-			ctx.execute(() -> {
-				if (Minecraft.getInstance().level == null)
-					throw new IllegalStateException("why is your world null");
-				CompetitionCounter.addFireflyCapture(creative, natural);
-			});
-		});
-	}
-
-	private static void receiveAncientHornKillInfoPacket() {
-		ClientPlayNetworking.registerGlobalReceiver(WilderWild.ANCIENT_HORN_KILL_NOTIFY_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-			boolean creative = byteBuf.readBoolean();
-			boolean natural = byteBuf.readBoolean();
-			ctx.execute(() -> {
-				if (Minecraft.getInstance().level == null)
-					throw new IllegalStateException("why is your world null");
-				CompetitionCounter.addAncientHornKill(creative, natural);
 			});
 		});
 	}

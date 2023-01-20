@@ -28,7 +28,6 @@ import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.material.Fluids;
-import java.util.Optional;
 
 public final class RegisterItems {
 	private RegisterItems() {

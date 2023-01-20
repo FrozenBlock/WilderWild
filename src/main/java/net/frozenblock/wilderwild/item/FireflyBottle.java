@@ -63,7 +63,6 @@ public class FireflyBottle extends Item {
 
 	@Override
 	public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand usedHand) {
-		WilderSharedConstants.log(player, "Used Firefly Bottle", WilderSharedConstants.DEV_LOGGING);
 		if (level instanceof ServerLevel server) {
 			float pitch = player.getXRot();
 			float yaw = player.getYRot();
