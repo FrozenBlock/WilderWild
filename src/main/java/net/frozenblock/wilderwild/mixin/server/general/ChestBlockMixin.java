@@ -90,7 +90,7 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 		}
 	}
 
-	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/Containers;dropContents(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/Container;)V", shift = At.Shift.AFTER), method = "getTicker", cancellable = true)
+	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/Containers;dropContents(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/Container;)V", shift = At.Shift.AFTER), method = "onRemove")
 	public void onRemove(BlockState state, @NotNull Level level, @NotNull BlockPos pos, BlockState newState, boolean isMoving, CallbackInfo info) {
 		if (level.getBlockEntity(pos) instanceof ChestBlockEntity chestBlockEntity) {
 			((ChestBlockEntityInterface)chestBlockEntity).bubbleBurst();
