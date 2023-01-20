@@ -4,13 +4,10 @@ import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.entity.Firefly;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -92,34 +89,6 @@ public class EasyPacket {
             byteBuf.writeVarInt(count);
             for (ServerPlayer player : PlayerLookup.tracking((ServerLevel) level, new BlockPos(pos))) {
                 ServerPlayNetworking.send(player, WilderWild.TERMITE_PARTICLE_PACKET, byteBuf);
-            }
-        }
-    }
-
-    public static class EasyCompetitionPacket {
-        public static void sendFireflyCaptureInfo(Level level, Player player, Firefly firefly) { //Can possibly be used for competitions
-            if (level.isClientSide)
-                throw new IllegalStateException("FIREFLY CAPTURE ON CLIENT!??!?!?!?! OH HOW TERRIBLE OF YOU!1!!!!!!!!!!!!!!!!!!!!!1!!1!!!!111");
-            FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
-            byteBuf.writeBoolean(player.isCreative());
-            byteBuf.writeBoolean(firefly.natural && !firefly.isFromBottle());
-            if (player instanceof ServerPlayer serverPlayer) {
-                ServerPlayNetworking.send(serverPlayer, WilderWild.CAPTURE_FIREFLY_NOTIFY_PACKET, byteBuf);
-            } else {
-                throw new IllegalStateException("NOT A SERVER PLAYER BRUH");
-            }
-        }
-
-        public static void sendAncientHornKillInfo(Level level, Player player, LivingEntity entity) { //Can possibly be used for competitions
-            if (level.isClientSide)
-                throw new IllegalStateException("ANCIENT HORN KILL PACKET ON CLIENT");
-            FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
-            byteBuf.writeBoolean(player.isCreative());
-            byteBuf.writeBoolean(true);
-            if (player instanceof ServerPlayer serverPlayer) {
-                ServerPlayNetworking.send(serverPlayer, WilderWild.ANCIENT_HORN_KILL_NOTIFY_PACKET, byteBuf);
-            } else {
-                throw new IllegalStateException("NOT A SERVER PLAYER BRUH");
             }
         }
     }

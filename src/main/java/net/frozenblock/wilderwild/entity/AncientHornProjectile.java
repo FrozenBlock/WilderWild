@@ -517,9 +517,8 @@ public class AncientHornProjectile extends AbstractArrow {
                         if (livingEntity.isDeadOrDying() && level instanceof ServerLevel server) {
                             server.sendParticles(ParticleTypes.SCULK_SOUL, livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ(), 1, 0.2D, 0.0D, 0.2D, 0.0D);
                             if (this.getOwner() != null) {
-                                if (this.getOwner() instanceof ServerPlayer serverPlayer) {
+                                if (this.getOwner() instanceof ServerPlayer) {
                                     addCooldown(livingEntity.getExperienceReward() * 10);
-                                    EasyPacket.EasyCompetitionPacket.sendAncientHornKillInfo(level, serverPlayer, livingEntity);
                                 }
                             }
                         }
