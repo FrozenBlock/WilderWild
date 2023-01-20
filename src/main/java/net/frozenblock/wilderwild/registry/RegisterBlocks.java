@@ -765,7 +765,7 @@ public final class RegisterBlocks {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
-					level.playSound(null, pos, RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
+					level.playSound(null, pos, RegisterSounds.LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
 				}
 				Player player = context.getPlayer();
 				if (player != null) {
@@ -780,7 +780,7 @@ public final class RegisterBlocks {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
-					level.playSound(null, pos, RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
+					level.playSound(null, pos, RegisterSounds.LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
 				}
 				Player player = context.getPlayer();
 				if (player != null) {
@@ -795,7 +795,7 @@ public final class RegisterBlocks {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
-					level.playSound(null, pos, RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
+					level.playSound(null, pos, RegisterSounds.LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
 				}
 				Player player = context.getPlayer();
 				if (player != null) {
@@ -810,7 +810,7 @@ public final class RegisterBlocks {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
-					level.playSound(null, pos, RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
+					level.playSound(null, pos, RegisterSounds.LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
 				}
 				Player player = context.getPlayer();
 				if (player != null) {
@@ -825,7 +825,7 @@ public final class RegisterBlocks {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
-					level.playSound(null, pos, RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
+					level.playSound(null, pos, RegisterSounds.LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
 				}
 				Player player = context.getPlayer();
 				if (player != null) {
@@ -840,7 +840,7 @@ public final class RegisterBlocks {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
-					level.playSound(null, pos, RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
+					level.playSound(null, pos, RegisterSounds.LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
 				}
 				Player player = context.getPlayer();
 				if (player != null) {
@@ -855,7 +855,7 @@ public final class RegisterBlocks {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
-					level.playSound(null, pos, RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
+					level.playSound(null, pos, RegisterSounds.LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
 				}
 				Player player = context.getPlayer();
 				if (player != null) {
@@ -870,7 +870,7 @@ public final class RegisterBlocks {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
-					level.playSound(null, pos, RegisterSounds.SHOVEL_STEM_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
+					level.playSound(null, pos, RegisterSounds.STEM_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
 				}
 				Player player = context.getPlayer();
 				if (player != null) {
@@ -885,7 +885,7 @@ public final class RegisterBlocks {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
-					level.playSound(null, pos, RegisterSounds.SHOVEL_STEM_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
+					level.playSound(null, pos, RegisterSounds.STEM_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
 				}
 				Player player = context.getPlayer();
 				if (player != null) {
@@ -900,7 +900,7 @@ public final class RegisterBlocks {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
-					level.playSound(null, pos, RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
+					level.playSound(null, pos, RegisterSounds.LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
 				}
 				Player player = context.getPlayer();
 				if (player != null) {
@@ -915,7 +915,7 @@ public final class RegisterBlocks {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
-					level.playSound(null, pos, RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
+					level.playSound(null, pos, RegisterSounds.LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
 				}
 				Player player = context.getPlayer();
 				if (player != null) {
@@ -930,7 +930,7 @@ public final class RegisterBlocks {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				if (level instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
-					level.playSound(null, pos, RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
+					level.playSound(null, pos, RegisterSounds.LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
 				}
 				Player player = context.getPlayer();
 				if (player != null) {
