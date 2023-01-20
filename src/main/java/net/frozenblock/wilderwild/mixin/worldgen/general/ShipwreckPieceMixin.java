@@ -17,8 +17,11 @@ public class ShipwreckPieceMixin {
 
     @Inject(method = "handleDataMarker", at = @At("HEAD"))
     public void handleDataMarker(String name, BlockPos pos, ServerLevelAccessor level, RandomSource random, BoundingBox box, CallbackInfo info) {
-		if (level.getBlockEntity(pos.below()) instanceof ChestBlockEntity chestBlockEntity && random.nextBoolean() && random.nextBoolean()) {
-			((ChestBlockEntityInterface)chestBlockEntity).setHasJellyfish(true);
+		if (level.getBlockEntity(pos.below()) instanceof ChestBlockEntity chestBlockEntity) {
+			((ChestBlockEntityInterface)chestBlockEntity).setCanBubble(true);
+			if (random.nextBoolean() && random.nextBoolean()) {
+				((ChestBlockEntityInterface) chestBlockEntity).setHasJellyfish(true);
+			}
 		}
     }
 
