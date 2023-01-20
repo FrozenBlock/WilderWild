@@ -23,6 +23,7 @@ import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.AmbientAdditionsSettings;
@@ -42,6 +43,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 	public static final ResourceKey<Biome> WARM_RIVER = register("warm_river");
 	public static final ResourceKey<Biome> OASIS = register("oasis");
 	public static final ResourceKey<Biome> BIRCH_TAIGA = register("birch_taiga");
+	public static final ResourceKey<Biome> FLOWER_FIELD = register("flower_field");
 
     public static void registerWorldgen() {
 		WilderSharedConstants.logWild("Registering Biomes for", WilderSharedConstants.UNSTABLE_LOGGING);
@@ -51,6 +53,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, WARM_RIVER.location(), warmRiver());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, OASIS.location(), oasis());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, BIRCH_TAIGA.location(), birchTaiga());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, FLOWER_FIELD.location(), flowerField());
 
         WilderNoise.init();
     }
@@ -217,6 +220,29 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 				.build();
 	}
 
+	public static Biome flowerField() {
+		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
+		BiomeDefaultFeatures.plainsSpawns(builder);
+		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
+		addFlowerFieldFeatures(builder2);
+		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_GAME);
+		return new Biome.BiomeBuilder()
+				.precipitation(Biome.Precipitation.RAIN)
+				.temperature(0.8F)
+				.downfall(0.4F)
+				.specialEffects(
+						new BiomeSpecialEffects.Builder()
+								.waterColor(4159204)
+								.waterFogColor(329011)
+								.fogColor(12638463)
+								.skyColor(OverworldBiomes.plains(false, false, false).getSkyColor())
+								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+								.backgroundMusic(musicSound).build())
+				.mobSpawnSettings(builder.build())
+				.generationSettings(builder2.build())
+				.build();
+	}
+
 	public static void addCypressPaths(BiomeGenerationSettings.Builder builder) {
 		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_SAND_PATH);
 		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_GRAVEL_PATH);
@@ -345,6 +371,18 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		BiomeDefaultFeatures.addTaigaGrass(builder);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 		BiomeDefaultFeatures.addCommonBerryBushes(builder);
+	}
+
+	public static void addFlowerFieldFeatures(BiomeGenerationSettings.Builder builder) {
+		addBasicFeatures(builder, FLOWER_FIELD);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.FLOWER_FOREST_FLOWERS);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.FLOWER_FLOWER_FOREST);
+		BiomeDefaultFeatures.addPlainGrass(builder);
+		BiomeDefaultFeatures.addDefaultOres(builder);
+		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
+		BiomeDefaultFeatures.addPlainVegetation(builder);
+		BiomeDefaultFeatures.addDefaultMushrooms(builder);
+		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 	}
 
 	private static void addBasicFeatures(BiomeGenerationSettings.Builder builder, ResourceKey<Biome> biome) {

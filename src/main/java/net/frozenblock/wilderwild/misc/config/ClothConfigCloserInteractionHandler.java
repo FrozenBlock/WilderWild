@@ -71,6 +71,10 @@ public final class ClothConfigCloserInteractionHandler {
 		return BIOME_GENERATION.generateBirchTaiga;
 	}
 
+	public static boolean generateFlowerField() {
+		return BIOME_GENERATION.generateFlowerField;
+	}
+
 	public static boolean fallenLogs() {
 		return WORLDGEN.fallenLogs;
 	}

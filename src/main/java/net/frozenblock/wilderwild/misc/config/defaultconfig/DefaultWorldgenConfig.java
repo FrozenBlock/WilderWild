@@ -16,6 +16,7 @@ public class DefaultWorldgenConfig {
 		public static final boolean GENERATE_OASIS = true;
 		public static final boolean GENERATE_WARM_RIVER = true;
 		public static final boolean GENERATE_BIRCH_TAIGA = false;
+		public static final boolean GENERATE_FLOWER_FIELD = false;
 	}
 
 	public static final boolean BETA_BEACHES = true;

@@ -53,18 +53,6 @@ public final class OverworldBiomeBuilderMixin {
 						RegisterWorldgen.MIXED_FOREST
 				);
 			}
-			if (ClothConfigInteractionHandler.generateBirchTaiga()) {
-				this.addSurfaceBiome(
-						parameters,
-						WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
-						WilderSharedWorldgen.BirchTaiga.HUMIDITY,
-						WilderSharedWorldgen.BirchTaiga.CONTINENTALNESS,
-						WilderSharedWorldgen.BirchTaiga.EROSION,
-						weirdness,
-						WilderSharedWorldgen.BirchTaiga.OFFSET,
-						RegisterWorldgen.BIRCH_TAIGA
-				);
-			}
 			if (ClothConfigInteractionHandler.generateCypressWetlands()) {
 				this.addSurfaceBiome(
 						parameters,
@@ -87,6 +75,40 @@ public final class OverworldBiomeBuilderMixin {
 						weirdness,
 						WilderSharedWorldgen.Oasis.OFFSET,
 						RegisterWorldgen.OASIS
+				);
+			}
+			if (ClothConfigInteractionHandler.generateBirchTaiga()) {
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
+						WilderSharedWorldgen.BirchTaiga.HUMIDITY,
+						WilderSharedWorldgen.BirchTaiga.CONTINENTALNESS,
+						WilderSharedWorldgen.BirchTaiga.EROSION,
+						weirdness,
+						WilderSharedWorldgen.BirchTaiga.OFFSET,
+						RegisterWorldgen.BIRCH_TAIGA
+				);
+			}
+			if (ClothConfigInteractionHandler.generateFlowerField()) {
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.FlowerField.TEMPERATURE,
+						WilderSharedWorldgen.FlowerField.HUMIDITY_A,
+						WilderSharedWorldgen.FlowerField.CONTINENTALNESS,
+						WilderSharedWorldgen.FlowerField.EROSION,
+						weirdness,
+						WilderSharedWorldgen.FlowerField.OFFSET,
+						RegisterWorldgen.BIRCH_TAIGA
+				);
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.FlowerField.TEMPERATURE,
+						WilderSharedWorldgen.FlowerField.HUMIDITY_B,
+						WilderSharedWorldgen.FlowerField.CONTINENTALNESS,
+						WilderSharedWorldgen.FlowerField.EROSION,
+						weirdness,
+						WilderSharedWorldgen.FlowerField.OFFSET,
+						RegisterWorldgen.BIRCH_TAIGA
 				);
 			}
         }
@@ -107,18 +129,6 @@ public final class OverworldBiomeBuilderMixin {
 						RegisterWorldgen.MIXED_FOREST
 				);
 			}
-			if (ClothConfigInteractionHandler.generateBirchTaiga()) {
-				this.addSurfaceBiome(
-						parameters,
-						WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
-						WilderSharedWorldgen.BirchTaiga.HUMIDITY,
-						WilderSharedWorldgen.BirchTaiga.CONTINENTALNESS,
-						WilderSharedWorldgen.BirchTaiga.EROSION,
-						weirdness,
-						WilderSharedWorldgen.BirchTaiga.OFFSET,
-						RegisterWorldgen.BIRCH_TAIGA
-				);
-			}
 			if (ClothConfigInteractionHandler.generateCypressWetlands()) {
 				this.addSurfaceBiome(
 						parameters,
@@ -141,6 +151,40 @@ public final class OverworldBiomeBuilderMixin {
 						weirdness,
 						WilderSharedWorldgen.Oasis.OFFSET,
 						RegisterWorldgen.OASIS
+				);
+			}
+			if (ClothConfigInteractionHandler.generateBirchTaiga()) {
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
+						WilderSharedWorldgen.BirchTaiga.HUMIDITY,
+						WilderSharedWorldgen.BirchTaiga.CONTINENTALNESS,
+						WilderSharedWorldgen.BirchTaiga.EROSION,
+						weirdness,
+						WilderSharedWorldgen.BirchTaiga.OFFSET,
+						RegisterWorldgen.BIRCH_TAIGA
+				);
+			}
+			if (ClothConfigInteractionHandler.generateFlowerField()) {
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.FlowerField.TEMPERATURE,
+						WilderSharedWorldgen.FlowerField.HUMIDITY_A,
+						WilderSharedWorldgen.FlowerField.CONTINENTALNESS,
+						WilderSharedWorldgen.FlowerField.EROSION,
+						weirdness,
+						WilderSharedWorldgen.FlowerField.OFFSET,
+						RegisterWorldgen.BIRCH_TAIGA
+				);
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.FlowerField.TEMPERATURE,
+						WilderSharedWorldgen.FlowerField.HUMIDITY_B,
+						WilderSharedWorldgen.FlowerField.CONTINENTALNESS,
+						WilderSharedWorldgen.FlowerField.EROSION,
+						weirdness,
+						WilderSharedWorldgen.FlowerField.OFFSET,
+						RegisterWorldgen.BIRCH_TAIGA
 				);
 			}
         }

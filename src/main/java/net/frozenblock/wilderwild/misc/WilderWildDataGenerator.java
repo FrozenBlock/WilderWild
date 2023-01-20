@@ -59,7 +59,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.NON_FROZEN_PLAINS)
 					.add(Biomes.PLAINS)
-					.add(Biomes.SUNFLOWER_PLAINS);
+					.add(Biomes.SUNFLOWER_PLAINS)
+					.addOptional(RegisterWorldgen.FLOWER_FIELD);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.NORMAL_SAVANNA)
 					.add(Biomes.SAVANNA)
@@ -182,7 +183,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
 					.add(Biomes.DARK_FOREST)
 					.add(Biomes.TAIGA)
-					.addOptional(RegisterWorldgen.BIRCH_TAIGA);
+					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
+					.addOptional(RegisterWorldgen.FLOWER_FIELD);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SMALL_SPONGE)
 					.add(Biomes.WARM_OCEAN);
