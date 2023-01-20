@@ -5,6 +5,7 @@ import java.util.List;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Depth;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
+import net.frozenblock.lib.worldgen.biome.api.parameters.FrozenBiomeParameters;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
@@ -76,9 +77,9 @@ public final class WilderSharedWorldgen {
     }
 
 	public static final class BirchTaiga {
-		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.COOL, Temperature.NEUTRAL);
+		public static final Climate.Parameter TEMPERATURE = FrozenBiomeParameters.inBetween(Temperature.COOL, Temperature.NEUTRAL);
 		public static final Climate.Parameter HUMIDITY = Humidity.WET;
-		public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.INLAND, Continentalness.FAR_INLAND);
+		public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
 		public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_1, Erosion.EROSION_6);
 		public static final List<Climate.Parameter> LOW_WEIRDNESS = new ArrayList<>() {{
 			add(Weirdness.LOW_SLICE_NORMAL_DESCENDING);
