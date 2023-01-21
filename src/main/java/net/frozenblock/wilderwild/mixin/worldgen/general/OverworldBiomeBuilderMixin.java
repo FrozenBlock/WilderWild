@@ -46,7 +46,16 @@ public final class OverworldBiomeBuilderMixin {
 				this.wilderWild$acceptBiomeAs(consumer, temperature, FrozenBiomeParameters.inBetweenTighterHighEnd(Humidity.THREE, Humidity.FOUR), continentalness, erosion, depth, weirdness, key);
 			}
 		}
-
+		if (ClothConfigInteractionHandler.generateBirchTaiga()) {
+			if (key.location().equals(Biomes.TAIGA.location()) && temperature.equals(Temperature.TWO)) {
+				info.cancel();
+				this.wilderWild$acceptBiomeAs(consumer, FrozenBiomeParameters.inBetweenTighterLowEnd(Temperature.TWO, Temperature.THREE), humidity, continentalness, erosion, depth, weirdness, key);
+			}
+			if (key.location().equals(Biomes.TAIGA.location()) && temperature.equals(Temperature.THREE)) {
+				info.cancel();
+				this.wilderWild$acceptBiomeAs(consumer, FrozenBiomeParameters.inBetweenTighterHighEnd(Temperature.TWO, Temperature.THREE), humidity, continentalness, erosion, depth, weirdness, key);
+			}
+		}
 	}
 
 	@Unique
