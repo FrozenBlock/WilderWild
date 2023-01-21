@@ -71,6 +71,7 @@ public final class WilderMiscPlaced {
 	public static final Holder<PlacedFeature> COARSE_PATH_10 = WilderPlacedFeatures.register("coarse_dirt_path_10", WilderMiscConfigured.COARSE_PATH, RarityFilter.onAverageOnceEvery(10), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 	// ARID SAVANNA
 	public static final Holder<PlacedFeature> GRASS_PATH_RARE = WilderPlacedFeatures.register("grass_path_rare", WilderMiscConfigured.GRASS_PATH, CountPlacement.of(1), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+	public static final Holder<PlacedFeature> ARID_COARSE_PATH = WilderPlacedFeatures.register("arid_coarse_dirt_path", WilderMiscConfigured.ARID_COARSE_PATH, RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
 	private static List<PlacementModifier> modifiers(PlacementModifier countModifier, PlacementModifier heightModifier) {
         return List.of(countModifier, InSquarePlacement.spread(), heightModifier, BiomeFilter.biome());

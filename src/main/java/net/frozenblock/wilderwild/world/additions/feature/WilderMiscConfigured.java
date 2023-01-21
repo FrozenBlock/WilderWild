@@ -81,6 +81,8 @@ public final class WilderMiscConfigured {
 	public static final Holder<ConfiguredFeature<LakeFeature.Configuration, ?>> MESSY_SAND_POOL = WilderConfiguredFeatures.register("messy_sand_pool", Feature.LAKE, new LakeFeature.Configuration(BlockStateProvider.simple(Blocks.WATER.defaultBlockState()), BlockStateProvider.simple(Blocks.SAND.defaultBlockState())));
 	public static final Holder<ConfiguredFeature<PathSwapUnderWaterFeatureConfig, ?>> GRASS_PATH = WilderConfiguredFeatures.register("grass_path", FrozenFeatures.NOISE_PATH_SWAP_UNDER_WATER_FEATURE, new PathSwapUnderWaterFeatureConfig(BlockStateProvider.simple(Blocks.GRASS_BLOCK), BlockStateProvider.simple(Blocks.DIRT), 11, 4, 0.15, 0.4, 1.0, false, false, HolderSet.direct(Blocks.SAND.builtInRegistryHolder(), Blocks.SANDSTONE.builtInRegistryHolder())));
 	public static final Holder<ConfiguredFeature<PathFeatureConfig, ?>> MOSS_PATH_OASIS = WilderConfiguredFeatures.register("moss_path_oasis", FrozenFeatures.NOISE_PATH_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.MOSS_BLOCK), 9, 2, 0.10, 0.12, 1, true, true, HolderSet.direct(Blocks.SAND.builtInRegistryHolder())));
+	// ARID SAVANNA
+	public static final Holder<ConfiguredFeature<PathFeatureConfig, ?>> ARID_COARSE_PATH = WilderConfiguredFeatures.register("arid_coarse_dirt_path", FrozenFeatures.NOISE_PATH_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.COARSE_DIRT), 12, 3, 0.15, -0.15, 0.55, false, false, HolderSet.direct(Blocks.DIRT.builtInRegistryHolder(), Blocks.GRASS_BLOCK.builtInRegistryHolder())));
 
 	public static void registerMiscPlaced() {
         WilderSharedConstants.logWild("Registering WilderMiscConfigured for", true);
