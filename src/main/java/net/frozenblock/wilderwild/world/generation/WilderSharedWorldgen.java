@@ -95,7 +95,8 @@ public final class WilderSharedWorldgen {
 
 	public static final class AridSavanna {
 		public static final Climate.Parameter TEMPERATURE = FrozenBiomeParameters.inBetweenTighter(Temperature.WARM, Temperature.HOT);
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.ARID, Humidity.DRY);
+		public static final Climate.Parameter HUMIDITY_A = Humidity.ARID;
+		public static final Climate.Parameter HUMIDITY_B = Humidity.DRY;
 		public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
 		public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_1, Erosion.EROSION_6);
 		public static final float OFFSET = 0.0F;

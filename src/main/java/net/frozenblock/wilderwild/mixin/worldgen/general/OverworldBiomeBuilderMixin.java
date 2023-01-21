@@ -115,7 +115,17 @@ public final class OverworldBiomeBuilderMixin {
 				this.addSurfaceBiome(
 						parameters,
 						WilderSharedWorldgen.AridSavanna.TEMPERATURE,
-						WilderSharedWorldgen.AridSavanna.HUMIDITY,
+						WilderSharedWorldgen.AridSavanna.HUMIDITY_A,
+						WilderSharedWorldgen.AridSavanna.CONTINENTALNESS,
+						WilderSharedWorldgen.AridSavanna.EROSION,
+						weirdness,
+						WilderSharedWorldgen.AridSavanna.OFFSET,
+						RegisterWorldgen.ARID_SAVANNA
+				);
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.AridSavanna.TEMPERATURE,
+						WilderSharedWorldgen.AridSavanna.HUMIDITY_B,
 						WilderSharedWorldgen.AridSavanna.CONTINENTALNESS,
 						WilderSharedWorldgen.AridSavanna.EROSION,
 						weirdness,
@@ -203,7 +213,17 @@ public final class OverworldBiomeBuilderMixin {
 				this.addSurfaceBiome(
 						parameters,
 						WilderSharedWorldgen.AridSavanna.TEMPERATURE,
-						WilderSharedWorldgen.AridSavanna.HUMIDITY,
+						WilderSharedWorldgen.AridSavanna.HUMIDITY_A,
+						WilderSharedWorldgen.AridSavanna.CONTINENTALNESS,
+						WilderSharedWorldgen.AridSavanna.EROSION,
+						weirdness,
+						WilderSharedWorldgen.AridSavanna.OFFSET,
+						RegisterWorldgen.ARID_SAVANNA
+				);
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.AridSavanna.TEMPERATURE,
+						WilderSharedWorldgen.AridSavanna.HUMIDITY_B,
 						WilderSharedWorldgen.AridSavanna.CONTINENTALNESS,
 						WilderSharedWorldgen.AridSavanna.EROSION,
 						weirdness,
@@ -245,7 +265,17 @@ public final class OverworldBiomeBuilderMixin {
 				this.addSurfaceBiome(
 						parameters,
 						WilderSharedWorldgen.AridSavanna.TEMPERATURE,
-						WilderSharedWorldgen.AridSavanna.HUMIDITY,
+						WilderSharedWorldgen.AridSavanna.HUMIDITY_A,
+						WilderSharedWorldgen.AridSavanna.CONTINENTALNESS,
+						WilderSharedWorldgen.AridSavanna.EROSION,
+						weirdness,
+						WilderSharedWorldgen.AridSavanna.OFFSET,
+						RegisterWorldgen.ARID_SAVANNA
+				);
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.AridSavanna.TEMPERATURE,
+						WilderSharedWorldgen.AridSavanna.HUMIDITY_B,
 						WilderSharedWorldgen.AridSavanna.CONTINENTALNESS,
 						WilderSharedWorldgen.AridSavanna.EROSION,
 						weirdness,
