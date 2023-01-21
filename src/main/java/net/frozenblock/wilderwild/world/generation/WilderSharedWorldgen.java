@@ -54,23 +54,23 @@ public final class WilderSharedWorldgen {
 
     public static final class MixedForest {
         public static final Climate.Parameter TEMPERATURE = Temperature.COOL;
-        public static final Climate.Parameter HUMIDITY = FrozenBiomeParameters.inBetween(Humidity.NEUTRAL, Humidity.WET);
+        public static final Climate.Parameter HUMIDITY = FrozenBiomeParameters.inBetweenTighter(Humidity.NEUTRAL, Humidity.WET);
     }
 
 	public static final class BirchTaiga {
-		public static final Climate.Parameter TEMPERATURE = FrozenBiomeParameters.inBetween(Temperature.COOL, Temperature.NEUTRAL);
+		public static final Climate.Parameter TEMPERATURE = FrozenBiomeParameters.inBetweenTighter(Temperature.COOL, Temperature.NEUTRAL);
 		public static final Climate.Parameter HUMIDITY = Humidity.WET;
 	}
 
 	public static final class FlowerField {
-		public static final Climate.Parameter TEMPERATURE_A = FrozenBiomeParameters.inBetween(Temperature.COOL, Temperature.NEUTRAL);
+		public static final Climate.Parameter TEMPERATURE_A = FrozenBiomeParameters.inBetweenTighter(Temperature.COOL, Temperature.NEUTRAL);
 		public static final Climate.Parameter TEMPERATURE_B = Temperature.NEUTRAL;
 		public static final Climate.Parameter HUMIDITY_A = Humidity.ARID;
-		public static final Climate.Parameter HUMIDITY_B = FrozenBiomeParameters.inBetween(Humidity.ARID, Humidity.DRY);
+		public static final Climate.Parameter HUMIDITY_B = FrozenBiomeParameters.inBetweenTighter(Humidity.ARID, Humidity.DRY);
 	}
 
 	public static final class AridSavanna {
-		public static final Climate.Parameter TEMPERATURE = FrozenBiomeParameters.inBetween(Temperature.WARM, Temperature.HOT);
+		public static final Climate.Parameter TEMPERATURE = FrozenBiomeParameters.inBetweenTighter(Temperature.WARM, Temperature.HOT);
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.ARID, Humidity.DRY);
 	}
 
