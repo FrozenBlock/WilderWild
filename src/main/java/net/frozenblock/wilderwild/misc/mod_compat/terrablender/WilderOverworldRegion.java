@@ -49,11 +49,11 @@ public class WilderOverworldRegion extends Region {
 							Climate.parameters(
 									WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
 									WilderSharedWorldgen.BirchTaiga.HUMIDITY,
-									WilderSharedWorldgen.BirchTaiga.CONTINENTALNESS,
-									WilderSharedWorldgen.BirchTaiga.EROSION,
+									point.continentalness(),
+									point.erosion(),
 									point.depth(),
 									point.weirdness(),
-									WilderSharedWorldgen.BirchTaiga.OFFSET
+									point.offset()
 							)
 					);
 					builder.replaceBiome(point, RegisterWorldgen.BIRCH_TAIGA);
@@ -70,7 +70,7 @@ public class WilderOverworldRegion extends Region {
 									point.erosion(),
 									point.depth(),
 									point.weirdness(),
-									WilderSharedWorldgen.FlowerField.OFFSET
+									point.offset()
 							)
 					);
 					builder.replaceBiome(point, RegisterWorldgen.FLOWER_FIELD);
@@ -84,7 +84,7 @@ public class WilderOverworldRegion extends Region {
 									point.erosion(),
 									point.depth(),
 									point.weirdness(),
-									WilderSharedWorldgen.FlowerField.OFFSET
+									point.offset()
 							)
 					);
 					builder.replaceBiome(point, RegisterWorldgen.FLOWER_FIELD);
@@ -176,27 +176,13 @@ public class WilderOverworldRegion extends Region {
 			}
 
 			if (ClothConfigInteractionHandler.generateAridSavanna()) {
-				OverworldBiomeBuilderParameters.points(Biomes.DESERT).forEach(point -> {
+				OverworldBiomeBuilderParameters.points(Biomes.SAVANNA).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
 									WilderSharedWorldgen.AridSavanna.TEMPERATURE,
-									WilderSharedWorldgen.AridSavanna.HUMIDITY_A,
-									WilderSharedWorldgen.AridSavanna.CONTINENTALNESS,
-									WilderSharedWorldgen.AridSavanna.EROSION,
-									point.depth(),
-									point.weirdness(),
-									point.offset()
-							)
-					);
-					builder.replaceBiome(point, RegisterWorldgen.ARID_SAVANNA);
-				});
-				OverworldBiomeBuilderParameters.points(Biomes.DESERT).forEach(point -> {
-					builder.replaceParameter(point,
-							Climate.parameters(
-									WilderSharedWorldgen.AridSavanna.TEMPERATURE,
-									WilderSharedWorldgen.AridSavanna.HUMIDITY_B,
-									WilderSharedWorldgen.AridSavanna.CONTINENTALNESS,
-									WilderSharedWorldgen.AridSavanna.EROSION,
+									WilderSharedWorldgen.AridSavanna.HUMIDITY,
+									point.continentalness(),
+									point.erosion(),
 									point.depth(),
 									point.weirdness(),
 									point.offset()
