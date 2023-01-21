@@ -64,7 +64,7 @@ public class WilderOverworldRegion extends Region {
 				OverworldBiomeBuilderParameters.points(Biomes.FLOWER_FOREST).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
-									WilderSharedWorldgen.FlowerField.TEMPERATURE,
+									WilderSharedWorldgen.FlowerField.TEMPERATURE_A,
 									WilderSharedWorldgen.FlowerField.HUMIDITY_A,
 									point.continentalness(),
 									point.erosion(),
@@ -78,7 +78,7 @@ public class WilderOverworldRegion extends Region {
 				OverworldBiomeBuilderParameters.points(Biomes.FLOWER_FOREST).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
-									WilderSharedWorldgen.FlowerField.TEMPERATURE,
+									WilderSharedWorldgen.FlowerField.TEMPERATURE_B,
 									WilderSharedWorldgen.FlowerField.HUMIDITY_B,
 									point.continentalness(),
 									point.erosion(),
