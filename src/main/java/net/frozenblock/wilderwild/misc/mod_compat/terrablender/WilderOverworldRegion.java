@@ -26,7 +26,7 @@ public class WilderOverworldRegion extends Region {
 	public void addBiomes(Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper) {
 		this.addModifiedVanillaOverworldBiomes(mapper, builder -> {
 
-			List<Climate.ParameterPoint> oldGrowthBirchForestPoints = FrozenTerraBlenderCompat.points(OverworldBiomeBuilderParameters.getParameters(Biomes.OLD_GROWTH_BIRCH_FOREST.location()));
+			List<Climate.ParameterPoint> oldGrowthBirchForestPoints = FrozenTerraBlenderCompat.points(Biomes.OLD_GROWTH_BIRCH_FOREST);
 			if (ClothConfigInteractionHandler.generateMixedForest()) {
 				oldGrowthBirchForestPoints.forEach(point -> {
 					builder.replaceParameter(point,
@@ -44,7 +44,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			List<Climate.ParameterPoint> taigaPoints = FrozenTerraBlenderCompat.points(OverworldBiomeBuilderParameters.getParameters(Biomes.TAIGA.location()));
+			List<Climate.ParameterPoint> taigaPoints = FrozenTerraBlenderCompat.points(Biomes.TAIGA);
 			if (ClothConfigInteractionHandler.generateBirchTaiga()) {
 				taigaPoints.forEach(point -> {
 					builder.replaceParameter(point,
@@ -62,7 +62,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			List<Climate.ParameterPoint> flowerForestPoints = FrozenTerraBlenderCompat.points(OverworldBiomeBuilderParameters.getParameters(Biomes.FLOWER_FOREST.location()));
+			List<Climate.ParameterPoint> flowerForestPoints = FrozenTerraBlenderCompat.points(Biomes.FLOWER_FOREST);
 			if (ClothConfigInteractionHandler.generateFlowerField()) {
 				flowerForestPoints.forEach(point -> {
 					builder.replaceParameter(point,
@@ -94,7 +94,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			List<Climate.ParameterPoint> swampPointsCypress = FrozenTerraBlenderCompat.points(OverworldBiomeBuilderParameters.getParameters(Biomes.SWAMP.location()));
+			List<Climate.ParameterPoint> swampPointsCypress = FrozenTerraBlenderCompat.points(Biomes.SWAMP);
 			if (ClothConfigInteractionHandler.generateCypressWetlands()) {
 				swampPointsCypress.forEach(point -> {
 					builder.replaceParameter(point,
@@ -112,7 +112,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			List<Climate.ParameterPoint> mangroveSwampPointsCypress = FrozenTerraBlenderCompat.points(OverworldBiomeBuilderParameters.getParameters(Biomes.MANGROVE_SWAMP.location()));
+			List<Climate.ParameterPoint> mangroveSwampPointsCypress = FrozenTerraBlenderCompat.points(Biomes.MANGROVE_SWAMP);
 			if (ClothConfigInteractionHandler.generateCypressWetlands()) {
 				mangroveSwampPointsCypress.forEach(point -> {
 					builder.replaceParameter(point,
@@ -130,7 +130,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			List<Climate.ParameterPoint> dripstoneCavesPoints = FrozenTerraBlenderCompat.points(OverworldBiomeBuilderParameters.getParameters(Biomes.DRIPSTONE_CAVES.location()));
+			List<Climate.ParameterPoint> dripstoneCavesPoints = FrozenTerraBlenderCompat.points(Biomes.DRIPSTONE_CAVES);
 			if (ClothConfigInteractionHandler.generateJellyfishCaves()) {
 				dripstoneCavesPoints.forEach(point -> {
 					builder.replaceParameter(point,
@@ -147,7 +147,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			List<Climate.ParameterPoint> desertPoints = FrozenTerraBlenderCompat.points(OverworldBiomeBuilderParameters.getParameters(Biomes.DESERT.location()));
+			List<Climate.ParameterPoint> desertPoints = FrozenTerraBlenderCompat.points(Biomes.DESERT);
 			if (ClothConfigInteractionHandler.generateOasis()) {
 				desertPoints.forEach(point -> {
 					builder.replaceParameter(point,
@@ -165,7 +165,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			List<Climate.ParameterPoint> riverPoints = FrozenTerraBlenderCompat.points(OverworldBiomeBuilderParameters.getParameters(Biomes.RIVER.location()));
+			List<Climate.ParameterPoint> riverPoints = FrozenTerraBlenderCompat.points(Biomes.RIVER);
 			if (ClothConfigInteractionHandler.generateWarmRiver()) {
 				riverPoints.forEach(point -> {
 					builder.replaceParameter(point,
@@ -184,7 +184,7 @@ public class WilderOverworldRegion extends Region {
 			}
 
 			if (ClothConfigInteractionHandler.modifyMangroveSwampPlacement()) {
-				List<Climate.ParameterPoint> mangroveSwampPoints = FrozenTerraBlenderCompat.points(OverworldBiomeBuilderParameters.getParameters(Biomes.MANGROVE_SWAMP.location()));
+				List<Climate.ParameterPoint> mangroveSwampPoints = FrozenTerraBlenderCompat.points(Biomes.MANGROVE_SWAMP);
 				mangroveSwampPoints.forEach(point ->
 						builder.replaceParameter(point,
 								new Climate.ParameterPoint(
@@ -201,7 +201,7 @@ public class WilderOverworldRegion extends Region {
 			}
 
 			if (ClothConfigInteractionHandler.modifySwampPlacement()) {
-				List<Climate.ParameterPoint> swampPoints = FrozenTerraBlenderCompat.points(OverworldBiomeBuilderParameters.getParameters(Biomes.SWAMP.location()));
+				List<Climate.ParameterPoint> swampPoints = FrozenTerraBlenderCompat.points(Biomes.SWAMP);
 
 				swampPoints.forEach(point ->
 						builder.replaceParameter(point,
