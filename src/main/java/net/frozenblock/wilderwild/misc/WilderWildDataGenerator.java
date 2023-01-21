@@ -64,7 +64,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.NORMAL_SAVANNA)
 					.add(Biomes.SAVANNA)
-					.add(Biomes.SAVANNA_PLATEAU);
+					.add(Biomes.SAVANNA_PLATEAU)
+					.addOptional(RegisterWorldgen.ARID_SAVANNA);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.SHORT_TAIGA)
 					.add(Biomes.TAIGA)
@@ -91,6 +92,21 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(BiomeTags.IS_TAIGA)
 					.addOptional(RegisterWorldgen.BIRCH_TAIGA);
+
+			this.getOrCreateTagBuilder(BiomeTags.IS_SAVANNA)
+					.addOptional(RegisterWorldgen.ARID_SAVANNA);
+
+			this.getOrCreateTagBuilder(BiomeTags.IS_RIVER)
+					.addOptional(RegisterWorldgen.OASIS);
+
+			this.getOrCreateTagBuilder(BiomeTags.IS_OVERWORLD)
+					.addOptional(RegisterWorldgen.MIXED_FOREST)
+					.addOptional(RegisterWorldgen.CYPRESS_WETLANDS)
+					.addOptional(RegisterWorldgen.JELLYFISH_CAVES)
+					.addOptional(RegisterWorldgen.OASIS)
+					.addOptional(RegisterWorldgen.WARM_RIVER)
+					.addOptional(RegisterWorldgen.FLOWER_FIELD)
+					.addOptional(RegisterWorldgen.ARID_SAVANNA);
 		}
 
 		private void generateClimateAndVegetationTags() {
@@ -140,7 +156,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.ERODED_BADLANDS)
 					.add(Biomes.WOODED_BADLANDS)
 					.add(Biomes.WINDSWEPT_SAVANNA)
-					.add(Biomes.SAVANNA_PLATEAU);
+					.add(Biomes.SAVANNA_PLATEAU)
+					.addOptional(RegisterWorldgen.ARID_SAVANNA);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.NO_POOLS)
 					.addOptional(Biomes.DEEP_DARK);
@@ -165,7 +182,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBiomeTags.SAND_BEACHES)
 					.add(Biomes.DARK_FOREST)
 					.add(Biomes.FLOWER_FOREST)
-					.add(Biomes.FOREST);
+					.add(Biomes.FOREST)
+					.addOptional(RegisterWorldgen.ARID_SAVANNA);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.MULTI_LAYER_SAND_BEACHES)
 					.add(Biomes.BAMBOO_JUNGLE)
@@ -218,7 +236,10 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.SAVANNA_PLATEAU)
 					.add(Biomes.DRIPSTONE_CAVES)
 					.add(Biomes.DEEP_DARK)
-					.addOptional(RegisterWorldgen.JELLYFISH_CAVES);
+					.addOptional(RegisterWorldgen.JELLYFISH_CAVES)
+					.addOptional(RegisterWorldgen.ARID_SAVANNA)
+					.addOptional(RegisterWorldgen.FLOWER_FIELD)
+					.addOptional(RegisterWorldgen.BIRCH_TAIGA);
 		}
 	}
 

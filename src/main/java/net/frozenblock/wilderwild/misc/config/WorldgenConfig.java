@@ -37,6 +37,7 @@ public final class WorldgenConfig implements ConfigData {
 		public boolean generateWarmRiver = DefaultWorldgenConfig.BiomeGeneration.GENERATE_WARM_RIVER;
 		public boolean generateBirchTaiga = DefaultWorldgenConfig.BiomeGeneration.GENERATE_BIRCH_TAIGA;
 		public boolean generateFlowerField = DefaultWorldgenConfig.BiomeGeneration.GENERATE_FLOWER_FIELD;
+		public boolean generateAridSavanna = DefaultWorldgenConfig.BiomeGeneration.GENERATE_ARID_SAVANNA;
 	}
 
     public boolean betaBeaches = DefaultWorldgenConfig.BETA_BEACHES;
@@ -99,11 +100,17 @@ public final class WorldgenConfig implements ConfigData {
 				.setTooltip(tooltip("generate_flower_field"))
 				.requireRestart()
 				.build();
+		var aridSavanna = entryBuilder.startBooleanToggle(text("generate_arid_savanna"), biomes.generateAridSavanna)
+				.setDefaultValue(DefaultWorldgenConfig.BiomeGeneration.GENERATE_ARID_SAVANNA)
+				.setSaveConsumer(newValue -> biomes.generateAridSavanna = newValue)
+				.setTooltip(tooltip("generate_arid_savanna"))
+				.requireRestart()
+				.build();
 
 		var biomeGenerationCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("biome_generation"),
 				false,
 				tooltip("biome_generation"),
-				cypressWetlands, jellyfishCaves, mixedForest, oasis, warmRiver, birchTaiga, flowerField
+				cypressWetlands, jellyfishCaves, mixedForest, oasis, warmRiver, birchTaiga, flowerField, aridSavanna
 		);
 
         /*

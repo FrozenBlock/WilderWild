@@ -57,6 +57,10 @@ public final class ClothConfigInteractionHandler {
 		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.generateFlowerField() : BiomeGeneration.GENERATE_FLOWER_FIELD;
 	}
 
+	public static boolean generateAridSavanna() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.generateAridSavanna() : BiomeGeneration.GENERATE_ARID_SAVANNA;
+	}
+
 	public static boolean dyingTrees() {
 		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.dyingTrees() : DYING_TREES;
 	}

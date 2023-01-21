@@ -111,6 +111,18 @@ public final class OverworldBiomeBuilderMixin {
 						RegisterWorldgen.FLOWER_FIELD
 				);
 			}
+			if (ClothConfigInteractionHandler.generateAridSavanna()) {
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.AridSavanna.TEMPERATURE,
+						WilderSharedWorldgen.AridSavanna.HUMIDITY,
+						WilderSharedWorldgen.AridSavanna.CONTINENTALNESS,
+						WilderSharedWorldgen.AridSavanna.EROSION,
+						weirdness,
+						WilderSharedWorldgen.AridSavanna.OFFSET,
+						RegisterWorldgen.ARID_SAVANNA
+				);
+			}
         }
     }
 
@@ -187,6 +199,18 @@ public final class OverworldBiomeBuilderMixin {
 						RegisterWorldgen.FLOWER_FIELD
 				);
 			}
+			if (ClothConfigInteractionHandler.generateAridSavanna()) {
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.AridSavanna.TEMPERATURE,
+						WilderSharedWorldgen.AridSavanna.HUMIDITY,
+						WilderSharedWorldgen.AridSavanna.CONTINENTALNESS,
+						WilderSharedWorldgen.AridSavanna.EROSION,
+						weirdness,
+						WilderSharedWorldgen.AridSavanna.OFFSET,
+						RegisterWorldgen.ARID_SAVANNA
+				);
+			}
         }
     }
 
@@ -215,6 +239,18 @@ public final class OverworldBiomeBuilderMixin {
 						weirdness,
 						WilderSharedWorldgen.Oasis.OFFSET,
 						RegisterWorldgen.OASIS
+				);
+			}
+			if (ClothConfigInteractionHandler.generateAridSavanna()) {
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.AridSavanna.TEMPERATURE,
+						WilderSharedWorldgen.AridSavanna.HUMIDITY,
+						WilderSharedWorldgen.AridSavanna.CONTINENTALNESS,
+						WilderSharedWorldgen.AridSavanna.EROSION,
+						weirdness,
+						WilderSharedWorldgen.AridSavanna.OFFSET,
+						RegisterWorldgen.ARID_SAVANNA
 				);
 			}
         }

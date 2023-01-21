@@ -75,6 +75,10 @@ public final class ClothConfigCloserInteractionHandler {
 		return BIOME_GENERATION.generateFlowerField;
 	}
 
+	public static boolean generateAridSavanna() {
+		return BIOME_GENERATION.generateAridSavanna;
+	}
+
 	public static boolean fallenLogs() {
 		return WORLDGEN.fallenLogs;
 	}

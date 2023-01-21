@@ -93,6 +93,14 @@ public final class WilderSharedWorldgen {
 		public static final float OFFSET = 0.0F;
 	}
 
+	public static final class AridSavanna {
+		public static final Climate.Parameter TEMPERATURE = FrozenBiomeParameters.inBetweenTighter(Temperature.WARM, Temperature.HOT);
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.ARID, Humidity.DRY);
+		public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
+		public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_1, Erosion.EROSION_6);
+		public static final float OFFSET = 0.0F;
+	}
+
     public static final class JellyfishCaves {
         public static final Climate.Parameter TEMPERATURE = Temperature.FULL_RANGE;
         public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.DRY, Humidity.HUMID);
@@ -175,6 +183,46 @@ public final class WilderSharedWorldgen {
 	public static SurfaceRules.RuleSource oasisRules() {
 		return SurfaceRules.ifTrue(
 				SurfaceRules.isBiome(RegisterWorldgen.OASIS),
+				SurfaceRules.sequence(
+						SurfaceRules.ifTrue(
+								SurfaceRules.ON_FLOOR,
+								SurfaceRules.ifTrue(
+										SurfaceRules.waterBlockCheck(-1, 0),
+										SurfaceRules.sequence(
+												SurfaceRules.ifTrue(
+														SurfaceRules.ON_CEILING,
+														SANDSTONE
+												),
+												SAND
+										)
+								)
+						),
+						SurfaceRules.ifTrue(
+								SurfaceRules.waterStartCheck(-6, -1),
+								SurfaceRules.sequence(
+										SurfaceRules.ifTrue(
+												SurfaceRules.UNDER_FLOOR,
+												SurfaceRules.sequence(
+														SurfaceRules.ifTrue(
+																SurfaceRules.ON_CEILING,
+																SANDSTONE
+														),
+														SAND
+												)
+										),
+										SurfaceRules.ifTrue(
+												SurfaceRules.VERY_DEEP_UNDER_FLOOR,
+												SANDSTONE
+										)
+								)
+						)
+				)
+		);
+	}
+
+	public static SurfaceRules.RuleSource aridSavannaRules() {
+		return SurfaceRules.ifTrue(
+				SurfaceRules.isBiome(RegisterWorldgen.ARID_SAVANNA),
 				SurfaceRules.sequence(
 						SurfaceRules.ifTrue(
 								SurfaceRules.ON_FLOOR,

@@ -175,6 +175,23 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
+			if (ClothConfigInteractionHandler.generateAridSavanna()) {
+				OverworldBiomeBuilderParameters.points(Biomes.DESERT).forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.AridSavanna.TEMPERATURE,
+									WilderSharedWorldgen.AridSavanna.HUMIDITY,
+									WilderSharedWorldgen.AridSavanna.HUMIDITY,
+									WilderSharedWorldgen.AridSavanna.EROSION,
+									point.depth(),
+									point.weirdness(),
+									point.offset()
+							)
+					);
+					builder.replaceBiome(point, RegisterWorldgen.ARID_SAVANNA);
+				});
+			}
+
 			if (ClothConfigInteractionHandler.modifyMangroveSwampPlacement()) {
 				OverworldBiomeBuilderParameters.points(Biomes.MANGROVE_SWAMP).forEach(point ->
 						builder.replaceParameter(point,
