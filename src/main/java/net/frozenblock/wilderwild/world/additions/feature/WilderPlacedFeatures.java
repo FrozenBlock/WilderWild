@@ -68,11 +68,18 @@ public final class WilderPlacedFeatures {
             WilderConfiguredFeatures.FALLEN_SPRUCE, RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
             PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
+	public static final Holder<PlacedFeature> FALLEN_OAK_AND_BIRCH_PLACED_2 = register("fallen_oak_and_birch_placed_2",
+			WilderConfiguredFeatures.NEW_FALLEN_BIRCH_AND_OAK, RarityFilter.onAverageOnceEvery(10), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+
     //TREES
     public static final Holder<PlacedFeature> NEW_TREES_PLAINS = register("trees_plains", WilderConfiguredFeatures.NEW_TREES_PLAINS,
             PlacementUtils.countExtra(0, 0.05F, 1), InSquarePlacement.spread(), TREE_THRESHOLD, PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome());
 
-    public static final Holder<PlacedFeature> NEW_TREES_BIRCH_AND_OAK = register("trees_birch_and_oak",
+	public static final Holder<PlacedFeature> TREES_FLOWER_FIELD = register("trees_flower_field", WilderConfiguredFeatures.TREES_FLOWER_FIELD,
+			PlacementUtils.countExtra(0, 0.1F, 1), InSquarePlacement.spread(), TREE_THRESHOLD, PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome());
+
+	public static final Holder<PlacedFeature> NEW_TREES_BIRCH_AND_OAK = register("trees_birch_and_oak",
             WilderConfiguredFeatures.NEW_TREES_BIRCH_AND_OAK, treePlacement(PlacementUtils.countExtra(12, 0.1F, 1)));
 
     public static final Holder<PlacedFeature> NEW_TREES_FLOWER_FOREST = register("trees_flower_forest",
@@ -223,8 +230,13 @@ public final class WilderPlacedFeatures {
             WilderConfiguredFeatures.LARGE_FERN_AND_GRASS, RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(),
             PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
+	public static final Holder<PlacedFeature> FLOWER_FIELD_GRASS_PLACED = register("flower_field_grass_placed",
+			VegetationFeatures.PATCH_GRASS_JUNGLE, worldSurfaceSquaredWithCount(15));
 
-    //FLOWERS
+	public static final Holder<PlacedFeature> PATCH_TALL_GRASS_FF = PlacementUtils.register("patch_tall_grass_ff", WilderConfiguredFeatures.LARGE_FERN_AND_GRASS_2, NoiseThresholdCountPlacement.of(-0.8, 0, 7), RarityFilter.onAverageOnceEvery(32), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+
+
+	//FLOWERS
     public static final Holder<PlacedFeature> SEEDING_DANDELION = register("seeding_dandelion",
             WilderConfiguredFeatures.SEEDING_DANDELION, RarityFilter.onAverageOnceEvery(9), InSquarePlacement.spread(),
             PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
@@ -273,7 +285,13 @@ public final class WilderPlacedFeatures {
     public static final Holder<PlacedFeature> GLORY_OF_THE_SNOW = register("glory_of_the_snow",
             WilderConfiguredFeatures.GLORY_OF_THE_SNOW, RarityFilter.onAverageOnceEvery(11), CountPlacement.of(2), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, InSquarePlacement.spread(), BiomeFilter.biome());
 
-    //VEGETATION
+	public static final Holder<PlacedFeature> FLOWER_FLOWER_FIELD = register("flower_flower_field", WilderConfiguredFeatures.FLOWER_FLOWER_FIELD,
+			CountPlacement.of(3), RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+
+	public static final Holder<PlacedFeature>  TALL_FLOWER_FIELD_FLOWERS = register("tall_flower_field_flowers", WilderConfiguredFeatures.TALL_FLOWER_FLOWER_FIELD,
+			RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, CountPlacement.of(ClampedInt.of(UniformInt.of(-1, 4), 0, 4)), BiomeFilter.biome());
+
+	//VEGETATION
     public static final Holder<PlacedFeature> POLLEN_PLACED = register("pollen",
             WilderConfiguredFeatures.POLLEN_CONFIGURED, RarityFilter.onAverageOnceEvery(1), CountPlacement.of(2), PlacementUtils.HEIGHTMAP, InSquarePlacement.spread(), SurfaceRelativeThresholdFilter.of(Heightmap.Types.MOTION_BLOCKING, 0, 128), BiomeFilter.biome());
 

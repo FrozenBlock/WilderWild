@@ -10,10 +10,6 @@
     {
       "id": "wilderwild:birch_taiga",
       "required": false
-    },
-    {
-      "id": "wilderwild:flower_field",
-      "required": false
     }
   ]
 }
