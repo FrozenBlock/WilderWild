@@ -10,7 +10,6 @@ import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
 import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
 import net.frozenblock.wilderwild.world.generation.noise.WilderNoise;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
@@ -25,6 +24,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.AmbientAdditionsSettings;
@@ -43,26 +43,26 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 
 	public static final ResourceKey<Biome> CYPRESS_WETLANDS = register("cypress_wetlands");
 	public static final ResourceKey<Biome> JELLYFISH_CAVES = register("jellyfish_caves");
-    public static final ResourceKey<Biome> MIXED_FOREST = register("mixed_forest");
+	public static final ResourceKey<Biome> MIXED_FOREST = register("mixed_forest");
 	public static final ResourceKey<Biome> WARM_RIVER = register("warm_river");
 	public static final ResourceKey<Biome> OASIS = register("oasis");
 	public static final ResourceKey<Biome> BIRCH_TAIGA = register("birch_taiga");
 	public static final ResourceKey<Biome> FLOWER_FIELD = register("flower_field");
 	public static final ResourceKey<Biome> ARID_SAVANNA = register("arid_savanna");
 
-    public static void registerWorldgen() {
+	public static void registerWorldgen() {
 		WilderSharedConstants.logWild("Registering Biomes for", WilderSharedConstants.UNSTABLE_LOGGING);
-        BuiltinRegistries.register(BuiltinRegistries.BIOME, MIXED_FOREST.location(), mixedForest());
-        BuiltinRegistries.register(BuiltinRegistries.BIOME, CYPRESS_WETLANDS.location(), cypressWetlands());
-        BuiltinRegistries.register(BuiltinRegistries.BIOME, JELLYFISH_CAVES.location(), jellyfishCaves());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, MIXED_FOREST.location(), mixedForest());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, CYPRESS_WETLANDS.location(), cypressWetlands());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, JELLYFISH_CAVES.location(), jellyfishCaves());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, WARM_RIVER.location(), warmRiver());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, OASIS.location(), oasis());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, BIRCH_TAIGA.location(), birchTaiga());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, FLOWER_FIELD.location(), flowerField());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, ARID_SAVANNA.location(), aridSavanna());
 
-        WilderNoise.init();
-    }
+		WilderNoise.init();
+	}
 
 	private static ResourceKey<Biome> register(String name) {
 		return ResourceKey.create(Registry.BIOME_REGISTRY, WilderSharedConstants.id(name));
@@ -408,7 +408,6 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 	public static void addFlowerFieldFeatures(BiomeGenerationSettings.Builder builder) {
 		addBasicFeatures(builder, FLOWER_FIELD);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_FLOWER_FIELD);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SEEDING_DANDELION);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TALL_FLOWER_FIELD_FLOWERS);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_FIELD_GRASS_PLACED);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_TALL_GRASS_FF);
@@ -486,6 +485,5 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 
 	@Override
 	public void addSurfaceRules(ArrayList<FrozenDimensionBoundRuleSource> context) {
-
 	}
 }
