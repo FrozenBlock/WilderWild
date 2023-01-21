@@ -32,19 +32,18 @@ public final class OverworldBiomeBuilderMixin {
 
     @Shadow
     private void addSurfaceBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, final float offset, ResourceKey<Biome> biome) {
-        parameters.accept(Pair.of(Climate.parameters(temperature, humidity, continentalness, erosion, Climate.Parameter.span(0.0F, 1.0F), weirdness, offset), biome));
     }
 
 	@Inject(method = "addSurfaceBiome", at = @At("HEAD"), cancellable = true)
 	private void addSurfaceBiomeInject(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter depth, float weirdness, ResourceKey<Biome> key, CallbackInfo info) {
 		if (ClothConfigInteractionHandler.generateMixedForest()) {
-			if (key.equals(Biomes.FOREST) && temperature.equals(Temperature.COOL)) {
+			if (key.location().equals(Biomes.FOREST.location()) && temperature.equals(Temperature.TWO)) {
 				info.cancel();
-				wilderWild$acceptBiomeAs(consumer, temperature, FrozenBiomeParameters.inBetweenTighterLower(Humidity.THREE, Humidity.FOUR), continentalness, erosion, depth, weirdness, key);
+				this.wilderWild$acceptBiomeAs(consumer, temperature, FrozenBiomeParameters.inBetweenTighterLowEnd(Humidity.THREE, Humidity.FOUR), continentalness, erosion, depth, weirdness, key);
 			}
-			if (key.equals(Biomes.TAIGA) && temperature.equals(Temperature.COOL)) {
+			if (key.location().equals(Biomes.TAIGA.location()) && temperature.equals(Temperature.TWO)) {
 				info.cancel();
-				wilderWild$acceptBiomeAs(consumer, temperature, FrozenBiomeParameters.inBetweenTighterHigher(Humidity.THREE, Humidity.FOUR), continentalness, erosion, depth, weirdness, key);
+				this.wilderWild$acceptBiomeAs(consumer, temperature, FrozenBiomeParameters.inBetweenTighterHighEnd(Humidity.THREE, Humidity.FOUR), continentalness, erosion, depth, weirdness, key);
 			}
 		}
 
