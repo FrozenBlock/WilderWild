@@ -47,6 +47,7 @@
     "server.general.WardenMixin",
     "server.warden.swim.WardenSwimMixin",
     "worldgen.general.BirchTreeGrowerMixin",
+    "worldgen.general.ClimateParameterListMixin",
     "worldgen.general.DarkOakTreeGrowerMixin",
     "worldgen.general.JigsawStructureMixin",
     "worldgen.general.MangroveTreeGrowerMixin",
