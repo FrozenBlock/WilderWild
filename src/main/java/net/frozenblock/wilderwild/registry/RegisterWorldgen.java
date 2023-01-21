@@ -416,12 +416,14 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		BiomeDefaultFeatures.addSavannaGrass(builder);
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
-		BiomeDefaultFeatures.addSavannaTrees(builder);
 		BiomeDefaultFeatures.addWarmFlowers(builder);
 		BiomeDefaultFeatures.addSavannaExtraGrass(builder);
 		BiomeDefaultFeatures.addDefaultMushrooms(builder);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
-		builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.GRASS_PATH);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_SAVANNA_TREES);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_CACTUS_PLACED);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_BUSH_PLACED);
+		builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.GRASS_PATH_RARE);
 	}
 
 	private static void addBasicFeatures(BiomeGenerationSettings.Builder builder, ResourceKey<Biome> biome) {
@@ -452,6 +454,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		context.add(WilderSharedWorldgen.cypressSurfaceRules());
 		context.add(WilderSharedWorldgen.warmRiverRules());
 		context.add(WilderSharedWorldgen.oasisRules());
+		context.add(WilderSharedWorldgen.aridSavannaGrass());
 		context.add(WilderSharedWorldgen.aridSavannaRules());
 		context.add(WilderSharedWorldgen.betaBeaches());
 		WilderSharedConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);

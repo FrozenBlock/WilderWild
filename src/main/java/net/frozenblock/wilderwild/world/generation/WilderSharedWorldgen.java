@@ -220,6 +220,23 @@ public final class WilderSharedWorldgen {
 				)
 		);
 	}
+	public static SurfaceRules.RuleSource aridSavannaGrass() {
+		return SurfaceRules.ifTrue(
+				SurfaceRules.isBiome(RegisterWorldgen.ARID_SAVANNA),
+				SurfaceRules.sequence(
+						SurfaceRules.ifTrue(
+								SurfaceRules.ON_FLOOR, SurfaceRules.ifTrue(
+										SurfaceRules.yBlockCheck(VerticalAnchor.absolute(63), 0),
+										SurfaceRules.ifTrue(
+												SurfaceRules.not(SurfaceRules.yBlockCheck(VerticalAnchor.absolute(150), 0)),
+												SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.SURFACE, 0.155, 0.3666), GRASS_BLOCK)
+										)
+								)
+						)
+				)
+
+		);
+	}
 
 	public static SurfaceRules.RuleSource aridSavannaRules() {
 		return SurfaceRules.ifTrue(

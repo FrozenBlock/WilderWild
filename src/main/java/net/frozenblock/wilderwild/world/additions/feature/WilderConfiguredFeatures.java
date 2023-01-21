@@ -217,6 +217,14 @@ public final class WilderConfiguredFeatures {
             register("windswept_savanna_trees", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(TreePlacements.ACACIA_CHECKED, 0.8F)), WilderTreePlaced.NEW_OAK_CHECKED));
 
+	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> ARID_SAVANNA_TREES =
+			register("arid_savanna_trees", Feature.RANDOM_SELECTOR,
+					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(TreePlacements.ACACIA_CHECKED, 0.8F),
+							new WeightedPlacedFeature(WilderTreePlaced.NEW_OAK_CHECKED, 0.08F),
+							new WeightedPlacedFeature(WilderTreePlaced.BAOBAB, 0.065F),
+							new WeightedPlacedFeature(WilderTreePlaced.SMALL_WINE_PALM_CHECKED, 0.052F),
+							new WeightedPlacedFeature(WilderTreePlaced.BAOBAB_TALL, 0.02F)), TreePlacements.ACACIA_CHECKED));
+
     public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> CYPRESS_WETLANDS_TREES =
             register("cypress_wetlands_trees", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.CYPRESS, 0.37F),
