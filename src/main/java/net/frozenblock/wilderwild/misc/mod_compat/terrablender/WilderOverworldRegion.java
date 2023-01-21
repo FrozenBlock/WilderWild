@@ -27,7 +27,7 @@ public class WilderOverworldRegion extends Region {
 		this.addModifiedVanillaOverworldBiomes(mapper, builder -> {
 
 			if (ClothConfigInteractionHandler.generateMixedForest()) {
-				OverworldBiomeBuilderParameters.points(Biomes.OLD_GROWTH_BIRCH_FOREST).forEach(point -> {
+				OverworldBiomeBuilderParameters.points(Biomes.TAIGA).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
 									WilderSharedWorldgen.CypressWetlands.TEMPERATURE,

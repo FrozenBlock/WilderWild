@@ -54,7 +54,7 @@ public final class WilderSharedWorldgen {
 
     public static final class MixedForest {
         public static final Climate.Parameter TEMPERATURE = Temperature.COOL;
-        public static final Climate.Parameter HUMIDITY = FrozenBiomeParameters.inBetween(Humidity.NEUTRAL, Humidity.WET);
+        public static final Climate.Parameter HUMIDITY = FrozenBiomeParameters.inBetweenTighter(Humidity.NEUTRAL, Humidity.WET);
     }
 
 	public static final class BirchTaiga {

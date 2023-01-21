@@ -43,7 +43,7 @@ public final class OverworldBiomeBuilderMixin {
 	@Unique
 	private void injectSomeWilderWildBiomesToo(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (ClothConfigInteractionHandler.generateMixedForest()) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FOREST)) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.TAIGA)) {
 				this.addSurfaceBiome(
 						parameters,
 						WilderSharedWorldgen.MixedForest.TEMPERATURE,
