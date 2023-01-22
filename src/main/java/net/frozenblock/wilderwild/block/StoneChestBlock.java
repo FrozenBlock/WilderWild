@@ -255,7 +255,7 @@ public class StoneChestBlock extends ChestBlock {
 	public void updateBubbles(BlockState oldState, BlockState state, LevelAccessor level, BlockPos currentPos) {
 		StoneChestBlockEntity otherChest = getOtherChest(level, currentPos, state);
 		if (otherChest != null) {
-			BlockState otherState = otherChest.getBlockState();
+			BlockState otherState = level.getBlockState(otherChest.getBlockPos());
 			boolean wasLogged = oldState.getValue(BlockStateProperties.WATERLOGGED);
 			if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
 				if (!otherState.getValue(BlockStateProperties.WATERLOGGED)) {

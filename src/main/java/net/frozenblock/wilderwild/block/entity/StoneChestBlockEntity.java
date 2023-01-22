@@ -197,22 +197,24 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
     }
 
     public void updateSync() {
-        StoneChestBlockEntity stoneChest = getOtherEntity(level, worldPosition, this.getBlockState());
-        if (stoneChest != null) {
-            stoneChest.openProgress = this.openProgress;
-            stoneChest.prevOpenProgress = this.prevOpenProgress;
-            stoneChest.highestLidPoint = this.highestLidPoint;
-            stoneChest.stillLidTicks = this.stillLidTicks;
-            stoneChest.cooldownTicks = this.cooldownTicks;
-            stoneChest.shouldSkip = true;
-            stoneChest.closing = this.closing;
-            for (ServerPlayer player : PlayerLookup.tracking(stoneChest)) {
-                player.connection.send(Objects.requireNonNull(stoneChest.getUpdatePacket()));
-            }
-        }
-        for (ServerPlayer player : PlayerLookup.tracking(this)) {
-            player.connection.send(Objects.requireNonNull(this.getUpdatePacket()));
-        }
+		if (this.getLevel() != null) {
+			StoneChestBlockEntity stoneChest = getOtherEntity(level, worldPosition, this.getLevel().getBlockState(this.getBlockPos()));
+			if (stoneChest != null) {
+				stoneChest.openProgress = this.openProgress;
+				stoneChest.prevOpenProgress = this.prevOpenProgress;
+				stoneChest.highestLidPoint = this.highestLidPoint;
+				stoneChest.stillLidTicks = this.stillLidTicks;
+				stoneChest.cooldownTicks = this.cooldownTicks;
+				stoneChest.shouldSkip = true;
+				stoneChest.closing = this.closing;
+				for (ServerPlayer player : PlayerLookup.tracking(stoneChest)) {
+					player.connection.send(Objects.requireNonNull(stoneChest.getUpdatePacket()));
+				}
+			}
+			for (ServerPlayer player : PlayerLookup.tracking(this)) {
+				player.connection.send(Objects.requireNonNull(this.getUpdatePacket()));
+			}
+		}
     }
 
     @Override
@@ -300,7 +302,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
     @Override
     public void stopOpen(@NotNull Player player) {
         if (!this.remove && !player.isSpectator()) {
-            this.stoneStateManager.decrementOpeners(player, Objects.requireNonNull(this.getLevel()), this.getBlockPos(), this.getBlockState());
+            this.stoneStateManager.decrementOpeners(player, Objects.requireNonNull(this.getLevel()), this.getBlockPos(), player.level.getBlockState(this.getBlockPos()));
         }
     }
 
