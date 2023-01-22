@@ -143,7 +143,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (ClothConfigInteractionHandler.generateAridForest()) {
+			if (ClothConfigInteractionHandler.generateOldGrowthSnowyTaiga()) {
 				OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
