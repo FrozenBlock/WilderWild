@@ -280,8 +280,8 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		Music musicSound = Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS);
 		return new Biome.BiomeBuilder()
 				.precipitation(Biome.Precipitation.NONE)
-				.temperature(0.75F)
-				.downfall(0.0F)
+				.temperature(1.35F)
+				.downfall(0.2F)
 				.specialEffects(
 						new BiomeSpecialEffects.Builder()
 								.waterColor(4159204)
