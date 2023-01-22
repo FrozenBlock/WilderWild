@@ -304,6 +304,10 @@ public final class WilderSharedWorldgen {
 										SurfaceRules.ifTrue(
 												SurfaceRules.noiseCondition(Noises.SURFACE, 0.0222, 0.055),
 												POWDER_SNOW
+										),
+										SurfaceRules.ifTrue(
+												SurfaceRules.noiseCondition(Noises.SURFACE, 0.065, 0.12),
+												SNOW_BLOCK
 										)
 								)
 						)
