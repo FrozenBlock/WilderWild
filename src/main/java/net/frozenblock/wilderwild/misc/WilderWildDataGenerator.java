@@ -193,7 +193,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.DARK_FOREST)
 					.add(Biomes.TAIGA)
 					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
-					.addOptional(RegisterWorldgen.FLOWER_FIELD);
+					.addOptional(RegisterWorldgen.FLOWER_FIELD)
+					.addOptional(RegisterWorldgen.MIXED_FOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SMALL_SPONGE)
 					.add(Biomes.WARM_OCEAN);

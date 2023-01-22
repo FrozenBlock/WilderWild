@@ -131,8 +131,8 @@ public final class OverworldBiomeBuilderMixin {
 			if (ClothConfigInteractionHandler.generateOasis()) {
 				this.addSurfaceBiome(
 						parameters,
-						WilderSharedWorldgen.Oasis.WARM_RANGE,
-						WilderSharedWorldgen.Oasis.HUMIDITY_DRY,
+						WilderSharedWorldgen.Oasis.TEMPERATURE,
+						WilderSharedWorldgen.Oasis.HUMIDITY,
 						WilderSharedWorldgen.Oasis.CONTINENTALNESS,
 						WilderSharedWorldgen.Oasis.EROSION,
 						weirdness,
@@ -161,8 +161,8 @@ public final class OverworldBiomeBuilderMixin {
 			if (ClothConfigInteractionHandler.generateOasis()) {
 				this.addSurfaceBiome(
 						parameters,
-						WilderSharedWorldgen.Oasis.WARM_RANGE,
-						WilderSharedWorldgen.Oasis.HUMIDITY_DRY,
+						WilderSharedWorldgen.Oasis.TEMPERATURE,
+						WilderSharedWorldgen.Oasis.HUMIDITY,
 						WilderSharedWorldgen.Oasis.CONTINENTALNESS,
 						WilderSharedWorldgen.Oasis.EROSION,
 						weirdness,
@@ -191,8 +191,8 @@ public final class OverworldBiomeBuilderMixin {
 			if (ClothConfigInteractionHandler.generateOasis()) {
 				this.addSurfaceBiome(
 						parameters,
-						WilderSharedWorldgen.Oasis.WARM_RANGE,
-						WilderSharedWorldgen.Oasis.HUMIDITY_DRY,
+						WilderSharedWorldgen.Oasis.TEMPERATURE,
+						WilderSharedWorldgen.Oasis.HUMIDITY,
 						WilderSharedWorldgen.Oasis.CONTINENTALNESS,
 						WilderSharedWorldgen.Oasis.EROSION,
 						weirdness,

@@ -146,8 +146,8 @@ public class WilderOverworldRegion extends Region {
 				OverworldBiomeBuilderParameters.points(Biomes.DESERT).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
-									WilderSharedWorldgen.Oasis.WARM_RANGE,
-									WilderSharedWorldgen.Oasis.HUMIDITY_DRY,
+									WilderSharedWorldgen.Oasis.TEMPERATURE,
+									WilderSharedWorldgen.Oasis.HUMIDITY,
 									WilderSharedWorldgen.Oasis.CONTINENTALNESS,
 									WilderSharedWorldgen.Oasis.EROSION,
 									point.depth(),

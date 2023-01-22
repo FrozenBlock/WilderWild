@@ -95,8 +95,8 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static final class Oasis {
-		public static final Climate.Parameter WARM_RANGE = Temperature.HOT;
-		public static final Climate.Parameter HUMIDITY_DRY = Humidity.DRY;
+		public static final Climate.Parameter TEMPERATURE = Temperature.HOT;
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.THREE, Humidity.FIVE);
 		public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
 		public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_3, Erosion.EROSION_4);
 		public static final Climate.Parameter DEPTH = Depth.SURFACE;
