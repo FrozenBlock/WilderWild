@@ -106,6 +106,9 @@ public final class WilderPlacedFeatures {
     public static final Holder<PlacedFeature> NEW_TREES_OLD_GROWTH_SPRUCE_TAIGA = register("trees_old_growth_spruce_taiga",
             WilderConfiguredFeatures.NEW_TREES_OLD_GROWTH_SPRUCE_TAIGA, treePlacement(PlacementUtils.countExtra(10, 0.1F, 1)));
 
+	public static final Holder<PlacedFeature> TREES_OLD_GROWTH_SNOWY_TAIGA = register("trees_old_growth_snowy_taiga",
+			WilderConfiguredFeatures.TREES_OLD_GROWTH_SNOWY_TAIGA, treePlacement(PlacementUtils.countExtra(8, 0.1F, 1)));
+
     public static final Holder<PlacedFeature> NEW_TREES_SNOWY = register("trees_snowy",
             WilderTreeConfigured.NEW_SPRUCE, treePlacement(PlacementUtils.countExtra(0, 0.1F, 1), Blocks.SPRUCE_SAPLING));
 

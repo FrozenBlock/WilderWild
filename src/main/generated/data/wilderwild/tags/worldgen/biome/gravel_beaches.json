@@ -12,6 +12,10 @@
     {
       "id": "wilderwild:birch_taiga",
       "required": false
+    },
+    {
+      "id": "wilderwild:old_growth_snowy_taiga",
+      "required": false
     }
   ]
 }

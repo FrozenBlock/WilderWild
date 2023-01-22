@@ -86,6 +86,9 @@ public final class ClothConfigCloserInteractionHandler {
 	public static boolean generateAridForest() {
 		return BIOME_GENERATION.generateAridForest;
 	}
+	public static boolean generateOldGrowthSnowyTaiga() {
+		return BIOME_GENERATION.generateOldGrowthSnowyTaiga;
+	}
 
 	public static boolean fallenLogs() {
 		return WORLDGEN.fallenLogs;
