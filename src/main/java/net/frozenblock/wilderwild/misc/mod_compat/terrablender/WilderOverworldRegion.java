@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.misc.mod_compat.terrablender;
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.function.Consumer;
+import net.frozenblock.lib.worldgen.biome.api.parameters.FrozenBiomeParameters;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.lib_compat.terrablender.FrozenTerraBlenderCompat;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
@@ -44,7 +45,7 @@ public class WilderOverworldRegion extends Region {
 			}
 
 			if (ClothConfigInteractionHandler.generateBirchTaiga()) {
-				OverworldBiomeBuilderParameters.points(Biomes.TAIGA).forEach(point -> {
+				OverworldBiomeBuilderParameters.points(Biomes.BIRCH_FOREST).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
 									WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
@@ -64,8 +65,8 @@ public class WilderOverworldRegion extends Region {
 				OverworldBiomeBuilderParameters.points(Biomes.FLOWER_FOREST).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
-									WilderSharedWorldgen.FlowerField.TEMPERATURE,
-									WilderSharedWorldgen.FlowerField.HUMIDITY,
+									WilderSharedWorldgen.FlowerField.TEMPERATURE_A,
+									WilderSharedWorldgen.FlowerField.HUMIDITY_A,
 									point.continentalness(),
 									point.erosion(),
 									point.depth(),
@@ -78,8 +79,8 @@ public class WilderOverworldRegion extends Region {
 				OverworldBiomeBuilderParameters.points(Biomes.FLOWER_FOREST).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
-									WilderSharedWorldgen.FlowerField.TEMPERATURE,
-									WilderSharedWorldgen.FlowerField.HUMIDITY,
+									WilderSharedWorldgen.FlowerField.TEMPERATURE_B,
+									WilderSharedWorldgen.FlowerField.HUMIDITY_B,
 									point.continentalness(),
 									point.erosion(),
 									point.depth(),

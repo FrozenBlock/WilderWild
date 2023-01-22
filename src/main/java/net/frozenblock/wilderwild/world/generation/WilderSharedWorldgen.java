@@ -54,7 +54,7 @@ public final class WilderSharedWorldgen {
 
     public static final class MixedForest {
         public static final Climate.Parameter TEMPERATURE = Temperature.COOL;
-        public static final Climate.Parameter HUMIDITY = FrozenBiomeParameters.inBetween(Humidity.NEUTRAL, Humidity.WET);
+        public static final Climate.Parameter HUMIDITY = FrozenBiomeParameters.inBetween(Humidity.NEUTRAL, Humidity.WET, 0.8F);
     }
 
 	public static final class BirchTaiga {
@@ -63,14 +63,15 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static final class FlowerField {
-		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.200F, -0.100F);
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1.0F, -0.350F);
-
+		public static final Climate.Parameter TEMPERATURE_A = Climate.Parameter.span(-0.200F, -0.100F);
+		public static final Climate.Parameter HUMIDITY_A = Humidity.ONE;
+		public static final Climate.Parameter TEMPERATURE_B = Temperature.THREE;
+		public static final Climate.Parameter HUMIDITY_B = Climate.Parameter.span(-0.4F, -0.3F);
 	}
 
 	public static final class AridSavanna {
-		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.350F, 0.750F);
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.350F, -0.100F);
+		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.450F, 0.650F);
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1.000F, -0.100F);
 	}
 
     public static final class JellyfishCaves {

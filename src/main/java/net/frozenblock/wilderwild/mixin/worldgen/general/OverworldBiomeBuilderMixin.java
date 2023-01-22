@@ -33,49 +33,6 @@ public final class OverworldBiomeBuilderMixin {
     @Shadow
     private void addSurfaceBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, final float offset, ResourceKey<Biome> biome) {
     }
-	/*
-	@Inject(method = "addSurfaceBiome", at = @At("HEAD"), cancellable = true)
-	private void addSurfaceBiomeInject(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter depth, float weirdness, ResourceKey<Biome> key, CallbackInfo info) {
-		if (ClothConfigInteractionHandler.generateMixedForest()) {
-			if (key.location().equals(Biomes.FOREST.location()) && temperature.equals(Temperature.TWO)) {
-				info.cancel();
-				humidity = FrozenBiomeParameters.inBetweenTighterLowEnd(Humidity.THREE, Humidity.FOUR);
-			}
-			if (key.location().equals(Biomes.TAIGA.location()) && temperature.equals(Temperature.TWO)) {
-				info.cancel();
-				humidity = FrozenBiomeParameters.inBetweenTighterHighEnd(Humidity.THREE, Humidity.FOUR);
-			}
-		}
-		if (ClothConfigInteractionHandler.generateBirchTaiga()) {
-			if (key.location().equals(Biomes.TAIGA.location()) && temperature.equals(Temperature.TWO)) {
-				info.cancel();
-				temperature = FrozenBiomeParameters.inBetweenTighterLowEnd(Temperature.TWO, Temperature.THREE);
-			}
-			if (key.location().equals(Biomes.BIRCH_FOREST.location()) && temperature.equals(Temperature.THREE)) {
-				info.cancel();
-				temperature = FrozenBiomeParameters.inBetweenTighterHighEnd(Temperature.TWO, Temperature.THREE);
-			}
-		}
-		if (ClothConfigInteractionHandler.generateFlowerField()) {
-			if (key.location().equals(Biomes.PLAINS.location()) && temperature.equals(Temperature.TWO)) {
-				info.cancel();
-				temperature = FrozenBiomeParameters.inBetweenTighterLowEnd(Temperature.TWO, Temperature.THREE);
-			}
-			if (key.location().equals(Biomes.PLAINS.location()) && temperature.equals(Temperature.THREE) && humidity.equals(Humidity.TWO)) {
-				info.cancel();
-				humidity = FrozenBiomeParameters.inBetweenTighterHighEnd(Temperature.ONE, Temperature.TWO);
-			}
-		}
-		if (info.isCancelled()) {
-			this.wilderWild$acceptBiomeAs(consumer, temperature, humidity, continentalness, erosion, depth, weirdness, key);
-		}
-	}*/
-
-	@Unique
-	private void wilderWild$acceptBiomeAs(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter depth, float weirdness, ResourceKey<Biome> key) {
-		consumer.accept(Pair.of(Climate.parameters(temperature, humidity, continentalness, erosion, Climate.Parameter.point(0.0f), depth, weirdness), key));
-		consumer.accept(Pair.of(Climate.parameters(temperature, humidity, continentalness, erosion, Climate.Parameter.point(1.0f), depth, weirdness), key));
-	}
 
 	@Inject(method = "<init>", at = @At("TAIL"))
     private void injectBiomes(CallbackInfo ci) {
@@ -102,7 +59,7 @@ public final class OverworldBiomeBuilderMixin {
 			}
 		}
 		if (ClothConfigInteractionHandler.generateBirchTaiga()) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.TAIGA)) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.BIRCH_FOREST)) {
 				this.addSurfaceBiome(
 						parameters,
 						WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
@@ -119,8 +76,8 @@ public final class OverworldBiomeBuilderMixin {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FLOWER_FOREST)) {
 				this.addSurfaceBiome(
 						parameters,
-						WilderSharedWorldgen.FlowerField.TEMPERATURE,
-						WilderSharedWorldgen.FlowerField.HUMIDITY,
+						WilderSharedWorldgen.FlowerField.TEMPERATURE_A,
+						WilderSharedWorldgen.FlowerField.HUMIDITY_A,
 						point.continentalness(),
 						point.erosion(),
 						point.weirdness(),
@@ -129,8 +86,8 @@ public final class OverworldBiomeBuilderMixin {
 				);
 				this.addSurfaceBiome(
 						parameters,
-						WilderSharedWorldgen.FlowerField.TEMPERATURE,
-						WilderSharedWorldgen.FlowerField.HUMIDITY,
+						WilderSharedWorldgen.FlowerField.TEMPERATURE_B,
+						WilderSharedWorldgen.FlowerField.HUMIDITY_B,
 						point.continentalness(),
 						point.erosion(),
 						point.weirdness(),
