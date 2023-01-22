@@ -26,6 +26,7 @@
     "server.general.InstrumentItemMixin",
     "server.general.LeavesBlockMixin",
     "server.general.MobMixin",
+    "server.general.RandomizableContainerBlockEntityMixin",
     "server.general.SculkBlockMixin",
     "server.general.SculkSensorBlockEntityMixin",
     "server.general.SculkSensorBlockMixin",

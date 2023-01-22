@@ -49,18 +49,10 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 		}
 	}
 
-	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/ChestBlock;getMenuProvider(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/MenuProvider;", shift = At.Shift.AFTER), method = "use")
+	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;openMenu(Lnet/minecraft/world/MenuProvider;)Ljava/util/OptionalInt;", shift = At.Shift.AFTER), method = "use")
 	public void use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit, CallbackInfoReturnable<InteractionResult> info) {
 		if (level.getBlockEntity(pos) instanceof ChestBlockEntity sourceChest) {
 			ChestBlockEntity chest = getLeftEntity(level, pos, state, sourceChest);
-			if (chest.lootTable != null && chest.getBlockState().getValue(BlockStateProperties.WATERLOGGED)) {
-				if (chest.lootTable.equals(BuiltInLootTables.SHIPWRECK_MAP) || chest.lootTable.equals(BuiltInLootTables.SHIPWRECK_SUPPLY) || chest.lootTable.equals(BuiltInLootTables.SHIPWRECK_TREASURE)) {
-					((ChestBlockEntityInterface)chest).setCanBubble(true);
-					if (level.random.nextBoolean() && level.random.nextBoolean()) {
-						((ChestBlockEntityInterface) chest).setHasJellyfish(true);
-					}
-				}
-			}
 			((ChestBlockEntityInterface) chest).bubble();
 			((ChestBlockEntityInterface) chest).releaseJellyfish(level, state, pos);
 		}

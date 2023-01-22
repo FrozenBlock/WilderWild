@@ -12,27 +12,21 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.CompoundContainer;
-import net.minecraft.world.Container;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
-import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
-import org.jetbrains.annotations.NotNull;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Mixin(ChestBlockEntity.class)
 public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
@@ -41,37 +35,24 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	@Unique boolean canBubble = true;
 	@Unique boolean hasJellyfish = false;
 
-	@Shadow @Final @Mutable
-	private ContainerOpenersCounter openersCounter;
+	@Unique
+	private static BlockState playedSoundState;
 
-	@Inject(at = @At(value = "TAIL"), method = "<init>", require = 0)
-	public void newSounds(CallbackInfo info) {
-		this.openersCounter = new ContainerOpenersCounter(){
+	@Inject(at = @At("HEAD"), method = "playSound")
+	static void playSound(Level level, BlockPos pos, BlockState state, SoundEvent sound, CallbackInfo info) {
+		playedSoundState = state;
+	}
 
-			@Override
-			protected void onOpen(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
-				playSound(level, pos, state, state.getValue(BlockStateProperties.WATERLOGGED) ? RegisterSounds.BLOCK_CHEST_OPEN_UNDERWATER : SoundEvents.CHEST_OPEN);
+	@ModifyArgs(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playSound(Lnet/minecraft/world/entity/player/Player;DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V"), method = "playSound")
+	static void playSound(Args args) {
+		if (playedSoundState != null && playedSoundState.hasProperty(BlockStateProperties.WATERLOGGED) && playedSoundState.getValue(BlockStateProperties.WATERLOGGED)) {
+			SoundEvent sound = args.get(4);
+			if (sound == SoundEvents.CHEST_OPEN) {
+				args.set(4, RegisterSounds.BLOCK_CHEST_OPEN_UNDERWATER);
+			} else if (sound == SoundEvents.CHEST_CLOSE) {
+				args.set(4, RegisterSounds.BLOCK_CHEST_CLOSE_UNDERWATER);
 			}
-
-			@Override
-			protected void onClose(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
-				playSound(level, pos, state, state.getValue(BlockStateProperties.WATERLOGGED) ? RegisterSounds.BLOCK_CHEST_CLOSE_UNDERWATER : SoundEvents.CHEST_CLOSE);
-			}
-
-			@Override
-			protected void openerCountChanged(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, int count, int openCount) {
-				signalOpenCount(level, pos, state, count, openCount);
-			}
-
-			@Override
-			protected boolean isOwnContainer(@NotNull Player player) {
-				if (player.containerMenu instanceof ChestMenu) {
-					Container container = ((ChestMenu)player.containerMenu).getContainer();
-					return container == (Container) ChestBlockEntityMixin.this || container instanceof CompoundContainer && ((CompoundContainer)container).contains((Container) ChestBlockEntityMixin.this);
-				}
-				return false;
-			}
-		};
+		}
 	}
 
 	@Unique
@@ -106,7 +87,10 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 				chest.setBubbleTicks(0);
 			} else if (chest.getBubbleTick() > 0) {
 				chest.setBubbleTicks(chest.getBubbleTick() - 1);
-				server.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, level.random.nextInt(4, 10), 0.21875F, 0, 0.21875F, 0.2D);
+				ChestBlockEntity otherChest = getOtherEntity(level, pos, state);
+				double additionalX = otherChest != null ? pos.getX() - otherChest.getBlockPos().getX() * 0.25 : 0;
+				double additionalZ = otherChest != null ? pos.getZ() - otherChest.getBlockPos().getZ() * 0.25 : 0;
+				server.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5 + additionalX, pos.getY() + 0.625, pos.getZ() + 0.5 + additionalZ, level.random.nextInt(4, 10), 0.21875F, 0, 0.21875F, 0.2D);
 				if (chest.getBubbleTick() <= 0) {
 					chest.setCanBubble(false);
 				}
@@ -172,8 +156,8 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 			Jellyfish jellyfish = new Jellyfish(RegisterEntities.JELLYFISH, level);
 			BlockPos chestPos = chest.getBlockPos();
 			jellyfish.setVariantFromPos(level, chestPos);
-			double additionalX = otherChest != null ? otherChest.getBlockPos().getX() - chestPos.getX() * 0.25 : 0;
-			double additionalZ = otherChest != null ? otherChest.getBlockPos().getZ() - chestPos.getZ() * 0.25 : 0;
+			double additionalX = otherChest != null ? chestPos.getX() - otherChest.getBlockPos().getX() * 0.25 : 0;
+			double additionalZ = otherChest != null ? chestPos.getZ() - otherChest.getBlockPos().getZ() * 0.25 : 0;
 			jellyfish.setPos(chestPos.getX() + 0.5 + additionalX, chestPos.getY() + 0.75, chestPos.getZ() + 0.5 + additionalZ);
 			jellyfish.setDeltaMovement(0, 0.1 + level.random.nextDouble() * 0.07, 0);
 			level.addFreshEntity(jellyfish);
