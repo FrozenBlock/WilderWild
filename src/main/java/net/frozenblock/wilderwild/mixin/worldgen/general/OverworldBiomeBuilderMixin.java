@@ -121,7 +121,7 @@ public final class OverworldBiomeBuilderMixin {
 			}
 		}
 		if (ClothConfigInteractionHandler.generateAridForest()) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FOREST)) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.DESERT)) {
 				this.addSurfaceBiome(
 						parameters,
 						WilderSharedWorldgen.AridForest.TEMPERATURE,
