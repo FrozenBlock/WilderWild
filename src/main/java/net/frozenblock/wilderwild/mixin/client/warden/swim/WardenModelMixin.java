@@ -62,7 +62,7 @@ public class WardenModelMixin<T extends Warden> {
 
 	@Unique
 	@SuppressWarnings("unchecked")
-	private final WardenModel<T> model = WardenModel.class.cast(this);
+	private final WardenModel<T> wilderWild$model = WardenModel.class.cast(this);
 
 	@Inject(at = @At("TAIL"), method = "animateTendrils", locals = LocalCapture.CAPTURE_FAILHARD)
 	private void animateCustomTendrils(T warden, float animationProgress, float tickDelta, CallbackInfo info, float cos) { //CUSTOM TENDRIL ANIMATION
@@ -88,9 +88,9 @@ public class WardenModelMixin<T extends Warden> {
 		if (ClothConfigInteractionHandler.wardenSwimAnimation() && isSubmerged(wardenEntity)) {
 			this.animateSwimming(wardenEntity, angle, distance, anim, headYaw, headPitch, shouldMoveLimbs, canSwim);
 		}
-		model.animate(((WilderWarden) wardenEntity).getDyingAnimationState(), CustomWardenAnimations.DYING, anim);
-		model.animate(((WilderWarden) wardenEntity).getSwimmingDyingAnimationState(), CustomWardenAnimations.WATER_DYING, anim);
-		model.animate(((WilderWarden) wardenEntity).getKirbyDeathAnimationState(), CustomWardenAnimations.KIRBY_DEATH, anim);
+		wilderWild$model.animate(((WilderWarden) wardenEntity).getDyingAnimationState(), CustomWardenAnimations.DYING, anim);
+		wilderWild$model.animate(((WilderWarden) wardenEntity).getSwimmingDyingAnimationState(), CustomWardenAnimations.WATER_DYING, anim);
+		wilderWild$model.animate(((WilderWarden) wardenEntity).getKirbyDeathAnimationState(), CustomWardenAnimations.KIRBY_DEATH, anim);
 	}
 
 	@Unique
@@ -162,7 +162,7 @@ public class WardenModelMixin<T extends Warden> {
 
 			this.body.y = 0;
 
-			model.root().getAllParts().forEach(ModelPart::resetPose);
+			wilderWild$model.root().getAllParts().forEach(ModelPart::resetPose);
 
 		} else {
 			float time = anim * 0.1F;
