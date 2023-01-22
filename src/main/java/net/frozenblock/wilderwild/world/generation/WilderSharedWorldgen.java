@@ -79,6 +79,11 @@ public final class WilderSharedWorldgen {
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.150F, -0.050F);
 	}
 
+	public static final class AridForest {
+		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.525F, 0.675F);
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.095F, 0.1F);
+	}
+
     public static final class JellyfishCaves {
         public static final Climate.Parameter TEMPERATURE = Temperature.FULL_RANGE;
         public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.DRY, Humidity.HUMID);
@@ -197,9 +202,9 @@ public final class WilderSharedWorldgen {
 				)
 		);
 	}
-	public static SurfaceRules.RuleSource aridSavannaGrass() {
+	public static SurfaceRules.RuleSource aridGrass() {
 		return SurfaceRules.ifTrue(
-				SurfaceRules.isBiome(RegisterWorldgen.ARID_SAVANNA),
+				SurfaceRules.isBiome(RegisterWorldgen.ARID_SAVANNA, RegisterWorldgen.ARID_FOREST),
 				SurfaceRules.sequence(
 						SurfaceRules.ifTrue(
 								SurfaceRules.ON_FLOOR,
@@ -237,9 +242,9 @@ public final class WilderSharedWorldgen {
 		);
 	}
 
-	public static SurfaceRules.RuleSource aridSavannaRules() {
+	public static SurfaceRules.RuleSource aridRules() {
 		return SurfaceRules.ifTrue(
-				SurfaceRules.isBiome(RegisterWorldgen.ARID_SAVANNA),
+				SurfaceRules.isBiome(RegisterWorldgen.ARID_SAVANNA, RegisterWorldgen.ARID_FOREST),
 				SurfaceRules.sequence(
 						SurfaceRules.ifTrue(
 								SurfaceRules.ON_FLOOR,

@@ -124,6 +124,20 @@ public final class OverworldBiomeBuilderMixin {
 				);
 			}
 		}
+		if (ClothConfigInteractionHandler.generateAridForest()) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FOREST)) {
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.AridForest.TEMPERATURE,
+						WilderSharedWorldgen.AridForest.HUMIDITY,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						point.offset(),
+						RegisterWorldgen.ARID_FOREST
+				);
+			}
+		}
 	}
 
     @Inject(method = "addLowSlice", at = @At("TAIL")) // also can be injectLowBiomes

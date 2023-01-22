@@ -58,6 +58,10 @@
     {
       "id": "wilderwild:birch_taiga",
       "required": false
+    },
+    {
+      "id": "wilderwild:arid_forest",
+      "required": false
     }
   ]
 }

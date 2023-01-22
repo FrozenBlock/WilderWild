@@ -2,11 +2,11 @@
   "replace": false,
   "values": [
     {
-      "id": "wilderwild:cypress_wetlands",
+      "id": "wilderwild:birch_taiga",
       "required": false
     },
     {
-      "id": "wilderwild:oasis",
+      "id": "wilderwild:mixed_forest",
       "required": false
     }
   ]

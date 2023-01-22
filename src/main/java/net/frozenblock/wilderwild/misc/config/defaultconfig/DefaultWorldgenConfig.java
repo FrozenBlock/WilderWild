@@ -19,6 +19,7 @@ public class DefaultWorldgenConfig {
 		public static final boolean GENERATE_FLOWER_FIELD = true;
 		public static final boolean GENERATE_ARID_SAVANNA = true;
 		public static final boolean GENERATE_PARCHED_FOREST = true;
+		public static final boolean GENERATE_ARID_FOREST = true;
 	}
 
 	public static final boolean BETA_BEACHES = true;

@@ -8,6 +8,18 @@
     {
       "id": "wilderwild:mixed_forest",
       "required": false
+    },
+    {
+      "id": "wilderwild:parched_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:warm_river",
+      "required": false
+    },
+    {
+      "id": "wilderwild:flower_field",
+      "required": false
     }
   ]
 }

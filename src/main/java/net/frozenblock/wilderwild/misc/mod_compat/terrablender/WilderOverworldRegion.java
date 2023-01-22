@@ -126,6 +126,23 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
+			if (ClothConfigInteractionHandler.generateAridForest()) {
+				OverworldBiomeBuilderParameters.points(Biomes.FOREST).forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.AridForest.TEMPERATURE,
+									WilderSharedWorldgen.AridForest.HUMIDITY,
+									point.continentalness(),
+									point.erosion(),
+									point.depth(),
+									point.weirdness(),
+									point.offset()
+							)
+					);
+					builder.replaceBiome(point, RegisterWorldgen.ARID_FOREST);
+				});
+			}
+
 			if (ClothConfigInteractionHandler.generateCypressWetlands()) {
 				OverworldBiomeBuilderParameters.points(Biomes.SWAMP).forEach(point -> {
 					builder.replaceParameter(point,

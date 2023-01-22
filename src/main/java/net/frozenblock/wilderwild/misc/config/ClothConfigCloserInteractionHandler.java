@@ -83,6 +83,10 @@ public final class ClothConfigCloserInteractionHandler {
 		return BIOME_GENERATION.generateParchedForest;
 	}
 
+	public static boolean generateAridForest() {
+		return BIOME_GENERATION.generateAridForest;
+	}
+
 	public static boolean fallenLogs() {
 		return WORLDGEN.fallenLogs;
 	}

@@ -1,19 +1,16 @@
 {
   "replace": false,
   "values": [
-    "minecraft:dark_forest",
-    "minecraft:flower_forest",
-    "minecraft:forest",
     {
       "id": "wilderwild:arid_savanna",
       "required": false
     },
     {
-      "id": "wilderwild:parched_forest",
+      "id": "wilderwild:arid_forest",
       "required": false
     },
     {
-      "id": "wilderwild:arid_forest",
+      "id": "wilderwild:parched_forest",
       "required": false
     }
   ]

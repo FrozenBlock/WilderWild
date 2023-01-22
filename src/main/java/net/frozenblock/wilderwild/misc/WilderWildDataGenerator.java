@@ -101,13 +101,31 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 		}
 
 		private void generateClimateAndVegetationTags() {
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_HOT)
+					.addOptional(RegisterWorldgen.OASIS)
+					.addOptional(RegisterWorldgen.ARID_FOREST)
+					.addOptional(RegisterWorldgen.ARID_SAVANNA);
 
 			this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_TEMPERATE)
 					.addOptional(RegisterWorldgen.CYPRESS_WETLANDS)
+					.addOptional(RegisterWorldgen.MIXED_FOREST)
+					.addOptional(RegisterWorldgen.PARCHED_FOREST)
+					.addOptional(RegisterWorldgen.WARM_RIVER)
+					.addOptional(RegisterWorldgen.FLOWER_FIELD);
+
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_COLD)
+					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
 					.addOptional(RegisterWorldgen.MIXED_FOREST);
 
+
 			this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_WET)
-					.addOptional(RegisterWorldgen.CYPRESS_WETLANDS);
+					.addOptional(RegisterWorldgen.CYPRESS_WETLANDS)
+					.addOptional(RegisterWorldgen.OASIS);
+
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_DRY)
+					.addOptional(RegisterWorldgen.ARID_SAVANNA)
+					.addOptional(RegisterWorldgen.ARID_FOREST)
+					.addOptional(RegisterWorldgen.PARCHED_FOREST);
 
 			this.getOrCreateTagBuilder(ConventionalBiomeTags.TREE_CONIFEROUS)
 					.addOptional(RegisterWorldgen.MIXED_FOREST)
@@ -175,7 +193,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.FLOWER_FOREST)
 					.add(Biomes.FOREST)
 					.addOptional(RegisterWorldgen.ARID_SAVANNA)
-					.addOptional(RegisterWorldgen.PARCHED_FOREST);
+					.addOptional(RegisterWorldgen.PARCHED_FOREST)
+					.addOptional(RegisterWorldgen.ARID_FOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.MULTI_LAYER_SAND_BEACHES)
 					.add(Biomes.BAMBOO_JUNGLE)
@@ -232,7 +251,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.JELLYFISH_CAVES)
 					.addOptional(RegisterWorldgen.ARID_SAVANNA)
 					.addOptional(RegisterWorldgen.FLOWER_FIELD)
-					.addOptional(RegisterWorldgen.BIRCH_TAIGA);
+					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
+					.addOptional(RegisterWorldgen.ARID_FOREST);
 		}
 	}
 
