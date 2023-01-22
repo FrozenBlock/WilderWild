@@ -74,6 +74,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 		};
 	}
 
+	@Unique
 	@Override
 	public void bubble() {
 		ChestBlockEntity chest = ChestBlockEntity.class.cast(this);
@@ -86,6 +87,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 		}
 	}
 
+	@Unique
 	@Override
 	public void bubbleBurst() {
 		ChestBlockEntity chest = ChestBlockEntity.class.cast(this);
@@ -126,31 +128,37 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 		tag.putBoolean("hasJellyfish", this.hasJellyfish);
 	}
 
+	@Unique
 	@Override
 	public boolean getCanBubble() {
 		return this.canBubble;
 	}
 
+	@Unique
 	@Override
 	public void setCanBubble(boolean b) {
 		this.canBubble = b;
 	}
 
+	@Unique
 	@Override
 	public void setBubbleTicks(int i) {
 		this.bubbleTicks = i;
 	}
 
+	@Unique
 	@Override
 	public int getBubbleTick() {
 		return this.bubbleTicks;
 	}
 
+	@Unique
 	@Override
 	public boolean getHasJellyfish() {
 		return this.hasJellyfish;
 	}
 
+	@Unique
 	@Override
 	public void releaseJellyfish(Level level, BlockState state, BlockPos pos) {
 		ChestBlockEntity chest = ChestBlockEntity.class.cast(this);
@@ -172,6 +180,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 		}
 	}
 
+	@Unique
 	@Override
 	public void setHasJellyfish(boolean b) {
 		this.hasJellyfish = b;
