@@ -121,10 +121,10 @@ public final class WorldgenConfig implements ConfigData {
 				.setTooltip(tooltip("generate_arid_forest"))
 				.requireRestart()
 				.build();
-		var oldGrowthSnowyTaiga = entryBuilder.startBooleanToggle(text("generate_old_growth_snowy_taiga"), biomes.generateOldGrowthSnowyTaiga)
+		var oldGrowthSnowyTaiga = entryBuilder.startBooleanToggle(text("generate_old_growth_snowy_pine_taiga"), biomes.generateOldGrowthSnowyTaiga)
 				.setDefaultValue(DefaultWorldgenConfig.BiomeGeneration.GENERATE_OLD_GROWTH_SNOWY_TAIGA)
 				.setSaveConsumer(newValue -> biomes.generateOldGrowthSnowyTaiga = newValue)
-				.setTooltip(tooltip("generate_old_growth_snowy_taiga"))
+				.setTooltip(tooltip("generate_old_growth_snowy_pine_taiga"))
 				.requireRestart()
 				.build();
 

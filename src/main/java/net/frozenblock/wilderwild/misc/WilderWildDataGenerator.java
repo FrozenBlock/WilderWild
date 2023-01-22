@@ -116,7 +116,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_COLD)
 					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
 					.addOptional(RegisterWorldgen.MIXED_FOREST)
-					.addOptional(RegisterWorldgen.OLD_GROWTH_SNOWY_SPRUCE_TAIGA);
+					.addOptional(RegisterWorldgen.OLD_GROWTH_SNOWY_PINE_TAIGA);
 
 
 			this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_WET)

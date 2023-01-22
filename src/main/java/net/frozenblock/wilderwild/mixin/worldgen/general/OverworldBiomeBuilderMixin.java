@@ -1,13 +1,9 @@
 package net.frozenblock.wilderwild.mixin.worldgen.general;
 
 import com.mojang.datafixers.util.Pair;
-import java.util.List;
 import java.util.function.Consumer;
 import net.frozenblock.lib.FrozenBools;
-import net.frozenblock.lib.worldgen.biome.api.parameters.FrozenBiomeParameters;
-import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
-import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
@@ -148,7 +144,7 @@ public final class OverworldBiomeBuilderMixin {
 						point.erosion(),
 						point.weirdness(),
 						point.offset(),
-						RegisterWorldgen.OLD_GROWTH_SNOWY_SPRUCE_TAIGA
+						RegisterWorldgen.OLD_GROWTH_SNOWY_PINE_TAIGA
 				);
 			}
 		}

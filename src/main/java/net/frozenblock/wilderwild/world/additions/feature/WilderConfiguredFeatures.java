@@ -4,7 +4,6 @@ import java.util.List;
 import net.frozenblock.lib.feature.FrozenFeatures;
 import net.frozenblock.lib.feature.features.config.ColumnWithDiskFeatureConfig;
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.block.BushBlock;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
 import net.frozenblock.wilderwild.block.SmallSpongeBlock;
 import net.frozenblock.wilderwild.misc.FlowerColor;
@@ -32,7 +31,6 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.MultifaceBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
@@ -56,7 +54,6 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.NoiseThresholdP
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
-import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 import org.jetbrains.annotations.NotNull;
 
@@ -206,12 +203,13 @@ public final class WilderConfiguredFeatures {
                             new WeightedPlacedFeature(WilderTreePlaced.DYING_FUNGUS_PINE_CHECKED, 0.075F),
                             new WeightedPlacedFeature(WilderTreePlaced.FUNGUS_PINE_CHECKED, 0.33333334F)), WilderTreePlaced.NEW_SPRUCE_CHECKED));
 
-	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_OLD_GROWTH_SNOWY_SPRUCE_TAIGA =
-			register("trees_old_growth_snowy_spruce_taiga", Feature.RANDOM_SELECTOR,
-					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.MEGA_FUNGUS_SPRUCE_CHECKED, 0.33333334F),
+	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_OLD_GROWTH_SNOWY_PINE_TAIGA =
+			register("trees_old_growth_snowy_pine_taiga", Feature.RANDOM_SELECTOR,
+					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.MEGA_FUNGUS_PINE_CHECKED, 0.33333334F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_FUNGUS_PINE_CHECKED, 0.075F),
 							new WeightedPlacedFeature(WilderTreePlaced.NEW_SPRUCE_SHORT_CHECKED, 0.0255F),
-							new WeightedPlacedFeature(WilderTreePlaced.FUNGUS_PINE_CHECKED, 0.33333334F)), WilderTreePlaced.NEW_SPRUCE_CHECKED));
+							new WeightedPlacedFeature(WilderTreePlaced.FUNGUS_PINE_CHECKED, 0.18333334F),
+							new WeightedPlacedFeature(WilderTreePlaced.MEGA_FUNGUS_SPRUCE_CHECKED, 0.255F)), WilderTreePlaced.MEGA_FUNGUS_PINE_CHECKED));
 
 	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> NEW_TREES_GROVE =
             register("trees_grove", Feature.RANDOM_SELECTOR,

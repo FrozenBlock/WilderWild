@@ -288,7 +288,7 @@ public final class WilderSharedWorldgen {
 
 	public static SurfaceRules.RuleSource oldGrowthSnowyTaigaRules() {
 		return SurfaceRules.ifTrue(
-				SurfaceRules.isBiome(RegisterWorldgen.OLD_GROWTH_SNOWY_SPRUCE_TAIGA),
+				SurfaceRules.isBiome(RegisterWorldgen.OLD_GROWTH_SNOWY_PINE_TAIGA),
 				SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
 						SurfaceRules.ifTrue(
 								SurfaceRules.waterBlockCheck(-1, 0),

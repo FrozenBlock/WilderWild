@@ -1,11 +1,8 @@
 package net.frozenblock.wilderwild.misc.mod_compat.terrablender;
 
 import com.mojang.datafixers.util.Pair;
-import java.util.List;
 import java.util.function.Consumer;
-import net.frozenblock.lib.worldgen.biome.api.parameters.FrozenBiomeParameters;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
-import net.frozenblock.lib_compat.terrablender.FrozenTerraBlenderCompat;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
@@ -156,7 +153,7 @@ public class WilderOverworldRegion extends Region {
 									point.offset()
 							)
 					);
-					builder.replaceBiome(point, RegisterWorldgen.OLD_GROWTH_SNOWY_SPRUCE_TAIGA);
+					builder.replaceBiome(point, RegisterWorldgen.OLD_GROWTH_SNOWY_PINE_TAIGA);
 				});
 			}
 
