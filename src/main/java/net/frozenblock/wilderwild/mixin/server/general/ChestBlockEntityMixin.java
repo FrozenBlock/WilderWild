@@ -209,4 +209,18 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	public boolean getHasJellyfish() {
 		return this.hasJellyfish;
 	}
+
+	@Unique
+	@Override
+	public void syncBubbleAndJellyfish(ChestBlockEntity chest1, ChestBlockEntity chest2) {
+		if (!((ChestBlockEntityInterface) chest1).getCanBubble() || !((ChestBlockEntityInterface) chest2).getCanBubble()) {
+			((ChestBlockEntityInterface) chest1).setCanBubble(false);
+			((ChestBlockEntityInterface) chest2).setCanBubble(false);
+		}
+		if (!((ChestBlockEntityInterface) chest1).getHasJellyfish() || !((ChestBlockEntityInterface) chest2).getHasJellyfish()) {
+			((ChestBlockEntityInterface) chest1).setHasJellyfish(false);
+			((ChestBlockEntityInterface) chest2).setHasJellyfish(false);
+		}
+	}
+
 }

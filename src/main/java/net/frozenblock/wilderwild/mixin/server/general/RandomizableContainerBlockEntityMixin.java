@@ -27,9 +27,9 @@ public class RandomizableContainerBlockEntityMixin {
 		RandomizableContainerBlockEntity blockEntity = RandomizableContainerBlockEntity.class.cast(this);
 		Level level = blockEntity.getLevel();
 		if (this.lootTable != null && level != null && level.getServer() != null && blockEntity instanceof ChestBlockEntity chest) {
-			if (chest.lootTable != null && level.getBlockState(blockEntity.getBlockPos()).getValue(BlockStateProperties.WATERLOGGED)) {
-				((ChestBlockEntityInterface)chest).setCanBubble(true);
-				if (chest.lootTable.equals(BuiltInLootTables.SHIPWRECK_MAP) || chest.lootTable.equals(BuiltInLootTables.SHIPWRECK_SUPPLY) || chest.lootTable.equals(BuiltInLootTables.SHIPWRECK_TREASURE)) {
+			if (level.getBlockState(blockEntity.getBlockPos()).getValue(BlockStateProperties.WATERLOGGED)) {
+				((ChestBlockEntityInterface) chest).setCanBubble(true);
+				if (this.lootTable.equals(BuiltInLootTables.SHIPWRECK_MAP) || this.lootTable.equals(BuiltInLootTables.SHIPWRECK_SUPPLY) || this.lootTable.equals(BuiltInLootTables.SHIPWRECK_TREASURE)) {
 					if (level.random.nextBoolean() && level.random.nextBoolean()) {
 						((ChestBlockEntityInterface) chest).setHasJellyfish(true);
 					}

@@ -37,24 +37,15 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 		super(properties, blockEntityType);
 	}
 
-	@Inject(at = @At(value = "RETURN"), method = "getStateForPlacement")
-	public void getStateForPlacement(BlockPlaceContext context, CallbackInfoReturnable<BlockState> info) {
-		Level level = context.getLevel();
-		BlockPos pos = context.getClickedPos();
-		ChestBlockEntity otherChest = getOtherChest(level, pos, info.getReturnValue());
-		if (otherChest != null) {
-			if (level.getBlockEntity(pos) instanceof ChestBlockEntity chest) {
-				((ChestBlockEntityInterface) chest).setCanBubble(((ChestBlockEntityInterface) otherChest).getCanBubble());
-			}
-		}
-	}
-
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;openMenu(Lnet/minecraft/world/MenuProvider;)Ljava/util/OptionalInt;", shift = At.Shift.AFTER), method = "use")
 	public void use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit, CallbackInfoReturnable<InteractionResult> info) {
 		if (level.getBlockEntity(pos) instanceof ChestBlockEntity sourceChest) {
-			ChestBlockEntity chest = getLeftEntity(level, pos, state, sourceChest);
-			((ChestBlockEntityInterface) chest).bubble(state);
-			((ChestBlockEntityInterface) chest).releaseJellyfish(level, state, pos);
+			((ChestBlockEntityInterface) sourceChest).bubble(state);
+			((ChestBlockEntityInterface) sourceChest).releaseJellyfish(level, state, pos);
+			ChestBlockEntity otherChest = getOtherChest(level, pos, state);
+			if (otherChest != null) {
+				((ChestBlockEntityInterface) sourceChest).syncBubbleAndJellyfish(sourceChest, otherChest);
+			}
 		}
 	}
 
@@ -62,11 +53,11 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 	public void updateShape(BlockState blockStateUnneeded, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos currentPos, BlockPos neighborPos, CallbackInfoReturnable<BlockState> info) {
 		BlockState state = info.getReturnValue();
 		ChestBlockEntity otherChest = getOtherChest(level, currentPos, state);
-		if (otherChest != null) {
-			BlockState otherState = otherChest.getBlockState();
-			boolean wasLogged = blockStateUnneeded.getValue(BlockStateProperties.WATERLOGGED);
-			if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
-				if (level.getBlockEntity(currentPos) instanceof ChestBlockEntity chest) {
+		if (level.getBlockEntity(currentPos) instanceof ChestBlockEntity chest) {
+			if (otherChest != null) {
+				BlockState otherState = level.getBlockState(otherChest.getBlockPos());
+				boolean wasLogged = blockStateUnneeded.getValue(BlockStateProperties.WATERLOGGED);
+				if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
 					((ChestBlockEntityInterface) chest).setHasJellyfish(false);
 					((ChestBlockEntityInterface) otherChest).setHasJellyfish(false);
 					if (!otherState.getValue(BlockStateProperties.WATERLOGGED)) {
@@ -77,14 +68,15 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 						((ChestBlockEntityInterface) otherChest).setCanBubble(false);
 					}
 				}
-			}
-		} else {
-			boolean wasLogged = blockStateUnneeded.getValue(BlockStateProperties.WATERLOGGED);
-			if (level.getBlockEntity(currentPos) instanceof ChestBlockEntity chest) {
+			} else {
+				boolean wasLogged = blockStateUnneeded.getValue(BlockStateProperties.WATERLOGGED);
 				if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
 					((ChestBlockEntityInterface) chest).setCanBubble(true);
 					((ChestBlockEntityInterface) chest).setHasJellyfish(false);
 				}
+			}
+			if (otherChest != null && level.getBlockEntity(currentPos) instanceof ChestBlockEntity sourceChest) {
+				((ChestBlockEntityInterface) sourceChest).syncBubbleAndJellyfish(sourceChest, otherChest);
 			}
 		}
 	}
@@ -94,6 +86,10 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 		if (level.getBlockEntity(pos) instanceof ChestBlockEntity chestBlockEntity) {
 			((ChestBlockEntityInterface)chestBlockEntity).bubbleBurst(state);
 			((ChestBlockEntityInterface)chestBlockEntity).releaseJellyfish(level, state, pos);
+			ChestBlockEntity otherChest = getOtherChest(level, pos, state);
+			if (otherChest != null) {
+				((ChestBlockEntityInterface) chestBlockEntity).syncBubbleAndJellyfish(chestBlockEntity, otherChest);
+			}
 		}
 	}
 
