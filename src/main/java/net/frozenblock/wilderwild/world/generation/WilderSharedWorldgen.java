@@ -5,7 +5,6 @@ import java.util.List;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Depth;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
-import net.frozenblock.lib.worldgen.biome.api.parameters.FrozenBiomeParameters;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
@@ -70,7 +69,7 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static final class AridSavanna {
-		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.450F, 0.650F);
+		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.525F, 0.575F);
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1.000F, -0.100F);
 	}
 
@@ -80,7 +79,7 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static final class AridForest {
-		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.53F, 0.56F);
+		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.530F, 0.570F);
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.095F, 0.1F);
 	}
 
@@ -283,7 +282,7 @@ public final class WilderSharedWorldgen {
 	}
 	public static SurfaceRules.RuleSource oldGrowthSnowyTaigaRules() {
 		return SurfaceRules.ifTrue(
-				SurfaceRules.isBiome(RegisterWorldgen.OLD_GROWTH_SNOWY_TAIGA),
+				SurfaceRules.isBiome(RegisterWorldgen.OLD_GROWTH_SNOWY_SPRUCE_TAIGA),
 				SurfaceRules.sequence(
 						SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.SURFACE, 1.75 / 8.25, Double.MAX_VALUE), COARSE_DIRT),
 						SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.SURFACE, 0.0222, 0.055), POWDER_SNOW),

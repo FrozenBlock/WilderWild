@@ -14,7 +14,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
-import static net.minecraft.data.worldgen.biome.OverworldBiomes.jungle;
 import static net.minecraft.data.worldgen.biome.OverworldBiomes.swamp;
 import net.minecraft.data.worldgen.placement.AquaticPlacements;
 import net.minecraft.data.worldgen.placement.CavePlacements;
@@ -47,7 +46,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 	public static final ResourceKey<Biome> ARID_SAVANNA = register("arid_savanna");
 	public static final ResourceKey<Biome> PARCHED_FOREST = register("parched_forest");
 	public static final ResourceKey<Biome> ARID_FOREST = register("arid_forest");
-	public static final ResourceKey<Biome> OLD_GROWTH_SNOWY_TAIGA = register("old_growth_snowy_taiga");
+	public static final ResourceKey<Biome> OLD_GROWTH_SNOWY_SPRUCE_TAIGA = register("old_growth_snowy_spruce_taiga");
 
 	public static void registerWorldgen() {
 		WilderSharedConstants.logWild("Registering Biomes for", WilderSharedConstants.UNSTABLE_LOGGING);
@@ -61,7 +60,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, ARID_SAVANNA.location(), aridSavanna());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, PARCHED_FOREST.location(), parchedForest());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, ARID_FOREST.location(), aridForest());
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, OLD_GROWTH_SNOWY_TAIGA.location(), oldGrowthSnowyTaiga());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, OLD_GROWTH_SNOWY_SPRUCE_TAIGA.location(), oldGrowthSnowyTaiga());
 
 		WilderNoise.init();
 	}
@@ -536,7 +535,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.GRASS_PATH_RARE);
 	}
 	public static void addOldGrowthSnowyTaigaFeatures(BiomeGenerationSettings.Builder builder) {
-		addBasicFeatures(builder, OLD_GROWTH_SNOWY_TAIGA);
+		addBasicFeatures(builder, OLD_GROWTH_SNOWY_SPRUCE_TAIGA);
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
 		BiomeDefaultFeatures.addRareBerryBushes(builder);
@@ -546,7 +545,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		BiomeDefaultFeatures.addGiantTaigaVegetation(builder);
 		BiomeDefaultFeatures.addDefaultMushrooms(builder);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_OLD_GROWTH_SNOWY_TAIGA);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_OLD_GROWTH_SNOWY_SPRUCE_TAIGA);
 	}
 
 	private static void addBasicFeatures(BiomeGenerationSettings.Builder builder, ResourceKey<Biome> biome) {
