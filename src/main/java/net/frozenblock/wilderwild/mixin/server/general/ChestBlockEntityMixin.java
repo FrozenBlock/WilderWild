@@ -87,9 +87,13 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 				chest.setBubbleTicks(0);
 			} else if (chest.getBubbleTick() > 0) {
 				chest.setBubbleTicks(chest.getBubbleTick() - 1);
-				ChestBlockEntity otherChest = getOtherEntity(level, pos, state);
-				double additionalX = otherChest != null ? pos.getX() - otherChest.getBlockPos().getX() * 0.25 : 0;
-				double additionalZ = otherChest != null ? pos.getZ() - otherChest.getBlockPos().getZ() * 0.25 : 0;
+				double additionalX = 0;
+				double additionalZ = 0;
+				if (state.hasProperty(BlockStateProperties.CHEST_TYPE) && state.getValue(BlockStateProperties.CHEST_TYPE) != ChestType.SINGLE) {
+					Direction direction = ChestBlock.getConnectedDirection(state);
+					additionalX += (double)direction.getStepX() * 0.25;
+					additionalZ += (double)direction.getStepZ() * 0.25;
+				}
 				server.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5 + additionalX, pos.getY() + 0.625, pos.getZ() + 0.5 + additionalZ, level.random.nextInt(4, 10), 0.21875F, 0, 0.21875F, 0.2D);
 				if (chest.getBubbleTick() <= 0) {
 					chest.setCanBubble(false);
@@ -156,8 +160,13 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 			Jellyfish jellyfish = new Jellyfish(RegisterEntities.JELLYFISH, level);
 			BlockPos chestPos = chest.getBlockPos();
 			jellyfish.setVariantFromPos(level, chestPos);
-			double additionalX = otherChest != null ? chestPos.getX() - otherChest.getBlockPos().getX() * 0.25 : 0;
-			double additionalZ = otherChest != null ? chestPos.getZ() - otherChest.getBlockPos().getZ() * 0.25 : 0;
+			double additionalX = 0;
+			double additionalZ = 0;
+			if (state.hasProperty(BlockStateProperties.CHEST_TYPE) && state.getValue(BlockStateProperties.CHEST_TYPE) != ChestType.SINGLE) {
+				Direction direction = ChestBlock.getConnectedDirection(state);
+				additionalX += (double)direction.getStepX() * 0.25;
+				additionalZ += (double)direction.getStepZ() * 0.25;
+			}
 			jellyfish.setPos(chestPos.getX() + 0.5 + additionalX, chestPos.getY() + 0.75, chestPos.getZ() + 0.5 + additionalZ);
 			jellyfish.setDeltaMovement(0, 0.1 + level.random.nextDouble() * 0.07, 0);
 			level.addFreshEntity(jellyfish);
