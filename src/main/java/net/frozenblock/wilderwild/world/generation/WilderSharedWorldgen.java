@@ -53,7 +53,7 @@ public final class WilderSharedWorldgen {
     }
 
     public static final class MixedForest {
-        public static final Climate.Parameter TEMPERATURE = Temperature.COOL;
+        public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.45F, -0.14F);
         public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.050F, 0.150F);
     }
 
