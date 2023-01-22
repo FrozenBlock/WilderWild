@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
+import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.wilderwild.misc.interfaces.ChestBlockEntityInterface;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
@@ -7,7 +8,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -29,10 +29,8 @@ public class RandomizableContainerBlockEntityMixin {
 		if (this.lootTable != null && level != null && level.getServer() != null && blockEntity instanceof ChestBlockEntity chest) {
 			if (level.getBlockState(blockEntity.getBlockPos()).getValue(BlockStateProperties.WATERLOGGED)) {
 				((ChestBlockEntityInterface) chest).setCanBubble(true);
-				if (this.lootTable.equals(BuiltInLootTables.SHIPWRECK_MAP) || this.lootTable.equals(BuiltInLootTables.SHIPWRECK_SUPPLY) || this.lootTable.equals(BuiltInLootTables.SHIPWRECK_TREASURE)) {
-					if (level.random.nextBoolean() && level.random.nextBoolean()) {
-						((ChestBlockEntityInterface) chest).setHasJellyfish(true);
-					}
+				if (this.lootTable.getPath().toLowerCase().contains("shipwreck") && EasyNoiseSampler.localRandom.nextBoolean() && EasyNoiseSampler.localRandom.nextBoolean()) {
+					((ChestBlockEntityInterface) chest).setHasJellyfish(true);
 				}
 			}
 		}
