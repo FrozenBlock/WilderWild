@@ -280,13 +280,30 @@ public final class WilderSharedWorldgen {
 				)
 		);
 	}
+
 	public static SurfaceRules.RuleSource oldGrowthSnowyTaigaRules() {
 		return SurfaceRules.ifTrue(
 				SurfaceRules.isBiome(RegisterWorldgen.OLD_GROWTH_SNOWY_SPRUCE_TAIGA),
-				SurfaceRules.sequence(
-						SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.SURFACE, 1.75 / 8.25, Double.MAX_VALUE), COARSE_DIRT),
-						SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.SURFACE, 0.0222, 0.055), POWDER_SNOW),
-						SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.SURFACE, -0.95 / 8.25, 0.35), PODZOL)));
+				SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
+						SurfaceRules.ifTrue(
+								SurfaceRules.waterBlockCheck(-1, 0),
+								SurfaceRules.sequence(
+										SurfaceRules.ifTrue(
+												SurfaceRules.noiseCondition(Noises.SURFACE, 1.75D / 8.25D, Double.MAX_VALUE),
+												COARSE_DIRT
+										),
+										SurfaceRules.ifTrue(
+												SurfaceRules.noiseCondition(Noises.SURFACE, -0.95D / 8.25D, Double.MAX_VALUE),
+												PODZOL
+										),
+										SurfaceRules.ifTrue(
+												SurfaceRules.noiseCondition(Noises.SURFACE, 0.0222, 0.055),
+												POWDER_SNOW
+										)
+								)
+						)
+				)
+		);
 	}
 
 	public static SurfaceRules.RuleSource betaBeaches() {
