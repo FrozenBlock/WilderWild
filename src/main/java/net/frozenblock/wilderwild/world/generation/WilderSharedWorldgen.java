@@ -80,7 +80,7 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static final class AridForest {
-		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.525F, 0.675F);
+		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.53F, 0.56F);
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.095F, 0.1F);
 	}
 
