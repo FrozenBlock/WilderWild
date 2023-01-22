@@ -119,8 +119,8 @@ public final class OverworldBiomeBuilderMixin {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FLOWER_FOREST)) {
 				this.addSurfaceBiome(
 						parameters,
-						WilderSharedWorldgen.FlowerField.TEMPERATURE_A,
-						WilderSharedWorldgen.FlowerField.HUMIDITY_A,
+						WilderSharedWorldgen.FlowerField.TEMPERATURE,
+						WilderSharedWorldgen.FlowerField.HUMIDITY,
 						point.continentalness(),
 						point.erosion(),
 						point.weirdness(),
@@ -129,8 +129,8 @@ public final class OverworldBiomeBuilderMixin {
 				);
 				this.addSurfaceBiome(
 						parameters,
-						WilderSharedWorldgen.FlowerField.TEMPERATURE_B,
-						WilderSharedWorldgen.FlowerField.HUMIDITY_B,
+						WilderSharedWorldgen.FlowerField.TEMPERATURE,
+						WilderSharedWorldgen.FlowerField.HUMIDITY,
 						point.continentalness(),
 						point.erosion(),
 						point.weirdness(),
