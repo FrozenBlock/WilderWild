@@ -138,6 +138,20 @@ public final class OverworldBiomeBuilderMixin {
 				);
 			}
 		}
+		if (ClothConfigInteractionHandler.generateOldGrowthSnowyTaiga()) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA)) {
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.OldGrowthSnowySpruceTaiga.TEMPERATURE,
+						WilderSharedWorldgen.OldGrowthSnowySpruceTaiga.HUMIDITY,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						point.offset(),
+						RegisterWorldgen.OLD_GROWTH_SNOWY_SPRUCE_TAIGA
+				);
+			}
+		}
 	}
 
     @Inject(method = "addLowSlice", at = @At("TAIL")) // also can be injectLowBiomes

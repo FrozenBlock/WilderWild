@@ -143,6 +143,23 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
+			if (ClothConfigInteractionHandler.generateAridForest()) {
+				OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA).forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.OldGrowthSnowySpruceTaiga.TEMPERATURE,
+									WilderSharedWorldgen.OldGrowthSnowySpruceTaiga.HUMIDITY,
+									point.continentalness(),
+									point.erosion(),
+									point.depth(),
+									point.weirdness(),
+									point.offset()
+							)
+					);
+					builder.replaceBiome(point, RegisterWorldgen.OLD_GROWTH_SNOWY_SPRUCE_TAIGA);
+				});
+			}
+
 			if (ClothConfigInteractionHandler.generateCypressWetlands()) {
 				OverworldBiomeBuilderParameters.points(Biomes.SWAMP).forEach(point -> {
 					builder.replaceParameter(point,
