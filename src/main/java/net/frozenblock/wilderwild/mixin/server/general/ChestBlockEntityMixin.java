@@ -44,7 +44,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	@Shadow @Final @Mutable
 	private ContainerOpenersCounter openersCounter;
 
-	@Inject(at = @At(value = "TAIL"), method = "<init>")
+	@Inject(at = @At(value = "TAIL"), method = "<init>", require = 0)
 	public void newSounds(CallbackInfo info) {
 		this.openersCounter = new ContainerOpenersCounter(){
 

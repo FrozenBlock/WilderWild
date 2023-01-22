@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
@@ -52,6 +53,14 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 	public void use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit, CallbackInfoReturnable<InteractionResult> info) {
 		if (level.getBlockEntity(pos) instanceof ChestBlockEntity sourceChest) {
 			ChestBlockEntity chest = getLeftEntity(level, pos, state, sourceChest);
+			if (chest.lootTable != null && chest.getBlockState().getValue(BlockStateProperties.WATERLOGGED)) {
+				if (chest.lootTable.equals(BuiltInLootTables.SHIPWRECK_MAP) || chest.lootTable.equals(BuiltInLootTables.SHIPWRECK_SUPPLY) || chest.lootTable.equals(BuiltInLootTables.SHIPWRECK_TREASURE)) {
+					((ChestBlockEntityInterface)chest).setCanBubble(true);
+					if (level.random.nextBoolean() && level.random.nextBoolean()) {
+						((ChestBlockEntityInterface) chest).setHasJellyfish(true);
+					}
+				}
+			}
 			((ChestBlockEntityInterface) chest).bubble();
 			((ChestBlockEntityInterface) chest).releaseJellyfish(level, state, pos);
 		}

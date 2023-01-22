@@ -11,12 +11,10 @@ import net.frozenblock.wilderwild.misc.interfaces.ChestBlockEntityInterface;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.ByteTag;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -39,13 +37,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class StoneChestBlockEntity extends ChestBlockEntity implements NoInteractionStorage<ItemVariant> {
     public float openProgress;
@@ -54,7 +46,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
     public int stillLidTicks;
     public int cooldownTicks;
     public boolean closing;
-    public boolean lootGenerated;
 
 	public boolean shouldSkip = false;
 
@@ -72,7 +63,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
         this.cooldownTicks = tag.getInt("cooldownTicks");
         this.closing = tag.getBoolean("closing");
         this.shouldSkip = tag.getBoolean("shouldSkip");
-        this.lootGenerated = tag.getBoolean("lootGenerated");
     }
 
     @Override
@@ -85,7 +75,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
         tag.putInt("cooldownTicks", this.cooldownTicks);
         tag.putBoolean("closing", this.closing);
         tag.putBoolean("shouldSkip", this.shouldSkip);
-        tag.putBoolean("lootGenerated", this.lootGenerated);
     }
 
     public float getOpenProgress(float delta) {
@@ -224,27 +213,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
         for (ServerPlayer player : PlayerLookup.tracking(this)) {
             player.connection.send(Objects.requireNonNull(this.getUpdatePacket()));
         }
-    }
-
-    @Override
-    public void unpackLootTable(@Nullable Player player) {
-        if (this.lootTable != null && this.level != null && this.level.getServer() != null) {
-            this.lootGenerated = false;
-            LootTable lootTable = this.level.getServer().getLootTables().get(this.lootTable);
-            if (player instanceof ServerPlayer) {
-                CriteriaTriggers.GENERATE_LOOT.trigger((ServerPlayer) player, this.lootTable);
-            }
-            this.lootTable = null;
-            LootContext.Builder builder = new LootContext.Builder((ServerLevel) this.level).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(this.worldPosition)).withOptionalRandomSeed(this.lootTableSeed);
-            if (player != null) {
-                builder.withLuck(player.getLuck()).withParameter(LootContextParams.THIS_ENTITY, player);
-            }
-            lootTable.fill(this, builder.create(LootContextParamSets.CHEST));
-            for (ItemStack stack : this.getItems()) {
-                stack.addTagElement("wilderwild_is_ancient", ByteTag.valueOf(true));
-            }
-        }
-        this.lootGenerated = true;
     }
 
     @Override
