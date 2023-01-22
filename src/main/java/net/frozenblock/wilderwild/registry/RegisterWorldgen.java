@@ -280,14 +280,14 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		Music musicSound = Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS);
 		return new Biome.BiomeBuilder()
 				.precipitation(Biome.Precipitation.NONE)
-				.temperature(1.35F)
+				.temperature(1.2F)
 				.downfall(0.0F)
 				.specialEffects(
 						new BiomeSpecialEffects.Builder()
 								.waterColor(4159204)
 								.waterFogColor(329011)
 								.fogColor(12638463)
-								.skyColor(OverworldBiomes.calculateSkyColor(1.35F))
+								.skyColor(OverworldBiomes.calculateSkyColor(1.2F))
 								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
 								.backgroundMusic(musicSound).build())
 				.mobSpawnSettings(builder.build())
