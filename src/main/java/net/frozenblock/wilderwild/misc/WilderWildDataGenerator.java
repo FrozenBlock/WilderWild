@@ -174,7 +174,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.DARK_FOREST)
 					.add(Biomes.FLOWER_FOREST)
 					.add(Biomes.FOREST)
-					.addOptional(RegisterWorldgen.ARID_SAVANNA);
+					.addOptional(RegisterWorldgen.ARID_SAVANNA)
+					.addOptional(RegisterWorldgen.PARCHED_FOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.MULTI_LAYER_SAND_BEACHES)
 					.add(Biomes.BAMBOO_JUNGLE)

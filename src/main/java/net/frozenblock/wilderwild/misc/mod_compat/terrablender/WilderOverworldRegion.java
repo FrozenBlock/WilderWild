@@ -92,6 +92,40 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
+			if (ClothConfigInteractionHandler.generateAridSavanna()) {
+				OverworldBiomeBuilderParameters.points(Biomes.SAVANNA).forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.AridSavanna.TEMPERATURE,
+									WilderSharedWorldgen.AridSavanna.HUMIDITY,
+									point.continentalness(),
+									point.erosion(),
+									point.depth(),
+									point.weirdness(),
+									point.offset()
+							)
+					);
+					builder.replaceBiome(point, RegisterWorldgen.ARID_SAVANNA);
+				});
+			}
+
+			if (ClothConfigInteractionHandler.generateParchedForest()) {
+				OverworldBiomeBuilderParameters.points(Biomes.FOREST).forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.ParchedForest.TEMPERATURE,
+									WilderSharedWorldgen.ParchedForest.HUMIDITY,
+									point.continentalness(),
+									point.erosion(),
+									point.depth(),
+									point.weirdness(),
+									point.offset()
+							)
+					);
+					builder.replaceBiome(point, RegisterWorldgen.PARCHED_FOREST);
+				});
+			}
+
 			if (ClothConfigInteractionHandler.generateCypressWetlands()) {
 				OverworldBiomeBuilderParameters.points(Biomes.SWAMP).forEach(point -> {
 					builder.replaceParameter(point,
@@ -173,23 +207,6 @@ public class WilderOverworldRegion extends Region {
 							)
 					);
 					builder.replaceBiome(point, RegisterWorldgen.WARM_RIVER);
-				});
-			}
-
-			if (ClothConfigInteractionHandler.generateAridSavanna()) {
-				OverworldBiomeBuilderParameters.points(Biomes.SAVANNA).forEach(point -> {
-					builder.replaceParameter(point,
-							Climate.parameters(
-									WilderSharedWorldgen.AridSavanna.TEMPERATURE,
-									WilderSharedWorldgen.AridSavanna.HUMIDITY,
-									point.continentalness(),
-									point.erosion(),
-									point.depth(),
-									point.weirdness(),
-									point.offset()
-							)
-					);
-					builder.replaceBiome(point, RegisterWorldgen.ARID_SAVANNA);
 				});
 			}
 

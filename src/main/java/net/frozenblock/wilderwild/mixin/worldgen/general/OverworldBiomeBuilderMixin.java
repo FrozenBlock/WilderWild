@@ -110,6 +110,20 @@ public final class OverworldBiomeBuilderMixin {
 				);
 			}
 		}
+		if (ClothConfigInteractionHandler.generateParchedForest()) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FOREST)) {
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.ParchedForest.TEMPERATURE,
+						WilderSharedWorldgen.ParchedForest.HUMIDITY,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						point.offset(),
+						RegisterWorldgen.PARCHED_FOREST
+				);
+			}
+		}
 	}
 
     @Inject(method = "addLowSlice", at = @At("TAIL")) // also can be injectLowBiomes

@@ -15,9 +15,10 @@ public class DefaultWorldgenConfig {
 		public static final boolean GENERATE_MIXED_FOREST = true;
 		public static final boolean GENERATE_OASIS = true;
 		public static final boolean GENERATE_WARM_RIVER = true;
-		public static final boolean GENERATE_BIRCH_TAIGA = false;
-		public static final boolean GENERATE_FLOWER_FIELD = false;
-		public static final boolean GENERATE_ARID_SAVANNA = false;
+		public static final boolean GENERATE_BIRCH_TAIGA = true;
+		public static final boolean GENERATE_FLOWER_FIELD = true;
+		public static final boolean GENERATE_ARID_SAVANNA = true;
+		public static final boolean GENERATE_PARCHED_FOREST = true;
 	}
 
 	public static final boolean BETA_BEACHES = true;

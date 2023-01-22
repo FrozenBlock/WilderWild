@@ -139,6 +139,9 @@ public final class WilderPlacedFeatures {
     public static final Holder<PlacedFeature> BIRCH_TAIGA_TREES = register("birch_taiga_trees",
             WilderConfiguredFeatures.BIRCH_TAIGA_TREES, treePlacement(CountPlacement.of(3)));
 
+	public static final Holder<PlacedFeature> PARCHED_FOREST_TREES = register("parched_forest_trees",
+			WilderConfiguredFeatures.PARCHED_FOREST_TREES, treePlacement(CountPlacement.of(2)));
+
     public static final Holder<PlacedFeature> CYPRESS_WETLANDS_TREES = register("cypress_wetlands_trees",
             WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES, CountPlacement.of(28), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome(), BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(RegisterBlocks.CYPRESS_SAPLING.defaultBlockState(), BlockPos.ZERO)));
 

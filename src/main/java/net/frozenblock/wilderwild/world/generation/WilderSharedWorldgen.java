@@ -74,6 +74,11 @@ public final class WilderSharedWorldgen {
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1.000F, -0.100F);
 	}
 
+	public static final class ParchedForest {
+		public static final Climate.Parameter TEMPERATURE = Temperature.FOUR;
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.150F, -0.050F);
+	}
+
     public static final class JellyfishCaves {
         public static final Climate.Parameter TEMPERATURE = Temperature.FULL_RANGE;
         public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.DRY, Humidity.HUMID);
