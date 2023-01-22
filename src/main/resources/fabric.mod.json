@@ -62,8 +62,8 @@
   "depends": {
 	"frozenlib": ">=1.1.7-",
 	"nbtcrafting": ">=2.2.3",
-	"fabricloader": ">=0.14.8",
-	"fabric-api": ">=0.66.0",
+	"fabricloader": ">=0.14.12",
+	"fabric-api": ">=0.73.0",
 	"minecraft": ">=1.19.2",
 	"java": ">=17"
   },
