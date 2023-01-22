@@ -538,7 +538,6 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		addBasicFeatures(builder, OLD_GROWTH_SNOWY_SPRUCE_TAIGA);
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
-		BiomeDefaultFeatures.addRareBerryBushes(builder);
 		BiomeDefaultFeatures.addFerns(builder);
 		BiomeDefaultFeatures.addMossyStoneBlock(builder);
 		BiomeDefaultFeatures.addDefaultFlowers(builder);
