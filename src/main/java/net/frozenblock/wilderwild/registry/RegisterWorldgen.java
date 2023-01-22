@@ -534,6 +534,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_CACTUS_PLACED);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_BUSH_PLACED);
 		builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.GRASS_PATH_RARE);
+		builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.ARID_COARSE_PATH);
 	}
 	public static void addOldGrowthSnowyTaigaFeatures(BiomeGenerationSettings.Builder builder) {
 		addBasicFeatures(builder, OLD_GROWTH_SNOWY_PINE_TAIGA);
