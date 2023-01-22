@@ -96,7 +96,7 @@ public class StoneChestBlock extends ChestBlock {
                         stoneEntity.liftLid(0.025F, ancient);
                     }
 					if (first) {
-						((ChestBlockEntityInterface)stoneEntity).bubble();
+						((ChestBlockEntityInterface)stoneEntity).bubble(state);
 					}
                     StoneChestBlockEntity.playSound(level, pos, state, first ? RegisterSounds.BLOCK_STONE_CHEST_OPEN : RegisterSounds.BLOCK_STONE_CHEST_LIFT, first ? RegisterSounds.BLOCK_STONE_CHEST_OPEN_UNDERWATER : RegisterSounds.BLOCK_STONE_CHEST_LIFT_UNDERWATER, 0.35F);
                     level.gameEvent(player, GameEvent.CONTAINER_OPEN, pos);
@@ -326,7 +326,7 @@ public class StoneChestBlock extends ChestBlock {
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof StoneChestBlockEntity stoneChestBlock) {
 				((ChestBlockEntityInterface)stoneChestBlock).releaseJellyfish(level, state, pos);
-				((ChestBlockEntityInterface)stoneChestBlock).bubbleBurst();
+				((ChestBlockEntityInterface)stoneChestBlock).bubbleBurst(state);
 
                 stoneChestBlock.unpackLootTable(null);
                 ArrayList<ItemStack> ancientItems = stoneChestBlock.ancientItems();

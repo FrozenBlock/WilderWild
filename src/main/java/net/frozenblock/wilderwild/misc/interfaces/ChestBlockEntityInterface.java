@@ -14,9 +14,9 @@ public interface ChestBlockEntityInterface {
 
 	int getBubbleTick();
 
-	void bubble();
+	void bubble(BlockState state);
 
-	void bubbleBurst();
+	void bubbleBurst(BlockState state);
 
 	void setHasJellyfish(boolean b);
 

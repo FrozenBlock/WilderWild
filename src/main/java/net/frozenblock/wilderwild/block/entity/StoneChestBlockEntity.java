@@ -302,7 +302,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
     @Override
     public void stopOpen(@NotNull Player player) {
         if (!this.remove && !player.isSpectator()) {
-            this.stoneStateManager.decrementOpeners(player, Objects.requireNonNull(this.getLevel()), this.getBlockPos(), player.level.getBlockState(this.getBlockPos()));
+            this.stoneStateManager.decrementOpeners(player, Objects.requireNonNull(this.getLevel()), this.getBlockPos(), this.getLevel().getBlockState(this.getBlockPos()));
         }
     }
 

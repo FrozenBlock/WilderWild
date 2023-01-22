@@ -31,14 +31,14 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 
 	@Unique int bubbleTicks;
 	@Unique boolean canBubble = true;
-	@Unique boolean hasJellyfish = false;
+	@Unique boolean hasJellyfish;
 
 	@Unique
 	private static BlockState playedSoundState;
 
 	@Inject(at = @At("HEAD"), method = "playSound")
 	private static void playSound(Level level, BlockPos pos, BlockState state, SoundEvent sound, CallbackInfo info) {
-		playedSoundState = state;
+		playedSoundState = level.getBlockState(pos);
 	}
 
 	@ModifyArgs(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playSound(Lnet/minecraft/world/entity/player/Player;DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V"), method = "playSound")
@@ -55,14 +55,14 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 
 	@Unique
 	@Override
-	public void bubble() {
+	public void bubble(BlockState state) {
 		ChestBlockEntity chest = ChestBlockEntity.class.cast(this);
 		Level level = chest.getLevel();
 		if (level != null) {
 			BlockPos pos = chest.getBlockPos();
-			if (this.canBubble && this.bubbleTicks <= 0 && level.getBlockState(pos).getValue(BlockStateProperties.WATERLOGGED)) {
+			if (this.canBubble && this.bubbleTicks <= 0 && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED)) {
 				this.bubbleTicks = 5;
-				ChestBlockEntity otherChest = getOtherEntity(level, pos);
+				ChestBlockEntity otherChest = getOtherEntity(level, pos, state);
 				if (otherChest != null) {
 					((ChestBlockEntityInterface) otherChest).setBubbleTicks(5);
 				}
@@ -72,12 +72,12 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 
 	@Unique
 	@Override
-	public void bubbleBurst() {
+	public void bubbleBurst(BlockState state) {
 		ChestBlockEntity chest = ChestBlockEntity.class.cast(this);
 		Level level = chest.getLevel();
 		if (level instanceof ServerLevel server) {
 			BlockPos pos = chest.getBlockPos();
-			if (level.getBlockState(pos).getValue(BlockStateProperties.WATERLOGGED) && this.getCanBubble()) {
+			if (state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) && this.getCanBubble()) {
 				server.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, server.random.nextInt(18, 25), 0.21875F, 0, 0.21875F, 0.25D);
 			}
 		}
@@ -127,7 +127,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	public void releaseJellyfish(Level level, BlockState state, BlockPos pos) {
 		ChestBlockEntity chest = ChestBlockEntity.class.cast(this);
 		if (this.hasJellyfish && state.getValue(BlockStateProperties.WATERLOGGED)) {
-			ChestBlockEntity otherChest = getOtherEntity(level, pos);
+			ChestBlockEntity otherChest = getOtherEntity(level, pos, state);
 			this.hasJellyfish = false;
 			if (otherChest != null) {
 				((ChestBlockEntityInterface)otherChest).setHasJellyfish(false);
@@ -149,8 +149,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	}
 
 	@Unique
-	private static ChestBlockEntity getOtherEntity(Level level, BlockPos pos) {
-		BlockState state = level.getBlockState(pos);
+	private static ChestBlockEntity getOtherEntity(Level level, BlockPos pos, BlockState state) {
 		ChestType chestType = state.getValue(ChestBlock.TYPE);
 		double x = pos.getX();
 		double y = pos.getY();

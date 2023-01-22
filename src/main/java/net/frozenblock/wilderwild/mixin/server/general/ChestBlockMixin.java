@@ -53,7 +53,7 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 	public void use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit, CallbackInfoReturnable<InteractionResult> info) {
 		if (level.getBlockEntity(pos) instanceof ChestBlockEntity sourceChest) {
 			ChestBlockEntity chest = getLeftEntity(level, pos, state, sourceChest);
-			((ChestBlockEntityInterface) chest).bubble();
+			((ChestBlockEntityInterface) chest).bubble(state);
 			((ChestBlockEntityInterface) chest).releaseJellyfish(level, state, pos);
 		}
 	}
@@ -89,10 +89,10 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 		}
 	}
 
-	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/Containers;dropContents(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/Container;)V", shift = At.Shift.AFTER), method = "onRemove")
+	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/Containers;dropContents(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/Container;)V", shift = At.Shift.BEFORE), method = "onRemove")
 	public void onRemove(BlockState state, @NotNull Level level, @NotNull BlockPos pos, BlockState newState, boolean isMoving, CallbackInfo info) {
 		if (level.getBlockEntity(pos) instanceof ChestBlockEntity chestBlockEntity) {
-			((ChestBlockEntityInterface)chestBlockEntity).bubbleBurst();
+			((ChestBlockEntityInterface)chestBlockEntity).bubbleBurst(state);
 			((ChestBlockEntityInterface)chestBlockEntity).releaseJellyfish(level, state, pos);
 		}
 	}
