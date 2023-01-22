@@ -196,16 +196,38 @@ public final class WilderSharedWorldgen {
 				SurfaceRules.isBiome(RegisterWorldgen.ARID_SAVANNA),
 				SurfaceRules.sequence(
 						SurfaceRules.ifTrue(
-								SurfaceRules.ON_FLOOR, SurfaceRules.ifTrue(
-										SurfaceRules.yBlockCheck(VerticalAnchor.absolute(63), 0),
+								SurfaceRules.ON_FLOOR,
+								SurfaceRules.ifTrue(
+										SurfaceRules.noiseCondition(Noises.SURFACE, 0.155, 0.3666),
+										SurfaceRules.sequence(
+												SurfaceRules.ifTrue(
+														SurfaceRules.ON_CEILING,
+														DIRT
+												),
+												GRASS_BLOCK
+										)
+								)
+						),
+						SurfaceRules.ifTrue(
+								SurfaceRules.noiseCondition(Noises.SURFACE, 0.155, 0.3666),
+								SurfaceRules.sequence(
 										SurfaceRules.ifTrue(
-												SurfaceRules.not(SurfaceRules.yBlockCheck(VerticalAnchor.absolute(150), 0)),
-												SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.SURFACE, 0.155, 0.3666), GRASS_BLOCK)
+												SurfaceRules.UNDER_FLOOR,
+												SurfaceRules.sequence(
+														SurfaceRules.ifTrue(
+																SurfaceRules.ON_CEILING,
+																DIRT
+														),
+														DIRT
+												)
+										),
+										SurfaceRules.ifTrue(
+												SurfaceRules.DEEP_UNDER_FLOOR,
+												DIRT
 										)
 								)
 						)
 				)
-
 		);
 	}
 
