@@ -75,11 +75,13 @@ public final class WilderTreeConfigured {
     private static final HeightBasedVineTrunkDecorator VINES_1_UNDER_260_075 = new HeightBasedVineTrunkDecorator(1F, 260, 0.75F);
     private static final HeightBasedVineTrunkDecorator VINES_08_UNDER_260_075 = new HeightBasedVineTrunkDecorator(0.8F, 260, 0.75F);
     private static final BeehiveDecorator NEW_BEES_0004 = new BeehiveDecorator(0.004F);
+	private static final BeehiveDecorator NEW_BEES_025 = new BeehiveDecorator(0.25F);
     private static final BeehiveDecorator NEW_BEES = new BeehiveDecorator(1.0F);
     //BIRCH
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> NEW_BIRCH_TREE = WilderConfiguredFeatures.register("new_birch_tree", Feature.TREE, new_birch().dirt(BlockStateProvider.simple(Blocks.DIRT)).decorators(ImmutableList.of(SHELF_FUNGUS_007)).build());
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> NEW_BIRCH_BEES_0004 = WilderConfiguredFeatures.register("new_birch_bees_0004", Feature.TREE, new_birch().decorators(ImmutableList.of(NEW_BEES_0004, SHELF_FUNGUS_007)).ignoreVines().build());
-    public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> DYING_BIRCH = WilderConfiguredFeatures.register("dying_birch", Feature.TREE, new_birch().decorators(ImmutableList.of(NEW_BEES_0004, SHELF_FUNGUS_007)).ignoreVines().build());
+	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> NEW_BIRCH_BEES_025 = WilderConfiguredFeatures.register("new_birch_bees_025", Feature.TREE, new_birch().decorators(ImmutableList.of(NEW_BEES_025, SHELF_FUNGUS_007)).ignoreVines().build());
+	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> DYING_BIRCH = WilderConfiguredFeatures.register("dying_birch", Feature.TREE, new_birch().decorators(ImmutableList.of(NEW_BEES_0004, SHELF_FUNGUS_007)).ignoreVines().build());
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> NEW_SHORT_BIRCH_BEES_0004 = WilderConfiguredFeatures.register("new_short_birch_bees_0004", Feature.TREE, new_short_birch().decorators(ImmutableList.of(NEW_BEES_0004, SHELF_FUNGUS_006)).ignoreVines().build());
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> NEW_SUPER_BIRCH_BEES_0004 = WilderConfiguredFeatures.register("new_super_birch_bees_0004", Feature.TREE, new_superBirch().decorators(ImmutableList.of(NEW_BEES_0004, SHELF_FUNGUS_007)).build());
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> DYING_SUPER_BIRCH = WilderConfiguredFeatures.register("dying_super_birch", Feature.TREE, new_superBirch().decorators(ImmutableList.of(VINES_1_UNDER_260_05, SHELF_FUNGUS_007)).build());
@@ -96,7 +98,9 @@ public final class WilderTreeConfigured {
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> FANCY_DYING_OAK = WilderConfiguredFeatures.register("fancy_dying_oak", Feature.TREE, new_fancyOak().decorators(List.of(VINES_1_UNDER_260_05)).build());
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> FANCY_DYING_OAK_BEES_0004 = WilderConfiguredFeatures.register("fancy_dying_oak_bees_0004", Feature.TREE, new_fancyOak().decorators(List.of(NEW_BEES_0004, VINES_1_UNDER_260_05)).build());
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> NEW_FANCY_OAK_BEES_0004 = WilderConfiguredFeatures.register("new_fancy_oak_bees_0004", Feature.TREE, new_fancyOak().decorators(List.of(NEW_BEES_0004)).build());
-    public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> NEW_FALLEN_OAK_TREE = WilderConfiguredFeatures.register("new_fallen_oak_tree", Feature.TREE, fallen_oak().decorators(List.of(VINES_08_UNDER_260_075)).dirt(BlockStateProvider.simple(Blocks.DIRT)).build());
+	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> FANCY_DYING_OAK_BEES_025 = WilderConfiguredFeatures.register("fancy_dying_oak_bees_025", Feature.TREE, new_fancyOak().decorators(List.of(NEW_BEES_025, VINES_1_UNDER_260_05)).build());
+	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> NEW_FANCY_OAK_BEES_025 = WilderConfiguredFeatures.register("new_fancy_oak_bees_025", Feature.TREE, new_fancyOak().decorators(List.of(NEW_BEES_025)).build());
+	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> NEW_FALLEN_OAK_TREE = WilderConfiguredFeatures.register("new_fallen_oak_tree", Feature.TREE, fallen_oak().decorators(List.of(VINES_08_UNDER_260_075)).dirt(BlockStateProvider.simple(Blocks.DIRT)).build());
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> NEW_FANCY_OAK_BEES = WilderConfiguredFeatures.register("new_fancy_oak_bees", Feature.TREE, new_fancyOak().decorators(List.of(NEW_BEES)).build());
     //DARK OAK
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> DYING_DARK_OAK = WilderConfiguredFeatures.register("dying_dark_oak", Feature.TREE,
