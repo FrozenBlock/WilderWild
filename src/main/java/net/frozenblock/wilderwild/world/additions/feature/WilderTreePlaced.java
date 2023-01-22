@@ -23,7 +23,8 @@ public final class WilderTreePlaced {
     //BIRCH
     public static final Holder<PlacedFeature> NEW_BIRCH_CHECKED = PlacementUtils.register("new_birch_checked", WilderTreeConfigured.NEW_BIRCH_TREE, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
     public static final Holder<PlacedFeature> NEW_BIRCH_BEES_0004 = PlacementUtils.register("new_birch_bees_0004", WilderTreeConfigured.NEW_BIRCH_BEES_0004, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
-    public static final Holder<PlacedFeature> DYING_BIRCH = PlacementUtils.register("dying_birch", WilderTreeConfigured.DYING_BIRCH, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
+	public static final Holder<PlacedFeature> NEW_BIRCH_BEES_025 = PlacementUtils.register("new_birch_bees_025", WilderTreeConfigured.NEW_BIRCH_BEES_025, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
+	public static final Holder<PlacedFeature> DYING_BIRCH = PlacementUtils.register("dying_birch", WilderTreeConfigured.DYING_BIRCH, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
     public static final Holder<PlacedFeature> SHORT_BIRCH = PlacementUtils.register("short_birch", WilderTreeConfigured.SHORT_BIRCH, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
     public static final Holder<PlacedFeature> DYING_SHORT_BIRCH = PlacementUtils.register("dying_short_birch", WilderTreeConfigured.SHORT_DYING_BIRCH, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
     public static final Holder<PlacedFeature> NEW_SHORT_BIRCH_BEES_0004 = PlacementUtils.register("new_short_birch_bees_0004", WilderTreeConfigured.NEW_SHORT_BIRCH_BEES_0004, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
@@ -41,7 +42,9 @@ public final class WilderTreePlaced {
     public static final Holder<PlacedFeature> DYING_FANCY_OAK_CHECKED = PlacementUtils.register("dying_fancy_oak_checked", WilderTreeConfigured.FANCY_DYING_OAK, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
     public static final Holder<PlacedFeature> DYING_FANCY_OAK_BEES_0004 = PlacementUtils.register("dying_fancy_oak_bees_0004", WilderTreeConfigured.FANCY_DYING_OAK_BEES_0004, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
     public static final Holder<PlacedFeature> NEW_FANCY_OAK_BEES_0004 = PlacementUtils.register("new_fancy_oak_bees_0004", WilderTreeConfigured.NEW_FANCY_OAK_BEES_0004, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
-    public static final Holder<PlacedFeature> NEW_FANCY_OAK_BEES = PlacementUtils.register("new_fancy_oak_bees", WilderTreeConfigured.NEW_FANCY_OAK_BEES, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
+	public static final Holder<PlacedFeature> DYING_FANCY_OAK_BEES_025 = PlacementUtils.register("dying_fancy_oak_bees_025", WilderTreeConfigured.FANCY_DYING_OAK_BEES_025, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
+	public static final Holder<PlacedFeature> NEW_FANCY_OAK_BEES_025 = PlacementUtils.register("new_fancy_oak_bees_025", WilderTreeConfigured.NEW_FANCY_OAK_BEES_025, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
+	public static final Holder<PlacedFeature> NEW_FANCY_OAK_BEES = PlacementUtils.register("new_fancy_oak_bees", WilderTreeConfigured.NEW_FANCY_OAK_BEES, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
     public static final Holder<PlacedFeature> NEW_FALLEN_OAK_CHECKED = PlacementUtils.register("new_fallen_oak_checked", WilderTreeConfigured.NEW_FALLEN_OAK_TREE, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
 
     //DARK OAK
