@@ -1,8 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
-import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.misc.interfaces.ChestBlockEntityInterface;
-import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -31,7 +29,6 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 
 	@Unique int bubbleTicks;
 	@Unique boolean canBubble = true;
-	@Unique boolean hasJellyfish;
 
 	@Unique
 	private static BlockState playedSoundState;
@@ -112,40 +109,12 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	public void load(CompoundTag tag, CallbackInfo info) {
 		this.bubbleTicks = tag.getInt("bubbleTicks");
 		this.canBubble = tag.getBoolean("canBubble");
-		this.hasJellyfish = tag.getBoolean("hasJellyfish");
 	}
 
 	@Inject(at = @At(value = "TAIL"), method = "saveAdditional")
 	public void saveAdditional(CompoundTag tag, CallbackInfo info) {
 		tag.putInt("bubbleTicks", this.bubbleTicks);
 		tag.putBoolean("canBubble", this.canBubble);
-		tag.putBoolean("hasJellyfish", this.hasJellyfish);
-	}
-
-	@Unique
-	@Override
-	public void releaseJellyfish(Level level, BlockState state, BlockPos pos) {
-		ChestBlockEntity chest = ChestBlockEntity.class.cast(this);
-		if (this.hasJellyfish && state.getValue(BlockStateProperties.WATERLOGGED)) {
-			ChestBlockEntity otherChest = getOtherEntity(level, pos, state);
-			this.hasJellyfish = false;
-			if (otherChest != null) {
-				((ChestBlockEntityInterface)otherChest).setHasJellyfish(false);
-			}
-			Jellyfish jellyfish = new Jellyfish(RegisterEntities.JELLYFISH, level);
-			BlockPos chestPos = chest.getBlockPos();
-			jellyfish.setVariantFromPos(level, chestPos);
-			double additionalX = 0;
-			double additionalZ = 0;
-			if (state.hasProperty(BlockStateProperties.CHEST_TYPE) && state.getValue(BlockStateProperties.CHEST_TYPE) != ChestType.SINGLE) {
-				Direction direction = ChestBlock.getConnectedDirection(state);
-				additionalX += (double)direction.getStepX() * 0.25;
-				additionalZ += (double)direction.getStepZ() * 0.25;
-			}
-			jellyfish.setPos(chestPos.getX() + 0.5 + additionalX, chestPos.getY() + 0.75, chestPos.getZ() + 0.5 + additionalZ);
-			jellyfish.setDeltaMovement(0, 0.1 + level.random.nextDouble() * 0.07, 0);
-			level.addFreshEntity(jellyfish);
-		}
 	}
 
 	@Unique
@@ -200,26 +169,10 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 
 	@Unique
 	@Override
-	public void setHasJellyfish(boolean b) {
-		this.hasJellyfish = b;
-	}
-
-	@Unique
-	@Override
-	public boolean getHasJellyfish() {
-		return this.hasJellyfish;
-	}
-
-	@Unique
-	@Override
-	public void syncBubbleAndJellyfish(ChestBlockEntity chest1, ChestBlockEntity chest2) {
+	public void syncBubble(ChestBlockEntity chest1, ChestBlockEntity chest2) {
 		if (!((ChestBlockEntityInterface) chest1).getCanBubble() || !((ChestBlockEntityInterface) chest2).getCanBubble()) {
 			((ChestBlockEntityInterface) chest1).setCanBubble(false);
 			((ChestBlockEntityInterface) chest2).setCanBubble(false);
-		}
-		if (!((ChestBlockEntityInterface) chest1).getHasJellyfish() || !((ChestBlockEntityInterface) chest2).getHasJellyfish()) {
-			((ChestBlockEntityInterface) chest1).setHasJellyfish(false);
-			((ChestBlockEntityInterface) chest2).setHasJellyfish(false);
 		}
 	}
 

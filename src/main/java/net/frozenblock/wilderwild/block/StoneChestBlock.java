@@ -101,14 +101,11 @@ public class StoneChestBlock extends ChestBlock {
                     StoneChestBlockEntity.playSound(level, pos, state, first ? RegisterSounds.BLOCK_STONE_CHEST_OPEN : RegisterSounds.BLOCK_STONE_CHEST_LIFT, first ? RegisterSounds.BLOCK_STONE_CHEST_OPEN_UNDERWATER : RegisterSounds.BLOCK_STONE_CHEST_LIFT_UNDERWATER, 0.35F);
                     level.gameEvent(player, GameEvent.CONTAINER_OPEN, pos);
                     stoneEntity.updateSync();
-					if (stoneEntity.openProgress >= 0.5F) {
-						((ChestBlockEntityInterface)stoneEntity).releaseJellyfish(level, state, pos);
-					}
                 }
             }
 			StoneChestBlockEntity otherChest = getOtherChest(level, pos, state);
 			if (otherChest != null) {
-				((ChestBlockEntityInterface) stoneChest).syncBubbleAndJellyfish(stoneChest, otherChest);
+				((ChestBlockEntityInterface) stoneChest).syncBubble(stoneChest, otherChest);
 			}
         }
         return InteractionResult.CONSUME;
@@ -278,7 +275,7 @@ public class StoneChestBlock extends ChestBlock {
 				}
 			}
 			if (otherChest != null) {
-				((ChestBlockEntityInterface) chest).syncBubbleAndJellyfish(chest, otherChest);
+				((ChestBlockEntityInterface) chest).syncBubble(chest, otherChest);
 			}
 		}
 	}
@@ -308,8 +305,8 @@ public class StoneChestBlock extends ChestBlock {
 		StoneChestBlockEntity otherChest = getOtherChest(level, pos, retState);
 		if (otherChest != null) {
 			if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity chest) {
-				((ChestBlockEntityInterface)chest).setCanBubble(((ChestBlockEntityInterface)otherChest).getCanBubble());
-				((ChestBlockEntityInterface) chest).syncBubbleAndJellyfish(chest, otherChest);
+				((ChestBlockEntityInterface) chest).setCanBubble(((ChestBlockEntityInterface)otherChest).getCanBubble());
+				((ChestBlockEntityInterface) chest).syncBubble(chest, otherChest);
 			}
 		}
 		return retState;
@@ -329,7 +326,6 @@ public class StoneChestBlock extends ChestBlock {
         if (!level.isClientSide) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof StoneChestBlockEntity stoneChestBlock) {
-				((ChestBlockEntityInterface)stoneChestBlock).releaseJellyfish(level, state, pos);
 				((ChestBlockEntityInterface)stoneChestBlock).bubbleBurst(state);
 
                 stoneChestBlock.unpackLootTable(null);

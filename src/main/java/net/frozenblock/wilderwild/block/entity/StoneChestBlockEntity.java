@@ -119,7 +119,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
             }
         }
 		if (stoneChest != null) {
-			((ChestBlockEntityInterface) stoneChest).syncBubbleAndJellyfish(stoneChest, blockEntity);
+			((ChestBlockEntityInterface) stoneChest).syncBubble(stoneChest, blockEntity);
 		}
         blockEntity.shouldSkip = false;
     }
