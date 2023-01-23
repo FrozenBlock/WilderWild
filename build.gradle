@@ -7,10 +7,12 @@ plugins {
 	id("java-library")
 }
 
+project.ext.local_frozenlib = findProject(":FrozenLib") != null
+project.ext.release = findProperty("releaseType") == "stable"
+
 setArchivesBaseName(project.archives_base_name)
 setVersion(getVersion())
 setGroup(project.maven_group)
-boolean local_frozenlib = findProject(":FrozenLib") != null
 
 loom {
 	setRuntimeOnlyLog4j(true)
@@ -40,11 +42,11 @@ sourceSets {
 loom {
 	runs {
 		datagen {
-			inherit(server)
+			inherit(client)
 			name("Data Generation")
 			vmArg("-Dfabric-api.datagen")
 			vmArg("-Dfabric-api.datagen.output-dir=${file("src/main/generated")}")
-			vmArg("-Dfabric-api.datagen.strict-validation")
+			//vmArg("-Dfabric-api.datagen.strict-validation")
 			vmArg("-Dfabric-api.datagen.modid=wilderwild")
 
 			setIdeConfigGenerated(true)
@@ -139,8 +141,8 @@ dependencies {
 	modImplementation("net.fabricmc.fabric-api:fabric-api:${fabric_version}")
 
 	// FrozenLib
-	println("Using local FrozenLib: ${local_frozenlib}")
-	if (local_frozenlib) {
+	println("Using local FrozenLib: ${project.local_frozenlib}")
+	if (project.local_frozenlib) {
 		include(implementation(project(path: ":FrozenLib", configuration: "dev")))
 	}/* else if (findProperty("isGithub") == "true") {
 		include(modImplementation("com.github.FrozenBlock:FrozenLib:master-SNAPSHOT"))
@@ -268,7 +270,7 @@ artifacts {
 String getVersion() {
 	String version = "${mod_version}-${mod_loader}+${minecraft_version}"
 
-	if (findProperty("releaseType") != "stable") {
+	if (!project.release) {
 		version += "-unstable"
 	}
 
@@ -290,4 +292,10 @@ publishing {
 		// The repositories here will be used for publishing your artifact, not for
 		// retrieving dependencies.
 	}
+}
+
+// Ensure the worldgen JSONs are re-created to ensure the data-gen still works
+if (!project.release) {
+	test.dependsOn runDatagen
+	runClient.dependsOn runDatagen
 }

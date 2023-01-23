@@ -39,16 +39,10 @@ public abstract class OsmioooWardenModel<T extends Warden> implements WilderWard
 	@Unique
     private List<ModelPart> wilderWild$headAndTendrils;
 
-    @Unique
-    private final WardenModel model = WardenModel.class.cast(this);
-
     @Inject(method = "<init>", at = @At("TAIL"))
     private void setHeadAndTendrils(ModelPart root, CallbackInfo ci) {
         this.wilderWild$headAndTendrils = ImmutableList.of(this.head, this.leftTendril, this.rightTendril);
     }
-
-
-
 
     @Override
     public List<ModelPart> getHeadAndTendrils() {
