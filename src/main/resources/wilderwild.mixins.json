@@ -9,7 +9,6 @@
     "server.general.AllayMixin",
     "server.general.BigDripleafBlockMixin",
     "server.general.BigDripleafStemBlockMixin",
-    "server.general.BlockEntityTypeMixin",
     "server.general.BlocksMixin",
     "server.general.BoatDropsMixin",
     "server.general.BoatTypeMixin",
