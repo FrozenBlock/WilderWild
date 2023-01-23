@@ -85,6 +85,10 @@ public final class ClothConfigInteractionHandler {
 		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.wildGrass() : WILDER_WILD_GRASS_GEN;
 	}
 
+	public static boolean cypressWitchHuts() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.cypressWitchHuts() : CYPRESS_WITCH_HUTS;
+	}
+
 	public static boolean hornCanSummonWarden() {
 		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.hornCanSummonWarden() : AncientHornConfig.ANCIENT_HORN_CAN_SUMMON_WARDEN;
 	}
