@@ -1,13 +1,20 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
+import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.misc.interfaces.ChestBlockEntityInterface;
+import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.ChestType;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -27,10 +34,24 @@ public class RandomizableContainerBlockEntityMixin {
 		RandomizableContainerBlockEntity blockEntity = RandomizableContainerBlockEntity.class.cast(this);
 		Level level = blockEntity.getLevel();
 		if (this.lootTable != null && level != null && level.getServer() != null && blockEntity instanceof ChestBlockEntity chest) {
-			if (level.getBlockState(blockEntity.getBlockPos()).getValue(BlockStateProperties.WATERLOGGED)) {
+			BlockState state = level.getBlockState(blockEntity.getBlockPos());
+			if (state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED)) {
 				((ChestBlockEntityInterface) chest).setCanBubble(true);
-				if (this.lootTable.getPath().toLowerCase().contains("shipwreck") && EasyNoiseSampler.localRandom.nextBoolean() && EasyNoiseSampler.localRandom.nextBoolean()) {
-					((ChestBlockEntityInterface) chest).setHasJellyfish(true);
+				((ChestBlockEntityInterface) chest).setHasJellyfish(false);
+				if (this.lootTable.getPath().toLowerCase().contains("shipwreck") && EasyNoiseSampler.threadSafeRandom.nextBoolean()) {
+					Jellyfish jellyfish = new Jellyfish(RegisterEntities.JELLYFISH, level);
+					BlockPos chestPos = chest.getBlockPos();
+					jellyfish.setVariantFromPos(level, chestPos);
+					double additionalX = 0;
+					double additionalZ = 0;
+					if (state.hasProperty(BlockStateProperties.CHEST_TYPE) && state.getValue(BlockStateProperties.CHEST_TYPE) != ChestType.SINGLE) {
+						Direction direction = ChestBlock.getConnectedDirection(state);
+						additionalX += (double)direction.getStepX() * 0.25;
+						additionalZ += (double)direction.getStepZ() * 0.25;
+					}
+					jellyfish.setPos(chestPos.getX() + 0.5 + additionalX, chestPos.getY() + 0.75, chestPos.getZ() + 0.5 + additionalZ);
+					jellyfish.setDeltaMovement(0, 0.1 + level.random.nextDouble() * 0.07, 0);
+					level.addFreshEntity(jellyfish);
 				}
 			}
 		}
