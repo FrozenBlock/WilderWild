@@ -41,10 +41,9 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 	public void use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit, CallbackInfoReturnable<InteractionResult> info) {
 		if (level.getBlockEntity(pos) instanceof ChestBlockEntity sourceChest) {
 			((ChestBlockEntityInterface) sourceChest).bubble(state);
-			((ChestBlockEntityInterface) sourceChest).releaseJellyfish(level, state, pos);
 			ChestBlockEntity otherChest = getOtherChest(level, pos, state);
 			if (otherChest != null) {
-				((ChestBlockEntityInterface) sourceChest).syncBubbleAndJellyfish(sourceChest, otherChest);
+				((ChestBlockEntityInterface) sourceChest).syncBubble(sourceChest, otherChest);
 			}
 		}
 	}
@@ -58,8 +57,6 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 				BlockState otherState = level.getBlockState(otherChest.getBlockPos());
 				boolean wasLogged = blockStateUnneeded.getValue(BlockStateProperties.WATERLOGGED);
 				if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
-					((ChestBlockEntityInterface) chest).setHasJellyfish(false);
-					((ChestBlockEntityInterface) otherChest).setHasJellyfish(false);
 					if (!otherState.getValue(BlockStateProperties.WATERLOGGED)) {
 						((ChestBlockEntityInterface) chest).setCanBubble(true);
 						((ChestBlockEntityInterface) otherChest).setCanBubble(true);
@@ -72,11 +69,10 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 				boolean wasLogged = blockStateUnneeded.getValue(BlockStateProperties.WATERLOGGED);
 				if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
 					((ChestBlockEntityInterface) chest).setCanBubble(true);
-					((ChestBlockEntityInterface) chest).setHasJellyfish(false);
 				}
 			}
 			if (otherChest != null && level.getBlockEntity(currentPos) instanceof ChestBlockEntity sourceChest) {
-				((ChestBlockEntityInterface) sourceChest).syncBubbleAndJellyfish(sourceChest, otherChest);
+				((ChestBlockEntityInterface) sourceChest).syncBubble(sourceChest, otherChest);
 			}
 		}
 	}
@@ -85,10 +81,9 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 	public void onRemove(BlockState state, @NotNull Level level, @NotNull BlockPos pos, BlockState newState, boolean isMoving, CallbackInfo info) {
 		if (level.getBlockEntity(pos) instanceof ChestBlockEntity chestBlockEntity) {
 			((ChestBlockEntityInterface)chestBlockEntity).bubbleBurst(state);
-			((ChestBlockEntityInterface)chestBlockEntity).releaseJellyfish(level, state, pos);
 			ChestBlockEntity otherChest = getOtherChest(level, pos, state);
 			if (otherChest != null) {
-				((ChestBlockEntityInterface) chestBlockEntity).syncBubbleAndJellyfish(chestBlockEntity, otherChest);
+				((ChestBlockEntityInterface) chestBlockEntity).syncBubble(chestBlockEntity, otherChest);
 			}
 		}
 	}
