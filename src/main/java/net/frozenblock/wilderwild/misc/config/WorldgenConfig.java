@@ -13,6 +13,7 @@ import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultWorldgenConfi
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
 
+// i hate worldgen
 @Config(name = "worldgen")
 public final class WorldgenConfig implements ConfigData {
 
