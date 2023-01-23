@@ -37,7 +37,6 @@ public class RandomizableContainerBlockEntityMixin {
 			BlockState state = level.getBlockState(blockEntity.getBlockPos());
 			if (state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED)) {
 				((ChestBlockEntityInterface) chest).setCanBubble(true);
-				((ChestBlockEntityInterface) chest).setHasJellyfish(false);
 				if (this.lootTable.getPath().toLowerCase().contains("shipwreck") && EasyNoiseSampler.threadSafeRandom.nextBoolean()) {
 					Jellyfish jellyfish = new Jellyfish(RegisterEntities.JELLYFISH, level);
 					BlockPos chestPos = chest.getBlockPos();
