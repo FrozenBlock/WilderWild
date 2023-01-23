@@ -41,7 +41,8 @@ public class RandomizableContainerBlockEntityMixin {
 				WilderSharedConstants.log("BEFORE BUBBLES", WilderSharedConstants.UNSTABLE_LOGGING);
 				((ChestBlockEntityInterface) chest).setCanBubble(true);
 				WilderSharedConstants.log("SET BUBBLES TRUE", WilderSharedConstants.UNSTABLE_LOGGING);
-				if (this.lootTable.getPath().toLowerCase().contains("shipwreck") && EasyNoiseSampler.threadSafeRandom.nextBoolean()) {
+				String lootPath = this.lootTable.getPath().toLowerCase();
+				if (lootPath.contains("shipwreck") && !lootPath.contains("map") && EasyNoiseSampler.threadSafeRandom.nextBoolean()) {
 					WilderSharedConstants.log("MAKING JELLY", WilderSharedConstants.UNSTABLE_LOGGING);
 					Jellyfish jellyfish = new Jellyfish(RegisterEntities.JELLYFISH, level);
 					BlockPos chestPos = chest.getBlockPos();
