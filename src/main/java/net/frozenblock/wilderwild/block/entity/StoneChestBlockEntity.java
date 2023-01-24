@@ -88,17 +88,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
             if (blockEntity.cooldownTicks > 0) {
                 --blockEntity.cooldownTicks;
             }
-			ChestBlockEntityInterface chestBlockEntityInterface = (ChestBlockEntityInterface)blockEntity;
-			if (!chestBlockEntityInterface.getCanBubble()) {
-				chestBlockEntityInterface.setBubbleTicks(0);
-			} else if (chestBlockEntityInterface.getBubbleTick() > 0) {
-				chestBlockEntityInterface.setBubbleTicks(-1);
-				int random = level.random.nextInt(2, 5);
-				serverLevel.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, random, 0.21875F, 0, 0.21875F, 0.15D);
-				if (chestBlockEntityInterface.getBubbleTick() <= 0) {
-					chestBlockEntityInterface.setCanBubble(false);
-				}
-			}
             boolean canClose = level.getGameRules().getBoolean(WilderWild.STONE_CHEST_CLOSES);
             blockEntity.prevOpenProgress = blockEntity.openProgress;
             if (blockEntity.stillLidTicks > 0) {
