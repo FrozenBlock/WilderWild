@@ -62,7 +62,7 @@ public class DisplayLanternBlockEntityRenderer<T extends DisplayLanternBlockEnti
             matrices.scale(0.7F, 0.7F, 0.7F);
             float n = (lantern.age + tickDelta) / 20;
             matrices.mulPose(Axis.YP.rotation(n));
-            this.itemRenderer.renderStatic(stack.get(), ItemTransforms.TransformType.GROUND, light, OverlayTexture.NO_OVERLAY, matrices, vertexConsumers, 1);
+            this.itemRenderer.renderStatic(stack.get(), ItemTransforms.TransformType.GROUND, light, OverlayTexture.NO_OVERLAY, matrices, vertexConsumers, lantern.getLevel(), 1);
             matrices.popPose();
         } else if (cam != null) {
             double extraHeight = lantern.getBlockState().getValue(BlockStateProperties.HANGING) ? 0.38 : 0.225;
