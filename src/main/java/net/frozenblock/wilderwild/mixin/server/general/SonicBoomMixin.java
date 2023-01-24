@@ -41,7 +41,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 	private boolean wilderWild$particlesEnded = false;
 
 	@Unique
-	private Vec3 wilderwild$particlePos = null;
+	private Vec3 wilderWild$particlePos = null;
 
 	@Unique
 	private Vec3 wilderWild$vec32 = null;
@@ -81,7 +81,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 	@Inject(method = "stop(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/monster/warden/Warden;J)V", at = @At("TAIL"))
 	private void reset(ServerLevel level, Warden entity, long gameTime, CallbackInfo ci) {
 		this.wilderWild$particlesEnded = false;
-		this.wilderwild$particlePos = null;
+		this.wilderWild$particlePos = null;
 	}
 
 	@Inject(method = {"m_ehrxwrfs","method_43265","lambda$tick$2"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;sendParticles(Lnet/minecraft/core/particles/ParticleOptions;DDDIDDDD)I", shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD, require = 1)
@@ -152,13 +152,13 @@ public class SonicBoomMixin implements WilderSonicBoom {
 	@Unique
 	@Override
 	public Vec3 particlePos() {
-		return this.wilderwild$particlePos;
+		return this.wilderWild$particlePos;
 	}
 
 	@Unique
 	@Override
 	public void setParticlePos(Vec3 pos) {
-		this.wilderwild$particlePos = pos;
+		this.wilderWild$particlePos = pos;
 	}
 
 	@Unique

@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 @Mixin(FluidRenderer.class)
 public class FluidRendererMixin {
 
-	@Unique private final TextureAtlasSprite waterOverlay = ModelBakery.WATER_OVERLAY.sprite();
+	@Unique private final TextureAtlasSprite wilderWild$waterOverlay = ModelBakery.WATER_OVERLAY.sprite();
 
 	@Unique
 	private float wilderWild$u0;
@@ -35,7 +35,7 @@ public class FluidRendererMixin {
 	@Unique
 	private float wilderWild$v1;
 	@Unique
-	private boolean isWater;
+	private boolean wilderWild$isWater;
 
 	@Inject(method = "isFluidOccluded", at = @At(value = "HEAD"), cancellable = true)
 	private void isFluidOccluded(BlockAndTintGetter world, int x, int y, int z, Direction dir, Fluid fluid, CallbackInfoReturnable<Boolean> info) {
@@ -46,13 +46,13 @@ public class FluidRendererMixin {
 
 	@Inject(method = "render", at = @At(value = "HEAD"))
 	private void getIsWater(BlockAndTintGetter world, FluidState fluidState, BlockPos pos, BlockPos offset, ChunkModelBuilder buffers, CallbackInfoReturnable<Boolean> info) {
-		this.isWater = fluidState.getType().is(FluidTags.WATER);
+		this.wilderWild$isWater = fluidState.getType().is(FluidTags.WATER);
 	}
 
 	@Redirect(method = "render", at = @At(value = "INVOKE", target = "Lme/jellysquid/mods/sodium/client/model/quad/ModelQuadViewMutable;setSprite(Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V", ordinal = 1))
 	private void switchSprites(ModelQuadViewMutable quad, TextureAtlasSprite sprite) {
-		if (this.isWater) {
-			quad.setSprite(this.waterOverlay);
+		if (this.wilderWild$isWater) {
+			quad.setSprite(this.wilderWild$waterOverlay);
 		} else {
 			quad.setSprite(sprite);
 		}
@@ -60,11 +60,11 @@ public class FluidRendererMixin {
 
 	@ModifyArgs(method = "render", at = @At(value = "INVOKE", target = "Lme/jellysquid/mods/sodium/client/render/pipeline/FluidRenderer;setVertex(Lme/jellysquid/mods/sodium/client/model/quad/ModelQuadViewMutable;IFFFFF)V", ordinal = 4))
 	private void sideTextureBottom1(Args args) {
-		if (this.isWater) {
-			this.wilderWild$u0 = this.waterOverlay.getU0();
-			this.wilderWild$u1 = this.waterOverlay.getU1();
-			this.wilderWild$v0 = this.waterOverlay.getV0();
-			this.wilderWild$v1 = this.waterOverlay.getV1();
+		if (this.wilderWild$isWater) {
+			this.wilderWild$u0 = this.wilderWild$waterOverlay.getU0();
+			this.wilderWild$u1 = this.wilderWild$waterOverlay.getU1();
+			this.wilderWild$v0 = this.wilderWild$waterOverlay.getV0();
+			this.wilderWild$v1 = this.wilderWild$waterOverlay.getV1();
 			args.set(5, this.wilderWild$u0);
 			args.set(6, this.wilderWild$v1);
 		}
@@ -72,7 +72,7 @@ public class FluidRendererMixin {
 
 	@ModifyArgs(method = "render", at = @At(value = "INVOKE", target = "Lme/jellysquid/mods/sodium/client/render/pipeline/FluidRenderer;setVertex(Lme/jellysquid/mods/sodium/client/model/quad/ModelQuadViewMutable;IFFFFF)V", ordinal = 5))
 	private void sideTextureBottom2(Args args) {
-		if (this.isWater) {
+		if (this.wilderWild$isWater) {
 			args.set(5, this.wilderWild$u0);
 			args.set(6, this.wilderWild$v0);
 		}
@@ -80,7 +80,7 @@ public class FluidRendererMixin {
 
 	@ModifyArgs(method = "render", at = @At(value = "INVOKE", target = "Lme/jellysquid/mods/sodium/client/render/pipeline/FluidRenderer;setVertex(Lme/jellysquid/mods/sodium/client/model/quad/ModelQuadViewMutable;IFFFFF)V", ordinal = 6))
 	private void sideTextureBottom3(Args args) {
-		if (this.isWater) {
+		if (this.wilderWild$isWater) {
 			args.set(5, this.wilderWild$u1);
 			args.set(6, this.wilderWild$v0);
 		}
@@ -88,7 +88,7 @@ public class FluidRendererMixin {
 
 	@ModifyArgs(method = "render", at = @At(value = "INVOKE", target = "Lme/jellysquid/mods/sodium/client/render/pipeline/FluidRenderer;setVertex(Lme/jellysquid/mods/sodium/client/model/quad/ModelQuadViewMutable;IFFFFF)V", ordinal = 7))
 	private void sideTextureBottom4(Args args) {
-		if (this.isWater) {
+		if (this.wilderWild$isWater) {
 			args.set(5, this.wilderWild$u1);
 			args.set(6, this.wilderWild$v1);
 		}

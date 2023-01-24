@@ -83,6 +83,10 @@ public final class ClothConfigCloserInteractionHandler {
 		return WORLDGEN.wilderWildGrassGen;
 	}
 
+	public static boolean cypressWitchHuts() {
+		return WORLDGEN.cypressWitchHuts;
+	}
+
 	public static boolean hornCanSummonWarden() {
 		return ANCIENT_HORN.ancientHornCanSummonWarden;
 	}

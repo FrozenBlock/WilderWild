@@ -4,6 +4,7 @@ import java.util.List;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricMaterialBuilder;
+import net.fabricmc.fabric.api.object.builder.v1.sign.SignTypeRegistry;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
@@ -12,10 +13,8 @@ import net.frozenblock.lib.block.api.FrozenCeilingHangingSignBlock;
 import net.frozenblock.lib.block.api.FrozenSignBlock;
 import net.frozenblock.lib.block.api.FrozenWallHangingSignBlock;
 import net.frozenblock.lib.block.api.FrozenWallSignBlock;
-import net.frozenblock.lib.block.api.FrozenWoodTypes;
 import net.frozenblock.lib.impl.BonemealBehaviors;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
-import net.frozenblock.lib.shovel.impl.ShovelBehaviors;
 import net.frozenblock.wilderwild.block.AlgaeBlock;
 import net.frozenblock.wilderwild.block.BaobabLeaves;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
@@ -66,9 +65,11 @@ import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
@@ -86,6 +87,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ButtonBlock;
+import net.minecraft.world.level.block.CeilingHangingSignBlock;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.FenceBlock;
@@ -101,6 +103,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
+import net.minecraft.world.level.block.WallHangingSignBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -126,7 +129,7 @@ public final class RegisterBlocks {
     public static final Block CHISELED_MUD_BRICKS = new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(1.5F).requiresTool().sounds(SoundType.MUD_BRICKS));
 
     public static void registerOtherBB() {
-        registerBlockAfter(true, Items.MUD_BRICKS, "chiseled_mud_bricks", CHISELED_MUD_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
+        registerBlockAfter(Items.MUD_BRICKS, "chiseled_mud_bricks", CHISELED_MUD_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
     }
 
     // WOOD
@@ -262,19 +265,19 @@ public final class RegisterBlocks {
     public static final Block CYPRESS_FENCE = new FenceBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD));
     public static final Block PALM_FENCE = new FenceBlock(FabricBlockSettings.of(Material.WOOD, PALM_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD));
 
-    public static final WoodType BAOBAB_WOOD_TYPE = FrozenWoodTypes.newType("wilderwildbaobab");
+    public static final WoodType BAOBAB_WOOD_TYPE = SignTypeRegistry.registerSignType(WilderSharedConstants.id("baobab"));
     public static final Block BAOBAB_SIGN_BLOCK = new FrozenSignBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD), BAOBAB_WOOD_TYPE, WilderSharedConstants.id("blocks/baobab_sign"));
     public static final Block BAOBAB_WALL_SIGN = new FrozenWallSignBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).dropsLike(BAOBAB_SIGN_BLOCK), BAOBAB_WOOD_TYPE, WilderSharedConstants.id("blocks/baobab_sign"));
-	public static final Block BAOBAB_HANGING_SIGN = new FrozenCeilingHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_HANGING_SIGN).color(BAOBAB_LOG.defaultMaterialColor()).requiredFeatures(FeatureFlags.UPDATE_1_20, WilderFeatureFlags.UPDATE_1_20_ADDITIONS), BAOBAB_WOOD_TYPE, WilderSharedConstants.id("blocks/baobab_hanging_sign"));
-	public static final Block BAOBAB_WALL_HANGING_SIGN = new FrozenCeilingHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_WALL_HANGING_SIGN).color(BAOBAB_LOG.defaultMaterialColor()).requiredFeatures(FeatureFlags.UPDATE_1_20, WilderFeatureFlags.UPDATE_1_20_ADDITIONS).dropsLike(BAOBAB_HANGING_SIGN), BAOBAB_WOOD_TYPE, WilderSharedConstants.id("blocks/baobab_hanging_sign"));
+	public static final Block BAOBAB_HANGING_SIGN = new CeilingHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_HANGING_SIGN).color(BAOBAB_LOG.defaultMaterialColor()).requiredFeatures(FeatureFlags.UPDATE_1_20), BAOBAB_WOOD_TYPE);
+	public static final Block BAOBAB_WALL_HANGING_SIGN = new WallHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_WALL_HANGING_SIGN).color(BAOBAB_LOG.defaultMaterialColor()).requiredFeatures(FeatureFlags.UPDATE_1_20).dropsLike(BAOBAB_HANGING_SIGN), BAOBAB_WOOD_TYPE);
 
-    public static final WoodType CYPRESS_WOOD_TYPE = FrozenWoodTypes.newType("wilderwildcypress");
+    public static final WoodType CYPRESS_WOOD_TYPE = SignTypeRegistry.registerSignType(WilderSharedConstants.id("cypress"));
     public static final Block CYPRESS_SIGN_BLOCK = new FrozenSignBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD), CYPRESS_WOOD_TYPE, WilderSharedConstants.id("blocks/cypress_sign"));
     public static final Block CYPRESS_WALL_SIGN = new FrozenWallSignBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).dropsLike(CYPRESS_SIGN_BLOCK), CYPRESS_WOOD_TYPE, WilderSharedConstants.id("blocks/cypress_sign"));
-	public static final Block CYPRESS_HANGING_SIGN = new FrozenCeilingHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_HANGING_SIGN).color(CYPRESS_LOG.defaultMaterialColor()).requiredFeatures(FeatureFlags.UPDATE_1_20, WilderFeatureFlags.UPDATE_1_20_ADDITIONS), CYPRESS_WOOD_TYPE, WilderSharedConstants.id("blocks/cypress_hanging_sign"));
-	public static final Block CYPRESS_WALL_HANGING_SIGN = new FrozenWallHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_WALL_HANGING_SIGN).color(CYPRESS_LOG.defaultMaterialColor()).requiredFeatures(FeatureFlags.UPDATE_1_20, WilderFeatureFlags.UPDATE_1_20_ADDITIONS).dropsLike(CYPRESS_HANGING_SIGN), CYPRESS_WOOD_TYPE, WilderSharedConstants.id("blocks/cypress_hanging_sign"));
+	public static final Block CYPRESS_HANGING_SIGN = new CeilingHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_HANGING_SIGN).color(CYPRESS_LOG.defaultMaterialColor()).requiredFeatures(FeatureFlags.UPDATE_1_20), CYPRESS_WOOD_TYPE);
+	public static final Block CYPRESS_WALL_HANGING_SIGN = new WallHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_WALL_HANGING_SIGN).color(CYPRESS_LOG.defaultMaterialColor()).requiredFeatures(FeatureFlags.UPDATE_1_20).dropsLike(CYPRESS_HANGING_SIGN), CYPRESS_WOOD_TYPE);
 
-    public static final WoodType PALM_WOOD_TYPE = FrozenWoodTypes.newType("wilderwildpalm");
+    public static final WoodType PALM_WOOD_TYPE = SignTypeRegistry.registerSignType(WilderSharedConstants.id("palm"));
     public static final Block PALM_SIGN_BLOCK = new FrozenSignBlock(FabricBlockSettings.of(Material.WOOD, PALM_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD), PALM_WOOD_TYPE, WilderSharedConstants.id("blocks/palm_sign"));
     public static final Block PALM_WALL_SIGN = new FrozenWallSignBlock(FabricBlockSettings.of(Material.WOOD, PALM_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).dropsLike(PALM_SIGN_BLOCK), PALM_WOOD_TYPE, WilderSharedConstants.id("blocks/palm_sign"));
 	public static final Block PALM_HANGING_SIGN = new FrozenCeilingHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_HANGING_SIGN).color(PALM_LOG.defaultMaterialColor()).requiredFeatures(FeatureFlags.UPDATE_1_20, WilderFeatureFlags.UPDATE_1_20_ADDITIONS), PALM_WOOD_TYPE, WilderSharedConstants.id("blocks/palm_hanging_sign"));
@@ -285,73 +288,69 @@ public final class RegisterBlocks {
     	String cypress = "cypress";
     	String palm = "palm";
 
-        FrozenWoodTypes.register(BAOBAB_WOOD_TYPE);
-        FrozenWoodTypes.register(CYPRESS_WOOD_TYPE);
-        FrozenWoodTypes.register(PALM_WOOD_TYPE);
-
 		String wood = "baobab";
 		//BAOBAB IN BUILDING BLOCKS
-		registerBlockAfter(true, Items.MANGROVE_BUTTON,wood + "_log", BAOBAB_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, BAOBAB_LOG,wood + "_wood", BAOBAB_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, BAOBAB_WOOD,"stripped_" + wood + "_log", STRIPPED_BAOBAB_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, STRIPPED_BAOBAB_LOG,"stripped_" + wood + "_wood", STRIPPED_BAOBAB_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, STRIPPED_BAOBAB_WOOD, wood + "_planks", BAOBAB_PLANKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, BAOBAB_PLANKS,wood + "_stairs", BAOBAB_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, BAOBAB_STAIRS,wood + "_slab", BAOBAB_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, BAOBAB_SLAB,wood + "_fence", BAOBAB_FENCE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, BAOBAB_FENCE,wood + "_fence_gate", BAOBAB_FENCE_GATE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, BAOBAB_FENCE_GATE,wood + "_door", BAOBAB_DOOR, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, BAOBAB_DOOR,wood + "_trapdoor", BAOBAB_TRAPDOOR, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, BAOBAB_TRAPDOOR,wood + "_pressure_plate", BAOBAB_PRESSURE_PLATE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, BAOBAB_PRESSURE_PLATE,wood + "_button", BAOBAB_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Items.MANGROVE_BUTTON,wood + "_log", BAOBAB_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(BAOBAB_LOG,wood + "_wood", BAOBAB_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(BAOBAB_WOOD,"stripped_" + wood + "_log", STRIPPED_BAOBAB_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(STRIPPED_BAOBAB_LOG,"stripped_" + wood + "_wood", STRIPPED_BAOBAB_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(STRIPPED_BAOBAB_WOOD, wood + "_planks", BAOBAB_PLANKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(BAOBAB_PLANKS,wood + "_stairs", BAOBAB_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(BAOBAB_STAIRS,wood + "_slab", BAOBAB_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(BAOBAB_SLAB,wood + "_fence", BAOBAB_FENCE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(BAOBAB_FENCE,wood + "_fence_gate", BAOBAB_FENCE_GATE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(BAOBAB_FENCE_GATE,wood + "_door", BAOBAB_DOOR, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(BAOBAB_DOOR,wood + "_trapdoor", BAOBAB_TRAPDOOR, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(BAOBAB_TRAPDOOR,wood + "_pressure_plate", BAOBAB_PRESSURE_PLATE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(BAOBAB_PRESSURE_PLATE,wood + "_button", BAOBAB_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
 		//BAOBAB IN NATURE
-		registerBlockAfter(true, Items.MANGROVE_LOG,wood + "_log", BAOBAB_LOG, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(true, Items.FLOWERING_AZALEA_LEAVES,wood + "_leaves", BAOBAB_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Items.MANGROVE_LOG,wood + "_log", BAOBAB_LOG, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Items.FLOWERING_AZALEA_LEAVES,wood + "_leaves", BAOBAB_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
 
 		wood = "cypress";
 		//CYPRESS IN BUILDING BLOCKS
-		registerBlockAfter(true, BAOBAB_BUTTON,wood + "_log", CYPRESS_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, CYPRESS_LOG, wood + "_wood", CYPRESS_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, CYPRESS_WOOD, "stripped_" + wood + "_log", STRIPPED_CYPRESS_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, STRIPPED_CYPRESS_LOG, "stripped_" + wood + "_wood", STRIPPED_CYPRESS_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, STRIPPED_CYPRESS_WOOD, wood + "_planks", CYPRESS_PLANKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, CYPRESS_PLANKS,wood + "_stairs", CYPRESS_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, CYPRESS_STAIRS,wood + "_slab", CYPRESS_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, CYPRESS_SLAB,wood + "_fence", CYPRESS_FENCE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, CYPRESS_FENCE,wood + "_fence_gate", CYPRESS_FENCE_GATE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, CYPRESS_FENCE_GATE,wood + "_door", CYPRESS_DOOR, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, CYPRESS_DOOR,wood + "_trapdoor", CYPRESS_TRAPDOOR, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, CYPRESS_TRAPDOOR,wood + "_pressure_plate", CYPRESS_PRESSURE_PLATE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, CYPRESS_PRESSURE_PLATE,wood + "_button", CYPRESS_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(BAOBAB_BUTTON,wood + "_log", CYPRESS_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CYPRESS_LOG, wood + "_wood", CYPRESS_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CYPRESS_WOOD, "stripped_" + wood + "_log", STRIPPED_CYPRESS_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(STRIPPED_CYPRESS_LOG, "stripped_" + wood + "_wood", STRIPPED_CYPRESS_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(STRIPPED_CYPRESS_WOOD, wood + "_planks", CYPRESS_PLANKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CYPRESS_PLANKS,wood + "_stairs", CYPRESS_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CYPRESS_STAIRS,wood + "_slab", CYPRESS_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CYPRESS_SLAB,wood + "_fence", CYPRESS_FENCE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CYPRESS_FENCE,wood + "_fence_gate", CYPRESS_FENCE_GATE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CYPRESS_FENCE_GATE,wood + "_door", CYPRESS_DOOR, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CYPRESS_DOOR,wood + "_trapdoor", CYPRESS_TRAPDOOR, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CYPRESS_TRAPDOOR,wood + "_pressure_plate", CYPRESS_PRESSURE_PLATE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CYPRESS_PRESSURE_PLATE,wood + "_button", CYPRESS_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
 		//CYPRESS IN NATURE
-		registerBlockAfter(true, BAOBAB_LOG,wood + "_log", CYPRESS_LOG, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(true, BAOBAB_LEAVES,wood + "_leaves", CYPRESS_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(BAOBAB_LOG,wood + "_log", CYPRESS_LOG, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(BAOBAB_LEAVES,wood + "_leaves", CYPRESS_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
 
 		wood = "palm";
 		//PALM IN BUILDING BLOCKS
-		registerBlockAfter(true, CYPRESS_BUTTON, wood + "_log", PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, PALM_LOG, wood + "_wood", PALM_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, PALM_WOOD, wood + "_crown", PALM_CROWN, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, PALM_CROWN, "stripped_" + wood + "_log", STRIPPED_PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, STRIPPED_PALM_LOG, "stripped_" + wood + "_wood", STRIPPED_PALM_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, STRIPPED_PALM_WOOD, wood + "_planks", PALM_PLANKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, PALM_PLANKS, wood + "_stairs", PALM_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, PALM_STAIRS, wood + "_slab", PALM_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, PALM_SLAB, wood + "_fence", PALM_FENCE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, PALM_FENCE, wood + "_fence_gate", PALM_FENCE_GATE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, PALM_FENCE_GATE, wood + "_door", PALM_DOOR, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, PALM_DOOR, wood + "_trapdoor", PALM_TRAPDOOR, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, PALM_TRAPDOOR, wood + "_pressure_plate", PALM_PRESSURE_PLATE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, PALM_PRESSURE_PLATE, wood + "_button", PALM_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CYPRESS_BUTTON, wood + "_log", PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(PALM_LOG, wood + "_wood", PALM_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(PALM_WOOD, wood + "_crown", PALM_CROWN, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(PALM_CROWN, "stripped_" + wood + "_log", STRIPPED_PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(STRIPPED_PALM_LOG, "stripped_" + wood + "_wood", STRIPPED_PALM_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(STRIPPED_PALM_WOOD, wood + "_planks", PALM_PLANKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(PALM_PLANKS, wood + "_stairs", PALM_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(PALM_STAIRS, wood + "_slab", PALM_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(PALM_SLAB, wood + "_fence", PALM_FENCE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(PALM_FENCE, wood + "_fence_gate", PALM_FENCE_GATE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(PALM_FENCE_GATE, wood + "_door", PALM_DOOR, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(PALM_DOOR, wood + "_trapdoor", PALM_TRAPDOOR, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(PALM_TRAPDOOR, wood + "_pressure_plate", PALM_PRESSURE_PLATE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(PALM_PRESSURE_PLATE, wood + "_button", PALM_BUTTON, CreativeModeTabs.BUILDING_BLOCKS);
 		//PALM IN NATURE
-		registerBlockAfter(true, CYPRESS_LOG, wood + "_log", PALM_LOG, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(true,PALM_LOG, wood + "_crown", PALM_CROWN, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(true, CYPRESS_LEAVES, wood + "_leaves", PALM_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(CYPRESS_LOG, wood + "_log", PALM_LOG, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(PALM_LOG, wood + "_crown", PALM_CROWN, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(CYPRESS_LEAVES, wood + "_leaves", PALM_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
 
         registerBlock(false, baobab + "_nut", BAOBAB_NUT);
         registerBlock(false, "potted_" + baobab + "_nut", POTTED_BAOBAB_NUT);
 
-		registerBlockAfter(true, Items.MANGROVE_PROPAGULE,cypress + "_sapling", CYPRESS_SAPLING, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Items.MANGROVE_PROPAGULE,cypress + "_sapling", CYPRESS_SAPLING, CreativeModeTabs.NATURAL_BLOCKS);
         registerBlock(false, "potted_" + cypress + "_sapling", POTTED_CYPRESS_SAPLING);
 		registerBlock(false, "coconut", COCONUT);
 		registerBlock(false, "potted_coconut", POTTED_COCONUT);
@@ -386,23 +385,23 @@ public final class RegisterBlocks {
 	public static final Block HOLLOWED_PALM_LOG = createHollowedLogBlock(PALM_PLANKS_COLOR, PALM_BARK_COLOR);
 
     public static void registerHollowedLogs() {
-		registerBlockAfter(true, Items.OAK_LOG, "hollowed_oak_log", HOLLOWED_OAK_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, Items.SPRUCE_LOG, "hollowed_spruce_log", HOLLOWED_SPRUCE_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, Items.BIRCH_LOG, "hollowed_birch_log", HOLLOWED_BIRCH_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, Items.JUNGLE_LOG, "hollowed_jungle_log", HOLLOWED_JUNGLE_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, Items.ACACIA_LOG, "hollowed_acacia_log", HOLLOWED_ACACIA_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, Items.DARK_OAK_LOG, "hollowed_dark_oak_log", HOLLOWED_DARK_OAK_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, Items.CRIMSON_STEM, "hollowed_crimson_stem", HOLLOWED_CRIMSON_STEM, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, Items.WARPED_STEM, "hollowed_warped_stem", HOLLOWED_WARPED_STEM, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(true, BAOBAB_LOG, "hollowed_mangrove_log", HOLLOWED_MANGROVE_LOG, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(true, Items.MANGROVE_LOG, "hollowed_mangrove_log", HOLLOWED_MANGROVE_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Items.OAK_LOG, "hollowed_oak_log", HOLLOWED_OAK_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Items.SPRUCE_LOG, "hollowed_spruce_log", HOLLOWED_SPRUCE_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Items.BIRCH_LOG, "hollowed_birch_log", HOLLOWED_BIRCH_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Items.JUNGLE_LOG, "hollowed_jungle_log", HOLLOWED_JUNGLE_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Items.ACACIA_LOG, "hollowed_acacia_log", HOLLOWED_ACACIA_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Items.DARK_OAK_LOG, "hollowed_dark_oak_log", HOLLOWED_DARK_OAK_LOG, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Items.CRIMSON_STEM, "hollowed_crimson_stem", HOLLOWED_CRIMSON_STEM, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Items.WARPED_STEM, "hollowed_warped_stem", HOLLOWED_WARPED_STEM, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(BAOBAB_LOG, "hollowed_mangrove_log", HOLLOWED_MANGROVE_LOG, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Items.MANGROVE_LOG, "hollowed_mangrove_log", HOLLOWED_MANGROVE_LOG, CreativeModeTabs.BUILDING_BLOCKS);
 
-		registerBlockBefore(true, BAOBAB_WOOD, "hollowed_baobab_log", HOLLOWED_BAOBAB_LOG,CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(true, CYPRESS_LOG, "hollowed_baobab_log", HOLLOWED_BAOBAB_LOG, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(true, CYPRESS_WOOD, "hollowed_cypress_log", HOLLOWED_CYPRESS_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, CYPRESS_LOG,"hollowed_cypress_log", HOLLOWED_CYPRESS_LOG, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(true, PALM_WOOD, "hollowed_palm_log", HOLLOWED_PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, PALM_CROWN, "hollowed_palm_log", HOLLOWED_PALM_LOG, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(BAOBAB_WOOD, "hollowed_baobab_log", HOLLOWED_BAOBAB_LOG,CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(CYPRESS_LOG, "hollowed_baobab_log", HOLLOWED_BAOBAB_LOG, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(CYPRESS_WOOD, "hollowed_cypress_log", HOLLOWED_CYPRESS_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CYPRESS_LOG,"hollowed_cypress_log", HOLLOWED_CYPRESS_LOG, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(PALM_WOOD, "hollowed_palm_log", HOLLOWED_PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(PALM_CROWN, "hollowed_palm_log", HOLLOWED_PALM_LOG, CreativeModeTabs.NATURAL_BLOCKS);
     }
 
     // SCULK
@@ -415,13 +414,13 @@ public final class RegisterBlocks {
     public static final Block ECHO_GLASS = new EchoGlassBlock(FabricBlockSettings.of(Material.GLASS, MaterialColor.COLOR_CYAN).strength(0.3F).nonOpaque().sounds(RegisterBlockSoundTypes.ECHO_GLASS));
 
     public static void registerDeepDark() {
-		registerBlockAfter(true, Items.DEEPSLATE_TILE_WALL,"sculk_wall", SCULK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, Items.DEEPSLATE_TILE_WALL,"sculk_slab", SCULK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, Items.DEEPSLATE_TILE_WALL,"sculk_stairs", SCULK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, Items.DEEPSLATE_TILE_WALL,"osseous_sculk", OSSEOUS_SCULK, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(true, Items.SCULK,"osseous_sculk", OSSEOUS_SCULK, CreativeModeTabs.NATURAL_BLOCKS);
-        registerBlockAfter(true, Items.SCULK_SENSOR,"hanging_tendril", HANGING_TENDRIL, CreativeModeTabs.NATURAL_BLOCKS);
-        registerBlockAfter(true, Items.TINTED_GLASS, "echo_glass", ECHO_GLASS, CreativeModeTabs.FUNCTIONAL_BLOCKS);
+		registerBlockAfter(Items.DEEPSLATE_TILE_WALL,"sculk_wall", SCULK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Items.DEEPSLATE_TILE_WALL,"sculk_slab", SCULK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Items.DEEPSLATE_TILE_WALL,"sculk_stairs", SCULK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Items.DEEPSLATE_TILE_WALL,"osseous_sculk", OSSEOUS_SCULK, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Items.SCULK,"osseous_sculk", OSSEOUS_SCULK, CreativeModeTabs.NATURAL_BLOCKS);
+        registerBlockAfter(Items.SCULK_SENSOR,"hanging_tendril", HANGING_TENDRIL, CreativeModeTabs.NATURAL_BLOCKS);
+        registerBlockAfter(Items.TINTED_GLASS, "echo_glass", ECHO_GLASS, CreativeModeTabs.FUNCTIONAL_BLOCKS);
     }
 
     private static boolean always(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
@@ -501,21 +500,21 @@ public final class RegisterBlocks {
         registerBlock(false, "potted_big_dripleaf", POTTED_BIG_DRIPLEAF);
         registerBlock(false, "potted_small_dripleaf", POTTED_SMALL_DRIPLEAF);
         registerBlock(false, "potted_grass", POTTED_GRASS);
-        registerBlockAfter(true, Items.DANDELION,"seeding_dandelion", SEEDING_DANDELION, CreativeModeTabs.NATURAL_BLOCKS);
+        registerBlockAfter(Items.DANDELION,"seeding_dandelion", SEEDING_DANDELION, CreativeModeTabs.NATURAL_BLOCKS);
         registerBlock(false, "potted_seeding_dandelion", POTTED_SEEDING_DANDELION);
-        registerBlockAfter(true, Items.CORNFLOWER, "carnation", CARNATION, CreativeModeTabs.NATURAL_BLOCKS);
+        registerBlockAfter(Items.CORNFLOWER, "carnation", CARNATION, CreativeModeTabs.NATURAL_BLOCKS);
         registerBlock(false, "potted_carnation", POTTED_CARNATION);
-        registerBlockBefore(true, Items.WITHER_ROSE, "glory_of_the_snow", GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(true, Items.WITHER_ROSE,"blue_giant_glory_of_the_snow", BLUE_GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(true, Items.WITHER_ROSE,"pink_giant_glory_of_the_snow", PINK_GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(true, Items.WITHER_ROSE,"violet_beauty_glory_of_the_snow", PURPLE_GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(true, Items.WITHER_ROSE,"alba_glory_of_the_snow", WHITE_GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(true, Items.PEONY, "datura", DATURA, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(true, Items.PEONY, "milkweed", MILKWEED, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(true, Items.PEONY, "cattail", CATTAIL, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(true, Items.PEONY, "bush", BUSH, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(true, Items.PEONY, "tumbleweed_plant", TUMBLEWEED_PLANT, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(true, TUMBLEWEED_PLANT, "tumbleweed", TUMBLEWEED, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(Items.WITHER_ROSE, "glory_of_the_snow", GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(Items.WITHER_ROSE,"blue_giant_glory_of_the_snow", BLUE_GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(Items.WITHER_ROSE,"pink_giant_glory_of_the_snow", PINK_GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(Items.WITHER_ROSE,"violet_beauty_glory_of_the_snow", PURPLE_GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(Items.WITHER_ROSE,"alba_glory_of_the_snow", WHITE_GLORY_OF_THE_SNOW, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Items.PEONY, "datura", DATURA, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(DATURA, "milkweed", MILKWEED, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(MILKWEED, "cattail", CATTAIL, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Items.CACTUS, "tumbleweed_plant", TUMBLEWEED_PLANT, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(TUMBLEWEED_PLANT, "tumbleweed", TUMBLEWEED, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(TUMBLEWEED, "bush", BUSH, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock(false, "potted_tumbleweed_plant", POTTED_TUMBLEWEED_PLANT);
 		registerBlock(false, "prickly_pear", PRICKLY_PEAR_CACTUS);
 		registerBlock(false, "potted_prickly_pear", POTTED_PRICKLY_PEAR);
@@ -529,11 +528,11 @@ public final class RegisterBlocks {
 
     public static void registerNotSoPlants() {
         registerBlock(false, "pollen", POLLEN_BLOCK);
-		registerBlockAfter(true, Items.RED_MUSHROOM, "red_shelf_fungus", RED_SHELF_FUNGUS, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(true, Items.RED_MUSHROOM, "brown_shelf_fungus", BROWN_SHELF_FUNGUS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Items.RED_MUSHROOM, "red_shelf_fungus", RED_SHELF_FUNGUS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Items.RED_MUSHROOM, "brown_shelf_fungus", BROWN_SHELF_FUNGUS, CreativeModeTabs.NATURAL_BLOCKS);
 		Registry.register(BuiltInRegistries.BLOCK, WilderSharedConstants.id("algae"), ALGAE);
 		Registry.register(BuiltInRegistries.BLOCK, WilderSharedConstants.id("flowering_lily_pad"), FLOWERING_LILY_PAD);
-		registerBlockAfter(true, Items.WET_SPONGE, "small_sponge", SMALL_SPONGE, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Items.WET_SPONGE, "small_sponge", SMALL_SPONGE, CreativeModeTabs.NATURAL_BLOCKS);
     }
 
     // BLOCK FAMILIES
@@ -571,26 +570,26 @@ public final class RegisterBlocks {
     public static final Block DISPLAY_LANTERN = new DisplayLanternBlock(FabricBlockSettings.of(Material.METAL).strength(3.5f).sounds(SoundType.LANTERN).luminance((state) -> state.getValue(RegisterProperties.DISPLAY_LIGHT)));
 
     public static void registerMisc() {
-        registerBlockBefore(true, Items.BEE_NEST, "termite_mound", TERMITE_MOUND, CreativeModeTabs.NATURAL_BLOCKS);
-        registerBlockBefore(true, Items.GLASS, "null_block", NULL_BLOCK, CreativeModeTabs.BUILDING_BLOCKS);
-        registerBlockAfter(true, Items.CHEST, "stone_chest", STONE_CHEST, CreativeModeTabs.FUNCTIONAL_BLOCKS);
-        registerBlockAfter(true, Items.SOUL_LANTERN, "display_lantern", DISPLAY_LANTERN, CreativeModeTabs.FUNCTIONAL_BLOCKS);
+        registerBlockBefore(Items.BEE_NEST, "termite_mound", TERMITE_MOUND, CreativeModeTabs.NATURAL_BLOCKS);
+        registerBlockBefore(Items.GLASS, "null_block", NULL_BLOCK, CreativeModeTabs.BUILDING_BLOCKS);
+        registerBlockAfter(Items.CHEST, "stone_chest", STONE_CHEST, CreativeModeTabs.FUNCTIONAL_BLOCKS);
+        registerBlockAfter(Items.SOUL_LANTERN, "display_lantern", DISPLAY_LANTERN, CreativeModeTabs.FUNCTIONAL_BLOCKS);
 
-        registerBlockBefore(true, Items.SPONGE, "blue_pearlescent_mesoglea", BLUE_PEARLESCENT_MESOGLEA, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(true, Items.SPONGE, "purple_pearlescent_mesoglea", PURPLE_PEARLESCENT_MESOGLEA, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(true, Items.SPONGE, "blue_mesoglea", BLUE_MESOGLEA, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(true, Items.SPONGE, "pink_mesoglea", PINK_MESOGLEA, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(true, Items.SPONGE, "red_mesoglea", RED_MESOGLEA, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(true, Items.SPONGE, "yellow_mesoglea", YELLOW_MESOGLEA, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(true, Items.SPONGE, "lime_mesoglea", LIME_MESOGLEA, CreativeModeTabs.NATURAL_BLOCKS);
+        registerBlockBefore(Items.SPONGE, "blue_pearlescent_mesoglea", BLUE_PEARLESCENT_MESOGLEA, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(Items.SPONGE, "purple_pearlescent_mesoglea", PURPLE_PEARLESCENT_MESOGLEA, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(Items.SPONGE, "blue_mesoglea", BLUE_MESOGLEA, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(Items.SPONGE, "pink_mesoglea", PINK_MESOGLEA, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(Items.SPONGE, "red_mesoglea", RED_MESOGLEA, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(Items.SPONGE, "yellow_mesoglea", YELLOW_MESOGLEA, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(Items.SPONGE, "lime_mesoglea", LIME_MESOGLEA, CreativeModeTabs.NATURAL_BLOCKS);
 
-		registerBlockBefore(true, Items.SPONGE, "blue_pearlescent_nematocyst", BLUE_PEARLESCENT_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(true, Items.SPONGE, "purple_pearlescent_nematocyst", PURPLE_PEARLESCENT_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(true, Items.SPONGE, "blue_nematocyst", BLUE_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(true, Items.SPONGE, "pink_nematocyst", PINK_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(true, Items.SPONGE, "red_nematocyst", RED_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(true, Items.SPONGE, "yellow_nematocyst", YELLOW_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(true, Items.SPONGE, "lime_nematocyst", LIME_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(Items.SPONGE, "blue_pearlescent_nematocyst", BLUE_PEARLESCENT_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(Items.SPONGE, "purple_pearlescent_nematocyst", PURPLE_PEARLESCENT_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(Items.SPONGE, "blue_nematocyst", BLUE_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(Items.SPONGE, "pink_nematocyst", PINK_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(Items.SPONGE, "red_nematocyst", RED_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(Items.SPONGE, "yellow_nematocyst", YELLOW_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(Items.SPONGE, "lime_nematocyst", LIME_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
     }
 
     public static void registerBlocks() {
@@ -644,17 +643,13 @@ public final class RegisterBlocks {
         actualRegisterBlock(path, block);
     }
 
-	private static void registerBlockBefore(boolean registerBlockItem, ItemLike comparedItem, String path, Block block, CreativeModeTab... tabs) {
-		if (registerBlockItem) {
-			registerBlockItemBefore(comparedItem, path, block, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, tabs);
-		}
+	private static void registerBlockBefore(ItemLike comparedItem, String path, Block block, CreativeModeTab... tabs) {
+		registerBlockItemBefore(comparedItem, path, block, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, tabs);
 		actualRegisterBlock(path, block);
 	}
 
-	private static void registerBlockAfter(boolean registerBlockItem, ItemLike comparedItem, String path, Block block, CreativeModeTab... tabs) {
-		if (registerBlockItem) {
-			registerBlockItemAfter(comparedItem, path, block, tabs);
-		}
+	private static void registerBlockAfter(ItemLike comparedItem, String path, Block block, CreativeModeTab... tabs) {
+		registerBlockItemAfter(comparedItem, path, block, tabs);
 		actualRegisterBlock(path, block);
 	}
 

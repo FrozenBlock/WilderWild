@@ -43,6 +43,7 @@ public final class WorldgenConfig implements ConfigData {
     public boolean fallenLogs = DefaultWorldgenConfig.FALLEN_LOGS;
     public boolean wilderWildTreeGen = DefaultWorldgenConfig.WILDER_WILD_TREE_GEN;
     public boolean wilderWildGrassGen = DefaultWorldgenConfig.WILDER_WILD_GRASS_GEN;
+	public boolean cypressWitchHuts = DefaultWorldgenConfig.CYPRESS_WITCH_HUTS;
 
     @Environment(EnvType.CLIENT)
     static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
@@ -99,22 +100,6 @@ public final class WorldgenConfig implements ConfigData {
 				cypressWetlands, jellyfishCaves, mixedForest, oasis, warmRiver, birchTaiga
 		);
 
-        /*
-        var badlands = category.addEntry(entryBuilder.startBooleanToggle(text("modify_badlands_placement"), biomePlacement.modifyBadlandsPlacement)
-                .setDefaultValue(DefaultWorldgenConfig.BiomePlacement.modifyBadlandsPlacement)
-                .setSaveConsumer(newValue -> biomePlacement.modifyBadlandsPlacement = newValue)
-                .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
-                .setTooltip(tooltip("modify_badlands_placement"))
-                .requireRestart()
-                .build());
-        var desert = category.addEntry(entryBuilder.startBooleanToggle(text("modify_desert_placement"), biomePlacement.modifyDesertPlacement)
-                .setDefaultValue(DefaultWorldgenConfig.BiomePlacement.modifyDesertPlacement)
-                .setSaveConsumer(newValue -> biomePlacement.modifyDesertPlacement = newValue)
-                .setYesNoTextSupplier(bool -> text("biome_placement." + bool))
-                .setTooltip(tooltip("modify_desert_placement"))
-                .requireRestart()
-                .build());
-         */
         var jungle = entryBuilder.startBooleanToggle(text("modify_jungle_placement"), biomePlacement.modifyJunglePlacement)
                 .setDefaultValue(DefaultWorldgenConfig.BiomePlacement.MODIFY_JUNGLE_PLACEMENT)
                 .setSaveConsumer(newValue -> biomePlacement.modifyJunglePlacement = newValue)
@@ -178,6 +163,13 @@ public final class WorldgenConfig implements ConfigData {
                 .requireRestart()
                 .build()
         );
+		var cypressWitchHuts = category.addEntry(entryBuilder.startBooleanToggle(text("cypress_witch_huts"), config.cypressWitchHuts)
+				.setDefaultValue(DefaultWorldgenConfig.CYPRESS_WITCH_HUTS)
+				.setSaveConsumer(newValue -> config.cypressWitchHuts = newValue)
+				.setTooltip(tooltip("cypress_witch_huts"))
+				.requireRestart()
+				.build()
+		);
     }
 
     //public static final StringSetConfigOption HIDDEN_MODS = new StringSetConfigOption("hidden_mods", new HashSet<>());
