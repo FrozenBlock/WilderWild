@@ -1,11 +1,11 @@
 package net.frozenblock.wilderwild.misc;
 
-import net.frozenblock.lib.silentticker.SilentTicker;
+import net.frozenblock.lib.entity.api.SilentTicker;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
@@ -16,17 +16,18 @@ import net.minecraft.world.phys.Vec3;
 
 public class ChestBubbleTicker extends SilentTicker {
 
-	public ChestBubbleTicker(Level level, Vec3 pos) {
-		super(level, pos);
+	public ChestBubbleTicker(EntityType<?> entityType, Level level) {
+		super(entityType, level);
 	}
 
-	public ChestBubbleTicker(Level level, Vec3 pos, int ticks, int id) {
-		super(level, pos, ticks, id);
+	public ChestBubbleTicker(EntityType<?> entityType, Level level, BlockPos pos) {
+		super(entityType, level);
+		this.setPos(Vec3.atCenterOf(pos));
 	}
 
-	@Override
-	public void writeExtraPacketData(FriendlyByteBuf byteBuf) {
-
+	public static void createAndSpawn(EntityType<?> entityType, Level level, BlockPos pos) {
+		ChestBubbleTicker chestBubbleTicker = new ChestBubbleTicker(entityType, level, pos);
+		level.addFreshEntity(chestBubbleTicker);
 	}
 
 	@Override
@@ -45,21 +46,17 @@ public class ChestBubbleTicker extends SilentTicker {
 						}
 						server.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5 + additionalX, pos.getY() + 0.625, pos.getZ() + 0.5 + additionalZ, level.random.nextInt(4, 10), 0.21875F, 0, 0.21875F, 0.2D);
 					} else {
-						this.remove();
+						this.discard();
 					}
 				} else {
-					this.remove();
+					this.discard();
 				}
 			} else {
-				this.remove();
+				this.discard();
 			}
 		} else {
-			this.remove();
+			this.discard();
 		}
-	}
-
-	public static ChestBubbleTicker recreateFromPacket(Level level, Vec3 vec3, int ticks, int id, FriendlyByteBuf byteBuf) {
-		return new ChestBubbleTicker(level, vec3, ticks, id);
 	}
 
 }

@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.mixin.server.general;
 
 import net.frozenblock.wilderwild.misc.ChestBubbleTicker;
 import net.frozenblock.wilderwild.misc.interfaces.ChestBlockEntityInterface;
+import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -17,7 +18,6 @@ import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
-import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -56,11 +56,11 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	public void bubble(Level level, BlockPos pos, BlockState state) {
 		if (level != null) {
 			if (this.canBubble && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED)) {
-				new ChestBubbleTicker(level, Vec3.atCenterOf(pos));
+				ChestBubbleTicker.createAndSpawn(RegisterEntities.CHEST_BUBBLER, level, pos);
 				this.canBubble = false;
 				ChestBlockEntity otherChest = getOtherEntity(level, pos, state);
 				if (otherChest != null) {
-					new ChestBubbleTicker(level, Vec3.atCenterOf(otherChest.getBlockPos()));
+					ChestBubbleTicker.createAndSpawn(RegisterEntities.CHEST_BUBBLER, level, otherChest.getBlockPos());
 					((ChestBlockEntityInterface) otherChest).setCanBubble(false);
 				}
 			}

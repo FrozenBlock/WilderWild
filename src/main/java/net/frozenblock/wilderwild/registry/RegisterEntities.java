@@ -8,6 +8,7 @@ import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.render.easter.EasterEggs;
+import net.frozenblock.wilderwild.misc.ChestBubbleTicker;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.world.entity.Entity;
@@ -70,6 +71,15 @@ public final class RegisterEntities {
 			FabricEntityTypeBuilder.<CoconutProjectile>create(MobCategory.MISC, CoconutProjectile::new)
 					.dimensions(EntityDimensions.scalable(0.25F, 0.25F))
 					.trackRangeBlocks(64)
+					.trackedUpdateRate(10)
+					.build()
+	);
+
+	public static final EntityType<ChestBubbleTicker> CHEST_BUBBLER = register(
+			"chest_bubbler",
+			FabricEntityTypeBuilder.<ChestBubbleTicker>create(MobCategory.MISC, ChestBubbleTicker::new)
+					.dimensions(EntityDimensions.scalable(1.0F, 1.0F))
+					.trackRangeBlocks(0)
 					.trackedUpdateRate(10)
 					.build()
 	);

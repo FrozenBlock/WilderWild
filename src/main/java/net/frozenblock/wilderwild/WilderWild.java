@@ -15,11 +15,9 @@ import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.mobcategory.api.FrozenMobCategories;
 import net.frozenblock.lib.mobcategory.api.entrypoint.FrozenMobCategoryEntrypoint;
 import net.frozenblock.lib.mobcategory.impl.FrozenMobCategory;
-import net.frozenblock.lib.silentticker.SilentTickerManager;
 import net.frozenblock.wilderwild.block.entity.PalmCrownBlockEntity;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.entity.Firefly;
-import net.frozenblock.wilderwild.misc.ChestBubbleTicker;
 import net.frozenblock.wilderwild.misc.FireflyColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
@@ -134,8 +132,6 @@ public final class WilderWild extends FrozenMobCategoryEntrypoint implements Mod
 
         TermiteMoundBlockEntity.Termite.addDegradableBlocks();
         TermiteMoundBlockEntity.Termite.addNaturalDegradableBlocks();
-
-		SilentTickerManager.register(WilderSharedConstants.id("chest_bubbler"), ChestBubbleTicker.class, ChestBubbleTicker::recreateFromPacket);
 
         if (FrozenBools.HAS_TERRALITH) {
             terralith();

@@ -7,10 +7,8 @@ import java.util.function.BiPredicate;
 import java.util.function.Supplier;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.entity.Jellyfish;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.interfaces.ChestBlockEntityInterface;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
-import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
@@ -102,29 +100,8 @@ public class StoneChestBlock extends ChestBlock {
 					if (first) {
 						((ChestBlockEntityInterface)stoneEntity).bubble(level, pos, state);
 						ResourceLocation lootTable = stoneEntity.lootTable;
-						if (lootTable != null) {
-							WilderSharedConstants.log("LOOT TABLE: " + lootTable, WilderSharedConstants.UNSTABLE_LOGGING);
-							if (state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED)) {
-								String lootPath = lootTable.getPath().toLowerCase();
-								if (lootPath.contains("shipwreck") && level.random.nextBoolean()) {
-									WilderSharedConstants.log("MAKING JELLY", WilderSharedConstants.UNSTABLE_LOGGING);
-									Jellyfish jellyfish = new Jellyfish(RegisterEntities.JELLYFISH, level);
-									jellyfish.setVariantFromPos(level, pos);
-									double additionalX = 0;
-									double additionalZ = 0;
-									if (state.hasProperty(BlockStateProperties.CHEST_TYPE) && state.getValue(BlockStateProperties.CHEST_TYPE) != ChestType.SINGLE) {
-										Direction direction = ChestBlock.getConnectedDirection(state);
-										additionalX += (double) direction.getStepX() * 0.25;
-										additionalZ += (double) direction.getStepZ() * 0.25;
-									}
-									jellyfish.setPos(pos.getX() + 0.5 + additionalX, pos.getY() + 0.75, pos.getZ() + 0.5 + additionalZ);
-									jellyfish.setDeltaMovement(0, 0.1 + level.random.nextDouble() * 0.07, 0);
-									level.addFreshEntity(jellyfish);
-									WilderSharedConstants.log("SPAWNED JELLY", WilderSharedConstants.UNSTABLE_LOGGING);
-								} else {
-									WilderSharedConstants.log("NO JELLY", WilderSharedConstants.UNSTABLE_LOGGING);
-								}
-							}
+						if (lootTable != null && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) && lootTable.getPath().toLowerCase().contains("shipwreck") && level.random.nextBoolean()) {
+							Jellyfish.spawnFromChest(level, state, pos);
 						}
 					}
                     StoneChestBlockEntity.playSound(level, pos, state, first ? RegisterSounds.BLOCK_STONE_CHEST_OPEN : RegisterSounds.BLOCK_STONE_CHEST_LIFT, first ? RegisterSounds.BLOCK_STONE_CHEST_OPEN_UNDERWATER : RegisterSounds.BLOCK_STONE_CHEST_LIFT_UNDERWATER, 0.35F);
