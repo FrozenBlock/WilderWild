@@ -1,44 +1,17 @@
 package net.frozenblock.wilderwild.world.additions.feature;
 
-import java.util.List;
-import net.frozenblock.lib.feature.FrozenFeatures;
-import net.frozenblock.lib.feature.features.config.ColumnWithDiskFeatureConfig;
-import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.block.SmallSpongeBlock;
 import net.frozenblock.wilderwild.misc.FlowerColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
-import net.frozenblock.wilderwild.tag.WilderBlockTags;
-import net.frozenblock.wilderwild.world.generation.features.config.ShelfFungusFeatureConfig;
-import net.frozenblock.wilderwild.world.generation.features.config.SmallSpongeFeatureConfig;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
-import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.features.FeatureUtils;
-import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.random.SimpleWeightedRandomList;
-import net.minecraft.util.valueproviders.BiasedToBottomInt;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.BlockColumnConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
-import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
-import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 
 public final class WilderConfiguredFeatures {
 	private WilderConfiguredFeatures() {
@@ -84,7 +57,15 @@ public final class WilderConfiguredFeatures {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> FLOWER_PLAINS = key("flower_plains");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> MILKWEED = key("milkweed");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> GLORY_OF_THE_SNOW = key("glory_of_the_snow");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_FLOWER_FIELD = key("flower_field_trees");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_OLD_GROWTH_SNOWY_PINE_TAIGA = key("old_growth_snowy_pine_taiga_trees");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_ARID_SAVANNA = key("arid_savanna_trees");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_PARCHED_FOREST = key("parched_forest_trees");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_ARID_FOREST = key("arid_forest_trees");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> FLOWER_FLOWER_FIELD = key("flower_field_flowers");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> TALL_FLOWER_FLOWER_FIELD = key("flower_field_tall_flowers");
 
+	//VEGETATION
 	public static final SimpleWeightedRandomList<BlockState> OASIS_GRASS_POOL = SimpleWeightedRandomList.<BlockState>builder().add(Blocks.TALL_GRASS.defaultBlockState(), 2).add(Blocks.GRASS.defaultBlockState(), 5).build();
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> OASIS_GRASS = key("oasis_grass");
@@ -93,11 +74,18 @@ public final class WilderConfiguredFeatures {
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> OASIS_BUSH = key("oasis_bush");
 
+	public static final SimpleWeightedRandomList<BlockState> FLOWER_FIELD_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder().add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_1, 0), 2).add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_1, 1), 5).build();
+
+	public static final ResourceKey<ConfiguredFeature<?, ?>> BUSH_FLOWER_FIELD = key("bush_flower_field");
+
 	public static final SimpleWeightedRandomList<BlockState> DESERT_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder().add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_1, 0), 1).add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_1, 1), 4).build();
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> DESERT_BUSH = key("desert_bush");
-
 	public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CACTUS_OASIS = key("patch_cactus_oasis");
+
+	public static final SimpleWeightedRandomList<BlockState> LARGE_FERN_AND_GRASS_POOL_2 = SimpleWeightedRandomList.<BlockState>builder().add(Blocks.TALL_GRASS.defaultBlockState(), 5).add(Blocks.LARGE_FERN.defaultBlockState(), 1).build();
+
+	public static final ResourceKey<ConfiguredFeature<?, ?>> LARGE_FERN_AND_GRASS_2 = key("large_fern_and_grass_2");
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CACTUS_TALL = key("patch_cactus_tall");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> LARGE_FERN_AND_GRASS = key("large_fern_and_grass");

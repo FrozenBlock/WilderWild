@@ -21,7 +21,7 @@
       "replace_current_music": false,
       "sound": "wilderwild:music.overworld.wild_forests"
     },
-    "sky_color": 8168447,
+    "sky_color": 8103167,
     "water_color": 4159204,
     "water_fog_color": 329011
   },
@@ -211,5 +211,5 @@
     "wilderwildjellyfish": [],
     "wilderwildtumbleweed": []
   },
-  "temperature": 0.3
+  "temperature": 0.45
 }

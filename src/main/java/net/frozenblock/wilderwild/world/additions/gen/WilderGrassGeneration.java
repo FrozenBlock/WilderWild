@@ -16,7 +16,8 @@ public final class WilderGrassGeneration {
 
 		BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.OLD_GROWTH_SPRUCE_TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.LARGE_FERN_AND_GRASS);
-		BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.TAIGA, RegisterWorldgen.BIRCH_TAIGA),
+
+		BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.TAIGA, RegisterWorldgen.BIRCH_TAIGA, RegisterWorldgen.OLD_GROWTH_SNOWY_PINE_TAIGA),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.LARGE_FERN_AND_GRASS_RARE);
 
     }

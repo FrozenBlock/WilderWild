@@ -1,9 +1,15 @@
 package net.frozenblock.wilderwild.block;
 
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
@@ -85,4 +91,24 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
     public boolean useShapeForLightOcclusion(@NotNull BlockState state) {
         return true;
     }
+
+	public static void hollowEffects(Level level, Direction face, BlockState state, BlockPos pos, boolean isStem) {
+		if (level instanceof ServerLevel serverLevel) {
+			double stepX = face.getStepX();
+			double stepY = face.getStepY();
+			double stepZ = face.getStepZ();
+			if (stepX < 0) {
+				stepX *= -1;
+			}
+			if (stepY < 0) {
+				stepY *= -1;
+			}
+			if (stepZ < 0) {
+				stepZ *= -1;
+			}
+			serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(10, 24), 0.25 + (stepX * 0.25), 0.25 + (stepY * 0.25), 0.25 + (stepZ * 0.25), 0.05D);
+			level.playSound(null, pos, isStem ? RegisterSounds.STEM_HOLLOWED : RegisterSounds.LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
+		}
+	}
+
 }

@@ -9,9 +9,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.api.FrozenConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultEntityConfig;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
+import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultEntityConfig;
 
 @Config(name = "entity")
 public final class EntityConfig implements ConfigData {

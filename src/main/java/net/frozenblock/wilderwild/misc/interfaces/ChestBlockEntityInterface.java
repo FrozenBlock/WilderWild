@@ -1,20 +1,19 @@
 package net.frozenblock.wilderwild.misc.interfaces;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+
 public interface ChestBlockEntityInterface {
 
 	boolean getCanBubble();
 
 	void setCanBubble(boolean b);
 
-	void setBubbleTicks(int i);
+	void bubble(Level level, BlockPos pos, BlockState state);
 
-	int getBubbleTick();
+	void bubbleBurst(BlockState state);
 
-	void bubble();
-
-	void setHasJellyfish(boolean b);
-
-	boolean getHasJellyfish();
-
-	void releaseJellyfish();
+	void syncBubble(ChestBlockEntity chest1, ChestBlockEntity chest2);
 }

@@ -1,51 +1,35 @@
 package net.frozenblock.wilderwild.world.additions.feature;
 
-import java.util.List;
 import java.util.OptionalInt;
-import net.frozenblock.wilderwild.block.BaobabNutBlock;
-import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.frozenblock.wilderwild.world.generation.foliage.PalmFoliagePlacer;
 import net.frozenblock.wilderwild.world.generation.foliage.ShortPalmFoliagePlacer;
 import net.frozenblock.wilderwild.world.generation.treedecorators.HeightBasedVineTrunkDecorator;
-import net.frozenblock.wilderwild.world.generation.treedecorators.LeavesAroundTopLogDecorator;
 import net.frozenblock.wilderwild.world.generation.treedecorators.ShelfFungusTreeDecorator;
-import net.frozenblock.wilderwild.world.generation.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.generation.trunk.PalmTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.StraightTrunkWithLogs;
-import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
-import net.minecraft.core.HolderSet;
-import net.minecraft.core.Registry;
-import net.minecraft.tags.BlockTags;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.MangrovePropaguleBlock;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.featuresize.ThreeLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
-import net.minecraft.world.level.levelgen.feature.foliageplacers.BushFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.DarkOakFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.feature.stateproviders.RandomizedIntStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.BeehiveDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.DarkOakTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
-
 
 public final class WilderTreeConfigured {
 	private WilderTreeConfigured() {
@@ -62,10 +46,12 @@ public final class WilderTreeConfigured {
     public static final HeightBasedVineTrunkDecorator VINES_1_UNDER_260_075 = new HeightBasedVineTrunkDecorator(1F, 260, 0.75F);
     public static final HeightBasedVineTrunkDecorator VINES_08_UNDER_260_075 = new HeightBasedVineTrunkDecorator(0.8F, 260, 0.75F);
     public static final BeehiveDecorator NEW_BEES_0004 = new BeehiveDecorator(0.004F);
+	public static final BeehiveDecorator NEW_BEES_025 = new BeehiveDecorator(0.25F);
     public static final BeehiveDecorator NEW_BEES = new BeehiveDecorator(1.0F);
 	//BIRCH
 	public static final ResourceKey<ConfiguredFeature<?, ?>> BIRCH = key("birch");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> BIRCH_BEES_0004 = key("birch_bees_0004");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> BIRCH_BEES_025 = key("birch_bees_025");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> DYING_BIRCH = key("dying_birch");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SHORT_BIRCH_BEES_0004 = key("short_birch_bees_0004");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SUPER_BIRCH_BEES_0004 = key("super_birch_bees_0004");
@@ -83,6 +69,8 @@ public final class WilderTreeConfigured {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> FANCY_DYING_OAK = key("fancy_dying_oak");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> FANCY_DYING_OAK_BEES_0004 = key("fancy_dying_oak_bees_0004");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> FANCY_OAK_BEES_0004 = key("fancy_oak_bees_0004");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> FANCY_DYING_OAK_BEES_025 = key("fancy_dying_oak_bees_025");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> FANCY_OAK_BEES_025 = key("fancy_oak_bees_025");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_OAK_TREE = key("fallen_oak_tree");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> FANCY_OAK_BEES = key("fancy_oak_bees");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> DYING_DARK_OAK = key("dying_dark_oak");
@@ -109,6 +97,7 @@ public final class WilderTreeConfigured {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SHORT_CYPRESS = key("short_cypress");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SHORT_FUNGUS_CYPRESS = key("short_fungus_cypress");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SWAMP_CYPRESS = key("swamp_cypress");
+
 	//BIG SHRUB
 	public static final ResourceKey<ConfiguredFeature<?, ?>> BIG_SHRUB = key("big_shrub");
 	//PALM

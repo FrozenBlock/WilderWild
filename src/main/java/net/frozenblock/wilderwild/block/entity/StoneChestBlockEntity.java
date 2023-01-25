@@ -7,15 +7,14 @@ import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.frozenblock.lib.storage.api.NoInteractionStorage;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
+import net.frozenblock.wilderwild.misc.interfaces.ChestBlockEntityInterface;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.ByteTag;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -38,13 +37,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class StoneChestBlockEntity extends ChestBlockEntity implements NoInteractionStorage<ItemVariant> {
     public float openProgress;
@@ -53,9 +46,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
     public int stillLidTicks;
     public int cooldownTicks;
     public boolean closing;
-    public boolean lootGenerated;
-	public int stoneBubbleTicks;
-	public boolean canStoneBubble = true;
 
 	public boolean shouldSkip = false;
 
@@ -73,9 +63,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
         this.cooldownTicks = tag.getInt("cooldownTicks");
         this.closing = tag.getBoolean("closing");
         this.shouldSkip = tag.getBoolean("shouldSkip");
-        this.lootGenerated = tag.getBoolean("lootGenerated");
-		this.stoneBubbleTicks = tag.getInt("stoneBubbleTicks");
-		this.canStoneBubble = tag.getBoolean("canStoneBubble");
     }
 
     @Override
@@ -88,9 +75,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
         tag.putInt("cooldownTicks", this.cooldownTicks);
         tag.putBoolean("closing", this.closing);
         tag.putBoolean("shouldSkip", this.shouldSkip);
-        tag.putBoolean("lootGenerated", this.lootGenerated);
-		tag.putInt("stoneBubbleTicks", this.stoneBubbleTicks);
-		tag.putBoolean("canStoneBubble", this.canStoneBubble);
     }
 
     public float getOpenProgress(float delta) {
@@ -104,16 +88,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
             if (blockEntity.cooldownTicks > 0) {
                 --blockEntity.cooldownTicks;
             }
-			if (!blockEntity.canStoneBubble) {
-				blockEntity.stoneBubbleTicks = 0;
-			} else if (blockEntity.stoneBubbleTicks > 0) {
-				blockEntity.stoneBubbleTicks -= 1;
-				int random = level.random.nextInt(2, 5);
-				serverLevel.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, random, 0.21875F, 0, 0.21875F, 0.15D);
-				if (blockEntity.stoneBubbleTicks <= 0) {
-					blockEntity.canStoneBubble = false;
-				}
-			}
             boolean canClose = level.getGameRules().getBoolean(WilderWild.STONE_CHEST_CLOSES);
             blockEntity.prevOpenProgress = blockEntity.openProgress;
             if (blockEntity.stillLidTicks > 0) {
@@ -133,6 +107,9 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
                 blockEntity.syncLidValuesWith(stoneChest);
             }
         }
+		if (stoneChest != null) {
+			((ChestBlockEntityInterface) stoneChest).syncBubble(stoneChest, blockEntity);
+		}
         blockEntity.shouldSkip = false;
     }
 
@@ -212,43 +189,24 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
     }
 
     public void updateSync() {
-        StoneChestBlockEntity stoneChest = getOtherEntity(level, worldPosition, this.getBlockState());
-        if (stoneChest != null) {
-            stoneChest.openProgress = this.openProgress;
-            stoneChest.prevOpenProgress = this.prevOpenProgress;
-            stoneChest.highestLidPoint = this.highestLidPoint;
-            stoneChest.stillLidTicks = this.stillLidTicks;
-            stoneChest.cooldownTicks = this.cooldownTicks;
-            stoneChest.shouldSkip = true;
-            stoneChest.closing = this.closing;
-            for (ServerPlayer player : PlayerLookup.tracking(stoneChest)) {
-                player.connection.send(Objects.requireNonNull(stoneChest.getUpdatePacket()));
-            }
-        }
-        for (ServerPlayer player : PlayerLookup.tracking(this)) {
-            player.connection.send(Objects.requireNonNull(this.getUpdatePacket()));
-        }
-    }
-
-    @Override
-    public void unpackLootTable(@Nullable Player player) {
-        if (this.lootTable != null && this.level != null && this.level.getServer() != null) {
-            this.lootGenerated = false;
-            LootTable lootTable = this.level.getServer().getLootTables().get(this.lootTable);
-            if (player instanceof ServerPlayer) {
-                CriteriaTriggers.GENERATE_LOOT.trigger((ServerPlayer) player, this.lootTable);
-            }
-            this.lootTable = null;
-            LootContext.Builder builder = new LootContext.Builder((ServerLevel) this.level).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(this.worldPosition)).withOptionalRandomSeed(this.lootTableSeed);
-            if (player != null) {
-                builder.withLuck(player.getLuck()).withParameter(LootContextParams.THIS_ENTITY, player);
-            }
-            lootTable.fill(this, builder.create(LootContextParamSets.CHEST));
-            for (ItemStack stack : this.getItems()) {
-                stack.addTagElement("wilderwild_is_ancient", ByteTag.valueOf(true));
-            }
-        }
-        this.lootGenerated = true;
+		if (this.getLevel() != null) {
+			StoneChestBlockEntity stoneChest = getOtherEntity(level, worldPosition, this.getLevel().getBlockState(this.getBlockPos()));
+			if (stoneChest != null) {
+				stoneChest.openProgress = this.openProgress;
+				stoneChest.prevOpenProgress = this.prevOpenProgress;
+				stoneChest.highestLidPoint = this.highestLidPoint;
+				stoneChest.stillLidTicks = this.stillLidTicks;
+				stoneChest.cooldownTicks = this.cooldownTicks;
+				stoneChest.shouldSkip = true;
+				stoneChest.closing = this.closing;
+				for (ServerPlayer player : PlayerLookup.tracking(stoneChest)) {
+					player.connection.send(Objects.requireNonNull(stoneChest.getUpdatePacket()));
+				}
+			}
+			for (ServerPlayer player : PlayerLookup.tracking(this)) {
+				player.connection.send(Objects.requireNonNull(this.getUpdatePacket()));
+			}
+		}
     }
 
     @Override
@@ -270,16 +228,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
     public CompoundTag getUpdateTag() {
         return this.saveWithoutMetadata();
     }
-
-	public void bubble() {
-		if (this.canStoneBubble && this.stoneBubbleTicks <= 0 && this.getBlockState().getValue(BlockStateProperties.WATERLOGGED)) {
-			this.stoneBubbleTicks = 5;
-			StoneChestBlockEntity otherChest = getOtherEntity(this.getLevel(), this.getBlockPos(), this.getBlockState());
-			if (otherChest != null) {
-				otherChest.stoneBubbleTicks = 5;
-			}
-		}
-	}
 
     public static StoneChestBlockEntity getOtherEntity(Level level, BlockPos pos, BlockState state) {
         ChestType chestType = state.getValue(ChestBlock.TYPE);
@@ -346,7 +294,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
     @Override
     public void stopOpen(@NotNull Player player) {
         if (!this.remove && !player.isSpectator()) {
-            this.stoneStateManager.decrementOpeners(player, Objects.requireNonNull(this.getLevel()), this.getBlockPos(), this.getBlockState());
+            this.stoneStateManager.decrementOpeners(player, Objects.requireNonNull(this.getLevel()), this.getBlockPos(), this.getLevel().getBlockState(this.getBlockPos()));
         }
     }
 

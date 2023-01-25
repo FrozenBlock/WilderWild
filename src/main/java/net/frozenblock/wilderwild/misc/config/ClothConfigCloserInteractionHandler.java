@@ -71,6 +71,25 @@ public final class ClothConfigCloserInteractionHandler {
 		return BIOME_GENERATION.generateBirchTaiga;
 	}
 
+	public static boolean generateFlowerField() {
+		return BIOME_GENERATION.generateFlowerField;
+	}
+
+	public static boolean generateAridSavanna() {
+		return BIOME_GENERATION.generateAridSavanna;
+	}
+
+	public static boolean generateParchedForest() {
+		return BIOME_GENERATION.generateParchedForest;
+	}
+
+	public static boolean generateAridForest() {
+		return BIOME_GENERATION.generateAridForest;
+	}
+	public static boolean generateOldGrowthSnowyTaiga() {
+		return BIOME_GENERATION.generateOldGrowthSnowyTaiga;
+	}
+
 	public static boolean fallenLogs() {
 		return WORLDGEN.fallenLogs;
 	}

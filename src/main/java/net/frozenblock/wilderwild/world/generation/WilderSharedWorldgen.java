@@ -52,50 +52,40 @@ public final class WilderSharedWorldgen {
     }
 
     public static final class MixedForest {
-        public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.COOL, Temperature.NEUTRAL);
-        public static final Climate.Parameter HUMIDITY = Humidity.FULL_RANGE;
-        public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.INLAND, Continentalness.FAR_INLAND);
-        public static final Climate.Parameter LOW_EROSION = Erosion.EROSION_2;
-        public static final Climate.Parameter MID_EROSION = Erosion.EROSION_1;
-		public static final List<Climate.Parameter> LOW_WEIRDNESS = new ArrayList<>() {{
-			add(Weirdness.LOW_SLICE_NORMAL_DESCENDING);
-			add(Weirdness.LOW_SLICE_VARIANT_ASCENDING);
-		}};
-		public static final List<Climate.Parameter> MID_WEIRDNESS = new ArrayList<>() {{
-			add(Weirdness.MID_SLICE_NORMAL_ASCENDING);
-			add(Weirdness.MID_SLICE_NORMAL_DESCENDING);
-			add(Weirdness.MID_SLICE_VARIANT_ASCENDING);
-			add(Weirdness.MID_SLICE_VARIANT_DESCENDING);
-		}};
-		public static final List<Climate.Parameter> WEIRDNESS = new ArrayList<>() {{
-			addAll(LOW_WEIRDNESS);
-			addAll(MID_WEIRDNESS);
-		}};
-		public static final Climate.Parameter DEPTH = Depth.SURFACE;
-        public static final float OFFSET = 0.0F;
+        public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.45F, -0.14F);
+        public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.050F, 0.150F);
     }
 
 	public static final class BirchTaiga {
-		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.COOL, Temperature.NEUTRAL);
-		public static final Climate.Parameter HUMIDITY = Humidity.WET;
-		public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.INLAND, Continentalness.FAR_INLAND);
-		public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_1, Erosion.EROSION_6);
-		public static final List<Climate.Parameter> LOW_WEIRDNESS = new ArrayList<>() {{
-			add(Weirdness.LOW_SLICE_NORMAL_DESCENDING);
-			add(Weirdness.LOW_SLICE_VARIANT_ASCENDING);
-		}};
-		public static final List<Climate.Parameter> MID_WEIRDNESS = new ArrayList<>() {{
-			add(Weirdness.MID_SLICE_NORMAL_ASCENDING);
-			add(Weirdness.MID_SLICE_NORMAL_DESCENDING);
-			add(Weirdness.MID_SLICE_VARIANT_ASCENDING);
-			add(Weirdness.MID_SLICE_VARIANT_DESCENDING);
-		}};
-		public static final List<Climate.Parameter> WEIRDNESS = new ArrayList<>() {{
-			addAll(LOW_WEIRDNESS);
-			addAll(MID_WEIRDNESS);
-		}};
-		public static final Climate.Parameter DEPTH = Depth.SURFACE;
-		public static final float OFFSET = 0.0F;
+		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.200F, -0.100F);
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.100F, 0.300F);
+	}
+
+	public static final class FlowerField {
+		public static final Climate.Parameter TEMPERATURE_A = Climate.Parameter.span(-0.200F, -0.100F);
+		public static final Climate.Parameter HUMIDITY_A = Humidity.ONE;
+		public static final Climate.Parameter TEMPERATURE_B = Temperature.THREE;
+		public static final Climate.Parameter HUMIDITY_B = Climate.Parameter.span(-0.4F, -0.3F);
+	}
+
+	public static final class AridSavanna {
+		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.525F, 0.575F);
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1.000F, -0.100F);
+	}
+
+	public static final class ParchedForest {
+		public static final Climate.Parameter TEMPERATURE = Temperature.FOUR;
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.150F, -0.050F);
+	}
+
+	public static final class AridForest {
+		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.530F, 0.570F);
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.095F, 0.1F);
+	}
+
+	public static final class OldGrowthSnowySpruceTaiga {
+		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.550F, -0.300F);
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.250F, 0.650F);
 	}
 
     public static final class JellyfishCaves {
@@ -119,8 +109,8 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static final class Oasis {
-		public static final Climate.Parameter WARM_RANGE = Temperature.HOT;
-		public static final Climate.Parameter HUMIDITY_DRY = Humidity.DRY;
+		public static final Climate.Parameter TEMPERATURE = Temperature.HOT;
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.THREE, Humidity.FIVE);
 		public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
 		public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_3, Erosion.EROSION_4);
 		public static final Climate.Parameter DEPTH = Depth.SURFACE;
@@ -210,6 +200,114 @@ public final class WilderSharedWorldgen {
 										SurfaceRules.ifTrue(
 												SurfaceRules.VERY_DEEP_UNDER_FLOOR,
 												SANDSTONE
+										)
+								)
+						)
+				)
+		);
+	}
+	public static SurfaceRules.RuleSource aridGrass() {
+		return SurfaceRules.ifTrue(
+				SurfaceRules.isBiome(RegisterWorldgen.ARID_SAVANNA, RegisterWorldgen.ARID_FOREST),
+				SurfaceRules.sequence(
+						SurfaceRules.ifTrue(
+								SurfaceRules.ON_FLOOR,
+								SurfaceRules.ifTrue(
+										SurfaceRules.noiseCondition(Noises.SURFACE, 0.155, 0.3666),
+										SurfaceRules.sequence(
+												SurfaceRules.ifTrue(
+														SurfaceRules.ON_CEILING,
+														DIRT
+												),
+												GRASS_BLOCK
+										)
+								)
+						),
+						SurfaceRules.ifTrue(
+								SurfaceRules.noiseCondition(Noises.SURFACE, 0.155, 0.3666),
+								SurfaceRules.sequence(
+										SurfaceRules.ifTrue(
+												SurfaceRules.UNDER_FLOOR,
+												SurfaceRules.sequence(
+														SurfaceRules.ifTrue(
+																SurfaceRules.ON_CEILING,
+																DIRT
+														),
+														DIRT
+												)
+										),
+										SurfaceRules.ifTrue(
+												SurfaceRules.DEEP_UNDER_FLOOR,
+												DIRT
+										)
+								)
+						)
+				)
+		);
+	}
+
+	public static SurfaceRules.RuleSource aridRules() {
+		return SurfaceRules.ifTrue(
+				SurfaceRules.isBiome(RegisterWorldgen.ARID_SAVANNA, RegisterWorldgen.ARID_FOREST),
+				SurfaceRules.sequence(
+						SurfaceRules.ifTrue(
+								SurfaceRules.ON_FLOOR,
+								SurfaceRules.ifTrue(
+										SurfaceRules.waterBlockCheck(-1, 0),
+										SurfaceRules.sequence(
+												SurfaceRules.ifTrue(
+														SurfaceRules.ON_CEILING,
+														SANDSTONE
+												),
+												SAND
+										)
+								)
+						),
+						SurfaceRules.ifTrue(
+								SurfaceRules.waterStartCheck(-6, -1),
+								SurfaceRules.sequence(
+										SurfaceRules.ifTrue(
+												SurfaceRules.UNDER_FLOOR,
+												SurfaceRules.sequence(
+														SurfaceRules.ifTrue(
+																SurfaceRules.ON_CEILING,
+																SANDSTONE
+														),
+														SAND
+												)
+										),
+										SurfaceRules.ifTrue(
+												SurfaceRules.VERY_DEEP_UNDER_FLOOR,
+												SANDSTONE
+										)
+								)
+						)
+				)
+		);
+	}
+
+	public static SurfaceRules.RuleSource oldGrowthSnowyTaigaRules() {
+		return SurfaceRules.ifTrue(
+				SurfaceRules.isBiome(RegisterWorldgen.OLD_GROWTH_SNOWY_PINE_TAIGA),
+				SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
+						SurfaceRules.ifTrue(
+								SurfaceRules.waterBlockCheck(-1, 0),
+								SurfaceRules.sequence(
+										SurfaceRules.ifTrue(
+												SurfaceRules.noiseCondition(Noises.SURFACE, 1.75D / 8.25D, Double.MAX_VALUE),
+												COARSE_DIRT
+										),
+										SurfaceRules.ifTrue(
+												SurfaceRules.noiseCondition(Noises.SURFACE, -0.95D / 8.25D, Double.MAX_VALUE),
+												PODZOL
+										),
+										SurfaceRules.ifTrue(
+												SurfaceRules.noiseCondition(Noises.SURFACE, 0.0222, 0.055),
+												POWDER_SNOW
+										),
+										SurfaceRules.ifTrue(
+												SurfaceRules.noiseCondition(Noises.SURFACE, 0.065, 0.12),
+												SNOW_BLOCK
 										)
 								)
 						)

@@ -5,10 +5,6 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
-import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
@@ -29,6 +25,7 @@ public final class WilderTreePlaced {
     //BIRCH
     public static final ResourceKey<PlacedFeature> BIRCH_CHECKED = key("birch_checked");
     public static final ResourceKey<PlacedFeature> BIRCH_BEES_0004 = key("birch_bees_0004");
+	public static final ResourceKey<PlacedFeature> BIRCH_BEES_025 = key("birch_bees_025");
     public static final ResourceKey<PlacedFeature> DYING_BIRCH = key("dying_birch");
     public static final ResourceKey<PlacedFeature> SHORT_BIRCH = key("short_birch");
     public static final ResourceKey<PlacedFeature> DYING_SHORT_BIRCH = key("dying_short_birch");
@@ -47,6 +44,8 @@ public final class WilderTreePlaced {
     public static final ResourceKey<PlacedFeature> DYING_FANCY_OAK_CHECKED = key("dying_fancy_oak_checked");
     public static final ResourceKey<PlacedFeature> DYING_FANCY_OAK_BEES_0004 = key("dying_fancy_oak_bees_0004");
     public static final ResourceKey<PlacedFeature> FANCY_OAK_BEES_0004 = key("fancy_oak_bees_0004");
+	public static final ResourceKey<PlacedFeature> DYING_FANCY_OAK_BEES_025 = key("dying_fancy_oak_bees_025");
+	public static final ResourceKey<PlacedFeature> FANCY_OAK_BEES_025 = key("fancy_oak_bees_025");
     public static final ResourceKey<PlacedFeature> FANCY_OAK_BEES = key("fancy_oak_bees");
     public static final ResourceKey<PlacedFeature> FALLEN_OAK_CHECKED = key("fallen_oak_checked");
 
@@ -82,8 +81,8 @@ public final class WilderTreePlaced {
     public static final ResourceKey<PlacedFeature> SWAMP_CYPRESS = key("swamp_cypress");
     public static final ResourceKey<PlacedFeature> FALLEN_CYPRESS_CHECKED = key("fallen_cypress_checked");
 	//TREE ON SAND
-	public static final BlockPredicate SAND_TREE_PREDICATE = BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.RED_SAND, Blocks.SAND);
-	public static final List<PlacementModifier> SAND_TREE_FILTER_DECORATOR = List.of(EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.not(BlockPredicate.matchesBlocks(Blocks.SANDSTONE)), 8), BlockPredicateFilter.forPredicate(SAND_TREE_PREDICATE));
+	public static final BlockPredicate SAND_GRASS_TREE_PREDICATE = BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.RED_SAND, Blocks.SAND, Blocks.GRASS);
+	public static final List<PlacementModifier> SAND_TREE_FILTER_DECORATOR = List.of(EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.not(BlockPredicate.matchesBlocks(Blocks.SANDSTONE)), 8), BlockPredicateFilter.forPredicate(SAND_GRASS_TREE_PREDICATE));
 	//SHRUB
 	public static final ResourceKey<PlacedFeature> BIG_SHRUB_CHECKED = key("big_shrub_checked");
 	//PALM

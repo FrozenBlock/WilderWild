@@ -2135,21 +2135,21 @@
     ],
     "subtitle": "subtitles.entity.potion.linger"
   },
-  "item.shovel.log_hollowed": {
+  "block.log_hollowed": {
     "sounds": [
-      "wilderwild:item/shovel/hollow1",
-      "wilderwild:item/shovel/hollow2",
-      "wilderwild:item/shovel/hollow3"
+      "wilderwild:block/hollowing/hollow1",
+      "wilderwild:block/hollowing/hollow2",
+      "wilderwild:block/hollowing/hollow3"
     ],
-    "subtitle": "subtitles.item.shovel.log_hollowed"
+    "subtitle": "subtitles.block.log_hollowed"
   },
-  "item.shovel.stem_hollowed": {
+  "block.stem_hollowed": {
     "sounds": [
-      "wilderwild:item/shovel/hollow1",
-      "wilderwild:item/shovel/hollow2",
-      "wilderwild:item/shovel/hollow3"
+      "wilderwild:block/hollowing/hollow1",
+      "wilderwild:block/hollowing/hollow2",
+      "wilderwild:block/hollowing/hollow3"
     ],
-    "subtitle": "subtitles.item.shovel.stem_hollowed"
+    "subtitle": "subtitles.block.stem_hollowed"
   },
   "music.overworld.wild_forests": {
 	"sounds": [

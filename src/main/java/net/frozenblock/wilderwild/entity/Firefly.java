@@ -6,14 +6,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Optional;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.entity.ai.FireflyAi;
 import net.frozenblock.wilderwild.misc.FireflyColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.registry.WilderRegistry;
@@ -170,9 +166,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
             }
             player.getInventory().placeItemBackInInventory(bottleStack);
             Level level = this.level;
-            if (!level.isClientSide) {
-                EasyPacket.EasyCompetitionPacket.sendFireflyCaptureInfo(level, player, this);
-            }
             this.discard();
             return Optional.of(InteractionResult.sidedSuccess(level.isClientSide));
         } else {

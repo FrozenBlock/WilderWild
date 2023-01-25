@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.mixin.worldgen.general;
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
 import net.frozenblock.lib.FrozenBools;
+import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
@@ -27,7 +28,6 @@ public final class OverworldBiomeBuilderMixin {
 
     @Shadow
     private void addSurfaceBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, final float offset, ResourceKey<Biome> biome) {
-        parameters.accept(Pair.of(Climate.parameters(temperature, humidity, continentalness, erosion, Climate.Parameter.span(0.0F, 1.0F), weirdness, offset), biome));
     }
 
 	@Inject(method = "<init>", at = @At("TAIL"))
@@ -38,33 +38,122 @@ public final class OverworldBiomeBuilderMixin {
         }
     }
 
-    @Inject(method = "addLowSlice", at = @At("TAIL")) // also can be injectLowBiomes
-    private void injectBiomesNearRivers(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo ci) {
-        if (!FrozenBools.HAS_TERRABLENDER) {
-			if (ClothConfigInteractionHandler.generateMixedForest()) {
+	@Unique
+	private void injectSomeWilderWildBiomesToo(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
+		if (ClothConfigInteractionHandler.generateMixedForest()) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.TAIGA)) {
 				this.addSurfaceBiome(
 						parameters,
 						WilderSharedWorldgen.MixedForest.TEMPERATURE,
 						WilderSharedWorldgen.MixedForest.HUMIDITY,
-						WilderSharedWorldgen.MixedForest.CONTINENTALNESS,
-						WilderSharedWorldgen.MixedForest.LOW_EROSION,
-						weirdness,
-						WilderSharedWorldgen.MixedForest.OFFSET,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						point.offset(),
 						RegisterWorldgen.MIXED_FOREST
 				);
 			}
-			if (ClothConfigInteractionHandler.generateBirchTaiga()) {
+		}
+		if (ClothConfigInteractionHandler.generateBirchTaiga()) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.BIRCH_FOREST)) {
 				this.addSurfaceBiome(
 						parameters,
 						WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
 						WilderSharedWorldgen.BirchTaiga.HUMIDITY,
-						WilderSharedWorldgen.BirchTaiga.CONTINENTALNESS,
-						WilderSharedWorldgen.BirchTaiga.EROSION,
-						weirdness,
-						WilderSharedWorldgen.BirchTaiga.OFFSET,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						point.offset(),
 						RegisterWorldgen.BIRCH_TAIGA
 				);
 			}
+		}
+		if (ClothConfigInteractionHandler.generateFlowerField()) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FLOWER_FOREST)) {
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.FlowerField.TEMPERATURE_A,
+						WilderSharedWorldgen.FlowerField.HUMIDITY_A,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						point.offset(),
+						RegisterWorldgen.FLOWER_FIELD
+				);
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.FlowerField.TEMPERATURE_B,
+						WilderSharedWorldgen.FlowerField.HUMIDITY_B,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						point.offset(),
+						RegisterWorldgen.FLOWER_FIELD
+				);
+			}
+		}
+		if (ClothConfigInteractionHandler.generateAridSavanna()) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SAVANNA)) {
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.AridSavanna.TEMPERATURE,
+						WilderSharedWorldgen.AridSavanna.HUMIDITY,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						point.offset(),
+						RegisterWorldgen.ARID_SAVANNA
+				);
+			}
+		}
+		if (ClothConfigInteractionHandler.generateParchedForest()) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FOREST)) {
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.ParchedForest.TEMPERATURE,
+						WilderSharedWorldgen.ParchedForest.HUMIDITY,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						point.offset(),
+						RegisterWorldgen.PARCHED_FOREST
+				);
+			}
+		}
+		if (ClothConfigInteractionHandler.generateAridForest()) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.DESERT)) {
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.AridForest.TEMPERATURE,
+						WilderSharedWorldgen.AridForest.HUMIDITY,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						point.offset(),
+						RegisterWorldgen.ARID_FOREST
+				);
+			}
+		}
+		if (ClothConfigInteractionHandler.generateOldGrowthSnowyTaiga()) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA)) {
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.OldGrowthSnowySpruceTaiga.TEMPERATURE,
+						WilderSharedWorldgen.OldGrowthSnowySpruceTaiga.HUMIDITY,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						point.offset(),
+						RegisterWorldgen.OLD_GROWTH_SNOWY_PINE_TAIGA
+				);
+			}
+		}
+	}
+
+    @Inject(method = "addLowSlice", at = @At("TAIL")) // also can be injectLowBiomes
+    private void injectBiomesNearRivers(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo ci) {
+        if (!FrozenBools.HAS_TERRABLENDER) {
+			injectSomeWilderWildBiomesToo(parameters);
 			if (ClothConfigInteractionHandler.generateCypressWetlands()) {
 				this.addSurfaceBiome(
 						parameters,
@@ -80,8 +169,8 @@ public final class OverworldBiomeBuilderMixin {
 			if (ClothConfigInteractionHandler.generateOasis()) {
 				this.addSurfaceBiome(
 						parameters,
-						WilderSharedWorldgen.Oasis.WARM_RANGE,
-						WilderSharedWorldgen.Oasis.HUMIDITY_DRY,
+						WilderSharedWorldgen.Oasis.TEMPERATURE,
+						WilderSharedWorldgen.Oasis.HUMIDITY,
 						WilderSharedWorldgen.Oasis.CONTINENTALNESS,
 						WilderSharedWorldgen.Oasis.EROSION,
 						weirdness,
@@ -95,30 +184,6 @@ public final class OverworldBiomeBuilderMixin {
     @Inject(method = "addMidSlice", at = @At("TAIL")) // also can be injectMidBiomes
     private void injectMixedBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo ci) {
         if (!FrozenBools.HAS_TERRABLENDER) {
-			if (ClothConfigInteractionHandler.generateMixedForest()) {
-				this.addSurfaceBiome(
-						parameters,
-						WilderSharedWorldgen.MixedForest.TEMPERATURE,
-						WilderSharedWorldgen.MixedForest.HUMIDITY,
-						WilderSharedWorldgen.MixedForest.CONTINENTALNESS,
-						WilderSharedWorldgen.MixedForest.MID_EROSION,
-						weirdness,
-						WilderSharedWorldgen.MixedForest.OFFSET,
-						RegisterWorldgen.MIXED_FOREST
-				);
-			}
-			if (ClothConfigInteractionHandler.generateBirchTaiga()) {
-				this.addSurfaceBiome(
-						parameters,
-						WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
-						WilderSharedWorldgen.BirchTaiga.HUMIDITY,
-						WilderSharedWorldgen.BirchTaiga.CONTINENTALNESS,
-						WilderSharedWorldgen.BirchTaiga.EROSION,
-						weirdness,
-						WilderSharedWorldgen.BirchTaiga.OFFSET,
-						RegisterWorldgen.BIRCH_TAIGA
-				);
-			}
 			if (ClothConfigInteractionHandler.generateCypressWetlands()) {
 				this.addSurfaceBiome(
 						parameters,
@@ -134,8 +199,8 @@ public final class OverworldBiomeBuilderMixin {
 			if (ClothConfigInteractionHandler.generateOasis()) {
 				this.addSurfaceBiome(
 						parameters,
-						WilderSharedWorldgen.Oasis.WARM_RANGE,
-						WilderSharedWorldgen.Oasis.HUMIDITY_DRY,
+						WilderSharedWorldgen.Oasis.TEMPERATURE,
+						WilderSharedWorldgen.Oasis.HUMIDITY,
 						WilderSharedWorldgen.Oasis.CONTINENTALNESS,
 						WilderSharedWorldgen.Oasis.EROSION,
 						weirdness,
@@ -164,8 +229,8 @@ public final class OverworldBiomeBuilderMixin {
 			if (ClothConfigInteractionHandler.generateOasis()) {
 				this.addSurfaceBiome(
 						parameters,
-						WilderSharedWorldgen.Oasis.WARM_RANGE,
-						WilderSharedWorldgen.Oasis.HUMIDITY_DRY,
+						WilderSharedWorldgen.Oasis.TEMPERATURE,
+						WilderSharedWorldgen.Oasis.HUMIDITY,
 						WilderSharedWorldgen.Oasis.CONTINENTALNESS,
 						WilderSharedWorldgen.Oasis.EROSION,
 						weirdness,

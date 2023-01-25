@@ -17,6 +17,7 @@ import net.frozenblock.wilderwild.registry.WilderRegistry;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -54,6 +55,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.ChestBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -383,4 +388,20 @@ public class Jellyfish extends NoFlopAbstractFish {
             this.setVariant(variant);
         }
     }
+
+	public static void spawnFromChest(Level level, BlockState state, BlockPos pos) {
+		Jellyfish jellyfish = new Jellyfish(RegisterEntities.JELLYFISH, level);
+		jellyfish.setVariantFromPos(level, pos);
+		double additionalX = 0;
+		double additionalZ = 0;
+		if (state.hasProperty(BlockStateProperties.CHEST_TYPE) && state.getValue(BlockStateProperties.CHEST_TYPE) != ChestType.SINGLE) {
+			Direction direction = ChestBlock.getConnectedDirection(state);
+			additionalX += (double) direction.getStepX() * 0.25;
+			additionalZ += (double) direction.getStepZ() * 0.25;
+		}
+		jellyfish.setPos(pos.getX() + 0.5 + additionalX, pos.getY() + 0.75, pos.getZ() + 0.5 + additionalZ);
+		jellyfish.setDeltaMovement(0, 0.1 + level.random.nextDouble() * 0.07, 0);
+		level.addFreshEntity(jellyfish);
+	}
+
 }

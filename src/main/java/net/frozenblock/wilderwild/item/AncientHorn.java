@@ -54,7 +54,6 @@ public class AncientHorn extends InstrumentItem {
     @Override
 	@NotNull
     public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player user, @NotNull InteractionHand hand) {
-        WilderSharedConstants.log(user, "Used Ancient Horn", WilderSharedConstants.DEV_LOGGING);
         ItemStack itemStack = user.getItemInHand(hand);
         Optional<? extends Holder<Instrument>> optional = this.getInstrument(itemStack);
         if (optional.isPresent()) {

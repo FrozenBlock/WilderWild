@@ -1,13 +1,12 @@
 package net.frozenblock.wilderwild.block;
 
+import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.MultifaceSpreader;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
-import java.util.Optional;
 
 public class NematocystSpreader extends MultifaceSpreader {
 	public NematocystSpreader(NematocystBlock block) {

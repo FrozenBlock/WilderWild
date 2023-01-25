@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
-import net.frozenblock.wilderwild.entity.Jellyfish;
+import net.frozenblock.wilderwild.misc.ChestBubbleTicker;
 import net.frozenblock.wilderwild.misc.interfaces.ChestBlockEntityInterface;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -11,170 +11,85 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.CompoundContainer;
-import net.minecraft.world.Container;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
-import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
-import org.jetbrains.annotations.NotNull;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Mutable;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Mixin(ChestBlockEntity.class)
 public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 
-	@Unique int bubbleTicks;
 	@Unique boolean canBubble = true;
-	@Unique boolean hasJellyfish = true;
 
-	@Shadow @Final @Mutable
-	private ContainerOpenersCounter openersCounter;
+	@Unique
+	private static BlockState playedSoundState;
 
-	@Inject(at = @At(value = "TAIL"), method = "<init>")
-	public void newSounds(CallbackInfo info) {
-		this.openersCounter = new ContainerOpenersCounter(){
-
-			@Override
-			protected void onOpen(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
-				playSound(level, pos, state, state.getValue(BlockStateProperties.WATERLOGGED) ? RegisterSounds.BLOCK_CHEST_OPEN_UNDERWATER : SoundEvents.CHEST_OPEN);
-			}
-
-			@Override
-			protected void onClose(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
-				playSound(level, pos, state, state.getValue(BlockStateProperties.WATERLOGGED) ? RegisterSounds.BLOCK_CHEST_CLOSE_UNDERWATER : SoundEvents.CHEST_CLOSE);
-			}
-
-			@Override
-			protected void openerCountChanged(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, int count, int openCount) {
-				signalOpenCount(level, pos, state, count, openCount);
-			}
-
-			@Override
-			protected boolean isOwnContainer(@NotNull Player player) {
-				if (player.containerMenu instanceof ChestMenu) {
-					Container container = ((ChestMenu)player.containerMenu).getContainer();
-					return container == (Container) ChestBlockEntityMixin.this || container instanceof CompoundContainer && ((CompoundContainer)container).contains((Container) ChestBlockEntityMixin.this);
-				}
-				return false;
-			}
-		};
+	@Inject(at = @At("HEAD"), method = "playSound")
+	private static void playSound(Level level, BlockPos pos, BlockState state, SoundEvent sound, CallbackInfo info) {
+		playedSoundState = level.getBlockState(pos);
 	}
 
-	@Override
-	public void bubble() {
-		ChestBlockEntity chest = ChestBlockEntity.class.cast(this);
-		if (this.canBubble && this.bubbleTicks <= 0 && chest.getBlockState().getValue(BlockStateProperties.WATERLOGGED)) {
-			this.bubbleTicks = 5;
-			ChestBlockEntity otherChest = getOtherEntity(chest.getLevel(), chest.getBlockPos(), chest.getBlockState());
-			if (otherChest != null) {
-				((ChestBlockEntityInterface)otherChest).setBubbleTicks(5);
+	@ModifyArgs(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playSound(Lnet/minecraft/world/entity/player/Player;DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V"), method = "playSound")
+	private static void playSound(Args args) {
+		if (playedSoundState != null && playedSoundState.hasProperty(BlockStateProperties.WATERLOGGED) && playedSoundState.getValue(BlockStateProperties.WATERLOGGED)) {
+			SoundEvent sound = args.get(4);
+			if (sound == SoundEvents.CHEST_OPEN) {
+				args.set(4, RegisterSounds.BLOCK_CHEST_OPEN_UNDERWATER);
+			} else if (sound == SoundEvents.CHEST_CLOSE) {
+				args.set(4, RegisterSounds.BLOCK_CHEST_CLOSE_UNDERWATER);
 			}
 		}
 	}
 
-	@Inject(at = @At(value = "TAIL"), method = "lidAnimateTick", cancellable = true)
-	private static void tick(Level level, BlockPos pos, BlockState state, ChestBlockEntity blockEntity, CallbackInfo info) {
-		if (level instanceof ServerLevel server) {
-			info.cancel();
-			ChestBlockEntityInterface chest = ((ChestBlockEntityInterface) blockEntity);
-			if (!chest.getCanBubble()) {
-				chest.setBubbleTicks(0);
-			} else if (chest.getBubbleTick() > 0) {
-				chest.setBubbleTicks(chest.getBubbleTick() - 1);
-				int random = level.random.nextInt(2, 5);
-				server.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, random, 0.21875F, 0, 0.21875F, 0.15D);
-				if (chest.getBubbleTick() <= 0) {
-					chest.setCanBubble(false);
+	@Unique
+	@Override
+	public void bubble(Level level, BlockPos pos, BlockState state) {
+		if (level != null) {
+			if (this.canBubble && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED)) {
+				ChestBubbleTicker.createAndSpawn(RegisterEntities.CHEST_BUBBLER, level, pos);
+				this.canBubble = false;
+				ChestBlockEntity otherChest = getOtherEntity(level, pos, state);
+				if (otherChest != null) {
+					ChestBubbleTicker.createAndSpawn(RegisterEntities.CHEST_BUBBLER, level, otherChest.getBlockPos());
+					((ChestBlockEntityInterface) otherChest).setCanBubble(false);
 				}
+			}
+		}
+	}
+
+	@Unique
+	@Override
+	public void bubbleBurst(BlockState state) {
+		ChestBlockEntity chest = ChestBlockEntity.class.cast(this);
+		Level level = chest.getLevel();
+		if (level instanceof ServerLevel server) {
+			BlockPos pos = chest.getBlockPos();
+			if (state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) && this.getCanBubble()) {
+				server.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, server.random.nextInt(18, 25), 0.21875F, 0, 0.21875F, 0.25D);
 			}
 		}
 	}
 
 	@Inject(at = @At(value = "TAIL"), method = "load")
 	public void load(CompoundTag tag, CallbackInfo info) {
-		this.bubbleTicks = tag.getInt("bubbleTicks");
-		this.canBubble = tag.getBoolean("canBubble");
-		this.hasJellyfish = tag.getBoolean("hasJellyfish");
+		if (tag.contains("wilderwild_can_bubble")) {
+			this.canBubble = tag.getBoolean("wilderwild_can_bubble");
+		}
 	}
 
 	@Inject(at = @At(value = "TAIL"), method = "saveAdditional")
 	public void saveAdditional(CompoundTag tag, CallbackInfo info) {
-		tag.putInt("bubbleTicks", this.bubbleTicks);
-		tag.putBoolean("canBubble", this.canBubble);
-		tag.putBoolean("hasJellyfish", this.hasJellyfish);
-	}
-
-	@Override
-	public boolean getCanBubble() {
-		return this.canBubble;
-	}
-
-	@Override
-	public void setCanBubble(boolean b) {
-		this.canBubble = b;
-	}
-
-	@Override
-	public void setBubbleTicks(int i) {
-		this.bubbleTicks = i;
-	}
-
-	@Override
-	public int getBubbleTick() {
-		return this.bubbleTicks;
-	}
-
-	@Override
-	public boolean getHasJellyfish() {
-		return this.hasJellyfish;
-	}
-
-	@Override
-	public void releaseJellyfish() {
-		ChestBlockEntity chest = ChestBlockEntity.class.cast(this);
-		if (this.hasJellyfish && chest.getBlockState().getValue(BlockStateProperties.WATERLOGGED) && chest.getLevel() != null) {
-			Level level = chest.getLevel();
-			ChestBlockEntity otherChest = getOtherEntity(level, chest.getBlockPos(), chest.getBlockState());
-			this.hasJellyfish = false;
-			if (otherChest != null) {
-				((ChestBlockEntityInterface)otherChest).setHasJellyfish(false);
-			}
-			Jellyfish jellyfish = new Jellyfish(RegisterEntities.JELLYFISH, level);
-			BlockPos chestPos = chest.getBlockPos();
-			jellyfish.setVariantFromPos(level, chestPos);
-			double additionalX = otherChest != null ? otherChest.getBlockPos().getX() - chestPos.getX() * 0.25 : 0;
-			double additionalZ = otherChest != null ? otherChest.getBlockPos().getZ() - chestPos.getZ() * 0.25 : 0;
-			jellyfish.setPos(chestPos.getX() + 0.5 + additionalX, chestPos.getY() + 0.75, chestPos.getZ() + 0.5 + additionalZ);
-			level.addFreshEntity(jellyfish);
-		}
-	}
-
-	@Override
-	public void setHasJellyfish(boolean b) {
-		this.hasJellyfish = b;
-	}
-
-	@Shadow
-	static void playSound(Level level, BlockPos pos, BlockState state, SoundEvent sound) {
-
-	}
-
-	@Shadow
-	public void signalOpenCount(Level level, BlockPos pos, BlockState state, int eventId, int eventParam) {
-
+		tag.putBoolean("wilderwild_can_bubble", this.canBubble);
 	}
 
 	@Unique
@@ -204,26 +119,24 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	}
 
 	@Unique
-	private static ChestBlockEntity getLeftEntity(Level level, BlockPos pos, BlockState state, ChestBlockEntity source) {
-		ChestType chestType = state.getValue(ChestBlock.TYPE);
-		if (chestType == ChestType.SINGLE) {
-			return source;
-		}
-		double d = pos.getX();
-		double e = pos.getY();
-		double f = pos.getZ();
-		if (chestType == ChestType.RIGHT) {
-			Direction direction = ChestBlock.getConnectedDirection(state);
-			d += direction.getStepX();
-			f += direction.getStepZ();
-		} else if (chestType == ChestType.LEFT) {
-			return source;
-		}
-		BlockEntity be = level.getBlockEntity(new BlockPos(d, e, f));
-		ChestBlockEntity entity = null;
-		if (be instanceof ChestBlockEntity chest) {
-			entity = chest;
-		}
-		return entity;
+	@Override
+	public boolean getCanBubble() {
+		return this.canBubble;
 	}
+
+	@Unique
+	@Override
+	public void setCanBubble(boolean b) {
+		this.canBubble = b;
+	}
+
+	@Unique
+	@Override
+	public void syncBubble(ChestBlockEntity chest1, ChestBlockEntity chest2) {
+		if (!((ChestBlockEntityInterface) chest1).getCanBubble() || !((ChestBlockEntityInterface) chest2).getCanBubble()) {
+			((ChestBlockEntityInterface) chest1).setCanBubble(false);
+			((ChestBlockEntityInterface) chest2).setCanBubble(false);
+		}
+	}
+
 }

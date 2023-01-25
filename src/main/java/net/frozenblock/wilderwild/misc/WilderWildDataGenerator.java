@@ -125,11 +125,13 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.NON_FROZEN_PLAINS)
 					.add(Biomes.PLAINS)
-					.add(Biomes.SUNFLOWER_PLAINS);
+					.add(Biomes.SUNFLOWER_PLAINS)
+					.addOptional(RegisterWorldgen.FLOWER_FIELD);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.NORMAL_SAVANNA)
 					.add(Biomes.SAVANNA)
-					.add(Biomes.SAVANNA_PLATEAU);
+					.add(Biomes.SAVANNA_PLATEAU)
+					.addOptional(RegisterWorldgen.ARID_SAVANNA);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.SHORT_TAIGA)
 					.add(Biomes.TAIGA)
@@ -156,16 +158,41 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(BiomeTags.IS_TAIGA)
 					.addOptional(RegisterWorldgen.BIRCH_TAIGA);
+
+			this.getOrCreateTagBuilder(BiomeTags.IS_SAVANNA)
+					.addOptional(RegisterWorldgen.ARID_SAVANNA);
+
+			this.getOrCreateTagBuilder(BiomeTags.IS_RIVER)
+					.addOptional(RegisterWorldgen.OASIS);
 		}
 
 		private void generateClimateAndVegetationTags() {
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_HOT)
+					.addOptional(RegisterWorldgen.OASIS)
+					.addOptional(RegisterWorldgen.ARID_FOREST)
+					.addOptional(RegisterWorldgen.ARID_SAVANNA);
 
 			this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_TEMPERATE)
 					.addOptional(RegisterWorldgen.CYPRESS_WETLANDS)
-					.addOptional(RegisterWorldgen.MIXED_FOREST);
+					.addOptional(RegisterWorldgen.MIXED_FOREST)
+					.addOptional(RegisterWorldgen.PARCHED_FOREST)
+					.addOptional(RegisterWorldgen.WARM_RIVER)
+					.addOptional(RegisterWorldgen.FLOWER_FIELD);
+
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_COLD)
+					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
+					.addOptional(RegisterWorldgen.MIXED_FOREST)
+					.addOptional(RegisterWorldgen.OLD_GROWTH_SNOWY_PINE_TAIGA);
+
 
 			this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_WET)
-					.addOptional(RegisterWorldgen.CYPRESS_WETLANDS);
+					.addOptional(RegisterWorldgen.CYPRESS_WETLANDS)
+					.addOptional(RegisterWorldgen.OASIS);
+
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_DRY)
+					.addOptional(RegisterWorldgen.ARID_SAVANNA)
+					.addOptional(RegisterWorldgen.ARID_FOREST)
+					.addOptional(RegisterWorldgen.PARCHED_FOREST);
 
 			this.getOrCreateTagBuilder(ConventionalBiomeTags.TREE_CONIFEROUS)
 					.addOptional(RegisterWorldgen.MIXED_FOREST)
@@ -205,7 +232,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.ERODED_BADLANDS)
 					.add(Biomes.WOODED_BADLANDS)
 					.add(Biomes.WINDSWEPT_SAVANNA)
-					.add(Biomes.SAVANNA_PLATEAU);
+					.add(Biomes.SAVANNA_PLATEAU)
+					.addOptional(RegisterWorldgen.ARID_SAVANNA);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.NO_POOLS)
 					.addOptional(Biomes.DEEP_DARK);
@@ -230,7 +258,10 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBiomeTags.SAND_BEACHES)
 					.add(Biomes.DARK_FOREST)
 					.add(Biomes.FLOWER_FOREST)
-					.add(Biomes.FOREST);
+					.add(Biomes.FOREST)
+					.addOptional(RegisterWorldgen.ARID_SAVANNA)
+					.addOptional(RegisterWorldgen.PARCHED_FOREST)
+					.addOptional(RegisterWorldgen.ARID_FOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.MULTI_LAYER_SAND_BEACHES)
 					.add(Biomes.BAMBOO_JUNGLE)
@@ -248,7 +279,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
 					.add(Biomes.DARK_FOREST)
 					.add(Biomes.TAIGA)
-					.addOptional(RegisterWorldgen.BIRCH_TAIGA);
+					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
+					.addOptional(RegisterWorldgen.FLOWER_FIELD)
+					.addOptional(RegisterWorldgen.MIXED_FOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SMALL_SPONGE)
 					.add(Biomes.WARM_OCEAN);
@@ -282,7 +315,11 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.SAVANNA_PLATEAU)
 					.add(Biomes.DRIPSTONE_CAVES)
 					.add(Biomes.DEEP_DARK)
-					.addOptional(RegisterWorldgen.JELLYFISH_CAVES);
+					.addOptional(RegisterWorldgen.JELLYFISH_CAVES)
+					.addOptional(RegisterWorldgen.ARID_SAVANNA)
+					.addOptional(RegisterWorldgen.FLOWER_FIELD)
+					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
+					.addOptional(RegisterWorldgen.ARID_FOREST);
 		}
 	}
 

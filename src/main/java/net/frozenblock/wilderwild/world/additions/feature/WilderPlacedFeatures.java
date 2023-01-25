@@ -17,6 +17,8 @@ public final class WilderPlacedFeatures {
 
     public static final ResourceKey<PlacedFeature> FALLEN_OAK_AND_BIRCH_PLACED = key("fallen_oak_and_birch_placed");
 
+	public static final ResourceKey<PlacedFeature> FALLEN_OAK_AND_BIRCH_PLACED_2 = key("fallen_oak_and_birch_placed_2");
+
     public static final ResourceKey<PlacedFeature> FALLEN_OAK_AND_CYPRESS_PLACED = key("fallen_oak_and_cypress_placed");
 
     public static final ResourceKey<PlacedFeature> FALLEN_BIRCH_PLACED = key("fallen_birch_placed");
@@ -25,10 +27,15 @@ public final class WilderPlacedFeatures {
 
 	public static final ResourceKey<PlacedFeature> FALLEN_BIRCH_AND_SPRUCE_PLACED = key("fallen_birch_and_spruce_placed");
 
+	public static final ResourceKey<PlacedFeature> FALLEN_BIRCH_AND_SPRUCE_PLACED_2 = key("fallen_birch_and_spruce_placed_2");
+
     //TREES
     public static final ResourceKey<PlacedFeature> TREES_PLAINS = key("trees_plains");
 
+
     public static final ResourceKey<PlacedFeature> TREES_BIRCH_AND_OAK = key("trees_birch_and_oak");
+
+	public static final ResourceKey<PlacedFeature> TREES_FLOWER_FIELD = key("flower_field_trees");
 
     public static final ResourceKey<PlacedFeature> TREES_FLOWER_FOREST = key("trees_flower_forest");
 
@@ -48,6 +55,8 @@ public final class WilderPlacedFeatures {
 
     public static final ResourceKey<PlacedFeature> TREES_SNOWY = key("trees_snowy");
 
+	public static final ResourceKey<PlacedFeature> TREES_OLD_GROWTH_SNOWY_PINE_TAIGA = key("old_growth_snowy_pine_taiga_trees");
+
     public static final ResourceKey<PlacedFeature> TREES_GROVE = key("trees_grove");
 
     public static final ResourceKey<PlacedFeature> TREES_WINDSWEPT_HILLS = key("trees_windswept_hills");
@@ -62,6 +71,8 @@ public final class WilderPlacedFeatures {
 
     public static final ResourceKey<PlacedFeature> TREES_SWAMP = key("trees_swamp");
 
+	public static final ResourceKey<PlacedFeature> TREES_ARID_SAVANNA = key("arid_savanna_trees");
+
     public static final ResourceKey<PlacedFeature> MIXED_TREES = key("mixed_trees");
 
 	public static final ResourceKey<PlacedFeature> BIRCH_TAIGA_TREES = key("birch_taiga_trees");
@@ -69,6 +80,10 @@ public final class WilderPlacedFeatures {
     public static final ResourceKey<PlacedFeature> CYPRESS_WETLANDS_TREES = key("cypress_wetlands_trees");
 
     public static final ResourceKey<PlacedFeature> CYPRESS_WETLANDS_TREES_WATER = key("cypress_wetlands_trees_water");
+
+	public static final ResourceKey<PlacedFeature> TREES_PARCHED_FOREST = key("parched_forest_trees");
+
+	public static final ResourceKey<PlacedFeature> TREES_ARID_FOREST = key("arid_forest_trees");
 
     //MUSHROOMS
     public static final ResourceKey<PlacedFeature> BROWN_SHELF_FUNGUS_PLACED = key("brown_shelf_fungus_placed");
@@ -101,7 +116,13 @@ public final class WilderPlacedFeatures {
 
 	public static final ResourceKey<PlacedFeature> OASIS_CACTUS_PLACED = key("oasis_cactus_placed");
 
+	public static final ResourceKey<PlacedFeature> FLOWER_FIELD_BUSH_PLACED = key("flower_field_bush_placed");
+
+	public static final ResourceKey<PlacedFeature> ARID_BUSH_PLACED = key("arid_bush_placed");
+
 	public static final ResourceKey<PlacedFeature> TALL_CACTUS_PLACED = key("tall_cactus_placed");
+
+	public static final ResourceKey<PlacedFeature> ARID_CACTUS_PLACED = key("arid_cactus_placed");
 
 	public static final ResourceKey<PlacedFeature> GRASS_PLACED = key("grass_placed");
 
@@ -116,8 +137,12 @@ public final class WilderPlacedFeatures {
     public static final ResourceKey<PlacedFeature> SEAGRASS_CYPRESS = key("seagrass_cypress");
 
     public static final ResourceKey<PlacedFeature> LARGE_FERN_AND_GRASS = key("large_fern_and_grass");
+
     public static final ResourceKey<PlacedFeature> LARGE_FERN_AND_GRASS_RARE = key("large_fern_and_grass_rare");
 
+	public static final ResourceKey<PlacedFeature> FLOWER_FIELD_GRASS_PLACED = key("grass_flower_field_placed");
+
+	public static final ResourceKey<PlacedFeature> PATCH_TALL_GRASS_FF = key("patch_tall_grass_ff");
 
     //FLOWERS
     public static final ResourceKey<PlacedFeature> SEEDING_DANDELION = key("seeding_dandelion");
@@ -146,6 +171,10 @@ public final class WilderPlacedFeatures {
 
     //VEGETATION
     public static final ResourceKey<PlacedFeature> POLLEN = key("pollen");
+
+	public static final ResourceKey<PlacedFeature> FLOWER_FLOWER_FIELD = key("flower_flower_field");
+
+	public static final ResourceKey<PlacedFeature> TALL_FLOWER_FLOWER_FIELD = key("tall_flower_field_flowers");
 
     public static final ResourceKey<PlacedFeature> PATCH_CATTAIL = key("cattail");
 

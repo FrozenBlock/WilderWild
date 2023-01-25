@@ -9,9 +9,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.api.FrozenConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultWorldgenConfig;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
+import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultWorldgenConfig;
 
 @Config(name = "worldgen")
 public final class WorldgenConfig implements ConfigData {
@@ -36,6 +36,11 @@ public final class WorldgenConfig implements ConfigData {
 		public boolean generateOasis = DefaultWorldgenConfig.BiomeGeneration.GENERATE_OASIS;
 		public boolean generateWarmRiver = DefaultWorldgenConfig.BiomeGeneration.GENERATE_WARM_RIVER;
 		public boolean generateBirchTaiga = DefaultWorldgenConfig.BiomeGeneration.GENERATE_BIRCH_TAIGA;
+		public boolean generateFlowerField = DefaultWorldgenConfig.BiomeGeneration.GENERATE_FLOWER_FIELD;
+		public boolean generateAridSavanna = DefaultWorldgenConfig.BiomeGeneration.GENERATE_ARID_SAVANNA;
+		public boolean generateParchedForest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_PARCHED_FOREST;
+		public boolean generateAridForest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_ARID_FOREST;
+		public boolean generateOldGrowthSnowyTaiga = DefaultWorldgenConfig.BiomeGeneration.GENERATE_OLD_GROWTH_SNOWY_TAIGA;
 	}
 
     public boolean betaBeaches = DefaultWorldgenConfig.BETA_BEACHES;
@@ -93,11 +98,41 @@ public final class WorldgenConfig implements ConfigData {
 				.setTooltip(tooltip("generate_birch_taiga"))
 				.requireRestart()
 				.build();
+		var flowerField = entryBuilder.startBooleanToggle(text("generate_flower_field"), biomes.generateFlowerField)
+				.setDefaultValue(DefaultWorldgenConfig.BiomeGeneration.GENERATE_BIRCH_TAIGA)
+				.setSaveConsumer(newValue -> biomes.generateFlowerField = newValue)
+				.setTooltip(tooltip("generate_flower_field"))
+				.requireRestart()
+				.build();
+		var aridSavanna = entryBuilder.startBooleanToggle(text("generate_arid_savanna"), biomes.generateAridSavanna)
+				.setDefaultValue(DefaultWorldgenConfig.BiomeGeneration.GENERATE_ARID_SAVANNA)
+				.setSaveConsumer(newValue -> biomes.generateAridSavanna = newValue)
+				.setTooltip(tooltip("generate_arid_savanna"))
+				.requireRestart()
+				.build();
+		var parchedForest = entryBuilder.startBooleanToggle(text("generate_parched_forest"), biomes.generateParchedForest)
+				.setDefaultValue(DefaultWorldgenConfig.BiomeGeneration.GENERATE_PARCHED_FOREST)
+				.setSaveConsumer(newValue -> biomes.generateParchedForest = newValue)
+				.setTooltip(tooltip("generate_parched_forest"))
+				.requireRestart()
+				.build();
+		var aridForest = entryBuilder.startBooleanToggle(text("generate_arid_forest"), biomes.generateAridForest)
+				.setDefaultValue(DefaultWorldgenConfig.BiomeGeneration.GENERATE_ARID_FOREST)
+				.setSaveConsumer(newValue -> biomes.generateAridForest = newValue)
+				.setTooltip(tooltip("generate_arid_forest"))
+				.requireRestart()
+				.build();
+		var oldGrowthSnowyTaiga = entryBuilder.startBooleanToggle(text("generate_old_growth_snowy_pine_taiga"), biomes.generateOldGrowthSnowyTaiga)
+				.setDefaultValue(DefaultWorldgenConfig.BiomeGeneration.GENERATE_OLD_GROWTH_SNOWY_TAIGA)
+				.setSaveConsumer(newValue -> biomes.generateOldGrowthSnowyTaiga = newValue)
+				.setTooltip(tooltip("generate_old_growth_snowy_pine_taiga"))
+				.requireRestart()
+				.build();
 
 		var biomeGenerationCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("biome_generation"),
 				false,
 				tooltip("biome_generation"),
-				cypressWetlands, jellyfishCaves, mixedForest, oasis, warmRiver, birchTaiga
+				cypressWetlands, jellyfishCaves, mixedForest, oasis, warmRiver, birchTaiga, flowerField, aridSavanna, parchedForest, aridForest, oldGrowthSnowyTaiga
 		);
 
         var jungle = entryBuilder.startBooleanToggle(text("modify_jungle_placement"), biomePlacement.modifyJunglePlacement)

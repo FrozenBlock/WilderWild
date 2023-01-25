@@ -6,6 +6,8 @@ import java.util.Optional;
 import java.util.function.BiPredicate;
 import java.util.function.Supplier;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
+import net.frozenblock.wilderwild.entity.Jellyfish;
+import net.frozenblock.wilderwild.misc.interfaces.ChestBlockEntityInterface;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -14,6 +16,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.CompoundContainer;
@@ -95,13 +98,21 @@ public class StoneChestBlock extends ChestBlock {
                         stoneEntity.liftLid(0.025F, ancient);
                     }
 					if (first) {
-						stoneEntity.bubble();
+						((ChestBlockEntityInterface)stoneEntity).bubble(level, pos, state);
+						ResourceLocation lootTable = stoneEntity.lootTable;
+						if (lootTable != null && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) && lootTable.getPath().toLowerCase().contains("shipwreck") && level.random.nextBoolean()) {
+							Jellyfish.spawnFromChest(level, state, pos);
+						}
 					}
                     StoneChestBlockEntity.playSound(level, pos, state, first ? RegisterSounds.BLOCK_STONE_CHEST_OPEN : RegisterSounds.BLOCK_STONE_CHEST_LIFT, first ? RegisterSounds.BLOCK_STONE_CHEST_OPEN_UNDERWATER : RegisterSounds.BLOCK_STONE_CHEST_LIFT_UNDERWATER, 0.35F);
                     level.gameEvent(player, GameEvent.CONTAINER_OPEN, pos);
                     stoneEntity.updateSync();
                 }
             }
+			StoneChestBlockEntity otherChest = getOtherChest(level, pos, state);
+			if (otherChest != null) {
+				((ChestBlockEntityInterface) stoneChest).syncBubble(stoneChest, otherChest);
+			}
         }
         return InteractionResult.CONSUME;
     }
@@ -249,29 +260,28 @@ public class StoneChestBlock extends ChestBlock {
     }
 
 	public void updateBubbles(BlockState oldState, BlockState state, LevelAccessor level, BlockPos currentPos) {
-		StoneChestBlockEntity otherChest = getOtherChest(level, currentPos, state);
-		if (otherChest != null) {
-			BlockState otherState = otherChest.getBlockState();
-			boolean wasLogged = oldState.getValue(BlockStateProperties.WATERLOGGED);
-			if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
-				if (!otherState.getValue(BlockStateProperties.WATERLOGGED)) {
-					if (level.getBlockEntity(currentPos) instanceof StoneChestBlockEntity chest) {
-						chest.canStoneBubble = true;
-						otherChest.canStoneBubble = true;
+		if (level.getBlockEntity(currentPos) instanceof StoneChestBlockEntity chest) {
+			StoneChestBlockEntity otherChest = getOtherChest(level, currentPos, state);
+			if (otherChest != null) {
+				BlockState otherState = level.getBlockState(otherChest.getBlockPos());
+				boolean wasLogged = oldState.getValue(BlockStateProperties.WATERLOGGED);
+				if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
+					if (!otherState.getValue(BlockStateProperties.WATERLOGGED)) {
+						((ChestBlockEntityInterface) chest).setCanBubble(true);
+						((ChestBlockEntityInterface) otherChest).setCanBubble(true);
+					} else if (!((ChestBlockEntityInterface) otherChest).getCanBubble()) {
+						((ChestBlockEntityInterface) chest).setCanBubble(false);
+						((ChestBlockEntityInterface) otherChest).setCanBubble(false);
 					}
-				} else if (!otherChest.canStoneBubble) {
-					if (level.getBlockEntity(currentPos) instanceof StoneChestBlockEntity chest) {
-						chest.canStoneBubble = false;
-						otherChest.canStoneBubble = false;
-					}
+				}
+			} else {
+				boolean wasLogged = oldState.getValue(BlockStateProperties.WATERLOGGED);
+				if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
+					((ChestBlockEntityInterface) chest).setCanBubble(true);
 				}
 			}
-		} else {
-			boolean wasLogged = oldState.getValue(BlockStateProperties.WATERLOGGED);
-			if (level.getBlockEntity(currentPos) instanceof StoneChestBlockEntity chest) {
-				if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
-					chest.canStoneBubble = true;
-				}
+			if (otherChest != null) {
+				((ChestBlockEntityInterface) chest).syncBubble(chest, otherChest);
 			}
 		}
 	}
@@ -301,7 +311,8 @@ public class StoneChestBlock extends ChestBlock {
 		StoneChestBlockEntity otherChest = getOtherChest(level, pos, retState);
 		if (otherChest != null) {
 			if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity chest) {
-				chest.canStoneBubble = otherChest.canStoneBubble;
+				((ChestBlockEntityInterface) chest).setCanBubble(((ChestBlockEntityInterface)otherChest).getCanBubble());
+				((ChestBlockEntityInterface) chest).syncBubble(chest, otherChest);
 			}
 		}
 		return retState;
@@ -321,6 +332,8 @@ public class StoneChestBlock extends ChestBlock {
         if (!level.isClientSide) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof StoneChestBlockEntity stoneChestBlock) {
+				((ChestBlockEntityInterface)stoneChestBlock).bubbleBurst(state);
+
                 stoneChestBlock.unpackLootTable(null);
                 ArrayList<ItemStack> ancientItems = stoneChestBlock.ancientItems();
                 if (!ancientItems.isEmpty()) {

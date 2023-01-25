@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class AbstractArrowMixin {
 
     @Inject(method = "onHitBlock", at = @At("HEAD"))
-    public void sendProjectileBreakParticlles(BlockHitResult blockHitResult, CallbackInfo info) {
+    public void sendProjectileBreakParticles(BlockHitResult blockHitResult, CallbackInfo info) {
         if (ClothConfigInteractionHandler.projectileBreakParticles()) {
             AbstractArrow arrow = AbstractArrow.class.cast(this);
             Vec3 speed = arrow.getDeltaMovement();

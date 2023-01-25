@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild.registry;
 
-import java.util.Optional;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;

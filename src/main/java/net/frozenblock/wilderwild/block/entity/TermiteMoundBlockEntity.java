@@ -209,7 +209,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                             }
                             level.setBlockAndUpdate(this.pos, setState);
 							if (setState.getBlock() instanceof HollowedLogBlock) {
-								level.playSound(null, pos, setState.getMaterial().equals(Material.NETHER_WOOD) ? RegisterSounds.SHOVEL_STEM_HOLLOWED : RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
+								level.playSound(null, pos, setState.getMaterial().equals(Material.NETHER_WOOD) ? RegisterSounds.STEM_HOLLOWED : RegisterSounds.LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
 							}
                         }
                     }

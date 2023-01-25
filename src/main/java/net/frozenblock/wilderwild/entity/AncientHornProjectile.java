@@ -25,7 +25,6 @@ import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -42,7 +41,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import net.minecraft.util.SpawnUtil;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -349,7 +347,6 @@ public class AncientHornProjectile extends AbstractArrow {
 		if (insideState.is(RegisterBlocks.HANGING_TENDRIL) && this.level instanceof ServerLevel server && canInteract()) { //HANGING TENDRIL
 			BlockPos pos = this.blockPosition();
 			BlockEntity entity = this.level.getBlockEntity(pos);
-			WilderSharedConstants.log(RegisterBlocks.HANGING_TENDRIL, pos, "Horn Projectile Touched", WilderSharedConstants.DEV_LOGGING);
 			if (entity instanceof HangingTendrilBlockEntity tendril) {
 				WilderSharedConstants.log("Horn Projectile Found Hanging Tendril Entity", WilderSharedConstants.UNSTABLE_LOGGING);
 				this.playSound(this.getHitGroundSoundEvent(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
@@ -509,7 +506,6 @@ public class AncientHornProjectile extends AbstractArrow {
                 entity.setSecondsOnFire(5);
             }
             if (entity instanceof Warden warden && owner != null && canInteract()) {
-                WilderSharedConstants.log(warden, "Horn Projectile Touched", WilderSharedConstants.DEV_LOGGING);
                 warden.increaseAngerAt(owner, AngerLevel.ANGRY.getMinimumAnger() + 20, true);
                 warden.playSound(SoundEvents.WARDEN_TENDRIL_CLICKS, 5.0F, warden.getVoicePitch());
                 this.discard();
@@ -517,7 +513,6 @@ public class AncientHornProjectile extends AbstractArrow {
                 if (entity.hurt(damageSource, (float) damage)) {
                     if (entity instanceof LivingEntity livingEntity) {
                         Level level = this.getLevel();
-                        WilderSharedConstants.log(livingEntity, "Horn Projectile Touched", WilderSharedConstants.DEV_LOGGING);
                         if (!this.level.isClientSide && owner instanceof LivingEntity) {
                             EnchantmentHelper.doPostHurtEffects(livingEntity, owner);
                             EnchantmentHelper.doPostDamageEffects((LivingEntity) owner, livingEntity);
@@ -526,9 +521,8 @@ public class AncientHornProjectile extends AbstractArrow {
                         if (livingEntity.isDeadOrDying() && level instanceof ServerLevel server) {
                             server.sendParticles(ParticleTypes.SCULK_SOUL, livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ(), 1, 0.2D, 0.0D, 0.2D, 0.0D);
                             if (this.getOwner() != null) {
-                                if (this.getOwner() instanceof ServerPlayer serverPlayer) {
+                                if (this.getOwner() instanceof ServerPlayer) {
                                     addCooldown(livingEntity.getExperienceReward() * 10);
-                                    EasyPacket.EasyCompetitionPacket.sendAncientHornKillInfo(level, serverPlayer, livingEntity);
                                 }
                             }
                         }

@@ -53,6 +53,25 @@ public final class ClothConfigInteractionHandler {
 		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.generateBirchTaiga() : BiomeGeneration.GENERATE_BIRCH_TAIGA;
 	}
 
+	public static boolean generateFlowerField() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.generateFlowerField() : BiomeGeneration.GENERATE_FLOWER_FIELD;
+	}
+
+	public static boolean generateAridSavanna() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.generateAridSavanna() : BiomeGeneration.GENERATE_ARID_SAVANNA;
+	}
+
+	public static boolean generateParchedForest() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.generateParchedForest() : BiomeGeneration.GENERATE_ARID_SAVANNA;
+	}
+
+	public static boolean generateAridForest() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.generateAridForest() : BiomeGeneration.GENERATE_ARID_FOREST;
+	}
+	public static boolean generateOldGrowthSnowyTaiga() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.generateOldGrowthSnowyTaiga() : BiomeGeneration.GENERATE_OLD_GROWTH_SNOWY_TAIGA;
+	}
+
 	public static boolean dyingTrees() {
 		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.dyingTrees() : DYING_TREES;
 	}

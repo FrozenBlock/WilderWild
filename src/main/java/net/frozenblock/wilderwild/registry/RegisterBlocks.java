@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
+import net.frozenblock.lib.axe.api.AxeBehaviors;
 import net.frozenblock.lib.block.api.FrozenCeilingHangingSignBlock;
 import net.frozenblock.lib.block.api.FrozenSignBlock;
 import net.frozenblock.lib.block.api.FrozenWallHangingSignBlock;
@@ -63,17 +64,12 @@ import net.minecraft.core.PositionImpl;
 import net.minecraft.core.Registry;
 import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
-import net.minecraft.core.particles.BlockParticleOption;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.BlockFamily;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.BlockItem;
@@ -250,7 +246,7 @@ public final class RegisterBlocks {
 
     public static final Block BAOBAB_NUT = new BaobabNutBlock(FabricBlockSettings.of(Material.PLANT).ticksRandomly().breakInstantly().sounds(RegisterBlockSoundTypes.BAOBAB_NUT).offsetType(BlockBehaviour.OffsetType.XZ).dynamicShape());
     public static final Block POTTED_BAOBAB_NUT = new FlowerPotBlock(RegisterBlocks.BAOBAB_NUT, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
-	public static final Block PRICKLY_PEAR_CACTUS = new PricklyPearCactusBlock(FabricBlockSettings.of(Material.CACTUS).ticksRandomly().strength(0.4F).sounds(ClothConfigInteractionHandler.cactusSounds() ? SoundType.SWEET_BERRY_BUSH : SoundType.WOOL).nonOpaque());
+	public static final Block PRICKLY_PEAR_CACTUS = new PricklyPearCactusBlock(FabricBlockSettings.of(Material.CACTUS).ticksRandomly().strength(0.4F).sounds(ClothConfigInteractionHandler.cactusSounds() ? SoundType.SWEET_BERRY_BUSH : SoundType.WOOL).nonOpaque().offsetType(BlockBehaviour.OffsetType.XZ));
 	public static final Block CYPRESS_SAPLING = new WaterloggableSaplingBlock(new CypressSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.BIRCH_SAPLING));
     public static final Block POTTED_CYPRESS_SAPLING = new FlowerPotBlock(RegisterBlocks.CYPRESS_SAPLING, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
 
@@ -287,7 +283,6 @@ public final class RegisterBlocks {
     	String baobab = "baobab";
     	String cypress = "cypress";
     	String palm = "palm";
-
 		String wood = "baobab";
 		//BAOBAB IN BUILDING BLOCKS
 		registerBlockAfter(Items.MANGROVE_BUTTON,wood + "_log", BAOBAB_LOG, CreativeModeTabs.BUILDING_BLOCKS);
@@ -887,182 +882,97 @@ public final class RegisterBlocks {
     }
 
 	private static void registerShovel() {
-		//TODO: Scooping Sounds
-		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.OAK_LOG, (context, level, pos, state, face, horizontal) -> {
+		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.OAK_LOG, (context, level, pos, state, face, horizontal) -> {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
-				if (level instanceof ServerLevel serverLevel) {
-					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
-					level.playSound(null, pos, RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
-				}
-				Player player = context.getPlayer();
-				if (player != null) {
-					context.getItemInHand().hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(context.getHand()));
-				}
+				HollowedLogBlock.hollowEffects(level, face, state, pos, false);
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_OAK_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
 			}
 			return false;
 		});
-		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.BIRCH_LOG, (context, level, pos, state, face, horizontal) -> {
+		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.BIRCH_LOG, (context, level, pos, state, face, horizontal) -> {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
-				if (level instanceof ServerLevel serverLevel) {
-					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
-					level.playSound(null, pos, RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
-				}
-				Player player = context.getPlayer();
-				if (player != null) {
-					context.getItemInHand().hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(context.getHand()));
-				}
+				HollowedLogBlock.hollowEffects(level, face, state, pos, false);
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_BIRCH_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
 			}
 			return false;
 		});
-		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.SPRUCE_LOG, (context, level, pos, state, face, horizontal) -> {
+		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.SPRUCE_LOG, (context, level, pos, state, face, horizontal) -> {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
-				if (level instanceof ServerLevel serverLevel) {
-					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
-					level.playSound(null, pos, RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
-				}
-				Player player = context.getPlayer();
-				if (player != null) {
-					context.getItemInHand().hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(context.getHand()));
-				}
+				HollowedLogBlock.hollowEffects(level, face, state, pos, false);
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_SPRUCE_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
 			}
 			return false;
 		});
-		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.DARK_OAK_LOG, (context, level, pos, state, face, horizontal) -> {
+		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.DARK_OAK_LOG, (context, level, pos, state, face, horizontal) -> {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
-				if (level instanceof ServerLevel serverLevel) {
-					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
-					level.playSound(null, pos, RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
-				}
-				Player player = context.getPlayer();
-				if (player != null) {
-					context.getItemInHand().hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(context.getHand()));
-				}
+				HollowedLogBlock.hollowEffects(level, face, state, pos, false);
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_DARK_OAK_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
 			}
 			return false;
 		});
-		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.JUNGLE_LOG, (context, level, pos, state, face, horizontal) -> {
+		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.JUNGLE_LOG, (context, level, pos, state, face, horizontal) -> {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
-				if (level instanceof ServerLevel serverLevel) {
-					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
-					level.playSound(null, pos, RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
-				}
-				Player player = context.getPlayer();
-				if (player != null) {
-					context.getItemInHand().hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(context.getHand()));
-				}
+				HollowedLogBlock.hollowEffects(level, face, state, pos, false);
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_JUNGLE_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
 			}
 			return false;
 		});
-		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.ACACIA_LOG, (context, level, pos, state, face, horizontal) -> {
+		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.ACACIA_LOG, (context, level, pos, state, face, horizontal) -> {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
-				if (level instanceof ServerLevel serverLevel) {
-					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
-					level.playSound(null, pos, RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
-				}
-				Player player = context.getPlayer();
-				if (player != null) {
-					context.getItemInHand().hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(context.getHand()));
-				}
+				HollowedLogBlock.hollowEffects(level, face, state, pos, false);
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_ACACIA_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
 			}
 			return false;
 		});
-		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.MANGROVE_LOG, (context, level, pos, state, face, horizontal) -> {
+		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.MANGROVE_LOG, (context, level, pos, state, face, horizontal) -> {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
-				if (level instanceof ServerLevel serverLevel) {
-					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
-					level.playSound(null, pos, RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
-				}
-				Player player = context.getPlayer();
-				if (player != null) {
-					context.getItemInHand().hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(context.getHand()));
-				}
+				HollowedLogBlock.hollowEffects(level, face, state, pos, false);
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_MANGROVE_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
 			}
 			return false;
 		});
-		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.CRIMSON_STEM, (context, level, pos, state, face, horizontal) -> {
+		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.CRIMSON_STEM, (context, level, pos, state, face, horizontal) -> {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
-				if (level instanceof ServerLevel serverLevel) {
-					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
-					level.playSound(null, pos, RegisterSounds.SHOVEL_STEM_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
-				}
-				Player player = context.getPlayer();
-				if (player != null) {
-					context.getItemInHand().hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(context.getHand()));
-				}
+				HollowedLogBlock.hollowEffects(level, face, state, pos, true);
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_CRIMSON_STEM.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
 			}
 			return false;
 		});
-		ShovelBehaviors.SHOVEL_BEHAVIORS.put(Blocks.WARPED_STEM, (context, level, pos, state, face, horizontal) -> {
+		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.WARPED_STEM, (context, level, pos, state, face, horizontal) -> {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
-				if (level instanceof ServerLevel serverLevel) {
-					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
-					level.playSound(null, pos, RegisterSounds.SHOVEL_STEM_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
-				}
-				Player player = context.getPlayer();
-				if (player != null) {
-					context.getItemInHand().hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(context.getHand()));
-				}
+				HollowedLogBlock.hollowEffects(level, face, state, pos, true);
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_WARPED_STEM.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
 			}
 			return false;
 		});
-		ShovelBehaviors.SHOVEL_BEHAVIORS.put(RegisterBlocks.BAOBAB_LOG, (context, level, pos, state, face, horizontal) -> {
+		AxeBehaviors.AXE_BEHAVIORS.put(RegisterBlocks.BAOBAB_LOG, (context, level, pos, state, face, horizontal) -> {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
-				if (level instanceof ServerLevel serverLevel) {
-					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
-					level.playSound(null, pos, RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
-				}
-				Player player = context.getPlayer();
-				if (player != null) {
-					context.getItemInHand().hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(context.getHand()));
-				}
+				HollowedLogBlock.hollowEffects(level, face, state, pos, false);
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_BAOBAB_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
 			}
 			return false;
 		});
-		ShovelBehaviors.SHOVEL_BEHAVIORS.put(RegisterBlocks.CYPRESS_LOG, (context, level, pos, state, face, horizontal) -> {
+		AxeBehaviors.AXE_BEHAVIORS.put(RegisterBlocks.CYPRESS_LOG, (context, level, pos, state, face, horizontal) -> {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
-				if (level instanceof ServerLevel serverLevel) {
-					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
-					level.playSound(null, pos, RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
-				}
-				Player player = context.getPlayer();
-				if (player != null) {
-					context.getItemInHand().hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(context.getHand()));
-				}
+				HollowedLogBlock.hollowEffects(level, face, state, pos, false);
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_CYPRESS_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
 			}
 			return false;
 		});
-		ShovelBehaviors.SHOVEL_BEHAVIORS.put(RegisterBlocks.PALM_LOG, (context, level, pos, state, face, horizontal) -> {
+		AxeBehaviors.AXE_BEHAVIORS.put(RegisterBlocks.PALM_LOG, (context, level, pos, state, face, horizontal) -> {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
-				if (level instanceof ServerLevel serverLevel) {
-					serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(6, 18), 0.25, 0.25, 0.25, 0.05D);
-					level.playSound(null, pos, RegisterSounds.SHOVEL_LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
-				}
-				Player player = context.getPlayer();
-				if (player != null) {
-					context.getItemInHand().hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(context.getHand()));
-				}
+				HollowedLogBlock.hollowEffects(level, face, state, pos, false);
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_PALM_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
 			}
