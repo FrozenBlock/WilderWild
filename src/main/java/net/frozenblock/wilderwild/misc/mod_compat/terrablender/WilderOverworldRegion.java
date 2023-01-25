@@ -153,7 +153,7 @@ public class WilderOverworldRegion extends Region {
 									point.offset()
 							)
 					);
-					builder.replaceBiome(point, RegisterWorldgen.OLD_GROWTH_SNOWY_PINE_TAIGA);
+					builder.replaceBiome(point, RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
 				});
 			}
 

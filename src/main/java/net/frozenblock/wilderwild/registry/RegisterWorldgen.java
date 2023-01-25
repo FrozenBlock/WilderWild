@@ -46,7 +46,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 	public static final ResourceKey<Biome> ARID_SAVANNA = register("arid_savanna");
 	public static final ResourceKey<Biome> PARCHED_FOREST = register("parched_forest");
 	public static final ResourceKey<Biome> ARID_FOREST = register("arid_forest");
-	public static final ResourceKey<Biome> OLD_GROWTH_SNOWY_PINE_TAIGA = register("old_growth_snowy_pine_taiga");
+	public static final ResourceKey<Biome> SNOWY_OLD_GROWTH_PINE_TAIGA = register("snowy_old_growth_pine_taiga");
 
 	public static void registerWorldgen() {
 		WilderSharedConstants.logWild("Registering Biomes for", WilderSharedConstants.UNSTABLE_LOGGING);
@@ -60,7 +60,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, ARID_SAVANNA.location(), aridSavanna());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, PARCHED_FOREST.location(), parchedForest());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, ARID_FOREST.location(), aridForest());
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, OLD_GROWTH_SNOWY_PINE_TAIGA.location(), oldGrowthSnowyTaiga());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, SNOWY_OLD_GROWTH_PINE_TAIGA.location(), oldGrowthSnowyTaiga());
 
 		WilderNoise.init();
 	}
@@ -537,7 +537,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.ARID_COARSE_PATH);
 	}
 	public static void addOldGrowthSnowyTaigaFeatures(BiomeGenerationSettings.Builder builder) {
-		addBasicFeatures(builder, OLD_GROWTH_SNOWY_PINE_TAIGA);
+		addBasicFeatures(builder, SNOWY_OLD_GROWTH_PINE_TAIGA);
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
 		BiomeDefaultFeatures.addFerns(builder);

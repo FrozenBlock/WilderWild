@@ -144,7 +144,7 @@ public final class OverworldBiomeBuilderMixin {
 						point.erosion(),
 						point.weirdness(),
 						point.offset(),
-						RegisterWorldgen.OLD_GROWTH_SNOWY_PINE_TAIGA
+						RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA
 				);
 			}
 		}
