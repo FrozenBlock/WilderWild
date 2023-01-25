@@ -164,7 +164,7 @@ public final class ClothConfigInteractionHandler {
 	}
 
 	public static float hornSizeMultiplier() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigInteractionHandler.hornSizeMultiplier() : AncientHornConfig.ANCIENT_HORN_SIZE_MULTIPLIER;
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.hornSizeMultiplier() : AncientHornConfig.ANCIENT_HORN_SIZE_MULTIPLIER;
 	}
 
 	public static boolean projectileBreakParticles() {
