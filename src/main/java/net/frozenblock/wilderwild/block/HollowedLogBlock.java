@@ -1,5 +1,7 @@
 package net.frozenblock.wilderwild.block;
 
+import java.util.Optional;
+import net.frozenblock.lib.entity.api.EntityUtils;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -7,6 +9,9 @@ import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -21,6 +26,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -31,7 +38,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
     protected static final VoxelShape X_SHAPE = Shapes.or(Block.box(0, 0, 0, 16, 16, 3), Block.box(0, 13, 0, 16, 16, 16), Block.box(0, 0, 13, 16, 16, 16), Block.box(0, 0, 0, 16, 3, 16));
     protected static final VoxelShape Y_SHAPE = Shapes.or(Block.box(0, 0, 0, 16, 16, 3), Block.box(0, 0, 0, 3, 16, 16), Block.box(0, 0, 13, 16, 16, 16), Block.box(13, 0, 0, 16, 16, 16));
     protected static final VoxelShape Z_SHAPE = Shapes.or(Block.box(13, 0, 0, 16, 16, 16), Block.box(0, 0, 0, 3, 16, 16), Block.box(0, 13, 0, 16, 16, 16), Block.box(0, 0, 0, 16, 3, 16));
-	protected static final VoxelShape X_COLLISION_SHAPE = Shapes.or(Block.box(0, 0, 0, 16, 16, 2.25), Block.box(0, 13.75, 0, 16, 16, 16), Block.box(0, 0, 13, 16, 16, 16), Block.box(0, 0, 0, 16, 3, 16));
+	protected static final VoxelShape X_COLLISION_SHAPE = Shapes.or(Block.box(0, 0, 0, 16, 16, 2.25), Block.box(0, 13.75, 0, 16, 16, 16), Block.box(0, 0, 13, 16, 16, 16), Block.box(0, 0, 0, 16, 2.25, 16));
 	protected static final VoxelShape Y_COLLISION_SHAPE = Shapes.or(Block.box(0, 0, 0, 16, 16, 2.25), Block.box(0, 0, 0, 2.25, 16, 16), Block.box(0, 0, 13.75, 16, 16, 16), Block.box(13.75, 0, 0, 16, 16, 16));
 	protected static final VoxelShape Z_COLLISION_SHAPE = Shapes.or(Block.box(13.75, 0, 0, 16, 16, 16), Block.box(0, 0, 0, 2.25, 16, 16), Block.box(0, 13.75, 0, 16, 16, 16), Block.box(0, 0, 0, 16, 2.25, 16));
 	protected static final VoxelShape RAYCAST_SHAPE = Shapes.block();
@@ -41,7 +48,24 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false).setValue(AXIS, Direction.Axis.Y));
     }
 
-    @Override
+	@Override
+	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+		if (!level.isClientSide) {
+			Optional<Direction> optionalDirection = EntityUtils.getMovementDirectionHorizontal(player);
+			if (optionalDirection.isPresent()) {
+				float bbWidth = player.getBbWidth();
+				if (optionalDirection.get().getAxis() == state.getValue(BlockStateProperties.AXIS) && player.getBbWidth() <= 0.6F && player.getBbHeight() >= 0.71875F && player.blockPosition().relative(optionalDirection.get()).equals(pos)) {
+					if (player.position().distanceTo(new Vec3(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5)) <= (0.5 + (bbWidth * 0.7))) {
+						player.setSwimming(true);
+						return InteractionResult.CONSUME;
+					}
+				}
+			}
+		}
+		return InteractionResult.PASS;
+	}
+
+	@Override
     public VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return switch (state.getValue(AXIS)) {
             default -> X_SHAPE;
