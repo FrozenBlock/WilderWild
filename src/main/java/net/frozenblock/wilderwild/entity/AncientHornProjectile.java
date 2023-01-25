@@ -13,7 +13,8 @@ import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import static net.frozenblock.wilderwild.item.AncientHorn.*;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
-import net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.InteractionHandler;
+import net.frozenblock.wilderwild.misc.mod_compat.SimpleCopperPipesIntegration;
+import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
@@ -69,13 +70,14 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-//TODO: Fix rendering (Renders too bright or too dark depending on direction; renders under other translucents like water, doesn't render further than 8 block away)
+//TODO: Fix rendering (Renders too bright or too dark depending on direction)
 
 public class AncientHornProjectile extends AbstractArrow {
 	private static final TagKey<Block> NON_COLLIDE = WilderBlockTags.ANCIENT_HORN_NON_COLLIDE;
@@ -89,6 +91,7 @@ public class AncientHornProjectile extends AbstractArrow {
 	private boolean shotByPlayer;
 	private int bubbles;
 	private BlockState inBlockState;
+	public float boundingBoxMultiplier = 0F;
 
 	public AncientHornProjectile(@NotNull EntityType<? extends AncientHornProjectile> entityType, Level level) {
 		super(entityType, level);
@@ -218,6 +221,13 @@ public class AncientHornProjectile extends AbstractArrow {
 
 		this.setPos(x, y, z);
 		this.checkInsideBlocks();
+		this.boundingBoxMultiplier += 0.003F;
+	}
+
+	@Override
+	@NotNull
+	public AABB makeBoundingBox() {
+		return super.makeBoundingBox().inflate(this.boundingBoxMultiplier);
 	}
 
 	public void setCooldown(int cooldownTicks) {
@@ -269,9 +279,8 @@ public class AncientHornProjectile extends AbstractArrow {
 		Entity owner = this.getOwner();
 		if (WilderWild.isCopperPipe(blockState) && owner != null) {
 			if (result.getDirection() == blockState.getValue(BlockStateProperties.FACING).getOpposite() && this.level instanceof ServerLevel server) {
-				if (InteractionHandler.addHornNbtToBlock(server, result.getBlockPos(), owner)) {
+				if (((SimpleCopperPipesIntegration) WilderModIntegrations.SIMPLECOPPERPIPES_INTEGRATION).addHornNbtToBlock(server, result.getBlockPos(), owner))
 					this.discard();
-				}
 			}
 		}
         blockState.onProjectileHit(this.level, blockState, result, this);
