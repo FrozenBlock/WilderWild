@@ -31,7 +31,10 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
     protected static final VoxelShape X_SHAPE = Shapes.or(Block.box(0, 0, 0, 16, 16, 3), Block.box(0, 13, 0, 16, 16, 16), Block.box(0, 0, 13, 16, 16, 16), Block.box(0, 0, 0, 16, 3, 16));
     protected static final VoxelShape Y_SHAPE = Shapes.or(Block.box(0, 0, 0, 16, 16, 3), Block.box(0, 0, 0, 3, 16, 16), Block.box(0, 0, 13, 16, 16, 16), Block.box(13, 0, 0, 16, 16, 16));
     protected static final VoxelShape Z_SHAPE = Shapes.or(Block.box(13, 0, 0, 16, 16, 16), Block.box(0, 0, 0, 3, 16, 16), Block.box(0, 13, 0, 16, 16, 16), Block.box(0, 0, 0, 16, 3, 16));
-    protected static final VoxelShape RAYCAST_SHAPE = Shapes.block();
+	protected static final VoxelShape X_COLLISION_SHAPE = Shapes.or(Block.box(0, 0, 0, 16, 16, 2.35), Block.box(0, 13.65, 0, 16, 16, 16), Block.box(0, 0, 13, 16, 16, 16), Block.box(0, 0, 0, 16, 3, 16));
+	protected static final VoxelShape Y_COLLISION_SHAPE = Shapes.or(Block.box(0, 0, 0, 16, 16, 2.35), Block.box(0, 0, 0, 2.35, 16, 16), Block.box(0, 0, 13.65, 16, 16, 16), Block.box(13.65, 0, 0, 16, 16, 16));
+	protected static final VoxelShape Z_COLLISION_SHAPE = Shapes.or(Block.box(13.65, 0, 0, 16, 16, 16), Block.box(0, 0, 0, 2.35, 16, 16), Block.box(0, 13.65, 0, 16, 16, 16), Block.box(0, 0, 0, 16, 2.35, 16));
+	protected static final VoxelShape RAYCAST_SHAPE = Shapes.block();
 
     public HollowedLogBlock(Properties settings) {
         super(settings);
@@ -46,6 +49,15 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
             case Z -> Z_SHAPE;
         };
     }
+
+	@Override
+	public VoxelShape getCollisionShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+		return switch (state.getValue(AXIS)) {
+			default -> X_COLLISION_SHAPE;
+			case Y -> Y_COLLISION_SHAPE;
+			case Z -> Z_COLLISION_SHAPE;
+		};
+	}
 
 	@Override
     public VoxelShape getInteractionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
