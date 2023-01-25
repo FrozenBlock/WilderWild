@@ -54,6 +54,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 		Direction.Axis axis = state.getValue(BlockStateProperties.AXIS);
 		if (player.isShiftKeyDown()
 				&& player.getPose() != Pose.SWIMMING
+				&& !player.isPassenger()
 				&& direction.getAxis() != Direction.Axis.Y
 				&& direction.getAxis() == axis
 				&& player.getBbWidth() <= 0.71875F
