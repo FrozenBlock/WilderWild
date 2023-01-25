@@ -23,112 +23,7 @@ public final class ClothConfigCloserInteractionHandler {
 	private static final EntityConfig.JellyfishConfig JELLYFISH = ENTITY.jellyfish;
 	private static final EntityConfig.TumbleweedConfig TUMBLEWEED = ENTITY.tumbleweed;
 
-	public static boolean betaBeaches() {
-		return WilderWildConfig.get().worldgen.betaBeaches;
-	}
-
-	public static boolean modifyJunglePlacement() {
-		return BIOME_PLACEMENT.modifyJunglePlacement;
-	}
-
-	public static boolean modifySwampPlacement() {
-		return BIOME_PLACEMENT.modifySwampPlacement;
-	}
-
-	public static boolean modifyMangroveSwampPlacement() {
-		return BIOME_PLACEMENT.modifyMangroveSwampPlacement;
-	}
-
-	public static boolean modifyWindsweptSavannaPlacement() {
-		return BIOME_PLACEMENT.modifyWindsweptSavannaPlacement;
-	}
-
-	public static boolean dyingTrees() {
-		return WORLDGEN.dyingTrees;
-	}
-
-	public static boolean generateCypressWetlands() {
-		return BIOME_GENERATION.generateCypressWetlands;
-	}
-
-	public static boolean generateMixedForest() {
-		return BIOME_GENERATION.generateMixedForest;
-	}
-
-	public static boolean generateJellyfishCaves() {
-		return BIOME_GENERATION.generateJellyfishCaves;
-	}
-
-	public static boolean generateOasis() {
-		return BIOME_GENERATION.generateOasis;
-	}
-
-	public static boolean generateWarmRiver() {
-		return BIOME_GENERATION.generateWarmRiver;
-	}
-
-	public static boolean generateBirchTaiga() {
-		return BIOME_GENERATION.generateBirchTaiga;
-	}
-
-	public static boolean generateFlowerField() {
-		return BIOME_GENERATION.generateFlowerField;
-	}
-
-	public static boolean generateAridSavanna() {
-		return BIOME_GENERATION.generateAridSavanna;
-	}
-
-	public static boolean generateParchedForest() {
-		return BIOME_GENERATION.generateParchedForest;
-	}
-
-	public static boolean generateAridForest() {
-		return BIOME_GENERATION.generateAridForest;
-	}
-	public static boolean generateOldGrowthSnowyTaiga() {
-		return BIOME_GENERATION.generateOldGrowthSnowyTaiga;
-	}
-
-	public static boolean fallenLogs() {
-		return WORLDGEN.fallenLogs;
-	}
-
-	public static boolean wildTrees() {
-		return WORLDGEN.wilderWildTreeGen;
-	}
-
-	public static boolean wildGrass() {
-		return WORLDGEN.wilderWildGrassGen;
-	}
-
-	public static boolean cypressWitchHuts() {
-		return WORLDGEN.cypressWitchHuts;
-	}
-
-	public static boolean hornCanSummonWarden() {
-		return ANCIENT_HORN.ancientHornCanSummonWarden;
-	}
-
-	public static int hornLifespan() {
-		return ANCIENT_HORN.ancientHornLifespan;
-	}
-
-	public static int hornMobDamage() {
-		return ANCIENT_HORN.ancientHornMobDamage;
-	}
-
-	public static int hornPlayerDamage() {
-		return ANCIENT_HORN.ancientHornPlayerDamage;
-	}
-
-	public static boolean hornShattersGlass() {
-		return ANCIENT_HORN.ancientHornShattersGlass;
-	}
-
-	public static boolean projectileBreakParticles() {
-		return ITEM.projectileBreakParticles;
-	}
+	// BLOCK
 
 	public static boolean mcLiveSensorTendrils() {
 		return BLOCK.mcLiveSensorTendrils;
@@ -214,6 +109,16 @@ public final class ClothConfigCloserInteractionHandler {
 		return STONE_CHEST.stoneChestTimer;
 	}
 
+	public static boolean shriekerGargling() {
+		return BLOCK.shriekerGargling;
+	}
+
+	public static boolean soulFireSounds() {
+		return BLOCK.soulFireSounds;
+	}
+
+	// ENTITY
+
 	public static boolean unpassableRail() {
 		return ENTITY.unpassableRail;
 	}
@@ -270,12 +175,14 @@ public final class ClothConfigCloserInteractionHandler {
 		return WARDEN.wardenBedrockSniff;
 	}
 
-	public static boolean shriekerGargling() {
-		return BLOCK.shriekerGargling;
+	// ITEM
+
+	public static boolean hornCanSummonWarden() {
+		return ANCIENT_HORN.ancientHornCanSummonWarden;
 	}
 
-	public static boolean soulFireSounds() {
-		return BLOCK.soulFireSounds;
+	public static int hornLifespan() {
+		return ANCIENT_HORN.ancientHornLifespan;
 	}
 
 	public static boolean billboardTendrils() {
@@ -285,6 +192,110 @@ public final class ClothConfigCloserInteractionHandler {
 	public static boolean cloudMovement() {
 		return MISC.cloudMovement;
 	}
+
+	public static int hornMobDamage() {
+		return ANCIENT_HORN.ancientHornMobDamage;
+	}
+
+	public static int hornPlayerDamage() {
+		return ANCIENT_HORN.ancientHornPlayerDamage;
+	}
+
+	public static boolean hornShattersGlass() {
+		return ANCIENT_HORN.ancientHornShattersGlass;
+	}
+
+	public static boolean projectileBreakParticles() {
+		return ITEM.projectileBreakParticles;
+	}
+
+	// WORLDGEN
+
+	public static boolean betaBeaches() {
+		return WilderWildConfig.get().worldgen.betaBeaches;
+	}
+
+	public static boolean modifyJunglePlacement() {
+		return BIOME_PLACEMENT.modifyJunglePlacement;
+	}
+
+	public static boolean modifySwampPlacement() {
+		return BIOME_PLACEMENT.modifySwampPlacement;
+	}
+
+	public static boolean modifyMangroveSwampPlacement() {
+		return BIOME_PLACEMENT.modifyMangroveSwampPlacement;
+	}
+
+	public static boolean modifyWindsweptSavannaPlacement() {
+		return BIOME_PLACEMENT.modifyWindsweptSavannaPlacement;
+	}
+
+	public static boolean dyingTrees() {
+		return WORLDGEN.dyingTrees;
+	}
+
+	public static boolean generateCypressWetlands() {
+		return BIOME_GENERATION.generateCypressWetlands;
+	}
+
+	public static boolean generateMixedForest() {
+		return BIOME_GENERATION.generateMixedForest;
+	}
+
+	public static boolean generateJellyfishCaves() {
+		return BIOME_GENERATION.generateJellyfishCaves;
+	}
+
+	public static boolean fallenLogs() {
+		return WORLDGEN.fallenLogs;
+	}
+
+	public static boolean wildTrees() {
+		return WORLDGEN.wilderWildTreeGen;
+	}
+
+	public static boolean wildGrass() {
+		return WORLDGEN.wilderWildGrassGen;
+	}
+
+	public static boolean cypressWitchHuts() {
+		return WORLDGEN.cypressWitchHuts;
+	}
+
+	public static boolean generateOasis() {
+		return BIOME_GENERATION.generateOasis;
+	}
+
+	public static boolean generateWarmRiver() {
+		return BIOME_GENERATION.generateWarmRiver;
+	}
+
+	public static boolean generateBirchTaiga() {
+		return BIOME_GENERATION.generateBirchTaiga;
+	}
+
+	public static boolean generateFlowerField() {
+		return BIOME_GENERATION.generateFlowerField;
+	}
+
+	public static boolean generateAridSavanna() {
+		return BIOME_GENERATION.generateAridSavanna;
+	}
+
+	public static boolean generateParchedForest() {
+		return BIOME_GENERATION.generateParchedForest;
+	}
+
+	public static boolean generateAridForest() {
+		return BIOME_GENERATION.generateAridForest;
+	}
+
+	public static boolean generateOldGrowthSnowyTaiga() {
+		return BIOME_GENERATION.generateOldGrowthSnowyTaiga;
+	}
+
+	// MISC
 
 	public static boolean deepDarkAmbience() {
 		return BIOME_AMBIENCE.deepDarkAmbience;

@@ -39,9 +39,6 @@
     "fabric-datagen": [
       "net.frozenblock.wilderwild.misc.WilderWildDataGenerator"
     ],
-	"frozenlib:main": [
-	  "net.frozenblock.wilderwild.FrozenLibIntegration"
-	],
 	"frozenlib:surfacerules": [
 	  "net.frozenblock.wilderwild.registry.RegisterWorldgen"
 	],
