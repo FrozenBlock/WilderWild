@@ -10,6 +10,7 @@ public class FrozenLibIntegration extends ModIntegration {
 
     @Override
     public void init() {
-        WilderSharedConstants.log("FrozenLib mod integration ran!", true);
+        WilderSharedConstants.log("FrozenLib mod integration ran!", WilderSharedConstants.UNSTABLE_LOGGING);
+
     }
 }
