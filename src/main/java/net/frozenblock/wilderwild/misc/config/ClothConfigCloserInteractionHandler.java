@@ -175,6 +175,10 @@ public final class ClothConfigCloserInteractionHandler {
 		return ANCIENT_HORN.ancientHornShattersGlass;
 	}
 
+	public static float hornSizeMultiplier() {
+		return ANCIENT_HORN.ancientHornSizeMultiplier;
+	}
+
 	public static boolean projectileBreakParticles() {
 		return ITEM.projectileBreakParticles;
 	}

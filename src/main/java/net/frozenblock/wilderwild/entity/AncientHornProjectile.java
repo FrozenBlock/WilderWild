@@ -221,7 +221,7 @@ public class AncientHornProjectile extends AbstractArrow {
 
 		this.setPos(x, y, z);
 		this.checkInsideBlocks();
-		this.boundingBoxMultiplier += 0.003F;
+		this.boundingBoxMultiplier += ClothConfigInteractionHandler.hornSizeMultiplier();
 	}
 
 	@Override
