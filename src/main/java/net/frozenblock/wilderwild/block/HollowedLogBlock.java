@@ -1,7 +1,5 @@
 package net.frozenblock.wilderwild.block;
 
-import java.util.Optional;
-import net.frozenblock.lib.entity.api.EntityUtils;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -11,6 +9,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -50,17 +49,30 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 
 	@Override
 	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
-		if (!level.isClientSide) {
-			Optional<Direction> optionalDirection = EntityUtils.getMovementDirectionHorizontal(player);
-			if (optionalDirection.isPresent()) {
-				float bbWidth = player.getBbWidth();
-				if (optionalDirection.get().getAxis() == state.getValue(BlockStateProperties.AXIS) && player.getBbWidth() <= 0.6F && player.getBbHeight() >= 0.71875F && player.blockPosition().relative(optionalDirection.get()).equals(pos)) {
-					if (player.position().distanceTo(new Vec3(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5)) <= (0.5 + (bbWidth * 0.7))) {
-						player.setSwimming(true);
-						return InteractionResult.CONSUME;
-					}
-				}
-			}
+		Direction direction = player.getMotionDirection();
+		Direction hitDirection = hit.getDirection();
+		Direction.Axis axis = state.getValue(BlockStateProperties.AXIS);
+		if (player.isShiftKeyDown()
+				&& player.getPose() != Pose.SWIMMING
+				&& direction.getAxis() != Direction.Axis.Y
+				&& direction.getAxis() == axis
+				&& player.getBbWidth() <= 0.71875F
+				&& player.getBbHeight() >= 0.71875F
+				&& player.blockPosition().relative(direction).equals(pos)
+				&& player.position().distanceTo(new Vec3(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5)) <= (0.5 + player.getBbWidth())
+				&& player.getY() >= pos.getY()
+				&& player.getY() <= pos.getY() + 0.5
+				&& hitDirection.getAxis() == axis
+				&& hitDirection.getOpposite() == direction
+		) {
+			player.setPos(
+					pos.getX() + 0.5 - direction.getStepX() * 0.475,
+					pos.getY() + 0.140626,
+					pos.getZ() + 0.5 - direction.getStepZ() * 0.475
+			);
+			player.setPose(Pose.SWIMMING);
+			player.setSwimming(true);
+			return InteractionResult.CONSUME;
 		}
 		return InteractionResult.PASS;
 	}

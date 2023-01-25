@@ -2,8 +2,8 @@ package net.frozenblock.wilderwild.misc.mod_compat;
 
 import java.util.function.Supplier;
 import net.frozenblock.lib.integration.api.ModIntegration;
+import net.frozenblock.lib.integration.api.ModIntegrationSupplier;
 import net.frozenblock.lib.integration.api.ModIntegrations;
-import net.frozenblock.lib.integration.impl.ModIntegrationSupplier;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 
 public final class WilderModIntegrations {
