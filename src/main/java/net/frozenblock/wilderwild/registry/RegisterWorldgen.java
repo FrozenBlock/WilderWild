@@ -43,7 +43,7 @@ public final class RegisterWorldgen {
 	public static final ResourceKey<Biome> ARID_SAVANNA = register("arid_savanna");
 	public static final ResourceKey<Biome> PARCHED_FOREST = register("parched_forest");
 	public static final ResourceKey<Biome> ARID_FOREST = register("arid_forest");
-	public static final ResourceKey<Biome> OLD_GROWTH_SNOWY_PINE_TAIGA = register("old_growth_snowy_pine_taiga");
+	public static final ResourceKey<Biome> SNOWY_OLD_GROWTH_PINE_TAIGA = register("snowy_old_growth_pine_taiga");
 
 	public static void bootstrap(BootstapContext<Biome> context) {
 		context.register(RegisterWorldgen.CYPRESS_WETLANDS, RegisterWorldgen.cypressWetlands(context));
@@ -57,7 +57,7 @@ public final class RegisterWorldgen {
 		context.register(RegisterWorldgen.ARID_SAVANNA, RegisterWorldgen.aridSavanna(context));
 		context.register(RegisterWorldgen.PARCHED_FOREST, RegisterWorldgen.parchedForest(context));
 		context.register(RegisterWorldgen.ARID_FOREST, RegisterWorldgen.aridForest(context));
-		context.register(RegisterWorldgen.OLD_GROWTH_SNOWY_PINE_TAIGA, RegisterWorldgen.oldGrowthSnowyTaiga(context));
+		context.register(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA, RegisterWorldgen.oldGrowthSnowyTaiga(context));
 	}
 
     private static ResourceKey<Biome> register(String name) {
@@ -551,7 +551,7 @@ public final class RegisterWorldgen {
 		builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.ARID_COARSE_PATH);
 	}
 	public static void addOldGrowthSnowyTaigaFeatures(BiomeGenerationSettings.Builder builder) {
-		addBasicFeatures(builder, OLD_GROWTH_SNOWY_PINE_TAIGA);
+		addBasicFeatures(builder, SNOWY_OLD_GROWTH_PINE_TAIGA);
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
 		BiomeDefaultFeatures.addFerns(builder);
