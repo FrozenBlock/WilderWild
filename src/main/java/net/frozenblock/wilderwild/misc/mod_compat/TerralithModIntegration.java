@@ -3,9 +3,10 @@ package net.frozenblock.wilderwild.misc.mod_compat;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.frozenblock.lib.integration.api.ModIntegration;
+import net.frozenblock.lib.mobcategory.api.FrozenMobCategories;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.FireflyColor;
-import net.frozenblock.wilderwild.misc.WilderEnumValues;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
@@ -24,6 +25,6 @@ public class TerralithModIntegration extends ModIntegration {
         Firefly.FireflyBiomeColorRegistry.addBiomeColor(id("cave/thermal_caves"), FireflyColor.ORANGE);
 
         BiomeModifications.addSpawn(BiomeSelectors.includeByKey(ResourceKey.create(Registry.BIOME_REGISTRY, id("cave/underground_jungle"))),
-                WilderEnumValues.FIREFLIES, RegisterEntities.FIREFLY, 12, 2, 4);
+				FrozenMobCategories.getCategory(WilderSharedConstants.MOD_ID, "fireflies"), RegisterEntities.FIREFLY, 12, 2, 4);
     }
 }

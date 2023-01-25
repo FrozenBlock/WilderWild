@@ -4,25 +4,19 @@ import com.mojang.datafixers.schemas.Schema;
 import com.mojang.serialization.Codec;
 import java.util.ArrayList;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
 import net.fabricmc.loader.api.ModContainer;
-import net.frozenblock.lib.FrozenBools;
-import net.frozenblock.lib.mobcategory.api.FrozenMobCategories;
 import net.frozenblock.lib.mobcategory.api.entrypoint.FrozenMobCategoryEntrypoint;
 import net.frozenblock.lib.mobcategory.impl.FrozenMobCategory;
 import net.frozenblock.wilderwild.block.entity.PalmCrownBlockEntity;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
-import net.frozenblock.wilderwild.entity.Firefly;
-import net.frozenblock.wilderwild.misc.FireflyColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.misc.datafixer.NematocystStateFix;
-import net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.WilderCopperPipesEntrypoint;
+import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
@@ -60,7 +54,6 @@ import net.frozenblock.wilderwild.world.generation.trunk.PalmTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.StraightTrunkWithLogs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import net.minecraft.world.entity.Entity;
@@ -124,26 +117,19 @@ public final class WilderWild extends FrozenMobCategoryEntrypoint implements Mod
 
 		Registry.register(Registry.CONDITION, WilderSharedConstants.id("beta_beach_condition_source"), BetaBeachConditionSource.CODEC.codec());
 
-        Registry.register(Registry.FEATURE, id("shelf_fungus_feature"), SHELF_FUNGUS_FEATURE);
-        Registry.register(Registry.FEATURE, id("cattail_feature"), CATTAIL_FEATURE);
-        Registry.register(Registry.FEATURE, id("algae_feature"), ALGAE_FEATURE);
-        Registry.register(Registry.FEATURE, id("nematocyst_feature"), NEMATOCYST_FEATURE);
-		Registry.register(Registry.FEATURE, id("small_sponge_feature"), SMALL_SPONGE_FEATURE);
+        Registry.register(Registry.FEATURE, WilderSharedConstants.id("shelf_fungus_feature"), SHELF_FUNGUS_FEATURE);
+        Registry.register(Registry.FEATURE, WilderSharedConstants.id("cattail_feature"), CATTAIL_FEATURE);
+        Registry.register(Registry.FEATURE, WilderSharedConstants.id("algae_feature"), ALGAE_FEATURE);
+        Registry.register(Registry.FEATURE, WilderSharedConstants.id("nematocyst_feature"), NEMATOCYST_FEATURE);
+		Registry.register(Registry.FEATURE, WilderSharedConstants.id("small_sponge_feature"), SMALL_SPONGE_FEATURE);
 
         TermiteMoundBlockEntity.Termite.addDegradableBlocks();
         TermiteMoundBlockEntity.Termite.addNaturalDegradableBlocks();
 
-        if (FrozenBools.HAS_TERRALITH) {
-            terralith();
-        }
-
-		if (FrozenBools.HAS_SIMPLE_COPPER_PIPES) {
-			WilderCopperPipesEntrypoint.init();
-		}
-
 		ServerLifecycleEvents.SERVER_STOPPED.register((server) -> PalmCrownBlockEntity.PalmCrownPositions.clearAll());
-
 		ServerTickEvents.START_SERVER_TICK.register((listener) -> PalmCrownBlockEntity.PalmCrownPositions.clearAndSwitch());
+
+		WilderModIntegrations.init();
 
         WilderSharedConstants.stopMeasuring(this);
     }
@@ -197,18 +183,6 @@ public final class WilderWild extends FrozenMobCategoryEntrypoint implements Mod
         QuiltDataFixes.buildAndRegisterFixer(mod, builder);
         log("DataFixes for Wilder Wild have been applied", true);
         //return builder;
-    }
-
-    //MOD COMPATIBILITY
-    public static void terralith() {
-        Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/frostfire_caves"), FireflyColor.BLUE);
-        Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/frostfire_caves"), FireflyColor.LIGHT_BLUE);
-
-        Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/thermal_caves"), FireflyColor.RED);
-        Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/thermal_caves"), FireflyColor.ORANGE);
-
-        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("terralith", "cave/underground_jungle"))),
-                FrozenMobCategories.getCategory(WilderSharedConstants.MOD_ID, "fireflies"), RegisterEntities.FIREFLY, 12, 2, 4);
     }
 
     // LOGGING
