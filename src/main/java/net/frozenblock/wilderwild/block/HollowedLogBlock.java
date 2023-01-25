@@ -68,12 +68,12 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 		) {
 			player.setPos(
 					pos.getX() + 0.5 - direction.getStepX() * 0.475,
-					pos.getY() + 0.140626,
+					pos.getY() + 0.140625,
 					pos.getZ() + 0.5 - direction.getStepZ() * 0.475
 			);
 			player.setPose(Pose.SWIMMING);
 			player.setSwimming(true);
-			return InteractionResult.CONSUME;
+			return InteractionResult.SUCCESS;
 		}
 		return InteractionResult.PASS;
 	}
