@@ -33,7 +33,7 @@ public class AncientHornProjectileRenderer<T extends AncientHornProjectile> exte
         matrices.mulPose(Vector3f.ZP.rotationDegrees((projectile.xRotO + tickDelta * (projectile.getXRot() - projectile.xRotO)) + 90.0F));
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(FrozenRenderType.ENTITY_TRANSLUCENT_EMISSIVE_FIXED.apply(TEXTURE, false));
 
-        float multiplier = projectile.boundingBoxMultiplier;
+        float multiplier = projectile.getBoundingBoxMultiplier();
         float scale = multiplier + 1F;
         float alpha = 1.0F - (multiplier / 15F);
         float correctedAlpha = Math.max(alpha, 0.01F);
