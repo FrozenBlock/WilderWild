@@ -82,6 +82,7 @@ import org.jetbrains.annotations.Nullable;
 public class AncientHornProjectile extends AbstractArrow {
 	private static final TagKey<Block> NON_COLLIDE = WilderBlockTags.ANCIENT_HORN_NON_COLLIDE;
 	public static final int DEFAULT_LIFESPAN = 300;
+	public static final float MIN_SIZE = 0.01F;
 	public static final float MAX_SIZE = 30F;
 	private boolean shot;
 	private boolean leftOwner;
@@ -225,7 +226,7 @@ public class AncientHornProjectile extends AbstractArrow {
 		this.checkInsideBlocks();
 
 		float size = this.boundingBoxMultiplier + ClothConfigInteractionHandler.hornSizeMultiplier();
-		if (size < MAX_SIZE)
+		if (size > MIN_SIZE && size < MAX_SIZE)
 			this.boundingBoxMultiplier = size;
 	}
 
@@ -483,8 +484,9 @@ public class AncientHornProjectile extends AbstractArrow {
 		}
 	}
 
-	public int getDamage(@Nullable Entity entity) {
-		return entity instanceof Player ? ClothConfigInteractionHandler.hornPlayerDamage() : ClothConfigInteractionHandler.hornMobDamage();
+	public float getDamage(@Nullable Entity entity) {
+		int base = entity instanceof Player ? ClothConfigInteractionHandler.hornPlayerDamage() : ClothConfigInteractionHandler.hornMobDamage();
+		return base / (this.boundingBoxMultiplier + 1F);
 	}
 
 	@Override
@@ -498,7 +500,7 @@ public class AncientHornProjectile extends AbstractArrow {
 	}
 
     private void hitEntity(Entity entity) {
-        int damage = this.getDamage(entity);
+        float damage = this.getDamage(entity);
         Entity owner = this.getOwner();
         if (entity != owner) {
             DamageSource damageSource;
@@ -520,7 +522,7 @@ public class AncientHornProjectile extends AbstractArrow {
                 warden.playSound(SoundEvents.WARDEN_TENDRIL_CLICKS, 5.0F, warden.getVoicePitch());
                 this.discard();
             } else if (!entity.getType().is(WilderEntityTags.ANCIENT_HORN_IMMUNE)) {
-                if (entity.hurt(damageSource, (float) damage)) {
+                if (entity.hurt(damageSource, damage)) {
                     if (entity instanceof LivingEntity livingEntity) {
                         Level level = this.getLevel();
                         WilderSharedConstants.log(livingEntity, "Horn Projectile Touched", WilderSharedConstants.DEV_LOGGING);
