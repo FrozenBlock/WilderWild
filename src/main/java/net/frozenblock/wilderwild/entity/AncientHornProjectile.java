@@ -1,6 +1,8 @@
 package net.frozenblock.wilderwild.entity;
 
 import io.netty.buffer.Unpooled;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -93,6 +95,7 @@ public class AncientHornProjectile extends AbstractArrow {
 	private boolean shotByPlayer;
 	private int bubbles;
 	private BlockState inBlockState;
+	private List<Entity> hitEntities = new ArrayList<>();
 	public float boundingBoxMultiplier = 0F;
 
 	public AncientHornProjectile(@NotNull EntityType<? extends AncientHornProjectile> entityType, Level level) {
@@ -186,7 +189,10 @@ public class AncientHornProjectile extends AbstractArrow {
 					if (entity.isInvulnerable()) {
 						shouldDamage = false;
 					}
+					if (this.hitEntities.contains(entity))
+						shouldDamage = false;
 					if (shouldDamage) {
+						this.hitEntities.add(entity);
 						this.hitEntity(entity);
 					}
 				}
@@ -209,9 +215,10 @@ public class AncientHornProjectile extends AbstractArrow {
 			}
 		}
 		float divider = boundingBoxMultiplier + 1F;
-		double x = this.getX() + (deltaX / (divider / 2F));
-		double y = this.getY() + (deltaY / (divider / 2F));
-		double z = this.getZ() + (deltaZ / (divider / 2F));
+		float moveDivider = boundingBoxMultiplier * 0.5F + 1F;
+		double x = this.getX() + (deltaX / moveDivider);
+		double y = this.getY() + (deltaY / moveDivider);
+		double z = this.getZ() + (deltaZ / moveDivider);
 		double horizontalDistance = deltaMovement.horizontalDistance();
 		if (noPhysics) {
 			this.setYRot((float) (Mth.atan2(-deltaX, -deltaZ) * 57.2957763671875D));
@@ -556,6 +563,12 @@ public class AncientHornProjectile extends AbstractArrow {
             }
         }
     }
+
+	@Override
+	public void remove(RemovalReason reason) {
+		this.hitEntities.clear();
+		super.remove(reason);
+	}
 
 	@Override
 	public boolean dampensVibrations() {
