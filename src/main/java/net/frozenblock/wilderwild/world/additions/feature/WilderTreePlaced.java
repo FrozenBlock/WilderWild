@@ -87,8 +87,13 @@ public final class WilderTreePlaced {
 	public static final Holder<PlacedFeature> TALL_PALM_CHECKED = PlacementUtils.register("tall_palm_checked", WilderTreeConfigured.TALL_PALM, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.COCONUT));
 	public static final Holder<PlacedFeature> TALL_WINE_PALM_CHECKED = PlacementUtils.register("tall_wine_palm_checked", WilderTreeConfigured.TALL_WINE_PALM, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.COCONUT));
 	public static final Holder<PlacedFeature> SMALL_WINE_PALM_CHECKED = PlacementUtils.register("small_wine_palm_checked", WilderTreeConfigured.SMALL_WINE_PALM, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.COCONUT));
+	//TREE ON GRASS
+	public static final Holder<PlacedFeature> PALM_CHECKED_DIRT = PlacementUtils.register("palm_checked_dirt", WilderTreeConfigured.PALM, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
+	public static final Holder<PlacedFeature> TALL_PALM_CHECKED_DIRT = PlacementUtils.register("tall_palm_checked_dirt", WilderTreeConfigured.TALL_PALM, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
+	public static final Holder<PlacedFeature> TALL_WINE_PALM_CHECKED_DIRT = PlacementUtils.register("tall_wine_palm_checked_dirt", WilderTreeConfigured.TALL_WINE_PALM, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
+	public static final Holder<PlacedFeature> SMALL_WINE_PALM_CHECKED_DIRT = PlacementUtils.register("small_wine_palm_checked_dirt", WilderTreeConfigured.SMALL_WINE_PALM, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
 
-    public static void registerTreePlaced() {
+	public static void registerTreePlaced() {
         WilderSharedConstants.logWild("Registering WilderTreePlaced for", true);
     }
 }

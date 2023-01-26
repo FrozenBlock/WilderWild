@@ -290,6 +290,10 @@ public final class WilderConfiguredFeatures {
 			register("palms", Feature.RANDOM_SELECTOR,
 					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.TALL_WINE_PALM_CHECKED, 0.1F), new WeightedPlacedFeature(WilderTreePlaced.TALL_PALM_CHECKED, 0.4F)), WilderTreePlaced.PALM_CHECKED));
 
+	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> PALMS_JUNGLE =
+			register("palms_jungle", Feature.RANDOM_SELECTOR,
+					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.TALL_WINE_PALM_CHECKED_DIRT, 0.25F), new WeightedPlacedFeature(WilderTreePlaced.SMALL_WINE_PALM_CHECKED_DIRT, 0.7F), new WeightedPlacedFeature(WilderTreePlaced.TALL_PALM_CHECKED_DIRT, 0.4F)), WilderTreePlaced.PALM_CHECKED_DIRT));
+
 	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> PALMS_OASIS =
 			register("palms_oasis", Feature.RANDOM_SELECTOR,
 					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.TALL_PALM_CHECKED, 0.5F), new WeightedPlacedFeature(WilderTreePlaced.TALL_WINE_PALM_CHECKED, 0.1F), new WeightedPlacedFeature(WilderTreePlaced.SMALL_WINE_PALM_CHECKED, 0.37F)), WilderTreePlaced.PALM_CHECKED));

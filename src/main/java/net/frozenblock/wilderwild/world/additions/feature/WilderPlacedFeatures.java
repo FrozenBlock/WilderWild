@@ -160,6 +160,9 @@ public final class WilderPlacedFeatures {
 	public static final Holder<PlacedFeature> PALM = PlacementUtils.register("palm_placed",
 			WilderConfiguredFeatures.PALMS, treePlacement(RarityFilter.onAverageOnceEvery(4)));
 
+	public static final Holder<PlacedFeature> PALM_JUNGLE = PlacementUtils.register("palm_jungle",
+			WilderConfiguredFeatures.PALMS_JUNGLE, treePlacement(PlacementUtils.countExtra(6, 0.5F, 2)));
+
 	public static final Holder<PlacedFeature> PALMS_OASIS = PlacementUtils.register("palms_oasis",
 			WilderConfiguredFeatures.PALMS_OASIS, treePlacement(RarityFilter.onAverageOnceEvery(3)));
 
