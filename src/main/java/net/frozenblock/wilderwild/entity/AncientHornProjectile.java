@@ -5,6 +5,9 @@ import io.netty.buffer.Unpooled;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+
+import it.unimi.dsi.fastutil.ints.IntArrayList;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
 import net.frozenblock.lib.damagesource.api.FrozenProjectileDamageSource;
@@ -95,7 +98,7 @@ public class AncientHornProjectile extends AbstractArrow {
 	private boolean shotByPlayer;
 	private int bubbles;
 	private BlockState inBlockState;
-	private List<Entity> hitEntities = new ArrayList<>();
+	private IntArrayList hitEntities = new IntArrayList();
 	public float boundingBoxMultiplier = 0F;
 
 	public AncientHornProjectile(@NotNull EntityType<? extends AncientHornProjectile> entityType, Level level) {
@@ -189,10 +192,11 @@ public class AncientHornProjectile extends AbstractArrow {
 					if (entity.isInvulnerable()) {
 						shouldDamage = false;
 					}
-					if (this.hitEntities.contains(entity))
+					int uuid = entity.getUUID().hashCode();
+					if (this.hitEntities.contains(uuid))
 						shouldDamage = false;
 					if (shouldDamage) {
-						this.hitEntities.add(entity);
+						this.hitEntities.add(uuid);
 						this.hitEntity(entity);
 					}
 				}
@@ -447,6 +451,8 @@ public class AncientHornProjectile extends AbstractArrow {
 			compound.putDouble("originZ", this.vecZ);
 			compound.putBoolean("shotByPlayer", this.shotByPlayer);
 			compound.putInt("bubbles", this.bubbles);
+			compound.putFloat("boundingBoxMultiplier", this.boundingBoxMultiplier);
+			compound.putIntArray("hitEntities", this.hitEntities);
 		}
 	}
 
@@ -464,6 +470,8 @@ public class AncientHornProjectile extends AbstractArrow {
 			this.vecZ = compound.getDouble("originZ");
 			this.shotByPlayer = compound.getBoolean("shotByPlayer");
 			this.bubbles = compound.getInt("bubbles");
+			this.boundingBoxMultiplier = compound.getInt("boundingBoxMultiplier");
+			this.hitEntities = IntArrayList.wrap(compound.getIntArray("hitEntities"));
 		}
 	}
 
