@@ -22,22 +22,22 @@ public final class WilderModIntegrations {
 	public static final ModIntegrationSupplier<AbstractSimpleCopperPipesIntegration> SIMPLE_COPPER_PIPES_INTEGRATION = register(SimpleCopperPipesIntegration::new, AbstractSimpleCopperPipesIntegration::new, "copper_pipe");
 	public static final ModIntegrationSupplier<AbstractClothConfigIntegration> CLOTH_CONFIG_INTEGRATION = register(ClothConfigIntegration::new, AbstractClothConfigIntegration::new, "cloth-config");
 
-    private WilderModIntegrations() {
-        throw new UnsupportedOperationException("WilderModIntegrations contains only static declarations.");
-    }
+	private WilderModIntegrations() {
+		throw new UnsupportedOperationException("WilderModIntegrations contains only static declarations.");
+	}
 
-    public static void init() {
-    }
+	public static void init() {
+	}
 
-	public static ModIntegrationSupplier register(Supplier<? extends ModIntegration> integration, String modID) {
+	public static ModIntegrationSupplier<? extends ModIntegration> register(Supplier<? extends ModIntegration> integration, String modID) {
 		return ModIntegrations.register(integration, WilderSharedConstants.MOD_ID, modID);
 	}
 
-	public static <T extends ModIntegration> ModIntegrationSupplier register(Supplier<T> integration, Supplier<T> unloadedIntegration, String modID) {
+	public static <T extends ModIntegration> ModIntegrationSupplier<T> register(Supplier<T> integration, Supplier<T> unloadedIntegration, String modID) {
 		return ModIntegrations.register(integration, unloadedIntegration, WilderSharedConstants.MOD_ID, modID);
 	}
 
-    public static ModIntegration registerAndGet(Supplier<ModIntegration> integration, String modID) {
-        return ModIntegrations.register(integration, WilderSharedConstants.MOD_ID, modID).getIntegration();
-    }
+	public static <T extends ModIntegration> ModIntegration registerAndGet(Supplier<T> integration, String modID) {
+		return ModIntegrations.register(integration, WilderSharedConstants.MOD_ID, modID).getIntegration();
+	}
 }

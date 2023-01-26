@@ -66,7 +66,7 @@ public class AncientHornProjectileModel extends Model {
         this.back.yScale = pulse3;
         this.back.z = pulse2 * 2.0F + 2.0F;
 
-        this.bone.render(matrices, vertices, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+        this.bone.render(matrices, vertices, light, overlay, red, green, blue, alpha);
     }
 
     @Override

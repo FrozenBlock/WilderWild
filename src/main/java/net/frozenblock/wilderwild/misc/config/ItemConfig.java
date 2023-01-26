@@ -28,6 +28,7 @@ public final class ItemConfig implements ConfigData {
 		public int ancientHornMobDamage = DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_MOB_DAMAGE;
 		public int ancientHornPlayerDamage = DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_PLAYER_DAMAGE;
         public boolean ancientHornShattersGlass = DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_SHATTERS_GLASS;
+		public float ancientHornSizeMultiplier = DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_SIZE_MULTIPLIER;
     }
 
 	public static class ProjectileLandingSoundsConfig {
@@ -51,7 +52,7 @@ public final class ItemConfig implements ConfigData {
 				.setTooltip(tooltip("ancient_horn_can_summon_warden"))
 				.build();
 
-		var lifespan = entryBuilder.startIntSlider(text("ancient_horn_lifespan"), ancientHorn.ancientHornLifespan, 0, 500)
+		var lifespan = entryBuilder.startIntSlider(text("ancient_horn_lifespan"), ancientHorn.ancientHornLifespan, 0, 1000)
 				.setDefaultValue(DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_LIFESPAN)
 				.setSaveConsumer(newValue -> ancientHorn.ancientHornLifespan = newValue)
 				.setTooltip(tooltip("ancient_horn_lifespan"))
@@ -75,10 +76,16 @@ public final class ItemConfig implements ConfigData {
                 .setTooltip(tooltip("ancient_horn_shatters_glass"))
                 .build();
 
+		var sizeMultiplier = entryBuilder.startFloatField(text("ancient_horn_size_multiplier"), ancientHorn.ancientHornSizeMultiplier)
+				.setDefaultValue(DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_SIZE_MULTIPLIER)
+				.setSaveConsumer(newValue -> ancientHorn.ancientHornSizeMultiplier = newValue)
+				.setTooltip(tooltip("ancient_horn_size_multiplier"))
+				.build();
+
         var ancientHornCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("ancient_horn"),
                 false,
                 tooltip("ancient_horn"),
-				summonsWarden, lifespan, mobDamage, playerDamage, shattersGlass
+				summonsWarden, lifespan, mobDamage, playerDamage, shattersGlass, sizeMultiplier
         );
 
 		var snowballLandingSounds = entryBuilder.startBooleanToggle(text("snowball_landing_sounds"), projectileLandingSounds.snowballLandingSounds)
