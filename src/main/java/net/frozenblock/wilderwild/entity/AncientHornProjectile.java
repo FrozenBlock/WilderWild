@@ -82,6 +82,7 @@ import org.jetbrains.annotations.Nullable;
 public class AncientHornProjectile extends AbstractArrow {
 	private static final TagKey<Block> NON_COLLIDE = WilderBlockTags.ANCIENT_HORN_NON_COLLIDE;
 	public static final int DEFAULT_LIFESPAN = 300;
+	public static final float MAX_SIZE = 30F;
 	private boolean shot;
 	private boolean leftOwner;
 	private int aliveTicks;
@@ -206,9 +207,10 @@ public class AncientHornProjectile extends AbstractArrow {
 				this.level.addParticle(ParticleTypes.CRIT, this.getX() + deltaX * (double) i / 4.0D, this.getY() + deltaY * (double) i / 4.0D, this.getZ() + deltaZ * (double) i / 4.0D, -deltaX, -deltaY + 0.2D, -deltaZ);
 			}
 		}
-		double x = this.getX() + deltaX;
-		double y = this.getY() + deltaY;
-		double z = this.getZ() + deltaZ;
+		float divider = boundingBoxMultiplier + 1F;
+		double x = this.getX() + (deltaX / divider);
+		double y = this.getY() + (deltaY / divider);
+		double z = this.getZ() + (deltaZ / divider);
 		double horizontalDistance = deltaMovement.horizontalDistance();
 		if (noPhysics) {
 			this.setYRot((float) (Mth.atan2(-deltaX, -deltaZ) * 57.2957763671875D));
@@ -221,13 +223,16 @@ public class AncientHornProjectile extends AbstractArrow {
 
 		this.setPos(x, y, z);
 		this.checkInsideBlocks();
-		this.boundingBoxMultiplier += ClothConfigInteractionHandler.hornSizeMultiplier();
+
+		float size = this.boundingBoxMultiplier + ClothConfigInteractionHandler.hornSizeMultiplier();
+		if (size < MAX_SIZE)
+			this.boundingBoxMultiplier = size;
 	}
 
 	@Override
 	@NotNull
 	public AABB makeBoundingBox() {
-		return super.makeBoundingBox().inflate(this.boundingBoxMultiplier);
+		return super.makeBoundingBox().inflate(this.boundingBoxMultiplier / 2F);
 	}
 
 	public void setCooldown(int cooldownTicks) {

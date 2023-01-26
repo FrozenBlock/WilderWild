@@ -200,6 +200,10 @@ dependencies {
 	// add -PuseExperimentalThirdParty=true to the gradle runClient
 	// command to use these
 	if (findProperty("useExperimentalThirdParty") == "true") {
+		modRuntimeOnly("maven.modrinth:terralith:${terralith_version}")
+		modRuntimeOnly("maven.modrinth:sodium:${sodium_version}")
+		modRuntimeOnly("org.joml:joml:1.10.4")
+		modRuntimeOnly("org.anarres:jcpp:1.4.14")
 		//modRuntimeOnly "maven.modrinth:iris:${iris_version}"
 		modRuntimeOnly("maven.modrinth:indium:${indium_version}")
 		modRuntimeOnly("me.flashyreese.mods:reeses-sodium-options:${reeses_sodium_options_version}") {
@@ -207,7 +211,6 @@ dependencies {
 		}
 		modRuntimeOnly("me.flashyreese.mods:sodium-extra-fabric:${sodium_extra_version}")
 		modRuntimeOnly("io.github.douira:glsl-transformer:0.27.0")
-		modRuntimeOnly("net.caffeinemc:mixin-config:1.0.0+1.17")
 	}
 }
 

@@ -41,7 +41,7 @@ public final class ItemConfig implements ConfigData {
 				.setTooltip(tooltip("ancient_horn_can_summon_warden"))
 				.build();
 
-		var lifespan = entryBuilder.startIntSlider(text("ancient_horn_lifespan"), ancientHorn.ancientHornLifespan, 0, 500)
+		var lifespan = entryBuilder.startIntSlider(text("ancient_horn_lifespan"), ancientHorn.ancientHornLifespan, 0, 1000)
 				.setDefaultValue(DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_LIFESPAN)
 				.setSaveConsumer(newValue -> ancientHorn.ancientHornLifespan = newValue)
 				.setTooltip(tooltip("ancient_horn_lifespan"))
