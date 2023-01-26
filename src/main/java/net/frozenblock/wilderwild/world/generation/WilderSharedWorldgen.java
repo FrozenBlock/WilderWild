@@ -61,6 +61,11 @@ public final class WilderSharedWorldgen {
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.100F, 0.300F);
 	}
 
+	public static final class BirchJungle {
+		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.175F, 0.225F);
+		public static final Climate.Parameter HUMIDITY = Humidity.FOUR;
+	}
+
 	public static final class FlowerField {
 		public static final Climate.Parameter TEMPERATURE_A = Climate.Parameter.span(-0.200F, -0.100F);
 		public static final Climate.Parameter HUMIDITY_A = Humidity.ONE;

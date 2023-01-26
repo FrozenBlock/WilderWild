@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.misc.mod_compat.terrablender;
 
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
+import net.frozenblock.lib.worldgen.biome.api.parameters.FrozenBiomeParameters;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
@@ -72,6 +73,25 @@ public class WilderOverworldRegion extends Region {
 							)
 					);
 					builder.replaceBiome(point, RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA);
+				});
+			}
+
+			if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().generateBirchJungle()) {
+				OverworldBiomeBuilderParameters.points(Biomes.JUNGLE).forEach(point -> {
+					if (!FrozenBiomeParameters.isWeird(point)) {
+						builder.replaceParameter(point,
+								Climate.parameters(
+										WilderSharedWorldgen.BirchJungle.TEMPERATURE,
+										WilderSharedWorldgen.BirchJungle.HUMIDITY,
+										point.continentalness(),
+										point.erosion(),
+										point.depth(),
+										point.weirdness(),
+										point.offset()
+								)
+						);
+						builder.replaceBiome(point, RegisterWorldgen.BIRCH_JUNGLE);
+					}
 				});
 			}
 

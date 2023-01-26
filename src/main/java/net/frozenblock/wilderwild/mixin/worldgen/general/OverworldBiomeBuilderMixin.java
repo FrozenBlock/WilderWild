@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.mixin.worldgen.general;
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
 import net.frozenblock.lib.FrozenBools;
+import net.frozenblock.lib.worldgen.biome.api.parameters.FrozenBiomeParameters;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
@@ -80,6 +81,22 @@ public final class OverworldBiomeBuilderMixin {
 						point.offset(),
 						RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA
 				);
+			}
+		}
+		if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().generateBirchJungle()) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.JUNGLE)) {
+				if (!FrozenBiomeParameters.isWeird(point)) {
+					this.addSurfaceBiome(
+							parameters,
+							WilderSharedWorldgen.BirchJungle.TEMPERATURE,
+							WilderSharedWorldgen.BirchJungle.HUMIDITY,
+							point.continentalness(),
+							point.erosion(),
+							point.weirdness(),
+							point.offset(),
+							RegisterWorldgen.BIRCH_JUNGLE
+					);
+				}
 			}
 		}
 		if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().generateFlowerField()) {
