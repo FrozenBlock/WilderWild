@@ -534,7 +534,7 @@ public class AncientHornProjectile extends AbstractArrow {
                             if (this.getOwner() != null) {
                                 if (this.getOwner() instanceof ServerPlayer serverPlayer) {
                                     addCooldown(livingEntity.getExperienceReward() * 10);
-                                    EasyPacket.EasyCompetitionPacket.sendAncientHornKillInfo(level, serverPlayer, livingEntity);
+                                    //EasyPacket.EasyCompetitionPacket.sendAncientHornKillInfo(level, serverPlayer, livingEntity);
                                 }
                             }
                         }

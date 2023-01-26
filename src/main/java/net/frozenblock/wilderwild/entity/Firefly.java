@@ -163,7 +163,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
             player.getInventory().placeItemBackInInventory(bottleStack);
             Level level = this.level;
             if (!level.isClientSide) {
-                EasyPacket.EasyCompetitionPacket.sendFireflyCaptureInfo(level, player, this);
+                //EasyPacket.EasyCompetitionPacket.sendFireflyCaptureInfo(level, player, this);
             }
             this.discard();
             return Optional.of(InteractionResult.sidedSuccess(level.isClientSide));
