@@ -470,7 +470,7 @@ public class AncientHornProjectile extends AbstractArrow {
 			this.vecZ = compound.getDouble("originZ");
 			this.shotByPlayer = compound.getBoolean("shotByPlayer");
 			this.bubbles = compound.getInt("bubbles");
-			this.boundingBoxMultiplier = compound.getInt("boundingBoxMultiplier");
+			this.boundingBoxMultiplier = compound.getFloat("boundingBoxMultiplier");
 			this.hitEntities = IntArrayList.wrap(compound.getIntArray("hitEntities"));
 		}
 	}
