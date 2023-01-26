@@ -20,7 +20,7 @@ public final class WilderModIntegrations {
     public static final ModIntegration TECHREBORN_INTEGRATION = registerAndGet(TechRebornIntegration::new, "techreborn");
     public static final ModIntegration TERRALITH_INTEGRATION = registerAndGet(TerralithModIntegration::new, "terralith");
 	public static final ModIntegrationSupplier<AbstractSimpleCopperPipesIntegration> SIMPLE_COPPER_PIPES_INTEGRATION = register(SimpleCopperPipesIntegration::new, AbstractSimpleCopperPipesIntegration::new, "copper_pipe");
-	public static final ModIntegrationSupplier<AbstractClothConfigIntegration> CLOTH_CONFIG_INTEGRATION = register(ClothConfigIntegration::new, ClothConfigIntegration::new, "cloth-config");
+	public static final ModIntegrationSupplier<AbstractClothConfigIntegration> CLOTH_CONFIG_INTEGRATION = register(ClothConfigIntegration::new, AbstractClothConfigIntegration::new, "cloth-config");
 
     private WilderModIntegrations() {
         throw new UnsupportedOperationException("WilderModIntegrations contains only static declarations.");
