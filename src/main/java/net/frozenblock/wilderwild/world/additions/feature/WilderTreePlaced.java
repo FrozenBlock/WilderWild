@@ -30,7 +30,8 @@ public final class WilderTreePlaced {
     public static final Holder<PlacedFeature> DYING_SUPER_BIRCH = PlacementUtils.register("dying_super_birch", WilderTreeConfigured.DYING_SUPER_BIRCH, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
     public static final Holder<PlacedFeature> NEW_SUPER_BIRCH_BEES_0004 = PlacementUtils.register("new_super_birch_bees_0004", WilderTreeConfigured.NEW_SUPER_BIRCH_BEES_0004, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
     public static final Holder<PlacedFeature> NEW_SUPER_BIRCH_BEES = PlacementUtils.register("new_super_birch_bees", WilderTreeConfigured.NEW_SUPER_BIRCH_BEES, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
-    public static final Holder<PlacedFeature> NEW_FALLEN_BIRCH_CHECKED = PlacementUtils.register("new_fallen_birch_checked", WilderTreeConfigured.NEW_FALLEN_BIRCH_TREE, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
+	public static final Holder<PlacedFeature> NEW_SUPER_BIRCH = PlacementUtils.register("new_super_birch", WilderTreeConfigured.NEW_SUPER_BIRCH, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
+	public static final Holder<PlacedFeature> NEW_FALLEN_BIRCH_CHECKED = PlacementUtils.register("new_fallen_birch_checked", WilderTreeConfigured.NEW_FALLEN_BIRCH_TREE, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
 
     //OAK
     public static final Holder<PlacedFeature> NEW_OAK_CHECKED = PlacementUtils.register("new_oak_checked", WilderTreeConfigured.NEW_OAK, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));

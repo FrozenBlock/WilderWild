@@ -58,6 +58,23 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
+			if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().generateOldGrowthBirchTaiga()) {
+				OverworldBiomeBuilderParameters.points(Biomes.OLD_GROWTH_BIRCH_FOREST).forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
+									WilderSharedWorldgen.BirchTaiga.HUMIDITY,
+									point.continentalness(),
+									point.erosion(),
+									point.depth(),
+									point.weirdness(),
+									point.offset()
+							)
+					);
+					builder.replaceBiome(point, RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA);
+				});
+			}
+
 			if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().generateFlowerField()) {
 				OverworldBiomeBuilderParameters.points(Biomes.FLOWER_FOREST).forEach(point -> {
 					builder.replaceParameter(point,

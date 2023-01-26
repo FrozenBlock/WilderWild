@@ -68,6 +68,20 @@ public final class OverworldBiomeBuilderMixin {
 				);
 			}
 		}
+		if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().generateOldGrowthBirchTaiga()) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.OLD_GROWTH_BIRCH_FOREST)) {
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
+						WilderSharedWorldgen.BirchTaiga.HUMIDITY,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						point.offset(),
+						RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA
+				);
+			}
+		}
 		if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().generateFlowerField()) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FLOWER_FOREST)) {
 				this.addSurfaceBiome(

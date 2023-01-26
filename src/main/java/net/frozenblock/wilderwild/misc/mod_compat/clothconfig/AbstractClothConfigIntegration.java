@@ -249,6 +249,10 @@ public class AbstractClothConfigIntegration extends ModIntegration {
 		return DefaultWorldgenConfig.BiomeGeneration.GENERATE_BIRCH_TAIGA;
 	}
 
+	public boolean generateOldGrowthBirchTaiga() {
+		return DefaultWorldgenConfig.BiomeGeneration.GENERATE_OLD_GROWTH_BIRCH_TAIGA;
+	}
+
 	public boolean generateFlowerField() {
 		return DefaultWorldgenConfig.BiomeGeneration.GENERATE_FLOWER_FIELD;
 	}

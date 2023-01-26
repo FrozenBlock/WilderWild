@@ -47,6 +47,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 	public static final ResourceKey<Biome> PARCHED_FOREST = register("parched_forest");
 	public static final ResourceKey<Biome> ARID_FOREST = register("arid_forest");
 	public static final ResourceKey<Biome> SNOWY_OLD_GROWTH_PINE_TAIGA = register("snowy_old_growth_pine_taiga");
+	public static final ResourceKey<Biome> OLD_GROWTH_BIRCH_TAIGA = register("old_growth_birch_taiga");
 
 	public static void registerWorldgen() {
 		WilderSharedConstants.logWild("Registering Biomes for", WilderSharedConstants.UNSTABLE_LOGGING);
@@ -55,12 +56,13 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, JELLYFISH_CAVES.location(), jellyfishCaves());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, WARM_RIVER.location(), warmRiver());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, OASIS.location(), oasis());
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, BIRCH_TAIGA.location(), birchTaiga());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, BIRCH_TAIGA.location(), birchTaiga(false));
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, FLOWER_FIELD.location(), flowerField());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, ARID_SAVANNA.location(), aridSavanna());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, PARCHED_FOREST.location(), parchedForest());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, ARID_FOREST.location(), aridForest());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, SNOWY_OLD_GROWTH_PINE_TAIGA.location(), oldGrowthSnowyTaiga());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, OLD_GROWTH_BIRCH_TAIGA.location(), birchTaiga(true));
 
 		WilderNoise.init();
 	}
@@ -200,13 +202,13 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 				.build();
 	}
 
-	public static Biome birchTaiga() {
+	public static Biome birchTaiga(boolean old) {
 		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
 		BiomeDefaultFeatures.commonSpawns(builder);
 		BiomeDefaultFeatures.farmAnimals(builder);
 		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 2, 4, 4)).addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 2, 2, 3));
 		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
-		addBirchTaigaFeatures(builder2);
+		addBirchTaigaFeatures(builder2, old);
 		Music musicSound = Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS);
 		return new Biome.BiomeBuilder()
 				.precipitation(Biome.Precipitation.RAIN)
@@ -459,10 +461,10 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PALMS_OASIS);
 	}
 
-	public static void addBirchTaigaFeatures(BiomeGenerationSettings.Builder builder) {
+	public static void addBirchTaigaFeatures(BiomeGenerationSettings.Builder builder, boolean old) {
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SEEDING_DANDELION_MIXED);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MIXED_MUSHROOMS_PLACED);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BIRCH_TAIGA_TREES);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, old ? WilderPlacedFeatures.OLD_GROWTH_BIRCH_TAIGA_TREES : WilderPlacedFeatures.BIRCH_TAIGA_TREES);
 		builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.COARSE_PATH_10);
 		if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().fallenLogs()) {
 			builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_BIRCH_AND_SPRUCE_PLACED);

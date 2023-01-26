@@ -328,6 +328,11 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean generateOldGrowthBirchTaiga() {
+		return BIOME_GENERATION.generateOldGrowthBirchTaiga;
+	}
+
+	@Override
 	public boolean generateFlowerField() {
 		return BIOME_GENERATION.generateFlowerField;
 	}

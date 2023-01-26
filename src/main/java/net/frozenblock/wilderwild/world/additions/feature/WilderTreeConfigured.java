@@ -89,6 +89,7 @@ public final class WilderTreeConfigured {
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> SHORT_BIRCH = WilderConfiguredFeatures.register("short_birch", Feature.TREE, new_short_birch().decorators(ImmutableList.of(SHELF_FUNGUS_006)).ignoreVines().build());
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> SHORT_DYING_BIRCH = WilderConfiguredFeatures.register("short_dying_birch", Feature.TREE, new_short_birch().decorators(ImmutableList.of(SHELF_FUNGUS_006, VINES_1_UNDER_260_03)).ignoreVines().build());
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> NEW_SUPER_BIRCH_BEES = WilderConfiguredFeatures.register("new_super_birch_bees", Feature.TREE, new_superBirch().decorators(ImmutableList.of(NEW_BEES)).build());
+	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> NEW_SUPER_BIRCH = WilderConfiguredFeatures.register("new_super_birch", Feature.TREE, new_superBirch().build());
     //OAK
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> NEW_OAK = WilderConfiguredFeatures.register("new_oak", Feature.TREE, new_oak().build());
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> SHORT_OAK = WilderConfiguredFeatures.register("short_oak", Feature.TREE, short_oak().build());

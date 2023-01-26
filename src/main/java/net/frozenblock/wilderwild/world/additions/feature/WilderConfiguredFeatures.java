@@ -166,6 +166,18 @@ public final class WilderConfiguredFeatures {
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.01F),
 							new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.455F)), WilderTreePlaced.NEW_BIRCH_CHECKED));
 
+	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> OLD_GROWTH_BIRCH_TAIGA_TREES =
+			register("old_growth_birch_taiga_trees", Feature.RANDOM_SELECTOR,
+					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_SPRUCE_CHECKED, 0.39F),
+							new WeightedPlacedFeature(WilderTreePlaced.FUNGUS_PINE_CHECKED, 0.086F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_FUNGUS_PINE_CHECKED, 0.02F),
+							new WeightedPlacedFeature(WilderTreePlaced.NEW_SPRUCE_SHORT_CHECKED, 0.155F),
+							new WeightedPlacedFeature(WilderTreePlaced.NEW_SUPER_BIRCH, 0.37F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.01F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.01F),
+							new WeightedPlacedFeature(WilderTreePlaced.NEW_BIRCH_CHECKED, 0.355F),
+							new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.1F)), WilderTreePlaced.NEW_SUPER_BIRCH));
+
     public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> NEW_DARK_FOREST_VEGETATION =
             register("dark_forest_vegetation", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(TreeFeatures.HUGE_BROWN_MUSHROOM), 0.025F),

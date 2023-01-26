@@ -142,6 +142,9 @@ public final class WilderPlacedFeatures {
     public static final Holder<PlacedFeature> BIRCH_TAIGA_TREES = register("birch_taiga_trees",
             WilderConfiguredFeatures.BIRCH_TAIGA_TREES, treePlacement(CountPlacement.of(3)));
 
+	public static final Holder<PlacedFeature> OLD_GROWTH_BIRCH_TAIGA_TREES = register("old_growth_birch_taiga_trees",
+			WilderConfiguredFeatures.OLD_GROWTH_BIRCH_TAIGA_TREES, treePlacement(CountPlacement.of(3)));
+
 	public static final Holder<PlacedFeature> PARCHED_FOREST_TREES = register("parched_forest_trees",
 			WilderConfiguredFeatures.PARCHED_FOREST_TREES, treePlacement(CountPlacement.of(3)));
 

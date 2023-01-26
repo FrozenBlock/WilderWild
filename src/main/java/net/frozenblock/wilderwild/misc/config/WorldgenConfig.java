@@ -36,6 +36,7 @@ public final class WorldgenConfig implements ConfigData {
 		public boolean generateOasis = DefaultWorldgenConfig.BiomeGeneration.GENERATE_OASIS;
 		public boolean generateWarmRiver = DefaultWorldgenConfig.BiomeGeneration.GENERATE_WARM_RIVER;
 		public boolean generateBirchTaiga = DefaultWorldgenConfig.BiomeGeneration.GENERATE_BIRCH_TAIGA;
+		public boolean generateOldGrowthBirchTaiga = DefaultWorldgenConfig.BiomeGeneration.GENERATE_OLD_GROWTH_BIRCH_TAIGA;
 		public boolean generateFlowerField = DefaultWorldgenConfig.BiomeGeneration.GENERATE_FLOWER_FIELD;
 		public boolean generateAridSavanna = DefaultWorldgenConfig.BiomeGeneration.GENERATE_ARID_SAVANNA;
 		public boolean generateParchedForest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_PARCHED_FOREST;
@@ -98,6 +99,12 @@ public final class WorldgenConfig implements ConfigData {
 				.setTooltip(tooltip("generate_birch_taiga"))
 				.requireRestart()
 				.build();
+		var oldGrowthBirchTaiga = entryBuilder.startBooleanToggle(text("generate_old_growth_birch_taiga"), biomes.generateOldGrowthBirchTaiga)
+				.setDefaultValue(DefaultWorldgenConfig.BiomeGeneration.GENERATE_OLD_GROWTH_BIRCH_TAIGA)
+				.setSaveConsumer(newValue -> biomes.generateOldGrowthBirchTaiga = newValue)
+				.setTooltip(tooltip("generate_old_growth_birch_taiga"))
+				.requireRestart()
+				.build();
 		var flowerField = entryBuilder.startBooleanToggle(text("generate_flower_field"), biomes.generateFlowerField)
 				.setDefaultValue(DefaultWorldgenConfig.BiomeGeneration.GENERATE_BIRCH_TAIGA)
 				.setSaveConsumer(newValue -> biomes.generateFlowerField = newValue)
@@ -132,7 +139,7 @@ public final class WorldgenConfig implements ConfigData {
 		var biomeGenerationCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("biome_generation"),
 				false,
 				tooltip("biome_generation"),
-				cypressWetlands, jellyfishCaves, mixedForest, oasis, warmRiver, birchTaiga, flowerField, aridSavanna, parchedForest, aridForest, oldGrowthSnowyTaiga
+				cypressWetlands, jellyfishCaves, mixedForest, oasis, warmRiver, birchTaiga, oldGrowthBirchTaiga, flowerField, aridSavanna, parchedForest, aridForest, oldGrowthSnowyTaiga
 		);
 
         var jungle = entryBuilder.startBooleanToggle(text("modify_jungle_placement"), biomePlacement.modifyJunglePlacement)
