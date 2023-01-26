@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.misc.mod_compat;
 
 import net.frozenblock.lib.integration.api.ModIntegration;
 import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.addBlock;
-import net.frozenblock.wilderwild.misc.mod_compat.clothconfig.AbstractClothConfigIntegration;
 import static net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes.LEAVES;
 
 public class BetterEndIntegration extends ModIntegration {

@@ -218,129 +218,161 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 		return WARDEN.wardenEmergesFromCommand;
 	}
 
+	@Override
 	public boolean wardenEmergesFromEgg() {
 		return WARDEN.wardenEmergesFromEgg;
 	}
 
+	@Override
 	public boolean wardenSwimAnimation() {
 		return WARDEN.wardenSwimAnimation;
 	}
 
+	@Override
 	public boolean wardenBedrockSniff() {
 		return WARDEN.wardenBedrockSniff;
 	}
 
 	// ITEM
 
+	@Override
 	public boolean hornCanSummonWarden() {
 		return ANCIENT_HORN.ancientHornCanSummonWarden;
 	}
 
+	@Override
 	public int hornLifespan() {
 		return ANCIENT_HORN.ancientHornLifespan;
 	}
 
-	public boolean cloudMovement() {
-		return MISC.cloudMovement;
-	}
-
+	@Override
 	public int hornMobDamage() {
 		return ANCIENT_HORN.ancientHornMobDamage;
 	}
 
+	@Override
 	public int hornPlayerDamage() {
 		return ANCIENT_HORN.ancientHornPlayerDamage;
 	}
 
+	@Override
 	public boolean hornShattersGlass() {
 		return ANCIENT_HORN.ancientHornShattersGlass;
 	}
 
+	@Override
+	public float hornSizeMultiplier() {
+		return ANCIENT_HORN.ancientHornSizeMultiplier;
+	}
+
+	@Override
 	public boolean projectileBreakParticles() {
 		return ITEM.projectileBreakParticles;
 	}
 
 	// WORLDGEN
 
+	@Override
 	public boolean betaBeaches() {
 		return WORLDGEN.betaBeaches;
 	}
 
+	@Override
 	public boolean modifyJunglePlacement() {
 		return BIOME_PLACEMENT.modifyJunglePlacement;
 	}
 
+	@Override
 	public boolean modifySwampPlacement() {
 		return BIOME_PLACEMENT.modifySwampPlacement;
 	}
 
+	@Override
 	public boolean modifyMangroveSwampPlacement() {
 		return BIOME_PLACEMENT.modifyMangroveSwampPlacement;
 	}
 
+	@Override
 	public boolean modifyWindsweptSavannaPlacement() {
 		return BIOME_PLACEMENT.modifyWindsweptSavannaPlacement;
 	}
 
+	@Override
 	public boolean generateCypressWetlands() {
 		return BIOME_GENERATION.generateCypressWetlands;
 	}
 
+	@Override
 	public boolean generateJellyfishCaves() {
 		return BIOME_GENERATION.generateJellyfishCaves;
 	}
 
+	@Override
 	public boolean generateMixedForest() {
 		return BIOME_GENERATION.generateMixedForest;
 	}
 
+	@Override
 	public boolean generateOasis() {
 		return BIOME_GENERATION.generateOasis;
 	}
 
+	@Override
 	public boolean generateWarmRiver() {
 		return BIOME_GENERATION.generateWarmRiver;
 	}
 
+	@Override
 	public boolean generateBirchTaiga() {
 		return BIOME_GENERATION.generateBirchTaiga;
 	}
 
+	@Override
 	public boolean generateFlowerField() {
 		return BIOME_GENERATION.generateFlowerField;
 	}
 
+	@Override
 	public boolean generateAridSavanna() {
 		return BIOME_GENERATION.generateAridSavanna;
 	}
 
+	@Override
 	public boolean generateParchedForest() {
 		return BIOME_GENERATION.generateParchedForest;
 	}
 
+	@Override
 	public boolean generateAridForest() {
 		return BIOME_GENERATION.generateAridForest;
 	}
+
+	@Override
 	public boolean generateOldGrowthSnowyTaiga() {
 		return BIOME_GENERATION.generateOldGrowthSnowyTaiga;
 	}
 
+	@Override
 	public boolean dyingTrees() {
 		return WORLDGEN.dyingTrees;
 	}
 
+	@Override
 	public boolean fallenLogs() {
 		return WORLDGEN.fallenLogs;
 	}
 
+	@Override
 	public boolean wildTrees() {
 		return WORLDGEN.wilderWildTreeGen;
 	}
 
+	@Override
 	public boolean wildGrass() {
 		return WORLDGEN.wilderWildGrassGen;
 	}
 
+	@Override
 	public boolean cypressWitchHuts() {
 		return WORLDGEN.cypressWitchHuts;
 	}
@@ -370,5 +402,10 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	@Override
 	public boolean flowerForestMusic() {
 		return BIOME_MUSIC.flowerForestMusic;
+	}
+
+	@Override
+	public boolean cloudMovement() {
+		return MISC.cloudMovement;
 	}
 }

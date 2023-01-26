@@ -183,10 +183,6 @@ public class AbstractClothConfigIntegration extends ModIntegration {
 		return DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_LIFESPAN;
 	}
 
-	public boolean cloudMovement() {
-		return DefaultMiscConfig.CLOUD_MOVEMENT;
-	}
-
 	public int hornMobDamage() {
 		return DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_MOB_DAMAGE;
 	}
@@ -197,6 +193,10 @@ public class AbstractClothConfigIntegration extends ModIntegration {
 
 	public boolean hornShattersGlass() {
 		return DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_SHATTERS_GLASS;
+	}
+
+	public float hornSizeMultiplier() {
+		return DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_SIZE_MULTIPLIER;
 	}
 
 	public boolean projectileBreakParticles() {
@@ -309,5 +309,9 @@ public class AbstractClothConfigIntegration extends ModIntegration {
 
 	public boolean flowerForestMusic() {
 		return DefaultMiscConfig.BiomeMusicConfig.FLOWER_FOREST_MUSIC;
+	}
+
+	public boolean cloudMovement() {
+		return DefaultMiscConfig.CLOUD_MOVEMENT;
 	}
 }

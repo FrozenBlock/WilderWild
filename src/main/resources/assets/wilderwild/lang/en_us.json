@@ -373,7 +373,7 @@
   "tooltip.wilderwild.ancient_horn_mob_damage": "Amount of damage the Ancient Horn will deal to non-player entities",
   "tooltip.wilderwild.ancient_horn_player_damage": "Amount of damage the Ancient Horn will deal to players",
   "tooltip.wilderwild.ancient_horn_shatters_glass": "Whether or not glass blocks should break when shot with an Ancient Horn",
-  "tooltip.wilderwild.ancient_horn_size_multiplier": "Amount an Ancient Horn Projectile will increase in size by every tick.\nRecommended: 0.01",
+  "tooltip.wilderwild.ancient_horn_size_multiplier": "How much an Ancient Horn Projectile will increase in size by every tick.\nRecommended: 0.01",
   "tooltip.wilderwild.anger_loop_sound": "Whether or not Endermen will start an anger sound loop when their target is set.",
   "tooltip.wilderwild.beta_beaches": "Enables Beaches near water that generate independent of the biome,\nmirroring the beaches that existed in Minecraft Beta",
   "tooltip.wilderwild.billboard_tendrils": "Whether or not Hanging Tendrils should use a billboard model\n(Flat plane that points at the camera)",
