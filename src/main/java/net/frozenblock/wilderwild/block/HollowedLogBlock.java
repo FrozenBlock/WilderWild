@@ -47,22 +47,29 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false).setValue(AXIS, Direction.Axis.Y));
     }
 
+	private static final float hollowedAmount = 0.71875F;
+	private static final float edgeAmount = 0.140625F;
+	private static final float crawlHeight = edgeAmount + hollowedAmount;
+
 	@Override
 	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		Direction direction = player.getMotionDirection();
 		Direction hitDirection = hit.getDirection();
 		Direction.Axis axis = state.getValue(BlockStateProperties.AXIS);
+		double crawlingHeight = player.getDimensions(Pose.SWIMMING).height;
+		double playerY = player.getY();
+
 		if (player.isShiftKeyDown()
 				&& player.getPose() != Pose.SWIMMING
 				&& !player.isPassenger()
 				&& direction.getAxis() != Direction.Axis.Y
 				&& direction.getAxis() == axis
-				&& player.getBbWidth() <= 0.71875F
-				&& player.getBbHeight() >= 0.71875F
+				&& player.getBbWidth() <= hollowedAmount
+				&& player.getBbHeight() >= hollowedAmount
 				&& player.blockPosition().relative(direction).equals(pos)
 				&& player.position().distanceTo(new Vec3(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5)) <= (0.5 + player.getBbWidth())
-				&& player.getY() >= pos.getY()
-				&& player.getY() <= pos.getY() + 0.5
+				&& playerY >= pos.getY()
+				&& playerY + crawlingHeight <= pos.getY() + crawlHeight
 				&& hitDirection.getAxis() == axis
 				&& hitDirection.getOpposite() == direction
 		) {
