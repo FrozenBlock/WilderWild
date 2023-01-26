@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
-import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
+import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.projectile.Snowball;
@@ -16,7 +16,7 @@ public class SnowballMixin {
     @Inject(method = "onHit", at = @At("HEAD"))
 	public void onHit(HitResult result, CallbackInfo info) {
 		Snowball snowball = Snowball.class.cast(this);
-		if (ClothConfigInteractionHandler.snowballLandingSounds()) {
+		if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().snowballLandingSounds()) {
 			snowball.level.playSound(null, snowball.getX(), snowball.getY(), snowball.getZ(), RegisterSounds.ITEM_SNOWBALL_LAND, SoundSource.BLOCKS, 0.3F, 0.85F + (snowball.level.random.nextFloat() * 0.2F));
 		}
 	}

@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
-import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
+import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.projectile.ThrownEgg;
@@ -16,7 +16,7 @@ public class ThrownEggMixin {
     @Inject(method = "onHit", at = @At("HEAD"))
 	public void onHit(HitResult result, CallbackInfo info) {
 		ThrownEgg egg = ThrownEgg.class.cast(this);
-		if (ClothConfigInteractionHandler.eggLandingSounds()) {
+		if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().eggLandingSounds()) {
 			egg.level.playSound(null, egg.getX(), egg.getY(), egg.getZ(), RegisterSounds.ITEM_EGG_LAND, SoundSource.BLOCKS, 0.5F, 0.85F + (egg.level.random.nextFloat() * 0.2F));
 		}
 	}

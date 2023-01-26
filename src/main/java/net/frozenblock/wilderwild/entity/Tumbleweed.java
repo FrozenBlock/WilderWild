@@ -4,7 +4,7 @@ import java.util.List;
 import net.frozenblock.lib.tag.api.TagUtils;
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
-import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
+import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
@@ -280,7 +280,7 @@ public class Tumbleweed extends Mob {
 
 	@Override
 	public boolean canBeLeashed(@NotNull Player player) {
-		return ClothConfigInteractionHandler.leashedTumbleweed();
+		return WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().leashedTumbleweed();
 	}
 
 	@Override

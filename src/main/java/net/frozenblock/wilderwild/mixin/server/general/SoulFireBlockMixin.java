@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
-import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
+import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
@@ -22,7 +22,7 @@ public class SoulFireBlockMixin extends BaseFireBlock {
 
     @Override
     public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-        if (ClothConfigInteractionHandler.soulFireSounds()) {
+        if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().soulFireSounds()) {
             if (random.nextInt(48) == 0) {
                 level.playLocalSound(
                         (double) pos.getX() + 0.5,

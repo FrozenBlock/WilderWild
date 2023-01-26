@@ -14,7 +14,6 @@ import net.frozenblock.lib.mobcategory.impl.FrozenMobCategory;
 import net.frozenblock.wilderwild.block.entity.PalmCrownBlockEntity;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.misc.datafixer.NematocystStateFix;
 import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
@@ -136,9 +135,9 @@ public final class WilderWild extends FrozenMobCategoryEntrypoint implements Mod
 
 	@Override
 	public void newCategories(ArrayList<FrozenMobCategory> context) {
-		context.add(FrozenMobCategoryEntrypoint.createCategory(WilderSharedConstants.MOD_ID, "fireflies", ClothConfigInteractionHandler.fireflySpawnCap(), true, false, 80));
-		context.add(FrozenMobCategoryEntrypoint.createCategory(WilderSharedConstants.MOD_ID, "jellyfish", ClothConfigInteractionHandler.jellyfishSpawnCap(), true, false, 64));
-		context.add(FrozenMobCategoryEntrypoint.createCategory(WilderSharedConstants.MOD_ID, "tumbleweed", ClothConfigInteractionHandler.tumbleweedSpawnCap(), true, false, 64));
+		context.add(FrozenMobCategoryEntrypoint.createCategory(WilderSharedConstants.MOD_ID, "fireflies", WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().fireflySpawnCap(), true, false, 80));
+		context.add(FrozenMobCategoryEntrypoint.createCategory(WilderSharedConstants.MOD_ID, "jellyfish", WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().jellyfishSpawnCap(), true, false, 64));
+		context.add(FrozenMobCategoryEntrypoint.createCategory(WilderSharedConstants.MOD_ID, "tumbleweed", WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().tumbleweedSpawnCap(), true, false, 64));
 	}
 
     private static void applyDataFixes(final @NotNull ModContainer mod) {

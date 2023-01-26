@@ -3,8 +3,8 @@ package net.frozenblock.wilderwild.mixin.server.general;
 import net.frozenblock.lib.sound.impl.EntityLoopingSoundInterface;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.client.ClientMethodInteractionHandler;
-import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.misc.interfaces.WilderEnderman;
+import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.Registry;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -52,7 +52,7 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
 	@Inject(method = "playStareSound", at = @At(value = "HEAD"), cancellable = true)
     public void playStareSound(CallbackInfo info) {
         //NOTE: This only runs on the client.
-		if (ClothConfigInteractionHandler.movingStareSound()) {
+		if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().movingStareSound()) {
 			info.cancel();
 			if (this.tickCount >= this.lastStareSound + 400) {
 				this.lastStareSound = this.tickCount;
@@ -79,7 +79,7 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
 	@Unique
 	@Override
 	public void createAngerLoop() {
-		if (ClothConfigInteractionHandler.angerLoopSound()) {
+		if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().angerLoopSound()) {
 			EnderMan enderMan = EnderMan.class.cast(this);
 			if (enderMan.level.isClientSide && this.wilderWild$canPlayLoopingSound) {
 				((EntityLoopingSoundInterface) enderMan).addSound(Registry.SOUND_EVENT.getKey(RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP), SoundSource.HOSTILE, 1.0F, 0.9F, WilderSharedConstants.id("enderman_anger"));

@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.mixin.client.shrieker_gargling;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
+import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.LevelRenderer;
@@ -28,7 +28,7 @@ public class LevelRendererMixin {
 
     @Inject(method = "levelEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;playLocalSound(DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FFZ)V", ordinal = 0), cancellable = true)
     private void levelEvent(int eventId, BlockPos pos, int data, CallbackInfo ci) {
-        if (ClothConfigInteractionHandler.shriekerGargling()) {
+        if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().shriekerGargling()) {
             assert this.level != null;
             if (this.level.getBlockState(pos).getValue(BlockStateProperties.WATERLOGGED) || this.level.getBlockState(pos.above()).getBlock() == Blocks.WATER || this.level.getFluidState(pos.above()).is(FluidTags.WATER)) {
                 this.level

@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.world.generation.conditionsource;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
+import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 
@@ -37,7 +37,7 @@ public final class BetaBeachConditionSource implements SurfaceRules.ConditionSou
 			}
 
 			protected boolean compute() {
-				return ClothConfigInteractionHandler.betaBeaches();
+				return WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().betaBeaches();
 			}
 		}
 

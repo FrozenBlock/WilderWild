@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
-import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.misc.interfaces.SculkSensorTickInterface;
+import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -67,7 +67,7 @@ public abstract class SculkSensorBlockMixin extends BaseEntityBlock implements S
 
     @Inject(at = @At("HEAD"), method = "getRenderShape", cancellable = true)
     public void getRenderShape(BlockState state, CallbackInfoReturnable<RenderShape> info) {
-        info.setReturnValue(ClothConfigInteractionHandler.mcLiveSensorTendrils() ? RenderShape.INVISIBLE : RenderShape.MODEL);
+        info.setReturnValue(WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().mcLiveSensorTendrils() ? RenderShape.INVISIBLE : RenderShape.MODEL);
     }
 
 }

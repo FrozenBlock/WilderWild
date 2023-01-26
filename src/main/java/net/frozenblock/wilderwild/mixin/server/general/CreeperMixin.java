@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
 import java.util.Collection;
-import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
+import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.monster.Creeper;
@@ -16,7 +16,7 @@ public final class CreeperMixin {
     public void spawnLingeringCloud(CallbackInfo info) {
 		Creeper creeper = Creeper.class.cast(this);
 		Collection<MobEffectInstance> collection = creeper.getActiveEffects();
-		if (ClothConfigInteractionHandler.potionLandingSounds()) {
+		if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().potionLandingSounds()) {
 			if (!collection.isEmpty()) {
 				creeper.playSound(RegisterSounds.ITEM_POTION_MAGIC, 1.0F, 1.0F + (creeper.level.random.nextFloat() * 0.2F));
 				creeper.playSound(RegisterSounds.ITEM_POTION_LINGERING, 1.0F, 1.0F + (creeper.level.random.nextFloat() * 0.2F));

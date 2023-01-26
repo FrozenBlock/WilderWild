@@ -3,7 +3,7 @@ package net.frozenblock.wilderwild.misc.mod_compat.terrablender;
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
-import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
+import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
 import net.minecraft.core.Registry;
@@ -24,7 +24,7 @@ public class WilderOverworldRegion extends Region {
 	public void addBiomes(Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper) {
 		this.addModifiedVanillaOverworldBiomes(mapper, builder -> {
 
-			if (ClothConfigInteractionHandler.generateMixedForest()) {
+			if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().generateMixedForest()) {
 				OverworldBiomeBuilderParameters.points(Biomes.TAIGA).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -41,7 +41,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (ClothConfigInteractionHandler.generateBirchTaiga()) {
+			if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().generateBirchTaiga()) {
 				OverworldBiomeBuilderParameters.points(Biomes.BIRCH_FOREST).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -58,7 +58,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (ClothConfigInteractionHandler.generateFlowerField()) {
+			if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().generateFlowerField()) {
 				OverworldBiomeBuilderParameters.points(Biomes.FLOWER_FOREST).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -89,7 +89,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (ClothConfigInteractionHandler.generateAridSavanna()) {
+			if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().generateAridSavanna()) {
 				OverworldBiomeBuilderParameters.points(Biomes.SAVANNA).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -106,7 +106,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (ClothConfigInteractionHandler.generateParchedForest()) {
+			if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().generateParchedForest()) {
 				OverworldBiomeBuilderParameters.points(Biomes.FOREST).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -123,7 +123,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (ClothConfigInteractionHandler.generateAridForest()) {
+			if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().generateAridForest()) {
 				OverworldBiomeBuilderParameters.points(Biomes.FOREST).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -140,7 +140,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (ClothConfigInteractionHandler.generateOldGrowthSnowyTaiga()) {
+			if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().generateOldGrowthSnowyTaiga()) {
 				OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -157,7 +157,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (ClothConfigInteractionHandler.generateCypressWetlands()) {
+			if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().generateCypressWetlands()) {
 				OverworldBiomeBuilderParameters.points(Biomes.SWAMP).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -174,7 +174,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (ClothConfigInteractionHandler.generateCypressWetlands()) {
+			if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().generateCypressWetlands()) {
 				OverworldBiomeBuilderParameters.points(Biomes.MANGROVE_SWAMP).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -191,7 +191,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (ClothConfigInteractionHandler.generateJellyfishCaves()) {
+			if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().generateJellyfishCaves()) {
 				OverworldBiomeBuilderParameters.points(Biomes.DRIPSTONE_CAVES).forEach(point -> {
 					builder.replaceParameter(point,
 							WilderSharedWorldgen.semiDeepParameters(
@@ -207,7 +207,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (ClothConfigInteractionHandler.generateOasis()) {
+			if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().generateOasis()) {
 				OverworldBiomeBuilderParameters.points(Biomes.DESERT).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -224,7 +224,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (ClothConfigInteractionHandler.generateWarmRiver()) {
+			if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().generateWarmRiver()) {
 				OverworldBiomeBuilderParameters.points(Biomes.RIVER).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -241,7 +241,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (ClothConfigInteractionHandler.modifyMangroveSwampPlacement()) {
+			if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().modifyMangroveSwampPlacement()) {
 				OverworldBiomeBuilderParameters.points(Biomes.MANGROVE_SWAMP).forEach(point ->
 						builder.replaceParameter(point,
 								new Climate.ParameterPoint(
@@ -257,7 +257,7 @@ public class WilderOverworldRegion extends Region {
 				);
 			}
 
-			if (ClothConfigInteractionHandler.modifySwampPlacement()) {
+			if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().modifySwampPlacement()) {
 				OverworldBiomeBuilderParameters.points(Biomes.SWAMP).forEach(point ->
 						builder.replaceParameter(point,
 								new Climate.ParameterPoint(

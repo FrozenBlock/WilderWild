@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
-import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
+import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -21,7 +21,7 @@ public class ThrownEnderpearlMixin {
 	public void onHit(HitResult result, CallbackInfo info) {
 		ThrownEnderpearl pearl = ThrownEnderpearl.class.cast(this);
 
-		if (ClothConfigInteractionHandler.enderPearlLandingSounds()) {
+		if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().enderPearlLandingSounds()) {
 			if (!pearl.level.isClientSide) {
 				Entity owner = pearl.getOwner();
 

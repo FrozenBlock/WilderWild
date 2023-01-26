@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
-import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
+import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.Level;
@@ -19,7 +19,7 @@ public abstract class MobMixin {
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void addUnpassableRail(EntityType<? extends Mob> entityType, Level level, CallbackInfo ci) {
-        if (ClothConfigInteractionHandler.unpassableRail()) {
+        if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().unpassableRail()) {
             this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
         }
     }

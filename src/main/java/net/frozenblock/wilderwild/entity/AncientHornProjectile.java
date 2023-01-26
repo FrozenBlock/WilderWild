@@ -12,7 +12,6 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import static net.frozenblock.wilderwild.item.AncientHorn.*;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
@@ -127,7 +126,7 @@ public class AncientHornProjectile extends AbstractArrow {
 			--this.bubbles;
 			EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.position(), AdvancedMath.random().nextDouble() > 0.7 ? 1 : 0, 20 + AdvancedMath.random().nextInt(40), 0.05, server.random.nextIntBetweenInclusive(1, 3));
 		}
-		if (this.aliveTicks > ClothConfigInteractionHandler.hornLifespan()) {
+		if (this.aliveTicks > WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().hornLifespan()) {
 			this.remove(RemovalReason.DISCARDED);
 		}
 		++this.aliveTicks;
@@ -266,12 +265,10 @@ public class AncientHornProjectile extends AbstractArrow {
         this.inBlockState = this.level.getBlockState(result.getBlockPos());
         BlockState blockState = this.level.getBlockState(result.getBlockPos());
         Entity owner = this.getOwner();
-		if (WilderModIntegrations.SIMPLE_COPPER_PIPES_INTEGRATION.get().isPresent()) {
-			if (WilderModIntegrations.SIMPLE_COPPER_PIPES_INTEGRATION.get().get().isCopperPipe(blockState) && owner != null) {
-				if (result.getDirection() == blockState.getValue(BlockStateProperties.FACING).getOpposite() && this.level instanceof ServerLevel server) {
-					if (WilderModIntegrations.SIMPLE_COPPER_PIPES_INTEGRATION.get().get().addHornNbtToBlock(server, result.getBlockPos(), owner)) {
-						this.discard();
-					}
+		if (WilderModIntegrations.SIMPLE_COPPER_PIPES_INTEGRATION.getIntegration().isCopperPipe(blockState) && owner != null) {
+			if (result.getDirection() == blockState.getValue(BlockStateProperties.FACING).getOpposite() && this.level instanceof ServerLevel server) {
+				if (WilderModIntegrations.SIMPLE_COPPER_PIPES_INTEGRATION.getIntegration().addHornNbtToBlock(server, result.getBlockPos(), owner)) {
+					this.discard();
 				}
 			}
 		}
@@ -286,7 +283,7 @@ public class AncientHornProjectile extends AbstractArrow {
         this.setCritArrow(false);
         if (this.level instanceof ServerLevel server && canInteract()) {
             if (blockState.getBlock() == Blocks.SCULK_SHRIEKER) {
-                if (ClothConfigInteractionHandler.hornCanSummonWarden()) {
+                if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().hornCanSummonWarden()) {
                     BlockPos pos = result.getBlockPos();
                     WilderSharedConstants.log(Blocks.SCULK_SHRIEKER, pos, "Horn Projectile Touched", WilderSharedConstants.UNSTABLE_LOGGING);
                     if (blockState.getValue(RegisterProperties.SOULS_TAKEN) < 2 && !blockState.getValue(SculkShriekerBlock.SHRIEKING)) {
@@ -364,7 +361,7 @@ public class AncientHornProjectile extends AbstractArrow {
 				if (insideState.getBlock() instanceof BellBlock bell) { //BELL INTERACTION
 					bell.onProjectileHit(server, insideState, this.level.clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
 				} else if (insideState.getBlock() instanceof AbstractGlassBlock || insideState.is(ConventionalBlockTags.GLASS_BLOCKS) || insideState.is(ConventionalBlockTags.GLASS_PANES)) {
-					if (ClothConfigInteractionHandler.hornShattersGlass()) { //GLASS INTERACTION
+					if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().hornShattersGlass()) { //GLASS INTERACTION
 						insideState.onProjectileHit(this.level, insideState, this.level.clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
 						this.level.destroyBlock(this.blockPosition(), false, this);
 					}
@@ -470,7 +467,7 @@ public class AncientHornProjectile extends AbstractArrow {
 	}
 
 	public int getDamage(@Nullable Entity entity) {
-		return entity instanceof Player ? ClothConfigInteractionHandler.hornPlayerDamage() : ClothConfigInteractionHandler.hornMobDamage();
+		return entity instanceof Player ? WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().hornPlayerDamage() : WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().hornMobDamage();
 	}
 
 	@Override

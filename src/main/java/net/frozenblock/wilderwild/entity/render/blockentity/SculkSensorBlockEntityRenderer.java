@@ -6,8 +6,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.misc.interfaces.SculkSensorTickInterface;
+import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
@@ -50,7 +50,7 @@ public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> im
     }
 
     public void render(@NotNull T entity, float tickDelta, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
-        if (ClothConfigInteractionHandler.mcLiveSensorTendrils()) {
+        if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().mcLiveSensorTendrils()) {
             SculkSensorTickInterface tickInterface = ((SculkSensorTickInterface) entity);
             VertexConsumer vertexConsumer = vertexConsumers.getBuffer(SENSOR_LAYER);
             if (tickInterface.isActive()) {

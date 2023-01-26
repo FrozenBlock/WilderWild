@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
-import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
+import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -18,7 +18,7 @@ public class AbstractArrowMixin {
 
     @Inject(method = "onHitBlock", at = @At("HEAD"))
     public void sendProjectileBreakParticles(BlockHitResult blockHitResult, CallbackInfo info) {
-        if (ClothConfigInteractionHandler.projectileBreakParticles()) {
+        if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().projectileBreakParticles()) {
             AbstractArrow arrow = AbstractArrow.class.cast(this);
             Vec3 speed = arrow.getDeltaMovement();
             if (!arrow.level.isClientSide) {

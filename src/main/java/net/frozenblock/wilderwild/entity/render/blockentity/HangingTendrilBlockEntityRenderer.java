@@ -6,7 +6,7 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.lib.block.api.entity.BillboardBlockEntityRenderer;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
-import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
+import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -26,7 +26,7 @@ public class HangingTendrilBlockEntityRenderer<T extends HangingTendrilBlockEnti
     }
 
     public void render(@NotNull T entity, float tickDelta, @NotNull PoseStack poseStack, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
-        if (ClothConfigInteractionHandler.billboardTendrils()) {
+        if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().billboardTendrils()) {
 			super.render(entity, tickDelta, poseStack, vertexConsumers, light, overlay);
 		}
     }

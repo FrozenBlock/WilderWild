@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
-import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
+import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
@@ -168,7 +168,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	@Override
 	@NotNull
 	public RenderShape getRenderShape(@NotNull BlockState state) {
-		return ClothConfigInteractionHandler.billboardTendrils() ? RenderShape.INVISIBLE : RenderShape.MODEL;
+		return WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().billboardTendrils() ? RenderShape.INVISIBLE : RenderShape.MODEL;
 	}
 
 	@Override

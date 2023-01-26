@@ -34,20 +34,20 @@ public final class EntityConfig implements ConfigData {
 	@ConfigEntry.Gui.CollapsibleObject
 	public final WardenConfig warden = new WardenConfig();
 
-	protected static class AllayConfig {
+	public static class AllayConfig {
 		public boolean keyframeAllayDance = DefaultEntityConfig.AllayConfig.KEYFRAME_ALLAY_DANCE;
 	}
 
-	protected static class EnderManConfig {
+	public static class EnderManConfig {
 		public boolean angerLoopSound = DefaultEntityConfig.EnderManConfig.ANGER_LOOP_SOUND;
 		public boolean movingStareSound = DefaultEntityConfig.EnderManConfig.MOVING_STARE_SOUND;
 	}
 
-	protected static class FireflyConfig {
+	public static class FireflyConfig {
 		public int fireflySpawnCap = DefaultEntityConfig.FireflyConfig.FIREFLY_SPAWN_CAP;
 	}
 
-	protected static class JellyfishConfig {
+	public static class JellyfishConfig {
 		public int jellyfishSpawnCap = DefaultEntityConfig.JellyfishConfig.JELLYFISH_SPAWN_CAP;
 	}
 
@@ -56,7 +56,7 @@ public final class EntityConfig implements ConfigData {
 		public boolean leashedTumbleweed = DefaultEntityConfig.TumbleweedConfig.LEASHED_TUMBLEWEED;
 	}
 
-	protected static class WardenConfig {
+	public static class WardenConfig {
 		public boolean wardenAttacksImmediately = DefaultEntityConfig.WardenConfig.WARDEN_ATTACKS_IMMEDIATELY;
 		public boolean wardenCustomTendrils = DefaultEntityConfig.WardenConfig.WARDEN_CUSTOM_TENDRILS;
 		public boolean wardenBedrockSniff = DefaultEntityConfig.WardenConfig.WARDEN_BEDROCK_SNIFF;

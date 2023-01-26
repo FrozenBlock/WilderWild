@@ -13,7 +13,6 @@ import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOve
 import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
 import net.frozenblock.wilderwild.misc.interfaces.WilderEnderman;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import static net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes.*;
@@ -103,22 +102,22 @@ public class FrozenLibIntegration extends ModIntegration {
         StructurePoolElementIdReplacements.RESOURCE_LOCATION_REPLACEMENTS.put(WilderSharedConstants.vanillaId("ancient_city/structures/tall_ruin_4"), WilderSharedConstants.id("ancient_city/structures/tall_ruin_4"));
         StructurePoolElementIdReplacements.RESOURCE_LOCATION_REPLACEMENTS.put(WilderSharedConstants.vanillaId("ancient_city/structures/ice_box_1"), WilderSharedConstants.id("ancient_city/structures/ice_box_1"));
 
-        addBlocks(new Block[]{CACTUS, PRICKLY_PEAR_CACTUS}, SoundType.SWEET_BERRY_BUSH, ClothConfigInteractionHandler::cactusSounds);
-        addBlock(CLAY, CLAY_BLOCK, ClothConfigInteractionHandler::claySounds);
-        addBlock(COARSE_DIRT, COARSEDIRT, ClothConfigInteractionHandler::coarseDirtSounds);
-        addBlock(COBWEB, WEB, ClothConfigInteractionHandler::cobwebSounds);
-        addBlock(DEAD_BUSH, SoundType.NETHER_SPROUTS, ClothConfigInteractionHandler::deadBushSounds);
-        addBlocks(new Block[]{DANDELION, POPPY, BLUE_ORCHID, ALLIUM, AZURE_BLUET, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, CORNFLOWER, LILY_OF_THE_VALLEY, SEEDING_DANDELION, CARNATION, GLORY_OF_THE_SNOW}, FLOWER, ClothConfigInteractionHandler::flowerSounds);
-        addBlocks(new Block[]{FROSTED_ICE}, ICE_BLOCKS, ClothConfigInteractionHandler::frostedIceSounds);
-        addBlock(GRAVEL, GRAVELSOUNDS, ClothConfigInteractionHandler::gravelSounds);
-        addBlockTag(BlockTags.LEAVES, LEAVES, ClothConfigInteractionHandler::leafSounds);
-        addBlocks(new Block[]{ACACIA_LEAVES, BIRCH_LEAVES, DARK_OAK_LEAVES, JUNGLE_LEAVES, MANGROVE_LEAVES, OAK_LEAVES, SPRUCE_LEAVES, BAOBAB_LEAVES, CYPRESS_LEAVES, PALM_LEAVES}, LEAVES, ClothConfigInteractionHandler::leafSounds);
-        addBlocks(new Block[]{LILY_PAD, FLOWERING_LILY_PAD}, LILYPAD, ClothConfigInteractionHandler::lilyPadSounds);
-        addBlocks(new Block[]{RED_MUSHROOM, BROWN_MUSHROOM}, MUSHROOM, ClothConfigInteractionHandler::mushroomBlockSounds);
-        addBlocks(new Block[]{RED_MUSHROOM_BLOCK, BROWN_MUSHROOM_BLOCK, MUSHROOM_STEM}, MUSHROOM_BLOCK, ClothConfigInteractionHandler::mushroomBlockSounds);
-        addBlock(PODZOL, SoundType.ROOTED_DIRT, ClothConfigInteractionHandler::podzolSounds);
-        addBlock(REINFORCED_DEEPSLATE, REINFORCEDDEEPSLATE, ClothConfigInteractionHandler::reinforcedDeepslateSounds);
-        addBlock(SUGAR_CANE, SUGARCANE, ClothConfigInteractionHandler::sugarCaneSounds);
-        addBlock(WITHER_ROSE, SoundType.SWEET_BERRY_BUSH, ClothConfigInteractionHandler::witherRoseSounds);
+        addBlocks(new Block[]{CACTUS, PRICKLY_PEAR_CACTUS}, SoundType.SWEET_BERRY_BUSH, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::cactusSounds);
+        addBlock(CLAY, CLAY_BLOCK, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::claySounds);
+        addBlock(COARSE_DIRT, COARSEDIRT, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::coarseDirtSounds);
+        addBlock(COBWEB, WEB, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::cobwebSounds);
+        addBlock(DEAD_BUSH, SoundType.NETHER_SPROUTS, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::deadBushSounds);
+        addBlocks(new Block[]{DANDELION, POPPY, BLUE_ORCHID, ALLIUM, AZURE_BLUET, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, CORNFLOWER, LILY_OF_THE_VALLEY, SEEDING_DANDELION, CARNATION, GLORY_OF_THE_SNOW}, FLOWER, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::flowerSounds);
+        addBlocks(new Block[]{FROSTED_ICE}, ICE_BLOCKS, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::frostedIceSounds);
+        addBlock(GRAVEL, GRAVELSOUNDS, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::gravelSounds);
+        addBlockTag(BlockTags.LEAVES, LEAVES, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::leafSounds);
+        addBlocks(new Block[]{ACACIA_LEAVES, BIRCH_LEAVES, DARK_OAK_LEAVES, JUNGLE_LEAVES, MANGROVE_LEAVES, OAK_LEAVES, SPRUCE_LEAVES, BAOBAB_LEAVES, CYPRESS_LEAVES, PALM_LEAVES}, LEAVES, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::leafSounds);
+        addBlocks(new Block[]{LILY_PAD, FLOWERING_LILY_PAD}, LILYPAD, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::lilyPadSounds);
+        addBlocks(new Block[]{RED_MUSHROOM, BROWN_MUSHROOM}, MUSHROOM, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::mushroomBlockSounds);
+        addBlocks(new Block[]{RED_MUSHROOM_BLOCK, BROWN_MUSHROOM_BLOCK, MUSHROOM_STEM}, MUSHROOM_BLOCK, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::mushroomBlockSounds);
+        addBlock(PODZOL, SoundType.ROOTED_DIRT, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::podzolSounds);
+        addBlock(REINFORCED_DEEPSLATE, REINFORCEDDEEPSLATE, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::reinforcedDeepslateSounds);
+        addBlock(SUGAR_CANE, SUGARCANE, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::sugarCaneSounds);
+        addBlock(WITHER_ROSE, SoundType.SWEET_BERRY_BUSH, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::witherRoseSounds);
     }
 }

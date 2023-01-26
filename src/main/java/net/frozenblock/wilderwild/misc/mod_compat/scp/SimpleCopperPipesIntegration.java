@@ -1,8 +1,7 @@
-package net.frozenblock.wilderwild.misc.mod_compat;
+package net.frozenblock.wilderwild.misc.mod_compat.scp;
 
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.FrozenMain;
-import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
@@ -38,13 +37,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 
-public class SimpleCopperPipesIntegration extends ModIntegration {
+public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesIntegration {
     public SimpleCopperPipesIntegration() {
-        super("copper_pipe");
+        super();
     }
 
 	public static final ResourceLocation HORN = WilderSharedConstants.id("ancient_horn");
 
+	@Override
 	public void init() {
 		WilderSharedConstants.log("WILDERWILD AND COPPER PIPES SECRET LOG MESSAGE UNLOCKED!!!", true);
 		RegisterPipeNbtMethods.register(HORN, (nbt, level, pos, blockState, copperPipeEntity) -> {
@@ -216,6 +216,7 @@ public class SimpleCopperPipesIntegration extends ModIntegration {
 
 	}
 
+	@Override
 	public boolean addHornNbtToBlock(ServerLevel level, BlockPos pos, Entity owner) {
 		BlockEntity entity = level.getBlockEntity(pos);
 		if (entity != null) {
@@ -228,6 +229,7 @@ public class SimpleCopperPipesIntegration extends ModIntegration {
 		return false;
 	}
 
+	@Override
 	public boolean isCopperPipe(BlockState state) {
 		if (FrozenBools.HAS_SIMPLE_COPPER_PIPES) {
 			return state.getBlock() instanceof CopperPipe;
