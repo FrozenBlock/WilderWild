@@ -209,9 +209,9 @@ public class AncientHornProjectile extends AbstractArrow {
 			}
 		}
 		float divider = boundingBoxMultiplier + 1F;
-		double x = this.getX() + (deltaX / divider);
-		double y = this.getY() + (deltaY / divider);
-		double z = this.getZ() + (deltaZ / divider);
+		double x = this.getX() + (deltaX / (divider / 2F));
+		double y = this.getY() + (deltaY / (divider / 2F));
+		double z = this.getZ() + (deltaZ / (divider / 2F));
 		double horizontalDistance = deltaMovement.horizontalDistance();
 		if (noPhysics) {
 			this.setYRot((float) (Mth.atan2(-deltaX, -deltaZ) * 57.2957763671875D));
