@@ -45,6 +45,10 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.BIRCH_FOREST)
 					.add(Biomes.OLD_GROWTH_BIRCH_FOREST);
 
+			this.getOrCreateTagBuilder(BiomeTags.IS_JUNGLE)
+					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
+					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
+
 			this.getOrCreateTagBuilder(ConventionalBiomeTags.CAVES)
 					.addOptional(RegisterWorldgen.JELLYFISH_CAVES);
 
@@ -145,7 +149,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBiomeTags.FIREFLY_SPAWNABLE)
 					.add(Biomes.JUNGLE)
 					.add(Biomes.SPARSE_JUNGLE)
-					.add(Biomes.BAMBOO_JUNGLE);
+					.add(Biomes.BAMBOO_JUNGLE)
+					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
+					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.FIREFLY_SPAWNABLE_CAVE);
 
@@ -207,6 +213,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.JUNGLE)
 					.add(Biomes.SAVANNA)
 					.add(Biomes.SPARSE_JUNGLE)
+					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
+					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
 					.addOptional(new ResourceLocation("terralith", "arid_highlands"));
 		}
 
@@ -260,7 +268,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.FLOWER_FIELD)
 					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
 					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
-					.addOptional(RegisterWorldgen.ARID_FOREST);
+					.addOptional(RegisterWorldgen.ARID_FOREST)
+					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
+					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
 		}
 	}
 

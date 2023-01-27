@@ -172,11 +172,35 @@ public final class WilderConfiguredFeatures {
 							new WeightedPlacedFeature(WilderTreePlaced.FUNGUS_PINE_CHECKED, 0.086F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_FUNGUS_PINE_CHECKED, 0.02F),
 							new WeightedPlacedFeature(WilderTreePlaced.NEW_SPRUCE_SHORT_CHECKED, 0.155F),
-							new WeightedPlacedFeature(WilderTreePlaced.NEW_SUPER_BIRCH, 0.37F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_SUPER_BIRCH, 0.37F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.01F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.01F),
 							new WeightedPlacedFeature(WilderTreePlaced.NEW_BIRCH_CHECKED, 0.355F),
 							new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.1F)), WilderTreePlaced.NEW_SUPER_BIRCH));
+
+	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> BIRCH_JUNGLE_TREES =
+			register("birch_jungle_trees", Feature.RANDOM_SELECTOR,
+					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(TreePlacements.FANCY_OAK_CHECKED, 0.1F),
+							new WeightedPlacedFeature(WilderTreePlaced.NEW_BIRCH_CHECKED, 0.069F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.069F),
+							new WeightedPlacedFeature(WilderTreePlaced.NEW_SUPER_BIRCH, 0.069F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_SUPER_BIRCH, 0.069F),
+							new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.069F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.069F),
+							new WeightedPlacedFeature(TreePlacements.JUNGLE_BUSH, 0.25F),
+							new WeightedPlacedFeature(TreePlacements.MEGA_JUNGLE_TREE_CHECKED, 0.165F)), TreePlacements.JUNGLE_TREE_CHECKED));
+
+	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> SPARSE_BIRCH_JUNGLE_TREES =
+			register("sparse_birch_jungle_trees", Feature.RANDOM_SELECTOR,
+					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(TreePlacements.FANCY_OAK_CHECKED, 0.1F),
+							new WeightedPlacedFeature(WilderTreePlaced.NEW_BIRCH_CHECKED, 0.049F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.069F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_SUPER_BIRCH, 0.03F),
+							new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.049F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.069F),
+							new WeightedPlacedFeature(TreePlacements.JUNGLE_BUSH, 0.5F)
+
+					), TreePlacements.JUNGLE_TREE_CHECKED));
 
     public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> NEW_DARK_FOREST_VEGETATION =
             register("dark_forest_vegetation", Feature.RANDOM_SELECTOR,

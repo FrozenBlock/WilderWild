@@ -363,6 +363,11 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean generateSparseBirchJungle() {
+		return BIOME_GENERATION.generateSparseBirchJungle;
+	}
+
+	@Override
 	public boolean dyingTrees() {
 		return WORLDGEN.dyingTrees;
 	}

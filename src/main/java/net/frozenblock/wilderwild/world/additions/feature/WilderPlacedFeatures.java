@@ -13,6 +13,7 @@ import net.minecraft.data.worldgen.features.VegetationFeatures;
 import static net.minecraft.data.worldgen.placement.AquaticPlacements.seagrassPlacement;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import static net.minecraft.data.worldgen.placement.VegetationPlacements.*;
+import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.util.valueproviders.ClampedInt;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -150,6 +151,12 @@ public final class WilderPlacedFeatures {
 
 	public static final Holder<PlacedFeature> ARID_FOREST_TREES = register("arid_forest_trees",
 			WilderConfiguredFeatures.ARID_FOREST_TREES, treePlacement(CountPlacement.of(3)));
+
+	public static final Holder<PlacedFeature> BIRCH_JUNGLE_TREES = register("birch_jungle_trees",
+			WilderConfiguredFeatures.BIRCH_JUNGLE_TREES, treePlacement(CountPlacement.of(50)));
+
+	public static final Holder<PlacedFeature> SPARSE_BIRCH_JUNGLE_TREES = register("sparse_birch_jungle_trees",
+			WilderConfiguredFeatures.SPARSE_BIRCH_JUNGLE_TREES, VegetationPlacements.treePlacement(PlacementUtils.countExtra(4, 0.1f, 1)));
 
     public static final Holder<PlacedFeature> CYPRESS_WETLANDS_TREES = register("cypress_wetlands_trees",
             WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES, CountPlacement.of(28), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome(), BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(RegisterBlocks.CYPRESS_SAPLING.defaultBlockState(), BlockPos.ZERO)));

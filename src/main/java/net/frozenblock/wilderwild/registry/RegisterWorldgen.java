@@ -59,13 +59,14 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, WARM_RIVER.location(), warmRiver());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, OASIS.location(), oasis());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, BIRCH_TAIGA.location(), birchTaiga(false));
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, OLD_GROWTH_BIRCH_TAIGA.location(), birchTaiga(true));
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, FLOWER_FIELD.location(), flowerField());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, ARID_SAVANNA.location(), aridSavanna());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, PARCHED_FOREST.location(), parchedForest());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, ARID_FOREST.location(), aridForest());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, SNOWY_OLD_GROWTH_PINE_TAIGA.location(), oldGrowthSnowyTaiga());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, BIRCH_JUNGLE.location(), birchJungle());
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, SPARSE_BIRCH_JUNGLE.location(), birchJungle());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, SPARSE_BIRCH_JUNGLE.location(), sparseBirchJungle());
 
 		WilderNoise.init();
 	}
@@ -377,6 +378,29 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 				.build();
 	}
 
+	public static Biome sparseBirchJungle() {
+		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
+		BiomeDefaultFeatures.baseJungleSpawns(builder);
+		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
+		addSparseBirchJungleFeatures(builder2);
+		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
+		return new Biome.BiomeBuilder()
+				.precipitation(Biome.Precipitation.RAIN)
+				.temperature(0.825F)
+				.downfall(0.85F)
+				.specialEffects(
+						new BiomeSpecialEffects.Builder()
+								.waterColor(4159204)
+								.waterFogColor(329011)
+								.fogColor(12638463)
+								.skyColor(OverworldBiomes.calculateSkyColor(0.825F))
+								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+								.backgroundMusic(musicSound).build())
+				.mobSpawnSettings(builder.build())
+				.generationSettings(builder2.build())
+				.build();
+	}
+
 	public static void addCypressPaths(BiomeGenerationSettings.Builder builder) {
 		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_SAND_PATH);
 		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_GRAVEL_PATH);
@@ -584,28 +608,26 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
 		BiomeDefaultFeatures.addLightBambooVegetation(builder);
-		BiomeDefaultFeatures.addJungleTrees(builder);
 		BiomeDefaultFeatures.addWarmFlowers(builder);
 		BiomeDefaultFeatures.addJungleGrass(builder);
 		BiomeDefaultFeatures.addDefaultMushrooms(builder);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 		BiomeDefaultFeatures.addJungleVines(builder);
 		BiomeDefaultFeatures.addJungleMelons(builder);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_OLD_GROWTH_SNOWY_PINE_TAIGA);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BIRCH_JUNGLE_TREES);
 	}
 
 	public static void addSparseBirchJungleFeatures(BiomeGenerationSettings.Builder builder) {
 		addBasicFeatures(builder, SPARSE_BIRCH_JUNGLE);
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
-		BiomeDefaultFeatures.addSparseJungleTrees(builder);
 		BiomeDefaultFeatures.addWarmFlowers(builder);
 		BiomeDefaultFeatures.addJungleGrass(builder);
 		BiomeDefaultFeatures.addDefaultMushrooms(builder);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 		BiomeDefaultFeatures.addJungleVines(builder);
 		BiomeDefaultFeatures.addSparseJungleMelons(builder);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_OLD_GROWTH_SNOWY_PINE_TAIGA);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SPARSE_BIRCH_JUNGLE_TREES);
 	}
 
 	private static void addBasicFeatures(BiomeGenerationSettings.Builder builder, ResourceKey<Biome> biome) {

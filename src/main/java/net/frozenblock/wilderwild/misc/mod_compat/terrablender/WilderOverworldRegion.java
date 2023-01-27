@@ -95,6 +95,25 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
+			if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().generateSparseBirchJungle()) {
+				OverworldBiomeBuilderParameters.points(Biomes.SPARSE_JUNGLE).forEach(point -> {
+					if (!FrozenBiomeParameters.isWeird(point)) {
+						builder.replaceParameter(point,
+								Climate.parameters(
+										WilderSharedWorldgen.BirchJungle.TEMPERATURE,
+										WilderSharedWorldgen.BirchJungle.HUMIDITY,
+										point.continentalness(),
+										point.erosion(),
+										point.depth(),
+										point.weirdness(),
+										point.offset()
+								)
+						);
+						builder.replaceBiome(point, RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
+					}
+				});
+			}
+
 			if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().generateFlowerField()) {
 				OverworldBiomeBuilderParameters.points(Biomes.FLOWER_FOREST).forEach(point -> {
 					builder.replaceParameter(point,

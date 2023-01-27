@@ -99,6 +99,20 @@ public final class OverworldBiomeBuilderMixin {
 				}
 			}
 		}
+		if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().generateSparseBirchJungle()) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SPARSE_JUNGLE)) {
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.BirchJungle.TEMPERATURE,
+						WilderSharedWorldgen.BirchJungle.HUMIDITY,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						point.offset(),
+						RegisterWorldgen.SPARSE_BIRCH_JUNGLE
+				);
+			}
+		}
 		if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().generateFlowerField()) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FLOWER_FOREST)) {
 				this.addSurfaceBiome(

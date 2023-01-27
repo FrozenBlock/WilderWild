@@ -277,6 +277,10 @@ public class AbstractClothConfigIntegration extends ModIntegration {
 		return DefaultWorldgenConfig.BiomeGeneration.GENERATE_BIRCH_JUNGLE;
 	}
 
+	public boolean generateSparseBirchJungle() {
+		return DefaultWorldgenConfig.BiomeGeneration.GENERATE_SPARSE_BIRCH_JUNGLE;
+	}
+
 	public boolean dyingTrees() {
 		return DefaultWorldgenConfig.DYING_TREES;
 	}
