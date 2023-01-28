@@ -32,7 +32,15 @@ public class AncientHornProjectileRenderer<T extends AncientHornProjectile> exte
         matrices.mulPose(Axis.YP.rotationDegrees((projectile.yRotO + tickDelta * (projectile.getYRot() - projectile.yRotO)) - 90.0F));
         matrices.mulPose(Axis.ZP.rotationDegrees((projectile.xRotO + tickDelta * (projectile.getXRot() - projectile.xRotO)) + 90.0F));
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(FrozenRenderType.ENTITY_TRANSLUCENT_EMISSIVE_FIXED.apply(TEXTURE, false));
-        this.model.render(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F, tickDelta, projectile);
+
+        float multiplier = projectile.getBoundingBoxMultiplier();
+        float scale = multiplier + 1F;
+        float alpha = 1.0F - (multiplier / 15F);
+        float correctedAlpha = Math.max(alpha, 0.01F);
+
+        matrices.scale(scale, scale, scale);
+
+        this.model.render(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, correctedAlpha, tickDelta, projectile);
 
         matrices.popPose();
         super.render(projectile, yaw, tickDelta, matrices, vertexConsumers, light);

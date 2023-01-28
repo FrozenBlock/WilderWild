@@ -97,9 +97,6 @@ public final class WilderWild implements ModInitializer {
         TermiteMoundBlockEntity.Termite.addNaturalDegradableBlocks();
 
         WilderModIntegrations.init();
-        if (FrozenBools.HAS_TERRALITH) {
-            terralith();
-        }
 
         WilderSharedConstants.stopMeasuring(this);
     }
@@ -144,18 +141,6 @@ public final class WilderWild implements ModInitializer {
         QuiltDataFixes.buildAndRegisterFixer(mod, builder);
         log("DataFixes for Wilder Wild have been applied", true);
         //return builder;
-    }
-
-    //MOD COMPATIBILITY
-    public static void terralith() {
-        Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/frostfire_caves"), FireflyColor.BLUE);
-        Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/frostfire_caves"), FireflyColor.LIGHT_BLUE);
-
-        Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/thermal_caves"), FireflyColor.RED);
-        Firefly.FireflyBiomeColorRegistry.addBiomeColor(new ResourceLocation("terralith", "cave/thermal_caves"), FireflyColor.ORANGE);
-
-        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(ResourceKey.create(Registries.BIOME, new ResourceLocation("terralith", "cave/underground_jungle"))),
-                WilderEnumValues.FIREFLIES, RegisterEntities.FIREFLY, 12, 2, 4);
     }
 
     public static boolean isCopperPipe(BlockState state) {

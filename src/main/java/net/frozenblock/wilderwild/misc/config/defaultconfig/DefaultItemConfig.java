@@ -10,6 +10,7 @@ public class DefaultItemConfig {
 		public static final int ANCIENT_HORN_MOB_DAMAGE = 22;
 		public static final int ANCIENT_HORN_PLAYER_DAMAGE = 15;
 		public static final boolean ANCIENT_HORN_SHATTERS_GLASS = false;
+		public static final float ANCIENT_HORN_SIZE_MULTIPLIER = 0F;
 	}
 
 	public static final boolean PROJECTILE_BREAK_PARTICLES = true;
