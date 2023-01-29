@@ -410,9 +410,6 @@ public class Jellyfish extends NoFlopAbstractFish {
     public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putString("variant", Objects.requireNonNull(WilderRegistry.JELLYFISH_VARIANT.getKey(this.getVariant())).toString());
-		compound.putFloat("scale", this.getJellyScale());
-		compound.putFloat("prevScale", this.getPrevScale());
-		compound.putBoolean("vanishing", this.vanishing);
     }
 
     @Override
@@ -422,11 +419,6 @@ public class Jellyfish extends NoFlopAbstractFish {
         if (variant != null) {
             this.setVariant(variant);
         }
-		this.setJellyScale(compound.getFloat("scale"));
-		this.setPrevScale(compound.getFloat("prevScale"));
-		if (compound.contains("vanishing")) {
-			this.vanishing = compound.getBoolean("vanishing");
-		}
     }
 
 	public float getJellyScale() {
