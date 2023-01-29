@@ -84,8 +84,9 @@ public class JellyfishAi {
         );
 		brain.addActivity(
 				Activity.IDLE,
+				12,
 				ImmutableList.of(
-						Pair.of(1, new JellyfishHide(jellyfish, 2.0D, 10, 8))
+						new JellyfishHide(jellyfish, 1.25D, 8, 3)
 				)
 		);
     }
