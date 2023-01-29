@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.Optional;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
-import net.frozenblock.wilderwild.entity.ai.FireflyAi;
+import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
 import net.frozenblock.wilderwild.misc.FireflyColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterItems;
@@ -270,11 +270,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 				&& !this.level.getBiome(this.blockPosition()).is(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)
 				&& this.getLevel().isDay()
 				&& this.getLevel().getBrightness(LightLayer.SKY, this.blockPosition()) >= 6;
-    }
-
-    @Override
-    protected void registerGoals() {
-        //this.goalSelector.addGoal(1, new FireflyHidingGoal(this, 2.0D, 40, 32));
     }
 
     public static AttributeSupplier.Builder addAttributes() {

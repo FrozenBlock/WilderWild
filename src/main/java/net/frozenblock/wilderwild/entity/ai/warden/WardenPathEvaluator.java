@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.entity.ai;
+package net.frozenblock.wilderwild.entity.ai.warden;
 
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;

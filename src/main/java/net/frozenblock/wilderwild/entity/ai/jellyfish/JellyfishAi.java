@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.entity.ai;
+package net.frozenblock.wilderwild.entity.ai.jellyfish;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
@@ -45,7 +45,7 @@ public class JellyfishAi {
 
     public static Brain<Jellyfish> makeBrain(Jellyfish jellyfish, Brain<Jellyfish> brain) {
         initCoreActivity(brain);
-        initIdleActivity(brain);
+        initIdleActivity(jellyfish, brain);
         initFightActivity(jellyfish, brain);
 		brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
 		brain.setDefaultActivity(Activity.IDLE);
@@ -65,7 +65,7 @@ public class JellyfishAi {
         );
     }
 
-    private static void initIdleActivity(Brain<Jellyfish> brain) {
+    private static void initIdleActivity(Jellyfish jellyfish, Brain<Jellyfish> brain) {
         brain.addActivity(
                 Activity.IDLE,
 				10,
@@ -82,6 +82,12 @@ public class JellyfishAi {
 						)
 				)
         );
+		brain.addActivity(
+				Activity.IDLE,
+				ImmutableList.of(
+						Pair.of(1, new JellyfishHide(jellyfish, 2.0D, 10, 8))
+				)
+		);
     }
 
     private static void initFightActivity(Jellyfish jellyfish, Brain<Jellyfish> brain) {

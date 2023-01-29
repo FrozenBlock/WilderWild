@@ -1,8 +1,8 @@
 package net.frozenblock.wilderwild.mixin.server.warden.swim;
 
-import net.frozenblock.wilderwild.entity.ai.WardenLookControl;
-import net.frozenblock.wilderwild.entity.ai.WardenMoveControl;
-import net.frozenblock.wilderwild.entity.ai.WardenNavigation;
+import net.frozenblock.wilderwild.entity.ai.warden.WardenLookControl;
+import net.frozenblock.wilderwild.entity.ai.warden.WardenMoveControl;
+import net.frozenblock.wilderwild.entity.ai.warden.WardenNavigation;
 import net.frozenblock.wilderwild.misc.SwimmingWarden;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.nbt.CompoundTag;

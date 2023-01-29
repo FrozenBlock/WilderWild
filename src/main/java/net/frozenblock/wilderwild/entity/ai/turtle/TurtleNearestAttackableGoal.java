@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.entity.ai;
+package net.frozenblock.wilderwild.entity.ai.turtle;
 
 import java.util.EnumSet;
 import java.util.function.Predicate;

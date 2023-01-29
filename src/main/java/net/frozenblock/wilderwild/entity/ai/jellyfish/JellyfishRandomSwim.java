@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.entity.ai;
+package net.frozenblock.wilderwild.entity.ai.jellyfish;
 
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.minecraft.server.level.ServerLevel;
@@ -10,12 +10,6 @@ public class JellyfishRandomSwim extends RandomSwim {
 	public JellyfishRandomSwim(float speedModifier) {
 		super(speedModifier);
 	}
-
-	/*@Nullable
-	@Override
-	protected Vec3 getTargetPos(@NotNull PathfinderMob pathfinder) {
-		return BehaviorUtils.getRandomSwimmablePos(pathfinder, 10, 7);
-	}*/
 
 	@Override
 	public boolean checkExtraStartConditions(@NotNull ServerLevel level, @NotNull PathfinderMob pathfinder) {

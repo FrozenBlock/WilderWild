@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.entity.ai;
+package net.frozenblock.wilderwild.entity.ai.warden;
 
 import java.util.Optional;
 import net.minecraft.tags.FluidTags;

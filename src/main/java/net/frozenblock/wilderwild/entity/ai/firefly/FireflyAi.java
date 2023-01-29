@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.entity.ai;
+package net.frozenblock.wilderwild.entity.ai.firefly;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;

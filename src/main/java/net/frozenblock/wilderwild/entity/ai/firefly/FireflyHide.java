@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.entity.ai;
+package net.frozenblock.wilderwild.entity.ai.firefly;
 
 import jdk.jfr.Experimental;
 import net.frozenblock.lib.entity.api.behavior.MoveToBlockBehavior;

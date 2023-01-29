@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.entity.ai;
+package net.frozenblock.wilderwild.entity.ai.warden;
 
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
