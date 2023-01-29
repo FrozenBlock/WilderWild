@@ -24,6 +24,7 @@ import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -171,7 +172,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
             player.getInventory().placeItemBackInInventory(bottleStack);
             Level level = this.level;
             if (!level.isClientSide) {
-                EasyPacket.EasyCompetitionPacket.sendFireflyCaptureInfo(level, player, this);
+                //EasyPacket.EasyCompetitionPacket.sendFireflyCaptureInfo(level, player, this);
             }
             this.discard();
             return Optional.of(InteractionResult.sidedSuccess(level.isClientSide));
@@ -552,6 +553,10 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
         public static void addBiomeColor(ResourceLocation biome, FireflyColor color) {
             BIOMES.add(biome);
             COLORS.add(color);
+        }
+
+        public static void addBiomeColor(ResourceKey<Biome> biome, FireflyColor color) {
+            addBiomeColor(biome.location(), color);
         }
 
         @Nullable

@@ -11,108 +11,6 @@ public final class ClothConfigInteractionHandler {
 
 	// BLOCK
 
-
-
-	// ENTITY
-
-
-
-	// ITEM
-
-
-
-	// WORLDGEN
-
-
-
-	// MISC
-
-
-
-	public static boolean betaBeaches() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.betaBeaches() : BETA_BEACHES;
-	}
-
-	/*public static boolean modifyDesertPlacement() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.modifyDesertPlacement() : BiomePlacement.MODIFY_DESERT_PLACEMENT;
-	}
-
-	public static boolean modifyBadlandsPlacement() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.modifyBadlandsPlacement() : BiomePlacement.MODIFY_BADLANDS_PLACEMENT;
-	}*/
-
-	public static boolean modifyJunglePlacement() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.modifyJunglePlacement() : BiomePlacement.MODIFY_JUNGLE_PLACEMENT;
-	}
-
-	public static boolean modifySwampPlacement() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.modifySwampPlacement() : BiomePlacement.MODIFY_SWAMP_PLACEMENT;
-	}
-
-	public static boolean modifyMangroveSwampPlacement() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.modifyMangroveSwampPlacement() : BiomePlacement.MODIFY_MANGROVE_SWAMP_PLACEMENT;
-	}
-
-	public static boolean modifyWindsweptSavannaPlacement() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.modifyWindsweptSavannaPlacement() : BiomePlacement.MODIFY_WINDSWEPT_SAVANNA_PLACEMENT;
-	}
-
-	public static boolean generateCypressWetlands() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.generateCypressWetlands() : BiomeGeneration.GENERATE_CYPRESS_WETLANDS;
-	}
-
-	public static boolean generateJellyfishCaves() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.generateJellyfishCaves() : BiomeGeneration.GENERATE_JELLYFISH_CAVES;
-	}
-
-	public static boolean generateMixedForest() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.generateMixedForest() : BiomeGeneration.GENERATE_MIXED_FOREST;
-	}
-
-	public static boolean dyingTrees() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.dyingTrees() : DYING_TREES;
-	}
-
-	public static boolean fallenLogs() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.fallenLogs() : FALLEN_LOGS;
-	}
-
-	public static boolean wildTrees() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.wildTrees() : WILDER_WILD_TREE_GEN;
-	}
-
-	public static boolean wildGrass() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.wildGrass() : WILDER_WILD_GRASS_GEN;
-	}
-
-	public static boolean cypressWitchHuts() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.cypressWitchHuts() : CYPRESS_WITCH_HUTS;
-	}
-
-	public static boolean hornCanSummonWarden() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.hornCanSummonWarden() : AncientHornConfig.ANCIENT_HORN_CAN_SUMMON_WARDEN;
-	}
-
-	public static int hornLifespan() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.hornLifespan() : AncientHornConfig.ANCIENT_HORN_LIFESPAN;
-	}
-
-	public static int hornMobDamage() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.hornMobDamage() : AncientHornConfig.ANCIENT_HORN_MOB_DAMAGE;
-	}
-
-	public static int hornPlayerDamage() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.hornPlayerDamage() : AncientHornConfig.ANCIENT_HORN_PLAYER_DAMAGE;
-	}
-
-	public static boolean hornShattersGlass() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.hornShattersGlass() : AncientHornConfig.ANCIENT_HORN_SHATTERS_GLASS;
-	}
-
-	public static boolean projectileBreakParticles() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.projectileBreakParticles() : PROJECTILE_BREAK_PARTICLES;
-	}
-
 	public static boolean mcLiveSensorTendrils() {
 		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.mcLiveSensorTendrils() : MC_LIVE_SENSOR_TENDRILS;
 	}
@@ -181,6 +79,16 @@ public final class ClothConfigInteractionHandler {
 		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.stoneChestTimer() : StoneChestConfig.STONE_CHEST_TIMER;
 	}
 
+	public static boolean shriekerGargling() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.shriekerGargling() : SHRIEKER_GARGLING;
+	}
+
+	public static boolean soulFireSounds() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.soulFireSounds() : SOUL_FIRE_SOUNDS;
+	}
+
+	// ENTITY
+
 	public static boolean unpassableRail() {
 		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.unpassableRail() : UNPASSABLE_RAIL;
 	}
@@ -233,13 +141,91 @@ public final class ClothConfigInteractionHandler {
 		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.wardenBedrockSniff() : WardenConfig.WARDEN_BEDROCK_SNIFF;
 	}
 
-	public static boolean shriekerGargling() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.shriekerGargling() : SHRIEKER_GARGLING;
+	// ITEM
+
+	public static boolean hornCanSummonWarden() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.hornCanSummonWarden() : AncientHornConfig.ANCIENT_HORN_CAN_SUMMON_WARDEN;
 	}
 
-	public static boolean soulFireSounds() {
-		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.soulFireSounds() : SOUL_FIRE_SOUNDS;
+	public static int hornLifespan() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.hornLifespan() : AncientHornConfig.ANCIENT_HORN_LIFESPAN;
 	}
+
+	public static int hornMobDamage() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.hornMobDamage() : AncientHornConfig.ANCIENT_HORN_MOB_DAMAGE;
+	}
+
+	public static int hornPlayerDamage() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.hornPlayerDamage() : AncientHornConfig.ANCIENT_HORN_PLAYER_DAMAGE;
+	}
+
+	public static boolean hornShattersGlass() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.hornShattersGlass() : AncientHornConfig.ANCIENT_HORN_SHATTERS_GLASS;
+	}
+
+	public static float hornSizeMultiplier() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.hornSizeMultiplier() : AncientHornConfig.ANCIENT_HORN_SIZE_MULTIPLIER;
+	}
+
+	public static boolean projectileBreakParticles() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.projectileBreakParticles() : PROJECTILE_BREAK_PARTICLES;
+	}
+
+	// WORLDGEN
+
+	public static boolean betaBeaches() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.betaBeaches() : BETA_BEACHES;
+	}
+
+	public static boolean modifyJunglePlacement() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.modifyJunglePlacement() : BiomePlacement.MODIFY_JUNGLE_PLACEMENT;
+	}
+
+	public static boolean modifySwampPlacement() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.modifySwampPlacement() : BiomePlacement.MODIFY_SWAMP_PLACEMENT;
+	}
+
+	public static boolean modifyMangroveSwampPlacement() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.modifyMangroveSwampPlacement() : BiomePlacement.MODIFY_MANGROVE_SWAMP_PLACEMENT;
+	}
+
+	public static boolean modifyWindsweptSavannaPlacement() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.modifyWindsweptSavannaPlacement() : BiomePlacement.MODIFY_WINDSWEPT_SAVANNA_PLACEMENT;
+	}
+
+	public static boolean generateCypressWetlands() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.generateCypressWetlands() : BiomeGeneration.GENERATE_CYPRESS_WETLANDS;
+	}
+
+	public static boolean generateJellyfishCaves() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.generateJellyfishCaves() : BiomeGeneration.GENERATE_JELLYFISH_CAVES;
+	}
+
+	public static boolean generateMixedForest() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.generateMixedForest() : BiomeGeneration.GENERATE_MIXED_FOREST;
+	}
+
+	public static boolean dyingTrees() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.dyingTrees() : DYING_TREES;
+	}
+
+	public static boolean fallenLogs() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.fallenLogs() : FALLEN_LOGS;
+	}
+
+	public static boolean wildTrees() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.wildTrees() : WILDER_WILD_TREE_GEN;
+	}
+
+	public static boolean wildGrass() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.wildGrass() : WILDER_WILD_GRASS_GEN;
+	}
+
+	public static boolean cypressWitchHuts() {
+		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.cypressWitchHuts() : CYPRESS_WITCH_HUTS;
+	}
+
+	// MISC
 
 	public static boolean deepDarkAmbience() {
 		return FrozenBools.HAS_CLOTH_CONFIG ? ClothConfigCloserInteractionHandler.deepDarkAmbience() : BiomeAmbienceConfig.DEEP_DARK_AMBIENCE;
