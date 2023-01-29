@@ -156,9 +156,6 @@ dependencies {
 	// Lunade
 	modImplementation("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
 
-	//Tom's Simple Storage
-	modImplementation("maven.modrinth:toms-storage:${tomsstorage_version}")
-
 	// Mod Menu
 	modImplementation("com.terraformersmc:modmenu:${modmenu_version}")
 
