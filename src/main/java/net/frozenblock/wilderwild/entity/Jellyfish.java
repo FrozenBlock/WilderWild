@@ -100,6 +100,8 @@ public class Jellyfish extends NoFlopAbstractFish {
     public Jellyfish(EntityType<? extends Jellyfish> entityType, Level level) {
         super(entityType, level);
 		this.getNavigation().setCanFloat(false);
+		this.setPrevScale(1F);
+		this.setJellyScale(1F);
     }
 
     @Nullable
@@ -338,7 +340,9 @@ public class Jellyfish extends NoFlopAbstractFish {
 					&& !this.hasCustomName()
 					&& !this.isLeashed()
 					&& !this.getPassengers().isEmpty()
-					&& this.random.nextInt(0, 9) <= 1;
+					&& this.getTarget() == null
+					&& this.getActiveEffects().isEmpty()
+					&& this.random.nextInt(0, 50) <= 2;
 		}
 		return false;
 	}
@@ -453,6 +457,8 @@ public class Jellyfish extends NoFlopAbstractFish {
 		}
 		jellyfish.setPos(pos.getX() + 0.5 + additionalX, pos.getY() + 0.75, pos.getZ() + 0.5 + additionalZ);
 		jellyfish.setDeltaMovement(0, 0.1 + level.random.nextDouble() * 0.07, 0);
+		jellyfish.setPrevScale(0F);
+		jellyfish.setJellyScale(1F);
 		level.addFreshEntity(jellyfish);
 	}
 

@@ -29,11 +29,6 @@ public class JellyfishHide extends MoveToBlockBehavior<Jellyfish> {
 	}
 
 	@Override
-	public boolean canStillUse(@NotNull ServerLevel level, @NotNull Jellyfish entity, long gameTime) {
-		return entity.shouldHide() && super.canStillUse(level, entity, gameTime);
-	}
-
-	@Override
 	protected void tick(@NotNull ServerLevel level, @NotNull Jellyfish owner, long gameTime) {
 		if (this.isReachedTarget()) {
 			//TODO: Hide sound

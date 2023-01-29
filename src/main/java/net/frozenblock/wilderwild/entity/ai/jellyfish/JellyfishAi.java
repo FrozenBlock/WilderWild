@@ -44,7 +44,7 @@ public class JellyfishAi {
     );
 
     public static Brain<Jellyfish> makeBrain(Jellyfish jellyfish, Brain<Jellyfish> brain) {
-        initCoreActivity(jellyfish, brain);
+        initCoreActivity(brain);
         initIdleActivity(jellyfish, brain);
         initFightActivity(jellyfish, brain);
 		brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
@@ -53,7 +53,7 @@ public class JellyfishAi {
         return brain;
     }
 
-    private static void initCoreActivity(Jellyfish jellyfish, Brain<Jellyfish> brain) {
+    private static void initCoreActivity(Brain<Jellyfish> brain) {
         brain.addActivity(
                 Activity.CORE,
                 0,
@@ -63,13 +63,6 @@ public class JellyfishAi {
                         new MoveToTargetSink()
                 )
         );
-		brain.addActivity(
-				Activity.CORE,
-				1,
-				ImmutableList.of(
-						new JellyfishHide(jellyfish, 1.25D, 8, 3)
-				)
-		);
     }
 
     private static void initIdleActivity(Jellyfish jellyfish, Brain<Jellyfish> brain) {
@@ -86,7 +79,8 @@ public class JellyfishAi {
 										Pair.of(new RunIf<>(Entity::isInWaterOrBubble, new DoNothing(30, 60)), 1),
 										Pair.of(new RunIf<>(Entity::isOnGround, new DoNothing(200, 400)), 1)
 								)
-						)
+						),
+						new JellyfishHide(jellyfish, 1.25D, 8, 3)
 				)
         );
     }
@@ -117,7 +111,6 @@ public class JellyfishAi {
 
     private static float getSpeedModifierChasing(LivingEntity livingEntity) {
 		return 2F;
-        //return livingEntity.isInWaterOrBubble() ? 0.6F : 0.15F;
     }
 
     private static void onTargetInvalid(Jellyfish jellyfish, LivingEntity target) {
