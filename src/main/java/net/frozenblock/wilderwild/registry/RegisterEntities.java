@@ -61,7 +61,7 @@ public final class RegisterEntities {
 					.spawnGroup(FrozenMobCategories.getCategory(WilderSharedConstants.MOD_ID, "tumbleweed"))
 					.entityFactory(Tumbleweed::new)
 					.defaultAttributes(Tumbleweed::addAttributes)
-					.spawnRestriction(SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Tumbleweed::canSpawn)
+					.spawnRestriction(SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Tumbleweed::canSpawn)
 					.dimensions(EntityDimensions.scalable(0.98F, 0.98F))
 					.build()
 	);

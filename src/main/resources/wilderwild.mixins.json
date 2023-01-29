@@ -25,6 +25,7 @@
     "server.general.InstrumentItemMixin",
     "server.general.LeavesBlockMixin",
     "server.general.MobMixin",
+    "server.general.NaturalSpawnerMixin",
     "server.general.SculkBlockMixin",
     "server.general.SculkSensorBlockEntityMixin",
     "server.general.SculkSensorBlockMixin",

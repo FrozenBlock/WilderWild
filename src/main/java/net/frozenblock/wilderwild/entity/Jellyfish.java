@@ -80,6 +80,7 @@ public class Jellyfish extends NoFlopAbstractFish {
     public float xRot6;
 
 	public boolean vanishing;
+	public int ticksSinceSpawn;
 
 	private static final float MAX_TARGET_DISTANCE = 20F;
 
@@ -238,6 +239,8 @@ public class Jellyfish extends NoFlopAbstractFish {
         this.xRot2 = this.xRot1;
         this.xRot1 = this.xBodyRot;
 
+		++this.ticksSinceSpawn;
+
         if (this.isInWaterOrBubble()) {
 			this.heal(0.02F);
             Vec3 vec3 = this.getDeltaMovement();
@@ -337,7 +340,8 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public boolean shouldHide() {
 		Player player = this.level.getNearestPlayer(this, 24);
 		if (player == null) {
-			return !this.requiresCustomPersistence()
+			return this.ticksSinceSpawn > 200
+					&& !this.requiresCustomPersistence()
 					&& !this.isPersistenceRequired()
 					&& !this.hasCustomName()
 					&& !this.isLeashed()
@@ -411,6 +415,7 @@ public class Jellyfish extends NoFlopAbstractFish {
     public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putString("variant", Objects.requireNonNull(WilderRegistry.JELLYFISH_VARIANT.getKey(this.getVariant())).toString());
+		compound.putInt("ticksSinceSpawn", this.ticksSinceSpawn);
     }
 
     @Override
@@ -420,6 +425,7 @@ public class Jellyfish extends NoFlopAbstractFish {
         if (variant != null) {
             this.setVariant(variant);
         }
+		this.ticksSinceSpawn = compound.getInt("ticksSinceSpawn");
     }
 
 	public float getJellyScale() {

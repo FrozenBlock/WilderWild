@@ -47,10 +47,6 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
                 item.makeStuckInBlock(state, new Vec3(0.999D, 0.999D, 0.999D));
                 item.setDeltaMovement(item.getDeltaMovement().add(0, 0.025, 0));
             }
-			//TODO: Create new slowdown that ONLY triggers for one block instead of all inside. Interface?
-			//else if (!entity.getType().is(WilderEntityTags.CAN_SWIM_IN_MESOGLEA)) {
-            //entity.setDeltaMovement(entity.getDeltaMovement().multiply(0.9, 0.9, 0.9));
-            //}
             if (entity instanceof Boat boat) {
                 Vec3 deltaMove = boat.getDeltaMovement();
                 if (boat.isUnderWater()) {
