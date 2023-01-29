@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.misc.mod_compat;
 
 import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
+import org.betterx.betternether.registry.NetherBlocks;
 
 import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.*;
 import static net.frozenblock.wilderwild.registry.RegisterBlockSoundGroups.LEAVES;
@@ -13,9 +14,9 @@ public class BetterNetherIntegration extends ModIntegration {
 
     @Override
     public void init() {
-        addBlock(id("willow_leaves"), LEAVES, ClothConfigInteractionHandler::leafSounds);
-        addBlock(id("rubeous_leaves"), LEAVES, ClothConfigInteractionHandler::leafSounds);
-        addBlock(id("anchor_tree_leaves"), LEAVES, ClothConfigInteractionHandler::leafSounds);
-        addBlock(id("nether_sakura_leaves"), LEAVES, ClothConfigInteractionHandler::leafSounds);
+        addBlock(NetherBlocks.WILLOW_LEAVES, LEAVES, ClothConfigInteractionHandler::leafSounds);
+        addBlock(NetherBlocks.RUBEUS_LEAVES, LEAVES, ClothConfigInteractionHandler::leafSounds);
+        addBlock(NetherBlocks.ANCHOR_TREE_LEAVES, LEAVES, ClothConfigInteractionHandler::leafSounds);
+        addBlock(NetherBlocks.NETHER_SAKURA_LEAVES, LEAVES, ClothConfigInteractionHandler::leafSounds);
     }
 }
