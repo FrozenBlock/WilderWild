@@ -19,6 +19,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.DustColorTransitionOptions;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -31,7 +32,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 
 public class SimpleCopperPipesIntegration extends ModIntegration {
-	private static final ResourceLocation ANCIENT_HORN = Registry.ITEM.getKey(RegisterItems.ANCIENT_HORN);
+	private static final ResourceLocation ANCIENT_HORN = BuiltInRegistries.ITEM.getKey(RegisterItems.ANCIENT_HORN);
 
 	public SimpleCopperPipesIntegration() {
 		super("copper_pipe", "lunade");
@@ -99,7 +100,7 @@ public class SimpleCopperPipesIntegration extends ModIntegration {
 			}
 		});
 
-		FittingPipeDispenses.register(Registry.ITEM.get(WilderSharedConstants.id("seeding_dandelion")), (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
+		FittingPipeDispenses.register(BuiltInRegistries.ITEM.get(WilderSharedConstants.id("seeding_dandelion")), (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
 			double d = position.x();
 			double e = position.y();
 			double f = position.z();
@@ -161,7 +162,7 @@ public class SimpleCopperPipesIntegration extends ModIntegration {
 		BlockEntity entity = level.getBlockEntity(pos);
 		if (entity != null) {
 			if (entity instanceof CopperPipeEntity pipe) {
-				level.playSound(null, pos, Registry.SOUND_EVENT.get(id("block.copper_pipe.item_in")), SoundSource.BLOCKS, 0.2F, (level.random.nextFloat() * 0.25F) + 0.8F);
+				level.playSound(null, pos, BuiltInRegistries.SOUND_EVENT.get(id("block.copper_pipe.item_in")), SoundSource.BLOCKS, 0.2F, (level.random.nextFloat() * 0.25F) + 0.8F);
 				pipe.moveablePipeDataHandler.addSaveableMoveablePipeNbt(new MoveablePipeDataHandler.SaveableMovablePipeNbt().withVec3d(owner.position()).withVec3d2(owner.position()).withString(owner.getStringUUID()).withOnlyThroughOnePipe(true).withOnlyUseableOnce(true).withNBTID(ANCIENT_HORN));
 				return true;
 			}

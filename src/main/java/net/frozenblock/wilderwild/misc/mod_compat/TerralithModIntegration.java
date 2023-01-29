@@ -8,6 +8,7 @@ import net.frozenblock.wilderwild.misc.FireflyColor;
 import net.frozenblock.wilderwild.misc.WilderEnumValues;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 
 public class TerralithModIntegration extends ModIntegration {
@@ -23,7 +24,7 @@ public class TerralithModIntegration extends ModIntegration {
         Firefly.FireflyBiomeColorRegistry.addBiomeColor(id("cave/thermal_caves"), FireflyColor.RED);
         Firefly.FireflyBiomeColorRegistry.addBiomeColor(id("cave/thermal_caves"), FireflyColor.ORANGE);
 
-        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(ResourceKey.create(Registry.BIOME_REGISTRY, id("cave/underground_jungle"))),
+        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(ResourceKey.create(Registries.BIOME, id("cave/underground_jungle"))),
                 WilderEnumValues.FIREFLIES, RegisterEntities.FIREFLY, 12, 2, 4);
     }
 }
