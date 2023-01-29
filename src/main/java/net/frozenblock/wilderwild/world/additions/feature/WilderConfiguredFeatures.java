@@ -631,7 +631,7 @@ public final class WilderConfiguredFeatures {
 			WilderWild.LARGE_MESOGLEA_FEATURE,
 			new LargeNematocystConfig(
 					30,
-					UniformInt.of(3, 19), BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA), UniformFloat.of(0.4F, 2.0F),
+					UniformInt.of(3, 19), BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)), UniformFloat.of(0.4F, 2.0F),
 					0.33F, UniformFloat.of(0.3F, 0.9F),
 					UniformFloat.of(0.4F, 1.0F), UniformFloat.of(0.0F, 0.3F), 4, 0.6F));
 
@@ -639,7 +639,7 @@ public final class WilderConfiguredFeatures {
 			WilderWild.LARGE_MESOGLEA_FEATURE,
 			new LargeNematocystConfig(
 					30,
-					UniformInt.of(3, 15), BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA), UniformFloat.of(0.2F, 1.2F),
+					UniformInt.of(3, 15), BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)), UniformFloat.of(0.2F, 1.2F),
 					0.33F, UniformFloat.of(0.1F, 0.5F),
 					UniformFloat.of(0.6F, 1.0F), UniformFloat.of(0.0F, 0.3F), 10, 0.2F));
 

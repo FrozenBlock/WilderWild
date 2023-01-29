@@ -8,6 +8,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.features.AquaticFeatures;
+import net.minecraft.data.worldgen.features.CaveFeatures;
 import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.data.worldgen.features.VegetationFeatures;
 import static net.minecraft.data.worldgen.placement.AquaticPlacements.seagrassPlacement;
@@ -420,8 +421,19 @@ public final class WilderPlacedFeatures {
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			BiomeFilter.biome()
 	);
+	public static final Holder<PlacedFeature> LARGE_MESOGLEA_PURPLE = PlacementUtils.register(
+			"large_mesoglea_purple",
+			WilderConfiguredFeatures.LARGE_MESOGLEA_PURPLE,
+			CountPlacement.of(UniformInt.of(9, 15)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
 
-    public static void init() {
+	public static final Holder<PlacedFeature> LARGE_MESOGLEA_BLUE = PlacementUtils.register(
+			"large_mesoglea_blue",
+			WilderConfiguredFeatures.LARGE_MESOGLEA_BLUE,
+			CountPlacement.of(UniformInt.of(6, 13)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
+
+
+
+	public static void init() {
     }
 
     public static Holder<PlacedFeature> register(@NotNull String id, Holder<? extends ConfiguredFeature<?, ?>> registryEntry, @NotNull List<PlacementModifier> modifiers) {
