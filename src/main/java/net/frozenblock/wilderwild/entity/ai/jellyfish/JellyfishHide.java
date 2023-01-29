@@ -42,7 +42,7 @@ public class JellyfishHide extends MoveToBlockBehavior<Jellyfish> {
 	@Override
 	public boolean isValidTarget(LevelReader level, BlockPos pos) {
 		BlockState state = level.getBlockState(pos);
-		return state.is(this.mob.getVariant().mesogleaType) && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED);
+		return (state.is(this.mob.getVariant().mesogleaType) || state.is(this.mob.getVariant().nematocystType)) && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED);
 	}
 
 	@Override

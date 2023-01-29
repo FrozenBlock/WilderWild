@@ -341,7 +341,6 @@ public class Jellyfish extends NoFlopAbstractFish {
 					&& !this.isLeashed()
 					&& !this.getPassengers().isEmpty()
 					&& this.getTarget() == null
-					&& this.getActiveEffects().isEmpty()
 					&& this.random.nextInt(0, 50) <= 2;
 		}
 		return false;
