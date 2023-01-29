@@ -255,6 +255,8 @@ public class Jellyfish extends NoFlopAbstractFish {
 		if (this.vanishing) {
 			if (this.getJellyScale() <= 0F) {
 				this.discard();
+				//TODO: Hide sound
+				this.playSound(RegisterSounds.PARTICLE_MESOGLEA_DRIP_LAND, 0.8F, 0.9F + level.random.nextFloat() * 0.2F);
 			} else {
 				this.setJellyScale(this.getJellyScale() - 0.25F);
 			}
@@ -333,13 +335,13 @@ public class Jellyfish extends NoFlopAbstractFish {
     }
 
 	public boolean shouldHide() {
-		Player player = this.level.getNearestPlayer(this, -1.0);
-		if (player == null || player.distanceTo(this) > 24) {
+		Player player = this.level.getNearestPlayer(this, 24);
+		if (player == null) {
 			return !this.requiresCustomPersistence()
 					&& !this.isPersistenceRequired()
 					&& !this.hasCustomName()
 					&& !this.isLeashed()
-					&& !this.getPassengers().isEmpty()
+					&& this.getPassengers().isEmpty()
 					&& this.getTarget() == null
 					&& this.random.nextInt(0, 50) <= 2;
 		}

@@ -2,6 +2,8 @@ package net.frozenblock.wilderwild.entity.ai.jellyfish;
 
 import jdk.jfr.Experimental;
 import net.frozenblock.lib.entity.api.behavior.MoveToBlockBehavior;
+import net.frozenblock.wilderwild.block.MesogleaBlock;
+import net.frozenblock.wilderwild.block.NematocystBlock;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
@@ -30,19 +32,17 @@ public class JellyfishHide extends MoveToBlockBehavior<Jellyfish> {
 
 	@Override
 	protected void tick(@NotNull ServerLevel level, @NotNull Jellyfish owner, long gameTime) {
+		super.tick(level, owner, gameTime);
+
 		if (this.isReachedTarget()) {
-			//TODO: Hide sound
-			owner.playSound(RegisterSounds.BLOCK_MESOGLEA_BREAK, 0.6F, 0.9F + level.random.nextFloat() * 0.2F);
 			owner.vanishing = true;
 		}
-
-		super.tick(level, owner, gameTime);
 	}
 
 	@Override
 	public boolean isValidTarget(LevelReader level, BlockPos pos) {
 		BlockState state = level.getBlockState(pos);
-		return (state.is(this.mob.getVariant().mesogleaType) || state.is(this.mob.getVariant().nematocystType)) && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED);
+		return (state.getBlock() instanceof MesogleaBlock || state.getBlock() instanceof NematocystBlock) && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED);
 	}
 
 	@Override
