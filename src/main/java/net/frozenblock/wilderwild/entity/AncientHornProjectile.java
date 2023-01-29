@@ -4,6 +4,9 @@ import io.netty.buffer.Unpooled;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+
+import it.unimi.dsi.fastutil.ints.IntArrayList;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
 import net.frozenblock.lib.damagesource.api.FrozenProjectileDamageSource;
@@ -30,6 +33,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -82,6 +88,9 @@ public class AncientHornProjectile extends AbstractArrow {
 	public static final int DEFAULT_LIFESPAN = 300;
 	public static final float MIN_SIZE = 0.01F;
 	public static final float MAX_SIZE = 30F;
+
+	private static final EntityDataAccessor<Float> BOUNDING_BOX_MULTIPLIER = SynchedEntityData.defineId(AncientHornProjectile.class, EntityDataSerializers.FLOAT);
+
 	private boolean shot;
 	private boolean leftOwner;
 	private int aliveTicks;
@@ -91,8 +100,7 @@ public class AncientHornProjectile extends AbstractArrow {
 	private boolean shotByPlayer;
 	private int bubbles;
 	private BlockState inBlockState;
-	private List<Entity> hitEntities = new ArrayList<>();
-	public float boundingBoxMultiplier = 0F;
+	private IntArrayList hitEntities = new IntArrayList();
 
 	public AncientHornProjectile(@NotNull EntityType<? extends AncientHornProjectile> entityType, Level level) {
 		super(entityType, level);
@@ -102,6 +110,12 @@ public class AncientHornProjectile extends AbstractArrow {
 	public AncientHornProjectile(Level level, double x, double y, double z) {
 		super(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, x, y, z, level);
 		this.setSoundEvent(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE);
+	}
+
+	@Override
+	protected void defineSynchedData() {
+		super.defineSynchedData();
+		this.entityData.define(BOUNDING_BOX_MULTIPLIER, 0F);
 	}
 
 	public List<Entity> collidingEntities() {
@@ -185,10 +199,11 @@ public class AncientHornProjectile extends AbstractArrow {
 					if (entity.isInvulnerable()) {
 						shouldDamage = false;
 					}
-					if (this.hitEntities.contains(entity))
+					int uuid = entity.getUUID().hashCode();
+					if (this.hitEntities.contains(uuid))
 						shouldDamage = false;
 					if (shouldDamage) {
-						this.hitEntities.add(entity);
+						this.hitEntities.add(uuid);
 						this.hitEntity(entity);
 					}
 				}
@@ -210,8 +225,8 @@ public class AncientHornProjectile extends AbstractArrow {
 				this.level.addParticle(ParticleTypes.CRIT, this.getX() + deltaX * (double) i / 4.0D, this.getY() + deltaY * (double) i / 4.0D, this.getZ() + deltaZ * (double) i / 4.0D, -deltaX, -deltaY + 0.2D, -deltaZ);
 			}
 		}
-		float divider = boundingBoxMultiplier + 1F;
-		float moveDivider = boundingBoxMultiplier * 0.5F + 1F;
+		float divider = this.getBoundingBoxMultiplier() + 1F;
+		float moveDivider = this.getBoundingBoxMultiplier() * 0.5F + 1F;
 		double x = this.getX() + (deltaX / moveDivider);
 		double y = this.getY() + (deltaY / moveDivider);
 		double z = this.getZ() + (deltaZ / moveDivider);
@@ -227,16 +242,15 @@ public class AncientHornProjectile extends AbstractArrow {
 
 		this.setPos(x, y, z);
 		this.checkInsideBlocks();
-
-		float size = this.boundingBoxMultiplier + WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().hornSizeMultiplier();
+		float size = this.getBoundingBoxMultiplier() + WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().hornSizeMultiplier();
 		if (size > MIN_SIZE && size < MAX_SIZE)
-			this.boundingBoxMultiplier = size;
+			this.setBoundingBoxMultiplier(size);
 	}
 
 	@Override
 	@NotNull
 	public AABB makeBoundingBox() {
-		return super.makeBoundingBox().inflate(this.boundingBoxMultiplier / 2F);
+		return super.makeBoundingBox().inflate(this.getBoundingBoxMultiplier() / 2F);
 	}
 
 	public void setCooldown(int cooldownTicks) {
@@ -427,6 +441,14 @@ public class AncientHornProjectile extends AbstractArrow {
 		return ItemStack.EMPTY;
 	}
 
+	public float getBoundingBoxMultiplier() {
+		return this.entityData.get(BOUNDING_BOX_MULTIPLIER);
+	}
+
+	public void setBoundingBoxMultiplier(float value) {
+		this.entityData.set(BOUNDING_BOX_MULTIPLIER, value);
+	}
+
 	@Override
 	public void addAdditionalSaveData(@NotNull CompoundTag compound) {
 		if (!this.isRemoved()) {
@@ -443,6 +465,8 @@ public class AncientHornProjectile extends AbstractArrow {
 			compound.putDouble("originZ", this.vecZ);
 			compound.putBoolean("shotByPlayer", this.shotByPlayer);
 			compound.putInt("bubbles", this.bubbles);
+			compound.putFloat("boundingBoxMultiplier", this.getBoundingBoxMultiplier());
+			compound.putIntArray("hitEntities", this.hitEntities);
 		}
 	}
 
@@ -460,6 +484,8 @@ public class AncientHornProjectile extends AbstractArrow {
 			this.vecZ = compound.getDouble("originZ");
 			this.shotByPlayer = compound.getBoolean("shotByPlayer");
 			this.bubbles = compound.getInt("bubbles");
+			this.setBoundingBoxMultiplier(compound.getFloat("boundingBoxMultiplier"));
+			this.hitEntities = IntArrayList.wrap(compound.getIntArray("hitEntities"));
 		}
 	}
 
@@ -489,7 +515,7 @@ public class AncientHornProjectile extends AbstractArrow {
 
 	public float getDamage(@Nullable Entity entity) {
 		int base = entity instanceof Player ? WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().hornPlayerDamage() : WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().hornMobDamage();
-		return base / (this.boundingBoxMultiplier + 1F);
+		return base / (this.getBoundingBoxMultiplier() + 1F);
 	}
 
 	@Override

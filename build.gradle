@@ -179,6 +179,12 @@ dependencies {
 	modCompileOnly("org.joml:joml:1.10.4")
 	modCompileOnly("org.anarres:jcpp:1.4.14")
 
+	// BetterEnd
+	modCompileOnly("maven.modrinth:betterend:${betterend_version}")
+
+	// BetterNether
+	modCompileOnly("maven.modrinth:betternether:${betternether_version}")
+
 	// only affects runClient, does not affect gradlew build.
 	// add -PuseThirdPartyMods=false to not use these
 	if (findProperty("useThirdPartyMods") != "false") {
