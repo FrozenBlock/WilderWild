@@ -3,7 +3,9 @@ package net.frozenblock.wilderwild.world.additions.feature;
 import java.util.List;
 import net.frozenblock.lib.feature.FrozenFeatures;
 import net.frozenblock.lib.feature.features.config.ColumnWithDiskFeatureConfig;
+import net.frozenblock.lib.feature.features.config.PathFeatureConfig;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
 import net.frozenblock.wilderwild.block.SmallSpongeBlock;
 import net.frozenblock.wilderwild.misc.FlowerColor;
@@ -11,6 +13,7 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
+import net.frozenblock.wilderwild.world.generation.features.config.LargeNematocystConfig;
 import net.frozenblock.wilderwild.world.generation.features.config.ShelfFungusFeatureConfig;
 import net.frozenblock.wilderwild.world.generation.features.config.SmallSpongeFeatureConfig;
 import net.minecraft.core.BlockPos;
@@ -27,6 +30,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.BiasedToBottomInt;
 import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.util.valueproviders.UniformFloat;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -193,14 +197,13 @@ public final class WilderConfiguredFeatures {
 	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> SPARSE_BIRCH_JUNGLE_TREES =
 			register("sparse_birch_jungle_trees", Feature.RANDOM_SELECTOR,
 					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(TreePlacements.FANCY_OAK_CHECKED, 0.1F),
-							new WeightedPlacedFeature(WilderTreePlaced.NEW_BIRCH_CHECKED, 0.049F),
+							new WeightedPlacedFeature(WilderTreePlaced.NEW_BIRCH_CHECKED, 0.045F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.069F),
-							new WeightedPlacedFeature(WilderTreePlaced.DYING_SUPER_BIRCH, 0.03F),
-							new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.049F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_SUPER_BIRCH, 0.027F),
+							new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.059F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.069F),
-							new WeightedPlacedFeature(TreePlacements.JUNGLE_BUSH, 0.5F)
-
-					), TreePlacements.JUNGLE_TREE_CHECKED));
+							new WeightedPlacedFeature(TreePlacements.JUNGLE_BUSH, 0.5F)),
+							TreePlacements.JUNGLE_TREE_CHECKED));
 
     public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> NEW_DARK_FOREST_VEGETATION =
             register("dark_forest_vegetation", Feature.RANDOM_SELECTOR,
@@ -624,6 +627,21 @@ public final class WilderConfiguredFeatures {
 					)
 			)
 	);
+	public static final Holder<ConfiguredFeature<LargeNematocystConfig, ?>> LARGE_MESOGLEA_PURPLE = register("large_mesoglea_purple",
+			WilderWild.LARGE_MESOGLEA_FEATURE,
+			new LargeNematocystConfig(
+					30,
+					UniformInt.of(3, 19), BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA), UniformFloat.of(0.4F, 2.0F),
+					0.33F, UniformFloat.of(0.3F, 0.9F),
+					UniformFloat.of(0.4F, 1.0F), UniformFloat.of(0.0F, 0.3F), 4, 0.6F));
+
+	public static final Holder<ConfiguredFeature<LargeNematocystConfig, ?>> LARGE_MESOGLEA_BLUE = register("large_mesoglea_blue",
+			WilderWild.LARGE_MESOGLEA_FEATURE,
+			new LargeNematocystConfig(
+					30,
+					UniformInt.of(3, 15), BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA), UniformFloat.of(0.2F, 1.2F),
+					0.33F, UniformFloat.of(0.1F, 0.5F),
+					UniformFloat.of(0.6F, 1.0F), UniformFloat.of(0.0F, 0.3F), 10, 0.2F));
 
 	public static final Holder<ConfiguredFeature<SmallSpongeFeatureConfig, ?>> SMALL_SPONGE =
 			register("small_sponges", WilderWild.SMALL_SPONGE_FEATURE, new SmallSpongeFeatureConfig((SmallSpongeBlock) RegisterBlocks.SMALL_SPONGE, 20, true, true, true, WilderBlockTags.SMALL_SPONGE_GROWS_ON));
