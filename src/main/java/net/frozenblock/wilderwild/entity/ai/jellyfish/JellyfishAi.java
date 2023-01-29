@@ -44,7 +44,7 @@ public class JellyfishAi {
     );
 
     public static Brain<Jellyfish> makeBrain(Jellyfish jellyfish, Brain<Jellyfish> brain) {
-        initCoreActivity(brain);
+        initCoreActivity(jellyfish, brain);
         initIdleActivity(jellyfish, brain);
         initFightActivity(jellyfish, brain);
 		brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
@@ -53,7 +53,7 @@ public class JellyfishAi {
         return brain;
     }
 
-    private static void initCoreActivity(Brain<Jellyfish> brain) {
+    private static void initCoreActivity(Jellyfish jellyfish, Brain<Jellyfish> brain) {
         brain.addActivity(
                 Activity.CORE,
                 0,
@@ -63,6 +63,13 @@ public class JellyfishAi {
                         new MoveToTargetSink()
                 )
         );
+		brain.addActivity(
+				Activity.CORE,
+				1,
+				ImmutableList.of(
+						new JellyfishHide(jellyfish, 1.25D, 8, 3)
+				)
+		);
     }
 
     private static void initIdleActivity(Jellyfish jellyfish, Brain<Jellyfish> brain) {
@@ -82,13 +89,6 @@ public class JellyfishAi {
 						)
 				)
         );
-		brain.addActivity(
-				Activity.IDLE,
-				12,
-				ImmutableList.of(
-						new JellyfishHide(jellyfish, 1.25D, 8, 3)
-				)
-		);
     }
 
     private static void initFightActivity(Jellyfish jellyfish, Brain<Jellyfish> brain) {
