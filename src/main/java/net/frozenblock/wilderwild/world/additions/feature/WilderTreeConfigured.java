@@ -75,7 +75,7 @@ public final class WilderTreeConfigured {
     private static final HeightBasedVineTrunkDecorator VINES_1_UNDER_260_05 = new HeightBasedVineTrunkDecorator(1F, 260, 0.5F);
     private static final HeightBasedVineTrunkDecorator VINES_1_UNDER_260_075 = new HeightBasedVineTrunkDecorator(1F, 260, 0.75F);
     private static final HeightBasedVineTrunkDecorator VINES_08_UNDER_260_075 = new HeightBasedVineTrunkDecorator(0.8F, 260, 0.75F);
-	private static final HeightBasedCobwebTrunkDecorator COBWEB_1_UNDER_260_025 = new HeightBasedCobwebTrunkDecorator(1F, 260, 0.25F);
+	private static final HeightBasedCobwebTrunkDecorator COBWEB_1_UNDER_260_025 = new HeightBasedCobwebTrunkDecorator(1F, 260, 0.17F);
     private static final BeehiveDecorator NEW_BEES_0004 = new BeehiveDecorator(0.004F);
 	private static final BeehiveDecorator NEW_BEES_025 = new BeehiveDecorator(0.25F);
     private static final BeehiveDecorator NEW_BEES = new BeehiveDecorator(1.0F);
