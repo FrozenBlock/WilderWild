@@ -90,7 +90,10 @@ public final class WilderPlacedFeatures {
     public static final Holder<PlacedFeature> NEW_DARK_FOREST_VEGETATION = register("dark_forest_vegetation",
             WilderConfiguredFeatures.NEW_DARK_FOREST_VEGETATION, CountPlacement.of(16), InSquarePlacement.spread(), TREE_THRESHOLD, PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome());
 
-    public static final Holder<PlacedFeature> NEW_BIRCH_PLACED = register("trees_birch",
+	public static final Holder<PlacedFeature> OLD_GROWTH_DARK_FOREST_VEGETATION = register("old_growth_dark_forest_vegetation",
+			WilderConfiguredFeatures.OLD_GROWTH_DARK_FOREST_VEGETATION, CountPlacement.of(14), InSquarePlacement.spread(), TREE_THRESHOLD, PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome());
+
+	public static final Holder<PlacedFeature> NEW_BIRCH_PLACED = register("trees_birch",
             WilderConfiguredFeatures.NEW_TREES_BIRCH, treePlacement(PlacementUtils.countExtra(10, 0.1F, 1)));
 
     public static final Holder<PlacedFeature> NEW_TALL_BIRCH_PLACED = register("birch_tall",

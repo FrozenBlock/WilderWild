@@ -10,6 +10,7 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.world.generation.foliage.PalmFoliagePlacer;
 import net.frozenblock.wilderwild.world.generation.foliage.ShortPalmFoliagePlacer;
+import net.frozenblock.wilderwild.world.generation.treedecorators.HeightBasedCobwebTrunkDecorator;
 import net.frozenblock.wilderwild.world.generation.treedecorators.HeightBasedVineTrunkDecorator;
 import net.frozenblock.wilderwild.world.generation.treedecorators.LeavesAroundTopLogDecorator;
 import net.frozenblock.wilderwild.world.generation.treedecorators.ShelfFungusTreeDecorator;
@@ -74,6 +75,7 @@ public final class WilderTreeConfigured {
     private static final HeightBasedVineTrunkDecorator VINES_1_UNDER_260_05 = new HeightBasedVineTrunkDecorator(1F, 260, 0.5F);
     private static final HeightBasedVineTrunkDecorator VINES_1_UNDER_260_075 = new HeightBasedVineTrunkDecorator(1F, 260, 0.75F);
     private static final HeightBasedVineTrunkDecorator VINES_08_UNDER_260_075 = new HeightBasedVineTrunkDecorator(0.8F, 260, 0.75F);
+	private static final HeightBasedCobwebTrunkDecorator COBWEB_1_UNDER_260_025 = new HeightBasedCobwebTrunkDecorator(1F, 260, 0.25F);
     private static final BeehiveDecorator NEW_BEES_0004 = new BeehiveDecorator(0.004F);
 	private static final BeehiveDecorator NEW_BEES_025 = new BeehiveDecorator(0.25F);
     private static final BeehiveDecorator NEW_BEES = new BeehiveDecorator(1.0F);
@@ -109,7 +111,9 @@ public final class WilderTreeConfigured {
                     new DarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)), new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty()))).decorators(List.of(VINES_1_UNDER_260_05)).ignoreVines().build());
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> NEW_TALL_DARK_OAK = WilderConfiguredFeatures.register("new_tall_dark_oak", Feature.TREE, new_tall_dark_oak().ignoreVines().build());
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> DYING_TALL_DARK_OAK = WilderConfiguredFeatures.register("dying_tall_dark_oak", Feature.TREE, new_tall_dark_oak().decorators(List.of(VINES_1_UNDER_260_05)).ignoreVines().build());
-    //SWAMP TREE
+	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> COBWEB_TALL_DARK_OAK = WilderConfiguredFeatures.register("cobweb_tall_dark_oak", Feature.TREE, new_tall_dark_oak().decorators(List.of(COBWEB_1_UNDER_260_025)).ignoreVines().build());
+
+	//SWAMP TREE
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> NEW_SWAMP_TREE = WilderConfiguredFeatures.register("new_swamp_tree", Feature.TREE, (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.MANGROVE_LOG),
             new StraightTrunkPlacer(5, 2, 1), BlockStateProvider.simple(Blocks.MANGROVE_LEAVES),
             new BlobFoliagePlacer(ConstantInt.of(3), ConstantInt.of(0), 3), Optional.of(new MangroveRootPlacer(UniformInt.of(1, 1), BlockStateProvider.simple(Blocks.MANGROVE_ROOTS), Optional.of(new AboveRootPlacement(BlockStateProvider.simple(Blocks.MOSS_CARPET), 0.45F)),
@@ -223,7 +227,7 @@ public final class WilderTreeConfigured {
     }
 
     private static TreeConfiguration.TreeConfigurationBuilder new_tall_dark_oak() {
-        return darkOakBuilder(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_LEAVES, 7, 3, 2, 1).ignoreVines();
+        return darkOakBuilder(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_LEAVES, 8, 3, 4, 1).ignoreVines();
     }
 
     private static TreeConfiguration.TreeConfigurationBuilder fallen_spruce() {

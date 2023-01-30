@@ -319,6 +319,26 @@ public final class WilderSharedWorldgen {
 				)
 		);
 	}
+	public static SurfaceRules.RuleSource oldGrowthDarkForestRules() {
+		return SurfaceRules.ifTrue(
+				SurfaceRules.isBiome(RegisterWorldgen.OLD_GROWTH_DARK_FOREST),
+				SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
+						SurfaceRules.ifTrue(
+								SurfaceRules.waterBlockCheck(-1, 0),
+								SurfaceRules.sequence(
+										SurfaceRules.ifTrue(
+												SurfaceRules.noiseCondition(Noises.SURFACE, 1.45D / 8.25D, Double.MAX_VALUE),
+												COARSE_DIRT
+										),
+										SurfaceRules.ifTrue(
+												SurfaceRules.noiseCondition(Noises.SURFACE, -0.55D / 8.25D, 0.035),
+												PODZOL
+										)
+								)
+						)
+				)
+		);
+	}
 
 	public static SurfaceRules.RuleSource betaBeaches() {
 		return SurfaceRules.ifTrue(

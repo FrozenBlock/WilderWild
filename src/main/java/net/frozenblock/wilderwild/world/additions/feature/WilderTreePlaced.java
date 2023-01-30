@@ -51,6 +51,7 @@ public final class WilderTreePlaced {
     public static final Holder<PlacedFeature> NEW_TALL_DARK_OAK_CHECKED = PlacementUtils.register("new_tall_dark_oak_checked", WilderTreeConfigured.NEW_TALL_DARK_OAK, PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING));
     public static final Holder<PlacedFeature> DYING_TALL_DARK_OAK_CHECKED = PlacementUtils.register("dying_tall_dark_oak_checked", WilderTreeConfigured.DYING_TALL_DARK_OAK, PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING));
     public static final Holder<PlacedFeature> DYING_DARK_OAK_CHECKED = PlacementUtils.register("dying_dark_oak_checked", WilderTreeConfigured.DYING_DARK_OAK, PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING));
+	public static final Holder<PlacedFeature> COBWEB_TALL_DARK_OAK_CHECKED = PlacementUtils.register("cobweb_tall_dark_oak_checked", WilderTreeConfigured.COBWEB_TALL_DARK_OAK, PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING));
 
     //SWAMP TREE
     public static final Holder<PlacedFeature> NEW_SWAMP_TREE_CHECKED = PlacementUtils.register("new_swamp_tree_checked", WilderTreeConfigured.NEW_SWAMP_TREE, PlacementUtils.filteredByBlockSurvival(Blocks.MANGROVE_PROPAGULE));
