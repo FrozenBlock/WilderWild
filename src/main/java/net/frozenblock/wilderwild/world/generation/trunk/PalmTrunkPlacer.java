@@ -39,10 +39,6 @@ public class PalmTrunkPlacer extends TrunkPlacer {
 		ArrayList<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();
 		Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
 		Vector3f offset = direction.step();
-		Direction direction1 = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-		if (direction1 != direction) {
-			offset.add(direction1.step());
-		}
 		int i = freeTreeHeight - random.nextInt(4) - 1;
 		int j = 4 - random.nextInt(3);
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
