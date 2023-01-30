@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
 import net.frozenblock.lib.datagen.api.FrozenBiomeTagProvider;
+import net.frozenblock.lib.tag.api.FrozenBlockTags;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
@@ -410,6 +411,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(RegisterBlocks.HOLLOWED_BAOBAB_LOG)
 					.add(RegisterBlocks.HOLLOWED_CYPRESS_LOG)
 					.add(RegisterBlocks.HOLLOWED_PALM_LOG);
+
+			this.getOrCreateTagBuilder(FrozenBlockTags.CAN_INTERACT_WHILE_SHIFTING)
+					.addOptionalTag(WilderBlockTags.HOLLOWED_LOGS);
 
 			this.getOrCreateTagBuilder(WilderBlockTags.KILLS_TERMITE)
 					.add(Blocks.POWDER_SNOW)
