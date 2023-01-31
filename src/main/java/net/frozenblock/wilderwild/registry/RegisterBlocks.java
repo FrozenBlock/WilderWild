@@ -48,8 +48,6 @@ import net.frozenblock.wilderwild.block.WaterloggableTallFlowerBlock;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
-import net.frozenblock.wilderwild.item.AlgaeItem;
-import net.frozenblock.wilderwild.item.FloweredLilyPadItem;
 import net.frozenblock.wilderwild.misc.FlowerColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
@@ -70,6 +68,7 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -433,9 +432,9 @@ public final class RegisterBlocks {
         registerBlock("brown_shelf_fungus", BROWN_SHELF_FUNGUS, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("red_shelf_fungus", RED_SHELF_FUNGUS, CreativeModeTab.TAB_DECORATIONS);
         Registry.register(Registry.BLOCK, WilderSharedConstants.id("flowering_lily_pad"), FLOWERING_LILY_PAD);
-        Registry.register(Registry.ITEM, WilderSharedConstants.id("flowering_lily_pad"), new FloweredLilyPadItem(FLOWERING_LILY_PAD, new FabricItemSettings().tab(CreativeModeTab.TAB_DECORATIONS)));
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("flowering_lily_pad"), new PlaceOnWaterBlockItem(FLOWERING_LILY_PAD, new FabricItemSettings().tab(CreativeModeTab.TAB_DECORATIONS)));
         Registry.register(Registry.BLOCK, WilderSharedConstants.id("algae"), ALGAE);
-        Registry.register(Registry.ITEM, WilderSharedConstants.id("algae"), new AlgaeItem(ALGAE, new FabricItemSettings().tab(CreativeModeTab.TAB_DECORATIONS)));
+        Registry.register(Registry.ITEM, WilderSharedConstants.id("algae"), new PlaceOnWaterBlockItem(ALGAE, new FabricItemSettings().tab(CreativeModeTab.TAB_DECORATIONS)));
 		registerBlock("small_sponge", SMALL_SPONGE, CreativeModeTab.TAB_DECORATIONS);
     }
 

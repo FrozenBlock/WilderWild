@@ -111,6 +111,7 @@ public final class RegisterItems {
         Registry.register(Registry.ITEM, WilderSharedConstants.id("pollen"), POLLEN);
 		Registry.register(Registry.ITEM, WilderSharedConstants.id("prickly_pear"), PRICKLY_PEAR);
     }
+
     public static void registerItems() {
 		WilderSharedConstants.logWild("Registering Items for", WilderSharedConstants.UNSTABLE_LOGGING);
         Registry.register(Registry.ITEM, WilderSharedConstants.id("baobab_boat"), BAOBAB_BOAT_ITEM);
