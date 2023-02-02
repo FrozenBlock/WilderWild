@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.world.generation.features;
 
 import com.mojang.serialization.Codec;
 import java.util.Optional;
-import net.frozenblock.wilderwild.world.generation.features.config.LargeNematocystConfig;
+import net.frozenblock.wilderwild.world.generation.features.config.LargeMesogleaConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
@@ -21,44 +21,44 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-public class LargeNematocystFeature extends Feature<LargeNematocystConfig> {
-	public LargeNematocystFeature(Codec<LargeNematocystConfig> codec) {
+public class LargeMesogleaFeature extends Feature<LargeMesogleaConfig> {
+	public LargeMesogleaFeature(Codec<LargeMesogleaConfig> codec) {
 		super(codec);
 	}
 	@Override
-	public boolean place(FeaturePlaceContext<LargeNematocystConfig> context) {
+	public boolean place(FeaturePlaceContext<LargeMesogleaConfig> context) {
 			WorldGenLevel worldGenLevel = context.level();
 			BlockPos blockPos = context.origin();
-	LargeNematocystConfig largeNematocystConfig = context.config();
+	LargeMesogleaConfig largeMesogleaConfig = context.config();
 			RandomSource randomSource = context.random();
-			if (!LargeNematocystFeature.isEmptyOrWater(worldGenLevel, blockPos)) {
+			if (!LargeMesogleaFeature.isEmptyOrWater(worldGenLevel, blockPos)) {
 				return false;
 			} else {
-				Optional<Column> optional = Column.scan(worldGenLevel, blockPos, largeNematocystConfig.floorToCeilingSearchRange, DripstoneUtils::isEmptyOrWater, DripstoneUtils::isDripstoneBaseOrLava);
+				Optional<Column> optional = Column.scan(worldGenLevel, blockPos, largeMesogleaConfig.floorToCeilingSearchRange, DripstoneUtils::isEmptyOrWater, DripstoneUtils::isDripstoneBaseOrLava);
 				if (optional.isPresent() && optional.get() instanceof Column.Range range) {
 					if (range.height() < 4) {
 						return false;
 					} else {
-						int i = (int)((float)range.height() * largeNematocystConfig.maxColumnRadiusToCaveHeightRatio);
-						int j = Mth.clamp(i, largeNematocystConfig.columnRadius.getMinValue(), largeNematocystConfig.columnRadius.getMaxValue());
-						int k = Mth.randomBetweenInclusive(randomSource, largeNematocystConfig.columnRadius.getMinValue(), j);
-						LargeNematocyst largeNematocyst = makeNematocyst(blockPos.atY(range.ceiling() - 1), false, randomSource, k, largeNematocystConfig.stalactiteBluntness, largeNematocystConfig.heightScale);
-						LargeNematocyst largeNematocyst2 = makeNematocyst(blockPos.atY(range.floor() + 1), true, randomSource, k, largeNematocystConfig.stalagmiteBluntness, largeNematocystConfig.heightScale);
+						int i = (int)((float)range.height() * largeMesogleaConfig.maxColumnRadiusToCaveHeightRatio);
+						int j = Mth.clamp(i, largeMesogleaConfig.columnRadius.getMinValue(), largeMesogleaConfig.columnRadius.getMaxValue());
+						int k = Mth.randomBetweenInclusive(randomSource, largeMesogleaConfig.columnRadius.getMinValue(), j);
+						LargeMesoglea largeMesoglea = makeMesoglea(blockPos.atY(range.ceiling() - 1), false, randomSource, k, largeMesogleaConfig.stalactiteBluntness, largeMesogleaConfig.heightScale);
+						LargeMesoglea largeMesoglea2 = makeMesoglea(blockPos.atY(range.floor() + 1), true, randomSource, k, largeMesogleaConfig.stalagmiteBluntness, largeMesogleaConfig.heightScale);
 						WindOffsetter windOffsetter;
-						if (largeNematocyst.isSuitableForWind(largeNematocystConfig) && largeNematocyst2.isSuitableForWind(largeNematocystConfig)) {
-							windOffsetter = new WindOffsetter(blockPos.getY(), randomSource, largeNematocystConfig.windSpeed);
+						if (largeMesoglea.isSuitableForWind(largeMesogleaConfig) && largeMesoglea2.isSuitableForWind(largeMesogleaConfig)) {
+							windOffsetter = new WindOffsetter(blockPos.getY(), randomSource, largeMesogleaConfig.windSpeed);
 						} else {
 							windOffsetter = WindOffsetter.noWind();
 						}
 
-						boolean bl = largeNematocyst.moveBackUntilBaseIsInsideStoneAndShrinkRadiusIfNecessary(worldGenLevel, windOffsetter);
-						boolean bl2 = largeNematocyst2.moveBackUntilBaseIsInsideStoneAndShrinkRadiusIfNecessary(worldGenLevel, windOffsetter);
+						boolean bl = largeMesoglea.moveBackUntilBaseIsInsideStoneAndShrinkRadiusIfNecessary(worldGenLevel, windOffsetter);
+						boolean bl2 = largeMesoglea2.moveBackUntilBaseIsInsideStoneAndShrinkRadiusIfNecessary(worldGenLevel, windOffsetter);
 						if (bl) {
-							largeNematocyst.placeBlocks(worldGenLevel, randomSource, windOffsetter, largeNematocystConfig);
+							largeMesoglea.placeBlocks(worldGenLevel, randomSource, windOffsetter, largeMesogleaConfig);
 						}
 
 						if (bl2) {
-							largeNematocyst2.placeBlocks(worldGenLevel, randomSource, windOffsetter, largeNematocystConfig);
+							largeMesoglea2.placeBlocks(worldGenLevel, randomSource, windOffsetter, largeMesogleaConfig);
 						}
 
 						return true;
@@ -69,19 +69,19 @@ public class LargeNematocystFeature extends Feature<LargeNematocystConfig> {
 			}
 		}
 
-		private static LargeNematocyst makeNematocyst(BlockPos root, boolean pointingUp, RandomSource random, int radius, FloatProvider bluntnessBase, FloatProvider scaleBase) {
-			return new LargeNematocyst(root, pointingUp, radius, bluntnessBase.sample(random), scaleBase.sample(random));
+		private static LargeMesoglea makeMesoglea(BlockPos root, boolean pointingUp, RandomSource random, int radius, FloatProvider bluntnessBase, FloatProvider scaleBase) {
+			return new LargeMesoglea(root, pointingUp, radius, bluntnessBase.sample(random), scaleBase.sample(random));
 		}
 
 
-		static final class LargeNematocyst {
+		static final class LargeMesoglea {
 			private BlockPos root;
 			private final boolean pointingUp;
 			private int radius;
 			private final double bluntness;
 			private final double scale;
 
-			LargeNematocyst(BlockPos root, boolean pointingUp, int radius, double bluntness, double scale) {
+			LargeMesoglea(BlockPos root, boolean pointingUp, int radius, double bluntness, double scale) {
 				this.root = root;
 				this.pointingUp = pointingUp;
 				this.radius = radius;
@@ -104,7 +104,7 @@ public class LargeNematocystFeature extends Feature<LargeNematocystConfig> {
 							return false;
 						}
 
-						if (LargeNematocystFeature.isCircleMostlyEmbeddedInStone(level, windOffsetter.offset(mutableBlockPos), this.radius)) {
+						if (LargeMesogleaFeature.isCircleMostlyEmbeddedInStone(level, windOffsetter.offset(mutableBlockPos), this.radius)) {
 							this.root = mutableBlockPos;
 							return true;
 						}
@@ -119,10 +119,10 @@ public class LargeNematocystFeature extends Feature<LargeNematocystConfig> {
 			}
 
 			private int getHeightAtRadius(float radius) {
-				return (int)LargeNematocystFeature.getNematocystHeight(radius, this.radius, this.scale, this.bluntness);
+				return (int) LargeMesogleaFeature.getMesogleaHeight(radius, this.radius, this.scale, this.bluntness);
 			}
 
-			void placeBlocks(WorldGenLevel level, RandomSource random, WindOffsetter windOffsetter, LargeNematocystConfig config) {
+			void placeBlocks(WorldGenLevel level, RandomSource random, WindOffsetter windOffsetter, LargeMesogleaConfig config) {
 				for(int i = -this.radius; i <= this.radius; ++i) {
 					for(int j = -this.radius; j <= this.radius; ++j) {
 						float f = Mth.sqrt((float)(i * i + j * j));
@@ -155,7 +155,7 @@ public class LargeNematocystFeature extends Feature<LargeNematocystConfig> {
 
 			}
 
-			boolean isSuitableForWind(LargeNematocystConfig config) {
+			boolean isSuitableForWind(LargeMesogleaConfig config) {
 				return this.radius >= config.minRadiusForWind && this.bluntness >= (double)config.minBluntnessForWind;
 			}
 		}
@@ -212,14 +212,14 @@ public class LargeNematocystFeature extends Feature<LargeNematocystConfig> {
 		}
 	}
 	protected static boolean isEmptyOrWaterOrLava(LevelAccessor level, BlockPos pos) {
-		return level.isStateAtPosition(pos, LargeNematocystFeature::isEmptyOrWaterOrLava);
+		return level.isStateAtPosition(pos, LargeMesogleaFeature::isEmptyOrWaterOrLava);
 	}
 	public static boolean isEmptyOrWaterOrLava(BlockState state) {
 		return state.isAir() || state.is(Blocks.WATER) || state.is(Blocks.LAVA);
 	}
 
 
-	protected static double getNematocystHeight(double radius, double maxRadius, double scale, double minRadius) {
+	protected static double getMesogleaHeight(double radius, double maxRadius, double scale, double minRadius) {
 		if (radius < minRadius) {
 			radius = minRadius;
 		}

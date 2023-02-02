@@ -5,11 +5,10 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.valueproviders.FloatProvider;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.LargeDripstoneConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
-public class LargeNematocystConfig implements FeatureConfiguration {
-	public static final Codec<LargeNematocystConfig> CODEC = RecordCodecBuilder.create((instance) -> {
+public class LargeMesogleaConfig implements FeatureConfiguration {
+	public static final Codec<LargeMesogleaConfig> CODEC = RecordCodecBuilder.create((instance) -> {
 		return instance.group(Codec.intRange(1, 512).fieldOf("floor_to_ceiling_search_range").orElse(30).forGetter((config) -> {
 			return config.floorToCeilingSearchRange;
 		}), IntProvider.codec(1, 60).fieldOf("column_radius").forGetter((config) -> {
@@ -30,7 +29,7 @@ public class LargeNematocystConfig implements FeatureConfiguration {
 			return config.minRadiusForWind;
 		}), Codec.floatRange(0.0F, 5.0F).fieldOf("min_bluntness_for_wind").forGetter((config) -> {
 			return config.minBluntnessForWind;
-		})).apply(instance, LargeNematocystConfig::new);
+		})).apply(instance, LargeMesogleaConfig::new);
 	});
 	public final int floorToCeilingSearchRange;
 	public final IntProvider columnRadius;
@@ -43,7 +42,7 @@ public class LargeNematocystConfig implements FeatureConfiguration {
 	public final int minRadiusForWind;
 	public final float minBluntnessForWind;
 
-	public LargeNematocystConfig(int floorToCeilingSearchRange,  IntProvider columnRadius,BlockStateProvider pathBlock, FloatProvider heightScale, float maxColumnRadiusToCaveHeightRatio, FloatProvider stalactiteBluntness, FloatProvider stalagmiteBluntness, FloatProvider windSpeed, int minRadiusForWind, float minBluntnessForWind) {
+	public LargeMesogleaConfig(int floorToCeilingSearchRange, IntProvider columnRadius, BlockStateProvider pathBlock, FloatProvider heightScale, float maxColumnRadiusToCaveHeightRatio, FloatProvider stalactiteBluntness, FloatProvider stalagmiteBluntness, FloatProvider windSpeed, int minRadiusForWind, float minBluntnessForWind) {
 		this.floorToCeilingSearchRange = floorToCeilingSearchRange;
 		this.columnRadius = columnRadius;
 		this.pathBlock = pathBlock;

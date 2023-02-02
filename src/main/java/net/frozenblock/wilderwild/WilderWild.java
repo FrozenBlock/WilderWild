@@ -39,11 +39,11 @@ import net.frozenblock.wilderwild.world.additions.gen.WilderWorldGen;
 import net.frozenblock.wilderwild.world.generation.conditionsource.BetaBeachConditionSource;
 import net.frozenblock.wilderwild.world.generation.features.AlgaeFeature;
 import net.frozenblock.wilderwild.world.generation.features.CattailFeature;
-import net.frozenblock.wilderwild.world.generation.features.LargeNematocystFeature;
+import net.frozenblock.wilderwild.world.generation.features.LargeMesogleaFeature;
 import net.frozenblock.wilderwild.world.generation.features.NematocystFeature;
 import net.frozenblock.wilderwild.world.generation.features.ShelfFungusFeature;
 import net.frozenblock.wilderwild.world.generation.features.SmallSpongeFeature;
-import net.frozenblock.wilderwild.world.generation.features.config.LargeNematocystConfig;
+import net.frozenblock.wilderwild.world.generation.features.config.LargeMesogleaConfig;
 import net.frozenblock.wilderwild.world.generation.features.config.ShelfFungusFeatureConfig;
 import net.frozenblock.wilderwild.world.generation.features.config.SmallSpongeFeatureConfig;
 import net.frozenblock.wilderwild.world.generation.foliage.PalmFoliagePlacer;
@@ -84,7 +84,7 @@ public final class WilderWild extends FrozenMobCategoryEntrypoint implements Mod
     public static final CattailFeature CATTAIL_FEATURE = new CattailFeature(ProbabilityFeatureConfiguration.CODEC);
     public static final AlgaeFeature ALGAE_FEATURE = new AlgaeFeature(ProbabilityFeatureConfiguration.CODEC);
     public static final NematocystFeature NEMATOCYST_FEATURE = new NematocystFeature(MultifaceGrowthConfiguration.CODEC);
-	public static final LargeNematocystFeature LARGE_MESOGLEA_FEATURE = new LargeNematocystFeature(LargeNematocystConfig.CODEC);
+	public static final LargeMesogleaFeature LARGE_MESOGLEA_FEATURE = new LargeMesogleaFeature(LargeMesogleaConfig.CODEC);
     public static final FoliagePlacerType<PalmFoliagePlacer> PALM_FOLIAGE_PLACER =  registerFoliage("palm_foliage_placer", PalmFoliagePlacer.CODEC);
 	public static final FoliagePlacerType<ShortPalmFoliagePlacer> SHORT_PALM_FOLIAGE_PLACER =  registerFoliage("short_palm_foliage_placer", ShortPalmFoliagePlacer.CODEC);
 

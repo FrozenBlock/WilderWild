@@ -3,9 +3,7 @@ package net.frozenblock.wilderwild.world.additions.feature;
 import java.util.List;
 import net.frozenblock.lib.feature.FrozenFeatures;
 import net.frozenblock.lib.feature.features.config.ColumnWithDiskFeatureConfig;
-import net.frozenblock.lib.feature.features.config.PathFeatureConfig;
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
 import net.frozenblock.wilderwild.block.SmallSpongeBlock;
 import net.frozenblock.wilderwild.misc.FlowerColor;
@@ -13,7 +11,7 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
-import net.frozenblock.wilderwild.world.generation.features.config.LargeNematocystConfig;
+import net.frozenblock.wilderwild.world.generation.features.config.LargeMesogleaConfig;
 import net.frozenblock.wilderwild.world.generation.features.config.ShelfFungusFeatureConfig;
 import net.frozenblock.wilderwild.world.generation.features.config.SmallSpongeFeatureConfig;
 import net.minecraft.core.BlockPos;
@@ -642,17 +640,17 @@ public final class WilderConfiguredFeatures {
 					)
 			)
 	);
-	public static final Holder<ConfiguredFeature<LargeNematocystConfig, ?>> LARGE_MESOGLEA_PURPLE = register("large_mesoglea_purple",
+	public static final Holder<ConfiguredFeature<LargeMesogleaConfig, ?>> LARGE_MESOGLEA_PURPLE = register("large_mesoglea_purple",
 			WilderWild.LARGE_MESOGLEA_FEATURE,
-			new LargeNematocystConfig(
+			new LargeMesogleaConfig(
 					30,
 					UniformInt.of(3, 19), BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)), UniformFloat.of(0.4F, 2.0F),
 					0.33F, UniformFloat.of(0.3F, 0.9F),
 					UniformFloat.of(0.4F, 1.0F), UniformFloat.of(0.0F, 0.3F), 4, 0.6F));
 
-	public static final Holder<ConfiguredFeature<LargeNematocystConfig, ?>> LARGE_MESOGLEA_BLUE = register("large_mesoglea_blue",
+	public static final Holder<ConfiguredFeature<LargeMesogleaConfig, ?>> LARGE_MESOGLEA_BLUE = register("large_mesoglea_blue",
 			WilderWild.LARGE_MESOGLEA_FEATURE,
-			new LargeNematocystConfig(
+			new LargeMesogleaConfig(
 					30,
 					UniformInt.of(3, 15), BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)), UniformFloat.of(0.2F, 1.2F),
 					0.33F, UniformFloat.of(0.1F, 0.5F),
