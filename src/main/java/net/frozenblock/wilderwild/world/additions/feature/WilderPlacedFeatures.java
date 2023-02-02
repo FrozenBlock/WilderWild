@@ -392,7 +392,7 @@ public final class WilderPlacedFeatures {
 	public static final Holder<PlacedFeature> NEMATOCYST = PlacementUtils.register(
 			"nematocyst",
 			WilderConfiguredFeatures.NEMATOCYST,
-			CountPlacement.of(ConstantInt.of(64)),
+			CountPlacement.of(ConstantInt.of(72)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			BiomeFilter.biome()
@@ -401,7 +401,7 @@ public final class WilderPlacedFeatures {
 	public static final Holder<PlacedFeature> NEMATOCYST_PURPLE = PlacementUtils.register(
 			"nematocyst_purple",
 			WilderConfiguredFeatures.NEMATOCYST_PURPLE,
-			CountPlacement.of(ConstantInt.of(64)),
+			CountPlacement.of(ConstantInt.of(72)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			BiomeFilter.biome()
