@@ -1,3 +1,12 @@
+buildscript {
+	repositories {
+		gradlePluginPortal()
+	}
+	dependencies {
+		classpath("org.kohsuke:github-api:1.313")
+	}
+}
+
 import java.nio.file.Files
 
 ext {
@@ -9,11 +18,6 @@ ext {
 	display_name = makeName(mod_version)
 
 	changelog_text = getChangelog(file(changelog_file))
-}
-
-task publishMod {
-	dependsOn(tasks.getByName("curseforge"))
-	dependsOn(tasks.getByName("modrinth"))
 }
 
 String makeName(String version) {
@@ -79,4 +83,52 @@ modrinth {
 		embedded.project("frozenlib")
 		embedded.project("nbt-crafting")
 	}
+}
+
+def getBranch() {
+	def env = System.getenv()
+	if (env.GITHUB_REF) {
+		def branch = env.GITHUB_REF
+		return branch.substring(branch.lastIndexOf("/") + 1)
+	}
+
+	if (grgit == null) {
+		return "unknown"
+	}
+
+	def branch = grgit.branch.current().name
+	return branch.substring(branch.lastIndexOf("/") + 1)
+}
+
+import org.kohsuke.github.GHReleaseBuilder
+import org.kohsuke.github.GitHub
+
+tasks.register('github') {
+	dependsOn remapJar
+	def env = System.getenv()
+	onlyIf {
+		env.GITHUB_TOKEN
+	}
+
+	doLast {
+		def github = GitHub.connectUsingOAuth(env.GITHUB_TOKEN as String)
+		def repository = github.getRepository(env.GITHUB_REPOSITORY)
+
+		def releaseBuilder = new GHReleaseBuilder(repository, version as String)
+		releaseBuilder.name("$project.version-$project.minecraft_version")
+		releaseBuilder.body(changelog_text)
+		releaseBuilder.commitish(getBranch())
+		releaseBuilder.prerelease(release_type != "release")
+
+		def ghRelease = releaseBuilder.create()
+		ghRelease.uploadAsset(remapJar.archiveFile.get().getAsFile(), "application/java-archive")
+		ghRelease.uploadAsset(remapSourcesJar.archiveFile.get().getAsFile(), "application/java-archive")
+		ghRelease.uploadAsset(javadocJar.archiveFile.get().getAsFile(), "application/java-archive")
+	}
+}
+
+tasks.register('publishMod') {
+	dependsOn(github)
+	dependsOn(tasks.getByName("curseforge"))
+	dependsOn(tasks.getByName("modrinth"))
 }

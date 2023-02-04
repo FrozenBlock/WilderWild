@@ -4,9 +4,9 @@
 
 name: release
 on:
-  release:
-    types:
-      - published
+  push:
+    tags:
+      - '*'
 
 jobs:
   build:
@@ -18,6 +18,7 @@ jobs:
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     env:
+      GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
       CURSEFORGE_TOKEN: ${{secrets.CURSEFORGE_TOKEN}}
       MODRINTH_TOKEN: ${{secrets.MODRINTH_TOKEN}}
     steps:
