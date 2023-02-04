@@ -45,7 +45,7 @@ curseforge {
 		releaseType = release_type
 		addGameVersion("Fabric")
 		addGameVersion("Quilt")
-		addGameVersion(minecraft_version)
+		addGameVersion(curseforge_minecraft_version)
 		relations {
 			requiredDependency("fabric-api")
 			optionalDependency("cloth-config")
