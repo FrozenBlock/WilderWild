@@ -57,7 +57,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	public boolean isOsmiooo() {
 		Warden warden = Warden.class.cast(this);
 		String name = ChatFormatting.stripFormatting(warden.getName().getString());
-		return name != null && (name.equalsIgnoreCase("Osmiooo") || name.equalsIgnoreCase("Mossmio") || name.equalsIgnoreCase("Osmio"));
+		return name != null && (name.equalsIgnoreCase("Stella") || name.equalsIgnoreCase("Osmiooo") || name.equalsIgnoreCase("Mossmio") || name.equalsIgnoreCase("Osmio"));
 	}
 
 	@Inject(at = @At("RETURN"), method = "getDeathSound")
