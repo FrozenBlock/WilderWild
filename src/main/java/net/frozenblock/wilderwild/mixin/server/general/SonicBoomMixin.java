@@ -46,6 +46,9 @@ public class SonicBoomMixin implements WilderSonicBoom {
 	@Unique
 	private Vec3 wilderWild$vec32 = null;
 
+	@Unique
+	private static boolean wilderWild$stella;
+
 	@ModifyArg(method = "tick(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/monster/warden/Warden;J)V", at = @At(value = "INVOKE", target = "Ljava/util/Optional;ifPresent(Ljava/util/function/Consumer;)V", ordinal = 1))
 	private Consumer<? super LivingEntity> setCurrent(Consumer<? super LivingEntity> original) {
 		return target -> {
@@ -117,13 +120,12 @@ public class SonicBoomMixin implements WilderSonicBoom {
 		}
 	}
 
-	@Redirect(method = {"m_ehrxwrfs","method_43265","lambda$tick$2"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/warden/Warden;playSound(Lnet/minecraft/sounds/SoundEvent;FF)V"), require = 1)
-	private static void modifySound(Warden warden, SoundEvent soundEvent, float volume, float pitch) {
-		if (((WilderWarden) warden).isStella()) {
-			warden.playSound(RegisterSounds.ENTITY_WARDEN_BRAP, volume, pitch);
-		} else {
-			warden.playSound(soundEvent, volume, pitch);
+	@ModifyArg(method = {"m_ehrxwrfs","method_43265","lambda$tick$2"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/warden/Warden;playSound(Lnet/minecraft/sounds/SoundEvent;FF)V"), index = 0, require = 1)
+	private static SoundEvent modifySound(SoundEvent original) {
+		if (wilderWild$stella) {
+			return RegisterSounds.ENTITY_WARDEN_BRAP;
 		}
+		return original;
 	}
 
 	@Unique
