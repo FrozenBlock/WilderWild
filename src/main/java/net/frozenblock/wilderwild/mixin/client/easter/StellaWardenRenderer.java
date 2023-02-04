@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin(WardenRenderer.class)
-public abstract class STELLAWardenRenderer extends MobRenderer<Warden, WardenModel<Warden>> {
+public abstract class StellaWardenRenderer extends MobRenderer<Warden, WardenModel<Warden>> {
 
     @Unique
     private static final ResourceLocation WILDERWILD$STELLA_TEXTURE = WilderSharedConstants.id("textures/entity/warden/stella_warden.png");
@@ -35,7 +35,7 @@ public abstract class STELLAWardenRenderer extends MobRenderer<Warden, WardenMod
     @Unique
     private static final ResourceLocation WILDERWILD$STELLA_PULSATING_SPOTS_2_TEXTURE = WilderSharedConstants.id("textures/entity/warden/stella_warden_pulsating_spots_2.png");
 
-    public STELLAWardenRenderer(EntityRendererProvider.Context context, WardenModel<Warden> entityModel, float f) {
+    public StellaWardenRenderer(EntityRendererProvider.Context context, WardenModel<Warden> entityModel, float f) {
         super(context, entityModel, f);
     }
 
