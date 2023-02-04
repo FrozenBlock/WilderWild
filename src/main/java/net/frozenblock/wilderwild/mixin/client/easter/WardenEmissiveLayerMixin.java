@@ -31,8 +31,8 @@ public abstract class WardenEmissiveLayerMixin<T extends Warden, M extends Warde
     public ResourceLocation texture;
 
     @Inject(at = @At("HEAD"), method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/world/entity/monster/warden/Warden;FFFFFF)V", cancellable = true)
-    public void preventIfOsmiooo(PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i, T wardenEntity, float f, float g, float h, float j, float k, float l, CallbackInfo ci) {
-        if (((WilderWarden) wardenEntity).isOsmiooo()) {
+    public void preventIfStella(PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i, T wardenEntity, float f, float g, float h, float j, float k, float l, CallbackInfo ci) {
+        if (((WilderWarden) wardenEntity).isStella()) {
             ci.cancel();
         }
     }

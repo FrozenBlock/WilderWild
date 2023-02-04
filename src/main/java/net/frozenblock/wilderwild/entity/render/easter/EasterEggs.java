@@ -8,8 +8,8 @@ import net.minecraft.world.entity.EntityType;
 public class EasterEggs {
 
     public static void registerEaster() {
-        EntityTextureOverride.register(WilderSharedConstants.id("osmiooo_warden"), EntityType.WARDEN, WilderSharedConstants.id("textures/entity/warden/osmiooo_warden.png"),
-				(entity -> ((WilderWarden) entity).isOsmiooo())
+        EntityTextureOverride.register(WilderSharedConstants.id("stella_warden"), EntityType.WARDEN, WilderSharedConstants.id("textures/entity/warden/stella_warden.png"),
+				(entity -> ((WilderWarden) entity).isStella())
 		);
         EntityTextureOverride.register(WilderSharedConstants.id("treetrain1_goat"), EntityType.GOAT, WilderSharedConstants.id("textures/entity/goat/treetrain1_goat.png"),
 				true, "Treetrain1", "Treetrain"

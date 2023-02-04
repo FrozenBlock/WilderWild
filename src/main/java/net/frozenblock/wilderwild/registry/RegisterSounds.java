@@ -234,7 +234,7 @@ public final class RegisterSounds {
     public static final SoundEvent ENTITY_WARDEN_UNDERWATER_DYING = register("entity.warden.dying_underwater");
     public static final SoundEvent ENTITY_WARDEN_SWIM = register("entity.warden.swim");
     public static final SoundEvent ENTITY_WARDEN_BRAP = register("entity.warden.brap");
-    public static final SoundEvent ENTITY_WARDEN_OSMIOOO_HEARTBEAT = register("entity.warden.osmiooo_heartbeat");
+    public static final SoundEvent ENTITY_WARDEN_STELLA_HEARTBEAT = register("entity.warden.stella_heartbeat");
 
     public static final SoundEvent ENTITY_FROG_SUS_DEATH = register("entity.frog.sus_death");
 

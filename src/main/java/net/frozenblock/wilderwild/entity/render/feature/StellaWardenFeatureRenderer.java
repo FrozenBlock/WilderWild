@@ -14,14 +14,14 @@ import net.minecraft.client.renderer.entity.layers.WardenEmissiveLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.monster.warden.Warden;
 
-public class OsmioooWardenFeatureRenderer<T extends Warden, M extends WardenModel<T>> extends WardenEmissiveLayer<T, M> {
-    public OsmioooWardenFeatureRenderer(RenderLayerParent<T, M> context, ResourceLocation texture, AlphaFunction<T> animationAngleAdjuster, DrawSelector<T, M> modelPartVisibility) {
+public class StellaWardenFeatureRenderer<T extends Warden, M extends WardenModel<T>> extends WardenEmissiveLayer<T, M> {
+    public StellaWardenFeatureRenderer(RenderLayerParent<T, M> context, ResourceLocation texture, AlphaFunction<T> animationAngleAdjuster, DrawSelector<T, M> modelPartVisibility) {
         super(context, texture, animationAngleAdjuster, modelPartVisibility);
     }
 
     @Override
     public void render(PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i, T wardenEntity, float f, float g, float h, float j, float k, float l) {
-        if (!wardenEntity.isInvisible() && ((WilderWarden) wardenEntity).isOsmiooo()) {
+        if (!wardenEntity.isInvisible() && ((WilderWarden) wardenEntity).isStella()) {
             this.onlyDrawSelectedParts();
             VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderType.entityTranslucentEmissive(this.texture));
             this.getParentModel()

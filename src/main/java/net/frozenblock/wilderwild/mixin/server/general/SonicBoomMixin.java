@@ -119,7 +119,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 
 	@Redirect(method = {"m_ehrxwrfs","method_43265","lambda$tick$2"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/warden/Warden;playSound(Lnet/minecraft/sounds/SoundEvent;FF)V"), require = 1)
 	private static void modifySound(Warden warden, SoundEvent soundEvent, float volume, float pitch) {
-		if (((WilderWarden) warden).isOsmiooo()) {
+		if (((WilderWarden) warden).isStella()) {
 			warden.playSound(RegisterSounds.ENTITY_WARDEN_BRAP, volume, pitch);
 		} else {
 			warden.playSound(soundEvent, volume, pitch);
