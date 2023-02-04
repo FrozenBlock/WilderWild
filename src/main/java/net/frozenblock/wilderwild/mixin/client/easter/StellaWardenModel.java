@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin(WardenModel.class)
-public abstract class OsmioooWardenModel<T extends Warden> implements WilderWardenModel {
+public abstract class StellaWardenModel<T extends Warden> implements WilderWardenModel {
 
     @Final
     @Shadow
