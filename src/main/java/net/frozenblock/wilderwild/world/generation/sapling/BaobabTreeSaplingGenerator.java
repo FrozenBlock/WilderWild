@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.jetbrains.annotations.Nullable;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class BaobabTreeSaplingGenerator extends AbstractMegaTreeGrower {
     public BaobabTreeSaplingGenerator() {
@@ -37,102 +38,40 @@ public abstract class BaobabTreeSaplingGenerator extends AbstractMegaTreeGrower 
         return null;
     }
 
-    public boolean generateBaobabTree(ServerLevel level, ChunkGenerator chunkGenerator, BlockPos pos, BlockState state, RandomSource random, int x, int z) {
+    public boolean generateBaobabTree(ServerLevel level, ChunkGenerator chunkGenerator, BlockPos pos, BlockState state, RandomSource random, int xPos, int zPos) {
         Holder<? extends ConfiguredFeature<?, ?>> registryEntry = this.getBaobabTreeFeature(random);
         if (registryEntry == null) {
             return false;
         } else {
             ConfiguredFeature<?, ?> configuredFeature = registryEntry.value();
             BlockState blockState = Blocks.AIR.defaultBlockState();
-            level.setBlock(pos.offset(x, 0, z), blockState, 16);
-            level.setBlock(pos.offset(x + 1, 0, z), blockState, 16);
-            level.setBlock(pos.offset(x + 2, 0, z), blockState, 16);
-            level.setBlock(pos.offset(x + 3, 0, z), blockState, 16);
-            level.setBlock(pos.offset(x, 0, z + 1), blockState, 16);
-            level.setBlock(pos.offset(x, 0, z + 2), blockState, 16);
-            level.setBlock(pos.offset(x, 0, z + 3), blockState, 16);
-            level.setBlock(pos.offset(x + 1, 0, z + 1), blockState, 16);
-            level.setBlock(pos.offset(x + 2, 0, z + 1), blockState, 16);
-            level.setBlock(pos.offset(x + 3, 0, z + 1), blockState, 16);
-            level.setBlock(pos.offset(x + 1, 0, z + 2), blockState, 16);
-            level.setBlock(pos.offset(x + 1, 0, z + 3), blockState, 16);
-            level.setBlock(pos.offset(x + 2, 0, z + 2), blockState, 16);
-            level.setBlock(pos.offset(x + 3, 0, z + 3), blockState, 16);
-            level.setBlock(pos.offset(x + 3, 0, z + 2), blockState, 16);
-            level.setBlock(pos.offset(x + 2, 0, z + 3), blockState, 16);
-            level.getChunkSource().blockChanged(pos.offset(x, 0, z));
-            level.getChunkSource().blockChanged(pos.offset(x + 1, 0, z));
-            level.getChunkSource().blockChanged(pos.offset(x + 2, 0, z));
-            level.getChunkSource().blockChanged(pos.offset(x + 3, 0, z));
-            level.getChunkSource().blockChanged(pos.offset(x, 0, z + 1));
-            level.getChunkSource().blockChanged(pos.offset(x, 0, z + 2));
-            level.getChunkSource().blockChanged(pos.offset(x, 0, z + 3));
-            level.getChunkSource().blockChanged(pos.offset(x + 1, 0, z + 1));
-            level.getChunkSource().blockChanged(pos.offset(x + 2, 0, z + 1));
-            level.getChunkSource().blockChanged(pos.offset(x + 3, 0, z + 1));
-            level.getChunkSource().blockChanged(pos.offset(x + 1, 0, z + 2));
-            level.getChunkSource().blockChanged(pos.offset(x + 1, 0, z + 3));
-            level.getChunkSource().blockChanged(pos.offset(x + 2, 0, z + 2));
-            level.getChunkSource().blockChanged(pos.offset(x + 3, 0, z + 3));
-            level.getChunkSource().blockChanged(pos.offset(x + 3, 0, z + 2));
-            level.getChunkSource().blockChanged(pos.offset(x + 2, 0, z + 3));
-            if (configuredFeature.place(level, chunkGenerator, random, pos.offset(x, 0, z))) {
+			for (var x = xPos; x <= xPos + 3; ++x) {
+				for (var z = zPos; z <= zPos + 3; ++z) {
+					level.setBlock(pos.offset(x, 0, z), blockState, 3);
+				}
+			}
+            if (configuredFeature.place(level, chunkGenerator, random, pos.offset(xPos, 0, zPos))) {
                 return true;
             } else {
-                level.setBlock(pos.offset(x, 0, z), state, 16);
-                level.setBlock(pos.offset(x + 1, 0, z), state, 16);
-                level.setBlock(pos.offset(x + 2, 0, z), blockState, 16);
-                level.setBlock(pos.offset(x + 3, 0, z), blockState, 16);
-                level.setBlock(pos.offset(x, 0, z + 1), state, 16);
-                level.setBlock(pos.offset(x, 0, z + 2), blockState, 16);
-                level.setBlock(pos.offset(x, 0, z + 3), blockState, 16);
-                level.setBlock(pos.offset(x + 1, 0, z + 1), state, 16);
-                level.setBlock(pos.offset(x + 2, 0, z + 1), blockState, 16);
-                level.setBlock(pos.offset(x + 3, 0, z + 1), blockState, 16);
-                level.setBlock(pos.offset(x + 1, 0, z + 2), blockState, 16);
-                level.setBlock(pos.offset(x + 1, 0, z + 3), blockState, 16);
-                level.setBlock(pos.offset(x + 2, 0, z + 2), blockState, 16);
-                level.setBlock(pos.offset(x + 3, 0, z + 3), blockState, 16);
-                level.setBlock(pos.offset(x + 3, 0, z + 2), blockState, 16);
-                level.setBlock(pos.offset(x + 2, 0, z + 3), blockState, 16);
-                level.getChunkSource().blockChanged(pos.offset(x, 0, z));
-                level.getChunkSource().blockChanged(pos.offset(x + 1, 0, z));
-                level.getChunkSource().blockChanged(pos.offset(x + 2, 0, z));
-                level.getChunkSource().blockChanged(pos.offset(x + 3, 0, z));
-                level.getChunkSource().blockChanged(pos.offset(x, 0, z + 1));
-                level.getChunkSource().blockChanged(pos.offset(x, 0, z + 2));
-                level.getChunkSource().blockChanged(pos.offset(x, 0, z + 3));
-                level.getChunkSource().blockChanged(pos.offset(x + 1, 0, z + 1));
-                level.getChunkSource().blockChanged(pos.offset(x + 2, 0, z + 1));
-                level.getChunkSource().blockChanged(pos.offset(x + 3, 0, z + 1));
-                level.getChunkSource().blockChanged(pos.offset(x + 1, 0, z + 2));
-                level.getChunkSource().blockChanged(pos.offset(x + 1, 0, z + 3));
-                level.getChunkSource().blockChanged(pos.offset(x + 2, 0, z + 2));
-                level.getChunkSource().blockChanged(pos.offset(x + 3, 0, z + 3));
-                level.getChunkSource().blockChanged(pos.offset(x + 3, 0, z + 2));
-                level.getChunkSource().blockChanged(pos.offset(x + 2, 0, z + 3));
+				for (var x = xPos; x <= xPos + 3; ++x) {
+					for (var z = zPos; z <= zPos + 3; ++z) {
+						level.setBlock(pos.offset(x, 0, z), state, 3);
+					}
+				}
                 return false;
             }
         }
     }
 
-    public static boolean canGenerateBaobabTree(BlockState state, BlockGetter level, BlockPos pos, int x, int z) {
+    public static boolean canGenerateBaobabTree(BlockState state, BlockGetter level, BlockPos pos, int xPos, int zPos) {
         Block block = state.getBlock();
-        return level.getBlockState(pos.offset(x, 0, z)).is(block)
-                && level.getBlockState(pos.offset(x + 1, 0, z)).is(block)
-                && level.getBlockState(pos.offset(x + 2, 0, z)).is(block)
-                && level.getBlockState(pos.offset(x + 3, 0, z)).is(block)
-                && level.getBlockState(pos.offset(x, 0, z + 1)).is(block)
-                && level.getBlockState(pos.offset(x, 0, z + 2)).is(block)
-                && level.getBlockState(pos.offset(x, 0, z + 3)).is(block)
-                && level.getBlockState(pos.offset(x + 1, 0, z + 1)).is(block)
-                && level.getBlockState(pos.offset(x + 2, 0, z + 1)).is(block)
-                && level.getBlockState(pos.offset(x + 3, 0, z + 1)).is(block)
-                && level.getBlockState(pos.offset(x + 1, 0, z + 2)).is(block)
-                && level.getBlockState(pos.offset(x + 1, 0, z + 3)).is(block)
-                && level.getBlockState(pos.offset(x + 2, 0, z + 2)).is(block)
-                && level.getBlockState(pos.offset(x + 3, 0, z + 3)).is(block)
-                && level.getBlockState(pos.offset(x + 3, 0, z + 2)).is(block)
-                && level.getBlockState(pos.offset(x + 2, 0, z + 3)).is(block);
+		boolean canGenerate = false;
+		for (var x = xPos; x <= xPos + 3; ++x) {
+			for (var z = zPos; z <= zPos + 3; ++z) {
+				if (level.getBlockState(pos.offset(x, 0, z)).is(block))
+					canGenerate = true;
+			}
+		}
+        return canGenerate;
     }
 }
