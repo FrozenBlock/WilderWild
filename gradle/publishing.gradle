@@ -39,13 +39,14 @@ static String getChangelog(File changelogFile) {
 curseforge {
 	String token = System.getenv("CURSEFORGE_TOKEN")
 	apiKey = token == null || token.isEmpty() ? "unset" : token
+	String gameVersion = curseforge_minecraft_version != "null" ? curseforge_minecraft_version : minecraft_version
 	project {
 		id = curseforge_id
 		changelog = changelog_text
 		releaseType = release_type
 		addGameVersion("Fabric")
 		addGameVersion("Quilt")
-		addGameVersion(minecraft_version)
+		addGameVersion(gameVersion)
 		relations {
 			requiredDependency("fabric-api")
 			optionalDependency("cloth-config")
