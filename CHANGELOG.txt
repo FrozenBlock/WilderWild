@@ -1,0 +1,7 @@
+Hello
+Put changelog in plain text please
+Make sure to clear after release
+
+Put changelog here:
+-----------------
+- Fixed compatibility with Simple Copper Pipes 0.12

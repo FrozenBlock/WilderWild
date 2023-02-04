@@ -1,6 +1,8 @@
 plugins {
 	id("fabric-loom") version("+")
 	id("io.github.juuxel.loom-quiltflower") version("+")
+	id("com.modrinth.minotaur") version("+")
+	id("com.matthewprenger.cursegradle") version("+")
 	id("maven-publish")
 	id("eclipse")
 	id("idea")
@@ -156,9 +158,6 @@ dependencies {
 	// Lunade
 	modCompileOnly("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
 
-	//Tom's Simple Storage
-	modImplementation("maven.modrinth:toms-storage:${tomsstorage_version}")
-
 	// Mod Menu
 	modImplementation("com.terraformersmc:modmenu:${modmenu_version}")
 
@@ -221,10 +220,14 @@ dependencies {
 }
 
 processResources {
-	inputs.property("version", project.version)
+	Map<String, Object> properties = new HashMap<>()
+	properties.put("version", project.version)
+	properties.put("minecraft_version", project.minecraft_version)
+
+	properties.forEach((a, b) -> inputs.property(a, b))
 
 	filesMatching("fabric.mod.json") {
-		expand("version": project.version)
+		expand(properties)
 	}
 }
 
@@ -311,3 +314,5 @@ if (!project.release) {
 	test.dependsOn runDatagen
 	runClient.dependsOn runDatagen
 }
+
+apply from: "gradle/publishing.gradle"
