@@ -223,7 +223,7 @@ processResources {
 	Map<String, Object> properties = new HashMap<>()
 	properties.put("version", project.version)
 	// TODO: change this to project.minecraft_version when 1.19.4 releases
-	properties.put("minecraft_version", "~1.19.4")
+	properties.put("minecraft_version", "~1.19.4-")
 
 	properties.forEach((a, b) -> inputs.property(a, b))
 
