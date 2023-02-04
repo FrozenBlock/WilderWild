@@ -2,11 +2,7 @@ package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.lib.block.api.FaceClusterBlock;
 import net.minecraft.core.Direction;
-import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.MultifaceSpreader;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 
 public class NematocystBlock extends FaceClusterBlock {
@@ -19,11 +15,6 @@ public class NematocystBlock extends FaceClusterBlock {
 
     public NematocystBlock(Properties properties) {
         this(7, 3, properties);
-    }
-
-	//TODO: Slow down projectiles passing through (somehow)
-    @Override
-    public void onProjectileHit(@NotNull Level level, @NotNull BlockState blockState, @NotNull BlockHitResult blockHitResult, @NotNull Projectile projectile) {
     }
 
     @Override

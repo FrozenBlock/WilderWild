@@ -17,6 +17,9 @@ jobs:
         # and run on both Linux and Windows
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
+    env:
+      CURSEFORGE_TOKEN: ${{secrets.CURSEFORGE_TOKEN}}
+      MODRINTH_TOKEN: ${{secrets.MODRINTH_TOKEN}}
     steps:
       - name: Checking Out the Repository
         uses: actions/checkout@v3
@@ -43,8 +46,5 @@ jobs:
             ${{ runner.os }}-gradle-
       - name: Building
         run: ./gradlew build -PreleaseType=stable -PuseThirdPartyMods=false
-      - name: Upload release to GitHub
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          files: build/libs/*[0-9].jar
+      - name: Publish to CurseForge and Modrinth
+        run: ./gradlew publishMod
