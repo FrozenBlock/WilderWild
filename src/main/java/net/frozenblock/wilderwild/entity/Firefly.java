@@ -316,7 +316,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
             }
         }
 
-        this.calculateEntityAnimation(false);
+        this.calculateEntityAnimation(this, false);
     }
 
     @Override
