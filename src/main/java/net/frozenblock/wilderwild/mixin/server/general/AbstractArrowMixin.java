@@ -26,8 +26,8 @@ public class AbstractArrowMixin {
                     BlockState state = server.getBlockState(blockHitResult.getBlockPos());
                     double d = speed.length(); //The distance the arrow travels on this given tick.
                     int particleCalc = ((int) ((d * d) * 1.5));
-                    if (particleCalc > 1) {
-                        server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), blockHitResult.getLocation().x(), blockHitResult.getLocation().y(), blockHitResult.getLocation().z(), server.random.nextIntBetweenInclusive(1, particleCalc), 0, 0, 0, 0.05D);
+                    if (particleCalc > 1 || (particleCalc == 1 && arrow.level.random.nextBoolean())) {
+                        server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), blockHitResult.getLocation().x(), blockHitResult.getLocation().y(), blockHitResult.getLocation().z(), particleCalc == 1 ? 1 : server.random.nextIntBetweenInclusive(1, particleCalc), 0, 0, 0, 0.05D);
                     }
                 }
             }
