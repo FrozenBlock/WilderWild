@@ -412,7 +412,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(RegisterBlocks.HOLLOWED_CYPRESS_LOG)
 					.add(RegisterBlocks.HOLLOWED_PALM_LOG);
 
-			this.getOrCreateTagBuilder(FrozenBlockTags.CAN_INTERACT_WHILE_SHIFTING)
+			this.getOrCreateTagBuilder(FrozenBlockTags.CAN_INTERACT_WHILE_CROUCHING)
 					.addOptionalTag(WilderBlockTags.HOLLOWED_LOGS);
 
 			this.getOrCreateTagBuilder(WilderBlockTags.KILLS_TERMITE)

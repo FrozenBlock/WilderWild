@@ -22,10 +22,6 @@
     {
       "id": "wilderwild:mixed_forest",
       "required": false
-    },
-    {
-      "id": "wilderwild:old_growth_dark_forest",
-      "required": false
     }
   ]
 }
