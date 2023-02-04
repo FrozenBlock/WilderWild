@@ -22,6 +22,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
@@ -29,20 +30,21 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 @Mixin(SculkSpreader.ChargeCursor.class)
 public class SculkSpreaderChargeCursorMixin {
 
-    //EDITS
+	@Shadow
+	private BlockPos pos;
+
+	//EDITS
     @Redirect(method = "update", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkSpreader$ChargeCursor;getBlockBehaviour(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/SculkBehaviour;"))
     private SculkBehaviour newSculkBehaviour(BlockState par1, LevelAccessor level, BlockPos pos, RandomSource random, SculkSpreader spreader, boolean spread) {
         return getBlockBehaviourNew(par1, spreader.isWorldGeneration());
     }
 
-    @Redirect(method = "update", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkSpreader$ChargeCursor;getValidMovementPos(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)Lnet/minecraft/core/BlockPos;"))
-    private BlockPos newValidMovementPos(LevelAccessor par1, BlockPos par2, RandomSource par3, LevelAccessor level, BlockPos pos, RandomSource random, SculkSpreader spreader, boolean spread) {
-        if (spreader.isWorldGeneration()) {
-            return getValidMovementPosWorldgen(par1, par2, par3);
-        } else {
-            return getValidMovementPos(par1, par2, par3);
-        }
-    }
+	@ModifyVariable(method = "update", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkSpreader$ChargeCursor;getValidMovementPos(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)Lnet/minecraft/core/BlockPos;"), argsOnly = true)
+	private BlockPos newValidMovementPos(BlockPos original, LevelAccessor level, BlockPos pos, RandomSource random, SculkSpreader spreader) {
+		return spreader.isWorldGeneration()
+				? getValidMovementPosWorldgen(level, this.pos, random)
+				: original;
+	}
 
     @Inject(method = "isMovementUnobstructed", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/BlockPos;subtract(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/core/BlockPos;", shift = At.Shift.BEFORE), cancellable = true)
     private static void isMovementUnobstructed(LevelAccessor level, BlockPos startPos, BlockPos spreadPos, CallbackInfoReturnable<Boolean> cir) {
