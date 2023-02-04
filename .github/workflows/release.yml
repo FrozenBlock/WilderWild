@@ -48,4 +48,4 @@ jobs:
       - name: Building
         run: ./gradlew build -PreleaseType=stable -PuseThirdPartyMods=false
       - name: Publish to CurseForge and Modrinth
-        run: ./gradlew publishMod
+        run: ./gradlew publishMod -PreleaseType=stable -PuseThirdPartyMods=false

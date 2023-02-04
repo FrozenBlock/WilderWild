@@ -21,11 +21,11 @@ ext {
 }
 
 String makeName(String version) {
-	return version + " " + minecraft_version
+	return "${version} (${minecraft_version})"
 }
 
 String makeModrinthVersion(String version) {
-	return version + "-mc" + minecraft_version
+	return "${version}-mc${minecraft_version}"
 }
 
 static String getChangelog(File changelogFile) {
