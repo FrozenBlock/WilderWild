@@ -37,7 +37,13 @@ public final class BigDripleafBlockMixin {
                 resetTilt(state, level, pos);
                 info.cancel();
             }
-        }
+        } else {
+			BlockState downState = level.getBlockState(pos.below());
+			boolean neighbor = level.hasNeighborSignal(pos);
+			if (!(downState.is(Blocks.BIG_DRIPLEAF_STEM) && downState.getValue(BlockStateProperties.POWERED)) && state.getValue(BlockStateProperties.POWERED) != neighbor) {
+				level.setBlock(pos, state.setValue(BlockStateProperties.POWERED, neighbor), 3);
+			}
+		}
     }
 
     @Inject(method = "entityInside", at = @At("HEAD"), cancellable = true)
