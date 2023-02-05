@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.block.BigDripleafBlock;
 import net.minecraft.world.level.block.BigDripleafStemBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -17,8 +16,8 @@ public final class BlockMixin {
 
 	@Inject(at = @At("RETURN"), method = "getStateForPlacement", cancellable = true)
 	public void wilderWild$getStateForPlacement(BlockPlaceContext context, CallbackInfoReturnable<BlockState> info) {
-		if (BlockBehaviour.class.cast(this) instanceof BigDripleafBlock bigDripleafBlock) {
-			info.setReturnValue(bigDripleafBlock.defaultBlockState().setValue(BlockStateProperties.POWERED, context.getLevel().hasNeighborSignal(context.getClickedPos())));
+		if (BlockBehaviour.class.cast(this) instanceof BigDripleafStemBlock bigDripleafStemBlock) {
+			info.setReturnValue(bigDripleafStemBlock.defaultBlockState().setValue(BlockStateProperties.POWERED, context.getLevel().hasNeighborSignal(context.getClickedPos())));
 		}
 	}
 
