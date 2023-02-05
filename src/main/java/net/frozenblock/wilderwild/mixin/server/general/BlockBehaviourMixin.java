@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BigDripleafStemBlock;
 import net.minecraft.world.level.block.Block;
@@ -14,17 +13,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BlockBehaviour.class)
 public class BlockBehaviourMixin {
-
-	@Inject(at = @At("RETURN"), method = "getStateForPlacement", cancellable = true)
-	public void wilderWild$getStateForPlacement(BlockPlaceContext context, CallbackInfoReturnable<BlockState> info) {
-		if (BlockBehaviour.class.cast(this) instanceof BigDripleafStemBlock bigDripleafStemBlock) {
-			info.setReturnValue(bigDripleafStemBlock.defaultBlockState().setValue(BlockStateProperties.POWERED, context.getLevel().hasNeighborSignal(context.getClickedPos())));
-		}
-	}
 
 	@Inject(at = @At("HEAD"), method = "neighborChanged", cancellable = true)
 	public void neighborChanged(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Block block, @NotNull BlockPos fromPos, boolean isMoving, CallbackInfo info) {
