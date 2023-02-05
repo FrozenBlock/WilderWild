@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public final class BigDripleafBlockMixin {
 
     @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
-    public void tickStem(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
+    public void wilderWild$tickStem(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
         BlockState downState = level.getBlockState(pos.below());
         if (downState.is(Blocks.BIG_DRIPLEAF_STEM) && downState.getValue(BlockStateProperties.POWERED)) {
             resetTilt(state, level, pos);
@@ -29,7 +29,7 @@ public final class BigDripleafBlockMixin {
     }
 
     @Inject(method = "neighborChanged", at = @At("HEAD"), cancellable = true)
-    public void neighborStemChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving, CallbackInfo info) {
+    public void wilderWild$neighborStemChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving, CallbackInfo info) {
         if (fromPos == pos.below()) {
             BlockState downState = level.getBlockState(pos.below());
             if (downState.is(Blocks.BIG_DRIPLEAF_STEM) && downState.getValue(BlockStateProperties.POWERED)) {
@@ -40,7 +40,7 @@ public final class BigDripleafBlockMixin {
     }
 
     @Inject(method = "entityInside", at = @At("HEAD"), cancellable = true)
-    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, CallbackInfo info) {
+    public void wilderWild$entityInside(BlockState state, Level level, BlockPos pos, Entity entity, CallbackInfo info) {
         if (!level.isClientSide) {
             BlockState downState = level.getBlockState(pos.below());
             if (downState.is(Blocks.BIG_DRIPLEAF_STEM) && downState.getValue(BlockStateProperties.POWERED)) {
@@ -51,7 +51,7 @@ public final class BigDripleafBlockMixin {
 
     @Shadow
     private static void resetTilt(BlockState state, Level level, BlockPos pos) {
-		throw new AssertionError("Mixin injection failed - WilderWild BigDripleafBlockMixin.");
+		throw new AssertionError("Mixin injection failed - Wilder Wild BigDripleafBlockMixin.");
     }
 
 }

@@ -15,14 +15,14 @@ public final class ChestBoatDropsMixin {
     //CREDIT TO nyuppo/fabric-boat-example ON GITHUB
 
     @Inject(method = "getDropItem", at = @At("RETURN"), cancellable = true)
-    public void getModdedChestBoats(CallbackInfoReturnable<Item> ci) {
+    public void wilderWild$getModdedChestBoats(CallbackInfoReturnable<Item> info) {
 		var boat = ChestBoat.class.cast(this);
         if (boat.getBoatType() == WilderEnumValues.BAOBAB) {
-            ci.setReturnValue(RegisterItems.BAOBAB_CHEST_BOAT_ITEM);
+            info.setReturnValue(RegisterItems.BAOBAB_CHEST_BOAT_ITEM);
         } else if (boat.getBoatType() == WilderEnumValues.CYPRESS) {
-            ci.setReturnValue(RegisterItems.CYPRESS_CHEST_BOAT_ITEM);
+            info.setReturnValue(RegisterItems.CYPRESS_CHEST_BOAT_ITEM);
         } else if (boat.getBoatType() == WilderEnumValues.PALM) {
-			ci.setReturnValue(RegisterItems.PALM_CHEST_BOAT_ITEM);
+			info.setReturnValue(RegisterItems.PALM_CHEST_BOAT_ITEM);
 		}
     }
 

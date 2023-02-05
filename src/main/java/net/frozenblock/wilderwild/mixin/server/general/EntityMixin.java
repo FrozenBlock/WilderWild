@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class EntityMixin {
 
 	@Inject(method = "discard", at = @At(value = "HEAD"))
-	public void discard(CallbackInfo info) {
+	public void wilderWild$discard(CallbackInfo info) {
 		Entity entity = Entity.class.cast(this);
 		if (entity instanceof Tumbleweed tumbleweed) {
 			tumbleweed.dropItem(false);

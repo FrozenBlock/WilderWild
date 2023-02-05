@@ -297,8 +297,8 @@ public class AbstractClothConfigIntegration extends ModIntegration {
 		return DefaultWorldgenConfig.WILDER_WILD_GRASS_GEN;
 	}
 
-	public boolean cypressWitchHuts() {
-		return DefaultWorldgenConfig.CYPRESS_WITCH_HUTS;
+	public boolean newWitchHuts() {
+		return DefaultWorldgenConfig.NEW_WITCH_HUTS;
 	}
 
 	// MISC

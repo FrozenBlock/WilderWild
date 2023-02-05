@@ -1,10 +1,9 @@
 package net.frozenblock.wilderwild.misc.mod_compat;
 
 import net.frozenblock.lib.integration.api.ModIntegration;
-import org.betterx.betterend.registry.EndBlocks;
-
 import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.addBlock;
 import static net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes.LEAVES;
+import org.betterx.betterend.registry.EndBlocks;
 
 public class BetterEndIntegration extends ModIntegration {
     public BetterEndIntegration() {

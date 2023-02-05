@@ -4,15 +4,15 @@ import net.minecraft.world.phys.Vec3;
 
 public interface WilderSonicBoom {
 
-	Vec3 particlePos();
+	Vec3 wilderWild$particlePos();
 
-	void setParticlePos(Vec3 pos);
+	void wilderWild$setParticlePos(Vec3 pos);
 
-	Vec3 vec32();
+	Vec3 wilderWild$vec32();
 
-	void setVec32(Vec3 vec32);
+	void wilderWild$setVec32(Vec3 vec32);
 
-	boolean particlesEnded();
+	boolean wilderWild$particlesEnded();
 
-	void endParticles();
+	void wilderWild$endParticles();
 }

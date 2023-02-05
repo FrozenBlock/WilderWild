@@ -12,7 +12,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.jetbrains.annotations.Nullable;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class BaobabTreeSaplingGenerator extends AbstractMegaTreeGrower {
     public BaobabTreeSaplingGenerator() {

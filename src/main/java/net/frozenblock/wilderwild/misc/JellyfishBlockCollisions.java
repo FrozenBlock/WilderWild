@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.misc;
 
 import com.google.common.collect.AbstractIterator;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
-import net.frozenblock.wilderwild.block.NematocystBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Cursor3D;
 import net.minecraft.core.SectionPos;

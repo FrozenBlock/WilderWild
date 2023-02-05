@@ -77,11 +77,8 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     public float green;
     public float blue;
 
-	public float scale;
-
     @Override
     public void renderToBuffer(PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		poseStack.scale(scale, scale, scale);
         poseStack.pushPose();
         poseStack.mulPose(Vector3f.XP.rotationDegrees(this.xRot));
         this.body.render(poseStack, buffer, packedLight, packedOverlay, this.red, this.green, this.blue, alpha);
@@ -100,7 +97,6 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     public void prepareMobModel(T jelly, float limbSwing, float limbSwimgAmount, float partialTick) {
         this.xRot = -(jelly.xRot1 + partialTick * (jelly.xBodyRot - jelly.xRot1));
         this.tentXRot = -(jelly.xRot6 + partialTick * (jelly.xRot5 - jelly.xRot6));
-		this.scale = Mth.lerp(partialTick, jelly.getPrevScale(), jelly.getJellyScale());
     }
 
     @Override

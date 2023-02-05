@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.WardenEmissiveLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.monster.warden.Warden;
+import org.jetbrains.annotations.NotNull;
 
 public class StellaWardenFeatureRenderer<T extends Warden, M extends WardenModel<T>> extends WardenEmissiveLayer<T, M> {
     public StellaWardenFeatureRenderer(RenderLayerParent<T, M> context, ResourceLocation texture, AlphaFunction<T> animationAngleAdjuster, DrawSelector<T, M> modelPartVisibility) {
@@ -20,8 +21,8 @@ public class StellaWardenFeatureRenderer<T extends Warden, M extends WardenModel
     }
 
     @Override
-    public void render(PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i, T wardenEntity, float f, float g, float h, float j, float k, float l) {
-        if (!wardenEntity.isInvisible() && ((WilderWarden) wardenEntity).isStella()) {
+    public void render(@NotNull PoseStack matrixStack, @NotNull MultiBufferSource vertexConsumerProvider, int i, T wardenEntity, float f, float g, float partialTick, float j, float k, float l) {
+        if (!wardenEntity.isInvisible() && ((WilderWarden) wardenEntity).wilderWild$isStella()) {
             this.onlyDrawSelectedParts();
             VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderType.entityTranslucentEmissive(this.texture));
             this.getParentModel()
@@ -33,7 +34,7 @@ public class StellaWardenFeatureRenderer<T extends Warden, M extends WardenModel
                             1.0F,
                             1.0F,
                             1.0F,
-                            this.alphaFunction.apply(wardenEntity, h, j)
+                            this.alphaFunction.apply(wardenEntity, partialTick, j)
                     );
             this.resetDrawForAllParts();
         }

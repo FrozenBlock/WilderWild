@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.mixin.worldgen.general;
 
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.additions.feature.WilderTreeConfigured;
 import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
@@ -14,10 +15,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class DarkOakTreeGrowerMixin {
 
     @Inject(method = "getConfiguredMegaFeature", at = @At("RETURN"), cancellable = true)
-    public void getConfiguredMegaFeature(RandomSource randomSource, CallbackInfoReturnable<Holder<? extends ConfiguredFeature<?, ?>>> cir) {
-        if (randomSource.nextFloat() < 0.2F) {
-            cir.setReturnValue(WilderTreeConfigured.NEW_TALL_DARK_OAK);
-        }
+    public void wilderWild$getConfiguredMegaFeature(RandomSource randomSource, CallbackInfoReturnable<Holder<? extends ConfiguredFeature<?, ?>>> info) {
+		if (WilderSharedConstants.CONFIG().wildTrees()) {
+			if (randomSource.nextFloat() < 0.2F) {
+				info.setReturnValue(WilderTreeConfigured.NEW_TALL_DARK_OAK);
+			}
+		}
     }
 
 }

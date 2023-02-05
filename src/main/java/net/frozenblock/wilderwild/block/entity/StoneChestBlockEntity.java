@@ -6,8 +6,8 @@ import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.frozenblock.lib.storage.api.NoInteractionStorage;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.interfaces.ChestBlockEntityInterface;
-import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -108,7 +108,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
             }
         }
 		if (stoneChest != null) {
-			((ChestBlockEntityInterface) stoneChest).syncBubble(stoneChest, blockEntity);
+			((ChestBlockEntityInterface) stoneChest).wilderWild$syncBubble(stoneChest, blockEntity);
 		}
         blockEntity.shouldSkip = false;
     }
@@ -140,14 +140,14 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
     public void liftLid(float liftAmount, boolean ancient) {
         this.openProgress = Mth.clamp(this.openProgress + (!ancient ? liftAmount * 2 : liftAmount), 0.0F, 0.5F);
         this.highestLidPoint = this.openProgress;
-		float multiplier = WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().stoneChestTimer() / 100F;
+		float multiplier = WilderSharedConstants.CONFIG().stoneChestTimer() / 100F;
         this.stillLidTicks = (int) (Math.max((this.openProgress), 0.2) * (!ancient ? 220 : 160) * multiplier);
     }
 
     public void setLid(float liftAmount) {
         this.openProgress = Mth.clamp(liftAmount, 0.0F, 0.5F);
         this.highestLidPoint = this.openProgress;
-		float multiplier = WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().stoneChestTimer() / 100F;
+		float multiplier = WilderSharedConstants.CONFIG().stoneChestTimer() / 100F;
         this.stillLidTicks = (int) (Math.max((this.openProgress), 0.2) * 180 * multiplier);
     }
 

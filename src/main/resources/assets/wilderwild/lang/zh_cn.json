@@ -367,7 +367,7 @@
     "option.wilderwild.warden_attacks_immediately": "Warden Attacks Immediately",
     "option.wilderwild.warden_emerges_from_command": "Warden Emerges from Command",
     "option.wilderwild.warden_bedrock_sniff": "Warden Sniff Animation",
-    "option.wilderwild.cypress_witch_huts": "Cypress Witch Huts",
+    "option.wilderwild.new_witch_huts": "New Witch Huts",
     "option.wilderwild.wither_rose_sounds": "Wither Rose Sounds",
     "option.wilderwild.projectile_landing_sounds": "Thrown Projectile Landing Sounds",
     "option.wilderwild.snowball_landing_sounds": "Snowball Landing Sounds",
@@ -472,6 +472,6 @@
     "tooltip.wilderwild.warden_attacks_immediately": "Whether or not the Warden should attack entities on collision ",
     "tooltip.wilderwild.warden_emerges_from_command": "Makes the Warden play the emerging animation when spawned via command",
     "tooltip.wilderwild.warden_bedrock_sniff": "Bedrock: Warden's head bobs thrice during the sniff animation\nJava: Warden's head bobs twice in the sniff animation",
-    "tooltip.wilderwild.cypress_witch_huts": "Whether or not Witch Huts should use the Cypress wood set.",
+    "tooltip.wilderwild.new_witch_huts": "Whether or not Witch Huts should use a Cypress and Mangrove wood set.",
     "tooltip.wilderwild.wither_rose_sounds": "Whether or not Wither Rose sounds should be overridden."
   }

@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import net.frozenblock.lib.entity.api.NoFlopAbstractFish;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.entity.ai.jellyfish.JellyfishAi;
-import net.frozenblock.wilderwild.misc.JellyfishVariant;
+import net.frozenblock.wilderwild.entity.variant.JellyfishVariant;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
@@ -231,6 +231,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 
     @Override
     public void aiStep() {
+		this.setPrevScale(this.getJellyScale());
         super.aiStep();
         this.xRot6 = this.xRot5;
         this.xRot5 = this.xRot4;
@@ -252,8 +253,6 @@ public class Jellyfish extends NoFlopAbstractFish {
         } else {
             this.xBodyRot += (-90.0F - this.xBodyRot) * 0.02F;
         }
-
-		this.setPrevScale(this.getJellyScale());
 
 		if (this.vanishing) {
 			if (this.getJellyScale() <= 0F) {

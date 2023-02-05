@@ -30,6 +30,10 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
         poseStack.scale(0.8F, 0.8F, 0.8F);
         JellyfishModel<Jellyfish> model = this.getModel();
 
+		float prevScale = jelly.getPrevScale();
+		float scale = prevScale + (partialTicks * (jelly.getJellyScale() - prevScale));
+		poseStack.scale(scale, scale, scale);
+
 		if (this.isShaking(jelly)) {
 			poseStack.mulPose(Vector3f.YP.rotationDegrees((float)(Math.cos((double)jelly.tickCount * 3.25D) * 3.141592653589793D * 0.4000000059604645D)));
 		}

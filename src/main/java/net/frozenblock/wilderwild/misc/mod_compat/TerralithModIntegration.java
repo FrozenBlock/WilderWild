@@ -5,7 +5,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.lib.mobcategory.api.FrozenMobCategories;
 import net.frozenblock.wilderwild.entity.Firefly;
-import net.frozenblock.wilderwild.misc.FireflyColor;
+import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.minecraft.core.Registry;

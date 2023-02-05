@@ -4,6 +4,6 @@ import net.minecraft.world.entity.AnimationState;
 
 public interface WilderAllay {
 
-    AnimationState getDancingAnimationState();
+    AnimationState wilderWild$getDancingAnimationState();
 
 }

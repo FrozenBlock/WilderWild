@@ -51,7 +51,7 @@ public final class WorldgenConfig implements ConfigData {
     public boolean fallenLogs = DefaultWorldgenConfig.FALLEN_LOGS;
     public boolean wilderWildTreeGen = DefaultWorldgenConfig.WILDER_WILD_TREE_GEN;
     public boolean wilderWildGrassGen = DefaultWorldgenConfig.WILDER_WILD_GRASS_GEN;
-	public boolean cypressWitchHuts = DefaultWorldgenConfig.CYPRESS_WITCH_HUTS;
+	public boolean newWitchHuts = DefaultWorldgenConfig.NEW_WITCH_HUTS;
 
     @Environment(EnvType.CLIENT)
     static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
@@ -219,10 +219,10 @@ public final class WorldgenConfig implements ConfigData {
                 .requireRestart()
                 .build()
         );
-		var cypressWitchHuts = category.addEntry(entryBuilder.startBooleanToggle(text("cypress_witch_huts"), config.cypressWitchHuts)
-				.setDefaultValue(DefaultWorldgenConfig.CYPRESS_WITCH_HUTS)
-				.setSaveConsumer(newValue -> config.cypressWitchHuts = newValue)
-				.setTooltip(tooltip("cypress_witch_huts"))
+		var newWitchHuts = category.addEntry(entryBuilder.startBooleanToggle(text("new_witch_huts"), config.newWitchHuts)
+				.setDefaultValue(DefaultWorldgenConfig.NEW_WITCH_HUTS)
+				.setSaveConsumer(newValue -> config.newWitchHuts = newValue)
+				.setTooltip(tooltip("new_witch_huts"))
 				.requireRestart()
 				.build()
 		);

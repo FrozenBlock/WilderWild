@@ -2,8 +2,8 @@ package net.frozenblock.wilderwild.misc.interfaces;
 
 public interface TurtleCooldownInterface {
 
-    int getAttackCooldown();
+    int wilderWild$getAttackCooldown();
 
-    void setAttackCooldown(int i);
+    void wilderWild$setAttackCooldown(int i);
 
 }

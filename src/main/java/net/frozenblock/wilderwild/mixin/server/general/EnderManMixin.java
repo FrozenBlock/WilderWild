@@ -4,7 +4,6 @@ import net.frozenblock.lib.sound.impl.EntityLoopingSoundInterface;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.client.ClientMethodInteractionHandler;
 import net.frozenblock.wilderwild.misc.interfaces.WilderEnderman;
-import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.Registry;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -39,20 +38,20 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
 
 	@Unique
 	@Override
-	public void setCanPlayLoopingSound(boolean b) {
-		this.wilderWild$canPlayLoopingSound = b;
+	public void wilderWild$setCanPlayLoopingSound(boolean bl) {
+		this.wilderWild$canPlayLoopingSound = bl;
 	}
 
 	@Unique
 	@Override
-	public boolean getCanPlayLoopingSound() {
+	public boolean wilderWild$getCanPlayLoopingSound() {
 		return this.wilderWild$canPlayLoopingSound;
 	}
 
 	@Inject(method = "playStareSound", at = @At(value = "HEAD"), cancellable = true)
-    public void playStareSound(CallbackInfo info) {
+    public void wilderWild$playStareSound(CallbackInfo info) {
         //NOTE: This only runs on the client.
-		if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().movingStareSound()) {
+		if (WilderSharedConstants.CONFIG().movingStareSound()) {
 			info.cancel();
 			if (this.tickCount >= this.lastStareSound + 400) {
 				this.lastStareSound = this.tickCount;
@@ -65,21 +64,21 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
     }
 
 	@Inject(method = "onSyncedDataUpdated", at = @At("HEAD"))
-	public void onSyncedDataUpdated(EntityDataAccessor<?> key, CallbackInfo info) {
+	public void wilderWild$onSyncedDataUpdated(EntityDataAccessor<?> key, CallbackInfo info) {
 		if (isCreepy()) {
-			createAngerLoop();
+			wilderWild$createAngerLoop();
 		}
 	}
 
 	@Shadow
 	public boolean isCreepy() {
-		throw new AssertionError("Mixin injection failed. - WilderWild EnderManMixin");
+		throw new AssertionError("Mixin injection failed - Wilder Wild EnderManMixin.");
 	}
 
 	@Unique
 	@Override
-	public void createAngerLoop() {
-		if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().angerLoopSound()) {
+	public void wilderWild$createAngerLoop() {
+		if (WilderSharedConstants.CONFIG().angerLoopSound()) {
 			EnderMan enderMan = EnderMan.class.cast(this);
 			if (enderMan.level.isClientSide && this.wilderWild$canPlayLoopingSound) {
 				((EntityLoopingSoundInterface) enderMan).addSound(Registry.SOUND_EVENT.getKey(RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP), SoundSource.HOSTILE, 1.0F, 0.9F, WilderSharedConstants.id("enderman_anger"));

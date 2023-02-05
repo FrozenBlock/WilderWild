@@ -2,8 +2,8 @@ package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.fabricmc.fabric.api.event.registry.RegistryAttribute;
-import net.frozenblock.wilderwild.misc.FireflyColor;
-import net.frozenblock.wilderwild.misc.JellyfishVariant;
+import net.frozenblock.wilderwild.entity.variant.FireflyColor;
+import net.frozenblock.wilderwild.entity.variant.JellyfishVariant;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.MappedRegistry;
 

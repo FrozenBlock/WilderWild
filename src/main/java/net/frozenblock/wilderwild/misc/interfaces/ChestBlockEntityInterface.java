@@ -7,13 +7,13 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public interface ChestBlockEntityInterface {
 
-	boolean getCanBubble();
+	boolean wilderWild$getCanBubble();
 
-	void setCanBubble(boolean b);
+	void wilderWild$setCanBubble(boolean b);
 
-	void bubble(Level level, BlockPos pos, BlockState state);
+	void wilderWild$bubble(Level level, BlockPos pos, BlockState state);
 
-	void bubbleBurst(BlockState state);
+	void wilderWild$bubbleBurst(BlockState state);
 
-	void syncBubble(ChestBlockEntity chest1, ChestBlockEntity chest2);
+	void wilderWild$syncBubble(ChestBlockEntity chest1, ChestBlockEntity chest2);
 }

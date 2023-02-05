@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.mixin.worldgen.general;
 
-import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -41,8 +41,8 @@ public class SwampHutPieceMixin {
     private final SwampHutPiece wilderWild$swampHut = SwampHutPiece.class.cast(this);
 
     @Inject(method = "postProcess", at = @At("HEAD"), cancellable = true)
-    public void postProcess(WorldGenLevel level, StructureManager structureAccessor, ChunkGenerator chunkGenerator, RandomSource random, BoundingBox chunkBox, ChunkPos chunkPos, BlockPos pivot, CallbackInfo info) {
-        if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().cypressWitchHuts()) {
+    public void wilderWild$postProcess(WorldGenLevel level, StructureManager structureAccessor, ChunkGenerator chunkGenerator, RandomSource random, BoundingBox chunkBox, ChunkPos chunkPos, BlockPos pivot, CallbackInfo info) {
+        if (WilderSharedConstants.CONFIG().newWitchHuts()) {
 			info.cancel();
 			if (wilderWild$swampHut.updateAverageGroundHeight(level, chunkBox, 0)) {
 				wilderWild$swampHut.generateBox(level, chunkBox, 1, 1, 1, 5, 1, 7, RegisterBlocks.CYPRESS_PLANKS.defaultBlockState(), RegisterBlocks.CYPRESS_PLANKS.defaultBlockState(), false);

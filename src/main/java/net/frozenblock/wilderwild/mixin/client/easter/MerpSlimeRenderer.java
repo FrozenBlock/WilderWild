@@ -22,10 +22,10 @@ public final class MerpSlimeRenderer {
     private static final ResourceLocation WILDERWILD$MERP_SLIME = WilderSharedConstants.id("textures/entity/slime/merp_slime.png");
 
     @Inject(method = "getTextureLocation(Lnet/minecraft/world/entity/monster/Slime;)Lnet/minecraft/resources/ResourceLocation;", at = @At("RETURN"), cancellable = true)
-    public void getTextureLocation(Slime slimeEntity, CallbackInfoReturnable<ResourceLocation> cir) {
+    public void wilderWild$getTextureLocation(Slime slimeEntity, CallbackInfoReturnable<ResourceLocation> info) {
         String string = ChatFormatting.stripFormatting(slimeEntity.getName().getString());
         if (Objects.equals(string, "Merp")) {
-            cir.setReturnValue(WILDERWILD$MERP_SLIME);
+            info.setReturnValue(WILDERWILD$MERP_SLIME);
         }
     }
 }

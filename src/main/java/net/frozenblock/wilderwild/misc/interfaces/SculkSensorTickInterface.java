@@ -7,20 +7,20 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public interface SculkSensorTickInterface {
 
-    void tickServer(ServerLevel level, BlockPos pos, BlockState state);
+    void wilderWild$tickServer(ServerLevel level, BlockPos pos, BlockState state);
 
-    void tickClient(Level level, BlockPos pos, BlockState state);
+    void wilderWild$tickClient(Level level, BlockPos pos, BlockState state);
 
-    int getAge();
+    int wilderWild$getAge();
 
-    int getAnimTicks();
+    int wilderWild$getAnimTicks();
 
-    int getPrevAnimTicks();
+    int wilderWild$getPrevAnimTicks();
 
-    boolean isActive();
+    boolean wilderWild$isActive();
 
-    void setActive(boolean active);
+    void wilderWild$setActive(boolean active);
 
-    void setAnimTicks(int i);
+    void wilderWild$setAnimTicks(int i);
 
 }

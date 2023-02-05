@@ -40,7 +40,7 @@ public class LiquidBlockRendererMixin {
 	private float wilderWild$v1;
 
     @Inject(method = "shouldRenderFace", at = @At(value = "HEAD"), cancellable = true)
-    private static void shouldRenderFace(BlockAndTintGetter blockAndTintGetter, BlockPos blockPos, FluidState fluidState, BlockState blockState, Direction side, FluidState fluidState2, CallbackInfoReturnable<Boolean> info) {
+    private static void wilderWild$shouldRenderFace(BlockAndTintGetter blockAndTintGetter, BlockPos blockPos, FluidState fluidState, BlockState blockState, Direction side, FluidState fluidState2, CallbackInfoReturnable<Boolean> info) {
         if (blockState.getBlock() instanceof MesogleaBlock && side != Direction.UP && !FrozenBools.HAS_SODIUM) {
             info.setReturnValue(false);
         }
@@ -50,12 +50,12 @@ public class LiquidBlockRendererMixin {
 	private boolean wilderWild$isWater;
 
 	@Inject(method = "tesselate", at = @At("HEAD"))
-	private void getIsWater(BlockAndTintGetter level, BlockPos pos, VertexConsumer vertexConsumer, BlockState blockState, FluidState fluidState, CallbackInfo ci) {
+	private void wilderWild$getIsWater(BlockAndTintGetter level, BlockPos pos, VertexConsumer vertexConsumer, BlockState blockState, FluidState fluidState, CallbackInfo info) {
 		this.wilderWild$isWater = fluidState.is(FluidTags.WATER);
 	}
 
 	@ModifyArgs(method = "tesselate", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/block/LiquidBlockRenderer;vertex(Lcom/mojang/blaze3d/vertex/VertexConsumer;DDDFFFFFI)V", ordinal = 8))
-	private void sideTextureBottom1(Args args) {
+	private void wilderWild$sideTextureBottom1(Args args) {
 		if (this.wilderWild$isWater) {
 			this.wilderWild$u0 = this.waterOverlay.getU0();
 			this.wilderWild$u1 = this.waterOverlay.getU1();
@@ -67,7 +67,7 @@ public class LiquidBlockRendererMixin {
 	}
 
 	@ModifyArgs(method = "tesselate", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/block/LiquidBlockRenderer;vertex(Lcom/mojang/blaze3d/vertex/VertexConsumer;DDDFFFFFI)V", ordinal = 9))
-	private void sideTextureBottom2(Args args) {
+	private void wilderWild$sideTextureBottom2(Args args) {
 		if (this.wilderWild$isWater) {
 			args.set(7, this.wilderWild$u0);
 			args.set(8, this.wilderWild$v0);
@@ -75,7 +75,7 @@ public class LiquidBlockRendererMixin {
 	}
 
 	@ModifyArgs(method = "tesselate", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/block/LiquidBlockRenderer;vertex(Lcom/mojang/blaze3d/vertex/VertexConsumer;DDDFFFFFI)V", ordinal = 10))
-	private void sideTextureBottom3(Args args) {
+	private void wilderWild$sideTextureBottom3(Args args) {
 		if (this.wilderWild$isWater) {
 			args.set(7, this.wilderWild$u1);
 			args.set(8, this.wilderWild$v0);
@@ -83,7 +83,7 @@ public class LiquidBlockRendererMixin {
 	}
 
 	@ModifyArgs(method = "tesselate", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/block/LiquidBlockRenderer;vertex(Lcom/mojang/blaze3d/vertex/VertexConsumer;DDDFFFFFI)V", ordinal = 11))
-	private void sideTextureBottom4(Args args) {
+	private void wilderWild$sideTextureBottom4(Args args) {
 		if (this.wilderWild$isWater) {
 			args.set(7, this.wilderWild$u1);
 			args.set(8, this.wilderWild$v1);

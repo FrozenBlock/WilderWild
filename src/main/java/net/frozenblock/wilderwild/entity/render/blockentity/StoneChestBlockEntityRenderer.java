@@ -89,7 +89,7 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
     }
 
     @Override
-    public void render(T entity, float tickDelta, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
+    public void render(T entity, float partialTick, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
         Level level = entity.getLevel();
         boolean bl = level != null;
         BlockState blockState = bl ? entity.getBlockState() : Blocks.CHEST.defaultBlockState().setValue(StoneChestBlock.FACING, Direction.SOUTH);
@@ -109,7 +109,7 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
                 propertySource = DoubleBlockCombiner.Combiner::acceptNone;
             }
 
-            float openProg = entity.getOpenProgress(tickDelta);
+            float openProg = entity.getOpenProgress(partialTick);
             openProg = 1.0F - openProg;
             openProg = 1.0F - openProg * openProg * openProg;
             int i = propertySource.apply(new BrightnessCombiner<>()).applyAsInt(light);

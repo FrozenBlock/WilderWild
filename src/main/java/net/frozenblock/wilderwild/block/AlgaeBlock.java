@@ -1,7 +1,9 @@
 package net.frozenblock.wilderwild.block;
 
+import java.util.Iterator;
 import java.util.List;
 import net.frozenblock.lib.math.api.AdvancedMath;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -104,4 +106,21 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 		}
 		this.bonemealPos = null;
 	}
+
+	public static boolean isAlgaeNearbyForSlimeSpawn(LevelAccessor level, BlockPos blockPos, int x) {
+		Iterator<BlockPos> iterator = BlockPos.betweenClosed(blockPos.offset(-x, -x, -x), blockPos.offset(x, x, x)).iterator();
+		int count = 0;
+		BlockPos pos;
+		do {
+			if (!iterator.hasNext()) {
+				return false;
+			}
+			pos = iterator.next();
+			if (level.getBlockState(pos).is(RegisterBlocks.ALGAE)) {
+				count = count + 1;
+			}
+		} while (count < 3);
+		return true;
+	}
+
 }

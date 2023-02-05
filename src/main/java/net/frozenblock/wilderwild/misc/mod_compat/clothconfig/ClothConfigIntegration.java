@@ -388,8 +388,8 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
-	public boolean cypressWitchHuts() {
-		return WORLDGEN.cypressWitchHuts;
+	public boolean newWitchHuts() {
+		return WORLDGEN.newWitchHuts;
 	}
 
 	// MISC

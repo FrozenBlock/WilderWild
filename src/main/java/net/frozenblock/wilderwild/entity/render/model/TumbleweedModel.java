@@ -72,8 +72,10 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 		poseStack.pushPose();
 		poseStack.mulPose(Vector3f.XP.rotation(Mth.lerp(partialTick, this.prevPitch, this.pitch) * pi180));
 		poseStack.pushPose();
+		poseStack.setIdentity();
 		poseStack.mulPose(Vector3f.ZP.rotation(Mth.lerp(partialTick, this.prevRoll, this.roll) * pi180));
 		poseStack.pushPose();
+		poseStack.setIdentity();
 		this.bone.render(poseStack, vertexConsumer, packedLight, blackOverlay, red, green, blue, alpha);
 		poseStack.popPose();
 		poseStack.popPose();

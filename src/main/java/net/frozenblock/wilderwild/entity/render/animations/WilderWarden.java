@@ -4,12 +4,16 @@ import net.minecraft.world.entity.AnimationState;
 
 public interface WilderWarden {
 
-    AnimationState getDyingAnimationState();
+    AnimationState wilderWild$getDyingAnimationState();
 
-    AnimationState getSwimmingDyingAnimationState();
+    AnimationState wilderWild$getSwimmingDyingAnimationState();
 
-    AnimationState getKirbyDeathAnimationState();
+    AnimationState wilderWild$getKirbyDeathAnimationState();
 
-    boolean isStella();
+    boolean wilderWild$isStella();
+
+	void wilderWild$setDeathTicks(int i);
+
+	int wilderWild$getDeathTicks();
 
 }

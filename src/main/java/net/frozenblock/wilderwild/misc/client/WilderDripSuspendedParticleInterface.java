@@ -2,8 +2,8 @@ package net.frozenblock.wilderwild.misc.client;
 
 public interface WilderDripSuspendedParticleInterface {
 
-	void setUsesWind(boolean bl);
+	void wilderWild$setUsesWind(boolean bl);
 
-	boolean usesWind();
+	boolean wilderWild$usesWind();
 
 }

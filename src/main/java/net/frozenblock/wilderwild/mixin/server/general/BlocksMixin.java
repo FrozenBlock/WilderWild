@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.Slice;
 public final class BlocksMixin {
 
     @Redirect(method = "<clinit>", at = @At(value = "NEW", target = "net/minecraft/world/level/block/Block", ordinal = 0), slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=reinforced_deepslate")))
-    private static Block newReinforced(BlockBehaviour.Properties properties) {
+    private static Block wilderWild$newReinforced(BlockBehaviour.Properties properties) {
         return new RotatedPillarBlock(properties);
     }
 

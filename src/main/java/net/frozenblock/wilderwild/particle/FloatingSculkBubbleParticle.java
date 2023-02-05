@@ -142,8 +142,8 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
         this.setSpriteFromAge(this.spriteProvider);
     }
 
-    public float getQuadSize(float tickDelta) {
-        return this.quadSize * Mth.lerp(tickDelta, this.currentInflation, this.targetInflation);
+    public float getQuadSize(float partialTick) {
+        return this.quadSize * Mth.lerp(partialTick, this.currentInflation, this.targetInflation);
     }
 
     @Environment(EnvType.CLIENT)

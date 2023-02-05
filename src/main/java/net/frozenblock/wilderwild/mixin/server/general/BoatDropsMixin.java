@@ -15,14 +15,14 @@ public class BoatDropsMixin {
 	//CREDIT TO nyuppo/fabric-boat-example ON GITHUB
 
     @Inject(method = "getDropItem", at = @At("RETURN"), cancellable = true)
-    public void getModdedBoats(CallbackInfoReturnable<Item> cir) {
+    public void wilderWild$getModdedBoats(CallbackInfoReturnable<Item> info) {
 		var boat = Boat.class.cast(this);
         if (boat.getBoatType() == WilderEnumValues.BAOBAB) {
-            cir.setReturnValue(RegisterItems.BAOBAB_BOAT_ITEM);
+            info.setReturnValue(RegisterItems.BAOBAB_BOAT_ITEM);
         } else if (boat.getBoatType() == WilderEnumValues.CYPRESS) {
-            cir.setReturnValue(RegisterItems.CYPRESS_BOAT_ITEM);
+            info.setReturnValue(RegisterItems.CYPRESS_BOAT_ITEM);
         } else if (boat.getBoatType() == WilderEnumValues.PALM) {
-			cir.setReturnValue(RegisterItems.PALM_BOAT_ITEM);
+			info.setReturnValue(RegisterItems.PALM_BOAT_ITEM);
 		}
     }
 

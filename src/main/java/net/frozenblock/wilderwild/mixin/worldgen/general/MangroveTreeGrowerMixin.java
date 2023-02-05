@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.mixin.worldgen.general;
 
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.additions.feature.WilderTreeConfigured;
 import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
@@ -14,10 +15,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class MangroveTreeGrowerMixin {
 
     @Inject(method = "getConfiguredFeature", at = @At("RETURN"), cancellable = true)
-    public void getConfiguredFeature(RandomSource randomSource, boolean bl, CallbackInfoReturnable<Holder<? extends ConfiguredFeature<?, ?>>> cir) {
-        if (randomSource.nextFloat() < 0.1F) {
-            cir.setReturnValue(WilderTreeConfigured.NEW_SWAMP_TREE);
-        }
+    public void wilderWild$getConfiguredFeature(RandomSource randomSource, boolean bl, CallbackInfoReturnable<Holder<? extends ConfiguredFeature<?, ?>>> info) {
+		if (WilderSharedConstants.CONFIG().wildTrees()) {
+			if (randomSource.nextFloat() < 0.1F) {
+				info.setReturnValue(WilderTreeConfigured.NEW_SWAMP_TREE);
+			}
+		}
     }
 
 }

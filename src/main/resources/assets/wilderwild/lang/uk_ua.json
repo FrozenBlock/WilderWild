@@ -428,7 +428,7 @@
   "option.wilderwild.leashed_tumbleweed": "Tumbleweed Leashing",
   "option.wilderwild.leashed_tumbleweed.false": "§cDisabled",
   "option.wilderwild.leashed_tumbleweed.true": "§aEnabled",
-  "option.wilderwild.cypress_witch_huts": "Cypress Witch Huts",
+  "option.wilderwild.new_witch_huts": "New Witch Huts",
   "option.wilderwild.projectile_landing_sounds": "Thrown Projectile Landing Sounds",
   "option.wilderwild.snowball_landing_sounds": "Snowball Landing Sounds",
   "option.wilderwild.egg_landing_sounds": "Egg Landing Sounds",
@@ -473,5 +473,5 @@
   "tooltip.wilderwild.potion_landing_sounds": "Whether or not potions should make unique sounds upon landing.\n(Sounds vary based on potion type and effect)",
   "tooltip.wilderwild.tumbleweed": "Contains options for the Tumbleweed",
   "tooltip.wilderwild.tumbleweed_spawn_cap": "Controls the Tumbleweed's spawn cap",
-  "tooltip.wilderwild.cypress_witch_huts": "Whether or not Witch Huts should use the Cypress wood set."
+  "tooltip.wilderwild.new_witch_huts": "Whether or not Witch Huts should use a Cypress and Mangrove wood set."
 }

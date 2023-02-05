@@ -139,9 +139,9 @@ public final class WilderWild extends FrozenMobCategoryEntrypoint implements Mod
 
 	@Override
 	public void newCategories(ArrayList<FrozenMobCategory> context) {
-		context.add(FrozenMobCategoryEntrypoint.createCategory(WilderSharedConstants.MOD_ID, "fireflies", WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().fireflySpawnCap(), true, false, 80));
-		context.add(FrozenMobCategoryEntrypoint.createCategory(WilderSharedConstants.MOD_ID, "jellyfish", WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().jellyfishSpawnCap(), true, false, 64));
-		context.add(FrozenMobCategoryEntrypoint.createCategory(WilderSharedConstants.MOD_ID, "tumbleweed", WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().tumbleweedSpawnCap(), true, false, 64));
+		context.add(FrozenMobCategoryEntrypoint.createCategory(WilderSharedConstants.MOD_ID, "fireflies", WilderSharedConstants.CONFIG().fireflySpawnCap(), true, false, 80));
+		context.add(FrozenMobCategoryEntrypoint.createCategory(WilderSharedConstants.MOD_ID, "jellyfish", WilderSharedConstants.CONFIG().jellyfishSpawnCap(), true, false, 64));
+		context.add(FrozenMobCategoryEntrypoint.createCategory(WilderSharedConstants.MOD_ID, "tumbleweed", WilderSharedConstants.CONFIG().tumbleweedSpawnCap(), true, false, 64));
 	}
 
     private static void applyDataFixes(final @NotNull ModContainer mod) {

@@ -22,31 +22,31 @@ public class TurtleMixin implements TurtleCooldownInterface {
     private int wilderWild$attackCooldown;
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
-    public void registerGoals(CallbackInfo info) {
+    public void wilderWild$registerGoals(CallbackInfo info) {
         Turtle turtle = Turtle.class.cast(this);
         turtle.goalSelector.addGoal(3, new MeleeAttackGoal(turtle, 1.0, true));
         turtle.targetSelector.addGoal(10, new TurtleNearestAttackableGoal<>(turtle, Jellyfish.class, false));
     }
 
     @Inject(method = "createAttributes", at = @At("RETURN"), cancellable = true)
-    private static void createAttributes(CallbackInfoReturnable<AttributeSupplier.Builder> ci) {
-        AttributeSupplier.Builder builder = ci.getReturnValue();
+    private static void wilderWild$createAttributes(CallbackInfoReturnable<AttributeSupplier.Builder> info) {
+        AttributeSupplier.Builder builder = info.getReturnValue();
         builder.add(Attributes.ATTACK_DAMAGE, 3.0);
-        ci.setReturnValue(builder);
+        info.setReturnValue(builder);
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    public void addAdditionalSaveData(CompoundTag compoundTag, CallbackInfo info) {
+    public void wilderWild$addAdditionalSaveData(CompoundTag compoundTag, CallbackInfo info) {
         compoundTag.putInt("AttackCooldown", this.wilderWild$attackCooldown);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    public void readAdditionalSaveData(CompoundTag compoundTag, CallbackInfo info) {
+    public void wilderWild$readAdditionalSaveData(CompoundTag compoundTag, CallbackInfo info) {
         this.wilderWild$attackCooldown = compoundTag.getInt("AttackCooldown");
     }
 
     @Inject(method = "aiStep", at = @At("TAIL"))
-    public void aiStep(CallbackInfo info) {
+    public void wilderWild$aiStep(CallbackInfo info) {
         if (this.wilderWild$attackCooldown > 0) {
             this.wilderWild$attackCooldown = this.wilderWild$attackCooldown - 1;
         }
@@ -54,13 +54,13 @@ public class TurtleMixin implements TurtleCooldownInterface {
 
 	@Unique
     @Override
-    public int getAttackCooldown() {
+    public int wilderWild$getAttackCooldown() {
         return this.wilderWild$attackCooldown;
     }
 
 	@Unique
     @Override
-    public void setAttackCooldown(int i) {
+    public void wilderWild$setAttackCooldown(int i) {
         this.wilderWild$attackCooldown = i;
     }
 

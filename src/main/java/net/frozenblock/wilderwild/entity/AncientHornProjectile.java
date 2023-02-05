@@ -1,12 +1,9 @@
 package net.frozenblock.wilderwild.entity;
 
 import io.netty.buffer.Unpooled;
-import java.util.ArrayList;
+import it.unimi.dsi.fastutil.ints.IntArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
-
-import it.unimi.dsi.fastutil.ints.IntArrayList;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
 import net.frozenblock.lib.damagesource.api.FrozenProjectileDamageSource;
@@ -146,7 +143,7 @@ public class AncientHornProjectile extends AbstractArrow {
 			--this.bubbles;
 			EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.position(), AdvancedMath.random().nextDouble() > 0.7 ? 1 : 0, 20 + AdvancedMath.random().nextInt(40), 0.05, server.random.nextIntBetweenInclusive(1, 3));
 		}
-		if (this.aliveTicks > WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().hornLifespan()) {
+		if (this.aliveTicks > WilderSharedConstants.CONFIG().hornLifespan()) {
 			this.remove(RemovalReason.DISCARDED);
 		}
 		++this.aliveTicks;
@@ -242,7 +239,7 @@ public class AncientHornProjectile extends AbstractArrow {
 
 		this.setPos(x, y, z);
 		this.checkInsideBlocks();
-		float size = this.getBoundingBoxMultiplier() + WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().hornSizeMultiplier();
+		float size = this.getBoundingBoxMultiplier() + WilderSharedConstants.CONFIG().hornSizeMultiplier();
 		if (size > MIN_SIZE && size < MAX_SIZE)
 			this.setBoundingBoxMultiplier(size);
 	}
@@ -318,7 +315,7 @@ public class AncientHornProjectile extends AbstractArrow {
         this.setCritArrow(false);
         if (this.level instanceof ServerLevel server && canInteract()) {
             if (blockState.getBlock() == Blocks.SCULK_SHRIEKER) {
-                if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().hornCanSummonWarden()) {
+                if (WilderSharedConstants.CONFIG().hornCanSummonWarden()) {
                     BlockPos pos = result.getBlockPos();
                     WilderSharedConstants.log(Blocks.SCULK_SHRIEKER, pos, "Horn Projectile Touched", WilderSharedConstants.UNSTABLE_LOGGING);
                     if (blockState.getValue(RegisterProperties.SOULS_TAKEN) < 2 && !blockState.getValue(SculkShriekerBlock.SHRIEKING)) {
@@ -396,7 +393,7 @@ public class AncientHornProjectile extends AbstractArrow {
 				if (insideState.getBlock() instanceof BellBlock bell) { //BELL INTERACTION
 					bell.onProjectileHit(server, insideState, this.level.clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
 				} else if (insideState.getBlock() instanceof AbstractGlassBlock || insideState.is(ConventionalBlockTags.GLASS_BLOCKS) || insideState.is(ConventionalBlockTags.GLASS_PANES)) {
-					if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().hornShattersGlass()) { //GLASS INTERACTION
+					if (WilderSharedConstants.CONFIG().hornShattersGlass()) { //GLASS INTERACTION
 						insideState.onProjectileHit(this.level, insideState, this.level.clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
 						this.level.destroyBlock(this.blockPosition(), false, this);
 					}
@@ -514,7 +511,7 @@ public class AncientHornProjectile extends AbstractArrow {
 	}
 
 	public float getDamage(@Nullable Entity entity) {
-		int base = entity instanceof Player ? WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().hornPlayerDamage() : WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().hornMobDamage();
+		int base = entity instanceof Player ? WilderSharedConstants.CONFIG().hornPlayerDamage() : WilderSharedConstants.CONFIG().hornMobDamage();
 		return base / (this.getBoundingBoxMultiplier() + 1F);
 	}
 
