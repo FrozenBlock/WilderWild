@@ -57,7 +57,6 @@
     "worldgen.general.SwampHutPieceMixin"
   ],
   "client": [
-    "client.allay.AllayModelMixin",
     "client.easter.MerpSlimeRenderer",
     "client.easter.StellaWardenModel",
     "client.easter.StellaWardenRenderer",

@@ -58,14 +58,14 @@ public class FrozenLibIntegration extends ModIntegration {
             @Override
             public void onStart(@Nullable EnderMan entity) {
                 if (entity != null) {
-                    ((WilderEnderman) entity).setCanPlayLoopingSound(false);
+                    ((WilderEnderman) entity).wilderWild$setCanPlayLoopingSound(false);
                 }
             }
 
             @Override
             public void onStop(@Nullable EnderMan entity) {
                 if (entity != null) {
-                    ((WilderEnderman) entity).setCanPlayLoopingSound(true);
+                    ((WilderEnderman) entity).wilderWild$setCanPlayLoopingSound(true);
                 }
             }
         });
