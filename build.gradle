@@ -11,6 +11,7 @@ plugins {
 	id("fabric-loom") version("+")
 	id("io.github.juuxel.loom-quiltflower") version("+")
 	id("org.ajoberstar.grgit") version("+")
+	id("org.quiltmc.gradle.licenser") version("+")
 	id("com.modrinth.minotaur") version("+")
 	id("com.matthewprenger.cursegradle") version("+")
 	id("maven-publish")
@@ -245,6 +246,12 @@ quiltflower {
 	quiltflowerVersion.set("1.9.0")
 }
 
+license {
+	rule project.file("codeformat/HEADER")
+
+	include("**/*.java")
+}
+
 javadoc {
 	options.tags = ["reason"]
 }
@@ -323,6 +330,7 @@ publishing {
 if (!project.release) {
 	test.dependsOn runDatagen
 	runClient.dependsOn runDatagen
+	build.dependsOn(applyLicenses)
 }
 
 apply from: "gradle/publishing.gradle"
