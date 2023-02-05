@@ -29,7 +29,7 @@ public class LivingEntityMixin {
 		}
 	}
 
-	@Inject(method = "isAlive", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "tickDeath", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$tickDeath(CallbackInfo info) {
 		if (LivingEntity.class.cast(this) instanceof Warden warden) {
 			if (WilderSharedConstants.CONFIG().wardenDyingAnimation() || ((WilderWarden)warden).wilderWild$isStella()) {
