@@ -179,7 +179,7 @@ dependencies {
 
 	// NBT Crafting
 	//include(modCompileOnly("maven.modrinth:nbt-crafting:${nbtcrafting_version}"))
-	include(modImplementation("com.github.Treetrain1:nbt-crafting:jitpack-23w04a-SNAPSHOT"))
+	include(modImplementation("com.github.Treetrain1:nbt-crafting:jitpack-1.19.4-SNAPSHOT"))
 
 	// CaffeineConfig
 	include(modImplementation("net.caffeinemc:mixin-config:1.0.0+1.17"))
