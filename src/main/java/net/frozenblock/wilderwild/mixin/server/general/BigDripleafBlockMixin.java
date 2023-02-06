@@ -48,8 +48,8 @@ public final class BigDripleafBlockMixin {
 
     @Inject(method = "neighborChanged", at = @At("HEAD"), cancellable = true)
     public void wilderWild$neighborStemChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving, CallbackInfo info) {
-        if (fromPos == pos.below()) {
-			BlockState downState = level.getBlockState(pos.below());
+        if (fromPos.equals(pos.below())) {
+			BlockState downState = level.getBlockState(fromPos);
 			if (downState.is(Blocks.BIG_DRIPLEAF_STEM)) {
 				state = state.setValue(BlockStateProperties.POWERED, downState.getValue(BlockStateProperties.POWERED));
 				level.setBlock(pos, state, 3);
