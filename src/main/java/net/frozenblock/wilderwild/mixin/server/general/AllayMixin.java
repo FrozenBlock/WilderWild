@@ -48,7 +48,7 @@ public class AllayMixin implements WilderAllay {
 
     @Inject(method = "tick", at = @At(value = "TAIL"))
     private void wilderWild$tickDancing(CallbackInfo info) {
-        if (wilderWild$allay.level.isClientSide && WilderSharedConstants.CONFIG().keyframeAllayDance()) {
+        if (wilderWild$allay.level.isClientSide && WilderSharedConstants.config().keyframeAllayDance()) {
             if (wilderWild$allay.isDancing()) {
                 this.wilderWild$getDancingAnimationState().startIfStopped((int) this.dancingAnimationTicks);
             } else {

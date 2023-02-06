@@ -157,9 +157,9 @@ public final class WilderWild extends FrozenMobCategoryEntrypoint implements Mod
 
 	@Override
 	public void newCategories(ArrayList<FrozenMobCategory> context) {
-		context.add(FrozenMobCategoryEntrypoint.createCategory(id("fireflies"), WilderSharedConstants.CONFIG().fireflySpawnCap(), true, false, 80));
-		context.add(FrozenMobCategoryEntrypoint.createCategory(id("jellyfish"), WilderSharedConstants.CONFIG().jellyfishSpawnCap(), true, false, 64));
-		context.add(FrozenMobCategoryEntrypoint.createCategory(id("tumbleweed"), WilderSharedConstants.CONFIG().tumbleweedSpawnCap(), true, false, 64));
+		context.add(FrozenMobCategoryEntrypoint.createCategory(id("fireflies"), WilderSharedConstants.config().fireflySpawnCap(), true, false, 80));
+		context.add(FrozenMobCategoryEntrypoint.createCategory(id("jellyfish"), WilderSharedConstants.config().jellyfishSpawnCap(), true, false, 64));
+		context.add(FrozenMobCategoryEntrypoint.createCategory(id("tumbleweed"), WilderSharedConstants.config().tumbleweedSpawnCap(), true, false, 64));
 	}
 
     private static void applyDataFixes(final @NotNull ModContainer mod) {

@@ -67,7 +67,7 @@ public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> im
     }
 
     public void render(@NotNull T entity, float partialTick, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
-        if (WilderSharedConstants.CONFIG().mcLiveSensorTendrils()) {
+        if (WilderSharedConstants.config().mcLiveSensorTendrils()) {
             SculkSensorTickInterface tickInterface = ((SculkSensorTickInterface) entity);
             VertexConsumer vertexConsumer = vertexConsumers.getBuffer(SENSOR_LAYER);
             if (tickInterface.wilderWild$isActive()) {

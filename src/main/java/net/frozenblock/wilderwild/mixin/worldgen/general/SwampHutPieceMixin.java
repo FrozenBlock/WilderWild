@@ -60,7 +60,7 @@ public class SwampHutPieceMixin {
 
     @Inject(method = "postProcess", at = @At("HEAD"), cancellable = true)
     public void wilderWild$postProcess(WorldGenLevel level, StructureManager structureAccessor, ChunkGenerator chunkGenerator, RandomSource random, BoundingBox chunkBox, ChunkPos chunkPos, BlockPos pivot, CallbackInfo info) {
-        if (WilderSharedConstants.CONFIG().newWitchHuts()) {
+        if (WilderSharedConstants.config().newWitchHuts()) {
 			info.cancel();
 			if (wilderWild$swampHut.updateAverageGroundHeight(level, chunkBox, 0)) {
 				wilderWild$swampHut.generateBox(level, chunkBox, 1, 1, 1, 5, 1, 7, RegisterBlocks.CYPRESS_PLANKS.defaultBlockState(), RegisterBlocks.CYPRESS_PLANKS.defaultBlockState(), false);

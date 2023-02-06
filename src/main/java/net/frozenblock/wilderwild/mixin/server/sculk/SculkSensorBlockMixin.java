@@ -85,7 +85,7 @@ public abstract class SculkSensorBlockMixin extends BaseEntityBlock implements S
 
     @Inject(at = @At("HEAD"), method = "getRenderShape", cancellable = true)
     public void wilderWild$getRenderShape(BlockState state, CallbackInfoReturnable<RenderShape> info) {
-        info.setReturnValue(WilderSharedConstants.CONFIG().mcLiveSensorTendrils() ? RenderShape.INVISIBLE : RenderShape.MODEL);
+        info.setReturnValue(WilderSharedConstants.config().mcLiveSensorTendrils() ? RenderShape.INVISIBLE : RenderShape.MODEL);
     }
 
 }

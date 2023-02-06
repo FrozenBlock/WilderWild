@@ -46,7 +46,7 @@ public class ShriekerGargleMixin {
 
     @Inject(method = "levelEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;playLocalSound(DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FFZ)V", ordinal = 0), cancellable = true)
     private void wilderWild$levelEvent(int eventId, BlockPos pos, int data, CallbackInfo info) {
-        if (WilderSharedConstants.CONFIG().shriekerGargling()) {
+        if (WilderSharedConstants.config().shriekerGargling()) {
             assert this.level != null;
             if (this.level.getBlockState(pos).getValue(BlockStateProperties.WATERLOGGED) || this.level.getBlockState(pos.above()).getBlock() == Blocks.WATER || this.level.getFluidState(pos.above()).is(FluidTags.WATER)) {
                 this.level

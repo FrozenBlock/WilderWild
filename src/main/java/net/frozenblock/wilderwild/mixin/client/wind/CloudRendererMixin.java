@@ -43,21 +43,21 @@ public class CloudRendererMixin {
 
 	@ModifyVariable(method = "renderClouds", at = @At(value = "STORE"), ordinal = 5)
 	private double wilderWild$modifyX(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX) {
-		return WilderSharedConstants.CONFIG().cloudMovement() && ClientWindManager.shouldUseWind()
+		return WilderSharedConstants.config().cloudMovement() && ClientWindManager.shouldUseWind()
 				? (camX / 12.0) - ClientWindManager.getCloudX(partialTick)
 				: original;
 	}
 
 	@ModifyVariable(method = "renderClouds", at = @At("STORE"), ordinal = 6)
 	private double wilderWild$modifyY(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX, double camY) {
-		return WilderSharedConstants.CONFIG().cloudMovement() && ClientWindManager.shouldUseWind()
+		return WilderSharedConstants.config().cloudMovement() && ClientWindManager.shouldUseWind()
 				? this.wilderWild$cloudHeight - camY + 0.33D + Mth.clamp(ClientWindManager.getCloudY(partialTick), -10, 10)
 				: original;
 	}
 
 	@ModifyVariable(method = "renderClouds", at = @At("STORE"), ordinal = 7)
 	private double wilderWild$modifyZ(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX, double camY, double camZ) {
-		return WilderSharedConstants.CONFIG().cloudMovement() && ClientWindManager.shouldUseWind()
+		return WilderSharedConstants.config().cloudMovement() && ClientWindManager.shouldUseWind()
 				? (camZ / 12.0D + 0.33D) - ClientWindManager.getCloudZ(partialTick)
 				: original;
 	}

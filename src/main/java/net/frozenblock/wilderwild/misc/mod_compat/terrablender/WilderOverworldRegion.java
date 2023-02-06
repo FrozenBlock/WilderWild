@@ -43,7 +43,7 @@ public class WilderOverworldRegion extends Region {
 	public void addBiomes(Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper) {
 		this.addModifiedVanillaOverworldBiomes(mapper, builder -> {
 
-			if (WilderSharedConstants.CONFIG().generateMixedForest()) {
+			if (WilderSharedConstants.config().generateMixedForest()) {
 				OverworldBiomeBuilderParameters.points(Biomes.TAIGA).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -60,7 +60,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (WilderSharedConstants.CONFIG().generateBirchTaiga()) {
+			if (WilderSharedConstants.config().generateBirchTaiga()) {
 				OverworldBiomeBuilderParameters.points(Biomes.BIRCH_FOREST).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -77,7 +77,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (WilderSharedConstants.CONFIG().generateOldGrowthBirchTaiga()) {
+			if (WilderSharedConstants.config().generateOldGrowthBirchTaiga()) {
 				OverworldBiomeBuilderParameters.points(Biomes.OLD_GROWTH_BIRCH_FOREST).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -94,7 +94,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (WilderSharedConstants.CONFIG().generateBirchJungle()) {
+			if (WilderSharedConstants.config().generateBirchJungle()) {
 				OverworldBiomeBuilderParameters.points(Biomes.JUNGLE).forEach(point -> {
 					if (!FrozenBiomeParameters.isWeird(point)) {
 						builder.replaceParameter(point,
@@ -113,7 +113,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (WilderSharedConstants.CONFIG().generateSparseBirchJungle()) {
+			if (WilderSharedConstants.config().generateSparseBirchJungle()) {
 				OverworldBiomeBuilderParameters.points(Biomes.SPARSE_JUNGLE).forEach(point -> {
 					if (!FrozenBiomeParameters.isWeird(point)) {
 						builder.replaceParameter(point,
@@ -132,7 +132,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (WilderSharedConstants.CONFIG().generateFlowerField()) {
+			if (WilderSharedConstants.config().generateFlowerField()) {
 				OverworldBiomeBuilderParameters.points(Biomes.FLOWER_FOREST).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -163,7 +163,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (WilderSharedConstants.CONFIG().generateAridSavanna()) {
+			if (WilderSharedConstants.config().generateAridSavanna()) {
 				OverworldBiomeBuilderParameters.points(Biomes.SAVANNA).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -180,7 +180,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (WilderSharedConstants.CONFIG().generateParchedForest()) {
+			if (WilderSharedConstants.config().generateParchedForest()) {
 				OverworldBiomeBuilderParameters.points(Biomes.FOREST).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -197,7 +197,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (WilderSharedConstants.CONFIG().generateAridForest()) {
+			if (WilderSharedConstants.config().generateAridForest()) {
 				OverworldBiomeBuilderParameters.points(Biomes.FOREST).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -214,7 +214,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (WilderSharedConstants.CONFIG().generateOldGrowthSnowyTaiga()) {
+			if (WilderSharedConstants.config().generateOldGrowthSnowyTaiga()) {
 				OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -231,7 +231,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (WilderSharedConstants.CONFIG().generateCypressWetlands()) {
+			if (WilderSharedConstants.config().generateCypressWetlands()) {
 				OverworldBiomeBuilderParameters.points(Biomes.SWAMP).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -248,7 +248,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (WilderSharedConstants.CONFIG().generateCypressWetlands()) {
+			if (WilderSharedConstants.config().generateCypressWetlands()) {
 				OverworldBiomeBuilderParameters.points(Biomes.MANGROVE_SWAMP).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -265,7 +265,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (WilderSharedConstants.CONFIG().generateJellyfishCaves()) {
+			if (WilderSharedConstants.config().generateJellyfishCaves()) {
 				OverworldBiomeBuilderParameters.points(Biomes.DRIPSTONE_CAVES).forEach(point -> {
 					builder.replaceParameter(point,
 							WilderSharedWorldgen.semiDeepParameters(
@@ -281,7 +281,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (WilderSharedConstants.CONFIG().generateOasis()) {
+			if (WilderSharedConstants.config().generateOasis()) {
 				OverworldBiomeBuilderParameters.points(Biomes.DESERT).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -298,7 +298,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (WilderSharedConstants.CONFIG().generateWarmRiver()) {
+			if (WilderSharedConstants.config().generateWarmRiver()) {
 				OverworldBiomeBuilderParameters.points(Biomes.RIVER).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -315,7 +315,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (WilderSharedConstants.CONFIG().modifyMangroveSwampPlacement()) {
+			if (WilderSharedConstants.config().modifyMangroveSwampPlacement()) {
 				OverworldBiomeBuilderParameters.points(Biomes.MANGROVE_SWAMP).forEach(point ->
 						builder.replaceParameter(point,
 								new Climate.ParameterPoint(
@@ -331,7 +331,7 @@ public class WilderOverworldRegion extends Region {
 				);
 			}
 
-			if (WilderSharedConstants.CONFIG().modifySwampPlacement()) {
+			if (WilderSharedConstants.config().modifySwampPlacement()) {
 				OverworldBiomeBuilderParameters.points(Biomes.SWAMP).forEach(point ->
 						builder.replaceParameter(point,
 								new Climate.ParameterPoint(

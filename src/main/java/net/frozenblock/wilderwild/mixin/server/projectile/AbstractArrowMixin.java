@@ -36,7 +36,7 @@ public class AbstractArrowMixin {
 
     @Inject(method = "onHitBlock", at = @At("HEAD"))
     public void wilderWild$sendProjectileBreakParticles(BlockHitResult blockHitResult, CallbackInfo info) {
-        if (WilderSharedConstants.CONFIG().projectileBreakParticles()) {
+        if (WilderSharedConstants.config().projectileBreakParticles()) {
             AbstractArrow arrow = AbstractArrow.class.cast(this);
             Vec3 speed = arrow.getDeltaMovement();
             if (!arrow.level.isClientSide) {

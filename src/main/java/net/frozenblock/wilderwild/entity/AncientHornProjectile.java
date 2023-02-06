@@ -161,7 +161,7 @@ public class AncientHornProjectile extends AbstractArrow {
 			--this.bubbles;
 			EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.position(), AdvancedMath.random().nextDouble() > 0.7 ? 1 : 0, 20 + AdvancedMath.random().nextInt(40), 0.05, server.random.nextIntBetweenInclusive(1, 3));
 		}
-		if (this.aliveTicks > WilderSharedConstants.CONFIG().hornLifespan()) {
+		if (this.aliveTicks > WilderSharedConstants.config().hornLifespan()) {
 			this.remove(RemovalReason.DISCARDED);
 		}
 		++this.aliveTicks;
@@ -257,7 +257,7 @@ public class AncientHornProjectile extends AbstractArrow {
 
 		this.setPos(x, y, z);
 		this.checkInsideBlocks();
-		float size = this.getBoundingBoxMultiplier() + WilderSharedConstants.CONFIG().hornSizeMultiplier();
+		float size = this.getBoundingBoxMultiplier() + WilderSharedConstants.config().hornSizeMultiplier();
 		if (size > MIN_SIZE && size < MAX_SIZE)
 			this.setBoundingBoxMultiplier(size);
 	}
@@ -333,7 +333,7 @@ public class AncientHornProjectile extends AbstractArrow {
         this.setCritArrow(false);
         if (this.level instanceof ServerLevel server && canInteract()) {
             if (blockState.getBlock() == Blocks.SCULK_SHRIEKER) {
-                if (WilderSharedConstants.CONFIG().hornCanSummonWarden()) {
+                if (WilderSharedConstants.config().hornCanSummonWarden()) {
                     BlockPos pos = result.getBlockPos();
                     WilderSharedConstants.log(Blocks.SCULK_SHRIEKER, pos, "Horn Projectile Touched", WilderSharedConstants.UNSTABLE_LOGGING);
                     if (blockState.getValue(RegisterProperties.SOULS_TAKEN) < 2 && !blockState.getValue(SculkShriekerBlock.SHRIEKING)) {
@@ -411,7 +411,7 @@ public class AncientHornProjectile extends AbstractArrow {
 				if (insideState.getBlock() instanceof BellBlock bell) { //BELL INTERACTION
 					bell.onProjectileHit(server, insideState, this.level.clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
 				} else if (insideState.getBlock() instanceof AbstractGlassBlock || insideState.is(ConventionalBlockTags.GLASS_BLOCKS) || insideState.is(ConventionalBlockTags.GLASS_PANES)) {
-					if (WilderSharedConstants.CONFIG().hornShattersGlass()) { //GLASS INTERACTION
+					if (WilderSharedConstants.config().hornShattersGlass()) { //GLASS INTERACTION
 						insideState.onProjectileHit(this.level, insideState, this.level.clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
 						this.level.destroyBlock(this.blockPosition(), false, this);
 					}
@@ -529,7 +529,7 @@ public class AncientHornProjectile extends AbstractArrow {
 	}
 
 	public float getDamage(@Nullable Entity entity) {
-		int base = entity instanceof Player ? WilderSharedConstants.CONFIG().hornPlayerDamage() : WilderSharedConstants.CONFIG().hornMobDamage();
+		int base = entity instanceof Player ? WilderSharedConstants.config().hornPlayerDamage() : WilderSharedConstants.config().hornMobDamage();
 		return base / (this.getBoundingBoxMultiplier() + 1F);
 	}
 

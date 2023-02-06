@@ -31,10 +31,10 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 public final class WilderTreesGeneration {
     public static void generateTrees() {
 
-        if (WilderSharedConstants.CONFIG().dyingTrees()) {
+        if (WilderSharedConstants.config().dyingTrees()) {
 
         }
-        if (WilderSharedConstants.CONFIG().fallenLogs()) {
+        if (WilderSharedConstants.config().fallenLogs()) {
             BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.BIRCH_FOREST),
                     GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_FALLEN_BIRCH_PLACED.unwrapKey().orElseThrow());
             BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_TAIGA),
@@ -44,7 +44,7 @@ public final class WilderTreesGeneration {
             BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.FOREST, Biomes.FLOWER_FOREST, RegisterWorldgen.PARCHED_FOREST),
                     GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_FALLEN_OAK_AND_BIRCH_PLACED.unwrapKey().orElseThrow());
         }
-        if (WilderSharedConstants.CONFIG().wildTrees()) {
+        if (WilderSharedConstants.config().wildTrees()) {
 			BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SPARSE_JUNGLE),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PALM.unwrapKey().orElseThrow());
 

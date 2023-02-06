@@ -51,7 +51,7 @@ public final class OverworldBiomeBuilderMixin {
 
 	@Inject(method = "<init>", at = @At("TAIL"))
     private void wilderWild$injectBiomes(CallbackInfo ci) {
-        if (WilderSharedConstants.CONFIG().modifyJunglePlacement()) {
+        if (WilderSharedConstants.config().modifyJunglePlacement()) {
             MIDDLE_BIOMES_VARIANT[4][3] = Biomes.JUNGLE;
             MIDDLE_BIOMES[4][4] = Biomes.JUNGLE;
         }
@@ -59,7 +59,7 @@ public final class OverworldBiomeBuilderMixin {
 
 	@Unique
 	private void wilderWild$injectSomeWilderWildBiomesToo(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-		if (WilderSharedConstants.CONFIG().generateMixedForest()) {
+		if (WilderSharedConstants.config().generateMixedForest()) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.TAIGA)) {
 				this.addSurfaceBiome(
 						parameters,
@@ -73,7 +73,7 @@ public final class OverworldBiomeBuilderMixin {
 				);
 			}
 		}
-		if (WilderSharedConstants.CONFIG().generateBirchTaiga()) {
+		if (WilderSharedConstants.config().generateBirchTaiga()) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.BIRCH_FOREST)) {
 				this.addSurfaceBiome(
 						parameters,
@@ -87,7 +87,7 @@ public final class OverworldBiomeBuilderMixin {
 				);
 			}
 		}
-		if (WilderSharedConstants.CONFIG().generateOldGrowthBirchTaiga()) {
+		if (WilderSharedConstants.config().generateOldGrowthBirchTaiga()) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.OLD_GROWTH_BIRCH_FOREST)) {
 				this.addSurfaceBiome(
 						parameters,
@@ -101,7 +101,7 @@ public final class OverworldBiomeBuilderMixin {
 				);
 			}
 		}
-		if (WilderSharedConstants.CONFIG().generateBirchJungle()) {
+		if (WilderSharedConstants.config().generateBirchJungle()) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.JUNGLE)) {
 				if (!FrozenBiomeParameters.isWeird(point)) {
 					this.addSurfaceBiome(
@@ -117,7 +117,7 @@ public final class OverworldBiomeBuilderMixin {
 				}
 			}
 		}
-		if (WilderSharedConstants.CONFIG().generateSparseBirchJungle()) {
+		if (WilderSharedConstants.config().generateSparseBirchJungle()) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SPARSE_JUNGLE)) {
 				this.addSurfaceBiome(
 						parameters,
@@ -131,7 +131,7 @@ public final class OverworldBiomeBuilderMixin {
 				);
 			}
 		}
-		if (WilderSharedConstants.CONFIG().generateFlowerField()) {
+		if (WilderSharedConstants.config().generateFlowerField()) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FLOWER_FOREST)) {
 				this.addSurfaceBiome(
 						parameters,
@@ -155,7 +155,7 @@ public final class OverworldBiomeBuilderMixin {
 				);
 			}
 		}
-		if (WilderSharedConstants.CONFIG().generateAridSavanna()) {
+		if (WilderSharedConstants.config().generateAridSavanna()) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SAVANNA)) {
 				this.addSurfaceBiome(
 						parameters,
@@ -169,7 +169,7 @@ public final class OverworldBiomeBuilderMixin {
 				);
 			}
 		}
-		if (WilderSharedConstants.CONFIG().generateParchedForest()) {
+		if (WilderSharedConstants.config().generateParchedForest()) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FOREST)) {
 				this.addSurfaceBiome(
 						parameters,
@@ -183,7 +183,7 @@ public final class OverworldBiomeBuilderMixin {
 				);
 			}
 		}
-		if (WilderSharedConstants.CONFIG().generateAridForest()) {
+		if (WilderSharedConstants.config().generateAridForest()) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.DESERT)) {
 				this.addSurfaceBiome(
 						parameters,
@@ -197,7 +197,7 @@ public final class OverworldBiomeBuilderMixin {
 				);
 			}
 		}
-		if (WilderSharedConstants.CONFIG().generateOldGrowthSnowyTaiga()) {
+		if (WilderSharedConstants.config().generateOldGrowthSnowyTaiga()) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA)) {
 				this.addSurfaceBiome(
 						parameters,
@@ -217,7 +217,7 @@ public final class OverworldBiomeBuilderMixin {
     private void wilderWild$injectBiomesNearRivers(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo info) {
         if (!FrozenBools.HAS_TERRABLENDER) {
 			wilderWild$injectSomeWilderWildBiomesToo(parameters);
-			if (WilderSharedConstants.CONFIG().generateCypressWetlands()) {
+			if (WilderSharedConstants.config().generateCypressWetlands()) {
 				this.addSurfaceBiome(
 						parameters,
 						WilderSharedWorldgen.CypressWetlands.TEMPERATURE,
@@ -229,7 +229,7 @@ public final class OverworldBiomeBuilderMixin {
 						RegisterWorldgen.CYPRESS_WETLANDS
 				);
 			}
-			if (WilderSharedConstants.CONFIG().generateOasis()) {
+			if (WilderSharedConstants.config().generateOasis()) {
 				this.addSurfaceBiome(
 						parameters,
 						WilderSharedWorldgen.Oasis.TEMPERATURE,
@@ -247,7 +247,7 @@ public final class OverworldBiomeBuilderMixin {
     @Inject(method = "addMidSlice", at = @At("TAIL")) // also can be injectMidBiomes
     private void wilderWild$injectMixedBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo info) {
         if (!FrozenBools.HAS_TERRABLENDER) {
-			if (WilderSharedConstants.CONFIG().generateCypressWetlands()) {
+			if (WilderSharedConstants.config().generateCypressWetlands()) {
 				this.addSurfaceBiome(
 						parameters,
 						WilderSharedWorldgen.CypressWetlands.TEMPERATURE,
@@ -259,7 +259,7 @@ public final class OverworldBiomeBuilderMixin {
 						RegisterWorldgen.CYPRESS_WETLANDS
 				);
 			}
-			if (WilderSharedConstants.CONFIG().generateOasis()) {
+			if (WilderSharedConstants.config().generateOasis()) {
 				this.addSurfaceBiome(
 						parameters,
 						WilderSharedWorldgen.Oasis.TEMPERATURE,
@@ -277,7 +277,7 @@ public final class OverworldBiomeBuilderMixin {
     @Inject(method = "addValleys", at = @At("TAIL")) // can also be injectValleyBiomes
     private void wilderWild$injectRiverBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo info) {
         if (!FrozenBools.HAS_TERRABLENDER) {
-			if (WilderSharedConstants.CONFIG().generateCypressWetlands()) {
+			if (WilderSharedConstants.config().generateCypressWetlands()) {
 				this.addSurfaceBiome(
 						parameters,
 						WilderSharedWorldgen.CypressWetlands.TEMPERATURE,
@@ -289,7 +289,7 @@ public final class OverworldBiomeBuilderMixin {
 						RegisterWorldgen.CYPRESS_WETLANDS
 				);
 			}
-			if (WilderSharedConstants.CONFIG().generateOasis()) {
+			if (WilderSharedConstants.config().generateOasis()) {
 				this.addSurfaceBiome(
 						parameters,
 						WilderSharedWorldgen.Oasis.TEMPERATURE,
@@ -307,7 +307,7 @@ public final class OverworldBiomeBuilderMixin {
     @Inject(method = "addUndergroundBiomes", at = @At("TAIL"))
     private void wilderWild$addUndergroundBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, CallbackInfo info) {
         if (!FrozenBools.HAS_TERRABLENDER) {
-			if (WilderSharedConstants.CONFIG().generateJellyfishCaves()) {
+			if (WilderSharedConstants.config().generateJellyfishCaves()) {
 				wilderWild$addSemiDeepBiome(
 						consumer,
 						WilderSharedWorldgen.JellyfishCaves.TEMPERATURE,
@@ -324,7 +324,7 @@ public final class OverworldBiomeBuilderMixin {
 
     @Inject(method = "maybePickWindsweptSavannaBiome", at = @At("HEAD"), cancellable = true)
     private void wilderWild$getBiomeOrWindsweptSavanna(int temperature, int humidity, Climate.Parameter weirdness, ResourceKey<Biome> biomeKey, CallbackInfoReturnable<ResourceKey<Biome>> info) {
-        if (WilderSharedConstants.CONFIG().modifyWindsweptSavannaPlacement()) {
+        if (WilderSharedConstants.config().modifyWindsweptSavannaPlacement()) {
             info.setReturnValue(temperature > 2 && humidity < 2 && weirdness.max() >= 0L ? Biomes.WINDSWEPT_SAVANNA : biomeKey);
             info.cancel();
         }
@@ -333,7 +333,7 @@ public final class OverworldBiomeBuilderMixin {
     @Inject(method = "addSurfaceBiome", at = @At("HEAD"), cancellable = true)
     private void wilderWild$addSurfaceBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, float offset, ResourceKey<Biome> biome, CallbackInfo info) {
         if (!FrozenBools.HAS_TERRABLENDER) {
-            if (biome.equals(Biomes.MANGROVE_SWAMP) && WilderSharedConstants.CONFIG().modifyMangroveSwampPlacement()) {
+            if (biome.equals(Biomes.MANGROVE_SWAMP) && WilderSharedConstants.config().modifyMangroveSwampPlacement()) {
 				wilderWild$replaceParameters(
 						parameters,
 						biome,
@@ -345,7 +345,7 @@ public final class OverworldBiomeBuilderMixin {
 						offset
 				);
                 info.cancel();
-            } else if (biome.equals(Biomes.SWAMP) && WilderSharedConstants.CONFIG().modifySwampPlacement()) {
+            } else if (biome.equals(Biomes.SWAMP) && WilderSharedConstants.config().modifySwampPlacement()) {
 				wilderWild$replaceParameters(
 						parameters,
 						biome,
@@ -363,8 +363,8 @@ public final class OverworldBiomeBuilderMixin {
 
 	@Inject(method = "addValleys", at = @At("HEAD"))
 	private void wilderWild$addValleys(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, Climate.Parameter weirdness, CallbackInfo info) {
-		if (WilderSharedConstants.CONFIG().modifyJunglePlacement()) {
-			ResourceKey<Biome> newRiver = WilderSharedConstants.CONFIG().generateWarmRiver() ? RegisterWorldgen.WARM_RIVER : Biomes.RIVER;
+		if (WilderSharedConstants.config().modifyJunglePlacement()) {
+			ResourceKey<Biome> newRiver = WilderSharedConstants.config().generateWarmRiver() ? RegisterWorldgen.WARM_RIVER : Biomes.RIVER;
 			this.addSurfaceBiome(
 					consumer,
 					this.temperatures[3],
@@ -446,7 +446,7 @@ public final class OverworldBiomeBuilderMixin {
 					newRiver
 			);
 		} else {
-			ResourceKey<Biome> newRiver = WilderSharedConstants.CONFIG().generateWarmRiver() ? RegisterWorldgen.WARM_RIVER : Biomes.RIVER;
+			ResourceKey<Biome> newRiver = WilderSharedConstants.config().generateWarmRiver() ? RegisterWorldgen.WARM_RIVER : Biomes.RIVER;
 			this.addSurfaceBiome(
 					consumer,
 					this.temperatures[3],

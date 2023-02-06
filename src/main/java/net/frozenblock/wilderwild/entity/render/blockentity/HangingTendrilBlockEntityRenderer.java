@@ -44,7 +44,7 @@ public class HangingTendrilBlockEntityRenderer<T extends HangingTendrilBlockEnti
     }
 
     public void render(@NotNull T entity, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
-        if (WilderSharedConstants.CONFIG().billboardTendrils()) {
+        if (WilderSharedConstants.config().billboardTendrils()) {
 			super.render(entity, partialTick, poseStack, vertexConsumers, light, overlay);
 		}
     }

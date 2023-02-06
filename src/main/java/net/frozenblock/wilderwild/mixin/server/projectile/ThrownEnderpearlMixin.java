@@ -39,7 +39,7 @@ public class ThrownEnderpearlMixin {
 	public void wilderWild$onHit(HitResult result, CallbackInfo info) {
 		ThrownEnderpearl pearl = ThrownEnderpearl.class.cast(this);
 
-		if (WilderSharedConstants.CONFIG().enderPearlLandingSounds()) {
+		if (WilderSharedConstants.config().enderPearlLandingSounds()) {
 			if (!pearl.level.isClientSide) {
 				Entity owner = pearl.getOwner();
 

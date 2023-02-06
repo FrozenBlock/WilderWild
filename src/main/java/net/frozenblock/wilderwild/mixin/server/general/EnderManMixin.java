@@ -69,7 +69,7 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
 	@Inject(method = "playStareSound", at = @At(value = "HEAD"), cancellable = true)
     public void wilderWild$playStareSound(CallbackInfo info) {
         //NOTE: This only runs on the client.
-		if (WilderSharedConstants.CONFIG().movingStareSound()) {
+		if (WilderSharedConstants.config().movingStareSound()) {
 			info.cancel();
 			if (this.tickCount >= this.lastStareSound + 400) {
 				this.lastStareSound = this.tickCount;
@@ -96,7 +96,7 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
 	@Unique
 	@Override
 	public void wilderWild$createAngerLoop() {
-		if (WilderSharedConstants.CONFIG().angerLoopSound()) {
+		if (WilderSharedConstants.config().angerLoopSound()) {
 			EnderMan enderMan = EnderMan.class.cast(this);
 			if (enderMan.level.isClientSide && this.wilderWild$canPlayLoopingSound) {
 				((EntityLoopingSoundInterface) enderMan).addSound(Registry.SOUND_EVENT.getKey(RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP), SoundSource.HOSTILE, 1.0F, 0.9F, WilderSharedConstants.id("enderman_anger"));

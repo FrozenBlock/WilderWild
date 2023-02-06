@@ -186,7 +186,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	@Override
 	@NotNull
 	public RenderShape getRenderShape(@NotNull BlockState state) {
-		return WilderSharedConstants.CONFIG().billboardTendrils() ? RenderShape.INVISIBLE : RenderShape.MODEL;
+		return WilderSharedConstants.config().billboardTendrils() ? RenderShape.INVISIBLE : RenderShape.MODEL;
 	}
 
 	@Override

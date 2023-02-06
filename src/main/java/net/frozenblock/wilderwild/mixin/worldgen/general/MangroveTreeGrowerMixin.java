@@ -34,7 +34,7 @@ public class MangroveTreeGrowerMixin {
 
     @Inject(method = "getConfiguredFeature", at = @At("RETURN"), cancellable = true)
     public void wilderWild$getConfiguredFeature(RandomSource randomSource, boolean bl, CallbackInfoReturnable<Holder<? extends ConfiguredFeature<?, ?>>> info) {
-		if (WilderSharedConstants.CONFIG().wildTrees()) {
+		if (WilderSharedConstants.config().wildTrees()) {
 			if (randomSource.nextFloat() < 0.1F) {
 				info.setReturnValue(WilderTreeConfigured.NEW_SWAMP_TREE);
 			}

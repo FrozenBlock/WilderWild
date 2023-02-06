@@ -53,7 +53,7 @@ public class WilderSharedConstants {
 		return AdvancedMath.random();
 	}
 
-	public static AbstractClothConfigIntegration CONFIG() {
+	public static AbstractClothConfigIntegration config() {
 		return WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration();
 	}
 

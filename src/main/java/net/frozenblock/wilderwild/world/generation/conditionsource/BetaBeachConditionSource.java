@@ -55,7 +55,7 @@ public final class BetaBeachConditionSource implements SurfaceRules.ConditionSou
 			}
 
 			protected boolean compute() {
-				return WilderSharedConstants.CONFIG().betaBeaches();
+				return WilderSharedConstants.config().betaBeaches();
 			}
 		}
 

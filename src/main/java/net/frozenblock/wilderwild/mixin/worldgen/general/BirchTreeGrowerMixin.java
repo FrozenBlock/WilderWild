@@ -34,7 +34,7 @@ public class BirchTreeGrowerMixin {
 
     @Inject(method = "getConfiguredFeature", at = @At("RETURN"), cancellable = true)
     public void wilderWild$getConfiguredFeature(RandomSource random, boolean bees, CallbackInfoReturnable<Holder<? extends ConfiguredFeature<?, ?>>> info) {
-		if (WilderSharedConstants.CONFIG().wildTrees()) {
+		if (WilderSharedConstants.config().wildTrees()) {
 			info.setReturnValue(WilderTreeConfigured.NEW_BIRCH_BEES_0004);
 		}
     }

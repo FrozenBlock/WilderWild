@@ -298,7 +298,7 @@ public class Tumbleweed extends Mob {
 
 	@Override
 	public boolean canBeLeashed(@NotNull Player player) {
-		return WilderSharedConstants.CONFIG().leashedTumbleweed();
+		return WilderSharedConstants.config().leashedTumbleweed();
 	}
 
 	@Override

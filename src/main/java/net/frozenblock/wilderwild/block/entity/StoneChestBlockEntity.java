@@ -158,14 +158,14 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
     public void liftLid(float liftAmount, boolean ancient) {
         this.openProgress = Mth.clamp(this.openProgress + (!ancient ? liftAmount * 2 : liftAmount), 0.0F, 0.5F);
         this.highestLidPoint = this.openProgress;
-		float multiplier = WilderSharedConstants.CONFIG().stoneChestTimer() / 100F;
+		float multiplier = WilderSharedConstants.config().stoneChestTimer() / 100F;
         this.stillLidTicks = (int) (Math.max((this.openProgress), 0.2) * (!ancient ? 220 : 160) * multiplier);
     }
 
     public void setLid(float liftAmount) {
         this.openProgress = Mth.clamp(liftAmount, 0.0F, 0.5F);
         this.highestLidPoint = this.openProgress;
-		float multiplier = WilderSharedConstants.CONFIG().stoneChestTimer() / 100F;
+		float multiplier = WilderSharedConstants.config().stoneChestTimer() / 100F;
         this.stillLidTicks = (int) (Math.max((this.openProgress), 0.2) * 180 * multiplier);
     }
 

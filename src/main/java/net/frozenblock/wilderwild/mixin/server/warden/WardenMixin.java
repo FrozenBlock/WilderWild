@@ -130,7 +130,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 		if (this.wilderWild$isStella()) {
 			warden.playSound(RegisterSounds.ENTITY_WARDEN_KIRBY_DEATH, 5.0F, 1.0F);
 		} else {
-			if (WilderSharedConstants.CONFIG().wardenDyingAnimation()) {
+			if (WilderSharedConstants.config().wardenDyingAnimation()) {
 				if (warden instanceof SwimmingWarden swim && swim.wilderWild$isSubmergedInWaterOrLava()) {
 					warden.playSound(RegisterSounds.ENTITY_WARDEN_UNDERWATER_DYING, 0.75F, 1.0F);
 				} else {
@@ -143,7 +143,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	@Inject(at = @At("RETURN"), method = "finalizeSpawn")
 	public void wilderWild$finalizeSpawn(ServerLevelAccessor serverLevelAccess, DifficultyInstance localDifficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData, @Nullable CompoundTag nbtCompound, CallbackInfoReturnable<SpawnGroupData> info) {
 		Warden warden = Warden.class.cast(this);
-		if ((WilderSharedConstants.CONFIG().wardenEmergesFromEgg() && spawnReason == MobSpawnType.SPAWN_EGG) || (WilderSharedConstants.CONFIG().wardenEmergesFromCommand() && spawnReason == MobSpawnType.COMMAND)) {
+		if ((WilderSharedConstants.config().wardenEmergesFromEgg() && spawnReason == MobSpawnType.SPAWN_EGG) || (WilderSharedConstants.config().wardenEmergesFromCommand() && spawnReason == MobSpawnType.COMMAND)) {
 			warden.setPose(Pose.EMERGING);
 			warden.getBrain().setMemoryWithExpiry(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, WardenAi.EMERGE_DURATION);
 			this.playSound(SoundEvents.WARDEN_AGITATED, 5.0F, 1.0F);
@@ -161,7 +161,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 				&& !warden.isDiggingOrEmerging()
 				&& !warden.hasPose(Pose.DYING)
 				&& !warden.hasPose(Pose.ROARING)
-				&& WilderSharedConstants.CONFIG().wardenAttacksImmediately()
+				&& WilderSharedConstants.config().wardenAttacksImmediately()
 		) {
 			if (!(entity instanceof Player player)) {
 				warden.increaseAngerAt(entity, AngerLevel.ANGRY.getMinimumAnger() + 20, false);
@@ -204,7 +204,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	@Inject(method = "onSyncedDataUpdated", at = @At("HEAD"), cancellable = true)
 	private void wilderWild$onSyncedDataUpdated(EntityDataAccessor<?> data, CallbackInfo info) {
 		Warden warden = Warden.class.cast(this);
-		if (WilderSharedConstants.CONFIG().wardenDyingAnimation() || this.wilderWild$isStella()) {
+		if (WilderSharedConstants.config().wardenDyingAnimation() || this.wilderWild$isStella()) {
 			if (DATA_POSE.equals(data)) {
 				if (warden.getPose() == Pose.DYING) {
 					if (this.wilderWild$isStella()) {
@@ -257,7 +257,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	@Inject(method = "tick", at = @At("TAIL"))
 	private void wilderWild$tick(CallbackInfo info) {
 		Warden warden = Warden.class.cast(this);
-		if (WilderSharedConstants.CONFIG().wardenDyingAnimation() || this.wilderWild$isStella()) {
+		if (WilderSharedConstants.config().wardenDyingAnimation() || this.wilderWild$isStella()) {
 			if (warden.getPose() == Pose.DYING) {
 				this.clientDiggingParticles(this.wilderWild$getDyingAnimationState());
 			}
@@ -289,7 +289,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 		if (this.isVisuallySwimming()) {
 			info.setReturnValue(EntityDimensions.scalable(warden.getType().getWidth(), 0.85F));
 		}
-		if (WilderSharedConstants.CONFIG().wardenDyingAnimation() || this.wilderWild$isStella()) {
+		if (WilderSharedConstants.config().wardenDyingAnimation() || this.wilderWild$isStella()) {
 			if (wilderWild$deathTicks > 0) {
 				info.setReturnValue(EntityDimensions.fixed(warden.getType().getWidth(), 0.35F));
 			}

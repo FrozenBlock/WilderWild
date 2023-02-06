@@ -34,7 +34,7 @@ public class DarkOakTreeGrowerMixin {
 
     @Inject(method = "getConfiguredMegaFeature", at = @At("RETURN"), cancellable = true)
     public void wilderWild$getConfiguredMegaFeature(RandomSource randomSource, CallbackInfoReturnable<Holder<? extends ConfiguredFeature<?, ?>>> info) {
-		if (WilderSharedConstants.CONFIG().wildTrees()) {
+		if (WilderSharedConstants.config().wildTrees()) {
 			if (randomSource.nextFloat() < 0.2F) {
 				info.setReturnValue(WilderTreeConfigured.NEW_TALL_DARK_OAK);
 			}

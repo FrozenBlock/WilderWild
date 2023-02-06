@@ -36,7 +36,7 @@ public class ThrownPotionMixin {
 	public void wilderWild$onHit(HitResult result, CallbackInfo info) {
 		ThrownPotion potion = ThrownPotion.class.cast(this);
 
-		if (WilderSharedConstants.CONFIG().potionLandingSounds()) {
+		if (WilderSharedConstants.config().potionLandingSounds()) {
 			potion.playSound(RegisterSounds.ITEM_POTION_SPLASH, 1.0F, 1.0F);
 			if (!PotionUtils.getMobEffects(potion.getItem()).isEmpty()) {
 				potion.playSound(RegisterSounds.ITEM_POTION_MAGIC, 1.0F, 1.0F + (potion.level.random.nextFloat() * 0.2F));

@@ -87,7 +87,7 @@ public class WardenModelMixin<T extends Warden> {
 
 		float sin = warden.getTendrilAnimation(tickDelta) * (float) (-Math.sin((double) animationProgress * 2.25D) * Math.PI * 0.1F);
 
-		if (WilderSharedConstants.CONFIG().wardenCustomTendrils()) {
+		if (WilderSharedConstants.config().wardenCustomTendrils()) {
 			this.leftTendril.xRot = cos;
 			this.rightTendril.xRot = cos;
 
@@ -103,7 +103,7 @@ public class WardenModelMixin<T extends Warden> {
 	private void wilderWild$setupAnim(T wardenEntity, float angle, float distance, float anim, float headYaw, float headPitch, CallbackInfo info) {
 		boolean canSwim = !wardenEntity.hasPose(Pose.EMERGING) && !wardenEntity.hasPose(Pose.DIGGING) && !wardenEntity.hasPose(Pose.DYING) && !((WilderWarden) wardenEntity).wilderWild$getSwimmingDyingAnimationState().isStarted() && !((WilderWarden) wardenEntity).wilderWild$getKirbyDeathAnimationState().isStarted();
 		boolean shouldMoveLimbs = !wardenEntity.hasPose(Pose.ROARING) && !wardenEntity.hasPose(Pose.EMERGING) && !wardenEntity.hasPose(Pose.DIGGING);
-		if (WilderSharedConstants.CONFIG().wardenSwimAnimation() && wilderWild$isSubmerged(wardenEntity)) {
+		if (WilderSharedConstants.config().wardenSwimAnimation() && wilderWild$isSubmerged(wardenEntity)) {
 			this.wilderWild$animateSwimming(wardenEntity, angle, distance, anim, headYaw, headPitch, shouldMoveLimbs, canSwim);
 		}
 		wilderWild$model.animate(((WilderWarden) wardenEntity).wilderWild$getDyingAnimationState(), CustomWardenAnimations.DYING, anim);
