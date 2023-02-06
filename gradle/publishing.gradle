@@ -129,7 +129,7 @@ tasks.register('github') {
 }
 
 tasks.register('publishMod') {
-	//dependsOn(github)
+	dependsOn(github)
 	dependsOn(tasks.getByName("curseforge"))
 	dependsOn(tasks.getByName("modrinth"))
 }
