@@ -190,3 +190,6 @@ A ghost worked on this!
 Welcome to 2002, the only year.
 Question yourself!
 Who are you, again?
+If you have mod compatibility issues, stop playing!
+If this mod causes crashes for you, stop playing!
+Try playing vanilla if you have mod compatibility issues!
