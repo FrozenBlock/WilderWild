@@ -57,11 +57,11 @@ public class AncientHorn extends InstrumentItem {
     private static final String TAG_INSTRUMENT = "instrument";
     private final TagKey<Instrument> instrumentTag;
 
-    public static final int DEFAULT_COOLDOWN = 300;
+    public static final int DEFAULT_COOLDOWN = 600;
     public static final int CREATIVE_COOLDOWN = 5;
-    public static final int SHRIEKER_COOLDOWN = 900;
-    public static final int SENSOR_COOLDOWN = 400;
-    public static final int TENDRIL_COOLDOWN = 380;
+    public static final int SHRIEKER_COOLDOWN = 1000;
+    public static final int SENSOR_COOLDOWN = 700;
+    public static final int TENDRIL_COOLDOWN = 680;
     public static final int MIN_BUBBLES = 10;
     public static final int MAX_BUBBLES = 25;
 
@@ -77,7 +77,6 @@ public class AncientHorn extends InstrumentItem {
                 nonNullList.add(create(RegisterItems.ANCIENT_HORN, holder));
             }
         }
-
     }
 
     @Override
@@ -100,15 +99,7 @@ public class AncientHorn extends InstrumentItem {
                 ItemStack offHand = user.getItemInHand(InteractionHand.OFF_HAND);
                 if (mainHand.is(Items.WATER_BUCKET) || mainHand.is(Items.POTION) || offHand.is(Items.WATER_BUCKET) || offHand.is(Items.POTION)) {
                     projectileEntity.setBubbles(level.random.nextIntBetweenInclusive(MIN_BUBBLES, MAX_BUBBLES));
-                    /*float yawNew = user.getYaw() * 0.017453292F;
-                    float pitchNew = MathHelper.cos(user.getPitch() * 0.017453292F);
-                    float f = -MathHelper.sin(yawNew) * pitchNew;
-                    float h = MathHelper.cos(yawNew) * pitchNew;
-                    for (int bubble=0; bubble < Math.random()*10; bubble++) {
-                        EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, user.getEyePos(), Math.random() > 0.7 ? 1 : 0, 20 + (int)(Math.random()*40), 0.05, 1);
-                    }*/
                 }
-                //FlyBySoundPacket.createFlybySound(level, projectileEntity, RegisterSounds.ANCIENT_HORN_VIBRATION_DISSIPATE, SoundCategory.PLAYERS, 1.0F, 0.7F);
             }
             return InteractionResultHolder.consume(itemStack);
         } else {
