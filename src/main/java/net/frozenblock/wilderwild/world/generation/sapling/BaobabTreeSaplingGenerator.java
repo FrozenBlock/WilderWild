@@ -64,7 +64,9 @@ public abstract class BaobabTreeSaplingGenerator extends AbstractMegaTreeGrower 
             BlockState blockState = Blocks.AIR.defaultBlockState();
 			for (var x = xPos; x <= xPos + 3; ++x) {
 				for (var z = zPos; z <= zPos + 3; ++z) {
-					level.setBlock(pos.offset(x, 0, z), blockState, 3);
+					var nutPos = pos.offset(x, 0, z);
+					level.setBlock(nutPos, blockState, 3);
+					level.getChunkSource().blockChanged(nutPos);
 				}
 			}
             if (configuredFeature.place(level, chunkGenerator, random, pos.offset(xPos, 0, zPos))) {
@@ -72,7 +74,9 @@ public abstract class BaobabTreeSaplingGenerator extends AbstractMegaTreeGrower 
             } else {
 				for (var x = xPos; x <= xPos + 3; ++x) {
 					for (var z = zPos; z <= zPos + 3; ++z) {
-						level.setBlock(pos.offset(x, 0, z), state, 3);
+						var nutPos = pos.offset(x, 0, z);
+						level.setBlock(nutPos, blockState, 3);
+						level.getChunkSource().blockChanged(nutPos);
 					}
 				}
                 return false;
@@ -82,11 +86,11 @@ public abstract class BaobabTreeSaplingGenerator extends AbstractMegaTreeGrower 
 
     public static boolean canGenerateBaobabTree(BlockState state, BlockGetter level, BlockPos pos, int xPos, int zPos) {
         Block block = state.getBlock();
-		boolean canGenerate = false;
+		boolean canGenerate = true;
 		for (var x = xPos; x <= xPos + 3; ++x) {
 			for (var z = zPos; z <= zPos + 3; ++z) {
-				if (level.getBlockState(pos.offset(x, 0, z)).is(block))
-					canGenerate = true;
+				if (!level.getBlockState(pos.offset(x, 0, z)).is(block))
+					canGenerate = false;
 			}
 		}
         return canGenerate;
