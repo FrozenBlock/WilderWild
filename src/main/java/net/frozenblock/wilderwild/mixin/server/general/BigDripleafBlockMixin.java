@@ -40,8 +40,7 @@ public final class BigDripleafBlockMixin {
 
     @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
     public void wilderWild$tickStem(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
-        BlockState downState = level.getBlockState(pos.below());
-        if (downState.is(Blocks.BIG_DRIPLEAF_STEM) && downState.getValue(BlockStateProperties.POWERED)) {
+        if (state.getValue(BlockStateProperties.POWERED)) {
             resetTilt(state, level, pos);
             info.cancel();
         }
@@ -50,29 +49,30 @@ public final class BigDripleafBlockMixin {
     @Inject(method = "neighborChanged", at = @At("HEAD"), cancellable = true)
     public void wilderWild$neighborStemChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving, CallbackInfo info) {
         if (fromPos == pos.below()) {
-            BlockState downState = level.getBlockState(pos.below());
-            if (downState.is(Blocks.BIG_DRIPLEAF_STEM) && downState.getValue(BlockStateProperties.POWERED)) {
+			BlockState downState = level.getBlockState(pos.below());
+			if (downState.is(Blocks.BIG_DRIPLEAF_STEM)) {
+				state = state.setValue(BlockStateProperties.POWERED, downState.getValue(BlockStateProperties.POWERED));
+				level.setBlock(pos, state, 3);
+			}
+            if (state.getValue(BlockStateProperties.POWERED)) {
                 resetTilt(state, level, pos);
                 info.cancel();
             }
         } else {
 			BlockState downState = level.getBlockState(pos.below());
-			boolean neighbor = level.hasNeighborSignal(pos);
-			if (!(downState.is(Blocks.BIG_DRIPLEAF_STEM) && downState.getValue(BlockStateProperties.POWERED)) && state.getValue(BlockStateProperties.POWERED) != neighbor) {
-				level.setBlock(pos, state.setValue(BlockStateProperties.POWERED, neighbor), 3);
+			boolean hasNeighborSignal = level.hasNeighborSignal(pos);
+			if (!(downState.is(Blocks.BIG_DRIPLEAF_STEM) && downState.getValue(BlockStateProperties.POWERED)) && state.getValue(BlockStateProperties.POWERED) != hasNeighborSignal) {
+				level.setBlock(pos, state.setValue(BlockStateProperties.POWERED, hasNeighborSignal), 3);
 			}
 		}
     }
 
-    @Inject(method = "entityInside", at = @At("HEAD"), cancellable = true)
-    public void wilderWild$entityInside(BlockState state, Level level, BlockPos pos, Entity entity, CallbackInfo info) {
-        if (!level.isClientSide) {
-            BlockState downState = level.getBlockState(pos.below());
-            if (downState.is(Blocks.BIG_DRIPLEAF_STEM) && downState.getValue(BlockStateProperties.POWERED)) {
-                info.cancel();
-            }
-        }
-    }
+	@Inject(method = "entityInside", at = @At("HEAD"), cancellable = true)
+	public void wilderWild$entityInside(BlockState state, Level level, BlockPos pos, Entity entity, CallbackInfo info) {
+		if (!level.isClientSide && state.getValue(BlockStateProperties.POWERED)) {
+			info.cancel();
+		}
+	}
 
 	@Inject(method = "createBlockStateDefinition", at = @At("TAIL"), cancellable = true)
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
