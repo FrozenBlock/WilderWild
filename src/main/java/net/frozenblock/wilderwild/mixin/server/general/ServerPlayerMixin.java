@@ -18,11 +18,11 @@
 
 package net.frozenblock.wilderwild.mixin.server.general;
 
-import net.frozenblock.wilderwild.registry.RegisterItems;
+import java.util.ArrayList;
+import net.frozenblock.wilderwild.item.cooldown.SaveableItemCooldowns;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
-import net.minecraft.world.item.ItemCooldowns;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -37,29 +37,23 @@ public class ServerPlayerMixin {
 	public ServerGamePacketListenerImpl connection;
 
 	@Unique
-	public int wilderWild$ancientHornCooldown;
+	public ArrayList<SaveableItemCooldowns.SaveableCooldownInstance> wilderWild$savedItemCooldowns;
 
 	@Inject(method = "readAdditionalSaveData", at = @At(value = "TAIL"))
 	public void wilderWild$readAdditionalSaveData(CompoundTag compound, CallbackInfo info) {
-		this.wilderWild$ancientHornCooldown = compound.getInt("WilderWildAncientHornCooldown");
+		this.wilderWild$savedItemCooldowns = SaveableItemCooldowns.readCooldowns(compound);
 	}
 
 	@Inject(method = "addAdditionalSaveData", at = @At(value = "TAIL"))
 	public void wilderWild$addAdditionalSaveData(CompoundTag compound, CallbackInfo info) {
-		ServerPlayer player = ServerPlayer.class.cast(this);
-		if (player.getCooldowns().isOnCooldown(RegisterItems.ANCIENT_HORN)) {
-			ItemCooldowns.CooldownInstance cooldownInstance = player.getCooldowns().cooldowns.get(RegisterItems.ANCIENT_HORN);
-			compound.putInt("WilderWildAncientHornCooldown", cooldownInstance.endTime - cooldownInstance.startTime);
-		} else {
-			compound.putInt("WilderWildAncientHornCooldown", 0);
-		}
+		SaveableItemCooldowns.saveCooldowns(compound, ServerPlayer.class.cast(this));
 	}
 
 	@Inject(method = "tick", at = @At(value = "TAIL"))
 	public void wilderWild$tick(CallbackInfo info) {
-		if (this.wilderWild$ancientHornCooldown > 0 && this.connection != null && this.connection.getConnection().isConnected()) {
-			ServerPlayer.class.cast(this).getCooldowns().addCooldown(RegisterItems.ANCIENT_HORN, this.wilderWild$ancientHornCooldown);
-			this.wilderWild$ancientHornCooldown = 0;
+		if (!this.wilderWild$savedItemCooldowns.isEmpty() && this.connection != null && this.connection.getConnection().isConnected()) {
+			SaveableItemCooldowns.setCooldowns(this.wilderWild$savedItemCooldowns, ServerPlayer.class.cast(this));
+			this.wilderWild$savedItemCooldowns.clear();
 		}
 	}
 

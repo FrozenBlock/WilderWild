@@ -39,4 +39,5 @@ public final class DefaultItemConfig {
 	}
 
 	public static final boolean PROJECTILE_BREAK_PARTICLES = true;
+	public static final boolean ITEM_COOLDOWNS_SAVE = true;
 }

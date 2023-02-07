@@ -24,6 +24,7 @@ import net.frozenblock.wilderwild.misc.config.ItemConfig;
 import net.frozenblock.wilderwild.misc.config.MiscConfig;
 import net.frozenblock.wilderwild.misc.config.WilderWildConfig;
 import net.frozenblock.wilderwild.misc.config.WorldgenConfig;
+import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultItemConfig;
 
 public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	public ClothConfigIntegration() {
@@ -286,6 +287,11 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	@Override
 	public boolean projectileBreakParticles() {
 		return ITEM.projectileBreakParticles;
+	}
+
+	@Override
+	public boolean itemCooldownsSave() {
+		return ITEM.itemCooldownsSave;
 	}
 
 	// WORLDGEN

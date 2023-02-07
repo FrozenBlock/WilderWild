@@ -57,6 +57,7 @@ public final class ItemConfig implements ConfigData {
 	}
 
     public boolean projectileBreakParticles = DefaultItemConfig.PROJECTILE_BREAK_PARTICLES;
+	public boolean itemCooldownsSave = DefaultItemConfig.ITEM_COOLDOWNS_SAVE;
 
     @Environment(EnvType.CLIENT)
     static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
@@ -136,16 +137,16 @@ public final class ItemConfig implements ConfigData {
 				snowballLandingSounds, eggLandingSounds, enderPearlLandingSounds, potionLandingSounds
 		);
 
-        /*var copperHornCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("copper_horn"),
-                false,
-                tooltip("copper_horn")
-
-        );*/
-
-        var breakParticles = category.addEntry(entryBuilder.startBooleanToggle(text("projectile_break_particles"), config.projectileBreakParticles)
+        var projectileBreakParticles = category.addEntry(entryBuilder.startBooleanToggle(text("projectile_break_particles"), config.projectileBreakParticles)
                 .setDefaultValue(DefaultItemConfig.PROJECTILE_BREAK_PARTICLES)
                 .setSaveConsumer(newValue -> config.projectileBreakParticles = newValue)
                 .setTooltip(tooltip("projectile_break_particles"))
                 .build());
+
+		var itemCooldownsSave = category.addEntry(entryBuilder.startBooleanToggle(text("item_cooldowns_save"), config.itemCooldownsSave)
+				.setDefaultValue(DefaultItemConfig.ITEM_COOLDOWNS_SAVE)
+				.setSaveConsumer(newValue -> config.itemCooldownsSave = newValue)
+				.setTooltip(tooltip("item_cooldowns_save"))
+				.build());
     }
 }

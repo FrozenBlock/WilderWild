@@ -221,6 +221,10 @@ public class AbstractClothConfigIntegration extends ModIntegration {
 		return DefaultItemConfig.PROJECTILE_BREAK_PARTICLES;
 	}
 
+	public boolean itemCooldownsSave() {
+		return DefaultItemConfig.ITEM_COOLDOWNS_SAVE;
+	}
+
 	// WORLDGEN
 
 	public boolean betaBeaches() {

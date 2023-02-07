@@ -13,6 +13,7 @@ accessible    method    net/minecraft/world/level/levelgen/feature/trunkplacers/
 extendable    method    net/minecraft/world/item/InstrumentItem    getInstrument    (Lnet/minecraft/world/item/ItemStack;)Ljava/util/Optional;
 extendable    method    net/minecraft/world/level/block/state/BlockBehaviour    getLootTable    ()Lnet/minecraft/resources/ResourceLocation;
 accessible    field    net/minecraft/world/item/ItemCooldowns    cooldowns    Ljava/util/Map;
+accessible    field    net/minecraft/world/item/ItemCooldowns    tickCount    I
 accessible    field    net/minecraft/world/item/ItemCooldowns$CooldownInstance    startTime    I
 accessible    field    net/minecraft/world/item/ItemCooldowns$CooldownInstance    endTime    I
 accessible    method    net/minecraft/world/item/ItemCooldowns$CooldownInstance    <init>    (II)V
