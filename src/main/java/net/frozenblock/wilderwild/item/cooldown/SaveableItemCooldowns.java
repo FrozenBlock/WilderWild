@@ -59,6 +59,11 @@ public class SaveableItemCooldowns {
 		if (!player.level.isClientSide) {
 			ItemCooldowns itemCooldowns = player.getCooldowns();
 			int tickCount = itemCooldowns.tickCount;
+
+			FriendlyByteBuf tickCountByteBuf = new FriendlyByteBuf(Unpooled.buffer());
+			tickCountByteBuf.writeInt(tickCount);
+			ServerPlayNetworking.send(player, FrozenMain.COOLDOWN_TICK_COUNT_PACKET, tickCountByteBuf);
+
 			for (SaveableCooldownInstance saveableCooldownInstance : saveableCooldownInstances) {
 				int cooldownLeft = saveableCooldownInstance.getCooldownLeft();
 				int startTime = tickCount - (saveableCooldownInstance.getTotalCooldownTime() - cooldownLeft);
