@@ -3,15 +3,17 @@ package net.frozenblock.wilderwild.item.cooldown;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.netty.buffer.Unpooled;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.frozenblock.lib.FrozenMain;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
@@ -54,20 +56,25 @@ public class SaveableItemCooldowns {
 	}
 
 	public static void setCooldowns(@NotNull ArrayList<SaveableCooldownInstance> saveableCooldownInstances, @NotNull ServerPlayer player) {
-		ItemCooldowns itemCooldowns = player.getCooldowns();
-		Map<Item, ItemCooldowns.CooldownInstance> cooldownsToPut = new HashMap<>();
-		int biggestStartTime = 0;
-		for (SaveableCooldownInstance saveableCooldownInstance : saveableCooldownInstances) {
-			int cooldownLeft = saveableCooldownInstance.getCooldownLeft();
-			int startTime = itemCooldowns.tickCount - (saveableCooldownInstance.getTotalCooldownTime() - cooldownLeft);
-			biggestStartTime = Math.max(biggestStartTime, startTime);
-			Optional<Item> item = Registry.ITEM.getOptional(saveableCooldownInstance.getItemResourceLocation());
-			item.ifPresent(value -> cooldownsToPut.put(value, new ItemCooldowns.CooldownInstance(startTime, cooldownLeft)));
+		if (!player.level.isClientSide) {
+			ItemCooldowns itemCooldowns = player.getCooldowns();
+			int tickCount = itemCooldowns.tickCount;
+			for (SaveableCooldownInstance saveableCooldownInstance : saveableCooldownInstances) {
+				int cooldownLeft = saveableCooldownInstance.getCooldownLeft();
+				int startTime = tickCount - (saveableCooldownInstance.getTotalCooldownTime() - cooldownLeft);
+				int endTime = tickCount + cooldownLeft;
+				Optional<Item> optionalItem = Registry.ITEM.getOptional(saveableCooldownInstance.getItemResourceLocation());
+				if (optionalItem.isPresent()) {
+					Item item = optionalItem.get();
+					itemCooldowns.cooldowns.put(item, new ItemCooldowns.CooldownInstance(startTime, endTime));
+					FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
+					byteBuf.writeId(Registry.ITEM, item);
+					byteBuf.writeVarInt(startTime);
+					byteBuf.writeVarInt(endTime);
+					ServerPlayNetworking.send(player, FrozenMain.FORCED_COOLDOWN_PACKET, byteBuf);
+				}
+			}
 		}
-		itemCooldowns.tickCount = biggestStartTime;
-		cooldownsToPut.forEach(((item, cooldownInstance) -> {
-			itemCooldowns.cooldowns.put(item, new ItemCooldowns.CooldownInstance(itemCooldowns.tickCount - cooldownInstance.startTime, itemCooldowns.tickCount + cooldownInstance.endTime));
-		}));
 	}
 
 	public static class SaveableCooldownInstance {
