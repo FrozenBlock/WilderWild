@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
 import java.util.ArrayList;
+import java.util.Optional;
 import net.frozenblock.wilderwild.item.cooldown.SaveableItemCooldowns;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
@@ -37,11 +38,11 @@ public class ServerPlayerMixin {
 	public ServerGamePacketListenerImpl connection;
 
 	@Unique
-	public ArrayList<SaveableItemCooldowns.SaveableCooldownInstance> wilderWild$savedItemCooldowns;
+	public Optional<ArrayList<SaveableItemCooldowns.SaveableCooldownInstance>> wilderWild$savedItemCooldowns = Optional.empty();
 
 	@Inject(method = "readAdditionalSaveData", at = @At(value = "TAIL"))
 	public void wilderWild$readAdditionalSaveData(CompoundTag compound, CallbackInfo info) {
-		this.wilderWild$savedItemCooldowns = SaveableItemCooldowns.readCooldowns(compound);
+		this.wilderWild$savedItemCooldowns = Optional.of(SaveableItemCooldowns.readCooldowns(compound));
 	}
 
 	@Inject(method = "addAdditionalSaveData", at = @At(value = "TAIL"))
@@ -51,9 +52,9 @@ public class ServerPlayerMixin {
 
 	@Inject(method = "tick", at = @At(value = "TAIL"))
 	public void wilderWild$tick(CallbackInfo info) {
-		if (!this.wilderWild$savedItemCooldowns.isEmpty() && this.connection != null && this.connection.getConnection().isConnected()) {
-			SaveableItemCooldowns.setCooldowns(this.wilderWild$savedItemCooldowns, ServerPlayer.class.cast(this));
-			this.wilderWild$savedItemCooldowns.clear();
+		if (this.wilderWild$savedItemCooldowns.isPresent() && this.connection != null && this.connection.getConnection().isConnected()) {
+			SaveableItemCooldowns.setCooldowns(this.wilderWild$savedItemCooldowns.get(), ServerPlayer.class.cast(this));
+			this.wilderWild$savedItemCooldowns = Optional.empty();
 		}
 	}
 
