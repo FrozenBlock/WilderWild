@@ -4,6 +4,8 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterItems;
@@ -53,11 +55,19 @@ public class SaveableItemCooldowns {
 
 	public static void setCooldowns(@NotNull ArrayList<SaveableCooldownInstance> saveableCooldownInstances, @NotNull ServerPlayer player) {
 		ItemCooldowns itemCooldowns = player.getCooldowns();
+		Map<Item, ItemCooldowns.CooldownInstance> cooldownsToPut = new HashMap<>();
+		int biggestStartTime = 0;
 		for (SaveableCooldownInstance saveableCooldownInstance : saveableCooldownInstances) {
 			int cooldownLeft = saveableCooldownInstance.getCooldownLeft();
+			int startTime = itemCooldowns.tickCount - (saveableCooldownInstance.getTotalCooldownTime() - cooldownLeft);
+			biggestStartTime = Math.max(biggestStartTime, startTime);
 			Optional<Item> item = Registry.ITEM.getOptional(saveableCooldownInstance.getItemResourceLocation());
-			item.ifPresent(value -> itemCooldowns.cooldowns.put(value, new ItemCooldowns.CooldownInstance(itemCooldowns.tickCount - (saveableCooldownInstance.getTotalCooldownTime() - cooldownLeft), itemCooldowns.tickCount + cooldownLeft)));
+			item.ifPresent(value -> cooldownsToPut.put(value, new ItemCooldowns.CooldownInstance(startTime, cooldownLeft)));
 		}
+		itemCooldowns.tickCount = biggestStartTime;
+		cooldownsToPut.forEach(((item, cooldownInstance) -> {
+			itemCooldowns.cooldowns.put(item, new ItemCooldowns.CooldownInstance(itemCooldowns.tickCount - cooldownInstance.startTime, itemCooldowns.tickCount + cooldownInstance.endTime));
+		}));
 	}
 
 	public static class SaveableCooldownInstance {
