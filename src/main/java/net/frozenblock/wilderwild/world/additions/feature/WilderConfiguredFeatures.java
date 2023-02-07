@@ -662,17 +662,17 @@ public final class WilderConfiguredFeatures {
 			WilderWild.LARGE_MESOGLEA_FEATURE,
 			new LargeMesogleaConfig(
 					30,
-					UniformInt.of(3, 19), BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)), UniformFloat.of(0.4F, 2.0F),
-					0.33F, UniformFloat.of(0.3F, 0.9F),
-					UniformFloat.of(0.4F, 1.0F), UniformFloat.of(0.0F, 0.3F), 4, 0.6F));
+					UniformInt.of(3, 10), BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)), UniformFloat.of(0.2F, 0.75F),
+					0.15F, UniformFloat.of(0.1F, 0.25F),
+					UniformFloat.of(0.16F, 0.4F), UniformFloat.of(0.0F, 0.25F), 5, 0.2F));
 
 	public static final Holder<ConfiguredFeature<LargeMesogleaConfig, ?>> LARGE_MESOGLEA_BLUE = register("large_mesoglea_blue",
 			WilderWild.LARGE_MESOGLEA_FEATURE,
 			new LargeMesogleaConfig(
 					30,
-					UniformInt.of(3, 15), BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)), UniformFloat.of(0.2F, 1.2F),
-					0.33F, UniformFloat.of(0.1F, 0.5F),
-					UniformFloat.of(0.6F, 1.0F), UniformFloat.of(0.0F, 0.3F), 10, 0.2F));
+					UniformInt.of(3, 10), BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)), UniformFloat.of(0.2F, 0.75F),
+					0.15F, UniformFloat.of(0.1F, 0.25F),
+					UniformFloat.of(0.16F, 0.4F), UniformFloat.of(0.0F, 0.25F), 5, 0.2F));
 
 	public static final Holder<ConfiguredFeature<SmallSpongeFeatureConfig, ?>> SMALL_SPONGE =
 			register("small_sponges", WilderWild.SMALL_SPONGE_FEATURE, new SmallSpongeFeatureConfig((SmallSpongeBlock) RegisterBlocks.SMALL_SPONGE, 20, true, true, true, WilderBlockTags.SMALL_SPONGE_GROWS_ON));
