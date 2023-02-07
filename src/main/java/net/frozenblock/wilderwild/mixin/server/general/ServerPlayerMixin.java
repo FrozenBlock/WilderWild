@@ -39,6 +39,7 @@ public class ServerPlayerMixin {
 
 	@Unique
 	public Optional<ArrayList<SaveableItemCooldowns.SaveableCooldownInstance>> wilderWild$savedItemCooldowns = Optional.empty();
+	@Unique private boolean wilderWild$canSendCooldowns = false;
 
 	@Inject(method = "readAdditionalSaveData", at = @At(value = "TAIL"))
 	public void wilderWild$readAdditionalSaveData(CompoundTag compound, CallbackInfo info) {
@@ -53,8 +54,12 @@ public class ServerPlayerMixin {
 	@Inject(method = "tick", at = @At(value = "TAIL"))
 	public void wilderWild$tick(CallbackInfo info) {
 		if (this.wilderWild$savedItemCooldowns.isPresent() && this.connection != null && this.connection.getConnection().isConnected()) {
-			SaveableItemCooldowns.setCooldowns(this.wilderWild$savedItemCooldowns.get(), ServerPlayer.class.cast(this));
-			this.wilderWild$savedItemCooldowns = Optional.empty();
+			if (this.wilderWild$canSendCooldowns) {
+				SaveableItemCooldowns.setCooldowns(this.wilderWild$savedItemCooldowns.get(), ServerPlayer.class.cast(this));
+				this.wilderWild$savedItemCooldowns = Optional.empty();
+			} else {
+				this.wilderWild$canSendCooldowns = true;
+			}
 		}
 	}
 

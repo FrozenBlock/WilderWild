@@ -53,12 +53,10 @@ public class SaveableItemCooldowns {
 
 	public static void setCooldowns(@NotNull ArrayList<SaveableCooldownInstance> saveableCooldownInstances, @NotNull ServerPlayer player) {
 		ItemCooldowns itemCooldowns = player.getCooldowns();
-		int tickCount = itemCooldowns.tickCount;
 		for (SaveableCooldownInstance saveableCooldownInstance : saveableCooldownInstances) {
 			int cooldownLeft = saveableCooldownInstance.getCooldownLeft();
-			int cooldownAmountDone = saveableCooldownInstance.getTotalCooldownTime() - cooldownLeft;
 			Optional<Item> item = Registry.ITEM.getOptional(saveableCooldownInstance.getItemResourceLocation());
-			item.ifPresent(value -> itemCooldowns.cooldowns.put(value, new ItemCooldowns.CooldownInstance(tickCount - cooldownAmountDone, tickCount + cooldownLeft)));
+			item.ifPresent(value -> itemCooldowns.cooldowns.put(value, new ItemCooldowns.CooldownInstance(itemCooldowns.tickCount - (saveableCooldownInstance.getTotalCooldownTime() - cooldownLeft), itemCooldowns.tickCount + cooldownLeft)));
 		}
 	}
 
