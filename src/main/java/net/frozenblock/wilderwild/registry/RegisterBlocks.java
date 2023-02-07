@@ -1,8 +1,6 @@
 package net.frozenblock.wilderwild.registry;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricMaterialBuilder;
@@ -13,8 +11,7 @@ import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.frozenblock.lib.block.api.FrozenSignBlock;
 import net.frozenblock.lib.block.api.FrozenWallSignBlock;
-import net.frozenblock.lib.impl.BonemealBehaviors;
-import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.lib.item.api.bonemeal.BonemealBehaviors;
 import net.frozenblock.wilderwild.block.AlgaeBlock;
 import net.frozenblock.wilderwild.block.BaobabLeaves;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
