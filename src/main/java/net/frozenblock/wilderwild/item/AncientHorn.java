@@ -27,7 +27,6 @@ import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
@@ -158,7 +157,7 @@ public class AncientHorn extends InstrumentItem {
 
     private static void play(Level level, Player player, Instrument instrument) {
         SoundEvent soundEvent = instrument.soundEvent();
-        float range = instrument.range() / LevelRenderer.CHUNK_SIZE;
+        float range = instrument.range() / 16F;
         level.playSound(player, player, soundEvent, SoundSource.RECORDS, range, 1.0F);
     }
 
