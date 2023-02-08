@@ -502,6 +502,22 @@ public final class WilderConfiguredFeatures {
 					FeatureUtils.simpleRandomPatchConfiguration(5, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
 							new SimpleBlockConfiguration(new WeightedStateProvider(TUMBLEWEED_PLANT_POOL)))));
 
+	public static final Holder<ConfiguredFeature<LargeMesogleaConfig, ?>> MESOGLEA_CLUSTER_PURPLE = register("mesoglea_cluster_purple",
+			WilderWild.LARGE_MESOGLEA_FEATURE,
+			new LargeMesogleaConfig(
+					30,
+					UniformInt.of(3, 10), BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)), UniformFloat.of(0.2F, 0.75F),
+					0.15F, UniformFloat.of(0.1F, 0.25F),
+					UniformFloat.of(0.16F, 0.4F), UniformFloat.of(0.0F, 0.25F), 5, 0.2F));
+
+	public static final Holder<ConfiguredFeature<LargeMesogleaConfig, ?>> MESOGLEA_CLUSTER_BLUE = register("mesoglea_cluster_blue",
+			WilderWild.LARGE_MESOGLEA_FEATURE,
+			new LargeMesogleaConfig(
+					30,
+					UniformInt.of(3, 10), BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)), UniformFloat.of(0.2F, 0.75F),
+					0.15F, UniformFloat.of(0.1F, 0.25F),
+					UniformFloat.of(0.16F, 0.4F), UniformFloat.of(0.0F, 0.25F), 5, 0.2F));
+
     public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> BLUE_MESOGLEA = register(
             "mesoglea",
             Feature.VEGETATION_PATCH,
@@ -518,6 +534,7 @@ public final class WilderConfiguredFeatures {
                     0.7F
             )
     );
+
     public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> BLUE_MESOGLEA_POOL = register(
             "mesoglea_pool",
             Feature.WATERLOGGED_VEGETATION_PATCH,
@@ -534,6 +551,7 @@ public final class WilderConfiguredFeatures {
                     0.7F
             )
     );
+
     public static final Holder<ConfiguredFeature<RandomBooleanFeatureConfiguration, ?>> JELLYFISH_CAVES_BLUE_MESOGLEA = register(
             "jellyfish_caves_blue_mesoglea",
             Feature.RANDOM_BOOLEAN_SELECTOR,
@@ -542,6 +560,7 @@ public final class WilderConfiguredFeatures {
                     PlacementUtils.inlinePlaced(BLUE_MESOGLEA_POOL)
             )
     );
+
     public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> UPSIDE_DOWN_BLUE_MESOGLEA = register(
             "upside_down_blue_mesoglea",
             Feature.VEGETATION_PATCH,
@@ -558,6 +577,24 @@ public final class WilderConfiguredFeatures {
                     0.7F
             )
     );
+
+	public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> UPSIDE_DOWN_BLUE_MESOGLEA_WITH_CLUSTERS = register(
+			"upside_down_blue_mesoglea_with_clusters",
+			Feature.VEGETATION_PATCH,
+			new VegetationPatchConfiguration(
+					BlockTags.LUSH_GROUND_REPLACEABLE,
+					BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+					PlacementUtils.inlinePlaced(MESOGLEA_CLUSTER_BLUE),
+					CaveSurface.CEILING,
+					ConstantInt.of(3),
+					0.8F,
+					2,
+					0.08F,
+					UniformInt.of(4, 14),
+					0.7F
+			)
+	);
+
     public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> PURPLE_MESOGLEA = register(
             "mesoglea_with_dripleaves",
             Feature.VEGETATION_PATCH,
@@ -574,6 +611,7 @@ public final class WilderConfiguredFeatures {
                     0.7F
             )
     );
+
     public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> PURPLE_MESOGLEA_POOL = register(
             "purple_mesoglea_pool",
             Feature.WATERLOGGED_VEGETATION_PATCH,
@@ -590,6 +628,7 @@ public final class WilderConfiguredFeatures {
                     0.7F
             )
     );
+
     public static final Holder<ConfiguredFeature<RandomBooleanFeatureConfiguration, ?>> JELLYFISH_CAVES_PURPLE_MESOGLEA = register(
             "jellyfish_caves_purple_mesoglea",
             Feature.RANDOM_BOOLEAN_SELECTOR,
@@ -598,6 +637,7 @@ public final class WilderConfiguredFeatures {
                     PlacementUtils.inlinePlaced(PURPLE_MESOGLEA_POOL)
             )
     );
+
     public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> UPSIDE_DOWN_PURPLE_MESOGLEA = register(
             "upside_down_purple_mesoglea",
             Feature.VEGETATION_PATCH,
@@ -614,6 +654,23 @@ public final class WilderConfiguredFeatures {
                     0.7F
             )
     );
+
+	public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> UPSIDE_DOWN_PURPLE_MESOGLEA_WITH_CLUSTERS = register(
+			"upside_down_purple_mesoglea_with_clusters",
+			Feature.VEGETATION_PATCH,
+			new VegetationPatchConfiguration(
+					BlockTags.LUSH_GROUND_REPLACEABLE,
+					BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+					PlacementUtils.inlinePlaced(MESOGLEA_CLUSTER_PURPLE),
+					CaveSurface.CEILING,
+					ConstantInt.of(3),
+					0.8F,
+					2,
+					0.08F,
+					UniformInt.of(4, 14),
+					0.7F
+			)
+	);
 
 	public static final Holder<ConfiguredFeature<MultifaceGrowthConfiguration, ?>> NEMATOCYST_BLUE = register("nematocyst_blue",
 			WilderWild.NEMATOCYST_FEATURE,
@@ -658,22 +715,6 @@ public final class WilderConfiguredFeatures {
 					)
 			)
 	);
-
-	public static final Holder<ConfiguredFeature<LargeMesogleaConfig, ?>> MESOGLEA_CLUSTER_PURPLE = register("mesoglea_cluster_purple",
-			WilderWild.LARGE_MESOGLEA_FEATURE,
-			new LargeMesogleaConfig(
-					30,
-					UniformInt.of(3, 10), BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)), UniformFloat.of(0.2F, 0.75F),
-					0.15F, UniformFloat.of(0.1F, 0.25F),
-					UniformFloat.of(0.16F, 0.4F), UniformFloat.of(0.0F, 0.25F), 5, 0.2F));
-
-	public static final Holder<ConfiguredFeature<LargeMesogleaConfig, ?>> MESOGLEA_CLUSTER_BLUE = register("mesoglea_cluster_blue",
-			WilderWild.LARGE_MESOGLEA_FEATURE,
-			new LargeMesogleaConfig(
-					30,
-					UniformInt.of(3, 10), BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)), UniformFloat.of(0.2F, 0.75F),
-					0.15F, UniformFloat.of(0.1F, 0.25F),
-					UniformFloat.of(0.16F, 0.4F), UniformFloat.of(0.0F, 0.25F), 5, 0.2F));
 
 	public static final Holder<ConfiguredFeature<LargeMesogleaConfig, ?>> LARGE_MESOGLEA_PURPLE = register("large_mesoglea_purple",
 			WilderWild.LARGE_MESOGLEA_FEATURE,
