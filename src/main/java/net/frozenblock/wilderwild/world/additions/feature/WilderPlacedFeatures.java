@@ -441,15 +441,26 @@ public final class WilderPlacedFeatures {
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			BiomeFilter.biome()
 	);
+
+	public static final Holder<PlacedFeature> MESOGLEA_CLUSTER_PURPLE = PlacementUtils.register(
+			"mesoglea_cluster_purple",
+			WilderConfiguredFeatures.MESOGLEA_CLUSTER_PURPLE,
+			CountPlacement.of(UniformInt.of(9, 15)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
+
+	public static final Holder<PlacedFeature> MESOGLEA_CLUSTER_BLUE = PlacementUtils.register(
+			"mesoglea_cluster_blue",
+			WilderConfiguredFeatures.MESOGLEA_CLUSTER_BLUE,
+			CountPlacement.of(UniformInt.of(6, 13)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
+
 	public static final Holder<PlacedFeature> LARGE_MESOGLEA_PURPLE = PlacementUtils.register(
 			"large_mesoglea_purple",
 			WilderConfiguredFeatures.LARGE_MESOGLEA_PURPLE,
-			CountPlacement.of(UniformInt.of(9, 15)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
+			CountPlacement.of(UniformInt.of(1, 3)), RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
 
 	public static final Holder<PlacedFeature> LARGE_MESOGLEA_BLUE = PlacementUtils.register(
 			"large_mesoglea_blue",
 			WilderConfiguredFeatures.LARGE_MESOGLEA_BLUE,
-			CountPlacement.of(UniformInt.of(6, 13)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
+			CountPlacement.of(UniformInt.of(1, 3)), RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
 
 
 
