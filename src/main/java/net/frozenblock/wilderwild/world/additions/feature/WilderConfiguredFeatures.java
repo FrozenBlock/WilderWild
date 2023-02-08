@@ -578,23 +578,6 @@ public final class WilderConfiguredFeatures {
             )
     );
 
-	public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> UPSIDE_DOWN_BLUE_MESOGLEA_WITH_CLUSTERS = register(
-			"upside_down_blue_mesoglea_with_clusters",
-			Feature.VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
-					BlockTags.LUSH_GROUND_REPLACEABLE,
-					BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-					PlacementUtils.inlinePlaced(MESOGLEA_CLUSTER_BLUE),
-					CaveSurface.CEILING,
-					ConstantInt.of(3),
-					0.8F,
-					2,
-					0.08F,
-					UniformInt.of(4, 14),
-					0.7F
-			)
-	);
-
     public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> PURPLE_MESOGLEA = register(
             "mesoglea_with_dripleaves",
             Feature.VEGETATION_PATCH,
@@ -654,23 +637,6 @@ public final class WilderConfiguredFeatures {
                     0.7F
             )
     );
-
-	public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> UPSIDE_DOWN_PURPLE_MESOGLEA_WITH_CLUSTERS = register(
-			"upside_down_purple_mesoglea_with_clusters",
-			Feature.VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
-					BlockTags.LUSH_GROUND_REPLACEABLE,
-					BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-					PlacementUtils.inlinePlaced(MESOGLEA_CLUSTER_PURPLE),
-					CaveSurface.CEILING,
-					ConstantInt.of(3),
-					0.8F,
-					2,
-					0.08F,
-					UniformInt.of(4, 14),
-					0.7F
-			)
-	);
 
 	public static final Holder<ConfiguredFeature<MultifaceGrowthConfiguration, ?>> NEMATOCYST_BLUE = register("nematocyst_blue",
 			WilderWild.NEMATOCYST_FEATURE,
