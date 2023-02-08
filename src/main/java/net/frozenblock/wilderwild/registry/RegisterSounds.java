@@ -267,6 +267,7 @@ public final class RegisterSounds {
     public static final SoundEvent ITEM_BUCKET_FILL_JELLYFISH = register("item.bucket.fill_jellyfish");
     public static final SoundEvent ITEM_BUCKET_EMPTY_JELLYFISH = register("item.bucket.empty_jellyfish");
 
+	public static final SoundEvent ITEM_COCONUT_THROW = register("item.coconut.throw");
 	public static final SoundEvent ITEM_COCONUT_LAND_BREAK = register("item.coconut.land_break");
 	public static final SoundEvent ITEM_COCONUT_LAND = register("item.coconut.land");
 	public static final SoundEvent ITEM_COCONUT_HIT_HEAD = register("item.coconut.hit_head");

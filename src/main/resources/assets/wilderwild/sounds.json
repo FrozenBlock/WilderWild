@@ -1974,6 +1974,12 @@
 	],
 	"subtitle": "subtitles.item.bucket.empty"
   },
+  "item.coconut.throw": {
+    "sounds": [
+      "random/bow"
+    ],
+    "subtitle": "subtitles.item.coconut.throw"
+  },
   "item.coconut.land": {
     "sounds": [
       "wilderwild:item/coconut/land1",

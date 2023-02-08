@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.item;
 
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
-import net.minecraft.sounds.SoundEvents;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -41,8 +41,7 @@ public class CoconutItem extends BlockItem {
 	@NotNull
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, @NotNull InteractionHand usedHand) {
 		ItemStack itemStack = player.getItemInHand(usedHand);
-		//TODO: Coconut throw sound
-		level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, 0.5f, 0.4f / (level.getRandom().nextFloat() * 0.4f + 0.8f));
+		level.playSound(null, player.getX(), player.getY(), player.getZ(), RegisterSounds.ITEM_COCONUT_THROW, SoundSource.NEUTRAL, 0.5f, 0.4f / (level.getRandom().nextFloat() * 0.4f + 0.8f));
 		if (!level.isClientSide) {
 			CoconutProjectile coconut = new CoconutProjectile(level, player);
 			coconut.setItem(itemStack);
