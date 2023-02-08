@@ -406,10 +406,10 @@ public final class WilderPlacedFeatures {
             RandomOffsetPlacement.vertical(ConstantInt.of(1)),
             BiomeFilter.biome());
 
-	public static final Holder<PlacedFeature> NEMATOCYST = PlacementUtils.register(
-			"nematocyst",
-			WilderConfiguredFeatures.NEMATOCYST,
-			CountPlacement.of(ConstantInt.of(72)),
+	public static final Holder<PlacedFeature> NEMATOCYST_BLUE = PlacementUtils.register(
+			"nematocyst_blue",
+			WilderConfiguredFeatures.NEMATOCYST_BLUE,
+			CountPlacement.of(ConstantInt.of(90)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			BiomeFilter.biome()
@@ -418,25 +418,7 @@ public final class WilderPlacedFeatures {
 	public static final Holder<PlacedFeature> NEMATOCYST_PURPLE = PlacementUtils.register(
 			"nematocyst_purple",
 			WilderConfiguredFeatures.NEMATOCYST_PURPLE,
-			CountPlacement.of(ConstantInt.of(72)),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			BiomeFilter.biome()
-	);
-
-	public static final Holder<PlacedFeature> SMALL_SPONGES = PlacementUtils.register(
-			"small_sponges",
-			WilderConfiguredFeatures.SMALL_SPONGE,
-			CountPlacement.of(ConstantInt.of(82)),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			BiomeFilter.biome()
-	);
-
-	public static final Holder<PlacedFeature> SMALL_SPONGES_RARE = PlacementUtils.register(
-			"small_sponges_rare",
-			WilderConfiguredFeatures.SMALL_SPONGE,
-			CountPlacement.of(ConstantInt.of(42)),
+			CountPlacement.of(ConstantInt.of(90)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			BiomeFilter.biome()
@@ -455,14 +437,30 @@ public final class WilderPlacedFeatures {
 	public static final Holder<PlacedFeature> LARGE_MESOGLEA_PURPLE = PlacementUtils.register(
 			"large_mesoglea_purple",
 			WilderConfiguredFeatures.LARGE_MESOGLEA_PURPLE,
-			CountPlacement.of(UniformInt.of(1, 3)), RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
+			CountPlacement.of(UniformInt.of(1, 3)), RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
 
 	public static final Holder<PlacedFeature> LARGE_MESOGLEA_BLUE = PlacementUtils.register(
 			"large_mesoglea_blue",
 			WilderConfiguredFeatures.LARGE_MESOGLEA_BLUE,
-			CountPlacement.of(UniformInt.of(1, 3)), RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
+			CountPlacement.of(UniformInt.of(1, 3)), RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
 
+	public static final Holder<PlacedFeature> SMALL_SPONGES = PlacementUtils.register(
+			"small_sponges",
+			WilderConfiguredFeatures.SMALL_SPONGE,
+			CountPlacement.of(ConstantInt.of(82)),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			BiomeFilter.biome()
+	);
 
+	public static final Holder<PlacedFeature> SMALL_SPONGES_RARE = PlacementUtils.register(
+			"small_sponges_rare",
+			WilderConfiguredFeatures.SMALL_SPONGE,
+			CountPlacement.of(ConstantInt.of(42)),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			BiomeFilter.biome()
+	);
 
 	public static void init() {
     }

@@ -615,7 +615,7 @@ public final class WilderConfiguredFeatures {
             )
     );
 
-	public static final Holder<ConfiguredFeature<MultifaceGrowthConfiguration, ?>> NEMATOCYST = register("nematocyst",
+	public static final Holder<ConfiguredFeature<MultifaceGrowthConfiguration, ?>> NEMATOCYST_BLUE = register("nematocyst_blue",
 			WilderWild.NEMATOCYST_FEATURE,
 			new MultifaceGrowthConfiguration(
 					(MultifaceBlock) RegisterBlocks.BLUE_PEARLESCENT_NEMATOCYST,
