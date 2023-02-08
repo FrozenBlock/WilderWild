@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.misc.mod_compat.clothconfig;
 
+import net.frozenblock.lib.config.frozenlib_config.getter.FrozenLibConfigValues;
 import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultBlockConfig;
 import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultEntityConfig;
@@ -222,7 +223,7 @@ public class AbstractClothConfigIntegration extends ModIntegration {
 	}
 
 	public boolean itemCooldownsSave() {
-		return DefaultItemConfig.ITEM_COOLDOWNS_SAVE;
+		return FrozenLibConfigValues.DefaultFrozenLibConfigValues.SAVE_ITEM_COOLDOWNS;
 	}
 
 	// WORLDGEN

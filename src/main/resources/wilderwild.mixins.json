@@ -27,7 +27,6 @@
     "server.general.LeavesBlockMixin",
     "server.general.MobMixin",
     "server.general.NaturalSpawnerMixin",
-    "server.general.ServerPlayerMixin",
     "server.general.SlimeMixin",
     "server.general.SpawnPlacementsMixin",
     "server.general.TurtleMixin",

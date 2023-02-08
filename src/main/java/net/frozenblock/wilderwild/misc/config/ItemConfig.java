@@ -26,6 +26,8 @@ import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.api.FrozenConfig;
+import net.frozenblock.lib.config.frozenlib_config.FrozenLibConfig;
+import net.frozenblock.lib.config.frozenlib_config.getter.FrozenLibConfigValues;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
@@ -57,7 +59,6 @@ public final class ItemConfig implements ConfigData {
 	}
 
     public boolean projectileBreakParticles = DefaultItemConfig.PROJECTILE_BREAK_PARTICLES;
-	public boolean itemCooldownsSave = DefaultItemConfig.ITEM_COOLDOWNS_SAVE;
 
     @Environment(EnvType.CLIENT)
     static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
@@ -143,9 +144,9 @@ public final class ItemConfig implements ConfigData {
                 .setTooltip(tooltip("projectile_break_particles"))
                 .build());
 
-		var itemCooldownsSave = category.addEntry(entryBuilder.startBooleanToggle(text("item_cooldowns_save"), config.itemCooldownsSave)
-				.setDefaultValue(DefaultItemConfig.ITEM_COOLDOWNS_SAVE)
-				.setSaveConsumer(newValue -> config.itemCooldownsSave = newValue)
+		var itemCooldownsSave = category.addEntry(entryBuilder.startBooleanToggle(text("item_cooldowns_save"), FrozenLibConfig.get().config.saveItemCooldowns)
+				.setDefaultValue(FrozenLibConfigValues.DefaultFrozenLibConfigValues.SAVE_ITEM_COOLDOWNS)
+				.setSaveConsumer(newValue -> FrozenLibConfig.get().config.saveItemCooldowns = newValue)
 				.setTooltip(tooltip("item_cooldowns_save"))
 				.build());
     }
