@@ -22,6 +22,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.entity.render.model.JellyfishModel;
@@ -42,15 +43,11 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
     }
 
     @Override
-    public void setupRotations(@NotNull Jellyfish jelly, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks) {
+    public void setupRotations(@NotNull Jellyfish jelly, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick) {
         poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0F - rotationYaw));
         poseStack.translate(0, -1, 0);
         poseStack.scale(0.8F, 0.8F, 0.8F);
         JellyfishModel<Jellyfish> model = this.getModel();
-
-		float prevScale = jelly.getPrevScale();
-		float scale = prevScale + (partialTicks * (jelly.getJellyScale() - prevScale));
-		poseStack.scale(scale, scale, scale);
 
 		if (this.isShaking(jelly)) {
 			poseStack.mulPose(Vector3f.YP.rotationDegrees((float)(Math.cos((double)jelly.tickCount * 3.25D) * 3.141592653589793D * 0.4000000059604645D)));
@@ -62,7 +59,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
 		}
 
         if (jelly.isRGB()) {
-            float time = (jelly.level.getGameTime() + partialTicks) * 0.05F;
+            float time = (ClientWindManager.time + partialTick) * 0.05F;
             model.red = Mth.clamp(Math.abs((time % 6) - 3) - 1, 0, 1);
             model.green = Mth.clamp(Math.abs(((time - 2) % 6) - 3) - 1, 0, 1);
             model.blue = Mth.clamp(Math.abs(((time - 4) % 6) - 3) - 1, 0, 1);
