@@ -97,7 +97,7 @@ public final class WilderMiscConfigured {
 	public static final Holder<ConfiguredFeature<PillarFeatureConfig, ?>> DOWNWARDS_PURPLE_MESOGLEA_PILLAR = WilderConfiguredFeatures.register("downwards_purple_mesoglea_pillar", FrozenFeatures.DOWNWARDS_PILLAR_FEATURE, new PillarFeatureConfig(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true), UniformInt.of(3, 10), HolderSet.direct(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(), RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(), Blocks.WATER.builtInRegistryHolder())));
 	public static final Holder<ConfiguredFeature<PathFeatureConfig, ?>> BLUE_MESOGLEA_PATH = WilderConfiguredFeatures.register("blue_mesoglea_path", FrozenFeatures.NOISE_PATH_FEATURE,
 			new PathFeatureConfig(BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-					14, 1, 0.1, 0.5, 0.7, true, true, true, false,
+					14, 1, 0.1, 0.4, 0.7, true, true, true, false,
 					HolderSet.direct(
 							Block::builtInRegistryHolder,
 							Blocks.CLAY,
@@ -113,7 +113,7 @@ public final class WilderMiscConfigured {
 	));
 	public static final Holder<ConfiguredFeature<PathFeatureConfig, ?>> PURPLE_MESOGLEA_PATH = WilderConfiguredFeatures.register("purple_mesoglea_path", FrozenFeatures.NOISE_PATH_FEATURE,
 			new PathFeatureConfig(BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-					14, 1, 0.1, -0.7, -0.5, true, true, true, false,
+					14, 1, 0.1, -0.7, -0.4, true, true, true, false,
 					HolderSet.direct(
 							Block::builtInRegistryHolder,
 							Blocks.CLAY,
