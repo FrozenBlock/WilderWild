@@ -54,6 +54,19 @@ public class MesogleaDripParticle extends TextureSheetParticle {
         this.quadSize = 0.5F;
     }
 
+	private boolean shouldTickUpXRotMultiplier;
+	private float prevXRotMultiplier;
+	private float xRotMultiplier;
+
+	public void setBothXRotMultipliers(float f) {
+		this.prevXRotMultiplier = f;
+		this.xRotMultiplier = f;
+	}
+
+	public void lerpsToX(boolean b) {
+		this.shouldTickUpXRotMultiplier = b;
+	}
+
     @Override
     public ParticleRenderType getRenderType() {
         return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
@@ -79,6 +92,14 @@ public class MesogleaDripParticle extends TextureSheetParticle {
         if (this.removed) {
             return;
         }
+		this.prevXRotMultiplier = this.xRotMultiplier;
+		if (this.shouldTickUpXRotMultiplier) {
+			float difference = 1F - this.xRotMultiplier;
+			this.xRotMultiplier += difference * 0.15F;
+		} else {
+			float difference = 0F - this.xRotMultiplier;
+			this.xRotMultiplier += difference * 0.15F;
+		}
         this.xd *= 0.98F;
         this.yd *= 0.98F;
         this.zd *= 0.98F;
@@ -99,6 +120,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 		float h = (float)(Mth.lerp(partialTicks, this.zo, this.z) - vec3.z());
 		this.rotation.set(0.0f, 0.0f, 0.0f, 1.0f);
 		this.rotation.mul(Vector3f.YP.rotationDegrees(-renderInfo.getYRot()));
+		this.rotation.mul(Vector3f.XP.rotationDegrees(renderInfo.getXRot() * (Mth.lerp(partialTicks, this.prevXRotMultiplier, this.xRotMultiplier))));
 		if (this.roll != 0.0f) {
 			float i = Mth.lerp(partialTicks, this.oRoll, this.roll);
 			this.rotation.mul(Vector3f.ZP.rotation(i));
@@ -467,6 +489,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
             super(clientLevel, d, e, f);
             this.lifetime = (int) (16.0 / (AdvancedMath.random().nextDouble() * 0.8 + 0.2));
             this.scale(0.7F);
+			this.setBothXRotMultipliers(1F);
         }
     }
 
@@ -475,6 +498,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
         FallingParticle(ClientLevel clientLevel, double d, double e, double f) {
             this(clientLevel, d, e, f, (int) (64.0 / (AdvancedMath.random().nextDouble() * 0.8 + 0.2)));
             this.scale(0.7F);
+			this.lerpsToX(true);
         }
 
         FallingParticle(ClientLevel clientLevel, double d, double e, double f, int i) {
