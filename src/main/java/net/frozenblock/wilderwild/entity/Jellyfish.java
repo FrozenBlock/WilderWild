@@ -279,9 +279,10 @@ public class Jellyfish extends NoFlopAbstractFish {
 			this.moveToAccurate(this.getTarget(), 2);
 		}
 
-		this.setPrevScale(this.getJellyScale());
+		float prevScale = this.getJellyScale();
+		this.setPrevScale(prevScale);
 		if (this.vanishing) {
-			if (this.getJellyScale() <= 0F) {
+			if (prevScale <= 0F) {
 				this.discard();
 				//TODO: Hide sound
 				this.playSound(RegisterSounds.PARTICLE_MESOGLEA_DRIP_LAND, 0.8F, 0.9F + level.random.nextFloat() * 0.2F);
