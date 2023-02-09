@@ -1,12 +1,11 @@
 package net.frozenblock.wilderwild.misc.mod_compat;
 
-import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.lib.FrozenBools;
-import net.frozenblock.lib.damagesource.api.PlayerDamageSourceSounds;
-import net.frozenblock.lib.impl.BlockScheduledTicks;
-import net.frozenblock.lib.impl.DripstoneDripWaterFrom;
-import net.frozenblock.lib.impl.HopperUntouchableList;
-import net.frozenblock.lib.impl.StructurePoolElementIdReplacements;
+import net.frozenblock.lib.sound.api.damagesource.PlayerDamageSourceSounds;
+import net.frozenblock.lib.tick.api.BlockScheduledTicks;
+import net.frozenblock.lib.block.api.dripstone.DripstoneDripWaterFrom;
+import net.frozenblock.lib.storage.api.HopperUntouchableList;
+import net.frozenblock.lib.worldgen.structure.api.StructurePoolElementIdReplacements;
 import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.lib.item.api.RemoveableItemTags;
 import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
