@@ -96,8 +96,6 @@ public class Jellyfish extends NoFlopAbstractFish {
     public float xRot4;
     public float xRot5;
     public float xRot6;
-	public float prevScale;
-	public float scale;
 
 	public boolean vanishing;
 	public int ticksSinceSpawn;
@@ -251,8 +249,6 @@ public class Jellyfish extends NoFlopAbstractFish {
 
     @Override
     public void aiStep() {
-		this.setPrevScale(this.getJellyScale());
-		this.prevScale = this.getPrevScale();
         super.aiStep();
         this.xRot6 = this.xRot5;
         this.xRot5 = this.xRot4;
@@ -275,6 +271,15 @@ public class Jellyfish extends NoFlopAbstractFish {
             this.xBodyRot += (-90.0F - this.xBodyRot) * 0.02F;
         }
 
+        this.stingEntities();
+
+        LivingEntity target = this.getTarget();
+        if (target != null) {
+			this.getNavigation().stop();
+			this.moveToAccurate(this.getTarget(), 2);
+		}
+
+		this.setPrevScale(this.getJellyScale());
 		if (this.vanishing) {
 			if (this.getJellyScale() <= 0F) {
 				this.discard();
@@ -284,16 +289,6 @@ public class Jellyfish extends NoFlopAbstractFish {
 				this.setJellyScale(this.getJellyScale() - 0.25F);
 			}
 		}
-		this.scale = this.getJellyScale();
-
-        this.stingEntities();
-
-        LivingEntity target = this.getTarget();
-        if (target != null) {
-			this.getNavigation().stop();
-			this.moveToAccurate(this.getTarget(), 2);
-		}
-
     }
 
 	@Override
