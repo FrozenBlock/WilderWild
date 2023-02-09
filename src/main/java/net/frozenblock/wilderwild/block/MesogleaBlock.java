@@ -134,9 +134,7 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 
     @Override
     public boolean skipRendering(@NotNull BlockState blockState, BlockState blockState2, @NotNull Direction direction) {
-        if (blockState2.is(this)) {
-            return true;
-        }
-        return super.skipRendering(blockState, blockState2, direction);
-    }
+		boolean isThisWaterlogged = blockState.getValue(WATERLOGGED);
+		return blockState2.is(this) && (isThisWaterlogged == blockState2.getValue(WATERLOGGED) || isThisWaterlogged);
+	}
 }
