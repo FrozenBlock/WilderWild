@@ -93,13 +93,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
             return;
         }
 		this.prevXRotMultiplier = this.xRotMultiplier;
-		if (this.shouldTickUpXRotMultiplier) {
-			float difference = 1F - this.xRotMultiplier;
-			this.xRotMultiplier += difference * 0.25F;
-		} else {
-			float difference = 0F - this.xRotMultiplier;
-			this.xRotMultiplier += difference * 0.25F;
-		}
+		this.xRotMultiplier += ((this.shouldTickUpXRotMultiplier ? 1F : 0F) - this.xRotMultiplier) * 0.25F;
         this.xd *= 0.98F;
         this.yd *= 0.98F;
         this.zd *= 0.98F;
