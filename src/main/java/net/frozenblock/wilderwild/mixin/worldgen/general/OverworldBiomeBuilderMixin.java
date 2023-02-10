@@ -22,6 +22,7 @@ import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.worldgen.biome.api.parameters.FrozenBiomeParameters;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
@@ -103,7 +104,7 @@ public final class OverworldBiomeBuilderMixin {
 		}
 		if (WilderSharedConstants.config().generateBirchJungle()) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.JUNGLE)) {
-				if (!FrozenBiomeParameters.isWeird(point)) {
+				if (point.humidity().equals(Humidity.FOUR)) {
 					this.addSurfaceBiome(
 							parameters,
 							WilderSharedWorldgen.BirchJungle.TEMPERATURE,

@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.misc.mod_compat.terrablender;
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.parameters.FrozenBiomeParameters;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
@@ -96,7 +97,7 @@ public class WilderOverworldRegion extends Region {
 
 			if (WilderSharedConstants.config().generateBirchJungle()) {
 				OverworldBiomeBuilderParameters.points(Biomes.JUNGLE).forEach(point -> {
-					if (!FrozenBiomeParameters.isWeird(point)) {
+					if (point.humidity().equals(Humidity.FOUR)) {
 						builder.replaceParameter(point,
 								Climate.parameters(
 										WilderSharedWorldgen.BirchJungle.TEMPERATURE,
