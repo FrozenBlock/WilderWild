@@ -168,13 +168,13 @@ public final class WilderPlacedFeatures {
 			WilderConfiguredFeatures.OLD_GROWTH_BIRCH_TAIGA_TREES, treePlacement(CountPlacement.of(3)));
 
 	public static final Holder<PlacedFeature> PARCHED_FOREST_TREES = register("parched_forest_trees",
-			WilderConfiguredFeatures.PARCHED_FOREST_TREES, VegetationPlacements.treePlacement(PlacementUtils.countExtra(4, 0.2f, 1)));
+			WilderConfiguredFeatures.PARCHED_FOREST_TREES, treePlacement(PlacementUtils.countExtra(4, 0.2f, 1)));
 
 	public static final Holder<PlacedFeature> ARID_FOREST_TREES = register("arid_forest_trees",
 			WilderConfiguredFeatures.ARID_FOREST_TREES, treePlacement(CountPlacement.of(3)));
 
 	public static final Holder<PlacedFeature> BIRCH_JUNGLE_TREES = register("birch_jungle_trees",
-			WilderConfiguredFeatures.BIRCH_JUNGLE_TREES, CountPlacement.of(29));
+			WilderConfiguredFeatures.BIRCH_JUNGLE_TREES, treePlacement(CountPlacement.of(29)));
 
 	public static final Holder<PlacedFeature> SPARSE_BIRCH_JUNGLE_TREES = register("sparse_birch_jungle_trees",
 			WilderConfiguredFeatures.SPARSE_BIRCH_JUNGLE_TREES, VegetationPlacements.treePlacement(PlacementUtils.countExtra(8, 0.1f, 1)));
