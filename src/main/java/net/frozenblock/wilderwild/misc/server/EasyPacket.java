@@ -46,7 +46,7 @@ public class EasyPacket {
             }
         }
 
-        public static void createControlledParticle(Level level, Vec3 pos, double xvel, double yvel, double zvel, int count, boolean isMilkweed, int radius) {
+        public static void createControlledParticle(Level level, Vec3 pos, double xvel, double yvel, double zvel, int count, boolean isMilkweed, int radius, double posRandomizer) {
             if (level.isClientSide)
                 throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK SPAWN ON SERVER NEXT TIME PLS");
             FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
@@ -58,6 +58,7 @@ public class EasyPacket {
             byteBuf.writeDouble(zvel * 1.5);
             byteBuf.writeVarInt(count);
             byteBuf.writeBoolean(isMilkweed);
+			byteBuf.writeDouble(posRandomizer);
             for (ServerPlayer player : PlayerLookup.around((ServerLevel) level, pos, radius)) {
                 ServerPlayNetworking.send(player, WilderWild.CONTROLLED_SEED_PACKET, byteBuf);
             }

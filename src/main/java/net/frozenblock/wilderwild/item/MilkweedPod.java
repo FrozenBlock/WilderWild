@@ -48,7 +48,7 @@ public class MilkweedPod extends Item {
 			float f = -Mth.sin(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F);
 			float g = -Mth.sin((pitch + roll) * 0.017453292F);
 			float h = Mth.cos(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F);
-			EasyPacket.EasySeedPacket.createControlledParticle(level, user.getEyePosition().add(0, -0.1, 0), f, g, h, server.random.nextIntBetweenInclusive(5, 20), true, 48);
+			EasyPacket.EasySeedPacket.createControlledParticle(level, user.getEyePosition().add(0, -0.1, 0), f, g, h, server.random.nextIntBetweenInclusive(5, 20), true, 48, 0.2);
 		}
 
 		return InteractionResultHolder.consume(itemStack);

@@ -120,7 +120,7 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 			UniformInt ran2 = UniformInt.of(-1, 1);
 			UniformInt ran3 = UniformInt.of(-3, 3);
 			for (int o = 0; o < random.nextIntBetweenInclusive(10, 30); ++o) {
-				EasyPacket.EasySeedPacket.createControlledParticle(level, new Vec3(d + (double) ran1.sample(level.random) * 0.1D, e + (double) ran2.sample(level.random) * 0.1D, f + (double) ran3.sample(level.random) * 0.1D), velX, velY, velZ, 1, true, 64);
+				EasyPacket.EasySeedPacket.createControlledParticle(level, new Vec3(d + (double) ran1.sample(level.random) * 0.1D, e + (double) ran2.sample(level.random) * 0.1D, f + (double) ran3.sample(level.random) * 0.1D), velX, velY, velZ, 1, true, 64, 0.3);
 			}
 		});
 
@@ -148,7 +148,7 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 			UniformInt ran2 = UniformInt.of(-1, 1);
 			UniformInt ran3 = UniformInt.of(-3, 3);
 			for (int o = 0; o < random.nextIntBetweenInclusive(1, 10); ++o) {
-				EasyPacket.EasySeedPacket.createControlledParticle(level, new Vec3(d + (double) ran1.sample(level.random) * 0.1D, e + (double) ran2.sample(level.random) * 0.1D, f + (double) ran3.sample(level.random) * 0.1D), velX, velY, velZ, 1, false, 64);
+				EasyPacket.EasySeedPacket.createControlledParticle(level, new Vec3(d + (double) ran1.sample(level.random) * 0.1D, e + (double) ran2.sample(level.random) * 0.1D, f + (double) ran3.sample(level.random) * 0.1D), velX, velY, velZ, 1, false, 64, 0.3);
 			}
 		});
 
