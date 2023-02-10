@@ -104,6 +104,7 @@ public final class RegisterEntities {
 
     public static void init() {
         WilderSharedConstants.logWild("Registering Entities for", WilderSharedConstants.UNSTABLE_LOGGING);
+		EasterEggs.registerEaster();
     }
 
     private static <E extends Entity, T extends EntityType<E>> T register(String path, T entityType) {

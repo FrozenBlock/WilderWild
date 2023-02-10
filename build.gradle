@@ -20,9 +20,7 @@ plugins {
 	id("java-library")
 }
 
-def frozenLibPath = "../FrozenLib"
-
-project.ext.local_frozenlib = new File(frozenLibPath).exists()
+project.ext.local_frozenlib = findProject(":FrozenLib") != null
 project.ext.release = findProperty("releaseType") == "stable"
 
 setArchivesBaseName(project.archives_base_name)
@@ -158,7 +156,7 @@ dependencies {
 	// FrozenLib
 	println("Using local FrozenLib: ${project.local_frozenlib}")
 	if (project.local_frozenlib) {
-		include(modImplementation("net.frozenblock.lib:FrozenLib"))
+		include(implementation(project(path: ":FrozenLib", configuration: "dev")))
 	}/* else if (findProperty("isGithub") == "true") {
 		include(modImplementation("com.github.FrozenBlock:FrozenLib:master-SNAPSHOT"))
 	}*/ else {
