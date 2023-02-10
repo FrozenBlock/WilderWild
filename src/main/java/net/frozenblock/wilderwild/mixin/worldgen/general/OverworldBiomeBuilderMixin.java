@@ -217,8 +217,8 @@ public final class OverworldBiomeBuilderMixin {
 				if (point.weirdness().max() < 0L) {
 					this.addSurfaceBiome(
 							parameters,
-							point.temperature(),
-							point.humidity(),
+							WilderSharedWorldgen.OldGrowthDarkForest.TEMPERATURE,
+							WilderSharedWorldgen.OldGrowthDarkForest.HUMIDITY,
 							point.continentalness(),
 							point.erosion(),
 							point.weirdness(),

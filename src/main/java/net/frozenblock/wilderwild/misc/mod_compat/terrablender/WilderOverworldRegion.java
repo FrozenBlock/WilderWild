@@ -237,8 +237,8 @@ public class WilderOverworldRegion extends Region {
 					if (point.weirdness().max() < 0L) {
 						builder.replaceParameter(point,
 								Climate.parameters(
-										point.temperature(),
-										point.humidity(),
+										WilderSharedWorldgen.OldGrowthDarkForest.TEMPERATURE,
+										WilderSharedWorldgen.OldGrowthDarkForest.HUMIDITY,
 										point.continentalness(),
 										point.erosion(),
 										point.depth(),
