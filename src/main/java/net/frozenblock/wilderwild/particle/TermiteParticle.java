@@ -26,12 +26,16 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.TextureSheetParticle;
+import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.SimpleParticleType;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class TermiteParticle extends TextureSheetParticle {
     private final SpriteSet spriteProvider;
+	private int lightColor;
 
     public TermiteParticle(ClientLevel level, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteSet spriteProvider) {
         super(level, x, y, z, velocityX, velocityY, velocityZ);
@@ -49,8 +53,19 @@ public class TermiteParticle extends TextureSheetParticle {
         super.tick();
         if (!this.removed) {
             this.setSprite(spriteProvider.get(this.random.nextInt(this.lifetime), this.lifetime));
+			BlockPos thisPos = new BlockPos(this.x, this.y, this.z);
+			for (Direction direction : Direction.values()) {
+				BlockPos pos = thisPos.relative(direction);
+				if (this.level.hasChunkAt(pos)) {
+					this.lightColor = Math.max(this.lightColor, LevelRenderer.getLightColor(this.level, pos));
+				}
+			}
         }
     }
+
+	protected int getLightColor(float partialTick) {
+		return this.lightColor;
+	}
 
     @Environment(EnvType.CLIENT)
     public record Factory(SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
