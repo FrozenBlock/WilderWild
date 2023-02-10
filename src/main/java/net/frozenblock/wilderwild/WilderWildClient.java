@@ -39,6 +39,7 @@ import net.frozenblock.wilderwild.entity.render.blockentity.DisplayLanternBlockE
 import net.frozenblock.wilderwild.entity.render.blockentity.HangingTendrilBlockEntityRenderer;
 import net.frozenblock.wilderwild.entity.render.blockentity.SculkSensorBlockEntityRenderer;
 import net.frozenblock.wilderwild.entity.render.blockentity.StoneChestBlockEntityRenderer;
+import net.frozenblock.wilderwild.entity.render.easter.EasterEggs;
 import net.frozenblock.wilderwild.entity.render.model.AncientHornProjectileModel;
 import net.frozenblock.wilderwild.entity.render.model.JellyfishModel;
 import net.frozenblock.wilderwild.entity.render.model.TumbleweedModel;
@@ -95,6 +96,8 @@ public final class WilderWildClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		Splashes.addSplashLocation(WilderSharedConstants.id("texts/splashes.txt"));
 		Panoramas.addPanorama(WilderSharedConstants.id("textures/gui/title/first/panorama"));
+		EasterEggs.registerEaster();
+
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CARNATION, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.SEEDING_DANDELION, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_CARNATION, RenderType.cutout());
