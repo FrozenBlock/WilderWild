@@ -483,6 +483,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
             super(clientLevel, d, e, f);
             this.lifetime = (int) (16.0 / (AdvancedMath.random().nextDouble() * 0.8 + 0.2));
             this.scale(0.7F);
+			this.lerpsToX(true);
 			this.setBothXRotMultipliers(1F);
         }
     }
