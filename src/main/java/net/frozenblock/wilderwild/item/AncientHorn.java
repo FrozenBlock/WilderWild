@@ -58,9 +58,9 @@ public class AncientHorn extends InstrumentItem {
 
     public static final int DEFAULT_COOLDOWN = 600;
     public static final int CREATIVE_COOLDOWN = 5;
-    public static final int SHRIEKER_COOLDOWN = 1000;
-    public static final int SENSOR_COOLDOWN = 700;
-    public static final int TENDRIL_COOLDOWN = 680;
+    public static final int SHRIEKER_COOLDOWN = 1200;
+    public static final int SENSOR_COOLDOWN = 800;
+    public static final int TENDRIL_COOLDOWN = 780;
     public static final int MIN_BUBBLES = 10;
     public static final int MAX_BUBBLES = 25;
 
