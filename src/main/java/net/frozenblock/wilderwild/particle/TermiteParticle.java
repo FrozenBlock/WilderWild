@@ -35,7 +35,7 @@ import org.jetbrains.annotations.NotNull;
 @Environment(EnvType.CLIENT)
 public class TermiteParticle extends TextureSheetParticle {
     private final SpriteSet spriteProvider;
-	private int lightColor;
+	private int lightColor = Math.max(this.lightColor, LevelRenderer.getLightColor(this.level, new BlockPos(this.x, this.y, this.z)));
 
     public TermiteParticle(ClientLevel level, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteSet spriteProvider) {
         super(level, x, y, z, velocityX, velocityY, velocityZ);
