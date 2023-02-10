@@ -232,6 +232,25 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
+			if (WilderSharedConstants.config().generateOldGrowthDarkForest()) {
+				OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST).forEach(point -> {
+					if (point.weirdness().max() < 0L) {
+						builder.replaceParameter(point,
+								Climate.parameters(
+										point.temperature(),
+										point.humidity(),
+										point.continentalness(),
+										point.erosion(),
+										point.depth(),
+										point.weirdness(),
+										point.offset()
+								)
+						);
+						builder.replaceBiome(point, RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
+					}
+				});
+			}
+
 			if (WilderSharedConstants.config().generateCypressWetlands()) {
 				OverworldBiomeBuilderParameters.points(Biomes.SWAMP).forEach(point -> {
 					builder.replaceParameter(point,

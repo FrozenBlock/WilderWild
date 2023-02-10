@@ -42,6 +42,7 @@ public class DefaultWorldgenConfig {
 		public static final boolean GENERATE_OLD_GROWTH_SNOWY_TAIGA = true;
 		public static final boolean GENERATE_BIRCH_JUNGLE = true;
 		public static final boolean GENERATE_SPARSE_BIRCH_JUNGLE = true;
+		public static final boolean GENERATE_OLD_GROWTH_DARK_FOREST = true;
 	}
 
 	public static final boolean BETA_BEACHES = true;

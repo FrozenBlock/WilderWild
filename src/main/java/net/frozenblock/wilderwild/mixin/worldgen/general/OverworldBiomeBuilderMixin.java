@@ -212,6 +212,22 @@ public final class OverworldBiomeBuilderMixin {
 				);
 			}
 		}
+		if (WilderSharedConstants.config().generateOldGrowthDarkForest()) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST)) {
+				if (point.weirdness().max() < 0L) {
+					this.addSurfaceBiome(
+							parameters,
+							point.temperature(),
+							point.humidity(),
+							point.continentalness(),
+							point.erosion(),
+							point.weirdness(),
+							point.offset(),
+							RegisterWorldgen.OLD_GROWTH_DARK_FOREST
+					);
+				}
+			}
+		}
 	}
 
     @Inject(method = "addLowSlice", at = @At("TAIL")) // also can be injectLowBiomes

@@ -395,6 +395,11 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean generateOldGrowthDarkForest() {
+		return BIOME_GENERATION.generateOldGrowthDarkForest;
+	}
+
+	@Override
 	public boolean dyingTrees() {
 		return WORLDGEN.dyingTrees;
 	}
