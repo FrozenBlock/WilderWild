@@ -18,8 +18,10 @@
 
 package net.frozenblock.wilderwild.particle;
 
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
@@ -35,7 +37,8 @@ import org.jetbrains.annotations.NotNull;
 @Environment(EnvType.CLIENT)
 public class TermiteParticle extends TextureSheetParticle {
     private final SpriteSet spriteProvider;
-	private int lightColor = Math.max(this.lightColor, LevelRenderer.getLightColor(this.level, new BlockPos(this.x, this.y, this.z)));
+	private boolean hasSetLightColor;
+	private int lightColor;
 
     public TermiteParticle(ClientLevel level, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteSet spriteProvider) {
         super(level, x, y, z, velocityX, velocityY, velocityZ);
@@ -53,15 +56,28 @@ public class TermiteParticle extends TextureSheetParticle {
         super.tick();
         if (!this.removed) {
             this.setSprite(spriteProvider.get(this.random.nextInt(this.lifetime), this.lifetime));
-			BlockPos thisPos = new BlockPos(this.x, this.y, this.z);
-			for (Direction direction : Direction.values()) {
-				BlockPos pos = thisPos.relative(direction);
-				if (this.level.hasChunkAt(pos)) {
-					this.lightColor = Math.max(this.lightColor, LevelRenderer.getLightColor(this.level, pos));
-				}
-			}
+			this.setLightColor();
         }
     }
+
+	private void setLightColor() {
+		BlockPos thisPos = new BlockPos(this.x, this.y, this.z);
+		for (Direction direction : Direction.values()) {
+			BlockPos pos = thisPos.relative(direction);
+			if (this.level.hasChunkAt(pos)) {
+				this.lightColor = Math.max(this.lightColor, LevelRenderer.getLightColor(this.level, pos));
+			}
+		}
+	}
+
+	@Override
+	public void render(VertexConsumer buffer, Camera renderInfo, float partialTicks) {
+		if (!this.hasSetLightColor) {
+			this.setLightColor();
+			this.hasSetLightColor = true;
+		}
+		super.render(buffer, renderInfo, partialTicks);
+	}
 
 	protected int getLightColor(float partialTick) {
 		return this.lightColor;
