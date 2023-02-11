@@ -78,5 +78,18 @@ public final class WilderFlowersGeneration {
 		BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.DESERT),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DESERT_BUSH_PLACED.unwrapKey().orElseThrow());
 
-    }
+		BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.BADLANDS),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PRICKLY_PEAR.unwrapKey().orElseThrow());
+
+		BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.BADLANDS),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BADLANDS_TALL_CACTUS_PLACED.unwrapKey().orElseThrow());
+
+		BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.BADLANDS),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BADLANDS_BUSH_SAND_PLACED.unwrapKey().orElseThrow());
+
+		BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.BADLANDS),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BADLANDS_BUSH_TERRACOTTA_PLACED.unwrapKey().orElseThrow());
+
+
+	}
 }

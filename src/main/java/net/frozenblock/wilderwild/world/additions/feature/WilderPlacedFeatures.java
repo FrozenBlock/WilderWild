@@ -245,6 +245,12 @@ public final class WilderPlacedFeatures {
 	public static final Holder<PlacedFeature> DESERT_BUSH_PLACED = register("desert_bush_placed",
 			WilderConfiguredFeatures.DESERT_BUSH, RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
+	public static final Holder<PlacedFeature> BADLANDS_BUSH_SAND_PLACED = register("badlands_bush_sand_placed",
+			WilderConfiguredFeatures.BADLANDS_BUSH_SAND, RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+
+	public static final Holder<PlacedFeature> BADLANDS_BUSH_TERRACOTTA_PLACED = register("badlands_bush_terracotta_placed",
+			WilderConfiguredFeatures.BADLANDS_BUSH_TERRACOTTA, RarityFilter.onAverageOnceEvery(9), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+
 	public static final Holder<PlacedFeature> ARID_BUSH_PLACED = register("arid_bush_placed",
 			WilderConfiguredFeatures.DESERT_BUSH, RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
@@ -253,6 +259,9 @@ public final class WilderPlacedFeatures {
 
 	public static final Holder<PlacedFeature> TALL_CACTUS_PLACED = register("tall_cactus_placed",
 			WilderConfiguredFeatures.PATCH_CACTUS_TALL, RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+
+	public static final Holder<PlacedFeature> BADLANDS_TALL_CACTUS_PLACED = register("badlands_tall_cactus_placed",
+			WilderConfiguredFeatures.PATCH_CACTUS_TALL_BADLANDS, RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
 	public static final Holder<PlacedFeature> ARID_CACTUS_PLACED = register("arid_cactus_placed",
 			VegetationFeatures.PATCH_CACTUS, RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
@@ -372,7 +381,10 @@ public final class WilderPlacedFeatures {
 	public static final Holder<PlacedFeature> TUMBLEWEED = register("tumbleweed",
 			WilderConfiguredFeatures.TUMBLEWEED, RarityFilter.onAverageOnceEvery(9), CountPlacement.of(1), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
-    public static final Holder<PlacedFeature> JELLYFISH_CAVES_BLUE_MESOGLEA = register(
+	public static final Holder<PlacedFeature> PRICKLY_PEAR = register("prickly_pear",
+			WilderConfiguredFeatures.PRICKLY_PEAR, RarityFilter.onAverageOnceEvery(7), CountPlacement.of(1), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+
+	public static final Holder<PlacedFeature> JELLYFISH_CAVES_BLUE_MESOGLEA = register(
             "blue_mesoglea",
             WilderConfiguredFeatures.JELLYFISH_CAVES_BLUE_MESOGLEA,
             CountPlacement.of(9),
