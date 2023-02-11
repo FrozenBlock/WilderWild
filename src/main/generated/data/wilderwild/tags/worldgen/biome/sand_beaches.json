@@ -5,10 +5,6 @@
     "minecraft:flower_forest",
     "minecraft:forest",
     {
-      "id": "wilderwild:arid_savanna",
-      "required": false
-    },
-    {
       "id": "wilderwild:parched_forest",
       "required": false
     },
