@@ -276,6 +276,28 @@ public final class OverworldBiomeBuilderMixin {
 						RegisterWorldgen.SEMI_BIRCH_FOREST
 				);
 			}
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.OLD_GROWTH_BIRCH_FOREST)) {
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.SemiBirchForest.TEMPERATURE_A,
+						WilderSharedWorldgen.SemiBirchForest.HUMIDITY,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						point.offset(),
+						RegisterWorldgen.SEMI_BIRCH_FOREST
+				);
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.SemiBirchForest.TEMPERATURE_B,
+						WilderSharedWorldgen.SemiBirchForest.HUMIDITY,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						point.offset(),
+						RegisterWorldgen.SEMI_BIRCH_FOREST
+				);
+			}
 		}
 	}
 

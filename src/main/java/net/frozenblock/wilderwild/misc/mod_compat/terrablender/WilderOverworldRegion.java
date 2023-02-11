@@ -310,6 +310,34 @@ public class WilderOverworldRegion extends Region {
 					);
 					builder.replaceBiome(point, RegisterWorldgen.SEMI_BIRCH_FOREST);
 				});
+				OverworldBiomeBuilderParameters.points(Biomes.OLD_GROWTH_BIRCH_FOREST).forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.SemiBirchForest.TEMPERATURE_A,
+									WilderSharedWorldgen.SemiBirchForest.HUMIDITY,
+									point.continentalness(),
+									point.erosion(),
+									point.depth(),
+									point.weirdness(),
+									point.offset()
+							)
+					);
+					builder.replaceBiome(point, RegisterWorldgen.SEMI_BIRCH_FOREST);
+				});
+				OverworldBiomeBuilderParameters.points(Biomes.OLD_GROWTH_BIRCH_FOREST).forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.SemiBirchForest.TEMPERATURE_B,
+									WilderSharedWorldgen.SemiBirchForest.HUMIDITY,
+									point.continentalness(),
+									point.erosion(),
+									point.depth(),
+									point.weirdness(),
+									point.offset()
+							)
+					);
+					builder.replaceBiome(point, RegisterWorldgen.SEMI_BIRCH_FOREST);
+				});
 			}
 
 			if (WilderSharedConstants.config().generateCypressWetlands()) {
