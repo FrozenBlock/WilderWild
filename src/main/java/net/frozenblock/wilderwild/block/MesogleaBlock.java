@@ -83,7 +83,7 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 		if (collisionContext instanceof EntityCollisionContext entityCollisionContext && entityCollisionContext.getEntity() != null) {
 			if (blockState.getValue(WATERLOGGED)) {
 				VoxelShape shape = Shapes.empty();
-				if (entityCollisionContext.getEntity() instanceof Jellyfish) {
+				if (entityCollisionContext.getEntity() instanceof Jellyfish jellyfish && jellyfish.blockPosition().equals(blockPos)) {
 					for (Direction direction : Direction.values()) {
 						if (!blockGetter.getFluidState(blockPos.relative(direction)).is(FluidTags.WATER)) {
 							shape = Shapes.or(shape, FrozenShapes.makePlaneFromDirection(direction, 0.25F));
