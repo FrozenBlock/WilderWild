@@ -63,7 +63,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 		}
 
 		private void generateBiomeTags() {
-			this.getOrCreateTagBuilder(WilderBiomeTags.FALLEN_BIRCH_TREES)
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_BIRCH_TREES)
 					.add(Biomes.BIRCH_FOREST)
 					.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
 					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST);
@@ -126,6 +126,10 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(BiomeTags.IS_RIVER)
 					.addOptional(RegisterWorldgen.OASIS);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_PALMS)
+					.add(Biomes.DESERT)
+					.addOptional(RegisterWorldgen.ARID_SAVANNA);
 		}
 
 		private void generateClimateAndVegetationTags() {

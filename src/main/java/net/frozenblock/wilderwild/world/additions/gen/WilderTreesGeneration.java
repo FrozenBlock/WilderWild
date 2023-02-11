@@ -35,7 +35,7 @@ public final class WilderTreesGeneration {
 
         }
         if (WilderSharedConstants.config().fallenLogs()) {
-            BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.FALLEN_BIRCH_TREES),
+            BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_BIRCH_TREES),
                     GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_FALLEN_BIRCH_PLACED.unwrapKey().orElseThrow());
             BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_TAIGA),
                     GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_SPRUCE_PLACED.unwrapKey().orElseThrow());
@@ -51,7 +51,7 @@ public final class WilderTreesGeneration {
 			BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.JUNGLE),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PALM_JUNGLE.unwrapKey().orElseThrow());
 
-			BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.DESERT, RegisterWorldgen.ARID_SAVANNA),
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_PALMS),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PALM_RARE.unwrapKey().orElseThrow());
 
             BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.FOREST),
