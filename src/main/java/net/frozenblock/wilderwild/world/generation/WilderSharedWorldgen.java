@@ -27,6 +27,7 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
 import static net.frozenblock.lib.worldgen.surface.FrozenSurfaceRules.*;
+import net.frozenblock.lib.worldgen.surface.FrozenSurfaceRules;
 import net.frozenblock.lib.worldgen.surface.impl.BiomeTagConditionSource;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
@@ -34,6 +35,7 @@ import net.frozenblock.wilderwild.world.generation.conditionsource.BetaBeachCond
 import net.frozenblock.wilderwild.world.generation.noise.WilderNoise;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Noises;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
@@ -350,11 +352,11 @@ public final class WilderSharedWorldgen {
 								SurfaceRules.waterBlockCheck(-1, 0),
 								SurfaceRules.sequence(
 										SurfaceRules.ifTrue(
-												SurfaceRules.noiseCondition(Noises.SURFACE, 1.45D / 8.25D, Double.MAX_VALUE),
-												COARSE_DIRT
+												SurfaceRules.noiseCondition(Noises.SURFACE, 0.175, 0.2),
+												FrozenSurfaceRules.makeStateRule(Blocks.ROOTED_DIRT)
 										),
 										SurfaceRules.ifTrue(
-												SurfaceRules.noiseCondition(Noises.SURFACE, -0.55D / 8.25D, 0.035),
+												SurfaceRules.noiseCondition(Noises.SURFACE, -0.0667, 0.04),
 												PODZOL
 										)
 								)
