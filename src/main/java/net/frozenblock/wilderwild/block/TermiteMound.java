@@ -76,7 +76,7 @@ public class TermiteMound extends BaseEntityBlock {
 
 	@Override
 	public void onPlace(BlockState state, Level level, @NotNull BlockPos pos, @NotNull BlockState oldState, boolean isMoving) {
-		level.scheduleTick(pos, state.getBlock(), 100);
+		level.scheduleTick(pos, this, 40);
 	}
 
 	@Override
@@ -85,12 +85,12 @@ public class TermiteMound extends BaseEntityBlock {
 		if (canAwaken != state.getValue(RegisterProperties.TERMITES_AWAKE)) {
 			state.setValue(RegisterProperties.TERMITES_AWAKE, canAwaken);
 		}
-		level.scheduleTick(pos, state.getBlock(), 100);
+		level.scheduleTick(pos, this, 100);
 	}
 
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		level.scheduleTick(pos, state.getBlock(), 1);
+		level.scheduleTick(pos, this, 1);
 	}
 
 	public static boolean canTermitesWaken(@NotNull Level level, @NotNull BlockPos pos) {
