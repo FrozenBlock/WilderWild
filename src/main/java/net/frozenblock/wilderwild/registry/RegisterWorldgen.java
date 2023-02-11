@@ -623,6 +623,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 	}
 
 	public static void addAridSavannaFeatures(BiomeGenerationSettings.Builder builder) {
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_SAVANNA_TREES);
 		addBasicFeatures(builder, ARID_SAVANNA);
 		BiomeDefaultFeatures.addSavannaGrass(builder);
 		BiomeDefaultFeatures.addDefaultOres(builder);
@@ -631,7 +632,6 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		BiomeDefaultFeatures.addSavannaExtraGrass(builder);
 		BiomeDefaultFeatures.addDefaultMushrooms(builder);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_SAVANNA_TREES);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_CACTUS_PLACED);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_BUSH_PLACED);
 		builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.GRASS_PATH_RARE);
@@ -639,6 +639,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 	}
 
 	public static void addParchedForestFeatures(BiomeGenerationSettings.Builder builder) {
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PARCHED_FOREST_TREES);
 		addBasicFeatures(builder, PARCHED_FOREST);
 		BiomeDefaultFeatures.addSavannaGrass(builder);
 		BiomeDefaultFeatures.addDefaultOres(builder);
@@ -647,10 +648,10 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		BiomeDefaultFeatures.addSavannaExtraGrass(builder);
 		BiomeDefaultFeatures.addDefaultMushrooms(builder);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PARCHED_FOREST_TREES);
 	}
 
 	public static void addAridForestFeatures(BiomeGenerationSettings.Builder builder) {
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_FOREST_TREES);
 		addBasicFeatures(builder, ARID_FOREST);
 		BiomeDefaultFeatures.addSavannaGrass(builder);
 		BiomeDefaultFeatures.addDefaultOres(builder);
@@ -659,7 +660,6 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		BiomeDefaultFeatures.addSavannaExtraGrass(builder);
 		BiomeDefaultFeatures.addDefaultMushrooms(builder);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_FOREST_TREES);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_CACTUS_PLACED);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_BUSH_PLACED);
 		builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.GRASS_PATH_RARE);
