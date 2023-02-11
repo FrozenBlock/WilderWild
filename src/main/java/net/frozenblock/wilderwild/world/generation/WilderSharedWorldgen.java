@@ -127,7 +127,7 @@ public final class WilderSharedWorldgen {
 	public static final class SemiBirchForest {
 		public static final Climate.Parameter TEMPERATURE_A = Temperature.THREE;
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.050F, 0.150F);
-		public static final Climate.Parameter TEMPERATURE_B = Climate.Parameter.span(-0.200F, -0.100F);
+		public static final Climate.Parameter TEMPERATURE_B = Climate.Parameter.span(-0.140F, -0.100F);
 	}
 
     public static final class JellyfishCaves {
