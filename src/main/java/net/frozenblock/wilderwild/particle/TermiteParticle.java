@@ -63,15 +63,13 @@ public class TermiteParticle extends TextureSheetParticle {
 	private void setLightColor() {
 		BlockPos thisPos = new BlockPos(this.x, this.y, this.z);
 		int light = 0;
-		int grabbedPoses = 0;
 		for (Direction direction : Direction.values()) {
 			BlockPos pos = thisPos.relative(direction);
 			if (this.level.hasChunkAt(pos)) {
-				light += LevelRenderer.getLightColor(this.level, pos);
-				grabbedPoses += 1;
+				light = Math.max(LevelRenderer.getLightColor(this.level, pos), light);
 			}
 		}
-		this.lightColor = grabbedPoses > 0 && light > 0 ? light / grabbedPoses : 0;
+		this.lightColor = light;
 	}
 
 	@Override
