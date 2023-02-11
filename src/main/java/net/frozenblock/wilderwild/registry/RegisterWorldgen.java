@@ -68,6 +68,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 	public static final ResourceKey<Biome> BIRCH_JUNGLE = register("birch_jungle");
 	public static final ResourceKey<Biome> SPARSE_BIRCH_JUNGLE = register("sparse_birch_jungle");
 	public static final ResourceKey<Biome> OLD_GROWTH_DARK_FOREST = register("old_growth_dark_forest");
+	public static final ResourceKey<Biome> DARK_BIRCH_FOREST = register("dark_birch_forest");
 
 	public static void registerWorldgen() {
 		WilderSharedConstants.logWild("Registering Biomes for", WilderSharedConstants.UNSTABLE_LOGGING);
@@ -86,6 +87,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, BIRCH_JUNGLE.location(), birchJungle());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, SPARSE_BIRCH_JUNGLE.location(), sparseBirchJungle());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, OLD_GROWTH_DARK_FOREST.location(), oldGrowthDarkForest());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, DARK_BIRCH_FOREST.location(), darkBirchForest());
 
 		WilderNoise.init();
 	}
@@ -445,6 +447,31 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 				.build();
 	}
 
+	public static Biome darkBirchForest() {
+		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
+		BiomeDefaultFeatures.farmAnimals(builder);
+		BiomeDefaultFeatures.commonSpawns(builder);
+		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
+		addDarkBirchForestFeatures(builder2);
+		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
+		return new Biome.BiomeBuilder()
+				.precipitation(Biome.Precipitation.RAIN)
+				.temperature(0.65F)
+				.downfall(0.7F)
+				.specialEffects(
+						new BiomeSpecialEffects.Builder()
+								.waterColor(4159204)
+								.waterFogColor(329011)
+								.fogColor(12638463)
+								.skyColor(OverworldBiomes.calculateSkyColor(0.65F))
+								.grassColorModifier(BiomeSpecialEffects.GrassColorModifier.DARK_FOREST)
+								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+								.backgroundMusic(musicSound).build())
+				.mobSpawnSettings(builder.build())
+				.generationSettings(builder2.build())
+				.build();
+	}
+
 	public static void addCypressPaths(BiomeGenerationSettings.Builder builder) {
 		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_SAND_PATH);
 		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_GRAVEL_PATH);
@@ -679,6 +706,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		BiomeDefaultFeatures.addSparseJungleMelons(builder);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SPARSE_BIRCH_JUNGLE_TREES);
 	}
+
 	public static void addOldGrowthDarkForestFeatures(BiomeGenerationSettings.Builder builder) {
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SEEDING_DANDELION_MIXED);
 		addBasicFeatures(builder, OLD_GROWTH_DARK_FOREST);
@@ -690,6 +718,23 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		BiomeDefaultFeatures.addDefaultMushrooms(builder);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.OLD_GROWTH_DARK_FOREST_VEGETATION);
+	}
+
+	public static void addDarkBirchForestFeatures(BiomeGenerationSettings.Builder builder) {
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SEEDING_DANDELION_MIXED);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MIXED_MUSHROOMS_PLACED);
+		if (WilderSharedConstants.config().fallenLogs()) {
+			builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_FALLEN_BIRCH_PLACED);
+		}
+		addBasicFeatures(builder, DARK_BIRCH_FOREST);
+		BiomeDefaultFeatures.addForestFlowers(builder);
+		BiomeDefaultFeatures.addDefaultOres(builder);
+		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
+		BiomeDefaultFeatures.addDefaultFlowers(builder);
+		BiomeDefaultFeatures.addForestGrass(builder);
+		BiomeDefaultFeatures.addDefaultMushrooms(builder);
+		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DARK_BIRCH_FOREST_VEGETATION);
 	}
 
 	private static void addBasicFeatures(BiomeGenerationSettings.Builder builder, ResourceKey<Biome> biome) {

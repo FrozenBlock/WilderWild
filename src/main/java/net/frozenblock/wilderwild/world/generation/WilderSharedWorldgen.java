@@ -114,8 +114,13 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static final class OldGrowthDarkForest {
-		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.2F, 0.2F);
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.35F, 1.0F);
+		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.20F, 0.20F);
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.350F, 1.000F);
+	}
+
+	public static final class DarkBirchForest {
+		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.20F, -0.100F);
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.475F, 0.625F);
 	}
 
     public static final class JellyfishCaves {

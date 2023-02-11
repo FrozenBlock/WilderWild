@@ -308,6 +308,10 @@ public class AbstractClothConfigIntegration extends ModIntegration {
 		return DefaultWorldgenConfig.BiomeGeneration.GENERATE_OLD_GROWTH_DARK_FOREST;
 	}
 
+	public boolean generateDarkBirchForest() {
+		return DefaultWorldgenConfig.BiomeGeneration.GENERATE_DARK_BIRCH_FOREST;
+	}
+
 	public boolean dyingTrees() {
 		return DefaultWorldgenConfig.DYING_TREES;
 	}

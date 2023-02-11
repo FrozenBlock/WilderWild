@@ -27,6 +27,7 @@ import net.frozenblock.wilderwild.misc.config.MiscConfig;
 import net.frozenblock.wilderwild.misc.config.WilderWildConfig;
 import net.frozenblock.wilderwild.misc.config.WorldgenConfig;
 import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultItemConfig;
+import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultWorldgenConfig;
 
 public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	public ClothConfigIntegration() {
@@ -397,6 +398,11 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	@Override
 	public boolean generateOldGrowthDarkForest() {
 		return BIOME_GENERATION.generateOldGrowthDarkForest;
+	}
+
+	@Override
+	public boolean generateDarkBirchForest() {
+		return BIOME_GENERATION.generateDarkBirchForest;
 	}
 
 	@Override

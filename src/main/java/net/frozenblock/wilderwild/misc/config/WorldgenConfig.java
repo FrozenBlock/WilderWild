@@ -63,6 +63,7 @@ public final class WorldgenConfig implements ConfigData {
 		public boolean generateBirchJungle = DefaultWorldgenConfig.BiomeGeneration.GENERATE_BIRCH_JUNGLE;
 		public boolean generateSparseBirchJungle = DefaultWorldgenConfig.BiomeGeneration.GENERATE_SPARSE_BIRCH_JUNGLE;
 		public boolean generateOldGrowthDarkForest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_OLD_GROWTH_DARK_FOREST;
+		public boolean generateDarkBirchForest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_DARK_BIRCH_FOREST;
 	}
 
     public boolean betaBeaches = DefaultWorldgenConfig.BETA_BEACHES;
@@ -174,11 +175,17 @@ public final class WorldgenConfig implements ConfigData {
 				.setTooltip(tooltip("generate_old_growth_dark_forest"))
 				.requireRestart()
 				.build();
+		var darkBirchForest = entryBuilder.startBooleanToggle(text("generate_dark_birch_forest"), biomes.generateDarkBirchForest)
+				.setDefaultValue(DefaultWorldgenConfig.BiomeGeneration.GENERATE_DARK_BIRCH_FOREST)
+				.setSaveConsumer(newValue -> biomes.generateDarkBirchForest = newValue)
+				.setTooltip(tooltip("generate_dark_birch_forest"))
+				.requireRestart()
+				.build();
 
 		var biomeGenerationCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("biome_generation"),
 				false,
 				tooltip("biome_generation"),
-				aridForest, aridSavanna, birchJungle, birchTaiga, cypressWetlands, flowerField, jellyfishCaves, mixedForest,
+				aridForest, aridSavanna, birchJungle, birchTaiga, cypressWetlands, darkBirchForest, flowerField, jellyfishCaves, mixedForest,
 				oasis, oldGrowthBirchTaiga, oldGrowthDarkForest, oldGrowthSnowyTaiga, parchedForest,
 				sparseBirchJungle, warmRiver
 		);
@@ -255,9 +262,4 @@ public final class WorldgenConfig implements ConfigData {
 		);
     }
 
-    //public static final StringSetConfigOption HIDDEN_MODS = new StringSetConfigOption("hidden_mods", new HashSet<>());
-    /*public static WorldgenConfig get() {
-        AutoConfig.register(WorldgenConfig.class, GsonConfigSerializer::new);
-        return AutoConfig.getConfigHolder(WorldgenConfig.class).getConfig();
-    }*/
 }

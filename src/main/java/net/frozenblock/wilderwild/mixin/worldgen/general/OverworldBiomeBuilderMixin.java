@@ -228,6 +228,20 @@ public final class OverworldBiomeBuilderMixin {
 				}
 			}
 		}
+		if (WilderSharedConstants.config().generateDarkBirchForest()) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST)) {
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.DarkBirchForest.TEMPERATURE,
+						WilderSharedWorldgen.DarkBirchForest.HUMIDITY,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						point.offset(),
+						RegisterWorldgen.DARK_BIRCH_FOREST
+				);
+			}
+		}
 	}
 
     @Inject(method = "addLowSlice", at = @At("TAIL")) // also can be injectLowBiomes
