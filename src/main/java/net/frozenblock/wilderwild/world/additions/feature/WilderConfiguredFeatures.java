@@ -252,19 +252,18 @@ public final class WilderConfiguredFeatures {
 
 	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> DARK_BIRCH_FOREST_VEGETATION =
 			register("dark_birch_forest_vegetation", Feature.RANDOM_SELECTOR,
-					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(TreeFeatures.HUGE_BROWN_MUSHROOM), 0.015F),
-							new WeightedPlacedFeature(TreePlacements.DARK_OAK_CHECKED, 0.55F),
-							new WeightedPlacedFeature(WilderTreePlaced.DYING_DARK_OAK_CHECKED, 0.155F),
-							new WeightedPlacedFeature(WilderTreePlaced.NEW_BIRCH_CHECKED, 0.45F),
-							new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.19F),
-							new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.185F),
-							new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.085F),
-							new WeightedPlacedFeature(WilderTreePlaced.NEW_TALL_DARK_OAK_CHECKED, 0.65F),
-							new WeightedPlacedFeature(WilderTreePlaced.COBWEB_TALL_DARK_OAK_CHECKED, 0.021F),
-							new WeightedPlacedFeature(WilderTreePlaced.DYING_TALL_DARK_OAK_CHECKED, 0.122F),
-							new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_CHECKED, 0.045F),
-							new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED, 0.045F),
-							new WeightedPlacedFeature(WilderTreePlaced.NEW_FANCY_OAK_CHECKED, 0.24F)), WilderTreePlaced.NEW_OAK_CHECKED));
+					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(TreeFeatures.HUGE_BROWN_MUSHROOM), 0.025F),
+							new WeightedPlacedFeature(TreePlacements.DARK_OAK_CHECKED, 0.435F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_DARK_OAK_CHECKED, 0.075F),
+							new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.35F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.015F),
+							new WeightedPlacedFeature(WilderTreePlaced.NEW_BIRCH_CHECKED, 0.1F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.015F),
+							new WeightedPlacedFeature(WilderTreePlaced.NEW_TALL_DARK_OAK_CHECKED, 0.25F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_TALL_DARK_OAK_CHECKED, 0.048F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_CHECKED, 0.02F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED, 0.012F),
+							new WeightedPlacedFeature(WilderTreePlaced.NEW_FANCY_OAK_CHECKED, 0.185F)), WilderTreePlaced.NEW_OAK_CHECKED));
 
 	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> NEW_TREES_TAIGA =
             register("trees_taiga", Feature.RANDOM_SELECTOR,
