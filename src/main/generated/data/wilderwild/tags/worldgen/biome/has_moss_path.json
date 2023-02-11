@@ -1,24 +1,15 @@
 {
   "replace": false,
   "values": [
-    "minecraft:bamboo_jungle",
     "minecraft:jungle",
-    "minecraft:savanna",
     "minecraft:sparse_jungle",
+    "minecraft:bamboo_jungle",
     {
       "id": "wilderwild:birch_jungle",
       "required": false
     },
     {
       "id": "wilderwild:sparse_birch_jungle",
-      "required": false
-    },
-    {
-      "id": "wilderwild:arid_savanna",
-      "required": false
-    },
-    {
-      "id": "terralith:arid_highlands",
       "required": false
     }
   ]

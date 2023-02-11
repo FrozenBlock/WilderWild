@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:taiga",
+    {
+      "id": "wilderwild:birch_taiga",
+      "required": false
+    },
+    {
+      "id": "wilderwild:old_growth_birch_taiga",
+      "required": false
+    }
+  ]
+}

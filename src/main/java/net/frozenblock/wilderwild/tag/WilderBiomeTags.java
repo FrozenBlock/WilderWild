@@ -60,6 +60,26 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_SEEDING_DANDELION = bind("has_seeding_dandelion");
 	public static final TagKey<Biome> HAS_MILKWEED = bind("has_milkweed");
 	public static final TagKey<Biome> HAS_PALMS = bind("has_palms");
+	public static final TagKey<Biome> HAS_SHORT_SPRUCE = bind("has_short_spruce");
+	public static final TagKey<Biome> HAS_BIG_SHRUB = bind("has_big_shrub");
+	public static final TagKey<Biome> HAS_POLLEN = bind("has_pollen");
+	public static final TagKey<Biome> HAS_RED_SHELF_FUNGUS = bind("has_red_shelf_fungus");
+	public static final TagKey<Biome> HAS_BROWN_SHELF_FUNGUS = bind("has_brown_shelf_fungus");
+	public static final TagKey<Biome> HAS_GLORY_OF_THE_SNOW = bind("has_glory_of_the_snow");
+	public static final TagKey<Biome> HAS_FLOWERING_WATER_LILY = bind("has_flowering_water_lily");
+	public static final TagKey<Biome> HAS_BERRY_PATCH = bind("has_berry_patch");
+	public static final TagKey<Biome> HAS_LARGE_FERN_AND_GRASS = bind("has_large_fern_and_grass");
+	public static final TagKey<Biome> HAS_LARGE_FERN_AND_GRASS_RARE = bind("has_large_fern_and_grass_rare");
+	public static final TagKey<Biome> HAS_NEW_RARE_GRASS = bind("has_new_rare_grass");
+	public static final TagKey<Biome> HAS_DECORATIVE_MUD = bind("has_decorative_mud");
+	public static final TagKey<Biome> HAS_PACKED_MUD_ORE = bind("has_packed_mud_ore");
+	public static final TagKey<Biome> HAS_COARSE_DIRT_PATH = bind("has_coarse_dirt_path");
+	public static final TagKey<Biome> HAS_COARSE_DIRT_PATH_SMALL = bind("has_coarse_dirt_path_small");
+	public static final TagKey<Biome> HAS_PACKED_MUD_PATH_BADLANDS = bind("has_packed_mud_path_badlands");
+	public static final TagKey<Biome> HAS_SANDSTONE_PATH = bind("has_sandstone_path");
+	public static final TagKey<Biome> HAS_TAIGA_FOREST_ROCK = bind("has_taiga_forest_rock");
+	public static final TagKey<Biome> HAS_MOSS_PATH = bind("has_moss_path");
+	public static final TagKey<Biome> HAS_PACKED_MUD_PATH = bind("has_packed_mud_path");
 
 	public static final TagKey<Biome> GRAVEL_BEACH = bind("gravel_beaches");
 	public static final TagKey<Biome> SAND_BEACHES = bind("sand_beaches");
