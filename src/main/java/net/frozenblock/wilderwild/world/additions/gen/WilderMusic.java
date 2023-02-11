@@ -22,6 +22,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.minecraft.sounds.Musics;
 import net.minecraft.world.level.biome.AmbientAdditionsSettings;
 import net.minecraft.world.level.biome.Biomes;
@@ -37,22 +38,46 @@ public final class WilderMusic {
         /** MUSIC */
         BiomeModifications.create(WilderSharedConstants.id("modify_birch_forest_music")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(Biomes.BIRCH_FOREST),
                 (selectionContext, modificationContext) -> {
-					if (WilderSharedConstants.config().birchForestMusic()) {
+					if (WilderSharedConstants.config().wilderForestMusic()) {
 						modificationContext.getEffects().setMusic(Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS));
 					}
 		});
         BiomeModifications.create(WilderSharedConstants.id("modify_old_birch_forest_music")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(Biomes.OLD_GROWTH_BIRCH_FOREST),
                 (selectionContext, modificationContext) -> {
-					if (WilderSharedConstants.config().birchForestMusic()) {
+					if (WilderSharedConstants.config().wilderForestMusic()) {
 						modificationContext.getEffects().setMusic(Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS));
 					}
 		});
         BiomeModifications.create(WilderSharedConstants.id("modify_flower_forest_music")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(Biomes.FLOWER_FOREST),
                 (selectionContext, modificationContext) -> {
-					if (WilderSharedConstants.config().flowerForestMusic()) {
+					if (WilderSharedConstants.config().wilderForestMusic()) {
 						modificationContext.getEffects().setMusic(Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS));
 					}
-				});
+		});
+		BiomeModifications.create(WilderSharedConstants.id("modify_mixed_forest_music")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(RegisterWorldgen.MIXED_FOREST),
+				(selectionContext, modificationContext) -> {
+					if (WilderSharedConstants.config().wilderForestMusic()) {
+						modificationContext.getEffects().setMusic(Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS));
+					}
+		});
+		BiomeModifications.create(WilderSharedConstants.id("modify_birch_taiga_music")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(RegisterWorldgen.BIRCH_TAIGA),
+				(selectionContext, modificationContext) -> {
+					if (WilderSharedConstants.config().wilderForestMusic()) {
+						modificationContext.getEffects().setMusic(Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS));
+					}
+		});
+		BiomeModifications.create(WilderSharedConstants.id("modify_old_growth_birch_taiga_music")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA),
+				(selectionContext, modificationContext) -> {
+					if (WilderSharedConstants.config().wilderForestMusic()) {
+						modificationContext.getEffects().setMusic(Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS));
+					}
+		});
+		BiomeModifications.create(WilderSharedConstants.id("modify_semi_birch_forest_music")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(RegisterWorldgen.SEMI_BIRCH_FOREST),
+				(selectionContext, modificationContext) -> {
+					if (WilderSharedConstants.config().wilderForestMusic()) {
+						modificationContext.getEffects().setMusic(Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_WILD_FORESTS));
+					}
+		});
 
         /** AMBIENCE */
         // Deep Dark

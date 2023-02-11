@@ -346,12 +346,8 @@ public class AbstractClothConfigIntegration extends ModIntegration {
 		return DefaultMiscConfig.BiomeAmbienceConfig.DRIPSTONE_CAVES_AMBIENCE;
 	}
 
-	public boolean birchForestMusic() {
-		return DefaultMiscConfig.BiomeMusicConfig.BIRCH_FOREST_MUSIC;
-	}
-
-	public boolean flowerForestMusic() {
-		return DefaultMiscConfig.BiomeMusicConfig.FLOWER_FOREST_MUSIC;
+	public boolean wilderForestMusic() {
+		return DefaultMiscConfig.BiomeMusicConfig.WILDER_FOREST_MUSIC;
 	}
 
 	public boolean cloudMovement() {

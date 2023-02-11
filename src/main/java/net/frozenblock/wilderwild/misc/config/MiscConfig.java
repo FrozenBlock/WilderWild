@@ -49,8 +49,7 @@ public final class MiscConfig implements ConfigData {
 	}
 
 	public static class BiomeMusicConfig {
-		public boolean birchForestMusic = DefaultMiscConfig.BiomeMusicConfig.BIRCH_FOREST_MUSIC;
-		public boolean flowerForestMusic = DefaultMiscConfig.BiomeMusicConfig.FLOWER_FOREST_MUSIC;
+		public boolean wilderForestMusic = DefaultMiscConfig.BiomeMusicConfig.WILDER_FOREST_MUSIC;
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -94,24 +93,11 @@ public final class MiscConfig implements ConfigData {
 				deepDarkAmbience, dripstoneCavesAmbience, lushCavesAmbience
 		);
 
-		var birchForestMusic = entryBuilder.startBooleanToggle(text("birch_forest_music"), biomeMusic.birchForestMusic)
-				.setDefaultValue(DefaultMiscConfig.BiomeMusicConfig.BIRCH_FOREST_MUSIC)
-				.setSaveConsumer(newValue -> biomeMusic.birchForestMusic = newValue)
-				.setTooltip(tooltip("birch_forest_music"))
+		var wilderForestMusic = entryBuilder.startBooleanToggle(text("wilder_forest_music"), biomeMusic.wilderForestMusic)
+				.setDefaultValue(DefaultMiscConfig.BiomeMusicConfig.WILDER_FOREST_MUSIC)
+				.setSaveConsumer(newValue -> biomeMusic.wilderForestMusic = newValue)
+				.setTooltip(tooltip("wilder_forest_music"))
 				.requireRestart()
 				.build();
-
-		var flowerForestMusic = entryBuilder.startBooleanToggle(text("flower_forest_music"), biomeMusic.flowerForestMusic)
-				.setDefaultValue(DefaultMiscConfig.BiomeMusicConfig.FLOWER_FOREST_MUSIC)
-				.setSaveConsumer(newValue -> biomeMusic.flowerForestMusic = newValue)
-				.setTooltip(tooltip("flower_forest_music"))
-				.requireRestart()
-				.build();
-
-		var biomeMusicCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("biome_music"),
-				false,
-				tooltip("biome_music"),
-				birchForestMusic, flowerForestMusic
-		);
 	}
 }

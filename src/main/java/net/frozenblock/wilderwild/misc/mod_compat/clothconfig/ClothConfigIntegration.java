@@ -448,13 +448,8 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
-	public boolean birchForestMusic() {
-		return BIOME_MUSIC.birchForestMusic;
-	}
-
-	@Override
-	public boolean flowerForestMusic() {
-		return BIOME_MUSIC.flowerForestMusic;
+	public boolean wilderForestMusic() {
+		return BIOME_MUSIC.wilderForestMusic;
 	}
 
 	@Override

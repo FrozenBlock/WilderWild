@@ -29,7 +29,6 @@ public class DefaultMiscConfig {
 	}
 
 	public static class BiomeMusicConfig {
-		public static final boolean BIRCH_FOREST_MUSIC = true;
-		public static final boolean FLOWER_FOREST_MUSIC = true;
+		public static final boolean WILDER_FOREST_MUSIC = true;
 	}
 }
