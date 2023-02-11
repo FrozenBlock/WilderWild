@@ -74,7 +74,7 @@ public class TermiteMound extends BaseEntityBlock {
 
 	@Override
 	public void onPlace(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull BlockState oldState, boolean isMoving) {
-		level.scheduleTick(pos, this, 40);
+		level.scheduleTick(pos, this, level.random.nextInt(40, 200));
 	}
 
 	@Override
