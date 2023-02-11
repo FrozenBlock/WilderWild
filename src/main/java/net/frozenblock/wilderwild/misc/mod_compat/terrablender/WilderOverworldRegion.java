@@ -251,7 +251,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (WilderSharedConstants.config().generateOldGrowthDarkForest()) {
+			if (WilderSharedConstants.config().generateDarkBirchForest()) {
 				OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
