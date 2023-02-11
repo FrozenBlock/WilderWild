@@ -1,0 +1,26 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:birch_forest",
+    "minecraft:flower_forest",
+    "minecraft:sunflower_plains",
+    "minecraft:plains",
+    "minecraft:forest",
+    "minecraft:meadow",
+    "minecraft:swamp",
+    "minecraft:sparse_jungle",
+    "minecraft:jungle",
+    {
+      "id": "wilderwild:sparse_birch_jungle",
+      "required": false
+    },
+    {
+      "id": "wilderwild:birch_jungle",
+      "required": false
+    },
+    {
+      "id": "wilderwild:dark_birch_forest",
+      "required": false
+    }
+  ]
+}

@@ -35,7 +35,7 @@ public final class WilderTreesGeneration {
 
         }
         if (WilderSharedConstants.config().fallenLogs()) {
-            BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.BIRCH_FOREST),
+            BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.FALLEN_BIRCH_TREES),
                     GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_FALLEN_BIRCH_PLACED.unwrapKey().orElseThrow());
             BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_TAIGA),
                     GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_SPRUCE_PLACED.unwrapKey().orElseThrow());

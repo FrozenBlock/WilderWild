@@ -723,9 +723,6 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 	public static void addDarkBirchForestFeatures(BiomeGenerationSettings.Builder builder) {
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SEEDING_DANDELION_MIXED);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MIXED_MUSHROOMS_PLACED);
-		if (WilderSharedConstants.config().fallenLogs()) {
-			builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_FALLEN_BIRCH_PLACED);
-		}
 		addBasicFeatures(builder, DARK_BIRCH_FOREST);
 		BiomeDefaultFeatures.addForestFlowers(builder);
 		BiomeDefaultFeatures.addDefaultOres(builder);
