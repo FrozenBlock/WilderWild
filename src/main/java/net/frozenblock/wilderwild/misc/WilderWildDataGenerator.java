@@ -384,6 +384,10 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
 					.addOptional(RegisterWorldgen.ARID_SAVANNA)
 					.addOptional(new ResourceLocation("terralith", "arid_highlands"));
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_CLAY_PATH)
+					.addOptionalTag(WilderBiomeTags.SAND_BEACHES)
+					.addOptionalTag(WilderBiomeTags.MULTI_LAYER_SAND_BEACHES);
 		}
 
 		private void generateFeatureTags() {
