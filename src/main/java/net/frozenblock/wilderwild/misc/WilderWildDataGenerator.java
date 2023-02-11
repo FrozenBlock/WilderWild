@@ -365,7 +365,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.FLOWER_FIELD)
 					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
 					.addOptional(RegisterWorldgen.MIXED_FOREST)
-					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST);
+					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
+					.addOptional(RegisterWorldgen.PARCHED_FOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_RED_SHELF_FUNGUS)
 					.add(Biomes.DARK_FOREST)
@@ -404,7 +405,10 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_GLORY_OF_THE_SNOW)
 					.add(Biomes.BIRCH_FOREST)
-					.add(Biomes.OLD_GROWTH_BIRCH_FOREST);
+					.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
+					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
+					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
+					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FLOWERING_WATER_LILY)
 					.add(Biomes.SWAMP)

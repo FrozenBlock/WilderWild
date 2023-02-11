@@ -143,11 +143,11 @@ public final class WilderConfiguredFeatures {
 			register("trees_semi_birch_and_oak", Feature.RANDOM_SELECTOR,
 					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_SHORT_BIRCH_BEES_0004, 0.2F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.04F),
-							new WeightedPlacedFeature(WilderTreePlaced.NEW_FANCY_OAK_BEES_0004, 0.1F),
+							new WeightedPlacedFeature(WilderTreePlaced.NEW_FANCY_OAK_BEES_0004, 0.06F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_BEES_0004, 0.025F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED, 0.04F),
 							new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED, 0.13F),
-							new WeightedPlacedFeature(WilderTreePlaced.NEW_BIRCH_CHECKED, 0.1F),
+							new WeightedPlacedFeature(WilderTreePlaced.NEW_BIRCH_CHECKED, 0.14F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.04F),
 							new WeightedPlacedFeature(WilderTreePlaced.NEW_SUPER_BIRCH, 0.1F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_SUPER_BIRCH, 0.01F),
@@ -347,13 +347,13 @@ public final class WilderConfiguredFeatures {
 	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> PARCHED_FOREST_TREES =
 			register("parched_forest_trees", Feature.RANDOM_SELECTOR,
 					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED, 0.59F),
-							new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED, 0.086F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED, 0.186F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_CHECKED, 0.02F),
 							new WeightedPlacedFeature(WilderTreePlaced.NEW_FANCY_OAK_CHECKED, 0.155F),
 							new WeightedPlacedFeature(TreePlacements.ACACIA_CHECKED, 0.37F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.01F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.01F),
-							new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.255F)), WilderTreePlaced.NEW_OAK_CHECKED));
+							new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.155F)), WilderTreePlaced.NEW_OAK_CHECKED));
 
 	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> ARID_FOREST_TREES =
 			register("arid_forest_trees", Feature.RANDOM_SELECTOR,

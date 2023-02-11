@@ -102,7 +102,7 @@ public final class WilderPlacedFeatures {
             WilderConfiguredFeatures.NEW_TREES_BIRCH_AND_OAK, treePlacement(PlacementUtils.countExtra(12, 0.1F, 1)));
 
 	public static final Holder<PlacedFeature> TREES_SEMI_BIRCH_AND_OAK = register("trees_semi_birch_and_oak",
-			WilderConfiguredFeatures.TREES_SEMI_BIRCH_AND_OAK, treePlacement(PlacementUtils.countExtra(12, 0.1F, 1)));
+			WilderConfiguredFeatures.TREES_SEMI_BIRCH_AND_OAK, treePlacement(PlacementUtils.countExtra(11, 0.1F, 1)));
 
     public static final Holder<PlacedFeature> NEW_TREES_FLOWER_FOREST = register("trees_flower_forest",
             WilderConfiguredFeatures.NEW_TREES_FLOWER_FOREST, treePlacement(PlacementUtils.countExtra(8, 0.1F, 1)));
@@ -174,7 +174,7 @@ public final class WilderPlacedFeatures {
 			WilderConfiguredFeatures.OLD_GROWTH_BIRCH_TAIGA_TREES, treePlacement(CountPlacement.of(3)));
 
 	public static final Holder<PlacedFeature> PARCHED_FOREST_TREES = register("parched_forest_trees",
-			WilderConfiguredFeatures.PARCHED_FOREST_TREES, treePlacement(PlacementUtils.countExtra(4, 0.2f, 1)));
+			WilderConfiguredFeatures.PARCHED_FOREST_TREES, treePlacement(PlacementUtils.countExtra(4, 0.07f, 1)));
 
 	public static final Holder<PlacedFeature> ARID_FOREST_TREES = register("arid_forest_trees",
 			WilderConfiguredFeatures.ARID_FOREST_TREES, treePlacement(CountPlacement.of(3)));
