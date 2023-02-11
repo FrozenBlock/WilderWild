@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
+import net.frozenblock.wilderwild.block.TermiteMound;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
@@ -214,7 +215,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                     }
                     BlockPos offest = this.pos.relative(direction);
                     BlockState state = level.getBlockState(offest);
-                    if (state.is(WilderBlockTags.KILLS_TERMITE) || state.is(Blocks.WATER) || state.is(Blocks.LAVA)) {
+                    if (!TermiteMound.isStateSafeForTermites(state)) {
                         return false;
                     }
 
@@ -308,7 +309,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                 return false;
             }
             boolean moveableUp = !(direction == Direction.UP && (state.is(BlockTags.INSIDE_STEP_SOUND_BLOCKS) || state.is(BlockTags.REPLACEABLE_PLANTS) || state.is(BlockTags.FLOWERS)));
-            boolean moveableDown = !(direction == Direction.DOWN && (state.is(Blocks.WATER) || state.is(Blocks.LAVA)));
+            boolean moveableDown = !(direction == Direction.DOWN && (state.is(Blocks.WATER) || state.is(Blocks.LAVA) || (state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED))));
             return moveableUp && moveableDown;
         }
 

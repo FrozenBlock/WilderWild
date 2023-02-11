@@ -46,6 +46,7 @@ public class TermiteMound extends BaseEntityBlock {
 
     public TermiteMound(Properties settings) {
         super(settings);
+		this.registerDefaultState(this.stateDefinition.any().setValue(RegisterProperties.NATURAL, false).setValue(RegisterProperties.TERMITES_AWAKE, false));
     }
 
     @Nullable
@@ -57,12 +58,6 @@ public class TermiteMound extends BaseEntityBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(RegisterProperties.NATURAL, RegisterProperties.TERMITES_AWAKE);
-    }
-
-    @Nullable
-    @Override
-    public BlockState getStateForPlacement(@NotNull BlockPlaceContext ctx) {
-        return this.defaultBlockState().setValue(RegisterProperties.NATURAL, false).setValue(RegisterProperties.TERMITES_AWAKE, false);
     }
 
 	@Override
@@ -83,14 +78,9 @@ public class TermiteMound extends BaseEntityBlock {
 	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		boolean canAwaken = canTermitesWaken(level, pos);
 		if (canAwaken != state.getValue(RegisterProperties.TERMITES_AWAKE)) {
-			state.setValue(RegisterProperties.TERMITES_AWAKE, canAwaken);
+			level.setBlock(pos, state.setValue(RegisterProperties.TERMITES_AWAKE, canAwaken), 3);
 		}
 		level.scheduleTick(pos, this, 100);
-	}
-
-	@Override
-	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		level.scheduleTick(pos, this, 1);
 	}
 
 	public static boolean canTermitesWaken(@NotNull Level level, @NotNull BlockPos pos) {
@@ -122,12 +112,8 @@ public class TermiteMound extends BaseEntityBlock {
 		int finalLight = 0;
 		for (Direction direction : Direction.values()) {
 			BlockPos pos = blockPos.relative(direction);
-			int skyLight = 0;
-			int blockLight = level.getBrightness(LightLayer.BLOCK, pos);
-			if (level.isDay() && !level.isRaining()) {
-				skyLight = level.getBrightness(LightLayer.SKY, pos);
-			}
-			finalLight = Math.max(finalLight, Math.max(skyLight, blockLight));
+			int skyLight = level.isDay() && !level.isRaining() ? level.getBrightness(LightLayer.SKY, pos) : 0;
+			finalLight = Math.max(finalLight, Math.max(skyLight, level.getBrightness(LightLayer.BLOCK, pos)));
 		}
 		return finalLight;
 	}
