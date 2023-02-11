@@ -72,7 +72,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
     }
 
     public void tick(Level level, BlockPos pos) {
-        int maxTermites = maxTermites(this.getBlockState().getValue(RegisterProperties.NATURAL), this.getBlockState().getValue(RegisterProperties.TERMITES_AWAKE));
+        int maxTermites = maxTermites(this.getBlockState().getValue(RegisterProperties.NATURAL), this.getBlockState().getValue(RegisterProperties.TERMITES_AWAKE), this.getBlockState().getValue(RegisterProperties.CAN_SPAWN_TERMITE));
         ArrayList<Termite> termitesToRemove = new ArrayList<>();
         for (Termite termite : this.termites) {
             if (termite.tick(level)) {
@@ -106,7 +106,10 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         }
     }
 
-    public static int maxTermites(boolean natural, boolean awake) {
+    public static int maxTermites(boolean natural, boolean awake, boolean canSpawn) {
+		if (!canSpawn) {
+			return 0;
+		}
         if (!awake) {
             return natural ? 0 : 1;
         }
@@ -134,7 +137,8 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 			Termite.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE, tag.getList("termites", 10)))
 					.resultOrPartial(logger::error)
 					.ifPresent(termitesAllAllAll -> {
-						int max = this.level != null ? maxTermites(this.getBlockState().getValue(RegisterProperties.NATURAL), this.getBlockState().getValue(RegisterProperties.TERMITES_AWAKE)) : 5;
+						BlockState thisState = this.getBlockState();
+						int max = this.level != null ? maxTermites(thisState.getValue(RegisterProperties.NATURAL), thisState.getValue(RegisterProperties.TERMITES_AWAKE), thisState.getValue(RegisterProperties.CAN_SPAWN_TERMITE)) : 5;
 						int i = Math.min(termitesAllAllAll.size(), max);
 
 						for (int j = 0; j < i; ++j) {

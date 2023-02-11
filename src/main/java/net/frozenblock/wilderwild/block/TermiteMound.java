@@ -46,7 +46,7 @@ public class TermiteMound extends BaseEntityBlock {
 
     public TermiteMound(Properties settings) {
         super(settings);
-		this.registerDefaultState(this.stateDefinition.any().setValue(RegisterProperties.NATURAL, false).setValue(RegisterProperties.TERMITES_AWAKE, false));
+		this.registerDefaultState(this.stateDefinition.any().setValue(RegisterProperties.NATURAL, false).setValue(RegisterProperties.TERMITES_AWAKE, false).setValue(RegisterProperties.CAN_SPAWN_TERMITE, false));
     }
 
     @Nullable
@@ -57,7 +57,7 @@ public class TermiteMound extends BaseEntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(RegisterProperties.NATURAL, RegisterProperties.TERMITES_AWAKE);
+        builder.add(RegisterProperties.NATURAL, RegisterProperties.TERMITES_AWAKE, RegisterProperties.CAN_SPAWN_TERMITE);
     }
 
 	@Override
@@ -65,6 +65,9 @@ public class TermiteMound extends BaseEntityBlock {
 		boolean isSafe = isPosSafeForTermites(level, neighborPos, neighborState);
 		if (isSafe != state.getValue(RegisterProperties.TERMITES_AWAKE)) {
 			state.setValue(RegisterProperties.TERMITES_AWAKE, isSafe);
+		}
+		if (isSafe != state.getValue(RegisterProperties.CAN_SPAWN_TERMITE)) {
+			state.setValue(RegisterProperties.CAN_SPAWN_TERMITE, isSafe);
 		}
 		return state;
 	}
@@ -76,19 +79,27 @@ public class TermiteMound extends BaseEntityBlock {
 
 	@Override
 	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		boolean canAwaken = canTermitesWaken(level, pos);
+		boolean areTermitesSafe = areTermitesSafe(level, pos);
+		boolean canAwaken = canTermitesWaken(level, pos) && areTermitesSafe;
 		if (canAwaken != state.getValue(RegisterProperties.TERMITES_AWAKE)) {
 			level.setBlock(pos, state.setValue(RegisterProperties.TERMITES_AWAKE, canAwaken), 3);
+		}
+		if (areTermitesSafe != state.getValue(RegisterProperties.CAN_SPAWN_TERMITE)) {
+			level.setBlock(pos, state.setValue(RegisterProperties.CAN_SPAWN_TERMITE, areTermitesSafe), 3);
 		}
 		level.scheduleTick(pos, this, 100);
 	}
 
-	public static boolean canTermitesWaken(@NotNull Level level, @NotNull BlockPos pos) {
+	public static boolean areTermitesSafe(@NotNull Level level, @NotNull BlockPos pos) {
 		for (Direction direction : Direction.values()) {
 			if (!isPosSafeForTermites(level, pos.relative(direction))) {
 				return false;
 			}
 		}
+		return true;
+	}
+
+	public static boolean canTermitesWaken(@NotNull Level level, @NotNull BlockPos pos) {
 		return !shouldTermitesSleep(level, getLightLevel(level, pos));
 	}
 

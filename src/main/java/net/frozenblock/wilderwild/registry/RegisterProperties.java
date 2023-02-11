@@ -42,6 +42,7 @@ public final class RegisterProperties {
     //Termite Mound
     public static final BooleanProperty NATURAL = BooleanProperty.create("natural");
 	public static final BooleanProperty TERMITES_AWAKE = BooleanProperty.create("termites_awake");
+	public static final BooleanProperty CAN_SPAWN_TERMITE = BooleanProperty.create("can_spawn_termites");
     //Glory of The Snow
     public static final EnumProperty<FlowerColor> FLOWER_COLOR = EnumProperty.create("flower_color", FlowerColor.class);
     //Firefly Lantern
