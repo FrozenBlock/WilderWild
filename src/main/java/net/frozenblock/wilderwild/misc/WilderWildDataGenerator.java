@@ -228,7 +228,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.TAIGA)
 					.add(Biomes.OLD_GROWTH_PINE_TAIGA)
 					.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA)
-					.add(Biomes.WINDSWEPT_FOREST);
+					.add(Biomes.WINDSWEPT_FOREST)
+					.addOptional(RegisterWorldgen.ARID_SAVANNA);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COARSE_DIRT_PATH_SMALL)
 					.add(Biomes.BADLANDS)
