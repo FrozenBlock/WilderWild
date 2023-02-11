@@ -75,7 +75,7 @@ public class TermiteMound extends BaseEntityBlock {
 	}
 
 	@Override
-	public void onPlace(BlockState state, Level level, @NotNull BlockPos pos, @NotNull BlockState oldState, boolean isMoving) {
+	public void onPlace(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull BlockState oldState, boolean isMoving) {
 		level.scheduleTick(pos, this, 40);
 	}
 
@@ -111,7 +111,7 @@ public class TermiteMound extends BaseEntityBlock {
 	}
 
 	public static boolean isStateSafeForTermites(@NotNull BlockState state) {
-		return !state.is(WilderBlockTags.KILLS_TERMITE) && !(state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED));
+		return !state.is(WilderBlockTags.KILLS_TERMITE) && (!state.hasProperty(BlockStateProperties.WATERLOGGED) || !state.getValue(BlockStateProperties.WATERLOGGED));
 	}
 
 	public static boolean shouldTermitesSleep(Level level, int light) {
