@@ -10,6 +10,7 @@
       "required": false
     },
     "minecraft:bamboo",
+    "minecraft:dead_bush",
     {
       "id": "immersive_weathering:leaf_piles",
       "required": false

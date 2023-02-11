@@ -603,6 +603,9 @@ public final class RegisterBlocks {
 		TermiteMoundBlockEntity.Termite.addNaturalDegradable(PALM_LOG, STRIPPED_PALM_LOG);
 		TermiteMoundBlockEntity.Termite.addNaturalDegradable(PALM_WOOD, STRIPPED_PALM_WOOD);
 		TermiteMoundBlockEntity.Termite.addNaturalDegradable(PALM_CROWN, PALM_LOG);
+
+		TermiteMoundBlockEntity.Termite.addDegradable(BUSH, Blocks.DEAD_BUSH);
+
         registerStrippable();
         registerComposting();
         registerFlammability();

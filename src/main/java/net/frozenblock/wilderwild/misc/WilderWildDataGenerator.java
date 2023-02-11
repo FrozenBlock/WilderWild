@@ -466,7 +466,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_TAIGA_FOREST_ROCK)
 					.add(Biomes.TAIGA)
-					.add(Biomes.SNOWY_TAIGA);
+					.add(Biomes.SNOWY_TAIGA)
+					.addOptional(RegisterWorldgen.BIRCH_TAIGA);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_MOSS_PATH)
 					.add(Biomes.JUNGLE)
@@ -719,6 +720,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptionalTag(BlockTags.LEAVES)
 					.addOptionalTag(WilderBlockTags.HOLLOWED_LOGS)
 					.add(Blocks.BAMBOO)
+					.add(Blocks.DEAD_BUSH)
 					.addOptional(
 							ResourceKey.create(
 									Registry.BLOCK_REGISTRY,

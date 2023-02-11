@@ -41,6 +41,7 @@ public final class RegisterProperties {
     public static final IntegerProperty FUNGUS_STAGE = IntegerProperty.create("shelf_fungus_stage", 1, 4);
     //Termite Mound
     public static final BooleanProperty NATURAL = BooleanProperty.create("natural");
+	public static final BooleanProperty TERMITES_AWAKE = BooleanProperty.create("termites_awake");
     //Glory of The Snow
     public static final EnumProperty<FlowerColor> FLOWER_COLOR = EnumProperty.create("flower_color", FlowerColor.class);
     //Firefly Lantern

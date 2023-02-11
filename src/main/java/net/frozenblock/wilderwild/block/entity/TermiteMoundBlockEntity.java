@@ -22,7 +22,9 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -43,7 +45,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -59,8 +60,6 @@ import org.slf4j.Logger;
 public class TermiteMoundBlockEntity extends BlockEntity {
     private final ArrayList<Termite> termites = new ArrayList<>();
     public int ticksToNextTermite;
-    public int ticksToCheckLight;
-    public int lastLight;
 
     public TermiteMoundBlockEntity(BlockPos pos, BlockState state) {
         super(RegisterBlockEntities.TERMITE_MOUND, pos, state);
@@ -72,14 +71,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
     }
 
     public void tick(Level level, BlockPos pos) {
-        if (this.ticksToCheckLight > 0) {
-            --this.ticksToCheckLight;
-        } else {
-            this.lastLight = getLightLevel(level, this.worldPosition);
-            this.ticksToCheckLight = 100;
-        }
-
-        int maxTermites = maxTermites(level, this.lastLight, this.getBlockState().getValue(RegisterProperties.NATURAL));
+        int maxTermites = maxTermites(this.getBlockState().getValue(RegisterProperties.NATURAL), this.getBlockState().getValue(RegisterProperties.TERMITES_AWAKE));
         ArrayList<Termite> termitesToRemove = new ArrayList<>();
         for (Termite termite : this.termites) {
             if (termite.tick(level)) {
@@ -100,46 +92,30 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             } else {
                 this.addTermite(pos);
                 level.gameEvent(null, GameEvent.BLOCK_CHANGE, Vec3.atCenterOf(pos));
-                level.playSound(null, this.worldPosition, RegisterSounds.BLOCK_TERMITE_MOUND_EXIT, SoundSource.NEUTRAL, 1.0F, 1.0F);
+                level.playSound(null, this.worldPosition, RegisterSounds.BLOCK_TERMITE_MOUND_EXIT, SoundSource.NEUTRAL, 0.6F, 1.0F);
                 this.ticksToNextTermite = this.getBlockState().getValue(RegisterProperties.NATURAL) ? 320 : 200;
             }
         }
         while (this.termites.size() > maxTermites) {
             Termite termite = this.termites.get(AdvancedMath.random().nextInt(this.termites.size()));
-            level.playSound(null, termite.pos, RegisterSounds.BLOCK_TERMITE_MOUND_ENTER, SoundSource.NEUTRAL, 1.0F, 1.0F);
+            level.playSound(null, termite.pos, RegisterSounds.BLOCK_TERMITE_MOUND_ENTER, SoundSource.NEUTRAL, 0.6F, 1.0F);
             level.gameEvent(null, GameEvent.TELEPORT, Vec3.atCenterOf(termite.pos));
             this.termites.remove(termite);
             level.gameEvent(null, GameEvent.BLOCK_CHANGE, Vec3.atCenterOf(pos));
         }
     }
 
-    public static int maxTermites(Level level, int light, boolean natural) {
-        if (level.isNight() && light < 7) {
+    public static int maxTermites(boolean natural, boolean awake) {
+        if (!awake) {
             return natural ? 0 : 1;
         }
         return natural ? 3 : 5;
-    }
-
-    public static int getLightLevel(Level level, BlockPos blockPos) {
-        int finalLight = 0;
-        for (Direction direction : Direction.values()) {
-            BlockPos pos = blockPos.relative(direction);
-            int skyLight = 0;
-            int blockLight = level.getBrightness(LightLayer.BLOCK, pos);
-            if (level.isDay() && !level.isRaining()) {
-                skyLight = level.getBrightness(LightLayer.SKY, pos);
-            }
-            finalLight = Math.max(finalLight, Math.max(skyLight, blockLight));
-        }
-        return finalLight;
     }
 
 	@Override
 	protected void saveAdditional(@NotNull CompoundTag tag) {
 		super.saveAdditional(tag);
 		tag.putInt("ticksToNextTermite", this.ticksToNextTermite);
-		tag.putInt("ticksToCheckLight", this.ticksToCheckLight);
-		tag.putInt("lastLight", this.lastLight);
 		Logger logger = WilderSharedConstants.LOGGER;
 		Termite.CODEC.listOf()
 				.encodeStart(NbtOps.INSTANCE, this.termites)
@@ -151,15 +127,13 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 	public void load(@NotNull CompoundTag tag) {
 		super.load(tag);
 		this.ticksToNextTermite = tag.getInt("ticksToNextTermite");
-		this.ticksToCheckLight = tag.getInt("ticksToCheckLight");
-		this.lastLight = tag.getInt("lastLight");
 		if (tag.contains("termites", 9)) {
 			this.termites.clear();
 			Logger logger = WilderSharedConstants.LOGGER;
 			Termite.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE, tag.getList("termites", 10)))
 					.resultOrPartial(logger::error)
 					.ifPresent(termitesAllAllAll -> {
-						int max = this.level != null ? maxTermites(this.level, this.lastLight, this.getBlockState().getValue(RegisterProperties.NATURAL)) : 5;
+						int max = this.level != null ? maxTermites(this.getBlockState().getValue(RegisterProperties.NATURAL), this.getBlockState().getValue(RegisterProperties.TERMITES_AWAKE)) : 5;
 						int i = Math.min(termitesAllAllAll.size(), max);
 
 						for (int j = 0; j < i; ++j) {
@@ -205,7 +179,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             if (canMove(level, this.pos)) {
                 BlockState blockState = level.getBlockState(this.pos);
                 Block block = blockState.getBlock();
-                boolean degradable = !this.natural ? DEGRADABLE_BLOCKS.contains(block) : NATURAL_DEGRADABLE_BLOCKS.contains(block);
+                boolean degradable = !this.natural ? DEGRADABLE_BLOCKS.containsKey(block) : NATURAL_DEGRADABLE_BLOCKS.containsKey(block);
                 boolean breakable = blockState.is(WilderBlockTags.TERMITE_BREAKABLE);
                 boolean leaves = blockState.is(BlockTags.LEAVES);
                 if (degradable || breakable) {
@@ -221,7 +195,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                         } else {
                             Direction.Axis axis = blockState.hasProperty(BlockStateProperties.AXIS) ? blockState.getValue(BlockStateProperties.AXIS) : Direction.Axis.X;
                             level.addDestroyBlockEffect(this.pos, blockState);
-                            BlockState setState = !this.natural ? DEGRADABLE_BLOCK_RESULTS.get(DEGRADABLE_BLOCKS.indexOf(block)).defaultBlockState() : NATURAL_DEGRADABLE_BLOCK_RESULTS.get(NATURAL_DEGRADABLE_BLOCKS.indexOf(block)).defaultBlockState();
+                            BlockState setState = !this.natural ? DEGRADABLE_BLOCKS.get(block).defaultBlockState() : NATURAL_DEGRADABLE_BLOCKS.get(block).defaultBlockState();
                             if (setState.hasProperty(BlockStateProperties.AXIS)) {
                                 setState = setState.setValue(BlockStateProperties.AXIS, axis);
                             }
@@ -280,7 +254,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         @Nullable
         public static BlockPos ledgePos(Level level, BlockPos pos, boolean natural) {
             BlockState state = level.getBlockState(pos);
-            if (DEGRADABLE_BLOCKS.contains(state.getBlock()) || state.is(WilderBlockTags.TERMITE_BREAKABLE)) {
+            if (DEGRADABLE_BLOCKS.containsKey(state.getBlock()) || state.is(WilderBlockTags.TERMITE_BREAKABLE)) {
                 return pos;
             }
             pos = pos.below();
@@ -300,12 +274,12 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         public static BlockPos degradableBreakablePos(Level level, BlockPos pos, boolean natural) {
             List<Direction> directions = Util.shuffledCopy(Direction.values(), level.random);
             BlockState upState = level.getBlockState(pos.relative(Direction.UP));
-            if ((!natural ? DEGRADABLE_BLOCKS.contains(upState.getBlock()) : NATURAL_DEGRADABLE_BLOCKS.contains(upState.getBlock())) || upState.is(WilderBlockTags.TERMITE_BREAKABLE)) {
+            if ((!natural ? DEGRADABLE_BLOCKS.containsKey(upState.getBlock()) : NATURAL_DEGRADABLE_BLOCKS.containsKey(upState.getBlock())) || upState.is(WilderBlockTags.TERMITE_BREAKABLE)) {
                 return pos.relative(Direction.UP);
             }
             for (Direction direction : directions) {
                 BlockState state = level.getBlockState(pos.relative(direction));
-                if ((!natural ? DEGRADABLE_BLOCKS.contains(state.getBlock()) : NATURAL_DEGRADABLE_BLOCKS.contains(state.getBlock())) || state.is(WilderBlockTags.TERMITE_BREAKABLE)) {
+                if ((!natural ? DEGRADABLE_BLOCKS.containsKey(state.getBlock()) : NATURAL_DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || state.is(WilderBlockTags.TERMITE_BREAKABLE)) {
                     return pos.relative(direction);
                 }
             }
@@ -315,7 +289,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         public static boolean exposedToAir(Level level, BlockPos pos, boolean natural) {
             for (Direction direction : Direction.values()) {
                 BlockState state = level.getBlockState(pos.relative(direction));
-                if (state.isAir() || (!state.isRedstoneConductor(level, pos.relative(direction)) && !state.is(WilderBlockTags.BLOCKS_TERMITE)) || (!natural && DEGRADABLE_BLOCKS.contains(state.getBlock())) || (natural && NATURAL_DEGRADABLE_BLOCKS.contains(state.getBlock())) || state.is(WilderBlockTags.TERMITE_BREAKABLE)) {
+                if (state.isAir() || (!state.isRedstoneConductor(level, pos.relative(direction)) && !state.is(WilderBlockTags.BLOCKS_TERMITE)) || (!natural && DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || (natural && NATURAL_DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || state.is(WilderBlockTags.TERMITE_BREAKABLE)) {
                     return true;
                 }
             }
@@ -366,10 +340,8 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             return this.natural;
         }
 
-        public static final ArrayList<Block> DEGRADABLE_BLOCKS = new ArrayList<>();
-        public static final ArrayList<Block> DEGRADABLE_BLOCK_RESULTS = new ArrayList<>();
-        public static final ArrayList<Block> NATURAL_DEGRADABLE_BLOCKS = new ArrayList<>();
-        public static final ArrayList<Block> NATURAL_DEGRADABLE_BLOCK_RESULTS = new ArrayList<>();
+        public static final Map<Block, Block> DEGRADABLE_BLOCKS = new HashMap<>();
+        public static final Map<Block, Block> NATURAL_DEGRADABLE_BLOCKS = new HashMap<>();
 
         public static void addDegradableBlocks() {
             addDegradable(Blocks.ACACIA_LOG, RegisterBlocks.HOLLOWED_ACACIA_LOG);
@@ -403,8 +375,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         }
 
         public static void addDegradable(Block degradable, Block result) {
-            DEGRADABLE_BLOCKS.add(degradable);
-            DEGRADABLE_BLOCK_RESULTS.add(result);
+			DEGRADABLE_BLOCKS.put(degradable, result);
         }
 
         public static void addNaturalDegradableBlocks() {
@@ -425,8 +396,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         }
 
         public static void addNaturalDegradable(Block degradable, Block result) {
-            NATURAL_DEGRADABLE_BLOCKS.add(degradable);
-            NATURAL_DEGRADABLE_BLOCK_RESULTS.add(result);
+            NATURAL_DEGRADABLE_BLOCKS.put(degradable, result);
         }
     }
 }
