@@ -64,6 +64,7 @@ public final class WorldgenConfig implements ConfigData {
 		public boolean generateSparseBirchJungle = DefaultWorldgenConfig.BiomeGeneration.GENERATE_SPARSE_BIRCH_JUNGLE;
 		public boolean generateOldGrowthDarkForest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_OLD_GROWTH_DARK_FOREST;
 		public boolean generateDarkBirchForest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_DARK_BIRCH_FOREST;
+		public boolean generateSemiBirchForest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_SEMI_BIRCH_FOREST;
 	}
 
     public boolean betaBeaches = DefaultWorldgenConfig.BETA_BEACHES;
@@ -181,12 +182,18 @@ public final class WorldgenConfig implements ConfigData {
 				.setTooltip(tooltip("generate_dark_birch_forest"))
 				.requireRestart()
 				.build();
+		var semiBirchForest = entryBuilder.startBooleanToggle(text("generate_semi_birch_forest"), biomes.generateSemiBirchForest)
+				.setDefaultValue(DefaultWorldgenConfig.BiomeGeneration.GENERATE_SEMI_BIRCH_FOREST)
+				.setSaveConsumer(newValue -> biomes.generateSemiBirchForest = newValue)
+				.setTooltip(tooltip("generate_semi_birch_forest"))
+				.requireRestart()
+				.build();
 
 		var biomeGenerationCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("biome_generation"),
 				false,
 				tooltip("biome_generation"),
 				aridForest, aridSavanna, birchJungle, birchTaiga, cypressWetlands, darkBirchForest, flowerField, jellyfishCaves, mixedForest,
-				oasis, oldGrowthBirchTaiga, oldGrowthDarkForest, oldGrowthSnowyTaiga, parchedForest,
+				oasis, oldGrowthBirchTaiga, oldGrowthDarkForest, oldGrowthSnowyTaiga, parchedForest, semiBirchForest,
 				sparseBirchJungle, warmRiver
 		);
 

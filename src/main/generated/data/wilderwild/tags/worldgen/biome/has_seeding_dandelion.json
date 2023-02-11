@@ -7,6 +7,10 @@
     "minecraft:forest",
     "minecraft:meadow",
     "minecraft:windswept_hills",
-    "minecraft:windswept_forest"
+    "minecraft:windswept_forest",
+    {
+      "id": "wilderwild:semi_birch_forest",
+      "required": false
+    }
   ]
 }

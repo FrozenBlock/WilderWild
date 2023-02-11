@@ -406,6 +406,11 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean generateSemiBirchForest() {
+		return BIOME_GENERATION.generateSemiBirchForest;
+	}
+
+	@Override
 	public boolean dyingTrees() {
 		return WORLDGEN.dyingTrees;
 	}

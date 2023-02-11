@@ -101,6 +101,9 @@ public final class WilderPlacedFeatures {
 	public static final Holder<PlacedFeature> NEW_TREES_BIRCH_AND_OAK = register("trees_birch_and_oak",
             WilderConfiguredFeatures.NEW_TREES_BIRCH_AND_OAK, treePlacement(PlacementUtils.countExtra(12, 0.1F, 1)));
 
+	public static final Holder<PlacedFeature> TREES_SEMI_BIRCH_AND_OAK = register("trees_semi_birch_and_oak",
+			WilderConfiguredFeatures.TREES_SEMI_BIRCH_AND_OAK, treePlacement(PlacementUtils.countExtra(12, 0.1F, 1)));
+
     public static final Holder<PlacedFeature> NEW_TREES_FLOWER_FOREST = register("trees_flower_forest",
             WilderConfiguredFeatures.NEW_TREES_FLOWER_FOREST, treePlacement(PlacementUtils.countExtra(8, 0.1F, 1)));
 

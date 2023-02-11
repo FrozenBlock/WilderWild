@@ -63,11 +63,6 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 		}
 
 		private void generateBiomeTags() {
-			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_BIRCH_TREES)
-					.add(Biomes.BIRCH_FOREST)
-					.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
-					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST);
-
 			this.getOrCreateTagBuilder(BiomeTags.IS_JUNGLE)
 					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
 					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
@@ -126,6 +121,220 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(BiomeTags.IS_RIVER)
 					.addOptional(RegisterWorldgen.OASIS);
+		}
+
+		private void generateClimateAndVegetationTags() {
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_HOT)
+					.addOptional(RegisterWorldgen.OASIS)
+					.addOptional(RegisterWorldgen.ARID_FOREST)
+					.addOptional(RegisterWorldgen.ARID_SAVANNA);
+
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_TEMPERATE)
+					.addOptional(RegisterWorldgen.CYPRESS_WETLANDS)
+					.addOptional(RegisterWorldgen.MIXED_FOREST)
+					.addOptional(RegisterWorldgen.PARCHED_FOREST)
+					.addOptional(RegisterWorldgen.WARM_RIVER)
+					.addOptional(RegisterWorldgen.FLOWER_FIELD)
+					.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
+					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
+					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST);
+
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_COLD)
+					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
+					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
+					.addOptional(RegisterWorldgen.MIXED_FOREST)
+					.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
+
+
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_WET)
+					.addOptional(RegisterWorldgen.CYPRESS_WETLANDS)
+					.addOptional(RegisterWorldgen.OASIS)
+					.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
+					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST);
+
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_DRY)
+					.addOptional(RegisterWorldgen.ARID_SAVANNA)
+					.addOptional(RegisterWorldgen.ARID_FOREST)
+					.addOptional(RegisterWorldgen.PARCHED_FOREST);
+
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.TREE_CONIFEROUS)
+					.addOptional(RegisterWorldgen.MIXED_FOREST)
+					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
+					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA);
+
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.TREE_DECIDUOUS)
+					.addOptional(RegisterWorldgen.MIXED_FOREST)
+					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
+					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA);
+		}
+
+		private void generateUtilityTags() {
+			this.getOrCreateTagBuilder(WilderBiomeTags.FIREFLY_SPAWNABLE)
+					.add(Biomes.JUNGLE)
+					.add(Biomes.SPARSE_JUNGLE)
+					.add(Biomes.BAMBOO_JUNGLE)
+					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
+					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.FIREFLY_SPAWNABLE_CAVE);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)
+					.add(Biomes.SWAMP)
+					.add(Biomes.MANGROVE_SWAMP);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_JELLYFISH)
+					.add(Biomes.WARM_OCEAN)
+					.addOptional(RegisterWorldgen.JELLYFISH_CAVES);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.NO_POOLS)
+					.addOptional(Biomes.DEEP_DARK);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.PEARLESCENT_JELLYFISH)
+					.addOptional(RegisterWorldgen.JELLYFISH_CAVES);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_TUMBLEWEED_ENTITY)
+					.add(Biomes.DESERT)
+					.add(Biomes.BADLANDS)
+					.add(Biomes.ERODED_BADLANDS)
+					.add(Biomes.WOODED_BADLANDS)
+					.add(Biomes.WINDSWEPT_SAVANNA);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_CLAY_PATH)
+					.addOptionalTag(WilderBiomeTags.SAND_BEACHES)
+					.addOptionalTag(WilderBiomeTags.MULTI_LAYER_SAND_BEACHES)
+					.addOptional(RegisterWorldgen.OASIS)
+					.addOptional(RegisterWorldgen.WARM_RIVER);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.GRAVEL_BEACH)
+					.add(Biomes.BIRCH_FOREST)
+					.add(Biomes.FROZEN_RIVER)
+					.add(RegisterWorldgen.MIXED_FOREST)
+					.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
+					.add(Biomes.OLD_GROWTH_PINE_TAIGA)
+					.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA)
+					.add(Biomes.TAIGA)
+					.add(Biomes.SNOWY_TAIGA)
+					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
+					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
+					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.SAND_BEACHES)
+					.add(Biomes.DARK_FOREST)
+					.add(Biomes.FLOWER_FOREST)
+					.add(Biomes.FOREST)
+					.addOptional(RegisterWorldgen.PARCHED_FOREST)
+					.addOptional(RegisterWorldgen.ARID_FOREST)
+					.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.MULTI_LAYER_SAND_BEACHES)
+					.add(Biomes.BAMBOO_JUNGLE)
+					.add(Biomes.JUNGLE)
+					.add(Biomes.SAVANNA)
+					.add(Biomes.SPARSE_JUNGLE)
+					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
+					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
+					.addOptional(RegisterWorldgen.ARID_SAVANNA)
+					.addOptional(new ResourceLocation("terralith", "arid_highlands"));
+		}
+
+		private void generateFeatureTags() {
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_BIRCH_TREES)
+					.add(Biomes.BIRCH_FOREST)
+					.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
+					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_OAK_AND_BIRCH_TREES)
+					.add(Biomes.FOREST)
+					.add(Biomes.FLOWER_FOREST)
+					.addOptional(RegisterWorldgen.PARCHED_FOREST)
+					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_OAK_AND_SPRUCE_TREES)
+					.add(Biomes.WINDSWEPT_FOREST)
+					.add(Biomes.WINDSWEPT_HILLS);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.FOREST_GRASS)
+					.add(Biomes.FOREST)
+					.add(Biomes.FLOWER_FOREST)
+					.add(Biomes.BIRCH_FOREST)
+					.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
+					.add(Biomes.DARK_FOREST)
+					.add(Biomes.TAIGA)
+					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
+					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
+					.addOptional(RegisterWorldgen.FLOWER_FIELD)
+					.addOptional(RegisterWorldgen.MIXED_FOREST)
+					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
+					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
+					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
+					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
+					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SMALL_SPONGE)
+					.add(Biomes.WARM_OCEAN);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SMALL_SPONGE_RARE)
+					.add(Biomes.LUKEWARM_OCEAN)
+					.add(Biomes.DEEP_LUKEWARM_OCEAN)
+					.add(Biomes.LUSH_CAVES);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_CARNATION)
+					.add(Biomes.BIRCH_FOREST)
+					.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
+					.add(Biomes.FLOWER_FOREST)
+					.add(Biomes.FOREST)
+					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
+					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
+					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_DATURA)
+					.add(Biomes.BIRCH_FOREST)
+					.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
+					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
+					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
+					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_CATTAIL)
+					.add(Biomes.SWAMP)
+					.add(Biomes.MANGROVE_SWAMP)
+					.addOptional(RegisterWorldgen.CYPRESS_WETLANDS);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SEEDING_DANDELION)
+					.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
+					.add(Biomes.FLOWER_FOREST)
+					.add(Biomes.SUNFLOWER_PLAINS)
+					.add(Biomes.FOREST)
+					.add(Biomes.MEADOW)
+					.add(Biomes.WINDSWEPT_HILLS)
+					.add(Biomes.WINDSWEPT_FOREST)
+					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_MILKWEED)
+					.add(Biomes.BIRCH_FOREST)
+					.add(Biomes.FLOWER_FOREST)
+					.add(Biomes.SUNFLOWER_PLAINS)
+					.add(Biomes.PLAINS)
+					.add(Biomes.FOREST)
+					.add(Biomes.MEADOW)
+					.add(Biomes.SWAMP)
+					.add(Biomes.SPARSE_JUNGLE)
+					.add(Biomes.JUNGLE)
+					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
+					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
+					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
+					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_TUMBLEWEED_PLANT)
+					.add(Biomes.DESERT)
+					.add(Biomes.BADLANDS)
+					.add(Biomes.ERODED_BADLANDS)
+					.add(Biomes.WOODED_BADLANDS)
+					.add(Biomes.WINDSWEPT_SAVANNA)
+					.add(Biomes.SAVANNA_PLATEAU)
+					.addOptional(RegisterWorldgen.ARID_SAVANNA);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.SWAMP_TREES)
+					.add(Biomes.SWAMP);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_PALMS)
 					.add(Biomes.DESERT)
@@ -155,7 +364,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.SUNFLOWER_PLAINS)
 					.addOptional(RegisterWorldgen.FLOWER_FIELD)
 					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
-					.addOptional(RegisterWorldgen.MIXED_FOREST);
+					.addOptional(RegisterWorldgen.MIXED_FOREST)
+					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_RED_SHELF_FUNGUS)
 					.add(Biomes.DARK_FOREST)
@@ -168,7 +378,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.FLOWER_FIELD)
 					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
 					.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
-					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST);
+					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
+					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_BROWN_SHELF_FUNGUS)
 					.add(Biomes.DARK_FOREST)
@@ -188,7 +399,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
 					.addOptional(RegisterWorldgen.PARCHED_FOREST)
 					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
-					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
+					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
+					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_GLORY_OF_THE_SNOW)
 					.add(Biomes.BIRCH_FOREST)
@@ -266,199 +478,6 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.SAVANNA_PLATEAU)
 					.addOptional(RegisterWorldgen.ARID_SAVANNA)
 					.addOptional(RegisterWorldgen.PARCHED_FOREST);
-		}
-
-		private void generateClimateAndVegetationTags() {
-			this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_HOT)
-					.addOptional(RegisterWorldgen.OASIS)
-					.addOptional(RegisterWorldgen.ARID_FOREST)
-					.addOptional(RegisterWorldgen.ARID_SAVANNA);
-
-			this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_TEMPERATE)
-					.addOptional(RegisterWorldgen.CYPRESS_WETLANDS)
-					.addOptional(RegisterWorldgen.MIXED_FOREST)
-					.addOptional(RegisterWorldgen.PARCHED_FOREST)
-					.addOptional(RegisterWorldgen.WARM_RIVER)
-					.addOptional(RegisterWorldgen.FLOWER_FIELD)
-					.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
-					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST);
-
-			this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_COLD)
-					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
-					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
-					.addOptional(RegisterWorldgen.MIXED_FOREST)
-					.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
-
-
-			this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_WET)
-					.addOptional(RegisterWorldgen.CYPRESS_WETLANDS)
-					.addOptional(RegisterWorldgen.OASIS)
-					.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
-					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST);
-
-			this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_DRY)
-					.addOptional(RegisterWorldgen.ARID_SAVANNA)
-					.addOptional(RegisterWorldgen.ARID_FOREST)
-					.addOptional(RegisterWorldgen.PARCHED_FOREST);
-
-			this.getOrCreateTagBuilder(ConventionalBiomeTags.TREE_CONIFEROUS)
-					.addOptional(RegisterWorldgen.MIXED_FOREST)
-					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
-					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA);
-
-			this.getOrCreateTagBuilder(ConventionalBiomeTags.TREE_DECIDUOUS)
-					.addOptional(RegisterWorldgen.MIXED_FOREST)
-					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
-					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA);
-		}
-
-		private void generateUtilityTags() {
-			this.getOrCreateTagBuilder(WilderBiomeTags.FIREFLY_SPAWNABLE)
-					.add(Biomes.JUNGLE)
-					.add(Biomes.SPARSE_JUNGLE)
-					.add(Biomes.BAMBOO_JUNGLE)
-					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
-					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
-
-			this.getOrCreateTagBuilder(WilderBiomeTags.FIREFLY_SPAWNABLE_CAVE);
-
-			this.getOrCreateTagBuilder(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)
-					.add(Biomes.SWAMP)
-					.add(Biomes.MANGROVE_SWAMP);
-
-			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_JELLYFISH)
-					.add(Biomes.WARM_OCEAN)
-					.addOptional(RegisterWorldgen.JELLYFISH_CAVES);
-
-			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_TUMBLEWEED_ENTITY)
-					.add(Biomes.DESERT)
-					.add(Biomes.BADLANDS)
-					.add(Biomes.ERODED_BADLANDS)
-					.add(Biomes.WOODED_BADLANDS)
-					.add(Biomes.WINDSWEPT_SAVANNA);
-
-			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_TUMBLEWEED_PLANT)
-					.add(Biomes.DESERT)
-					.add(Biomes.BADLANDS)
-					.add(Biomes.ERODED_BADLANDS)
-					.add(Biomes.WOODED_BADLANDS)
-					.add(Biomes.WINDSWEPT_SAVANNA)
-					.add(Biomes.SAVANNA_PLATEAU)
-					.addOptional(RegisterWorldgen.ARID_SAVANNA);
-
-			this.getOrCreateTagBuilder(WilderBiomeTags.NO_POOLS)
-					.addOptional(Biomes.DEEP_DARK);
-
-			this.getOrCreateTagBuilder(WilderBiomeTags.PEARLESCENT_JELLYFISH)
-					.addOptional(RegisterWorldgen.JELLYFISH_CAVES);
-
-			this.getOrCreateTagBuilder(WilderBiomeTags.SWAMP_TREES)
-					.add(Biomes.SWAMP);
-
-			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_CLAY_PATH)
-					.addOptionalTag(WilderBiomeTags.SAND_BEACHES)
-					.addOptionalTag(WilderBiomeTags.MULTI_LAYER_SAND_BEACHES)
-					.addOptional(RegisterWorldgen.OASIS)
-					.addOptional(RegisterWorldgen.WARM_RIVER);
-
-			this.getOrCreateTagBuilder(WilderBiomeTags.GRAVEL_BEACH)
-					.add(Biomes.BIRCH_FOREST)
-					.add(Biomes.FROZEN_RIVER)
-					.add(RegisterWorldgen.MIXED_FOREST)
-					.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
-					.add(Biomes.OLD_GROWTH_PINE_TAIGA)
-					.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA)
-					.add(Biomes.TAIGA)
-					.add(Biomes.SNOWY_TAIGA)
-					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
-					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
-					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST);
-
-			this.getOrCreateTagBuilder(WilderBiomeTags.SAND_BEACHES)
-					.add(Biomes.DARK_FOREST)
-					.add(Biomes.FLOWER_FOREST)
-					.add(Biomes.FOREST)
-					.addOptional(RegisterWorldgen.PARCHED_FOREST)
-					.addOptional(RegisterWorldgen.ARID_FOREST)
-					.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
-
-			this.getOrCreateTagBuilder(WilderBiomeTags.MULTI_LAYER_SAND_BEACHES)
-					.add(Biomes.BAMBOO_JUNGLE)
-					.add(Biomes.JUNGLE)
-					.add(Biomes.SAVANNA)
-					.add(Biomes.SPARSE_JUNGLE)
-					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
-					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
-					.addOptional(RegisterWorldgen.ARID_SAVANNA)
-					.addOptional(new ResourceLocation("terralith", "arid_highlands"));
-		}
-
-		private void generateFeatureTags() {
-			this.getOrCreateTagBuilder(WilderBiomeTags.FOREST_GRASS)
-					.add(Biomes.FOREST)
-					.add(Biomes.FLOWER_FOREST)
-					.add(Biomes.BIRCH_FOREST)
-					.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
-					.add(Biomes.DARK_FOREST)
-					.add(Biomes.TAIGA)
-					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
-					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
-					.addOptional(RegisterWorldgen.FLOWER_FIELD)
-					.addOptional(RegisterWorldgen.MIXED_FOREST)
-					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
-					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
-					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
-					.addOptional(RegisterWorldgen.BIRCH_JUNGLE);
-
-			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SMALL_SPONGE)
-					.add(Biomes.WARM_OCEAN);
-
-			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SMALL_SPONGE_RARE)
-					.add(Biomes.LUKEWARM_OCEAN)
-					.add(Biomes.DEEP_LUKEWARM_OCEAN)
-					.add(Biomes.LUSH_CAVES);
-
-			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_CARNATION)
-					.add(Biomes.BIRCH_FOREST)
-					.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
-					.add(Biomes.FLOWER_FOREST)
-					.add(Biomes.FOREST)
-					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
-					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST);
-
-			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_DATURA)
-					.add(Biomes.BIRCH_FOREST)
-					.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
-					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
-					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST);
-
-			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_CATTAIL)
-					.add(Biomes.SWAMP)
-					.add(Biomes.MANGROVE_SWAMP)
-					.addOptional(RegisterWorldgen.CYPRESS_WETLANDS);
-
-			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SEEDING_DANDELION)
-					.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
-					.add(Biomes.FLOWER_FOREST)
-					.add(Biomes.SUNFLOWER_PLAINS)
-					.add(Biomes.FOREST)
-					.add(Biomes.MEADOW)
-					.add(Biomes.WINDSWEPT_HILLS)
-					.add(Biomes.WINDSWEPT_FOREST);
-
-			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_MILKWEED)
-					.add(Biomes.BIRCH_FOREST)
-					.add(Biomes.FLOWER_FOREST)
-					.add(Biomes.SUNFLOWER_PLAINS)
-					.add(Biomes.PLAINS)
-					.add(Biomes.FOREST)
-					.add(Biomes.MEADOW)
-					.add(Biomes.SWAMP)
-					.add(Biomes.SPARSE_JUNGLE)
-					.add(Biomes.JUNGLE)
-					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
-					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
-					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST);
 		}
 
 		private void generateStructureTags() {

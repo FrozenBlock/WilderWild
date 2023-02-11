@@ -253,6 +253,30 @@ public final class OverworldBiomeBuilderMixin {
 				);
 			}
 		}
+		if (WilderSharedConstants.config().generateSemiBirchForest()) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.BIRCH_FOREST)) {
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.SemiBirchForest.TEMPERATURE_A,
+						WilderSharedWorldgen.SemiBirchForest.HUMIDITY,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						point.offset(),
+						RegisterWorldgen.SEMI_BIRCH_FOREST
+				);
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.SemiBirchForest.TEMPERATURE_B,
+						WilderSharedWorldgen.SemiBirchForest.HUMIDITY,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						point.offset(),
+						RegisterWorldgen.SEMI_BIRCH_FOREST
+				);
+			}
+		}
 	}
 
     @Inject(method = "addLowSlice", at = @At("TAIL")) // also can be injectLowBiomes
