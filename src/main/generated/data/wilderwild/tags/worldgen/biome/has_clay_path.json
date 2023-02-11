@@ -8,6 +8,14 @@
     {
       "id": "#wilderwild:multi_layer_sand_beaches",
       "required": false
+    },
+    {
+      "id": "wilderwild:oasis",
+      "required": false
+    },
+    {
+      "id": "wilderwild:warm_river",
+      "required": false
     }
   ]
 }
