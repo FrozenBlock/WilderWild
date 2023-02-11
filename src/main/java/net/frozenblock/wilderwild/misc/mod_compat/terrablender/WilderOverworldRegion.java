@@ -101,7 +101,20 @@ public class WilderOverworldRegion extends Region {
 						builder.replaceParameter(point,
 								Climate.parameters(
 										WilderSharedWorldgen.BirchJungle.TEMPERATURE,
-										WilderSharedWorldgen.BirchJungle.HUMIDITY,
+										WilderSharedWorldgen.BirchJungle.HUMIDITY_A,
+										point.continentalness(),
+										point.erosion(),
+										point.depth(),
+										point.weirdness(),
+										point.offset()
+								)
+						);
+						builder.replaceBiome(point, RegisterWorldgen.BIRCH_JUNGLE);
+					} else {
+						builder.replaceParameter(point,
+								Climate.parameters(
+										WilderSharedWorldgen.BirchJungle.TEMPERATURE,
+										WilderSharedWorldgen.BirchJungle.HUMIDITY_B,
 										point.continentalness(),
 										point.erosion(),
 										point.depth(),
@@ -120,7 +133,7 @@ public class WilderOverworldRegion extends Region {
 						builder.replaceParameter(point,
 								Climate.parameters(
 										WilderSharedWorldgen.BirchJungle.TEMPERATURE,
-										WilderSharedWorldgen.BirchJungle.HUMIDITY,
+										WilderSharedWorldgen.BirchJungle.HUMIDITY_A,
 										point.continentalness(),
 										point.erosion(),
 										point.depth(),

@@ -108,7 +108,18 @@ public final class OverworldBiomeBuilderMixin {
 					this.addSurfaceBiome(
 							parameters,
 							WilderSharedWorldgen.BirchJungle.TEMPERATURE,
-							WilderSharedWorldgen.BirchJungle.HUMIDITY,
+							WilderSharedWorldgen.BirchJungle.HUMIDITY_A,
+							point.continentalness(),
+							point.erosion(),
+							point.weirdness(),
+							point.offset(),
+							RegisterWorldgen.BIRCH_JUNGLE
+					);
+				} else {
+					this.addSurfaceBiome(
+							parameters,
+							WilderSharedWorldgen.BirchJungle.TEMPERATURE,
+							WilderSharedWorldgen.BirchJungle.HUMIDITY_B,
 							point.continentalness(),
 							point.erosion(),
 							point.weirdness(),
@@ -123,7 +134,7 @@ public final class OverworldBiomeBuilderMixin {
 				this.addSurfaceBiome(
 						parameters,
 						WilderSharedWorldgen.BirchJungle.TEMPERATURE,
-						WilderSharedWorldgen.BirchJungle.HUMIDITY,
+						WilderSharedWorldgen.BirchJungle.HUMIDITY_A,
 						point.continentalness(),
 						point.erosion(),
 						point.weirdness(),
