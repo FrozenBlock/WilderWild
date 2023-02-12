@@ -23,6 +23,7 @@ import net.frozenblock.lib.block.api.shape.FrozenShapes;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
+import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
@@ -83,9 +84,10 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 		if (collisionContext instanceof EntityCollisionContext entityCollisionContext && entityCollisionContext.getEntity() != null) {
 			if (blockState.getValue(WATERLOGGED)) {
 				VoxelShape shape = Shapes.empty();
-				if (entityCollisionContext.getEntity() instanceof Jellyfish jellyfish) {
-					BlockState jellyfishState = jellyfish.getFeetBlockState();
-					if (jellyfish.isInWater() || (jellyfishState.getBlock() instanceof MesogleaBlock && jellyfishState.getValue(BlockStateProperties.WATERLOGGED))) {
+				Entity entity = entityCollisionContext.getEntity();
+				if (entity != null && entity.getType().is(WilderEntityTags.STAYS_IN_MESOGLEA)) {
+					BlockState jellyfishState = entity.getFeetBlockState();
+					if (entity.isInWater() || (jellyfishState.getBlock() instanceof MesogleaBlock && jellyfishState.getValue(BlockStateProperties.WATERLOGGED))) {
 						for (Direction direction : Direction.values()) {
 							if (direction != Direction.UP && !blockGetter.getFluidState(blockPos.relative(direction)).is(FluidTags.WATER)) {
 								shape = Shapes.or(shape, FrozenShapes.makePlaneFromDirection(direction, 0.25F));

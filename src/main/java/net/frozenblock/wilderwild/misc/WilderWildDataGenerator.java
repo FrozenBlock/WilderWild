@@ -27,10 +27,12 @@ import net.frozenblock.lib.datagen.api.FrozenBiomeTagProvider;
 import net.frozenblock.lib.tag.api.FrozenBlockTags;
 import net.frozenblock.lib.tag.api.FrozenItemTags;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
+import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -45,6 +47,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 		dataGenerator.addProvider(WilderBiomeTagProvider::new);
 		dataGenerator.addProvider(WilderBlockTagProvider::new);
 		dataGenerator.addProvider(WilderItemTagProvider::new);
+		dataGenerator.addProvider(WilderEntityTagProvider::new);
 	}
 
 	private static final class WilderBiomeTagProvider extends FrozenBiomeTagProvider {
@@ -743,6 +746,18 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 		protected void generateTags() {
 			this.getOrCreateTagBuilder(FrozenItemTags.ALWAYS_SAVE_COOLDOWNS)
 					.add(RegisterItems.ANCIENT_HORN);
+		}
+	}
+
+	private static final class WilderEntityTagProvider extends FabricTagProvider.EntityTypeTagProvider {
+		public WilderEntityTagProvider(FabricDataGenerator dataGenerator) {
+			super(dataGenerator);
+		}
+
+		@Override
+		protected void generateTags() {
+			this.getOrCreateTagBuilder(WilderEntityTags.STAYS_IN_MESOGLEA)
+					.add(RegisterEntities.JELLYFISH);
 		}
 	}
 }
