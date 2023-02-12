@@ -30,6 +30,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import static net.minecraft.data.worldgen.features.OreFeatures.NATURAL_STONE;
+import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -41,6 +42,7 @@ import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.LakeFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.DiskConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
@@ -135,6 +137,7 @@ public final class WilderMiscConfigured {
 	// ARID SAVANNA
 	public static final Holder<ConfiguredFeature<PathFeatureConfig, ?>> ARID_COARSE_PATH = WilderConfiguredFeatures.register("arid_coarse_dirt_path", FrozenFeatures.NOISE_PATH_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.COARSE_DIRT), 12, 3, 0.15, -0.15, 0.55, false, false, false, false, HolderSet.direct(Blocks.DIRT.builtInRegistryHolder(), Blocks.GRASS_BLOCK.builtInRegistryHolder())));
 
+	public static final Holder<ConfiguredFeature<BlockStateConfiguration, ?>> SNOW = WilderConfiguredFeatures.register("snow", Feature.FOREST_ROCK, new BlockStateConfiguration(Blocks.SNOW_BLOCK.defaultBlockState()));
 	public static void registerMiscPlaced() {
         WilderSharedConstants.logWild("Registering WilderMiscConfigured for", true);
     }
