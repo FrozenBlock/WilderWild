@@ -87,7 +87,7 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 					BlockState jellyfishState = jellyfish.getFeetBlockState();
 					if (jellyfish.isInWater() || (jellyfishState.getBlock() instanceof MesogleaBlock && jellyfishState.getValue(BlockStateProperties.WATERLOGGED))) {
 						for (Direction direction : Direction.values()) {
-							if (!blockGetter.getFluidState(blockPos.relative(direction)).is(FluidTags.WATER)) {
+							if (direction != Direction.UP && !blockGetter.getFluidState(blockPos.relative(direction)).is(FluidTags.WATER)) {
 								shape = Shapes.or(shape, FrozenShapes.makePlaneFromDirection(direction, 0.25F));
 							}
 						}
