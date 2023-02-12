@@ -65,7 +65,6 @@ public class AncientHornProjectileModel extends Model {
     }
 
     public void render(PoseStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha, float partialTick, AncientHornProjectile entity) {
-        matrices.scale(1.0F, 1.0F, 1.0F);
         float aliveDelta = entity.getAliveTicks() + partialTick;
 
         float pulse = (((float) Math.sin((aliveDelta * pi) * 0.2F) * 0.16666667F) + 1);
