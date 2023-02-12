@@ -1,3 +1,21 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.entity;
 
 import com.google.common.collect.ImmutableList;
@@ -7,8 +25,8 @@ import java.util.Objects;
 import java.util.Optional;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
-import net.frozenblock.wilderwild.entity.ai.FireflyAi;
-import net.frozenblock.wilderwild.misc.FireflyColor;
+import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
+import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -22,6 +40,7 @@ import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -269,11 +288,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 				&& !this.level.getBiome(this.blockPosition()).is(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)
 				&& this.getLevel().isDay()
 				&& this.getLevel().getBrightness(LightLayer.SKY, this.blockPosition()) >= 6;
-    }
-
-    @Override
-    protected void registerGoals() {
-        //this.goalSelector.addGoal(1, new FireflyHidingGoal(this, 2.0D, 40, 32));
     }
 
     public static AttributeSupplier.Builder addAttributes() {
@@ -543,6 +557,10 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
         public static void addBiomeColor(ResourceLocation biome, FireflyColor color) {
             BIOMES.add(biome);
             COLORS.add(color);
+        }
+
+        public static void addBiomeColor(ResourceKey<Biome> biome, FireflyColor color) {
+            addBiomeColor(biome.location(), color);
         }
 
         @Nullable

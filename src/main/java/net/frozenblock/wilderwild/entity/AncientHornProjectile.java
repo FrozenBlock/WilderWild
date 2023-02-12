@@ -1,11 +1,29 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.entity;
 
 import io.netty.buffer.Unpooled;
+import it.unimi.dsi.fastutil.ints.IntArrayList;
 import java.util.List;
 import java.util.Optional;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
-import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.damagesource.api.FrozenProjectileDamageSource;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
@@ -13,8 +31,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import static net.frozenblock.wilderwild.item.AncientHorn.*;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
-import net.frozenblock.wilderwild.misc.mod_compat.simple_copper_pipes.WilderCopperPipesEntrypoint;
+import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
@@ -33,6 +50,9 @@ import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -70,17 +90,23 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-//TODO: Fix rendering (Renders too bright or too dark depending on direction; renders under other translucents like water, doesn't render further than 8 block away)
+//TODO: Fix rendering (Renders too bright or too dark depending on direction)
 
 public class AncientHornProjectile extends AbstractArrow {
 	private static final TagKey<Block> NON_COLLIDE = WilderBlockTags.ANCIENT_HORN_NON_COLLIDE;
 	public static final int DEFAULT_LIFESPAN = 300;
+	public static final float MIN_SIZE = 0.01F;
+	public static final float MAX_SIZE = 30F;
+
+	private static final EntityDataAccessor<Float> BOUNDING_BOX_MULTIPLIER = SynchedEntityData.defineId(AncientHornProjectile.class, EntityDataSerializers.FLOAT);
+
 	private boolean shot;
 	private boolean leftOwner;
 	private int aliveTicks;
@@ -90,6 +116,7 @@ public class AncientHornProjectile extends AbstractArrow {
 	private boolean shotByPlayer;
 	private int bubbles;
 	private BlockState inBlockState;
+	private IntArrayList hitEntities = new IntArrayList();
 
 	public AncientHornProjectile(@NotNull EntityType<? extends AncientHornProjectile> entityType, Level level) {
 		super(entityType, level);
@@ -99,6 +126,12 @@ public class AncientHornProjectile extends AbstractArrow {
 	public AncientHornProjectile(Level level, double x, double y, double z) {
 		super(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, x, y, z, level);
 		this.setSoundEvent(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE);
+	}
+
+	@Override
+	protected void defineSynchedData() {
+		super.defineSynchedData();
+		this.entityData.define(BOUNDING_BOX_MULTIPLIER, 0F);
 	}
 
 	public List<Entity> collidingEntities() {
@@ -129,7 +162,7 @@ public class AncientHornProjectile extends AbstractArrow {
 			--this.bubbles;
 			EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.position(), AdvancedMath.random().nextDouble() > 0.7 ? 1 : 0, 20 + AdvancedMath.random().nextInt(40), 0.05, server.random.nextIntBetweenInclusive(1, 3));
 		}
-		if (this.aliveTicks > ClothConfigInteractionHandler.hornLifespan()) {
+		if (this.aliveTicks > WilderSharedConstants.config().hornLifespan()) {
 			this.remove(RemovalReason.DISCARDED);
 		}
 		++this.aliveTicks;
@@ -182,7 +215,11 @@ public class AncientHornProjectile extends AbstractArrow {
 					if (entity.isInvulnerable()) {
 						shouldDamage = false;
 					}
+					int uuid = entity.getUUID().hashCode();
+					if (this.hitEntities.contains(uuid))
+						shouldDamage = false;
 					if (shouldDamage) {
+						this.hitEntities.add(uuid);
 						this.hitEntity(entity);
 					}
 				}
@@ -204,9 +241,11 @@ public class AncientHornProjectile extends AbstractArrow {
 				this.level.addParticle(ParticleTypes.CRIT, this.getX() + deltaX * (double) i / 4.0D, this.getY() + deltaY * (double) i / 4.0D, this.getZ() + deltaZ * (double) i / 4.0D, -deltaX, -deltaY + 0.2D, -deltaZ);
 			}
 		}
-		double x = this.getX() + deltaX;
-		double y = this.getY() + deltaY;
-		double z = this.getZ() + deltaZ;
+		float divider = this.getBoundingBoxMultiplier() + 1F;
+		float moveDivider = this.getBoundingBoxMultiplier() * 0.5F + 1F;
+		double x = this.getX() + (deltaX / moveDivider);
+		double y = this.getY() + (deltaY / moveDivider);
+		double z = this.getZ() + (deltaZ / moveDivider);
 		double horizontalDistance = deltaMovement.horizontalDistance();
 		if (noPhysics) {
 			this.setYRot((float) (Mth.atan2(-deltaX, -deltaZ) * 57.2957763671875D));
@@ -219,6 +258,15 @@ public class AncientHornProjectile extends AbstractArrow {
 
 		this.setPos(x, y, z);
 		this.checkInsideBlocks();
+		float size = this.getBoundingBoxMultiplier() + WilderSharedConstants.config().hornSizeMultiplier();
+		if (size > MIN_SIZE && size < MAX_SIZE)
+			this.setBoundingBoxMultiplier(size);
+	}
+
+	@Override
+	@NotNull
+	public AABB makeBoundingBox() {
+		return super.makeBoundingBox().inflate(this.getBoundingBoxMultiplier() / 2F);
 	}
 
 	public void setCooldown(int cooldownTicks) {
@@ -268,12 +316,10 @@ public class AncientHornProjectile extends AbstractArrow {
         this.inBlockState = this.level.getBlockState(result.getBlockPos());
         BlockState blockState = this.level.getBlockState(result.getBlockPos());
         Entity owner = this.getOwner();
-		if (FrozenBools.HAS_SIMPLE_COPPER_PIPES) {
-			if (WilderCopperPipesEntrypoint.isCopperPipe(blockState) && owner != null) {
-				if (result.getDirection() == blockState.getValue(BlockStateProperties.FACING).getOpposite() && this.level instanceof ServerLevel server) {
-					if (WilderCopperPipesEntrypoint.addHornNbtToBlock(server, result.getBlockPos(), owner)) {
-						this.discard();
-					}
+		if (WilderModIntegrations.SIMPLE_COPPER_PIPES_INTEGRATION.getIntegration().isCopperPipe(blockState) && owner != null) {
+			if (result.getDirection() == blockState.getValue(BlockStateProperties.FACING).getOpposite() && this.level instanceof ServerLevel server) {
+				if (WilderModIntegrations.SIMPLE_COPPER_PIPES_INTEGRATION.getIntegration().addHornNbtToBlock(server, result.getBlockPos(), owner)) {
+					this.discard();
 				}
 			}
 		}
@@ -288,7 +334,7 @@ public class AncientHornProjectile extends AbstractArrow {
         this.setCritArrow(false);
         if (this.level instanceof ServerLevel server && canInteract()) {
             if (blockState.getBlock() == Blocks.SCULK_SHRIEKER) {
-                if (ClothConfigInteractionHandler.hornCanSummonWarden()) {
+                if (WilderSharedConstants.config().hornCanSummonWarden()) {
                     BlockPos pos = result.getBlockPos();
                     WilderSharedConstants.log(Blocks.SCULK_SHRIEKER, pos, "Horn Projectile Touched", WilderSharedConstants.UNSTABLE_LOGGING);
                     if (blockState.getValue(RegisterProperties.SOULS_TAKEN) < 2 && !blockState.getValue(SculkShriekerBlock.SHRIEKING)) {
@@ -367,7 +413,7 @@ public class AncientHornProjectile extends AbstractArrow {
 				if (insideState.getBlock() instanceof BellBlock bell) { //BELL INTERACTION
 					bell.onProjectileHit(server, insideState, this.level.clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
 				} else if (insideState.getBlock() instanceof AbstractGlassBlock || insideState.is(ConventionalBlockTags.GLASS_BLOCKS) || insideState.is(ConventionalBlockTags.GLASS_PANES)) {
-					if (ClothConfigInteractionHandler.hornShattersGlass()) { //GLASS INTERACTION
+					if (WilderSharedConstants.config().hornShattersGlass()) { //GLASS INTERACTION
 						insideState.onProjectileHit(this.level, insideState, this.level.clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
 						this.level.destroyBlock(this.blockPosition(), false, this);
 					}
@@ -414,6 +460,14 @@ public class AncientHornProjectile extends AbstractArrow {
 		return ItemStack.EMPTY;
 	}
 
+	public float getBoundingBoxMultiplier() {
+		return this.entityData.get(BOUNDING_BOX_MULTIPLIER);
+	}
+
+	public void setBoundingBoxMultiplier(float value) {
+		this.entityData.set(BOUNDING_BOX_MULTIPLIER, value);
+	}
+
 	@Override
 	public void addAdditionalSaveData(@NotNull CompoundTag compound) {
 		if (!this.isRemoved()) {
@@ -430,6 +484,8 @@ public class AncientHornProjectile extends AbstractArrow {
 			compound.putDouble("originZ", this.vecZ);
 			compound.putBoolean("shotByPlayer", this.shotByPlayer);
 			compound.putInt("bubbles", this.bubbles);
+			compound.putFloat("boundingBoxMultiplier", this.getBoundingBoxMultiplier());
+			compound.putIntArray("hitEntities", this.hitEntities);
 		}
 	}
 
@@ -447,6 +503,8 @@ public class AncientHornProjectile extends AbstractArrow {
 			this.vecZ = compound.getDouble("originZ");
 			this.shotByPlayer = compound.getBoolean("shotByPlayer");
 			this.bubbles = compound.getInt("bubbles");
+			this.setBoundingBoxMultiplier(compound.getFloat("boundingBoxMultiplier"));
+			this.hitEntities = IntArrayList.wrap(compound.getIntArray("hitEntities"));
 		}
 	}
 
@@ -474,8 +532,9 @@ public class AncientHornProjectile extends AbstractArrow {
 		}
 	}
 
-	public int getDamage(@Nullable Entity entity) {
-		return entity instanceof Player ? ClothConfigInteractionHandler.hornPlayerDamage() : ClothConfigInteractionHandler.hornMobDamage();
+	public float getDamage(@Nullable Entity entity) {
+		int base = entity instanceof Player ? WilderSharedConstants.config().hornPlayerDamage() : WilderSharedConstants.config().hornMobDamage();
+		return base / (this.getBoundingBoxMultiplier() + 1F);
 	}
 
 	@Override
@@ -489,7 +548,7 @@ public class AncientHornProjectile extends AbstractArrow {
 	}
 
     private void hitEntity(Entity entity) {
-        int damage = this.getDamage(entity);
+        float damage = this.getDamage(entity);
         Entity owner = this.getOwner();
         if (entity != owner) {
             DamageSource damageSource;
@@ -510,7 +569,7 @@ public class AncientHornProjectile extends AbstractArrow {
                 warden.playSound(SoundEvents.WARDEN_TENDRIL_CLICKS, 5.0F, warden.getVoicePitch());
                 this.discard();
             } else if (!entity.getType().is(WilderEntityTags.ANCIENT_HORN_IMMUNE)) {
-                if (entity.hurt(damageSource, (float) damage)) {
+                if (entity.hurt(damageSource, damage)) {
                     if (entity instanceof LivingEntity livingEntity) {
                         Level level = this.getLevel();
                         if (!this.level.isClientSide && owner instanceof LivingEntity) {
@@ -544,6 +603,12 @@ public class AncientHornProjectile extends AbstractArrow {
     }
 
 	@Override
+	public void remove(RemovalReason reason) {
+		this.hitEntities.clear();
+		super.remove(reason);
+	}
+
+	@Override
 	public boolean dampensVibrations() {
 		return true;
 	}
@@ -568,7 +633,7 @@ public class AncientHornProjectile extends AbstractArrow {
 			PacketBufUtil.writeVec3d(byteBuf, entity.position());
 			PacketBufUtil.writeAngle(byteBuf, entity.getXRot());
 			PacketBufUtil.writeAngle(byteBuf, entity.getYRot());
-			return (Packet<ClientGamePacketListener>) ServerPlayNetworking.createS2CPacket(packetID, byteBuf);
+			return ServerPlayNetworking.createS2CPacket(packetID, byteBuf);
 		}
 
 		public static final class PacketBufUtil {

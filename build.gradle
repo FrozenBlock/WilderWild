@@ -1,6 +1,19 @@
+buildscript {
+	repositories {
+		gradlePluginPortal()
+	}
+	dependencies {
+		classpath("org.kohsuke:github-api:1.313")
+	}
+}
+
 plugins {
 	id("fabric-loom") version("+")
 	id("io.github.juuxel.loom-quiltflower") version("+")
+	id("org.ajoberstar.grgit") version("+")
+	id("org.quiltmc.gradle.licenser") version("+")
+	id("com.modrinth.minotaur") version("+")
+	id("com.matthewprenger.cursegradle") version("+")
 	id("maven-publish")
 	id("eclipse")
 	id("idea")
@@ -98,10 +111,6 @@ repositories {
 			includeGroup("curse.maven")
 		}
 	}
-	/*maven {
-		setName("Siphalor's Maven")
-		setUrl("https://maven.siphalor.de")
-	}*/
 	maven {
 		setUrl("https://maven.flashyreese.me/releases")
 	}
@@ -150,9 +159,6 @@ dependencies {
 		include(modImplementation("maven.modrinth:frozenlib:${frozenlib_version}"))
 	}
 
-	// CaffeineConfig
-	//include(modImplementation("net.caffeinemc:mixin-config:1.0.0+1.17"))
-
 	// Lunade
 	modCompileOnly("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
 
@@ -179,45 +185,28 @@ dependencies {
 	modCompileOnly("maven.modrinth:sodium:${sodium_version}")
 	modCompileOnly("org.joml:joml:1.10.4")
 	modCompileOnly("org.anarres:jcpp:1.4.14")
-
-	// only affects runClient, does not affect gradlew build.
-	// add -PuseThirdPartyMods=false to not use these
-	/*if (findProperty("useThirdPartyMods") != "false") {
-		modRuntimeOnly("maven.modrinth:ferrite-core:${ferritecore_version}")
-		modRuntimeOnly("maven.modrinth:lazydfu:${lazydfu_version}")
-		modRuntimeOnly("maven.modrinth:starlight:${starlight_version}")
-		modRuntimeOnly("maven.modrinth:lithium:${lithium_version}")
-		modRuntimeOnly("maven.modrinth:fastanim:${fastanim_version}")
-		modRuntimeOnly("maven.modrinth:entityculling:${entityculling_version}")
-		modRuntimeOnly("maven.modrinth:memoryleakfix:${memoryleakfix_version}")
-		modRuntimeOnly("maven.modrinth:no-unused-chunks:${no_unused_chunks_version}")
-	}
-
-	// only affects runClient, does not affect gradlew build.
-	// add -PuseExperimentalThirdParty=true to the gradle runClient
-	// command to use these
-	if (findProperty("useExperimentalThirdParty") == "true") {
-		//modRuntimeOnly "maven.modrinth:iris:${iris_version}"
-		modRuntimeOnly("maven.modrinth:indium:${indium_version}")
-		modRuntimeOnly("me.flashyreese.mods:reeses-sodium-options:${reeses_sodium_options_version}") {
-			exclude(group: "net.coderbot.iris_mc1_19", module: "iris")
-		}
-		modRuntimeOnly("me.flashyreese.mods:sodium-extra-fabric:${sodium_extra_version}")
-		modRuntimeOnly("io.github.douira:glsl-transformer:0.27.0")
-		modRuntimeOnly("net.caffeinemc:mixin-config:1.0.0+1.17")
-	}*/
 }
 
 processResources {
-	inputs.property("version", project.version)
+	Map<String, Object> properties = new HashMap<>()
+	properties.put("version", project.version)
+	properties.put("minecraft_version", project.minecraft_version)
+
+	properties.forEach((a, b) -> inputs.property(a, b))
 
 	filesMatching("fabric.mod.json") {
-		expand("version": project.version)
+		expand(properties)
 	}
 }
 
 quiltflower {
 	quiltflowerVersion.set("1.9.0")
+}
+
+license {
+	rule project.file("codeformat/HEADER")
+
+	include("**/*.java")
 }
 
 javadoc {
@@ -298,4 +287,7 @@ publishing {
 if (!project.release) {
 	test.dependsOn runDatagen
 	runClient.dependsOn runDatagen
+	build.dependsOn(applyLicenses)
 }
+
+apply from: "gradle/publishing.gradle"

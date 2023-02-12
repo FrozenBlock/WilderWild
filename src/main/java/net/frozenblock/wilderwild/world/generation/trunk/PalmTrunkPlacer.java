@@ -1,3 +1,21 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.world.generation.trunk;
 
 import com.google.common.collect.Lists;
@@ -39,10 +57,6 @@ public class PalmTrunkPlacer extends TrunkPlacer {
 		ArrayList<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();
 		Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
 		Vector3f offset = direction.step();
-		Direction direction1 = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-		if (direction1 != direction) {
-			offset.add(direction1.step());
-		}
 		int i = freeTreeHeight - random.nextInt(4) - 1;
 		int j = 4 - random.nextInt(3);
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();

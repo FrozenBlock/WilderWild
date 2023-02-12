@@ -1,10 +1,31 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.particle;
 
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
@@ -19,7 +40,10 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
 public class MesogleaDripParticle extends TextureSheetParticle {
@@ -30,6 +54,19 @@ public class MesogleaDripParticle extends TextureSheetParticle {
         this.gravity = 0.06F;
         this.quadSize = 0.5F;
     }
+
+	private boolean shouldTickUpXRotMultiplier;
+	private float prevXRotMultiplier;
+	private float xRotMultiplier;
+
+	public void setBothXRotMultipliers(float f) {
+		this.prevXRotMultiplier = f;
+		this.xRotMultiplier = f;
+	}
+
+	public void lerpsToX(boolean b) {
+		this.shouldTickUpXRotMultiplier = b;
+	}
 
     @Override
     public ParticleRenderType getRenderType() {
@@ -56,6 +93,8 @@ public class MesogleaDripParticle extends TextureSheetParticle {
         if (this.removed) {
             return;
         }
+		this.prevXRotMultiplier = this.xRotMultiplier;
+		this.xRotMultiplier += ((this.shouldTickUpXRotMultiplier ? 1F : 0F) - this.xRotMultiplier) * 0.25F;
         this.xd *= 0.98F;
         this.yd *= 0.98F;
         this.zd *= 0.98F;
@@ -65,6 +104,40 @@ public class MesogleaDripParticle extends TextureSheetParticle {
             this.remove();
         }
     }
+
+	private final Quaternionf rotation = new Quaternionf(0F, 0F, 0F, 0F);
+
+	@Override
+	public void render(@NotNull VertexConsumer buffer, Camera renderInfo, float partialTicks) {
+		Vec3 vec3 = renderInfo.getPosition();
+		float f = (float)(Mth.lerp(partialTicks, this.xo, this.x) - vec3.x());
+		float g = (float)(Mth.lerp(partialTicks, this.yo, this.y) - vec3.y());
+		float h = (float)(Mth.lerp(partialTicks, this.zo, this.z) - vec3.z());
+		this.rotation.set(0.0f, 0.0f, 0.0f, 1.0f);
+		this.rotation.mul(Axis.YP.rotationDegrees(-renderInfo.getYRot()));
+		this.rotation.mul(Axis.XP.rotationDegrees(renderInfo.getXRot() * (Mth.lerp(partialTicks, this.prevXRotMultiplier, this.xRotMultiplier))));
+		if (this.roll != 0.0f) {
+			float i = Mth.lerp(partialTicks, this.oRoll, this.roll);
+			this.rotation.mul(Axis.ZP.rotation(i));
+		}
+		Vector3f[] vector3fs = new Vector3f[]{new Vector3f(-1.0f, -1.0f, 0.0f), new Vector3f(-1.0f, 1.0f, 0.0f), new Vector3f(1.0f, 1.0f, 0.0f), new Vector3f(1.0f, -1.0f, 0.0f)};
+		float j = this.getQuadSize(partialTicks);
+		for (int k = 0; k < 4; ++k) {
+			Vector3f vector3f2 = vector3fs[k];
+			vector3f2.rotate(this.rotation);
+			vector3f2.mul(j);
+			vector3f2.add(f, g, h);
+		}
+		float l = this.getU0();
+		float m = this.getU1();
+		float n = this.getV0();
+		float o = this.getV1();
+		int p = this.getLightColor(partialTicks);
+		buffer.vertex(vector3fs[0].x(), vector3fs[0].y(), vector3fs[0].z()).uv(m, o).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
+		buffer.vertex(vector3fs[1].x(), vector3fs[1].y(), vector3fs[1].z()).uv(m, n).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
+		buffer.vertex(vector3fs[2].x(), vector3fs[2].y(), vector3fs[2].z()).uv(l, n).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
+		buffer.vertex(vector3fs[3].x(), vector3fs[3].y(), vector3fs[3].z()).uv(l, o).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
+	}
 
     protected void preMoveUpdate() {
         if (this.lifetime-- <= 0) {
@@ -411,6 +484,8 @@ public class MesogleaDripParticle extends TextureSheetParticle {
             super(clientLevel, d, e, f);
             this.lifetime = (int) (16.0 / (AdvancedMath.random().nextDouble() * 0.8 + 0.2));
             this.scale(0.7F);
+			this.lerpsToX(true);
+			this.setBothXRotMultipliers(1F);
         }
     }
 
@@ -419,6 +494,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
         FallingParticle(ClientLevel clientLevel, double d, double e, double f) {
             this(clientLevel, d, e, f, (int) (64.0 / (AdvancedMath.random().nextDouble() * 0.8 + 0.2)));
             this.scale(0.7F);
+			this.lerpsToX(true);
         }
 
         FallingParticle(ClientLevel clientLevel, double d, double e, double f, int i) {

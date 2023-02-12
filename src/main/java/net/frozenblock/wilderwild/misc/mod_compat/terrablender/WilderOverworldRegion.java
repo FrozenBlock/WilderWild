@@ -1,9 +1,29 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.misc.mod_compat.terrablender;
 
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
+import net.frozenblock.lib.worldgen.biome.api.parameters.FrozenBiomeParameters;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
-import net.frozenblock.wilderwild.misc.config.ClothConfigInteractionHandler;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
 import net.minecraft.core.Registry;
@@ -24,7 +44,7 @@ public class WilderOverworldRegion extends Region {
 	public void addBiomes(Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper) {
 		this.addModifiedVanillaOverworldBiomes(mapper, builder -> {
 
-			if (ClothConfigInteractionHandler.generateMixedForest()) {
+			if (WilderSharedConstants.config().generateMixedForest()) {
 				OverworldBiomeBuilderParameters.points(Biomes.TAIGA).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -41,7 +61,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (ClothConfigInteractionHandler.generateBirchTaiga()) {
+			if (WilderSharedConstants.config().generateBirchTaiga()) {
 				OverworldBiomeBuilderParameters.points(Biomes.BIRCH_FOREST).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -58,7 +78,75 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (ClothConfigInteractionHandler.generateFlowerField()) {
+			if (WilderSharedConstants.config().generateOldGrowthBirchTaiga()) {
+				OverworldBiomeBuilderParameters.points(Biomes.OLD_GROWTH_BIRCH_FOREST).forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
+									WilderSharedWorldgen.BirchTaiga.HUMIDITY,
+									point.continentalness(),
+									point.erosion(),
+									point.depth(),
+									point.weirdness(),
+									point.offset()
+							)
+					);
+					builder.replaceBiome(point, RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA);
+				});
+			}
+
+			if (WilderSharedConstants.config().generateBirchJungle()) {
+				OverworldBiomeBuilderParameters.points(Biomes.JUNGLE).forEach(point -> {
+					if (point.humidity().equals(Humidity.FOUR)) {
+						builder.replaceParameter(point,
+								Climate.parameters(
+										WilderSharedWorldgen.BirchJungle.TEMPERATURE,
+										WilderSharedWorldgen.BirchJungle.HUMIDITY_A,
+										point.continentalness(),
+										point.erosion(),
+										point.depth(),
+										point.weirdness(),
+										point.offset()
+								)
+						);
+						builder.replaceBiome(point, RegisterWorldgen.BIRCH_JUNGLE);
+					} else {
+						builder.replaceParameter(point,
+								Climate.parameters(
+										WilderSharedWorldgen.BirchJungle.TEMPERATURE,
+										WilderSharedWorldgen.BirchJungle.HUMIDITY_B,
+										point.continentalness(),
+										point.erosion(),
+										point.depth(),
+										point.weirdness(),
+										point.offset()
+								)
+						);
+						builder.replaceBiome(point, RegisterWorldgen.BIRCH_JUNGLE);
+					}
+				});
+			}
+
+			if (WilderSharedConstants.config().generateSparseBirchJungle()) {
+				OverworldBiomeBuilderParameters.points(Biomes.SPARSE_JUNGLE).forEach(point -> {
+					if (!FrozenBiomeParameters.isWeird(point)) {
+						builder.replaceParameter(point,
+								Climate.parameters(
+										WilderSharedWorldgen.BirchJungle.TEMPERATURE,
+										WilderSharedWorldgen.BirchJungle.HUMIDITY_A,
+										point.continentalness(),
+										point.erosion(),
+										point.depth(),
+										point.weirdness(),
+										point.offset()
+								)
+						);
+						builder.replaceBiome(point, RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
+					}
+				});
+			}
+
+			if (WilderSharedConstants.config().generateFlowerField()) {
 				OverworldBiomeBuilderParameters.points(Biomes.FLOWER_FOREST).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -89,7 +177,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (ClothConfigInteractionHandler.generateAridSavanna()) {
+			if (WilderSharedConstants.config().generateAridSavanna()) {
 				OverworldBiomeBuilderParameters.points(Biomes.SAVANNA).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -106,7 +194,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (ClothConfigInteractionHandler.generateParchedForest()) {
+			if (WilderSharedConstants.config().generateParchedForest()) {
 				OverworldBiomeBuilderParameters.points(Biomes.FOREST).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -123,7 +211,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (ClothConfigInteractionHandler.generateAridForest()) {
+			if (WilderSharedConstants.config().generateAridForest()) {
 				OverworldBiomeBuilderParameters.points(Biomes.FOREST).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -140,7 +228,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (ClothConfigInteractionHandler.generateOldGrowthSnowyTaiga()) {
+			if (WilderSharedConstants.config().generateOldGrowthSnowyTaiga()) {
 				OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -157,7 +245,102 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (ClothConfigInteractionHandler.generateCypressWetlands()) {
+			if (WilderSharedConstants.config().generateOldGrowthDarkForest()) {
+				OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST).forEach(point -> {
+					if (point.weirdness().max() < 0L) {
+						builder.replaceParameter(point,
+								Climate.parameters(
+										WilderSharedWorldgen.OldGrowthDarkForest.TEMPERATURE,
+										WilderSharedWorldgen.OldGrowthDarkForest.HUMIDITY,
+										point.continentalness(),
+										point.erosion(),
+										point.depth(),
+										point.weirdness(),
+										point.offset()
+								)
+						);
+						builder.replaceBiome(point, RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
+					}
+				});
+			}
+
+			if (WilderSharedConstants.config().generateDarkBirchForest()) {
+				OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST).forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.DarkBirchForest.TEMPERATURE,
+									WilderSharedWorldgen.DarkBirchForest.HUMIDITY,
+									point.continentalness(),
+									point.erosion(),
+									point.depth(),
+									point.weirdness(),
+									point.offset()
+							)
+					);
+					builder.replaceBiome(point, RegisterWorldgen.DARK_BIRCH_FOREST);
+				});
+			}
+
+			if (WilderSharedConstants.config().generateSemiBirchForest()) {
+				OverworldBiomeBuilderParameters.points(Biomes.BIRCH_FOREST).forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.SemiBirchForest.TEMPERATURE_A,
+									WilderSharedWorldgen.SemiBirchForest.HUMIDITY,
+									point.continentalness(),
+									point.erosion(),
+									point.depth(),
+									point.weirdness(),
+									point.offset()
+							)
+					);
+					builder.replaceBiome(point, RegisterWorldgen.SEMI_BIRCH_FOREST);
+				});
+				OverworldBiomeBuilderParameters.points(Biomes.BIRCH_FOREST).forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.SemiBirchForest.TEMPERATURE_B,
+									WilderSharedWorldgen.SemiBirchForest.HUMIDITY,
+									point.continentalness(),
+									point.erosion(),
+									point.depth(),
+									point.weirdness(),
+									point.offset()
+							)
+					);
+					builder.replaceBiome(point, RegisterWorldgen.SEMI_BIRCH_FOREST);
+				});
+				OverworldBiomeBuilderParameters.points(Biomes.OLD_GROWTH_BIRCH_FOREST).forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.SemiBirchForest.TEMPERATURE_A,
+									WilderSharedWorldgen.SemiBirchForest.HUMIDITY,
+									point.continentalness(),
+									point.erosion(),
+									point.depth(),
+									point.weirdness(),
+									point.offset()
+							)
+					);
+					builder.replaceBiome(point, RegisterWorldgen.SEMI_BIRCH_FOREST);
+				});
+				OverworldBiomeBuilderParameters.points(Biomes.OLD_GROWTH_BIRCH_FOREST).forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.SemiBirchForest.TEMPERATURE_B,
+									WilderSharedWorldgen.SemiBirchForest.HUMIDITY,
+									point.continentalness(),
+									point.erosion(),
+									point.depth(),
+									point.weirdness(),
+									point.offset()
+							)
+					);
+					builder.replaceBiome(point, RegisterWorldgen.SEMI_BIRCH_FOREST);
+				});
+			}
+
+			if (WilderSharedConstants.config().generateCypressWetlands()) {
 				OverworldBiomeBuilderParameters.points(Biomes.SWAMP).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -174,7 +357,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (ClothConfigInteractionHandler.generateCypressWetlands()) {
+			if (WilderSharedConstants.config().generateCypressWetlands()) {
 				OverworldBiomeBuilderParameters.points(Biomes.MANGROVE_SWAMP).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -191,7 +374,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (ClothConfigInteractionHandler.generateJellyfishCaves()) {
+			if (WilderSharedConstants.config().generateJellyfishCaves()) {
 				OverworldBiomeBuilderParameters.points(Biomes.DRIPSTONE_CAVES).forEach(point -> {
 					builder.replaceParameter(point,
 							WilderSharedWorldgen.semiDeepParameters(
@@ -207,7 +390,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (ClothConfigInteractionHandler.generateOasis()) {
+			if (WilderSharedConstants.config().generateOasis()) {
 				OverworldBiomeBuilderParameters.points(Biomes.DESERT).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -224,7 +407,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (ClothConfigInteractionHandler.generateWarmRiver()) {
+			if (WilderSharedConstants.config().generateWarmRiver()) {
 				OverworldBiomeBuilderParameters.points(Biomes.RIVER).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
@@ -241,7 +424,7 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
-			if (ClothConfigInteractionHandler.modifyMangroveSwampPlacement()) {
+			if (WilderSharedConstants.config().modifyMangroveSwampPlacement()) {
 				OverworldBiomeBuilderParameters.points(Biomes.MANGROVE_SWAMP).forEach(point ->
 						builder.replaceParameter(point,
 								new Climate.ParameterPoint(
@@ -257,7 +440,7 @@ public class WilderOverworldRegion extends Region {
 				);
 			}
 
-			if (ClothConfigInteractionHandler.modifySwampPlacement()) {
+			if (WilderSharedConstants.config().modifySwampPlacement()) {
 				OverworldBiomeBuilderParameters.points(Biomes.SWAMP).forEach(point ->
 						builder.replaceParameter(point,
 								new Climate.ParameterPoint(

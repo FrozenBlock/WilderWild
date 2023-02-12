@@ -1,3 +1,21 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild;
 
 import java.util.Objects;
@@ -20,6 +38,7 @@ import net.frozenblock.wilderwild.entity.render.blockentity.DisplayLanternBlockE
 import net.frozenblock.wilderwild.entity.render.blockentity.HangingTendrilBlockEntityRenderer;
 import net.frozenblock.wilderwild.entity.render.blockentity.SculkSensorBlockEntityRenderer;
 import net.frozenblock.wilderwild.entity.render.blockentity.StoneChestBlockEntityRenderer;
+import net.frozenblock.wilderwild.entity.render.easter.EasterEggs;
 import net.frozenblock.wilderwild.entity.render.model.AncientHornProjectileModel;
 import net.frozenblock.wilderwild.entity.render.model.JellyfishModel;
 import net.frozenblock.wilderwild.entity.render.model.TumbleweedModel;
@@ -41,7 +60,6 @@ import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
@@ -74,6 +92,8 @@ public final class WilderWildClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		Splashes.addSplashLocation(WilderSharedConstants.id("texts/splashes.txt"));
 		Panoramas.addPanorama(WilderSharedConstants.id("textures/gui/title/first/panorama"));
+		EasterEggs.registerEaster();
+
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CARNATION, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.SEEDING_DANDELION, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.POTTED_CARNATION, RenderType.cutout());
@@ -245,9 +265,9 @@ public final class WilderWildClient implements ClientModInitializer {
 			float pitch = AncientHornProjectile.EntitySpawnPacket.PacketBufUtil.readAngle(byteBuf);
 			float yaw = AncientHornProjectile.EntitySpawnPacket.PacketBufUtil.readAngle(byteBuf);
 			ctx.execute(() -> {
-				if (Minecraft.getInstance().level == null)
+				if (ctx.level == null)
 					throw new IllegalStateException("Tried to spawn entity in a null world!");
-				Entity e = et.create(Minecraft.getInstance().level);
+				Entity e = et.create(ctx.level);
 				if (e == null)
 					throw new IllegalStateException("Failed to create instance of entity \"" + BuiltInRegistries.ENTITY_TYPE.getKey(et) + "\"!");
 				e.syncPacketPositionCodec(pos.x, pos.y, pos.z);
@@ -256,7 +276,7 @@ public final class WilderWildClient implements ClientModInitializer {
 				e.setYRot(yaw);
 				e.setId(entityId);
 				e.setUUID(uuid);
-				Minecraft.getInstance().level.putNonPlayerEntity(entityId, e);
+				ctx.level.putNonPlayerEntity(entityId, e);
 				WilderSharedConstants.log("Spawned Ancient Horn Projectile", WilderSharedConstants.UNSTABLE_LOGGING);
 			});
 		});
@@ -270,7 +290,7 @@ public final class WilderWildClient implements ClientModInitializer {
 			double yVel = byteBuf.readDouble();
 			int count = byteBuf.readVarInt();
 			ctx.execute(() -> {
-				if (Minecraft.getInstance().level == null)
+				if (ctx.level == null)
 					throw new IllegalStateException("why is your world null");
 				for (int i = 0; i < count; i++) {
 					double xVel = (AdvancedMath.random().nextDouble() - 0.5) / 9.5;
@@ -279,7 +299,7 @@ public final class WilderWildClient implements ClientModInitializer {
 						xVel = (AdvancedMath.random().nextDouble() - 0.5) / 10.5;
 						zVel = (AdvancedMath.random().nextDouble() - 0.5) / 10.5;
 					}
-					Minecraft.getInstance().level.addParticle(new FloatingSculkBubbleParticleOptions(size, age, new Vec3(xVel, yVel, zVel)), pos.x, pos.y, pos.z, 0, 0, 0);
+					ctx.level.addParticle(new FloatingSculkBubbleParticleOptions(size, age, new Vec3(xVel, yVel, zVel)), pos.x, pos.y, pos.z, 0, 0, 0);
 				}
 			});
 		});
@@ -291,7 +311,7 @@ public final class WilderWildClient implements ClientModInitializer {
 			int count = byteBuf.readVarInt();
 			boolean milkweed = byteBuf.readBoolean();
 			ctx.execute(() -> {
-				if (Minecraft.getInstance().level == null)
+				if (ctx.level == null)
 					throw new IllegalStateException("why is your world null");
 				for (int i = 0; i < count; i++) {
 					ctx.level.addParticle(new SeedParticleOptions(milkweed, false), pos.x, pos.y, pos.z, 0, 0, 0);
@@ -308,11 +328,12 @@ public final class WilderWildClient implements ClientModInitializer {
 			double velz = byteBuf.readDouble();
 			int count = byteBuf.readVarInt();
 			boolean milkweed = byteBuf.readBoolean();
+			double posRandomizer = byteBuf.readDouble();
 			ctx.execute(() -> {
-				if (Minecraft.getInstance().level == null)
+				if (ctx.level == null)
 					throw new IllegalStateException("why is your world null");
 				for (int i = 0; i < count; i++) {
-					ctx.level.addParticle(new SeedParticleOptions(milkweed, true), pos.x, pos.y, pos.z, velx, vely + (ctx.level.random.nextDouble() * 0.07), velz);
+					ctx.level.addParticle(new SeedParticleOptions(milkweed, true), pos.x, pos.y + ((ctx.level.random.nextBoolean() ? -1 : 1) * (ctx.level.random.nextDouble() * posRandomizer)), pos.z, velx, vely + (ctx.level.random.nextDouble() * 0.07), velz);
 				}
 			});
 		});
@@ -323,7 +344,7 @@ public final class WilderWildClient implements ClientModInitializer {
 			Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
 			int count = byteBuf.readVarInt();
 			ctx.execute(() -> {
-				if (Minecraft.getInstance().level == null)
+				if (ctx.level == null)
 					throw new IllegalStateException("why is your world null");
 				for (int i = 0; i < count; i++) {
 					ctx.level.addParticle(RegisterParticles.TERMITE, pos.x, pos.y, pos.z, AdvancedMath.randomPosNeg() / 14, AdvancedMath.randomPosNeg() / 14, AdvancedMath.randomPosNeg() / 14);
@@ -336,9 +357,9 @@ public final class WilderWildClient implements ClientModInitializer {
 		ClientPlayNetworking.registerGlobalReceiver(WilderWild.SENSOR_HICCUP_PACKET, (ctx, handler, byteBuf, responseSender) -> {
 			Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
 			ctx.execute(() -> {
-				if (Minecraft.getInstance().level == null)
+				if (ctx.level == null)
 					throw new IllegalStateException("why is your world null");
-				ClientLevel level = Minecraft.getInstance().level;
+				ClientLevel level = ctx.level;
 				int i = 5578058;
 				boolean bl2 = level.random.nextBoolean();
 				if (bl2) {
@@ -353,10 +374,10 @@ public final class WilderWildClient implements ClientModInitializer {
 
     private static void receiveJellyStingPacket() {
         ClientPlayNetworking.registerGlobalReceiver(WilderWild.JELLY_STING_PACKET, (ctx, handler, byteBuf, responseSender) -> ctx.execute(() -> {
-			if (Minecraft.getInstance().level != null) {
+			if (ctx.level != null) {
 				LocalPlayer player = ctx.player;
 				if (player != null) {
-					Minecraft.getInstance().level.playSound(player, player.getX(), player.getY(), player.getZ(), RegisterSounds.ENTITY_JELLYFISH_STING, SoundSource.NEUTRAL, 1.0F, Minecraft.getInstance().level.random.nextFloat() * 0.2F + 0.9F);
+					ctx.level.playSound(player, player.getX(), player.getY(), player.getZ(), RegisterSounds.ENTITY_JELLYFISH_STING, SoundSource.NEUTRAL, 1.0F, ctx.level.random.nextFloat() * 0.2F + 0.9F);
 				}
 			}
 		}));

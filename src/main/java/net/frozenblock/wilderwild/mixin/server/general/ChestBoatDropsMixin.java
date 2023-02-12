@@ -1,3 +1,21 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.mixin.server.general;
 
 import net.frozenblock.wilderwild.misc.WilderEnumValues;
@@ -15,14 +33,14 @@ public final class ChestBoatDropsMixin {
     //CREDIT TO nyuppo/fabric-boat-example ON GITHUB
 
     @Inject(method = "getDropItem", at = @At("RETURN"), cancellable = true)
-    public void getModdedChestBoats(CallbackInfoReturnable<Item> ci) {
+    public void wilderWild$getModdedChestBoats(CallbackInfoReturnable<Item> info) {
 		var boat = ChestBoat.class.cast(this);
         if (boat.getVariant() == WilderEnumValues.BAOBAB) {
-            ci.setReturnValue(RegisterItems.BAOBAB_CHEST_BOAT_ITEM);
+            info.setReturnValue(RegisterItems.BAOBAB_CHEST_BOAT_ITEM);
         } else if (boat.getVariant() == WilderEnumValues.CYPRESS) {
-            ci.setReturnValue(RegisterItems.CYPRESS_CHEST_BOAT_ITEM);
+            info.setReturnValue(RegisterItems.CYPRESS_CHEST_BOAT_ITEM);
         } else if (boat.getVariant() == WilderEnumValues.PALM) {
-			ci.setReturnValue(RegisterItems.PALM_CHEST_BOAT_ITEM);
+			info.setReturnValue(RegisterItems.PALM_CHEST_BOAT_ITEM);
 		}
     }
 

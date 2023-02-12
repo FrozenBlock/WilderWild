@@ -1881,14 +1881,14 @@
 	],
     "subtitle": "subtitles.entity.warden.brap"
   },
-  "entity.warden.osmiooo_heartbeat": {
+  "entity.warden.stella_heartbeat": {
 	"sounds": [
-	  "wilderwild:mob/warden/osmiooo_heartbeat_1",
-	  "wilderwild:mob/warden/osmiooo_heartbeat_2",
-	  "wilderwild:mob/warden/osmiooo_heartbeat_3",
-	  "wilderwild:mob/warden/osmiooo_heartbeat_4"
+	  "wilderwild:mob/warden/stella_heartbeat_1",
+	  "wilderwild:mob/warden/stella_heartbeat_2",
+	  "wilderwild:mob/warden/stella_heartbeat_3",
+	  "wilderwild:mob/warden/stella_heartbeat_4"
 	],
-    "subtitle": "subtitles.entity.warden.osmiooo_heartbeat"
+    "subtitle": "subtitles.entity.warden.stella_heartbeat"
   },
   "entity.warden.dying": {
 	"sounds": [
@@ -1973,6 +1973,12 @@
 	  "wilderwild:item/bucket/empty_jellyfish3"
 	],
 	"subtitle": "subtitles.item.bucket.empty"
+  },
+  "item.coconut.throw": {
+    "sounds": [
+      "random/bow"
+    ],
+    "subtitle": "subtitles.item.coconut.throw"
   },
   "item.coconut.land": {
     "sounds": [

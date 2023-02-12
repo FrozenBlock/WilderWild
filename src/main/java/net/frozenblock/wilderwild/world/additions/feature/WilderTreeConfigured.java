@@ -1,3 +1,21 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.world.additions.feature;
 
 import java.util.OptionalInt;
@@ -5,6 +23,7 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.world.generation.foliage.PalmFoliagePlacer;
 import net.frozenblock.wilderwild.world.generation.foliage.ShortPalmFoliagePlacer;
+import net.frozenblock.wilderwild.world.generation.treedecorators.HeightBasedCobwebTrunkDecorator;
 import net.frozenblock.wilderwild.world.generation.treedecorators.HeightBasedVineTrunkDecorator;
 import net.frozenblock.wilderwild.world.generation.treedecorators.ShelfFungusTreeDecorator;
 import net.frozenblock.wilderwild.world.generation.trunk.FallenTrunkWithLogs;
@@ -36,18 +55,20 @@ public final class WilderTreeConfigured {
 		throw new UnsupportedOperationException("WilderTreeConfigured contains only static declarations.");
 	}
 
-    public static final ShelfFungusTreeDecorator SHELF_FUNGUS_007 = new ShelfFungusTreeDecorator(0.074F, 0.3F);
-    public static final ShelfFungusTreeDecorator SHELF_FUNGUS_006 = new ShelfFungusTreeDecorator(0.064F, 0.15F);
-    public static final ShelfFungusTreeDecorator SHELF_FUNGUS_006_ONLY_BROWN = new ShelfFungusTreeDecorator(0.064F, 0.0F);
-    public static final HeightBasedVineTrunkDecorator VINES_012_UNDER_76 = new HeightBasedVineTrunkDecorator(0.12F, 76, 0.25F);
-    public static final HeightBasedVineTrunkDecorator VINES_008_UNDER_82 = new HeightBasedVineTrunkDecorator(0.08F, 82, 0.25F);
-    public static final HeightBasedVineTrunkDecorator VINES_1_UNDER_260_03 = new HeightBasedVineTrunkDecorator(1F, 260, 0.3F);
-    public static final HeightBasedVineTrunkDecorator VINES_1_UNDER_260_05 = new HeightBasedVineTrunkDecorator(1F, 260, 0.5F);
-    public static final HeightBasedVineTrunkDecorator VINES_1_UNDER_260_075 = new HeightBasedVineTrunkDecorator(1F, 260, 0.75F);
-    public static final HeightBasedVineTrunkDecorator VINES_08_UNDER_260_075 = new HeightBasedVineTrunkDecorator(0.8F, 260, 0.75F);
-    public static final BeehiveDecorator NEW_BEES_0004 = new BeehiveDecorator(0.004F);
+	public static final ShelfFungusTreeDecorator SHELF_FUNGUS_007 = new ShelfFungusTreeDecorator(0.074F, 0.3F);
+	public static final ShelfFungusTreeDecorator SHELF_FUNGUS_006 = new ShelfFungusTreeDecorator(0.064F, 0.15F);
+	public static final ShelfFungusTreeDecorator SHELF_FUNGUS_006_ONLY_BROWN = new ShelfFungusTreeDecorator(0.064F, 0.0F);
+	public static final HeightBasedVineTrunkDecorator VINES_012_UNDER_76 = new HeightBasedVineTrunkDecorator(0.12F, 76, 0.25F);
+	public static final HeightBasedVineTrunkDecorator VINES_008_UNDER_82 = new HeightBasedVineTrunkDecorator(0.08F, 82, 0.25F);
+	public static final HeightBasedVineTrunkDecorator VINES_1_UNDER_260_03 = new HeightBasedVineTrunkDecorator(1F, 260, 0.3F);
+	public static final HeightBasedVineTrunkDecorator VINES_1_UNDER_260_05 = new HeightBasedVineTrunkDecorator(1F, 260, 0.5F);
+	public static final HeightBasedVineTrunkDecorator VINES_1_UNDER_260_075 = new HeightBasedVineTrunkDecorator(1F, 260, 0.75F);
+	public static final HeightBasedVineTrunkDecorator VINES_08_UNDER_260_075 = new HeightBasedVineTrunkDecorator(0.8F, 260, 0.75F);
+	public static final HeightBasedCobwebTrunkDecorator COBWEB_1_UNDER_260_025 = new HeightBasedCobwebTrunkDecorator(1F, 260, 0.17F);
+	public static final BeehiveDecorator NEW_BEES_0004 = new BeehiveDecorator(0.004F);
 	public static final BeehiveDecorator NEW_BEES_025 = new BeehiveDecorator(0.25F);
-    public static final BeehiveDecorator NEW_BEES = new BeehiveDecorator(1.0F);
+	public static final BeehiveDecorator NEW_BEES = new BeehiveDecorator(1.0F);
+
 	//BIRCH
 	public static final ResourceKey<ConfiguredFeature<?, ?>> BIRCH = key("birch");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> BIRCH_BEES_0004 = key("birch_bees_0004");
@@ -60,6 +81,8 @@ public final class WilderTreeConfigured {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SHORT_BIRCH = key("short_birch");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> DYING_SHORT_BIRCH = key("dying_short_birch");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SUPER_BIRCH_BEES = key("super_birch_bees");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> SUPER_BIRCH = key("super_birch");
+
 	//OAK
 	public static final ResourceKey<ConfiguredFeature<?, ?>> OAK = key("oak");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SHORT_OAK = key("short_oak");
@@ -73,11 +96,16 @@ public final class WilderTreeConfigured {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> FANCY_OAK_BEES_025 = key("fancy_oak_bees_025");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_OAK_TREE = key("fallen_oak_tree");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> FANCY_OAK_BEES = key("fancy_oak_bees");
+
+	//DARK OAK
 	public static final ResourceKey<ConfiguredFeature<?, ?>> DYING_DARK_OAK = key("dying_dark_oak");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TALL_DARK_OAK = key("tall_dark_oak");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> DYING_TALL_DARK_OAK = key("dying_tall_dark_oak");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> COBWEB_TALL_DARK_OAK = key("cobweb_tall_dark_oak");
+
 	//SWAMP TREE
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SWAMP_TREE = key("swamp_tree");
+
 	//SPRUCE
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SPRUCE = key("spruce");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SPRUCE_SHORT = key("spruce_short");
@@ -87,9 +115,11 @@ public final class WilderTreeConfigured {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> MEGA_FUNGUS_PINE = key("mega_fungus_pine");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> DYING_MEGA_FUNGUS_PINE = key("dying_mega_fungus_pine");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_SPRUCE_TREE = key("fallen_spruce_tree");
+
 	//BAOBAB
 	public static final ResourceKey<ConfiguredFeature<?, ?>> BAOBAB = key("baobab");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> BAOBAB_TALL = key("baobab_tall");
+
 	//CYPRESS
 	public static final ResourceKey<ConfiguredFeature<?, ?>> CYPRESS = key("cypress");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_CYPRESS_TREE = key("fallen_cypress_tree");
@@ -100,14 +130,13 @@ public final class WilderTreeConfigured {
 
 	//BIG SHRUB
 	public static final ResourceKey<ConfiguredFeature<?, ?>> BIG_SHRUB = key("big_shrub");
+
 	//PALM
 	public static final ResourceKey<ConfiguredFeature<?, ?>> PALM = key("palm");
-
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TALL_PALM = key("tall_palm");
-
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SMALL_WINE_PALM = key("small_wine_palm");
-
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TALL_WINE_PALM = key("tall_wine_palm");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> JUNPIER = key("junpier");
 
 	public static ResourceKey<ConfiguredFeature<?, ?>> key(String path) {
 		return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(WilderSharedConstants.MOD_ID, path));
@@ -179,9 +208,9 @@ public final class WilderTreeConfigured {
 		return fallenTrunkBuilder(RegisterBlocks.HOLLOWED_CYPRESS_LOG, RegisterBlocks.CYPRESS_LEAVES, 3, 1, 2, 0.4F, 0.6F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines();
 	}
 
-	public static TreeConfiguration.TreeConfigurationBuilder new_tall_dark_oak() {
-		return darkOakBuilder(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_LEAVES, 7, 3, 2, 1).ignoreVines();
-	}
+    public static TreeConfiguration.TreeConfigurationBuilder new_tall_dark_oak() {
+        return darkOakBuilder(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_LEAVES, 8, 3, 4, 1).ignoreVines();
+    }
 
 	public static TreeConfiguration.TreeConfigurationBuilder fallen_spruce() {
 		return fallenTrunkBuilder(RegisterBlocks.HOLLOWED_SPRUCE_LOG, Blocks.SPRUCE_LEAVES, 5, 1, 2, 0.0F, 0.5F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines();

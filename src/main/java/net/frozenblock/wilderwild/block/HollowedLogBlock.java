@@ -1,3 +1,21 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -7,6 +25,10 @@ import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -21,6 +43,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -31,14 +55,55 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
     protected static final VoxelShape X_SHAPE = Shapes.or(Block.box(0, 0, 0, 16, 16, 3), Block.box(0, 13, 0, 16, 16, 16), Block.box(0, 0, 13, 16, 16, 16), Block.box(0, 0, 0, 16, 3, 16));
     protected static final VoxelShape Y_SHAPE = Shapes.or(Block.box(0, 0, 0, 16, 16, 3), Block.box(0, 0, 0, 3, 16, 16), Block.box(0, 0, 13, 16, 16, 16), Block.box(13, 0, 0, 16, 16, 16));
     protected static final VoxelShape Z_SHAPE = Shapes.or(Block.box(13, 0, 0, 16, 16, 16), Block.box(0, 0, 0, 3, 16, 16), Block.box(0, 13, 0, 16, 16, 16), Block.box(0, 0, 0, 16, 3, 16));
-    protected static final VoxelShape RAYCAST_SHAPE = Shapes.block();
+	protected static final VoxelShape X_COLLISION_SHAPE = Shapes.or(Block.box(0, 0, 0, 16, 16, 2.25), Block.box(0, 13.75, 0, 16, 16, 16), Block.box(0, 0, 13, 16, 16, 16), Block.box(0, 0, 0, 16, 2.25, 16));
+	protected static final VoxelShape Y_COLLISION_SHAPE = Shapes.or(Block.box(0, 0, 0, 16, 16, 2.25), Block.box(0, 0, 0, 2.25, 16, 16), Block.box(0, 0, 13.75, 16, 16, 16), Block.box(13.75, 0, 0, 16, 16, 16));
+	protected static final VoxelShape Z_COLLISION_SHAPE = Shapes.or(Block.box(13.75, 0, 0, 16, 16, 16), Block.box(0, 0, 0, 2.25, 16, 16), Block.box(0, 13.75, 0, 16, 16, 16), Block.box(0, 0, 0, 16, 2.25, 16));
+	protected static final VoxelShape RAYCAST_SHAPE = Shapes.block();
 
     public HollowedLogBlock(Properties settings) {
         super(settings);
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false).setValue(AXIS, Direction.Axis.Y));
     }
 
-    @Override
+	private static final float hollowedAmount = 0.71875F;
+	private static final float edgeAmount = 0.140625F;
+	private static final float crawlHeight = edgeAmount + hollowedAmount;
+
+	@Override
+	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+		Direction direction = player.getMotionDirection();
+		Direction hitDirection = hit.getDirection();
+		Direction.Axis axis = state.getValue(BlockStateProperties.AXIS);
+		double crawlingHeight = player.getDimensions(Pose.SWIMMING).height;
+		double playerY = player.getY();
+
+		if (player.isShiftKeyDown()
+				&& player.getPose() != Pose.SWIMMING
+				&& !player.isPassenger()
+				&& direction.getAxis() != Direction.Axis.Y
+				&& direction.getAxis() == axis
+				&& player.getBbWidth() <= hollowedAmount
+				&& player.getBbHeight() >= hollowedAmount
+				&& player.blockPosition().relative(direction).equals(pos)
+				&& player.position().distanceTo(new Vec3(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5)) <= (0.5 + player.getBbWidth())
+				&& playerY >= pos.getY()
+				&& playerY + crawlingHeight <= pos.getY() + crawlHeight
+				&& hitDirection.getAxis() == axis
+				&& hitDirection.getOpposite() == direction
+		) {
+			player.setPos(
+					pos.getX() + 0.5 - direction.getStepX() * 0.475,
+					pos.getY() + 0.140625,
+					pos.getZ() + 0.5 - direction.getStepZ() * 0.475
+			);
+			player.setPose(Pose.SWIMMING);
+			player.setSwimming(true);
+			return InteractionResult.SUCCESS;
+		}
+		return InteractionResult.PASS;
+	}
+
+	@Override
     public VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return switch (state.getValue(AXIS)) {
             default -> X_SHAPE;
@@ -46,6 +111,15 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
             case Z -> Z_SHAPE;
         };
     }
+
+	@Override
+	public VoxelShape getCollisionShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+		return switch (state.getValue(AXIS)) {
+			default -> X_COLLISION_SHAPE;
+			case Y -> Y_COLLISION_SHAPE;
+			case Z -> Z_COLLISION_SHAPE;
+		};
+	}
 
 	@Override
     public VoxelShape getInteractionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {

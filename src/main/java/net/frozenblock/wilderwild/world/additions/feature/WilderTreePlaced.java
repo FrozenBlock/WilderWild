@@ -1,3 +1,21 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.world.additions.feature;
 
 import java.util.List;
@@ -33,6 +51,7 @@ public final class WilderTreePlaced {
     public static final ResourceKey<PlacedFeature> DYING_SUPER_BIRCH = key("dying_super_birch");
     public static final ResourceKey<PlacedFeature> SUPER_BIRCH_BEES_0004 = key("super_birch_bees_0004");
     public static final ResourceKey<PlacedFeature> SUPER_BIRCH_BEES = key("super_birch_bees");
+	public static final ResourceKey<PlacedFeature> SUPER_BIRCH = key("super_birch");
     public static final ResourceKey<PlacedFeature> FALLEN_BIRCH_CHECKED = key("fallen_birch_checked");
 
     //OAK
@@ -53,6 +72,7 @@ public final class WilderTreePlaced {
     public static final ResourceKey<PlacedFeature> TALL_DARK_OAK_CHECKED = key("tall_dark_oak_checked");
     public static final ResourceKey<PlacedFeature> DYING_TALL_DARK_OAK_CHECKED = key("dying_tall_dark_oak_checked");
     public static final ResourceKey<PlacedFeature> DYING_DARK_OAK_CHECKED = key("dying_dark_oak_checked");
+	public static final ResourceKey<PlacedFeature> COBWEB_TALL_DARK_OAK_CHECKED = key("cobweb_tall_dark_oak_checked");
 
     //SWAMP TREE
     public static final ResourceKey<PlacedFeature> SWAMP_TREE_CHECKED = key("swamp_tree_checked");
@@ -90,8 +110,14 @@ public final class WilderTreePlaced {
 	public static final ResourceKey<PlacedFeature> TALL_PALM_CHECKED = key("tall_palm_checked");
 	public static final ResourceKey<PlacedFeature> TALL_WINE_PALM_CHECKED = key("tall_wine_palm_checked");
 	public static final ResourceKey<PlacedFeature> SMALL_WINE_PALM_CHECKED = key("small_wine_palm_checked");
+	public static final ResourceKey<PlacedFeature> PALM_CHECKED_DIRT = key("palm_checked_dirt");
+	public static final ResourceKey<PlacedFeature> TALL_PALM_CHECKED_DIRT = key("tall_palm_checked_dirt");
+	public static final ResourceKey<PlacedFeature> TALL_WINE_PALM_CHECKED_DIRT = key("tall_wine_palm_checked_dirt");
+	public static final ResourceKey<PlacedFeature> SMALL_WINE_PALM_CHECKED_DIRT = key("small_wine_palm_checked_dirt");
 
 	public static ResourceKey<PlacedFeature> key(String path) {
 		return ResourceKey.create(Registries.PLACED_FEATURE, WilderSharedConstants.id(path));
 	}
+
+
 }

@@ -1,3 +1,21 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.entity;
 
 import com.mojang.serialization.Dynamic;
@@ -7,8 +25,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import net.frozenblock.lib.entity.api.NoFlopAbstractFish;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.wilderwild.entity.ai.JellyfishAi;
-import net.frozenblock.wilderwild.misc.JellyfishVariant;
+import net.frozenblock.wilderwild.entity.ai.jellyfish.JellyfishAi;
+import net.frozenblock.wilderwild.entity.variant.JellyfishVariant;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
@@ -23,6 +41,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -77,9 +96,14 @@ public class Jellyfish extends NoFlopAbstractFish {
     public float xRot5;
     public float xRot6;
 
+	public boolean vanishing;
+	public int ticksSinceSpawn;
+
 	private static final float MAX_TARGET_DISTANCE = 20F;
 
 	private static final EntityDataAccessor<JellyfishVariant> VARIANT = SynchedEntityData.defineId(Jellyfish.class, JellyfishVariant.SERIALIZER);
+	private static final EntityDataAccessor<Float> SCALE = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Float> PREV_SCALE = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
 
 	public static final ArrayList<JellyfishVariant> COLORED_VARIANTS = new ArrayList<>(WilderRegistry.JELLYFISH_VARIANT.stream()
 			.filter(JellyfishVariant::isNormal)
@@ -94,12 +118,16 @@ public class Jellyfish extends NoFlopAbstractFish {
     public Jellyfish(EntityType<? extends Jellyfish> entityType, Level level) {
         super(entityType, level);
 		this.getNavigation().setCanFloat(false);
+		this.setPrevScale(1F);
+		this.setJellyScale(1F);
     }
 
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
         Holder<Biome> biome = level.getBiome(this.blockPosition());
+		this.setPrevScale(1F);
+		this.setJellyScale(1F);
 		this.setVariant(JellyfishVariant.PINK);
         if (biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)) {
             this.setVariant(PEARLESCENT_VARIANTS.get(AdvancedMath.random().nextInt(PEARLESCENT_VARIANTS.size())));
@@ -228,6 +256,8 @@ public class Jellyfish extends NoFlopAbstractFish {
         this.xRot2 = this.xRot1;
         this.xRot1 = this.xBodyRot;
 
+		++this.ticksSinceSpawn;
+
         if (this.isInWaterOrBubble()) {
 			this.heal(0.02F);
             Vec3 vec3 = this.getDeltaMovement();
@@ -248,6 +278,17 @@ public class Jellyfish extends NoFlopAbstractFish {
 			this.moveToAccurate(this.getTarget(), 2);
 		}
 
+		float prevScale = this.getJellyScale();
+		this.setPrevScale(prevScale);
+		if (this.vanishing) {
+			if (prevScale <= 0F) {
+				this.discard();
+				//TODO: Hide sound
+				this.playSound(RegisterSounds.PARTICLE_MESOGLEA_DRIP_LAND, 0.8F, 0.9F + level.random.nextFloat() * 0.2F);
+			} else {
+				this.setJellyScale(this.getJellyScale() - 0.25F);
+			}
+		}
     }
 
 	@Override
@@ -312,10 +353,20 @@ public class Jellyfish extends NoFlopAbstractFish {
         super.customServerAiStep();
     }
 
-    /*@Override
-    protected SoundEvent getFlopSound() {
-        return RegisterSounds.ENTITY_JELLYFISH_FLOP;
-    }*/
+	public boolean shouldHide() {
+		Player player = this.level.getNearestPlayer(this, 24);
+		if (player == null) {
+			return this.ticksSinceSpawn > 200
+					&& !this.requiresCustomPersistence()
+					&& !this.isPersistenceRequired()
+					&& !this.hasCustomName()
+					&& !this.isLeashed()
+					&& this.getPassengers().isEmpty()
+					&& this.getTarget() == null
+					&& this.random.nextInt(0, 50) <= 2;
+		}
+		return false;
+	}
 
     @Override
     public SoundEvent getPickupSound() {
@@ -343,10 +394,10 @@ public class Jellyfish extends NoFlopAbstractFish {
 
     @Override
     protected void dropFromLootTable(@NotNull DamageSource damageSource, boolean bl) {
-        ResourceLocation resourceLocation = this.getJellyLootTable();
-        LootTable lootTable = Objects.requireNonNull(this.level.getServer()).getLootTables().get(resourceLocation);
-        LootContext.Builder builder = this.createLootContext(bl, damageSource);
-        lootTable.getRandomItems(builder.create(LootContextParamSets.ENTITY), this::spawnAtLocation);
+		ResourceLocation resourceLocation = this.getJellyLootTable();
+		LootTable lootTable = Objects.requireNonNull(this.level.getServer()).getLootTables().get(resourceLocation);
+		LootContext.Builder builder = this.createLootContext(bl, damageSource);
+		lootTable.getRandomItems(builder.create(LootContextParamSets.ENTITY), this::spawnAtLocation);
     }
 
     @Override
@@ -372,12 +423,15 @@ public class Jellyfish extends NoFlopAbstractFish {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(VARIANT, JellyfishVariant.PINK);
+		this.entityData.define(SCALE, 1F);
+		this.entityData.define(PREV_SCALE, 1F);
     }
 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putString("variant", Objects.requireNonNull(WilderRegistry.JELLYFISH_VARIANT.getKey(this.getVariant())).toString());
+		compound.putInt("ticksSinceSpawn", this.ticksSinceSpawn);
     }
 
     @Override
@@ -387,7 +441,24 @@ public class Jellyfish extends NoFlopAbstractFish {
         if (variant != null) {
             this.setVariant(variant);
         }
+		this.ticksSinceSpawn = compound.getInt("ticksSinceSpawn");
     }
+
+	public float getJellyScale() {
+		return this.entityData.get(SCALE);
+	}
+
+	public void setJellyScale(float value) {
+		this.entityData.set(SCALE, value);
+	}
+
+	public float getPrevScale() {
+		return this.entityData.get(PREV_SCALE);
+	}
+
+	public void setPrevScale(float value) {
+		this.entityData.set(PREV_SCALE, value);
+	}
 
 	public static void spawnFromChest(Level level, BlockState state, BlockPos pos) {
 		Jellyfish jellyfish = new Jellyfish(RegisterEntities.JELLYFISH, level);
@@ -401,6 +472,8 @@ public class Jellyfish extends NoFlopAbstractFish {
 		}
 		jellyfish.setPos(pos.getX() + 0.5 + additionalX, pos.getY() + 0.75, pos.getZ() + 0.5 + additionalZ);
 		jellyfish.setDeltaMovement(0, 0.1 + level.random.nextDouble() * 0.07, 0);
+		jellyfish.setPrevScale(0F);
+		jellyfish.setJellyScale(1F);
 		level.addFreshEntity(jellyfish);
 	}
 

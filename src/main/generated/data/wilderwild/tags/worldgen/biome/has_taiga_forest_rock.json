@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:taiga",
+    "minecraft:snowy_taiga",
+    {
+      "id": "wilderwild:birch_taiga",
+      "required": false
+    }
+  ]
+}

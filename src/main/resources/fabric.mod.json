@@ -39,9 +39,6 @@
     "fabric-datagen": [
       "net.frozenblock.wilderwild.misc.WilderWildDataGenerator"
     ],
-	"frozenlib:main": [
-	  "net.frozenblock.wilderwild.FrozenLibIntegration"
-	],
 	"frozenlib:surfacerules": [
 	  "net.frozenblock.wilderwild.registry.RegisterSurfaceRules"
 	],
@@ -64,7 +61,7 @@
 	"nbtcrafting": ">=2.2.3",
 	"fabricloader": ">=0.14.12",
 	"fabric-api": ">=0.73.0",
-	"minecraft": "1.19.3",
+	"minecraft": ">=${minecraft_version}",
 	"java": ">=17"
   },
   "breaks": {

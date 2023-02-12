@@ -1,3 +1,21 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.mixin.server.general;
 
 import java.util.ArrayList;
@@ -23,8 +41,8 @@ public class BoatTypeMixin {
 
     @SuppressWarnings("InvokerTarget")
     @Invoker("<init>")
-    private static Boat.Type newType(String internalName, int internalId, Block baseBlock, String name) {
-		throw new AssertionError("Mixin injection failed - WilderWild BoatTypeMixin.");
+    private static Boat.Type wilderWild$newType(String internalName, int internalId, Block baseBlock, String name) {
+		throw new AssertionError("Mixin injection failed - Wilder Wild BoatTypeMixin.");
     }
 
     @SuppressWarnings("ShadowTarget")
@@ -37,19 +55,19 @@ public class BoatTypeMixin {
             opcode = Opcodes.PUTSTATIC,
             target = "Lnet/minecraft/world/entity/vehicle/Boat$Type;$VALUES:[Lnet/minecraft/world/entity/vehicle/Boat$Type;",
             shift = At.Shift.AFTER))
-    private static void addCustomBoatType(CallbackInfo ci) {
+    private static void wilderWild$addCustomBoatType(CallbackInfo info) {
         var types = new ArrayList<>(Arrays.asList($VALUES));
         var last = types.get(types.size() - 1);
 
-        var baobab = newType("WILDERWILDBAOBAB", last.ordinal() + 1, RegisterBlocks.BAOBAB_PLANKS, "wilderwildbaobab");
+        var baobab = wilderWild$newType("WILDERWILDBAOBAB", last.ordinal() + 1, RegisterBlocks.BAOBAB_PLANKS, "wilderwildbaobab");
         WilderEnumValues.BAOBAB = baobab;
         types.add(baobab);
 
-        var cypress = newType("WILDERWILDCYPRESS", last.ordinal() + 2, RegisterBlocks.CYPRESS_PLANKS, "wilderwildcypress");
+        var cypress = wilderWild$newType("WILDERWILDCYPRESS", last.ordinal() + 2, RegisterBlocks.CYPRESS_PLANKS, "wilderwildcypress");
         WilderEnumValues.CYPRESS = cypress;
         types.add(cypress);
 
-		var palm = newType("WILDERWILDPALM", last.ordinal() + 3, RegisterBlocks.PALM_PLANKS, "wilderwildpalm");
+		var palm = wilderWild$newType("WILDERWILDPALM", last.ordinal() + 3, RegisterBlocks.PALM_PLANKS, "wilderwildpalm");
 		WilderEnumValues.PALM = palm;
 		types.add(palm);
 

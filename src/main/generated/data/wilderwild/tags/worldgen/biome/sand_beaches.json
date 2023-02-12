@@ -5,15 +5,19 @@
     "minecraft:flower_forest",
     "minecraft:forest",
     {
-      "id": "wilderwild:arid_savanna",
-      "required": false
-    },
-    {
       "id": "wilderwild:parched_forest",
       "required": false
     },
     {
       "id": "wilderwild:arid_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:old_growth_dark_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:semi_birch_forest",
       "required": false
     }
   ]

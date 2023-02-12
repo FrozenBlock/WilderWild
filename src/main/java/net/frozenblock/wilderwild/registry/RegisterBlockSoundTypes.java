@@ -1,6 +1,23 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.registry;
 
-import static net.frozenblock.wilderwild.registry.RegisterSounds.*;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.block.SoundType;
 
@@ -10,67 +27,67 @@ public final class RegisterBlockSoundTypes {
 	}
 
 	public static final SoundType ALGAE = new SoundType(1.0F, 1.0F,
-			BLOCK_ALGAE_BREAK,
-			BLOCK_ALGAE_STEP,
-			BLOCK_ALGAE_PLACE,
-			BLOCK_ALGAE_HIT,
-			BLOCK_ALGAE_FALL
+			RegisterSounds.BLOCK_ALGAE_BREAK,
+			RegisterSounds.BLOCK_ALGAE_STEP,
+			RegisterSounds.BLOCK_ALGAE_PLACE,
+			RegisterSounds.BLOCK_ALGAE_HIT,
+			RegisterSounds.BLOCK_ALGAE_FALL
 	);
 
     public static final SoundType BAOBAB_NUT = new SoundType(1.0F, 1.0F,
-            BLOCK_BAOBAB_NUT_BREAK,
-            BLOCK_BAOBAB_NUT_STEP,
-            BLOCK_BAOBAB_NUT_PLACE,
-            BLOCK_BAOBAB_NUT_HIT,
-            BLOCK_BAOBAB_NUT_FALL
+            RegisterSounds.BLOCK_BAOBAB_NUT_BREAK,
+            RegisterSounds.BLOCK_BAOBAB_NUT_STEP,
+            RegisterSounds.BLOCK_BAOBAB_NUT_PLACE,
+            RegisterSounds.BLOCK_BAOBAB_NUT_HIT,
+            RegisterSounds.BLOCK_BAOBAB_NUT_FALL
     );
 
 	public static final SoundType COCONUT = new SoundType(1.0F, 1.0F,
-			BLOCK_COCONUT_BREAK,
-			BLOCK_COCONUT_STEP,
-			BLOCK_COCONUT_PLACE,
-			BLOCK_COCONUT_HIT,
-			BLOCK_COCONUT_FALL
+			RegisterSounds.BLOCK_COCONUT_BREAK,
+			RegisterSounds.BLOCK_COCONUT_STEP,
+			RegisterSounds.BLOCK_COCONUT_PLACE,
+			RegisterSounds.BLOCK_COCONUT_HIT,
+			RegisterSounds.BLOCK_COCONUT_FALL
 	);
 
     public static final SoundType CLAY_BLOCK = new SoundType(1.0F, 1.0F,
-            BLOCK_CLAY_BREAK,
-            BLOCK_CLAY_STEP,
-            BLOCK_CLAY_PLACE,
-            BLOCK_CLAY_HIT,
-            BLOCK_CLAY_FALL
+            RegisterSounds.BLOCK_CLAY_BREAK,
+            RegisterSounds.BLOCK_CLAY_STEP,
+            RegisterSounds.BLOCK_CLAY_PLACE,
+            RegisterSounds.BLOCK_CLAY_HIT,
+            RegisterSounds.BLOCK_CLAY_FALL
     );
 
     public static final SoundType GRAVELSOUNDS = new SoundType(1.0F, 1.0F,
-            BLOCK_GRAVEL_BREAK,
-            BLOCK_GRAVEL_STEP,
-            BLOCK_GRAVEL_PLACE,
-            BLOCK_GRAVEL_HIT,
-            BLOCK_GRAVEL_FALL
+            RegisterSounds.BLOCK_GRAVEL_BREAK,
+            RegisterSounds.BLOCK_GRAVEL_STEP,
+            RegisterSounds.BLOCK_GRAVEL_PLACE,
+            RegisterSounds.BLOCK_GRAVEL_HIT,
+            RegisterSounds.BLOCK_GRAVEL_FALL
     );
 
     public static final SoundType OSSEOUS_SCULK = new SoundType(1.0F, 1.0F,
-            BLOCK_OSSEOUS_SCULK_BREAK,
-            BLOCK_OSSEOUS_SCULK_STEP,
-            BLOCK_OSSEOUS_SCULK_PLACE,
-            BLOCK_OSSEOUS_SCULK_HIT,
-            BLOCK_OSSEOUS_SCULK_FALL
+            RegisterSounds.BLOCK_OSSEOUS_SCULK_BREAK,
+            RegisterSounds.BLOCK_OSSEOUS_SCULK_STEP,
+            RegisterSounds.BLOCK_OSSEOUS_SCULK_PLACE,
+            RegisterSounds.BLOCK_OSSEOUS_SCULK_HIT,
+            RegisterSounds.BLOCK_OSSEOUS_SCULK_FALL
     );
 
     public static final SoundType NEMATOCYST = new SoundType(1.0F, 1.0F,
-            BLOCK_NEMATOCYST_BREAK,
-            BLOCK_NEMATOCYST_STEP,
-            BLOCK_NEMATOCYST_PLACE,
-            BLOCK_NEMATOCYST_HIT,
-            BLOCK_NEMATOCYST_FALL
+            RegisterSounds.BLOCK_NEMATOCYST_BREAK,
+            RegisterSounds.BLOCK_NEMATOCYST_STEP,
+            RegisterSounds.BLOCK_NEMATOCYST_PLACE,
+            RegisterSounds.BLOCK_NEMATOCYST_HIT,
+            RegisterSounds.BLOCK_NEMATOCYST_FALL
     );
 
     public static final SoundType NULL_BLOCK = new SoundType(1.0F, 1.0F,
-            BLOCK_NULL_BLOCK_BREAK,
-            BLOCK_NULL_BLOCK_STEP,
-            BLOCK_NULL_BLOCK_PLACE,
-            BLOCK_NULL_BLOCK_HIT,
-            BLOCK_NULL_BLOCK_FALL
+            RegisterSounds.BLOCK_NULL_BLOCK_BREAK,
+            RegisterSounds.BLOCK_NULL_BLOCK_STEP,
+            RegisterSounds.BLOCK_NULL_BLOCK_PLACE,
+            RegisterSounds.BLOCK_NULL_BLOCK_HIT,
+            RegisterSounds.BLOCK_NULL_BLOCK_FALL
     );
 
     public static final SoundType HANGING_TENDRIL = new SoundType(1.0F, 1.25F,
@@ -82,19 +99,19 @@ public final class RegisterBlockSoundTypes {
     );
 
     public static final SoundType HOLLOWED_LOG = new SoundType(1.0F, 1.0F,
-            BLOCK_HOLLOWED_LOG_BREAK,
-            BLOCK_HOLLOWED_LOG_STEP,
-            BLOCK_HOLLOWED_LOG_PLACE,
-            BLOCK_HOLLOWED_LOG_HIT,
-            BLOCK_HOLLOWED_LOG_FALL
+            RegisterSounds.BLOCK_HOLLOWED_LOG_BREAK,
+            RegisterSounds.BLOCK_HOLLOWED_LOG_STEP,
+            RegisterSounds.BLOCK_HOLLOWED_LOG_PLACE,
+            RegisterSounds.BLOCK_HOLLOWED_LOG_HIT,
+            RegisterSounds.BLOCK_HOLLOWED_LOG_FALL
     );
 
 	public static final SoundType HOLLOWED_STEM = new SoundType(1.0F, 1.0F,
-			BLOCK_HOLLOWED_STEM_BREAK,
-			BLOCK_HOLLOWED_STEM_STEP,
-			BLOCK_HOLLOWED_STEM_PLACE,
-			BLOCK_HOLLOWED_STEM_HIT,
-			BLOCK_HOLLOWED_STEM_FALL
+			RegisterSounds.BLOCK_HOLLOWED_STEM_BREAK,
+			RegisterSounds.BLOCK_HOLLOWED_STEM_STEP,
+			RegisterSounds.BLOCK_HOLLOWED_STEM_PLACE,
+			RegisterSounds.BLOCK_HOLLOWED_STEM_HIT,
+			RegisterSounds.BLOCK_HOLLOWED_STEM_FALL
 	);
 
     public static final SoundType ECHO_GLASS = new SoundType(1.0F, 1.25F,
@@ -106,59 +123,59 @@ public final class RegisterBlockSoundTypes {
     );
 
     public static final SoundType MESOGLEA = new SoundType(1.0F, 1.0F,
-            BLOCK_MESOGLEA_BREAK,
-            BLOCK_MESOGLEA_STEP,
-            BLOCK_MESOGLEA_PLACE,
-            BLOCK_MESOGLEA_HIT,
-            BLOCK_MESOGLEA_FALL
+            RegisterSounds.BLOCK_MESOGLEA_BREAK,
+            RegisterSounds.BLOCK_MESOGLEA_STEP,
+            RegisterSounds.BLOCK_MESOGLEA_PLACE,
+            RegisterSounds.BLOCK_MESOGLEA_HIT,
+            RegisterSounds.BLOCK_MESOGLEA_FALL
     );
 
     public static final SoundType MUSHROOM = new SoundType(1.0F, 1.0F,
-            BLOCK_MUSHROOM_BREAK,
-            BLOCK_MUSHROOM_STEP,
-            BLOCK_MUSHROOM_PLACE,
-            BLOCK_MUSHROOM_HIT,
-            BLOCK_MUSHROOM_FALL
+            RegisterSounds.BLOCK_MUSHROOM_BREAK,
+            RegisterSounds.BLOCK_MUSHROOM_STEP,
+            RegisterSounds.BLOCK_MUSHROOM_PLACE,
+            RegisterSounds.BLOCK_MUSHROOM_HIT,
+            RegisterSounds.BLOCK_MUSHROOM_FALL
     );
 
     public static final SoundType MUSHROOM_BLOCK = new SoundType(1.0F, 1.0F,
-            BLOCK_MUSHROOM_BLOCK_BREAK,
-            BLOCK_MUSHROOM_BLOCK_STEP,
-            BLOCK_MUSHROOM_BLOCK_PLACE,
-            BLOCK_MUSHROOM_BLOCK_HIT,
-            BLOCK_MUSHROOM_BLOCK_FALL
+            RegisterSounds.BLOCK_MUSHROOM_BLOCK_BREAK,
+            RegisterSounds.BLOCK_MUSHROOM_BLOCK_STEP,
+            RegisterSounds.BLOCK_MUSHROOM_BLOCK_PLACE,
+            RegisterSounds.BLOCK_MUSHROOM_BLOCK_HIT,
+            RegisterSounds.BLOCK_MUSHROOM_BLOCK_FALL
     );
 
     public static final SoundType ICE_BLOCKS = new SoundType(1.0F, 1.25F,
-            BLOCK_ICE_BREAK,
-            BLOCK_ICE_STEP,
-            BLOCK_ICE_PLACE,
-            BLOCK_ICE_HIT,
-            BLOCK_ICE_FALL
+            RegisterSounds.BLOCK_ICE_BREAK,
+            RegisterSounds.BLOCK_ICE_STEP,
+            RegisterSounds.BLOCK_ICE_PLACE,
+            RegisterSounds.BLOCK_ICE_HIT,
+            RegisterSounds.BLOCK_ICE_FALL
     );
 
     public static final SoundType LEAVES = new SoundType(1.0F, 1.0F,
-            BLOCK_LEAVES_BREAK,
-            BLOCK_LEAVES_STEP,
-            BLOCK_LEAVES_PLACE,
-            BLOCK_LEAVES_HIT,
-            BLOCK_LEAVES_FALL
+            RegisterSounds.BLOCK_LEAVES_BREAK,
+            RegisterSounds.BLOCK_LEAVES_STEP,
+            RegisterSounds.BLOCK_LEAVES_PLACE,
+            RegisterSounds.BLOCK_LEAVES_HIT,
+            RegisterSounds.BLOCK_LEAVES_FALL
     );
 
     public static final SoundType FLOWER = new SoundType(1.0F, 1.0F,
-            BLOCK_FLOWER_BREAK,
-            BLOCK_FLOWER_STEP,
-            BLOCK_FLOWER_PLACE,
-            BLOCK_FLOWER_HIT,
-            BLOCK_FLOWER_FALL
+            RegisterSounds.BLOCK_FLOWER_BREAK,
+            RegisterSounds.BLOCK_FLOWER_STEP,
+            RegisterSounds.BLOCK_FLOWER_PLACE,
+            RegisterSounds.BLOCK_FLOWER_HIT,
+            RegisterSounds.BLOCK_FLOWER_FALL
     );
 
     public static final SoundType WEB = new SoundType(1.0F, 1.5F,
-            BLOCK_COBWEB_BREAK,
-            BLOCK_COBWEB_STEP,
-            BLOCK_COBWEB_PLACE,
-            BLOCK_COBWEB_HIT,
-            BLOCK_COBWEB_FALL
+            RegisterSounds.BLOCK_COBWEB_BREAK,
+            RegisterSounds.BLOCK_COBWEB_STEP,
+            RegisterSounds.BLOCK_COBWEB_PLACE,
+            RegisterSounds.BLOCK_COBWEB_HIT,
+            RegisterSounds.BLOCK_COBWEB_FALL
     );
 
     public static final SoundType LILYPAD = new SoundType(1.0F, 1.0F,
@@ -170,19 +187,19 @@ public final class RegisterBlockSoundTypes {
     );
 
     public static final SoundType SUGARCANE = new SoundType(1.0F, 1.0F,
-            BLOCK_SUGAR_CANE_BREAK,
-            BLOCK_SUGAR_CANE_STEP,
-            BLOCK_SUGAR_CANE_PLACE,
-            BLOCK_SUGAR_CANE_HIT,
-            BLOCK_SUGAR_CANE_FALL
+            RegisterSounds.BLOCK_SUGAR_CANE_BREAK,
+            RegisterSounds.BLOCK_SUGAR_CANE_STEP,
+            RegisterSounds.BLOCK_SUGAR_CANE_PLACE,
+            RegisterSounds.BLOCK_SUGAR_CANE_HIT,
+            RegisterSounds.BLOCK_SUGAR_CANE_FALL
     );
 
     public static final SoundType COARSEDIRT = new SoundType(0.8F, 1.0F,
-            BLOCK_COARSE_DIRT_BREAK,
-            BLOCK_COARSE_DIRT_STEP,
-            BLOCK_COARSE_DIRT_PLACE,
-            BLOCK_COARSE_DIRT_HIT,
-            BLOCK_COARSE_DIRT_FALL
+            RegisterSounds.BLOCK_COARSE_DIRT_BREAK,
+            RegisterSounds.BLOCK_COARSE_DIRT_STEP,
+            RegisterSounds.BLOCK_COARSE_DIRT_PLACE,
+            RegisterSounds.BLOCK_COARSE_DIRT_HIT,
+            RegisterSounds.BLOCK_COARSE_DIRT_FALL
     );
 
     public static final SoundType REINFORCEDDEEPSLATE = new SoundType(1.0F, 1.0F,
@@ -194,19 +211,19 @@ public final class RegisterBlockSoundTypes {
     );
 
 	public static final SoundType TUMBLEWEED_PLANT = new SoundType(1.0F, 1.0F,
-			BLOCK_TUMBLEWEED_PLANT_BREAK,
-			BLOCK_TUMBLEWEED_PLANT_STEP,
-			BLOCK_TUMBLEWEED_PLANT_PLACE,
-			BLOCK_TUMBLEWEED_PLANT_HIT,
-			BLOCK_TUMBLEWEED_PLANT_FALL
+			RegisterSounds.BLOCK_TUMBLEWEED_PLANT_BREAK,
+			RegisterSounds.BLOCK_TUMBLEWEED_PLANT_STEP,
+			RegisterSounds.BLOCK_TUMBLEWEED_PLANT_PLACE,
+			RegisterSounds.BLOCK_TUMBLEWEED_PLANT_HIT,
+			RegisterSounds.BLOCK_TUMBLEWEED_PLANT_FALL
 	);
 
 	public static final SoundType PALM_CROWN = new SoundType(1.0F, 1.0F,
-			BLOCK_PALM_CROWN_BREAK,
-			BLOCK_PALM_CROWN_STEP,
-			BLOCK_PALM_CROWN_PLACE,
-			BLOCK_PALM_CROWN_HIT,
-			BLOCK_PALM_CROWN_FALL
+			RegisterSounds.BLOCK_PALM_CROWN_BREAK,
+			RegisterSounds.BLOCK_PALM_CROWN_STEP,
+			RegisterSounds.BLOCK_PALM_CROWN_PLACE,
+			RegisterSounds.BLOCK_PALM_CROWN_HIT,
+			RegisterSounds.BLOCK_PALM_CROWN_FALL
 	);
 
     public static final SoundType FUNNY = new SoundType(1.0F, 1.0F,

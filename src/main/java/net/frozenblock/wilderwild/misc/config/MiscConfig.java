@@ -1,3 +1,21 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.misc.config;
 
 import me.shedaniel.autoconfig.ConfigData;
@@ -24,15 +42,14 @@ public final class MiscConfig implements ConfigData {
 	@ConfigEntry.Gui.CollapsibleObject
 	public BiomeMusicConfig biomeMusic = new BiomeMusicConfig();
 
-	protected static class BiomeAmbienceConfig {
+	public static class BiomeAmbienceConfig {
 		public boolean deepDarkAmbience = DefaultMiscConfig.BiomeAmbienceConfig.DEEP_DARK_AMBIENCE;
 		public boolean dripstoneCavesAmbience = DefaultMiscConfig.BiomeAmbienceConfig.DRIPSTONE_CAVES_AMBIENCE;
 		public boolean lushCavesAmbience = DefaultMiscConfig.BiomeAmbienceConfig.LUSH_CAVES_AMBIENCE;
 	}
 
-	protected static class BiomeMusicConfig {
-		public boolean birchForestMusic = DefaultMiscConfig.BiomeMusicConfig.BIRCH_FOREST_MUSIC;
-		public boolean flowerForestMusic = DefaultMiscConfig.BiomeMusicConfig.FLOWER_FOREST_MUSIC;
+	public static class BiomeMusicConfig {
+		public boolean wilderForestMusic = DefaultMiscConfig.BiomeMusicConfig.WILDER_FOREST_MUSIC;
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -76,24 +93,11 @@ public final class MiscConfig implements ConfigData {
 				deepDarkAmbience, dripstoneCavesAmbience, lushCavesAmbience
 		);
 
-		var birchForestMusic = entryBuilder.startBooleanToggle(text("birch_forest_music"), biomeMusic.birchForestMusic)
-				.setDefaultValue(DefaultMiscConfig.BiomeMusicConfig.BIRCH_FOREST_MUSIC)
-				.setSaveConsumer(newValue -> biomeMusic.birchForestMusic = newValue)
-				.setTooltip(tooltip("birch_forest_music"))
+		var wilderForestMusic = entryBuilder.startBooleanToggle(text("wilder_forest_music"), biomeMusic.wilderForestMusic)
+				.setDefaultValue(DefaultMiscConfig.BiomeMusicConfig.WILDER_FOREST_MUSIC)
+				.setSaveConsumer(newValue -> biomeMusic.wilderForestMusic = newValue)
+				.setTooltip(tooltip("wilder_forest_music"))
 				.requireRestart()
 				.build();
-
-		var flowerForestMusic = entryBuilder.startBooleanToggle(text("flower_forest_music"), biomeMusic.flowerForestMusic)
-				.setDefaultValue(DefaultMiscConfig.BiomeMusicConfig.FLOWER_FOREST_MUSIC)
-				.setSaveConsumer(newValue -> biomeMusic.flowerForestMusic = newValue)
-				.setTooltip(tooltip("flower_forest_music"))
-				.requireRestart()
-				.build();
-
-		var biomeMusicCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("biome_music"),
-				false,
-				tooltip("biome_music"),
-				birchForestMusic, flowerForestMusic
-		);
 	}
 }

@@ -1,3 +1,21 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.world.additions.feature;
 
 import java.util.List;
@@ -48,8 +66,11 @@ public final class WilderMiscPlaced {
 	public static final BlockPredicate ONLY_IN_WATER_PREDICATE = BlockPredicate.matchesBlocks(Blocks.WATER);
 	public static final ResourceKey<PlacedFeature> JELLYFISH_DEEPSLATE_POOL = key("jellyfish_deepslate_pool");
 	public static final ResourceKey<PlacedFeature> JELLYFISH_STONE_POOL = key("jellyfish_stone_pool");
-	public static final ResourceKey<PlacedFeature> MESOGLEA_PILLAR = key("blue_mesoglea_pillar");
+	public static final ResourceKey<PlacedFeature> BLUE_MESOGLEA_PILLAR = key("blue_mesoglea_pillar");
 	public static final ResourceKey<PlacedFeature> PURPLE_MESOGLEA_PILLAR = key("purple_mesoglea_pillar");
+	public static final ResourceKey<PlacedFeature> BLUE_MESOGLEA_PATH = key("blue_mesoglea_path");
+	public static final ResourceKey<PlacedFeature> PURPLE_MESOGLEA_PATH = key("purple_mesoglea_path");
+
 	// OASIS
 	public static final ResourceKey<PlacedFeature> SAND_POOL = key("sand_pool");
 	public static final ResourceKey<PlacedFeature> MESSY_SAND_POOL = key("messy_sand_pool");

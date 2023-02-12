@@ -1,3 +1,21 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.entity.render.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -53,15 +71,15 @@ public class DisplayLanternBlockEntityRenderer<T extends DisplayLanternBlockEnti
     }
 
 	@Override
-    public void render(T lantern, float tickDelta, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
-		Quaternionf cam = Minecraft.getInstance().gameRenderer.getMainCamera().rotation();
+    public void render(T lantern, float partialTick, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
+        Quaternionf cam = Minecraft.getInstance().gameRenderer.getMainCamera().rotation();
         Optional<ItemStack> stack = lantern.getItem();
         if (!lantern.invEmpty() && stack.isPresent()) {
             matrices.pushPose();
             double extraHeight = lantern.getBlockState().getValue(BlockStateProperties.HANGING) ? 0.25 : 0.125;
             matrices.translate(0.5, extraHeight, 0.5);
             matrices.scale(0.7F, 0.7F, 0.7F);
-            float n = (lantern.age + tickDelta) / 20;
+            float n = (lantern.age + partialTick) / 20;
             matrices.mulPose(Axis.YP.rotation(n));
             this.itemRenderer.renderStatic(stack.get(), ItemTransforms.TransformType.GROUND, light, OverlayTexture.NO_OVERLAY, matrices, vertexConsumers, 1);
             matrices.popPose();
@@ -71,7 +89,7 @@ public class DisplayLanternBlockEntityRenderer<T extends DisplayLanternBlockEnti
                 boolean nectar = entity.getCustomName().toLowerCase().contains("nectar");
                 int age = entity.age;
                 boolean flickers = entity.flickers;
-                double ageDelta = age + tickDelta;
+                double ageDelta = age + partialTick;
 
                 matrices.pushPose();
                 matrices.translate(entity.pos.x, extraHeight + Math.sin(ageDelta * 0.03) * 0.15, entity.pos.z);

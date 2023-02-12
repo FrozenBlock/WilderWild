@@ -17,6 +17,7 @@ public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint {
 		context.add(WilderSharedWorldgen.aridGrass());
 		context.add(WilderSharedWorldgen.aridRules());
 		context.add(WilderSharedWorldgen.oldGrowthSnowyTaigaRules());
+		context.add(WilderSharedWorldgen.oldGrowthDarkForestRules());
 		context.add(WilderSharedWorldgen.betaBeaches());
 		WilderSharedConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
 	}
