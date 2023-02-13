@@ -756,7 +756,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 		@Override
 		protected void generateTags() {
-			
+
 		}
 	}
 }
