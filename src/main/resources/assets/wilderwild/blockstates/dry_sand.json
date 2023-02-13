@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "crackness=0": {
+      "model": "wilderwild:block/dry_sand_0"
+    },
+    "crackness=1": {
+      "model": "wilderwild:block/dry_sand_1"
+    }
+  }
+}
