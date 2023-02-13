@@ -756,8 +756,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 		@Override
 		protected void generateTags() {
-			this.getOrCreateTagBuilder(WilderEntityTags.STAYS_IN_MESOGLEA)
-					.add(RegisterEntities.JELLYFISH);
+			
 		}
 	}
 }

@@ -79,6 +79,7 @@ import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -100,7 +101,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public boolean vanishing;
 	public int ticksSinceSpawn;
 
-	private static final float MAX_TARGET_DISTANCE = 20F;
+	private static final float MAX_TARGET_DISTANCE = 15F;
 
 	private static final EntityDataAccessor<JellyfishVariant> VARIANT = SynchedEntityData.defineId(Jellyfish.class, JellyfishVariant.SERIALIZER);
 	private static final EntityDataAccessor<Float> SCALE = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.FLOAT);
@@ -121,6 +122,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		this.getNavigation().setCanFloat(false);
 		this.setPrevScale(1F);
 		this.setJellyScale(1F);
+		this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, -1.0F);
     }
 
     @Nullable
@@ -249,6 +251,8 @@ public class Jellyfish extends NoFlopAbstractFish {
 
     @Override
     public void aiStep() {
+		float prevScale = this.getJellyScale();
+		this.setPrevScale(prevScale);
         super.aiStep();
         this.xRot6 = this.xRot5;
         this.xRot5 = this.xRot4;
@@ -276,11 +280,9 @@ public class Jellyfish extends NoFlopAbstractFish {
         LivingEntity target = this.getTarget();
         if (target != null) {
 			this.getNavigation().stop();
-			this.moveToAccurate(this.getTarget(), 2);
+			this.moveToAccurate(target, 2);
 		}
 
-		float prevScale = this.getJellyScale();
-		this.setPrevScale(prevScale);
 		if (this.vanishing) {
 			if (prevScale <= 0F) {
 				this.discard();
@@ -305,12 +307,12 @@ public class Jellyfish extends NoFlopAbstractFish {
                 if (this.targetingConditions.test(this, entity)) {
                     if (entity instanceof ServerPlayer player) {
                         if (player.hurt(DamageSource.mobAttack(this), 3)) {
-                            player.addEffect(new MobEffectInstance(MobEffects.POISON, 200, 0, false, false), this);
+                            player.addEffect(new MobEffectInstance(MobEffects.POISON, this.level.random.nextInt(100, 200), 0, false, false), this);
                             EasyPacket.sendJellySting(player);
                         }
                     } else if (entity instanceof Mob mob) {
                         if (mob.hurt(DamageSource.mobAttack(this), (float) (3))) {
-                            mob.addEffect(new MobEffectInstance(MobEffects.POISON, 200, 0), this);
+                            mob.addEffect(new MobEffectInstance(MobEffects.POISON, this.level.random.nextInt(100, 200), 0), this);
                             this.playSound(RegisterSounds.ENTITY_JELLYFISH_STING, 0.4F, this.random.nextFloat() * 0.2F + 0.9F);
                         }
                     }
@@ -327,9 +329,9 @@ public class Jellyfish extends NoFlopAbstractFish {
     @Contract("null->false")
     public boolean canTargetEntity(@Nullable Entity entity) {
         return entity instanceof LivingEntity livingEntity
-                && this.level == entity.level
-                && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(entity)
-                && !this.isAlliedTo(entity)
+                && this.level == livingEntity.level
+                && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)
+                && !this.isAlliedTo(livingEntity)
                 && livingEntity.getType() != EntityType.ARMOR_STAND
                 && livingEntity.getType() != RegisterEntities.JELLYFISH
                 && !livingEntity.isInvulnerable()
@@ -355,9 +357,8 @@ public class Jellyfish extends NoFlopAbstractFish {
     }
 
 	public boolean shouldHide() {
-		Player player = this.level.getNearestPlayer(this, 24);
-		if (player == null) {
-			return this.ticksSinceSpawn > 200
+		if (this.level.getNearestPlayer(this, 24) == null) {
+			return this.ticksSinceSpawn >= 150
 					&& !this.requiresCustomPersistence()
 					&& !this.isPersistenceRequired()
 					&& !this.hasCustomName()

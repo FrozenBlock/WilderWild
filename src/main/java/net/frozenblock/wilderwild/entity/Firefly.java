@@ -307,20 +307,24 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
     @Override
     public void travel(@NotNull Vec3 travelVector) {
         if (this.isEffectiveAi() || this.isControlledByLocalInstance()) {
-            if (this.isInWater()) {
-                this.moveRelative(0.01F, travelVector);
-                this.move(MoverType.SELF, this.getDeltaMovement());
-                this.setDeltaMovement(this.getDeltaMovement().scale(0.800000011920929));
-            } else if (this.isInLava()) {
-                this.moveRelative(0.01F, travelVector);
-                this.move(MoverType.SELF, this.getDeltaMovement());
-                this.setDeltaMovement(this.getDeltaMovement().scale(0.5));
-            } else {
-                this.moveRelative(this.getSpeed(), travelVector);
-                this.move(MoverType.SELF, this.getDeltaMovement());
-                this.setDeltaMovement(this.getDeltaMovement().scale(0.9100000262260437));
-            }
-        }
+			if (this.isAlive()) {
+				if (this.isInWater()) {
+					this.moveRelative(0.01F, travelVector);
+					this.move(MoverType.SELF, this.getDeltaMovement());
+					this.setDeltaMovement(this.getDeltaMovement().scale(0.800000011920929));
+				} else if (this.isInLava()) {
+					this.moveRelative(0.01F, travelVector);
+					this.move(MoverType.SELF, this.getDeltaMovement());
+					this.setDeltaMovement(this.getDeltaMovement().scale(0.5));
+				} else {
+					this.moveRelative(this.getSpeed(), travelVector);
+					this.move(MoverType.SELF, this.getDeltaMovement());
+					this.setDeltaMovement(this.getDeltaMovement().scale(0.9100000262260437));
+				}
+			} else {
+				super.travel(travelVector);
+			}
+		}
     }
 
     @Override
