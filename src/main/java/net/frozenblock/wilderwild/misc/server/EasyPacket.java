@@ -1,3 +1,21 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.misc.server;
 
 import io.netty.buffer.Unpooled;
@@ -28,7 +46,7 @@ public class EasyPacket {
             }
         }
 
-        public static void createControlledParticle(Level level, Vec3 pos, double xvel, double yvel, double zvel, int count, boolean isMilkweed, int radius) {
+        public static void createControlledParticle(Level level, Vec3 pos, double xvel, double yvel, double zvel, int count, boolean isMilkweed, int radius, double posRandomizer) {
             if (level.isClientSide)
                 throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK SPAWN ON SERVER NEXT TIME PLS");
             FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
@@ -40,6 +58,7 @@ public class EasyPacket {
             byteBuf.writeDouble(zvel * 1.5);
             byteBuf.writeVarInt(count);
             byteBuf.writeBoolean(isMilkweed);
+			byteBuf.writeDouble(posRandomizer);
             for (ServerPlayer player : PlayerLookup.around((ServerLevel) level, pos, radius)) {
                 ServerPlayNetworking.send(player, WilderWild.CONTROLLED_SEED_PACKET, byteBuf);
             }

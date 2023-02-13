@@ -1,3 +1,21 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.mixin.server.general;
 
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
@@ -21,13 +39,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public final class InstrumentItemMixin {
 
     @Inject(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemCooldowns;addCooldown(Lnet/minecraft/world/item/Item;I)V", shift = At.Shift.AFTER))
-    private void removeCooldown(Level level, Player player, InteractionHand interactionHand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
+    private void wilderWild$removeCooldown(Level level, Player player, InteractionHand interactionHand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> info) {
         player.getCooldowns().removeCooldown(InstrumentItem.class.cast(this));
     }
 
 
     @Redirect(method = "play", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playSound(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V"))
-    private static void playRestrictionSound(Level level, Player player, Entity entity, SoundEvent soundEvent, SoundSource soundSource, float f, float g) {
+    private static void wilderWild$playRestrictionSound(Level level, Player player, Entity entity, SoundEvent soundEvent, SoundSource soundSource, float f, float g) {
         if (!level.isClientSide) {
             FrozenSoundPackets.createMovingRestrictionSound(level, player, soundEvent, soundSource, f, g, WilderSharedConstants.id("instrument"));
         }

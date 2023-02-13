@@ -1,3 +1,21 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.mixin.server.general;
 
 import net.frozenblock.wilderwild.misc.ChestBubbleTicker;
@@ -29,19 +47,19 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 @Mixin(ChestBlockEntity.class)
 public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 
-	@Unique boolean canBubble = true;
+	@Unique boolean wilderWild$canBubble = true;
 
 	@Unique
-	private static BlockState playedSoundState;
+	private static BlockState wilderWild$playedSoundState;
 
 	@Inject(at = @At("HEAD"), method = "playSound")
-	private static void playSound(Level level, BlockPos pos, BlockState state, SoundEvent sound, CallbackInfo info) {
-		playedSoundState = level.getBlockState(pos);
+	private static void wilderWild$playSound(Level level, BlockPos pos, BlockState state, SoundEvent sound, CallbackInfo info) {
+		wilderWild$playedSoundState = level.getBlockState(pos);
 	}
 
 	@ModifyArgs(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playSound(Lnet/minecraft/world/entity/player/Player;DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V"), method = "playSound")
-	private static void playSound(Args args) {
-		if (playedSoundState != null && playedSoundState.hasProperty(BlockStateProperties.WATERLOGGED) && playedSoundState.getValue(BlockStateProperties.WATERLOGGED)) {
+	private static void wilderWild$playSound(Args args) {
+		if (wilderWild$playedSoundState != null && wilderWild$playedSoundState.hasProperty(BlockStateProperties.WATERLOGGED) && wilderWild$playedSoundState.getValue(BlockStateProperties.WATERLOGGED)) {
 			SoundEvent sound = args.get(4);
 			if (sound == SoundEvents.CHEST_OPEN) {
 				args.set(4, RegisterSounds.BLOCK_CHEST_OPEN_UNDERWATER);
@@ -53,15 +71,15 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 
 	@Unique
 	@Override
-	public void bubble(Level level, BlockPos pos, BlockState state) {
+	public void wilderWild$bubble(Level level, BlockPos pos, BlockState state) {
 		if (level != null) {
-			if (this.canBubble && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED)) {
+			if (this.wilderWild$canBubble && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED)) {
 				ChestBubbleTicker.createAndSpawn(RegisterEntities.CHEST_BUBBLER, level, pos);
-				this.canBubble = false;
-				ChestBlockEntity otherChest = getOtherEntity(level, pos, state);
+				this.wilderWild$canBubble = false;
+				ChestBlockEntity otherChest = wilderWild$getOtherEntity(level, pos, state);
 				if (otherChest != null) {
 					ChestBubbleTicker.createAndSpawn(RegisterEntities.CHEST_BUBBLER, level, otherChest.getBlockPos());
-					((ChestBlockEntityInterface) otherChest).setCanBubble(false);
+					((ChestBlockEntityInterface) otherChest).wilderWild$setCanBubble(false);
 				}
 			}
 		}
@@ -69,12 +87,12 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 
 	@Unique
 	@Override
-	public void bubbleBurst(BlockState state) {
+	public void wilderWild$bubbleBurst(BlockState state) {
 		ChestBlockEntity chest = ChestBlockEntity.class.cast(this);
 		Level level = chest.getLevel();
 		if (level instanceof ServerLevel server) {
 			BlockPos pos = chest.getBlockPos();
-			if (state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) && this.getCanBubble()) {
+			if (state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) && this.wilderWild$getCanBubble()) {
 				server.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, server.random.nextInt(18, 25), 0.21875F, 0, 0.21875F, 0.25D);
 			}
 		}
@@ -83,17 +101,17 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	@Inject(at = @At(value = "TAIL"), method = "load")
 	public void load(CompoundTag tag, CallbackInfo info) {
 		if (tag.contains("wilderwild_can_bubble")) {
-			this.canBubble = tag.getBoolean("wilderwild_can_bubble");
+			this.wilderWild$canBubble = tag.getBoolean("wilderwild_can_bubble");
 		}
 	}
 
 	@Inject(at = @At(value = "TAIL"), method = "saveAdditional")
 	public void saveAdditional(CompoundTag tag, CallbackInfo info) {
-		tag.putBoolean("wilderwild_can_bubble", this.canBubble);
+		tag.putBoolean("wilderwild_can_bubble", this.wilderWild$canBubble);
 	}
 
 	@Unique
-	private static ChestBlockEntity getOtherEntity(Level level, BlockPos pos, BlockState state) {
+	private static ChestBlockEntity wilderWild$getOtherEntity(Level level, BlockPos pos, BlockState state) {
 		ChestType chestType = state.getValue(ChestBlock.TYPE);
 		double x = pos.getX();
 		double y = pos.getY();
@@ -120,22 +138,22 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 
 	@Unique
 	@Override
-	public boolean getCanBubble() {
-		return this.canBubble;
+	public boolean wilderWild$getCanBubble() {
+		return this.wilderWild$canBubble;
 	}
 
 	@Unique
 	@Override
-	public void setCanBubble(boolean b) {
-		this.canBubble = b;
+	public void wilderWild$setCanBubble(boolean b) {
+		this.wilderWild$canBubble = b;
 	}
 
 	@Unique
 	@Override
-	public void syncBubble(ChestBlockEntity chest1, ChestBlockEntity chest2) {
-		if (!((ChestBlockEntityInterface) chest1).getCanBubble() || !((ChestBlockEntityInterface) chest2).getCanBubble()) {
-			((ChestBlockEntityInterface) chest1).setCanBubble(false);
-			((ChestBlockEntityInterface) chest2).setCanBubble(false);
+	public void wilderWild$syncBubble(ChestBlockEntity chest1, ChestBlockEntity chest2) {
+		if (!((ChestBlockEntityInterface) chest1).wilderWild$getCanBubble() || !((ChestBlockEntityInterface) chest2).wilderWild$getCanBubble()) {
+			((ChestBlockEntityInterface) chest1).wilderWild$setCanBubble(false);
+			((ChestBlockEntityInterface) chest2).wilderWild$setCanBubble(false);
 		}
 	}
 

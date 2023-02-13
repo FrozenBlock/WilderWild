@@ -1,3 +1,21 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.misc.mod_compat.scp;
 
 import net.frozenblock.lib.FrozenBools;
@@ -102,7 +120,7 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 			UniformInt ran2 = UniformInt.of(-1, 1);
 			UniformInt ran3 = UniformInt.of(-3, 3);
 			for (int o = 0; o < random.nextIntBetweenInclusive(10, 30); ++o) {
-				EasyPacket.EasySeedPacket.createControlledParticle(level, new Vec3(d + (double) ran1.sample(level.random) * 0.1D, e + (double) ran2.sample(level.random) * 0.1D, f + (double) ran3.sample(level.random) * 0.1D), velX, velY, velZ, 1, true, 64);
+				EasyPacket.EasySeedPacket.createControlledParticle(level, new Vec3(d + (double) ran1.sample(level.random) * 0.1D, e + (double) ran2.sample(level.random) * 0.1D, f + (double) ran3.sample(level.random) * 0.1D), velX, velY, velZ, 1, true, 64, 0.3);
 			}
 		});
 
@@ -130,7 +148,7 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 			UniformInt ran2 = UniformInt.of(-1, 1);
 			UniformInt ran3 = UniformInt.of(-3, 3);
 			for (int o = 0; o < random.nextIntBetweenInclusive(1, 10); ++o) {
-				EasyPacket.EasySeedPacket.createControlledParticle(level, new Vec3(d + (double) ran1.sample(level.random) * 0.1D, e + (double) ran2.sample(level.random) * 0.1D, f + (double) ran3.sample(level.random) * 0.1D), velX, velY, velZ, 1, false, 64);
+				EasyPacket.EasySeedPacket.createControlledParticle(level, new Vec3(d + (double) ran1.sample(level.random) * 0.1D, e + (double) ran2.sample(level.random) * 0.1D, f + (double) ran3.sample(level.random) * 0.1D), velX, velY, velZ, 1, false, 64, 0.3);
 			}
 		});
 

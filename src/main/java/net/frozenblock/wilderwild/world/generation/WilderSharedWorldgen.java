@@ -1,3 +1,21 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.world.generation;
 
 import java.util.ArrayList;
@@ -9,6 +27,7 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
 import static net.frozenblock.lib.worldgen.surface.FrozenSurfaceRules.*;
+import net.frozenblock.lib.worldgen.surface.FrozenSurfaceRules;
 import net.frozenblock.lib.worldgen.surface.impl.BiomeTagConditionSource;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
@@ -16,6 +35,7 @@ import net.frozenblock.wilderwild.world.generation.conditionsource.BetaBeachCond
 import net.frozenblock.wilderwild.world.generation.noise.WilderNoise;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Noises;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
@@ -36,8 +56,8 @@ public final class WilderSharedWorldgen {
     public static final class CypressWetlands {
         public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.COOL, Temperature.WARM);
         public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.NEUTRAL, Humidity.HUMID);
-        public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(-0.2F, 0.5F);
-        public static final Climate.Parameter EROSION = Climate.Parameter.span(0.50F, 1.0F);
+        public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(-0.200F, 0.500F);
+        public static final Climate.Parameter EROSION = Climate.Parameter.span(0.500F, 1.000F);
 		public static final Climate.Parameter DEPTH = Depth.SURFACE;
 		public static final List<Climate.Parameter> WEIRDNESS = new ArrayList<>() {{
 			add(Weirdness.MID_SLICE_NORMAL_ASCENDING);
@@ -48,29 +68,30 @@ public final class WilderSharedWorldgen {
 			add(Weirdness.MID_SLICE_VARIANT_ASCENDING);
 			add(Weirdness.MID_SLICE_VARIANT_DESCENDING);
 		}};
-        public static final float OFFSET = 0.0F;
+        public static final float OFFSET = 0.000F;
     }
 
     public static final class MixedForest {
-        public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.45F, -0.14F);
+        public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.450F, -0.140F);
         public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.050F, 0.150F);
     }
 
 	public static final class BirchTaiga {
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.200F, -0.100F);
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.100F, 0.300F);
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.100F, 0.325F);
 	}
 
 	public static final class BirchJungle {
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.175F, 0.225F);
-		public static final Climate.Parameter HUMIDITY = Humidity.FOUR;
+		public static final Climate.Parameter HUMIDITY_A = Humidity.FOUR;
+		public static final Climate.Parameter HUMIDITY_B = Climate.Parameter.span(0.250F, 0.350F);
 	}
 
 	public static final class FlowerField {
 		public static final Climate.Parameter TEMPERATURE_A = Climate.Parameter.span(-0.200F, -0.100F);
 		public static final Climate.Parameter HUMIDITY_A = Humidity.ONE;
 		public static final Climate.Parameter TEMPERATURE_B = Temperature.THREE;
-		public static final Climate.Parameter HUMIDITY_B = Climate.Parameter.span(-0.4F, -0.3F);
+		public static final Climate.Parameter HUMIDITY_B = Climate.Parameter.span(-0.400F, -0.300F);
 	}
 
 	public static final class AridSavanna {
@@ -93,23 +114,39 @@ public final class WilderSharedWorldgen {
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.250F, 0.650F);
 	}
 
+	public static final class OldGrowthDarkForest {
+		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.200F, 0.200F);
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.350F, 1.000F);
+	}
+
+	public static final class DarkBirchForest {
+		public static final Climate.Parameter TEMPERATURE = Temperature.THREE;
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.275F, 0.325F);
+	}
+
+	public static final class SemiBirchForest {
+		public static final Climate.Parameter TEMPERATURE_A = Temperature.THREE;
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.050F, 0.150F);
+		public static final Climate.Parameter TEMPERATURE_B = Climate.Parameter.span(-0.140F, -0.100F);
+	}
+
     public static final class JellyfishCaves {
         public static final Climate.Parameter TEMPERATURE = Temperature.FULL_RANGE;
         public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.DRY, Humidity.HUMID);
-        public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(-1.2F, -0.749F);
+        public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(-1.200F, -0.749F);
         public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_4, Erosion.EROSION_6);
 		public static final Climate.Parameter DEPTH = SEMI_DEEP_DEPTH;
 		public static final Climate.Parameter WEIRDNESS = Weirdness.FULL_RANGE;
         public static final List<Climate.Parameter> WEIRDNESS_LIST = List.of(WEIRDNESS);
-        public static final float OFFSET = 0.0F;
+        public static final float OFFSET = 0.000F;
     }
 
 	public static final class WarmRiver {
-		public static final Climate.Parameter WARM_RANGE = Climate.Parameter.span(0.55F, 1.0F);
-		public static final Climate.Parameter UNFROZEN_NOT_WARM_RANGE = Climate.Parameter.span(0.0F, 0.2F);
-		public static final Climate.Parameter HUMIDITY_TO_TWO = Climate.Parameter.span(-0.1F, 0.0F);
-		public static final Climate.Parameter HUMIDITY_TO_THREE = Climate.Parameter.span(0F, 0.1F);
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.1F, 0.1F);
+		public static final Climate.Parameter WARM_RANGE = Climate.Parameter.span(0.550F, 1.000F);
+		public static final Climate.Parameter UNFROZEN_NOT_WARM_RANGE = Climate.Parameter.span(0.000F, 0.200F);
+		public static final Climate.Parameter HUMIDITY_TO_TWO = Climate.Parameter.span(-0.100F, 0.000F);
+		public static final Climate.Parameter HUMIDITY_TO_THREE = Climate.Parameter.span(0.000F, 0.100F);
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.100F, 0.100F);
 		public static final Climate.Parameter WEIRDNESS = Weirdness.VALLEY;
 	}
 
@@ -124,18 +161,18 @@ public final class WilderSharedWorldgen {
 			add(Weirdness.VALLEY);
 			add(Weirdness.LOW_SLICE_VARIANT_ASCENDING);
 		}};
-		public static final float OFFSET = 0.0F;
+		public static final float OFFSET = 0.000F;
 	}
 
     public static final class Swamp {
-        public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Climate.Parameter.span(-0.2F, 0.1F), Humidity.WET);
+        public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Climate.Parameter.span(-0.200F, 0.100F), Humidity.WET);
         public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.COOL, Temperature.WARM);
 
 	}
 
 	public static final class MangroveSwamp {
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.NEUTRAL, Temperature.HOT);
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Climate.Parameter.span(0.05F, 0.1F), Humidity.HUMID);
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Climate.Parameter.span(0.050F, 0.100F), Humidity.HUMID);
 	}
 
     // SURFACE RULES
@@ -327,11 +364,11 @@ public final class WilderSharedWorldgen {
 								SurfaceRules.waterBlockCheck(-1, 0),
 								SurfaceRules.sequence(
 										SurfaceRules.ifTrue(
-												SurfaceRules.noiseCondition(Noises.SURFACE, 1.45D / 8.25D, Double.MAX_VALUE),
-												COARSE_DIRT
+												SurfaceRules.noiseCondition(Noises.SURFACE, 0.175, 0.2),
+												FrozenSurfaceRules.makeStateRule(Blocks.ROOTED_DIRT)
 										),
 										SurfaceRules.ifTrue(
-												SurfaceRules.noiseCondition(Noises.SURFACE, -0.55D / 8.25D, 0.035),
+												SurfaceRules.noiseCondition(Noises.SURFACE, -0.0667, 0.04),
 												PODZOL
 										)
 								)

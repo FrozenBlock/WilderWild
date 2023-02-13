@@ -16,6 +16,10 @@
     {
       "id": "wilderwild:old_growth_birch_taiga",
       "required": false
+    },
+    {
+      "id": "wilderwild:dark_birch_forest",
+      "required": false
     }
   ]
 }

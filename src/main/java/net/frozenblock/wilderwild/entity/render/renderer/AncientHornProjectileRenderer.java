@@ -1,3 +1,21 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.entity.render.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -16,6 +34,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class AncientHornProjectileRenderer<T extends AncientHornProjectile> extends EntityRenderer<T> {
@@ -28,10 +47,10 @@ public class AncientHornProjectileRenderer<T extends AncientHornProjectile> exte
     }
 
     @Override
-    public void render(T projectile, float yaw, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light) {
+    public void render(T projectile, float yaw, float partialTick, PoseStack matrices, MultiBufferSource vertexConsumers, int light) {
         matrices.pushPose();
-        matrices.mulPose(Vector3f.YP.rotationDegrees((projectile.yRotO + tickDelta * (projectile.getYRot() - projectile.yRotO)) - 90.0F));
-        matrices.mulPose(Vector3f.ZP.rotationDegrees((projectile.xRotO + tickDelta * (projectile.getXRot() - projectile.xRotO)) + 90.0F));
+        matrices.mulPose(Vector3f.YP.rotationDegrees((projectile.yRotO + partialTick * (projectile.getYRot() - projectile.yRotO)) - 90.0F));
+        matrices.mulPose(Vector3f.ZP.rotationDegrees((projectile.xRotO + partialTick * (projectile.getXRot() - projectile.xRotO)) + 90.0F));
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(FrozenRenderType.ENTITY_TRANSLUCENT_EMISSIVE_FIXED.apply(TEXTURE, false));
 
         float multiplier = projectile.getBoundingBoxMultiplier();
@@ -41,19 +60,19 @@ public class AncientHornProjectileRenderer<T extends AncientHornProjectile> exte
 
         matrices.scale(scale, scale, scale);
 
-        this.model.render(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, correctedAlpha, tickDelta, projectile);
+        this.model.render(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, correctedAlpha, partialTick, projectile);
 
         matrices.popPose();
-        super.render(projectile, yaw, tickDelta, matrices, vertexConsumers, light);
+        super.render(projectile, yaw, partialTick, matrices, vertexConsumers, light);
     }
 
     @Override
-    public ResourceLocation getTextureLocation(T entity) {
+    public ResourceLocation getTextureLocation(@NotNull T entity) {
         return TEXTURE;
     }
 
     @Override
-    protected int getBlockLightLevel(T entity, BlockPos blockPos) {
+    protected int getBlockLightLevel(@NotNull T entity, @NotNull BlockPos blockPos) {
         return 15;
     }
 }

@@ -1,3 +1,21 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.mixin.server.general;
 
 import java.util.function.Supplier;
@@ -43,34 +61,34 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 					Jellyfish.spawnFromChest(level, state, pos);
 				}
 			}
-			((ChestBlockEntityInterface) sourceChest).bubble(level, pos, state);
+			((ChestBlockEntityInterface) sourceChest).wilderWild$bubble(level, pos, state);
 		}
 	}
 
 	@Inject(at = @At(value = "RETURN"), method = "updateShape")
-	public void updateShape(BlockState blockStateUnneeded, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos currentPos, BlockPos neighborPos, CallbackInfoReturnable<BlockState> info) {
+	public void wilderWild$updateShape(BlockState blockStateUnneeded, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos currentPos, BlockPos neighborPos, CallbackInfoReturnable<BlockState> info) {
 		BlockState state = info.getReturnValue();
-		ChestBlockEntity otherChest = getOtherChest(level, currentPos, state);
+		ChestBlockEntity otherChest = wilderWild$getOtherChest(level, currentPos, state);
 		if (level.getBlockEntity(currentPos) instanceof ChestBlockEntity chest) {
 			if (otherChest != null) {
 				BlockState otherState = level.getBlockState(otherChest.getBlockPos());
 				boolean wasLogged = blockStateUnneeded.getValue(BlockStateProperties.WATERLOGGED);
 				if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
 					if (!otherState.getValue(BlockStateProperties.WATERLOGGED)) {
-						((ChestBlockEntityInterface) chest).setCanBubble(true);
-						((ChestBlockEntityInterface) otherChest).setCanBubble(true);
-					} else if (!((ChestBlockEntityInterface) otherChest).getCanBubble()) {
-						((ChestBlockEntityInterface) chest).setCanBubble(false);
+						((ChestBlockEntityInterface) chest).wilderWild$setCanBubble(true);
+						((ChestBlockEntityInterface) otherChest).wilderWild$setCanBubble(true);
+					} else if (!((ChestBlockEntityInterface) otherChest).wilderWild$getCanBubble()) {
+						((ChestBlockEntityInterface) chest).wilderWild$setCanBubble(false);
 					}
 				}
 			} else {
 				boolean wasLogged = blockStateUnneeded.getValue(BlockStateProperties.WATERLOGGED);
 				if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
-					((ChestBlockEntityInterface) chest).setCanBubble(true);
+					((ChestBlockEntityInterface) chest).wilderWild$setCanBubble(true);
 				}
 			}
 			if (otherChest != null && level.getBlockEntity(currentPos) instanceof ChestBlockEntity sourceChest) {
-				((ChestBlockEntityInterface) sourceChest).syncBubble(sourceChest, otherChest);
+				((ChestBlockEntityInterface) sourceChest).wilderWild$syncBubble(sourceChest, otherChest);
 			}
 		}
 	}
@@ -78,12 +96,12 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/Containers;dropContents(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/Container;)V", shift = At.Shift.BEFORE), method = "onRemove")
 	public void onRemove(BlockState state, @NotNull Level level, @NotNull BlockPos pos, BlockState newState, boolean isMoving, CallbackInfo info) {
 		if (level.getBlockEntity(pos) instanceof ChestBlockEntity chestBlockEntity) {
-			((ChestBlockEntityInterface)chestBlockEntity).bubbleBurst(state);
+			((ChestBlockEntityInterface)chestBlockEntity).wilderWild$bubbleBurst(state);
 		}
 	}
 
 	@Unique
-	private static ChestBlockEntity getOtherChest(LevelAccessor level, BlockPos pos, BlockState state) {
+	private static ChestBlockEntity wilderWild$getOtherChest(LevelAccessor level, BlockPos pos, BlockState state) {
 		ChestType chestType = state.getValue(ChestBlock.TYPE);
 		double x = pos.getX();
 		double y = pos.getY();

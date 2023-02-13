@@ -1,3 +1,21 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild;
 
 import com.mojang.datafixers.schemas.Schema;
@@ -39,11 +57,11 @@ import net.frozenblock.wilderwild.world.additions.gen.WilderWorldGen;
 import net.frozenblock.wilderwild.world.generation.conditionsource.BetaBeachConditionSource;
 import net.frozenblock.wilderwild.world.generation.features.AlgaeFeature;
 import net.frozenblock.wilderwild.world.generation.features.CattailFeature;
-import net.frozenblock.wilderwild.world.generation.features.LargeNematocystFeature;
+import net.frozenblock.wilderwild.world.generation.features.LargeMesogleaFeature;
 import net.frozenblock.wilderwild.world.generation.features.NematocystFeature;
 import net.frozenblock.wilderwild.world.generation.features.ShelfFungusFeature;
 import net.frozenblock.wilderwild.world.generation.features.SmallSpongeFeature;
-import net.frozenblock.wilderwild.world.generation.features.config.LargeNematocystConfig;
+import net.frozenblock.wilderwild.world.generation.features.config.LargeMesogleaConfig;
 import net.frozenblock.wilderwild.world.generation.features.config.ShelfFungusFeatureConfig;
 import net.frozenblock.wilderwild.world.generation.features.config.SmallSpongeFeatureConfig;
 import net.frozenblock.wilderwild.world.generation.foliage.PalmFoliagePlacer;
@@ -84,7 +102,7 @@ public final class WilderWild extends FrozenMobCategoryEntrypoint implements Mod
     public static final CattailFeature CATTAIL_FEATURE = new CattailFeature(ProbabilityFeatureConfiguration.CODEC);
     public static final AlgaeFeature ALGAE_FEATURE = new AlgaeFeature(ProbabilityFeatureConfiguration.CODEC);
     public static final NematocystFeature NEMATOCYST_FEATURE = new NematocystFeature(MultifaceGrowthConfiguration.CODEC);
-	public static final LargeNematocystFeature LARGE_MESOGLEA_FEATURE = new LargeNematocystFeature(LargeNematocystConfig.CODEC);
+	public static final LargeMesogleaFeature LARGE_MESOGLEA_FEATURE = new LargeMesogleaFeature(LargeMesogleaConfig.CODEC);
     public static final FoliagePlacerType<PalmFoliagePlacer> PALM_FOLIAGE_PLACER =  registerFoliage("palm_foliage_placer", PalmFoliagePlacer.CODEC);
 	public static final FoliagePlacerType<ShortPalmFoliagePlacer> SHORT_PALM_FOLIAGE_PLACER =  registerFoliage("short_palm_foliage_placer", ShortPalmFoliagePlacer.CODEC);
 
@@ -139,9 +157,9 @@ public final class WilderWild extends FrozenMobCategoryEntrypoint implements Mod
 
 	@Override
 	public void newCategories(ArrayList<FrozenMobCategory> context) {
-		context.add(FrozenMobCategoryEntrypoint.createCategory(WilderSharedConstants.MOD_ID, "fireflies", WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().fireflySpawnCap(), true, false, 80));
-		context.add(FrozenMobCategoryEntrypoint.createCategory(WilderSharedConstants.MOD_ID, "jellyfish", WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().jellyfishSpawnCap(), true, false, 64));
-		context.add(FrozenMobCategoryEntrypoint.createCategory(WilderSharedConstants.MOD_ID, "tumbleweed", WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().tumbleweedSpawnCap(), true, false, 64));
+		context.add(FrozenMobCategoryEntrypoint.createCategory(id("fireflies"), WilderSharedConstants.config().fireflySpawnCap(), true, false, 80));
+		context.add(FrozenMobCategoryEntrypoint.createCategory(id("jellyfish"), WilderSharedConstants.config().jellyfishSpawnCap(), true, false, 64));
+		context.add(FrozenMobCategoryEntrypoint.createCategory(id("tumbleweed"), WilderSharedConstants.config().tumbleweedSpawnCap(), true, false, 64));
 	}
 
     private static void applyDataFixes(final @NotNull ModContainer mod) {

@@ -1,3 +1,21 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.mixin.client.easter;
 
 import net.fabricmc.api.EnvType;
@@ -21,10 +39,10 @@ public final class UppyBalloo {
     private static final ResourceLocation WILDERWILD$UPPY_BALLOO = WilderSharedConstants.id("textures/entity/pig/uppy_balloo.png");
 
     @Inject(method = "getTextureLocation(Lnet/minecraft/world/entity/animal/Pig;)Lnet/minecraft/resources/ResourceLocation;", at = @At("RETURN"), cancellable = true)
-    public void getTextureLocation(Pig pig, CallbackInfoReturnable<ResourceLocation> cir) {
+    public void wilderWild$getTextureLocation(Pig pig, CallbackInfoReturnable<ResourceLocation> info) {
         String string = ChatFormatting.stripFormatting(pig.getName().getString());
         if (string != null && string.equalsIgnoreCase("a view from the top")) {
-            cir.setReturnValue(WILDERWILD$UPPY_BALLOO);
+            info.setReturnValue(WILDERWILD$UPPY_BALLOO);
         }
     }
 }

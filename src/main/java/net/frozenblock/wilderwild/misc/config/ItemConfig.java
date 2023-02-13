@@ -1,3 +1,21 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.misc.config;
 
 import me.shedaniel.autoconfig.ConfigData;
@@ -8,6 +26,8 @@ import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.api.FrozenConfig;
+import net.frozenblock.lib.config.frozenlib_config.FrozenLibConfig;
+import net.frozenblock.lib.config.frozenlib_config.getter.FrozenLibConfigValues;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
@@ -118,16 +138,16 @@ public final class ItemConfig implements ConfigData {
 				snowballLandingSounds, eggLandingSounds, enderPearlLandingSounds, potionLandingSounds
 		);
 
-        /*var copperHornCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("copper_horn"),
-                false,
-                tooltip("copper_horn")
-
-        );*/
-
-        var breakParticles = category.addEntry(entryBuilder.startBooleanToggle(text("projectile_break_particles"), config.projectileBreakParticles)
+        var projectileBreakParticles = category.addEntry(entryBuilder.startBooleanToggle(text("projectile_break_particles"), config.projectileBreakParticles)
                 .setDefaultValue(DefaultItemConfig.PROJECTILE_BREAK_PARTICLES)
                 .setSaveConsumer(newValue -> config.projectileBreakParticles = newValue)
                 .setTooltip(tooltip("projectile_break_particles"))
                 .build());
+
+		var itemCooldownsSave = category.addEntry(entryBuilder.startBooleanToggle(text("item_cooldowns_save"), FrozenLibConfig.get().config.saveItemCooldowns)
+				.setDefaultValue(FrozenLibConfigValues.DefaultFrozenLibConfigValues.SAVE_ITEM_COOLDOWNS)
+				.setSaveConsumer(newValue -> FrozenLibConfig.get().config.saveItemCooldowns = newValue)
+				.setTooltip(tooltip("item_cooldowns_save"))
+				.build());
     }
 }

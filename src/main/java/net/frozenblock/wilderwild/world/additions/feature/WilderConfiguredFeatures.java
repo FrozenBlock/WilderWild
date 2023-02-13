@@ -1,11 +1,27 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.world.additions.feature;
 
 import java.util.List;
 import net.frozenblock.lib.feature.FrozenFeatures;
 import net.frozenblock.lib.feature.features.config.ColumnWithDiskFeatureConfig;
-import net.frozenblock.lib.feature.features.config.PathFeatureConfig;
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
 import net.frozenblock.wilderwild.block.SmallSpongeBlock;
 import net.frozenblock.wilderwild.misc.FlowerColor;
@@ -13,13 +29,14 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
-import net.frozenblock.wilderwild.world.generation.features.config.LargeNematocystConfig;
+import net.frozenblock.wilderwild.world.generation.features.config.LargeMesogleaConfig;
 import net.frozenblock.wilderwild.world.generation.features.config.ShelfFungusFeatureConfig;
 import net.frozenblock.wilderwild.world.generation.features.config.SmallSpongeFeatureConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
+import net.minecraft.core.Vec3i;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.features.CaveFeatures;
 import net.minecraft.data.worldgen.features.FeatureUtils;
@@ -123,6 +140,20 @@ public final class WilderConfiguredFeatures {
                             new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED, 0.04F),
                             new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED, 0.155F)), WilderTreePlaced.NEW_OAK_BEES_0004));
 
+	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_SEMI_BIRCH_AND_OAK =
+			register("trees_semi_birch_and_oak", Feature.RANDOM_SELECTOR,
+					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_SHORT_BIRCH_BEES_0004, 0.2F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.04F),
+							new WeightedPlacedFeature(WilderTreePlaced.NEW_FANCY_OAK_BEES_0004, 0.06F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_BEES_0004, 0.025F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED, 0.04F),
+							new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED, 0.13F),
+							new WeightedPlacedFeature(WilderTreePlaced.NEW_BIRCH_CHECKED, 0.14F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.04F),
+							new WeightedPlacedFeature(WilderTreePlaced.NEW_SUPER_BIRCH, 0.1F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_SUPER_BIRCH, 0.01F),
+							new WeightedPlacedFeature(WilderTreePlaced.NEW_BIRCH_BEES_0004, 0.025F)), WilderTreePlaced.NEW_OAK_BEES_0004));
+
     public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> NEW_TREES_BIRCH =
             register("trees_birch", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_SHORT_BIRCH_BEES_0004, 0.065F),
@@ -185,20 +216,20 @@ public final class WilderConfiguredFeatures {
 	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> BIRCH_JUNGLE_TREES =
 			register("birch_jungle_trees", Feature.RANDOM_SELECTOR,
 					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(TreePlacements.FANCY_OAK_CHECKED, 0.1F),
-							new WeightedPlacedFeature(WilderTreePlaced.NEW_BIRCH_CHECKED, 0.069F),
+							new WeightedPlacedFeature(WilderTreePlaced.NEW_BIRCH_CHECKED, 0.049F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.069F),
-							new WeightedPlacedFeature(WilderTreePlaced.NEW_SUPER_BIRCH, 0.069F),
-							new WeightedPlacedFeature(WilderTreePlaced.DYING_SUPER_BIRCH, 0.069F),
-							new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.069F),
-							new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.069F),
+							new WeightedPlacedFeature(WilderTreePlaced.NEW_SUPER_BIRCH, 0.049F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_SUPER_BIRCH, 0.049F),
+							new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.079F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.119F),
 							new WeightedPlacedFeature(TreePlacements.JUNGLE_BUSH, 0.25F),
 							new WeightedPlacedFeature(TreePlacements.MEGA_JUNGLE_TREE_CHECKED, 0.165F)), TreePlacements.JUNGLE_TREE_CHECKED));
 
 	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> SPARSE_BIRCH_JUNGLE_TREES =
 			register("sparse_birch_jungle_trees", Feature.RANDOM_SELECTOR,
-					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(TreePlacements.FANCY_OAK_CHECKED, 0.1F),
-							new WeightedPlacedFeature(WilderTreePlaced.NEW_BIRCH_CHECKED, 0.045F),
-							new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.069F),
+					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(TreePlacements.FANCY_OAK_CHECKED, 0.07F),
+							new WeightedPlacedFeature(WilderTreePlaced.NEW_BIRCH_CHECKED, 0.055F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.089F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_SUPER_BIRCH, 0.027F),
 							new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.059F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.069F),
@@ -233,6 +264,22 @@ public final class WilderConfiguredFeatures {
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_CHECKED, 0.095F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED, 0.045F),
 							new WeightedPlacedFeature(WilderTreePlaced.NEW_FANCY_OAK_CHECKED, 0.24F)), WilderTreePlaced.NEW_OAK_CHECKED));
+
+	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> DARK_BIRCH_FOREST_VEGETATION =
+			register("dark_birch_forest_vegetation", Feature.RANDOM_SELECTOR,
+					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(TreeFeatures.HUGE_BROWN_MUSHROOM), 0.025F),
+							new WeightedPlacedFeature(PlacementUtils.inlinePlaced(TreeFeatures.HUGE_RED_MUSHROOM), 0.035F),
+							new WeightedPlacedFeature(TreePlacements.DARK_OAK_CHECKED, 0.235F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_DARK_OAK_CHECKED, 0.075F),
+							new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.35F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.015F),
+							new WeightedPlacedFeature(WilderTreePlaced.NEW_BIRCH_CHECKED, 0.4F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.015F),
+							new WeightedPlacedFeature(WilderTreePlaced.NEW_TALL_DARK_OAK_CHECKED, 0.15F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_TALL_DARK_OAK_CHECKED, 0.048F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_CHECKED, 0.02F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED, 0.012F),
+							new WeightedPlacedFeature(WilderTreePlaced.NEW_FANCY_OAK_CHECKED, 0.15F)), WilderTreePlaced.NEW_OAK_CHECKED));
 
 	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> NEW_TREES_TAIGA =
             register("trees_taiga", Feature.RANDOM_SELECTOR,
@@ -301,13 +348,13 @@ public final class WilderConfiguredFeatures {
 	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> PARCHED_FOREST_TREES =
 			register("parched_forest_trees", Feature.RANDOM_SELECTOR,
 					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED, 0.59F),
-							new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED, 0.086F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED, 0.186F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_CHECKED, 0.02F),
 							new WeightedPlacedFeature(WilderTreePlaced.NEW_FANCY_OAK_CHECKED, 0.155F),
 							new WeightedPlacedFeature(TreePlacements.ACACIA_CHECKED, 0.37F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.01F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.01F),
-							new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.255F)), WilderTreePlaced.NEW_OAK_CHECKED));
+							new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.155F)), WilderTreePlaced.NEW_OAK_CHECKED));
 
 	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> ARID_FOREST_TREES =
 			register("arid_forest_trees", Feature.RANDOM_SELECTOR,
@@ -437,10 +484,34 @@ public final class WilderConfiguredFeatures {
 					FeatureUtils.simpleRandomPatchConfiguration(8, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
 							new SimpleBlockConfiguration(new WeightedStateProvider(DESERT_BUSH_POOL)))));
 
+	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> BADLANDS_BUSH_SAND =
+			register("badlands_bush_sand", Feature.RANDOM_PATCH,
+					FeatureUtils.simpleRandomPatchConfiguration(10, PlacementUtils.inlinePlaced(Feature.SIMPLE_BLOCK,
+							new SimpleBlockConfiguration(new WeightedStateProvider(DESERT_BUSH_POOL)), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.wouldSurvive(Blocks.CACTUS.defaultBlockState(), BlockPos.ZERO))))));
+
+	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> BADLANDS_BUSH_TERRACOTTA =
+			register("badlands_bush_terracotta", Feature.RANDOM_PATCH,
+					FeatureUtils.simpleRandomPatchConfiguration(6, PlacementUtils.inlinePlaced(Feature.SIMPLE_BLOCK,
+							new SimpleBlockConfiguration(new WeightedStateProvider(DESERT_BUSH_POOL)), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.SAND)))))));
+
+
 	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_CACTUS_OASIS = register("patch_cactus_oasis", Feature.RANDOM_PATCH, FeatureUtils.simpleRandomPatchConfiguration(10, PlacementUtils.inlinePlaced(Feature.BLOCK_COLUMN, BlockColumnConfiguration.simple(BiasedToBottomInt.of(3, 5), BlockStateProvider.simple(Blocks.CACTUS)), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.wouldSurvive(Blocks.CACTUS.defaultBlockState(), BlockPos.ZERO))))));
 
 	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_CACTUS_TALL = register("patch_cactus_tall", Feature.RANDOM_PATCH, FeatureUtils.simpleRandomPatchConfiguration(8, PlacementUtils.inlinePlaced(Feature.BLOCK_COLUMN, BlockColumnConfiguration.simple(BiasedToBottomInt.of(4, 5), BlockStateProvider.simple(Blocks.CACTUS)), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.wouldSurvive(Blocks.CACTUS.defaultBlockState(), BlockPos.ZERO))))));
 
+	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_CACTUS_TALL_BADLANDS = register("patch_cactus_tall_badlands", Feature.RANDOM_PATCH, FeatureUtils.simpleRandomPatchConfiguration(12, PlacementUtils.inlinePlaced(Feature.BLOCK_COLUMN, BlockColumnConfiguration.simple(BiasedToBottomInt.of(2, 6), BlockStateProvider.simple(Blocks.CACTUS)), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.wouldSurvive(Blocks.CACTUS.defaultBlockState(), BlockPos.ZERO))))));
+
+	public static final SimpleWeightedRandomList<BlockState> PRICKLY_PEAR_POOL = SimpleWeightedRandomList.<BlockState>builder()
+			.add(RegisterBlocks.PRICKLY_PEAR_CACTUS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 0), 5)
+			.add(RegisterBlocks.PRICKLY_PEAR_CACTUS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 1), 3)
+			.add(RegisterBlocks.PRICKLY_PEAR_CACTUS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 2), 2)
+			.add(RegisterBlocks.PRICKLY_PEAR_CACTUS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3), 4)
+			.add(Blocks.CACTUS.defaultBlockState(), 2).build();
+
+	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> PRICKLY_PEAR =
+			register("prickly_pear", Feature.RANDOM_PATCH,
+					FeatureUtils.simpleRandomPatchConfiguration(20, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+							new SimpleBlockConfiguration(new WeightedStateProvider(PRICKLY_PEAR_POOL)))));
 
 	public static final SimpleWeightedRandomList<BlockState> LARGE_FERN_AND_GRASS_POOL = SimpleWeightedRandomList.<BlockState>builder().add(Blocks.TALL_GRASS.defaultBlockState(), 3).add(Blocks.LARGE_FERN.defaultBlockState(), 3).build();
 
@@ -486,6 +557,22 @@ public final class WilderConfiguredFeatures {
 					FeatureUtils.simpleRandomPatchConfiguration(5, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
 							new SimpleBlockConfiguration(new WeightedStateProvider(TUMBLEWEED_PLANT_POOL)))));
 
+	public static final Holder<ConfiguredFeature<LargeMesogleaConfig, ?>> MESOGLEA_CLUSTER_PURPLE = register("mesoglea_cluster_purple",
+			WilderWild.LARGE_MESOGLEA_FEATURE,
+			new LargeMesogleaConfig(
+					30,
+					UniformInt.of(3, 10), BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)), UniformFloat.of(0.2F, 0.75F),
+					0.15F, UniformFloat.of(0.1F, 0.25F),
+					UniformFloat.of(0.16F, 0.4F), UniformFloat.of(0.0F, 0.25F), 5, 0.2F));
+
+	public static final Holder<ConfiguredFeature<LargeMesogleaConfig, ?>> MESOGLEA_CLUSTER_BLUE = register("mesoglea_cluster_blue",
+			WilderWild.LARGE_MESOGLEA_FEATURE,
+			new LargeMesogleaConfig(
+					30,
+					UniformInt.of(3, 10), BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)), UniformFloat.of(0.2F, 0.75F),
+					0.15F, UniformFloat.of(0.1F, 0.25F),
+					UniformFloat.of(0.16F, 0.4F), UniformFloat.of(0.0F, 0.25F), 5, 0.2F));
+
     public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> BLUE_MESOGLEA = register(
             "mesoglea",
             Feature.VEGETATION_PATCH,
@@ -502,6 +589,7 @@ public final class WilderConfiguredFeatures {
                     0.7F
             )
     );
+
     public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> BLUE_MESOGLEA_POOL = register(
             "mesoglea_pool",
             Feature.WATERLOGGED_VEGETATION_PATCH,
@@ -518,6 +606,7 @@ public final class WilderConfiguredFeatures {
                     0.7F
             )
     );
+
     public static final Holder<ConfiguredFeature<RandomBooleanFeatureConfiguration, ?>> JELLYFISH_CAVES_BLUE_MESOGLEA = register(
             "jellyfish_caves_blue_mesoglea",
             Feature.RANDOM_BOOLEAN_SELECTOR,
@@ -526,6 +615,7 @@ public final class WilderConfiguredFeatures {
                     PlacementUtils.inlinePlaced(BLUE_MESOGLEA_POOL)
             )
     );
+
     public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> UPSIDE_DOWN_BLUE_MESOGLEA = register(
             "upside_down_blue_mesoglea",
             Feature.VEGETATION_PATCH,
@@ -542,6 +632,7 @@ public final class WilderConfiguredFeatures {
                     0.7F
             )
     );
+
     public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> PURPLE_MESOGLEA = register(
             "mesoglea_with_dripleaves",
             Feature.VEGETATION_PATCH,
@@ -558,6 +649,7 @@ public final class WilderConfiguredFeatures {
                     0.7F
             )
     );
+
     public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> PURPLE_MESOGLEA_POOL = register(
             "purple_mesoglea_pool",
             Feature.WATERLOGGED_VEGETATION_PATCH,
@@ -574,6 +666,7 @@ public final class WilderConfiguredFeatures {
                     0.7F
             )
     );
+
     public static final Holder<ConfiguredFeature<RandomBooleanFeatureConfiguration, ?>> JELLYFISH_CAVES_PURPLE_MESOGLEA = register(
             "jellyfish_caves_purple_mesoglea",
             Feature.RANDOM_BOOLEAN_SELECTOR,
@@ -582,6 +675,7 @@ public final class WilderConfiguredFeatures {
                     PlacementUtils.inlinePlaced(PURPLE_MESOGLEA_POOL)
             )
     );
+
     public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> UPSIDE_DOWN_PURPLE_MESOGLEA = register(
             "upside_down_purple_mesoglea",
             Feature.VEGETATION_PATCH,
@@ -599,7 +693,7 @@ public final class WilderConfiguredFeatures {
             )
     );
 
-	public static final Holder<ConfiguredFeature<MultifaceGrowthConfiguration, ?>> NEMATOCYST = register("nematocyst",
+	public static final Holder<ConfiguredFeature<MultifaceGrowthConfiguration, ?>> NEMATOCYST_BLUE = register("nematocyst_blue",
 			WilderWild.NEMATOCYST_FEATURE,
 			new MultifaceGrowthConfiguration(
 					(MultifaceBlock) RegisterBlocks.BLUE_PEARLESCENT_NEMATOCYST,
@@ -642,21 +736,22 @@ public final class WilderConfiguredFeatures {
 					)
 			)
 	);
-	public static final Holder<ConfiguredFeature<LargeNematocystConfig, ?>> LARGE_MESOGLEA_PURPLE = register("large_mesoglea_purple",
-			WilderWild.LARGE_MESOGLEA_FEATURE,
-			new LargeNematocystConfig(
-					30,
-					UniformInt.of(3, 19), BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)), UniformFloat.of(0.4F, 2.0F),
-					0.33F, UniformFloat.of(0.3F, 0.9F),
-					UniformFloat.of(0.4F, 1.0F), UniformFloat.of(0.0F, 0.3F), 4, 0.6F));
 
-	public static final Holder<ConfiguredFeature<LargeNematocystConfig, ?>> LARGE_MESOGLEA_BLUE = register("large_mesoglea_blue",
+	public static final Holder<ConfiguredFeature<LargeMesogleaConfig, ?>> LARGE_MESOGLEA_PURPLE = register("large_mesoglea_purple",
 			WilderWild.LARGE_MESOGLEA_FEATURE,
-			new LargeNematocystConfig(
+			new LargeMesogleaConfig(
 					30,
-					UniformInt.of(3, 15), BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)), UniformFloat.of(0.2F, 1.2F),
-					0.33F, UniformFloat.of(0.1F, 0.5F),
-					UniformFloat.of(0.6F, 1.0F), UniformFloat.of(0.0F, 0.3F), 10, 0.2F));
+					UniformInt.of(3, 19), BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)), UniformFloat.of(0.2F, 2.0F),
+					0.33F, UniformFloat.of(0.1F, 0.9F),
+					UniformFloat.of(0.4F, 1.0F), UniformFloat.of(0.0F, 0.3F), 4, 0.2F));
+
+	public static final Holder<ConfiguredFeature<LargeMesogleaConfig, ?>> LARGE_MESOGLEA_BLUE = register("large_mesoglea_blue",
+			WilderWild.LARGE_MESOGLEA_FEATURE,
+			new LargeMesogleaConfig(
+					30,
+					UniformInt.of(3, 19), BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)), UniformFloat.of(0.2F, 2.0F),
+					0.33F, UniformFloat.of(0.1F, 0.9F),
+					UniformFloat.of(0.4F, 1.0F), UniformFloat.of(0.0F, 0.3F), 4, 0.2F));
 
 	public static final Holder<ConfiguredFeature<SmallSpongeFeatureConfig, ?>> SMALL_SPONGE =
 			register("small_sponges", WilderWild.SMALL_SPONGE_FEATURE, new SmallSpongeFeatureConfig((SmallSpongeBlock) RegisterBlocks.SMALL_SPONGE, 20, true, true, true, WilderBlockTags.SMALL_SPONGE_GROWS_ON));

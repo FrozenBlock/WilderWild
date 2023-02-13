@@ -24,7 +24,23 @@
       "required": false
     },
     {
-      "id": "wilderwild:old_growth_dark_forest",
+      "id": "wilderwild:dark_birch_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:old_growth_birch_taiga",
+      "required": false
+    },
+    {
+      "id": "wilderwild:sparse_birch_jungle",
+      "required": false
+    },
+    {
+      "id": "wilderwild:birch_jungle",
+      "required": false
+    },
+    {
+      "id": "wilderwild:semi_birch_forest",
       "required": false
     }
   ]

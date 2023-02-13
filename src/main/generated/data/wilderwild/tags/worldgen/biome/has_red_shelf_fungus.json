@@ -1,0 +1,32 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:dark_forest",
+    "minecraft:forest",
+    "minecraft:old_growth_birch_forest",
+    "minecraft:birch_forest",
+    "minecraft:plains",
+    "minecraft:flower_forest",
+    "minecraft:sunflower_plains",
+    {
+      "id": "wilderwild:flower_field",
+      "required": false
+    },
+    {
+      "id": "wilderwild:dark_birch_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:old_growth_dark_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:dark_birch_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:semi_birch_forest",
+      "required": false
+    }
+  ]
+}

@@ -1,3 +1,21 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.entity;
 
 import com.mojang.serialization.Dynamic;
@@ -8,7 +26,7 @@ import java.util.stream.Collectors;
 import net.frozenblock.lib.entity.api.NoFlopAbstractFish;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.entity.ai.jellyfish.JellyfishAi;
-import net.frozenblock.wilderwild.misc.JellyfishVariant;
+import net.frozenblock.wilderwild.entity.variant.JellyfishVariant;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
@@ -253,18 +271,6 @@ public class Jellyfish extends NoFlopAbstractFish {
             this.xBodyRot += (-90.0F - this.xBodyRot) * 0.02F;
         }
 
-		this.setPrevScale(this.getJellyScale());
-
-		if (this.vanishing) {
-			if (this.getJellyScale() <= 0F) {
-				this.discard();
-				//TODO: Hide sound
-				this.playSound(RegisterSounds.PARTICLE_MESOGLEA_DRIP_LAND, 0.8F, 0.9F + level.random.nextFloat() * 0.2F);
-			} else {
-				this.setJellyScale(this.getJellyScale() - 0.25F);
-			}
-		}
-
         this.stingEntities();
 
         LivingEntity target = this.getTarget();
@@ -273,6 +279,17 @@ public class Jellyfish extends NoFlopAbstractFish {
 			this.moveToAccurate(this.getTarget(), 2);
 		}
 
+		float prevScale = this.getJellyScale();
+		this.setPrevScale(prevScale);
+		if (this.vanishing) {
+			if (prevScale <= 0F) {
+				this.discard();
+				//TODO: Hide sound
+				this.playSound(RegisterSounds.PARTICLE_MESOGLEA_DRIP_LAND, 0.8F, 0.9F + level.random.nextFloat() * 0.2F);
+			} else {
+				this.setJellyScale(this.getJellyScale() - 0.25F);
+			}
+		}
     }
 
 	@Override
@@ -378,12 +395,10 @@ public class Jellyfish extends NoFlopAbstractFish {
 
     @Override
     protected void dropFromLootTable(@NotNull DamageSource damageSource, boolean bl) {
-		if (damageSource != DamageSource.FALL) {
-			ResourceLocation resourceLocation = this.getJellyLootTable();
-			LootTable lootTable = Objects.requireNonNull(this.level.getServer()).getLootTables().get(resourceLocation);
-			LootContext.Builder builder = this.createLootContext(bl, damageSource);
-			lootTable.getRandomItems(builder.create(LootContextParamSets.ENTITY), this::spawnAtLocation);
-		}
+		ResourceLocation resourceLocation = this.getJellyLootTable();
+		LootTable lootTable = Objects.requireNonNull(this.level.getServer()).getLootTables().get(resourceLocation);
+		LootContext.Builder builder = this.createLootContext(bl, damageSource);
+		lootTable.getRandomItems(builder.create(LootContextParamSets.ENTITY), this::spawnAtLocation);
     }
 
     @Override

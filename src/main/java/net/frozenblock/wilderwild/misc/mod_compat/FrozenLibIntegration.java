@@ -1,16 +1,34 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.misc.mod_compat;
 
 import java.util.Objects;
 import net.frozenblock.lib.FrozenBools;
-import net.frozenblock.lib.damagesource.api.PlayerDamageSourceSounds;
-import net.frozenblock.lib.impl.BlockScheduledTicks;
-import net.frozenblock.lib.impl.DripstoneDripWaterFrom;
-import net.frozenblock.lib.impl.HopperUntouchableList;
-import net.frozenblock.lib.impl.StructurePoolElementIdReplacements;
+import net.frozenblock.lib.block.api.dripstone.DripstoneDripWaterFrom;
 import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.lib.item.api.RemoveableItemTags;
 import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.*;
+import net.frozenblock.lib.sound.api.damagesource.PlayerDamageSourceSounds;
 import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
+import net.frozenblock.lib.storage.api.HopperUntouchableList;
+import net.frozenblock.lib.tick.api.BlockScheduledTicks;
+import net.frozenblock.lib.worldgen.structure.api.StructurePoolElementIdReplacements;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.interfaces.WilderEnderman;
@@ -58,14 +76,14 @@ public class FrozenLibIntegration extends ModIntegration {
             @Override
             public void onStart(@Nullable EnderMan entity) {
                 if (entity != null) {
-                    ((WilderEnderman) entity).setCanPlayLoopingSound(false);
+                    ((WilderEnderman) entity).wilderWild$setCanPlayLoopingSound(false);
                 }
             }
 
             @Override
             public void onStop(@Nullable EnderMan entity) {
                 if (entity != null) {
-                    ((WilderEnderman) entity).setCanPlayLoopingSound(true);
+                    ((WilderEnderman) entity).wilderWild$setCanPlayLoopingSound(true);
                 }
             }
         });

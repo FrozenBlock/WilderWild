@@ -1,3 +1,21 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.entity.render.model;
 
 import com.google.common.collect.ImmutableList;
@@ -77,20 +95,20 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     public float green;
     public float blue;
 
-	public float scale;
+	public float scale = 1F;
 
     @Override
     public void renderToBuffer(PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		poseStack.scale(scale, scale, scale);
-        poseStack.pushPose();
-        poseStack.mulPose(Vector3f.XP.rotationDegrees(this.xRot));
-        this.body.render(poseStack, buffer, packedLight, packedOverlay, this.red, this.green, this.blue, alpha);
-        poseStack.popPose();
+		poseStack.pushPose();
+		poseStack.mulPose(Vector3f.XP.rotationDegrees(this.xRot));
+		this.body.render(poseStack, buffer, packedLight, packedOverlay, this.red, this.green, this.blue, alpha);
+		poseStack.popPose();
 
-        poseStack.pushPose();
-        poseStack.mulPose(Vector3f.XP.rotationDegrees(this.tentXRot));
-        this.tentacleBase.render(poseStack, buffer, packedLight, packedOverlay, this.red, this.green, this.blue, alpha);
-        poseStack.popPose();
+		poseStack.pushPose();
+		poseStack.mulPose(Vector3f.XP.rotationDegrees(this.tentXRot));
+		this.tentacleBase.render(poseStack, buffer, packedLight, packedOverlay, this.red, this.green, this.blue, alpha);
+		poseStack.popPose();
     }
 
     private static final float pi180 = Mth.PI / 180;
@@ -100,41 +118,41 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     public void prepareMobModel(T jelly, float limbSwing, float limbSwimgAmount, float partialTick) {
         this.xRot = -(jelly.xRot1 + partialTick * (jelly.xBodyRot - jelly.xRot1));
         this.tentXRot = -(jelly.xRot6 + partialTick * (jelly.xRot5 - jelly.xRot6));
-		this.scale = Mth.lerp(partialTick, jelly.getPrevScale(), jelly.getJellyScale());
+		this.scale = jelly.getPrevScale() + partialTick * (jelly.getJellyScale() - jelly.getPrevScale());
     }
 
     @Override
     public void setupAnim(@NotNull T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        float animation = limbSwing * 2;
-        float movementDelta = Math.min(limbSwingAmount * 26.6666667F, 1.0F);
-        float tentRot = fasterRotLerp(movementDelta, (float) (-Math.sin((ageInTicks - 10) * 0.1F) * 0.2F) + eightPi, (float) (-Math.sin(animation + 5) * 20 - 7.5F) * pi180);
+		float animation = limbSwing * 2;
+		float movementDelta = Math.min(limbSwingAmount * 26.6666667F, 1.0F);
+		float tentRot = fasterRotLerp(movementDelta, (float) (-Math.sin((ageInTicks - 10) * 0.1F) * 0.2F) + eightPi, (float) (-Math.sin(animation + 5) * 20 - 7.5F) * pi180);
 
-        this.tentacle1.xRot = tentRot;
+		this.tentacle1.xRot = tentRot;
 		this.tentacle2.xRot = tentRot;
-        this.tentacle3.xRot = tentRot;
+		this.tentacle3.xRot = tentRot;
 		this.tentacle4.xRot = tentRot;
-        this.tentacle5.xRot = tentRot;
+		this.tentacle5.xRot = tentRot;
 		this.tentacle6.xRot = tentRot;
-        this.tentacle7.xRot = tentRot;
+		this.tentacle7.xRot = tentRot;
 		this.tentacle8.xRot = tentRot;
 
         //SQUASH & STRETCH
-        float sin = (float) -Math.sin(animation);
-        float sinIdle = (float) (Math.sin(ageInTicks * 0.1F) * 0.2F);
-        float squashStretch = 1F + (-sin * 0.25F);
-        float squash = Mth.lerp(movementDelta, sinIdle + 1, squashStretch);
+		float sin = (float) -Math.sin(animation);
+		float sinIdle = (float) (Math.sin(ageInTicks * 0.1F) * 0.2F);
+		float squashStretch = 1F + (-sin * 0.25F);
+		float squash = Mth.lerp(movementDelta, sinIdle + 1, squashStretch);
 
-        this.body.xScale = squash;
-        this.body.zScale = squash;
-        float yScaleSin = -sinIdle + 1;
-        //this.body.yScale = MathHelper.lerp(movementDelta, -sinIdle + 1, 1.25F + (sin * 0.75F));
-        this.body.yScale = yScaleSin + movementDelta * ((1.25F + (sin * 0.75F)) - yScaleSin);
+		this.body.xScale = squash;
+		this.body.zScale = squash;
+		float yScaleSin = -sinIdle + 1;
+		//this.body.yScale = MathHelper.lerp(movementDelta, -sinIdle + 1, 1.25F + (sin * 0.75F));
+		this.body.yScale = yScaleSin + movementDelta * ((1.25F + (sin * 0.75F)) - yScaleSin);
 
-        this.body.y = movementDelta * (3.5F - (squashStretch * 3.5F));
-        //this.body.y = MathHelper.lerp(movementDelta, 0, 3.5F - (squashStretch * 3.5F));
-        float sinPivotY = (-sinIdle * 2.0F) + 1.8F;
-        this.tentacleBase.y = sinPivotY + movementDelta * (((6F - (squashStretch * 5F)) * 2) - sinPivotY);
-        //this.tentacleBase.y = MathHelper.lerp(movementDelta, (-sinIdle * 2.0F) + 1.8F, (6F - (squashStretch * 5F)) * 2);
+		this.body.y = movementDelta * (3.5F - (squashStretch * 3.5F));
+		//this.body.y = MathHelper.lerp(movementDelta, 0, 3.5F - (squashStretch * 3.5F));
+		float sinPivotY = (-sinIdle * 2.0F) + 1.8F;
+		this.tentacleBase.y = sinPivotY + movementDelta * (((6F - (squashStretch * 5F)) * 2) - sinPivotY);
+		//this.tentacleBase.y = MathHelper.lerp(movementDelta, (-sinIdle * 2.0F) + 1.8F, (6F - (squashStretch * 5F)) * 2);
     }
 
     @Override

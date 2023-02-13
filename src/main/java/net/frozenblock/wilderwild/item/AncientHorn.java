@@ -1,3 +1,21 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.item;
 
 import java.util.Iterator;
@@ -9,7 +27,6 @@ import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
@@ -39,11 +56,11 @@ public class AncientHorn extends InstrumentItem {
     private static final String TAG_INSTRUMENT = "instrument";
     private final TagKey<Instrument> instrumentTag;
 
-    public static final int DEFAULT_COOLDOWN = 300;
+    public static final int DEFAULT_COOLDOWN = 600;
     public static final int CREATIVE_COOLDOWN = 5;
-    public static final int SHRIEKER_COOLDOWN = 900;
-    public static final int SENSOR_COOLDOWN = 400;
-    public static final int TENDRIL_COOLDOWN = 380;
+    public static final int SHRIEKER_COOLDOWN = 1200;
+    public static final int SENSOR_COOLDOWN = 800;
+    public static final int TENDRIL_COOLDOWN = 780;
     public static final int MIN_BUBBLES = 10;
     public static final int MAX_BUBBLES = 25;
 
@@ -59,7 +76,6 @@ public class AncientHorn extends InstrumentItem {
                 nonNullList.add(create(RegisterItems.ANCIENT_HORN, holder));
             }
         }
-
     }
 
     @Override
@@ -82,15 +98,7 @@ public class AncientHorn extends InstrumentItem {
                 ItemStack offHand = user.getItemInHand(InteractionHand.OFF_HAND);
                 if (mainHand.is(Items.WATER_BUCKET) || mainHand.is(Items.POTION) || offHand.is(Items.WATER_BUCKET) || offHand.is(Items.POTION)) {
                     projectileEntity.setBubbles(level.random.nextIntBetweenInclusive(MIN_BUBBLES, MAX_BUBBLES));
-                    /*float yawNew = user.getYaw() * 0.017453292F;
-                    float pitchNew = MathHelper.cos(user.getPitch() * 0.017453292F);
-                    float f = -MathHelper.sin(yawNew) * pitchNew;
-                    float h = MathHelper.cos(yawNew) * pitchNew;
-                    for (int bubble=0; bubble < Math.random()*10; bubble++) {
-                        EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, user.getEyePos(), Math.random() > 0.7 ? 1 : 0, 20 + (int)(Math.random()*40), 0.05, 1);
-                    }*/
                 }
-                //FlyBySoundPacket.createFlybySound(level, projectileEntity, RegisterSounds.ANCIENT_HORN_VIBRATION_DISSIPATE, SoundCategory.PLAYERS, 1.0F, 0.7F);
             }
             return InteractionResultHolder.consume(itemStack);
         } else {
@@ -149,7 +157,7 @@ public class AncientHorn extends InstrumentItem {
 
     private static void play(Level level, Player player, Instrument instrument) {
         SoundEvent soundEvent = instrument.soundEvent();
-        float range = instrument.range() / LevelRenderer.CHUNK_SIZE;
+        float range = instrument.range() / 16F;
         level.playSound(player, player, soundEvent, SoundSource.RECORDS, range, 1.0F);
     }
 

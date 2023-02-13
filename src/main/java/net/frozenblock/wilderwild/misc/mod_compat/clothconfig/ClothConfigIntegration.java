@@ -1,17 +1,40 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.misc.mod_compat.clothconfig;
 
+import net.frozenblock.lib.config.frozenlib_config.FrozenLibConfig;
+import net.frozenblock.lib.config.frozenlib_config.FrozenLibConfigCategory;
 import net.frozenblock.wilderwild.misc.config.BlockConfig;
 import net.frozenblock.wilderwild.misc.config.EntityConfig;
 import net.frozenblock.wilderwild.misc.config.ItemConfig;
 import net.frozenblock.wilderwild.misc.config.MiscConfig;
 import net.frozenblock.wilderwild.misc.config.WilderWildConfig;
 import net.frozenblock.wilderwild.misc.config.WorldgenConfig;
+import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultItemConfig;
+import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultWorldgenConfig;
 
 public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	public ClothConfigIntegration() {
 		super();
 	}
 
+	private static final FrozenLibConfigCategory FROZENBLOCK = FrozenLibConfig.get().config;
 	private static final BlockConfig BLOCK = WilderWildConfig.get().block;
 	private static final EntityConfig ENTITY = WilderWildConfig.get().entity;
 	private static final ItemConfig ITEM = WilderWildConfig.get().item;
@@ -270,6 +293,11 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 		return ITEM.projectileBreakParticles;
 	}
 
+	@Override
+	public boolean itemCooldownsSave() {
+		return FROZENBLOCK.saveItemCooldowns;
+	}
+
 	// WORLDGEN
 
 	@Override
@@ -368,6 +396,21 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean generateOldGrowthDarkForest() {
+		return BIOME_GENERATION.generateOldGrowthDarkForest;
+	}
+
+	@Override
+	public boolean generateDarkBirchForest() {
+		return BIOME_GENERATION.generateDarkBirchForest;
+	}
+
+	@Override
+	public boolean generateSemiBirchForest() {
+		return BIOME_GENERATION.generateSemiBirchForest;
+	}
+
+	@Override
 	public boolean dyingTrees() {
 		return WORLDGEN.dyingTrees;
 	}
@@ -388,8 +431,8 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
-	public boolean cypressWitchHuts() {
-		return WORLDGEN.cypressWitchHuts;
+	public boolean newWitchHuts() {
+		return WORLDGEN.newWitchHuts;
 	}
 
 	// MISC
@@ -410,13 +453,8 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
-	public boolean birchForestMusic() {
-		return BIOME_MUSIC.birchForestMusic;
-	}
-
-	@Override
-	public boolean flowerForestMusic() {
-		return BIOME_MUSIC.flowerForestMusic;
+	public boolean wilderForestMusic() {
+		return BIOME_MUSIC.wilderForestMusic;
 	}
 
 	@Override

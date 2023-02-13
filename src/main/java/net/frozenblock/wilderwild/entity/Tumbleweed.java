@@ -1,10 +1,28 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.entity;
 
 import java.util.List;
 import net.frozenblock.lib.tag.api.TagUtils;
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
-import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
@@ -280,7 +298,7 @@ public class Tumbleweed extends Mob {
 
 	@Override
 	public boolean canBeLeashed(@NotNull Player player) {
-		return WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().leashedTumbleweed();
+		return WilderSharedConstants.config().leashedTumbleweed();
 	}
 
 	@Override

@@ -1,3 +1,21 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.entity.render.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -7,7 +25,6 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.interfaces.SculkSensorTickInterface;
-import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
@@ -49,14 +66,14 @@ public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> im
         return LayerDefinition.create(modelData, 64, 64);
     }
 
-    public void render(@NotNull T entity, float tickDelta, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
-        if (WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration().mcLiveSensorTendrils()) {
+    public void render(@NotNull T entity, float partialTick, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
+        if (WilderSharedConstants.config().mcLiveSensorTendrils()) {
             SculkSensorTickInterface tickInterface = ((SculkSensorTickInterface) entity);
             VertexConsumer vertexConsumer = vertexConsumers.getBuffer(SENSOR_LAYER);
-            if (tickInterface.isActive()) {
-                int prevTicks = tickInterface.getPrevAnimTicks();
-                float pitch = (prevTicks + tickDelta * (tickInterface.getAnimTicks() - prevTicks)) * 0.1F;
-                float animProg = (tickInterface.getAge() + tickDelta) * 2.25F;
+            if (tickInterface.wilderWild$isActive()) {
+                int prevTicks = tickInterface.wilderWild$getPrevAnimTicks();
+                float pitch = (prevTicks + partialTick * (tickInterface.wilderWild$getAnimTicks() - prevTicks)) * 0.1F;
+                float animProg = (tickInterface.wilderWild$getAge() + partialTick) * 2.25F;
                 this.ne.xRot = pitch * ((float) Math.cos(animProg) * merp25);
                 this.se.xRot = pitch * (-(float) Math.sin(animProg) * merp25);
                 vertexConsumer = vertexConsumers.getBuffer(ACTIVE_SENSOR_LAYER);

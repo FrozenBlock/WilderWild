@@ -1,3 +1,21 @@
+/*
+ * Copyright 2022-2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.block;
 
 import java.util.ArrayList;
@@ -98,7 +116,7 @@ public class StoneChestBlock extends ChestBlock {
                         stoneEntity.liftLid(0.025F, ancient);
                     }
 					if (first) {
-						((ChestBlockEntityInterface)stoneEntity).bubble(level, pos, state);
+						((ChestBlockEntityInterface)stoneEntity).wilderWild$bubble(level, pos, state);
 						ResourceLocation lootTable = stoneEntity.lootTable;
 						if (lootTable != null && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) && lootTable.getPath().toLowerCase().contains("shipwreck") && level.random.nextBoolean()) {
 							Jellyfish.spawnFromChest(level, state, pos);
@@ -111,7 +129,7 @@ public class StoneChestBlock extends ChestBlock {
             }
 			StoneChestBlockEntity otherChest = getOtherChest(level, pos, state);
 			if (otherChest != null) {
-				((ChestBlockEntityInterface) stoneChest).syncBubble(stoneChest, otherChest);
+				((ChestBlockEntityInterface) stoneChest).wilderWild$syncBubble(stoneChest, otherChest);
 			}
         }
         return InteractionResult.CONSUME;
@@ -267,21 +285,21 @@ public class StoneChestBlock extends ChestBlock {
 				boolean wasLogged = oldState.getValue(BlockStateProperties.WATERLOGGED);
 				if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
 					if (!otherState.getValue(BlockStateProperties.WATERLOGGED)) {
-						((ChestBlockEntityInterface) chest).setCanBubble(true);
-						((ChestBlockEntityInterface) otherChest).setCanBubble(true);
-					} else if (!((ChestBlockEntityInterface) otherChest).getCanBubble()) {
-						((ChestBlockEntityInterface) chest).setCanBubble(false);
-						((ChestBlockEntityInterface) otherChest).setCanBubble(false);
+						((ChestBlockEntityInterface) chest).wilderWild$setCanBubble(true);
+						((ChestBlockEntityInterface) otherChest).wilderWild$setCanBubble(true);
+					} else if (!((ChestBlockEntityInterface) otherChest).wilderWild$getCanBubble()) {
+						((ChestBlockEntityInterface) chest).wilderWild$setCanBubble(false);
+						((ChestBlockEntityInterface) otherChest).wilderWild$setCanBubble(false);
 					}
 				}
 			} else {
 				boolean wasLogged = oldState.getValue(BlockStateProperties.WATERLOGGED);
 				if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
-					((ChestBlockEntityInterface) chest).setCanBubble(true);
+					((ChestBlockEntityInterface) chest).wilderWild$setCanBubble(true);
 				}
 			}
 			if (otherChest != null) {
-				((ChestBlockEntityInterface) chest).syncBubble(chest, otherChest);
+				((ChestBlockEntityInterface) chest).wilderWild$syncBubble(chest, otherChest);
 			}
 		}
 	}
@@ -311,8 +329,8 @@ public class StoneChestBlock extends ChestBlock {
 		StoneChestBlockEntity otherChest = getOtherChest(level, pos, retState);
 		if (otherChest != null) {
 			if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity chest) {
-				((ChestBlockEntityInterface) chest).setCanBubble(((ChestBlockEntityInterface)otherChest).getCanBubble());
-				((ChestBlockEntityInterface) chest).syncBubble(chest, otherChest);
+				((ChestBlockEntityInterface) chest).wilderWild$setCanBubble(((ChestBlockEntityInterface)otherChest).wilderWild$getCanBubble());
+				((ChestBlockEntityInterface) chest).wilderWild$syncBubble(chest, otherChest);
 			}
 		}
 		return retState;
@@ -332,7 +350,7 @@ public class StoneChestBlock extends ChestBlock {
         if (!level.isClientSide) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof StoneChestBlockEntity stoneChestBlock) {
-				((ChestBlockEntityInterface)stoneChestBlock).bubbleBurst(state);
+				((ChestBlockEntityInterface)stoneChestBlock).wilderWild$bubbleBurst(state);
 
                 stoneChestBlock.unpackLootTable(null);
                 ArrayList<ItemStack> ancientItems = stoneChestBlock.ancientItems();
