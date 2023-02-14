@@ -1939,6 +1939,15 @@
 	],
 	"subtitle": "subtitles.entity.player.hurt"
   },
+  "block.prickly_pear.pick": {
+    "sounds": [
+      {
+        "name": "block.sweet_berry_bush.pick_berries",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.block.prickly_pear.pick"
+  },
   "item.bottle.catch_firefly": {
 	"sounds": [
 	  "wilderwild:item/bottle/catch_firefly1",
