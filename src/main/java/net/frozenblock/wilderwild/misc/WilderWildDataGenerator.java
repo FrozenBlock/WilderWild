@@ -543,6 +543,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 		protected void generateTags() {
 			this.generateDeepDark();
 			this.generateHollowedAndTermites();
+			this.getOrCreateTagBuilder(BlockTags.SAND)
+					.add(RegisterBlocks.DRY_SAND);
 		}
 
 		private void generateDeepDark() {
