@@ -120,22 +120,22 @@ public class FrozenLibIntegration extends ModIntegration {
         StructurePoolElementIdReplacements.RESOURCE_LOCATION_REPLACEMENTS.put(WilderSharedConstants.vanillaId("ancient_city/structures/tall_ruin_4"), WilderSharedConstants.id("ancient_city/structures/tall_ruin_4"));
         StructurePoolElementIdReplacements.RESOURCE_LOCATION_REPLACEMENTS.put(WilderSharedConstants.vanillaId("ancient_city/structures/ice_box_1"), WilderSharedConstants.id("ancient_city/structures/ice_box_1"));
 
-        addBlocks(new Block[]{CACTUS, PRICKLY_PEAR_CACTUS}, SoundType.SWEET_BERRY_BUSH, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::cactusSounds);
-        addBlock(CLAY, CLAY_BLOCK, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::claySounds);
-        addBlock(COARSE_DIRT, COARSEDIRT, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::coarseDirtSounds);
-        addBlock(COBWEB, WEB, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::cobwebSounds);
-        addBlock(DEAD_BUSH, SoundType.NETHER_SPROUTS, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::deadBushSounds);
-        addBlocks(new Block[]{DANDELION, POPPY, BLUE_ORCHID, ALLIUM, AZURE_BLUET, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, CORNFLOWER, LILY_OF_THE_VALLEY, SEEDING_DANDELION, CARNATION, GLORY_OF_THE_SNOW}, FLOWER, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::flowerSounds);
-        addBlocks(new Block[]{FROSTED_ICE}, ICE_BLOCKS, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::frostedIceSounds);
-        addBlock(GRAVEL, GRAVELSOUNDS, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::gravelSounds);
-        addBlockTag(BlockTags.LEAVES, LEAVES, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::leafSounds);
-        addBlocks(new Block[]{ACACIA_LEAVES, BIRCH_LEAVES, DARK_OAK_LEAVES, JUNGLE_LEAVES, MANGROVE_LEAVES, OAK_LEAVES, SPRUCE_LEAVES, BAOBAB_LEAVES, CYPRESS_LEAVES, PALM_LEAVES}, LEAVES, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::leafSounds);
-        addBlocks(new Block[]{LILY_PAD, FLOWERING_LILY_PAD}, LILYPAD, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::lilyPadSounds);
-        addBlocks(new Block[]{RED_MUSHROOM, BROWN_MUSHROOM}, MUSHROOM, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::mushroomBlockSounds);
-        addBlocks(new Block[]{RED_MUSHROOM_BLOCK, BROWN_MUSHROOM_BLOCK, MUSHROOM_STEM}, MUSHROOM_BLOCK, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::mushroomBlockSounds);
-        addBlock(PODZOL, SoundType.ROOTED_DIRT, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::podzolSounds);
-        addBlock(REINFORCED_DEEPSLATE, REINFORCEDDEEPSLATE, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::reinforcedDeepslateSounds);
-        addBlock(SUGAR_CANE, SUGARCANE, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::sugarCaneSounds);
-        addBlock(WITHER_ROSE, SoundType.SWEET_BERRY_BUSH, WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration()::witherRoseSounds);
+        addBlocks(new Block[]{CACTUS, PRICKLY_PEAR_CACTUS}, SoundType.SWEET_BERRY_BUSH, WilderSharedConstants.config()::cactusSounds);
+        addBlock(CLAY, CLAY_BLOCK, WilderSharedConstants.config()::claySounds);
+        addBlock(COARSE_DIRT, COARSEDIRT, WilderSharedConstants.config()::coarseDirtSounds);
+        addBlock(COBWEB, WEB, WilderSharedConstants.config()::cobwebSounds);
+        addBlock(DEAD_BUSH, SoundType.NETHER_SPROUTS, WilderSharedConstants.config()::deadBushSounds);
+        addBlocks(new Block[]{DANDELION, POPPY, BLUE_ORCHID, ALLIUM, AZURE_BLUET, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, CORNFLOWER, LILY_OF_THE_VALLEY, SEEDING_DANDELION, CARNATION, GLORY_OF_THE_SNOW}, FLOWER, WilderSharedConstants.config()::flowerSounds);
+        addBlocks(new Block[]{FROSTED_ICE}, ICE_BLOCKS, WilderSharedConstants.config()::frostedIceSounds);
+        addBlock(GRAVEL, GRAVELSOUNDS, WilderSharedConstants.config()::gravelSounds);
+        addBlockTag(BlockTags.LEAVES, LEAVES, WilderSharedConstants.config()::leafSounds);
+        addBlocks(new Block[]{ACACIA_LEAVES, BIRCH_LEAVES, DARK_OAK_LEAVES, JUNGLE_LEAVES, MANGROVE_LEAVES, OAK_LEAVES, SPRUCE_LEAVES, BAOBAB_LEAVES, CYPRESS_LEAVES, PALM_LEAVES}, LEAVES, WilderSharedConstants.config()::leafSounds);
+        addBlocks(new Block[]{LILY_PAD, FLOWERING_LILY_PAD}, LILYPAD, WilderSharedConstants.config()::lilyPadSounds);
+        addBlocks(new Block[]{RED_MUSHROOM, BROWN_MUSHROOM}, MUSHROOM, WilderSharedConstants.config()::mushroomBlockSounds);
+        addBlocks(new Block[]{RED_MUSHROOM_BLOCK, BROWN_MUSHROOM_BLOCK, MUSHROOM_STEM}, MUSHROOM_BLOCK, WilderSharedConstants.config()::mushroomBlockSounds);
+        addBlock(PODZOL, SoundType.ROOTED_DIRT, WilderSharedConstants.config()::podzolSounds);
+        addBlock(REINFORCED_DEEPSLATE, REINFORCEDDEEPSLATE, WilderSharedConstants.config()::reinforcedDeepslateSounds);
+        addBlock(SUGAR_CANE, SUGARCANE, WilderSharedConstants.config()::sugarCaneSounds);
+        addBlock(WITHER_ROSE, SoundType.SWEET_BERRY_BUSH, WilderSharedConstants.config()::witherRoseSounds);
     }
 }
