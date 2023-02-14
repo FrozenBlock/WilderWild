@@ -468,6 +468,11 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.ARID_SAVANNA)
 					.addOptional(RegisterWorldgen.ARID_FOREST);
 
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_DRY_SAND)
+					.add(Biomes.DESERT)
+					.addOptional(RegisterWorldgen.ARID_SAVANNA)
+					.addOptional(RegisterWorldgen.ARID_FOREST);
+
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_TAIGA_FOREST_ROCK)
 					.add(Biomes.TAIGA)
 					.add(Biomes.SNOWY_TAIGA)

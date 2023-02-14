@@ -23,7 +23,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.features.CaveFeatures;
 import net.minecraft.data.worldgen.features.MiscOverworldFeatures;
-import net.minecraft.data.worldgen.features.PileFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -68,6 +67,7 @@ public final class WilderMiscPlaced {
 	// DESERT
 	public static final Holder<PlacedFeature> ORE_PACKED_MUD = WilderPlacedFeatures.register("ore_packed_mud", WilderMiscConfigured.ORE_PACKED_MUD, modifiersWithCount(5, HeightRangePlacement.uniform(VerticalAnchor.absolute(42), VerticalAnchor.absolute(250))));
 	public static final Holder<PlacedFeature> SANDSTONE_PATH = WilderPlacedFeatures.register("sandstone_path", WilderMiscConfigured.SANDSTONE_PATH, RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+	public static final Holder<PlacedFeature> DRY_SAND = WilderPlacedFeatures.register("dry_sand", WilderMiscConfigured.DRY_SAND_DISK, RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 	// BADLANDS
 	public static final Holder<PlacedFeature> COARSE_DIRT_PATH_SMALL = WilderPlacedFeatures.register("coarse_dirt_path_small", WilderMiscConfigured.COARSE_DIRT_PATH_SMALL, RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 	public static final Holder<PlacedFeature> PACKED_MUD_PATH_BADLANDS = WilderPlacedFeatures.register("packed_mud_path_badlands", WilderMiscConfigured.PACKED_MUD_PATH_BADLANDS, RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());

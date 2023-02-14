@@ -25,7 +25,7 @@ import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.config.api.FrozenConfig;
+import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
 import net.frozenblock.lib.config.frozenlib_config.FrozenLibConfig;
 import net.frozenblock.lib.config.frozenlib_config.getter.FrozenLibConfigValues;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -102,7 +102,7 @@ public final class ItemConfig implements ConfigData {
 				.setTooltip(tooltip("ancient_horn_size_multiplier"))
 				.build();
 
-        var ancientHornCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("ancient_horn"),
+        var ancientHornCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("ancient_horn"),
                 false,
                 tooltip("ancient_horn"),
 				summonsWarden, lifespan, mobDamage, playerDamage, shattersGlass, sizeMultiplier
@@ -132,7 +132,7 @@ public final class ItemConfig implements ConfigData {
 				.setTooltip(tooltip("potion_landing_sounds"))
 				.build();
 
-		var projectileLandingSoundsCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("projectile_landing_sounds"),
+		var projectileLandingSoundsCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("projectile_landing_sounds"),
 				false,
 				tooltip("projectile_landing_sounds"),
 				snowballLandingSounds, eggLandingSounds, enderPearlLandingSounds, potionLandingSounds

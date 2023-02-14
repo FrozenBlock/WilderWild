@@ -79,6 +79,7 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_COARSE_DIRT_PATH_SMALL = bind("has_coarse_dirt_path_small");
 	public static final TagKey<Biome> HAS_PACKED_MUD_PATH_BADLANDS = bind("has_packed_mud_path_badlands");
 	public static final TagKey<Biome> HAS_SANDSTONE_PATH = bind("has_sandstone_path");
+	public static final TagKey<Biome> HAS_DRY_SAND = bind("has_dry_sand");
 	public static final TagKey<Biome> HAS_TAIGA_FOREST_ROCK = bind("has_taiga_forest_rock");
 	public static final TagKey<Biome> HAS_MOSS_PATH = bind("has_moss_path");
 	public static final TagKey<Biome> HAS_PACKED_MUD_PATH = bind("has_packed_mud_path");

@@ -20,17 +20,18 @@ package net.frozenblock.wilderwild.world.additions.feature;
 
 import java.util.List;
 import net.frozenblock.lib.feature.FrozenFeatures;
+import net.frozenblock.lib.feature.features.config.FadingDiskFeatureConfig;
 import net.frozenblock.lib.feature.features.config.PathFeatureConfig;
 import net.frozenblock.lib.feature.features.config.PathSwapUnderWaterFeatureConfig;
 import net.frozenblock.lib.feature.features.config.PillarFeatureConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import static net.minecraft.data.worldgen.features.OreFeatures.NATURAL_STONE;
-import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -80,6 +81,7 @@ public final class WilderMiscConfigured {
 	public static final RuleTest PACKED_MUD_REPLACEABLE = new TagMatchTest(WilderBlockTags.PACKED_MUD_REPLACEABLE);
 	public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_PACKED_MUD = WilderConfiguredFeatures.register("ore_packed_mud", Feature.ORE, new OreConfiguration(PACKED_MUD_REPLACEABLE, Blocks.PACKED_MUD.defaultBlockState(), 40));
 	public static final Holder<ConfiguredFeature<PathFeatureConfig, ?>> SANDSTONE_PATH = WilderConfiguredFeatures.register("sandstone_path", FrozenFeatures.NOISE_PATH_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.SANDSTONE), 10, 2, 0.2, 0.4, 1, true, true, false, false, HolderSet.direct(Blocks.SAND.builtInRegistryHolder())));
+	public static final Holder<ConfiguredFeature<FadingDiskFeatureConfig, ?>> DRY_SAND_DISK = WilderConfiguredFeatures.register("dry_sand", FrozenFeatures.FADING_DISK_FEATURE, new FadingDiskFeatureConfig(BlockStateProvider.simple(RegisterBlocks.DRY_SAND.defaultBlockState().setValue(RegisterProperties.CRACKNESS, 1)), BlockStateProvider.simple(RegisterBlocks.DRY_SAND.defaultBlockState()), UniformInt.of(4, 12)));
 	// BADLANDS
 	public static final Holder<ConfiguredFeature<PathFeatureConfig, ?>> COARSE_DIRT_PATH_SMALL = WilderConfiguredFeatures.register("coarse_dirt_path_small", FrozenFeatures.NOISE_PATH_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.COARSE_DIRT), 8, 2, 0.15, 0.2, 1, true, true, false, false, HolderSet.direct(Blocks.RED_SAND.builtInRegistryHolder())));
 	public static final Holder<ConfiguredFeature<PathFeatureConfig, ?>> PACKED_MUD_PATH_BADLANDS = WilderConfiguredFeatures.register("packed_mud_path_badlands", FrozenFeatures.NOISE_PATH_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.PACKED_MUD), 4, 3, 0.7, 0.2, 1, true, true, false, false, HolderSet.direct(Blocks.TERRACOTTA.builtInRegistryHolder(),
