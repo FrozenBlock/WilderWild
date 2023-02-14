@@ -24,6 +24,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
 import net.frozenblock.lib.datagen.api.FrozenBiomeTagProvider;
+import net.frozenblock.lib.tag.api.FrozenBiomeTags;
 import net.frozenblock.lib.tag.api.FrozenBlockTags;
 import net.frozenblock.lib.tag.api.FrozenItemTags;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
@@ -207,6 +208,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptionalTag(WilderBiomeTags.MULTI_LAYER_SAND_BEACHES)
 					.addOptional(RegisterWorldgen.OASIS)
 					.addOptional(RegisterWorldgen.WARM_RIVER);
+
+			this.getOrCreateTagBuilder(FrozenBiomeTags.CAN_LIGHTNING_OVERRIDE)
+					.add(Biomes.DESERT);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.GRAVEL_BEACH)
 					.add(Biomes.BIRCH_FOREST)
