@@ -37,7 +37,7 @@ import net.frozenblock.wilderwild.block.BaobabNutBlock;
 import net.frozenblock.wilderwild.block.BushBlock;
 import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
-import net.frozenblock.wilderwild.block.DrySand;
+import net.frozenblock.wilderwild.block.ScorchedSandBlock;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.block.FlowerLichenBlock;
 import net.frozenblock.wilderwild.block.FloweringLilyPadBlock;
@@ -130,14 +130,14 @@ public final class RegisterBlocks {
 
     // OTHER (BUILDING BLOCKS)
     public static final Block CHISELED_MUD_BRICKS = new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(1.5F).requiresTool().sounds(SoundType.MUD_BRICKS));
-	public static final Block DRY_SAND = new DrySand(FabricBlockSettings.of(Material.SAND).strength(1.5F).requiresTool().sounds(SoundType.SAND));
+	public static final Block SCORCHED_SAND = new ScorchedSandBlock(FabricBlockSettings.of(Material.SAND).strength(1.5F).requiresTool().sounds(SoundType.SAND), Blocks.SAND.defaultBlockState());
 
     /**
      * Building Blocks
      */
     public static void registerOtherBB() {
         registerBlock("chiseled_mud_bricks", CHISELED_MUD_BRICKS, CreativeModeTab.TAB_BUILDING_BLOCKS);
-		registerBlock("dry_sand", DRY_SAND, CreativeModeTab.TAB_BUILDING_BLOCKS);
+		registerBlock("scorched_sand", SCORCHED_SAND, CreativeModeTab.TAB_BUILDING_BLOCKS);
     }
 
     // WOOD

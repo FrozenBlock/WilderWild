@@ -50,8 +50,8 @@ public class LightningBoltMixin {
 		if (bolt.level instanceof ServerLevel serverLevel) {
 			BlockPos blockPos = this.getStrikePosition();
 			BlockState strikeState = bolt.level.getBlockState(blockPos);
-			if (strikeState.is(Blocks.SAND) || strikeState.is(RegisterBlocks.DRY_SAND)) {
-				ConfiguredFeature<?, ?> configuredFeature = WilderMiscConfigured.DRY_SAND_DISK_LIGHTNING.value();
+			if (strikeState.is(Blocks.SAND) || strikeState.is(RegisterBlocks.SCORCHED_SAND)) {
+				ConfiguredFeature<?, ?> configuredFeature = WilderMiscConfigured.SCORCHED_SAND_DISK_LIGHTNING.value();
 				configuredFeature.place(serverLevel, serverLevel.getChunkSource().getGenerator(), serverLevel.getRandom(), blockPos);
 			}
 		}
