@@ -10,8 +10,11 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ScorchedSandBlock extends Block {
+	public static final Map<BlockState, Block> SCORCH_MAP = new HashMap<>();
 	public static final IntegerProperty CRACKEDNESS = RegisterProperties.CRACKEDNESS;
 
 	public final BlockState wetState;
@@ -20,6 +23,7 @@ public class ScorchedSandBlock extends Block {
 		super(settings);
 		this.registerDefaultState(this.stateDefinition.any().setValue(CRACKEDNESS, 0));
 		this.wetState = wetState;
+		SCORCH_MAP.put(wetState, this);
 	}
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
