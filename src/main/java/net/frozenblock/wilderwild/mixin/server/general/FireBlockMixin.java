@@ -35,15 +35,17 @@ public class FireBlockMixin {
 
 	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;", shift = At.Shift.BEFORE))
     public void wilderWild$tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
-        this.wilderWild$scorchTick(level, pos.below());
+        this.wilderWild$scorchTick(level, pos.below(), random);
     }
 
 	@Unique
-	public void wilderWild$scorchTick(ServerLevel level, BlockPos pos) {
-		BlockState state = level.getBlockState(pos);
-		if (ScorchedSandBlock.SCORCH_MAP.containsKey(state)) {
-			BlockState scorchState = ScorchedSandBlock.SCORCH_MAP.get(state).defaultBlockState();
-			level.setBlockAndUpdate(pos, scorchState);
+	public void wilderWild$scorchTick(ServerLevel level, BlockPos pos, RandomSource random) {
+		if (random.nextFloat() <= 0.2F) {
+			BlockState state = level.getBlockState(pos);
+			if (ScorchedSandBlock.SCORCH_MAP.containsKey(state)) {
+				BlockState scorchState = ScorchedSandBlock.SCORCH_MAP.get(state);
+				level.setBlockAndUpdate(pos, scorchState);
+			}
 		}
 	}
 

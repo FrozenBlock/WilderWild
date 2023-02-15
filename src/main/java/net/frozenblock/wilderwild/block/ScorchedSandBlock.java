@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ScorchedSandBlock extends Block {
-	public static final Map<BlockState, Block> SCORCH_MAP = new HashMap<>();
+	public static final Map<BlockState, BlockState> SCORCH_MAP = new HashMap<>();
 	public static final IntegerProperty CRACKEDNESS = RegisterProperties.CRACKEDNESS;
 
 	public final BlockState wetState;
@@ -23,8 +23,14 @@ public class ScorchedSandBlock extends Block {
 		super(settings);
 		this.registerDefaultState(this.stateDefinition.any().setValue(CRACKEDNESS, 0));
 		this.wetState = wetState;
-		SCORCH_MAP.put(wetState, this);
+		this.fillScorchMap(wetState, this.defaultBlockState());
 	}
+
+	public void fillScorchMap(BlockState wetState, BlockState defaultState) {
+		SCORCH_MAP.put(wetState, defaultState);
+		SCORCH_MAP.put(defaultState, defaultState.setValue(RegisterProperties.CRACKEDNESS, 1));
+	}
+
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
 		builder.add(CRACKEDNESS);
