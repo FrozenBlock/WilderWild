@@ -7,7 +7,7 @@ import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.config.api.FrozenConfig;
+import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultItemConfig;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
@@ -71,7 +71,7 @@ public final class ItemConfig implements ConfigData {
 				.setTooltip(tooltip("ancient_horn_size_multiplier"))
 				.build();
 
-        var ancientHornCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("ancient_horn"),
+        var ancientHornCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("ancient_horn"),
                 false,
                 tooltip("ancient_horn"),
 				summonsWarden, lifespan, mobDamage, playerDamage, shattersGlass, sizeMultiplier

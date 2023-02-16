@@ -7,7 +7,7 @@ import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.config.api.FrozenConfig;
+import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultWorldgenConfig;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
@@ -75,7 +75,7 @@ public final class WorldgenConfig implements ConfigData {
 				.requireRestart()
 				.build();
 
-		var biomeGenerationCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("biome_generation"),
+		var biomeGenerationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("biome_generation"),
 				false,
 				tooltip("biome_generation"),
 				cypressWetlands, jellyfishCaves, mixedForest
@@ -110,7 +110,7 @@ public final class WorldgenConfig implements ConfigData {
                 .requireRestart()
                 .build();
 
-        var biomePlacementCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("biome_placement"),
+        var biomePlacementCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("biome_placement"),
                 false,
                 tooltip("biome_placement"),
                 jungle, mangroveSwamp, swamp, windsweptSavanna
