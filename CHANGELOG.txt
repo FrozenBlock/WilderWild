@@ -4,5 +4,4 @@ Make sure to clear after release
 
 Put changelog here:
 -----------------
-- Fixed compatibility with Simple Copper Pipes 0.12
-- Automated releases to GitHub, CurseForge, and Modrinth
+- Many internal changes
