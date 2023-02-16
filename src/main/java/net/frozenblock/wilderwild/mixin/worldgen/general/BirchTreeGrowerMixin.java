@@ -15,7 +15,7 @@ public class BirchTreeGrowerMixin {
 
     @Inject(method = "getConfiguredFeature", at = @At("RETURN"), cancellable = true)
     public void getConfiguredFeature(RandomSource random, boolean bees, CallbackInfoReturnable<Holder<? extends ConfiguredFeature<?, ?>>> cir) {
-        cir.setReturnValue(WilderTreeConfigured.NEW_BIRCH_BEES_0004);
+        cir.setReturnValue(WilderTreeConfigured.BIRCH_BEES_0004);
     }
 
 }

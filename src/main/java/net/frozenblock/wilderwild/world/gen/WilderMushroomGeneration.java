@@ -12,10 +12,10 @@ public final class WilderMushroomGeneration {
                 GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.HUGE_RED_MUSHROOM_PLACED.unwrapKey().orElseThrow());
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.OLD_GROWTH_BIRCH_FOREST),
-                GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_MUSHROOM_PLACED.unwrapKey().orElseThrow());
+                GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MUSHROOM_PLACED.unwrapKey().orElseThrow());
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.BIRCH_FOREST),
-                GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_BROWN_MUSHROOM_PLACED.unwrapKey().orElseThrow());
+                GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BROWN_MUSHROOM_PLACED.unwrapKey().orElseThrow());
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SWAMP),
                 GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.HUGE_MUSHROOMS_SWAMP.unwrapKey().orElseThrow());
