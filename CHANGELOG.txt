@@ -1,7 +1,11 @@
 Hello
 Put changelog in plain text please
-Make sure to clear after release
+Make sure to clear this after each release
 
 Put changelog here:
 -----------------
+- Most biome modifications now use tags
+- Ancient Horn cooldown is now saved
+- Changed names of some worldgen features
+- Updated Ukranian translation
 - Many internal changes
