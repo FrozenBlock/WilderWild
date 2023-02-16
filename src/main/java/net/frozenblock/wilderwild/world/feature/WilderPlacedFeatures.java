@@ -318,7 +318,7 @@ public final class WilderPlacedFeatures {
     }
 
     public static Holder<PlacedFeature> register(@NotNull String id, Holder<? extends ConfiguredFeature<?, ?>> registryEntry, @NotNull List<PlacementModifier> modifiers) {
-        return BuiltinRegistries.register(BuiltinRegistries.PLACED_FEATURE, WilderSharedConstants.id(id), new PlacedFeature(Holder.hackyErase(registryEntry), List.copyOf(modifiers)));
+        return PlacementUtils.register(WilderSharedConstants.string(id), registryEntry, modifiers);
     }
 
     public static Holder<PlacedFeature> register(@NotNull String id, Holder<? extends ConfiguredFeature<?, ?>> registryEntry, @NotNull PlacementModifier... modifiers) {
