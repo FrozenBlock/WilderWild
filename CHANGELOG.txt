@@ -4,6 +4,8 @@ Make sure to clear this after each release
 
 Put changelog here:
 -----------------
-- Updated Ukranian translation
+- Most biome modifications now use tags
+- Ancient Horn cooldown is now saved
 - Changed names of some worldgen features
+- Updated Ukranian translation
 - Many internal changes
