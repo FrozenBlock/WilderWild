@@ -29,7 +29,7 @@ pluginManagement {
 rootProject.setName("Wilder Wild")
 
 
-boolean allowLocalFrozenLibUse = false
+boolean allowLocalFrozenLibUse = true
 boolean allowFrozenLibInConsoleMode = true
 String FrozenLibPath = "../FrozenLib"
 

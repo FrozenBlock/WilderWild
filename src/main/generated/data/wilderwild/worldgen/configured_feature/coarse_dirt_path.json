@@ -7,11 +7,13 @@
         "Name": "minecraft:coarse_dirt"
       }
     },
+    "is3D": false,
     "maxThresh": 0.3,
     "minThresh": -0.2,
     "multiplier": 0.12,
     "multiplyY": false,
     "noise": 3,
+    "onlyExposed": false,
     "radius": 11,
     "replaceable": [
       "minecraft:dirt",

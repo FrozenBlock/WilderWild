@@ -7,11 +7,13 @@
         "Name": "minecraft:gravel"
       }
     },
+    "is3D": false,
     "maxThresh": -0.3,
     "minThresh": -0.7,
     "multiplier": 0.07,
     "multiplyY": true,
     "noise": 1,
+    "onlyExposed": false,
     "radius": 16,
     "replaceable": [
       "minecraft:dirt",

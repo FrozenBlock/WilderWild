@@ -247,12 +247,12 @@ public class Jellyfish extends NoFlopAbstractFish {
             for (LivingEntity entity : list) {
                 if (this.targetingConditions.test(this, entity)) {
                     if (entity instanceof ServerPlayer player) {
-                        if (player.hurt(DamageSource.mobAttack(this), 3)) {
+                        if (player.hurt(this.damageSources().mobAttack(this), 3)) {
                             player.addEffect(new MobEffectInstance(MobEffects.POISON, 200, 0, false, false), this);
                             EasyPacket.sendJellySting(player);
                         }
                     } else if (entity instanceof Mob mob) {
-                        if (mob.hurt(DamageSource.mobAttack(this), (float) (3))) {
+                        if (mob.hurt(this.damageSources().mobAttack(this), (float) (3))) {
                             mob.addEffect(new MobEffectInstance(MobEffects.POISON, 200, 0), this);
                             this.playSound(RegisterSounds.ENTITY_JELLYFISH_STING, 0.4F, this.random.nextFloat() * 0.2F + 0.9F);
                         }
