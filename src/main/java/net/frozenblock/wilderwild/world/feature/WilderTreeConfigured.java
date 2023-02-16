@@ -108,47 +108,47 @@ public final class WilderTreeConfigured {
 				new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty()));
 	}
 
-	public static TreeConfiguration.TreeConfigurationBuilder new_birch() {
+	public static TreeConfiguration.TreeConfigurationBuilder birch() {
 		return builder(Blocks.BIRCH_LOG, Blocks.BIRCH_LEAVES, 8, 5, 4, 0.15F, UniformInt.of(1, 2), UniformInt.of(1, 3), ConstantInt.of(1), 2).ignoreVines();
 	}
 
-	public static TreeConfiguration.TreeConfigurationBuilder new_superBirch() {
+	public static TreeConfiguration.TreeConfigurationBuilder superBirch() {
 		return builder(Blocks.BIRCH_LOG, Blocks.BIRCH_LEAVES, 8, 6, 6, 0.15F, UniformInt.of(1, 2), UniformInt.of(1, 3), ConstantInt.of(1), 2).ignoreVines();
 	}
 
-	public static TreeConfiguration.TreeConfigurationBuilder new_short_birch() {
+	public static TreeConfiguration.TreeConfigurationBuilder shortBirch() {
 		return builder(Blocks.BIRCH_LOG, Blocks.BIRCH_LEAVES, 6, 2, 2, 0.12F, UniformInt.of(1, 2), UniformInt.of(1, 3), ConstantInt.of(1), 2).ignoreVines();
 	}
 
-	public static TreeConfiguration.TreeConfigurationBuilder fallen_birch() {
+	public static TreeConfiguration.TreeConfigurationBuilder fallenBirch() {
 		return fallenTrunkBuilder(RegisterBlocks.HOLLOWED_BIRCH_LOG, Blocks.BIRCH_LEAVES, 3, 1, 2, 0.4F, 0.47F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines();
 	}
 
-	public static TreeConfiguration.TreeConfigurationBuilder new_oak() {
+	public static TreeConfiguration.TreeConfigurationBuilder oak() {
 		return builder(Blocks.OAK_LOG, Blocks.OAK_LEAVES, 6, 2, 1, 0.1F, UniformInt.of(1, 2), UniformInt.of(1, 3), ConstantInt.of(1), 2).ignoreVines();
 	}
 
-	public static TreeConfiguration.TreeConfigurationBuilder short_oak() {
+	public static TreeConfiguration.TreeConfigurationBuilder shortOak() {
 		return builder(Blocks.OAK_LOG, Blocks.OAK_LEAVES, 4, 1, 0, 0.095F, UniformInt.of(1, 2), UniformInt.of(1, 3), ConstantInt.of(1), 2).ignoreVines();
 	}
 
-	public static TreeConfiguration.TreeConfigurationBuilder new_fancyOak() {
+	public static TreeConfiguration.TreeConfigurationBuilder fancyOak() {
 		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.OAK_LOG), new FancyTrunkPlacer(5, 16, 0), BlockStateProvider.simple(Blocks.OAK_LEAVES), new FancyFoliagePlacer(ConstantInt.of(3), ConstantInt.of(3), 4), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)))).ignoreVines();
 	}
 
-	public static TreeConfiguration.TreeConfigurationBuilder fallen_oak() {
+	public static TreeConfiguration.TreeConfigurationBuilder fallenOak() {
 		return fallenTrunkBuilder(RegisterBlocks.HOLLOWED_OAK_LOG, Blocks.OAK_LEAVES, 3, 1, 2, 0.4F, 0.4F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines();
 	}
 
-	public static TreeConfiguration.TreeConfigurationBuilder fallen_cypress() {
+	public static TreeConfiguration.TreeConfigurationBuilder fallenCypress() {
 		return fallenTrunkBuilder(RegisterBlocks.HOLLOWED_CYPRESS_LOG, RegisterBlocks.CYPRESS_LEAVES, 3, 1, 2, 0.4F, 0.6F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines();
 	}
 
-	public static TreeConfiguration.TreeConfigurationBuilder new_tall_dark_oak() {
+	public static TreeConfiguration.TreeConfigurationBuilder tallDarkOak() {
 		return darkOakBuilder(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_LEAVES, 7, 3, 2, 1).ignoreVines();
 	}
 
-	public static TreeConfiguration.TreeConfigurationBuilder fallen_spruce() {
+	public static TreeConfiguration.TreeConfigurationBuilder fallenSpruce() {
 		return fallenTrunkBuilder(RegisterBlocks.HOLLOWED_SPRUCE_LOG, Blocks.SPRUCE_LEAVES, 5, 1, 2, 0.0F, 0.5F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines();
 	}
 }
