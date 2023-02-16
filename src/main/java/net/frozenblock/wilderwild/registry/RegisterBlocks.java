@@ -81,6 +81,7 @@ import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.WallHangingSignBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
@@ -94,6 +95,18 @@ public final class RegisterBlocks {
     private static final MaterialColor BAOBAB_BARK_COLOR = MaterialColor.COLOR_BROWN;
     private static final MaterialColor CYPRESS_PLANKS_COLOR = MaterialColor.COLOR_LIGHT_GRAY;
     private static final MaterialColor CYPRESS_BARK_COLOR = MaterialColor.STONE;
+
+	public static final BlockSetType BAOBAB_SET = BlockSetType.register(
+			new BlockSetType("baobab")
+	);
+
+	public static final BlockSetType CYPRESS_SET = BlockSetType.register(
+			new BlockSetType("cypress")
+	);
+
+	public static final WoodType BAOBAB_WOOD_TYPE = SignTypeRegistry.registerSignType(WilderSharedConstants.id("baobab"), BAOBAB_SET);
+
+	public static final WoodType CYPRESS_WOOD_TYPE = SignTypeRegistry.registerSignType(WilderSharedConstants.id("cypress"), CYPRESS_SET);
 
     // OTHER (BUILDING BLOCKS)
     public static final Block CHISELED_MUD_BRICKS = new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(1.5F).requiresTool().sounds(SoundType.MUD_BRICKS));
@@ -126,61 +139,51 @@ public final class RegisterBlocks {
 
     public static final Block BAOBAB_BUTTON = new ButtonBlock(
 			FabricBlockSettings.copyOf(Blocks.OAK_BUTTON).color(BAOBAB_PLANKS_COLOR),
-			30, true,
-			SoundEvents.WOODEN_BUTTON_CLICK_OFF,
-			SoundEvents.WOODEN_BUTTON_CLICK_ON
+			BAOBAB_SET,
+			30, true
 	);
     public static final Block CYPRESS_BUTTON = new ButtonBlock(
 			FabricBlockSettings.copyOf(Blocks.OAK_BUTTON).color(CYPRESS_PLANKS_COLOR),
-			30, true,
-			SoundEvents.WOODEN_BUTTON_CLICK_OFF,
-			SoundEvents.WOODEN_BUTTON_CLICK_ON
+			CYPRESS_SET,
+			30, true
 	);
 
     public static final Block BAOBAB_PRESSURE_PLATE = new PressurePlateBlock(
 			PressurePlateBlock.Sensitivity.EVERYTHING,
 			FabricBlockSettings.of(Material.WOOD, BAOBAB_PLANKS_COLOR).noCollision().strength(0.5F).sounds(SoundType.WOOD),
-			SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_OFF,
-			SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_ON
+			BAOBAB_SET
 	);
     public static final Block CYPRESS_PRESSURE_PLATE = new PressurePlateBlock(
 			PressurePlateBlock.Sensitivity.EVERYTHING,
 			FabricBlockSettings.of(Material.WOOD, CYPRESS_PLANKS_COLOR).noCollision().strength(0.5F).sounds(SoundType.WOOD),
-			SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_OFF,
-			SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_ON
+			CYPRESS_SET
 	);
 
     public static final Block BAOBAB_DOOR = new DoorBlock(
 			FabricBlockSettings.of(Material.WOOD, BAOBAB_PLANKS_COLOR).strength(3.0F).sounds(SoundType.WOOD).nonOpaque(),
-			SoundEvents.WOODEN_DOOR_CLOSE,
-			SoundEvents.WOODEN_DOOR_OPEN
+			BAOBAB_SET
 	);
     public static final Block CYPRESS_DOOR = new DoorBlock(
 			FabricBlockSettings.of(Material.WOOD, CYPRESS_PLANKS_COLOR).strength(3.0F).sounds(SoundType.WOOD).nonOpaque(),
-			SoundEvents.WOODEN_DOOR_CLOSE,
-			SoundEvents.WOODEN_DOOR_OPEN
+			CYPRESS_SET
 	);
 
     public static final Block BAOBAB_TRAPDOOR = new TrapDoorBlock(
 			FabricBlockSettings.of(Material.WOOD, BAOBAB_PLANKS_COLOR).strength(3.0F).sounds(SoundType.WOOD).nonOpaque().allowsSpawning(RegisterBlocks::never),
-			SoundEvents.WOODEN_TRAPDOOR_CLOSE,
-			SoundEvents.WOODEN_TRAPDOOR_OPEN
+			BAOBAB_SET
 	);
     public static final Block CYPRESS_TRAPDOOR = new TrapDoorBlock(
 			FabricBlockSettings.of(Material.WOOD, CYPRESS_PLANKS_COLOR).strength(3.0F).sounds(SoundType.WOOD).nonOpaque().allowsSpawning(RegisterBlocks::never),
-			SoundEvents.WOODEN_TRAPDOOR_CLOSE,
-			SoundEvents.WOODEN_TRAPDOOR_OPEN
+			CYPRESS_SET
 	);
 
     public static final Block BAOBAB_FENCE_GATE = new FenceGateBlock(
 			FabricBlockSettings.of(Material.WOOD, BAOBAB_PLANKS.defaultMaterialColor()).strength(2.0F, 3.0F).sounds(SoundType.WOOD),
-			SoundEvents.FENCE_GATE_CLOSE,
-			SoundEvents.FENCE_GATE_OPEN
+			BAOBAB_WOOD_TYPE
 	);
     public static final Block CYPRESS_FENCE_GATE = new FenceGateBlock(
 			FabricBlockSettings.of(Material.WOOD, CYPRESS_PLANKS.defaultMaterialColor()).strength(2.0F, 3.0F).sounds(SoundType.WOOD),
-			SoundEvents.FENCE_GATE_CLOSE,
-			SoundEvents.FENCE_GATE_OPEN
+			CYPRESS_WOOD_TYPE
 	);
 
     public static final Block BAOBAB_NUT = new BaobabNutBlock(FabricBlockSettings.of(Material.PLANT).ticksRandomly().breakInstantly().sounds(RegisterBlockSoundGroups.BAOBAB_NUT).offsetType(BlockBehaviour.OffsetType.XZ));
@@ -195,13 +198,11 @@ public final class RegisterBlocks {
     public static final Block BAOBAB_FENCE = new FenceBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD));
     public static final Block CYPRESS_FENCE = new FenceBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD));
 
-    public static final WoodType BAOBAB_WOOD_TYPE = SignTypeRegistry.registerSignType(WilderSharedConstants.id("baobab"));
     public static final Block BAOBAB_SIGN_BLOCK = new FrozenSignBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD), BAOBAB_WOOD_TYPE, WilderSharedConstants.id("blocks/baobab_sign"));
     public static final Block BAOBAB_WALL_SIGN = new FrozenWallSignBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).dropsLike(BAOBAB_SIGN_BLOCK), BAOBAB_WOOD_TYPE, WilderSharedConstants.id("blocks/baobab_sign"));
 	public static final Block BAOBAB_HANGING_SIGN = new CeilingHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_HANGING_SIGN).color(BAOBAB_LOG.defaultMaterialColor()).requiredFeatures(FeatureFlags.UPDATE_1_20), BAOBAB_WOOD_TYPE);
 	public static final Block BAOBAB_WALL_HANGING_SIGN = new WallHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_WALL_HANGING_SIGN).color(BAOBAB_LOG.defaultMaterialColor()).requiredFeatures(FeatureFlags.UPDATE_1_20).dropsLike(BAOBAB_HANGING_SIGN), BAOBAB_WOOD_TYPE);
 
-    public static final WoodType CYPRESS_WOOD_TYPE = SignTypeRegistry.registerSignType(WilderSharedConstants.id("cypress"));
     public static final Block CYPRESS_SIGN_BLOCK = new FrozenSignBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD), CYPRESS_WOOD_TYPE, WilderSharedConstants.id("blocks/cypress_sign"));
     public static final Block CYPRESS_WALL_SIGN = new FrozenWallSignBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).dropsLike(CYPRESS_SIGN_BLOCK), CYPRESS_WOOD_TYPE, WilderSharedConstants.id("blocks/cypress_sign"));
 	public static final Block CYPRESS_HANGING_SIGN = new CeilingHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_HANGING_SIGN).color(CYPRESS_LOG.defaultMaterialColor()).requiredFeatures(FeatureFlags.UPDATE_1_20), CYPRESS_WOOD_TYPE);
