@@ -7,7 +7,7 @@ import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.config.api.FrozenConfig;
+import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultEntityConfig;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
@@ -83,7 +83,7 @@ public final class EntityConfig implements ConfigData {
 				.requireRestart()
 				.build();
 
-		var allayCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("allay"),
+		var allayCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("allay"),
 				false,
 				tooltip("allay"),
 				keyframeAllayDance
@@ -100,7 +100,7 @@ public final class EntityConfig implements ConfigData {
 				.setTooltip(tooltip("moving_stare_sound"))
 				.build();
 
-		var enderManCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("enderman"),
+		var enderManCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("enderman"),
 				false,
 				tooltip("enderman"),
 				angerLoopSound, movingStareSound
@@ -113,7 +113,7 @@ public final class EntityConfig implements ConfigData {
 				.requireRestart()
 				.build();
 
-        var fireflyCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("firefly"),
+        var fireflyCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("firefly"),
                 false,
                 tooltip("firefly"),
 				fireflySpawnCap
@@ -126,7 +126,7 @@ public final class EntityConfig implements ConfigData {
 				.requireRestart()
 				.build();
 
-        var jellyfishCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("jellyfish"),
+        var jellyfishCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("jellyfish"),
                 false,
                 tooltip("jellyfish"),
 				jellyfishSpawnCap
@@ -171,7 +171,7 @@ public final class EntityConfig implements ConfigData {
 				.requireRestart()
 				.build();
 
-		var wardenCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("warden"),
+		var wardenCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("warden"),
 				false,
 				tooltip("warden"),
 				instantAttack, dying, command, egg, swimming, tendrils, sniff

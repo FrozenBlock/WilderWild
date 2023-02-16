@@ -7,7 +7,7 @@ import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.config.api.FrozenConfig;
+import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultBlockConfig;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
@@ -169,7 +169,7 @@ public final class BlockConfig implements ConfigData {
 				.setTooltip(tooltip("wither_rose_sounds"))
 				.build();
 
-		var blockSoundsCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("block_sounds"),
+		var blockSoundsCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("block_sounds"),
 				false,
 				tooltip("block_sounds"),
 				cactusSounds, claySounds, coarseDirtSounds, cobwebSounds, deadBushSounds,
@@ -183,7 +183,7 @@ public final class BlockConfig implements ConfigData {
 				.setTooltip(tooltip("stone_chest_timer"))
 				.build();
 
-        var stoneChestCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("stone_chest"),
+        var stoneChestCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("stone_chest"),
                 false,
                 tooltip("stone_chest"),
 				stoneChestTimer
