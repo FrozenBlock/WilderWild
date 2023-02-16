@@ -216,7 +216,7 @@ public final class WilderWorldGen {
     private static void generatePollen() {
 
         BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_POLLEN),
-                GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.POLLEN_PLACED);
+                GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.POLLEN);
     }
 }
 

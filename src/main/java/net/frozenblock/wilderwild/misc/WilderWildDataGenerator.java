@@ -55,6 +55,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Blocks;
+import org.jetbrains.annotations.Nullable;
 
 public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 	@Override
@@ -620,24 +621,26 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 	}
 
 	private static final class WilderItemTagProvider extends FabricTagProvider.ItemTagProvider {
-		public WilderItemTagProvider(FabricDataGenerator dataGenerator) {
-			super(dataGenerator);
+
+		public WilderItemTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
+			super(output, completableFuture);
 		}
 
 		@Override
-		protected void generateTags() {
+		protected void addTags(HolderLookup.Provider arg) {
 			this.getOrCreateTagBuilder(FrozenItemTags.ALWAYS_SAVE_COOLDOWNS)
 					.add(RegisterItems.ANCIENT_HORN);
 		}
 	}
 
 	private static final class WilderEntityTagProvider extends FabricTagProvider.EntityTypeTagProvider {
-		public WilderEntityTagProvider(FabricDataGenerator dataGenerator) {
-			super(dataGenerator);
+
+		public WilderEntityTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
+			super(output, completableFuture);
 		}
 
 		@Override
-		protected void generateTags() {
+		protected void addTags(HolderLookup.Provider arg) {
 			this.getOrCreateTagBuilder(WilderEntityTags.STAYS_IN_MESOGLEA)
 					.add(RegisterEntities.JELLYFISH);
 		}
