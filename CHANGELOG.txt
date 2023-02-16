@@ -4,4 +4,6 @@ Make sure to clear after release
 
 Put changelog here:
 -----------------
+- Updated Ukranian translation
+- Changed some of the mod's worldgen feature names
 - Many internal changes
