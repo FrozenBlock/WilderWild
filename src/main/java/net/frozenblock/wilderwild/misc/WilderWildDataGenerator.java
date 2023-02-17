@@ -553,6 +553,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(RegisterBlocks.HOLLOWED_OAK_LOG)
 					.add(RegisterBlocks.HOLLOWED_JUNGLE_LOG)
 					.add(RegisterBlocks.HOLLOWED_MANGROVE_LOG)
+					.add(RegisterBlocks.HOLLOWED_CHERRY_LOG)
 					.add(RegisterBlocks.HOLLOWED_SPRUCE_LOG)
 					.add(RegisterBlocks.HOLLOWED_BAOBAB_LOG)
 					.add(RegisterBlocks.HOLLOWED_CYPRESS_LOG);

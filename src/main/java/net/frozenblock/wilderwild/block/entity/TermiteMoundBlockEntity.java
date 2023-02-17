@@ -355,6 +355,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             addDegradable(Blocks.DARK_OAK_LOG, RegisterBlocks.HOLLOWED_DARK_OAK_LOG);
             addDegradable(Blocks.JUNGLE_LOG, RegisterBlocks.HOLLOWED_JUNGLE_LOG);
             addDegradable(Blocks.MANGROVE_LOG, RegisterBlocks.HOLLOWED_MANGROVE_LOG);
+			addDegradable(Blocks.CHERRY_LOG, RegisterBlocks.HOLLOWED_CHERRY_LOG);
             addDegradable(Blocks.SPRUCE_LOG, RegisterBlocks.HOLLOWED_SPRUCE_LOG);
             addDegradable(Blocks.STRIPPED_ACACIA_LOG, Blocks.AIR);
             addDegradable(Blocks.STRIPPED_OAK_LOG, Blocks.AIR);
