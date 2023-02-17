@@ -279,7 +279,7 @@ public final class RegisterBlocks {
     public static final Block HOLLOWED_ACACIA_LOG = createHollowedLogBlock(MaterialColor.COLOR_ORANGE, MaterialColor.STONE);
     public static final Block HOLLOWED_DARK_OAK_LOG = createHollowedLogBlock(MaterialColor.COLOR_BROWN, MaterialColor.COLOR_BROWN);
     public static final Block HOLLOWED_MANGROVE_LOG = createHollowedLogBlock(MaterialColor.COLOR_RED, MaterialColor.PODZOL);
-	public static final Block HOLLOWED_CHERRY_LOG = createHollowedLogBlock(MaterialColor.TERRACOTTA_WHITE, MaterialColor.TERRACOTTA_GRAY);
+	public static final Block HOLLOWED_CHERRY_LOG = createHollowedLogBlock(MaterialColor.TERRACOTTA_WHITE, MaterialColor.TERRACOTTA_GRAY, true);
     public static final Block HOLLOWED_BAOBAB_LOG = createHollowedLogBlock(MaterialColor.COLOR_ORANGE, MaterialColor.COLOR_BROWN);
     public static final Block HOLLOWED_CYPRESS_LOG = createHollowedLogBlock(MaterialColor.COLOR_LIGHT_GRAY, MaterialColor.STONE);
 
@@ -534,11 +534,19 @@ public final class RegisterBlocks {
 		}
 	}
 
-    private static HollowedLogBlock createHollowedLogBlock(MaterialColor topMapColor, MaterialColor sideMapColor) {
-        return new HollowedLogBlock(FabricBlockSettings.of(Material.WOOD,
-                        (state) -> state.getValue(HollowedLogBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor)
-                .strength(2.0F).sound(RegisterBlockSoundGroups.HOLLOWED_LOG));
+    private static HollowedLogBlock createHollowedLogBlock(MaterialColor topMapColor, MaterialColor sideMapColor, boolean experimental) {
+        var settings = FabricBlockSettings.of(Material.WOOD,
+						(state) -> state.getValue(HollowedLogBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor)
+				.strength(2.0F).sound(RegisterBlockSoundGroups.HOLLOWED_LOG);
+		if (experimental)
+			settings.requiredFeatures(FeatureFlags.UPDATE_1_20);
+
+		return new HollowedLogBlock(settings);
     }
+
+	private static HollowedLogBlock createHollowedLogBlock(MaterialColor topMapColor, MaterialColor sideMapColor) {
+		return createHollowedLogBlock(topMapColor, sideMapColor, false);
+	}
 
     public static void registerBlockProperties() {
         TermiteMoundBlockEntity.Termite.addDegradable(BAOBAB_LOG, HOLLOWED_BAOBAB_LOG);
