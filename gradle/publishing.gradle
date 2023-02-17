@@ -115,8 +115,8 @@ tasks.register('github') {
 		def github = GitHub.connectUsingOAuth(env.GITHUB_TOKEN as String)
 		def repository = github.getRepository(env.GITHUB_REPOSITORY)
 
-		def releaseBuilder = new GHReleaseBuilder(repository, version as String)
-		releaseBuilder.name("$project.version-$project.minecraft_version")
+		def releaseBuilder = new GHReleaseBuilder(repository, "${makeModrinthVersion(mod_version)}" as String)
+		releaseBuilder.name("${makeName(mod_version)}")
 		releaseBuilder.body(changelog_text)
 		releaseBuilder.commitish(getBranch())
 		releaseBuilder.prerelease(release_type != "release")
