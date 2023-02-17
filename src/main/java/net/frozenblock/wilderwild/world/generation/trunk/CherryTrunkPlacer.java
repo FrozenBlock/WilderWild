@@ -40,9 +40,7 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import org.jetbrains.annotations.NotNull;
 
-public class CherryTrunkPlacer
-extends TrunkPlacer {
-
+public class CherryTrunkPlacer extends TrunkPlacer {
 	public static final Codec<CherryTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) ->
 			cherryCodec(instance).apply(instance, CherryTrunkPlacer::new));
 
@@ -75,30 +73,29 @@ extends TrunkPlacer {
     }
 
     @Override
-    public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> blockSetter, @NotNull RandomSource random, int freeTreeHeight, BlockPos pos, TreeConfiguration config) {
-        boolean bl2;
-        int k;
+    public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> blockSetter, @NotNull RandomSource random, int freeTreeHeight, BlockPos pos, @NotNull TreeConfiguration config) {
         CherryTrunkPlacer.setDirtAt(level, blockSetter, random, pos.below(), config);
         int i = Math.max(0, freeTreeHeight - 1 + this.branchStartOffsetFromTop.sample(random));
         int j = Math.max(0, freeTreeHeight - 1 + this.secondBranchStartOffsetFromTop.sample(random));
         if (j >= i) {
             ++j;
         }
-        boolean bl = (k = this.branchCount.sample(random)) == 3;
-        boolean bl3 = bl2 = k >= 2;
-        int l = bl ? freeTreeHeight : (bl2 ? Math.max(i, j) + 1 : i + 1);
+		int branchCount = this.branchCount.sample(random);
+        boolean isThreeBranches = branchCount == 3;
+        boolean moreThanOneBranch = branchCount >= 2;
+        int l = isThreeBranches ? freeTreeHeight : (moreThanOneBranch ? Math.max(i, j) + 1 : i + 1);
         for (int m = 0; m < l; ++m) {
             this.placeLog(level, blockSetter, random, pos.above(m), config);
         }
         ArrayList<FoliagePlacer.FoliageAttachment> list = new ArrayList<>();
-        if (bl) {
+        if (isThreeBranches) {
             list.add(new FoliagePlacer.FoliageAttachment(pos.above(l), 0, false));
         }
         BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
         Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
         Function<BlockState, BlockState> function = state -> (BlockState)state.setValue(RotatedPillarBlock.AXIS, direction.getAxis());
         list.add(this.generateBranch(level, blockSetter, random, freeTreeHeight, pos, config, function, direction, i, i < l - 1, mutableBlockPos));
-        if (bl2) {
+        if (moreThanOneBranch) {
             list.add(this.generateBranch(level, blockSetter, random, freeTreeHeight, pos, config, function, direction.getOpposite(), j, j < l - 1, mutableBlockPos));
         }
         return list;
@@ -106,7 +103,6 @@ extends TrunkPlacer {
 
     private FoliagePlacer.FoliageAttachment generateBranch(LevelSimulatedReader world, BiConsumer<BlockPos, BlockState> biConsumer, RandomSource random, int i, BlockPos pos, TreeConfiguration treeConfiguration, Function<BlockState, BlockState> function, Direction direction, int j, boolean bl, BlockPos.MutableBlockPos mutablePos) {
         int o;
-        Direction direction2;
         mutablePos.set(pos).move(Direction.UP, j);
         int k = i - 1 + this.branchEndOffsetFromTop.sample(random);
         boolean bl2 = bl || k < j;
@@ -116,7 +112,7 @@ extends TrunkPlacer {
         for (int n = 0; n < m; ++n) {
             this.placeLog(world, biConsumer, random, mutablePos.move(direction), treeConfiguration, function);
         }
-        Direction direction3 = direction2 = blockPos.getY() > mutablePos.getY() ? Direction.UP : Direction.DOWN;
+        Direction direction2 = blockPos.getY() > mutablePos.getY() ? Direction.UP : Direction.DOWN;
         while ((o = mutablePos.distManhattan(blockPos)) != 0) {
             float f = (float)Math.abs(blockPos.getY() - mutablePos.getY()) / (float)o;
             boolean bl3 = random.nextFloat() < f;
