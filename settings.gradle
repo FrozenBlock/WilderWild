@@ -31,7 +31,7 @@ rootProject.setName("Wilder Wild")
 localRepository("FrozenLib")
 
 def localRepository(String mod) {
-	boolean allowLocalModUse = false
+	boolean allowLocalModUse = true
 	boolean allowLocalModInConsoleMode = true
 
 	boolean isIDE = properties.containsKey("android.injected.invoked.from.ide"
