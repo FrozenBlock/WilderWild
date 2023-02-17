@@ -4,9 +4,4 @@ Make sure to clear this after each release
 
 Put changelog here:
 -----------------
-- Ported to 23w07a
-- Most biome modifications now use tags
-- Ancient Horn cooldown is now saved
-- Changed names of some worldgen features
-- Updated Ukranian translation
-- Many internal changes
+- Fixed a server crash
