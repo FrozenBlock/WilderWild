@@ -4,4 +4,4 @@ Make sure to clear this after each release
 
 Put changelog here:
 -----------------
-- Fixed carnations and daturas generating in incorrect biomes
+- Fixed a bug where carnations and daturas generated in incorrect biomes
