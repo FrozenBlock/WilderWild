@@ -73,6 +73,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 	public static final ResourceKey<Biome> SEMI_BIRCH_FOREST = register("semi_birch_forest");
 	public static final ResourceKey<Biome> DARK_BIRCH_FOREST = register("dark_birch_forest");
 	public static final ResourceKey<Biome> FLOWER_FIELD = register("flower_field");
+	public static final ResourceKey<Biome> TEMPERATE_RAINFOREST = register("temperate_rainforest");
 	// OLD GROWTH
 	public static final ResourceKey<Biome> OLD_GROWTH_BIRCH_TAIGA = register("old_growth_birch_taiga");
 	public static final ResourceKey<Biome> OLD_GROWTH_DARK_FOREST = register("old_growth_dark_forest");
@@ -100,6 +101,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, SEMI_BIRCH_FOREST.location(), semiBirchForest());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, DARK_BIRCH_FOREST.location(), darkBirchForest());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, FLOWER_FIELD.location(), flowerField());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, TEMPERATE_RAINFOREST.location(), temperateRainforest());
 		// OLD GROWTH
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, OLD_GROWTH_BIRCH_TAIGA.location(), birchTaiga(true));
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, OLD_GROWTH_DARK_FOREST.location(), oldGrowthDarkForest());
@@ -698,6 +700,44 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		BiomeDefaultFeatures.addDefaultMushrooms(builder);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 	}
+	public static Biome temperateRainforest() {
+		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
+		BiomeDefaultFeatures.commonSpawns(builder);
+		BiomeDefaultFeatures.plainsSpawns(builder);
+		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 5, 4, 4));
+		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
+		addTemperateRainforestFeatures(builder2);
+		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_GAME);
+		return new Biome.BiomeBuilder()
+				.precipitation(Biome.Precipitation.RAIN)
+				.temperature(0.7F)
+				.downfall(0.8F)
+				.specialEffects(
+						new BiomeSpecialEffects.Builder()
+								.waterColor(4159204)
+								.waterFogColor(329011)
+								.fogColor(12638463)
+								.skyColor(OverworldBiomes.calculateSkyColor(0.8F))
+								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+								.backgroundMusic(musicSound).build())
+				.mobSpawnSettings(builder.build())
+				.generationSettings(builder2.build())
+				.build();
+	}
+	public static void addTemperateRainforestFeatures(BiomeGenerationSettings.Builder builder) {
+		addBasicFeatures(builder, TEMPERATE_RAINFOREST);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.RAINFOREST_TREES);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MOSSY_FALLEN_TREES_MIXED_PLACED);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_RAINFOREST);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.RAINFOREST_MUSHROOMS_PLACED);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DEAD_BUSH_PLACED);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MOSS_CARPET);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderMiscPlaced.MOSS_PILE);
+		BiomeDefaultFeatures.addDefaultOres(builder);
+		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
+		BiomeDefaultFeatures.addDefaultMushrooms(builder);
+		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
+	}
 	// OLD GROWTH
 	public static Biome oldGrowthDarkForest() {
 		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
@@ -798,6 +838,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		context.add(WilderSharedWorldgen.aridRules());
 		context.add(WilderSharedWorldgen.oldGrowthSnowyTaigaRules());
 		context.add(WilderSharedWorldgen.oldGrowthDarkForestRules());
+		context.add(WilderSharedWorldgen.temperateRainforestRules());
 		context.add(WilderSharedWorldgen.betaBeaches());
 		WilderSharedConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
 	}

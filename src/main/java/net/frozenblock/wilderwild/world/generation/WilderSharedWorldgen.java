@@ -129,8 +129,16 @@ public final class WilderSharedWorldgen {
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.050F, 0.150F);
 		public static final Climate.Parameter TEMPERATURE_B = Climate.Parameter.span(-0.140F, -0.100F);
 	}
+	public static final class TemperateRainforest {
+		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.100F, 0.150F);
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.100F, 0.300F);
+		public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(0.350F, 0.750F);
+		public static final Climate.Parameter EROSION = Climate.Parameter.span(-0.350F, -0.210F);
+		public static final Climate.Parameter WEIRDNESS = Climate.Parameter.span(-0.450F, -0.300F);
+	}
 
-    public static final class JellyfishCaves {
+
+	public static final class JellyfishCaves {
         public static final Climate.Parameter TEMPERATURE = Temperature.FULL_RANGE;
         public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.DRY, Humidity.HUMID);
         public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(-1.200F, -0.749F);
@@ -370,6 +378,31 @@ public final class WilderSharedWorldgen {
 										SurfaceRules.ifTrue(
 												SurfaceRules.noiseCondition(Noises.SURFACE, -0.0667, 0.04),
 												PODZOL
+										)
+								)
+						)
+				)
+		);
+	}
+
+	public static SurfaceRules.RuleSource temperateRainforestRules() {
+		return SurfaceRules.ifTrue(
+				SurfaceRules.isBiome(RegisterWorldgen.TEMPERATE_RAINFOREST),
+				SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
+						SurfaceRules.ifTrue(
+								SurfaceRules.waterBlockCheck(-1, 0),
+								SurfaceRules.sequence(
+										SurfaceRules.ifTrue(
+												SurfaceRules.noiseCondition(Noises.SURFACE, 0.095, 0.2),
+												FrozenSurfaceRules.makeStateRule(Blocks.PODZOL)
+										),
+										SurfaceRules.ifTrue(
+												SurfaceRules.noiseCondition(Noises.POWDER_SNOW, 0.065, 0.15),
+												FrozenSurfaceRules.makeStateRule(Blocks.MOSS_BLOCK)
+										),
+										SurfaceRules.ifTrue(
+												SurfaceRules.noiseCondition(Noises.SURFACE_SECONDARY, -0.0667, 0.4),
+												COARSE_DIRT
 										)
 								)
 						)

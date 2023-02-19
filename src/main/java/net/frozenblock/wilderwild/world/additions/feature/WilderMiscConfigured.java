@@ -43,6 +43,7 @@ import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.LakeFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.BlockPileConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.DiskConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
@@ -141,6 +142,8 @@ public final class WilderMiscConfigured {
 	public static final Holder<ConfiguredFeature<PathFeatureConfig, ?>> ARID_COARSE_PATH = WilderConfiguredFeatures.register("arid_coarse_dirt_path", FrozenFeatures.NOISE_PATH_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.COARSE_DIRT), 12, 3, 0.15, -0.15, 0.55, false, false, false, false, HolderSet.direct(Blocks.DIRT.builtInRegistryHolder(), Blocks.GRASS_BLOCK.builtInRegistryHolder())));
 
 	public static final Holder<ConfiguredFeature<BlockStateConfiguration, ?>> SNOW = WilderConfiguredFeatures.register("snow", Feature.FOREST_ROCK, new BlockStateConfiguration(Blocks.SNOW_BLOCK.defaultBlockState()));
+	public static final Holder<ConfiguredFeature<BlockPileConfiguration, ?>> MOSS_PILE = WilderConfiguredFeatures.register("moss_pile", Feature.BLOCK_PILE, new BlockPileConfiguration(BlockStateProvider.simple(Blocks.MOSS_BLOCK)));
+
 	public static void registerMiscPlaced() {
         WilderSharedConstants.logWild("Registering WilderMiscConfigured for", true);
     }

@@ -107,7 +107,8 @@ public final class WilderTreeConfigured {
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> NEW_SUPER_BIRCH_BEES_0004 = WilderConfiguredFeatures.register("new_super_birch_bees_0004", Feature.TREE, new_superBirch().decorators(ImmutableList.of(NEW_BEES_0004, SHELF_FUNGUS_007)).build());
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> DYING_SUPER_BIRCH = WilderConfiguredFeatures.register("dying_super_birch", Feature.TREE, new_superBirch().decorators(ImmutableList.of(VINES_1_UNDER_260_05, SHELF_FUNGUS_007)).build());
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> NEW_FALLEN_BIRCH_TREE = WilderConfiguredFeatures.register("new_fallen_birch_tree", Feature.TREE, fallen_birch().decorators(List.of(VINES_08_UNDER_260_075)).dirt(BlockStateProvider.simple(Blocks.DIRT)).build());
-    public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> SHORT_BIRCH = WilderConfiguredFeatures.register("short_birch", Feature.TREE, new_short_birch().decorators(ImmutableList.of(SHELF_FUNGUS_006)).ignoreVines().build());
+	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> MOSSY_FALLEN_BIRCH_TREE = WilderConfiguredFeatures.register("mossy_fallen_birch_tree", Feature.TREE, fallenTrunkBuilder(RegisterBlocks.HOLLOWED_BIRCH_LOG, Blocks.BIRCH_LEAVES, 3, 1, 2, 0.55F, 1.0F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines().decorators(List.of(VINES_08_UNDER_260_075)).dirt(BlockStateProvider.simple(Blocks.DIRT)).build());
+	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> SHORT_BIRCH = WilderConfiguredFeatures.register("short_birch", Feature.TREE, new_short_birch().decorators(ImmutableList.of(SHELF_FUNGUS_006)).ignoreVines().build());
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> SHORT_DYING_BIRCH = WilderConfiguredFeatures.register("short_dying_birch", Feature.TREE, new_short_birch().decorators(ImmutableList.of(SHELF_FUNGUS_006, VINES_1_UNDER_260_03)).ignoreVines().build());
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> NEW_SUPER_BIRCH_BEES = WilderConfiguredFeatures.register("new_super_birch_bees", Feature.TREE, new_superBirch().decorators(ImmutableList.of(NEW_BEES)).build());
 	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> NEW_SUPER_BIRCH = WilderConfiguredFeatures.register("new_super_birch", Feature.TREE, new_superBirch().build());
@@ -123,7 +124,8 @@ public final class WilderTreeConfigured {
 	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> FANCY_DYING_OAK_BEES_025 = WilderConfiguredFeatures.register("fancy_dying_oak_bees_025", Feature.TREE, new_fancyOak().decorators(List.of(NEW_BEES_025, VINES_1_UNDER_260_05)).build());
 	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> NEW_FANCY_OAK_BEES_025 = WilderConfiguredFeatures.register("new_fancy_oak_bees_025", Feature.TREE, new_fancyOak().decorators(List.of(NEW_BEES_025)).build());
 	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> NEW_FALLEN_OAK_TREE = WilderConfiguredFeatures.register("new_fallen_oak_tree", Feature.TREE, fallen_oak().decorators(List.of(VINES_08_UNDER_260_075)).dirt(BlockStateProvider.simple(Blocks.DIRT)).build());
-    public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> NEW_FANCY_OAK_BEES = WilderConfiguredFeatures.register("new_fancy_oak_bees", Feature.TREE, new_fancyOak().decorators(List.of(NEW_BEES)).build());
+	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> MOSSY_FALLEN_OAK_TREE = WilderConfiguredFeatures.register("mossy_fallen_oak_tree", Feature.TREE, fallenTrunkBuilder(RegisterBlocks.HOLLOWED_OAK_LOG, Blocks.OAK_LEAVES, 3, 1, 2, 0.55F, 1.0F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines().decorators(List.of(VINES_08_UNDER_260_075)).dirt(BlockStateProvider.simple(Blocks.DIRT)).build());
+	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> NEW_FANCY_OAK_BEES = WilderConfiguredFeatures.register("new_fancy_oak_bees", Feature.TREE, new_fancyOak().decorators(List.of(NEW_BEES)).build());
     //DARK OAK
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> DYING_DARK_OAK = WilderConfiguredFeatures.register("dying_dark_oak", Feature.TREE,
             (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.DARK_OAK_LOG), new DarkOakTrunkPlacer(6, 2, 1), BlockStateProvider.simple(Blocks.DARK_OAK_LEAVES),
@@ -150,7 +152,9 @@ public final class WilderTreeConfigured {
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> MEGA_FUNGUS_PINE = WilderConfiguredFeatures.register("mega_fungus_pine", Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.SPRUCE_LOG), new GiantTrunkPlacer(13, 2, 14), BlockStateProvider.simple(Blocks.SPRUCE_LEAVES), new MegaPineFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0), UniformInt.of(3, 7)), new TwoLayersFeatureSize(1, 1, 2)).decorators(ImmutableList.of(new AlterGroundDecorator(BlockStateProvider.simple(Blocks.PODZOL)), SHELF_FUNGUS_006_ONLY_BROWN)).build());
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> DYING_MEGA_FUNGUS_PINE = WilderConfiguredFeatures.register("dying_mega_fungus_pine", Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.SPRUCE_LOG), new GiantTrunkPlacer(13, 2, 14), BlockStateProvider.simple(Blocks.SPRUCE_LEAVES), new MegaPineFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0), UniformInt.of(3, 7)), new TwoLayersFeatureSize(1, 1, 2)).decorators(ImmutableList.of(new AlterGroundDecorator(BlockStateProvider.simple(Blocks.PODZOL)), SHELF_FUNGUS_006_ONLY_BROWN, VINES_1_UNDER_260_075)).build());
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> FALLEN_SPRUCE_TREE = WilderConfiguredFeatures.register("fallen_spruce_tree", Feature.TREE, fallen_spruce().decorators(List.of(VINES_1_UNDER_260_075)).dirt(BlockStateProvider.simple(Blocks.DIRT)).build());
-    //BAOBAB
+	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> MOSSY_FALLEN_SPRUCE_TREE = WilderConfiguredFeatures.register("mossy_fallen_spruce_tree", Feature.TREE, fallenTrunkBuilder(RegisterBlocks.HOLLOWED_SPRUCE_LOG, Blocks.SPRUCE_LEAVES, 5, 1, 2, 0.0F, 1.0F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines().decorators(List.of(VINES_08_UNDER_260_075)).dirt(BlockStateProvider.simple(Blocks.DIRT)).build());
+
+	//BAOBAB
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> BAOBAB = WilderConfiguredFeatures.register("baobab", Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(RegisterBlocks.BAOBAB_LOG), new BaobabTrunkPlacer(13, 3, 2, BlockStateProvider.simple(RegisterBlocks.STRIPPED_BAOBAB_LOG)), BlockStateProvider.simple(RegisterBlocks.BAOBAB_LEAVES), new AcaciaFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0)), new TwoLayersFeatureSize(1, 0, 2)).decorators(List.of(new AttachedToLeavesDecorator(0.065F, 1, 0,
             new RandomizedIntStateProvider(BlockStateProvider.simple(RegisterBlocks.BAOBAB_NUT.defaultBlockState().setValue(BlockStateProperties.HANGING, true)), BaobabNutBlock.AGE, UniformInt.of(0, 2)), 4, List.of(Direction.DOWN)))).ignoreVines().build());
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> BAOBAB_TALL = WilderConfiguredFeatures.register("baobab_tall", Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(RegisterBlocks.BAOBAB_LOG), new BaobabTrunkPlacer(16, 4, 2, BlockStateProvider.simple(RegisterBlocks.STRIPPED_BAOBAB_LOG)), BlockStateProvider.simple(RegisterBlocks.BAOBAB_LEAVES), new AcaciaFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0)), new TwoLayersFeatureSize(1, 0, 2)).decorators(List.of(new AttachedToLeavesDecorator(0.065F, 1, 0,
@@ -175,7 +179,7 @@ public final class WilderTreeConfigured {
 
 	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> TALL_WINE_PALM = WilderConfiguredFeatures.register("tall_wine_palm", Feature.TREE, winePalmBuilder(RegisterBlocks.PALM_LOG, RegisterBlocks.PALM_LEAVES, 10, 3, 3, 2)
 			.decorators(List.of(new LeavesAroundTopLogDecorator(0.3F, 0, 0, new RandomizedIntStateProvider(BlockStateProvider.simple(RegisterBlocks.COCONUT.defaultBlockState().setValue(BlockStateProperties.HANGING, true)), CoconutBlock.AGE, ConstantInt.of(0)), 4, List.of(Direction.DOWN)))).build());
-
+	//JUNIPER
 	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> JUNIPER = WilderConfiguredFeatures.register("juniper", Feature.TREE, (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(RegisterBlocks.CYPRESS_LOG), new CherryTrunkPlacer(2,1,1, UniformInt.of(1, 3), UniformInt.of(2, 4), UniformInt.of(-8, -5), UniformInt.of(-3, 2)), BlockStateProvider.simple(RegisterBlocks.CYPRESS_LEAVES), new RandomSpreadFoliagePlacer(ConstantInt.of(2), ConstantInt.of(2), ConstantInt.of(2), 25), new TwoLayersFeatureSize(1, 0, 1))).build());
 
 
@@ -240,6 +244,9 @@ public final class WilderTreeConfigured {
     private static TreeConfiguration.TreeConfigurationBuilder fallen_oak() {
         return fallenTrunkBuilder(RegisterBlocks.HOLLOWED_OAK_LOG, Blocks.OAK_LEAVES, 3, 1, 2, 0.4F, 0.4F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines();
     }
+	private static TreeConfiguration.TreeConfigurationBuilder mossy_fallen_oak() {
+		return fallenTrunkBuilder(RegisterBlocks.HOLLOWED_OAK_LOG, Blocks.OAK_LEAVES, 3, 1, 2, 0.55F, 0.877F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines();
+	}
 
     private static TreeConfiguration.TreeConfigurationBuilder fallen_cypress() {
         return fallenTrunkBuilder(RegisterBlocks.HOLLOWED_CYPRESS_LOG, RegisterBlocks.CYPRESS_LEAVES, 3, 1, 2, 0.4F, 0.6F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines();

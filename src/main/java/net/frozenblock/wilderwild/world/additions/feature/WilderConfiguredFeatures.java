@@ -88,6 +88,11 @@ public final class WilderConfiguredFeatures {
                     new RandomFeatureConfiguration(List.of((new WeightedPlacedFeature(WilderTreePlaced.FALLEN_SPRUCE_CHECKED, 0.4F)),
                             new WeightedPlacedFeature(WilderTreePlaced.NEW_FALLEN_BIRCH_CHECKED, 0.3F)), WilderTreePlaced.NEW_FALLEN_OAK_CHECKED));
 
+	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> MOSSY_FALLEN_TREES_MIXED =
+			register("mossy_fallen_trees_mixed", Feature.RANDOM_SELECTOR,
+					new RandomFeatureConfiguration(List.of((new WeightedPlacedFeature(WilderTreePlaced.FALLEN_SPRUCE_CHECKED, 0.1F)),
+							new WeightedPlacedFeature(WilderTreePlaced.NEW_FALLEN_BIRCH_CHECKED, 0.45F)), WilderTreePlaced.NEW_FALLEN_OAK_CHECKED));
+
 	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_BIRCH_AND_SPRUCE =
 			register("fallen_birch_and_spruce", Feature.RANDOM_SELECTOR,
 					new RandomFeatureConfiguration(List.of((new WeightedPlacedFeature(WilderTreePlaced.FALLEN_SPRUCE_CHECKED, 0.6F)),
@@ -188,6 +193,21 @@ public final class WilderConfiguredFeatures {
                             new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.01F),
                             new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED, 0.23F),
                             new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.325F)), WilderTreePlaced.NEW_OAK_CHECKED));
+
+	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> RAINFOREST_TREES =
+			register("rainforest_trees", Feature.RANDOM_SELECTOR,
+					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_SPRUCE_CHECKED, 0.12F),
+							new WeightedPlacedFeature(WilderTreePlaced.FUNGUS_PINE_CHECKED, 0.075F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_FUNGUS_PINE_CHECKED, 0.15F),
+							new WeightedPlacedFeature(WilderTreePlaced.NEW_SPRUCE_SHORT_CHECKED, 0.095F),
+							new WeightedPlacedFeature(WilderTreePlaced.NEW_FANCY_OAK_BEES_0004, 0.27F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_BEES_0004, 0.32F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED, 0.2F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.18F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_SUPER_BIRCH, 0.099F),
+							new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED, 0.1F),
+							new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.098F)), WilderTreePlaced.NEW_OAK_CHECKED));
+
 
 	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> BIRCH_TAIGA_TREES =
 			register("birch_taiga_trees", Feature.RANDOM_SELECTOR,
@@ -446,6 +466,24 @@ public final class WilderConfiguredFeatures {
 									Blocks.CORNFLOWER.defaultBlockState(),
 									Blocks.LILY_OF_THE_VALLEY.defaultBlockState()))))));
 
+	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> MOSS_CARPET =
+			register("moss_carpet", Feature.RANDOM_PATCH,
+					FeatureUtils.simpleRandomPatchConfiguration(25, PlacementUtils.inlinePlaced(Feature.SIMPLE_BLOCK,
+							new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.MOSS_CARPET)), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO))))));
+
+	public static final SimpleWeightedRandomList<BlockState> FLOWERS_RAINFOREST_POOL = SimpleWeightedRandomList.<BlockState>builder().add(RegisterBlocks.MILKWEED.defaultBlockState(), 3)
+			.add(RegisterBlocks.DATURA.defaultBlockState(), 5)
+			.add(RegisterBlocks.SEEDING_DANDELION.defaultBlockState(), 5)
+			.add(Blocks.LILAC.defaultBlockState(), 6)
+			.add(Blocks.DANDELION.defaultBlockState(), 10)
+			.add(Blocks.BLUE_ORCHID.defaultBlockState(), 8)
+			.add(Blocks.POPPY.defaultBlockState(), 10).build();
+
+	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_RAINFOREST =
+			register("flowers_rainforest", Feature.FLOWER,
+					FeatureUtils.simpleRandomPatchConfiguration(32, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+							new SimpleBlockConfiguration(new WeightedStateProvider(FLOWERS_RAINFOREST_POOL)))));
+
 
 	public static final Holder<ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> TALL_FLOWER_FLOWER_FIELD =
 			register("tall_flower_flower_field", Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(
@@ -523,8 +561,15 @@ public final class WilderConfiguredFeatures {
 
 	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> LARGE_FERN_AND_GRASS_2 =
 			register("large_fern_and_grass_2", Feature.RANDOM_PATCH,
-					FeatureUtils.simpleRandomPatchConfiguration(20, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+					FeatureUtils.simpleRandomPatchConfiguration(36, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
 							new SimpleBlockConfiguration(new WeightedStateProvider(LARGE_FERN_AND_GRASS_POOL_2)))));
+
+	public static final SimpleWeightedRandomList<BlockState> GRASS_AND_FERN_POOL = SimpleWeightedRandomList.<BlockState>builder().add(Blocks.GRASS.defaultBlockState(), 3).add(Blocks.FERN.defaultBlockState(), 1).build();
+
+	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> NEW_FERN_AND_GRASS =
+			register("new_fern_and_grass", Feature.RANDOM_PATCH,
+					new RandomPatchConfiguration(32, 7, 3, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+							new SimpleBlockConfiguration(new WeightedStateProvider(GRASS_AND_FERN_POOL)))));
 
 	public static final Holder<ConfiguredFeature<MultifaceGrowthConfiguration, ?>> POLLEN_CONFIGURED =
             register("pollen", Feature.MULTIFACE_GROWTH, new MultifaceGrowthConfiguration((MultifaceBlock) RegisterBlocks.POLLEN_BLOCK, 20, true, true, true, 0.5F, HolderSet.direct(Block::builtInRegistryHolder, Blocks.GRASS_BLOCK, Blocks.BIRCH_LEAVES, Blocks.OAK_LEAVES, Blocks.OAK_LOG)));
