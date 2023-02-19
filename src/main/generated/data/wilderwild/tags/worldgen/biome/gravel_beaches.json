@@ -20,10 +20,6 @@
     {
       "id": "wilderwild:dark_birch_forest",
       "required": false
-    },
-    {
-      "id": "wilderwild:temperate_rainforest",
-      "required": false
     }
   ]
 }

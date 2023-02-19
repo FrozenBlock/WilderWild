@@ -101,7 +101,7 @@ public class CherryTrunkPlacer extends TrunkPlacer {
         return list;
     }
 
-    private FoliagePlacer.FoliageAttachment generateBranch(LevelSimulatedReader world, BiConsumer<BlockPos, BlockState> biConsumer, RandomSource random, int i, BlockPos pos, TreeConfiguration treeConfiguration, Function<BlockState, BlockState> function, Direction direction, int j, boolean bl, BlockPos.MutableBlockPos mutablePos) {
+    protected FoliagePlacer.FoliageAttachment generateBranch(LevelSimulatedReader world, BiConsumer<BlockPos, BlockState> biConsumer, RandomSource random, int i, BlockPos pos, TreeConfiguration treeConfiguration, Function<BlockState, BlockState> function, Direction direction, int j, boolean bl, BlockPos.MutableBlockPos mutablePos) {
         int o;
         mutablePos.set(pos).move(Direction.UP, j);
         int k = i - 1 + this.branchEndOffsetFromTop.sample(random);
