@@ -397,8 +397,25 @@ public final class WilderSharedWorldgen {
 												FrozenSurfaceRules.makeStateRule(Blocks.MOSS_BLOCK)
 										),
 										SurfaceRules.ifTrue(
-												SurfaceRules.noiseCondition(Noises.SURFACE_SECONDARY, -0.0667, 0.4),
+												SurfaceRules.noiseCondition(Noises.SURFACE_SECONDARY, 0.0667, 0.4),
 												COARSE_DIRT
+										)
+								)
+						)
+				)
+		);
+	}
+
+	public static SurfaceRules.RuleSource rainforestRules() {
+		return SurfaceRules.ifTrue(
+				SurfaceRules.isBiome(RegisterWorldgen.RAINFOREST),
+				SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
+						SurfaceRules.ifTrue(
+								SurfaceRules.waterBlockCheck(-1, 0),
+								SurfaceRules.sequence(
+										SurfaceRules.ifTrue(
+												SurfaceRules.noiseCondition(Noises.POWDER_SNOW, 0.065, 0.15),
+												FrozenSurfaceRules.makeStateRule(Blocks.MOSS_BLOCK)
 										)
 								)
 						)
