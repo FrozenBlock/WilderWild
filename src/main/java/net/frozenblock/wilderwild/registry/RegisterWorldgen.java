@@ -717,6 +717,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 								.waterColor(4159204)
 								.waterFogColor(329011)
 								.fogColor(12638463)
+								.foliageColorOverride(4896834)
 								.skyColor(OverworldBiomes.calculateSkyColor(0.8F))
 								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
 								.backgroundMusic(musicSound).build())
@@ -831,6 +832,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 
 	@Override
 	public void addOverworldSurfaceRules(ArrayList<SurfaceRules.RuleSource> context) {
+		context.add(WilderSharedWorldgen.betaBeaches());
 		context.add(WilderSharedWorldgen.cypressSurfaceRules());
 		context.add(WilderSharedWorldgen.warmRiverRules());
 		context.add(WilderSharedWorldgen.oasisRules());
@@ -839,7 +841,6 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		context.add(WilderSharedWorldgen.oldGrowthSnowyTaigaRules());
 		context.add(WilderSharedWorldgen.oldGrowthDarkForestRules());
 		context.add(WilderSharedWorldgen.temperateRainforestRules());
-		context.add(WilderSharedWorldgen.betaBeaches());
 		WilderSharedConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
 	}
 

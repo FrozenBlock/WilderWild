@@ -172,7 +172,7 @@ public final class WilderPlacedFeatures {
             WilderConfiguredFeatures.MIXED_TREES, treePlacement(PlacementUtils.countExtra(14, 0.1F, 1)));
 
 	public static final Holder<PlacedFeature> RAINFOREST_TREES = register("rainforest_trees",
-			WilderConfiguredFeatures.RAINFOREST_TREES, treePlacement(PlacementUtils.countExtra(14, 0.1F, 1)));
+			WilderConfiguredFeatures.RAINFOREST_TREES, treePlacement(PlacementUtils.countExtra(13, 0.1F, 1)));
 
     public static final Holder<PlacedFeature> BIRCH_TAIGA_TREES = register("birch_taiga_trees",
             WilderConfiguredFeatures.BIRCH_TAIGA_TREES, treePlacement(CountPlacement.of(3)));

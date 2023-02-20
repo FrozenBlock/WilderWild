@@ -88,8 +88,9 @@ public final class WilderTreePlaced {
     public static final Holder<PlacedFeature> DYING_MEGA_FUNGUS_PINE_CHECKED = PlacementUtils.register("dying_mega_fungus_pine_checked", WilderTreeConfigured.DYING_MEGA_FUNGUS_PINE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
     public static final Holder<PlacedFeature> FALLEN_SPRUCE_CHECKED = PlacementUtils.register("fallen_spruce_checked", WilderTreeConfigured.FALLEN_SPRUCE_TREE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
 	public static final Holder<PlacedFeature> MOSSY_FALLEN_SPRUCE_CHECKED = PlacementUtils.register("mossy_fallen_spruce_checked", WilderTreeConfigured.MOSSY_FALLEN_SPRUCE_TREE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
+	public static final Holder<PlacedFeature> MEGA_SHORT_SPRUCE_CHECKED = PlacementUtils.register("mega_short_spruce_checked", WilderTreeConfigured.MEGA_SHORT_SPRUCE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
 
-    //BAOBAB
+	//BAOBAB
     public static final Holder<PlacedFeature> BAOBAB = PlacementUtils.register("baobab", WilderTreeConfigured.BAOBAB, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.BAOBAB_NUT));
     public static final Holder<PlacedFeature> BAOBAB_TALL = PlacementUtils.register("baobab_tall", WilderTreeConfigured.BAOBAB_TALL, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.BAOBAB_NUT));
 
