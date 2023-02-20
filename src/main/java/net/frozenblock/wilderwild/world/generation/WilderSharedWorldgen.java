@@ -372,10 +372,6 @@ public final class WilderSharedWorldgen {
 								SurfaceRules.waterBlockCheck(-1, 0),
 								SurfaceRules.sequence(
 										SurfaceRules.ifTrue(
-												SurfaceRules.noiseCondition(Noises.SURFACE, 0.175, 0.2),
-												FrozenSurfaceRules.makeStateRule(Blocks.ROOTED_DIRT)
-										),
-										SurfaceRules.ifTrue(
 												SurfaceRules.noiseCondition(Noises.SURFACE, -0.0667, 0.04),
 												PODZOL
 										)
