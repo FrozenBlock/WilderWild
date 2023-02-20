@@ -324,6 +324,10 @@ public class AbstractClothConfigIntegration extends ModIntegration {
 		return DefaultWorldgenConfig.BiomeGeneration.GENERATE_TEMPERATE_RAINFOREST;
 	}
 
+	public boolean generateRainforest() {
+		return DefaultWorldgenConfig.BiomeGeneration.GENERATE_RAINFOREST;
+	}
+
 	public boolean dyingTrees() {
 		return DefaultWorldgenConfig.DYING_TREES;
 	}

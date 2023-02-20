@@ -688,6 +688,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 				.generationSettings(builder2.build())
 				.build();
 	}
+
 	public static void addFlowerFieldFeatures(BiomeGenerationSettings.Builder builder) {
 		addBasicFeatures(builder, FLOWER_FIELD);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_FLOWER_FIELD);

@@ -66,6 +66,7 @@ public final class WorldgenConfig implements ConfigData {
 		public boolean generateDarkBirchForest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_DARK_BIRCH_FOREST;
 		public boolean generateSemiBirchForest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_SEMI_BIRCH_FOREST;
 		public boolean generateTemperateRainforest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_TEMPERATE_RAINFOREST;
+		public boolean generateRainforest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_RAINFOREST;
 	}
 
     public boolean betaBeaches = DefaultWorldgenConfig.BETA_BEACHES;
@@ -195,13 +196,19 @@ public final class WorldgenConfig implements ConfigData {
 				.setTooltip(tooltip("generate_temperate_rainforest"))
 				.requireRestart()
 				.build();
+		var rainforest = entryBuilder.startBooleanToggle(text("generate_rainforest"), biomes.generateRainforest)
+				.setDefaultValue(DefaultWorldgenConfig.BiomeGeneration.GENERATE_RAINFOREST)
+				.setSaveConsumer(newValue -> biomes.generateRainforest = newValue)
+				.setTooltip(tooltip("generate_rainforest"))
+				.requireRestart()
+				.build();
 
 		var biomeGenerationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("biome_generation"),
 				false,
 				tooltip("biome_generation"),
-				aridForest, aridSavanna, birchJungle, birchTaiga, cypressWetlands, darkBirchForest, flowerField, jellyfishCaves, mixedForest, temperateRainforest,
-				oasis, oldGrowthBirchTaiga, oldGrowthDarkForest, oldGrowthSnowyTaiga, parchedForest, semiBirchForest,
-				sparseBirchJungle, warmRiver
+				aridForest, aridSavanna, birchJungle, birchTaiga, cypressWetlands, darkBirchForest, flowerField, jellyfishCaves, mixedForest,
+				oasis, oldGrowthBirchTaiga, oldGrowthDarkForest, oldGrowthSnowyTaiga, parchedForest, rainforest, semiBirchForest,
+				sparseBirchJungle, temperateRainforest, warmRiver
 		);
 
         var jungle = entryBuilder.startBooleanToggle(text("modify_jungle_placement"), biomePlacement.modifyJunglePlacement)

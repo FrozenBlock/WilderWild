@@ -23,6 +23,7 @@ import java.util.function.Consumer;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
@@ -87,6 +88,32 @@ public final class OverworldBiomeBuilderMixin {
 						point.offset(),
 						RegisterWorldgen.TEMPERATE_RAINFOREST
 				);
+			}
+		}
+		if (WilderSharedConstants.config().generateRainforest()) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FOREST)) {
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.Rainforest.TEMPERATURE_A,
+						WilderSharedWorldgen.Rainforest.HUMIDITY_A,
+						WilderSharedWorldgen.Rainforest.CONTINENTALNESS_A,
+						WilderSharedWorldgen.Rainforest.EROSION_A,
+						WilderSharedWorldgen.Rainforest.WEIRDNESS_A,
+						point.offset(),
+						RegisterWorldgen.RAINFOREST
+				);
+				if (point.temperature().equals(Temperature.FOUR)) {
+					this.addSurfaceBiome(
+							parameters,
+							WilderSharedWorldgen.Rainforest.TEMPERATURE_B,
+							WilderSharedWorldgen.Rainforest.HUMIDITY_B,
+							point.continentalness(),
+							point.erosion(),
+							point.weirdness(),
+							point.offset(),
+							RegisterWorldgen.RAINFOREST
+					);
+				}
 			}
 		}
 		if (WilderSharedConstants.config().generateBirchTaiga()) {

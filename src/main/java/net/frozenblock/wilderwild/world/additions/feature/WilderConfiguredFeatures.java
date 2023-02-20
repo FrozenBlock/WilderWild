@@ -520,7 +520,7 @@ public final class WilderConfiguredFeatures {
 					new SimpleBlockConfiguration(new NoiseProvider(5234L, new NormalNoise.NoiseParameters(0, 1.0), 0.020833334F,
 							List.of(Blocks.RED_MUSHROOM.defaultBlockState(),
 									Blocks.BROWN_MUSHROOM.defaultBlockState()))))));
-	
+
 	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_RAINFOREST =
 			register("flowers_rainforest", Feature.FLOWER,
 					FeatureUtils.simpleRandomPatchConfiguration(32, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
