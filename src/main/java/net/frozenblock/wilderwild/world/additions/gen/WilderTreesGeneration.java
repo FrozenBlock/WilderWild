@@ -70,6 +70,9 @@ public final class WilderTreesGeneration {
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_BIG_SHRUB),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BIG_SHRUB.unwrapKey().orElseThrow());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SHORT_MEGA_SPRUCE),
+					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SHORT_MEGA_SPRUCE_PLACED.unwrapKey().orElseThrow());
         }
     }
 }

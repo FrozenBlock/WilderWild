@@ -88,7 +88,10 @@ public final class WilderTreePlaced {
     public static final Holder<PlacedFeature> MEGA_FUNGUS_PINE_CHECKED = PlacementUtils.register("mega_fungus_pine_checked", WilderTreeConfigured.MEGA_FUNGUS_PINE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
     public static final Holder<PlacedFeature> DYING_MEGA_FUNGUS_PINE_CHECKED = PlacementUtils.register("dying_mega_fungus_pine_checked", WilderTreeConfigured.DYING_MEGA_FUNGUS_PINE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
     public static final Holder<PlacedFeature> FALLEN_SPRUCE_CHECKED = PlacementUtils.register("fallen_spruce_checked", WilderTreeConfigured.FALLEN_SPRUCE_TREE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
-	public static final Holder<PlacedFeature> MEGA_SHORT_SPRUCE_CHECKED = PlacementUtils.register("mega_short_spruce_checked", WilderTreeConfigured.MEGA_SHORT_SPRUCE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
+	public static final Holder<PlacedFeature> SHORT_MEGA_SPRUCE_CHECKED = PlacementUtils.register("short_mega_spruce_checked", WilderTreeConfigured.SHORT_MEGA_SPRUCE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
+	public static final Holder<PlacedFeature> SHORT_MEGA_FUNGUS_SPRUCE_CHECKED = PlacementUtils.register("short_mega_fungus_spruce_checked", WilderTreeConfigured.SHORT_MEGA_FUNGUS_SPRUCE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
+	public static final Holder<PlacedFeature> SHORT_MEGA_DYING_FUNGUS_SPRUCE_CHECKED = PlacementUtils.register("short_mega_dying_fungus_spruce_checked", WilderTreeConfigured.SHORT_MEGA_DYING_FUNGUS_SPRUCE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
+	public static final Holder<PlacedFeature> SHORT_MEGA_DYING_SPRUCE_CHECKED = PlacementUtils.register("short_mega_dying_spruce_checked", WilderTreeConfigured.SHORT_MEGA_DYING_SPRUCE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
 
 	//BAOBAB
     public static final Holder<PlacedFeature> BAOBAB = PlacementUtils.register("baobab", WilderTreeConfigured.BAOBAB, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.BAOBAB_NUT));

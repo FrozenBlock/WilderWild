@@ -143,13 +143,13 @@ public final class WilderSharedWorldgen {
 		public static final Climate.Parameter HUMIDITY_A = Humidity.THREE;
 		public static final Climate.Parameter CONTINENTALNESS_A = Climate.Parameter.span(Continentalness.INLAND, Continentalness.FAR_INLAND);
 		public static final Climate.Parameter EROSION_A = Climate.Parameter.span(Erosion.EROSION_0, Erosion.EROSION_3);
-		public static final Climate.Parameter WEIRDNESS_A = Climate.Parameter.span(-1.000F, -0.050F);
+		public static final Climate.Parameter WEIRDNESS_A = Climate.Parameter.span(-1.000F, 0.050F);
 
 		public static final Climate.Parameter TEMPERATURE_B = Temperature.FOUR;
-		public static final Climate.Parameter HUMIDITY_B = Climate.Parameter.span(0.075F, 0.200F);
+		public static final Climate.Parameter HUMIDITY_B = Climate.Parameter.span(0.075F, 0.225F);
 
 		public static final Climate.Parameter TEMPERATURE_C = Climate.Parameter.span(0.175F, 0.250F);
-		public static final Climate.Parameter HUMIDITY_C = Climate.Parameter.span(0.075F, 0.200F);
+		public static final Climate.Parameter HUMIDITY_C = Climate.Parameter.span(0.075F, 0.225F);
 	}
 
 	public static final class JellyfishCaves {
