@@ -42,6 +42,10 @@ public class AbstractClothConfigIntegration extends ModIntegration {
 		return DefaultBlockConfig.BILLBOARD_TENDRILS;
 	}
 
+	public boolean pollenParticles() {
+		return DefaultBlockConfig.POLLEN_PARTICLES;
+	}
+
 	public boolean cactusSounds() {
 		return DefaultBlockConfig.BlockSoundsConfig.CACTUS_SOUNDS;
 	}

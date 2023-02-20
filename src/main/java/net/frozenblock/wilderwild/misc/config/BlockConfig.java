@@ -65,6 +65,7 @@ public final class BlockConfig implements ConfigData {
     public boolean shriekerGargling = DefaultBlockConfig.SHRIEKER_GARGLING;
     public boolean soulFireSounds = DefaultBlockConfig.SOUL_FIRE_SOUNDS;
 	public boolean billboardTendrils = DefaultBlockConfig.BILLBOARD_TENDRILS;
+	public boolean pollenParticles = DefaultBlockConfig.POLLEN_PARTICLES;
 
     @Environment(EnvType.CLIENT)
     static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
@@ -99,11 +100,12 @@ public final class BlockConfig implements ConfigData {
 				.build()
 		);
 
-        /*var displayLanternCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("display_lantern"),
-                false,
-                tooltip("display_lantern")
-
-        );*/
+		var pollenParticles = category.addEntry(entryBuilder.startBooleanToggle(text("pollen_particles"), config.pollenParticles)
+				.setDefaultValue(DefaultBlockConfig.POLLEN_PARTICLES)
+				.setSaveConsumer(newValue -> config.pollenParticles = newValue)
+				.setTooltip(tooltip("pollen_particles"))
+				.build()
+		);
 
 		var cactusSounds = entryBuilder.startBooleanToggle(text("cactus_sounds"), blockSounds.cactusSounds)
 				.setDefaultValue(DefaultBlockConfig.BlockSoundsConfig.CACTUS_SOUNDS)
@@ -214,11 +216,5 @@ public final class BlockConfig implements ConfigData {
                 tooltip("stone_chest"),
 				stoneChestTimer
         );
-
-        /*var termiteCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("termite"),
-                false,
-                tooltip("termite")
-
-        );*/
     }
 }
