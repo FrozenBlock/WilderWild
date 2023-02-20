@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.world.generation.treedecorators;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import java.util.Collections;
 import java.util.List;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.BlockPos;
@@ -56,11 +57,12 @@ public class PollenTreeDecorator extends TreeDecorator {
         if (abstractRandom.nextFloat() <= this.chanceToDecorate) {
             List<BlockPos> list = generator.logs();
 			list.addAll(generator.leaves());
+			Collections.shuffle(list);
             list.forEach((pos) -> {
 				for (Direction direction : Direction.values()) {
-					if (abstractRandom.nextFloat() <= this.pollenPlaceChance) {
-						BlockPos blockPos = pos.relative(direction);
-						if (generator.isAir(blockPos)) {
+					BlockPos blockPos = pos.relative(direction);
+					if (generator.isAir(blockPos)) {
+						if (abstractRandom.nextFloat() <= this.pollenPlaceChance) {
 							BooleanProperty dir = direction == Direction.NORTH ? MultifaceBlock.getFaceProperty(Direction.SOUTH) : direction == Direction.SOUTH ? MultifaceBlock.getFaceProperty(Direction.NORTH) : direction == Direction.WEST ? MultifaceBlock.getFaceProperty(Direction.EAST) : direction == Direction.EAST ? MultifaceBlock.getFaceProperty(Direction.WEST) : direction == Direction.UP ? MultifaceBlock.getFaceProperty(Direction.DOWN) : MultifaceBlock.getFaceProperty(Direction.UP);
 							generator.setBlock(blockPos, RegisterBlocks.POLLEN_BLOCK.defaultBlockState().setValue(dir, true));
 						}
