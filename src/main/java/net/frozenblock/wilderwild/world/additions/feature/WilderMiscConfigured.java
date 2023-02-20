@@ -142,9 +142,11 @@ public final class WilderMiscConfigured {
 	public static final Holder<ConfiguredFeature<PathFeatureConfig, ?>> ARID_COARSE_PATH = WilderConfiguredFeatures.register("arid_coarse_dirt_path", FrozenFeatures.NOISE_PATH_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.COARSE_DIRT), 12, 3, 0.15, -0.15, 0.55, false, false, false, false, HolderSet.direct(Blocks.DIRT.builtInRegistryHolder(), Blocks.GRASS_BLOCK.builtInRegistryHolder())));
 	// OLD GROWTH SNOWY TAIGA
 	public static final Holder<ConfiguredFeature<BlockStateConfiguration, ?>> SNOW = WilderConfiguredFeatures.register("snow", Feature.FOREST_ROCK, new BlockStateConfiguration(Blocks.SNOW_BLOCK.defaultBlockState()));
-	// TEMPERATE RAINFOREST
+	// TEMPERATE RAINFOREST & RAINFOREST
 	public static final Holder<ConfiguredFeature<BlockPileConfiguration, ?>> MOSS_PILE = WilderConfiguredFeatures.register("moss_pile", Feature.BLOCK_PILE, new BlockPileConfiguration(BlockStateProvider.simple(Blocks.MOSS_BLOCK)));
 	public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> BASIN_RAINFOREST = WilderConfiguredFeatures.register("basin_rainforest", FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH, new VegetationPatchConfiguration(WilderBlockTags.BASIN_RAINFOREST_REPLACEABLE, BlockStateProvider.simple(Blocks.PODZOL), PlacementUtils.inlinePlaced(BLANK_SHUT_UP), CaveSurface.FLOOR, ConstantInt.of(2), 0.8F, 1, 0.000F, UniformInt.of(1, 3), 0.7F));
+	public static final Holder<ConfiguredFeature<LakeFeature.Configuration, ?>> MOSS_LAKE = WilderConfiguredFeatures.register("moss_lake", Feature.LAKE, new LakeFeature.Configuration(BlockStateProvider.simple(Blocks.WATER.defaultBlockState()), BlockStateProvider.simple(Blocks.MOSS_BLOCK.defaultBlockState())));
+
 	public static void registerMiscPlaced() {
         WilderSharedConstants.logWild("Registering WilderMiscConfigured for", true);
     }

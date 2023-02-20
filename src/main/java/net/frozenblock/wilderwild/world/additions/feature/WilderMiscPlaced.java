@@ -95,9 +95,10 @@ public final class WilderMiscPlaced {
 	public static final Holder<PlacedFeature> ARID_COARSE_PATH = WilderPlacedFeatures.register("arid_coarse_dirt_path", WilderMiscConfigured.ARID_COARSE_PATH, RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 	// OLD GROWTH SNOWY TAIGA
 	public static final Holder<PlacedFeature> PILE_SNOW = WilderPlacedFeatures.register("pile_snow", WilderMiscConfigured.SNOW, RarityFilter.onAverageOnceEvery(10), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
-	// TEMPERATE RAINFOREST
+	// TEMPERATE RAINFOREST & RAINFOREST
 	public static final Holder<PlacedFeature> MOSS_PILE = WilderPlacedFeatures.register("moss_pile", WilderMiscConfigured.MOSS_PILE, RarityFilter.onAverageOnceEvery(9), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 	public static final Holder<PlacedFeature> BASIN_RAINFOREST = WilderPlacedFeatures.register("basin_rainforest", WilderMiscConfigured.BASIN_RAINFOREST, RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(63), VerticalAnchor.aboveBottom(256)), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
+	public static final Holder<PlacedFeature> MOSS_LAKE = WilderPlacedFeatures.register("moss_lake", WilderMiscConfigured.MOSS_LAKE, CountPlacement.of(1), RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(63), VerticalAnchor.aboveBottom(256)), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
 
 	private static List<PlacementModifier> modifiers(PlacementModifier countModifier, PlacementModifier heightModifier) {
         return List.of(countModifier, InSquarePlacement.spread(), heightModifier, BiomeFilter.biome());

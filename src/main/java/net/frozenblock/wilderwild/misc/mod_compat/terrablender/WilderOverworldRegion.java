@@ -95,7 +95,7 @@ public class WilderOverworldRegion extends Region {
 					);
 					builder.replaceBiome(point, RegisterWorldgen.RAINFOREST);
 				});
-				
+
 				OverworldBiomeBuilderParameters.points(Biomes.FOREST).forEach(point -> {
 					if (point.temperature().equals(Temperature.FOUR)) {
 						builder.replaceParameter(point,

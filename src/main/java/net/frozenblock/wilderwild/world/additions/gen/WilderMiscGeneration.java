@@ -83,5 +83,8 @@ public final class WilderMiscGeneration {
 		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SMALL_SPONGE_RARE),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SMALL_SPONGES_RARE.unwrapKey().orElseThrow());
 
+		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_MOSS_LAKE),
+				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.MOSS_LAKE.unwrapKey().orElseThrow());
+
     }
 }

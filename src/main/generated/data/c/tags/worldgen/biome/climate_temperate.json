@@ -34,6 +34,10 @@
       "required": false
     },
     {
+      "id": "wilderwild:rainforest",
+      "required": false
+    },
+    {
       "id": "wilderwild:temperate_rainforest",
       "required": false
     }

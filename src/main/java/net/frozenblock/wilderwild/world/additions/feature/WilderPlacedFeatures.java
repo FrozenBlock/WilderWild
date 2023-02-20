@@ -390,10 +390,10 @@ public final class WilderPlacedFeatures {
 			CountPlacement.of(2), RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
 	public static final Holder<PlacedFeature> FLOWER_RAINFOREST = register("flower_rainforest", WilderConfiguredFeatures.FLOWERS_RAINFOREST,
-			CountPlacement.of(2), RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+			CountPlacement.of(2), RarityFilter.onAverageOnceEvery(1), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
 	public static final Holder<PlacedFeature> MOSS_CARPET = register("moss_carpet", WilderConfiguredFeatures.MOSS_CARPET,
-			RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+			RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
 	public static final Holder<PlacedFeature>  TALL_FLOWER_FIELD_FLOWERS = register("tall_flower_field_flowers", WilderConfiguredFeatures.TALL_FLOWER_FLOWER_FIELD,
 			RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, CountPlacement.of(ClampedInt.of(UniformInt.of(-1, 4), 0, 4)), BiomeFilter.biome());

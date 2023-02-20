@@ -275,6 +275,10 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_MOSSY_FALLEN_OAK_AND_BIRCH)
 					.addOptional(RegisterWorldgen.RAINFOREST);
 
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_MOSS_LAKE)
+					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
+					.addOptional(RegisterWorldgen.RAINFOREST);
+
 			this.getOrCreateTagBuilder(WilderBiomeTags.FOREST_GRASS)
 					.add(Biomes.FOREST)
 					.add(Biomes.FLOWER_FOREST)

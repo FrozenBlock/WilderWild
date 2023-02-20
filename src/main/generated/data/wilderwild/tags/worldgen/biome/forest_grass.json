@@ -44,11 +44,11 @@
       "required": false
     },
     {
-      "id": "wilderwild:temperate_rainforest",
+      "id": "wilderwild:rainforest",
       "required": false
     },
     {
-      "id": "wilderwild:old_growth_dark_forest",
+      "id": "wilderwild:temperate_rainforest",
       "required": false
     }
   ]

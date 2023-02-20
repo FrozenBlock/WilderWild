@@ -6,6 +6,14 @@
     {
       "id": "wilderwild:cypress_wetlands",
       "required": false
+    },
+    {
+      "id": "wilderwild:rainforest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:temperate_rainforest",
+      "required": false
     }
   ]
 }
