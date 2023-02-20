@@ -134,7 +134,7 @@ public final class WilderSharedWorldgen {
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.250F, -0.050F);
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.250F, 1.0F);
 		public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(0.350F, 0.850F);
-		public static final Climate.Parameter EROSION = Climate.Parameter.span(-0.350F, -0.150F);
+		public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_0, Erosion.EROSION_3);
 		public static final Climate.Parameter WEIRDNESS = Climate.Parameter.span(-0.450F, -0.250F);
 	}
 

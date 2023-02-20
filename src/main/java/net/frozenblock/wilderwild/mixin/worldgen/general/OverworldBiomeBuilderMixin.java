@@ -80,10 +80,9 @@ public final class OverworldBiomeBuilderMixin {
 						WilderSharedWorldgen.TemperateRainforest.TEMPERATURE,
 						WilderSharedWorldgen.TemperateRainforest.HUMIDITY,
 						point.continentalness(),
-						point.erosion(),
+						WilderSharedWorldgen.TemperateRainforest.EROSION,
 						point.weirdness(),
 						//WilderSharedWorldgen.TemperateRainforest.CONTINENTALNESS,
-						//WilderSharedWorldgen.TemperateRainforest.EROSION,
 						//WilderSharedWorldgen.TemperateRainforest.WEIRDNESS,
 						point.offset(),
 						RegisterWorldgen.TEMPERATE_RAINFOREST
