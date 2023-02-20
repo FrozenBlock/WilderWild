@@ -147,6 +147,9 @@ public final class WilderSharedWorldgen {
 
 		public static final Climate.Parameter TEMPERATURE_B = Temperature.FOUR;
 		public static final Climate.Parameter HUMIDITY_B = Climate.Parameter.span(0.075F, 0.150F);
+
+		public static final Climate.Parameter TEMPERATURE_C = Climate.Parameter.span(0.175F, 0.225F);
+		public static final Climate.Parameter HUMIDITY_C = Climate.Parameter.span(0.075F, 0.150F);
 	}
 
 	public static final class JellyfishCaves {

@@ -114,6 +114,18 @@ public final class OverworldBiomeBuilderMixin {
 							RegisterWorldgen.RAINFOREST
 					);
 				}
+				if (point.temperature().equals(Temperature.THREE)) {
+					this.addSurfaceBiome(
+							parameters,
+							WilderSharedWorldgen.Rainforest.TEMPERATURE_C,
+							WilderSharedWorldgen.Rainforest.HUMIDITY_C,
+							point.continentalness(),
+							point.erosion(),
+							point.weirdness(),
+							point.offset(),
+							RegisterWorldgen.RAINFOREST
+					);
+				}
 			}
 		}
 		if (WilderSharedConstants.config().generateBirchTaiga()) {

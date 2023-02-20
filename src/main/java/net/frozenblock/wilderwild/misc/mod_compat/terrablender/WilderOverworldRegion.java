@@ -112,6 +112,23 @@ public class WilderOverworldRegion extends Region {
 						builder.replaceBiome(point, RegisterWorldgen.RAINFOREST);
 					}
 				});
+
+				OverworldBiomeBuilderParameters.points(Biomes.FOREST).forEach(point -> {
+					if (point.temperature().equals(Temperature.THREE)) {
+						builder.replaceParameter(point,
+								Climate.parameters(
+										WilderSharedWorldgen.Rainforest.TEMPERATURE_C,
+										WilderSharedWorldgen.Rainforest.HUMIDITY_C,
+										point.continentalness(),
+										point.erosion(),
+										point.depth(),
+										point.weirdness(),
+										point.offset()
+								)
+						);
+						builder.replaceBiome(point, RegisterWorldgen.RAINFOREST);
+					}
+				});
 			}
 
 			if (WilderSharedConstants.config().generateBirchTaiga()) {
