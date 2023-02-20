@@ -30,28 +30,28 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 
-public class HeightBasedVineTrunkDecorator extends TreeDecorator {
-    public static final Codec<HeightBasedVineTrunkDecorator> CODEC = RecordCodecBuilder.create((instance) -> {
+public class HeightBasedVineTreeDecorator extends TreeDecorator {
+    public static final Codec<HeightBasedVineTreeDecorator> CODEC = RecordCodecBuilder.create((instance) -> {
         return instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter((treeDecorator) -> {
             return treeDecorator.probability;
         }), Codec.intRange(-63, 319).fieldOf("maxHeight").forGetter((treeDecorator) -> {
             return treeDecorator.maxHeight;
         }), Codec.floatRange(0.0F, 1.0F).fieldOf("vines_count").forGetter((treeDecorator) -> {
             return treeDecorator.vines_count;
-        })).apply(instance, HeightBasedVineTrunkDecorator::new);
+        })).apply(instance, HeightBasedVineTreeDecorator::new);
     });
     private final float probability;
     private final int maxHeight;
     private final float vines_count;
 
-    public HeightBasedVineTrunkDecorator(float probability, int maxHeight, float vines_count) {
+    public HeightBasedVineTreeDecorator(float probability, int maxHeight, float vines_count) {
         this.probability = probability;
         this.maxHeight = maxHeight;
         this.vines_count = vines_count;
     }
 
     protected TreeDecoratorType<?> type() {
-        return WilderTreeDecorators.HEIGHT_BASED_VINE_TRUNK_DECORATOR;
+        return WilderTreeDecorators.HEIGHT_BASED_VINE_TREE_DECORATOR;
     }
 
     public void place(Context generator) {
