@@ -319,6 +319,7 @@ public class AbstractClothConfigIntegration extends ModIntegration {
 	public boolean generateSemiBirchForest() {
 		return DefaultWorldgenConfig.BiomeGeneration.GENERATE_SEMI_BIRCH_FOREST;
 	}
+
 	public boolean generateTemperateRainforest() {
 		return DefaultWorldgenConfig.BiomeGeneration.GENERATE_TEMPERATE_RAINFOREST;
 	}

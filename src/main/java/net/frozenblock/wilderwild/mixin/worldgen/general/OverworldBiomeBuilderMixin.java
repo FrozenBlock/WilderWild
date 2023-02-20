@@ -74,17 +74,22 @@ public final class OverworldBiomeBuilderMixin {
 			}
 		}
 		if (WilderSharedConstants.config().generateTemperateRainforest()) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.TAIGA)) {
 				this.addSurfaceBiome(
 						parameters,
 						WilderSharedWorldgen.TemperateRainforest.TEMPERATURE,
 						WilderSharedWorldgen.TemperateRainforest.HUMIDITY,
-						WilderSharedWorldgen.TemperateRainforest.CONTINENTALNESS,
-						WilderSharedWorldgen.TemperateRainforest.EROSION,
-						WilderSharedWorldgen.TemperateRainforest.WEIRDNESS,
-						WilderSharedWorldgen.Oasis.OFFSET,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						//WilderSharedWorldgen.TemperateRainforest.CONTINENTALNESS,
+						//WilderSharedWorldgen.TemperateRainforest.EROSION,
+						//WilderSharedWorldgen.TemperateRainforest.WEIRDNESS,
+						point.offset(),
 						RegisterWorldgen.TEMPERATE_RAINFOREST
 				);
 			}
+		}
 		if (WilderSharedConstants.config().generateBirchTaiga()) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.BIRCH_FOREST)) {
 				this.addSurfaceBiome(

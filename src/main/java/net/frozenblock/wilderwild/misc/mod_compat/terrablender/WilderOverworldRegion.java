@@ -66,11 +66,14 @@ public class WilderOverworldRegion extends Region {
 							Climate.parameters(
 									WilderSharedWorldgen.TemperateRainforest.TEMPERATURE,
 									WilderSharedWorldgen.TemperateRainforest.HUMIDITY,
-									WilderSharedWorldgen.TemperateRainforest.CONTINENTALNESS,
-									WilderSharedWorldgen.TemperateRainforest.EROSION,
+									point.continentalness(),
+									point.erosion(),
 									point.depth(),
-									WilderSharedWorldgen.TemperateRainforest.WEIRDNESS,
-									WilderSharedWorldgen.CypressWetlands.OFFSET
+									point.weirdness(),
+									//WilderSharedWorldgen.TemperateRainforest.CONTINENTALNESS,
+									//WilderSharedWorldgen.TemperateRainforest.EROSION,
+									//WilderSharedWorldgen.TemperateRainforest.WEIRDNESS,
+									point.offset()
 							)
 					);
 					builder.replaceBiome(point, RegisterWorldgen.TEMPERATE_RAINFOREST);
