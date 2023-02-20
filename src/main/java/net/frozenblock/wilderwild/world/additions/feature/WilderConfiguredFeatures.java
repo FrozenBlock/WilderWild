@@ -405,8 +405,8 @@ public final class WilderConfiguredFeatures {
 			register("wooded_badlands_trees", Feature.RANDOM_SELECTOR,
 					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.NEW_OAK_CHECKED, 0.095F),
 							new WeightedPlacedFeature(WilderTreePlaced.BIG_SHRUB_GRASS_CHECKED, 0.4F),
-							new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED, 0.12F),
-							new WeightedPlacedFeature(WilderTreePlaced.JUNIPER, 0.95F)), WilderTreePlaced.JUNIPER));
+							new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED, 0.67F),
+							new WeightedPlacedFeature(WilderTreePlaced.JUNIPER, 0.4F)), WilderTreePlaced.JUNIPER));
 
 	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> BIG_SHRUBS =
 			register("big_shrubs", Feature.RANDOM_SELECTOR,
