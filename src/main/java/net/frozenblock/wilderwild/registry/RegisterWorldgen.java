@@ -700,6 +700,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		BiomeDefaultFeatures.addDefaultMushrooms(builder);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 	}
+	
 	public static Biome temperateRainforest() {
 		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
 		BiomeDefaultFeatures.commonSpawns(builder);
@@ -707,7 +708,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 5, 4, 4));
 		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
 		addTemperateRainforestFeatures(builder2);
-		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_GAME);
+		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
 		return new Biome.BiomeBuilder()
 				.precipitation(Biome.Precipitation.RAIN)
 				.temperature(0.7F)
@@ -730,7 +731,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		addBasicFeatures(builder, TEMPERATE_RAINFOREST);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TEMPERATE_RAINFOREST_TREES);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MOSSY_FALLEN_TREES_MIXED_PLACED);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_RAINFOREST);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_TEMPERATE_RAINFOREST);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.RAINFOREST_MUSHROOMS_PLACED);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DEAD_BUSH_AND_BUSH_PLACED);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MOSS_CARPET);

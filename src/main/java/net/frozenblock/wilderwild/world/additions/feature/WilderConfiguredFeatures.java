@@ -478,7 +478,7 @@ public final class WilderConfiguredFeatures {
 					FeatureUtils.simpleRandomPatchConfiguration(25, PlacementUtils.inlinePlaced(Feature.SIMPLE_BLOCK,
 							new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.MOSS_CARPET)), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO))))));
 
-	public static final SimpleWeightedRandomList<BlockState> FLOWERS_RAINFOREST_POOL = SimpleWeightedRandomList.<BlockState>builder().add(RegisterBlocks.MILKWEED.defaultBlockState(), 3)
+	public static final SimpleWeightedRandomList<BlockState> FLOWERS_TEMPERATE_RAINFOREST_POOL = SimpleWeightedRandomList.<BlockState>builder().add(RegisterBlocks.MILKWEED.defaultBlockState(), 3)
 			.add(RegisterBlocks.DATURA.defaultBlockState(), 5)
 			.add(RegisterBlocks.SEEDING_DANDELION.defaultBlockState(), 5)
 			.add(Blocks.LILAC.defaultBlockState(), 6)
@@ -486,10 +486,10 @@ public final class WilderConfiguredFeatures {
 			.add(Blocks.BLUE_ORCHID.defaultBlockState(), 8)
 			.add(Blocks.POPPY.defaultBlockState(), 10).build();
 
-	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_RAINFOREST =
-			register("flowers_rainforest", Feature.FLOWER,
+	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_TEMPERATE_RAINFOREST =
+			register("flowers_temperate_rainforest", Feature.FLOWER,
 					FeatureUtils.simpleRandomPatchConfiguration(32, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-							new SimpleBlockConfiguration(new WeightedStateProvider(FLOWERS_RAINFOREST_POOL)))));
+							new SimpleBlockConfiguration(new WeightedStateProvider(FLOWERS_TEMPERATE_RAINFOREST_POOL)))));
 
 
 	public static final Holder<ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> TALL_FLOWER_FLOWER_FIELD =

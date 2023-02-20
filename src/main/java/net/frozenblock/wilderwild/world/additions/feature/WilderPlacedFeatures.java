@@ -372,7 +372,7 @@ public final class WilderPlacedFeatures {
 	public static final Holder<PlacedFeature> FLOWER_FLOWER_FIELD = register("flower_flower_field", WilderConfiguredFeatures.FLOWER_FLOWER_FIELD,
 			CountPlacement.of(3), RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
-	public static final Holder<PlacedFeature> FLOWER_RAINFOREST = register("flower_rainforest", WilderConfiguredFeatures.FLOWERS_RAINFOREST,
+	public static final Holder<PlacedFeature> FLOWER_TEMPERATE_RAINFOREST = register("flower_temperate_rainforest", WilderConfiguredFeatures.FLOWERS_TEMPERATE_RAINFOREST,
 			CountPlacement.of(2), RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
 	public static final Holder<PlacedFeature> MOSS_CARPET = register("moss_carpet", WilderConfiguredFeatures.MOSS_CARPET,
