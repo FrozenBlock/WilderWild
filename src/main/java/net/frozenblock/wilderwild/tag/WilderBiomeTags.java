@@ -67,6 +67,7 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_SHORT_SPRUCE = bind("has_short_spruce");
 	public static final TagKey<Biome> HAS_BIG_SHRUB = bind("has_big_shrub");
 	public static final TagKey<Biome> HAS_POLLEN = bind("has_pollen");
+	public static final TagKey<Biome> HAS_FIELD_FLOWERS = bind("has_field_flowers");
 	public static final TagKey<Biome> HAS_RED_SHELF_FUNGUS = bind("has_red_shelf_fungus");
 	public static final TagKey<Biome> HAS_BROWN_SHELF_FUNGUS = bind("has_brown_shelf_fungus");
 	public static final TagKey<Biome> HAS_GLORY_OF_THE_SNOW = bind("has_glory_of_the_snow");
