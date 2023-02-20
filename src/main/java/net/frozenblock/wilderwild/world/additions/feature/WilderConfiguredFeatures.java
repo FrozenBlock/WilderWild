@@ -491,6 +491,11 @@ public final class WilderConfiguredFeatures {
 					FeatureUtils.simpleRandomPatchConfiguration(32, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
 							new SimpleBlockConfiguration(new WeightedStateProvider(FLOWERS_TEMPERATE_RAINFOREST_POOL)))));
 
+	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> MUSHROOMS_DARK_FOREST =
+			register("mushroom_dark_forest", Feature.FLOWER, new RandomPatchConfiguration(52, 8, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(new NoiseProvider(5234L, new NormalNoise.NoiseParameters(0, 1.0), 0.020833334F,
+							List.of(Blocks.RED_MUSHROOM.defaultBlockState(),
+									Blocks.BROWN_MUSHROOM.defaultBlockState()))))));
 
 	public static final Holder<ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> TALL_FLOWER_FLOWER_FIELD =
 			register("tall_flower_flower_field", Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(
