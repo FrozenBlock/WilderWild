@@ -99,8 +99,8 @@ public final class WilderTreeConfigured {
 	private static final BeehiveDecorator NEW_BEES_025 = new BeehiveDecorator(0.25F);
     private static final BeehiveDecorator NEW_BEES = new BeehiveDecorator(1.0F);
 	private static final PollenTreeDecorator POLLEN_01 = new PollenTreeDecorator(0.1F, 0.05F, 5);
-	private static final PollenTreeDecorator POLLEN_025 = new PollenTreeDecorator(0.25F, 0.1F, 5);
-	private static final PollenTreeDecorator POLLEN = new PollenTreeDecorator(1.0F, 0.2F, 5);
+	private static final PollenTreeDecorator POLLEN_025 = new PollenTreeDecorator(0.25F, 0.075F, 5);
+	private static final PollenTreeDecorator POLLEN = new PollenTreeDecorator(1.0F, 0.1F, 5);
     //BIRCH
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> NEW_BIRCH_TREE = WilderConfiguredFeatures.register("new_birch_tree", Feature.TREE, new_birch().dirt(BlockStateProvider.simple(Blocks.DIRT)).decorators(ImmutableList.of(SHELF_FUNGUS_007)).build());
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> NEW_BIRCH_BEES_0004 = WilderConfiguredFeatures.register("new_birch_bees_0004", Feature.TREE, new_birch().decorators(ImmutableList.of(NEW_BEES_0004, SHELF_FUNGUS_007, POLLEN_01)).ignoreVines().build());

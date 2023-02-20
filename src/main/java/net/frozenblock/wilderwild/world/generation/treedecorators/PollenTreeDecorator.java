@@ -22,12 +22,12 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.MultifaceBlock;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 
@@ -53,18 +53,22 @@ public class PollenTreeDecorator extends TreeDecorator {
     }
 
     public void place(Context generator) {
-        RandomSource abstractRandom = generator.random();
-        if (abstractRandom.nextFloat() <= this.chanceToDecorate) {
+        RandomSource random = generator.random();
+        if (random.nextFloat() <= this.chanceToDecorate) {
             List<BlockPos> list = generator.logs();
 			list.addAll(generator.leaves());
 			Collections.shuffle(list);
+			AtomicInteger placedPollen = new AtomicInteger();
             list.forEach((pos) -> {
+				if (placedPollen.get() >= this.maxPollenCount) {
+					return;
+				}
 				for (Direction direction : Direction.values()) {
 					BlockPos blockPos = pos.relative(direction);
 					if (generator.isAir(blockPos)) {
-						if (abstractRandom.nextFloat() <= this.pollenPlaceChance) {
-							BooleanProperty dir = direction == Direction.NORTH ? MultifaceBlock.getFaceProperty(Direction.SOUTH) : direction == Direction.SOUTH ? MultifaceBlock.getFaceProperty(Direction.NORTH) : direction == Direction.WEST ? MultifaceBlock.getFaceProperty(Direction.EAST) : direction == Direction.EAST ? MultifaceBlock.getFaceProperty(Direction.WEST) : direction == Direction.UP ? MultifaceBlock.getFaceProperty(Direction.DOWN) : MultifaceBlock.getFaceProperty(Direction.UP);
-							generator.setBlock(blockPos, RegisterBlocks.POLLEN_BLOCK.defaultBlockState().setValue(dir, true));
+						if (random.nextFloat() <= this.pollenPlaceChance) {
+							generator.setBlock(blockPos, RegisterBlocks.POLLEN_BLOCK.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(direction.getOpposite()), true));
+							placedPollen.addAndGet(1);
 						}
 					}
 				}
