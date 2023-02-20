@@ -96,13 +96,22 @@ public final class WilderWorldGen {
 
         BiomeModifications.create(WilderSharedConstants.id("replace_swamp_trees"))
                 .add(ModificationPhase.REPLACEMENTS,
-                        BiomeSelectors.tag(WilderBiomeTags.SWAMP_TREES),
+                        BiomeSelectors.includeByKey(Biomes.WOODED_BADLANDS),
                         context -> {
                             if (WilderSharedConstants.config().wildTrees()) {
-                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_SWAMP.value());
-                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TREES_SWAMP.value());
+                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_BADLANDS.value());
+                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.WOODED_BADLANDS_TREES.value());
                             }
                         });
+		BiomeModifications.create(WilderSharedConstants.id("replace_badlands_trees"))
+				.add(ModificationPhase.REPLACEMENTS,
+						BiomeSelectors.tag(WilderBiomeTags.SWAMP_TREES),
+						context -> {
+							if (WilderSharedConstants.config().wildTrees()) {
+								context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_SWAMP.value());
+								context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_TREES_SWAMP.value());
+							}
+						});
 
         BiomeModifications.create(WilderSharedConstants.id("replace_taiga_trees"))
                 .add(ModificationPhase.REPLACEMENTS,

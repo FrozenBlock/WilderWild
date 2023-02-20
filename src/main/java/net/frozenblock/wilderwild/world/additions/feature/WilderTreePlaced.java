@@ -106,11 +106,14 @@ public final class WilderTreePlaced {
 	public static final List<PlacementModifier> SAND_TREE_FILTER_DECORATOR = List.of(EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.not(BlockPredicate.matchesBlocks(Blocks.SANDSTONE)), 8), BlockPredicateFilter.forPredicate(SAND_GRASS_TREE_PREDICATE));
 	//SHRUB
 	public static final Holder<PlacedFeature> BIG_SHRUB_CHECKED = PlacementUtils.register("big_shrub_checked", WilderTreeConfigured.BIG_SHRUB, SAND_TREE_FILTER_DECORATOR);
+	public static final Holder<PlacedFeature> BIG_SHRUB_GRASS_CHECKED = PlacementUtils.register("big_shrub_grass_checked", WilderTreeConfigured.BIG_SHRUB, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
 	//PALM
 	public static final Holder<PlacedFeature> PALM_CHECKED = PlacementUtils.register("palm_checked", WilderTreeConfigured.PALM, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.COCONUT));
 	public static final Holder<PlacedFeature> TALL_PALM_CHECKED = PlacementUtils.register("tall_palm_checked", WilderTreeConfigured.TALL_PALM, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.COCONUT));
 	public static final Holder<PlacedFeature> TALL_WINE_PALM_CHECKED = PlacementUtils.register("tall_wine_palm_checked", WilderTreeConfigured.TALL_WINE_PALM, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.COCONUT));
 	public static final Holder<PlacedFeature> SMALL_WINE_PALM_CHECKED = PlacementUtils.register("small_wine_palm_checked", WilderTreeConfigured.SMALL_WINE_PALM, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.COCONUT));
+	//JUNIPER
+	public static final Holder<PlacedFeature> JUNIPER = PlacementUtils.register("juniper", WilderTreeConfigured.JUNIPER, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
 	//TREE ON GRASS
 	public static final Holder<PlacedFeature> PALM_CHECKED_DIRT = PlacementUtils.register("palm_checked_dirt", WilderTreeConfigured.PALM, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
 	public static final Holder<PlacedFeature> TALL_PALM_CHECKED_DIRT = PlacementUtils.register("tall_palm_checked_dirt", WilderTreeConfigured.TALL_PALM, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));

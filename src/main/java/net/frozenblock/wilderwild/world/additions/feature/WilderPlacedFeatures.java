@@ -165,6 +165,9 @@ public final class WilderPlacedFeatures {
 	public static final Holder<PlacedFeature> ARID_SAVANNA_TREES = register("arid_savanna_trees",
 			WilderConfiguredFeatures.ARID_SAVANNA_TREES, treePlacement(RarityFilter.onAverageOnceEvery(12)));
 
+	public static final Holder<PlacedFeature> WOODED_BADLANDS_TREES = register("wooded_badlands_trees",
+			WilderConfiguredFeatures.WOODED_BADLANDS_TREES, treePlacement(PlacementUtils.countExtra(7, 0.1F, 1)));
+
     public static final Holder<PlacedFeature> NEW_TREES_SWAMP = register("trees_swamp", WilderTreeConfigured.NEW_SWAMP_TREE,
             PlacementUtils.countExtra(2, 0.1F, 1), InSquarePlacement.spread(), SurfaceWaterDepthFilter.forMaxDepth(4), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome(), BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.MANGROVE_PROPAGULE.defaultBlockState(), BlockPos.ZERO)));
 
