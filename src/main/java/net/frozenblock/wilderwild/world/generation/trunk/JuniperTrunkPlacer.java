@@ -95,8 +95,15 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
 		Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
 		Function<BlockState, BlockState> function = state -> (BlockState)state.setValue(RotatedPillarBlock.AXIS, direction.getAxis());
 		list.add(this.generateBranch(level, blockSetter, random, freeTreeHeight, pos, config, function, direction, i, i < l - 1, mutableBlockPos));
+		ArrayList<Direction> allDirsMF = new ArrayList<>();
+
+		for(Direction d : Direction.Plane.HORIZONTAL) {
+			if(d != direction) allDirsMF.add(d);
+		}
+		Direction secondDir = allDirsMF.get((int) (Math.random() * 2));
 		if (moreThanOneBranch) {
-			list.add(this.generateBranch(level, blockSetter, random, freeTreeHeight, pos, config, function, direction.getOpposite(), j, j < l - 1, mutableBlockPos));
+			function = state -> (BlockState)state.setValue(RotatedPillarBlock.AXIS, secondDir.getAxis());
+			list.add(this.generateBranch(level, blockSetter, random, freeTreeHeight, pos, config, function, secondDir, j, j < l - 1, mutableBlockPos));
 		}
 		return list;
 	}
