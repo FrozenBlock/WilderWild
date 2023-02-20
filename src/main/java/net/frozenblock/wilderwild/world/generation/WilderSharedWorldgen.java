@@ -130,11 +130,11 @@ public final class WilderSharedWorldgen {
 		public static final Climate.Parameter TEMPERATURE_B = Climate.Parameter.span(-0.140F, -0.100F);
 	}
 	public static final class TemperateRainforest {
-		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.100F, 0.150F);
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.100F, 0.300F);
-		public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(0.350F, 0.750F);
-		public static final Climate.Parameter EROSION = Climate.Parameter.span(-0.350F, -0.210F);
-		public static final Climate.Parameter WEIRDNESS = Climate.Parameter.span(-0.450F, -0.300F);
+		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.450F, -0.200F);
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.150F, 0.550F);
+		public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(0.350F, 0.850F);
+		public static final Climate.Parameter EROSION = Climate.Parameter.span(-0.350F, -0.150F);
+		public static final Climate.Parameter WEIRDNESS = Climate.Parameter.span(-0.450F, -0.250F);
 	}
 
 

@@ -73,7 +73,7 @@ public final class OverworldBiomeBuilderMixin {
 				);
 			}
 		}
-		if (WilderSharedConstants.config().generateMixedForest()) {
+		if (WilderSharedConstants.config().generateTemperateRainforest()) {
 				this.addSurfaceBiome(
 						parameters,
 						WilderSharedWorldgen.TemperateRainforest.TEMPERATURE,
