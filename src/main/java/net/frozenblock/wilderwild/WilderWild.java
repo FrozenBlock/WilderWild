@@ -114,8 +114,6 @@ public final class WilderWild extends FrozenMobCategoryEntrypoint implements Mod
         WilderSharedConstants.startMeasuring(this);
         applyDataFixes(WilderSharedConstants.MOD_CONTAINER);
 
-
-
         WilderRegistry.initRegistry();
         RegisterBlocks.registerBlocks();
         RegisterItems.registerItems();
