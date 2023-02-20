@@ -77,7 +77,7 @@ public final class WilderSharedWorldgen {
     }
 
 	public static final class BirchTaiga {
-		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.200F, -0.100F);
+		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.175F, -0.125F);
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.100F, 0.325F);
 	}
 
