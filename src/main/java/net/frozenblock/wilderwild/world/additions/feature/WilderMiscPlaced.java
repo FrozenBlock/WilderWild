@@ -98,7 +98,7 @@ public final class WilderMiscPlaced {
 	// TEMPERATE RAINFOREST & RAINFOREST
 	public static final Holder<PlacedFeature> MOSS_PILE = WilderPlacedFeatures.register("moss_pile", WilderMiscConfigured.MOSS_PILE, RarityFilter.onAverageOnceEvery(9), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 	public static final Holder<PlacedFeature> BASIN_RAINFOREST = WilderPlacedFeatures.register("basin_rainforest", WilderMiscConfigured.BASIN_RAINFOREST, RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(63), VerticalAnchor.aboveBottom(256)), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
-	public static final Holder<PlacedFeature> MOSS_LAKE = WilderPlacedFeatures.register("moss_lake", WilderMiscConfigured.MOSS_LAKE, CountPlacement.of(2), RarityFilter.onAverageOnceEvery(1), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+	public static final Holder<PlacedFeature> MOSS_LAKE = WilderPlacedFeatures.register("moss_lake", WilderMiscConfigured.MOSS_LAKE, CountPlacement.of(1), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
 	private static List<PlacementModifier> modifiers(PlacementModifier countModifier, PlacementModifier heightModifier) {
         return List.of(countModifier, InSquarePlacement.spread(), heightModifier, BiomeFilter.biome());
