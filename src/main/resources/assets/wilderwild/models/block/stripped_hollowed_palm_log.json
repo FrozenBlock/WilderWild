@@ -1,0 +1,8 @@
+{
+  "parent": "wilderwild:block/template_hollowed_log",
+  "textures": {
+	"top": "wilderwild:block/stripped_hollowed_palm_log_top",
+	"inner": "wilderwild:block/stripped_palm_log",
+	"outer": "wilderwild:block/stripped_palm_log"
+  }
+}

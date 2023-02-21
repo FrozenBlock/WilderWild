@@ -311,6 +311,20 @@ public final class RegisterBlocks {
     public static final Block HOLLOWED_CYPRESS_LOG = createHollowedLogBlock(MaterialColor.COLOR_LIGHT_GRAY, MaterialColor.STONE);
 	public static final Block HOLLOWED_PALM_LOG = createHollowedLogBlock(PALM_PLANKS_COLOR, PALM_BARK_COLOR);
 
+	// STRIPPED HOLLOWED LOGS
+	public static final Block STRIPPED_HOLLOWED_OAK_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_OAK_LOG.defaultMaterialColor());
+	public static final Block STRIPPED_HOLLOWED_SPRUCE_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_SPRUCE_LOG.defaultMaterialColor());
+	public static final Block STRIPPED_HOLLOWED_BIRCH_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_BIRCH_LOG.defaultMaterialColor());
+	public static final Block STRIPPED_HOLLOWED_JUNGLE_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_JUNGLE_LOG.defaultMaterialColor());
+	public static final Block STRIPPED_HOLLOWED_ACACIA_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_ACACIA_LOG.defaultMaterialColor());
+	public static final Block STRIPPED_HOLLOWED_DARK_OAK_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_DARK_OAK_LOG.defaultMaterialColor());
+	public static final Block STRIPPED_HOLLOWED_MANGROVE_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_MANGROVE_LOG.defaultMaterialColor());
+	public static final Block STRIPPED_HOLLOWED_CRIMSON_STEM = createStrippedHollowedStemBlock(Blocks.STRIPPED_CRIMSON_STEM.defaultMaterialColor());
+	public static final Block STRIPPED_HOLLOWED_WARPED_STEM = createStrippedHollowedStemBlock(Blocks.STRIPPED_WARPED_STEM.defaultMaterialColor());
+	public static final Block STRIPPED_HOLLOWED_BAOBAB_LOG = createStrippedHollowedLogBlock(BAOBAB_PLANKS_COLOR);
+	public static final Block STRIPPED_HOLLOWED_CYPRESS_LOG = createStrippedHollowedLogBlock(CYPRESS_PLANKS_COLOR);
+	public static final Block STRIPPED_HOLLOWED_PALM_LOG = createStrippedHollowedLogBlock(PALM_PLANKS_COLOR);
+
     public static void registerHollowedLogs() {
         registerBlock("hollowed_oak_log", HOLLOWED_OAK_LOG, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("hollowed_spruce_log", HOLLOWED_SPRUCE_LOG, CreativeModeTab.TAB_DECORATIONS);
@@ -324,6 +338,19 @@ public final class RegisterBlocks {
         registerBlock("hollowed_baobab_log", HOLLOWED_BAOBAB_LOG, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("hollowed_cypress_log", HOLLOWED_CYPRESS_LOG, CreativeModeTab.TAB_DECORATIONS);
 		registerBlock("hollowed_palm_log", HOLLOWED_PALM_LOG, CreativeModeTab.TAB_DECORATIONS);
+
+		registerBlock("stripped_hollowed_oak_log", STRIPPED_HOLLOWED_OAK_LOG, CreativeModeTab.TAB_DECORATIONS);
+		registerBlock("stripped_hollowed_spruce_log", STRIPPED_HOLLOWED_SPRUCE_LOG, CreativeModeTab.TAB_DECORATIONS);
+		registerBlock("stripped_hollowed_birch_log", STRIPPED_HOLLOWED_BIRCH_LOG, CreativeModeTab.TAB_DECORATIONS);
+		registerBlock("stripped_hollowed_jungle_log", STRIPPED_HOLLOWED_JUNGLE_LOG, CreativeModeTab.TAB_DECORATIONS);
+		registerBlock("stripped_hollowed_acacia_log", STRIPPED_HOLLOWED_ACACIA_LOG, CreativeModeTab.TAB_DECORATIONS);
+		registerBlock("stripped_hollowed_dark_oak_log", STRIPPED_HOLLOWED_DARK_OAK_LOG, CreativeModeTab.TAB_DECORATIONS);
+		registerBlock("stripped_hollowed_mangrove_log", STRIPPED_HOLLOWED_MANGROVE_LOG, CreativeModeTab.TAB_DECORATIONS);
+		registerBlock("stripped_hollowed_crimson_stem", STRIPPED_HOLLOWED_CRIMSON_STEM, CreativeModeTab.TAB_DECORATIONS);
+		registerBlock("stripped_hollowed_warped_stem", STRIPPED_HOLLOWED_WARPED_STEM, CreativeModeTab.TAB_DECORATIONS);
+		registerBlock("stripped_hollowed_baobab_log", STRIPPED_HOLLOWED_BAOBAB_LOG, CreativeModeTab.TAB_DECORATIONS);
+		registerBlock("stripped_hollowed_cypress_log", STRIPPED_HOLLOWED_CYPRESS_LOG, CreativeModeTab.TAB_DECORATIONS);
+		registerBlock("stripped_hollowed_palm_log", STRIPPED_HOLLOWED_PALM_LOG, CreativeModeTab.TAB_DECORATIONS);
     }
 
     // SCULK
@@ -583,26 +610,44 @@ public final class RegisterBlocks {
 				.strength(2.0F).sound(RegisterBlockSoundTypes.HOLLOWED_STEM));
 	}
 
+	private static HollowedLogBlock createStrippedHollowedLogBlock(MaterialColor mapColor) {
+		return new HollowedLogBlock(FabricBlockSettings.of(Material.WOOD,
+						(state) -> mapColor)
+				.strength(2.0F).sound(RegisterBlockSoundTypes.HOLLOWED_LOG));
+	}
+
+	private static HollowedLogBlock createStrippedHollowedStemBlock(MaterialColor mapColor) {
+		return new HollowedLogBlock(FabricBlockSettings.of(Material.NETHER_WOOD,
+						(state) -> mapColor)
+				.strength(2.0F).sound(RegisterBlockSoundTypes.HOLLOWED_STEM));
+	}
+
     public static void registerBlockProperties() {
-        TermiteMoundBlockEntity.Termite.addDegradable(BAOBAB_LOG, HOLLOWED_BAOBAB_LOG);
-        TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_BAOBAB_LOG, Blocks.AIR);
+        TermiteMoundBlockEntity.Termite.addDegradable(BAOBAB_LOG, STRIPPED_BAOBAB_LOG);
+        TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_BAOBAB_LOG, STRIPPED_HOLLOWED_BAOBAB_LOG);
+		TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_HOLLOWED_BAOBAB_LOG, Blocks.AIR);
         TermiteMoundBlockEntity.Termite.addDegradable(BAOBAB_WOOD, STRIPPED_BAOBAB_WOOD);
         TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_BAOBAB_WOOD, Blocks.AIR);
+
         TermiteMoundBlockEntity.Termite.addNaturalDegradable(BAOBAB_LOG, STRIPPED_BAOBAB_LOG);
         TermiteMoundBlockEntity.Termite.addNaturalDegradable(BAOBAB_WOOD, STRIPPED_BAOBAB_WOOD);
 
-        TermiteMoundBlockEntity.Termite.addDegradable(CYPRESS_LOG, HOLLOWED_CYPRESS_LOG);
-        TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_CYPRESS_LOG, Blocks.AIR);
-        TermiteMoundBlockEntity.Termite.addDegradable(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
-        TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_CYPRESS_WOOD, Blocks.AIR);
+		TermiteMoundBlockEntity.Termite.addDegradable(CYPRESS_LOG, STRIPPED_CYPRESS_LOG);
+		TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_CYPRESS_LOG, STRIPPED_HOLLOWED_CYPRESS_LOG);
+		TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_HOLLOWED_CYPRESS_LOG, Blocks.AIR);
+		TermiteMoundBlockEntity.Termite.addDegradable(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
+		TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_CYPRESS_WOOD, Blocks.AIR);
+
         TermiteMoundBlockEntity.Termite.addNaturalDegradable(CYPRESS_LOG, STRIPPED_CYPRESS_LOG);
         TermiteMoundBlockEntity.Termite.addNaturalDegradable(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
 
 		TermiteMoundBlockEntity.Termite.addDegradable(PALM_CROWN, PALM_LOG);
-		TermiteMoundBlockEntity.Termite.addDegradable(PALM_LOG, HOLLOWED_PALM_LOG);
-		TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_PALM_LOG, Blocks.AIR);
+		TermiteMoundBlockEntity.Termite.addDegradable(PALM_LOG, STRIPPED_PALM_LOG);
+		TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_PALM_LOG, STRIPPED_HOLLOWED_PALM_LOG);
+		TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_HOLLOWED_PALM_LOG, Blocks.AIR);
 		TermiteMoundBlockEntity.Termite.addDegradable(PALM_WOOD, STRIPPED_PALM_WOOD);
 		TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_PALM_WOOD, Blocks.AIR);
+
 		TermiteMoundBlockEntity.Termite.addNaturalDegradable(PALM_LOG, STRIPPED_PALM_LOG);
 		TermiteMoundBlockEntity.Termite.addNaturalDegradable(PALM_WOOD, STRIPPED_PALM_WOOD);
 		TermiteMoundBlockEntity.Termite.addNaturalDegradable(PALM_CROWN, PALM_LOG);
@@ -614,7 +659,7 @@ public final class RegisterBlocks {
         registerFlammability();
         registerFuels();
         registerBonemeal();
-		registerShovel();
+		registerAxe();
     }
 
     private static boolean never(BlockState state, BlockGetter level, BlockPos pos) {
@@ -636,6 +681,19 @@ public final class RegisterBlocks {
         StrippableBlockRegistry.register(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
 		StrippableBlockRegistry.register(PALM_LOG, STRIPPED_PALM_LOG);
 		StrippableBlockRegistry.register(PALM_WOOD, STRIPPED_PALM_WOOD);
+
+		StrippableBlockRegistry.register(HOLLOWED_ACACIA_LOG, STRIPPED_HOLLOWED_ACACIA_LOG);
+		StrippableBlockRegistry.register(HOLLOWED_BIRCH_LOG, STRIPPED_HOLLOWED_BIRCH_LOG);
+		StrippableBlockRegistry.register(HOLLOWED_DARK_OAK_LOG, STRIPPED_HOLLOWED_DARK_OAK_LOG);
+		StrippableBlockRegistry.register(HOLLOWED_OAK_LOG, STRIPPED_HOLLOWED_OAK_LOG);
+		StrippableBlockRegistry.register(HOLLOWED_SPRUCE_LOG, STRIPPED_HOLLOWED_SPRUCE_LOG);
+		StrippableBlockRegistry.register(HOLLOWED_JUNGLE_LOG, STRIPPED_HOLLOWED_JUNGLE_LOG);
+		StrippableBlockRegistry.register(HOLLOWED_MANGROVE_LOG, STRIPPED_HOLLOWED_MANGROVE_LOG);
+		StrippableBlockRegistry.register(HOLLOWED_CRIMSON_STEM, STRIPPED_HOLLOWED_CRIMSON_STEM);
+		StrippableBlockRegistry.register(HOLLOWED_WARPED_STEM, STRIPPED_HOLLOWED_WARPED_STEM);
+		StrippableBlockRegistry.register(HOLLOWED_CYPRESS_LOG, STRIPPED_HOLLOWED_CYPRESS_LOG);
+		StrippableBlockRegistry.register(HOLLOWED_BAOBAB_LOG, STRIPPED_HOLLOWED_BAOBAB_LOG);
+		StrippableBlockRegistry.register(HOLLOWED_PALM_LOG, STRIPPED_HOLLOWED_PALM_LOG);
     }
 
     private static void registerComposting() {
@@ -643,16 +701,13 @@ public final class RegisterBlocks {
         CompostingChanceRegistry.INSTANCE.add(CATTAIL, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(DATURA, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(MILKWEED, 0.65F);
-        CompostingChanceRegistry.INSTANCE.add(RegisterItems.MILKWEED_POD, 0.25F);
         CompostingChanceRegistry.INSTANCE.add(SEEDING_DANDELION, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(FLOWERING_LILY_PAD, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(BROWN_SHELF_FUNGUS, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(RED_SHELF_FUNGUS, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(CYPRESS_LEAVES, 0.3F);
         CompostingChanceRegistry.INSTANCE.add(BAOBAB_LEAVES, 0.3F);
-        CompostingChanceRegistry.INSTANCE.add(RegisterItems.BAOBAB_NUT, 0.3F);
         CompostingChanceRegistry.INSTANCE.add(CYPRESS_SAPLING, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(COCONUT, 0.3F);
         CompostingChanceRegistry.INSTANCE.add(GLORY_OF_THE_SNOW, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(BLUE_GLORY_OF_THE_SNOW, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(WHITE_GLORY_OF_THE_SNOW, 0.65F);
@@ -673,8 +728,14 @@ public final class RegisterBlocks {
         flammableBlockRegistry.add(RegisterBlocks.CATTAIL, 100, 60);
         flammableBlockRegistry.add(RegisterBlocks.DATURA, 100, 60);
         flammableBlockRegistry.add(RegisterBlocks.MILKWEED, 100, 60);
-		flammableBlockRegistry.add(RegisterBlocks.TUMBLEWEED, 100, 20);
-		flammableBlockRegistry.add(RegisterBlocks.TUMBLEWEED_PLANT, 100, 20);
+		flammableBlockRegistry.add(RegisterBlocks.GLORY_OF_THE_SNOW, 100, 60);
+		flammableBlockRegistry.add(RegisterBlocks.BLUE_GLORY_OF_THE_SNOW, 100, 60);
+		flammableBlockRegistry.add(RegisterBlocks.PINK_GLORY_OF_THE_SNOW, 100, 60);
+		flammableBlockRegistry.add(RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW, 100, 60);
+		flammableBlockRegistry.add(RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW, 100, 60);
+		flammableBlockRegistry.add(RegisterBlocks.TUMBLEWEED, 100, 60);
+		flammableBlockRegistry.add(RegisterBlocks.TUMBLEWEED_PLANT, 100, 60);
+		flammableBlockRegistry.add(RegisterBlocks.BUSH, 90, 40);
 
         flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_BIRCH_LOG, 5, 5);
         flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_OAK_LOG, 5, 5);
@@ -683,7 +744,16 @@ public final class RegisterBlocks {
         flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_DARK_OAK_LOG, 5, 5);
         flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_MANGROVE_LOG, 5, 5);
         flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_SPRUCE_LOG, 5, 5);
+		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_HOLLOWED_BIRCH_LOG, 5, 5);
+		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_HOLLOWED_OAK_LOG, 5, 5);
+		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_HOLLOWED_ACACIA_LOG, 5, 5);
+		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG, 5, 5);
+		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG, 5, 5);
+		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG, 5, 5);
+		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG, 5, 5);
+
         flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_BAOBAB_LOG, 5, 5);
+		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG, 5, 5);
         flammableBlockRegistry.add(RegisterBlocks.BAOBAB_LOG, 5, 5);
         flammableBlockRegistry.add(RegisterBlocks.STRIPPED_BAOBAB_LOG, 5, 5);
         flammableBlockRegistry.add(RegisterBlocks.BAOBAB_WOOD, 5, 5);
@@ -702,6 +772,7 @@ public final class RegisterBlocks {
         flammableBlockRegistry.add(RegisterBlocks.BAOBAB_WALL_SIGN, 5, 20);
 
         flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_CYPRESS_LOG, 5, 5);
+		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG, 5, 5);
         flammableBlockRegistry.add(RegisterBlocks.CYPRESS_LOG, 5, 5);
         flammableBlockRegistry.add(RegisterBlocks.STRIPPED_CYPRESS_LOG, 5, 5);
         flammableBlockRegistry.add(RegisterBlocks.CYPRESS_WOOD, 5, 5);
@@ -720,6 +791,7 @@ public final class RegisterBlocks {
         flammableBlockRegistry.add(RegisterBlocks.CYPRESS_WALL_SIGN, 5, 20);
 
 		flammableBlockRegistry.add(RegisterBlocks.HOLLOWED_PALM_LOG, 5, 5);
+		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_HOLLOWED_PALM_LOG, 5, 5);
 		flammableBlockRegistry.add(RegisterBlocks.PALM_LOG, 5, 5);
 		flammableBlockRegistry.add(RegisterBlocks.PALM_CROWN, 5, 5);
 		flammableBlockRegistry.add(RegisterBlocks.STRIPPED_PALM_LOG, 5, 5);
@@ -772,7 +844,7 @@ public final class RegisterBlocks {
 		});
     }
 
-	private static void registerShovel() {
+	private static void registerAxe() {
 		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.OAK_LOG, (context, level, pos, state, face, horizontal) -> {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				HollowedLogBlock.hollowEffects(level, face, state, pos, false);
@@ -865,6 +937,103 @@ public final class RegisterBlocks {
 			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 				HollowedLogBlock.hollowEffects(level, face, state, pos, false);
 				level.setBlockAndUpdate(pos, RegisterBlocks.HOLLOWED_PALM_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
+				return true;
+			}
+			return false;
+		});
+		//STRIPPED
+		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.STRIPPED_OAK_LOG, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
+				HollowedLogBlock.hollowEffects(level, face, state, pos, false);
+				level.setBlockAndUpdate(pos, RegisterBlocks.STRIPPED_HOLLOWED_OAK_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
+				return true;
+			}
+			return false;
+		});
+		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.STRIPPED_BIRCH_LOG, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
+				HollowedLogBlock.hollowEffects(level, face, state, pos, false);
+				level.setBlockAndUpdate(pos, RegisterBlocks.STRIPPED_HOLLOWED_BIRCH_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
+				return true;
+			}
+			return false;
+		});
+		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.STRIPPED_SPRUCE_LOG, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
+				HollowedLogBlock.hollowEffects(level, face, state, pos, false);
+				level.setBlockAndUpdate(pos, RegisterBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
+				return true;
+			}
+			return false;
+		});
+		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.STRIPPED_DARK_OAK_LOG, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
+				HollowedLogBlock.hollowEffects(level, face, state, pos, false);
+				level.setBlockAndUpdate(pos, RegisterBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
+				return true;
+			}
+			return false;
+		});
+		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.STRIPPED_JUNGLE_LOG, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
+				HollowedLogBlock.hollowEffects(level, face, state, pos, false);
+				level.setBlockAndUpdate(pos, RegisterBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
+				return true;
+			}
+			return false;
+		});
+		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.STRIPPED_ACACIA_LOG, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
+				HollowedLogBlock.hollowEffects(level, face, state, pos, false);
+				level.setBlockAndUpdate(pos, RegisterBlocks.STRIPPED_HOLLOWED_ACACIA_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
+				return true;
+			}
+			return false;
+		});
+		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.STRIPPED_MANGROVE_LOG, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
+				HollowedLogBlock.hollowEffects(level, face, state, pos, false);
+				level.setBlockAndUpdate(pos, RegisterBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
+				return true;
+			}
+			return false;
+		});
+		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.STRIPPED_CRIMSON_STEM, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
+				HollowedLogBlock.hollowEffects(level, face, state, pos, true);
+				level.setBlockAndUpdate(pos, RegisterBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
+				return true;
+			}
+			return false;
+		});
+		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.STRIPPED_WARPED_STEM, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
+				HollowedLogBlock.hollowEffects(level, face, state, pos, true);
+				level.setBlockAndUpdate(pos, RegisterBlocks.STRIPPED_HOLLOWED_WARPED_STEM.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
+				return true;
+			}
+			return false;
+		});
+		AxeBehaviors.AXE_BEHAVIORS.put(RegisterBlocks.STRIPPED_BAOBAB_LOG, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
+				HollowedLogBlock.hollowEffects(level, face, state, pos, false);
+				level.setBlockAndUpdate(pos, RegisterBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
+				return true;
+			}
+			return false;
+		});
+		AxeBehaviors.AXE_BEHAVIORS.put(RegisterBlocks.STRIPPED_CYPRESS_LOG, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
+				HollowedLogBlock.hollowEffects(level, face, state, pos, false);
+				level.setBlockAndUpdate(pos, RegisterBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
+				return true;
+			}
+			return false;
+		});
+		AxeBehaviors.AXE_BEHAVIORS.put(RegisterBlocks.STRIPPED_PALM_LOG, (context, level, pos, state, face, horizontal) -> {
+			if (!level.isClientSide && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
+				HollowedLogBlock.hollowEffects(level, face, state, pos, false);
+				level.setBlockAndUpdate(pos, RegisterBlocks.STRIPPED_HOLLOWED_PALM_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
 				return true;
 			}
 			return false;

@@ -349,34 +349,47 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         public static final Map<Block, Block> NATURAL_DEGRADABLE_BLOCKS = new HashMap<>();
 
         public static void addDegradableBlocks() {
-            addDegradable(Blocks.ACACIA_LOG, RegisterBlocks.HOLLOWED_ACACIA_LOG);
-            addDegradable(Blocks.OAK_LOG, RegisterBlocks.HOLLOWED_OAK_LOG);
-            addDegradable(Blocks.BIRCH_LOG, RegisterBlocks.HOLLOWED_BIRCH_LOG);
-            addDegradable(Blocks.DARK_OAK_LOG, RegisterBlocks.HOLLOWED_DARK_OAK_LOG);
-            addDegradable(Blocks.JUNGLE_LOG, RegisterBlocks.HOLLOWED_JUNGLE_LOG);
-            addDegradable(Blocks.MANGROVE_LOG, RegisterBlocks.HOLLOWED_MANGROVE_LOG);
-            addDegradable(Blocks.SPRUCE_LOG, RegisterBlocks.HOLLOWED_SPRUCE_LOG);
-            addDegradable(Blocks.STRIPPED_ACACIA_LOG, Blocks.AIR);
-            addDegradable(Blocks.STRIPPED_OAK_LOG, Blocks.AIR);
-            addDegradable(Blocks.STRIPPED_BIRCH_LOG, Blocks.AIR);
-            addDegradable(Blocks.STRIPPED_DARK_OAK_LOG, Blocks.AIR);
-            addDegradable(Blocks.STRIPPED_JUNGLE_LOG, Blocks.AIR);
-            addDegradable(Blocks.STRIPPED_MANGROVE_LOG, Blocks.AIR);
-            addDegradable(Blocks.STRIPPED_SPRUCE_LOG, Blocks.AIR);
-            addDegradable(Blocks.ACACIA_WOOD, Blocks.STRIPPED_ACACIA_WOOD);
-            addDegradable(Blocks.OAK_WOOD, Blocks.STRIPPED_OAK_WOOD);
-            addDegradable(Blocks.BIRCH_WOOD, Blocks.STRIPPED_BIRCH_WOOD);
-            addDegradable(Blocks.DARK_OAK_WOOD, Blocks.STRIPPED_DARK_OAK_WOOD);
-            addDegradable(Blocks.JUNGLE_WOOD, Blocks.STRIPPED_JUNGLE_WOOD);
-            addDegradable(Blocks.MANGROVE_WOOD, Blocks.STRIPPED_MANGROVE_WOOD);
-            addDegradable(Blocks.SPRUCE_WOOD, Blocks.STRIPPED_SPRUCE_WOOD);
-            addDegradable(Blocks.STRIPPED_ACACIA_WOOD, Blocks.AIR);
-            addDegradable(Blocks.STRIPPED_OAK_WOOD, Blocks.AIR);
-            addDegradable(Blocks.STRIPPED_BIRCH_WOOD, Blocks.AIR);
-            addDegradable(Blocks.STRIPPED_DARK_OAK_WOOD, Blocks.AIR);
-            addDegradable(Blocks.STRIPPED_JUNGLE_WOOD, Blocks.AIR);
-            addDegradable(Blocks.STRIPPED_MANGROVE_WOOD, Blocks.AIR);
-            addDegradable(Blocks.STRIPPED_SPRUCE_WOOD, Blocks.AIR);
+			addDegradable(Blocks.ACACIA_LOG, Blocks.STRIPPED_ACACIA_LOG);
+			addDegradable(Blocks.STRIPPED_ACACIA_LOG, RegisterBlocks.STRIPPED_HOLLOWED_ACACIA_LOG);
+			addDegradable(RegisterBlocks.STRIPPED_HOLLOWED_ACACIA_LOG, Blocks.AIR);
+			addDegradable(Blocks.ACACIA_WOOD, Blocks.STRIPPED_ACACIA_WOOD);
+			addDegradable(Blocks.STRIPPED_ACACIA_WOOD, Blocks.AIR);
+
+			addDegradable(Blocks.BIRCH_LOG, Blocks.STRIPPED_BIRCH_LOG);
+			addDegradable(Blocks.STRIPPED_BIRCH_LOG, RegisterBlocks.STRIPPED_HOLLOWED_BIRCH_LOG);
+			addDegradable(RegisterBlocks.STRIPPED_HOLLOWED_BIRCH_LOG, Blocks.AIR);
+			addDegradable(Blocks.BIRCH_WOOD, Blocks.STRIPPED_BIRCH_WOOD);
+			addDegradable(Blocks.STRIPPED_BIRCH_WOOD, Blocks.AIR);
+
+			addDegradable(Blocks.OAK_LOG, Blocks.STRIPPED_OAK_LOG);
+			addDegradable(Blocks.STRIPPED_OAK_LOG, RegisterBlocks.STRIPPED_HOLLOWED_OAK_LOG);
+			addDegradable(RegisterBlocks.STRIPPED_HOLLOWED_OAK_LOG, Blocks.AIR);
+			addDegradable(Blocks.OAK_WOOD, Blocks.STRIPPED_OAK_WOOD);
+			addDegradable(Blocks.STRIPPED_OAK_WOOD, Blocks.AIR);
+
+			addDegradable(Blocks.DARK_OAK_LOG, Blocks.STRIPPED_DARK_OAK_LOG);
+			addDegradable(Blocks.STRIPPED_DARK_OAK_LOG, RegisterBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG);
+			addDegradable(RegisterBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG, Blocks.AIR);
+			addDegradable(Blocks.DARK_OAK_WOOD, Blocks.STRIPPED_DARK_OAK_WOOD);
+			addDegradable(Blocks.STRIPPED_DARK_OAK_WOOD, Blocks.AIR);
+
+			addDegradable(Blocks.JUNGLE_LOG, Blocks.STRIPPED_JUNGLE_LOG);
+			addDegradable(Blocks.STRIPPED_JUNGLE_LOG, RegisterBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG);
+			addDegradable(RegisterBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG, Blocks.AIR);
+			addDegradable(Blocks.JUNGLE_WOOD, Blocks.STRIPPED_JUNGLE_WOOD);
+			addDegradable(Blocks.STRIPPED_JUNGLE_WOOD, Blocks.AIR);
+
+			addDegradable(Blocks.SPRUCE_LOG, Blocks.STRIPPED_SPRUCE_LOG);
+			addDegradable(Blocks.STRIPPED_SPRUCE_LOG, RegisterBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG);
+			addDegradable(RegisterBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG, Blocks.AIR);
+			addDegradable(Blocks.SPRUCE_WOOD, Blocks.STRIPPED_SPRUCE_WOOD);
+			addDegradable(Blocks.STRIPPED_SPRUCE_WOOD, Blocks.AIR);
+
+			addDegradable(Blocks.MANGROVE_LOG, Blocks.STRIPPED_MANGROVE_LOG);
+			addDegradable(Blocks.STRIPPED_MANGROVE_LOG, RegisterBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG);
+			addDegradable(RegisterBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG, Blocks.AIR);
+			addDegradable(Blocks.MANGROVE_WOOD, Blocks.STRIPPED_MANGROVE_WOOD);
+			addDegradable(Blocks.STRIPPED_MANGROVE_WOOD, Blocks.AIR);
         }
 
         public static void addDegradable(Block degradable, Block result) {

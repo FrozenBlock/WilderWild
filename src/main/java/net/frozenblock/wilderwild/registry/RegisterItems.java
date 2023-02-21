@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
+import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.frozenblock.lib.item.api.PrickOnUseBlockItem;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.item.AncientHorn;
@@ -185,5 +186,10 @@ public final class RegisterItems {
             factories.add(new VillagerTrades.ItemsForEmeralds(RegisterBlocks.CYPRESS_SAPLING.asItem(), 5, 1, 8, 1));
 			factories.add(new VillagerTrades.ItemsForEmeralds(RegisterItems.COCONUT, 5, 1, 8, 1));
         });
+
+		CompostingChanceRegistry.INSTANCE.add(BAOBAB_NUT, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(MILKWEED_POD, 0.25F);
+		CompostingChanceRegistry.INSTANCE.add(SPLIT_COCONUT, 0.15F);
+		CompostingChanceRegistry.INSTANCE.add(COCONUT, 0.3F);
     }
 }
