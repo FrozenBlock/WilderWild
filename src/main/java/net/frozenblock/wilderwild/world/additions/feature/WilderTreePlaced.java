@@ -92,7 +92,10 @@ public final class WilderTreePlaced {
 	public static final Holder<PlacedFeature> SHORT_MEGA_FUNGUS_SPRUCE_CHECKED = PlacementUtils.register("short_mega_fungus_spruce_checked", WilderTreeConfigured.SHORT_MEGA_FUNGUS_SPRUCE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
 	public static final Holder<PlacedFeature> SHORT_MEGA_DYING_FUNGUS_SPRUCE_CHECKED = PlacementUtils.register("short_mega_dying_fungus_spruce_checked", WilderTreeConfigured.SHORT_MEGA_DYING_FUNGUS_SPRUCE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
 	public static final Holder<PlacedFeature> SHORT_MEGA_DYING_SPRUCE_CHECKED = PlacementUtils.register("short_mega_dying_spruce_checked", WilderTreeConfigured.SHORT_MEGA_DYING_SPRUCE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
-
+	public static final Holder<PlacedFeature> SHORT_MEGA_SPRUCE_ON_SNOW = PlacementUtils.register("short_mega_spruce_on_snow", WilderTreeConfigured.SHORT_MEGA_SPRUCE, SNOW_TREE_FILTER_DECORATOR);
+	public static final Holder<PlacedFeature> SHORT_MEGA_FUNGUS_SPRUCE_ON_SNOW = PlacementUtils.register("short_mega_fungus_spruce_on_snow", WilderTreeConfigured.SHORT_MEGA_FUNGUS_SPRUCE, SNOW_TREE_FILTER_DECORATOR);
+	public static final Holder<PlacedFeature> SHORT_MEGA_DYING_FUNGUS_SPRUCE_ON_SNOW = PlacementUtils.register("short_mega_dying_fungus_spruce_on_snow", WilderTreeConfigured.SHORT_MEGA_DYING_FUNGUS_SPRUCE, SNOW_TREE_FILTER_DECORATOR);
+	public static final Holder<PlacedFeature> SHORT_MEGA_DYING_SPRUCE_ON_SNOW = PlacementUtils.register("short_mega_dying_spruce_on_snow", WilderTreeConfigured.SHORT_MEGA_DYING_SPRUCE, SNOW_TREE_FILTER_DECORATOR);
 	//BAOBAB
     public static final Holder<PlacedFeature> BAOBAB = PlacementUtils.register("baobab", WilderTreeConfigured.BAOBAB, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.BAOBAB_NUT));
     public static final Holder<PlacedFeature> BAOBAB_TALL = PlacementUtils.register("baobab_tall", WilderTreeConfigured.BAOBAB_TALL, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.BAOBAB_NUT));

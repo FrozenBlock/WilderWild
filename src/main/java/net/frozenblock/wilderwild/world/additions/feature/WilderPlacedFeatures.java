@@ -139,6 +139,9 @@ public final class WilderPlacedFeatures {
 	public static final Holder<PlacedFeature> SHORT_MEGA_SPRUCE_PLACED = register("short_mega_spruce_placed",
 			WilderConfiguredFeatures.SHORT_MEGA_SPRUCE, treePlacement(RarityFilter.onAverageOnceEvery(9)));
 
+	public static final Holder<PlacedFeature> SHORT_MEGA_SPRUCE_ON_SNOW_PLACED = register("short_mega_spruce_on_snow_placed",
+			WilderConfiguredFeatures.SHORT_MEGA_SPRUCE_ON_SNOW, treePlacement(RarityFilter.onAverageOnceEvery(9)));
+
     public static final Holder<PlacedFeature> NEW_TREES_OLD_GROWTH_PINE_TAIGA = register("trees_old_growth_pine_taiga",
             WilderConfiguredFeatures.NEW_TREES_OLD_GROWTH_PINE_TAIGA, treePlacement(PlacementUtils.countExtra(10, 0.1F, 1)));
 
