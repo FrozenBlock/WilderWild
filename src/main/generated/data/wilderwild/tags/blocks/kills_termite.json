@@ -53,6 +53,22 @@
     {
       "id": "wilderwild:hollowed_warped_stem",
       "required": false
+    },
+    {
+      "id": "wilderwild:stripped_hollowed_crimson_stem",
+      "required": false
+    },
+    {
+      "id": "wilderwild:stripped_hollowed_warped_stem",
+      "required": false
+    },
+    {
+      "id": "#minecraft:warped_stems",
+      "required": false
+    },
+    {
+      "id": "#minecraft:crimson_stems",
+      "required": false
     }
   ]
 }

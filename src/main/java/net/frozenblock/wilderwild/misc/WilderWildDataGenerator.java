@@ -782,10 +782,19 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(RegisterBlocks.HOLLOWED_CRIMSON_STEM)
 					.add(RegisterBlocks.HOLLOWED_BAOBAB_LOG)
 					.add(RegisterBlocks.HOLLOWED_CYPRESS_LOG)
-					.add(RegisterBlocks.HOLLOWED_PALM_LOG);
-
-			this.getOrCreateTagBuilder(FrozenBlockTags.CAN_INTERACT_WHILE_CROUCHING)
-					.addOptionalTag(WilderBlockTags.HOLLOWED_LOGS);
+					.add(RegisterBlocks.HOLLOWED_PALM_LOG)
+					.add(RegisterBlocks.STRIPPED_HOLLOWED_ACACIA_LOG)
+					.add(RegisterBlocks.STRIPPED_HOLLOWED_BIRCH_LOG)
+					.add(RegisterBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG)
+					.add(RegisterBlocks.STRIPPED_HOLLOWED_OAK_LOG)
+					.add(RegisterBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG)
+					.add(RegisterBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG)
+					.add(RegisterBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG)
+					.add(RegisterBlocks.STRIPPED_HOLLOWED_WARPED_STEM)
+					.add(RegisterBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM)
+					.add(RegisterBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG)
+					.add(RegisterBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG)
+					.add(RegisterBlocks.STRIPPED_HOLLOWED_PALM_LOG);
 
 			this.getOrCreateTagBuilder(WilderBlockTags.KILLS_TERMITE)
 					.add(Blocks.POWDER_SNOW)
@@ -840,7 +849,17 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(ResourceKey.create(
 							Registry.BLOCK_REGISTRY,
 							WilderSharedConstants.id("hollowed_warped_stem")
-					));
+					))
+					.addOptional(ResourceKey.create(
+							Registry.BLOCK_REGISTRY,
+							WilderSharedConstants.id("stripped_hollowed_crimson_stem")
+					))
+					.addOptional(ResourceKey.create(
+							Registry.BLOCK_REGISTRY,
+							WilderSharedConstants.id("stripped_hollowed_warped_stem")
+					))
+					.addOptionalTag(BlockTags.WARPED_STEMS)
+					.addOptionalTag(BlockTags.CRIMSON_STEMS);
 
 			this.getOrCreateTagBuilder(WilderBlockTags.TERMITE_BREAKABLE)
 					.addOptionalTag(BlockTags.LEAVES)
