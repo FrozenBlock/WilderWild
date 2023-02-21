@@ -278,7 +278,7 @@ public final class WilderPlacedFeatures {
 
 	public static final Holder<PlacedFeature> BUSH_AND_DEAD_BUSH_PLACED = register("bush_and_dead_bush_placed",
 			WilderConfiguredFeatures.BUSH_AND_DEAD_BUSH, CountPlacement.of(5), InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+			PlacementUtils.HEIGHTMAP, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING), BiomeFilter.biome());
 
 	public static final Holder<PlacedFeature> FLOWER_FIELD_BUSH_PLACED = register("flower_field_bush_placed",
 			WilderConfiguredFeatures.FLOWER_FIELD_BUSH, RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(),
