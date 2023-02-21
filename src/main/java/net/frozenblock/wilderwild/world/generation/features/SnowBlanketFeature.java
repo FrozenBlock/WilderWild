@@ -45,10 +45,12 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 		WorldGenLevel level = context.level();
 		BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
 		BlockState placeState = Blocks.SNOW.defaultBlockState();
-		int x = pos.getX();
-		int z = pos.getZ();
+		int posX = pos.getX();
+		int posZ = pos.getZ();
 		for(int i = 0; i < 16; i++) {
+			int x = posX + i;
 			for(int j = 0; j < 16; j++) {
+				int z = posZ + j;
 				if (level.getBlockState(mutablePos.set(x, level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z) - 1, z)).is(BlockTags.LEAVES)) {
 					mutablePos.set(x, level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z), z);
 					Holder<Biome> biomeHolder = level.getBiome(mutablePos);
@@ -61,9 +63,7 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 						}
 					}
 				}
-				z += 1;
 			}
-			x += 1;
 		}
 		return true;
 	}
