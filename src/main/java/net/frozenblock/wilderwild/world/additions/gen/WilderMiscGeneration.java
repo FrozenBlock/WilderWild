@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.world.additions.gen;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.frozenblock.lib.worldgen.biome.api.modifications.FrozenBiomeSelectors;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
@@ -88,5 +89,10 @@ public final class WilderMiscGeneration {
 
 		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.RAINFOREST),
 				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.BASIN_RAINFOREST.unwrapKey().orElseThrow());
+
+		if (WilderSharedConstants.config().snowBelowTrees()) {
+			BiomeModifications.addFeature(FrozenBiomeSelectors.foundInOverworldExcept(WilderBiomeTags.NO_SNOW_BLANKET),
+					GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.SNOW_BLANKET.unwrapKey().orElseThrow());
+		}
     }
 }

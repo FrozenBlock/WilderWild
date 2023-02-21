@@ -54,5 +54,6 @@ public class DefaultWorldgenConfig {
 	public static final boolean FALLEN_LOGS = true;
 	public static final boolean WILDER_WILD_TREE_GEN = true;
 	public static final boolean WILDER_WILD_GRASS_GEN = true;
+	public static final boolean SNOW_BELOW_TREES = true;
 	public static final boolean NEW_WITCH_HUTS = true;
 }

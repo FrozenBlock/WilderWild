@@ -24,6 +24,7 @@ import net.frozenblock.lib.feature.features.config.FadingDiskFeatureConfig;
 import net.frozenblock.lib.feature.features.config.PathFeatureConfig;
 import net.frozenblock.lib.feature.features.config.PathSwapUnderWaterFeatureConfig;
 import net.frozenblock.lib.feature.features.config.PillarFeatureConfig;
+import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
@@ -46,6 +47,7 @@ import net.minecraft.world.level.levelgen.feature.LakeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockPileConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.DiskConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleRandomFeatureConfiguration;
@@ -146,6 +148,8 @@ public final class WilderMiscConfigured {
 	public static final Holder<ConfiguredFeature<BlockPileConfiguration, ?>> MOSS_PILE = WilderConfiguredFeatures.register("moss_pile", Feature.BLOCK_PILE, new BlockPileConfiguration(BlockStateProvider.simple(Blocks.MOSS_BLOCK)));
 	public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> BASIN_RAINFOREST = WilderConfiguredFeatures.register("basin_rainforest", FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH, new VegetationPatchConfiguration(WilderBlockTags.BASIN_RAINFOREST_REPLACEABLE, BlockStateProvider.simple(Blocks.PODZOL), PlacementUtils.inlinePlaced(BLANK_SHUT_UP), CaveSurface.FLOOR, ConstantInt.of(2), 0.8F, 1, 0.000F, UniformInt.of(1, 3), 0.7F));
 	public static final Holder<ConfiguredFeature<LakeFeature.Configuration, ?>> MOSS_LAKE = WilderConfiguredFeatures.register("moss_lake", Feature.LAKE, new LakeFeature.Configuration(BlockStateProvider.simple(Blocks.WATER.defaultBlockState()), BlockStateProvider.simple(Blocks.MOSS_BLOCK.defaultBlockState())));
+	//SNOW
+	public static final Holder<ConfiguredFeature<NoneFeatureConfiguration, ?>> SNOW_BLANKET = WilderConfiguredFeatures.register("snow_blanket", WilderWild.SNOW_BLANKET_FEATURE, NoneFeatureConfiguration.INSTANCE);
 
 	public static void registerMiscPlaced() {
         WilderSharedConstants.logWild("Registering WilderMiscConfigured for", true);

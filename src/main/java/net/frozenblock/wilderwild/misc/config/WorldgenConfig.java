@@ -74,6 +74,7 @@ public final class WorldgenConfig implements ConfigData {
     public boolean fallenLogs = DefaultWorldgenConfig.FALLEN_LOGS;
     public boolean wilderWildTreeGen = DefaultWorldgenConfig.WILDER_WILD_TREE_GEN;
     public boolean wilderWildGrassGen = DefaultWorldgenConfig.WILDER_WILD_GRASS_GEN;
+	public boolean snowBelowTrees = DefaultWorldgenConfig.SNOW_BELOW_TREES;
 	public boolean newWitchHuts = DefaultWorldgenConfig.NEW_WITCH_HUTS;
 
     @Environment(EnvType.CLIENT)
@@ -274,6 +275,13 @@ public final class WorldgenConfig implements ConfigData {
                 .requireRestart()
                 .build()
         );
+		var snowBelowTrees = category.addEntry(entryBuilder.startBooleanToggle(text("snow_below_trees"), config.snowBelowTrees)
+				.setDefaultValue(DefaultWorldgenConfig.SNOW_BELOW_TREES)
+				.setSaveConsumer(newValue -> config.snowBelowTrees = newValue)
+				.setTooltip(tooltip("snow_below_trees"))
+				.requireRestart()
+				.build()
+		);
 		var newWitchHuts = category.addEntry(entryBuilder.startBooleanToggle(text("new_witch_huts"), config.newWitchHuts)
 				.setDefaultValue(DefaultWorldgenConfig.NEW_WITCH_HUTS)
 				.setSaveConsumer(newValue -> config.newWitchHuts = newValue)

@@ -30,6 +30,7 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
 
 public class AlgaeFeature extends Feature<ProbabilityFeatureConfiguration> {
+
     public AlgaeFeature(Codec<ProbabilityFeatureConfiguration> codec) {
         super(codec);
     }

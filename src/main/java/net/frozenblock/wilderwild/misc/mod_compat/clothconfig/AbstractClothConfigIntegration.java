@@ -344,6 +344,10 @@ public class AbstractClothConfigIntegration extends ModIntegration {
 		return DefaultWorldgenConfig.WILDER_WILD_GRASS_GEN;
 	}
 
+	public boolean snowBelowTrees() {
+		return DefaultWorldgenConfig.SNOW_BELOW_TREES;
+	}
+
 	public boolean newWitchHuts() {
 		return DefaultWorldgenConfig.NEW_WITCH_HUTS;
 	}

@@ -26,6 +26,7 @@ import net.frozenblock.wilderwild.misc.config.ItemConfig;
 import net.frozenblock.wilderwild.misc.config.MiscConfig;
 import net.frozenblock.wilderwild.misc.config.WilderWildConfig;
 import net.frozenblock.wilderwild.misc.config.WorldgenConfig;
+import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultWorldgenConfig;
 
 public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	public ClothConfigIntegration() {
@@ -441,6 +442,11 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	@Override
 	public boolean wildGrass() {
 		return WORLDGEN.wilderWildGrassGen;
+	}
+
+	@Override
+	public boolean snowBelowTrees() {
+		return WORLDGEN.snowBelowTrees;
 	}
 
 	@Override

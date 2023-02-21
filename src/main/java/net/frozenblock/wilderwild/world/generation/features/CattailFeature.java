@@ -35,10 +35,12 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
 
 public class CattailFeature extends Feature<ProbabilityFeatureConfiguration> {
+
     public CattailFeature(Codec<ProbabilityFeatureConfiguration> codec) {
         super(codec);
     }
 
+	@Override
     public boolean place(FeaturePlaceContext<ProbabilityFeatureConfiguration> context) {
         boolean bl = false;
         RandomSource abstractRandom = context.random();
