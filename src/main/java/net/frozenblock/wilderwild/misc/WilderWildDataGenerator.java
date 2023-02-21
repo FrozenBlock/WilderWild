@@ -155,7 +155,6 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.MIXED_FOREST)
 					.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
 
-
 			this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_WET)
 					.addOptional(RegisterWorldgen.CYPRESS_WETLANDS)
 					.addOptional(RegisterWorldgen.OASIS)
@@ -172,13 +171,70 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(ConventionalBiomeTags.TREE_CONIFEROUS)
 					.addOptional(RegisterWorldgen.MIXED_FOREST)
 					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
-					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA);
+					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
+					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
 
 			this.getOrCreateTagBuilder(ConventionalBiomeTags.TREE_DECIDUOUS)
 					.addOptional(RegisterWorldgen.MIXED_FOREST)
 					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
 					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
 					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
+
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.VEGETATION_DENSE)
+					.addOptional(RegisterWorldgen.RAINFOREST)
+					.addOptional(RegisterWorldgen.CYPRESS_WETLANDS)
+					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
+
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.FLORAL)
+					.add(Biomes.SUNFLOWER_PLAINS)
+					.addOptional(RegisterWorldgen.FLOWER_FIELD);
+
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.SNOWY)
+					.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
+
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.AQUATIC)
+					.addOptional(RegisterWorldgen.WARM_RIVER);
+
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.TREE_JUNGLE)
+					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
+					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
+
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.JUNGLE)
+					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
+					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
+
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.TREE_SAVANNA)
+					.addOptional(RegisterWorldgen.PARCHED_FOREST)
+					.addOptional(RegisterWorldgen.ARID_SAVANNA);
+
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.SAVANNA)
+					.addOptional(RegisterWorldgen.ARID_SAVANNA);
+
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.DESERT)
+					.addOptional(RegisterWorldgen.OASIS);
+
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.FOREST)
+					.addOptional(RegisterWorldgen.MIXED_FOREST)
+					.addOptional(RegisterWorldgen.PARCHED_FOREST)
+					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
+					.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
+					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
+					.addOptional(RegisterWorldgen.RAINFOREST)
+					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
+					.addOptional(RegisterWorldgen.ARID_FOREST)
+					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
+					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
+					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
+					.addOptional(RegisterWorldgen.BIRCH_TAIGA);
+
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.RIVER)
+					.addOptional(RegisterWorldgen.WARM_RIVER);
+
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.SWAMP)
+					.addOptional(RegisterWorldgen.CYPRESS_WETLANDS);
+
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.UNDERGROUND)
+					.addOptional(RegisterWorldgen.JELLYFISH_CAVES);
 		}
 
 		private void generateUtilityTags() {
@@ -195,6 +251,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)
 					.add(Biomes.SWAMP)
 					.add(Biomes.MANGROVE_SWAMP);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.NO_SNOW_BLANKET);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_JELLYFISH)
 					.add(Biomes.WARM_OCEAN)
@@ -412,6 +470,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.TAIGA)
 					.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA)
 					.add(Biomes.OLD_GROWTH_PINE_TAIGA)
+					.add(Biomes.SNOWY_TAIGA)
+					.add(Biomes.GROVE)
+					.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA)
 					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
 					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
 					.addOptional(RegisterWorldgen.MIXED_FOREST);

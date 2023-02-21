@@ -2,15 +2,11 @@
   "replace": false,
   "values": [
     {
-      "id": "wilderwild:mixed_forest",
+      "id": "wilderwild:rainforest",
       "required": false
     },
     {
-      "id": "wilderwild:birch_taiga",
-      "required": false
-    },
-    {
-      "id": "wilderwild:old_growth_birch_taiga",
+      "id": "wilderwild:cypress_wetlands",
       "required": false
     },
     {
