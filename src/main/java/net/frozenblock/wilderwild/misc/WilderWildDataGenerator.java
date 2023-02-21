@@ -125,6 +125,10 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(BiomeTags.IS_RIVER)
 					.addOptional(RegisterWorldgen.OASIS);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.RAINFOREST)
+					.addOptional(RegisterWorldgen.RAINFOREST)
+					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
 		}
 
 		private void generateClimateAndVegetationTags() {

@@ -86,5 +86,7 @@ public final class WilderMiscGeneration {
 		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_MOSS_LAKE),
 				GenerationStep.Decoration.FLUID_SPRINGS, WilderMiscPlaced.MOSS_LAKE.unwrapKey().orElseThrow());
 
+		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.RAINFOREST),
+				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.BASIN_RAINFOREST.unwrapKey().orElseThrow());
     }
 }
