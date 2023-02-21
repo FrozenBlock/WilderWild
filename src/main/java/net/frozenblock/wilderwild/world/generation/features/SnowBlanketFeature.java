@@ -19,9 +19,12 @@
 package net.frozenblock.wilderwild.world.generation.features;
 
 import com.mojang.serialization.Codec;
+import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -48,7 +51,9 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 			for(int j = 0; j < 16; j++) {
 				if (level.getBlockState(mutablePos.set(x, level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z) - 1, z)).is(BlockTags.LEAVES)) {
 					mutablePos.set(x, level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z), z);
-					if (level.getBiome(mutablePos).value().shouldSnow(level, mutablePos) && level.getBlockState(mutablePos).isAir() && placeState.canSurvive(level, mutablePos)) {
+					Holder<Biome> biomeHolder = level.getBiome(mutablePos);
+					Biome biome = biomeHolder.value();
+					if (!biomeHolder.is(WilderBiomeTags.NO_SNOW_BLANKET) && biome.shouldSnow(level, mutablePos) && level.getBlockState(mutablePos).isAir() && placeState.canSurvive(level, mutablePos)) {
 						level.setBlock(mutablePos, placeState, 3);
 						BlockState belowState = level.getBlockState(mutablePos.set(x, mutablePos.getY() - 1, z));
 						if (belowState.hasProperty(BlockStateProperties.SNOWY)) {

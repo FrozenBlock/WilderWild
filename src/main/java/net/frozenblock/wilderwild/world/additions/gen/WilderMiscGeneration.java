@@ -91,7 +91,7 @@ public final class WilderMiscGeneration {
 				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.BASIN_RAINFOREST.unwrapKey().orElseThrow());
 
 		if (WilderSharedConstants.config().snowBelowTrees()) {
-			BiomeModifications.addFeature(FrozenBiomeSelectors.foundInOverworldExcept(WilderBiomeTags.NO_SNOW_BLANKET),
+			BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(),
 					GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.SNOW_BLANKET.unwrapKey().orElseThrow());
 		}
     }
