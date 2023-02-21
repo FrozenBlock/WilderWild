@@ -550,7 +550,6 @@ public final class RegisterBlocks {
         registerPlants();
         registerNotSoPlants();
         registerMisc();
-        registerBlockProperties();
     }
 
 	public static void registerDispenses() {
@@ -815,12 +814,82 @@ public final class RegisterBlocks {
         WilderSharedConstants.logWild("Registering Fuels for", WilderSharedConstants.UNSTABLE_LOGGING);
         FuelRegistry registry = FuelRegistry.INSTANCE;
 
-        registry.add(BAOBAB_FENCE.asItem(), 300);
-        registry.add(BAOBAB_FENCE_GATE.asItem(), 300);
-        registry.add(CYPRESS_FENCE.asItem(), 300);
-        registry.add(CYPRESS_FENCE_GATE.asItem(), 300);
-		registry.add(PALM_FENCE.asItem(), 300);
+		registry.add(RegisterItems.BAOBAB_BOAT_ITEM, 1200);
+		registry.add(RegisterItems.BAOBAB_CHEST_BOAT_ITEM, 1200);
+		registry.add(BAOBAB_LOG.asItem(), 300);
+		registry.add(STRIPPED_BAOBAB_LOG.asItem(), 300);
+		registry.add(BAOBAB_WOOD.asItem(), 300);
+        registry.add(STRIPPED_BAOBAB_WOOD.asItem(), 300);
+		registry.add(BAOBAB_PLANKS.asItem(), 300);
+		registry.add(BAOBAB_SLAB.asItem(), 150);
+		registry.add(BAOBAB_STAIRS.asItem(), 300);
+		registry.add(BAOBAB_PRESSURE_PLATE.asItem(), 300);
+		registry.add(BAOBAB_BUTTON.asItem(), 100);
+		registry.add(BAOBAB_TRAPDOOR.asItem(), 300);
+		registry.add(BAOBAB_FENCE_GATE.asItem(), 300);
+		registry.add(BAOBAB_FENCE.asItem(), 300);
+		registry.add(RegisterItems.BAOBAB_SIGN, 300);
+		registry.add(RegisterItems.BAOBAB_NUT, 100);
+
+		registry.add(RegisterItems.CYPRESS_BOAT_ITEM, 1200);
+		registry.add(RegisterItems.CYPRESS_CHEST_BOAT_ITEM, 1200);
+		registry.add(CYPRESS_LOG.asItem(), 300);
+		registry.add(STRIPPED_CYPRESS_LOG.asItem(), 300);
+		registry.add(CYPRESS_WOOD.asItem(), 300);
+		registry.add(STRIPPED_CYPRESS_WOOD.asItem(), 300);
+		registry.add(CYPRESS_PLANKS.asItem(), 300);
+		registry.add(CYPRESS_SLAB.asItem(), 150);
+		registry.add(CYPRESS_STAIRS.asItem(), 300);
+		registry.add(CYPRESS_PRESSURE_PLATE.asItem(), 300);
+		registry.add(CYPRESS_BUTTON.asItem(), 100);
+		registry.add(CYPRESS_TRAPDOOR.asItem(), 300);
+		registry.add(CYPRESS_FENCE_GATE.asItem(), 300);
+		registry.add(CYPRESS_FENCE.asItem(), 300);
+		registry.add(RegisterItems.CYPRESS_SIGN, 300);
+		registry.add(CYPRESS_SAPLING.asItem(), 100);
+
+		registry.add(RegisterItems.PALM_BOAT_ITEM, 1200);
+		registry.add(RegisterItems.PALM_CHEST_BOAT_ITEM, 1200);
+		registry.add(PALM_LOG.asItem(), 300);
+		registry.add(STRIPPED_PALM_LOG.asItem(), 300);
+		registry.add(PALM_WOOD.asItem(), 300);
+		registry.add(STRIPPED_PALM_WOOD.asItem(), 300);
+		registry.add(PALM_PLANKS.asItem(), 300);
+		registry.add(PALM_SLAB.asItem(), 150);
+		registry.add(PALM_STAIRS.asItem(), 300);
+		registry.add(PALM_PRESSURE_PLATE.asItem(), 300);
+		registry.add(PALM_BUTTON.asItem(), 100);
+		registry.add(PALM_TRAPDOOR.asItem(), 300);
 		registry.add(PALM_FENCE_GATE.asItem(), 300);
+		registry.add(PALM_FENCE.asItem(), 300);
+		registry.add(RegisterItems.PALM_SIGN, 300);
+		registry.add(RegisterItems.COCONUT, 150); // COCONUT OIL IS KNOWN TO BE FLAMMABLE :)
+		registry.add(RegisterItems.SPLIT_COCONUT, 75);
+
+		registry.add(HOLLOWED_WARPED_STEM.asItem(), 300);
+		registry.add(HOLLOWED_CRIMSON_STEM.asItem(), 300);
+		registry.add(HOLLOWED_MANGROVE_LOG.asItem(), 300);
+		registry.add(HOLLOWED_ACACIA_LOG.asItem(), 300);
+		registry.add(HOLLOWED_JUNGLE_LOG.asItem(), 300);
+		registry.add(HOLLOWED_DARK_OAK_LOG.asItem(), 300);
+		registry.add(HOLLOWED_SPRUCE_LOG.asItem(), 300);
+		registry.add(HOLLOWED_BIRCH_LOG.asItem(), 300);
+		registry.add(HOLLOWED_BAOBAB_LOG.asItem(), 300);
+		registry.add(HOLLOWED_CYPRESS_LOG.asItem(), 300);
+		registry.add(HOLLOWED_PALM_LOG.asItem(), 300);
+
+		registry.add(STRIPPED_HOLLOWED_WARPED_STEM.asItem(), 300);
+		registry.add(STRIPPED_HOLLOWED_CRIMSON_STEM.asItem(), 300);
+		registry.add(STRIPPED_HOLLOWED_MANGROVE_LOG.asItem(), 300);
+		registry.add(STRIPPED_HOLLOWED_ACACIA_LOG.asItem(), 300);
+		registry.add(STRIPPED_HOLLOWED_JUNGLE_LOG.asItem(), 300);
+		registry.add(STRIPPED_HOLLOWED_DARK_OAK_LOG.asItem(), 300);
+		registry.add(STRIPPED_HOLLOWED_SPRUCE_LOG.asItem(), 300);
+		registry.add(STRIPPED_HOLLOWED_BIRCH_LOG.asItem(), 300);
+		registry.add(STRIPPED_HOLLOWED_BAOBAB_LOG.asItem(), 300);
+		registry.add(STRIPPED_HOLLOWED_CYPRESS_LOG.asItem(), 300);
+		registry.add(STRIPPED_HOLLOWED_PALM_LOG.asItem(), 300);
+
 		registry.add(TUMBLEWEED.asItem(), 150);
 		registry.add(TUMBLEWEED_PLANT.asItem(), 150);
     }
