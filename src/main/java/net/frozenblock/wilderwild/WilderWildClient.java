@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild;
 
 import java.util.Objects;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -389,11 +390,14 @@ public final class WilderWildClient implements ClientModInitializer {
 	private static void receiveTermitePacket() {
 		ClientPlayNetworking.registerGlobalReceiver(WilderWild.TERMITE_PARTICLE_PACKET, (ctx, handler, byteBuf, responseSender) -> {
 			Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
-			int count = byteBuf.readVarInt();
+			AtomicInteger count = new AtomicInteger(byteBuf.readVarInt());
 			ctx.execute(() -> {
 				if (ctx.level == null)
 					throw new IllegalStateException("why is your world null");
-				for (int i = 0; i < count; i++) {
+
+				count.addAndGet(-1);
+				ctx.level.addAlwaysVisibleParticle(RegisterParticles.TERMITE, pos.x, pos.y, pos.z, 0, 0, 0);
+				for (int i = 0; i < count.get(); i++) {
 					ctx.level.addParticle(RegisterParticles.TERMITE, pos.x, pos.y, pos.z, 0, 0, 0);
 				}
 			});
