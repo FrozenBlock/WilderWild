@@ -39,6 +39,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
 
@@ -374,7 +375,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.FOREST)
 					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
 					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
-					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST);
+					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
+					.addOptional(RegisterWorldgen.RAINFOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_DATURA)
 					.add(Biomes.BIRCH_FOREST)
@@ -386,7 +388,15 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_CATTAIL)
 					.add(Biomes.SWAMP)
 					.add(Biomes.MANGROVE_SWAMP)
+					.add(Biomes.DARK_FOREST)
+					.add(Biomes.JUNGLE)
+					.add(Biomes.BAMBOO_JUNGLE)
+					.add(Biomes.SPARSE_JUNGLE)
 					.addOptional(RegisterWorldgen.CYPRESS_WETLANDS)
+					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
+					.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
+					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
+					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
 					.addOptional(RegisterWorldgen.RAINFOREST)
 					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
 
@@ -631,6 +641,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.DRIPSTONE_CAVES)
 					.add(Biomes.DEEP_DARK)
 					.addOptional(RegisterWorldgen.JELLYFISH_CAVES)
+					.addOptional(RegisterWorldgen.OASIS)
+					.addOptional(RegisterWorldgen.WARM_RIVER)
 					.addOptional(RegisterWorldgen.ARID_SAVANNA)
 					.addOptional(RegisterWorldgen.FLOWER_FIELD)
 					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
@@ -640,8 +652,85 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
 					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
 					.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
+					.addOptional(RegisterWorldgen.MIXED_FOREST)
+					.addOptional(RegisterWorldgen.CYPRESS_WETLANDS)
+					.addOptional(RegisterWorldgen.PARCHED_FOREST)
+					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
+					.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA)
 					.addOptional(RegisterWorldgen.RAINFOREST)
 					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
+
+			this.getOrCreateTagBuilder(BiomeTags.HAS_DESERT_PYRAMID)
+					.addOptional(RegisterWorldgen.OASIS);
+
+			this.getOrCreateTagBuilder(BiomeTags.HAS_IGLOO)
+					.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
+
+			this.getOrCreateTagBuilder(BiomeTags.HAS_MINESHAFT)
+					.addOptional(RegisterWorldgen.JELLYFISH_CAVES)
+					.addOptional(RegisterWorldgen.OASIS)
+					.addOptional(RegisterWorldgen.WARM_RIVER)
+					.addOptional(RegisterWorldgen.ARID_SAVANNA)
+					.addOptional(RegisterWorldgen.FLOWER_FIELD)
+					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
+					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
+					.addOptional(RegisterWorldgen.ARID_FOREST)
+					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
+					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
+					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
+					.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
+					.addOptional(RegisterWorldgen.MIXED_FOREST)
+					.addOptional(RegisterWorldgen.CYPRESS_WETLANDS)
+					.addOptional(RegisterWorldgen.PARCHED_FOREST)
+					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
+					.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA)
+					.addOptional(RegisterWorldgen.RAINFOREST)
+					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
+
+			this.getOrCreateTagBuilder(BiomeTags.HAS_PILLAGER_OUTPOST)
+					.addOptional(RegisterWorldgen.OASIS)
+					.addOptional(RegisterWorldgen.FLOWER_FIELD)
+					.addOptional(RegisterWorldgen.ARID_SAVANNA)
+					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
+					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
+					.addOptional(RegisterWorldgen.ARID_FOREST)
+					.addOptional(RegisterWorldgen.PARCHED_FOREST);
+
+			this.getOrCreateTagBuilder(BiomeTags.HAS_RUINED_PORTAL_DESERT)
+					.addOptional(RegisterWorldgen.OASIS)
+					.addOptional(RegisterWorldgen.ARID_SAVANNA)
+					.addOptional(RegisterWorldgen.ARID_FOREST);
+
+			this.getOrCreateTagBuilder(BiomeTags.HAS_RUINED_PORTAL_STANDARD)
+					.addOptional(RegisterWorldgen.FLOWER_FIELD)
+					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
+					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
+					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
+					.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
+					.addOptional(RegisterWorldgen.MIXED_FOREST)
+					.addOptional(RegisterWorldgen.PARCHED_FOREST)
+					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
+					.addOptional(RegisterWorldgen.RAINFOREST)
+					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
+
+			this.getOrCreateTagBuilder(BiomeTags.HAS_RUINED_PORTAL_JUNGLE)
+					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
+					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
+
+			this.getOrCreateTagBuilder(BiomeTags.HAS_RUINED_PORTAL_OCEAN)
+					.addOptional(RegisterWorldgen.JELLYFISH_CAVES);
+
+			this.getOrCreateTagBuilder(BiomeTags.HAS_RUINED_PORTAL_SWAMP)
+					.addOptional(RegisterWorldgen.CYPRESS_WETLANDS);
+
+			this.getOrCreateTagBuilder(BiomeTags.HAS_VILLAGE_PLAINS)
+					.addOptional(RegisterWorldgen.FLOWER_FIELD);
+
+			this.getOrCreateTagBuilder(BiomeTags.HAS_VILLAGE_SAVANNA)
+					.addOptional(RegisterWorldgen.ARID_SAVANNA);
+
+			this.getOrCreateTagBuilder(BiomeTags.HAS_WOODLAND_MANSION)
+					.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
 		}
 	}
 

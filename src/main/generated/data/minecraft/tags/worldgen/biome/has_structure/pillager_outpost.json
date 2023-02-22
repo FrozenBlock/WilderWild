@@ -1,0 +1,33 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "wilderwild:oasis",
+      "required": false
+    },
+    {
+      "id": "wilderwild:flower_field",
+      "required": false
+    },
+    {
+      "id": "wilderwild:arid_savanna",
+      "required": false
+    },
+    {
+      "id": "wilderwild:birch_taiga",
+      "required": false
+    },
+    {
+      "id": "wilderwild:old_growth_birch_taiga",
+      "required": false
+    },
+    {
+      "id": "wilderwild:arid_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:parched_forest",
+      "required": false
+    }
+  ]
+}
