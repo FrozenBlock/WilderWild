@@ -50,6 +50,7 @@ import net.frozenblock.wilderwild.entity.render.renderer.TumbleweedRenderer;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.MesogleaDripParticle;
+import net.frozenblock.wilderwild.particle.NewTermiteParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
 import net.frozenblock.wilderwild.particle.SeedParticle;
 import net.frozenblock.wilderwild.particle.TermiteParticle;
@@ -187,6 +188,8 @@ public final class WilderWildClient implements ClientModInitializer {
 			registry.register(WilderSharedConstants.id("particle/floating_sculk_bubble_4"));
 			registry.register(WilderSharedConstants.id("particle/floating_sculk_bubble_5"));
 			registry.register(WilderSharedConstants.id("particle/floating_sculk_bubble_6"));
+			registry.register(WilderSharedConstants.id("particle/termite"));
+			/*
 			registry.register(WilderSharedConstants.id("particle/termite_0"));
 			registry.register(WilderSharedConstants.id("particle/termite_1"));
 			registry.register(WilderSharedConstants.id("particle/termite_2"));
@@ -197,6 +200,7 @@ public final class WilderWildClient implements ClientModInitializer {
 			registry.register(WilderSharedConstants.id("particle/termite_7"));
 			registry.register(WilderSharedConstants.id("particle/termite_8"));
 			registry.register(WilderSharedConstants.id("particle/termite_9"));
+			 */
 		});
 
 		ClientSpriteRegistryCallback.event(Sheets.CHEST_SHEET).register((atlasTexture, registry) -> {
@@ -213,7 +217,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		particleRegistry.register(RegisterParticles.POLLEN, PollenParticle.PollenFactory::new);
 		particleRegistry.register(RegisterParticles.SEED, SeedParticle.Factory::new);
 		particleRegistry.register(RegisterParticles.FLOATING_SCULK_BUBBLE, FloatingSculkBubbleParticle.BubbleFactory::new);
-		particleRegistry.register(RegisterParticles.TERMITE, TermiteParticle.Factory::new);
+		particleRegistry.register(RegisterParticles.TERMITE, NewTermiteParticle.Factory::new);
 		particleRegistry.register(RegisterParticles.BLUE_PEARLESCENT_HANGING_MESOGLEA, MesogleaDripParticle.BPMesogleaHangProvider::new);
 		particleRegistry.register(RegisterParticles.BLUE_PEARLESCENT_FALLING_MESOGLEA, MesogleaDripParticle.BPMesogleaFallProvider::new);
 		particleRegistry.register(RegisterParticles.BLUE_PEARLESCENT_LANDING_MESOGLEA, MesogleaDripParticle.BPMesogleaLandProvider::new);
