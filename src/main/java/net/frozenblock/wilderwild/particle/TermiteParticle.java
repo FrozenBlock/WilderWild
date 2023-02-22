@@ -62,9 +62,9 @@ public class TermiteParticle extends TextureSheetParticle {
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		this.xRot = clientLevel.random.nextBoolean() ? TermiteRotationType.COS : clientLevel.random.nextBoolean() ? TermiteRotationType.SIN : TermiteRotationType.TAN;
-		this.yRot = clientLevel.random.nextBoolean() ? TermiteRotationType.COS : clientLevel.random.nextBoolean() ? TermiteRotationType.SIN : TermiteRotationType.TAN;
-		this.zRot = clientLevel.random.nextBoolean() ? TermiteRotationType.COS : clientLevel.random.nextBoolean() ? TermiteRotationType.SIN : TermiteRotationType.TAN;
+		this.xRot = clientLevel.random.nextBoolean() ? TermiteRotationType.COS : TermiteRotationType.SIN;
+		this.yRot = clientLevel.random.nextBoolean() ? TermiteRotationType.COS : TermiteRotationType.SIN;
+		this.zRot = clientLevel.random.nextBoolean() ? TermiteRotationType.COS : TermiteRotationType.SIN;
 		this.backwardsX = clientLevel.random.nextBoolean();
 		this.backwardsY = clientLevel.random.nextBoolean();
 		this.backwardsZ = clientLevel.random.nextBoolean();
@@ -100,14 +100,8 @@ public class TermiteParticle extends TextureSheetParticle {
 		return (float) Math.sin(((progress + offset) * Math.PI) / this.spinSpeed);
 	}
 
-	private float tan(float progress, float offset) {
-		return (float) Math.tan(((progress + offset) * Math.PI) / this.spinSpeed);
-	}
-
 	private float rotate(TermiteRotationType rotation, float progress, float offset) {
-		return rotation == TermiteRotationType.COS ? cos(progress, offset)
-				: rotation == TermiteRotationType.SIN ? sin(progress, offset)
-				: tan(progress, offset);
+		return rotation == TermiteRotationType.COS ? cos(progress, offset) : sin(progress, offset);
 	}
 
 	@Override
@@ -176,8 +170,7 @@ public class TermiteParticle extends TextureSheetParticle {
 
 	enum TermiteRotationType {
 		COS,
-		SIN,
-		TAN
+		SIN
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -189,7 +182,6 @@ public class TermiteParticle extends TextureSheetParticle {
         public Particle createParticle(@NotNull SimpleParticleType termiteParticleOptions, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {
             TermiteParticle termite = new TermiteParticle(clientLevel, x, y, z, ((float)clientLevel.random.nextInt(12, 24)), this.spriteProvider);
             termite.setAlpha(1.0F);
-			termite.age = clientLevel.random.nextInt(240);
 			termite.setLifetime(clientLevel.random.nextInt(10) + 5 + termite.age);
             termite.scale(0.75F);
             return termite;
