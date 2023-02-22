@@ -50,21 +50,27 @@ public class NewTermiteParticle extends TextureSheetParticle {
 	private final boolean backwardsX;
 	private final boolean backwardsY;
 	private final boolean backwardsZ;
+	private final float xOffset;
+	private final float yOffset;
+	private final float zOffset;
 
-    public NewTermiteParticle(ClientLevel level, double x, double y, double z, Rotation xRot, Rotation yRot, Rotation zRot, boolean backwardsX, boolean backwardsY, boolean backwardsZ, float spinSpeed, SpriteSet spriteProvider) {
-        super(level, x, y, z);
+    public NewTermiteParticle(ClientLevel clientLevel, double x, double y, double z, float spinSpeed, SpriteSet spriteProvider) {
+        super(clientLevel, x, y, z);
         this.spriteProvider = spriteProvider;
         this.hasPhysics = false;
         this.setSpriteFromAge(spriteProvider);
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		this.xRot = xRot;
-		this.yRot = yRot;
-		this.zRot = zRot;
-		this.backwardsX = backwardsX;
-		this.backwardsY = backwardsY;
-		this.backwardsZ = backwardsZ;
+		this.xRot = clientLevel.random.nextBoolean() ? Rotation.COS : Rotation.SIN;
+		this.yRot = clientLevel.random.nextBoolean() ? Rotation.COS : Rotation.SIN;
+		this.zRot = clientLevel.random.nextBoolean() ? Rotation.COS : Rotation.SIN;
+		this.backwardsX = clientLevel.random.nextBoolean();
+		this.backwardsY = clientLevel.random.nextBoolean();
+		this.backwardsZ = clientLevel.random.nextBoolean();
+		this.xOffset = clientLevel.random.nextFloat() * 100F;
+		this.yOffset = clientLevel.random.nextFloat() * 100F;
+		this.zOffset = clientLevel.random.nextFloat() * 100F;
 		this.spinSpeed = spinSpeed;
     }
 
@@ -86,19 +92,25 @@ public class NewTermiteParticle extends TextureSheetParticle {
 		}
     }
 
+	private float cos(float progress, float offset) {
+		return (float) Math.cos(((progress + offset) * Math.PI) / this.spinSpeed);
+	}
+
+	private float sin(float progress, float offset) {
+		return (float) Math.sin(((progress + offset) * Math.PI) / this.spinSpeed);
+	}
+
 	@Override
 	public void render(@NotNull VertexConsumer buffer, @NotNull Camera renderInfo, float partialTicks) {
 		float animationProgress = this.age + partialTicks;
-		float cos = (float) Math.cos((animationProgress * Math.PI) / this.spinSpeed);
-		float sin = (float) Math.sin((animationProgress * Math.PI) / this.spinSpeed);
 
 		double x = this.x;
 		double y = this.y;
 		double z = this.z;
 
-		float xRotation = (this.xRot == Rotation.COS ? cos : sin) * (this.backwardsX ? -1 : 1);
-		float yRotation = (this.yRot == Rotation.COS ? cos : sin) * (this.backwardsY ? -1 : 1);
-		float zRotation = (this.zRot == Rotation.COS ? cos : sin) * (this.backwardsZ ? -1 : 1);
+		float xRotation = (this.xRot == Rotation.COS ? cos(animationProgress, xOffset) : sin(animationProgress, xOffset)) * (this.backwardsX ? -1 : 1) * 0.9F;
+		float yRotation = (this.yRot == Rotation.COS ? cos(animationProgress, yOffset) : sin(animationProgress, yOffset)) * (this.backwardsY ? -1 : 1) * 0.9F;
+		float zRotation = (this.zRot == Rotation.COS ? cos(animationProgress, zOffset) : sin(animationProgress, zOffset)) * (this.backwardsZ ? -1 : 1) * 0.9F;
 
 		Quaternion quaternion;
 		Vec3 vec3 = renderInfo.getPosition();
@@ -164,11 +176,11 @@ public class NewTermiteParticle extends TextureSheetParticle {
         }
 
         public Particle createParticle(@NotNull SimpleParticleType termiteParticleOptions, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {
-            NewTermiteParticle termite = new NewTermiteParticle(clientLevel, x, y, z, clientLevel.random.nextBoolean() ? Rotation.COS : Rotation.SIN, clientLevel.random.nextBoolean() ? Rotation.COS : Rotation.SIN, clientLevel.random.nextBoolean() ? Rotation.COS : Rotation.SIN, clientLevel.random.nextBoolean(), clientLevel.random.nextBoolean(), clientLevel.random.nextBoolean(), ((float)clientLevel.random.nextInt(12, 24)), this.spriteProvider);
+            NewTermiteParticle termite = new NewTermiteParticle(clientLevel, x, y, z, ((float)clientLevel.random.nextInt(12, 24)), this.spriteProvider);
             termite.setAlpha(1.0F);
-			termite.age = clientLevel.random.nextInt(24);
+			termite.age = clientLevel.random.nextInt(120);
 			termite.setLifetime(clientLevel.random.nextInt(30) + 60 + termite.age);
-            termite.scale(2.0F);
+            termite.scale(1.0F);
             return termite;
         }
 
