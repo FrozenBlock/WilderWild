@@ -395,7 +395,7 @@ public final class WilderWildClient implements ClientModInitializer {
 				if (ctx.level == null)
 					throw new IllegalStateException("why is your world null");
 				for (int i = 0; i < count; i++) {
-					ctx.level.addParticle(RegisterParticles.TERMITE, pos.x, pos.y, pos.z, AdvancedMath.randomPosNeg() / 14, AdvancedMath.randomPosNeg() / 14, AdvancedMath.randomPosNeg() / 14);
+					ctx.level.addParticle(RegisterParticles.TERMITE, pos.x, pos.y, pos.z, 0, 0, 0);
 				}
 			});
 		});

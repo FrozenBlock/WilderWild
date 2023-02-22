@@ -32,7 +32,6 @@ import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
@@ -41,14 +40,32 @@ import org.jetbrains.annotations.NotNull;
 @Environment(EnvType.CLIENT)
 public class NewTermiteParticle extends TextureSheetParticle {
     private final SpriteSet spriteProvider;
-	private boolean hasSetLightColor;
-	private int lightColor;
+	private final float spinSpeed;
+	private float prevScale = 0F;
+	private float scale = 0F;
+	private float targetScale = 0F;
+	private final Rotation xRot;
+	private final Rotation yRot;
+	private final Rotation zRot;
+	private final boolean backwardsX;
+	private final boolean backwardsY;
+	private final boolean backwardsZ;
 
-    public NewTermiteParticle(ClientLevel level, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteSet spriteProvider) {
-        super(level, x, y, z, velocityX, velocityY, velocityZ);
+    public NewTermiteParticle(ClientLevel level, double x, double y, double z, Rotation xRot, Rotation yRot, Rotation zRot, boolean backwardsX, boolean backwardsY, boolean backwardsZ, float spinSpeed, SpriteSet spriteProvider) {
+        super(level, x, y, z);
         this.spriteProvider = spriteProvider;
         this.hasPhysics = false;
         this.setSpriteFromAge(spriteProvider);
+		this.x = x;
+		this.y = y;
+		this.z = z;
+		this.xRot = xRot;
+		this.yRot = yRot;
+		this.zRot = zRot;
+		this.backwardsX = backwardsX;
+		this.backwardsY = backwardsY;
+		this.backwardsZ = backwardsZ;
+		this.spinSpeed = spinSpeed;
     }
 
     public ParticleRenderType getRenderType() {
@@ -56,44 +73,38 @@ public class NewTermiteParticle extends TextureSheetParticle {
     }
 
     public void tick() {
+		this.prevScale = this.scale;
+		this.scale += (this.targetScale - this.scale) * 0.25F;
 		if (this.age++ >= this.lifetime) {
-			this.remove();
-			return;
-		}
-        if (!this.removed) {
-			this.setLightColor();
-        }
-    }
-
-	private void setLightColor() {
-		BlockPos thisPos = new BlockPos(this.x, this.y, this.z);
-		int light = 0;
-		for (Direction direction : Direction.values()) {
-			BlockPos pos = thisPos.relative(direction);
-			if (this.level.hasChunkAt(pos)) {
-				light = Math.max(LevelRenderer.getLightColor(this.level, pos), light);
+			if (this.prevScale <= 0.05F) {
+				this.remove();
+			} else {
+				this.targetScale = 0F;
 			}
+		} else {
+			this.targetScale = 1F;
 		}
-		this.lightColor = light;
-	}
+    }
 
 	@Override
 	public void render(@NotNull VertexConsumer buffer, @NotNull Camera renderInfo, float partialTicks) {
-		if (!this.hasSetLightColor) {
-			this.setLightColor();
-			this.hasSetLightColor = true;
-		}
-
 		float animationProgress = this.age + partialTicks;
-		float cos = (float) Math.cos((animationProgress * Math.PI) / 19F);
-		float sin = (float) Math.sin((animationProgress * Math.PI) / 19F);
-		float aCos = (float) Math.acos((animationProgress * Math.PI) / 19F);
+		float cos = (float) Math.cos((animationProgress * Math.PI) / this.spinSpeed);
+		float sin = (float) Math.sin((animationProgress * Math.PI) / this.spinSpeed);
+
+		double x = this.x;
+		double y = this.y;
+		double z = this.z;
+
+		float xRotation = (this.xRot == Rotation.COS ? cos : sin) * (this.backwardsX ? -1 : 1);
+		float yRotation = (this.yRot == Rotation.COS ? cos : sin) * (this.backwardsY ? -1 : 1);
+		float zRotation = (this.zRot == Rotation.COS ? cos : sin) * (this.backwardsZ ? -1 : 1);
 
 		Quaternion quaternion;
 		Vec3 vec3 = renderInfo.getPosition();
-		float f = (float)(Mth.lerp(partialTicks, this.xo, this.x) - vec3.x() + cos);
-		float g = (float)(Mth.lerp(partialTicks, this.yo, this.y) - vec3.y() + sin);
-		float h = (float)(Mth.lerp(partialTicks, this.zo, this.z) - vec3.z() + aCos);
+		float f = (float)(x - vec3.x() + xRotation);
+		float g = (float)(y - vec3.y() + yRotation);
+		float h = (float)(z - vec3.z() + zRotation);
 		if (this.roll == 0.0f) {
 			quaternion = renderInfo.rotation();
 		} else {
@@ -113,34 +124,56 @@ public class NewTermiteParticle extends TextureSheetParticle {
 		float m = this.getU1();
 		float n = this.getV0();
 		float o = this.getV1();
-		int p = this.getLightColor(partialTicks);
+		int p = this.getLightColor(x, y, z, xRotation, yRotation, zRotation);
 		buffer.vertex(vector3fs[0].x(), vector3fs[0].y(), vector3fs[0].z()).uv(m, o).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
 		buffer.vertex(vector3fs[1].x(), vector3fs[1].y(), vector3fs[1].z()).uv(m, n).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
 		buffer.vertex(vector3fs[2].x(), vector3fs[2].y(), vector3fs[2].z()).uv(l, n).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
 		buffer.vertex(vector3fs[3].x(), vector3fs[3].y(), vector3fs[3].z()).uv(l, o).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
 	}
 
-	protected int getLightColor(float partialTick) {
-		return this.lightColor;
+	private int getLightColor(double x, double y, double z, float cos, float sin, float aCos) {
+		BlockPos blockPos = this.getLerpedTermiteBlockPos(x, y, z, cos, sin, aCos);
+		if (this.level.hasChunkAt(blockPos)) {
+			return LevelRenderer.getLightColor(this.level, blockPos);
+		}
+		return 0;
 	}
 
-    @Environment(EnvType.CLIENT)
+	private BlockPos getLerpedTermiteBlockPos(double x, double y, double z, float cos, float sin, float aCos) {
+		return new BlockPos(
+				x + cos,
+				y + sin,
+				z + aCos
+		);
+	}
+
+	@Override
+	public float getQuadSize(float partialTicks) {
+		return this.quadSize * Mth.lerp(partialTicks, this.prevScale, this.scale);
+	}
+
+	enum Rotation {
+		COS,
+		SIN
+	}
+
+	@Environment(EnvType.CLIENT)
     public record Factory(SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
         public Factory(SpriteSet spriteProvider) {
             this.spriteProvider = spriteProvider;
         }
 
-        public Particle createParticle(@NotNull SimpleParticleType defaultParticleType, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {
-            NewTermiteParticle termite = new NewTermiteParticle(clientLevel, x, y, z, g, h, i, this.spriteProvider);
+        public Particle createParticle(@NotNull SimpleParticleType termiteParticleOptions, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {
+            NewTermiteParticle termite = new NewTermiteParticle(clientLevel, x, y, z, clientLevel.random.nextBoolean() ? Rotation.COS : Rotation.SIN, clientLevel.random.nextBoolean() ? Rotation.COS : Rotation.SIN, clientLevel.random.nextBoolean() ? Rotation.COS : Rotation.SIN, clientLevel.random.nextBoolean(), clientLevel.random.nextBoolean(), clientLevel.random.nextBoolean(), ((float)clientLevel.random.nextInt(12, 24)), this.spriteProvider);
             termite.setAlpha(1.0F);
 			termite.age = clientLevel.random.nextInt(24);
-			termite.setLifetime(clientLevel.random.nextInt(30) + 20 + termite.age);
-            termite.scale(1.0F);
+			termite.setLifetime(clientLevel.random.nextInt(30) + 60 + termite.age);
+            termite.scale(2.0F);
             return termite;
         }
 
         public SpriteSet spriteProvider() {
             return this.spriteProvider;
         }
-    }
+	}
 }
