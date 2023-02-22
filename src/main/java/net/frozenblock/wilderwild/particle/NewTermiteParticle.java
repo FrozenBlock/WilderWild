@@ -179,8 +179,8 @@ public class NewTermiteParticle extends TextureSheetParticle {
             NewTermiteParticle termite = new NewTermiteParticle(clientLevel, x, y, z, ((float)clientLevel.random.nextInt(12, 24)), this.spriteProvider);
             termite.setAlpha(1.0F);
 			termite.age = clientLevel.random.nextInt(120);
-			termite.setLifetime(clientLevel.random.nextInt(30) + 60 + termite.age);
-            termite.scale(1.0F);
+			termite.setLifetime(clientLevel.random.nextInt(10) + 30 + termite.age);
+            termite.scale(0.75F);
             return termite;
         }
 
