@@ -414,7 +414,7 @@ public final class WilderPlacedFeatures {
 
 	public static final Holder<PlacedFeature> PATCH_CATTAIL_COMMON =
 			register("cattail_common", WilderConfiguredFeatures.CATTAIL_06,
-					RarityFilter.onAverageOnceEvery(1), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+					InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
     public static final Holder<PlacedFeature> PATCH_FLOWERED_WATERLILY = register("patch_flowered_waterlily",
             WilderConfiguredFeatures.PATCH_FLOWERED_WATERLILY, worldSurfaceSquaredWithCount(1));
