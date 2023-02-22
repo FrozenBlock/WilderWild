@@ -400,6 +400,17 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.RAINFOREST)
 					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
 
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_CATTAIL_COMMON)
+					.add(Biomes.SWAMP)
+					.add(Biomes.MANGROVE_SWAMP)
+					.add(Biomes.DARK_FOREST)
+					.add(Biomes.JUNGLE)
+					.addOptional(RegisterWorldgen.CYPRESS_WETLANDS)
+					.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
+					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
+					.addOptional(RegisterWorldgen.RAINFOREST)
+					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
+
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SEEDING_DANDELION)
 					.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
 					.add(Biomes.FLOWER_FOREST)

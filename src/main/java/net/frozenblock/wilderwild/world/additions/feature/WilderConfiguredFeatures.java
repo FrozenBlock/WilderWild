@@ -652,6 +652,9 @@ public final class WilderConfiguredFeatures {
     public static final Holder<ConfiguredFeature<ProbabilityFeatureConfiguration, ?>> CATTAIL =
             register("cattail", WilderWild.CATTAIL_FEATURE, new ProbabilityFeatureConfiguration(0.8F));
 
+	public static final Holder<ConfiguredFeature<ProbabilityFeatureConfiguration, ?>> CATTAIL_06 =
+			register("cattail_06", WilderWild.CATTAIL_FEATURE, new ProbabilityFeatureConfiguration(0.6F));
+
     public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_FLOWERED_WATERLILY =
             register("patch_flowered_waterlily", Feature.RANDOM_PATCH,
                     new RandomPatchConfiguration(10, 7, 3, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,

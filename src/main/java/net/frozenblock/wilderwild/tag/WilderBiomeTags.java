@@ -63,6 +63,7 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_DATURA = bind("has_datura");
 	public static final TagKey<Biome> HAS_CARNATION = bind("has_carnation");
 	public static final TagKey<Biome> HAS_CATTAIL = bind("has_cattail");
+	public static final TagKey<Biome> HAS_CATTAIL_COMMON = bind("has_cattail_common");
 	public static final TagKey<Biome> HAS_SEEDING_DANDELION = bind("has_seeding_dandelion");
 	public static final TagKey<Biome> HAS_MILKWEED = bind("has_milkweed");
 	public static final TagKey<Biome> HAS_PALMS = bind("has_palms");
