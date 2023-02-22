@@ -46,6 +46,7 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 		WorldGenLevel level = context.level();
 		BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
 		BlockPos.MutableBlockPos mutablePlacementPos = new BlockPos.MutableBlockPos();
+		boolean returnValue = false;
 		int posX = pos.getX();
 		int posZ = pos.getZ();
 		for(int i = 0; i < 16; i++) {
@@ -57,24 +58,32 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 				if (!mutablePos.equals(mutablePlacementPos)) {
 					Holder<Biome> biomeHolder = level.getBiome(mutablePos);
 					if (biomeHolder.equals(level.getBiome(mutablePlacementPos))) {
-						placeSnowAtPosOneBiome(level, mutablePos, mutablePlacementPos, biomeHolder);
+						if (placeSnowAtPosOneBiome(level, mutablePos, mutablePlacementPos, biomeHolder)) {
+							returnValue = true;
+						}
 					} else {
-						placeSnowAtPos(level, mutablePos, mutablePlacementPos);
+						if (placeSnowAtPos(level, mutablePos, mutablePlacementPos)) {
+							returnValue = true;
+						}
 					}
 				}
 			}
 		}
-		return true;
+		return returnValue;
 	}
 
-	private static void placeSnowAtPosOneBiome(WorldGenLevel level, BlockPos.MutableBlockPos motionBlockingPos, BlockPos.MutableBlockPos belowLeavesPos, Holder<Biome> biomeHolder) {
+	private static boolean placeSnowAtPosOneBiome(WorldGenLevel level, BlockPos.MutableBlockPos motionBlockingPos, BlockPos.MutableBlockPos belowLeavesPos, Holder<Biome> biomeHolder) {
+		boolean returnValue = false;
 		if (!biomeHolder.is(WilderBiomeTags.NO_SNOW_BLANKET)) {
 			int lowestY = belowLeavesPos.getY() - 1;
 			while (motionBlockingPos.getY() > lowestY) {
-				placeSnowLayerOneBiome(level, motionBlockingPos, biomeHolder);
+				if (placeSnowLayerOneBiome(level, motionBlockingPos, biomeHolder)) {
+					returnValue = true;
+				}
 				motionBlockingPos.move(Direction.DOWN);
 			}
 		}
+		return returnValue;
 	}
 
 	private static boolean placeSnowLayerOneBiome(WorldGenLevel level, BlockPos.MutableBlockPos pos, Holder<Biome> biomeHolder) {
@@ -91,12 +100,16 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 		return false;
 	}
 
-	private static void placeSnowAtPos(WorldGenLevel level, BlockPos.MutableBlockPos motionBlockingPos, BlockPos.MutableBlockPos belowLeavesPos) {
+	private static boolean placeSnowAtPos(WorldGenLevel level, BlockPos.MutableBlockPos motionBlockingPos, BlockPos.MutableBlockPos belowLeavesPos) {
+		boolean returnValue = false;
 		int lowestY = belowLeavesPos.getY() - 1;
 		while (motionBlockingPos.getY() > lowestY) {
-			placeSnowLayer(level, motionBlockingPos);
+			if (placeSnowLayer(level, motionBlockingPos)) {
+				returnValue = true;
+			}
 			motionBlockingPos.move(Direction.DOWN);
 		}
+		return returnValue;
 	}
 
 	private static boolean placeSnowLayer(WorldGenLevel level, BlockPos.MutableBlockPos pos) {
