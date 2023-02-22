@@ -19,6 +19,8 @@
 package net.frozenblock.wilderwild.particle;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Quaternion;
+import com.mojang.math.Vector3f;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Camera;
@@ -30,22 +32,46 @@ import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class TermiteParticle extends TextureSheetParticle {
     private final SpriteSet spriteProvider;
-	private boolean hasSetLightColor;
-	private int lightColor;
+	private final float spinSpeed;
+	private float prevScale = 0F;
+	private float scale = 0F;
+	private float targetScale = 0F;
+	private final Rotation xRot;
+	private final Rotation yRot;
+	private final Rotation zRot;
+	private final boolean backwardsX;
+	private final boolean backwardsY;
+	private final boolean backwardsZ;
+	private final float xOffset;
+	private final float yOffset;
+	private final float zOffset;
 
-    public TermiteParticle(ClientLevel level, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteSet spriteProvider) {
-        super(level, x, y, z, velocityX, velocityY, velocityZ);
-        this.friction = 0.96F;
+    public TermiteParticle(ClientLevel clientLevel, double x, double y, double z, float spinSpeed, SpriteSet spriteProvider) {
+        super(clientLevel, x, y, z);
         this.spriteProvider = spriteProvider;
         this.hasPhysics = false;
         this.setSpriteFromAge(spriteProvider);
+		this.x = x;
+		this.y = y;
+		this.z = z;
+		this.xRot = clientLevel.random.nextBoolean() ? Rotation.COS : Rotation.SIN;
+		this.yRot = clientLevel.random.nextBoolean() ? Rotation.COS : Rotation.SIN;
+		this.zRot = clientLevel.random.nextBoolean() ? Rotation.COS : Rotation.SIN;
+		this.backwardsX = clientLevel.random.nextBoolean();
+		this.backwardsY = clientLevel.random.nextBoolean();
+		this.backwardsZ = clientLevel.random.nextBoolean();
+		this.xOffset = clientLevel.random.nextFloat() * 240F;
+		this.yOffset = clientLevel.random.nextFloat() * 240F;
+		this.zOffset = clientLevel.random.nextFloat() * 240F;
+		this.spinSpeed = spinSpeed;
     }
 
     public ParticleRenderType getRenderType() {
@@ -53,55 +79,113 @@ public class TermiteParticle extends TextureSheetParticle {
     }
 
     public void tick() {
-        super.tick();
-        if (!this.removed) {
-            this.setSprite(spriteProvider.get(this.random.nextInt(this.lifetime), this.lifetime));
-			this.setLightColor();
-        }
+		this.prevScale = this.scale;
+		this.scale += (this.targetScale - this.scale) * 0.275F;
+		if (this.age++ >= this.lifetime) {
+			if (this.prevScale <= 0.05F) {
+				this.remove();
+			} else {
+				this.targetScale = 0F;
+			}
+		} else {
+			this.targetScale = 1F;
+		}
     }
 
-	private void setLightColor() {
-		BlockPos thisPos = new BlockPos(this.x, this.y, this.z);
-		int light = 0;
-		for (Direction direction : Direction.values()) {
-			BlockPos pos = thisPos.relative(direction);
-			if (this.level.hasChunkAt(pos)) {
-				light = Math.max(LevelRenderer.getLightColor(this.level, pos), light);
-			}
-		}
-		this.lightColor = light;
+	private float cos(float progress, float offset) {
+		return (float) Math.cos(((progress + offset) * Math.PI) / this.spinSpeed);
+	}
+
+	private float sin(float progress, float offset) {
+		return (float) Math.sin(((progress + offset) * Math.PI) / this.spinSpeed);
 	}
 
 	@Override
 	public void render(@NotNull VertexConsumer buffer, @NotNull Camera renderInfo, float partialTicks) {
-		if (!this.hasSetLightColor) {
-			this.setLightColor();
-			this.hasSetLightColor = true;
+		float animationProgress = this.age + partialTicks;
+
+		double x = this.x;
+		double y = this.y;
+		double z = this.z;
+
+		float xRotation = (this.xRot == Rotation.COS ? cos(animationProgress, xOffset) : sin(animationProgress, xOffset)) * (this.backwardsX ? -1 : 1) * 0.75F;
+		float yRotation = (this.yRot == Rotation.COS ? cos(animationProgress, yOffset) : sin(animationProgress, yOffset)) * (this.backwardsY ? -1 : 1) * 0.75F;
+		float zRotation = (this.zRot == Rotation.COS ? cos(animationProgress, zOffset) : sin(animationProgress, zOffset)) * (this.backwardsZ ? -1 : 1) * 0.75F;
+
+		Quaternion quaternion;
+		Vec3 vec3 = renderInfo.getPosition();
+		float f = (float)(x - vec3.x() + xRotation);
+		float g = (float)(y - vec3.y() + yRotation);
+		float h = (float)(z - vec3.z() + zRotation);
+		if (this.roll == 0.0f) {
+			quaternion = renderInfo.rotation();
+		} else {
+			quaternion = new Quaternion(renderInfo.rotation());
+			float i = Mth.lerp(partialTicks, this.oRoll, this.roll);
+			quaternion.mul(Vector3f.ZP.rotation(i));
 		}
-		super.render(buffer, renderInfo, partialTicks);
+		Vector3f[] vector3fs = new Vector3f[]{new Vector3f(-1.0f, -1.0f, 0.0f), new Vector3f(-1.0f, 1.0f, 0.0f), new Vector3f(1.0f, 1.0f, 0.0f), new Vector3f(1.0f, -1.0f, 0.0f)};
+		float j = this.getQuadSize(partialTicks);
+		for (int k = 0; k < 4; ++k) {
+			Vector3f vector3f2 = vector3fs[k];
+			vector3f2.transform(quaternion);
+			vector3f2.mul(j);
+			vector3f2.add(f, g, h);
+		}
+		float l = this.getU0();
+		float m = this.getU1();
+		float n = this.getV0();
+		float o = this.getV1();
+		int p = this.getLightColor(x, y, z, xRotation, yRotation, zRotation);
+		buffer.vertex(vector3fs[0].x(), vector3fs[0].y(), vector3fs[0].z()).uv(m, o).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
+		buffer.vertex(vector3fs[1].x(), vector3fs[1].y(), vector3fs[1].z()).uv(m, n).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
+		buffer.vertex(vector3fs[2].x(), vector3fs[2].y(), vector3fs[2].z()).uv(l, n).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
+		buffer.vertex(vector3fs[3].x(), vector3fs[3].y(), vector3fs[3].z()).uv(l, o).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
 	}
 
-	protected int getLightColor(float partialTick) {
-		return this.lightColor;
+	private int getLightColor(double x, double y, double z, float cos, float sin, float aCos) {
+		BlockPos blockPos = this.getLerpedTermiteBlockPos(x, y, z, cos, sin, aCos);
+		if (this.level.hasChunkAt(blockPos)) {
+			return LevelRenderer.getLightColor(this.level, blockPos);
+		}
+		return 0;
 	}
 
-    @Environment(EnvType.CLIENT)
+	private BlockPos getLerpedTermiteBlockPos(double x, double y, double z, float cos, float sin, float aCos) {
+		return new BlockPos(
+				x + cos,
+				y + sin,
+				z + aCos
+		);
+	}
+
+	@Override
+	public float getQuadSize(float partialTicks) {
+		return this.quadSize * Mth.lerp(partialTicks, this.prevScale, this.scale);
+	}
+
+	enum Rotation {
+		COS,
+		SIN
+	}
+
+	@Environment(EnvType.CLIENT)
     public record Factory(SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
         public Factory(SpriteSet spriteProvider) {
             this.spriteProvider = spriteProvider;
         }
 
-        public Particle createParticle(@NotNull SimpleParticleType defaultParticleType, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {
-            TermiteParticle termite = new TermiteParticle(clientLevel, x, y, z, g, h, i, this.spriteProvider);
+        public Particle createParticle(@NotNull SimpleParticleType termiteParticleOptions, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {
+            TermiteParticle termite = new TermiteParticle(clientLevel, x, y, z, ((float)clientLevel.random.nextInt(12, 24)), this.spriteProvider);
             termite.setAlpha(1.0F);
-            termite.setParticleSpeed(g * 1.3, h * 1.3, i * 1.3);
-            termite.setLifetime(clientLevel.random.nextInt(4) + 6);
-            termite.scale(2.5F);
+			termite.age = clientLevel.random.nextInt(240);
+			termite.setLifetime(clientLevel.random.nextInt(10) + 5 + termite.age);
+            termite.scale(0.75F);
             return termite;
         }
 
         public SpriteSet spriteProvider() {
             return this.spriteProvider;
         }
-    }
+	}
 }
