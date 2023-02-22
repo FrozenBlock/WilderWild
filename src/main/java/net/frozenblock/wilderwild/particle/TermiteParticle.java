@@ -44,9 +44,9 @@ public class TermiteParticle extends TextureSheetParticle {
 	private float prevScale = 0F;
 	private float scale = 0F;
 	private float targetScale = 0F;
-	private final Rotation xRot;
-	private final Rotation yRot;
-	private final Rotation zRot;
+	private final TermiteRotationType xRot;
+	private final TermiteRotationType yRot;
+	private final TermiteRotationType zRot;
 	private final boolean backwardsX;
 	private final boolean backwardsY;
 	private final boolean backwardsZ;
@@ -62,9 +62,9 @@ public class TermiteParticle extends TextureSheetParticle {
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		this.xRot = clientLevel.random.nextBoolean() ? Rotation.COS : Rotation.SIN;
-		this.yRot = clientLevel.random.nextBoolean() ? Rotation.COS : Rotation.SIN;
-		this.zRot = clientLevel.random.nextBoolean() ? Rotation.COS : Rotation.SIN;
+		this.xRot = clientLevel.random.nextBoolean() ? TermiteRotationType.COS : clientLevel.random.nextBoolean() ? TermiteRotationType.SIN : TermiteRotationType.TAN;
+		this.yRot = clientLevel.random.nextBoolean() ? TermiteRotationType.COS : clientLevel.random.nextBoolean() ? TermiteRotationType.SIN : TermiteRotationType.TAN;
+		this.zRot = clientLevel.random.nextBoolean() ? TermiteRotationType.COS : clientLevel.random.nextBoolean() ? TermiteRotationType.SIN : TermiteRotationType.TAN;
 		this.backwardsX = clientLevel.random.nextBoolean();
 		this.backwardsY = clientLevel.random.nextBoolean();
 		this.backwardsZ = clientLevel.random.nextBoolean();
@@ -80,7 +80,7 @@ public class TermiteParticle extends TextureSheetParticle {
 
     public void tick() {
 		this.prevScale = this.scale;
-		this.scale += (this.targetScale - this.scale) * 0.275F;
+		this.scale += (this.targetScale - this.scale) * 0.65F;
 		if (this.age++ >= this.lifetime) {
 			if (this.prevScale <= 0.05F) {
 				this.remove();
@@ -100,6 +100,16 @@ public class TermiteParticle extends TextureSheetParticle {
 		return (float) Math.sin(((progress + offset) * Math.PI) / this.spinSpeed);
 	}
 
+	private float tan(float progress, float offset) {
+		return (float) Math.tan(((progress + offset) * Math.PI) / this.spinSpeed);
+	}
+
+	private float rotate(TermiteRotationType rotation, float progress, float offset) {
+		return rotation == TermiteRotationType.COS ? cos(progress, offset)
+				: rotation == TermiteRotationType.SIN ? sin(progress, offset)
+				: tan(progress, offset);
+	}
+
 	@Override
 	public void render(@NotNull VertexConsumer buffer, @NotNull Camera renderInfo, float partialTicks) {
 		float animationProgress = this.age + partialTicks;
@@ -108,9 +118,9 @@ public class TermiteParticle extends TextureSheetParticle {
 		double y = this.y;
 		double z = this.z;
 
-		float xRotation = (this.xRot == Rotation.COS ? cos(animationProgress, xOffset) : sin(animationProgress, xOffset)) * (this.backwardsX ? -1 : 1) * 0.75F;
-		float yRotation = (this.yRot == Rotation.COS ? cos(animationProgress, yOffset) : sin(animationProgress, yOffset)) * (this.backwardsY ? -1 : 1) * 0.75F;
-		float zRotation = (this.zRot == Rotation.COS ? cos(animationProgress, zOffset) : sin(animationProgress, zOffset)) * (this.backwardsZ ? -1 : 1) * 0.75F;
+		float xRotation = (rotate(this.xRot, animationProgress, xOffset)) * (this.backwardsX ? -1 : 1) * 0.65F;
+		float yRotation = (rotate(this.yRot, animationProgress, yOffset)) * (this.backwardsY ? -1 : 1) * 0.65F;
+		float zRotation = (rotate(this.zRot, animationProgress, zOffset)) * (this.backwardsZ ? -1 : 1) * 0.65F;
 
 		Quaternion quaternion;
 		Vec3 vec3 = renderInfo.getPosition();
@@ -164,9 +174,10 @@ public class TermiteParticle extends TextureSheetParticle {
 		return this.quadSize * Mth.lerp(partialTicks, this.prevScale, this.scale);
 	}
 
-	enum Rotation {
+	enum TermiteRotationType {
 		COS,
-		SIN
+		SIN,
+		TAN
 	}
 
 	@Environment(EnvType.CLIENT)
