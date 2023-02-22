@@ -40,7 +40,6 @@ import org.jetbrains.annotations.NotNull;
 @Environment(EnvType.CLIENT)
 public class TermiteParticle extends TextureSheetParticle {
     private final SpriteSet spriteProvider;
-	private final float spinSpeed;
 	private float prevScale = 0F;
 	private float scale = 0F;
 	private float targetScale = 0F;
@@ -53,8 +52,11 @@ public class TermiteParticle extends TextureSheetParticle {
 	private final float xOffset;
 	private final float yOffset;
 	private final float zOffset;
+	private final float xSpinSpeed;
+	private final float ySpinSpeed;
+	private final float zSpinSpeed;
 
-    public TermiteParticle(ClientLevel clientLevel, double x, double y, double z, float spinSpeed, SpriteSet spriteProvider) {
+    public TermiteParticle(ClientLevel clientLevel, double x, double y, double z, SpriteSet spriteProvider) {
         super(clientLevel, x, y, z);
         this.spriteProvider = spriteProvider;
         this.hasPhysics = false;
@@ -71,7 +73,9 @@ public class TermiteParticle extends TextureSheetParticle {
 		this.xOffset = clientLevel.random.nextFloat() * 240F;
 		this.yOffset = clientLevel.random.nextFloat() * 240F;
 		this.zOffset = clientLevel.random.nextFloat() * 240F;
-		this.spinSpeed = spinSpeed;
+		this.xSpinSpeed = 8F + (clientLevel.random.nextFloat() * 8F);
+		this.ySpinSpeed = 8F + (clientLevel.random.nextFloat() * 8F);
+		this.zSpinSpeed = 8F + (clientLevel.random.nextFloat() * 8F);
     }
 
     public ParticleRenderType getRenderType() {
@@ -92,16 +96,16 @@ public class TermiteParticle extends TextureSheetParticle {
 		}
     }
 
-	private float cos(float progress, float offset) {
-		return (float) Math.cos(((progress + offset) * Math.PI) / this.spinSpeed);
+	private float cos(float progress, float offset, float spinSpeed) {
+		return (float) Math.cos(((progress + offset) * Math.PI) / spinSpeed);
 	}
 
-	private float sin(float progress, float offset) {
-		return (float) Math.sin(((progress + offset) * Math.PI) / this.spinSpeed);
+	private float sin(float progress, float offset, float spinSpeed) {
+		return (float) Math.sin(((progress + offset) * Math.PI) / spinSpeed);
 	}
 
-	private float rotate(TermiteRotationType rotation, float progress, float offset) {
-		return rotation == TermiteRotationType.COS ? cos(progress, offset) : sin(progress, offset);
+	private float rotate(TermiteRotationType rotation, float progress, float offset, float spinSpeed) {
+		return rotation == TermiteRotationType.COS ? cos(progress, offset, spinSpeed) : sin(progress, offset, spinSpeed);
 	}
 
 	@Override
@@ -112,9 +116,9 @@ public class TermiteParticle extends TextureSheetParticle {
 		double y = this.y;
 		double z = this.z;
 
-		float xRotation = (rotate(this.xRot, animationProgress, xOffset)) * (this.backwardsX ? -1 : 1) * 0.65F;
-		float yRotation = (rotate(this.yRot, animationProgress, yOffset)) * (this.backwardsY ? -1 : 1) * 0.65F;
-		float zRotation = (rotate(this.zRot, animationProgress, zOffset)) * (this.backwardsZ ? -1 : 1) * 0.65F;
+		float xRotation = (rotate(this.xRot, animationProgress, this.xOffset, this.xSpinSpeed)) * (this.backwardsX ? -1 : 1) * 0.65F;
+		float yRotation = (rotate(this.yRot, animationProgress, this.yOffset, this.ySpinSpeed)) * (this.backwardsY ? -1 : 1) * 0.65F;
+		float zRotation = (rotate(this.zRot, animationProgress, this.zOffset, this.zSpinSpeed)) * (this.backwardsZ ? -1 : 1) * 0.65F;
 
 		Quaternion quaternion;
 		Vec3 vec3 = renderInfo.getPosition();
@@ -180,7 +184,7 @@ public class TermiteParticle extends TextureSheetParticle {
         }
 
         public Particle createParticle(@NotNull SimpleParticleType termiteParticleOptions, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {
-            TermiteParticle termite = new TermiteParticle(clientLevel, x, y, z, ((float)clientLevel.random.nextInt(12, 24)), this.spriteProvider);
+            TermiteParticle termite = new TermiteParticle(clientLevel, x, y, z, this.spriteProvider);
             termite.setAlpha(1.0F);
 			termite.setLifetime(clientLevel.random.nextInt(10) + 5 + termite.age);
             termite.scale(0.75F);
