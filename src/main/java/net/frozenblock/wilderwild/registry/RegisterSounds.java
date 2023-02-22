@@ -214,6 +214,11 @@ public final class RegisterSounds {
     public static final SoundEvent BLOCK_TERMITE_MOUND_ENTER = register("block.termite_mound.enter");
     public static final SoundEvent BLOCK_TERMITE_MOUND_EXIT = register("block.termite_mound.exit");
 
+	public static final SoundEvent BLOCK_TERMITE_MOUND_PLACE = register("block.termite_mound.place");
+	public static final SoundEvent BLOCK_TERMITE_MOUND_HIT = register("block.termite_mound.hit");
+	public static final SoundEvent BLOCK_TERMITE_MOUND_BREAK = register("block.termite_mound.break");
+	public static final SoundEvent BLOCK_TERMITE_MOUND_STEP = register("block.termite_mound.step");
+	public static final SoundEvent BLOCK_TERMITE_MOUND_FALL = register("block.termite_mound.fall");
 	public static final SoundEvent BLOCK_TUMBLEWEED_PLANT_PLACE = register("block.tumbleweed_plant.place");
 	public static final SoundEvent BLOCK_TUMBLEWEED_PLANT_HIT = register("block.tumbleweed_plant.hit");
 	public static final SoundEvent BLOCK_TUMBLEWEED_PLANT_BREAK = register("block.tumbleweed_plant.break");

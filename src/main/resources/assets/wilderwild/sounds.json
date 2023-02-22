@@ -1617,13 +1617,7 @@
 	"sounds": [
 	  {
 		"attenuation_distance": 14,
-		"name": "block/beehive/enter",
-		"pitch": 0.7
-	  },
-	  {
-		"attenuation_distance": 14,
-		"name": "block/beehive/enter",
-		"pitch": 0.8
+		"name": "wilderwild:block/termite_mound/enter"
 	  }
 	],
 	"subtitle": "subtitles.block.termite_mound.enter"
@@ -1632,20 +1626,54 @@
 	"sounds": [
 	  {
 		"attenuation_distance": 14,
-		"name": "block/beehive/exit"
-	  },
-	  {
-		"attenuation_distance": 14,
-		"name": "block/beehive/exit",
-		"pitch": 0.9
-	  },
-	  {
-		"attenuation_distance": 14,
-		"name": "block/beehive/exit",
-		"pitch": 1.1
+		"name": "wilderwild:block/termite_mound/exit"
 	  }
 	],
 	"subtitle": "subtitles.block.termite_mound.exit"
+  },
+  "block.termite_mound.break": {
+	"sounds": [
+	  "wilderwild:block/termite_mound/break1",
+	  "wilderwild:block/termite_mound/break2",
+	  "wilderwild:block/termite_mound/break3",
+	  "wilderwild:block/termite_mound/break4"
+	],
+	"subtitle": "subtitles.block.generic.break"
+  },
+  "block.termite_mound.fall": {
+	"sounds": [
+	  "wilderwild:block/termite_mound/step1",
+	  "wilderwild:block/termite_mound/step2",
+	  "wilderwild:block/termite_mound/step3",
+	  "wilderwild:block/termite_mound/step4"
+	]
+  },
+  "block.termite_mound.hit": {
+	"sounds": [
+	  "wilderwild:block/termite_mound/step1",
+	  "wilderwild:block/termite_mound/step2",
+	  "wilderwild:block/termite_mound/step3",
+	  "wilderwild:block/termite_mound/step4"
+	],
+	"subtitle": "subtitles.block.generic.hit"
+  },
+  "block.termite_mound.place": {
+	"sounds": [
+	  "wilderwild:block/termite_mound/break1",
+	  "wilderwild:block/termite_mound/break2",
+	  "wilderwild:block/termite_mound/break3",
+	  "wilderwild:block/termite_mound/break4"
+	],
+	"subtitle": "subtitles.block.generic.place"
+  },
+  "block.termite_mound.step": {
+	"sounds": [
+	  "wilderwild:block/termite_mound/step1",
+	  "wilderwild:block/termite_mound/step2",
+	  "wilderwild:block/termite_mound/step3",
+	  "wilderwild:block/termite_mound/step4"
+	],
+	"subtitle": "subtitles.block.generic.footsteps"
   },
   "block.tumbleweed_plant.break": {
     "sounds": [
@@ -2152,17 +2180,17 @@
   },
   "block.log_hollowed": {
     "sounds": [
-      "wilderwild:block/hollowing/hollow1",
-      "wilderwild:block/hollowing/hollow2",
-      "wilderwild:block/hollowing/hollow3"
+      "wilderwild:block/hollowed_log/hollow1",
+      "wilderwild:block/hollowed_log/hollow2",
+      "wilderwild:block/hollowed_log/hollow3"
     ],
     "subtitle": "subtitles.block.log_hollowed"
   },
   "block.stem_hollowed": {
     "sounds": [
-      "wilderwild:block/hollowing/hollow1",
-      "wilderwild:block/hollowing/hollow2",
-      "wilderwild:block/hollowing/hollow3"
+      "wilderwild:block/hollowed_log/hollow1",
+      "wilderwild:block/hollowed_log/hollow2",
+      "wilderwild:block/hollowed_log/hollow3"
     ],
     "subtitle": "subtitles.block.stem_hollowed"
   },

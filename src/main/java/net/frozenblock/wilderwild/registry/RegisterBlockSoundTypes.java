@@ -203,6 +203,14 @@ public final class RegisterBlockSoundTypes {
             BLOCK_COARSE_DIRT_FALL
     );
 
+	public static final SoundType TERMITEMOUND = new SoundType(0.8F, 1.0F,
+			BLOCK_TERMITE_MOUND_BREAK,
+			BLOCK_TERMITE_MOUND_STEP,
+			BLOCK_TERMITE_MOUND_PLACE,
+			BLOCK_TERMITE_MOUND_HIT,
+			BLOCK_TERMITE_MOUND_FALL
+	);
+
     public static final SoundType REINFORCEDDEEPSLATE = new SoundType(1.0F, 1.0F,
             RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_BREAK,
             RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_STEP,
