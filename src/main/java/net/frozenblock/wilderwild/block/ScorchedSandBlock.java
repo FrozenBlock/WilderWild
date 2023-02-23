@@ -124,7 +124,7 @@ public class ScorchedSandBlock extends Block {
 	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		Fluid fluid = FrozenLibIntegration.getDripstoneFluid(level, pos);
 		if (fluid == Fluids.LAVA) {
-			if (random.nextInt(0, 6) == 4) {
+			if (random.nextBoolean()) {
 				scorch(state, level, pos);
 			}
 		} else if (fluid == Fluids.WATER) {
