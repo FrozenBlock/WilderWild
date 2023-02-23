@@ -25,7 +25,6 @@ import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
 import net.frozenblock.lib.datagen.api.FrozenBiomeTagProvider;
 import net.frozenblock.lib.tag.api.FrozenBiomeTags;
-import net.frozenblock.lib.tag.api.FrozenBlockTags;
 import net.frozenblock.lib.tag.api.FrozenItemTags;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
@@ -39,7 +38,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
 
@@ -279,7 +277,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.WARM_RIVER);
 
 			this.getOrCreateTagBuilder(FrozenBiomeTags.CAN_LIGHTNING_OVERRIDE)
-					.add(Biomes.DESERT);
+					.add(Biomes.DESERT)
+					.add(Biomes.BADLANDS)
+					.add(Biomes.ERODED_BADLANDS);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.GRAVEL_BEACH)
 					.add(Biomes.BIRCH_FOREST)
@@ -602,10 +602,15 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.ARID_SAVANNA)
 					.addOptional(RegisterWorldgen.ARID_FOREST);
 
-			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_DRY_SAND)
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SCORCHED_SAND)
 					.add(Biomes.DESERT)
 					.addOptional(RegisterWorldgen.ARID_SAVANNA)
 					.addOptional(RegisterWorldgen.ARID_FOREST);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SCORCHED_RED_SAND)
+					.add(Biomes.BADLANDS)
+					.add(Biomes.ERODED_BADLANDS)
+					.add(Biomes.WOODED_BADLANDS);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_TAIGA_FOREST_ROCK)
 					.add(Biomes.TAIGA)
@@ -755,7 +760,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.generateDeepDark();
 			this.generateHollowedAndTermites();
 			this.getOrCreateTagBuilder(BlockTags.SAND)
-					.add(RegisterBlocks.SCORCHED_SAND);
+					.add(RegisterBlocks.SCORCHED_SAND)
+					.add(RegisterBlocks.SCORCHED_RED_SAND);
 		}
 
 		private void generateDeepDark() {
