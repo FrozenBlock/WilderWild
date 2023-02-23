@@ -29,7 +29,6 @@ import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
 import net.frozenblock.lib.storage.api.HopperUntouchableList;
 import net.frozenblock.lib.tick.api.BlockScheduledTicks;
 import net.frozenblock.lib.worldgen.structure.api.StructurePoolElementIdReplacements;
-import net.frozenblock.wilderwild.block.ScorchedSandBlock;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.interfaces.WilderEnderman;
@@ -112,38 +111,8 @@ public class FrozenLibIntegration extends ModIntegration {
             level.levelEvent(LevelEvent.DRIPSTONE_DRIP, blockPos, 0);
         });
 		BlockScheduledTicks.TICKS.put(Blocks.DIRT, (blockState, serverLevel, blockPos, randomSource) -> {
-			if (getDripstoneFluid(serverLevel, blockPos).isSame(Fluids.WATER)) {
+			if (getDripstoneFluid(serverLevel, blockPos) == Fluids.WATER) {
 				serverLevel.setBlock(blockPos, Blocks.MUD.defaultBlockState(), 3);
-			}
-		});
-		BlockScheduledTicks.TICKS.put(SAND, (blockState, serverLevel, blockPos, randomSource) -> {
-			if (getDripstoneFluid(serverLevel, blockPos).isSame(Fluids.LAVA) && randomSource.nextInt(0, 6) == 4) {
-				serverLevel.setBlock(blockPos, ScorchedSandBlock.SCORCH_MAP.get(blockState), 3);
-			}
-		});
-		BlockScheduledTicks.TICKS.put(RED_SAND, (blockState, serverLevel, blockPos, randomSource) -> {
-			if (getDripstoneFluid(serverLevel, blockPos).isSame(Fluids.LAVA) && randomSource.nextInt(0, 6) == 4) {
-				serverLevel.setBlock(blockPos, ScorchedSandBlock.SCORCH_MAP.get(blockState), 3);
-			}
-		});
-		BlockScheduledTicks.TICKS.put(SCORCHED_SAND, (blockState, serverLevel, blockPos, randomSource) -> {
-			Fluid fluid = getDripstoneFluid(serverLevel, blockPos);
-			if (fluid.isSame(Fluids.LAVA)) {
-				if (randomSource.nextInt(0, 6) == 4) {
-					((ScorchedSandBlock)blockState.getBlock()).scorch(blockState, serverLevel, blockPos);
-				}
-			} else if (fluid.isSame(Fluids.WATER)) {
-				((ScorchedSandBlock)blockState.getBlock()).hydrate(blockState, serverLevel, blockPos);
-			}
-		});
-		BlockScheduledTicks.TICKS.put(SCORCHED_RED_SAND, (blockState, serverLevel, blockPos, randomSource) -> {
-			Fluid fluid = getDripstoneFluid(serverLevel, blockPos);
-			if (fluid.isSame(Fluids.LAVA)) {
-				if (randomSource.nextInt(0, 6) == 4) {
-					((ScorchedSandBlock)blockState.getBlock()).scorch(blockState, serverLevel, blockPos);
-				}
-			} else if (fluid.isSame(Fluids.WATER)) {
-				((ScorchedSandBlock)blockState.getBlock()).hydrate(blockState, serverLevel, blockPos);
 			}
 		});
 

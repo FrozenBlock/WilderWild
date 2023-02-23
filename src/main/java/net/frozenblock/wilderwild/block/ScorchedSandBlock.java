@@ -20,11 +20,14 @@ package net.frozenblock.wilderwild.block;
 
 import java.util.HashMap;
 import java.util.Map;
+import net.frozenblock.wilderwild.misc.mod_compat.FrozenLibIntegration;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
@@ -33,6 +36,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.Material;
 import org.jetbrains.annotations.NotNull;
 
@@ -104,6 +110,26 @@ public class ScorchedSandBlock extends Block {
 	public static boolean isFree(BlockState state) {
 		Material material = state.getMaterial();
 		return state.isAir() || state.is(BlockTags.FIRE) || material.isLiquid() || material.isReplaceable();
+	}
+
+	@Override
+	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+		FluidState fluidState = level.getFluidState(pos.above());
+		if (fluidState.is(FluidTags.WATER)) {
+			hydrate(state, level, pos);
+		}
+	}
+
+	@Override
+	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+		Fluid fluid = FrozenLibIntegration.getDripstoneFluid(level, pos);
+		if (fluid == Fluids.LAVA) {
+			if (random.nextInt(0, 6) == 4) {
+				scorch(state, level, pos);
+			}
+		} else if (fluid == Fluids.WATER) {
+			hydrate(state, level, pos);
+		}
 	}
 
 	@Override

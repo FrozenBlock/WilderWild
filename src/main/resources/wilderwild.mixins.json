@@ -22,6 +22,7 @@
     "server.general.EnderManMixin",
     "server.general.EntityMixin",
     "server.general.ExperienceOrbMixin",
+    "server.general.FallingBlockMixin",
     "server.general.FireBlockMixin",
     "server.general.FrogMixin",
     "server.general.GoatMixin",
