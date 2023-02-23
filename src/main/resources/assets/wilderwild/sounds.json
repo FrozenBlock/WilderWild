@@ -1613,6 +1613,23 @@
 	],
 	"subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.termite_mound.termite_gnaw": {
+    "sounds": [
+      "wilderwild:block/termite_mound/gnaw1",
+      "wilderwild:block/termite_mound/gnaw2",
+      "wilderwild:block/termite_mound/gnaw3",
+      "wilderwild:block/termite_mound/gnaw4"
+    ],
+    "subtitle": "subtitles.block.termite_mound.termite_gnaw"
+  },
+  "block.termite_mound.termite_gnaw_finish": {
+    "sounds": [
+      "wilderwild:block/termite_mound/gnaw_finish1",
+      "wilderwild:block/termite_mound/gnaw_finish2",
+      "wilderwild:block/termite_mound/gnaw_finish3"
+    ],
+    "subtitle": "subtitles.block.termite_mound.termite_gnaw_finish"
+  },
   "block.termite_mound.enter": {
 	"sounds": [
 	  {

@@ -41,7 +41,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.Level;
@@ -78,7 +77,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             if (termite.tick(level)) {
                 EasyPacket.EasyTermitePacket.createParticle(level, Vec3.atCenterOf(termite.pos), termite.eating ? 4 : 3);
             } else {
-                level.playSound(null, termite.pos, SoundEvents.BEEHIVE_ENTER, SoundSource.NEUTRAL, 1.0F, 1.0F);
+                level.playSound(null, termite.pos, RegisterSounds.BLOCK_TERMITE_MOUND_ENTER, SoundSource.NEUTRAL, 1.0F, 1.0F);
                 termitesToRemove.add(termite);
             }
         }
@@ -206,10 +205,13 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                             }
                             level.setBlockAndUpdate(this.pos, setState);
 							if (setState.getBlock() instanceof HollowedLogBlock) {
-								level.playSound(null, pos, setState.getMaterial().equals(Material.NETHER_WOOD) ? RegisterSounds.STEM_HOLLOWED : RegisterSounds.LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
+								level.playSound(null, pos, setState.getMaterial().equals(Material.NETHER_WOOD) ? RegisterSounds.STEM_HOLLOWED : RegisterSounds.LOG_HOLLOWED, SoundSource.BLOCKS, 0.6F, 0.95F + (level.random.nextFloat() * 0.2F));
 							}
                         }
-                    }
+						level.playSound(null, pos, RegisterSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW_FINISH, SoundSource.BLOCKS, 0.6F, 0.95F + (level.random.nextFloat() * 0.2F));
+					} else {
+						level.playSound(null, pos, RegisterSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW, SoundSource.BLOCKS, 0.25F, 0.95F + (level.random.nextFloat() * 0.2F));
+					}
                 } else {
                     this.eating = false;
                     this.blockDestroyPower = 0;
