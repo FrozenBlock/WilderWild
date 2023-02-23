@@ -32,7 +32,7 @@ public final class WilderMushroomGeneration {
 		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_HUGE_BROWN_MUSHROOM),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.HUGE_BROWN_MUSHROOM_PLACED.unwrapKey().orElseThrow());
 
-        BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_COMMON_MUSHROOM),
+        BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_BIG_MUSHROOMS),
                 GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_MUSHROOM_PLACED.unwrapKey().orElseThrow());
 
         BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_COMMON_BROWN_MUSHROOM),
