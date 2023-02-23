@@ -53,6 +53,8 @@ public final class BlockConfig implements ConfigData {
 		public boolean mushroomBlockSounds = DefaultBlockConfig.BlockSoundsConfig.MUSHROOM_BLOCK_SOUNDS;
 		public boolean podzolSounds = DefaultBlockConfig.BlockSoundsConfig.PODZOL_SOUNDS;
 		public boolean reinforcedDeepslateSounds = DefaultBlockConfig.BlockSoundsConfig.REINFORCED_DEEPSLATE_SOUNDS;
+
+		public boolean sandstoneSounds = DefaultBlockConfig.BlockSoundsConfig.SANDSTONE_SOUNDS;
 		public boolean sugarCaneSounds = DefaultBlockConfig.BlockSoundsConfig.SUGAR_CANE_SOUNDS;
 		public boolean witherRoseSounds = DefaultBlockConfig.BlockSoundsConfig.WITHER_ROSE_SOUNDS;
 	}
@@ -183,6 +185,12 @@ public final class BlockConfig implements ConfigData {
 				.setDefaultValue(DefaultBlockConfig.BlockSoundsConfig.REINFORCED_DEEPSLATE_SOUNDS)
 				.setSaveConsumer(newValue -> blockSounds.reinforcedDeepslateSounds = newValue)
 				.setTooltip(tooltip("reinforced_deepslate_sounds"))
+				.build();
+
+		var sandstoneSounds = entryBuilder.startBooleanToggle(text("sandstone_sounds"), blockSounds.sandstoneSounds)
+				.setDefaultValue(DefaultBlockConfig.BlockSoundsConfig.SANDSTONE_SOUNDS)
+				.setSaveConsumer(newValue -> blockSounds.sandstoneSounds = newValue)
+				.setTooltip(tooltip("sandstone_sounds"))
 				.build();
 
 		var sugarCaneSounds = entryBuilder.startBooleanToggle(text("sugar_cane_sounds"), blockSounds.sugarCaneSounds)

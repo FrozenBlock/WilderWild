@@ -1459,6 +1459,50 @@
 	],
 	"subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.sandstone.break": {
+    "sounds": [
+      "wilderwild:block/sandstone/break1",
+      "wilderwild:block/sandstone/break2",
+      "wilderwild:block/sandstone/break3",
+      "wilderwild:block/sandstone/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.sandstone.fall": {
+    "sounds": [
+      "wilderwild:block/sandstone/step1",
+      "wilderwild:block/sandstone/step2",
+      "wilderwild:block/sandstone/step3",
+      "wilderwild:block/sandstone/step4"
+    ]
+  },
+  "block.sandstone.hit": {
+    "sounds": [
+      "wilderwild:block/sandstone/step1",
+      "wilderwild:block/sandstone/step2",
+      "wilderwild:block/sandstone/step3",
+      "wilderwild:block/sandstone/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.sandstone.place": {
+    "sounds": [
+      "wilderwild:block/sandstone/break1",
+      "wilderwild:block/sandstone/break2",
+      "wilderwild:block/sandstone/break3",
+      "wilderwild:block/sandstone/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.sandstone.step": {
+    "sounds": [
+      "wilderwild:block/sandstone/step1",
+      "wilderwild:block/sandstone/step2",
+      "wilderwild:block/sandstone/step3",
+      "wilderwild:block/sandstone/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.scorched_sand.break": {
     "sounds": [
       "wilderwild:block/scorched_sand/break1",
