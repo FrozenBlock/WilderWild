@@ -15,10 +15,6 @@
     {
       "id": "wilderwild:oasis",
       "required": false
-    },
-    {
-      "id": "wilderwild:temperate_rainforest",
-      "required": false
     }
   ]
 }

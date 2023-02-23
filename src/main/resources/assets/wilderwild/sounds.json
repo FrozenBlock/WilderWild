@@ -1676,10 +1676,22 @@
   },
   "block.termite_mound.termite_idle": {
     "sounds": [
-      "wilderwild:block/termite_mound/termites_idle1",
-      "wilderwild:block/termite_mound/termites_idle2",
-      "wilderwild:block/termite_mound/termites_idle3",
-      "wilderwild:block/termite_mound/termites_idle4"
+      {
+        "attenuation_distance": 6,
+        "name":  "wilderwild:block/termite_mound/termites_idle1"
+      },
+      {
+        "attenuation_distance": 6,
+        "name":  "wilderwild:block/termite_mound/termites_idle2"
+      },
+      {
+        "attenuation_distance": 6,
+        "name":  "wilderwild:block/termite_mound/termites_idle3"
+      },
+      {
+        "attenuation_distance": 6,
+        "name":  "wilderwild:block/termite_mound/termites_idle4"
+      }
     ],
     "subtitle": "subtitles.block.termite_mound.termites"
   },

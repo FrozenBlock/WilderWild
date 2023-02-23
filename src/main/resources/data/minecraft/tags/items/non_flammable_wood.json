@@ -1,9 +1,6 @@
 {
   "replace": false,
   "values": [
-    "wilderwild:hollowed_warped_stem",
-    "wilderwild:stripped_hollowed_warped_stem",
-	"wilderwild:hollowed_crimson_stem",
-    "wilderwild:stripped_hollowed_crimson_stem"
+    "#wilderwild:hollowed_logs_dont_burn"
   ]
 }

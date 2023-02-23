@@ -41,11 +41,7 @@ public class FireBlockMixin {
 	@Unique
 	public void wilderWild$scorchTick(ServerLevel level, BlockPos pos, RandomSource random) {
 		if (random.nextFloat() <= 0.05F) {
-			BlockState state = level.getBlockState(pos);
-			if (ScorchedSandBlock.SCORCH_MAP.containsKey(state)) {
-				BlockState scorchState = ScorchedSandBlock.SCORCH_MAP.get(state);
-				level.setBlockAndUpdate(pos, scorchState);
-			}
+			ScorchedSandBlock.scorch(level.getBlockState(pos), level, pos);
 		}
 	}
 
