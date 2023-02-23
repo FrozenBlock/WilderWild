@@ -77,7 +77,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         ArrayList<Termite> termitesToRemove = new ArrayList<>();
         for (Termite termite : this.termites) {
             if (termite.tick(level)) {
-                EasyPacket.EasyTermitePacket.createParticle(level, Vec3.atCenterOf(termite.pos), termite.eating ? 4 : 3);
+                EasyPacket.EasyTermitePacket.createParticle(level, Vec3.atCenterOf(termite.pos), termite.eating ? 4 : 6);
             } else {
                 level.playSound(null, termite.pos, RegisterSounds.BLOCK_TERMITE_MOUND_ENTER, SoundSource.NEUTRAL, 1.0F, 1.0F);
                 termitesToRemove.add(termite);
