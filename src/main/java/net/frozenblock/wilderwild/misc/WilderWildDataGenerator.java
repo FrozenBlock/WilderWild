@@ -66,6 +66,31 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 		}
 
 		private void generateBiomeTags() {
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.WILDER_WILD_BIOMES)
+					.addOptional(RegisterWorldgen.CYPRESS_WETLANDS)
+					.addOptional(RegisterWorldgen.MIXED_FOREST)
+					.addOptional(RegisterWorldgen.OASIS)
+					.addOptional(RegisterWorldgen.WARM_RIVER)
+					.addOptional(RegisterWorldgen.JELLYFISH_CAVES)
+					.addOptional(RegisterWorldgen.ARID_FOREST)
+					.addOptional(RegisterWorldgen.ARID_SAVANNA)
+					.addOptional(RegisterWorldgen.PARCHED_FOREST)
+					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
+					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
+					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
+					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
+					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
+					.addOptional(RegisterWorldgen.FLOWER_FIELD)
+					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
+					.addOptional(RegisterWorldgen.RAINFOREST)
+					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
+					.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
+					.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
+
+			this.getOrCreateTagBuilder(BiomeTags.IS_OVERWORLD)
+					.addOptionalTag(WilderBiomeTags.WILDER_WILD_BIOMES);
+
 			this.getOrCreateTagBuilder(BiomeTags.IS_JUNGLE)
 					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
 					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
@@ -171,6 +196,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.MIXED_FOREST)
 					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
 					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
+					.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA)
 					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
 
 			this.getOrCreateTagBuilder(ConventionalBiomeTags.TREE_DECIDUOUS)
@@ -182,7 +208,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(ConventionalBiomeTags.VEGETATION_DENSE)
 					.addOptional(RegisterWorldgen.RAINFOREST)
 					.addOptional(RegisterWorldgen.CYPRESS_WETLANDS)
-					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
+					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
+					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
+					.addOptional(RegisterWorldgen.RAINFOREST);
 
 			this.getOrCreateTagBuilder(ConventionalBiomeTags.FLORAL)
 					.add(Biomes.SUNFLOWER_PLAINS)
@@ -192,7 +220,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
 
 			this.getOrCreateTagBuilder(ConventionalBiomeTags.AQUATIC)
-					.addOptional(RegisterWorldgen.WARM_RIVER);
+					.addOptional(RegisterWorldgen.WARM_RIVER)
+					.addOptional(RegisterWorldgen.JELLYFISH_CAVES);
 
 			this.getOrCreateTagBuilder(ConventionalBiomeTags.TREE_JUNGLE)
 					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
@@ -656,25 +685,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.SAVANNA_PLATEAU)
 					.add(Biomes.DRIPSTONE_CAVES)
 					.add(Biomes.DEEP_DARK)
-					.addOptional(RegisterWorldgen.JELLYFISH_CAVES)
-					.addOptional(RegisterWorldgen.OASIS)
-					.addOptional(RegisterWorldgen.WARM_RIVER)
-					.addOptional(RegisterWorldgen.ARID_SAVANNA)
-					.addOptional(RegisterWorldgen.FLOWER_FIELD)
-					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
-					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
-					.addOptional(RegisterWorldgen.ARID_FOREST)
-					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
-					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
-					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
-					.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
-					.addOptional(RegisterWorldgen.MIXED_FOREST)
-					.addOptional(RegisterWorldgen.CYPRESS_WETLANDS)
-					.addOptional(RegisterWorldgen.PARCHED_FOREST)
-					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
-					.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA)
-					.addOptional(RegisterWorldgen.RAINFOREST)
-					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
+					.addOptionalTag(WilderBiomeTags.WILDER_WILD_BIOMES);
 
 			this.getOrCreateTagBuilder(BiomeTags.HAS_DESERT_PYRAMID)
 					.addOptional(RegisterWorldgen.OASIS);
@@ -683,25 +694,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
 
 			this.getOrCreateTagBuilder(BiomeTags.HAS_MINESHAFT)
-					.addOptional(RegisterWorldgen.JELLYFISH_CAVES)
-					.addOptional(RegisterWorldgen.OASIS)
-					.addOptional(RegisterWorldgen.WARM_RIVER)
-					.addOptional(RegisterWorldgen.ARID_SAVANNA)
-					.addOptional(RegisterWorldgen.FLOWER_FIELD)
-					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
-					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
-					.addOptional(RegisterWorldgen.ARID_FOREST)
-					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
-					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
-					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
-					.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
-					.addOptional(RegisterWorldgen.MIXED_FOREST)
-					.addOptional(RegisterWorldgen.CYPRESS_WETLANDS)
-					.addOptional(RegisterWorldgen.PARCHED_FOREST)
-					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
-					.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA)
-					.addOptional(RegisterWorldgen.RAINFOREST)
-					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
+					.addOptionalTag(WilderBiomeTags.WILDER_WILD_BIOMES);
 
 			this.getOrCreateTagBuilder(BiomeTags.HAS_PILLAGER_OUTPOST)
 					.addOptional(RegisterWorldgen.OASIS)
@@ -875,32 +868,6 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBlockTags.BUSH_MAY_PLACE_ON)
 					.addOptionalTag(BlockTags.SAND)
 					.addOptionalTag(BlockTags.DIRT);
-
-			this.getOrCreateTagBuilder(WilderBlockTags.HOLLOWED_LOGS)
-					.add(RegisterBlocks.HOLLOWED_ACACIA_LOG)
-					.add(RegisterBlocks.HOLLOWED_BIRCH_LOG)
-					.add(RegisterBlocks.HOLLOWED_DARK_OAK_LOG)
-					.add(RegisterBlocks.HOLLOWED_OAK_LOG)
-					.add(RegisterBlocks.HOLLOWED_JUNGLE_LOG)
-					.add(RegisterBlocks.HOLLOWED_MANGROVE_LOG)
-					.add(RegisterBlocks.HOLLOWED_SPRUCE_LOG)
-					.add(RegisterBlocks.HOLLOWED_WARPED_STEM)
-					.add(RegisterBlocks.HOLLOWED_CRIMSON_STEM)
-					.add(RegisterBlocks.HOLLOWED_BAOBAB_LOG)
-					.add(RegisterBlocks.HOLLOWED_CYPRESS_LOG)
-					.add(RegisterBlocks.HOLLOWED_PALM_LOG)
-					.add(RegisterBlocks.STRIPPED_HOLLOWED_ACACIA_LOG)
-					.add(RegisterBlocks.STRIPPED_HOLLOWED_BIRCH_LOG)
-					.add(RegisterBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG)
-					.add(RegisterBlocks.STRIPPED_HOLLOWED_OAK_LOG)
-					.add(RegisterBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG)
-					.add(RegisterBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG)
-					.add(RegisterBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG)
-					.add(RegisterBlocks.STRIPPED_HOLLOWED_WARPED_STEM)
-					.add(RegisterBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM)
-					.add(RegisterBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG)
-					.add(RegisterBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG)
-					.add(RegisterBlocks.STRIPPED_HOLLOWED_PALM_LOG);
 
 			this.getOrCreateTagBuilder(WilderBlockTags.KILLS_TERMITE)
 					.add(Blocks.POWDER_SNOW)
