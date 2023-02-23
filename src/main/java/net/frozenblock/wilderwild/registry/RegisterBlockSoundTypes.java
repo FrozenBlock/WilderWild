@@ -203,6 +203,13 @@ public final class RegisterBlockSoundTypes {
             BLOCK_COARSE_DIRT_FALL
     );
 
+	public static final SoundType SAND_STONE = new SoundType(0.8F, 1.0F,
+			BLOCK_SANDSTONE_BREAK,
+			BLOCK_SANDSTONE_STEP,
+			BLOCK_SANDSTONE_PLACE,
+			BLOCK_SANDSTONE_HIT,
+			BLOCK_SANDSTONE_FALL
+	);
 	public static final SoundType SCORCHEDSAND = new SoundType(0.8F, 1.0F,
 			BLOCK_SCORCHED_SAND_BREAK,
 			BLOCK_SCORCHED_SAND_STEP,

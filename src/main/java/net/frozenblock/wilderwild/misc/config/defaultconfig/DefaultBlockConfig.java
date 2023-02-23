@@ -34,6 +34,7 @@ public class DefaultBlockConfig {
 		public static final boolean MUSHROOM_BLOCK_SOUNDS = true;
 		public static final boolean PODZOL_SOUNDS = true;
 		public static final boolean REINFORCED_DEEPSLATE_SOUNDS = true;
+		public static final boolean SANDSTONE_SOUNDS = true;
 		public static final boolean SUGAR_CANE_SOUNDS = true;
 		public static final boolean WITHER_ROSE_SOUNDS = true;
 	}

@@ -98,6 +98,9 @@ public class AbstractClothConfigIntegration extends ModIntegration {
 		return DefaultBlockConfig.BlockSoundsConfig.REINFORCED_DEEPSLATE_SOUNDS;
 	}
 
+	public boolean sandstoneSounds() {
+		return DefaultBlockConfig.BlockSoundsConfig.SANDSTONE_SOUNDS;
+	}
 	public boolean sugarCaneSounds() {
 		return DefaultBlockConfig.BlockSoundsConfig.SUGAR_CANE_SOUNDS;
 	}

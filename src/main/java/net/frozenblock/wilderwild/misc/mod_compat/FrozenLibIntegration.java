@@ -144,6 +144,7 @@ public class FrozenLibIntegration extends ModIntegration {
         addBlocks(new Block[]{RED_MUSHROOM_BLOCK, BROWN_MUSHROOM_BLOCK, MUSHROOM_STEM}, MUSHROOM_BLOCK, WilderSharedConstants.config()::mushroomBlockSounds);
         addBlock(PODZOL, SoundType.ROOTED_DIRT, WilderSharedConstants.config()::podzolSounds);
         addBlock(REINFORCED_DEEPSLATE, REINFORCEDDEEPSLATE, WilderSharedConstants.config()::reinforcedDeepslateSounds);
+		addBlock(SANDSTONE, SAND_STONE, WilderSharedConstants.config()::sandstoneSounds);
         addBlock(SUGAR_CANE, SUGARCANE, WilderSharedConstants.config()::sugarCaneSounds);
         addBlock(WITHER_ROSE, SoundType.SWEET_BERRY_BUSH, WilderSharedConstants.config()::witherRoseSounds);
     }
