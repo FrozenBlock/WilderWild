@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "planks",
+  "ingredients": [
+	{
+	  "tag": "wilderwild:warped_hollowed_stems"
+	}
+  ],
+  "result": {
+	"count": 2,
+	"item": "minecraft:warped_planks"
+  }
+}
