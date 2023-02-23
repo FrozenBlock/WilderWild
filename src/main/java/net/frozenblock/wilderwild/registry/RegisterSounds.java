@@ -217,6 +217,9 @@ public final class RegisterSounds {
     public static final SoundEvent BLOCK_SUGAR_CANE_STEP = register("block.sugar_cane.step");
     public static final SoundEvent BLOCK_SUGAR_CANE_FALL = register("block.sugar_cane.fall");
 
+	public static final SoundEvent BLOCK_TERMITE_MOUND_TERMITE_GNAW = register("block.termite_mound.termite_gnaw");
+	public static final SoundEvent BLOCK_TERMITE_MOUND_TERMITE_GNAW_FINISH = register("block.termite_mound.termite_gnaw_finish");
+
     public static final SoundEvent BLOCK_TERMITE_MOUND_ENTER = register("block.termite_mound.enter");
     public static final SoundEvent BLOCK_TERMITE_MOUND_EXIT = register("block.termite_mound.exit");
 
