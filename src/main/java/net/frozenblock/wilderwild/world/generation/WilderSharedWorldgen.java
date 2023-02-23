@@ -100,7 +100,8 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static final class ParchedForest {
-		public static final Climate.Parameter TEMPERATURE = Temperature.FOUR;
+		public static final Climate.Parameter TEMPERATURE_A = Temperature.FOUR;
+		public static final Climate.Parameter TEMPERATURE_B = Climate.Parameter.span(0.175F, 0.225F);
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.150F, -0.050F);
 	}
 

@@ -239,7 +239,17 @@ public final class OverworldBiomeBuilderMixin {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FOREST)) {
 				this.addSurfaceBiome(
 						parameters,
-						WilderSharedWorldgen.ParchedForest.TEMPERATURE,
+						WilderSharedWorldgen.ParchedForest.TEMPERATURE_A,
+						WilderSharedWorldgen.ParchedForest.HUMIDITY,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						point.offset(),
+						RegisterWorldgen.PARCHED_FOREST
+				);
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.ParchedForest.TEMPERATURE_B,
 						WilderSharedWorldgen.ParchedForest.HUMIDITY,
 						point.continentalness(),
 						point.erosion(),

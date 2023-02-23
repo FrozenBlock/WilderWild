@@ -268,7 +268,21 @@ public class WilderOverworldRegion extends Region {
 				OverworldBiomeBuilderParameters.points(Biomes.FOREST).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
-									WilderSharedWorldgen.ParchedForest.TEMPERATURE,
+									WilderSharedWorldgen.ParchedForest.TEMPERATURE_A,
+									WilderSharedWorldgen.ParchedForest.HUMIDITY,
+									point.continentalness(),
+									point.erosion(),
+									point.depth(),
+									point.weirdness(),
+									point.offset()
+							)
+					);
+					builder.replaceBiome(point, RegisterWorldgen.PARCHED_FOREST);
+				});
+				OverworldBiomeBuilderParameters.points(Biomes.FOREST).forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.ParchedForest.TEMPERATURE_B,
 									WilderSharedWorldgen.ParchedForest.HUMIDITY,
 									point.continentalness(),
 									point.erosion(),
