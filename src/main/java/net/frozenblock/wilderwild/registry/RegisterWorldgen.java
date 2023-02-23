@@ -329,7 +329,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 								.fogColor(0)
 								.skyColor(OverworldBiomes.calculateSkyColor(0.8F))
 								.ambientLoopSound(RegisterSounds.AMBIENT_JELLYFISH_CAVES_LOOP)
-								.ambientAdditionsSound(new AmbientAdditionsSettings(RegisterSounds.AMBIENT_JELLYFISH_CAVES_ADDITIONS, 0.0005D))
+								.ambientAdditionsSound(new AmbientAdditionsSettings(RegisterSounds.AMBIENT_JELLYFISH_CAVES_ADDITIONS, 0.005D))
 								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
 								.backgroundMusic(music).build())
 				.mobSpawnSettings(builder.build())
