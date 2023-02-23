@@ -255,8 +255,11 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                     }
                 }
             }
-			level.playSound(null, pos, RegisterSounds.BLOCK_TERMITE_MOUND_TERMITE_IDLE, SoundSource.BLOCKS, 0.075F, 0.95F + (level.random.nextFloat() * 0.2F));
-			return exit || (exposedToAir(level, this.pos, this.natural));
+			if (exit || (exposedToAir(level, this.pos, this.natural))) {
+				level.playSound(null, pos, RegisterSounds.BLOCK_TERMITE_MOUND_TERMITE_IDLE, SoundSource.BLOCKS, 0.075F, 0.95F + (level.random.nextFloat() * 0.2F));
+				return true;
+			}
+			return false;
         }
 
         @Nullable
