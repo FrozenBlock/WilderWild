@@ -40,7 +40,7 @@ public class FireBlockMixin {
 
 	@Unique
 	public void wilderWild$scorchTick(ServerLevel level, BlockPos pos, RandomSource random) {
-		if (random.nextFloat() <= 0.05F) {
+		if (random.nextFloat() <= 0.0175F) {
 			ScorchedSandBlock.scorch(level.getBlockState(pos), level, pos);
 		}
 	}
