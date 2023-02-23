@@ -1659,20 +1659,29 @@
   },
   "block.termite_mound.termite_gnaw": {
     "sounds": [
-      "wilderwild:block/termite_mound/gnaw1",
-      "wilderwild:block/termite_mound/gnaw2",
-      "wilderwild:block/termite_mound/gnaw3",
-      "wilderwild:block/termite_mound/gnaw4"
+      "wilderwild:block/termite_mound/termites_gnaw1",
+      "wilderwild:block/termite_mound/termites_gnaw2",
+      "wilderwild:block/termite_mound/termites_gnaw3",
+      "wilderwild:block/termite_mound/termites_gnaw4"
     ],
     "subtitle": "subtitles.block.termite_mound.termite_gnaw"
   },
   "block.termite_mound.termite_gnaw_finish": {
     "sounds": [
-      "wilderwild:block/termite_mound/gnaw_finish1",
-      "wilderwild:block/termite_mound/gnaw_finish2",
-      "wilderwild:block/termite_mound/gnaw_finish3"
+      "wilderwild:block/termite_mound/termites_gnaw_finish1",
+      "wilderwild:block/termite_mound/termites_gnaw_finish2",
+      "wilderwild:block/termite_mound/termites_gnaw_finish3"
     ],
     "subtitle": "subtitles.block.termite_mound.termite_gnaw_finish"
+  },
+  "block.termite_mound.termite_idle": {
+    "sounds": [
+      "wilderwild:block/termite_mound/termites_idle1",
+      "wilderwild:block/termite_mound/termites_idle2",
+      "wilderwild:block/termite_mound/termites_idle3",
+      "wilderwild:block/termite_mound/termites_idle4"
+    ],
+    "subtitle": "subtitles.block.termite_mound.termites"
   },
   "block.termite_mound.enter": {
 	"sounds": [
