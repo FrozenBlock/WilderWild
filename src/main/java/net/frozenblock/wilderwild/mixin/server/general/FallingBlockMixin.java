@@ -38,7 +38,7 @@ public final class FallingBlockMixin {
 	@Inject(at = @At("HEAD"), method = "tick")
 	public void wilderWild$tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
 		if (state.is(FrozenBlockTags.DRIPSTONE_CAN_DRIP_ON) && ScorchedSandBlock.canScorch(state)) {
-			if (FrozenLibIntegration.getDripstoneFluid(level, pos) == Fluids.LAVA && random.nextInt(0, 6) == 4) {
+			if (FrozenLibIntegration.getDripstoneFluid(level, pos) == Fluids.LAVA && random.nextBoolean()) {
 				ScorchedSandBlock.scorch(state, level, pos);
 			}
 		}
