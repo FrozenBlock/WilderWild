@@ -238,12 +238,19 @@ public final class WilderPlacedFeatures {
     public static final Holder<PlacedFeature> NEW_BROWN_MUSHROOM_PLACED = register("brown_mushroom_placed",
             VegetationFeatures.PATCH_BROWN_MUSHROOM, worldSurfaceSquaredWithCount(10));
 
+	public static final Holder<PlacedFeature> NEW_RED_MUSHROOM_PLACED = register("red_mushroom_placed",
+			VegetationFeatures.PATCH_RED_MUSHROOM, worldSurfaceSquaredWithCount(10));
+
 	public static final Holder<PlacedFeature> DARK_FOREST_MUSHROOM_PLACED = register("dark_forest_mushroom_placed",
 			WilderConfiguredFeatures.MUSHROOMS_DARK_FOREST, worldSurfaceSquaredWithCount(8));
 
     public static final Holder<PlacedFeature> HUGE_RED_MUSHROOM_PLACED = register("huge_red_mushroom_placed",
             TreeFeatures.HUGE_RED_MUSHROOM, RarityFilter.onAverageOnceEvery(90), InSquarePlacement.spread(),
             PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+
+	public static final Holder<PlacedFeature> HUGE_BROWN_MUSHROOM_PLACED = register("huge_brown_mushroom_placed",
+			TreeFeatures.HUGE_BROWN_MUSHROOM, RarityFilter.onAverageOnceEvery(90), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
     public static final Holder<PlacedFeature> HUGE_MUSHROOMS_SWAMP = register("huge_mushrooms_swamp",
             VegetationFeatures.MUSHROOM_ISLAND_VEGETATION, RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
