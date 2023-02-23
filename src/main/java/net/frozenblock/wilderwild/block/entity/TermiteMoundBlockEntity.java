@@ -38,6 +38,8 @@ import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.level.ServerLevel;
@@ -191,6 +193,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                     exit = true;
                     int additionalPower = breakable ? leaves ? 4 : 2 : 1;
                     this.blockDestroyPower += additionalPower;
+					spawnEatParticles(level, blockState, this.pos);
                     if (this.blockDestroyPower > 200) {
                         this.blockDestroyPower = 0;
                         this.aliveTicks = this.natural ? Math.max(0, this.aliveTicks - (200 / additionalPower)) : 0;
@@ -210,7 +213,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                         }
 						level.playSound(null, pos, RegisterSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW_FINISH, SoundSource.BLOCKS, 0.6F, 0.95F + (level.random.nextFloat() * 0.2F));
 					} else {
-						level.playSound(null, pos, RegisterSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW, SoundSource.BLOCKS, 0.1F, 0.95F + (level.random.nextFloat() * 0.2F));
+						level.playSound(null, pos, RegisterSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW, SoundSource.BLOCKS, 0.08F, 0.95F + (level.random.nextFloat() * 0.2F));
 					}
                 } else {
                     this.eating = false;
@@ -256,7 +259,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                 }
             }
 			if (exit || (exposedToAir(level, this.pos, this.natural))) {
-				level.playSound(null, pos, RegisterSounds.BLOCK_TERMITE_MOUND_TERMITE_IDLE, SoundSource.BLOCKS, 0.075F, 0.95F + (level.random.nextFloat() * 0.2F));
+				level.playSound(null, pos, RegisterSounds.BLOCK_TERMITE_MOUND_TERMITE_IDLE, SoundSource.BLOCKS, 0.05F, 0.95F + (level.random.nextFloat() * 0.2F));
 				return true;
 			}
 			return false;
@@ -422,5 +425,11 @@ public class TermiteMoundBlockEntity extends BlockEntity {
         public static void addNaturalDegradable(Block degradable, Block result) {
             NATURAL_DEGRADABLE_BLOCKS.put(degradable, result);
         }
+
+		public static void spawnEatParticles(Level level, BlockState eatState, BlockPos pos) {
+			if (level.random.nextInt(0, 8) == 5 && level instanceof ServerLevel serverLevel) {
+				serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, eatState), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(0, 3), 0.3F, 0.3F, 0.3F, 0.05D);
+			}
+		}
     }
 }
