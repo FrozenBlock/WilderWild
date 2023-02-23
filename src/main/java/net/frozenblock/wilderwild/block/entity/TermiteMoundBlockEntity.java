@@ -210,7 +210,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                         }
 						level.playSound(null, pos, RegisterSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW_FINISH, SoundSource.BLOCKS, 0.6F, 0.95F + (level.random.nextFloat() * 0.2F));
 					} else {
-						level.playSound(null, pos, RegisterSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW, SoundSource.BLOCKS, 0.25F, 0.95F + (level.random.nextFloat() * 0.2F));
+						level.playSound(null, pos, RegisterSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW, SoundSource.BLOCKS, 0.1F, 0.95F + (level.random.nextFloat() * 0.2F));
 					}
                 } else {
                     this.eating = false;
@@ -255,7 +255,8 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                     }
                 }
             }
-            return exit || (exposedToAir(level, this.pos, this.natural));
+			level.playSound(null, pos, RegisterSounds.BLOCK_TERMITE_MOUND_TERMITE_IDLE, SoundSource.BLOCKS, 0.075F, 0.95F + (level.random.nextFloat() * 0.2F));
+			return exit || (exposedToAir(level, this.pos, this.natural));
         }
 
         @Nullable
