@@ -17,7 +17,7 @@
       "conditions": {
         "recipe": "wilderwild:stripped_palm_wood"
       },
-      "trigger": "wilderwild:recipe_unlocked"
+      "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
