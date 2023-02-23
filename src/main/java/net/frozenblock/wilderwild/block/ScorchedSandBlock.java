@@ -18,13 +18,14 @@
 
 package net.frozenblock.wilderwild.block;
 
+import java.util.HashMap;
+import java.util.Map;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
@@ -34,11 +35,10 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Material;
 import org.jetbrains.annotations.NotNull;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ScorchedSandBlock extends Block {
 	public static final Map<BlockState, BlockState> SCORCH_MAP = new HashMap<>();
+	public static final Map<BlockState, BlockState> HYDRATE_MAP = new HashMap<>();
 	public static final IntegerProperty CRACKEDNESS = RegisterProperties.CRACKEDNESS;
 	private final int dustColor;
 
@@ -55,6 +55,8 @@ public class ScorchedSandBlock extends Block {
 	public void fillScorchMap(BlockState wetState, BlockState defaultState) {
 		SCORCH_MAP.put(wetState, defaultState);
 		SCORCH_MAP.put(defaultState, defaultState.setValue(RegisterProperties.CRACKEDNESS, 1));
+		HYDRATE_MAP.put(defaultState, wetState);
+		HYDRATE_MAP.put(defaultState.setValue(RegisterProperties.CRACKEDNESS, 1), defaultState);
 	}
 
 	@Override
@@ -72,22 +74,38 @@ public class ScorchedSandBlock extends Block {
 
 	@Override
 	public void handlePrecipitation(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Biome.@NotNull Precipitation precipitation) {
-		if (shouldHandlePrecipitation(level, precipitation)) {
-			if (precipitation == Biome.Precipitation.RAIN) {
-				if (state.getValue(CRACKEDNESS) == 1) {
-					level.setBlockAndUpdate(pos, this.defaultBlockState().setValue(CRACKEDNESS, 0));
-					level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
-				} else if (state.getValue(CRACKEDNESS) == 0) {
-					level.setBlockAndUpdate(pos, this.wetState);
-					level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
-				}
-			}
+		if (shouldHandlePrecipitation(level, precipitation) && precipitation == Biome.Precipitation.RAIN) {
+			hydrate(state, level, pos);
 		}
 	}
+
+	public static boolean canScorch(@NotNull BlockState state) {
+		return SCORCH_MAP.containsKey(state);
+	}
+
+	public static void scorch(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos) {
+		if (canScorch(state)) {
+			level.setBlock(pos, SCORCH_MAP.get(state), 3);
+			level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
+		}
+	}
+
+	public static boolean canHydrate(@NotNull BlockState state) {
+		return HYDRATE_MAP.containsKey(state);
+	}
+
+	public static void hydrate(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos) {
+		if (canHydrate(state)) {
+			level.setBlockAndUpdate(pos, HYDRATE_MAP.get(state));
+			level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
+		}
+	}
+
 	public static boolean isFree(BlockState state) {
 		Material material = state.getMaterial();
 		return state.isAir() || state.is(BlockTags.FIRE) || material.isLiquid() || material.isReplaceable();
 	}
+
 	@Override
 	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, RandomSource random) {
 		if (random.nextInt(16) == 0) {

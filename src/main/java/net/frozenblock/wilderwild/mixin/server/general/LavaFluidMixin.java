@@ -20,27 +20,27 @@ package net.frozenblock.wilderwild.mixin.server.general;
 
 import net.frozenblock.wilderwild.block.ScorchedSandBlock;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.block.FireBlock;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.LavaFluid;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(FireBlock.class)
-public class FireBlockMixin {
+@Mixin(LavaFluid.class)
+public class LavaFluidMixin {
 
-	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;", ordinal = 0, shift = At.Shift.BEFORE))
-    public void wilderWild$tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
+	@Inject(method = "randomTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/RandomSource;nextInt(I)I", ordinal = 0, shift = At.Shift.BEFORE))
+    public void wilderWild$randomTick(Level level, BlockPos pos, FluidState state, RandomSource random, CallbackInfo info) {
         this.wilderWild$scorchTick(level, pos.below(), random);
     }
 
 	@Unique
-	public void wilderWild$scorchTick(ServerLevel level, BlockPos pos, RandomSource random) {
-		if (random.nextFloat() <= 0.05F) {
+	public void wilderWild$scorchTick(Level level, BlockPos pos, RandomSource random) {
+		if (random.nextFloat() <= 0.10F) {
 			ScorchedSandBlock.scorch(level.getBlockState(pos), level, pos);
 		}
 	}

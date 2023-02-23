@@ -29,6 +29,7 @@ import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
 import net.frozenblock.lib.storage.api.HopperUntouchableList;
 import net.frozenblock.lib.tick.api.BlockScheduledTicks;
 import net.frozenblock.lib.worldgen.structure.api.StructurePoolElementIdReplacements;
+import net.frozenblock.wilderwild.block.ScorchedSandBlock;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.interfaces.WilderEnderman;
@@ -36,6 +37,8 @@ import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import static net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes.*;
 import static net.frozenblock.wilderwild.registry.RegisterBlocks.*;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.monster.EnderMan;
@@ -45,9 +48,12 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import static net.minecraft.world.level.block.Blocks.*;
 import net.minecraft.world.level.block.LevelEvent;
+import net.minecraft.world.level.block.PointedDripstoneBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Nullable;
 
 public class FrozenLibIntegration extends ModIntegration {
@@ -89,7 +95,6 @@ public class FrozenLibIntegration extends ModIntegration {
         });
 
         PlayerDamageSourceSounds.addDamageSound(DamageSource.CACTUS, RegisterSounds.PLAYER_HURT_CACTUS, WilderSharedConstants.id("cactus"));
-        BlockScheduledTicks.TICKS.put(Blocks.DIRT, (blockState, serverLevel, blockPos, randomSource) -> serverLevel.setBlock(blockPos, Blocks.MUD.defaultBlockState(), 3));
         HopperUntouchableList.BLACKLISTED_TYPES.add(RegisterBlockEntities.STONE_CHEST);
         FrozenBools.useNewDripstoneLiquid = true;
         DripstoneDripWaterFrom.ON_DRIP_BLOCK.put(Blocks.WET_SPONGE, (level, fluidInfo, blockPos) -> {
@@ -106,8 +111,43 @@ public class FrozenLibIntegration extends ModIntegration {
             level.gameEvent(GameEvent.BLOCK_CHANGE, fluidInfo.pos(), GameEvent.Context.of(blockState));
             level.levelEvent(LevelEvent.DRIPSTONE_DRIP, blockPos, 0);
         });
+		BlockScheduledTicks.TICKS.put(Blocks.DIRT, (blockState, serverLevel, blockPos, randomSource) -> {
+			if (getDripstoneFluid(serverLevel, blockPos).isSame(Fluids.WATER)) {
+				serverLevel.setBlock(blockPos, Blocks.MUD.defaultBlockState(), 3);
+			}
+		});
+		BlockScheduledTicks.TICKS.put(SAND, (blockState, serverLevel, blockPos, randomSource) -> {
+			if (getDripstoneFluid(serverLevel, blockPos).isSame(Fluids.LAVA) && randomSource.nextInt(0, 6) == 4) {
+				serverLevel.setBlock(blockPos, ScorchedSandBlock.SCORCH_MAP.get(blockState), 3);
+			}
+		});
+		BlockScheduledTicks.TICKS.put(RED_SAND, (blockState, serverLevel, blockPos, randomSource) -> {
+			if (getDripstoneFluid(serverLevel, blockPos).isSame(Fluids.LAVA) && randomSource.nextInt(0, 6) == 4) {
+				serverLevel.setBlock(blockPos, ScorchedSandBlock.SCORCH_MAP.get(blockState), 3);
+			}
+		});
+		BlockScheduledTicks.TICKS.put(SCORCHED_SAND, (blockState, serverLevel, blockPos, randomSource) -> {
+			Fluid fluid = getDripstoneFluid(serverLevel, blockPos);
+			if (fluid.isSame(Fluids.LAVA)) {
+				if (randomSource.nextInt(0, 6) == 4) {
+					((ScorchedSandBlock)blockState.getBlock()).scorch(blockState, serverLevel, blockPos);
+				}
+			} else if (fluid.isSame(Fluids.WATER)) {
+				((ScorchedSandBlock)blockState.getBlock()).hydrate(blockState, serverLevel, blockPos);
+			}
+		});
+		BlockScheduledTicks.TICKS.put(SCORCHED_RED_SAND, (blockState, serverLevel, blockPos, randomSource) -> {
+			Fluid fluid = getDripstoneFluid(serverLevel, blockPos);
+			if (fluid.isSame(Fluids.LAVA)) {
+				if (randomSource.nextInt(0, 6) == 4) {
+					((ScorchedSandBlock)blockState.getBlock()).scorch(blockState, serverLevel, blockPos);
+				}
+			} else if (fluid.isSame(Fluids.WATER)) {
+				((ScorchedSandBlock)blockState.getBlock()).hydrate(blockState, serverLevel, blockPos);
+			}
+		});
 
-        RemoveableItemTags.register("wilderwild_is_ancient", (level, entity, slot, selected) -> true, true);
+		RemoveableItemTags.register("wilderwild_is_ancient", (level, entity, slot, selected) -> true, true);
 
         StructurePoolElementIdReplacements.RESOURCE_LOCATION_REPLACEMENTS.put(WilderSharedConstants.vanillaId("ancient_city/structures/barracks"), WilderSharedConstants.id("ancient_city/structures/barracks"));
         StructurePoolElementIdReplacements.RESOURCE_LOCATION_REPLACEMENTS.put(WilderSharedConstants.vanillaId("ancient_city/structures/chamber_1"), WilderSharedConstants.id("ancient_city/structures/chamber_1"));
@@ -138,4 +178,12 @@ public class FrozenLibIntegration extends ModIntegration {
         addBlock(SUGAR_CANE, SUGARCANE, WilderSharedConstants.config()::sugarCaneSounds);
         addBlock(WITHER_ROSE, SoundType.SWEET_BERRY_BUSH, WilderSharedConstants.config()::witherRoseSounds);
     }
+
+	public static Fluid getDripstoneFluid(ServerLevel level, BlockPos pos) {
+		BlockPos blockPos = PointedDripstoneBlock.findStalactiteTipAboveCauldron(level, pos);
+		if (blockPos == null) {
+			return Fluids.EMPTY;
+		}
+		return PointedDripstoneBlock.getCauldronFillFluidType(level, blockPos);
+	}
 }
