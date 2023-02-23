@@ -54,6 +54,10 @@ public class LightningBoltMixin {
 				ConfiguredFeature<?, ?> configuredFeature = WilderMiscConfigured.SCORCHED_SAND_DISK_LIGHTNING.value();
 				configuredFeature.place(serverLevel, serverLevel.getChunkSource().getGenerator(), serverLevel.getRandom(), blockPos);
 			}
+			if (strikeState.is(Blocks.RED_SAND) || strikeState.is(RegisterBlocks.SCORCHED_RED_SAND)) {
+				ConfiguredFeature<?, ?> configuredFeature = WilderMiscConfigured.SCORCHED_RED_SAND_DISK_LIGHTNING.value();
+				configuredFeature.place(serverLevel, serverLevel.getChunkSource().getGenerator(), serverLevel.getRandom(), blockPos);
+			}
 		}
 	}
 

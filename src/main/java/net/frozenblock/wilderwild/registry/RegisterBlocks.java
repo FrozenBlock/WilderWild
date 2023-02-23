@@ -130,7 +130,8 @@ public final class RegisterBlocks {
 
     // OTHER (BUILDING BLOCKS)
     public static final Block CHISELED_MUD_BRICKS = new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(1.5F).requiresTool().sounds(SoundType.MUD_BRICKS));
-	public static final Block SCORCHED_SAND = new ScorchedSandBlock(FabricBlockSettings.of(Material.SAND).strength(1.5F).requiresTool().sounds(SoundType.SAND), Blocks.SAND.defaultBlockState(), 14406560);
+	public static final Block SCORCHED_SAND = new ScorchedSandBlock(FabricBlockSettings.of(Material.SAND).strength(1.5F).requiresTool().sounds(SoundType.SAND).mapColor(MaterialColor.SAND), Blocks.SAND.defaultBlockState(), 14406560);
+	public static final Block SCORCHED_RED_SAND = new ScorchedSandBlock(FabricBlockSettings.of(Material.SAND).strength(1.5F).requiresTool().sounds(SoundType.SAND).mapColor(MaterialColor.COLOR_ORANGE), Blocks.RED_SAND.defaultBlockState(), 11098145);
 
     /**
      * Building Blocks
@@ -138,6 +139,7 @@ public final class RegisterBlocks {
     public static void registerOtherBB() {
         registerBlock("chiseled_mud_bricks", CHISELED_MUD_BRICKS, CreativeModeTab.TAB_BUILDING_BLOCKS);
 		registerBlock("scorched_sand", SCORCHED_SAND, CreativeModeTab.TAB_BUILDING_BLOCKS);
+		registerBlock("scorched_red_sand", SCORCHED_RED_SAND, CreativeModeTab.TAB_BUILDING_BLOCKS);
     }
 
     // WOOD
