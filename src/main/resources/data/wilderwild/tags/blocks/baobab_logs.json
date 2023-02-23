@@ -4,6 +4,7 @@
 	"wilderwild:baobab_log",
 	"wilderwild:stripped_baobab_log",
 	"wilderwild:baobab_wood",
-	"wilderwild:stripped_baobab_wood"
+	"wilderwild:stripped_baobab_wood",
+    "#wilderwild:hollowed_baobab_logs"
   ]
 }
