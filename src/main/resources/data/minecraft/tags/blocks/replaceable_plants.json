@@ -1,9 +1,11 @@
 {
   "replace": "false",
   "values": [
-	"wilderwild:datura",
-	"wilderwild:cattail",
-	"wilderwild:milkweed",
-    "wilderwild:bush"
+    "wilderwild:datura",
+    "wilderwild:cattail",
+    "wilderwild:milkweed",
+    "wilderwild:glory_of_the_snow",
+    "wilderwild:bush",
+    "wilderwild:pollen"
   ]
 }
