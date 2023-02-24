@@ -29,7 +29,7 @@ public final class CactusBlockMixin {
 
 	@Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/material/Material;isSolid()Z"), method = "canSurvive")
 	public boolean wilderWild$canSurviveIsSolid(Material par1) {
-		return true;
+		return false;
 	}
 
 }
