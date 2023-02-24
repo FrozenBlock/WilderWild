@@ -4,7 +4,8 @@ import java.util.List;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricMaterialBuilder;
-import net.fabricmc.fabric.api.object.builder.v1.sign.SignTypeRegistry;
+import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeRegistry;
+import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeRegistry;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
@@ -96,17 +97,17 @@ public final class RegisterBlocks {
     private static final MaterialColor CYPRESS_PLANKS_COLOR = MaterialColor.COLOR_LIGHT_GRAY;
     private static final MaterialColor CYPRESS_BARK_COLOR = MaterialColor.STONE;
 
-	public static final BlockSetType BAOBAB_SET = BlockSetType.register(
-			new BlockSetType("baobab")
+	public static final BlockSetType BAOBAB_SET = BlockSetTypeRegistry.registerWood(
+			WilderSharedConstants.id("baobab")
 	);
 
-	public static final BlockSetType CYPRESS_SET = BlockSetType.register(
-			new BlockSetType("cypress")
+	public static final BlockSetType CYPRESS_SET = BlockSetTypeRegistry.registerWood(
+			WilderSharedConstants.id("cypress")
 	);
 
-	public static final WoodType BAOBAB_WOOD_TYPE = SignTypeRegistry.registerSignType(WilderSharedConstants.id("baobab"), BAOBAB_SET);
+	public static final WoodType BAOBAB_WOOD_TYPE = WoodTypeRegistry.register(WilderSharedConstants.id("baobab"), BAOBAB_SET);
 
-	public static final WoodType CYPRESS_WOOD_TYPE = SignTypeRegistry.registerSignType(WilderSharedConstants.id("cypress"), CYPRESS_SET);
+	public static final WoodType CYPRESS_WOOD_TYPE = WoodTypeRegistry.register(WilderSharedConstants.id("cypress"), CYPRESS_SET);
 
     // OTHER (BUILDING BLOCKS)
     public static final Block CHISELED_MUD_BRICKS = new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(1.5F).requiresTool().sounds(SoundType.MUD_BRICKS));

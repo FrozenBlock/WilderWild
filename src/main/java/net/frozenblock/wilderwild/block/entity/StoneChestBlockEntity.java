@@ -271,7 +271,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
         } else {
             return null;
         }
-        BlockPos newPos = new BlockPos(x, y, z);
+        BlockPos newPos = BlockPos.containing(x, y, z);
         BlockEntity be = level.getBlockEntity(newPos);
         StoneChestBlockEntity entity = null;
         if (be instanceof StoneChestBlockEntity stone) {
@@ -295,7 +295,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
         } else if (chestType == ChestType.LEFT) {
             return source;
         }
-        BlockPos newPos = new BlockPos(d, e, f);
+        BlockPos newPos = BlockPos.containing(d, e, f);
         BlockEntity be = level.getBlockEntity(newPos);
         StoneChestBlockEntity entity = null;
         if (be instanceof StoneChestBlockEntity stone) {

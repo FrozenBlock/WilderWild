@@ -76,7 +76,7 @@ public class WardenPathEvaluator extends WalkNodeEvaluator {
 			BlockPathTypes blockPathTypes2 = this.getCachedBlockType(this.mob, node.x, node.y, node.z);
 			int j;
 			if (this.mob.getPathfindingMalus(blockPathTypes) >= 0.0F && blockPathTypes2 != BlockPathTypes.STICKY_HONEY) {
-				j = Mth.floor(Math.max(1.0F, this.mob.maxUpStep));
+				j = Mth.floor(Math.max(1.0F, this.mob.maxUpStep()));
 			} else {
 				j = 0;
 			}

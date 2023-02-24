@@ -44,7 +44,7 @@ public class WardenNavigation extends GroundPathNavigation {
 
     @Override
     protected double getGroundY(@NotNull Vec3 pos) {
-        BlockPos blockPos = new BlockPos(pos);
+        BlockPos blockPos = BlockPos.containing(pos);
         return this.isInLiquid() || this.level.getBlockState(blockPos.below()).isAir() ? pos.y : WardenPathEvaluator.getFloorLevel(this.level, blockPos);
     }
 
