@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "minecraft:water",
+    "minecraft:lava",
     "minecraft:powder_snow",
     "minecraft:water_cauldron",
     "minecraft:lava_cauldron",

@@ -909,6 +909,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptionalTag(BlockTags.DIRT);
 
 			this.getOrCreateTagBuilder(WilderBlockTags.KILLS_TERMITE)
+					.add(Blocks.WATER)
+					.add(Blocks.LAVA)
 					.add(Blocks.POWDER_SNOW)
 					.add(Blocks.WATER_CAULDRON)
 					.add(Blocks.LAVA_CAULDRON)

@@ -188,6 +188,9 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                 boolean degradable = !this.natural ? DEGRADABLE_BLOCKS.containsKey(block) : NATURAL_DEGRADABLE_BLOCKS.containsKey(block);
                 boolean breakable = blockState.is(WilderBlockTags.TERMITE_BREAKABLE);
                 boolean leaves = blockState.is(BlockTags.LEAVES);
+				if (!TermiteMound.isStateSafeForTermites(blockState)) {
+					return false;
+				}
                 if (degradable || breakable) {
                     this.eating = true;
                     exit = true;
@@ -212,9 +215,9 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 							}
                         }
 						spawnEatParticles(level, blockState, this.pos);
-						level.playSound(null, pos, RegisterSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW_FINISH, SoundSource.BLOCKS, 0.6F, 0.95F + (level.random.nextFloat() * 0.2F));
+						level.playSound(null, pos, RegisterSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW_FINISH, SoundSource.BLOCKS, 0.6F, 0.9F + (level.random.nextFloat() * 0.25F));
 					} else {
-						level.playSound(null, pos, RegisterSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW, SoundSource.BLOCKS, 0.08F, 0.95F + (level.random.nextFloat() * 0.2F));
+						level.playSound(null, pos, RegisterSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW, SoundSource.BLOCKS, 0.08F, 0.9F + (level.random.nextFloat() * 0.25F));
 					}
                 } else {
                     this.eating = false;
@@ -262,8 +265,9 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 			if (exit || (exposedToAir(level, this.pos, this.natural))) {
 				level.playSound(null, pos, RegisterSounds.BLOCK_TERMITE_MOUND_TERMITE_IDLE, SoundSource.BLOCKS, 0.05F, 0.95F + (level.random.nextFloat() * 0.2F));
 				return true;
+			} else {
+				return false;
 			}
-			return false;
         }
 
         @Nullable
@@ -435,7 +439,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 
 		public static void spawnEatParticles(Level level, BlockState eatState, BlockPos pos) {
 			if (level instanceof ServerLevel serverLevel) {
-				serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, eatState), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(7, 15), 0.3F, 0.3F, 0.3F, 0.05D);
+				serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, eatState), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(12, 20), 0.3F, 0.3F, 0.3F, 0.05D);
 			}
 		}
     }

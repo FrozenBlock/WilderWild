@@ -16,6 +16,7 @@
     "server.general.BlocksMixin",
     "server.general.BoatDropsMixin",
     "server.general.BoatTypeMixin",
+    "server.general.CactusBlockMixin",
     "server.general.ChestBlockEntityMixin",
     "server.general.ChestBlockMixin",
     "server.general.ChestBoatDropsMixin",
