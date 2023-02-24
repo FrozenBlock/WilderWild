@@ -164,7 +164,7 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
 
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (random.nextInt(0, level.getRawBrightness(pos, 0) + 2) == 1) {
+		if (random.nextInt(0, level.getMaxLocalRawBrightness(pos) + 2) == 1) {
 			if (!isMaxAge(state)) {
 				level.setBlock(pos, state.cycle(AGE), 2);
 			} else if (!isFullyGrown(state)) {

@@ -18,7 +18,10 @@
 
 package net.frozenblock.wilderwild.mixin.server.sculk;
 
+import com.mojang.datafixers.util.Pair;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
@@ -109,13 +112,6 @@ public abstract class SculkBlockMixin {
 
 	@Unique
 	private boolean wilderWild$canPlaceOsseousSculk;
-
-    @Inject(at = @At("HEAD"), method = "attemptUseCharge")
-    public void wilderWild$setSeed(SculkSpreader.ChargeCursor charge, LevelAccessor level, BlockPos catalystPos, RandomSource random, SculkSpreader sculkChargeHandler, boolean spread, CallbackInfoReturnable<Integer> info) {
-        if (level.getServer() != null && level.getServer().overworld().getSeed() != EasyNoiseSampler.seed) {
-			EasyNoiseSampler.setSeed(level.getServer().overworld().getSeed());
-		}
-    }
 
     @Redirect(method = "attemptUseCharge", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkBlock;canPlaceGrowth(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)Z"))
     private boolean wilderWild$newWorldgenCharge(LevelAccessor levelAccessor, BlockPos blockPos, SculkSpreader.ChargeCursor charge, LevelAccessor level, BlockPos pos, RandomSource random, SculkSpreader sculkChargeHandler, boolean spread) {
@@ -220,8 +216,40 @@ public abstract class SculkBlockMixin {
             }
             return false;
         }
-        return EasyNoiseSampler.sample(EasyNoiseSampler.perlinXoro, pos, WILDERWILD$OSSEOUS_SCULK_AREA_SIZE, true, true) > WILDERWILD$OSSEOUS_SCULK_THRESHOLD;
+        return !wilderWild$tooMuchForOsseousSculk(level, pos);
     }
+
+	@Unique
+	private static boolean wilderWild$tooMuchForOsseousSculk(LevelAccessor level, BlockPos pos) {
+		if (level.getRandom().nextInt(0, 5) == 2) {
+			int i = 0;
+			Iterator<BlockPos> var4 = BlockPos.betweenClosed(pos.offset(-2, -2, -2), pos.offset(2, 2, 2)).iterator();
+			List<Pair<Integer, Integer>> osseousPoses = new ArrayList<>();
+			do {
+				if (!var4.hasNext()) {
+					return false;
+				}
+				BlockPos blockPos = var4.next();
+				BlockState blockState2 = level.getBlockState(blockPos);
+				boolean osseousIsPresent = blockState2.is(RegisterBlocks.OSSEOUS_SCULK);
+				boolean activator = blockState2.is(Blocks.SCULK_SENSOR) || blockState2.is(Blocks.SCULK_SHRIEKER);
+				if (osseousIsPresent) {
+					Pair<Integer, Integer> newPair = Pair.of(blockPos.getX(), blockPos.getZ());
+					if (!osseousPoses.contains(Pair.of(blockPos.getX(), blockPos.getZ()))) {
+						++i;
+						osseousPoses.add(newPair);
+					}
+				}
+				if (activator || (osseousIsPresent && (blockPos.getX() != pos.getX() && blockPos.getZ() != pos.getZ()))) {
+					++i;
+				}
+				if (i >= 3) {
+					return true;
+				}
+			} while (true);
+		}
+		return false;
+	}
 
 	@Unique
     private boolean wilderWild$canPlaceGrowth(LevelAccessor level, BlockPos pos, boolean isWorldGen) {
