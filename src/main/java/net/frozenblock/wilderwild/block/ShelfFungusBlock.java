@@ -185,6 +185,6 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
 
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-		level.setBlock(pos, state.cycle(STAGE), 2);
+		level.setBlock(pos, state.cycle(STAGE).setValue(AGE, 0), 2);
 	}
 }
