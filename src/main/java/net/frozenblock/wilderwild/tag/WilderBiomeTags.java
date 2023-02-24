@@ -62,7 +62,7 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_SMALL_SPONGE_RARE = bind("has_small_sponge_rare");
 	public static final TagKey<Biome> HAS_HUGE_RED_MUSHROOM = bind("has_huge_red_mushroom");
 	public static final TagKey<Biome> HAS_HUGE_BROWN_MUSHROOM = bind("has_huge_brown_mushroom");
-	public static final TagKey<Biome> HAS_COMMON_MUSHROOM = bind("has_common_mushroom");
+	public static final TagKey<Biome> HAS_BIG_MUSHROOMS = bind("has_big_mushrooms");
 	public static final TagKey<Biome> HAS_COMMON_BROWN_MUSHROOM = bind("has_common_brown_mushroom");
 	public static final TagKey<Biome> HAS_COMMON_RED_MUSHROOM = bind("has_common_red_mushroom");
 	public static final TagKey<Biome> HAS_SWAMP_MUSHROOM = bind("has_swamp_mushroom");
