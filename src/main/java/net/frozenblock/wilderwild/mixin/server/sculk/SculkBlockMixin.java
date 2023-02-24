@@ -216,37 +216,8 @@ public abstract class SculkBlockMixin {
             }
             return false;
         }
-        return !wilderWild$tooMuchForOsseousSculk(level, pos);
+        return level.getRandom().nextInt(0, 4) == 2;
     }
-
-	@Unique
-	private static boolean wilderWild$tooMuchForOsseousSculk(LevelAccessor level, BlockPos pos) {
-		if (level.getRandom().nextInt(0, 5) == 2) {
-			int i = 0;
-			Iterator<BlockPos> var4 = BlockPos.betweenClosed(pos.offset(-2, -2, -2), pos.offset(2, 2, 2)).iterator();
-			List<Pair<Integer, Integer>> osseousPoses = new ArrayList<>();
-			do {
-				if (!var4.hasNext()) {
-					return false;
-				}
-				BlockPos blockPos = var4.next();
-				BlockState blockState2 = level.getBlockState(blockPos);
-				if (blockState2.is(RegisterBlocks.OSSEOUS_SCULK)) {
-					Pair<Integer, Integer> newPair = Pair.of(blockPos.getX(), blockPos.getZ());
-					if (!osseousPoses.contains(newPair)) {
-						++i;
-						osseousPoses.add(newPair);
-					}
-				} else if (blockState2.is(Blocks.SCULK_SENSOR) || blockState2.is(Blocks.SCULK_SHRIEKER)) {
-					++i;
-				}
-				if (i >= 3) {
-					return true;
-				}
-			} while (true);
-		}
-		return true;
-	}
 
 	@Unique
     private boolean wilderWild$canPlaceGrowth(LevelAccessor level, BlockPos pos, boolean isWorldGen) {
