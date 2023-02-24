@@ -216,7 +216,7 @@ public abstract class SculkBlockMixin {
             }
             return false;
         }
-        return level.getRandom().nextInt(0, 4) == 2;
+        return level.getRandom().nextBoolean();
     }
 
 	@Unique
