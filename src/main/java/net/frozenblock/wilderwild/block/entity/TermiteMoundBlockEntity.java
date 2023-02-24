@@ -182,15 +182,15 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             if (this.aliveTicks > (this.natural ? 1200 : 2000) || isTooFar(this.natural, this.mound, this.pos)) {
                 return false;
             }
+			if (!TermiteMound.areTermitesSafe(level, this.pos)) {
+				return false;
+			}
             if (canMove(level, this.pos)) {
                 BlockState blockState = level.getBlockState(this.pos);
                 Block block = blockState.getBlock();
                 boolean degradable = !this.natural ? DEGRADABLE_BLOCKS.containsKey(block) : NATURAL_DEGRADABLE_BLOCKS.containsKey(block);
                 boolean breakable = blockState.is(WilderBlockTags.TERMITE_BREAKABLE);
                 boolean leaves = blockState.is(BlockTags.LEAVES);
-				if (!TermiteMound.isStateSafeForTermites(blockState)) {
-					return false;
-				}
                 if (degradable || breakable) {
                     this.eating = true;
                     exit = true;

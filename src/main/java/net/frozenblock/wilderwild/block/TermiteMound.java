@@ -86,7 +86,7 @@ public class TermiteMound extends BaseEntityBlock {
 		if (areTermitesSafe != state.getValue(RegisterProperties.CAN_SPAWN_TERMITE)) {
 			level.setBlock(pos, state.setValue(RegisterProperties.CAN_SPAWN_TERMITE, areTermitesSafe), 3);
 		}
-		level.scheduleTick(pos, this, 100);
+		level.scheduleTick(pos, this, random.nextInt(90, 150));
 	}
 
 	public static boolean areTermitesSafe(@NotNull Level level, @NotNull BlockPos pos) {
