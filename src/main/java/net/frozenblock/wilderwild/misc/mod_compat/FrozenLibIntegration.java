@@ -129,7 +129,7 @@ public class FrozenLibIntegration extends ModIntegration {
         StructurePoolElementIdReplacements.RESOURCE_LOCATION_REPLACEMENTS.put(WilderSharedConstants.vanillaId("ancient_city/structures/tall_ruin_4"), WilderSharedConstants.id("ancient_city/structures/tall_ruin_4"));
         StructurePoolElementIdReplacements.RESOURCE_LOCATION_REPLACEMENTS.put(WilderSharedConstants.vanillaId("ancient_city/structures/ice_box_1"), WilderSharedConstants.id("ancient_city/structures/ice_box_1"));
 
-        addBlocks(new Block[]{CACTUS, PRICKLY_PEAR_CACTUS}, SoundType.SWEET_BERRY_BUSH, WilderSharedConstants.config()::cactusSounds);
+        addBlocks(new Block[]{CACTUS, PRICKLY_PEAR_CACTUS}, CACTI, WilderSharedConstants.config()::cactusSounds);
         addBlock(CLAY, CLAY_BLOCK, WilderSharedConstants.config()::claySounds);
         addBlock(COARSE_DIRT, COARSEDIRT, WilderSharedConstants.config()::coarseDirtSounds);
         addBlock(COBWEB, WEB, WilderSharedConstants.config()::cobwebSounds);

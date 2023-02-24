@@ -386,6 +386,54 @@
 	],
 	"subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.cactus.break": {
+    "sounds": [
+      "wilderwild:block/cactus/break1",
+      "wilderwild:block/cactus/break2",
+      "wilderwild:block/cactus/break3",
+      "wilderwild:block/cactus/break4",
+      "wilderwild:block/cactus/break5",
+      "wilderwild:block/cactus/break6"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.cactus.fall": {
+    "sounds": [
+      "wilderwild:block/cactus/step1",
+      "wilderwild:block/cactus/step2",
+      "wilderwild:block/cactus/step3",
+      "wilderwild:block/cactus/step4"
+    ]
+  },
+  "block.cactus.hit": {
+    "sounds": [
+      "wilderwild:block/cactus/step1",
+      "wilderwild:block/cactus/step2",
+      "wilderwild:block/cactus/step3",
+      "wilderwild:block/cactus/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.cactus.place": {
+    "sounds": [
+      "wilderwild:block/cactus/break1",
+      "wilderwild:block/cactus/break2",
+      "wilderwild:block/cactus/break3",
+      "wilderwild:block/cactus/break4",
+      "wilderwild:block/cactus/break5",
+      "wilderwild:block/cactus/break6"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.cactus.step": {
+    "sounds": [
+      "wilderwild:block/cactus/step1",
+      "wilderwild:block/cactus/step2",
+      "wilderwild:block/cactus/step3",
+      "wilderwild:block/cactus/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.chest.close_underwater": {
     "sounds": [
       "wilderwild:block/chest/close_underwater_1",
