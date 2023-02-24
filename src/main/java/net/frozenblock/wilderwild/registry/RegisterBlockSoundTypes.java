@@ -59,6 +59,14 @@ public final class RegisterBlockSoundTypes {
             BLOCK_CLAY_FALL
     );
 
+	public static final SoundType CACTI = new SoundType(1.0F, 1.0F,
+			BLOCK_CACTUS_BREAK,
+			BLOCK_CACTUS_STEP,
+			BLOCK_CACTUS_PLACE,
+			BLOCK_CACTUS_HIT,
+			BLOCK_CACTUS_FALL
+	);
+
     public static final SoundType GRAVELSOUNDS = new SoundType(1.0F, 1.0F,
             BLOCK_GRAVEL_BREAK,
             BLOCK_GRAVEL_STEP,

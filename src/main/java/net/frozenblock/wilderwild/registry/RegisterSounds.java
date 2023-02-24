@@ -57,6 +57,12 @@ public final class RegisterSounds {
     public static final SoundEvent BLOCK_BAOBAB_NUT_STEP = register("block.baobab_nut.step");
     public static final SoundEvent BLOCK_BAOBAB_NUT_FALL = register("block.baobab_nut.fall");
 
+	public static final SoundEvent BLOCK_CACTUS_PLACE = register("block.cactus.place");
+	public static final SoundEvent BLOCK_CACTUS_HIT = register("block.cactus.hit");
+	public static final SoundEvent BLOCK_CACTUS_BREAK = register("block.cactus.break");
+	public static final SoundEvent BLOCK_CACTUS_STEP = register("block.cactus.step");
+	public static final SoundEvent BLOCK_CACTUS_FALL = register("block.cactus.fall");
+
 	public static final SoundEvent BLOCK_CHEST_CLOSE_UNDERWATER = register("block.chest.close_underwater");
 	public static final SoundEvent BLOCK_CHEST_OPEN_UNDERWATER = register("block.chest.open_underwater");
 
