@@ -35,6 +35,7 @@ public class NectarFallProviderMixin {
 	public void wilderWild$createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, CallbackInfoReturnable<Particle> info) {
 		if (info.getReturnValue() instanceof DripParticle dripParticle) {
 			((WilderDripSuspendedParticleInterface)dripParticle).wilderWild$setUsesWind(true);
+			dripParticle.setColor(250F / 255F, 171F / 255F, 28F / 255F);
 		}
 	}
 }
