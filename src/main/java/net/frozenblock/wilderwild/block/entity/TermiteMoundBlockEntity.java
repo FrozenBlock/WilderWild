@@ -435,7 +435,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 
 		public static void spawnEatParticles(Level level, BlockState eatState, BlockPos pos) {
 			if (level instanceof ServerLevel serverLevel) {
-				serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, eatState), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(7, 15), 0.3F, 0.3F, 0.3F, 0.05D);
+				serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, eatState), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(12, 20), 0.3F, 0.3F, 0.3F, 0.05D);
 			}
 		}
     }
