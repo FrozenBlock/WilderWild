@@ -34,6 +34,9 @@ public class AbstractClothConfigIntegration extends ModIntegration {
 	@Override
 	public void init() {}
 
+	public boolean cactusVulnerability() {
+		return DefaultBlockConfig.CACTUS_VULNERABILITY;
+	}
 	public boolean mcLiveSensorTendrils() {
 		return DefaultBlockConfig.MC_LIVE_SENSOR_TENDRILS;
 	}

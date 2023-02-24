@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.server.general;
 
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.world.level.block.CactusBlock;
 import net.minecraft.world.level.material.Material;
 import org.spongepowered.asm.mixin.Mixin;
@@ -29,7 +30,7 @@ public final class CactusBlockMixin {
 
 	@Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/material/Material;isSolid()Z"), method = "canSurvive")
 	public boolean wilderWild$canSurviveIsSolid(Material par1) {
-		return false;
+		return WilderSharedConstants.config().cactusVulnerability();
 	}
 
 }
