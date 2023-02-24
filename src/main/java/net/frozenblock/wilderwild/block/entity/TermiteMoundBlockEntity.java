@@ -212,9 +212,9 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 							}
                         }
 						spawnEatParticles(level, blockState, this.pos);
-						level.playSound(null, pos, RegisterSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW_FINISH, SoundSource.BLOCKS, 0.6F, 0.95F + (level.random.nextFloat() * 0.2F));
+						level.playSound(null, pos, RegisterSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW_FINISH, SoundSource.BLOCKS, 0.6F, 0.9F + (level.random.nextFloat() * 0.25F));
 					} else {
-						level.playSound(null, pos, RegisterSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW, SoundSource.BLOCKS, 0.08F, 0.95F + (level.random.nextFloat() * 0.2F));
+						level.playSound(null, pos, RegisterSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW, SoundSource.BLOCKS, 0.08F, 0.9F + (level.random.nextFloat() * 0.25F));
 					}
                 } else {
                     this.eating = false;
