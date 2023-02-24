@@ -38,6 +38,9 @@ import org.jetbrains.annotations.NotNull;
 @Environment(EnvType.CLIENT)
 public class PollenParticle extends TextureSheetParticle {
     public double windIntensity;
+	private float prevScale = 0F;
+	private float scale = 0F;
+	private float targetScale = 0F;
 
     PollenParticle(ClientLevel level, SpriteSet spriteProvider, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
         super(level, x, y - 0.125D, z, velocityX, velocityY, velocityZ);
@@ -53,7 +56,36 @@ public class PollenParticle extends TextureSheetParticle {
     @Override
     public void tick() {
 		if (WilderSharedConstants.config().pollenParticles()) {
-			super.tick();
+			if (this.level.isRainingAt(new BlockPos(this.x, this.y, this.z))) {
+				this.gravity = 0.06F;
+			}
+			this.xo = this.x;
+			this.yo = this.y;
+			this.zo = this.z;
+			this.yd -= 0.04 * (double)this.gravity;
+			this.move(this.xd, this.yd, this.zd);
+			if (this.speedUpWhenYMotionIsBlocked && this.y == this.yo) {
+				this.xd *= 1.1;
+				this.zd *= 1.1;
+			}
+			this.xd *= this.friction;
+			this.yd *= this.friction;
+			this.zd *= this.friction;
+			if (this.onGround) {
+				this.xd *= 0.7f;
+				this.zd *= 0.7f;
+			}
+			this.prevScale = this.scale;
+			this.scale += (this.targetScale - this.scale) * 0.15F;
+			if (this.age++ >= this.lifetime) {
+				if (this.prevScale <= 0.05F) {
+					this.remove();
+				} else {
+					this.targetScale = 0F;
+				}
+			} else {
+				this.targetScale = 1F;
+			}
 			this.windIntensity *= 0.945F;
 			boolean onGround = this.onGround;
 			double multXZ = (onGround ? 0.0005 : 0.007) * this.windIntensity;
@@ -66,6 +98,11 @@ public class PollenParticle extends TextureSheetParticle {
 			this.remove();
 		}
     }
+
+	@Override
+	public float getQuadSize(float partialTicks) {
+		return this.quadSize * Mth.lerp(partialTicks, this.prevScale, this.scale);
+	}
 
     public ParticleRenderType getRenderType() {
         return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
