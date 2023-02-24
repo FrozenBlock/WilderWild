@@ -63,7 +63,6 @@ public final class BlockConfig implements ConfigData {
 		public int stoneChestTimer = DefaultBlockConfig.StoneChestConfig.STONE_CHEST_TIMER;
 	}
 
-	public boolean cactusVulnerability = DefaultBlockConfig.CACTUS_VULNERABILITY;
     public boolean mcLiveSensorTendrils = DefaultBlockConfig.MC_LIVE_SENSOR_TENDRILS;
     public boolean shriekerGargling = DefaultBlockConfig.SHRIEKER_GARGLING;
     public boolean soulFireSounds = DefaultBlockConfig.SOUL_FIRE_SOUNDS;
@@ -107,14 +106,6 @@ public final class BlockConfig implements ConfigData {
 				.setDefaultValue(DefaultBlockConfig.POLLEN_PARTICLES)
 				.setSaveConsumer(newValue -> config.pollenParticles = newValue)
 				.setTooltip(tooltip("pollen_particles"))
-				.build()
-		);
-
-		var cactusVulnerability = category.addEntry(entryBuilder.startBooleanToggle(text("cactus_vulnerability"), config.cactusVulnerability)
-				.setDefaultValue(DefaultBlockConfig.CACTUS_VULNERABILITY)
-				.setSaveConsumer(newValue -> config.cactusVulnerability = newValue)
-				.setYesNoTextSupplier(bool -> text("cactus_vulnerability." + bool))
-				.setTooltip(tooltip("cactus_vulnerability"))
 				.build()
 		);
 
