@@ -113,8 +113,8 @@ public final class BlockConfig implements ConfigData {
 		var cactusVulnerability = category.addEntry(entryBuilder.startBooleanToggle(text("cactus_vulnerability"), config.cactusVulnerability)
 				.setDefaultValue(DefaultBlockConfig.CACTUS_VULNERABILITY)
 				.setSaveConsumer(newValue -> config.cactusVulnerability = newValue)
+				.setYesNoTextSupplier(bool -> text("cactus_vulnerability." + bool))
 				.setTooltip(tooltip("cactus_vulnerability"))
-				.requireRestart()
 				.build()
 		);
 
@@ -219,8 +219,7 @@ public final class BlockConfig implements ConfigData {
 				tooltip("block_sounds"),
 				cactusSounds, claySounds, coarseDirtSounds, cobwebSounds, deadBushSounds,
 				flowerSounds, gravelSounds, frostedIceSounds, leafSounds, lilyPadSounds,
-				mushroomBlockSounds, podzolSounds, reinforcedDeepslateSounds, sugarCaneSounds, witherRoseSounds,
-				sandstoneSounds
+				mushroomBlockSounds, podzolSounds, reinforcedDeepslateSounds, sugarCaneSounds, witherRoseSounds
 		);
 
 		var stoneChestTimer = entryBuilder.startIntSlider(text("stone_chest_timer"), stoneChest.stoneChestTimer, 50, 200)
