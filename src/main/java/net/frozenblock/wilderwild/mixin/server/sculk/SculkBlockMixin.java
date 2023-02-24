@@ -231,16 +231,13 @@ public abstract class SculkBlockMixin {
 				}
 				BlockPos blockPos = var4.next();
 				BlockState blockState2 = level.getBlockState(blockPos);
-				boolean osseousIsPresent = blockState2.is(RegisterBlocks.OSSEOUS_SCULK);
-				boolean activator = blockState2.is(Blocks.SCULK_SENSOR) || blockState2.is(Blocks.SCULK_SHRIEKER);
-				if (osseousIsPresent) {
+				if (blockState2.is(RegisterBlocks.OSSEOUS_SCULK)) {
 					Pair<Integer, Integer> newPair = Pair.of(blockPos.getX(), blockPos.getZ());
-					if (!osseousPoses.contains(Pair.of(blockPos.getX(), blockPos.getZ()))) {
+					if (!osseousPoses.contains(newPair)) {
 						++i;
 						osseousPoses.add(newPair);
 					}
-				}
-				if (activator || (osseousIsPresent && (blockPos.getX() != pos.getX() && blockPos.getZ() != pos.getZ()))) {
+				} else if (blockState2.is(Blocks.SCULK_SENSOR) || blockState2.is(Blocks.SCULK_SHRIEKER)) {
 					++i;
 				}
 				if (i >= 3) {
@@ -248,7 +245,7 @@ public abstract class SculkBlockMixin {
 				}
 			} while (true);
 		}
-		return false;
+		return true;
 	}
 
 	@Unique
