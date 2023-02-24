@@ -188,6 +188,9 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                 boolean degradable = !this.natural ? DEGRADABLE_BLOCKS.containsKey(block) : NATURAL_DEGRADABLE_BLOCKS.containsKey(block);
                 boolean breakable = blockState.is(WilderBlockTags.TERMITE_BREAKABLE);
                 boolean leaves = blockState.is(BlockTags.LEAVES);
+				if (!TermiteMound.isStateSafeForTermites(blockState)) {
+					return false;
+				}
                 if (degradable || breakable) {
                     this.eating = true;
                     exit = true;
@@ -262,8 +265,9 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 			if (exit || (exposedToAir(level, this.pos, this.natural))) {
 				level.playSound(null, pos, RegisterSounds.BLOCK_TERMITE_MOUND_TERMITE_IDLE, SoundSource.BLOCKS, 0.05F, 0.95F + (level.random.nextFloat() * 0.2F));
 				return true;
+			} else {
+				return false;
 			}
-			return false;
         }
 
         @Nullable
