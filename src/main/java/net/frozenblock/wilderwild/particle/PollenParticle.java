@@ -56,7 +56,8 @@ public class PollenParticle extends TextureSheetParticle {
     @Override
     public void tick() {
 		if (WilderSharedConstants.config().pollenParticles()) {
-			if (this.level.isRainingAt(new BlockPos(this.x, this.y, this.z))) {
+			boolean rain = this.level.isRainingAt(new BlockPos(this.x, this.y, this.z));
+			if (rain) {
 				this.gravity = 0.06F;
 			}
 			this.xo = this.x;
@@ -88,12 +89,14 @@ public class PollenParticle extends TextureSheetParticle {
 			}
 			this.windIntensity *= 0.945F;
 			boolean onGround = this.onGround;
-			double multXZ = (onGround ? 0.0005 : 0.007) * this.windIntensity;
-			double multY = (onGround ? 0.0005 : 0.0035) * this.windIntensity;
-			Vec3 wind = ClientWindManager.getWindMovement(this.level, new BlockPos(this.x, this.y, this.z));
-			this.xd += wind.x() * multXZ;
-			this.yd += (wind.y() + 0.1) * multY;
-			this.zd += wind.z() * multXZ;
+			if (!rain) {
+				double multXZ = (onGround ? 0.0005 : 0.007) * this.windIntensity;
+				double multY = (onGround ? 0.0005 : 0.0035) * this.windIntensity;
+				Vec3 wind = ClientWindManager.getWindMovement(this.level, new BlockPos(this.x, this.y, this.z));
+				this.xd += wind.x() * multXZ;
+				this.yd += (wind.y() + 0.1) * multY;
+				this.zd += wind.z() * multXZ;
+			}
 		} else {
 			this.remove();
 		}
