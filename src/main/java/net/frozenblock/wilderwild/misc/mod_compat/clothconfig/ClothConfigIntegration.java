@@ -74,6 +74,11 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean cactusPlacement() {
+		return BLOCK.cactusPlacement;
+	}
+
+	@Override
 	public boolean cactusSounds() {
 		return BLOCK_SOUNDS.cactusSounds;
 	}

@@ -68,6 +68,7 @@ public final class BlockConfig implements ConfigData {
     public boolean soulFireSounds = DefaultBlockConfig.SOUL_FIRE_SOUNDS;
 	public boolean billboardTendrils = DefaultBlockConfig.BILLBOARD_TENDRILS;
 	public boolean pollenParticles = DefaultBlockConfig.POLLEN_PARTICLES;
+	public boolean cactusPlacement = DefaultBlockConfig.CACTUS_PLACEMENT;
 
     @Environment(EnvType.CLIENT)
     static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
@@ -106,6 +107,13 @@ public final class BlockConfig implements ConfigData {
 				.setDefaultValue(DefaultBlockConfig.POLLEN_PARTICLES)
 				.setSaveConsumer(newValue -> config.pollenParticles = newValue)
 				.setTooltip(tooltip("pollen_particles"))
+				.build()
+		);
+
+		var cactusPlacement = category.addEntry(entryBuilder.startBooleanToggle(text("cactus_placement"), config.cactusPlacement)
+				.setDefaultValue(DefaultBlockConfig.CACTUS_PLACEMENT)
+				.setSaveConsumer(newValue -> config.cactusPlacement = newValue)
+				.setTooltip(tooltip("cactus_placement"))
 				.build()
 		);
 
@@ -210,7 +218,8 @@ public final class BlockConfig implements ConfigData {
 				tooltip("block_sounds"),
 				cactusSounds, claySounds, coarseDirtSounds, cobwebSounds, deadBushSounds,
 				flowerSounds, gravelSounds, frostedIceSounds, leafSounds, lilyPadSounds,
-				mushroomBlockSounds, podzolSounds, reinforcedDeepslateSounds, sugarCaneSounds, witherRoseSounds
+				mushroomBlockSounds, podzolSounds, reinforcedDeepslateSounds, sugarCaneSounds,
+				witherRoseSounds, sandstoneSounds
 		);
 
 		var stoneChestTimer = entryBuilder.startIntSlider(text("stone_chest_timer"), stoneChest.stoneChestTimer, 50, 200)
