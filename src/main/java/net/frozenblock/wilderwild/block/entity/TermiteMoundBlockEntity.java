@@ -182,7 +182,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
             if (this.aliveTicks > (this.natural ? 1200 : 2000) || isTooFar(this.natural, this.mound, this.pos)) {
                 return false;
             }
-			if (!TermiteMound.isPosSafeForTermites(level, this.pos)) {
+			if (!TermiteMound.areTermitesSafe(level, this.pos)) {
 				return false;
 			}
             if (canMove(level, this.pos)) {
