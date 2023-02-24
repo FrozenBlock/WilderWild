@@ -4,4 +4,5 @@ Make sure to clear this after each release
 
 Put changelog here:
 -----------------
-- Fixed a bug where carnations and daturas generated in incorrect biomes
+- Ported to 1.19.4-pre1
+- Fixed Ancient Horn rendering on 1.19.4

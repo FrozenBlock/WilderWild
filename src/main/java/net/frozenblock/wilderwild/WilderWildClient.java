@@ -180,7 +180,6 @@ public final class WilderWildClient implements ClientModInitializer {
 		EntityModelLayerRegistry.registerModelLayer(DOUBLE_STONE_CHEST_LEFT, StoneChestBlockEntityRenderer::createDoubleBodyLeftLayer);
 		EntityModelLayerRegistry.registerModelLayer(DOUBLE_STONE_CHEST_RIGHT, StoneChestBlockEntityRenderer::createDoubleBodyRightLayer);
 
-		receiveAncientHornProjectilePacket();
 		receiveEasyEchoerBubblePacket();
 		receiveSeedPacket();
 		receiveControlledSeedPacket();
@@ -214,33 +213,6 @@ public final class WilderWildClient implements ClientModInitializer {
 		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
 			BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
 		), RegisterBlocks.POTTED_GRASS);
-	}
-
-	private static void receiveAncientHornProjectilePacket() {
-		ClientPlayNetworking.registerGlobalReceiver(WilderWild.HORN_PROJECTILE_PACKET_ID, (ctx, handler, byteBuf, responseSender) -> {
-			EntityType<?> et = BuiltInRegistries.ENTITY_TYPE.byId(byteBuf.readVarInt());
-			UUID uuid = byteBuf.readUUID();
-			int entityId = byteBuf.readVarInt();
-			Vec3 pos = AncientHornProjectile.EntitySpawnPacket.PacketBufUtil.readVec3d(byteBuf);
-			float pitch = AncientHornProjectile.EntitySpawnPacket.PacketBufUtil.readAngle(byteBuf);
-			float yaw = AncientHornProjectile.EntitySpawnPacket.PacketBufUtil.readAngle(byteBuf);
-			WilderSharedConstants.log("Receiving Ancient Horn Projectile Packet At " + pos, WilderSharedConstants.DEV_LOGGING);
-			ctx.execute(() -> {
-				if (Minecraft.getInstance().level == null)
-					throw new IllegalStateException("Tried to spawn entity in a null world!");
-				Entity e = et.create(Minecraft.getInstance().level);
-				if (e == null)
-					throw new IllegalStateException("Failed to create instance of entity \"" + BuiltInRegistries.ENTITY_TYPE.getKey(et) + "\"!");
-				e.syncPacketPositionCodec(pos.x, pos.y, pos.z);
-				e.setPosRaw(pos.x, pos.y, pos.z);
-				e.setXRot(pitch);
-				e.setYRot(yaw);
-				e.setId(entityId);
-				e.setUUID(uuid);
-				Minecraft.getInstance().level.putNonPlayerEntity(entityId, e);
-				WilderSharedConstants.log("Spawned Ancient Horn Projectile", WilderSharedConstants.UNSTABLE_LOGGING);
-			});
-		});
 	}
 
 	private static void receiveEasyEchoerBubblePacket() {

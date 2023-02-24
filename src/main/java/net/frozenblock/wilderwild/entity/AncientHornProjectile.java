@@ -616,7 +616,6 @@ public class AncientHornProjectile extends AbstractArrow {
 	}
 
 	public static class EntitySpawnPacket { //When the Fabric tutorial WORKS!!!!! BOM BOM BOM BOM BOM BOM BOM, BOBOBOM! DUNDUN!
-		@SuppressWarnings("unchecked")
 		public static Packet<ClientGamePacketListener> create(Entity entity, ResourceLocation packetID) {
 			if (entity.level.isClientSide)
 				throw new IllegalStateException("SpawnPacketUtil.create called on the logical client!");
@@ -627,7 +626,7 @@ public class AncientHornProjectile extends AbstractArrow {
 			PacketBufUtil.writeVec3d(byteBuf, entity.position());
 			PacketBufUtil.writeAngle(byteBuf, entity.getXRot());
 			PacketBufUtil.writeAngle(byteBuf, entity.getYRot());
-			return (Packet<ClientGamePacketListener>) ServerPlayNetworking.createS2CPacket(packetID, byteBuf);
+			return ServerPlayNetworking.createS2CPacket(packetID, byteBuf);
 		}
 
 		public static final class PacketBufUtil {
