@@ -435,12 +435,6 @@ public class AncientHornProjectile extends AbstractArrow {
 		return true;
 	}
 
-	@Override
-	@NotNull
-	public Packet<ClientGamePacketListener> getAddEntityPacket() {
-		return EntitySpawnPacket.create(this, WilderWild.HORN_PROJECTILE_PACKET_ID);
-	}
-
 	public boolean canInteract() {
 		return this.getOwner() != null;
 	}
