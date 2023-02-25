@@ -32,6 +32,7 @@ import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
@@ -56,7 +57,8 @@ public class PollenParticle extends TextureSheetParticle {
     @Override
     public void tick() {
 		if (WilderSharedConstants.config().pollenParticles()) {
-			boolean rain = this.level.isRainingAt(new BlockPos(this.x, this.y, this.z));
+			BlockPos blockPos = new BlockPos(this.x, this.y, this.z);
+			boolean rain = this.level.isRainingAt(blockPos);
 			if (rain) {
 				this.gravity = 0.06F;
 			}
@@ -78,6 +80,10 @@ public class PollenParticle extends TextureSheetParticle {
 			}
 			this.prevScale = this.scale;
 			this.scale += (this.targetScale - this.scale) * 0.15F;
+			FluidState fluidState = this.level.getFluidState(blockPos);
+			if (blockPos.getY() + fluidState.getHeight(this.level, blockPos) >= this.y) {
+				this.lifetime = this.age;
+			}
 			if (this.age++ >= this.lifetime) {
 				if (this.prevScale <= 0.05F) {
 					this.remove();
