@@ -98,8 +98,7 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 	@Override
 	protected void onHitBlock(@NotNull BlockHitResult result) {
 		super.onHitBlock(result);
-		BlockState blockState = this.level.getBlockState(result.getBlockPos()).getBlock().defaultBlockState();
-		if (blockState.is(WilderBlockTags.SPLITS_COCONUTS)) {
+		if (this.level.getBlockState(result.getBlockPos()).is(WilderBlockTags.SPLITS_COCONUTS)) {
 			this.level.broadcastEntityEvent(this, (byte)3);
 			this.level.playSound(null, this.getX(), this.getY(), this.getZ(), RegisterSounds.ITEM_COCONUT_LAND_BREAK, SoundSource.BLOCKS, 1.0F, 0.9F + 0.2F * this.level.random.nextFloat());
 			this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), new ItemStack(RegisterItems.SPLIT_COCONUT)));
