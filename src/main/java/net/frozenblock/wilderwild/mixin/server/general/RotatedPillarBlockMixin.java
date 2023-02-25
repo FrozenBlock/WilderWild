@@ -19,11 +19,9 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
 import net.frozenblock.wilderwild.registry.RegisterProperties;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import org.spongepowered.asm.mixin.Mixin;
@@ -43,7 +41,7 @@ public class RotatedPillarBlockMixin {
 	@Inject(method = "getStateForPlacement", at = @At("RETURN"), cancellable = true)
 	public void wilderWild$getStateForPlacement(BlockPlaceContext context, CallbackInfoReturnable<BlockState> info) {
 		BlockState state = info.getReturnValue();
-		if (state != null && state.hasProperty(RegisterProperties.TERMITE_EDIBLE)) {
+		if (state != null) {
 			info.setReturnValue(state.setValue(RegisterProperties.TERMITE_EDIBLE, false));
 		}
 	}

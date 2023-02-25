@@ -102,6 +102,7 @@ public class TermiteManager {
 			this.termites.remove(termite);
 			level.gameEvent(null, GameEvent.BLOCK_CHANGE, Vec3.atCenterOf(pos));
 		}
+		termitesToRemove.clear();
 	}
 
 	public static int maxTermites(boolean natural, boolean awake, boolean canSpawn) {
@@ -297,7 +298,7 @@ public class TermiteManager {
 		}
 
 		public static boolean isEdibleProperty(BlockState state) {
-			return state.hasProperty(RegisterProperties.TERMITE_EDIBLE) ? state.getValue(RegisterProperties.TERMITE_EDIBLE) : true;
+			return state.hasProperty(RegisterProperties.TERMITE_EDIBLE) ? state.getValue(RegisterProperties.TERMITE_EDIBLE) : state.is(BlockTags.LEAVES) && state.hasProperty(BlockStateProperties.PERSISTENT) ? state.getValue(BlockStateProperties.PERSISTENT) : true;
 		}
 
 		public static boolean exposedToAir(Level level, BlockPos pos, boolean natural) {
