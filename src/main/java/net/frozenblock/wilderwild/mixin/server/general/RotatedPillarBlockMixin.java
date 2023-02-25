@@ -40,12 +40,6 @@ public class RotatedPillarBlockMixin {
 		builder.add(RegisterProperties.TERMITE_EDIBLE);
     }
 
-    @Inject(method = "<init>", at = @At("TAIL"))
-    private void wilderWild$registerDefaultTermiteEdible(BlockBehaviour.Properties settings, CallbackInfo info) {
-        RotatedPillarBlock rotatedPillarBlock = RotatedPillarBlock.class.cast(this);
-		rotatedPillarBlock.registerDefaultState(rotatedPillarBlock.defaultBlockState().setValue(RegisterProperties.TERMITE_EDIBLE, true));
-    }
-
 	@Inject(method = "getStateForPlacement", at = @At("RETURN"), cancellable = true)
 	public void wilderWild$getStateForPlacement(BlockPlaceContext context, CallbackInfoReturnable<BlockState> info) {
 		BlockState state = info.getReturnValue();
