@@ -2,7 +2,7 @@
   "parent": "wilderwild:block/template_hollowed_log",
   "textures": {
 	"top": "wilderwild:block/hollowed_jungle_log_top",
-	"inner": "minecraft:block/stripped_jungle_log",
+	"inner": "minecraft:block/stripped_hollowed_jungle_log",
 	"outer": "wilderwild:block/hollowed_jungle_log"
   }
 }
