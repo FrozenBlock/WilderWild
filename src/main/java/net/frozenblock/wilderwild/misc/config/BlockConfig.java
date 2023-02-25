@@ -46,6 +46,7 @@ public final class BlockConfig implements ConfigData {
 		public boolean cobwebSounds = DefaultBlockConfig.BlockSoundsConfig.COBWEB_SOUNDS;
 		public boolean deadBushSounds = DefaultBlockConfig.BlockSoundsConfig.DEAD_BUSH_SOUNDS;
 		public boolean flowerSounds = DefaultBlockConfig.BlockSoundsConfig.FLOWER_SOUNDS;
+		public boolean saplingSounds = DefaultBlockConfig.BlockSoundsConfig.SAPLING_SOUNDS;
 		public boolean frostedIceSounds = DefaultBlockConfig.BlockSoundsConfig.FROSTED_ICE_SOUNDS;
 		public boolean gravelSounds = DefaultBlockConfig.BlockSoundsConfig.GRAVEL_SOUNDS;
 		public boolean leafSounds = DefaultBlockConfig.BlockSoundsConfig.LEAF_SOUNDS;
@@ -153,6 +154,12 @@ public final class BlockConfig implements ConfigData {
 				.setTooltip(tooltip("flower_sounds"))
 				.build();
 
+		var saplingSounds = entryBuilder.startBooleanToggle(text("sapling_sounds"), blockSounds.saplingSounds)
+				.setDefaultValue(DefaultBlockConfig.BlockSoundsConfig.SAPLING_SOUNDS)
+				.setSaveConsumer(newValue -> blockSounds.saplingSounds = newValue)
+				.setTooltip(tooltip("sapling_sounds"))
+				.build();
+
 		var gravelSounds = entryBuilder.startBooleanToggle(text("gravel_sounds"), blockSounds.gravelSounds)
 				.setDefaultValue(DefaultBlockConfig.BlockSoundsConfig.GRAVEL_SOUNDS)
 				.setSaveConsumer(newValue -> blockSounds.gravelSounds = newValue)
@@ -217,9 +224,9 @@ public final class BlockConfig implements ConfigData {
 				false,
 				tooltip("block_sounds"),
 				cactusSounds, claySounds, coarseDirtSounds, cobwebSounds, deadBushSounds,
-				flowerSounds, gravelSounds, frostedIceSounds, leafSounds, lilyPadSounds,
-				mushroomBlockSounds, podzolSounds, reinforcedDeepslateSounds, sugarCaneSounds,
-				witherRoseSounds, sandstoneSounds
+				flowerSounds, saplingSounds, gravelSounds, frostedIceSounds, leafSounds,
+				lilyPadSounds, mushroomBlockSounds, podzolSounds, reinforcedDeepslateSounds,
+				sugarCaneSounds, witherRoseSounds, sandstoneSounds
 		);
 
 		var stoneChestTimer = entryBuilder.startIntSlider(text("stone_chest_timer"), stoneChest.stoneChestTimer, 50, 200)

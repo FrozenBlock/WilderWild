@@ -86,6 +86,10 @@ public class AbstractClothConfigIntegration extends ModIntegration {
 		return DefaultBlockConfig.BlockSoundsConfig.LEAF_SOUNDS;
 	}
 
+	public boolean saplingSounds() {
+		return DefaultBlockConfig.BlockSoundsConfig.SAPLING_SOUNDS;
+	}
+
 	public boolean lilyPadSounds() {
 		return DefaultBlockConfig.BlockSoundsConfig.LILY_PAD_SOUNDS;
 	}
@@ -105,6 +109,7 @@ public class AbstractClothConfigIntegration extends ModIntegration {
 	public boolean sandstoneSounds() {
 		return DefaultBlockConfig.BlockSoundsConfig.SANDSTONE_SOUNDS;
 	}
+
 	public boolean sugarCaneSounds() {
 		return DefaultBlockConfig.BlockSoundsConfig.SUGAR_CANE_SOUNDS;
 	}

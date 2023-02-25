@@ -1,0 +1,12 @@
+{
+  "values": [
+	"#minecraft:mineable/pickaxe",
+    "#minecraft:base_stone_overworld",
+    "#minecraft:base_stone_nether",
+    "#minecraft:dragon_immune",
+    "#minecraft:wither_immune",
+    "#minecraft:logs",
+    "minecraft:chorus_flower",
+    "minecraft:chorus_plant"
+  ]
+}
