@@ -27,6 +27,7 @@ public class DefaultBlockConfig {
 		public static final boolean COBWEB_SOUNDS = true;
 		public static final boolean DEAD_BUSH_SOUNDS = true;
 		public static final boolean FLOWER_SOUNDS = true;
+		public static final boolean SAPLING_SOUNDS = true;
 		public static final boolean FROSTED_ICE_SOUNDS = true;
 		public static final boolean GRAVEL_SOUNDS = true;
 		public static final boolean LEAF_SOUNDS = true;

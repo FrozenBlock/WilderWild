@@ -791,9 +791,23 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 		protected void generateTags() {
 			this.generateDeepDark();
 			this.generateHollowedAndTermites();
+			this.generateCoconutSplitters();
 			this.getOrCreateTagBuilder(BlockTags.SAND)
 					.add(RegisterBlocks.SCORCHED_SAND)
 					.add(RegisterBlocks.SCORCHED_RED_SAND);
+
+		}
+
+		private void generateCoconutSplitters() {
+			this.getOrCreateTagBuilder(WilderBlockTags.SPLITS_COCONUTS)
+					.addOptionalTag(BlockTags.MINEABLE_WITH_PICKAXE)
+					.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
+					.addOptionalTag(BlockTags.BASE_STONE_NETHER)
+					.addOptionalTag(BlockTags.DRAGON_IMMUNE)
+					.addOptionalTag(BlockTags.WITHER_IMMUNE)
+					.addOptionalTag(BlockTags.LOGS)
+					.add(Blocks.CHORUS_FLOWER)
+					.add(Blocks.CHORUS_PLANT);
 		}
 
 		private void generateDeepDark() {

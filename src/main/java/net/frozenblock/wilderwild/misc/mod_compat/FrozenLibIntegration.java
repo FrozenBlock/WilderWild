@@ -138,6 +138,7 @@ public class FrozenLibIntegration extends ModIntegration {
         addBlocks(new Block[]{FROSTED_ICE}, ICE_BLOCKS, WilderSharedConstants.config()::frostedIceSounds);
         addBlock(GRAVEL, GRAVELSOUNDS, WilderSharedConstants.config()::gravelSounds);
         addBlockTag(BlockTags.LEAVES, LEAVES, WilderSharedConstants.config()::leafSounds);
+		addBlockTag(BlockTags.SAPLINGS, SoundType.CROP, WilderSharedConstants.config()::saplingSounds);
         addBlocks(new Block[]{ACACIA_LEAVES, BIRCH_LEAVES, DARK_OAK_LEAVES, JUNGLE_LEAVES, MANGROVE_LEAVES, OAK_LEAVES, SPRUCE_LEAVES, BAOBAB_LEAVES, CYPRESS_LEAVES, PALM_LEAVES}, LEAVES, WilderSharedConstants.config()::leafSounds);
         addBlocks(new Block[]{LILY_PAD, FLOWERING_LILY_PAD}, LILYPAD, WilderSharedConstants.config()::lilyPadSounds);
         addBlocks(new Block[]{RED_MUSHROOM, BROWN_MUSHROOM}, MUSHROOM, WilderSharedConstants.config()::mushroomBlockSounds);
