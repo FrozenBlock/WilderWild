@@ -124,6 +124,11 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean saplingSounds() {
+		return BLOCK_SOUNDS.saplingSounds;
+	}
+
+	@Override
 	public boolean lilyPadSounds() {
 		return BLOCK_SOUNDS.lilyPadSounds;
 	}
