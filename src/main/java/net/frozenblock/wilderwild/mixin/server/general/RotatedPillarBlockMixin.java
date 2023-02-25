@@ -44,7 +44,7 @@ public class RotatedPillarBlockMixin {
     }
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void wilderWild$registerDefaultTermiteEdible(BlockBehaviour.Properties settings, int range, CallbackInfo info) {
+    private void wilderWild$registerDefaultTermiteEdible(BlockBehaviour.Properties settings, CallbackInfo info) {
         RotatedPillarBlock rotatedPillarBlock = RotatedPillarBlock.class.cast(this);
 		if (rotatedPillarBlock.defaultBlockState().getMaterial() == Material.WOOD) {
 			rotatedPillarBlock.registerDefaultState(rotatedPillarBlock.defaultBlockState().setValue(RegisterProperties.TERMITE_EDIBLE, true));
