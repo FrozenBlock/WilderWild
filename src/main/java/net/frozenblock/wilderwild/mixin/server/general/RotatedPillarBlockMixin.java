@@ -18,11 +18,11 @@
 
 package net.frozenblock.wilderwild.mixin.server.general;
 
-import java.util.Properties;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.material.Material;
@@ -44,7 +44,7 @@ public class RotatedPillarBlockMixin {
     }
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void wilderWild$registerDefaultTermiteEdible(Properties settings, int range, CallbackInfo info) {
+    private void wilderWild$registerDefaultTermiteEdible(BlockBehaviour.Properties settings, int range, CallbackInfo info) {
         RotatedPillarBlock rotatedPillarBlock = RotatedPillarBlock.class.cast(this);
 		if (rotatedPillarBlock.defaultBlockState().getMaterial() == Material.WOOD) {
 			rotatedPillarBlock.registerDefaultState(rotatedPillarBlock.defaultBlockState().setValue(RegisterProperties.TERMITE_EDIBLE, true));
