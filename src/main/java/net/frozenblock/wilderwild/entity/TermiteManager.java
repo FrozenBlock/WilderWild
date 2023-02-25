@@ -121,7 +121,7 @@ public class TermiteManager {
 		Termite.CODEC.listOf()
 				.encodeStart(NbtOps.INSTANCE, this.termites)
 				.resultOrPartial(logger::error)
-				.ifPresent((cursorsNbt) -> tag.put("termites", cursorsNbt));
+				.ifPresent(termites -> tag.put("termites", termites));
 	}
 
 	public void load(@NotNull CompoundTag tag) {
@@ -129,13 +129,11 @@ public class TermiteManager {
 		if (tag.contains("termites", 9)) {
 			this.termites.clear();
 			Logger logger = WilderSharedConstants.LOGGER;
-			Termite.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE, tag.getList("termites", 10)))
+			List<Termite> list = Termite.CODEC.listOf()
+					.parse(new Dynamic<>(NbtOps.INSTANCE, tag.getList("termites", 10)))
 					.resultOrPartial(logger::error)
-					.ifPresent(termitesAllAllAll -> {
-						for (int j = 0; j < 5; ++j) {
-							this.termites.add(termitesAllAllAll.get(j));
-						}
-					});
+					.orElseGet(ArrayList::new);
+			this.termites.addAll(list);
 		}
 	}
 
