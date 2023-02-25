@@ -19,13 +19,13 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
 import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.material.Material;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -35,26 +35,21 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(RotatedPillarBlock.class)
 public class RotatedPillarBlockMixin {
 
-    @Inject(at = @At("TAIL"), method = "createBlockStateDefinition")
+    @Inject(method = "createBlockStateDefinition", at = @At("TAIL"))
     private void wilderWild$addTermiteEdibleState(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		RotatedPillarBlock rotatedPillarBlock = RotatedPillarBlock.class.cast(this);
-		if (rotatedPillarBlock.defaultBlockState().getMaterial() == Material.WOOD) {
-			builder.add(RegisterProperties.TERMITE_EDIBLE);
-		}
+		builder.add(RegisterProperties.TERMITE_EDIBLE);
     }
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void wilderWild$registerDefaultTermiteEdible(BlockBehaviour.Properties settings, CallbackInfo info) {
         RotatedPillarBlock rotatedPillarBlock = RotatedPillarBlock.class.cast(this);
-		if (rotatedPillarBlock.defaultBlockState().getMaterial() == Material.WOOD) {
-			rotatedPillarBlock.registerDefaultState(rotatedPillarBlock.defaultBlockState().setValue(RegisterProperties.TERMITE_EDIBLE, true));
-		}
+		rotatedPillarBlock.registerDefaultState(rotatedPillarBlock.defaultBlockState().setValue(RegisterProperties.TERMITE_EDIBLE, true));
     }
 
 	@Inject(method = "getStateForPlacement", at = @At("RETURN"), cancellable = true)
 	public void wilderWild$getStateForPlacement(BlockPlaceContext context, CallbackInfoReturnable<BlockState> info) {
 		BlockState state = info.getReturnValue();
-		if (state != null && state.getMaterial() == Material.WOOD) {
+		if (state != null && state.hasProperty(RegisterProperties.TERMITE_EDIBLE)) {
 			info.setReturnValue(state.setValue(RegisterProperties.TERMITE_EDIBLE, false));
 		}
 	}

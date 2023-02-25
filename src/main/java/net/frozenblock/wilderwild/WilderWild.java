@@ -30,7 +30,7 @@ import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.mobcategory.api.entrypoint.FrozenMobCategoryEntrypoint;
 import net.frozenblock.lib.mobcategory.impl.FrozenMobCategory;
 import net.frozenblock.wilderwild.block.entity.PalmCrownBlockEntity;
-import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
+import net.frozenblock.wilderwild.entity.TermiteManager;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.datafixer.DrySandStateFix;
 import net.frozenblock.wilderwild.misc.datafixer.NematocystStateFix;
@@ -149,8 +149,8 @@ public final class WilderWild extends FrozenMobCategoryEntrypoint implements Mod
 		Registry.register(Registry.FEATURE, WilderSharedConstants.id("large_mesoglea_feature"), LARGE_MESOGLEA_FEATURE);
 		Registry.register(Registry.FEATURE, WilderSharedConstants.id("snow_blanket_feature"), SNOW_BLANKET_FEATURE);
 
-        TermiteMoundBlockEntity.Termite.addDegradableBlocks();
-        TermiteMoundBlockEntity.Termite.addNaturalDegradableBlocks();
+		TermiteManager.Termite.addDegradableBlocks();
+		TermiteManager.Termite.addNaturalDegradableBlocks();
 
 		RegisterBlocks.registerBlockProperties();
 
