@@ -2,7 +2,7 @@
   "parent": "wilderwild:block/template_hollowed_log",
   "textures": {
 	"top": "wilderwild:block/stripped_hollowed_warped_stem_top",
-	"inner": "minecraft:block/stripped_hollowed_warped_stem",
-	"outer": "minecraft:block/stripped_hollowed_warped_stem"
+	"inner": "wilderwild:block/stripped_hollowed_warped_stem",
+	"outer": "wilderwild:block/stripped_hollowed_warped_stem"
   }
 }
