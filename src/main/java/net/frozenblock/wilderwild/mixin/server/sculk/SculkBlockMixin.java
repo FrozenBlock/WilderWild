@@ -18,7 +18,10 @@
 
 package net.frozenblock.wilderwild.mixin.server.sculk;
 
+import com.mojang.datafixers.util.Pair;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
@@ -109,13 +112,6 @@ public abstract class SculkBlockMixin {
 
 	@Unique
 	private boolean wilderWild$canPlaceOsseousSculk;
-
-    @Inject(at = @At("HEAD"), method = "attemptUseCharge")
-    public void wilderWild$setSeed(SculkSpreader.ChargeCursor charge, LevelAccessor level, BlockPos catalystPos, RandomSource random, SculkSpreader sculkChargeHandler, boolean spread, CallbackInfoReturnable<Integer> info) {
-        if (level.getServer() != null && level.getServer().overworld().getSeed() != EasyNoiseSampler.seed) {
-			EasyNoiseSampler.setSeed(level.getServer().overworld().getSeed());
-		}
-    }
 
     @Redirect(method = "attemptUseCharge", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkBlock;canPlaceGrowth(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)Z"))
     private boolean wilderWild$newWorldgenCharge(LevelAccessor levelAccessor, BlockPos blockPos, SculkSpreader.ChargeCursor charge, LevelAccessor level, BlockPos pos, RandomSource random, SculkSpreader sculkChargeHandler, boolean spread) {
@@ -220,37 +216,39 @@ public abstract class SculkBlockMixin {
             }
             return false;
         }
-        return EasyNoiseSampler.sample(EasyNoiseSampler.perlinXoro, pos, WILDERWILD$OSSEOUS_SCULK_AREA_SIZE, true, true) > WILDERWILD$OSSEOUS_SCULK_THRESHOLD;
+        return level.getRandom().nextInt(0, 6) == 3;
     }
 
 	@Unique
     private boolean wilderWild$canPlaceGrowth(LevelAccessor level, BlockPos pos, boolean isWorldGen) {
 		BlockState blockState1 = level.getBlockState(pos.below());
 		this.wilderWild$canPlaceOsseousSculk = wilderWild$canPlaceOsseousSculk(pos, isWorldGen, level);
-        if ((isWorldGen || this.wilderWild$canPlaceOsseousSculk) && (blockState1.isAir() || (blockState1.is(Blocks.WATER) && blockState1.getFluidState().is(Fluids.WATER)))) {
-            int nearbyGrowths = 0;
+		if ((blockState1.isAir() || (blockState1.is(Blocks.WATER) && blockState1.getFluidState().is(Fluids.WATER)))) {
+			if (isWorldGen) {
+				int nearbyGrowths = 0;
 
-            for (BlockPos blockPos2 : BlockPos.betweenClosed(pos.offset(-4, 0, -4), pos.offset(4, 2, 4))) {
-                BlockState blockState2 = level.getBlockState(blockPos2);
-                if (blockState2.is(Blocks.SCULK_SENSOR) || blockState2.is(Blocks.SCULK_SHRIEKER)) {
-                    ++nearbyGrowths;
-                }
+				for (BlockPos blockPos2 : BlockPos.betweenClosed(pos.offset(-4, 0, -4), pos.offset(4, 2, 4))) {
+					BlockState blockState2 = level.getBlockState(blockPos2);
+					if (blockState2.is(Blocks.SCULK_SENSOR) || blockState2.is(Blocks.SCULK_SHRIEKER)) {
+						++nearbyGrowths;
+					}
 
-                if (nearbyGrowths > 2) {
-					this.wilderWild$isPlacingBelow = false;
-					this.wilderWild$canPlaceOsseousSculk = false;
-                    return false;
-                }
-            }
+					if (nearbyGrowths > 2) {
+						this.wilderWild$isPlacingBelow = false;
+						this.wilderWild$canPlaceOsseousSculk = false;
+						return false;
+					}
+				}
 
-			this.wilderWild$isPlacingBelow = true;
-            return true;
-
-        } else {
+				this.wilderWild$isPlacingBelow = true;
+				return true;
+			} else if (this.wilderWild$canPlaceOsseousSculk) {
+				this.wilderWild$isPlacingBelow = true;
+				return true;
+			}
 			this.wilderWild$isPlacingBelow = false;
-			this.wilderWild$canPlaceOsseousSculk = false;
-            return canPlaceGrowth(level, pos);
-        }
+		}
+		return canPlaceGrowth(level, pos);
     }
 
 }

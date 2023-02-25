@@ -33,6 +33,7 @@
     "server.general.LightningBoltMixin",
     "server.general.MobMixin",
     "server.general.NaturalSpawnerMixin",
+    "server.general.RotatedPillarBlockMixin",
     "server.general.SlimeMixin",
     "server.general.SpawnPlacementsMixin",
     "server.general.TurtleMixin",

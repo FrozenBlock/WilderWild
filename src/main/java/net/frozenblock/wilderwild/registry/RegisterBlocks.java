@@ -37,7 +37,6 @@ import net.frozenblock.wilderwild.block.BaobabNutBlock;
 import net.frozenblock.wilderwild.block.BushBlock;
 import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
-import net.frozenblock.wilderwild.block.ScorchedSandBlock;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.block.FlowerLichenBlock;
 import net.frozenblock.wilderwild.block.FloweringLilyPadBlock;
@@ -52,6 +51,7 @@ import net.frozenblock.wilderwild.block.PalmCrownBlock;
 import net.frozenblock.wilderwild.block.PalmLeavesBlock;
 import net.frozenblock.wilderwild.block.PollenBlock;
 import net.frozenblock.wilderwild.block.PricklyPearCactusBlock;
+import net.frozenblock.wilderwild.block.ScorchedSandBlock;
 import net.frozenblock.wilderwild.block.SculkSlabBlock;
 import net.frozenblock.wilderwild.block.SculkStairsBlock;
 import net.frozenblock.wilderwild.block.SculkWallBlock;
@@ -64,8 +64,8 @@ import net.frozenblock.wilderwild.block.TumbleweedBlock;
 import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
 import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
 import net.frozenblock.wilderwild.block.WaterloggableTallFlowerBlock;
-import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
+import net.frozenblock.wilderwild.entity.TermiteManager;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.misc.FlowerColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -419,11 +419,11 @@ public final class RegisterBlocks {
     public static final Block STONE_CHEST = new StoneChestBlock(FabricBlockSettings.copyOf(Blocks.CHEST).sounds(SoundType.DEEPSLATE).strength(35.0F, 12.0F), () -> RegisterBlockEntities.STONE_CHEST);
 
     // PLANTS
-    public static final Block SEEDING_DANDELION = new SeedingDandelionBlock(MobEffects.SLOW_FALLING, 12, FabricBlockSettings.copyOf(Blocks.DANDELION).sounds(SoundType.GRASS).strength(0.0F).nonOpaque());
+    public static final Block SEEDING_DANDELION = new SeedingDandelionBlock(MobEffects.SLOW_FALLING, 12, FabricBlockSettings.copyOf(Blocks.DANDELION));
     public static final Block POTTED_SEEDING_DANDELION = new FlowerPotBlock(RegisterBlocks.SEEDING_DANDELION, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
-    public static final Block CARNATION = new FlowerBlock(MobEffects.REGENERATION, 12, FabricBlockSettings.copyOf(Blocks.DANDELION).sounds(SoundType.GRASS).strength(0.0F).nonOpaque());
+    public static final Block CARNATION = new FlowerBlock(MobEffects.REGENERATION, 12, FabricBlockSettings.copyOf(Blocks.DANDELION));
     public static final Block POTTED_CARNATION = new FlowerPotBlock(RegisterBlocks.CARNATION, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
-    public static final Block GLORY_OF_THE_SNOW = new GloryOfTheSnowBlock(FabricBlockSettings.copyOf(Blocks.DANDELION).sounds(SoundType.GRASS).strength(0.0F).nonOpaque().ticksRandomly(), List.of(FlowerColor.BLUE, FlowerColor.PINK, FlowerColor.PURPLE, FlowerColor.WHITE));
+    public static final Block GLORY_OF_THE_SNOW = new GloryOfTheSnowBlock(FabricBlockSettings.copyOf(Blocks.DANDELION).sounds(SoundType.GRASS).ticksRandomly(), List.of(FlowerColor.BLUE, FlowerColor.PINK, FlowerColor.PURPLE, FlowerColor.WHITE));
 
     public static final Block WHITE_GLORY_OF_THE_SNOW = new FlowerLichenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(BlockBehaviour.OffsetType.NONE).color(MaterialColor.QUARTZ).sound(SoundType.VINE));
     public static final Block PINK_GLORY_OF_THE_SNOW = new FlowerLichenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(BlockBehaviour.OffsetType.NONE).color(MaterialColor.CRIMSON_STEM).sound(SoundType.VINE));
@@ -624,36 +624,36 @@ public final class RegisterBlocks {
 	}
 
     public static void registerBlockProperties() {
-        TermiteMoundBlockEntity.Termite.addDegradable(BAOBAB_LOG, STRIPPED_BAOBAB_LOG);
-        TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_BAOBAB_LOG, STRIPPED_HOLLOWED_BAOBAB_LOG);
-		TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_HOLLOWED_BAOBAB_LOG, Blocks.AIR);
-        TermiteMoundBlockEntity.Termite.addDegradable(BAOBAB_WOOD, STRIPPED_BAOBAB_WOOD);
-        TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_BAOBAB_WOOD, Blocks.AIR);
+        TermiteManager.Termite.addDegradable(BAOBAB_LOG, STRIPPED_BAOBAB_LOG);
+        TermiteManager.Termite.addDegradable(STRIPPED_BAOBAB_LOG, STRIPPED_HOLLOWED_BAOBAB_LOG);
+		TermiteManager.Termite.addDegradable(STRIPPED_HOLLOWED_BAOBAB_LOG, Blocks.AIR);
+        TermiteManager.Termite.addDegradable(BAOBAB_WOOD, STRIPPED_BAOBAB_WOOD);
+        TermiteManager.Termite.addDegradable(STRIPPED_BAOBAB_WOOD, Blocks.AIR);
 
-        TermiteMoundBlockEntity.Termite.addNaturalDegradable(BAOBAB_LOG, STRIPPED_BAOBAB_LOG);
-        TermiteMoundBlockEntity.Termite.addNaturalDegradable(BAOBAB_WOOD, STRIPPED_BAOBAB_WOOD);
+        TermiteManager.Termite.addNaturalDegradable(BAOBAB_LOG, STRIPPED_BAOBAB_LOG);
+        TermiteManager.Termite.addNaturalDegradable(BAOBAB_WOOD, STRIPPED_BAOBAB_WOOD);
 
-		TermiteMoundBlockEntity.Termite.addDegradable(CYPRESS_LOG, STRIPPED_CYPRESS_LOG);
-		TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_CYPRESS_LOG, STRIPPED_HOLLOWED_CYPRESS_LOG);
-		TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_HOLLOWED_CYPRESS_LOG, Blocks.AIR);
-		TermiteMoundBlockEntity.Termite.addDegradable(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
-		TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_CYPRESS_WOOD, Blocks.AIR);
+		TermiteManager.Termite.addDegradable(CYPRESS_LOG, STRIPPED_CYPRESS_LOG);
+		TermiteManager.Termite.addDegradable(STRIPPED_CYPRESS_LOG, STRIPPED_HOLLOWED_CYPRESS_LOG);
+		TermiteManager.Termite.addDegradable(STRIPPED_HOLLOWED_CYPRESS_LOG, Blocks.AIR);
+		TermiteManager.Termite.addDegradable(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
+		TermiteManager.Termite.addDegradable(STRIPPED_CYPRESS_WOOD, Blocks.AIR);
 
-        TermiteMoundBlockEntity.Termite.addNaturalDegradable(CYPRESS_LOG, STRIPPED_CYPRESS_LOG);
-        TermiteMoundBlockEntity.Termite.addNaturalDegradable(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
+        TermiteManager.Termite.addNaturalDegradable(CYPRESS_LOG, STRIPPED_CYPRESS_LOG);
+        TermiteManager.Termite.addNaturalDegradable(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
 
-		TermiteMoundBlockEntity.Termite.addDegradable(PALM_CROWN, PALM_LOG);
-		TermiteMoundBlockEntity.Termite.addDegradable(PALM_LOG, STRIPPED_PALM_LOG);
-		TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_PALM_LOG, STRIPPED_HOLLOWED_PALM_LOG);
-		TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_HOLLOWED_PALM_LOG, Blocks.AIR);
-		TermiteMoundBlockEntity.Termite.addDegradable(PALM_WOOD, STRIPPED_PALM_WOOD);
-		TermiteMoundBlockEntity.Termite.addDegradable(STRIPPED_PALM_WOOD, Blocks.AIR);
+		TermiteManager.Termite.addDegradable(PALM_CROWN, PALM_LOG);
+		TermiteManager.Termite.addDegradable(PALM_LOG, STRIPPED_PALM_LOG);
+		TermiteManager.Termite.addDegradable(STRIPPED_PALM_LOG, STRIPPED_HOLLOWED_PALM_LOG);
+		TermiteManager.Termite.addDegradable(STRIPPED_HOLLOWED_PALM_LOG, Blocks.AIR);
+		TermiteManager.Termite.addDegradable(PALM_WOOD, STRIPPED_PALM_WOOD);
+		TermiteManager.Termite.addDegradable(STRIPPED_PALM_WOOD, Blocks.AIR);
 
-		TermiteMoundBlockEntity.Termite.addNaturalDegradable(PALM_LOG, STRIPPED_PALM_LOG);
-		TermiteMoundBlockEntity.Termite.addNaturalDegradable(PALM_WOOD, STRIPPED_PALM_WOOD);
-		TermiteMoundBlockEntity.Termite.addNaturalDegradable(PALM_CROWN, PALM_LOG);
+		TermiteManager.Termite.addNaturalDegradable(PALM_LOG, STRIPPED_PALM_LOG);
+		TermiteManager.Termite.addNaturalDegradable(PALM_WOOD, STRIPPED_PALM_WOOD);
+		TermiteManager.Termite.addNaturalDegradable(PALM_CROWN, PALM_LOG);
 
-		TermiteMoundBlockEntity.Termite.addDegradable(BUSH, Blocks.DEAD_BUSH);
+		TermiteManager.Termite.addDegradable(BUSH, Blocks.DEAD_BUSH);
 
         registerStrippable();
         registerComposting();
