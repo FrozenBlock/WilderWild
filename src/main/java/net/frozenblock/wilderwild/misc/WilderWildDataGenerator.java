@@ -805,9 +805,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptionalTag(BlockTags.BASE_STONE_NETHER)
 					.addOptionalTag(BlockTags.DRAGON_IMMUNE)
 					.addOptionalTag(BlockTags.WITHER_IMMUNE)
-					.addOptionalTag(BlockTags.LOGS)
-					.add(Blocks.CHORUS_FLOWER)
-					.add(Blocks.CHORUS_PLANT);
+					.addOptionalTag(BlockTags.LOGS);
 		}
 
 		private void generateDeepDark() {

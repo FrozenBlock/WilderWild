@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.block.entity;
 
 import net.frozenblock.wilderwild.entity.TermiteManager;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
@@ -50,11 +49,6 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 	@Override
 	public void load(@NotNull CompoundTag tag) {
 		super.load(tag);
-		BlockState blockState = this.level != null ? this.level.getBlockState(this.getBlockPos()) : null;
-		if (blockState != null) {
-			this.termiteManager.load(tag, blockState.getValue(RegisterProperties.NATURAL), blockState.getValue(RegisterProperties.TERMITES_AWAKE), blockState.getValue(RegisterProperties.CAN_SPAWN_TERMITE));
-		} else {
-			this.termiteManager.load(tag, false, false, false);
-		}
+		this.termiteManager.load(tag);
 	}
 }

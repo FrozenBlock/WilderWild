@@ -124,7 +124,7 @@ public class TermiteManager {
 				.ifPresent((cursorsNbt) -> tag.put("termites", cursorsNbt));
 	}
 
-	public void load(@NotNull CompoundTag tag, boolean natural, boolean awake, boolean canSpawn) {
+	public void load(@NotNull CompoundTag tag) {
 		this.ticksToNextTermite = tag.getInt("ticksToNextTermite");
 		if (tag.contains("termites", 9)) {
 			this.termites.clear();
@@ -132,9 +132,7 @@ public class TermiteManager {
 			Termite.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE, tag.getList("termites", 10)))
 					.resultOrPartial(logger::error)
 					.ifPresent(termitesAllAllAll -> {
-						int max = maxTermites(natural, awake, canSpawn);
-						int i = Math.min(termitesAllAllAll.size(), max);
-						for (int j = 0; j < i; ++j) {
+						for (int j = 0; j < 5; ++j) {
 							this.termites.add(termitesAllAllAll.get(j));
 						}
 					});
