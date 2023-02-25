@@ -182,7 +182,7 @@ public class TermiteManager {
 				boolean degradable = !this.natural ? DEGRADABLE_BLOCKS.containsKey(block) : NATURAL_DEGRADABLE_BLOCKS.containsKey(block);
 				boolean breakable = blockState.is(WilderBlockTags.TERMITE_BREAKABLE);
 				boolean leaves = blockState.is(BlockTags.LEAVES);
-				if ((degradable || breakable) && (blockState.hasProperty(RegisterProperties.TERMITE_EDIBLE) ? blockState.getValue(RegisterProperties.TERMITE_EDIBLE) : true)) {
+				if ((degradable || breakable) && isEdibleProperty(blockState)) {
 					this.eating = true;
 					exit = true;
 					int additionalPower = breakable ? leaves ? 4 : 2 : 1;
@@ -284,22 +284,26 @@ public class TermiteManager {
 		public static BlockPos degradableBreakablePos(Level level, BlockPos pos, boolean natural) {
 			List<Direction> directions = Util.shuffledCopy(Direction.values(), level.random);
 			BlockState upState = level.getBlockState(pos.relative(Direction.UP));
-			if ((!natural ? DEGRADABLE_BLOCKS.containsKey(upState.getBlock()) : NATURAL_DEGRADABLE_BLOCKS.containsKey(upState.getBlock())) || upState.is(WilderBlockTags.TERMITE_BREAKABLE)) {
+			if (((!natural ? DEGRADABLE_BLOCKS.containsKey(upState.getBlock()) : NATURAL_DEGRADABLE_BLOCKS.containsKey(upState.getBlock())) || upState.is(WilderBlockTags.TERMITE_BREAKABLE)) && isEdibleProperty(upState)) {
 				return pos.relative(Direction.UP);
 			}
 			for (Direction direction : directions) {
 				BlockState state = level.getBlockState(pos.relative(direction));
-				if ((!natural ? DEGRADABLE_BLOCKS.containsKey(state.getBlock()) : NATURAL_DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || state.is(WilderBlockTags.TERMITE_BREAKABLE)) {
+				if (((!natural ? DEGRADABLE_BLOCKS.containsKey(state.getBlock()) : NATURAL_DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || state.is(WilderBlockTags.TERMITE_BREAKABLE))  && isEdibleProperty(state)) {
 					return pos.relative(direction);
 				}
 			}
 			return null;
 		}
 
+		public static boolean isEdibleProperty(BlockState state) {
+			return state.hasProperty(RegisterProperties.TERMITE_EDIBLE) ? state.getValue(RegisterProperties.TERMITE_EDIBLE) : true;
+		}
+
 		public static boolean exposedToAir(Level level, BlockPos pos, boolean natural) {
 			for (Direction direction : Direction.values()) {
 				BlockState state = level.getBlockState(pos.relative(direction));
-				if (state.isAir() || (!state.isRedstoneConductor(level, pos.relative(direction)) && !state.is(WilderBlockTags.BLOCKS_TERMITE)) || (!natural && DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || (natural && NATURAL_DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || state.is(WilderBlockTags.TERMITE_BREAKABLE)) {
+				if (state.isAir() || (!state.isRedstoneConductor(level, pos.relative(direction)) && !state.is(WilderBlockTags.BLOCKS_TERMITE)) || ((!natural && DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || (natural && NATURAL_DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || state.is(WilderBlockTags.TERMITE_BREAKABLE))  && isEdibleProperty(state)) {
 					return true;
 				}
 			}
