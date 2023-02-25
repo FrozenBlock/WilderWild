@@ -216,37 +216,39 @@ public abstract class SculkBlockMixin {
             }
             return false;
         }
-        return level.getRandom().nextBoolean();
+        return level.getRandom().nextInt(0, 4) == 3;
     }
 
 	@Unique
     private boolean wilderWild$canPlaceGrowth(LevelAccessor level, BlockPos pos, boolean isWorldGen) {
 		BlockState blockState1 = level.getBlockState(pos.below());
 		this.wilderWild$canPlaceOsseousSculk = wilderWild$canPlaceOsseousSculk(pos, isWorldGen, level);
-        if ((isWorldGen || this.wilderWild$canPlaceOsseousSculk) && (blockState1.isAir() || (blockState1.is(Blocks.WATER) && blockState1.getFluidState().is(Fluids.WATER)))) {
-            int nearbyGrowths = 0;
+		if ((blockState1.isAir() || (blockState1.is(Blocks.WATER) && blockState1.getFluidState().is(Fluids.WATER)))) {
+			if (isWorldGen) {
+				int nearbyGrowths = 0;
 
-            for (BlockPos blockPos2 : BlockPos.betweenClosed(pos.offset(-4, 0, -4), pos.offset(4, 2, 4))) {
-                BlockState blockState2 = level.getBlockState(blockPos2);
-                if (blockState2.is(Blocks.SCULK_SENSOR) || blockState2.is(Blocks.SCULK_SHRIEKER)) {
-                    ++nearbyGrowths;
-                }
+				for (BlockPos blockPos2 : BlockPos.betweenClosed(pos.offset(-4, 0, -4), pos.offset(4, 2, 4))) {
+					BlockState blockState2 = level.getBlockState(blockPos2);
+					if (blockState2.is(Blocks.SCULK_SENSOR) || blockState2.is(Blocks.SCULK_SHRIEKER)) {
+						++nearbyGrowths;
+					}
 
-                if (nearbyGrowths > 2) {
-					this.wilderWild$isPlacingBelow = false;
-					this.wilderWild$canPlaceOsseousSculk = false;
-                    return false;
-                }
-            }
+					if (nearbyGrowths > 2) {
+						this.wilderWild$isPlacingBelow = false;
+						this.wilderWild$canPlaceOsseousSculk = false;
+						return false;
+					}
+				}
 
-			this.wilderWild$isPlacingBelow = true;
-            return true;
-
-        } else {
+				this.wilderWild$isPlacingBelow = true;
+				return true;
+			} else if (this.wilderWild$canPlaceOsseousSculk) {
+				this.wilderWild$isPlacingBelow = true;
+				return true;
+			}
 			this.wilderWild$isPlacingBelow = false;
-			this.wilderWild$canPlaceOsseousSculk = false;
-            return canPlaceGrowth(level, pos);
-        }
+		}
+		return canPlaceGrowth(level, pos);
     }
 
 }
