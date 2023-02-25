@@ -191,7 +191,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
                 boolean degradable = !this.natural ? DEGRADABLE_BLOCKS.containsKey(block) : NATURAL_DEGRADABLE_BLOCKS.containsKey(block);
                 boolean breakable = blockState.is(WilderBlockTags.TERMITE_BREAKABLE);
                 boolean leaves = blockState.is(BlockTags.LEAVES);
-                if (degradable || breakable) {
+                if ((degradable || breakable) && (blockState.hasProperty(RegisterProperties.TERMITE_EDIBLE) ? blockState.getValue(RegisterProperties.TERMITE_EDIBLE) : false)) {
                     this.eating = true;
                     exit = true;
                     int additionalPower = breakable ? leaves ? 4 : 2 : 1;

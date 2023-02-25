@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.block;
 
+import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -128,7 +129,11 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        return this.defaultBlockState().setValue(AXIS, ctx.getClickedFace().getAxis()).setValue(WATERLOGGED, ctx.getLevel().getFluidState(ctx.getClickedPos()).is(Fluids.WATER));
+		BlockState blockState = this.defaultBlockState().setValue(AXIS, ctx.getClickedFace().getAxis()).setValue(WATERLOGGED, ctx.getLevel().getFluidState(ctx.getClickedPos()).is(Fluids.WATER));
+		if (blockState.hasProperty(RegisterProperties.TERMITE_EDIBLE)) {
+			blockState.setValue(RegisterProperties.TERMITE_EDIBLE, false);
+		}
+		return blockState;
     }
 
     @Override
