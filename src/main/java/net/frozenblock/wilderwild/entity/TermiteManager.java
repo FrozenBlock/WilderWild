@@ -262,35 +262,39 @@ public class TermiteManager {
 
 		@Nullable
 		public static BlockPos ledgePos(Level level, BlockPos pos, boolean natural) {
-			BlockState state = level.getBlockState(pos);
+			BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
+			BlockState state = level.getBlockState(mutableBlockPos);
 			if (DEGRADABLE_BLOCKS.containsKey(state.getBlock()) || state.is(WilderBlockTags.TERMITE_BREAKABLE)) {
-				return pos;
+				return mutableBlockPos;
 			}
-			pos = pos.below();
-			state = level.getBlockState(pos);
-			if (!state.isAir() && isBlockMovable(state, Direction.DOWN) && exposedToAir(level, pos, natural)) {
-				return pos;
+			mutableBlockPos.move(Direction.DOWN);
+			state = level.getBlockState(mutableBlockPos);
+			if (!state.isAir() && isBlockMovable(state, Direction.DOWN) && exposedToAir(level, mutableBlockPos, natural)) {
+				return mutableBlockPos;
 			}
-			pos = pos.above().above();
-			state = level.getBlockState(pos);
-			if (!state.isAir() && isBlockMovable(state, Direction.UP) && exposedToAir(level, pos, natural)) {
-				return pos;
+			mutableBlockPos.move(Direction.UP, 2);
+			state = level.getBlockState(mutableBlockPos);
+			if (!state.isAir() && isBlockMovable(state, Direction.UP) && exposedToAir(level, mutableBlockPos, natural)) {
+				return mutableBlockPos;
 			}
 			return null;
 		}
 
 		@Nullable
 		public static BlockPos degradableBreakablePos(Level level, BlockPos pos, boolean natural) {
+			BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 			List<Direction> directions = Util.shuffledCopy(Direction.values(), level.random);
-			BlockState upState = level.getBlockState(pos.relative(Direction.UP));
+			BlockState upState = level.getBlockState(mutableBlockPos.move(Direction.UP));
 			if (((!natural ? DEGRADABLE_BLOCKS.containsKey(upState.getBlock()) : NATURAL_DEGRADABLE_BLOCKS.containsKey(upState.getBlock())) || upState.is(WilderBlockTags.TERMITE_BREAKABLE)) && isEdibleProperty(upState)) {
-				return pos.relative(Direction.UP);
+				return mutableBlockPos;
 			}
+			mutableBlockPos.move(Direction.DOWN);
 			for (Direction direction : directions) {
-				BlockState state = level.getBlockState(pos.relative(direction));
+				BlockState state = level.getBlockState(mutableBlockPos.move(direction));
 				if (((!natural ? DEGRADABLE_BLOCKS.containsKey(state.getBlock()) : NATURAL_DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || state.is(WilderBlockTags.TERMITE_BREAKABLE))  && isEdibleProperty(state)) {
-					return pos.relative(direction);
+					return mutableBlockPos;
 				}
+				mutableBlockPos.move(direction, -1);
 			}
 			return null;
 		}
@@ -300,11 +304,13 @@ public class TermiteManager {
 		}
 
 		public static boolean exposedToAir(Level level, BlockPos pos, boolean natural) {
+			BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 			for (Direction direction : Direction.values()) {
-				BlockState state = level.getBlockState(pos.relative(direction));
-				if (state.isAir() || (!state.isRedstoneConductor(level, pos.relative(direction)) && !state.is(WilderBlockTags.BLOCKS_TERMITE)) || ((!natural && DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || (natural && NATURAL_DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || state.is(WilderBlockTags.TERMITE_BREAKABLE))  && isEdibleProperty(state)) {
+				BlockState state = level.getBlockState(mutableBlockPos.move(direction));
+				if (state.isAir() || (!state.isRedstoneConductor(level, mutableBlockPos) && !state.is(WilderBlockTags.BLOCKS_TERMITE)) || ((!natural && DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || (natural && NATURAL_DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || state.is(WilderBlockTags.TERMITE_BREAKABLE))  && isEdibleProperty(state)) {
 					return true;
 				}
+				mutableBlockPos.move(direction, -1);
 			}
 			return false;
 		}
