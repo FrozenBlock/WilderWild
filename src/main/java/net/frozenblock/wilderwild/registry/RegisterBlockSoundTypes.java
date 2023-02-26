@@ -27,7 +27,7 @@ public final class RegisterBlockSoundTypes {
 		throw new UnsupportedOperationException("RegisterBlockEntities contains only static declarations.");
 	}
 
-	public static final SoundType ALGAE = new SoundType(1.0F, 1.0F,
+	public static final SoundType ALGAE = new SoundType(0.8F, 1.0F,
 			BLOCK_ALGAE_BREAK,
 			BLOCK_ALGAE_STEP,
 			BLOCK_ALGAE_PLACE,
@@ -51,7 +51,7 @@ public final class RegisterBlockSoundTypes {
 			BLOCK_COCONUT_FALL
 	);
 
-    public static final SoundType CLAY_BLOCK = new SoundType(1.0F, 1.0F,
+    public static final SoundType CLAY_BLOCK = new SoundType(0.9F, 1.0F,
             BLOCK_CLAY_BREAK,
             BLOCK_CLAY_STEP,
             BLOCK_CLAY_PLACE,
@@ -59,7 +59,7 @@ public final class RegisterBlockSoundTypes {
             BLOCK_CLAY_FALL
     );
 
-	public static final SoundType CACTI = new SoundType(1.0F, 1.0F,
+	public static final SoundType CACTI = new SoundType(0.8F, 1.0F,
 			BLOCK_CACTUS_BREAK,
 			BLOCK_CACTUS_STEP,
 			BLOCK_CACTUS_PLACE,
@@ -67,7 +67,7 @@ public final class RegisterBlockSoundTypes {
 			BLOCK_CACTUS_FALL
 	);
 
-    public static final SoundType GRAVELSOUNDS = new SoundType(1.0F, 1.0F,
+    public static final SoundType GRAVELSOUNDS = new SoundType(0.8F, 1.0F,
             BLOCK_GRAVEL_BREAK,
             BLOCK_GRAVEL_STEP,
             BLOCK_GRAVEL_PLACE,
@@ -123,7 +123,7 @@ public final class RegisterBlockSoundTypes {
 			BLOCK_HOLLOWED_STEM_FALL
 	);
 
-    public static final SoundType ECHO_GLASS = new SoundType(1.0F, 1.25F,
+    public static final SoundType ECHO_GLASS = new SoundType(0.8F, 1.25F,
             RegisterSounds.BLOCK_ECHO_GLASS_BREAK,
             RegisterSounds.BLOCK_ECHO_GLASS_STEP,
             RegisterSounds.BLOCK_ECHO_GLASS_PLACE,
@@ -131,7 +131,7 @@ public final class RegisterBlockSoundTypes {
             RegisterSounds.BLOCK_ECHO_GLASS_FALL
     );
 
-    public static final SoundType MESOGLEA = new SoundType(1.0F, 1.0F,
+    public static final SoundType MESOGLEA = new SoundType(0.8F, 1.0F,
             BLOCK_MESOGLEA_BREAK,
             BLOCK_MESOGLEA_STEP,
             BLOCK_MESOGLEA_PLACE,
