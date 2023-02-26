@@ -19,12 +19,15 @@
 package net.frozenblock.wilderwild.entity;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
 import net.frozenblock.wilderwild.block.TermiteMound;
@@ -41,6 +44,7 @@ import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
@@ -118,22 +122,23 @@ public class TermiteManager {
 	public void saveAdditional(@NotNull CompoundTag tag) {
 		tag.putInt("ticksToNextTermite", this.ticksToNextTermite);
 		Logger logger = WilderSharedConstants.LOGGER;
-		Termite.CODEC.listOf()
-				.encodeStart(NbtOps.INSTANCE, this.termites)
-				.resultOrPartial(logger::error)
-				.ifPresent(termites -> tag.put("termites", termites));
+		DataResult<Tag> var10000 = Termite.CODEC.listOf().encodeStart(NbtOps.INSTANCE, this.termites);
+		Objects.requireNonNull(logger);
+		var10000.resultOrPartial(logger::error).ifPresent((nbt) -> tag.put("termites", nbt));
 	}
 
 	public void load(@NotNull CompoundTag tag) {
 		this.ticksToNextTermite = tag.getInt("ticksToNextTermite");
 		if (tag.contains("termites", 9)) {
 			this.termites.clear();
+			DataResult<List<Termite>> var10000 = Termite.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE, tag.getList("termites", 10)));
 			Logger logger = WilderSharedConstants.LOGGER;
-			List<Termite> list = Termite.CODEC.listOf()
-					.parse(new Dynamic<>(NbtOps.INSTANCE, tag.getList("termites", 10)))
-					.resultOrPartial(logger::error)
-					.orElseGet(ArrayList::new);
-			this.termites.addAll(list);
+			Objects.requireNonNull(logger);
+			Optional<List<Termite>> list = var10000.resultOrPartial(logger::error);
+			if (list.isPresent()) {
+				List<Termite> termiteList = list.get();
+				this.termites.addAll(termiteList);
+			}
 		}
 	}
 
