@@ -141,7 +141,7 @@ public class ScorchedSandBlock extends Block {
 	public ItemStack getCloneItemStack(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state) {
 		ItemStack superStack = super.getCloneItemStack(level, pos, state);
 		if (state.getValue(RegisterProperties.CRACKEDNESS) == 1) {
-			ItemBlockStateTagUtils.setIntProperty(superStack, RegisterProperties.CRACKEDNESS, 1);
+			ItemBlockStateTagUtils.setProperty(superStack, RegisterProperties.CRACKEDNESS, 1);
 		}
 		return superStack;
 	}
@@ -150,7 +150,7 @@ public class ScorchedSandBlock extends Block {
 	public void fillItemCategory(@NotNull CreativeModeTab tab, @NotNull NonNullList<ItemStack> items) {
 		super.fillItemCategory(tab, items);
 		ItemStack secondStack = new ItemStack(this);
-		ItemBlockStateTagUtils.setIntProperty(secondStack, RegisterProperties.CRACKEDNESS, 1);
+		ItemBlockStateTagUtils.setProperty(secondStack, RegisterProperties.CRACKEDNESS, 1);
 		items.add(secondStack);
 	}
 

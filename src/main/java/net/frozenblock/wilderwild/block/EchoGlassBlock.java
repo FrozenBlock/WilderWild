@@ -144,7 +144,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
 		ItemStack superStack = super.getCloneItemStack(level, pos, state);
 		int damage = state.getValue(RegisterProperties.DAMAGE);
 		if (damage != 0) {
-			ItemBlockStateTagUtils.setIntProperty(superStack, RegisterProperties.DAMAGE, damage);
+			ItemBlockStateTagUtils.setProperty(superStack, RegisterProperties.DAMAGE, damage);
 		}
 		return superStack;
 	}
