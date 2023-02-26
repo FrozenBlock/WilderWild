@@ -26,14 +26,39 @@
 				}
 			  ],
 			  "functions": [
-				{
-				  "function": "minecraft:copy_state",
-				  "block": "minecraft:sculk_shrieker",
-				  "properties": [
-					"souls_taken"
-				  ]
-				}
-			  ],
+                {
+                  "function": "minecraft:copy_state",
+                  "block": "minecraft:sculk_shrieker",
+                  "properties": [
+                    "souls_taken"
+                  ],
+                  "conditions": [
+                    {
+                      "condition": "minecraft:block_state_property",
+                      "block": "minecraft:sculk_shrieker",
+                      "properties": {
+                        "souls_taken": "1"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "function": "minecraft:copy_state",
+                  "block": "minecraft:sculk_shrieker",
+                  "properties": [
+                    "souls_taken"
+                  ],
+                  "conditions": [
+                    {
+                      "condition": "minecraft:block_state_property",
+                      "block": "minecraft:sculk_shrieker",
+                      "properties": {
+                        "souls_taken": "2"
+                      }
+                    }
+                  ]
+                }
+              ],
 			  "name": "minecraft:sculk_shrieker"
 			}
 		  ]
