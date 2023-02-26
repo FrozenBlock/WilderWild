@@ -100,15 +100,13 @@ public class EchoGlassBlock extends TintedGlassBlock {
     }
 
     public static int getLightLevel(Level level, BlockPos blockPos) {
+		BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
         int finalLight = 0;
-        for (Direction direction : UPDATE_SHAPE_ORDER) {
-            BlockPos pos = blockPos.relative(direction);
-            int skyLight = 0;
-            int blockLight = level.getBrightness(LightLayer.BLOCK, pos);
-            if (level.isDay() && !level.isRaining()) {
-                skyLight = level.getBrightness(LightLayer.SKY, pos);
-            }
-            finalLight = Math.max(finalLight, Math.max(skyLight, blockLight));
+        for (Direction direction : Direction.values()) {
+			mutableBlockPos.move(direction);
+			int newLight = !level.isRaining() ? level.getMaxLocalRawBrightness(blockPos) : level.getBrightness(LightLayer.BLOCK, blockPos);
+            finalLight = Math.max(finalLight, newLight);
+			mutableBlockPos.move(direction, -1);
         }
         return finalLight;
     }

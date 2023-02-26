@@ -119,6 +119,29 @@ public class TermiteManager {
 		return natural ? 3 : 5;
 	}
 
+	public static boolean areTermitesSafe(@NotNull Level level, @NotNull BlockPos pos) {
+		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
+		for (Direction direction : Direction.values()) {
+			if (!isPosSafeForTermites(level, mutableBlockPos.move(direction))) {
+				return false;
+			}
+			mutableBlockPos.move(direction, -1);
+		}
+		return true;
+	}
+
+	public static boolean isPosSafeForTermites(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
+		return isStateSafeForTermites(level.getBlockState(pos)) && level.getFluidState(pos).isEmpty();
+	}
+
+	public static boolean isPosSafeForTermites(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state) {
+		return isStateSafeForTermites(state) && level.getFluidState(pos).isEmpty();
+	}
+
+	public static boolean isStateSafeForTermites(@NotNull BlockState state) {
+		return !state.is(WilderBlockTags.KILLS_TERMITE) && (!state.hasProperty(BlockStateProperties.WATERLOGGED) || !state.getValue(BlockStateProperties.WATERLOGGED));
+	}
+
 	public void saveAdditional(@NotNull CompoundTag tag) {
 		tag.putInt("ticksToNextTermite", this.ticksToNextTermite);
 		Logger logger = WilderSharedConstants.LOGGER;
@@ -175,7 +198,7 @@ public class TermiteManager {
 			if (this.aliveTicks > (this.natural ? 1200 : 2000) || isTooFar(this.natural, this.mound, this.pos)) {
 				return false;
 			}
-			if (!TermiteMound.areTermitesSafe(level, this.pos)) {
+			if (!areTermitesSafe(level, this.pos)) {
 				return false;
 			}
 			if (canMove(level, this.pos)) {
@@ -218,7 +241,7 @@ public class TermiteManager {
 					}
 					BlockPos offest = this.pos.relative(direction);
 					BlockState state = level.getBlockState(offest);
-					if (!TermiteMound.isStateSafeForTermites(state)) {
+					if (!isStateSafeForTermites(state)) {
 						return false;
 					}
 

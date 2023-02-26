@@ -143,7 +143,13 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
         return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
     }
 
-    @Override
+	@Override
+	public int decreaseAirSupply(int currentAir) {
+		int newSupply = super.decreaseAirSupply(currentAir);
+		return newSupply == currentAir - 1 ? newSupply - 1 : newSupply;
+	}
+
+	@Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(FROM_BOTTLE, false);
