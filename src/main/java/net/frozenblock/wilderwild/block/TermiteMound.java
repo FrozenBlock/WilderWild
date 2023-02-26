@@ -101,8 +101,7 @@ public class TermiteMound extends BaseEntityBlock {
 		int finalLight = 0;
 		for (Direction direction : Direction.values()) {
 			mutableBlockPos.move(direction);
-			BlockPos pos = blockPos.relative(direction);
-			int newLight = !level.isRaining() ? level.getMaxLocalRawBrightness(pos) : level.getBrightness(LightLayer.BLOCK, pos);
+			int newLight = !level.isRaining() ? level.getMaxLocalRawBrightness(mutableBlockPos) : level.getBrightness(LightLayer.BLOCK, mutableBlockPos);
 			finalLight = Math.max(finalLight, newLight);
 			mutableBlockPos.move(direction, -1);
 		}

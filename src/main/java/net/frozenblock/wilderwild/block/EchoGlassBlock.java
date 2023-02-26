@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.block;
 
+import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
@@ -33,6 +34,7 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
@@ -104,7 +106,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
         int finalLight = 0;
         for (Direction direction : Direction.values()) {
 			mutableBlockPos.move(direction);
-			int newLight = !level.isRaining() ? level.getMaxLocalRawBrightness(blockPos) : level.getBrightness(LightLayer.BLOCK, blockPos);
+			int newLight = !level.isRaining() ? level.getMaxLocalRawBrightness(mutableBlockPos) : level.getBrightness(LightLayer.BLOCK, mutableBlockPos);
             finalLight = Math.max(finalLight, newLight);
 			mutableBlockPos.move(direction, -1);
         }
@@ -137,8 +139,13 @@ public class EchoGlassBlock extends TintedGlassBlock {
         super.onProjectileHit(level, state, hit, projectile);
     }
 
-    @Override
-    public boolean isRandomlyTicking(@NotNull BlockState state) {
-        return true;
-    }
+	@Override
+	public ItemStack getCloneItemStack(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state) {
+		ItemStack superStack = super.getCloneItemStack(level, pos, state);
+		int damage = state.getValue(RegisterProperties.DAMAGE);
+		if (damage != 0) {
+			ItemBlockStateTagUtils.setIntProperty(superStack, RegisterProperties.DAMAGE, damage);
+		}
+		return superStack;
+	}
 }

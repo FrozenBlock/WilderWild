@@ -20,15 +20,20 @@ package net.frozenblock.wilderwild.block;
 
 import java.util.HashMap;
 import java.util.Map;
+import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
 import net.frozenblock.wilderwild.misc.mod_compat.FrozenLibIntegration;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
@@ -130,6 +135,23 @@ public class ScorchedSandBlock extends Block {
 		} else if (fluid == Fluids.WATER) {
 			hydrate(state, level, pos);
 		}
+	}
+
+	@Override
+	public ItemStack getCloneItemStack(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state) {
+		ItemStack superStack = super.getCloneItemStack(level, pos, state);
+		if (state.getValue(RegisterProperties.CRACKEDNESS) == 1) {
+			ItemBlockStateTagUtils.setIntProperty(superStack, RegisterProperties.CRACKEDNESS, 1);
+		}
+		return superStack;
+	}
+
+	@Override
+	public void fillItemCategory(@NotNull CreativeModeTab tab, @NotNull NonNullList<ItemStack> items) {
+		super.fillItemCategory(tab, items);
+		ItemStack secondStack = new ItemStack(this);
+		ItemBlockStateTagUtils.setIntProperty(secondStack, RegisterProperties.CRACKEDNESS, 1);
+		items.add(secondStack);
 	}
 
 	@Override
