@@ -67,15 +67,12 @@ public class NematocystFeature extends MultifaceGrowthFeature {
 						}
 					}
 				}
-
 				return false;
 			}
 		}
 	}
 
-	public static boolean placeGrowthIfPossible(
-			@NotNull WorldGenLevel level, BlockPos pos, @NotNull BlockState state, @NotNull MultifaceGrowthConfiguration config, @NotNull RandomSource random, List<Direction> directions
-	) {
+	public static boolean placeGrowthIfPossible(@NotNull WorldGenLevel level, BlockPos pos, @NotNull BlockState state, @NotNull MultifaceGrowthConfiguration config, @NotNull RandomSource random, List<Direction> directions) {
 		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 
 		for(Direction direction : directions) {
@@ -97,11 +94,9 @@ public class NematocystFeature extends MultifaceGrowthFeature {
 						break;
 					}
 				}
-
 				return true;
 			}
 		}
-
 		return false;
 	}
 

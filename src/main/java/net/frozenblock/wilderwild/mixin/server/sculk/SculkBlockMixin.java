@@ -18,10 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.server.sculk;
 
-import com.mojang.datafixers.util.Pair;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
@@ -88,14 +85,6 @@ public abstract class SculkBlockMixin {
      */
 	@Unique
     private static final double WILDERWILD$OSSEOUS_SCULK_AREA_SIZE = 0.09;
-
-    /**
-     * Decides how commonly Osseous Sculk pillars will grow.
-     * <p>
-     * If set to 1 or higher, the pillars will never grow.
-     */
-	@Unique
-    private static final double WILDERWILD$OSSEOUS_SCULK_THRESHOLD = 0.15;
 
     /**
      * Decides how commonly Osseous Sculk pillars will grow during worldgen.
@@ -216,7 +205,7 @@ public abstract class SculkBlockMixin {
             }
             return false;
         }
-        return level.getRandom().nextInt(0, 6) == 3;
+        return level.getRandom().nextInt(0, 7) == 3;
     }
 
 	@Unique

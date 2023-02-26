@@ -63,9 +63,13 @@ public final class RegisterItems {
     public static final Item PALM_SIGN = new SignItem(new FabricItemSettings().group(CreativeModeTab.TAB_DECORATIONS).maxCount(16),
             RegisterBlocks.PALM_SIGN_BLOCK, RegisterBlocks.PALM_WALL_SIGN);
 
-	public static final Item COCONUT = new CoconutItem(RegisterBlocks.COCONUT, new FabricItemSettings().group(CreativeModeTab.TAB_DECORATIONS));
+	public static final BlockItem COCONUT = new CoconutItem(RegisterBlocks.COCONUT, new FabricItemSettings().group(CreativeModeTab.TAB_DECORATIONS));
 
-    public static final Item POLLEN = new BlockItem(RegisterBlocks.POLLEN_BLOCK, new FabricItemSettings().group(CreativeModeTab.TAB_DECORATIONS));
+    public static final BlockItem POLLEN = new BlockItem(RegisterBlocks.POLLEN_BLOCK, new FabricItemSettings().group(CreativeModeTab.TAB_DECORATIONS));
+
+	public static final BlockItem SCORCHED_SAND = new BlockItem(RegisterBlocks.SCORCHED_SAND, new FabricItemSettings().group(CreativeModeTab.TAB_BUILDING_BLOCKS));
+	public static final BlockItem SCORCHED_RED_SAND = new BlockItem(RegisterBlocks.SCORCHED_RED_SAND, new FabricItemSettings().group(CreativeModeTab.TAB_BUILDING_BLOCKS));
+	public static final BlockItem ECHO_GLASS = new BlockItem(RegisterBlocks.ECHO_GLASS, new FabricItemSettings().group(CreativeModeTab.TAB_DECORATIONS));
 
     // ITEMS
     public static final MilkweedPod MILKWEED_POD = new MilkweedPod(new FabricItemSettings().group(CreativeModeTab.TAB_MISC).maxCount(64));
@@ -128,7 +132,12 @@ public final class RegisterItems {
         Registry.register(Registry.ITEM, WilderSharedConstants.id("palm_sign"), PALM_SIGN);
 
         Registry.register(Registry.ITEM, WilderSharedConstants.id("pollen"), POLLEN);
+
 		Registry.register(Registry.ITEM, WilderSharedConstants.id("prickly_pear"), PRICKLY_PEAR);
+
+		Registry.register(Registry.ITEM, WilderSharedConstants.id("scorched_sand"), SCORCHED_SAND);
+		Registry.register(Registry.ITEM, WilderSharedConstants.id("scorched_red_sand"), SCORCHED_RED_SAND);
+		Registry.register(Registry.ITEM, WilderSharedConstants.id("echo_glass"), ECHO_GLASS);
     }
 
     public static void registerItems() {

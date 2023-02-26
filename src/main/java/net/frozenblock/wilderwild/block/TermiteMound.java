@@ -19,9 +19,9 @@
 package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
+import net.frozenblock.wilderwild.entity.TermiteManager;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
-import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -37,7 +37,6 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -61,7 +60,7 @@ public class TermiteMound extends BaseEntityBlock {
 
 	@Override
 	public BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
-		boolean isSafe = isPosSafeForTermites(level, neighborPos, neighborState);
+		boolean isSafe = TermiteManager.isPosSafeForTermites(level, neighborPos, neighborState);
 		if (isSafe != state.getValue(RegisterProperties.TERMITES_AWAKE)) {
 			state.setValue(RegisterProperties.TERMITES_AWAKE, isSafe);
 		}
@@ -78,7 +77,7 @@ public class TermiteMound extends BaseEntityBlock {
 
 	@Override
 	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		boolean areTermitesSafe = areTermitesSafe(level, pos);
+		boolean areTermitesSafe = TermiteManager.areTermitesSafe(level, pos);
 		boolean canAwaken = canTermitesWaken(level, pos) && areTermitesSafe;
 		if (canAwaken != state.getValue(RegisterProperties.TERMITES_AWAKE)) {
 			level.setBlock(pos, state.setValue(RegisterProperties.TERMITES_AWAKE, canAwaken), 3);
@@ -89,29 +88,8 @@ public class TermiteMound extends BaseEntityBlock {
 		level.scheduleTick(pos, this, random.nextInt(90, 150));
 	}
 
-	public static boolean areTermitesSafe(@NotNull Level level, @NotNull BlockPos pos) {
-		for (Direction direction : Direction.values()) {
-			if (!isPosSafeForTermites(level, pos.relative(direction))) {
-				return false;
-			}
-		}
-		return true;
-	}
-
 	public static boolean canTermitesWaken(@NotNull Level level, @NotNull BlockPos pos) {
 		return !shouldTermitesSleep(level, getLightLevel(level, pos));
-	}
-
-	public static boolean isPosSafeForTermites(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
-		return isStateSafeForTermites(level.getBlockState(pos)) && level.getFluidState(pos).isEmpty();
-	}
-
-	public static boolean isPosSafeForTermites(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state) {
-		return isStateSafeForTermites(state) && level.getFluidState(pos).isEmpty();
-	}
-
-	public static boolean isStateSafeForTermites(@NotNull BlockState state) {
-		return !state.is(WilderBlockTags.KILLS_TERMITE) && (!state.hasProperty(BlockStateProperties.WATERLOGGED) || !state.getValue(BlockStateProperties.WATERLOGGED));
 	}
 
 	public static boolean shouldTermitesSleep(Level level, int light) {
@@ -119,11 +97,13 @@ public class TermiteMound extends BaseEntityBlock {
 	}
 
 	public static int getLightLevel(Level level, BlockPos blockPos) {
+		BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
 		int finalLight = 0;
 		for (Direction direction : Direction.values()) {
-			BlockPos pos = blockPos.relative(direction);
-			int skyLight = level.isDay() && !level.isRaining() ? level.getBrightness(LightLayer.SKY, pos) : 0;
-			finalLight = Math.max(finalLight, Math.max(skyLight, level.getBrightness(LightLayer.BLOCK, pos)));
+			mutableBlockPos.move(direction);
+			int newLight = !level.isRaining() ? level.getMaxLocalRawBrightness(mutableBlockPos) : level.getBrightness(LightLayer.BLOCK, mutableBlockPos);
+			finalLight = Math.max(finalLight, newLight);
+			mutableBlockPos.move(direction, -1);
 		}
 		return finalLight;
 	}

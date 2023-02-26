@@ -7,18 +7,18 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "wilderwild:scorched_sand",
+          "name": "wilderwild:scorched_red_sand",
           "functions": [
             {
               "function": "minecraft:copy_state",
-              "block": "wilderwild:scorched_sand",
+              "block": "wilderwild:scorched_red_sand",
               "properties": [
                 "crackedness"
               ],
               "conditions": [
                 {
                   "condition": "minecraft:block_state_property",
-                  "block": "wilderwild:scorched_sand",
+                  "block": "wilderwild:scorched_red_sand",
                   "properties": {
                     "crackedness": "1"
                   }

@@ -26,14 +26,13 @@ import net.frozenblock.wilderwild.misc.config.ItemConfig;
 import net.frozenblock.wilderwild.misc.config.MiscConfig;
 import net.frozenblock.wilderwild.misc.config.WilderWildConfig;
 import net.frozenblock.wilderwild.misc.config.WorldgenConfig;
-import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultWorldgenConfig;
 
 public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	public ClothConfigIntegration() {
 		super();
 	}
 
-	private static final FrozenLibConfigCategory FROZENBLOCK = FrozenLibConfig.get().config;
+	private static final FrozenLibConfigCategory FROZENLIB = FrozenLibConfig.get().config;
 	private static final BlockConfig BLOCK = WilderWildConfig.get().block;
 	private static final EntityConfig ENTITY = WilderWildConfig.get().entity;
 	private static final ItemConfig ITEM = WilderWildConfig.get().item;
@@ -309,7 +308,7 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 
 	@Override
 	public boolean itemCooldownsSave() {
-		return FROZENBLOCK.saveItemCooldowns;
+		return FROZENLIB.saveItemCooldowns;
 	}
 
 	// WORLDGEN

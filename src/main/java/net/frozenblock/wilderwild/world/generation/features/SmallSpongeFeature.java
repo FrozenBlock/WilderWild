@@ -68,7 +68,6 @@ public class SmallSpongeFeature extends Feature<SmallSpongeFeatureConfig> {
 						}
 					}
 				}
-
 				return false;
 			}
 		}
@@ -92,7 +91,6 @@ public class SmallSpongeFeature extends Feature<SmallSpongeFeatureConfig> {
 				}
 			}
 		}
-
 		return false;
 	}
 

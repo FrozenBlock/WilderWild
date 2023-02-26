@@ -90,8 +90,7 @@ public class AlgaeFeature extends Feature<ProbabilityFeatureConfiguration> {
                         for (int aY = -3; aY < 0; aY++) {
                             mutableDisk.set(x, y + aY, z);
                             if (level.getBlockState(mutableDisk.below()).is(Blocks.WATER) && level.getFluidState(mutableDisk).isEmpty() && level.getBlockState(mutableDisk).isAir()) {
-                                hasGeneratedThisRound = true;
-                                if (random.nextFloat() > 0.2F) {
+								if (random.nextFloat() > 0.2F) {
                                     if (fade) {
                                         if (random.nextFloat() > 0.5F) {
                                             level.setBlock(mutableDisk, RegisterBlocks.ALGAE.defaultBlockState(), 3);

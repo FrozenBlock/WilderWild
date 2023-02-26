@@ -20,20 +20,19 @@ package net.frozenblock.wilderwild.world.additions.feature;
 
 import java.util.List;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import static net.frozenblock.wilderwild.misc.WilderSharedConstants.string;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import static net.minecraft.data.worldgen.placement.TreePlacements.SNOW_TREE_FILTER_DECORATOR;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
-
-import static net.frozenblock.wilderwild.misc.WilderSharedConstants.string;
 
 public final class WilderTreePlaced {
 	private WilderTreePlaced() {

@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.world.additions.feature;
 
 import java.util.List;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.features.CaveFeatures;

@@ -20,21 +20,47 @@ package net.frozenblock.wilderwild.world.generation.sapling;
 
 import net.frozenblock.wilderwild.world.additions.feature.WilderConfiguredFeatures;
 import net.frozenblock.wilderwild.world.additions.feature.WilderTreeConfigured;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class CypressSaplingGenerator extends AbstractTreeGrower {
 
     public CypressSaplingGenerator() {
     }
 
-    protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean bees) {
+	private @Nullable ServerLevel level;
+
+	private @Nullable BlockPos pos;
+
+    protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource random, boolean bees) {
+		if (this.level != null && this.pos != null) {
+			Holder<Biome> biome = this.level.getBiome(this.pos);
+			if (biome.is(BiomeTags.IS_BADLANDS)) {
+				return WilderTreeConfigured.JUNIPER;
+			}
+		}
         if (random.nextFloat() > 0.4F) {
             return random.nextFloat() > 0.7F ? WilderTreeConfigured.CYPRESS : WilderTreeConfigured.FUNGUS_CYPRESS;
         }
+		this.level = null;
+		this.pos = null;
         return WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES_SAPLING;
     }
+
+	public boolean growTree(@NotNull ServerLevel level, @NotNull ChunkGenerator generator, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull RandomSource random) {
+		this.level = level;
+		this.pos = pos;
+		return super.growTree(level, generator, pos, state, random);
+	}
 
 }

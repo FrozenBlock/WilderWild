@@ -130,16 +130,16 @@ public final class RegisterBlocks {
 
     // OTHER (BUILDING BLOCKS)
     public static final Block CHISELED_MUD_BRICKS = new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(1.5F).requiresTool().sounds(SoundType.MUD_BRICKS));
-	public static final Block SCORCHED_SAND = new ScorchedSandBlock(FabricBlockSettings.of(Material.SAND).strength(1.5F).requiresTool().sounds(RegisterBlockSoundTypes.SCORCHEDSAND).mapColor(MaterialColor.SAND).ticksRandomly(), Blocks.SAND.defaultBlockState(), 14406560);
-	public static final Block SCORCHED_RED_SAND = new ScorchedSandBlock(FabricBlockSettings.of(Material.SAND).strength(1.5F).requiresTool().sounds(RegisterBlockSoundTypes.SCORCHEDSAND).mapColor(MaterialColor.COLOR_ORANGE).ticksRandomly(), Blocks.RED_SAND.defaultBlockState(), 11098145);
+	public static final Block SCORCHED_SAND = new ScorchedSandBlock(FabricBlockSettings.of(Material.SAND).strength(1.5F).sounds(RegisterBlockSoundTypes.SCORCHEDSAND).mapColor(MaterialColor.SAND).ticksRandomly(), Blocks.SAND.defaultBlockState(), 14406560);
+	public static final Block SCORCHED_RED_SAND = new ScorchedSandBlock(FabricBlockSettings.of(Material.SAND).strength(1.5F).sounds(RegisterBlockSoundTypes.SCORCHEDSAND).mapColor(MaterialColor.COLOR_ORANGE).ticksRandomly(), Blocks.RED_SAND.defaultBlockState(), 11098145);
 
     /**
      * Building Blocks
      */
     public static void registerOtherBB() {
         registerBlock("chiseled_mud_bricks", CHISELED_MUD_BRICKS, CreativeModeTab.TAB_BUILDING_BLOCKS);
-		registerBlock("scorched_sand", SCORCHED_SAND, CreativeModeTab.TAB_BUILDING_BLOCKS);
-		registerBlock("scorched_red_sand", SCORCHED_RED_SAND, CreativeModeTab.TAB_BUILDING_BLOCKS);
+		registerBlockWithoutBlockItem("scorched_sand", SCORCHED_SAND);
+		registerBlockWithoutBlockItem("scorched_red_sand", SCORCHED_RED_SAND);
     }
 
     // WOOD
@@ -362,7 +362,7 @@ public final class RegisterBlocks {
     public static final Block OSSEOUS_SCULK = new OsseousSculkBlock(FabricBlockSettings.of(Material.STONE, MaterialColor.SAND).requiresTool().strength(2.0F).sounds(RegisterBlockSoundTypes.OSSEOUS_SCULK));
     public static final Block HANGING_TENDRIL = new HangingTendrilBlock(FabricBlockSettings.copyOf(Blocks.SCULK_SENSOR).strength(0.7F).collidable(false).ticksRandomly().luminance((state) -> 1)
             .sounds(RegisterBlockSoundTypes.HANGING_TENDRIL).emissiveLighting((state, level, pos) -> HangingTendrilBlock.shouldHavePogLighting(state)), 4);
-    public static final Block ECHO_GLASS = new EchoGlassBlock(FabricBlockSettings.of(Material.GLASS, MaterialColor.COLOR_CYAN).strength(0.3F).nonOpaque().sounds(RegisterBlockSoundTypes.ECHO_GLASS));
+    public static final Block ECHO_GLASS = new EchoGlassBlock(FabricBlockSettings.of(Material.GLASS, MaterialColor.COLOR_CYAN).strength(0.3F).nonOpaque().ticksRandomly().sounds(RegisterBlockSoundTypes.ECHO_GLASS));
 
     public static void registerDeepDark() {
         registerBlock("sculk_stairs", SCULK_STAIRS, CreativeModeTab.TAB_DECORATIONS);
@@ -370,7 +370,7 @@ public final class RegisterBlocks {
         registerBlock("sculk_wall", SCULK_WALL, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("osseous_sculk", OSSEOUS_SCULK, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("hanging_tendril", HANGING_TENDRIL, CreativeModeTab.TAB_DECORATIONS);
-        registerBlock("echo_glass", ECHO_GLASS, CreativeModeTab.TAB_DECORATIONS);
+        registerBlockWithoutBlockItem("echo_glass", ECHO_GLASS);
     }
 
     private static boolean always(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
@@ -516,6 +516,20 @@ public final class RegisterBlocks {
             .recipeGroupPrefix("wooden")
             .recipeUnlockedBy("has_planks")
             .getFamily();
+
+	public static final BlockFamily PALM = BlockFamilies.familyBuilder(PALM_PLANKS)
+			.button(PALM_BUTTON)
+			.slab(PALM_SLAB)
+			.stairs(PALM_STAIRS)
+			.fence(PALM_FENCE)
+			.fenceGate(PALM_FENCE_GATE)
+			.pressurePlate(PALM_PRESSURE_PLATE)
+			.sign(PALM_SIGN_BLOCK, PALM_WALL_SIGN)
+			.door(PALM_DOOR)
+			.trapdoor(PALM_TRAPDOOR)
+			.recipeGroupPrefix("wooden")
+			.recipeUnlockedBy("has_planks")
+			.getFamily();
 
     public static final Block NULL_BLOCK = new Block(FabricBlockSettings.copyOf(Blocks.STONE).sounds(RegisterBlockSoundTypes.NULL_BLOCK));
 

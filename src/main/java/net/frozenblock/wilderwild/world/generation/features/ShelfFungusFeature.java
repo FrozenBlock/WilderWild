@@ -70,7 +70,6 @@ public class ShelfFungusFeature extends Feature<ShelfFungusFeatureConfig> {
                         }
                     }
                 }
-
                 return false;
             }
         }
@@ -112,4 +111,5 @@ public class ShelfFungusFeature extends Feature<ShelfFungusFeatureConfig> {
     private static boolean isAirOrWater(BlockState state) {
         return state.isAir() || state.is(Blocks.WATER);
     }
+
 }
