@@ -672,6 +672,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SCORCHED_SAND)
 					.add(Biomes.DESERT)
+					.addOptional(RegisterWorldgen.OASIS)
 					.addOptional(RegisterWorldgen.ARID_SAVANNA)
 					.addOptional(RegisterWorldgen.ARID_FOREST);
 
