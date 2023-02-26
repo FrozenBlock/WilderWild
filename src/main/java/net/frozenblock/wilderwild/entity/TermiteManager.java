@@ -193,7 +193,7 @@ public class TermiteManager {
 					if (this.blockDestroyPower > 200) {
 						this.blockDestroyPower = 0;
 						this.aliveTicks = this.natural ? Math.max(0, this.aliveTicks - (200 / additionalPower)) : 0;
-						if (blockState.is(WilderBlockTags.TERMITE_BREAKABLE)) {
+						if (breakable) {
 							level.destroyBlock(this.pos, true);
 						} else {
 							level.addDestroyBlockEffect(this.pos, blockState);
