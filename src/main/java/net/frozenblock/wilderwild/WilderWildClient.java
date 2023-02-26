@@ -62,6 +62,7 @@ import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
+import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -270,9 +271,9 @@ public final class WilderWildClient implements ClientModInitializer {
 		ItemProperties.register(RegisterItems.ANCIENT_HORN, WilderSharedConstants.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
 		ItemProperties.register(RegisterItems.COPPER_HORN, WilderSharedConstants.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
 
-		ItemProperties.register(RegisterItems.SCORCHED_SAND, WilderSharedConstants.vanillaId("cracked"), (itemStack, clientLevel, livingEntity, seed) -> ItemBlockStateTagUtils.getIntProperty(itemStack, "crackedness"));
-		ItemProperties.register(RegisterItems.SCORCHED_RED_SAND, WilderSharedConstants.vanillaId("cracked"), (itemStack, clientLevel, livingEntity, seed) -> ItemBlockStateTagUtils.getIntProperty(itemStack, "crackedness"));
-		ItemProperties.register(RegisterItems.ECHO_GLASS, WilderSharedConstants.vanillaId("damage"), (itemStack, clientLevel, livingEntity, seed) -> ((float)ItemBlockStateTagUtils.getIntProperty(itemStack, "damage")) / 4F);
+		ItemProperties.register(RegisterItems.SCORCHED_SAND, WilderSharedConstants.vanillaId("cracked"), (itemStack, clientLevel, livingEntity, seed) -> ItemBlockStateTagUtils.getIntProperty(itemStack, RegisterProperties.CRACKEDNESS, 0));
+		ItemProperties.register(RegisterItems.SCORCHED_RED_SAND, WilderSharedConstants.vanillaId("cracked"), (itemStack, clientLevel, livingEntity, seed) -> ItemBlockStateTagUtils.getIntProperty(itemStack, RegisterProperties.CRACKEDNESS, 0));
+		ItemProperties.register(RegisterItems.ECHO_GLASS, WilderSharedConstants.vanillaId("damage"), (itemStack, clientLevel, livingEntity, seed) -> ((float)ItemBlockStateTagUtils.getIntProperty(itemStack, RegisterProperties.DAMAGE, 0)) / 4F);
 
 		ColorProviderRegistry.BLOCK.register(
 				((state, level, pos, tintIndex) ->
