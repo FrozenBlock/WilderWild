@@ -73,10 +73,12 @@ import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.phys.Vec3;
 
@@ -178,7 +180,6 @@ public final class WilderWildClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.YELLOW_NEMATOCYST, RenderType.translucent());
 		BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.TUMBLEWEED_PLANT, RenderType.cutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.TUMBLEWEED, RenderType.cutout());
-		//BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.NEMATOCYST, RenderType.cutout());
 
 		ClientSpriteRegistryCallback.event(InventoryMenu.BLOCK_ATLAS).register((atlasTexture, registry) -> {
 			registry.register(WilderSharedConstants.id("particle/floating_sculk_bubble_0"));
@@ -189,18 +190,6 @@ public final class WilderWildClient implements ClientModInitializer {
 			registry.register(WilderSharedConstants.id("particle/floating_sculk_bubble_5"));
 			registry.register(WilderSharedConstants.id("particle/floating_sculk_bubble_6"));
 			registry.register(WilderSharedConstants.id("particle/termite"));
-			/*
-			registry.register(WilderSharedConstants.id("particle/termite_0"));
-			registry.register(WilderSharedConstants.id("particle/termite_1"));
-			registry.register(WilderSharedConstants.id("particle/termite_2"));
-			registry.register(WilderSharedConstants.id("particle/termite_3"));
-			registry.register(WilderSharedConstants.id("particle/termite_4"));
-			registry.register(WilderSharedConstants.id("particle/termite_5"));
-			registry.register(WilderSharedConstants.id("particle/termite_6"));
-			registry.register(WilderSharedConstants.id("particle/termite_7"));
-			registry.register(WilderSharedConstants.id("particle/termite_8"));
-			registry.register(WilderSharedConstants.id("particle/termite_9"));
-			 */
 		});
 
 		ClientSpriteRegistryCallback.event(Sheets.CHEST_SHEET).register((atlasTexture, registry) -> {
@@ -241,12 +230,16 @@ public final class WilderWildClient implements ClientModInitializer {
 		particleRegistry.register(RegisterParticles.RED_LANDING_MESOGLEA, MesogleaDripParticle.RMesogleaLandProvider::new);
 
         EntityRendererRegistry.register(RegisterEntities.FIREFLY, FireflyRenderer::new);
+
         EntityRendererRegistry.register(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, AncientHornProjectileRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(ANCIENT_HORN_PROJECTILE_LAYER, AncientHornProjectileModel::createBodyLayer);
+
         EntityRendererRegistry.register(RegisterEntities.JELLYFISH, JellyfishRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(JELLYFISH, JellyfishModel::createBodyLayer);
+
 		EntityRendererRegistry.register(RegisterEntities.TUMBLEWEED, TumbleweedRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(TUMBLEWEED, TumbleweedModel::createBodyLayer);
+
 		EntityRendererRegistry.register(RegisterEntities.COCONUT, ThrownItemRenderer::new);
 
 		BlockEntityRenderers.register(BlockEntityType.SCULK_SENSOR, SculkSensorBlockEntityRenderer::new);
@@ -275,6 +268,34 @@ public final class WilderWildClient implements ClientModInitializer {
 
 		ItemProperties.register(RegisterItems.ANCIENT_HORN, WilderSharedConstants.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
 		ItemProperties.register(RegisterItems.COPPER_HORN, WilderSharedConstants.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
+
+		ItemProperties.register(RegisterItems.SCORCHED_SAND, WilderSharedConstants.vanillaId("cracked"), (itemStack, clientLevel, livingEntity, seed) -> {
+			if (itemStack.getTag() != null) {
+				CompoundTag stateTag = itemStack.getTag().getCompound("BlockStateTag");
+				if (stateTag != null) {
+					return stateTag.getInt("crackedness");
+				}
+			}
+			return 0F;
+		});
+		ItemProperties.register(RegisterItems.SCORCHED_RED_SAND, WilderSharedConstants.vanillaId("cracked"), (itemStack, clientLevel, livingEntity, seed) -> {
+			if (itemStack.getTag() != null) {
+				CompoundTag stateTag = itemStack.getTag().getCompound("BlockStateTag");
+				if (stateTag != null) {
+					return stateTag.getInt("crackedness");
+				}
+			}
+			return 0F;
+		});
+		ItemProperties.register(RegisterItems.ECHO_GLASS, WilderSharedConstants.vanillaId("damage"), (itemStack, clientLevel, livingEntity, seed) -> {
+			if (itemStack.getTag() != null) {
+				CompoundTag stateTag = itemStack.getTag().getCompound("BlockStateTag");
+				if (stateTag != null) {
+					return (float) stateTag.getInt("damage") / 4F;
+				}
+			}
+			return 0F;
+		});
 
 		ColorProviderRegistry.BLOCK.register(
 				((state, level, pos, tintIndex) ->

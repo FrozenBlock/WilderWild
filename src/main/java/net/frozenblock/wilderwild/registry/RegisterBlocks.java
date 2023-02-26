@@ -138,8 +138,8 @@ public final class RegisterBlocks {
      */
     public static void registerOtherBB() {
         registerBlock("chiseled_mud_bricks", CHISELED_MUD_BRICKS, CreativeModeTab.TAB_BUILDING_BLOCKS);
-		registerBlock("scorched_sand", SCORCHED_SAND, CreativeModeTab.TAB_BUILDING_BLOCKS);
-		registerBlock("scorched_red_sand", SCORCHED_RED_SAND, CreativeModeTab.TAB_BUILDING_BLOCKS);
+		registerBlockWithoutBlockItem("scorched_sand", SCORCHED_SAND);
+		registerBlockWithoutBlockItem("scorched_red_sand", SCORCHED_RED_SAND);
     }
 
     // WOOD
@@ -370,7 +370,7 @@ public final class RegisterBlocks {
         registerBlock("sculk_wall", SCULK_WALL, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("osseous_sculk", OSSEOUS_SCULK, CreativeModeTab.TAB_DECORATIONS);
         registerBlock("hanging_tendril", HANGING_TENDRIL, CreativeModeTab.TAB_DECORATIONS);
-        registerBlock("echo_glass", ECHO_GLASS, CreativeModeTab.TAB_DECORATIONS);
+        registerBlockWithoutBlockItem("echo_glass", ECHO_GLASS);
     }
 
     private static boolean always(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
