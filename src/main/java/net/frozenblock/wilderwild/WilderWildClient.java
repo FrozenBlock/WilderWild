@@ -278,6 +278,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		ItemProperties.register(RegisterItems.ECHO_GLASS, WilderSharedConstants.vanillaId("damage"), (itemStack, clientLevel, livingEntity, seed) -> ((float)ItemBlockStateTagUtils.getIntProperty(itemStack, RegisterProperties.DAMAGE, 0)) / 4F);
 		ItemProperties.register(Items.BEE_NEST, WilderSharedConstants.vanillaId("honey"), (itemStack, clientLevel, livingEntity, seed) -> ((float)ItemBlockStateTagUtils.getIntProperty(itemStack, BlockStateProperties.LEVEL_HONEY, 0)) / 5F);
 		ItemProperties.register(Items.BEEHIVE, WilderSharedConstants.vanillaId("honey"), (itemStack, clientLevel, livingEntity, seed) -> ((float)ItemBlockStateTagUtils.getIntProperty(itemStack, BlockStateProperties.LEVEL_HONEY, 0)) / 5F);
+		ItemProperties.register(Items.SCULK_SHRIEKER, WilderSharedConstants.vanillaId("souls_taken"), (itemStack, clientLevel, livingEntity, seed) -> ((float)ItemBlockStateTagUtils.getIntProperty(itemStack, RegisterProperties.SOULS_TAKEN, 0)) / 2F);
 
 		ColorProviderRegistry.BLOCK.register(
 				((state, level, pos, tintIndex) ->
