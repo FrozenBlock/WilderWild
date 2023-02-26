@@ -100,11 +100,11 @@ public final class RegisterBlockSoundTypes {
     );
 
     public static final SoundType HANGING_TENDRIL = new SoundType(1.0F, 1.25F,
-            RegisterSounds.BLOCK_HANGING_TENDRIL_BREAK,
-            RegisterSounds.BLOCK_HANGING_TENDRIL_STEP,
-            RegisterSounds.BLOCK_HANGING_TENDRIL_PLACE,
-            RegisterSounds.BLOCK_HANGING_TENDRIL_HIT,
-            RegisterSounds.BLOCK_HANGING_TENDRIL_FALL
+            BLOCK_HANGING_TENDRIL_BREAK,
+            BLOCK_HANGING_TENDRIL_STEP,
+            BLOCK_HANGING_TENDRIL_PLACE,
+            BLOCK_HANGING_TENDRIL_HIT,
+            BLOCK_HANGING_TENDRIL_FALL
     );
 
     public static final SoundType HOLLOWED_LOG = new SoundType(1.0F, 1.0F,
@@ -124,11 +124,11 @@ public final class RegisterBlockSoundTypes {
 	);
 
     public static final SoundType ECHO_GLASS = new SoundType(0.8F, 1.25F,
-            RegisterSounds.BLOCK_ECHO_GLASS_BREAK,
-            RegisterSounds.BLOCK_ECHO_GLASS_STEP,
-            RegisterSounds.BLOCK_ECHO_GLASS_PLACE,
-            RegisterSounds.BLOCK_ECHO_GLASS_CRACK,
-            RegisterSounds.BLOCK_ECHO_GLASS_FALL
+            BLOCK_ECHO_GLASS_BREAK,
+            BLOCK_ECHO_GLASS_STEP,
+            BLOCK_ECHO_GLASS_PLACE,
+            BLOCK_ECHO_GLASS_CRACK,
+            BLOCK_ECHO_GLASS_FALL
     );
 
     public static final SoundType MESOGLEA = new SoundType(0.8F, 1.0F,
@@ -171,7 +171,7 @@ public final class RegisterBlockSoundTypes {
             BLOCK_LEAVES_FALL
     );
 
-    public static final SoundType FLOWER = new SoundType(1.0F, 1.0F,
+    public static final SoundType FLOWER = new SoundType(0.8F, 1.0F,
             BLOCK_FLOWER_BREAK,
             BLOCK_FLOWER_STEP,
             BLOCK_FLOWER_PLACE,
@@ -243,11 +243,11 @@ public final class RegisterBlockSoundTypes {
 	);
 
     public static final SoundType REINFORCEDDEEPSLATE = new SoundType(1.0F, 1.0F,
-            RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_BREAK,
-            RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_STEP,
-            RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_PLACE,
-            RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_HIT,
-            RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_FALL
+            BLOCK_REINFORCED_DEEPSLATE_BREAK,
+            BLOCK_REINFORCED_DEEPSLATE_STEP,
+            BLOCK_REINFORCED_DEEPSLATE_PLACE,
+            BLOCK_REINFORCED_DEEPSLATE_HIT,
+            BLOCK_REINFORCED_DEEPSLATE_FALL
     );
 
 	public static final SoundType TUMBLEWEED_PLANT = new SoundType(1.0F, 1.0F,
@@ -265,14 +265,6 @@ public final class RegisterBlockSoundTypes {
 			BLOCK_PALM_CROWN_HIT,
 			BLOCK_PALM_CROWN_FALL
 	);
-
-    public static final SoundType FUNNY = new SoundType(1.0F, 1.0F,
-            SoundEvents.ANVIL_PLACE,
-            SoundEvents.ANVIL_PLACE,
-            SoundEvents.ANVIL_PLACE,
-            SoundEvents.ANVIL_PLACE,
-            SoundEvents.ANVIL_PLACE
-    );
 
     public static void init() {
         //Just to make sure this class gets loaded.

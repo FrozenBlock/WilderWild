@@ -78,10 +78,12 @@ public class TermiteParticle extends TextureSheetParticle {
 		this.zSpinSpeed = 8F + (clientLevel.random.nextFloat() * 8F);
     }
 
+	@Override
     public ParticleRenderType getRenderType() {
         return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
     }
 
+	@Override
     public void tick() {
 		this.prevScale = this.scale;
 		this.scale += (this.targetScale - this.scale) * 0.65F;
