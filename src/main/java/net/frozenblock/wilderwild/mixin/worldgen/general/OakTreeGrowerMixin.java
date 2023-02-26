@@ -36,9 +36,9 @@ public class OakTreeGrowerMixin {
     public void wilderWild$getConfiguredFeature(RandomSource random, boolean bees, CallbackInfoReturnable<Holder<? extends ConfiguredFeature<?, ?>>> info) {
 		if (WilderSharedConstants.config().wildTrees()) {
 			if (random.nextInt(10) == 0) {
-				info.setReturnValue(bees ? WilderTreeConfigured.NEW_FANCY_OAK_BEES_0004 : WilderTreeConfigured.NEW_FANCY_OAK);
+				info.setReturnValue(bees ? WilderTreeConfigured.FANCY_OAK_BEES_0004 : WilderTreeConfigured.FANCY_OAK);
 			} else {
-				info.setReturnValue(bees ? WilderTreeConfigured.NEW_OAK_BEES_0004 : WilderTreeConfigured.NEW_OAK);
+				info.setReturnValue(bees ? WilderTreeConfigured.OAK_BEES_0004 : WilderTreeConfigured.OAK);
 			}
 		}
     }

@@ -70,7 +70,7 @@ public final class WilderFlowersGeneration {
                 GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MILKWEED.unwrapKey().orElseThrow());
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.PLAINS),
-                GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEW_FLOWER_PLAIN.unwrapKey().orElseThrow());
+                GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_PLAINS.unwrapKey().orElseThrow());
 
         BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_BERRY_PATCH),
                 GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_BERRY_FOREST.unwrapKey().orElseThrow());
