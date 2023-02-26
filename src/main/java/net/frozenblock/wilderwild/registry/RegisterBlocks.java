@@ -626,18 +626,16 @@ public final class RegisterBlocks {
     public static void registerBlockProperties() {
         TermiteManager.Termite.addDegradable(BAOBAB_LOG, STRIPPED_BAOBAB_LOG);
         TermiteManager.Termite.addDegradable(STRIPPED_BAOBAB_LOG, STRIPPED_HOLLOWED_BAOBAB_LOG);
-		TermiteManager.Termite.addDegradable(STRIPPED_HOLLOWED_BAOBAB_LOG, Blocks.AIR);
+		TermiteManager.Termite.addDegradable(HOLLOWED_BAOBAB_LOG, STRIPPED_HOLLOWED_BAOBAB_LOG);
         TermiteManager.Termite.addDegradable(BAOBAB_WOOD, STRIPPED_BAOBAB_WOOD);
-        TermiteManager.Termite.addDegradable(STRIPPED_BAOBAB_WOOD, Blocks.AIR);
 
         TermiteManager.Termite.addNaturalDegradable(BAOBAB_LOG, STRIPPED_BAOBAB_LOG);
         TermiteManager.Termite.addNaturalDegradable(BAOBAB_WOOD, STRIPPED_BAOBAB_WOOD);
 
 		TermiteManager.Termite.addDegradable(CYPRESS_LOG, STRIPPED_CYPRESS_LOG);
 		TermiteManager.Termite.addDegradable(STRIPPED_CYPRESS_LOG, STRIPPED_HOLLOWED_CYPRESS_LOG);
-		TermiteManager.Termite.addDegradable(STRIPPED_HOLLOWED_CYPRESS_LOG, Blocks.AIR);
+		TermiteManager.Termite.addDegradable(HOLLOWED_CYPRESS_LOG, STRIPPED_HOLLOWED_CYPRESS_LOG);
 		TermiteManager.Termite.addDegradable(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
-		TermiteManager.Termite.addDegradable(STRIPPED_CYPRESS_WOOD, Blocks.AIR);
 
         TermiteManager.Termite.addNaturalDegradable(CYPRESS_LOG, STRIPPED_CYPRESS_LOG);
         TermiteManager.Termite.addNaturalDegradable(CYPRESS_WOOD, STRIPPED_CYPRESS_WOOD);
@@ -645,13 +643,11 @@ public final class RegisterBlocks {
 		TermiteManager.Termite.addDegradable(PALM_CROWN, PALM_LOG);
 		TermiteManager.Termite.addDegradable(PALM_LOG, STRIPPED_PALM_LOG);
 		TermiteManager.Termite.addDegradable(STRIPPED_PALM_LOG, STRIPPED_HOLLOWED_PALM_LOG);
-		TermiteManager.Termite.addDegradable(STRIPPED_HOLLOWED_PALM_LOG, Blocks.AIR);
+		TermiteManager.Termite.addDegradable(HOLLOWED_PALM_LOG, STRIPPED_HOLLOWED_PALM_LOG);
 		TermiteManager.Termite.addDegradable(PALM_WOOD, STRIPPED_PALM_WOOD);
-		TermiteManager.Termite.addDegradable(STRIPPED_PALM_WOOD, Blocks.AIR);
 
 		TermiteManager.Termite.addNaturalDegradable(PALM_LOG, STRIPPED_PALM_LOG);
 		TermiteManager.Termite.addNaturalDegradable(PALM_WOOD, STRIPPED_PALM_WOOD);
-		TermiteManager.Termite.addNaturalDegradable(PALM_CROWN, PALM_LOG);
 
 		TermiteManager.Termite.addDegradable(BUSH, Blocks.DEAD_BUSH);
 

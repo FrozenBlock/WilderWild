@@ -989,9 +989,35 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(WilderBlockTags.TERMITE_BREAKABLE)
 					.addOptionalTag(BlockTags.LEAVES)
-					.addOptionalTag(WilderBlockTags.HOLLOWED_LOGS)
+					.addOptionalTag(WilderBlockTags.STRIPPED_HOLLOWED_LOGS)
 					.add(Blocks.BAMBOO)
 					.add(Blocks.DEAD_BUSH)
+					.add(Blocks.STRIPPED_ACACIA_WOOD)
+					.add(Blocks.STRIPPED_BIRCH_WOOD)
+					.add(Blocks.STRIPPED_DARK_OAK_WOOD)
+					.add(Blocks.STRIPPED_JUNGLE_WOOD)
+					.add(Blocks.STRIPPED_MANGROVE_WOOD)
+					.add(Blocks.STRIPPED_OAK_WOOD)
+					.add(Blocks.STRIPPED_SPRUCE_WOOD)
+					.add(Blocks.STRIPPED_ACACIA_WOOD)
+					.addOptional(
+							ResourceKey.create(
+									Registry.BLOCK_REGISTRY,
+									WilderSharedConstants.id("stripped_baobab_wood")
+							)
+					)
+					.addOptional(
+							ResourceKey.create(
+									Registry.BLOCK_REGISTRY,
+									WilderSharedConstants.id("stripped_cypress_wood")
+							)
+					)
+					.addOptional(
+							ResourceKey.create(
+									Registry.BLOCK_REGISTRY,
+									WilderSharedConstants.id("stripped_palm_wood")
+							)
+					)
 					.addOptional(
 							ResourceKey.create(
 									Registry.BLOCK_REGISTRY,
