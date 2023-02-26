@@ -157,7 +157,7 @@ public final class WilderConfiguredFeatures {
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_BEES_0004, 0.025F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED, 0.04F),
 							new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED, 0.13F),
-							new WeightedPlacedFeature(WilderTreePlaced.TREES_BIRCH, 0.14F),
+							new WeightedPlacedFeature(WilderTreePlaced.BIRCH_CHECKED, 0.14F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.04F),
 							new WeightedPlacedFeature(WilderTreePlaced.SUPER_BIRCH, 0.1F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_SUPER_BIRCH, 0.01F),
@@ -222,7 +222,7 @@ public final class WilderConfiguredFeatures {
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.118F),
 							new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.098F),
 							new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED, 0.305F),
-							new WeightedPlacedFeature(WilderTreePlaced.TREES_BIRCH, 0.207F)), WilderTreePlaced.DYING_OAK_CHECKED));
+							new WeightedPlacedFeature(WilderTreePlaced.BIRCH_CHECKED, 0.207F)), WilderTreePlaced.DYING_OAK_CHECKED));
 
 	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> BIRCH_TAIGA_TREES =
 			register("birch_taiga_trees", Feature.RANDOM_SELECTOR,
@@ -230,10 +230,10 @@ public final class WilderConfiguredFeatures {
 							new WeightedPlacedFeature(WilderTreePlaced.FUNGUS_PINE_CHECKED, 0.086F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_FUNGUS_PINE_CHECKED, 0.02F),
 							new WeightedPlacedFeature(WilderTreePlaced.SPRUCE_SHORT_CHECKED, 0.155F),
-							new WeightedPlacedFeature(WilderTreePlaced.TREES_BIRCH, 0.37F),
+							new WeightedPlacedFeature(WilderTreePlaced.BIRCH_CHECKED, 0.37F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.01F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.01F),
-							new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.455F)), WilderTreePlaced.TREES_BIRCH));
+							new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.455F)), WilderTreePlaced.BIRCH_CHECKED));
 
 	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> OLD_GROWTH_BIRCH_TAIGA_TREES =
 			register("old_growth_birch_taiga_trees", Feature.RANDOM_SELECTOR,
@@ -244,13 +244,13 @@ public final class WilderConfiguredFeatures {
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_SUPER_BIRCH, 0.37F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.01F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.01F),
-							new WeightedPlacedFeature(WilderTreePlaced.TREES_BIRCH, 0.355F),
+							new WeightedPlacedFeature(WilderTreePlaced.BIRCH_CHECKED, 0.355F),
 							new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.1F)), WilderTreePlaced.SUPER_BIRCH));
 
 	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> BIRCH_JUNGLE_TREES =
 			register("birch_jungle_trees", Feature.RANDOM_SELECTOR,
 					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(TreePlacements.FANCY_OAK_CHECKED, 0.1F),
-							new WeightedPlacedFeature(WilderTreePlaced.TREES_BIRCH, 0.049F),
+							new WeightedPlacedFeature(WilderTreePlaced.BIRCH_CHECKED, 0.049F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.069F),
 							new WeightedPlacedFeature(WilderTreePlaced.SUPER_BIRCH, 0.049F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_SUPER_BIRCH, 0.049F),
@@ -262,7 +262,7 @@ public final class WilderConfiguredFeatures {
 	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> SPARSE_BIRCH_JUNGLE_TREES =
 			register("sparse_birch_jungle_trees", Feature.RANDOM_SELECTOR,
 					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(TreePlacements.FANCY_OAK_CHECKED, 0.07F),
-							new WeightedPlacedFeature(WilderTreePlaced.TREES_BIRCH, 0.055F),
+							new WeightedPlacedFeature(WilderTreePlaced.BIRCH_CHECKED, 0.055F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.089F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_SUPER_BIRCH, 0.027F),
 							new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.059F),
@@ -290,7 +290,7 @@ public final class WilderConfiguredFeatures {
 							new WeightedPlacedFeature(PlacementUtils.inlinePlaced(TreeFeatures.HUGE_RED_MUSHROOM), 0.07F),
 							new WeightedPlacedFeature(TreePlacements.DARK_OAK_CHECKED, 0.55F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_DARK_OAK_CHECKED, 0.255F),
-							new WeightedPlacedFeature(WilderTreePlaced.TREES_BIRCH, 0.1F),
+							new WeightedPlacedFeature(WilderTreePlaced.BIRCH_CHECKED, 0.1F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.04F),
 							new WeightedPlacedFeature(WilderTreePlaced.TALL_DARK_OAK_CHECKED, 0.8F),
 							new WeightedPlacedFeature(WilderTreePlaced.COBWEB_TALL_DARK_OAK_CHECKED, 0.021F),
@@ -307,7 +307,7 @@ public final class WilderConfiguredFeatures {
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_DARK_OAK_CHECKED, 0.075F),
 							new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.35F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.015F),
-							new WeightedPlacedFeature(WilderTreePlaced.TREES_BIRCH, 0.4F),
+							new WeightedPlacedFeature(WilderTreePlaced.BIRCH_CHECKED, 0.4F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.015F),
 							new WeightedPlacedFeature(WilderTreePlaced.TALL_DARK_OAK_CHECKED, 0.15F),
 							new WeightedPlacedFeature(WilderTreePlaced.DYING_TALL_DARK_OAK_CHECKED, 0.048F),

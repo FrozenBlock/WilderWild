@@ -41,7 +41,7 @@ public final class WilderTreePlaced {
 	}
 
     //BIRCH
-    public static final Holder<PlacedFeature> TREES_BIRCH = register("trees_birch", WilderTreeConfigured.BIRCH_TREE, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
+    public static final Holder<PlacedFeature> BIRCH_CHECKED = register("birch_checked", WilderTreeConfigured.BIRCH_TREE, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
     public static final Holder<PlacedFeature> BIRCH_BEES_0004 = register("birch_bees_0004", WilderTreeConfigured.BIRCH_BEES_0004, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
 	public static final Holder<PlacedFeature> BIRCH_BEES_025 = register("birch_bees_025", WilderTreeConfigured.BIRCH_BEES_025, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
 	public static final Holder<PlacedFeature> DYING_BIRCH = register("dying_birch", WilderTreeConfigured.DYING_BIRCH, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
