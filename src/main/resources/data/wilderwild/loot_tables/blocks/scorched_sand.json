@@ -6,22 +6,8 @@
       "bonus_rolls": 0.0,
       "entries": [
         {
-          "type": "minecraft:alternatives",
-          "children": [
-            {
-              "type": "minecraft:item",
-              "functions": [
-                {
-                  "function": "minecraft:copy_state",
-                  "block": "wilderwild:scorched_sand",
-                  "properties": [
-                    "crackedness"
-                  ]
-                }
-              ],
-              "name": "wilderwild:scorched_sand"
-            }
-          ]
+          "type": "minecraft:item",
+          "name": "wilderwild:scorched_sand"
         }
       ],
       "conditions": [

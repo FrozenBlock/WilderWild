@@ -18,17 +18,24 @@
 
 package net.frozenblock.wilderwild.block;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.mod_compat.FrozenLibIntegration;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
@@ -40,6 +47,11 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import org.jetbrains.annotations.NotNull;
 
 public class ScorchedSandBlock extends Block {
@@ -129,6 +141,23 @@ public class ScorchedSandBlock extends Block {
 			}
 		} else if (fluid == Fluids.WATER) {
 			hydrate(state, level, pos);
+		}
+	}
+
+	@Deprecated
+	@Override
+	public List<ItemStack> getDrops(@NotNull BlockState state, LootContext.Builder builder) {
+		ResourceLocation identifier = this.getLootTable();
+		if (state.getValue(RegisterProperties.CRACKEDNESS) == 1) {
+			identifier = WilderSharedConstants.id("blocks/scorched_sand_blockstate");
+		}
+		if (identifier == BuiltInLootTables.EMPTY) {
+			return Collections.emptyList();
+		} else {
+			LootContext lootContext = builder.withParameter(LootContextParams.BLOCK_STATE, state).create(LootContextParamSets.BLOCK);
+			ServerLevel serverLevel = lootContext.getLevel();
+			LootTable lootTable = serverLevel.getServer().getLootTables().get(identifier);
+			return lootTable.getRandomItems(lootContext);
 		}
 	}
 
