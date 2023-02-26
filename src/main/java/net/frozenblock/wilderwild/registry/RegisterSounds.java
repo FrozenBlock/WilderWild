@@ -197,6 +197,12 @@ public final class RegisterSounds {
 
     public static final SoundEvent BLOCK_SOUL_FIRE_AMBIENT = register("block.soul_fire.ambient");
 
+	public static final SoundEvent BLOCK_SAPLING_PLACE = register("block.sapling.place");
+	public static final SoundEvent BLOCK_SAPLING_HIT = register("block.sapling.hit");
+	public static final SoundEvent BLOCK_SAPLING_BREAK = register("block.sapling.break");
+	public static final SoundEvent BLOCK_SAPLING_STEP = register("block.sapling.step");
+	public static final SoundEvent BLOCK_SAPLING_FALL = register("block.sapling.fall");
+
 	public static final SoundEvent BLOCK_SANDSTONE_PLACE = register("block.sandstone.place");
 	public static final SoundEvent BLOCK_SANDSTONE_HIT = register("block.sandstone.hit");
 	public static final SoundEvent BLOCK_SANDSTONE_BREAK = register("block.sandstone.break");

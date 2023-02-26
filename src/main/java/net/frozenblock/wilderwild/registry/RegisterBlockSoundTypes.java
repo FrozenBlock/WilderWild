@@ -195,6 +195,14 @@ public final class RegisterBlockSoundTypes {
             SoundEvents.BIG_DRIPLEAF_FALL
     );
 
+	public static final SoundType SAPLING = new SoundType(1.0F, 1.0F,
+			BLOCK_SAPLING_BREAK,
+			BLOCK_SAPLING_STEP,
+			BLOCK_SAPLING_PLACE,
+			BLOCK_SAPLING_HIT,
+			BLOCK_SAPLING_FALL
+	);
+
     public static final SoundType SUGARCANE = new SoundType(1.0F, 1.0F,
             BLOCK_SUGAR_CANE_BREAK,
             BLOCK_SUGAR_CANE_STEP,
@@ -211,7 +219,7 @@ public final class RegisterBlockSoundTypes {
             BLOCK_COARSE_DIRT_FALL
     );
 
-	public static final SoundType SAND_STONE = new SoundType(0.7F, 1.0F,
+	public static final SoundType SAND_STONE = new SoundType(0.7F, 1.1F,
 			BLOCK_SANDSTONE_BREAK,
 			BLOCK_SANDSTONE_STEP,
 			BLOCK_SANDSTONE_PLACE,

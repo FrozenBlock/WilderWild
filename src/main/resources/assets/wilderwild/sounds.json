@@ -710,8 +710,7 @@
 	  "wilderwild:block/flower/break2",
 	  "wilderwild:block/flower/break3",
 	  "wilderwild:block/flower/break4",
-	  "wilderwild:block/flower/break5",
-	  "wilderwild:block/flower/break6"
+	  "wilderwild:block/flower/break5"
 	],
 	"subtitle": "subtitles.block.generic.break"
   },
@@ -721,8 +720,7 @@
 	  "wilderwild:block/flower/step2",
 	  "wilderwild:block/flower/step3",
 	  "wilderwild:block/flower/step4",
-	  "wilderwild:block/flower/step5",
-	  "wilderwild:block/flower/step6"
+	  "wilderwild:block/flower/step5"
 	]
   },
   "block.flower.hit": {
@@ -731,8 +729,7 @@
 	  "wilderwild:block/flower/step2",
 	  "wilderwild:block/flower/step3",
 	  "wilderwild:block/flower/step4",
-	  "wilderwild:block/flower/step5",
-	  "wilderwild:block/flower/step6"
+	  "wilderwild:block/flower/step5"
 	],
 	"subtitle": "subtitles.block.generic.hit"
   },
@@ -742,8 +739,7 @@
 	  "wilderwild:block/flower/break2",
 	  "wilderwild:block/flower/break3",
 	  "wilderwild:block/flower/break4",
-	  "wilderwild:block/flower/break5",
-	  "wilderwild:block/flower/break6"
+	  "wilderwild:block/flower/break5"
 	],
 	"subtitle": "subtitles.block.generic.place"
   },
@@ -753,8 +749,7 @@
 	  "wilderwild:block/flower/step2",
 	  "wilderwild:block/flower/step3",
 	  "wilderwild:block/flower/step4",
-	  "wilderwild:block/flower/step5",
-	  "wilderwild:block/flower/step6"
+	  "wilderwild:block/flower/step5"
 	],
 	"subtitle": "subtitles.block.generic.footsteps"
   },
@@ -1544,6 +1539,57 @@
       "wilderwild:block/sandstone/step2",
       "wilderwild:block/sandstone/step3",
       "wilderwild:block/sandstone/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.sapling.break": {
+    "sounds": [
+      "block/bamboo/sapling_place1",
+      "block/bamboo/sapling_place2",
+      "block/bamboo/sapling_place3",
+      "block/bamboo/sapling_place4",
+      "block/bamboo/sapling_place5",
+      "block/bamboo/sapling_place6"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.sapling.fall": {
+    "sounds": [
+      "block/bamboo/sapling_hit1",
+      "block/bamboo/sapling_hit2",
+      "block/bamboo/sapling_hit3",
+      "block/bamboo/sapling_hit4",
+      "block/bamboo/sapling_hit5"
+    ]
+  },
+  "block.sapling.hit": {
+    "sounds": [
+      "block/bamboo/sapling_hit1",
+      "block/bamboo/sapling_hit2",
+      "block/bamboo/sapling_hit3",
+      "block/bamboo/sapling_hit4",
+      "block/bamboo/sapling_hit5"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.sapling.place": {
+    "sounds": [
+      "block/bamboo/sapling_place1",
+      "block/bamboo/sapling_place2",
+      "block/bamboo/sapling_place3",
+      "block/bamboo/sapling_place4",
+      "block/bamboo/sapling_place5",
+      "block/bamboo/sapling_place6"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.sapling.step": {
+    "sounds": [
+      "block/bamboo/sapling_hit1",
+      "block/bamboo/sapling_hit2",
+      "block/bamboo/sapling_hit3",
+      "block/bamboo/sapling_hit4",
+      "block/bamboo/sapling_hit5"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
