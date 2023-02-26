@@ -517,6 +517,20 @@ public final class RegisterBlocks {
             .recipeUnlockedBy("has_planks")
             .getFamily();
 
+	public static final BlockFamily PALM = BlockFamilies.familyBuilder(PALM_PLANKS)
+			.button(PALM_BUTTON)
+			.slab(PALM_SLAB)
+			.stairs(PALM_STAIRS)
+			.fence(PALM_FENCE)
+			.fenceGate(PALM_FENCE_GATE)
+			.pressurePlate(PALM_PRESSURE_PLATE)
+			.sign(PALM_SIGN_BLOCK, PALM_WALL_SIGN)
+			.door(PALM_DOOR)
+			.trapdoor(PALM_TRAPDOOR)
+			.recipeGroupPrefix("wooden")
+			.recipeUnlockedBy("has_planks")
+			.getFamily();
+
     public static final Block NULL_BLOCK = new Block(FabricBlockSettings.copyOf(Blocks.STONE).sounds(RegisterBlockSoundTypes.NULL_BLOCK));
 
     public static final Block DISPLAY_LANTERN = new DisplayLanternBlock(FabricBlockSettings.of(Material.METAL).strength(3.5f).sounds(SoundType.LANTERN).luminance((state) -> state.getValue(RegisterProperties.DISPLAY_LIGHT)));

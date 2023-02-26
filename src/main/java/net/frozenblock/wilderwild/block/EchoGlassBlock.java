@@ -18,15 +18,12 @@
 
 package net.frozenblock.wilderwild.block;
 
-import java.util.Collections;
-import java.util.List;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -46,11 +43,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
-import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -123,43 +115,20 @@ public class EchoGlassBlock extends TintedGlassBlock {
     }
 
 	@Override
-    public void playerDestroy(@NotNull Level level, Player player, @NotNull BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
-        player.causeFoodExhaustion(0.005F);
+    public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
         if (state.getValue(DAMAGE) < 3 && EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, player.getMainHandItem()) < 1 && !player.isCreative()) {
             level.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) + 1));
+			player.causeFoodExhaustion(0.005F);
         } else {
-            player.awardStat(Stats.BLOCK_MINED.get(this));
-            dropResources(state, level, pos, blockEntity, player, stack);
+            super.playerDestroy(level, player, pos, state, blockEntity, stack);
             level.playSound(
                     null,
                     pos,
                     SoundEvents.GLASS_BREAK,
                     SoundSource.BLOCKS,
-                    1.3F,
+                    0.9F,
                     level.random.nextFloat() * 0.1F + 0.8F
             );
-        }
-    }
-
-	@Deprecated
-    @Override
-    public List<ItemStack> getDrops(@NotNull BlockState state, LootContext.Builder builder) {
-        ResourceLocation identifier = this.getLootTable();
-        if (builder.getOptionalParameter(LootContextParams.TOOL) != null) {
-            ItemStack stack = builder.getParameter(LootContextParams.TOOL);
-            if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) != 0) {
-                if (state.getValue(DAMAGE) == 0) {
-                    identifier = WilderSharedConstants.id("blocks/echo_glass_full");
-                }
-            }
-        }
-        if (identifier == BuiltInLootTables.EMPTY) {
-            return Collections.emptyList();
-        } else {
-            LootContext lootContext = builder.withParameter(LootContextParams.BLOCK_STATE, state).create(LootContextParamSets.BLOCK);
-            ServerLevel serverLevel = lootContext.getLevel();
-            LootTable lootTable = serverLevel.getServer().getLootTables().get(identifier);
-            return lootTable.getRandomItems(lootContext);
         }
     }
 
