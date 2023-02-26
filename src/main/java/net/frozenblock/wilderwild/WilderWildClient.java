@@ -81,7 +81,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 
 @Environment(EnvType.CLIENT)
@@ -274,6 +276,8 @@ public final class WilderWildClient implements ClientModInitializer {
 		ItemProperties.register(RegisterItems.SCORCHED_SAND, WilderSharedConstants.vanillaId("cracked"), (itemStack, clientLevel, livingEntity, seed) -> ItemBlockStateTagUtils.getIntProperty(itemStack, RegisterProperties.CRACKEDNESS, 0));
 		ItemProperties.register(RegisterItems.SCORCHED_RED_SAND, WilderSharedConstants.vanillaId("cracked"), (itemStack, clientLevel, livingEntity, seed) -> ItemBlockStateTagUtils.getIntProperty(itemStack, RegisterProperties.CRACKEDNESS, 0));
 		ItemProperties.register(RegisterItems.ECHO_GLASS, WilderSharedConstants.vanillaId("damage"), (itemStack, clientLevel, livingEntity, seed) -> ((float)ItemBlockStateTagUtils.getIntProperty(itemStack, RegisterProperties.DAMAGE, 0)) / 4F);
+		ItemProperties.register(Items.BEE_NEST, WilderSharedConstants.vanillaId("honey"), (itemStack, clientLevel, livingEntity, seed) -> ((float)ItemBlockStateTagUtils.getIntProperty(itemStack, BlockStateProperties.LEVEL_HONEY, 0)) / 5F);
+		ItemProperties.register(Items.BEEHIVE, WilderSharedConstants.vanillaId("honey"), (itemStack, clientLevel, livingEntity, seed) -> ((float)ItemBlockStateTagUtils.getIntProperty(itemStack, BlockStateProperties.LEVEL_HONEY, 0)) / 5F);
 
 		ColorProviderRegistry.BLOCK.register(
 				((state, level, pos, tintIndex) ->
