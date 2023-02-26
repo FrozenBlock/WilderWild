@@ -40,7 +40,7 @@ public class LavaFluidMixin {
 
 	@Unique
 	public void wilderWild$scorchTick(Level level, BlockPos pos, RandomSource random) {
-		if (random.nextFloat() <= 0.10F) {
+		if (random.nextFloat() <= 0.275F) {
 			ScorchedSandBlock.scorch(level.getBlockState(pos), level, pos);
 		}
 	}

@@ -18,10 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.server.sculk;
 
-import com.mojang.datafixers.util.Pair;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
