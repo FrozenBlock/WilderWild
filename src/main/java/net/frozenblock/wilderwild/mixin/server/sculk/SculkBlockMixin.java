@@ -87,14 +87,6 @@ public abstract class SculkBlockMixin {
     private static final double WILDERWILD$OSSEOUS_SCULK_AREA_SIZE = 0.09;
 
     /**
-     * Decides how commonly Osseous Sculk pillars will grow.
-     * <p>
-     * If set to 1 or higher, the pillars will never grow.
-     */
-	@Unique
-    private static final double WILDERWILD$OSSEOUS_SCULK_THRESHOLD = 0.15;
-
-    /**
      * Decides how commonly Osseous Sculk pillars will grow during worldgen.
      * <p>
      * If set to 1 or higher, the pillars will never grow.
@@ -213,7 +205,7 @@ public abstract class SculkBlockMixin {
             }
             return false;
         }
-        return level.getRandom().nextInt(0, 6) == 3;
+        return level.getRandom().nextInt(0, 7) == 3;
     }
 
 	@Unique
