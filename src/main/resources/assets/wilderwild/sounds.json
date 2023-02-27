@@ -1474,7 +1474,7 @@
   "block.pollen.step": {
     "sounds": [
       "wilderwild:block/pollen/step1",
-      "wilderwild:block/gravel/step2",
+      "wilderwild:block/pollen/step2",
       "wilderwild:block/pollen/step3",
       "wilderwild:block/pollen/step4"
     ],

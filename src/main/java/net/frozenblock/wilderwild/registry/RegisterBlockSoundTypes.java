@@ -179,7 +179,7 @@ public final class RegisterBlockSoundTypes {
             BLOCK_FLOWER_FALL
     );
 
-	public static final SoundType POLLEN = new SoundType(1.0F, 1.0F,
+	public static final SoundType POLLEN = new SoundType(0.5F, 1.2F,
 			BLOCK_POLLEN_BREAK,
 			BLOCK_POLLEN_STEP,
 			BLOCK_POLLEN_PLACE,
