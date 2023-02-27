@@ -49,11 +49,15 @@ public final class WilderModIntegrations {
 	public static void init() {
 	}
 
+	public static ModIntegrationSupplier<? extends ModIntegration> register(Supplier<? extends ModIntegration> integration, String modID) {
+		return ModIntegrations.register(integration, WilderSharedConstants.MOD_ID, modID);
+	}
+
 	public static <T extends ModIntegration> ModIntegrationSupplier<T> register(Supplier<T> integration, Supplier<T> unloadedIntegration, String modID) {
 		return ModIntegrations.register(integration, unloadedIntegration, WilderSharedConstants.MOD_ID, modID);
 	}
 
-	public static <T extends ModIntegration> T registerAndGet(Supplier<T> integration, String modID) {
+	public static <T extends ModIntegration> ModIntegration registerAndGet(Supplier<T> integration, String modID) {
 		return ModIntegrations.register(integration, WilderSharedConstants.MOD_ID, modID).getIntegration();
 	}
 }
