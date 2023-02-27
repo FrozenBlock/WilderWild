@@ -21,8 +21,6 @@ Plants:
 -Added Tumbleweed Stem, Tumbleweed, Prickly Pear, and Bush Blocks
 
 Blocks:
--Waterlogged Mesoglea now allows Jellyfish to spawn inside of it
--Dry Mesoglea now renders inside of Waterlogged Mesoglea
 -Fixed missing/broken loot tables
 -Sculk Shrieker, Echo Glass, Beehive, and Bee Nest items now display their proper unique textures according to their block states (Souls Taken, Damage, and Honey Level)
 -Sand and Red Sand can now be scorched with dripping lava, dripping water, lava, water, and fire above them
@@ -34,3 +32,5 @@ Jellyfish Caves:
 -Large Mesoglea paths and pillars now generate throughout the biome, adding more incentive to explore them and find hidden areas
 -Jellyfish can now shrink back into Mesoglea and Nematocyst if spawned naturally and far enough from the player
 -Updated Dripping Mesoglea particles to no longer face upwards or downwards while hanging
+-Waterlogged Mesoglea now allows Jellyfish to spawn inside of it
+-Dry Mesoglea now renders inside of Waterlogged Mesoglea
