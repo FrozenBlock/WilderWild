@@ -148,6 +148,11 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean sandstoneSounds() {
+		return BLOCK_SOUNDS.sandstoneSounds;
+	}
+
+	@Override
 	public boolean sugarCaneSounds() {
 		return BLOCK_SOUNDS.sugarCaneSounds;
 	}
