@@ -472,7 +472,7 @@ public final class RegisterBlocks {
 
     public static final Block BROWN_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM_BLOCK).luminance(1).ticksRandomly().collidable(false).nonOpaque().sounds(RegisterBlockSoundTypes.MUSHROOM));
     public static final Block RED_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.RED_MUSHROOM_BLOCK).ticksRandomly().collidable(false).nonOpaque().sounds(RegisterBlockSoundTypes.MUSHROOM));
-    public static final Block POLLEN_BLOCK = new PollenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(BlockBehaviour.OffsetType.NONE).color(MaterialColor.SAND).sound(SoundType.VINE));
+    public static final Block POLLEN_BLOCK = new PollenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(BlockBehaviour.OffsetType.NONE).color(MaterialColor.SAND).sound(RegisterBlockSoundTypes.POLLEN));
 	//TODO: Rename & Sponge Sounds
 	public static final Block SMALL_SPONGE = new SmallSpongeBlock(FabricBlockSettings.copyOf(Blocks.SPONGE).collidable(false).nonOpaque().sounds(SoundType.GRASS));
 

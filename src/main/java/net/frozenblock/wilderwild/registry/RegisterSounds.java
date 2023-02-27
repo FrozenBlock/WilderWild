@@ -189,6 +189,12 @@ public final class RegisterSounds {
 	public static final SoundEvent BLOCK_PALM_CROWN_STEP = register("block.palm_crown.step");
 	public static final SoundEvent BLOCK_PALM_CROWN_FALL = register("block.palm_crown.fall");
 
+	public static final SoundEvent BLOCK_POLLEN_PLACE = register("block.pollen.place");
+	public static final SoundEvent BLOCK_POLLEN_HIT = register("block.pollen.hit");
+	public static final SoundEvent BLOCK_POLLEN_BREAK = register("block.pollen.break");
+	public static final SoundEvent BLOCK_POLLEN_STEP = register("block.pollen.step");
+	public static final SoundEvent BLOCK_POLLEN_FALL = register("block.pollen.fall");
+
     public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_PLACE = register("block.reinforced_deepslate.place");
     public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_HIT = register("block.reinforced_deepslate.hit");
     public static final SoundEvent BLOCK_REINFORCED_DEEPSLATE_BREAK = register("block.reinforced_deepslate.break");

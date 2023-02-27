@@ -305,7 +305,7 @@
       "wilderwild:block/algae/break3",
       "wilderwild:block/algae/break4"
     ],
-    "subtitle": "subtitles.block.generic.break"
+    "subtitle": "minecraft:subtitles.block.generic.break"
   },
   "block.algae.fall": {
     "sounds": [
@@ -322,7 +322,7 @@
       "wilderwild:block/algae/step3",
       "wilderwild:block/algae/step4"
     ],
-    "subtitle": "subtitles.block.generic.hit"
+    "subtitle": "minecraft:subtitles.block.generic.hit"
   },
   "block.algae.place": {
     "sounds": [
@@ -331,7 +331,7 @@
       "wilderwild:block/algae/break3",
       "wilderwild:block/algae/break4"
     ],
-    "subtitle": "subtitles.block.generic.place"
+    "subtitle": "minecraft:subtitles.block.generic.place"
   },
   "block.algae.step": {
     "sounds": [
@@ -340,7 +340,7 @@
       "wilderwild:block/algae/step3",
       "wilderwild:block/algae/step4"
     ],
-    "subtitle": "subtitles.block.generic.footsteps"
+    "subtitle": "minecraft:subtitles.block.generic.footsteps"
   },
   "block.baobab_nut.break": {
 	"sounds": [
@@ -349,7 +349,7 @@
 	  "wilderwild:block/baobab_nut/break3",
 	  "wilderwild:block/baobab_nut/break4"
 	],
-	"subtitle": "subtitles.block.generic.break"
+	"subtitle": "minecraft:subtitles.block.generic.break"
   },
   "block.baobab_nut.fall": {
 	"sounds": [
@@ -366,7 +366,7 @@
 	  "wilderwild:block/baobab_nut/step3",
 	  "wilderwild:block/baobab_nut/step4"
 	],
-	"subtitle": "subtitles.block.generic.hit"
+	"subtitle": "minecraft:subtitles.block.generic.hit"
   },
   "block.baobab_nut.place": {
 	"sounds": [
@@ -375,7 +375,7 @@
 	  "wilderwild:block/baobab_nut/break3",
 	  "wilderwild:block/baobab_nut/break4"
 	],
-	"subtitle": "subtitles.block.generic.place"
+	"subtitle": "minecraft:subtitles.block.generic.place"
   },
   "block.baobab_nut.step": {
 	"sounds": [
@@ -384,7 +384,7 @@
 	  "wilderwild:block/baobab_nut/step3",
 	  "wilderwild:block/baobab_nut/step4"
 	],
-	"subtitle": "subtitles.block.generic.footsteps"
+	"subtitle": "minecraft:subtitles.block.generic.footsteps"
   },
   "block.cactus.break": {
     "sounds": [
@@ -395,7 +395,7 @@
       "wilderwild:block/cactus/break5",
       "wilderwild:block/cactus/break6"
     ],
-    "subtitle": "subtitles.block.generic.break"
+    "subtitle": "minecraft:subtitles.block.generic.break"
   },
   "block.cactus.fall": {
     "sounds": [
@@ -412,7 +412,7 @@
       "wilderwild:block/cactus/step3",
       "wilderwild:block/cactus/step4"
     ],
-    "subtitle": "subtitles.block.generic.hit"
+    "subtitle": "minecraft:subtitles.block.generic.hit"
   },
   "block.cactus.place": {
     "sounds": [
@@ -423,7 +423,7 @@
       "wilderwild:block/cactus/break5",
       "wilderwild:block/cactus/break6"
     ],
-    "subtitle": "subtitles.block.generic.place"
+    "subtitle": "minecraft:subtitles.block.generic.place"
   },
   "block.cactus.step": {
     "sounds": [
@@ -432,7 +432,7 @@
       "wilderwild:block/cactus/step3",
       "wilderwild:block/cactus/step4"
     ],
-    "subtitle": "subtitles.block.generic.footsteps"
+    "subtitle": "minecraft:subtitles.block.generic.footsteps"
   },
   "block.chest.close_underwater": {
     "sounds": [
@@ -457,7 +457,7 @@
 	  "wilderwild:block/clay/break5",
 	  "wilderwild:block/clay/break6"
 	],
-	"subtitle": "subtitles.block.generic.break"
+	"subtitle": "minecraft:subtitles.block.generic.break"
   },
   "block.clay.fall": {
 	"sounds": [
@@ -478,7 +478,7 @@
 	  "wilderwild:block/clay/step5",
 	  "wilderwild:block/clay/step6"
 	],
-	"subtitle": "subtitles.block.generic.hit"
+	"subtitle": "minecraft:subtitles.block.generic.hit"
   },
   "block.clay.place": {
 	"sounds": [
@@ -489,7 +489,7 @@
 	  "wilderwild:block/clay/break5",
 	  "wilderwild:block/clay/break6"
 	],
-	"subtitle": "subtitles.block.generic.place"
+	"subtitle": "minecraft:subtitles.block.generic.place"
   },
   "block.clay.step": {
 	"sounds": [
@@ -500,7 +500,7 @@
 	  "wilderwild:block/clay/step5",
 	  "wilderwild:block/clay/step6"
 	],
-	"subtitle": "subtitles.block.generic.footsteps"
+	"subtitle": "minecraft:subtitles.block.generic.footsteps"
   },
   "block.coarse_dirt.break": {
 	"sounds": [
@@ -509,7 +509,7 @@
 	  "wilderwild:block/coarse_dirt/break3",
 	  "wilderwild:block/coarse_dirt/break4"
 	],
-	"subtitle": "subtitles.block.generic.break"
+	"subtitle": "minecraft:subtitles.block.generic.break"
   },
   "block.coarse_dirt.fall": {
 	"sounds": [
@@ -526,7 +526,7 @@
 	  "wilderwild:block/coarse_dirt/step3",
 	  "wilderwild:block/coarse_dirt/step4"
 	],
-	"subtitle": "subtitles.block.generic.hit"
+	"subtitle": "minecraft:subtitles.block.generic.hit"
   },
   "block.coarse_dirt.place": {
 	"sounds": [
@@ -535,7 +535,7 @@
 	  "wilderwild:block/coarse_dirt/break3",
 	  "wilderwild:block/coarse_dirt/break4"
 	],
-	"subtitle": "subtitles.block.generic.place"
+	"subtitle": "minecraft:subtitles.block.generic.place"
   },
   "block.coarse_dirt.step": {
 	"sounds": [
@@ -544,7 +544,7 @@
 	  "wilderwild:block/coarse_dirt/step3",
 	  "wilderwild:block/coarse_dirt/step4"
 	],
-	"subtitle": "subtitles.block.generic.footsteps"
+	"subtitle": "minecraft:subtitles.block.generic.footsteps"
   },
   "block.cobweb.break": {
 	"sounds": [
@@ -553,7 +553,7 @@
 	  "wilderwild:block/cobweb/break3",
 	  "wilderwild:block/cobweb/break4"
 	],
-	"subtitle": "subtitles.block.generic.break"
+	"subtitle": "minecraft:subtitles.block.generic.break"
   },
   "block.cobweb.fall": {
 	"sounds": [
@@ -572,7 +572,7 @@
 	  "wilderwild:block/cobweb/step4",
 	  "wilderwild:block/cobweb/step5"
 	],
-	"subtitle": "subtitles.block.generic.hit"
+	"subtitle": "minecraft:subtitles.block.generic.hit"
   },
   "block.cobweb.place": {
 	"sounds": [
@@ -581,7 +581,7 @@
 	  "wilderwild:block/cobweb/break3",
 	  "wilderwild:block/cobweb/break4"
 	],
-	"subtitle": "subtitles.block.generic.place"
+	"subtitle": "minecraft:subtitles.block.generic.place"
   },
   "block.cobweb.step": {
 	"sounds": [
@@ -591,7 +591,7 @@
 	  "wilderwild:block/cobweb/step4",
 	  "wilderwild:block/cobweb/step5"
 	],
-	"subtitle": "subtitles.block.generic.footsteps"
+	"subtitle": "minecraft:subtitles.block.generic.footsteps"
   },
   "block.coconut.break": {
     "sounds": [
@@ -600,7 +600,7 @@
       "wilderwild:block/coconut/break3",
       "wilderwild:block/coconut/break4"
     ],
-    "subtitle": "subtitles.block.generic.break"
+    "subtitle": "minecraft:subtitles.block.generic.break"
   },
   "block.coconut.fall": {
     "sounds": [
@@ -617,7 +617,7 @@
       "wilderwild:block/coconut/step3",
       "wilderwild:block/coconut/step4"
     ],
-    "subtitle": "subtitles.block.generic.hit"
+    "subtitle": "minecraft:subtitles.block.generic.hit"
   },
   "block.coconut.place": {
     "sounds": [
@@ -626,7 +626,7 @@
       "wilderwild:block/coconut/break3",
       "wilderwild:block/coconut/break4"
     ],
-    "subtitle": "subtitles.block.generic.place"
+    "subtitle": "minecraft:subtitles.block.generic.place"
   },
   "block.coconut.step": {
     "sounds": [
@@ -635,7 +635,7 @@
       "wilderwild:block/coconut/step3",
       "wilderwild:block/coconut/step4"
     ],
-    "subtitle": "subtitles.block.generic.footsteps"
+    "subtitle": "minecraft:subtitles.block.generic.footsteps"
   },
   "block.echo_glass.break": {
 	"sounds": [
@@ -643,7 +643,7 @@
 	  "wilderwild:block/echo_glass/break2",
 	  "wilderwild:block/echo_glass/break3"
 	],
-	"subtitle": "subtitles.block.generic.break"
+	"subtitle": "minecraft:subtitles.block.generic.break"
   },
   "block.echo_glass.crack": {
 	"sounds": [
@@ -667,7 +667,7 @@
 	  "wilderwild:block/echo_glass/hit3",
 	  "wilderwild:block/echo_glass/hit4"
 	],
-	"subtitle": "subtitles.block.generic.hit"
+	"subtitle": "minecraft:subtitles.block.generic.hit"
   },
   "block.echo_glass.place": {
 	"sounds": [
@@ -676,7 +676,7 @@
 	  "wilderwild:block/echo_glass/place3",
 	  "wilderwild:block/echo_glass/place4"
 	],
-	"subtitle": "subtitles.block.generic.place"
+	"subtitle": "minecraft:subtitles.block.generic.place"
   },
   "block.echo_glass.repair": {
 	"sounds": [
@@ -694,7 +694,7 @@
 	  "wilderwild:block/echo_glass/step5",
 	  "wilderwild:block/echo_glass/step6"
 	],
-	"subtitle": "subtitles.block.generic.footsteps"
+	"subtitle": "minecraft:subtitles.block.generic.footsteps"
   },
   "block.display_lantern.nectar_inside_loop": {
 	"sounds": [
@@ -712,7 +712,7 @@
 	  "wilderwild:block/flower/break4",
 	  "wilderwild:block/flower/break5"
 	],
-	"subtitle": "subtitles.block.generic.break"
+	"subtitle": "minecraft:subtitles.block.generic.break"
   },
   "block.flower.fall": {
 	"sounds": [
@@ -731,7 +731,7 @@
 	  "wilderwild:block/flower/step4",
 	  "wilderwild:block/flower/step5"
 	],
-	"subtitle": "subtitles.block.generic.hit"
+	"subtitle": "minecraft:subtitles.block.generic.hit"
   },
   "block.flower.place": {
 	"sounds": [
@@ -741,7 +741,7 @@
 	  "wilderwild:block/flower/break4",
 	  "wilderwild:block/flower/break5"
 	],
-	"subtitle": "subtitles.block.generic.place"
+	"subtitle": "minecraft:subtitles.block.generic.place"
   },
   "block.flower.step": {
 	"sounds": [
@@ -751,7 +751,7 @@
 	  "wilderwild:block/flower/step4",
 	  "wilderwild:block/flower/step5"
 	],
-	"subtitle": "subtitles.block.generic.footsteps"
+	"subtitle": "minecraft:subtitles.block.generic.footsteps"
   },
   "block.gravel.break": {
 	"sounds": [
@@ -760,7 +760,7 @@
 	  "wilderwild:block/gravel/break3",
 	  "wilderwild:block/gravel/break4"
 	],
-	"subtitle": "subtitles.block.generic.break"
+	"subtitle": "minecraft:subtitles.block.generic.break"
   },
   "block.gravel.fall": {
 	"sounds": [
@@ -777,7 +777,7 @@
 	  "wilderwild:block/gravel/step3",
 	  "wilderwild:block/gravel/step4"
 	],
-	"subtitle": "subtitles.block.generic.hit"
+	"subtitle": "minecraft:subtitles.block.generic.hit"
   },
   "block.gravel.place": {
 	"sounds": [
@@ -786,7 +786,7 @@
 	  "wilderwild:block/gravel/break3",
 	  "wilderwild:block/gravel/break4"
 	],
-	"subtitle": "subtitles.block.generic.place"
+	"subtitle": "minecraft:subtitles.block.generic.place"
   },
   "block.gravel.step": {
 	"sounds": [
@@ -795,7 +795,7 @@
 	  "wilderwild:block/gravel/step3",
 	  "wilderwild:block/gravel/step4"
 	],
-	"subtitle": "subtitles.block.generic.footsteps"
+	"subtitle": "minecraft:subtitles.block.generic.footsteps"
   },
   "block.hanging_tendril.break": {
 	"sounds": [
@@ -806,7 +806,7 @@
 	  "wilderwild:block/hanging_tendril/break5",
 	  "wilderwild:block/hanging_tendril/break6"
 	],
-	"subtitle": "subtitles.block.generic.break"
+	"subtitle": "minecraft:subtitles.block.generic.break"
   },
   "block.hanging_tendril.fall": {
 	"sounds": [
@@ -825,7 +825,7 @@
 	  "wilderwild:block/hanging_tendril/step4",
 	  "wilderwild:block/hanging_tendril/step5"
 	],
-	"subtitle": "subtitles.block.generic.hit"
+	"subtitle": "minecraft:subtitles.block.generic.hit"
   },
   "block.hanging_tendril.place": {
 	"sounds": [
@@ -835,7 +835,7 @@
 	  "wilderwild:block/hanging_tendril/break4",
 	  "wilderwild:block/hanging_tendril/break5"
 	],
-	"subtitle": "subtitles.block.generic.place"
+	"subtitle": "minecraft:subtitles.block.generic.place"
   },
   "block.hanging_tendril.step": {
 	"sounds": [
@@ -845,7 +845,7 @@
 	  "wilderwild:block/hanging_tendril/step4",
 	  "wilderwild:block/hanging_tendril/step5"
 	],
-	"subtitle": "subtitles.block.generic.footsteps"
+	"subtitle": "minecraft:subtitles.block.generic.footsteps"
   },
   "block.hanging_tendril.wring": {
 	"sounds": [
@@ -917,7 +917,7 @@
 	  "wilderwild:block/hollowed_log/break3",
 	  "wilderwild:block/hollowed_log/break4"
 	],
-	"subtitle": "subtitles.block.generic.break"
+	"subtitle": "minecraft:subtitles.block.generic.break"
   },
   "block.hollowed_log.fall": {
 	"sounds": [
@@ -938,7 +938,7 @@
 	  "wilderwild:block/hollowed_log/step5",
 	  "wilderwild:block/hollowed_log/step6"
 	],
-	"subtitle": "subtitles.block.generic.hit"
+	"subtitle": "minecraft:subtitles.block.generic.hit"
   },
   "block.hollowed_log.place": {
 	"sounds": [
@@ -947,7 +947,7 @@
 	  "wilderwild:block/hollowed_log/break3",
 	  "wilderwild:block/hollowed_log/break4"
 	],
-	"subtitle": "subtitles.block.generic.place"
+	"subtitle": "minecraft:subtitles.block.generic.place"
   },
   "block.hollowed_log.step": {
 	"sounds": [
@@ -958,7 +958,7 @@
 	  "wilderwild:block/hollowed_log/step5",
 	  "wilderwild:block/hollowed_log/step6"
 	],
-	"subtitle": "subtitles.block.generic.footsteps"
+	"subtitle": "minecraft:subtitles.block.generic.footsteps"
   },
   "block.hollowed_stem.break": {
     "sounds": [
@@ -969,7 +969,7 @@
       "wilderwild:block/hollowed_stem/break5",
       "wilderwild:block/hollowed_stem/break6"
     ],
-    "subtitle": "subtitles.block.generic.break"
+    "subtitle": "minecraft:subtitles.block.generic.break"
   },
   "block.hollowed_stem.fall": {
     "sounds": [
@@ -990,7 +990,7 @@
       "wilderwild:block/hollowed_stem/step5",
       "wilderwild:block/hollowed_stem/step6"
     ],
-    "subtitle": "subtitles.block.generic.hit"
+    "subtitle": "minecraft:subtitles.block.generic.hit"
   },
   "block.hollowed_stem.place": {
     "sounds": [
@@ -1001,7 +1001,7 @@
       "wilderwild:block/hollowed_stem/break5",
       "wilderwild:block/hollowed_stem/break6"
     ],
-    "subtitle": "subtitles.block.generic.place"
+    "subtitle": "minecraft:subtitles.block.generic.place"
   },
   "block.hollowed_stem.step": {
     "sounds": [
@@ -1012,7 +1012,7 @@
       "wilderwild:block/hollowed_stem/step5",
       "wilderwild:block/hollowed_stem/step6"
     ],
-    "subtitle": "subtitles.block.generic.footsteps"
+    "subtitle": "minecraft:subtitles.block.generic.footsteps"
   },
   "block.ice.break": {
 	"sounds": [
@@ -1022,7 +1022,7 @@
 	  "wilderwild:block/ice/break4",
 	  "wilderwild:block/ice/break5"
 	],
-	"subtitle": "subtitles.block.generic.break"
+	"subtitle": "minecraft:subtitles.block.generic.break"
   },
   "block.ice.fall": {
 	"sounds": [
@@ -1039,7 +1039,7 @@
 		"type": "event"
 	  }
 	],
-	"subtitle": "subtitles.block.generic.hit"
+	"subtitle": "minecraft:subtitles.block.generic.hit"
   },
   "block.ice.place": {
 	"sounds": [
@@ -1049,7 +1049,7 @@
 	  "wilderwild:block/ice/place4",
 	  "wilderwild:block/ice/place5"
 	],
-	"subtitle": "subtitles.block.generic.place"
+	"subtitle": "minecraft:subtitles.block.generic.place"
   },
   "block.ice.step": {
 	"sounds": [
@@ -1058,7 +1058,7 @@
 		"type": "event"
 	  }
 	],
-	"subtitle": "subtitles.block.generic.footsteps"
+	"subtitle": "minecraft:subtitles.block.generic.footsteps"
   },
   "block.leaves.break": {
 	"sounds": [
@@ -1068,7 +1068,7 @@
 	  "wilderwild:block/leaves/break4",
 	  "wilderwild:block/leaves/break5"
 	],
-	"subtitle": "subtitles.block.generic.break"
+	"subtitle": "minecraft:subtitles.block.generic.break"
   },
   "block.leaves.fall": {
 	"sounds": [
@@ -1087,7 +1087,7 @@
 	  "wilderwild:block/leaves/step4",
 	  "wilderwild:block/leaves/step5"
 	],
-	"subtitle": "subtitles.block.generic.hit"
+	"subtitle": "minecraft:subtitles.block.generic.hit"
   },
   "block.leaves.place": {
 	"sounds": [
@@ -1097,7 +1097,7 @@
       "wilderwild:block/leaves/break4",
       "wilderwild:block/leaves/break5"
 	],
-	"subtitle": "subtitles.block.generic.place"
+	"subtitle": "minecraft:subtitles.block.generic.place"
   },
   "block.leaves.step": {
 	"sounds": [
@@ -1107,7 +1107,7 @@
 	  "wilderwild:block/leaves/step4",
 	  "wilderwild:block/leaves/step5"
 	],
-	"subtitle": "subtitles.block.generic.footsteps"
+	"subtitle": "minecraft:subtitles.block.generic.footsteps"
   },
   "block.mesoglea.break": {
 	"sounds": [
@@ -1116,7 +1116,7 @@
 	  "wilderwild:block/mesoglea/break3",
 	  "wilderwild:block/mesoglea/break4"
 	],
-	"subtitle": "subtitles.block.generic.break"
+	"subtitle": "minecraft:subtitles.block.generic.break"
   },
   "block.mesoglea.fall": {
 	"sounds": [
@@ -1133,7 +1133,7 @@
 	  "wilderwild:block/mesoglea/step3",
 	  "wilderwild:block/mesoglea/step4"
 	],
-	"subtitle": "subtitles.block.generic.hit"
+	"subtitle": "minecraft:subtitles.block.generic.hit"
   },
   "block.mesoglea.place": {
 	"sounds": [
@@ -1142,7 +1142,7 @@
 	  "wilderwild:block/mesoglea/break3",
 	  "wilderwild:block/mesoglea/break4"
 	],
-	"subtitle": "subtitles.block.generic.place"
+	"subtitle": "minecraft:subtitles.block.generic.place"
   },
   "block.mesoglea.step": {
 	"sounds": [
@@ -1151,7 +1151,7 @@
 	  "wilderwild:block/mesoglea/step3",
 	  "wilderwild:block/mesoglea/step4"
 	],
-	"subtitle": "subtitles.block.generic.footsteps"
+	"subtitle": "minecraft:subtitles.block.generic.footsteps"
   },
   "block.mushroom.break": {
 	"sounds": [
@@ -1160,7 +1160,7 @@
 	  "wilderwild:block/mushroom/break3",
 	  "wilderwild:block/mushroom/break4"
 	],
-	"subtitle": "subtitles.block.generic.break"
+	"subtitle": "minecraft:subtitles.block.generic.break"
   },
   "block.mushroom.fall": {
 	"sounds": [
@@ -1177,7 +1177,7 @@
 	  "wilderwild:block/mushroom/break3",
 	  "wilderwild:block/mushroom/break4"
 	],
-	"subtitle": "subtitles.block.generic.hit"
+	"subtitle": "minecraft:subtitles.block.generic.hit"
   },
   "block.mushroom.place": {
 	"sounds": [
@@ -1186,7 +1186,7 @@
 	  "wilderwild:block/mushroom/break3",
 	  "wilderwild:block/mushroom/break4"
 	],
-	"subtitle": "subtitles.block.generic.place"
+	"subtitle": "minecraft:subtitles.block.generic.place"
   },
   "block.mushroom.step": {
 	"sounds": [
@@ -1195,61 +1195,51 @@
 	  "wilderwild:block/mushroom/break3",
 	  "wilderwild:block/mushroom/break4"
 	],
-	"subtitle": "subtitles.block.generic.footsteps"
+	"subtitle": "minecraft:subtitles.block.generic.footsteps"
   },
   "block.mushroom_block.break": {
 	"sounds": [
 	  "wilderwild:block/mushroom_block/break1",
 	  "wilderwild:block/mushroom_block/break2",
 	  "wilderwild:block/mushroom_block/break3",
-	  "wilderwild:block/mushroom_block/break4",
-	  "wilderwild:block/mushroom_block/break5",
-	  "wilderwild:block/mushroom_block/break6"
+	  "wilderwild:block/mushroom_block/break4"
 	],
-	"subtitle": "subtitles.block.generic.break"
+	"subtitle": "minecraft:subtitles.block.generic.break"
   },
   "block.mushroom_block.fall": {
 	"sounds": [
-	  "wilderwild:block/mushroom_block/break1",
-	  "wilderwild:block/mushroom_block/break2",
-	  "wilderwild:block/mushroom_block/break3",
-	  "wilderwild:block/mushroom_block/break4",
-	  "wilderwild:block/mushroom_block/break5",
-	  "wilderwild:block/mushroom_block/break6"
+	  "wilderwild:block/mushroom_block/step1",
+	  "wilderwild:block/mushroom_block/step2",
+	  "wilderwild:block/mushroom_block/step3",
+	  "wilderwild:block/mushroom_block/step4"
 	]
   },
   "block.mushroom_block.hit": {
 	"sounds": [
-	  "wilderwild:block/mushroom_block/break1",
-	  "wilderwild:block/mushroom_block/break2",
-	  "wilderwild:block/mushroom_block/break3",
-	  "wilderwild:block/mushroom_block/break4",
-	  "wilderwild:block/mushroom_block/break5",
-	  "wilderwild:block/mushroom_block/break6"
+      "wilderwild:block/mushroom_block/step1",
+      "wilderwild:block/mushroom_block/step2",
+      "wilderwild:block/mushroom_block/step3",
+      "wilderwild:block/mushroom_block/step4"
 	],
-	"subtitle": "subtitles.block.generic.hit"
+	"subtitle": "minecraft:subtitles.block.generic.hit"
   },
   "block.mushroom_block.place": {
 	"sounds": [
 	  "wilderwild:block/mushroom_block/break1",
 	  "wilderwild:block/mushroom_block/break2",
 	  "wilderwild:block/mushroom_block/break3",
-	  "wilderwild:block/mushroom_block/break4",
-	  "wilderwild:block/mushroom_block/break5",
-	  "wilderwild:block/mushroom_block/break6"
+	  "wilderwild:block/mushroom_block/break4"
 	],
-	"subtitle": "subtitles.block.generic.place"
+	"subtitle": "minecraft:subtitles.block.generic.place"
   },
   "block.mushroom_block.step": {
 	"sounds": [
-	  "wilderwild:block/mushroom_block/break1",
-	  "wilderwild:block/mushroom_block/break2",
-	  "wilderwild:block/mushroom_block/break3",
-	  "wilderwild:block/mushroom_block/break4",
-	  "wilderwild:block/mushroom_block/break5",
-	  "wilderwild:block/mushroom_block/break6"
+      "wilderwild:block/mushroom_block/step1",
+      "wilderwild:block/mushroom_block/step2",
+      "wilderwild:block/mushroom_block/step3",
+      "wilderwild:block/mushroom_block/step4"
 	],
-	"subtitle": "subtitles.block.generic.footsteps"
+	"subtitle": "minecraft:subtitles.block.generic.footsteps"
   },
   "block.null_block.break": {
 	"sounds": [
@@ -1258,7 +1248,7 @@
 	  "wilderwild:block/null_block/break3",
 	  "wilderwild:block/null_block/break4"
 	],
-	"subtitle": "subtitles.block.generic.break"
+	"subtitle": "minecraft:subtitles.block.generic.break"
   },
   "block.null_block.fall": {
 	"sounds": [
@@ -1279,7 +1269,7 @@
 	  "wilderwild:block/null_block/step5",
 	  "wilderwild:block/null_block/step6"
 	],
-	"subtitle": "subtitles.block.generic.hit"
+	"subtitle": "minecraft:subtitles.block.generic.hit"
   },
   "block.null_block.place": {
 	"sounds": [
@@ -1288,7 +1278,7 @@
 	  "wilderwild:block/null_block/break3",
 	  "wilderwild:block/null_block/break4"
 	],
-	"subtitle": "subtitles.block.generic.place"
+	"subtitle": "minecraft:subtitles.block.generic.place"
   },
   "block.null_block.step": {
 	"sounds": [
@@ -1299,7 +1289,7 @@
 	  "wilderwild:block/null_block/step5",
 	  "wilderwild:block/null_block/step6"
 	],
-	"subtitle": "subtitles.block.generic.footsteps"
+	"subtitle": "minecraft:subtitles.block.generic.footsteps"
   },
   "block.nematocyst.break": {
 	"sounds": [
@@ -1309,7 +1299,7 @@
 	  "wilderwild:block/nematocyst/break4",
 	  "wilderwild:block/nematocyst/break5"
 	],
-	"subtitle": "subtitles.block.generic.break"
+	"subtitle": "minecraft:subtitles.block.generic.break"
   },
   "block.nematocyst.fall": {
 	"sounds": [
@@ -1328,7 +1318,7 @@
 	  "wilderwild:block/nematocyst/break4",
 	  "wilderwild:block/nematocyst/break5"
 	],
-	"subtitle": "subtitles.block.generic.hit"
+	"subtitle": "minecraft:subtitles.block.generic.hit"
   },
   "block.nematocyst.place": {
 	"sounds": [
@@ -1338,7 +1328,7 @@
 	  "wilderwild:block/nematocyst/break4",
 	  "wilderwild:block/nematocyst/break5"
 	],
-	"subtitle": "subtitles.block.generic.place"
+	"subtitle": "minecraft:subtitles.block.generic.place"
   },
   "block.nematocyst.step": {
 	"sounds": [
@@ -1348,7 +1338,7 @@
 	  "wilderwild:block/nematocyst/break4",
 	  "wilderwild:block/nematocyst/break5"
 	],
-	"subtitle": "subtitles.block.generic.footsteps"
+	"subtitle": "minecraft:subtitles.block.generic.footsteps"
   },
   "block.osseous_sculk.break": {
 	"sounds": [
@@ -1358,7 +1348,7 @@
 	  "wilderwild:block/osseous_sculk/break4",
 	  "wilderwild:block/osseous_sculk/break5"
 	],
-	"subtitle": "subtitles.block.generic.break"
+	"subtitle": "minecraft:subtitles.block.generic.break"
   },
   "block.osseous_sculk.fall": {
 	"sounds": [
@@ -1379,7 +1369,7 @@
 	  "wilderwild:block/osseous_sculk/step5",
 	  "wilderwild:block/osseous_sculk/step6"
 	],
-	"subtitle": "subtitles.block.generic.hit"
+	"subtitle": "minecraft:subtitles.block.generic.hit"
   },
   "block.osseous_sculk.place": {
 	"sounds": [
@@ -1389,7 +1379,7 @@
 	  "wilderwild:block/osseous_sculk/break4",
 	  "wilderwild:block/osseous_sculk/break5"
 	],
-	"subtitle": "subtitles.block.generic.place"
+	"subtitle": "minecraft:subtitles.block.generic.place"
   },
   "block.osseous_sculk.step": {
 	"sounds": [
@@ -1400,7 +1390,7 @@
 	  "wilderwild:block/osseous_sculk/step5",
 	  "wilderwild:block/osseous_sculk/step6"
 	],
-	"subtitle": "subtitles.block.generic.footsteps"
+	"subtitle": "minecraft:subtitles.block.generic.footsteps"
   },
   "block.palm_crown.break": {
     "sounds": [
@@ -1409,7 +1399,7 @@
       "wilderwild:block/palm_crown/break3",
       "wilderwild:block/palm_crown/break4"
     ],
-    "subtitle": "subtitles.block.generic.break"
+    "subtitle": "minecraft:subtitles.block.generic.break"
   },
   "block.palm_crown.fall": {
     "sounds": [
@@ -1426,7 +1416,7 @@
       "wilderwild:block/palm_crown/step3",
       "wilderwild:block/palm_crown/step4"
     ],
-    "subtitle": "subtitles.block.generic.hit"
+    "subtitle": "minecraft:subtitles.block.generic.hit"
   },
   "block.palm_crown.place": {
     "sounds": [
@@ -1435,7 +1425,7 @@
       "wilderwild:block/palm_crown/break3",
       "wilderwild:block/palm_crown/break4"
     ],
-    "subtitle": "subtitles.block.generic.place"
+    "subtitle": "minecraft:subtitles.block.generic.place"
   },
   "block.palm_crown.step": {
     "sounds": [
@@ -1444,7 +1434,51 @@
       "wilderwild:block/palm_crown/step3",
       "wilderwild:block/palm_crown/step4"
     ],
-    "subtitle": "subtitles.block.generic.footsteps"
+    "subtitle": "minecraft:subtitles.block.generic.footsteps"
+  },
+  "block.pollen.break": {
+    "sounds": [
+      "wilderwild:block/pollen/break1",
+      "wilderwild:block/pollen/break2",
+      "wilderwild:block/pollen/break3",
+      "wilderwild:block/pollen/break4"
+    ],
+    "subtitle": "minecraft:subtitles.block.generic.break"
+  },
+  "block.pollen.fall": {
+    "sounds": [
+      "wilderwild:block/pollen/step1",
+      "wilderwild:block/pollen/step2",
+      "wilderwild:block/pollen/step3",
+      "wilderwild:block/pollen/step4"
+    ]
+  },
+  "block.pollen.hit": {
+    "sounds": [
+      "wilderwild:block/pollen/step1",
+      "wilderwild:block/pollen/step2",
+      "wilderwild:block/pollen/step3",
+      "wilderwild:block/pollen/step4"
+    ],
+    "subtitle": "minecraft:subtitles.block.generic.hit"
+  },
+  "block.pollen.place": {
+    "sounds": [
+      "wilderwild:block/pollen/break1",
+      "wilderwild:block/pollen/break2",
+      "wilderwild:block/pollen/break3",
+      "wilderwild:block/pollen/break4"
+    ],
+    "subtitle": "minecraft:subtitles.block.generic.place"
+  },
+  "block.pollen.step": {
+    "sounds": [
+      "wilderwild:block/pollen/step1",
+      "wilderwild:block/gravel/step2",
+      "wilderwild:block/pollen/step3",
+      "wilderwild:block/pollen/step4"
+    ],
+    "subtitle": "minecraft:subtitles.block.generic.footsteps"
   },
   "block.reinforced_deepslate.break": {
 	"sounds": [
@@ -1453,7 +1487,7 @@
 	  "wilderwild:block/reinforced_deepslate/break3",
 	  "wilderwild:block/reinforced_deepslate/break4"
 	],
-	"subtitle": "subtitles.block.generic.break"
+	"subtitle": "minecraft:subtitles.block.generic.break"
   },
   "block.reinforced_deepslate.fall": {
 	"sounds": [
@@ -1474,7 +1508,7 @@
 	  "wilderwild:block/reinforced_deepslate/step5",
 	  "wilderwild:block/reinforced_deepslate/step6"
 	],
-	"subtitle": "subtitles.block.generic.hit"
+	"subtitle": "minecraft:subtitles.block.generic.hit"
   },
   "block.reinforced_deepslate.place": {
 	"sounds": [
@@ -1485,7 +1519,7 @@
 	  "wilderwild:block/reinforced_deepslate/place5",
 	  "wilderwild:block/reinforced_deepslate/place6"
 	],
-	"subtitle": "subtitles.block.generic.place"
+	"subtitle": "minecraft:subtitles.block.generic.place"
   },
   "block.reinforced_deepslate.step": {
 	"sounds": [
@@ -1496,7 +1530,7 @@
 	  "wilderwild:block/reinforced_deepslate/step5",
 	  "wilderwild:block/reinforced_deepslate/step6"
 	],
-	"subtitle": "subtitles.block.generic.footsteps"
+	"subtitle": "minecraft:subtitles.block.generic.footsteps"
   },
   "block.sandstone.break": {
     "sounds": [
@@ -1505,7 +1539,7 @@
       "wilderwild:block/sandstone/break3",
       "wilderwild:block/sandstone/break4"
     ],
-    "subtitle": "subtitles.block.generic.break"
+    "subtitle": "minecraft:subtitles.block.generic.break"
   },
   "block.sandstone.fall": {
     "sounds": [
@@ -1522,7 +1556,7 @@
       "wilderwild:block/sandstone/step3",
       "wilderwild:block/sandstone/step4"
     ],
-    "subtitle": "subtitles.block.generic.hit"
+    "subtitle": "minecraft:subtitles.block.generic.hit"
   },
   "block.sandstone.place": {
     "sounds": [
@@ -1531,7 +1565,7 @@
       "wilderwild:block/sandstone/break3",
       "wilderwild:block/sandstone/break4"
     ],
-    "subtitle": "subtitles.block.generic.place"
+    "subtitle": "minecraft:subtitles.block.generic.place"
   },
   "block.sandstone.step": {
     "sounds": [
@@ -1540,7 +1574,7 @@
       "wilderwild:block/sandstone/step3",
       "wilderwild:block/sandstone/step4"
     ],
-    "subtitle": "subtitles.block.generic.footsteps"
+    "subtitle": "minecraft:subtitles.block.generic.footsteps"
   },
   "block.sapling.break": {
     "sounds": [
@@ -1551,7 +1585,7 @@
       "block/bamboo/sapling_place5",
       "block/bamboo/sapling_place6"
     ],
-    "subtitle": "subtitles.block.generic.break"
+    "subtitle": "minecraft:subtitles.block.generic.break"
   },
   "block.sapling.fall": {
     "sounds": [
@@ -1570,7 +1604,7 @@
       "block/bamboo/sapling_hit4",
       "block/bamboo/sapling_hit5"
     ],
-    "subtitle": "subtitles.block.generic.hit"
+    "subtitle": "minecraft:subtitles.block.generic.hit"
   },
   "block.sapling.place": {
     "sounds": [
@@ -1581,7 +1615,7 @@
       "block/bamboo/sapling_place5",
       "block/bamboo/sapling_place6"
     ],
-    "subtitle": "subtitles.block.generic.place"
+    "subtitle": "minecraft:subtitles.block.generic.place"
   },
   "block.sapling.step": {
     "sounds": [
@@ -1591,7 +1625,7 @@
       "block/bamboo/sapling_hit4",
       "block/bamboo/sapling_hit5"
     ],
-    "subtitle": "subtitles.block.generic.footsteps"
+    "subtitle": "minecraft:subtitles.block.generic.footsteps"
   },
   "block.scorched_sand.break": {
     "sounds": [
@@ -1600,7 +1634,7 @@
       "wilderwild:block/scorched_sand/break3",
       "wilderwild:block/scorched_sand/break4"
     ],
-    "subtitle": "subtitles.block.generic.break"
+    "subtitle": "minecraft:subtitles.block.generic.break"
   },
   "block.scorched_sand.fall": {
     "sounds": [
@@ -1617,7 +1651,7 @@
       "wilderwild:block/scorched_sand/step3",
       "wilderwild:block/scorched_sand/step4"
     ],
-    "subtitle": "subtitles.block.generic.hit"
+    "subtitle": "minecraft:subtitles.block.generic.hit"
   },
   "block.scorched_sand.place": {
     "sounds": [
@@ -1626,7 +1660,7 @@
       "wilderwild:block/scorched_sand/break3",
       "wilderwild:block/scorched_sand/break4"
     ],
-    "subtitle": "subtitles.block.generic.place"
+    "subtitle": "minecraft:subtitles.block.generic.place"
   },
   "block.scorched_sand.step": {
     "sounds": [
@@ -1635,7 +1669,7 @@
       "wilderwild:block/scorched_sand/step3",
       "wilderwild:block/scorched_sand/step4"
     ],
-    "subtitle": "subtitles.block.generic.footsteps"
+    "subtitle": "minecraft:subtitles.block.generic.footsteps"
   },
   "block.sculk_sensor.hiccup": {
 	"sounds": [
@@ -1746,7 +1780,7 @@
 	  "wilderwild:block/sugar_cane/place5",
 	  "wilderwild:block/sugar_cane/place6"
 	],
-	"subtitle": "subtitles.block.generic.break"
+	"subtitle": "minecraft:subtitles.block.generic.break"
   },
   "block.sugar_cane.fall": {
 	"sounds": [
@@ -1767,7 +1801,7 @@
 	  "wilderwild:block/sugar_cane/step5",
 	  "wilderwild:block/sugar_cane/step6"
 	],
-	"subtitle": "subtitles.block.generic.hit"
+	"subtitle": "minecraft:subtitles.block.generic.hit"
   },
   "block.sugar_cane.place": {
 	"sounds": [
@@ -1778,7 +1812,7 @@
 	  "wilderwild:block/sugar_cane/place5",
 	  "wilderwild:block/sugar_cane/place6"
 	],
-	"subtitle": "subtitles.block.generic.place"
+	"subtitle": "minecraft:subtitles.block.generic.place"
   },
   "block.sugar_cane.step": {
 	"sounds": [
@@ -1789,7 +1823,7 @@
 	  "wilderwild:block/sugar_cane/step5",
 	  "wilderwild:block/sugar_cane/step6"
 	],
-	"subtitle": "subtitles.block.generic.footsteps"
+	"subtitle": "minecraft:subtitles.block.generic.footsteps"
   },
   "block.termite_mound.termite_gnaw": {
     "sounds": [
@@ -1854,7 +1888,7 @@
 	  "wilderwild:block/termite_mound/break3",
 	  "wilderwild:block/termite_mound/break4"
 	],
-	"subtitle": "subtitles.block.generic.break"
+	"subtitle": "minecraft:subtitles.block.generic.break"
   },
   "block.termite_mound.fall": {
 	"sounds": [
@@ -1871,7 +1905,7 @@
 	  "wilderwild:block/termite_mound/step3",
 	  "wilderwild:block/termite_mound/step4"
 	],
-	"subtitle": "subtitles.block.generic.hit"
+	"subtitle": "minecraft:subtitles.block.generic.hit"
   },
   "block.termite_mound.place": {
 	"sounds": [
@@ -1880,7 +1914,7 @@
 	  "wilderwild:block/termite_mound/break3",
 	  "wilderwild:block/termite_mound/break4"
 	],
-	"subtitle": "subtitles.block.generic.place"
+	"subtitle": "minecraft:subtitles.block.generic.place"
   },
   "block.termite_mound.step": {
 	"sounds": [
@@ -1889,7 +1923,7 @@
 	  "wilderwild:block/termite_mound/step3",
 	  "wilderwild:block/termite_mound/step4"
 	],
-	"subtitle": "subtitles.block.generic.footsteps"
+	"subtitle": "minecraft:subtitles.block.generic.footsteps"
   },
   "block.tumbleweed_plant.break": {
     "sounds": [
@@ -1898,7 +1932,7 @@
       "wilderwild:block/tumbleweed_plant/break3",
       "wilderwild:block/tumbleweed_plant/break4"
     ],
-    "subtitle": "subtitles.block.generic.break"
+    "subtitle": "minecraft:subtitles.block.generic.break"
   },
   "block.tumbleweed_plant.fall": {
     "sounds": [
@@ -1915,7 +1949,7 @@
       "wilderwild:block/tumbleweed_plant/step3",
       "wilderwild:block/tumbleweed_plant/step4"
     ],
-    "subtitle": "subtitles.block.generic.hit"
+    "subtitle": "minecraft:subtitles.block.generic.hit"
   },
   "block.tumbleweed_plant.place": {
     "sounds": [
@@ -1924,7 +1958,7 @@
       "wilderwild:block/tumbleweed_plant/place3",
       "wilderwild:block/tumbleweed_plant/place4"
     ],
-    "subtitle": "subtitles.block.generic.place"
+    "subtitle": "minecraft:subtitles.block.generic.place"
   },
   "block.tumbleweed_plant.step": {
     "sounds": [
@@ -1933,7 +1967,7 @@
       "wilderwild:block/tumbleweed_plant/step3",
       "wilderwild:block/tumbleweed_plant/step4"
     ],
-    "subtitle": "subtitles.block.generic.footsteps"
+    "subtitle": "minecraft:subtitles.block.generic.footsteps"
   },
   "block.tumbleweed_plant.shear": {
     "sounds": [
