@@ -248,12 +248,12 @@ javadoc {
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
-	setClassifier("javadoc")
+	archiveClassifier = "javadoc"
 	from(javadoc.destinationDir)
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
-	setClassifier("sources")
+	archiveClassifier = "sources"
 	from(sourceSets.main.allSource)
 }
 
