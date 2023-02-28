@@ -19,19 +19,7 @@ plugins {
 	id("java-library")
 }
 
-project.ext.local_frozenlib = findProject(":FrozenLib") != null
 project.ext.release = findProperty("releaseType") == "stable"
-
-gradle.includedBuilds.each { build ->
-	if (build.name.contains("FrozenLib")) {
-		project.ext.local_frozenlib = true
-		if (!(new File(build.projectDir.getAbsolutePath() + "/build/libs").exists())) {
-			["clean", "build"].each { taskName ->
-				build.dependsOn(build.task(":$taskName"))
-			}
-		}
-	}
-}
 
 setArchivesBaseName(project.archives_base_name)
 setVersion(getVersion())
@@ -322,6 +310,8 @@ publishing {
 		// retrieving dependencies.
 	}
 }
+
+build.dependsOn(gradle.includedBuilds.map { it.task(":build") })
 
 // Ensure the worldgen JSONs are re-created to ensure the data-gen still works
 if (!(project.release || System.getenv("GITHUB_ACTIONS") == "true")) {
