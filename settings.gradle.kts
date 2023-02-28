@@ -61,9 +61,9 @@ fun localRepository(repo: String, projectFileName: String) {
             include(prefixedRepoName)
             project(prefixedRepoName).projectDir = file
             project(prefixedRepoName).buildFileName = "./build.gradle"
-			println("Included local mod $mod")
+			println("Included local repo $repo")
         } else {
-			println("Local mod $mod not found")
+			println("Local repo $repo not found")
 		}
 	}
 }
