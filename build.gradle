@@ -311,7 +311,7 @@ publishing {
 	}
 }
 
-build.dependsOn(gradle.includedBuilds.map { it.task(":build") })
+build.dependsOn(gradle.includedBuilds*.task(":build"))
 
 // Ensure the worldgen JSONs are re-created to ensure the data-gen still works
 if (!(project.release || System.getenv("GITHUB_ACTIONS") == "true")) {
