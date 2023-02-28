@@ -22,6 +22,16 @@ plugins {
 project.ext.local_frozenlib = findProject(":FrozenLib") != null
 project.ext.release = findProperty("releaseType") == "stable"
 
+gradle.includedBuilds.each { build ->
+	if (build.name.contains("FrozenLib")) {
+		project.ext.local_frozenlib = true
+		if (!(File(build.projectDir.getAbsolutePath() + "/build/libs").exists()))
+		["clean", "build"].each { taskName ->
+			dependsOn(build.task(":$taskName"))
+		}
+	}
+}
+
 setArchivesBaseName(project.archives_base_name)
 setVersion(getVersion())
 setGroup(project.maven_group)
