@@ -27,7 +27,7 @@ gradle.includedBuilds.each { build ->
 		project.ext.local_frozenlib = true
 		if (!(new File(build.projectDir.getAbsolutePath() + "/build/libs").exists()))
 		["clean", "build"].each { taskName ->
-			dependsOn(build.task(":$taskName"))
+			build.dependsOn(build.task(":$taskName"))
 		}
 	}
 }
