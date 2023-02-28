@@ -55,7 +55,7 @@ fun localRepository(repo: String, projectFileName: String, jarName: String, depe
 		}
         if (file.exists()) {
 			includeBuild(path) {
-				buildNeeded = !file("$path/build/libs/$jarName").exists()
+				//buildNeeded = !file("$path/build/libs/$jarName").exists()
 				dependencySubstitution {
 					if (dependencySub != null) {
 						substitute(module(dependencySub)).using(project(":"))
