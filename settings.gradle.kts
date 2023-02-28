@@ -48,7 +48,7 @@ fun localRepository(mod: String, projectFileName: String) {
 
     if (allowLocalModUse && (isIDE || allowLocalModInConsoleMode)) {
 		if (github) {
-			path = System.getenv("GITHUB_WORKSPACE) + "/$mod"
+			path = System.getenv("GITHUB_WORKSPACE") + "/$mod"
 			file = File(path)
 			println("Running on GitHub")
 		}
