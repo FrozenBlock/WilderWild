@@ -318,7 +318,7 @@ publishing {
 }
 
 // Ensure the worldgen JSONs are re-created to ensure the data-gen still works
-if (!project.release) {
+if (!(project.release || System.getenv("GITHUB_ACTIONS") == "true")) {
 	test.dependsOn runDatagen
 	runClient.dependsOn runDatagen
 }
