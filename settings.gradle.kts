@@ -37,14 +37,12 @@ val xpcServiceName by extra("XPC_SERVICE_NAME")
 val ideaInitialDirectory by extra("IDEA_INITIAL_DIRECTORY")
 
 val isIDE = androidInjectedInvokedFromIde != "" || (System.getenv(xpcServiceName) ?: "").contains("intellij") || (System.getenv(xpcServiceName) ?: "").contains(".idea") || System.getenv(ideaInitialDirectory) != null
+val github = System.getenv("GITHUB_WORKSPACE") != ""
 
 fun localRepository(mod: String, projectFileName: String) {
 	println("Attempting to include local mod $mod")
 	val path = "../$mod"
     val file = File(path)
-
-    val pathGitHub = "./$mod"
-    val fileGitHub = File(pathGitHub)
 
     val prefixedModName = ":$mod"
 
@@ -58,15 +56,20 @@ fun localRepository(mod: String, projectFileName: String) {
             project(prefixedModName).projectDir = file
             project(prefixedModName).buildFileName = "./build.gradle"
 			println("Included local mod $mod")
-        } else if (fileGitHub.exists()) {
-			//includeBuild(pathGitHub) {
-			//	buildNeedex = !file("$pathGitHub/build/libs/FrozenLib-1.1.14-Fabric-1.19.2.jar").exists()
-			//}
+        } else if (github) {
+			path = System.getenv("GITHUB_WORKSPACE") + "/$mod"
+			file = File(path)
+			println("Running on GitHub")
+			if (file.exists()) {
+				//includeBuild(pathGitHub) {
+				//	buildNeedex = !file("$pathGitHub/build/libs/FrozenLib-1.1.14-Fabric-1.19.2.jar").exists()
+				//}
 
-            include(prefixedModName)
-            project(prefixedModName).projectDir = fileGitHub
-            project(prefixedModName).buildFileName = "./build.gradle"
-			println("Included local mod $mod on GitHub")
+            	include(prefixedModName)
+            	project(prefixedModName).projectDir = fileGitHub
+            	project(prefixedModName).buildFileName = "./build.gradle"
+				println("Included local mod $mod on GitHub")
+			}
         }
 	}
 }
