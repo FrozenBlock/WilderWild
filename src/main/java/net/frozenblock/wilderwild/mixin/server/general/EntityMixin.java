@@ -36,7 +36,7 @@ public class EntityMixin {
 	public void wilderWild$setCustomName(@Nullable Component name, CallbackInfo info) {
 		if (name != null && name.getString().equalsIgnoreCase("Stella")) {
 			((EntitySpottingIconInterface)Entity.class.cast(this)).getSpottingIconManager()
-					.setIcon(WilderSharedConstants.id("textures/spotting_icons/stella"), 5F, 8F, WilderSharedConstants.id("stella"));
+					.setIcon(WilderSharedConstants.id("textures/spotting_icons/stella.png"), 5F, 8F, WilderSharedConstants.id("stella"));
 		}
 	}
 
