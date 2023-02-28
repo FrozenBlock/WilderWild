@@ -57,16 +57,16 @@ fun localRepository(mod: String, projectFileName: String) {
             project(prefixedModName).buildFileName = "./build.gradle"
 			println("Included local mod $mod")
         } else if (github) {
-			path = System.getenv("GITHUB_WORKSPACE") + "/$mod"
-			file = File(path)
+			val githubPath = System.getenv("GITHUB_WORKSPACE") + "/$mod"
+			val githubFile = File(path)
 			println("Running on GitHub")
-			if (file.exists()) {
-				//includeBuild(pathGitHub) {
-				//	buildNeedex = !file("$pathGitHub/build/libs/FrozenLib-1.1.14-Fabric-1.19.2.jar").exists()
+			if (githubFile.exists()) {
+				//includeBuild(githubPath) {
+				//	buildNeedex = !file("$githubPath/build/libs/FrozenLib-1.1.14-Fabric-1.19.2.jar").exists()
 				//}
 
             	include(prefixedModName)
-            	project(prefixedModName).projectDir = file
+            	project(prefixedModName).projectDir = githubFile
             	project(prefixedModName).buildFileName = "./build.gradle"
 				println("Included local mod $mod on GitHub")
 			}
