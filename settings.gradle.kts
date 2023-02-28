@@ -27,9 +27,9 @@ pluginManagement {
 
 rootProject.name = "Wilder Wild"
 
-localRepository("FrozenLib", "WilderWild", "FrozenLib-1.1.15-Fabric-1.19.2.jar", "maven.modrinth:frozenlib")
+localRepository("FrozenLib", "WilderWild", "maven.modrinth:frozenlib")
 
-fun localRepository(repo: String, projectFileName: String, jarName: String, dependencySub: String) {
+fun localRepository(repo: String, projectFileName: String, dependencySub: String) {
 	println("Attempting to include local repo $repo")
 
 	val allowLocalRepoUse = true
@@ -55,7 +55,6 @@ fun localRepository(repo: String, projectFileName: String, jarName: String, depe
 		}
         if (file.exists()) {
 			includeBuild(path) {
-				//buildNeeded = !file("$path/build/libs/$jarName").exists()
 				dependencySubstitution {
 					if (dependencySub != null) {
 						substitute(module(dependencySub)).using(project(":"))
