@@ -39,7 +39,7 @@ fun localRepository(repo: String, projectFileName: String) {
 	val xpcServiceName by extra("XPC_SERVICE_NAME")
 	val ideaInitialDirectory by extra("IDEA_INITIAL_DIRECTORY")
 
-	val isIDE = androidInjectedInvokedFromIde != "" | (System.getenv(xpcServiceName) ?: "").contains("intellij") || (System.getenv(xpcServiceName) ?: "").contains(".idea") || System.getenv(ideaInitialDirectory) != null
+	val isIDE = androidInjectedInvokedFromIde != "" || (System.getenv(xpcServiceName) ?: "").contains("intellij") || (System.getenv(xpcServiceName) ?: "").contains(".idea") || System.getenv(ideaInitialDirectory) != null
 	val github = System.getenv("GITHUB_WORKSPACE") != ""
 
 	var path = "../$repo"
