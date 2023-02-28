@@ -50,11 +50,19 @@ fun localRepository(mod: String, projectFileName: String) {
 
     if (allowLocalModUse && (isIDE || allowLocalModInConsoleMode)) {
         if (file.exists()) {
+			//includeBuild(path) {
+			//	buildNeeded = !file("$path/build/libs/FrozenLib-1.1.14-Fabric-1.19.2.jar").exists()
+			//}
+
             include(prefixedModName)
             project(prefixedModName).projectDir = file
             project(prefixedModName).buildFileName = "./build.gradle"
 			println("Included local mod $mod")
         } else if (fileGitHub.exists()) {
+			//includeBuild(pathGitHub) {
+			//	buildNeedex = !file("$pathGitHub/build/libs/FrozenLib-1.1.14-Fabric-1.19.2.jar").exists()
+			//}
+
             include(prefixedModName)
             project(prefixedModName).projectDir = fileGitHub
             project(prefixedModName).buildFileName = "./build.gradle"
