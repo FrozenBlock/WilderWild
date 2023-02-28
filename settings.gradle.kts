@@ -39,6 +39,7 @@ val ideaInitialDirectory by extra("IDEA_INITIAL_DIRECTORY")
 val isIDE = androidInjectedInvokedFromIde != "" || (System.getenv(xpcServiceName) ?: "").contains("intellij") || (System.getenv(xpcServiceName) ?: "").contains(".idea") || System.getenv(ideaInitialDirectory) != null
 
 fun localRepository(mod: String, projectFileName: String) {
+	println("Attempting to include local mod $mod")
 	val path = "../$mod"
     val file = File(path)
 
