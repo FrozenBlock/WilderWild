@@ -26,6 +26,7 @@ import net.frozenblock.lib.item.api.RemoveableItemTags;
 import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.*;
 import net.frozenblock.lib.sound.api.damagesource.PlayerDamageSourceSounds;
 import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
+import net.frozenblock.lib.spotting_icons.api.SpottingIconPredicate;
 import net.frozenblock.lib.storage.api.HopperUntouchableList;
 import net.frozenblock.lib.tick.api.BlockScheduledTicks;
 import net.frozenblock.lib.worldgen.structure.api.StructurePoolElementIdReplacements;
@@ -63,6 +64,7 @@ public class FrozenLibIntegration extends ModIntegration {
     @Override
     public void init() {
         WilderSharedConstants.log("FrozenLib mod integration ran!", WilderSharedConstants.UNSTABLE_LOGGING);
+		SpottingIconPredicate.register(WilderSharedConstants.id("stella"), entity -> entity.hasCustomName() && entity.getCustomName().getString().equalsIgnoreCase("stella"));
         SoundPredicate.register(WilderSharedConstants.id("instrument"),(SoundPredicate.LoopPredicate<Player>) player ->
                 (player.getUseItem().getItem() instanceof InstrumentItem)
         );
