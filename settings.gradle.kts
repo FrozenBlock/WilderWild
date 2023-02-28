@@ -29,26 +29,27 @@ rootProject.name = "Wilder Wild"
 
 localRepository("FrozenLib", "WilderWild")
 
-val allowLocalModUse = true
-val allowLocalModInConsoleMode = true
+fun localRepository(repo: String, projectFileName: String) {
+	println("Attempting to include local repo $repo")
 
-val androidInjectedInvokedFromIde by extra("android.injected.invoked.from.ide")
-val xpcServiceName by extra("XPC_SERVICE_NAME")
-val ideaInitialDirectory by extra("IDEA_INITIAL_DIRECTORY")
+	val allowLocalRepoUse = true
+	val allowLocalRepoInConsoleMode = true
 
-val isIDE = androidInjectedInvokedFromIde != "" || (System.getenv(xpcServiceName) ?: "").contains("intellij") || (System.getenv(xpcServiceName) ?: "").contains(".idea") || System.getenv(ideaInitialDirectory) != null
-val github = System.getenv("GITHUB_WORKSPACE") != ""
+	val androidInjectedInvokedFromIde by extra("android.injected.invoked.from.ide")
+	val xpcServiceName by extra("XPC_SERVICE_NAME")
+	val ideaInitialDirectory by extra("IDEA_INITIAL_DIRECTORY")
 
-fun localRepository(mod: String, projectFileName: String) {
-	println("Attempting to include local mod $mod")
-	var path = "../$mod"
+	val isIDE = androidInjectedInvokedFromIde != "" | (System.getenv(xpcServiceName) ?: "").contains("intellij") || (System.getenv(xpcServiceName) ?: "").contains(".idea") || System.getenv(ideaInitialDirectory) != null
+	val github = System.getenv("GITHUB_WORKSPACE") != ""
+
+	var path = "../$repo"
     var file = File(path)
 
-    val prefixedModName = ":$mod"
+    val prefixedRepoName = ":$repo"
 
-    if (allowLocalModUse && (isIDE || allowLocalModInConsoleMode)) {
+    if (allowLocalRepoUse && (isIDE || allowLocalRepoInConsoleMode)) {
 		if (github) {
-			path = System.getenv("GITHUB_WORKSPACE") + "/$mod"
+			path = System.getenv("GITHUB_WORKSPACE") + "/$repo"
 			file = File(path)
 			println("Running on GitHub")
 		}
@@ -57,9 +58,9 @@ fun localRepository(mod: String, projectFileName: String) {
 			//	buildNeeded = !file("$path/build/libs/FrozenLib-1.1.14-Fabric-1.19.2.jar").exists()
 			//}
 
-            include(prefixedModName)
-            project(prefixedModName).projectDir = file
-            project(prefixedModName).buildFileName = "./build.gradle"
+            include(prefixedRepoName)
+            project(prefixedRepoName).projectDir = file
+            project(prefixedRepoName).buildFileName = "./build.gradle"
 			println("Included local mod $mod")
         } else {
 			println("Local mod $mod not found")
