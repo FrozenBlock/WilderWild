@@ -29,7 +29,7 @@ jobs:
           repository: FrozenBlock/FrozenLib
           ref: master
           submodules: recursive
-          path: FrozenLib/
+          path: FrozenLib
       - name: Setup JDK ${{ matrix.java }}
         uses: actions/setup-java@v3
         with:

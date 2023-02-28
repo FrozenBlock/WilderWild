@@ -42,7 +42,7 @@ fun localRepository(mod: String, projectFileName: String) {
 	val path = "../$mod"
     val file = File(path)
 
-    val pathGitHub = "../$projectFileName/$mod"
+    val pathGitHub = "./$mod"
     val fileGitHub = File(pathGitHub)
 
     val prefixedModName = ":$mod"
