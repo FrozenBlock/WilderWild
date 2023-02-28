@@ -25,9 +25,10 @@ project.ext.release = findProperty("releaseType") == "stable"
 gradle.includedBuilds.each { build ->
 	if (build.name.contains("FrozenLib")) {
 		project.ext.local_frozenlib = true
-		if (!(new File(build.projectDir.getAbsolutePath() + "/build/libs").exists()))
-		["clean", "build"].each { taskName ->
-			build.dependsOn(gradle.includedBuild(build.name).task(":$taskName"))
+		if (!(new File(build.projectDir.getAbsolutePath() + "/build/libs").exists())) {
+			["clean", "build"].each { taskName ->
+				build.dependsOn(build.task(":$taskName"))
+			}
 		}
 	}
 }
