@@ -153,12 +153,7 @@ dependencies {
 	modImplementation("net.fabricmc.fabric-api:fabric-api:${fabric_version}")
 
 	// FrozenLib
-	println("Using local FrozenLib: ${project.local_frozenlib}")
-	if (project.local_frozenlib) {
-		include(implementation(project(path: ":FrozenLib", configuration: "dev")))
-	} else {
-		include(modImplementation("maven.modrinth:frozenlib:${frozenlib_version}"))
-	}
+	include(modImplementation("maven.modrinth:frozenlib:${frozenlib_version}"))
 
 	// CaffeineConfig
 	//include(modImplementation("net.caffeinemc:mixin-config:1.0.0+1.17"))
