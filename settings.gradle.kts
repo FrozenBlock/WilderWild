@@ -41,12 +41,17 @@ val github = System.getenv("GITHUB_WORKSPACE") != ""
 
 fun localRepository(mod: String, projectFileName: String) {
 	println("Attempting to include local mod $mod")
-	val path = "../$mod"
-    val file = File(path)
+	var path = "../$mod"
+    var file = File(path)
 
     val prefixedModName = ":$mod"
 
     if (allowLocalModUse && (isIDE || allowLocalModInConsoleMode)) {
+		if (github) {
+			path = System.getenv("GITHUB_WORKSPACE) + "/$mod"
+			file = File(path)
+			println("Running on GitHub")
+		}
         if (file.exists()) {
 			//includeBuild(path) {
 			//	buildNeeded = !file("$path/build/libs/FrozenLib-1.1.14-Fabric-1.19.2.jar").exists()
@@ -56,20 +61,8 @@ fun localRepository(mod: String, projectFileName: String) {
             project(prefixedModName).projectDir = file
             project(prefixedModName).buildFileName = "./build.gradle"
 			println("Included local mod $mod")
-        } else if (github) {
-			val githubPath = System.getenv("GITHUB_WORKSPACE") + "/$mod"
-			val githubFile = File(path)
-			println("Running on GitHub")
-			if (githubFile.exists()) {
-				//includeBuild(githubPath) {
-				//	buildNeedex = !file("$githubPath/build/libs/FrozenLib-1.1.14-Fabric-1.19.2.jar").exists()
-				//}
-
-            	include(prefixedModName)
-            	project(prefixedModName).projectDir = githubFile
-            	project(prefixedModName).buildFileName = "./build.gradle"
-				println("Included local mod $mod on GitHub")
-			}
-        }
+        } else {
+			println("Local mod $mod not found")
+		}
 	}
 }
