@@ -290,6 +290,7 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
 
 	@Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
         builder.add(HEIGHT_LEFT).add(BlockStateProperties.AXIS).add(UPSIDEDOWN).add(TOTAL_HEIGHT);
     }
 }
