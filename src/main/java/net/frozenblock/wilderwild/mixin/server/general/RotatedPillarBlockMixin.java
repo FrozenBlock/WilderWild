@@ -41,7 +41,7 @@ public class RotatedPillarBlockMixin {
 	@Inject(method = "getStateForPlacement", at = @At("RETURN"), cancellable = true)
 	public void wilderWild$getStateForPlacement(BlockPlaceContext context, CallbackInfoReturnable<BlockState> info) {
 		BlockState state = info.getReturnValue();
-		if (state != null) {
+		if (state != null && state.hasProperty(RegisterProperties.TERMITE_EDIBLE)) {
 			info.setReturnValue(state.setValue(RegisterProperties.TERMITE_EDIBLE, false));
 		}
 	}
