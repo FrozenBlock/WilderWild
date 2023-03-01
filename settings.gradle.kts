@@ -63,7 +63,7 @@ fun localRepository(repo: String, dependencySub: String) {
 			}*/
             include(prefixedRepoName)
             project(prefixedRepoName).projectDir = file
-            project(prefixedRepoName).buildFileName = "./build.gradle.kts"
+            project(prefixedRepoName).buildFileName = "./build.gradle"
 			println("Included local repo $repo")
         } else {
 			println("Local repo $repo not found")
