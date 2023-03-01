@@ -17,11 +17,11 @@ plugins {
 	id("eclipse")
 	id("idea")
 	id("java-library")
-	id("java")
+	java
 }
 
-project.ext.local_frozenlib = findProject(":FrozenLib") != null
-project.ext.release = findProperty("releaseType") == "stable"
+project.ext.["local_frozenlib"] = findProject(":FrozenLib") != null
+project.ext.["release"] = findProperty("releaseType") == "stable"
 
 archivesBaseName = project.archives_base_name
 version = getVersion()
@@ -67,15 +67,20 @@ loom {
 	}
 }
 
+val includeModImplementation by configurations.creating
+val includeImplementation by configurations.creating
+
 configurations {
-	includeModImplementation
-	includeImplementation
-
-	include.extendsFrom(includeImplementation)
-	include.extendsFrom(includeModImplementation)
-
-	implementation.extendsFrom(includeImplementation)
-	modImplementation.extendsFrom(includeModImplementation)
+	include {
+		extendsFrom(includeImplementation)
+		extendsFrom(includeModImplementation)
+	}
+	implementation {
+		extendsFrom(includeImplementation)
+	}
+	modImplementation {
+		extendsFrom(includeModImplementation)
+	}
 }
 
 repositories {
@@ -155,7 +160,7 @@ dependencies {
 	// FrozenLib
 	println("Using local FrozenLib: ${project.local_frozenlib}")
 	if (project.local_frozenlib) {
-		include(implementation(project(path: ":FrozenLib", configuration: "dev")))
+		include(implementation(project(path = ":FrozenLib", configuration = "dev")))
 	} else {
 		include(modImplementation("maven.modrinth:frozenlib:${frozenlib_version}"))
 	}
@@ -171,8 +176,8 @@ dependencies {
 
 	// Cloth Config
 	modImplementation("me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}") {
-		exclude(group: "net.fabricmc.fabric-api")
-		exclude(group: "com.terraformersmc")
+		exclude(group = "net.fabricmc.fabric-api")
+		exclude(group = "com.terraformersmc")
 	}
 
 	// NBT Crafting
@@ -228,7 +233,7 @@ dependencies {
 }
 
 processResources {
-	def properties = new HashMap<>()
+	val properties = HashMap<>()
 	properties.put("version", project.version)
 	properties.put("minecraft_version", project.minecraft_version)
 
@@ -247,25 +252,28 @@ javadoc {
 	options.tags = ["reason"]
 }
 
-task javadocJar(type: Jar, dependsOn: javadoc) {
-	archiveClassifier = "javadoc"
-	from(javadoc.destinationDir)
+tasks {
+	register("javadocJar", Jar::class) {
+		dependsOn(javadoc)
+		archiveClassifier = "javadoc"
+		from(javadoc.destinationDir)
+	}
+	register("sourcesJar", Jar::class) {
+		dependsOn(classes)
+		archiveClassifier = "sources"
+		from(sourceSets.main.allSource)
+	}
 }
 
-task sourcesJar(type: Jar, dependsOn: classes) {
-	archiveClassifier = "sources"
-	from(sourceSets.main.allSource)
-}
-
-tasks.withType(JavaCompile).configureEach {
-	it.options.encoding = "UTF-8"
+tasks.withType<JavaCompile> {
+	options.encoding = "UTF-8"
 	// Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
-	it.options.release = 17
+	options.release = 17
 	options.fork = true
 	options.incremental = true
 }
 
-tasks.withType(Test).configureEach {
+tasks.withType<Test> {
 	maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
 }
 
@@ -290,8 +298,8 @@ artifacts {
 	archives(javadocJar)
 }
 
-String getVersion() {
-	String version = "${mod_version}-${mod_loader}+${minecraft_version}"
+fun getVersion(): String {
+	val version = "${mod_version}-${mod_loader}+${minecraft_version}"
 
 	if (!project.release) {
 		version += "-unstable"
@@ -319,8 +327,8 @@ publishing {
 
 // Ensure the worldgen JSONs are re-created to ensure the data-gen still works
 if (!(project.release || System.getenv("GITHUB_ACTIONS") == "true")) {
-	test.dependsOn runDatagen
-	runClient.dependsOn runDatagen
+	test.dependsOn(runDatagen)
+	runClient.dependsOn(runDatagen)
 }
 
-apply(from: "gradle/publishing.gradle.kts")
+apply(from = "gradle/publishing.gradle.kts")

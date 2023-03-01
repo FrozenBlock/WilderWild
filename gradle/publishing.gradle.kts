@@ -106,7 +106,7 @@ import org.kohsuke.github.GitHub
 
 tasks {
 	register("github") {
-		dependsOn remapJar
+		dependsOn(remapJar)
 		val env = System.getenv()
 		onlyIf {
 			env.GITHUB_TOKEN
