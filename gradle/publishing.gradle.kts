@@ -15,7 +15,7 @@ extra {
 	val properties = Properties()
 	properties.load(FileInputStream(file("gradle/publishing.properties")))
 	properties.forEach { (a, b) ->
-		set(a, b)
+		project.set(a, b)
 	}
 
 	modrinth_version = makeModrinthVersion(mod_version)
