@@ -40,178 +40,179 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 public class LargeMesogleaFeature extends Feature<LargeMesogleaConfig> {
+
 	public LargeMesogleaFeature(Codec<LargeMesogleaConfig> codec) {
 		super(codec);
 	}
+
 	@Override
 	public boolean place(FeaturePlaceContext<LargeMesogleaConfig> context) {
-			WorldGenLevel worldGenLevel = context.level();
-			BlockPos blockPos = context.origin();
-	LargeMesogleaConfig largeMesogleaConfig = context.config();
-			RandomSource randomSource = context.random();
-			if (!LargeMesogleaFeature.isEmptyOrWater(worldGenLevel, blockPos)) {
-				return false;
-			} else {
-				Optional<Column> optional = Column.scan(worldGenLevel, blockPos, largeMesogleaConfig.floorToCeilingSearchRange, DripstoneUtils::isEmptyOrWater, DripstoneUtils::isDripstoneBaseOrLava);
-				if (optional.isPresent() && optional.get() instanceof Column.Range range) {
-					if (range.height() < 4) {
-						return false;
+		WorldGenLevel worldGenLevel = context.level();
+		BlockPos blockPos = context.origin();
+		LargeMesogleaConfig largeMesogleaConfig = context.config();
+		RandomSource randomSource = context.random();
+		if (!LargeMesogleaFeature.isEmptyOrWater(worldGenLevel, blockPos)) {
+			return false;
+		} else {
+			Optional<Column> optional = Column.scan(worldGenLevel, blockPos, largeMesogleaConfig.floorToCeilingSearchRange, DripstoneUtils::isEmptyOrWater, DripstoneUtils::isDripstoneBaseOrLava);
+			if (optional.isPresent() && optional.get() instanceof Column.Range range) {
+				if (range.height() < 4) {
+					return false;
+				} else {
+					int i = (int)((float)range.height() * largeMesogleaConfig.maxColumnRadiusToCaveHeightRatio);
+					int j = Mth.clamp(i, largeMesogleaConfig.columnRadius.getMinValue(), largeMesogleaConfig.columnRadius.getMaxValue());
+					int k = Mth.randomBetweenInclusive(randomSource, largeMesogleaConfig.columnRadius.getMinValue(), j);
+					LargeMesoglea largeMesoglea = makeMesoglea(blockPos.atY(range.ceiling() - 1), false, randomSource, k, largeMesogleaConfig.stalactiteBluntness, largeMesogleaConfig.heightScale);
+					LargeMesoglea largeMesoglea2 = makeMesoglea(blockPos.atY(range.floor() + 1), true, randomSource, k, largeMesogleaConfig.stalagmiteBluntness, largeMesogleaConfig.heightScale);
+					WindOffsetter windOffsetter;
+					if (largeMesoglea.isSuitableForWind(largeMesogleaConfig) && largeMesoglea2.isSuitableForWind(largeMesogleaConfig)) {
+						windOffsetter = new WindOffsetter(blockPos.getY(), randomSource, largeMesogleaConfig.windSpeed);
 					} else {
-						int i = (int)((float)range.height() * largeMesogleaConfig.maxColumnRadiusToCaveHeightRatio);
-						int j = Mth.clamp(i, largeMesogleaConfig.columnRadius.getMinValue(), largeMesogleaConfig.columnRadius.getMaxValue());
-						int k = Mth.randomBetweenInclusive(randomSource, largeMesogleaConfig.columnRadius.getMinValue(), j);
-						LargeMesoglea largeMesoglea = makeMesoglea(blockPos.atY(range.ceiling() - 1), false, randomSource, k, largeMesogleaConfig.stalactiteBluntness, largeMesogleaConfig.heightScale);
-						LargeMesoglea largeMesoglea2 = makeMesoglea(blockPos.atY(range.floor() + 1), true, randomSource, k, largeMesogleaConfig.stalagmiteBluntness, largeMesogleaConfig.heightScale);
-						WindOffsetter windOffsetter;
-						if (largeMesoglea.isSuitableForWind(largeMesogleaConfig) && largeMesoglea2.isSuitableForWind(largeMesogleaConfig)) {
-							windOffsetter = new WindOffsetter(blockPos.getY(), randomSource, largeMesogleaConfig.windSpeed);
-						} else {
-							windOffsetter = WindOffsetter.noWind();
-						}
+						windOffsetter = WindOffsetter.noWind();
+					}
 
-						boolean bl = largeMesoglea.moveBackUntilBaseIsInsideStoneAndShrinkRadiusIfNecessary(worldGenLevel, windOffsetter);
-						boolean bl2 = largeMesoglea2.moveBackUntilBaseIsInsideStoneAndShrinkRadiusIfNecessary(worldGenLevel, windOffsetter);
-						if (bl) {
-							largeMesoglea.placeBlocks(worldGenLevel, randomSource, windOffsetter, largeMesogleaConfig);
-						}
+					boolean bl = largeMesoglea.moveBackUntilBaseIsInsideStoneAndShrinkRadiusIfNecessary(worldGenLevel, windOffsetter);
+					boolean bl2 = largeMesoglea2.moveBackUntilBaseIsInsideStoneAndShrinkRadiusIfNecessary(worldGenLevel, windOffsetter);
+					if (bl) {
+						largeMesoglea.placeBlocks(worldGenLevel, randomSource, windOffsetter, largeMesogleaConfig);
+					}
 
-						if (bl2) {
-							largeMesoglea2.placeBlocks(worldGenLevel, randomSource, windOffsetter, largeMesogleaConfig);
-						}
+					if (bl2) {
+						largeMesoglea2.placeBlocks(worldGenLevel, randomSource, windOffsetter, largeMesogleaConfig);
+					}
 
+					return true;
+				}
+			} else {
+				return false;
+			}
+		}
+	}
+
+	private static LargeMesoglea makeMesoglea(BlockPos root, boolean pointingUp, RandomSource random, int radius, FloatProvider bluntnessBase, FloatProvider scaleBase) {
+		return new LargeMesoglea(root, pointingUp, radius, bluntnessBase.sample(random), scaleBase.sample(random));
+	}
+
+	static final class LargeMesoglea {
+		private BlockPos root;
+		private final boolean pointingUp;
+		private int radius;
+		private final double bluntness;
+		private final double scale;
+
+		LargeMesoglea(BlockPos root, boolean pointingUp, int radius, double bluntness, double scale) {
+			this.root = root;
+			this.pointingUp = pointingUp;
+			this.radius = radius;
+			this.bluntness = bluntness;
+			this.scale = scale;
+		}
+
+		private int getHeight() {
+				return this.getHeightAtRadius(0.0F);
+		}
+
+		boolean moveBackUntilBaseIsInsideStoneAndShrinkRadiusIfNecessary(WorldGenLevel level, WindOffsetter windOffsetter) {
+			while(this.radius > 1) {
+				BlockPos.MutableBlockPos mutableBlockPos = this.root.mutable();
+				int i = Math.min(10, this.getHeight());
+
+				for(int j = 0; j < i; ++j) {
+					if (level.getBlockState(mutableBlockPos).is(Blocks.LAVA)) {
+						return false;
+					}
+
+					if (LargeMesogleaFeature.isCircleMostlyEmbeddedInStone(level, windOffsetter.offset(mutableBlockPos), this.radius)) {
+						this.root = mutableBlockPos;
 						return true;
 					}
-				} else {
-					return false;
-				}
-			}
-		}
 
-		private static LargeMesoglea makeMesoglea(BlockPos root, boolean pointingUp, RandomSource random, int radius, FloatProvider bluntnessBase, FloatProvider scaleBase) {
-			return new LargeMesoglea(root, pointingUp, radius, bluntnessBase.sample(random), scaleBase.sample(random));
-		}
-
-
-		static final class LargeMesoglea {
-			private BlockPos root;
-			private final boolean pointingUp;
-			private int radius;
-			private final double bluntness;
-			private final double scale;
-
-			LargeMesoglea(BlockPos root, boolean pointingUp, int radius, double bluntness, double scale) {
-				this.root = root;
-				this.pointingUp = pointingUp;
-				this.radius = radius;
-				this.bluntness = bluntness;
-				this.scale = scale;
-			}
-
-			private int getHeight() {
-				return this.getHeightAtRadius(0.0F);
-			}
-
-
-			boolean moveBackUntilBaseIsInsideStoneAndShrinkRadiusIfNecessary(WorldGenLevel level, WindOffsetter windOffsetter) {
-				while(this.radius > 1) {
-					BlockPos.MutableBlockPos mutableBlockPos = this.root.mutable();
-					int i = Math.min(10, this.getHeight());
-
-					for(int j = 0; j < i; ++j) {
-						if (level.getBlockState(mutableBlockPos).is(Blocks.LAVA)) {
-							return false;
-						}
-
-						if (LargeMesogleaFeature.isCircleMostlyEmbeddedInStone(level, windOffsetter.offset(mutableBlockPos), this.radius)) {
-							this.root = mutableBlockPos;
-							return true;
-						}
-
-						mutableBlockPos.move(this.pointingUp ? Direction.DOWN : Direction.UP);
-					}
-
-					this.radius /= 2;
+					mutableBlockPos.move(this.pointingUp ? Direction.DOWN : Direction.UP);
 				}
 
-				return false;
+				this.radius /= 2;
 			}
 
-			private int getHeightAtRadius(float radius) {
-				return (int) LargeMesogleaFeature.getMesogleaHeight(radius, this.radius, this.scale, this.bluntness);
-			}
+			return false;
+		}
 
-			void placeBlocks(WorldGenLevel level, RandomSource random, WindOffsetter windOffsetter, LargeMesogleaConfig config) {
-				for(int i = -this.radius; i <= this.radius; ++i) {
-					for(int j = -this.radius; j <= this.radius; ++j) {
-						float f = Mth.sqrt((float)(i * i + j * j));
-						if (!(f > (float)this.radius)) {
-							int k = this.getHeightAtRadius(f);
-							if (k > 0) {
-								if ((double)random.nextFloat() < 0.2) {
-									k = (int)((float)k * Mth.randomBetween(random, 0.8F, 1.0F));
+		private int getHeightAtRadius(float radius) {
+			return (int) LargeMesogleaFeature.getMesogleaHeight(radius, this.radius, this.scale, this.bluntness);
+		}
+
+		void placeBlocks(WorldGenLevel level, RandomSource random, WindOffsetter windOffsetter, LargeMesogleaConfig config) {
+			for(int i = -this.radius; i <= this.radius; ++i) {
+				for(int j = -this.radius; j <= this.radius; ++j) {
+					float f = Mth.sqrt((float)(i * i + j * j));
+					if (!(f > (float)this.radius)) {
+						int k = this.getHeightAtRadius(f);
+						if (k > 0) {
+							if ((double)random.nextFloat() < 0.2) {
+								k = (int)((float)k * Mth.randomBetween(random, 0.8F, 1.0F));
+							}
+
+							BlockPos.MutableBlockPos mutableBlockPos = this.root.offset(i, 0, j).mutable();
+							boolean bl = false;
+							int l = this.pointingUp ? level.getHeight(Heightmap.Types.WORLD_SURFACE_WG, mutableBlockPos.getX(), mutableBlockPos.getZ()) : Integer.MAX_VALUE;
+
+							for(int m = 0; m < k && mutableBlockPos.getY() < l; ++m) {
+								BlockPos blockPos = windOffsetter.offset(mutableBlockPos);
+								if (isEmptyOrWaterOrLava(level, blockPos)) {
+									bl = true;
+									level.setBlock(blockPos, config.pathBlock.getState(random, mutableBlockPos) , 3);
+								} else if (bl && level.getBlockState(blockPos).is(BlockTags.BASE_STONE_OVERWORLD)) {
+									break;
 								}
 
-								BlockPos.MutableBlockPos mutableBlockPos = this.root.offset(i, 0, j).mutable();
-								boolean bl = false;
-								int l = this.pointingUp ? level.getHeight(Heightmap.Types.WORLD_SURFACE_WG, mutableBlockPos.getX(), mutableBlockPos.getZ()) : Integer.MAX_VALUE;
-
-								for(int m = 0; m < k && mutableBlockPos.getY() < l; ++m) {
-									BlockPos blockPos = windOffsetter.offset(mutableBlockPos);
-									if (isEmptyOrWaterOrLava(level, blockPos)) {
-										bl = true;
-										level.setBlock(blockPos, config.pathBlock.getState(random, mutableBlockPos) , 3);
-									} else if (bl && level.getBlockState(blockPos).is(BlockTags.BASE_STONE_OVERWORLD)) {
-										break;
-									}
-
-									mutableBlockPos.move(this.pointingUp ? Direction.UP : Direction.DOWN);
-								}
+								mutableBlockPos.move(this.pointingUp ? Direction.UP : Direction.DOWN);
 							}
 						}
 					}
 				}
-
-			}
-
-			boolean isSuitableForWind(LargeMesogleaConfig config) {
-				return this.radius >= config.minRadiusForWind && this.bluntness >= (double)config.minBluntnessForWind;
 			}
 		}
 
-		private static final class WindOffsetter {
-			private final int originY;
-			@Nullable
-			private final Vec3 windSpeed;
+		boolean isSuitableForWind(LargeMesogleaConfig config) {
+			return this.radius >= config.minRadiusForWind && this.bluntness >= (double)config.minBluntnessForWind;
+		}
+	}
 
-			WindOffsetter(int originY, RandomSource random, FloatProvider magnitude) {
-				this.originY = originY;
-				float f = magnitude.sample(random);
-				float g = Mth.randomBetween(random, 0.0F, 3.1415927F);
-				this.windSpeed = new Vec3(Mth.cos(g) * f, 0.0, Mth.sin(g) * f);
-			}
+	private static final class WindOffsetter {
+		private final int originY;
+		@Nullable
+		private final Vec3 windSpeed;
 
-			private WindOffsetter() {
-				this.originY = 0;
-				this.windSpeed = null;
-			}
+		WindOffsetter(int originY, RandomSource random, FloatProvider magnitude) {
+			this.originY = originY;
+			float f = magnitude.sample(random);
+			float g = Mth.randomBetween(random, 0.0F, 3.1415927F);
+			this.windSpeed = new Vec3(Mth.cos(g) * f, 0.0, Mth.sin(g) * f);
+		}
 
-			static WindOffsetter noWind() {
+		private WindOffsetter() {
+			this.originY = 0;
+			this.windSpeed = null;
+		}
+
+		static WindOffsetter noWind() {
 				return new WindOffsetter();
-			}
+		}
 
-			BlockPos offset(BlockPos pos) {
-				if (this.windSpeed == null) {
-					return pos;
-				} else {
-					int i = this.originY - pos.getY();
-					Vec3 vec3 = this.windSpeed.scale(i);
-					return pos.offset(vec3.x, 0.0, vec3.z);
-				}
+		BlockPos offset(BlockPos pos) {
+			if (this.windSpeed == null) {
+				return pos;
+			} else {
+				int i = this.originY - pos.getY();
+				Vec3 vec3 = this.windSpeed.scale(i);
+				return pos.offset(vec3.x, 0.0, vec3.z);
 			}
 		}
+	}
+
 	protected static boolean isEmptyOrWater(LevelAccessor level, BlockPos pos) {
 		return level.isStateAtPosition(pos, DripstoneUtils::isEmptyOrWater);
 	}
+
 	protected static boolean isCircleMostlyEmbeddedInStone(WorldGenLevel level, BlockPos pos, int radius) {
 		if (isEmptyOrWaterOrLava(level, pos)) {
 			return false;
@@ -229,9 +230,11 @@ public class LargeMesogleaFeature extends Feature<LargeMesogleaConfig> {
 			return true;
 		}
 	}
+
 	protected static boolean isEmptyOrWaterOrLava(LevelAccessor level, BlockPos pos) {
 		return level.isStateAtPosition(pos, LargeMesogleaFeature::isEmptyOrWaterOrLava);
 	}
+
 	public static boolean isEmptyOrWaterOrLava(BlockState state) {
 		return state.isAir() || state.is(Blocks.WATER) || state.is(Blocks.LAVA);
 	}

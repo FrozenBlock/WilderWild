@@ -45,6 +45,8 @@ public class DefaultWorldgenConfig {
 		public static final boolean GENERATE_OLD_GROWTH_DARK_FOREST = true;
 		public static final boolean GENERATE_DARK_BIRCH_FOREST = true;
 		public static final boolean GENERATE_SEMI_BIRCH_FOREST = true;
+		public static final boolean GENERATE_TEMPERATE_RAINFOREST = true;
+		public static final boolean GENERATE_RAINFOREST = true;
 	}
 
 	public static final boolean BETA_BEACHES = true;
@@ -52,5 +54,6 @@ public class DefaultWorldgenConfig {
 	public static final boolean FALLEN_LOGS = true;
 	public static final boolean WILDER_WILD_TREE_GEN = true;
 	public static final boolean WILDER_WILD_GRASS_GEN = true;
+	public static final boolean SNOW_BELOW_TREES = true;
 	public static final boolean NEW_WITCH_HUTS = true;
 }

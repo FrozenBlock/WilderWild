@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-	"#wilderwild:mesoglea"
+	"#wilderwild:mesoglea",
+    "wilderwild:scorched_sand",
+    "wilderwild:scorched_red_sand",
+    "wilderwild:termite_mound"
   ]
 }

@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.registry;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
+import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.frozenblock.lib.item.api.PrickOnUseBlockItem;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.item.AncientHorn;
@@ -84,9 +85,13 @@ public final class RegisterItems {
 			new FabricItemSettings().maxCount(16).requiredFeatures(FeatureFlags.UPDATE_1_20)
 	);
 
-	public static final Item COCONUT = new CoconutItem(RegisterBlocks.COCONUT, new FabricItemSettings());
+	public static final BlockItem COCONUT = new CoconutItem(RegisterBlocks.COCONUT, new FabricItemSettings());
 
-	public static final Item POLLEN = new BlockItem(RegisterBlocks.POLLEN_BLOCK, new FabricItemSettings());
+	public static final BlockItem POLLEN = new BlockItem(RegisterBlocks.POLLEN_BLOCK, new FabricItemSettings());
+
+	public static final BlockItem SCORCHED_SAND = new BlockItem(RegisterBlocks.SCORCHED_SAND, new FabricItemSettings());
+	public static final BlockItem SCORCHED_RED_SAND = new BlockItem(RegisterBlocks.SCORCHED_RED_SAND, new FabricItemSettings());
+	public static final BlockItem ECHO_GLASS = new BlockItem(RegisterBlocks.ECHO_GLASS, new FabricItemSettings());
 
 	// ITEMS
     public static final MilkweedPod MILKWEED_POD = new MilkweedPod(new FabricItemSettings().maxCount(64));
@@ -155,6 +160,9 @@ public final class RegisterItems {
 		registerItemAfter(Items.GLOW_LICHEN, POLLEN, "pollen", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemAfter(RegisterBlocks.TUMBLEWEED_PLANT, new BlockItem(RegisterBlocks.TUMBLEWEED, new FabricItemSettings()), "tumbleweed", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemAfter(Blocks.CACTUS, PRICKLY_PEAR, "prickly_pear", CreativeModeTabs.NATURAL_BLOCKS);
+		registerItemAfter(Blocks.TINTED_GLASS, ECHO_GLASS, "echo_glass", CreativeModeTabs.FUNCTIONAL_BLOCKS);
+		registerItemAfter(Blocks.SAND, SCORCHED_SAND, "scorched_sand", CreativeModeTabs.NATURAL_BLOCKS);
+		registerItemAfter(Blocks.RED_SAND, SCORCHED_RED_SAND, "scorched_red_sand", CreativeModeTabs.NATURAL_BLOCKS);
     }
 
     public static void registerItems() {
@@ -224,6 +232,11 @@ public final class RegisterItems {
             factories.add(new VillagerTrades.ItemsForEmeralds(RegisterBlocks.CYPRESS_SAPLING.asItem(), 5, 1, 8, 1));
 			factories.add(new VillagerTrades.ItemsForEmeralds(RegisterItems.COCONUT, 5, 1, 8, 1));
         });
+
+		CompostingChanceRegistry.INSTANCE.add(BAOBAB_NUT, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(MILKWEED_POD, 0.25F);
+		CompostingChanceRegistry.INSTANCE.add(SPLIT_COCONUT, 0.15F);
+		CompostingChanceRegistry.INSTANCE.add(COCONUT, 0.3F);
     }
 
 	private static void registerInstrument(Item instrument, String path, TagKey<Instrument> tagKey, CreativeModeTab.TabVisibility tabVisibility, CreativeModeTab... tabs) {

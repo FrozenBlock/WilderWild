@@ -39,6 +39,7 @@ public final class RegisterParticles {
     public static final ParticleType<SeedParticleOptions> SEED = register("seed", false, SeedParticleOptions.DESERIALIZER, particleType -> SeedParticleOptions.CODEC);
     public static final ParticleType<FloatingSculkBubbleParticleOptions> FLOATING_SCULK_BUBBLE = register("floating_sculk_bubble", false, FloatingSculkBubbleParticleOptions.DESERIALIZER, particleType -> FloatingSculkBubbleParticleOptions.CODEC);
     public static final SimpleParticleType TERMITE = FabricParticleTypes.simple();
+	public static final SimpleParticleType COCONUT_SPLASH = FabricParticleTypes.simple();
     public static final SimpleParticleType BLUE_PEARLESCENT_HANGING_MESOGLEA = FabricParticleTypes.simple();
     public static final SimpleParticleType BLUE_PEARLESCENT_FALLING_MESOGLEA = FabricParticleTypes.simple();
     public static final SimpleParticleType BLUE_PEARLESCENT_LANDING_MESOGLEA = FabricParticleTypes.simple();
@@ -65,6 +66,7 @@ public final class RegisterParticles {
         WilderSharedConstants.logWild("Registering Particles for", WilderSharedConstants.UNSTABLE_LOGGING);
         Registry.register(BuiltInRegistries.PARTICLE_TYPE, WilderSharedConstants.id("pollen"), POLLEN);
         Registry.register(BuiltInRegistries.PARTICLE_TYPE, WilderSharedConstants.id("termite"), TERMITE);
+		Registry.register(BuiltInRegistries.PARTICLE_TYPE, WilderSharedConstants.id("coconut_splash"), COCONUT_SPLASH);
         Registry.register(BuiltInRegistries.PARTICLE_TYPE, WilderSharedConstants.id("blue_pearlescent_hanging_mesoglea_drip"), BLUE_PEARLESCENT_HANGING_MESOGLEA);
         Registry.register(BuiltInRegistries.PARTICLE_TYPE, WilderSharedConstants.id("blue_pearlescent_falling_mesoglea_drip"), BLUE_PEARLESCENT_FALLING_MESOGLEA);
         Registry.register(BuiltInRegistries.PARTICLE_TYPE, WilderSharedConstants.id("blue_pearlescent_landing_mesoglea_drip"), BLUE_PEARLESCENT_LANDING_MESOGLEA);

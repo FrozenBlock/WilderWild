@@ -2,7 +2,7 @@
   "parent": "wilderwild:block/template_hollowed_log",
   "textures": {
 	"top": "wilderwild:block/hollowed_oak_log_top",
-	"inner": "minecraft:block/stripped_oak_log",
+	"inner": "wilderwild:block/stripped_hollowed_oak_log",
 	"outer": "wilderwild:block/hollowed_oak_log"
   }
 }

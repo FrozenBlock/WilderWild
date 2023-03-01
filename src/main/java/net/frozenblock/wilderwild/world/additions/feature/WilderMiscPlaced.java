@@ -53,11 +53,24 @@ public final class WilderMiscPlaced {
 	// JUNGLE
 	public static final ResourceKey<PlacedFeature> MOSS_PATH = key("moss_path");
 	// DESERT
+<<<<<<< HEAD
 	public static final ResourceKey<PlacedFeature> ORE_PACKED_MUD = key("ore_packed_mud");
 	public static final ResourceKey<PlacedFeature> SANDSTONE_PATH = key("sandstone_path");
 	// BADLANDS
 	public static final ResourceKey<PlacedFeature> COARSE_DIRT_PATH_SMALL = key("coarse_dirt_path_small");
 	public static final ResourceKey<PlacedFeature> PACKED_MUD_PATH_BADLANDS = key("packed_mud_path_badlands");
+=======
+	public static final Holder<PlacedFeature> ORE_PACKED_MUD = WilderPlacedFeatures.register("ore_packed_mud", WilderMiscConfigured.ORE_PACKED_MUD, modifiersWithCount(5, HeightRangePlacement.uniform(VerticalAnchor.absolute(42), VerticalAnchor.absolute(250))));
+	public static final Holder<PlacedFeature> SANDSTONE_PATH = WilderPlacedFeatures.register("sandstone_path", WilderMiscConfigured.SANDSTONE_PATH, RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+	public static final Holder<PlacedFeature> SCORCHED_SAND = WilderPlacedFeatures.register("scorched_sand", WilderMiscConfigured.SCORCHED_SAND_DISK, RarityFilter.onAverageOnceEvery(64), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+	public static final Holder<PlacedFeature> SCORCHED_SAND_HUGE = WilderPlacedFeatures.register("scorched_sand_huge", WilderMiscConfigured.SCORCHED_SAND_DISK_HUGE, RarityFilter.onAverageOnceEvery(226), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+	// BADLANDS
+	public static final Holder<PlacedFeature> COARSE_DIRT_PATH_SMALL = WilderPlacedFeatures.register("coarse_dirt_path_small", WilderMiscConfigured.COARSE_DIRT_PATH_SMALL, RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+	public static final Holder<PlacedFeature> PACKED_MUD_PATH_BADLANDS = WilderPlacedFeatures.register("packed_mud_path_badlands", WilderMiscConfigured.PACKED_MUD_PATH_BADLANDS, RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+	public static final Holder<PlacedFeature> SCORCHED_RED_SAND = WilderPlacedFeatures.register("scorched_red_sand", WilderMiscConfigured.SCORCHED_RED_SAND_DISK, RarityFilter.onAverageOnceEvery(64), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+	public static final Holder<PlacedFeature> SCORCHED_RED_SAND_HUGE = WilderPlacedFeatures.register("scorched_red_sand_huge", WilderMiscConfigured.SCORCHED_RED_SAND_DISK_HUGE, RarityFilter.onAverageOnceEvery(226), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+
+>>>>>>> dev
 	// JELLYFISH CAVES
 	public static final ResourceKey<PlacedFeature> EXTRA_GLOW_LICHEN = key("extra_glow_lichen");
 	public static final ResourceKey<PlacedFeature> STONE_POOL = key("stone_pool");
@@ -79,8 +92,21 @@ public final class WilderMiscPlaced {
 	//BIRCH TAIGA
 	public static final ResourceKey<PlacedFeature> COARSE_PATH_10 = key("coarse_dirt_path_10");
 	// ARID SAVANNA
+<<<<<<< HEAD
 	public static final ResourceKey<PlacedFeature> GRASS_PATH_RARE = key("grass_path_rare");
 	public static final ResourceKey<PlacedFeature> ARID_COARSE_PATH = key("arid_coarse_dirt_path");
+=======
+	public static final Holder<PlacedFeature> GRASS_PATH_RARE = WilderPlacedFeatures.register("grass_path_rare", WilderMiscConfigured.GRASS_PATH, CountPlacement.of(1), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+	public static final Holder<PlacedFeature> ARID_COARSE_PATH = WilderPlacedFeatures.register("arid_coarse_dirt_path", WilderMiscConfigured.ARID_COARSE_PATH, RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+	// OLD GROWTH SNOWY TAIGA
+	public static final Holder<PlacedFeature> PILE_SNOW = WilderPlacedFeatures.register("pile_snow", WilderMiscConfigured.SNOW, RarityFilter.onAverageOnceEvery(10), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+	// TEMPERATE RAINFOREST & RAINFOREST
+	public static final Holder<PlacedFeature> MOSS_PILE = WilderPlacedFeatures.register("moss_pile", WilderMiscConfigured.MOSS_PILE, RarityFilter.onAverageOnceEvery(9), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+	public static final Holder<PlacedFeature> BASIN_RAINFOREST = WilderPlacedFeatures.register("basin_rainforest", WilderMiscConfigured.BASIN_RAINFOREST, RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(63), VerticalAnchor.aboveBottom(256)), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
+	public static final Holder<PlacedFeature> MOSS_LAKE = WilderPlacedFeatures.register("moss_lake", WilderMiscConfigured.MOSS_LAKE, CountPlacement.of(1), RarityFilter.onAverageOnceEvery(1), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING), BiomeFilter.biome());
+	//SNOW
+	public static final Holder<PlacedFeature> SNOW_BLANKET = WilderPlacedFeatures.register("snow_blanket", WilderMiscConfigured.SNOW_BLANKET, CountPlacement.of(1), PlacementUtils.HEIGHTMAP);
+>>>>>>> dev
 
 	private static List<PlacementModifier> modifiers(PlacementModifier countModifier, PlacementModifier heightModifier) {
         return List.of(countModifier, InSquarePlacement.spread(), heightModifier, BiomeFilter.biome());

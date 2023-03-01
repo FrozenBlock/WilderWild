@@ -12,6 +12,14 @@
     {
       "id": "wilderwild:old_growth_birch_taiga",
       "required": false
+    },
+    {
+      "id": "wilderwild:snowy_old_growth_pine_taiga",
+      "required": false
+    },
+    {
+      "id": "wilderwild:temperate_rainforest",
+      "required": false
     }
   ]
 }

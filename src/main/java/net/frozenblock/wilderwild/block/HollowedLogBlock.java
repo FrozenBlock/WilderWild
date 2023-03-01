@@ -127,8 +127,9 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
     }
 
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        return this.defaultBlockState().setValue(AXIS, ctx.getClickedFace().getAxis()).setValue(WATERLOGGED, ctx.getLevel().getFluidState(ctx.getClickedPos()).is(Fluids.WATER));
+    public BlockState getStateForPlacement(@NotNull BlockPlaceContext ctx) {
+		BlockState superState = super.getStateForPlacement(ctx);
+		return superState != null ? superState.setValue(WATERLOGGED, ctx.getLevel().getFluidState(ctx.getClickedPos()).is(Fluids.WATER)) : null;
     }
 
     @Override

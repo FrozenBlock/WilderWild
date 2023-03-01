@@ -44,43 +44,7 @@
     "minecraft:dripstone_caves",
     "minecraft:deep_dark",
     {
-      "id": "wilderwild:jellyfish_caves",
-      "required": false
-    },
-    {
-      "id": "wilderwild:arid_savanna",
-      "required": false
-    },
-    {
-      "id": "wilderwild:flower_field",
-      "required": false
-    },
-    {
-      "id": "wilderwild:birch_taiga",
-      "required": false
-    },
-    {
-      "id": "wilderwild:old_growth_birch_taiga",
-      "required": false
-    },
-    {
-      "id": "wilderwild:arid_forest",
-      "required": false
-    },
-    {
-      "id": "wilderwild:birch_jungle",
-      "required": false
-    },
-    {
-      "id": "wilderwild:sparse_birch_jungle",
-      "required": false
-    },
-    {
-      "id": "wilderwild:dark_birch_forest",
-      "required": false
-    },
-    {
-      "id": "wilderwild:old_growth_dark_forest",
+      "id": "#wilderwild:wilder_wild_biomes",
       "required": false
     }
   ]

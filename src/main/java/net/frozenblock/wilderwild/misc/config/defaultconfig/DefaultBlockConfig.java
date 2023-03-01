@@ -27,6 +27,7 @@ public class DefaultBlockConfig {
 		public static final boolean COBWEB_SOUNDS = true;
 		public static final boolean DEAD_BUSH_SOUNDS = true;
 		public static final boolean FLOWER_SOUNDS = true;
+		public static final boolean SAPLING_SOUNDS = true;
 		public static final boolean FROSTED_ICE_SOUNDS = true;
 		public static final boolean GRAVEL_SOUNDS = true;
 		public static final boolean LEAF_SOUNDS = true;
@@ -34,6 +35,7 @@ public class DefaultBlockConfig {
 		public static final boolean MUSHROOM_BLOCK_SOUNDS = true;
 		public static final boolean PODZOL_SOUNDS = true;
 		public static final boolean REINFORCED_DEEPSLATE_SOUNDS = true;
+		public static final boolean SANDSTONE_SOUNDS = true;
 		public static final boolean SUGAR_CANE_SOUNDS = true;
 		public static final boolean WITHER_ROSE_SOUNDS = true;
 	}
@@ -46,4 +48,6 @@ public class DefaultBlockConfig {
 	public static final boolean SHRIEKER_GARGLING = true;
 	public static final boolean SOUL_FIRE_SOUNDS = true;
 	public static final boolean BILLBOARD_TENDRILS = true;
+	public static final boolean POLLEN_PARTICLES = true;
+	public static final boolean CACTUS_PLACEMENT = true;
 }

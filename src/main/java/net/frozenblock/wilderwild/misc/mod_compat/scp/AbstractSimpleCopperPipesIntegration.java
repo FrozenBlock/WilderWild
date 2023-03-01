@@ -24,19 +24,17 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class AbstractSimpleCopperPipesIntegration extends ModIntegration {
-    public AbstractSimpleCopperPipesIntegration() {
-        super("copper_pipe");
-    }
+public abstract class AbstractSimpleCopperPipesIntegration extends ModIntegration {
 
-	public void init() {}
-
-	public boolean addHornNbtToBlock(ServerLevel level, BlockPos pos, Entity owner) {
-		return false;
+	public AbstractSimpleCopperPipesIntegration() {
+		super("copper_pipe");
 	}
 
-	public boolean isCopperPipe(BlockState state) {
-		return false;
+	@Override
+	public void init() {
 	}
 
+	public abstract boolean addHornNbtToBlock(ServerLevel level, BlockPos pos, Entity owner);
+
+	public abstract boolean isCopperPipe(BlockState state);
 }

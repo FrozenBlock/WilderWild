@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.registry.RegisterItems;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -29,6 +30,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -88,7 +90,9 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 	@Override
 	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Entity entity) {
 		entity.makeStuckInBlock(state, new Vec3(0.800000011920929, 0.75, 0.800000011920929));
-		entity.hurt(DamageSource.CACTUS, 0.5F);
+		if (!(entity instanceof ItemEntity)) {
+			entity.hurt(DamageSource.CACTUS, 0.5F);
+		}
 	}
 
 	@Override
@@ -126,11 +130,11 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 			if (!level.isClientSide) {
 				if (itemStack.is(Items.SHEARS)) {
 					level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
+					level.playSound(null, pos, RegisterSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1.0F, 0.95F + (level.random.nextFloat() * 0.1F));
 					itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
 					level.gameEvent(player, GameEvent.SHEAR, pos);
 				} else {
-					//TODO: Pick Prickly Pear Sound
-					level.playSound(null, pos, SoundEvents.CAVE_VINES_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, 1.0F);
+					level.playSound(null, pos, RegisterSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1.0F, 0.95F + (level.random.nextFloat() * 0.1F));
 					level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
 					player.hurt(DamageSource.CACTUS, 1F);
 				}

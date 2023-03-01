@@ -32,7 +32,7 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 		super();
 	}
 
-	private static final FrozenLibConfigCategory FROZENBLOCK = FrozenLibConfig.get().config;
+	private static final FrozenLibConfigCategory FROZENLIB = FrozenLibConfig.get().config;
 	private static final BlockConfig BLOCK = WilderWildConfig.get().block;
 	private static final EntityConfig ENTITY = WilderWildConfig.get().entity;
 	private static final ItemConfig ITEM = WilderWildConfig.get().item;
@@ -65,6 +65,16 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	@Override
 	public boolean billboardTendrils() {
 		return BLOCK.billboardTendrils;
+	}
+
+	@Override
+	public boolean pollenParticles() {
+		return BLOCK.pollenParticles;
+	}
+
+	@Override
+	public boolean cactusPlacement() {
+		return BLOCK.cactusPlacement;
 	}
 
 	@Override
@@ -113,6 +123,11 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean saplingSounds() {
+		return BLOCK_SOUNDS.saplingSounds;
+	}
+
+	@Override
 	public boolean lilyPadSounds() {
 		return BLOCK_SOUNDS.lilyPadSounds;
 	}
@@ -130,6 +145,11 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	@Override
 	public boolean reinforcedDeepslateSounds() {
 		return BLOCK_SOUNDS.reinforcedDeepslateSounds;
+	}
+
+	@Override
+	public boolean sandstoneSounds() {
+		return BLOCK_SOUNDS.sandstoneSounds;
 	}
 
 	@Override
@@ -293,7 +313,7 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 
 	@Override
 	public boolean itemCooldownsSave() {
-		return FROZENBLOCK.saveItemCooldowns;
+		return FROZENLIB.saveItemCooldowns;
 	}
 
 	// WORLDGEN
@@ -409,6 +429,16 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean generateTemperateRainforest() {
+		return BIOME_GENERATION.generateTemperateRainforest;
+	}
+
+	@Override
+	public boolean generateRainforest() {
+		return BIOME_GENERATION.generateRainforest;
+	}
+
+	@Override
 	public boolean dyingTrees() {
 		return WORLDGEN.dyingTrees;
 	}
@@ -426,6 +456,11 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	@Override
 	public boolean wildGrass() {
 		return WORLDGEN.wilderWildGrassGen;
+	}
+
+	@Override
+	public boolean snowBelowTrees() {
+		return WORLDGEN.snowBelowTrees;
 	}
 
 	@Override

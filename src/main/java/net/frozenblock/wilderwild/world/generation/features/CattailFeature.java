@@ -35,39 +35,46 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
 
 public class CattailFeature extends Feature<ProbabilityFeatureConfiguration> {
+
     public CattailFeature(Codec<ProbabilityFeatureConfiguration> codec) {
         super(codec);
     }
 
+	@Override
     public boolean place(FeaturePlaceContext<ProbabilityFeatureConfiguration> context) {
         boolean bl = false;
         RandomSource abstractRandom = context.random();
         WorldGenLevel structureWorldAccess = context.level();
         BlockPos blockPos = context.origin();
         int loopFor = context.random().nextIntBetweenInclusive(12, 21);
+		int posX = blockPos.getX();
+		int posZ = blockPos.getZ();
+		BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
         for (int l = 0; l < loopFor; l++) {
-            int i = abstractRandom.nextIntBetweenInclusive(-7, 7);
-            int j = abstractRandom.nextIntBetweenInclusive(-7, 7);
-            int k = structureWorldAccess.getHeight(Types.OCEAN_FLOOR, blockPos.getX() + i, blockPos.getZ() + j);
-            BlockPos randomPos = new BlockPos(blockPos.getX() + i, k, blockPos.getZ() + j);
-            if (structureWorldAccess.getBlockState(randomPos).is(Blocks.WATER)) {
+            int randomX = abstractRandom.nextIntBetweenInclusive(-7, 7);
+            int randomZ = abstractRandom.nextIntBetweenInclusive(-7, 7);
+			int newX = posX + randomX;
+			int newZ = posZ + randomZ;
+            int oceanFloorY = structureWorldAccess.getHeight(Types.OCEAN_FLOOR, newX, newZ);
+			mutableBlockPos.set(newX, oceanFloorY, newZ);
+            if (structureWorldAccess.getBlockState(mutableBlockPos).is(Blocks.WATER)) {
                 BlockState bottom = RegisterBlocks.CATTAIL.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true);
-                if (bottom.canSurvive(structureWorldAccess, randomPos)) {
+                if (bottom.canSurvive(structureWorldAccess, mutableBlockPos)) {
                     BlockState top = bottom.setValue(WaterloggableTallFlowerBlock.HALF, DoubleBlockHalf.UPPER).setValue(BlockStateProperties.WATERLOGGED, false);
-                    BlockPos upPos = randomPos.above();
+                    BlockPos upPos = mutableBlockPos.immutable().above();
                     if (structureWorldAccess.getBlockState(upPos).is(Blocks.AIR)) {
-                        structureWorldAccess.setBlock(randomPos, bottom, 2);
+                        structureWorldAccess.setBlock(mutableBlockPos, bottom, 2);
                         structureWorldAccess.setBlock(upPos, top, 2);
                         bl = true;
                     }
                 }
             } else {
                 BlockState bottom = RegisterBlocks.CATTAIL.defaultBlockState();
-                if (bottom.canSurvive(structureWorldAccess, randomPos)) {
+                if (bottom.canSurvive(structureWorldAccess, mutableBlockPos)) {
                     BlockState top = bottom.setValue(WaterloggableTallFlowerBlock.HALF, DoubleBlockHalf.UPPER);
-                    BlockPos upPos = randomPos.above();
-                    if (structureWorldAccess.getBlockState(upPos).is(Blocks.AIR) && isWaterNearby(structureWorldAccess, randomPos, 2)) {
-                        structureWorldAccess.setBlock(randomPos, bottom, 2);
+                    BlockPos upPos = mutableBlockPos.immutable().above();
+                    if (structureWorldAccess.getBlockState(upPos).is(Blocks.AIR) && isWaterNearby(structureWorldAccess, mutableBlockPos, 2)) {
+                        structureWorldAccess.setBlock(mutableBlockPos, bottom, 2);
                         structureWorldAccess.setBlock(upPos, top, 2);
                         bl = true;
                     }

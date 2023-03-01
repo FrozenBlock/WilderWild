@@ -55,6 +55,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock implements SimpleWaterloggedBlock, BonemealableBlock {
+	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
     public static final IntegerProperty STAGE = RegisterProperties.FUNGUS_STAGE;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     protected static final VoxelShape NORTH_WALL_SHAPE = Block.box(0.0D, 0.0D, 13.0D, 16.0D, 16.0D, 16.0D);
@@ -87,7 +88,7 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACE, FACING, STAGE, WATERLOGGED);
+        builder.add(FACE, FACING, AGE, STAGE, WATERLOGGED);
     }
 
     @Override
@@ -154,8 +155,23 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
         };
     }
 
+	public boolean isMaxAge(BlockState state) {
+		return state.getValue(AGE) == 2;
+	}
+
 	private static boolean isFullyGrown(BlockState state) {
 		return state.getValue(STAGE) == 4;
+	}
+
+	@Override
+	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+		if (random.nextInt(0, level.getMaxLocalRawBrightness(pos) + 2) == 1) {
+			if (!isMaxAge(state)) {
+				level.setBlock(pos, state.cycle(AGE), 2);
+			} else if (!isFullyGrown(state)) {
+				level.setBlock(pos, state.cycle(STAGE).setValue(AGE, 0), 2);
+			}
+		}
 	}
 
 	@Override
@@ -170,6 +186,6 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
 
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-		level.setBlock(pos, state.cycle(STAGE), 2);
+		level.setBlock(pos, state.cycle(STAGE).setValue(AGE, 0), 2);
 	}
 }

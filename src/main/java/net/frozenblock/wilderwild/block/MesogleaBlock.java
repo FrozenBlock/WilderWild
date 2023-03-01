@@ -20,8 +20,6 @@ package net.frozenblock.wilderwild.block;
 
 import java.util.Objects;
 import net.frozenblock.lib.block.api.shape.FrozenShapes;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -55,9 +53,12 @@ import org.jetbrains.annotations.Nullable;
 public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterloggedBlock {
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-	public MesogleaBlock(Properties properties) {
+	public final ParticleOptions dripParticle;
+
+	public MesogleaBlock(Properties properties, ParticleOptions dripParticle) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
+		this.dripParticle = dripParticle;
 	}
 
 	@Override
@@ -104,14 +105,7 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 	public void animateTick(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull RandomSource randomSource) {
 		super.animateTick(blockState, level, blockPos, randomSource);
 		if (randomSource.nextInt(0, 50) == 0 && (blockState.getValue(WATERLOGGED) || level.getFluidState(blockPos.above()).is(FluidTags.WATER)) && level.getFluidState(blockPos.below()).isEmpty() && level.getBlockState(blockPos.below()).isAir()) {
-			ParticleOptions particle = blockState.is(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA) ? RegisterParticles.BLUE_PEARLESCENT_HANGING_MESOGLEA :
-					blockState.is(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA) ? RegisterParticles.PURPLE_PEARLESCENT_HANGING_MESOGLEA :
-							blockState.is(RegisterBlocks.YELLOW_MESOGLEA) ? RegisterParticles.YELLOW_HANGING_MESOGLEA :
-									blockState.is(RegisterBlocks.BLUE_MESOGLEA) ? RegisterParticles.BLUE_HANGING_MESOGLEA :
-											blockState.is(RegisterBlocks.LIME_MESOGLEA) ? RegisterParticles.LIME_HANGING_MESOGLEA :
-													blockState.is(RegisterBlocks.PINK_MESOGLEA) ? RegisterParticles.PINK_HANGING_MESOGLEA :
-															RegisterParticles.RED_HANGING_MESOGLEA;
-			level.addParticle(particle, blockPos.getX() + randomSource.nextDouble(), blockPos.getY(), blockPos.getZ() + randomSource.nextDouble(), 0.0D, 0.0D, 0.0D);
+			level.addParticle(this.dripParticle, blockPos.getX() + randomSource.nextDouble(), blockPos.getY(), blockPos.getZ() + randomSource.nextDouble(), 0.0D, 0.0D, 0.0D);
 		}
 	}
 

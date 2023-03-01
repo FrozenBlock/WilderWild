@@ -43,6 +43,14 @@
     {
       "id": "wilderwild:semi_birch_forest",
       "required": false
+    },
+    {
+      "id": "wilderwild:rainforest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:temperate_rainforest",
+      "required": false
     }
   ]
 }

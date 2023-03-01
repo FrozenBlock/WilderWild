@@ -11,6 +11,10 @@
     {
       "id": "wilderwild:sparse_birch_jungle",
       "required": false
+    },
+    {
+      "id": "wilderwild:rainforest",
+      "required": false
     }
   ]
 }

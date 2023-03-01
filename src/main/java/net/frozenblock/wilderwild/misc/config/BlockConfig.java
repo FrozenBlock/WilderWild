@@ -25,7 +25,7 @@ import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.config.api.FrozenConfig;
+import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
@@ -46,6 +46,7 @@ public final class BlockConfig implements ConfigData {
 		public boolean cobwebSounds = DefaultBlockConfig.BlockSoundsConfig.COBWEB_SOUNDS;
 		public boolean deadBushSounds = DefaultBlockConfig.BlockSoundsConfig.DEAD_BUSH_SOUNDS;
 		public boolean flowerSounds = DefaultBlockConfig.BlockSoundsConfig.FLOWER_SOUNDS;
+		public boolean saplingSounds = DefaultBlockConfig.BlockSoundsConfig.SAPLING_SOUNDS;
 		public boolean frostedIceSounds = DefaultBlockConfig.BlockSoundsConfig.FROSTED_ICE_SOUNDS;
 		public boolean gravelSounds = DefaultBlockConfig.BlockSoundsConfig.GRAVEL_SOUNDS;
 		public boolean leafSounds = DefaultBlockConfig.BlockSoundsConfig.LEAF_SOUNDS;
@@ -53,6 +54,8 @@ public final class BlockConfig implements ConfigData {
 		public boolean mushroomBlockSounds = DefaultBlockConfig.BlockSoundsConfig.MUSHROOM_BLOCK_SOUNDS;
 		public boolean podzolSounds = DefaultBlockConfig.BlockSoundsConfig.PODZOL_SOUNDS;
 		public boolean reinforcedDeepslateSounds = DefaultBlockConfig.BlockSoundsConfig.REINFORCED_DEEPSLATE_SOUNDS;
+
+		public boolean sandstoneSounds = DefaultBlockConfig.BlockSoundsConfig.SANDSTONE_SOUNDS;
 		public boolean sugarCaneSounds = DefaultBlockConfig.BlockSoundsConfig.SUGAR_CANE_SOUNDS;
 		public boolean witherRoseSounds = DefaultBlockConfig.BlockSoundsConfig.WITHER_ROSE_SOUNDS;
 	}
@@ -65,6 +68,8 @@ public final class BlockConfig implements ConfigData {
     public boolean shriekerGargling = DefaultBlockConfig.SHRIEKER_GARGLING;
     public boolean soulFireSounds = DefaultBlockConfig.SOUL_FIRE_SOUNDS;
 	public boolean billboardTendrils = DefaultBlockConfig.BILLBOARD_TENDRILS;
+	public boolean pollenParticles = DefaultBlockConfig.POLLEN_PARTICLES;
+	public boolean cactusPlacement = DefaultBlockConfig.CACTUS_PLACEMENT;
 
     @Environment(EnvType.CLIENT)
     static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
@@ -99,11 +104,19 @@ public final class BlockConfig implements ConfigData {
 				.build()
 		);
 
-        /*var displayLanternCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("display_lantern"),
-                false,
-                tooltip("display_lantern")
+		var pollenParticles = category.addEntry(entryBuilder.startBooleanToggle(text("pollen_particles"), config.pollenParticles)
+				.setDefaultValue(DefaultBlockConfig.POLLEN_PARTICLES)
+				.setSaveConsumer(newValue -> config.pollenParticles = newValue)
+				.setTooltip(tooltip("pollen_particles"))
+				.build()
+		);
 
-        );*/
+		var cactusPlacement = category.addEntry(entryBuilder.startBooleanToggle(text("cactus_placement"), config.cactusPlacement)
+				.setDefaultValue(DefaultBlockConfig.CACTUS_PLACEMENT)
+				.setSaveConsumer(newValue -> config.cactusPlacement = newValue)
+				.setTooltip(tooltip("cactus_placement"))
+				.build()
+		);
 
 		var cactusSounds = entryBuilder.startBooleanToggle(text("cactus_sounds"), blockSounds.cactusSounds)
 				.setDefaultValue(DefaultBlockConfig.BlockSoundsConfig.CACTUS_SOUNDS)
@@ -139,6 +152,12 @@ public final class BlockConfig implements ConfigData {
 				.setDefaultValue(DefaultBlockConfig.BlockSoundsConfig.FLOWER_SOUNDS)
 				.setSaveConsumer(newValue -> blockSounds.flowerSounds = newValue)
 				.setTooltip(tooltip("flower_sounds"))
+				.build();
+
+		var saplingSounds = entryBuilder.startBooleanToggle(text("sapling_sounds"), blockSounds.saplingSounds)
+				.setDefaultValue(DefaultBlockConfig.BlockSoundsConfig.SAPLING_SOUNDS)
+				.setSaveConsumer(newValue -> blockSounds.saplingSounds = newValue)
+				.setTooltip(tooltip("sapling_sounds"))
 				.build();
 
 		var gravelSounds = entryBuilder.startBooleanToggle(text("gravel_sounds"), blockSounds.gravelSounds)
@@ -183,6 +202,12 @@ public final class BlockConfig implements ConfigData {
 				.setTooltip(tooltip("reinforced_deepslate_sounds"))
 				.build();
 
+		var sandstoneSounds = entryBuilder.startBooleanToggle(text("sandstone_sounds"), blockSounds.sandstoneSounds)
+				.setDefaultValue(DefaultBlockConfig.BlockSoundsConfig.SANDSTONE_SOUNDS)
+				.setSaveConsumer(newValue -> blockSounds.sandstoneSounds = newValue)
+				.setTooltip(tooltip("sandstone_sounds"))
+				.build();
+
 		var sugarCaneSounds = entryBuilder.startBooleanToggle(text("sugar_cane_sounds"), blockSounds.sugarCaneSounds)
 				.setDefaultValue(DefaultBlockConfig.BlockSoundsConfig.SUGAR_CANE_SOUNDS)
 				.setSaveConsumer(newValue -> blockSounds.sugarCaneSounds = newValue)
@@ -195,12 +220,13 @@ public final class BlockConfig implements ConfigData {
 				.setTooltip(tooltip("wither_rose_sounds"))
 				.build();
 
-		var blockSoundsCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("block_sounds"),
+		var blockSoundsCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("block_sounds"),
 				false,
 				tooltip("block_sounds"),
 				cactusSounds, claySounds, coarseDirtSounds, cobwebSounds, deadBushSounds,
-				flowerSounds, gravelSounds, frostedIceSounds, leafSounds, lilyPadSounds,
-				mushroomBlockSounds, podzolSounds, reinforcedDeepslateSounds, sugarCaneSounds, witherRoseSounds
+				flowerSounds, saplingSounds, gravelSounds, frostedIceSounds, leafSounds,
+				lilyPadSounds, mushroomBlockSounds, podzolSounds, reinforcedDeepslateSounds,
+				sugarCaneSounds, witherRoseSounds, sandstoneSounds
 		);
 
 		var stoneChestTimer = entryBuilder.startIntSlider(text("stone_chest_timer"), stoneChest.stoneChestTimer, 50, 200)
@@ -209,16 +235,10 @@ public final class BlockConfig implements ConfigData {
 				.setTooltip(tooltip("stone_chest_timer"))
 				.build();
 
-        var stoneChestCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("stone_chest"),
+        var stoneChestCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("stone_chest"),
                 false,
                 tooltip("stone_chest"),
 				stoneChestTimer
         );
-
-        /*var termiteCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("termite"),
-                false,
-                tooltip("termite")
-
-        );*/
     }
 }

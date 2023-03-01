@@ -118,13 +118,22 @@ public final class WilderWorldGen {
 
         BiomeModifications.create(WilderSharedConstants.id("replace_swamp_trees"))
                 .add(ModificationPhase.REPLACEMENTS,
-                        BiomeSelectors.tag(WilderBiomeTags.SWAMP_TREES),
+                        BiomeSelectors.includeByKey(Biomes.WOODED_BADLANDS),
                         context -> {
                             if (WilderSharedConstants.config().wildTrees()) {
                                 context.getGenerationSettings().removeFeature(VegetationPlacements.TREES_SWAMP);
                                 context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_SWAMP);
                             }
                         });
+		BiomeModifications.create(WilderSharedConstants.id("replace_badlands_trees"))
+				.add(ModificationPhase.REPLACEMENTS,
+						BiomeSelectors.tag(WilderBiomeTags.SWAMP_TREES),
+						context -> {
+							if (WilderSharedConstants.config().wildTrees()) {
+								context.getGenerationSettings().removeFeature(VegetationPlacements.TREES_SWAMP);
+								context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_SWAMP);
+							}
+						});
 
         BiomeModifications.create(WilderSharedConstants.id("replace_taiga_trees"))
                 .add(ModificationPhase.REPLACEMENTS,

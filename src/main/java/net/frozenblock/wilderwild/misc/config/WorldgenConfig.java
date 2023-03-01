@@ -25,7 +25,7 @@ import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.config.api.FrozenConfig;
+import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
 import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
@@ -65,6 +65,8 @@ public final class WorldgenConfig implements ConfigData {
 		public boolean generateOldGrowthDarkForest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_OLD_GROWTH_DARK_FOREST;
 		public boolean generateDarkBirchForest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_DARK_BIRCH_FOREST;
 		public boolean generateSemiBirchForest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_SEMI_BIRCH_FOREST;
+		public boolean generateTemperateRainforest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_TEMPERATE_RAINFOREST;
+		public boolean generateRainforest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_RAINFOREST;
 	}
 
     public boolean betaBeaches = DefaultWorldgenConfig.BETA_BEACHES;
@@ -72,6 +74,7 @@ public final class WorldgenConfig implements ConfigData {
     public boolean fallenLogs = DefaultWorldgenConfig.FALLEN_LOGS;
     public boolean wilderWildTreeGen = DefaultWorldgenConfig.WILDER_WILD_TREE_GEN;
     public boolean wilderWildGrassGen = DefaultWorldgenConfig.WILDER_WILD_GRASS_GEN;
+	public boolean snowBelowTrees = DefaultWorldgenConfig.SNOW_BELOW_TREES;
 	public boolean newWitchHuts = DefaultWorldgenConfig.NEW_WITCH_HUTS;
 
     @Environment(EnvType.CLIENT)
@@ -188,13 +191,25 @@ public final class WorldgenConfig implements ConfigData {
 				.setTooltip(tooltip("generate_semi_birch_forest"))
 				.requireRestart()
 				.build();
+		var temperateRainforest = entryBuilder.startBooleanToggle(text("generate_temperate_rainforest"), biomes.generateTemperateRainforest)
+				.setDefaultValue(DefaultWorldgenConfig.BiomeGeneration.GENERATE_TEMPERATE_RAINFOREST)
+				.setSaveConsumer(newValue -> biomes.generateTemperateRainforest = newValue)
+				.setTooltip(tooltip("generate_temperate_rainforest"))
+				.requireRestart()
+				.build();
+		var rainforest = entryBuilder.startBooleanToggle(text("generate_rainforest"), biomes.generateRainforest)
+				.setDefaultValue(DefaultWorldgenConfig.BiomeGeneration.GENERATE_RAINFOREST)
+				.setSaveConsumer(newValue -> biomes.generateRainforest = newValue)
+				.setTooltip(tooltip("generate_rainforest"))
+				.requireRestart()
+				.build();
 
-		var biomeGenerationCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("biome_generation"),
+		var biomeGenerationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("biome_generation"),
 				false,
 				tooltip("biome_generation"),
 				aridForest, aridSavanna, birchJungle, birchTaiga, cypressWetlands, darkBirchForest, flowerField, jellyfishCaves, mixedForest,
-				oasis, oldGrowthBirchTaiga, oldGrowthDarkForest, oldGrowthSnowyTaiga, parchedForest, semiBirchForest,
-				sparseBirchJungle, warmRiver
+				oasis, oldGrowthBirchTaiga, oldGrowthDarkForest, oldGrowthSnowyTaiga, parchedForest, rainforest, semiBirchForest,
+				sparseBirchJungle, temperateRainforest, warmRiver
 		);
 
         var jungle = entryBuilder.startBooleanToggle(text("modify_jungle_placement"), biomePlacement.modifyJunglePlacement)
@@ -226,7 +241,7 @@ public final class WorldgenConfig implements ConfigData {
                 .requireRestart()
                 .build();
 
-        var biomePlacementCategory = FrozenConfig.createSubCategory(entryBuilder, category, text("biome_placement"),
+        var biomePlacementCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("biome_placement"),
                 false,
                 tooltip("biome_placement"),
                 jungle, mangroveSwamp, swamp, windsweptSavanna
@@ -260,6 +275,13 @@ public final class WorldgenConfig implements ConfigData {
                 .requireRestart()
                 .build()
         );
+		var snowBelowTrees = category.addEntry(entryBuilder.startBooleanToggle(text("snow_below_trees"), config.snowBelowTrees)
+				.setDefaultValue(DefaultWorldgenConfig.SNOW_BELOW_TREES)
+				.setSaveConsumer(newValue -> config.snowBelowTrees = newValue)
+				.setTooltip(tooltip("snow_below_trees"))
+				.requireRestart()
+				.build()
+		);
 		var newWitchHuts = category.addEntry(entryBuilder.startBooleanToggle(text("new_witch_huts"), config.newWitchHuts)
 				.setDefaultValue(DefaultWorldgenConfig.NEW_WITCH_HUTS)
 				.setSaveConsumer(newValue -> config.newWitchHuts = newValue)

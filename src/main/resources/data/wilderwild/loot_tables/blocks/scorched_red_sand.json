@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "wilderwild:scorched_red_sand",
+          "functions": [
+            {
+              "function": "minecraft:copy_state",
+              "block": "wilderwild:scorched_red_sand",
+              "properties": [
+                "crackedness"
+              ],
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "wilderwild:scorched_red_sand",
+                  "properties": {
+                    "crackedness": "1"
+                  }
+                }
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "condition": "minecraft:survives_explosion"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

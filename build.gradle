@@ -153,9 +153,7 @@ dependencies {
 	println("Using local FrozenLib: ${project.local_frozenlib}")
 	if (project.local_frozenlib) {
 		include(implementation(project(path: ":FrozenLib", configuration: "dev")))
-	}/* else if (findProperty("isGithub") == "true") {
-		include(modImplementation("com.github.FrozenBlock:FrozenLib:1.19.3-SNAPSHOT"))
-	}*/ else {
+	} else {
 		include(modImplementation("maven.modrinth:frozenlib:${frozenlib_version}"))
 	}
 
@@ -214,12 +212,12 @@ javadoc {
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
-	setClassifier("javadoc")
+	archiveClassifier = "javadoc"
 	from(javadoc.destinationDir)
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
-	setClassifier("sources")
+	archiveClassifier = "sources"
 	from(sourceSets.main.allSource)
 }
 

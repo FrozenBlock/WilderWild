@@ -39,7 +39,7 @@ public class EasterEggs {
 				true, "Merp"
 		);*/
         EntityTextureOverride.register(WilderSharedConstants.id("xfrtrex_frog"), EntityType.FROG, WilderSharedConstants.id("textures/entity/frog/sus_frog.png"),
-				"Xfrtrex"
+				"Xfrtrex", "BluePhoenixLOL"
 		);
         EntityTextureOverride.register(WilderSharedConstants.id("saisho_axolotl"), EntityType.AXOLOTL, WilderSharedConstants.id("textures/entity/axolotl/saisho_axolotl.png"),
 				true, "Saisho"

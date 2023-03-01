@@ -34,10 +34,12 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 
 public class ShelfFungusFeature extends Feature<ShelfFungusFeatureConfig> {
+
     public ShelfFungusFeature(Codec<ShelfFungusFeatureConfig> codec) {
         super(codec);
     }
 
+	@Override
     public boolean place(FeaturePlaceContext<ShelfFungusFeatureConfig> context) {
         WorldGenLevel structureWorldAccess = context.level();
         BlockPos blockPos = context.origin();
@@ -68,7 +70,6 @@ public class ShelfFungusFeature extends Feature<ShelfFungusFeatureConfig> {
                         }
                     }
                 }
-
                 return false;
             }
         }
@@ -110,4 +111,5 @@ public class ShelfFungusFeature extends Feature<ShelfFungusFeatureConfig> {
     private static boolean isAirOrWater(BlockState state) {
         return state.isAir() || state.is(Blocks.WATER);
     }
+
 }

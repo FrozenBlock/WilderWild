@@ -77,7 +77,7 @@ public final class WilderSharedWorldgen {
     }
 
 	public static final class BirchTaiga {
-		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.200F, -0.100F);
+		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.175F, -0.125F);
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.100F, 0.325F);
 	}
 
@@ -100,7 +100,8 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static final class ParchedForest {
-		public static final Climate.Parameter TEMPERATURE = Temperature.FOUR;
+		public static final Climate.Parameter TEMPERATURE_A = Temperature.FOUR;
+		public static final Climate.Parameter TEMPERATURE_B = Climate.Parameter.span(0.175F, 0.225F);
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.150F, -0.050F);
 	}
 
@@ -130,7 +131,29 @@ public final class WilderSharedWorldgen {
 		public static final Climate.Parameter TEMPERATURE_B = Climate.Parameter.span(-0.140F, -0.100F);
 	}
 
-    public static final class JellyfishCaves {
+	public static final class TemperateRainforest {
+		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.250F, -0.050F);
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.250F, 1.0F);
+		public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(0.350F, 0.850F);
+		public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_0, Erosion.EROSION_3);
+		public static final Climate.Parameter WEIRDNESS = Climate.Parameter.span(-0.450F, -0.250F);
+	}
+
+	public static final class Rainforest {
+		public static final Climate.Parameter TEMPERATURE_A = Climate.Parameter.span(Temperature.THREE, Temperature.FOUR);
+		public static final Climate.Parameter HUMIDITY_A = Humidity.THREE;
+		public static final Climate.Parameter CONTINENTALNESS_A = Climate.Parameter.span(Continentalness.INLAND, Continentalness.FAR_INLAND);
+		public static final Climate.Parameter EROSION_A = Climate.Parameter.span(Erosion.EROSION_0, Erosion.EROSION_3);
+		public static final Climate.Parameter WEIRDNESS_A = Climate.Parameter.span(-1.000F, 0.050F);
+
+		public static final Climate.Parameter TEMPERATURE_B = Temperature.FOUR;
+		public static final Climate.Parameter HUMIDITY_B = Climate.Parameter.span(0.075F, 0.225F);
+
+		public static final Climate.Parameter TEMPERATURE_C = Climate.Parameter.span(0.175F, 0.250F);
+		public static final Climate.Parameter HUMIDITY_C = Climate.Parameter.span(0.075F, 0.225F);
+	}
+
+	public static final class JellyfishCaves {
         public static final Climate.Parameter TEMPERATURE = Temperature.FULL_RANGE;
         public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.DRY, Humidity.HUMID);
         public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(-1.200F, -0.749F);
@@ -364,12 +387,50 @@ public final class WilderSharedWorldgen {
 								SurfaceRules.waterBlockCheck(-1, 0),
 								SurfaceRules.sequence(
 										SurfaceRules.ifTrue(
-												SurfaceRules.noiseCondition(Noises.SURFACE, 0.175, 0.2),
-												FrozenSurfaceRules.makeStateRule(Blocks.ROOTED_DIRT)
-										),
-										SurfaceRules.ifTrue(
 												SurfaceRules.noiseCondition(Noises.SURFACE, -0.0667, 0.04),
 												PODZOL
+										)
+								)
+						)
+				)
+		);
+	}
+
+	public static SurfaceRules.RuleSource temperateRainforestRules() {
+		return SurfaceRules.ifTrue(
+				SurfaceRules.isBiome(RegisterWorldgen.TEMPERATE_RAINFOREST),
+				SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
+						SurfaceRules.ifTrue(
+								SurfaceRules.waterBlockCheck(-1, 0),
+								SurfaceRules.sequence(
+										SurfaceRules.ifTrue(
+												SurfaceRules.noiseCondition(Noises.SURFACE, 0.095, 0.2),
+												FrozenSurfaceRules.makeStateRule(Blocks.PODZOL)
+										),
+										SurfaceRules.ifTrue(
+												SurfaceRules.noiseCondition(Noises.POWDER_SNOW, 0.065, 0.15),
+												FrozenSurfaceRules.makeStateRule(Blocks.MOSS_BLOCK)
+										),
+										SurfaceRules.ifTrue(
+												SurfaceRules.noiseCondition(Noises.SURFACE_SECONDARY, 0.0667, 0.4),
+												COARSE_DIRT
+										)
+								)
+						)
+				)
+		);
+	}
+
+	public static SurfaceRules.RuleSource rainforestRules() {
+		return SurfaceRules.ifTrue(
+				SurfaceRules.isBiome(RegisterWorldgen.RAINFOREST),
+				SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
+						SurfaceRules.ifTrue(
+								SurfaceRules.waterBlockCheck(-1, 0),
+								SurfaceRules.sequence(
+										SurfaceRules.ifTrue(
+												SurfaceRules.noiseCondition(Noises.POWDER_SNOW, 0.065, 0.15),
+												FrozenSurfaceRules.makeStateRule(Blocks.MOSS_BLOCK)
 										)
 								)
 						)

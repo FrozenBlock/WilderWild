@@ -23,6 +23,7 @@ import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.parameters.FrozenBiomeParameters;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
@@ -58,6 +59,75 @@ public class WilderOverworldRegion extends Region {
 							)
 					);
 					builder.replaceBiome(point, RegisterWorldgen.MIXED_FOREST);
+				});
+			}
+			if (WilderSharedConstants.config().generateTemperateRainforest()) {
+				OverworldBiomeBuilderParameters.points(Biomes.TAIGA).forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.TemperateRainforest.TEMPERATURE,
+									WilderSharedWorldgen.TemperateRainforest.HUMIDITY,
+									point.continentalness(),
+									WilderSharedWorldgen.TemperateRainforest.EROSION,
+									point.depth(),
+									point.weirdness(),
+									//WilderSharedWorldgen.TemperateRainforest.CONTINENTALNESS,
+									//WilderSharedWorldgen.TemperateRainforest.WEIRDNESS,
+									point.offset()
+							)
+					);
+					builder.replaceBiome(point, RegisterWorldgen.TEMPERATE_RAINFOREST);
+				});
+			}
+
+			if (WilderSharedConstants.config().generateRainforest()) {
+				OverworldBiomeBuilderParameters.points(Biomes.FOREST).forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.Rainforest.TEMPERATURE_A,
+									WilderSharedWorldgen.Rainforest.HUMIDITY_A,
+									WilderSharedWorldgen.Rainforest.CONTINENTALNESS_A,
+									WilderSharedWorldgen.Rainforest.EROSION_A,
+									point.depth(),
+									WilderSharedWorldgen.Rainforest.WEIRDNESS_A,
+									point.offset()
+							)
+					);
+					builder.replaceBiome(point, RegisterWorldgen.RAINFOREST);
+				});
+
+				OverworldBiomeBuilderParameters.points(Biomes.FOREST).forEach(point -> {
+					if (point.temperature().equals(Temperature.FOUR)) {
+						builder.replaceParameter(point,
+								Climate.parameters(
+										WilderSharedWorldgen.Rainforest.TEMPERATURE_B,
+										WilderSharedWorldgen.Rainforest.HUMIDITY_B,
+										point.continentalness(),
+										point.erosion(),
+										point.depth(),
+										point.weirdness(),
+										point.offset()
+								)
+						);
+						builder.replaceBiome(point, RegisterWorldgen.RAINFOREST);
+					}
+				});
+
+				OverworldBiomeBuilderParameters.points(Biomes.FOREST).forEach(point -> {
+					if (point.temperature().equals(Temperature.THREE)) {
+						builder.replaceParameter(point,
+								Climate.parameters(
+										WilderSharedWorldgen.Rainforest.TEMPERATURE_C,
+										WilderSharedWorldgen.Rainforest.HUMIDITY_C,
+										point.continentalness(),
+										point.erosion(),
+										point.depth(),
+										point.weirdness(),
+										point.offset()
+								)
+						);
+						builder.replaceBiome(point, RegisterWorldgen.RAINFOREST);
+					}
 				});
 			}
 
@@ -198,7 +268,21 @@ public class WilderOverworldRegion extends Region {
 				OverworldBiomeBuilderParameters.points(Biomes.FOREST).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
-									WilderSharedWorldgen.ParchedForest.TEMPERATURE,
+									WilderSharedWorldgen.ParchedForest.TEMPERATURE_A,
+									WilderSharedWorldgen.ParchedForest.HUMIDITY,
+									point.continentalness(),
+									point.erosion(),
+									point.depth(),
+									point.weirdness(),
+									point.offset()
+							)
+					);
+					builder.replaceBiome(point, RegisterWorldgen.PARCHED_FOREST);
+				});
+				OverworldBiomeBuilderParameters.points(Biomes.FOREST).forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.ParchedForest.TEMPERATURE_B,
 									WilderSharedWorldgen.ParchedForest.HUMIDITY,
 									point.continentalness(),
 									point.erosion(),

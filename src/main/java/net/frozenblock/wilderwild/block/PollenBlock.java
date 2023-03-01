@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.block;
 
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
@@ -33,17 +34,19 @@ public class PollenBlock extends FlowerLichenBlock {
     }
 
     @Override
-    public void animateTick(@NotNull BlockState state, @NotNull Level level, BlockPos pos, @NotNull RandomSource random) {
-        int i = pos.getX();
-        int j = pos.getY();
-        int k = pos.getZ();
-        BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-        for (int l = 0; l < 7; ++l) {
-            mutable.set(i + Mth.nextInt(random, -10, 10), j - random.nextInt(10), k + Mth.nextInt(random, -10, 10));
-            BlockState blockState = level.getBlockState(mutable);
-            if (!blockState.isCollisionShapeFullBlock(level, mutable)) {
-                level.addParticle(RegisterParticles.POLLEN, (double) mutable.getX() + random.nextDouble(), (double) mutable.getY() + random.nextDouble(), (double) mutable.getZ() + random.nextDouble(), 0.0D, 0.0D, 0.0D);
-            }
-        }
+    public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+		if (WilderSharedConstants.config().pollenParticles()) {
+			int i = pos.getX();
+			int j = pos.getY();
+			int k = pos.getZ();
+			BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+			for (int l = 0; l < 7; ++l) {
+				mutable.set(i + Mth.nextInt(random, -10, 10), j - random.nextInt(10), k + Mth.nextInt(random, -10, 10));
+				BlockState blockState = level.getBlockState(mutable);
+				if (!blockState.isCollisionShapeFullBlock(level, mutable) && !level.isRainingAt(mutable)) {
+					level.addParticle(RegisterParticles.POLLEN, (double) mutable.getX() + random.nextDouble(), (double) mutable.getY() + random.nextDouble(), (double) mutable.getZ() + random.nextDouble(), 0.0D, 0.0D, 0.0D);
+				}
+			}
+		}
     }
 }

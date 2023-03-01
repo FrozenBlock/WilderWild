@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "red_sandstone",
+  "pattern": [
+    "SG",
+    "GS"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:red_sand"
+    },
+    "G": {
+      "item": "wilderwild:scorched_red_sand"
+    }
+  },
+  "result": {
+    "item": "minecraft:sandstone",
+    "count": 2
+  }
+}
