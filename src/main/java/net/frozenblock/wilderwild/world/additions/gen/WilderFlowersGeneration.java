@@ -81,17 +81,26 @@ public final class WilderFlowersGeneration {
 		BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.DESERT),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DESERT_BUSH_PLACED.unwrapKey().orElseThrow());
 
-		BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.BADLANDS),
+		BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.BADLANDS, Biomes.WOODED_BADLANDS),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PRICKLY_PEAR.unwrapKey().orElseThrow());
 
-		BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.BADLANDS),
+		BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.ERODED_BADLANDS),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PRICKLY_PEAR_RARE.unwrapKey().orElseThrow());
+
+		BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.BADLANDS, Biomes.ERODED_BADLANDS, Biomes.WOODED_BADLANDS),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BADLANDS_TALL_CACTUS_PLACED.unwrapKey().orElseThrow());
 
-		BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.BADLANDS),
+		BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.BADLANDS, Biomes.WOODED_BADLANDS),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BADLANDS_BUSH_SAND_PLACED.unwrapKey().orElseThrow());
 
 		BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.BADLANDS),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BADLANDS_BUSH_TERRACOTTA_PLACED.unwrapKey().orElseThrow());
+
+		BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.WOODED_BADLANDS),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.WOODED_BADLANDS_BUSH_TERRACOTTA_PLACED.unwrapKey().orElseThrow());
+
+		BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.ERODED_BADLANDS),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BADLANDS_BUSH_RARE_SAND_PLACED.unwrapKey().orElseThrow());
 
 		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FIELD_FLOWERS),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_FLOWER_FIELD.unwrapKey().orElseThrow());

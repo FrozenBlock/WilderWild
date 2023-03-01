@@ -48,7 +48,7 @@ public final class WilderSpawns {
 
 	public static void addTumbleweed() {
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WilderBiomeTags.HAS_TUMBLEWEED_ENTITY),
-				FrozenMobCategories.getCategory(WilderSharedConstants.MOD_ID, "tumbleweed"), RegisterEntities.TUMBLEWEED, 30, 1, 1);
+				FrozenMobCategories.getCategory(WilderSharedConstants.MOD_ID, "tumbleweed"), RegisterEntities.TUMBLEWEED, 60, 1, 1);
 	}
 
     public static void addRabbits() {

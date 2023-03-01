@@ -215,14 +215,15 @@ public final class WilderConfiguredFeatures {
 
 	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> RAINFOREST_TREES =
 			register("rainforest_trees", Feature.RANDOM_SELECTOR,
-					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.OAK_CHECKED, 0.055F),
-							new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_BEES_0004, 0.25F),
-							new WeightedPlacedFeature(WilderTreePlaced.FANCY_OAK_BEES_0004, 0.4F),
-							new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.07F),
-							new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.118F),
+					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.OAK_CHECKED, 0.085F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_BEES_0004, 0.12F),
+							new WeightedPlacedFeature(WilderTreePlaced.FANCY_OAK_BEES_0004, 0.27F),
+							new WeightedPlacedFeature(WilderTreePlaced.OLD_DYING_FANCY_OAK_BEES_0004, 0.15F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.072F),
+							new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.120F),
 							new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.098F),
-							new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED, 0.305F),
-							new WeightedPlacedFeature(WilderTreePlaced.BIRCH_CHECKED, 0.207F)), WilderTreePlaced.DYING_OAK_CHECKED));
+							new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED, 0.37F),
+							new WeightedPlacedFeature(WilderTreePlaced.BIRCH_CHECKED, 0.21F)), WilderTreePlaced.DYING_OAK_CHECKED));
 
 	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> BIRCH_TAIGA_TREES =
 			register("birch_taiga_trees", Feature.RANDOM_SELECTOR,
@@ -598,6 +599,11 @@ public final class WilderConfiguredFeatures {
 	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> BADLANDS_BUSH_TERRACOTTA =
 			register("badlands_bush_terracotta", Feature.RANDOM_PATCH,
 					FeatureUtils.simpleRandomPatchConfiguration(6, PlacementUtils.inlinePlaced(Feature.SIMPLE_BLOCK,
+							new SimpleBlockConfiguration(new WeightedStateProvider(DESERT_BUSH_POOL)), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.SAND)))))));
+
+	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> WOODED_BADLANDS_BUSH_TERRACOTTA =
+			register("wooded_badlands_bush_terracotta", Feature.RANDOM_PATCH,
+					FeatureUtils.simpleRandomPatchConfiguration(10, PlacementUtils.inlinePlaced(Feature.SIMPLE_BLOCK,
 							new SimpleBlockConfiguration(new WeightedStateProvider(DESERT_BUSH_POOL)), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.SAND)))))));
 
 

@@ -69,8 +69,9 @@ public final class WilderTreePlaced {
     public static final Holder<PlacedFeature> FALLEN_OAK_CHECKED = register("fallen_oak_checked", WilderTreeConfigured.FALLEN_OAK_TREE, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
 	public static final Holder<PlacedFeature> MOSSY_FALLEN_OAK_CHECKED = register("mossy_fallen_oak_checked", WilderTreeConfigured.MOSSY_FALLEN_OAK_TREE, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
 	public static final Holder<PlacedFeature> MOSSY_FALLEN_SPRUCE_CHECKED = register("mossy_fallen_spruce_checked", WilderTreeConfigured.MOSSY_FALLEN_SPRUCE_TREE, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
+	public static final Holder<PlacedFeature> OLD_DYING_FANCY_OAK_BEES_0004 = register("old_dying_fancy_oak_bees_0004", WilderTreeConfigured.OLD_FANCY_DYING_OAK_BEES_0004, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
 
-    //DARK OAK
+	//DARK OAK
     public static final Holder<PlacedFeature> TALL_DARK_OAK_CHECKED = register("tall_dark_oak_checked", WilderTreeConfigured.TALL_DARK_OAK, PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING));
     public static final Holder<PlacedFeature> DYING_TALL_DARK_OAK_CHECKED = register("dying_tall_dark_oak_checked", WilderTreeConfigured.DYING_TALL_DARK_OAK, PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING));
     public static final Holder<PlacedFeature> DYING_DARK_OAK_CHECKED = register("dying_dark_oak_checked", WilderTreeConfigured.DYING_DARK_OAK, PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING));

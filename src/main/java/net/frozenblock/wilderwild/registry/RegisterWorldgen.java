@@ -233,7 +233,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 						new BiomeSpecialEffects.Builder()
 								.grassColorOverride(8569413)
 								.foliageColorOverride(3193611)
-								.waterColor(4566514)
+								.waterColor(3981763)
 								.waterFogColor(267827)
 								.skyColor(OverworldBiomes.calculateSkyColor(2.0F))
 								.fogColor(12638463)

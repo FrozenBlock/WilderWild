@@ -294,10 +294,16 @@ public final class WilderPlacedFeatures {
 			WilderConfiguredFeatures.DESERT_BUSH, RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
 	public static final Holder<PlacedFeature> BADLANDS_BUSH_SAND_PLACED = register("badlands_bush_sand_placed",
+			WilderConfiguredFeatures.BADLANDS_BUSH_SAND, RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+
+	public static final Holder<PlacedFeature> BADLANDS_BUSH_RARE_SAND_PLACED = register("badlands_bush_rare_sand_placed",
 			WilderConfiguredFeatures.BADLANDS_BUSH_SAND, RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
 	public static final Holder<PlacedFeature> BADLANDS_BUSH_TERRACOTTA_PLACED = register("badlands_bush_terracotta_placed",
 			WilderConfiguredFeatures.BADLANDS_BUSH_TERRACOTTA, RarityFilter.onAverageOnceEvery(9), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+
+	public static final Holder<PlacedFeature> WOODED_BADLANDS_BUSH_TERRACOTTA_PLACED = register("wooded_badlands_bush_terracotta_placed",
+			WilderConfiguredFeatures.WOODED_BADLANDS_BUSH_TERRACOTTA, RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
 	public static final Holder<PlacedFeature> ARID_BUSH_PLACED = register("arid_bush_placed",
 			WilderConfiguredFeatures.DESERT_BUSH, RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
@@ -444,6 +450,9 @@ public final class WilderPlacedFeatures {
 
 	public static final Holder<PlacedFeature> PRICKLY_PEAR = register("prickly_pear",
 			WilderConfiguredFeatures.PRICKLY_PEAR, RarityFilter.onAverageOnceEvery(7), CountPlacement.of(1), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+
+	public static final Holder<PlacedFeature> PRICKLY_PEAR_RARE = register("prickly_pear_rare",
+			WilderConfiguredFeatures.PRICKLY_PEAR, RarityFilter.onAverageOnceEvery(9), CountPlacement.of(1), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
 	public static final Holder<PlacedFeature> JELLYFISH_CAVES_BLUE_MESOGLEA = register(
             "blue_mesoglea",
