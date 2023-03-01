@@ -41,7 +41,7 @@ fun getChangelog(changelogFile: File): String {
 
 curseforge {
 	val token = System.getenv("CURSEFORGE_TOKEN")
-	apiKey = (token == null || token.isEmpty() ? "unset" : token)
+	apiKey = { if (token == null || token.isEmpty()) invoke("unset") else invoke(token) }
 	val gameVersion = curseforge_minecraft_version != "null" ? curseforge_minecraft_version : minecraft_version
 	project {
 		id = curseforge_id
