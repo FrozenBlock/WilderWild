@@ -8,6 +8,7 @@ buildscript {
 }
 
 import java.nio.file.Files
+import java.util.Properties
 
 extra {
 	val properties = Properties()
@@ -40,7 +41,7 @@ fun getChangelog(changelogFile: File): String {
 
 curseforge {
 	val token = System.getenv("CURSEFORGE_TOKEN")
-	apiKey = token == null || token.isEmpty() ? "unset" : token
+	apiKey = (token == null || token.isEmpty() ? "unset" : token)
 	val gameVersion = curseforge_minecraft_version != "null" ? curseforge_minecraft_version : minecraft_version
 	project {
 		id = curseforge_id
