@@ -7,9 +7,9 @@ buildscript {
 	}
 }
 
-val mod_verison: String by project
-val version: String by project
-val minecraft_version: String by project
+public val mod_verison: String by rootProject
+public val version: String by rootProject
+public val minecraft_version: String by rootProject
 
 import java.io.FileInputStream
 import java.nio.file.Files
@@ -23,11 +23,11 @@ extra {
 	}
 }
 
-public val modrinth_id by extra("modrinth_id")
-public val curseforge_id by extra("curseforge_id")
-public val release_type by extra("release_type")
-public val curseforge_minecraft_version by extra("curseforge_minecraft_version")
-public val changelog_file by extra("changelog_file")
+public val modrinth_id: String by extra
+public val curseforge_id: String by extra
+public val release_type: String by extra
+public val curseforge_minecraft_version: String by extra
+public val changelog_file: String by extra
 
 public val modrinth_version = makeModrinthVersion(mod_version)
 public val display_name = makeName(mod_version)
