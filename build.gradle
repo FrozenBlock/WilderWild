@@ -17,27 +17,27 @@ plugins {
 	id("eclipse")
 	id("idea")
 	id("java-library")
+	id("java")
 }
 
 project.ext.local_frozenlib = findProject(":FrozenLib") != null
 project.ext.release = findProperty("releaseType") == "stable"
 
-setArchivesBaseName(project.archives_base_name)
-setVersion(getVersion())
-setGroup(project.maven_group)
+archivesBaseName = project.archives_base_name
+version = getVersion()
+group = project.maven_group
 
 loom {
-	setRuntimeOnlyLog4j(true)
+	runtimeOnlyLog4j = true
 
 	mixin {
-		setDefaultRefmapName("mixins.wilderwild.refmap.json")
+		defaultRefmapName = "mixins.wilderwild.refmap.json"
 	}
 
-	setAccessWidenerPath(file("src/main/resources/wilderwild.accesswidener"))
+	accessWidenerPath = file("src/main/resources/wilderwild.accesswidener")
 	interfaceInjection {
 		// When enabled, injected interfaces from dependecies will be applied.
-		setEnableDependencyInterfaceInjection(false)
-		//enableDependencyInterfaceInjection = false
+		enableDependencyInterfaceInjection = false
 	}
 }
 
@@ -61,8 +61,8 @@ loom {
 			//vmArg("-Dfabric-api.datagen.strict-validation")
 			vmArg("-Dfabric-api.datagen.modid=wilderwild")
 
-			setIdeConfigGenerated(true)
-			setRunDir("build/datagen")
+			ideConfigGenerated = true
+			runDir = "build/datagen"
 		}
 	}
 }
@@ -83,52 +83,52 @@ repositories {
 	// You should only use this when depending on other mods because
 	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
 	maven {
-		setUrl("https://jitpack.io")
+		url = "https://jitpack.io"
 	}
 	maven {
-		setName("Modrinth")
-		setUrl("https://api.modrinth.com/maven")
+		name = "Modrinth"
+		url = "https://api.modrinth.com/maven"
 
 		content {
 			includeGroup("maven.modrinth")
 		}
 	}
 	maven {
-		setUrl("https://maven.terraformersmc.com")
+		url = "https://maven.terraformersmc.com"
 
 		content {
 			includeGroup("com.terraformersmc")
 		}
 	}
 	maven {
-		setUrl("https://maven.shedaniel.me/")
+		url = "https://maven.shedaniel.me/"
 	}
 	maven {
-		setUrl("https://cursemaven.com")
+		url = "https://cursemaven.com"
 
 		content {
 			includeGroup("curse.maven")
 		}
 	}
 	/*maven {
-		setName("Siphalor's Maven")
-		setUrl("https://maven.siphalor.de")
+		name = "Siphalor's Maven"
+		url = "https://maven.siphalor.de"
 	}*/
 	maven {
-		setUrl("https://maven.flashyreese.me/releases")
+		url = "https://maven.flashyreese.me/releases"
 	}
 	maven {
-		setUrl("https://maven.flashyreese.me/snapshots")
+		url = "https://maven.flashyreese.me/snapshots"
 	}
 	maven {
-		setUrl("https://maven.minecraftforge.net/")
+		url = "https://maven.minecraftforge.net/"
 	}
 	maven {
-		setUrl("https://maven.parchmentmc.org")
+		url = "https://maven.parchmentmc.org"
 	}
 	maven {
-		setName("Quilt")
-		setUrl("https://maven.quiltmc.org/repository/release")
+		name = "Quilt"
+		url = "https://maven.quiltmc.org/repository/release"
 	}
 
 	flatDir {
@@ -141,10 +141,10 @@ dependencies {
 	minecraft("com.mojang:minecraft:${minecraft_version}")
 	mappings(loom.layered {
 		// please annoy treetrain if this doesnt work
-		it.mappings("org.quiltmc:quilt-mappings:${minecraft_version}+build.${quilt_mappings}:intermediary-v2")
-		it.parchment("org.parchmentmc.data:parchment-1.19.2:${parchment_mappings}@zip")
-		it.officialMojangMappings {
-			setNameSyntheticMembers(false)
+		mappings("org.quiltmc:quilt-mappings:${minecraft_version}+build.${quilt_mappings}:intermediary-v2")
+		parchment("org.parchmentmc.data:parchment-1.19.2:${parchment_mappings}@zip")
+		officialMojangMappings {
+			nameSyntheticMembers = false
 		}
 	})
 	modImplementation("net.fabricmc:fabric-loader:${loader_version}")
@@ -228,7 +228,7 @@ dependencies {
 }
 
 processResources {
-	Map<String, Object> properties = new HashMap<>()
+	def properties = new HashMap<>()
 	properties.put("version", project.version)
 	properties.put("minecraft_version", project.minecraft_version)
 
@@ -258,20 +258,20 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.setEncoding("UTF-8")
+	it.options.encoding = "UTF-8"
 	// Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
-	it.options.setRelease(17)
-	options.setFork(true)
-	options.setIncremental(true)
+	it.options.release = 17
+	options.fork = true
+	options.incremental = true
 }
 
 tasks.withType(Test).configureEach {
-	setMaxParallelForks(Runtime.runtime.availableProcessors().intdiv(2) ?: 1)
+	maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
 }
 
 java {
-	setSourceCompatibility(JavaVersion.VERSION_17)
-	setTargetCompatibility(JavaVersion.VERSION_17)
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
 
 	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
 	// if it is present.
@@ -314,16 +314,6 @@ publishing {
 		// Notice: This block does NOT have the same function as the block in the top level.
 		// The repositories here will be used for publishing your artifact, not for
 		// retrieving dependencies.
-	}
-}
-
-afterEvaluate {
-	for (def task in tasks) {
-		for (def included in gradle.includedBuilds) {
-			if (task != included.task(":build")) {
-				task.dependsOn(included.task(":build"))
-			}
-		}
 	}
 }
 
