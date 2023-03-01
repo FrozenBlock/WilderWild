@@ -15,7 +15,7 @@ extra {
 	val properties = Properties()
 	properties.load(FileInputStream(file("gradle/publishing.properties")))
 	properties.forEach { (a, b) ->
-		project.set(a, b)
+		project.extra[a] = b
 	}
 
 	modrinth_version = makeModrinthVersion(mod_version)
@@ -23,6 +23,16 @@ extra {
 
 	changelog_text = getChangelog(file(changelog_file))
 }
+
+public val modrinth_id by extra("modrinth_id")
+public val curseforge_id by extra("curseforge_id")
+public val release_type by extra("release_type")
+public val curseforge_minecraft_version by extra("curseforge_minecraft_version")
+public val changelog_file by extra("changelog_file)
+
+public val modrinth_version = makeModrinthVersion(mod_version)
+public val display_name = makeName(mod_version)
+public val changelog_text = getChangelog(file(changelog_file))
 
 fun makeName(version: String): String {
 	return "${version} (${minecraft_version})"

@@ -20,8 +20,8 @@ plugins {
 	java
 }
 
-project.ext.["local_frozenlib"] = findProject(":FrozenLib") != null
-project.ext.["release"] = findProperty("releaseType") == "stable"
+project.extra["local_frozenlib"] = findProject(":FrozenLib") != null
+project.extra["release"] = findProperty("releaseType") == "stable"
 
 archivesBaseName = project.archives_base_name
 version = getVersion()
