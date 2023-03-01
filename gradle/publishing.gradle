@@ -10,7 +10,7 @@ buildscript {
 import java.nio.file.Files
 
 ext {
-	Properties properties = new Properties()
+	def properties = new Properties()
 	properties.load(new FileInputStream(file("gradle/publishing.properties")))
 	properties.forEach((a, b) -> set(a, b))
 
@@ -104,7 +104,7 @@ def getBranch() {
 import org.kohsuke.github.GHReleaseBuilder
 import org.kohsuke.github.GitHub
 
-tasks.register('github') {
+tasks.register("github") {
 	dependsOn remapJar
 	def env = System.getenv()
 	onlyIf {
@@ -128,7 +128,7 @@ tasks.register('github') {
 	}
 }
 
-tasks.register('publishMod') {
+tasks.register("publishMod") {
 	dependsOn(github)
 	dependsOn(tasks.getByName("curseforge"))
 	dependsOn(tasks.getByName("modrinth"))
