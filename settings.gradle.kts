@@ -27,9 +27,9 @@ pluginManagement {
 
 rootProject.name = "Wilder Wild"
 
-localRepository("FrozenLib", "WilderWild", "maven.modrinth:frozenlib")
+localRepository("FrozenLib", "maven.modrinth:frozenlib")
 
-fun localRepository(repo: String, projectFileName: String, dependencySub: String) {
+fun localRepository(repo: String, dependencySub: String) {
 	println("Attempting to include local repo $repo")
 
 	val allowLocalRepoUse = true
@@ -40,7 +40,7 @@ fun localRepository(repo: String, projectFileName: String, dependencySub: String
 	val ideaInitialDirectory by extra("IDEA_INITIAL_DIRECTORY")
 
 	val isIDE = androidInjectedInvokedFromIde != "" || (System.getenv(xpcServiceName) ?: "").contains("intellij") || (System.getenv(xpcServiceName) ?: "").contains(".idea") || System.getenv(ideaInitialDirectory) != null
-	val github = System.getenv("GITHUB_WORKSPACE") != ""
+	val github = System.getenv("GITHUB_ACTIONS") == "true"
 
 	var path = "../$repo"
     var file = File(path)
@@ -49,18 +49,21 @@ fun localRepository(repo: String, projectFileName: String, dependencySub: String
 
     if (allowLocalRepoUse && (isIDE || allowLocalRepoInConsoleMode)) {
 		if (github) {
-			path = System.getenv("GITHUB_WORKSPACE") + "/$repo"
+            path = repo
 			file = File(path)
 			println("Running on GitHub")
 		}
         if (file.exists()) {
-			includeBuild(path) {
+			/*includeBuild(path) {
 				dependencySubstitution {
-					if (dependencySub != null) {
+					if (dependencySub != "") {
 						substitute(module(dependencySub)).using(project(":"))
 					}
 				}
-			}
+			}*/
+            include(prefixedRepoName)
+            project(prefixedRepoName).projectDir = file
+            project(prefixedRepoName).buildFileName = "./build.gradle.kts"
 			println("Included local repo $repo")
         } else {
 			println("Local repo $repo not found")

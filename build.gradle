@@ -21,15 +21,6 @@ plugins {
 
 project.ext.release = findProperty("releaseType") == "stable"
 
-for (def task in tasks) {
- 	for (def included in gradle.includedBuilds) {
-		def buildTask = included.task(":build")
- 		if (task != buildTask) {
- 			task.dependsOn(buildTask)
- 		}
-	}
-}
-
 setArchivesBaseName(project.archives_base_name)
 setVersion(getVersion())
 setGroup(project.maven_group)
