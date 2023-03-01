@@ -323,4 +323,4 @@ if (!(project.release || System.getenv("GITHUB_ACTIONS") == "true")) {
 	runClient.dependsOn runDatagen
 }
 
-apply(from: "gradle/publishing.gradle.kts")
+apply(from: "gradle/publishing.gradle")
