@@ -7,6 +7,10 @@ buildscript {
 	}
 }
 
+val mod_verison: String by project
+val version: String by project
+val minecraft_version: String by project
+
 import java.io.FileInputStream
 import java.nio.file.Files
 import java.util.Properties
@@ -40,7 +44,7 @@ fun makeModrinthVersion(version: String): String {
 fun getChangelog(changelogFile: File): String {
 	val text = Files.readString(changelogFile.toPath())
 	val split = text.split("-----------------")
-	if (split.length != 2)
+	if (split.size != 2)
 		throw IllegalStateException("Malformed changelog")
 	return split[1].trim()
 }
