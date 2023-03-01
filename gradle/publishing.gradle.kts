@@ -15,7 +15,7 @@ extra {
 	val properties = Properties()
 	properties.load(FileInputStream(file("gradle/publishing.properties")))
 	properties.forEach { (a, b) ->
-		project.extra[a] = b
+		project.extra[a as String] = b as String
 	}
 }
 
