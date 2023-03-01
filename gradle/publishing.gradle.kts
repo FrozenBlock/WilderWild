@@ -12,7 +12,9 @@ import java.nio.file.Files
 extra {
 	val properties = Properties()
 	properties.load(FileInputStream(file("gradle/publishing.properties")))
-	properties.forEach((a, b) -> set(a, b))
+	properties.forEach { (a, b) ->
+		set(a, b)
+	}
 
 	modrinth_version = makeModrinthVersion(mod_version)
 	display_name = makeName(mod_version)
