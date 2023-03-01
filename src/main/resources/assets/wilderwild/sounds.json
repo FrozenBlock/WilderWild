@@ -1986,7 +1986,8 @@
 	"sounds": [
 	  "wilderwild:entity/ancient_horn_projectile/dissipate1",
 	  "wilderwild:entity/ancient_horn_projectile/dissipate2"
-	]
+	],
+    "subtitle": "subtitles.entity.ancient_horn_projectile.dissipate"
   },
   "entity.ancient_horn_projectile.flyby": {
 	"sounds": [
