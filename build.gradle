@@ -155,7 +155,7 @@ dependencies {
 	// FrozenLib
 	println("Using local FrozenLib: ${project.local_frozenlib}")
 	if (project.local_frozenlib) {
-		include(implementation(project(path: ":FrozenLib", configuration: "dev")))
+		include(implementation(project(":FrozenLib")))
 	} else {
 		include(modImplementation("maven.modrinth:frozenlib:${frozenlib_version}"))
 	}
