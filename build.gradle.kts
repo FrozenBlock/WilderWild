@@ -236,7 +236,7 @@ dependencies {
     }
 
     // NBT Crafting
-    modImplementation("maven.modrinth:nbt-crafting:${nbtcrafting_version}")?.let { include(it) }
+    modImplementation("com.github.Treetrain1:nbt-crafting:jitpack-SNAPSHOT")?.let { include(it) }
 
     // CaffeineConfig
     modImplementation("net.caffeinemc:mixin-config:1.0.0+1.17")?.let { include(it) }
