@@ -302,7 +302,17 @@ tasks {
 
         properties.forEach { (a, b) -> inputs.property(a, b) }
 
-        filesNotMatching(listOf("**/*.java", "**/lang/*.json", "**/*.accesswidener", "**/*.nbt", "**/*.png", "**/*.ogg")) {
+        filesNotMatching(
+            listOf(
+                "**/*.java",
+                "**/lang/*.json",
+                "**/.cache/*",
+                "**/*.accesswidener",
+                "**/*.nbt",
+                "**/*.png",
+                "**/*.ogg"
+            )
+        ) {
             expand(properties)
         }
     }
