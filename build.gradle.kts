@@ -310,7 +310,7 @@ tasks {
 
         globalProperties.forEach { (a, b) -> inputs.property(a, b) }
     
-        filesNotMatching("**/*.accesswidener") {
+        filesNotMatching(listOf("**/*.accesswidener", "**/*.nbt")) {
             expand(globalProperties)
         }
     }
