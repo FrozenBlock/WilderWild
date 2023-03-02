@@ -236,7 +236,7 @@ dependencies {
     }
 
     // NBT Crafting
-    modImplementation("com.github.Treetrain1:nbt-crafting:1.19.4-SNAPSHOT")?.let { include(it) }
+    modImplementation("com.github.Treetrain1:nbt-crafting:jitpack-1.19.4-SNAPSHOT")?.let { include(it) }
 
     // CaffeineConfig
     modImplementation("net.caffeinemc:mixin-config:1.0.0+1.17")?.let { include(it) }
@@ -295,7 +295,8 @@ tasks {
     processResources {
         val properties = HashMap<String, Any>()
         properties["version"] = version
-        properties["minecraft_version"] = minecraft_version
+        // TODO: change this to minecraft_version when 1.19.4 releases
+        properties["minecraft_version"] = "~1.19.4-"
 
         properties.forEach { (a, b) -> inputs.property(a, b) }
 
