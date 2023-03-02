@@ -27,35 +27,46 @@ pluginManagement {
 
 rootProject.name = "Wilder Wild"
 
-localRepository("FrozenLib", "WilderWild")
+localRepository("FrozenLib", "maven.modrinth:frozenlib", true)
 
-val allowLocalModUse = true
-val allowLocalModInConsoleMode = true
+fun localRepository(repo: String, dependencySub: String, kotlin: Boolean) {
+	println("Attempting to include local repo $repo")
 
-val androidInjectedInvokedFromIde by extra("android.injected.invoked.from.ide")
-val xpcServiceName by extra("XPC_SERVICE_NAME")
-val ideaInitialDirectory by extra("IDEA_INITIAL_DIRECTORY")
+	val allowLocalRepoUse = true
+	val allowLocalRepoInConsoleMode = true
 
-val isIDE = androidInjectedInvokedFromIde != "" || (System.getenv(xpcServiceName) ?: "").contains("intellij") || (System.getenv(xpcServiceName) ?: "").contains(".idea") || System.getenv(ideaInitialDirectory) != null
+	val androidInjectedInvokedFromIde by extra("android.injected.invoked.from.ide")
+	val xpcServiceName by extra("XPC_SERVICE_NAME")
+	val ideaInitialDirectory by extra("IDEA_INITIAL_DIRECTORY")
 
-fun localRepository(mod: String, projectFileName: String) {
-	val path = "../$mod"
-    val file = File(path)
+	val isIDE = androidInjectedInvokedFromIde != "" || (System.getenv(xpcServiceName) ?: "").contains("intellij") || (System.getenv(xpcServiceName) ?: "").contains(".idea") || System.getenv(ideaInitialDirectory) != null
+	val github = System.getenv("GITHUB_ACTIONS") == "true"
 
-    val pathGitHub = "../$projectFileName/$mod"
-    val fileGitHub = File(pathGitHub)
+	var path = "../$repo"
+    var file = File(path)
 
-    val prefixedModName = ":$mod"
+    val prefixedRepoName = ":$repo"
 
-    if (allowLocalModUse && (isIDE || allowLocalModInConsoleMode)) {
+    if (allowLocalRepoUse && (isIDE || allowLocalRepoInConsoleMode)) {
+		if (github) {
+            path = repo
+			file = File(path)
+			println("Running on GitHub")
+		}
         if (file.exists()) {
-            include(prefixedModName)
-            project(prefixedModName).projectDir = file
-            project(prefixedModName).buildFileName = "./build.gradle"
-        } else if (fileGitHub.exists()) {
-            include(prefixedModName)
-            project(prefixedModName).projectDir = fileGitHub
-            project(prefixedModName).buildFileName = "./build.gradle"
-        }
+			/*includeBuild(path) {
+				dependencySubstitution {
+					if (dependencySub != "") {
+						substitute(module(dependencySub)).using(project(":"))
+					}
+				}
+			}*/
+            include(prefixedRepoName)
+            project(prefixedRepoName).projectDir = file
+            project(prefixedRepoName).buildFileName = "./build.gradle" + if (kotlin) ".kts" else ""
+			println("Included local repo $repo")
+        } else {
+			println("Local repo $repo not found")
+		}
 	}
 }
