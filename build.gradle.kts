@@ -310,7 +310,9 @@ tasks {
 
         globalProperties.forEach { (a, b) -> inputs.property(a, b) }
     
-        //expand(globalProperties)
+        filesNotMatching("**/*.accesswidener") {
+            expand(globalProperties)
+        }
     }
 
     register("javadocJar", Jar::class) {
