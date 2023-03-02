@@ -19,6 +19,7 @@ buildscript {
 plugins {
     id("fabric-loom") version("+")
     id("io.github.juuxel.loom-quiltflower") version("+")
+    id("org.quiltmc.gradle.licenser") version("+")
     id("org.ajoberstar.grgit") version("+")
     id("com.modrinth.minotaur") version("+")
     id("com.matthewprenger.cursegradle") version("+")
@@ -302,6 +303,12 @@ tasks {
         filesMatching("fabric.mod.json") {
             expand(properties)
         }
+    }
+
+    license {
+        rule(project.file("codeformat/HEADER"))
+
+        include("**/*.java")
     }
 
     register("javadocJar", Jar::class) {
