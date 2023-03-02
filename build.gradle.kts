@@ -311,8 +311,10 @@ tasks {
         globalProperties.forEach { (a, b) -> inputs.property(a, b) }
 
         filesMatching("**/*.json") {
-            filesNotMatching("**/lang/*") {
-                expand(globalProperties)
+            eachFile { details ->
+                if (!details.path.contains("lang/")) {
+                    expand(globalProperties)
+                }
             }
         }
     }
