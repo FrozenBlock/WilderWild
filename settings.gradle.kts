@@ -27,7 +27,7 @@ pluginManagement {
 
 rootProject.name = "Wilder Wild"
 
-localRepository("FrozenLib", "maven.modrinth:frozenlib", false)
+localRepository("FrozenLib", "maven.modrinth:frozenlib", true)
 
 fun localRepository(repo: String, dependencySub: String, kotlin: Boolean) {
 	println("Attempting to include local repo $repo")

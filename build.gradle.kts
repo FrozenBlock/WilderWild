@@ -29,19 +29,20 @@ plugins {
     java
 }
 
-public val mod_version: String by project
-public val mod_loader: String by project
-public val maven_group: String by project
-public val archives_base_name: String by project
-
 public val minecraft_version: String by project
 public val quilt_mappings: String by project
 public val parchment_mappings: String by project
 public val loader_version: String by project
 
+public val mod_version: String by project
+public val mod_loader: String by project
+public val maven_group: String by project
+public val archives_base_name: String by project
+
 public val fabric_version: String by project
 public val fabric_asm_version: String by project
 public val frozenlib_version: String by project
+
 public val betterend_version: String by project
 public val betternether_version: String by project
 public val modmenu_version: String by project
@@ -292,8 +293,8 @@ quiltflower {
 
 tasks {
     processResources {
-        val properties = HashMap<String, String>()
-        properties["version"] = version as String
+        val properties = HashMap<String, Any>()
+        properties["version"] = version
         properties["minecraft_version"] = minecraft_version
 
         properties.forEach { (a, b) -> inputs.property(a, b) }
@@ -324,7 +325,7 @@ tasks {
     }
 
     withType(Test::class) {
-        maxParallelForks = Runtime.getRuntime().availableProcessors().div(2) ?: 1
+        maxParallelForks = Runtime.getRuntime().availableProcessors().div(2)
     }
 }
 
@@ -350,7 +351,7 @@ java {
 tasks {
     jar {
         from("LICENSE") {
-            rename({ "${it}_${base.archivesName}" })
+            rename { "${it}_${base.archivesName}" }
         }
     }
 }
