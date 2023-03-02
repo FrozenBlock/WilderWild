@@ -309,8 +309,8 @@ tasks {
         globalProperties["mod_id"] = mod_id
 
         globalProperties.forEach { (a, b) -> inputs.property(a, b) }
-    
-        filesNotMatching(listOf("**/*.accesswidener", "**/*.nbt")) {
+
+        filesMatching("**/*.json") {
             expand(globalProperties)
         }
     }
