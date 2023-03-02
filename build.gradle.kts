@@ -306,6 +306,7 @@ tasks {
         filesNotMatching(
             listOf(
                 "**/*.java",
+                "**/sounds.json",
                 "**/lang/*.json",
                 "**/.cache/*",
                 "**/*.accesswidener",
