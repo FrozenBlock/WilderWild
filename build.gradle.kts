@@ -310,7 +310,7 @@ tasks {
 
         globalProperties.forEach { (a, b) -> inputs.property(a, b) }
     
-        expand(globalProperties)
+        //expand(globalProperties)
     }
 
     register("javadocJar", Jar::class) {
