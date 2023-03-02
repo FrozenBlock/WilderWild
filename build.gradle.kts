@@ -296,22 +296,14 @@ quiltflower {
 tasks {
     processResources {
         val properties = HashMap<String, Any>()
+        properties["mod_id"] = mod_id
         properties["version"] = version
         properties["minecraft_version"] = minecraft_version
 
         properties.forEach { (a, b) -> inputs.property(a, b) }
 
-        filesMatching("fabric.mod.json") {
-            expand(properties)
-        }
-
-        val globalProperties = HashMap<String, Any>()
-        globalProperties["mod_id"] = mod_id
-
-        globalProperties.forEach { (a, b) -> inputs.property(a, b) }
-
         filesNotMatching(listOf("**/*.java", "**/lang/*.json", "**/*.accesswidener", "**/*.nbt", "**/*.png", "**/*.ogg")) {
-            expand(globalProperties)
+            expand(properties)
         }
     }
 
