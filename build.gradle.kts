@@ -311,7 +311,7 @@ tasks {
         globalProperties.forEach { (a, b) -> inputs.property(a, b) }
 
         filesMatching("**/*.json") {
-            filesNotMatching("**/lang/*) {
+            filesNotMatching("**/lang/*") {
                 expand(globalProperties)
             }
         }
