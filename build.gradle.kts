@@ -7,6 +7,7 @@ import java.nio.file.Files
 import java.util.Properties
 import org.kohsuke.github.GHReleaseBuilder
 import org.kohsuke.github.GitHub
+
 buildscript {
     repositories {
         gradlePluginPortal()
@@ -34,6 +35,7 @@ public val quilt_mappings: String by project
 public val parchment_mappings: String by project
 public val loader_version: String by project
 
+public val mod_id: String by project
 public val mod_version: String by project
 public val mod_loader: String by project
 public val maven_group: String by project
@@ -81,10 +83,10 @@ loom {
     runtimeOnlyLog4j.set(true)
 
     mixin {
-        defaultRefmapName.set("mixins.wilderwild.refmap.json")
+        defaultRefmapName.set("mixins.$mod_id.refmap.json")
     }
 
-    accessWidenerPath.set(file("src/main/resources/wilderwild.accesswidener"))
+    accessWidenerPath.set(file("src/main/resources/$mod_id.accesswidener"))
     interfaceInjection {
         // When enabled, injected interfaces from dependencies will be applied.
         enableDependencyInterfaceInjection.set(false)
@@ -107,7 +109,7 @@ loom {
             vmArg("-Dfabric-api.datagen")
             vmArg("-Dfabric-api.datagen.output-dir=${file("src/main/generated")}")
             //vmArg("-Dfabric-api.datagen.strict-validation")
-            vmArg("-Dfabric-api.datagen.modid=wilderwild")
+            vmArg("-Dfabric-api.datagen.modid=$mod_id")
 
             ideConfigGenerated(true)
             runDir = "build/datagen"
@@ -302,6 +304,13 @@ tasks {
         filesMatching("fabric.mod.json") {
             expand(properties)
         }
+
+        val globalProperties = HashMap<String, Any>()
+        globalProperties["mod_id"] = mod_id
+
+        globalProperties.forEach { (a, b) -> inputs.property(a, b) }
+    
+        expand(globalProperties)
     }
 
     register("javadocJar", Jar::class) {
