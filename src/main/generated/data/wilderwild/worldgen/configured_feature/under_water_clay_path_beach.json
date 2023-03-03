@@ -7,11 +7,13 @@
         "Name": "minecraft:clay"
       }
     },
+    "is3D": false,
     "maxThresh": 0.85,
     "minThresh": 0.5,
     "multiplier": 0.1,
     "multiplyY": true,
     "noise": 2,
+    "onlyExposed": false,
     "radius": 14,
     "replaceable": "minecraft:sand",
     "useY": true

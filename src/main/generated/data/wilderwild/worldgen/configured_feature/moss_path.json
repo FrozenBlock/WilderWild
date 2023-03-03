@@ -7,11 +7,13 @@
         "Name": "minecraft:moss_block"
       }
     },
+    "is3D": false,
     "maxThresh": 1.0,
     "minThresh": 0.18,
     "multiplier": 0.15,
     "multiplyY": true,
     "noise": 1,
+    "onlyExposed": false,
     "radius": 9,
     "replaceable": [
       "minecraft:grass_block",

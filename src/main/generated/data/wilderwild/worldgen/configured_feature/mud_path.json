@@ -7,11 +7,13 @@
         "Name": "minecraft:mud"
       }
     },
+    "is3D": false,
     "maxThresh": 1.0,
     "minThresh": 0.23,
     "multiplier": 0.1,
     "multiplyY": false,
     "noise": 4,
+    "onlyExposed": false,
     "radius": 11,
     "replaceable": [
       "minecraft:dirt",

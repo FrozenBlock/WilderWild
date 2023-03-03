@@ -7,11 +7,13 @@
         "Name": "minecraft:sand"
       }
     },
+    "is3D": false,
     "maxThresh": 0.54,
     "minThresh": 0.2,
     "multiplier": 0.05,
     "multiplyY": true,
     "noise": 4,
+    "onlyExposed": false,
     "radius": 16,
     "replaceable": [
       "minecraft:dirt",

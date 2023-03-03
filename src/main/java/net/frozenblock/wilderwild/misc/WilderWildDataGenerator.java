@@ -37,6 +37,10 @@ import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterStructures;
+import net.frozenblock.lib.tag.api.FrozenItemTags;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
@@ -50,6 +54,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.registries.VanillaRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
@@ -60,6 +66,17 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootTable;
 import org.jetbrains.annotations.NotNull;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.tag.WilderBlockTags;
+import net.frozenblock.wilderwild.tag.WilderEntityTags;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Blocks;
+import org.jetbrains.annotations.Nullable;
 
 public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
@@ -74,6 +91,15 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(WilderBlockTagProvider::new);
 		pack.addProvider(WilderItemTagProvider::new);
 		pack.addProvider(WilderEntityTagProvider::new);
+		/*final FabricDataGenerator.Pack experimentalPack = dataGenerator.createBuiltinResourcePack(WilderSharedConstants.id("update_1_20_additions"));
+		experimentalPack.addProvider((FabricDataGenerator.Pack.Factory<ExperimentRecipeProvider>) ExperimentRecipeProvider::new);
+		experimentalPack.addProvider(ExperimentBlockLootTableProvider::new);
+		experimentalPack.addProvider(ExperimentBlockTagProvider::new);
+		experimentalPack.addProvider(
+				(FabricDataGenerator.Pack.Factory<PackMetadataGenerator>) packOutput -> PackMetadataGenerator.forFeaturePack(
+						packOutput, Component.translatable("dataPack.wilderwild.update_1_20_additions.description"), FeatureFlagSet.of(WilderFeatureFlags.UPDATE_1_20_ADDITIONS)
+				)
+		);*/
 	}
 
 	@Override
@@ -1103,6 +1129,32 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(WilderBlockTags.SAND_POOL_REPLACEABLE)
 					.add(Blocks.SAND);
+		}
+	}
+
+	private static final class WilderItemTagProvider extends FabricTagProvider.ItemTagProvider {
+
+		public WilderItemTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
+			super(output, completableFuture);
+		}
+
+		@Override
+		protected void addTags(HolderLookup.Provider arg) {
+			this.getOrCreateTagBuilder(FrozenItemTags.ALWAYS_SAVE_COOLDOWNS)
+					.add(RegisterItems.ANCIENT_HORN);
+		}
+	}
+
+	private static final class WilderEntityTagProvider extends FabricTagProvider.EntityTypeTagProvider {
+
+		public WilderEntityTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
+			super(output, completableFuture);
+		}
+
+		@Override
+		protected void addTags(HolderLookup.Provider arg) {
+			this.getOrCreateTagBuilder(WilderEntityTags.STAYS_IN_MESOGLEA)
+					.add(RegisterEntities.JELLYFISH);
 		}
 	}
 

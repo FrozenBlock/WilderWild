@@ -20,11 +20,8 @@ package net.frozenblock.wilderwild.world.additions.feature;
 
 import java.util.List;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-<<<<<<< HEAD
-=======
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.string;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
->>>>>>> dev
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -47,7 +44,6 @@ public final class WilderTreePlaced {
 	);
 
     //BIRCH
-<<<<<<< HEAD
     public static final ResourceKey<PlacedFeature> BIRCH_CHECKED = key("birch_checked");
     public static final ResourceKey<PlacedFeature> BIRCH_BEES_0004 = key("birch_bees_0004");
 	public static final ResourceKey<PlacedFeature> BIRCH_BEES_025 = key("birch_bees_025");
@@ -107,7 +103,7 @@ public final class WilderTreePlaced {
     public static final ResourceKey<PlacedFeature> SHORT_FUNGUS_CYPRESS = key("short_fungus_cypress");
     public static final ResourceKey<PlacedFeature> SWAMP_CYPRESS = key("swamp_cypress");
     public static final ResourceKey<PlacedFeature> FALLEN_CYPRESS_CHECKED = key("fallen_cypress_checked");
-=======
+
     public static final Holder<PlacedFeature> BIRCH_CHECKED = register("birch_checked", WilderTreeConfigured.BIRCH_TREE, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
     public static final Holder<PlacedFeature> BIRCH_BEES_0004 = register("birch_bees_0004", WilderTreeConfigured.BIRCH_BEES_0004, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
 	public static final Holder<PlacedFeature> BIRCH_BEES_025 = register("birch_bees_025", WilderTreeConfigured.BIRCH_BEES_025, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
@@ -178,13 +174,14 @@ public final class WilderTreePlaced {
     public static final Holder<PlacedFeature> SHORT_FUNGUS_CYPRESS = register("short_fungus_cypress", WilderTreeConfigured.SHORT_FUNGUS_CYPRESS, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING));
     public static final Holder<PlacedFeature> SWAMP_CYPRESS = register("swamp_cypress", WilderTreeConfigured.SWAMP_CYPRESS, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING));
     public static final Holder<PlacedFeature> FALLEN_CYPRESS_CHECKED = register("fallen_cypress_checked", WilderTreeConfigured.FALLEN_CYPRESS_TREE, PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING));
->>>>>>> dev
+
 	//TREE ON SAND
 	public static final BlockPredicate SAND_GRASS_TREE_PREDICATE = BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.RED_SAND, Blocks.SAND, Blocks.GRASS);
 	public static final List<PlacementModifier> SAND_TREE_FILTER_DECORATOR = List.of(EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.not(BlockPredicate.matchesBlocks(Blocks.SANDSTONE)), 8), BlockPredicateFilter.forPredicate(SAND_GRASS_TREE_PREDICATE));
+
 	//SHRUB
-<<<<<<< HEAD
 	public static final ResourceKey<PlacedFeature> BIG_SHRUB_CHECKED = key("big_shrub_checked");
+
 	//PALM
 	public static final ResourceKey<PlacedFeature> PALM_CHECKED = key("palm_checked");
 	public static final ResourceKey<PlacedFeature> TALL_PALM_CHECKED = key("tall_palm_checked");
