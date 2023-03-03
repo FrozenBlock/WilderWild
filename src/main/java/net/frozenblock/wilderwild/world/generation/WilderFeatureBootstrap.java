@@ -50,6 +50,7 @@ import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.TreePlacements;
+import static net.frozenblock.wilderwild.world.additions.feature.WilderConfiguredFeatures.*;
 import static net.frozenblock.wilderwild.world.additions.feature.WilderTreeConfigured.SHELF_FUNGUS_006_ONLY_BROWN;
 import static net.frozenblock.wilderwild.world.additions.feature.WilderTreeConfigured.VINES_1_UNDER_260_075;
 import static net.minecraft.data.worldgen.placement.VegetationPlacements.*;
@@ -483,7 +484,7 @@ public class WilderFeatureBootstrap {
 		var flowerPlains = register(entries, WilderConfiguredFeatures.FLOWER_PLAINS, Feature.FLOWER, new RandomPatchConfiguration(64, 6, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new NoiseThresholdProvider(2345L, new NormalNoise.NoiseParameters(0, 1.0), 0.005F, -0.8F, 0.33333334F, Blocks.DANDELION.defaultBlockState(), List.of(Blocks.ORANGE_TULIP.defaultBlockState(), Blocks.RED_TULIP.defaultBlockState(), Blocks.PINK_TULIP.defaultBlockState(), Blocks.WHITE_TULIP.defaultBlockState()), List.of(RegisterBlocks.SEEDING_DANDELION.defaultBlockState(), Blocks.POPPY.defaultBlockState(), Blocks.AZURE_BLUET.defaultBlockState(), Blocks.OXEYE_DAISY.defaultBlockState(), Blocks.CORNFLOWER.defaultBlockState()))))));
 		var milkweed = register(entries, WilderConfiguredFeatures.MILKWEED, Feature.FLOWER, FeatureUtils.simpleRandomPatchConfiguration(32, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(RegisterBlocks.MILKWEED)))));
 		var gloryOfTheSnow = register(entries, WilderConfiguredFeatures.GLORY_OF_THE_SNOW, Feature.FLOWER, FeatureUtils.simpleRandomPatchConfiguration(64, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new WeightedStateProvider(WilderConfiguredFeatures.GLORY_OF_THE_SNOW_POOL)))));
-		var oasisGrass = register(entries, WilderConfiguredFeatures.OASIS_GRASS, Feature.RANDOM_PATCH, FeatureUtils.simpleRandomPatchConfiguration(35, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new WeightedStateProvider(WilderConfiguredFeatures.OASIS_GRASS_POOL)))));
+		var oasisGrass = register(entries, WilderConfiguredFeatures.OASIS_GRASS, Feature.RANDOM_PATCH, FeatureUtils.simpleRandomPatchConfiguration(35, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new WeightedStateProvider(OASIS_GRASS_POOL)))));
 		var oasisBush = register(entries, WilderConfiguredFeatures.OASIS_BUSH, Feature.RANDOM_PATCH, FeatureUtils.simpleRandomPatchConfiguration(23, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new WeightedStateProvider(WilderConfiguredFeatures.OASIS_BUSH_POOL)))));
 		var desertBush = register(entries, WilderConfiguredFeatures.DESERT_BUSH, Feature.RANDOM_PATCH, FeatureUtils.simpleRandomPatchConfiguration(8, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new WeightedStateProvider(WilderConfiguredFeatures.DESERT_BUSH_POOL)))));
 		var patchCactusOasis = register(entries, WilderConfiguredFeatures.PATCH_CACTUS_OASIS, Feature.RANDOM_PATCH, FeatureUtils.simpleRandomPatchConfiguration(10, PlacementUtils.inlinePlaced(Feature.BLOCK_COLUMN, BlockColumnConfiguration.simple(BiasedToBottomInt.of(3, 5), BlockStateProvider.simple(Blocks.CACTUS)), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.wouldSurvive(Blocks.CACTUS.defaultBlockState(), BlockPos.ZERO))))));
@@ -609,11 +610,37 @@ public class WilderFeatureBootstrap {
 		var mossCarpet = register(entries, WilderConfiguredFeatures.MOSS_CARPET, Feature.RANDOM_PATCH,
 				FeatureUtils.simpleRandomPatchConfiguration(25, PlacementUtils.inlinePlaced(Feature.SIMPLE_BLOCK,
 						new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.MOSS_CARPET)), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO))))));
+		var flowersTemperateRainforest = register(entries, WilderConfiguredFeatures.FLOWERS_TEMPERATE_RAINFOREST, Feature.FLOWER,
+				FeatureUtils.simpleRandomPatchConfiguration(32, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+						new SimpleBlockConfiguration(new WeightedStateProvider(WilderConfiguredFeatures.FLOWERS_TEMPERATE_RAINFOREST_POOL)))));
+		var mushroomsDarkForest = register(entries, WilderConfiguredFeatures.MUSHROOMS_DARK_FOREST, Feature.FLOWER, new RandomPatchConfiguration(52, 8, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+				new SimpleBlockConfiguration(new NoiseProvider(5234L, new NormalNoise.NoiseParameters(0, 1.0), 0.020833334F,
+						List.of(Blocks.RED_MUSHROOM.defaultBlockState(),
+								Blocks.BROWN_MUSHROOM.defaultBlockState()))))));
+		var flowersRainforest = register(entries, WilderConfiguredFeatures.FLOWERS_RAINFOREST, Feature.FLOWER,
+				FeatureUtils.simpleRandomPatchConfiguration(32, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+						new SimpleBlockConfiguration(new WeightedStateProvider(WilderConfiguredFeatures.FLOWERS_RAINFOREST_POOL)))));
 		var tallFlowerFlowerField = register(entries, WilderConfiguredFeatures.TALL_FLOWER_FLOWER_FIELD, Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(
 				PlacementUtils.inlinePlaced(Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.LILAC)))),
 				PlacementUtils.inlinePlaced(Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(RegisterBlocks.MILKWEED)))),
 				PlacementUtils.inlinePlaced(Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.ROSE_BUSH)))),
 				PlacementUtils.inlinePlaced(Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.PEONY)))))));
+		var badlandsBushSand = register(entries, BADLANDS_BUSH_SAND, Feature.RANDOM_PATCH,
+				FeatureUtils.simpleRandomPatchConfiguration(10, PlacementUtils.inlinePlaced(Feature.SIMPLE_BLOCK,
+						new SimpleBlockConfiguration(new WeightedStateProvider(DESERT_BUSH_POOL)), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.wouldSurvive(Blocks.CACTUS.defaultBlockState(), BlockPos.ZERO))))));
+		var badlandsBushTerracotta = register(entries, BADLANDS_BUSH_TERRACOTTA, Feature.RANDOM_PATCH,
+				FeatureUtils.simpleRandomPatchConfiguration(6, PlacementUtils.inlinePlaced(Feature.SIMPLE_BLOCK,
+						new SimpleBlockConfiguration(new WeightedStateProvider(DESERT_BUSH_POOL)), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.SAND)))))));
+		var woodedBadlandsBushTerracotta = register(entries, WOODED_BADLANDS_BUSH_TERRACOTTA, Feature.RANDOM_PATCH,
+				FeatureUtils.simpleRandomPatchConfiguration(10, PlacementUtils.inlinePlaced(Feature.SIMPLE_BLOCK,
+						new SimpleBlockConfiguration(new WeightedStateProvider(DESERT_BUSH_POOL)), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.SAND)))))));
+		var patchCactusTallBadlands = register(entries, PATCH_CACTUS_TALL_BADLANDS, Feature.RANDOM_PATCH, FeatureUtils.simpleRandomPatchConfiguration(12, PlacementUtils.inlinePlaced(Feature.BLOCK_COLUMN, BlockColumnConfiguration.simple(BiasedToBottomInt.of(2, 6), BlockStateProvider.simple(Blocks.CACTUS)), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.wouldSurvive(Blocks.CACTUS.defaultBlockState(), BlockPos.ZERO))))));
+		var deadBushAndBush = register(entries, WilderConfiguredFeatures.DEAD_BUSH_AND_BUSH, Feature.RANDOM_PATCH,
+				FeatureUtils.simpleRandomPatchConfiguration(4, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+						new SimpleBlockConfiguration(new WeightedStateProvider(DEAD_BUSH_AND_BUSH_POOL)))));
+		var bushAndDeadBush = register(entries, WilderConfiguredFeatures.BUSH_AND_DEAD_BUSH, Feature.RANDOM_PATCH,
+				FeatureUtils.simpleRandomPatchConfiguration(4, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+						new SimpleBlockConfiguration(new WeightedStateProvider(BUSH_AND_DEAD_BUSH_POOL)))));
 		var bushFlowerField = register(entries, WilderConfiguredFeatures.BUSH_FLOWER_FIELD, Feature.RANDOM_PATCH,
 				FeatureUtils.simpleRandomPatchConfiguration(18, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
 						new SimpleBlockConfiguration(new WeightedStateProvider(WilderConfiguredFeatures.FLOWER_FIELD_BUSH_POOL)))));

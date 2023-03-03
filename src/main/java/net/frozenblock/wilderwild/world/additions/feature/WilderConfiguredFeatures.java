@@ -80,7 +80,7 @@ public final class WilderConfiguredFeatures {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> MIXED_TREES = key("mixed_trees");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TEMPERATE_RAINFOREST_TREES = key("temperate_rainforest_trees");
 
-	public static final ResourceKey<ConfiguredFeature<?, ?>> RAINFOREST_TREES = key("rainforest_trees", );
+	public static final ResourceKey<ConfiguredFeature<?, ?>> RAINFOREST_TREES = key("rainforest_trees");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> BIRCH_TAIGA_TREES = key("birch_taiga_trees");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> DARK_FOREST_VEGETATION = key("dark_forest_vegetation");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_TAIGA = key("trees_taiga");
@@ -119,24 +119,29 @@ public final class WilderConfiguredFeatures {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> FLOWER_FLOWER_FIELD = key("flower_field_flowers");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> MOSS_CARPET = key("moss_carpet");
 
-	public static final ResourceKey<ConfiguredFeature<?, ?>> FLOWERS_TEMPERATE_RAINFOREST = key("flowers_temperate_rainforest", Feature.FLOWER,
-					FeatureUtils.simpleRandomPatchConfiguration(32, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-							new SimpleBlockConfiguration(new WeightedStateProvider(FLOWERS_TEMPERATE_RAINFOREST_POOL)))));
+	public static final ResourceKey<ConfiguredFeature<?, ?>> FLOWERS_TEMPERATE_RAINFOREST = key("flowers_temperate_rainforest");
 
-	public static final ResourceKey<ConfiguredFeature<?, ?>> MUSHROOMS_DARK_FOREST = key("mushroom_dark_forest", Feature.FLOWER, new RandomPatchConfiguration(52, 8, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(new NoiseProvider(5234L, new NormalNoise.NoiseParameters(0, 1.0), 0.020833334F,
-							List.of(Blocks.RED_MUSHROOM.defaultBlockState(),
-									Blocks.BROWN_MUSHROOM.defaultBlockState()))))));
+	public static final ResourceKey<ConfiguredFeature<?, ?>> MUSHROOMS_DARK_FOREST = key("mushroom_dark_forest");
 
-	public static final ResourceKey<ConfiguredFeature<?, ?>> FLOWERS_RAINFOREST = key("flowers_rainforest", Feature.FLOWER,
-					FeatureUtils.simpleRandomPatchConfiguration(32, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-							new SimpleBlockConfiguration(new WeightedStateProvider(FLOWERS_RAINFOREST_POOL)))));
+	public static final ResourceKey<ConfiguredFeature<?, ?>> FLOWERS_RAINFOREST = key("flowers_rainforest");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TALL_FLOWER_FLOWER_FIELD = key("flower_field_tall_flowers");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> DESERT_BUSH = key("desert_bush");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> BADLANDS_BUSH_SAND = key("badlands_bush_sand");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> BADLANDS_BUSH_TERRACOTTA = key("badlands_bush_terracotta");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> WOODED_BADLANDS_BUSH_TERRACOTTA = key("wooded_badlands_bush_terracotta");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CACTUS_OASIS = key("patch_cactus_oasis");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CACTUS_TALL = key("patch_cactus_tall");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CACTUS_TALL_BADLANDS = key("patch_cactus_tall_badlands");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> OASIS_BUSH = key("oasis_bush");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> DEAD_BUSH_AND_BUSH = key("dead_bush_and_bush");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> BUSH_AND_DEAD_BUSH = key("bush_and_dead_bush");
+
+	public static final SimpleWeightedRandomList<BlockState> FLOWER_FIELD_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder().add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_1, 0), 2).add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_1, 1), 5).build();
+	public static final SimpleWeightedRandomList<BlockState> DESERT_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder().add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_1, 0), 1).add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_1, 1), 4).build();
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_SEMI_BIRCH_AND_OAK = key("trees_semi_birch_and_oak");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> OLD_GROWTH_BIRCH_TAIGA_TREES = key("old_growth_birch_taiga_trees");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> BIRCH_JUNGLE_TREES = key("birch_jungle_trees");
-	public static final ResourceKey<ConfiguredFeature<?, ?>> SPARSE_BIRCH_JUNGLE_TREES = key("new_dark_forest_vegetation");
-	public static final ResourceKey<ConfiguredFeature<?, ?>> NEW_DARK_FOREST_VEGETATION = key("fallen_birch");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> SPARSE_BIRCH_JUNGLE_TREES = key("sparse_birch_jungle_trees");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> OLD_GROWTH_DARK_FOREST_VEGETATION = key("old_growth_dark_forest_vegetation");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> DARK_BIRCH_FOREST_VEGETATION = key("dark_birch_forest_vegetation");
 
@@ -511,60 +516,10 @@ public final class WilderConfiguredFeatures {
 	public static final SimpleWeightedRandomList<BlockState> DEAD_BUSH_AND_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder().add(Blocks.DEAD_BUSH.defaultBlockState(), 5).add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_1, 0), 1).add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_1, 1), 2).build();
 	public static final SimpleWeightedRandomList<BlockState> BUSH_AND_DEAD_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder().add(Blocks.DEAD_BUSH.defaultBlockState(), 2).add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_1, 0), 1).add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_1, 1), 2).build();
 
-	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> OASIS_GRASS =
-			register("oasis_grass", Feature.RANDOM_PATCH,
-					FeatureUtils.simpleRandomPatchConfiguration(35, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-							new SimpleBlockConfiguration(new WeightedStateProvider(OASIS_GRASS_POOL)))));
-
-	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> OASIS_BUSH =
-			register("oasis_bush", Feature.RANDOM_PATCH,
-					FeatureUtils.simpleRandomPatchConfiguration(23, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-							new SimpleBlockConfiguration(new WeightedStateProvider(OASIS_BUSH_POOL)))));
-
-	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> DEAD_BUSH_AND_BUSH =
-			register("dead_bush_and_bush", Feature.RANDOM_PATCH,
-					FeatureUtils.simpleRandomPatchConfiguration(4, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-							new SimpleBlockConfiguration(new WeightedStateProvider(DEAD_BUSH_AND_BUSH_POOL)))));
-
-	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> BUSH_AND_DEAD_BUSH =
-			register("bush_and_dead_bush", Feature.RANDOM_PATCH,
-					FeatureUtils.simpleRandomPatchConfiguration(4, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-							new SimpleBlockConfiguration(new WeightedStateProvider(BUSH_AND_DEAD_BUSH_POOL)))));
-
->>>>>>> dev
-	public static final SimpleWeightedRandomList<BlockState> FLOWER_FIELD_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder().add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_1, 0), 2).add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_1, 1), 5).build();
-	public static final SimpleWeightedRandomList<BlockState> DESERT_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder().add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_1, 0), 1).add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_1, 1), 4).build();
 <<<<<<< HEAD
 	public static final SimpleWeightedRandomList<BlockState> OASIS_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder().add(Blocks.DEAD_BUSH.defaultBlockState(), 8).add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_1, 0), 1).add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_1, 1), 2).build();
 	public static final SimpleWeightedRandomList<BlockState> OASIS_GRASS_POOL = SimpleWeightedRandomList.<BlockState>builder().add(Blocks.TALL_GRASS.defaultBlockState(), 2).add(Blocks.GRASS.defaultBlockState(), 5).build();
 =======
-
-	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> DESERT_BUSH =
-			register("desert_bush", Feature.RANDOM_PATCH,
-					FeatureUtils.simpleRandomPatchConfiguration(8, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-							new SimpleBlockConfiguration(new WeightedStateProvider(DESERT_BUSH_POOL)))));
-
-	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> BADLANDS_BUSH_SAND =
-			register("badlands_bush_sand", Feature.RANDOM_PATCH,
-					FeatureUtils.simpleRandomPatchConfiguration(10, PlacementUtils.inlinePlaced(Feature.SIMPLE_BLOCK,
-							new SimpleBlockConfiguration(new WeightedStateProvider(DESERT_BUSH_POOL)), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.wouldSurvive(Blocks.CACTUS.defaultBlockState(), BlockPos.ZERO))))));
-
-	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> BADLANDS_BUSH_TERRACOTTA =
-			register("badlands_bush_terracotta", Feature.RANDOM_PATCH,
-					FeatureUtils.simpleRandomPatchConfiguration(6, PlacementUtils.inlinePlaced(Feature.SIMPLE_BLOCK,
-							new SimpleBlockConfiguration(new WeightedStateProvider(DESERT_BUSH_POOL)), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.SAND)))))));
-
-	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> WOODED_BADLANDS_BUSH_TERRACOTTA =
-			register("wooded_badlands_bush_terracotta", Feature.RANDOM_PATCH,
-					FeatureUtils.simpleRandomPatchConfiguration(10, PlacementUtils.inlinePlaced(Feature.SIMPLE_BLOCK,
-							new SimpleBlockConfiguration(new WeightedStateProvider(DESERT_BUSH_POOL)), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.SAND)))))));
-
-
-	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_CACTUS_OASIS = register("patch_cactus_oasis", Feature.RANDOM_PATCH, FeatureUtils.simpleRandomPatchConfiguration(10, PlacementUtils.inlinePlaced(Feature.BLOCK_COLUMN, BlockColumnConfiguration.simple(BiasedToBottomInt.of(3, 5), BlockStateProvider.simple(Blocks.CACTUS)), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.wouldSurvive(Blocks.CACTUS.defaultBlockState(), BlockPos.ZERO))))));
-
-	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_CACTUS_TALL = register("patch_cactus_tall", Feature.RANDOM_PATCH, FeatureUtils.simpleRandomPatchConfiguration(8, PlacementUtils.inlinePlaced(Feature.BLOCK_COLUMN, BlockColumnConfiguration.simple(BiasedToBottomInt.of(4, 5), BlockStateProvider.simple(Blocks.CACTUS)), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.wouldSurvive(Blocks.CACTUS.defaultBlockState(), BlockPos.ZERO))))));
-
-	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_CACTUS_TALL_BADLANDS = register("patch_cactus_tall_badlands", Feature.RANDOM_PATCH, FeatureUtils.simpleRandomPatchConfiguration(12, PlacementUtils.inlinePlaced(Feature.BLOCK_COLUMN, BlockColumnConfiguration.simple(BiasedToBottomInt.of(2, 6), BlockStateProvider.simple(Blocks.CACTUS)), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.wouldSurvive(Blocks.CACTUS.defaultBlockState(), BlockPos.ZERO))))));
 
 >>>>>>> dev
 	public static final SimpleWeightedRandomList<BlockState> PRICKLY_PEAR_POOL = SimpleWeightedRandomList.<BlockState>builder()
