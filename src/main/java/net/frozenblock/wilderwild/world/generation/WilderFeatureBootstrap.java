@@ -810,7 +810,7 @@ public class WilderFeatureBootstrap {
 		var placedFallenOakChecked = register(entries, WilderTreePlaced.FALLEN_OAK_CHECKED, fallenOakTree, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
 		var placedMossyFallenOakChecked = register(entries, WilderTreePlaced.MOSSY_FALLEN_OAK_CHECKED, mossyFallenOakTree, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
 		var placedMossyFallenSpruceChecked = register(entries, WilderTreePlaced.MOSSY_FALLEN_SPRUCE_CHECKED, mossyFallenSpruceTree, PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING));
-		var placedOldDyingFancyOakBees0004 = register(entries, WilderTreePlaced.OLD_DYING_FANCY_OAK_BEES_0004, oldFancyDyingOakBees0004, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING))
+		var placedOldDyingFancyOakBees0004 = register(entries, WilderTreePlaced.OLD_DYING_FANCY_OAK_BEES_0004, oldFancyDyingOakBees0004, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));
 		var placedTallDarkOakChecked = register(entries, WilderTreePlaced.TALL_DARK_OAK_CHECKED, tallDarkOak, PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING));
 		var placedDyingTallDarkOakChecked = register(entries, WilderTreePlaced.DYING_TALL_DARK_OAK_CHECKED, dyingTallDarkOak, PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING));
 		var placedDyingDarkOakChecked = register(entries, WilderTreePlaced.DYING_DARK_OAK_CHECKED, dyingDarkOak, PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING));
