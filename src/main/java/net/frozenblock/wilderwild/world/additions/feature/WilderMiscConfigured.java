@@ -61,99 +61,6 @@ public final class WilderMiscConfigured {
 	private WilderMiscConfigured() {
 		throw new UnsupportedOperationException("WilderMiscConfigured contains only static declarations.");
 	}
-<<<<<<< HEAD
-=======
-	// SWAMP
-    public static final Holder<ConfiguredFeature<DiskConfiguration, ?>> DISK_MUD = WilderConfiguredFeatures.register("disk_mud", Feature.DISK, new DiskConfiguration(new RuleBasedBlockStateProvider(BlockStateProvider.simple(Blocks.MUD), List.of(new RuleBasedBlockStateProvider.Rule(BlockPredicate.not(BlockPredicate.anyOf(BlockPredicate.solid(Direction.UP.getNormal()), BlockPredicate.matchesFluids(Direction.UP.getNormal(), Fluids.WATER))), BlockStateProvider.simple(Blocks.MUD)))), BlockPredicate.matchesBlocks(List.of(Blocks.DIRT, Blocks.GRASS_BLOCK)), UniformInt.of(2, 6), 2));
-    public static final Holder<ConfiguredFeature<PathFeatureConfig, ?>> MUD_PATH = WilderConfiguredFeatures.register("mud_path", FrozenFeatures.NOISE_PATH_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.MUD), 11, 4, 0.1, 0.23, 1, false, false, false, false, HolderSet.direct(Blocks.DIRT.builtInRegistryHolder(), Blocks.GRASS_BLOCK.builtInRegistryHolder(), Blocks.CLAY.builtInRegistryHolder(), Blocks.SAND.builtInRegistryHolder())));
-    // TAIGA
-	public static final Holder<ConfiguredFeature<PathFeatureConfig, ?>> COARSE_PATH = WilderConfiguredFeatures.register("coarse_dirt_path", FrozenFeatures.NOISE_PATH_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.COARSE_DIRT), 11, 3, 0.12, -0.2, 0.3, false, false, false, false, HolderSet.direct(Blocks.DIRT.builtInRegistryHolder(), Blocks.GRASS_BLOCK.builtInRegistryHolder(), Blocks.PODZOL.builtInRegistryHolder())));
-	// CYPRESS WETLANDS
-	public static final Holder<ConfiguredFeature<PathFeatureConfig, ?>> UNDER_WATER_SAND_PATH = WilderConfiguredFeatures.register("under_water_sand_path", FrozenFeatures.NOISE_PATH_UNDER_WATER_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.SAND), 16, 4, 0.05, 0.2, 0.54, true, true, false, false, HolderSet.direct(Blocks.DIRT.builtInRegistryHolder(), Blocks.GRAVEL.builtInRegistryHolder(), Blocks.GRASS_BLOCK.builtInRegistryHolder())));
-	public static final Holder<ConfiguredFeature<PathFeatureConfig, ?>> UNDER_WATER_GRAVEL_PATH = WilderConfiguredFeatures.register("under_water_gravel_path", FrozenFeatures.NOISE_PATH_UNDER_WATER_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.GRAVEL), 16, 1, 0.07, -0.7, -0.3, true, true, false, false, HolderSet.direct(Blocks.DIRT.builtInRegistryHolder(), Blocks.GRASS_BLOCK.builtInRegistryHolder(), Blocks.STONE.builtInRegistryHolder())));
-	public static final Holder<ConfiguredFeature<PathFeatureConfig, ?>> UNDER_WATER_CLAY_PATH = WilderConfiguredFeatures.register("under_water_clay_path", FrozenFeatures.NOISE_PATH_UNDER_WATER_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.CLAY), 16, 3, 0.07, 0.5, 0.85, true, true, false, false, HolderSet.direct(Blocks.DIRT.builtInRegistryHolder(), Blocks.GRAVEL.builtInRegistryHolder(), Blocks.GRASS_BLOCK.builtInRegistryHolder(), Blocks.STONE.builtInRegistryHolder())));
-	// BEACH AND RIVER
-	public static final Holder<ConfiguredFeature<PathFeatureConfig, ?>> UNDER_WATER_CLAY_PATH_BEACH = WilderConfiguredFeatures.register("under_water_clay_path_beach", FrozenFeatures.NOISE_PATH_UNDER_WATER_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.CLAY), 14, 2, 0.10, 0.5, 0.85, true, true, false, false, HolderSet.direct(Blocks.SAND.builtInRegistryHolder())));
-	public static final Holder<ConfiguredFeature<PathFeatureConfig, ?>> UNDER_WATER_GRAVEL_PATH_RIVER = WilderConfiguredFeatures.register("under_water_gravel_path_river", FrozenFeatures.NOISE_PATH_UNDER_WATER_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.GRAVEL), 14, 2, 0.10, 0.5, 0.85, true, true, false, false, HolderSet.direct(Blocks.SAND.builtInRegistryHolder())));
-	// SAVANNA
-	public static final Holder<ConfiguredFeature<PathFeatureConfig, ?>> PACKED_MUD_PATH = WilderConfiguredFeatures.register("packed_mud_path", FrozenFeatures.NOISE_PATH_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.PACKED_MUD), 9, 1, 0.12, 0.20, 1, true, true, false, false, HolderSet.direct(Blocks.DIRT.builtInRegistryHolder(), Blocks.GRASS_BLOCK.builtInRegistryHolder(), Blocks.COARSE_DIRT.builtInRegistryHolder())));
-	// JUNGLE
-	public static final Holder<ConfiguredFeature<PathFeatureConfig, ?>> MOSS_PATH = WilderConfiguredFeatures.register("moss_path", FrozenFeatures.NOISE_PATH_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.MOSS_BLOCK), 9, 1, 0.15, 0.18, 1, true, true, false, false, HolderSet.direct(Blocks.GRASS_BLOCK.builtInRegistryHolder(), Blocks.PODZOL.builtInRegistryHolder())));
-	// DESERT
-	public static final RuleTest PACKED_MUD_REPLACEABLE = new TagMatchTest(WilderBlockTags.PACKED_MUD_REPLACEABLE);
-	public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_PACKED_MUD = WilderConfiguredFeatures.register("ore_packed_mud", Feature.ORE, new OreConfiguration(PACKED_MUD_REPLACEABLE, Blocks.PACKED_MUD.defaultBlockState(), 40));
-	public static final Holder<ConfiguredFeature<PathFeatureConfig, ?>> SANDSTONE_PATH = WilderConfiguredFeatures.register("sandstone_path", FrozenFeatures.NOISE_PATH_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.SANDSTONE), 10, 2, 0.2, 0.4, 1, true, true, false, false, HolderSet.direct(Blocks.SAND.builtInRegistryHolder())));
-	public static final Holder<ConfiguredFeature<FadingDiskFeatureConfig, ?>> SCORCHED_SAND_DISK = WilderConfiguredFeatures.register("scorched_sand", FrozenFeatures.FADING_DISK_FEATURE, new FadingDiskFeatureConfig(BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKEDNESS, 1)), BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState()), UniformInt.of(2, 8), 0.95F, 0.925F, 0.65F, 0.8F, HolderSet.direct(Blocks.SAND.builtInRegistryHolder(), RegisterBlocks.SCORCHED_SAND.builtInRegistryHolder()), HolderSet.direct(Blocks.SAND.builtInRegistryHolder())));
-	public static final Holder<ConfiguredFeature<FadingDiskFeatureConfig, ?>> SCORCHED_SAND_DISK_HUGE = WilderConfiguredFeatures.register("scorched_sand_huge", FrozenFeatures.FADING_DISK_FEATURE, new FadingDiskFeatureConfig(BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKEDNESS, 1)), BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState()), UniformInt.of(12, 24), 0.95F, 0.875F, 0.65F, 0.8F, HolderSet.direct(Blocks.SAND.builtInRegistryHolder(), RegisterBlocks.SCORCHED_SAND.builtInRegistryHolder()), HolderSet.direct(Blocks.SAND.builtInRegistryHolder())));
-	public static final Holder<ConfiguredFeature<FadingDiskFeatureConfig, ?>> SCORCHED_SAND_DISK_LIGHTNING = WilderConfiguredFeatures.register("scorched_sand_lightning", FrozenFeatures.FADING_DISK_FEATURE, new FadingDiskFeatureConfig(BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKEDNESS, 1)), BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState()), UniformInt.of(1, 3), 0.85F, 0.925F, 0.55F, 0.8F, HolderSet.direct(Blocks.SAND.builtInRegistryHolder(), RegisterBlocks.SCORCHED_SAND.builtInRegistryHolder()), HolderSet.direct(Blocks.SAND.builtInRegistryHolder())));
-	// BADLANDS
-	public static final Holder<ConfiguredFeature<PathFeatureConfig, ?>> COARSE_DIRT_PATH_SMALL = WilderConfiguredFeatures.register("coarse_dirt_path_small", FrozenFeatures.NOISE_PATH_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.COARSE_DIRT), 8, 2, 0.15, 0.2, 1, true, true, false, false, HolderSet.direct(Blocks.RED_SAND.builtInRegistryHolder())));
-	public static final Holder<ConfiguredFeature<PathFeatureConfig, ?>> PACKED_MUD_PATH_BADLANDS = WilderConfiguredFeatures.register("packed_mud_path_badlands", FrozenFeatures.NOISE_PATH_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.PACKED_MUD), 4, 3, 0.7, 0.2, 1, true, true, false, false, HolderSet.direct(Blocks.TERRACOTTA.builtInRegistryHolder(),
-			Blocks.RED_SAND.builtInRegistryHolder(), Blocks.RED_SANDSTONE.builtInRegistryHolder(), Blocks.TERRACOTTA.builtInRegistryHolder(),
-			Blocks.WHITE_TERRACOTTA.builtInRegistryHolder(), Blocks.BROWN_TERRACOTTA.builtInRegistryHolder(), Blocks.RED_TERRACOTTA.builtInRegistryHolder(),
-			Blocks.ORANGE_TERRACOTTA.builtInRegistryHolder(), Blocks.YELLOW_TERRACOTTA.builtInRegistryHolder(), Blocks.LIGHT_GRAY_TERRACOTTA.builtInRegistryHolder())));
-	public static final Holder<ConfiguredFeature<FadingDiskFeatureConfig, ?>> SCORCHED_RED_SAND_DISK = WilderConfiguredFeatures.register("scorched_red_sand", FrozenFeatures.FADING_DISK_FEATURE, new FadingDiskFeatureConfig(BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKEDNESS, 1)), BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState()), UniformInt.of(2, 8), 0.95F, 0.925F, 0.65F, 0.8F, HolderSet.direct(Blocks.RED_SAND.builtInRegistryHolder(), RegisterBlocks.SCORCHED_RED_SAND.builtInRegistryHolder()), HolderSet.direct(Blocks.RED_SAND.builtInRegistryHolder())));
-	public static final Holder<ConfiguredFeature<FadingDiskFeatureConfig, ?>> SCORCHED_RED_SAND_DISK_HUGE = WilderConfiguredFeatures.register("scorched_red_sand_huge", FrozenFeatures.FADING_DISK_FEATURE, new FadingDiskFeatureConfig(BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKEDNESS, 1)), BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState()), UniformInt.of(12, 24), 0.95F, 0.875F, 0.65F, 0.8F, HolderSet.direct(Blocks.RED_SAND.builtInRegistryHolder(), RegisterBlocks.SCORCHED_RED_SAND.builtInRegistryHolder()), HolderSet.direct(Blocks.RED_SAND.builtInRegistryHolder())));
-	public static final Holder<ConfiguredFeature<FadingDiskFeatureConfig, ?>> SCORCHED_RED_SAND_DISK_LIGHTNING = WilderConfiguredFeatures.register("scorched_red_sand_lightning", FrozenFeatures.FADING_DISK_FEATURE, new FadingDiskFeatureConfig(BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKEDNESS, 1)), BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState()), UniformInt.of(1, 3), 0.85F, 0.925F, 0.55F, 0.8F, HolderSet.direct(Blocks.RED_SAND.builtInRegistryHolder(), RegisterBlocks.SCORCHED_RED_SAND.builtInRegistryHolder()), HolderSet.direct(Blocks.RED_SAND.builtInRegistryHolder())));
-	// JELLYFISH CAVES
-	public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_CALCITE = WilderConfiguredFeatures.register("ore_calcite", Feature.ORE, new OreConfiguration(NATURAL_STONE, Blocks.CALCITE.defaultBlockState(), 64));
-	public static final Holder<ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> BLANK_SHUT_UP = WilderConfiguredFeatures.register("blank_shut_up", Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(
-			PlacementUtils.inlinePlaced(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new SimpleStateProvider(Blocks.WATER.defaultBlockState())))))
-	);
-	public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> STONE_POOL = WilderConfiguredFeatures.register("stone_pool", FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH, new VegetationPatchConfiguration(BlockTags.LUSH_GROUND_REPLACEABLE, BlockStateProvider.simple(Blocks.STONE), PlacementUtils.inlinePlaced(BLANK_SHUT_UP), CaveSurface.FLOOR, ConstantInt.of(4), 0.8F, 2, 0.000F, UniformInt.of(12, 15), 0.7F));
-	public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> DEEPSLATE_POOL = WilderConfiguredFeatures.register("deepslate_pool", FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH, new VegetationPatchConfiguration(BlockTags.LUSH_GROUND_REPLACEABLE, BlockStateProvider.simple(Blocks.DEEPSLATE), PlacementUtils.inlinePlaced(BLANK_SHUT_UP), CaveSurface.FLOOR, ConstantInt.of(4), 0.8F, 2, 0.000F, UniformInt.of(12, 15), 0.7F));
-	public static final Holder<ConfiguredFeature<PillarFeatureConfig, ?>> UPWARDS_MESOGLEA_PILLAR = WilderConfiguredFeatures.register("blue_mesoglea_pillar", FrozenFeatures.UPWARDS_PILLAR_FEATURE, new PillarFeatureConfig(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true), UniformInt.of(4, 12), HolderSet.direct(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(), RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(), Blocks.WATER.builtInRegistryHolder())));
-	public static final Holder<ConfiguredFeature<PillarFeatureConfig, ?>> PURPLE_MESOGLEA_PILLAR = WilderConfiguredFeatures.register("purple_mesoglea_pillar", FrozenFeatures.UPWARDS_PILLAR_FEATURE, new PillarFeatureConfig(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true), UniformInt.of(4, 12), HolderSet.direct(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(), RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(), Blocks.WATER.builtInRegistryHolder())));
-	public static final Holder<ConfiguredFeature<PillarFeatureConfig, ?>> DOWNWARDS_MESOGLEA_PILLAR = WilderConfiguredFeatures.register("downwards_blue_mesoglea_pillar", FrozenFeatures.DOWNWARDS_PILLAR_FEATURE, new PillarFeatureConfig(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true), UniformInt.of(3, 10), HolderSet.direct(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(), RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(), Blocks.WATER.builtInRegistryHolder())));
-	public static final Holder<ConfiguredFeature<PillarFeatureConfig, ?>> DOWNWARDS_PURPLE_MESOGLEA_PILLAR = WilderConfiguredFeatures.register("downwards_purple_mesoglea_pillar", FrozenFeatures.DOWNWARDS_PILLAR_FEATURE, new PillarFeatureConfig(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true), UniformInt.of(3, 10), HolderSet.direct(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(), RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.builtInRegistryHolder(), Blocks.WATER.builtInRegistryHolder())));
-	public static final Holder<ConfiguredFeature<PathFeatureConfig, ?>> BLUE_MESOGLEA_PATH = WilderConfiguredFeatures.register("blue_mesoglea_path", FrozenFeatures.NOISE_PATH_FEATURE,
-			new PathFeatureConfig(BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-					14, 1, 0.025, 0.5125, 0.5875, true, true, true, false,
-					HolderSet.direct(
-							Block::builtInRegistryHolder,
-							Blocks.CLAY,
-							Blocks.STONE,
-							Blocks.ANDESITE,
-							Blocks.DIORITE,
-							Blocks.GRANITE,
-							Blocks.DRIPSTONE_BLOCK,
-							Blocks.CALCITE,
-							Blocks.TUFF,
-							Blocks.DEEPSLATE
-					)
-	));
-	public static final Holder<ConfiguredFeature<PathFeatureConfig, ?>> PURPLE_MESOGLEA_PATH = WilderConfiguredFeatures.register("purple_mesoglea_path", FrozenFeatures.NOISE_PATH_FEATURE,
-			new PathFeatureConfig(BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-					14, 1, 0.025, -0.5875, -0.5125, true, true, true, false,
-					HolderSet.direct(
-							Block::builtInRegistryHolder,
-							Blocks.CLAY,
-							Blocks.STONE,
-							Blocks.ANDESITE,
-							Blocks.DIORITE,
-							Blocks.GRANITE,
-							Blocks.DRIPSTONE_BLOCK,
-							Blocks.CALCITE,
-							Blocks.TUFF,
-							Blocks.DEEPSLATE
-					)
-			));
-	// OASIS
-	public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> SAND_POOL = WilderConfiguredFeatures.register("sand_pool", FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH, new VegetationPatchConfiguration(WilderBlockTags.SAND_POOL_REPLACEABLE, BlockStateProvider.simple(Blocks.SAND), PlacementUtils.inlinePlaced(BLANK_SHUT_UP), CaveSurface.FLOOR, ConstantInt.of(5), 0.8F, 1, 0.000F, UniformInt.of(8, 14), 0.7F));
-	public static final Holder<ConfiguredFeature<LakeFeature.Configuration, ?>> MESSY_SAND_POOL = WilderConfiguredFeatures.register("messy_sand_pool", Feature.LAKE, new LakeFeature.Configuration(BlockStateProvider.simple(Blocks.WATER.defaultBlockState()), BlockStateProvider.simple(Blocks.SAND.defaultBlockState())));
-	public static final Holder<ConfiguredFeature<PathSwapUnderWaterFeatureConfig, ?>> GRASS_PATH = WilderConfiguredFeatures.register("grass_path", FrozenFeatures.NOISE_PATH_SWAP_UNDER_WATER_FEATURE, new PathSwapUnderWaterFeatureConfig(BlockStateProvider.simple(Blocks.GRASS_BLOCK), BlockStateProvider.simple(Blocks.DIRT), 11, 4, 0.15, 0.4, 1.0, false, false, false, false, HolderSet.direct(Blocks.SAND.builtInRegistryHolder(), Blocks.SANDSTONE.builtInRegistryHolder())));
-	public static final Holder<ConfiguredFeature<PathFeatureConfig, ?>> MOSS_PATH_OASIS = WilderConfiguredFeatures.register("moss_path_oasis", FrozenFeatures.NOISE_PATH_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.MOSS_BLOCK), 9, 2, 0.10, 0.12, 1, true, true, false, false, HolderSet.direct(Blocks.SAND.builtInRegistryHolder())));
-	// ARID SAVANNA
-	public static final Holder<ConfiguredFeature<PathFeatureConfig, ?>> ARID_COARSE_PATH = WilderConfiguredFeatures.register("arid_coarse_dirt_path", FrozenFeatures.NOISE_PATH_FEATURE, new PathFeatureConfig(BlockStateProvider.simple(Blocks.COARSE_DIRT), 12, 3, 0.15, -0.15, 0.55, false, false, false, false, HolderSet.direct(Blocks.DIRT.builtInRegistryHolder(), Blocks.GRASS_BLOCK.builtInRegistryHolder())));
-	// OLD GROWTH SNOWY TAIGA
-	public static final Holder<ConfiguredFeature<BlockStateConfiguration, ?>> SNOW = WilderConfiguredFeatures.register("snow", Feature.FOREST_ROCK, new BlockStateConfiguration(Blocks.SNOW_BLOCK.defaultBlockState()));
-	// TEMPERATE RAINFOREST & RAINFOREST
-	public static final Holder<ConfiguredFeature<BlockPileConfiguration, ?>> MOSS_PILE = WilderConfiguredFeatures.register("moss_pile", Feature.BLOCK_PILE, new BlockPileConfiguration(BlockStateProvider.simple(Blocks.MOSS_BLOCK)));
-	public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, ?>> BASIN_RAINFOREST = WilderConfiguredFeatures.register("basin_rainforest", FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH, new VegetationPatchConfiguration(WilderBlockTags.BASIN_RAINFOREST_REPLACEABLE, BlockStateProvider.simple(Blocks.PODZOL), PlacementUtils.inlinePlaced(BLANK_SHUT_UP), CaveSurface.FLOOR, ConstantInt.of(2), 0.8F, 1, 0.000F, UniformInt.of(1, 3), 0.7F));
-	public static final Holder<ConfiguredFeature<LakeFeature.Configuration, ?>> MOSS_LAKE = WilderConfiguredFeatures.register("moss_lake", Feature.LAKE, new LakeFeature.Configuration(BlockStateProvider.simple(Blocks.WATER.defaultBlockState()), BlockStateProvider.simple(Blocks.MOSS_BLOCK.defaultBlockState())));
-	//SNOW
-	public static final Holder<ConfiguredFeature<NoneFeatureConfiguration, ?>> SNOW_BLANKET = WilderConfiguredFeatures.register("snow_blanket", WilderWild.SNOW_BLANKET_FEATURE, NoneFeatureConfiguration.INSTANCE);
->>>>>>> dev
 
 	public static final RuleTest PACKED_MUD_REPLACEABLE = new TagMatchTest(WilderBlockTags.PACKED_MUD_REPLACEABLE);
 	public static final RuleTest NATURAL_STONE = new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD);
@@ -165,6 +72,9 @@ public final class WilderMiscConfigured {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> COARSE_PATH = key("coarse_dirt_path");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> MOSS_PATH = key("moss_path");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SANDSTONE_PATH = key("sandstone_path");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> SCORCHED_SAND_DISK = key("scorched_sand", FrozenFeatures.FADING_DISK_FEATURE, new FadingDiskFeatureConfig(BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKEDNESS, 1)), BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState()), UniformInt.of(2, 8), 0.95F, 0.925F, 0.65F, 0.8F, HolderSet.direct(Blocks.SAND.builtInRegistryHolder(), RegisterBlocks.SCORCHED_SAND.builtInRegistryHolder()), HolderSet.direct(Blocks.SAND.builtInRegistryHolder())));
+	public static final ResourceKey<ConfiguredFeature<?, ?>> SCORCHED_SAND_DISK_HUGE = key("scorched_sand_huge", FrozenFeatures.FADING_DISK_FEATURE, new FadingDiskFeatureConfig(BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKEDNESS, 1)), BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState()), UniformInt.of(12, 24), 0.95F, 0.875F, 0.65F, 0.8F, HolderSet.direct(Blocks.SAND.builtInRegistryHolder(), RegisterBlocks.SCORCHED_SAND.builtInRegistryHolder()), HolderSet.direct(Blocks.SAND.builtInRegistryHolder())));
+	public static final ResourceKey<ConfiguredFeature<?, ?>> SCORCHED_SAND_DISK_LIGHTNING = key("scorched_sand_lightning", FrozenFeatures.FADING_DISK_FEATURE, new FadingDiskFeatureConfig(BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKEDNESS, 1)), BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState()), UniformInt.of(1, 3), 0.85F, 0.925F, 0.55F, 0.8F, HolderSet.direct(Blocks.SAND.builtInRegistryHolder(), RegisterBlocks.SCORCHED_SAND.builtInRegistryHolder()), HolderSet.direct(Blocks.SAND.builtInRegistryHolder())));
 	public static final ResourceKey<ConfiguredFeature<?, ?>> PACKED_MUD_PATH = key("packed_mud_path");
 	//CYPRESS WETLANDS
 	public static final ResourceKey<ConfiguredFeature<?, ?>> UNDER_WATER_SAND_PATH = key("under_water_sand_path");
@@ -178,6 +88,9 @@ public final class WilderMiscConfigured {
 	// BADLANDS
 	public static final ResourceKey<ConfiguredFeature<?, ?>> COARSE_DIRT_PATH_SMALL = key("coarse_dirt_path_small");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> PACKED_MUD_PATH_BADLANDS = key("packed_mud_path_badlands");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> SCORCHED_RED_SAND_DISK = key("scorched_red_sand", FrozenFeatures.FADING_DISK_FEATURE, new FadingDiskFeatureConfig(BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKEDNESS, 1)), BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState()), UniformInt.of(2, 8), 0.95F, 0.925F, 0.65F, 0.8F, HolderSet.direct(Blocks.RED_SAND.builtInRegistryHolder(), RegisterBlocks.SCORCHED_RED_SAND.builtInRegistryHolder()), HolderSet.direct(Blocks.RED_SAND.builtInRegistryHolder())));
+	public static final ResourceKey<ConfiguredFeature<?, ?>> SCORCHED_RED_SAND_DISK_HUGE = key("scorched_red_sand_huge", FrozenFeatures.FADING_DISK_FEATURE, new FadingDiskFeatureConfig(BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKEDNESS, 1)), BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState()), UniformInt.of(12, 24), 0.95F, 0.875F, 0.65F, 0.8F, HolderSet.direct(Blocks.RED_SAND.builtInRegistryHolder(), RegisterBlocks.SCORCHED_RED_SAND.builtInRegistryHolder()), HolderSet.direct(Blocks.RED_SAND.builtInRegistryHolder())));
+	public static final ResourceKey<ConfiguredFeature<?, ?>> SCORCHED_RED_SAND_DISK_LIGHTNING = key("scorched_red_sand_lightning", FrozenFeatures.FADING_DISK_FEATURE, new FadingDiskFeatureConfig(BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKEDNESS, 1)), BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState()), UniformInt.of(1, 3), 0.85F, 0.925F, 0.55F, 0.8F, HolderSet.direct(Blocks.RED_SAND.builtInRegistryHolder(), RegisterBlocks.SCORCHED_RED_SAND.builtInRegistryHolder()), HolderSet.direct(Blocks.RED_SAND.builtInRegistryHolder())));
 	//JELLYFISH CAVES
 	public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_CALCITE = key("ore_calcite");
 
@@ -196,6 +109,14 @@ public final class WilderMiscConfigured {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> MOSS_PATH_OASIS = key("moss_path_oasis");
 	//ARID SAVANNA
 	public static final ResourceKey<ConfiguredFeature<?, ?>> ARID_COARSE_PATH = key("arid_coarse_dirt_path");
+	// OLD GROWTH SNOWY TAIGA
+	public static final ResourceKey<ConfiguredFeature<?, ?>> SNOW = key("snow", Feature.FOREST_ROCK, new BlockStateConfiguration(Blocks.SNOW_BLOCK.defaultBlockState()));
+	// TEMPERATE RAINFOREST & RAINFOREST
+	public static final ResourceKey<ConfiguredFeature<?, ?>> MOSS_PILE = key("moss_pile", Feature.BLOCK_PILE, new BlockPileConfiguration(BlockStateProvider.simple(Blocks.MOSS_BLOCK)));
+	public static final ResourceKey<ConfiguredFeature<?, ?>> BASIN_RAINFOREST = key("basin_rainforest", FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH, new VegetationPatchConfiguration(WilderBlockTags.BASIN_RAINFOREST_REPLACEABLE, BlockStateProvider.simple(Blocks.PODZOL), PlacementUtils.inlinePlaced(BLANK_SHUT_UP), CaveSurface.FLOOR, ConstantInt.of(2), 0.8F, 1, 0.000F, UniformInt.of(1, 3), 0.7F));
+	public static final ResourceKey<ConfiguredFeature<?, ?>> MOSS_LAKE = key("moss_lake", Feature.LAKE, new LakeFeature.Configuration(BlockStateProvider.simple(Blocks.WATER.defaultBlockState()), BlockStateProvider.simple(Blocks.MOSS_BLOCK.defaultBlockState())));
+	//SNOW
+	public static final ResourceKey<ConfiguredFeature<?, ?>> SNOW_BLANKET = key("snow_blanket", WilderWild.SNOW_BLANKET_FEATURE, NoneFeatureConfiguration.INSTANCE);
 
 	public static ResourceKey<ConfiguredFeature<?, ?>> key(String path) {
 		return ResourceKey.create(Registries.CONFIGURED_FEATURE, WilderSharedConstants.id(path));

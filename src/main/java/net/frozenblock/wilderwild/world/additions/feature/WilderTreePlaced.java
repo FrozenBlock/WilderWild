@@ -56,6 +56,7 @@ public final class WilderTreePlaced {
     public static final ResourceKey<PlacedFeature> SUPER_BIRCH_BEES = key("super_birch_bees");
 	public static final ResourceKey<PlacedFeature> SUPER_BIRCH = key("super_birch");
     public static final ResourceKey<PlacedFeature> FALLEN_BIRCH_CHECKED = key("fallen_birch_checked");
+	public static final ResourceKey<PlacedFeature> MOSSY_FALLEN_BIRCH_CHECKED = register("mossy_fallen_birch_checked", WilderTreeConfigured.MOSSY_FALLEN_BIRCH_TREE, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
 
     //OAK
     public static final ResourceKey<PlacedFeature> OAK_CHECKED = key("oak_checked");
@@ -116,7 +117,6 @@ public final class WilderTreePlaced {
     public static final Holder<PlacedFeature> SUPER_BIRCH_BEES = register("super_birch_bees", WilderTreeConfigured.SUPER_BIRCH_BEES, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
 	public static final Holder<PlacedFeature> SUPER_BIRCH = register("super_birch", WilderTreeConfigured.SUPER_BIRCH, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
 	public static final Holder<PlacedFeature> FALLEN_BIRCH_CHECKED = register("fallen_birch_checked", WilderTreeConfigured.FALLEN_BIRCH_TREE, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
-	public static final Holder<PlacedFeature> MOSSY_FALLEN_BIRCH_CHECKED = register("mossy_fallen_birch_checked", WilderTreeConfigured.MOSSY_FALLEN_BIRCH_TREE, PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING));
 
     //OAK
     public static final Holder<PlacedFeature> OAK_CHECKED = register("oak_checked", WilderTreeConfigured.OAK, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING));

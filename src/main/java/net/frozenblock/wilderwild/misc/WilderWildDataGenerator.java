@@ -1210,27 +1210,4 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			hangingSign(consumer, RegisterItems.CYPRESS_HANGING_SIGN, RegisterBlocks.STRIPPED_CYPRESS_LOG);
 		}
 	}
-	private static class WilderItemTagProvider extends FabricTagProvider.ItemTagProvider {
-		public WilderItemTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
-			super(output, registriesFuture);
-		}
-
-		@Override
-		protected void addTags(HolderLookup.Provider arg) {
-			this.getOrCreateTagBuilder(FrozenItemTags.ALWAYS_SAVE_COOLDOWNS)
-					.add(RegisterItems.ANCIENT_HORN);
-		}
-	}
-
-	private static class WilderEntityTagProvider extends FabricTagProvider.EntityTypeTagProvider {
-		public WilderEntityTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
-			super(output, registriesFuture);
-		}
-
-		@Override
-		protected void addTags(HolderLookup.Provider arg) {
-			this.getOrCreateTagBuilder(WilderEntityTags.STAYS_IN_MESOGLEA)
-					.add(RegisterEntities.JELLYFISH);
-		}
-	}
 }

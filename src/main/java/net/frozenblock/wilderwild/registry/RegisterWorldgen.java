@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import java.util.ArrayList;
 import net.frozenblock.lib.mobcategory.api.FrozenMobCategories;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
@@ -109,33 +110,8 @@ public final class RegisterWorldgen {
         return ResourceKey.create(Registries.BIOME, WilderSharedConstants.id(name));
     }
 
-	public static Biome mixedForest(BootstapContext<Biome> entries) {
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-		BiomeDefaultFeatures.commonSpawns(builder);
-		BiomeDefaultFeatures.plainsSpawns(builder);
-		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 5, 4, 4));
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addMixedForestFeatures(builder2);
-		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
-		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.RAIN)
-				.temperature(0.5F)
-				.downfall(0.7F)
-				.specialEffects(
-						new BiomeSpecialEffects.Builder()
-								.waterColor(4159204)
-								.waterFogColor(329011)
-								.fogColor(12638463)
-								.skyColor(OverworldBiomes.calculateSkyColor(0.5F))
-								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-								.backgroundMusic(musicSound).build())
-				.mobSpawnSettings(builder.build())
-				.generationSettings(builder2.build())
-				.build();
-	}
-
+	// MAIN BIOMES
+	// CYPRESS WETLANDS
 	public static Biome cypressWetlands(BootstapContext<Biome> entries) {
 		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
@@ -157,382 +133,6 @@ public final class RegisterWorldgen {
 								.skyColor(OverworldBiomes.calculateSkyColor(0.8F))
 								.foliageColorOverride(5877296)
 								.grassColorOverride(7979098)
-								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-								.backgroundMusic(musicSound).build())
-				.mobSpawnSettings(builder.build())
-				.generationSettings(builder2.build())
-				.build();
-	}
-
-	public static Biome jellyfishCaves(BootstapContext<Biome> entries) {
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-		BiomeDefaultFeatures.commonSpawns(builder);
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addJellyfishCavesFeatures(builder2);
-		Music music = Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_JELLYFISH_CAVES);
-		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.RAIN)
-				.temperature(0.8F)
-				.downfall(0.4F)
-				.specialEffects(
-						new BiomeSpecialEffects.Builder()
-								.waterColor(9817343)
-								.waterFogColor(6069471)
-								.fogColor(0)
-								.skyColor(OverworldBiomes.calculateSkyColor(0.8F))
-								.ambientLoopSound(RegisterSounds.AMBIENT_JELLYFISH_CAVES_LOOP)
-								.ambientAdditionsSound(new AmbientAdditionsSettings(RegisterSounds.AMBIENT_JELLYFISH_CAVES_ADDITIONS, 0.0005D))
-								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-								.backgroundMusic(music).build())
-				.mobSpawnSettings(builder.build())
-				.generationSettings(builder2.build())
-				.build();
-	}
-
-	public static Biome warmRiver(BootstapContext<Biome> entries) {
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = (new MobSpawnSettings.Builder()).addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(EntityType.SQUID, 2, 1, 4)).addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(EntityType.SALMON, 5, 1, 5));
-		BiomeDefaultFeatures.commonSpawns(builder);
-		builder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.DROWNED, 100, 1, 1));
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addWarmRiverFeatures(builder2);
-		Music music = Musics.GAME;
-		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.NONE)
-				.temperature(1.5F)
-				.downfall(0.0F)
-				.specialEffects(
-						new BiomeSpecialEffects.Builder()
-								.grassColorOverride(12564309)
-								.foliageColorOverride(11445290)
-								.waterColor(4566514)
-								.waterFogColor(267827)
-								.skyColor(OverworldBiomes.calculateSkyColor(1.5F))
-								.fogColor(12638463)
-								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-								.backgroundMusic(music)
-								.build())
-				.mobSpawnSettings(builder.build())
-				.generationSettings(builder2.build())
-				.build();
-	}
-
-	public static Biome oasis(BootstapContext<Biome> entries) {
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-		BiomeDefaultFeatures.desertSpawns(builder);
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addOasisFeatures(builder2);
-		Music music = Musics.GAME;
-		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.NONE)
-				.temperature(2.0F)
-				.downfall(0.0F)
-				.specialEffects(
-						new BiomeSpecialEffects.Builder()
-								.grassColorOverride(8569413)
-								.foliageColorOverride(3193611)
-								.waterColor(4566514)
-								.waterFogColor(267827)
-								.skyColor(OverworldBiomes.calculateSkyColor(2.0F))
-								.fogColor(12638463)
-								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-								.backgroundMusic(music)
-								.build())
-				.mobSpawnSettings(builder.build())
-				.generationSettings(builder2.build())
-				.build();
-	}
-
-	public static Biome birchTaiga(BootstapContext<Biome> entries, boolean old) {
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-		BiomeDefaultFeatures.commonSpawns(builder);
-		BiomeDefaultFeatures.farmAnimals(builder);
-		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 2, 4, 4)).addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 2, 2, 3));
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addBirchTaigaFeatures(builder2, old);
-		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
-		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.RAIN)
-				.temperature(0.45F)
-				.downfall(0.8F)
-				.specialEffects(
-						new BiomeSpecialEffects.Builder()
-								.waterColor(4159204)
-								.waterFogColor(329011)
-								.fogColor(12638463)
-								.skyColor(OverworldBiomes.calculateSkyColor(0.45F))
-								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-								.backgroundMusic(musicSound).build())
-				.mobSpawnSettings(builder.build())
-				.generationSettings(builder2.build())
-				.build();
-	}
-
-	public static Biome flowerField(BootstapContext<Biome> entries) {
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-		BiomeDefaultFeatures.plainsSpawns(builder);
-		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 8, 2, 5));
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addFlowerFieldFeatures(builder2);
-		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_GAME);
-		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.RAIN)
-				.temperature(0.8F)
-				.downfall(0.5F)
-				.specialEffects(
-						new BiomeSpecialEffects.Builder()
-								.waterColor(4159204)
-								.waterFogColor(329011)
-								.fogColor(12638463)
-								.foliageColorOverride(5877296)
-								.skyColor(OverworldBiomes.calculateSkyColor(0.8F))
-								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-								.backgroundMusic(musicSound).build())
-				.mobSpawnSettings(builder.build())
-				.generationSettings(builder2.build())
-				.build();
-	}
-
-	public static Biome aridSavanna(BootstapContext<Biome> entries) {
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-		BiomeDefaultFeatures.farmAnimals(builder);
-		BiomeDefaultFeatures.commonSpawns(builder);
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addAridSavannaFeatures(builder2);
-		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_GAME);
-		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.NONE)
-				.temperature(2.0F)
-				.downfall(0.0F)
-				.specialEffects(
-						new BiomeSpecialEffects.Builder()
-								.waterColor(4159204)
-								.waterFogColor(329011)
-								.fogColor(12638463)
-								.skyColor(OverworldBiomes.calculateSkyColor(2.0F))
-								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-								.backgroundMusic(musicSound).build())
-				.mobSpawnSettings(builder.build())
-				.generationSettings(builder2.build())
-				.build();
-	}
-
-	public static Biome parchedForest(BootstapContext<Biome> entries) {
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-		BiomeDefaultFeatures.commonSpawns(builder);
-		BiomeDefaultFeatures.plainsSpawns(builder);
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addParchedForestFeatures(builder2);
-		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
-		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.NONE)
-				.temperature(1.35F)
-				.downfall(0.2F)
-				.specialEffects(
-						new BiomeSpecialEffects.Builder()
-								.waterColor(4159204)
-								.waterFogColor(329011)
-								.fogColor(12638463)
-								.skyColor(OverworldBiomes.calculateSkyColor(1.35F))
-								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-								.backgroundMusic(musicSound).build())
-				.mobSpawnSettings(builder.build())
-				.generationSettings(builder2.build())
-				.build();
-	}
-
-	public static Biome aridForest(BootstapContext<Biome> entries) {
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-		BiomeDefaultFeatures.commonSpawns(builder);
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addAridForestFeatures(builder2);
-		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
-		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.NONE)
-				.temperature(1.75F)
-				.downfall(0.05F)
-				.specialEffects(
-						new BiomeSpecialEffects.Builder()
-								.waterColor(4159204)
-								.waterFogColor(329011)
-								.fogColor(12638463)
-								.skyColor(OverworldBiomes.calculateSkyColor(1.75F))
-								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-								.backgroundMusic(musicSound).build())
-				.mobSpawnSettings(builder.build())
-				.generationSettings(builder2.build())
-				.build();
-	}
-
-	public static Biome oldGrowthSnowyTaiga(BootstapContext<Biome> entries) {
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-		BiomeDefaultFeatures.farmAnimals(builder);
-		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 8, 4, 4)).addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 4, 2, 3)).addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.FOX, 8, 2, 4));
-		BiomeDefaultFeatures.caveSpawns(builder);
-		BiomeDefaultFeatures.monsters(builder, 100, 25, 100, false);
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addOldGrowthSnowyTaigaFeatures(builder2);
-		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_OLD_GROWTH_TAIGA);
-		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.SNOW)
-				.temperature(-0.45F)
-				.downfall(0.4F)
-				.specialEffects(
-						new BiomeSpecialEffects.Builder()
-								.waterColor(4159204)
-								.waterFogColor(329011)
-								.fogColor(12638463)
-								.grassColorOverride(8434839)
-								.foliageColorOverride(6332795)
-								.skyColor(OverworldBiomes.calculateSkyColor(-0.5F))
-								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-								.backgroundMusic(musicSound).build())
-				.mobSpawnSettings(builder.build())
-				.generationSettings(builder2.build())
-				.build();
-	}
-
-	public static Biome birchJungle(BootstapContext<Biome> entries) {
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-		BiomeDefaultFeatures.baseJungleSpawns(builder);
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addBirchJungleFeatures(builder2);
-		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
-		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.RAIN)
-				.temperature(0.825F)
-				.downfall(0.85F)
-				.specialEffects(
-						new BiomeSpecialEffects.Builder()
-								.waterColor(4159204)
-								.waterFogColor(329011)
-								.fogColor(12638463)
-								.skyColor(OverworldBiomes.calculateSkyColor(0.825F))
-								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-								.backgroundMusic(musicSound).build())
-				.mobSpawnSettings(builder.build())
-				.generationSettings(builder2.build())
-				.build();
-	}
-
-	public static Biome sparseBirchJungle(BootstapContext<Biome> entries) {
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-		BiomeDefaultFeatures.baseJungleSpawns(builder);
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addSparseBirchJungleFeatures(builder2);
-		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
-		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.RAIN)
-				.temperature(0.825F)
-				.downfall(0.85F)
-				.specialEffects(
-						new BiomeSpecialEffects.Builder()
-								.waterColor(4159204)
-								.waterFogColor(329011)
-								.fogColor(12638463)
-								.skyColor(OverworldBiomes.calculateSkyColor(0.825F))
-								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-								.backgroundMusic(musicSound).build())
-				.mobSpawnSettings(builder.build())
-				.generationSettings(builder2.build())
-				.build();
-	}
-
-	public static Biome oldGrowthDarkForest(BootstapContext<Biome> entries) {
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-		BiomeDefaultFeatures.farmAnimals(builder);
-		BiomeDefaultFeatures.commonSpawns(builder);
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addOldGrowthDarkForestFeatures(builder2);
-		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
-		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.RAIN)
-				.temperature(0.7F)
-				.downfall(0.8F)
-				.specialEffects(
-						new BiomeSpecialEffects.Builder()
-								.waterColor(4159204)
-								.waterFogColor(329011)
-								.fogColor(12638463)
-								.skyColor(OverworldBiomes.calculateSkyColor(0.7F))
-								.grassColorModifier(BiomeSpecialEffects.GrassColorModifier.DARK_FOREST)
-								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-								.backgroundMusic(musicSound).build())
-				.mobSpawnSettings(builder.build())
-				.generationSettings(builder2.build())
-				.build();
-	}
-
-	public static Biome darkBirchForest(BootstapContext<Biome> entries) {
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-		BiomeDefaultFeatures.farmAnimals(builder);
-		BiomeDefaultFeatures.commonSpawns(builder);
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addDarkBirchForestFeatures(builder2);
-		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
-		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.RAIN)
-				.temperature(0.65F)
-				.downfall(0.7F)
-				.specialEffects(
-						new BiomeSpecialEffects.Builder()
-								.waterColor(4159204)
-								.waterFogColor(329011)
-								.fogColor(12638463)
-								.skyColor(OverworldBiomes.calculateSkyColor(0.65F))
-								.grassColorModifier(BiomeSpecialEffects.GrassColorModifier.DARK_FOREST)
-								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-								.backgroundMusic(musicSound).build())
-				.mobSpawnSettings(builder.build())
-				.generationSettings(builder2.build())
-				.build();
-	}
-
-	public static Biome semiBirchForest(BootstapContext<Biome> entries) {
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-		BiomeDefaultFeatures.farmAnimals(builder);
-		BiomeDefaultFeatures.commonSpawns(builder);
-		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 2, 2, 2));
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addSemiBirchForestFeatures(builder2);
-		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
-		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.RAIN)
-				.temperature(0.65F)
-				.downfall(0.7F)
-				.specialEffects(
-						new BiomeSpecialEffects.Builder()
-								.waterColor(4159204)
-								.waterFogColor(329011)
-								.fogColor(12638463)
-								.skyColor(OverworldBiomes.calculateSkyColor(0.65F))
 								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
 								.backgroundMusic(musicSound).build())
 				.mobSpawnSettings(builder.build())
@@ -576,13 +176,16 @@ public final class RegisterWorldgen {
 		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 10, 4, 4));
 		builder.addSpawn(FrozenMobCategories.getCategory(WilderSharedConstants.MOD_ID, "fireflies"), new MobSpawnSettings.SpawnerData(RegisterEntities.FIREFLY, 1, 2, 6));
 	}
+
 	// MIXED FOREST
-	public static Biome mixedForest() {
+	public static Biome mixedForest(BootstapContext<Biome> entries) {
+		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
 		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
 		BiomeDefaultFeatures.commonSpawns(builder);
 		BiomeDefaultFeatures.plainsSpawns(builder);
 		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 5, 4, 4));
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
+		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addMixedForestFeatures(builder2);
 		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
 		return new Biome.BiomeBuilder()
@@ -601,6 +204,7 @@ public final class RegisterWorldgen {
 				.generationSettings(builder2.build())
 				.build();
 	}
+
 	public static void addMixedForestFeatures(BiomeGenerationSettings.Builder builder) {
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SEEDING_DANDELION_MIXED);
 		builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.COARSE_PATH_5);
@@ -615,12 +219,16 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
 	}
+
 	// OASIS
-	public static Biome oasis() {
+	public static Biome oasis(BootstapContext<Biome> entries) {
+		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
 		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
 		BiomeDefaultFeatures.desertSpawns(builder);
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
+		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addOasisFeatures(builder2);
+
 		Music music = Musics.GAME;
 		return new Biome.BiomeBuilder()
 				.precipitation(Biome.Precipitation.NONE)
@@ -641,6 +249,7 @@ public final class RegisterWorldgen {
 				.generationSettings(builder2.build())
 				.build();
 	}
+
 	public static void addOasisFeatures(BiomeGenerationSettings.Builder builder) {
 		BiomeDefaultFeatures.addDefaultCarversAndLakes(builder);
 		BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
@@ -661,12 +270,15 @@ public final class RegisterWorldgen {
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.OASIS_CACTUS_PLACED);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PALMS_OASIS);
 	}
+
 	// WARM RIVER
-	public static Biome warmRiver() {
+	public static Biome warmRiver(BootstapContext<Biome> entries) {
+		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
 		MobSpawnSettings.Builder builder = (new MobSpawnSettings.Builder()).addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(EntityType.SQUID, 2, 1, 4)).addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(EntityType.SALMON, 5, 1, 5));
 		BiomeDefaultFeatures.commonSpawns(builder);
 		builder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.DROWNED, 100, 1, 1));
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
+		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addWarmRiverFeatures(builder2);
 
 		Music music = Musics.GAME;
@@ -689,6 +301,7 @@ public final class RegisterWorldgen {
 				.generationSettings(builder2.build())
 				.build();
 	}
+
 	public static void addWarmRiverFeatures(BiomeGenerationSettings.Builder builder) {
 		BiomeDefaultFeatures.addDefaultCarversAndLakes(builder);
 		BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
@@ -709,10 +322,12 @@ public final class RegisterWorldgen {
 
 	// CAVE BIOMES
 	// JELLYFISH CAVES
-	public static Biome jellyfishCaves() {
+	public static Biome jellyfishCaves(BootstapContext<Biome> entries) {
+		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
 		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
 		BiomeDefaultFeatures.commonSpawns(builder);
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
+		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addJellyfishCavesFeatures(builder2);
 		Music music = Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_JELLYFISH_CAVES);
 		return new Biome.BiomeBuilder()
@@ -733,6 +348,7 @@ public final class RegisterWorldgen {
 				.generationSettings(builder2.build())
 				.build();
 	}
+
 	public static void addJellyfishCavesFeatures(BiomeGenerationSettings.Builder builder) {
 		BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
 		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, CavePlacements.MONSTER_ROOM_DEEP);
@@ -766,10 +382,12 @@ public final class RegisterWorldgen {
 
 	// TRANSITION BIOMES
 	// HOT
-	 public static Biome aridForest() {
+	public static Biome aridForest(BootstapContext<Biome> entries) {
+		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
 		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
 		BiomeDefaultFeatures.commonSpawns(builder);
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
+		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addAridForestFeatures(builder2);
 		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
 		return new Biome.BiomeBuilder()
@@ -788,6 +406,7 @@ public final class RegisterWorldgen {
 				.generationSettings(builder2.build())
 				.build();
 	}
+
 	public static void addAridForestFeatures(BiomeGenerationSettings.Builder builder) {
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_FOREST_TREES);
 		addBasicFeatures(builder, ARID_FOREST);
@@ -803,11 +422,14 @@ public final class RegisterWorldgen {
 		builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.GRASS_PATH_RARE);
 		builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.ARID_COARSE_PATH);
 	}
-	public static Biome aridSavanna() {
+
+	public static Biome aridSavanna(BootstapContext<Biome> entries) {
+		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
 		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
 		BiomeDefaultFeatures.farmAnimals(builder);
 		BiomeDefaultFeatures.commonSpawns(builder);
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
+		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addAridSavannaFeatures(builder2);
 		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_GAME);
 		return new Biome.BiomeBuilder()
@@ -826,6 +448,7 @@ public final class RegisterWorldgen {
 				.generationSettings(builder2.build())
 				.build();
 	}
+
 	public static void addAridSavannaFeatures(BiomeGenerationSettings.Builder builder) {
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_SAVANNA_TREES);
 		addBasicFeatures(builder, ARID_SAVANNA);
@@ -841,11 +464,14 @@ public final class RegisterWorldgen {
 		builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.GRASS_PATH_RARE);
 		builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.ARID_COARSE_PATH);
 	}
-	public static Biome parchedForest() {
+
+	public static Biome parchedForest(BootstapContext<Biome> entries) {
+		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
 		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
 		BiomeDefaultFeatures.commonSpawns(builder);
 		BiomeDefaultFeatures.plainsSpawns(builder);
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
+		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addParchedForestFeatures(builder2);
 		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
 		return new Biome.BiomeBuilder()
@@ -864,6 +490,7 @@ public final class RegisterWorldgen {
 				.generationSettings(builder2.build())
 				.build();
 	}
+
 	public static void addParchedForestFeatures(BiomeGenerationSettings.Builder builder) {
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PARCHED_FOREST_TREES);
 		addBasicFeatures(builder, PARCHED_FOREST);
@@ -875,11 +502,14 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.addDefaultMushrooms(builder);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 	}
+
 	// TROPICAL
-	public static Biome birchJungle() {
+	public static Biome birchJungle(BootstapContext<Biome> entries) {
+		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
 		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
 		BiomeDefaultFeatures.baseJungleSpawns(builder);
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
+		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addBirchJungleFeatures(builder2);
 		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
 		return new Biome.BiomeBuilder()
@@ -898,6 +528,7 @@ public final class RegisterWorldgen {
 				.generationSettings(builder2.build())
 				.build();
 	}
+
 	public static void addBirchJungleFeatures(BiomeGenerationSettings.Builder builder) {
 		addBasicFeatures(builder, BIRCH_JUNGLE);
 		BiomeDefaultFeatures.addDefaultOres(builder);
@@ -912,10 +543,12 @@ public final class RegisterWorldgen {
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BIRCH_JUNGLE_TREES);
 	}
 
-	public static Biome sparseBirchJungle() {
+	public static Biome sparseBirchJungle(BootstapContext<Biome> entries) {
+		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
 		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
 		BiomeDefaultFeatures.baseJungleSpawns(builder);
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
+		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addSparseBirchJungleFeatures(builder2);
 		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
 		return new Biome.BiomeBuilder()
@@ -934,6 +567,7 @@ public final class RegisterWorldgen {
 				.generationSettings(builder2.build())
 				.build();
 	}
+
 	public static void addSparseBirchJungleFeatures(BiomeGenerationSettings.Builder builder) {
 		addBasicFeatures(builder, SPARSE_BIRCH_JUNGLE);
 		BiomeDefaultFeatures.addDefaultOres(builder);
@@ -946,13 +580,16 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.addSparseJungleMelons(builder);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SPARSE_BIRCH_JUNGLE_TREES);
 	}
+
 	// TEMPERATE
-	public static Biome birchTaiga(boolean old) {
+	public static Biome birchTaiga(BootstapContext<Biome> entries, boolean old) {
+		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
 		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
 		BiomeDefaultFeatures.commonSpawns(builder);
 		BiomeDefaultFeatures.farmAnimals(builder);
 		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 2, 4, 4)).addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 2, 2, 3));
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
+		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addBirchTaigaFeatures(builder2, old);
 		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
 		return new Biome.BiomeBuilder()
@@ -971,6 +608,7 @@ public final class RegisterWorldgen {
 				.generationSettings(builder2.build())
 				.build();
 	}
+
 	public static void addBirchTaigaFeatures(BiomeGenerationSettings.Builder builder, boolean old) {
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SEEDING_DANDELION_MIXED);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MIXED_MUSHROOMS_PLACED);
@@ -990,109 +628,32 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.addCommonBerryBushes(builder);
 	}
 
-	public static void addFlowerFieldFeatures(BiomeGenerationSettings.Builder builder) {
-		addBasicFeatures(builder, FLOWER_FIELD);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_FLOWER_FIELD);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TALL_FLOWER_FLOWER_FIELD);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_FIELD_GRASS_PLACED);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_TALL_GRASS_FF);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_FIELD_BUSH_PLACED);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_FLOWER_FIELD);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_OAK_AND_BIRCH_PLACED_2);
-		BiomeDefaultFeatures.addDefaultOres(builder);
-		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
-		BiomeDefaultFeatures.addDefaultMushrooms(builder);
-		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
+	public static Biome semiBirchForest(BootstapContext<Biome> entries) {
+		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
+		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
+		BiomeDefaultFeatures.farmAnimals(builder);
+		BiomeDefaultFeatures.commonSpawns(builder);
+		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 2, 2, 2));
+		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
+		addSemiBirchForestFeatures(builder2);
+		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
+		return new Biome.BiomeBuilder()
+				.precipitation(Biome.Precipitation.RAIN)
+				.temperature(0.65F)
+				.downfall(0.7F)
+				.specialEffects(
+						new BiomeSpecialEffects.Builder()
+								.waterColor(4159204)
+								.waterFogColor(329011)
+								.fogColor(12638463)
+								.skyColor(OverworldBiomes.calculateSkyColor(0.65F))
+								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+								.backgroundMusic(musicSound).build())
+				.mobSpawnSettings(builder.build())
+				.generationSettings(builder2.build())
+				.build();
 	}
-
-	public static void addAridSavannaFeatures(BiomeGenerationSettings.Builder builder) {
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_ARID_SAVANNA);
-		addBasicFeatures(builder, ARID_SAVANNA);
-		BiomeDefaultFeatures.addSavannaGrass(builder);
-		BiomeDefaultFeatures.addDefaultOres(builder);
-		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
-		BiomeDefaultFeatures.addWarmFlowers(builder);
-		BiomeDefaultFeatures.addSavannaExtraGrass(builder);
-		BiomeDefaultFeatures.addDefaultMushrooms(builder);
-		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_CACTUS_PLACED);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_BUSH_PLACED);
-		builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.GRASS_PATH_RARE);
-		builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.ARID_COARSE_PATH);
-	}
-
-	public static void addParchedForestFeatures(BiomeGenerationSettings.Builder builder) {
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_PARCHED_FOREST);
-		addBasicFeatures(builder, PARCHED_FOREST);
-		BiomeDefaultFeatures.addSavannaGrass(builder);
-		BiomeDefaultFeatures.addDefaultOres(builder);
-		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
-		BiomeDefaultFeatures.addWarmFlowers(builder);
-		BiomeDefaultFeatures.addSavannaExtraGrass(builder);
-		BiomeDefaultFeatures.addDefaultMushrooms(builder);
-		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
-	}
-
-	public static void addAridForestFeatures(BiomeGenerationSettings.Builder builder) {
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_ARID_FOREST);
-		addBasicFeatures(builder, ARID_FOREST);
-		BiomeDefaultFeatures.addSavannaGrass(builder);
-		BiomeDefaultFeatures.addDefaultOres(builder);
-		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
-		BiomeDefaultFeatures.addWarmFlowers(builder);
-		BiomeDefaultFeatures.addSavannaExtraGrass(builder);
-		BiomeDefaultFeatures.addDefaultMushrooms(builder);
-		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_CACTUS_PLACED);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_BUSH_PLACED);
-		builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.GRASS_PATH_RARE);
-		builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.ARID_COARSE_PATH);
-	}
-
-	public static void addOldGrowthSnowyTaigaFeatures(BiomeGenerationSettings.Builder builder) {
-		addBasicFeatures(builder, SNOWY_OLD_GROWTH_PINE_TAIGA);
-		BiomeDefaultFeatures.addDefaultOres(builder);
-		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
-		BiomeDefaultFeatures.addFerns(builder);
-		BiomeDefaultFeatures.addMossyStoneBlock(builder);
-		BiomeDefaultFeatures.addDefaultFlowers(builder);
-		BiomeDefaultFeatures.addGiantTaigaVegetation(builder);
-		BiomeDefaultFeatures.addDefaultMushrooms(builder);
-		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_OLD_GROWTH_SNOWY_PINE_TAIGA);
-	}
-
-	public static void addBirchJungleFeatures(BiomeGenerationSettings.Builder builder) {
-		addBasicFeatures(builder, BIRCH_JUNGLE);
-		BiomeDefaultFeatures.addDefaultOres(builder);
-		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
-		BiomeDefaultFeatures.addLightBambooVegetation(builder);
-		BiomeDefaultFeatures.addWarmFlowers(builder);
-		BiomeDefaultFeatures.addJungleGrass(builder);
-		BiomeDefaultFeatures.addDefaultMushrooms(builder);
-		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
-		BiomeDefaultFeatures.addJungleVines(builder);
-		BiomeDefaultFeatures.addJungleMelons(builder);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_BIRCH_JUNGLE);
-	}
-
-	public static void addSparseBirchJungleFeatures(BiomeGenerationSettings.Builder builder) {
-		addBasicFeatures(builder, SPARSE_BIRCH_JUNGLE);
-		BiomeDefaultFeatures.addDefaultOres(builder);
-		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
-		BiomeDefaultFeatures.addWarmFlowers(builder);
-		BiomeDefaultFeatures.addJungleGrass(builder);
-		BiomeDefaultFeatures.addDefaultMushrooms(builder);
-		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
-		BiomeDefaultFeatures.addJungleVines(builder);
-		BiomeDefaultFeatures.addSparseJungleMelons(builder);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_SPARSE_BIRCH_JUNGLE);
-	}
-
-	public static void addOldGrowthDarkForestFeatures(BiomeGenerationSettings.Builder builder) {
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SEEDING_DANDELION_MIXED);
-		addBasicFeatures(builder, OLD_GROWTH_DARK_FOREST);
-
 
 	public static void addSemiBirchForestFeatures(BiomeGenerationSettings.Builder builder) {
 		addBasicFeatures(builder, SEMI_BIRCH_FOREST);
@@ -1105,37 +666,14 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_SEMI_BIRCH_AND_OAK);
 	}
-		public static Biome semiBirchForest(BootstapContext<Biome> entries) {
-			var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-			var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-			MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-			BiomeDefaultFeatures.farmAnimals(builder);
-			BiomeDefaultFeatures.commonSpawns(builder);
-			builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 2, 2, 2));
-			BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
-			addSemiBirchForestFeatures(builder2);
-			Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
-			return new Biome.BiomeBuilder()
-					.precipitation(Biome.Precipitation.RAIN)
-					.temperature(0.65F)
-					.downfall(0.7F)
-					.specialEffects(
-							new BiomeSpecialEffects.Builder()
-									.waterColor(4159204)
-									.waterFogColor(329011)
-									.fogColor(12638463)
-									.skyColor(OverworldBiomes.calculateSkyColor(0.65F))
-									.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-									.backgroundMusic(musicSound).build())
-					.mobSpawnSettings(builder.build())
-					.generationSettings(builder2.build())
-					.build();
-		}
-	public static Biome darkBirchForest() {
+
+	public static Biome darkBirchForest(BootstapContext<Biome> entries) {
+		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
 		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
 		BiomeDefaultFeatures.farmAnimals(builder);
 		BiomeDefaultFeatures.commonSpawns(builder);
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
+		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addDarkBirchForestFeatures(builder2);
 		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
 		return new Biome.BiomeBuilder()
@@ -1155,6 +693,7 @@ public final class RegisterWorldgen {
 				.generationSettings(builder2.build())
 				.build();
 	}
+
 	public static void addDarkBirchForestFeatures(BiomeGenerationSettings.Builder builder) {
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SEEDING_DANDELION_MIXED);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MIXED_MUSHROOMS_PLACED);
@@ -1168,11 +707,14 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DARK_BIRCH_FOREST_VEGETATION);
 	}
-	public static Biome flowerField() {
+
+	public static Biome flowerField(BootstapContext<Biome> entries) {
+		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
 		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
 		BiomeDefaultFeatures.plainsSpawns(builder);
 		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 8, 2, 5));
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
+		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addFlowerFieldFeatures(builder2);
 		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_GAME);
 		return new Biome.BiomeBuilder()
@@ -1207,12 +749,14 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 	}
 
-	public static Biome temperateRainforest() {
+	public static Biome temperateRainforest(BootstapContext<Biome> entries) {
+		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
 		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
 		BiomeDefaultFeatures.commonSpawns(builder);
 		BiomeDefaultFeatures.plainsSpawns(builder);
 		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 3, 4, 4));
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
+		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addTemperateRainforestFeatures(builder2);
 		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
 		return new Biome.BiomeBuilder()
@@ -1232,6 +776,7 @@ public final class RegisterWorldgen {
 				.generationSettings(builder2.build())
 				.build();
 	}
+
 	public static void addTemperateRainforestFeatures(BiomeGenerationSettings.Builder builder) {
 		addBasicFeatures(builder, TEMPERATE_RAINFOREST);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TEMPERATE_RAINFOREST_TREES);
@@ -1247,12 +792,14 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 	}
 
-	public static Biome rainforest() {
+	public static Biome rainforest(BootstapContext<Biome> entries) {
+		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
 		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
 		BiomeDefaultFeatures.commonSpawns(builder);
 		BiomeDefaultFeatures.plainsSpawns(builder);
 		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 5, 4, 4));
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
+		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addRainforestFeatures(builder2);
 		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
 		return new Biome.BiomeBuilder()
@@ -1272,6 +819,7 @@ public final class RegisterWorldgen {
 				.generationSettings(builder2.build())
 				.build();
 	}
+
 	public static void addRainforestFeatures(BiomeGenerationSettings.Builder builder) {
 		addBasicFeatures(builder, RAINFOREST);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.RAINFOREST_TREES);
@@ -1290,11 +838,13 @@ public final class RegisterWorldgen {
 	}
 
 	// OLD GROWTH
-	public static Biome oldGrowthDarkForest() {
+	public static Biome oldGrowthDarkForest(BootstapContext<Biome> entries) {
+		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
 		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
 		BiomeDefaultFeatures.farmAnimals(builder);
 		BiomeDefaultFeatures.commonSpawns(builder);
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
+		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addOldGrowthDarkForestFeatures(builder2);
 		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
 		return new Biome.BiomeBuilder()
@@ -1314,6 +864,7 @@ public final class RegisterWorldgen {
 				.generationSettings(builder2.build())
 				.build();
 	}
+
 	public static void addOldGrowthDarkForestFeatures(BiomeGenerationSettings.Builder builder) {
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SEEDING_DANDELION_MIXED);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DARK_FOREST_MUSHROOM_PLACED);
@@ -1327,13 +878,16 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.OLD_GROWTH_DARK_FOREST_VEGETATION);
 	}
-	public static Biome oldGrowthSnowyTaiga() {
+
+	public static Biome oldGrowthSnowyTaiga(BootstapContext<Biome> entries) {
+		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
 		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
 		BiomeDefaultFeatures.farmAnimals(builder);
 		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 8, 4, 4)).addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 4, 2, 3)).addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.FOX, 8, 2, 4));
 		BiomeDefaultFeatures.caveSpawns(builder);
 		BiomeDefaultFeatures.monsters(builder, 100, 25, 100, false);
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
+		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addOldGrowthSnowyTaigaFeatures(builder2);
 		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_OLD_GROWTH_TAIGA);
 		return new Biome.BiomeBuilder()
@@ -1354,6 +908,7 @@ public final class RegisterWorldgen {
 				.generationSettings(builder2.build())
 				.build();
 	}
+
 	public static void addOldGrowthSnowyTaigaFeatures(BiomeGenerationSettings.Builder builder) {
 		addBasicFeatures(builder, SNOWY_OLD_GROWTH_PINE_TAIGA);
 		BiomeDefaultFeatures.addDefaultOres(builder);
@@ -1379,50 +934,5 @@ public final class RegisterWorldgen {
 			BiomeDefaultFeatures.addDefaultSprings(builder);
 		}
 		BiomeDefaultFeatures.addSurfaceFreezing(builder);
-	}
-
-<<<<<<< HEAD
-	public static void addCypressWetlandsMobs(MobSpawnSettings.Builder builder) {
-		builder.addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(EntityType.COD, 5, 2, 6));
-		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.FROG, 12, 4, 5));
-		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.PIG, 3, 2, 4));
-		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.CHICKEN, 4, 2, 4));
-		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.COW, 6, 4, 4));
-		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 10, 4, 4));
-		builder.addSpawn(FrozenMobCategories.getCategory(WilderSharedConstants.MOD_ID, "fireflies"), new MobSpawnSettings.SpawnerData(RegisterEntities.FIREFLY, 1, 2, 6));
-=======
-	@Override
-	public void addOverworldSurfaceRules(ArrayList<SurfaceRules.RuleSource> context) {
-		context.add(WilderSharedWorldgen.betaBeaches());
-		context.add(WilderSharedWorldgen.cypressSurfaceRules());
-		context.add(WilderSharedWorldgen.warmRiverRules());
-		context.add(WilderSharedWorldgen.oasisRules());
-		context.add(WilderSharedWorldgen.aridGrass());
-		context.add(WilderSharedWorldgen.aridRules());
-		context.add(WilderSharedWorldgen.oldGrowthSnowyTaigaRules());
-		context.add(WilderSharedWorldgen.oldGrowthDarkForestRules());
-		context.add(WilderSharedWorldgen.temperateRainforestRules());
-		context.add(WilderSharedWorldgen.rainforestRules());
-		WilderSharedConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
-	}
-
-	@Override
-	public void addOverworldSurfaceRulesNoPrelimSurface(ArrayList<SurfaceRules.RuleSource> context) {
-
-	}
-
-	@Override
-	public void addNetherSurfaceRules(ArrayList<SurfaceRules.RuleSource> context) {
-
-	}
-
-	@Override
-	public void addEndSurfaceRules(ArrayList<SurfaceRules.RuleSource> context) {
-
-	}
-
-	@Override
-	public void addSurfaceRules(ArrayList<FrozenDimensionBoundRuleSource> context) {
->>>>>>> dev
 	}
 }

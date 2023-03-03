@@ -56,7 +56,6 @@ public final class WilderPlacedFeatures {
 	}
 
     //FALLEN TREES
-<<<<<<< HEAD
     public static final ResourceKey<PlacedFeature> FALLEN_TREES_MIXED_PLACED = key("fallen_trees_mixed_placed");
     public static final ResourceKey<PlacedFeature> FALLEN_OAK_AND_SPRUCE_PLACED = key("fallen_oak_and_spruce_placed");
     public static final ResourceKey<PlacedFeature> FALLEN_OAK_AND_BIRCH_PLACED = key("fallen_oak_and_birch_placed");
@@ -125,7 +124,7 @@ public final class WilderPlacedFeatures {
 	public static final ResourceKey<PlacedFeature> ARID_BUSH_PLACED = key("arid_bush_placed");
 	public static final ResourceKey<PlacedFeature> TALL_CACTUS_PLACED = key("tall_cactus_placed");
 	public static final ResourceKey<PlacedFeature> ARID_CACTUS_PLACED = key("arid_cactus_placed");
-=======
+
     public static final Holder<PlacedFeature> FALLEN_TREES_MIXED_PLACED = register("fallen_trees_mixed_placed",
             WilderConfiguredFeatures.FALLEN_TREES_MIXED, RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
             PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
@@ -513,7 +512,7 @@ public final class WilderPlacedFeatures {
     public static final ResourceKey<PlacedFeature> NEMATOCYST_PURPLE = key("nematocyst_purple");
 	public static final ResourceKey<PlacedFeature> SMALL_SPONGES = key("small_sponges");
 	public static final ResourceKey<PlacedFeature> SMALL_SPONGES_RARE = key("small_sponges_rare");
-=======
+
     public static final Holder<PlacedFeature> MILKWEED_CYPRESS = register("milkweed_cypress",
             WilderConfiguredFeatures.MILKWEED, RarityFilter.onAverageOnceEvery(12), InSquarePlacement.spread(),
             PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
@@ -669,16 +668,11 @@ public final class WilderPlacedFeatures {
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			BiomeFilter.biome()
 	);
->>>>>>> dev
 
-	public static void init() {
-    }
-
-<<<<<<< HEAD
 	public static ResourceKey<PlacedFeature> key(String path) {
 		return ResourceKey.create(Registries.PLACED_FEATURE, WilderSharedConstants.id(path));
 	}
-=======
+
     public static Holder<PlacedFeature> register(@NotNull String id, Holder<? extends ConfiguredFeature<?, ?>> registryEntry, @NotNull List<PlacementModifier> modifiers) {
         return PlacementUtils.register(WilderSharedConstants.string(id), registryEntry, modifiers);
     }
@@ -686,6 +680,4 @@ public final class WilderPlacedFeatures {
     public static Holder<PlacedFeature> register(@NotNull String id, Holder<? extends ConfiguredFeature<?, ?>> registryEntry, @NotNull PlacementModifier... modifiers) {
         return register(id, registryEntry, List.of(modifiers));
     }
-
->>>>>>> dev
 }
