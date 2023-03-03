@@ -151,7 +151,7 @@ public final class WilderTreeConfigured {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TALL_WINE_PALM = key("tall_wine_palm");
 
 	// JUNIPER
-	public static final ResourceKey<ConfiguredFeature<?, ?>> JUNPIER = key("junpier");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> JUNIPER = key("juniper");
 
 	public static final BeehiveDecorator BEES_0004 = new BeehiveDecorator(0.004F);
 	public static final BeehiveDecorator BEES_025 = new BeehiveDecorator(0.25F);

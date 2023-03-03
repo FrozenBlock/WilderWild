@@ -48,6 +48,11 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
+import java.util.List;
 
 public final class WilderConfiguredFeatures {
 	private WilderConfiguredFeatures() {
@@ -60,6 +65,7 @@ public final class WilderConfiguredFeatures {
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_TREES_MIXED = key("fallen_trees_mixed");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> MOSSY_FALLEN_TREES_MIXED = key("mossy_fallen_trees_mixed");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> MOSSY_FALLEN_TREES_OAK_AND_BIRCH = key("mossy_fallen_trees_oak_and_birch");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_BIRCH = key("fallen_birch");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_SPRUCE = key("fallen_spruce");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_SPRUCE_AND_OAK = key("fallen_spruce_and_oak");
@@ -72,10 +78,15 @@ public final class WilderConfiguredFeatures {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_BIRCH_TALL = key("trees_birch_tall");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_FLOWER_FOREST = key("trees_flower_forest");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> MIXED_TREES = key("mixed_trees");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> TEMPERATE_RAINFOREST_TREES = key("temperate_rainforest_trees");
+
+	public static final ResourceKey<ConfiguredFeature<?, ?>> RAINFOREST_TREES = key("rainforest_trees", );
 	public static final ResourceKey<ConfiguredFeature<?, ?>> BIRCH_TAIGA_TREES = key("birch_taiga_trees");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> DARK_FOREST_VEGETATION = key("dark_forest_vegetation");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_TAIGA = key("trees_taiga");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SHORT_TREES_TAIGA = key("short_trees_taiga");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> SHORT_MEGA_SPRUCE = key("short_mega_spruce_configured");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> SHORT_MEGA_SPRUCE_ON_SNOW = key("short_mega_spruce_on_snow_configured");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_OLD_GROWTH_PINE_TAIGA = key("trees_old_growth_pine_taiga");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_OLD_GROWTH_SPRUCE_TAIGA = key("trees_old_growth_spruce_taiga");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_GROVE = key("trees_grove");
@@ -83,11 +94,16 @@ public final class WilderConfiguredFeatures {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> MEADOW_TREES = key("meadow_trees");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SAVANNA_TREES = key("savanna_trees");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> WINDSWEPT_SAVANNA_TREES = key("windswept_savanna_trees");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> ARID_SAVANNA_TREES = key("arid_savanna_trees");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> PARCHED_FOREST_TREES = key("parched_forest_trees");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> ARID_FOREST_TREES = key("arid_forest_trees");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> CYPRESS_WETLANDS_TREES = key("cypress_wetlands_trees");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> CYPRESS_WETLANDS_TREES_SAPLING = key("cypress_wetlands_trees_sapling");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> CYPRESS_WETLANDS_TREES_WATER = key("cypress_wetlands_trees_water");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> WOODED_BADLANDS_TREES = key("wooded_badlands_trees", );
 	public static final ResourceKey<ConfiguredFeature<?, ?>> BIG_SHRUBS = key("big_shrubs");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> PALMS = key("palms");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> PALMS_JUNGLE = key("palms_jungle");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> PALMS_OASIS = key("palms_oasis");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SEEDING_DANDELION = key("seeding_dandelion");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> CARNATION = key("carnation");
@@ -101,6 +117,20 @@ public final class WilderConfiguredFeatures {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_PARCHED_FOREST = key("parched_forest_trees");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_ARID_FOREST = key("arid_forest_trees");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> FLOWER_FLOWER_FIELD = key("flower_field_flowers");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> MOSS_CARPET = key("moss_carpet");
+
+	public static final ResourceKey<ConfiguredFeature<?, ?>> FLOWERS_TEMPERATE_RAINFOREST = key("flowers_temperate_rainforest", Feature.FLOWER,
+					FeatureUtils.simpleRandomPatchConfiguration(32, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+							new SimpleBlockConfiguration(new WeightedStateProvider(FLOWERS_TEMPERATE_RAINFOREST_POOL)))));
+
+	public static final ResourceKey<ConfiguredFeature<?, ?>> MUSHROOMS_DARK_FOREST = key("mushroom_dark_forest", Feature.FLOWER, new RandomPatchConfiguration(52, 8, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(new NoiseProvider(5234L, new NormalNoise.NoiseParameters(0, 1.0), 0.020833334F,
+							List.of(Blocks.RED_MUSHROOM.defaultBlockState(),
+									Blocks.BROWN_MUSHROOM.defaultBlockState()))))));
+
+	public static final ResourceKey<ConfiguredFeature<?, ?>> FLOWERS_RAINFOREST = key("flowers_rainforest", Feature.FLOWER,
+					FeatureUtils.simpleRandomPatchConfiguration(32, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+							new SimpleBlockConfiguration(new WeightedStateProvider(FLOWERS_RAINFOREST_POOL)))));
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TALL_FLOWER_FLOWER_FIELD = key("flower_field_tall_flowers");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_SEMI_BIRCH_AND_OAK = key("trees_semi_birch_and_oak");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> OLD_GROWTH_BIRCH_TAIGA_TREES = key("old_growth_birch_taiga_trees");
@@ -110,6 +140,23 @@ public final class WilderConfiguredFeatures {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> OLD_GROWTH_DARK_FOREST_VEGETATION = key("old_growth_dark_forest_vegetation");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> DARK_BIRCH_FOREST_VEGETATION = key("dark_birch_forest_vegetation");
 
+	public static final SimpleWeightedRandomList<BlockState> FLOWERS_TEMPERATE_RAINFOREST_POOL = SimpleWeightedRandomList.<BlockState>builder().add(RegisterBlocks.MILKWEED.defaultBlockState(), 3)
+			.add(RegisterBlocks.DATURA.defaultBlockState(), 5)
+			.add(RegisterBlocks.SEEDING_DANDELION.defaultBlockState(), 5)
+			.add(Blocks.LILAC.defaultBlockState(), 6)
+			.add(Blocks.DANDELION.defaultBlockState(), 10)
+			.add(Blocks.BLUE_ORCHID.defaultBlockState(), 8)
+			.add(Blocks.POPPY.defaultBlockState(), 10).build();
+
+	public static final SimpleWeightedRandomList<BlockState> FLOWERS_RAINFOREST_POOL = SimpleWeightedRandomList.<BlockState>builder()
+			.add(RegisterBlocks.MILKWEED.defaultBlockState(), 5)
+			.add(RegisterBlocks.DATURA.defaultBlockState(), 7)
+			.add(RegisterBlocks.SEEDING_DANDELION.defaultBlockState(), 7)
+			.add(Blocks.LILAC.defaultBlockState(), 3)
+			.add(Blocks.DANDELION.defaultBlockState(), 4)
+			.add(Blocks.BLUE_ORCHID.defaultBlockState(), 3)
+			.add(Blocks.POPPY.defaultBlockState(), 4)
+			.add(RegisterBlocks.CARNATION.defaultBlockState(), 8).build();
 	//VEGETATION
 =======
     //FALLEN TREES
@@ -122,11 +169,6 @@ public final class WilderConfiguredFeatures {
 			register("mossy_fallen_trees_mixed", Feature.RANDOM_SELECTOR,
 					new RandomFeatureConfiguration(List.of((new WeightedPlacedFeature(WilderTreePlaced.MOSSY_FALLEN_SPRUCE_CHECKED, 0.15F)),
 							new WeightedPlacedFeature(WilderTreePlaced.MOSSY_FALLEN_BIRCH_CHECKED, 0.1F)), WilderTreePlaced.MOSSY_FALLEN_OAK_CHECKED));
-
-	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> MOSSY_FALLEN_TREES_OAK_AND_BIRCH =
-			register("mossy_fallen_trees_oak_and_birch", Feature.RANDOM_SELECTOR,
-					new RandomFeatureConfiguration(List.of((new WeightedPlacedFeature(WilderTreePlaced.MOSSY_FALLEN_OAK_CHECKED, 0.15F)),
-							new WeightedPlacedFeature(WilderTreePlaced.MOSSY_FALLEN_BIRCH_CHECKED, 0.15F)), WilderTreePlaced.MOSSY_FALLEN_OAK_CHECKED));
 
 	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_BIRCH_AND_SPRUCE =
 			register("fallen_birch_and_spruce", Feature.RANDOM_SELECTOR,
@@ -229,32 +271,6 @@ public final class WilderConfiguredFeatures {
                             new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED, 0.23F),
                             new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.325F)), WilderTreePlaced.OAK_CHECKED));
 
-	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> TEMPERATE_RAINFOREST_TREES =
-			register("temperate_rainforest_trees", Feature.RANDOM_SELECTOR,
-					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED, 0.045F),
-							new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_BEES_0004, 0.042F),
-							new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED, 0.02F),
-							new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.061F),
-							new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.05F),
-							new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.025F),
-							new WeightedPlacedFeature(WilderTreePlaced.FUNGUS_PINE_CHECKED, 0.09F),
-							new WeightedPlacedFeature(WilderTreePlaced.SPRUCE_SHORT_CHECKED, 0.4F),
-							new WeightedPlacedFeature(WilderTreePlaced.SPRUCE_CHECKED, 0.2F),
-							new WeightedPlacedFeature(WilderTreePlaced.DYING_FUNGUS_PINE_CHECKED, 0.72F),
-							new WeightedPlacedFeature(WilderTreePlaced.SHORT_MEGA_SPRUCE_CHECKED, 0.6F)), WilderTreePlaced.DYING_FUNGUS_PINE_CHECKED));
-
-	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> RAINFOREST_TREES =
-			register("rainforest_trees", Feature.RANDOM_SELECTOR,
-					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.OAK_CHECKED, 0.085F),
-							new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_BEES_0004, 0.12F),
-							new WeightedPlacedFeature(WilderTreePlaced.FANCY_OAK_BEES_0004, 0.27F),
-							new WeightedPlacedFeature(WilderTreePlaced.OLD_DYING_FANCY_OAK_BEES_0004, 0.15F),
-							new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.072F),
-							new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.120F),
-							new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.098F),
-							new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED, 0.37F),
-							new WeightedPlacedFeature(WilderTreePlaced.BIRCH_CHECKED, 0.21F)), WilderTreePlaced.DYING_OAK_CHECKED));
-
 	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> BIRCH_TAIGA_TREES =
 			register("birch_taiga_trees", Feature.RANDOM_SELECTOR,
 					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.SPRUCE_CHECKED, 0.39F),
@@ -355,22 +371,6 @@ public final class WilderConfiguredFeatures {
             register("short_trees_taiga", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.SPRUCE_SHORT_CHECKED, 0.33333334F)), WilderTreePlaced.SPRUCE_SHORT_CHECKED));
 
-	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> SHORT_MEGA_SPRUCE =
-			register("short_mega_spruce_configured", Feature.RANDOM_SELECTOR,
-					new RandomFeatureConfiguration(List.of(
-							new WeightedPlacedFeature(WilderTreePlaced.SHORT_MEGA_FUNGUS_SPRUCE_CHECKED, 0.43333334F),
-							new WeightedPlacedFeature(WilderTreePlaced.SHORT_MEGA_DYING_FUNGUS_SPRUCE_CHECKED, 0.125F),
-							new WeightedPlacedFeature(WilderTreePlaced.SHORT_MEGA_DYING_SPRUCE_CHECKED, 0.125F)
-					), WilderTreePlaced.SHORT_MEGA_SPRUCE_CHECKED));
-
-	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> SHORT_MEGA_SPRUCE_ON_SNOW =
-			register("short_mega_spruce_on_snow_configured", Feature.RANDOM_SELECTOR,
-					new RandomFeatureConfiguration(List.of(
-							new WeightedPlacedFeature(WilderTreePlaced.SHORT_MEGA_FUNGUS_SPRUCE_ON_SNOW, 0.43333334F),
-							new WeightedPlacedFeature(WilderTreePlaced.SHORT_MEGA_DYING_FUNGUS_SPRUCE_ON_SNOW, 0.125F),
-							new WeightedPlacedFeature(WilderTreePlaced.SHORT_MEGA_DYING_SPRUCE_ON_SNOW, 0.125F)
-					), WilderTreePlaced.SHORT_MEGA_SPRUCE_ON_SNOW));
-
     public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_OLD_GROWTH_PINE_TAIGA =
             register("trees_old_growth_pine_taiga", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.MEGA_FUNGUS_SPRUCE_CHECKED, 0.025641026F),
@@ -418,32 +418,6 @@ public final class WilderConfiguredFeatures {
             register("windswept_savanna_trees", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(TreePlacements.ACACIA_CHECKED, 0.8F)), WilderTreePlaced.OAK_CHECKED));
 
-	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> ARID_SAVANNA_TREES =
-			register("arid_savanna_trees", Feature.RANDOM_SELECTOR,
-					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(TreePlacements.ACACIA_CHECKED, 0.8F),
-							new WeightedPlacedFeature(WilderTreePlaced.OAK_CHECKED, 0.08F),
-							new WeightedPlacedFeature(WilderTreePlaced.BAOBAB, 0.065F),
-							new WeightedPlacedFeature(WilderTreePlaced.SMALL_WINE_PALM_CHECKED, 0.052F),
-							new WeightedPlacedFeature(WilderTreePlaced.BAOBAB_TALL, 0.02F)), TreePlacements.ACACIA_CHECKED));
-
-	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> PARCHED_FOREST_TREES =
-			register("parched_forest_trees", Feature.RANDOM_SELECTOR,
-					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED, 0.59F),
-							new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED, 0.186F),
-							new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_CHECKED, 0.02F),
-							new WeightedPlacedFeature(WilderTreePlaced.FANCY_OAK_CHECKED, 0.155F),
-							new WeightedPlacedFeature(TreePlacements.ACACIA_CHECKED, 0.37F),
-							new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.01F),
-							new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.01F),
-							new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH, 0.155F)), WilderTreePlaced.OAK_CHECKED));
-
-	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> ARID_FOREST_TREES =
-			register("arid_forest_trees", Feature.RANDOM_SELECTOR,
-					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED, 0.7085F),
-							new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_CHECKED, 0.175F),
-							new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH, 0.38F),
-							new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH, 0.2325F)), WilderTreePlaced.DYING_OAK_CHECKED));
-
     public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> CYPRESS_WETLANDS_TREES =
             register("cypress_wetlands_trees", Feature.RANDOM_SELECTOR,
                     new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.CYPRESS, 0.37F),
@@ -464,13 +438,6 @@ public final class WilderConfiguredFeatures {
                             new WeightedPlacedFeature(WilderTreePlaced.SHORT_CYPRESS, 0.1F),
                             new WeightedPlacedFeature(WilderTreePlaced.SWAMP_CYPRESS, 0.85F)), WilderTreePlaced.FUNGUS_CYPRESS));
 
-	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> WOODED_BADLANDS_TREES =
-			register("wooded_badlands_trees", Feature.RANDOM_SELECTOR,
-					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.OAK_CHECKED, 0.095F),
-							new WeightedPlacedFeature(WilderTreePlaced.BIG_SHRUB_GRASS_CHECKED, 0.4F),
-							new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED, 0.67F),
-							new WeightedPlacedFeature(WilderTreePlaced.JUNIPER, 0.4F)), WilderTreePlaced.JUNIPER));
-
 	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> BIG_SHRUBS =
 			register("big_shrubs", Feature.RANDOM_SELECTOR,
 					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.BIG_SHRUB_CHECKED, 1.0F)), WilderTreePlaced.BIG_SHRUB_CHECKED));
@@ -478,10 +445,6 @@ public final class WilderConfiguredFeatures {
 	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> PALMS =
 			register("palms", Feature.RANDOM_SELECTOR,
 					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.TALL_WINE_PALM_CHECKED, 0.1F), new WeightedPlacedFeature(WilderTreePlaced.TALL_PALM_CHECKED, 0.4F)), WilderTreePlaced.PALM_CHECKED));
-
-	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> PALMS_JUNGLE =
-			register("palms_jungle", Feature.RANDOM_SELECTOR,
-					new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.TALL_WINE_PALM_CHECKED_DIRT, 0.25F), new WeightedPlacedFeature(WilderTreePlaced.SMALL_WINE_PALM_CHECKED_DIRT, 0.7F), new WeightedPlacedFeature(WilderTreePlaced.TALL_PALM_CHECKED_DIRT, 0.4F)), WilderTreePlaced.PALM_CHECKED_DIRT));
 
 	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> PALMS_OASIS =
 			register("palms_oasis", Feature.RANDOM_SELECTOR,
@@ -534,45 +497,6 @@ public final class WilderConfiguredFeatures {
 									Blocks.OXEYE_DAISY.defaultBlockState(),
 									Blocks.CORNFLOWER.defaultBlockState(),
 									Blocks.LILY_OF_THE_VALLEY.defaultBlockState()))))));
-
-	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> MOSS_CARPET =
-			register("moss_carpet", Feature.RANDOM_PATCH,
-					FeatureUtils.simpleRandomPatchConfiguration(25, PlacementUtils.inlinePlaced(Feature.SIMPLE_BLOCK,
-							new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.MOSS_CARPET)), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO))))));
-
-	public static final SimpleWeightedRandomList<BlockState> FLOWERS_TEMPERATE_RAINFOREST_POOL = SimpleWeightedRandomList.<BlockState>builder().add(RegisterBlocks.MILKWEED.defaultBlockState(), 3)
-			.add(RegisterBlocks.DATURA.defaultBlockState(), 5)
-			.add(RegisterBlocks.SEEDING_DANDELION.defaultBlockState(), 5)
-			.add(Blocks.LILAC.defaultBlockState(), 6)
-			.add(Blocks.DANDELION.defaultBlockState(), 10)
-			.add(Blocks.BLUE_ORCHID.defaultBlockState(), 8)
-			.add(Blocks.POPPY.defaultBlockState(), 10).build();
-
-	public static final SimpleWeightedRandomList<BlockState> FLOWERS_RAINFOREST_POOL = SimpleWeightedRandomList.<BlockState>builder()
-			.add(RegisterBlocks.MILKWEED.defaultBlockState(), 5)
-			.add(RegisterBlocks.DATURA.defaultBlockState(), 7)
-			.add(RegisterBlocks.SEEDING_DANDELION.defaultBlockState(), 7)
-			.add(Blocks.LILAC.defaultBlockState(), 3)
-			.add(Blocks.DANDELION.defaultBlockState(), 4)
-			.add(Blocks.BLUE_ORCHID.defaultBlockState(), 3)
-			.add(Blocks.POPPY.defaultBlockState(), 4)
-			.add(RegisterBlocks.CARNATION.defaultBlockState(), 8).build();
-
-	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_TEMPERATE_RAINFOREST =
-			register("flowers_temperate_rainforest", Feature.FLOWER,
-					FeatureUtils.simpleRandomPatchConfiguration(32, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-							new SimpleBlockConfiguration(new WeightedStateProvider(FLOWERS_TEMPERATE_RAINFOREST_POOL)))));
-
-	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> MUSHROOMS_DARK_FOREST =
-			register("mushroom_dark_forest", Feature.FLOWER, new RandomPatchConfiguration(52, 8, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(new NoiseProvider(5234L, new NormalNoise.NoiseParameters(0, 1.0), 0.020833334F,
-							List.of(Blocks.RED_MUSHROOM.defaultBlockState(),
-									Blocks.BROWN_MUSHROOM.defaultBlockState()))))));
-
-	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_RAINFOREST =
-			register("flowers_rainforest", Feature.FLOWER,
-					FeatureUtils.simpleRandomPatchConfiguration(32, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-							new SimpleBlockConfiguration(new WeightedStateProvider(FLOWERS_RAINFOREST_POOL)))));
 
 	public static final Holder<ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> TALL_FLOWER_FLOWER_FIELD =
 			register("tall_flower_flower_field", Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(
@@ -734,4 +658,6 @@ public final class WilderConfiguredFeatures {
 		return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(WilderSharedConstants.MOD_ID, path));
 	}
 
+	private static Holder<ConfiguredFeature<?, ?>> register(String path, Feature feature, FeatureConfiguration config) {
+	}
 }
