@@ -647,15 +647,6 @@ public class WilderFeatureBootstrap {
 		var largeFernAndGrass2 = register(entries, WilderConfiguredFeatures.LARGE_FERN_AND_GRASS_2, Feature.RANDOM_PATCH,
 				FeatureUtils.simpleRandomPatchConfiguration(20, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
 						new SimpleBlockConfiguration(new WeightedStateProvider(WilderConfiguredFeatures.LARGE_FERN_AND_GRASS_POOL_2)))));
-
-		var badlandsBushSand = register(entries, WilderConfiguredFeatures.BADLANDS_BUSH_SAND, Feature.RANDOM_PATCH,
-				FeatureUtils.simpleRandomPatchConfiguration(10, PlacementUtils.inlinePlaced(Feature.SIMPLE_BLOCK,
-						new SimpleBlockConfiguration(new WeightedStateProvider(WilderConfiguredFeatures.DESERT_BUSH_POOL)),
-						BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.wouldSurvive(Blocks.CACTUS.defaultBlockState(), BlockPos.ZERO))))));
-		var badlandsBushTerracotta = register(entries, WilderConfiguredFeatures.BADLANDS_BUSH_TERRACOTTA, Feature.RANDOM_PATCH,
-				FeatureUtils.simpleRandomPatchConfiguration(6, PlacementUtils.inlinePlaced(Feature.SIMPLE_BLOCK,
-						new SimpleBlockConfiguration(new WeightedStateProvider(WilderConfiguredFeatures.DESERT_BUSH_POOL)), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.SAND)))))));
-		var patchCactusTallBadlands = register(entries, WilderConfiguredFeatures.PATCH_CACTUS_TALL_BADLANDS, Feature.RANDOM_PATCH, FeatureUtils.simpleRandomPatchConfiguration(12, PlacementUtils.inlinePlaced(Feature.BLOCK_COLUMN, BlockColumnConfiguration.simple(BiasedToBottomInt.of(2, 6), BlockStateProvider.simple(Blocks.CACTUS)), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.wouldSurvive(Blocks.CACTUS.defaultBlockState(), BlockPos.ZERO))))));
 		var pricklyPear = register(entries, WilderConfiguredFeatures.PRICKLY_PEAR, Feature.RANDOM_PATCH,
 				FeatureUtils.simpleRandomPatchConfiguration(20, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
 						new SimpleBlockConfiguration(new WeightedStateProvider(WilderConfiguredFeatures.PRICKLY_PEAR_POOL)))));
