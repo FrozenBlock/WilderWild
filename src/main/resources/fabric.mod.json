@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "wilderwild",
+  "id": "${mod_id}",
   "version": "${version}",
   "name": "Wilder Wild",
   "description": "Overhauls the Wild Update, adding features and improving existing ones.",

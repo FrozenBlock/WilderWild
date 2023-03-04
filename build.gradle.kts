@@ -7,6 +7,7 @@ import java.nio.file.Files
 import java.util.Properties
 import org.kohsuke.github.GHReleaseBuilder
 import org.kohsuke.github.GitHub
+
 buildscript {
     repositories {
         gradlePluginPortal()
@@ -34,6 +35,7 @@ public val quilt_mappings: String by project
 public val parchment_mappings: String by project
 public val loader_version: String by project
 
+public val mod_id: String by project
 public val mod_version: String by project
 public val mod_loader: String by project
 public val maven_group: String by project
@@ -75,16 +77,16 @@ version = getVersion()
 group = maven_group
 
 public val local_frozenlib = findProject(":FrozenLib") != null
-public val release = findProperty("releaseType") == "stable"
+public val release = findProperty("releaseType")?.equals("stable")
 
 loom {
     runtimeOnlyLog4j.set(true)
 
     mixin {
-        defaultRefmapName.set("mixins.wilderwild.refmap.json")
+        defaultRefmapName.set("mixins.$mod_id.refmap.json")
     }
 
-    accessWidenerPath.set(file("src/main/resources/wilderwild.accesswidener"))
+    accessWidenerPath.set(file("src/main/resources/$mod_id.accesswidener"))
     interfaceInjection {
         // When enabled, injected interfaces from dependencies will be applied.
         enableDependencyInterfaceInjection.set(false)
@@ -107,7 +109,7 @@ loom {
             vmArg("-Dfabric-api.datagen")
             vmArg("-Dfabric-api.datagen.output-dir=${file("src/main/generated")}")
             //vmArg("-Dfabric-api.datagen.strict-validation")
-            vmArg("-Dfabric-api.datagen.modid=wilderwild")
+            vmArg("-Dfabric-api.datagen.modid=$mod_id")
 
             ideConfigGenerated(true)
             runDir = "build/datagen"
@@ -194,6 +196,7 @@ repositories {
     flatDir {
         dirs("libs")
     }
+    mavenCentral()
 }
 
 dependencies {
@@ -294,13 +297,24 @@ quiltflower {
 tasks {
     processResources {
         val properties = HashMap<String, Any>()
+        properties["mod_id"] = mod_id
         properties["version"] = version
         // TODO: change this to minecraft_version when 1.19.4 releases
         properties["minecraft_version"] = "~1.19.4-"
 
         properties.forEach { (a, b) -> inputs.property(a, b) }
 
-        filesMatching("fabric.mod.json") {
+        filesNotMatching(
+            listOf(
+                "**/*.java",
+                "**/lang/*.json",
+                "**/.cache/*",
+                "**/*.accesswidener",
+                "**/*.nbt",
+                "**/*.png",
+                "**/*.ogg"
+            )
+        ) {
             expand(properties)
         }
     }
@@ -329,6 +343,7 @@ tasks {
         maxParallelForks = Runtime.getRuntime().availableProcessors().div(2)
     }
 }
+
 
 public val test: Task by tasks
 public val runClient: Task by tasks
@@ -365,14 +380,14 @@ artifacts {
 fun getVersion(): String {
     var version = "$mod_version-$mod_loader+$minecraft_version"
 
-    if (!release) {
+    if (release != null && !release) {
         version += "-unstable"
     }
 
     return version
 }
 
-if (!(release || System.getenv("GITHUB_ACTIONS") == "true")) {
+if (!(release == true || System.getenv("GITHUB_ACTIONS") == "true")) {
     test.dependsOn(runDatagen)
     runClient.dependsOn(runDatagen)
 }
@@ -447,7 +462,6 @@ tasks {
                 embeddedLibrary("frozenlib")
                 embeddedLibrary("nbt-crafting")
             })
-            remapJar.get()
             mainArtifact(file("build/libs/${remapJar.get().archiveBaseName.get()}-${version}.jar"), closureOf<CurseArtifact> {
                 displayName = display_name
             })
