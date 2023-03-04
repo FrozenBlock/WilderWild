@@ -16,31 +16,25 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.mixin.client.wind;
+package net.frozenblock.wilderwild.mixin.client.general;
 
-import net.frozenblock.lib.wind.api.ClientWindManager;
+import net.frozenblock.wilderwild.misc.client.WilderDripSuspendedParticleInterface;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.HugeExplosionParticle;
-import net.minecraft.client.particle.TextureSheetParticle;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.SuspendedParticle;
+import net.minecraft.core.particles.SimpleParticleType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(HugeExplosionParticle.class)
-public abstract class HugeExplosionParticleMixin extends TextureSheetParticle {
+@Mixin(SuspendedParticle.UnderwaterProvider.class)
+public class UnderwaterProviderMixin {
 
-	protected HugeExplosionParticleMixin(ClientLevel clientLevel, double d, double e, double f) {
-		super(clientLevel, d, e, f);
-	}
-
-	@Inject(method = "tick", at = @At("TAIL"))
-	public void wilderWild$tick(CallbackInfo info) {
-		Vec3 wind = ClientWindManager.getWindMovement(this.level, new BlockPos(this.x, this.y, this.z), 1.5, 1);
-		this.xd += wind.x * 0.001;
-		this.yd += wind.y * 0.00005;
-		this.zd += wind.z * 0.001;
+	@Inject(method = "createParticle", at = @At("TAIL"))
+	public void wilderWild$createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, CallbackInfoReturnable<Particle> info) {
+		if (info.getReturnValue() instanceof SuspendedParticle suspendedParticle) {
+			((WilderDripSuspendedParticleInterface)suspendedParticle).wilderWild$setScaler(0.05F);
+		}
 	}
 }
