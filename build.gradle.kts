@@ -7,6 +7,7 @@ import java.nio.file.Files
 import java.util.Properties
 import org.kohsuke.github.GHReleaseBuilder
 import org.kohsuke.github.GitHub
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
     repositories {
@@ -28,6 +29,7 @@ plugins {
     idea
     `java-library`
     java
+    kotlin("jvm") version "1.8.10"
 }
 
 public val minecraft_version: String by project
@@ -196,6 +198,7 @@ repositories {
     flatDir {
         dirs("libs")
     }
+    mavenCentral()
 }
 
 dependencies {
@@ -287,6 +290,7 @@ dependencies {
         modRuntimeOnly("me.flashyreese.mods:sodium-extra-fabric:${sodium_extra_version}")
         modRuntimeOnly("io.github.douira:glsl-transformer:0.27.0")
     }
+    implementation(kotlin("stdlib-jdk8"))
 }
 
 quiltflower {
@@ -341,6 +345,16 @@ tasks {
         maxParallelForks = Runtime.getRuntime().availableProcessors().div(2)
     }
 }
+
+val compileKotlin: KotlinCompile by tasks
+compileKotlin.kotlinOptions {
+    jvmTarget = "1.8"
+}
+val compileTestKotlin: KotlinCompile by tasks
+compileTestKotlin.kotlinOptions {
+    jvmTarget = "1.8"
+}
+
 
 public val test: Task by tasks
 public val runClient: Task by tasks
