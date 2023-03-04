@@ -18,20 +18,16 @@
 
 package net.frozenblock.wilderwild.mixin.client.general;
 
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.misc.client.WilderDripSuspendedParticleInterface;
-import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.ExplodeParticle;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SuspendedParticle;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
@@ -46,13 +42,6 @@ public abstract class SingleQuadParticleMixin extends Particle {
 	public void wilderWild$getQuadSize(float partialTicks, CallbackInfoReturnable<Float> info) {
 		if (SingleQuadParticle.class.cast(this) instanceof SuspendedParticle suspendedParticle) {
 			info.setReturnValue(info.getReturnValue() * ((WilderDripSuspendedParticleInterface)suspendedParticle).wilderWild$getScale(partialTicks));
-		}
-	}
-
-	@Inject(method = "render", at = @At("RETURN"), cancellable = true)
-	public void wilderWild$render(VertexConsumer buffer, Camera renderInfo, float partialTicks, CallbackInfo info) {
-		if (SingleQuadParticle.class.cast(this) instanceof ExplodeParticle explodeParticle) {
-			this.alpha = 1F - ((this.age + partialTicks) / this.lifetime);
 		}
 	}
 
