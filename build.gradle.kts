@@ -1,6 +1,8 @@
 import com.matthewprenger.cursegradle.CurseArtifact
+import com.matthewprenger.cursegradle.CurseExtension
 import com.matthewprenger.cursegradle.CurseProject
 import com.matthewprenger.cursegradle.CurseRelation
+import com.modrinth.minotaur.ModrinthExtension
 import org.ajoberstar.grgit.Grgit
 import java.io.FileInputStream
 import java.nio.file.Files
@@ -519,6 +521,6 @@ val github by tasks.register("github") {
 
 val publishMod by tasks.register("publishMod") {
     dependsOn(github)
-    dependsOn(curseforge)
-    dependsOn(modrinth)
+    dependsOn(tasks.curseforge)
+    dependsOn(tasks.modrinth)
 }
