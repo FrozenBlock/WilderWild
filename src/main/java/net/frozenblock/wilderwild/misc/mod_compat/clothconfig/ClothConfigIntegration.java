@@ -471,6 +471,16 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	// MISC
 
 	@Override
+	public boolean cloudMovement() {
+		return MISC.cloudMovement;
+	}
+
+	@Override
+	public float particleWindMovement() {
+		return MISC.particleWindMovement / 100F;
+	}
+
+	@Override
 	public boolean deepDarkAmbience() {
 		return BIOME_AMBIENCE.deepDarkAmbience;
 	}
@@ -490,8 +500,4 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 		return BIOME_MUSIC.wilderForestMusic;
 	}
 
-	@Override
-	public boolean cloudMovement() {
-		return MISC.cloudMovement;
-	}
 }

@@ -71,6 +71,7 @@ public abstract class AbstractClothConfigIntegration extends ModIntegration {
 	public abstract boolean podzolSounds();
 
 	public abstract boolean reinforcedDeepslateSounds();
+
 	public abstract boolean sandstoneSounds();
 
 	public abstract boolean sugarCaneSounds();
@@ -197,11 +198,16 @@ public abstract class AbstractClothConfigIntegration extends ModIntegration {
 	public abstract boolean wildTrees();
 
 	public abstract boolean wildGrass();
+
 	public abstract boolean snowBelowTrees();
 
 	public abstract boolean newWitchHuts();
 
 	// MISC
+
+	public abstract boolean cloudMovement();
+
+	public abstract float particleWindMovement();
 
 	public abstract boolean deepDarkAmbience();
 
@@ -210,6 +216,4 @@ public abstract class AbstractClothConfigIntegration extends ModIntegration {
 	public abstract boolean lushCavesAmbience();
 
 	public abstract boolean wilderForestMusic();
-
-	public abstract boolean cloudMovement();
 }

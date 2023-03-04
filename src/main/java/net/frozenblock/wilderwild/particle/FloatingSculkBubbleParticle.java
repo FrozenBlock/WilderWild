@@ -20,6 +20,8 @@ package net.frozenblock.wilderwild.particle;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.lib.wind.api.ClientWindManager;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.Minecraft;
@@ -29,6 +31,7 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.RisingParticle;
 import net.minecraft.client.particle.SpriteSet;
+import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -78,6 +81,10 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
     @Override
     public void tick() {
         super.tick();
+		Vec3 wind = ClientWindManager.getWindMovement(this.level, new BlockPos(this.x, this.y, this.z), 1.5, 1).scale(WilderSharedConstants.config().particleWindMovement());
+		this.xd += wind.x * 0.001;
+		this.yd += wind.y * 0.00005;
+		this.zd += wind.z * 0.001;
         int flateAge = this.age - (this.stayInflatedTime) + 4;
         switch (this.age) {
             case 1 -> {

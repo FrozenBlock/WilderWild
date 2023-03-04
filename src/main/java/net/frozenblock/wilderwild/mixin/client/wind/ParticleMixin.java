@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.mixin.client.wind;
 
 import net.frozenblock.lib.wind.api.ClientWindManager;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.client.WilderDripSuspendedParticleInterface;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.DripParticle;
@@ -55,7 +56,7 @@ public abstract class ParticleMixin {
 	public void wilderWild$tick(CallbackInfo info) {
 		if (Particle.class.cast(this) instanceof DripParticle dripParticle) {
 			if (((WilderDripSuspendedParticleInterface)dripParticle).wilderWild$usesWind()) {
-				Vec3 wind = ClientWindManager.getWindMovement(this.level, new BlockPos(this.x, this.y, this.z), 1.5, 1);
+				Vec3 wind = ClientWindManager.getWindMovement(this.level, new BlockPos(this.x, this.y, this.z), 1.5, 1).scale(WilderSharedConstants.config().particleWindMovement());
 				this.xd += wind.x * 0.001;
 				this.yd += wind.y * 0.00005;
 				this.zd += wind.z * 0.001;
@@ -63,7 +64,7 @@ public abstract class ParticleMixin {
 		}
 		if (Particle.class.cast(this) instanceof SuspendedParticle suspendedParticle) {
 			if (((WilderDripSuspendedParticleInterface)suspendedParticle).wilderWild$usesWind()) {
-				Vec3 wind = ClientWindManager.getWindMovement(this.level, new BlockPos(this.x, this.y, this.z), 1.5, 1);
+				Vec3 wind = ClientWindManager.getWindMovement(this.level, new BlockPos(this.x, this.y, this.z), 1.5, 1).scale(WilderSharedConstants.config().particleWindMovement());
 				this.xd += wind.x * 0.001;
 				this.yd += wind.y * 0.00005;
 				this.zd += wind.z * 0.001;

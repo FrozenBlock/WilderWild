@@ -445,6 +445,16 @@ public class NoOpClothConfigIntegration extends AbstractClothConfigIntegration {
 	// MISC
 
 	@Override
+	public boolean cloudMovement() {
+		return DefaultMiscConfig.CLOUD_MOVEMENT;
+	}
+
+	@Override
+	public float particleWindMovement() {
+		return DefaultMiscConfig.PARTICLE_WIND_MOVEMENT / 100F;
+	}
+
+	@Override
 	public boolean deepDarkAmbience() {
 		return DefaultMiscConfig.BiomeAmbienceConfig.DEEP_DARK_AMBIENCE;
 	}
@@ -464,8 +474,4 @@ public class NoOpClothConfigIntegration extends AbstractClothConfigIntegration {
 		return DefaultMiscConfig.BiomeMusicConfig.WILDER_FOREST_MUSIC;
 	}
 
-	@Override
-	public boolean cloudMovement() {
-		return DefaultMiscConfig.CLOUD_MOVEMENT;
-	}
 }
