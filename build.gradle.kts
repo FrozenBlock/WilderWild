@@ -7,7 +7,6 @@ import java.nio.file.Files
 import java.util.Properties
 import org.kohsuke.github.GHReleaseBuilder
 import org.kohsuke.github.GitHub
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
     repositories {
@@ -29,7 +28,6 @@ plugins {
     idea
     `java-library`
     java
-    kotlin("jvm") version "1.8.10"
 }
 
 public val minecraft_version: String by project
@@ -79,7 +77,7 @@ version = getVersion()
 group = maven_group
 
 public val local_frozenlib = findProject(":FrozenLib") != null
-public val release = findProperty("releaseType") == "stable"
+public val release = findProperty("releaseType")?.equals("stable")
 
 loom {
     runtimeOnlyLog4j.set(true)
@@ -290,7 +288,6 @@ dependencies {
         modRuntimeOnly("me.flashyreese.mods:sodium-extra-fabric:${sodium_extra_version}")
         modRuntimeOnly("io.github.douira:glsl-transformer:0.27.0")
     }
-    implementation(kotlin("stdlib-jdk8"))
 }
 
 quiltflower {
@@ -346,15 +343,6 @@ tasks {
     }
 }
 
-val compileKotlin: KotlinCompile by tasks
-compileKotlin.kotlinOptions {
-    jvmTarget = "1.8"
-}
-val compileTestKotlin: KotlinCompile by tasks
-compileTestKotlin.kotlinOptions {
-    jvmTarget = "1.8"
-}
-
 
 public val test: Task by tasks
 public val runClient: Task by tasks
@@ -391,14 +379,14 @@ artifacts {
 fun getVersion(): String {
     var version = "$mod_version-$mod_loader+$minecraft_version"
 
-    if (!release) {
+    if (release != null && !release) {
         version += "-unstable"
     }
 
     return version
 }
 
-if (!(release || System.getenv("GITHUB_ACTIONS") == "true")) {
+if (!(release == true || System.getenv("GITHUB_ACTIONS") == "true")) {
     test.dependsOn(runDatagen)
     runClient.dependsOn(runDatagen)
 }
@@ -473,7 +461,6 @@ tasks {
                 embeddedLibrary("frozenlib")
                 embeddedLibrary("nbt-crafting")
             })
-            remapJar.get()
             mainArtifact(file("build/libs/${remapJar.get().archiveBaseName.get()}-${version}.jar"), closureOf<CurseArtifact> {
                 displayName = display_name
             })
