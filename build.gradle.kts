@@ -71,6 +71,12 @@ public val starlight_version: String by project
 public val entityculling_version: String by project
 public val memoryleakfix_version: String by project
 public val no_unused_chunks_version: String by project
+public val exordium_version: String by project
+public val entity_collision_fps_fix_version: String by project
+public val cull_less_leaves_version: String by project
+public val c2me_version: String by project
+public val more_culling_version: String by project
+public val smoothboot_version: String by project
 
 base {
     archivesName.set(archives_base_name)
@@ -273,6 +279,12 @@ dependencies {
         modRuntimeOnly("maven.modrinth:entityculling:${entityculling_version}")
         modRuntimeOnly("maven.modrinth:memoryleakfix:${memoryleakfix_version}")
         modRuntimeOnly("maven.modrinth:no-unused-chunks:${no_unused_chunks_version}")
+        modRuntimeOnly("maven.modrinth:exordium:${exordium_version}")
+        modRuntimeOnly("maven.modrinth:entity-collision-fps-fix:${entity_collision_fps_fix_version}")
+        modRuntimeOnly("maven.modrinth:cull-less-leaves:${cull_less_leaves_version}")
+        modRuntimeOnly("maven.modrinth:c2me-fabric:${c2me_version}")
+        modRuntimeOnly("maven.modrinth:moreculling:${more_culling_version}")
+        modRuntimeOnly("maven.modrinth:smoothboot-fabric:${smoothboot_version}")
     }
 
     // only affects runClient, does not affect gradlew build.

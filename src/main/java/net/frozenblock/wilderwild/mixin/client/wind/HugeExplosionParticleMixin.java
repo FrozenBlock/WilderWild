@@ -23,11 +23,13 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.HugeExplosionParticle;
 import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(HugeExplosionParticle.class)
 public abstract class HugeExplosionParticleMixin extends TextureSheetParticle {
@@ -42,5 +44,10 @@ public abstract class HugeExplosionParticleMixin extends TextureSheetParticle {
 		this.xd += wind.x * 0.001;
 		this.yd += wind.y * 0.00005;
 		this.zd += wind.z * 0.001;
+	}
+
+	@Inject(method = "getLightColor", at = @At("HEAD"))
+	public void wilderWild$getLightColor(float partialTick, CallbackInfoReturnable<Integer> info) {
+		this.alpha = 1F - ((this.age + partialTick) / this.lifetime);
 	}
 }
