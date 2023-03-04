@@ -281,7 +281,7 @@ dependencies {
         modRuntimeOnly("maven.modrinth:no-unused-chunks:${no_unused_chunks_version}")
         modRuntimeOnly("maven.modrinth:exordium:${exordium_version}")
         modRuntimeOnly("maven.modrinth:entity-collision-fps-fix:${entity_collision_fps_fix_version}")
-        modRuntimeOnly("maven.modrinth:cull-less-leaves:${cull_less_leaves_version}")
+        //modRuntimeOnly("maven.modrinth:cull-less-leaves:${cull_less_leaves_version}")
         modRuntimeOnly("maven.modrinth:c2me-fabric:${c2me_version}")
         modRuntimeOnly("maven.modrinth:moreculling:${more_culling_version}")
         modRuntimeOnly("maven.modrinth:smoothboot-fabric:${smoothboot_version}")
