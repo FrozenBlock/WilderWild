@@ -34,7 +34,7 @@ public class UnderwaterProviderMixin {
 	@Inject(method = "createParticle", at = @At("TAIL"))
 	public void wilderWild$createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, CallbackInfoReturnable<Particle> info) {
 		if (info.getReturnValue() instanceof SuspendedParticle suspendedParticle) {
-			((WilderDripSuspendedParticleInterface)suspendedParticle).wilderWild$setScaler(0.025F);
+			((WilderDripSuspendedParticleInterface)suspendedParticle).wilderWild$setScaler(0.05F);
 		}
 	}
 }
