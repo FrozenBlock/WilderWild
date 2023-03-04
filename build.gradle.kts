@@ -77,7 +77,7 @@ version = getVersion()
 group = maven_group
 
 public val local_frozenlib = findProject(":FrozenLib") != null
-public val release = findProperty("releaseType") == "stable"
+public val release = findProperty("releaseType")?.equals("stable")
 
 loom {
     runtimeOnlyLog4j.set(true)
@@ -196,6 +196,7 @@ repositories {
     flatDir {
         dirs("libs")
     }
+    mavenCentral()
 }
 
 dependencies {
@@ -342,6 +343,7 @@ tasks {
     }
 }
 
+
 public val test: Task by tasks
 public val runClient: Task by tasks
 public val runDatagen: Task by tasks
@@ -377,14 +379,14 @@ artifacts {
 fun getVersion(): String {
     var version = "$mod_version-$mod_loader+$minecraft_version"
 
-    if (!release) {
+    if (release != null && !release) {
         version += "-unstable"
     }
 
     return version
 }
 
-if (!(release || System.getenv("GITHUB_ACTIONS") == "true")) {
+if (!(release == true || System.getenv("GITHUB_ACTIONS") == "true")) {
     test.dependsOn(runDatagen)
     runClient.dependsOn(runDatagen)
 }
@@ -459,7 +461,6 @@ tasks {
                 embeddedLibrary("frozenlib")
                 embeddedLibrary("nbt-crafting")
             })
-            remapJar.get()
             mainArtifact(file("build/libs/${remapJar.get().archiveBaseName.get()}-${version}.jar"), closureOf<CurseArtifact> {
                 displayName = display_name
             })
