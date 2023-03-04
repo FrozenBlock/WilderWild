@@ -30,4 +30,6 @@ public interface WilderDripSuspendedParticleInterface {
 
 	boolean wilderWild$runScaleRemoval();
 
+	void wilderWild$setScaler(float scaler);
+
 }

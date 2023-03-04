@@ -76,6 +76,7 @@
     "client.general.ParticleMixin",
     "client.general.ShriekerGargleMixin",
     "client.general.SingleQuadParticleMixin",
+    "client.general.UnderwaterProviderMixin",
     "client.warden.WardenAnimationOverwrites",
     "client.warden.WardenModelMixin",
     "client.wind.CloudRendererMixin",

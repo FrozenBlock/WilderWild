@@ -30,6 +30,8 @@ import org.spongepowered.asm.mixin.Unique;
 public abstract class SuspendedParticleMixin extends TextureSheetParticle implements WilderDripSuspendedParticleInterface {
 
 	@Unique
+	private float wilderWild$scaler = 0.15F;
+	@Unique
 	private float wilderWild$prevScale = 0F;
 	@Unique
 	private float wilderWild$scale = 0F;
@@ -63,7 +65,7 @@ public abstract class SuspendedParticleMixin extends TextureSheetParticle implem
 	@Override
 	public void wilderWild$calcScale() {
 		this.wilderWild$prevScale = this.wilderWild$scale;
-		this.wilderWild$scale += (this.wilderWild$targetScale - this.wilderWild$scale) * 0.15F;
+		this.wilderWild$scale += (this.wilderWild$targetScale - this.wilderWild$scale) * this.wilderWild$scaler;
 	}
 
 	@Override
@@ -79,5 +81,10 @@ public abstract class SuspendedParticleMixin extends TextureSheetParticle implem
 			this.wilderWild$targetScale = 1F;
 		}
 		return false;
+	}
+
+	@Override
+	public void wilderWild$setScaler(float scaler) {
+		this.wilderWild$scaler = scaler;
 	}
 }
