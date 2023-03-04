@@ -71,12 +71,6 @@ public val starlight_version: String by project
 public val entityculling_version: String by project
 public val memoryleakfix_version: String by project
 public val no_unused_chunks_version: String by project
-public val exordium_version: String by project
-public val entity_collision_fps_fix_version: String by project
-public val cull_less_leaves_version: String by project
-public val c2me_version: String by project
-public val more_culling_version: String by project
-public val smoothboot_version: String by project
 
 base {
     archivesName.set(archives_base_name)
