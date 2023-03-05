@@ -67,11 +67,12 @@ public final class MiscConfig implements ConfigData {
 				.build()
 		);
 
-		var particleWindMovement = entryBuilder.startIntSlider(text("particle_wind_movement"), config.particleWindMovement, 0, 500)
+		var particleWindMovement = category.addEntry(entryBuilder.startIntSlider(text("particle_wind_movement"), config.particleWindMovement, 0, 500)
 				.setDefaultValue(DefaultMiscConfig.PARTICLE_WIND_MOVEMENT)
 				.setSaveConsumer(newValue -> config.particleWindMovement = newValue)
 				.setTooltip(tooltip("particle_wind_movement"))
-				.build();
+				.build()
+		);
 
 		var deepDarkAmbience = entryBuilder.startBooleanToggle(text("deep_dark_ambience"), biomeAmbience.deepDarkAmbience)
 				.setDefaultValue(DefaultMiscConfig.BiomeAmbienceConfig.DEEP_DARK_AMBIENCE)
