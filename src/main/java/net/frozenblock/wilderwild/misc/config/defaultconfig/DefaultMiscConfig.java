@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.misc.config.defaultconfig;
 public class DefaultMiscConfig {
 
 	public static final boolean CLOUD_MOVEMENT = true;
+	public static final int PARTICLE_WIND_MOVEMENT = 100;
 
 	public static class BiomeAmbienceConfig {
 		public static final boolean DEEP_DARK_AMBIENCE = true;

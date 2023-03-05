@@ -22,6 +22,7 @@ import com.mojang.datafixers.schemas.Schema;
 import com.mojang.serialization.Codec;
 import java.util.ArrayList;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
@@ -32,6 +33,7 @@ import net.frozenblock.lib.mobcategory.impl.FrozenMobCategory;
 import net.frozenblock.wilderwild.block.entity.PalmCrownBlockEntity;
 import net.frozenblock.wilderwild.entity.TermiteManager;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.misc.command.SpreadSculkCommand;
 import net.frozenblock.wilderwild.misc.datafixer.DrySandStateFix;
 import net.frozenblock.wilderwild.misc.datafixer.NematocystStateFix;
 import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
@@ -143,6 +145,8 @@ public final class WilderWild extends FrozenMobCategoryEntrypoint implements Mod
 
 		ServerLifecycleEvents.SERVER_STOPPED.register((server) -> PalmCrownBlockEntity.PalmCrownPositions.clearAll());
 		ServerTickEvents.START_SERVER_TICK.register((listener) -> PalmCrownBlockEntity.PalmCrownPositions.clearAndSwitch());
+
+		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> SpreadSculkCommand.register(dispatcher));
 
 		WilderModIntegrations.init();
 

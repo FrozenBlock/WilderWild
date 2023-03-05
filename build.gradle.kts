@@ -328,11 +328,11 @@ tasks {
         }
     }
 
-    license {
-        rule(project.file("codeformat/HEADER"))
+    //license {
+    //    rule(project.file("codeformat/HEADER"))
 
-        include("**/*.java")
-    }
+    //    include("**/*.java")
+    //}
 
     register("javadocJar", Jar::class) {
         dependsOn(javadoc)

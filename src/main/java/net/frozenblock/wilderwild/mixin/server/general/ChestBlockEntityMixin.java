@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.server.general;
 
-import net.frozenblock.wilderwild.misc.ChestBubbleTicker;
+import net.frozenblock.wilderwild.entity.ChestBubbleTicker;
 import net.frozenblock.wilderwild.misc.interfaces.ChestBlockEntityInterface;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;

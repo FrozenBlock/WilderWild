@@ -98,7 +98,7 @@ public class PollenParticle extends TextureSheetParticle {
 			if (!rain) {
 				double multXZ = (onGround ? 0.0005 : 0.007) * this.windIntensity;
 				double multY = (onGround ? 0.0005 : 0.0035) * this.windIntensity;
-				Vec3 wind = ClientWindManager.getWindMovement(this.level, new BlockPos(this.x, this.y, this.z));
+				Vec3 wind = ClientWindManager.getWindMovement(this.level, new BlockPos(this.x, this.y, this.z)).scale(WilderSharedConstants.config().particleWindMovement());
 				this.xd += wind.x() * multXZ;
 				this.yd += (wind.y() + 0.1) * multY;
 				this.zd += wind.z() * multXZ;
