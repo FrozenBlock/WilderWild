@@ -24,8 +24,9 @@ import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.Jellyfish;
+import net.frozenblock.wilderwild.entity.SculkSpreadTicker;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
-import net.frozenblock.wilderwild.misc.ChestBubbleTicker;
+import net.frozenblock.wilderwild.entity.ChestBubbleTicker;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.world.entity.Entity;
@@ -95,6 +96,15 @@ public final class RegisterEntities {
 	public static final EntityType<ChestBubbleTicker> CHEST_BUBBLER = register(
 			"chest_bubbler",
 			FabricEntityTypeBuilder.<ChestBubbleTicker>create(MobCategory.MISC, ChestBubbleTicker::new)
+					.dimensions(EntityDimensions.scalable(1.0F, 1.0F))
+					.trackRangeBlocks(0)
+					.trackedUpdateRate(10)
+					.build()
+	);
+
+	public static final EntityType<SculkSpreadTicker> SCULK_SPREADER = register(
+			"sculk_spreader",
+			FabricEntityTypeBuilder.<SculkSpreadTicker>create(MobCategory.MISC, SculkSpreadTicker::new)
 					.dimensions(EntityDimensions.scalable(1.0F, 1.0F))
 					.trackRangeBlocks(0)
 					.trackedUpdateRate(10)

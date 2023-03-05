@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.misc;
+package net.frozenblock.wilderwild.entity;
 
 import net.frozenblock.lib.entity.api.SilentTicker;
 import net.minecraft.core.BlockPos;
