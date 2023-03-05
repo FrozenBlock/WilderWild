@@ -33,22 +33,27 @@ import net.minecraft.world.phys.Vec3;
 public class SpreadSculkCommand {
 
 	public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-		dispatcher.register(Commands.literal("sculkSpread").requires(source -> source.hasPermission(2))
+		dispatcher.register(Commands.literal("sculkspread")
+				.requires(source -> source.hasPermission(2))
 				.executes(context -> spreadSculk(context.getSource(), context.getSource().getPosition(), false, 10))
-				.then(((Commands.argument("position", BlockPosArgument.blockPos())
-						.executes(context -> spreadSculk(context.getSource(), BlockPosArgument.getLoadedBlockPos(context, "position"), false, 10))
-						.then(((Commands.argument("charge", IntegerArgumentType.integer(1))
-								.executes(context -> spreadSculk(context.getSource(), BlockPosArgument.getLoadedBlockPos(context, "position"), false, IntegerArgumentType.getInteger(context, "charge")))
-						))).then(((Commands.argument("isWorldGen", BoolArgumentType.bool())
-								.executes(context -> spreadSculk(context.getSource(), BlockPosArgument.getLoadedBlockPos(context, "position"), BoolArgumentType.getBool(context, "isWorldGen"), IntegerArgumentType.getInteger(context, "charge")))
-						))
-				))))
+				.then(((
+						Commands.argument("position", BlockPosArgument.blockPos())
+								.executes(context -> spreadSculk(context.getSource(), BlockPosArgument.getLoadedBlockPos(context, "position"), false, 10))
+								.then(((Commands.argument("charge", IntegerArgumentType.integer(1))
+										.executes(context -> spreadSculk(context.getSource(), BlockPosArgument.getLoadedBlockPos(context, "position"), false, IntegerArgumentType.getInteger(context, "charge")))
+										.then(((Commands.argument("isWorldGen", BoolArgumentType.bool())
+												.executes(context -> spreadSculk(context.getSource(), BlockPosArgument.getLoadedBlockPos(context, "position"), BoolArgumentType.getBool(context, "isWorldGen"), IntegerArgumentType.getInteger(context, "charge")))
+												))
+										)))
+								)
+						)
+				))
 		);
 	}
 
 	private static int spreadSculk(CommandSourceStack source, BlockPos pos, boolean worldGen, int charge) {
 		SculkSpreadTicker.createAndSpawn(RegisterEntities.SCULK_SPREADER, source.getLevel(), pos, worldGen, charge);
-		source.sendSuccess(Component.translatable("commands.sculkspread.success", pos.getX(), pos.getY(), pos.getZ(), charge), true);
+		source.sendSuccess(Component.translatable(worldGen ? "commands.sculkspread.worldgen.success" : "commands.sculkspread.success", pos.getX(), pos.getY(), pos.getZ(), charge), true);
 		return 1;
 	}
 
