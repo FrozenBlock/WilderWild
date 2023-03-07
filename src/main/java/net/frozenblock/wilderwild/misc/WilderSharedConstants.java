@@ -48,7 +48,7 @@ public class WilderSharedConstants {
 	public static final ModContainer MOD_CONTAINER = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow();
     public static boolean areConfigsInit = false;
 
-	public static final int DATA_VERSION = 11;
+	public static final int DATA_VERSION = 12;
 
 	public static RandomSource random() {
 		return AdvancedMath.random();
