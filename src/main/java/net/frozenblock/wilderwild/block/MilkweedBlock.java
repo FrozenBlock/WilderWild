@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;

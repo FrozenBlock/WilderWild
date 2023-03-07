@@ -18,9 +18,7 @@
 
 package net.frozenblock.wilderwild.world.additions.feature;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import net.frozenblock.lib.feature.FrozenFeatures;
 import net.frozenblock.lib.feature.features.config.ColumnWithDiskFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeature;
@@ -36,14 +34,12 @@ import net.frozenblock.wilderwild.world.generation.features.config.LargeMesoglea
 import net.frozenblock.wilderwild.world.generation.features.config.ShelfFungusFeatureConfig;
 import net.frozenblock.wilderwild.world.generation.features.config.SmallSpongeFeatureConfig;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.data.worldgen.features.CaveFeatures;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.TreePlacements;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.BiasedToBottomInt;
