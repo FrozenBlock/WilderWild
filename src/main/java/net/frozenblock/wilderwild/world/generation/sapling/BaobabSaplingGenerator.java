@@ -33,7 +33,7 @@ public class BaobabSaplingGenerator extends BaobabTreeSaplingGenerator {
     @Nullable
     @Override
     protected Holder<? extends ConfiguredFeature<?, ?>> getBaobabTreeFeature(RandomSource random) {
-        return random.nextFloat() < 0.856F ? WilderTreeConfigured.BAOBAB : WilderTreeConfigured.BAOBAB_TALL;
+        return random.nextFloat() < 0.856F ? WilderTreeConfigured.BAOBAB.getHolder() : WilderTreeConfigured.BAOBAB_TALL.getHolder();
     }
 
     @Nullable
