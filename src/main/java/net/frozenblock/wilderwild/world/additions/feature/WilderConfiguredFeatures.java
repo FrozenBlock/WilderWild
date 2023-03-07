@@ -876,6 +876,7 @@ public final class WilderConfiguredFeatures {
 		WilderSharedConstants.logWild("Registering WilderConfiguredFeatures for", true);
 	}
 
+	// TODO: Finish this for the rest of WilderConfiguredFeatures and then do it for the other feature classes
     public static void registerConfiguredFeatures() {
 		FALLEN_TREES_MIXED.setHolder(makeHolder(FALLEN_TREES_MIXED, Feature.RANDOM_SELECTOR,
 				new RandomFeatureConfiguration(List.of((new WeightedPlacedFeature(WilderTreePlaced.FALLEN_SPRUCE_CHECKED, 0.4F)),
