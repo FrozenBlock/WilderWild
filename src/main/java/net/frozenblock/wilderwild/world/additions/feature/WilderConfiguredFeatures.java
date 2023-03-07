@@ -906,17 +906,12 @@ public final class WilderConfiguredFeatures {
     public static <FC extends FeatureConfiguration, F extends Feature<FC>> FrozenConfiguredFeature<FC, ConfiguredFeature<FC, ?>> register(@NotNull String id, F feature, @NotNull FC config) {
         var key = WilderSharedConstants.id(id);
 		FrozenConfiguredFeature<FC, ConfiguredFeature<FC, ?>> frozen = new FrozenConfiguredFeature<>(key);
-		var holder = FeatureUtils.register(key.toString(), feature, config);
-		frozen.setHolder(holder);
+		frozen.makeAndSetHolder(feature, config);
 		return frozen;
     }
 
 	public static <FC extends FeatureConfiguration, F extends Feature<FC>> FrozenConfiguredFeature<FC, ConfiguredFeature<FC, ?>> register(@NotNull String id) {
 		var key = WilderSharedConstants.id(id);
 		return new FrozenConfiguredFeature<>(key);
-	}
-
-	public static <FC extends FeatureConfiguration, F extends Feature<FC>> Holder<ConfiguredFeature<FC, ?>> makeHolder(FrozenConfiguredFeature<FC, ConfiguredFeature<FC, ?>> configuredFeature, @NotNull F feature, @NotNull FC config) {
-		return FeatureUtils.register(configuredFeature.getKey().location().toString(), feature, config);
 	}
 }
