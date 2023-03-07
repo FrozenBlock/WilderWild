@@ -30,6 +30,6 @@ public class ShrubBushGrower extends AbstractTreeGrower {
 
 	@Nullable
 	protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean largeHive) {
-		return WilderTreeConfigured.BIG_SHRUB;
+		return WilderTreeConfigured.BIG_SHRUB.getHolder();
 	}
 }
