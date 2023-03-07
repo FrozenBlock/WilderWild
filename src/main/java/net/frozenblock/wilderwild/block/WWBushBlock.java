@@ -70,6 +70,9 @@ public class WWBushBlock extends BushBlock implements BonemealableBlock {
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if (!isFullyGrown(state) && random.nextInt(5) == 0 && level.getRawBrightness(pos, 0) >= 9) {
+			if (isAlmostFullyGrown(state) && random.nextFloat() < 0.65F) {
+				return;
+			}
 			level.setBlock(pos, state.cycle(AGE), 2);
 		}
 	}
