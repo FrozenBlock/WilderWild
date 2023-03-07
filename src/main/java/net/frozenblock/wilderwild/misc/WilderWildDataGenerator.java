@@ -292,6 +292,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBiomeTags.PEARLESCENT_JELLYFISH)
 					.addOptional(RegisterWorldgen.JELLYFISH_CAVES);
 
+			this.getOrCreateTagBuilder(WilderBiomeTags.JELLYFISH_SPECIAL_SPAWN)
+					.addOptional(RegisterWorldgen.JELLYFISH_CAVES);
+
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_TUMBLEWEED_ENTITY)
 					.add(Biomes.DESERT)
 					.add(Biomes.BADLANDS)
