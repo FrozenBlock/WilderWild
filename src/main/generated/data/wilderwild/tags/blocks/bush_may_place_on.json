@@ -8,6 +8,10 @@
     {
       "id": "#minecraft:dirt",
       "required": false
+    },
+    {
+      "id": "#minecraft:dead_bush_may_place_on",
+      "required": false
     }
   ]
 }

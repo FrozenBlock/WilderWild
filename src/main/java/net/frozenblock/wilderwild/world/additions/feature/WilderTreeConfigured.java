@@ -140,26 +140,14 @@ public final class WilderTreeConfigured {
 	public static final FrozenConfiguredFeature<?, ?> COBWEB_TALL_DARK_OAK = WilderConfiguredFeatures.register("cobweb_tall_dark_oak", Feature.TREE, tallDarkOak().decorators(List.of(COBWEB_1_UNDER_260_025)).ignoreVines().build());
 
 	//SWAMP TREE
-    public static final FrozenConfiguredFeature<?, ?> SWAMP_TREE = WilderConfiguredFeatures.register("swamp_tree", Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.MANGROVE_LOG),
-            new StraightTrunkPlacer(5, 2, 1), BlockStateProvider.simple(Blocks.MANGROVE_LEAVES),
-            new BlobFoliagePlacer(ConstantInt.of(3), ConstantInt.of(0), 3), Optional.of(new MangroveRootPlacer(UniformInt.of(1, 1), BlockStateProvider.simple(Blocks.MANGROVE_ROOTS), Optional.of(new AboveRootPlacement(BlockStateProvider.simple(Blocks.MOSS_CARPET), 0.45F)),
-            new MangroveRootPlacement(Registry.BLOCK.getOrCreateTag(BlockTags.MANGROVE_ROOTS_CAN_GROW_THROUGH), HolderSet.direct(Block::builtInRegistryHolder, Blocks.MUD, Blocks.MUDDY_MANGROVE_ROOTS), BlockStateProvider.simple(Blocks.MUDDY_MANGROVE_ROOTS), 8, 15, 0.2F))),
+    public static final FrozenConfiguredFeature<?, ?> SWAMP_TREE = WilderConfiguredFeatures.register("swamp_tree", Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.OAK_LOG),
+            new StraightTrunkPlacer(5, 2, 1), BlockStateProvider.simple(Blocks.OAK_LEAVES),
+            new BlobFoliagePlacer(ConstantInt.of(3), ConstantInt.of(0), 3), Optional.of(new MangroveRootPlacer(UniformInt.of(1, 1), BlockStateProvider.simple(Blocks.OAK_LOG), Optional.of(new AboveRootPlacement(BlockStateProvider.simple(Blocks.MOSS_CARPET), 0.45F)),
+            new MangroveRootPlacement(Registry.BLOCK.getOrCreateTag(BlockTags.MANGROVE_ROOTS_CAN_GROW_THROUGH), HolderSet.direct(Block::builtInRegistryHolder, Blocks.MUD), BlockStateProvider.simple(Blocks.MUD), 3, 5, 0.2F))),
             new TwoLayersFeatureSize(2, 0, 2))
 			.decorators(List.of(
-							new LeaveVineDecorator(0.125F),
-							new AttachedToLeavesDecorator(
-									0.12F,
-									1,
-									0,
-									new RandomizedIntStateProvider(BlockStateProvider.simple(
-											Blocks.MANGROVE_PROPAGULE.defaultBlockState().setValue(MangrovePropaguleBlock.HANGING, true)
-									),
-									MangrovePropaguleBlock.AGE,
-									UniformInt.of(0, 4)),
-									2,
-									List.of(Direction.DOWN)
-							)
-			)).ignoreVines().dirt(BlockStateProvider.simple(Blocks.MANGROVE_ROOTS)).build()
+							new LeaveVineDecorator(0.125F)
+			)).ignoreVines().dirt(BlockStateProvider.simple(Blocks.OAK_LOG)).build()
 	);
 
     //SPRUCE

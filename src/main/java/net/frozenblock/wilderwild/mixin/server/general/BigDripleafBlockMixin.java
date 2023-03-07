@@ -38,6 +38,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(BigDripleafBlock.class)
 public final class BigDripleafBlockMixin {
 
+	@Inject(method = "<init>", at = @At("RETURN"))
+	public void wilderWild$init(CallbackInfo info) {
+		BigDripleafBlock bigDripleafBlock = BigDripleafBlock.class.cast(this);
+		bigDripleafBlock.registerDefaultState(bigDripleafBlock.defaultBlockState().setValue(BlockStateProperties.POWERED, false));
+	}
+
     @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
     public void wilderWild$tickStem(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
         if (state.getValue(BlockStateProperties.POWERED)) {

@@ -58,20 +58,24 @@ public class MilkweedBlock extends TallFlowerBlock {
     @Override
     public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, RandomSource random) {
         if (random.nextFloat() > 0.83F) {
-            if (state.is(RegisterBlocks.MILKWEED)) {
+            if (state.is(this)) {
                 if (state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER) {
                     if (state.getValue(BlockStateProperties.AGE_3) < 3) {
-                        if (level.getBlockState(pos).is(RegisterBlocks.MILKWEED)) {
-                            level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.AGE_3, state.getValue(BlockStateProperties.AGE_3) + 1));
-                        }
-                        if (level.getBlockState(pos.above()).is(RegisterBlocks.MILKWEED)) {
-                            level.setBlockAndUpdate(pos.above(), level.getBlockState(pos.above()).setValue(BlockStateProperties.AGE_3, state.getValue(BlockStateProperties.AGE_3) + 1));
-                        }
+						this.setAgeOnBothHalves(state, level, pos, state.getValue(BlockStateProperties.AGE_3) + 1);
                     }
                 }
             }
         }
     }
+
+	public void setAgeOnBothHalves(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, int age) {
+		level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.AGE_3, age));
+		BlockPos movedPos = state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER ? pos.below() : pos.above();
+		BlockState secondState = level.getBlockState(movedPos);
+		if (secondState.is(this)) {
+			level.setBlockAndUpdate(movedPos, secondState.setValue(BlockStateProperties.AGE_3, age));
+		}
+	}
 
     @Override
     public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
@@ -85,23 +89,10 @@ public class MilkweedBlock extends TallFlowerBlock {
                     level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
                     itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
                     level.gameEvent(player, GameEvent.SHEAR, pos);
-                    if (state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER) {
-                        level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.AGE_3, 0));
-                        level.setBlockAndUpdate(pos.above(), level.getBlockState(pos.above()).setValue(BlockStateProperties.AGE_3, 0));
-                    } else if (state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER) {
-                        level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.AGE_3, 0));
-                        level.setBlockAndUpdate(pos.below(), level.getBlockState(pos.below()).setValue(BlockStateProperties.AGE_3, 0));
-                    }
                 } else {
                     EasyPacket.EasySeedPacket.createParticle(level, Vec3.atCenterOf(pos).add(0, 0.3, 0), level.random.nextIntBetweenInclusive(14, 28), true);
-                    if (state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER) {
-                        level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.AGE_3, 1));
-                        level.setBlockAndUpdate(pos.above(), level.getBlockState(pos.above()).setValue(BlockStateProperties.AGE_3, 1));
-                    } else if (state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER) {
-                        level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.AGE_3, 1));
-                        level.setBlockAndUpdate(pos.below(), level.getBlockState(pos.below()).setValue(BlockStateProperties.AGE_3, 1));
-                    }
                 }
+				this.setAgeOnBothHalves(state, level, pos, 0);
                 return InteractionResult.SUCCESS;
             }
         }

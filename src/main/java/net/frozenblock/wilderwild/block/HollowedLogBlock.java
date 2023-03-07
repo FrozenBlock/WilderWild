@@ -181,9 +181,18 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 			if (stepZ < 0) {
 				stepZ *= -1;
 			}
-			serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(12, 28), 0.25 + (stepX * 0.275), 0.25 + (stepY * 0.275), 0.25 + (stepZ * 0.275), 0.05D);
+			serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(12, 28), 0.1625 + (stepX * 0.3375), 0.1625 + (stepY * 0.3375), 0.1625 + (stepZ * 0.3375), 0.05D);
 			level.playSound(null, pos, isStem ? RegisterSounds.STEM_HOLLOWED : RegisterSounds.LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
 		}
+	}
+
+	public static boolean hollow(Level level, BlockPos pos, BlockState state, Direction face, Block result, boolean isStem) {
+		if (!level.isClientSide && state.hasProperty(BlockStateProperties.AXIS) && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
+			HollowedLogBlock.hollowEffects(level, face, state, pos, isStem);
+			level.setBlockAndUpdate(pos, result.withPropertiesOf(state));
+			return true;
+		}
+		return false;
 	}
 
 }

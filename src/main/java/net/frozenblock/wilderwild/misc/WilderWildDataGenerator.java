@@ -919,7 +919,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(WilderBlockTags.BUSH_MAY_PLACE_ON)
 					.addOptionalTag(BlockTags.SAND)
-					.addOptionalTag(BlockTags.DIRT);
+					.addOptionalTag(BlockTags.DIRT)
+					.addOptionalTag(BlockTags.DEAD_BUSH_MAY_PLACE_ON);
 
 			this.getOrCreateTagBuilder(WilderBlockTags.KILLS_TERMITE)
 					.add(Blocks.WATER)

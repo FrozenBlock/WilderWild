@@ -180,7 +180,7 @@ public final class WilderPlacedFeatures {
 			WilderConfiguredFeatures.WOODED_BADLANDS_TREES.getHolder(), treePlacement(PlacementUtils.countExtra(7, 0.1F, 1)));
 
     public static final FrozenPlacedFeature TREES_SWAMP = register("trees_swamp", WilderTreeConfigured.SWAMP_TREE.getHolder(),
-            PlacementUtils.countExtra(2, 0.1F, 1), InSquarePlacement.spread(), SurfaceWaterDepthFilter.forMaxDepth(4), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome(), BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.MANGROVE_PROPAGULE.defaultBlockState(), BlockPos.ZERO)));
+            PlacementUtils.countExtra(2, 0.1F, 1), InSquarePlacement.spread(), SurfaceWaterDepthFilter.forMaxDepth(3), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome(), BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.MANGROVE_PROPAGULE.defaultBlockState(), BlockPos.ZERO)));
 
     public static final FrozenPlacedFeature MIXED_TREES = register("mixed_trees",
             WilderConfiguredFeatures.MIXED_TREES.getHolder(), treePlacement(PlacementUtils.countExtra(14, 0.1F, 1)));
