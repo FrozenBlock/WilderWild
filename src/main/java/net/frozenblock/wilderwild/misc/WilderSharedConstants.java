@@ -25,7 +25,6 @@ import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.misc.mod_compat.clothconfig.AbstractClothConfigIntegration;
-import net.frozenblock.wilderwild.misc.mod_compat.clothconfig.NoOpClothConfigIntegration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
