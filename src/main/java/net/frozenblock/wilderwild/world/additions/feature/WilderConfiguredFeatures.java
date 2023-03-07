@@ -878,21 +878,21 @@ public final class WilderConfiguredFeatures {
 
 	// TODO: Finish this for the rest of WilderConfiguredFeatures and then do it for the other feature classes
     public static void registerConfiguredFeatures() {
-		FALLEN_TREES_MIXED.setHolder(makeHolder(FALLEN_TREES_MIXED, Feature.RANDOM_SELECTOR,
+		FALLEN_TREES_MIXED.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 				new RandomFeatureConfiguration(List.of((new WeightedPlacedFeature(WilderTreePlaced.FALLEN_SPRUCE_CHECKED, 0.4F)),
-						new WeightedPlacedFeature(WilderTreePlaced.FALLEN_BIRCH_CHECKED, 0.3F)), WilderTreePlaced.FALLEN_OAK_CHECKED)));
+						new WeightedPlacedFeature(WilderTreePlaced.FALLEN_BIRCH_CHECKED, 0.3F)), WilderTreePlaced.FALLEN_OAK_CHECKED));
 
-		MOSSY_FALLEN_TREES_MIXED.setHolder(makeHolder(MOSSY_FALLEN_TREES_MIXED, Feature.RANDOM_SELECTOR,
+		MOSSY_FALLEN_TREES_MIXED.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 				new RandomFeatureConfiguration(List.of((new WeightedPlacedFeature(WilderTreePlaced.MOSSY_FALLEN_SPRUCE_CHECKED, 0.15F)),
-						new WeightedPlacedFeature(WilderTreePlaced.MOSSY_FALLEN_BIRCH_CHECKED, 0.1F)), WilderTreePlaced.MOSSY_FALLEN_OAK_CHECKED)));
+						new WeightedPlacedFeature(WilderTreePlaced.MOSSY_FALLEN_BIRCH_CHECKED, 0.1F)), WilderTreePlaced.MOSSY_FALLEN_OAK_CHECKED));
 
-		MOSSY_FALLEN_TREES_OAK_AND_BIRCH.setHolder(makeHolder(MOSSY_FALLEN_TREES_OAK_AND_BIRCH, Feature.RANDOM_SELECTOR,
+		MOSSY_FALLEN_TREES_OAK_AND_BIRCH.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 				new RandomFeatureConfiguration(List.of((new WeightedPlacedFeature(WilderTreePlaced.MOSSY_FALLEN_OAK_CHECKED, 0.15F)),
-						new WeightedPlacedFeature(WilderTreePlaced.MOSSY_FALLEN_BIRCH_CHECKED, 0.15F)), WilderTreePlaced.MOSSY_FALLEN_OAK_CHECKED)));
+						new WeightedPlacedFeature(WilderTreePlaced.MOSSY_FALLEN_BIRCH_CHECKED, 0.15F)), WilderTreePlaced.MOSSY_FALLEN_OAK_CHECKED));
 
-		FALLEN_BIRCH_AND_SPRUCE.setHolder(makeHolder(FALLEN_BIRCH_AND_SPRUCE, Feature.RANDOM_SELECTOR,
+		FALLEN_BIRCH_AND_SPRUCE.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 				new RandomFeatureConfiguration(List.of((new WeightedPlacedFeature(WilderTreePlaced.FALLEN_SPRUCE_CHECKED, 0.6F)),
-						new WeightedPlacedFeature(WilderTreePlaced.FALLEN_BIRCH_CHECKED, 0.4F)), WilderTreePlaced.FALLEN_SPRUCE_CHECKED)));
+						new WeightedPlacedFeature(WilderTreePlaced.FALLEN_BIRCH_CHECKED, 0.4F)), WilderTreePlaced.FALLEN_SPRUCE_CHECKED));
     }
 
     private static RandomPatchConfiguration createRandomPatchFeatureConfig(BlockStateProvider block, int tries) {
