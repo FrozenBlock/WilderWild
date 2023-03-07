@@ -269,345 +269,118 @@ public final class WilderConfiguredFeatures {
 
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> BUSH_AND_DEAD_BUSH = register("bush_and_dead_bush");
 
-	public static final SimpleWeightedRandomList<BlockState> FLOWER_FIELD_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder().add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 2).add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 5).build();
+	public static final SimpleWeightedRandomList<BlockState> FLOWER_FIELD_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder()
+			.add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 2)
+			.add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 5)
+			.build();
 
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_FIELD_BUSH =
-			register("flower_field_bush", Feature.RANDOM_PATCH,
-					FeatureUtils.simpleRandomPatchConfiguration(18, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-							new SimpleBlockConfiguration(new WeightedStateProvider(FLOWER_FIELD_BUSH_POOL)))));
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_FIELD_BUSH = register("flower_field_bush");
 
-	public static final SimpleWeightedRandomList<BlockState> DESERT_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder().add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 1).add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 4).build();
+	public static final SimpleWeightedRandomList<BlockState> DESERT_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder()
+			.add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 1)
+			.add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 4)
+			.build();
 
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> DESERT_BUSH =
-			register("desert_bush", Feature.RANDOM_PATCH,
-					FeatureUtils.simpleRandomPatchConfiguration(8, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-							new SimpleBlockConfiguration(new WeightedStateProvider(DESERT_BUSH_POOL)))));
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> DESERT_BUSH = register("desert_bush");
 
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> BADLANDS_BUSH_SAND =
-			register("badlands_bush_sand", Feature.RANDOM_PATCH,
-					FeatureUtils.simpleRandomPatchConfiguration(10, PlacementUtils.inlinePlaced(Feature.SIMPLE_BLOCK,
-							new SimpleBlockConfiguration(new WeightedStateProvider(DESERT_BUSH_POOL)), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.wouldSurvive(Blocks.CACTUS.defaultBlockState(), BlockPos.ZERO))))));
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> BADLANDS_BUSH_SAND = register("badlands_bush_sand");
 
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> BADLANDS_BUSH_TERRACOTTA =
-			register("badlands_bush_terracotta", Feature.RANDOM_PATCH,
-					FeatureUtils.simpleRandomPatchConfiguration(6, PlacementUtils.inlinePlaced(Feature.SIMPLE_BLOCK,
-							new SimpleBlockConfiguration(new WeightedStateProvider(DESERT_BUSH_POOL)), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.SAND)))))));
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> BADLANDS_BUSH_TERRACOTTA = register("badlands_bush_terracotta");
 
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> WOODED_BADLANDS_BUSH_TERRACOTTA =
-			register("wooded_badlands_bush_terracotta", Feature.RANDOM_PATCH,
-					FeatureUtils.simpleRandomPatchConfiguration(10, PlacementUtils.inlinePlaced(Feature.SIMPLE_BLOCK,
-							new SimpleBlockConfiguration(new WeightedStateProvider(DESERT_BUSH_POOL)), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.SAND)))))));
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> WOODED_BADLANDS_BUSH_TERRACOTTA = register("wooded_badlands_bush_terracotta");
 
 
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_CACTUS_OASIS = register("patch_cactus_oasis",
-			Feature.RANDOM_PATCH,
-			FeatureUtils.simpleRandomPatchConfiguration(10,
-					PlacementUtils.inlinePlaced(Feature.BLOCK_COLUMN,
-							BlockColumnConfiguration.simple(BiasedToBottomInt.of(3, 5), BlockStateProvider.simple(Blocks.CACTUS)),
-							BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE,
-									BlockPredicate.wouldSurvive(Blocks.CACTUS.defaultBlockState(), BlockPos.ZERO))
-							)
-					)
-			)
-	);
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_CACTUS_OASIS = register("patch_cactus_oasis");
 
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_CACTUS_TALL = register("patch_cactus_tall",
-			Feature.RANDOM_PATCH,
-			FeatureUtils.simpleRandomPatchConfiguration(8,
-					PlacementUtils.inlinePlaced(Feature.BLOCK_COLUMN,
-							BlockColumnConfiguration.simple(BiasedToBottomInt.of(4, 5), BlockStateProvider.simple(Blocks.CACTUS)),
-							BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE,
-									BlockPredicate.wouldSurvive(Blocks.CACTUS.defaultBlockState(), BlockPos.ZERO))
-							)
-					)
-			)
-	);
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_CACTUS_TALL = register("patch_cactus_tall");
 
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_CACTUS_TALL_BADLANDS = register("patch_cactus_tall_badlands",
-			Feature.RANDOM_PATCH,
-			FeatureUtils.simpleRandomPatchConfiguration(12,
-					PlacementUtils.inlinePlaced(Feature.BLOCK_COLUMN,
-							BlockColumnConfiguration.simple(BiasedToBottomInt.of(2, 6), BlockStateProvider.simple(Blocks.CACTUS)),
-							BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE,
-									BlockPredicate.wouldSurvive(Blocks.CACTUS.defaultBlockState(), BlockPos.ZERO)
-							))
-					)
-			)
-	);
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_CACTUS_TALL_BADLANDS = register("patch_cactus_tall_badlands");
 
 	public static final SimpleWeightedRandomList<BlockState> PRICKLY_PEAR_POOL = SimpleWeightedRandomList.<BlockState>builder()
 			.add(RegisterBlocks.PRICKLY_PEAR_CACTUS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 0), 5)
 			.add(RegisterBlocks.PRICKLY_PEAR_CACTUS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 1), 3)
 			.add(RegisterBlocks.PRICKLY_PEAR_CACTUS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 2), 2)
 			.add(RegisterBlocks.PRICKLY_PEAR_CACTUS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3), 4)
-			.add(Blocks.CACTUS.defaultBlockState(), 2).build();
+			.add(Blocks.CACTUS.defaultBlockState(), 2)
+			.build();
 
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PRICKLY_PEAR =
-			register("prickly_pear", Feature.RANDOM_PATCH,
-					FeatureUtils.simpleRandomPatchConfiguration(20, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-							new SimpleBlockConfiguration(new WeightedStateProvider(PRICKLY_PEAR_POOL)))));
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PRICKLY_PEAR = register("prickly_pear");
 
-	public static final SimpleWeightedRandomList<BlockState> LARGE_FERN_AND_GRASS_POOL = SimpleWeightedRandomList.<BlockState>builder().add(Blocks.TALL_GRASS.defaultBlockState(), 3).add(Blocks.LARGE_FERN.defaultBlockState(), 3).build();
+	public static final SimpleWeightedRandomList<BlockState> LARGE_FERN_AND_GRASS_POOL = SimpleWeightedRandomList.<BlockState>builder()
+			.add(Blocks.TALL_GRASS.defaultBlockState(), 3)
+			.add(Blocks.LARGE_FERN.defaultBlockState(), 3)
+			.build();
 
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> LARGE_FERN_AND_GRASS =
-            register("large_fern_and_grass", Feature.RANDOM_PATCH,
-                    FeatureUtils.simpleRandomPatchConfiguration(36, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-                            new SimpleBlockConfiguration(new WeightedStateProvider(LARGE_FERN_AND_GRASS_POOL)))));
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> LARGE_FERN_AND_GRASS = register("large_fern_and_grass");
 
-	public static final SimpleWeightedRandomList<BlockState> LARGE_FERN_AND_GRASS_POOL_2 = SimpleWeightedRandomList.<BlockState>builder().add(Blocks.TALL_GRASS.defaultBlockState(), 5).add(Blocks.LARGE_FERN.defaultBlockState(), 1).build();
+	public static final SimpleWeightedRandomList<BlockState> LARGE_FERN_AND_GRASS_POOL_2 = SimpleWeightedRandomList.<BlockState>builder()
+			.add(Blocks.TALL_GRASS.defaultBlockState(), 5)
+			.add(Blocks.LARGE_FERN.defaultBlockState(), 1)
+			.build();
 
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> LARGE_FERN_AND_GRASS_2 =
-			register("large_fern_and_grass_2", Feature.RANDOM_PATCH,
-					FeatureUtils.simpleRandomPatchConfiguration(36, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-							new SimpleBlockConfiguration(new WeightedStateProvider(LARGE_FERN_AND_GRASS_POOL_2)))));
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> LARGE_FERN_AND_GRASS_2 = register("large_fern_and_grass_2");
 
-	public static final SimpleWeightedRandomList<BlockState> GRASS_AND_FERN_POOL = SimpleWeightedRandomList.<BlockState>builder().add(Blocks.GRASS.defaultBlockState(), 3).add(Blocks.FERN.defaultBlockState(), 1).build();
+	public static final SimpleWeightedRandomList<BlockState> GRASS_AND_FERN_POOL = SimpleWeightedRandomList.<BlockState>builder()
+			.add(Blocks.GRASS.defaultBlockState(), 3)
+			.add(Blocks.FERN.defaultBlockState(), 1)
+			.build();
 
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FERN_AND_GRASS =
-			register("fern_and_grass", Feature.RANDOM_PATCH,
-					new RandomPatchConfiguration(32, 7, 3, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-							new SimpleBlockConfiguration(new WeightedStateProvider(GRASS_AND_FERN_POOL)))));
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FERN_AND_GRASS = register("fern_and_grass");
 
-	public static final FrozenConfiguredFeature<MultifaceGrowthConfiguration, ConfiguredFeature<MultifaceGrowthConfiguration, ?>> POLLEN_CONFIGURED =
-            register("pollen", Feature.MULTIFACE_GROWTH, new MultifaceGrowthConfiguration((MultifaceBlock) RegisterBlocks.POLLEN_BLOCK, 20, true, true, true, 0.5F, HolderSet.direct(Block::builtInRegistryHolder, Blocks.GRASS_BLOCK, Blocks.BIRCH_LEAVES, Blocks.OAK_LEAVES, Blocks.OAK_LOG)));
+	public static final FrozenConfiguredFeature<MultifaceGrowthConfiguration, ConfiguredFeature<MultifaceGrowthConfiguration, ?>> POLLEN_CONFIGURED = register("pollen");
 
-    public static final FrozenConfiguredFeature<ShelfFungusFeatureConfig, ConfiguredFeature<ShelfFungusFeatureConfig, ?>> BROWN_SHELF_FUNGUS_CONFIGURED =
-            register("brown_shelf_fungus", WilderWild.SHELF_FUNGUS_FEATURE, new ShelfFungusFeatureConfig((ShelfFungusBlock) RegisterBlocks.BROWN_SHELF_FUNGUS, 20, true, true, true, HolderSet.direct(Block::builtInRegistryHolder, Blocks.MANGROVE_LOG, Blocks.DARK_OAK_LOG, RegisterBlocks.HOLLOWED_BIRCH_LOG, RegisterBlocks.HOLLOWED_OAK_LOG, Blocks.MYCELIUM, Blocks.MUSHROOM_STEM, RegisterBlocks.HOLLOWED_SPRUCE_LOG)));
+    public static final FrozenConfiguredFeature<ShelfFungusFeatureConfig, ConfiguredFeature<ShelfFungusFeatureConfig, ?>> BROWN_SHELF_FUNGUS_CONFIGURED = register("brown_shelf_fungus");
 
-    public static final FrozenConfiguredFeature<ShelfFungusFeatureConfig, ConfiguredFeature<ShelfFungusFeatureConfig, ?>> RED_SHELF_FUNGUS_CONFIGURED =
-            register("red_shelf_fungus", WilderWild.SHELF_FUNGUS_FEATURE, new ShelfFungusFeatureConfig((ShelfFungusBlock) RegisterBlocks.RED_SHELF_FUNGUS, 20, true, true, true, HolderSet.direct(Block::builtInRegistryHolder, Blocks.MANGROVE_LOG, Blocks.DARK_OAK_LOG, RegisterBlocks.HOLLOWED_BIRCH_LOG, RegisterBlocks.HOLLOWED_OAK_LOG, Blocks.MYCELIUM, Blocks.MUSHROOM_STEM)));
+    public static final FrozenConfiguredFeature<ShelfFungusFeatureConfig, ConfiguredFeature<ShelfFungusFeatureConfig, ?>> RED_SHELF_FUNGUS_CONFIGURED = register("red_shelf_fungus");
 
-    public static final FrozenConfiguredFeature<ProbabilityFeatureConfiguration, ConfiguredFeature<ProbabilityFeatureConfiguration, ?>> CATTAIL =
-            register("cattail", WilderWild.CATTAIL_FEATURE, new ProbabilityFeatureConfiguration(0.8F));
+    public static final FrozenConfiguredFeature<ProbabilityFeatureConfiguration, ConfiguredFeature<ProbabilityFeatureConfiguration, ?>> CATTAIL = register("cattail");
 
-	public static final FrozenConfiguredFeature<ProbabilityFeatureConfiguration, ConfiguredFeature<ProbabilityFeatureConfiguration, ?>> CATTAIL_06 =
-			register("cattail_06", WilderWild.CATTAIL_FEATURE, new ProbabilityFeatureConfiguration(0.6F));
+	public static final FrozenConfiguredFeature<ProbabilityFeatureConfiguration, ConfiguredFeature<ProbabilityFeatureConfiguration, ?>> CATTAIL_06 = register("cattail_06");
 
-    public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_FLOWERED_WATERLILY =
-            register("patch_flowered_waterlily", Feature.RANDOM_PATCH,
-                    new RandomPatchConfiguration(10, 7, 3, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-                            new SimpleBlockConfiguration(BlockStateProvider.simple(RegisterBlocks.FLOWERING_LILY_PAD)))));
+    public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_FLOWERED_WATERLILY = register("patch_flowered_waterlily");
 
-    public static final FrozenConfiguredFeature<ProbabilityFeatureConfiguration, ConfiguredFeature<ProbabilityFeatureConfiguration, ?>> PATCH_ALGAE =
-            register("patch_algae", WilderWild.ALGAE_FEATURE, new ProbabilityFeatureConfiguration(0.8F));
+    public static final FrozenConfiguredFeature<ProbabilityFeatureConfiguration, ConfiguredFeature<ProbabilityFeatureConfiguration, ?>> PATCH_ALGAE = register("patch_algae");
 
-    public static final FrozenConfiguredFeature<ColumnWithDiskFeatureConfig, ConfiguredFeature<ColumnWithDiskFeatureConfig, ?>> TERMITE_CONFIGURED =
-            register("termite_mound_baobab", FrozenFeatures.COLUMN_WITH_DISK_FEATURE, new ColumnWithDiskFeatureConfig(RegisterBlocks.TERMITE_MOUND.defaultBlockState().setValue(RegisterProperties.NATURAL, true), UniformInt.of(4, 9), UniformInt.of(3, 7), UniformInt.of(1, 3), HolderSet.direct(Block::builtInRegistryHolder, Blocks.GRASS_BLOCK, Blocks.STONE, Blocks.DIORITE, Blocks.ANDESITE, Blocks.GRANITE), HolderSet.direct(Block::builtInRegistryHolder, Blocks.COARSE_DIRT, Blocks.SAND, Blocks.PACKED_MUD)));
+    public static final FrozenConfiguredFeature<ColumnWithDiskFeatureConfig, ConfiguredFeature<ColumnWithDiskFeatureConfig, ?>> TERMITE_CONFIGURED = register("termite_mound_baobab");
 
-	public static final SimpleWeightedRandomList<BlockState> TUMBLEWEED_PLANT_POOL = SimpleWeightedRandomList.<BlockState>builder().add(RegisterBlocks.TUMBLEWEED_PLANT.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3), 1).add(RegisterBlocks.TUMBLEWEED_PLANT.defaultBlockState().setValue(BlockStateProperties.AGE_3, 2), 1).add(RegisterBlocks.TUMBLEWEED_PLANT.defaultBlockState().setValue(BlockStateProperties.AGE_3, 1), 1).add(RegisterBlocks.TUMBLEWEED_PLANT.defaultBlockState().setValue(BlockStateProperties.AGE_3, 0), 1).build();
+	public static final SimpleWeightedRandomList<BlockState> TUMBLEWEED_PLANT_POOL = SimpleWeightedRandomList.<BlockState>builder()
+			.add(RegisterBlocks.TUMBLEWEED_PLANT.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3), 1)
+			.add(RegisterBlocks.TUMBLEWEED_PLANT.defaultBlockState().setValue(BlockStateProperties.AGE_3, 2), 1)
+			.add(RegisterBlocks.TUMBLEWEED_PLANT.defaultBlockState().setValue(BlockStateProperties.AGE_3, 1), 1)
+			.add(RegisterBlocks.TUMBLEWEED_PLANT.defaultBlockState().setValue(BlockStateProperties.AGE_3, 0), 1)
+			.build();
 
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> TUMBLEWEED =
-			register("tumbleweed", Feature.FLOWER,
-					FeatureUtils.simpleRandomPatchConfiguration(5, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-							new SimpleBlockConfiguration(new WeightedStateProvider(TUMBLEWEED_PLANT_POOL)))));
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> TUMBLEWEED = register("tumbleweed");
 
-	public static final FrozenConfiguredFeature<LargeMesogleaConfig, ConfiguredFeature<LargeMesogleaConfig, ?>> MESOGLEA_CLUSTER_PURPLE = register("mesoglea_cluster_purple",
-			WilderWild.LARGE_MESOGLEA_FEATURE,
-			new LargeMesogleaConfig(
-					30,
-					UniformInt.of(3, 10), BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)), UniformFloat.of(0.2F, 0.75F),
-					0.15F, UniformFloat.of(0.1F, 0.25F),
-					UniformFloat.of(0.16F, 0.4F), UniformFloat.of(0.0F, 0.25F), 5, 0.2F));
+	public static final FrozenConfiguredFeature<LargeMesogleaConfig, ConfiguredFeature<LargeMesogleaConfig, ?>> MESOGLEA_CLUSTER_PURPLE = register("mesoglea_cluster_purple");
 
-	public static final FrozenConfiguredFeature<LargeMesogleaConfig, ConfiguredFeature<LargeMesogleaConfig, ?>> MESOGLEA_CLUSTER_BLUE = register("mesoglea_cluster_blue",
-			WilderWild.LARGE_MESOGLEA_FEATURE,
-			new LargeMesogleaConfig(
-					30,
-					UniformInt.of(3, 10), BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)), UniformFloat.of(0.2F, 0.75F),
-					0.15F, UniformFloat.of(0.1F, 0.25F),
-					UniformFloat.of(0.16F, 0.4F), UniformFloat.of(0.0F, 0.25F), 5, 0.2F));
+	public static final FrozenConfiguredFeature<LargeMesogleaConfig, ConfiguredFeature<LargeMesogleaConfig, ?>> MESOGLEA_CLUSTER_BLUE = register("mesoglea_cluster_blue");
 
-    public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> BLUE_MESOGLEA = register(
-            "mesoglea",
-            Feature.VEGETATION_PATCH,
-            new VegetationPatchConfiguration(
-                    BlockTags.LUSH_GROUND_REPLACEABLE,
-                    BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-                    PlacementUtils.inlinePlaced(CaveFeatures.DRIPLEAF),
-                    CaveSurface.FLOOR,
-                    ConstantInt.of(3),
-                    0.8F,
-                    2,
-                    0.04F,
-                    UniformInt.of(4, 14),
-                    0.7F
-            )
-    );
+    public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> BLUE_MESOGLEA = register("mesoglea");
 
-    public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> BLUE_MESOGLEA_POOL = register(
-            "mesoglea_pool",
-            Feature.WATERLOGGED_VEGETATION_PATCH,
-            new VegetationPatchConfiguration(
-                    BlockTags.LUSH_GROUND_REPLACEABLE,
-                    BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-                    PlacementUtils.inlinePlaced(CaveFeatures.DRIPLEAF),
-                    CaveSurface.FLOOR,
-                    ConstantInt.of(3),
-                    0.8F,
-                    5,
-                    0.04F,
-                    UniformInt.of(4, 14),
-                    0.7F
-            )
-    );
+    public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> BLUE_MESOGLEA_POOL = register("mesoglea_pool");
 
-    public static final FrozenConfiguredFeature<RandomBooleanFeatureConfiguration, ConfiguredFeature<RandomBooleanFeatureConfiguration, ?>> JELLYFISH_CAVES_BLUE_MESOGLEA = register(
-            "jellyfish_caves_blue_mesoglea",
-            Feature.RANDOM_BOOLEAN_SELECTOR,
-            new RandomBooleanFeatureConfiguration(
-                    PlacementUtils.inlinePlaced(BLUE_MESOGLEA.getHolder()),
-                    PlacementUtils.inlinePlaced(BLUE_MESOGLEA_POOL.getHolder())
-            )
-    );
+    public static final FrozenConfiguredFeature<RandomBooleanFeatureConfiguration, ConfiguredFeature<RandomBooleanFeatureConfiguration, ?>> JELLYFISH_CAVES_BLUE_MESOGLEA = register("jellyfish_caves_blue_mesoglea");
 
-    public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> UPSIDE_DOWN_BLUE_MESOGLEA = register(
-            "upside_down_blue_mesoglea",
-            Feature.VEGETATION_PATCH,
-            new VegetationPatchConfiguration(
-                    BlockTags.LUSH_GROUND_REPLACEABLE,
-                    BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-                    PlacementUtils.inlinePlaced(WilderMiscConfigured.DOWNWARDS_MESOGLEA_PILLAR.getHolder()),
-                    CaveSurface.CEILING,
-                    ConstantInt.of(3),
-                    0.8F,
-                    2,
-                    0.08F,
-                    UniformInt.of(4, 14),
-                    0.7F
-            )
-    );
+    public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> UPSIDE_DOWN_BLUE_MESOGLEA = register("upside_down_blue_mesoglea");
 
-    public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> PURPLE_MESOGLEA = register(
-            "mesoglea_with_dripleaves",
-            Feature.VEGETATION_PATCH,
-            new VegetationPatchConfiguration(
-                    BlockTags.LUSH_GROUND_REPLACEABLE,
-                    BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-                    PlacementUtils.inlinePlaced(CaveFeatures.DRIPLEAF),
-                    CaveSurface.FLOOR,
-                    ConstantInt.of(3),
-                    0.8F,
-                    2,
-                    0.04F,
-                    UniformInt.of(4, 14),
-                    0.7F
-            )
-    );
+    public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> PURPLE_MESOGLEA = register("mesoglea_with_dripleaves");
 
-    public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> PURPLE_MESOGLEA_POOL = register(
-            "purple_mesoglea_pool",
-            Feature.WATERLOGGED_VEGETATION_PATCH,
-            new VegetationPatchConfiguration(
-                    BlockTags.LUSH_GROUND_REPLACEABLE,
-                    BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-                    PlacementUtils.inlinePlaced(CaveFeatures.DRIPLEAF),
-                    CaveSurface.FLOOR,
-                    ConstantInt.of(3),
-                    0.8F,
-                    5,
-                    0.04F,
-                    UniformInt.of(4, 14),
-                    0.7F
-            )
-    );
+    public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> PURPLE_MESOGLEA_POOL = register("purple_mesoglea_pool");
 
-    public static final FrozenConfiguredFeature<RandomBooleanFeatureConfiguration, ConfiguredFeature<RandomBooleanFeatureConfiguration, ?>> JELLYFISH_CAVES_PURPLE_MESOGLEA = register(
-            "jellyfish_caves_purple_mesoglea",
-            Feature.RANDOM_BOOLEAN_SELECTOR,
-            new RandomBooleanFeatureConfiguration(
-                    PlacementUtils.inlinePlaced(PURPLE_MESOGLEA.getHolder()),
-                    PlacementUtils.inlinePlaced(PURPLE_MESOGLEA_POOL.getHolder())
-            )
-    );
+    public static final FrozenConfiguredFeature<RandomBooleanFeatureConfiguration, ConfiguredFeature<RandomBooleanFeatureConfiguration, ?>> JELLYFISH_CAVES_PURPLE_MESOGLEA = register("jellyfish_caves_purple_mesoglea");
 
-    public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> UPSIDE_DOWN_PURPLE_MESOGLEA = register(
-            "upside_down_purple_mesoglea",
-            Feature.VEGETATION_PATCH,
-            new VegetationPatchConfiguration(
-                    BlockTags.LUSH_GROUND_REPLACEABLE,
-                    BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-                    PlacementUtils.inlinePlaced(WilderMiscConfigured.DOWNWARDS_PURPLE_MESOGLEA_PILLAR.getHolder()),
-                    CaveSurface.CEILING,
-                    ConstantInt.of(3),
-                    0.8F,
-                    2,
-                    0.08F,
-                    UniformInt.of(4, 14),
-                    0.7F
-            )
-    );
+    public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> UPSIDE_DOWN_PURPLE_MESOGLEA = register("upside_down_purple_mesoglea");
 
-	public static final FrozenConfiguredFeature<MultifaceGrowthConfiguration, ConfiguredFeature<MultifaceGrowthConfiguration, ?>> NEMATOCYST_BLUE = register("nematocyst_blue",
-			WilderWild.NEMATOCYST_FEATURE,
-			new MultifaceGrowthConfiguration(
-					(MultifaceBlock) RegisterBlocks.BLUE_PEARLESCENT_NEMATOCYST,
-					20,
-					true, true, true, 0.98F,
-					HolderSet.direct(
-							Block::builtInRegistryHolder,
-							Blocks.CLAY,
-							Blocks.STONE,
-							Blocks.ANDESITE,
-							Blocks.DIORITE,
-							Blocks.GRANITE,
-							Blocks.DRIPSTONE_BLOCK,
-							Blocks.CALCITE,
-							Blocks.TUFF,
-							Blocks.DEEPSLATE,
-							RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA
-					)
-			)
-	);
+	public static final FrozenConfiguredFeature<MultifaceGrowthConfiguration, ConfiguredFeature<MultifaceGrowthConfiguration, ?>> NEMATOCYST_BLUE = register("nematocyst_blue");
 
-	public static final FrozenConfiguredFeature<MultifaceGrowthConfiguration, ConfiguredFeature<MultifaceGrowthConfiguration, ?>> NEMATOCYST_PURPLE = register("nematocyst_purple",
-			WilderWild.NEMATOCYST_FEATURE,
-			new MultifaceGrowthConfiguration(
-					(MultifaceBlock) RegisterBlocks.PURPLE_PEARLESCENT_NEMATOCYST,
-					20,
-					true, true, true, 0.98F,
-					HolderSet.direct(
-							Block::builtInRegistryHolder,
-							Blocks.CLAY,
-							Blocks.STONE,
-							Blocks.ANDESITE,
-							Blocks.DIORITE,
-							Blocks.GRANITE,
-							Blocks.DRIPSTONE_BLOCK,
-							Blocks.CALCITE,
-							Blocks.TUFF,
-							Blocks.DEEPSLATE,
-							RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA
-					)
-			)
-	);
+	public static final FrozenConfiguredFeature<MultifaceGrowthConfiguration, ConfiguredFeature<MultifaceGrowthConfiguration, ?>> NEMATOCYST_PURPLE = register("nematocyst_purple");
 
-	public static final FrozenConfiguredFeature<LargeMesogleaConfig, ConfiguredFeature<LargeMesogleaConfig, ?>> LARGE_MESOGLEA_PURPLE = register("large_mesoglea_purple",
-			WilderWild.LARGE_MESOGLEA_FEATURE,
-			new LargeMesogleaConfig(
-					30,
-					UniformInt.of(3, 19), BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)), UniformFloat.of(0.2F, 2.0F),
-					0.33F, UniformFloat.of(0.1F, 0.9F),
-					UniformFloat.of(0.4F, 1.0F), UniformFloat.of(0.0F, 0.3F), 4, 0.2F));
+	public static final FrozenConfiguredFeature<LargeMesogleaConfig, ConfiguredFeature<LargeMesogleaConfig, ?>> LARGE_MESOGLEA_PURPLE = register("large_mesoglea_purple");
 
-	public static final FrozenConfiguredFeature<LargeMesogleaConfig, ConfiguredFeature<LargeMesogleaConfig, ?>> LARGE_MESOGLEA_BLUE = register("large_mesoglea_blue",
-			WilderWild.LARGE_MESOGLEA_FEATURE,
-			new LargeMesogleaConfig(
-					30,
-					UniformInt.of(3, 19), BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)), UniformFloat.of(0.2F, 2.0F),
-					0.33F, UniformFloat.of(0.1F, 0.9F),
-					UniformFloat.of(0.4F, 1.0F), UniformFloat.of(0.0F, 0.3F), 4, 0.2F));
+	public static final FrozenConfiguredFeature<LargeMesogleaConfig, ConfiguredFeature<LargeMesogleaConfig, ?>> LARGE_MESOGLEA_BLUE = register("large_mesoglea_blue");
 
-	public static final FrozenConfiguredFeature<SmallSpongeFeatureConfig, ConfiguredFeature<SmallSpongeFeatureConfig, ?>> SMALL_SPONGE = register("small_sponges",
-			WilderWild.SMALL_SPONGE_FEATURE,
-			new SmallSpongeFeatureConfig(
-					(SmallSpongeBlock) RegisterBlocks.SMALL_SPONGE,
-					20,
-					true,
-					true,
-					true,
-					WilderBlockTags.SMALL_SPONGE_GROWS_ON
-			)
-	);
+	public static final FrozenConfiguredFeature<SmallSpongeFeatureConfig, ConfiguredFeature<SmallSpongeFeatureConfig, ?>> SMALL_SPONGE = register("small_sponges");
 
 	static {
 		registerConfiguredFeatures();
@@ -1297,6 +1070,513 @@ public final class WilderConfiguredFeatures {
 								Feature.SIMPLE_BLOCK,
 								new SimpleBlockConfiguration(new WeightedStateProvider(BUSH_AND_DEAD_BUSH_POOL))
 						)
+				)
+		);
+
+		FLOWER_FIELD_BUSH.makeAndSetHolder(Feature.RANDOM_PATCH,
+				FeatureUtils.simpleRandomPatchConfiguration(
+						18,
+						PlacementUtils.onlyWhenEmpty(
+								Feature.SIMPLE_BLOCK,
+								new SimpleBlockConfiguration(new WeightedStateProvider(FLOWER_FIELD_BUSH_POOL))
+						)
+				)
+		);
+
+		DESERT_BUSH.makeAndSetHolder(Feature.RANDOM_PATCH,
+				FeatureUtils.simpleRandomPatchConfiguration(
+						8,
+						PlacementUtils.onlyWhenEmpty(
+								Feature.SIMPLE_BLOCK,
+								new SimpleBlockConfiguration(new WeightedStateProvider(DESERT_BUSH_POOL))
+						)
+				)
+		);
+
+		BADLANDS_BUSH_SAND.makeAndSetHolder(Feature.RANDOM_PATCH,
+				FeatureUtils.simpleRandomPatchConfiguration(
+						10,
+						PlacementUtils.inlinePlaced(
+								Feature.SIMPLE_BLOCK,
+								new SimpleBlockConfiguration(
+										new WeightedStateProvider(DESERT_BUSH_POOL)
+								),
+								BlockPredicateFilter.forPredicate(
+										BlockPredicate.allOf(
+												BlockPredicate.ONLY_IN_AIR_PREDICATE,
+												BlockPredicate.wouldSurvive(Blocks.CACTUS.defaultBlockState(), BlockPos.ZERO)
+										)
+								)
+						)
+				)
+		);
+
+		BADLANDS_BUSH_TERRACOTTA.makeAndSetHolder(Feature.RANDOM_PATCH,
+				FeatureUtils.simpleRandomPatchConfiguration(
+						6,
+						PlacementUtils.inlinePlaced(
+								Feature.SIMPLE_BLOCK,
+								new SimpleBlockConfiguration(
+										new WeightedStateProvider(DESERT_BUSH_POOL)
+								),
+								BlockPredicateFilter.forPredicate(
+										BlockPredicate.allOf(
+												BlockPredicate.ONLY_IN_AIR_PREDICATE,
+												BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.SAND)))
+								)
+						)
+				)
+		);
+
+		WOODED_BADLANDS_BUSH_TERRACOTTA.makeAndSetHolder(Feature.RANDOM_PATCH,
+				FeatureUtils.simpleRandomPatchConfiguration(
+						10,
+						PlacementUtils.inlinePlaced(
+								Feature.SIMPLE_BLOCK,
+								new SimpleBlockConfiguration(new WeightedStateProvider(DESERT_BUSH_POOL)),
+								BlockPredicateFilter.forPredicate(
+										BlockPredicate.allOf(
+												BlockPredicate.ONLY_IN_AIR_PREDICATE,
+												BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.SAND))
+										)
+								)
+						)
+				)
+		);
+
+		PATCH_CACTUS_OASIS.makeAndSetHolder(Feature.RANDOM_PATCH,
+				FeatureUtils.simpleRandomPatchConfiguration(
+						10,
+						PlacementUtils.inlinePlaced(
+								Feature.BLOCK_COLUMN,
+								BlockColumnConfiguration.simple(
+										BiasedToBottomInt.of(3, 5),
+										BlockStateProvider.simple(Blocks.CACTUS)
+								),
+								BlockPredicateFilter.forPredicate(
+										BlockPredicate.allOf(
+												BlockPredicate.ONLY_IN_AIR_PREDICATE,
+												BlockPredicate.wouldSurvive(Blocks.CACTUS.defaultBlockState(), BlockPos.ZERO)
+										)
+								)
+						)
+				)
+		);
+
+		PATCH_CACTUS_TALL.makeAndSetHolder(Feature.RANDOM_PATCH,
+				FeatureUtils.simpleRandomPatchConfiguration(
+						8,
+						PlacementUtils.inlinePlaced(
+								Feature.BLOCK_COLUMN,
+								BlockColumnConfiguration.simple(
+										BiasedToBottomInt.of(4, 5),
+										BlockStateProvider.simple(Blocks.CACTUS)
+								),
+								BlockPredicateFilter.forPredicate(
+										BlockPredicate.allOf(
+												BlockPredicate.ONLY_IN_AIR_PREDICATE,
+												BlockPredicate.wouldSurvive(Blocks.CACTUS.defaultBlockState(), BlockPos.ZERO)
+										)
+								)
+						)
+				)
+		);
+
+		PATCH_CACTUS_TALL_BADLANDS.makeAndSetHolder(Feature.RANDOM_PATCH,
+				FeatureUtils.simpleRandomPatchConfiguration(
+						12,
+						PlacementUtils.inlinePlaced(
+								Feature.BLOCK_COLUMN,
+								BlockColumnConfiguration.simple(
+										BiasedToBottomInt.of(2, 6),
+										BlockStateProvider.simple(Blocks.CACTUS)
+								),
+								BlockPredicateFilter.forPredicate(
+										BlockPredicate.allOf(
+												BlockPredicate.ONLY_IN_AIR_PREDICATE,
+												BlockPredicate.wouldSurvive(Blocks.CACTUS.defaultBlockState(), BlockPos.ZERO)
+										)
+								)
+						)
+				)
+		);
+
+		PRICKLY_PEAR.makeAndSetHolder(Feature.RANDOM_PATCH,
+				FeatureUtils.simpleRandomPatchConfiguration(
+						20,
+						PlacementUtils.onlyWhenEmpty(
+								Feature.SIMPLE_BLOCK,
+								new SimpleBlockConfiguration(new WeightedStateProvider(PRICKLY_PEAR_POOL))
+						)
+				)
+		);
+
+		LARGE_FERN_AND_GRASS.makeAndSetHolder(Feature.RANDOM_PATCH,
+				FeatureUtils.simpleRandomPatchConfiguration(
+						36,
+						PlacementUtils.onlyWhenEmpty(
+								Feature.SIMPLE_BLOCK,
+								new SimpleBlockConfiguration(new WeightedStateProvider(LARGE_FERN_AND_GRASS_POOL))
+						)
+				)
+		);
+
+		LARGE_FERN_AND_GRASS_2.makeAndSetHolder(Feature.RANDOM_PATCH,
+				FeatureUtils.simpleRandomPatchConfiguration(
+						36,
+						PlacementUtils.onlyWhenEmpty(
+								Feature.SIMPLE_BLOCK,
+								new SimpleBlockConfiguration(new WeightedStateProvider(LARGE_FERN_AND_GRASS_POOL_2))
+						)
+				)
+		);
+
+		FERN_AND_GRASS.makeAndSetHolder(Feature.RANDOM_PATCH,
+				new RandomPatchConfiguration(
+						32,
+						7,
+						3,
+						PlacementUtils.onlyWhenEmpty(
+								Feature.SIMPLE_BLOCK,
+								new SimpleBlockConfiguration(new WeightedStateProvider(GRASS_AND_FERN_POOL))
+						)
+				)
+		);
+
+		POLLEN_CONFIGURED.makeAndSetHolder(Feature.MULTIFACE_GROWTH,
+				new MultifaceGrowthConfiguration(
+						(MultifaceBlock) RegisterBlocks.POLLEN_BLOCK,
+						20,
+						true,
+						true,
+						true,
+						0.5F,
+						HolderSet.direct(
+								Block::builtInRegistryHolder,
+								Blocks.GRASS_BLOCK,
+								Blocks.BIRCH_LEAVES,
+								Blocks.OAK_LEAVES,
+								Blocks.OAK_LOG
+						)
+				)
+		);
+
+		BROWN_SHELF_FUNGUS_CONFIGURED.makeAndSetHolder(WilderWild.SHELF_FUNGUS_FEATURE,
+				new ShelfFungusFeatureConfig(
+						(ShelfFungusBlock) RegisterBlocks.BROWN_SHELF_FUNGUS,
+						20,
+						true,
+						true,
+						true,
+						HolderSet.direct(
+								Block::builtInRegistryHolder,
+								Blocks.MANGROVE_LOG,
+								Blocks.DARK_OAK_LOG,
+								RegisterBlocks.HOLLOWED_BIRCH_LOG,
+								RegisterBlocks.HOLLOWED_OAK_LOG,
+								Blocks.MYCELIUM,
+								Blocks.MUSHROOM_STEM,
+								RegisterBlocks.HOLLOWED_SPRUCE_LOG
+						)
+				)
+		);
+
+		RED_SHELF_FUNGUS_CONFIGURED.makeAndSetHolder(WilderWild.SHELF_FUNGUS_FEATURE,
+				new ShelfFungusFeatureConfig(
+						(ShelfFungusBlock) RegisterBlocks.RED_SHELF_FUNGUS,
+						20,
+						true,
+						true,
+						true,
+						HolderSet.direct(
+								Block::builtInRegistryHolder,
+								Blocks.MANGROVE_LOG,
+								Blocks.DARK_OAK_LOG,
+								RegisterBlocks.HOLLOWED_BIRCH_LOG,
+								RegisterBlocks.HOLLOWED_OAK_LOG,
+								Blocks.MYCELIUM,
+								Blocks.MUSHROOM_STEM
+						)
+				)
+		);
+
+		CATTAIL.makeAndSetHolder(WilderWild.CATTAIL_FEATURE,
+				new ProbabilityFeatureConfiguration(0.8F)
+		);
+
+		CATTAIL_06.makeAndSetHolder(WilderWild.CATTAIL_FEATURE,
+				new ProbabilityFeatureConfiguration(0.6F)
+		);
+
+		PATCH_FLOWERED_WATERLILY.makeAndSetHolder(Feature.RANDOM_PATCH,
+				new RandomPatchConfiguration(
+						10,
+						7,
+						3,
+						PlacementUtils.onlyWhenEmpty(
+								Feature.SIMPLE_BLOCK,
+								new SimpleBlockConfiguration(BlockStateProvider.simple(RegisterBlocks.FLOWERING_LILY_PAD))
+						)
+				)
+		);
+
+		PATCH_ALGAE.makeAndSetHolder(WilderWild.ALGAE_FEATURE,
+				new ProbabilityFeatureConfiguration(0.8F)
+		);
+
+		TERMITE_CONFIGURED.makeAndSetHolder(FrozenFeatures.COLUMN_WITH_DISK_FEATURE,
+				new ColumnWithDiskFeatureConfig(
+						RegisterBlocks.TERMITE_MOUND.defaultBlockState().setValue(RegisterProperties.NATURAL, true),
+						UniformInt.of(4, 9),
+						UniformInt.of(3, 7),
+						UniformInt.of(1, 3),
+						HolderSet.direct(
+								Block::builtInRegistryHolder,
+								Blocks.GRASS_BLOCK,
+								Blocks.STONE,
+								Blocks.DIORITE,
+								Blocks.ANDESITE,
+								Blocks.GRANITE
+						),
+						HolderSet.direct(
+								Block::builtInRegistryHolder,
+								Blocks.COARSE_DIRT,
+								Blocks.SAND,
+								Blocks.PACKED_MUD
+						)
+				)
+		);
+
+		TUMBLEWEED.makeAndSetHolder(Feature.FLOWER,
+				FeatureUtils.simpleRandomPatchConfiguration(
+						5,
+						PlacementUtils.onlyWhenEmpty(
+								Feature.SIMPLE_BLOCK,
+								new SimpleBlockConfiguration(new WeightedStateProvider(TUMBLEWEED_PLANT_POOL))
+						)
+				)
+		);
+
+		MESOGLEA_CLUSTER_PURPLE.makeAndSetHolder(WilderWild.LARGE_MESOGLEA_FEATURE,
+				new LargeMesogleaConfig(
+						30,
+						UniformInt.of(3, 10),
+						BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+						UniformFloat.of(0.2F, 0.75F),
+						0.15F,
+						UniformFloat.of(0.1F, 0.25F),
+						UniformFloat.of(0.16F, 0.4F),
+						UniformFloat.of(0.0F, 0.25F),
+						5,
+						0.2F
+				)
+		);
+
+		MESOGLEA_CLUSTER_BLUE.makeAndSetHolder(WilderWild.LARGE_MESOGLEA_FEATURE,
+				new LargeMesogleaConfig(
+						30,
+						UniformInt.of(3, 10),
+						BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+						UniformFloat.of(0.2F, 0.75F),
+						0.15F,
+						UniformFloat.of(0.1F, 0.25F),
+						UniformFloat.of(0.16F, 0.4F),
+						UniformFloat.of(0.0F, 0.25F),
+						5,
+						0.2F
+				)
+		);
+
+		BLUE_MESOGLEA.makeAndSetHolder(Feature.VEGETATION_PATCH,
+				new VegetationPatchConfiguration(
+						BlockTags.LUSH_GROUND_REPLACEABLE,
+						BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+						PlacementUtils.inlinePlaced(CaveFeatures.DRIPLEAF),
+						CaveSurface.FLOOR,
+						ConstantInt.of(3),
+						0.8F,
+						2,
+						0.04F,
+						UniformInt.of(4, 14),
+						0.7F
+				)
+		);
+
+		BLUE_MESOGLEA_POOL.makeAndSetHolder(Feature.WATERLOGGED_VEGETATION_PATCH,
+				new VegetationPatchConfiguration(
+						BlockTags.LUSH_GROUND_REPLACEABLE,
+						BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+						PlacementUtils.inlinePlaced(CaveFeatures.DRIPLEAF),
+						CaveSurface.FLOOR,
+						ConstantInt.of(3),
+						0.8F,
+						5,
+						0.04F,
+						UniformInt.of(4, 14),
+						0.7F
+				)
+		);
+
+		JELLYFISH_CAVES_BLUE_MESOGLEA.makeAndSetHolder(Feature.RANDOM_BOOLEAN_SELECTOR,
+				new RandomBooleanFeatureConfiguration(
+						PlacementUtils.inlinePlaced(BLUE_MESOGLEA.getHolder()),
+						PlacementUtils.inlinePlaced(BLUE_MESOGLEA_POOL.getHolder())
+				)
+		);
+
+		UPSIDE_DOWN_BLUE_MESOGLEA.makeAndSetHolder(Feature.VEGETATION_PATCH,
+				new VegetationPatchConfiguration(
+						BlockTags.LUSH_GROUND_REPLACEABLE,
+						BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+						PlacementUtils.inlinePlaced(WilderMiscConfigured.DOWNWARDS_MESOGLEA_PILLAR.getHolder()),
+						CaveSurface.CEILING,
+						ConstantInt.of(3),
+						0.8F,
+						2,
+						0.08F,
+						UniformInt.of(4, 14),
+						0.7F
+				)
+		);
+
+		PURPLE_MESOGLEA.makeAndSetHolder(Feature.VEGETATION_PATCH,
+				new VegetationPatchConfiguration(
+						BlockTags.LUSH_GROUND_REPLACEABLE,
+						BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+						PlacementUtils.inlinePlaced(CaveFeatures.DRIPLEAF),
+						CaveSurface.FLOOR,
+						ConstantInt.of(3),
+						0.8F,
+						2,
+						0.04F,
+						UniformInt.of(4, 14),
+						0.7F
+				)
+		);
+
+		PURPLE_MESOGLEA_POOL.makeAndSetHolder(Feature.WATERLOGGED_VEGETATION_PATCH,
+				new VegetationPatchConfiguration(
+						BlockTags.LUSH_GROUND_REPLACEABLE,
+						BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+						PlacementUtils.inlinePlaced(CaveFeatures.DRIPLEAF),
+						CaveSurface.FLOOR,
+						ConstantInt.of(3),
+						0.8F,
+						5,
+						0.04F,
+						UniformInt.of(4, 14),
+						0.7F
+				)
+		);
+
+		JELLYFISH_CAVES_PURPLE_MESOGLEA.makeAndSetHolder(Feature.RANDOM_BOOLEAN_SELECTOR,
+				new RandomBooleanFeatureConfiguration(
+						PlacementUtils.inlinePlaced(PURPLE_MESOGLEA.getHolder()),
+						PlacementUtils.inlinePlaced(PURPLE_MESOGLEA_POOL.getHolder())
+				)
+		);
+
+		UPSIDE_DOWN_PURPLE_MESOGLEA.makeAndSetHolder(Feature.VEGETATION_PATCH,
+				new VegetationPatchConfiguration(
+						BlockTags.LUSH_GROUND_REPLACEABLE,
+						BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+						PlacementUtils.inlinePlaced(WilderMiscConfigured.DOWNWARDS_PURPLE_MESOGLEA_PILLAR.getHolder()),
+						CaveSurface.CEILING,
+						ConstantInt.of(3),
+						0.8F,
+						2,
+						0.08F,
+						UniformInt.of(4, 14),
+						0.7F
+				)
+		);
+
+		NEMATOCYST_BLUE.makeAndSetHolder(WilderWild.NEMATOCYST_FEATURE,
+				new MultifaceGrowthConfiguration(
+						(MultifaceBlock) RegisterBlocks.BLUE_PEARLESCENT_NEMATOCYST,
+						20,
+						true,
+						true,
+						true,
+						0.98F,
+						HolderSet.direct(
+								Block::builtInRegistryHolder,
+								Blocks.CLAY,
+								Blocks.STONE,
+								Blocks.ANDESITE,
+								Blocks.DIORITE,
+								Blocks.GRANITE,
+								Blocks.DRIPSTONE_BLOCK,
+								Blocks.CALCITE,
+								Blocks.TUFF,
+								Blocks.DEEPSLATE,
+								RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA
+						)
+				)
+		);
+
+		NEMATOCYST_PURPLE.makeAndSetHolder(WilderWild.NEMATOCYST_FEATURE,
+				new MultifaceGrowthConfiguration(
+						(MultifaceBlock) RegisterBlocks.PURPLE_PEARLESCENT_NEMATOCYST,
+						20,
+						true,
+						true,
+						true,
+						0.98F,
+						HolderSet.direct(
+								Block::builtInRegistryHolder,
+								Blocks.CLAY,
+								Blocks.STONE,
+								Blocks.ANDESITE,
+								Blocks.DIORITE,
+								Blocks.GRANITE,
+								Blocks.DRIPSTONE_BLOCK,
+								Blocks.CALCITE,
+								Blocks.TUFF,
+								Blocks.DEEPSLATE,
+								RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA
+						)
+				)
+		);
+
+		LARGE_MESOGLEA_PURPLE.makeAndSetHolder(WilderWild.LARGE_MESOGLEA_FEATURE,
+				new LargeMesogleaConfig(
+						30,
+						UniformInt.of(3, 19),
+						BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+						UniformFloat.of(0.2F, 2.0F),
+						0.33F,
+						UniformFloat.of(0.1F, 0.9F),
+						UniformFloat.of(0.4F, 1.0F),
+						UniformFloat.of(0.0F, 0.3F),
+						4,
+						0.2F
+				)
+		);
+
+		LARGE_MESOGLEA_BLUE.makeAndSetHolder(WilderWild.LARGE_MESOGLEA_FEATURE,
+				new LargeMesogleaConfig(
+						30,
+						UniformInt.of(3, 19),
+						BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+						UniformFloat.of(0.2F, 2.0F),
+						0.33F,
+						UniformFloat.of(0.1F, 0.9F),
+						UniformFloat.of(0.4F, 1.0F),
+						UniformFloat.of(0.0F, 0.3F),
+						4,
+						0.2F
+				)
+		);
+
+		SMALL_SPONGE.makeAndSetHolder(WilderWild.SMALL_SPONGE_FEATURE,
+				new SmallSpongeFeatureConfig(
+						(SmallSpongeBlock) RegisterBlocks.SMALL_SPONGE,
+						20,
+						true,
+						true,
+						true,
+						WilderBlockTags.SMALL_SPONGE_GROWS_ON
 				)
 		);
     }
