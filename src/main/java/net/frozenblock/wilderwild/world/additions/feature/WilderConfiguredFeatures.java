@@ -84,28 +84,14 @@ public final class WilderConfiguredFeatures {
 		throw new UnsupportedOperationException("WilderConfiguredFeatures contains only static declarations.");
 	}
 
-	public static final Map<ResourceKey<ConfiguredFeature<?, ?>>, FrozenConfiguredFeature<?, ?>> FROZEN_FEATURES_BY_KEY = new HashMap<>();
-
     //FALLEN TREES
-    public static final FrozenConfiguredFeature<?, ?> FALLEN_TREES_MIXED =
-            register("fallen_trees_mixed", Feature.RANDOM_SELECTOR,
-                    new RandomFeatureConfiguration(List.of((new WeightedPlacedFeature(WilderTreePlaced.FALLEN_SPRUCE_CHECKED, 0.4F)),
-                            new WeightedPlacedFeature(WilderTreePlaced.FALLEN_BIRCH_CHECKED, 0.3F)), WilderTreePlaced.FALLEN_OAK_CHECKED));
+    public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_TREES_MIXED = register("fallen_trees_mixed");
 
-	public static final FrozenConfiguredFeature<?, ?> MOSSY_FALLEN_TREES_MIXED =
-			register("mossy_fallen_trees_mixed", Feature.RANDOM_SELECTOR,
-					new RandomFeatureConfiguration(List.of((new WeightedPlacedFeature(WilderTreePlaced.MOSSY_FALLEN_SPRUCE_CHECKED, 0.15F)),
-							new WeightedPlacedFeature(WilderTreePlaced.MOSSY_FALLEN_BIRCH_CHECKED, 0.1F)), WilderTreePlaced.MOSSY_FALLEN_OAK_CHECKED));
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> MOSSY_FALLEN_TREES_MIXED = register("mossy_fallen_trees_mixed");
 
-	public static final FrozenConfiguredFeature<?, ?> MOSSY_FALLEN_TREES_OAK_AND_BIRCH =
-			register("mossy_fallen_trees_oak_and_birch", Feature.RANDOM_SELECTOR,
-					new RandomFeatureConfiguration(List.of((new WeightedPlacedFeature(WilderTreePlaced.MOSSY_FALLEN_OAK_CHECKED, 0.15F)),
-							new WeightedPlacedFeature(WilderTreePlaced.MOSSY_FALLEN_BIRCH_CHECKED, 0.15F)), WilderTreePlaced.MOSSY_FALLEN_OAK_CHECKED));
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> MOSSY_FALLEN_TREES_OAK_AND_BIRCH = register("mossy_fallen_trees_oak_and_birch");
 
-	public static final FrozenConfiguredFeature<?, ?> FALLEN_BIRCH_AND_SPRUCE =
-			register("fallen_birch_and_spruce", Feature.RANDOM_SELECTOR,
-					new RandomFeatureConfiguration(List.of((new WeightedPlacedFeature(WilderTreePlaced.FALLEN_SPRUCE_CHECKED, 0.6F)),
-							new WeightedPlacedFeature(WilderTreePlaced.FALLEN_BIRCH_CHECKED, 0.4F)), WilderTreePlaced.FALLEN_SPRUCE_CHECKED));
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_BIRCH_AND_SPRUCE = register("fallen_birch_and_spruce");
 
     public static final FrozenConfiguredFeature<?, ?> FALLEN_BIRCH =
             register("fallen_birch", Feature.RANDOM_SELECTOR,
@@ -882,8 +868,30 @@ public final class WilderConfiguredFeatures {
 	public static final FrozenConfiguredFeature<?, ?> SMALL_SPONGE =
 			register("small_sponges", WilderWild.SMALL_SPONGE_FEATURE, new SmallSpongeFeatureConfig((SmallSpongeBlock) RegisterBlocks.SMALL_SPONGE, 20, true, true, true, WilderBlockTags.SMALL_SPONGE_GROWS_ON));
 
+	static {
+		registerConfiguredFeatures();
+	}
+
+	public static void init() {
+		WilderSharedConstants.logWild("Registering WilderConfiguredFeatures for", true);
+	}
+
     public static void registerConfiguredFeatures() {
-        WilderSharedConstants.logWild("Registering WilderConfiguredFeatures for", true);
+		FALLEN_TREES_MIXED.setHolder(makeHolder(FALLEN_TREES_MIXED, Feature.RANDOM_SELECTOR,
+				new RandomFeatureConfiguration(List.of((new WeightedPlacedFeature(WilderTreePlaced.FALLEN_SPRUCE_CHECKED, 0.4F)),
+						new WeightedPlacedFeature(WilderTreePlaced.FALLEN_BIRCH_CHECKED, 0.3F)), WilderTreePlaced.FALLEN_OAK_CHECKED)));
+
+		MOSSY_FALLEN_TREES_MIXED.setHolder(makeHolder(MOSSY_FALLEN_TREES_MIXED, Feature.RANDOM_SELECTOR,
+				new RandomFeatureConfiguration(List.of((new WeightedPlacedFeature(WilderTreePlaced.MOSSY_FALLEN_SPRUCE_CHECKED, 0.15F)),
+						new WeightedPlacedFeature(WilderTreePlaced.MOSSY_FALLEN_BIRCH_CHECKED, 0.1F)), WilderTreePlaced.MOSSY_FALLEN_OAK_CHECKED)));
+
+		MOSSY_FALLEN_TREES_OAK_AND_BIRCH.setHolder(makeHolder(MOSSY_FALLEN_TREES_OAK_AND_BIRCH, Feature.RANDOM_SELECTOR,
+				new RandomFeatureConfiguration(List.of((new WeightedPlacedFeature(WilderTreePlaced.MOSSY_FALLEN_OAK_CHECKED, 0.15F)),
+						new WeightedPlacedFeature(WilderTreePlaced.MOSSY_FALLEN_BIRCH_CHECKED, 0.15F)), WilderTreePlaced.MOSSY_FALLEN_OAK_CHECKED)));
+
+		FALLEN_BIRCH_AND_SPRUCE.setHolder(makeHolder(FALLEN_BIRCH_AND_SPRUCE, Feature.RANDOM_SELECTOR,
+				new RandomFeatureConfiguration(List.of((new WeightedPlacedFeature(WilderTreePlaced.FALLEN_SPRUCE_CHECKED, 0.6F)),
+						new WeightedPlacedFeature(WilderTreePlaced.FALLEN_BIRCH_CHECKED, 0.4F)), WilderTreePlaced.FALLEN_SPRUCE_CHECKED)));
     }
 
     private static RandomPatchConfiguration createRandomPatchFeatureConfig(BlockStateProvider block, int tries) {
@@ -901,4 +909,13 @@ public final class WilderConfiguredFeatures {
 		frozen.setHolder(holder);
 		return frozen;
     }
+
+	public static <FC extends FeatureConfiguration, F extends Feature<FC>> FrozenConfiguredFeature<FC, ConfiguredFeature<FC, ?>> register(@NotNull String id) {
+		var key = WilderSharedConstants.id(id);
+		return new FrozenConfiguredFeature<>(key);
+	}
+
+	public static <FC extends FeatureConfiguration, F extends Feature<FC>> Holder<ConfiguredFeature<FC, ?>> makeHolder(FrozenConfiguredFeature<FC, ConfiguredFeature<FC, ?>> configuredFeature, @NotNull F feature, @NotNull FC config) {
+		return FeatureUtils.register(configuredFeature.getKey().location().toString(), feature, config);
+	}
 }
