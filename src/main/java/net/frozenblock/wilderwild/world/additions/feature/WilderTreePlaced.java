@@ -26,7 +26,6 @@ import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
-import static net.minecraft.data.worldgen.placement.TreePlacements.SNOW_TREE_FILTER_DECORATOR;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -41,6 +40,11 @@ public final class WilderTreePlaced {
 	private WilderTreePlaced() {
 		throw new UnsupportedOperationException("WilderTreePlaced contains only static declarations.");
 	}
+
+	public static final List<PlacementModifier> SNOW_TREE_FILTER_DECORATOR = List.of(
+			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.not(BlockPredicate.matchesBlocks(Blocks.POWDER_SNOW)), 8),
+			BlockPredicateFilter.forPredicate(SNOW_TREE_PREDICATE)
+	);
 
     //BIRCH
     public static final FrozenPlacedFeature BIRCH_CHECKED = register("birch_checked");

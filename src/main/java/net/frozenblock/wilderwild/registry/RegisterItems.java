@@ -19,9 +19,11 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
+import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
 import net.frozenblock.lib.item.api.PrickOnUseBlockItem;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.item.AncientHorn;
@@ -48,6 +50,7 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Instrument;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.PlaceOnWaterBlockItem;
@@ -163,6 +166,16 @@ public final class RegisterItems {
 		registerItemAfter(Blocks.TINTED_GLASS, ECHO_GLASS, "echo_glass", CreativeModeTabs.FUNCTIONAL_BLOCKS);
 		registerItemAfter(Blocks.SAND, SCORCHED_SAND, "scorched_sand", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemAfter(Blocks.RED_SAND, SCORCHED_RED_SAND, "scorched_red_sand", CreativeModeTabs.NATURAL_BLOCKS);
+
+		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(entries -> {
+			var second = new ItemStack(SCORCHED_SAND);
+			ItemBlockStateTagUtils.setProperty(second, RegisterProperties.CRACKEDNESS, 1);
+			entries.addAfter(SCORCHED_SAND, second);
+
+			var secondRed = new ItemStack(SCORCHED_RED_SAND);
+			ItemBlockStateTagUtils.setProperty(secondRed, RegisterProperties.CRACKEDNESS, 1);
+			entries.addAfter(SCORCHED_RED_SAND, secondRed);
+		});
     }
 
     public static void registerItems() {

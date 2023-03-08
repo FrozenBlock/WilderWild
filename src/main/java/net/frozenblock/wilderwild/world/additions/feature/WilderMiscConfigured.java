@@ -32,7 +32,6 @@ import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
-import static net.minecraft.data.worldgen.features.OreFeatures.NATURAL_STONE;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -66,6 +65,9 @@ public final class WilderMiscConfigured {
 	private WilderMiscConfigured() {
 		throw new UnsupportedOperationException("WilderMiscConfigured contains only static declarations.");
 	}
+
+	private static final RuleTest NATURAL_STONE = new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD);
+
 	// SWAMP
     public static final FrozenConfiguredFeature<DiskConfiguration, ConfiguredFeature<DiskConfiguration, ?>> DISK_MUD = register("disk_mud");
 

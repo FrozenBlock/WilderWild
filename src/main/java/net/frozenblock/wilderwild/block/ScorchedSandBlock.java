@@ -147,14 +147,6 @@ public class ScorchedSandBlock extends Block {
 	}
 
 	@Override
-	public void fillItemCategory(@NotNull CreativeModeTab tab, @NotNull NonNullList<ItemStack> items) {
-		super.fillItemCategory(tab, items);
-		ItemStack secondStack = new ItemStack(this);
-		ItemBlockStateTagUtils.setProperty(secondStack, RegisterProperties.CRACKEDNESS, 1);
-		items.add(secondStack);
-	}
-
-	@Override
 	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, RandomSource random) {
 		if (random.nextInt(16) == 0) {
 			BlockPos blockPos = pos.below();
