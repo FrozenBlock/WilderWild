@@ -53,6 +53,7 @@ import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.registry.WilderRegistry;
 import net.frozenblock.wilderwild.world.additions.feature.WilderConfiguredFeatures;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscConfigured;
+import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
 import net.frozenblock.wilderwild.world.additions.feature.WilderTreeConfigured;
 import net.frozenblock.wilderwild.world.additions.feature.WilderTreePlaced;
@@ -123,6 +124,7 @@ public final class WilderWild extends FrozenMobCategoryEntrypoint implements Mod
 		WilderTreeConfigured.init();
 		WilderTreePlaced.init();
 		WilderMiscConfigured.init();
+		WilderMiscPlaced.init();
         WilderConfiguredFeatures.init();
         WilderPlacedFeatures.init();
         WilderWorldGen.generateWildWorldGen();
