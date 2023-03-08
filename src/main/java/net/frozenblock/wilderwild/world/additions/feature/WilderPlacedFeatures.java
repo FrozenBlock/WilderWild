@@ -39,6 +39,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
@@ -51,6 +52,8 @@ import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceWaterDepthFilter;
 import org.jetbrains.annotations.NotNull;
+
+import static net.frozenblock.wilderwild.world.additions.feature.WilderPlacementUtils.register;
 
 public final class WilderPlacedFeatures {
 	private WilderPlacedFeatures() {
@@ -551,19 +554,6 @@ public final class WilderPlacedFeatures {
 	);
 
 	public static void init() {
-    }
-
-    public static FrozenPlacedFeature register(@NotNull String id, Holder<? extends ConfiguredFeature<?, ?>> registryEntry, @NotNull List<PlacementModifier> modifiers) {
-        var key = WilderSharedConstants.id(id);
-		var keyString = key.toString();
-		var frozen = new FrozenPlacedFeature(registryEntry.unwrapKey().orElseThrow().location(), key)
-				.setConfiguredHolder((Holder<ConfiguredFeature<?, ?>>) registryEntry)
-				.setHolder(PlacementUtils.register(keyString, registryEntry, modifiers));
-		return frozen;
-    }
-
-    public static FrozenPlacedFeature register(@NotNull String id, Holder<? extends ConfiguredFeature<?, ?>> registryEntry, @NotNull PlacementModifier... modifiers) {
-        return register(id, registryEntry, List.of(modifiers));
     }
 
 }

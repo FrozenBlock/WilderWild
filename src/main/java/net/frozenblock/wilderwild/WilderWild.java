@@ -120,11 +120,11 @@ public final class WilderWild extends FrozenMobCategoryEntrypoint implements Mod
         WilderRegistry.initRegistry();
         RegisterBlocks.registerBlocks();
         RegisterItems.registerItems();
+		WilderTreeConfigured.init();
+		WilderTreePlaced.init();
+		WilderMiscConfigured.init();
         WilderConfiguredFeatures.init();
         WilderPlacedFeatures.init();
-        WilderTreeConfigured.init();
-        WilderTreePlaced.registerTreePlaced();
-        WilderMiscConfigured.init();
         WilderWorldGen.generateWildWorldGen();
         RegisterGameEvents.registerEvents();
         RegisterWorldgen.registerWorldgen();
