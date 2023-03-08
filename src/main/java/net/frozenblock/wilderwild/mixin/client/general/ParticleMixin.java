@@ -44,12 +44,16 @@ public class ParticleMixin {
 	public void wilderWild$suspendedParticleScaling(CallbackInfo info) {
 		if (SingleQuadParticle.class.cast(this) instanceof SuspendedParticle suspendedParticle) {
 			((WilderDripSuspendedParticleInterface)suspendedParticle).wilderWild$calcScale();
+			float scale = ((WilderDripSuspendedParticleInterface)suspendedParticle).wilderWild$getScale(0F);
 			this.age = Mth.clamp(age - 1, 0, this.lifetime);
+			if (scale < 0.075F) {
+				this.age = Mth.clamp(age - 1, 0, this.lifetime);
+			}
 		}
 	}
 
 	@Inject(method = "tick", at = @At("TAIL"), cancellable = true)
-	public void getQuadSize(CallbackInfo info) {
+	public void wilderWild$getQuadSize(CallbackInfo info) {
 		if (SingleQuadParticle.class.cast(this) instanceof SuspendedParticle suspendedParticle) {
 			if (((WilderDripSuspendedParticleInterface)suspendedParticle).wilderWild$runScaleRemoval()) {
 				suspendedParticle.remove();

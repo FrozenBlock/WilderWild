@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.mixin.client.wind;
+package net.frozenblock.wilderwild.mixin.client.general;
 
 import net.frozenblock.wilderwild.misc.client.WilderDripSuspendedParticleInterface;
 import net.minecraft.client.multiplayer.ClientLevel;
