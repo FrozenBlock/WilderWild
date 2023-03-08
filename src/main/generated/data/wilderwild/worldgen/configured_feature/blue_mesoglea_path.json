@@ -1,0 +1,34 @@
+{
+  "type": "frozenlib:noise_path_feature",
+  "config": {
+    "block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "wilderwild:blue_pearlescent_mesoglea",
+        "Properties": {
+          "waterlogged": "true"
+        }
+      }
+    },
+    "is3D": true,
+    "maxThresh": 0.5875,
+    "minThresh": 0.5125,
+    "multiplier": 0.025,
+    "multiplyY": true,
+    "noise": 1,
+    "onlyExposed": false,
+    "radius": 14,
+    "replaceable": [
+      "minecraft:clay",
+      "minecraft:stone",
+      "minecraft:andesite",
+      "minecraft:diorite",
+      "minecraft:granite",
+      "minecraft:dripstone_block",
+      "minecraft:calcite",
+      "minecraft:tuff",
+      "minecraft:deepslate"
+    ],
+    "useY": true
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "wilderwild:nematocyst_feature",
+  "config": {
+    "block": "wilderwild:blue_pearlescent_nematocyst",
+    "can_be_placed_on": [
+      "minecraft:clay",
+      "minecraft:stone",
+      "minecraft:andesite",
+      "minecraft:diorite",
+      "minecraft:granite",
+      "minecraft:dripstone_block",
+      "minecraft:calcite",
+      "minecraft:tuff",
+      "minecraft:deepslate",
+      "wilderwild:blue_pearlescent_mesoglea"
+    ],
+    "can_place_on_ceiling": true,
+    "can_place_on_floor": true,
+    "can_place_on_wall": true,
+    "chance_of_spreading": 0.98,
+    "search_range": 20
+  }
+}

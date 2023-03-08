@@ -1,0 +1,62 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": "wilderwild:oak_checked",
+    "features": [
+      {
+        "chance": 0.045,
+        "feature": {
+          "feature": "minecraft:huge_brown_mushroom",
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.07,
+        "feature": {
+          "feature": "minecraft:huge_red_mushroom",
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.55,
+        "feature": "minecraft:dark_oak_checked"
+      },
+      {
+        "chance": 0.255,
+        "feature": "wilderwild:dying_dark_oak_checked"
+      },
+      {
+        "chance": 0.1,
+        "feature": "wilderwild:birch_checked"
+      },
+      {
+        "chance": 0.04,
+        "feature": "wilderwild:dying_birch"
+      },
+      {
+        "chance": 0.8,
+        "feature": "wilderwild:tall_dark_oak_checked"
+      },
+      {
+        "chance": 0.021,
+        "feature": "wilderwild:cobweb_tall_dark_oak_checked"
+      },
+      {
+        "chance": 0.222,
+        "feature": "wilderwild:dying_tall_dark_oak_checked"
+      },
+      {
+        "chance": 0.095,
+        "feature": "wilderwild:dying_fancy_oak_checked"
+      },
+      {
+        "chance": 0.045,
+        "feature": "wilderwild:dying_oak_checked"
+      },
+      {
+        "chance": 0.24,
+        "feature": "wilderwild:fancy_oak_checked"
+      }
+    ]
+  }
+}

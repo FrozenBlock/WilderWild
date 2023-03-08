@@ -1,0 +1,39 @@
+{
+  "type": "frozenlib:fading_disk_feature",
+  "config": {
+    "innerChance": 0.925,
+    "innerPercent": 0.55,
+    "innerReplaceable": [
+      "minecraft:sand",
+      "wilderwild:scorched_sand"
+    ],
+    "innerState": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "wilderwild:scorched_sand",
+        "Properties": {
+          "crackedness": "1"
+        }
+      }
+    },
+    "outerReplaceable": "minecraft:sand",
+    "outerState": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "wilderwild:scorched_sand",
+        "Properties": {
+          "crackedness": "0"
+        }
+      }
+    },
+    "placeChance": 0.85,
+    "radius": {
+      "type": "minecraft:uniform",
+      "value": {
+        "max_inclusive": 3,
+        "min_inclusive": 1
+      }
+    },
+    "startFadePercent": 0.8
+  }
+}

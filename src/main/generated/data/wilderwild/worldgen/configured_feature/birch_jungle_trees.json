@@ -1,0 +1,44 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": "minecraft:jungle_tree",
+    "features": [
+      {
+        "chance": 0.1,
+        "feature": "minecraft:fancy_oak_checked"
+      },
+      {
+        "chance": 0.049,
+        "feature": "wilderwild:birch_checked"
+      },
+      {
+        "chance": 0.069,
+        "feature": "wilderwild:dying_birch"
+      },
+      {
+        "chance": 0.049,
+        "feature": "wilderwild:super_birch"
+      },
+      {
+        "chance": 0.049,
+        "feature": "wilderwild:dying_super_birch"
+      },
+      {
+        "chance": 0.079,
+        "feature": "wilderwild:short_birch"
+      },
+      {
+        "chance": 0.119,
+        "feature": "wilderwild:dying_short_birch"
+      },
+      {
+        "chance": 0.25,
+        "feature": "minecraft:jungle_bush"
+      },
+      {
+        "chance": 0.165,
+        "feature": "minecraft:mega_jungle_tree_checked"
+      }
+    ]
+  }
+}
