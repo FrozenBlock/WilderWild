@@ -76,6 +76,7 @@
     "client.general.ParticleMixin",
     "client.general.ShriekerGargleMixin",
     "client.general.SingleQuadParticleMixin",
+    "client.general.SuspendedParticleMixin",
     "client.general.UnderwaterProviderMixin",
     "client.warden.WardenAnimationOverwrites",
     "client.warden.WardenModelMixin",
@@ -90,7 +91,6 @@
     "client.wind.SnowflakeParticleMixin",
     "client.wind.SporeBlossomAirProviderMixin",
     "client.wind.SporeBlossomFallProviderMixin",
-    "client.wind.SuspendedParticleMixin",
     "sodium.FluidRendererMixin"
   ],
   "injectors": {
