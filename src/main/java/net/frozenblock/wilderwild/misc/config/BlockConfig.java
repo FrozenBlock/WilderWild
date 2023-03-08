@@ -68,6 +68,7 @@ public final class BlockConfig implements ConfigData {
     public boolean shriekerGargling = DefaultBlockConfig.SHRIEKER_GARGLING;
     public boolean soulFireSounds = DefaultBlockConfig.SOUL_FIRE_SOUNDS;
 	public boolean billboardTendrils = DefaultBlockConfig.BILLBOARD_TENDRILS;
+	public boolean mesogleaLiquid = DefaultBlockConfig.MESOGLEA_LIQUID;
 	public boolean pollenParticles = DefaultBlockConfig.POLLEN_PARTICLES;
 	public boolean cactusPlacement = DefaultBlockConfig.CACTUS_PLACEMENT;
 
@@ -96,21 +97,24 @@ public final class BlockConfig implements ConfigData {
                 .setTooltip(tooltip("soul_fire_sounds"))
                 .build()
         );
-
 		var billboardTendrils = category.addEntry(entryBuilder.startBooleanToggle(text("billboard_tendrils"), config.billboardTendrils)
 				.setDefaultValue(DefaultBlockConfig.BILLBOARD_TENDRILS)
 				.setSaveConsumer(newValue -> config.billboardTendrils = newValue)
 				.setTooltip(tooltip("billboard_tendrils"))
 				.build()
 		);
-
+		var mesogleaLiquid = category.addEntry(entryBuilder.startBooleanToggle(text("mesoglea_liquid"), config.mesogleaLiquid)
+				.setDefaultValue(DefaultBlockConfig.MESOGLEA_LIQUID)
+				.setSaveConsumer(newValue -> config.mesogleaLiquid = newValue)
+				.setTooltip(tooltip("mesoglea_liquid"))
+				.build()
+		);
 		var pollenParticles = category.addEntry(entryBuilder.startBooleanToggle(text("pollen_particles"), config.pollenParticles)
 				.setDefaultValue(DefaultBlockConfig.POLLEN_PARTICLES)
 				.setSaveConsumer(newValue -> config.pollenParticles = newValue)
 				.setTooltip(tooltip("pollen_particles"))
 				.build()
 		);
-
 		var cactusPlacement = category.addEntry(entryBuilder.startBooleanToggle(text("cactus_placement"), config.cactusPlacement)
 				.setDefaultValue(DefaultBlockConfig.CACTUS_PLACEMENT)
 				.setSaveConsumer(newValue -> config.cactusPlacement = newValue)
