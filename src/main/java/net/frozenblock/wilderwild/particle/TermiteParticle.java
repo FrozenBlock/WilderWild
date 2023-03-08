@@ -19,8 +19,7 @@
 package net.frozenblock.wilderwild.particle;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Camera;
@@ -36,6 +35,8 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
 public class TermiteParticle extends TextureSheetParticle {
@@ -122,7 +123,7 @@ public class TermiteParticle extends TextureSheetParticle {
 		float yRotation = (rotate(this.yRot, animationProgress, this.yOffset, this.ySpinSpeed)) * (this.backwardsY ? -1 : 1) * 0.65F;
 		float zRotation = (rotate(this.zRot, animationProgress, this.zOffset, this.zSpinSpeed)) * (this.backwardsZ ? -1 : 1) * 0.65F;
 
-		Quaternion quaternion;
+		Quaternionf quaternion;
 		Vec3 vec3 = renderInfo.getPosition();
 		float f = (float)(x - vec3.x() + xRotation);
 		float g = (float)(y - vec3.y() + yRotation);
@@ -130,15 +131,15 @@ public class TermiteParticle extends TextureSheetParticle {
 		if (this.roll == 0.0f) {
 			quaternion = renderInfo.rotation();
 		} else {
-			quaternion = new Quaternion(renderInfo.rotation());
+			quaternion = new Quaternionf(renderInfo.rotation());
 			float i = Mth.lerp(partialTicks, this.oRoll, this.roll);
-			quaternion.mul(Vector3f.ZP.rotation(i));
+			quaternion.mul(Axis.ZP.rotation(i));
 		}
 		Vector3f[] vector3fs = new Vector3f[]{new Vector3f(-1.0f, -1.0f, 0.0f), new Vector3f(-1.0f, 1.0f, 0.0f), new Vector3f(1.0f, 1.0f, 0.0f), new Vector3f(1.0f, -1.0f, 0.0f)};
 		float j = this.getQuadSize(partialTicks);
 		for (int k = 0; k < 4; ++k) {
 			Vector3f vector3f2 = vector3fs[k];
-			vector3f2.transform(quaternion);
+			vector3f2.rotate(quaternion);
 			vector3f2.mul(j);
 			vector3f2.add(f, g, h);
 		}

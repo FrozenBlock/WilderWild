@@ -380,14 +380,6 @@ public final class WilderConfiguredFeatures {
 
 	public static final FrozenConfiguredFeature<SmallSpongeFeatureConfig, ConfiguredFeature<SmallSpongeFeatureConfig, ?>> SMALL_SPONGE = register("small_sponges");
 
-	static {
-		registerConfiguredFeatures();
-	}
-
-	public static void init() {
-	}
-
-	// TODO: Finish this for the rest of WilderConfiguredFeatures and then do it for the other feature classes
     public static void registerConfiguredFeatures() {
 
 		WilderSharedConstants.logWild("Registering WilderConfiguredFeatures for", true);

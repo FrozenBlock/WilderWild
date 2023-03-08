@@ -96,6 +96,7 @@ accessible    method    net/minecraft/world/level/levelgen/feature/stateprovider
 
 # Features
 accessible    field    net/minecraft/data/worldgen/placement/VegetationPlacements    TREE_THRESHOLD    Lnet/minecraft/world/level/levelgen/placement/PlacementModifier;
+accessible    method    net/minecraft/data/worldgen/placement/AquaticPlacements    seagrassPlacement    (I)Ljava/util/List;
 
 # Noise
 accessible    method    net/minecraft/data/worldgen/NoiseData    register    (Lnet/minecraft/data/worldgen/BootstapContext;Lnet/minecraft/resources/ResourceKey;ID[D)V

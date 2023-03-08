@@ -42,6 +42,7 @@ import net.frozenblock.wilderwild.world.generation.trunk.StraightTrunkWithLogs;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
+import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
@@ -244,13 +245,6 @@ public final class WilderTreeConfigured {
 
 	//JUNIPER
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> JUNIPER = register("juniper");
-
-	static {
-		registerTreeConfigured();
-	}
-
-	public static void init() {
-	}
 
 	public static void registerTreeConfigured() {
 

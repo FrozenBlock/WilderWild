@@ -149,13 +149,6 @@ public final class WilderMiscPlaced {
 	//SNOW
 	public static final FrozenPlacedFeature SNOW_BLANKET = register("snow_blanket");
 
-	static {
-		registerMiscPlaced();
-	}
-
-	public static void init() {
-	}
-
 	public static void registerMiscPlaced() {
 
 		WilderSharedConstants.logWild("Registering WilderMiscPlaced for", true);

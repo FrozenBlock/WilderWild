@@ -201,13 +201,6 @@ public final class WilderTreePlaced {
 
 	public static final FrozenPlacedFeature SMALL_WINE_PALM_CHECKED_DIRT = register("small_wine_palm_checked_dirt");
 
-	static {
-		registerTreePlaced();
-	}
-
-	public static void init() {
-	}
-
 	public static void registerTreePlaced() {
 
         WilderSharedConstants.logWild("Registering WilderTreePlaced for", true);
