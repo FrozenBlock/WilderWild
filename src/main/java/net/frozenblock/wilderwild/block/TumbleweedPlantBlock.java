@@ -37,7 +37,6 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -68,11 +67,12 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if (isFullyGrown(state)) {
 			if (random.nextInt(0, 2) == 0) {
-				level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
+				level.setBlock(pos, state.cycle(AGE), 2);
 				Tumbleweed weed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
 				level.addFreshEntity(weed);
 				weed.setPos(new Vec3(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5));
-				if (level.random.nextInt(0, 15) == 0) {
+				int diff = level.getDifficulty().getId();
+				if (level.getRandom().nextInt(0,  diff == 0 ? 20 : (15 / diff)) == 0) {
 					weed.setItem(new ItemStack(RegisterBlocks.TUMBLEWEED_PLANT), true);
 				}
 				level.playSound(null, pos, RegisterSounds.ENTITY_TUMBLEWEED_DAMAGE, SoundSource.BLOCKS, 1.0F, 1.0F);
@@ -80,7 +80,7 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 				level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 			}
 		} else {
-			level.setBlockAndUpdate(pos, state.setValue(AGE, state.getValue(AGE) + 1));
+			level.setBlock(pos, state.cycle(AGE), 2);
 		}
 	}
 
@@ -101,7 +101,7 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 
 	@Override
 	protected boolean mayPlaceOn(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
-		return state.is(BlockTags.DEAD_BUSH_MAY_PLACE_ON) || state.is(BlockTags.DIRT) || state.is(Blocks.FARMLAND) || state.is(WilderBlockTags.BUSH_MAY_PLACE_ON);
+		return state.is(BlockTags.DEAD_BUSH_MAY_PLACE_ON) || state.is(WilderBlockTags.BUSH_MAY_PLACE_ON) || super.mayPlaceOn(state, level, pos);
 	}
 
 	public static boolean isFullyGrown(BlockState state) {
@@ -146,6 +146,7 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
 		builder.add(AGE);
 	}
 }

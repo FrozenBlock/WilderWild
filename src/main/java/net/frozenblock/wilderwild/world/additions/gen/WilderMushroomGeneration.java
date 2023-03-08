@@ -27,21 +27,21 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 public final class WilderMushroomGeneration {
     public static void generateMushroom() {
         BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_HUGE_RED_MUSHROOM),
-                GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.HUGE_RED_MUSHROOM_PLACED);
+                GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.HUGE_RED_MUSHROOM_PLACED.getKey());
 
 		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_HUGE_BROWN_MUSHROOM),
-				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.HUGE_BROWN_MUSHROOM_PLACED);
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.HUGE_BROWN_MUSHROOM_PLACED.getKey());
 
         BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_BIG_MUSHROOMS),
-                GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MUSHROOM_PLACED);
+                GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MUSHROOM_PLACED.getKey());
 
         BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_COMMON_BROWN_MUSHROOM),
-                GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BROWN_MUSHROOM_PLACED);
+                GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BROWN_MUSHROOM_PLACED.getKey());
 
 		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_COMMON_RED_MUSHROOM),
-				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.RED_MUSHROOM_PLACED);
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.RED_MUSHROOM_PLACED.getKey());
 
         BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SWAMP_MUSHROOM),
-                GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.HUGE_MUSHROOMS_SWAMP);
+                GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.HUGE_MUSHROOMS_SWAMP.getKey());
     }
 }

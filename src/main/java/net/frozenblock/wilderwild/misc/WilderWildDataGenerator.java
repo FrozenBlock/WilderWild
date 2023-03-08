@@ -375,6 +375,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBiomeTags.PEARLESCENT_JELLYFISH)
 					.addOptional(RegisterWorldgen.JELLYFISH_CAVES);
 
+			this.getOrCreateTagBuilder(WilderBiomeTags.JELLYFISH_SPECIAL_SPAWN)
+					.addOptional(RegisterWorldgen.JELLYFISH_CAVES);
+
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_TUMBLEWEED_ENTITY)
 					.add(Biomes.DESERT)
 					.add(Biomes.BADLANDS)
@@ -1020,7 +1023,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(WilderBlockTags.BUSH_MAY_PLACE_ON)
 					.addOptionalTag(BlockTags.SAND)
-					.addOptionalTag(BlockTags.DIRT);
+					.addOptionalTag(BlockTags.DIRT)
+					.addOptionalTag(BlockTags.DEAD_BUSH_MAY_PLACE_ON);
 
 			this.getOrCreateTagBuilder(WilderBlockTags.KILLS_TERMITE)
 					.add(Blocks.WATER)

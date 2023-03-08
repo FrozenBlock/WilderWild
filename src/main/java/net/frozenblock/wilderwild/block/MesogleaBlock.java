@@ -27,6 +27,7 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -35,6 +36,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HalfTransparentBlock;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -69,11 +71,11 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 				item.setDeltaMovement(item.getDeltaMovement().add(0, 0.025, 0));
 			}
 			if (entity instanceof Boat boat) {
-				Vec3 deltaMove = boat.getDeltaMovement();
-				if (boat.isUnderWater()) {
-					boat.setDeltaMovement(deltaMove.x, Math.min(0.175, deltaMove.y + 0.05), deltaMove.z);
-				} else if (deltaMove.y < 0) {
-					boat.setDeltaMovement(deltaMove.x, deltaMove.y * 0.5, deltaMove.z);
+				Vec3 deltaMovement = boat.getDeltaMovement();
+				if (boat.isUnderWater() && deltaMovement.y < 0.175) {
+					boat.setDeltaMovement(deltaMovement.x, Math.min(0.175, deltaMovement.y + 0.05), deltaMovement.z);
+				} else if (deltaMovement.y < 0) {
+					boat.setDeltaMovement(deltaMovement.x, deltaMovement.y * 0.125, deltaMovement.z);
 				}
 			}
 		}
@@ -85,9 +87,12 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 			if (blockState.getValue(WATERLOGGED)) {
 				VoxelShape shape = Shapes.empty();
 				Entity entity = entityCollisionContext.getEntity();
-				if (entity.getType().is(WilderEntityTags.STAYS_IN_MESOGLEA)) {
-					BlockState jellyfishState = entity.getFeetBlockState();
-					if (entity.isInWater() || (jellyfishState.getBlock() instanceof MesogleaBlock && jellyfishState.getValue(BlockStateProperties.WATERLOGGED))) {
+				if (entity != null && entity.getType().is(WilderEntityTags.STAYS_IN_MESOGLEA) && !entity.isPassenger() && !entity.isDescending()) {
+					if (entity instanceof Mob mob && mob.isLeashed()) {
+						return shape;
+					}
+					BlockState insideState = entity.getFeetBlockState();
+					if (entity.isInWater() || (insideState.getBlock() instanceof MesogleaBlock && insideState.getValue(BlockStateProperties.WATERLOGGED))) {
 						for (Direction direction : Direction.values()) {
 							if (direction != Direction.UP && !blockGetter.getFluidState(blockPos.relative(direction)).is(FluidTags.WATER)) {
 								shape = Shapes.or(shape, FrozenShapes.makePlaneFromDirection(direction, 0.25F));
@@ -146,5 +151,10 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 	public boolean skipRendering(@NotNull BlockState blockState, BlockState blockState2, @NotNull Direction direction) {
 		boolean isThisWaterlogged = blockState.getValue(WATERLOGGED);
 		return blockState2.is(this) && (isThisWaterlogged == blockState2.getValue(WATERLOGGED) || isThisWaterlogged);
+	}
+
+	@Override
+	public RenderShape getRenderShape(BlockState state) {
+		return state.getValue(BlockStateProperties.WATERLOGGED) ? RenderShape.INVISIBLE : super.getRenderShape(state);
 	}
 }

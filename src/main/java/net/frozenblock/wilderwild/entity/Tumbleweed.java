@@ -108,7 +108,7 @@ public class Tumbleweed extends Mob {
 	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
 		if (this.inventory.get(0).isEmpty() && reason == MobSpawnType.NATURAL) {
 			int diff = difficulty.getDifficulty().getId();
-			if (level.getRandom().nextInt(0,  diff == 0 ? 32 : (27 / difficulty.getDifficulty().getId())) == 0) {
+			if (level.getRandom().nextInt(0,  diff == 0 ? 32 : (27 / diff)) == 0) {
 				int tagSelector = level.getRandom().nextInt(1, 6);
 				TagKey<Item> itemTag = tagSelector <= 1 ? WilderItemTags.TUMBLEWEED_RARE : tagSelector <= 3 ? WilderItemTags.TUMBLEWEED_MEDIUM : WilderItemTags.TUMBLEWEED_COMMON;
 				this.setItem(new ItemStack(TagUtils.getRandomEntry(level.getRandom(), itemTag)), true);

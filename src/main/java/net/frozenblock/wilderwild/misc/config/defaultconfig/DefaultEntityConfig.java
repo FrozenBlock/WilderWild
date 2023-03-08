@@ -38,7 +38,7 @@ public class DefaultEntityConfig {
 	}
 
 	public static class TumbleweedConfig {
-		public static final int TUMBLEWEED_SPAWN_CAP = 16;
+		public static final int TUMBLEWEED_SPAWN_CAP = 10;
 		public static final boolean LEASHED_TUMBLEWEED = false;
 	}
 

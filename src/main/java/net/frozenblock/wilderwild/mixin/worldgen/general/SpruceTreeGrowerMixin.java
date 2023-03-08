@@ -35,7 +35,7 @@ public class SpruceTreeGrowerMixin {
     @Inject(method = "getConfiguredFeature", at = @At("RETURN"), cancellable = true)
     public void getConfiguredFeature(RandomSource random, boolean bees, CallbackInfoReturnable<ResourceKey<ConfiguredFeature<?, ?>>> info) {
 		if (WilderSharedConstants.config().wildTrees()) {
-			info.setReturnValue(random.nextFloat() < 0.1F ? WilderTreeConfigured.SPRUCE_SHORT : WilderTreeConfigured.SPRUCE);
+			info.setReturnValue(random.nextFloat() < 0.1F ? WilderTreeConfigured.SPRUCE_SHORT.getHolder() : WilderTreeConfigured.SPRUCE.getHolder());
 		}
     }
 

@@ -18,13 +18,7 @@
 
 package net.frozenblock.wilderwild.misc.mod_compat.clothconfig;
 
-import net.frozenblock.lib.config.frozenlib_config.getter.FrozenLibConfigValues;
 import net.frozenblock.lib.integration.api.ModIntegration;
-import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultBlockConfig;
-import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultEntityConfig;
-import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultItemConfig;
-import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultMiscConfig;
-import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultWorldgenConfig;
 
 public abstract class AbstractClothConfigIntegration extends ModIntegration {
 

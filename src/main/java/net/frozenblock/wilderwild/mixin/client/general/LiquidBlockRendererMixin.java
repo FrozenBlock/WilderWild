@@ -22,7 +22,10 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.FrozenBools;
+import net.frozenblock.lib.liquid.render.api.LiquidRenderUtils;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
+import net.frozenblock.wilderwild.tag.WilderBlockTags;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.LiquidBlockRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
@@ -59,16 +62,22 @@ public class LiquidBlockRendererMixin {
 
     @Inject(method = "shouldRenderFace", at = @At(value = "HEAD"), cancellable = true)
     private static void wilderWild$shouldRenderFace(BlockAndTintGetter blockAndTintGetter, BlockPos blockPos, FluidState fluidState, BlockState blockState, Direction side, FluidState fluidState2, CallbackInfoReturnable<Boolean> info) {
-        if (blockState.getBlock() instanceof MesogleaBlock && side != Direction.UP && !FrozenBools.HAS_SODIUM) {
+        /*
+		if (blockState.getBlock() instanceof MesogleaBlock && side != Direction.UP && !FrozenBools.HAS_SODIUM) {
             info.setReturnValue(false);
         }
+         */
     }
 
 	@Unique
 	private boolean wilderWild$isWater;
 
-	@Inject(method = "tesselate", at = @At("HEAD"))
+	@Inject(method = "tesselate", at = @At("HEAD"), cancellable = true)
 	private void wilderWild$getIsWater(BlockAndTintGetter level, BlockPos pos, VertexConsumer vertexConsumer, BlockState blockState, FluidState fluidState, CallbackInfo info) {
+		if (blockState.getBlock() instanceof MesogleaBlock) {
+			LiquidRenderUtils.tesselateWithSingleTexture(level, pos, vertexConsumer, blockState, fluidState, Minecraft.getInstance().getModelManager().getBlockModelShaper().getBlockModel(blockState).getParticleIcon());
+			info.cancel();
+		}
 		this.wilderWild$isWater = fluidState.is(FluidTags.WATER);
 	}
 

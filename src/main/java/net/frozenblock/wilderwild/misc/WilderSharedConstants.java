@@ -25,7 +25,6 @@ import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.misc.mod_compat.clothconfig.AbstractClothConfigIntegration;
-import net.frozenblock.wilderwild.misc.mod_compat.clothconfig.NoOpClothConfigIntegration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
@@ -48,7 +47,7 @@ public class WilderSharedConstants {
 	public static final ModContainer MOD_CONTAINER = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow();
 	public static boolean areConfigsInit = false;
 
-	public static final int DATA_VERSION = 11;
+	public static final int DATA_VERSION = 12;
 
 	public static RandomSource random() {
 		return AdvancedMath.random();

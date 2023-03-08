@@ -51,7 +51,8 @@ public class JellyfishHide extends MoveToBlockBehavior<Jellyfish> {
 	protected void tick(@NotNull ServerLevel level, @NotNull Jellyfish owner, long gameTime) {
 		super.tick(level, owner, gameTime);
 
-		if (this.isReachedTarget()) {
+		if (this.isReachedTarget() && !owner.vanishing) {
+			level.broadcastEntityEvent(owner, (byte) 4);
 			owner.vanishing = true;
 		}
 	}

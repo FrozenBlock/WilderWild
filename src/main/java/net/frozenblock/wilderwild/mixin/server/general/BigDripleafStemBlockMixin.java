@@ -37,6 +37,12 @@ public final class BigDripleafStemBlockMixin extends HorizontalDirectionalBlock 
         super(properties);
     }
 
+	@Inject(method = "<init>", at = @At("RETURN"))
+	public void wilderWild$init(CallbackInfo info) {
+		BigDripleafStemBlock bigDripleafStemBlock = BigDripleafStemBlock.class.cast(this);
+		bigDripleafStemBlock.registerDefaultState(bigDripleafStemBlock.defaultBlockState().setValue(BlockStateProperties.POWERED, false));
+	}
+
     @Inject(at = @At("TAIL"), method = "createBlockStateDefinition")
     public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
         builder.add(BlockStateProperties.POWERED);
