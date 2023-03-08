@@ -7,10 +7,16 @@
         "probability": 0.004
       },
       {
-        "type": "wilderwild:height_based_vine_trunk_decorator",
+        "type": "wilderwild:height_based_vine_tree_decorator",
         "maxHeight": 260,
         "probability": 1.0,
         "vines_count": 0.5
+      },
+      {
+        "type": "wilderwild:pollen_tree_decorator",
+        "chanceToDecorate": 0.1,
+        "maxPollenCount": 3,
+        "pollenPlaceChance": 0.025
       }
     ],
     "dirt_provider": {
@@ -56,7 +62,8 @@
       "state": {
         "Name": "minecraft:oak_log",
         "Properties": {
-          "axis": "y"
+          "axis": "y",
+          "termite_edible": "true"
         }
       }
     }

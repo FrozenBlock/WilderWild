@@ -60,7 +60,8 @@
       "state": {
         "Name": "minecraft:oak_log",
         "Properties": {
-          "axis": "y"
+          "axis": "y",
+          "termite_edible": "true"
         }
       }
     }

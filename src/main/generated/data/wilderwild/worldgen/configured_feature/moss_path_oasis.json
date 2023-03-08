@@ -7,11 +7,13 @@
         "Name": "minecraft:moss_block"
       }
     },
+    "is3D": false,
     "maxThresh": 1.0,
     "minThresh": 0.12,
     "multiplier": 0.1,
     "multiplyY": true,
     "noise": 2,
+    "onlyExposed": false,
     "radius": 9,
     "replaceable": "minecraft:sand",
     "useY": true

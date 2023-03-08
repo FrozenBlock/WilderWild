@@ -19,7 +19,7 @@
       "max_delay": 24000,
       "min_delay": 12000,
       "replace_current_music": false,
-      "sound": "wilderwild:music.overworld.wild_forests"
+      "sound": "minecraft:music.overworld.jungle_and_forest"
     },
     "sky_color": 7646207,
     "water_color": 4159204,
@@ -76,6 +76,7 @@
       "minecraft:spring_lava"
     ],
     [
+      "wilderwild:parched_forest_trees",
       "minecraft:glow_lichen",
       "minecraft:patch_tall_grass",
       "minecraft:flower_warm",
@@ -83,8 +84,7 @@
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal",
       "minecraft:patch_sugar_cane",
-      "minecraft:patch_pumpkin",
-      "wilderwild:parched_forest_trees"
+      "minecraft:patch_pumpkin"
     ],
     [
       "minecraft:freeze_top_layer"

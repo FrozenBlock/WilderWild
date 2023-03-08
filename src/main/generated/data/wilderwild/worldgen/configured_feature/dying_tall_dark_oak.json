@@ -3,7 +3,7 @@
   "config": {
     "decorators": [
       {
-        "type": "wilderwild:height_based_vine_trunk_decorator",
+        "type": "wilderwild:height_based_vine_tree_decorator",
         "maxHeight": 260,
         "probability": 1.0,
         "vines_count": 0.5
@@ -43,16 +43,17 @@
     },
     "trunk_placer": {
       "type": "minecraft:dark_oak_trunk_placer",
-      "base_height": 7,
+      "base_height": 8,
       "height_rand_a": 3,
-      "height_rand_b": 2
+      "height_rand_b": 4
     },
     "trunk_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "minecraft:dark_oak_log",
         "Properties": {
-          "axis": "y"
+          "axis": "y",
+          "termite_edible": "true"
         }
       }
     }

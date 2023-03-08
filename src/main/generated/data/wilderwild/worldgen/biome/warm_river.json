@@ -6,7 +6,7 @@
       "minecraft:canyon"
     ]
   },
-  "downfall": 0.0,
+  "downfall": 0.15,
   "effects": {
     "fog_color": 12638463,
     "foliage_color": 11445290,
@@ -71,7 +71,6 @@
       "minecraft:disk_sand",
       "minecraft:disk_clay",
       "minecraft:disk_gravel",
-      "wilderwild:under_water_clay_path_beach",
       "wilderwild:under_water_gravel_path_river"
     ],
     [],

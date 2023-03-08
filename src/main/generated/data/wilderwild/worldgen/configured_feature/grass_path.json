@@ -10,11 +10,13 @@
         }
       }
     },
+    "is3D": false,
     "maxThresh": 1.0,
     "minThresh": 0.4,
     "multiplier": 0.15,
     "multiplyY": false,
     "noise": 4,
+    "onlyExposed": false,
     "radius": 11,
     "replaceable": [
       "minecraft:sand",

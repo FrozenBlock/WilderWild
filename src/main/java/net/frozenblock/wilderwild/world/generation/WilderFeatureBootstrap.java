@@ -5,8 +5,10 @@ import java.util.List;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeatureUtils;
+import net.frozenblock.lib.worldgen.feature.api.FrozenFeatureUtils;
 import net.frozenblock.lib.worldgen.feature.api.FrozenPlacedFeature;
 import net.frozenblock.lib.worldgen.feature.api.FrozenPlacementUtils;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.additions.feature.WilderConfiguredFeatures;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscConfigured;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
@@ -31,7 +33,7 @@ public class WilderFeatureBootstrap {
 		final var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		final var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
-		FrozenConfiguredFeature.BOOTSTAP_CONTEXT = entries;
+		FrozenFeatureUtils.BOOTSTAP_CONTEXT = (BootstapContext) entries;
 
 		WilderTreeConfigured.registerTreeConfigured();
 		WilderMiscConfigured.registerMiscPlaced();
@@ -42,7 +44,7 @@ public class WilderFeatureBootstrap {
 		final var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		final var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
-		FrozenPlacedFeature.BOOTSTAP_CONTEXT = entries;
+		FrozenFeatureUtils.BOOTSTAP_CONTEXT = (BootstapContext) entries;
 
 		WilderTreePlaced.registerTreePlaced();
 		WilderMiscPlaced.registerMiscPlaced(entries);
@@ -59,13 +61,21 @@ public class WilderFeatureBootstrap {
 		final var structures = asLookup(entries.getLookup(Registries.STRUCTURE));
 		final var structureSets = asLookup(entries.getLookup(Registries.STRUCTURE_SET));
 
+		WilderSharedConstants.log("Adding finalized configured features to datagen", true);
 		entries.addAll(configuredFeatures);
+		WilderSharedConstants.log("Adding finalized placed features to datagen", true);
 		entries.addAll(placedFeatures);
+		WilderSharedConstants.log("Adding finalized biomes to datagen", true);
 		entries.addAll(biomes);
+		WilderSharedConstants.log("Adding finalized noises to datagen", true);
 		entries.addAll(noises);
+		WilderSharedConstants.log("Adding finalized processor lists to datagen", true);
 		entries.addAll(processorLists);
+		WilderSharedConstants.log("Adding finalized template pools to datagen", true);
 		entries.addAll(templatePools);
+		WilderSharedConstants.log("Adding finalized structures to datagen", true);
 		entries.addAll(structures);
+		WilderSharedConstants.log("Adding finalized structure sets to datagen", true);
 		entries.addAll(structureSets);
 	}
 

@@ -107,6 +107,7 @@ public class WilderNoise {
 			double firstAmplitude,
 			double... amplitudes
 	) {
+		WilderSharedConstants.log("Registering noise " + key.location(), true);
 		return entries.register(key, new NormalNoise.NoiseParameters(firstOctave, firstAmplitude, amplitudes));
 	}
 }

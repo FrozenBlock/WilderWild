@@ -175,6 +175,7 @@ public final class RegisterStructures {
 	private static Holder<StructureProcessorList> register(
 			BootstapContext<StructureProcessorList> entries, ResourceKey<StructureProcessorList> key, List<StructureProcessor> list
 	) {
+		WilderSharedConstants.log("Registering structure processor list " + key.location(), true);
 		return entries.register(key, new StructureProcessorList(list));
 	}
 }

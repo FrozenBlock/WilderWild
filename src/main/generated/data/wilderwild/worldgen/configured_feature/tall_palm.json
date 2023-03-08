@@ -83,7 +83,8 @@
       "state": {
         "Name": "wilderwild:palm_log",
         "Properties": {
-          "axis": "y"
+          "axis": "y",
+          "termite_edible": "true"
         }
       }
     }

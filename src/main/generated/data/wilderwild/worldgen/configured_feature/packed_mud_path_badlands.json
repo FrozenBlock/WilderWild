@@ -7,11 +7,13 @@
         "Name": "minecraft:packed_mud"
       }
     },
+    "is3D": false,
     "maxThresh": 1.0,
     "minThresh": 0.2,
     "multiplier": 0.7,
     "multiplyY": true,
     "noise": 3,
+    "onlyExposed": false,
     "radius": 4,
     "replaceable": [
       "minecraft:terracotta",

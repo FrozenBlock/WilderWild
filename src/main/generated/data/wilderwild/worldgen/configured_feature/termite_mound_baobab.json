@@ -4,7 +4,9 @@
     "columnBlock": {
       "Name": "wilderwild:termite_mound",
       "Properties": {
-        "natural": "true"
+        "can_spawn_termites": "false",
+        "natural": "true",
+        "termites_awake": "false"
       }
     },
     "diskBlocks": [

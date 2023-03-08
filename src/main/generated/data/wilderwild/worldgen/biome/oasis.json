@@ -6,7 +6,7 @@
       "minecraft:canyon"
     ]
   },
-  "downfall": 0.0,
+  "downfall": 0.5,
   "effects": {
     "fog_color": 12638463,
     "foliage_color": 3193611,
@@ -24,8 +24,8 @@
       "sound": "minecraft:music.game"
     },
     "sky_color": 7254527,
-    "water_color": 4566514,
-    "water_fog_color": 267827
+    "water_color": 3981763,
+    "water_fog_color": 270131
   },
   "features": [
     [],
@@ -72,9 +72,7 @@
       "minecraft:ore_lapis",
       "minecraft:ore_lapis_buried",
       "minecraft:ore_copper",
-      "minecraft:underwater_magma",
-      "wilderwild:under_water_clay_path_beach",
-      "wilderwild:ore_packed_mud"
+      "minecraft:underwater_magma"
     ],
     [],
     [
@@ -93,8 +91,7 @@
       "wilderwild:palms_oasis"
     ],
     [
-      "minecraft:freeze_top_layer",
-      "wilderwild:moss_path"
+      "minecraft:freeze_top_layer"
     ]
   ],
   "precipitation": "none",

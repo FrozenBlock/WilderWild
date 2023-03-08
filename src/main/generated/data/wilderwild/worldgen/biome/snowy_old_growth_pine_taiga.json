@@ -90,7 +90,8 @@
       "minecraft:red_mushroom_normal",
       "minecraft:patch_sugar_cane",
       "minecraft:patch_pumpkin",
-      "wilderwild:old_growth_snowy_pine_taiga_trees"
+      "wilderwild:trees_old_growth_snowy_pine_taiga",
+      "wilderwild:pile_snow"
     ],
     [
       "minecraft:freeze_top_layer"

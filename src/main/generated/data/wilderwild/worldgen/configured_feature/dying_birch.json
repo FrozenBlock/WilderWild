@@ -70,7 +70,8 @@
       "state": {
         "Name": "minecraft:birch_log",
         "Properties": {
-          "axis": "y"
+          "axis": "y",
+          "termite_edible": "true"
         }
       }
     }

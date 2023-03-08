@@ -10,7 +10,7 @@
   "effects": {
     "additions_sound": {
       "sound": "wilderwild:ambient.jellyfish_caves.additions",
-      "tick_chance": 5.0E-4
+      "tick_chance": 0.005
     },
     "ambient_sound": "wilderwild:ambient.jellyfish_caves.loop",
     "fog_color": 0,
@@ -26,7 +26,7 @@
       "replace_current_music": false,
       "sound": "wilderwild:music.overworld.jellyfish_caves"
     },
-    "sky_color": 7907327,
+    "sky_color": 8364543,
     "water_color": 9817343,
     "water_fog_color": 6069471
   },
@@ -37,7 +37,13 @@
       "minecraft:lake_lava_surface"
     ],
     [
-      "minecraft:amethyst_geode"
+      "minecraft:amethyst_geode",
+      "wilderwild:large_mesoglea_purple",
+      "wilderwild:large_mesoglea_blue",
+      "wilderwild:mesoglea_cluster_purple",
+      "wilderwild:mesoglea_cluster_blue",
+      "wilderwild:blue_mesoglea_path",
+      "wilderwild:purple_mesoglea_path"
     ],
     [
       "minecraft:monster_room_deep",
@@ -96,7 +102,7 @@
       "minecraft:red_mushroom_normal",
       "minecraft:patch_sugar_cane",
       "minecraft:patch_pumpkin",
-      "wilderwild:nematocyst",
+      "wilderwild:nematocyst_blue",
       "wilderwild:nematocyst_purple"
     ],
     [
@@ -181,5 +187,5 @@
     "wilderwildjellyfish": [],
     "wilderwildtumbleweed": []
   },
-  "temperature": 0.8
+  "temperature": 0.4
 }

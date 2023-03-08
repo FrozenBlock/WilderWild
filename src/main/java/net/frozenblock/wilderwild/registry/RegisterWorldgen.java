@@ -79,37 +79,44 @@ public final class RegisterWorldgen {
 	public static final ResourceKey<Biome> SNOWY_OLD_GROWTH_PINE_TAIGA = register("snowy_old_growth_pine_taiga");
 
 	public static void bootstrap(BootstapContext<Biome> context) {
+		WilderSharedConstants.logWild("Registering Biomes for", WilderSharedConstants.UNSTABLE_LOGGING);
+
 		// MAIN BIOMES
-		context.register(RegisterWorldgen.CYPRESS_WETLANDS, RegisterWorldgen.cypressWetlands(context));
-		context.register(RegisterWorldgen.MIXED_FOREST, RegisterWorldgen.mixedForest(context));
-		context.register(RegisterWorldgen.OASIS, RegisterWorldgen.oasis(context));
-		context.register(RegisterWorldgen.WARM_RIVER, RegisterWorldgen.warmRiver(context));
+		register(context, RegisterWorldgen.CYPRESS_WETLANDS, RegisterWorldgen.cypressWetlands(context));
+		register(context, RegisterWorldgen.MIXED_FOREST, RegisterWorldgen.mixedForest(context));
+		register(context, RegisterWorldgen.OASIS, RegisterWorldgen.oasis(context));
+		register(context, RegisterWorldgen.WARM_RIVER, RegisterWorldgen.warmRiver(context));
 		// CAVE BIOMES
-		context.register(RegisterWorldgen.JELLYFISH_CAVES, RegisterWorldgen.jellyfishCaves(context));
+		register(context, RegisterWorldgen.JELLYFISH_CAVES, RegisterWorldgen.jellyfishCaves(context));
 		// TRANSITION BIOMES
 		// HOT
-		context.register(RegisterWorldgen.ARID_FOREST, RegisterWorldgen.aridForest(context));
-		context.register(RegisterWorldgen.ARID_SAVANNA, RegisterWorldgen.aridSavanna(context));
-		context.register(RegisterWorldgen.PARCHED_FOREST, RegisterWorldgen.parchedForest(context));
+		register(context, RegisterWorldgen.ARID_FOREST, RegisterWorldgen.aridForest(context));
+		register(context, RegisterWorldgen.ARID_SAVANNA, RegisterWorldgen.aridSavanna(context));
+		register(context, RegisterWorldgen.PARCHED_FOREST, RegisterWorldgen.parchedForest(context));
 		// TROPICAL
-		context.register(RegisterWorldgen.BIRCH_JUNGLE, RegisterWorldgen.birchJungle(context));
-		context.register(RegisterWorldgen.SPARSE_BIRCH_JUNGLE, RegisterWorldgen.sparseBirchJungle(context));
+		register(context, RegisterWorldgen.BIRCH_JUNGLE, RegisterWorldgen.birchJungle(context));
+		register(context, RegisterWorldgen.SPARSE_BIRCH_JUNGLE, RegisterWorldgen.sparseBirchJungle(context));
 		// TEMPERATE
-		context.register(RegisterWorldgen.BIRCH_TAIGA, RegisterWorldgen.birchTaiga(context, false));
-		context.register(RegisterWorldgen.SEMI_BIRCH_FOREST, RegisterWorldgen.semiBirchForest(context));
-		context.register(RegisterWorldgen.DARK_BIRCH_FOREST, RegisterWorldgen.darkBirchForest(context));
-		context.register(RegisterWorldgen.FLOWER_FIELD, RegisterWorldgen.flowerField(context));
-		context.register(RegisterWorldgen.TEMPERATE_RAINFOREST, RegisterWorldgen.temperateRainforest(context));
-		context.register(RegisterWorldgen.RAINFOREST, RegisterWorldgen.rainforest(context));
+		register(context, RegisterWorldgen.BIRCH_TAIGA, RegisterWorldgen.birchTaiga(context, false));
+		register(context, RegisterWorldgen.SEMI_BIRCH_FOREST, RegisterWorldgen.semiBirchForest(context));
+		register(context, RegisterWorldgen.DARK_BIRCH_FOREST, RegisterWorldgen.darkBirchForest(context));
+		register(context, RegisterWorldgen.FLOWER_FIELD, RegisterWorldgen.flowerField(context));
+		register(context, RegisterWorldgen.TEMPERATE_RAINFOREST, RegisterWorldgen.temperateRainforest(context));
+		register(context, RegisterWorldgen.RAINFOREST, RegisterWorldgen.rainforest(context));
 		// OLD GROWTH
-		context.register(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA, RegisterWorldgen.birchTaiga(context, true));
-		context.register(RegisterWorldgen.OLD_GROWTH_DARK_FOREST, RegisterWorldgen.oldGrowthDarkForest(context));
-		context.register(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA, oldGrowthSnowyTaiga(context));
+		register(context, RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA, RegisterWorldgen.birchTaiga(context, true));
+		register(context, RegisterWorldgen.OLD_GROWTH_DARK_FOREST, RegisterWorldgen.oldGrowthDarkForest(context));
+		register(context, RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA, oldGrowthSnowyTaiga(context));
 	}
 
     private static ResourceKey<Biome> register(String name) {
         return ResourceKey.create(Registries.BIOME, WilderSharedConstants.id(name));
     }
+
+	private static void register(BootstapContext<Biome> entries, ResourceKey<Biome> key, Biome biome) {
+		WilderSharedConstants.log("Registering biome " + key.location(), true);
+		entries.register(key, biome);
+	}
 
 	// MAIN BIOMES
 	// CYPRESS WETLANDS

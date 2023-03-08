@@ -7,11 +7,13 @@
         "Name": "minecraft:sandstone"
       }
     },
+    "is3D": false,
     "maxThresh": 1.0,
     "minThresh": 0.4,
     "multiplier": 0.2,
     "multiplyY": true,
     "noise": 2,
+    "onlyExposed": false,
     "radius": 10,
     "replaceable": "minecraft:sand",
     "useY": true

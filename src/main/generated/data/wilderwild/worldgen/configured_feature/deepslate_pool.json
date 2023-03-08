@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:waterlogged_vegetation_patch",
+  "type": "frozenlib:circular_waterlogged_vegetation_patch",
   "config": {
     "depth": 4,
     "extra_bottom_block_chance": 0.8,
@@ -9,7 +9,8 @@
       "state": {
         "Name": "minecraft:deepslate",
         "Properties": {
-          "axis": "y"
+          "axis": "y",
+          "termite_edible": "true"
         }
       }
     },
