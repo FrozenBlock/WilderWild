@@ -36,6 +36,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HalfTransparentBlock;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -150,5 +151,10 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 	public boolean skipRendering(@NotNull BlockState blockState, BlockState blockState2, @NotNull Direction direction) {
 		boolean isThisWaterlogged = blockState.getValue(WATERLOGGED);
 		return blockState2.is(this) && (isThisWaterlogged == blockState2.getValue(WATERLOGGED) || isThisWaterlogged);
+	}
+
+	@Override
+	public RenderShape getRenderShape(BlockState state) {
+		return state.getValue(BlockStateProperties.WATERLOGGED) ? RenderShape.INVISIBLE : super.getRenderShape(state);
 	}
 }
