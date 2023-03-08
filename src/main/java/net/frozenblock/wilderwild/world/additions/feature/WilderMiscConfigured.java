@@ -166,10 +166,11 @@ public final class WilderMiscConfigured {
 	}
 
 	public static void init() {
-        WilderSharedConstants.logWild("Registering WilderMiscConfigured for", true);
     }
 
 	public static void registerMiscPlaced() {
+
+		WilderSharedConstants.logWild("Registering WilderMiscConfigured for", true);
 
 		DISK_MUD.makeAndSetHolder(Feature.DISK,
 				new DiskConfiguration(
