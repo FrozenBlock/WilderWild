@@ -53,7 +53,7 @@ public class ParticleMixin {
 	}
 
 	@Inject(method = "tick", at = @At("TAIL"), cancellable = true)
-	public void wilderWild$getQuadSize(CallbackInfo info) {
+	public void wilderWild$removeOnceSmallEnough(CallbackInfo info) {
 		if (SingleQuadParticle.class.cast(this) instanceof SuspendedParticle suspendedParticle) {
 			if (((WilderDripSuspendedParticleInterface)suspendedParticle).wilderWild$runScaleRemoval()) {
 				suspendedParticle.remove();
