@@ -13,6 +13,9 @@
       "heightmap": "WORLD_SURFACE_WG"
     },
     {
+      "type": "minecraft:biome"
+    },
+    {
       "type": "minecraft:block_predicate_filter",
       "predicate": {
         "type": "minecraft:would_survive",
@@ -24,9 +27,6 @@
           }
         }
       }
-    },
-    {
-      "type": "minecraft:biome"
     }
   ]
 }

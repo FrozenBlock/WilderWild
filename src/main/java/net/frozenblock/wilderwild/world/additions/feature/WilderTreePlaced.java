@@ -41,6 +41,12 @@ public final class WilderTreePlaced {
 		throw new UnsupportedOperationException("WilderTreePlaced contains only static declarations.");
 	}
 
+	public static final BlockPredicate SNOW_TREE_PREDICATE = BlockPredicate.matchesBlocks(
+			Direction.DOWN.getNormal(),
+			Blocks.SNOW_BLOCK,
+			Blocks.POWDER_SNOW
+	);
+
 	public static final List<PlacementModifier> SNOW_TREE_FILTER_DECORATOR = List.of(
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.not(BlockPredicate.matchesBlocks(Blocks.POWDER_SNOW)), 8),
 			BlockPredicateFilter.forPredicate(SNOW_TREE_PREDICATE)

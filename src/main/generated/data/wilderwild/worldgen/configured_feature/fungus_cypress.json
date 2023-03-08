@@ -8,7 +8,7 @@
         "red_shelf_fungus_chance": 0.0
       },
       {
-        "type": "wilderwild:height_based_vine_trunk_decorator",
+        "type": "wilderwild:height_based_vine_tree_decorator",
         "maxHeight": 82,
         "probability": 0.08,
         "vines_count": 0.25
@@ -68,7 +68,8 @@
       "state": {
         "Name": "wilderwild:cypress_log",
         "Properties": {
-          "axis": "y"
+          "axis": "y",
+          "termite_edible": "true"
         }
       }
     }

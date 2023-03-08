@@ -48,15 +48,15 @@ public class CypressSaplingGenerator extends AbstractTreeGrower {
 		if (this.level != null && this.pos != null) {
 			Holder<Biome> biome = this.level.getBiome(this.pos);
 			if (biome.is(BiomeTags.IS_BADLANDS)) {
-				return WilderTreeConfigured.JUNIPER.getHolder();
+				return WilderTreeConfigured.JUNIPER.getKey();
 			}
 		}
         if (random.nextFloat() > 0.4F) {
-            return random.nextFloat() > 0.7F ? WilderTreeConfigured.CYPRESS.getHolder() : WilderTreeConfigured.FUNGUS_CYPRESS.getHolder();
+            return random.nextFloat() > 0.7F ? WilderTreeConfigured.CYPRESS.getKey() : WilderTreeConfigured.FUNGUS_CYPRESS.getKey();
         }
 		this.level = null;
 		this.pos = null;
-        return WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES_SAPLING.getHolder();
+        return WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES_SAPLING.getKey();
     }
 
 	public boolean growTree(@NotNull ServerLevel level, @NotNull ChunkGenerator generator, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull RandomSource random) {

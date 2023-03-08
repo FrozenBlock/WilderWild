@@ -35,7 +35,7 @@ public class WilderFeatureBootstrap {
 
 		WilderTreeConfigured.registerTreeConfigured();
 		WilderMiscConfigured.registerMiscPlaced();
-		WilderConfiguredFeatures.registerConfiguredFeatures();
+		WilderConfiguredFeatures.registerConfiguredFeatures(entries);
 	}
 
 	public static void bootstrapPlaced(BootstapContext<PlacedFeature> entries) {
@@ -45,7 +45,7 @@ public class WilderFeatureBootstrap {
 		FrozenPlacedFeature.BOOTSTAP_CONTEXT = entries;
 
 		WilderTreePlaced.registerTreePlaced();
-		WilderMiscPlaced.registerMiscPlaced();
+		WilderMiscPlaced.registerMiscPlaced(entries);
 		WilderPlacedFeatures.registerPlacedFeatures(entries);
 	}
 

@@ -36,7 +36,7 @@ public class DarkOakTreeGrowerMixin {
     public void getConfiguredMegaFeature(RandomSource randomSource, CallbackInfoReturnable<ResourceKey<ConfiguredFeature<?, ?>>> info) {
 		if (WilderSharedConstants.config().wildTrees()) {
 			if (randomSource.nextFloat() < 0.2F) {
-				info.setReturnValue(WilderTreeConfigured.TALL_DARK_OAK.getHolder());
+				info.setReturnValue(WilderTreeConfigured.TALL_DARK_OAK.getKey());
 			}
 		}
     }

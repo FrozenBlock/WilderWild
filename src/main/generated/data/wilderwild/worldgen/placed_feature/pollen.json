@@ -2,19 +2,19 @@
   "feature": "wilderwild:pollen",
   "placement": [
     {
-      "type": "minecraft:count",
-      "count": 2
-    },
-    {
       "type": "minecraft:rarity_filter",
       "chance": 1
     },
     {
-      "type": "minecraft:in_square"
+      "type": "minecraft:count",
+      "count": 2
     },
     {
       "type": "minecraft:heightmap",
       "heightmap": "MOTION_BLOCKING"
+    },
+    {
+      "type": "minecraft:in_square"
     },
     {
       "type": "minecraft:surface_relative_threshold_filter",

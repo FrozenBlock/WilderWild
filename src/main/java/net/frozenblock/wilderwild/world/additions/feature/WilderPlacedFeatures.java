@@ -328,7 +328,9 @@ public final class WilderPlacedFeatures {
 	public static final FrozenPlacedFeature SMALL_SPONGES_RARE = register("small_sponges_rare");
 
 	public static void registerPlacedFeatures(BootstapContext<PlacedFeature> entries) {
+
 		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
+		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
 		WilderSharedConstants.logWild("Registering WilderPlacedFeatures for ", true);
 
@@ -691,7 +693,7 @@ public final class WilderPlacedFeatures {
 				worldSurfaceSquaredWithCount(1)
 		);
 
-		SEAGRASS_CYPRESS.makeAndSetHolder(AquaticFeatures.SEAGRASS_MID,
+		SEAGRASS_CYPRESS.makeAndSetHolder(configuredFeatures.getOrThrow(AquaticFeatures.SEAGRASS_MID),
 				seagrassPlacement(56)
 		);
 

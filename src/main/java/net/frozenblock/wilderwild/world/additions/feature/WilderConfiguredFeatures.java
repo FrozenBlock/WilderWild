@@ -35,6 +35,8 @@ import net.frozenblock.wilderwild.world.generation.features.config.ShelfFungusFe
 import net.frozenblock.wilderwild.world.generation.features.config.SmallSpongeFeatureConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderSet;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.features.CaveFeatures;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.features.TreeFeatures;
@@ -380,7 +382,10 @@ public final class WilderConfiguredFeatures {
 
 	public static final FrozenConfiguredFeature<SmallSpongeFeatureConfig, ConfiguredFeature<SmallSpongeFeatureConfig, ?>> SMALL_SPONGE = register("small_sponges");
 
-    public static void registerConfiguredFeatures() {
+    public static void registerConfiguredFeatures(BootstapContext<ConfiguredFeature<?, ?>> entries) {
+
+		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
+		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
 		WilderSharedConstants.logWild("Registering WilderConfiguredFeatures for", true);
 
@@ -550,33 +555,34 @@ public final class WilderConfiguredFeatures {
 		);
 
 		BIRCH_JUNGLE_TREES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
-				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(TreePlacements.FANCY_OAK_CHECKED, 0.1F),
+				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.FANCY_OAK_CHECKED), 0.1F),
 						new WeightedPlacedFeature(WilderTreePlaced.BIRCH_CHECKED.getHolder(), 0.049F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH.getHolder(), 0.069F),
 						new WeightedPlacedFeature(WilderTreePlaced.SUPER_BIRCH.getHolder(), 0.049F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_SUPER_BIRCH.getHolder(), 0.049F),
 						new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH.getHolder(), 0.079F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH.getHolder(), 0.119F),
-						new WeightedPlacedFeature(TreePlacements.JUNGLE_BUSH, 0.25F),
-						new WeightedPlacedFeature(TreePlacements.MEGA_JUNGLE_TREE_CHECKED, 0.165F)), TreePlacements.JUNGLE_TREE_CHECKED
+						new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.JUNGLE_BUSH), 0.25F),
+						new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.MEGA_JUNGLE_TREE_CHECKED), 0.165F)), placedFeatures.getOrThrow(TreePlacements.JUNGLE_TREE_CHECKED)
 				)
 		);
 
 		SPARSE_BIRCH_JUNGLE_TREES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
-				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(TreePlacements.FANCY_OAK_CHECKED, 0.07F),
+				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.FANCY_OAK_CHECKED), 0.07F),
 						new WeightedPlacedFeature(WilderTreePlaced.BIRCH_CHECKED.getHolder(), 0.055F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH.getHolder(), 0.089F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_SUPER_BIRCH.getHolder(), 0.027F),
 						new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH.getHolder(), 0.059F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH.getHolder(), 0.069F),
-						new WeightedPlacedFeature(TreePlacements.JUNGLE_BUSH, 0.5F)),
-						TreePlacements.JUNGLE_TREE_CHECKED)
+						new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.JUNGLE_BUSH), 0.5F)),
+						placedFeatures.getOrThrow(TreePlacements.JUNGLE_TREE_CHECKED)
+				)
 		);
 
 		DARK_FOREST_VEGETATION.makeAndSetHolder(Feature.RANDOM_SELECTOR,
-				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(TreeFeatures.HUGE_BROWN_MUSHROOM), 0.025F),
-						new WeightedPlacedFeature(PlacementUtils.inlinePlaced(TreeFeatures.HUGE_RED_MUSHROOM), 0.05F),
-						new WeightedPlacedFeature(TreePlacements.DARK_OAK_CHECKED, 0.55F),
+				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(TreeFeatures.HUGE_BROWN_MUSHROOM)), 0.025F),
+						new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(TreeFeatures.HUGE_RED_MUSHROOM)), 0.05F),
+						new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.DARK_OAK_CHECKED), 0.55F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_DARK_OAK_CHECKED.getHolder(), 0.075F),
 						new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH.getHolder(), 0.2F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH.getHolder(), 0.015F),
@@ -589,9 +595,9 @@ public final class WilderConfiguredFeatures {
 		);
 
 		OLD_GROWTH_DARK_FOREST_VEGETATION.makeAndSetHolder(Feature.RANDOM_SELECTOR,
-				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(TreeFeatures.HUGE_BROWN_MUSHROOM), 0.045F),
-						new WeightedPlacedFeature(PlacementUtils.inlinePlaced(TreeFeatures.HUGE_RED_MUSHROOM), 0.07F),
-						new WeightedPlacedFeature(TreePlacements.DARK_OAK_CHECKED, 0.55F),
+				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(TreeFeatures.HUGE_BROWN_MUSHROOM)), 0.045F),
+						new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(TreeFeatures.HUGE_RED_MUSHROOM)), 0.07F),
+						new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.DARK_OAK_CHECKED), 0.55F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_DARK_OAK_CHECKED.getHolder(), 0.255F),
 						new WeightedPlacedFeature(WilderTreePlaced.BIRCH_CHECKED.getHolder(), 0.1F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH.getHolder(), 0.04F),
@@ -605,9 +611,9 @@ public final class WilderConfiguredFeatures {
 		);
 
 		DARK_BIRCH_FOREST_VEGETATION.makeAndSetHolder(Feature.RANDOM_SELECTOR,
-				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(TreeFeatures.HUGE_BROWN_MUSHROOM), 0.025F),
-						new WeightedPlacedFeature(PlacementUtils.inlinePlaced(TreeFeatures.HUGE_RED_MUSHROOM), 0.035F),
-						new WeightedPlacedFeature(TreePlacements.DARK_OAK_CHECKED, 0.235F),
+				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(TreeFeatures.HUGE_BROWN_MUSHROOM)), 0.025F),
+						new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(TreeFeatures.HUGE_RED_MUSHROOM)), 0.035F),
+						new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.DARK_OAK_CHECKED), 0.235F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_DARK_OAK_CHECKED.getHolder(), 0.075F),
 						new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH.getHolder(), 0.35F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH.getHolder(), 0.015F),
@@ -697,22 +703,22 @@ public final class WilderConfiguredFeatures {
 		);
 
 		SAVANNA_TREES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
-				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(TreePlacements.ACACIA_CHECKED, 0.8F),
+				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.ACACIA_CHECKED), 0.8F),
 						new WeightedPlacedFeature(WilderTreePlaced.BAOBAB.getHolder(), 0.062F),
 						new WeightedPlacedFeature(WilderTreePlaced.BAOBAB_TALL.getHolder(), 0.035F)), WilderTreePlaced.OAK_CHECKED.getHolder()
 				)
 		);
 
 		WINDSWEPT_SAVANNA_TREES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
-				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(TreePlacements.ACACIA_CHECKED, 0.8F)), WilderTreePlaced.OAK_CHECKED.getHolder())
+				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.ACACIA_CHECKED), 0.8F)), WilderTreePlaced.OAK_CHECKED.getHolder())
 		);
 
 		ARID_SAVANNA_TREES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
-				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(TreePlacements.ACACIA_CHECKED, 0.8F),
+				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.ACACIA_CHECKED), 0.8F),
 						new WeightedPlacedFeature(WilderTreePlaced.OAK_CHECKED.getHolder(), 0.08F),
 						new WeightedPlacedFeature(WilderTreePlaced.BAOBAB.getHolder(), 0.065F),
 						new WeightedPlacedFeature(WilderTreePlaced.SMALL_WINE_PALM_CHECKED.getHolder(), 0.052F),
-						new WeightedPlacedFeature(WilderTreePlaced.BAOBAB_TALL.getHolder(), 0.02F)), TreePlacements.ACACIA_CHECKED
+						new WeightedPlacedFeature(WilderTreePlaced.BAOBAB_TALL.getHolder(), 0.02F)), placedFeatures.getOrThrow(TreePlacements.ACACIA_CHECKED)
 				)
 		);
 
@@ -721,7 +727,7 @@ public final class WilderConfiguredFeatures {
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED.getHolder(), 0.186F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_CHECKED.getHolder(), 0.02F),
 						new WeightedPlacedFeature(WilderTreePlaced.FANCY_OAK_CHECKED.getHolder(), 0.155F),
-						new WeightedPlacedFeature(TreePlacements.ACACIA_CHECKED, 0.37F),
+						new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.ACACIA_CHECKED), 0.37F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH.getHolder(), 0.01F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH.getHolder(), 0.01F),
 						new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH.getHolder(), 0.155F)), WilderTreePlaced.OAK_CHECKED.getHolder()
@@ -1383,7 +1389,7 @@ public final class WilderConfiguredFeatures {
 				new VegetationPatchConfiguration(
 						BlockTags.LUSH_GROUND_REPLACEABLE,
 						BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-						PlacementUtils.inlinePlaced(CaveFeatures.DRIPLEAF),
+						PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(CaveFeatures.DRIPLEAF)),
 						CaveSurface.FLOOR,
 						ConstantInt.of(3),
 						0.8F,
@@ -1398,7 +1404,7 @@ public final class WilderConfiguredFeatures {
 				new VegetationPatchConfiguration(
 						BlockTags.LUSH_GROUND_REPLACEABLE,
 						BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-						PlacementUtils.inlinePlaced(CaveFeatures.DRIPLEAF),
+						PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(CaveFeatures.DRIPLEAF)),
 						CaveSurface.FLOOR,
 						ConstantInt.of(3),
 						0.8F,
@@ -1435,7 +1441,7 @@ public final class WilderConfiguredFeatures {
 				new VegetationPatchConfiguration(
 						BlockTags.LUSH_GROUND_REPLACEABLE,
 						BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-						PlacementUtils.inlinePlaced(CaveFeatures.DRIPLEAF),
+						PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(CaveFeatures.DRIPLEAF)),
 						CaveSurface.FLOOR,
 						ConstantInt.of(3),
 						0.8F,
@@ -1450,7 +1456,7 @@ public final class WilderConfiguredFeatures {
 				new VegetationPatchConfiguration(
 						BlockTags.LUSH_GROUND_REPLACEABLE,
 						BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-						PlacementUtils.inlinePlaced(CaveFeatures.DRIPLEAF),
+						PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(CaveFeatures.DRIPLEAF)),
 						CaveSurface.FLOOR,
 						ConstantInt.of(3),
 						0.8F,

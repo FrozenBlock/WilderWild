@@ -85,7 +85,7 @@ public final class WilderWorldGen {
                         context -> {
                             if (WilderSharedConstants.config().wildTrees()) {
                                 context.getGenerationSettings().removeFeature(VegetationPlacements.TREES_BIRCH);
-                                context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_BIRCH_PLACED.getKey());
+                                context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_BIRCH.getKey());
                             }
                         })
                 .add(ModificationPhase.REPLACEMENTS,
@@ -93,7 +93,7 @@ public final class WilderWorldGen {
                         context -> {
                             if (WilderSharedConstants.config().wildTrees()) {
                                 context.getGenerationSettings().removeFeature(VegetationPlacements.BIRCH_TALL);
-                                context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BIRCH_TALL_PLACED.getKey());
+                                context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BIRCH_TALL.getKey());
                             }
                         })
                 .add(ModificationPhase.REPLACEMENTS,
@@ -157,7 +157,7 @@ public final class WilderWorldGen {
                         context -> {
                             if (WilderSharedConstants.config().wildTrees()) {
                                 context.getGenerationSettings().removeFeature(VegetationPlacements.TREES_OLD_GROWTH_SPRUCE_TAIGA);
-                                context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_OLD_GROWTH_SPRUCE_TAIGA.getKey());
+                                context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_OLD_GROWTH_SPRUCE_TAIGA1.getKey());
                             }
                         });
 

@@ -36,7 +36,7 @@ public class MangroveTreeGrowerMixin {
     public void getConfiguredFeature(RandomSource randomSource, boolean bl, CallbackInfoReturnable<ResourceKey<ConfiguredFeature<?, ?>>> info) {
 		if (WilderSharedConstants.config().wildTrees()) {
 			if (randomSource.nextFloat() < 0.1F) {
-				info.setReturnValue(WilderTreeConfigured.SWAMP_TREE.getHolder());
+				info.setReturnValue(WilderTreeConfigured.SWAMP_TREE.getKey());
 			}
 		}
     }

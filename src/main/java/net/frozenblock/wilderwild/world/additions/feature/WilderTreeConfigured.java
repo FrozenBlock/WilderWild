@@ -42,6 +42,7 @@ import net.frozenblock.wilderwild.world.generation.trunk.StraightTrunkWithLogs;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -555,7 +556,7 @@ public final class WilderTreeConfigured {
 												new AboveRootPlacement(BlockStateProvider.simple(Blocks.MOSS_CARPET), 0.45F)
 										),
 										new MangroveRootPlacement(
-												Registry.BLOCK.getOrCreateTag(BlockTags.MANGROVE_ROOTS_CAN_GROW_THROUGH),
+												BuiltInRegistries.BLOCK.getOrCreateTag(BlockTags.MANGROVE_ROOTS_CAN_GROW_THROUGH),
 												HolderSet.direct(
 														Block::builtInRegistryHolder,
 														Blocks.MUD
@@ -909,7 +910,7 @@ public final class WilderTreeConfigured {
 								UniformInt.of(4, 5),
 								0.2F,
 								UniformInt.of(1, 3),
-								Registry.BLOCK.getOrCreateTag(BlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH)
+								BuiltInRegistries.BLOCK.getOrCreateTag(BlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH)
 						),
 						BlockStateProvider.simple(RegisterBlocks.CYPRESS_LEAVES),
 						new RandomSpreadFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), ConstantInt.of(2), 14),

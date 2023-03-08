@@ -2,6 +2,17 @@
   "feature": "minecraft:forest_flowers",
   "placement": [
     {
+      "type": "minecraft:rarity_filter",
+      "chance": 7
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "MOTION_BLOCKING"
+    },
+    {
       "type": "minecraft:count",
       "count": {
         "type": "minecraft:clamped",
@@ -17,17 +28,6 @@
           }
         }
       }
-    },
-    {
-      "type": "minecraft:rarity_filter",
-      "chance": 7
-    },
-    {
-      "type": "minecraft:in_square"
-    },
-    {
-      "type": "minecraft:heightmap",
-      "heightmap": "MOTION_BLOCKING"
     },
     {
       "type": "minecraft:biome"

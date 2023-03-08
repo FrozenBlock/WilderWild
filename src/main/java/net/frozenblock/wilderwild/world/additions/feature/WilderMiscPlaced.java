@@ -22,6 +22,8 @@ import java.util.List;
 import net.frozenblock.lib.worldgen.feature.api.FrozenPlacedFeature;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.features.CaveFeatures;
 import net.minecraft.data.worldgen.features.MiscOverworldFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
@@ -37,6 +39,7 @@ import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
@@ -149,7 +152,10 @@ public final class WilderMiscPlaced {
 	//SNOW
 	public static final FrozenPlacedFeature SNOW_BLANKET = register("snow_blanket");
 
-	public static void registerMiscPlaced() {
+	public static void registerMiscPlaced(BootstapContext<PlacedFeature> entries) {
+
+		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
+		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
 		WilderSharedConstants.logWild("Registering WilderMiscPlaced for", true);
 
@@ -187,7 +193,7 @@ public final class WilderMiscPlaced {
 				BiomeFilter.biome()
 		);
 
-		FOREST_ROCK_TAIGA.makeAndSetHolder(MiscOverworldFeatures.FOREST_ROCK,
+		FOREST_ROCK_TAIGA.makeAndSetHolder(configuredFeatures.getOrThrow(MiscOverworldFeatures.FOREST_ROCK),
 				RarityFilter.onAverageOnceEvery(7),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP,
@@ -307,7 +313,7 @@ public final class WilderMiscPlaced {
 
 		// JELLYFISH CAVES
 
-		EXTRA_GLOW_LICHEN.makeAndSetHolder(CaveFeatures.GLOW_LICHEN,
+		EXTRA_GLOW_LICHEN.makeAndSetHolder(configuredFeatures.getOrThrow(CaveFeatures.GLOW_LICHEN),
 				CountPlacement.of(UniformInt.of(104, 157)),
 				PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 				InSquarePlacement.spread(),
