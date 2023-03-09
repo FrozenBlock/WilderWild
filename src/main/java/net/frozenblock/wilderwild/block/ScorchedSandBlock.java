@@ -165,7 +165,7 @@ public class ScorchedSandBlock extends Block implements Brushable {
 	@Override
 	public boolean brush(long l, Level level, Player player, Direction direction, BlockPos blockPos, BlockState blockState) {
 		if (this.canBrush && canHydrate(blockState)) {
-			if (level.getRandom().nextBoolean()) {
+			if (level.getRandom().nextInt(0, 45) == 1) {
 				hydrate(blockState, level, blockPos);
 			}
 			return true;
