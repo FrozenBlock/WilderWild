@@ -34,6 +34,8 @@ public abstract class AbstractClothConfigIntegration extends ModIntegration {
 
 	public abstract boolean billboardTendrils();
 
+	public abstract boolean mesogleaLiquid();
+
 	public abstract boolean pollenParticles();
 
 	public abstract boolean cactusPlacement();

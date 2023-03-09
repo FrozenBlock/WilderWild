@@ -68,6 +68,11 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean mesogleaLiquid() {
+		return BLOCK.mesogleaLiquid;
+	}
+
+	@Override
 	public boolean pollenParticles() {
 		return BLOCK.pollenParticles;
 	}
