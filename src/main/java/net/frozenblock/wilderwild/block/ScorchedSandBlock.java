@@ -23,15 +23,16 @@ import java.util.Map;
 import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
 import net.frozenblock.wilderwild.misc.mod_compat.FrozenLibIntegration;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.lunade.brushextender.impl.Brushable;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -47,20 +48,22 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.Material;
 import org.jetbrains.annotations.NotNull;
 
-public class ScorchedSandBlock extends Block {
+public class ScorchedSandBlock extends Block implements Brushable {
 	public static final Map<BlockState, BlockState> SCORCH_MAP = new HashMap<>();
 	public static final Map<BlockState, BlockState> HYDRATE_MAP = new HashMap<>();
 	public static final IntegerProperty CRACKEDNESS = RegisterProperties.CRACKEDNESS;
 	private final int dustColor;
+	private final boolean canBrush;
 
 	public final BlockState wetState;
 
-	public ScorchedSandBlock(Properties settings, BlockState wetState, int dustColor) {
+	public ScorchedSandBlock(Properties settings, BlockState wetState, int dustColor, boolean canBrush) {
 		super(settings);
 		this.registerDefaultState(this.stateDefinition.any().setValue(CRACKEDNESS, 0));
 		this.wetState = wetState;
 		this.fillScorchMap(wetState, this.defaultBlockState());
 		this.dustColor = dustColor;
+		this.canBrush = canBrush;
 	}
 
 	public void fillScorchMap(BlockState wetState, BlockState defaultState) {
@@ -157,6 +160,17 @@ public class ScorchedSandBlock extends Block {
 				level.addParticle(new BlockParticleOption(ParticleTypes.FALLING_DUST, state), d, e, f, 0.0, 0.0, 0.0);
 			}
 		}
+	}
+
+	@Override
+	public boolean brush(long l, Level level, Player player, Direction direction, BlockPos blockPos, BlockState blockState) {
+		if (this.canBrush && canHydrate(blockState)) {
+			if (level.getRandom().nextBoolean()) {
+				hydrate(blockState, level, blockPos);
+			}
+			return true;
+		}
+		return false;
 	}
 }
 

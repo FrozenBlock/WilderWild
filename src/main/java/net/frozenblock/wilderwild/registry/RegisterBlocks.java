@@ -161,8 +161,8 @@ public final class RegisterBlocks {
 
     // OTHER (BUILDING BLOCKS)
     public static final Block CHISELED_MUD_BRICKS = new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(1.5F).requiresTool().sounds(SoundType.MUD_BRICKS));
-	public static final Block SCORCHED_SAND = new ScorchedSandBlock(FabricBlockSettings.of(Material.SAND).strength(1.5F).sounds(RegisterBlockSoundTypes.SCORCHEDSAND).mapColor(MaterialColor.SAND).ticksRandomly(), Blocks.SAND.defaultBlockState(), 14406560);
-	public static final Block SCORCHED_RED_SAND = new ScorchedSandBlock(FabricBlockSettings.of(Material.SAND).strength(1.5F).sounds(RegisterBlockSoundTypes.SCORCHEDSAND).mapColor(MaterialColor.COLOR_ORANGE).ticksRandomly(), Blocks.RED_SAND.defaultBlockState(), 11098145);
+	public static final Block SCORCHED_SAND = new ScorchedSandBlock(FabricBlockSettings.of(Material.SAND).strength(1.5F).sounds(RegisterBlockSoundTypes.SCORCHEDSAND).mapColor(MaterialColor.SAND).ticksRandomly(), Blocks.SAND.defaultBlockState(), 14406560, true);
+	public static final Block SCORCHED_RED_SAND = new ScorchedSandBlock(FabricBlockSettings.of(Material.SAND).strength(1.5F).sounds(RegisterBlockSoundTypes.SCORCHEDSAND).mapColor(MaterialColor.COLOR_ORANGE).ticksRandomly(), Blocks.RED_SAND.defaultBlockState(), 11098145, true);
 
     public static void registerOtherBB() {
         registerBlockAfter(Items.MUD_BRICKS, "chiseled_mud_bricks", CHISELED_MUD_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
