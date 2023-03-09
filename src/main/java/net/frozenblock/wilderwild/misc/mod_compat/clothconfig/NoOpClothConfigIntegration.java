@@ -41,6 +41,11 @@ public class NoOpClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean mesogleaLiquid() {
+		return DefaultBlockConfig.MESOGLEA_LIQUID;
+	}
+
+	@Override
 	public boolean pollenParticles() {
 		return DefaultBlockConfig.POLLEN_PARTICLES;
 	}
