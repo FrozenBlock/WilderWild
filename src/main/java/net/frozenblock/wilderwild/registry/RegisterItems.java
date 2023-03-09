@@ -161,7 +161,6 @@ public final class RegisterItems {
 		registerItemAfter(BAOBAB_SIGN, BAOBAB_HANGING_SIGN, "baobab_hanging_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
 
 		registerItemAfter(Items.GLOW_LICHEN, POLLEN, "pollen", CreativeModeTabs.NATURAL_BLOCKS);
-		registerItemAfter(RegisterBlocks.TUMBLEWEED_PLANT, new BlockItem(RegisterBlocks.TUMBLEWEED, new FabricItemSettings()), "tumbleweed", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemAfter(Blocks.CACTUS, PRICKLY_PEAR, "prickly_pear", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemAfter(Blocks.TINTED_GLASS, ECHO_GLASS, "echo_glass", CreativeModeTabs.FUNCTIONAL_BLOCKS);
 		registerItemAfter(Blocks.SAND, SCORCHED_SAND, "scorched_sand", CreativeModeTabs.NATURAL_BLOCKS);
