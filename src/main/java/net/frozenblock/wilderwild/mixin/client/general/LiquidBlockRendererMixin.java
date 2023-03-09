@@ -72,7 +72,7 @@ public class LiquidBlockRendererMixin {
 
 	@Inject(method = "tesselate", at = @At("HEAD"), cancellable = true)
 	private void wilderWild$getIsWater(BlockAndTintGetter level, BlockPos pos, VertexConsumer vertexConsumer, BlockState blockState, FluidState fluidState, CallbackInfo info) {
-		if (blockState.getBlock() instanceof MesogleaBlock && WilderSharedConstants.config().mesogleaLiquid()) {
+		if (blockState.getBlock() instanceof MesogleaBlock && WilderSharedConstants.config().mesogleaLiquid() && !FrozenBools.HAS_SODIUM) {
 			LiquidRenderUtils.tesselateWithSingleTexture(level, pos, vertexConsumer, blockState, fluidState, Minecraft.getInstance().getModelManager().getBlockModelShaper().getBlockModel(blockState).getParticleIcon());
 			info.cancel();
 		}

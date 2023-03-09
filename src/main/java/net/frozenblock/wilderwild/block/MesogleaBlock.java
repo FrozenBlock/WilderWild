@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.block;
 
 import java.util.Objects;
+import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.block.api.shape.FrozenShapes;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
@@ -156,6 +157,6 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 
 	@Override
 	public RenderShape getRenderShape(BlockState state) {
-		return state.getValue(BlockStateProperties.WATERLOGGED) && WilderSharedConstants.config().mesogleaLiquid() ? RenderShape.INVISIBLE : super.getRenderShape(state);
+		return state.getValue(BlockStateProperties.WATERLOGGED) && WilderSharedConstants.config().mesogleaLiquid() && !FrozenBools.HAS_SODIUM ? RenderShape.INVISIBLE : super.getRenderShape(state);
 	}
 }
