@@ -58,7 +58,7 @@ public class SmallSpongeFeatureConfig implements FeatureConfiguration {
         if (block instanceof SmallSpongeBlock smallSpongeBlock) {
             var10000 = DataResult.success(smallSpongeBlock);
         } else {
-            var10000 = DataResult.error("Growth block should be a small sponge block bruh bruh bruh bruh bruh");
+            var10000 = DataResult.error(() -> "Growth block should be a small sponge block bruh bruh bruh bruh bruh");
         }
 
         return var10000;

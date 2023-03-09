@@ -57,7 +57,7 @@ public class SeedParticle extends TextureSheetParticle {
 		boolean onGround = this.onGround;
 		double multXZ = (onGround ? 0.0005 : 0.007) * this.windIntensity;
 		double multY = (onGround ? 0.0005 : 0.0035) * this.windIntensity;
-		Vec3 wind = ClientWindManager.getWindMovement(this.level, new BlockPos(this.x, this.y, this.z)).scale(WilderSharedConstants.config().particleWindMovement());
+		Vec3 wind = ClientWindManager.getWindMovement(this.level, BlockPos.containing(this.x, this.y, this.z)).scale(WilderSharedConstants.config().particleWindMovement());
 		this.xd += wind.x() * multXZ;
 		this.yd += (wind.y() + 0.1) * multY;
 		this.zd += wind.z() * multXZ;

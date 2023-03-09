@@ -23,6 +23,7 @@ import java.util.Optional;
 import net.frozenblock.wilderwild.world.generation.features.config.LargeMesogleaConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Vec3i;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -204,7 +205,7 @@ public class LargeMesogleaFeature extends Feature<LargeMesogleaConfig> {
 			} else {
 				int i = this.originY - pos.getY();
 				Vec3 vec3 = this.windSpeed.scale(i);
-				return pos.offset(vec3.x, 0.0, vec3.z);
+				return pos.offset(BlockPos.containing(vec3.x, 0.0, vec3.z));
 			}
 		}
 	}

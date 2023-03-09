@@ -28,11 +28,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(DripParticle.NectarFallProvider.class)
+@Mixin(DripParticle.class)
 public class NectarFallProviderMixin {
 
-	@Inject(method = "createParticle", at = @At("TAIL"))
-	public void wilderWild$createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, CallbackInfoReturnable<Particle> info) {
+	@Inject(method = "createNectarFallParticle", at = @At("TAIL"))
+	private static void wilderWild$createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, CallbackInfoReturnable<Particle> info) {
 		if (info.getReturnValue() instanceof DripParticle dripParticle) {
 			((WilderDripSuspendedParticleInterface)dripParticle).wilderWild$setUsesWind(true);
 			dripParticle.setColor(250F / 255F, 171F / 255F, 28F / 255F);

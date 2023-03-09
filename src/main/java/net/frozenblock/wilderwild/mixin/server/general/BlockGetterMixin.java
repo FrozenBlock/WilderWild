@@ -58,7 +58,7 @@ public abstract interface BlockGetterMixin {
 	public default void wilderWild$clip(ClipContext context2, CallbackInfoReturnable<BlockHitResult> info) {
 		if (context2.collisionContext instanceof EntityCollisionContext entityCollisionContext) {
 			if (entityCollisionContext.getEntity() instanceof Player player) {
-				BlockState headState = getBlockState(new BlockPos(player.getEyePosition()));
+				BlockState headState = getBlockState(BlockPos.containing(player.getEyePosition()));
 				if (headState.getBlock() instanceof MesogleaBlock && headState.getValue(BlockStateProperties.WATERLOGGED)) {
 					BlockGetter blockGetter = BlockGetter.class.cast(this);
 					info.setReturnValue(BlockGetter.traverseBlocks(context2.getFrom(), context2.getTo(), context2, (context, pos) -> {
@@ -75,7 +75,7 @@ public abstract interface BlockGetterMixin {
 								return d <= e ? blockHitResult : blockHitResult2;
 							}, context -> {
 								Vec3 vec3 = context.getFrom().subtract(context.getTo());
-								return BlockHitResult.miss(context.getTo(), Direction.getNearest(vec3.x, vec3.y, vec3.z), new BlockPos(context.getTo()));
+								return BlockHitResult.miss(context.getTo(), Direction.getNearest(vec3.x, vec3.y, vec3.z), BlockPos.containing(context.getTo()));
 							})
 					);
 				}

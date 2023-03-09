@@ -59,7 +59,7 @@ public class ShelfFungusFeatureConfig implements FeatureConfiguration {
         if (block instanceof ShelfFungusBlock shelfFungusBlock) {
             var10000 = DataResult.success(shelfFungusBlock);
         } else {
-            var10000 = DataResult.error("Growth block should be a shelf fungus block bruh bruh bruh bruh bruh");
+            var10000 = DataResult.error(() -> "Growth block should be a shelf fungus block bruh bruh bruh bruh bruh");
         }
 
         return var10000;

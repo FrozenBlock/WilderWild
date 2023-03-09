@@ -130,7 +130,7 @@ public final class RegisterWorldgen {
 		addCypressWetlandsFeatures(builder2);
 		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
 		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.RAIN)
+				.hasPrecipitation(true)
 				.temperature(WilderSharedWorldgen.CypressWetlands.TEMP)
 				.downfall(WilderSharedWorldgen.CypressWetlands.DOWNFALL)
 				.specialEffects(
@@ -189,29 +189,29 @@ public final class RegisterWorldgen {
 	public static Biome mixedForest(BootstapContext<Biome> entries) {
 		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-		BiomeDefaultFeatures.commonSpawns(builder);
-		BiomeDefaultFeatures.plainsSpawns(builder);
-		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 5, 4, 4));
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addMixedForestFeatures(builder2);
-		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
-		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.RAIN)
-				.temperature(WilderSharedWorldgen.MixedForest.TEMP)
-				.downfall(WilderSharedWorldgen.MixedForest.DOWNFALL)
-				.specialEffects(
-						new BiomeSpecialEffects.Builder()
-								.waterColor(WilderSharedWorldgen.MixedForest.WATER_COLOR)
-								.waterFogColor(WilderSharedWorldgen.MixedForest.WATER_FOG_COLOR)
-								.fogColor(WilderSharedWorldgen.MixedForest.FOG_COLOR)
-								.skyColor(WilderSharedWorldgen.MixedForest.SKY_COLOR)
-								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-								.backgroundMusic(musicSound).build())
-				.mobSpawnSettings(builder.build())
-				.generationSettings(builder2.build())
-				.build();
-	}
+        MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
+        BiomeDefaultFeatures.commonSpawns(builder);
+        BiomeDefaultFeatures.plainsSpawns(builder);
+        builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 5, 4, 4));
+        BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
+        addMixedForestFeatures(builder2);
+        Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
+        return new Biome.BiomeBuilder()
+                .hasPrecipitation(true)
+                .temperature(WilderSharedWorldgen.MixedForest.TEMP)
+                .downfall(WilderSharedWorldgen.MixedForest.DOWNFALL)
+                .specialEffects(
+                        new BiomeSpecialEffects.Builder()
+                                .waterColor(WilderSharedWorldgen.MixedForest.WATER_COLOR)
+                                .waterFogColor(WilderSharedWorldgen.MixedForest.WATER_FOG_COLOR)
+                                .fogColor(WilderSharedWorldgen.MixedForest.FOG_COLOR)
+                                .skyColor(WilderSharedWorldgen.MixedForest.SKY_COLOR)
+                                .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+                                .backgroundMusic(musicSound).build())
+                .mobSpawnSettings(builder.build())
+                .generationSettings(builder2.build())
+                .build();
+    }
 
 	public static void addMixedForestFeatures(BiomeGenerationSettings.Builder builder) {
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SEEDING_DANDELION_MIXED.getKey());
@@ -232,18 +232,18 @@ public final class RegisterWorldgen {
 	public static Biome oasis(BootstapContext<Biome> entries) {
 		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-		BiomeDefaultFeatures.desertSpawns(builder);
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addOasisFeatures(builder2);
+        MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
+        BiomeDefaultFeatures.desertSpawns(builder);
+        BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
+        addOasisFeatures(builder2);
 
-		Music music = Musics.GAME;
-		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.NONE)
-				.temperature(WilderSharedWorldgen.Oasis.TEMP)
-				.downfall(WilderSharedWorldgen.Oasis.DOWNFALL)
-				.specialEffects(
-						new BiomeSpecialEffects.Builder()
+        Music music = Musics.GAME;
+        return new Biome.BiomeBuilder()
+                .hasPrecipitation(false)
+                .temperature(WilderSharedWorldgen.Oasis.TEMP)
+                .downfall(WilderSharedWorldgen.Oasis.DOWNFALL)
+                .specialEffects(
+                        new BiomeSpecialEffects.Builder()
 								.grassColorOverride(WilderSharedWorldgen.Oasis.GRASS_COLOR)
 								.foliageColorOverride(WilderSharedWorldgen.Oasis.FOLIAGE_COLOR)
 								.waterColor(WilderSharedWorldgen.Oasis.WATER_COLOR)
@@ -253,9 +253,9 @@ public final class RegisterWorldgen {
 								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
 								.backgroundMusic(music)
 								.build())
-				.mobSpawnSettings(builder.build())
-				.generationSettings(builder2.build())
-				.build();
+                .mobSpawnSettings(builder.build())
+                .generationSettings(builder2.build())
+                .build();
 	}
 
 	public static void addOasisFeatures(BiomeGenerationSettings.Builder builder) {
@@ -291,7 +291,7 @@ public final class RegisterWorldgen {
 
 		Music music = Musics.GAME;
 		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.NONE)
+				.hasPrecipitation(false)
 				.temperature(WilderSharedWorldgen.WarmRiver.TEMP)
 				.downfall(WilderSharedWorldgen.WarmRiver.DOWNFALL)
 				.specialEffects(
@@ -339,7 +339,7 @@ public final class RegisterWorldgen {
 		addJellyfishCavesFeatures(builder2);
 		Music music = Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_JELLYFISH_CAVES);
 		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.RAIN)
+				.hasPrecipitation(true)
 				.temperature(WilderSharedWorldgen.JellyfishCaves.TEMP)
 				.downfall(WilderSharedWorldgen.JellyfishCaves.DOWNFALL)
 				.specialEffects(
@@ -399,7 +399,7 @@ public final class RegisterWorldgen {
 		addAridForestFeatures(builder2);
 		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
 		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.NONE)
+				.hasPrecipitation(false)
 				.temperature(WilderSharedWorldgen.AridForest.TEMP)
 				.downfall(WilderSharedWorldgen.AridForest.DOWNFALL)
 				.specialEffects(
@@ -441,7 +441,7 @@ public final class RegisterWorldgen {
 		addAridSavannaFeatures(builder2);
 		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_GAME);
 		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.NONE)
+				.hasPrecipitation(false)
 				.temperature(WilderSharedWorldgen.AridSavanna.TEMP)
 				.downfall(WilderSharedWorldgen.AridSavanna.DOWNFALL)
 				.specialEffects(
@@ -483,7 +483,7 @@ public final class RegisterWorldgen {
 		addParchedForestFeatures(builder2);
 		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
 		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.NONE)
+				.hasPrecipitation(false)
 				.temperature(WilderSharedWorldgen.ParchedForest.TEMP)
 				.downfall(WilderSharedWorldgen.ParchedForest.DOWNFALL)
 				.specialEffects(
@@ -521,7 +521,7 @@ public final class RegisterWorldgen {
 		addBirchJungleFeatures(builder2);
 		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
 		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.RAIN)
+				.hasPrecipitation(true)
 				.temperature(WilderSharedWorldgen.BirchJungle.TEMP)
 				.downfall(WilderSharedWorldgen.BirchJungle.DOWNFALL)
 				.specialEffects(
@@ -560,7 +560,7 @@ public final class RegisterWorldgen {
 		addSparseBirchJungleFeatures(builder2);
 		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
 		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.RAIN)
+				.hasPrecipitation(true)
 				.temperature(WilderSharedWorldgen.BirchJungle.TEMP)
 				.downfall(WilderSharedWorldgen.BirchJungle.DOWNFALL)
 				.specialEffects(
@@ -601,7 +601,7 @@ public final class RegisterWorldgen {
 		addBirchTaigaFeatures(builder2, old);
 		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
 		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.RAIN)
+				.hasPrecipitation(true)
 				.temperature(WilderSharedWorldgen.BirchTaiga.TEMP)
 				.downfall(WilderSharedWorldgen.BirchTaiga.DOWNFALL)
 				.specialEffects(
@@ -647,7 +647,7 @@ public final class RegisterWorldgen {
 		addSemiBirchForestFeatures(builder2);
 		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
 		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.RAIN)
+				.hasPrecipitation(true)
 				.temperature(WilderSharedWorldgen.SemiBirchForest.TEMP)
 				.downfall(WilderSharedWorldgen.SemiBirchForest.DOWNFALL)
 				.specialEffects(
@@ -685,7 +685,7 @@ public final class RegisterWorldgen {
 		addDarkBirchForestFeatures(builder2);
 		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
 		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.RAIN)
+				.hasPrecipitation(true)
 				.temperature(WilderSharedWorldgen.DarkBirchForest.TEMP)
 				.downfall(WilderSharedWorldgen.DarkBirchForest.DOWNFALL)
 				.specialEffects(
@@ -726,7 +726,7 @@ public final class RegisterWorldgen {
 		addFlowerFieldFeatures(builder2);
 		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_GAME);
 		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.RAIN)
+				.hasPrecipitation(true)
 				.temperature(WilderSharedWorldgen.FlowerField.TEMP)
 				.downfall(WilderSharedWorldgen.FlowerField.DOWNFALL)
 				.specialEffects(
@@ -768,7 +768,7 @@ public final class RegisterWorldgen {
 		addTemperateRainforestFeatures(builder2);
 		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
 		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.RAIN)
+				.hasPrecipitation(true)
 				.temperature(WilderSharedWorldgen.TemperateRainforest.TEMP)
 				.downfall(WilderSharedWorldgen.TemperateRainforest.DOWNFALL)
 				.specialEffects(
@@ -811,7 +811,7 @@ public final class RegisterWorldgen {
 		addRainforestFeatures(builder2);
 		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
 		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.RAIN)
+				.hasPrecipitation(true)
 				.temperature(WilderSharedWorldgen.Rainforest.TEMP)
 				.downfall(WilderSharedWorldgen.Rainforest.DOWNFALL)
 				.specialEffects(
@@ -856,7 +856,7 @@ public final class RegisterWorldgen {
 		addOldGrowthDarkForestFeatures(builder2);
 		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
 		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.RAIN)
+				.hasPrecipitation(true)
 				.temperature(WilderSharedWorldgen.OldGrowthDarkForest.TEMP)
 				.downfall(WilderSharedWorldgen.OldGrowthDarkForest.DOWNFALL)
 				.specialEffects(
@@ -899,7 +899,8 @@ public final class RegisterWorldgen {
 		addOldGrowthSnowyTaigaFeatures(builder2);
 		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_OLD_GROWTH_TAIGA);
 		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.SNOW)
+				.hasPrecipitation(true)
+				.temperatureAdjustment(Biome.TemperatureModifier.FROZEN)
 				.temperature(WilderSharedWorldgen.OldGrowthSnowySpruceTaiga.TEMP)
 				.downfall(WilderSharedWorldgen.OldGrowthSnowySpruceTaiga.DOWNFALL)
 				.specialEffects(

@@ -97,7 +97,7 @@
       "minecraft:freeze_top_layer"
     ]
   ],
-  "precipitation": "snow",
+  "has_precipitation": true,
   "spawn_costs": {},
   "spawners": {
     "ambient": [
@@ -218,5 +218,6 @@
     "wilderwildjellyfish": [],
     "wilderwildtumbleweed": []
   },
-  "temperature": -0.45
+  "temperature": -0.45,
+  "temperature_modifier": "frozen"
 }

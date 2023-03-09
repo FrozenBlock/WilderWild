@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.Optional;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
-import net.frozenblock.lib.damagesource.api.FrozenProjectileDamageSource;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.WilderWild;
@@ -34,6 +33,7 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.RegisterDamageTypes;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterGameEvents;
 import net.frozenblock.wilderwild.registry.RegisterItems;
@@ -445,12 +445,6 @@ public class AncientHornProjectile extends AbstractArrow {
 		return true;
 	}
 
-	@Override
-	@NotNull
-	public Packet<ClientGamePacketListener> getAddEntityPacket() {
-		return EntitySpawnPacket.create(this, WilderWild.HORN_PROJECTILE_PACKET_ID);
-	}
-
 	public boolean canInteract() {
 		return this.getOwner() != null;
 	}
@@ -554,9 +548,9 @@ public class AncientHornProjectile extends AbstractArrow {
         if (entity != owner) {
             DamageSource damageSource;
             if (owner == null) {
-                damageSource = FrozenProjectileDamageSource.source("ancient_horn", this, this);
+                damageSource = this.damageSources().source(RegisterDamageTypes.ANCIENT_HORN, this, this);
             } else {
-                damageSource = FrozenProjectileDamageSource.source("ancient_horn", this, owner);
+                damageSource = this.damageSources().source(RegisterDamageTypes.ANCIENT_HORN, this, owner);
                 if (owner instanceof LivingEntity) {
                     ((LivingEntity) owner).setLastHurtMob(entity);
                 }
@@ -623,7 +617,6 @@ public class AncientHornProjectile extends AbstractArrow {
 	}
 
 	public static class EntitySpawnPacket { //When the Fabric tutorial WORKS!!!!! BOM BOM BOM BOM BOM BOM BOM, BOBOBOM! DUNDUN!
-		@SuppressWarnings("unchecked")
 		public static Packet<ClientGamePacketListener> create(Entity entity, ResourceLocation packetID) {
 			if (entity.level.isClientSide)
 				throw new IllegalStateException("SpawnPacketUtil.create called on the logical client!");

@@ -419,6 +419,9 @@ public class TermiteManager {
 			addDegradable(Blocks.STRIPPED_MANGROVE_LOG, RegisterBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG);
 			addDegradable(RegisterBlocks.HOLLOWED_MANGROVE_LOG, RegisterBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG);
 			addDegradable(Blocks.MANGROVE_WOOD, Blocks.STRIPPED_MANGROVE_WOOD);
+
+			addDegradable(Blocks.CHERRY_LOG, RegisterBlocks.HOLLOWED_CHERRY_LOG);
+			addDegradable(Blocks.CHERRY_WOOD, Blocks.STRIPPED_CHERRY_WOOD);
 		}
 
 		public static void addDegradable(Block degradable, Block result) {

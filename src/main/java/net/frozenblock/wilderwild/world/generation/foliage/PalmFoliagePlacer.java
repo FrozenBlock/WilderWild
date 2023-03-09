@@ -53,13 +53,15 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 
 	public final IntProvider fronds;
 
+	@Override
 	protected FoliagePlacerType<?> type() {
 		return WilderWild.PALM_FOLIAGE_PLACER;
 	}
 
-	protected void createFoliage(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> blockSetter, @NotNull RandomSource random, @NotNull TreeConfiguration config, int i, FoliageAttachment foliageAttachment, int j, int k, int l) {
+	@Override
+	protected void createFoliage(@NotNull LevelSimulatedReader level, @NotNull FoliageSetter blockSetter, @NotNull RandomSource random, @NotNull TreeConfiguration config, int i, FoliageAttachment foliageAttachment, int j, int k, int l) {
 		BlockPos blockPos = foliageAttachment.pos().above(l);
-		blockSetter.accept(blockPos.below(), RegisterBlocks.PALM_CROWN.defaultBlockState());
+		blockSetter.set(blockPos.below(), RegisterBlocks.PALM_CROWN.defaultBlockState());
 		Vec3 origin = new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ());
 		double minRadius = this.radius.getMinValue();
 		double radius = minRadius + ((this.radius.getMaxValue() - minRadius) * random.nextDouble());
@@ -80,8 +82,8 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 		}
 	}
 
-	public static void placeLeavesAtPos(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, TreeConfiguration config, BlockPos pos, double offX, double offY, double offZ) {
-		BlockPos placePos = pos.offset(offX, offY, offZ);
+	public static void placeLeavesAtPos(LevelSimulatedReader level, FoliageSetter blockSetter, RandomSource random, TreeConfiguration config, BlockPos pos, double offX, double offY, double offZ) {
+		BlockPos placePos = pos.offset(BlockPos.containing(offX, offY, offZ));
 		tryPlaceLeaf(level, blockSetter, random, config, placePos);
 		if (shouldPlaceAbove(offX)) {
 			tryPlaceLeaf(level, blockSetter, random, config, placePos.offset(1, 0, 0));

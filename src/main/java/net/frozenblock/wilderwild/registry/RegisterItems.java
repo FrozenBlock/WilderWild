@@ -132,7 +132,7 @@ public final class RegisterItems {
     public static final Item ORANGE_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.ORANGE);
     public static final Item WHITE_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.WHITE);
 
-    public static final Item PRICKLY_PEAR = new PrickOnUseBlockItem(RegisterBlocks.PRICKLY_PEAR_CACTUS, new FabricItemSettings().food(RegisterFood.PRICKLY_PEAR), 2F, RegisterSounds.PLAYER_HURT_CACTUS, "prickly_pear");
+    public static final Item PRICKLY_PEAR = new PrickOnUseBlockItem(RegisterBlocks.PRICKLY_PEAR_CACTUS, new FabricItemSettings().food(RegisterFood.PRICKLY_PEAR), 2F, RegisterSounds.PLAYER_HURT_CACTUS, RegisterDamageTypes.PRICKLY_PEAR);
     public static final Item PEELED_PRICKLY_PEAR = new Item(new FabricItemSettings().food(Foods.APPLE));
 
     public static final Item ANCIENT_HORN_FRAGMENT = new Item(new FabricItemSettings().maxCount(64));

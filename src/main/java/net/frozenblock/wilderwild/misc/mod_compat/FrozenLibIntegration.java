@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.misc.mod_compat;
 
 import java.util.Objects;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.block.api.dripstone.DripstoneDripWaterFrom;
 import net.frozenblock.lib.integration.api.ModIntegration;
@@ -95,7 +96,10 @@ public class FrozenLibIntegration extends ModIntegration {
             }
         });
 
-        PlayerDamageSourceSounds.addDamageSound(DamageSource.CACTUS, RegisterSounds.PLAYER_HURT_CACTUS, WilderSharedConstants.id("cactus"));
+		ServerWorldEvents.LOAD.register((server, level) -> {
+			PlayerDamageSourceSounds.addDamageSound(level.damageSources().cactus(), RegisterSounds.PLAYER_HURT_CACTUS, WilderSharedConstants.id("cactus"));
+		});
+
         HopperUntouchableList.BLACKLISTED_TYPES.add(RegisterBlockEntities.STONE_CHEST);
         FrozenBools.useNewDripstoneLiquid = true;
         DripstoneDripWaterFrom.ON_DRIP_BLOCK.put(Blocks.WET_SPONGE, (level, fluidInfo, blockPos) -> {

@@ -91,7 +91,7 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Entity entity) {
 		entity.makeStuckInBlock(state, new Vec3(0.800000011920929, 0.75, 0.800000011920929));
 		if (!(entity instanceof ItemEntity)) {
-			entity.hurt(DamageSource.CACTUS, 0.5F);
+			entity.hurt(level.damageSources().cactus(), 0.5F);
 		}
 	}
 
@@ -136,7 +136,7 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 				} else {
 					level.playSound(null, pos, RegisterSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1.0F, 0.95F + (level.random.nextFloat() * 0.1F));
 					level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
-					player.hurt(DamageSource.CACTUS, 1F);
+					player.hurt(level.damageSources().cactus(), 1F);
 				}
 			}
 			return InteractionResult.sidedSuccess(level.isClientSide);

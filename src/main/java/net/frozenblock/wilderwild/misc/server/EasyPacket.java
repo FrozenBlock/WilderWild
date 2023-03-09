@@ -106,7 +106,7 @@ public class EasyPacket {
             byteBuf.writeDouble(pos.y);
             byteBuf.writeDouble(pos.z);
             byteBuf.writeVarInt(count);
-            for (ServerPlayer player : PlayerLookup.tracking((ServerLevel) level, new BlockPos(pos))) {
+            for (ServerPlayer player : PlayerLookup.tracking((ServerLevel) level, BlockPos.containing(pos))) {
                 ServerPlayNetworking.send(player, WilderWild.TERMITE_PARTICLE_PACKET, byteBuf);
             }
         }

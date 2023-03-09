@@ -84,7 +84,7 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 	protected void onHitEntity(@NotNull EntityHitResult result) {
 		super.onHitEntity(result);
 		Entity entity = result.getEntity();
-		entity.hurt(DamageSource.thrown(this, this.getOwner()), 2F);
+		entity.hurt(entity.damageSources().thrown(this, this.getOwner()), 2F);
 		if (this.position().y() > entity.getEyeY() && !entity.getType().is(WilderEntityTags.COCONUT_CANT_BONK)) {
 			this.level.playSound(null, this.getX(), this.getY(), this.getZ(), RegisterSounds.ITEM_COCONUT_HIT_HEAD, SoundSource.BLOCKS, 1.0F, 0.9F + (this.level.random.nextFloat() * 0.2F));
 		}

@@ -410,7 +410,7 @@ public class StoneChestBlock extends ChestBlock {
 		} else {
 			return null;
 		}
-		BlockPos newPos = new BlockPos(x, y, z);
+		BlockPos newPos = BlockPos.containing(x, y, z);
 		BlockEntity be = level.getBlockEntity(newPos);
 		StoneChestBlockEntity entity = null;
 		if (be instanceof StoneChestBlockEntity chest) {

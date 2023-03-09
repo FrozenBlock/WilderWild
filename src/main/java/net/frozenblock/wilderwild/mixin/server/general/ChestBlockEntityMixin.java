@@ -127,7 +127,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 		} else {
 			return null;
 		}
-		BlockPos newPos = new BlockPos(x, y, z);
+		BlockPos newPos = BlockPos.containing(x, y, z);
 		BlockEntity be = level.getBlockEntity(newPos);
 		ChestBlockEntity entity = null;
 		if (be instanceof ChestBlockEntity chest) {

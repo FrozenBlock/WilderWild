@@ -18,7 +18,7 @@ accessible    field    net/minecraft/world/item/ItemCooldowns$CooldownInstance  
 accessible    field    net/minecraft/world/item/ItemCooldowns$CooldownInstance    endTime    I
 accessible    method    net/minecraft/world/item/ItemCooldowns$CooldownInstance    <init>    (II)V
 accessible    field    net/minecraft/world/item/ItemStack    tag    Lnet/minecraft/nbt/CompoundTag;
-accessible    method    net/minecraft/world/item/CreativeModeTabs    generateInstrumentTypes    (Lnet/minecraft/world/item/CreativeModeTab$Output;Lnet/minecraft/world/item/Item;Lnet/minecraft/tags/TagKey;Lnet/minecraft/world/item/CreativeModeTab$TabVisibility;)V
+accessible    method    net/minecraft/world/item/CreativeModeTabs    generateInstrumentTypes    (Lnet/minecraft/world/item/CreativeModeTab$Output;Lnet/minecraft/core/HolderLookup;Lnet/minecraft/world/item/Item;Lnet/minecraft/tags/TagKey;Lnet/minecraft/world/item/CreativeModeTab$TabVisibility;)V
 accessible    class    net/minecraft/world/item/CreativeModeTab$TabVisibility
 accessible    method    net/minecraft/world/item/RecordItem    <init>    (ILnet/minecraft/sounds/SoundEvent;Lnet/minecraft/world/item/Item$Properties;I)V
 
@@ -61,6 +61,11 @@ accessible    field    net/minecraft/world/entity/Mob    goalSelector    Lnet/mi
 accessible    field    net/minecraft/world/entity/Mob    targetSelector    Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 accessible    method    net/minecraft/world/entity/monster/warden/Warden    isDiggingOrEmerging    ()Z
 
+# Damage Sources
+accessible    method    net/minecraft/world/damagesource/DamageSources    source    (Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/world/damagesource/DamageSource;
+accessible    method    net/minecraft/world/damagesource/DamageSources    source    (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/entity/Entity;)Lnet/minecraft/world/damagesource/DamageSource;
+accessible    method    net/minecraft/world/damagesource/DamageSources    source    (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/entity/Entity;)Lnet/minecraft/world/damagesource/DamageSource;
+
 # Blocks
 accessible    method    net/minecraft/world/level/block/Block    registerDefaultState    (Lnet/minecraft/world/level/block/state/BlockState;)V
 accessible    method    net/minecraft/client/renderer/Sheets    chestMaterial    (Ljava/lang/String;)Lnet/minecraft/client/resources/model/Material;
@@ -71,6 +76,7 @@ accessible    method    net/minecraft/world/level/block/PointedDripstoneBlock$Fl
 accessible    field    net/minecraft/world/level/block/MultifaceSpreader    config    Lnet/minecraft/world/level/block/MultifaceSpreader$SpreadConfig;
 accessible    class    net/minecraft/data/BlockFamilies
 accessible    method    net/minecraft/data/BlockFamilies    familyBuilder    (Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/data/BlockFamily$Builder;
+accessible    method    net/minecraft/world/level/block/state/properties/BlockSetType    register    (Lnet/minecraft/world/level/block/state/properties/BlockSetType;)Lnet/minecraft/world/level/block/state/properties/BlockSetType;
 
 # Block Entities
 accessible    field    net/minecraft/world/level/block/entity/RandomizableContainerBlockEntity    lootTable    Lnet/minecraft/resources/ResourceLocation;

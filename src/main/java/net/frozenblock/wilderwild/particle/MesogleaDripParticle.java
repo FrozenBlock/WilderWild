@@ -98,7 +98,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
         this.xd *= 0.98F;
         this.yd *= 0.98F;
         this.zd *= 0.98F;
-        BlockPos blockPos = new BlockPos(this.x, this.y, this.z);
+        BlockPos blockPos = BlockPos.containing(this.x, this.y, this.z);
         FluidState fluidState = this.level.getFluidState(blockPos);
         if (fluidState.getType() == Fluids.WATER && this.y < (double) ((float) blockPos.getY() + fluidState.getHeight(this.level, blockPos))) {
             this.remove();

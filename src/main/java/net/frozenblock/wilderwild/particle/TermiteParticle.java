@@ -163,7 +163,7 @@ public class TermiteParticle extends TextureSheetParticle {
 	}
 
 	private BlockPos getLerpedTermiteBlockPos(double x, double y, double z, float cos, float sin, float aCos) {
-		return new BlockPos(
+		return BlockPos.containing(
 				x + cos,
 				y + sin,
 				z + aCos

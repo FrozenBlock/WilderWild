@@ -35,6 +35,7 @@ import net.frozenblock.lib.tag.api.FrozenBiomeTags;
 import net.frozenblock.lib.tag.api.FrozenItemTags;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.frozenblock.wilderwild.registry.RegisterDamageTypes;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterStructures;
 import net.frozenblock.lib.tag.api.FrozenItemTags;
@@ -47,6 +48,7 @@ import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.frozenblock.wilderwild.world.generation.WilderFeatureBootstrap;
 import net.frozenblock.wilderwild.world.generation.noise.WilderNoise;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -54,13 +56,15 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.data.registries.VanillaRegistries;
-import net.minecraft.network.chat.Component;
+import net.minecraft.data.tags.DamageTypeTagsProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.flag.FeatureFlagSet;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -86,9 +90,10 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 		FrozenFeatureFlags.rebuild();
 		final FabricDataGenerator.Pack pack = dataGenerator.createPack();
 		pack.addProvider(WilderBlockLootProvider::new);
-		pack.addProvider(WilderWorldgenProvider::new);
+		pack.addProvider(WilderRegistryProvider::new);
 		pack.addProvider(WilderBiomeTagProvider::new);
 		pack.addProvider(WilderBlockTagProvider::new);
+		pack.addProvider(WilderDamageTypeTagProvider::new);
 		pack.addProvider(WilderItemTagProvider::new);
 		pack.addProvider(WilderEntityTagProvider::new);
 		/*final FabricDataGenerator.Pack experimentalPack = dataGenerator.createBuiltinResourcePack(WilderSharedConstants.id("update_1_20_additions"));
@@ -104,6 +109,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 	@Override
 	public void buildRegistry(RegistrySetBuilder registryBuilder) {
+		WilderSharedConstants.logWild("Registering Biomes for", WilderSharedConstants.UNSTABLE_LOGGING);
+
+		registryBuilder.add(Registries.DAMAGE_TYPE, RegisterDamageTypes::bootstrap);
 		registryBuilder.add(Registries.CONFIGURED_FEATURE, WilderFeatureBootstrap::bootstrapConfigured);
 		registryBuilder.add(Registries.PLACED_FEATURE, WilderFeatureBootstrap::bootstrapPlaced);
 		registryBuilder.add(Registries.BIOME, RegisterWorldgen::bootstrap);
@@ -114,14 +122,18 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.STRUCTURE_SET, RegisterStructures::bootstrapStructureSet);
 	}
 
-	private static class WilderWorldgenProvider extends FabricDynamicRegistryProvider {
+	private static class WilderRegistryProvider extends FabricDynamicRegistryProvider {
 
-		public WilderWorldgenProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+		public WilderRegistryProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 			super(output, registriesFuture);
 		}
 
 		@Override
 		protected void configure(HolderLookup.Provider registries, Entries entries) {
+			final var damageTypes = asLookup(entries.getLookup(Registries.DAMAGE_TYPE));
+
+			entries.addAll(damageTypes);
+
 			WilderFeatureBootstrap.bootstrap(entries);
 		}
 
@@ -1134,6 +1146,19 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 		}
 	}
 
+	private static final class WilderDamageTypeTagProvider extends FabricTagProvider<DamageType> {
+
+		public WilderDamageTypeTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+			super(output, Registries.DAMAGE_TYPE, lookupProvider);
+		}
+
+		@Override
+		public void addTags(HolderLookup.Provider arg) {
+			this.getOrCreateTagBuilder(DamageTypeTags.NO_ANGER)
+					.add(RegisterDamageTypes.TUMBLEWEED);
+		}
+	}
+
 	private static final class WilderItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
 		public WilderItemTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
@@ -1211,5 +1236,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			hangingSign(consumer, RegisterItems.BAOBAB_HANGING_SIGN, RegisterBlocks.STRIPPED_BAOBAB_LOG);
 			hangingSign(consumer, RegisterItems.CYPRESS_HANGING_SIGN, RegisterBlocks.STRIPPED_CYPRESS_LOG);
 		}
+	}
+
+	public static <T> HolderLookup.RegistryLookup<T> asLookup(HolderGetter<T> getter) {
+		return (HolderLookup.RegistryLookup<T>) getter;
 	}
 }

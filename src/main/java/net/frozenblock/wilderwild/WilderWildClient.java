@@ -146,6 +146,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_ACACIA_LOG, RenderType.cutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_BAOBAB_LOG, RenderType.cutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_BIRCH_LOG, RenderType.cutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_CHERRY_LOG, RenderType.cutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_CYPRESS_LOG, RenderType.cutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_DARK_OAK_LOG, RenderType.cutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.HOLLOWED_JUNGLE_LOG, RenderType.cutout());
@@ -240,7 +241,6 @@ public final class WilderWildClient implements ClientModInitializer {
 		EntityModelLayerRegistry.registerModelLayer(DOUBLE_STONE_CHEST_LEFT, StoneChestBlockEntityRenderer::createDoubleBodyLeftLayer);
 		EntityModelLayerRegistry.registerModelLayer(DOUBLE_STONE_CHEST_RIGHT, StoneChestBlockEntityRenderer::createDoubleBodyRightLayer);
 
-		receiveAncientHornProjectilePacket();
 		receiveEasyEchoerBubblePacket();
 		receiveSeedPacket();
 		receiveControlledSeedPacket();
@@ -286,32 +286,6 @@ public final class WilderWildClient implements ClientModInitializer {
 		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
 				BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
 		), RegisterBlocks.BUSH);
-	}
-
-	private static void receiveAncientHornProjectilePacket() {
-		ClientPlayNetworking.registerGlobalReceiver(WilderWild.HORN_PROJECTILE_PACKET_ID, (ctx, handler, byteBuf, responseSender) -> {
-			EntityType<?> et = BuiltInRegistries.ENTITY_TYPE.byId(byteBuf.readVarInt());
-			UUID uuid = byteBuf.readUUID();
-			int entityId = byteBuf.readVarInt();
-			Vec3 pos = AncientHornProjectile.EntitySpawnPacket.PacketBufUtil.readVec3d(byteBuf);
-			float pitch = AncientHornProjectile.EntitySpawnPacket.PacketBufUtil.readAngle(byteBuf);
-			float yaw = AncientHornProjectile.EntitySpawnPacket.PacketBufUtil.readAngle(byteBuf);
-			ctx.execute(() -> {
-				if (ctx.level == null)
-					throw new IllegalStateException("Tried to spawn entity in a null world!");
-				Entity e = et.create(ctx.level);
-				if (e == null)
-					throw new IllegalStateException("Failed to create instance of entity \"" + BuiltInRegistries.ENTITY_TYPE.getKey(et) + "\"!");
-				e.syncPacketPositionCodec(pos.x, pos.y, pos.z);
-				e.setPosRaw(pos.x, pos.y, pos.z);
-				e.setXRot(pitch);
-				e.setYRot(yaw);
-				e.setId(entityId);
-				e.setUUID(uuid);
-				ctx.level.putNonPlayerEntity(entityId, e);
-				WilderSharedConstants.log("Spawned Ancient Horn Projectile", WilderSharedConstants.UNSTABLE_LOGGING);
-			});
-		});
 	}
 
 	private static void receiveEasyEchoerBubblePacket() {

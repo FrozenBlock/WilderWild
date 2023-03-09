@@ -41,7 +41,7 @@ public class WardenNavigation extends GroundPathNavigation {
 
     @Override
     public PathFinder createPathFinder(int range) {
-        this.nodeEvaluator = new WardenPathEvaluator();
+        this.nodeEvaluator = new WardenPathEvaluator(false);
         this.nodeEvaluator.setCanPassDoors(true);
         return new PathFinder(this.nodeEvaluator, range) {
 			@Override
@@ -62,7 +62,7 @@ public class WardenNavigation extends GroundPathNavigation {
 
     @Override
     protected double getGroundY(@NotNull Vec3 pos) {
-        BlockPos blockPos = new BlockPos(pos);
+        BlockPos blockPos = BlockPos.containing(pos);
         return this.isInLiquid() || this.level.getBlockState(blockPos.below()).isAir() ? pos.y : WardenPathEvaluator.getFloorLevel(this.level, blockPos);
     }
 

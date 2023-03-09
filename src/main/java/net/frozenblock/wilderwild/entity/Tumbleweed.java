@@ -24,6 +24,7 @@ import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.RegisterDamageTypes;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.minecraft.core.BlockPos;
@@ -39,13 +40,14 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.EntityDamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
@@ -134,7 +136,7 @@ public class Tumbleweed extends Mob {
 			super.doPush(entity);
 		}
 		if (this.getDeltaPos().length() > (isSmall ? 0.2 : 0.3) && this.isMovingTowards(entity) && !(entity instanceof Tumbleweed)) {
-			boolean hurt = entity.hurt(new EntityDamageSource("tumbleweed", this).setScalesWithDifficulty().setNoAggro(), 2F);
+			boolean hurt = entity.hurt(this.damageSources().source(RegisterDamageTypes.TUMBLEWEED, this), 2F);
 			isSmall = isSmall || !entity.isAlive() || !hurt;
 			if (!isSmall) {
 				this.destroy(false);
@@ -289,7 +291,7 @@ public class Tumbleweed extends Mob {
 
 	@Override
 	public boolean isInvulnerableTo(@NotNull DamageSource source) {
-		return source.isMagic() || source == DamageSource.CACTUS || source == DamageSource.FREEZE || source == DamageSource.SWEET_BERRY_BUSH || source == DamageSource.WITHER || super.isInvulnerableTo(source);
+		return source.is(DamageTypeTags.WITCH_RESISTANT_TO) || source.is(DamageTypes.CACTUS) || source.is(DamageTypes.FREEZE) || source.is(DamageTypes.SWEET_BERRY_BUSH) || source.is(DamageTypes.WITHER) || super.isInvulnerableTo(source);
 	}
 
 	@Override
