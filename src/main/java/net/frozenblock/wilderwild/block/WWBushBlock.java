@@ -41,6 +41,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
@@ -51,13 +52,13 @@ public class WWBushBlock extends BushBlock implements BonemealableBlock {
 
 	public WWBushBlock(BlockBehaviour.Properties properties) {
 		super(properties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0));
+		this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0).setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER));
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
-		builder.add(AGE);
+		builder.add(AGE, BlockStateProperties.DOUBLE_BLOCK_HALF);
 	}
 
 	public static boolean isFullyGrown(@NotNull BlockState state) {
@@ -68,14 +69,34 @@ public class WWBushBlock extends BushBlock implements BonemealableBlock {
 		return state.getValue(AGE) == 1;
 	}
 
+	public static boolean isLower(@NotNull BlockState state) {
+		return state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER;
+	}
+
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if (!isFullyGrown(state) && random.nextInt(5) == 0 && level.getRawBrightness(pos, 0) >= 9) {
 			if (isAlmostFullyGrown(state) && random.nextFloat() < 0.65F) {
 				return;
 			}
-			level.setBlock(pos, state.cycle(AGE), 2);
+			this.grow(level, state, pos);
 		}
+	}
+
+	public boolean grow(Level level, BlockState state, BlockPos pos) {
+		state = state.cycle(AGE);
+		if (isAlmostFullyGrown(state)) {
+			BlockPos above = pos.above();
+			if (level.getBlockState(above).isAir()) {
+				level.setBlock(pos, state, 2);
+				level.setBlock(above, state.setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER), 2);
+				return true;
+			}
+		} else {
+			level.setBlock(pos, state, 2);
+			return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -86,10 +107,10 @@ public class WWBushBlock extends BushBlock implements BonemealableBlock {
 				level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
 				ItemEntity itemEntity = new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 0.75, pos.getZ() + 0.5,new ItemStack(RegisterBlocks.BUSH));
 				level.addFreshEntity(itemEntity);
-				level.levelEvent(2001, pos, Block.getId(state));
-				level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
+				this.setAgeOnBothHalves(state, level, pos, 0, true);
 				itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
 				level.gameEvent(player, GameEvent.SHEAR, pos);
+				this.removeTopHalfIfYoung(state, level, pos);
 			}
 			return InteractionResult.sidedSuccess(level.isClientSide);
 		} else {
@@ -103,8 +124,18 @@ public class WWBushBlock extends BushBlock implements BonemealableBlock {
 	}
 
 	@Override
+	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
+		BlockPos blockPos = pos.below();
+		if (!isLower(state)) {
+			BlockState otherState = level.getBlockState(blockPos);
+			return otherState.is(this) && isLower(otherState) && isFullyGrown(otherState);
+		}
+		return this.mayPlaceOn(level.getBlockState(blockPos), level, blockPos);
+	}
+
+	@Override
 	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
-		return !isFullyGrown(state);
+		return state.getValue(AGE) == 0 || (isAlmostFullyGrown(state) && isLower(state) && level.getBlockState(pos.above()).isAir());
 	}
 
 	@Override
@@ -114,6 +145,33 @@ public class WWBushBlock extends BushBlock implements BonemealableBlock {
 
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-		level.setBlock(pos, state.cycle(AGE), 2);
+		this.grow(level, state, pos);
+	}
+
+	public void setAgeOnBothHalves(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, int age, boolean particles) {
+		level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.AGE_2, age));
+		BlockPos movedPos = state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER ? pos.below() : pos.above();
+		BlockState secondState = level.getBlockState(movedPos);
+		if (secondState.is(this)) {
+			level.setBlockAndUpdate(movedPos, secondState.setValue(BlockStateProperties.AGE_2, age));
+			if (particles) {
+				level.levelEvent(2001, movedPos, Block.getId(secondState));
+			}
+		}
+		if (particles) {
+			level.levelEvent(2001, pos, Block.getId(state));
+		}
+	}
+
+	public void removeTopHalfIfYoung(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos) {
+		if (state.is(this) && state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER && !isFullyGrown(state)) {
+			level.setBlock(pos, level.getFluidState(pos).createLegacyBlock(), 3);
+			return;
+		}
+		BlockPos movedPos = pos.above();
+		BlockState secondState = level.getBlockState(movedPos);
+		if (secondState.is(this) && secondState.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER && !isFullyGrown(secondState)) {
+			level.setBlock(movedPos, level.getFluidState(movedPos).createLegacyBlock(), 3);
+		}
 	}
 }
