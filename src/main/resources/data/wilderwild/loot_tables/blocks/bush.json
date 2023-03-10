@@ -7,33 +7,51 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "wilderwild:bush"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "wilderwild:bush",
+          "properties": {
+            "half": "lower"
+          }
+        },
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    },
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
           "name": "wilderwild:bush",
           "functions": [
             {
               "function": "minecraft:set_count",
-              "conditions": [
-                {
-                  "condition": "minecraft:block_state_property",
-                  "block": "minecraft:age",
-                  "properties": {
-                    "age": "2"
-                  }
-                }
-              ],
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2.0,
-                "min": 1.0
+                "max": 1.0,
+                "min": 0.0
               },
               "add": false
-            },
-            {
-              "function": "minecraft:explosion_decay"
             }
           ]
         }
       ],
       "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "wilderwild:bush",
+          "properties": {
+            "age": "2",
+            "half": "lower"
+          }
+        },
         {
           "condition": "minecraft:survives_explosion"
         }
