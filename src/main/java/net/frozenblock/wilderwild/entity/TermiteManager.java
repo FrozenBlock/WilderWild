@@ -53,6 +53,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.Vec3;
@@ -308,12 +309,18 @@ public class TermiteManager {
 			List<Direction> directions = Util.shuffledCopy(Direction.values(), level.random);
 			BlockState upState = level.getBlockState(mutableBlockPos.move(Direction.UP));
 			if (((!natural ? DEGRADABLE_BLOCKS.containsKey(upState.getBlock()) : NATURAL_DEGRADABLE_BLOCKS.containsKey(upState.getBlock())) || upState.is(WilderBlockTags.TERMITE_BREAKABLE)) && isEdibleProperty(upState)) {
+				if (upState.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF) && upState.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER) {
+					mutableBlockPos.move(Direction.DOWN);
+				}
 				return mutableBlockPos;
 			}
 			mutableBlockPos.move(Direction.DOWN);
 			for (Direction direction : directions) {
 				BlockState state = level.getBlockState(mutableBlockPos.move(direction));
-				if (((!natural ? DEGRADABLE_BLOCKS.containsKey(state.getBlock()) : NATURAL_DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || state.is(WilderBlockTags.TERMITE_BREAKABLE))  && isEdibleProperty(state)) {
+				if (((!natural ? DEGRADABLE_BLOCKS.containsKey(state.getBlock()) : NATURAL_DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || state.is(WilderBlockTags.TERMITE_BREAKABLE)) && isEdibleProperty(state)) {
+					if (state.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF) && state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER) {
+						mutableBlockPos.move(Direction.DOWN);
+					}
 					return mutableBlockPos;
 				}
 				mutableBlockPos.move(direction, -1);

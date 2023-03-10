@@ -2,6 +2,7 @@
 	"ambientocclusion": false,
 	"textures": {
 		"cross_top": "wilderwild:block/bush_top_stage2",
+        "particle": "wilderwild:block/bush_top_stage2",
 		"overlay_top": "wilderwild:block/bush_top_stage2_overlay"
 	},
 	"elements": [
