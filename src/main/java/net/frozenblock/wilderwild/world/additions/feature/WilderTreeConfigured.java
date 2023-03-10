@@ -382,7 +382,7 @@ public final class WilderTreeConfigured {
 		// CHERRY
 
 		FALLEN_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
-				fallenBirch().decorators(
+				fallenCherry().decorators(
 						List.of(
 								VINES_08_UNDER_260_075
 						)
@@ -392,11 +392,11 @@ public final class WilderTreeConfigured {
 		MOSSY_FALLEN_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
 				fallenTrunkBuilder(
 						RegisterBlocks.HOLLOWED_CHERRY_LOG,
-						Blocks.BIRCH_LEAVES,
+						Blocks.CHERRY_LEAVES,
 						3,
 						1,
 						2,
-						0.55F,
+						0.35F,
 						1.0F,
 						UniformInt.of(1, 2),
 						UniformInt.of(1, 2),
