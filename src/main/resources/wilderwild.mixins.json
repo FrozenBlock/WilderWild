@@ -89,7 +89,6 @@
     "client.wind.ParticleMixin",
     "client.wind.SnowflakeParticleMixin",
     "client.wind.SporeBlossomAirProviderMixin",
-    "client.wind.SporeBlossomFallProviderMixin",
     "sodium.FluidRendererMixin"
   ],
   "injectors": {

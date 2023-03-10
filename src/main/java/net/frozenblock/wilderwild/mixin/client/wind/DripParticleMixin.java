@@ -87,18 +87,25 @@ public abstract class DripParticleMixin extends TextureSheetParticle implements 
 		}
 	}
 
-	@Inject(method = "createNectarFallParticle", at = @At("TAIL"))
-	private static void wilderWild$createNectarFallParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, CallbackInfoReturnable<Particle> info) {
-		if (info.getReturnValue() instanceof DripParticle dripParticle) {
-			((WilderDripSuspendedParticleInterface)dripParticle).wilderWild$setUsesWind(true);
-			dripParticle.setColor(250F / 255F, 171F / 255F, 28F / 255F);
+	@Inject(method = "createSporeBlossomFallParticle", at = @At("RETURN"))
+	private static void wilderWild$createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, CallbackInfoReturnable<Particle> info) {
+		if (info.getReturnValue() instanceof WilderDripSuspendedParticleInterface dripParticle) {
+			dripParticle.wilderWild$setUsesWind(true);
 		}
 	}
 
-	@Inject(method = "createCherryLeavesFallParticle", at = @At("TAIL"))
+	@Inject(method = "createNectarFallParticle", at = @At("RETURN"))
+	private static void wilderWild$createNectarFallParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, CallbackInfoReturnable<Particle> info) {
+		if (info.getReturnValue() instanceof WilderDripSuspendedParticleInterface dripParticle) {
+			dripParticle.wilderWild$setUsesWind(true);
+			info.getReturnValue().setColor(250F / 255F, 171F / 255F, 28F / 255F);
+		}
+	}
+
+	@Inject(method = "createCherryLeavesFallParticle", at = @At("RETURN"))
 	private static void wilderWild$createCherryLeavesFallParticle(SimpleParticleType simpleParticleType, ClientLevel world, double d, double e, double f, double g, double h, double i, CallbackInfoReturnable<Particle> info) {
-		if (info.getReturnValue() instanceof DripParticle dripParticle) {
-			((WilderDripSuspendedParticleInterface)dripParticle).wilderWild$setUsesWind(true);
+		if (info.getReturnValue() instanceof WilderDripSuspendedParticleInterface dripParticle) {
+			dripParticle.wilderWild$setUsesWind(true);
 		}
 	}
 
