@@ -88,7 +88,7 @@ public abstract class DripParticleMixin extends TextureSheetParticle implements 
 	}
 
 	@Inject(method = "createSporeBlossomFallParticle", at = @At("RETURN"))
-	private static void wilderWild$createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, CallbackInfoReturnable<Particle> info) {
+	private static void wilderWild$createBlossomFallParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, CallbackInfoReturnable<Particle> info) {
 		if (info.getReturnValue() instanceof WilderDripSuspendedParticleInterface dripParticle) {
 			dripParticle.wilderWild$setUsesWind(true);
 		}
