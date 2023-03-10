@@ -95,6 +95,8 @@ public final class WilderConfiguredFeatures {
 
     public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_BIRCH = register("fallen_birch");
 
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_CHERRY = register("fallen_cherry");
+
     public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_SPRUCE = register("fallen_spruce");
 
     public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_SPRUCE_AND_OAK = register("fallen_spruce_and_oak");
@@ -407,6 +409,10 @@ public final class WilderConfiguredFeatures {
 
 		FALLEN_BIRCH.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.FALLEN_BIRCH_CHECKED.getHolder(), 1.0F)), WilderTreePlaced.FALLEN_BIRCH_CHECKED.getHolder()));
+
+		FALLEN_CHERRY.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+				new RandomFeatureConfiguration(List.of((new WeightedPlacedFeature(WilderTreePlaced.FALLEN_CHERRY_CHECKED.getHolder(), 0.6F)),
+						new WeightedPlacedFeature(WilderTreePlaced.MOSSY_FALLEN_BIRCH_CHECKED.getHolder(), 0.4F)), WilderTreePlaced.FALLEN_CHERRY_CHECKED.getHolder()));
 
 		FALLEN_SPRUCE.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.FALLEN_SPRUCE_CHECKED.getHolder(), 1.0F)), WilderTreePlaced.FALLEN_SPRUCE_CHECKED.getHolder()));

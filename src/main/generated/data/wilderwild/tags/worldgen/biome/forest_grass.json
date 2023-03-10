@@ -8,6 +8,10 @@
     "minecraft:dark_forest",
     "minecraft:taiga",
     {
+      "id": "minecraft:cherry_grove",
+      "required": false
+    },
+    {
       "id": "wilderwild:birch_taiga",
       "required": false
     },

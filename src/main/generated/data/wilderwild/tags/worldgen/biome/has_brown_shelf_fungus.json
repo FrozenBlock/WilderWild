@@ -13,6 +13,10 @@
     "minecraft:taiga",
     "minecraft:snowy_taiga",
     {
+      "id": "minecraft:cherry_grove",
+      "required": false
+    },
+    {
       "id": "wilderwild:flower_field",
       "required": false
     },

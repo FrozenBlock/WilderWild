@@ -146,6 +146,12 @@ public final class WilderTreeConfigured {
 
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SUPER_BIRCH = register("super_birch");
 
+	//CHERRY
+
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> MOSSY_FALLEN_CHERRY_TREE = register("mossy_fallen_cherry_tree");
+
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_CHERRY_TREE = register("fallen_cherry_tree");
+
     //OAK
     public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> OAK = register("oak");
 
@@ -371,6 +377,34 @@ public final class WilderTreeConfigured {
 
 		SUPER_BIRCH.makeAndSetHolder(Feature.TREE,
 				superBirch().build()
+		);
+
+		// CHERRY
+
+		FALLEN_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
+				fallenBirch().decorators(
+						List.of(
+								VINES_08_UNDER_260_075
+						)
+				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		MOSSY_FALLEN_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
+				fallenTrunkBuilder(
+						RegisterBlocks.HOLLOWED_CHERRY_LOG,
+						Blocks.BIRCH_LEAVES,
+						3,
+						1,
+						2,
+						0.55F,
+						1.0F,
+						UniformInt.of(1, 2),
+						UniformInt.of(1, 2),
+						1
+				).ignoreVines().decorators(
+						List.of(
+								VINES_08_UNDER_260_075
+						)).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		// OAK
@@ -1104,6 +1138,10 @@ public final class WilderTreeConfigured {
     private static TreeConfiguration.TreeConfigurationBuilder fallenBirch() {
         return fallenTrunkBuilder(RegisterBlocks.HOLLOWED_BIRCH_LOG, Blocks.BIRCH_LEAVES, 3, 1, 2, 0.4F, 0.47F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines();
     }
+
+	private static TreeConfiguration.TreeConfigurationBuilder fallenCherry() {
+		return fallenTrunkBuilder(RegisterBlocks.HOLLOWED_CHERRY_LOG, Blocks.CHERRY_LEAVES, 3, 1, 2, 0.4F, 0.47F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines();
+	}
 
     private static TreeConfiguration.TreeConfigurationBuilder oak() {
         return builder(Blocks.OAK_LOG, Blocks.OAK_LEAVES, 6, 2, 1, 0.1F, UniformInt.of(1, 2), UniformInt.of(1, 3), ConstantInt.of(1), 2).ignoreVines();

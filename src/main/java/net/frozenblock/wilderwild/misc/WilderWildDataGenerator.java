@@ -445,6 +445,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
 					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST);
 
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_CHERRY_TREES)
+					.addOptional(Biomes.CHERRY_GROVE);
+
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_OAK_AND_BIRCH_TREES)
 					.add(Biomes.FOREST)
 					.add(Biomes.FLOWER_FOREST)
@@ -472,6 +475,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
 					.add(Biomes.DARK_FOREST)
 					.add(Biomes.TAIGA)
+					.addOptional(Biomes.CHERRY_GROVE)
 					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
 					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
 					.addOptional(RegisterWorldgen.FLOWER_FIELD)
@@ -545,6 +549,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_DATURA)
 					.add(Biomes.BIRCH_FOREST)
 					.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
+					.addOptional(Biomes.CHERRY_GROVE)
 					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
 					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
 					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST);
@@ -583,6 +588,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.MEADOW)
 					.add(Biomes.WINDSWEPT_HILLS)
 					.add(Biomes.WINDSWEPT_FOREST)
+					.addOptional(Biomes.CHERRY_GROVE)
 					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_MILKWEED)
@@ -638,6 +644,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.FOREST)
 					.add(Biomes.FLOWER_FOREST)
 					.add(Biomes.SUNFLOWER_PLAINS)
+					.addOptional(Biomes.CHERRY_GROVE)
 					.addOptional(RegisterWorldgen.FLOWER_FIELD)
 					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
 					.addOptional(RegisterWorldgen.MIXED_FOREST)
@@ -693,6 +700,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.MANGROVE_SWAMP)
 					.add(Biomes.TAIGA)
 					.add(Biomes.SNOWY_TAIGA)
+					.addOptional(Biomes.CHERRY_GROVE)
 					.addOptional(RegisterWorldgen.FLOWER_FIELD)
 					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
 					.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
@@ -807,6 +815,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptionalTag(BiomeTags.IS_TAIGA)
 					.addOptionalTag(BiomeTags.IS_JUNGLE)
 					.addOptionalTag(BiomeTags.IS_FOREST)
+					.addOptional(Biomes.CHERRY_GROVE)
 					.add(Biomes.STONY_SHORE)
 					.add(Biomes.MUSHROOM_FIELDS)
 					.add(Biomes.ICE_SPIKES)

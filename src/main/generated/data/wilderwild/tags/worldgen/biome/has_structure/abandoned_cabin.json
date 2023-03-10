@@ -29,6 +29,10 @@
       "id": "#minecraft:is_forest",
       "required": false
     },
+    {
+      "id": "minecraft:cherry_grove",
+      "required": false
+    },
     "minecraft:stony_shore",
     "minecraft:mushroom_fields",
     "minecraft:ice_spikes",

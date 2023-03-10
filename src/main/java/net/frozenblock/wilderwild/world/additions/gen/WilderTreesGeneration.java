@@ -51,6 +51,9 @@ public final class WilderTreesGeneration {
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_MOSSY_FALLEN_OAK_AND_BIRCH),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MOSSY_FALLEN_TREES_OAK_AND_BIRCH_PLACED.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_CHERRY_TREES),
+					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_CHERRY_PLACED.getKey());
         }
         if (WilderSharedConstants.config().wildTrees()) {
 			BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SPARSE_JUNGLE),

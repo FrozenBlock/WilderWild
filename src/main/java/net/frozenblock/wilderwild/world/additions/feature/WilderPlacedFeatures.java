@@ -80,6 +80,8 @@ public final class WilderPlacedFeatures {
 
     public static final FrozenPlacedFeature FALLEN_BIRCH_PLACED = register("fallen_birch_placed");
 
+	public static final FrozenPlacedFeature FALLEN_CHERRY_PLACED = register("fallen_cherry_placed");
+
     public static final FrozenPlacedFeature FALLEN_SPRUCE_PLACED = register("fallen_spruce_placed");
 
 	public static final FrozenPlacedFeature FALLEN_OAK_AND_BIRCH_PLACED_2 = register("fallen_oak_and_birch_placed_2");
@@ -365,6 +367,10 @@ public final class WilderPlacedFeatures {
 		);
 
 		FALLEN_BIRCH_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_BIRCH.getHolder(), RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+		);
+
+		FALLEN_CHERRY_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_CHERRY.getHolder(), RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
