@@ -66,9 +66,9 @@
   ],
   "client": [
     "client.easter.MerpSlimeRenderer",
+    "client.easter.ScottTheWozMixin",
     "client.easter.StellaWardenModel",
     "client.easter.StellaWardenRenderer",
-    "client.easter.ScottTheWozMixin",
     "client.easter.UppyBalloo",
     "client.easter.WardenEmissiveLayerMixin",
     "client.general.AllayModelMixin",
@@ -80,15 +80,16 @@
     "client.general.UnderwaterProviderMixin",
     "client.warden.WardenAnimationOverwrites",
     "client.warden.WardenModelMixin",
-    "client.wind.CloudRendererMixin",
     "client.wind.BaseAshSmokeParticleMixin",
     "client.wind.CampfireSmokeParticleMixin",
+    "client.wind.CloudRendererMixin",
     "client.wind.DripParticleMixin",
     "client.wind.DustParticleBaseMixin",
     "client.wind.ExplodeParticleMixin",
     "client.wind.ParticleMixin",
     "client.wind.SnowflakeParticleMixin",
     "client.wind.SporeBlossomAirProviderMixin",
+    "sodium.CloudRendererMixin",
     "sodium.FluidRendererMixin"
   ],
   "injectors": {
