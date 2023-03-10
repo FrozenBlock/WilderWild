@@ -645,7 +645,7 @@ public final class WilderPlacedFeatures {
 		);
 
 		GENERIC_BUSH_PLACED.makeAndSetHolder(WilderConfiguredFeatures.GENERIC_BUSH.getHolder(),
-				RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(),
+				RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 

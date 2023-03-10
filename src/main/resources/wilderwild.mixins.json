@@ -86,7 +86,6 @@
     "client.wind.DripParticleMixin",
     "client.wind.DustParticleBaseMixin",
     "client.wind.ExplodeParticleMixin",
-    "client.wind.NectarFallProviderMixin",
     "client.wind.ParticleMixin",
     "client.wind.SnowflakeParticleMixin",
     "client.wind.SporeBlossomAirProviderMixin",
