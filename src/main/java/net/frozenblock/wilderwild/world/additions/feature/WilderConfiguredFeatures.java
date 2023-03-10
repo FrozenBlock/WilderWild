@@ -276,7 +276,14 @@ public final class WilderConfiguredFeatures {
 			.add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 5)
 			.build();
 
+	public static final SimpleWeightedRandomList<BlockState> BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder()
+			.add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 5)
+			.add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 2)
+			.build();
+
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_FIELD_BUSH = register("flower_field_bush");
+
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> GENERIC_BUSH = register("bush");
 
 	public static final SimpleWeightedRandomList<BlockState> DESERT_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder()
 			.add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 1)
@@ -1087,6 +1094,16 @@ public final class WilderConfiguredFeatures {
 				)
 		);
 
+		GENERIC_BUSH.makeAndSetHolder(Feature.RANDOM_PATCH,
+				FeatureUtils.simpleRandomPatchConfiguration(
+						12,
+						PlacementUtils.onlyWhenEmpty(
+								Feature.SIMPLE_BLOCK,
+								new SimpleBlockConfiguration(new WeightedStateProvider(BUSH_POOL))
+						)
+				)
+		);
+
 		DESERT_BUSH.makeAndSetHolder(Feature.RANDOM_PATCH,
 				FeatureUtils.simpleRandomPatchConfiguration(
 						8,
@@ -1259,6 +1276,9 @@ public final class WilderConfiguredFeatures {
 								Block::builtInRegistryHolder,
 								Blocks.GRASS_BLOCK,
 								Blocks.BIRCH_LEAVES,
+								Blocks.BIRCH_LOG,
+								Blocks.CHERRY_LEAVES,
+								Blocks.CHERRY_LOG,
 								Blocks.OAK_LEAVES,
 								Blocks.OAK_LOG
 						)

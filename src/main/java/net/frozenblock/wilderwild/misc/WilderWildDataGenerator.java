@@ -554,6 +554,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
 					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST);
 
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COMMON_DATURA)
+					.addOptional(Biomes.CHERRY_GROVE);
+
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_CATTAIL)
 					.add(Biomes.SWAMP)
 					.add(Biomes.MANGROVE_SWAMP)
@@ -590,6 +593,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.WINDSWEPT_FOREST)
 					.addOptional(Biomes.CHERRY_GROVE)
 					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COMMON_SEEDING_DANDELION)
+					.addOptional(Biomes.CHERRY_GROVE);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_MILKWEED)
 					.add(Biomes.BIRCH_FOREST)

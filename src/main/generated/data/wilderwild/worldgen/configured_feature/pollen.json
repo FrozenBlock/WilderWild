@@ -5,6 +5,9 @@
     "can_be_placed_on": [
       "minecraft:grass_block",
       "minecraft:birch_leaves",
+      "minecraft:birch_log",
+      "minecraft:cherry_leaves",
+      "minecraft:cherry_log",
       "minecraft:oak_leaves",
       "minecraft:oak_log"
     ],

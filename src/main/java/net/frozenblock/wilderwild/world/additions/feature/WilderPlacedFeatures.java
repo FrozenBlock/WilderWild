@@ -209,6 +209,8 @@ public final class WilderPlacedFeatures {
 
 	public static final FrozenPlacedFeature FLOWER_FIELD_BUSH_PLACED = register("flower_field_bush_placed");
 
+	public static final FrozenPlacedFeature GENERIC_BUSH_PLACED = register("bush_placed");
+
 	public static final FrozenPlacedFeature DESERT_BUSH_PLACED = register("desert_bush_placed");
 
 	public static final FrozenPlacedFeature BADLANDS_BUSH_SAND_PLACED = register("badlands_bush_sand_placed");
@@ -252,6 +254,8 @@ public final class WilderPlacedFeatures {
 	//FLOWERS
     public static final FrozenPlacedFeature SEEDING_DANDELION = register("seeding_dandelion");
 
+	public static final FrozenPlacedFeature COMMON_SEEDING_DANDELION = register("common_seeding_dandelion");
+
     public static final FrozenPlacedFeature SEEDING_DANDELION_MIXED = register("seeding_dandelion_mixed");
 
     public static final FrozenPlacedFeature SEEDING_DANDELION_CYPRESS = register("seeding_dandelion_cypress");
@@ -259,6 +263,8 @@ public final class WilderPlacedFeatures {
     public static final FrozenPlacedFeature CARNATION = register("carnation");
 
     public static final FrozenPlacedFeature DATURA_BIRCH = register("datura_birch");
+
+	public static final FrozenPlacedFeature COMMON_DATURA = register("common_datura");
 
     public static final FrozenPlacedFeature FLOWER_PLAINS = register("flower_plains");
 
@@ -638,6 +644,11 @@ public final class WilderPlacedFeatures {
 				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
+		GENERIC_BUSH_PLACED.makeAndSetHolder(WilderConfiguredFeatures.GENERIC_BUSH.getHolder(),
+				RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+		);
+
 		DESERT_BUSH_PLACED.makeAndSetHolder(WilderConfiguredFeatures.DESERT_BUSH.getHolder(),
 				RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
@@ -728,6 +739,11 @@ public final class WilderPlacedFeatures {
 				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
+		COMMON_SEEDING_DANDELION.makeAndSetHolder(WilderConfiguredFeatures.SEEDING_DANDELION.getHolder(),
+				RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+		);
+
 		SEEDING_DANDELION_MIXED.makeAndSetHolder(WilderConfiguredFeatures.SEEDING_DANDELION.getHolder(),
 				RarityFilter.onAverageOnceEvery(9), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
@@ -745,6 +761,11 @@ public final class WilderPlacedFeatures {
 
 		DATURA_BIRCH.makeAndSetHolder(WilderConfiguredFeatures.DATURA.getHolder(),
 				RarityFilter.onAverageOnceEvery(9), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+		);
+
+		COMMON_DATURA.makeAndSetHolder(WilderConfiguredFeatures.DATURA.getHolder(),
+				RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
