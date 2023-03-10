@@ -396,7 +396,7 @@ public final class RegisterBlocks {
     public static final Block HOLLOWED_ACACIA_LOG = createHollowedLogBlock(MaterialColor.COLOR_ORANGE, MaterialColor.STONE);
     public static final Block HOLLOWED_DARK_OAK_LOG = createHollowedLogBlock(MaterialColor.COLOR_BROWN, MaterialColor.COLOR_BROWN);
     public static final Block HOLLOWED_MANGROVE_LOG = createHollowedLogBlock(MaterialColor.COLOR_RED, MaterialColor.PODZOL);
-	public static final Block HOLLOWED_CHERRY_LOG = createHollowedLogBlock(MaterialColor.TERRACOTTA_WHITE, MaterialColor.TERRACOTTA_GRAY, true);
+	public static final Block HOLLOWED_CHERRY_LOG = createHollowedLogBlock(MaterialColor.TERRACOTTA_WHITE, MaterialColor.TERRACOTTA_GRAY, RegisterBlockSoundTypes.HOLLOWED_CHERRY_LOG, true);
 	public static final Block HOLLOWED_CRIMSON_STEM = createHollowedStemBlock(MaterialColor.CRIMSON_STEM);
 	public static final Block HOLLOWED_WARPED_STEM = createHollowedStemBlock(MaterialColor.WARPED_STEM);
     public static final Block HOLLOWED_BAOBAB_LOG = createHollowedLogBlock(MaterialColor.COLOR_ORANGE, MaterialColor.COLOR_BROWN);
@@ -407,7 +407,7 @@ public final class RegisterBlocks {
 	public static final Block STRIPPED_HOLLOWED_OAK_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_OAK_LOG.defaultMaterialColor());
 	public static final Block STRIPPED_HOLLOWED_SPRUCE_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_SPRUCE_LOG.defaultMaterialColor());
 	public static final Block STRIPPED_HOLLOWED_BIRCH_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_BIRCH_LOG.defaultMaterialColor());
-	public static final Block STRIPPED_HOLLOWED_CHERRY_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_CHERRY_LOG.defaultMaterialColor(), true);
+	public static final Block STRIPPED_HOLLOWED_CHERRY_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_CHERRY_LOG.defaultMaterialColor(), RegisterBlockSoundTypes.HOLLOWED_CHERRY_LOG, true);
 	public static final Block STRIPPED_HOLLOWED_JUNGLE_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_JUNGLE_LOG.defaultMaterialColor());
 	public static final Block STRIPPED_HOLLOWED_ACACIA_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_ACACIA_LOG.defaultMaterialColor());
 	public static final Block STRIPPED_HOLLOWED_DARK_OAK_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_DARK_OAK_LOG.defaultMaterialColor());
@@ -760,10 +760,10 @@ public final class RegisterBlocks {
 		WilderSharedConstants.log("Registered block item " + path, true);
 	}
 
-    private static HollowedLogBlock createHollowedLogBlock(MaterialColor topMapColor, MaterialColor sideMapColor, boolean experimental) {
+    private static HollowedLogBlock createHollowedLogBlock(MaterialColor topMapColor, MaterialColor sideMapColor, SoundType soundType, boolean experimental) {
         var settings = FabricBlockSettings.of(Material.WOOD,
 						(state) -> state.getValue(HollowedLogBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor)
-				.strength(2.0F).sound(RegisterBlockSoundTypes.HOLLOWED_LOG);
+				.strength(2.0F).sound(soundType);
 		if (experimental)
 			settings.requiredFeatures(FeatureFlags.UPDATE_1_20);
 
@@ -771,7 +771,7 @@ public final class RegisterBlocks {
     }
 
 	private static HollowedLogBlock createHollowedLogBlock(MaterialColor topMapColor, MaterialColor sideMapColor) {
-		return createHollowedLogBlock(topMapColor, sideMapColor, false);
+		return createHollowedLogBlock(topMapColor, sideMapColor, RegisterBlockSoundTypes.HOLLOWED_LOG, false);
 	}
 
 	private static HollowedLogBlock createHollowedStemBlock(MaterialColor mapColor) {
@@ -780,10 +780,10 @@ public final class RegisterBlocks {
 				.strength(2.0F).sound(RegisterBlockSoundTypes.HOLLOWED_STEM));
 	}
 
-	private static HollowedLogBlock createStrippedHollowedLogBlock(MaterialColor mapColor, boolean experimental) {
+	private static HollowedLogBlock createStrippedHollowedLogBlock(MaterialColor mapColor, SoundType soundType, boolean experimental) {
 		var settings = FabricBlockSettings.of(Material.WOOD,
 						(state) -> mapColor)
-				.strength(2.0F).sound(RegisterBlockSoundTypes.HOLLOWED_LOG);
+				.strength(2.0F).sound(soundType);
 		if (experimental)
 			settings.requiredFeatures(FeatureFlags.UPDATE_1_20);
 
@@ -791,7 +791,7 @@ public final class RegisterBlocks {
 	}
 
 	private static HollowedLogBlock createStrippedHollowedLogBlock(MaterialColor mapColor) {
-		return createStrippedHollowedLogBlock(mapColor, false);
+		return createStrippedHollowedLogBlock(mapColor, RegisterBlockSoundTypes.HOLLOWED_LOG, false);
 	}
 
 	private static HollowedLogBlock createStrippedHollowedStemBlock(MaterialColor mapColor) {

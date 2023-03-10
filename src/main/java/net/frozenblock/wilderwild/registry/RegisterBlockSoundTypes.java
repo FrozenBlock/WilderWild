@@ -114,6 +114,14 @@ public final class RegisterBlockSoundTypes {
             RegisterSounds.BLOCK_HOLLOWED_LOG_FALL
     );
 
+	public static final SoundType HOLLOWED_CHERRY_LOG = new SoundType(1.0F, 1.0F,
+			RegisterSounds.BLOCK_HOLLOWED_CHERRY_LOG_BREAK,
+			RegisterSounds.BLOCK_HOLLOWED_CHERRY_LOG_STEP,
+			RegisterSounds.BLOCK_HOLLOWED_CHERRY_LOG_PLACE,
+			RegisterSounds.BLOCK_HOLLOWED_CHERRY_LOG_HIT,
+			RegisterSounds.BLOCK_HOLLOWED_CHERRY_LOG_FALL
+	);
+
 	public static final SoundType HOLLOWED_STEM = new SoundType(1.0F, 1.0F,
 			RegisterSounds.BLOCK_HOLLOWED_STEM_BREAK,
 			RegisterSounds.BLOCK_HOLLOWED_STEM_STEP,
