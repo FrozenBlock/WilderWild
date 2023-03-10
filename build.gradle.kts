@@ -252,8 +252,7 @@ dependencies {
     modCompileOnly("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
 
     // Sodium
-    modCompileOnly("maven.modrinth:sodium:${sodium_version}")
-    modCompileOnly("org.joml:joml:1.10.4")
+    modImplementation("maven.modrinth:sodium:${sodium_version}")
     modCompileOnly("org.anarres:jcpp:1.4.14")
 
     // BetterEnd
