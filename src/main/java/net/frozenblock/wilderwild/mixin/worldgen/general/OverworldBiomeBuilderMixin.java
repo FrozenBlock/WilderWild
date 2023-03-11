@@ -151,7 +151,7 @@ public final class OverworldBiomeBuilderMixin {
 			}
 		}
 		if (WilderSharedConstants.config().generateBirchTaiga()) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.BIRCH_FOREST)) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.TAIGA)) {
 				this.addSurfaceBiome(
 						parameters,
 						WilderSharedWorldgen.BirchTaiga.TEMPERATURE,

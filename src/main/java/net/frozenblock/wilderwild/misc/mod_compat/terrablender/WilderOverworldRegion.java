@@ -161,7 +161,7 @@ public class WilderOverworldRegion extends Region {
 			}
 
 			if (WilderSharedConstants.config().generateBirchTaiga()) {
-				OverworldBiomeBuilderParameters.points(Biomes.BIRCH_FOREST).forEach(point -> {
+				OverworldBiomeBuilderParameters.points(Biomes.TAIGA).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
 									WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
@@ -175,7 +175,7 @@ public class WilderOverworldRegion extends Region {
 					);
 					builder.replaceBiome(point, RegisterWorldgen.BIRCH_TAIGA);
 				});
-				OverworldBiomeBuilderParameters.points(Biomes.BIRCH_FOREST).forEach(point -> {
+				OverworldBiomeBuilderParameters.points(Biomes.TAIGA).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
 									WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
