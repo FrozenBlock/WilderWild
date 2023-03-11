@@ -59,16 +59,6 @@ public final class WilderSharedWorldgen {
         public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.NEUTRAL, Humidity.HUMID);
         public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(-0.200F, 0.500F);
         public static final Climate.Parameter EROSION = Climate.Parameter.span(0.500F, 1.000F);
-		public static final Climate.Parameter DEPTH = Depth.SURFACE;
-		public static final List<Climate.Parameter> WEIRDNESS = new ArrayList<>() {{
-			add(Weirdness.MID_SLICE_NORMAL_ASCENDING);
-			add(Weirdness.MID_SLICE_NORMAL_DESCENDING);
-			add(Weirdness.LOW_SLICE_NORMAL_DESCENDING);
-			add(Weirdness.VALLEY);
-			add(Weirdness.LOW_SLICE_VARIANT_ASCENDING);
-			add(Weirdness.MID_SLICE_VARIANT_ASCENDING);
-			add(Weirdness.MID_SLICE_VARIANT_DESCENDING);
-		}};
         public static final float OFFSET = 0.000F;
 
 		public static float TEMP = 0.6F;
@@ -92,18 +82,6 @@ public final class WilderSharedWorldgen {
 		public static int FOG_COLOR = 12638463;
 		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(0.5F);
     }
-
-	public static final class BirchTaiga {
-		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.175F, -0.125F);
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.100F, 0.325F);
-
-		public static float TEMP = 0.45F;
-		public static float DOWNFALL = 0.8F;
-		public static int WATER_COLOR = 4159204;
-		public static int WATER_FOG_COLOR = 329011;
-		public static int FOG_COLOR = 12638463;
-		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(0.45F);
-	}
 
 	public static final class BirchJungle {
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.175F, 0.225F);
@@ -184,9 +162,22 @@ public final class WilderSharedWorldgen {
 		public static int FOLIAGE_COLOR = 6332795;
 	}
 
+	public static final class BirchTaiga {
+		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.175F, -0.125F);
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.100F, 0.325F);
+		public static final Climate.Parameter HUMIDITY_B = Humidity.FOUR;
+
+		public static float TEMP = 0.45F;
+		public static float DOWNFALL = 0.8F;
+		public static int WATER_COLOR = 4159204;
+		public static int WATER_FOG_COLOR = 329011;
+		public static int FOG_COLOR = 12638463;
+		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(0.45F);
+	}
+
 	public static final class DarkOldGrowthSpruceTaiga {
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.175F, -0.125F);
-		public static final Climate.Parameter HUMIDITY = Humidity.FIVE;
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.325F, 1.000F);
 
 		public static float TEMP = 0.475F;
 		public static float DOWNFALL = 0.8F;
@@ -208,6 +199,18 @@ public final class WilderSharedWorldgen {
 		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(0.475F);
 	}
 
+	public static final class DarkBirchForest {
+		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.125F, 0.2F);
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.275F, 0.325F);
+
+		public static float TEMP = 0.65F;
+		public static float DOWNFALL = 0.7F;
+		public static int WATER_COLOR = 4159204;
+		public static int WATER_FOG_COLOR = 329011;
+		public static int FOG_COLOR = 12638463;
+		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(0.65F);
+	}
+
 	public static final class OldGrowthDarkForest {
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.200F, 0.200F);
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.350F, 1.000F);
@@ -218,18 +221,6 @@ public final class WilderSharedWorldgen {
 		public static int WATER_FOG_COLOR = 329011;
 		public static int FOG_COLOR = 12638463;
 		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(0.7F);
-	}
-
-	public static final class DarkBirchForest {
-		public static final Climate.Parameter TEMPERATURE = Temperature.THREE;
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.275F, 0.325F);
-
-		public static float TEMP = 0.65F;
-		public static float DOWNFALL = 0.7F;
-		public static int WATER_COLOR = 4159204;
-		public static int WATER_FOG_COLOR = 329011;
-		public static int FOG_COLOR = 12638463;
-		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(0.65F);
 	}
 
 	public static final class SemiBirchForest {
