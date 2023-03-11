@@ -4,7 +4,6 @@
     "minecraft:jungle",
     "minecraft:sparse_jungle",
     "minecraft:bamboo_jungle",
-    "minecraft:dark_forest",
     {
       "id": "wilderwild:birch_jungle",
       "required": false

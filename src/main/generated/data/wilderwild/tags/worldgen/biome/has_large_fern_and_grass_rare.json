@@ -13,10 +13,6 @@
     {
       "id": "wilderwild:temperate_rainforest",
       "required": false
-    },
-    {
-      "id": "wilderwild:dark_taiga",
-      "required": false
     }
   ]
 }
