@@ -98,6 +98,8 @@ public final class WilderPlacedFeatures {
 
 	public static final FrozenPlacedFeature DARK_BIRCH_FOREST_VEGETATION = register("dark_birch_forest_vegetation");
 
+	public static final FrozenPlacedFeature DARK_TAIGA_VEGETATION = register("dark_taiga_vegetation");
+
 	public static final FrozenPlacedFeature TREES_BIRCH = register("trees_birch");
 
     public static final FrozenPlacedFeature BIRCH_TALL = register("birch_tall");
@@ -115,6 +117,8 @@ public final class WilderPlacedFeatures {
     public static final FrozenPlacedFeature TREES_OLD_GROWTH_SPRUCE_TAIGA1 = register("trees_old_growth_spruce_taiga");
 
 	public static final FrozenPlacedFeature TREES_OLD_GROWTH_SNOWY_PINE_TAIGA = register("trees_old_growth_snowy_pine_taiga");
+
+	public static final FrozenPlacedFeature TREES_DARK_OLD_GROWTH_SPRUCE_TAIGA = register("trees_dark_old_growth_spruce_taiga");
 
     public static final FrozenPlacedFeature TREES_SNOWY = register("trees_snowy");
 
@@ -411,6 +415,10 @@ public final class WilderPlacedFeatures {
 				CountPlacement.of(14), InSquarePlacement.spread(), TREE_THRESHOLD, PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
+		DARK_TAIGA_VEGETATION.makeAndSetHolder(WilderConfiguredFeatures.DARK_TAIGA_VEGETATION.getHolder(),
+				CountPlacement.of(14), InSquarePlacement.spread(), TREE_THRESHOLD, PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
+		);
+
 		TREES_BIRCH.makeAndSetHolder(WilderConfiguredFeatures.TREES_BIRCH.getHolder(),
 				treePlacement(PlacementUtils.countExtra(10, 0.1F, 1))
 		);
@@ -445,6 +453,10 @@ public final class WilderPlacedFeatures {
 
 		TREES_OLD_GROWTH_SNOWY_PINE_TAIGA.makeAndSetHolder(WilderConfiguredFeatures.TREES_OLD_GROWTH_SNOWY_PINE_TAIGA.getHolder(),
 				treePlacement(PlacementUtils.countExtra(8, 0.1F, 1))
+		);
+
+		TREES_DARK_OLD_GROWTH_SPRUCE_TAIGA.makeAndSetHolder(WilderConfiguredFeatures.TREES_DARK_OLD_GROWTH_SPRUCE_TAIGA.getHolder(),
+				treePlacement(PlacementUtils.countExtra(12, 0.1F, 1))
 		);
 
 		TREES_SNOWY.makeAndSetHolder(WilderTreeConfigured.SPRUCE.getHolder(),

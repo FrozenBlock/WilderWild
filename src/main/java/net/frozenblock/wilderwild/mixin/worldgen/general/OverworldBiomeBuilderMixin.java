@@ -363,6 +363,34 @@ public final class OverworldBiomeBuilderMixin {
 				);
 			}
 		}
+		if (WilderSharedConstants.config().generateDarkOldGrowthSpruceTaiga()) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST)) {
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.DarkOldGrowthSpruceTaiga.TEMPERATURE,
+						WilderSharedWorldgen.DarkOldGrowthSpruceTaiga.HUMIDITY,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						point.offset(),
+						RegisterWorldgen.DARK_OLD_GROWTH_SPRUCE_TAIGA
+				);
+			}
+		}
+		if (WilderSharedConstants.config().generateDarkTaiga()) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST)) {
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.DarkTaiga.TEMPERATURE,
+						WilderSharedWorldgen.DarkTaiga.HUMIDITY,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						point.offset(),
+						RegisterWorldgen.DARK_TAIGA
+				);
+			}
+		}
 	}
 
     @Inject(method = "addLowSlice", at = @At("TAIL")) // also can be injectLowBiomes

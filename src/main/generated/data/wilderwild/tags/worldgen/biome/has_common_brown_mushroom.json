@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "minecraft:birch_forest",
+    "minecraft:dark_forest",
     {
       "id": "wilderwild:birch_jungle",
       "required": false
@@ -32,6 +33,14 @@
     },
     {
       "id": "wilderwild:temperate_rainforest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:dark_old_growth_spruce_taiga",
+      "required": false
+    },
+    {
+      "id": "wilderwild:dark_taiga",
       "required": false
     }
   ]
