@@ -417,11 +417,6 @@ public class NoOpClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
-	public boolean generateDarkOldGrowthSpruceTaiga() {
-		return DefaultWorldgenConfig.BiomeGeneration.GENERATE_DARK_OLD_GROWTH_SPRUCE_TAIGA;
-	}
-
-	@Override
 	public boolean generateDarkTaiga() {
 		return DefaultWorldgenConfig.BiomeGeneration.GENERATE_DARK_TAIGA;
 	}
