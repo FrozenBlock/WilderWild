@@ -113,6 +113,7 @@ public abstract class AbstractClothConfigIntegration extends ModIntegration {
 	public abstract boolean wardenDyingAnimation();
 
 	public abstract boolean wardenEmergesFromCommand();
+
 	public abstract boolean wardenEmergesFromEgg();
 
 	public abstract boolean wardenSwimAnimation();
@@ -186,6 +187,10 @@ public abstract class AbstractClothConfigIntegration extends ModIntegration {
 	public abstract boolean generateTemperateRainforest();
 
 	public abstract boolean generateRainforest();
+
+	public abstract boolean generateDarkOldGrowthSpruceTaiga();
+
+	public abstract boolean generateDarkTaiga();
 
 	public abstract boolean dyingTrees();
 

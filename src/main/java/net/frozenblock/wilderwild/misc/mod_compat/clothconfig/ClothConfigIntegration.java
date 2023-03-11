@@ -444,6 +444,16 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean generateDarkOldGrowthSpruceTaiga() {
+		return BIOME_GENERATION.generateDarkOldGrowthSpruceTaiga;
+	}
+
+	@Override
+	public boolean generateDarkTaiga() {
+		return BIOME_GENERATION.generateDarkTaiga;
+	}
+
+	@Override
 	public boolean dyingTrees() {
 		return WORLDGEN.dyingTrees;
 	}

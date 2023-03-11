@@ -76,6 +76,14 @@
     {
       "id": "wilderwild:snowy_old_growth_pine_taiga",
       "required": false
+    },
+    {
+      "id": "wilderwild:dark_old_growth_spruce_taiga",
+      "required": false
+    },
+    {
+      "id": "wilderwild:dark_taiga",
+      "required": false
     }
   ]
 }

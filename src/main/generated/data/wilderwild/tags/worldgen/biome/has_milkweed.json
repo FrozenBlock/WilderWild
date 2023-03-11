@@ -10,6 +10,7 @@
     "minecraft:swamp",
     "minecraft:sparse_jungle",
     "minecraft:jungle",
+    "minecraft:dark_forest",
     {
       "id": "wilderwild:sparse_birch_jungle",
       "required": false
@@ -24,6 +25,10 @@
     },
     {
       "id": "wilderwild:semi_birch_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:dark_old_growth_spruce_taiga",
       "required": false
     }
   ]

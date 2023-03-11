@@ -424,6 +424,40 @@ public class WilderOverworldRegion extends Region {
 				});
 			}
 
+			if (WilderSharedConstants.config().generateDarkOldGrowthSpruceTaiga()) {
+				OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST).forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.DarkOldGrowthSpruceTaiga.TEMPERATURE,
+									WilderSharedWorldgen.DarkOldGrowthSpruceTaiga.HUMIDITY,
+									point.continentalness(),
+									point.erosion(),
+									point.depth(),
+									point.weirdness(),
+									point.offset()
+							)
+					);
+					builder.replaceBiome(point, RegisterWorldgen.DARK_OLD_GROWTH_SPRUCE_TAIGA);
+				});
+			}
+
+			if (WilderSharedConstants.config().generateDarkTaiga()) {
+				OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST).forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.DarkTaiga.TEMPERATURE,
+									WilderSharedWorldgen.DarkTaiga.HUMIDITY,
+									point.continentalness(),
+									point.erosion(),
+									point.depth(),
+									point.weirdness(),
+									point.offset()
+							)
+					);
+					builder.replaceBiome(point, RegisterWorldgen.DARK_TAIGA);
+				});
+			}
+
 			if (WilderSharedConstants.config().generateCypressWetlands()) {
 				OverworldBiomeBuilderParameters.points(Biomes.SWAMP).forEach(point -> {
 					builder.replaceParameter(point,
