@@ -118,8 +118,6 @@ public final class WilderPlacedFeatures {
 
 	public static final FrozenPlacedFeature TREES_OLD_GROWTH_SNOWY_PINE_TAIGA = register("trees_old_growth_snowy_pine_taiga");
 
-	public static final FrozenPlacedFeature TREES_DARK_OLD_GROWTH_SPRUCE_TAIGA = register("trees_dark_old_growth_spruce_taiga");
-
     public static final FrozenPlacedFeature TREES_SNOWY = register("trees_snowy");
 
     public static final FrozenPlacedFeature TREES_GROVE = register("trees_grove");
@@ -453,10 +451,6 @@ public final class WilderPlacedFeatures {
 
 		TREES_OLD_GROWTH_SNOWY_PINE_TAIGA.makeAndSetHolder(WilderConfiguredFeatures.TREES_OLD_GROWTH_SNOWY_PINE_TAIGA.getHolder(),
 				treePlacement(PlacementUtils.countExtra(8, 0.1F, 1))
-		);
-
-		TREES_DARK_OLD_GROWTH_SPRUCE_TAIGA.makeAndSetHolder(WilderConfiguredFeatures.TREES_DARK_OLD_GROWTH_SPRUCE_TAIGA.getHolder(),
-				treePlacement(PlacementUtils.countExtra(12, 0.1F, 1))
 		);
 
 		TREES_SNOWY.makeAndSetHolder(WilderTreeConfigured.SPRUCE.getHolder(),

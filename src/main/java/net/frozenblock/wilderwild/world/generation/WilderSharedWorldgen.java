@@ -18,10 +18,7 @@
 
 package net.frozenblock.wilderwild.world.generation;
 
-import java.util.ArrayList;
-import java.util.List;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
-import net.frozenblock.lib.worldgen.biome.api.parameters.Depth;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
@@ -80,7 +77,7 @@ public final class WilderSharedWorldgen {
 		public static int WATER_COLOR = 4159204;
 		public static int WATER_FOG_COLOR = 329011;
 		public static int FOG_COLOR = 12638463;
-		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(0.5F);
+		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
     }
 
 	public static final class BirchJungle {
@@ -93,7 +90,7 @@ public final class WilderSharedWorldgen {
 		public static int WATER_COLOR = 4159204;
 		public static int WATER_FOG_COLOR = 329011;
 		public static int FOG_COLOR = 12638463;
-		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(0.825F);
+		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 	}
 
 	public static final class FlowerField {
@@ -107,7 +104,7 @@ public final class WilderSharedWorldgen {
 		public static int WATER_COLOR = 4159204;
 		public static int WATER_FOG_COLOR = 329011;
 		public static int FOG_COLOR = 12638463;
-		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(0.8F);
+		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 		public static int FOLIAGE_COLOR = 5877296;
 	}
 
@@ -120,7 +117,7 @@ public final class WilderSharedWorldgen {
 		public static int WATER_COLOR = 4159204;
 		public static int WATER_FOG_COLOR = 329011;
 		public static int FOG_COLOR = 12638463;
-		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(2.0F);
+		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 	}
 
 	public static final class ParchedForest {
@@ -133,7 +130,7 @@ public final class WilderSharedWorldgen {
 		public static int WATER_COLOR = 4159204;
 		public static int WATER_FOG_COLOR = 329011;
 		public static int FOG_COLOR = 12638463;
-		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(1.35F);
+		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 	}
 
 	public static final class AridForest {
@@ -145,7 +142,7 @@ public final class WilderSharedWorldgen {
 		public static int WATER_COLOR = 4159204;
 		public static int WATER_FOG_COLOR = 329011;
 		public static int FOG_COLOR = 12638463;
-		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(1.75F);
+		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 	}
 
 	public static final class OldGrowthSnowySpruceTaiga {
@@ -157,7 +154,7 @@ public final class WilderSharedWorldgen {
 		public static int WATER_COLOR = 4159204;
 		public static int WATER_FOG_COLOR = 329011;
 		public static int FOG_COLOR = 12638463;
-		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(-0.45F);
+		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 		public static int GRASS_COLOR = 8434839;
 		public static int FOLIAGE_COLOR = 6332795;
 	}
@@ -172,31 +169,20 @@ public final class WilderSharedWorldgen {
 		public static int WATER_COLOR = 4159204;
 		public static int WATER_FOG_COLOR = 329011;
 		public static int FOG_COLOR = 12638463;
-		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(0.45F);
-	}
-
-	public static final class DarkOldGrowthSpruceTaiga {
-		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.175F, -0.125F);
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.325F, 1.000F);
-
-		public static float TEMP = 0.475F;
-		public static float DOWNFALL = 0.8F;
-		public static int WATER_COLOR = 4159204;
-		public static int WATER_FOG_COLOR = 329011;
-		public static int FOG_COLOR = 12638463;
-		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(0.475F);
+		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 	}
 
 	public static final class DarkTaiga {
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.175F, -0.125F);
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.275F, 0.325F);
+		public static final Climate.Parameter HUMIDITY_B = Humidity.FIVE;
 
 		public static float TEMP = 0.475F;
 		public static float DOWNFALL = 0.7F;
 		public static int WATER_COLOR = 4159204;
 		public static int WATER_FOG_COLOR = 329011;
 		public static int FOG_COLOR = 12638463;
-		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(0.475F);
+		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 	}
 
 	public static final class DarkBirchForest {
@@ -208,7 +194,7 @@ public final class WilderSharedWorldgen {
 		public static int WATER_COLOR = 4159204;
 		public static int WATER_FOG_COLOR = 329011;
 		public static int FOG_COLOR = 12638463;
-		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(0.65F);
+		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 	}
 
 	public static final class OldGrowthDarkForest {
@@ -220,7 +206,7 @@ public final class WilderSharedWorldgen {
 		public static int WATER_COLOR = 4159204;
 		public static int WATER_FOG_COLOR = 329011;
 		public static int FOG_COLOR = 12638463;
-		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(0.7F);
+		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 	}
 
 	public static final class SemiBirchForest {
@@ -233,7 +219,7 @@ public final class WilderSharedWorldgen {
 		public static int WATER_COLOR = 4159204;
 		public static int WATER_FOG_COLOR = 329011;
 		public static int FOG_COLOR = 12638463;
-		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(0.65F);
+		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 	}
 
 	public static final class TemperateRainforest {
@@ -246,7 +232,7 @@ public final class WilderSharedWorldgen {
 		public static int WATER_COLOR = 4159204;
 		public static int WATER_FOG_COLOR = 329011;
 		public static int FOG_COLOR = 12638463;
-		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(0.7F);
+		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 		public static int FOLIAGE_COLOR = 4896834;
 	}
 
@@ -268,7 +254,7 @@ public final class WilderSharedWorldgen {
 		public static int WATER_COLOR = 4159204;
 		public static int WATER_FOG_COLOR = 329011;
 		public static int FOG_COLOR = 12638463;
-		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(0.7F);
+		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 		public static int FOLIAGE_COLOR = 4896834;
 	}
 
@@ -300,7 +286,7 @@ public final class WilderSharedWorldgen {
 		public static int WATER_COLOR = 4566514;
 		public static int WATER_FOG_COLOR = 267827;
 		public static int FOG_COLOR = 12638463;
-		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(1.5F);
+		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 		public static int FOLIAGE_COLOR = 11445290;
 		public static int GRASS_COLOR = 12564309;
 	}
@@ -317,7 +303,7 @@ public final class WilderSharedWorldgen {
 		public static int WATER_COLOR = 3981763;
 		public static int WATER_FOG_COLOR = 270131;
 		public static int FOG_COLOR = 12638463;
-		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(2.0F);
+		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 		public static int FOLIAGE_COLOR = 3193611;
 		public static int GRASS_COLOR = 8569413;
 	}

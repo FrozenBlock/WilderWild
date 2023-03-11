@@ -67,7 +67,6 @@ public final class WorldgenConfig implements ConfigData {
 		public boolean generateSemiBirchForest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_SEMI_BIRCH_FOREST;
 		public boolean generateTemperateRainforest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_TEMPERATE_RAINFOREST;
 		public boolean generateRainforest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_RAINFOREST;
-		public boolean generateDarkOldGrowthSpruceTaiga = DefaultWorldgenConfig.BiomeGeneration.GENERATE_DARK_OLD_GROWTH_SPRUCE_TAIGA;
 		public boolean generateDarkTaiga = DefaultWorldgenConfig.BiomeGeneration.GENERATE_DARK_TAIGA;
 	}
 
@@ -205,12 +204,6 @@ public final class WorldgenConfig implements ConfigData {
 				.setTooltip(tooltip("generate_rainforest"))
 				.requireRestart()
 				.build();
-		var darkOldGrowthSpruceTaiga = entryBuilder.startBooleanToggle(text("generate_dark_old_growth_spruce_taiga"), biomes.generateDarkOldGrowthSpruceTaiga)
-				.setDefaultValue(DefaultWorldgenConfig.BiomeGeneration.GENERATE_DARK_OLD_GROWTH_SPRUCE_TAIGA)
-				.setSaveConsumer(newValue -> biomes.generateDarkOldGrowthSpruceTaiga = newValue)
-				.setTooltip(tooltip("generate_dark_old_growth_spruce_taiga"))
-				.requireRestart()
-				.build();
 		var darkTaiga = entryBuilder.startBooleanToggle(text("generate_dark_taiga"), biomes.generateDarkTaiga)
 				.setDefaultValue(DefaultWorldgenConfig.BiomeGeneration.GENERATE_DARK_TAIGA)
 				.setSaveConsumer(newValue -> biomes.generateDarkTaiga = newValue)
@@ -221,7 +214,7 @@ public final class WorldgenConfig implements ConfigData {
 		var biomeGenerationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("biome_generation"),
 				false,
 				tooltip("biome_generation"),
-				aridForest, aridSavanna, birchJungle, birchTaiga, cypressWetlands, darkBirchForest, darkTaiga, darkOldGrowthSpruceTaiga, flowerField, jellyfishCaves, mixedForest,
+				aridForest, aridSavanna, birchJungle, birchTaiga, cypressWetlands, darkBirchForest, darkTaiga, flowerField, jellyfishCaves, mixedForest,
 				oasis, oldGrowthBirchTaiga, oldGrowthDarkForest, oldGrowthSnowyTaiga, parchedForest, rainforest, semiBirchForest,
 				sparseBirchJungle, temperateRainforest, warmRiver
 		);

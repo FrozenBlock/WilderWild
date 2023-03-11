@@ -188,8 +188,6 @@ public abstract class AbstractClothConfigIntegration extends ModIntegration {
 
 	public abstract boolean generateRainforest();
 
-	public abstract boolean generateDarkOldGrowthSpruceTaiga();
-
 	public abstract boolean generateDarkTaiga();
 
 	public abstract boolean dyingTrees();
