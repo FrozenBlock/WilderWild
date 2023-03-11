@@ -78,6 +78,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 	public static final ResourceKey<Biome> OLD_GROWTH_BIRCH_TAIGA = register("old_growth_birch_taiga");
 	public static final ResourceKey<Biome> OLD_GROWTH_DARK_FOREST = register("old_growth_dark_forest");
 	public static final ResourceKey<Biome> SNOWY_OLD_GROWTH_PINE_TAIGA = register("snowy_old_growth_pine_taiga");
+	public static final ResourceKey<Biome> DARK_OLD_GROWTH_SPRUCE_TAIGA = register("dark_old_growth_spruce_taiga");
 
 	public static void registerWorldgen() {
 		WilderSharedConstants.logWild("Registering Biomes for", WilderSharedConstants.UNSTABLE_LOGGING);
@@ -108,6 +109,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, OLD_GROWTH_BIRCH_TAIGA.location(), birchTaiga(true));
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, OLD_GROWTH_DARK_FOREST.location(), oldGrowthDarkForest());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, SNOWY_OLD_GROWTH_PINE_TAIGA.location(), oldGrowthSnowyTaiga());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, DARK_OLD_GROWTH_SPRUCE_TAIGA.location(), darkOldGrowthSpruceTaiga());
 
 		WilderNoise.init();
 	}
@@ -899,6 +901,44 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_OLD_GROWTH_SNOWY_PINE_TAIGA.getHolder());
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderMiscPlaced.PILE_SNOW.getHolder());
+	}
+
+	public static Biome darkOldGrowthSpruceTaiga() {
+		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
+		BiomeDefaultFeatures.farmAnimals(builder);
+		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 2, 4, 4)).addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 2, 2, 3)).addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.FOX, 2, 2, 4));
+		BiomeDefaultFeatures.commonSpawns(builder);
+		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder();
+		addDarkOldGrowthSpruceTaigaFeatures(builder2);
+		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_OLD_GROWTH_TAIGA);
+		return new Biome.BiomeBuilder()
+				.precipitation(Biome.Precipitation.RAIN)
+				.temperature(WilderSharedWorldgen.DarkOldGrowthSpruceTaiga.TEMP)
+				.downfall(WilderSharedWorldgen.DarkOldGrowthSpruceTaiga.DOWNFALL)
+				.specialEffects(
+						new BiomeSpecialEffects.Builder()
+								.waterColor(WilderSharedWorldgen.DarkOldGrowthSpruceTaiga.WATER_COLOR)
+								.waterFogColor(WilderSharedWorldgen.DarkOldGrowthSpruceTaiga.WATER_FOG_COLOR)
+								.fogColor(WilderSharedWorldgen.DarkOldGrowthSpruceTaiga.FOG_COLOR)
+								.skyColor(WilderSharedWorldgen.DarkOldGrowthSpruceTaiga.SKY_COLOR)
+								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+								.backgroundMusic(musicSound).build())
+				.mobSpawnSettings(builder.build())
+				.generationSettings(builder2.build())
+				.build();
+	}
+	public static void addDarkOldGrowthSpruceTaigaFeatures(BiomeGenerationSettings.Builder builder) {
+		addBasicFeatures(builder, DARK_OLD_GROWTH_SPRUCE_TAIGA);
+		BiomeDefaultFeatures.addMossyStoneBlock(builder);
+		BiomeDefaultFeatures.addFerns(builder);
+		BiomeDefaultFeatures.addDefaultOres(builder);
+		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
+		BiomeDefaultFeatures.addDefaultFlowers(builder);
+		BiomeDefaultFeatures.addGiantTaigaVegetation(builder);
+		BiomeDefaultFeatures.addDefaultMushrooms(builder);
+		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
+		BiomeDefaultFeatures.addCommonBerryBushes(builder);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_DARK_OLD_GROWTH_SPRUCE_TAIGA.getHolder());
 	}
 
 	private static void addBasicFeatures(BiomeGenerationSettings.Builder builder, ResourceKey<Biome> biome) {

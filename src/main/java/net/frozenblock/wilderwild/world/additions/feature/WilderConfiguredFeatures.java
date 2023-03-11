@@ -152,6 +152,8 @@ public final class WilderConfiguredFeatures {
 
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_OLD_GROWTH_SNOWY_PINE_TAIGA = register("trees_old_growth_snowy_pine_taiga");
 
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_DARK_OLD_GROWTH_SPRUCE_TAIGA = register("trees_dark_old_growth_spruce_taiga");
+
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_GROVE = register("trees_grove");
 
     public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_WINDSWEPT_HILLS = register("trees_windswept_hills");
@@ -707,6 +709,26 @@ public final class WilderConfiguredFeatures {
 						new WeightedPlacedFeature(WilderTreePlaced.SPRUCE_SHORT_CHECKED.getHolder(), 0.0255F),
 						new WeightedPlacedFeature(WilderTreePlaced.FUNGUS_PINE_CHECKED.getHolder(), 0.18333334F),
 						new WeightedPlacedFeature(WilderTreePlaced.MEGA_FUNGUS_SPRUCE_CHECKED.getHolder(), 0.255F)), WilderTreePlaced.MEGA_FUNGUS_PINE_CHECKED.getHolder()
+				)
+		);
+
+		TREES_DARK_OLD_GROWTH_SPRUCE_TAIGA.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.MEGA_FUNGUS_PINE_CHECKED.getHolder(), 0.23333334F),
+						new WeightedPlacedFeature(WilderTreePlaced.DYING_FUNGUS_PINE_CHECKED.getHolder(), 0.075F),
+						new WeightedPlacedFeature(WilderTreePlaced.SPRUCE_SHORT_CHECKED.getHolder(), 0.0255F),
+						new WeightedPlacedFeature(WilderTreePlaced.FUNGUS_PINE_CHECKED.getHolder(), 0.18333334F),
+						new WeightedPlacedFeature(WilderTreePlaced.MEGA_FUNGUS_SPRUCE_CHECKED.getHolder(), 0.255F),
+						new WeightedPlacedFeature(PlacementUtils.inlinePlaced(TreeFeatures.HUGE_BROWN_MUSHROOM), 0.0125F),
+						new WeightedPlacedFeature(PlacementUtils.inlinePlaced(TreeFeatures.HUGE_RED_MUSHROOM), 0.025F),
+						new WeightedPlacedFeature(TreePlacements.DARK_OAK_CHECKED, 0.35F),
+						new WeightedPlacedFeature(WilderTreePlaced.DYING_DARK_OAK_CHECKED.getHolder(), 0.075F),
+						new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH.getHolder(), 0.045F),
+						new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH.getHolder(), 0.015F),
+						new WeightedPlacedFeature(WilderTreePlaced.TALL_DARK_OAK_CHECKED.getHolder(), 0.35F),
+						new WeightedPlacedFeature(WilderTreePlaced.DYING_TALL_DARK_OAK_CHECKED.getHolder(), 0.048F),
+						new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_CHECKED.getHolder(), 0.02F),
+						new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED.getHolder(), 0.008F),
+						new WeightedPlacedFeature(WilderTreePlaced.FANCY_OAK_CHECKED.getHolder(), 0.06F)), WilderTreePlaced.MEGA_FUNGUS_PINE_CHECKED.getHolder()
 				)
 		);
 

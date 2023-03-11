@@ -45,37 +45,6 @@ public class WilderOverworldRegion extends Region {
 	public void addBiomes(Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper) {
 		this.addModifiedVanillaOverworldBiomes(mapper, builder -> {
 
-			if (WilderSharedConstants.config().generateDarkTaiga()) {
-				OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST).forEach(point -> {
-					builder.replaceParameter(point,
-							Climate.parameters(
-									WilderSharedWorldgen.DarkTaiga.TEMPERATURE,
-									WilderSharedWorldgen.DarkTaiga.HUMIDITY,
-									point.continentalness(),
-									point.erosion(),
-									point.depth(),
-									point.weirdness(),
-									point.offset()
-							)
-					);
-					builder.replaceBiome(point, RegisterWorldgen.DARK_TAIGA);
-				});
-				OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST).forEach(point -> {
-					builder.replaceParameter(point,
-							Climate.parameters(
-									WilderSharedWorldgen.DarkTaiga.TEMPERATURE,
-									WilderSharedWorldgen.DarkTaiga.HUMIDITY_B,
-									point.continentalness(),
-									point.erosion(),
-									point.depth(),
-									point.weirdness(),
-									point.offset()
-							)
-					);
-					builder.replaceBiome(point, RegisterWorldgen.DARK_TAIGA);
-				});
-			}
-
 			if (WilderSharedConstants.config().generateMixedForest()) {
 				OverworldBiomeBuilderParameters.points(Biomes.TAIGA).forEach(point -> {
 					builder.replaceParameter(point,
@@ -102,6 +71,8 @@ public class WilderOverworldRegion extends Region {
 									WilderSharedWorldgen.TemperateRainforest.EROSION,
 									point.depth(),
 									point.weirdness(),
+									//WilderSharedWorldgen.TemperateRainforest.CONTINENTALNESS,
+									//WilderSharedWorldgen.TemperateRainforest.WEIRDNESS,
 									point.offset()
 							)
 					);
@@ -478,6 +449,40 @@ public class WilderOverworldRegion extends Region {
 							)
 					);
 					builder.replaceBiome(point, RegisterWorldgen.SEMI_BIRCH_FOREST);
+				});
+			}
+
+			if (WilderSharedConstants.config().generateDarkOldGrowthSpruceTaiga()) {
+				OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST).forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.DarkOldGrowthSpruceTaiga.TEMPERATURE,
+									WilderSharedWorldgen.DarkOldGrowthSpruceTaiga.HUMIDITY,
+									point.continentalness(),
+									point.erosion(),
+									point.depth(),
+									point.weirdness(),
+									point.offset()
+							)
+					);
+					builder.replaceBiome(point, RegisterWorldgen.DARK_OLD_GROWTH_SPRUCE_TAIGA);
+				});
+			}
+
+			if (WilderSharedConstants.config().generateDarkTaiga()) {
+				OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST).forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.DarkTaiga.TEMPERATURE,
+									WilderSharedWorldgen.DarkTaiga.HUMIDITY,
+									point.continentalness(),
+									point.erosion(),
+									point.depth(),
+									point.weirdness(),
+									point.offset()
+							)
+					);
+					builder.replaceBiome(point, RegisterWorldgen.DARK_TAIGA);
 				});
 			}
 

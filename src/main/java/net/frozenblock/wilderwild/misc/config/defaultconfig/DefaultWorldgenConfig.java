@@ -47,6 +47,7 @@ public class DefaultWorldgenConfig {
 		public static final boolean GENERATE_SEMI_BIRCH_FOREST = true;
 		public static final boolean GENERATE_TEMPERATE_RAINFOREST = true;
 		public static final boolean GENERATE_RAINFOREST = true;
+		public static final boolean GENERATE_DARK_OLD_GROWTH_SPRUCE_TAIGA = true;
 		public static final boolean GENERATE_DARK_TAIGA = true;
 	}
 
