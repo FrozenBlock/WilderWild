@@ -728,6 +728,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.ERODED_BADLANDS)
 					.add(Biomes.WOODED_BADLANDS);
 
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_TERMITE_MOUND)
+					.addOptionalTag(BiomeTags.IS_SAVANNA);
+
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_TAIGA_FOREST_ROCK)
 					.add(Biomes.TAIGA)
 					.add(Biomes.SNOWY_TAIGA)
