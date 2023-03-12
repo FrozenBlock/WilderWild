@@ -12,7 +12,8 @@
                 "data": {
                   "Name": "wilderwild:bush",
                   "Properties": {
-                    "age": "0"
+                    "age": "0",
+                    "half": "lower"
                   }
                 },
                 "weight": 5
@@ -21,7 +22,8 @@
                 "data": {
                   "Name": "wilderwild:bush",
                   "Properties": {
-                    "age": "1"
+                    "age": "1",
+                    "half": "lower"
                   }
                 },
                 "weight": 2

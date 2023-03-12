@@ -857,7 +857,7 @@ public final class RegisterWorldgen {
 		addDarkTaigaFeatures(builder2);
 		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
 		return new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.RAIN)
+				.hasPrecipitation(true)
 				.temperature(WilderSharedWorldgen.DarkTaiga.TEMP)
 				.downfall(WilderSharedWorldgen.DarkTaiga.DOWNFALL)
 				.specialEffects(
@@ -883,7 +883,7 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.addTaigaGrass(builder);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 		BiomeDefaultFeatures.addCommonBerryBushes(builder);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DARK_TAIGA_VEGETATION.getHolder());
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DARK_TAIGA_VEGETATION.getKey());
 	}
 
 	// OLD GROWTH
