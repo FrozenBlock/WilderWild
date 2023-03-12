@@ -988,7 +988,7 @@ public final class WilderConfiguredFeatures {
 
 		MUSHROOMS_DARK_FOREST.makeAndSetHolder(Feature.FLOWER,
 				new RandomPatchConfiguration(
-						52,
+						7,
 						8,
 						2,
 						PlacementUtils.onlyWhenEmpty(

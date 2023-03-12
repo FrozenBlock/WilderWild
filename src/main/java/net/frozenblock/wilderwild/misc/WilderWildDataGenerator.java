@@ -421,13 +421,15 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
 					.addOptional(RegisterWorldgen.RAINFOREST)
 					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
-					.addOptional(RegisterWorldgen.DARK_TAIGA);
+					.addOptional(RegisterWorldgen.DARK_TAIGA)
+					.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COMMON_RED_MUSHROOM)
 					.add(Biomes.DARK_FOREST)
 					.addOptional(RegisterWorldgen.RAINFOREST)
 					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
-					.addOptional(RegisterWorldgen.DARK_TAIGA);
+					.addOptional(RegisterWorldgen.DARK_TAIGA)
+					.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_BIG_MUSHROOMS)
 					.add(Biomes.BIRCH_FOREST)
