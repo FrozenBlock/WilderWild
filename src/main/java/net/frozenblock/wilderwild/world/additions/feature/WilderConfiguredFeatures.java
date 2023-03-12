@@ -30,6 +30,7 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
+import static net.frozenblock.wilderwild.world.additions.feature.WilderFeatureUtils.register;
 import net.frozenblock.wilderwild.world.generation.features.config.LargeMesogleaConfig;
 import net.frozenblock.wilderwild.world.generation.features.config.ShelfFungusFeatureConfig;
 import net.frozenblock.wilderwild.world.generation.features.config.SmallSpongeFeatureConfig;
@@ -56,9 +57,7 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockColumnConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomBooleanFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
@@ -73,9 +72,6 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStatePr
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
-import org.jetbrains.annotations.NotNull;
-
-import static net.frozenblock.wilderwild.world.additions.feature.WilderFeatureUtils.register;
 
 public final class WilderConfiguredFeatures {
 	private WilderConfiguredFeatures() {
@@ -988,7 +984,7 @@ public final class WilderConfiguredFeatures {
 
 		MUSHROOMS_DARK_FOREST.makeAndSetHolder(Feature.FLOWER,
 				new RandomPatchConfiguration(
-						7,
+						5,
 						8,
 						2,
 						PlacementUtils.onlyWhenEmpty(

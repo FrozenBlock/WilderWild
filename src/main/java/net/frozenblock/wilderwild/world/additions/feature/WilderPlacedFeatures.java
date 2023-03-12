@@ -576,7 +576,8 @@ public final class WilderPlacedFeatures {
 		);
 
 		DARK_FOREST_MUSHROOM_PLACED.makeAndSetHolder(WilderConfiguredFeatures.MUSHROOMS_DARK_FOREST.getHolder(),
-				worldSurfaceSquaredWithCount(1)
+				RarityFilter.onAverageOnceEvery(2), CountPlacement.of(1), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
 		HUGE_RED_MUSHROOM_PLACED.makeAndSetHolder(TreeFeatures.HUGE_RED_MUSHROOM,
