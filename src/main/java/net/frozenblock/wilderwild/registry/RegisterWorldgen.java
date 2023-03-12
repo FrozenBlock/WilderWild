@@ -883,7 +883,7 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.addTaigaGrass(builder);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 		BiomeDefaultFeatures.addCommonBerryBushes(builder);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DARK_TAIGA_VEGETATION.getHolder());
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DARK_TAIGA_VEGETATION.getKey());
 	}
 
 	// OLD GROWTH
