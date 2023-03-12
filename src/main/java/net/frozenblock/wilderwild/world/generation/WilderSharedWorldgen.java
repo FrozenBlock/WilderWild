@@ -177,7 +177,7 @@ public final class WilderSharedWorldgen {
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.275F, 0.325F);
 		public static final Climate.Parameter HUMIDITY_B = Humidity.FIVE;
 
-		public static float TEMP = 0.475F;
+		public static float TEMP = 0.65F;
 		public static float DOWNFALL = 0.7F;
 		public static int WATER_COLOR = 4159204;
 		public static int WATER_FOG_COLOR = 329011;
