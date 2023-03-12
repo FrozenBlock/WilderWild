@@ -73,6 +73,7 @@ public final class RegisterWorldgen {
 	public static final ResourceKey<Biome> FLOWER_FIELD = register("flower_field");
 	public static final ResourceKey<Biome> TEMPERATE_RAINFOREST = register("temperate_rainforest");
 	public static final ResourceKey<Biome> RAINFOREST = register("rainforest");
+	public static final ResourceKey<Biome> DARK_TAIGA = register("dark_taiga");
 	// OLD GROWTH
 	public static final ResourceKey<Biome> OLD_GROWTH_BIRCH_TAIGA = register("old_growth_birch_taiga");
 	public static final ResourceKey<Biome> OLD_GROWTH_DARK_FOREST = register("old_growth_dark_forest");
@@ -103,6 +104,7 @@ public final class RegisterWorldgen {
 		register(context, RegisterWorldgen.FLOWER_FIELD, RegisterWorldgen.flowerField(context));
 		register(context, RegisterWorldgen.TEMPERATE_RAINFOREST, RegisterWorldgen.temperateRainforest(context));
 		register(context, RegisterWorldgen.RAINFOREST, RegisterWorldgen.rainforest(context));
+		register(context, RegisterWorldgen.DARK_TAIGA, RegisterWorldgen.darkTaiga(context));
 		// OLD GROWTH
 		register(context, RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA, RegisterWorldgen.birchTaiga(context, true));
 		register(context, RegisterWorldgen.OLD_GROWTH_DARK_FOREST, RegisterWorldgen.oldGrowthDarkForest(context));
@@ -843,6 +845,45 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.addDefaultFlowers(builder);
 		BiomeDefaultFeatures.addDefaultMushrooms(builder);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
+	}
+
+	public static Biome darkTaiga(BootstapContext<Biome> entries) {
+		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
+		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
+		BiomeDefaultFeatures.farmAnimals(builder);
+		BiomeDefaultFeatures.commonSpawns(builder);
+		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
+		addDarkTaigaFeatures(builder2);
+		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
+		return new Biome.BiomeBuilder()
+				.precipitation(Biome.Precipitation.RAIN)
+				.temperature(WilderSharedWorldgen.DarkTaiga.TEMP)
+				.downfall(WilderSharedWorldgen.DarkTaiga.DOWNFALL)
+				.specialEffects(
+						new BiomeSpecialEffects.Builder()
+								.waterColor(WilderSharedWorldgen.DarkTaiga.WATER_COLOR)
+								.waterFogColor(WilderSharedWorldgen.DarkTaiga.WATER_FOG_COLOR)
+								.fogColor(WilderSharedWorldgen.DarkTaiga.FOG_COLOR)
+								.skyColor(WilderSharedWorldgen.DarkTaiga.SKY_COLOR)
+								.grassColorModifier(BiomeSpecialEffects.GrassColorModifier.DARK_FOREST)
+								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+								.backgroundMusic(musicSound).build())
+				.mobSpawnSettings(builder.build())
+				.generationSettings(builder2.build())
+				.build();
+	}
+	public static void addDarkTaigaFeatures(BiomeGenerationSettings.Builder builder) {
+		addBasicFeatures(builder, DARK_TAIGA);
+		BiomeDefaultFeatures.addFerns(builder);
+		BiomeDefaultFeatures.addDefaultOres(builder);
+		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
+		BiomeDefaultFeatures.addTaigaTrees(builder);
+		BiomeDefaultFeatures.addDefaultFlowers(builder);
+		BiomeDefaultFeatures.addTaigaGrass(builder);
+		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
+		BiomeDefaultFeatures.addCommonBerryBushes(builder);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DARK_TAIGA_VEGETATION.getHolder());
 	}
 
 	// OLD GROWTH

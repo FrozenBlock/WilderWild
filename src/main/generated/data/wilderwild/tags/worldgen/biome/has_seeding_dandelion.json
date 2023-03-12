@@ -8,8 +8,13 @@
     "minecraft:meadow",
     "minecraft:windswept_hills",
     "minecraft:windswept_forest",
+    "minecraft:dark_forest",
     {
       "id": "wilderwild:semi_birch_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:dark_taiga",
       "required": false
     }
   ]

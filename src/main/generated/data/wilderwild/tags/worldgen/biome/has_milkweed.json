@@ -10,6 +10,7 @@
     "minecraft:swamp",
     "minecraft:sparse_jungle",
     "minecraft:jungle",
+    "minecraft:dark_forest",
     {
       "id": "wilderwild:sparse_birch_jungle",
       "required": false

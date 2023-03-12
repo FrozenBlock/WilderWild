@@ -26,7 +26,6 @@ public final class BlenderInitializer implements TerraBlenderApi {
 
     @Override
     public void onTerraBlenderInitialized() {
-        // Set the weight to the number of biome modifications made by the mod.
         Regions.register(new WilderOverworldRegion(WilderSharedConstants.id("overworld"), 10));
     }
 }

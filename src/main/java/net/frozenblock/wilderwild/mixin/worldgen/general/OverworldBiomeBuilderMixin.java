@@ -61,6 +61,30 @@ public final class OverworldBiomeBuilderMixin {
 	@Unique
 	private void wilderWild$injectSomeWilderWildBiomesToo(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WilderSharedConstants.config().generateMixedForest()) {
+			if (WilderSharedConstants.config().generateDarkTaiga()) {
+				for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST)) {
+					this.addSurfaceBiome(
+							parameters,
+							WilderSharedWorldgen.DarkTaiga.TEMPERATURE,
+							WilderSharedWorldgen.DarkTaiga.HUMIDITY,
+							point.continentalness(),
+							point.erosion(),
+							point.weirdness(),
+							point.offset(),
+							RegisterWorldgen.DARK_TAIGA
+					);
+					this.addSurfaceBiome(
+							parameters,
+							WilderSharedWorldgen.DarkTaiga.TEMPERATURE,
+							WilderSharedWorldgen.DarkTaiga.HUMIDITY_B,
+							point.continentalness(),
+							point.erosion(),
+							point.weirdness(),
+							point.offset(),
+							RegisterWorldgen.DARK_TAIGA
+					);
+				}
+			}
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.TAIGA)) {
 				this.addSurfaceBiome(
 						parameters,
@@ -83,8 +107,6 @@ public final class OverworldBiomeBuilderMixin {
 						point.continentalness(),
 						WilderSharedWorldgen.TemperateRainforest.EROSION,
 						point.weirdness(),
-						//WilderSharedWorldgen.TemperateRainforest.CONTINENTALNESS,
-						//WilderSharedWorldgen.TemperateRainforest.WEIRDNESS,
 						point.offset(),
 						RegisterWorldgen.TEMPERATE_RAINFOREST
 				);
@@ -129,11 +151,21 @@ public final class OverworldBiomeBuilderMixin {
 			}
 		}
 		if (WilderSharedConstants.config().generateBirchTaiga()) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.BIRCH_FOREST)) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.TAIGA)) {
 				this.addSurfaceBiome(
 						parameters,
 						WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
 						WilderSharedWorldgen.BirchTaiga.HUMIDITY,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						point.offset(),
+						RegisterWorldgen.BIRCH_TAIGA
+				);
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
+						WilderSharedWorldgen.BirchTaiga.HUMIDITY_B,
 						point.continentalness(),
 						point.erosion(),
 						point.weirdness(),
@@ -148,6 +180,16 @@ public final class OverworldBiomeBuilderMixin {
 						parameters,
 						WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
 						WilderSharedWorldgen.BirchTaiga.HUMIDITY,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						point.offset(),
+						RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA
+				);
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
+						WilderSharedWorldgen.BirchTaiga.HUMIDITY_B,
 						point.continentalness(),
 						point.erosion(),
 						point.weirdness(),

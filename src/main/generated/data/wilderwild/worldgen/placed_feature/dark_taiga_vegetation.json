@@ -1,20 +1,20 @@
 {
-  "feature": "wilderwild:mushroom_dark_forest",
+  "feature": "wilderwild:dark_taiga_vegetation",
   "placement": [
     {
-      "type": "minecraft:rarity_filter",
-      "chance": 2
-    },
-    {
       "type": "minecraft:count",
-      "count": 1
+      "count": 14
     },
     {
       "type": "minecraft:in_square"
     },
     {
+      "type": "minecraft:surface_water_depth_filter",
+      "max_water_depth": 0
+    },
+    {
       "type": "minecraft:heightmap",
-      "heightmap": "WORLD_SURFACE_WG"
+      "heightmap": "OCEAN_FLOOR"
     },
     {
       "type": "minecraft:biome"

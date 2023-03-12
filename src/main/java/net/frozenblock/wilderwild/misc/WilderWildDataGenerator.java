@@ -167,7 +167,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.RAINFOREST)
 					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
 					.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
-					.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
+					.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA)
+					.addOptional(RegisterWorldgen.DARK_TAIGA);
 
 			this.getOrCreateTagBuilder(BiomeTags.IS_OVERWORLD)
 					.addOptionalTag(WilderBiomeTags.WILDER_WILD_BIOMES);
@@ -223,7 +224,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(BiomeTags.IS_TAIGA)
 					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
-					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA);
+					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
+					.addOptional(RegisterWorldgen.DARK_TAIGA);
 
 			this.getOrCreateTagBuilder(BiomeTags.IS_SAVANNA)
 					.addOptional(RegisterWorldgen.ARID_SAVANNA);
@@ -252,7 +254,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
 					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
 					.addOptional(RegisterWorldgen.RAINFOREST)
-					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
+					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
+					.addOptional(RegisterWorldgen.DARK_TAIGA);
 
 			this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_COLD)
 					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
@@ -266,7 +269,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
 					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
 					.addOptional(RegisterWorldgen.RAINFOREST)
-					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
+					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
+					.addOptional(RegisterWorldgen.DARK_TAIGA);
 
 			this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_DRY)
 					.addOptional(RegisterWorldgen.ARID_SAVANNA)
@@ -278,13 +282,15 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
 					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
 					.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA)
-					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
+					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
+					.addOptional(RegisterWorldgen.DARK_TAIGA);
 
 			this.getOrCreateTagBuilder(ConventionalBiomeTags.TREE_DECIDUOUS)
 					.addOptional(RegisterWorldgen.MIXED_FOREST)
 					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
 					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
-					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
+					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
+					.addOptional(RegisterWorldgen.DARK_TAIGA);
 
 			this.getOrCreateTagBuilder(ConventionalBiomeTags.VEGETATION_DENSE)
 					.addOptional(RegisterWorldgen.RAINFOREST)
@@ -333,7 +339,6 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.ARID_FOREST)
 					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
 					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
-					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
 					.addOptional(RegisterWorldgen.BIRCH_TAIGA);
 
 			this.getOrCreateTagBuilder(ConventionalBiomeTags.RIVER)
@@ -351,6 +356,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.JUNGLE)
 					.add(Biomes.SPARSE_JUNGLE)
 					.add(Biomes.BAMBOO_JUNGLE)
+					.add(Biomes.DARK_FOREST)
 					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
 					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
 					.addOptional(RegisterWorldgen.RAINFOREST);
@@ -405,7 +411,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.SNOWY_TAIGA)
 					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
 					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
-					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST);
+					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
+					.addOptional(RegisterWorldgen.DARK_TAIGA);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.SAND_BEACHES)
 					.add(Biomes.DARK_FOREST)
@@ -471,7 +478,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
 					.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
 					.addOptional(RegisterWorldgen.RAINFOREST)
-					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
+					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
+					.addOptional(RegisterWorldgen.DARK_TAIGA);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_HUGE_RED_MUSHROOM)
 					.add(Biomes.FOREST)
@@ -485,6 +493,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COMMON_BROWN_MUSHROOM)
 					.add(Biomes.BIRCH_FOREST)
+					.add(Biomes.DARK_FOREST)
 					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
 					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
 					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
@@ -492,11 +501,16 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
 					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
 					.addOptional(RegisterWorldgen.RAINFOREST)
-					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
+					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
+					.addOptional(RegisterWorldgen.DARK_TAIGA)
+					.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COMMON_RED_MUSHROOM)
+					.add(Biomes.DARK_FOREST)
 					.addOptional(RegisterWorldgen.RAINFOREST)
-					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
+					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
+					.addOptional(RegisterWorldgen.DARK_TAIGA)
+					.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_BIG_MUSHROOMS)
 					.add(Biomes.BIRCH_FOREST)
@@ -525,10 +539,12 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
 					.add(Biomes.FLOWER_FOREST)
 					.add(Biomes.FOREST)
+					.add(Biomes.DARK_FOREST)
 					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
 					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
 					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
-					.addOptional(RegisterWorldgen.RAINFOREST);
+					.addOptional(RegisterWorldgen.RAINFOREST)
+					.addOptional(RegisterWorldgen.DARK_TAIGA);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_DATURA)
 					.add(Biomes.BIRCH_FOREST)
@@ -550,7 +566,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
 					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
 					.addOptional(RegisterWorldgen.RAINFOREST)
-					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
+					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
+					.addOptional(RegisterWorldgen.DARK_TAIGA);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_CATTAIL_COMMON)
 					.add(Biomes.SWAMP)
@@ -561,7 +578,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
 					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
 					.addOptional(RegisterWorldgen.RAINFOREST)
-					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
+					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
+					.addOptional(RegisterWorldgen.DARK_TAIGA);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SEEDING_DANDELION)
 					.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
@@ -571,7 +589,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.MEADOW)
 					.add(Biomes.WINDSWEPT_HILLS)
 					.add(Biomes.WINDSWEPT_FOREST)
-					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST);
+					.add(Biomes.DARK_FOREST)
+					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
+					.addOptional(RegisterWorldgen.DARK_TAIGA);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_MILKWEED)
 					.add(Biomes.BIRCH_FOREST)
@@ -583,6 +603,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.SWAMP)
 					.add(Biomes.SPARSE_JUNGLE)
 					.add(Biomes.JUNGLE)
+					.add(Biomes.DARK_FOREST)
 					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
 					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
 					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
@@ -613,7 +634,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.WINDSWEPT_HILLS)
 					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
 					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
-					.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
+					.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA)
+					.addOptional(RegisterWorldgen.DARK_TAIGA);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_BIG_SHRUB)
 					.add(Biomes.BADLANDS)
@@ -646,7 +668,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA)
 					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
 					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
-					.addOptional(RegisterWorldgen.MIXED_FOREST);
+					.addOptional(RegisterWorldgen.MIXED_FOREST)
+					.addOptional(RegisterWorldgen.DARK_TAIGA);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SHORT_MEGA_SPRUCE_SNOWY)
 					.add(Biomes.SNOWY_TAIGA)
@@ -667,7 +690,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
 					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
 					.addOptional(RegisterWorldgen.RAINFOREST)
-					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
+					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
+					.addOptional(RegisterWorldgen.DARK_TAIGA);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_BROWN_SHELF_FUNGUS)
 					.add(Biomes.DARK_FOREST)
@@ -690,7 +714,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
 					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
 					.addOptional(RegisterWorldgen.RAINFOREST)
-					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
+					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
+					.addOptional(RegisterWorldgen.DARK_TAIGA);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_GLORY_OF_THE_SNOW)
 					.add(Biomes.BIRCH_FOREST)
@@ -716,7 +741,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.TAIGA)
 					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
 					.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
-					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
+					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
+					.addOptional(RegisterWorldgen.DARK_TAIGA);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_NEW_RARE_GRASS)
 					.add(Biomes.WINDSWEPT_FOREST)
@@ -765,10 +791,14 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.ERODED_BADLANDS)
 					.add(Biomes.WOODED_BADLANDS);
 
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_TERMITE_MOUND)
+					.addOptionalTag(BiomeTags.IS_SAVANNA);
+
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_TAIGA_FOREST_ROCK)
 					.add(Biomes.TAIGA)
 					.add(Biomes.SNOWY_TAIGA)
-					.addOptional(RegisterWorldgen.BIRCH_TAIGA);
+					.addOptional(RegisterWorldgen.BIRCH_TAIGA)
+					.addOptional(RegisterWorldgen.DARK_TAIGA);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_MOSS_PATH)
 					.add(Biomes.JUNGLE)
@@ -844,7 +874,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.PARCHED_FOREST)
 					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
 					.addOptional(RegisterWorldgen.RAINFOREST)
-					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
+					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
+					.addOptional(RegisterWorldgen.DARK_TAIGA);
 
 			this.getOrCreateTagBuilder(BiomeTags.HAS_RUINED_PORTAL_JUNGLE)
 					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
