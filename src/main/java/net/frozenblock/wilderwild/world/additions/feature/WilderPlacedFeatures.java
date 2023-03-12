@@ -103,6 +103,8 @@ public final class WilderPlacedFeatures {
 
 	public static final FrozenPlacedFeature DARK_BIRCH_FOREST_VEGETATION = register("dark_birch_forest_vegetation");
 
+	public static final FrozenPlacedFeature DARK_TAIGA_VEGETATION = register("dark_taiga_vegetation");
+
 	public static final FrozenPlacedFeature TREES_BIRCH = register("trees_birch");
 
     public static final FrozenPlacedFeature BIRCH_TALL = register("birch_tall");
@@ -422,6 +424,10 @@ public final class WilderPlacedFeatures {
 				CountPlacement.of(14), InSquarePlacement.spread(), TREE_THRESHOLD, PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
+		DARK_TAIGA_VEGETATION.makeAndSetHolder(WilderConfiguredFeatures.DARK_TAIGA_VEGETATION.getHolder(),
+				CountPlacement.of(14), InSquarePlacement.spread(), TREE_THRESHOLD, PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
+		);
+
 		TREES_BIRCH.makeAndSetHolder(WilderConfiguredFeatures.TREES_BIRCH.getHolder(),
 				treePlacement(PlacementUtils.countExtra(10, 0.1F, 1))
 		);
@@ -581,7 +587,8 @@ public final class WilderPlacedFeatures {
 		);
 
 		DARK_FOREST_MUSHROOM_PLACED.makeAndSetHolder(WilderConfiguredFeatures.MUSHROOMS_DARK_FOREST.getHolder(),
-				worldSurfaceSquaredWithCount(8)
+				RarityFilter.onAverageOnceEvery(2), CountPlacement.of(1), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
 		HUGE_RED_MUSHROOM_PLACED.makeAndSetHolder(configuredFeatures.getOrThrow(TreeFeatures.HUGE_RED_MUSHROOM),

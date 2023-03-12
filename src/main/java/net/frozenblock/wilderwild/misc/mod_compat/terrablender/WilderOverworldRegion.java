@@ -45,6 +45,37 @@ public class WilderOverworldRegion extends Region {
 	public void addBiomes(Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper) {
 		this.addModifiedVanillaOverworldBiomes(mapper, builder -> {
 
+			if (WilderSharedConstants.config().generateDarkTaiga()) {
+				OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST).forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.DarkTaiga.TEMPERATURE,
+									WilderSharedWorldgen.DarkTaiga.HUMIDITY,
+									point.continentalness(),
+									point.erosion(),
+									point.depth(),
+									point.weirdness(),
+									point.offset()
+							)
+					);
+					builder.replaceBiome(point, RegisterWorldgen.DARK_TAIGA);
+				});
+				OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST).forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.DarkTaiga.TEMPERATURE,
+									WilderSharedWorldgen.DarkTaiga.HUMIDITY_B,
+									point.continentalness(),
+									point.erosion(),
+									point.depth(),
+									point.weirdness(),
+									point.offset()
+							)
+					);
+					builder.replaceBiome(point, RegisterWorldgen.DARK_TAIGA);
+				});
+			}
+
 			if (WilderSharedConstants.config().generateMixedForest()) {
 				OverworldBiomeBuilderParameters.points(Biomes.TAIGA).forEach(point -> {
 					builder.replaceParameter(point,
@@ -71,8 +102,6 @@ public class WilderOverworldRegion extends Region {
 									WilderSharedWorldgen.TemperateRainforest.EROSION,
 									point.depth(),
 									point.weirdness(),
-									//WilderSharedWorldgen.TemperateRainforest.CONTINENTALNESS,
-									//WilderSharedWorldgen.TemperateRainforest.WEIRDNESS,
 									point.offset()
 							)
 					);
@@ -132,11 +161,25 @@ public class WilderOverworldRegion extends Region {
 			}
 
 			if (WilderSharedConstants.config().generateBirchTaiga()) {
-				OverworldBiomeBuilderParameters.points(Biomes.BIRCH_FOREST).forEach(point -> {
+				OverworldBiomeBuilderParameters.points(Biomes.TAIGA).forEach(point -> {
 					builder.replaceParameter(point,
 							Climate.parameters(
 									WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
 									WilderSharedWorldgen.BirchTaiga.HUMIDITY,
+									point.continentalness(),
+									point.erosion(),
+									point.depth(),
+									point.weirdness(),
+									point.offset()
+							)
+					);
+					builder.replaceBiome(point, RegisterWorldgen.BIRCH_TAIGA);
+				});
+				OverworldBiomeBuilderParameters.points(Biomes.TAIGA).forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
+									WilderSharedWorldgen.BirchTaiga.HUMIDITY_B,
 									point.continentalness(),
 									point.erosion(),
 									point.depth(),
@@ -154,6 +197,20 @@ public class WilderOverworldRegion extends Region {
 							Climate.parameters(
 									WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
 									WilderSharedWorldgen.BirchTaiga.HUMIDITY,
+									point.continentalness(),
+									point.erosion(),
+									point.depth(),
+									point.weirdness(),
+									point.offset()
+							)
+					);
+					builder.replaceBiome(point, RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA);
+				});
+				OverworldBiomeBuilderParameters.points(Biomes.OLD_GROWTH_BIRCH_FOREST).forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
+									WilderSharedWorldgen.BirchTaiga.HUMIDITY_B,
 									point.continentalness(),
 									point.erosion(),
 									point.depth(),

@@ -417,6 +417,11 @@ public class NoOpClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean generateDarkTaiga() {
+		return DefaultWorldgenConfig.BiomeGeneration.GENERATE_DARK_TAIGA;
+	}
+
+	@Override
 	public boolean dyingTrees() {
 		return DefaultWorldgenConfig.DYING_TREES;
 	}
