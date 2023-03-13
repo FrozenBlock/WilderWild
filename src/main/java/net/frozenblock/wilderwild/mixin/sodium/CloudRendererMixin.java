@@ -1,55 +1,51 @@
 package net.frozenblock.wilderwild.mixin.sodium;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import me.jellysquid.mods.sodium.client.render.immediate.CloudRenderer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import me.jellysquid.mods.sodium.client.render.CloudRenderer;
 import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.util.Mth;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Environment(EnvType.CLIENT)
 @Mixin(CloudRenderer.class)
 public class CloudRendererMixin {
 
 	@Unique
-	private float wilderWild$partialTick;
+	private float wilderWild$tickDelta;
 
-	@Inject(method = "render", at = @At("HEAD"))
-	private void render(ClientLevel world, LocalPlayer player, PoseStack matrices, Matrix4f projectionMatrix, float ticks, float partialTick, double cameraX, double cameraY, double cameraZ, CallbackInfo ci) {
-		this.wilderWild$partialTick = partialTick;
+	@Inject(method = "render", at = @At(value = "HEAD"))
+	private void getTickDelta(@Nullable ClientLevel world, LocalPlayer player, PoseStack matrices, Matrix4f projectionMatrix, float ticks, float tickDelta, double cameraX, double cameraY, double cameraZ, CallbackInfo info) {
+		this.wilderWild$tickDelta = tickDelta;
 	}
 
-	@ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Ljava/lang/Math;floor(D)D", ordinal = 0))
-	private double modifyX(double x) {
-		WilderSharedConstants.log("Cloud x modified", true);
-		return WilderSharedConstants.config().cloudMovement() && ClientWindManager.shouldUseWind()
-				? x - ClientWindManager.getCloudX(this.wilderWild$partialTick)
-				: x;
+	@ModifyVariable(method = "render", at = @At(value = "STORE"), ordinal = 2)
+	private float modifyY(float original) {
+		return ClientWindManager.shouldUseWind() && WilderSharedConstants.config().cloudMovement()
+				? (float) (original + 0.33D + Mth.clamp(ClientWindManager.getCloudY(this.wilderWild$tickDelta) * 12, -10, 10))
+				: original;
 	}
 
-	@ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lorg/joml/Matrix4f;translate(FFF)Lorg/joml/Matrix4f;", ordinal = 0), index = 1)
-	private float modifyY(float y) {
-
-		if (WilderSharedConstants.config().cloudMovement() && ClientWindManager.shouldUseWind())
-			return (float) (y + Mth.clamp(ClientWindManager.getCloudY(wilderWild$partialTick), -10, 10));
-
-		return y;
+	@ModifyVariable(method = "render", at = @At(value = "STORE"), ordinal = 4)
+	private double modifyX(double original, @Nullable ClientLevel world, LocalPlayer player, PoseStack matrices, Matrix4f projectionMatrix, float ticks, float tickDelta, double cameraX, double cameraY, double cameraZ) {
+		return ClientWindManager.shouldUseWind() && WilderSharedConstants.config().cloudMovement()
+				? cameraX - ClientWindManager.getCloudX(tickDelta) * 12
+				: original;
 	}
 
-	@ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Ljava/lang/Math;floor(D)D", ordinal = 1))
-	private double modifyZ(double z) {
-		return WilderSharedConstants.config().cloudMovement() && ClientWindManager.shouldUseWind()
-				? z - ClientWindManager.getCloudZ(this.wilderWild$partialTick)
-				: z;
+	@ModifyVariable(method = "render", at = @At("STORE"), ordinal = 5)
+	private double modifyZ(double original, @Nullable ClientLevel world, LocalPlayer player, PoseStack matrices, Matrix4f projectionMatrix, float ticks, float tickDelta, double cameraX, double cameraY, double cameraZ) {
+		return ClientWindManager.shouldUseWind() && WilderSharedConstants.config().cloudMovement()
+				? (cameraZ + 0.33D) - ClientWindManager.getCloudZ(tickDelta) * 12
+				: original;
 	}
+
 }
