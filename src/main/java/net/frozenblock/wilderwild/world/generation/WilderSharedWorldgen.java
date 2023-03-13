@@ -26,6 +26,7 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
 import net.frozenblock.lib.worldgen.surface.FrozenSurfaceRules;
 import static net.frozenblock.lib.worldgen.surface.FrozenSurfaceRules.*;
 import net.frozenblock.lib.worldgen.surface.impl.BiomeTagConditionSource;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.generation.conditionsource.BetaBeachConditionSource;
@@ -98,6 +99,7 @@ public final class WilderSharedWorldgen {
 		public static final Climate.Parameter HUMIDITY_A = Humidity.ONE;
 		public static final Climate.Parameter TEMPERATURE_B = Temperature.THREE;
 		public static final Climate.Parameter HUMIDITY_B = Climate.Parameter.span(-0.400F, -0.300F);
+		public static final Climate.Parameter HUMIDITY_AB = Climate.Parameter.span(-0.375F, -0.325F);
 
 		public static float TEMP = 0.8F;
 		public static float DOWNFALL = 0.5F;
@@ -110,7 +112,7 @@ public final class WilderSharedWorldgen {
 
 	public static final class AridSavanna {
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.525F, 0.575F);
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1.000F, -0.100F);
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1.000F, -0.125F);
 
 		public static float TEMP = 2.0F;
 		public static float DOWNFALL = 0.0F;
@@ -135,7 +137,7 @@ public final class WilderSharedWorldgen {
 
 	public static final class AridForest {
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.530F, 0.570F);
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.095F, 0.1F);
+		public static final Climate.Parameter HUMIDITY = WilderSharedConstants.config().modifyJunglePlacement() ? Climate.Parameter.span(-0.095F, 0.1F) : Climate.Parameter.span(-0.095F, 0.15F);
 
 		public static float TEMP = 1.75F;
 		public static float DOWNFALL = 0.05F;
