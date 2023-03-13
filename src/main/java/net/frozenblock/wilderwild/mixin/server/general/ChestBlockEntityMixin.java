@@ -79,7 +79,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 				ChestBlockEntity otherChest = wilderWild$getOtherEntity(level, pos, state);
 				if (otherChest != null) {
 					ChestBubbleTicker.createAndSpawn(RegisterEntities.CHEST_BUBBLER, level, otherChest.getBlockPos());
-					((ChestBlockEntityInterface) otherChest).wilderWild$setCanBubble(false);
+					((ChestBlockEntityInterface)otherChest).wilderWild$setCanBubble(false);
 				}
 			}
 		}
@@ -151,9 +151,9 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	@Unique
 	@Override
 	public void wilderWild$syncBubble(ChestBlockEntity chest1, ChestBlockEntity chest2) {
-		if (!((ChestBlockEntityInterface) chest1).wilderWild$getCanBubble() || !((ChestBlockEntityInterface) chest2).wilderWild$getCanBubble()) {
-			((ChestBlockEntityInterface) chest1).wilderWild$setCanBubble(false);
-			((ChestBlockEntityInterface) chest2).wilderWild$setCanBubble(false);
+		if (!((ChestBlockEntityInterface)chest1).wilderWild$getCanBubble() || !((ChestBlockEntityInterface)chest2).wilderWild$getCanBubble()) {
+			((ChestBlockEntityInterface)chest1).wilderWild$setCanBubble(false);
+			((ChestBlockEntityInterface)chest2).wilderWild$setCanBubble(false);
 		}
 	}
 
