@@ -85,7 +85,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 
 	@Override
 	public VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-		return state.is(this) && !isHanging(state) ? Shapes.empty() : super.getCollisionShape(state, level, pos, context));
+		return state.is(this) && !isHanging(state) ? Shapes.empty() : super.getCollisionShape(state, level, pos, context);
 	}
 
 	@Override
