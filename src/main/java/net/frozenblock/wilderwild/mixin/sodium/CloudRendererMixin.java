@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.mixin.sodium;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import me.jellysquid.mods.sodium.client.render.CloudRenderer;
+import me.jellysquid.mods.sodium.client.render.immediate.CloudRenderer;
 import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.client.multiplayer.ClientLevel;
