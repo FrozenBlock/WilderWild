@@ -52,7 +52,7 @@ public abstract class ParticleMixin {
 	@Shadow
 	protected double z;
 
-	@Inject(method = "tick", at = @At("TAIL"))
+	@Inject(method = "tick", at = @At("HEAD"))
 	public void wilderWild$tick(CallbackInfo info) {
 		if (Particle.class.cast(this) instanceof DripParticle dripParticle) {
 			if (((WilderDripSuspendedParticleInterface)dripParticle).wilderWild$usesWind()) {
