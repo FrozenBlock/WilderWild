@@ -118,7 +118,7 @@ public class StoneChestBlock extends ChestBlock {
 					if (first) {
 						((ChestBlockEntityInterface)stoneEntity).wilderWild$bubble(level, pos, state);
 						ResourceLocation lootTable = stoneEntity.lootTable;
-						if (lootTable != null && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) && lootTable.getPath().toLowerCase().contains("shipwreck") && level.random.nextBoolean()) {
+						if (lootTable != null && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) && lootTable.getPath().toLowerCase().contains("shipwreck")) {
 							Jellyfish.spawnFromChest(level, state, pos);
 						}
 					}

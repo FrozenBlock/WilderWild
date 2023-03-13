@@ -52,16 +52,15 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 		super(properties, blockEntityType);
 	}
 
-
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;openMenu(Lnet/minecraft/world/MenuProvider;)Ljava/util/OptionalInt;", shift = At.Shift.BEFORE), method = "use")
 	public void wilderWild$useBeforeOpenMenu(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit, CallbackInfoReturnable<InteractionResult> info) {
 		if (level.getBlockEntity(pos) instanceof ChestBlockEntity sourceChest) {
 			if (sourceChest.lootTable != null) {
-				if (state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) && sourceChest.lootTable.getPath().toLowerCase().contains("shipwreck") && level.random.nextBoolean()) {
+				if (state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) && sourceChest.lootTable.getPath().toLowerCase().contains("shipwreck") && level.random.nextInt(0, 3) == 1) {
 					Jellyfish.spawnFromChest(level, state, pos);
 				}
 			}
-			((ChestBlockEntityInterface) sourceChest).wilderWild$bubble(level, pos, state);
+			((ChestBlockEntityInterface)sourceChest).wilderWild$bubble(level, pos, state);
 		}
 	}
 
@@ -75,20 +74,20 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 				boolean wasLogged = blockStateUnneeded.getValue(BlockStateProperties.WATERLOGGED);
 				if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
 					if (!otherState.getValue(BlockStateProperties.WATERLOGGED)) {
-						((ChestBlockEntityInterface) chest).wilderWild$setCanBubble(true);
-						((ChestBlockEntityInterface) otherChest).wilderWild$setCanBubble(true);
-					} else if (!((ChestBlockEntityInterface) otherChest).wilderWild$getCanBubble()) {
-						((ChestBlockEntityInterface) chest).wilderWild$setCanBubble(false);
+						((ChestBlockEntityInterface)chest).wilderWild$setCanBubble(true);
+						((ChestBlockEntityInterface)otherChest).wilderWild$setCanBubble(true);
+					} else if (!((ChestBlockEntityInterface)otherChest).wilderWild$getCanBubble()) {
+						((ChestBlockEntityInterface)chest).wilderWild$setCanBubble(false);
 					}
 				}
 			} else {
 				boolean wasLogged = blockStateUnneeded.getValue(BlockStateProperties.WATERLOGGED);
 				if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
-					((ChestBlockEntityInterface) chest).wilderWild$setCanBubble(true);
+					((ChestBlockEntityInterface)chest).wilderWild$setCanBubble(true);
 				}
 			}
 			if (otherChest != null && level.getBlockEntity(currentPos) instanceof ChestBlockEntity sourceChest) {
-				((ChestBlockEntityInterface) sourceChest).wilderWild$syncBubble(sourceChest, otherChest);
+				((ChestBlockEntityInterface)sourceChest).wilderWild$syncBubble(sourceChest, otherChest);
 			}
 		}
 	}

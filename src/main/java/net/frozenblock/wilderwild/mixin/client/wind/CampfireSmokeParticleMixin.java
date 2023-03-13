@@ -37,9 +37,9 @@ public abstract class CampfireSmokeParticleMixin extends TextureSheetParticle {
 		super(clientLevel, d, e, f);
 	}
 
-	@Inject(method = "tick", at = @At("TAIL"))
+	@Inject(method = "tick", at = @At("HEAD"))
 	public void wilderWild$tick(CallbackInfo info) {
-		Vec3 wind = ClientWindManager.getWindMovement(this.level, BlockPos.containing(this.x, this.y, this.z), 1.5, 1).scale(WilderSharedConstants.config().particleWindMovement());
+		Vec3 wind = ClientWindManager.getWindMovement(this.level, BlockPos.containing(this.x, this.y, this.z), 1.5).scale(WilderSharedConstants.config().particleWindMovement());
 		this.xd += wind.x * 0.0005;
 		this.yd += wind.y * 0.000002;
 		this.zd += wind.z * 0.0005;
