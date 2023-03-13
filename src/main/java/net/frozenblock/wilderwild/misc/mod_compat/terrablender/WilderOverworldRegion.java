@@ -302,6 +302,20 @@ public class WilderOverworldRegion extends Region {
 					);
 					builder.replaceBiome(point, RegisterWorldgen.FLOWER_FIELD);
 				});
+				OverworldBiomeBuilderParameters.points(Biomes.FLOWER_FOREST).forEach(point -> {
+					builder.replaceParameter(point,
+							Climate.parameters(
+									WilderSharedWorldgen.FlowerField.TEMPERATURE_A,
+									WilderSharedWorldgen.FlowerField.HUMIDITY_AB,
+									point.continentalness(),
+									point.erosion(),
+									point.depth(),
+									point.weirdness(),
+									point.offset()
+							)
+					);
+					builder.replaceBiome(point, RegisterWorldgen.FLOWER_FIELD);
+				});
 			}
 
 			if (WilderSharedConstants.config().generateAridSavanna()) {

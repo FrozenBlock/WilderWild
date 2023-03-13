@@ -261,6 +261,16 @@ public final class OverworldBiomeBuilderMixin {
 						point.offset(),
 						RegisterWorldgen.FLOWER_FIELD
 				);
+				this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.FlowerField.TEMPERATURE_A,
+						WilderSharedWorldgen.FlowerField.HUMIDITY_AB,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						point.offset(),
+						RegisterWorldgen.FLOWER_FIELD
+				);
 			}
 		}
 		if (WilderSharedConstants.config().generateAridSavanna()) {
