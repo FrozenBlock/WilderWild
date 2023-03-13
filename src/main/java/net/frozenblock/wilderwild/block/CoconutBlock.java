@@ -85,7 +85,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 
 	@Override
 	public VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-		return !isHanging(state) ? Shapes.empty() : super.getCollisionShape(state, level, pos, context);
+		return state.is(this) && !isHanging(state) ? Shapes.empty() : super.getCollisionShape(state, level, pos, context);
 	}
 
 	@Override
@@ -101,7 +101,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 
 	@Override
 	public BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
-		if (!state.canSurvive(level, currentPos)) {
+		if (state.is(this) && !state.canSurvive(level, currentPos)) {
 			if (!isHanging(state)) {
 				return Blocks.AIR.defaultBlockState();
 			} else {
@@ -127,7 +127,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
     @Override
     public boolean canSurvive(@NotNull BlockState state, LevelReader level, BlockPos pos) {
 		BlockState stateAbove = level.getBlockState(pos.above());
-        return isHanging(state) ? (stateAbove.is(RegisterBlocks.PALM_LEAVES) && (stateAbove.getValue(BlockStateProperties.DISTANCE) <= 2 || PalmLeavesBlock.updateDistance(stateAbove, level, pos).getValue(BlockStateProperties.DISTANCE) <= 2 || stateAbove.getValue(BlockStateProperties.PERSISTENT))) : this.mayPlaceOn(level.getBlockState(pos.below()));
+        return state.is(this) && isHanging(state) ? (stateAbove.is(RegisterBlocks.PALM_LEAVES) && (stateAbove.getValue(BlockStateProperties.DISTANCE) <= 2 || PalmLeavesBlock.updateDistance(stateAbove, level, pos).getValue(BlockStateProperties.DISTANCE) <= 2 || stateAbove.getValue(BlockStateProperties.PERSISTENT))) : this.mayPlaceOn(level.getBlockState(pos.below()));
     }
 
 	protected boolean mayPlaceOn(BlockState state) {
@@ -136,7 +136,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 
     @Override
     public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (level.getMaxLocalRawBrightness(pos.above()) >= 9) {
+		if (state.is(this) && level.getMaxLocalRawBrightness(pos.above()) >= 9) {
 			if (!isHanging(state)) {
 				if (random.nextInt(7) == 0) {
 					this.advanceTree(level, pos, state, random);
@@ -151,12 +151,12 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 
 	@Override
 	public boolean isValidBonemealTarget(@NotNull LevelReader world, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
-		return !isHanging(state) || !isFullyGrown(state);
+		return state.is(this) && (!isHanging(state) || !isFullyGrown(state));
 	}
 
 	@Override
     public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-        return isHanging(state) ? !isFullyGrown(state) : (double)level.random.nextFloat() < 0.45;
+        return state.is(this) && (isHanging(state) ? !isFullyGrown(state) : (double)level.random.nextFloat() < 0.45);
     }
 
 	@Override
@@ -175,7 +175,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 
 	@Override
 	public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull PathComputationType type) {
-		if (type == PathComputationType.AIR && !isHanging(state)) {
+		if (type == PathComputationType.AIR && state.is(this) && !isHanging(state)) {
 			return true;
 		}
 		return super.isPathfindable(state, level, pos, type);
@@ -183,7 +183,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 
 	@Override
 	public void onProjectileHit(@NotNull Level level, @NotNull BlockState state, @NotNull BlockHitResult hit, @NotNull Projectile projectile) {
-		if (isHanging(state)) {
+		if (state.is(this) && isHanging(state)) {
 			if (isFullyGrown(state)) {
 				FallingBlockEntity fallingBlockEntity = FallingBlockEntity.fall(level, hit.getBlockPos(), state);
 				this.falling(fallingBlockEntity);
@@ -200,10 +200,10 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 
 	@Override
 	public void tick(@NotNull BlockState state, ServerLevel level, BlockPos pos, @NotNull RandomSource random) {
-		if (pos.getY() < level.getMinBuildHeight() || !isHanging(state)) {
+		if (pos.getY() < level.getMinBuildHeight() || state.is(this) &&  !isHanging(state)) {
 			return;
 		}
-		if (isHanging(state) && !state.canSurvive(level, pos)) {
+		if (state.is(this) && isHanging(state) && !state.canSurvive(level, pos)) {
 			if (isFullyGrown(state)) {
 				FallingBlockEntity fallingBlockEntity = FallingBlockEntity.fall(level, pos, state);
 				this.falling(fallingBlockEntity);
