@@ -88,12 +88,12 @@ public class BaobabNutBlock extends SaplingBlock {
 
     @Override
     public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
-        return isHanging(state) ? level.getBlockState(pos.above()).is(RegisterBlocks.BAOBAB_LEAVES) : super.canSurvive(state, level, pos);
+        return state.is(this) && (isHanging(state) ? level.getBlockState(pos.above()).is(RegisterBlocks.BAOBAB_LEAVES) : super.canSurvive(state, level, pos));
     }
 
     @Override
     public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (level.getMaxLocalRawBrightness(pos.above()) >= 9) {
+		if (state.is(this) &&  level.getMaxLocalRawBrightness(pos.above()) >= 9) {
 			if (!isHanging(state)) {
 				if (random.nextInt(7) == 0) {
 					this.advanceTree(level, pos, state, random);
@@ -108,17 +108,17 @@ public class BaobabNutBlock extends SaplingBlock {
 
 	@Override
 	public boolean isValidBonemealTarget(@NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
-		return !isHanging(state) || !isFullyGrown(state);
+		return state.is(this) && (!isHanging(state) || !isFullyGrown(state));
 	}
 
 	@Override
     public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-        return isHanging(state) ? !isFullyGrown(state) : super.isBonemealSuccess(level, random, pos, state);
+        return state.is(this) && isHanging(state) ? !isFullyGrown(state) : super.isBonemealSuccess(level, random, pos, state);
     }
 
 	@Override
     public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-        if (isHanging(state) && !isFullyGrown(state)) {
+        if (state.is(this) &&  isHanging(state) && !isFullyGrown(state)) {
             level.setBlock(pos, state.cycle(AGE), 2);
         } else {
             super.performBonemeal(level, random, pos, state);
@@ -133,7 +133,7 @@ public class BaobabNutBlock extends SaplingBlock {
 
 	@Override //Only collision with projectiles so you can shoot them down
 	public VoxelShape getCollisionShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
-		if (collisionContext instanceof EntityCollisionContext entityCollision && isHanging(blockState)) {
+		if (blockState.is(this) && collisionContext instanceof EntityCollisionContext entityCollision && isHanging(blockState)) {
 			if (entityCollision.getEntity() != null) {
 				return !(entityCollision.getEntity() instanceof Projectile) ? Shapes.empty() : super.getCollisionShape(blockState, blockGetter, blockPos, collisionContext);
 			}
