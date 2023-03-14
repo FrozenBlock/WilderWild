@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.world.generation.sapling;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.registries.VanillaRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -106,7 +105,7 @@ public abstract class BaobabTreeSaplingGenerator extends AbstractMegaTreeGrower 
 			return false;
 		} else {
 			// Get the configured feature from the resource key
-			ConfiguredFeature<?, ?> configuredFeature = VanillaRegistries.createLookup().lookupOrThrow(Registries.CONFIGURED_FEATURE).get(registryEntry).orElseThrow().value();
+			ConfiguredFeature<?, ?> configuredFeature = level.registryAccess().lookupOrThrow(Registries.CONFIGURED_FEATURE).getOrThrow(registryEntry).value();
 
 			// Set the block state to air
 			BlockState blockState = Blocks.AIR.defaultBlockState();
