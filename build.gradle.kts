@@ -396,6 +396,18 @@ if (!(release == true || System.getenv("GITHUB_ACTIONS") == "true")) {
 val env = System.getenv()
 
 publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            artifact(sourcesJar)
+            artifact(javadocJar)
+
+            pom {
+                groupId = rootProject.group.toString()
+                artifactId = rootProject.name
+                version = rootProject.version.toString()
+            }
+        }
+    }
     repositories {
         val mavenUrl = env["MAVEN_URL"]
         val mavenUsername = env["MAVEN_USERNAME"]
