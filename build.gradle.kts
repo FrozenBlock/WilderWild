@@ -241,13 +241,11 @@ dependencies {
         exclude(group = "com.terraformersmc")
     }
 
-    // NBT Crafting
-    modImplementation("com.github.Treetrain1:nbt-crafting:jitpack-1.19.4-SNAPSHOT")?.let { include(it) }
-    //modImplementation("com.github.Treetrain1:nbt-crafting:jitpack-SNAPSHOT")?.let { include(it) }
-    //modImplementation(files("libs/nbtcrafting-2.2.3+mc1.19.3.jar"))?.let { include(it) }
-
     // Brush Extender
     modImplementation(files("libs/BrushExtender.jar"))?.let { include(it) }
+
+    // NBT Crafting
+    modImplementation("com.github.Treetrain1:nbt-crafting:jitpack-SNAPSHOT")?.let { include(it) }
 
     // CaffeineConfig
     modImplementation("net.caffeinemc:mixin-config:1.0.0+1.17")?.let { include(it) }
