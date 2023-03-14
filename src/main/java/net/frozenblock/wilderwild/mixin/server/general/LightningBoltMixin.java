@@ -21,6 +21,9 @@ package net.frozenblock.wilderwild.mixin.server.general;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscConfigured;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.registries.VanillaRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.level.block.Blocks;
@@ -51,11 +54,11 @@ public class LightningBoltMixin {
 			BlockPos blockPos = this.getStrikePosition();
 			BlockState strikeState = bolt.level.getBlockState(blockPos);
 			if (strikeState.is(Blocks.SAND) || strikeState.is(RegisterBlocks.SCORCHED_SAND)) {
-				ConfiguredFeature<?, ?> configuredFeature = (ConfiguredFeature<?, ?>) WilderMiscConfigured.SCORCHED_SAND_DISK_LIGHTNING.getHolder().value();
+				ConfiguredFeature<?, ?> configuredFeature = VanillaRegistries.createLookup().lookupOrThrow(Registries.CONFIGURED_FEATURE).getOrThrow(WilderMiscConfigured.SCORCHED_SAND_DISK_LIGHTNING.getKey()).value();
 				configuredFeature.place(serverLevel, serverLevel.getChunkSource().getGenerator(), serverLevel.getRandom(), blockPos);
 			}
 			if (strikeState.is(Blocks.RED_SAND) || strikeState.is(RegisterBlocks.SCORCHED_RED_SAND)) {
-				ConfiguredFeature<?, ?> configuredFeature = (ConfiguredFeature<?, ?>) WilderMiscConfigured.SCORCHED_RED_SAND_DISK_LIGHTNING.getHolder().value();
+				ConfiguredFeature<?, ?> configuredFeature = VanillaRegistries.createLookup().lookupOrThrow(Registries.CONFIGURED_FEATURE).getOrThrow(WilderMiscConfigured.SCORCHED_RED_SAND_DISK_LIGHTNING.getKey()).value();
 				configuredFeature.place(serverLevel, serverLevel.getChunkSource().getGenerator(), serverLevel.getRandom(), blockPos);
 			}
 		}
