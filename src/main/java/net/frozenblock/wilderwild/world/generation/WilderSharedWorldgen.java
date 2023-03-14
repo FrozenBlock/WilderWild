@@ -98,8 +98,8 @@ public final class WilderSharedWorldgen {
 		public static final Climate.Parameter TEMPERATURE_A = Climate.Parameter.span(-0.200F, -0.075F);
 		public static final Climate.Parameter HUMIDITY_A = Humidity.ONE;
 		public static final Climate.Parameter TEMPERATURE_B = Temperature.THREE;
-		public static final Climate.Parameter HUMIDITY_B = Climate.Parameter.span(-0.375F, -0.325F);
-		public static final Climate.Parameter HUMIDITY_AB = Climate.Parameter.span(-0.375F, -0.300F);
+		public static final Climate.Parameter HUMIDITY_B = Climate.Parameter.span(-0.400F, -0.300F);
+		public static final Climate.Parameter HUMIDITY_AB = Climate.Parameter.span(-0.3675F, -0.3125F);
 
 		public static float TEMP = 0.8F;
 		public static float DOWNFALL = 0.5F;
