@@ -401,7 +401,7 @@ publishing {
         val mavenUsername = env["MAVEN_USERNAME"]
         val mavenPassword = env["MAVEN_PASSWORD"]
 
-        if (!mavenUrl.isNullOrEmpty() && !mavenUsername.isNullOrEmpty() && !mavenPassword.isNullOrEmpty()) {
+        if (rootProject == project && !mavenUrl.isNullOrEmpty() && !mavenUsername.isNullOrEmpty() && !mavenPassword.isNullOrEmpty()) {
             maven {
                 url = uri(mavenUrl)
 
@@ -543,6 +543,7 @@ val github by tasks.register("github") {
 }
 
 val publishMod by tasks.register("publishMod") {
+    dependsOn(tasks.publish)
     dependsOn(github)
     dependsOn(tasks.curseforge)
     dependsOn(tasks.modrinth)
