@@ -34,6 +34,7 @@
         "min_inclusive": 12
       }
     },
-    "startFadePercent": 0.8
+    "startFadePercent": 0.8,
+    "useHeightMapAndNotCircular": true
   }
 }
