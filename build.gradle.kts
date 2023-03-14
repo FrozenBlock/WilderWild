@@ -404,9 +404,9 @@ publishing {
             artifact(javadocJar)
 
             pom {
-                groupId = rootProject.group.toString()
-                artifactId = rootProject.name
-                version = rootProject.version.toString()
+                groupId = rootProject.group.toString().trim(' ')
+                artifactId = rootProject.name.trim(' ')
+                version = makeModrinthVersion(mod_version)
             }
         }
     }
