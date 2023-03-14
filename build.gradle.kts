@@ -394,6 +394,42 @@ if (!(release == true || System.getenv("GITHUB_ACTIONS") == "true")) {
     runClient.dependsOn(runDatagen)
 }
 
+val env = System.getenv()
+
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            artifact(remapJar)
+            artifact(sourcesJar)
+            artifact(javadocJar)
+
+            pom {
+                groupId = rootProject.group.toString()
+                artifactId = rootProject.name
+                version = rootProject.version.toString()
+            }
+        }
+    }
+    repositories {
+        val mavenUrl = env["MAVEN_URL"]
+        val mavenUsername = env["MAVEN_USERNAME"]
+        val mavenPassword = env["MAVEN_PASSWORD"]
+
+        if (rootProject == project && !mavenUrl.isNullOrEmpty() && !mavenUsername.isNullOrEmpty() && !mavenPassword.isNullOrEmpty()) {
+            maven {
+                url = uri(mavenUrl)
+
+                credentials {
+                    username = mavenUsername
+                    password = mavenPassword
+                }
+            }
+        } else {
+            mavenLocal()
+        }
+    }
+}
+
 extra {
     val properties = Properties()
     properties.load(FileInputStream(file("gradle/publishing.properties")))
@@ -521,6 +557,7 @@ val github by tasks.register("github") {
 }
 
 val publishMod by tasks.register("publishMod") {
+    dependsOn(tasks.publish)
     dependsOn(github)
     dependsOn(tasks.curseforge)
     dependsOn(tasks.modrinth)
