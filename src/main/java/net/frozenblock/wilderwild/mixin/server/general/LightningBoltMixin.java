@@ -21,14 +21,10 @@ package net.frozenblock.wilderwild.mixin.server.general;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscConfigured;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.data.registries.VanillaRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -54,10 +50,10 @@ public class LightningBoltMixin {
 			BlockPos blockPos = this.getStrikePosition();
 			BlockState strikeState = bolt.level.getBlockState(blockPos);
 			if (strikeState.is(Blocks.SAND) || strikeState.is(RegisterBlocks.SCORCHED_SAND)) {
-				WilderMiscConfigured.SCORCHED_SAND_DISK_LIGHTNING.getConfiguredFeatureOrThrow(serverLevel).place(serverLevel, serverLevel.getChunkSource().getGenerator(), serverLevel.getRandom(), blockPos);
+				WilderMiscConfigured.SCORCHED_SAND_DISK_LIGHTNING.getConfiguredFeature(serverLevel).place(serverLevel, serverLevel.getChunkSource().getGenerator(), serverLevel.getRandom(), blockPos);
 			}
 			if (strikeState.is(Blocks.RED_SAND) || strikeState.is(RegisterBlocks.SCORCHED_RED_SAND)) {
-				WilderMiscConfigured.SCORCHED_RED_SAND_DISK_LIGHTNING.getConfiguredFeatureOrThrow(serverLevel).place(serverLevel, serverLevel.getChunkSource().getGenerator(), serverLevel.getRandom(), blockPos);
+				WilderMiscConfigured.SCORCHED_RED_SAND_DISK_LIGHTNING.getConfiguredFeature(serverLevel).place(serverLevel, serverLevel.getChunkSource().getGenerator(), serverLevel.getRandom(), blockPos);
 			}
 		}
 	}
