@@ -400,6 +400,7 @@ public final class WilderMiscConfigured {
 
 		SCORCHED_SAND_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_FEATURE,
 				new FadingDiskFeatureConfig(
+						true,
 						BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKEDNESS, 1)),
 						BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState()),
 						UniformInt.of(2, 8),
@@ -419,6 +420,7 @@ public final class WilderMiscConfigured {
 
 		SCORCHED_SAND_DISK_HUGE.makeAndSetHolder(FrozenFeatures.FADING_DISK_FEATURE,
 				new FadingDiskFeatureConfig(
+						true,
 						BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKEDNESS, 1)),
 						BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState()),
 						UniformInt.of(12, 24),
@@ -438,6 +440,7 @@ public final class WilderMiscConfigured {
 
 		SCORCHED_SAND_DISK_LIGHTNING.makeAndSetHolder(FrozenFeatures.FADING_DISK_FEATURE,
 				new FadingDiskFeatureConfig(
+						false,
 						BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKEDNESS, 1)),
 						BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState()),
 						UniformInt.of(1, 3),
@@ -502,6 +505,7 @@ public final class WilderMiscConfigured {
 
 		SCORCHED_RED_SAND_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_FEATURE,
 				new FadingDiskFeatureConfig(
+						true,
 						BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKEDNESS, 1)),
 						BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState()),
 						UniformInt.of(2, 8),
@@ -521,6 +525,7 @@ public final class WilderMiscConfigured {
 
 		SCORCHED_RED_SAND_DISK_HUGE.makeAndSetHolder(FrozenFeatures.FADING_DISK_FEATURE,
 				new FadingDiskFeatureConfig(
+						true,
 						BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKEDNESS, 1)),
 						BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState()),
 						UniformInt.of(12, 24),
@@ -540,6 +545,7 @@ public final class WilderMiscConfigured {
 
 		SCORCHED_RED_SAND_DISK_LIGHTNING.makeAndSetHolder(FrozenFeatures.FADING_DISK_FEATURE,
 				new FadingDiskFeatureConfig(
+						false,
 						BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKEDNESS, 1)),
 						BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState()),
 						UniformInt.of(1, 3),
