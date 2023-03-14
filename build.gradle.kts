@@ -393,6 +393,29 @@ if (!(release == true || System.getenv("GITHUB_ACTIONS") == "true")) {
     runClient.dependsOn(runDatagen)
 }
 
+val env = System.getenv()
+
+publishing {
+    repositories {
+        val mavenUrl = env["MAVEN_URL"]
+        val mavenUsername = env["MAVEN_USERNAME"]
+        val mavenPassword = env["MAVEN_PASSWORD"]
+
+        if (!mavenUrl.isNullOrEmpty() && !mavenUsername.isNullOrEmpty() && !mavenPassword.isNullOrEmpty()) {
+            maven {
+                url = uri(mavenUrl)
+
+                credentials {
+                    username = mavenUsername
+                    password = mavenPassword
+                }
+            }
+        } else {
+            mavenLocal()
+        }
+    }
+}
+
 extra {
     val properties = Properties()
     properties.load(FileInputStream(file("gradle/publishing.properties")))

@@ -16,6 +16,9 @@ jobs:
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     env:
+      MAVEN_URL: ${{secrets.RELEASE_MAVEN_URL}}
+      MAVEN_USERNAME: ${{secrets.MAVEN_USERNAME}}
+      MAVEN_PASSWORD: ${{secrets.MAVEN_PASSWORD}}
       GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
       CURSEFORGE_TOKEN: ${{secrets.CURSEFORGE_TOKEN}}
       MODRINTH_TOKEN: ${{secrets.MODRINTH_TOKEN}}
