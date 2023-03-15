@@ -212,7 +212,6 @@ public final class WilderWild extends FrozenMobCategoryEntrypoint implements Mod
 
         QuiltDataFixes.buildAndRegisterFixer(mod, builder);
         log("DataFixes for Wilder Wild have been applied", true);
-        //return builder;
     }
 
     // LOGGING
