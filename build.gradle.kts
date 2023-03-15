@@ -414,7 +414,7 @@ publishing {
 
     val publishGroup = rootProject.group.toString().trim(' ')
 
-    val hash = "uncommitted" + if (grgit.commit() != null) grgit.commit().id else ""
+    val hash = if (grgit.branch != null && grgit.branch.current() != null) grgit.branch.current().fullName else ""
 
     publications {
         var publish = true
