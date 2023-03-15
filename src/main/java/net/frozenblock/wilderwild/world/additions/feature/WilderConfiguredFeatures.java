@@ -795,7 +795,7 @@ public final class WilderConfiguredFeatures {
 						List.of(
 								new WeightedPlacedFeature(WilderTreePlaced.OAK_CHECKED.getHolder(), 0.095F),
 								new WeightedPlacedFeature(WilderTreePlaced.BIG_SHRUB_GRASS_CHECKED.getHolder(), 0.4F),
-								new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED.getHolder(), 0.47F),
+								new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED.getHolder(), 0.67F),
 								new WeightedPlacedFeature(WilderTreePlaced.JUNIPER.getHolder(), 0.2F)
 						),
 						WilderTreePlaced.JUNIPER.getHolder()
