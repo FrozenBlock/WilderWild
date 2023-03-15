@@ -12,11 +12,11 @@
         "feature": "wilderwild:big_shrub_grass_checked"
       },
       {
-        "chance": 0.67,
+        "chance": 0.47,
         "feature": "wilderwild:short_oak_checked"
       },
       {
-        "chance": 0.4,
+        "chance": 0.2,
         "feature": "wilderwild:juniper"
       }
     ]
