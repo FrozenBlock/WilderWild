@@ -171,7 +171,7 @@ public class Tumbleweed extends Mob {
 		if (this.level.isClientSide) {
 			this.itemX = this.getItemX();
 			this.itemZ = this.getItemZ();
-		} else if (!this.isRemoved()) {
+		} else if (!this.isRemoved() && this.level instanceof ServerLevel serverLevel) {
 			this.heal(1F);
 			double brightness = this.level.getBrightness(LightLayer.SKY, this.blockPosition());
 			Player entity = this.level.getNearestPlayer(this, -1.0);
@@ -185,9 +185,10 @@ public class Tumbleweed extends Mob {
 			}
 
 			Vec3 deltaMovement = this.getDeltaMovement();
+			WindManager windManager = WindManager.getWindManager(serverLevel);
 			double multiplier = (Math.max((brightness - (Math.max(15 - brightness, 0))), 0) * 0.0667) * (this.wasTouchingWater ? 0.16777216 : 1);
-			double windX = Mth.clamp(WindManager.windX * windMultiplier, -windClamp, windClamp);
-			double windZ = Mth.clamp(WindManager.windZ * windMultiplier, -windClamp, windClamp);
+			double windX = Mth.clamp(windManager.windX * windMultiplier, -windClamp, windClamp);
+			double windZ = Mth.clamp(windManager.windZ * windMultiplier, -windClamp, windClamp);
 			deltaMovement = deltaMovement.add((windX * 0.2) * multiplier, 0, (windZ * 0.2) * multiplier);
 			deltaMovement = new Vec3(deltaMovement.x, deltaMovement.y < 0 ? deltaMovement.y * 0.88 : deltaMovement.y, deltaMovement.z);
 			if (deltaPos.y <= 0 && this.isOnGround()) {
