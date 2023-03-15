@@ -49,178 +49,179 @@ public final class WilderWorldGen {
         BiomeModifications.create(WilderSharedConstants.id("replace_forest_grass"))
                 .add(ModificationPhase.REPLACEMENTS,
                         BiomeSelectors.tag(WilderBiomeTags.FOREST_GRASS),
-                        (context) -> {
-                            if (WilderSharedConstants.config().wildGrass()) {
-                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.PATCH_GRASS_FOREST.value());
-                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.GRASS_PLACED.getHolder().value());
-                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TALL_GRASS.getHolder().value());
-                            }
-                        });
+						(context) -> {
+					if (WilderSharedConstants.config().wildGrass()) {
+						context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.PATCH_GRASS_FOREST.value());
+						context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.GRASS_PLACED.getHolder().value());
+						context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TALL_GRASS.getHolder().value());
+					}
+				});
 
         BiomeModifications.create(WilderSharedConstants.id("replace_birch_trees"))
                 .add(ModificationPhase.REPLACEMENTS,
                         BiomeSelectors.includeByKey(Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST),
                         context -> {
-                            if (WilderSharedConstants.config().wildTrees()) {
-                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_BIRCH.value());
-                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_BIRCH.getHolder().value());
-                            }
-                        })
+					if (WilderSharedConstants.config().wildTrees()) {
+						context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_BIRCH.value());
+						context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_BIRCH.getHolder().value());
+					}
+				})
                 .add(ModificationPhase.REPLACEMENTS,
                         BiomeSelectors.includeByKey(Biomes.OLD_GROWTH_BIRCH_FOREST),
                         context -> {
-                            if (WilderSharedConstants.config().wildTrees()) {
-                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.BIRCH_TALL.value());
-                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BIRCH_TALL.getHolder().value());
-                            }
-                        })
+					if (WilderSharedConstants.config().wildTrees()) {
+						context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.BIRCH_TALL.value());
+						context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BIRCH_TALL.getHolder().value());
+					}
+				})
                 .add(ModificationPhase.REPLACEMENTS,
                         BiomeSelectors.includeByKey(Biomes.FLOWER_FOREST),
                         context -> {
-                            if (WilderSharedConstants.config().wildTrees()) {
-                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_BIRCH_AND_OAK.value());
-                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_FLOWER_FOREST.value());
-                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_FLOWER_FOREST.getHolder().value());
-                            }
-                        });
+					if (WilderSharedConstants.config().wildTrees()) {
+						context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_BIRCH_AND_OAK.value());
+						context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_FLOWER_FOREST.value());
+						context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_FLOWER_FOREST.getHolder().value());
+					}
+				});
 
         BiomeModifications.create(WilderSharedConstants.id("replace_plains_trees"))
                 .add(ModificationPhase.REPLACEMENTS,
                         BiomeSelectors.tag(WilderBiomeTags.NON_FROZEN_PLAINS),
                         context -> {
-                            if (WilderSharedConstants.config().wildTrees()) {
-                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_PLAINS.value());
-                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_PLAINS.getHolder().value());
-                            }
-                        });
+					if (WilderSharedConstants.config().wildTrees()) {
+						context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_PLAINS.value());
+						context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_PLAINS.getHolder().value());
+					}
+				});
 
-        BiomeModifications.create(WilderSharedConstants.id("replace_swamp_trees"))
+        BiomeModifications.create(WilderSharedConstants.id("replace_badlands_trees"))
                 .add(ModificationPhase.REPLACEMENTS,
                         BiomeSelectors.includeByKey(Biomes.WOODED_BADLANDS),
-                        context -> {
-                            if (WilderSharedConstants.config().wildTrees()) {
-                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_BADLANDS.value());
-                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.WOODED_BADLANDS_TREES.getHolder().value());
-                            }
-                        });
-		BiomeModifications.create(WilderSharedConstants.id("replace_badlands_trees"))
+						context -> {
+					if (WilderSharedConstants.config().wildTrees()) {
+						context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_BADLANDS.value());
+						context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.WOODED_BADLANDS_TREES.getHolder().value());
+					}
+				});
+
+		BiomeModifications.create(WilderSharedConstants.id("replace_swamp_trees"))
 				.add(ModificationPhase.REPLACEMENTS,
 						BiomeSelectors.tag(WilderBiomeTags.SWAMP_TREES),
 						context -> {
-							if (WilderSharedConstants.config().wildTrees()) {
-								context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_SWAMP.value());
-								context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_SWAMP.getHolder().value());
-							}
-						});
+					if (WilderSharedConstants.config().wildTrees()) {
+						context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_SWAMP.value());
+						context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_SWAMP.getHolder().value());
+					}
+				});
 
         BiomeModifications.create(WilderSharedConstants.id("replace_taiga_trees"))
                 .add(ModificationPhase.REPLACEMENTS,
                         BiomeSelectors.tag(WilderBiomeTags.SHORT_TAIGA),
                         context -> {
-                            if (WilderSharedConstants.config().wildTrees()) {
-                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_TAIGA.value());
-                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SPRUCE_PLACED.getHolder().value());
-                            }
-                        })
+					if (WilderSharedConstants.config().wildTrees()) {
+						context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_TAIGA.value());
+						context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SPRUCE_PLACED.getHolder().value());
+					}
+				})
                 .add(ModificationPhase.REPLACEMENTS,
                         BiomeSelectors.tag(WilderBiomeTags.TALL_PINE_TAIGA),
                         context -> {
-                            if (WilderSharedConstants.config().wildTrees()) {
-                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_OLD_GROWTH_PINE_TAIGA.value());
-                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_OLD_GROWTH_PINE_TAIGA.getHolder().value());
-                            }
-                        })
+					if (WilderSharedConstants.config().wildTrees()) {
+						context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_OLD_GROWTH_PINE_TAIGA.value());
+						context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_OLD_GROWTH_PINE_TAIGA.getHolder().value());
+					}
+				})
                 .add(ModificationPhase.REPLACEMENTS,
                         BiomeSelectors.tag(WilderBiomeTags.TALL_SPRUCE_TAIGA),
                         context -> {
-                            if (WilderSharedConstants.config().wildTrees()) {
-                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_OLD_GROWTH_SPRUCE_TAIGA.value());
-                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_OLD_GROWTH_SPRUCE_TAIGA1.getHolder().value());
-                            }
-                        });
+					if (WilderSharedConstants.config().wildTrees()) {
+						context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_OLD_GROWTH_SPRUCE_TAIGA.value());
+						context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_OLD_GROWTH_SPRUCE_TAIGA1.getHolder().value());
+					}
+				});
 
         BiomeModifications.create(WilderSharedConstants.id("replace_grove_trees"))
                 .add(ModificationPhase.REPLACEMENTS,
                         BiomeSelectors.tag(WilderBiomeTags.GROVE),
                         context -> {
-                            if (WilderSharedConstants.config().wildTrees()) {
-                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_GROVE.value());
-                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_GROVE.getHolder().value());
-                            }
-                        });
+					if (WilderSharedConstants.config().wildTrees()) {
+						context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_GROVE.value());
+						context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_GROVE.getHolder().value());
+					}
+				});
 
         BiomeModifications.create(WilderSharedConstants.id("replace_savanna_trees"))
                 .add(ModificationPhase.REPLACEMENTS,
                         BiomeSelectors.tag(WilderBiomeTags.NORMAL_SAVANNA),
                         context -> {
-                            if (WilderSharedConstants.config().wildTrees()) {
-                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_SAVANNA.value());
-                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SAVANNA_TREES.getHolder().value());
-                            }
-                        })
+					if (WilderSharedConstants.config().wildTrees()) {
+						context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_SAVANNA.value());
+						context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SAVANNA_TREES.getHolder().value());
+					}
+				})
                 .add(ModificationPhase.REPLACEMENTS,
                         BiomeSelectors.tag(WilderBiomeTags.WINDSWEPT_SAVANNA),
                         context -> {
-                            if (WilderSharedConstants.config().wildTrees()) {
-                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_WINDSWEPT_SAVANNA.value());
-                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.WINDSWEPT_SAVANNA_TREES.getHolder().value());
-                            }
-                        });
+					if (WilderSharedConstants.config().wildTrees()) {
+						context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_WINDSWEPT_SAVANNA.value());
+						context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.WINDSWEPT_SAVANNA_TREES.getHolder().value());
+					}
+				});
 
         BiomeModifications.create(WilderSharedConstants.id("replace_snowy_plains_trees"))
                 .add(ModificationPhase.REPLACEMENTS,
                         BiomeSelectors.tag(WilderBiomeTags.SNOWY_PLAINS),
                         context -> {
-                            if (WilderSharedConstants.config().wildTrees()) {
-                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_SNOWY.value());
-                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_SNOWY.getHolder().value());
-                            }
-                        });
+					if (WilderSharedConstants.config().wildTrees()) {
+						context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_SNOWY.value());
+						context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_SNOWY.getHolder().value());
+					}
+				});
 
         BiomeModifications.create(WilderSharedConstants.id("replace_windswept_hills_trees"))
                 .add(ModificationPhase.REPLACEMENTS,
                         BiomeSelectors.tag(WilderBiomeTags.WINDSWEPT_HILLS),
                         context -> {
-                            if (WilderSharedConstants.config().wildTrees()) {
-                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_WINDSWEPT_HILLS.value());
-                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_WINDSWEPT_HILLS.getHolder().value());
-                            }
-                        })
+					if (WilderSharedConstants.config().wildTrees()) {
+						context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_WINDSWEPT_HILLS.value());
+						context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_WINDSWEPT_HILLS.getHolder().value());
+					}
+				})
                 .add(ModificationPhase.REPLACEMENTS,
                         BiomeSelectors.tag(WilderBiomeTags.WINDSWEPT_FOREST),
                         context -> {
-                            if (WilderSharedConstants.config().wildTrees()) {
-                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_WINDSWEPT_FOREST.value());
-                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_WINDSWEPT_FOREST.getHolder().value());
-                            }
-                        });
+					if (WilderSharedConstants.config().wildTrees()) {
+						context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_WINDSWEPT_FOREST.value());
+						context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_WINDSWEPT_FOREST.getHolder().value());
+					}
+				});
 
         BiomeModifications.create(WilderSharedConstants.id("replace_dark_forest_vegetation"))
                 .add(ModificationPhase.REPLACEMENTS,
                         BiomeSelectors.tag(WilderBiomeTags.DARK_FOREST),
                         context -> {
-                            if (WilderSharedConstants.config().wildTrees()) {
-                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.DARK_FOREST_VEGETATION.value());
-                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DARK_FOREST_VEGETATION.getHolder().value());
-                            }
-                        });
+					if (WilderSharedConstants.config().wildTrees()) {
+						context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.DARK_FOREST_VEGETATION.value());
+						context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DARK_FOREST_VEGETATION.getHolder().value());
+					}
+				});
 
         BiomeModifications.create(WilderSharedConstants.id("replace_meadow_trees"))
                 .add(ModificationPhase.REPLACEMENTS,
                         BiomeSelectors.tag(WilderBiomeTags.MEADOW),
                         context -> {
-                            if (WilderSharedConstants.config().wildTrees()) {
-                                context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_MEADOW.value());
-                                context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_MEADOW.getHolder().value());
-                            }
-                        });
+					if (WilderSharedConstants.config().wildTrees()) {
+						context.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_MEADOW.value());
+						context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_MEADOW.getHolder().value());
+					}
+				});
 
     }
 
     private static void generatePollen() {
-
         BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_POLLEN),
                 GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.POLLEN_PLACED.getKey());
     }
+
 }
 
