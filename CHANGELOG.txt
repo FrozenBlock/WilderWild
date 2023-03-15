@@ -4,33 +4,80 @@ Make sure to clear this after each release
 
 Put changelog here:
 -----------------
-Termites:
--Updated Termite particles to swarm around the block
--Updated Termite mound texture
--Player-placed Termites now strip, then hollow logs
--Played-placed blocks are no longer eaten by Termites
--Termite Mounds can now be obtained without Silk Touch
--Termite Mounds now display whether Termites are awake or not
+Features:
+-Added Oasis biome
+-Added Warm River biome
+-Added Arid Forest biome
+-Added Arid Savanna biome
+-Added Parched Forest biome
+-Added Birch Jungle biome
+-Added Sparse Birch Jungle biome
+-Added Birch Taiga biome
+-Added Semi Birch Forest biome
+-Added Dark Birch Forest biome
+-Added Flower Field biome
+-Added Rainforest biome
+-Added Temperate Rainforest biome
+-Added Dark Taiga biome
+-Added Old Growth Birch Taiga biome
+-Added Old Growth Dark Forest biome
+-Added Snowy Old Growth Pine Taiga biome
+-Added Tumbleweed and Tumbleweed Stem blocks
+-Added Tumbleweed entity
+-Added Bush block
+-Added Prickly Pear block and item
+-Added Peeled Prickly Pear item
+-Added Palm Trees
+-Added Palm Blocks
+-Added Coconut and Split Coconut items
+-Added Small Sponge block
+-Added Stripped Stem blocks
+-Added Stripped Hollowed Log and Stem blocks
+-Added wind
+
+Wind: Hear- no. Feel- no. See- maybe. See the effects of wind before your eyes!
+-Can push and pull certain particles
+-Clouds now move with the wind
+-Is used to control Tumbleweed
+
+Tumbleweed: Who wants bouncy balls when you can have bouncy blocks?
+-Tumbleweed are a new entity that get carried along with the wind.
+-Will stop moving and eventually decay without wind.
+-Will decay if left in water for too long.
+    -Note that Tumbleweed can safely remain in Mesoglea.
+-Spawn in Desert, Badlands, Wooded Badlands, Eroded Badlands, and Windswept Savanna biomes.
+-Can spawn with loot. The chances of spawning with loot increase with difficulty.
+-Can pick up one item.
+
+Termite Changes:
+-Updated Termite particles to swarm around the block.
+-Updated Termite mound texture.
+-Player-placed mounds now strip, then hollow logs.
+-Played-placed blocks are no longer eaten by Termites.
+-Can now be obtained without Silk Touch.
+-Now displays whether Termites are awake or not.
 
 Plants:
--Cacti can now be placed next to any block
--Dandelions can now be bonemealed into Seeding Dandelion
--Fixed Glory Of The Snow bonemealing
--Improved Algae bonemealing
--Pollen particles now grow and shrink out of existence, fall in rain, and can no longer exist in water
--Added Tumbleweed Stem, Tumbleweed, Prickly Pear, and Bush Blocks
+-Cacti can now be placed next to any block.
+-Dandelions can now be bonemealed into Seeding Dandelions.
+-Fixed Glory Of The Snow bonemealing.
+-Improved Algae bonemealing.
+-Pollen particles now grow and shrink out of existence, fall in rain, and can no longer exist in water.
+-Added Tumbleweed Stem, Tumbleweed, Prickly Pear, and Bush Blocks.
 
 Blocks:
 -Fixed missing/broken loot tables
 -Sculk Shrieker, Echo Glass, Beehive, and Bee Nest items now display their proper unique textures according to their block states (Souls Taken, Damage, and Honey Level)
--Sand and Red Sand can now be scorched with dripping lava, dripping water, lava, water, and fire above them
--Added Stripped Hollowed Logs, as well as all Hollowed Stem variants
--Logs and Stems can now be hollowed by using an Axe on the top of them
--Hollowed Logs can now be stripped
+-Sand and Red Sand can now be scorched with dripping lava, dripping water, lava, water, and fire above them, or lightning strikes.
+-Added Stripped Hollowed Logs, as well as all Hollowed Stem variants.
+-Logs and Stems can now be hollowed by using an Axe on the top of them.
+-Hollowed Logs can now be stripped.
 
 Jellyfish Caves:
--Large Mesoglea paths and pillars now generate throughout the biome, adding more incentive to explore them and find hidden areas
--Jellyfish can now shrink back into Mesoglea and Nematocyst if spawned naturally and far enough from the player
--Updated Dripping Mesoglea particles to no longer face upwards or downwards while hanging
--Waterlogged Mesoglea now allows Jellyfish to spawn inside of it
--Dry Mesoglea now renders inside of Waterlogged Mesoglea
+-Large Mesoglea paths and pillars now generate throughout the biome, adding more incentive to explore them and find hidden areas.
+-Jellyfish can now shrink back into Mesoglea and Nematocyst if spawned naturally and far enough from the player.
+-Updated Dripping Mesoglea particles to no longer face upwards or downwards while hanging.
+-Waterlogged Mesoglea now allows Jellyfish to spawn inside of it.
+-Dry Mesoglea now renders inside of Waterlogged Mesoglea.
+-Jellyfish can no longer swim through the bottom or sides of Mesoglea unless they're a passanger or leashed.
+-Mesoglea can now optionally be rendered as a liquid whilst Sodium is not being used.
