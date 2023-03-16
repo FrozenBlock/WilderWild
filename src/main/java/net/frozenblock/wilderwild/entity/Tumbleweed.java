@@ -93,7 +93,7 @@ public class Tumbleweed extends Mob {
 	public float itemZ;
 
 	private static final double windMultiplier = 1.4;
-	private static final double windClamp = 0.25;
+	private static final double windClamp = 0.2;
 	private static final float rotationAmount = 55F;
 
 	private static final EntityDataAccessor<ItemStack> ITEM_STACK = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.ITEM_STACK);
