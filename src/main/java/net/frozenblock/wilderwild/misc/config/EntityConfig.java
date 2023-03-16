@@ -170,7 +170,6 @@ public final class EntityConfig implements ConfigData {
 				.setDefaultValue(DefaultEntityConfig.TumbleweedConfig.LEASHED_TUMBLEWEED)
 				.setSaveConsumer(newValue -> tumbleweed.leashedTumbleweed = newValue)
 				.setTooltip(tooltip("leashed_tumbleweed"))
-				.requireRestart()
 				.build();
 
 		var tumbleweedCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("tumbleweed"),

@@ -26,8 +26,10 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterDamageTypes;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -41,6 +43,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -83,6 +86,7 @@ public class Tumbleweed extends Mob {
 	public boolean spawnedFromShears;
 	public int ticksSinceActive;
 	public boolean isItemNatural;
+	public boolean isTouchingLeaves;
 
 	public float prevPitch;
 	public float prevRoll;
@@ -92,7 +96,7 @@ public class Tumbleweed extends Mob {
 	public float itemZ;
 
 	private static final double windMultiplier = 1.4;
-	private static final double windClamp = 0.17;
+	private static final double windClamp = 0.25;
 	private static final float rotationAmount = 55F;
 
 	private static final EntityDataAccessor<ItemStack> ITEM_STACK = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.ITEM_STACK);
@@ -152,7 +156,18 @@ public class Tumbleweed extends Mob {
 	}
 
 	@Override
+	protected void onInsideBlock(@NotNull BlockState state) {
+		if (state.is(BlockTags.LEAVES)) {
+			this.isTouchingLeaves = true;
+		}
+	}
+
+	@Override
 	public void tick() {
+		if (this.isTouchingLeaves) {
+			this.setDeltaMovement(Vec3.ZERO);
+			this.isTouchingLeaves = false;
+		}
 		super.tick();
 		this.setYRot(0F);
 		Vec3 deltaPos = this.getDeltaPos();
@@ -161,8 +176,11 @@ public class Tumbleweed extends Mob {
 		}
 		this.prevPitch = this.pitch;
 		this.prevRoll = this.roll;
+		float yRotAmount = (float) ((deltaPos.y * 0.5F) * rotationAmount);
 		this.pitch += deltaPos.z * rotationAmount;
 		this.roll += deltaPos.x * rotationAmount;
+		this.pitch += yRotAmount;
+		this.roll += yRotAmount;
 		if (this.pitch > 360F) {
 			this.pitch -= 360F;
 			this.prevPitch -= 360F;
@@ -178,7 +196,8 @@ public class Tumbleweed extends Mob {
 			this.heal(1F);
 			double brightness = this.level.getBrightness(LightLayer.SKY, this.blockPosition());
 			Player entity = this.level.getNearestPlayer(this, -1.0);
-			if ((brightness < 7 && !this.requiresCustomPersistence() && (entity == null || entity.distanceTo(this) > 24)) || (this.wasTouchingWater && !(this.getFeetBlockState().getBlock() instanceof MesogleaBlock))) {
+			boolean isTouchingStoppingBlock = this.isCollidingWithStoppingBlock();
+			if (!this.requiresCustomPersistence() && ((brightness < 7 && (entity == null || entity.distanceTo(this) > 24)) || isTouchingStoppingBlock || this.isTouchingLeaves || (this.wasTouchingWater && !(this.getFeetBlockState().getBlock() instanceof MesogleaBlock)))) {
 				++this.ticksSinceActive;
 				if (this.ticksSinceActive >= 200) {
 					this.destroy(false);
@@ -187,28 +206,31 @@ public class Tumbleweed extends Mob {
 				this.ticksSinceActive = 0;
 			}
 
-			Vec3 deltaMovement = this.getDeltaMovement();
-			WindManager windManager = WindManager.getWindManager(serverLevel);
-			double multiplier = (Math.max((brightness - (Math.max(15 - brightness, 0))), 0) * 0.0667) * (this.wasTouchingWater ? 0.16777216 : 1);
-			double windX = Mth.clamp(windManager.windX * windMultiplier, -windClamp, windClamp);
-			double windZ = Mth.clamp(windManager.windZ * windMultiplier, -windClamp, windClamp);
-			deltaMovement = deltaMovement.add((windX * 0.2) * multiplier, 0, (windZ * 0.2) * multiplier);
-			deltaMovement = new Vec3(deltaMovement.x, deltaMovement.y < 0 ? deltaMovement.y * 0.88 : deltaMovement.y, deltaMovement.z);
-			if (deltaPos.y <= 0 && this.isOnGround()) {
-				deltaMovement = deltaMovement.add(0, Math.min(0.65, ((deltaPos.horizontalDistance() * 1.2))) * multiplier, 0);
+			if (!(isTouchingStoppingBlock || this.isTouchingLeaves)) {
+				Vec3 deltaMovement = this.getDeltaMovement();
+				WindManager windManager = WindManager.getWindManager(serverLevel);
+				double multiplier = (Math.max((brightness - (Math.max(15 - brightness, 0))), 0) * 0.0667) * (this.wasTouchingWater ? 0.16777216 : 1);
+				double windX = Mth.clamp(windManager.windX * windMultiplier, -windClamp, windClamp);
+				double windZ = Mth.clamp(windManager.windZ * windMultiplier, -windClamp, windClamp);
+				deltaMovement = deltaMovement.add((windX * 0.2) * multiplier, 0, (windZ * 0.2) * multiplier);
+				deltaMovement = new Vec3(deltaMovement.x, deltaMovement.y < 0 ? deltaMovement.y * 0.88 : deltaMovement.y, deltaMovement.z);
+				if (deltaPos.y <= 0 && this.isOnGround()) {
+					deltaMovement = deltaMovement.add(0, Math.min(0.65, ((deltaPos.horizontalDistance() * 1.2))) * multiplier, 0);
+				}
+				if (deltaPos.x == 0) {
+					double nonNegX = deltaMovement.x < 0 ? -deltaMovement.x : deltaMovement.x;
+					deltaMovement = deltaMovement.add(0, (nonNegX * 1.8) * multiplier, 0);
+				}
+				if (deltaPos.z == 0) {
+					double nonNegZ = deltaMovement.z < 0 ? -deltaMovement.z : deltaMovement.z;
+					deltaMovement = deltaMovement.add(0, (nonNegZ * 1.8) * multiplier, 0);
+				}
+				if (this.wasEyeInWater) {
+					deltaMovement = deltaMovement.add(0, 0.01, 0);
+				}
+				this.setDeltaMovement(deltaMovement);
 			}
-			if (deltaPos.x == 0) {
-				double nonNegX = deltaMovement.x < 0 ? -deltaMovement.x : deltaMovement.x;
-				deltaMovement = deltaMovement.add(0, (nonNegX * 1.8) * multiplier, 0);
-			}
-			if (deltaPos.z == 0) {
-				double nonNegZ = deltaMovement.z < 0 ? -deltaMovement.z : deltaMovement.z;
-				deltaMovement = deltaMovement.add(0, (nonNegZ * 1.8) * multiplier, 0);
-			}
-			if (this.wasEyeInWater) {
-				deltaMovement = deltaMovement.add(0, 0.01, 0);
-			}
-			this.setDeltaMovement(deltaMovement);
+
 			this.tickAfterWindLeash();
 
 			ItemStack stack = this.inventory.get(0);
@@ -218,6 +240,42 @@ public class Tumbleweed extends Mob {
 			this.pickupItem();
 			this.setVisibleItem(stack);
 		}
+
+	}
+
+	public boolean isCollidingWithStoppingBlock() {
+		BlockPos.MutableBlockPos mutableBlockPos = this.blockPosition().mutable();
+		if (this.doesBlockStopMe(this.level.getBlockState(mutableBlockPos), mutableBlockPos)) {
+			return true;
+		}
+		if (this.verticalCollision) {
+			mutableBlockPos.move(Direction.UP);
+			if (this.doesBlockStopMe(this.level.getBlockState(mutableBlockPos), mutableBlockPos)) {
+				return true;
+			}
+			mutableBlockPos.move(Direction.UP, -1);
+		}
+		if (this.verticalCollisionBelow) {
+			mutableBlockPos.move(Direction.DOWN);
+			if (this.doesBlockStopMe(this.level.getBlockState(mutableBlockPos), mutableBlockPos)) {
+				return true;
+			}
+			mutableBlockPos.move(Direction.DOWN, -1);
+		}
+		if (this.horizontalCollision) {
+			for (Direction direction : Direction.Plane.HORIZONTAL) {
+				mutableBlockPos.move(direction);
+				if (this.doesBlockStopMe(this.level.getBlockState(mutableBlockPos), mutableBlockPos)) {
+					return true;
+				}
+				mutableBlockPos.move(direction, -1);
+			}
+		}
+		return false;
+	}
+
+	private boolean doesBlockStopMe(BlockState state, BlockPos pos) {
+		return state.is(WilderBlockTags.STOPS_TUMBLEWEED) && this.isColliding(pos, state);
 	}
 
 	protected void tickAfterWindLeash() {
@@ -342,7 +400,7 @@ public class Tumbleweed extends Mob {
 
 	@Override
 	protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
-		this.playSound(RegisterSounds.ENTITY_TUMBLEWEED_BOUNCE, 0.15f, 1.0f);
+		this.playSound(RegisterSounds.ENTITY_TUMBLEWEED_BOUNCE, 0.2F, 1F);
 	}
 
 	@Override
@@ -388,13 +446,14 @@ public class Tumbleweed extends Mob {
 	@Override
 	public void readAdditionalSaveData(@NotNull CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
-		this.spawnedFromShears = compound.getBoolean("spawned_from_shears");
-		this.ticksSinceActive = compound.getInt("ticks_since_active");
-		this.isItemNatural = compound.getBoolean("is_tumbleweed_item_natural");
-		this.setItemX(compound.getFloat("item_x"));
-		this.setItemZ(compound.getFloat("item_z"));
-		this.pitch = compound.getFloat("tumble_pitch");
-		this.roll = compound.getFloat("tumble_roll");
+		this.spawnedFromShears = compound.getBoolean("SpawnedFromShears");
+		this.ticksSinceActive = compound.getInt("TicksSinceActive");
+		this.isItemNatural = compound.getBoolean("IsTumbleweedItemNatural");
+		this.setItemX(compound.getFloat("ItemX"));
+		this.setItemZ(compound.getFloat("ItemZ"));
+		this.pitch = compound.getFloat("TumblePitch");
+		this.roll = compound.getFloat("TumbleRoll");
+		this.isTouchingLeaves = compound.getBoolean("IsTouchingLeaves");
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
 		ContainerHelper.loadAllItems(compound, this.inventory);
 	}
@@ -402,13 +461,14 @@ public class Tumbleweed extends Mob {
 	@Override
 	public void addAdditionalSaveData(@NotNull CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
-		compound.putBoolean("spawned_from_shears", this.spawnedFromShears);
-		compound.putInt("ticks_since_active", this.ticksSinceActive);
-		compound.putBoolean("is_tumbleweed_item_natural", this.isItemNatural);
-		compound.putFloat("item_x", this.getItemX());
-		compound.putFloat("item_z", this.getItemZ());
-		compound.putFloat("tumble_pitch", this.pitch);
-		compound.putFloat("tumble_roll", this.roll);
+		compound.putBoolean("SpawnedFromShears", this.spawnedFromShears);
+		compound.putInt("TicksSinceActive", this.ticksSinceActive);
+		compound.putBoolean("IsTumbleweedItemNatural", this.isItemNatural);
+		compound.putFloat("ItemX", this.getItemX());
+		compound.putFloat("ItemZ", this.getItemZ());
+		compound.putFloat("TumblePitch", this.pitch);
+		compound.putFloat("TumbleRoll", this.roll);
+		compound.putBoolean("IsTouchingLeaves", this.isTouchingLeaves);
 		ContainerHelper.saveAllItems(compound, this.inventory);
 	}
 
@@ -441,7 +501,7 @@ public class Tumbleweed extends Mob {
 
 	@Override
 	public boolean requiresCustomPersistence() {
-		return super.requiresCustomPersistence() || this.spawnedFromShears || this.isLeashed();
+		return super.requiresCustomPersistence() || this.spawnedFromShears || this.isLeashed() || this.hasCustomName();
 	}
 
 	@Override

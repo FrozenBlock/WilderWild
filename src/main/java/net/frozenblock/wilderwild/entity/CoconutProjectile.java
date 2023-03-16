@@ -96,7 +96,7 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 	@Override
 	protected void onHitBlock(@NotNull BlockHitResult result) {
 		super.onHitBlock(result);
-		if (this.level.getBlockState(result.getBlockPos()).is(WilderBlockTags.SPLITS_COCONUTS)) {
+		if (this.level.getBlockState(result.getBlockPos()).is(WilderBlockTags.SPLITS_COCONUT)) {
 			this.split();
 			return;
 		}
