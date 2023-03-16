@@ -25,8 +25,10 @@ import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -175,7 +177,8 @@ public class Tumbleweed extends Mob {
 			this.heal(1F);
 			double brightness = this.level.getBrightness(LightLayer.SKY, this.blockPosition());
 			Player entity = this.level.getNearestPlayer(this, -1.0);
-			if ((brightness < 7 && !this.requiresCustomPersistence() && (entity == null || entity.distanceTo(this) > 24)) || (this.wasTouchingWater && !(this.getFeetBlockState().getBlock() instanceof MesogleaBlock))) {
+			boolean isTouchingStoppingBlock = this.isCollidingWithStoppingBlock();
+			if (!this.requiresCustomPersistence() && ((brightness < 7 && (entity == null || entity.distanceTo(this) > 24)) || isTouchingStoppingBlock || (this.wasTouchingWater && !(this.getFeetBlockState().getBlock() instanceof MesogleaBlock)))) {
 				++this.ticksSinceActive;
 				if (this.ticksSinceActive >= 200) {
 					this.destroy(false);
@@ -186,7 +189,7 @@ public class Tumbleweed extends Mob {
 
 			Vec3 deltaMovement = this.getDeltaMovement();
 			WindManager windManager = WindManager.getWindManager(serverLevel);
-			double multiplier = (Math.max((brightness - (Math.max(15 - brightness, 0))), 0) * 0.0667) * (this.wasTouchingWater ? 0.16777216 : 1);
+			double multiplier = isTouchingStoppingBlock ? 0 : (Math.max((brightness - (Math.max(15 - brightness, 0))), 0) * 0.0667) * (this.wasTouchingWater ? 0.16777216 : 1);
 			double windX = Mth.clamp(windManager.windX * windMultiplier, -windClamp, windClamp);
 			double windZ = Mth.clamp(windManager.windZ * windMultiplier, -windClamp, windClamp);
 			deltaMovement = deltaMovement.add((windX * 0.2) * multiplier, 0, (windZ * 0.2) * multiplier);
@@ -215,6 +218,41 @@ public class Tumbleweed extends Mob {
 			this.pickupItem();
 			this.setVisibleItem(stack);
 		}
+	}
+
+	public boolean isCollidingWithStoppingBlock() {
+		BlockPos.MutableBlockPos mutableBlockPos = this.blockPosition().mutable();
+		if (this.doesBlockStopMe(this.level.getBlockState(mutableBlockPos), mutableBlockPos)) {
+			return true;
+		}
+		if (this.verticalCollision) {
+			mutableBlockPos.move(Direction.UP);
+			if (this.doesBlockStopMe(this.level.getBlockState(mutableBlockPos), mutableBlockPos)) {
+				return true;
+			}
+			mutableBlockPos.move(Direction.UP, -1);
+		}
+		if (this.verticalCollisionBelow) {
+			mutableBlockPos.move(Direction.DOWN);
+			if (this.doesBlockStopMe(this.level.getBlockState(mutableBlockPos), mutableBlockPos)) {
+				return true;
+			}
+			mutableBlockPos.move(Direction.DOWN, -1);
+		}
+		if (this.horizontalCollision) {
+			for (Direction direction : Direction.Plane.HORIZONTAL) {
+				mutableBlockPos.move(direction);
+				if (this.doesBlockStopMe(this.level.getBlockState(mutableBlockPos), mutableBlockPos)) {
+					return true;
+				}
+				mutableBlockPos.move(direction, -1);
+			}
+		}
+		return false;
+	}
+
+	private boolean doesBlockStopMe(BlockState state, BlockPos pos) {
+		return state.is(WilderBlockTags.STOPS_TUMBLEWEED) && this.isColliding(pos, state);
 	}
 
 	protected void tickAfterWindLeash() {

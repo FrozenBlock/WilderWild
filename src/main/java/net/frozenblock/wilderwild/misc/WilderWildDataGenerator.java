@@ -828,6 +828,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.generateDeepDark();
 			this.generateHollowedAndTermites();
 			this.generateCoconutSplitters();
+			this.generateTumbleweedStoppers();
 			this.getOrCreateTagBuilder(BlockTags.SAND)
 					.add(RegisterBlocks.SCORCHED_SAND)
 					.add(RegisterBlocks.SCORCHED_RED_SAND);
@@ -835,13 +836,21 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 		}
 
 		private void generateCoconutSplitters() {
-			this.getOrCreateTagBuilder(WilderBlockTags.SPLITS_COCONUTS)
+			this.getOrCreateTagBuilder(WilderBlockTags.SPLITS_COCONUT)
 					.addOptionalTag(BlockTags.MINEABLE_WITH_PICKAXE)
 					.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
 					.addOptionalTag(BlockTags.BASE_STONE_NETHER)
 					.addOptionalTag(BlockTags.DRAGON_IMMUNE)
 					.addOptionalTag(BlockTags.WITHER_IMMUNE)
 					.addOptionalTag(BlockTags.LOGS);
+		}
+
+		private void generateTumbleweedStoppers() {
+			this.getOrCreateTagBuilder(WilderBlockTags.STOPS_TUMBLEWEED)
+					.add(Blocks.MUD)
+					.add(Blocks.MUDDY_MANGROVE_ROOTS)
+					.add(Blocks.SLIME_BLOCK)
+					.add(Blocks.HONEY_BLOCK);
 		}
 
 		private void generateDeepDark() {
