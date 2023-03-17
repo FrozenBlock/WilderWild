@@ -84,11 +84,20 @@ public final class WilderMiscGeneration {
 		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SCORCHED_RED_SAND),
 				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.SCORCHED_RED_SAND_HUGE.getKey());
 
+		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SMALL_SAND_TRANSITION),
+				GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.SMALL_SAND_TRANSITION.getKey());
+
 		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SAND_TRANSITION),
-				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.SAND_TRANSITION.getKey());
+				GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.SAND_TRANSITION.getKey());
 
 		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_RED_SAND_TRANSITION),
-				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.RED_SAND_TRANSITION.getKey());
+				GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.RED_SAND_TRANSITION.getKey());
+
+		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_STONE_TRANSITION),
+				GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.STONE_TRANSITION.getKey());
+
+		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SNOW_TRANSITION),
+				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.SNOW_TRANSITION.getKey());
 
 		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SANDSTONE_PATH),
 				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.SANDSTONE_PATH.getKey());
@@ -104,6 +113,7 @@ public final class WilderMiscGeneration {
 
 		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.RAINFOREST),
 				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.BASIN_RAINFOREST.getKey());
+
 
 		if (WilderSharedConstants.config().snowBelowTrees()) {
 			BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(),

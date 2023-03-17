@@ -75,6 +75,10 @@ public final class WilderMiscPlaced {
 
 	public static final FrozenPlacedFeature UNDER_WATER_GRAVEL_PATH_RIVER = register("under_water_gravel_path_river");
 
+	public static final FrozenPlacedFeature STONE_TRANSITION = register("stone_transition");
+
+	public static final FrozenPlacedFeature SMALL_SAND_TRANSITION = register("small_sand_transition");
+
 	// SAVANNA
 	public static final FrozenPlacedFeature PACKED_MUD_PATH = register("packed_mud_path");
 
@@ -156,6 +160,8 @@ public final class WilderMiscPlaced {
 	//SNOW
 	public static final FrozenPlacedFeature SNOW_BLANKET = register("snow_blanket");
 
+	public static final FrozenPlacedFeature SNOW_TRANSITION = register("snow_transition");
+
 	public static void registerMiscPlaced(BootstapContext<PlacedFeature> entries) {
 
 		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
@@ -235,6 +241,20 @@ public final class WilderMiscPlaced {
 
 		UNDER_WATER_GRAVEL_PATH_RIVER.makeAndSetHolder(WilderMiscConfigured.UNDER_WATER_GRAVEL_PATH_RIVER.getHolder(),
 				RarityFilter.onAverageOnceEvery(5),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BiomeFilter.biome()
+		);
+
+		STONE_TRANSITION.makeAndSetHolder(WilderMiscConfigured.STONE_TRANSITION_DISK.getHolder(),
+				CountPlacement.of(5),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BiomeFilter.biome()
+		);
+
+		SMALL_SAND_TRANSITION.makeAndSetHolder(WilderMiscConfigured.SMALL_SAND_TRANSITION_DISK.getHolder(),
+				CountPlacement.of(5),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 				BiomeFilter.biome()
@@ -511,6 +531,13 @@ public final class WilderMiscPlaced {
 		SNOW_BLANKET.makeAndSetHolder(WilderMiscConfigured.SNOW_BLANKET.getHolder(),
 				CountPlacement.of(1),
 				PlacementUtils.HEIGHTMAP
+		);
+
+		SNOW_TRANSITION.makeAndSetHolder(WilderMiscConfigured.SNOW_TRANSITION_DISK.getHolder(),
+				CountPlacement.of(5),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BiomeFilter.biome()
 		);
 	}
 
