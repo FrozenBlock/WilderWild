@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:snowy_beach",
+    "minecraft:snowy_plains",
+    "minecraft:snowy_slopes",
+    "minecraft:snowy_taiga",
+    "minecraft:grove",
+    "minecraft:ice_spikes",
+    "minecraft:frozen_peaks",
+    {
+      "id": "wilderwild:snowy_old_growth_pine_taiga",
+      "required": false
+    }
+  ]
+}

@@ -20,7 +20,9 @@ package net.frozenblock.wilderwild.world.additions.feature;
 
 import java.util.List;
 import net.frozenblock.lib.feature.FrozenFeatures;
+import net.frozenblock.lib.feature.features.config.FadingDiskCarpetFeatureConfig;
 import net.frozenblock.lib.feature.features.config.FadingDiskFeatureConfig;
+import net.frozenblock.lib.feature.features.config.FadingDiskTagFeatureConfig;
 import net.frozenblock.lib.feature.features.config.PathFeatureConfig;
 import net.frozenblock.lib.feature.features.config.PathSwapUnderWaterFeatureConfig;
 import net.frozenblock.lib.feature.features.config.PillarFeatureConfig;
@@ -89,6 +91,10 @@ public final class WilderMiscConfigured {
 
 	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> UNDER_WATER_GRAVEL_PATH_RIVER = register("under_water_gravel_path_river");
 
+	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> STONE_TRANSITION_DISK = register("stone_transition_disk");
+
+	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SMALL_SAND_TRANSITION_DISK = register("small_sand_transition_disk");
+
 	// SAVANNA
 	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> PACKED_MUD_PATH = register("packed_mud_path");
 
@@ -108,7 +114,7 @@ public final class WilderMiscConfigured {
 
 	public static final FrozenConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> SCORCHED_SAND_DISK_LIGHTNING = register("scorched_sand_lightning");
 
-	public static final FrozenConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> SAND_TRANSITION_DISK = register("sand_transition");
+	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SAND_TRANSITION_DISK = register("sand_transition");
 
 	// BADLANDS
 	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> COARSE_DIRT_PATH_SMALL = register("coarse_dirt_path_small");
@@ -121,7 +127,7 @@ public final class WilderMiscConfigured {
 
 	public static final FrozenConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> SCORCHED_RED_SAND_DISK_LIGHTNING = register("scorched_red_sand_lightning");
 
-	public static final FrozenConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> RED_SAND_TRANSITION_DISK = register("red_sand_transition");
+	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> RED_SAND_TRANSITION_DISK = register("red_sand_transition");
 
 	// JELLYFISH CAVES
 	public static final FrozenConfiguredFeature<OreConfiguration, ConfiguredFeature<OreConfiguration, ?>> ORE_CALCITE = register("ore_calcite");
@@ -168,6 +174,8 @@ public final class WilderMiscConfigured {
 
 	//SNOW
 	public static final FrozenConfiguredFeature<NoneFeatureConfiguration, ConfiguredFeature<NoneFeatureConfiguration, ?>> SNOW_BLANKET = register("snow_blanket");
+
+	public static final FrozenConfiguredFeature<FadingDiskCarpetFeatureConfig, ConfiguredFeature<FadingDiskCarpetFeatureConfig, ?>> SNOW_TRANSITION_DISK = register("snow_transition_disk");
 
 	public static void registerMiscPlaced() {
 
@@ -334,6 +342,36 @@ public final class WilderMiscConfigured {
 				)
 		);
 
+		STONE_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
+				new FadingDiskTagFeatureConfig(
+						true,
+						BlockStateProvider.simple(Blocks.STONE),
+						BlockStateProvider.simple(Blocks.STONE),
+						UniformInt.of(6, 7),
+						0.65F,
+						0.5F,
+						0.5F,
+						0.5F,
+						WilderBlockTags.STONE_TRANSITION_REPLACEABLE,
+						WilderBlockTags.STONE_TRANSITION_REPLACEABLE
+				)
+		);
+
+		SMALL_SAND_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
+				new FadingDiskTagFeatureConfig(
+						true,
+						BlockStateProvider.simple(Blocks.SAND),
+						BlockStateProvider.simple(Blocks.SAND),
+						UniformInt.of(6, 7),
+						0.65F,
+						0.5F,
+						0.5F,
+						0.5F,
+						WilderBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE,
+						WilderBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE
+				)
+		);
+
 		PACKED_MUD_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_FEATURE,
 				new PathFeatureConfig(
 						BlockStateProvider.simple(Blocks.PACKED_MUD),
@@ -457,30 +495,18 @@ public final class WilderMiscConfigured {
 				)
 		);
 
-		SAND_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_FEATURE,
-				new FadingDiskFeatureConfig(
+		SAND_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
+				new FadingDiskTagFeatureConfig(
 						true,
 						BlockStateProvider.simple(Blocks.SAND),
 						BlockStateProvider.simple(Blocks.SAND),
-						UniformInt.of(10, 16),
+						UniformInt.of(7, 12),
 						0.65F,
 						0.875F,
 						0.65F,
 						0.5F,
-						HolderSet.direct(
-								Blocks.GRAVEL.builtInRegistryHolder(),
-								Blocks.GRASS_BLOCK.builtInRegistryHolder(),
-								Blocks.STONE.builtInRegistryHolder(),
-								Blocks.DIRT.builtInRegistryHolder(),
-								Blocks.MUD.builtInRegistryHolder()
-						),
-						HolderSet.direct(
-								Blocks.GRAVEL.builtInRegistryHolder(),
-								Blocks.GRASS_BLOCK.builtInRegistryHolder(),
-								Blocks.STONE.builtInRegistryHolder(),
-								Blocks.DIRT.builtInRegistryHolder(),
-								Blocks.MUD.builtInRegistryHolder()
-						)
+						WilderBlockTags.SAND_TRANSITION_REPLACEABLE,
+						WilderBlockTags.SAND_TRANSITION_REPLACEABLE
 				)
 		);
 
@@ -589,32 +615,18 @@ public final class WilderMiscConfigured {
 				)
 		);
 
-		RED_SAND_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_FEATURE,
-				new FadingDiskFeatureConfig(
+		RED_SAND_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
+				new FadingDiskTagFeatureConfig(
 						true,
 						BlockStateProvider.simple(Blocks.RED_SAND),
 						BlockStateProvider.simple(Blocks.RED_SAND),
-						UniformInt.of(10, 16),
+						UniformInt.of(7, 12),
 						0.65F,
 						0.875F,
 						0.65F,
 						0.5F,
-						HolderSet.direct(
-								Blocks.SAND.builtInRegistryHolder(),
-								Blocks.GRAVEL.builtInRegistryHolder(),
-								Blocks.GRASS_BLOCK.builtInRegistryHolder(),
-								Blocks.STONE.builtInRegistryHolder(),
-								Blocks.DIRT.builtInRegistryHolder(),
-								Blocks.MUD.builtInRegistryHolder()
-						),
-						HolderSet.direct(
-								Blocks.SAND.builtInRegistryHolder(),
-								Blocks.GRAVEL.builtInRegistryHolder(),
-								Blocks.GRASS_BLOCK.builtInRegistryHolder(),
-								Blocks.STONE.builtInRegistryHolder(),
-								Blocks.DIRT.builtInRegistryHolder(),
-								Blocks.MUD.builtInRegistryHolder()
-						)
+						WilderBlockTags.RED_SAND_TRANSITION_REPLACEABLE,
+						WilderBlockTags.RED_SAND_TRANSITION_REPLACEABLE
 				)
 		);
 
@@ -889,5 +901,21 @@ public final class WilderMiscConfigured {
 		);
 
 		SNOW_BLANKET.makeAndSetHolder(WilderWild.SNOW_BLANKET_FEATURE, NoneFeatureConfiguration.INSTANCE);
+
+		SNOW_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_CARPET_FEATURE,
+				new FadingDiskCarpetFeatureConfig(
+						true,
+						BlockStateProvider.simple(Blocks.SNOW),
+						BlockStateProvider.simple(Blocks.SNOW),
+						UniformInt.of(6, 7),
+						0.65F,
+						0.5F,
+						0.5F,
+						0.5F,
+						WilderBlockTags.SNOW_TRANSITION_PLACEABLE,
+						WilderBlockTags.SNOW_TRANSITION_REPLACEABLE,
+						WilderBlockTags.SNOW_TRANSITION_REPLACEABLE
+				)
+		);
 	}
 }

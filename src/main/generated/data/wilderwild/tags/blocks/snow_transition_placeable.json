@@ -1,0 +1,24 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:grass_block",
+    "minecraft:gravel",
+    "minecraft:snow",
+    {
+      "id": "#minecraft:dirt",
+      "required": false
+    },
+    {
+      "id": "#minecraft:base_stone_overworld",
+      "required": false
+    },
+    {
+      "id": "#minecraft:leaves",
+      "required": false
+    },
+    {
+      "id": "#minecraft:sand",
+      "required": false
+    }
+  ]
+}
