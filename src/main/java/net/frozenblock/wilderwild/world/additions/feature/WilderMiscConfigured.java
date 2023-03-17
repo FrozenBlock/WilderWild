@@ -476,13 +476,15 @@ public final class WilderMiscConfigured {
 								Blocks.GRAVEL.builtInRegistryHolder(),
 								Blocks.GRASS_BLOCK.builtInRegistryHolder(),
 								Blocks.STONE.builtInRegistryHolder(),
-								Blocks.DIRT.builtInRegistryHolder()
+								Blocks.DIRT.builtInRegistryHolder(),
+								Blocks.MUD.builtInRegistryHolder()
 						),
 						HolderSet.direct(
 								Blocks.GRAVEL.builtInRegistryHolder(),
 								Blocks.GRASS_BLOCK.builtInRegistryHolder(),
 								Blocks.STONE.builtInRegistryHolder(),
-								Blocks.DIRT.builtInRegistryHolder()
+								Blocks.DIRT.builtInRegistryHolder(),
+								Blocks.MUD.builtInRegistryHolder()
 						)
 				)
 		);
@@ -607,14 +609,16 @@ public final class WilderMiscConfigured {
 								Blocks.GRAVEL.builtInRegistryHolder(),
 								Blocks.GRASS_BLOCK.builtInRegistryHolder(),
 								Blocks.STONE.builtInRegistryHolder(),
-								Blocks.DIRT.builtInRegistryHolder()
+								Blocks.DIRT.builtInRegistryHolder(),
+								Blocks.MUD.builtInRegistryHolder()
 						),
 						HolderSet.direct(
 								Blocks.SAND.builtInRegistryHolder(),
 								Blocks.GRAVEL.builtInRegistryHolder(),
 								Blocks.GRASS_BLOCK.builtInRegistryHolder(),
 								Blocks.STONE.builtInRegistryHolder(),
-								Blocks.DIRT.builtInRegistryHolder()
+								Blocks.DIRT.builtInRegistryHolder(),
+								Blocks.MUD.builtInRegistryHolder()
 						)
 				)
 		);
