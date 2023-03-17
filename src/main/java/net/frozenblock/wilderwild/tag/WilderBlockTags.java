@@ -49,6 +49,12 @@ public final class WilderBlockTags {
 	public static final TagKey<Block> BASIN_RAINFOREST_REPLACEABLE = bind("basin_rainforest_replaceable");
 	public static final TagKey<Block> SPLITS_COCONUT = bind("splits_coconut");
 	public static final TagKey<Block> STOPS_TUMBLEWEED = bind("stops_tumbleweed");
+	public static final TagKey<Block> SNOW_TRANSITION_PLACEABLE = bind("snow_transition_placeable");
+	public static final TagKey<Block> SNOW_TRANSITION_REPLACEABLE = bind("snow_transition_replaceable");
+	public static final TagKey<Block> STONE_TRANSITION_REPLACEABLE = bind("red_sand_transition_replaceable");
+	public static final TagKey<Block> SMALL_SAND_TRANSITION_REPLACEABLE = bind("small_sand_transition_replaceable");
+	public static final TagKey<Block> SAND_TRANSITION_REPLACEABLE = bind("sand_transition_replaceable");
+	public static final TagKey<Block> RED_SAND_TRANSITION_REPLACEABLE = bind("red_sand_transition_replaceable");
 
 	private static TagKey<Block> bind(String path) {
 		return TagKey.create(Registry.BLOCK_REGISTRY, WilderSharedConstants.id(path));

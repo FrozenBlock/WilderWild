@@ -700,6 +700,11 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SCORCHED_RED_SAND)
 					.addOptionalTag(BiomeTags.IS_BADLANDS);
 
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SMALL_SAND_TRANSITION)
+					.add(Biomes.SNOWY_BEACH)
+					.add(Biomes.BEACH)
+					.addOptional(RegisterWorldgen.WARM_RIVER);
+
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SAND_TRANSITION)
 					.add(Biomes.DESERT)
 					.addOptional(RegisterWorldgen.OASIS)
@@ -708,6 +713,20 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_RED_SAND_TRANSITION)
 					.addOptionalTag(BiomeTags.IS_BADLANDS);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_STONE_TRANSITION)
+					.add(Biomes.STONY_PEAKS)
+					.add(Biomes.STONY_SHORE);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNOW_TRANSITION)
+					.add(Biomes.SNOWY_BEACH)
+					.add(Biomes.SNOWY_PLAINS)
+					.add(Biomes.SNOWY_SLOPES)
+					.add(Biomes.SNOWY_TAIGA)
+					.add(Biomes.GROVE)
+					.add(Biomes.ICE_SPIKES)
+					.add(Biomes.FROZEN_PEAKS)
+					.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_TERMITE_MOUND)
 					.addOptionalTag(BiomeTags.IS_SAVANNA);
@@ -823,6 +842,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 		@Override
 		protected void generateTags() {
+			this.generateFeatures();
 			this.generateDeepDark();
 			this.generateHollowedAndTermites();
 			this.generateCoconutSplitters();
@@ -831,6 +851,48 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(RegisterBlocks.SCORCHED_SAND)
 					.add(RegisterBlocks.SCORCHED_RED_SAND);
 
+		}
+
+		private void generateFeatures() {
+			this.getOrCreateTagBuilder(WilderBlockTags.STONE_TRANSITION_REPLACEABLE)
+					.add(Blocks.GRASS_BLOCK)
+					.add(Blocks.DIRT)
+					.add(Blocks.MUD)
+					.add(Blocks.SAND);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE)
+					.add(Blocks.GRASS_BLOCK)
+					.add(Blocks.DIRT)
+					.add(Blocks.MUD);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.SAND_TRANSITION_REPLACEABLE)
+					.add(Blocks.GRAVEL)
+					.add(Blocks.GRASS_BLOCK)
+					.add(Blocks.STONE)
+					.add(Blocks.DIRT)
+					.add(Blocks.MUD);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.RED_SAND_TRANSITION_REPLACEABLE)
+					.add(Blocks.GRASS_BLOCK)
+					.add(Blocks.GRAVEL)
+					.add(Blocks.MUD)
+					.add(Blocks.SAND)
+					.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
+					.addOptionalTag(BlockTags.LEAVES);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.SNOW_TRANSITION_PLACEABLE)
+					.add(Blocks.GRASS_BLOCK)
+					.add(Blocks.GRAVEL)
+					.add(Blocks.SNOW)
+					.addOptionalTag(BlockTags.DIRT)
+					.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
+					.addOptionalTag(BlockTags.LEAVES)
+					.addOptionalTag(BlockTags.SAND);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.SNOW_TRANSITION_REPLACEABLE)
+					.add(Blocks.AIR)
+					.add(Blocks.CAVE_AIR)
+					.add(Blocks.VOID_AIR);
 		}
 
 		private void generateCoconutSplitters() {
