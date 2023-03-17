@@ -1,30 +1,16 @@
 {
-  "type": "frozenlib:fading_disk_feature",
+  "type": "frozenlib:fading_disk_tag_feature",
   "config": {
     "innerChance": 0.875,
     "innerPercent": 0.65,
-    "innerReplaceable": [
-      "minecraft:sand",
-      "minecraft:gravel",
-      "minecraft:grass_block",
-      "minecraft:stone",
-      "minecraft:dirt",
-      "minecraft:mud"
-    ],
+    "innerReplaceable": "wilderwild:red_sand_transition_replaceable",
     "innerState": {
       "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "minecraft:red_sand"
       }
     },
-    "outerReplaceable": [
-      "minecraft:sand",
-      "minecraft:gravel",
-      "minecraft:grass_block",
-      "minecraft:stone",
-      "minecraft:dirt",
-      "minecraft:mud"
-    ],
+    "outerReplaceable": "wilderwild:red_sand_transition_replaceable",
     "outerState": {
       "type": "minecraft:simple_state_provider",
       "state": {
@@ -35,8 +21,8 @@
     "radius": {
       "type": "minecraft:uniform",
       "value": {
-        "max_inclusive": 16,
-        "min_inclusive": 10
+        "max_inclusive": 12,
+        "min_inclusive": 7
       }
     },
     "startFadePercent": 0.5,
