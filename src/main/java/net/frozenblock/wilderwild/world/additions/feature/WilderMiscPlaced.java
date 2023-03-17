@@ -90,6 +90,8 @@ public final class WilderMiscPlaced {
 
 	public static final FrozenPlacedFeature SCORCHED_SAND_HUGE = register("scorched_sand_huge");
 
+	public static final FrozenPlacedFeature SAND_TRANSITION = register("sand_transition");
+
 	// BADLANDS
 	public static final FrozenPlacedFeature COARSE_DIRT_PATH_SMALL = register("coarse_dirt_path_small");
 
@@ -98,6 +100,8 @@ public final class WilderMiscPlaced {
 	public static final FrozenPlacedFeature SCORCHED_RED_SAND = register("scorched_red_sand");
 
 	public static final FrozenPlacedFeature SCORCHED_RED_SAND_HUGE = register("scorched_red_sand_huge");
+
+	public static final FrozenPlacedFeature RED_SAND_TRANSITION = register("red_sand_transition");
 
 	// JELLYFISH CAVES
 	public static final FrozenPlacedFeature EXTRA_GLOW_LICHEN = register("extra_glow_lichen");
@@ -281,6 +285,13 @@ public final class WilderMiscPlaced {
 				BiomeFilter.biome()
 		);
 
+		SAND_TRANSITION.makeAndSetHolder(WilderMiscConfigured.SAND_TRANSITION_DISK.getHolder(),
+				CountPlacement.of(4),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BiomeFilter.biome()
+		);
+
 		// BADLANDS
 
 		COARSE_DIRT_PATH_SMALL.makeAndSetHolder(WilderMiscConfigured.COARSE_DIRT_PATH_SMALL.getHolder(),
@@ -306,6 +317,13 @@ public final class WilderMiscPlaced {
 
 		SCORCHED_RED_SAND_HUGE.makeAndSetHolder(WilderMiscConfigured.SCORCHED_RED_SAND_DISK_HUGE.getHolder(),
 				RarityFilter.onAverageOnceEvery(226),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BiomeFilter.biome()
+		);
+
+		RED_SAND_TRANSITION.makeAndSetHolder(WilderMiscConfigured.RED_SAND_TRANSITION_DISK.getHolder(),
+				CountPlacement.of(4),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 				BiomeFilter.biome()
