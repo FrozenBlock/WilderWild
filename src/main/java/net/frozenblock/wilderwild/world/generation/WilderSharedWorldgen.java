@@ -148,8 +148,8 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static final class OldGrowthSnowySpruceTaiga {
-		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.550F, -0.300F);
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.250F, 0.650F);
+		public static final Climate.Parameter TEMPERATURE = Temperature.ONE;
+		public static final Climate.Parameter HUMIDITY = Humidity.FIVE;
 
 		public static float TEMP = -0.45F;
 		public static float DOWNFALL = 0.4F;
