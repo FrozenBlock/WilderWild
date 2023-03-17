@@ -2,14 +2,16 @@
   "replace": false,
   "values": [
     "minecraft:desert",
-    "minecraft:windswept_savanna",
-    "minecraft:savanna_plateau",
+    {
+      "id": "wilderwild:oasis",
+      "required": false
+    },
     {
       "id": "wilderwild:arid_savanna",
       "required": false
     },
     {
-      "id": "#minecraft:is_badlands",
+      "id": "wilderwild:arid_forest",
       "required": false
     }
   ]

@@ -243,7 +243,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.ARID_SAVANNA);
 
 			this.getOrCreateTagBuilder(BiomeTags.IS_RIVER)
-					.addOptional(RegisterWorldgen.OASIS);
+					.addOptional(RegisterWorldgen.OASIS)
+					.addOptional(RegisterWorldgen.WARM_RIVER);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.RAINFOREST)
 					.addOptional(RegisterWorldgen.RAINFOREST)
@@ -396,10 +397,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_TUMBLEWEED_ENTITY)
 					.add(Biomes.DESERT)
-					.add(Biomes.BADLANDS)
-					.add(Biomes.ERODED_BADLANDS)
-					.add(Biomes.WOODED_BADLANDS)
-					.add(Biomes.WINDSWEPT_SAVANNA);
+					.add(Biomes.WINDSWEPT_SAVANNA)
+					.addOptionalTag(BiomeTags.IS_BADLANDS);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_CLAY_PATH)
 					.addOptionalTag(WilderBiomeTags.SAND_BEACHES)
@@ -635,12 +634,10 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_TUMBLEWEED_PLANT)
 					.add(Biomes.DESERT)
-					.add(Biomes.BADLANDS)
-					.add(Biomes.ERODED_BADLANDS)
-					.add(Biomes.WOODED_BADLANDS)
 					.add(Biomes.WINDSWEPT_SAVANNA)
 					.add(Biomes.SAVANNA_PLATEAU)
-					.addOptional(RegisterWorldgen.ARID_SAVANNA);
+					.addOptional(RegisterWorldgen.ARID_SAVANNA)
+					.addOptionalTag(BiomeTags.IS_BADLANDS);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.SWAMP_TREES)
 					.add(Biomes.SWAMP);
@@ -662,9 +659,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.DARK_TAIGA);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_BIG_SHRUB)
-					.add(Biomes.BADLANDS)
-					.add(Biomes.WOODED_BADLANDS)
-					.add(Biomes.ERODED_BADLANDS);
+					.addOptionalTag(BiomeTags.IS_BADLANDS);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_POLLEN)
 					.add(Biomes.BIRCH_FOREST)
@@ -796,14 +791,10 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.DARK_TAIGA);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COARSE_DIRT_PATH_SMALL)
-					.add(Biomes.BADLANDS)
-					.add(Biomes.WOODED_BADLANDS)
-					.add(Biomes.ERODED_BADLANDS);
+					.addOptionalTag(BiomeTags.IS_BADLANDS);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_PACKED_MUD_PATH_BADLANDS)
-					.add(Biomes.BADLANDS)
-					.add(Biomes.WOODED_BADLANDS)
-					.add(Biomes.ERODED_BADLANDS);
+					.addOptionalTag(BiomeTags.IS_BADLANDS);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SANDSTONE_PATH)
 					.add(Biomes.DESERT)
@@ -817,9 +808,16 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.ARID_FOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SCORCHED_RED_SAND)
-					.add(Biomes.BADLANDS)
-					.add(Biomes.ERODED_BADLANDS)
-					.add(Biomes.WOODED_BADLANDS);
+					.addOptionalTag(BiomeTags.IS_BADLANDS);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SAND_TRANSITION)
+					.add(Biomes.DESERT)
+					.addOptional(RegisterWorldgen.OASIS)
+					.addOptional(RegisterWorldgen.ARID_SAVANNA)
+					.addOptional(RegisterWorldgen.ARID_FOREST);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_RED_SAND_TRANSITION)
+					.addOptionalTag(BiomeTags.IS_BADLANDS);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_TERMITE_MOUND)
 					.addOptionalTag(BiomeTags.IS_SAVANNA);
