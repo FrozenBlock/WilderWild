@@ -465,8 +465,8 @@ public final class WilderMiscConfigured {
 		SAND_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_FEATURE,
 				new FadingDiskFeatureConfig(
 						true,
-						BlockStateProvider.simple(Blocks.RED_SAND),
-						BlockStateProvider.simple(Blocks.RED_SAND),
+						BlockStateProvider.simple(Blocks.SAND),
+						BlockStateProvider.simple(Blocks.SAND),
 						UniformInt.of(10, 16),
 						0.65F,
 						0.875F,
