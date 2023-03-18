@@ -61,7 +61,6 @@
     "worldgen.general.MangroveTreeGrowerMixin",
     "worldgen.general.OakTreeGrowerMixin",
     "worldgen.general.OverworldBiomeBuilderMixin",
-    "worldgen.general.SnowAndFreezeFeatureMixin",
     "worldgen.general.SpruceTreeGrowerMixin",
     "worldgen.general.SwampHutPieceMixin"
   ],
