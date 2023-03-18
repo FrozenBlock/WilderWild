@@ -34,6 +34,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 
 public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 	private static final BlockState placeState = Blocks.SNOW.defaultBlockState();
+	private static final BlockState iceState = Blocks.ICE.defaultBlockState();
 
 	public SnowBlanketFeature(Codec<NoneFeatureConfiguration> codec) {
 		super(codec);
@@ -56,7 +57,12 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 				mutablePlacementPos.set(x, level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z), z);
 				if (!mutablePos.equals(mutablePlacementPos) && mutablePos.getY() > mutablePlacementPos.getY()) {
 					Holder<Biome> biomeHolder = level.getBiome(mutablePos);
-					if (biomeHolder.equals(level.getBiome(mutablePlacementPos))) {
+					Holder<Biome> lowerBiomeHolder = level.getBiome(mutablePlacementPos);
+					if (lowerBiomeHolder.value().shouldFreeze(level, mutablePlacementPos.move(Direction.DOWN), false)) {
+						level.setBlock(mutablePlacementPos, iceState, 2);
+					}
+					mutablePlacementPos.move(Direction.UP);
+					if (biomeHolder.equals(lowerBiomeHolder)) {
 						if (placeSnowAtPosOneBiome(level, mutablePos, mutablePlacementPos, biomeHolder)) {
 							returnValue = true;
 						}
@@ -86,10 +92,10 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 	private static boolean placeSnowLayerOneBiome(WorldGenLevel level, BlockPos.MutableBlockPos pos, Holder<Biome> biomeHolder) {
 		Biome biome = biomeHolder.value();
 		if (biome.shouldSnow(level, pos)) {
-			level.setBlock(pos, placeState, 3);
+			level.setBlock(pos, placeState, 2);
 			BlockState belowState = level.getBlockState(pos.move(Direction.DOWN));
 			if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
-				level.setBlock(pos, belowState.setValue(BlockStateProperties.SNOWY, true), 3);
+				level.setBlock(pos, belowState.setValue(BlockStateProperties.SNOWY, true), 2);
 			}
 			pos.move(Direction.UP);
 			return true;
@@ -116,7 +122,7 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 			level.setBlock(pos, placeState, 3);
 			BlockState belowState = level.getBlockState(pos.move(Direction.DOWN));
 			if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
-				level.setBlock(pos, belowState.setValue(BlockStateProperties.SNOWY, true), 3);
+				level.setBlock(pos, belowState.setValue(BlockStateProperties.SNOWY, true), 2);
 			}
 			pos.move(Direction.UP);
 			return true;
