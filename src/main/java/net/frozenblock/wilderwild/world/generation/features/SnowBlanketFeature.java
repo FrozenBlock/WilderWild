@@ -52,9 +52,9 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 			int x = posX + i;
 			for(int j = 0; j < 16; j++) {
 				int z = posZ + j;
-				mutablePos.set(x, level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z), z);
+				mutablePos.set(x, level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z) - 2, z);
 				mutablePlacementPos.set(x, level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z), z);
-				if (!mutablePos.equals(mutablePlacementPos)) {
+				if (!mutablePos.equals(mutablePlacementPos) && mutablePos.getY() > mutablePlacementPos.getY()) {
 					Holder<Biome> biomeHolder = level.getBiome(mutablePos);
 					if (biomeHolder.equals(level.getBiome(mutablePlacementPos))) {
 						if (placeSnowAtPosOneBiome(level, mutablePos, mutablePlacementPos, biomeHolder)) {
