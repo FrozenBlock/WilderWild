@@ -21,13 +21,10 @@ package net.frozenblock.wilderwild.world.additions.gen;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
-import net.frozenblock.lib.worldgen.biome.api.modifications.FrozenBiomeSelectors;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
-import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
 import net.frozenblock.wilderwild.world.generation.treedecorators.WilderTreeDecorators;
-import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -49,17 +46,6 @@ public final class WilderWorldGen {
     }
 
     private static void replaceFeatures() {
-		BiomeModifications.create(WilderSharedConstants.id("better_snow_and_ice"))
-				.add(ModificationPhase.REPLACEMENTS,
-						FrozenBiomeSelectors.hasFeature(MiscOverworldPlacements.FREEZE_TOP_LAYER.unwrapKey().get()),
-						(context) -> {
-							if (WilderSharedConstants.config().snowBelowTrees()) {
-								context.getGenerationSettings().removeBuiltInFeature(MiscOverworldPlacements.FREEZE_TOP_LAYER.value());
-								context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.NEW_TOP_LAYER_FREEZE.getHolder().value());
-							}
-							context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.SNOW_AND_ICE_TRANSITION.getHolder().value());
-						});
-
         BiomeModifications.create(WilderSharedConstants.id("replace_forest_grass"))
                 .add(ModificationPhase.REPLACEMENTS,
                         BiomeSelectors.tag(WilderBiomeTags.FOREST_GRASS),

@@ -24,7 +24,6 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Direction;
 import net.minecraft.data.worldgen.features.CaveFeatures;
 import net.minecraft.data.worldgen.features.MiscOverworldFeatures;
-import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -157,8 +156,6 @@ public final class WilderMiscPlaced {
 
 	//SNOW
 	public static final FrozenPlacedFeature SNOW_AND_ICE_TRANSITION = register("snow_and_freeze_transition");
-
-	public static final FrozenPlacedFeature NEW_TOP_LAYER_FREEZE = register("new_top_layer_freeze");
 
 	static {
 		registerMiscPlaced();
@@ -534,10 +531,6 @@ public final class WilderMiscPlaced {
 				CountPlacement.of(6),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP,
-				BiomeFilter.biome()
-		);
-
-		NEW_TOP_LAYER_FREEZE.makeAndSetHolder(WilderMiscConfigured.NEW_TOP_LAYER_FREEZE.getHolder(),
 				BiomeFilter.biome()
 		);
 	}
