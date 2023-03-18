@@ -535,7 +535,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	@Override
-	public void frozenLib$onSteppedOnBlock(BlockPos blockPos, BlockState blockState) {
+	public void frozenLib$onSteppedOnBlock(Level level, BlockPos blockPos, BlockState blockState) {
 		if (blockState.is(WilderBlockTags.STOPS_TUMBLEWEED)) {
 			this.isTouchingStoppingBlock = true;
 		}
