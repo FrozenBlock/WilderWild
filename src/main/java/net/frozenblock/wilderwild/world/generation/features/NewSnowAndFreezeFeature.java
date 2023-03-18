@@ -31,11 +31,8 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import org.spongepowered.asm.mixin.Unique;
 
 public class NewSnowAndFreezeFeature extends Feature<NoneFeatureConfiguration> {
-	private static final BlockState snowState = Blocks.SNOW.defaultBlockState();
-	private static final BlockState iceState = Blocks.ICE.defaultBlockState();
 
     public NewSnowAndFreezeFeature(Codec<NoneFeatureConfiguration> codec) {
         super(codec);
@@ -63,41 +60,29 @@ public class NewSnowAndFreezeFeature extends Feature<NoneFeatureConfiguration> {
 		return returnValue;
 	}
 
-	@Unique
 	private static boolean placeSnowAndIceAtPos(WorldGenLevel level, BlockPos.MutableBlockPos motionBlockingPos, BlockPos.MutableBlockPos belowLeavesPos) {
 		boolean returnValue = false;
-
-		if (level.getBiome(motionBlockingPos.move(Direction.DOWN)).value().shouldFreeze(level, motionBlockingPos, false)) {
-			level.setBlock(motionBlockingPos, iceState, 2);
-			returnValue = true;
-		}
-		motionBlockingPos.move(Direction.UP);
-
-		if (!motionBlockingPos.equals(belowLeavesPos)) {
-			if (level.getBiome(belowLeavesPos.move(Direction.DOWN)).value().shouldFreeze(level, belowLeavesPos, false)) {
-				level.setBlock(belowLeavesPos, iceState, 2);
-				returnValue = true;
-			}
-			belowLeavesPos.move(Direction.UP);
-		}
-
+		Biome biome = level.getBiome(motionBlockingPos).value();
 		int lowestY = belowLeavesPos.getY() - 1;
 		while (motionBlockingPos.getY() > lowestY) {
-			if (placeSnowLayer(level, motionBlockingPos)) {
+			if (placeSnowLayerOrIce(level, motionBlockingPos, biome)) {
 				returnValue = true;
 			}
 		}
+
 		return returnValue;
 	}
 
-	@Unique
-	private static boolean placeSnowLayer(WorldGenLevel level, BlockPos.MutableBlockPos pos) {
-		if (level.getBlockState(pos).isAir() && snowState.canSurvive(level, pos) && level.getBiome(pos).value().shouldSnow(level, pos)) {
-			level.setBlock(pos, snowState, 3);
+	private static boolean placeSnowLayerOrIce(WorldGenLevel level, BlockPos.MutableBlockPos pos, Biome biome) {
+		if (biome.shouldFreeze(level, pos.move(Direction.DOWN), false)) {
+			level.setBlock(pos, Blocks.ICE.defaultBlockState(), 2);
+		} else if (biome.shouldSnow(level, pos.move(Direction.UP))) {
+			level.setBlock(pos, Blocks.SNOW.defaultBlockState(), 2);
 			BlockState belowState = level.getBlockState(pos.move(Direction.DOWN));
 			if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
 				level.setBlock(pos, belowState.setValue(BlockStateProperties.SNOWY, true), 2);
 			}
+			pos.move(Direction.DOWN);
 			return true;
 		}
 		return false;
