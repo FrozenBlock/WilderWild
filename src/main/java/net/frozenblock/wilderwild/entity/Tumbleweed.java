@@ -196,7 +196,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 			this.itemZ = this.getItemZ();
 		} else if (!this.isRemoved() && this.level instanceof ServerLevel serverLevel) {
 			this.heal(1F);
-			double brightness = this.level.getBrightness(LightLayer.SKY, new BlockPos(this.getEyePosition()));
+			double brightness = this.level.getBrightness(LightLayer.SKY, BlockPos.containing(this.getEyePosition()));
 			Player entity = this.level.getNearestPlayer(this, -1.0);
 			if (!this.requiresCustomPersistence() && ((brightness < 7 && (entity == null || entity.distanceTo(this) > 24)) || this.isTouchingStoppingBlock || this.isTouchingLeaves || (this.wasTouchingWater && !(this.getFeetBlockState().getBlock() instanceof MesogleaBlock)))) {
 				++this.ticksSinceActive;
