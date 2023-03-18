@@ -4,5 +4,5 @@ Make sure to clear this after each release
 
 Put changelog here:
 -----------------
-- Ported to 1.19.4-pre3
+- Ported to 1.19.4
 - Fixed Ancient Horn rendering on 1.19.4
