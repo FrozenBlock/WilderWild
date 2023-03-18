@@ -40,6 +40,73 @@ Wind: Hear- no. Feel- no. See- maybe. See the effects of wind before your eyes!
 -Clouds now move with the wind
 -Is used to control Tumbleweed
 
+BIOMES:
+Oasis: A luscious apparatus!
+-A more lively variant of Deserts!
+-Palms, Bushes, Sugar Cane, grass patches, moss patches, and water pools generate naturally in Oases.
+-Water here is much brighter than your typical desert.
+
+Warm River:
+-A sandier, brighter alternative to rivers in warmer climates.
+-Generates with seagrass on the floor.
+
+Rainforest: Flashy! Wet! Dirty!
+-A new variant of Forests.
+-Contains many flowers, bushes, moss patches, moss lakes, and vine-covered trees.
+
+Old Growth Dark Forest: Dark and dreary, mystic-dreamy.
+-A variant of the Dark Forest with taller trees.
+-Contains mushroom-covered Podzol paths.
+-Some trees may be covered with cobwebs.
+
+Old Growth Snowy Pine Taiga:
+-Replaces non-snowy Taigas in freezing climates.
+-Covered with tall Pine trees and snow!
+
+Temperate Rainforest: Bright! Wet! Exotic!
+-A new variant of the Taiga.
+-Contains Spruce, Oak, and Birch trees, covered in vines.
+-Contains mushroom-covered Podzol paths.
+-Generates with moss lakes and bushes.
+
+TRANSITION BIOMES: Transition biomes are a new category of biome we are introducing.
+-These help with reducing and cleaning up sharp borders between biomes.
+
+Arid Forest:
+-A combination of the Desert and Forest.
+
+Arid Savanna:
+-A combination of the Desert and Savanna.
+
+Parched Forest:
+-A midway-point between the Forest and Savanna biomes.
+
+Birch Jungle:
+-A combination of the Jungle and Birch Forest.
+
+Sparse Birch Jungle:
+-A combination of the Sparse Jungle and Birch Forest.
+
+Birch Taiga:
+-A combination of the Taiga and Birch Forest.
+
+Old Growth Birch Taiga:
+-A combination of the Taiga and Old Growth Birch Forest.
+
+Semi Birch Forest:
+-A midway point between the Forest and Birch Forest biomes.
+
+Dark Birch Forest:
+-A combination of the Dark Forest and Birch Forest.
+
+Dark Taiga:
+-A combination of the Dark Forest and Taiga.
+
+Flower Field:
+-A midway point between the Plains and Flower Forest biomes.
+-Appears much like Flower Forests, only without frequent trees.
+
+ENTITIES:
 Tumbleweed: Who wants bouncy balls when you can have bouncy blocks?
 -Tumbleweed are a new entity that get carried along with the wind.
 -Will stop moving and eventually decay without wind.
@@ -48,6 +115,10 @@ Tumbleweed: Who wants bouncy balls when you can have bouncy blocks?
 -Spawn in Desert, Badlands, Wooded Badlands, Eroded Badlands, and Windswept Savanna biomes.
 -Can spawn with loot. The chances of spawning with loot increase with difficulty.
 -Can pick up one item.
+
+BLOCKS:
+Prickly Pear: Ow. That hurt. A lot. Help. I ate it. Why.
+
 
 Termite Changes:
 -Updated Termite particles to swarm around the block.
@@ -72,6 +143,19 @@ Blocks:
 -Added Stripped Hollowed Logs, as well as all Hollowed Stem variants.
 -Logs and Stems can now be hollowed by using an Axe on the top of them.
 -Hollowed Logs can now be stripped.
+
+Desert:
+-Swapped out all wooden blocks in Desert Villages for their palm counterparts.
+-Tumbleweed Stems now generate in Deserts.
+-Tumbleweed now spawn naturally in Deserts.
+-Scorched Sand now generates in Deserts.
+
+Badlands:
+-Scorched Rad Sand now generates in all Badlands biomes.
+-Prickly Pears now generate in all Badlands biomes.
+-Large bushes now generate in Badlands biomes.
+-Tumbleweed Stems now generate in all Badlands biomes.
+-Tumbleweed now spawn naturally in all Badlands biomes.
 
 Jellyfish Caves:
 -Large Mesoglea paths and pillars now generate throughout the biome, adding more incentive to explore them and find hidden areas.

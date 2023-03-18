@@ -7,6 +7,10 @@ jobs:
         java: [17]
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
+    env:
+      MAVEN_URL: ${{secrets.SNAPSHOT_MAVEN_URL}}
+      MAVEN_USERNAME: ${{secrets.MAVEN_USERNAME}}
+      MAVEN_PASSWORD: ${{secrets.MAVEN_PASSWORD}}
     steps:
       - name: Cache Dependencies
         uses: actions/cache@v3
@@ -41,7 +45,7 @@ jobs:
         if: ${{ runner.os != 'Windows' }}
         run: chmod +x ./gradlew
       - name: Build
-        run: ./gradlew build -PuseThirdPartyMods=false
+        run: ./gradlew build publish -PuseThirdPartyMods=false
       - name: Extract current branch name
         shell: bash
         # bash pattern expansion to grab branch name without slashes
