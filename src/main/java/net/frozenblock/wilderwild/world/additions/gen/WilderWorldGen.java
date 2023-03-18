@@ -49,19 +49,16 @@ public final class WilderWorldGen {
     }
 
     private static void replaceFeatures() {
-		BiomeModifications.create(WilderSharedConstants.id("replace_snow_and_ice"))
+		BiomeModifications.create(WilderSharedConstants.id("better_snow_and_ice"))
 				.add(ModificationPhase.REPLACEMENTS,
-						BiomeSelectors.all(),
+						FrozenBiomeSelectors.hasFeature(MiscOverworldPlacements.FREEZE_TOP_LAYER.unwrapKey().get()),
 						(context) -> {
-					if (context.getGenerationSettings().removeBuiltInFeature(MiscOverworldPlacements.FREEZE_TOP_LAYER.value())) {
-						if (WilderSharedConstants.config().snowBelowTrees()) {
-							context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.NEW_TOP_LAYER_FREEZE.getHolder().value());
-						} else {
-							context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, MiscOverworldPlacements.FREEZE_TOP_LAYER.value());
-						}
-						context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.SNOW_AND_ICE_TRANSITION.getHolder().value());
-					}
-				});
+							if (WilderSharedConstants.config().snowBelowTrees()) {
+								context.getGenerationSettings().removeBuiltInFeature(MiscOverworldPlacements.FREEZE_TOP_LAYER.value());
+								context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.NEW_TOP_LAYER_FREEZE.getHolder().value());
+							}
+							context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.SNOW_AND_ICE_TRANSITION.getHolder().value());
+						});
 
         BiomeModifications.create(WilderSharedConstants.id("replace_forest_grass"))
                 .add(ModificationPhase.REPLACEMENTS,
