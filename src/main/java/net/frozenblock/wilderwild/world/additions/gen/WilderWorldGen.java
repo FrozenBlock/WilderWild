@@ -70,15 +70,14 @@ public final class WilderWorldGen {
 	}
 
     private static void replaceFeatures() {
-		BiomeModifications.create(WilderSharedConstants.id("replace_snow_and_ice"))
-				.add(ModificationPhase.REPLACEMENTS,
+		BiomeModifications.create(WilderSharedConstants.id("add_new_snow"))
+				.add(ModificationPhase.POST_PROCESSING,
 						BiomeSelectors.all(),
 						(context) -> {
 					if (context.getGenerationSettings().removeFeature(MiscOverworldPlacements.FREEZE_TOP_LAYER)) {
+						context.getGenerationSettings().addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, MiscOverworldPlacements.FREEZE_TOP_LAYER);
 						if (WilderSharedConstants.config().snowBelowTrees()) {
-							context.getGenerationSettings().addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.NEW_TOP_LAYER_FREEZE.getKey());
-						} else {
-							context.getGenerationSettings().addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, MiscOverworldPlacements.FREEZE_TOP_LAYER);
+							context.getGenerationSettings().addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.SNOW_BLANKET.getKey());
 						}
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.SNOW_AND_ICE_TRANSITION.getKey());
 					}
