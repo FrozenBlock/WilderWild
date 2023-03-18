@@ -16,9 +16,9 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.mixin.worldgen.general;
+package net.frozenblock.wilderwild.world.generation.features;
 
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -28,33 +28,20 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.SnowAndFreezeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(SnowAndFreezeFeature.class)
-public class SnowAndFreezeFeatureMixin {
+public class NewSnowAndFreezeFeature extends Feature<NoneFeatureConfiguration> {
+	private static final BlockState snowState = Blocks.SNOW.defaultBlockState();
+	private static final BlockState iceState = Blocks.ICE.defaultBlockState();
 
-	@Unique
-	private static final BlockState wilderWild$snowState = Blocks.SNOW.defaultBlockState();
+    public NewSnowAndFreezeFeature(Codec<NoneFeatureConfiguration> codec) {
+        super(codec);
+    }
 
-	@Unique
-	private static final BlockState wilderWild$iceState = Blocks.ICE.defaultBlockState();
-
-    @Inject(method = "place", at = @At("HEAD"), cancellable = true)
-	public void wilderWild$place(FeaturePlaceContext<NoneFeatureConfiguration> context, CallbackInfoReturnable<Boolean> info) {
-		if (WilderSharedConstants.config().snowBelowTrees()) {
-			info.setReturnValue(wilderWild$place(context));
-		}
-	}
-
-	@Unique
-	public boolean wilderWild$place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
+	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
 		BlockPos pos = context.origin();
 		WorldGenLevel level = context.level();
 		BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
@@ -68,7 +55,7 @@ public class SnowAndFreezeFeatureMixin {
 				int z = posZ + j;
 				mutablePos.set(x, level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z), z);
 				mutablePlacementPos.set(x, level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z), z);
-				if (wilderWild$placeSnowAndIceAtPos(level, mutablePos, mutablePlacementPos)) {
+				if (placeSnowAndIceAtPos(level, mutablePos, mutablePlacementPos)) {
 					returnValue = true;
 				}
 			}
@@ -77,18 +64,18 @@ public class SnowAndFreezeFeatureMixin {
 	}
 
 	@Unique
-	private static boolean wilderWild$placeSnowAndIceAtPos(WorldGenLevel level, BlockPos.MutableBlockPos motionBlockingPos, BlockPos.MutableBlockPos belowLeavesPos) {
+	private static boolean placeSnowAndIceAtPos(WorldGenLevel level, BlockPos.MutableBlockPos motionBlockingPos, BlockPos.MutableBlockPos belowLeavesPos) {
 		boolean returnValue = false;
 
 		if (level.getBiome(motionBlockingPos.move(Direction.DOWN)).value().shouldFreeze(level, motionBlockingPos, false)) {
-			level.setBlock(motionBlockingPos, wilderWild$iceState, 2);
+			level.setBlock(motionBlockingPos, iceState, 2);
 			returnValue = true;
 		}
 		motionBlockingPos.move(Direction.UP);
 
 		if (!motionBlockingPos.equals(belowLeavesPos)) {
 			if (level.getBiome(belowLeavesPos.move(Direction.DOWN)).value().shouldFreeze(level, belowLeavesPos, false)) {
-				level.setBlock(belowLeavesPos, wilderWild$iceState, 2);
+				level.setBlock(belowLeavesPos, iceState, 2);
 				returnValue = true;
 			}
 			belowLeavesPos.move(Direction.UP);
@@ -96,7 +83,7 @@ public class SnowAndFreezeFeatureMixin {
 
 		int lowestY = belowLeavesPos.getY() - 1;
 		while (motionBlockingPos.getY() > lowestY) {
-			if (wilderWild$placeSnowLayer(level, motionBlockingPos)) {
+			if (placeSnowLayer(level, motionBlockingPos)) {
 				returnValue = true;
 			}
 		}
@@ -104,10 +91,10 @@ public class SnowAndFreezeFeatureMixin {
 	}
 
 	@Unique
-	private static boolean wilderWild$placeSnowLayer(WorldGenLevel level, BlockPos.MutableBlockPos pos) {
+	private static boolean placeSnowLayer(WorldGenLevel level, BlockPos.MutableBlockPos pos) {
 		Holder<Biome> biomeHolder = level.getBiome(pos);
-		if (biomeHolder.value().shouldSnow(level, pos) && level.getBlockState(pos).isAir() && wilderWild$snowState.canSurvive(level, pos)) {
-			level.setBlock(pos, wilderWild$snowState, 3);
+		if (biomeHolder.value().shouldSnow(level, pos) && level.getBlockState(pos).isAir() && snowState.canSurvive(level, pos)) {
+			level.setBlock(pos, snowState, 3);
 			BlockState belowState = level.getBlockState(pos.move(Direction.DOWN));
 			if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
 				level.setBlock(pos, belowState.setValue(BlockStateProperties.SNOWY, true), 2);

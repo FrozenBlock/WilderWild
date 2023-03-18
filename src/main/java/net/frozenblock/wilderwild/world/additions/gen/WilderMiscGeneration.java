@@ -24,7 +24,6 @@ import net.frozenblock.lib.worldgen.biome.api.modifications.FrozenBiomeSelectors
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
-import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
 public final class WilderMiscGeneration {
@@ -94,9 +93,6 @@ public final class WilderMiscGeneration {
 
 		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_STONE_TRANSITION),
 				GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.STONE_TRANSITION.getKey());
-
-		BiomeModifications.addFeature(FrozenBiomeSelectors.hasFeature(MiscOverworldPlacements.FREEZE_TOP_LAYER.unwrapKey().get()),
-				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.SNOW_AND_ICE_TRANSITION.getKey());
 
 		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SANDSTONE_PATH),
 				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.SANDSTONE_PATH.getKey());

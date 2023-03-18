@@ -103,7 +103,7 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 				}
 			}
 		}
-		if (biome.shouldFreeze(level, s, false)) {
+		if (biome.shouldFreeze(level, s.below(), false)) {
 			RandomSource random = level.getRandom();
 			int radius = config.iceRadius.sample(random);
 			//DISK
