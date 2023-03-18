@@ -48,6 +48,7 @@ import net.minecraft.world.level.levelgen.feature.LakeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockPileConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.DiskConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleRandomFeatureConfiguration;
@@ -173,6 +174,8 @@ public final class WilderMiscConfigured {
 
 	//SNOW
 	public static final FrozenConfiguredFeature<SnowAndIceDiskFeatureConfig, ConfiguredFeature<SnowAndIceDiskFeatureConfig, ?>> SNOW_AND_ICE_TRANSITION_DISK = register("snow_and_freeze_transition_disk");
+
+	public static final FrozenConfiguredFeature<NoneFeatureConfiguration, ConfiguredFeature<NoneFeatureConfiguration, ?>> NEW_TOP_LAYER_FREEZE = register("snow_and_freeze");
 
 	public static void registerMiscPlaced() {
 
@@ -905,5 +908,9 @@ public final class WilderMiscConfigured {
 						0.5F
 				)
 		);
+
+		NEW_TOP_LAYER_FREEZE.makeAndSetHolder(WilderWild.NEW_SNOW_AND_FREEZE_FEATURE,
+				NoneFeatureConfiguration.INSTANCE)
+		;
 	}
 }

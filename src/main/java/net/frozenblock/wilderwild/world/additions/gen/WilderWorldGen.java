@@ -24,8 +24,10 @@ import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
+import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
 import net.frozenblock.wilderwild.world.generation.treedecorators.WilderTreeDecorators;
+import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -68,6 +70,20 @@ public final class WilderWorldGen {
 	}
 
     private static void replaceFeatures() {
+		BiomeModifications.create(WilderSharedConstants.id("replace_snow_and_ice"))
+				.add(ModificationPhase.REPLACEMENTS,
+						BiomeSelectors.all(),
+						(context) -> {
+					if (context.getGenerationSettings().removeFeature(MiscOverworldPlacements.FREEZE_TOP_LAYER)) {
+						if (WilderSharedConstants.config().snowBelowTrees()) {
+							context.getGenerationSettings().addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.NEW_TOP_LAYER_FREEZE.getKey());
+						} else {
+							context.getGenerationSettings().addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, MiscOverworldPlacements.FREEZE_TOP_LAYER);
+						}
+						context.getGenerationSettings().addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.SNOW_AND_ICE_TRANSITION.getKey());
+					}
+				});
+
         BiomeModifications.create(WilderSharedConstants.id("replace_forest_grass"))
                 .add(ModificationPhase.REPLACEMENTS,
                         BiomeSelectors.tag(WilderBiomeTags.FOREST_GRASS),
