@@ -530,7 +530,8 @@ public final class WilderMiscPlaced {
 		SNOW_AND_ICE_TRANSITION.makeAndSetHolder(WilderMiscConfigured.SNOW_AND_ICE_TRANSITION_DISK.getHolder(),
 				CountPlacement.of(6),
 				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP
+				PlacementUtils.HEIGHTMAP,
+				BiomeFilter.biome()
 		);
 	}
 
