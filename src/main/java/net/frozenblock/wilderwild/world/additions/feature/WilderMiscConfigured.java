@@ -173,9 +173,9 @@ public final class WilderMiscConfigured {
 	public static final FrozenConfiguredFeature<LakeFeature.Configuration, ConfiguredFeature<LakeFeature.Configuration, ?>> MOSS_LAKE = register("moss_lake");
 
 	//SNOW
-	public static final FrozenConfiguredFeature<SnowAndIceDiskFeatureConfig, ConfiguredFeature<SnowAndIceDiskFeatureConfig, ?>> SNOW_AND_ICE_TRANSITION_DISK = register("snow_and_freeze_transition_disk");
+	public static final FrozenConfiguredFeature<NoneFeatureConfiguration, ConfiguredFeature<NoneFeatureConfiguration, ?>> SNOW_BLANKET = register("snow_blanket");
 
-	public static final FrozenConfiguredFeature<NoneFeatureConfiguration, ConfiguredFeature<NoneFeatureConfiguration, ?>> NEW_TOP_LAYER_FREEZE = register("snow_and_freeze");
+	public static final FrozenConfiguredFeature<SnowAndIceDiskFeatureConfig, ConfiguredFeature<SnowAndIceDiskFeatureConfig, ?>> SNOW_AND_ICE_TRANSITION_DISK = register("snow_and_freeze_transition_disk");
 
 	public static void registerMiscPlaced() {
 
@@ -900,7 +900,9 @@ public final class WilderMiscConfigured {
 				)
 		);
 
-		SNOW_AND_ICE_TRANSITION_DISK.makeAndSetHolder(WilderWild.SNOW_AND_FREEZE_DISC_FEATURE,
+		SNOW_BLANKET.makeAndSetHolder(WilderWild.SNOW_BLANKET_FEATURE, NoneFeatureConfiguration.INSTANCE);
+
+		SNOW_AND_ICE_TRANSITION_DISK.makeAndSetHolder(WilderWild.SNOW_AND_FREEZE_DISK_FEATURE,
 				new SnowAndIceDiskFeatureConfig(
 						UniformInt.of(6, 7),
 						UniformInt.of(2, 4),
@@ -908,9 +910,5 @@ public final class WilderMiscConfigured {
 						0.5F
 				)
 		);
-
-		NEW_TOP_LAYER_FREEZE.makeAndSetHolder(WilderWild.NEW_SNOW_AND_FREEZE_FEATURE,
-				NoneFeatureConfiguration.INSTANCE)
-		;
 	}
 }

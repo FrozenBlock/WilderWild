@@ -31,16 +31,16 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import org.spongepowered.asm.mixin.Unique;
 
-public class NewSnowAndFreezeFeature extends Feature<NoneFeatureConfiguration> {
-	private static final BlockState snowState = Blocks.SNOW.defaultBlockState();
+public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
+	private static final BlockState placeState = Blocks.SNOW.defaultBlockState();
 	private static final BlockState iceState = Blocks.ICE.defaultBlockState();
 
-    public NewSnowAndFreezeFeature(Codec<NoneFeatureConfiguration> codec) {
-        super(codec);
-    }
+	public SnowBlanketFeature(Codec<NoneFeatureConfiguration> codec) {
+		super(codec);
+	}
 
+	@Override
 	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
 		BlockPos pos = context.origin();
 		WorldGenLevel level = context.level();
@@ -53,51 +53,78 @@ public class NewSnowAndFreezeFeature extends Feature<NoneFeatureConfiguration> {
 			int x = posX + i;
 			for(int j = 0; j < 16; j++) {
 				int z = posZ + j;
-				mutablePos.set(x, level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z), z);
+				mutablePos.set(x, level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z) - 2, z);
 				mutablePlacementPos.set(x, level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z), z);
-				if (placeSnowAndIceAtPos(level, mutablePos, mutablePlacementPos)) {
-					returnValue = true;
+				if (!mutablePos.equals(mutablePlacementPos) && mutablePos.getY() > mutablePlacementPos.getY()) {
+					Holder<Biome> biomeHolder = level.getBiome(mutablePos);
+					Holder<Biome> lowerBiomeHolder = level.getBiome(mutablePlacementPos);
+					if (lowerBiomeHolder.value().shouldFreeze(level, mutablePlacementPos.move(Direction.DOWN), false)) {
+						level.setBlock(mutablePlacementPos, iceState, 2);
+					}
+					mutablePlacementPos.move(Direction.UP);
+					if (biomeHolder.equals(lowerBiomeHolder)) {
+						if (placeSnowAtPosOneBiome(level, mutablePos, mutablePlacementPos, biomeHolder)) {
+							returnValue = true;
+						}
+					} else {
+						if (placeSnowAtPos(level, mutablePos, mutablePlacementPos)) {
+							returnValue = true;
+						}
+					}
 				}
 			}
 		}
 		return returnValue;
 	}
 
-	@Unique
-	private static boolean placeSnowAndIceAtPos(WorldGenLevel level, BlockPos.MutableBlockPos motionBlockingPos, BlockPos.MutableBlockPos belowLeavesPos) {
+	private static boolean placeSnowAtPosOneBiome(WorldGenLevel level, BlockPos.MutableBlockPos motionBlockingPos, BlockPos.MutableBlockPos belowLeavesPos, Holder<Biome> biomeHolder) {
 		boolean returnValue = false;
-
-		if (level.getBiome(motionBlockingPos.move(Direction.DOWN)).value().shouldFreeze(level, motionBlockingPos, false)) {
-			level.setBlock(motionBlockingPos, iceState, 2);
-			returnValue = true;
-		}
-		motionBlockingPos.move(Direction.UP);
-
-		if (!motionBlockingPos.equals(belowLeavesPos)) {
-			if (level.getBiome(belowLeavesPos.move(Direction.DOWN)).value().shouldFreeze(level, belowLeavesPos, false)) {
-				level.setBlock(belowLeavesPos, iceState, 2);
+		int lowestY = belowLeavesPos.getY() - 1;
+		while (motionBlockingPos.getY() > lowestY) {
+			if (placeSnowLayerOneBiome(level, motionBlockingPos, biomeHolder)) {
 				returnValue = true;
 			}
-			belowLeavesPos.move(Direction.UP);
+			motionBlockingPos.move(Direction.DOWN);
 		}
+		return returnValue;
+	}
 
+	private static boolean placeSnowLayerOneBiome(WorldGenLevel level, BlockPos.MutableBlockPos pos, Holder<Biome> biomeHolder) {
+		Biome biome = biomeHolder.value();
+		if (biome.shouldSnow(level, pos)) {
+			level.setBlock(pos, placeState, 2);
+			BlockState belowState = level.getBlockState(pos.move(Direction.DOWN));
+			if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
+				level.setBlock(pos, belowState.setValue(BlockStateProperties.SNOWY, true), 2);
+			}
+			pos.move(Direction.UP);
+			return true;
+		}
+		return false;
+	}
+
+	private static boolean placeSnowAtPos(WorldGenLevel level, BlockPos.MutableBlockPos motionBlockingPos, BlockPos.MutableBlockPos belowLeavesPos) {
+		boolean returnValue = false;
 		int lowestY = belowLeavesPos.getY() - 1;
 		while (motionBlockingPos.getY() > lowestY) {
 			if (placeSnowLayer(level, motionBlockingPos)) {
 				returnValue = true;
 			}
+			motionBlockingPos.move(Direction.DOWN);
 		}
 		return returnValue;
 	}
 
-	@Unique
 	private static boolean placeSnowLayer(WorldGenLevel level, BlockPos.MutableBlockPos pos) {
-		if (level.getBlockState(pos).isAir() && snowState.canSurvive(level, pos) && level.getBiome(pos).value().shouldSnow(level, pos)) {
-			level.setBlock(pos, snowState, 3);
+		Holder<Biome> biomeHolder = level.getBiome(pos);
+		Biome biome = biomeHolder.value();
+		if (biome.shouldSnow(level, pos)) {
+			level.setBlock(pos, placeState, 3);
 			BlockState belowState = level.getBlockState(pos.move(Direction.DOWN));
 			if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
 				level.setBlock(pos, belowState.setValue(BlockStateProperties.SNOWY, true), 2);
 			}
+			pos.move(Direction.UP);
 			return true;
 		}
 		return false;

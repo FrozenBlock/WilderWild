@@ -26,7 +26,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.features.CaveFeatures;
 import net.minecraft.data.worldgen.features.MiscOverworldFeatures;
-import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -159,9 +158,9 @@ public final class WilderMiscPlaced {
 	public static final FrozenPlacedFeature MOSS_LAKE = register("moss_lake");
 
 	//SNOW
-	public static final FrozenPlacedFeature SNOW_AND_ICE_TRANSITION = register("snow_and_freeze_transition");
+	public static final FrozenPlacedFeature SNOW_BLANKET = register("snow_blanket");
 
-	public static final FrozenPlacedFeature NEW_TOP_LAYER_FREEZE = register("new_top_layer_freeze");
+	public static final FrozenPlacedFeature SNOW_AND_ICE_TRANSITION = register("snow_and_freeze_transition");
 
 	public static void registerMiscPlaced(BootstapContext<PlacedFeature> entries) {
 		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
@@ -528,14 +527,16 @@ public final class WilderMiscPlaced {
 
 		// SNOW
 
-		SNOW_AND_ICE_TRANSITION.makeAndSetHolder(WilderMiscConfigured.SNOW_AND_ICE_TRANSITION_DISK.getHolder(),
-				CountPlacement.of(6),
-				InSquarePlacement.spread(),
+		SNOW_BLANKET.makeAndSetHolder(WilderMiscConfigured.SNOW_BLANKET.getHolder(),
+				CountPlacement.of(1),
 				PlacementUtils.HEIGHTMAP,
 				BiomeFilter.biome()
 		);
 
-		NEW_TOP_LAYER_FREEZE.makeAndSetHolder(WilderMiscConfigured.NEW_TOP_LAYER_FREEZE.getHolder(),
+		SNOW_AND_ICE_TRANSITION.makeAndSetHolder(WilderMiscConfigured.SNOW_AND_ICE_TRANSITION_DISK.getHolder(),
+				CountPlacement.of(6),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP,
 				BiomeFilter.biome()
 		);
 	}
