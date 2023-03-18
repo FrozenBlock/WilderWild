@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.world.additions.feature;
 
 import java.util.List;
 import net.frozenblock.lib.feature.FrozenFeatures;
+import net.frozenblock.lib.feature.features.config.FadingDiskCarpetFeatureConfig;
 import net.frozenblock.lib.feature.features.config.FadingDiskFeatureConfig;
 import net.frozenblock.lib.feature.features.config.FadingDiskTagFeatureConfig;
 import net.frozenblock.lib.feature.features.config.PathFeatureConfig;
@@ -31,7 +32,6 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
-import net.frozenblock.wilderwild.world.generation.features.config.SnowAndIceDiskFeatureConfig;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
 import static net.minecraft.data.worldgen.features.OreFeatures.NATURAL_STONE;
@@ -49,6 +49,7 @@ import net.minecraft.world.level.levelgen.feature.LakeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockPileConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.DiskConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleRandomFeatureConfiguration;
@@ -170,7 +171,9 @@ public final class WilderMiscConfigured {
 	public static final FrozenConfiguredFeature<LakeFeature.Configuration, ConfiguredFeature<LakeFeature.Configuration, ?>> MOSS_LAKE = register("moss_lake");
 
 	//SNOW
-	public static final FrozenConfiguredFeature<SnowAndIceDiskFeatureConfig, ConfiguredFeature<SnowAndIceDiskFeatureConfig, ?>> SNOW_AND_ICE_TRANSITION_DISK = register("snow_and_freeze_transition_disk");
+	public static final FrozenConfiguredFeature<NoneFeatureConfiguration, ConfiguredFeature<NoneFeatureConfiguration, ?>> SNOW_BLANKET = register("snow_blanket");
+
+	public static final FrozenConfiguredFeature<FadingDiskCarpetFeatureConfig, ConfiguredFeature<FadingDiskCarpetFeatureConfig, ?>> SNOW_TRANSITION_DISK = register("snow_transition_disk");
 
 	static {
 		registerMiscPlaced();
@@ -902,11 +905,17 @@ public final class WilderMiscConfigured {
 				)
 		);
 
-		SNOW_AND_ICE_TRANSITION_DISK.makeAndSetHolder(WilderWild.SNOW_AND_FREEZE_DISC_FEATURE,
-				new SnowAndIceDiskFeatureConfig(
+		SNOW_BLANKET.makeAndSetHolder(WilderWild.SNOW_BLANKET_FEATURE, NoneFeatureConfiguration.INSTANCE);
+
+		SNOW_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_CARPET_FEATURE,
+				new FadingDiskCarpetFeatureConfig(
+						true,
+						BlockStateProvider.simple(Blocks.SNOW),
+						BlockStateProvider.simple(Blocks.SNOW),
 						UniformInt.of(6, 7),
-						UniformInt.of(2, 4),
 						0.65F,
+						0.5F,
+						0.5F,
 						0.5F
 				)
 		);

@@ -38,6 +38,7 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_TUMBLEWEED_ENTITY = bind("has_tumbleweed_entity");
 	public static final TagKey<Biome> HAS_TUMBLEWEED_PLANT = bind("has_tumbleweed_plant");
     public static final TagKey<Biome> NO_POOLS = bind("no_pools");
+	public static final TagKey<Biome> NO_SNOW_BLANKET = bind("no_snow_blanket");
     public static final TagKey<Biome> NON_FROZEN_PLAINS = bind("non_frozen_plains");
     public static final TagKey<Biome> SWAMP_TREES = bind("swamp_trees");
     public static final TagKey<Biome> SHORT_TAIGA = bind("short_taiga");
@@ -99,6 +100,7 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_SAND_TRANSITION = bind("has_sand_transition");
 	public static final TagKey<Biome> HAS_RED_SAND_TRANSITION = bind("has_red_sand_transition");
 	public static final TagKey<Biome> HAS_STONE_TRANSITION = bind("has_stone_transition");
+	public static final TagKey<Biome> HAS_SNOW_TRANSITION = bind("has_snow_transition");
 	public static final TagKey<Biome> HAS_TERMITE_MOUND = bind("has_termite_mound");
 	public static final TagKey<Biome> HAS_TAIGA_FOREST_ROCK = bind("has_taiga_forest_rock");
 	public static final TagKey<Biome> HAS_MOSS_PATH = bind("has_moss_path");

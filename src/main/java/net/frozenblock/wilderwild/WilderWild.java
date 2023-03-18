@@ -65,11 +65,10 @@ import net.frozenblock.wilderwild.world.generation.features.LargeMesogleaFeature
 import net.frozenblock.wilderwild.world.generation.features.NematocystFeature;
 import net.frozenblock.wilderwild.world.generation.features.ShelfFungusFeature;
 import net.frozenblock.wilderwild.world.generation.features.SmallSpongeFeature;
-import net.frozenblock.wilderwild.world.generation.features.SnowAndFreezeDiskFeature;
+import net.frozenblock.wilderwild.world.generation.features.SnowBlanketFeature;
 import net.frozenblock.wilderwild.world.generation.features.config.LargeMesogleaConfig;
 import net.frozenblock.wilderwild.world.generation.features.config.ShelfFungusFeatureConfig;
 import net.frozenblock.wilderwild.world.generation.features.config.SmallSpongeFeatureConfig;
-import net.frozenblock.wilderwild.world.generation.features.config.SnowAndIceDiskFeatureConfig;
 import net.frozenblock.wilderwild.world.generation.foliage.PalmFoliagePlacer;
 import net.frozenblock.wilderwild.world.generation.foliage.ShortPalmFoliagePlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.BaobabTrunkPlacer;
@@ -86,6 +85,7 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
@@ -109,7 +109,7 @@ public final class WilderWild extends FrozenMobCategoryEntrypoint implements Mod
     public static final AlgaeFeature ALGAE_FEATURE = new AlgaeFeature(ProbabilityFeatureConfiguration.CODEC);
     public static final NematocystFeature NEMATOCYST_FEATURE = new NematocystFeature(MultifaceGrowthConfiguration.CODEC);
 	public static final LargeMesogleaFeature LARGE_MESOGLEA_FEATURE = new LargeMesogleaFeature(LargeMesogleaConfig.CODEC);
-	public static final SnowAndFreezeDiskFeature SNOW_AND_FREEZE_DISC_FEATURE = new SnowAndFreezeDiskFeature(SnowAndIceDiskFeatureConfig.CODEC);
+	public static final SnowBlanketFeature SNOW_BLANKET_FEATURE = new SnowBlanketFeature(NoneFeatureConfiguration.CODEC);
     public static final FoliagePlacerType<PalmFoliagePlacer> PALM_FOLIAGE_PLACER =  registerFoliage("palm_foliage_placer", PalmFoliagePlacer.CODEC);
 	public static final FoliagePlacerType<ShortPalmFoliagePlacer> SHORT_PALM_FOLIAGE_PLACER =  registerFoliage("short_palm_foliage_placer", ShortPalmFoliagePlacer.CODEC);
 
@@ -151,7 +151,7 @@ public final class WilderWild extends FrozenMobCategoryEntrypoint implements Mod
         Registry.register(Registry.FEATURE, WilderSharedConstants.id("nematocyst_feature"), NEMATOCYST_FEATURE);
 		Registry.register(Registry.FEATURE, WilderSharedConstants.id("small_sponge_feature"), SMALL_SPONGE_FEATURE);
 		Registry.register(Registry.FEATURE, WilderSharedConstants.id("large_mesoglea_feature"), LARGE_MESOGLEA_FEATURE);
-		Registry.register(Registry.FEATURE, WilderSharedConstants.id("snow_and_freeze_disk_feature"), SNOW_AND_FREEZE_DISC_FEATURE);
+		Registry.register(Registry.FEATURE, WilderSharedConstants.id("snow_blanket_feature"), SNOW_BLANKET_FEATURE);
 
 		TermiteManager.Termite.addDegradableBlocks();
 		TermiteManager.Termite.addNaturalDegradableBlocks();
