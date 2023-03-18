@@ -3,12 +3,16 @@ import com.matthewprenger.cursegradle.CurseExtension
 import com.matthewprenger.cursegradle.CurseProject
 import com.matthewprenger.cursegradle.CurseRelation
 import com.modrinth.minotaur.ModrinthExtension
+import groovy.xml.XmlSlurper
 import org.ajoberstar.grgit.Grgit
+import org.codehaus.groovy.runtime.ResourceGroovyMethods
 import java.io.FileInputStream
 import java.nio.file.Files
 import java.util.Properties
 import org.kohsuke.github.GHReleaseBuilder
 import org.kohsuke.github.GitHub
+import java.io.FileNotFoundException
+import java.net.URL
 
 buildscript {
     repositories {
@@ -413,6 +417,76 @@ if (!(release == true || System.getenv("GITHUB_ACTIONS") == "true")) {
     runClient.dependsOn(runDatagen)
 }
 
+val env = System.getenv()
+
+publishing {
+    val mavenUrl = env["MAVEN_URL"]
+    val mavenUsername = env["MAVEN_USERNAME"]
+    val mavenPassword = env["MAVEN_PASSWORD"]
+
+    val release = mavenUrl?.contains("release")
+    val snapshot = mavenUrl?.contains("snapshot")
+
+    val publishingValid = rootProject == project && !mavenUrl.isNullOrEmpty() && !mavenUsername.isNullOrEmpty() && !mavenPassword.isNullOrEmpty()
+
+    val publishVersion = makeModrinthVersion(mod_version)
+    val snapshotPublishVersion = publishVersion + if (snapshot == true) "-SNAPSHOT" else ""
+
+    val publishGroup = rootProject.group.toString().trim(' ')
+
+    val hash = if (grgit.branch != null && grgit.branch.current() != null) grgit.branch.current().fullName else ""
+
+    publications {
+        var publish = true
+        if (publishingValid) {
+            try {
+                val xml = ResourceGroovyMethods.getText(URL("$mavenUrl/${publishGroup.replace('.', '/')}/$snapshotPublishVersion/$publishVersion.pom"))
+                val metadata = XmlSlurper().parseText(xml)
+
+                if (metadata.getProperty("hash").equals(hash)) {
+                    publish = false
+                }
+            } catch (ignored: FileNotFoundException) {
+                // No existing version was published, so we can publish
+            }
+        } else {
+            publish = false
+        }
+
+        if (publish) {
+            create<MavenPublication>("mavenJava") {
+                from(components["java"])
+
+                artifact(javadocJar)
+
+                pom {
+                    groupId = publishGroup
+                    artifactId = rootProject.base.archivesName.get().lowercase()
+                    version = publishVersion
+                    withXml {
+                        asNode().appendNode("properties").appendNode("hash", hash)
+                    }
+                }
+            }
+        }
+    }
+    repositories {
+
+        if (publishingValid) {
+            maven {
+                url = uri(mavenUrl!!)
+
+                credentials {
+                    username = mavenUsername
+                    password = mavenPassword
+                }
+            }
+        } else {
+            mavenLocal()
+        }
+    }
+}
+
 extra {
     val properties = Properties()
     properties.load(FileInputStream(file("gradle/publishing.properties")))
@@ -540,6 +614,7 @@ val github by tasks.register("github") {
 }
 
 val publishMod by tasks.register("publishMod") {
+    dependsOn(tasks.publish)
     dependsOn(github)
     dependsOn(tasks.curseforge)
     dependsOn(tasks.modrinth)
