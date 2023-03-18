@@ -32,9 +32,7 @@
       "minecraft:lake_lava_surface"
     ],
     [
-      "minecraft:amethyst_geode",
-      "wilderwild:grass_path_rare",
-      "wilderwild:arid_coarse_dirt_path"
+      "minecraft:amethyst_geode"
     ],
     [
       "minecraft:monster_room",
@@ -70,7 +68,9 @@
       "minecraft:underwater_magma",
       "minecraft:disk_sand",
       "minecraft:disk_clay",
-      "minecraft:disk_gravel"
+      "minecraft:disk_gravel",
+      "wilderwild:grass_path_rare",
+      "wilderwild:arid_coarse_dirt_path"
     ],
     [],
     [
