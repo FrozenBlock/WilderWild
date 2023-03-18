@@ -159,18 +159,6 @@ public final class RegisterBlocks {
 
 	public static final WoodType PALM_WOOD_TYPE = WoodTypeRegistry.register(WilderSharedConstants.id("palm"), PALM_SET);
 
-	public static final BlockSetType BAOBAB_SET = BlockSetTypeRegistry.registerWood(
-			WilderSharedConstants.id("baobab")
-	);
-
-	public static final BlockSetType CYPRESS_SET = BlockSetTypeRegistry.registerWood(
-			WilderSharedConstants.id("cypress")
-	);
-
-	public static final WoodType BAOBAB_WOOD_TYPE = WoodTypeRegistry.register(WilderSharedConstants.id("baobab"), BAOBAB_SET);
-
-	public static final WoodType CYPRESS_WOOD_TYPE = WoodTypeRegistry.register(WilderSharedConstants.id("cypress"), CYPRESS_SET);
-
     // OTHER (BUILDING BLOCKS)
     public static final Block CHISELED_MUD_BRICKS = new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(1.5F).requiresTool().sounds(SoundType.MUD_BRICKS));
 	public static final Block SCORCHED_SAND = new ScorchedSandBlock(FabricBlockSettings.of(Material.SAND).strength(1.5F).sounds(RegisterBlockSoundTypes.SCORCHEDSAND).mapColor(MaterialColor.SAND).ticksRandomly(), Blocks.SAND.defaultBlockState(), 14406560, true);
