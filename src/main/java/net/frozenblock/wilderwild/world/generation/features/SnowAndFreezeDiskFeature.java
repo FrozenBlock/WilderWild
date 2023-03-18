@@ -52,7 +52,8 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 		SnowAndIceDiskFeatureConfig config = context.config();
         BlockPos s = blockPos.atY(level.getHeight(Types.MOTION_BLOCKING, blockPos.getX(), blockPos.getZ()));
 		Biome biome = level.getBiome(s).value();
-		if (biome.shouldSnow(level, s)) {
+		boolean coldEnough = !biome.warmEnoughToRain(s);
+		if (coldEnough) {
 			RandomSource random = level.getRandom();
 			int radius = config.radius.sample(random);
 			//DISK
@@ -104,7 +105,7 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 			}
 		}
 
-		if (biome.shouldFreeze(level, s.below(), false)) {
+		if (coldEnough) {
 			RandomSource random = level.getRandom();
 			int radius = config.iceRadius.sample(random);
 			//DISK
