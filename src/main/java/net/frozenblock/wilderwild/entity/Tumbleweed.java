@@ -27,8 +27,10 @@ import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
+import net.minecraft.CrashReport;
+import net.minecraft.CrashReportCategory;
+import net.minecraft.ReportedException;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -73,6 +75,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -84,6 +87,7 @@ public class Tumbleweed extends Mob {
 	public int ticksSinceActive;
 	public boolean isItemNatural;
 	public boolean isTouchingLeaves;
+	public boolean isTouchingStoppingBlock;
 
 	public float prevPitch;
 	public float prevRoll;
@@ -165,7 +169,9 @@ public class Tumbleweed extends Mob {
 			this.setDeltaMovement(Vec3.ZERO);
 			this.isTouchingLeaves = false;
 		}
+		this.isTouchingStoppingBlock = false;
 		super.tick();
+		this.checkCollidingBlocks();
 		this.setYRot(0F);
 		Vec3 deltaPos = this.getDeltaPos();
 		if (deltaPos.horizontalDistance() != 0) {
@@ -193,8 +199,7 @@ public class Tumbleweed extends Mob {
 			this.heal(1F);
 			double brightness = this.level.getBrightness(LightLayer.SKY, this.blockPosition());
 			Player entity = this.level.getNearestPlayer(this, -1.0);
-			boolean isTouchingStoppingBlock = this.isCollidingWithStoppingBlock();
-			if (!this.requiresCustomPersistence() && ((brightness < 7 && (entity == null || entity.distanceTo(this) > 24)) || isTouchingStoppingBlock || this.isTouchingLeaves || (this.wasTouchingWater && !(this.getFeetBlockState().getBlock() instanceof MesogleaBlock)))) {
+			if (!this.requiresCustomPersistence() && ((brightness < 7 && (entity == null || entity.distanceTo(this) > 24)) || this.isTouchingStoppingBlock || this.isTouchingLeaves || (this.wasTouchingWater && !(this.getFeetBlockState().getBlock() instanceof MesogleaBlock)))) {
 				++this.ticksSinceActive;
 				if (this.ticksSinceActive >= 200) {
 					this.destroy(false);
@@ -203,7 +208,7 @@ public class Tumbleweed extends Mob {
 				this.ticksSinceActive = 0;
 			}
 
-			if (!(isTouchingStoppingBlock || this.isTouchingLeaves)) {
+			if (!(this.isTouchingStoppingBlock || this.isTouchingLeaves)) {
 				Vec3 deltaMovement = this.getDeltaMovement();
 				WindManager windManager = WindManager.getWindManager(serverLevel);
 				double multiplier = (Math.max((brightness - (Math.max(15 - brightness, 0))), 0) * 0.0667) * (this.wasTouchingWater ? 0.16777216 : 1);
@@ -237,42 +242,35 @@ public class Tumbleweed extends Mob {
 			this.pickupItem();
 			this.setVisibleItem(stack);
 		}
-
 	}
 
-	public boolean isCollidingWithStoppingBlock() {
-		BlockPos.MutableBlockPos mutableBlockPos = this.blockPosition().mutable();
-		if (this.doesBlockStopMe(this.level.getBlockState(mutableBlockPos), mutableBlockPos)) {
-			return true;
-		}
-		if (this.verticalCollision) {
-			mutableBlockPos.move(Direction.UP);
-			if (this.doesBlockStopMe(this.level.getBlockState(mutableBlockPos), mutableBlockPos)) {
-				return true;
-			}
-			mutableBlockPos.move(Direction.UP, -1);
-		}
-		if (this.verticalCollisionBelow) {
-			mutableBlockPos.move(Direction.DOWN);
-			if (this.doesBlockStopMe(this.level.getBlockState(mutableBlockPos), mutableBlockPos)) {
-				return true;
-			}
-			mutableBlockPos.move(Direction.DOWN, -1);
-		}
-		if (this.horizontalCollision) {
-			for (Direction direction : Direction.Plane.HORIZONTAL) {
-				mutableBlockPos.move(direction);
-				if (this.doesBlockStopMe(this.level.getBlockState(mutableBlockPos), mutableBlockPos)) {
-					return true;
+	protected void checkCollidingBlocks() {
+		AABB aABB = this.getBoundingBox();
+		BlockPos blockPos = new BlockPos(aABB.minX + 1, aABB.minY + 1, aABB.minZ + 1);
+		BlockPos blockPos2 = new BlockPos(aABB.maxX - 1, aABB.maxY - 1, aABB.maxZ - 1);
+		if (this.level.hasChunksAt(blockPos, blockPos2)) {
+			BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+			for (int i = blockPos.getX(); i <= blockPos2.getX(); ++i) {
+				for (int j = blockPos.getY(); j <= blockPos2.getY(); ++j) {
+					for (int k = blockPos.getZ(); k <= blockPos2.getZ(); ++k) {
+						mutableBlockPos.set(i, j, k);
+						BlockState blockState = this.level.getBlockState(mutableBlockPos);
+						try {
+							if (this.isColliding(mutableBlockPos, blockState)) {
+								if (blockState.is(WilderBlockTags.STOPS_TUMBLEWEED)) {
+									this.isTouchingStoppingBlock = true;
+								}
+							}
+						} catch (Throwable throwable) {
+							CrashReport crashReport = CrashReport.forThrowable(throwable, "Colliding tumbleweed with block");
+							CrashReportCategory crashReportCategory = crashReport.addCategory("Block being collided with");
+							CrashReportCategory.populateBlockDetails(crashReportCategory, this.level, mutableBlockPos, blockState);
+							throw new ReportedException(crashReport);
+						}
+					}
 				}
-				mutableBlockPos.move(direction, -1);
 			}
 		}
-		return false;
-	}
-
-	private boolean doesBlockStopMe(BlockState state, BlockPos pos) {
-		return state.is(WilderBlockTags.STOPS_TUMBLEWEED) && this.isColliding(pos, state);
 	}
 
 	protected void tickAfterWindLeash() {
