@@ -95,7 +95,7 @@ public final class WilderMiscGeneration {
 		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_STONE_TRANSITION),
 				GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.STONE_TRANSITION.getKey());
 
-		BiomeModifications.addFeature(FrozenBiomeSelectors.hasFeature(MiscOverworldPlacements.FREEZE_TOP_LAYER.unwrapKey().get()),
+		BiomeModifications.addFeature(FrozenBiomeSelectors.hasFeature(MiscOverworldPlacements.FREEZE_TOP_LAYER),
 				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.SNOW_AND_ICE_TRANSITION.getKey());
 
 		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SANDSTONE_PATH),
