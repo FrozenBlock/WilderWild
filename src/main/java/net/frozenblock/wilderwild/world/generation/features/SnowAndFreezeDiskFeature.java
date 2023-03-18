@@ -73,29 +73,23 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 							if (random.nextFloat() < config.placeChance) {
 								if (fade) {
 									if (random.nextFloat() > 0.5F) {
-										if (canPlaceSnow(level, mutableDisk.move(Direction.DOWN))) {
+										if (canPlaceSnow(level, mutableDisk)) {
 											BlockState belowState = level.getBlockState(mutableDisk);
 											if (belowState.getValue(BlockStateProperties.SNOWY)) {
-												level.setBlock(mutableDisk, belowState.setValue(BlockStateProperties.SNOWY, true), 2);
+												level.setBlock(mutableDisk2, belowState.setValue(BlockStateProperties.SNOWY, true), 2);
 											}
-											mutableDisk.move(Direction.UP);
 											level.setBlock(mutableDisk, snowState, 2);
 											bl = true;
-										} else {
-											mutableDisk.move(Direction.UP);
 										}
 									}
 								} else {
-									if (canPlaceSnow(level, mutableDisk.move(Direction.DOWN))) {
-										BlockState belowState = level.getBlockState(mutableDisk);
+									if (canPlaceSnow(level, mutableDisk)) {
+										BlockState belowState = level.getBlockState(mutableDisk2);
 										if (belowState.getValue(BlockStateProperties.SNOWY)) {
-											level.setBlock(mutableDisk, belowState.setValue(BlockStateProperties.SNOWY, true), 2);
+											level.setBlock(mutableDisk2, belowState.setValue(BlockStateProperties.SNOWY, true), 2);
 										}
-										mutableDisk.move(Direction.UP);
 										level.setBlock(mutableDisk, snowState, 2);
 										bl = true;
-									} else {
-										mutableDisk.move(Direction.UP);
 									}
 								}
 							}
