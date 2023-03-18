@@ -75,7 +75,7 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 									if (random.nextFloat() > 0.5F) {
 										if (canPlaceSnow(level, mutableDisk)) {
 											BlockState belowState = level.getBlockState(mutableDisk);
-											if (belowState.getValue(BlockStateProperties.SNOWY)) {
+											if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
 												level.setBlock(mutableDisk2, belowState.setValue(BlockStateProperties.SNOWY, true), 2);
 											}
 											level.setBlock(mutableDisk, snowState, 2);
@@ -85,7 +85,7 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 								} else {
 									if (canPlaceSnow(level, mutableDisk)) {
 										BlockState belowState = level.getBlockState(mutableDisk2);
-										if (belowState.getValue(BlockStateProperties.SNOWY)) {
+										if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
 											level.setBlock(mutableDisk2, belowState.setValue(BlockStateProperties.SNOWY, true), 2);
 										}
 										level.setBlock(mutableDisk, snowState, 2);
