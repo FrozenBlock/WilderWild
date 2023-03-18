@@ -105,7 +105,6 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_MOSS_LAKE = bind("has_moss_lake");
 	public static final TagKey<Biome> HAS_PACKED_MUD_PATH = bind("has_packed_mud_path");
 	public static final TagKey<Biome> HAS_CLAY_PATH = bind("has_clay_path");
-	public static final TagKey<Biome> NO_TOP_LAYER_FREEZE = bind("no_top_layer_freeze");
 
 	public static final TagKey<Biome> GRAVEL_BEACH = bind("gravel_beaches");
 	public static final TagKey<Biome> SAND_BEACHES = bind("sand_beaches");
