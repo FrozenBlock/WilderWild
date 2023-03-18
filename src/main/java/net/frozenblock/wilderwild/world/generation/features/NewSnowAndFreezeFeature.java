@@ -92,7 +92,8 @@ public class NewSnowAndFreezeFeature extends Feature<NoneFeatureConfiguration> {
 
 	@Unique
 	private static boolean placeSnowLayer(WorldGenLevel level, BlockPos.MutableBlockPos pos) {
-		if (level.getBlockState(pos).isAir() && snowState.canSurvive(level, pos) && level.getBiome(pos).value().shouldSnow(level, pos)) {
+		Holder<Biome> biomeHolder = level.getBiome(pos);
+		if (biomeHolder.value().shouldSnow(level, pos) && level.getBlockState(pos).isAir() && snowState.canSurvive(level, pos)) {
 			level.setBlock(pos, snowState, 3);
 			BlockState belowState = level.getBlockState(pos.move(Direction.DOWN));
 			if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
