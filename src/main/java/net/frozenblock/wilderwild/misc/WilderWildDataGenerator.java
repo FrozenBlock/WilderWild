@@ -287,8 +287,6 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.SWAMP)
 					.add(Biomes.MANGROVE_SWAMP);
 
-			this.getOrCreateTagBuilder(WilderBiomeTags.NO_SNOW_BLANKET);
-
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_JELLYFISH)
 					.add(Biomes.WARM_OCEAN)
 					.addOptional(RegisterWorldgen.JELLYFISH_CAVES);
@@ -718,16 +716,6 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_STONE_TRANSITION)
 					.add(Biomes.STONY_PEAKS)
 					.add(Biomes.STONY_SHORE);
-
-			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNOW_TRANSITION)
-					.add(Biomes.SNOWY_BEACH)
-					.add(Biomes.SNOWY_PLAINS)
-					.add(Biomes.SNOWY_SLOPES)
-					.add(Biomes.SNOWY_TAIGA)
-					.add(Biomes.GROVE)
-					.add(Biomes.ICE_SPIKES)
-					.add(Biomes.FROZEN_PEAKS)
-					.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_TERMITE_MOUND)
 					.addOptionalTag(BiomeTags.IS_SAVANNA);

@@ -157,7 +157,7 @@ public final class WilderMiscPlaced {
 	//SNOW
 	public static final FrozenPlacedFeature SNOW_BLANKET = register("snow_blanket");
 
-	public static final FrozenPlacedFeature SNOW_TRANSITION = register("snow_transition");
+	public static final FrozenPlacedFeature SNOW_AND_ICE_TRANSITION = register("snow_and_freeze_transition");
 
 	static {
 		registerMiscPlaced();
@@ -531,13 +531,14 @@ public final class WilderMiscPlaced {
 
 		SNOW_BLANKET.makeAndSetHolder(WilderMiscConfigured.SNOW_BLANKET.getHolder(),
 				CountPlacement.of(1),
-				PlacementUtils.HEIGHTMAP
+				PlacementUtils.HEIGHTMAP,
+				BiomeFilter.biome()
 		);
 
-		SNOW_TRANSITION.makeAndSetHolder(WilderMiscConfigured.SNOW_TRANSITION_DISK.getHolder(),
+		SNOW_AND_ICE_TRANSITION.makeAndSetHolder(WilderMiscConfigured.SNOW_AND_ICE_TRANSITION_DISK.getHolder(),
 				CountPlacement.of(6),
 				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				PlacementUtils.HEIGHTMAP,
 				BiomeFilter.biome()
 		);
 	}
