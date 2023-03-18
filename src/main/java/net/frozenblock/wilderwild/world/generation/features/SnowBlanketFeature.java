@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.world.generation.features;
 
 import com.mojang.serialization.Codec;
-import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -74,21 +73,19 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 
 	private static boolean placeSnowAtPosOneBiome(WorldGenLevel level, BlockPos.MutableBlockPos motionBlockingPos, BlockPos.MutableBlockPos belowLeavesPos, Holder<Biome> biomeHolder) {
 		boolean returnValue = false;
-		if (!biomeHolder.is(WilderBiomeTags.NO_SNOW_BLANKET)) {
-			int lowestY = belowLeavesPos.getY() - 1;
-			while (motionBlockingPos.getY() > lowestY) {
-				if (placeSnowLayerOneBiome(level, motionBlockingPos, biomeHolder)) {
-					returnValue = true;
-				}
-				motionBlockingPos.move(Direction.DOWN);
+		int lowestY = belowLeavesPos.getY() - 1;
+		while (motionBlockingPos.getY() > lowestY) {
+			if (placeSnowLayerOneBiome(level, motionBlockingPos, biomeHolder)) {
+				returnValue = true;
 			}
+			motionBlockingPos.move(Direction.DOWN);
 		}
 		return returnValue;
 	}
 
 	private static boolean placeSnowLayerOneBiome(WorldGenLevel level, BlockPos.MutableBlockPos pos, Holder<Biome> biomeHolder) {
 		Biome biome = biomeHolder.value();
-		if (biome.shouldSnow(level, pos) && level.getBlockState(pos).isAir() && placeState.canSurvive(level, pos)) {
+		if (biome.shouldSnow(level, pos)) {
 			level.setBlock(pos, placeState, 3);
 			BlockState belowState = level.getBlockState(pos.move(Direction.DOWN));
 			if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
@@ -115,7 +112,7 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 	private static boolean placeSnowLayer(WorldGenLevel level, BlockPos.MutableBlockPos pos) {
 		Holder<Biome> biomeHolder = level.getBiome(pos);
 		Biome biome = biomeHolder.value();
-		if (!biomeHolder.is(WilderBiomeTags.NO_SNOW_BLANKET) && biome.shouldSnow(level, pos) && level.getBlockState(pos).isAir() && placeState.canSurvive(level, pos)) {
+		if (biome.shouldSnow(level, pos)) {
 			level.setBlock(pos, placeState, 3);
 			BlockState belowState = level.getBlockState(pos.move(Direction.DOWN));
 			if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
