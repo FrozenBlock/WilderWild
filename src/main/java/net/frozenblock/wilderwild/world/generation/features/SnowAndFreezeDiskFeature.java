@@ -69,10 +69,10 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 						BlockState state = level.getBlockState(mutableDisk);
 						if (state != snowState) {
 							boolean fade = !mutableDisk.closerThan(s, radius * config.startFadePercent);
-							if (random.nextFloat() < config.placeChance && state.isAir()) {
+							if (random.nextFloat() < config.placeChance) {
 								if (fade) {
 									if (random.nextFloat() > 0.5F) {
-										if (snowState.canSurvive(level, mutableDisk.move(Direction.DOWN))) {
+										if (canPlaceSnow(level, mutableDisk.move(Direction.DOWN))) {
 											BlockState belowState = level.getBlockState(mutableDisk);
 											if (belowState.getValue(BlockStateProperties.SNOWY)) {
 												level.setBlock(mutableDisk, belowState.setValue(BlockStateProperties.SNOWY, true), 2);
@@ -85,7 +85,7 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 										}
 									}
 								} else {
-									if (snowState.canSurvive(level, mutableDisk.move(Direction.DOWN))) {
+									if (canPlaceSnow(level, mutableDisk.move(Direction.DOWN))) {
 										BlockState belowState = level.getBlockState(mutableDisk);
 										if (belowState.getValue(BlockStateProperties.SNOWY)) {
 											level.setBlock(mutableDisk, belowState.setValue(BlockStateProperties.SNOWY, true), 2);
@@ -103,7 +103,8 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 				}
 			}
 		}
-		if (biome.shouldFreeze(level, s, false)) {
+
+		if (biome.shouldFreeze(level, s.below(), false)) {
 			RandomSource random = level.getRandom();
 			int radius = config.iceRadius.sample(random);
 			//DISK
@@ -120,7 +121,7 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 						BlockState state = level.getBlockState(mutableDisk2);
 						if (state != iceState) {
 							boolean fade = !mutableDisk.closerThan(s, radius * config.startFadePercent);
-							if (random.nextFloat() < config.placeChance && state.isAir()) {
+							if (random.nextFloat() < config.placeChance) {
 								if (fade) {
 									if (random.nextFloat() > 0.5F) {
 										if (canPlaceIce(level, mutableDisk2)) {
@@ -140,6 +141,10 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 		}
         return bl;
     }
+
+	public static boolean canPlaceSnow(LevelReader level, BlockPos pos) {
+		return pos.getY() >= level.getMinBuildHeight() && pos.getY() < level.getMaxBuildHeight() && level.getBrightness(LightLayer.BLOCK, pos) < 10 && (level.getBlockState(pos)).isAir() && Blocks.SNOW.defaultBlockState().canSurvive(level, pos);
+	}
 
 	public static boolean canPlaceIce(LevelReader level, BlockPos water) {
 		if (water.getY() >= level.getMinBuildHeight() && water.getY() < level.getMaxBuildHeight() && level.getBrightness(LightLayer.BLOCK, water) < 10) {
