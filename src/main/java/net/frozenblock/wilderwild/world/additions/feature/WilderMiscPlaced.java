@@ -247,14 +247,14 @@ public final class WilderMiscPlaced {
 		);
 
 		STONE_TRANSITION.makeAndSetHolder(WilderMiscConfigured.STONE_TRANSITION_DISK.getHolder(),
-				CountPlacement.of(5),
+				CountPlacement.of(6),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 				BiomeFilter.biome()
 		);
 
 		SMALL_SAND_TRANSITION.makeAndSetHolder(WilderMiscConfigured.SMALL_SAND_TRANSITION_DISK.getHolder(),
-				CountPlacement.of(5),
+				CountPlacement.of(6),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 				BiomeFilter.biome()
@@ -534,7 +534,7 @@ public final class WilderMiscPlaced {
 		);
 
 		SNOW_TRANSITION.makeAndSetHolder(WilderMiscConfigured.SNOW_TRANSITION_DISK.getHolder(),
-				CountPlacement.of(5),
+				CountPlacement.of(6),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 				BiomeFilter.biome()

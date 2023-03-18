@@ -911,10 +911,7 @@ public final class WilderMiscConfigured {
 						0.65F,
 						0.5F,
 						0.5F,
-						0.5F,
-						WilderBlockTags.SNOW_TRANSITION_PLACEABLE,
-						WilderBlockTags.SNOW_TRANSITION_REPLACEABLE,
-						WilderBlockTags.SNOW_TRANSITION_REPLACEABLE
+						0.5F
 				)
 		);
 	}

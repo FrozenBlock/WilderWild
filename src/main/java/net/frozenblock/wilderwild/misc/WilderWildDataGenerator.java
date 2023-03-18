@@ -793,7 +793,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.ARID_FOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_RED_SAND_TRANSITION)
-					.addOptionalTag(BiomeTags.IS_BADLANDS);
+					.add(Biomes.BADLANDS)
+					.add(Biomes.ERODED_BADLANDS);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_STONE_TRANSITION)
 					.add(Biomes.STONY_PEAKS)
@@ -978,20 +979,6 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Blocks.SAND)
 					.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
 					.addOptionalTag(BlockTags.LEAVES);
-
-			this.getOrCreateTagBuilder(WilderBlockTags.SNOW_TRANSITION_PLACEABLE)
-					.add(Blocks.GRASS_BLOCK)
-					.add(Blocks.GRAVEL)
-					.add(Blocks.SNOW)
-					.addOptionalTag(BlockTags.DIRT)
-					.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
-					.addOptionalTag(BlockTags.LEAVES)
-					.addOptionalTag(BlockTags.SAND);
-
-			this.getOrCreateTagBuilder(WilderBlockTags.SNOW_TRANSITION_REPLACEABLE)
-					.add(Blocks.AIR)
-					.add(Blocks.CAVE_AIR)
-					.add(Blocks.VOID_AIR);
 		}
 
 		private void generateCoconutSplitters() {
