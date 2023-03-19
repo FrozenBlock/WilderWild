@@ -831,7 +831,24 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_STONE_TRANSITION)
 					.add(Biomes.STONY_PEAKS)
-					.add(Biomes.STONY_SHORE);
+					.add(Biomes.STONY_SHORE)
+					.add(Biomes.WINDSWEPT_GRAVELLY_HILLS)
+					.add(Biomes.WINDSWEPT_HILLS);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_BETA_BEACH_SAND_TRANSITION)
+					.addOptionalTag(WilderBiomeTags.SAND_BEACHES)
+					.addOptionalTag(WilderBiomeTags.MULTI_LAYER_SAND_BEACHES);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_GRAVEL_TRANSITION)
+					.add(Biomes.WINDSWEPT_GRAVELLY_HILLS)
+					.addOptionalTag(WilderBiomeTags.GRAVEL_BEACH);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_STONE_TRANSITION)
+					.add(Biomes.STONY_PEAKS)
+					.add(Biomes.STONY_SHORE)
+					.add(Biomes.WINDSWEPT_GRAVELLY_HILLS)
+					.add(Biomes.WINDSWEPT_HILLS);
+
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_TERMITE_MOUND)
 					.addOptionalTag(BiomeTags.IS_SAVANNA);
@@ -984,10 +1001,23 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Blocks.MUD)
 					.add(Blocks.SAND);
 
+			this.getOrCreateTagBuilder(WilderBlockTags.STONE_TRANSITION_PLACEABLE)
+					.add(Blocks.STONE);
+
 			this.getOrCreateTagBuilder(WilderBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE)
 					.add(Blocks.GRASS_BLOCK)
 					.add(Blocks.DIRT)
 					.add(Blocks.MUD);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.GRAVEL_TRANSITION_REPLACEABLE)
+					.add(Blocks.GRASS_BLOCK)
+					.add(Blocks.DIRT)
+					.add(Blocks.MUD)
+					.add(Blocks.SAND)
+					.add(Blocks.STONE);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.GRAVEL_TRANSITION_PLACEABLE)
+					.add(Blocks.GRAVEL);
 
 			this.getOrCreateTagBuilder(WilderBlockTags.SAND_TRANSITION_REPLACEABLE)
 					.add(Blocks.GRAVEL)
@@ -996,6 +1026,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Blocks.DIRT)
 					.add(Blocks.MUD);
 
+			this.getOrCreateTagBuilder(WilderBlockTags.SAND_TRANSITION_PLACEABLE)
+					.add(Blocks.SAND);
+
 			this.getOrCreateTagBuilder(WilderBlockTags.RED_SAND_TRANSITION_REPLACEABLE)
 					.add(Blocks.GRASS_BLOCK)
 					.add(Blocks.GRAVEL)
@@ -1003,6 +1036,10 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Blocks.SAND)
 					.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
 					.addOptionalTag(BlockTags.LEAVES);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.RED_SAND_TRANSITION_PLACEABLE)
+					.add(Blocks.RED_SAND)
+					.addOptionalTag(BlockTags.TERRACOTTA);
 		}
 
 		private void generateCoconutSplitters() {

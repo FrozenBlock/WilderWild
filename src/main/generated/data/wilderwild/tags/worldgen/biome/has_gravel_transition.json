@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:windswept_gravelly_hills",
+    {
+      "id": "#wilderwild:gravel_beaches",
+      "required": false
+    }
+  ]
+}

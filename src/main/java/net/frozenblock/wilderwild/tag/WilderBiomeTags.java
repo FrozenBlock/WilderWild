@@ -103,6 +103,8 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_SAND_TRANSITION = bind("has_sand_transition");
 	public static final TagKey<Biome> HAS_RED_SAND_TRANSITION = bind("has_red_sand_transition");
 	public static final TagKey<Biome> HAS_STONE_TRANSITION = bind("has_stone_transition");
+	public static final TagKey<Biome> HAS_BETA_BEACH_SAND_TRANSITION = bind("has_beta_beach_sand_transition");
+	public static final TagKey<Biome> HAS_GRAVEL_TRANSITION = bind("has_gravel_transition");
 	public static final TagKey<Biome> HAS_TERMITE_MOUND = bind("has_termite_mound");
 	public static final TagKey<Biome> HAS_TAIGA_FOREST_ROCK = bind("has_taiga_forest_rock");
 	public static final TagKey<Biome> HAS_MOSS_PATH = bind("has_moss_path");
