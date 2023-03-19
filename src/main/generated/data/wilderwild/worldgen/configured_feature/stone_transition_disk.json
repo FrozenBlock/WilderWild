@@ -1,6 +1,7 @@
 {
   "type": "frozenlib:fading_disk_tag_feature",
   "config": {
+    "heightmap": "OCEAN_FLOOR_WG",
     "innerChance": 0.5,
     "innerPercent": 0.5,
     "innerReplaceable": "wilderwild:red_sand_transition_replaceable",

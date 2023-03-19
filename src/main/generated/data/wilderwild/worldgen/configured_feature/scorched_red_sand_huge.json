@@ -1,6 +1,7 @@
 {
   "type": "frozenlib:fading_disk_feature",
   "config": {
+    "heightmap": "OCEAN_FLOOR_WG",
     "innerChance": 0.875,
     "innerPercent": 0.65,
     "innerReplaceable": [
