@@ -1,0 +1,31 @@
+{
+  "type": "frozenlib:fading_disk_tag_feature",
+  "config": {
+    "innerChance": 0.5,
+    "innerPercent": 0.5,
+    "innerReplaceable": "wilderwild:small_sand_transition_replaceable",
+    "innerState": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:sand"
+      }
+    },
+    "outerReplaceable": "wilderwild:small_sand_transition_replaceable",
+    "outerState": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:sand"
+      }
+    },
+    "placeChance": 0.65,
+    "radius": {
+      "type": "minecraft:uniform",
+      "value": {
+        "max_inclusive": 5,
+        "min_inclusive": 3
+      }
+    },
+    "startFadePercent": 0.5,
+    "useHeightMapAndNotCircular": true
+  }
+}
