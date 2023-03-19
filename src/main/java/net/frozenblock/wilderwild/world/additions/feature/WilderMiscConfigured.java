@@ -19,18 +19,19 @@
 package net.frozenblock.wilderwild.world.additions.feature;
 
 import java.util.List;
-import net.frozenblock.lib.feature.FrozenFeatures;
-import net.frozenblock.lib.feature.features.config.FadingDiskFeatureConfig;
-import net.frozenblock.lib.feature.features.config.FadingDiskTagFeatureConfig;
-import net.frozenblock.lib.feature.features.config.PathFeatureConfig;
-import net.frozenblock.lib.feature.features.config.PathSwapUnderWaterFeatureConfig;
-import net.frozenblock.lib.feature.features.config.PillarFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.FrozenFeatures;
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeature;
+import net.frozenblock.lib.worldgen.feature.features.config.FadingDiskFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.features.config.FadingDiskTagFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.features.config.PathFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.features.config.PathSwapUnderWaterFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.features.config.PillarFeatureConfig;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
+import static net.frozenblock.wilderwild.world.additions.feature.WilderFeatureUtils.register;
 import net.frozenblock.wilderwild.world.generation.features.config.SnowAndIceDiskFeatureConfig;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
@@ -41,6 +42,7 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -60,8 +62,6 @@ import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.minecraft.world.level.material.Fluids;
-
-import static net.frozenblock.wilderwild.world.additions.feature.WilderFeatureUtils.register;
 
 public final class WilderMiscConfigured {
 	private WilderMiscConfigured() {
@@ -357,7 +357,8 @@ public final class WilderMiscConfigured {
 						0.5F,
 						0.5F,
 						WilderBlockTags.STONE_TRANSITION_REPLACEABLE,
-						WilderBlockTags.STONE_TRANSITION_REPLACEABLE
+						WilderBlockTags.STONE_TRANSITION_REPLACEABLE,
+						Heightmap.Types.OCEAN_FLOOR_WG
 				)
 		);
 
@@ -372,7 +373,8 @@ public final class WilderMiscConfigured {
 						0.5F,
 						0.5F,
 						WilderBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE,
-						WilderBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE
+						WilderBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE,
+						Heightmap.Types.OCEAN_FLOOR_WG
 				)
 		);
 
@@ -387,7 +389,8 @@ public final class WilderMiscConfigured {
 						0.5F,
 						0.5F,
 						WilderBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE,
-						WilderBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE
+						WilderBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE,
+						Heightmap.Types.OCEAN_FLOOR_WG
 				)
 		);
 
@@ -402,7 +405,8 @@ public final class WilderMiscConfigured {
 						0.5F,
 						0.5F,
 						WilderBlockTags.GRAVEL_TRANSITION_REPLACEABLE,
-						WilderBlockTags.GRAVEL_TRANSITION_REPLACEABLE
+						WilderBlockTags.GRAVEL_TRANSITION_REPLACEABLE,
+						Heightmap.Types.OCEAN_FLOOR_WG
 				)
 		);
 
@@ -485,7 +489,8 @@ public final class WilderMiscConfigured {
 						),
 						HolderSet.direct(
 								Blocks.SAND.builtInRegistryHolder()
-						)
+						),
+						Heightmap.Types.OCEAN_FLOOR_WG
 				)
 		);
 
@@ -505,7 +510,8 @@ public final class WilderMiscConfigured {
 						),
 						HolderSet.direct(
 								Blocks.SAND.builtInRegistryHolder()
-						)
+						),
+						Heightmap.Types.OCEAN_FLOOR_WG
 				)
 		);
 
@@ -525,7 +531,8 @@ public final class WilderMiscConfigured {
 						),
 						HolderSet.direct(
 								Blocks.SAND.builtInRegistryHolder()
-						)
+						),
+						Heightmap.Types.OCEAN_FLOOR_WG
 				)
 		);
 
@@ -540,7 +547,8 @@ public final class WilderMiscConfigured {
 						0.65F,
 						0.5F,
 						WilderBlockTags.SAND_TRANSITION_REPLACEABLE,
-						WilderBlockTags.SAND_TRANSITION_REPLACEABLE
+						WilderBlockTags.SAND_TRANSITION_REPLACEABLE,
+						Heightmap.Types.OCEAN_FLOOR_WG
 				)
 		);
 
@@ -605,7 +613,8 @@ public final class WilderMiscConfigured {
 						),
 						HolderSet.direct(
 								Blocks.RED_SAND.builtInRegistryHolder()
-						)
+						),
+						Heightmap.Types.OCEAN_FLOOR_WG
 				)
 		);
 
@@ -625,7 +634,8 @@ public final class WilderMiscConfigured {
 						),
 						HolderSet.direct(
 								Blocks.RED_SAND.builtInRegistryHolder()
-						)
+						),
+						Heightmap.Types.OCEAN_FLOOR_WG
 				)
 		);
 
@@ -645,7 +655,8 @@ public final class WilderMiscConfigured {
 						),
 						HolderSet.direct(
 								Blocks.RED_SAND.builtInRegistryHolder()
-						)
+						),
+						Heightmap.Types.OCEAN_FLOOR_WG
 				)
 		);
 
@@ -660,7 +671,8 @@ public final class WilderMiscConfigured {
 						0.65F,
 						0.5F,
 						WilderBlockTags.RED_SAND_TRANSITION_REPLACEABLE,
-						WilderBlockTags.RED_SAND_TRANSITION_REPLACEABLE
+						WilderBlockTags.RED_SAND_TRANSITION_REPLACEABLE,
+						Heightmap.Types.OCEAN_FLOOR_WG
 				)
 		);
 

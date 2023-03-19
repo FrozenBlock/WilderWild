@@ -107,7 +107,6 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 
 	public void split() {
 		if (this.level instanceof ServerLevel server) {
-			server.broadcastEntityEvent(this, EntityEvent.DEATH);
 			server.playSound(null, this.getX(), this.getY(), this.getZ(), RegisterSounds.ITEM_COCONUT_LAND_BREAK, SoundSource.BLOCKS, 1.0F, 0.9F + 0.2F * this.level.random.nextFloat());
 			for (int i = 0; i < 2; ++i) {
 				server.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), new ItemStack(RegisterItems.SPLIT_COCONUT)));

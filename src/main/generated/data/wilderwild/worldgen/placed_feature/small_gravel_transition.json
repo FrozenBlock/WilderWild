@@ -9,7 +9,7 @@
       "type": "minecraft:in_square"
     },
     {
-      "type": "minecraft:heightmap",
+      "type": "frozenlib:improved_heightmap",
       "heightmap": "WORLD_SURFACE_WG"
     },
     {
