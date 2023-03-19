@@ -70,28 +70,13 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 						BlockState state = level.getBlockState(mutableDisk);
 						if (state != snowState) {
 							boolean fade = !mutableDisk.closerThan(s, radius * config.startFadePercent);
-							if (random.nextFloat() < config.placeChance) {
-								if (fade) {
-									if (random.nextFloat() > 0.5F) {
-										if (canPlaceSnow(level, mutableDisk)) {
-											BlockState belowState = level.getBlockState(mutableDisk);
-											if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
-												level.setBlock(mutableDisk2, belowState.setValue(BlockStateProperties.SNOWY, true), 2);
-											}
-											level.setBlock(mutableDisk, snowState, 2);
-											bl = true;
-										}
+							if (random.nextFloat() < config.placeChance && ((!fade || random.nextFloat() > 0.5F) && canPlaceSnow(level, mutableDisk))) {
+									BlockState belowState = level.getBlockState(mutableDisk);
+									if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
+										level.setBlock(mutableDisk2, belowState.setValue(BlockStateProperties.SNOWY, true), 2);
 									}
-								} else {
-									if (canPlaceSnow(level, mutableDisk)) {
-										BlockState belowState = level.getBlockState(mutableDisk2);
-										if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
-											level.setBlock(mutableDisk2, belowState.setValue(BlockStateProperties.SNOWY, true), 2);
-										}
-										level.setBlock(mutableDisk, snowState, 2);
-										bl = true;
-									}
-								}
+									level.setBlock(mutableDisk, snowState, 2);
+									bl = true;
 							}
 						}
 					}
@@ -116,18 +101,8 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 						BlockState state = level.getBlockState(mutableDisk2);
 						if (state != iceState) {
 							boolean fade = !mutableDisk.closerThan(s, radius * config.startFadePercent);
-							if (random.nextFloat() < config.placeChance) {
-								if (fade) {
-									if (random.nextFloat() > 0.5F) {
-										if (canPlaceIce(level, mutableDisk2)) {
-											level.setBlock(mutableDisk2, iceState, 2);
-										}
-									}
-								} else {
-									if (canPlaceIce(level, mutableDisk2)) {
-										level.setBlock(mutableDisk2, iceState, 2);
-									}
-								}
+							if (random.nextFloat() < config.placeChance && ((!fade || random.nextFloat() > 0.5F) && canPlaceIce(level, mutableDisk2))) {
+								level.setBlock(mutableDisk2, iceState, 2);
 							}
 						}
 					}
