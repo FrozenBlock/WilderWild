@@ -940,7 +940,8 @@ public final class WilderPlacedFeatures {
 		);
 
 		SMALL_SPONGES.makeAndSetHolder(WilderConfiguredFeatures.SMALL_SPONGE.getHolder(),
-				CountPlacement.of(UniformInt.of(0, 4)),
+				CountPlacement.of(UniformInt.of(0, 3)),
+				RarityFilter.onAverageOnceEvery(1),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 				BiomeFilter.biome()
@@ -948,6 +949,7 @@ public final class WilderPlacedFeatures {
 
 		SMALL_SPONGES_RARE.makeAndSetHolder(WilderConfiguredFeatures.SMALL_SPONGE.getHolder(),
 				CountPlacement.of(UniformInt.of(0, 1)),
+				RarityFilter.onAverageOnceEvery(2),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 				BiomeFilter.biome()

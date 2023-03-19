@@ -36,6 +36,7 @@ import net.frozenblock.wilderwild.world.generation.treedecorators.PollenTreeDeco
 import net.frozenblock.wilderwild.world.generation.treedecorators.ShelfFungusTreeDecorator;
 import net.frozenblock.wilderwild.world.generation.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.FallenTrunkWithLogs;
+import net.frozenblock.wilderwild.world.generation.trunk.FancyDarkOakTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.JuniperTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.PalmTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.StraightTrunkWithLogs;
@@ -186,7 +187,9 @@ public final class WilderTreeConfigured {
 
     public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_DARK_OAK = register("tall_dark_oak");
 
-    public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DYING_TALL_DARK_OAK = register("dying_tall_dark_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_TALL_DARK_OAK = register("fancy_tall_dark_oak");
+
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DYING_TALL_DARK_OAK = register("dying_tall_dark_oak");
 
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> COBWEB_TALL_DARK_OAK = register("cobweb_tall_dark_oak");
 
@@ -557,6 +560,9 @@ public final class WilderTreeConfigured {
 
 		TALL_DARK_OAK.makeAndSetHolder(Feature.TREE,
 				tallDarkOak().ignoreVines().build()
+		);
+		FANCY_TALL_DARK_OAK.makeAndSetHolder(Feature.TREE,
+				FancyTallDarkOak().ignoreVines().build()
 		);
 
 		DYING_TALL_DARK_OAK.makeAndSetHolder(Feature.TREE,
@@ -1111,6 +1117,11 @@ public final class WilderTreeConfigured {
                 new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty()));
     }
 
+	private static TreeConfiguration.TreeConfigurationBuilder fancyDarkOakBuilder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, float logChance, IntProvider maxLogs, IntProvider logHeightFromTop, IntProvider extraBranchLength, int radius) {
+		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new FancyDarkOakTrunkPlacer(baseHeight, firstRandomHeight, secondRandomHeight, logChance, maxLogs, logHeightFromTop, extraBranchLength),
+				BlockStateProvider.simple(leaves), new DarkOakFoliagePlacer(ConstantInt.of(radius), ConstantInt.of(0)),
+				new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty()));
+	}
 	private static TreeConfiguration.TreeConfigurationBuilder palmBuilder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, int minRad, int maxRad, int minFronds, int maxFronds) {
 		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new PalmTrunkPlacer(baseHeight, firstRandomHeight, secondRandomHeight),
 				BlockStateProvider.simple(leaves), new PalmFoliagePlacer(UniformInt.of(minRad, maxRad), ConstantInt.of(0), UniformInt.of(minFronds, maxFronds)),
@@ -1169,6 +1180,9 @@ public final class WilderTreeConfigured {
     private static TreeConfiguration.TreeConfigurationBuilder tallDarkOak() {
         return darkOakBuilder(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_LEAVES, 8, 3, 4, 1).ignoreVines();
     }
+	private static TreeConfiguration.TreeConfigurationBuilder FancyTallDarkOak() {
+		return fancyDarkOakBuilder(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_LEAVES, 10, 3, 4, 1.0F, UniformInt.of(1, 2), UniformInt.of(5, 7), ConstantInt.of(6), 1).ignoreVines();
+	}
 
     private static TreeConfiguration.TreeConfigurationBuilder fallenSpruce() {
 		return fallenTrunkBuilder(RegisterBlocks.HOLLOWED_SPRUCE_LOG, Blocks.SPRUCE_LEAVES, 5, 1, 2, 0.0F, 0.5F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines();
