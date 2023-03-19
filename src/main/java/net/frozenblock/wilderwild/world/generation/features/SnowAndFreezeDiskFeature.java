@@ -71,7 +71,7 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 						if (state != snowState) {
 							boolean fade = !mutableDisk.closerThan(s, radius * config.startFadePercent);
 							if (random.nextFloat() < config.placeChance && ((!fade || random.nextFloat() > 0.5F) && canPlaceSnow(level, mutableDisk))) {
-								BlockState belowState = level.getBlockState(mutableDisk);
+								BlockState belowState = level.getBlockState(mutableDisk2);
 								if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
 									level.setBlock(mutableDisk2, belowState.setValue(BlockStateProperties.SNOWY, true), 2);
 								}

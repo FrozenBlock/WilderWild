@@ -826,8 +826,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.ARID_FOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_RED_SAND_TRANSITION)
-					.add(Biomes.BADLANDS)
-					.add(Biomes.ERODED_BADLANDS);
+					.addOptionalTag(BiomeTags.IS_BADLANDS);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_STONE_TRANSITION)
 					.add(Biomes.STONY_PEAKS)

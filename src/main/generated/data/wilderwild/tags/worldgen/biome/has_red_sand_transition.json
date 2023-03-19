@@ -1,7 +1,9 @@
 {
   "replace": false,
   "values": [
-    "minecraft:badlands",
-    "minecraft:eroded_badlands"
+    {
+      "id": "#minecraft:is_badlands",
+      "required": false
+    }
   ]
 }
