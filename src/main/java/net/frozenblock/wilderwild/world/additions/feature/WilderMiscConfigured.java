@@ -26,6 +26,7 @@ import net.frozenblock.lib.worldgen.feature.features.config.FadingDiskTagBiomeFe
 import net.frozenblock.lib.worldgen.feature.features.config.FadingDiskTagFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.features.config.PathFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.features.config.PathSwapUnderWaterFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.features.config.PathTagFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.features.config.PillarFeatureConfig;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -75,23 +76,23 @@ public final class WilderMiscConfigured {
 	// SWAMP
     public static final FrozenConfiguredFeature<DiskConfiguration, ConfiguredFeature<DiskConfiguration, ?>> DISK_MUD = register("disk_mud");
 
-    public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> MUD_PATH = register("mud_path");
+    public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> MUD_PATH = register("mud_path");
 
     // TAIGA
-	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> COARSE_PATH = register("coarse_dirt_path");
+	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> COARSE_PATH = register("coarse_dirt_path");
 
 	// CYPRESS WETLANDS
-	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> UNDER_WATER_SAND_PATH = register("under_water_sand_path");
+	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> UNDER_WATER_SAND_PATH = register("under_water_sand_path");
 
-	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> UNDER_WATER_GRAVEL_PATH = register("under_water_gravel_path");
+	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> UNDER_WATER_GRAVEL_PATH = register("under_water_gravel_path");
 
-	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> UNDER_WATER_CLAY_PATH = register("under_water_clay_path");
+	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> UNDER_WATER_CLAY_PATH = register("under_water_clay_path");
 
 	// BEACH AND RIVER
 
-	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> UNDER_WATER_CLAY_PATH_BEACH = register("under_water_clay_path_beach");
+	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> UNDER_WATER_CLAY_PATH_BEACH = register("under_water_clay_path_beach");
 
-	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> UNDER_WATER_GRAVEL_PATH_RIVER = register("under_water_gravel_path_river");
+	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> UNDER_WATER_GRAVEL_PATH_RIVER = register("under_water_gravel_path_river");
 
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> STONE_TRANSITION_DISK = register("stone_transition_disk");
 
@@ -102,17 +103,17 @@ public final class WilderMiscConfigured {
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SMALL_GRAVEL_TRANSITION_DISK = register("small_gravel_transition_disk");
 
 	// SAVANNA
-	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> PACKED_MUD_PATH = register("packed_mud_path");
+	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> PACKED_MUD_PATH = register("packed_mud_path");
 
 	// JUNGLE
-	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> MOSS_PATH = register("moss_path");
+	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> MOSS_PATH = register("moss_path");
 
 	// DESERT
 	public static final RuleTest PACKED_MUD_REPLACEABLE = new TagMatchTest(WilderBlockTags.PACKED_MUD_REPLACEABLE);
 
 	public static final FrozenConfiguredFeature<OreConfiguration, ConfiguredFeature<OreConfiguration, ?>> ORE_PACKED_MUD = register("ore_packed_mud");
 
-	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> SANDSTONE_PATH = register("sandstone_path");
+	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> SANDSTONE_PATH = register("sandstone_path");
 
 	public static final FrozenConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> SCORCHED_SAND_DISK = register("scorched_sand");
 
@@ -123,9 +124,9 @@ public final class WilderMiscConfigured {
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SAND_TRANSITION_DISK = register("sand_transition");
 
 	// BADLANDS
-	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> COARSE_DIRT_PATH_SMALL = register("coarse_dirt_path_small");
+	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> COARSE_DIRT_PATH_SMALL = register("coarse_dirt_path_small");
 
-	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> PACKED_MUD_PATH_BADLANDS = register("packed_mud_path_badlands");
+	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> PACKED_MUD_PATH_BADLANDS = register("packed_mud_path_badlands");
 
 	public static final FrozenConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> SCORCHED_RED_SAND_DISK = register("scorched_red_sand");
 
@@ -214,8 +215,8 @@ public final class WilderMiscConfigured {
 				)
 		);
 
-		MUD_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_FEATURE,
-				new PathFeatureConfig(
+		MUD_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+				new PathTagFeatureConfig(
 						BlockStateProvider.simple(Blocks.MUD),
 						11,
 						4,
@@ -226,17 +227,12 @@ public final class WilderMiscConfigured {
 						false,
 						false,
 						false,
-						HolderSet.direct(
-								Blocks.DIRT.builtInRegistryHolder(),
-								Blocks.GRASS_BLOCK.builtInRegistryHolder(),
-								Blocks.CLAY.builtInRegistryHolder(),
-								Blocks.SAND.builtInRegistryHolder()
-						)
+						WilderBlockTags.MUD_PATH_REPLACEABLE
 				)
 		);
 
-		COARSE_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_FEATURE,
-				new PathFeatureConfig(
+		COARSE_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+				new PathTagFeatureConfig(
 						BlockStateProvider.simple(Blocks.COARSE_DIRT),
 						11,
 						3,
@@ -247,16 +243,12 @@ public final class WilderMiscConfigured {
 						false,
 						false,
 						false,
-						HolderSet.direct(
-								Blocks.DIRT.builtInRegistryHolder(),
-								Blocks.GRASS_BLOCK.builtInRegistryHolder(),
-								Blocks.PODZOL.builtInRegistryHolder()
-						)
+						WilderBlockTags.COARSE_PATH_REPLACEABLE
 				)
 		);
 
-		UNDER_WATER_SAND_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_UNDER_WATER_FEATURE,
-				new PathFeatureConfig(
+		UNDER_WATER_SAND_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_UNDER_WATER_FEATURE,
+				new PathTagFeatureConfig(
 						BlockStateProvider.simple(Blocks.SAND),
 						16,
 						4,
@@ -267,16 +259,12 @@ public final class WilderMiscConfigured {
 						true,
 						false,
 						false,
-						HolderSet.direct(
-								Blocks.DIRT.builtInRegistryHolder(),
-								Blocks.GRAVEL.builtInRegistryHolder(),
-								Blocks.GRASS_BLOCK.builtInRegistryHolder()
-						)
+						WilderBlockTags.UNDER_WATER_SAND_PATH_REPLACEABLE
 				)
 		);
 
-		UNDER_WATER_GRAVEL_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_UNDER_WATER_FEATURE,
-				new PathFeatureConfig(
+		UNDER_WATER_GRAVEL_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_UNDER_WATER_FEATURE,
+				new PathTagFeatureConfig(
 						BlockStateProvider.simple(Blocks.GRAVEL),
 						16,
 						1,
@@ -287,16 +275,12 @@ public final class WilderMiscConfigured {
 						true,
 						false,
 						false,
-						HolderSet.direct(
-								Blocks.DIRT.builtInRegistryHolder(),
-								Blocks.GRASS_BLOCK.builtInRegistryHolder(),
-								Blocks.STONE.builtInRegistryHolder()
-						)
+						WilderBlockTags.UNDER_WATER_GRAVEL_PATH_REPLACEABLE
 				)
 		);
 
-		UNDER_WATER_CLAY_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_UNDER_WATER_FEATURE,
-				new PathFeatureConfig(
+		UNDER_WATER_CLAY_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_UNDER_WATER_FEATURE,
+				new PathTagFeatureConfig(
 						BlockStateProvider.simple(Blocks.CLAY),
 						16,
 						3,
@@ -307,17 +291,12 @@ public final class WilderMiscConfigured {
 						true,
 						false,
 						false,
-						HolderSet.direct(
-								Blocks.DIRT.builtInRegistryHolder(),
-								Blocks.GRAVEL.builtInRegistryHolder(),
-								Blocks.GRASS_BLOCK.builtInRegistryHolder(),
-								Blocks.STONE.builtInRegistryHolder()
-						)
+						WilderBlockTags.UNDER_WATER_CLAY_PATH_REPLACEABLE
 				)
 		);
 
-		UNDER_WATER_CLAY_PATH_BEACH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_UNDER_WATER_FEATURE,
-				new PathFeatureConfig(
+		UNDER_WATER_CLAY_PATH_BEACH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_UNDER_WATER_FEATURE,
+				new PathTagFeatureConfig(
 						BlockStateProvider.simple(Blocks.CLAY),
 						14,
 						2,
@@ -328,12 +307,12 @@ public final class WilderMiscConfigured {
 						true,
 						false,
 						false,
-						HolderSet.direct(Blocks.SAND.builtInRegistryHolder())
+						WilderBlockTags.BEACH_CLAY_PATH_REPLACEABLE
 				)
 		);
 
-		UNDER_WATER_GRAVEL_PATH_RIVER.makeAndSetHolder(FrozenFeatures.NOISE_PATH_UNDER_WATER_FEATURE,
-				new PathFeatureConfig(
+		UNDER_WATER_GRAVEL_PATH_RIVER.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_UNDER_WATER_FEATURE,
+				new PathTagFeatureConfig(
 						BlockStateProvider.simple(Blocks.GRAVEL),
 						14,
 						2,
@@ -344,7 +323,7 @@ public final class WilderMiscConfigured {
 						true,
 						false,
 						false,
-						HolderSet.direct(Blocks.SAND.builtInRegistryHolder())
+						WilderBlockTags.RIVER_GRAVEL_PATH_REPLACEABLE
 				)
 		);
 
@@ -412,8 +391,8 @@ public final class WilderMiscConfigured {
 				)
 		);
 
-		PACKED_MUD_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_FEATURE,
-				new PathFeatureConfig(
+		PACKED_MUD_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+				new PathTagFeatureConfig(
 						BlockStateProvider.simple(Blocks.PACKED_MUD),
 						9,
 						1,
@@ -424,16 +403,12 @@ public final class WilderMiscConfigured {
 						true,
 						false,
 						false,
-						HolderSet.direct(
-								Blocks.DIRT.builtInRegistryHolder(),
-								Blocks.GRASS_BLOCK.builtInRegistryHolder(),
-								Blocks.COARSE_DIRT.builtInRegistryHolder()
-						)
+						WilderBlockTags.PACKED_MUD_PATH_REPLACEABLE
 				)
 		);
 
-		MOSS_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_FEATURE,
-				new PathFeatureConfig(
+		MOSS_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+				new PathTagFeatureConfig(
 						BlockStateProvider.simple(Blocks.MOSS_BLOCK),
 						9,
 						1,
@@ -444,10 +419,7 @@ public final class WilderMiscConfigured {
 						true,
 						false,
 						false,
-						HolderSet.direct(
-								Blocks.GRASS_BLOCK.builtInRegistryHolder(),
-								Blocks.PODZOL.builtInRegistryHolder()
-						)
+						WilderBlockTags.MOSS_PATH_REPLACEABLE
 				)
 		);
 
@@ -459,8 +431,8 @@ public final class WilderMiscConfigured {
 				)
 		);
 
-		SANDSTONE_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_FEATURE,
-				new PathFeatureConfig(
+		SANDSTONE_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+				new PathTagFeatureConfig(
 						BlockStateProvider.simple(Blocks.SANDSTONE),
 						10,
 						2,
@@ -471,7 +443,7 @@ public final class WilderMiscConfigured {
 						true,
 						false,
 						false,
-						HolderSet.direct(Blocks.SAND.builtInRegistryHolder())
+						WilderBlockTags.SANDSTONE_PATH_REPLACEABLE
 				)
 		);
 
@@ -554,8 +526,8 @@ public final class WilderMiscConfigured {
 				)
 		);
 
-		COARSE_DIRT_PATH_SMALL.makeAndSetHolder(FrozenFeatures.NOISE_PATH_FEATURE,
-				new PathFeatureConfig(
+		COARSE_DIRT_PATH_SMALL.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+				new PathTagFeatureConfig(
 						BlockStateProvider.simple(Blocks.COARSE_DIRT),
 						8,
 						2,
@@ -566,14 +538,12 @@ public final class WilderMiscConfigured {
 						true,
 						false,
 						false,
-						HolderSet.direct(
-								Blocks.RED_SAND.builtInRegistryHolder()
-						)
+						WilderBlockTags.SMALL_COARSE_DIRT_PATH_REPLACEABLE
 				)
 		);
 
-		PACKED_MUD_PATH_BADLANDS.makeAndSetHolder(FrozenFeatures.NOISE_PATH_FEATURE,
-				new PathFeatureConfig(
+		PACKED_MUD_PATH_BADLANDS.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+				new PathTagFeatureConfig(
 						BlockStateProvider.simple(Blocks.PACKED_MUD),
 						4,
 						3,
@@ -584,18 +554,7 @@ public final class WilderMiscConfigured {
 						true,
 						false,
 						false,
-						HolderSet.direct(
-								Blocks.TERRACOTTA.builtInRegistryHolder(),
-								Blocks.RED_SAND.builtInRegistryHolder(),
-								Blocks.RED_SANDSTONE.builtInRegistryHolder(),
-								Blocks.TERRACOTTA.builtInRegistryHolder(),
-								Blocks.WHITE_TERRACOTTA.builtInRegistryHolder(),
-								Blocks.BROWN_TERRACOTTA.builtInRegistryHolder(),
-								Blocks.RED_TERRACOTTA.builtInRegistryHolder(),
-								Blocks.ORANGE_TERRACOTTA.builtInRegistryHolder(),
-								Blocks.YELLOW_TERRACOTTA.builtInRegistryHolder(),
-								Blocks.LIGHT_GRAY_TERRACOTTA.builtInRegistryHolder()
-						)
+						WilderBlockTags.PACKED_MUD_PATH_BADLANDS_REPLACEABLE
 				)
 		);
 
