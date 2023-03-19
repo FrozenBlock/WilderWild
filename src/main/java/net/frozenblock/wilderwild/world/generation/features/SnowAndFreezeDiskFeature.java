@@ -77,7 +77,6 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 									}
 									level.setBlock(mutableDisk, snowState, 2);
 									bl = true;
-
 							}
 						}
 					}
@@ -102,18 +101,8 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 						BlockState state = level.getBlockState(mutableDisk2);
 						if (state != iceState) {
 							boolean fade = !mutableDisk.closerThan(s, radius * config.startFadePercent);
-							if (random.nextFloat() < config.placeChance) {
-								if (fade) {
-									if (random.nextFloat() > 0.5F) {
-										if (canPlaceIce(level, mutableDisk2)) {
-											level.setBlock(mutableDisk2, iceState, 2);
-										}
-									}
-								} else {
-									if (canPlaceIce(level, mutableDisk2)) {
-										level.setBlock(mutableDisk2, iceState, 2);
-									}
-								}
+							if (random.nextFloat() < config.placeChance && ((!fade || random.nextFloat() > 0.5F) && canPlaceIce(level, mutableDisk2))) {
+								level.setBlock(mutableDisk2, iceState, 2);
 							}
 						}
 					}
