@@ -6,6 +6,9 @@
     "minecraft:flower_forest",
     "minecraft:forest",
     "minecraft:dark_forest",
+    "minecraft:sparse_jungle",
+    "minecraft:jungle",
+    "minecraft:bamboo_jungle",
     {
       "id": "wilderwild:birch_taiga",
       "required": false
@@ -16,6 +19,14 @@
     },
     {
       "id": "wilderwild:semi_birch_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:sparse_birch_jungle",
+      "required": false
+    },
+    {
+      "id": "wilderwild:birch_jungle",
       "required": false
     },
     {

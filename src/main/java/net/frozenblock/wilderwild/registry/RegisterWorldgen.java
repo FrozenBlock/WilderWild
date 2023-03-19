@@ -962,7 +962,6 @@ public final class RegisterWorldgen {
 		addBasicFeatures(builder, SNOWY_OLD_GROWTH_PINE_TAIGA);
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
-		BiomeDefaultFeatures.addFerns(builder);
 		BiomeDefaultFeatures.addMossyStoneBlock(builder);
 		BiomeDefaultFeatures.addDefaultFlowers(builder);
 		BiomeDefaultFeatures.addGiantTaigaVegetation(builder);
