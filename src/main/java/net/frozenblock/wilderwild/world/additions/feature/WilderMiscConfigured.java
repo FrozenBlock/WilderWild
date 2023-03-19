@@ -22,6 +22,7 @@ import java.util.List;
 import net.frozenblock.lib.worldgen.feature.FrozenFeatures;
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.features.config.FadingDiskFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.features.config.FadingDiskTagBiomeFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.features.config.FadingDiskTagFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.features.config.PathFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.features.config.PathSwapUnderWaterFeatureConfig;
@@ -30,6 +31,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import static net.frozenblock.wilderwild.world.additions.feature.WilderFeatureUtils.register;
 import net.frozenblock.wilderwild.world.generation.features.config.SnowAndIceDiskFeatureConfig;
@@ -129,7 +131,7 @@ public final class WilderMiscConfigured {
 
 	public static final FrozenConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> SCORCHED_RED_SAND_DISK_LIGHTNING = register("scorched_red_sand_lightning");
 
-	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> RED_SAND_TRANSITION_DISK = register("red_sand_transition");
+	public static final FrozenConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ?>> RED_SAND_TRANSITION_DISK = register("red_sand_transition");
 
 	// JELLYFISH CAVES
 	public static final FrozenConfiguredFeature<OreConfiguration, ConfiguredFeature<OreConfiguration, ?>> ORE_CALCITE = register("ore_calcite");
@@ -665,8 +667,8 @@ public final class WilderMiscConfigured {
 				)
 		);
 
-		RED_SAND_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
-				new FadingDiskTagFeatureConfig(
+		RED_SAND_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_EXCEPT_IN_BIOME_FEATURE,
+				new FadingDiskTagBiomeFeatureConfig(
 						true,
 						BlockStateProvider.simple(Blocks.RED_SAND),
 						BlockStateProvider.simple(Blocks.RED_SAND),
@@ -677,7 +679,8 @@ public final class WilderMiscConfigured {
 						0.5F,
 						WilderBlockTags.RED_SAND_TRANSITION_REPLACEABLE,
 						WilderBlockTags.RED_SAND_TRANSITION_REPLACEABLE,
-						Heightmap.Types.OCEAN_FLOOR_WG
+						Heightmap.Types.OCEAN_FLOOR_WG,
+						WilderBiomeTags.HAS_RED_SAND_TRANSITION
 				)
 		);
 
