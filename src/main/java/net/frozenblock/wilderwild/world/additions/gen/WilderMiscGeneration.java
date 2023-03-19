@@ -92,7 +92,7 @@ public final class WilderMiscGeneration {
 				GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.RED_SAND_TRANSITION.getKey());
 
 		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_STONE_TRANSITION),
-				GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.STONE_TRANSITION.getKey());
+				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.STONE_TRANSITION.getKey());
 
 		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_BETA_BEACH_SAND_TRANSITION),
 				GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.BETA_BEACH_SAND_TRANSITION.getKey());
