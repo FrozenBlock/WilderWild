@@ -913,16 +913,16 @@ public final class WilderPlacedFeatures {
 		);
 
 		SMALL_SPONGES.makeAndSetHolder(WilderConfiguredFeatures.SMALL_SPONGE.getHolder(),
-				CountPlacement.of(ConstantInt.of(82)),
+				CountPlacement.of(UniformInt.of(1, 5)),
 				InSquarePlacement.spread(),
-				PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 				BiomeFilter.biome()
 		);
 
 		SMALL_SPONGES_RARE.makeAndSetHolder(WilderConfiguredFeatures.SMALL_SPONGE.getHolder(),
-				CountPlacement.of(ConstantInt.of(42)),
+				CountPlacement.of(UniformInt.of(0, 2)),
 				InSquarePlacement.spread(),
-				PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 				BiomeFilter.biome()
 		);
 	}
