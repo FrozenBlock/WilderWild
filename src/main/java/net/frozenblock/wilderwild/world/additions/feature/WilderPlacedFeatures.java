@@ -913,14 +913,14 @@ public final class WilderPlacedFeatures {
 		);
 
 		SMALL_SPONGES.makeAndSetHolder(WilderConfiguredFeatures.SMALL_SPONGE.getHolder(),
-				CountPlacement.of(UniformInt.of(1, 5)),
+				CountPlacement.of(UniformInt.of(0, 4)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 				BiomeFilter.biome()
 		);
 
 		SMALL_SPONGES_RARE.makeAndSetHolder(WilderConfiguredFeatures.SMALL_SPONGE.getHolder(),
-				CountPlacement.of(UniformInt.of(0, 2)),
+				CountPlacement.of(UniformInt.of(0, 1)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 				BiomeFilter.biome()
