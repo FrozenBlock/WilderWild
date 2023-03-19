@@ -1,5 +1,5 @@
 {
-  "type": "frozenlib:noise_path_under_water_feature",
+  "type": "frozenlib:noise_path_tag_under_water_feature",
   "config": {
     "block": {
       "type": "minecraft:simple_state_provider",
@@ -15,11 +15,7 @@
     "noise": 4,
     "onlyExposed": false,
     "radius": 16,
-    "replaceable": [
-      "minecraft:dirt",
-      "minecraft:gravel",
-      "minecraft:grass_block"
-    ],
+    "replaceable": "wilderwild:under_water_sand_path_replaceable",
     "useY": true
   }
 }

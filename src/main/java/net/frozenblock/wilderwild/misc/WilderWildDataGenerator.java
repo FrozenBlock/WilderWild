@@ -1039,6 +1039,59 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBlockTags.RED_SAND_TRANSITION_PLACEABLE)
 					.add(Blocks.RED_SAND)
 					.addOptionalTag(BlockTags.TERRACOTTA);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.MUD_PATH_REPLACEABLE)
+					.add(Blocks.DIRT)
+					.add(Blocks.GRASS_BLOCK)
+					.add(Blocks.CLAY)
+					.add(Blocks.SAND);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.COARSE_PATH_REPLACEABLE)
+					.add(Blocks.DIRT)
+					.add(Blocks.GRASS_BLOCK)
+					.add(Blocks.PODZOL);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.UNDER_WATER_SAND_PATH_REPLACEABLE)
+					.add(Blocks.DIRT)
+					.add(Blocks.GRASS_BLOCK)
+					.add(Blocks.GRAVEL);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.UNDER_WATER_GRAVEL_PATH_REPLACEABLE)
+					.add(Blocks.DIRT)
+					.add(Blocks.GRASS_BLOCK)
+					.add(Blocks.STONE);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.UNDER_WATER_CLAY_PATH_REPLACEABLE)
+					.add(Blocks.DIRT)
+					.add(Blocks.GRASS_BLOCK)
+					.add(Blocks.GRAVEL)
+					.add(Blocks.STONE);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.BEACH_CLAY_PATH_REPLACEABLE)
+					.add(Blocks.SAND);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.RIVER_GRAVEL_PATH_REPLACEABLE)
+					.add(Blocks.SAND);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.PACKED_MUD_PATH_REPLACEABLE)
+					.add(Blocks.DIRT)
+					.add(Blocks.GRASS_BLOCK)
+					.add(Blocks.COARSE_DIRT);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.MOSS_PATH_REPLACEABLE)
+					.add(Blocks.GRASS_BLOCK)
+					.add(Blocks.PODZOL);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.SANDSTONE_PATH_REPLACEABLE)
+					.add(Blocks.SAND);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.SMALL_COARSE_DIRT_PATH_REPLACEABLE)
+					.add(Blocks.RED_SAND);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.PACKED_MUD_PATH_BADLANDS_REPLACEABLE)
+					.add(Blocks.RED_SAND)
+					.add(Blocks.RED_SANDSTONE)
+					.addOptionalTag(BlockTags.TERRACOTTA);
 		}
 
 		private void generateCoconutSplitters() {

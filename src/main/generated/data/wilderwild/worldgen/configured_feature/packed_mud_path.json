@@ -1,5 +1,5 @@
 {
-  "type": "frozenlib:noise_path_feature",
+  "type": "frozenlib:noise_path_tag_feature",
   "config": {
     "block": {
       "type": "minecraft:simple_state_provider",
@@ -15,11 +15,7 @@
     "noise": 1,
     "onlyExposed": false,
     "radius": 9,
-    "replaceable": [
-      "minecraft:dirt",
-      "minecraft:grass_block",
-      "minecraft:coarse_dirt"
-    ],
+    "replaceable": "wilderwild:packed_mud_path_replaceable",
     "useY": true
   }
 }
