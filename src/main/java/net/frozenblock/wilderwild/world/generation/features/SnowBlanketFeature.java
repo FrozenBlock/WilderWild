@@ -53,7 +53,7 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 			int x = posX + i;
 			for(int j = 0; j < 16; j++) {
 				int z = posZ + j;
-				mutablePos.set(x, level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z) - 2, z);
+				mutablePos.set(x, level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z) - 1, z);
 				mutablePlacementPos.set(x, level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z), z);
 				if (!mutablePos.equals(mutablePlacementPos) && mutablePos.getY() > mutablePlacementPos.getY()) {
 					Holder<Biome> biomeHolder = level.getBiome(mutablePos);
@@ -119,7 +119,7 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 		Holder<Biome> biomeHolder = level.getBiome(pos);
 		Biome biome = biomeHolder.value();
 		if (biome.shouldSnow(level, pos)) {
-			level.setBlock(pos, placeState, 3);
+			level.setBlock(pos, placeState, 2);
 			BlockState belowState = level.getBlockState(pos.move(Direction.DOWN));
 			if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
 				level.setBlock(pos, belowState.setValue(BlockStateProperties.SNOWY, true), 2);
