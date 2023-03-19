@@ -21,6 +21,8 @@ package net.frozenblock.wilderwild.world.additions.feature;
 import java.util.List;
 import net.frozenblock.lib.worldgen.feature.api.FrozenPlacedFeature;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.tag.WilderBlockTags;
+import static net.frozenblock.wilderwild.world.additions.feature.WilderPlacementUtils.register;
 import net.minecraft.core.Direction;
 import net.minecraft.data.worldgen.features.CaveFeatures;
 import net.minecraft.data.worldgen.features.MiscOverworldFeatures;
@@ -41,8 +43,6 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
-
-import static net.frozenblock.wilderwild.world.additions.feature.WilderPlacementUtils.register;
 
 public final class WilderMiscPlaced {
 	private WilderMiscPlaced() {
@@ -75,6 +75,10 @@ public final class WilderMiscPlaced {
 	public static final FrozenPlacedFeature STONE_TRANSITION = register("stone_transition");
 
 	public static final FrozenPlacedFeature SMALL_SAND_TRANSITION = register("small_sand_transition");
+
+	public static final FrozenPlacedFeature BETA_BEACH_SAND_TRANSITION = register("beta_beach_sand_transition");
+
+	public static final FrozenPlacedFeature SMALL_GRAVEL_TRANSITION = register("small_gravel_transition");
 
 	// SAVANNA
 	public static final FrozenPlacedFeature PACKED_MUD_PATH = register("packed_mud_path");
@@ -251,6 +255,7 @@ public final class WilderMiscPlaced {
 				CountPlacement.of(6),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.STONE_TRANSITION_PLACEABLE)),
 				BiomeFilter.biome()
 		);
 
@@ -258,6 +263,23 @@ public final class WilderMiscPlaced {
 				CountPlacement.of(6),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE)),
+				BiomeFilter.biome()
+		);
+
+		BETA_BEACH_SAND_TRANSITION.makeAndSetHolder(WilderMiscConfigured.BETA_BEACH_SAND_TRANSITION_DISK.getHolder(),
+				CountPlacement.of(8),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE)),
+				BiomeFilter.biome()
+		);
+
+		SMALL_GRAVEL_TRANSITION.makeAndSetHolder(WilderMiscConfigured.SMALL_GRAVEL_TRANSITION_DISK.getHolder(),
+				CountPlacement.of(8),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.GRAVEL_TRANSITION_PLACEABLE)),
 				BiomeFilter.biome()
 		);
 
@@ -310,6 +332,7 @@ public final class WilderMiscPlaced {
 				CountPlacement.of(4),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.SAND_TRANSITION_PLACEABLE)),
 				BiomeFilter.biome()
 		);
 
@@ -347,6 +370,7 @@ public final class WilderMiscPlaced {
 				CountPlacement.of(4),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.RED_SAND_TRANSITION_PLACEABLE)),
 				BiomeFilter.biome()
 		);
 

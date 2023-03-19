@@ -93,6 +93,10 @@ public final class WilderMiscConfigured {
 
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SMALL_SAND_TRANSITION_DISK = register("small_sand_transition_disk");
 
+	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> BETA_BEACH_SAND_TRANSITION_DISK = register("beta_beach_sand_transition_disk");
+
+	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SMALL_GRAVEL_TRANSITION_DISK = register("small_gravel_transition_disk");
+
 	// SAVANNA
 	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> PACKED_MUD_PATH = register("packed_mud_path");
 
@@ -176,13 +180,13 @@ public final class WilderMiscConfigured {
 	public static final FrozenConfiguredFeature<SnowAndIceDiskFeatureConfig, ConfiguredFeature<SnowAndIceDiskFeatureConfig, ?>> SNOW_AND_ICE_TRANSITION_DISK = register("snow_and_freeze_transition_disk");
 
 	static {
-		registerMiscPlaced();
+		registerMiscConfigured();
 	}
 
 	public static void init() {
     }
 
-	public static void registerMiscPlaced() {
+	public static void registerMiscConfigured() {
 
 		WilderSharedConstants.logWild("Registering WilderMiscConfigured for", true);
 
@@ -374,6 +378,36 @@ public final class WilderMiscConfigured {
 						0.5F,
 						WilderBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE,
 						WilderBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE
+				)
+		);
+
+		BETA_BEACH_SAND_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
+				new FadingDiskTagFeatureConfig(
+						true,
+						BlockStateProvider.simple(Blocks.SAND),
+						BlockStateProvider.simple(Blocks.SAND),
+						UniformInt.of(3, 5),
+						0.65F,
+						0.5F,
+						0.5F,
+						0.5F,
+						WilderBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE,
+						WilderBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE
+				)
+		);
+
+		SMALL_GRAVEL_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
+				new FadingDiskTagFeatureConfig(
+						true,
+						BlockStateProvider.simple(Blocks.GRAVEL),
+						BlockStateProvider.simple(Blocks.GRAVEL),
+						UniformInt.of(3, 5),
+						0.65F,
+						0.5F,
+						0.5F,
+						0.5F,
+						WilderBlockTags.GRAVEL_TRANSITION_REPLACEABLE,
+						WilderBlockTags.GRAVEL_TRANSITION_REPLACEABLE
 				)
 		);
 
