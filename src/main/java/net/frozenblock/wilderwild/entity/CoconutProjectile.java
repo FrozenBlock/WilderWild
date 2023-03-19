@@ -31,6 +31,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
@@ -105,15 +106,16 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 	}
 
 	public void split() {
-		this.level.broadcastEntityEvent(this, (byte)3);
-		this.level.playSound(null, this.getX(), this.getY(), this.getZ(), RegisterSounds.ITEM_COCONUT_LAND_BREAK, SoundSource.BLOCKS, 1.0F, 0.9F + 0.2F * this.level.random.nextFloat());
-		this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), new ItemStack(RegisterItems.SPLIT_COCONUT)));
-		this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), new ItemStack(RegisterItems.SPLIT_COCONUT)));
-		if (this.level instanceof ServerLevel serverLevel) {
+		if (this.level instanceof ServerLevel server) {
+			server.broadcastEntityEvent(this, EntityEvent.DEATH);
+			server.playSound(null, this.getX(), this.getY(), this.getZ(), RegisterSounds.ITEM_COCONUT_LAND_BREAK, SoundSource.BLOCKS, 1.0F, 0.9F + 0.2F * this.level.random.nextFloat());
+			for (int i = 0; i < 2; ++i) {
+				server.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), new ItemStack(RegisterItems.SPLIT_COCONUT)));
+			}
 			EntityDimensions dimensions = this.getDimensions(Pose.STANDING);
-			serverLevel.sendParticles(RegisterParticles.COCONUT_SPLASH, this.position().x + (dimensions.width * 0.5), this.position().y + (dimensions.height * 0.5), this.position().z + (dimensions.width * 0.5), level.random.nextInt(1, 5), dimensions.width / 4F, dimensions.height / 4F, dimensions.width / 4F, 0.1D);
+			server.sendParticles(RegisterParticles.COCONUT_SPLASH, this.position().x + (dimensions.width * 0.5), this.position().y + (dimensions.height * 0.5), this.position().z + (dimensions.width * 0.5), level.random.nextInt(1, 5), dimensions.width / 4F, dimensions.height / 4F, dimensions.width / 4F, 0.1D);
+			this.discard();
 		}
-		this.discard();
 	}
 
 }
