@@ -37,6 +37,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
+import org.jetbrains.annotations.NotNull;
 
 public class FallenTrunkWithLogs extends TrunkPlacer {
     public static final Codec<FallenTrunkWithLogs> CODEC = RecordCodecBuilder.create((instance) -> {
@@ -64,11 +65,13 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
         this.mossChance = mossChance;
     }
 
+	@Override
     protected TrunkPlacerType<?> type() {
         return WilderWild.FALLEN_TRUNK_WITH_LOGS_PLACER_TYPE;
     }
 
-    public List<FoliagePlacer.FoliageAttachment> placeTrunk(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, int height, BlockPos startPos, TreeConfiguration config) {
+	@Override
+    public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, int height, BlockPos startPos, @NotNull TreeConfiguration config) {
         List<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();
         List<BlockPos> logs = Lists.newArrayList();
         BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
@@ -76,7 +79,7 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
         int maxAboveHole = this.maxHeightAboveHole.sample(random);
         int logsAboveHole = 0;
         Direction logDir = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-        int placedLogs = 0;
+        int extraLogs = 0;
         boolean solidBelowInitial = !TreeFeature.validTreePos(level, mutable.set(startPos.getX(), startPos.getY() - 1, startPos.getZ())) && !TreeFeature.isAirOrLeaves(level, mutable.set(startPos.getX(), startPos.getY() - 1, startPos.getZ()));
         if (solidBelowInitial) {
             for (int i = 0; i < height; ++i) {
@@ -92,31 +95,31 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
                             if (random.nextFloat() > 0.28) {
                                 logs.add(new BlockPos(x, startPos.getY(), z));
                             }
-                            if (i < height - 1 && random.nextFloat() < this.logChance && placedLogs < maxLogs) {
+                            if (i < height - 1 && random.nextFloat() < this.logChance && extraLogs < maxLogs) {
                                 Direction direction = random.nextFloat() >= 0.33 ? Direction.Plane.HORIZONTAL.getRandomDirection(random) : Direction.Plane.VERTICAL.getRandomDirection(random);
                                 this.generateExtraBranch(logs, level, replacer, random, config, mutable, logDir, i, direction);
                             }
-                            ++placedLogs;
+                            ++extraLogs;
                             logsAboveHole += holeAddition;
                         } else if (config.trunkProvider.getState(random, mutable.set(x, startPos.getY(), z)).hasProperty(BlockStateProperties.FACING)) {
                             replacer.accept(mutable.set(x, startPos.getY(), z), config.trunkProvider.getState(random, mutable.set(x, startPos.getY(), z)).setValue(BlockStateProperties.FACING, logDir));
                             if (random.nextFloat() > 0.28) {
                                 logs.add(new BlockPos(x, startPos.getY(), z));
                             }
-                            if (i < height - 1 && random.nextFloat() < this.logChance && placedLogs < maxLogs) {
+                            if (i < height - 1 && random.nextFloat() < this.logChance && extraLogs < maxLogs) {
                                 Direction direction = random.nextFloat() >= 0.33 ? Direction.Plane.HORIZONTAL.getRandomDirection(random) : Direction.Plane.VERTICAL.getRandomDirection(random);
                                 this.generateExtraBranch(logs, level, replacer, random, config, mutable, logDir, i, direction);
                             }
-                            ++placedLogs;
+                            ++extraLogs;
                             logsAboveHole += holeAddition;
                         } else if (this.placeLog(level, replacer, random, mutable.set(x, startPos.getY(), z), config)) {
                             if (random.nextFloat() > 0.28) {
                                 logs.add(new BlockPos(x, startPos.getY(), z));
                             }
-                            if (i < height - 1 && random.nextFloat() < this.logChance && placedLogs < maxLogs) {
+                            if (i < height - 1 && random.nextFloat() < this.logChance && extraLogs < maxLogs) {
                                 Direction direction = random.nextFloat() >= 0.33 ? Direction.Plane.HORIZONTAL.getRandomDirection(random) : Direction.Plane.VERTICAL.getRandomDirection(random);
                                 this.generateExtraBranch(logs, level, replacer, random, config, mutable, logDir, i, direction);
-                                ++placedLogs;
+                                ++extraLogs;
                                 logsAboveHole += holeAddition;
                             }
                         }

@@ -21,9 +21,11 @@ package net.frozenblock.wilderwild.block;
 import java.util.Objects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SaplingBlock;
@@ -47,7 +49,7 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWat
     }
 
 	@Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, net.minecraft.world.level.block.state.BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, net.minecraft.world.level.block.state.BlockState> builder) {
 		super.createBlockStateDefinition(builder);
         builder.add(WATERLOGGED);
     }
@@ -56,6 +58,24 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWat
     protected boolean mayPlaceOn(@NotNull BlockState floor, @NotNull BlockGetter level, @NotNull BlockPos pos) {
         return super.mayPlaceOn(floor, level, pos) || floor.is(Blocks.CLAY) || floor.is(Blocks.MUD) || floor.is(Blocks.SAND);
     }
+
+	@Override
+	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
+		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
+		boolean canSkip = false;
+		for (int i = 0; i < 3; i++) {
+			if (!canSkip) {
+				if (level.getBlockState(mutableBlockPos.move(Direction.UP)).getFluidState().is(FluidTags.WATER)) {
+					if (i == 2) {
+						return false;
+					}
+				} else {
+					canSkip = true;
+				}
+			}
+		}
+		return super.canSurvive(state, level, pos);
+	}
 
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {

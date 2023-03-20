@@ -782,10 +782,9 @@ public final class WilderConfiguredFeatures {
 		CYPRESS_WETLANDS_TREES_WATER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 				new RandomFeatureConfiguration(
 						List.of(
-								new WeightedPlacedFeature(WilderTreePlaced.CYPRESS.getHolder(), 0.2F),
 								new WeightedPlacedFeature(WilderTreePlaced.SWAMP_CYPRESS.getHolder(), 0.85F)
 						),
-						WilderTreePlaced.FUNGUS_CYPRESS.getHolder()
+						WilderTreePlaced.SWAMP_CYPRESS.getHolder()
 				)
 		);
 

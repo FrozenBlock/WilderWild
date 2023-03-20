@@ -1088,8 +1088,8 @@ public final class WilderTreeConfigured {
                 new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty()));
     }
 
-	private static TreeConfiguration.TreeConfigurationBuilder fancyDarkOakBuilder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, float logChance, IntProvider maxLogs, IntProvider logHeightFromTop, IntProvider extraBranchLength, int radius) {
-		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new FancyDarkOakTrunkPlacer(baseHeight, firstRandomHeight, secondRandomHeight, logChance, maxLogs, logHeightFromTop, extraBranchLength),
+	private static TreeConfiguration.TreeConfigurationBuilder fancyDarkOakBuilder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, float logChance, IntProvider maxLogs, IntProvider extraBranchLength, int radius) {
+		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new FancyDarkOakTrunkPlacer(baseHeight, firstRandomHeight, secondRandomHeight, logChance, maxLogs, extraBranchLength),
 				BlockStateProvider.simple(leaves), new DarkOakFoliagePlacer(ConstantInt.of(radius), ConstantInt.of(0)),
 				new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty()));
 	}
@@ -1148,7 +1148,7 @@ public final class WilderTreeConfigured {
         return darkOakBuilder(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_LEAVES, 8, 3, 4, 1).ignoreVines();
     }
 	private static TreeConfiguration.TreeConfigurationBuilder FancyTallDarkOak() {
-		return fancyDarkOakBuilder(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_LEAVES, 10, 3, 4, 1.0F, UniformInt.of(1, 2), UniformInt.of(5, 7), ConstantInt.of(6), 1).ignoreVines();
+		return fancyDarkOakBuilder(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_LEAVES, 10, 3, 4, 1.0F, UniformInt.of(1, 2), UniformInt.of(1, 3), 1).ignoreVines();
 	}
 
     private static TreeConfiguration.TreeConfigurationBuilder fallenSpruce() {

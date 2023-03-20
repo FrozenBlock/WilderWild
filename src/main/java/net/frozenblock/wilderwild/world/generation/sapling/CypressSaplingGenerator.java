@@ -24,6 +24,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BiomeTags;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
@@ -44,6 +45,9 @@ public class CypressSaplingGenerator extends AbstractTreeGrower {
 
     protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource random, boolean bees) {
 		if (this.level != null && this.pos != null) {
+			if (this.level.getBlockState(pos).getFluidState().is(FluidTags.WATER)) {
+				return WilderTreeConfigured.SWAMP_CYPRESS.getHolder();
+			}
 			Holder<Biome> biome = this.level.getBiome(this.pos);
 			if (biome.is(BiomeTags.IS_BADLANDS)) {
 				return WilderTreeConfigured.JUNIPER.getHolder();
