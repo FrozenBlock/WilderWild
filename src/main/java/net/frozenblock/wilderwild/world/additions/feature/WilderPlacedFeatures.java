@@ -546,8 +546,8 @@ public final class WilderPlacedFeatures {
 		);
 
 		CYPRESS_WETLANDS_TREES_WATER.makeAndSetHolder(WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES_WATER.getHolder(),
-				CountPlacement.of(UniformInt.of(4, 7)), SurfaceWaterDepthFilter.forMaxDepth(5), InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome(), PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING)
+				CountPlacement.of(UniformInt.of(5, 10)), SurfaceWaterDepthFilter.forMaxDepth(5), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome(), PlacementUtils.filteredByBlockSurvival(Blocks.MANGROVE_PROPAGULE)
 		);
 
 		BIG_SHRUB.makeAndSetHolder(WilderConfiguredFeatures.BIG_SHRUBS.getHolder(),
