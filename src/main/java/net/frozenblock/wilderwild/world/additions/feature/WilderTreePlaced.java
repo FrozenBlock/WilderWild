@@ -117,12 +117,15 @@ public final class WilderTreePlaced {
 
 	//DARK OAK
     public static final FrozenPlacedFeature TALL_DARK_OAK_CHECKED = register("tall_dark_oak_checked");
+	public static final FrozenPlacedFeature FANCY_TALL_DARK_OAK_CHECKED = register("fancy_tall_dark_oak_checked");
 
     public static final FrozenPlacedFeature DYING_TALL_DARK_OAK_CHECKED = register("dying_tall_dark_oak_checked");
+	public static final FrozenPlacedFeature DYING_FANCY_TALL_DARK_OAK_CHECKED = register("dying_fancy_tall_dark_oak_checked");
 
     public static final FrozenPlacedFeature DYING_DARK_OAK_CHECKED = register("dying_dark_oak_checked");
 
 	public static final FrozenPlacedFeature COBWEB_TALL_DARK_OAK_CHECKED = register("cobweb_tall_dark_oak_checked");
+	public static final FrozenPlacedFeature COBWEB_FANCY_TALL_DARK_OAK_CHECKED = register("cobweb_fancy_tall_dark_oak_checked");
 
     //SWAMP TREE
     public static final FrozenPlacedFeature SWAMP_TREE_CHECKED = register("swamp_tree_checked");
@@ -352,7 +355,13 @@ public final class WilderTreePlaced {
 				PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
 		);
 
+		FANCY_TALL_DARK_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.FANCY_TALL_DARK_OAK.getHolder(),
+				PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
+		);
 		DYING_TALL_DARK_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.DYING_TALL_DARK_OAK.getHolder(),
+				PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
+		);
+		DYING_FANCY_TALL_DARK_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.DYING_FANCY_TALL_DARK_OAK.getHolder(),
 				PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
 		);
 
@@ -360,7 +369,11 @@ public final class WilderTreePlaced {
 				PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
 		);
 
+
 		COBWEB_TALL_DARK_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.COBWEB_TALL_DARK_OAK.getHolder(),
+				PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
+		);
+		COBWEB_FANCY_TALL_DARK_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.COBWEB_FANCY_TALL_DARK_OAK.getHolder(),
 				PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
 		);
 

@@ -757,7 +757,6 @@ public final class RegisterBlocks {
 		if (BuiltInRegistries.ITEM.getOptional(WilderSharedConstants.id(path)).isEmpty()) {
 			Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id(path), new BlockItem(block, new FabricItemSettings()));
 		}
-		WilderSharedConstants.log("Registered block item " + path, true);
 	}
 
     private static HollowedLogBlock createHollowedLogBlock(MaterialColor topMapColor, MaterialColor sideMapColor, SoundType soundType, boolean experimental) {

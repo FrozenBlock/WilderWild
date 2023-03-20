@@ -597,8 +597,10 @@ public final class WilderConfiguredFeatures {
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_DARK_OAK_CHECKED.getHolder(), 0.075F),
 						new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH.getHolder(), 0.2F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_SHORT_BIRCH.getHolder(), 0.015F),
-						new WeightedPlacedFeature(WilderTreePlaced.TALL_DARK_OAK_CHECKED.getHolder(), 0.35F),
-						new WeightedPlacedFeature(WilderTreePlaced.DYING_TALL_DARK_OAK_CHECKED.getHolder(), 0.048F),
+						new WeightedPlacedFeature(WilderTreePlaced.TALL_DARK_OAK_CHECKED.getHolder(), 0.32F),
+						new WeightedPlacedFeature(WilderTreePlaced.FANCY_TALL_DARK_OAK_CHECKED.getHolder(), 0.1F),
+						new WeightedPlacedFeature(WilderTreePlaced.DYING_TALL_DARK_OAK_CHECKED.getHolder(), 0.045F),
+						new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_TALL_DARK_OAK_CHECKED.getHolder(), 0.027F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_CHECKED.getHolder(), 0.02F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED.getHolder(), 0.012F),
 						new WeightedPlacedFeature(WilderTreePlaced.FANCY_OAK_CHECKED.getHolder(), 0.185F)), WilderTreePlaced.OAK_CHECKED.getHolder()
@@ -612,8 +614,10 @@ public final class WilderConfiguredFeatures {
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_DARK_OAK_CHECKED.getHolder(), 0.255F),
 						new WeightedPlacedFeature(WilderTreePlaced.BIRCH_CHECKED.getHolder(), 0.1F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH.getHolder(), 0.04F),
-						new WeightedPlacedFeature(WilderTreePlaced.TALL_DARK_OAK_CHECKED.getHolder(), 0.8F),
-						new WeightedPlacedFeature(WilderTreePlaced.COBWEB_TALL_DARK_OAK_CHECKED.getHolder(), 0.021F),
+						new WeightedPlacedFeature(WilderTreePlaced.TALL_DARK_OAK_CHECKED.getHolder(), 0.6F),
+						new WeightedPlacedFeature(WilderTreePlaced.FANCY_TALL_DARK_OAK_CHECKED.getHolder(), 0.45F),
+						new WeightedPlacedFeature(WilderTreePlaced.COBWEB_TALL_DARK_OAK_CHECKED.getHolder(), 0.018F),
+						new WeightedPlacedFeature(WilderTreePlaced.COBWEB_FANCY_TALL_DARK_OAK_CHECKED.getHolder(), 0.032F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_TALL_DARK_OAK_CHECKED.getHolder(), 0.222F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_CHECKED.getHolder(), 0.095F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED.getHolder(), 0.045F),
@@ -631,7 +635,9 @@ public final class WilderConfiguredFeatures {
 						new WeightedPlacedFeature(WilderTreePlaced.BIRCH_CHECKED.getHolder(), 0.4F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH.getHolder(), 0.015F),
 						new WeightedPlacedFeature(WilderTreePlaced.TALL_DARK_OAK_CHECKED.getHolder(), 0.15F),
-						new WeightedPlacedFeature(WilderTreePlaced.DYING_TALL_DARK_OAK_CHECKED.getHolder(), 0.048F),
+						new WeightedPlacedFeature(WilderTreePlaced.FANCY_TALL_DARK_OAK_CHECKED.getHolder(), 0.095F),
+						new WeightedPlacedFeature(WilderTreePlaced.DYING_TALL_DARK_OAK_CHECKED.getHolder(), 0.045F),
+						new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_TALL_DARK_OAK_CHECKED.getHolder(), 0.027F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_CHECKED.getHolder(), 0.02F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED.getHolder(), 0.012F),
 						new WeightedPlacedFeature(WilderTreePlaced.FANCY_OAK_CHECKED.getHolder(), 0.15F)), WilderTreePlaced.OAK_CHECKED.getHolder()
@@ -650,7 +656,9 @@ public final class WilderConfiguredFeatures {
 						new WeightedPlacedFeature(WilderTreePlaced.BIRCH_CHECKED.getHolder(), 0.1F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH.getHolder(), 0.005F),
 						new WeightedPlacedFeature(WilderTreePlaced.TALL_DARK_OAK_CHECKED.getHolder(), 0.2F),
+						new WeightedPlacedFeature(WilderTreePlaced.FANCY_TALL_DARK_OAK_CHECKED.getHolder(), 0.08F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_TALL_DARK_OAK_CHECKED.getHolder(), 0.024F),
+						new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_TALL_DARK_OAK_CHECKED.getHolder(), 0.01F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED.getHolder(), 0.031F),
 						new WeightedPlacedFeature(WilderTreePlaced.FANCY_OAK_CHECKED.getHolder(), 0.015F)), placedFeatures.getOrThrow(TreePlacements.DARK_OAK_CHECKED)
 				)
@@ -793,10 +801,9 @@ public final class WilderConfiguredFeatures {
 		CYPRESS_WETLANDS_TREES_WATER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 				new RandomFeatureConfiguration(
 						List.of(
-								new WeightedPlacedFeature(WilderTreePlaced.CYPRESS.getHolder(), 0.2F),
 								new WeightedPlacedFeature(WilderTreePlaced.SWAMP_CYPRESS.getHolder(), 0.85F)
 						),
-						WilderTreePlaced.FUNGUS_CYPRESS.getHolder()
+						WilderTreePlaced.SWAMP_CYPRESS.getHolder()
 				)
 		);
 

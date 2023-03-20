@@ -37,6 +37,8 @@ public class DarkOakTreeGrowerMixin {
 		if (WilderSharedConstants.config().wildTrees()) {
 			if (randomSource.nextFloat() < 0.2F) {
 				info.setReturnValue(WilderTreeConfigured.TALL_DARK_OAK.getKey());
+			} else if (randomSource.nextFloat() < 0.2F) {
+				info.setReturnValue(WilderTreeConfigured.FANCY_TALL_DARK_OAK.getKey());
 			}
 		}
     }

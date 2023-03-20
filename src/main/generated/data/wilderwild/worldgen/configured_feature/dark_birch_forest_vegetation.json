@@ -46,8 +46,16 @@
         "feature": "wilderwild:tall_dark_oak_checked"
       },
       {
-        "chance": 0.048,
+        "chance": 0.095,
+        "feature": "wilderwild:fancy_tall_dark_oak_checked"
+      },
+      {
+        "chance": 0.045,
         "feature": "wilderwild:dying_tall_dark_oak_checked"
+      },
+      {
+        "chance": 0.027,
+        "feature": "wilderwild:dying_fancy_tall_dark_oak_checked"
       },
       {
         "chance": 0.02,

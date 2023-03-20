@@ -34,12 +34,20 @@
         "feature": "wilderwild:dying_birch"
       },
       {
-        "chance": 0.8,
+        "chance": 0.6,
         "feature": "wilderwild:tall_dark_oak_checked"
       },
       {
-        "chance": 0.021,
+        "chance": 0.45,
+        "feature": "wilderwild:fancy_tall_dark_oak_checked"
+      },
+      {
+        "chance": 0.018,
         "feature": "wilderwild:cobweb_tall_dark_oak_checked"
+      },
+      {
+        "chance": 0.032,
+        "feature": "wilderwild:cobweb_fancy_tall_dark_oak_checked"
       },
       {
         "chance": 0.222,
