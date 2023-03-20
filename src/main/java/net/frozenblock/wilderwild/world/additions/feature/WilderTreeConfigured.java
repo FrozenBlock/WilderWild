@@ -1148,7 +1148,7 @@ public final class WilderTreeConfigured {
         return darkOakBuilder(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_LEAVES, 8, 3, 4, 1).ignoreVines();
     }
 	private static TreeConfiguration.TreeConfigurationBuilder FancyTallDarkOak() {
-		return fancyDarkOakBuilder(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_LEAVES, 10, 3, 4, 1.0F, UniformInt.of(1, 2), UniformInt.of(1, 3), 1).ignoreVines();
+		return fancyDarkOakBuilder(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_LEAVES, 10, 3, 4, 0.25F, UniformInt.of(1, 2), UniformInt.of(1, 4), 1).ignoreVines();
 	}
 
     private static TreeConfiguration.TreeConfigurationBuilder fallenSpruce() {
