@@ -49,6 +49,7 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	private static final EntityConfig.EnderManConfig ENDER_MAN = ENTITY.enderMan;
 	private static final ItemConfig.ProjectileLandingSoundsConfig PROJECTILE_LANDING_SOUNDS = WilderWildConfig.get().item.projectileLandingSounds;
 	private static final BlockConfig.StoneChestConfig STONE_CHEST = BLOCK.stoneChest;
+	private static final BlockConfig.TermiteConfig TERMITE = BLOCK.termite;
 	private static final EntityConfig.WardenConfig WARDEN = ENTITY.warden;
 	private static final EntityConfig.FireflyConfig FIREFLY = ENTITY.firefly;
 	private static final EntityConfig.JellyfishConfig JELLYFISH = ENTITY.jellyfish;
@@ -190,6 +191,11 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	@Override
 	public int stoneChestTimer() {
 		return STONE_CHEST.stoneChestTimer;
+	}
+
+	@Override
+	public boolean termitesOnlyEatNaturalBlocks() {
+		return TERMITE.onlyEatNaturalBlocks;
 	}
 
 	@Override
@@ -471,6 +477,11 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	@Override
 	public boolean snowBelowTrees() {
 		return WORLDGEN.snowBelowTrees;
+	}
+
+	@Override
+	public boolean surfaceTransitions() {
+		return WORLDGEN.surfaceTransitions;
 	}
 
 	@Override

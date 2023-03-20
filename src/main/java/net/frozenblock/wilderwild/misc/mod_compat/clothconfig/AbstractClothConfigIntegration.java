@@ -84,6 +84,8 @@ public abstract class AbstractClothConfigIntegration extends ModIntegration {
 
 	public abstract int stoneChestTimer();
 
+	public abstract boolean termitesOnlyEatNaturalBlocks();
+
 	public abstract boolean shriekerGargling();
 
 	public abstract boolean soulFireSounds();
@@ -199,6 +201,8 @@ public abstract class AbstractClothConfigIntegration extends ModIntegration {
 	public abstract boolean wildGrass();
 
 	public abstract boolean snowBelowTrees();
+
+	public abstract boolean surfaceTransitions();
 
 	public abstract boolean newWitchHuts();
 

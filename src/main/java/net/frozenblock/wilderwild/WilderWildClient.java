@@ -312,6 +312,9 @@ public final class WilderWildClient implements ClientModInitializer {
 		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
 				BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
 		), RegisterBlocks.BUSH);
+		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
+				BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
+		), RegisterBlocks.POTTED_BUSH);
 	}
 
 	private static void receiveAncientHornProjectilePacket() {

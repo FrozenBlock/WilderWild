@@ -166,6 +166,11 @@ public class NoOpClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean termitesOnlyEatNaturalBlocks() {
+		return DefaultBlockConfig.TermiteConfig.ONLY_EAT_NATURAL_BLOCKS;
+	}
+
+	@Override
 	public boolean shriekerGargling() {
 		return DefaultBlockConfig.SHRIEKER_GARGLING;
 	}
@@ -444,6 +449,11 @@ public class NoOpClothConfigIntegration extends AbstractClothConfigIntegration {
 	@Override
 	public boolean snowBelowTrees() {
 		return DefaultWorldgenConfig.SNOW_BELOW_TREES;
+	}
+
+	@Override
+	public boolean surfaceTransitions() {
+		return DefaultWorldgenConfig.SURFACE_TRANSITIONS;
 	}
 
 	@Override

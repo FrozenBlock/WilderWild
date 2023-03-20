@@ -783,7 +783,6 @@ public final class WilderConfiguredFeatures {
 				new RandomFeatureConfiguration(
 						List.of(
 								new WeightedPlacedFeature(WilderTreePlaced.CYPRESS.getHolder(), 0.2F),
-								new WeightedPlacedFeature(WilderTreePlaced.SHORT_CYPRESS.getHolder(), 0.1F),
 								new WeightedPlacedFeature(WilderTreePlaced.SWAMP_CYPRESS.getHolder(), 0.85F)
 						),
 						WilderTreePlaced.FUNGUS_CYPRESS.getHolder()
