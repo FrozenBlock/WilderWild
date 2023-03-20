@@ -76,6 +76,7 @@ public final class WorldgenConfig implements ConfigData {
     public boolean wilderWildTreeGen = DefaultWorldgenConfig.WILDER_WILD_TREE_GEN;
     public boolean wilderWildGrassGen = DefaultWorldgenConfig.WILDER_WILD_GRASS_GEN;
 	public boolean snowBelowTrees = DefaultWorldgenConfig.SNOW_BELOW_TREES;
+	public boolean surfaceTransitions = DefaultWorldgenConfig.SURFACE_TRANSITIONS;
 	public boolean newWitchHuts = DefaultWorldgenConfig.NEW_WITCH_HUTS;
 
     @Environment(EnvType.CLIENT)
@@ -286,6 +287,13 @@ public final class WorldgenConfig implements ConfigData {
 				.setDefaultValue(DefaultWorldgenConfig.SNOW_BELOW_TREES)
 				.setSaveConsumer(newValue -> config.snowBelowTrees = newValue)
 				.setTooltip(tooltip("snow_below_trees"))
+				.requireRestart()
+				.build()
+		);
+		var surfaceTransitions = category.addEntry(entryBuilder.startBooleanToggle(text("surface_transitions"), config.surfaceTransitions)
+				.setDefaultValue(DefaultWorldgenConfig.SURFACE_TRANSITIONS)
+				.setSaveConsumer(newValue -> config.surfaceTransitions = newValue)
+				.setTooltip(tooltip("surface_transitions"))
 				.requireRestart()
 				.build()
 		);

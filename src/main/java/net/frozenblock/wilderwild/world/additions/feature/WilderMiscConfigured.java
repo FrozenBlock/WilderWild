@@ -78,7 +78,9 @@ public final class WilderMiscConfigured {
 
     public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> MUD_PATH = register("mud_path");
 
-    // TAIGA
+	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> MUD_TRANSITION_DISK = register("mud_transition_disk");
+
+	// TAIGA
 	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> COARSE_PATH = register("coarse_dirt_path");
 
 	// CYPRESS WETLANDS
@@ -228,6 +230,22 @@ public final class WilderMiscConfigured {
 						false,
 						false,
 						WilderBlockTags.MUD_PATH_REPLACEABLE
+				)
+		);
+
+		MUD_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
+				new FadingDiskTagFeatureConfig(
+						true,
+						BlockStateProvider.simple(Blocks.MUD),
+						BlockStateProvider.simple(Blocks.MUD),
+						UniformInt.of(3, 5),
+						0.65F,
+						0.5F,
+						0.5F,
+						0.5F,
+						WilderBlockTags.MUD_TRANSITION_REPLACEABLE,
+						WilderBlockTags.MUD_TRANSITION_REPLACEABLE,
+						Heightmap.Types.OCEAN_FLOOR_WG
 				)
 		);
 

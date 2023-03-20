@@ -18,10 +18,10 @@
 
 package net.frozenblock.wilderwild.world.additions.feature;
 
-import java.util.List;
 import net.frozenblock.lib.worldgen.feature.api.FrozenPlacedFeature;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import static net.frozenblock.wilderwild.world.additions.feature.WilderPlacementUtils.register;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -33,15 +33,14 @@ import net.minecraft.data.worldgen.features.VegetationFeatures;
 import static net.minecraft.data.worldgen.placement.AquaticPlacements.seagrassPlacement;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
-import static net.minecraft.data.worldgen.placement.VegetationPlacements.*;
+import static net.minecraft.data.worldgen.placement.VegetationPlacements.TREE_THRESHOLD;
+import static net.minecraft.data.worldgen.placement.VegetationPlacements.treePlacement;
 import net.minecraft.util.valueproviders.ClampedInt;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
@@ -54,9 +53,6 @@ import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceWaterDepthFilter;
-import org.jetbrains.annotations.NotNull;
-
-import static net.frozenblock.wilderwild.world.additions.feature.WilderPlacementUtils.register;
 
 public final class WilderPlacedFeatures {
 	private WilderPlacedFeatures() {
@@ -338,54 +334,66 @@ public final class WilderPlacedFeatures {
 
 		// FALLEN TREES
 
-		FALLEN_TREES_MIXED_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_TREES_MIXED.getHolder(), RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+		FALLEN_TREES_MIXED_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_TREES_MIXED.getHolder(),
+				RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
-		MOSSY_FALLEN_TREES_MIXED_PLACED.makeAndSetHolder(WilderConfiguredFeatures.MOSSY_FALLEN_TREES_MIXED.getHolder(), CountPlacement.of(2), InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+		MOSSY_FALLEN_TREES_MIXED_PLACED.makeAndSetHolder(WilderConfiguredFeatures.MOSSY_FALLEN_TREES_MIXED.getHolder(),
+				CountPlacement.of(2), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
-		MOSSY_FALLEN_TREES_OAK_AND_BIRCH_PLACED.makeAndSetHolder(WilderConfiguredFeatures.MOSSY_FALLEN_TREES_OAK_AND_BIRCH.getHolder(), CountPlacement.of(2), InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+		MOSSY_FALLEN_TREES_OAK_AND_BIRCH_PLACED.makeAndSetHolder(WilderConfiguredFeatures.MOSSY_FALLEN_TREES_OAK_AND_BIRCH.getHolder(),
+				CountPlacement.of(2), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
-		FALLEN_BIRCH_AND_SPRUCE_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_BIRCH_AND_SPRUCE.getHolder(), RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+		FALLEN_BIRCH_AND_SPRUCE_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_BIRCH_AND_SPRUCE.getHolder(),
+				RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
-		FALLEN_OAK_AND_SPRUCE_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_SPRUCE_AND_OAK.getHolder(), RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+		FALLEN_OAK_AND_SPRUCE_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_SPRUCE_AND_OAK.getHolder(),
+				RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
-		FALLEN_OAK_AND_BIRCH_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_BIRCH_AND_OAK.getHolder(), RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+		FALLEN_OAK_AND_BIRCH_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_BIRCH_AND_OAK.getHolder(),
+				RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
-		FALLEN_OAK_AND_CYPRESS_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_CYPRESS_AND_OAK.getHolder(), RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+		FALLEN_OAK_AND_CYPRESS_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_CYPRESS_AND_OAK.getHolder(),
+				RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
-		FALLEN_BIRCH_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_BIRCH.getHolder(), RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+		FALLEN_BIRCH_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_BIRCH.getHolder(),
+				RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
-		FALLEN_SPRUCE_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_SPRUCE.getHolder(), RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+		FALLEN_SPRUCE_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_SPRUCE.getHolder(),
+				RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
-		FALLEN_OAK_AND_BIRCH_PLACED_2.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_BIRCH_AND_OAK.getHolder(), RarityFilter.onAverageOnceEvery(10), InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+		FALLEN_OAK_AND_BIRCH_PLACED_2.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_BIRCH_AND_OAK.getHolder(),
+				RarityFilter.onAverageOnceEvery(10), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
 		// TREES
 
 		TREES_PLAINS.makeAndSetHolder(WilderConfiguredFeatures.TREES_PLAINS.getHolder(),
-				PlacementUtils.countExtra(0, 0.05F, 1), InSquarePlacement.spread(), TREE_THRESHOLD, PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome()
+				PlacementUtils.countExtra(0, 0.05F, 1), InSquarePlacement.spread(), TREE_THRESHOLD,
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome()
 		);
 
 		TREES_FLOWER_FIELD.makeAndSetHolder(WilderConfiguredFeatures.TREES_FLOWER_FIELD.getHolder(),
-				PlacementUtils.countExtra(0, 0.1F, 1), InSquarePlacement.spread(), TREE_THRESHOLD, PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome()
+				PlacementUtils.countExtra(0, 0.1F, 1), InSquarePlacement.spread(), TREE_THRESHOLD,
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome()
 		);
 
 		TREES_BIRCH_AND_OAK.makeAndSetHolder(WilderConfiguredFeatures.TREES_BIRCH_AND_OAK.getHolder(),
@@ -401,19 +409,23 @@ public final class WilderPlacedFeatures {
 		);
 
 		DARK_FOREST_VEGETATION.makeAndSetHolder(WilderConfiguredFeatures.DARK_FOREST_VEGETATION.getHolder(),
-				CountPlacement.of(16), InSquarePlacement.spread(), TREE_THRESHOLD, PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
+				CountPlacement.of(16), InSquarePlacement.spread(), TREE_THRESHOLD,
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
 		OLD_GROWTH_DARK_FOREST_VEGETATION.makeAndSetHolder(WilderConfiguredFeatures.OLD_GROWTH_DARK_FOREST_VEGETATION.getHolder(),
-				CountPlacement.of(17), InSquarePlacement.spread(), TREE_THRESHOLD, PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
+				CountPlacement.of(17), InSquarePlacement.spread(), TREE_THRESHOLD,
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
 		DARK_BIRCH_FOREST_VEGETATION.makeAndSetHolder(WilderConfiguredFeatures.DARK_BIRCH_FOREST_VEGETATION.getHolder(),
-				CountPlacement.of(14), InSquarePlacement.spread(), TREE_THRESHOLD, PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
+				CountPlacement.of(14), InSquarePlacement.spread(), TREE_THRESHOLD,
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
 		DARK_TAIGA_VEGETATION.makeAndSetHolder(WilderConfiguredFeatures.DARK_TAIGA_VEGETATION.getHolder(),
-				CountPlacement.of(14), InSquarePlacement.spread(), TREE_THRESHOLD, PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
+				CountPlacement.of(14), InSquarePlacement.spread(), TREE_THRESHOLD,
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
 		TREES_BIRCH.makeAndSetHolder(WilderConfiguredFeatures.TREES_BIRCH.getHolder(),
@@ -489,7 +501,8 @@ public final class WilderPlacedFeatures {
 		);
 
 		TREES_SWAMP.makeAndSetHolder(WilderTreeConfigured.SWAMP_TREE.getHolder(),
-				PlacementUtils.countExtra(2, 0.1F, 1), InSquarePlacement.spread(), SurfaceWaterDepthFilter.forMaxDepth(3), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome(), BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.MANGROVE_PROPAGULE.defaultBlockState(), BlockPos.ZERO))
+				PlacementUtils.countExtra(2, 0.1F, 1), InSquarePlacement.spread(),
+				SurfaceWaterDepthFilter.forMaxDepth(3), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome(), BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.MANGROVE_PROPAGULE.defaultBlockState(), BlockPos.ZERO))
 		);
 
 		MIXED_TREES.makeAndSetHolder(WilderConfiguredFeatures.MIXED_TREES.getHolder(),
@@ -529,11 +542,13 @@ public final class WilderPlacedFeatures {
 		);
 
 		CYPRESS_WETLANDS_TREES.makeAndSetHolder(WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES.getHolder(),
-				CountPlacement.of(28), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome(), BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(RegisterBlocks.CYPRESS_SAPLING.defaultBlockState(), BlockPos.ZERO))
+				CountPlacement.of(28), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome(), BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(RegisterBlocks.CYPRESS_SAPLING.defaultBlockState(), BlockPos.ZERO))
 		);
 
 		CYPRESS_WETLANDS_TREES_WATER.makeAndSetHolder(WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES_WATER.getHolder(),
-				CountPlacement.of(20), SurfaceWaterDepthFilter.forMaxDepth(5), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome(), BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(RegisterBlocks.CYPRESS_SAPLING.defaultBlockState(), BlockPos.ZERO))
+				CountPlacement.of(UniformInt.of(4, 7)), SurfaceWaterDepthFilter.forMaxDepth(5), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome(), BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(RegisterBlocks.CYPRESS_SAPLING.defaultBlockState(), BlockPos.ZERO))
 		);
 
 		BIG_SHRUB.makeAndSetHolder(WilderConfiguredFeatures.BIG_SHRUBS.getHolder(),
@@ -559,19 +574,23 @@ public final class WilderPlacedFeatures {
 		// MUSHROOMS
 
 		BROWN_SHELF_FUNGUS_PLACED.makeAndSetHolder(WilderConfiguredFeatures.BROWN_SHELF_FUNGUS_CONFIGURED.getHolder(),
-				RarityFilter.onAverageOnceEvery(1), CountPlacement.of(11), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, InSquarePlacement.spread(), SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, 0, 128), BiomeFilter.biome()
+				RarityFilter.onAverageOnceEvery(1), CountPlacement.of(11),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, InSquarePlacement.spread(), SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, 0, 128), BiomeFilter.biome()
 		);
 
 		RED_SHELF_FUNGUS_PLACED.makeAndSetHolder(WilderConfiguredFeatures.RED_SHELF_FUNGUS_CONFIGURED.getHolder(),
-				RarityFilter.onAverageOnceEvery(1), CountPlacement.of(11), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, InSquarePlacement.spread(), SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, 0, 128), BiomeFilter.biome()
+				RarityFilter.onAverageOnceEvery(1), CountPlacement.of(11),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, InSquarePlacement.spread(), SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, 0, 128), BiomeFilter.biome()
 		);
 
 		BROWN_MUSHROOM_PLACED.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_BROWN_MUSHROOM),
-				worldSurfaceSquaredWithCount(10)
+				CountPlacement.of(10), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
 		RED_MUSHROOM_PLACED.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_RED_MUSHROOM),
-				worldSurfaceSquaredWithCount(10)
+				CountPlacement.of(10), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
 		DARK_FOREST_MUSHROOM_PLACED.makeAndSetHolder(WilderConfiguredFeatures.MUSHROOMS_DARK_FOREST.getHolder(),
@@ -612,11 +631,13 @@ public final class WilderPlacedFeatures {
 		// GRASS AND FERNS
 
 		OASIS_GRASS_PLACED.makeAndSetHolder(WilderConfiguredFeatures.OASIS_GRASS.getHolder(),
-				worldSurfaceSquaredWithCount(19)
+				CountPlacement.of(19), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
 		OASIS_BUSH_PLACED.makeAndSetHolder(WilderConfiguredFeatures.OASIS_BUSH.getHolder(),
-				worldSurfaceSquaredWithCount(2)
+				CountPlacement.of(2), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
 		DEAD_BUSH_PLACED.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_DEAD_BUSH),
@@ -640,64 +661,83 @@ public final class WilderPlacedFeatures {
 		);
 
 		DESERT_BUSH_PLACED.makeAndSetHolder(WilderConfiguredFeatures.DESERT_BUSH.getHolder(),
-				RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+				RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
 		BADLANDS_BUSH_SAND_PLACED.makeAndSetHolder(WilderConfiguredFeatures.BADLANDS_BUSH_SAND.getHolder(),
-				RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+				RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
 		BADLANDS_BUSH_RARE_SAND_PLACED.makeAndSetHolder(WilderConfiguredFeatures.BADLANDS_BUSH_SAND.getHolder(),
-				RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+				RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
 		BADLANDS_BUSH_TERRACOTTA_PLACED.makeAndSetHolder(WilderConfiguredFeatures.BADLANDS_BUSH_TERRACOTTA.getHolder(),
-				RarityFilter.onAverageOnceEvery(9), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+				RarityFilter.onAverageOnceEvery(9), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
 		WOODED_BADLANDS_BUSH_TERRACOTTA_PLACED.makeAndSetHolder(WilderConfiguredFeatures.WOODED_BADLANDS_BUSH_TERRACOTTA.getHolder(),
-				RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+				RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
 		ARID_BUSH_PLACED.makeAndSetHolder(WilderConfiguredFeatures.DESERT_BUSH.getHolder(),
-				RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+				RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
 		OASIS_CACTUS_PLACED.makeAndSetHolder(WilderConfiguredFeatures.PATCH_CACTUS_OASIS.getHolder(),
-				RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+				RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
 		TALL_CACTUS_PLACED.makeAndSetHolder(WilderConfiguredFeatures.PATCH_CACTUS_TALL.getHolder(),
-				RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+				RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
 		BADLANDS_TALL_CACTUS_PLACED.makeAndSetHolder(WilderConfiguredFeatures.PATCH_CACTUS_TALL_BADLANDS.getHolder(),
-				RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+				RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
 		ARID_CACTUS_PLACED.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_CACTUS),
-				RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+				RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
 		GRASS_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FERN_AND_GRASS.getHolder(),
-				worldSurfaceSquaredWithCount(20)
+				CountPlacement.of(20), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP,
+				BiomeFilter.biome()
 		);
 
 		RARE_GRASS_PLACED.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_GRASS_JUNGLE),
-				worldSurfaceSquaredWithCount(8)
+				CountPlacement.of(8), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP,
+				BiomeFilter.biome()
 		);
 
 		TALL_GRASS.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_TALL_GRASS),
 				RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+				PlacementUtils.HEIGHTMAP,
+				BiomeFilter.biome()
 		);
 
 		DENSE_TALL_GRASS_PLACED.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_TALL_GRASS),
-				worldSurfaceSquaredWithCount(1)
+				CountPlacement.of(1), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP,
+				BiomeFilter.biome()
 		);
 
 		DENSE_FERN_PLACED.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_LARGE_FERN),
-				worldSurfaceSquaredWithCount(1)
+				CountPlacement.of(1), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP,
+				BiomeFilter.biome()
 		);
 
 		SEAGRASS_CYPRESS.makeAndSetHolder(configuredFeatures.getOrThrow(AquaticFeatures.SEAGRASS_MID),
@@ -706,20 +746,25 @@ public final class WilderPlacedFeatures {
 
 		LARGE_FERN_AND_GRASS.makeAndSetHolder(WilderConfiguredFeatures.LARGE_FERN_AND_GRASS.getHolder(),
 				RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+				PlacementUtils.HEIGHTMAP,
+				BiomeFilter.biome()
 		);
 
 		LARGE_FERN_AND_GRASS_RARE.makeAndSetHolder(WilderConfiguredFeatures.LARGE_FERN_AND_GRASS.getHolder(),
 				RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+				PlacementUtils.HEIGHTMAP,
+				BiomeFilter.biome()
 		);
 
 		FLOWER_FIELD_GRASS_PLACED.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_GRASS_JUNGLE),
-				worldSurfaceSquaredWithCount(15)
+				CountPlacement.of(15), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP,
+				BiomeFilter.biome()
 		);
 
 		PATCH_TALL_GRASS_FF.makeAndSetHolder(WilderConfiguredFeatures.LARGE_FERN_AND_GRASS_2.getHolder(),
-				NoiseThresholdCountPlacement.of(-0.8, 0, 7), RarityFilter.onAverageOnceEvery(16), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+				NoiseThresholdCountPlacement.of(-0.8, 0, 7), RarityFilter.onAverageOnceEvery(16), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
 		// FLOWERS
@@ -755,15 +800,15 @@ public final class WilderPlacedFeatures {
 		);
 
 		DENSE_FLOWER_PLACED.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.FLOWER_DEFAULT),
-				worldSurfaceSquaredWithCount(1)
+				CountPlacement.of(1), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
 		FLOWER_FOREST_FLOWERS.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.FOREST_FLOWERS),
 				RarityFilter.onAverageOnceEvery(7),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP,
-				CountPlacement.of(ClampedInt.of(UniformInt.of(-1, 3), 0, 3)),
-				BiomeFilter.biome()
+				CountPlacement.of(ClampedInt.of(UniformInt.of(-1, 3), 0, 3)), BiomeFilter.biome()
 		);
 
 		MILKWEED.makeAndSetHolder(WilderConfiguredFeatures.MILKWEED.getHolder(),
@@ -777,73 +822,90 @@ public final class WilderPlacedFeatures {
 		);
 
 		GLORY_OF_THE_SNOW.makeAndSetHolder(WilderConfiguredFeatures.GLORY_OF_THE_SNOW.getHolder(),
-				RarityFilter.onAverageOnceEvery(11), CountPlacement.of(2), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, InSquarePlacement.spread(), BiomeFilter.biome()
+				RarityFilter.onAverageOnceEvery(11), CountPlacement.of(2), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
 		FLOWER_FLOWER_FIELD.makeAndSetHolder(WilderConfiguredFeatures.FLOWER_FLOWER_FIELD.getHolder(),
-				CountPlacement.of(3), RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+				CountPlacement.of(3), RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
 		FLOWER_TEMPERATE_RAINFOREST.makeAndSetHolder(WilderConfiguredFeatures.FLOWERS_TEMPERATE_RAINFOREST.getHolder(),
-				CountPlacement.of(2), RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+				CountPlacement.of(2), RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
 		FLOWER_RAINFOREST.makeAndSetHolder(WilderConfiguredFeatures.FLOWERS_RAINFOREST.getHolder(),
-				CountPlacement.of(3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+				CountPlacement.of(3), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
 		MOSS_CARPET.makeAndSetHolder(WilderConfiguredFeatures.MOSS_CARPET.getHolder(),
-				RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+				RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
 		TALL_FLOWER_FIELD_FLOWERS.makeAndSetHolder(WilderConfiguredFeatures.TALL_FLOWER_FLOWER_FIELD.getHolder(),
-				RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, CountPlacement.of(ClampedInt.of(UniformInt.of(-1, 4), 0, 4)), BiomeFilter.biome()
+				RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, CountPlacement.of(ClampedInt.of(UniformInt.of(-1, 4), 0, 4)), BiomeFilter.biome()
 		);
 
 		// VEGETATION
 
 		POLLEN_PLACED.makeAndSetHolder(WilderConfiguredFeatures.POLLEN_CONFIGURED.getHolder(),
-				RarityFilter.onAverageOnceEvery(1), CountPlacement.of(2), PlacementUtils.HEIGHTMAP, InSquarePlacement.spread(), SurfaceRelativeThresholdFilter.of(Heightmap.Types.MOTION_BLOCKING, 0, 128), BiomeFilter.biome()
+				RarityFilter.onAverageOnceEvery(1), CountPlacement.of(2),
+				PlacementUtils.HEIGHTMAP, InSquarePlacement.spread(), SurfaceRelativeThresholdFilter.of(Heightmap.Types.MOTION_BLOCKING, 0, 128), BiomeFilter.biome()
 		);
 
 		PATCH_CATTAIL.makeAndSetHolder(WilderConfiguredFeatures.CATTAIL.getHolder(),
-				RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+				RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
 		PATCH_CATTAIL_COMMON.makeAndSetHolder(WilderConfiguredFeatures.CATTAIL_06.getHolder(),
-				InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
 		PATCH_FLOWERED_WATERLILY.makeAndSetHolder(WilderConfiguredFeatures.PATCH_FLOWERED_WATERLILY.getHolder(),
-				worldSurfaceSquaredWithCount(1)
+				CountPlacement.of(1), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
 		PATCH_ALGAE.makeAndSetHolder(WilderConfiguredFeatures.PATCH_ALGAE.getHolder(),
-				RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+				RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
 		PATCH_ALGAE_5.makeAndSetHolder(WilderConfiguredFeatures.PATCH_ALGAE.getHolder(),
-				RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+				RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
 		PATCH_BERRY_FOREST.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_BERRY_BUSH),
-				RarityFilter.onAverageOnceEvery(28), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+				RarityFilter.onAverageOnceEvery(28), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
 		TERMITE_PLACED.makeAndSetHolder(WilderConfiguredFeatures.TERMITE_CONFIGURED.getHolder(),
-				RarityFilter.onAverageOnceEvery(45), CountPlacement.of(1), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, InSquarePlacement.spread(), SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, 0, 128), BiomeFilter.biome()
+				RarityFilter.onAverageOnceEvery(45), CountPlacement.of(1),
+				PlacementUtils.HEIGHTMAP, InSquarePlacement.spread(), SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, 0, 128), BiomeFilter.biome()
 		);
 
 		TUMBLEWEED.makeAndSetHolder(WilderConfiguredFeatures.TUMBLEWEED.getHolder(),
-				RarityFilter.onAverageOnceEvery(9), CountPlacement.of(1), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+				RarityFilter.onAverageOnceEvery(9), CountPlacement.of(1),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
 		PRICKLY_PEAR.makeAndSetHolder(WilderConfiguredFeatures.PRICKLY_PEAR.getHolder(),
-				RarityFilter.onAverageOnceEvery(7), CountPlacement.of(1), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+				RarityFilter.onAverageOnceEvery(7), CountPlacement.of(1),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
 		PRICKLY_PEAR_RARE.makeAndSetHolder(WilderConfiguredFeatures.PRICKLY_PEAR.getHolder(),
-				RarityFilter.onAverageOnceEvery(9), CountPlacement.of(1), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+				RarityFilter.onAverageOnceEvery(9), CountPlacement.of(1),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
 		JELLYFISH_CAVES_BLUE_MESOGLEA.makeAndSetHolder(WilderConfiguredFeatures.JELLYFISH_CAVES_BLUE_MESOGLEA.getHolder(),
@@ -897,19 +959,23 @@ public final class WilderPlacedFeatures {
 		);
 
 		MESOGLEA_CLUSTER_PURPLE.makeAndSetHolder(WilderConfiguredFeatures.MESOGLEA_CLUSTER_PURPLE.getHolder(),
-				CountPlacement.of(UniformInt.of(9, 15)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome()
+				CountPlacement.of(UniformInt.of(9, 15)), InSquarePlacement.spread(),
+				PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome()
 		);
 
 		MESOGLEA_CLUSTER_BLUE.makeAndSetHolder(WilderConfiguredFeatures.MESOGLEA_CLUSTER_BLUE.getHolder(),
-				CountPlacement.of(UniformInt.of(6, 13)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome()
+				CountPlacement.of(UniformInt.of(6, 13)), InSquarePlacement.spread(),
+				PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome()
 		);
 
 		LARGE_MESOGLEA_PURPLE.makeAndSetHolder(WilderConfiguredFeatures.LARGE_MESOGLEA_PURPLE.getHolder(),
-				CountPlacement.of(UniformInt.of(1, 5)), RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome()
+				CountPlacement.of(UniformInt.of(1, 5)), RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(),
+				PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome()
 		);
 
 		LARGE_MESOGLEA_BLUE.makeAndSetHolder(WilderConfiguredFeatures.LARGE_MESOGLEA_BLUE.getHolder(),
-				CountPlacement.of(UniformInt.of(1, 5)), RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome()
+				CountPlacement.of(UniformInt.of(1, 5)), RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(),
+				PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome()
 		);
 
 		SMALL_SPONGES.makeAndSetHolder(WilderConfiguredFeatures.SMALL_SPONGE.getHolder(),

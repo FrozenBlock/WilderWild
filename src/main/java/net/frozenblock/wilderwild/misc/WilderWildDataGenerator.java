@@ -605,6 +605,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.SWAMP)
 					.add(Biomes.SPARSE_JUNGLE)
 					.add(Biomes.JUNGLE)
+					.add(Biomes.BAMBOO_JUNGLE)
 					.add(Biomes.DARK_FOREST)
 					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
 					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
@@ -805,6 +806,12 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.WINDSWEPT_GRAVELLY_HILLS)
 					.add(Biomes.WINDSWEPT_HILLS);
 
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_STONE_TRANSITION)
+					.add(Biomes.STONY_PEAKS)
+					.add(Biomes.STONY_SHORE)
+					.add(Biomes.WINDSWEPT_GRAVELLY_HILLS)
+					.add(Biomes.WINDSWEPT_HILLS);
+
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_BETA_BEACH_SAND_TRANSITION)
 					.addOptionalTag(WilderBiomeTags.SAND_BEACHES)
 					.addOptionalTag(WilderBiomeTags.MULTI_LAYER_SAND_BEACHES);
@@ -813,12 +820,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.WINDSWEPT_GRAVELLY_HILLS)
 					.addOptionalTag(WilderBiomeTags.GRAVEL_BEACH);
 
-			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_STONE_TRANSITION)
-					.add(Biomes.STONY_PEAKS)
-					.add(Biomes.STONY_SHORE)
-					.add(Biomes.WINDSWEPT_GRAVELLY_HILLS)
-					.add(Biomes.WINDSWEPT_HILLS);
-
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_MUD_TRANSITION)
+					.add(Biomes.MANGROVE_SWAMP)
+					.add(Biomes.SWAMP);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_TERMITE_MOUND)
 					.addOptionalTag(BiomeTags.IS_SAVANNA);
@@ -1009,6 +1013,16 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBlockTags.RED_SAND_TRANSITION_PLACEABLE)
 					.add(Blocks.RED_SAND)
 					.addOptionalTag(BlockTags.TERRACOTTA);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.MUD_TRANSITION_REPLACEABLE)
+					.add(Blocks.DIRT)
+					.add(Blocks.GRASS_BLOCK)
+					.add(Blocks.CLAY)
+					.add(Blocks.SAND);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.MUD_TRANSITION_PLACEABLE)
+					.add(Blocks.MUD)
+					.add(Blocks.MUDDY_MANGROVE_ROOTS);
 
 			this.getOrCreateTagBuilder(WilderBlockTags.MUD_PATH_REPLACEABLE)
 					.add(Blocks.DIRT)
