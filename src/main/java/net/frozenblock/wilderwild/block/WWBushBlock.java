@@ -164,7 +164,7 @@ public class WWBushBlock extends BushBlock implements BonemealableBlock {
 
 	@Override
 	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
-		return isMinimumAge(state) || (isAlmostFullyGrown(state) && isLower(state) && level.getBlockState(pos.above()).isAir());
+		return isMinimumAge(state) || (isAlmostFullyGrown(state) && isLower(state) && level.getBlockState(pos.above()).isAir()) || isFullyGrown(state);
 	}
 
 	@Override
@@ -174,7 +174,11 @@ public class WWBushBlock extends BushBlock implements BonemealableBlock {
 
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-		this.grow(level, state, pos);
+		if (isFullyGrown(state)) {
+			Block.popResource(level, pos, new ItemStack(this));
+		} else {
+			this.grow(level, state, pos);
+		}
 	}
 	@Override
 	public long getSeed(@NotNull BlockState state, @NotNull BlockPos pos) {

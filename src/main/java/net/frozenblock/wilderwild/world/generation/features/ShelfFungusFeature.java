@@ -42,8 +42,8 @@ public class ShelfFungusFeature extends Feature<ShelfFungusFeatureConfig> {
 	@Override
     public boolean place(FeaturePlaceContext<ShelfFungusFeatureConfig> context) {
         WorldGenLevel structureWorldAccess = context.level();
-        BlockPos blockPos = context.origin();
         RandomSource abstractRandom = context.random();
+		BlockPos blockPos = context.origin().above(abstractRandom.nextInt(0, 4));
         ShelfFungusFeatureConfig shelfFungusFeatureConfig = context.config();
         if (!isAirOrWater(structureWorldAccess.getBlockState(blockPos))) {
             return false;

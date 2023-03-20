@@ -543,12 +543,12 @@ public final class WilderPlacedFeatures {
 
 		CYPRESS_WETLANDS_TREES.makeAndSetHolder(WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES.getHolder(),
 				CountPlacement.of(28), InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome(), BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(RegisterBlocks.CYPRESS_SAPLING.defaultBlockState(), BlockPos.ZERO))
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome(), PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING)
 		);
 
 		CYPRESS_WETLANDS_TREES_WATER.makeAndSetHolder(WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES_WATER.getHolder(),
-				CountPlacement.of(UniformInt.of(4, 7)), SurfaceWaterDepthFilter.forMaxDepth(5), InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome(), BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(RegisterBlocks.CYPRESS_SAPLING.defaultBlockState(), BlockPos.ZERO))
+				CountPlacement.of(UniformInt.of(5, 10)), SurfaceWaterDepthFilter.forMaxDepth(5), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome(), PlacementUtils.filteredByBlockSurvival(Blocks.MANGROVE_PROPAGULE)
 		);
 
 		BIG_SHRUB.makeAndSetHolder(WilderConfiguredFeatures.BIG_SHRUBS.getHolder(),
@@ -624,7 +624,7 @@ public final class WilderPlacedFeatures {
 		);
 
 		RAINFOREST_MUSHROOMS_PLACED.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.MUSHROOM_ISLAND_VEGETATION),
-				RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(),
+				RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 

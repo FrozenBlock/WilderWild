@@ -36,6 +36,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
+import org.jetbrains.annotations.NotNull;
 
 public class StraightTrunkWithLogs extends TrunkPlacer {
     public static final Codec<StraightTrunkWithLogs> CODEC = RecordCodecBuilder.create((instance) -> trunkPlacerParts(instance).and(instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("place_branch_chance").forGetter((trunkPlacer) -> trunkPlacer.logChance), IntProvider.NON_NEGATIVE_CODEC.fieldOf("max_logs").forGetter((trunkPlacer) -> trunkPlacer.maxLogs), IntProvider.NON_NEGATIVE_CODEC.fieldOf("log_height_from_top").forGetter((trunkPlacer) -> trunkPlacer.logHeightFromTop), IntProvider.NON_NEGATIVE_CODEC.fieldOf("extra_branch_length").forGetter((trunkPlacer) -> trunkPlacer.extraBranchLength))).apply(instance, StraightTrunkWithLogs::new));
@@ -53,24 +54,26 @@ public class StraightTrunkWithLogs extends TrunkPlacer {
         this.extraBranchLength = extraBranchLength;
     }
 
+	@Override
     protected TrunkPlacerType<?> type() {
         return WilderWild.STRAIGHT_TRUNK_WITH_LOGS_PLACER_TYPE;
     }
 
-    public List<FoliagePlacer.FoliageAttachment> placeTrunk(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, int height, BlockPos startPos, TreeConfiguration config) {
+	@Override
+    public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, int height, BlockPos startPos, @NotNull TreeConfiguration config) {
         setDirtAt(level, replacer, random, startPos.below(), config);
         List<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();
         BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
         int maxLogs = this.maxLogs.sample(random);
         int logHeightFromTop = this.logHeightFromTop.sample(random);
-        int placedLogs = 0;
+        int extraLogs = 0;
         for (int i = 0; i < height; ++i) {
             int j = startPos.getY() + i;
             if (this.placeLog(level, replacer, random, mutable.set(startPos.getX(), j, startPos.getZ()), config)
-                    && i < height - 1 && random.nextFloat() < this.logChance && placedLogs < maxLogs && (height - 4) - i <= logHeightFromTop) {
+                    && i < height - 1 && random.nextFloat() < this.logChance && extraLogs < maxLogs && (height - 4) - i <= logHeightFromTop) {
                 Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
                 this.generateExtraBranch(level, replacer, random, config, mutable, j, direction, this.extraBranchLength.sample(random));
-                ++placedLogs;
+                ++extraLogs;
             }
             if (i == height - 1) {
                 list.add(new FoliagePlacer.FoliageAttachment(mutable.set(startPos.getX(), j + 1, startPos.getZ()), 0, false));

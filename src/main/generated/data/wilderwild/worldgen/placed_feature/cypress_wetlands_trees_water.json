@@ -6,8 +6,8 @@
       "count": {
         "type": "minecraft:uniform",
         "value": {
-          "max_inclusive": 7,
-          "min_inclusive": 4
+          "max_inclusive": 10,
+          "min_inclusive": 5
         }
       }
     },
@@ -30,8 +30,10 @@
       "predicate": {
         "type": "minecraft:would_survive",
         "state": {
-          "Name": "wilderwild:cypress_sapling",
+          "Name": "minecraft:mangrove_propagule",
           "Properties": {
+            "age": "0",
+            "hanging": "false",
             "stage": "0",
             "waterlogged": "false"
           }
