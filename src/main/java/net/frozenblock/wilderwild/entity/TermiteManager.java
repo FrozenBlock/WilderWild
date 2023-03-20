@@ -80,7 +80,7 @@ public class TermiteManager {
 			if (termite.tick(level)) {
 				EasyPacket.EasyTermitePacket.createParticle(level, Vec3.atCenterOf(termite.pos), termite.eating ? 4 : 6);
 			} else {
-				level.playSound(null, termite.pos, RegisterSounds.BLOCK_TERMITE_MOUND_ENTER, SoundSource.NEUTRAL, 1.0F, 1.0F);
+				level.playSound(null, termite.pos, RegisterSounds.BLOCK_TERMITE_MOUND_ENTER, SoundSource.NEUTRAL, 0.6F, 1.0F);
 				termitesToRemove.add(termite);
 			}
 		}
@@ -107,6 +107,14 @@ public class TermiteManager {
 			level.gameEvent(null, GameEvent.BLOCK_CHANGE, Vec3.atCenterOf(pos));
 		}
 		termitesToRemove.clear();
+	}
+
+	public void clearTermites(Level level) {
+		for (Termite termite : this.termites) {
+			level.gameEvent(null, GameEvent.ENTITY_DIE, Vec3.atCenterOf(termite.pos));
+			level.playSound(null, termite.pos, RegisterSounds.BLOCK_TERMITE_MOUND_ENTER, SoundSource.NEUTRAL, 0.6F, 1.0F);
+		}
+		this.termites.clear();
 	}
 
 	public static int maxTermites(boolean natural, boolean awake, boolean canSpawn) {
@@ -329,7 +337,7 @@ public class TermiteManager {
 		}
 
 		public static boolean isEdibleProperty(BlockState state) {
-			return state.hasProperty(RegisterProperties.TERMITE_EDIBLE) ? state.getValue(RegisterProperties.TERMITE_EDIBLE) : !state.is(BlockTags.LEAVES) || !state.hasProperty(BlockStateProperties.PERSISTENT) || !state.getValue(BlockStateProperties.PERSISTENT);
+			return !WilderSharedConstants.config().termitesOnlyEatNaturalBlocks() || (state.hasProperty(RegisterProperties.TERMITE_EDIBLE) ? state.getValue(RegisterProperties.TERMITE_EDIBLE) : !state.is(BlockTags.LEAVES) || !state.hasProperty(BlockStateProperties.PERSISTENT) || !state.getValue(BlockStateProperties.PERSISTENT));
 		}
 
 		public static boolean exposedToAir(Level level, BlockPos pos, boolean natural) {

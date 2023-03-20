@@ -10,7 +10,7 @@
     },
     {
       "type": "frozenlib:improved_heightmap",
-      "heightmap": "WORLD_SURFACE_WG"
+      "heightmap": "OCEAN_FLOOR_WG"
     },
     {
       "type": "minecraft:block_predicate_filter",

@@ -76,6 +76,16 @@ public class TermiteMound extends BaseEntityBlock {
 	}
 
 	@Override
+	public void onRemove(BlockState state, @NotNull Level level, @NotNull BlockPos pos, BlockState newState, boolean isMoving) {
+		if (!state.is(newState.getBlock())) {
+			if (level.getBlockEntity(pos) instanceof TermiteMoundBlockEntity termiteMoundBlockEntity) {
+				termiteMoundBlockEntity.termiteManager.clearTermites(level);
+			}
+		}
+		super.onRemove(state, level, pos, newState, isMoving);
+	}
+
+	@Override
 	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		boolean areTermitesSafe = TermiteManager.areTermitesSafe(level, pos);
 		boolean canAwaken = canTermitesWaken(level, pos) && areTermitesSafe;

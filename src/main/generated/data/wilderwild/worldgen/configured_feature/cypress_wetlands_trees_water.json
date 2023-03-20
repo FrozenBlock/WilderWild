@@ -8,10 +8,6 @@
         "feature": "wilderwild:cypress"
       },
       {
-        "chance": 0.1,
-        "feature": "wilderwild:short_cypress"
-      },
-      {
         "chance": 0.85,
         "feature": "wilderwild:swamp_cypress"
       }

@@ -38,6 +38,8 @@ public final class BlockConfig implements ConfigData {
 	public final BlockSoundsConfig blockSounds = new BlockSoundsConfig();
 	@ConfigEntry.Gui.CollapsibleObject
 	public final StoneChestConfig stoneChest = new StoneChestConfig();
+	@ConfigEntry.Gui.CollapsibleObject
+	public final TermiteConfig termite = new TermiteConfig();
 
 	public static class BlockSoundsConfig {
 		public boolean cactusSounds = DefaultBlockConfig.BlockSoundsConfig.CACTUS_SOUNDS;
@@ -64,6 +66,10 @@ public final class BlockConfig implements ConfigData {
 		public int stoneChestTimer = DefaultBlockConfig.StoneChestConfig.STONE_CHEST_TIMER;
 	}
 
+	public static class TermiteConfig {
+		public boolean onlyEatNaturalBlocks = DefaultBlockConfig.TermiteConfig.ONLY_EAT_NATURAL_BLOCKS;
+	}
+
     public boolean mcLiveSensorTendrils = DefaultBlockConfig.MC_LIVE_SENSOR_TENDRILS;
     public boolean shriekerGargling = DefaultBlockConfig.SHRIEKER_GARGLING;
     public boolean soulFireSounds = DefaultBlockConfig.SOUL_FIRE_SOUNDS;
@@ -77,6 +83,7 @@ public final class BlockConfig implements ConfigData {
         var config = WilderWildConfig.get().block;
 		var blockSounds = config.blockSounds;
 		var stoneChest = config.stoneChest;
+		var termite = config.termite;
         category.setBackground(WilderSharedConstants.id("textures/config/block.png"));
         var mcLiveSensorTendrils = category.addEntry(entryBuilder.startBooleanToggle(text("mc_live_sensor_tendrils"), config.mcLiveSensorTendrils)
                 .setDefaultValue(DefaultBlockConfig.MC_LIVE_SENSOR_TENDRILS)
@@ -231,6 +238,18 @@ public final class BlockConfig implements ConfigData {
 				flowerSounds, saplingSounds, gravelSounds, frostedIceSounds, leafSounds,
 				lilyPadSounds, mushroomBlockSounds, podzolSounds, reinforcedDeepslateSounds,
 				sugarCaneSounds, witherRoseSounds, sandstoneSounds
+		);
+
+		var termitesOnlyEatNaturalBlocks = entryBuilder.startBooleanToggle(text("termites_only_eat_natural_blocks"), termite.onlyEatNaturalBlocks)
+				.setDefaultValue(DefaultBlockConfig.TermiteConfig.ONLY_EAT_NATURAL_BLOCKS)
+				.setSaveConsumer(newValue -> termite.onlyEatNaturalBlocks = newValue)
+				.setTooltip(tooltip("termites_only_eat_natural_blocks"))
+				.build();
+
+		var termiteCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("termite"),
+				false,
+				tooltip("termite"),
+				termitesOnlyEatNaturalBlocks
 		);
 
 		var stoneChestTimer = entryBuilder.startIntSlider(text("stone_chest_timer"), stoneChest.stoneChestTimer, 50, 200)

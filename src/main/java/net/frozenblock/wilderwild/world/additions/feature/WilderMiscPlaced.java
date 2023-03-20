@@ -57,6 +57,8 @@ public final class WilderMiscPlaced {
 
 	public static final FrozenPlacedFeature MUD_PATH = register("mud_path");
 
+	public static final FrozenPlacedFeature MUD_TRANSITION = register("mud_transition");
+
 	// TAIGA
 	public static final FrozenPlacedFeature COARSE_PATH = register("coarse_dirt_path");
 
@@ -187,7 +189,15 @@ public final class WilderMiscPlaced {
 		MUD_PATH.makeAndSetHolder(WilderMiscConfigured.MUD_PATH.getHolder(),
 				RarityFilter.onAverageOnceEvery(3),
 				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				BiomeFilter.biome()
+		);
+
+		MUD_TRANSITION.makeAndSetHolder(WilderMiscConfigured.MUD_TRANSITION_DISK.getHolder(),
+				CountPlacement.of(8),
+				InSquarePlacement.spread(),
+				LowerHeightmapPlacement.HEIGHTMAP_OCEAN_FLOOR,
+				BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.MUD_TRANSITION_PLACEABLE)),
 				BiomeFilter.biome()
 		);
 
@@ -239,21 +249,21 @@ public final class WilderMiscPlaced {
 		UNDER_WATER_CLAY_PATH_BEACH.makeAndSetHolder(WilderMiscConfigured.UNDER_WATER_CLAY_PATH_BEACH.getHolder(),
 				RarityFilter.onAverageOnceEvery(3),
 				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				PlacementUtils.HEIGHTMAP_TOP_SOLID,
 				BiomeFilter.biome()
 		);
 
 		UNDER_WATER_GRAVEL_PATH_RIVER.makeAndSetHolder(WilderMiscConfigured.UNDER_WATER_GRAVEL_PATH_RIVER.getHolder(),
 				RarityFilter.onAverageOnceEvery(5),
 				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				PlacementUtils.HEIGHTMAP_TOP_SOLID,
 				BiomeFilter.biome()
 		);
 
 		STONE_TRANSITION.makeAndSetHolder(WilderMiscConfigured.STONE_TRANSITION_DISK.getHolder(),
 				CountPlacement.of(6),
 				InSquarePlacement.spread(),
-				LowerHeightmapPlacement.HEIGHTMAP_WORLD_SURFACE,
+				LowerHeightmapPlacement.HEIGHTMAP_TOP_SOLID,
 				BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.STONE_TRANSITION_PLACEABLE)),
 				BiomeFilter.biome()
 		);
@@ -261,7 +271,7 @@ public final class WilderMiscPlaced {
 		SMALL_SAND_TRANSITION.makeAndSetHolder(WilderMiscConfigured.SMALL_SAND_TRANSITION_DISK.getHolder(),
 				CountPlacement.of(6),
 				InSquarePlacement.spread(),
-				LowerHeightmapPlacement.HEIGHTMAP_WORLD_SURFACE,
+				LowerHeightmapPlacement.HEIGHTMAP_TOP_SOLID,
 				BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.SAND_TRANSITION_PLACEABLE)),
 				BiomeFilter.biome()
 		);
@@ -269,7 +279,7 @@ public final class WilderMiscPlaced {
 		BETA_BEACH_SAND_TRANSITION.makeAndSetHolder(WilderMiscConfigured.BETA_BEACH_SAND_TRANSITION_DISK.getHolder(),
 				CountPlacement.of(8),
 				InSquarePlacement.spread(),
-				LowerHeightmapPlacement.HEIGHTMAP_WORLD_SURFACE,
+				LowerHeightmapPlacement.HEIGHTMAP_TOP_SOLID,
 				BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.SAND_TRANSITION_PLACEABLE)),
 				BiomeFilter.biome()
 		);
@@ -277,7 +287,7 @@ public final class WilderMiscPlaced {
 		SMALL_GRAVEL_TRANSITION.makeAndSetHolder(WilderMiscConfigured.SMALL_GRAVEL_TRANSITION_DISK.getHolder(),
 				CountPlacement.of(8),
 				InSquarePlacement.spread(),
-				LowerHeightmapPlacement.HEIGHTMAP_WORLD_SURFACE,
+				LowerHeightmapPlacement.HEIGHTMAP_TOP_SOLID,
 				BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.GRAVEL_TRANSITION_PLACEABLE)),
 
 				BiomeFilter.biome()
@@ -288,7 +298,7 @@ public final class WilderMiscPlaced {
 		PACKED_MUD_PATH.makeAndSetHolder(WilderMiscConfigured.PACKED_MUD_PATH.getHolder(),
 				RarityFilter.onAverageOnceEvery(8),
 				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				PlacementUtils.HEIGHTMAP_TOP_SOLID,
 				BiomeFilter.biome()
 		);
 
@@ -310,7 +320,7 @@ public final class WilderMiscPlaced {
 		SANDSTONE_PATH.makeAndSetHolder(WilderMiscConfigured.SANDSTONE_PATH.getHolder(),
 				RarityFilter.onAverageOnceEvery(3),
 				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				PlacementUtils.HEIGHTMAP_TOP_SOLID,
 				BiomeFilter.biome()
 		);
 
@@ -331,7 +341,7 @@ public final class WilderMiscPlaced {
 		SAND_TRANSITION.makeAndSetHolder(WilderMiscConfigured.SAND_TRANSITION_DISK.getHolder(),
 				CountPlacement.of(4),
 				InSquarePlacement.spread(),
-				LowerHeightmapPlacement.HEIGHTMAP_WORLD_SURFACE,
+				LowerHeightmapPlacement.HEIGHTMAP_TOP_SOLID,
 				BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.SAND_TRANSITION_PLACEABLE)),
 				BiomeFilter.biome()
 		);
@@ -348,7 +358,7 @@ public final class WilderMiscPlaced {
 		PACKED_MUD_PATH_BADLANDS.makeAndSetHolder(WilderMiscConfigured.PACKED_MUD_PATH_BADLANDS.getHolder(),
 				RarityFilter.onAverageOnceEvery(8),
 				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				PlacementUtils.HEIGHTMAP_TOP_SOLID,
 				BiomeFilter.biome()
 		);
 
@@ -369,7 +379,7 @@ public final class WilderMiscPlaced {
 		RED_SAND_TRANSITION.makeAndSetHolder(WilderMiscConfigured.RED_SAND_TRANSITION_DISK.getHolder(),
 				CountPlacement.of(4),
 				InSquarePlacement.spread(),
-				LowerHeightmapPlacement.HEIGHTMAP_WORLD_SURFACE,
+				LowerHeightmapPlacement.HEIGHTMAP_TOP_SOLID,
 				BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.RED_SAND_TRANSITION_PLACEABLE)),
 				BiomeFilter.biome()
 		);
@@ -461,6 +471,7 @@ public final class WilderMiscPlaced {
 		SAND_POOL.makeAndSetHolder(WilderMiscConfigured.SAND_POOL.getHolder(),
 				CountPlacement.of(1),
 				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 				HeightRangePlacement.uniform(VerticalAnchor.absolute(63), VerticalAnchor.aboveBottom(256)),
 				EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
 				RandomOffsetPlacement.vertical(ConstantInt.of(1)),
@@ -470,6 +481,7 @@ public final class WilderMiscPlaced {
 		MESSY_SAND_POOL.makeAndSetHolder(WilderMiscConfigured.MESSY_SAND_POOL.getHolder(),
 				CountPlacement.of(2),
 				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 				HeightRangePlacement.uniform(VerticalAnchor.absolute(63), VerticalAnchor.aboveBottom(256)),
 				EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
 				RandomOffsetPlacement.vertical(ConstantInt.of(1)),
@@ -546,7 +558,7 @@ public final class WilderMiscPlaced {
 				CountPlacement.of(1),
 				RarityFilter.onAverageOnceEvery(1),
 				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP,
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 				PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING),
 				BiomeFilter.biome()
 		);

@@ -38,7 +38,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -175,9 +174,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
 		FluidState fluidState = ctx.getLevel().getFluidState(ctx.getClickedPos());
-		Direction[] var3 = ctx.getNearestLookingDirections();
-
-		for (Direction direction : var3) {
+		for (Direction direction : ctx.getNearestLookingDirections()) {
 			if (direction.getAxis() == Direction.Axis.Y) {
 				BlockState blockState = this.defaultBlockState().setValue(HANGING, direction == Direction.UP);
 				if (blockState.canSurvive(ctx.getLevel(), ctx.getClickedPos())) {
@@ -185,7 +182,6 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 				}
 			}
 		}
-
 		return null;
 	}
 
@@ -238,8 +234,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	@Override
 	public void onRemove(BlockState state, @NotNull Level level, @NotNull BlockPos pos, BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
-			BlockEntity entity = level.getBlockEntity(pos);
-			if (entity instanceof DisplayLanternBlockEntity lantern) {
+			if (level.getBlockEntity(pos)  instanceof DisplayLanternBlockEntity lantern) {
 				for (ItemStack item : lantern.inventory) {
 					popResource(level, pos, item);
 				}
@@ -273,16 +268,14 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	public void playerDestroy(Level level, Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
-		player.causeFoodExhaustion(0.005F);
+	public void playerDestroy(Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
 		if (!level.isClientSide && blockEntity instanceof DisplayLanternBlockEntity lanternEntity) {
 			boolean silk = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) == 0 || player.isCreative();
 			if (silk && !lanternEntity.getFireflies().isEmpty()) {
 				lanternEntity.spawnFireflies(level);
 			}
 		}
-		player.awardStat(Stats.BLOCK_MINED.get(this));
-		dropResources(state, level, pos, blockEntity, player, stack);
+		super.playerDestroy(level, player, pos, state, blockEntity, stack);
 	}
 
 	@Override

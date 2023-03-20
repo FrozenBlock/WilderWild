@@ -44,6 +44,10 @@ public class DefaultBlockConfig {
 		public static final int STONE_CHEST_TIMER = 100;
 	}
 
+	public static class TermiteConfig {
+		public static final boolean ONLY_EAT_NATURAL_BLOCKS = true;
+	}
+
 	public static final boolean MC_LIVE_SENSOR_TENDRILS = false;
 	public static final boolean SHRIEKER_GARGLING = true;
 	public static final boolean SOUL_FIRE_SOUNDS = true;
