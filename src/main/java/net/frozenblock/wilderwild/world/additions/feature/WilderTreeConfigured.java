@@ -183,7 +183,11 @@ public final class WilderTreeConfigured {
 
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DYING_TALL_DARK_OAK = register("dying_tall_dark_oak");
 
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DYING_FANCY_TALL_DARK_OAK = register("dying_fancy_tall_dark_oak");
+
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> COBWEB_TALL_DARK_OAK = register("cobweb_tall_dark_oak");
+
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> COBWEB_FANCY_TALL_DARK_OAK = register("cobweb_fancy_tall_dark_oak");
 
 	//SWAMP TREE
     public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SWAMP_TREE = register("swamp_tree");
@@ -543,9 +547,19 @@ public final class WilderTreeConfigured {
 						)
 				).ignoreVines().build()
 		);
+		DYING_FANCY_TALL_DARK_OAK.makeAndSetHolder(Feature.TREE,
+				FancyTallDarkOak().decorators(
+						List.of(
+								VINES_1_UNDER_260_05
+						)
+				).ignoreVines().build()
+		);
 
 		COBWEB_TALL_DARK_OAK.makeAndSetHolder(Feature.TREE,
 				tallDarkOak().decorators(List.of(COBWEB_1_UNDER_260_025)).ignoreVines().build()
+		);
+		COBWEB_FANCY_TALL_DARK_OAK.makeAndSetHolder(Feature.TREE,
+				FancyTallDarkOak().decorators(List.of(COBWEB_1_UNDER_260_025)).ignoreVines().build()
 		);
 
 		// SWAMP TREE
@@ -1148,7 +1162,7 @@ public final class WilderTreeConfigured {
         return darkOakBuilder(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_LEAVES, 8, 3, 4, 1).ignoreVines();
     }
 	private static TreeConfiguration.TreeConfigurationBuilder FancyTallDarkOak() {
-		return fancyDarkOakBuilder(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_LEAVES, 10, 3, 4, 0.25F, UniformInt.of(1, 2), UniformInt.of(1, 4), 1).ignoreVines();
+		return fancyDarkOakBuilder(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_LEAVES, 10, 3, 4, 1.0F, UniformInt.of(1, 2), UniformInt.of(1, 4), 1).ignoreVines();
 	}
 
     private static TreeConfiguration.TreeConfigurationBuilder fallenSpruce() {

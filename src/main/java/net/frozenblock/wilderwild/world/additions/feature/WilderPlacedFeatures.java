@@ -623,7 +623,7 @@ public final class WilderPlacedFeatures {
 		);
 
 		RAINFOREST_MUSHROOMS_PLACED.makeAndSetHolder(VegetationFeatures.MUSHROOM_ISLAND_VEGETATION,
-				RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(),
+				RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
