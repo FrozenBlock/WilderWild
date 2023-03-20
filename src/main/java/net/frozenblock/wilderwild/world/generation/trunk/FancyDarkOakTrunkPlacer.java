@@ -75,7 +75,7 @@ public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
 			boolean placedEast = this.placeLog(level, blockSetter, random, blockPos2.east(), config);
 			boolean placedSouth = this.placeLog(level, blockSetter, random, blockPos2.south(), config);
 			boolean placedSouthEast = this.placeLog(level, blockSetter, random, blockPos2.east().south(), config);
-			if (extraLogs < maxLogs && random.nextFloat() < this.logChance && (q * 2) > freeTreeHeight) {
+			if (extraLogs < maxLogs && random.nextFloat() < this.logChance && (q * 3) > freeTreeHeight) {
 				Direction chosenRandomDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
 				int length = this.extraBranchLength.sample(random);
 				BlockPos.MutableBlockPos extraPos = blockPos2.mutable();
