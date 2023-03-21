@@ -85,6 +85,8 @@ public final class WilderPlacedFeatures {
 
 	public static final FrozenPlacedFeature FALLEN_PALM_AND_JUNGLE_PLACED = register("fallen_palm_and_jungle_placed");
 
+	public static final FrozenPlacedFeature FALLEN_BIRCH_AND_OAK_DARK_FOREST_PLACED = register("fallen_birch_and_oak_dark_forest_placed");
+
     //TREES
     public static final FrozenPlacedFeature TREES_PLAINS = register("trees_plains");
 
@@ -415,6 +417,11 @@ public final class WilderPlacedFeatures {
 
 		FALLEN_PALM_AND_JUNGLE_AND_OAK_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_PALM_AND_JUNGLE_AND_OAK.getHolder(),
 				RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
+		);
+
+		FALLEN_BIRCH_AND_OAK_DARK_FOREST_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_OAK_AND_BIRCH_DARK_FOREST.getHolder(),
+				RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
