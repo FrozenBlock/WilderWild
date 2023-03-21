@@ -61,8 +61,6 @@ public final class WilderTreesGeneration {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_PALM_RARE),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_PALM_PLACED_RARE.getKey());
 
-			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_PALM_AND_JUNGLE),
-					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_PALM_AND_JUNGLE_PLACED.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_PALM_AND_JUNGLE_AND_OAK),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_PALM_AND_JUNGLE_AND_OAK_PLACED.getKey());
