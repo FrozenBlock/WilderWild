@@ -64,7 +64,7 @@
           "min_inclusive": 1
         }
       },
-      "place_branch_chance": 0.55,
+      "place_branch_chance": 0.175,
       "success_in_water_chance": 0.8
     },
     "trunk_provider": {
