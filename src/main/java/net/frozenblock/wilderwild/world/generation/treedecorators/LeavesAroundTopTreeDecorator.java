@@ -33,21 +33,14 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorTy
 import net.minecraft.world.phys.Vec3;
 
 public class LeavesAroundTopTreeDecorator extends TreeDecorator {
-	public static final Codec<LeavesAroundTopTreeDecorator> CODEC = RecordCodecBuilder.create((instance) -> {
-		return instance.group(Codec.FLOAT.fieldOf("probability").forGetter((treeDecorator) -> {
-			return treeDecorator.probability;
-		}), Codec.intRange(0, 16).fieldOf("exclusionRadiusXZ").forGetter((treeDecorator) -> {
-			return treeDecorator.exclusionRadiusXZ;
-		}), Codec.intRange(0, 16).fieldOf("exclusionRadiusY").forGetter((treeDecorator) -> {
-			return treeDecorator.exclusionRadiusY;
-		}), BlockStateProvider.CODEC.fieldOf("blockProvider").forGetter((treeDecorator) -> {
-			return treeDecorator.blockProvider;
-		}), Codec.INT.fieldOf("requiredEmptyBlocks").forGetter((treeDecorator) -> {
-			return treeDecorator.requiredEmptyBlocks;
-		}), (ExtraCodecs.nonEmptyList(Direction.CODEC.listOf()).fieldOf("directions").forGetter((treeDecorator) -> {
-			return treeDecorator.directions;
-		}))).apply(instance, LeavesAroundTopTreeDecorator::new);
-	});
+	public static final Codec<LeavesAroundTopTreeDecorator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+			Codec.FLOAT.fieldOf("probability").forGetter((treeDecorator) -> treeDecorator.probability),
+			Codec.intRange(0, 16).fieldOf("exclusionRadiusXZ").forGetter((treeDecorator) -> treeDecorator.exclusionRadiusXZ),
+			Codec.intRange(0, 16).fieldOf("exclusionRadiusY").forGetter((treeDecorator) -> treeDecorator.exclusionRadiusY),
+			BlockStateProvider.CODEC.fieldOf("blockProvider").forGetter((treeDecorator) -> treeDecorator.blockProvider),
+			Codec.INT.fieldOf("requiredEmptyBlocks").forGetter((treeDecorator) -> treeDecorator.requiredEmptyBlocks),
+			ExtraCodecs.nonEmptyList(Direction.CODEC.listOf()).fieldOf("directions").forGetter((treeDecorator) -> treeDecorator.directions)
+	).apply(instance, LeavesAroundTopTreeDecorator::new));
 
 	private final float probability;
 	private final int exclusionRadiusXZ;

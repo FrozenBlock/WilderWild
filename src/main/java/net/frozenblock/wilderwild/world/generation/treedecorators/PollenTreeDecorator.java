@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.world.generation.treedecorators;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -55,7 +56,8 @@ public class PollenTreeDecorator extends TreeDecorator {
     public void place(Context generator) {
         RandomSource random = generator.random();
         if (random.nextFloat() <= this.chanceToDecorate) {
-            List<BlockPos> list = generator.logs();
+            List<BlockPos> list = new ArrayList<>();
+			list.addAll(generator.logs());
 			list.addAll(generator.leaves());
 			Collections.shuffle(list);
 			AtomicInteger placedPollen = new AtomicInteger();

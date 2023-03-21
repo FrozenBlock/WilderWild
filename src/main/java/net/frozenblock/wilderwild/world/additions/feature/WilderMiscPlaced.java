@@ -334,6 +334,7 @@ public final class WilderMiscPlaced {
 		);
 
 		SCORCHED_SAND_HUGE.makeAndSetHolder(WilderMiscConfigured.SCORCHED_SAND_DISK_HUGE.getHolder(),
+				CountPlacement.of(UniformInt.of(0, 1)),
 				RarityFilter.onAverageOnceEvery(226),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
