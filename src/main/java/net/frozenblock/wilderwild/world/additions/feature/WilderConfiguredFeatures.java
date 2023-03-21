@@ -430,7 +430,7 @@ public final class WilderConfiguredFeatures {
 						WilderTreePlaced.FALLEN_CYPRESS_CHECKED.getHolder()));
 
 		FALLEN_ACACIA_AND_OAK.makeAndSetHolder(Feature.RANDOM_SELECTOR,
-				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.FALLEN_ACACIA_CHECKED.getHolder(), 0.8F)),
+				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.FALLEN_ACACIA_CHECKED.getHolder(), 0.7F)),
 						WilderTreePlaced.FALLEN_OAK_NO_MOSS_CHECKED.getHolder()));
 
 		FALLEN_PALM_AND_JUNGLE_AND_OAK.makeAndSetHolder(Feature.RANDOM_SELECTOR,
