@@ -109,8 +109,8 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
 						if (i < height - 1 && random.nextFloat() < this.logChance && extraLogs < maxLogs) {
 							Direction direction = random.nextFloat() >= 0.33 ? Direction.Plane.HORIZONTAL.getRandomDirection(random) : Direction.Plane.VERTICAL.getRandomDirection(random);
 							this.generateExtraBranch(logs, level, replacer, random, config, mutable, logDir, i, direction);
+							++extraLogs;
 						}
-						++extraLogs;
 						logsAboveHole += holeAddition;
 					} else {
                         i = height + 2;
