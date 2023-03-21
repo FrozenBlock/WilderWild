@@ -1,6 +1,6 @@
 {
 	"textures": {
-		"particle": "#inner"
+		"particle": "#outer"
 	},
 	"elements": [
 		{
