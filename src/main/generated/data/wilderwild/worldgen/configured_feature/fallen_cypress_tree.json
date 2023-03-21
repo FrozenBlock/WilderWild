@@ -7,6 +7,11 @@
         "maxHeight": 82,
         "probability": 0.08,
         "vines_count": 0.25
+      },
+      {
+        "type": "wilderwild:moss_carpet_tree_decorator",
+        "chanceToDecorate": 0.6,
+        "mossPlaceChance": 0.24
       }
     ],
     "dirt_provider": {
@@ -43,8 +48,8 @@
     "trunk_placer": {
       "type": "wilderwild:fallen_trunk_logs_placer",
       "base_height": 3,
-      "height_rand_a": 1,
-      "height_rand_b": 2,
+      "height_rand_a": 2,
+      "height_rand_b": 3,
       "max_height_above_hole": {
         "type": "minecraft:uniform",
         "value": {
@@ -59,9 +64,8 @@
           "min_inclusive": 1
         }
       },
-      "moss_carpet_chance": 0.6,
       "place_branch_chance": 0.4,
-      "success_in_water_change": 0.4
+      "success_in_water_change": 0.675
     },
     "trunk_provider": {
       "type": "minecraft:simple_state_provider",

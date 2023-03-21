@@ -7,6 +7,11 @@
         "maxHeight": 260,
         "probability": 0.8,
         "vines_count": 0.75
+      },
+      {
+        "type": "wilderwild:moss_carpet_tree_decorator",
+        "chanceToDecorate": 1.0,
+        "mossPlaceChance": 0.3
       }
     ],
     "dirt_provider": {
@@ -59,9 +64,8 @@
           "min_inclusive": 1
         }
       },
-      "moss_carpet_chance": 0.47,
       "place_branch_chance": 0.4,
-      "success_in_water_change": 0.4
+      "success_in_water_change": 0.675
     },
     "trunk_provider": {
       "type": "minecraft:simple_state_provider",

@@ -109,6 +109,8 @@ public final class WilderTreePlaced {
 
     public static final FrozenPlacedFeature FALLEN_OAK_CHECKED = register("fallen_oak_checked");
 
+	public static final FrozenPlacedFeature FALLEN_OAK_NO_MOSS_CHECKED = register("fallen_oak_no_moss_checked");
+
 	public static final FrozenPlacedFeature MOSSY_FALLEN_OAK_CHECKED = register("mossy_fallen_oak_checked");
 
 	public static final FrozenPlacedFeature MOSSY_FALLEN_SPRUCE_CHECKED = register("mossy_fallen_spruce_checked");
@@ -117,14 +119,17 @@ public final class WilderTreePlaced {
 
 	//DARK OAK
     public static final FrozenPlacedFeature TALL_DARK_OAK_CHECKED = register("tall_dark_oak_checked");
+
 	public static final FrozenPlacedFeature FANCY_TALL_DARK_OAK_CHECKED = register("fancy_tall_dark_oak_checked");
 
     public static final FrozenPlacedFeature DYING_TALL_DARK_OAK_CHECKED = register("dying_tall_dark_oak_checked");
+
 	public static final FrozenPlacedFeature DYING_FANCY_TALL_DARK_OAK_CHECKED = register("dying_fancy_tall_dark_oak_checked");
 
     public static final FrozenPlacedFeature DYING_DARK_OAK_CHECKED = register("dying_dark_oak_checked");
 
 	public static final FrozenPlacedFeature COBWEB_TALL_DARK_OAK_CHECKED = register("cobweb_tall_dark_oak_checked");
+
 	public static final FrozenPlacedFeature COBWEB_FANCY_TALL_DARK_OAK_CHECKED = register("cobweb_fancy_tall_dark_oak_checked");
 
     //SWAMP TREE
@@ -207,8 +212,16 @@ public final class WilderTreePlaced {
 
 	public static final FrozenPlacedFeature SMALL_WINE_PALM_CHECKED = register("small_wine_palm_checked");
 
+	public static final FrozenPlacedFeature FALLEN_PALM_CHECKED = register("fallen_palm_checked");
+
 	//JUNIPER
 	public static final FrozenPlacedFeature JUNIPER = register("juniper");
+
+	//JUNGLE
+	public static final FrozenPlacedFeature FALLEN_JUNGLE_CHECKED = register("fallen_jungle_checked");
+
+	//ACACIA
+	public static final FrozenPlacedFeature FALLEN_ACACIA_CHECKED = register("fallen_acacia_checked");
 
 	//TREE ON GRASS
 	public static final FrozenPlacedFeature PALM_CHECKED_DIRT = register("palm_checked_dirt");
@@ -269,13 +282,9 @@ public final class WilderTreePlaced {
 				PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
 		);
 
-		FALLEN_BIRCH_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_BIRCH_TREE.getHolder(),
-				PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
-		);
+		FALLEN_BIRCH_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_BIRCH_TREE.getHolder());
 
-		MOSSY_FALLEN_BIRCH_CHECKED.makeAndSetHolder(WilderTreeConfigured.MOSSY_FALLEN_BIRCH_TREE.getHolder(),
-				PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
-		);
+		MOSSY_FALLEN_BIRCH_CHECKED.makeAndSetHolder(WilderTreeConfigured.MOSSY_FALLEN_BIRCH_TREE.getHolder());
 
 		//CHERRY
 
@@ -333,17 +342,13 @@ public final class WilderTreePlaced {
 				PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
 		);
 
-		FALLEN_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_OAK_TREE.getHolder(),
-				PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
-		);
+		FALLEN_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_OAK_TREE.getHolder());
 
-		MOSSY_FALLEN_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.MOSSY_FALLEN_OAK_TREE.getHolder(),
-				PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
-		);
+		FALLEN_OAK_NO_MOSS_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_OAK_TREE_NO_MOSS.getHolder());
 
-		MOSSY_FALLEN_SPRUCE_CHECKED.makeAndSetHolder(WilderTreeConfigured.MOSSY_FALLEN_SPRUCE_TREE.getHolder(),
-				PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING)
-		);
+		MOSSY_FALLEN_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.MOSSY_FALLEN_OAK_TREE.getHolder());
+
+		MOSSY_FALLEN_SPRUCE_CHECKED.makeAndSetHolder(WilderTreeConfigured.MOSSY_FALLEN_SPRUCE_TREE.getHolder());
 
 		OLD_DYING_FANCY_OAK_BEES_0004.makeAndSetHolder(WilderTreeConfigured.OLD_FANCY_DYING_OAK_BEES_0004.getHolder(),
 				PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
@@ -421,9 +426,7 @@ public final class WilderTreePlaced {
 				PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING)
 		);
 
-		FALLEN_SPRUCE_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_SPRUCE_TREE.getHolder(),
-				PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING)
-		);
+		FALLEN_SPRUCE_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_SPRUCE_TREE.getHolder());
 
 		SHORT_MEGA_SPRUCE_CHECKED.makeAndSetHolder(WilderTreeConfigured.SHORT_MEGA_SPRUCE.getHolder(),
 				PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING)
@@ -489,9 +492,7 @@ public final class WilderTreePlaced {
 				PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING)
 		);
 
-		FALLEN_CYPRESS_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_CYPRESS_TREE.getHolder(),
-				PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING)
-		);
+		FALLEN_CYPRESS_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_CYPRESS_TREE.getHolder());
 
 		// SHRUB
 
@@ -521,11 +522,21 @@ public final class WilderTreePlaced {
 				PlacementUtils.filteredByBlockSurvival(RegisterBlocks.COCONUT)
 		);
 
+		FALLEN_PALM_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_PALM.getHolder());
+
 		// JUNIPER
 
 		JUNIPER.makeAndSetHolder(WilderTreeConfigured.JUNIPER.getHolder(),
 				PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
 		);
+
+		//JUNGLE
+
+		FALLEN_JUNGLE_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_JUNGLE_TREE.getHolder());
+
+		//ACACIA
+
+		FALLEN_ACACIA_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_ACACIA_TREE.getHolder());
 
 		// TREE ON GRASS
 
