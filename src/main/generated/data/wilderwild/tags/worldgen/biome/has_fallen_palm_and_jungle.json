@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:sparse_jungle",
+    {
+      "id": "wilderwild:sparse_birch_jungle",
+      "required": false
+    }
+  ]
+}

@@ -436,7 +436,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_BIRCH_TREES)
 					.add(Biomes.BIRCH_FOREST)
 					.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
-					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST);
+					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
+					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
+					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_OAK_AND_BIRCH_TREES)
 					.add(Biomes.FOREST)
@@ -453,6 +455,28 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_MOSSY_FALLEN_OAK_AND_BIRCH)
 					.addOptional(RegisterWorldgen.RAINFOREST);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_ACACIA_AND_OAK)
+					.addOptionalTag(BiomeTags.IS_SAVANNA)
+					.addOptionalTag(ConventionalBiomeTags.SAVANNA)
+					.addOptionalTag(ConventionalBiomeTags.TREE_SAVANNA);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_PALM)
+					.addOptional(RegisterWorldgen.OASIS);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_PALM_RARE)
+					.add(Biomes.DESERT)
+					.addOptional(RegisterWorldgen.ARID_FOREST)
+					.addOptional(RegisterWorldgen.ARID_SAVANNA);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_PALM_AND_JUNGLE)
+					.add(Biomes.SPARSE_JUNGLE)
+					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_PALM_AND_JUNGLE_AND_OAK)
+					.add(Biomes.JUNGLE)
+					.add(Biomes.BAMBOO_JUNGLE)
+					.addOptional(RegisterWorldgen.BIRCH_JUNGLE);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_MOSS_LAKE)
 					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
