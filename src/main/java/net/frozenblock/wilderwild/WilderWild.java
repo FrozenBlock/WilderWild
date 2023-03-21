@@ -111,7 +111,7 @@ public final class WilderWild extends FrozenMobCategoryEntrypoint implements Mod
     public static final FoliagePlacerType<PalmFoliagePlacer> PALM_FOLIAGE_PLACER =  registerFoliage("palm_foliage_placer", PalmFoliagePlacer.CODEC);
 	public static final FoliagePlacerType<ShortPalmFoliagePlacer> SHORT_PALM_FOLIAGE_PLACER =  registerFoliage("short_palm_foliage_placer", ShortPalmFoliagePlacer.CODEC);
 
-    @Override
+    @Override //Alan Wilder Wild
     public void onInitialize() {
         WilderSharedConstants.startMeasuring(this);
         applyDataFixes(WilderSharedConstants.MOD_CONTAINER);
