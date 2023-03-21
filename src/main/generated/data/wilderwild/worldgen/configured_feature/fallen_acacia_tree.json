@@ -5,13 +5,8 @@
       {
         "type": "wilderwild:height_based_vine_tree_decorator",
         "maxHeight": 260,
-        "probability": 0.8,
-        "vines_count": 0.75
-      },
-      {
-        "type": "wilderwild:moss_carpet_tree_decorator",
-        "chanceToDecorate": 0.6,
-        "mossPlaceChance": 0.2
+        "probability": 0.12,
+        "vines_count": 0.25
       }
     ],
     "dirt_provider": {
@@ -29,7 +24,7 @@
     "foliage_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "minecraft:birch_leaves",
+        "Name": "minecraft:acacia_leaves",
         "Properties": {
           "distance": "7",
           "persistent": "false",
@@ -49,7 +44,7 @@
       "type": "wilderwild:fallen_trunk_logs_placer",
       "base_height": 3,
       "height_rand_a": 1,
-      "height_rand_b": 2,
+      "height_rand_b": 1,
       "max_height_above_hole": {
         "type": "minecraft:uniform",
         "value": {
@@ -57,20 +52,14 @@
           "min_inclusive": 1
         }
       },
-      "max_logs": {
-        "type": "minecraft:uniform",
-        "value": {
-          "max_inclusive": 2,
-          "min_inclusive": 1
-        }
-      },
-      "place_branch_chance": 0.4,
+      "max_logs": 1,
+      "place_branch_chance": 0.25,
       "success_in_water_change": 0.675
     },
     "trunk_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "wilderwild:hollowed_birch_log",
+        "Name": "wilderwild:hollowed_acacia_log",
         "Properties": {
           "axis": "y",
           "termite_edible": "true",

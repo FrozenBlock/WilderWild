@@ -44,7 +44,7 @@ public class MossCarpetTreeDecorator extends TreeDecorator {
     }
 
     protected TreeDecoratorType<?> type() {
-        return WilderTreeDecorators.POLLEN_TREE_DECORATOR;
+        return WilderTreeDecorators.MOSS_CARPET_TREE_DECORATOR;
     }
 
     public void place(Context generator) {

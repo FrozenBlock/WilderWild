@@ -10,7 +10,7 @@
       },
       {
         "type": "wilderwild:moss_carpet_tree_decorator",
-        "chanceToDecorate": 0.6,
+        "chanceToDecorate": 0.5,
         "mossPlaceChance": 0.2
       }
     ],
@@ -29,7 +29,7 @@
     "foliage_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "minecraft:birch_leaves",
+        "Name": "wilderwild:palm_leaves",
         "Properties": {
           "distance": "7",
           "persistent": "false",
@@ -47,7 +47,7 @@
     },
     "trunk_placer": {
       "type": "wilderwild:fallen_trunk_logs_placer",
-      "base_height": 3,
+      "base_height": 5,
       "height_rand_a": 1,
       "height_rand_b": 2,
       "max_height_above_hole": {
@@ -64,13 +64,13 @@
           "min_inclusive": 1
         }
       },
-      "place_branch_chance": 0.4,
+      "place_branch_chance": 0.0,
       "success_in_water_change": 0.675
     },
     "trunk_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "wilderwild:hollowed_birch_log",
+        "Name": "wilderwild:hollowed_palm_log",
         "Properties": {
           "axis": "y",
           "termite_edible": "true",
