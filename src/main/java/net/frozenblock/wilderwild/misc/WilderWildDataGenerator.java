@@ -493,6 +493,14 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.BAMBOO_JUNGLE)
 					.addOptional(RegisterWorldgen.BIRCH_JUNGLE);
 
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_BIRCH_AND_OAK_DARK_FOREST)
+					.add(Biomes.DARK_FOREST)
+					.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
+					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_SPRUCE_TREES)
+					.addOptionalTag(BiomeTags.IS_TAIGA);
+
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_MOSS_LAKE)
 					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
 					.addOptional(RegisterWorldgen.RAINFOREST);

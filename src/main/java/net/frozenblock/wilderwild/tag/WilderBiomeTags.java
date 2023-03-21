@@ -61,6 +61,8 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_FALLEN_PALM_RARE = bind("has_fallen_palm_rare");
 	public static final TagKey<Biome> HAS_FALLEN_PALM_AND_JUNGLE = bind("has_fallen_palm_and_jungle");
 	public static final TagKey<Biome> HAS_FALLEN_PALM_AND_JUNGLE_AND_OAK = bind("has_fallen_palm_and_jungle_and_oak");
+	public static final TagKey<Biome> HAS_FALLEN_BIRCH_AND_OAK_DARK_FOREST = bind("has_fallen_birch_and_oak_dark_forest");
+	public static final TagKey<Biome> HAS_FALLEN_SPRUCE_TREES = bind("has_fallen_spruce_trees");
     public static final TagKey<Biome> DARK_FOREST = bind("dark_forest");
     public static final TagKey<Biome> MEADOW = bind("meadow");
 	public static final TagKey<Biome> FOREST_GRASS = bind("forest_grass");
