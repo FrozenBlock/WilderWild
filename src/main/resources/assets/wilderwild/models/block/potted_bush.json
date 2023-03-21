@@ -44,8 +44,8 @@
 			"shade": false,
 			"rotation": {"angle": -45, "axis": "y", "origin": [8, 8, 8], "rescale": true},
 			"faces": {
-				"north": {"uv": [16, 0, 0, 16], "texture": "#plant", "tintindex": 0},
-				"south": {"uv": [16, 0, 0, 16], "texture": "#plant", "tintindex": 0}
+				"north": {"uv": [16, 0, 0, 16], "texture": "#plant"},
+				"south": {"uv": [16, 0, 0, 16], "texture": "#plant"}
 			}
 		},
 		{
