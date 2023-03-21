@@ -99,10 +99,10 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
 						BlockState setState = config.trunkProvider.getState(random, mutable);
                         if (setState.hasProperty(BlockStateProperties.AXIS)) {
 							Direction.Axis axis = logDir.getStepX() != 0 ? Direction.Axis.X : (logDir.getStepY() != 0 ? Direction.Axis.Y : Direction.Axis.Z);
-							setState.setValue(BlockStateProperties.AXIS, axis);
+							setState = setState.setValue(BlockStateProperties.AXIS, axis);
 						}
 						if (setState.hasProperty(BlockStateProperties.WATERLOGGED)) {
-							setState.setValue(BlockStateProperties.WATERLOGGED, isWaterAt(level, mutable));
+							setState = setState.setValue(BlockStateProperties.WATERLOGGED, isWaterAt(level, mutable));
 						}
 						replacer.accept(mutable, setState);
 						logs.add(mutable.immutable());
@@ -145,10 +145,10 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
 				BlockState setState = config.trunkProvider.getState(random, pos);
                 if (setState.hasProperty(BlockStateProperties.AXIS)) {
                     Direction.Axis axis = direction.getStepX() != 0 ? Direction.Axis.X : (direction.getStepY() != 0 ? Direction.Axis.Y : Direction.Axis.Z);
-					setState.setValue(BlockStateProperties.AXIS, axis);
+					setState = setState.setValue(BlockStateProperties.AXIS, axis);
                 }
 				if (setState.hasProperty(BlockStateProperties.WATERLOGGED)) {
-					setState.setValue(BlockStateProperties.WATERLOGGED, isWaterAt(level, pos));
+					setState = setState.setValue(BlockStateProperties.WATERLOGGED, isWaterAt(level, pos));
 				}
 				replacer.accept(pos, setState);
 				logs.add(pos.immutable());
