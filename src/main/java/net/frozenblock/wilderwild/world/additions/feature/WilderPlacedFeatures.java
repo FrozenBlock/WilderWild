@@ -355,7 +355,7 @@ public final class WilderPlacedFeatures {
 		// FALLEN TREES
 
 		FALLEN_TREES_MIXED_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_TREES_MIXED.getHolder(),
-				RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
+				RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
@@ -370,7 +370,7 @@ public final class WilderPlacedFeatures {
 		);
 
 		FALLEN_BIRCH_AND_SPRUCE_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_BIRCH_AND_SPRUCE.getHolder(),
-				RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
+				RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
@@ -380,17 +380,17 @@ public final class WilderPlacedFeatures {
 		);
 
 		FALLEN_OAK_AND_BIRCH_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_BIRCH_AND_OAK.getHolder(),
-				RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
+				RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
 		FALLEN_OAK_AND_CYPRESS_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_CYPRESS_AND_OAK.getHolder(),
-				RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
+				RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
 		FALLEN_BIRCH_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_BIRCH.getHolder(),
-				RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
+				RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
@@ -400,7 +400,7 @@ public final class WilderPlacedFeatures {
 		);
 
 		FALLEN_SPRUCE_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_SPRUCE.getHolder(),
-				RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
+				RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
@@ -415,12 +415,12 @@ public final class WilderPlacedFeatures {
 		);
 
 		FALLEN_PALM_PLACED.makeAndSetHolder(WilderTreeConfigured.FALLEN_PALM.getHolder(),
-				RarityFilter.onAverageOnceEvery(10), InSquarePlacement.spread(),
+				RarityFilter.onAverageOnceEvery(12), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
 		FALLEN_PALM_PLACED_RARE.makeAndSetHolder(WilderTreeConfigured.FALLEN_PALM.getHolder(),
-				RarityFilter.onAverageOnceEvery(24), InSquarePlacement.spread(),
+				RarityFilter.onAverageOnceEvery(29), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
@@ -435,7 +435,7 @@ public final class WilderPlacedFeatures {
 		);
 
 		FALLEN_BIRCH_AND_OAK_DARK_FOREST_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_OAK_AND_BIRCH_DARK_FOREST.getHolder(),
-				RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(),
+				RarityFilter.onAverageOnceEvery(9), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 

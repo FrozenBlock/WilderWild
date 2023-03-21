@@ -1275,7 +1275,7 @@ public final class WilderTreeConfigured {
 	}
 
 	private static TreeConfiguration.TreeConfigurationBuilder fallenAcacia() {
-		return fallenTrunkBuilder(RegisterBlocks.HOLLOWED_ACACIA_LOG, Blocks.ACACIA_LEAVES, 3, 1, 1, 0.25F, ConstantInt.of(1), UniformInt.of(1, 2), 1).ignoreVines();
+		return fallenTrunkBuilder(RegisterBlocks.HOLLOWED_ACACIA_LOG, Blocks.ACACIA_LEAVES, 3, 1, 1, 0.0F, ConstantInt.of(1), UniformInt.of(1, 2), 1).ignoreVines();
 	}
 
 	private static TreeConfiguration.TreeConfigurationBuilder fallenJungle() {

@@ -4,7 +4,7 @@
     "default": "wilderwild:fallen_oak_no_moss_checked",
     "features": [
       {
-        "chance": 0.8,
+        "chance": 0.7,
         "feature": "wilderwild:fallen_acacia_checked"
       }
     ]

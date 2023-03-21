@@ -53,7 +53,7 @@
         }
       },
       "max_logs": 1,
-      "place_branch_chance": 0.25,
+      "place_branch_chance": 0.0,
       "success_in_water_chance": 0.8
     },
     "trunk_provider": {
