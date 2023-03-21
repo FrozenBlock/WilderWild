@@ -32,8 +32,8 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 import net.minecraft.world.phys.Vec3;
 
-public class LeavesAroundTopLogDecorator extends TreeDecorator {
-	public static final Codec<LeavesAroundTopLogDecorator> CODEC = RecordCodecBuilder.create((instance) -> {
+public class LeavesAroundTopTreeDecorator extends TreeDecorator {
+	public static final Codec<LeavesAroundTopTreeDecorator> CODEC = RecordCodecBuilder.create((instance) -> {
 		return instance.group(Codec.FLOAT.fieldOf("probability").forGetter((treeDecorator) -> {
 			return treeDecorator.probability;
 		}), Codec.intRange(0, 16).fieldOf("exclusionRadiusXZ").forGetter((treeDecorator) -> {
@@ -46,7 +46,7 @@ public class LeavesAroundTopLogDecorator extends TreeDecorator {
 			return treeDecorator.requiredEmptyBlocks;
 		}), (ExtraCodecs.nonEmptyList(Direction.CODEC.listOf()).fieldOf("directions").forGetter((treeDecorator) -> {
 			return treeDecorator.directions;
-		}))).apply(instance, LeavesAroundTopLogDecorator::new);
+		}))).apply(instance, LeavesAroundTopTreeDecorator::new);
 	});
 
 	private final float probability;
@@ -56,7 +56,7 @@ public class LeavesAroundTopLogDecorator extends TreeDecorator {
 	private final int requiredEmptyBlocks;
 	private final List<Direction> directions;
 
-	public LeavesAroundTopLogDecorator(float f, int i, int j, BlockStateProvider blockStateProvider, int k, List<Direction> list) {
+	public LeavesAroundTopTreeDecorator(float f, int i, int j, BlockStateProvider blockStateProvider, int k, List<Direction> list) {
 		this.probability = f;
 		this.exclusionRadiusXZ = i;
 		this.exclusionRadiusY = j;
@@ -103,7 +103,7 @@ public class LeavesAroundTopLogDecorator extends TreeDecorator {
 
 	@Override
 	protected TreeDecoratorType<?> type() {
-		return WilderTreeDecorators.LEAVES_AROUND_TOP_LOG_DECORATOR_TREE_DECORATOR;
+		return WilderTreeDecorators.LEAVES_AROUND_TOP_TREE_DECORATOR;
 	}
 }
 

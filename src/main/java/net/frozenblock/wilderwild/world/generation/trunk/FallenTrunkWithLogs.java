@@ -31,7 +31,6 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
@@ -45,10 +44,9 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
 	public static final Codec<FallenTrunkWithLogs> CODEC = RecordCodecBuilder.create((instance) ->
 			fallenTrunkCodec(instance).apply(instance, FallenTrunkWithLogs::new));
 
-	protected static <P extends FallenTrunkWithLogs> Products.P8<RecordCodecBuilder.Mu<P>, Integer, Integer, Integer, Float, Float, Float, IntProvider, IntProvider> fallenTrunkCodec(RecordCodecBuilder.Instance<P> builder) {
+	protected static <P extends FallenTrunkWithLogs> Products.P7<RecordCodecBuilder.Mu<P>, Integer, Integer, Integer, Float, Float, IntProvider, IntProvider> fallenTrunkCodec(RecordCodecBuilder.Instance<P> builder) {
 		return trunkPlacerParts(builder)
 				.and(Codec.floatRange(0.0F, 1.0F).fieldOf("place_branch_chance").forGetter((trunkPlacer) -> trunkPlacer.logChance))
-				.and(Codec.floatRange(0.0F, 1.0F).fieldOf("moss_carpet_chance").forGetter((trunkPlacer) -> trunkPlacer.mossChance))
 				.and(Codec.floatRange(0.0F, 1.0F).fieldOf("success_in_water_change").forGetter((trunkPlacer) -> trunkPlacer.successInWaterChance))
 				.and(IntProvider.NON_NEGATIVE_CODEC.fieldOf("max_logs").forGetter((trunkPlacer) -> trunkPlacer.maxLogs))
 				.and(IntProvider.NON_NEGATIVE_CODEC.fieldOf("max_height_above_hole").forGetter((trunkPlacer) -> trunkPlacer.maxHeightAboveHole));
@@ -57,15 +55,13 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
     public final float logChance;
 	public final IntProvider maxLogs;
 	public final IntProvider maxHeightAboveHole;
-	public final float mossChance;
 	public final float successInWaterChance;
 
-    public FallenTrunkWithLogs(int baseHeight, int firstRandomHeight, int secondRandomHeight, float logChance, float mossChance, float successInWaterChance, IntProvider maxLogs, IntProvider maxHeightAboveHole) {
+    public FallenTrunkWithLogs(int baseHeight, int firstRandomHeight, int secondRandomHeight, float logChance, float successInWaterChance, IntProvider maxLogs, IntProvider maxHeightAboveHole) {
         super(baseHeight, firstRandomHeight, secondRandomHeight);
         this.logChance = logChance;
         this.maxLogs = maxLogs;
         this.maxHeightAboveHole = maxHeightAboveHole;
-        this.mossChance = mossChance;
 		this.successInWaterChance = successInWaterChance;
     }
 
@@ -108,7 +104,7 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
 						logs.add(mutable.immutable());
 						if (i < height - 1 && random.nextFloat() < this.logChance && extraLogs < maxLogs) {
 							Direction direction = random.nextFloat() >= 0.33 ? Direction.Plane.HORIZONTAL.getRandomDirection(random) : Direction.Plane.VERTICAL.getRandomDirection(random);
-							this.generateExtraBranch(logs, level, replacer, random, config, mutable, logDir, i, direction);
+							this.generateExtraBranch(logs, level, replacer, random, config, mutable, logDir, direction);
 							++extraLogs;
 						}
 						logsAboveHole += holeAddition;
@@ -117,27 +113,15 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
                     }
                 }
             }
-            if (random.nextFloat() > mossChance) {
-				BlockPos.MutableBlockPos logPos = new BlockPos.MutableBlockPos();
-                for (BlockPos pos : logs) {
-					logPos.set(pos).move(Direction.UP);
-                    if (TreeFeature.validTreePos(level, logPos) && !TreeFeature.isBlockWater(level, pos) && random.nextFloat() > 0.28F) {
-                        replacer.accept(pos.above(), Blocks.MOSS_CARPET.defaultBlockState());
-                    }
-                }
-            }
         }
         return list;
     }
 
-    private void generateExtraBranch(List<BlockPos> logs, LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, TreeConfiguration config, BlockPos.MutableBlockPos pos, Direction offsetDir, int offset, Direction direction) {
+    private void generateExtraBranch(List<BlockPos> logs, LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, TreeConfiguration config, BlockPos.MutableBlockPos pos, Direction offsetDir, Direction direction) {
         int x = pos.getX();
         int z = pos.getZ();
         int y = pos.getY();
         if (offsetDir.getAxis() != direction.getAxis()) {
-            x += offsetDir.getStepX() * offset;
-            z += offsetDir.getStepZ() * offset;
-            y += offsetDir.getStepY() * offset;
             x += direction.getStepX();
             z += direction.getStepZ();
             y += direction.getStepY();
