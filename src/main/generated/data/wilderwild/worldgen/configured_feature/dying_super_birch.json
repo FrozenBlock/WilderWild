@@ -4,9 +4,9 @@
     "decorators": [
       {
         "type": "wilderwild:height_based_vine_tree_decorator",
+        "chanceToDecorate": 1.0,
         "maxHeight": 260,
-        "probability": 1.0,
-        "vines_count": 0.5
+        "vinePlaceChance": 0.5
       },
       {
         "type": "wilderwild:shelf_fungus_tree_decorator",

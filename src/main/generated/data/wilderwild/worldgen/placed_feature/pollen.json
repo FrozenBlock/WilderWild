@@ -10,17 +10,11 @@
       "count": 2
     },
     {
-      "type": "minecraft:heightmap",
-      "heightmap": "MOTION_BLOCKING"
-    },
-    {
       "type": "minecraft:in_square"
     },
     {
-      "type": "minecraft:surface_relative_threshold_filter",
-      "heightmap": "MOTION_BLOCKING",
-      "max_inclusive": 128,
-      "min_inclusive": 0
+      "type": "minecraft:heightmap",
+      "heightmap": "MOTION_BLOCKING"
     },
     {
       "type": "minecraft:biome"

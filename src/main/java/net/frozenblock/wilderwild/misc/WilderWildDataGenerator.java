@@ -484,14 +484,12 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.ARID_FOREST)
 					.addOptional(RegisterWorldgen.ARID_SAVANNA);
 
-			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_PALM_AND_JUNGLE)
-					.add(Biomes.SPARSE_JUNGLE)
-					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
-
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_PALM_AND_JUNGLE_AND_OAK)
 					.add(Biomes.JUNGLE)
 					.add(Biomes.BAMBOO_JUNGLE)
-					.addOptional(RegisterWorldgen.BIRCH_JUNGLE);
+					.add(Biomes.SPARSE_JUNGLE)
+					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
+					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_BIRCH_AND_OAK_DARK_FOREST)
 					.add(Biomes.DARK_FOREST)

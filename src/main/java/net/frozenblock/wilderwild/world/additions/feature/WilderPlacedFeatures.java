@@ -90,8 +90,6 @@ public final class WilderPlacedFeatures {
 
 	public static final FrozenPlacedFeature FALLEN_PALM_AND_JUNGLE_AND_OAK_PLACED = register("fallen_palm_and_jungle_and_oak_placed");
 
-	public static final FrozenPlacedFeature FALLEN_PALM_AND_JUNGLE_PLACED = register("fallen_palm_and_jungle_placed");
-
 	public static final FrozenPlacedFeature FALLEN_BIRCH_AND_OAK_DARK_FOREST_PLACED = register("fallen_birch_and_oak_dark_forest_placed");
 
     //TREES
@@ -355,7 +353,7 @@ public final class WilderPlacedFeatures {
 		// FALLEN TREES
 
 		FALLEN_TREES_MIXED_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_TREES_MIXED.getHolder(),
-				RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(),
+				RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
@@ -370,17 +368,17 @@ public final class WilderPlacedFeatures {
 		);
 
 		FALLEN_BIRCH_AND_SPRUCE_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_BIRCH_AND_SPRUCE.getHolder(),
-				RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(),
+				RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
 		FALLEN_OAK_AND_SPRUCE_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_SPRUCE_AND_OAK.getHolder(),
-				RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(),
+				RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
 		FALLEN_OAK_AND_BIRCH_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_BIRCH_AND_OAK.getHolder(),
-				RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(),
+				RarityFilter.onAverageOnceEvery(9), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
@@ -410,32 +408,27 @@ public final class WilderPlacedFeatures {
 		);
 
 		FALLEN_ACACIA_AND_OAK_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_ACACIA_AND_OAK.getHolder(),
-				RarityFilter.onAverageOnceEvery(9), InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
-		);
-
-		FALLEN_PALM_PLACED.makeAndSetHolder(WilderTreeConfigured.FALLEN_PALM.getHolder(),
-				RarityFilter.onAverageOnceEvery(12), InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
-		);
-
-		FALLEN_PALM_PLACED_RARE.makeAndSetHolder(WilderTreeConfigured.FALLEN_PALM.getHolder(),
 				RarityFilter.onAverageOnceEvery(29), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
-		FALLEN_PALM_AND_JUNGLE_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_PALM_AND_JUNGLE.getHolder(),
-				RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(),
+		FALLEN_PALM_PLACED.makeAndSetHolder(WilderTreeConfigured.FALLEN_PALM.getHolder(),
+				RarityFilter.onAverageOnceEvery(30), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
+		);
+
+		FALLEN_PALM_PLACED_RARE.makeAndSetHolder(WilderTreeConfigured.FALLEN_PALM.getHolder(),
+				RarityFilter.onAverageOnceEvery(95), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
 		FALLEN_PALM_AND_JUNGLE_AND_OAK_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_PALM_AND_JUNGLE_AND_OAK.getHolder(),
-				RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(),
+				RarityFilter.onAverageOnceEvery(25), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
 		FALLEN_BIRCH_AND_OAK_DARK_FOREST_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_OAK_AND_BIRCH_DARK_FOREST.getHolder(),
-				RarityFilter.onAverageOnceEvery(9), InSquarePlacement.spread(),
+				RarityFilter.onAverageOnceEvery(10), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
@@ -924,8 +917,8 @@ public final class WilderPlacedFeatures {
 		// VEGETATION
 
 		POLLEN_PLACED.makeAndSetHolder(WilderConfiguredFeatures.POLLEN_CONFIGURED.getHolder(),
-				RarityFilter.onAverageOnceEvery(1), CountPlacement.of(2),
-				PlacementUtils.HEIGHTMAP, InSquarePlacement.spread(), SurfaceRelativeThresholdFilter.of(Heightmap.Types.MOTION_BLOCKING, 0, 128), BiomeFilter.biome()
+				RarityFilter.onAverageOnceEvery(1), CountPlacement.of(2), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
 		PATCH_CATTAIL.makeAndSetHolder(WilderConfiguredFeatures.CATTAIL.getHolder(),

@@ -57,10 +57,10 @@ public final class WilderMiscGeneration {
 				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_CLAY_PATH_BEACH.getKey());
 
         BiomeModifications.addFeature(FrozenBiomeSelectors.foundInOverworldExcept(WilderBiomeTags.NO_POOLS),
-                GenerationStep.Decoration.UNDERGROUND_STRUCTURES, WilderMiscPlaced.STONE_POOL.getKey());
+                GenerationStep.Decoration.LAKES, WilderMiscPlaced.STONE_POOL.getKey());
 
         BiomeModifications.addFeature(FrozenBiomeSelectors.foundInOverworldExcept(WilderBiomeTags.NO_POOLS),
-                GenerationStep.Decoration.UNDERGROUND_STRUCTURES, WilderMiscPlaced.DEEPSLATE_POOL.getKey());
+                GenerationStep.Decoration.LAKES, WilderMiscPlaced.DEEPSLATE_POOL.getKey());
 
 		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_COARSE_DIRT_PATH_SMALL),
 				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.COARSE_DIRT_PATH_SMALL.getKey());
@@ -93,10 +93,10 @@ public final class WilderMiscGeneration {
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SMALL_SPONGES_RARE.getKey());
 
 		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_MOSS_LAKE),
-				GenerationStep.Decoration.FLUID_SPRINGS, WilderMiscPlaced.MOSS_LAKE.getKey());
+				GenerationStep.Decoration.LAKES, WilderMiscPlaced.MOSS_LAKE.getKey());
 
 		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.RAINFOREST),
-				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.BASIN_RAINFOREST.getKey());
+				GenerationStep.Decoration.LAKES, WilderMiscPlaced.BASIN_RAINFOREST.getKey());
 
 		if (WilderSharedConstants.config().surfaceTransitions()) {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SMALL_SAND_TRANSITION),

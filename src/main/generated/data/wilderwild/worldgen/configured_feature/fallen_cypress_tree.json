@@ -4,9 +4,9 @@
     "decorators": [
       {
         "type": "wilderwild:height_based_vine_tree_decorator",
+        "chanceToDecorate": 0.08,
         "maxHeight": 82,
-        "probability": 0.08,
-        "vines_count": 0.25
+        "vinePlaceChance": 0.25
       },
       {
         "type": "wilderwild:moss_carpet_tree_decorator",
