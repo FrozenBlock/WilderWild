@@ -1,9 +1,9 @@
 {
-  "feature": "wilderwild:fallen_acacia_and_oak",
+  "feature": "wilderwild:fallen_oak_and_birch_dark_forest",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
-      "chance": 9
+      "chance": 8
     },
     {
       "type": "minecraft:in_square"

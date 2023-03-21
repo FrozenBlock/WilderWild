@@ -65,7 +65,7 @@
         }
       },
       "place_branch_chance": 0.4,
-      "success_in_water_change": 0.675
+      "success_in_water_chance": 0.8
     },
     "trunk_provider": {
       "type": "minecraft:simple_state_provider",

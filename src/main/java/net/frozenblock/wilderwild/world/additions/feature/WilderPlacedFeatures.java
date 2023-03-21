@@ -90,6 +90,8 @@ public final class WilderPlacedFeatures {
 
 	public static final FrozenPlacedFeature FALLEN_PALM_AND_JUNGLE_PLACED = register("fallen_palm_and_jungle_placed");
 
+	public static final FrozenPlacedFeature FALLEN_BIRCH_AND_OAK_DARK_FOREST_PLACED = register("fallen_birch_and_oak_dark_forest_placed");
+
     //TREES
     public static final FrozenPlacedFeature TREES_PLAINS = register("trees_plains");
 
@@ -395,27 +397,32 @@ public final class WilderPlacedFeatures {
 		);
 
 		FALLEN_ACACIA_AND_OAK_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_ACACIA_AND_OAK.getHolder(),
-				RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
+				RarityFilter.onAverageOnceEvery(9), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
 		FALLEN_PALM_PLACED.makeAndSetHolder(WilderTreeConfigured.FALLEN_PALM.getHolder(),
-				RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(),
+				RarityFilter.onAverageOnceEvery(10), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
 		FALLEN_PALM_PLACED_RARE.makeAndSetHolder(WilderTreeConfigured.FALLEN_PALM.getHolder(),
-				RarityFilter.onAverageOnceEvery(17), InSquarePlacement.spread(),
+				RarityFilter.onAverageOnceEvery(24), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
 		FALLEN_PALM_AND_JUNGLE_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_PALM_AND_JUNGLE.getHolder(),
-				RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(),
+				RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
 		FALLEN_PALM_AND_JUNGLE_AND_OAK_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_PALM_AND_JUNGLE_AND_OAK.getHolder(),
-				RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(),
+				RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
+		);
+
+		FALLEN_BIRCH_AND_OAK_DARK_FOREST_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_OAK_AND_BIRCH_DARK_FOREST.getHolder(),
+				RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
