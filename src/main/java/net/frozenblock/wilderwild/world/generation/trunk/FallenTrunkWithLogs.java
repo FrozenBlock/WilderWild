@@ -47,7 +47,7 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
 	protected static <P extends FallenTrunkWithLogs> Products.P7<RecordCodecBuilder.Mu<P>, Integer, Integer, Integer, Float, Float, IntProvider, IntProvider> fallenTrunkCodec(RecordCodecBuilder.Instance<P> builder) {
 		return trunkPlacerParts(builder)
 				.and(Codec.floatRange(0.0F, 1.0F).fieldOf("place_branch_chance").forGetter((trunkPlacer) -> trunkPlacer.logChance))
-				.and(Codec.floatRange(0.0F, 1.0F).fieldOf("success_in_water_change").forGetter((trunkPlacer) -> trunkPlacer.successInWaterChance))
+				.and(Codec.floatRange(0.0F, 1.0F).fieldOf("success_in_water_chance").forGetter((trunkPlacer) -> trunkPlacer.successInWaterChance))
 				.and(IntProvider.NON_NEGATIVE_CODEC.fieldOf("max_logs").forGetter((trunkPlacer) -> trunkPlacer.maxLogs))
 				.and(IntProvider.NON_NEGATIVE_CODEC.fieldOf("max_height_above_hole").forGetter((trunkPlacer) -> trunkPlacer.maxHeightAboveHole));
 	}

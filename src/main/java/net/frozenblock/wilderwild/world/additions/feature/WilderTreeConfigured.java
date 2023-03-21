@@ -1158,7 +1158,7 @@ public final class WilderTreeConfigured {
     }
 
     private static TreeConfiguration.TreeConfigurationBuilder fallenTrunkBuilder(Block log, Block leaves, int baseHeight, int firstRHeight, int secondRHeight, float logChance, IntProvider maxLogs, IntProvider maxHeightAboveHole, int radius) {
-        return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new FallenTrunkWithLogs(baseHeight, firstRHeight, secondRHeight, logChance, 0.675F, maxLogs, maxHeightAboveHole),
+        return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new FallenTrunkWithLogs(baseHeight, firstRHeight, secondRHeight, logChance, 0.8F, maxLogs, maxHeightAboveHole),
                 BlockStateProvider.simple(leaves), new BlobFoliagePlacer(ConstantInt.of(radius), ConstantInt.of(0), 3), //FOILAGE PLACER DOES NOTHING
                 new TwoLayersFeatureSize(1, 0, 1));
     }
