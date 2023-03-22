@@ -19,15 +19,15 @@
 package net.frozenblock.wilderwild.world.additions.feature;
 
 import java.util.List;
-import net.frozenblock.lib.worldgen.feature.FrozenFeatures;
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeature;
-import net.frozenblock.lib.worldgen.feature.features.config.FadingDiskFeatureConfig;
-import net.frozenblock.lib.worldgen.feature.features.config.FadingDiskTagBiomeFeatureConfig;
-import net.frozenblock.lib.worldgen.feature.features.config.FadingDiskTagFeatureConfig;
-import net.frozenblock.lib.worldgen.feature.features.config.PathFeatureConfig;
-import net.frozenblock.lib.worldgen.feature.features.config.PathSwapUnderWaterFeatureConfig;
-import net.frozenblock.lib.worldgen.feature.features.config.PathTagFeatureConfig;
-import net.frozenblock.lib.worldgen.feature.features.config.PillarFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.api.FrozenFeatures;
+import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskTagBiomeFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskTagFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.api.features.config.PathFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.api.features.config.PathSwapUnderWaterFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.api.features.config.PathTagFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.api.features.config.PillarFeatureConfig;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
@@ -177,7 +177,9 @@ public final class WilderMiscConfigured {
 	// TEMPERATE RAINFOREST & RAINFOREST
 	public static final FrozenConfiguredFeature<BlockPileConfiguration, ConfiguredFeature<BlockPileConfiguration, ?>> MOSS_PILE = register("moss_pile");
 
-	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> BASIN_RAINFOREST = register("basin_rainforest");
+	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> BASIN_PODZOL = register("basin_podzol");
+
+	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> BASIN_MOSS = register("basin_moss");
 
 	public static final FrozenConfiguredFeature<LakeFeature.Configuration, ConfiguredFeature<LakeFeature.Configuration, ?>> MOSS_LAKE = register("moss_lake");
 
@@ -904,10 +906,25 @@ public final class WilderMiscConfigured {
 				)
 		);
 
-		BASIN_RAINFOREST.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
+		BASIN_PODZOL.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
 				new VegetationPatchConfiguration(
-						WilderBlockTags.BASIN_RAINFOREST_REPLACEABLE,
+						WilderBlockTags.BASIN_REPLACEABLE,
 						BlockStateProvider.simple(Blocks.PODZOL),
+						PlacementUtils.inlinePlaced(BLANK_SHUT_UP.getHolder()),
+						CaveSurface.FLOOR,
+						ConstantInt.of(2),
+						0.8F,
+						1,
+						0.000F,
+						UniformInt.of(1, 3),
+						0.7F
+				)
+		);
+
+		BASIN_MOSS.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
+				new VegetationPatchConfiguration(
+						WilderBlockTags.BASIN_REPLACEABLE,
+						BlockStateProvider.simple(Blocks.MOSS_BLOCK),
 						PlacementUtils.inlinePlaced(BLANK_SHUT_UP.getHolder()),
 						CaveSurface.FLOOR,
 						ConstantInt.of(2),

@@ -10,32 +10,9 @@
 			{
 			  "type": "minecraft:item",
 			  "conditions": [
-				{
-				  "condition": "minecraft:alternative",
-				  "terms": [
-					{
-					  "condition": "minecraft:match_tool",
-					  "predicate": {
-						"items": [
-						  "minecraft:shears"
-						]
-					  }
-					},
-					{
-					  "condition": "minecraft:match_tool",
-					  "predicate": {
-						"enchantments": [
-						  {
-							"enchantment": "minecraft:silk_touch",
-							"levels": {
-							  "min": 1
-							}
-						  }
-						]
-					  }
-					}
-				  ]
-				}
+                {
+                  "condition": "minecraft:survives_explosion"
+                }
 			  ],
 			  "name": "wilderwild:tumbleweed_plant"
 			}
@@ -111,6 +88,65 @@
 		}
 	  ],
 	  "rolls": 1.0
-	}
+	},
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "wilderwild:tumbleweed",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 1.0,
+                "min": 1.0
+              },
+              "add": false
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:alternative",
+          "terms": [
+            {
+              "condition": "minecraft:match_tool",
+              "predicate": {
+                "items": [
+                  "minecraft:shears"
+                ]
+              }
+            },
+            {
+              "condition": "minecraft:match_tool",
+              "predicate": {
+                "enchantments": [
+                  {
+                    "enchantment": "minecraft:silk_touch",
+                    "levels": {
+                      "min": 1
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "wilderwild:tumbleweed_plant",
+          "properties": {
+            "age": "3"
+          }
+        },
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    }
   ]
 }

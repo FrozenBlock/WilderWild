@@ -3,7 +3,6 @@
   "values": [
     "minecraft:mud",
     "minecraft:muddy_mangrove_roots",
-    "minecraft:slime_block",
-    "minecraft:honey_block"
+    "minecraft:slime_block"
   ]
 }

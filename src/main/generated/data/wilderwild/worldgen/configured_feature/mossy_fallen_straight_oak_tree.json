@@ -4,14 +4,14 @@
     "decorators": [
       {
         "type": "wilderwild:height_based_vine_tree_decorator",
-        "chanceToDecorate": 0.08,
-        "maxHeight": 82,
-        "vinePlaceChance": 0.25
+        "chanceToDecorate": 0.8,
+        "maxHeight": 260,
+        "vinePlaceChance": 0.75
       },
       {
         "type": "wilderwild:moss_carpet_tree_decorator",
-        "chanceToDecorate": 0.6,
-        "mossPlaceChance": 0.24
+        "chanceToDecorate": 1.0,
+        "mossPlaceChance": 0.3
       }
     ],
     "dirt_provider": {
@@ -29,7 +29,7 @@
     "foliage_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "wilderwild:cypress_leaves",
+        "Name": "minecraft:oak_leaves",
         "Properties": {
           "distance": "7",
           "persistent": "false",
@@ -48,8 +48,8 @@
     "trunk_placer": {
       "type": "wilderwild:fallen_trunk_logs_placer",
       "base_height": 3,
-      "height_rand_a": 2,
-      "height_rand_b": 2,
+      "height_rand_a": 1,
+      "height_rand_b": 1,
       "max_height_above_hole": {
         "type": "minecraft:uniform",
         "value": {
@@ -70,7 +70,7 @@
     "trunk_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "wilderwild:hollowed_cypress_log",
+        "Name": "wilderwild:hollowed_oak_log",
         "Properties": {
           "axis": "y",
           "termite_edible": "true",

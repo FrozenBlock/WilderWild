@@ -108,6 +108,8 @@ public final class WilderTreePlaced {
 
 	public static final FrozenPlacedFeature MOSSY_FALLEN_OAK_CHECKED = register("mossy_fallen_oak_checked");
 
+	public static final FrozenPlacedFeature MOSSY_FALLEN_STRAIGHT_OAK_CHECKED = register("mossy_fallen_straight_oak_checked");
+
 	public static final FrozenPlacedFeature MOSSY_FALLEN_SPRUCE_CHECKED = register("mossy_fallen_spruce_checked");
 
 	public static final FrozenPlacedFeature OLD_DYING_FANCY_OAK_BEES_0004 = register("old_dying_fancy_oak_bees_0004");
@@ -217,6 +219,9 @@ public final class WilderTreePlaced {
 
 	//ACACIA
 	public static final FrozenPlacedFeature FALLEN_ACACIA_CHECKED = register("fallen_acacia_checked");
+
+	//MANGROVE
+	public static final FrozenPlacedFeature FALLEN_MANGROVE_CHECKED = register("fallen_mangrove_checked");
 
 	//TREE ON GRASS
 	public static final FrozenPlacedFeature PALM_CHECKED_DIRT = register("palm_checked_dirt");
@@ -332,6 +337,8 @@ public final class WilderTreePlaced {
 		FALLEN_OAK_NO_MOSS_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_OAK_TREE_NO_MOSS.getHolder());
 
 		MOSSY_FALLEN_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.MOSSY_FALLEN_OAK_TREE.getHolder());
+
+		MOSSY_FALLEN_STRAIGHT_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.MOSSY_FALLEN_STRAIGHT_OAK_TREE.getHolder());
 
 		MOSSY_FALLEN_SPRUCE_CHECKED.makeAndSetHolder(WilderTreeConfigured.MOSSY_FALLEN_SPRUCE_TREE.getHolder());
 
@@ -522,6 +529,10 @@ public final class WilderTreePlaced {
 		//ACACIA
 
 		FALLEN_ACACIA_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_ACACIA_TREE.getHolder());
+
+		//MANGROVE
+
+		FALLEN_MANGROVE_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_MANGROVE_TREE.getHolder());
 
 		// TREE ON GRASS
 

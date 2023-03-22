@@ -269,7 +269,7 @@ public final class WilderWildClient implements ClientModInitializer {
 
 		ColorProviderRegistry.ITEM.register(((state, tintIndex) -> 5877296), RegisterBlocks.BAOBAB_LEAVES);
 		ColorProviderRegistry.ITEM.register(((state, tintIndex) -> 5877296), RegisterBlocks.CYPRESS_LEAVES);
-		ColorProviderRegistry.ITEM.register(((state, tintIndex) -> 5877296), RegisterBlocks.PALM_LEAVES);
+		ColorProviderRegistry.ITEM.register(((state, tintIndex) -> 5877296), RegisterBlocks.PALM_FRONDS);
 
 		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
 				BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
@@ -279,7 +279,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		), RegisterBlocks.CYPRESS_LEAVES);
 		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
 				BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
-		), RegisterBlocks.PALM_LEAVES);
+		), RegisterBlocks.PALM_FRONDS);
 		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
 				BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
 		), RegisterBlocks.POTTED_GRASS);

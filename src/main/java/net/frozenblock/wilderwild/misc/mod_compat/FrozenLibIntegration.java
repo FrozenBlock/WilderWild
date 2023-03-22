@@ -140,7 +140,7 @@ public class FrozenLibIntegration extends ModIntegration {
         addBlocks(new Block[]{FROSTED_ICE}, ICE_BLOCKS, WilderSharedConstants.config()::frostedIceSounds);
         addBlock(GRAVEL, GRAVELSOUNDS, WilderSharedConstants.config()::gravelSounds);
 		addBlocks(new Block[]{ACACIA_SAPLING, BIRCH_SAPLING, DARK_OAK_SAPLING, JUNGLE_SAPLING, MANGROVE_PROPAGULE, OAK_SAPLING, SPRUCE_SAPLING, CYPRESS_SAPLING, BUSH}, SAPLING, WilderSharedConstants.config()::saplingSounds);
-        addBlocks(new Block[]{ACACIA_LEAVES, BIRCH_LEAVES, DARK_OAK_LEAVES, JUNGLE_LEAVES, MANGROVE_LEAVES, OAK_LEAVES, SPRUCE_LEAVES, BAOBAB_LEAVES, CYPRESS_LEAVES, PALM_LEAVES}, LEAVES, WilderSharedConstants.config()::leafSounds);
+        addBlocks(new Block[]{ACACIA_LEAVES, BIRCH_LEAVES, DARK_OAK_LEAVES, JUNGLE_LEAVES, MANGROVE_LEAVES, OAK_LEAVES, SPRUCE_LEAVES, BAOBAB_LEAVES, CYPRESS_LEAVES, PALM_FRONDS}, LEAVES, WilderSharedConstants.config()::leafSounds);
         addBlocks(new Block[]{LILY_PAD, FLOWERING_LILY_PAD}, LILYPAD, WilderSharedConstants.config()::lilyPadSounds);
         addBlocks(new Block[]{RED_MUSHROOM, BROWN_MUSHROOM}, MUSHROOM, WilderSharedConstants.config()::mushroomBlockSounds);
         addBlocks(new Block[]{RED_MUSHROOM_BLOCK, BROWN_MUSHROOM_BLOCK, MUSHROOM_STEM}, MUSHROOM_BLOCK, WilderSharedConstants.config()::mushroomBlockSounds);
