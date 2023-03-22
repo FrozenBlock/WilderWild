@@ -208,26 +208,26 @@ repositories {
 
 dependencies {
     // To change the versions see the gradle.properties file
-    minecraft("com.mojang:minecraft:${minecraft_version}")
+    minecraft("com.mojang:minecraft:$minecraft_version")
     mappings(loom.layered {
         // please annoy treetrain if this doesnt work
-        mappings("org.quiltmc:quilt-mappings:${minecraft_version}+build.${quilt_mappings}:intermediary-v2")
-        parchment("org.parchmentmc.data:parchment-1.19.3:${parchment_mappings}@zip")
+        mappings("org.quiltmc:quilt-mappings:$quilt_mappings:intermediary-v2")
+        parchment("org.parchmentmc.data:parchment-1.19.3:$parchment_mappings@zip")
         officialMojangMappings {
             nameSyntheticMembers = false
         }
     })
-    modImplementation("net.fabricmc:fabric-loader:${loader_version}")
+    modImplementation("net.fabricmc:fabric-loader:$loader_version")
 
     // Fabric API. This is technically optional, but you probably want it anyway.
-    modImplementation("net.fabricmc.fabric-api:fabric-api:${fabric_version}")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:$fabric_version")
 
     // FrozenLib
     println("Using local FrozenLib: $local_frozenlib")
     if (local_frozenlib) {
         implementation(project(path = ":FrozenLib", configuration = "dev"))?.let { include(it) }
     } else {
-        modImplementation("maven.modrinth:frozenlib:${frozenlib_version}")?.let { include(it) }
+        modImplementation("maven.modrinth:frozenlib:$frozenlib_version")?.let { include(it) }
     }
 
     // CaffeineConfig
