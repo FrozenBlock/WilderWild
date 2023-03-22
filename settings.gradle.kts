@@ -29,18 +29,20 @@ rootProject.name = "Wilder Wild"
 
 localRepository("FrozenLib", "maven.modrinth:frozenlib", true)
 
+
 fun localRepository(repo: String, dependencySub: String, kotlin: Boolean) {
 	println("Attempting to include local repo $repo")
 
-	val allowLocalRepoUse = true
-	val allowLocalRepoInConsoleMode = true
+    val github = System.getenv("GITHUB_ACTIONS") == "true"
 
-	val androidInjectedInvokedFromIde by extra("android.injected.invoked.from.ide")
-	val xpcServiceName by extra("XPC_SERVICE_NAME")
-	val ideaInitialDirectory by extra("IDEA_INITIAL_DIRECTORY")
+    val allowLocalRepoUse = true
+    val allowLocalRepoInConsoleMode = true
 
-	val isIDE = androidInjectedInvokedFromIde != "" || (System.getenv(xpcServiceName) ?: "").contains("intellij") || (System.getenv(xpcServiceName) ?: "").contains(".idea") || System.getenv(ideaInitialDirectory) != null
-	val github = System.getenv("GITHUB_ACTIONS") == "true"
+    val androidInjectedInvokedFromIde by extra("android.injected.invoked.from.ide")
+    val xpcServiceName by extra("XPC_SERVICE_NAME")
+    val ideaInitialDirectory by extra("IDEA_INITIAL_DIRECTORY")
+
+    val isIDE = androidInjectedInvokedFromIde != "" || (System.getenv(xpcServiceName) ?: "").contains("intellij") || (System.getenv(xpcServiceName) ?: "").contains(".idea") || System.getenv(ideaInitialDirectory) != null
 
 	var path = "../$repo"
     var file = File(path)

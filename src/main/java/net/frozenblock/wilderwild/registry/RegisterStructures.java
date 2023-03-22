@@ -62,8 +62,6 @@ public final class RegisterStructures {
 		throw new UnsupportedOperationException("RegisterStructures contains only static declarations.");
 	}
 
-    public static final int MAX_JIGSAW_SIZE = 20;
-
     public static final ResourceKey<StructureSet> ABANDONED_CABINS_KEY = ofSet("abandoned_cabins");
 
     private static ResourceKey<StructureSet> ofSet(String id) {
