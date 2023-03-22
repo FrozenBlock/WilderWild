@@ -28,13 +28,16 @@ public final class RegisterGameEvents {
 		throw new UnsupportedOperationException("RegisterGameEvents contains only static declarations.");
 	}
 
-    public static final GameEvent SCULK_SENSOR_ACTIVATE = new GameEvent("sculk_sensor_activate", 16);
-    public static final GameEvent TENDRIL_EXTRACT_XP = new GameEvent("hanging_tendril_extract_xp", 16);
+    public static final GameEvent SCULK_SENSOR_ACTIVATE = register("sculk_sensor_activate", 16);
+    public static final GameEvent TENDRIL_EXTRACT_XP = register("hanging_tendril_extract_xp", 16);
 
 
     public static void registerEvents() {
         WilderSharedConstants.logWild("Registering GameEvents for", WilderSharedConstants.UNSTABLE_LOGGING);
-        Registry.register(BuiltInRegistries.GAME_EVENT, WilderSharedConstants.id("sculk_sensor_activate"), SCULK_SENSOR_ACTIVATE);
-        Registry.register(BuiltInRegistries.GAME_EVENT, WilderSharedConstants.id("hanging_tendril_extract_xp"), TENDRIL_EXTRACT_XP);
     }
+
+	private static GameEvent register(String path, int maxListeners) {
+		var key = WilderSharedConstants.string(path);
+		return Registry.register(BuiltInRegistries.GAME_EVENT, key, new GameEvent(key, maxListeners));
+	}
 }
