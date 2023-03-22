@@ -1,0 +1,24 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:jungle",
+    "minecraft:sparse_jungle",
+    "minecraft:bamboo_jungle",
+    {
+      "id": "wilderwild:rainforest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:temperate_rainforest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:birch_jungle",
+      "required": false
+    },
+    {
+      "id": "wilderwild:sparse_birch_jungle",
+      "required": false
+    }
+  ]
+}

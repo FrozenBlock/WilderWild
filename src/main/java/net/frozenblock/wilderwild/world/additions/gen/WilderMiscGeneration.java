@@ -98,8 +98,14 @@ public final class WilderMiscGeneration {
 		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_MOSS_LAKE_RARE),
 				GenerationStep.Decoration.LAKES, WilderMiscPlaced.MOSS_LAKE_RARE.getKey());
 
-		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.RAINFOREST),
-				GenerationStep.Decoration.LAKES, WilderMiscPlaced.BASIN_RAINFOREST.getKey());
+		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_MOSS_BASIN),
+				GenerationStep.Decoration.LAKES, WilderMiscPlaced.BASIN_MOSS.getKey());
+
+		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_PODZOL_BASIN),
+				GenerationStep.Decoration.LAKES, WilderMiscPlaced.BASIN_PODZOL.getKey());
+
+		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_MOSS_CARPET),
+				GenerationStep.Decoration.LAKES, WilderPlacedFeatures.MOSS_CARPET.getKey());
 
 		if (WilderSharedConstants.config().surfaceTransitions()) {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SMALL_SAND_TRANSITION),

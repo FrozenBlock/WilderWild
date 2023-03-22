@@ -13,7 +13,7 @@
         }
       }
     },
-    "replaceable": "#wilderwild:basin_rainforest_replaceable",
+    "replaceable": "#wilderwild:basin_replaceable",
     "surface": "floor",
     "vegetation_chance": 0.0,
     "vegetation_feature": {

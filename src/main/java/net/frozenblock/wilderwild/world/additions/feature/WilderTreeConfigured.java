@@ -197,6 +197,8 @@ public final class WilderTreeConfigured {
 
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> MOSSY_FALLEN_OAK_TREE = register("mossy_fallen_oak_tree");
 
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> MOSSY_FALLEN_STRAIGHT_OAK_TREE = register("mossy_fallen_straight_oak_tree");
+
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_OAK_BEES = register("fancy_oak_bees");
 
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> OLD_FANCY_DYING_OAK_BEES_0004 = register("old_fancy_dying_oak_bees_0004");
@@ -286,6 +288,9 @@ public final class WilderTreeConfigured {
 
 	//ACACIA
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_ACACIA_TREE = register("fallen_acacia_tree");
+
+	//MANGROVE
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_MANGROVE_TREE = register("fallen_mangrove_tree");
 
 	public static void registerTreeConfigured() {
 
@@ -547,6 +552,25 @@ public final class WilderTreeConfigured {
 						1,
 						2,
 						0.175F,
+						UniformInt.of(1, 2),
+						UniformInt.of(1, 2),
+						1
+				).ignoreVines().decorators(
+						List.of(
+								VINES_08_UNDER_260_075,
+								MOSS_MOSSY
+						)
+				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		MOSSY_FALLEN_STRAIGHT_OAK_TREE.makeAndSetHolder(Feature.TREE,
+				fallenTrunkBuilder(
+						RegisterBlocks.HOLLOWED_OAK_LOG,
+						Blocks.OAK_LEAVES,
+						3,
+						1,
+						1,
+						0.0F,
 						UniformInt.of(1, 2),
 						UniformInt.of(1, 2),
 						1
@@ -1037,7 +1061,7 @@ public final class WilderTreeConfigured {
 		PALM.makeAndSetHolder(Feature.TREE,
 				palmBuilder(
 						RegisterBlocks.PALM_LOG,
-						RegisterBlocks.PALM_LEAVES,
+						RegisterBlocks.PALM_FRONDS,
 						6, 2,
 						1,
 						1,
@@ -1067,7 +1091,7 @@ public final class WilderTreeConfigured {
 		TALL_PALM.makeAndSetHolder(Feature.TREE,
 				palmBuilder(
 						RegisterBlocks.PALM_LOG,
-						RegisterBlocks.PALM_LEAVES,
+						RegisterBlocks.PALM_FRONDS,
 						8,
 						3,
 						2,
@@ -1098,7 +1122,7 @@ public final class WilderTreeConfigured {
 		SMALL_WINE_PALM.makeAndSetHolder(Feature.TREE,
 				winePalmBuilder(
 						RegisterBlocks.PALM_LOG,
-						RegisterBlocks.PALM_LEAVES,
+						RegisterBlocks.PALM_FRONDS,
 						5,
 						1,
 						2,
@@ -1109,7 +1133,7 @@ public final class WilderTreeConfigured {
 		TALL_WINE_PALM.makeAndSetHolder(Feature.TREE,
 				winePalmBuilder(
 						RegisterBlocks.PALM_LOG,
-						RegisterBlocks.PALM_LEAVES,
+						RegisterBlocks.PALM_FRONDS,
 						10,
 						3,
 						3,
@@ -1178,6 +1202,16 @@ public final class WilderTreeConfigured {
 				fallenAcacia().decorators(
 						List.of(
 								VINES_012_UNDER_260
+						)
+				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		//MANGROVE
+		FALLEN_MANGROVE_TREE.makeAndSetHolder(Feature.TREE,
+				fallenMangrove().decorators(
+						List.of(
+								VINES_012_UNDER_260,
+								MOSS_MOSSY
 						)
 				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -1255,7 +1289,7 @@ public final class WilderTreeConfigured {
     }
 
     private static TreeConfiguration.TreeConfigurationBuilder fallenCypress() {
-        return fallenTrunkBuilder(RegisterBlocks.HOLLOWED_CYPRESS_LOG, RegisterBlocks.CYPRESS_LEAVES, 3, 2, 3, 0.4F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines();
+        return fallenTrunkBuilder(RegisterBlocks.HOLLOWED_CYPRESS_LOG, RegisterBlocks.CYPRESS_LEAVES, 3, 2, 2, 0.0F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines();
     }
 
     private static TreeConfiguration.TreeConfigurationBuilder tallDarkOak() {
@@ -1271,7 +1305,7 @@ public final class WilderTreeConfigured {
 	}
 
 	private static TreeConfiguration.TreeConfigurationBuilder fallenPalm() {
-		return fallenTrunkBuilder(RegisterBlocks.HOLLOWED_PALM_LOG, RegisterBlocks.PALM_LEAVES, 5, 1, 2, 0.0F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines();
+		return fallenTrunkBuilder(RegisterBlocks.HOLLOWED_PALM_LOG, RegisterBlocks.PALM_FRONDS, 5, 1, 2, 0.0F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines();
 	}
 
 	private static TreeConfiguration.TreeConfigurationBuilder fallenAcacia() {
@@ -1280,5 +1314,9 @@ public final class WilderTreeConfigured {
 
 	private static TreeConfiguration.TreeConfigurationBuilder fallenJungle() {
 		return fallenTrunkBuilder(RegisterBlocks.HOLLOWED_JUNGLE_LOG, Blocks.JUNGLE_LEAVES, 4, 2, 1, 0.0F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines();
+	}
+
+	private static TreeConfiguration.TreeConfigurationBuilder fallenMangrove() {
+		return fallenTrunkBuilder(RegisterBlocks.HOLLOWED_MANGROVE_LOG, Blocks.MANGROVE_LEAVES, 4, 2, 1, 0.0F, ConstantInt.of(1), UniformInt.of(1, 2), 1).ignoreVines();
 	}
 }
