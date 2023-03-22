@@ -118,7 +118,28 @@ Tumbleweed: Who wants bouncy balls when you can have bouncy blocks?
 
 BLOCKS:
 Prickly Pear: Ow. That hurt. A lot. Help. I ate it. Why.
+-Prickly Pears generate in Badlands biomes, putting some greens into the dull reds of the biome.
+-Can be picked. Doing so without shears will hurt the player.
 
+Bush: It's alive!
+-An alive decorative plant.
+-Can grow into a 2-block-tall version of itself, giving more decorative options to players.
+-Can be sheared, decreasing its growth by one stage.
+
+Tumbleweed Stem:
+-Grows into a dead Tumbleweed, which can snap off and roll around.
+     -Will regrow.
+-The Tumbleweed can be snipped off with shears.
+
+Tumbleweed:
+-Can only be obtained by hitting a Tumbleweed entity with Silk Touch or Shears.
+-Once placed, can be snipped and turned into an entity with shears.
+
+ITEMS:
+Prickly Pear:
+-Can be eaten, at the expense of damaging the player.
+-Can be peeled in a crafting table to be eaten without damaging the player.
+     -Doing this, however, will prevent you from replanting the Prickly Pear.
 
 Termite Changes:
 -Updated Termite particles to swarm around the block.
@@ -165,3 +186,8 @@ Jellyfish Caves:
 -Dry Mesoglea now renders inside of Waterlogged Mesoglea.
 -Jellyfish can no longer swim through the bottom or sides of Mesoglea unless they're a passanger or leashed.
 -Mesoglea can now optionally be rendered as a liquid whilst Sodium is not being used.
+
+Other worldgen changes:
+-Fallen Trees can now generate on any block and under water.
+-Tweaked rarity of Fallen Trees.
+-Tweaked placement of many worldgen features.
