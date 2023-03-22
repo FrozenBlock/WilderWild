@@ -47,7 +47,7 @@ import net.frozenblock.wilderwild.block.MilkweedBlock;
 import net.frozenblock.wilderwild.block.NematocystBlock;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
 import net.frozenblock.wilderwild.block.PalmCrownBlock;
-import net.frozenblock.wilderwild.block.PalmLeavesBlock;
+import net.frozenblock.wilderwild.block.PalmFrondsBlock;
 import net.frozenblock.wilderwild.block.PollenBlock;
 import net.frozenblock.wilderwild.block.PricklyPearCactusBlock;
 import net.frozenblock.wilderwild.block.ScorchedSandBlock;
@@ -201,7 +201,7 @@ public final class RegisterBlocks {
 
     public static final Block BAOBAB_LEAVES = new BaobabLeaves(FabricBlockSettings.of(Material.LEAVES, MaterialColor.COLOR_GREEN).strength(0.2F).ticksRandomly().sounds(SoundType.GRASS).nonOpaque().allowsSpawning(RegisterBlocks::canSpawnOnLeaves).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
     public static final Block CYPRESS_LEAVES = new LeavesBlock(FabricBlockSettings.of(Material.LEAVES, MaterialColor.COLOR_GREEN).strength(0.2F).ticksRandomly().sounds(SoundType.GRASS).nonOpaque().allowsSpawning(RegisterBlocks::canSpawnOnLeaves).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
-    public static final Block PALM_LEAVES = new PalmLeavesBlock(FabricBlockSettings.of(Material.LEAVES, MaterialColor.COLOR_GREEN).strength(0.2F).ticksRandomly().sounds(SoundType.GRASS).nonOpaque().allowsSpawning(RegisterBlocks::canSpawnOnLeaves).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
+    public static final Block PALM_FRONDS = new PalmFrondsBlock(FabricBlockSettings.of(Material.LEAVES, MaterialColor.COLOR_GREEN).strength(0.2F).ticksRandomly().sounds(SoundType.GRASS).nonOpaque().allowsSpawning(RegisterBlocks::canSpawnOnLeaves).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
 
     public static final Block BAOBAB_FENCE = new FenceBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD));
     public static final Block CYPRESS_FENCE = new FenceBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD));
@@ -283,7 +283,7 @@ public final class RegisterBlocks {
     	registerBlock(baobab + "_leaves", BAOBAB_LEAVES, CreativeModeTab.TAB_DECORATIONS);
     	registerBlock(cypress + "_leaves", CYPRESS_LEAVES, CreativeModeTab.TAB_DECORATIONS);
 		registerBlock(palm + "_crown", PALM_CROWN, CreativeModeTab.TAB_BUILDING_BLOCKS);
-    	registerBlock(palm + "_leaves", PALM_LEAVES, CreativeModeTab.TAB_DECORATIONS);
+    	registerBlock(palm + "_fronds", PALM_FRONDS, CreativeModeTab.TAB_DECORATIONS);
 
     	registerBlock(baobab + "_fence", BAOBAB_FENCE, CreativeModeTab.TAB_DECORATIONS);
     	registerBlock(cypress + "_fence", CYPRESS_FENCE, CreativeModeTab.TAB_DECORATIONS);
@@ -728,8 +728,10 @@ public final class RegisterBlocks {
         CompostingChanceRegistry.INSTANCE.add(PURPLE_GLORY_OF_THE_SNOW, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(ALGAE, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BUSH, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED_PLANT, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED, 0.1F);
+		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED_PLANT, 0.5F);
+		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(RegisterItems.COCONUT, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(RegisterItems.SPLIT_COCONUT, 0.3F);
     }
 
     private static void registerFlammability() {
@@ -818,7 +820,7 @@ public final class RegisterBlocks {
 		flammableBlockRegistry.add(RegisterBlocks.PALM_FENCE_GATE, 5, 20);
 		flammableBlockRegistry.add(RegisterBlocks.PALM_PRESSURE_PLATE, 5, 20);
 		flammableBlockRegistry.add(RegisterBlocks.PALM_TRAPDOOR, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.PALM_LEAVES, 100, 60);
+		flammableBlockRegistry.add(RegisterBlocks.PALM_FRONDS, 100, 60);
 		flammableBlockRegistry.add(RegisterBlocks.PALM_BUTTON, 5, 20);
 		flammableBlockRegistry.add(RegisterBlocks.PALM_SIGN_BLOCK, 5, 20);
 		flammableBlockRegistry.add(RegisterBlocks.PALM_WALL_SIGN, 5, 20);

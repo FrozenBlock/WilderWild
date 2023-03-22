@@ -175,7 +175,9 @@ public final class WilderMiscConfigured {
 	// TEMPERATE RAINFOREST & RAINFOREST
 	public static final FrozenConfiguredFeature<BlockPileConfiguration, ConfiguredFeature<BlockPileConfiguration, ?>> MOSS_PILE = register("moss_pile");
 
-	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> BASIN_RAINFOREST = register("basin_rainforest");
+	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> BASIN_PODZOL = register("basin_podzol");
+
+	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> BASIN_MOSS = register("basin_moss");
 
 	public static final FrozenConfiguredFeature<LakeFeature.Configuration, ConfiguredFeature<LakeFeature.Configuration, ?>> MOSS_LAKE = register("moss_lake");
 
@@ -909,10 +911,25 @@ public final class WilderMiscConfigured {
 				)
 		);
 
-		BASIN_RAINFOREST.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
+		BASIN_PODZOL.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
 				new VegetationPatchConfiguration(
-						WilderBlockTags.BASIN_RAINFOREST_REPLACEABLE,
+						WilderBlockTags.BASIN_REPLACEABLE,
 						BlockStateProvider.simple(Blocks.PODZOL),
+						PlacementUtils.inlinePlaced(BLANK_SHUT_UP.getHolder()),
+						CaveSurface.FLOOR,
+						ConstantInt.of(2),
+						0.8F,
+						1,
+						0.000F,
+						UniformInt.of(1, 3),
+						0.7F
+				)
+		);
+
+		BASIN_MOSS.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
+				new VegetationPatchConfiguration(
+						WilderBlockTags.BASIN_REPLACEABLE,
+						BlockStateProvider.simple(Blocks.MOSS_BLOCK),
 						PlacementUtils.inlinePlaced(BLANK_SHUT_UP.getHolder()),
 						CaveSurface.FLOOR,
 						ConstantInt.of(2),

@@ -157,7 +157,9 @@ public final class WilderMiscPlaced {
 	// TEMPERATE RAINFOREST & RAINFOREST
 	public static final FrozenPlacedFeature MOSS_PILE = register("moss_pile");
 
-	public static final FrozenPlacedFeature BASIN_RAINFOREST = register("basin_rainforest");
+	public static final FrozenPlacedFeature BASIN_PODZOL = register("basin_podzol");
+
+	public static final FrozenPlacedFeature BASIN_MOSS = register("basin_moss");
 
 	public static final FrozenPlacedFeature MOSS_LAKE = register("moss_lake");
 
@@ -550,7 +552,16 @@ public final class WilderMiscPlaced {
 				BiomeFilter.biome()
 		);
 
-		BASIN_RAINFOREST.makeAndSetHolder(WilderMiscConfigured.BASIN_RAINFOREST.getHolder(),
+		BASIN_PODZOL.makeAndSetHolder(WilderMiscConfigured.BASIN_PODZOL.getHolder(),
+				RarityFilter.onAverageOnceEvery(5),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
+				RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+				BiomeFilter.biome()
+		);
+
+		BASIN_MOSS.makeAndSetHolder(WilderMiscConfigured.BASIN_MOSS.getHolder(),
 				RarityFilter.onAverageOnceEvery(5),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,

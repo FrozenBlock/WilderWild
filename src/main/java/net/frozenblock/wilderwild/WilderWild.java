@@ -220,11 +220,13 @@ public final class WilderWild extends FrozenMobCategoryEntrypoint implements Mod
 		Schema schemaV10 = builder.addSchema(10, NamespacedSchema::new);
 		SimpleFixes.addBlockRenameFix(builder, "Rename palm_sapling to coconut", WilderSharedConstants.id("palm_sapling"), WilderSharedConstants.id("coconut"), schemaV10);
 		Schema schemaV11 = builder.addSchema(11, NamespacedSchema::new);
-		builder.addFixer(new DrySandStateFix(schemaV9, "dry_sand_crackness_to_crackedness", WilderSharedConstants.id("dry_sand")));
+		builder.addFixer(new DrySandStateFix(schemaV11, "dry_sand_crackness_to_crackedness", WilderSharedConstants.id("dry_sand")));
 		SimpleFixes.addBlockRenameFix(builder, "Rename dry_sand to scorched_sand", WilderSharedConstants.id("dry_sand"), WilderSharedConstants.id("scorched_sand"), schemaV11);
 		SimpleFixes.addItemRenameFix(builder, "Rename dry_sand to scorched_sand", WilderSharedConstants.id("dry_sand"), WilderSharedConstants.id("scorched_sand"), schemaV11);
-		builder.addFixer(new DrySandStateFix(schemaV9, "scorched_sand_crackness_to_crackedness", WilderSharedConstants.id("scorched_sand")));
-
+		builder.addFixer(new DrySandStateFix(schemaV11, "scorched_sand_crackness_to_crackedness", WilderSharedConstants.id("scorched_sand")));
+		Schema schemaV13 = builder.addSchema(13, NamespacedSchema::new);
+		SimpleFixes.addBlockRenameFix(builder, "Rename palm_leaves to palm_fronds", WilderSharedConstants.id("palm_leaves"), WilderSharedConstants.id("palm_fronds"), schemaV13);
+		SimpleFixes.addItemRenameFix(builder, "Rename palm_leaves to palm_fronds", WilderSharedConstants.id("palm_leaves"), WilderSharedConstants.id("palm_fronds"), schemaV13);
         QuiltDataFixes.buildAndRegisterFixer(mod, builder);
         log("DataFixes for Wilder Wild have been applied", true);
     }
