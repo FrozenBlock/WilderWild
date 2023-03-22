@@ -29,7 +29,7 @@ rootProject.name = "Wilder Wild"
 
 localRepository("FrozenLib", "maven.modrinth:frozenlib", true)
 
-val allowLocalRepoUse = false
+val allowLocalRepoUse = true
 val allowLocalRepoInConsoleMode = true
 
 val androidInjectedInvokedFromIde by extra("android.injected.invoked.from.ide")
