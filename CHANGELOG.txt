@@ -224,7 +224,7 @@ Sculk Changes:
 -Reworked Osseous Sculk Generation:
      -In worldgen, Osseous Sculk now generates more frequently on floors.
      -In non-worldgen, Osseous Sculk no longer relies on noise to generate, allowing it to be reasonably obtained.
-     -Optimized Osseous Sculk generation overall.
+-Optimized Osseous Sculk generation overall.
 
 Chest Changes:
 -Waterlogged Chests now bubble when opened.
@@ -238,3 +238,11 @@ Termite Changes:
 -Played-placed blocks are no longer eaten by Termites.
 -Can now be obtained without Silk Touch.
 -Now displays whether Termites are awake or not.
+
+Cypress Changes:
+-Only the "Swamp" variant of Cypress generate in water.
+     -As such, only this variant will be grown from waterlogged saplings.
+-Cypress Saplings can now only be placed if water is shallow enough.
+
+Fixed countless bugs and inconsistencies overall.
+
