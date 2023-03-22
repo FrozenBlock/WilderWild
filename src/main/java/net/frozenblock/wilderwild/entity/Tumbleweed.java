@@ -73,6 +73,7 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -156,7 +157,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 	@Override
 	protected void onInsideBlock(@NotNull BlockState state) {
-		if (state.is(WilderBlockTags.TUMBLEWEED_STICKS_TO)) {
+		if (state.getBlock() instanceof LeavesBlock) {
 			this.isTouchingStickingBlock = true;
 		}
 	}

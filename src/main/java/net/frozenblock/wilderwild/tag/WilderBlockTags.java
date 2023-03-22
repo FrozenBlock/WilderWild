@@ -49,7 +49,6 @@ public final class WilderBlockTags {
 	public static final TagKey<Block> BASIN_REPLACEABLE = bind("basin_replaceable");
 	public static final TagKey<Block> SPLITS_COCONUT = bind("splits_coconut");
 	public static final TagKey<Block> STOPS_TUMBLEWEED = bind("stops_tumbleweed");
-	public static final TagKey<Block> TUMBLEWEED_STICKS_TO = bind("tumbleweed_sticks_to");
 	public static final TagKey<Block> STONE_TRANSITION_REPLACEABLE = bind("red_sand_transition_replaceable");
 	public static final TagKey<Block> STONE_TRANSITION_PLACEABLE = bind("stone_transition_placeable");
 	public static final TagKey<Block> SMALL_SAND_TRANSITION_REPLACEABLE = bind("small_sand_transition_replaceable");
