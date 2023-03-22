@@ -1057,10 +1057,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBlockTags.STOPS_TUMBLEWEED)
 					.add(Blocks.MUD)
 					.add(Blocks.MUDDY_MANGROVE_ROOTS)
-					.add(Blocks.SLIME_BLOCK);
-
-			this.getOrCreateTagBuilder(WilderBlockTags.TUMBLEWEED_STICKS_TO)
-					.addOptionalTag(BlockTags.LEAVES)
+					.add(Blocks.SLIME_BLOCK)
 					.add(Blocks.IRON_BARS)
 					.add(Blocks.HONEY_BLOCK);
 		}
