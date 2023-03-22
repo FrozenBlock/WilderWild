@@ -5,4 +5,6 @@ Make sure to clear this after each release
 Put changelog here:
 -----------------
 - Ported to 1.19.4
+- Changed some things internally
+- Updated included FrozenLib to 1.2.0
 - Fixed Ancient Horn rendering on 1.19.4
