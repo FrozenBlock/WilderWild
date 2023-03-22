@@ -19,15 +19,15 @@
 package net.frozenblock.wilderwild.world.additions.feature;
 
 import java.util.List;
-import net.frozenblock.lib.worldgen.feature.FrozenFeatures;
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeature;
-import net.frozenblock.lib.worldgen.feature.features.config.FadingDiskFeatureConfig;
-import net.frozenblock.lib.worldgen.feature.features.config.FadingDiskTagBiomeFeatureConfig;
-import net.frozenblock.lib.worldgen.feature.features.config.FadingDiskTagFeatureConfig;
-import net.frozenblock.lib.worldgen.feature.features.config.PathFeatureConfig;
-import net.frozenblock.lib.worldgen.feature.features.config.PathSwapUnderWaterFeatureConfig;
-import net.frozenblock.lib.worldgen.feature.features.config.PathTagFeatureConfig;
-import net.frozenblock.lib.worldgen.feature.features.config.PillarFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.api.FrozenFeatures;
+import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskTagBiomeFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskTagFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.api.features.config.PathFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.api.features.config.PathSwapUnderWaterFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.api.features.config.PathTagFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.api.features.config.PillarFeatureConfig;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
