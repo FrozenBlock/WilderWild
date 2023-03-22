@@ -136,6 +136,19 @@ Tumbleweed:
 -Can only be obtained by hitting a Tumbleweed entity with Silk Touch or Shears.
 -Once placed, can be snipped and turned into an entity with shears.
 
+Coconut and Palm Sapling:
+-Coconuts grow and hang from Palm trees.
+-Can be knocked down with projectiles.
+-When fully grown, will drop Coconuts.
+-Can be planted, placing a Palm Sapling.
+-Can be thrown, damaging entities.
+     -Upon landing, may split.
+-Can be used as fuel.
+
+Palm Crown:
+-Generates at the top of Palm trees.
+-Is used to prevent Palm Fronds from decaying.
+
 Scorched Sand: IT BURNS.
 -Comes in regular and red variants.
 -Has two stages.
@@ -150,6 +163,12 @@ Prickly Pear:
 -Can be eaten, at the expense of damaging the player.
 -Can be peeled in a crafting table to be eaten without damaging the player.
      -Doing this, however, will prevent you from replanting the Prickly Pear.
+
+Split Coconut:
+-Can be eaten.
+-Can be crafted into Bowls.
+-Can be crafted into White Dye.
+-Can be used as fuel.
 
 Plants:
 -Cacti can now be placed next to any block.
