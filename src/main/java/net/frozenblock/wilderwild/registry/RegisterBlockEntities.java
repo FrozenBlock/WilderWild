@@ -26,6 +26,8 @@ import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public final class RegisterBlockEntities {
@@ -33,13 +35,17 @@ public final class RegisterBlockEntities {
 		throw new UnsupportedOperationException("RegisterBlockEntities contains only static declarations.");
 	}
 
-    public static final BlockEntityType<HangingTendrilBlockEntity> HANGING_TENDRIL = Registry.register(Registry.BLOCK_ENTITY_TYPE, WilderSharedConstants.id("hanging_tendril"), FabricBlockEntityTypeBuilder.create(HangingTendrilBlockEntity::new, RegisterBlocks.HANGING_TENDRIL).build(null));
-    public static final BlockEntityType<TermiteMoundBlockEntity> TERMITE_MOUND = Registry.register(Registry.BLOCK_ENTITY_TYPE, WilderSharedConstants.id("termite_mound"), FabricBlockEntityTypeBuilder.create(TermiteMoundBlockEntity::new, RegisterBlocks.TERMITE_MOUND).build(null));
-    public static final BlockEntityType<DisplayLanternBlockEntity> DISPLAY_LANTERN = Registry.register(Registry.BLOCK_ENTITY_TYPE, WilderSharedConstants.id("display_lantern"), FabricBlockEntityTypeBuilder.create(DisplayLanternBlockEntity::new, RegisterBlocks.DISPLAY_LANTERN).build(null));
-    public static final BlockEntityType<StoneChestBlockEntity> STONE_CHEST = Registry.register(Registry.BLOCK_ENTITY_TYPE, WilderSharedConstants.id("stone_chest"), FabricBlockEntityTypeBuilder.create(StoneChestBlockEntity::new, RegisterBlocks.STONE_CHEST).build(null));
-	public static final BlockEntityType<PalmCrownBlockEntity> PALM_CROWN = Registry.register(Registry.BLOCK_ENTITY_TYPE, WilderSharedConstants.id("palm_crown"), FabricBlockEntityTypeBuilder.create(PalmCrownBlockEntity::new, RegisterBlocks.PALM_CROWN).build(null));
+    public static final BlockEntityType<HangingTendrilBlockEntity> HANGING_TENDRIL = register("hanging_tendril", HangingTendrilBlockEntity::new, RegisterBlocks.HANGING_TENDRIL);
+    public static final BlockEntityType<TermiteMoundBlockEntity> TERMITE_MOUND = register("termite_mound", TermiteMoundBlockEntity::new, RegisterBlocks.TERMITE_MOUND);
+    public static final BlockEntityType<DisplayLanternBlockEntity> DISPLAY_LANTERN = register("display_lantern", DisplayLanternBlockEntity::new, RegisterBlocks.DISPLAY_LANTERN);
+    public static final BlockEntityType<StoneChestBlockEntity> STONE_CHEST = register("stone_chest", StoneChestBlockEntity::new, RegisterBlocks.STONE_CHEST);
+	public static final BlockEntityType<PalmCrownBlockEntity> PALM_CROWN = register("palm_crown", PalmCrownBlockEntity::new, RegisterBlocks.PALM_CROWN);
 
     public static void register() {
         WilderSharedConstants.logWild("Registering BlockEntities for", WilderSharedConstants.UNSTABLE_LOGGING);
     }
+
+	private static <T extends BlockEntity> BlockEntityType<T> register(String path, FabricBlockEntityTypeBuilder.Factory<T> blockEntity, Block... blocks) {
+		return Registry.register(Registry.BLOCK_ENTITY_TYPE, WilderSharedConstants.id(path), FabricBlockEntityTypeBuilder.create(blockEntity, blocks).build(null));
+	}
 }
