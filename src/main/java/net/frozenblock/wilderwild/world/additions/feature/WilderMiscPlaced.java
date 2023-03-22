@@ -161,6 +161,8 @@ public final class WilderMiscPlaced {
 
 	public static final FrozenPlacedFeature MOSS_LAKE = register("moss_lake");
 
+	public static final FrozenPlacedFeature MOSS_LAKE_RARE = register("moss_lake_rare");
+
 	//SNOW
 	public static final FrozenPlacedFeature SNOW_BLANKET = register("snow_blanket");
 
@@ -198,7 +200,7 @@ public final class WilderMiscPlaced {
 		MUD_TRANSITION.makeAndSetHolder(WilderMiscConfigured.MUD_TRANSITION_DISK.getHolder(),
 				CountPlacement.of(8),
 				InSquarePlacement.spread(),
-				LowerHeightmapPlacement.HEIGHTMAP_OCEAN_FLOOR,
+				LowerHeightmapPlacement.HEIGHTMAP_TOP_SOLID,
 				BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.MUD_TRANSITION_PLACEABLE)),
 				BiomeFilter.biome()
 		);
@@ -222,7 +224,7 @@ public final class WilderMiscPlaced {
 		FOREST_ROCK_TAIGA.makeAndSetHolder(MiscOverworldFeatures.FOREST_ROCK,
 				RarityFilter.onAverageOnceEvery(7),
 				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP,
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 				BiomeFilter.biome()
 		);
 
@@ -551,7 +553,7 @@ public final class WilderMiscPlaced {
 		BASIN_RAINFOREST.makeAndSetHolder(WilderMiscConfigured.BASIN_RAINFOREST.getHolder(),
 				RarityFilter.onAverageOnceEvery(5),
 				InSquarePlacement.spread(),
-				HeightRangePlacement.uniform(VerticalAnchor.absolute(63), VerticalAnchor.aboveBottom(256)),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 				EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
 				RandomOffsetPlacement.vertical(ConstantInt.of(1)),
 				BiomeFilter.biome()
@@ -560,6 +562,15 @@ public final class WilderMiscPlaced {
 		MOSS_LAKE.makeAndSetHolder(WilderMiscConfigured.MOSS_LAKE.getHolder(),
 				CountPlacement.of(1),
 				RarityFilter.onAverageOnceEvery(1),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING),
+				BiomeFilter.biome()
+		);
+
+		MOSS_LAKE_RARE.makeAndSetHolder(WilderMiscConfigured.MOSS_LAKE.getHolder(),
+				CountPlacement.of(1),
+				RarityFilter.onAverageOnceEvery(10),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 				PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING),
