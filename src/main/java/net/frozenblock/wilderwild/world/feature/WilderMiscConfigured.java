@@ -1,9 +1,9 @@
 package net.frozenblock.wilderwild.world.feature;
 
 import java.util.List;
-import net.frozenblock.lib.feature.FrozenFeatures;
-import net.frozenblock.lib.feature.features.config.PathFeatureConfig;
-import net.frozenblock.lib.feature.features.config.PillarFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.api.FrozenFeatures;
+import net.frozenblock.lib.worldgen.feature.api.features.config.PathFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.api.features.config.PillarFeatureConfig;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;

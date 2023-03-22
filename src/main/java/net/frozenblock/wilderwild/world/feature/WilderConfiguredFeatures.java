@@ -1,8 +1,8 @@
 package net.frozenblock.wilderwild.world.feature;
 
 import java.util.List;
-import net.frozenblock.lib.feature.FrozenFeatures;
-import net.frozenblock.lib.feature.features.config.ColumnWithDiskFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.api.FrozenFeatures;
+import net.frozenblock.lib.worldgen.feature.api.features.config.ColumnWithDiskFeatureConfig;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
 import net.frozenblock.wilderwild.misc.FlowerColor;
