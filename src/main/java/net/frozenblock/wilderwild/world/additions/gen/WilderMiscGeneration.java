@@ -95,6 +95,9 @@ public final class WilderMiscGeneration {
 		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_MOSS_LAKE),
 				GenerationStep.Decoration.LAKES, WilderMiscPlaced.MOSS_LAKE.getKey());
 
+		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_MOSS_LAKE_RARE),
+				GenerationStep.Decoration.LAKES, WilderMiscPlaced.MOSS_LAKE_RARE.getKey());
+
 		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.RAINFOREST),
 				GenerationStep.Decoration.LAKES, WilderMiscPlaced.BASIN_RAINFOREST.getKey());
 
