@@ -4,4 +4,5 @@ Make sure to clear this after each release
 
 Put changelog here:
 -----------------
-- Fixed a bug where carnations and daturas generated in incorrect biomes
+- Changed some things internally
+- Updated included FrozenLib to 1.2.0
