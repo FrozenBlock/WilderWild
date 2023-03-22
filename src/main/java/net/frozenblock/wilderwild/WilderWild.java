@@ -27,6 +27,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
+import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.mobcategory.api.entrypoint.FrozenMobCategoryEntrypoint;
 import net.frozenblock.lib.mobcategory.impl.FrozenMobCategory;
@@ -110,6 +111,8 @@ public final class WilderWild extends FrozenMobCategoryEntrypoint implements Mod
 	public static final SnowAndFreezeDiskFeature SNOW_AND_FREEZE_DISK_FEATURE = new SnowAndFreezeDiskFeature(SnowAndIceDiskFeatureConfig.CODEC);
     public static final FoliagePlacerType<PalmFoliagePlacer> PALM_FOLIAGE_PLACER =  registerFoliage("palm_foliage_placer", PalmFoliagePlacer.CODEC);
 	public static final FoliagePlacerType<ShortPalmFoliagePlacer> SHORT_PALM_FOLIAGE_PLACER =  registerFoliage("short_palm_foliage_placer", ShortPalmFoliagePlacer.CODEC);
+	public static boolean WILDLESS_WILD = FabricLoader.getInstance().isModLoaded("mrbeast");
+
 
     @Override //Alan Wilder Wild
     public void onInitialize() {
@@ -122,7 +125,9 @@ public final class WilderWild extends FrozenMobCategoryEntrypoint implements Mod
 		RegisterItems.registerBlockItems();
         RegisterGameEvents.registerEvents();
 		RegisterBlocks.registerDispenses();
-		WilderWorldGen.generateWildWorldGen();
+		if (!WILDLESS_WILD) {
+			WilderWorldGen.generateWildWorldGen();
+		}
 
         RegisterSounds.init();
         RegisterBlockSoundTypes.init();
