@@ -203,12 +203,14 @@ Dark Forest:
 -Carnations now generate in Dark Forests.
 -Milkeweed now generates in Dark Forests.
 -Fallen Oak and Birch trees can now generate in Dark Forests.
+-Cattails now generate in Dark Forests.
 
 Jungle, Sparse Jungle, and Bamboo Jungle:
 -Carnations now generate in all Jungle biomes.
 -Milkweed now generates in all Jungle biomes.
 -Fallen Palm, Oak, and Jungle trees now generate in all Jungle biomes.
 -Moss Lakes and Basins now generate in all Jungle biomes.
+-Cattails now generate in all Jungle biomes.
 
 Savanna:
 -Fallen Acacia and Oak trees now generate in all Savanna biomes.
