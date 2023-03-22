@@ -178,6 +178,23 @@ Badlands:
 -Tumbleweed Stems now generate in all Badlands biomes.
 -Tumbleweed now spawn naturally in all Badlands biomes.
 
+Dark Forest:
+-Carnations now generate in Dark Forests.
+-Milkeweed now generate in Dark Forests.
+-Fallen Oak and Birch trees can now generate in Dark Forests.
+
+Jungle, Sparse Jungle, and Bamboo Jungle:
+-Carnations now generate in all Jungle biomes.
+-Milkweed now generate in all Jungle biomes.
+-Fallen Palm, Oak, and Jungle trees now generate in all Jungle biomes.
+-Moss Lakes and Basins now generate in all Jungle biomes.
+
+Savanna:
+-Fallen Acacia and Oak trees now generate in all Savanna biomes.
+
+Taiga, Snowy Taiga, Old Growth Spruce Taiga, Old Growth Pine Taiga:
+-Small Mega Spruce trees now occasionally generate in all Taiga biomes.
+
 Jellyfish Caves:
 -Large Mesoglea paths and pillars now generate throughout the biome, adding more incentive to explore them and find hidden areas.
 -Jellyfish can now shrink back into Mesoglea and Nematocyst if spawned naturally and far enough from the player.
