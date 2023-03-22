@@ -52,7 +52,7 @@ Warm River:
 
 Rainforest: Flashy! Wet! Dirty!
 -A new variant of Forests.
--Contains many flowers, bushes, moss patches, moss lakes, and vine-covered trees.
+-Contains many flowers, bushes, moss patches, moss basins, moss lakes, and vine-covered trees.
 
 Old Growth Dark Forest: Dark and dreary, mystic-dreamy.
 -A variant of the Dark Forest with taller trees.
@@ -67,7 +67,7 @@ Temperate Rainforest: Bright! Wet! Exotic!
 -A new variant of the Taiga.
 -Contains Spruce, Oak, and Birch trees, covered in vines.
 -Contains mushroom-covered Podzol paths.
--Generates with moss lakes and bushes.
+-Generates with moss lakes, podzol basins, and bushes.
 
 TRANSITION BIOMES: Transition biomes are a new category of biome we are introducing.
 -These help with reducing and cleaning up sharp borders between biomes.
@@ -211,6 +211,8 @@ Jungle, Sparse Jungle, and Bamboo Jungle:
 -Fallen Palm, Oak, and Jungle trees now generate in all Jungle biomes.
 -Moss Lakes and Basins now generate in all Jungle biomes.
 -Cattails now generate in all Jungle biomes.
+-Moss basins now generate in Jungle and Sparse Jungle biomes.
+-Podzol basins now generate in Bamboo Jungle biomes.
 
 Savanna:
 -Fallen Acacia and Oak trees now generate in all Savanna biomes.
