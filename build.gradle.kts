@@ -246,7 +246,7 @@ dependencies {
     }
 
     // Brush Extender
-    modImplementation("com.github.AViewFromTheTop:BrushExtender:main-SNAPSHOT")?.let { include(it) }
+    modImplementation("com.github.AViewFromTheTop:BrushExtender:7d6f333e40")?.let { include(it) }
 
     // NBT Crafting
     modImplementation("com.github.Treetrain1:nbt-crafting:jitpack-1.19.4-SNAPSHOT")?.let { include(it) }
