@@ -48,6 +48,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.Material;
 import org.jetbrains.annotations.NotNull;
 
+// TODO: Turn this into a BrushableBlock
 public class ScorchedSandBlock extends Block implements Brushable {
 	public static final Map<BlockState, BlockState> SCORCH_MAP = new HashMap<>();
 	public static final Map<BlockState, BlockState> HYDRATE_MAP = new HashMap<>();

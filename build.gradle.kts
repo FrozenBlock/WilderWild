@@ -246,7 +246,7 @@ dependencies {
     }
 
     // Brush Extender
-    modImplementation("com.github.Treetrain1:BrushExtender:main-SNAPSHOT")?.let { include(it) }
+    modImplementation("com.github.Treetrain1:BrushExtender:1.20-SNAPSHOT")?.let { include(it) }
 
     // NBT Crafting
     modImplementation("com.github.Treetrain1:nbt-crafting:jitpack-1.19.4-SNAPSHOT")?.let { include(it) }
@@ -328,7 +328,8 @@ tasks {
                 "**/*.accesswidener",
                 "**/*.nbt",
                 "**/*.png",
-                "**/*.ogg"
+                "**/*.ogg",
+                "**/*.mixins.json"
             )
         ) {
             expand(properties)

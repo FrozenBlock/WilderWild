@@ -27,6 +27,7 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.world.level.block.CherryLeavesBlock;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -99,13 +100,6 @@ public abstract class DripParticleMixin extends TextureSheetParticle implements 
 		if (info.getReturnValue() instanceof WilderDripSuspendedParticleInterface dripParticle) {
 			dripParticle.wilderWild$setUsesWind(true);
 			info.getReturnValue().setColor(250F / 255F, 171F / 255F, 28F / 255F);
-		}
-	}
-
-	@Inject(method = "createCherryLeavesFallParticle", at = @At("RETURN"))
-	private static void wilderWild$createCherryLeavesFallParticle(SimpleParticleType simpleParticleType, ClientLevel world, double d, double e, double f, double g, double h, double i, CallbackInfoReturnable<Particle> info) {
-		if (info.getReturnValue() instanceof WilderDripSuspendedParticleInterface dripParticle) {
-			dripParticle.wilderWild$setUsesWind(true);
 		}
 	}
 

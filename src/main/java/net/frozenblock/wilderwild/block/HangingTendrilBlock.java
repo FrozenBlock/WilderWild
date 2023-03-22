@@ -44,6 +44,7 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SculkBehaviour;
+import net.minecraft.world.level.block.SculkSensorBlock;
 import net.minecraft.world.level.block.SculkSpreader;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -72,16 +73,10 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	public static final BooleanProperty TWITCHING = RegisterProperties.TWITCHING;
 	public static final BooleanProperty WRINGING_OUT = RegisterProperties.WRINGING_OUT;
 	protected static final VoxelShape OUTLINE_SHAPE = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 16.0D, 11.0D);
-	private final int range;
 
-	public HangingTendrilBlock(Properties settings, int range) {
+	public HangingTendrilBlock(Properties settings) {
 		super(settings);
 		this.registerDefaultState(this.stateDefinition.any().setValue(HANGING_TENDRIL_PHASE, SculkSensorPhase.INACTIVE).setValue(WATERLOGGED, false).setValue(TWITCHING, false).setValue(WRINGING_OUT, false));
-		this.range = range;
-	}
-
-	public int getRange() {
-		return this.range;
 	}
 
 	@Override

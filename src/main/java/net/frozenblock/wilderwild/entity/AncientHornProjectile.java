@@ -88,6 +88,7 @@ import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.SculkSensorBlock;
 import net.minecraft.world.level.block.SculkShriekerBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -334,6 +335,7 @@ public class AncientHornProjectile extends AbstractArrow {
         this.shakeTime = 7;
         this.setCritArrow(false);
         if (this.level instanceof ServerLevel server && canInteract()) {
+			var block = blockState.getBlock();
             if (blockState.getBlock() == Blocks.SCULK_SHRIEKER) {
                 if (WilderSharedConstants.config().hornCanSummonWarden()) {
                     BlockPos pos = result.getBlockPos();
@@ -355,21 +357,27 @@ public class AncientHornProjectile extends AbstractArrow {
                         this.remove(RemovalReason.DISCARDED);
                     }
                 }
-            } else if (blockState.getBlock() == Blocks.SCULK_SENSOR) {
+            } else if (block instanceof SculkSensorBlock sculkSensor) {
                 BlockPos pos = result.getBlockPos();
+				SculkSensorBlockEntity blockEntity = (SculkSensorBlockEntity) level.getBlockEntity(pos);
+
+				assert blockEntity != null;
 				WilderSharedConstants.log(Blocks.SCULK_SENSOR, pos, "Horn Projectile Touched", WilderSharedConstants.UNSTABLE_LOGGING);
+
 				if (blockState.getValue(RegisterProperties.HICCUPPING)) {
 					server.setBlockAndUpdate(pos, blockState.setValue(RegisterProperties.HICCUPPING, false));
 				} else {
 					server.setBlockAndUpdate(pos, blockState.setValue(RegisterProperties.HICCUPPING, true));
 				}
+
 				if (SculkSensorBlock.canActivate(blockState)) {
-					SculkSensorBlock.activate(null, level, pos, this.level.getBlockState(pos), AdvancedMath.random().nextInt(15));
+					SculkSensorBlock.activate(null, level, pos, this.level.getBlockState(pos), AdvancedMath.random().nextInt(15), blockEntity.getLastVibrationFrequency());
 					this.level.gameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);
 					setCooldown(getCooldown(this.getOwner(), SENSOR_COOLDOWN));
 				}
 			}
 		}
+
 		this.setSoundEvent(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE);
 		this.setShotFromCrossbow(false);
 		this.remove(RemovalReason.DISCARDED);

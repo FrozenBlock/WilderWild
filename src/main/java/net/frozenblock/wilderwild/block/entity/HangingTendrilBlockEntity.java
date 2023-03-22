@@ -43,8 +43,9 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class HangingTendrilBlockEntity extends BlockEntity implements VibrationListener.VibrationListenerConfig {
+public class HangingTendrilBlockEntity extends BlockEntity implements VibrationListener.Config {
 
+	private static final int VIBRATION_EVENT_LISTENER_RANGE = 4;
 	private static final String BASE_TEXTURE = "textures/entity/hanging_tendril/";
 
 	private VibrationListener listener;
@@ -61,7 +62,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
 
 	public HangingTendrilBlockEntity(BlockPos pos, BlockState state) {
 		super(RegisterBlockEntities.HANGING_TENDRIL, pos, state);
-		this.listener = new VibrationListener(new BlockPositionSource(this.worldPosition), ((HangingTendrilBlock) state.getBlock()).getRange(), this);
+		this.listener = new VibrationListener(new BlockPositionSource(this.worldPosition), this);
 	}
 
 	public void serverTick(Level level, BlockPos pos, BlockState state) {
@@ -148,6 +149,11 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
 
 	public int getLastVibrationFrequency() {
 		return this.lastVibrationFrequency;
+	}
+
+	@Override
+	public int getListenerRadius() {
+		return VIBRATION_EVENT_LISTENER_RANGE;
 	}
 
 	@Override

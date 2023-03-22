@@ -73,19 +73,19 @@ public final class RegisterItems {
 			RegisterBlocks.BAOBAB_SIGN_BLOCK, RegisterBlocks.BAOBAB_WALL_SIGN
 	);
 	public static final Item BAOBAB_HANGING_SIGN = new HangingSignItem(RegisterBlocks.BAOBAB_HANGING_SIGN, RegisterBlocks.BAOBAB_WALL_HANGING_SIGN,
-			new FabricItemSettings().maxCount(16).requiredFeatures(FeatureFlags.UPDATE_1_20)
+			new FabricItemSettings().maxCount(16)
 	);
 	public static final Item CYPRESS_SIGN = new SignItem(new FabricItemSettings().maxCount(16),
 			RegisterBlocks.CYPRESS_SIGN_BLOCK, RegisterBlocks.CYPRESS_WALL_SIGN
 	);
 	public static final Item CYPRESS_HANGING_SIGN = new HangingSignItem(RegisterBlocks.CYPRESS_HANGING_SIGN, RegisterBlocks.CYPRESS_WALL_HANGING_SIGN,
-			new FabricItemSettings().maxCount(16).requiredFeatures(FeatureFlags.UPDATE_1_20)
+			new FabricItemSettings().maxCount(16)
 	);
 	public static final Item PALM_SIGN = new SignItem(new FabricItemSettings().maxCount(16),
 			RegisterBlocks.PALM_SIGN_BLOCK, RegisterBlocks.PALM_WALL_SIGN
 	);
 	public static final Item PALM_HANGING_SIGN = new HangingSignItem(RegisterBlocks.PALM_HANGING_SIGN, RegisterBlocks.PALM_WALL_HANGING_SIGN,
-			new FabricItemSettings().maxCount(16).requiredFeatures(FeatureFlags.UPDATE_1_20)
+			new FabricItemSettings().maxCount(16)
 	);
 
 	public static final BlockItem COCONUT = new CoconutItem(RegisterBlocks.COCONUT, new FabricItemSettings());

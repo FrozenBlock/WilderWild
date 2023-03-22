@@ -289,18 +289,18 @@ public final class RegisterBlocks {
 
     public static final Block BAOBAB_SIGN_BLOCK = new FrozenSignBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD), BAOBAB_WOOD_TYPE, WilderSharedConstants.id("blocks/baobab_sign"));
     public static final Block BAOBAB_WALL_SIGN = new FrozenWallSignBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).dropsLike(BAOBAB_SIGN_BLOCK), BAOBAB_WOOD_TYPE, WilderSharedConstants.id("blocks/baobab_sign"));
-	public static final Block BAOBAB_HANGING_SIGN = new CeilingHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_HANGING_SIGN).color(BAOBAB_LOG.defaultMaterialColor()).requiredFeatures(FeatureFlags.UPDATE_1_20), BAOBAB_WOOD_TYPE);
-	public static final Block BAOBAB_WALL_HANGING_SIGN = new WallHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_WALL_HANGING_SIGN).color(BAOBAB_LOG.defaultMaterialColor()).requiredFeatures(FeatureFlags.UPDATE_1_20).dropsLike(BAOBAB_HANGING_SIGN), BAOBAB_WOOD_TYPE);
+	public static final Block BAOBAB_HANGING_SIGN = new CeilingHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_HANGING_SIGN).color(BAOBAB_LOG.defaultMaterialColor()), BAOBAB_WOOD_TYPE);
+	public static final Block BAOBAB_WALL_HANGING_SIGN = new WallHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_WALL_HANGING_SIGN).color(BAOBAB_LOG.defaultMaterialColor()).dropsLike(BAOBAB_HANGING_SIGN), BAOBAB_WOOD_TYPE);
 
     public static final Block CYPRESS_SIGN_BLOCK = new FrozenSignBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD), CYPRESS_WOOD_TYPE, WilderSharedConstants.id("blocks/cypress_sign"));
     public static final Block CYPRESS_WALL_SIGN = new FrozenWallSignBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).dropsLike(CYPRESS_SIGN_BLOCK), CYPRESS_WOOD_TYPE, WilderSharedConstants.id("blocks/cypress_sign"));
-	public static final Block CYPRESS_HANGING_SIGN = new CeilingHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_HANGING_SIGN).color(CYPRESS_LOG.defaultMaterialColor()).requiredFeatures(FeatureFlags.UPDATE_1_20), CYPRESS_WOOD_TYPE);
-	public static final Block CYPRESS_WALL_HANGING_SIGN = new WallHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_WALL_HANGING_SIGN).color(CYPRESS_LOG.defaultMaterialColor()).requiredFeatures(FeatureFlags.UPDATE_1_20).dropsLike(CYPRESS_HANGING_SIGN), CYPRESS_WOOD_TYPE);
+	public static final Block CYPRESS_HANGING_SIGN = new CeilingHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_HANGING_SIGN).color(CYPRESS_LOG.defaultMaterialColor()), CYPRESS_WOOD_TYPE);
+	public static final Block CYPRESS_WALL_HANGING_SIGN = new WallHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_WALL_HANGING_SIGN).color(CYPRESS_LOG.defaultMaterialColor()).dropsLike(CYPRESS_HANGING_SIGN), CYPRESS_WOOD_TYPE);
 
     public static final Block PALM_SIGN_BLOCK = new FrozenSignBlock(FabricBlockSettings.of(Material.WOOD, PALM_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD), PALM_WOOD_TYPE, WilderSharedConstants.id("blocks/palm_sign"));
     public static final Block PALM_WALL_SIGN = new FrozenWallSignBlock(FabricBlockSettings.of(Material.WOOD, PALM_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).dropsLike(PALM_SIGN_BLOCK), PALM_WOOD_TYPE, WilderSharedConstants.id("blocks/palm_sign"));
-	public static final Block PALM_HANGING_SIGN = new FrozenCeilingHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_HANGING_SIGN).color(PALM_LOG.defaultMaterialColor()).requiredFeatures(FeatureFlags.UPDATE_1_20, WilderFeatureFlags.UPDATE_1_20_ADDITIONS), PALM_WOOD_TYPE, WilderSharedConstants.id("blocks/palm_hanging_sign"));
-	public static final Block PALM_WALL_HANGING_SIGN = new FrozenWallHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_WALL_HANGING_SIGN).color(PALM_LOG.defaultMaterialColor()).requiredFeatures(FeatureFlags.UPDATE_1_20, WilderFeatureFlags.UPDATE_1_20_ADDITIONS).dropsLike(PALM_HANGING_SIGN), PALM_WOOD_TYPE, WilderSharedConstants.id("blocks/palm_hanging_sign"));
+	public static final Block PALM_HANGING_SIGN = new FrozenCeilingHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_HANGING_SIGN).color(PALM_LOG.defaultMaterialColor()), PALM_WOOD_TYPE, WilderSharedConstants.id("blocks/palm_hanging_sign"));
+	public static final Block PALM_WALL_HANGING_SIGN = new FrozenWallHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_WALL_HANGING_SIGN).color(PALM_LOG.defaultMaterialColor()).dropsLike(PALM_HANGING_SIGN), PALM_WOOD_TYPE, WilderSharedConstants.id("blocks/palm_hanging_sign"));
 
     public static void registerWoods() {
     	String baobab = "baobab";
@@ -396,7 +396,7 @@ public final class RegisterBlocks {
     public static final Block HOLLOWED_ACACIA_LOG = createHollowedLogBlock(MaterialColor.COLOR_ORANGE, MaterialColor.STONE);
     public static final Block HOLLOWED_DARK_OAK_LOG = createHollowedLogBlock(MaterialColor.COLOR_BROWN, MaterialColor.COLOR_BROWN);
     public static final Block HOLLOWED_MANGROVE_LOG = createHollowedLogBlock(MaterialColor.COLOR_RED, MaterialColor.PODZOL);
-	public static final Block HOLLOWED_CHERRY_LOG = createHollowedLogBlock(MaterialColor.TERRACOTTA_WHITE, MaterialColor.TERRACOTTA_GRAY, RegisterBlockSoundTypes.HOLLOWED_CHERRY_LOG, true);
+	public static final Block HOLLOWED_CHERRY_LOG = createHollowedLogBlock(MaterialColor.TERRACOTTA_WHITE, MaterialColor.TERRACOTTA_GRAY, RegisterBlockSoundTypes.HOLLOWED_CHERRY_LOG);
 	public static final Block HOLLOWED_CRIMSON_STEM = createHollowedStemBlock(MaterialColor.CRIMSON_STEM);
 	public static final Block HOLLOWED_WARPED_STEM = createHollowedStemBlock(MaterialColor.WARPED_STEM);
     public static final Block HOLLOWED_BAOBAB_LOG = createHollowedLogBlock(MaterialColor.COLOR_ORANGE, MaterialColor.COLOR_BROWN);
@@ -407,7 +407,7 @@ public final class RegisterBlocks {
 	public static final Block STRIPPED_HOLLOWED_OAK_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_OAK_LOG.defaultMaterialColor());
 	public static final Block STRIPPED_HOLLOWED_SPRUCE_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_SPRUCE_LOG.defaultMaterialColor());
 	public static final Block STRIPPED_HOLLOWED_BIRCH_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_BIRCH_LOG.defaultMaterialColor());
-	public static final Block STRIPPED_HOLLOWED_CHERRY_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_CHERRY_LOG.defaultMaterialColor(), RegisterBlockSoundTypes.HOLLOWED_CHERRY_LOG, true);
+	public static final Block STRIPPED_HOLLOWED_CHERRY_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_CHERRY_LOG.defaultMaterialColor(), RegisterBlockSoundTypes.HOLLOWED_CHERRY_LOG);
 	public static final Block STRIPPED_HOLLOWED_JUNGLE_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_JUNGLE_LOG.defaultMaterialColor());
 	public static final Block STRIPPED_HOLLOWED_ACACIA_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_ACACIA_LOG.defaultMaterialColor());
 	public static final Block STRIPPED_HOLLOWED_DARK_OAK_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_DARK_OAK_LOG.defaultMaterialColor());
@@ -464,7 +464,7 @@ public final class RegisterBlocks {
     public static final Block SCULK_WALL = new SculkWallBlock(FabricBlockSettings.of(Material.SCULK).strength(0.2F).sounds(SoundType.SCULK).dropsLike(Blocks.SCULK));
     public static final Block OSSEOUS_SCULK = new OsseousSculkBlock(FabricBlockSettings.of(Material.STONE, MaterialColor.SAND).requiresTool().strength(2.0F).sounds(RegisterBlockSoundTypes.OSSEOUS_SCULK));
     public static final Block HANGING_TENDRIL = new HangingTendrilBlock(FabricBlockSettings.copyOf(Blocks.SCULK_SENSOR).strength(0.7F).collidable(false).ticksRandomly().luminance((state) -> 1)
-            .sounds(RegisterBlockSoundTypes.HANGING_TENDRIL).emissiveLighting((state, level, pos) -> HangingTendrilBlock.shouldHavePogLighting(state)), 4);
+            .sounds(RegisterBlockSoundTypes.HANGING_TENDRIL).emissiveLighting((state, level, pos) -> HangingTendrilBlock.shouldHavePogLighting(state)));
     public static final Block ECHO_GLASS = new EchoGlassBlock(FabricBlockSettings.of(Material.GLASS, MaterialColor.COLOR_CYAN).strength(0.3F).nonOpaque().ticksRandomly().sounds(RegisterBlockSoundTypes.ECHO_GLASS));
 
     public static void registerDeepDark() {
@@ -759,18 +759,16 @@ public final class RegisterBlocks {
 		}
 	}
 
-    private static HollowedLogBlock createHollowedLogBlock(MaterialColor topMapColor, MaterialColor sideMapColor, SoundType soundType, boolean experimental) {
+    private static HollowedLogBlock createHollowedLogBlock(MaterialColor topMapColor, MaterialColor sideMapColor, SoundType soundType) {
         var settings = FabricBlockSettings.of(Material.WOOD,
 						(state) -> state.getValue(HollowedLogBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor)
 				.strength(2.0F).sound(soundType);
-		if (experimental)
-			settings.requiredFeatures(FeatureFlags.UPDATE_1_20);
 
 		return new HollowedLogBlock(settings);
     }
 
 	private static HollowedLogBlock createHollowedLogBlock(MaterialColor topMapColor, MaterialColor sideMapColor) {
-		return createHollowedLogBlock(topMapColor, sideMapColor, RegisterBlockSoundTypes.HOLLOWED_LOG, false);
+		return createHollowedLogBlock(topMapColor, sideMapColor, RegisterBlockSoundTypes.HOLLOWED_LOG);
 	}
 
 	private static HollowedLogBlock createHollowedStemBlock(MaterialColor mapColor) {
@@ -779,18 +777,16 @@ public final class RegisterBlocks {
 				.strength(2.0F).sound(RegisterBlockSoundTypes.HOLLOWED_STEM));
 	}
 
-	private static HollowedLogBlock createStrippedHollowedLogBlock(MaterialColor mapColor, SoundType soundType, boolean experimental) {
+	private static HollowedLogBlock createStrippedHollowedLogBlock(MaterialColor mapColor, SoundType soundType) {
 		var settings = FabricBlockSettings.of(Material.WOOD,
 						(state) -> mapColor)
 				.strength(2.0F).sound(soundType);
-		if (experimental)
-			settings.requiredFeatures(FeatureFlags.UPDATE_1_20);
 
 		return new HollowedLogBlock(settings);
 	}
 
 	private static HollowedLogBlock createStrippedHollowedLogBlock(MaterialColor mapColor) {
-		return createStrippedHollowedLogBlock(mapColor, RegisterBlockSoundTypes.HOLLOWED_LOG, false);
+		return createStrippedHollowedLogBlock(mapColor, RegisterBlockSoundTypes.HOLLOWED_LOG);
 	}
 
 	private static HollowedLogBlock createStrippedHollowedStemBlock(MaterialColor mapColor) {

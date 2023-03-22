@@ -72,16 +72,19 @@ public final class SculkSensorBlockEntityMixin extends BlockEntity implements Sc
         super(type, pos, state);
     }
 
-    @Inject(at = @At("HEAD"), method = "onSignalReceive")
-    private void wilderWild$onSignalReceive(ServerLevel level, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable Entity entity, @Nullable Entity sourceEntity, float f, CallbackInfo info) {
-        SculkSensorBlockEntity sculkSensorBlockEntity = SculkSensorBlockEntity.class.cast(this);
-        BlockState blockState = sculkSensorBlockEntity.getBlockState();
-        if (SculkSensorBlock.canActivate(blockState)) {
-            level.gameEvent(entity, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, sculkSensorBlockEntity.getBlockPos());
-            BlockState state = level.getBlockState(sculkSensorBlockEntity.getBlockPos());
-            level.setBlockAndUpdate(sculkSensorBlockEntity.getBlockPos(), state.setValue(RegisterProperties.HICCUPPING, false));
-        }
-    }
+	@Mixin(SculkSensorBlockEntity.VibrationConfig.class)
+	public static class VibrationConfigMixin {
+		@Inject(at = @At("HEAD"), method = "onSignalReceive")
+		private void wilderWild$onSignalReceive(ServerLevel level, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable Entity entity, @Nullable Entity sourceEntity, float f, CallbackInfo info) {
+			SculkSensorBlockEntity sculkSensorBlockEntity = SculkSensorBlockEntity.class.cast(this);
+			BlockState blockState = sculkSensorBlockEntity.getBlockState();
+			if (SculkSensorBlock.canActivate(blockState)) {
+				level.gameEvent(entity, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, sculkSensorBlockEntity.getBlockPos());
+				BlockState state = level.getBlockState(sculkSensorBlockEntity.getBlockPos());
+				level.setBlockAndUpdate(sculkSensorBlockEntity.getBlockPos(), state.setValue(RegisterProperties.HICCUPPING, false));
+			}
+		}
+	}
 
 	@Unique
     @Override
@@ -97,7 +100,7 @@ public final class SculkSensorBlockEntityMixin extends BlockEntity implements Sc
                 EasyPacket.EasySensorHiccupPacket.createParticle(level, new Vec3(x, y, z));
             }
             if (SculkSensorBlock.canActivate(state) && level.random.nextInt(320) <= 1) {
-                SculkSensorBlock.activate(null, level, pos, state, AdvancedMath.random().nextInt(15));
+                SculkSensorBlock.activate(null, level, pos, state, AdvancedMath.random().nextInt(15), sensor.getLastVibrationFrequency());
                 level.gameEvent(null, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
                 level.gameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);
                 level.playSound(null, pos, RegisterSounds.BLOCK_SCULK_SENSOR_HICCUP, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.1F + 0.7F);
