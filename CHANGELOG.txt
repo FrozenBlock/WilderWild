@@ -45,6 +45,7 @@ Oasis: A luscious apparatus!
 -A more lively variant of Deserts!
 -Palms, Bushes, Sugar Cane, grass patches, moss patches, and water pools generate naturally in Oases.
 -Water here is much brighter than your typical desert.
+-Desert villages, Desert temples and Desert wells also generate here.
 
 Warm River:
 -A sandier, brighter alternative to rivers in warmer climates.
