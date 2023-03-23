@@ -22,69 +22,69 @@
     "LudoCrypt"
   ],
   "contact": {
-	"homepage": "https://www.curseforge.com/minecraft/mc-mods/wilder-wild",
-	"sources": "https://github.com/FrozenBlock/WilderWild",
-	"issues": "https://github.com/FrozenBlock/WilderWild/issues"
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/wilder-wild",
+    "sources": "https://github.com/FrozenBlock/WilderWild",
+    "issues": "https://github.com/FrozenBlock/WilderWild/issues"
   },
   "license": "LGPL-3.0",
   "icon": "assets/wilderwild/icon.png",
   "environment": "*",
   "entrypoints": {
-	"main": [
-	  "net.frozenblock.wilderwild.WilderWild"
-	],
-	"client": [
-	  "net.frozenblock.wilderwild.WilderWildClient"
-	],
+    "main": [
+      "net.frozenblock.wilderwild.WilderWild"
+    ],
+    "client": [
+      "net.frozenblock.wilderwild.WilderWildClient"
+    ],
     "fabric-datagen": [
       "net.frozenblock.wilderwild.misc.WilderWildDataGenerator"
     ],
-	"frozenlib:surfacerules": [
-	  "net.frozenblock.wilderwild.registry.RegisterSurfaceRules"
-	],
+    "frozenlib:surfacerules": [
+      "net.frozenblock.wilderwild.registry.RegisterSurfaceRules"
+    ],
     "frozenlib:mob_categories": [
       "net.frozenblock.wilderwild.WilderWild"
     ],
-	"modmenu": [
-	  "net.frozenblock.wilderwild.misc.config.ModMenuIntegration"
-	],
-	"terrablender": [
-	  "net.frozenblock.wilderwild.misc.mod_compat.terrablender.BlenderInitializer"
-	]
+    "modmenu": [
+      "net.frozenblock.wilderwild.misc.config.ModMenuIntegration"
+    ],
+    "terrablender": [
+      "net.frozenblock.wilderwild.misc.mod_compat.terrablender.BlenderInitializer"
+    ]
   },
   "mixins": [
-	"wilderwild.mixins.json"
+    "wilderwild.mixins.json"
   ],
   "accessWidener": "wilderwild.accesswidener",
   "depends": {
-	"frozenlib": ">=1.1.13-",
-	"nbtcrafting": ">=2.2.3",
-	"fabricloader": ">=0.14.13",
-	"fabric-api": ">=0.73.0",
-	"minecraft": "${minecraft_version}",
-	"java": ">=17"
+    "frozenlib": ">=1.1.13-",
+    "nbtcrafting": ">=2.2.3",
+    "fabricloader": ">=0.14.13",
+    "fabric-api": ">=0.76.1",
+    "minecraft": "${minecraft_version}",
+    "java": ">=17"
   },
   "breaks": {
-	"quilted_fabric_api": "4.0.0-beta.8"
+    "quilted_fabric_api": "4.0.0-beta.8"
   },
   "suggests": {
-	"cloth-config": "*",
-	"terrablender": "*"
+    "cloth-config": "*",
+    "terrablender": "*"
   },
   "custom": {
-	"modupdater": {
-	  "strategy": "curseforge",
-	  "projectID": "648511",
-	  "strict": "false"
-	},
-	"modmenu": {
-	  "links": {
-		"modmenu.discord": "https://discord.gg/EpkBWm844s"
-	  },
+    "modupdater": {
+      "strategy": "curseforge",
+      "projectID": "648511",
+      "strict": "false"
+    },
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/EpkBWm844s"
+      },
       "badges": [
         "frozenblock",
         "indev"
       ]
-	}
+    }
   }
 }
