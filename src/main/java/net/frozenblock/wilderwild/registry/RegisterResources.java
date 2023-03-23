@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
+import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 
 public final class RegisterResources {
@@ -27,8 +28,8 @@ public final class RegisterResources {
 		throw new UnsupportedOperationException("RegisterResources contains only static declarations.");
 	}
 
-	public static void register() {
-		ResourceManagerHelper.registerBuiltinResourcePack(WilderSharedConstants.id("new_main_menu"), WilderSharedConstants.MOD_CONTAINER, ResourcePackActivationType.DEFAULT_ENABLED);
-		//ResourceManagerHelper.registerBuiltinResourcePack(WilderSharedConstants.id("old_wilder_wild_panoramas"), WilderSharedConstants.MOD_CONTAINER, ResourcePackActivationType.NORMAL);
+	public static void register(ModContainer container) {
+		ResourceManagerHelper.registerBuiltinResourcePack(WilderSharedConstants.id("new_main_menu"), container, ResourcePackActivationType.DEFAULT_ENABLED);
+		//ResourceManagerHelper.registerBuiltinResourcePack(WilderSharedConstants.id("old_wilder_wild_panoramas"), container, ResourcePackActivationType.NORMAL);
 	}
 }

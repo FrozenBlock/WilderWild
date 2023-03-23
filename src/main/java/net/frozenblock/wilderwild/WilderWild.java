@@ -101,8 +101,11 @@ import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
 
 public final class WilderWild extends FrozenModInitializer implements FrozenMobCategoryEntrypoint {
 
+	public static WilderWild INSTANCE;
+
 	public WilderWild() {
 		super(WilderSharedConstants.MOD_ID);
+		INSTANCE = this;
 	}
 
 	public static final TrunkPlacerType<StraightTrunkWithLogs> STRAIGHT_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("straight_trunk_logs_placer", StraightTrunkWithLogs.CODEC);
@@ -123,9 +126,9 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 	public static final FoliagePlacerType<ShortPalmFoliagePlacer> SHORT_PALM_FOLIAGE_PLACER =  registerFoliage("short_palm_foliage_placer", ShortPalmFoliagePlacer.CODEC);
 
     @Override //Alan Wilder Wild
-    public void onInitialize(String modId) {
+    public void onInitialize(String modId, ModContainer container) {
         WilderSharedConstants.startMeasuring(this);
-        applyDataFixes(WilderSharedConstants.MOD_CONTAINER);
+        applyDataFixes(container);
 
         WilderRegistry.initRegistry();
         RegisterBlocks.registerBlocks();
@@ -149,7 +152,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
         RegisterEntities.init();
         RegisterLootTables.init();
         RegisterParticles.registerParticles();
-		RegisterResources.register();
+		RegisterResources.register(container);
 		RegisterProperties.init();
 
 		Registry.register(Registry.CONDITION, WilderSharedConstants.id("beta_beach_condition_source"), BetaBeachConditionSource.CODEC.codec());
