@@ -288,6 +288,5 @@ public final class RegisterItems {
 		if (BuiltInRegistries.ITEM.getOptional(WilderSharedConstants.id(path)).isEmpty()) {
 			Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id(path), item);
 		}
-		WilderSharedConstants.log("Registered item " + path, true);
 	}
 }
