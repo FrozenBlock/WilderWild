@@ -78,7 +78,6 @@ public final class RegisterItems {
     public static final RecordItem MUSIC_DISC_BACK = new RecordItem(15, RegisterSounds.MUSIC_DISC_BACK, new FabricItemSettings().group(CreativeModeTab.TAB_MISC).maxCount(1).rarity(Rarity.RARE), 76);
     public static final Item FIREFLY_SPAWN_EGG = new SpawnEggItem(RegisterEntities.FIREFLY, Integer.parseInt("2A2E2B", 16), Integer.parseInt("AAF644", 16), new FabricItemSettings().group(CreativeModeTab.TAB_MISC));
     public static final Item JELLYFISH_SPAWN_EGG = new SpawnEggItem(RegisterEntities.JELLYFISH, Integer.parseInt("E484E4", 16), Integer.parseInt("DF71DC", 16), new FabricItemSettings().group(CreativeModeTab.TAB_MISC));
-	public static final Item TUMBLEWEED_SPAWN_EGG = new SpawnEggItem(RegisterEntities.TUMBLEWEED, Integer.parseInt("c7a065", 16), Integer.parseInt("755b44", 16), new FabricItemSettings());
     public static final Item JELLYFISH_BUCKET = new MobBucketItem(RegisterEntities.JELLYFISH, Fluids.WATER, RegisterSounds.ITEM_BUCKET_EMPTY_JELLYFISH, new FabricItemSettings().group(CreativeModeTab.TAB_MISC).maxCount(1));
 	public static final Item SPLIT_COCONUT = new Item(new FabricItemSettings().group(CreativeModeTab.TAB_FOOD).food(new FoodProperties.Builder().nutrition(2).saturationMod(0.4F).build()));
 
@@ -156,7 +155,6 @@ public final class RegisterItems {
         Registry.register(Registry.ITEM, WilderSharedConstants.id("music_disc_back"), MUSIC_DISC_BACK);
         Registry.register(Registry.ITEM, WilderSharedConstants.id("firefly_spawn_egg"), FIREFLY_SPAWN_EGG);
         Registry.register(Registry.ITEM, WilderSharedConstants.id("jellyfish_spawn_egg"), JELLYFISH_SPAWN_EGG);
-		Registry.register(Registry.ITEM, WilderSharedConstants.id("tumbleweed_spawn_egg"), TUMBLEWEED_SPAWN_EGG);
         Registry.register(Registry.ITEM, WilderSharedConstants.id("jellyfish_bucket"), JELLYFISH_BUCKET);
 		Registry.register(Registry.ITEM, WilderSharedConstants.id("split_coconut"), SPLIT_COCONUT);
 		Registry.register(Registry.ITEM, WilderSharedConstants.id("peeled_prickly_pear"), PEELED_PRICKLY_PEAR);
