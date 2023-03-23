@@ -54,26 +54,6 @@ public abstract class DripParticleMixin extends TextureSheetParticle implements 
 		return this.wilderWild$usesWind;
 	}
 
-	@Override
-	public float wilderWild$getScale(float partialTick) {
-		return 1F;
-	}
-
-	@Override
-	public void wilderWild$calcScale() {
-
-	}
-
-	@Override
-	public boolean wilderWild$runScaleRemoval() {
-		return false;
-	}
-
-	@Override
-	public void wilderWild$setScaler(float scaler) {
-
-	}
-
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void wilderWild$tick(CallbackInfo info) {
 		if (this.wilderWild$usesWind()) {
