@@ -21,13 +21,13 @@ package net.frozenblock.wilderwild;
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.serialization.Codec;
 import java.util.ArrayList;
-import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
 import net.fabricmc.loader.api.ModContainer;
+import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
 import net.frozenblock.lib.mobcategory.api.entrypoint.FrozenMobCategoryEntrypoint;
 import net.frozenblock.lib.mobcategory.impl.FrozenMobCategory;
 import net.frozenblock.wilderwild.block.entity.PalmCrownBlockEntity;
@@ -92,7 +92,14 @@ import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixerBuilder
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixes;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
 
-public final class WilderWild extends FrozenMobCategoryEntrypoint implements ModInitializer {
+public final class WilderWild extends FrozenModInitializer implements FrozenMobCategoryEntrypoint {
+
+	public static WilderWild INSTANCE;
+
+	public WilderWild() {
+		super(WilderSharedConstants.MOD_ID);
+		INSTANCE = this;
+	}
 
 	public static final TrunkPlacerType<StraightTrunkWithLogs> STRAIGHT_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("straight_trunk_logs_placer", StraightTrunkWithLogs.CODEC);
     public static final TrunkPlacerType<FallenTrunkWithLogs> FALLEN_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("fallen_trunk_logs_placer", FallenTrunkWithLogs.CODEC);
@@ -113,9 +120,9 @@ public final class WilderWild extends FrozenMobCategoryEntrypoint implements Mod
 
 
     @Override //Alan Wilder Wild
-    public void onInitialize() {
+    public void onInitialize(String modId, ModContainer container) {
         WilderSharedConstants.startMeasuring(this);
-        applyDataFixes(WilderSharedConstants.MOD_CONTAINER);
+        applyDataFixes(container);
 
         WilderRegistry.initRegistry();
         RegisterBlocks.registerBlocks();
@@ -133,7 +140,7 @@ public final class WilderWild extends FrozenMobCategoryEntrypoint implements Mod
         RegisterEntities.init();
         RegisterLootTables.init();
         RegisterParticles.registerParticles();
-		RegisterResources.register();
+		RegisterResources.register(container);
 		RegisterProperties.init();
 
 		Registry.register(BuiltInRegistries.MATERIAL_CONDITION, WilderSharedConstants.id("beta_beach_condition_source"), BetaBeachConditionSource.CODEC.codec());
@@ -274,7 +281,7 @@ public final class WilderWild extends FrozenMobCategoryEntrypoint implements Mod
     }
 
 	private static <P extends FoliagePlacer> FoliagePlacerType<P> registerFoliage(String id, Codec<P> codec) {
-		return Registry.register(BuiltInRegistries.FOLIAGE_PLACER_TYPE, id(id), new FoliagePlacerType<>(codec));
+		return Registry.register(BuiltInRegistries.FOLIAGE_PLACER_TYPE, WilderSharedConstants.id(id), new FoliagePlacerType<>(codec));
 	}
 
     // GAME RULES
@@ -288,29 +295,4 @@ public final class WilderWild extends FrozenMobCategoryEntrypoint implements Mod
     public static final ResourceLocation TERMITE_PARTICLE_PACKET = WilderSharedConstants.id("termite_particle_packet");
     public static final ResourceLocation SENSOR_HICCUP_PACKET = WilderSharedConstants.id("sensor_hiccup_packet");
     public static final ResourceLocation JELLY_STING_PACKET = WilderSharedConstants.id("jelly_sting_packet");
-
-	/**
-	 * @deprecated Use {@link WilderSharedConstants#id(String)} instead.
-	 */
-	@Deprecated(forRemoval = true)
-    public static ResourceLocation id(String path) {
-        return WilderSharedConstants.id(path);
-    }
-
-	/**
-	 * @deprecated Use {@link WilderSharedConstants#vanillaId(String)} instead.
-	 */
-	@Deprecated(forRemoval = true)
-	public static ResourceLocation vanillaId(String path) {
-		return WilderSharedConstants.vanillaId(path);
-	}
-
-	/**
-	 * @deprecated Use {@link WilderSharedConstants#string(String)} instead.
-	 */
-	@Deprecated(forRemoval = true)
-	public static String string(String path) {
-        return WilderSharedConstants.string(path);
-    }
-
 }
