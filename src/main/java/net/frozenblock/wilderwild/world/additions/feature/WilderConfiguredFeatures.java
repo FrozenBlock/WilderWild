@@ -651,9 +651,10 @@ public final class WilderConfiguredFeatures {
 						new WeightedPlacedFeature(WilderTreePlaced.BIRCH_CHECKED.getHolder(), 0.1F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH.getHolder(), 0.04F),
 						new WeightedPlacedFeature(WilderTreePlaced.TALL_DARK_OAK_CHECKED.getHolder(), 0.6F),
-						new WeightedPlacedFeature(WilderTreePlaced.FANCY_TALL_DARK_OAK_CHECKED.getHolder(), 0.45F),
+						new WeightedPlacedFeature(WilderTreePlaced.FANCY_TALL_DARK_OAK_CHECKED.getHolder(), 0.522F),
 						new WeightedPlacedFeature(WilderTreePlaced.COBWEB_TALL_DARK_OAK_CHECKED.getHolder(), 0.018F),
-						new WeightedPlacedFeature(WilderTreePlaced.COBWEB_FANCY_TALL_DARK_OAK_CHECKED.getHolder(), 0.032F),
+						new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_TALL_DARK_OAK_CHECKED.getHolder(), 0.0766F),
+						new WeightedPlacedFeature(WilderTreePlaced.COBWEB_FANCY_TALL_DARK_OAK_CHECKED.getHolder(), 0.035F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_TALL_DARK_OAK_CHECKED.getHolder(), 0.222F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_CHECKED.getHolder(), 0.095F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED.getHolder(), 0.045F),
@@ -1035,10 +1036,10 @@ public final class WilderConfiguredFeatures {
 				)
 		);
 
-		MUSHROOMS_DARK_FOREST.makeAndSetHolder(Feature.FLOWER,
+		MUSHROOMS_DARK_FOREST.makeAndSetHolder(Feature.RANDOM_PATCH,
 				new RandomPatchConfiguration(
-						5,
-						8,
+						50,
+						4,
 						2,
 						PlacementUtils.onlyWhenEmpty(
 								Feature.SIMPLE_BLOCK,
