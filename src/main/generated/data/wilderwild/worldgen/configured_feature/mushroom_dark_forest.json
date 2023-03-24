@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:flower",
+  "type": "minecraft:random_patch",
   "config": {
     "feature": {
       "feature": {
@@ -36,8 +36,8 @@
         }
       ]
     },
-    "tries": 5,
-    "xz_spread": 8,
+    "tries": 50,
+    "xz_spread": 4,
     "y_spread": 2
   }
 }
