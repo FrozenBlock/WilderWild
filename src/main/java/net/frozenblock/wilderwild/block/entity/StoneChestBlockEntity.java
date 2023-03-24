@@ -226,12 +226,16 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
 			stoneChest.cooldownTicks = this.cooldownTicks;
 			stoneChest.shouldSkip = true;
 			stoneChest.closing = this.closing;
-			for (ServerPlayer player : PlayerLookup.tracking(stoneChest)) {
-				player.connection.send(Objects.requireNonNull(stoneChest.getUpdatePacket()));
+			if (this.level instanceof ServerLevel serverLevel) {
+				for (ServerPlayer player : PlayerLookup.tracking(stoneChest)) {
+					player.connection.send(Objects.requireNonNull(stoneChest.getUpdatePacket()));
+				}
 			}
 		}
-		for (ServerPlayer player : PlayerLookup.tracking(this)) {
-			player.connection.send(Objects.requireNonNull(this.getUpdatePacket()));
+		if (this.level instanceof ServerLevel serverLevel) {
+			for (ServerPlayer player : PlayerLookup.tracking(this)) {
+				player.connection.send(Objects.requireNonNull(this.getUpdatePacket()));
+			}
 		}
 	}
 
