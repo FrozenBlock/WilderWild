@@ -143,6 +143,8 @@ public final class WilderMiscPlaced {
 
 	public static final FrozenPlacedFeature MOSS_PATH_OASIS = register("moss_path_oasis");
 
+	public static final FrozenPlacedFeature DESERT_WELL = register("desert_well");
+
 	// BIRCH TAIGA
 	public static final FrozenPlacedFeature COARSE_PATH_10 = register("coarse_dirt_path_10");
 
@@ -506,6 +508,13 @@ public final class WilderMiscPlaced {
 				RarityFilter.onAverageOnceEvery(4),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BiomeFilter.biome()
+		);
+
+		DESERT_WELL.makeAndSetHolder(MiscOverworldFeatures.DESERT_WELL,
+				RarityFilter.onAverageOnceEvery(1000),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP,
 				BiomeFilter.biome()
 		);
 
