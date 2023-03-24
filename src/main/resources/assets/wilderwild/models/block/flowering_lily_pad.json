@@ -1,10 +1,10 @@
 {
-	"ambientocclusion": false,
+    "ambientocclusion": false,
 	"textures": {
-      "root": "wilderwild:block/lily_pad_root",
-      "particle": "block/lily_pad",
-      "pad": "block/lily_pad",
-      "texture": "wilderwild:block/waterlily"
+		"root": "wilderwild:block/lily_pad_root",
+		"particle": "block/lily_pad",
+		"pad": "block/lily_pad",
+		"texture": "wilderwild:block/waterlily"
 	},
 	"elements": [
 		{
@@ -38,8 +38,7 @@
 			"to": [16, 0.5, 16],
 			"rotation": {"angle": 0, "axis": "z", "origin": [8.55, 0.25, 8]},
 			"faces": {
-				"up": {"uv": [0, 16, 16, 0], "rotation": 90, "texture": "#texture"},
-				"down": {"uv": [0, 16, 16, 0], "rotation": 90, "texture": "#texture"}
+				"up": {"uv": [0, 16, 16, 0], "rotation": 90, "texture": "#texture"}
 			}
 		}
 	],
