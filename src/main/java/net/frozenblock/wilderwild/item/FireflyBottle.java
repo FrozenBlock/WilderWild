@@ -115,6 +115,10 @@ public class FireflyBottle extends Item {
 		return ItemUtils.startUsingInstantly(level, player, usedHand);
 	}
 
+	public static boolean isNectar(ItemStack stack) {
+		return stack.hasCustomHoverName() && stack.getHoverName().getString().contains("nectar");
+	}
+
 	@Override
 	@NotNull
 	public UseAnim getUseAnimation(@NotNull ItemStack stack) {
