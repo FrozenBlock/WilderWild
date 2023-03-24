@@ -509,10 +509,10 @@ public final class WilderMiscPlaced {
 				BiomeFilter.biome()
 		);
 
-		DESERT_WELL.makeAndSetHolder(MiscOverworldFeatures.DESERT_WELL,
+		DESERT_WELL.makeAndSetHolder(configuredFeatures.getOrThrow(MiscOverworldFeatures.DESERT_WELL),
 				RarityFilter.onAverageOnceEvery(1000),
 				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP,
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 				BiomeFilter.biome()
 		);
 

@@ -43,7 +43,8 @@
       "minecraft:monster_room_deep"
     ],
     [
-      "minecraft:desert_well"
+      "minecraft:desert_well",
+      "wilderwild:desert_well"
     ],
     [],
     [
