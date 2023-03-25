@@ -201,6 +201,12 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBiomeTags.MEADOW)
 					.add(Biomes.MEADOW);
 
+			this.getOrCreateTagBuilder(WilderBiomeTags.OAK_SAPLINGS_GROW_SWAMP_VARIANT)
+					.add(Biomes.SWAMP)
+					.add(Biomes.MANGROVE_SWAMP)
+					.addOptional(RegisterWorldgen.CYPRESS_WETLANDS)
+					.addOptionalTag(BiomeTags.IS_OCEAN);
+
 			this.getOrCreateTagBuilder(WilderBiomeTags.NON_FROZEN_PLAINS)
 					.add(Biomes.PLAINS)
 					.add(Biomes.SUNFLOWER_PLAINS)

@@ -108,7 +108,7 @@ public final class WilderMiscGeneration {
 				GenerationStep.Decoration.LAKES, WilderMiscPlaced.BASIN_PODZOL.getKey());
 
 		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_MOSS_CARPET),
-				GenerationStep.Decoration.LAKES, WilderPlacedFeatures.MOSS_CARPET.getKey());
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MOSS_CARPET.getKey());
 
 		if (WilderSharedConstants.config().surfaceTransitions()) {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SMALL_SAND_TRANSITION),
