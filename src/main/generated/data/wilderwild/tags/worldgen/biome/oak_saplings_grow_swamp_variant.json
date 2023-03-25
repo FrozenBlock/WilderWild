@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:swamp",
+    "minecraft:mangrove_swamp",
+    {
+      "id": "wilderwild:cypress_wetlands",
+      "required": false
+    },
+    {
+      "id": "#minecraft:is_ocean",
+      "required": false
+    }
+  ]
+}
