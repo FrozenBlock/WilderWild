@@ -29,6 +29,7 @@ import net.minecraft.world.level.block.grower.AbstractMegaTreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class BaobabTreeSaplingGenerator extends AbstractMegaTreeGrower {
@@ -45,7 +46,7 @@ public abstract class BaobabTreeSaplingGenerator extends AbstractMegaTreeGrower 
 	 * @param random the random source object
 	 * @return true if the tree was successfully grown, false otherwise
 	 */
-	public boolean growTree(ServerLevel level, ChunkGenerator chunkGenerator, BlockPos pos, BlockState state, RandomSource random) {
+	public boolean growTree(@NotNull ServerLevel level, @NotNull ChunkGenerator chunkGenerator, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull RandomSource random) {
 		// Loop through the x and z position offsets
 		for (int x = 0; x >= -4; --x) {
 			for (int z = 0; z >= -4; --z) {

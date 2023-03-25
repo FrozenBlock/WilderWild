@@ -39,4 +39,13 @@ public class SpruceTreeGrowerMixin {
 		}
     }
 
+	@Inject(method = "getConfiguredMegaFeature", at = @At("RETURN"), cancellable = true)
+	public void wilderWild$getConfiguredMegaFeature(RandomSource random, CallbackInfoReturnable<Holder<? extends ConfiguredFeature<?, ?>>> info) {
+		if (WilderSharedConstants.config().wildTrees()) {
+			if (random.nextFloat() < 0.25F) {
+				info.setReturnValue(WilderTreeConfigured.SHORT_MEGA_SPRUCE.getHolder());
+			}
+		}
+	}
+
 }
