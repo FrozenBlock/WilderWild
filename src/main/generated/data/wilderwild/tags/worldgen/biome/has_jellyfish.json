@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "minecraft:warm_ocean",
+    "minecraft:deep_lukewarm_ocean",
+    "minecraft:lukewarm_ocean",
     {
       "id": "wilderwild:jellyfish_caves",
       "required": false
