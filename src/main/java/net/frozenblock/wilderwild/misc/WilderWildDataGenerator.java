@@ -316,6 +316,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_JELLYFISH)
 					.add(Biomes.WARM_OCEAN)
+					.add(Biomes.DEEP_LUKEWARM_OCEAN)
+					.add(Biomes.LUKEWARM_OCEAN)
 					.addOptional(RegisterWorldgen.JELLYFISH_CAVES);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.NO_POOLS)
