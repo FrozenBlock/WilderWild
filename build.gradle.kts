@@ -314,8 +314,7 @@ tasks {
         val properties = HashMap<String, Any>()
         properties["mod_id"] = mod_id
         properties["version"] = version
-        // TODO: change this to minecraft_version when 1.19.4 releases
-        properties["minecraft_version"] = "~1.19.4-"
+        properties["minecraft_version"] = minecraft_version
 
         properties.forEach { (a, b) -> inputs.property(a, b) }
 
