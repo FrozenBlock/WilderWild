@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.world.additions.feature;
 
+import com.google.common.collect.ImmutableList;
 import net.frozenblock.lib.worldgen.feature.api.FrozenPlacedFeature;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
@@ -31,10 +32,9 @@ import net.minecraft.data.worldgen.features.AquaticFeatures;
 import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.data.worldgen.features.VegetationFeatures;
 import static net.minecraft.data.worldgen.placement.AquaticPlacements.seagrassPlacement;
+import static net.minecraft.data.worldgen.placement.VegetationPlacements.*;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
-import static net.minecraft.data.worldgen.placement.VegetationPlacements.TREE_THRESHOLD;
-import static net.minecraft.data.worldgen.placement.VegetationPlacements.treePlacement;
 import net.minecraft.util.valueproviders.ClampedInt;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -53,6 +53,8 @@ import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceWaterDepthFilter;
+import org.jetbrains.annotations.Nullable;
+import java.util.List;
 
 public final class WilderPlacedFeatures {
 	private WilderPlacedFeatures() {
@@ -67,6 +69,8 @@ public final class WilderPlacedFeatures {
 	public static final FrozenPlacedFeature MOSSY_FALLEN_TREES_OAK_AND_BIRCH_PLACED = register("mossy_fallen_trees_oak_and_birch_placed");
 
     public static final FrozenPlacedFeature FALLEN_BIRCH_AND_SPRUCE_PLACED = register("fallen_birch_and_spruce_placed");
+
+	public static final FrozenPlacedFeature FALLEN_OAK_PLACED_SWAMP = register("fallen_oak_placed_swamp");
 
     public static final FrozenPlacedFeature FALLEN_OAK_AND_SPRUCE_PLACED = register("fallen_oak_and_spruce_placed");
 
@@ -91,6 +95,8 @@ public final class WilderPlacedFeatures {
 	public static final FrozenPlacedFeature FALLEN_PALM_AND_JUNGLE_AND_OAK_PLACED = register("fallen_palm_and_jungle_and_oak_placed");
 
 	public static final FrozenPlacedFeature FALLEN_BIRCH_AND_OAK_DARK_FOREST_PLACED = register("fallen_birch_and_oak_dark_forest_placed");
+
+	public static final FrozenPlacedFeature FALLEN_MANGROVE_PLACED = register("fallen_mangrove_placed");
 
     //TREES
     public static final FrozenPlacedFeature TREES_PLAINS = register("trees_plains");
@@ -372,6 +378,11 @@ public final class WilderPlacedFeatures {
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
+		FALLEN_OAK_PLACED_SWAMP.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_OAK_SWAMP.getHolder(),
+				RarityFilter.onAverageOnceEvery(13), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
+		);
+
 		FALLEN_OAK_AND_SPRUCE_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_SPRUCE_AND_OAK.getHolder(),
 				RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
@@ -428,6 +439,11 @@ public final class WilderPlacedFeatures {
 		);
 
 		FALLEN_BIRCH_AND_OAK_DARK_FOREST_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_OAK_AND_BIRCH_DARK_FOREST.getHolder(),
+				RarityFilter.onAverageOnceEvery(10), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
+		);
+
+		FALLEN_MANGROVE_PLACED.makeAndSetHolder(WilderConfiguredFeatures.FALLEN_MANGROVE.getHolder(),
 				RarityFilter.onAverageOnceEvery(10), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
@@ -642,7 +658,7 @@ public final class WilderPlacedFeatures {
 		);
 
 		DARK_FOREST_MUSHROOM_PLACED.makeAndSetHolder(WilderConfiguredFeatures.MUSHROOMS_DARK_FOREST.getHolder(),
-				RarityFilter.onAverageOnceEvery(2), CountPlacement.of(1), InSquarePlacement.spread(),
+				RarityFilter.onAverageOnceEvery(1), CountPlacement.of(6), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
@@ -1057,5 +1073,4 @@ public final class WilderPlacedFeatures {
 				BiomeFilter.biome()
 		);
 	}
-
 }

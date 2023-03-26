@@ -3,19 +3,7 @@
   "values": [
     "minecraft:dark_forest",
     {
-      "id": "wilderwild:rainforest",
-      "required": false
-    },
-    {
-      "id": "wilderwild:temperate_rainforest",
-      "required": false
-    },
-    {
       "id": "wilderwild:dark_taiga",
-      "required": false
-    },
-    {
-      "id": "wilderwild:old_growth_dark_forest",
       "required": false
     }
   ]

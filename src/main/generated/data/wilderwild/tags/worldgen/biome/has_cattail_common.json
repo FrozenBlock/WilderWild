@@ -3,8 +3,6 @@
   "values": [
     "minecraft:swamp",
     "minecraft:mangrove_swamp",
-    "minecraft:dark_forest",
-    "minecraft:jungle",
     {
       "id": "wilderwild:cypress_wetlands",
       "required": false

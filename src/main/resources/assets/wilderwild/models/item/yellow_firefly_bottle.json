@@ -2,5 +2,13 @@
   "parent": "item/generated",
   "textures": {
 	"layer0": "wilderwild:item/yellow_firefly_bottle"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "nectar": 1
+      },
+      "model": "wilderwild:item/nectar_bottle"
+    }
+  ]
 }

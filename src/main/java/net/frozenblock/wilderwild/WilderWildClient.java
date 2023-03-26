@@ -48,6 +48,7 @@ import net.frozenblock.wilderwild.entity.render.renderer.AncientHornProjectileRe
 import net.frozenblock.wilderwild.entity.render.renderer.FireflyRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.JellyfishRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.TumbleweedRenderer;
+import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.particle.FallingParticle;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
@@ -261,6 +262,24 @@ public final class WilderWildClient implements ClientModInitializer {
 		ItemProperties.register(Items.BEEHIVE, WilderSharedConstants.vanillaId("honey"), (itemStack, clientLevel, livingEntity, seed) -> ((float)ItemBlockStateTagUtils.getProperty(itemStack, BlockStateProperties.LEVEL_HONEY, 0)) / 5F);
 		ItemProperties.register(Items.SCULK_SHRIEKER, WilderSharedConstants.vanillaId("souls_taken"), (itemStack, clientLevel, livingEntity, seed) -> ((float)ItemBlockStateTagUtils.getProperty(itemStack, RegisterProperties.SOULS_TAKEN, 0)) / 2F);
 
+		ItemProperties.register(RegisterItems.FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.CYAN_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.GRAY_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.GREEN_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.LIGHT_BLUE_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.LIME_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.MAGENTA_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.ORANGE_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.PINK_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.PURPLE_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.YELLOW_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.WHITE_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.BLACK_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.BLUE_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.RED_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.BROWN_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.LIGHT_GRAY_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
+
 		ColorProviderRegistry.BLOCK.register(
 				((state, level, pos, tintIndex) ->
 						level == null || pos == null ? 7455580 : 2129968
@@ -270,7 +289,7 @@ public final class WilderWildClient implements ClientModInitializer {
 
 		ColorProviderRegistry.ITEM.register(((state, tintIndex) -> 5877296), RegisterBlocks.BAOBAB_LEAVES);
 		ColorProviderRegistry.ITEM.register(((state, tintIndex) -> 5877296), RegisterBlocks.CYPRESS_LEAVES);
-		ColorProviderRegistry.ITEM.register(((state, tintIndex) -> 5877296), RegisterBlocks.PALM_LEAVES);
+		ColorProviderRegistry.ITEM.register(((state, tintIndex) -> 5877296), RegisterBlocks.PALM_FRONDS);
 
 		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
 				BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
@@ -280,7 +299,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		), RegisterBlocks.CYPRESS_LEAVES);
 		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
 				BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
-		), RegisterBlocks.PALM_LEAVES);
+		), RegisterBlocks.PALM_FRONDS);
 		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
 				BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
 		), RegisterBlocks.POTTED_GRASS);

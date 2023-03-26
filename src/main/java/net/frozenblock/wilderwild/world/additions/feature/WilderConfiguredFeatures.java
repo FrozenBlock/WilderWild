@@ -19,8 +19,8 @@
 package net.frozenblock.wilderwild.world.additions.feature;
 
 import java.util.List;
-import net.frozenblock.lib.worldgen.feature.api.FrozenFeatures;
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeature;
+import net.frozenblock.lib.worldgen.feature.api.FrozenFeatures;
 import net.frozenblock.lib.worldgen.feature.api.features.config.ColumnWithDiskFeatureConfig;
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
@@ -95,7 +95,9 @@ public final class WilderConfiguredFeatures {
 
     public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_SPRUCE = register("fallen_spruce");
 
-    public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_SPRUCE_AND_OAK = register("fallen_spruce_and_oak");
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_OAK_SWAMP = register("fallen_oak_swamp");
+
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_SPRUCE_AND_OAK = register("fallen_spruce_and_oak");
 
     public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_BIRCH_AND_OAK = register("fallen_birch_and_oak");
 
@@ -106,7 +108,10 @@ public final class WilderConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_PALM_AND_JUNGLE_AND_OAK = register("fallen_palm_and_jungle_and_oak");
 
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_OAK_AND_BIRCH_DARK_FOREST = register("fallen_oak_and_birch_dark_forest");
-    //TREES
+
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_MANGROVE = register("fallen_mangrove");
+
+	//TREES
     public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_PLAINS = register("trees_plains");
 
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_FLOWER_FIELD = register("trees_flower_field");
@@ -428,6 +433,10 @@ public final class WilderConfiguredFeatures {
 				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.FALLEN_SPRUCE_CHECKED.getHolder(), 1.0F)),
 						WilderTreePlaced.FALLEN_SPRUCE_CHECKED.getHolder()));
 
+		FALLEN_OAK_SWAMP.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.MOSSY_FALLEN_STRAIGHT_OAK_CHECKED.getHolder(), 1.0F)),
+						WilderTreePlaced.MOSSY_FALLEN_STRAIGHT_OAK_CHECKED.getHolder()));
+
 		FALLEN_SPRUCE_AND_OAK.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.FALLEN_SPRUCE_CHECKED.getHolder(), 0.55F)),
 						WilderTreePlaced.FALLEN_OAK_CHECKED.getHolder()));
@@ -453,6 +462,10 @@ public final class WilderConfiguredFeatures {
 				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.FALLEN_BIRCH_CHECKED.getHolder(), 0.135F),
 						new WeightedPlacedFeature(WilderTreePlaced.MOSSY_FALLEN_OAK_CHECKED.getHolder(), 0.25F)),
 						WilderTreePlaced.FALLEN_OAK_CHECKED.getHolder()));
+
+		FALLEN_MANGROVE.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.FALLEN_MANGROVE_CHECKED.getHolder(), 1.0F)),
+						WilderTreePlaced.FALLEN_MANGROVE_CHECKED.getHolder()));
 
 		TREES_PLAINS.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.FANCY_OAK_BEES_0004.getHolder()), 0.33333334F),
@@ -638,9 +651,10 @@ public final class WilderConfiguredFeatures {
 						new WeightedPlacedFeature(WilderTreePlaced.BIRCH_CHECKED.getHolder(), 0.1F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_BIRCH.getHolder(), 0.04F),
 						new WeightedPlacedFeature(WilderTreePlaced.TALL_DARK_OAK_CHECKED.getHolder(), 0.6F),
-						new WeightedPlacedFeature(WilderTreePlaced.FANCY_TALL_DARK_OAK_CHECKED.getHolder(), 0.45F),
+						new WeightedPlacedFeature(WilderTreePlaced.FANCY_TALL_DARK_OAK_CHECKED.getHolder(), 0.522F),
 						new WeightedPlacedFeature(WilderTreePlaced.COBWEB_TALL_DARK_OAK_CHECKED.getHolder(), 0.018F),
-						new WeightedPlacedFeature(WilderTreePlaced.COBWEB_FANCY_TALL_DARK_OAK_CHECKED.getHolder(), 0.032F),
+						new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_TALL_DARK_OAK_CHECKED.getHolder(), 0.0766F),
+						new WeightedPlacedFeature(WilderTreePlaced.COBWEB_FANCY_TALL_DARK_OAK_CHECKED.getHolder(), 0.035F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_TALL_DARK_OAK_CHECKED.getHolder(), 0.222F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_CHECKED.getHolder(), 0.095F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED.getHolder(), 0.045F),
@@ -1022,10 +1036,10 @@ public final class WilderConfiguredFeatures {
 				)
 		);
 
-		MUSHROOMS_DARK_FOREST.makeAndSetHolder(Feature.FLOWER,
+		MUSHROOMS_DARK_FOREST.makeAndSetHolder(Feature.RANDOM_PATCH,
 				new RandomPatchConfiguration(
-						5,
-						8,
+						50,
+						4,
 						2,
 						PlacementUtils.onlyWhenEmpty(
 								Feature.SIMPLE_BLOCK,

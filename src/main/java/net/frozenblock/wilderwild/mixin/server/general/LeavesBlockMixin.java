@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.server.general;
 
-import net.frozenblock.wilderwild.block.PalmLeavesBlock;
+import net.frozenblock.wilderwild.block.PalmFrondsBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.LeavesBlock;
@@ -34,10 +34,10 @@ public class LeavesBlockMixin {
 
     @Inject(method = "updateDistance", at = @At("HEAD"), cancellable = true)
 	private static void wilderWild$updateDistance(BlockState state, LevelAccessor level, BlockPos pos, CallbackInfoReturnable<BlockState> info) {
-		if (state.getBlock() instanceof PalmLeavesBlock) {
+		if (state.getBlock() instanceof PalmFrondsBlock) {
 			int i = 7;
 			for (BlockPos blockPos : BlockPos.betweenClosed(pos.offset(-1, -1, -1), pos.offset(1, 1, 1))) {
-				i = Math.min(i, PalmLeavesBlock.getDistanceAt(level.getBlockState(blockPos)) + 1);
+				i = Math.min(i, PalmFrondsBlock.getDistanceAt(level.getBlockState(blockPos)) + 1);
 				if (i == 1) break;
 			}
 			info.setReturnValue(state.setValue(BlockStateProperties.DISTANCE, i));

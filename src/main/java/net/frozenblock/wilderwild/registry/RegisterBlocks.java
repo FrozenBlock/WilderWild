@@ -52,7 +52,7 @@ import net.frozenblock.wilderwild.block.MilkweedBlock;
 import net.frozenblock.wilderwild.block.NematocystBlock;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
 import net.frozenblock.wilderwild.block.PalmCrownBlock;
-import net.frozenblock.wilderwild.block.PalmLeavesBlock;
+import net.frozenblock.wilderwild.block.PalmFrondsBlock;
 import net.frozenblock.wilderwild.block.PollenBlock;
 import net.frozenblock.wilderwild.block.PricklyPearCactusBlock;
 import net.frozenblock.wilderwild.block.ScorchedSandBlock;
@@ -281,7 +281,7 @@ public final class RegisterBlocks {
 
     public static final Block BAOBAB_LEAVES = new BaobabLeaves(FabricBlockSettings.of(Material.LEAVES, MaterialColor.COLOR_GREEN).strength(0.2F).ticksRandomly().sounds(SoundType.GRASS).nonOpaque().allowsSpawning(RegisterBlocks::canSpawnOnLeaves).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
     public static final Block CYPRESS_LEAVES = new LeavesBlock(FabricBlockSettings.of(Material.LEAVES, MaterialColor.COLOR_GREEN).strength(0.2F).ticksRandomly().sounds(SoundType.GRASS).nonOpaque().allowsSpawning(RegisterBlocks::canSpawnOnLeaves).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
-    public static final Block PALM_LEAVES = new PalmLeavesBlock(FabricBlockSettings.of(Material.LEAVES, MaterialColor.COLOR_GREEN).strength(0.2F).ticksRandomly().sounds(SoundType.GRASS).nonOpaque().allowsSpawning(RegisterBlocks::canSpawnOnLeaves).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
+    public static final Block PALM_FRONDS = new PalmFrondsBlock(FabricBlockSettings.of(Material.LEAVES, MaterialColor.COLOR_GREEN).strength(0.2F).ticksRandomly().sounds(SoundType.GRASS).nonOpaque().allowsSpawning(RegisterBlocks::canSpawnOnLeaves).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never));
 
     public static final Block BAOBAB_FENCE = new FenceBlock(FabricBlockSettings.of(Material.WOOD, BAOBAB_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD));
     public static final Block CYPRESS_FENCE = new FenceBlock(FabricBlockSettings.of(Material.WOOD, CYPRESS_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD));
@@ -363,7 +363,7 @@ public final class RegisterBlocks {
 		//PALM IN NATURE
 		registerBlockAfter(CYPRESS_LOG, wood + "_log", PALM_LOG, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(PALM_LOG, wood + "_crown", PALM_CROWN, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(CYPRESS_LEAVES, wood + "_leaves", PALM_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(CYPRESS_LEAVES, wood + "_fronds", PALM_FRONDS, CreativeModeTabs.NATURAL_BLOCKS);
 
         registerBlock(false, baobab + "_nut", BAOBAB_NUT);
         registerBlock(false, "potted_" + baobab + "_nut", POTTED_BAOBAB_NUT);
@@ -459,9 +459,9 @@ public final class RegisterBlocks {
     }
 
     // SCULK
-    public static final Block SCULK_STAIRS = new SculkStairsBlock(Blocks.SCULK.defaultBlockState(), FabricBlockSettings.of(Material.SCULK).strength(0.2F).sounds(SoundType.SCULK).dropsLike(Blocks.SCULK));
-    public static final Block SCULK_SLAB = new SculkSlabBlock(FabricBlockSettings.of(Material.SCULK).strength(0.2F).sounds(SoundType.SCULK).dropsLike(Blocks.SCULK));
-    public static final Block SCULK_WALL = new SculkWallBlock(FabricBlockSettings.of(Material.SCULK).strength(0.2F).sounds(SoundType.SCULK).dropsLike(Blocks.SCULK));
+    public static final Block SCULK_STAIRS = new SculkStairsBlock(Blocks.SCULK.defaultBlockState(), FabricBlockSettings.of(Material.SCULK).strength(0.2F).sounds(SoundType.SCULK));
+    public static final Block SCULK_SLAB = new SculkSlabBlock(FabricBlockSettings.of(Material.SCULK).strength(0.2F).sounds(SoundType.SCULK));
+    public static final Block SCULK_WALL = new SculkWallBlock(FabricBlockSettings.of(Material.SCULK).strength(0.2F).sounds(SoundType.SCULK));
     public static final Block OSSEOUS_SCULK = new OsseousSculkBlock(FabricBlockSettings.of(Material.STONE, MaterialColor.SAND).requiresTool().strength(2.0F).sounds(RegisterBlockSoundTypes.OSSEOUS_SCULK));
     public static final Block HANGING_TENDRIL = new HangingTendrilBlock(FabricBlockSettings.copyOf(Blocks.SCULK_SENSOR).strength(0.7F).collidable(false).ticksRandomly().luminance((state) -> 1)
             .sounds(RegisterBlockSoundTypes.HANGING_TENDRIL).emissiveLighting((state, level, pos) -> HangingTendrilBlock.shouldHavePogLighting(state)));
@@ -885,8 +885,10 @@ public final class RegisterBlocks {
         CompostingChanceRegistry.INSTANCE.add(PURPLE_GLORY_OF_THE_SNOW, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(ALGAE, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BUSH, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED_PLANT, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED, 0.1F);
+		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED_PLANT, 0.5F);
+		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(RegisterItems.COCONUT, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(RegisterItems.SPLIT_COCONUT, 0.3F);
     }
 
     private static void registerFlammability() {
@@ -982,7 +984,7 @@ public final class RegisterBlocks {
 		flammableBlockRegistry.add(RegisterBlocks.PALM_FENCE_GATE, 5, 20);
 		flammableBlockRegistry.add(RegisterBlocks.PALM_PRESSURE_PLATE, 5, 20);
 		flammableBlockRegistry.add(RegisterBlocks.PALM_TRAPDOOR, 5, 20);
-		flammableBlockRegistry.add(RegisterBlocks.PALM_LEAVES, 100, 60);
+		flammableBlockRegistry.add(RegisterBlocks.PALM_FRONDS, 100, 60);
 		flammableBlockRegistry.add(RegisterBlocks.PALM_BUTTON, 5, 20);
 		flammableBlockRegistry.add(RegisterBlocks.PALM_SIGN_BLOCK, 5, 20);
 		flammableBlockRegistry.add(RegisterBlocks.PALM_WALL_SIGN, 5, 20);

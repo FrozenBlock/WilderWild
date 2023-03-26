@@ -146,6 +146,8 @@ public final class WilderMiscPlaced {
 
 	public static final FrozenPlacedFeature MOSS_PATH_OASIS = register("moss_path_oasis");
 
+	public static final FrozenPlacedFeature DESERT_WELL = register("desert_well");
+
 	// BIRCH TAIGA
 	public static final FrozenPlacedFeature COARSE_PATH_10 = register("coarse_dirt_path_10");
 
@@ -160,7 +162,9 @@ public final class WilderMiscPlaced {
 	// TEMPERATE RAINFOREST & RAINFOREST
 	public static final FrozenPlacedFeature MOSS_PILE = register("moss_pile");
 
-	public static final FrozenPlacedFeature BASIN_RAINFOREST = register("basin_rainforest");
+	public static final FrozenPlacedFeature BASIN_PODZOL = register("basin_podzol");
+
+	public static final FrozenPlacedFeature BASIN_MOSS = register("basin_moss");
 
 	public static final FrozenPlacedFeature MOSS_LAKE = register("moss_lake");
 
@@ -505,6 +509,13 @@ public final class WilderMiscPlaced {
 				BiomeFilter.biome()
 		);
 
+		DESERT_WELL.makeAndSetHolder(configuredFeatures.getOrThrow(MiscOverworldFeatures.DESERT_WELL),
+				RarityFilter.onAverageOnceEvery(1000),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BiomeFilter.biome()
+		);
+
 		// BIRCH TAIGA
 
 		COARSE_PATH_10.makeAndSetHolder(WilderMiscConfigured.COARSE_PATH.getHolder(),
@@ -548,7 +559,16 @@ public final class WilderMiscPlaced {
 				BiomeFilter.biome()
 		);
 
-		BASIN_RAINFOREST.makeAndSetHolder(WilderMiscConfigured.BASIN_RAINFOREST.getHolder(),
+		BASIN_PODZOL.makeAndSetHolder(WilderMiscConfigured.BASIN_PODZOL.getHolder(),
+				RarityFilter.onAverageOnceEvery(5),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
+				RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+				BiomeFilter.biome()
+		);
+
+		BASIN_MOSS.makeAndSetHolder(WilderMiscConfigured.BASIN_MOSS.getHolder(),
 				RarityFilter.onAverageOnceEvery(5),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,

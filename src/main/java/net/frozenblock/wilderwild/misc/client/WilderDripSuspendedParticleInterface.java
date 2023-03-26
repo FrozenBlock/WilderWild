@@ -24,12 +24,4 @@ public interface WilderDripSuspendedParticleInterface {
 
 	boolean wilderWild$usesWind();
 
-	float wilderWild$getScale(float partialTick);
-
-	void wilderWild$calcScale();
-
-	boolean wilderWild$runScaleRemoval();
-
-	void wilderWild$setScaler(float scaler);
-
 }

@@ -62,8 +62,11 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_FALLEN_PALM_AND_JUNGLE_AND_OAK = bind("has_fallen_palm_and_jungle_and_oak");
 	public static final TagKey<Biome> HAS_FALLEN_BIRCH_AND_OAK_DARK_FOREST = bind("has_fallen_birch_and_oak_dark_forest");
 	public static final TagKey<Biome> HAS_FALLEN_SPRUCE_TREES = bind("has_fallen_spruce_trees");
+	public static final TagKey<Biome> HAS_FALLEN_SWAMP_OAK_TREES = bind("has_fallen_swamp_oak_trees");
+	public static final TagKey<Biome> HAS_FALLEN_MANGROVE_TREES = bind("has_fallen_mangrove_trees");
     public static final TagKey<Biome> DARK_FOREST = bind("dark_forest");
     public static final TagKey<Biome> MEADOW = bind("meadow");
+	public static final TagKey<Biome> OAK_SAPLINGS_GROW_SWAMP_VARIANT = bind("oak_saplings_grow_swamp_variant");
 	public static final TagKey<Biome> FOREST_GRASS = bind("forest_grass");
 	public static final TagKey<Biome> HAS_SMALL_SPONGE = bind("has_small_sponge");
 	public static final TagKey<Biome> HAS_SMALL_SPONGE_RARE = bind("has_small_sponge_rare");
@@ -73,6 +76,7 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_COMMON_BROWN_MUSHROOM = bind("has_common_brown_mushroom");
 	public static final TagKey<Biome> HAS_COMMON_RED_MUSHROOM = bind("has_common_red_mushroom");
 	public static final TagKey<Biome> HAS_SWAMP_MUSHROOM = bind("has_swamp_mushroom");
+	public static final TagKey<Biome> HAS_BIG_MUSHROOM_PATCH = bind("has_big_mushroom_patch");
 	public static final TagKey<Biome> HAS_DATURA = bind("has_datura");
 	public static final TagKey<Biome> HAS_COMMON_DATURA = bind("has_common_datura");
 	public static final TagKey<Biome> HAS_CARNATION = bind("has_carnation");
@@ -117,8 +121,12 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_MOSS_PATH = bind("has_moss_path");
 	public static final TagKey<Biome> HAS_MOSS_LAKE = bind("has_moss_lake");
 	public static final TagKey<Biome> HAS_MOSS_LAKE_RARE = bind("has_moss_lake_rare");
+	public static final TagKey<Biome> HAS_MOSS_BASIN = bind("has_moss_basin");
+	public static final TagKey<Biome> HAS_PODZOL_BASIN = bind("has_podzol_basin");
+	public static final TagKey<Biome> HAS_MOSS_CARPET = bind("has_moss_carpet");
 	public static final TagKey<Biome> HAS_PACKED_MUD_PATH = bind("has_packed_mud_path");
 	public static final TagKey<Biome> HAS_CLAY_PATH = bind("has_clay_path");
+	public static final TagKey<Biome> HAS_DESERT_WELL = bind("has_desert_well");
 
 	public static final TagKey<Biome> GRAVEL_BEACH = bind("gravel_beaches");
 	public static final TagKey<Biome> SAND_BEACHES = bind("sand_beaches");

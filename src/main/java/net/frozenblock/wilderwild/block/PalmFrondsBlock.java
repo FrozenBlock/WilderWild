@@ -36,9 +36,9 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 
-public class PalmLeavesBlock extends LeavesBlock implements BonemealableBlock {
+public class PalmFrondsBlock extends LeavesBlock implements BonemealableBlock {
 
-    public PalmLeavesBlock(Properties settings) {
+    public PalmFrondsBlock(Properties settings) {
         super(settings);
     }
 
@@ -85,7 +85,7 @@ public class PalmLeavesBlock extends LeavesBlock implements BonemealableBlock {
 	}
 
 	public static boolean nextToLeafOrCrown(BlockState neighbor) {
-		return neighbor.is(RegisterBlocks.PALM_LEAVES) || neighbor.is(RegisterBlocks.PALM_CROWN);
+		return neighbor.is(RegisterBlocks.PALM_FRONDS) || neighbor.is(RegisterBlocks.PALM_CROWN);
 	}
 
 	public static BlockState updateDistance(BlockState state, LevelReader level, BlockPos pos) {

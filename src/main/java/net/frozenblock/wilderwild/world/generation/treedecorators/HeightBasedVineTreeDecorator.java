@@ -58,7 +58,6 @@ public class HeightBasedVineTreeDecorator extends TreeDecorator {
         if (abstractRandom.nextFloat() <= this.chanceToDecorate) {
 			List<BlockPos> list = new ArrayList<>();
 			list.addAll(generator.logs());
-			list.addAll(generator.leaves());
 			list.addAll(generator.roots());
 			Collections.shuffle(list);
             list.forEach((pos) -> {

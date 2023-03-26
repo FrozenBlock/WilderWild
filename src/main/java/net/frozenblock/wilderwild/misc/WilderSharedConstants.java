@@ -44,10 +44,10 @@ public class WilderSharedConstants {
 	 * It's smart to use this for at least registries.
 	 */
 	public static boolean UNSTABLE_LOGGING = FabricLoader.getInstance().isDevelopmentEnvironment();
-	public static final ModContainer MOD_CONTAINER = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow();
-	public static boolean areConfigsInit = false;
+    public static boolean areConfigsInit = false;
+	public static boolean WILDLESS_WILD = FabricLoader.getInstance().isModLoaded("mrbeast");
 
-	public static final int DATA_VERSION = 12;
+	public static final int DATA_VERSION = 13;
 
 	public static RandomSource random() {
 		return AdvancedMath.random();

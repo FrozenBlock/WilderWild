@@ -25,7 +25,10 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
+import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 public final class WilderMiscGeneration {
     public static void generateMisc() {
@@ -98,8 +101,14 @@ public final class WilderMiscGeneration {
 		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_MOSS_LAKE_RARE),
 				GenerationStep.Decoration.LAKES, WilderMiscPlaced.MOSS_LAKE_RARE.getKey());
 
-		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.RAINFOREST),
-				GenerationStep.Decoration.LAKES, WilderMiscPlaced.BASIN_RAINFOREST.getKey());
+		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_MOSS_BASIN),
+				GenerationStep.Decoration.LAKES, WilderMiscPlaced.BASIN_MOSS.getKey());
+
+		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_PODZOL_BASIN),
+				GenerationStep.Decoration.LAKES, WilderMiscPlaced.BASIN_PODZOL.getKey());
+
+		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_MOSS_CARPET),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MOSS_CARPET.getKey());
 
 		if (WilderSharedConstants.config().surfaceTransitions()) {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SMALL_SAND_TRANSITION),
@@ -122,6 +131,7 @@ public final class WilderMiscGeneration {
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_MUD_TRANSITION),
 					GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.MUD_TRANSITION.getKey());
+
 		}
     }
 

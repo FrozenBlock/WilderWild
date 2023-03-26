@@ -97,14 +97,13 @@ public final class RegisterItems {
 	public static final BlockItem ECHO_GLASS = new BlockItem(RegisterBlocks.ECHO_GLASS, new FabricItemSettings());
 
 	// ITEMS
-    public static final MilkweedPod MILKWEED_POD = new MilkweedPod(new FabricItemSettings().maxCount(64));
-    public static final RecordItem MUSIC_DISC_BENEATH = new RecordItem(15, RegisterSounds.MUSIC_DISC_BENEATH, new FabricItemSettings().maxCount(1).rarity(Rarity.RARE), 169);
-    public static final RecordItem MUSIC_DISC_GOAT_HORN_SYMPHONY = new RecordItem(15, RegisterSounds.MUSIC_DISC_GOATHORN_SYMPHONY, new FabricItemSettings().maxCount(1).rarity(Rarity.RARE), 144);
-    public static final RecordItem MUSIC_DISC_BACK = new RecordItem(15, RegisterSounds.MUSIC_DISC_BACK, new FabricItemSettings().maxCount(1).rarity(Rarity.RARE), 76);
-    public static final Item FIREFLY_SPAWN_EGG = new SpawnEggItem(RegisterEntities.FIREFLY, Integer.parseInt("2A2E2B", 16), Integer.parseInt("AAF644", 16), new FabricItemSettings());
-    public static final Item JELLYFISH_SPAWN_EGG = new SpawnEggItem(RegisterEntities.JELLYFISH, Integer.parseInt("E484E4", 16), Integer.parseInt("DF71DC", 16), new FabricItemSettings());
-	public static final Item TUMBLEWEED_SPAWN_EGG = new SpawnEggItem(RegisterEntities.TUMBLEWEED, Integer.parseInt("c7a065", 16), Integer.parseInt("755b44", 16), new FabricItemSettings());
-    public static final Item JELLYFISH_BUCKET = new MobBucketItem(RegisterEntities.JELLYFISH, Fluids.WATER, RegisterSounds.ITEM_BUCKET_EMPTY_JELLYFISH, new FabricItemSettings().maxCount(1));
+	public static final MilkweedPod MILKWEED_POD = new MilkweedPod(new FabricItemSettings().maxCount(64));
+	public static final RecordItem MUSIC_DISC_BENEATH = new RecordItem(15, RegisterSounds.MUSIC_DISC_BENEATH, new FabricItemSettings().maxCount(1).rarity(Rarity.RARE), 169);
+	public static final RecordItem MUSIC_DISC_GOAT_HORN_SYMPHONY = new RecordItem(15, RegisterSounds.MUSIC_DISC_GOATHORN_SYMPHONY, new FabricItemSettings().maxCount(1).rarity(Rarity.RARE), 144);
+	public static final RecordItem MUSIC_DISC_BACK = new RecordItem(15, RegisterSounds.MUSIC_DISC_BACK, new FabricItemSettings().maxCount(1).rarity(Rarity.RARE), 76);
+	public static final Item FIREFLY_SPAWN_EGG = new SpawnEggItem(RegisterEntities.FIREFLY, Integer.parseInt("2A2E2B", 16), Integer.parseInt("AAF644", 16), new FabricItemSettings());
+	public static final Item JELLYFISH_SPAWN_EGG = new SpawnEggItem(RegisterEntities.JELLYFISH, Integer.parseInt("E484E4", 16), Integer.parseInt("DF71DC", 16), new FabricItemSettings());
+	public static final Item JELLYFISH_BUCKET = new MobBucketItem(RegisterEntities.JELLYFISH, Fluids.WATER, RegisterSounds.ITEM_BUCKET_EMPTY_JELLYFISH, new FabricItemSettings().maxCount(1));
 	public static final Item SPLIT_COCONUT = new Item(new FabricItemSettings().food(new FoodProperties.Builder().nutrition(2).saturationMod(0.4F).build()));
 
     public static final Item BAOBAB_BOAT_ITEM = new BoatItem(false, WilderEnumValues.BAOBAB, new FabricItemSettings().maxCount(1));
@@ -193,7 +192,6 @@ public final class RegisterItems {
 		registerItemAfter(Items.MUSIC_DISC_5, MUSIC_DISC_BACK, "music_disc_back", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItemAfter(Items.EVOKER_SPAWN_EGG, FIREFLY_SPAWN_EGG, "firefly_spawn_egg", CreativeModeTabs.SPAWN_EGGS);
 		registerItemAfter(Items.HUSK_SPAWN_EGG, JELLYFISH_SPAWN_EGG, "jellyfish_spawn_egg", CreativeModeTabs.SPAWN_EGGS);
-		registerItemAfter(JELLYFISH_SPAWN_EGG, TUMBLEWEED_SPAWN_EGG, "tumbleweed_spawn_egg", CreativeModeTabs.SPAWN_EGGS);
 		registerItemAfter(Items.AXOLOTL_BUCKET, JELLYFISH_BUCKET, "jellyfish_bucket", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItemAfter(Items.GLOW_BERRIES, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.FOOD_AND_DRINKS);
 		registerItemAfter(Items.MANGROVE_PROPAGULE, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.NATURAL_BLOCKS);
@@ -288,6 +286,5 @@ public final class RegisterItems {
 		if (BuiltInRegistries.ITEM.getOptional(WilderSharedConstants.id(path)).isEmpty()) {
 			Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id(path), item);
 		}
-		WilderSharedConstants.log("Registered item " + path, true);
 	}
 }

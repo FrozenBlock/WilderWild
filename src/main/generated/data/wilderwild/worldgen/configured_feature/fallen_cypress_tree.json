@@ -49,7 +49,7 @@
       "type": "wilderwild:fallen_trunk_logs_placer",
       "base_height": 3,
       "height_rand_a": 2,
-      "height_rand_b": 3,
+      "height_rand_b": 2,
       "max_height_above_hole": {
         "type": "minecraft:uniform",
         "value": {
@@ -64,7 +64,7 @@
           "min_inclusive": 1
         }
       },
-      "place_branch_chance": 0.4,
+      "place_branch_chance": 0.0,
       "success_in_water_chance": 0.8
     },
     "trunk_provider": {

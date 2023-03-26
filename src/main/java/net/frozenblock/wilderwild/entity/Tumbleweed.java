@@ -75,6 +75,7 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -86,7 +87,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	public boolean spawnedFromShears;
 	public int ticksSinceActive;
 	public boolean isItemNatural;
-	public boolean isTouchingLeaves;
+	public boolean isTouchingStickingBlock;
 	public boolean isTouchingStoppingBlock;
 
 	public float prevPitch;
@@ -158,18 +159,21 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 	@Override
 	protected void onInsideBlock(@NotNull BlockState state) {
-		if (state.is(BlockTags.LEAVES)) {
-			this.isTouchingLeaves = true;
+		if (state.getBlock() instanceof LeavesBlock) {
+			this.isTouchingStickingBlock = true;
 		}
 	}
 
 	@Override
 	public void tick() {
-		if (this.isTouchingLeaves) {
+		if (this.isTouchingStickingBlock) {
 			this.setDeltaMovement(Vec3.ZERO);
-			this.isTouchingLeaves = false;
+			this.isTouchingStickingBlock = false;
 		}
 		this.isTouchingStoppingBlock = false;
+		if (this.getFeetBlockState().is(BlockTags.CROPS) && this.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !this.isOnGround()) {
+			this.level.destroyBlock(this.blockPosition(), true, this);
+		}
 		super.tick();
 		this.setYRot(0F);
 		Vec3 deltaPos = this.getDeltaPos();
@@ -198,7 +202,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 			this.heal(1F);
 			double brightness = this.level.getBrightness(LightLayer.SKY, BlockPos.containing(this.getEyePosition()));
 			Player entity = this.level.getNearestPlayer(this, -1.0);
-			if (!this.requiresCustomPersistence() && ((brightness < 7 && (entity == null || entity.distanceTo(this) > 24)) || this.isTouchingStoppingBlock || this.isTouchingLeaves || (this.wasTouchingWater && !(this.getFeetBlockState().getBlock() instanceof MesogleaBlock)))) {
+			if (!this.requiresCustomPersistence() && ((brightness < 7 && (entity == null || entity.distanceTo(this) > 24)) || this.isTouchingStoppingBlock || this.isTouchingStickingBlock || (this.wasTouchingWater && !(this.getFeetBlockState().getBlock() instanceof MesogleaBlock)))) {
 				++this.ticksSinceActive;
 				if (this.ticksSinceActive >= 200) {
 					this.destroy(false);
@@ -207,7 +211,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 				this.ticksSinceActive = 0;
 			}
 
-			if (!(this.isTouchingStoppingBlock || this.isTouchingLeaves)) {
+			if (!(this.isTouchingStoppingBlock || this.isTouchingStickingBlock)) {
 				Vec3 deltaMovement = this.getDeltaMovement();
 				WindManager windManager = WindManager.getWindManager(serverLevel);
 				double multiplier = (Math.max((brightness - (Math.max(15 - brightness, 0))), 0) * 0.0667) * (this.wasTouchingWater ? 0.16777216 : 1);
@@ -418,7 +422,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		this.setItemZ(compound.getFloat("ItemZ"));
 		this.pitch = compound.getFloat("TumblePitch");
 		this.roll = compound.getFloat("TumbleRoll");
-		this.isTouchingLeaves = compound.getBoolean("IsTouchingLeaves");
+		this.isTouchingStickingBlock = compound.getBoolean("isTouchingStickingBlock");
 		this.isTouchingStoppingBlock = compound.getBoolean("IsTouchingStoppingBlock");
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
 		ContainerHelper.loadAllItems(compound, this.inventory);
@@ -434,7 +438,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		compound.putFloat("ItemZ", this.getItemZ());
 		compound.putFloat("TumblePitch", this.pitch);
 		compound.putFloat("TumbleRoll", this.roll);
-		compound.putBoolean("IsTouchingLeaves", this.isTouchingLeaves);
+		compound.putBoolean("isTouchingStickingBlock", this.isTouchingStickingBlock);
 		compound.putBoolean("IsTouchingStoppingBlock", this.isTouchingStoppingBlock);
 		ContainerHelper.saveAllItems(compound, this.inventory);
 	}

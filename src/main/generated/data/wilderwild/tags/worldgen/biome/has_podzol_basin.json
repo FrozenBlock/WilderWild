@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:bamboo_jungle",
+    {
+      "id": "wilderwild:temperate_rainforest",
+      "required": false
+    }
+  ]
+}
