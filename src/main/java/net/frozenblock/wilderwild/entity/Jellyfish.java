@@ -153,6 +153,7 @@ public class Jellyfish extends NoFlopAbstractFish {
             }
         }
 		int seaLevel = level.getSeaLevel();
+        return reason == MobSpawnType.SPAWNER || random.nextInt(0, 53) == 3 && pos.getY() <= seaLevel && pos.getY() >= seaLevel - 13 && random.nextInt(0, 50) == 1;
     }
 
     @Override
