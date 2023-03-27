@@ -844,6 +844,34 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.WINDSWEPT_FOREST)
 					.add(Biomes.WINDSWEPT_HILLS);
 
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SPARSE_JUNGLE_FLOWERS)
+					.add(Biomes.SPARSE_JUNGLE)
+					.add(Biomes.BAMBOO_JUNGLE)
+					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_JUNGLE_FLOWERS)
+					.add(Biomes.JUNGLE)
+					.addOptional(RegisterWorldgen.BIRCH_JUNGLE);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_JUNGLE_BUSH)
+					.add(Biomes.JUNGLE)
+					.add(Biomes.BAMBOO_JUNGLE)
+					.addOptional(RegisterWorldgen.BIRCH_JUNGLE);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SPARSE_JUNGLE_BUSH)
+					.add(Biomes.SPARSE_JUNGLE)
+					.add(Biomes.BAMBOO_JUNGLE)
+					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_MOSS_PILE)
+					.add(Biomes.SPARSE_JUNGLE)
+					.add(Biomes.BAMBOO_JUNGLE)
+					.add(Biomes.JUNGLE)
+					.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
+					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
+					.addOptional(RegisterWorldgen.RAINFOREST)
+					.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
+
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_DECORATIVE_MUD)
 					.add(Biomes.SWAMP);
 
