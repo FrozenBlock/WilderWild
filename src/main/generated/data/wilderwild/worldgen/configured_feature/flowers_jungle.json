@@ -70,25 +70,40 @@
                 "data": {
                   "Name": "minecraft:orange_tulip"
                 },
-                "weight": 2
+                "weight": 1
               },
               {
                 "data": {
                   "Name": "minecraft:pink_tulip"
                 },
-                "weight": 2
+                "weight": 1
               },
               {
                 "data": {
                   "Name": "minecraft:red_tulip"
                 },
-                "weight": 2
+                "weight": 1
               },
               {
                 "data": {
                   "Name": "minecraft:white_tulip"
                 },
-                "weight": 2
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "minecraft:allium"
+                },
+                "weight": 3
+              },
+              {
+                "data": {
+                  "Name": "minecraft:peony",
+                  "Properties": {
+                    "half": "lower"
+                  }
+                },
+                "weight": 3
               }
             ]
           }

@@ -282,6 +282,8 @@ public final class WilderPlacedFeatures {
 
     public static final FrozenPlacedFeature FLOWER_FOREST_FLOWERS = register("flower_forest_flowers");
 
+	public static final FrozenPlacedFeature CYPRESS_WETLANDS_FLOWERS = register("cypress_wetlands_flowers");
+
     public static final FrozenPlacedFeature MILKWEED = register("milkweed");
 
     public static final FrozenPlacedFeature MILKWEED_CYPRESS = register("milkweed_cypress");
@@ -873,7 +875,7 @@ public final class WilderPlacedFeatures {
 		);
 
 		DENSE_FLOWER_PLACED.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.FLOWER_DEFAULT),
-				CountPlacement.of(1), InSquarePlacement.spread(),
+				CountPlacement.of(2), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
@@ -882,6 +884,12 @@ public final class WilderPlacedFeatures {
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 				CountPlacement.of(ClampedInt.of(UniformInt.of(-1, 3), 0, 3)), BiomeFilter.biome()
+		);
+
+		CYPRESS_WETLANDS_FLOWERS.makeAndSetHolder(WilderConfiguredFeatures.FLOWERS_CYPRESS_WETLANDS.getHolder(),
+				CountPlacement.of(UniformInt.of(1, 3)),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,  BiomeFilter.biome()
 		);
 
 		MILKWEED.makeAndSetHolder(WilderConfiguredFeatures.MILKWEED.getHolder(),
