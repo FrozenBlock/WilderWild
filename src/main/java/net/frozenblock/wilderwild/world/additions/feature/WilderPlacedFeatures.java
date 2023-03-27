@@ -296,6 +296,10 @@ public final class WilderPlacedFeatures {
 
     public static final FrozenPlacedFeature GLORY_OF_THE_SNOW = register("glory_of_the_snow");
 
+	public static final FrozenPlacedFeature GLORY_OF_THE_SNOW_JUNGLE = register("glory_of_the_snow_jungle");
+
+	public static final FrozenPlacedFeature GLORY_OF_THE_SNOW_SPARSE_JUNGLE = register("glory_of_the_snow_sparse_jungle");
+
 	public static final FrozenPlacedFeature FLOWER_FLOWER_FIELD = register("flower_flower_field");
 
 	public static final FrozenPlacedFeature FLOWER_TEMPERATE_RAINFOREST = register("flower_temperate_rainforest");
@@ -920,6 +924,16 @@ public final class WilderPlacedFeatures {
 
 		GLORY_OF_THE_SNOW.makeAndSetHolder(WilderConfiguredFeatures.GLORY_OF_THE_SNOW.getHolder(),
 				RarityFilter.onAverageOnceEvery(11), CountPlacement.of(2), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
+		GLORY_OF_THE_SNOW_JUNGLE.makeAndSetHolder(WilderConfiguredFeatures.GLORY_OF_THE_SNOW_JUNGLE.getHolder(),
+				CountPlacement.of(2), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
+		GLORY_OF_THE_SNOW_SPARSE_JUNGLE.makeAndSetHolder(WilderConfiguredFeatures.GLORY_OF_THE_SNOW_JUNGLE.getHolder(),
+				RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
