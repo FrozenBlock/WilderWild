@@ -54,7 +54,23 @@
       "minecraft:ore_diorite_lower",
       "minecraft:ore_andesite_upper",
       "minecraft:ore_andesite_lower",
-      "minecraft:ore_tuff"
+      "minecraft:ore_tuff",
+      "minecraft:ore_coal_upper",
+      "minecraft:ore_coal_lower",
+      "minecraft:ore_iron_upper",
+      "minecraft:ore_iron_middle",
+      "minecraft:ore_iron_small",
+      "minecraft:ore_gold",
+      "minecraft:ore_gold_lower",
+      "minecraft:ore_redstone",
+      "minecraft:ore_redstone_lower",
+      "minecraft:ore_diamond",
+      "minecraft:ore_diamond_large",
+      "minecraft:ore_diamond_buried",
+      "minecraft:ore_lapis",
+      "minecraft:ore_lapis_buried",
+      "minecraft:ore_copper",
+      "minecraft:underwater_magma"
     ],
     [],
     [
@@ -67,10 +83,13 @@
       "wilderwild:seeding_dandelion_cypress",
       "wilderwild:milkweed_cypress",
       "wilderwild:flower_forest_flowers",
+      "wilderwild:dense_flower_placed",
+      "wilderwild:cypress_wetlands_flowers",
       "wilderwild:cypress_wetlands_trees",
       "wilderwild:cypress_wetlands_trees_water",
-      "wilderwild:fallen_oak_and_cypress_placed",
+      "wilderwild:patch_algae",
       "minecraft:glow_lichen",
+      "minecraft:patch_grass_forest",
       "minecraft:patch_sugar_cane_swamp",
       "minecraft:patch_pumpkin"
     ],
@@ -95,7 +114,7 @@
         "type": "minecraft:frog",
         "maxCount": 5,
         "minCount": 4,
-        "weight": 12
+        "weight": 14
       },
       {
         "type": "minecraft:pig",
@@ -190,14 +209,7 @@
       }
     ],
     "water_creature": [],
-    "wilderwildfireflies": [
-      {
-        "type": "wilderwild:firefly",
-        "maxCount": 6,
-        "minCount": 2,
-        "weight": 1
-      }
-    ],
+    "wilderwildfireflies": [],
     "wilderwildjellyfish": [],
     "wilderwildtumbleweed": []
   },

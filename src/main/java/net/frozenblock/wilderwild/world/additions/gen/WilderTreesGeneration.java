@@ -76,6 +76,9 @@ public final class WilderTreesGeneration {
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_MANGROVE_TREES),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_MANGROVE_PLACED.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_OAK_AND_CYPRESS_TREES),
+					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_OAK_AND_CYPRESS_PLACED.getKey());
         }
 
         if (WilderSharedConstants.config().wildTrees()) {

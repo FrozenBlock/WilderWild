@@ -227,6 +227,27 @@ public final class WilderConfiguredFeatures {
 
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> MOSS_CARPET = register("moss_carpet");
 
+	public static final SimpleWeightedRandomList<BlockState> FLOWERS_CYPRESS_WETLANDS_POOL = SimpleWeightedRandomList.<BlockState>builder()
+			.add(RegisterBlocks.MILKWEED.defaultBlockState(), 3)
+			.add(RegisterBlocks.DATURA.defaultBlockState(), 2)
+			.add(RegisterBlocks.SEEDING_DANDELION.defaultBlockState(), 1)
+			.add(Blocks.LILAC.defaultBlockState(), 3)
+			.add(Blocks.DANDELION.defaultBlockState(), 1)
+			.add(Blocks.BLUE_ORCHID.defaultBlockState(), 2)
+			.add(Blocks.POPPY.defaultBlockState(), 1)
+			.add(RegisterBlocks.CARNATION.defaultBlockState(), 2)
+			.add(Blocks.ORANGE_TULIP.defaultBlockState(), 1)
+			.add(Blocks.PINK_TULIP.defaultBlockState(), 1)
+			.add(Blocks.RED_TULIP.defaultBlockState(), 1)
+			.add(Blocks.WHITE_TULIP.defaultBlockState(), 1)
+			.add(Blocks.OXEYE_DAISY.defaultBlockState(), 3)
+			.add(Blocks.ALLIUM.defaultBlockState(), 3)
+			.add(Blocks.ROSE_BUSH.defaultBlockState(), 3)
+			.add(Blocks.AZURE_BLUET.defaultBlockState(), 3)
+			.add(Blocks.LILY_OF_THE_VALLEY.defaultBlockState(), 3)
+			.add(Blocks.PEONY.defaultBlockState(), 2)
+			.build();
+
 	public static final SimpleWeightedRandomList<BlockState> FLOWERS_TEMPERATE_RAINFOREST_POOL = SimpleWeightedRandomList.<BlockState>builder()
 			.add(RegisterBlocks.MILKWEED.defaultBlockState(), 3)
 			.add(RegisterBlocks.DATURA.defaultBlockState(), 5)
@@ -246,6 +267,8 @@ public final class WilderConfiguredFeatures {
 			.add(Blocks.BLUE_ORCHID.defaultBlockState(), 3)
 			.add(Blocks.POPPY.defaultBlockState(), 4)
 			.add(RegisterBlocks.CARNATION.defaultBlockState(), 8)
+			.add(Blocks.ALLIUM.defaultBlockState(), 2)
+			.add(Blocks.PEONY.defaultBlockState(), 2)
 			.build();
 
 	public static final SimpleWeightedRandomList<BlockState> FLOWERS_JUNGLE_POOL = SimpleWeightedRandomList.<BlockState>builder()
@@ -257,11 +280,15 @@ public final class WilderConfiguredFeatures {
 			.add(Blocks.BLUE_ORCHID.defaultBlockState(), 3)
 			.add(Blocks.POPPY.defaultBlockState(), 4)
 			.add(RegisterBlocks.CARNATION.defaultBlockState(), 3)
-			.add(Blocks.ORANGE_TULIP.defaultBlockState(), 2)
-			.add(Blocks.PINK_TULIP.defaultBlockState(), 2)
-			.add(Blocks.RED_TULIP.defaultBlockState(), 2)
-			.add(Blocks.WHITE_TULIP.defaultBlockState(), 2)
+			.add(Blocks.ORANGE_TULIP.defaultBlockState(), 1)
+			.add(Blocks.PINK_TULIP.defaultBlockState(), 1)
+			.add(Blocks.RED_TULIP.defaultBlockState(), 1)
+			.add(Blocks.WHITE_TULIP.defaultBlockState(), 1)
+			.add(Blocks.ALLIUM.defaultBlockState(), 3)
+			.add(Blocks.PEONY.defaultBlockState(), 3)
 			.build();
+
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_CYPRESS_WETLANDS = register("flowers_cypress_wetlands");
 
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_TEMPERATE_RAINFOREST = register("flowers_temperate_rainforest");
 
@@ -1072,6 +1099,16 @@ public final class WilderConfiguredFeatures {
 												BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO)
 										)
 								)
+						)
+				)
+		);
+
+		FLOWERS_CYPRESS_WETLANDS.makeAndSetHolder(Feature.FLOWER,
+				FeatureUtils.simpleRandomPatchConfiguration(
+						38,
+						PlacementUtils.onlyWhenEmpty(
+								Feature.SIMPLE_BLOCK,
+								new SimpleBlockConfiguration(new WeightedStateProvider(FLOWERS_CYPRESS_WETLANDS_POOL))
 						)
 				)
 		);

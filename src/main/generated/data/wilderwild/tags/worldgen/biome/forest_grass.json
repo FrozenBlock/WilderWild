@@ -12,6 +12,10 @@
       "required": false
     },
     {
+      "id": "wilderwild:cypress_wetlands",
+      "required": false
+    },
+    {
       "id": "wilderwild:birch_taiga",
       "required": false
     },

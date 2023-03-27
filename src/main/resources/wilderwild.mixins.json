@@ -31,6 +31,7 @@
     "server.general.LavaFluidMixin",
     "server.general.LeavesBlockMixin",
     "server.general.LightningBoltMixin",
+    "server.general.LootTableMixin",
     "server.general.MobMixin",
     "server.general.NaturalSpawnerMixin",
     "server.general.RotatedPillarBlockMixin",

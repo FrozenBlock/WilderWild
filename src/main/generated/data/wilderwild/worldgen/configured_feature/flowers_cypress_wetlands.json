@@ -16,7 +16,7 @@
                     "half": "lower"
                   }
                 },
-                "weight": 5
+                "weight": 3
               },
               {
                 "data": {
@@ -25,13 +25,13 @@
                     "half": "lower"
                   }
                 },
-                "weight": 7
+                "weight": 2
               },
               {
                 "data": {
                   "Name": "wilderwild:seeding_dandelion"
                 },
-                "weight": 7
+                "weight": 1
               },
               {
                 "data": {
@@ -46,31 +46,82 @@
                 "data": {
                   "Name": "minecraft:dandelion"
                 },
-                "weight": 4
+                "weight": 1
               },
               {
                 "data": {
                   "Name": "minecraft:blue_orchid"
                 },
-                "weight": 3
+                "weight": 2
               },
               {
                 "data": {
                   "Name": "minecraft:poppy"
                 },
-                "weight": 4
+                "weight": 1
               },
               {
                 "data": {
                   "Name": "wilderwild:carnation"
                 },
-                "weight": 8
+                "weight": 2
+              },
+              {
+                "data": {
+                  "Name": "minecraft:orange_tulip"
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "minecraft:pink_tulip"
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "minecraft:red_tulip"
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "minecraft:white_tulip"
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "minecraft:oxeye_daisy"
+                },
+                "weight": 3
               },
               {
                 "data": {
                   "Name": "minecraft:allium"
                 },
-                "weight": 2
+                "weight": 3
+              },
+              {
+                "data": {
+                  "Name": "minecraft:rose_bush",
+                  "Properties": {
+                    "half": "lower"
+                  }
+                },
+                "weight": 3
+              },
+              {
+                "data": {
+                  "Name": "minecraft:azure_bluet"
+                },
+                "weight": 3
+              },
+              {
+                "data": {
+                  "Name": "minecraft:lily_of_the_valley"
+                },
+                "weight": 3
               },
               {
                 "data": {
@@ -95,7 +146,7 @@
         }
       ]
     },
-    "tries": 32,
+    "tries": 38,
     "xz_spread": 7,
     "y_spread": 3
   }
