@@ -210,7 +210,16 @@ public final class WilderConfiguredFeatures {
 			.add(RegisterBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(RegisterProperties.FLOWER_COLOR, FlowerColor.WHITE), 1)
 			.build();
 
+	public static final SimpleWeightedRandomList<BlockState> GLORY_OF_THE_SNOW_JUNGLE_POOL = SimpleWeightedRandomList.<BlockState>builder()
+			.add(RegisterBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(RegisterProperties.FLOWER_COLOR, FlowerColor.BLUE), 1)
+			.add(RegisterBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(RegisterProperties.FLOWER_COLOR, FlowerColor.PURPLE), 1)
+			.add(RegisterBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(RegisterProperties.FLOWER_COLOR, FlowerColor.PINK), 2)
+			.add(RegisterBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(RegisterProperties.FLOWER_COLOR, FlowerColor.WHITE), 2)
+			.build();
+
     public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> GLORY_OF_THE_SNOW = register("glory_of_the_snow");
+
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> GLORY_OF_THE_SNOW_JUNGLE = register("glory_of_the_snow_jungle");
 
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_FLOWER_FIELD = register("flower_flower_field");
 
@@ -991,6 +1000,16 @@ public final class WilderConfiguredFeatures {
 						PlacementUtils.onlyWhenEmpty(
 								Feature.SIMPLE_BLOCK,
 								new SimpleBlockConfiguration(new WeightedStateProvider(GLORY_OF_THE_SNOW_POOL))
+						)
+				)
+		);
+
+		GLORY_OF_THE_SNOW_JUNGLE.makeAndSetHolder(Feature.FLOWER,
+				FeatureUtils.simpleRandomPatchConfiguration(
+						8,
+						PlacementUtils.onlyWhenEmpty(
+								Feature.SIMPLE_BLOCK,
+								new SimpleBlockConfiguration(new WeightedStateProvider(GLORY_OF_THE_SNOW_JUNGLE_POOL))
 						)
 				)
 		);
