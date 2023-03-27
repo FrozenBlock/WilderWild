@@ -6,6 +6,10 @@
     "minecraft:bamboo_jungle",
     "minecraft:dark_forest",
     {
+      "id": "wilderwild:cypress_wetlands",
+      "required": false
+    },
+    {
       "id": "wilderwild:birch_jungle",
       "required": false
     },
