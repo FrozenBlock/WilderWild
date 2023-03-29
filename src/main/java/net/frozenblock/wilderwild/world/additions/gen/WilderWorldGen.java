@@ -34,13 +34,16 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 public final class WilderWorldGen {
     public static void generateWildWorldGen() {
         replaceFeatures();
-        WilderFlowersGeneration.generateFlower();
-        WilderGrassGeneration.generateGrass();
+        WilderVegetationGeneration.generateFlower();
+		WilderVegetationGeneration.generateBush();
+		WilderVegetationGeneration.generateCacti();
+		WilderVegetationGeneration.generateAlgae();
+		WilderVegetationGeneration.generateGrass();
         WilderMiscGeneration.generateMisc();
 
         WilderTreeDecorators.generateTreeDecorators();
         WilderTreesGeneration.generateTrees();
-        WilderMushroomGeneration.generateMushroom();
+		WilderVegetationGeneration.generateMushroom();
 
         WilderBiomeSettings.init();
 

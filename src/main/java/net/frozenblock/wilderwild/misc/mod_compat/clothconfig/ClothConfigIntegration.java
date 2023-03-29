@@ -475,6 +475,31 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean wildFlowers() {
+		return WORLDGEN.wilderWildFlowerGen;
+	}
+
+	@Override
+	public boolean wildBushes() {
+		return WORLDGEN.wilderWildBushGen;
+	}
+
+	@Override
+	public boolean wildCacti() {
+		return WORLDGEN.wilderWildCactusGen;
+	}
+
+	@Override
+	public boolean wildMushrooms() {
+		return WORLDGEN.wilderWildMushroomGen;
+	}
+
+	@Override
+	public boolean algae() {
+		return WORLDGEN.algae;
+	}
+
+	@Override
 	public boolean snowBelowTrees() {
 		return WORLDGEN.snowBelowTrees;
 	}

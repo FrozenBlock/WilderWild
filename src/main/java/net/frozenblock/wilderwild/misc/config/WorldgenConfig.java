@@ -75,6 +75,11 @@ public final class WorldgenConfig implements ConfigData {
     public boolean fallenLogs = DefaultWorldgenConfig.FALLEN_LOGS;
     public boolean wilderWildTreeGen = DefaultWorldgenConfig.WILDER_WILD_TREE_GEN;
     public boolean wilderWildGrassGen = DefaultWorldgenConfig.WILDER_WILD_GRASS_GEN;
+	public boolean wilderWildFlowerGen = DefaultWorldgenConfig.WILDER_WILD_FLOWER_GEN;
+	public boolean wilderWildBushGen = DefaultWorldgenConfig.WILDER_WILD_BUSH_GEN;
+	public boolean wilderWildCactusGen = DefaultWorldgenConfig.WILDER_WILD_CACTUS_GEN;
+	public boolean wilderWildMushroomGen = DefaultWorldgenConfig.WILDER_WILD_MUSHROOM_GEN;
+	public boolean algae = DefaultWorldgenConfig.ALGAE_GEN;
 	public boolean snowBelowTrees = DefaultWorldgenConfig.SNOW_BELOW_TREES;
 	public boolean surfaceTransitions = DefaultWorldgenConfig.SURFACE_TRANSITIONS;
 	public boolean newWitchHuts = DefaultWorldgenConfig.NEW_WITCH_HUTS;
@@ -276,6 +281,13 @@ public final class WorldgenConfig implements ConfigData {
                 .requireRestart()
                 .build()
         );
+		var wilderWildFlowers = category.addEntry(entryBuilder.startBooleanToggle(text("wilder_wild_flowers"), config.wilderWildFlowerGen)
+				.setDefaultValue(DefaultWorldgenConfig.WILDER_WILD_FLOWER_GEN)
+				.setSaveConsumer(newValue -> config.wilderWildFlowerGen = newValue)
+				.setTooltip(tooltip("wilder_wild_flowers"))
+				.requireRestart()
+				.build()
+		);
         var wilderWildTrees = category.addEntry(entryBuilder.startBooleanToggle(text("wilder_wild_trees"), config.wilderWildTreeGen)
                 .setDefaultValue(DefaultWorldgenConfig.WILDER_WILD_TREE_GEN)
                 .setSaveConsumer(newValue -> config.wilderWildTreeGen = newValue)
@@ -283,6 +295,34 @@ public final class WorldgenConfig implements ConfigData {
                 .requireRestart()
                 .build()
         );
+		var wilderWildBushes = category.addEntry(entryBuilder.startBooleanToggle(text("wilder_wild_bushes"), config.wilderWildBushGen)
+				.setDefaultValue(DefaultWorldgenConfig.WILDER_WILD_BUSH_GEN)
+				.setSaveConsumer(newValue -> config.wilderWildBushGen = newValue)
+				.setTooltip(tooltip("wilder_wild_bushes"))
+				.requireRestart()
+				.build()
+		);
+		var wilderWildCacti = category.addEntry(entryBuilder.startBooleanToggle(text("wilder_wild_cacti"), config.wilderWildCactusGen)
+				.setDefaultValue(DefaultWorldgenConfig.WILDER_WILD_CACTUS_GEN)
+				.setSaveConsumer(newValue -> config.wilderWildCactusGen = newValue)
+				.setTooltip(tooltip("wilder_wild_cacti"))
+				.requireRestart()
+				.build()
+		);
+		var wilderWildMushrooms = category.addEntry(entryBuilder.startBooleanToggle(text("wilder_wild_mushrooms"), config.wilderWildMushroomGen)
+				.setDefaultValue(DefaultWorldgenConfig.WILDER_WILD_MUSHROOM_GEN)
+				.setSaveConsumer(newValue -> config.wilderWildMushroomGen = newValue)
+				.setTooltip(tooltip("wilder_wild_mushrooms"))
+				.requireRestart()
+				.build()
+		);
+		var algae = category.addEntry(entryBuilder.startBooleanToggle(text("algae_gen"), config.algae)
+				.setDefaultValue(DefaultWorldgenConfig.ALGAE_GEN)
+				.setSaveConsumer(newValue -> config.algae = newValue)
+				.setTooltip(tooltip("algae_gen"))
+				.requireRestart()
+				.build()
+		);
 		var snowBelowTrees = category.addEntry(entryBuilder.startBooleanToggle(text("snow_below_trees"), config.snowBelowTrees)
 				.setDefaultValue(DefaultWorldgenConfig.SNOW_BELOW_TREES)
 				.setSaveConsumer(newValue -> config.snowBelowTrees = newValue)
