@@ -1350,7 +1350,7 @@ public final class WilderTreeConfigured {
 	}
 
 	private static TreeConfiguration.TreeConfigurationBuilder tallCherry() {
-		return cherryBuilder(Blocks.CHERRY_LOG, Blocks.CHERRY_LEAVES, 9, 3, 2, UniformInt.of(3, 6), UniformInt.of(-4, -3), UniformInt.of(-1, 0));
+		return cherryBuilder(Blocks.CHERRY_LOG, Blocks.CHERRY_LEAVES, 9, 3, 2, UniformInt.of(3, 5), UniformInt.of(-6, -4), UniformInt.of(-2, 0));
 	}
 
 	private static TreeConfiguration.TreeConfigurationBuilder cherryBuilder(Block log, Block leaves, int baseHeight, int randomHeight1, int randomHeight2, IntProvider branchLength, UniformInt branchStartOffsetFromTop, UniformInt branchEndOffsetFromTop) {

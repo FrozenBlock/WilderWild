@@ -15,7 +15,7 @@
                     "half": "lower"
                   }
                 },
-                "weight": 3
+                "weight": 2
               },
               {
                 "data": {
@@ -31,6 +31,15 @@
                   "Name": "minecraft:poppy"
                 },
                 "weight": 9
+              },
+              {
+                "data": {
+                  "Name": "minecraft:rose_bush",
+                  "Properties": {
+                    "half": "lower"
+                  }
+                },
+                "weight": 3
               },
               {
                 "data": {

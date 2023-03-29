@@ -67,19 +67,19 @@
         "type": "minecraft:uniform",
         "value": {
           "max_inclusive": 0,
-          "min_inclusive": -1
+          "min_inclusive": -2
         }
       },
       "branch_horizontal_length": {
         "type": "minecraft:uniform",
         "value": {
-          "max_inclusive": 6,
+          "max_inclusive": 5,
           "min_inclusive": 3
         }
       },
       "branch_start_offset_from_top": {
-        "max_inclusive": -3,
-        "min_inclusive": -4
+        "max_inclusive": -4,
+        "min_inclusive": -6
       },
       "height_rand_a": 3,
       "height_rand_b": 2

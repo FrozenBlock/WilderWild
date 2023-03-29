@@ -291,9 +291,10 @@ public final class WilderConfiguredFeatures {
 			.build();
 
 	public static final SimpleWeightedRandomList<BlockState> FLOWERS_CHERRY_POOL = SimpleWeightedRandomList.<BlockState>builder()
-			.add(RegisterBlocks.DATURA.defaultBlockState(), 3)
+			.add(RegisterBlocks.DATURA.defaultBlockState(), 2)
 			.add(Blocks.LILAC.defaultBlockState(), 7)
 			.add(Blocks.POPPY.defaultBlockState(), 9)
+			.add(Blocks.ROSE_BUSH.defaultBlockState(), 3)
 			.add(Blocks.PINK_TULIP.defaultBlockState(), 5)
 			.add(Blocks.PEONY.defaultBlockState(), 1)
 			.build();
@@ -974,7 +975,7 @@ public final class WilderConfiguredFeatures {
 		CHERRIES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 				new RandomFeatureConfiguration(
 						List.of(
-								new WeightedPlacedFeature(WilderTreePlaced.CHERRY_CHECKED.getHolder(), 0.25F),
+								new WeightedPlacedFeature(WilderTreePlaced.CHERRY_CHECKED.getHolder(), 0.075F),
 								new WeightedPlacedFeature(WilderTreePlaced.TALL_CHERRY_BEES_CHECKED.getHolder(), 0.37F)
 						),
 						WilderTreePlaced.CHERRY_BEES_CHECKED.getHolder()

@@ -974,7 +974,7 @@ public final class WilderPlacedFeatures {
 		);
 
 		FLOWER_CHERRY.makeAndSetHolder(WilderConfiguredFeatures.FLOWERS_CHERRY.getHolder(),
-				CountPlacement.of(UniformInt.of(2, 5)), InSquarePlacement.spread(),
+				CountPlacement.of(UniformInt.of(3, 5)), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
