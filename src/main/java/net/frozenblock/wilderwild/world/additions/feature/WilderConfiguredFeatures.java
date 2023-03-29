@@ -194,6 +194,8 @@ public final class WilderConfiguredFeatures {
 
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> PALMS_OASIS = register("palms_oasis");
 
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> CHERRIES = register("cherries");
+
 	//FLOWERS
     public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> SEEDING_DANDELION = register("seeding_dandelion");
 
@@ -288,6 +290,14 @@ public final class WilderConfiguredFeatures {
 			.add(Blocks.PEONY.defaultBlockState(), 3)
 			.build();
 
+	public static final SimpleWeightedRandomList<BlockState> FLOWERS_CHERRY_POOL = SimpleWeightedRandomList.<BlockState>builder()
+			.add(RegisterBlocks.DATURA.defaultBlockState(), 3)
+			.add(Blocks.LILAC.defaultBlockState(), 7)
+			.add(Blocks.POPPY.defaultBlockState(), 9)
+			.add(Blocks.PINK_TULIP.defaultBlockState(), 5)
+			.add(Blocks.PEONY.defaultBlockState(), 1)
+			.build();
+
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_CYPRESS_WETLANDS = register("flowers_cypress_wetlands");
 
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_TEMPERATE_RAINFOREST = register("flowers_temperate_rainforest");
@@ -299,6 +309,8 @@ public final class WilderConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_JUNGLE = register("flowers_jungle");
 
 	public static final FrozenConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> TALL_FLOWER_FLOWER_FIELD = register("tall_flower_flower_field");
+
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_CHERRY = register("flowers_cherry");
 
 	//VEGETATION
 	public static final SimpleWeightedRandomList<BlockState> OASIS_GRASS_POOL = SimpleWeightedRandomList.<BlockState>builder()
@@ -959,6 +971,16 @@ public final class WilderConfiguredFeatures {
 				)
 		);
 
+		CHERRIES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+				new RandomFeatureConfiguration(
+						List.of(
+								new WeightedPlacedFeature(WilderTreePlaced.CHERRY_CHECKED.getHolder(), 0.25F),
+								new WeightedPlacedFeature(WilderTreePlaced.TALL_CHERRY_BEES_CHECKED.getHolder(), 0.37F)
+						),
+						WilderTreePlaced.CHERRY_BEES_CHECKED.getHolder()
+				)
+		);
+
 		// FLOWERS
 
 		SEEDING_DANDELION.makeAndSetHolder(Feature.FLOWER,
@@ -1196,6 +1218,16 @@ public final class WilderConfiguredFeatures {
 												new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.PEONY))
 										)
 								)
+						)
+				)
+		);
+
+		FLOWERS_CHERRY.makeAndSetHolder(Feature.FLOWER,
+				FeatureUtils.simpleRandomPatchConfiguration(
+						36,
+						PlacementUtils.onlyWhenEmpty(
+								Feature.SIMPLE_BLOCK,
+								new SimpleBlockConfiguration(new WeightedStateProvider(FLOWERS_CHERRY_POOL))
 						)
 				)
 		);

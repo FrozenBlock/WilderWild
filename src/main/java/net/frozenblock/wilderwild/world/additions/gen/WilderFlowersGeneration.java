@@ -35,8 +35,8 @@ public final class WilderFlowersGeneration {
         BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_DATURA),
                 GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DATURA_BIRCH.getKey());
 
-		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_COMMON_DATURA),
-				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.COMMON_DATURA.getKey());
+		BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.CHERRY_FLOWERS),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_CHERRY.getKey());
 
         BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_GLORY_OF_THE_SNOW),
                 GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.GLORY_OF_THE_SNOW.getKey());

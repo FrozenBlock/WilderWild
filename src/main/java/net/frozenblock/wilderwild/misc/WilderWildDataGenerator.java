@@ -537,6 +537,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_MANGROVE_TREES)
 					.add(Biomes.MANGROVE_SWAMP);
 
+			this.getOrCreateTagBuilder(WilderBiomeTags.CHERRY_TREES)
+					.addOptional(Biomes.CHERRY_GROVE);
+
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_MOSS_LAKE)
 					.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
 					.addOptional(RegisterWorldgen.RAINFOREST);
@@ -648,9 +651,6 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
 					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST);
 
-			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COMMON_DATURA)
-					.addOptional(Biomes.CHERRY_GROVE);
-
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_CATTAIL)
 					.add(Biomes.DARK_FOREST)
 					.add(Biomes.JUNGLE)
@@ -707,6 +707,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
 					.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
 					.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.CHERRY_FLOWERS)
+					.addOptional(Biomes.CHERRY_GROVE);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_TUMBLEWEED_PLANT)
 					.add(Biomes.DESERT)
@@ -780,6 +783,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.add(Biomes.PLAINS)
 					.add(Biomes.FLOWER_FOREST)
 					.add(Biomes.SUNFLOWER_PLAINS)
+					.addOptional(Biomes.CHERRY_GROVE)
 					.addOptional(RegisterWorldgen.FLOWER_FIELD)
 					.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
 					.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)

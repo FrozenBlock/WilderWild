@@ -65,6 +65,7 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_FALLEN_SPRUCE_TREES = bind("has_fallen_spruce_trees");
 	public static final TagKey<Biome> HAS_FALLEN_SWAMP_OAK_TREES = bind("has_fallen_swamp_oak_trees");
 	public static final TagKey<Biome> HAS_FALLEN_MANGROVE_TREES = bind("has_fallen_mangrove_trees");
+	public static final TagKey<Biome> CHERRY_TREES = bind("cherry_trees");
     public static final TagKey<Biome> DARK_FOREST = bind("dark_forest");
     public static final TagKey<Biome> MEADOW = bind("meadow");
 	public static final TagKey<Biome> OAK_SAPLINGS_GROW_SWAMP_VARIANT = bind("oak_saplings_grow_swamp_variant");
@@ -79,13 +80,13 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_SWAMP_MUSHROOM = bind("has_swamp_mushroom");
 	public static final TagKey<Biome> HAS_BIG_MUSHROOM_PATCH = bind("has_big_mushroom_patch");
 	public static final TagKey<Biome> HAS_DATURA = bind("has_datura");
-	public static final TagKey<Biome> HAS_COMMON_DATURA = bind("has_common_datura");
 	public static final TagKey<Biome> HAS_CARNATION = bind("has_carnation");
 	public static final TagKey<Biome> HAS_CATTAIL = bind("has_cattail");
 	public static final TagKey<Biome> HAS_CATTAIL_COMMON = bind("has_cattail_common");
 	public static final TagKey<Biome> HAS_SEEDING_DANDELION = bind("has_seeding_dandelion");
 	public static final TagKey<Biome> HAS_COMMON_SEEDING_DANDELION = bind("has_common_seeding_dandelion");
 	public static final TagKey<Biome> HAS_MILKWEED = bind("has_milkweed");
+	public static final TagKey<Biome> CHERRY_FLOWERS = bind("cherry_flowers");
 	public static final TagKey<Biome> HAS_PALMS = bind("has_palms");
 	public static final TagKey<Biome> HAS_SHORT_SPRUCE = bind("has_short_spruce");
 	public static final TagKey<Biome> HAS_SHORT_MEGA_SPRUCE = bind("has_short_mega_spruce");

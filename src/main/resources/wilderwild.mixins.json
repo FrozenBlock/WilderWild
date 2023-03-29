@@ -59,6 +59,7 @@
     "server.warden.WardenSwimMixin",
     "worldgen.general.AbstractTreeGrowerMixin",
     "worldgen.general.BirchTreeGrowerMixin",
+    "worldgen.general.CherryTreeGrowerMixin",
     "worldgen.general.DarkOakTreeGrowerMixin",
     "worldgen.general.OakTreeGrowerMixin",
     "worldgen.general.OverworldBiomeBuilderMixin",

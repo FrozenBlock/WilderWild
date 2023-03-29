@@ -187,6 +187,8 @@ public final class WilderPlacedFeatures {
 
 	public static final FrozenPlacedFeature PALM_RARE = register("palm_rare");
 
+	public static final FrozenPlacedFeature CHERRY_TREES = register("cherry_trees");
+
 	//MUSHROOMS
     public static final FrozenPlacedFeature BROWN_SHELF_FUNGUS_PLACED = register("brown_shelf_fungus_placed");
 
@@ -311,6 +313,8 @@ public final class WilderPlacedFeatures {
 	public static final FrozenPlacedFeature FLOWER_JUNGLE = register("flower_jungle");
 
 	public static final FrozenPlacedFeature FLOWER_SPARSE_JUNGLE = register("flower_sparse_jungle");
+
+	public static final FrozenPlacedFeature FLOWER_CHERRY = register("flower_cherry");
 
 	public static final FrozenPlacedFeature MOSS_CARPET = register("moss_carpet");
 
@@ -649,6 +653,10 @@ public final class WilderPlacedFeatures {
 				treePlacement(RarityFilter.onAverageOnceEvery(52))
 		);
 
+		CHERRY_TREES.makeAndSetHolder(WilderConfiguredFeatures.CHERRIES.getHolder(),
+				treePlacement(PlacementUtils.countExtra(10, 0.1F, 2))
+		);
+
 		// MUSHROOMS
 
 		BROWN_SHELF_FUNGUS_PLACED.makeAndSetHolder(WilderConfiguredFeatures.BROWN_SHELF_FUNGUS_CONFIGURED.getHolder(),
@@ -962,6 +970,11 @@ public final class WilderPlacedFeatures {
 
 		FLOWER_JUNGLE.makeAndSetHolder(WilderConfiguredFeatures.FLOWERS_JUNGLE.getHolder(),
 				CountPlacement.of(20), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
+		FLOWER_CHERRY.makeAndSetHolder(WilderConfiguredFeatures.FLOWERS_CHERRY.getHolder(),
+				CountPlacement.of(UniformInt.of(2, 5)), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
