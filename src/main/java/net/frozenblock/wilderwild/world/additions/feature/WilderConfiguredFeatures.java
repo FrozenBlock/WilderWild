@@ -975,8 +975,10 @@ public final class WilderConfiguredFeatures {
 		CHERRIES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 				new RandomFeatureConfiguration(
 						List.of(
-								new WeightedPlacedFeature(WilderTreePlaced.CHERRY_CHECKED.getHolder(), 0.075F),
-								new WeightedPlacedFeature(WilderTreePlaced.TALL_CHERRY_BEES_CHECKED.getHolder(), 0.37F)
+								new WeightedPlacedFeature(WilderTreePlaced.CHERRY_CHECKED.getHolder(), 0.025F),
+								new WeightedPlacedFeature(WilderTreePlaced.DYING_CHERRY_CHECKED.getHolder(), 0.0785F),
+								new WeightedPlacedFeature(WilderTreePlaced.TALL_CHERRY_BEES_CHECKED.getHolder(), 0.37F),
+								new WeightedPlacedFeature(WilderTreePlaced.TALL_DYING_CHERRY_CHECKED.getHolder(), 0.0785F)
 						),
 						WilderTreePlaced.CHERRY_BEES_CHECKED.getHolder()
 				)

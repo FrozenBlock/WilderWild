@@ -98,11 +98,11 @@ public final class WilderWorldGen {
 				.add(ModificationPhase.REPLACEMENTS,
 						BiomeSelectors.tag(WilderBiomeTags.CHERRY_TREES),
 						(context) -> {
-							if (WilderSharedConstants.config().wildTrees()) {
-								context.getGenerationSettings().removeFeature(VegetationPlacements.TREES_CHERRY);
-								context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.CHERRY_TREES.getKey());
-							}
-						});
+					if (WilderSharedConstants.config().wildTrees()) {
+						context.getGenerationSettings().removeFeature(VegetationPlacements.TREES_CHERRY);
+						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.CHERRY_TREES.getKey());
+					}
+				});
 
         BiomeModifications.create(WilderSharedConstants.id("replace_birch_trees"))
                 .add(ModificationPhase.REPLACEMENTS,

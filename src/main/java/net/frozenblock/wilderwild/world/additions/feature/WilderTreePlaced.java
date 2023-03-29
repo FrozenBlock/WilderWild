@@ -78,7 +78,11 @@ public final class WilderTreePlaced {
 	//CHERRY
 	public static final FrozenPlacedFeature CHERRY_CHECKED = register("cherry_checked");
 
+	public static final FrozenPlacedFeature DYING_CHERRY_CHECKED = register("dying_cherry_checked");
+
 	public static final FrozenPlacedFeature TALL_CHERRY_CHECKED = register("tall_cherry_checked");
+
+	public static final FrozenPlacedFeature TALL_DYING_CHERRY_CHECKED = register("tall_dying_cherry_checked");
 
 	public static final FrozenPlacedFeature CHERRY_BEES_CHECKED = register("cherry_bees_checked");
 
@@ -301,11 +305,19 @@ public final class WilderTreePlaced {
 				PlacementUtils.filteredByBlockSurvival(Blocks.CHERRY_SAPLING)
 		);
 
+		DYING_CHERRY_CHECKED.makeAndSetHolder(WilderTreeConfigured.DYING_CHERRY_TREE.getHolder(),
+				PlacementUtils.filteredByBlockSurvival(Blocks.CHERRY_SAPLING)
+		);
+
 		CHERRY_BEES_CHECKED.makeAndSetHolder(WilderTreeConfigured.CHERRY_BEES_025.getHolder(),
 				PlacementUtils.filteredByBlockSurvival(Blocks.CHERRY_SAPLING)
 		);
 
 		TALL_CHERRY_CHECKED.makeAndSetHolder(WilderTreeConfigured.TALL_CHERRY_TREE.getHolder(),
+				PlacementUtils.filteredByBlockSurvival(Blocks.CHERRY_SAPLING)
+		);
+
+		TALL_DYING_CHERRY_CHECKED.makeAndSetHolder(WilderTreeConfigured.TALL_DYING_CHERRY_TREE.getHolder(),
 				PlacementUtils.filteredByBlockSurvival(Blocks.CHERRY_SAPLING)
 		);
 

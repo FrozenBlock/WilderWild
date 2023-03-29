@@ -654,7 +654,7 @@ public final class WilderPlacedFeatures {
 		);
 
 		CHERRY_TREES.makeAndSetHolder(WilderConfiguredFeatures.CHERRIES.getHolder(),
-				treePlacement(PlacementUtils.countExtra(10, 0.1F, 2))
+				treePlacement(PlacementUtils.countExtra(10, 0.1F, 3))
 		);
 
 		// MUSHROOMS
@@ -974,7 +974,7 @@ public final class WilderPlacedFeatures {
 		);
 
 		FLOWER_CHERRY.makeAndSetHolder(WilderConfiguredFeatures.FLOWERS_CHERRY.getHolder(),
-				CountPlacement.of(UniformInt.of(3, 5)), InSquarePlacement.spread(),
+				CountPlacement.of(UniformInt.of(3, 8)), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
