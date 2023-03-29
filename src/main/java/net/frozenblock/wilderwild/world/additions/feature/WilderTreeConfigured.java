@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.world.additions.feature;
 
 import com.google.common.collect.ImmutableList;
-import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeature;
@@ -27,6 +26,7 @@ import net.frozenblock.wilderwild.block.BaobabNutBlock;
 import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import static net.frozenblock.wilderwild.world.additions.feature.WilderFeatureUtils.register;
 import net.frozenblock.wilderwild.world.generation.foliage.PalmFoliagePlacer;
 import net.frozenblock.wilderwild.world.generation.foliage.ShortPalmFoliagePlacer;
 import net.frozenblock.wilderwild.world.generation.treedecorators.HeightBasedCobwebTreeDecorator;
@@ -80,8 +80,6 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.GiantTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.UpwardsBranchingTrunkPlacer;
 
-import static net.frozenblock.wilderwild.world.additions.feature.WilderFeatureUtils.register;
-
 public final class WilderTreeConfigured {
 	private WilderTreeConfigured() {
 		throw new UnsupportedOperationException("WilderTreeConfigured contains only static declarations.");
@@ -90,6 +88,8 @@ public final class WilderTreeConfigured {
     private static final ShelfFungusTreeDecorator SHELF_FUNGUS_007 = new ShelfFungusTreeDecorator(0.074F, 0.3F);
 
     private static final ShelfFungusTreeDecorator SHELF_FUNGUS_006 = new ShelfFungusTreeDecorator(0.064F, 0.15F);
+
+	private static final ShelfFungusTreeDecorator SHELF_FUNGUS_002 = new ShelfFungusTreeDecorator(0.02F, 0.4F);
 
     private static final ShelfFungusTreeDecorator SHELF_FUNGUS_006_ONLY_BROWN = new ShelfFungusTreeDecorator(0.064F, 0.0F);
 
@@ -362,7 +362,7 @@ public final class WilderTreeConfigured {
 
 		FALLEN_BIRCH_TREE.makeAndSetHolder(Feature.TREE,
 				fallenBirch().decorators(
-						List.of(
+						ImmutableList.of(
 								VINES_08_UNDER_260_075,
 								MOSS_BIRCH
 						)
@@ -381,7 +381,7 @@ public final class WilderTreeConfigured {
 						UniformInt.of(1, 2),
 						1
 				).ignoreVines().decorators(
-						List.of(
+						ImmutableList.of(
 								VINES_08_UNDER_260_075,
 								MOSS_MOSSY
 						)).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
@@ -420,11 +420,19 @@ public final class WilderTreeConfigured {
 		// OAK
 
 		OAK.makeAndSetHolder(Feature.TREE,
-				oak().build()
+				oak().decorators(
+						ImmutableList.of(
+								SHELF_FUNGUS_002
+						)
+				).build()
 		);
 
 		SHORT_OAK.makeAndSetHolder(Feature.TREE,
-				shortOak().build()
+				shortOak().decorators(
+						ImmutableList.of(
+								SHELF_FUNGUS_002
+						)
+				).build()
 		);
 
 		OAK_BEES_0004.makeAndSetHolder(Feature.TREE,
@@ -447,58 +455,67 @@ public final class WilderTreeConfigured {
 		);
 
 		FANCY_OAK.makeAndSetHolder(Feature.TREE,
-				fancyOak().build()
+				fancyOak().decorators(
+						ImmutableList.of(
+								SHELF_FUNGUS_002
+						)
+				).build()
 		);
 
 		FANCY_DYING_OAK.makeAndSetHolder(Feature.TREE,
 				fancyOak().decorators(
-						List.of(
-								VINES_1_UNDER_260_05
+						ImmutableList.of(
+								VINES_1_UNDER_260_05,
+								SHELF_FUNGUS_007
 						)
 				).build()
 		);
 
 		FANCY_DYING_OAK_BEES_0004.makeAndSetHolder(Feature.TREE,
 				fancyOak().decorators(
-						List.of(
+						ImmutableList.of(
 								BEES_0004,
 								VINES_1_UNDER_260_05,
-								POLLEN_01
+								POLLEN_01,
+								SHELF_FUNGUS_007
 						)
 				).build()
 		);
 
 		FANCY_OAK_BEES_0004.makeAndSetHolder(Feature.TREE,
 				fancyOak().decorators(
-						List.of(
+						ImmutableList.of(
 								BEES_0004,
-								POLLEN_01
+								POLLEN_01,
+								SHELF_FUNGUS_002
 						)
 				).build()
 		);
 
 		FANCY_DYING_OAK_BEES_025.makeAndSetHolder(Feature.TREE,
 				fancyOak().decorators(
-						List.of(
+						ImmutableList.of(
 								BEES_025,
 								VINES_1_UNDER_260_05,
-								POLLEN_01
+								POLLEN_01,
+								SHELF_FUNGUS_002
 						)
 				).build()
 		);
 
 		FANCY_OAK_BEES_025.makeAndSetHolder(Feature.TREE,
 				fancyOak().decorators(
-						List.of(
+						ImmutableList.of(
 								BEES_025,
-								POLLEN_01
+								POLLEN_01,
+								SHELF_FUNGUS_002
 						)
 				).build()
 		);
 
 		FALLEN_OAK_TREE.makeAndSetHolder(Feature.TREE,
 				fallenOak().decorators(
-						List.of(
+						ImmutableList.of(
 								VINES_08_UNDER_260_075,
 								MOSS_OAK
 						)
@@ -507,7 +524,7 @@ public final class WilderTreeConfigured {
 
 		FALLEN_OAK_TREE_NO_MOSS.makeAndSetHolder(Feature.TREE,
 				fallenOak().decorators(
-						List.of(
+						ImmutableList.of(
 								VINES_012_UNDER_260
 						)
 				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
@@ -525,7 +542,7 @@ public final class WilderTreeConfigured {
 						UniformInt.of(1, 2),
 						1
 				).ignoreVines().decorators(
-						List.of(
+						ImmutableList.of(
 								VINES_08_UNDER_260_075,
 								MOSS_MOSSY
 						)
@@ -544,7 +561,7 @@ public final class WilderTreeConfigured {
 						UniformInt.of(1, 2),
 						1
 				).ignoreVines().decorators(
-						List.of(
+						ImmutableList.of(
 								VINES_08_UNDER_260_075,
 								MOSS_MOSSY
 						)
@@ -553,9 +570,10 @@ public final class WilderTreeConfigured {
 
 		FANCY_OAK_BEES.makeAndSetHolder(Feature.TREE,
 				fancyOak().decorators(
-						List.of(
+						ImmutableList.of(
 								BEES,
-								POLLEN_025
+								POLLEN_025,
+								SHELF_FUNGUS_002
 						)
 				).build()
 		);
@@ -569,7 +587,7 @@ public final class WilderTreeConfigured {
 						),
 						new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4))
 				).ignoreVines().decorators(
-						List.of(
+						ImmutableList.of(
 								BEES_0004,
 								VINES_1_UNDER_260_05,
 								POLLEN_01
@@ -587,41 +605,62 @@ public final class WilderTreeConfigured {
 						new DarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
 						new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty())
 				).decorators(
-						List.of(
-								VINES_1_UNDER_260_05
+						ImmutableList.of(
+								VINES_1_UNDER_260_05,
+								SHELF_FUNGUS_006
 						)
 				).ignoreVines().build()
 		);
 
 		TALL_DARK_OAK.makeAndSetHolder(Feature.TREE,
-				tallDarkOak().ignoreVines().build()
+				tallDarkOak().decorators(
+						ImmutableList.of(
+								SHELF_FUNGUS_002
+						)
+				).ignoreVines().build()
 		);
 
 		FANCY_TALL_DARK_OAK.makeAndSetHolder(Feature.TREE,
-				fancyTallDarkOak().ignoreVines().build()
+				fancyTallDarkOak().decorators(
+						ImmutableList.of(
+								SHELF_FUNGUS_002
+						)
+				).ignoreVines().build()
 		);
 
 		DYING_TALL_DARK_OAK.makeAndSetHolder(Feature.TREE,
 				tallDarkOak().decorators(
-						List.of(
-								VINES_1_UNDER_260_05
+						ImmutableList.of(
+								VINES_1_UNDER_260_05,
+								SHELF_FUNGUS_007
 						)
 				).ignoreVines().build()
 		);
 
 		DYING_FANCY_TALL_DARK_OAK.makeAndSetHolder(Feature.TREE,
 				fancyTallDarkOak().decorators(
-						List.of(
-								VINES_1_UNDER_260_05
+						ImmutableList.of(
+								VINES_1_UNDER_260_05,
+								SHELF_FUNGUS_007
 						)
 				).ignoreVines().build()
 		);
 
 		COBWEB_TALL_DARK_OAK.makeAndSetHolder(Feature.TREE,
-				tallDarkOak().decorators(List.of(COBWEB_1_UNDER_260_025)).ignoreVines().build()
+				tallDarkOak().decorators(
+						ImmutableList.of(
+								COBWEB_1_UNDER_260_025,
+								SHELF_FUNGUS_002
+						)
+				).ignoreVines().build()
 		);
 		COBWEB_FANCY_TALL_DARK_OAK.makeAndSetHolder(Feature.TREE,
-				fancyTallDarkOak().decorators(List.of(COBWEB_1_UNDER_260_025)).ignoreVines().build()
+				fancyTallDarkOak().decorators(
+						ImmutableList.of(
+								COBWEB_1_UNDER_260_025,
+								SHELF_FUNGUS_002
+						)
+				).ignoreVines().build()
 		);
 
 		// SWAMP TREE
@@ -657,8 +696,9 @@ public final class WilderTreeConfigured {
 						),
 						new TwoLayersFeatureSize(2, 0, 2)
 				).decorators(
-						List.of(
-								new LeaveVineDecorator(0.125F)
+						ImmutableList.of(
+								new LeaveVineDecorator(0.125F),
+								SHELF_FUNGUS_007
 						)
 				).ignoreVines().dirt(BlockStateProvider.simple(Blocks.OAK_LOG)).build()
 		);
@@ -779,7 +819,7 @@ public final class WilderTreeConfigured {
 
 		FALLEN_SPRUCE_TREE.makeAndSetHolder(Feature.TREE,
 				fallenSpruce().decorators(
-						List.of(
+						ImmutableList.of(
 								VINES_1_UNDER_260_075,
 								MOSS_SPRUCE_PALM
 						)
@@ -798,7 +838,7 @@ public final class WilderTreeConfigured {
 						UniformInt.of(1, 2),
 						1
 				).ignoreVines().decorators(
-						List.of(
+						ImmutableList.of(
 								VINES_08_UNDER_260_075,
 								MOSS_MOSSY
 						)
@@ -874,7 +914,7 @@ public final class WilderTreeConfigured {
 						new AcaciaFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0)),
 						new TwoLayersFeatureSize(1, 0, 2)
 				).decorators(
-						List.of(
+						ImmutableList.of(
 								new AttachedToLeavesDecorator(
 										0.065F,
 										1,
@@ -885,7 +925,7 @@ public final class WilderTreeConfigured {
 												UniformInt.of(0, 2)
 										),
 										4,
-										List.of(
+										ImmutableList.of(
 												Direction.DOWN
 										)
 								)
@@ -901,7 +941,7 @@ public final class WilderTreeConfigured {
 						new AcaciaFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0)),
 						new TwoLayersFeatureSize(1, 0, 2)
 				).decorators(
-						List.of(
+						ImmutableList.of(
 								new AttachedToLeavesDecorator(
 										0.065F,
 										1,
@@ -913,7 +953,7 @@ public final class WilderTreeConfigured {
 												UniformInt.of(0, 2)
 										),
 										4,
-										List.of(
+										ImmutableList.of(
 												Direction.DOWN
 										)
 								)
@@ -939,7 +979,7 @@ public final class WilderTreeConfigured {
 
 		FALLEN_CYPRESS_TREE.makeAndSetHolder(Feature.TREE,
 				fallenCypress().decorators(
-						List.of(
+						ImmutableList.of(
 								VINES_008_UNDER_82,
 								MOSS_CYPRESS
 						)
@@ -955,7 +995,8 @@ public final class WilderTreeConfigured {
 						new TwoLayersFeatureSize(2, 1, 2)
 				).decorators(
 						ImmutableList.of(
-								SHELF_FUNGUS_006_ONLY_BROWN, VINES_008_UNDER_82
+								SHELF_FUNGUS_006_ONLY_BROWN,
+								VINES_008_UNDER_82
 						)
 				).ignoreVines().build()
 		);
@@ -1038,7 +1079,7 @@ public final class WilderTreeConfigured {
 						4,
 						9
 				).decorators(
-						List.of(
+						ImmutableList.of(
 								new LeavesAroundTopTreeDecorator(
 										0.25F,
 										0,
@@ -1049,7 +1090,7 @@ public final class WilderTreeConfigured {
 												ConstantInt.of(0)
 										),
 										4,
-										List.of(
+										ImmutableList.of(
 												Direction.DOWN
 										)
 								)
@@ -1069,7 +1110,7 @@ public final class WilderTreeConfigured {
 						5,
 						10
 				).decorators(
-						List.of(
+						ImmutableList.of(
 								new LeavesAroundTopTreeDecorator(
 										0.25F,
 										0,
@@ -1080,7 +1121,7 @@ public final class WilderTreeConfigured {
 												ConstantInt.of(0)
 										),
 										4,
-										List.of(
+										ImmutableList.of(
 												Direction.DOWN
 										)
 								)
@@ -1108,7 +1149,7 @@ public final class WilderTreeConfigured {
 						3,
 						2
 				).decorators(
-						List.of(
+						ImmutableList.of(
 								new LeavesAroundTopTreeDecorator(
 										0.3F,
 										0,
@@ -1119,7 +1160,7 @@ public final class WilderTreeConfigured {
 												ConstantInt.of(0)
 										),
 										4,
-										List.of(
+										ImmutableList.of(
 												Direction.DOWN
 										)
 								)
@@ -1129,7 +1170,7 @@ public final class WilderTreeConfigured {
 
 		FALLEN_PALM.makeAndSetHolder(Feature.TREE,
 				fallenPalm().decorators(
-						List.of(
+						ImmutableList.of(
 								VINES_08_UNDER_260_075,
 								MOSS_SPRUCE_PALM
 						)
@@ -1159,7 +1200,7 @@ public final class WilderTreeConfigured {
 		//JUNGLE
 		FALLEN_JUNGLE_TREE.makeAndSetHolder(Feature.TREE,
 				fallenJungle().decorators(
-						List.of(
+						ImmutableList.of(
 								VINES_08_UNDER_260_075,
 								MOSS_JUNGLE
 						)
@@ -1169,7 +1210,7 @@ public final class WilderTreeConfigured {
 		//ACACIA
 		FALLEN_ACACIA_TREE.makeAndSetHolder(Feature.TREE,
 				fallenAcacia().decorators(
-						List.of(
+						ImmutableList.of(
 								VINES_012_UNDER_260
 						)
 				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
@@ -1178,7 +1219,7 @@ public final class WilderTreeConfigured {
 		//MANGROVE
 		FALLEN_MANGROVE_TREE.makeAndSetHolder(Feature.TREE,
 				fallenMangrove().decorators(
-						List.of(
+						ImmutableList.of(
 								VINES_012_UNDER_260,
 								MOSS_MOSSY
 						)
