@@ -22,6 +22,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
@@ -74,6 +75,26 @@ public final class WilderWorldGen {
 						context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TALL_GRASS.getHolder().value());
 					}
 				});
+
+		BiomeModifications.create(WilderSharedConstants.id("rainforest_flowers"))
+				.add(ModificationPhase.REPLACEMENTS,
+						BiomeSelectors.includeByKey(RegisterWorldgen.RAINFOREST),
+						(context) -> {
+					if (WilderSharedConstants.config().wildGrass()) {
+						context.getGenerationSettings().removeBuiltInFeature(WilderPlacedFeatures.FLOWER_RAINFOREST_VANILLA.getHolder().value());
+						context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_RAINFOREST.getHolder().value());
+					}
+				});
+
+		BiomeModifications.create(WilderSharedConstants.id("temperate_rainforest_flowers"))
+				.add(ModificationPhase.REPLACEMENTS,
+						BiomeSelectors.includeByKey(RegisterWorldgen.TEMPERATE_RAINFOREST),
+						(context) -> {
+							if (WilderSharedConstants.config().wildGrass()) {
+								context.getGenerationSettings().removeBuiltInFeature(WilderPlacedFeatures.FLOWER_TEMPERATE_RAINFOREST_VANILLA.getHolder().value());
+								context.getGenerationSettings().addBuiltInFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_TEMPERATE_RAINFOREST.getHolder().value());
+							}
+						});
 
         BiomeModifications.create(WilderSharedConstants.id("replace_birch_trees"))
                 .add(ModificationPhase.REPLACEMENTS,
