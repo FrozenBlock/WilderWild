@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.world.additions.gen;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
 import net.minecraft.world.level.biome.Biomes;
@@ -75,6 +76,15 @@ public final class WilderTreesGeneration {
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_OAK_AND_CYPRESS_TREES),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_OAK_AND_CYPRESS_PLACED.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.MIXED_FOREST),
+					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_TREES_MIXED_PLACED.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.BIRCH_TAIGA, RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA),
+					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_BIRCH_AND_SPRUCE_PLACED.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.FLOWER_FIELD),
+					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_OAK_AND_BIRCH_PLACED_2.getKey());
         }
 
         if (WilderSharedConstants.config().wildTrees()) {

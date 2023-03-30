@@ -76,10 +76,7 @@
       "minecraft:spring_lava"
     ],
     [
-      "wilderwild:seeding_dandelion_mixed",
-      "wilderwild:mixed_mushroom_placed",
       "wilderwild:birch_taiga_trees",
-      "wilderwild:fallen_birch_and_spruce_placed",
       "minecraft:glow_lichen",
       "minecraft:patch_large_fern",
       "minecraft:trees_taiga",
@@ -92,7 +89,6 @@
       "minecraft:patch_berry_common"
     ],
     [
-      "wilderwild:coarse_dirt_path_10",
       "minecraft:freeze_top_layer"
     ]
   ],

@@ -77,17 +77,11 @@
       "minecraft:spring_water"
     ],
     [
-      "wilderwild:dense_fern_placed",
-      "wilderwild:dense_tall_grass_placed",
       "wilderwild:seagrass_cypress",
-      "wilderwild:seeding_dandelion_cypress",
-      "wilderwild:milkweed_cypress",
       "wilderwild:flower_forest_flowers",
       "wilderwild:dense_flower_placed",
-      "wilderwild:cypress_wetlands_flowers",
       "wilderwild:cypress_wetlands_trees",
       "wilderwild:cypress_wetlands_trees_water",
-      "wilderwild:patch_algae",
       "minecraft:glow_lichen",
       "minecraft:patch_grass_forest",
       "minecraft:patch_sugar_cane_swamp",

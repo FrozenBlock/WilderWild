@@ -69,8 +69,7 @@
       "minecraft:disk_sand",
       "minecraft:disk_clay",
       "minecraft:disk_gravel",
-      "wilderwild:grass_path_rare",
-      "wilderwild:arid_coarse_dirt_path"
+      "wilderwild:grass_path_rare"
     ],
     [],
     [
@@ -87,8 +86,7 @@
       "minecraft:red_mushroom_normal",
       "minecraft:patch_sugar_cane",
       "minecraft:patch_pumpkin",
-      "wilderwild:arid_cactus_placed",
-      "wilderwild:arid_bush_placed"
+      "wilderwild:arid_cactus_placed"
     ],
     [
       "minecraft:freeze_top_layer"
