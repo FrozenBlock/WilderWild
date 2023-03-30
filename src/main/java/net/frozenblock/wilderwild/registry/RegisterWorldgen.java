@@ -199,7 +199,6 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 				.build();
 	}
 	public static void addMixedForestFeatures(BiomeGenerationSettings.Builder builder) {
-		builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.COARSE_PATH_5.getHolder());
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MIXED_TREES.getHolder());
 		addBasicFeatures(builder, MIXED_FOREST);
 		BiomeDefaultFeatures.addForestFlowers(builder);
@@ -393,7 +392,6 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_CACTUS_PLACED.getHolder());
 		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.GRASS_PATH_RARE.getHolder());
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.ARID_COARSE_PATH.getHolder());
 	}
 	public static Biome aridSavanna() {
 		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
@@ -430,7 +428,6 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_CACTUS_PLACED.getHolder());
 		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.GRASS_PATH_RARE.getHolder());
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.ARID_COARSE_PATH.getHolder());
 	}
 	public static Biome parchedForest() {
 		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
@@ -564,7 +561,6 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 	}
 	public static void addBirchTaigaFeatures(BiomeGenerationSettings.Builder builder, boolean old) {
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, old ? WilderPlacedFeatures.OLD_GROWTH_BIRCH_TAIGA_TREES.getHolder() : WilderPlacedFeatures.BIRCH_TAIGA_TREES.getHolder());
-		builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.COARSE_PATH_10.getHolder());
 		addBasicFeatures(builder, BIRCH_TAIGA);
 		BiomeDefaultFeatures.addFerns(builder);
 		BiomeDefaultFeatures.addDefaultOres(builder);
@@ -865,7 +861,6 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		BiomeDefaultFeatures.addDefaultMushrooms(builder);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_OLD_GROWTH_SNOWY_PINE_TAIGA.getHolder());
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderMiscPlaced.PILE_SNOW.getHolder());
 	}
 
 	private static void addBasicFeatures(BiomeGenerationSettings.Builder builder, ResourceKey<Biome> biome) {

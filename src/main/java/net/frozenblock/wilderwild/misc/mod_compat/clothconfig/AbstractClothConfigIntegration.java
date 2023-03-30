@@ -208,7 +208,13 @@ public abstract class AbstractClothConfigIntegration extends ModIntegration {
 
 	public abstract boolean wildMushrooms();
 
+	public abstract boolean tumbleweed();
+
 	public abstract boolean algae();
+
+	public abstract boolean termiteGen();
+
+	public abstract boolean surfaceDecoration();
 
 	public abstract boolean snowBelowTrees();
 

@@ -467,8 +467,23 @@ public class NoOpClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean tumbleweed() {
+		return DefaultWorldgenConfig.TUMBLEWEED_GEN;
+	}
+
+	@Override
+	public boolean surfaceDecoration() {
+		return DefaultWorldgenConfig.SURFACE_DECORATION;
+	}
+
+	@Override
 	public boolean algae() {
 		return DefaultWorldgenConfig.ALGAE_GEN;
+	}
+
+	@Override
+	public boolean termiteGen() {
+		return DefaultWorldgenConfig.TERMITE_GEN;
 	}
 
 	@Override

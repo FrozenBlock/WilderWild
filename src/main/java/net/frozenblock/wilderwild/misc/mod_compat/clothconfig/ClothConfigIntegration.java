@@ -495,6 +495,21 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean tumbleweed() {
+		return WORLDGEN.tumbleweed;
+	}
+
+	@Override
+	public boolean surfaceDecoration() {
+		return WORLDGEN.surfaceDecoration;
+	}
+
+	@Override
+	public boolean termiteGen() {
+		return WORLDGEN.termite;
+	}
+
+	@Override
 	public boolean algae() {
 		return WORLDGEN.algae;
 	}

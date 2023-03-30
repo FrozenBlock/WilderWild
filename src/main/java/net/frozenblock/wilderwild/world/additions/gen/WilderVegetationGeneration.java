@@ -158,6 +158,10 @@ public final class WilderVegetationGeneration {
 	}
 
 	public static void generateGrass() {
+		if (WilderSharedConstants.config().tumbleweed()) {
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_TUMBLEWEED_PLANT),
+					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TUMBLEWEED.getKey());
+		}
 		if (WilderSharedConstants.config().wildGrass()) {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_NEW_RARE_GRASS),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.RARE_GRASS_PLACED.getKey());

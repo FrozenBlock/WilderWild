@@ -79,7 +79,10 @@ public final class WorldgenConfig implements ConfigData {
 	public boolean wilderWildBushGen = DefaultWorldgenConfig.WILDER_WILD_BUSH_GEN;
 	public boolean wilderWildCactusGen = DefaultWorldgenConfig.WILDER_WILD_CACTUS_GEN;
 	public boolean wilderWildMushroomGen = DefaultWorldgenConfig.WILDER_WILD_MUSHROOM_GEN;
+	public boolean tumbleweed = DefaultWorldgenConfig.TUMBLEWEED_GEN;
 	public boolean algae = DefaultWorldgenConfig.ALGAE_GEN;
+	public boolean termite = DefaultWorldgenConfig.TERMITE_GEN;
+	public boolean surfaceDecoration = DefaultWorldgenConfig.SURFACE_DECORATION;
 	public boolean snowBelowTrees = DefaultWorldgenConfig.SNOW_BELOW_TREES;
 	public boolean surfaceTransitions = DefaultWorldgenConfig.SURFACE_TRANSITIONS;
 	public boolean newWitchHuts = DefaultWorldgenConfig.NEW_WITCH_HUTS;
@@ -316,10 +319,31 @@ public final class WorldgenConfig implements ConfigData {
 				.requireRestart()
 				.build()
 		);
+		var tumbleweed = category.addEntry(entryBuilder.startBooleanToggle(text("tumbleweed_gen"), config.tumbleweed)
+				.setDefaultValue(DefaultWorldgenConfig.TUMBLEWEED_GEN)
+				.setSaveConsumer(newValue -> config.tumbleweed = newValue)
+				.setTooltip(tooltip("tumbleweed_gen"))
+				.requireRestart()
+				.build()
+		);
 		var algae = category.addEntry(entryBuilder.startBooleanToggle(text("algae_gen"), config.algae)
 				.setDefaultValue(DefaultWorldgenConfig.ALGAE_GEN)
 				.setSaveConsumer(newValue -> config.algae = newValue)
 				.setTooltip(tooltip("algae_gen"))
+				.requireRestart()
+				.build()
+		);
+		var termite = category.addEntry(entryBuilder.startBooleanToggle(text("termite_gen"), config.termite)
+				.setDefaultValue(DefaultWorldgenConfig.TERMITE_GEN)
+				.setSaveConsumer(newValue -> config.termite = newValue)
+				.setTooltip(tooltip("termite_gen"))
+				.requireRestart()
+				.build()
+		);
+		var surfaceDecoration = category.addEntry(entryBuilder.startBooleanToggle(text("surface_decoration"), config.surfaceDecoration)
+				.setDefaultValue(DefaultWorldgenConfig.SURFACE_DECORATION)
+				.setSaveConsumer(newValue -> config.surfaceDecoration = newValue)
+				.setTooltip(tooltip("surface_decoration"))
 				.requireRestart()
 				.build()
 		);
