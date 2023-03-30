@@ -490,7 +490,7 @@ public final class WilderTreeConfigured {
 
 		FALLEN_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
 				fallenCherry().decorators(
-						List.of(
+						ImmutableList.of(
 								VINES_08_UNDER_260_075,
 								MOSS_CHERRY
 						)
@@ -509,7 +509,7 @@ public final class WilderTreeConfigured {
 						UniformInt.of(1, 2),
 						1
 				).ignoreVines().decorators(
-						List.of(
+						ImmutableList.of(
 								VINES_08_UNDER_260_075,
 								MOSS_MOSSY
 						)).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()

@@ -264,12 +264,12 @@ public final class WilderPlacedFeatures {
     public static final FrozenPlacedFeature SEAGRASS_CYPRESS = register("seagrass_cypress");
 
     public static final FrozenPlacedFeature LARGE_FERN_AND_GRASS = register("large_fern_and_grass");
+
     public static final FrozenPlacedFeature LARGE_FERN_AND_GRASS_RARE = register("large_fern_and_grass_rare");
 
 	public static final FrozenPlacedFeature FLOWER_FIELD_GRASS_PLACED = register("flower_field_grass_placed");
 
 	public static final FrozenPlacedFeature PATCH_TALL_GRASS_FF = register("patch_tall_grass_ff");
-
 
 	//FLOWERS
     public static final FrozenPlacedFeature SEEDING_DANDELION = register("seeding_dandelion");
@@ -308,7 +308,11 @@ public final class WilderPlacedFeatures {
 
 	public static final FrozenPlacedFeature FLOWER_TEMPERATE_RAINFOREST = register("flower_temperate_rainforest");
 
+	public static final FrozenPlacedFeature FLOWER_TEMPERATE_RAINFOREST_VANILLA = register("flower_temperate_rainforest_vanilla");
+
 	public static final FrozenPlacedFeature FLOWER_RAINFOREST = register("flower_rainforest");
+
+	public static final FrozenPlacedFeature FLOWER_RAINFOREST_VANILLA = register("flower_rainforest_vanilla");
 
 	public static final FrozenPlacedFeature FLOWER_JUNGLE = register("flower_jungle");
 
@@ -963,7 +967,17 @@ public final class WilderPlacedFeatures {
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
+		FLOWER_TEMPERATE_RAINFOREST_VANILLA.makeAndSetHolder(WilderConfiguredFeatures.FLOWERS_TEMPERATE_RAINFOREST_VANILLA.getHolder(),
+				CountPlacement.of(2), RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
 		FLOWER_RAINFOREST.makeAndSetHolder(WilderConfiguredFeatures.FLOWERS_RAINFOREST.getHolder(),
+				CountPlacement.of(3), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
+		FLOWER_RAINFOREST_VANILLA.makeAndSetHolder(WilderConfiguredFeatures.FLOWERS_RAINFOREST_VANILLA.getHolder(),
 				CountPlacement.of(3), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);

@@ -260,6 +260,13 @@ public final class WilderConfiguredFeatures {
 			.add(Blocks.POPPY.defaultBlockState(), 10)
 			.build();
 
+	public static final SimpleWeightedRandomList<BlockState> FLOWERS_TEMPERATE_RAINFOREST_VANILLA_POOL = SimpleWeightedRandomList.<BlockState>builder()
+			.add(Blocks.LILAC.defaultBlockState(), 6)
+			.add(Blocks.DANDELION.defaultBlockState(), 10)
+			.add(Blocks.BLUE_ORCHID.defaultBlockState(), 8)
+			.add(Blocks.POPPY.defaultBlockState(), 10)
+			.build();
+
 	public static final SimpleWeightedRandomList<BlockState> FLOWERS_RAINFOREST_POOL = SimpleWeightedRandomList.<BlockState>builder()
 			.add(RegisterBlocks.MILKWEED.defaultBlockState(), 5)
 			.add(RegisterBlocks.DATURA.defaultBlockState(), 7)
@@ -269,6 +276,15 @@ public final class WilderConfiguredFeatures {
 			.add(Blocks.BLUE_ORCHID.defaultBlockState(), 3)
 			.add(Blocks.POPPY.defaultBlockState(), 4)
 			.add(RegisterBlocks.CARNATION.defaultBlockState(), 8)
+			.add(Blocks.ALLIUM.defaultBlockState(), 2)
+			.add(Blocks.PEONY.defaultBlockState(), 2)
+			.build();
+
+	public static final SimpleWeightedRandomList<BlockState> FLOWERS_RAINFOREST_VANILLA_POOL = SimpleWeightedRandomList.<BlockState>builder()
+			.add(Blocks.LILAC.defaultBlockState(), 3)
+			.add(Blocks.DANDELION.defaultBlockState(), 4)
+			.add(Blocks.BLUE_ORCHID.defaultBlockState(), 3)
+			.add(Blocks.POPPY.defaultBlockState(), 4)
 			.add(Blocks.ALLIUM.defaultBlockState(), 2)
 			.add(Blocks.PEONY.defaultBlockState(), 2)
 			.build();
@@ -303,9 +319,13 @@ public final class WilderConfiguredFeatures {
 
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_TEMPERATE_RAINFOREST = register("flowers_temperate_rainforest");
 
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_TEMPERATE_RAINFOREST_VANILLA = register("flowers_temperate_rainforest_vanilla");
+
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> MUSHROOMS_DARK_FOREST = register("mushroom_dark_forest");
 
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_RAINFOREST = register("flowers_rainforest");
+
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_RAINFOREST_VANILLA = register("flowers_rainforest_vanilla");
 
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_JUNGLE = register("flowers_jungle");
 
@@ -1148,6 +1168,16 @@ public final class WilderConfiguredFeatures {
 				)
 		);
 
+		FLOWERS_TEMPERATE_RAINFOREST_VANILLA.makeAndSetHolder(Feature.FLOWER,
+				FeatureUtils.simpleRandomPatchConfiguration(
+						32,
+						PlacementUtils.onlyWhenEmpty(
+								Feature.SIMPLE_BLOCK,
+								new SimpleBlockConfiguration(new WeightedStateProvider(FLOWERS_TEMPERATE_RAINFOREST_VANILLA_POOL))
+						)
+				)
+		);
+
 		MUSHROOMS_DARK_FOREST.makeAndSetHolder(Feature.RANDOM_PATCH,
 				new RandomPatchConfiguration(
 						50,
@@ -1176,6 +1206,16 @@ public final class WilderConfiguredFeatures {
 						PlacementUtils.onlyWhenEmpty(
 								Feature.SIMPLE_BLOCK,
 								new SimpleBlockConfiguration(new WeightedStateProvider(FLOWERS_RAINFOREST_POOL))
+						)
+				)
+		);
+
+		FLOWERS_RAINFOREST_VANILLA.makeAndSetHolder(Feature.FLOWER,
+				FeatureUtils.simpleRandomPatchConfiguration(
+						32,
+						PlacementUtils.onlyWhenEmpty(
+								Feature.SIMPLE_BLOCK,
+								new SimpleBlockConfiguration(new WeightedStateProvider(FLOWERS_RAINFOREST_VANILLA_POOL))
 						)
 				)
 		);
