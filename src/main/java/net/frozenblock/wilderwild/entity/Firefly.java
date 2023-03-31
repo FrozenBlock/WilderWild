@@ -118,13 +118,14 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
     }
 
     public static boolean canSpawn(EntityType<Firefly> type, LevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
+		boolean chance = random.nextInt(0, 75) == 0;
         if (level.getBiome(pos).is(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)) {
-            return level.getBrightness(LightLayer.SKY, pos) >= 6;
+            return chance && level.getBrightness(LightLayer.SKY, pos) >= 6;
         }
         if (level.getBiome(pos).is(WilderBiomeTags.FIREFLY_SPAWNABLE_CAVE)) {
-            return level.getBrightness(LightLayer.SKY, pos) <= 6;
+            return chance && level.getBrightness(LightLayer.SKY, pos) <= 6;
         }
-        return random.nextFloat() > 0.6F && (!level.dimensionType().hasFixedTime() && level.getSkyDarken() > 4) && level.canSeeSky(pos);
+        return chance && (!level.dimensionType().hasFixedTime() && level.getSkyDarken() > 4) && level.canSeeSky(pos);
     }
 
     @Nullable

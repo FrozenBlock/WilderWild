@@ -118,7 +118,6 @@ public class Jellyfish extends NoFlopAbstractFish {
     public Jellyfish(EntityType<? extends Jellyfish> entityType, Level level) {
         super(entityType, level);
 		this.getNavigation().setCanFloat(false);
-		this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, -1.0F);
     }
 
     @Nullable
@@ -152,7 +151,7 @@ public class Jellyfish extends NoFlopAbstractFish {
             }
         }
 		int seaLevel = level.getSeaLevel();
-        return reason == MobSpawnType.SPAWNER || random.nextInt(0, 53) == 3 && pos.getY() <= seaLevel && pos.getY() >= seaLevel - 13 && random.nextInt(0, 50) == 1;
+        return reason == MobSpawnType.SPAWNER || (random.nextInt(0, 110) == 0 && pos.getY() <= seaLevel && pos.getY() >= seaLevel - 13);
     }
 
     @Override
