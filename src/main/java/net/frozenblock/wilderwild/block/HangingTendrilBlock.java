@@ -68,7 +68,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterloggedBlock, SculkBehaviour {
-	public static final EnumProperty<SculkSensorPhase> HANGING_TENDRIL_PHASE = BlockStateProperties.SCULK_SENSOR_PHASE;
+	public static final int ACTIVE_TICKS = 60;
+	public static final EnumProperty<SculkSensorPhase> PHASE = BlockStateProperties.SCULK_SENSOR_PHASE;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final BooleanProperty TWITCHING = RegisterProperties.TWITCHING;
 	public static final BooleanProperty WRINGING_OUT = RegisterProperties.WRINGING_OUT;
@@ -76,7 +77,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 
 	public HangingTendrilBlock(Properties settings) {
 		super(settings);
-		this.registerDefaultState(this.stateDefinition.any().setValue(HANGING_TENDRIL_PHASE, SculkSensorPhase.INACTIVE).setValue(WATERLOGGED, false).setValue(TWITCHING, false).setValue(WRINGING_OUT, false));
+		this.registerDefaultState(this.stateDefinition.any().setValue(PHASE, SculkSensorPhase.INACTIVE).setValue(WATERLOGGED, false).setValue(TWITCHING, false).setValue(WRINGING_OUT, false));
 	}
 
 	@Override
@@ -97,7 +98,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	public void randomTick(BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if (!state.canSurvive(level, pos)) {
 			level.destroyBlock(pos, true);
-		} else if (getPhase(state) == SculkSensorPhase.INACTIVE) {
+		} else if (SculkSensorBlock.getPhase(state) == SculkSensorPhase.INACTIVE) {
 			BlockEntity entity = level.getBlockEntity(pos);
 			if (entity instanceof HangingTendrilBlockEntity wigglyTendril) {
 				level.setBlockAndUpdate(pos, state.setValue(TWITCHING, true));
@@ -126,12 +127,8 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Override
 	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (getPhase(state) != SculkSensorPhase.ACTIVE) {
-			if (getPhase(state) == SculkSensorPhase.COOLDOWN) {
-				level.setBlock(pos, state.setValue(HANGING_TENDRIL_PHASE, SculkSensorPhase.INACTIVE), 3);
-			}
-		} else if (!isInactive(state)) {
-			setCooldown(level, pos, state);
+		if (SculkSensorBlock.getPhase(state) == SculkSensorPhase.ACTIVE) {
+			deactivate(level, pos, state);
 		}
 	}
 
@@ -145,7 +142,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	@Override
 	public void onRemove(BlockState state, @NotNull Level level, @NotNull BlockPos pos, BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
-			if (getPhase(state) == SculkSensorPhase.ACTIVE) {
+			if (SculkSensorBlock.getPhase(state) == SculkSensorPhase.ACTIVE) {
 				updateNeighbors(level, pos);
 			}
 			super.onRemove(state, level, pos, newState, isMoving);
@@ -196,40 +193,41 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 		return OUTLINE_SHAPE;
 	}
 
-	public static SculkSensorPhase getPhase(BlockState state) {
-		return state.getValue(HANGING_TENDRIL_PHASE);
-	}
-
-	public static boolean isInactive(BlockState state) {
-		return getPhase(state) == SculkSensorPhase.INACTIVE;
-	}
-
-	public static boolean isActive(BlockState state) {
-		return getPhase(state) == SculkSensorPhase.ACTIVE;
-	}
-
-	public static void setCooldown(Level level, BlockPos pos, BlockState state) {
-		level.setBlock(pos, state.setValue(HANGING_TENDRIL_PHASE, SculkSensorPhase.COOLDOWN), 3);
-		level.scheduleTick(pos, state.getBlock(), 1);
-		if (!(Boolean) state.getValue(WATERLOGGED)) {
+	public static void deactivate(Level level, BlockPos pos, BlockState state) {
+		level.setBlock(pos, state.setValue(PHASE, SculkSensorPhase.INACTIVE), 3);
+		if (!state.getValue(WATERLOGGED)) {
 			level.playSound(null, pos, RegisterSounds.BLOCK_HANGING_TENDRIL_CLICKING_STOP, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.2F + 0.8F);
 		}
+
 		updateNeighbors(level, pos);
 	}
 
-	public static void setActive(@Nullable Entity entity, Level level, BlockPos pos, BlockState state, GameEvent event, int power) {
-		level.setBlock(pos, state.setValue(HANGING_TENDRIL_PHASE, SculkSensorPhase.ACTIVE), 3);
-		level.scheduleTick(pos, state.getBlock(), 60);
+	public int getActiveTicks() {
+		return ACTIVE_TICKS;
+	}
+
+	public void activate(@Nullable Entity entity, Level level, BlockPos pos, BlockState state, GameEvent event) {
+		level.setBlock(pos, state.setValue(PHASE, SculkSensorPhase.ACTIVE), 3);
+		level.scheduleTick(pos, state.getBlock(), this.getActiveTicks());
 		updateNeighbors(level, pos);
 		level.gameEvent(entity, event, pos);
 		if (!state.getValue(WATERLOGGED)) {
-			level.playSound(null, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, RegisterSounds.BLOCK_HANGING_TENDRIL_CLICKING, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.2F + 0.8F);
+			level.playSound(
+				null,
+				pos.getX() + 0.5D,
+				pos.getY() + 0.5D,
+				pos.getZ() + 0.5,
+				RegisterSounds.BLOCK_HANGING_TENDRIL_CLICKING,
+				SoundSource.BLOCKS,
+				1.0F,
+				level.random.nextFloat() * 0.2F + 0.8F
+			);
 		}
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, net.minecraft.world.level.block.state.BlockState> builder) {
-		builder.add(HANGING_TENDRIL_PHASE, WATERLOGGED, TWITCHING, WRINGING_OUT);
+		builder.add(PHASE, WATERLOGGED, TWITCHING, WRINGING_OUT);
 	}
 
 	@Override
@@ -241,7 +239,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	public int getAnalogOutputSignal(@NotNull BlockState state, Level level, @NotNull BlockPos pos) {
 		BlockEntity blockEntity = level.getBlockEntity(pos);
 		if (blockEntity instanceof HangingTendrilBlockEntity hangingEntity) {
-			return getPhase(state) == SculkSensorPhase.ACTIVE ? hangingEntity.getLastVibrationFrequency() : 0;
+			return SculkSensorBlock.getPhase(state) == SculkSensorPhase.ACTIVE ? hangingEntity.getLastVibrationFrequency() : 0;
 		} else {
 			return 0;
 		}
@@ -264,12 +262,12 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	public static boolean shouldHavePogLighting(BlockState state) {
-		return getPhase(state) == SculkSensorPhase.ACTIVE || state.getValue(WRINGING_OUT);
+		return SculkSensorBlock.getPhase(state) == SculkSensorPhase.ACTIVE || state.getValue(WRINGING_OUT);
 	}
 
     @Override
     public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
-        if (isInactive(state) && !state.getValue(WRINGING_OUT)) {
+        if (SculkSensorBlock.canActivate(state) && !state.getValue(WRINGING_OUT)) {
             if (level.isClientSide) {
                 return InteractionResult.SUCCESS;
             } else {

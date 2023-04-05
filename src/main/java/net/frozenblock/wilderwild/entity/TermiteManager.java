@@ -47,6 +47,8 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -56,6 +58,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -231,8 +234,9 @@ public class TermiteManager {
 							Block setBlock = !this.natural ? DEGRADABLE_BLOCKS.get(block) : NATURAL_DEGRADABLE_BLOCKS.get(block);
 							BlockState setState = setBlock.withPropertiesOf(blockState);
 							level.setBlockAndUpdate(this.pos, setState);
-							if (setState.getBlock() instanceof HollowedLogBlock) {
-								level.playSound(null, pos, setState.getMaterial().equals(Material.NETHER_WOOD) ? RegisterSounds.STEM_HOLLOWED : RegisterSounds.LOG_HOLLOWED, SoundSource.BLOCKS, 0.6F, 0.95F + (level.random.nextFloat() * 0.2F));
+							if (setBlock instanceof HollowedLogBlock) {
+								boolean nether = new ItemStack(setBlock.asItem()).is(ItemTags.NON_FLAMMABLE_WOOD);
+								level.playSound(null, pos, nether ? RegisterSounds.STEM_HOLLOWED : RegisterSounds.LOG_HOLLOWED, SoundSource.BLOCKS, 0.6F, 0.95F + (level.random.nextFloat() * 0.2F));
 							}
 						}
 						spawnEatParticles(level, blockState, this.pos);
@@ -363,7 +367,7 @@ public class TermiteManager {
 			if (state.is(WilderBlockTags.BLOCKS_TERMITE)) {
 				return false;
 			}
-			boolean moveableUp = !(direction == Direction.UP && (state.is(BlockTags.INSIDE_STEP_SOUND_BLOCKS) || state.is(BlockTags.REPLACEABLE_PLANTS) || state.is(BlockTags.FLOWERS)));
+			boolean moveableUp = !(direction == Direction.UP && (state.is(BlockTags.INSIDE_STEP_SOUND_BLOCKS) || state.is(BlockTags.REPLACEABLE_BY_TREES) || state.is(BlockTags.FLOWERS)));
 			boolean moveableDown = !(direction == Direction.DOWN && (state.is(Blocks.WATER) || state.is(Blocks.LAVA) || (state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED))));
 			return moveableUp && moveableDown;
 		}

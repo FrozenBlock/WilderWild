@@ -399,7 +399,7 @@ public class Jellyfish extends NoFlopAbstractFish {
     @Override
     protected void dropFromLootTable(@NotNull DamageSource damageSource, boolean bl) {
 		ResourceLocation resourceLocation = this.getJellyLootTable();
-		LootTable lootTable = Objects.requireNonNull(this.level.getServer()).getLootTables().get(resourceLocation);
+		LootTable lootTable = Objects.requireNonNull(this.level.getServer()).getLootData().getLootTable(resourceLocation);
 		LootContext.Builder builder = this.createLootContext(bl, damageSource);
 		lootTable.getRandomItems(builder.create(LootContextParamSets.ENTITY), this::spawnAtLocation);
     }

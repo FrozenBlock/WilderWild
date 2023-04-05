@@ -118,7 +118,7 @@ public class ScorchedSandBlock extends Block implements Brushable {
 
 	public static boolean isFree(BlockState state) {
 		Material material = state.getMaterial();
-		return state.isAir() || state.is(BlockTags.FIRE) || material.isLiquid() || material.isReplaceable();
+		return state.isAir() || state.is(BlockTags.FIRE) || state.liquid() || material.isReplaceable();
 	}
 
 	@Override

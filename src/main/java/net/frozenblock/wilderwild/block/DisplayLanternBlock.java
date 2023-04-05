@@ -91,7 +91,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	protected static final VoxelShape HANGING_SHAPE = Shapes.or(Block.box(5.0D, 2.0D, 5.0D, 11.0D, 9.0D, 11.0D), Block.box(6.0D, 9.0D, 6.0D, 10.0D, 10.0D, 10.0D));
 
 	public DisplayLanternBlock(Properties settings) {
-		super(settings);
+		super(settings.pushReaction(PushReaction.DESTROY));
 		this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, false).setValue(WATERLOGGED, false).setValue(DISPLAY_LIGHT, 0));
 	}
 
@@ -206,11 +206,6 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	public PushReaction getPistonPushReaction(@NotNull BlockState state) {
-		return PushReaction.DESTROY;
-	}
-
-	@Override
 	public RenderShape getRenderShape(@NotNull BlockState blockState) {
 		return RenderShape.MODEL;
 	}
@@ -287,10 +282,8 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 			if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) != 0) {
 				if (builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY) != null) {
 					BlockEntity blockEntity = builder.getParameter(LootContextParams.BLOCK_ENTITY);
-					if (blockEntity instanceof DisplayLanternBlockEntity lanternBlockEntity) {
-						if (!lanternBlockEntity.getFireflies().isEmpty()) {
-							identifier = WilderSharedConstants.id("blocks/display_lantern_fireflies");
-						}
+					if (blockEntity instanceof DisplayLanternBlockEntity lantern && !lantern.getFireflies().isEmpty()) {
+						identifier = WilderSharedConstants.id("blocks/display_lantern_fireflies");
 					}
 				}
 			}
@@ -300,7 +293,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 		} else {
 			LootContext lootContext = builder.withParameter(LootContextParams.BLOCK_STATE, state).create(LootContextParamSets.BLOCK);
 			ServerLevel serverLevel = lootContext.getLevel();
-			LootTable lootTable = serverLevel.getServer().getLootTables().get(identifier);
+			LootTable lootTable = serverLevel.getServer().getLootData().getLootTable(identifier);
 			return lootTable.getRandomItems(lootContext);
 		}
 	}

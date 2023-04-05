@@ -46,6 +46,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
@@ -60,7 +61,7 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 	public final ParticleOptions dripParticle;
 
 	public MesogleaBlock(Properties properties, ParticleOptions dripParticle) {
-		super(properties);
+		super(properties.pushReaction(PushReaction.DESTROY));
 		this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
 		this.dripParticle = dripParticle;
 	}

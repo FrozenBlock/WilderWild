@@ -33,6 +33,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SculkSensorBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.BlockPositionSource;
@@ -87,7 +89,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
 	public void clientTick(BlockState state) {
 		this.twitching = this.ticksToStopTwitching > 0;
 		this.milk = this.ringOutTicksLeft > 0;
-		this.active = HangingTendrilBlock.isActive(state);
+		this.active = !SculkSensorBlock.canActivate(state);
 		++this.ticks;
 		int animSpeed = 6;
 		if (milk) {
@@ -163,15 +165,21 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
 
 	@Override
 	public boolean shouldListen(@NotNull ServerLevel level, @NotNull GameEventListener listener, @NotNull BlockPos pos, @NotNull GameEvent gameEvent, @Nullable GameEvent.Context context) {
-		return !this.isRemoved() && (!pos.equals(this.getBlockPos()) || gameEvent != GameEvent.BLOCK_DESTROY && gameEvent != GameEvent.BLOCK_PLACE) && HangingTendrilBlock.isInactive(this.getBlockState()) && !this.getBlockState().getValue(HangingTendrilBlock.WRINGING_OUT);
+		return !this.isRemoved() && (!pos.equals(this.getBlockPos()) || gameEvent != GameEvent.BLOCK_DESTROY && gameEvent != GameEvent.BLOCK_PLACE) && SculkSensorBlock.canActivate(this.getBlockState()) && !this.getBlockState().getValue(HangingTendrilBlock.WRINGING_OUT);
 	}
 
 	@Override
 	public void onSignalReceive(@NotNull ServerLevel level, @NotNull GameEventListener listener, @NotNull BlockPos sourcePos, @NotNull GameEvent gameEvent, @Nullable Entity sourceEntity, @Nullable Entity projectileOwner, float distance) {
 		BlockState blockState = this.getBlockState();
-		if (HangingTendrilBlock.isInactive(blockState)) {
+		BlockPos blockPos = this.getBlockPos();
+
+		if (SculkSensorBlock.canActivate(blockState)) {
 			this.lastVibrationFrequency = VibrationListener.getGameEventFrequency(gameEvent);
-			HangingTendrilBlock.setActive(sourceEntity, level, this.worldPosition, blockState, gameEvent, getPower(distance, listener.getListenerRadius()));
+			Block block = blockState.getBlock();
+
+			if (block instanceof HangingTendrilBlock tendril) {
+				tendril.activate(sourceEntity, level, blockPos, blockState, gameEvent);
+			}
 		}
 	}
 

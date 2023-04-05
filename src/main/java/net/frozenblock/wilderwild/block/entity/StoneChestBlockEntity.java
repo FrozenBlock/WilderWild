@@ -226,13 +226,13 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
 			stoneChest.cooldownTicks = this.cooldownTicks;
 			stoneChest.shouldSkip = true;
 			stoneChest.closing = this.closing;
-			if (this.level instanceof ServerLevel serverLevel) {
+			if (!this.level.isClientSide) {
 				for (ServerPlayer player : PlayerLookup.tracking(stoneChest)) {
 					player.connection.send(Objects.requireNonNull(stoneChest.getUpdatePacket()));
 				}
 			}
 		}
-		if (this.level instanceof ServerLevel serverLevel) {
+		if (!this.level.isClientSide) {
 			for (ServerPlayer player : PlayerLookup.tracking(this)) {
 				player.connection.send(Objects.requireNonNull(this.getUpdatePacket()));
 			}
@@ -243,7 +243,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
 	public void unpackLootTable(@Nullable Player player) {
 		if (this.lootTable != null && this.level != null && this.level.getServer() != null) {
 			this.lootGenerated = false;
-			LootTable lootTable = this.level.getServer().getLootTables().get(this.lootTable);
+			LootTable lootTable = this.level.getServer().getLootData().getLootTable(this.lootTable);
 			if (player instanceof ServerPlayer) {
 				CriteriaTriggers.GENERATE_LOOT.trigger((ServerPlayer) player, this.lootTable);
 			}

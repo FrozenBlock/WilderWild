@@ -371,7 +371,7 @@ public class AncientHornProjectile extends AbstractArrow {
 				}
 
 				if (SculkSensorBlock.canActivate(blockState)) {
-					SculkSensorBlock.activate(null, level, pos, this.level.getBlockState(pos), AdvancedMath.random().nextInt(15), blockEntity.getLastVibrationFrequency());
+					sculkSensor.activate(null, level, pos, this.level.getBlockState(pos), AdvancedMath.random().nextInt(15), blockEntity.getLastVibrationFrequency());
 					this.level.gameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);
 					setCooldown(getCooldown(this.getOwner(), SENSOR_COOLDOWN));
 				}

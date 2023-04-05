@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.block;
 import net.frozenblock.lib.block.api.FaceClusterBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.PushReaction;
 import org.jetbrains.annotations.NotNull;
 
 public class NematocystBlock extends FaceClusterBlock {
@@ -32,7 +33,7 @@ public class NematocystBlock extends FaceClusterBlock {
     }
 
     public NematocystBlock(Properties properties) {
-        this(7, 3, properties);
+        this(7, 3, properties.pushReaction(PushReaction.DESTROY));
     }
 
     @Override
