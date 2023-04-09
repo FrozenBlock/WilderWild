@@ -125,7 +125,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	public static boolean canSpawn(EntityType<Tumbleweed> type, ServerLevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
-		return level.getBrightness(LightLayer.SKY, pos) > 7 && random.nextInt(0, 15) == 12 && pos.getY() > level.getSeaLevel();
+		return level.getBrightness(LightLayer.SKY, pos) > 7 && random.nextInt(0, 120) == 1 && pos.getY() > level.getSeaLevel();
 	}
 
 	public static AttributeSupplier.Builder addAttributes() {

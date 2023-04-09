@@ -65,7 +65,7 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if (isFullyGrown(state)) {
-			if (random.nextInt(0, 2) == 0) {
+			if (random.nextInt(0, 4) == 0) {
 				level.setBlock(pos, state.cycle(AGE), 2);
 				Tumbleweed weed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
 				level.addFreshEntity(weed);
