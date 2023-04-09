@@ -84,11 +84,6 @@ public class TumbleweedBlock extends BushBlock implements SimpleWaterloggedBlock
 		}
 	}
 
-	@Override
-	public boolean skipRendering(@NotNull BlockState state, BlockState adjacentBlockState, @NotNull Direction direction) {
-		return adjacentBlockState.is(RegisterBlocks.TUMBLEWEED) && direction.getAxis() == Direction.Axis.Y;
-	}
-
 	@Nullable
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
