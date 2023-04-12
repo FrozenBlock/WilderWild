@@ -539,12 +539,12 @@ curseforge {
         mainArtifact(remapJar, closureOf<CurseArtifact> {
             displayName = display_name
         })
-        addArtifact(tasks.remapSourcesJar)
+        addArtifact(tasks.remapSourcesJar.get())
         addArtifact(javadocJar)
 
         afterEvaluate {
             uploadTask.dependsOn(remapJar)
-            uploadTask.dependsOn(tasks.remapSourcesJar)
+            uploadTask.dependsOn(tasks.remapSourcesJar.get())
             uploadTask.dependsOn(javadocJar)
         }
     })
