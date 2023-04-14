@@ -224,6 +224,9 @@ Savanna:
 Taiga, Snowy Taiga, Old Growth Spruce Taiga, Old Growth Pine Taiga:
 - Small Mega Spruce trees now occasionally generate in all Taiga biomes.
 
+Sunflower Plains:
+- Added Flower Forest flowers to Sunflower Plains to make up for a relative lack of vegetation compared to the new Flower Field biome.
+
 Cherry Grove:
 - Pollen now generates in Cherry Groves.
 - Fallen Cherry trees now generate in Cherry Groves.
