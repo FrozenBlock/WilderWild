@@ -5,268 +5,273 @@ Make sure to clear this after each release
 Put changelog here:
 -----------------
 Features:
--Added Oasis biome
--Added Warm River biome
--Added Arid Forest biome
--Added Arid Savanna biome
--Added Parched Forest biome
--Added Birch Jungle biome
--Added Sparse Birch Jungle biome
--Added Birch Taiga biome
--Added Semi Birch Forest biome
--Added Dark Birch Forest biome
--Added Flower Field biome
--Added Rainforest biome
--Added Temperate Rainforest biome
--Added Dark Taiga biome
--Added Old Growth Birch Taiga biome
--Added Old Growth Dark Forest biome
--Added Snowy Old Growth Pine Taiga biome
--Added Tumbleweed and Tumbleweed Stem blocks
--Added Tumbleweed entity
--Added Bush block
--Added Prickly Pear block and item
--Added Peeled Prickly Pear item
--Added Palm Trees
--Added Palm Blocks
--Added Coconut and Split Coconut items
--Added Small Sponge block
--Added Stripped Stem blocks
--Added Stripped Hollowed Log and Stem blocks
--Added wind
+
+- Added Oasis biome
+- Added Warm River biome
+- Added Arid Forest biome
+- Added Arid Savanna biome
+- Added Parched Forest biome
+- Added Birch Jungle biome
+- Added Sparse Birch Jungle biome
+- Added Birch Taiga biome
+- Added Semi Birch Forest biome
+- Added Dark Birch Forest biome
+- Added Flower Field biome
+- Added Rainforest biome
+- Added Temperate Rainforest biome
+- Added Dark Taiga biome
+- Added Old Growth Birch Taiga biome
+- Added Old Growth Dark Forest biome
+- Added Snowy Old Growth Pine Taiga biome
+- Added Tumbleweed and Tumbleweed Stem blocks
+- Added Tumbleweed entity
+- Added Bush block
+- Added Prickly Pear block and item
+- Added Peeled Prickly Pear item
+- Added Palm Trees
+- Added Palm Blocks
+- Added Coconut and Split Coconut items
+- Added Small Sponge block
+- Added Stripped Stem blocks
+- Added Stripped Hollowed Log and Stem blocks
+- Added wind
 
 Wind: Hear- no. Feel- no. See- maybe. See the effects of wind before your eyes!
--Can push and pull certain particles
--Clouds now move with the wind
--Is used to control Tumbleweed
+- Can push and pull certain particles
+- Clouds now move with the wind
+- Is used to control Tumbleweed
 
 BIOMES:
+
 Oasis: A luscious apparatus!
--A more lively variant of Deserts!
--Palms, Bushes, Sugar Cane, grass patches, moss patches, and water pools generate naturally in Oases.
--Water here is much brighter than your typical desert.
--Desert villages, Desert temples and Desert wells also generate here.
+- A more lively variant of Deserts!
+- Palms, Bushes, Sugar Cane, grass patches, moss patches, and water pools generate naturally in Oases.
+- Water here is much brighter than your typical desert.
+- Desert villages, Desert temples and Desert wells also generate here.
 
 Warm River:
--A sandier, brighter alternative to rivers in warmer climates.
--Generates with seagrass on the floor.
+- A sandier, brighter alternative to rivers in warmer climates.
+- Generates with seagrass on the floor.
 
 Rainforest: Flashy! Wet! Dirty!
--A new variant of Forests.
--Contains many flowers, bushes, moss patches, moss basins, moss lakes, and vine-covered trees.
+- A new variant of Forests.
+- Contains many flowers, bushes, moss patches, moss basins, moss lakes, and vine-covered trees.
 
 Old Growth Dark Forest: Dark and dreary, mystic-dreamy.
--A variant of the Dark Forest with taller trees.
--Contains mushroom-covered Podzol paths.
--Some trees may be covered with cobwebs.
+- A variant of the Dark Forest with taller trees.
+- Contains mushroom-covered Podzol paths.
+- Some trees may be covered with cobwebs.
 
 Old Growth Snowy Pine Taiga:
--Replaces non-snowy Taigas in freezing climates.
--Covered with tall Pine trees and snow!
+- Replaces non-snowy Taigas in freezing climates.
+- Covered with tall Pine trees and snow!
 
 Temperate Rainforest: Bright! Wet! Exotic!
--A new variant of the Taiga.
--Contains Spruce, Oak, and Birch trees, covered in vines.
--Contains mushroom-covered Podzol paths.
--Generates with moss lakes, podzol basins, and bushes.
+- A new variant of the Taiga.
+- Contains Spruce, Oak, and Birch trees, covered in vines.
+- Contains mushroom-covered Podzol paths.
+- Generates with moss lakes, podzol basins, and bushes.
 
 TRANSITION BIOMES: Transition biomes are a new category of biome we are introducing.
--These help with reducing and cleaning up sharp borders between biomes.
+- These help with reducing and cleaning up sharp borders between biomes.
 
 Arid Forest:
--A combination of the Desert and Forest.
+- A combination of the Desert and Forest.
 
 Arid Savanna:
--A combination of the Desert and Savanna.
+- A combination of the Desert and Savanna.
 
 Parched Forest:
--A midway-point between the Forest and Savanna biomes.
+- A midway-point between the Forest and Savanna biomes.
 
 Birch Jungle:
--A combination of the Jungle and Birch Forest.
+- A combination of the Jungle and Birch Forest.
 
 Sparse Birch Jungle:
--A combination of the Sparse Jungle and Birch Forest.
+- A combination of the Sparse Jungle and Birch Forest.
 
 Birch Taiga:
--A combination of the Taiga and Birch Forest.
+- A combination of the Taiga and Birch Forest.
 
 Old Growth Birch Taiga:
--A combination of the Taiga and Old Growth Birch Forest.
+- A combination of the Taiga and Old Growth Birch Forest.
 
 Semi Birch Forest:
--A midway point between the Forest and Birch Forest biomes.
+- A midway point between the Forest and Birch Forest biomes.
 
 Dark Birch Forest:
--A combination of the Dark Forest and Birch Forest.
+- A combination of the Dark Forest and Birch Forest.
 
 Dark Taiga:
--A combination of the Dark Forest and Taiga.
+- A combination of the Dark Forest and Taiga.
 
 Flower Field:
--A midway point between the Plains and Flower Forest biomes.
--Appears much like Flower Forests, only without frequent trees.
+- A midway point between the Plains and Flower Forest biomes.
+- Appears much like Flower Forests, only without frequent trees.
 
 ENTITIES:
+
 Tumbleweed: Who wants bouncy balls when you can have bouncy blocks?
--Tumbleweed are a new entity that get carried along with the wind.
--Will stop moving and eventually decay without wind.
--Will decay if left in water for too long.
-    -Note that Tumbleweed can safely remain in Mesoglea.
--Spawn in Desert, Badlands, Wooded Badlands, Eroded Badlands, and Windswept Savanna biomes.
--Can spawn with loot. The chances of spawning with loot increase with difficulty.
--Can pick up one item.
--Drops sticks when broken.
+- Tumbleweed are a new entity that get carried along with the wind.
+- Will stop moving and eventually decay without wind.
+- Will decay if left in water for too long.
+    - Note that Tumbleweed can safely remain in Mesoglea.
+- Spawn in Desert, Badlands, Wooded Badlands, Eroded Badlands, and Windswept Savanna biomes.
+- Can spawn with loot. The chances of spawning with loot increase with difficulty.
+- Can pick up one item.
+- Drops sticks when broken.
 
 BLOCKS:
+
 Prickly Pear: Ow. That hurt. A lot. Help. I ate it. Why.
--Prickly Pears generate in Badlands biomes, putting some greens into the dull reds of the biome.
--Can be picked. Doing so without shears will hurt the player.
+- Prickly Pears generate in Badlands biomes, putting some greens into the dull reds of the biome.
+- Can be picked. Doing so without shears will hurt the player.
 
 Bush: It's alive!
--An alive decorative plant.
--Can grow into a 2-block-tall version of itself, giving more decorative options to players.
--Can be sheared, decreasing its growth by one stage.
+- An alive decorative plant.
+- Can grow into a 2-block-tall version of itself, giving more decorative options to players.
+- Can be sheared, decreasing its growth by one stage.
 
 Tumbleweed Stem:
--Grows into a dead Tumbleweed, which can snap off and roll around.
-     -Will regrow.
--The Tumbleweed can be snipped off with shears.
+- Grows into a dead Tumbleweed, which can snap off and roll around.
+     - Will regrow.
+- The Tumbleweed can be snipped off with shears.
 
 Tumbleweed:
--Can only be obtained by hitting a Tumbleweed entity with Silk Touch or Shears.
--Once placed, can be snipped and turned into an entity with shears.
+- Can only be obtained by hitting a Tumbleweed entity with Silk Touch or Shears.
+- Once placed, can be snipped and turned into an entity with shears.
 
 Coconut and Palm Sapling:
--Coconuts grow and hang from Palm trees.
--Can be knocked down with projectiles.
--When fully grown, will drop Coconuts.
--Can be planted, placing a Palm Sapling.
--Can be thrown, damaging entities.
-     -Upon landing, may split.
--Can be used as fuel.
+- Coconuts grow and hang from Palm trees.
+- Can be knocked down with projectiles.
+- When fully grown, will drop Coconuts.
+- Can be planted, placing a Palm Sapling.
+- Can be thrown, damaging entities.
+     - Upon landing, may split.
+- Can be used as fuel.
 
 Palm Crown:
--Generates at the top of Palm trees.
--Is used to prevent Palm Fronds from decaying.
+- Generates at the top of Palm trees.
+- Is used to prevent Palm Fronds from decaying.
 
 Scorched Sand: IT BURNS.
--Comes in regular and red variants.
--Has two stages.
-     -When mined, the item will retain the stage of the block.
--Can be obtained by burning Sand with Lightning Bolts, Fire, Lava, or Lava dripping from Dripstone.
--Be be reverted by hydrating sand with Rain, Water, or Water dripping from Dripstone.
-     -Can also be reverted through brushing.
--Can be used to craft Sandstone.
+- Comes in regular and red variants.
+- Has two stages.
+     - When mined, the item will retain the stage of the block.
+- Can be obtained by burning Sand with Lightning Bolts, Fire, Lava, or Lava dripping from Dripstone.
+- Be be reverted by hydrating sand with Rain, Water, or Water dripping from Dripstone.
+     - Can also be reverted through brushing.
+- Can be used to craft Sandstone.
 
 ITEMS:
+
 Prickly Pear:
--Can be eaten, at the expense of damaging the player.
--Can be peeled in a crafting table to be eaten without damaging the player.
-     -Doing this, however, will prevent you from replanting the Prickly Pear.
+- Can be eaten, at the expense of damaging the player.
+- Can be peeled in a crafting table to be eaten without damaging the player.
+     - Doing this, however, will prevent you from replanting the Prickly Pear.
 
 Split Coconut:
--Can be eaten.
--Can be crafted into Bowls.
--Can be crafted into White Dye.
--Can be used as fuel.
+- Can be eaten.
+- Can be crafted into Bowls.
+- Can be crafted into White Dye.
+- Can be used as fuel.
 
 Plants:
--Cacti can now be placed next to any block.
--Dandelions can now be bonemealed into Seeding Dandelions.
--Fixed Glory Of The Snow bonemealing.
--Improved Algae bonemealing.
--Pollen particles now grow and shrink out of existence, fall in rain, and can no longer exist in water.
--Added Tumbleweed Stem, Tumbleweed, Prickly Pear, and Bush Blocks.
+- Cacti can now be placed next to any block.
+- Dandelions can now be bonemealed into Seeding Dandelions.
+- Fixed Glory Of The Snow bonemealing.
+- Improved Algae bonemealing.
+- Pollen particles now grow and shrink out of existence, fall in rain, and can no longer exist in water.
+- Added Tumbleweed Stem, Tumbleweed, Prickly Pear, and Bush Blocks.
 
 Blocks:
--Fixed missing/broken loot tables
--Sculk Shrieker, Echo Glass, Beehive, and Bee Nest items now display their proper unique textures according to their block states (Souls Taken, Damage, and Honey Level)
--Sand and Red Sand can now be scorched with dripping lava, dripping water, lava, water, and fire above them, or lightning strikes.
--Added Stripped Hollowed Logs, as well as all Hollowed Stem variants.
--Logs and Stems can now be hollowed by using an Axe on the top of them.
--Hollowed Logs can now be stripped.
+- Fixed missing/broken loot tables
+- Sculk Shrieker, Echo Glass, Beehive, and Bee Nest items now display their proper unique textures according to their block states (Souls Taken, Damage, and Honey Level)
+- Sand and Red Sand can now be scorched with dripping lava, dripping water, lava, water, and fire above them, or lightning strikes.
+- Added Stripped Hollowed Logs, as well as all Hollowed Stem variants.
+- Logs and Stems can now be hollowed by using an Axe on the top of them.
+- Hollowed Logs can now be stripped.
 
 Desert:
--Swapped out all wooden blocks in Desert Villages for their palm counterparts.
--Tumbleweed Stems now generate in Deserts.
--Tumbleweed now spawn naturally in Deserts.
--Scorched Sand now generates in Deserts.
+- Swapped out all wooden blocks in Desert Villages for their palm counterparts.
+- Tumbleweed Stems now generate in Deserts.
+- Tumbleweed now spawn naturally in Deserts.
+- Scorched Sand now generates in Deserts.
 
 Badlands:
--Scorched Rad Sand now generates in all Badlands biomes.
--Prickly Pears now generate in all Badlands biomes.
--Large bushes now generate in Badlands biomes.
--Tumbleweed Stems now generate in all Badlands biomes.
--Tumbleweed now spawn naturally in all Badlands biomes.
+- Scorched Rad Sand now generates in all Badlands biomes.
+- Prickly Pears now generate in all Badlands biomes.
+- Large bushes now generate in Badlands biomes.
+- Tumbleweed Stems now generate in all Badlands biomes.
+- Tumbleweed now spawn naturally in all Badlands biomes.
 
 Dark Forest:
--Carnations now generate in Dark Forests.
--Milkeweed now generates in Dark Forests.
--Fallen Oak and Birch trees can now generate in Dark Forests.
--Cattails now generate in Dark Forests.
+- Carnations now generate in Dark Forests.
+- Milkeweed now generates in Dark Forests.
+- Fallen Oak and Birch trees can now generate in Dark Forests.
+- Cattails now generate in Dark Forests.
 
 Jungle, Sparse Jungle, and Bamboo Jungle:
--Carnations now generate in all Jungle biomes.
--Milkweed now generates in all Jungle biomes.
--Fallen Palm, Oak, and Jungle trees now generate in all Jungle biomes.
--Moss Lakes and Basins now generate in all Jungle biomes.
--Cattails now generate in all Jungle biomes.
--Moss basins now generate in Jungle and Sparse Jungle biomes.
--Podzol basins now generate in Bamboo Jungle biomes.
+- Carnations now generate in all Jungle biomes.
+- Milkweed now generates in all Jungle biomes.
+- Fallen Palm, Oak, and Jungle trees now generate in all Jungle biomes.
+- Moss Lakes and Basins now generate in all Jungle biomes.
+- Cattails now generate in all Jungle biomes.
+- Moss basins now generate in Jungle and Sparse Jungle biomes.
+- Podzol basins now generate in Bamboo Jungle biomes.
 
 Savanna:
--Fallen Acacia and Oak trees now generate in all Savanna biomes.
+- Fallen Acacia and Oak trees now generate in all Savanna biomes.
 
 Taiga, Snowy Taiga, Old Growth Spruce Taiga, Old Growth Pine Taiga:
--Small Mega Spruce trees now occasionally generate in all Taiga biomes.
+- Small Mega Spruce trees now occasionally generate in all Taiga biomes.
 
 Cherry Grove:
--Pollen now generates in Cherry Groves.
--Fallen Cherry trees now generate in Cherry Groves.
--Bushes now generate in Cherry Groves.
--Seeding Dandelions now generate in Cherry Groves.
--Daturas now generaye in Cherry Groves.
+- Pollen now generates in Cherry Groves.
+- Fallen Cherry trees now generate in Cherry Groves.
+- Bushes now generate in Cherry Groves.
+- Seeding Dandelions now generate in Cherry Groves.
+- Daturas now generaye in Cherry Groves.
 
 Jellyfish Caves:
--Large Mesoglea paths and pillars now generate throughout the biome, adding more incentive to explore them and find hidden areas.
--Jellyfish can now shrink back into Mesoglea and Nematocyst if spawned naturally and far enough from the player.
--Updated Dripping Mesoglea particles to no longer face upwards or downwards while hanging.
--Waterlogged Mesoglea now allows Jellyfish to spawn inside of it.
--Dry Mesoglea now renders inside of Waterlogged Mesoglea.
--Jellyfish can no longer swim through the bottom or sides of Mesoglea unless they're a passanger or leashed.
--Mesoglea can now optionally be rendered as a liquid whilst Sodium is not being used.
+- Large Mesoglea paths and pillars now generate throughout the biome, adding more incentive to explore them and find hidden areas.
+- Jellyfish can now shrink back into Mesoglea and Nematocyst if spawned naturally and far enough from the player.
+- Updated Dripping Mesoglea particles to no longer face upwards or downwards while hanging.
+- Waterlogged Mesoglea now allows Jellyfish to spawn inside of it.
+- Dry Mesoglea now renders inside of Waterlogged Mesoglea.
+- Jellyfish can no longer swim through the bottom or sides of Mesoglea unless they're a passanger or leashed.
+- Mesoglea can now optionally be rendered as a liquid whilst Sodium is not being used.
 
 Other worldgen changes:
--Fallen Trees can now generate on any block and under water.
--Tweaked rarity of Fallen Trees.
--Tweaked placement of many worldgen features.
--Dying Trees now generate Vines on their leaves as well.
--Pollen can rarely generate on some trees, even when grown from saplings.
+- Fallen Trees can now generate on any block and under water.
+- Tweaked rarity of Fallen Trees.
+- Tweaked placement of many worldgen features.
+- Dying Trees now generate Vines on their leaves as well.
+- Pollen can rarely generate on some trees, even when grown from saplings.
 
 Sculk Changes:
--Reworked Osseous Sculk Generation:
-     -In worldgen, Osseous Sculk now generates more frequently on floors.
-     -In non-worldgen, Osseous Sculk no longer relies on noise to generate, allowing it to be reasonably obtained.
--Optimized Osseous Sculk generation overall.
+- Reworked Osseous Sculk Generation:
+     - In worldgen, Osseous Sculk now generates more frequently on floors.
+     - In non-worldgen, Osseous Sculk no longer relies on noise to generate, allowing it to be reasonably obtained.
+- Optimized Osseous Sculk generation overall.
 
 Chest Changes:
--Waterlogged Chests now bubble when opened.
--Waterlogged Chests now use unique sounds when opening and closing.
--Waterlogged Chests in Shipwrecks now have a chance of spawning a Jellyfish when opened.
+- Waterlogged Chests now bubble when opened.
+- Waterlogged Chests now use unique sounds when opening and closing.
+- Waterlogged Chests in Shipwrecks now have a chance of spawning a Jellyfish when opened.
 
 Termite Changes:
--Updated Termite particles to swarm around the block.
--Updated Termite mound texture.
--Player-placed mounds now strip, then hollow logs.
--Played-placed blocks are no longer eaten by Termites.
--Can now be obtained without Silk Touch.
--Now displays whether Termites are awake or not.
+- Updated Termite particles to swarm around the block.
+- Updated Termite mound texture.
+- Player-placed mounds now strip, then hollow logs.
+- Played-placed blocks are no longer eaten by Termites.
+- Can now be obtained without Silk Touch.
+- Now displays whether Termites are awake or not.
 
 Cypress Changes:
--Only the "Swamp" variant of Cypress generate in water.
+- Only the "Swamp" variant of Cypress generate in water.
      -As such, only this variant will be grown from waterlogged saplings.
--Cypress Saplings can now only be placed if water is shallow enough.
+- Cypress Saplings can now only be placed if water is shallow enough.
 
-Fixed countless bugs and inconsistencies overall.
-
+- Fixed countless bugs and inconsistencies overall.
+- Changed the way worldgen is registered to allow for more consistency between 1.19.2 and 1.19.3+
