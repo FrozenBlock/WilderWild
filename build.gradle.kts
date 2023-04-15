@@ -556,13 +556,13 @@ curseforge {
         mainArtifact(remapJar, closureOf<CurseArtifact> {
             displayName = display_name
         })
-        addArtifact(tasks.remapSourcesJar)
-        addArtifact(javadocJar)
+        addArtifact(tasks.remapSourcesJar.get())
+        //addArtifact(javadocJar)
 
         afterEvaluate {
             uploadTask.dependsOn(remapJar)
-            uploadTask.dependsOn(tasks.remapSourcesJar)
-            uploadTask.dependsOn(javadocJar)
+            uploadTask.dependsOn(tasks.remapSourcesJar.get())
+            //uploadTask.dependsOn(javadocJar)
         }
     })
     curseGradleOptions.forgeGradleIntegration = false
@@ -578,7 +578,12 @@ modrinth {
     uploadFile.set(remapJar)
     gameVersions.set(listOf(minecraft_version))
     loaders.set(listOf("fabric", "quilt"))
-    additionalFiles.set(listOf(tasks.remapSourcesJar.get(), javadocJar))
+    additionalFiles.set(
+        listOf(
+            tasks.remapSourcesJar.get(),
+            //javadocJar
+        )
+    )
     dependencies {
         required.project("fabric-api")
         optional.project("cloth-config")

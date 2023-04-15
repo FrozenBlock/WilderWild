@@ -72,11 +72,12 @@ Temperate Rainforest: Bright! Wet! Exotic!
 - Contains mushroom-covered Podzol paths.
 - Generates with moss lakes, podzol basins, and bushes.
 
-TRANSITION BIOMES: Transition biomes are a new category of biome we are introducing.
+TRANSITION BIOMES: Transition biomes are a new category of biome we're introducing.
 - These help with reducing and cleaning up sharp borders between biomes.
 
 Arid Forest:
 - A combination of the Desert and Forest.
+
 
 Arid Savanna:
 - A combination of the Desert and Savanna.
@@ -203,7 +204,7 @@ Badlands:
 - Prickly Pears now generate in all Badlands biomes.
 - Large bushes now generate in Badlands biomes.
 - Tumbleweed Stems now generate in all Badlands biomes.
-- Tumbleweed now spawn naturally in all Badlands biomes.
+- Tumbleweed now spawns naturally in all Badlands biomes.
 
 Dark Forest:
 - Carnation and Milkweed flowers now generate in Dark Forests.
