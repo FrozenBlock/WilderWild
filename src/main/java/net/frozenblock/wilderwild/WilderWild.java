@@ -139,6 +139,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
         WilderPlacedFeatures.init();
         WilderWorldGen.generateWildWorldGen();
         RegisterGameEvents.registerEvents();
+		RegisterWorldgen.init();
         RegisterWorldgen.registerWorldgen();
         RegisterStructures.init();
 		RegisterItems.registerBlockItems();
