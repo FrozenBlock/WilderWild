@@ -40,7 +40,6 @@ import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.registry.RegisterCriteria;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterGameEvents;
 import net.frozenblock.wilderwild.registry.RegisterItems;
@@ -80,13 +79,10 @@ import net.frozenblock.wilderwild.world.generation.trunk.FancyDarkOakTrunkPlacer
 import net.frozenblock.wilderwild.world.generation.trunk.JuniperTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.PalmTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.StraightTrunkWithLogs;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.GameRules;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
@@ -155,7 +151,6 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
         RegisterParticles.registerParticles();
 		RegisterResources.register(container);
 		RegisterProperties.init();
-		RegisterCriteria.register();
 
 		Registry.register(Registry.CONDITION, WilderSharedConstants.id("beta_beach_condition_source"), BetaBeachConditionSource.CODEC.codec());
 

@@ -7,8 +7,4 @@ public class RegisterCriteria {
 
 	public static final FireflyBottleTrigger FIREFLY_BOTTLE = CriteriaTriggers.register(new FireflyBottleTrigger());
 
-	public static void register() {
-		CriteriaTriggers.register(FIREFLY_BOTTLE);
-	}
-
 }
