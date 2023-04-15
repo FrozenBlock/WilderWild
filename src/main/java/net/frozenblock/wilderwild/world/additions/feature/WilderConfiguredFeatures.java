@@ -300,6 +300,15 @@ public final class WilderConfiguredFeatures {
 			.add(Blocks.PEONY.defaultBlockState(), 3)
 			.build();
 
+	public static final SimpleWeightedRandomList<BlockState> FLOWERS_SUNFLOWER_PLAINS_POOL = SimpleWeightedRandomList.<BlockState>builder()
+			.add(RegisterBlocks.SEEDING_DANDELION.defaultBlockState(), 3)
+			.add(Blocks.DANDELION.defaultBlockState(), 6)
+			.add(Blocks.SUNFLOWER.defaultBlockState(), 10)
+			.add(Blocks.AZURE_BLUET.defaultBlockState(), 4)
+			.add(Blocks.OXEYE_DAISY.defaultBlockState(), 3)
+			.add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 1)
+			.build();
+
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_CYPRESS_WETLANDS = register("flowers_cypress_wetlands");
 
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_TEMPERATE_RAINFOREST = register("flowers_temperate_rainforest");
@@ -315,6 +324,8 @@ public final class WilderConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_JUNGLE = register("flowers_jungle");
 
 	public static final FrozenConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> TALL_FLOWER_FLOWER_FIELD = register("tall_flower_flower_field");
+
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_SUNFLOWER_PLAINS = register("flowers_sunflower_plains");
 
 	//VEGETATION
 	public static final SimpleWeightedRandomList<BlockState> OASIS_GRASS_POOL = SimpleWeightedRandomList.<BlockState>builder()
@@ -1096,6 +1107,7 @@ public final class WilderConfiguredFeatures {
 				)
 		);
 
+
 		MOSS_CARPET.makeAndSetHolder(Feature.RANDOM_PATCH,
 				FeatureUtils.simpleRandomPatchConfiguration(
 						25,
@@ -1190,6 +1202,15 @@ public final class WilderConfiguredFeatures {
 						PlacementUtils.onlyWhenEmpty(
 								Feature.SIMPLE_BLOCK,
 								new SimpleBlockConfiguration(new WeightedStateProvider(FLOWERS_JUNGLE_POOL))
+						)
+				)
+		);
+		FLOWERS_SUNFLOWER_PLAINS.makeAndSetHolder(Feature.FLOWER,
+				FeatureUtils.simpleRandomPatchConfiguration(
+						20,
+						PlacementUtils.onlyWhenEmpty(
+								Feature.SIMPLE_BLOCK,
+								new SimpleBlockConfiguration(new WeightedStateProvider(FLOWERS_SUNFLOWER_PLAINS_POOL))
 						)
 				)
 		);

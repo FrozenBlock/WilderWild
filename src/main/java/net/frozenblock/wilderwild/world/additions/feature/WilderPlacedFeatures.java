@@ -302,6 +302,8 @@ public final class WilderPlacedFeatures {
 
 	public static final FrozenPlacedFeature FLOWER_JUNGLE = register("flower_jungle");
 
+	public static final FrozenPlacedFeature FLOWER_SUNFLOWER_PLAINS = register("flower_sunflower_plains");
+
 	public static final FrozenPlacedFeature FLOWER_SPARSE_JUNGLE = register("flower_sparse_jungle");
 
 	public static final FrozenPlacedFeature MOSS_CARPET = register("moss_carpet");
@@ -950,6 +952,11 @@ public final class WilderPlacedFeatures {
 
 		FLOWER_JUNGLE.makeAndSetHolder(WilderConfiguredFeatures.FLOWERS_JUNGLE.getHolder(),
 				CountPlacement.of(20), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
+		FLOWER_SUNFLOWER_PLAINS.makeAndSetHolder(WilderConfiguredFeatures.FLOWERS_SUNFLOWER_PLAINS.getHolder(),
+				CountPlacement.of(4), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
