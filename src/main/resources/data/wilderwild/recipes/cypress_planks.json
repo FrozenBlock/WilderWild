@@ -1,13 +1,14 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "building",
   "group": "planks",
   "ingredients": [
-	{
-	  "tag": "wilderwild:cypress_logs"
-	}
+	  {
+	    "tag": "wilderwild:cypress_logs"
+	  }
   ],
   "result": {
-	"count": 4,
-	"item": "wilderwild:cypress_planks"
+	  "count": 4,
+	  "item": "wilderwild:cypress_planks"
   }
 }
