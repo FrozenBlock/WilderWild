@@ -45,7 +45,6 @@ public class WilderSharedConstants {
 	 */
 	public static boolean UNSTABLE_LOGGING = FabricLoader.getInstance().isDevelopmentEnvironment();
     public static boolean areConfigsInit = false;
-	public static boolean WILDLESS_WILD = FabricLoader.getInstance().isModLoaded("mrbeast");
 
 	public static final int DATA_VERSION = 13;
 

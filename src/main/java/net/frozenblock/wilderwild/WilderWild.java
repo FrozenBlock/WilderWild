@@ -130,9 +130,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		RegisterItems.registerBlockItems();
         RegisterGameEvents.registerEvents();
 		RegisterBlocks.registerDispenses();
-		if (!WilderSharedConstants.WILDLESS_WILD) {
-			WilderWorldGen.generateWildWorldGen();
-		}
+		WilderWorldGen.generateWildWorldGen();
 
         RegisterSounds.init();
         RegisterBlockSoundTypes.init();
