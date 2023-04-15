@@ -1,17 +1,18 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "ingredients": [
-	{
-	  "item": "wilderwild:brown_shelf_fungus"
-	},
-	{
-	  "item": "wilderwild:red_shelf_fungus"
-	},
-	{
-	  "item": "minecraft:bowl"
-	}
+	  {
+	   "item": "wilderwild:brown_shelf_fungus"
+	  },
+	  {
+	    "item": "wilderwild:red_shelf_fungus"
+	  },
+	  {
+	    "item": "minecraft:bowl"
+	  }
   ],
   "result": {
-	"item": "minecraft:mushroom_stew"
+	  "item": "minecraft:mushroom_stew"
   }
 }
