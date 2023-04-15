@@ -880,295 +880,279 @@
         ]
       },
       "trigger": "minecraft:location"
+    },
+    "wilderwild:jellyfish_caves": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biome": "wilderwild:jellyfish_caves"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
+    "wilderwild:warm_river": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biome": "wilderwild:warm_river"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
+    "wilderwild:birch_taiga": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biome": "wilderwild:birch_taiga"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
+    "wilderwild:old_growth_birch_taiga": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biome": "wilderwild:old_growth_birch_taiga"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
+    "wilderwild:birch_jungle": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biome": "wilderwild:birch_jungle"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
+    "wilderwild:sparse_birch_jungle": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biome": "wilderwild:sparse_birch_jungle"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
+    "wilderwild:flower_field": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biome": "wilderwild:flower_field"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
+    "wilderwild:arid_savanna": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biome": "wilderwild:arid_savanna"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
+    "wilderwild:parched_forest": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biome": "wilderwild:parched_forest"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
+    "wilderwild:arid_forest": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biome": "wilderwild:arid_forest"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
+    "wilderwild:snowy_old_growth_pine_taiga": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biome": "wilderwild:snowy_old_growth_pine_taiga"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
+    "wilderwild:old_growth_dark_forest": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biome": "wilderwild:old_growth_dark_forest"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
+    "wilderwild:dark_birch_forest": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biome": "wilderwild:dark_birch_forest"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
+    "wilderwild:semi_birch_forest": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biome": "wilderwild:semi_birch_forest"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
+    "wilderwild:temperate_rainforest": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biome": "wilderwild:temperate_rainforest"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
+    "wilderwild:rainforest": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biome": "wilderwild:rainforest"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
+    "wilderwild:dark_taiga": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biome": "wilderwild:dark_taiga"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
     }
-  },
-  "wilderwild:mixed_forest": {
-    "conditions": {
-      "player": [
-        {
-          "condition": "minecraft:entity_properties",
-          "entity": "this",
-          "predicate": {
-            "location": {
-              "biome": "wilderwild:mixed_forest"
-            }
-          }
-        }
-      ]
-    },
-    "trigger": "minecraft:location"
-  },
-  "wilderwild:jellyfish_caves": {
-    "conditions": {
-      "player": [
-        {
-          "condition": "minecraft:entity_properties",
-          "entity": "this",
-          "predicate": {
-            "location": {
-              "biome": "wilderwild:jellyfish_caves"
-            }
-          }
-        }
-      ]
-    },
-    "trigger": "minecraft:location"
-  },
-  "wilderwild:warm_river": {
-    "conditions": {
-      "player": [
-        {
-          "condition": "minecraft:entity_properties",
-          "entity": "this",
-          "predicate": {
-            "location": {
-              "biome": "wilderwild:warm_river"
-            }
-          }
-        }
-      ]
-    },
-    "trigger": "minecraft:location"
-  },
-  "wilderwild:birch_taiga": {
-    "conditions": {
-      "player": [
-        {
-          "condition": "minecraft:entity_properties",
-          "entity": "this",
-          "predicate": {
-            "location": {
-              "biome": "wilderwild:birch_taiga"
-            }
-          }
-        }
-      ]
-    },
-    "trigger": "minecraft:location"
-  },
-  "wilderwild:old_growth_birch_taiga": {
-    "conditions": {
-      "player": [
-        {
-          "condition": "minecraft:entity_properties",
-          "entity": "this",
-          "predicate": {
-            "location": {
-              "biome": "wilderwild:old_growth_birch_taiga"
-            }
-          }
-        }
-      ]
-    },
-    "trigger": "minecraft:location"
-  },
-  "wilderwild:birch_jungle": {
-    "conditions": {
-      "player": [
-        {
-          "condition": "minecraft:entity_properties",
-          "entity": "this",
-          "predicate": {
-            "location": {
-              "biome": "wilderwild:birch_jungle"
-            }
-          }
-        }
-      ]
-    },
-    "trigger": "minecraft:location"
-  },
-  "wilderwild:sparse_birch_jungle": {
-    "conditions": {
-      "player": [
-        {
-          "condition": "minecraft:entity_properties",
-          "entity": "this",
-          "predicate": {
-            "location": {
-              "biome": "wilderwild:sparse_birch_jungle"
-            }
-          }
-        }
-      ]
-    },
-    "trigger": "minecraft:location"
-  },
-  "wilderwild:flower_field": {
-    "conditions": {
-      "player": [
-        {
-          "condition": "minecraft:entity_properties",
-          "entity": "this",
-          "predicate": {
-            "location": {
-              "biome": "wilderwild:flower_field"
-            }
-          }
-        }
-      ]
-    },
-    "trigger": "minecraft:location"
-  },
-  "wilderwild:arid_savanna": {
-    "conditions": {
-      "player": [
-        {
-          "condition": "minecraft:entity_properties",
-          "entity": "this",
-          "predicate": {
-            "location": {
-              "biome": "wilderwild:arid_savanna"
-            }
-          }
-        }
-      ]
-    },
-    "trigger": "minecraft:location"
-  },
-  "wilderwild:parched_forest": {
-    "conditions": {
-      "player": [
-        {
-          "condition": "minecraft:entity_properties",
-          "entity": "this",
-          "predicate": {
-            "location": {
-              "biome": "wilderwild:parched_forest"
-            }
-          }
-        }
-      ]
-    },
-    "trigger": "minecraft:location"
-  },
-  "wilderwild:arid_forest": {
-    "conditions": {
-      "player": [
-        {
-          "condition": "minecraft:entity_properties",
-          "entity": "this",
-          "predicate": {
-            "location": {
-              "biome": "wilderwild:arid_forest"
-            }
-          }
-        }
-      ]
-    },
-    "trigger": "minecraft:location"
-  },
-  "wilderwild:snowy_old_growth_pine_taiga": {
-    "conditions": {
-      "player": [
-        {
-          "condition": "minecraft:entity_properties",
-          "entity": "this",
-          "predicate": {
-            "location": {
-              "biome": "wilderwild:snowy_old_growth_pine_taiga"
-            }
-          }
-        }
-      ]
-    },
-    "trigger": "minecraft:location"
-  },
-  "wilderwild:old_growth_dark_forest": {
-    "conditions": {
-      "player": [
-        {
-          "condition": "minecraft:entity_properties",
-          "entity": "this",
-          "predicate": {
-            "location": {
-              "biome": "wilderwild:old_growth_dark_forest"
-            }
-          }
-        }
-      ]
-    },
-    "trigger": "minecraft:location"
-  },
-  "wilderwild:dark_birch_forest": {
-    "conditions": {
-      "player": [
-        {
-          "condition": "minecraft:entity_properties",
-          "entity": "this",
-          "predicate": {
-            "location": {
-              "biome": "wilderwild:dark_birch_forest"
-            }
-          }
-        }
-      ]
-    },
-    "trigger": "minecraft:location"
-  },
-  "wilderwild:semi_birch_forest": {
-    "conditions": {
-      "player": [
-        {
-          "condition": "minecraft:entity_properties",
-          "entity": "this",
-          "predicate": {
-            "location": {
-              "biome": "wilderwild:semi_birch_forest"
-            }
-          }
-        }
-      ]
-    },
-    "trigger": "minecraft:location"
-  },
-  "wilderwild:temperate_rainforest": {
-    "conditions": {
-      "player": [
-        {
-          "condition": "minecraft:entity_properties",
-          "entity": "this",
-          "predicate": {
-            "location": {
-              "biome": "wilderwild:temperate_rainforest"
-            }
-          }
-        }
-      ]
-    },
-    "trigger": "minecraft:location"
-  },
-  "wilderwild:rainforest": {
-    "conditions": {
-      "player": [
-        {
-          "condition": "minecraft:entity_properties",
-          "entity": "this",
-          "predicate": {
-            "location": {
-              "biome": "wilderwild:rainforest"
-            }
-          }
-        }
-      ]
-    },
-    "trigger": "minecraft:location"
-  },
-  "wilderwild:dark_taiga": {
-    "conditions": {
-      "player": [
-        {
-          "condition": "minecraft:entity_properties",
-          "entity": "this",
-          "predicate": {
-            "location": {
-              "biome": "wilderwild:dark_taiga"
-            }
-          }
-        }
-      ]
-    },
-    "trigger": "minecraft:location"
   },
   "display": {
     "announce_to_chat": true,
