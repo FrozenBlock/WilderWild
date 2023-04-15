@@ -189,7 +189,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 	}
 
     private static void applyDataFixes(final @NotNull ModContainer mod) {
-        log("Applying DataFixes for Wilder Wild with Data Version " + WilderSharedConstants.DATA_VERSION, true);
+        WilderSharedConstants.log("Applying DataFixes for Wilder Wild with Data Version " + WilderSharedConstants.DATA_VERSION, true);
         var builder = new QuiltDataFixerBuilder(WilderSharedConstants.DATA_VERSION);
         builder.addSchema(0, QuiltDataFixes.BASE_SCHEMA);
         Schema schemaV1 = builder.addSchema(1, NamespacedSchema::new);
@@ -235,57 +235,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		SimpleFixes.addBlockRenameFix(builder, "Rename palm_leaves to palm_fronds", WilderSharedConstants.id("palm_leaves"), WilderSharedConstants.id("palm_fronds"), schemaV13);
 		SimpleFixes.addItemRenameFix(builder, "Rename palm_leaves to palm_fronds", WilderSharedConstants.id("palm_leaves"), WilderSharedConstants.id("palm_fronds"), schemaV13);
         QuiltDataFixes.buildAndRegisterFixer(mod, builder);
-        log("DataFixes for Wilder Wild have been applied", true);
-    }
-
-    // LOGGING
-
-	/**
-	 * @deprecated Use {@link WilderSharedConstants#log(String, boolean)} instead.
-	 */
-	@Deprecated(forRemoval = true)
-    public static void log(String string, boolean shouldLog) {
-        WilderSharedConstants.log(string, shouldLog);
-    }
-
-	/**
-	 * @deprecated Use {@link WilderSharedConstants#logInsane(String, boolean)} instead.
-	 */
-	@Deprecated(forRemoval = true)
-    public static void logInsane(String string, boolean shouldLog) {
-        WilderSharedConstants.logInsane(string, shouldLog);
-    }
-
-	/**
-	 * @deprecated Use {@link WilderSharedConstants#log(Entity, String, boolean)} instead.
-	 */
-	@Deprecated(forRemoval = true)
-    public static void log(Entity entity, String string, boolean shouldLog) {
-        WilderSharedConstants.log(entity, string, shouldLog);
-    }
-
-	/**
-	 * @deprecated Use {@link WilderSharedConstants#log(Block, String, boolean)} instead.
-	 */
-	@Deprecated(forRemoval = true)
-    public static void log(Block block, String string, boolean shouldLog) {
-        WilderSharedConstants.log(block, string, shouldLog);
-    }
-
-	/**
-	 * @deprecated Use {@link WilderSharedConstants#log(Block, BlockPos, String, boolean)} instead.
-	 */
-	@Deprecated(forRemoval = true)
-    public static void log(Block block, BlockPos pos, String string, boolean shouldLog) {
-        WilderSharedConstants.log(block, pos, string, shouldLog);
-    }
-
-	/**
-	 * @deprecated Use {@link WilderSharedConstants#logWild(String, boolean)} instead.
-	 */
-	@Deprecated(forRemoval = true)
-    public static void logWild(String string, boolean shouldLog) {
-        WilderSharedConstants.logWild(string, shouldLog);
+		WilderSharedConstants.log("DataFixes for Wilder Wild have been applied", true);
     }
 
     private static <P extends TrunkPlacer> TrunkPlacerType<P> registerTrunk(String id, Codec<P> codec) {
