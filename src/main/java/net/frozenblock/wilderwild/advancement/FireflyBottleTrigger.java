@@ -13,7 +13,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
 public class FireflyBottleTrigger extends SimpleCriterionTrigger<FireflyBottleTrigger.TriggerInstance> {
-static final ResourceLocation ID = WilderSharedConstants.id("firefly_bottle");
+
+	public static final ResourceLocation ID = WilderSharedConstants.id("firefly_bottle");
 
 	@Override
 	public ResourceLocation getId() {
