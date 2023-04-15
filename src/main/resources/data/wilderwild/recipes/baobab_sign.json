@@ -1,21 +1,22 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "group": "wooden_sign",
   "key": {
-	"#": {
-	  "item": "wilderwild:baobab_planks"
-	},
-	"X": {
-	  "item": "minecraft:stick"
-	}
+	  "#": {
+	   "item": "wilderwild:baobab_planks"
+	  },
+	  "X": {
+	   "item": "minecraft:stick"
+	  }
   },
   "pattern": [
-	"###",
-	"###",
-	" X "
+  	"###",
+  	"###",
+  	" X "
   ],
   "result": {
-	"count": 3,
-	"item": "wilderwild:baobab_sign"
+  	"count": 3,
+	  "item": "wilderwild:baobab_sign"
   }
 }

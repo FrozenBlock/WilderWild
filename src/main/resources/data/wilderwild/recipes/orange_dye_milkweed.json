@@ -1,13 +1,14 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "group": "orange_dye",
   "ingredients": [
-	{
-	  "item": "wilderwild:milkweed"
-	}
+	  {
+	    "item": "wilderwild:milkweed"
+	  }
   ],
   "result": {
-	"item": "minecraft:orange_dye",
-	"count": 2
+	  "item": "minecraft:orange_dye",
+	  "count": 2
   }
 }

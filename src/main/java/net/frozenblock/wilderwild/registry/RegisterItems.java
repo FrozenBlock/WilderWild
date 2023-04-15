@@ -147,6 +147,7 @@ public final class RegisterItems {
         Registry.register(Registry.ITEM, WilderSharedConstants.id("cypress_chest_boat"), CYPRESS_CHEST_BOAT_ITEM);
         Registry.register(Registry.ITEM, WilderSharedConstants.id("palm_boat"), PALM_BOAT_ITEM);
         Registry.register(Registry.ITEM, WilderSharedConstants.id("palm_chest_boat"), PALM_CHEST_BOAT_ITEM);
+		Registry.register(Registry.ITEM, WilderSharedConstants.id("ancient_horn_fragment"), ANCIENT_HORN_FRAGMENT);
         Registry.register(Registry.ITEM, WilderSharedConstants.id("ancient_horn"), ANCIENT_HORN);
         Registry.register(Registry.ITEM, WilderSharedConstants.id("copper_horn"), COPPER_HORN);
         Registry.register(Registry.ITEM, WilderSharedConstants.id("milkweed_pod"), MILKWEED_POD);
@@ -185,8 +186,6 @@ public final class RegisterItems {
         Registry.register(Registry.ITEM, WilderSharedConstants.id("light_blue_firefly_bottle"), LIGHT_BLUE_FIREFLY_BOTTLE);
         Registry.register(Registry.ITEM, WilderSharedConstants.id("orange_firefly_bottle"), ORANGE_FIREFLY_BOTTLE);
         Registry.register(Registry.ITEM, WilderSharedConstants.id("white_firefly_bottle"), WHITE_FIREFLY_BOTTLE);
-
-        Registry.register(Registry.ITEM, WilderSharedConstants.id("ancient_horn_fragment"), ANCIENT_HORN_FRAGMENT);
 
         TradeOfferHelper.registerWanderingTraderOffers(2, factories -> {
             factories.add(new VillagerTrades.ItemsForEmeralds(RegisterItems.BAOBAB_NUT, 5, 1, 8, 1));

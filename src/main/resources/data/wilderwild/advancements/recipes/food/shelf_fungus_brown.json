@@ -6,7 +6,7 @@
 		"items": [
 		  {
 			"items": [
-			  "wilderwild:red_shelf_fungus"
+			  "wilderwild:brown_shelf_fungus"
 			]
 		  }
 		]
@@ -15,7 +15,7 @@
 	},
 	"has_the_recipe": {
 	  "conditions": {
-		"recipe": "wilderwild:shroom_stew"
+		"recipe": "wilderwild:mushroom_stew_from_shelf_fungi"
 	  },
 	  "trigger": "minecraft:recipe_unlocked"
 	}
@@ -28,7 +28,7 @@
   ],
   "rewards": {
 	"recipes": [
-	  "wilderwild:shroom_stew"
+	  "wilderwild:mushroom_stew_from_shelf_fungi"
 	]
   }
 }

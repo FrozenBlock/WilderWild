@@ -1,12 +1,14 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "string",
   "ingredients": [
-	{
-	  "item": "wilderwild:milkweed_pod"
-	}
+	  {
+	   "item": "wilderwild:milkweed_pod"
+	  }
   ],
   "result": {
-	"item": "minecraft:string",
-	"count": 3
+	  "item": "minecraft:string",
+	  "count": 1
   }
 }

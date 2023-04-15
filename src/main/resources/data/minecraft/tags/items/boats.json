@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-	"wilderwild:palm_boat",
     "wilderwild:cypress_boat",
-    "wilderwild:baobab_boat"
+    "wilderwild:baobab_boat",
+    "wilderwild:palm_boat"
   ]
 }
