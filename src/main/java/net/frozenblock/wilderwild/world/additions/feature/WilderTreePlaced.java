@@ -21,17 +21,13 @@ package net.frozenblock.wilderwild.world.additions.feature;
 import java.util.List;
 import net.frozenblock.lib.worldgen.feature.api.FrozenPlacedFeature;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import static net.frozenblock.wilderwild.misc.WilderSharedConstants.string;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 
 import static net.frozenblock.wilderwild.world.additions.feature.WilderPlacementUtils.register;
@@ -80,6 +76,18 @@ public final class WilderTreePlaced {
 	public static final FrozenPlacedFeature MOSSY_FALLEN_BIRCH_CHECKED = register("mossy_fallen_birch_checked");
 
 	//CHERRY
+	public static final FrozenPlacedFeature CHERRY_CHECKED = register("cherry_checked");
+
+	public static final FrozenPlacedFeature DYING_CHERRY_CHECKED = register("dying_cherry_checked");
+
+	public static final FrozenPlacedFeature TALL_CHERRY_CHECKED = register("tall_cherry_checked");
+
+	public static final FrozenPlacedFeature TALL_DYING_CHERRY_CHECKED = register("tall_dying_cherry_checked");
+
+	public static final FrozenPlacedFeature CHERRY_BEES_CHECKED = register("cherry_bees_checked");
+
+	public static final FrozenPlacedFeature TALL_CHERRY_BEES_CHECKED = register("tall_cherry_bees_checked");
+
 	public static final FrozenPlacedFeature FALLEN_CHERRY_CHECKED = register("fallen_cherry_checked");
 
 	public static final FrozenPlacedFeature MOSSY_FALLEN_CHERRY_CHECKED = register("mossy_fallen_cherry_checked");
@@ -292,6 +300,30 @@ public final class WilderTreePlaced {
 		MOSSY_FALLEN_BIRCH_CHECKED.makeAndSetHolder(WilderTreeConfigured.MOSSY_FALLEN_BIRCH_TREE.getHolder());
 
 		//CHERRY
+
+		CHERRY_CHECKED.makeAndSetHolder(WilderTreeConfigured.CHERRY_TREE.getHolder(),
+				PlacementUtils.filteredByBlockSurvival(Blocks.CHERRY_SAPLING)
+		);
+
+		DYING_CHERRY_CHECKED.makeAndSetHolder(WilderTreeConfigured.DYING_CHERRY_TREE.getHolder(),
+				PlacementUtils.filteredByBlockSurvival(Blocks.CHERRY_SAPLING)
+		);
+
+		CHERRY_BEES_CHECKED.makeAndSetHolder(WilderTreeConfigured.CHERRY_BEES_025.getHolder(),
+				PlacementUtils.filteredByBlockSurvival(Blocks.CHERRY_SAPLING)
+		);
+
+		TALL_CHERRY_CHECKED.makeAndSetHolder(WilderTreeConfigured.TALL_CHERRY_TREE.getHolder(),
+				PlacementUtils.filteredByBlockSurvival(Blocks.CHERRY_SAPLING)
+		);
+
+		TALL_DYING_CHERRY_CHECKED.makeAndSetHolder(WilderTreeConfigured.TALL_DYING_CHERRY_TREE.getHolder(),
+				PlacementUtils.filteredByBlockSurvival(Blocks.CHERRY_SAPLING)
+		);
+
+		TALL_CHERRY_BEES_CHECKED.makeAndSetHolder(WilderTreeConfigured.TALL_CHERRY_BEES_025.getHolder(),
+				PlacementUtils.filteredByBlockSurvival(Blocks.CHERRY_SAPLING)
+		);
 
 		FALLEN_CHERRY_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_CHERRY_TREE.getHolder(),
 				PlacementUtils.filteredByBlockSurvival(Blocks.CHERRY_SAPLING)

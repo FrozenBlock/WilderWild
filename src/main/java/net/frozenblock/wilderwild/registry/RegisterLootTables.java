@@ -43,11 +43,10 @@ public final class RegisterLootTables {
         WilderSharedConstants.logWild("Registering Loot Table Modifications for", WilderSharedConstants.UNSTABLE_LOGGING);
         //ANCIENT HORN FRAGMENT
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
-            if (BuiltInLootTables.ANCIENT_CITY.equals(id) && source.isBuiltin()) {
+            if (BuiltInLootTables.ANCIENT_CITY.equals(id)) {
                 LootPool.Builder pool = LootPool.lootPool()
                         .add(LootItem.lootTableItem(RegisterItems.ANCIENT_HORN_FRAGMENT).setWeight(2).setQuality(Rarity.EPIC.ordinal() + 1)).
-                        apply(SetItemCountFunction.setCount(UniformGenerator.between(-0.5F, 1.15F)))/*.apply(SetInstrumentFunction.setInstrumentOptions(WilderInstrumentTags.ANCIENT_HORNS))*/;
-
+                        apply(SetItemCountFunction.setCount(UniformGenerator.between(-0.4F, 1.15F)));
                 tableBuilder.withPool(pool);
             }
         });
@@ -98,7 +97,7 @@ public final class RegisterLootTables {
 		});
         //GOAT
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
-            if (EntityType.GOAT.getDefaultLootTable().equals(id) && source.isBuiltin()) {
+            if (EntityType.GOAT.getDefaultLootTable().equals(id)) {
                 var pool = LootPool.lootPool().add(TagEntry.expandTag(WilderItemTags.GOAT_DROP_MUSIC_DISCS)).when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.KILLER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)));
 
                 tableBuilder.withPool(pool);

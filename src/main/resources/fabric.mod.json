@@ -82,8 +82,7 @@
         "modmenu.discord": "https://discord.gg/EpkBWm844s"
       },
       "badges": [
-        "frozenblock",
-        "indev"
+        "frozenblock"
       ]
     }
   }

@@ -55,6 +55,14 @@ public class DefaultWorldgenConfig {
 	public static final boolean FALLEN_LOGS = true;
 	public static final boolean WILDER_WILD_TREE_GEN = true;
 	public static final boolean WILDER_WILD_GRASS_GEN = true;
+	public static final boolean WILDER_WILD_FLOWER_GEN = true;
+	public static final boolean WILDER_WILD_BUSH_GEN = true;
+	public static final boolean WILDER_WILD_CACTUS_GEN = true;
+	public static final boolean WILDER_WILD_MUSHROOM_GEN = true;
+	public static final boolean TUMBLEWEED_GEN = true;
+	public static final boolean ALGAE_GEN = true;
+	public static final boolean TERMITE_GEN = true;
+	public static final boolean SURFACE_DECORATION = true;
 	public static final boolean SNOW_BELOW_TREES = true;
 	public static final boolean SURFACE_TRANSITIONS = true;
 	public static final boolean NEW_WITCH_HUTS = true;

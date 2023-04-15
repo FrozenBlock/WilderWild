@@ -79,10 +79,7 @@
     [
       "minecraft:glow_lichen",
       "wilderwild:temperate_rainforest_trees",
-      "wilderwild:flower_temperate_rainforest",
-      "wilderwild:rainforest_mushroom_placed",
-      "wilderwild:dead_bush_and_bush_placed",
-      "wilderwild:moss_pile",
+      "wilderwild:flower_temperate_rainforest_vanilla",
       "minecraft:flower_default",
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal",

@@ -447,6 +447,46 @@ public class NoOpClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean wildFlowers() {
+		return DefaultWorldgenConfig.WILDER_WILD_FLOWER_GEN;
+	}
+
+	@Override
+	public boolean wildBushes() {
+		return DefaultWorldgenConfig.WILDER_WILD_BUSH_GEN;
+	}
+
+	@Override
+	public boolean wildCacti() {
+		return DefaultWorldgenConfig.WILDER_WILD_CACTUS_GEN;
+	}
+
+	@Override
+	public boolean wildMushrooms() {
+		return DefaultWorldgenConfig.WILDER_WILD_MUSHROOM_GEN;
+	}
+
+	@Override
+	public boolean tumbleweed() {
+		return DefaultWorldgenConfig.TUMBLEWEED_GEN;
+	}
+
+	@Override
+	public boolean surfaceDecoration() {
+		return DefaultWorldgenConfig.SURFACE_DECORATION;
+	}
+
+	@Override
+	public boolean algae() {
+		return DefaultWorldgenConfig.ALGAE_GEN;
+	}
+
+	@Override
+	public boolean termiteGen() {
+		return DefaultWorldgenConfig.TERMITE_GEN;
+	}
+
+	@Override
 	public boolean snowBelowTrees() {
 		return DefaultWorldgenConfig.SNOW_BELOW_TREES;
 	}

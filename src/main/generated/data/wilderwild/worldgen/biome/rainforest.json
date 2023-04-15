@@ -79,9 +79,7 @@
     [
       "minecraft:glow_lichen",
       "wilderwild:rainforest_trees",
-      "wilderwild:flower_rainforest",
-      "wilderwild:rainforest_mushroom_placed",
-      "wilderwild:bush_and_dead_bush_placed",
+      "wilderwild:flower_rainforest_vanilla",
       "minecraft:forest_flowers",
       "minecraft:patch_grass_forest",
       "minecraft:flower_default",

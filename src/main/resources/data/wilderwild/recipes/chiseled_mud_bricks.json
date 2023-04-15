@@ -1,16 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-	"#",
-	"#"
-  ],
+  "category": "building",
   "key": {
-	"#": {
-	  "item": "minecraft:mud_brick_slab"
-	}
+	  "#": {
+	    "item": "minecraft:mud_brick_slab"
+	  }
   },
+  "pattern": [
+    "#",
+    "#"
+  ],
   "result": {
-	"item": "wilderwild:chiseled_mud_bricks",
-	"count": 1
+	  "item": "wilderwild:chiseled_mud_bricks",
+	  "count": 1
   }
 }
