@@ -49,6 +49,7 @@ import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterResources;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.registry.WilderRegistry;
 import net.frozenblock.wilderwild.world.additions.gen.WilderWorldGen;
 import net.frozenblock.wilderwild.world.generation.conditionsource.BetaBeachConditionSource;
@@ -124,6 +125,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
         WilderRegistry.initRegistry();
         RegisterBlocks.registerBlocks();
         RegisterItems.registerItems();
+		RegisterWorldgen.init();
 		RegisterItems.registerBlockItems();
         RegisterGameEvents.registerEvents();
 		RegisterBlocks.registerDispenses();
