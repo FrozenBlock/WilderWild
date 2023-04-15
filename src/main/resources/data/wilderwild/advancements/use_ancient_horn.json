@@ -9,12 +9,12 @@
 	"description": {
 	  "translate": "wilderwild.ancient_horn.advancement.use.description"
 	},
-	"frame": "task",
+	"frame": "goal",
 	"show_toast": true,
 	"announce_to_chat": true,
 	"hidden": false
   },
-  "parent": "minecraft:adventure/root",
+  "parent": "minecraft:adventure/avoid_vibration",
   "criteria": {
 	"requirement": {
 	  "trigger": "minecraft:using_item",
