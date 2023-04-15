@@ -310,7 +310,7 @@ dependencies {
 }
 
 quiltflower {
-    quiltflowerVersion.set("1.9.0")
+    quiltflowerVersion.set("1.8.0")
 }
 
 tasks {
