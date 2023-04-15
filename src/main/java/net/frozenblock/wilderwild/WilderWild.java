@@ -40,6 +40,7 @@ import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.RegisterCriteria;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterGameEvents;
 import net.frozenblock.wilderwild.registry.RegisterItems;
@@ -154,6 +155,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
         RegisterParticles.registerParticles();
 		RegisterResources.register(container);
 		RegisterProperties.init();
+		RegisterCriteria.register();
 
 		Registry.register(Registry.CONDITION, WilderSharedConstants.id("beta_beach_condition_source"), BetaBeachConditionSource.CODEC.codec());
 

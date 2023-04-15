@@ -546,6 +546,8 @@
   "wilderwild.ancient_horn.advancement.use.description": "Craft and use an Ancient Horn",
   "wilderwild.null_block.advancement.obtain": "Hackermode = §aON",
   "wilderwild.null_block.advancement.obtain.description": "Obtain a Null Block.",
+  "wilderwild.advancements.husbandry.firefly_in_a_bottle.title": "Bottle of Lightning",
+  "wilderwild.advancements.husbandry.firefly_in_a_bottle.description": "Capture a Firefly in a bottle.",
   "commands.sculkspread.success": "Spread Sculk at %s, %s, %s with a charge of %s.",
   "commands.sculkspread.worldgen.success": "Spread Worldgen Sculk at %s, %s, %s with a charge of %s."
 }
