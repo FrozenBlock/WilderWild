@@ -29,8 +29,9 @@ public final class BetaBeachConditionSource implements SurfaceRules.ConditionSou
 			instance.group(
 							Codec.INT
 							.fieldOf("useless")
-							.forGetter(BetaBeachConditionSource::useless))
-					.apply(instance, BetaBeachConditionSource::new)
+							.forGetter(BetaBeachConditionSource::useless)
+				)
+				.apply(instance, BetaBeachConditionSource::new)
 			)
 	);
 
