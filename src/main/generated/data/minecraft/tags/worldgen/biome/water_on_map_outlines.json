@@ -1,17 +1,16 @@
 {
   "replace": false,
   "values": [
-    "minecraft:sunflower_plains",
     {
-      "id": "wilderwild:flower_field",
+      "id": "wilderwild:warm_river",
       "required": false
     },
     {
-      "id": "wilderwild:rainforest",
+      "id": "wilderwild:jellyfish_caves",
       "required": false
     },
     {
-      "id": "wilderwild:temperate_rainforest",
+      "id": "wilderwild:oasis",
       "required": false
     },
     {

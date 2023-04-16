@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.world.additions.feature;
 import java.util.List;
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.api.FrozenFeatures;
+import net.frozenblock.lib.worldgen.feature.api.features.FadingDiskTagExceptInBiomeFeature;
 import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskTagBiomeFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskTagFeatureConfig;
@@ -96,7 +97,7 @@ public final class WilderMiscConfigured {
 
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> STONE_TRANSITION_DISK = register("stone_transition_disk");
 
-	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SMALL_SAND_TRANSITION_DISK = register("small_sand_transition_disk");
+	public static final FrozenConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ?>> SMALL_SAND_TRANSITION_DISK = register("small_sand_transition_disk");
 
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> BETA_BEACH_SAND_TRANSITION_DISK = register("beta_beach_sand_transition_disk");
 
@@ -121,7 +122,7 @@ public final class WilderMiscConfigured {
 
 	public static final FrozenConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> SCORCHED_SAND_DISK_LIGHTNING = register("scorched_sand_lightning");
 
-	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SAND_TRANSITION_DISK = register("sand_transition");
+	public static final FrozenConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ?>> SAND_TRANSITION_DISK = register("sand_transition");
 
 	// BADLANDS
 	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> COARSE_DIRT_PATH_SMALL = register("coarse_dirt_path_small");
@@ -368,8 +369,8 @@ public final class WilderMiscConfigured {
 				)
 		);
 
-		SMALL_SAND_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
-				new FadingDiskTagFeatureConfig(
+		SMALL_SAND_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_EXCEPT_IN_BIOME_FEATURE,
+				new FadingDiskTagBiomeFeatureConfig(
 						true,
 						BlockStateProvider.simple(Blocks.SAND),
 						BlockStateProvider.simple(Blocks.SAND),
@@ -380,7 +381,8 @@ public final class WilderMiscConfigured {
 						0.5F,
 						WilderBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE,
 						WilderBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE,
-						Heightmap.Types.OCEAN_FLOOR_WG
+						Heightmap.Types.OCEAN_FLOOR_WG,
+						WilderBiomeTags.HAS_SMALL_SAND_TRANSITION
 				)
 		);
 
@@ -535,8 +537,8 @@ public final class WilderMiscConfigured {
 				)
 		);
 
-		SAND_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
-				new FadingDiskTagFeatureConfig(
+		SAND_TRANSITION_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_EXCEPT_IN_BIOME_FEATURE,
+			new FadingDiskTagBiomeFeatureConfig(
 						true,
 						BlockStateProvider.simple(Blocks.SAND),
 						BlockStateProvider.simple(Blocks.SAND),
@@ -547,7 +549,8 @@ public final class WilderMiscConfigured {
 						0.5F,
 						WilderBlockTags.SAND_TRANSITION_REPLACEABLE,
 						WilderBlockTags.SAND_TRANSITION_REPLACEABLE,
-						Heightmap.Types.OCEAN_FLOOR_WG
+						Heightmap.Types.OCEAN_FLOOR_WG,
+						WilderBiomeTags.HAS_SAND_TRANSITION
 				)
 		);
 
