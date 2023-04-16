@@ -102,7 +102,7 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_SPARSE_JUNGLE_FLOWERS = bind("has_sparse_jungle_flowers");
 	public static final TagKey<Biome> HAS_JUNGLE_FLOWERS = bind("has_jungle_flowers");
 	public static final TagKey<Biome> HAS_JUNGLE_BUSH = bind("has_jungle_bush");
-	public static final TagKey<Biome> HAS_SPARSE_JUNGLE_BUSH = bind("has_sparse_jungle_bush");
+	public static final TagKey<Biome> HAS_SPARSE_BUSH = bind("has_sparse_bush");
 	public static final TagKey<Biome> HAS_MOSS_PILE = bind("has_moss_pile");
 	public static final TagKey<Biome> HAS_DECORATIVE_MUD = bind("has_decorative_mud");
 	public static final TagKey<Biome> HAS_PACKED_MUD_ORE = bind("has_packed_mud_ore");

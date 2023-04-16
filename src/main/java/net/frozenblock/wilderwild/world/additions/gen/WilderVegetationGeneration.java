@@ -99,8 +99,8 @@ public final class WilderVegetationGeneration {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_JUNGLE_BUSH),
 					GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderPlacedFeatures.JUNGLE_BUSH_PLACED.getKey());
 
-			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SPARSE_JUNGLE_BUSH),
-					GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderPlacedFeatures.SPARSE_JUNGLE_BUSH_PLACED.getKey());
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SPARSE_BUSH),
+					GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderPlacedFeatures.SPARSE_BUSH_PLACED.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.BADLANDS, Biomes.WOODED_BADLANDS),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BADLANDS_BUSH_SAND_PLACED.getKey());

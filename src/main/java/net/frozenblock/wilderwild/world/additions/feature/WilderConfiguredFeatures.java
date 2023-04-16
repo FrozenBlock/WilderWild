@@ -301,13 +301,12 @@ public final class WilderConfiguredFeatures {
 		.build();
 
 	public static final SimpleWeightedRandomList<BlockState> FLOWERS_SUNFLOWER_PLAINS_POOL = SimpleWeightedRandomList.<BlockState>builder()
-		.add(Blocks.SUNFLOWER.defaultBlockState(), 10)
-		.add(Blocks.DANDELION.defaultBlockState(), 8)
-		.add(Blocks.ORANGE_TULIP.defaultBlockState(), 5)
+		.add(Blocks.SUNFLOWER.defaultBlockState(), 6)
+		.add(Blocks.DANDELION.defaultBlockState(), 25)
+		.add(Blocks.ORANGE_TULIP.defaultBlockState(), 7)
 		.add(Blocks.AZURE_BLUET.defaultBlockState(), 1)
 		.add(Blocks.OXEYE_DAISY.defaultBlockState(), 1)
 		.add(RegisterBlocks.SEEDING_DANDELION.defaultBlockState(), 1)
-		.add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 1)
 		.build();
 
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_CYPRESS_WETLANDS = register("flowers_cypress_wetlands");
@@ -372,7 +371,7 @@ public final class WilderConfiguredFeatures {
 
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> JUNGLE_BUSH = register("jungle_bush");
 
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> SPARSE_JUNGLE_BUSH = register("sparse_jungle_bush");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> SPARSE_BUSH = register("sparse_bush");
 
 	public static final SimpleWeightedRandomList<BlockState> FLOWER_FIELD_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder()
 			.add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 2)
@@ -1302,7 +1301,7 @@ public final class WilderConfiguredFeatures {
 				)
 		);
 
-		SPARSE_JUNGLE_BUSH.makeAndSetHolder(Feature.RANDOM_PATCH,
+		SPARSE_BUSH.makeAndSetHolder(Feature.RANDOM_PATCH,
 				FeatureUtils.simpleRandomPatchConfiguration(
 						4,
 						PlacementUtils.onlyWhenEmpty(
