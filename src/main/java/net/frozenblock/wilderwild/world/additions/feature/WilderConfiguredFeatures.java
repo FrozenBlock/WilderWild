@@ -307,12 +307,12 @@ public final class WilderConfiguredFeatures {
 		.build();
 
 	public static final SimpleWeightedRandomList<BlockState> FLOWERS_SUNFLOWER_PLAINS_POOL = SimpleWeightedRandomList.<BlockState>builder()
-		.add(Blocks.SUNFLOWER.defaultBlockState(), 6)
-		.add(Blocks.DANDELION.defaultBlockState(), 25)
-		.add(Blocks.ORANGE_TULIP.defaultBlockState(), 7)
+		.add(Blocks.SUNFLOWER.defaultBlockState(), 12)
+		.add(Blocks.DANDELION.defaultBlockState(), 50)
+		.add(Blocks.ORANGE_TULIP.defaultBlockState(), 12)
 		.add(Blocks.AZURE_BLUET.defaultBlockState(), 1)
 		.add(Blocks.OXEYE_DAISY.defaultBlockState(), 1)
-		.add(RegisterBlocks.SEEDING_DANDELION.defaultBlockState(), 1)
+		.add(RegisterBlocks.SEEDING_DANDELION.defaultBlockState(), 2)
 		.build();
 
 	public static final SimpleWeightedRandomList<BlockState> FLOWERS_CHERRY_POOL = SimpleWeightedRandomList.<BlockState>builder()
