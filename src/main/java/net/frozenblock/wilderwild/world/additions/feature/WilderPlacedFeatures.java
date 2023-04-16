@@ -956,7 +956,7 @@ public final class WilderPlacedFeatures {
 		);
 
 		FLOWER_SUNFLOWER_PLAINS.makeAndSetHolder(WilderConfiguredFeatures.FLOWERS_SUNFLOWER_PLAINS.getHolder(),
-				CountPlacement.of(4), InSquarePlacement.spread(),
+				CountPlacement.of(UniformInt.of(4, 6)), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 

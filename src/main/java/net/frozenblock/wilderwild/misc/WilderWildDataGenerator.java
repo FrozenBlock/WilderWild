@@ -576,7 +576,6 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SEEDING_DANDELION)
 					.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
 					.add(Biomes.FLOWER_FOREST)
-					.add(Biomes.SUNFLOWER_PLAINS)
 					.add(Biomes.FOREST)
 					.add(Biomes.MEADOW)
 					.add(Biomes.WINDSWEPT_HILLS)
@@ -588,7 +587,6 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_MILKWEED)
 					.add(Biomes.BIRCH_FOREST)
 					.add(Biomes.FLOWER_FOREST)
-					.add(Biomes.SUNFLOWER_PLAINS)
 					.add(Biomes.PLAINS)
 					.add(Biomes.FOREST)
 					.add(Biomes.MEADOW)
@@ -646,8 +644,10 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.RAINFOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FIELD_FLOWERS)
-					.add(Biomes.SUNFLOWER_PLAINS)
 					.addOptional(RegisterWorldgen.FLOWER_FIELD);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SUNFLOWER_PLAINS_FLOWERS)
+				.add(Biomes.SUNFLOWER_PLAINS);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SHORT_MEGA_SPRUCE)
 					.add(Biomes.TAIGA)
@@ -903,6 +903,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptionalTag(WilderBiomeTags.WILDER_WILD_BIOMES);
 
 			this.getOrCreateTagBuilder(BiomeTags.HAS_PILLAGER_OUTPOST)
+					.add(Biomes.SUNFLOWER_PLAINS)
+					.add(Biomes.SNOWY_TAIGA)
+					.add(Biomes.ICE_SPIKES)
 					.addOptional(RegisterWorldgen.OASIS)
 					.addOptional(RegisterWorldgen.FLOWER_FIELD)
 					.addOptional(RegisterWorldgen.ARID_SAVANNA)
@@ -940,10 +943,17 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 					.addOptional(RegisterWorldgen.CYPRESS_WETLANDS);
 
 			this.getOrCreateTagBuilder(BiomeTags.HAS_VILLAGE_PLAINS)
+					.add(Biomes.SUNFLOWER_PLAINS)
 					.addOptional(RegisterWorldgen.FLOWER_FIELD);
 
 			this.getOrCreateTagBuilder(BiomeTags.HAS_VILLAGE_SAVANNA)
 					.addOptional(RegisterWorldgen.ARID_SAVANNA);
+
+			this.getOrCreateTagBuilder(BiomeTags.HAS_VILLAGE_SNOWY)
+				.add(Biomes.ICE_SPIKES);
+
+			this.getOrCreateTagBuilder(BiomeTags.HAS_VILLAGE_TAIGA)
+				.add(Biomes.SNOWY_TAIGA);
 
 			this.getOrCreateTagBuilder(BiomeTags.HAS_WOODLAND_MANSION)
 					.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST);

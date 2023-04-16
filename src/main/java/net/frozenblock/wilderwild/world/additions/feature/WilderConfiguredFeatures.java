@@ -202,18 +202,18 @@ public final class WilderConfiguredFeatures {
     public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> MILKWEED = register("milkweed");
 
     public static final SimpleWeightedRandomList<BlockState> GLORY_OF_THE_SNOW_POOL = SimpleWeightedRandomList.<BlockState>builder()
-			.add(RegisterBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(RegisterProperties.FLOWER_COLOR, FlowerColor.BLUE), 3)
-			.add(RegisterBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(RegisterProperties.FLOWER_COLOR, FlowerColor.PURPLE), 3)
-			.add(RegisterBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(RegisterProperties.FLOWER_COLOR, FlowerColor.PINK), 2)
-			.add(RegisterBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(RegisterProperties.FLOWER_COLOR, FlowerColor.WHITE), 1)
-			.build();
+		.add(RegisterBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(RegisterProperties.FLOWER_COLOR, FlowerColor.BLUE), 3)
+		.add(RegisterBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(RegisterProperties.FLOWER_COLOR, FlowerColor.PURPLE), 3)
+		.add(RegisterBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(RegisterProperties.FLOWER_COLOR, FlowerColor.PINK), 2)
+		.add(RegisterBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(RegisterProperties.FLOWER_COLOR, FlowerColor.WHITE), 1)
+		.build();
 
 	public static final SimpleWeightedRandomList<BlockState> GLORY_OF_THE_SNOW_JUNGLE_POOL = SimpleWeightedRandomList.<BlockState>builder()
-			.add(RegisterBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(RegisterProperties.FLOWER_COLOR, FlowerColor.BLUE), 1)
-			.add(RegisterBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(RegisterProperties.FLOWER_COLOR, FlowerColor.PURPLE), 1)
-			.add(RegisterBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(RegisterProperties.FLOWER_COLOR, FlowerColor.PINK), 2)
-			.add(RegisterBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(RegisterProperties.FLOWER_COLOR, FlowerColor.WHITE), 2)
-			.build();
+		.add(RegisterBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(RegisterProperties.FLOWER_COLOR, FlowerColor.BLUE), 1)
+		.add(RegisterBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(RegisterProperties.FLOWER_COLOR, FlowerColor.PURPLE), 1)
+		.add(RegisterBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(RegisterProperties.FLOWER_COLOR, FlowerColor.PINK), 2)
+		.add(RegisterBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(RegisterProperties.FLOWER_COLOR, FlowerColor.WHITE), 2)
+		.build();
 
     public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> GLORY_OF_THE_SNOW = register("glory_of_the_snow");
 
@@ -224,90 +224,91 @@ public final class WilderConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> MOSS_CARPET = register("moss_carpet");
 
 	public static final SimpleWeightedRandomList<BlockState> FLOWERS_CYPRESS_WETLANDS_POOL = SimpleWeightedRandomList.<BlockState>builder()
-			.add(RegisterBlocks.MILKWEED.defaultBlockState(), 3)
-			.add(RegisterBlocks.DATURA.defaultBlockState(), 2)
-			.add(RegisterBlocks.SEEDING_DANDELION.defaultBlockState(), 1)
-			.add(Blocks.LILAC.defaultBlockState(), 3)
-			.add(Blocks.DANDELION.defaultBlockState(), 1)
-			.add(Blocks.BLUE_ORCHID.defaultBlockState(), 2)
-			.add(Blocks.POPPY.defaultBlockState(), 1)
-			.add(RegisterBlocks.CARNATION.defaultBlockState(), 2)
-			.add(Blocks.ORANGE_TULIP.defaultBlockState(), 1)
-			.add(Blocks.PINK_TULIP.defaultBlockState(), 1)
-			.add(Blocks.RED_TULIP.defaultBlockState(), 1)
-			.add(Blocks.WHITE_TULIP.defaultBlockState(), 1)
-			.add(Blocks.OXEYE_DAISY.defaultBlockState(), 3)
-			.add(Blocks.ALLIUM.defaultBlockState(), 3)
-			.add(Blocks.ROSE_BUSH.defaultBlockState(), 3)
-			.add(Blocks.AZURE_BLUET.defaultBlockState(), 3)
-			.add(Blocks.LILY_OF_THE_VALLEY.defaultBlockState(), 3)
-			.add(Blocks.PEONY.defaultBlockState(), 2)
-			.build();
+		.add(RegisterBlocks.MILKWEED.defaultBlockState(), 3)
+		.add(RegisterBlocks.DATURA.defaultBlockState(), 2)
+		.add(RegisterBlocks.SEEDING_DANDELION.defaultBlockState(), 1)
+		.add(Blocks.LILAC.defaultBlockState(), 3)
+		.add(Blocks.DANDELION.defaultBlockState(), 1)
+		.add(Blocks.BLUE_ORCHID.defaultBlockState(), 2)
+		.add(Blocks.POPPY.defaultBlockState(), 1)
+		.add(RegisterBlocks.CARNATION.defaultBlockState(), 2)
+		.add(Blocks.ORANGE_TULIP.defaultBlockState(), 1)
+		.add(Blocks.PINK_TULIP.defaultBlockState(), 1)
+		.add(Blocks.RED_TULIP.defaultBlockState(), 1)
+		.add(Blocks.WHITE_TULIP.defaultBlockState(), 1)
+		.add(Blocks.OXEYE_DAISY.defaultBlockState(), 3)
+		.add(Blocks.ALLIUM.defaultBlockState(), 3)
+		.add(Blocks.ROSE_BUSH.defaultBlockState(), 3)
+		.add(Blocks.AZURE_BLUET.defaultBlockState(), 3)
+		.add(Blocks.LILY_OF_THE_VALLEY.defaultBlockState(), 3)
+		.add(Blocks.PEONY.defaultBlockState(), 2)
+		.build();
 
 	public static final SimpleWeightedRandomList<BlockState> FLOWERS_TEMPERATE_RAINFOREST_POOL = SimpleWeightedRandomList.<BlockState>builder()
-			.add(RegisterBlocks.MILKWEED.defaultBlockState(), 3)
-			.add(RegisterBlocks.DATURA.defaultBlockState(), 5)
-			.add(RegisterBlocks.SEEDING_DANDELION.defaultBlockState(), 5)
-			.add(Blocks.LILAC.defaultBlockState(), 6)
-			.add(Blocks.DANDELION.defaultBlockState(), 10)
-			.add(Blocks.BLUE_ORCHID.defaultBlockState(), 8)
-			.add(Blocks.POPPY.defaultBlockState(), 10)
-			.build();
+		.add(RegisterBlocks.MILKWEED.defaultBlockState(), 3)
+		.add(RegisterBlocks.DATURA.defaultBlockState(), 5)
+		.add(RegisterBlocks.SEEDING_DANDELION.defaultBlockState(), 5)
+		.add(Blocks.LILAC.defaultBlockState(), 6)
+		.add(Blocks.DANDELION.defaultBlockState(), 10)
+		.add(Blocks.BLUE_ORCHID.defaultBlockState(), 8)
+		.add(Blocks.POPPY.defaultBlockState(), 10)
+		.build();
 
 	public static final SimpleWeightedRandomList<BlockState> FLOWERS_TEMPERATE_RAINFOREST_VANILLA_POOL = SimpleWeightedRandomList.<BlockState>builder()
-			.add(Blocks.LILAC.defaultBlockState(), 6)
-			.add(Blocks.DANDELION.defaultBlockState(), 10)
-			.add(Blocks.BLUE_ORCHID.defaultBlockState(), 8)
-			.add(Blocks.POPPY.defaultBlockState(), 10)
-			.build();
+		.add(Blocks.LILAC.defaultBlockState(), 6)
+		.add(Blocks.DANDELION.defaultBlockState(), 10)
+		.add(Blocks.BLUE_ORCHID.defaultBlockState(), 8)
+		.add(Blocks.POPPY.defaultBlockState(), 10)
+		.build();
 
 	public static final SimpleWeightedRandomList<BlockState> FLOWERS_RAINFOREST_POOL = SimpleWeightedRandomList.<BlockState>builder()
-			.add(RegisterBlocks.MILKWEED.defaultBlockState(), 5)
-			.add(RegisterBlocks.DATURA.defaultBlockState(), 7)
-			.add(RegisterBlocks.SEEDING_DANDELION.defaultBlockState(), 7)
-			.add(Blocks.LILAC.defaultBlockState(), 3)
-			.add(Blocks.DANDELION.defaultBlockState(), 4)
-			.add(Blocks.BLUE_ORCHID.defaultBlockState(), 3)
-			.add(Blocks.POPPY.defaultBlockState(), 4)
-			.add(RegisterBlocks.CARNATION.defaultBlockState(), 8)
-			.add(Blocks.ALLIUM.defaultBlockState(), 2)
-			.add(Blocks.PEONY.defaultBlockState(), 2)
-			.build();
+		.add(RegisterBlocks.MILKWEED.defaultBlockState(), 5)
+		.add(RegisterBlocks.DATURA.defaultBlockState(), 7)
+		.add(RegisterBlocks.SEEDING_DANDELION.defaultBlockState(), 7)
+		.add(Blocks.LILAC.defaultBlockState(), 3)
+		.add(Blocks.DANDELION.defaultBlockState(), 4)
+		.add(Blocks.BLUE_ORCHID.defaultBlockState(), 3)
+		.add(Blocks.POPPY.defaultBlockState(), 4)
+		.add(RegisterBlocks.CARNATION.defaultBlockState(), 8)
+		.add(Blocks.ALLIUM.defaultBlockState(), 2)
+		.add(Blocks.PEONY.defaultBlockState(), 2)
+		.build();
 
 	public static final SimpleWeightedRandomList<BlockState> FLOWERS_RAINFOREST_VANILLA_POOL = SimpleWeightedRandomList.<BlockState>builder()
-			.add(Blocks.LILAC.defaultBlockState(), 3)
-			.add(Blocks.DANDELION.defaultBlockState(), 4)
-			.add(Blocks.BLUE_ORCHID.defaultBlockState(), 3)
-			.add(Blocks.POPPY.defaultBlockState(), 4)
-			.add(Blocks.ALLIUM.defaultBlockState(), 2)
-			.add(Blocks.PEONY.defaultBlockState(), 2)
-			.build();
+		.add(Blocks.LILAC.defaultBlockState(), 3)
+		.add(Blocks.DANDELION.defaultBlockState(), 4)
+		.add(Blocks.BLUE_ORCHID.defaultBlockState(), 3)
+		.add(Blocks.POPPY.defaultBlockState(), 4)
+		.add(Blocks.ALLIUM.defaultBlockState(), 2)
+		.add(Blocks.PEONY.defaultBlockState(), 2)
+		.build();
 
 	public static final SimpleWeightedRandomList<BlockState> FLOWERS_JUNGLE_POOL = SimpleWeightedRandomList.<BlockState>builder()
-			.add(RegisterBlocks.MILKWEED.defaultBlockState(), 5)
-			.add(RegisterBlocks.DATURA.defaultBlockState(), 1)
-			.add(RegisterBlocks.SEEDING_DANDELION.defaultBlockState(), 4)
-			.add(Blocks.LILAC.defaultBlockState(), 3)
-			.add(Blocks.DANDELION.defaultBlockState(), 6)
-			.add(Blocks.BLUE_ORCHID.defaultBlockState(), 3)
-			.add(Blocks.POPPY.defaultBlockState(), 4)
-			.add(RegisterBlocks.CARNATION.defaultBlockState(), 3)
-			.add(Blocks.ORANGE_TULIP.defaultBlockState(), 1)
-			.add(Blocks.PINK_TULIP.defaultBlockState(), 1)
-			.add(Blocks.RED_TULIP.defaultBlockState(), 1)
-			.add(Blocks.WHITE_TULIP.defaultBlockState(), 1)
-			.add(Blocks.ALLIUM.defaultBlockState(), 3)
-			.add(Blocks.PEONY.defaultBlockState(), 3)
-			.build();
+		.add(RegisterBlocks.MILKWEED.defaultBlockState(), 5)
+		.add(RegisterBlocks.DATURA.defaultBlockState(), 1)
+		.add(RegisterBlocks.SEEDING_DANDELION.defaultBlockState(), 4)
+		.add(Blocks.LILAC.defaultBlockState(), 3)
+		.add(Blocks.DANDELION.defaultBlockState(), 6)
+		.add(Blocks.BLUE_ORCHID.defaultBlockState(), 3)
+		.add(Blocks.POPPY.defaultBlockState(), 4)
+		.add(RegisterBlocks.CARNATION.defaultBlockState(), 3)
+		.add(Blocks.ORANGE_TULIP.defaultBlockState(), 1)
+		.add(Blocks.PINK_TULIP.defaultBlockState(), 1)
+		.add(Blocks.RED_TULIP.defaultBlockState(), 1)
+		.add(Blocks.WHITE_TULIP.defaultBlockState(), 1)
+		.add(Blocks.ALLIUM.defaultBlockState(), 3)
+		.add(Blocks.PEONY.defaultBlockState(), 3)
+		.build();
 
 	public static final SimpleWeightedRandomList<BlockState> FLOWERS_SUNFLOWER_PLAINS_POOL = SimpleWeightedRandomList.<BlockState>builder()
-			.add(RegisterBlocks.SEEDING_DANDELION.defaultBlockState(), 3)
-			.add(Blocks.DANDELION.defaultBlockState(), 6)
-			.add(Blocks.SUNFLOWER.defaultBlockState(), 10)
-			.add(Blocks.AZURE_BLUET.defaultBlockState(), 4)
-			.add(Blocks.OXEYE_DAISY.defaultBlockState(), 3)
-			.add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 1)
-			.build();
+		.add(Blocks.SUNFLOWER.defaultBlockState(), 10)
+		.add(Blocks.DANDELION.defaultBlockState(), 8)
+		.add(Blocks.ORANGE_TULIP.defaultBlockState(), 5)
+		.add(Blocks.AZURE_BLUET.defaultBlockState(), 1)
+		.add(Blocks.OXEYE_DAISY.defaultBlockState(), 1)
+		.add(RegisterBlocks.SEEDING_DANDELION.defaultBlockState(), 1)
+		.add(RegisterBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 1)
+		.build();
 
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_CYPRESS_WETLANDS = register("flowers_cypress_wetlands");
 
@@ -1205,9 +1206,10 @@ public final class WilderConfiguredFeatures {
 						)
 				)
 		);
+
 		FLOWERS_SUNFLOWER_PLAINS.makeAndSetHolder(Feature.FLOWER,
 				FeatureUtils.simpleRandomPatchConfiguration(
-						20,
+						24,
 						PlacementUtils.onlyWhenEmpty(
 								Feature.SIMPLE_BLOCK,
 								new SimpleBlockConfiguration(new WeightedStateProvider(FLOWERS_SUNFLOWER_PLAINS_POOL))
