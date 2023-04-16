@@ -151,9 +151,9 @@ public final class WilderSharedWorldgen {
 		public static final Climate.Parameter TEMPERATURE = Temperature.ONE;
 		public static final Climate.Parameter HUMIDITY = Humidity.FIVE;
 
-		public static float TEMP = -0.45F;
+		public static float TEMP = -0.5F;
 		public static float DOWNFALL = 0.4F;
-		public static int WATER_COLOR = 4159204;
+		public static int WATER_COLOR = 4020182;
 		public static int WATER_FOG_COLOR = 329011;
 		public static int FOG_COLOR = 12638463;
 		public static int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
