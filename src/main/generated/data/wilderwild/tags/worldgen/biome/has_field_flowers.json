@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "minecraft:sunflower_plains",
     {
       "id": "wilderwild:flower_field",
       "required": false

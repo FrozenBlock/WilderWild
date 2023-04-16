@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.world.additions.feature;
 
-import com.google.common.collect.ImmutableList;
 import net.frozenblock.lib.worldgen.feature.api.FrozenPlacedFeature;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
@@ -48,13 +47,10 @@ import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.NoiseThresholdCountPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceWaterDepthFilter;
-import org.jetbrains.annotations.Nullable;
-import java.util.List;
 
 public final class WilderPlacedFeatures {
 	private WilderPlacedFeatures() {
@@ -221,7 +217,7 @@ public final class WilderPlacedFeatures {
 
 	public static final FrozenPlacedFeature JUNGLE_BUSH_PLACED = register("jungle_bush_placed");
 
-	public static final FrozenPlacedFeature SPARSE_JUNGLE_BUSH_PLACED = register("sparse_jungle_bush_placed");
+	public static final FrozenPlacedFeature SPARSE_BUSH_PLACED = register("sparse_bush_placed");
 
 	public static final FrozenPlacedFeature FLOWER_FIELD_BUSH_PLACED = register("flower_field_bush_placed");
 
@@ -305,6 +301,8 @@ public final class WilderPlacedFeatures {
 	public static final FrozenPlacedFeature FLOWER_RAINFOREST_VANILLA = register("flower_rainforest_vanilla");
 
 	public static final FrozenPlacedFeature FLOWER_JUNGLE = register("flower_jungle");
+
+	public static final FrozenPlacedFeature FLOWER_SUNFLOWER_PLAINS = register("flower_sunflower_plains");
 
 	public static final FrozenPlacedFeature FLOWER_SPARSE_JUNGLE = register("flower_sparse_jungle");
 
@@ -731,7 +729,7 @@ public final class WilderPlacedFeatures {
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING), BiomeFilter.biome()
 		);
 
-		SPARSE_JUNGLE_BUSH_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SPARSE_JUNGLE_BUSH.getHolder(),
+		SPARSE_BUSH_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SPARSE_BUSH.getHolder(),
 				CountPlacement.of(4), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING), BiomeFilter.biome()
 		);
@@ -950,6 +948,11 @@ public final class WilderPlacedFeatures {
 
 		FLOWER_JUNGLE.makeAndSetHolder(WilderConfiguredFeatures.FLOWERS_JUNGLE.getHolder(),
 				CountPlacement.of(20), InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
+		FLOWER_SUNFLOWER_PLAINS.makeAndSetHolder(WilderConfiguredFeatures.FLOWERS_SUNFLOWER_PLAINS.getHolder(),
+				CountPlacement.of(UniformInt.of(8, 14)), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 

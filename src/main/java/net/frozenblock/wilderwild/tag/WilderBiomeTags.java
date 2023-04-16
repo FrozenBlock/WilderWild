@@ -83,6 +83,7 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_CATTAIL_COMMON = bind("has_cattail_common");
 	public static final TagKey<Biome> HAS_SEEDING_DANDELION = bind("has_seeding_dandelion");
 	public static final TagKey<Biome> HAS_MILKWEED = bind("has_milkweed");
+	public static final TagKey<Biome> HAS_SUNFLOWER_PLAINS_FLOWERS = bind("has_sunflower_plains_flowers");
 	public static final TagKey<Biome> HAS_PALMS = bind("has_palms");
 	public static final TagKey<Biome> HAS_SHORT_SPRUCE = bind("has_short_spruce");
 	public static final TagKey<Biome> HAS_SHORT_MEGA_SPRUCE = bind("has_short_mega_spruce");
@@ -101,7 +102,7 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_SPARSE_JUNGLE_FLOWERS = bind("has_sparse_jungle_flowers");
 	public static final TagKey<Biome> HAS_JUNGLE_FLOWERS = bind("has_jungle_flowers");
 	public static final TagKey<Biome> HAS_JUNGLE_BUSH = bind("has_jungle_bush");
-	public static final TagKey<Biome> HAS_SPARSE_JUNGLE_BUSH = bind("has_sparse_jungle_bush");
+	public static final TagKey<Biome> HAS_SPARSE_BUSH = bind("has_sparse_bush");
 	public static final TagKey<Biome> HAS_MOSS_PILE = bind("has_moss_pile");
 	public static final TagKey<Biome> HAS_DECORATIVE_MUD = bind("has_decorative_mud");
 	public static final TagKey<Biome> HAS_PACKED_MUD_ORE = bind("has_packed_mud_ore");
