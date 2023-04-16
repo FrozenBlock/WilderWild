@@ -15,19 +15,19 @@
                     "half": "lower"
                   }
                 },
-                "weight": 6
+                "weight": 12
               },
               {
                 "data": {
                   "Name": "minecraft:dandelion"
                 },
-                "weight": 25
+                "weight": 50
               },
               {
                 "data": {
                   "Name": "minecraft:orange_tulip"
                 },
-                "weight": 7
+                "weight": 12
               },
               {
                 "data": {
@@ -45,7 +45,7 @@
                 "data": {
                   "Name": "wilderwild:seeding_dandelion"
                 },
-                "weight": 1
+                "weight": 2
               }
             ]
           }
