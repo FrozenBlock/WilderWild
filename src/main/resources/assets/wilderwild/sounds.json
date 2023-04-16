@@ -2178,6 +2178,15 @@
 	],
 	"subtitle": "subtitles.entity.jellyfish.death"
   },
+  "entity.jellyfish.hide": {
+    "sounds": [
+      "wilderwild:block/mesoglea/step1",
+      "wilderwild:block/mesoglea/step2",
+      "wilderwild:block/mesoglea/step3",
+      "wilderwild:block/mesoglea/step4"
+    ],
+    "subtitle": "subtitles.entity.jellyfish.hide"
+  },
   "entity.tumbleweed.bounce": {
     "sounds": [
       "wilderwild:mob/tumbleweed/bounce1",

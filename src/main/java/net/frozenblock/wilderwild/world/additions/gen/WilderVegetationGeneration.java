@@ -71,7 +71,7 @@ public final class WilderVegetationGeneration {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_MILKWEED),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MILKWEED.getKey());
 
-			BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.PLAINS),
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_PLAINS_FLOWERS),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_PLAINS.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_BERRY_PATCH),
@@ -80,17 +80,20 @@ public final class WilderVegetationGeneration {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FIELD_FLOWERS),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_FLOWER_FIELD.getKey());
 
-			BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_WETLANDS),
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_CYPRESS_FLOWERS),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.CYPRESS_WETLANDS_FLOWERS.getKey());
 
-			BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_WETLANDS),
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_CYPRESS_MILKWEED),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MILKWEED_CYPRESS.getKey());
 
-			BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_WETLANDS),
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_CYPRESS_SEEDING_DANDELION),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SEEDING_DANDELION_CYPRESS.getKey());
 
-			BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.MIXED_FOREST, RegisterWorldgen.BIRCH_TAIGA, RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA, RegisterWorldgen.DARK_BIRCH_FOREST, RegisterWorldgen.OLD_GROWTH_DARK_FOREST),
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_MIXED_DANDELION),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SEEDING_DANDELION_MIXED.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SUNFLOWER_PLAINS_FLOWERS),
+					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_SUNFLOWER_PLAINS.getKey());
 		}
 	}
 
@@ -102,63 +105,60 @@ public final class WilderVegetationGeneration {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_JUNGLE_BUSH),
 					GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderPlacedFeatures.JUNGLE_BUSH_PLACED.getKey());
 
-			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SPARSE_JUNGLE_BUSH),
-					GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderPlacedFeatures.SPARSE_JUNGLE_BUSH_PLACED.getKey());
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SPARSE_BUSH),
+					GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderPlacedFeatures.SPARSE_BUSH_PLACED.getKey());
 
-			BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.BADLANDS, Biomes.WOODED_BADLANDS),
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_BADLANDS_SAND_BUSH),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BADLANDS_BUSH_SAND_PLACED.getKey());
 
-			BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.BADLANDS),
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_BADLANDS_TERRACOTTA_BUSH),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BADLANDS_BUSH_TERRACOTTA_PLACED.getKey());
 
-			BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.WOODED_BADLANDS),
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_WOODED_BADLANDS_TERRACOTTA_BUSH),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.WOODED_BADLANDS_BUSH_TERRACOTTA_PLACED.getKey());
 
-			BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.ERODED_BADLANDS),
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_BADLANDS_RARE_SAND_BUSH),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BADLANDS_BUSH_RARE_SAND_PLACED.getKey());
 
-			BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.DESERT),
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_DESERT_BUSH),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DESERT_BUSH_PLACED.getKey());
 
-			BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.OASIS),
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_OASIS_BUSH),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.OASIS_BUSH_PLACED.getKey());
 
-			BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.ARID_SAVANNA, RegisterWorldgen.ARID_FOREST),
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_ARID_BUSH),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_BUSH_PLACED.getKey());
 
-			BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.FLOWER_FIELD),
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FLOWER_FIELD_BUSH),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_FIELD_BUSH_PLACED.getKey());
 
-			BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.TEMPERATE_RAINFOREST),
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_RAINFOREST_BUSH),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DEAD_BUSH_AND_BUSH_PLACED.getKey());
-
-			BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.RAINFOREST),
-					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BUSH_AND_DEAD_BUSH_PLACED.getKey());
 		}
 	}
 
 	public static void generateCacti() {
 		if (WilderSharedConstants.config().wildCacti()) {
-			BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.DESERT),
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_TALL_CACTUS),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TALL_CACTUS_PLACED.getKey());
 
-			BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.BADLANDS, Biomes.WOODED_BADLANDS),
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_PRICKLY_PEAR),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PRICKLY_PEAR.getKey());
 
-			BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.ERODED_BADLANDS),
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_RARE_PRICKLY_PEAR),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PRICKLY_PEAR_RARE.getKey());
 
-			BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.BADLANDS, Biomes.ERODED_BADLANDS, Biomes.WOODED_BADLANDS),
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_TALL_BADLANDS_CACTUS),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BADLANDS_TALL_CACTUS_PLACED.getKey());
 		}
 	}
 
 	public static void generateAlgae() {
 		if (WilderSharedConstants.config().algae()) {
-			BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.ALLOWS_SURFACE_SLIME_SPAWNS),
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_ALGAE_SMALL),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_ALGAE_5.getKey());
 
-			BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_WETLANDS),
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_ALGAE),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_ALGAE.getKey());
 		}
 	}
@@ -178,13 +178,13 @@ public final class WilderVegetationGeneration {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_LARGE_FERN_AND_GRASS_RARE),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.LARGE_FERN_AND_GRASS_RARE.getKey());
 
-			BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.FLOWER_FIELD),
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FLOWER_FIELD_TALL_GRASS),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_TALL_GRASS_FF.getKey());
 
-			BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_WETLANDS),
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_DENSE_FERN),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DENSE_FERN_PLACED.getKey());
 
-			BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.CYPRESS_WETLANDS),
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_DENSE_TALL_GRASS),
 					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DENSE_TALL_GRASS_PLACED.getKey());
 		}
 	}
@@ -218,10 +218,10 @@ public final class WilderVegetationGeneration {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_RED_SHELF_FUNGUS),
 					GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderPlacedFeatures.RED_SHELF_FUNGUS_PLACED.getKey());
 
-			BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.RAINFOREST, RegisterWorldgen.TEMPERATE_RAINFOREST),
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_RAINFOREST_MUSHROOM),
 					GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderPlacedFeatures.RAINFOREST_MUSHROOMS_PLACED.getKey());
 
-			BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.MIXED_FOREST, RegisterWorldgen.BIRCH_TAIGA, RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA, RegisterWorldgen.DARK_BIRCH_FOREST),
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_MIXED_MUSHROOM),
 					GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderPlacedFeatures.MIXED_MUSHROOMS_PLACED.getKey());
 		}
 	}
