@@ -30,9 +30,6 @@ public final class RegisterResources {
 
 	public static void register(ModContainer container) {
 		ResourceManagerHelper.registerBuiltinResourcePack(WilderSharedConstants.id("new_main_menu"), container, ResourcePackActivationType.DEFAULT_ENABLED);
-		//ResourceManagerHelper.registerBuiltinResourcePack(WilderSharedConstants.id("old_wilder_wild_panoramas"), container, ResourcePackActivationType.NORMAL);
-		//ResourceManagerHelper.registerBuiltinResourcePack(WilderSharedConstants.id("update_1_20_additions"), container, ResourcePackActivationType.NORMAL);
-		//WilderFeatureFlags.init();
-		//FrozenFeatureFlags.rebuild();
+		ResourceManagerHelper.registerBuiltinResourcePack(WilderSharedConstants.id("old_wilder_wild_panoramas"), container, ResourcePackActivationType.NORMAL);
 	}
 }
