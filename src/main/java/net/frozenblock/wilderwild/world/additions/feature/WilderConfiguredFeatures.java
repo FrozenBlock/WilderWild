@@ -1209,7 +1209,7 @@ public final class WilderConfiguredFeatures {
 
 		FLOWERS_SUNFLOWER_PLAINS.makeAndSetHolder(Feature.FLOWER,
 				FeatureUtils.simpleRandomPatchConfiguration(
-						24,
+						52,
 						PlacementUtils.onlyWhenEmpty(
 								Feature.SIMPLE_BLOCK,
 								new SimpleBlockConfiguration(new WeightedStateProvider(FLOWERS_SUNFLOWER_PLAINS_POOL))
