@@ -145,14 +145,20 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
     public static boolean canSpawn(EntityType<Jellyfish> type, ServerLevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
-        Holder<Biome> biome = level.getBiome(pos);
+		if (reason == MobSpawnType.SPAWNER) {
+			return true;
+		}
+		Holder<Biome> biome = level.getBiome(pos);
+		if (!biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH) && getNormalJellyfish(level.getLevel()) >= type.getCategory().getMaxInstancesPerChunk() / 3) {
+			return false;
+		}
         if (biome.is(WilderBiomeTags.JELLYFISH_SPECIAL_SPAWN)) {
-            if (reason == MobSpawnType.SPAWNER || level.getRawBrightness(pos, 0) <= 7 && random.nextInt(0, level.getRawBrightness(pos, 0) + 3) >= 1) {
+            if (level.getRawBrightness(pos, 0) <= 7 && random.nextInt(0, level.getRawBrightness(pos, 0) + 3) >= 1) {
                 return true;
             }
         }
 		int seaLevel = level.getSeaLevel();
-        return reason == MobSpawnType.SPAWNER || (random.nextInt(0, 110) == 0 && pos.getY() <= seaLevel && pos.getY() >= seaLevel - 13);
+        return (random.nextInt(0, 110) == 0 && pos.getY() <= seaLevel && pos.getY() >= seaLevel - 13);
     }
 
     @Override
@@ -461,6 +467,36 @@ public class Jellyfish extends NoFlopAbstractFish {
 		jellyfish.prevScale = 0F;
 		jellyfish.scale = 1F;
 		level.addFreshEntity(jellyfish);
+	}
+
+	public static List<Jellyfish> getJellyfish(ServerLevel level) {
+		ArrayList<Jellyfish> jellyList = new ArrayList<>();
+		for (Entity entity : level.entityManager.getEntityGetter().getAll()) {
+			if (entity instanceof Jellyfish jellyfish && !jellyfish.isRemoved() && !jellyfish.isDeadOrDying()) {
+				jellyList.add(jellyfish);
+			}
+		}
+		return jellyList;
+	}
+
+	public static int getNormalJellyfish(ServerLevel level) {
+		int count = 0;
+		for (Jellyfish jellyfish : getJellyfish(level)) {
+			if (jellyfish.getVariant().isNormal()) {
+				count += 1;
+			}
+		}
+		return count;
+	}
+
+	public static int getPearlescentJellyfish(ServerLevel level) {
+		int count = 0;
+		for (Jellyfish jellyfish : getJellyfish(level)) {
+			if (jellyfish.getVariant().isPearlescent()) {
+				count += 1;
+			}
+		}
+		return count;
 	}
 
 }

@@ -42,6 +42,7 @@ accessible    method    net/minecraft/client/model/HierarchicalModel    animate 
 accessible    field    net/minecraft/world/entity/LivingEntity    dead    Z
 accessible    method    net/minecraft/world/entity/Entity    updateInWaterStateAndDoWaterCurrentPushing    ()V
 accessible    field    net/minecraft/world/entity/ai/behavior/SetEntityLookTarget    nearestEntityMatchingTest    Ljava/util/Optional;
+accessible    field    net/minecraft/server/level/ServerLevel    entityManager    Lnet/minecraft/world/level/entity/PersistentEntitySectionManager;
 
 # Entity Behaviors
 accessible    field    net/minecraft/world/entity/ai/Brain    availableBehaviorsByPriority    Ljava/util/Map;
