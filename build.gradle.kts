@@ -255,7 +255,9 @@ dependencies {
     modImplementation("net.caffeinemc:mixin-config:1.0.0+1.17")?.let { include(it) }
 
     // TerraBlender
-    modCompileOnly("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
+    //modCompileOnly("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
+    modImplementation("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
+
 
     // Sodium
     modCompileOnly("maven.modrinth:sodium:${sodium_version}")

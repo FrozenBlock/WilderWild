@@ -79,6 +79,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
@@ -106,16 +107,16 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 	public static final TrunkPlacerType<PalmTrunkPlacer> PALM_TRUNK_PLACER = registerTrunk("palm_trunk_placer", PalmTrunkPlacer.CODEC);
 	public static final TrunkPlacerType<JuniperTrunkPlacer> JUNIPER_TRUNK_PLACER = registerTrunk("juniper_trunk_placer", JuniperTrunkPlacer.CODEC);
 	public static final TrunkPlacerType<FancyDarkOakTrunkPlacer> FANCY_DARK_OAK_TRUNK_PLACER = registerTrunk("fancy_dark_oak_trunk_placer", FancyDarkOakTrunkPlacer.CODEC);
-    public static final Feature<ShelfFungusFeatureConfig> SHELF_FUNGUS_FEATURE = new ShelfFungusFeature(ShelfFungusFeatureConfig.CODEC);
-	public static final Feature<SmallSpongeFeatureConfig> SMALL_SPONGE_FEATURE = new SmallSpongeFeature(SmallSpongeFeatureConfig.CODEC);
-    public static final CattailFeature CATTAIL_FEATURE = new CattailFeature(ProbabilityFeatureConfiguration.CODEC);
-    public static final AlgaeFeature ALGAE_FEATURE = new AlgaeFeature(ProbabilityFeatureConfiguration.CODEC);
-    public static final NematocystFeature NEMATOCYST_FEATURE = new NematocystFeature(MultifaceGrowthConfiguration.CODEC);
-	public static final LargeMesogleaFeature LARGE_MESOGLEA_FEATURE = new LargeMesogleaFeature(LargeMesogleaConfig.CODEC);
-	public static final SnowBlanketFeature SNOW_BLANKET_FEATURE = new SnowBlanketFeature(NoneFeatureConfiguration.CODEC);
-	public static final SnowAndFreezeDiskFeature SNOW_AND_FREEZE_DISK_FEATURE = new SnowAndFreezeDiskFeature(SnowAndIceDiskFeatureConfig.CODEC);
-    public static final FoliagePlacerType<PalmFoliagePlacer> PALM_FOLIAGE_PLACER =  registerFoliage("palm_foliage_placer", PalmFoliagePlacer.CODEC);
-	public static final FoliagePlacerType<ShortPalmFoliagePlacer> SHORT_PALM_FOLIAGE_PLACER =  registerFoliage("short_palm_foliage_placer", ShortPalmFoliagePlacer.CODEC);
+    public static final Feature<ShelfFungusFeatureConfig> SHELF_FUNGUS_FEATURE = register("shelf_fungus_feature", new ShelfFungusFeature(ShelfFungusFeatureConfig.CODEC));
+	public static final Feature<SmallSpongeFeatureConfig> SMALL_SPONGE_FEATURE = register("small_sponge_feature", new SmallSpongeFeature(SmallSpongeFeatureConfig.CODEC));
+    public static final CattailFeature CATTAIL_FEATURE = register("cattail_feature", new CattailFeature(ProbabilityFeatureConfiguration.CODEC));
+    public static final AlgaeFeature ALGAE_FEATURE = register("algae_feature", new AlgaeFeature(ProbabilityFeatureConfiguration.CODEC));
+    public static final NematocystFeature NEMATOCYST_FEATURE = register("nematocyst_feature", new NematocystFeature(MultifaceGrowthConfiguration.CODEC));
+	public static final LargeMesogleaFeature LARGE_MESOGLEA_FEATURE = register("large_mesoglea_feature", new LargeMesogleaFeature(LargeMesogleaConfig.CODEC));
+	public static final SnowBlanketFeature SNOW_BLANKET_FEATURE = register("snow_blanket_feature", new SnowBlanketFeature(NoneFeatureConfiguration.CODEC));
+	public static final SnowAndFreezeDiskFeature SNOW_AND_FREEZE_DISK_FEATURE = register("snow_and_freeze_disk_feature", new SnowAndFreezeDiskFeature(SnowAndIceDiskFeatureConfig.CODEC));
+    public static final FoliagePlacerType<PalmFoliagePlacer> PALM_FOLIAGE_PLACER = registerFoliage("palm_foliage_placer", PalmFoliagePlacer.CODEC);
+	public static final FoliagePlacerType<ShortPalmFoliagePlacer> SHORT_PALM_FOLIAGE_PLACER = registerFoliage("short_palm_foliage_placer", ShortPalmFoliagePlacer.CODEC);
 
 
     @Override //Alan Wilder Wild
@@ -143,15 +144,6 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		RegisterCriteria.init();
 
 		Registry.register(BuiltInRegistries.MATERIAL_CONDITION, WilderSharedConstants.id("beta_beach_condition_source"), BetaBeachConditionSource.CODEC.codec());
-
-        Registry.register(BuiltInRegistries.FEATURE, WilderSharedConstants.id("shelf_fungus_feature"), SHELF_FUNGUS_FEATURE);
-        Registry.register(BuiltInRegistries.FEATURE, WilderSharedConstants.id("cattail_feature"), CATTAIL_FEATURE);
-        Registry.register(BuiltInRegistries.FEATURE, WilderSharedConstants.id("algae_feature"), ALGAE_FEATURE);
-        Registry.register(BuiltInRegistries.FEATURE, WilderSharedConstants.id("nematocyst_feature"), NEMATOCYST_FEATURE);
-		Registry.register(BuiltInRegistries.FEATURE, WilderSharedConstants.id("small_sponge_feature"), SMALL_SPONGE_FEATURE);
-		Registry.register(BuiltInRegistries.FEATURE, WilderSharedConstants.id("large_mesoglea_feature"), LARGE_MESOGLEA_FEATURE);
-		Registry.register(BuiltInRegistries.FEATURE, WilderSharedConstants.id("snow_blanket_feature"), SNOW_BLANKET_FEATURE);
-		Registry.register(BuiltInRegistries.FEATURE, WilderSharedConstants.id("snow_and_freeze_disk_feature"), SNOW_AND_FREEZE_DISK_FEATURE);
 
 		TermiteManager.Termite.addDegradableBlocks();
 		TermiteManager.Termite.addNaturalDegradableBlocks();
@@ -231,6 +223,10 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 
 	private static <P extends FoliagePlacer> FoliagePlacerType<P> registerFoliage(String id, Codec<P> codec) {
 		return Registry.register(BuiltInRegistries.FOLIAGE_PLACER_TYPE, WilderSharedConstants.id(id), new FoliagePlacerType<>(codec));
+	}
+
+	private static <FC extends FeatureConfiguration, T extends Feature<FC>> T register(String id, T feature) {
+		return Registry.register(BuiltInRegistries.FEATURE, WilderSharedConstants.id(id), feature);
 	}
 
     // GAME RULES
