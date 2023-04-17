@@ -935,7 +935,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.add(Biomes.SAVANNA_PLATEAU)
 				.add(Biomes.WINDSWEPT_SAVANNA)
 				.addOptional(RegisterWorldgen.ARID_FOREST)
-				.addOptional(RegisterWorldgen.ARID_SAVANNA);
+				.addOptional(RegisterWorldgen.ARID_SAVANNA)
+				.addOptional(RegisterWorldgen.PARCHED_FOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FLOWER_FIELD_BUSH)
 				.addOptional(RegisterWorldgen.FLOWER_FIELD);
