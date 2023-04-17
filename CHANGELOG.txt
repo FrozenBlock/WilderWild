@@ -78,7 +78,6 @@ TRANSITION BIOMES: Transition biomes are a new category of biome we're introduci
 Arid Forest:
 - A combination of the Desert and Forest.
 
-
 Arid Savanna:
 - A combination of the Desert and Savanna.
 
@@ -239,12 +238,6 @@ Cherry Grove:
 
 Jellyfish Caves:
 - Large Mesoglea paths and pillars now generate throughout the biome, adding more incentive to explore them and find hidden areas.
-- Jellyfish can now shrink back into Mesoglea and Nematocyst if spawned naturally and far enough from the player.
-- Updated Dripping Mesoglea particles to no longer face upwards or downwards while hanging.
-- Waterlogged Mesoglea now allows Jellyfish to spawn inside of it.
-- Dry Mesoglea now renders when inside Waterlogged Mesoglea.
-- Jellyfish can no longer swim through the bottom or sides of Mesoglea unless they're a passanger or leashed.
-- Mesoglea can now optionally be rendered as a liquid whilst Sodium is not being used.
 
 Other worldgen changes:
 - Fallen Trees can now generate on any block and underwater.
@@ -276,6 +269,20 @@ Cypress Changes:
 - Only the "Swamp" variant of Cypress generate in water.
      -As such, only this variant will be grown from waterlogged saplings.
 - Cypress Saplings can now only be placed if water is shallow enough.
+
+Jellyfish Changes:
+- Jellyfish can now shrink back into Mesoglea and Nematocyst if spawned naturally and far enough from the player.
+- Jellyfish can only spawn up to a third of their spawn cap in biomes where Pearlescent Jellyfish don't spawn.
+    - This means that Warm Oceans will no longer be flooded with Jellyfish.
+- Jellyfish can now spawn in Lukewarm Oceans and Deep Lukewarm Oceans.
+- Jellyfish can no longer swim through the bottom or sides of Mesoglea unless they're a passanger or are leashed.
+    - This is controlled by a tag, containing only Jellyfish by default.
+
+Mesoglea Changes:
+- Updated Dripping Mesoglea particles to no longer face upwards or downwards while hanging.
+- Waterlogged Mesoglea now allows Jellyfish to spawn inside of it.
+- Dry Mesoglea now renders when inside Waterlogged Mesoglea.
+- Mesoglea can now optionally be rendered as a liquid whilst Sodium is not being used.
 
 - Fixed countless bugs and inconsistencies overall.
 - Changed the way worldgen features are registered to allow for more consistency between 1.19.2 and 1.19.3+.
