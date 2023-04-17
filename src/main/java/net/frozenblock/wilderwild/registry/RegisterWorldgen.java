@@ -904,4 +904,7 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 
 	}
 
+	@Override
+	public void addSurfaceRules(ArrayList<FrozenDimensionBoundRuleSource> context) {
+	}
 }
