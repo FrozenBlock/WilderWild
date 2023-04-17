@@ -38,4 +38,8 @@ public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint {
 
 	}
 
+	@Override
+	public void addSurfaceRules(ArrayList<FrozenDimensionBoundRuleSource> context) {
+
+	}
 }
