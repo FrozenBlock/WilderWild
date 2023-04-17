@@ -947,5 +947,4 @@ public final class RegisterWorldgen {
 		}
 		BiomeDefaultFeatures.addSurfaceFreezing(builder);
 	}
-
 }
