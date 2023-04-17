@@ -559,12 +559,12 @@ curseforge {
         mainArtifact(remapJar, closureOf<CurseArtifact> {
             displayName = display_name
         })
-        addArtifact(tasks.remapSourcesJar.get())
+        //addArtifact(tasks.remapSourcesJar.get())
         //addArtifact(javadocJar)
 
         afterEvaluate {
             uploadTask.dependsOn(remapJar)
-            uploadTask.dependsOn(tasks.remapSourcesJar.get())
+            //uploadTask.dependsOn(tasks.remapSourcesJar.get())
             //uploadTask.dependsOn(javadocJar)
         }
     })
@@ -583,7 +583,7 @@ modrinth {
     loaders.set(listOf("fabric", "quilt"))
     additionalFiles.set(
         listOf(
-            tasks.remapSourcesJar.get(),
+            //tasks.remapSourcesJar.get(),
             //javadocJar
         )
     )
