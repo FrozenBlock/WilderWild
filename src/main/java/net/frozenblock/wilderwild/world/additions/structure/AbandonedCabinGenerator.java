@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.world.additions.structure;
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
+import java.util.List;
 import java.util.function.Function;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Holder;
@@ -39,7 +40,7 @@ public class AbandonedCabinGenerator {
             new StructureTemplatePool(
                     WilderSharedConstants.id("abandoned_cabin/cabin"),
                     WilderSharedConstants.vanillaId("empty"),
-                    ImmutableList.of(
+                    List.of(
                             Pair.of(ofProcessedSingle("abandoned_cabin/cabin/abandoned_cabin_1", WilderStructureProcessors.ABANDONED_CABIN_PROCESSOR), 1),
                             Pair.of(ofProcessedSingle("abandoned_cabin/cabin/abandoned_cabin_2", WilderStructureProcessors.ABANDONED_CABIN_PROCESSOR), 1),
                             Pair.of(ofProcessedSingle("abandoned_cabin/cabin/abandoned_cabin_3", WilderStructureProcessors.ABANDONED_CABIN_PROCESSOR), 1)

@@ -59,7 +59,7 @@ public abstract class StellaWardenModel<T extends Warden> implements WilderWarde
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void wilderWild$setHeadAndTendrils(ModelPart root, CallbackInfo info) {
-        this.wilderWild$headAndTendrils = ImmutableList.of(this.head, this.leftTendril, this.rightTendril);
+        this.wilderWild$headAndTendrils = List.of(this.head, this.leftTendril, this.rightTendril);
     }
 
     @Override

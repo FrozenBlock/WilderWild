@@ -32,6 +32,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMa
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
+import java.util.List;
 
 public class WilderStructureProcessors {
 
@@ -39,7 +40,7 @@ public class WilderStructureProcessors {
             "abandoned_cabin",
             ImmutableList.of(
                     new RuleProcessor(
-                            ImmutableList.of(
+                            List.of(
                                     new ProcessorRule(
                                             new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICKS, 0.3F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_DEEPSLATE_BRICKS.defaultBlockState()
                                     ),

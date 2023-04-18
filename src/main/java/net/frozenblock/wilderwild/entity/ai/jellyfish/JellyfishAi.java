@@ -22,6 +22,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
+import java.util.List;
 import java.util.Optional;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.minecraft.world.entity.Entity;
@@ -47,10 +48,10 @@ import net.minecraft.world.entity.schedule.Activity;
 
 public class JellyfishAi {
 
-    public static final ImmutableList<SensorType<? extends Sensor<? super Jellyfish>>> SENSOR_TYPES = ImmutableList.of(
+    public static final List<SensorType<? extends Sensor<? super Jellyfish>>> SENSOR_TYPES = List.of(
             SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS
     );
-    public static final ImmutableList<? extends MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
+    public static final List<? extends MemoryModuleType<?>> MEMORY_TYPES = List.of(
             MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
             MemoryModuleType.LOOK_TARGET,
             MemoryModuleType.WALK_TARGET,
@@ -92,7 +93,7 @@ public class JellyfishAi {
 						new TryFindWater(6, 0.15F),
 						new RunOne<>(
 								ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
-								ImmutableList.of(
+								List.of(
 										Pair.of(new JellyfishRandomSwim(1.0F), 2),
 										Pair.of(new RunIf<>(Entity::isInWaterOrBubble, new DoNothing(30, 60)), 1),
 										Pair.of(new RunIf<>(Entity::isOnGround, new DoNothing(200, 400)), 1)
@@ -124,7 +125,7 @@ public class JellyfishAi {
 
     public static void updateActivity(Jellyfish jellyfish) {
         Brain<Jellyfish> brain = jellyfish.getBrain();
-        brain.setActiveActivityToFirstValid(ImmutableList.of(Activity.FIGHT, Activity.IDLE));
+        brain.setActiveActivityToFirstValid(List.of(Activity.FIGHT, Activity.IDLE));
     }
 
     private static float getSpeedModifierChasing(LivingEntity livingEntity) {

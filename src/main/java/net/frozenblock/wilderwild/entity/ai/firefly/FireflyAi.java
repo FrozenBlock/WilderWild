@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.entity.ai.firefly;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
+import java.util.List;
 import java.util.Optional;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.minecraft.core.BlockPos;
@@ -85,7 +86,7 @@ public class FireflyAi {
     }
 
     public static void updateActivities(Firefly firefly) {
-        firefly.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.IDLE));
+        firefly.getBrain().setActiveActivityToFirstValid(List.of(Activity.IDLE));
     }
 
     public static BlockPos getHome(Firefly firefly) {
