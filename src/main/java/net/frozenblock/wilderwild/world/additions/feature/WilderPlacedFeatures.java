@@ -353,7 +353,7 @@ public final class WilderPlacedFeatures {
 
 	public static final FrozenPlacedFeature SMALL_SPONGES_RARE = register("small_sponges_rare");
 
-	public static final FrozenPlacedFeature PATCH_MELON_SPARSE_BIRCH = register("patch_melon_sparse_birch");
+	public static final FrozenPlacedFeature PATCH_MELON = register("patch_melon");
 
 	static {
 		registerPlacedFeatures();
@@ -1114,7 +1114,7 @@ public final class WilderPlacedFeatures {
 				BiomeFilter.biome()
 		);
 
-		PATCH_MELON_SPARSE_BIRCH.makeAndSetHolder(VegetationFeatures.PATCH_MELON,
+		PATCH_MELON.makeAndSetHolder(VegetationFeatures.PATCH_MELON,
 			RarityFilter.onAverageOnceEvery(64),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,
