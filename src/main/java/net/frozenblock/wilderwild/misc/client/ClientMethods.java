@@ -35,6 +35,9 @@ import net.minecraft.world.entity.monster.EnderMan;
 
 @Environment(EnvType.CLIENT)
 public class ClientMethods {
+	private ClientMethods() {
+		throw new UnsupportedOperationException("ClientMethods contains only static declarations.");
+	}
 
     public static void playClientEnderManSound(EnderMan enderMan) {
         Minecraft client = Minecraft.getInstance();
