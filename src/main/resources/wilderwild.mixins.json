@@ -82,6 +82,7 @@
     "client.warden.WardenModelMixin",
     "client.wind.BaseAshSmokeParticleMixin",
     "client.wind.CampfireSmokeParticleMixin",
+    "client.wind.CherryParticleMixin",
     "client.wind.CloudRendererMixin",
     "client.wind.DripParticleMixin",
     "client.wind.DustParticleBaseMixin",
