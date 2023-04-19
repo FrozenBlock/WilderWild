@@ -77,7 +77,7 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 						projectileEntity.setOwner(nbt.foundEntity);
 						projectileEntity.setShotByPlayer(true);
 						level.addFreshEntity(projectileEntity);
-						FrozenSoundPackets.createMovingRestrictionLoopingSound(level, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, FrozenMain.id("default"));
+						FrozenSoundPackets.createMovingRestrictionLoopingSound(level, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, FrozenMain.id("default"), true);
 					}
 				}
 			}

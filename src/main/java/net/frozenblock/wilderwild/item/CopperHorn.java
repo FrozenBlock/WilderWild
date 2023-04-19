@@ -116,7 +116,7 @@ public class CopperHorn extends InstrumentItem {
             float soundPitch = !user.isShiftKeyDown() ?
                     (float) Math.pow(2.0D, (note - 12.0F) / 12.0D) :
                     (float) Math.pow(2.0D, 0.01111F * -user.getXRot());
-            FrozenSoundPackets.createMovingRestrictionLoopingSound(level, user, soundEvent, SoundSource.RECORDS, range, soundPitch, WilderSharedConstants.id("instrument"));
+            FrozenSoundPackets.createMovingRestrictionLoopingSound(level, user, soundEvent, SoundSource.RECORDS, range, soundPitch, WilderSharedConstants.id("instrument"), true);
         }
         level.gameEvent(GameEvent.INSTRUMENT_PLAY, user.position(), GameEvent.Context.of(user));
     }

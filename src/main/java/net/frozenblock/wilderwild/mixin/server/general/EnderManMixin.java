@@ -99,7 +99,7 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
 		if (WilderSharedConstants.config().angerLoopSound()) {
 			EnderMan enderMan = EnderMan.class.cast(this);
 			if (enderMan.level.isClientSide && this.wilderWild$canPlayLoopingSound) {
-				((EntityLoopingSoundInterface) enderMan).addSound(Registry.SOUND_EVENT.getKey(RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP), SoundSource.HOSTILE, 1.0F, 0.9F, WilderSharedConstants.id("enderman_anger"));
+				((EntityLoopingSoundInterface) enderMan).addSound(Registry.SOUND_EVENT.getKey(RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP), SoundSource.HOSTILE, 1.0F, 0.9F, WilderSharedConstants.id("enderman_anger"), true);
 				this.wilderWild$canPlayLoopingSound = false;
 			}
 		}
