@@ -128,6 +128,7 @@ public class CopperHorn extends InstrumentItem {
     }
 
     @Override
+	@NotNull
     public UseAnim getUseAnimation(@NotNull ItemStack stack) {
         return UseAnim.TOOT_HORN;
     }
