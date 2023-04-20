@@ -13,7 +13,8 @@
       "state": {
         "Name": "wilderwild:scorched_red_sand",
         "Properties": {
-          "crackedness": "1"
+          "crackedness": "1",
+          "dusted": "0"
         }
       }
     },
@@ -23,7 +24,8 @@
       "state": {
         "Name": "wilderwild:scorched_red_sand",
         "Properties": {
-          "crackedness": "0"
+          "crackedness": "0",
+          "dusted": "0"
         }
       }
     },
