@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.server.general;
 
-import net.frozenblock.wilderwild.block.ScorchedSandBlock;
+import net.frozenblock.wilderwild.block.ScorchedBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -41,7 +41,7 @@ public class FireBlockMixin {
 	@Unique
 	public void wilderWild$scorchTick(ServerLevel level, BlockPos pos, RandomSource random) {
 		if (random.nextFloat() <= 0.0125F) {
-			ScorchedSandBlock.scorch(level.getBlockState(pos), level, pos);
+			ScorchedBlock.scorch(level.getBlockState(pos), level, pos);
 		}
 	}
 

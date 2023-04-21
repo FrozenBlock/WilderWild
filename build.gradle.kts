@@ -245,9 +245,6 @@ dependencies {
         exclude(group = "com.terraformersmc")
     }
 
-    // Brush Extender
-    modImplementation("com.github.Treetrain1:BrushExtender:1.20-SNAPSHOT")?.let { include(it) }
-
     // NBT Crafting
     modImplementation("com.github.Treetrain1:nbt-crafting:jitpack-1.19.4-SNAPSHOT")?.let { include(it) }
 

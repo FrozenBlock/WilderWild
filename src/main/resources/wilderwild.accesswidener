@@ -78,7 +78,9 @@ accessible    field    net/minecraft/world/level/block/MultifaceSpreader    conf
 accessible    class    net/minecraft/data/BlockFamilies
 accessible    method    net/minecraft/data/BlockFamilies    familyBuilder    (Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/data/BlockFamily$Builder;
 accessible    method    net/minecraft/world/level/block/state/properties/BlockSetType    register    (Lnet/minecraft/world/level/block/state/properties/BlockSetType;)Lnet/minecraft/world/level/block/state/properties/BlockSetType;
-
+accessible    field    net/minecraft/world/level/block/BrushableBlock    turnsInto    Lnet/minecraft/world/level/block/Block;
+accessible    field    net/minecraft/world/level/block/BrushableBlock    brushSound    Lnet/minecraft/sounds/SoundEvent;
+accessible    field    net/minecraft/world/level/block/BrushableBlock    brushCompletedSound    Lnet/minecraft/sounds/SoundEvent;
 # Block Entities
 accessible    field    net/minecraft/world/level/block/entity/RandomizableContainerBlockEntity    lootTable    Lnet/minecraft/resources/ResourceLocation;
 

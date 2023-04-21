@@ -21,50 +21,50 @@ package net.frozenblock.wilderwild.block;
 import java.util.HashMap;
 import java.util.Map;
 import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
+import net.frozenblock.wilderwild.block.entity.ScorchedBlockEntity;
 import net.frozenblock.wilderwild.misc.mod_compat.FrozenLibIntegration;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
-import net.lunade.brushextender.impl.Brushable;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.particles.BlockParticleOption;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.BlockTags;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.material.Material;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-// TODO: Turn this into a BrushableBlock
-public class ScorchedSandBlock extends Block implements Brushable {
+public class ScorchedBlock extends BaseEntityBlock {
 	public static final Map<BlockState, BlockState> SCORCH_MAP = new HashMap<>();
 	public static final Map<BlockState, BlockState> HYDRATE_MAP = new HashMap<>();
 	public static final IntegerProperty CRACKEDNESS = RegisterProperties.CRACKEDNESS;
-	private final int dustColor;
-	private final boolean canBrush;
-
+	public final boolean canBrush;
 	public final BlockState wetState;
+	public final SoundEvent brushSound;
+	public final SoundEvent brushCompletedSound;
 
-	public ScorchedSandBlock(Properties settings, BlockState wetState, int dustColor, boolean canBrush) {
+	public ScorchedBlock(Properties settings, BlockState wetState, boolean canBrush, SoundEvent brushSound, SoundEvent brushCompletedSound) {
 		super(settings);
 		this.registerDefaultState(this.stateDefinition.any().setValue(CRACKEDNESS, 0));
 		this.wetState = wetState;
 		this.fillScorchMap(wetState, this.defaultBlockState());
-		this.dustColor = dustColor;
 		this.canBrush = canBrush;
+		this.brushSound = brushSound;
+		this.brushCompletedSound = brushCompletedSound;
 	}
 
 	public void fillScorchMap(BlockState wetState, BlockState defaultState) {
@@ -76,29 +76,22 @@ public class ScorchedSandBlock extends Block implements Brushable {
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
-		builder.add(CRACKEDNESS);
-	}
-
-	protected static boolean shouldHandlePrecipitation(Level level, Biome.Precipitation precipitation) {
-		if (precipitation == Biome.Precipitation.RAIN) {
-			return level.getRandom().nextFloat() < 0.75F;
-		} else {
-			return false;
-		}
+		builder.add(CRACKEDNESS, BlockStateProperties.DUSTED);
 	}
 
 	@Override
 	public void handlePrecipitation(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Biome.@NotNull Precipitation precipitation) {
-		if (shouldHandlePrecipitation(level, precipitation) && precipitation == Biome.Precipitation.RAIN) {
+		if (precipitation == Biome.Precipitation.RAIN && level.getRandom().nextFloat() < 0.75F) {
 			hydrate(state, level, pos);
 		}
 	}
 
 	public static boolean canScorch(@NotNull BlockState state) {
-		return SCORCH_MAP.containsKey(state);
+		return SCORCH_MAP.containsKey(stateWithoutDusting(state));
 	}
 
 	public static void scorch(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos) {
+		state = stateWithoutDusting(state);
 		if (canScorch(state)) {
 			level.setBlock(pos, SCORCH_MAP.get(state), 3);
 			level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
@@ -106,19 +99,25 @@ public class ScorchedSandBlock extends Block implements Brushable {
 	}
 
 	public static boolean canHydrate(@NotNull BlockState state) {
-		return HYDRATE_MAP.containsKey(state);
+		return HYDRATE_MAP.containsKey(stateWithoutDusting(state));
 	}
 
 	public static void hydrate(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos) {
+		state = stateWithoutDusting(state);
 		if (canHydrate(state)) {
 			level.setBlockAndUpdate(pos, HYDRATE_MAP.get(state));
 			level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 		}
 	}
 
-	public static boolean isFree(BlockState state) {
-		Material material = state.getMaterial();
-		return state.isAir() || state.is(BlockTags.FIRE) || state.liquid() || material.isReplaceable();
+	private static BlockState stateWithoutDusting(BlockState state) {
+		return state.hasProperty(BlockStateProperties.DUSTED) ? state.setValue(BlockStateProperties.DUSTED, 0) : state;
+	}
+
+	@Override
+	@Nullable
+	public BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
+		return new ScorchedBlockEntity(blockPos, blockState);
 	}
 
 	@Override
@@ -139,6 +138,10 @@ public class ScorchedSandBlock extends Block implements Brushable {
 		} else if (fluid == Fluids.WATER) {
 			hydrate(state, level, pos);
 		}
+		BlockEntity blockEntity = level.getBlockEntity(pos);
+		if (blockEntity instanceof ScorchedBlockEntity scorchedBlock) {
+			scorchedBlock.checkReset();
+		}
 	}
 
 	@Override
@@ -151,27 +154,14 @@ public class ScorchedSandBlock extends Block implements Brushable {
 	}
 
 	@Override
-	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, RandomSource random) {
-		if (random.nextInt(16) == 0) {
-			BlockPos blockPos = pos.below();
-			if (isFree(level.getBlockState(blockPos))) {
-				double d = (double)pos.getX() + random.nextDouble();
-				double e = (double)pos.getY() - 0.05;
-				double f = (double)pos.getZ() + random.nextDouble();
-				level.addParticle(new BlockParticleOption(ParticleTypes.FALLING_DUST, state), d, e, f, 0.0, 0.0, 0.0);
-			}
-		}
+	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+		this.wetState.getBlock().animateTick(this.wetState, level, pos, random);
 	}
 
 	@Override
-	public boolean brush(long l, Level level, Player player, Direction direction, BlockPos blockPos, BlockState blockState) {
-		if (this.canBrush && canHydrate(blockState)) {
-			if (level.getRandom().nextInt(0, 45) == 1) {
-				hydrate(blockState, level, blockPos);
-			}
-			return true;
-		}
-		return false;
+	public RenderShape getRenderShape(@NotNull BlockState blockState) {
+		return RenderShape.MODEL;
 	}
+
 }
 
