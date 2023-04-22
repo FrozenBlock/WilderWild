@@ -20,14 +20,6 @@
     {
       "id": "wilderwild:old_growth_dark_forest",
       "required": false
-    },
-    {
-      "id": "#minecraft:is_savanna",
-      "required": false
-    },
-    {
-      "id": "#c:savanna",
-      "required": false
     }
   ]
 }

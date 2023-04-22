@@ -658,9 +658,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptional(RegisterWorldgen.ARID_FOREST)
 				.addOptional(RegisterWorldgen.PARCHED_FOREST)
 				.addOptional(RegisterWorldgen.DARK_TAIGA)
-				.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
-				.addOptionalTag(BiomeTags.IS_SAVANNA)
-				.addOptionalTag(ConventionalBiomeTags.SAVANNA);
+				.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_BIRCH)
 				.add(Biomes.BIRCH_FOREST)

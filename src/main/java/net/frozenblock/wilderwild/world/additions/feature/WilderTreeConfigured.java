@@ -437,6 +437,12 @@ public final class WilderTreeConfigured {
 				2,
 				1,
 				1
+			).decorators(
+				List.of(
+					VINES_012_UNDER_260,
+					MOSS_BIRCH,
+					SHELF_FUNGUS_007
+				)
 			).build()
 		);
 
@@ -626,6 +632,12 @@ public final class WilderTreeConfigured {
 				2,
 				1,
 				1
+			).decorators(
+				List.of(
+					VINES_012_UNDER_260,
+					MOSS_OAK,
+					SHELF_FUNGUS_007
+				)
 			).build()
 		);
 
@@ -688,6 +700,7 @@ public final class WilderTreeConfigured {
 						)
 				).ignoreVines().build()
 		);
+
 		COBWEB_FANCY_TALL_DARK_OAK.makeAndSetHolder(Feature.TREE,
 				fancyTallDarkOak().decorators(
 						List.of(
@@ -854,8 +867,8 @@ public final class WilderTreeConfigured {
 		FALLEN_SPRUCE_TREE.makeAndSetHolder(Feature.TREE,
 				fallenSpruce().decorators(
 						List.of(
-								VINES_1_UNDER_260_075,
-								MOSS_SPRUCE_PALM
+							VINES_1_UNDER_260_075,
+							MOSS_SPRUCE_PALM
 						)
 				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -873,8 +886,8 @@ public final class WilderTreeConfigured {
 						1
 				).ignoreVines().decorators(
 						List.of(
-								VINES_08_UNDER_260_075,
-								MOSS_MOSSY
+							VINES_08_UNDER_260_075,
+							MOSS_MOSSY
 						)
 				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -902,8 +915,8 @@ public final class WilderTreeConfigured {
 						new TwoLayersFeatureSize(1, 1, 2))
 						.decorators(
 								List.of(
-										SHELF_FUNGUS_006_ONLY_BROWN,
-										SHELF_FUNGUS_006_ONLY_BROWN
+									SHELF_FUNGUS_006_ONLY_BROWN,
+									SHELF_FUNGUS_006_ONLY_BROWN
 								)
 						).build()
 		);
@@ -917,9 +930,9 @@ public final class WilderTreeConfigured {
 						new TwoLayersFeatureSize(1, 1, 2)
 				).decorators(
 						List.of(
-								SHELF_FUNGUS_006_ONLY_BROWN,
-								SHELF_FUNGUS_006_ONLY_BROWN,
-								VINES_1_UNDER_260_075
+							SHELF_FUNGUS_006_ONLY_BROWN,
+							SHELF_FUNGUS_006_ONLY_BROWN,
+							VINES_1_UNDER_260_075
 						)
 				).build()
 		);
@@ -932,8 +945,8 @@ public final class WilderTreeConfigured {
 						new TwoLayersFeatureSize(1, 1, 2)
 				).decorators(
 						List.of(
-								SHELF_FUNGUS_006_ONLY_BROWN,
-								VINES_1_UNDER_260_075
+							SHELF_FUNGUS_006_ONLY_BROWN,
+							VINES_1_UNDER_260_075
 						)
 				).build()
 		);
@@ -945,6 +958,12 @@ public final class WilderTreeConfigured {
 				2,
 				1,
 				1
+			).decorators(
+				List.of(
+					VINES_012_UNDER_260,
+					MOSS_SPRUCE_PALM,
+					SHELF_FUNGUS_006_ONLY_BROWN
+				)
 			).build()
 		);
 
@@ -1105,6 +1124,12 @@ public final class WilderTreeConfigured {
 				2,
 				1,
 				1
+			).decorators(
+				List.of(
+					VINES_012_UNDER_260,
+					MOSS_CYPRESS,
+					SHELF_FUNGUS_006_ONLY_BROWN
+				)
 			).build()
 		);
 
@@ -1268,6 +1293,12 @@ public final class WilderTreeConfigured {
 				2,
 				1,
 				1
+			).decorators(
+				List.of(
+					VINES_012_UNDER_260,
+					MOSS_JUNGLE,
+					SHELF_FUNGUS_007
+				)
 			).build()
 		);
 
@@ -1287,6 +1318,11 @@ public final class WilderTreeConfigured {
 				2,
 				1,
 				1
+			).decorators(
+				List.of(
+					VINES_012_UNDER_260,
+					SHELF_FUNGUS_006_ONLY_BROWN
+				)
 			).build()
 		);
 
