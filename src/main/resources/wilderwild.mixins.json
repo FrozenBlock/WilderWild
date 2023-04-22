@@ -59,6 +59,7 @@
     "server.warden.LivingEntityMixin",
     "server.warden.SonicBoomMixin",
     "server.warden.WardenMixin",
+    "server.warden.WardenMixin$VibrationUserMixin",
     "server.warden.WardenSwimMixin",
     "worldgen.general.AbstractTreeGrowerMixin",
     "worldgen.general.BirchTreeGrowerMixin",
