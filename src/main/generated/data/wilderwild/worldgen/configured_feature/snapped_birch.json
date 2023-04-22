@@ -4,14 +4,19 @@
     "decorators": [
       {
         "type": "wilderwild:height_based_vine_tree_decorator",
-        "chanceToDecorate": 0.8,
+        "chanceToDecorate": 0.12,
         "maxHeight": 260,
-        "vinePlaceChance": 0.75
+        "vinePlaceChance": 0.25
       },
       {
         "type": "wilderwild:moss_carpet_tree_decorator",
-        "chanceToDecorate": 1.0,
-        "mossPlaceChance": 0.3
+        "chanceToDecorate": 0.6,
+        "mossPlaceChance": 0.2
+      },
+      {
+        "type": "wilderwild:shelf_fungus_tree_decorator",
+        "probability": 0.074,
+        "red_shelf_fungus_chance": 0.3
       }
     ],
     "dirt_provider": {
@@ -29,7 +34,7 @@
     "foliage_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "minecraft:spruce_leaves",
+        "Name": "minecraft:birch_leaves",
         "Properties": {
           "distance": "7",
           "persistent": "false",
@@ -38,7 +43,7 @@
       }
     },
     "force_dirt": false,
-    "ignore_vines": true,
+    "ignore_vines": false,
     "minimum_size": {
       "type": "minecraft:two_layers_feature_size",
       "limit": 1,
@@ -46,31 +51,15 @@
       "upper_size": 1
     },
     "trunk_placer": {
-      "type": "wilderwild:fallen_trunk_logs_placer",
-      "base_height": 5,
+      "type": "wilderwild:snapped_trunk_placer",
+      "base_height": 2,
       "height_rand_a": 1,
-      "height_rand_b": 2,
-      "max_height_above_hole": {
-        "type": "minecraft:uniform",
-        "value": {
-          "max_inclusive": 2,
-          "min_inclusive": 1
-        }
-      },
-      "max_logs": {
-        "type": "minecraft:uniform",
-        "value": {
-          "max_inclusive": 2,
-          "min_inclusive": 1
-        }
-      },
-      "place_branch_chance": 0.0,
-      "success_in_water_chance": 0.8
+      "height_rand_b": 1
     },
     "trunk_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "minecraft:spruce_log",
+        "Name": "minecraft:birch_log",
         "Properties": {
           "axis": "y",
           "termite_edible": "true"
