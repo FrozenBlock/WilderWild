@@ -73,6 +73,7 @@ public final class WorldgenConfig implements ConfigData {
     public boolean betaBeaches = DefaultWorldgenConfig.BETA_BEACHES;
     public boolean dyingTrees = DefaultWorldgenConfig.DYING_TREES;
     public boolean fallenLogs = DefaultWorldgenConfig.FALLEN_LOGS;
+	public boolean snappedLogs = DefaultWorldgenConfig.SNAPPED_LOGS;
     public boolean wilderWildTreeGen = DefaultWorldgenConfig.WILDER_WILD_TREE_GEN;
     public boolean wilderWildGrassGen = DefaultWorldgenConfig.WILDER_WILD_GRASS_GEN;
 	public boolean wilderWildFlowerGen = DefaultWorldgenConfig.WILDER_WILD_FLOWER_GEN;
@@ -277,6 +278,13 @@ public final class WorldgenConfig implements ConfigData {
                 .requireRestart()
                 .build()
         );
+		var snappedLogs = category.addEntry(entryBuilder.startBooleanToggle(text("snapped_logs"), config.snappedLogs)
+			.setDefaultValue(DefaultWorldgenConfig.SNAPPED_LOGS)
+			.setSaveConsumer(newValue -> config.snappedLogs = newValue)
+			.setTooltip(tooltip("snapped_logs"))
+			.requireRestart()
+			.build()
+		);
         var wilderWildGrass = category.addEntry(entryBuilder.startBooleanToggle(text("wilder_wild_grass"), config.wilderWildGrassGen)
                 .setDefaultValue(DefaultWorldgenConfig.WILDER_WILD_GRASS_GEN)
                 .setSaveConsumer(newValue -> config.wilderWildGrassGen = newValue)

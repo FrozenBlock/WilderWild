@@ -79,6 +79,7 @@ import net.frozenblock.wilderwild.world.generation.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.generation.trunk.FancyDarkOakTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.JuniperTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.PalmTrunkPlacer;
+import net.frozenblock.wilderwild.world.generation.trunk.SnappedTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.StraightTrunkWithLogs;
 import net.minecraft.core.Registry;
 import net.minecraft.data.worldgen.biome.Biomes;
@@ -114,7 +115,9 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 	public static final TrunkPlacerType<PalmTrunkPlacer> PALM_TRUNK_PLACER = registerTrunk("palm_trunk_placer", PalmTrunkPlacer.CODEC);
 	public static final TrunkPlacerType<JuniperTrunkPlacer> JUNIPER_TRUNK_PLACER = registerTrunk("juniper_trunk_placer", JuniperTrunkPlacer.CODEC);
 	public static final TrunkPlacerType<FancyDarkOakTrunkPlacer> FANCY_DARK_OAK_TRUNK_PLACER = registerTrunk("fancy_dark_oak_trunk_placer", FancyDarkOakTrunkPlacer.CODEC);
-    public static final Feature<ShelfFungusFeatureConfig> SHELF_FUNGUS_FEATURE = register("shelf_fungus_feature", new ShelfFungusFeature(ShelfFungusFeatureConfig.CODEC));
+	public static final TrunkPlacerType<SnappedTrunkPlacer> SNAPPED_TRUNK_PLACER= registerTrunk("snapped_trunk_placer", SnappedTrunkPlacer.CODEC);
+
+	public static final Feature<ShelfFungusFeatureConfig> SHELF_FUNGUS_FEATURE = register("shelf_fungus_feature", new ShelfFungusFeature(ShelfFungusFeatureConfig.CODEC));
 	public static final Feature<SmallSpongeFeatureConfig> SMALL_SPONGE_FEATURE = register("small_sponge_feature", new SmallSpongeFeature(SmallSpongeFeatureConfig.CODEC));
     public static final CattailFeature CATTAIL_FEATURE = register("cattail_feature", new CattailFeature(ProbabilityFeatureConfiguration.CODEC));
     public static final AlgaeFeature ALGAE_FEATURE = register("algae_feature", new AlgaeFeature(ProbabilityFeatureConfiguration.CODEC));
