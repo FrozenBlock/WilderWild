@@ -196,6 +196,8 @@ public abstract class AbstractClothConfigIntegration extends ModIntegration {
 
 	public abstract boolean fallenLogs();
 
+	public abstract boolean snappedLogs();
+
 	public abstract boolean wildTrees();
 
 	public abstract boolean wildGrass();
