@@ -70,6 +70,9 @@ public final class WilderTreesGeneration {
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SNAPPED_ACACIA_AND_OAK),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_ACACIA_AND_OAK_PLACED.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SNAPPED_CHERRY),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_CHERRY_PLACED.getKey());
 		}
 
         if (WilderSharedConstants.config().fallenLogs()) {

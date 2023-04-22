@@ -220,6 +220,8 @@ public final class WilderConfiguredFeatures {
 
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_ACACIA_AND_OAK = register("snapped_acacia_and_oak");
 
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_CHERRY = register("snapped_cherry");
+
 	//FLOWERS
     public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> SEEDING_DANDELION = register("seeding_dandelion");
 
@@ -1145,6 +1147,15 @@ public final class WilderConfiguredFeatures {
 					new WeightedPlacedFeature(WilderTreePlaced.SNAPPED_OAK_CHECKED.getHolder(), 0.3F)
 				),
 				WilderTreePlaced.SNAPPED_ACACIA_CHECKED.getHolder()
+			)
+		);
+
+		SNAPPED_CHERRY.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(WilderTreePlaced.SnAPPED_CHERRY_CHECKED.getHolder(), 1.0F)
+				),
+				WilderTreePlaced.SnAPPED_CHERRY_CHECKED.getHolder()
 			)
 		);
 

@@ -186,6 +186,7 @@ public final class WilderTreeConfigured {
 
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_CHERRY_TREE = register("fallen_cherry_tree");
 
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_CHERRY_TREE = register("snapped_cherry_tree");
     //OAK
     public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> OAK = register("oak");
 
@@ -465,70 +466,70 @@ public final class WilderTreeConfigured {
 
 		CHERRY_TREE.makeAndSetHolder(Feature.TREE,
 			cherry().decorators(
-					ImmutableList.of(
-							SHELF_FUNGUS_00875_ONLY_RED
+				List.of(
+					SHELF_FUNGUS_00875_ONLY_RED
 					)
 			).build()
 		);
 
 		DYING_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
 				cherry().decorators(
-						ImmutableList.of(
-								SHELF_FUNGUS_00875_ONLY_RED,
-								VINES_1_UNDER_260_03
+					List.of(
+						SHELF_FUNGUS_00875_ONLY_RED,
+						VINES_1_UNDER_260_03
 						)
 				).build()
 		);
 
 		TALL_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
 				tallCherry().decorators(
-						ImmutableList.of(
-								SHELF_FUNGUS_00875_ONLY_RED
+					List.of(
+						SHELF_FUNGUS_00875_ONLY_RED
 						)
 				).build()
 		);
 
 		TALL_DYING_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
 				tallCherry().decorators(
-						ImmutableList.of(
-								SHELF_FUNGUS_00875_ONLY_RED,
-								VINES_1_UNDER_260_03
-						)
+					List.of(
+						SHELF_FUNGUS_00875_ONLY_RED,
+						VINES_1_UNDER_260_03
+					)
 				).build()
 		);
 
 		CHERRY_BEES_025.makeAndSetHolder(Feature.TREE,
 				cherry().decorators(
-						ImmutableList.of(
-								BEES_025,
-								POLLEN_01,
-								SHELF_FUNGUS_00875_ONLY_RED
-						)
+					List.of(
+						BEES_025,
+						POLLEN_01,
+						SHELF_FUNGUS_00875_ONLY_RED
+					)
 				).build()
 		);
 
 		TALL_CHERRY_BEES_025.makeAndSetHolder(Feature.TREE,
 				tallCherry().decorators(
-						ImmutableList.of(
-								BEES_025,
-								POLLEN_01,
-								SHELF_FUNGUS_00875_ONLY_RED
-						)
+					List.of(
+						BEES_025,
+						POLLEN_01,
+						SHELF_FUNGUS_00875_ONLY_RED
+					)
 				).build()
 		);
 
 		FALLEN_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
 				fallenCherry().decorators(
-						ImmutableList.of(
-								VINES_08_UNDER_260_075,
-								MOSS_CHERRY
-						)
+					List.of(
+						VINES_08_UNDER_260_075,
+						MOSS_CHERRY
+					)
 				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		MOSSY_FALLEN_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
 				fallenTrunkBuilder(
-						RegisterBlocks.HOLLOWED_CHERRY_LOG,
+						Blocks.CHERRY_LOG,
 						Blocks.CHERRY_LEAVES,
 						3,
 						1,
@@ -538,10 +539,26 @@ public final class WilderTreeConfigured {
 						UniformInt.of(1, 2),
 						1
 				).ignoreVines().decorators(
-						ImmutableList.of(
-								VINES_08_UNDER_260_075,
-								MOSS_MOSSY
-						)).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+					List.of(
+						VINES_08_UNDER_260_075,
+						MOSS_MOSSY
+					)).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		SNAPPED_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
+			snappedTrunkBuilder(
+				Blocks.BIRCH_LOG,
+				Blocks.BIRCH_LEAVES,
+				2,
+				1,
+				1
+			).decorators(
+				List.of(
+					VINES_012_UNDER_260,
+					MOSS_CHERRY,
+					SHELF_FUNGUS_00875_ONLY_RED
+				)
+			).build()
 		);
 
 		// OAK
@@ -1492,7 +1509,7 @@ public final class WilderTreeConfigured {
     }
 
 	private static TreeConfiguration.TreeConfigurationBuilder fallenCherry() {
-		return fallenTrunkBuilder(RegisterBlocks.HOLLOWED_CHERRY_LOG, Blocks.CHERRY_LEAVES, 3, 1, 2, 0.05F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines();
+		return fallenTrunkBuilder(Blocks.CHERRY_LOG, Blocks.CHERRY_LEAVES, 3, 1, 2, 0.05F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines();
 	}
 
     private static TreeConfiguration.TreeConfigurationBuilder oak() {

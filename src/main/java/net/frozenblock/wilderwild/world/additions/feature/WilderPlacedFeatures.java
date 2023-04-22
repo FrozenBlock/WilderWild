@@ -209,6 +209,8 @@ public final class WilderPlacedFeatures {
 
 	public static final FrozenPlacedFeature SNAPPED_ACACIA_AND_OAK_PLACED = register("snapped_acacia_and_oak");
 
+	public static final FrozenPlacedFeature SNAPPED_CHERRY_PLACED = register("snapped_cherry");
+
 	//MUSHROOMS
     public static final FrozenPlacedFeature BROWN_SHELF_FUNGUS_PLACED = register("brown_shelf_fungus_placed");
 
@@ -731,6 +733,10 @@ public final class WilderPlacedFeatures {
 
 		SNAPPED_ACACIA_AND_OAK_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_ACACIA_AND_OAK.getHolder(),
 			treePlacement(RarityFilter.onAverageOnceEvery(52))
+		);
+
+		SNAPPED_CHERRY_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_CHERRY.getHolder(),
+			treePlacement(RarityFilter.onAverageOnceEvery(58))
 		);
 
 		// MUSHROOMS

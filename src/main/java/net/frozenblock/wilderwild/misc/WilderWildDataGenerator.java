@@ -825,6 +825,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.add(Biomes.SAVANNA_PLATEAU)
 				.add(Biomes.WINDSWEPT_SAVANNA);
 
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_CHERRY)
+				.addOptional(Biomes.CHERRY_GROVE);
+
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_POLLEN)
 				.add(Biomes.BIRCH_FOREST)
 				.add(Biomes.OLD_GROWTH_BIRCH_FOREST)

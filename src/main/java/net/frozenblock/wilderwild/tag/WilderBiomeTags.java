@@ -105,6 +105,7 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_SNAPPED_BIRCH_AND_JUNGLE = bind("has_snapped_birch_and_jungle");
 	public static final TagKey<Biome> HAS_SNAPPED_ACACIA = bind("has_snapped_acacia");
 	public static final TagKey<Biome> HAS_SNAPPED_ACACIA_AND_OAK = bind("has_snapped_acacia_and_oak");
+	public static final TagKey<Biome> HAS_SNAPPED_CHERRY = bind("has_snapped_cherry");
 	public static final TagKey<Biome> HAS_POLLEN = bind("has_pollen");
 	public static final TagKey<Biome> HAS_FIELD_FLOWERS = bind("has_field_flowers");
 	public static final TagKey<Biome> HAS_RED_SHELF_FUNGUS = bind("has_red_shelf_fungus");
