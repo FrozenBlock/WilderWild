@@ -53,6 +53,7 @@ public class DefaultWorldgenConfig {
 	public static final boolean BETA_BEACHES = true;
 	public static final boolean DYING_TREES = true;
 	public static final boolean FALLEN_LOGS = true;
+	public static final boolean SNAPPED_LOGS = true;
 	public static final boolean WILDER_WILD_TREE_GEN = true;
 	public static final boolean WILDER_WILD_GRASS_GEN = true;
 	public static final boolean WILDER_WILD_FLOWER_GEN = true;

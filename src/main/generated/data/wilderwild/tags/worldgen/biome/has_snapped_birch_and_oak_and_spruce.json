@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "wilderwild:mixed_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:temperate_rainforest",
+      "required": false
+    }
+  ]
+}

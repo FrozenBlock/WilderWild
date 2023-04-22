@@ -5,11 +5,11 @@
     "can_be_placed_on": [
       "minecraft:mangrove_log",
       "minecraft:dark_oak_log",
-      "wilderwild:hollowed_birch_log",
-      "wilderwild:hollowed_oak_log",
+      "minecraft:birch_log",
+      "minecraft:oak_log",
       "minecraft:mycelium",
       "minecraft:mushroom_stem",
-      "wilderwild:hollowed_spruce_log"
+      "minecraft:spruce_log"
     ],
     "can_place_on_ceiling": true,
     "can_place_on_floor": true,

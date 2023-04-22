@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:forest",
+    "minecraft:flower_forest",
+    {
+      "id": "wilderwild:semi_birch_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:dark_birch_forest",
+      "required": false
+    }
+  ]
+}

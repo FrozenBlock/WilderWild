@@ -70,11 +70,10 @@
     "trunk_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "wilderwild:hollowed_oak_log",
+        "Name": "minecraft:oak_log",
         "Properties": {
           "axis": "y",
-          "termite_edible": "true",
-          "waterlogged": "false"
+          "termite_edible": "true"
         }
       }
     }

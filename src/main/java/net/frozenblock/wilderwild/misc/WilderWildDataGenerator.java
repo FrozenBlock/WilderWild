@@ -758,6 +758,76 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_BIG_SHRUB)
 				.addOptionalTag(BiomeTags.IS_BADLANDS);
 
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_OAK)
+				.add(Biomes.FOREST)
+				.add(Biomes.FLOWER_FOREST)
+				.add(Biomes.DARK_FOREST)
+				.add(Biomes.SWAMP)
+				.addOptional(RegisterWorldgen.ARID_FOREST)
+				.addOptional(RegisterWorldgen.PARCHED_FOREST)
+				.addOptional(RegisterWorldgen.DARK_TAIGA)
+				.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_BIRCH)
+				.add(Biomes.BIRCH_FOREST)
+				.add(Biomes.OLD_GROWTH_BIRCH_FOREST);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_SPRUCE)
+				.add(Biomes.TAIGA)
+				.add(Biomes.SNOWY_TAIGA)
+				.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA)
+				.add(Biomes.OLD_GROWTH_PINE_TAIGA)
+				.add(Biomes.WINDSWEPT_FOREST)
+				.add(Biomes.WINDSWEPT_HILLS)
+				.add(Biomes.GROVE)
+				.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
+				.addOptional(RegisterWorldgen.BIRCH_TAIGA)
+				.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA)
+				.addOptional(RegisterWorldgen.DARK_TAIGA)
+				.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_SPRUCE_SNOWY)
+				.add(Biomes.SNOWY_TAIGA)
+				.add(Biomes.GROVE)
+				.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_BIRCH_AND_OAK)
+				.add(Biomes.FOREST)
+				.add(Biomes.FLOWER_FOREST)
+				.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
+				.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_BIRCH_AND_OAK_AND_SPRUCE)
+				.addOptional(RegisterWorldgen.MIXED_FOREST)
+				.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_BIRCH_AND_SPRUCE)
+				.addOptional(RegisterWorldgen.BIRCH_TAIGA)
+				.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_CYPRESS)
+				.addOptional(RegisterWorldgen.CYPRESS_WETLANDS);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_JUNGLE)
+				.add(Biomes.JUNGLE)
+				.add(Biomes.BAMBOO_JUNGLE)
+				.add(Biomes.SPARSE_JUNGLE);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_BIRCH_AND_JUNGLE)
+				.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
+				.addOptional(RegisterWorldgen.BIRCH_JUNGLE);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_ACACIA)
+				.addOptional(RegisterWorldgen.ARID_SAVANNA);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_ACACIA_AND_OAK)
+				.add(Biomes.SAVANNA)
+				.add(Biomes.SAVANNA_PLATEAU)
+				.add(Biomes.WINDSWEPT_SAVANNA);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_CHERRY)
+				.addOptional(Biomes.CHERRY_GROVE);
+
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_POLLEN)
 				.add(Biomes.BIRCH_FOREST)
 				.add(Biomes.OLD_GROWTH_BIRCH_FOREST)

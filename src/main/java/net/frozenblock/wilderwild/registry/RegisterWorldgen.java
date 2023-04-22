@@ -535,7 +535,7 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.addDefaultMushrooms(builder);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 		BiomeDefaultFeatures.addJungleVines(builder);
-		BiomeDefaultFeatures.addJungleMelons(builder);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_MELON.getKey());
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BIRCH_JUNGLE_TREES.getKey());
 	}
 
@@ -573,7 +573,7 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.addDefaultMushrooms(builder);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 		BiomeDefaultFeatures.addJungleVines(builder);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_MELON_SPARSE_BIRCH.getKey());
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_MELON.getKey());
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SPARSE_BIRCH_JUNGLE_TREES.getKey());
 	}
 
