@@ -81,8 +81,12 @@ accessible    method    net/minecraft/world/level/block/state/properties/BlockSe
 accessible    field    net/minecraft/world/level/block/BrushableBlock    turnsInto    Lnet/minecraft/world/level/block/Block;
 accessible    field    net/minecraft/world/level/block/BrushableBlock    brushSound    Lnet/minecraft/sounds/SoundEvent;
 accessible    field    net/minecraft/world/level/block/BrushableBlock    brushCompletedSound    Lnet/minecraft/sounds/SoundEvent;
+accessible    method    net/minecraft/world/level/block/SculkSensorBlock    updateNeighbours    (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
+
 # Block Entities
 accessible    field    net/minecraft/world/level/block/entity/RandomizableContainerBlockEntity    lootTable    Lnet/minecraft/resources/ResourceLocation;
+accessible    class    net/minecraft/world/level/block/entity/SculkSensorBlockEntity$VibrationUser
+accessible    class    net/minecraft/world/level/block/entity/SculkShriekerBlockEntity$VibrationUser
 
 # Render Types
 accessible    class    net/minecraft/client/renderer/RenderType$CompositeState

@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.block.entity;
 
+import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -29,7 +30,6 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.level.Level;
@@ -40,18 +40,22 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.BlockPositionSource;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.GameEventListener;
-import net.minecraft.world.level.gameevent.vibrations.VibrationListener;
+import net.minecraft.world.level.gameevent.PositionSource;
+import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
 
-public class HangingTendrilBlockEntity extends BlockEntity implements VibrationListener.Config {
+public class HangingTendrilBlockEntity extends BlockEntity implements GameEventListener.Holder<VibrationSystem.Listener>, VibrationSystem {
 
-	private static final int VIBRATION_EVENT_LISTENER_RANGE = 4;
+	private static final Logger LOGGER = LogUtils.getLogger();
+	private VibrationSystem.Data vibrationData;
+	private final VibrationSystem.Listener vibrationListener;
+	private final VibrationSystem.User vibrationUser = this.createVibrationUser();
+	private int lastVibrationFrequency;
 	private static final String BASE_TEXTURE = "textures/entity/hanging_tendril/";
 
-	private VibrationListener listener;
-	private int lastVibrationFrequency;
 	public int ticksToStopTwitching;
 	public int storedXP;
 	public int ringOutTicksLeft;
@@ -64,7 +68,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
 
 	public HangingTendrilBlockEntity(BlockPos pos, BlockState state) {
 		super(RegisterBlockEntities.HANGING_TENDRIL, pos, state);
-		this.listener = new VibrationListener(new BlockPositionSource(this.worldPosition), this);
+		this.vibrationListener = new VibrationSystem.Listener(this);
 	}
 
 	public void serverTick(Level level, BlockPos pos, BlockState state) {
@@ -83,7 +87,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
 				level.gameEvent(null, RegisterGameEvents.TENDRIL_EXTRACT_XP, pos);
 			}
 		}
-		this.listener.tick(level);
+		VibrationSystem.Ticker.tick(level, this.getVibrationData(), this.getVibrationUser());
 	}
 
 	public void clientTick(BlockState state) {
@@ -125,10 +129,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
 		this.storedXP = tag.getInt("storedXP");
 		this.ringOutTicksLeft = tag.getInt("ringOutTicksLeft");
 		if (tag.contains("listener", 10)) {
-			VibrationListener.codec(this)
-					.parse(new Dynamic<>(NbtOps.INSTANCE, tag.getCompound("listener")))
-					.resultOrPartial(WilderSharedConstants.LOGGER::error)
-					.ifPresent(listener -> this.listener = listener);
+			VibrationSystem.Data.CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, tag.getCompound("listener"))).resultOrPartial(LOGGER::error).ifPresent(data -> this.vibrationData = data);
 		}
 	}
 
@@ -139,57 +140,92 @@ public class HangingTendrilBlockEntity extends BlockEntity implements VibrationL
 		tag.putInt("ticksToStopTwitching", this.ticksToStopTwitching);
 		tag.putInt("storedXP", this.storedXP);
 		tag.putInt("ringOutTicksLeft", this.ringOutTicksLeft);
-		VibrationListener.codec(this)
-				.encodeStart(NbtOps.INSTANCE, this.listener)
-				.resultOrPartial(WilderSharedConstants.LOGGER::error)
-				.ifPresent(listenerNbt -> tag.put("listener", listenerNbt));
+		VibrationSystem.Data.CODEC.encodeStart(NbtOps.INSTANCE, this.vibrationData).resultOrPartial(LOGGER::error).ifPresent(nbt -> tag.put("listener", nbt));
+
 	}
 
-	public VibrationListener getEventListener() {
-		return this.listener;
+	public VibrationSystem.User createVibrationUser() {
+		return new HangingTendrilBlockEntity.VibrationUser(this.getBlockPos());
 	}
 
 	public int getLastVibrationFrequency() {
 		return this.lastVibrationFrequency;
 	}
 
-	@Override
-	public int getListenerRadius() {
-		return VIBRATION_EVENT_LISTENER_RANGE;
+	public void setLastVibrationFrequency(int lastVibrationFrequency) {
+		this.lastVibrationFrequency = lastVibrationFrequency;
 	}
 
 	@Override
-	public boolean canTriggerAvoidVibration() {
-		return true;
+	public Listener getListener() {
+		return this.vibrationListener;
 	}
 
 	@Override
-	public boolean shouldListen(@NotNull ServerLevel level, @NotNull GameEventListener listener, @NotNull BlockPos pos, @NotNull GameEvent gameEvent, @Nullable GameEvent.Context context) {
-		return !this.isRemoved() && (!pos.equals(this.getBlockPos()) || gameEvent != GameEvent.BLOCK_DESTROY && gameEvent != GameEvent.BLOCK_PLACE) && SculkSensorBlock.canActivate(this.getBlockState()) && !this.getBlockState().getValue(HangingTendrilBlock.WRINGING_OUT);
+	public Data getVibrationData() {
+		return this.vibrationData;
 	}
 
 	@Override
-	public void onSignalReceive(@NotNull ServerLevel level, @NotNull GameEventListener listener, @NotNull BlockPos sourcePos, @NotNull GameEvent gameEvent, @Nullable Entity sourceEntity, @Nullable Entity projectileOwner, float distance) {
-		BlockState blockState = this.getBlockState();
-		BlockPos blockPos = this.getBlockPos();
+	public User getVibrationUser() {
+		return this.vibrationUser;
+	}
 
-		if (SculkSensorBlock.canActivate(blockState)) {
-			this.lastVibrationFrequency = VibrationListener.getGameEventFrequency(gameEvent);
-			Block block = blockState.getBlock();
+	public class VibrationUser
+		implements VibrationSystem.User {
+		public static final int LISTENER_RANGE = 4;
+		protected final BlockPos blockPos;
+		private final PositionSource positionSource;
 
-			if (block instanceof HangingTendrilBlock tendril) {
-				tendril.activate(sourceEntity, level, blockPos, blockState, gameEvent);
+		public VibrationUser(BlockPos pos) {
+			this.blockPos = pos;
+			this.positionSource = new BlockPositionSource(pos);
+		}
+
+		@Override
+		public int getListenerRadius() {
+			return LISTENER_RANGE;
+		}
+
+		@Override
+		public PositionSource getPositionSource() {
+			return this.positionSource;
+		}
+
+		@Override
+		public boolean canTriggerAvoidVibration() {
+			return true;
+		}
+
+		@Override
+		public boolean canReceiveVibration(@NotNull ServerLevel world, BlockPos pos, @NotNull GameEvent gameEvent, @Nullable GameEvent.Context context) {
+			if (pos.equals(this.blockPos) && (gameEvent == GameEvent.BLOCK_DESTROY || gameEvent == GameEvent.BLOCK_PLACE)) {
+				return false;
+			}
+			return HangingTendrilBlock.canActivate(HangingTendrilBlockEntity.this.getBlockState()) && !HangingTendrilBlockEntity.this.getBlockState().getValue(HangingTendrilBlock.WRINGING_OUT);
+		}
+
+		@Override
+		public void onReceiveVibration(@NotNull ServerLevel world, @NotNull BlockPos pos, @NotNull GameEvent gameEvent, @Nullable Entity entity, @Nullable Entity entity2, float f) {
+			BlockState blockState = HangingTendrilBlockEntity.this.getBlockState();
+			if (SculkSensorBlock.canActivate(blockState)) {
+				HangingTendrilBlockEntity.this.setLastVibrationFrequency(VibrationSystem.getGameEventFrequency(gameEvent));
+				int i = VibrationSystem.getRedstoneStrengthForDistance(f, this.getListenerRadius());
+				Block block = blockState.getBlock();
+				if (block instanceof HangingTendrilBlock hangingTendrilBlock) {
+					hangingTendrilBlock.activate(entity, world, this.blockPos, blockState, i, HangingTendrilBlockEntity.this.getLastVibrationFrequency());
+				}
 			}
 		}
-	}
 
-	@Override
-	public void onSignalSchedule() {
-		this.setChanged();
-	}
+		@Override
+		public void onDataChanged() {
+			HangingTendrilBlockEntity.this.setChanged();
+		}
 
-	public static int getPower(float distance, int range) {
-		double d = (double) distance / (double) range;
-		return Math.max(1, 15 - Mth.floor(d * 15.0D));
+		@Override
+		public boolean requiresAdjacentChunksToBeTicking() {
+			return true;
+		}
 	}
 }
