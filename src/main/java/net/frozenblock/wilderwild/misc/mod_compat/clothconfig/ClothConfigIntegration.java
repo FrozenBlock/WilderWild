@@ -465,6 +465,11 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean snappedLogs() {
+		return WORLDGEN.snappedLogs;
+	}
+
+	@Override
 	public boolean wildTrees() {
 		return WORLDGEN.wilderWildTreeGen;
 	}

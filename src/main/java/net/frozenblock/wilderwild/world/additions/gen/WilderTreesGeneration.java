@@ -34,6 +34,44 @@ public final class WilderTreesGeneration {
 
         }
 
+		if (WilderSharedConstants.config().snappedLogs()) {
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SNAPPED_OAK),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_OAK_PLACED.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SNAPPED_BIRCH),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_BIRCH_PLACED.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SNAPPED_SPRUCE),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_SPRUCE_PLACED.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SNAPPED_SPRUCE_SNOWY),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_SPRUCE_ON_SNOW_PLACED.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SNAPPED_BIRCH_AND_OAK_AND_SPRUCE),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_BIRCH_AND_OAK_AND_SPRUCE_PLACED.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SNAPPED_BIRCH_AND_OAK),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_BIRCH_AND_OAK_PLACED.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SNAPPED_BIRCH_AND_SPRUCE),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_BIRCH_AND_SPRUCE_PLACED.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SNAPPED_CYPRESS),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_CYPRESS_PLACED.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SNAPPED_JUNGLE),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_JUNGLE_PLACED.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SNAPPED_BIRCH_AND_JUNGLE),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_BIRCH_AND_JUNGLE_PLACED.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SNAPPED_ACACIA),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_ACACIA_PLACED.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SNAPPED_ACACIA_AND_OAK),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_ACACIA_AND_OAK_PLACED.getKey());
+		}
+
         if (WilderSharedConstants.config().fallenLogs()) {
             BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_BIRCH_TREES),
                     GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_BIRCH_PLACED.getKey());

@@ -64,11 +64,10 @@
     "trunk_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "wilderwild:hollowed_mangrove_log",
+        "Name": "minecraft:mangrove_log",
         "Properties": {
           "axis": "y",
-          "termite_edible": "true",
-          "waterlogged": "false"
+          "termite_edible": "true"
         }
       }
     }

@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "wilderwild:sparse_birch_jungle",
+      "required": false
+    },
+    {
+      "id": "wilderwild:birch_jungle",
+      "required": false
+    }
+  ]
+}

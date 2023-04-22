@@ -47,7 +47,7 @@ public final class InstrumentItemMixin {
     @Redirect(method = "play", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playSound(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V"))
     private static void wilderWild$playRestrictionSound(Level level, Player player, Entity entity, SoundEvent soundEvent, SoundSource soundSource, float f, float g) {
         if (!level.isClientSide) {
-            FrozenSoundPackets.createMovingRestrictionSound(level, player, soundEvent, soundSource, f, g, WilderSharedConstants.id("instrument"));
+            FrozenSoundPackets.createMovingRestrictionSound(level, player, soundEvent, soundSource, f, g, WilderSharedConstants.id("instrument"), true);
         }
     }
 

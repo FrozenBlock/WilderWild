@@ -1,0 +1,32 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:taiga",
+    "minecraft:snowy_taiga",
+    "minecraft:old_growth_spruce_taiga",
+    "minecraft:old_growth_pine_taiga",
+    "minecraft:windswept_forest",
+    "minecraft:windswept_hills",
+    "minecraft:grove",
+    {
+      "id": "wilderwild:old_growth_birch_taiga",
+      "required": false
+    },
+    {
+      "id": "wilderwild:birch_taiga",
+      "required": false
+    },
+    {
+      "id": "wilderwild:snowy_old_growth_pine_taiga",
+      "required": false
+    },
+    {
+      "id": "wilderwild:dark_taiga",
+      "required": false
+    },
+    {
+      "id": "wilderwild:temperate_rainforest",
+      "required": false
+    }
+  ]
+}

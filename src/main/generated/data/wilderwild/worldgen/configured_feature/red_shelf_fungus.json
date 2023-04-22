@@ -5,8 +5,8 @@
     "can_be_placed_on": [
       "minecraft:mangrove_log",
       "minecraft:dark_oak_log",
-      "wilderwild:hollowed_birch_log",
-      "wilderwild:hollowed_oak_log",
+      "minecraft:birch_log",
+      "minecraft:oak_log",
       "minecraft:mycelium",
       "minecraft:mushroom_stem"
     ],
