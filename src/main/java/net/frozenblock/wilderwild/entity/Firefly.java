@@ -428,7 +428,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
         if (state.isRedstoneConductor(level, pos)) {
             return false;
         }
-        return state.isAir() || (!state.getMaterial().blocksMotion() && !state.getMaterial().isSolid());
+        return state.isAir() || (!state.blocksMotion() && !state.isSolid());
     }
 
     @Override
