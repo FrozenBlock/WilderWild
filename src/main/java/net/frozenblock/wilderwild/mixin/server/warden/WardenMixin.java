@@ -55,6 +55,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.GameEventListener;
 import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -182,10 +183,13 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	}
 	@Mixin(Warden.VibrationUser.class)
 	public static class VibrationUserMixin {
+
+		@Shadow @Final
+		Warden field_44600;
+
 		@Inject(method = "onReceiveVibration", at = @At("HEAD"))
 		private void wilderWild$onReceiveVibration(ServerLevel world, BlockPos pos, GameEvent gameEvent, @Nullable Entity entity, @Nullable Entity sourceEntity, float f, CallbackInfo info) {
-			Warden warden = Warden.class.cast(this);
-			if (!warden.isDeadOrDying()) {
+			if (!field_44600.isDeadOrDying()) {
 				int additionalAnger = 0;
 				if (world.getBlockState(pos).is(Blocks.SCULK_SENSOR)) {
 					if (world.getBlockState(pos).getValue(RegisterProperties.HICCUPPING)) {
@@ -193,11 +197,11 @@ public final class WardenMixin extends Monster implements WilderWarden {
 					}
 				}
 				if (sourceEntity != null) {
-					if (warden.closerThan(sourceEntity, 30.0D)) {
-						warden.increaseAngerAt(sourceEntity, additionalAnger, false);
+					if (field_44600.closerThan(sourceEntity, 30.0D)) {
+						field_44600.increaseAngerAt(sourceEntity, additionalAnger, false);
 					}
 				} else {
-					warden.increaseAngerAt(entity, additionalAnger, false);
+					field_44600.increaseAngerAt(entity, additionalAnger, false);
 				}
 			}
 		}
