@@ -34,7 +34,9 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -60,10 +62,12 @@ public class SculkShriekerBlockEntityMixin implements SculkShriekerTickInterface
 	@Mixin(SculkShriekerBlockEntity.VibrationUser.class)
 	public static class VibrationUserMixin {
 
+		@Shadow @Final
+		SculkShriekerBlockEntity field_44621;
+
 		@Inject(at = @At("HEAD"), method = "canReceiveVibration", cancellable = true)
 		public void wilderWild$canReceiveVibration(ServerLevel world, BlockPos pos, GameEvent gameEvent, GameEvent.Context context, CallbackInfoReturnable<Boolean> info) {
-			SculkShriekerBlockEntity entity = SculkShriekerBlockEntity.class.cast(this);
-			if (entity.getBlockState().getValue(RegisterProperties.SOULS_TAKEN) == 2) {
+			if (field_44621.getBlockState().getValue(RegisterProperties.SOULS_TAKEN) == 2) {
 				info.setReturnValue(false);
 			}
 		}
