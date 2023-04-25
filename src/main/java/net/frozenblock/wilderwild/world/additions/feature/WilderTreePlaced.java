@@ -22,6 +22,7 @@ import java.util.List;
 import net.frozenblock.lib.worldgen.feature.api.FrozenPlacedFeature;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import static net.frozenblock.wilderwild.world.additions.feature.WilderPlacementUtils.register;
 import net.minecraft.core.Direction;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.world.level.block.Blocks;
@@ -29,8 +30,6 @@ import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
-
-import static net.frozenblock.wilderwild.world.additions.feature.WilderPlacementUtils.register;
 
 public final class WilderTreePlaced {
 	private WilderTreePlaced() {
@@ -75,6 +74,8 @@ public final class WilderTreePlaced {
 
 	public static final FrozenPlacedFeature MOSSY_FALLEN_BIRCH_CHECKED = register("mossy_fallen_birch_checked");
 
+	public static final FrozenPlacedFeature SNAPPED_BIRCH_CHECKED = register("snapped_birch_checked");
+
 	//CHERRY
 	public static final FrozenPlacedFeature CHERRY_CHECKED = register("cherry_checked");
 
@@ -91,6 +92,8 @@ public final class WilderTreePlaced {
 	public static final FrozenPlacedFeature FALLEN_CHERRY_CHECKED = register("fallen_cherry_checked");
 
 	public static final FrozenPlacedFeature MOSSY_FALLEN_CHERRY_CHECKED = register("mossy_fallen_cherry_checked");
+
+	public static final FrozenPlacedFeature SnAPPED_CHERRY_CHECKED = register("snapped_cherry_checked");
 
     //OAK
     public static final FrozenPlacedFeature OAK_CHECKED = register("oak_checked");
@@ -126,6 +129,8 @@ public final class WilderTreePlaced {
 	public static final FrozenPlacedFeature MOSSY_FALLEN_SPRUCE_CHECKED = register("mossy_fallen_spruce_checked");
 
 	public static final FrozenPlacedFeature OLD_DYING_FANCY_OAK_BEES_0004 = register("old_dying_fancy_oak_bees_0004");
+
+	public static final FrozenPlacedFeature SNAPPED_OAK_CHECKED = register("snapped_oak_checked");
 
 	//DARK OAK
     public static final FrozenPlacedFeature TALL_DARK_OAK_CHECKED = register("tall_dark_oak_checked");
@@ -182,6 +187,10 @@ public final class WilderTreePlaced {
 
 	public static final FrozenPlacedFeature SHORT_MEGA_DYING_SPRUCE_ON_SNOW = register("short_mega_dying_spruce_on_snow");
 
+	public static final FrozenPlacedFeature SNAPPED_SPRUCE_CHECKED = register("snapped_spruce_checked");
+
+	public static final FrozenPlacedFeature SNAPPED_SPRUCE_ON_SNOW = register("snapped_spruces_on_snow");
+
 	//BAOBAB
     public static final FrozenPlacedFeature BAOBAB = register("baobab");
 
@@ -199,6 +208,8 @@ public final class WilderTreePlaced {
     public static final FrozenPlacedFeature SWAMP_CYPRESS = register("swamp_cypress");
 
     public static final FrozenPlacedFeature FALLEN_CYPRESS_CHECKED = register("fallen_cypress_checked");
+
+	public static final FrozenPlacedFeature SNAPPED_CYPRESS_CHECKED = register("snapped_cypress_checked");
 
 	//TREE ON SAND
 	public static final BlockPredicate SAND_GRASS_TREE_PREDICATE = BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.RED_SAND, Blocks.SAND, Blocks.GRASS);
@@ -230,8 +241,12 @@ public final class WilderTreePlaced {
 	//JUNGLE
 	public static final FrozenPlacedFeature FALLEN_JUNGLE_CHECKED = register("fallen_jungle_checked");
 
+	public static final FrozenPlacedFeature SNAPPED_JUNGLE_CHECKED = register("snapped_jungle_checked");
+
 	//ACACIA
 	public static final FrozenPlacedFeature FALLEN_ACACIA_CHECKED = register("fallen_acacia_checked");
+
+	public static final FrozenPlacedFeature SNAPPED_ACACIA_CHECKED = register("snapped_acacia_checked");
 
 	//MANGROVE
 	public static final FrozenPlacedFeature FALLEN_MANGROVE_CHECKED = register("fallen_mangrove_checked");
@@ -299,6 +314,10 @@ public final class WilderTreePlaced {
 
 		MOSSY_FALLEN_BIRCH_CHECKED.makeAndSetHolder(WilderTreeConfigured.MOSSY_FALLEN_BIRCH_TREE.getHolder());
 
+		SNAPPED_BIRCH_CHECKED.makeAndSetHolder(WilderTreeConfigured.SNAPPED_BIRCH.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
+		);
+
 		//CHERRY
 
 		CHERRY_CHECKED.makeAndSetHolder(WilderTreeConfigured.CHERRY_TREE.getHolder(),
@@ -331,6 +350,10 @@ public final class WilderTreePlaced {
 
 		MOSSY_FALLEN_CHERRY_CHECKED.makeAndSetHolder(WilderTreeConfigured.MOSSY_FALLEN_CHERRY_TREE.getHolder(),
 				PlacementUtils.filteredByBlockSurvival(Blocks.CHERRY_SAPLING)
+		);
+
+		SnAPPED_CHERRY_CHECKED.makeAndSetHolder(WilderTreeConfigured.SNAPPED_CHERRY_TREE.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.CHERRY_SAPLING)
 		);
 
 		// OAK
@@ -391,6 +414,10 @@ public final class WilderTreePlaced {
 
 		OLD_DYING_FANCY_OAK_BEES_0004.makeAndSetHolder(WilderTreeConfigured.OLD_FANCY_DYING_OAK_BEES_0004.getHolder(),
 				PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
+		);
+
+		SNAPPED_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.SNAPPED_OAK.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
 		);
 
 		// DARK OAK
@@ -499,6 +526,14 @@ public final class WilderTreePlaced {
 				SNOW_TREE_FILTER_DECORATOR
 		);
 
+		SNAPPED_SPRUCE_CHECKED.makeAndSetHolder(WilderTreeConfigured.SNAPPED_SPRUCE.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING)
+		);
+
+		SNAPPED_SPRUCE_ON_SNOW.makeAndSetHolder(WilderTreeConfigured.SNAPPED_SPRUCE.getHolder(),
+			SNOW_TREE_FILTER_DECORATOR
+		);
+
 		// BAOBAB
 
 		BAOBAB.makeAndSetHolder(WilderTreeConfigured.BAOBAB.getHolder(),
@@ -532,6 +567,10 @@ public final class WilderTreePlaced {
 		);
 
 		FALLEN_CYPRESS_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_CYPRESS_TREE.getHolder());
+
+		SNAPPED_CYPRESS_CHECKED.makeAndSetHolder(WilderTreeConfigured.SNAPPED_CYPRESS.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(RegisterBlocks.CYPRESS_SAPLING)
+		);
 
 		// SHRUB
 
@@ -573,9 +612,17 @@ public final class WilderTreePlaced {
 
 		FALLEN_JUNGLE_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_JUNGLE_TREE.getHolder());
 
+		SNAPPED_JUNGLE_CHECKED.makeAndSetHolder(WilderTreeConfigured.SNAPPED_JUNGLE.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.JUNGLE_SAPLING)
+		);
+
 		//ACACIA
 
 		FALLEN_ACACIA_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_ACACIA_TREE.getHolder());
+
+		SNAPPED_ACACIA_CHECKED.makeAndSetHolder(WilderTreeConfigured.SNAPPED_ACACIA.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.ACACIA_SAPLING)
+		);
 
 		//MANGROVE
 

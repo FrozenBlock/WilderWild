@@ -31,10 +31,10 @@ import net.minecraft.world.level.block.entity.SculkShriekerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.gameevent.GameEventListener;
-import net.minecraft.world.level.gameevent.vibrations.VibrationListener;
+import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -45,9 +45,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SculkShriekerBlockEntity.class)
 public class SculkShriekerBlockEntityMixin implements SculkShriekerTickInterface {
-
-	@Shadow
-	private VibrationListener listener;
 
 	@Unique
     public int wilderWild$bubbles;
@@ -62,14 +59,20 @@ public class SculkShriekerBlockEntityMixin implements SculkShriekerTickInterface
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "shouldListen", cancellable = true)
-    public void wilderWild$shouldListen(ServerLevel level, GameEventListener listener, BlockPos pos, GameEvent event, GameEvent.Context emitter, CallbackInfoReturnable<Boolean> info) {
-        SculkShriekerBlockEntity entity = SculkShriekerBlockEntity.class.cast(this);
-        if (entity.getBlockState().getValue(RegisterProperties.SOULS_TAKEN) == 2) {
-            info.setReturnValue(false);
-            info.cancel();
-        }
-    }
+	@Mixin(SculkShriekerBlockEntity.VibrationUser.class)
+	public static class VibrationUserMixin {
+
+		@Shadow @Final
+		SculkShriekerBlockEntity field_44621;
+
+		@Inject(at = @At("HEAD"), method = "canReceiveVibration", cancellable = true)
+		public void wilderWild$canReceiveVibration(ServerLevel world, BlockPos pos, GameEvent gameEvent, GameEvent.Context context, CallbackInfoReturnable<Boolean> info) {
+			if (field_44621.getBlockState().getValue(RegisterProperties.SOULS_TAKEN) == 2) {
+				info.setReturnValue(false);
+			}
+		}
+
+	}
 
     @Inject(at = @At("HEAD"), method = "tryShriek", cancellable = true)
     public void wilderWild$shriek(ServerLevel level, @Nullable ServerPlayer player, CallbackInfo info) {
@@ -95,8 +98,9 @@ public class SculkShriekerBlockEntityMixin implements SculkShriekerTickInterface
 
 	@Override
 	public void wilderWild$tickServer(Level level, BlockPos pos) {
-		if (level != null) {
-			this.listener.tick(level);
+		if (level != null && !level.isClientSide) {
+			SculkShriekerBlockEntity sculkShriekerBlockEntity = SculkShriekerBlockEntity.class.cast(this);
+			VibrationSystem.Ticker.tick(level, sculkShriekerBlockEntity.getVibrationData(), sculkShriekerBlockEntity.getVibrationUser());
 			if (this.wilderWild$bubbles > 0) {
 				--this.wilderWild$bubbles;
 				EasyPacket.EasyFloatingSculkBubblePacket.createParticle(level, Vec3.atCenterOf(pos), AdvancedMath.random().nextDouble() > 0.7 ? 1 : 0, 20 + AdvancedMath.random().nextInt(80), 0.075, 1);

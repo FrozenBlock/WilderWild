@@ -35,18 +35,21 @@ import net.minecraft.world.entity.monster.EnderMan;
 
 @Environment(EnvType.CLIENT)
 public class ClientMethods {
+	private ClientMethods() {
+		throw new UnsupportedOperationException("ClientMethods contains only static declarations.");
+	}
 
     public static void playClientEnderManSound(EnderMan enderMan) {
         Minecraft client = Minecraft.getInstance();
         if (client.level != null && enderMan.isAlive()) {
-            client.getSoundManager().play(new RestrictedMovingSound<>(enderMan, SoundEvents.ENDERMAN_STARE, SoundSource.HOSTILE, 2.5F, 1F, SoundPredicate.notSilentAndAlive()));
+            client.getSoundManager().play(new RestrictedMovingSound<>(enderMan, SoundEvents.ENDERMAN_STARE, SoundSource.HOSTILE, 2.5F, 1F, SoundPredicate.notSilentAndAlive(), true));
         }
     }
 
 	public static void playClientEnderManLoop(EnderMan enderMan) {
 		Minecraft client = Minecraft.getInstance();
 		if (client.level != null && enderMan.isAlive()) {
-			Minecraft.getInstance().getSoundManager().play(new RestrictedMovingSoundLoop<>(enderMan, RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP, SoundSource.HOSTILE, 1.0F, 0.9F, SoundPredicate.getPredicate(WilderSharedConstants.id("enderman_anger"))));
+			Minecraft.getInstance().getSoundManager().play(new RestrictedMovingSoundLoop<>(enderMan, RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP, SoundSource.HOSTILE, 1.0F, 0.9F, SoundPredicate.getPredicate(WilderSharedConstants.id("enderman_anger")), true));
 		}
 	}
 

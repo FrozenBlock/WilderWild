@@ -437,6 +437,11 @@ public class NoOpClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean snappedLogs() {
+		return DefaultWorldgenConfig.SNAPPED_LOGS;
+	}
+
+	@Override
 	public boolean wildTrees() {
 		return DefaultWorldgenConfig.WILDER_WILD_TREE_GEN;
 	}
