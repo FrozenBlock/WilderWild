@@ -76,14 +76,14 @@
       "strategy": "curseforge",
       "projectID": "648511",
       "strict": "false"
-	},
-	"modmenu": {
-    "links": {
-      "modmenu.discord": "https://discord.gg/EpkBWm844s"
     },
-    "badges": [
-      "frozenblock"
-    ]
-	}
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/EpkBWm844s"
+      },
+      "badges": [
+        "frozenblock"
+      ]
+    }
   }
 }

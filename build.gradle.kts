@@ -370,13 +370,13 @@ tasks {
 }
 
 
-public val test: Task by tasks
-public val runClient: Task by tasks
-public val runDatagen: Task by tasks
+val test: Task by tasks
+val runClient: Task by tasks
+val runDatagen: Task by tasks
 
-public val remapJar: Task by tasks
-public val sourcesJar: Task by tasks
-public val javadocJar: Task by tasks
+val remapJar: Task by tasks
+val sourcesJar: Task by tasks
+val javadocJar: Task by tasks
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -462,7 +462,7 @@ publishing {
                 pom {
                     groupId = publishGroup
                     artifactId = rootProject.base.archivesName.get().lowercase()
-                    version = publishVersion
+                    version = snapshotPublishVersion
                     withXml {
                         asNode().appendNode("properties").appendNode("hash", hash)
                     }
