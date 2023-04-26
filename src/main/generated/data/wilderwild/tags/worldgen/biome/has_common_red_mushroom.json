@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:dark_forest",
+    {
+      "id": "wilderwild:dark_taiga",
+      "required": false
+    }
+  ]
+}

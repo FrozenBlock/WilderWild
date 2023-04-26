@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:old_growth_birch_forest",
+    "minecraft:flower_forest",
+    "minecraft:forest",
+    "minecraft:meadow",
+    "minecraft:windswept_hills",
+    "minecraft:windswept_forest",
+    "minecraft:dark_forest",
+    {
+      "id": "wilderwild:semi_birch_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:dark_taiga",
+      "required": false
+    }
+  ]
+}
