@@ -50,4 +50,4 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
       - name: Run Datagen
-        run: ./gradlew runDatagen66rf -PreleaseType=stable -PuseThirdPartyMods=false
+        run: ./gradlew runDatagen -PreleaseType=stable -PuseThirdPartyMods=false
