@@ -31,8 +31,6 @@ jobs:
           ref: master
           submodules: recursive
           path: FrozenLib
-      - name: Remove FrozenLib from Git
-        run: git rm --cached FrozenLib/
       - name: Validating the Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
       - name: Setting up Java ${{ matrix.java }}
