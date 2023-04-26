@@ -39,7 +39,7 @@
     "fabric-datagen": [
       "net.frozenblock.wilderwild.misc.WilderWildDataGenerator"
     ],
-    "frozenlib:surfacerules": [
+    "frozenlib:events": [
       "net.frozenblock.wilderwild.registry.RegisterWorldgen"
     ],
     "frozenlib:mob_categories": [

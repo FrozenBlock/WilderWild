@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.registry;
 import java.util.ArrayList;
 import net.frozenblock.lib.worldgen.surface.api.FrozenDimensionBoundRuleSource;
 import net.frozenblock.lib.worldgen.surface.api.FrozenSurfaceRuleEntrypoint;
+import net.frozenblock.lib.worldgen.surface.api.SurfaceRuleEvents;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
@@ -48,7 +49,7 @@ import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 
-public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
+public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldSurfaceRuleCallback {
 
 	// Main Biomes
 	public static final ResourceKey<Biome> CYPRESS_WETLANDS = register("cypress_wetlands");
@@ -888,24 +889,5 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 		context.add(WilderSharedWorldgen.temperateRainforestRules());
 		context.add(WilderSharedWorldgen.rainforestRules());
 		WilderSharedConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
-	}
-
-	@Override
-	public void addOverworldSurfaceRulesNoPrelimSurface(ArrayList<SurfaceRules.RuleSource> context) {
-
-	}
-
-	@Override
-	public void addNetherSurfaceRules(ArrayList<SurfaceRules.RuleSource> context) {
-
-	}
-
-	@Override
-	public void addEndSurfaceRules(ArrayList<SurfaceRules.RuleSource> context) {
-
-	}
-
-	@Override
-	public void addSurfaceRules(ArrayList<FrozenDimensionBoundRuleSource> context) {
 	}
 }
