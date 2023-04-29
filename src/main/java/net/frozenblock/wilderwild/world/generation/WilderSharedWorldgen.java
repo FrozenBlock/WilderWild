@@ -43,6 +43,9 @@ import net.minecraft.world.level.levelgen.VerticalAnchor;
  * Contains Wilder Wild's worldgen data.
  */
 public final class WilderSharedWorldgen {
+	private WilderSharedWorldgen() {
+		throw new UnsupportedOperationException("WilderSharedWorldgen contains only static declarations.");
+	}
 
 	// DEPTHS
 	public static final Climate.Parameter BOTTOM_DEPTH = Climate.Parameter.point(1.1F);
@@ -53,6 +56,10 @@ public final class WilderSharedWorldgen {
 	// MODDED BIOME PARAMETERS
 
     public static final class CypressWetlands {
+		private CypressWetlands() {
+			throw new UnsupportedOperationException("CypressWetlands contains only static declarations.");
+		}
+
         public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.COOL, Temperature.WARM);
         public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.NEUTRAL, Humidity.HUMID);
         public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(-0.200F, 0.500F);
@@ -70,6 +77,10 @@ public final class WilderSharedWorldgen {
     }
 
     public static final class MixedForest {
+		private MixedForest() {
+			throw new UnsupportedOperationException("MixedForest contains only static declarations.");
+		}
+
         public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.450F, -0.140F);
         public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.050F, 0.150F);
 
@@ -82,6 +93,10 @@ public final class WilderSharedWorldgen {
     }
 
 	public static final class BirchJungle {
+		private BirchJungle() {
+			throw new UnsupportedOperationException("BirchJungle contains only static declarations.");
+		}
+
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.175F, 0.225F);
 		public static final Climate.Parameter HUMIDITY_A = Humidity.FOUR;
 		public static final Climate.Parameter HUMIDITY_B = Climate.Parameter.span(0.250F, 0.350F);
@@ -95,6 +110,10 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static final class FlowerField {
+		private FlowerField() {
+			throw new UnsupportedOperationException("FlowerField contains only static declarations.");
+		}
+
 		public static final Climate.Parameter TEMPERATURE_A = Climate.Parameter.span(-0.200F, -0.075F);
 		public static final Climate.Parameter HUMIDITY_A = Humidity.ONE;
 		public static final Climate.Parameter TEMPERATURE_B = Temperature.THREE;
@@ -111,6 +130,10 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static final class AridSavanna {
+		private AridSavanna() {
+			throw new UnsupportedOperationException("AridSavanna contains only static declarations.");
+		}
+
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.525F, 0.575F);
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1.000F, -0.125F);
 
@@ -123,6 +146,10 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static final class ParchedForest {
+		private ParchedForest() {
+			throw new UnsupportedOperationException("ParchedForest contains only static declarations.");
+		}
+
 		public static final Climate.Parameter TEMPERATURE_A = Temperature.FOUR;
 		public static final Climate.Parameter TEMPERATURE_B = Climate.Parameter.span(0.175F, 0.225F);
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.150F, -0.050F);
@@ -136,6 +163,10 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static final class AridForest {
+		private AridForest() {
+			throw new UnsupportedOperationException("AridForest contains only static declarations.");
+		}
+
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.530F, 0.570F);
 		public static final Climate.Parameter HUMIDITY = WilderSharedConstants.config().modifyJunglePlacement() ? Climate.Parameter.span(-0.095F, 0.1F) : Climate.Parameter.span(-0.095F, 0.15F);
 
@@ -148,6 +179,10 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static final class OldGrowthSnowySpruceTaiga {
+		private OldGrowthSnowySpruceTaiga() {
+			throw new UnsupportedOperationException("OldGrowthSnowySpruceTaiga contains only static declarations.");
+		}
+
 		public static final Climate.Parameter TEMPERATURE = Temperature.ONE;
 		public static final Climate.Parameter HUMIDITY = Humidity.FIVE;
 
@@ -162,6 +197,10 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static final class BirchTaiga {
+		private BirchTaiga() {
+			throw new UnsupportedOperationException("BirchTaiga contains only static declarations.");
+		}
+
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.175F, -0.125F);
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.100F, 0.325F);
 		public static final Climate.Parameter HUMIDITY_B = Humidity.FOUR;
@@ -175,6 +214,10 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static final class DarkTaiga {
+		private DarkTaiga() {
+			throw new UnsupportedOperationException("DarkTaiga contains only static declarations.");
+		}
+
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.175F, -0.125F);
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.275F, 0.325F);
 		public static final Climate.Parameter HUMIDITY_B = Humidity.FIVE;
@@ -188,6 +231,10 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static final class DarkBirchForest {
+		private DarkBirchForest() {
+			throw new UnsupportedOperationException("DarkBirchForest contains only static declarations.");
+		}
+
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.125F, 0.2F);
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.275F, 0.325F);
 
@@ -200,6 +247,10 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static final class OldGrowthDarkForest {
+		private OldGrowthDarkForest() {
+			throw new UnsupportedOperationException("OldGrowthDarkForest contains only static declarations.");
+		}
+
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.200F, 0.200F);
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.350F, 1.000F);
 
@@ -212,6 +263,10 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static final class SemiBirchForest {
+		private SemiBirchForest() {
+			throw new UnsupportedOperationException("SemiBirchForest contains only static declarations.");
+		}
+
 		public static final Climate.Parameter TEMPERATURE_A = Temperature.THREE;
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.050F, 0.150F);
 		public static final Climate.Parameter TEMPERATURE_B = Climate.Parameter.span(-0.140F, -0.100F);
@@ -225,6 +280,10 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static final class TemperateRainforest {
+		private TemperateRainforest() {
+			throw new UnsupportedOperationException("TemperateRainforest contains only static declarations.");
+		}
+
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.250F, -0.050F);
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.250F, 1.0F);
 		public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_0, Erosion.EROSION_3);
@@ -239,6 +298,10 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static final class Rainforest {
+		private Rainforest() {
+			throw new UnsupportedOperationException("Rainforest contains only static declarations.");
+		}
+
 		public static final Climate.Parameter TEMPERATURE_A = Climate.Parameter.span(Temperature.THREE, Temperature.FOUR);
 		public static final Climate.Parameter HUMIDITY_A = Humidity.THREE;
 		public static final Climate.Parameter CONTINENTALNESS_A = Climate.Parameter.span(Continentalness.INLAND, Continentalness.FAR_INLAND);
@@ -261,6 +324,10 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static final class JellyfishCaves {
+		private JellyfishCaves() {
+			throw new UnsupportedOperationException("JellyfishCaves contains only static declarations.");
+		}
+
         public static final Climate.Parameter TEMPERATURE = Temperature.FULL_RANGE;
         public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.DRY, Humidity.HUMID);
         public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(-1.200F, -0.749F);
@@ -277,6 +344,10 @@ public final class WilderSharedWorldgen {
     }
 
 	public static final class WarmRiver {
+		private WarmRiver() {
+			throw new UnsupportedOperationException("WarmRiver contains only static declarations.");
+		}
+
 		public static final Climate.Parameter WARM_RANGE = Climate.Parameter.span(0.550F, 1.000F);
 		public static final Climate.Parameter UNFROZEN_NOT_WARM_RANGE = Climate.Parameter.span(0.000F, 0.200F);
 		public static final Climate.Parameter HUMIDITY_TO_TWO = Climate.Parameter.span(-0.100F, 0.000F);
@@ -294,6 +365,10 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static final class Oasis {
+		private Oasis() {
+			throw new UnsupportedOperationException("Oasis contains only static declarations.");
+		}
+
 		public static final Climate.Parameter TEMPERATURE = Temperature.HOT;
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.THREE, Humidity.FIVE);
 		public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
@@ -311,12 +386,20 @@ public final class WilderSharedWorldgen {
 	}
 
     public static final class Swamp {
+		private Swamp() {
+			throw new UnsupportedOperationException("Swamp contains only static declarations.");
+		}
+
         public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Climate.Parameter.span(-0.200F, 0.100F), Humidity.WET);
         public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.COOL, Temperature.WARM);
 
 	}
 
 	public static final class MangroveSwamp {
+		private MangroveSwamp() {
+			throw new UnsupportedOperationException("MangroveSwamp contains only static declarations.");
+		}
+
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.NEUTRAL, Temperature.HOT);
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Climate.Parameter.span(0.050F, 0.100F), Humidity.HUMID);
 	}
