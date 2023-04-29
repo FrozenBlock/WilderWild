@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import java.util.ArrayList;
+import java.util.List;
 import net.frozenblock.lib.worldgen.surface.api.SurfaceRuleEvents;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
@@ -875,7 +875,7 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldSurfac
 	}
 
 	@Override
-	public void addOverworldSurfaceRules(ArrayList<SurfaceRules.RuleSource> context) {
+	public void addOverworldSurfaceRules(List<SurfaceRules.RuleSource> context) {
 		context.add(WilderSharedWorldgen.betaBeaches());
 		context.add(WilderSharedWorldgen.cypressSurfaceRules());
 		context.add(WilderSharedWorldgen.warmRiverRules());
