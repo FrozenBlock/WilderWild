@@ -57,7 +57,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class WWBushBlock extends BushBlock implements BonemealableBlock {
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
-	public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
+	private static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
 
 	public WWBushBlock(BlockBehaviour.Properties properties) {
 		super(properties);

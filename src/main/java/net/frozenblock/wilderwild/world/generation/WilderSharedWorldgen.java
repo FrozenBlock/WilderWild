@@ -23,8 +23,8 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
-import net.frozenblock.lib.worldgen.surface.FrozenSurfaceRules;
-import static net.frozenblock.lib.worldgen.surface.FrozenSurfaceRules.*;
+import net.frozenblock.lib.worldgen.surface.api.FrozenSurfaceRules;
+import static net.frozenblock.lib.worldgen.surface.api.FrozenSurfaceRules.*;
 import net.frozenblock.lib.worldgen.surface.impl.BiomeTagConditionSource;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
@@ -563,7 +563,7 @@ public final class WilderSharedWorldgen {
 
 	public static SurfaceRules.RuleSource betaBeaches() {
 		return SurfaceRules.ifTrue(
-				BetaBeachConditionSource.betaBeachConditionSource(1),
+				BetaBeachConditionSource.betaBeachConditionSource(),
 				SurfaceRules.sequence(
 						gravelBetaBeaches(),
 						sandBetaBeaches(),
