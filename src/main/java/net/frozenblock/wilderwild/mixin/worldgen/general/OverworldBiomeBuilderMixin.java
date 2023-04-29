@@ -60,31 +60,31 @@ public final class OverworldBiomeBuilderMixin {
 
 	@Unique
 	private void wilderWild$injectSomeWilderWildBiomesToo(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-		if (WilderSharedConstants.config().generateMixedForest()) {
-			if (WilderSharedConstants.config().generateDarkTaiga()) {
-				for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST)) {
-					this.addSurfaceBiome(
-							parameters,
-							WilderSharedWorldgen.DarkTaiga.TEMPERATURE,
-							WilderSharedWorldgen.DarkTaiga.HUMIDITY,
-							point.continentalness(),
-							point.erosion(),
-							point.weirdness(),
-							point.offset(),
-							RegisterWorldgen.DARK_TAIGA
-					);
-					this.addSurfaceBiome(
-							parameters,
-							WilderSharedWorldgen.DarkTaiga.TEMPERATURE,
-							WilderSharedWorldgen.DarkTaiga.HUMIDITY_B,
-							point.continentalness(),
-							point.erosion(),
-							point.weirdness(),
-							point.offset(),
-							RegisterWorldgen.DARK_TAIGA
-					);
-				}
+		if (WilderSharedConstants.config().generateDarkTaiga()) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST)) {
+				this.addSurfaceBiome(
+					parameters,
+					WilderSharedWorldgen.DarkTaiga.TEMPERATURE,
+					WilderSharedWorldgen.DarkTaiga.HUMIDITY,
+					point.continentalness(),
+					point.erosion(),
+					point.weirdness(),
+					point.offset(),
+					RegisterWorldgen.DARK_TAIGA
+				);
+				this.addSurfaceBiome(
+					parameters,
+					WilderSharedWorldgen.DarkTaiga.TEMPERATURE,
+					WilderSharedWorldgen.DarkTaiga.HUMIDITY_B,
+					point.continentalness(),
+					point.erosion(),
+					point.weirdness(),
+					point.offset(),
+					RegisterWorldgen.DARK_TAIGA
+				);
 			}
+		}
+		if (WilderSharedConstants.config().generateMixedForest()) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.TAIGA)) {
 				this.addSurfaceBiome(
 						parameters,
