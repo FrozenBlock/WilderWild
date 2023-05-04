@@ -879,7 +879,7 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldSurfac
 		var rules = SurfaceRules.sequence(
 			WilderSharedWorldgen.betaBeaches(),
 			WilderSharedWorldgen.cypressSurfaceRules(),
-			WilderSharedWorldgen.warmRiverRules()
+			WilderSharedWorldgen.warmRiverRules(),
 			WilderSharedWorldgen.oasisRules(),
 			WilderSharedWorldgen.aridGrass(),
 			WilderSharedWorldgen.aridRules(),
