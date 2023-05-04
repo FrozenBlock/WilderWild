@@ -876,16 +876,20 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldSurfac
 
 	@Override
 	public void addOverworldSurfaceRules(List<SurfaceRules.RuleSource> context) {
-		context.add(WilderSharedWorldgen.betaBeaches());
-		context.add(WilderSharedWorldgen.cypressSurfaceRules());
-		context.add(WilderSharedWorldgen.warmRiverRules());
-		context.add(WilderSharedWorldgen.oasisRules());
-		context.add(WilderSharedWorldgen.aridGrass());
-		context.add(WilderSharedWorldgen.aridRules());
-		context.add(WilderSharedWorldgen.oldGrowthSnowyTaigaRules());
-		context.add(WilderSharedWorldgen.oldGrowthDarkForestRules());
-		context.add(WilderSharedWorldgen.temperateRainforestRules());
-		context.add(WilderSharedWorldgen.rainforestRules());
+		var rules = SurfaceRules.sequence(
+			WilderSharedWorldgen.betaBeaches(),
+			WilderSharedWorldgen.cypressSurfaceRules(),
+			WilderSharedWorldgen.warmRiverRules()
+			WilderSharedWorldgen.oasisRules(),
+			WilderSharedWorldgen.aridGrass(),
+			WilderSharedWorldgen.aridRules(),
+			WilderSharedWorldgen.oldGrowthSnowyTaigaRules(),
+			WilderSharedWorldgen.oldGrowthDarkForestRules(),
+			WilderSharedWorldgen.temperateRainforestRules(),
+			WilderSharedWorldgen.rainforestRules()
+		);
+
+		context.add(rules);
 		WilderSharedConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
 	}
 }
