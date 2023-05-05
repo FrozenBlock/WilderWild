@@ -80,31 +80,31 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldSurfac
 	static {
 		// MAIN BIOMES
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, CYPRESS_WETLANDS, cypressWetlands());
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, MIXED_FOREST.location(), mixedForest());
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, OASIS.location(), oasis());
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, WARM_RIVER.location(), warmRiver());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, MIXED_FOREST, mixedForest());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, OASIS, oasis());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, WARM_RIVER, warmRiver());
 		// CAVE BIOMES
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, JELLYFISH_CAVES.location(), jellyfishCaves());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, JELLYFISH_CAVES, jellyfishCaves());
 		// TRANSITION BIOMES
 		// HOT
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, ARID_FOREST.location(), aridForest());
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, ARID_SAVANNA.location(), aridSavanna());
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, PARCHED_FOREST.location(), parchedForest());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, ARID_FOREST, aridForest());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, ARID_SAVANNA, aridSavanna());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, PARCHED_FOREST, parchedForest());
 		// TROPICAL
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, BIRCH_JUNGLE.location(), birchJungle());
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, SPARSE_BIRCH_JUNGLE.location(), sparseBirchJungle());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, BIRCH_JUNGLE, birchJungle());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, SPARSE_BIRCH_JUNGLE, sparseBirchJungle());
 		// TEMPERATE
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, BIRCH_TAIGA.location(), birchTaiga(false));
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, SEMI_BIRCH_FOREST.location(), semiBirchForest());
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, DARK_BIRCH_FOREST.location(), darkBirchForest());
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, FLOWER_FIELD.location(), flowerField());
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, TEMPERATE_RAINFOREST.location(), temperateRainforest());
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, RAINFOREST.location(), rainforest());
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, DARK_TAIGA.location(), darkTaiga());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, BIRCH_TAIGA, birchTaiga(false));
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, SEMI_BIRCH_FOREST, semiBirchForest());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, DARK_BIRCH_FOREST, darkBirchForest());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, FLOWER_FIELD, flowerField());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, TEMPERATE_RAINFOREST, temperateRainforest());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, RAINFOREST, rainforest());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, DARK_TAIGA, darkTaiga());
 		// OLD GROWTH
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, OLD_GROWTH_BIRCH_TAIGA.location(), birchTaiga(true));
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, OLD_GROWTH_DARK_FOREST.location(), oldGrowthDarkForest());
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, SNOWY_OLD_GROWTH_PINE_TAIGA.location(), oldGrowthSnowyTaiga());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, OLD_GROWTH_BIRCH_TAIGA, birchTaiga(true));
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, OLD_GROWTH_DARK_FOREST, oldGrowthDarkForest());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, SNOWY_OLD_GROWTH_PINE_TAIGA, oldGrowthSnowyTaiga());
 
 		WilderNoise.init();
 	}
