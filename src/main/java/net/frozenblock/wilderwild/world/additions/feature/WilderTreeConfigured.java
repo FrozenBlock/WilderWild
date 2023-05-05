@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.world.additions.feature;
 
-import com.google.common.collect.ImmutableList;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;

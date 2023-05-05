@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.mixin.client.easter;
 
-import com.google.common.collect.ImmutableList;
 import java.util.List;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
