@@ -77,10 +77,9 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldSurfac
 	public static final ResourceKey<Biome> OLD_GROWTH_DARK_FOREST = register("old_growth_dark_forest");
 	public static final ResourceKey<Biome> SNOWY_OLD_GROWTH_PINE_TAIGA = register("snowy_old_growth_pine_taiga");
 
-	public static void registerWorldgen() {
-		WilderSharedConstants.logWild("Registering Biomes for", WilderSharedConstants.UNSTABLE_LOGGING);
+	static {
 		// MAIN BIOMES
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, CYPRESS_WETLANDS.location(), cypressWetlands());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, CYPRESS_WETLANDS, cypressWetlands());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, MIXED_FOREST.location(), mixedForest());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, OASIS.location(), oasis());
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, WARM_RIVER.location(), warmRiver());
@@ -108,6 +107,10 @@ public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldSurfac
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, SNOWY_OLD_GROWTH_PINE_TAIGA.location(), oldGrowthSnowyTaiga());
 
 		WilderNoise.init();
+	}
+
+	public static void registerWorldgen() {
+		WilderSharedConstants.logWild("Registering Biomes for", WilderSharedConstants.UNSTABLE_LOGGING);
 	}
 
 	private static ResourceKey<Biome> register(String name) {

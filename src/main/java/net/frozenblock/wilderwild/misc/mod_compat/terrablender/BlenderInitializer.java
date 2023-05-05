@@ -26,6 +26,6 @@ public final class BlenderInitializer implements TerraBlenderApi {
 
     @Override
     public void onTerraBlenderInitialized() {
-        Regions.register(new WilderOverworldRegion(WilderSharedConstants.id("overworld"), 10));
+        Regions.register(new WilderOverworldRegion(WilderSharedConstants.id("overworld"), 1));
     }
 }

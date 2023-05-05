@@ -127,6 +127,7 @@ public class WWBushBlock extends BushBlock implements BonemealableBlock {
 	}
 
 	@Override
+	@NotNull
 	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		ItemStack itemStack = player.getItemInHand(hand);
 		if (itemStack.is(Items.SHEARS) && !isMinimumAge(state)) {
