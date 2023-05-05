@@ -57,13 +57,13 @@
     "server.warden.SonicBoomMixin",
     "server.warden.WardenMixin",
     "server.warden.WardenSwimMixin",
-    "worldgen.general.AbstractTreeGrowerMixin",
-    "worldgen.general.BirchTreeGrowerMixin",
-    "worldgen.general.DarkOakTreeGrowerMixin",
-    "worldgen.general.OakTreeGrowerMixin",
-    "worldgen.general.OverworldBiomeBuilderMixin",
-    "worldgen.general.SpruceTreeGrowerMixin",
-    "worldgen.general.SwampHutPieceMixin"
+    "worldgen.AbstractTreeGrowerMixin",
+    "worldgen.BirchTreeGrowerMixin",
+    "worldgen.DarkOakTreeGrowerMixin",
+    "worldgen.OakTreeGrowerMixin",
+    "worldgen.OverworldBiomeBuilderMixin",
+    "worldgen.SpruceTreeGrowerMixin",
+    "worldgen.SwampHutPieceMixin"
   ],
   "client": [
     "client.easter.MerpSlimeRenderer",

@@ -25,7 +25,8 @@ import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 
 public final class BetaBeachConditionSource implements SurfaceRules.ConditionSource {
-	public static final KeyDispatchDataCodec<BetaBeachConditionSource> CODEC = KeyDispatchDataCodec.of(RecordCodecBuilder.mapCodec((instance) ->
+	public static final KeyDispatchDataCodec<BetaBeachConditionSource> CODEC = KeyDispatchDataCodec.of(
+		RecordCodecBuilder.mapCodec(instance ->
 			instance.group(
 							Codec.INT
 							.fieldOf("useless")
@@ -37,8 +38,8 @@ public final class BetaBeachConditionSource implements SurfaceRules.ConditionSou
 
 	public int useless;
 
-	public static BetaBeachConditionSource betaBeachConditionSource(int useless) {
-		return new BetaBeachConditionSource(useless);
+	public static BetaBeachConditionSource betaBeachConditionSource() {
+		return new BetaBeachConditionSource(1); // 1 is useless
 	}
 
 	BetaBeachConditionSource(int useless) {
