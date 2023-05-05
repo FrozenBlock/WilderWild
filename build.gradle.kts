@@ -261,7 +261,7 @@ dependencies {
     modImplementation("com.github.glitchfiend:TerraBlender-fabric:${minecraft_version}-${terrablender_version}")
 
     // MixinExtras
-    implementation("com.github.LlamaLad7:MixinExtras:0.1.1")?.let { annotationProcessor(it)?.let { include(it) } }
+    implementation("com.github.LlamaLad7:MixinExtras:0.1.1")?.let { annotationProcessor(it) }
 
     // Sodium
     modCompileOnly("maven.modrinth:sodium:${sodium_version}")
