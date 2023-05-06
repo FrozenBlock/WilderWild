@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.advancement;
 import com.google.gson.JsonObject;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
+import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import net.minecraft.advancements.critereon.DeserializationContext;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
@@ -22,9 +23,9 @@ public class FireflyBottleTrigger extends SimpleCriterionTrigger<FireflyBottleTr
 	}
 
 	@Override
-	public TriggerInstance createInstance(JsonObject json, EntityPredicate.Composite entityPredicate, DeserializationContext conditionsParser) {
-		ItemPredicate itemPredicate = ItemPredicate.fromJson(json.get("item"));
-		return new TriggerInstance(entityPredicate, itemPredicate);
+	public TriggerInstance createInstance(JsonObject jsonObject, ContextAwarePredicate contextAwarePredicate, DeserializationContext deserializationContext) {
+		ItemPredicate itemPredicate = ItemPredicate.fromJson(jsonObject.get("item"));
+		return new TriggerInstance(itemPredicate, contextAwarePredicate);
 	}
 
 	public void trigger(ServerPlayer player, ItemStack stack) {
@@ -35,13 +36,13 @@ public class FireflyBottleTrigger extends SimpleCriterionTrigger<FireflyBottleTr
 		extends AbstractCriterionTriggerInstance {
 		private final ItemPredicate item;
 
-		public TriggerInstance(EntityPredicate.Composite player, ItemPredicate item) {
-			super(ID, player);
+		public TriggerInstance(ItemPredicate item, ContextAwarePredicate contextAwarePredicate) {
+			super(ID, contextAwarePredicate);
 			this.item = item;
 		}
 
 		public static TriggerInstance fireflyBottle(ItemPredicate item) {
-			return new TriggerInstance(EntityPredicate.Composite.ANY, item);
+			return new TriggerInstance(item, ContextAwarePredicate.ANY);
 		}
 
 		public boolean matches(ItemStack stack) {

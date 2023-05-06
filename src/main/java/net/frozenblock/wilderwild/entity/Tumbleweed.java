@@ -171,8 +171,8 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 			this.isTouchingStickingBlock = false;
 		}
 		this.isTouchingStoppingBlock = false;
-		if (this.getFeetBlockState().is(BlockTags.CROPS) && this.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !this.isOnGround()) {
-			this.level.destroyBlock(this.blockPosition(), true, this);
+		if (this.getFeetBlockState().is(BlockTags.CROPS) && this.level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !this.onGround()) {
+			this.level().destroyBlock(this.blockPosition(), true, this);
 		}
 		super.tick();
 		this.setYRot(0F);
@@ -195,13 +195,13 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 			this.roll -= 360F;
 			this.prevRoll -= 360F;
 		}
-		if (this.level.isClientSide) {
+		if (this.level().isClientSide) {
 			this.itemX = this.getItemX();
 			this.itemZ = this.getItemZ();
-		} else if (!this.isRemoved() && this.level instanceof ServerLevel serverLevel) {
+		} else if (!this.isRemoved() && this.level() instanceof ServerLevel serverLevel) {
 			this.heal(1F);
-			double brightness = this.level.getBrightness(LightLayer.SKY, BlockPos.containing(this.getEyePosition()));
-			Player entity = this.level.getNearestPlayer(this, -1.0);
+			double brightness = this.level().getBrightness(LightLayer.SKY, BlockPos.containing(this.getEyePosition()));
+			Player entity = this.level().getNearestPlayer(this, -1.0);
 			if (!this.requiresCustomPersistence() && ((brightness < 7 && (entity == null || entity.distanceTo(this) > 24)) || this.isTouchingStoppingBlock || this.isTouchingStickingBlock || (this.wasTouchingWater && !(this.getFeetBlockState().getBlock() instanceof MesogleaBlock)))) {
 				++this.ticksSinceActive;
 				if (this.ticksSinceActive >= 200) {
@@ -219,7 +219,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 				double windZ = Mth.clamp(windManager.windZ * windMultiplier, -windClamp, windClamp);
 				deltaMovement = deltaMovement.add((windX * 0.2) * multiplier, 0, (windZ * 0.2) * multiplier);
 				deltaMovement = new Vec3(deltaMovement.x, deltaMovement.y < 0 ? deltaMovement.y * 0.88 : deltaMovement.y, deltaMovement.z);
-				if (deltaPos.y <= 0 && this.isOnGround()) {
+				if (deltaPos.y <= 0 && this.onGround()) {
 					deltaMovement = deltaMovement.add(0, Math.min(0.65, ((deltaPos.horizontalDistance() * 1.2))) * multiplier, 0);
 				}
 				if (deltaPos.x == 0) {
@@ -240,7 +240,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 			ItemStack stack = this.inventory.get(0);
 			if (stack.getCount() > 1) {
-				this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), stack.split(stack.getCount() - 1)));
+				this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), stack.split(stack.getCount() - 1)));
 			}
 			this.pickupItem();
 			this.setVisibleItem(stack);
@@ -249,7 +249,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 	protected void tickAfterWindLeash() {
 		Entity entity = this.getLeashHolder();
-		if (entity != null && entity.level == this.level) {
+		if (entity != null && entity.level() == this.level()) {
 			this.restrictTo(entity.blockPosition(), 5);
 			float f = this.distanceTo(entity);
 			if (f > 10.0f) {
@@ -264,8 +264,8 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	public void pickupItem() {
-		if (this.inventory.get(0).isEmpty() && this.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !this.isRemoved()) {
-			List<ItemEntity> list = this.level.getEntitiesOfClass(ItemEntity.class, this.getBoundingBox().inflate(0.15));
+		if (this.inventory.get(0).isEmpty() && this.level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !this.isRemoved()) {
+			List<ItemEntity> list = this.level().getEntitiesOfClass(ItemEntity.class, this.getBoundingBox().inflate(0.15));
 			for (ItemEntity item : list) {
 				if (this.isMovingTowards(item)) {
 					ItemStack stack = item.getItem();
@@ -282,7 +282,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 	public void dropItem(boolean killed) {
 		if (!this.isItemNatural || killed) {
-			this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY() + 0.4375, this.getZ(), this.inventory.get(0).split(1)));
+			this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY() + 0.4375, this.getZ(), this.inventory.get(0).split(1)));
 		}
 	}
 
@@ -455,9 +455,9 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	public void die(@NotNull DamageSource damageSource) {
 		super.die(damageSource);
 		if (damageSource.getDirectEntity() instanceof Player) {
-			if (this.level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT) && !damageSource.isCreativePlayer()) {
+			if (this.level().getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT) && !damageSource.isCreativePlayer()) {
 				if (isSilkTouchOrShears(damageSource)) {
-					this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), new ItemStack(RegisterBlocks.TUMBLEWEED)));
+					this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(RegisterBlocks.TUMBLEWEED)));
 				}
 			}
 		}
@@ -465,7 +465,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	public void spawnBreakParticles() {
-		if (this.level instanceof ServerLevel level) {
+		if (this.level() instanceof ServerLevel level) {
 			level.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, RegisterBlocks.TUMBLEWEED.defaultBlockState()), this.getX(), this.getY(0.6666666666666666D), this.getZ(), 20, this.getBbWidth() / 4.0F, this.getBbHeight() / 4.0F, this.getBbWidth() / 4.0F, 0.05D);
 		}
 	}

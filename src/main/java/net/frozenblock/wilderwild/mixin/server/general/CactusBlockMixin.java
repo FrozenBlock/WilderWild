@@ -21,7 +21,6 @@ package net.frozenblock.wilderwild.mixin.server.general;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.world.level.block.CactusBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;

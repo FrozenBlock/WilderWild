@@ -194,7 +194,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
                 bottleStack.setHoverName(this.getCustomName());
             }
             player.getInventory().placeItemBackInInventory(bottleStack);
-            Level level = this.level;
+            Level level = this.level();
             this.discard();
 			if (!level.isClientSide) {
 				RegisterCriteria.FIREFLY_BOTTLE.trigger((ServerPlayer)player, bottleStack);
@@ -293,14 +293,14 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 
     @Override
     public boolean isFlying() {
-        return !this.onGround;
+        return !this.onGround();
     }
 
     public boolean shouldHide() {
 		return this.natural
-				&& !this.level.getBiome(this.blockPosition()).is(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)
-				&& this.getLevel().isDay()
-				&& this.getLevel().getBrightness(LightLayer.SKY, this.blockPosition()) >= 6;
+				&& !this.level().getBiome(this.blockPosition()).is(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)
+				&& this.level().isDay()
+				&& this.level().getBrightness(LightLayer.SKY, this.blockPosition()) >= 6;
     }
 
     public static AttributeSupplier.Builder addAttributes() {
@@ -369,7 +369,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 
         if (this.shouldCheckSpawn) {
             if (!this.isFromBottle()) {
-                FireflyColor biomeColor = FireflyBiomeColorRegistry.getBiomeColor(level.getBiome(this.blockPosition()));
+                FireflyColor biomeColor = FireflyBiomeColorRegistry.getBiomeColor(this.level().getBiome(this.blockPosition()));
                 if (biomeColor != null) {
                     this.setColor(biomeColor);
                 }
@@ -378,7 +378,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
         }
 
         boolean nectar = this.hasCustomName() && Objects.requireNonNull(this.getCustomName()).getString().toLowerCase().contains("nectar");
-        if (level instanceof ServerLevel server) {
+        if (this.level() instanceof ServerLevel server) {
             if (nectar != wasNamedNectar) {
                 if (nectar) {
                     FrozenSoundPackets.createMovingRestrictionLoopingSound(server, this, RegisterSounds.ENTITY_FIREFLY_NECTAR, SoundSource.NEUTRAL, 1.0F, 1.0F, WilderSharedConstants.id("nectar"), true);
@@ -401,7 +401,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
                 this.homeCheckCooldown = 200;
                 BlockPos home = FireflyAi.getHome(this);
                 if (home != null && FireflyAi.isInHomeDimension(this)) {
-                    if (!isValidHomePos(level, home)) {
+                    if (!isValidHomePos(this.level(), home)) {
                         FireflyAi.rememberHome(this, this.blockPosition());
                     }
                 }
@@ -433,12 +433,12 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 
     @Override
     protected void customServerAiStep() {
-        this.level.getProfiler().push("fireflyBrain");
-        this.getBrain().tick((ServerLevel) this.level, this);
-        this.level.getProfiler().pop();
-        this.level.getProfiler().push("fireflyActivityUpdate");
+        this.level().getProfiler().push("fireflyBrain");
+        this.getBrain().tick((ServerLevel) this.level(), this);
+        this.level().getProfiler().pop();
+        this.level().getProfiler().push("fireflyActivityUpdate");
         FireflyAi.updateActivities(this);
-        this.level.getProfiler().pop();
+        this.level().getProfiler().pop();
         super.customServerAiStep();
     }
 
@@ -460,7 +460,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
     @Override
     public void checkDespawn() {
         if (!this.despawning) {
-            if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
+            if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
                 this.despawning = true;
                 return;
             }
@@ -468,12 +468,12 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
                 this.noActionTime = 0;
                 return;
             }
-            Player entity = this.level.getNearestPlayer(this, -1.0);
+            Player entity = this.level().getNearestPlayer(this, -1.0);
             if (entity != null) {
                 int i;
                 double d = entity.distanceToSqr(this);
-                boolean dayKey = !this.level.getBiome(this.blockPosition()).is(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY) && this.level.isDay() && !this.level.getBiome(this.blockPosition()).is(WilderBiomeTags.FIREFLY_SPAWNABLE_CAVE);
-                boolean caveKey = this.level.getBiome(this.blockPosition()).is(WilderBiomeTags.FIREFLY_SPAWNABLE_CAVE) && this.level.getBrightness(LightLayer.SKY, this.blockPosition()) >= 6;
+                boolean dayKey = !this.level().getBiome(this.blockPosition()).is(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY) && this.level().isDay() && !this.level().getBiome(this.blockPosition()).is(WilderBiomeTags.FIREFLY_SPAWNABLE_CAVE);
+                boolean caveKey = this.level().getBiome(this.blockPosition()).is(WilderBiomeTags.FIREFLY_SPAWNABLE_CAVE) && this.level().getBrightness(LightLayer.SKY, this.blockPosition()) >= 6;
                 if (this.removeWhenFarAway(d) && Math.sqrt(d) > 18) {
                     if (dayKey) {
                         this.despawning = true;

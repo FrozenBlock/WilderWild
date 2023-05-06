@@ -131,7 +131,7 @@ public final class RegisterWorldgen {
 		addCypressWetlandsMobs(builder);
 		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addCypressWetlandsFeatures(builder2);
-		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
+		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST);
 		return new Biome.BiomeBuilder()
 				.hasPrecipitation(true)
 				.temperature(WilderSharedWorldgen.CypressWetlands.TEMP)
@@ -193,7 +193,7 @@ public final class RegisterWorldgen {
         builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 5, 4, 4));
         BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
         addMixedForestFeatures(builder2);
-        Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
+        Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST);
         return new Biome.BiomeBuilder()
                 .hasPrecipitation(true)
                 .temperature(WilderSharedWorldgen.MixedForest.TEMP)
@@ -389,7 +389,7 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.commonSpawns(builder);
 		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addAridForestFeatures(builder2);
-		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
+		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST);
 		return new Biome.BiomeBuilder()
 				.hasPrecipitation(false)
 				.temperature(WilderSharedWorldgen.AridForest.TEMP)
@@ -469,7 +469,7 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.plainsSpawns(builder);
 		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addParchedForestFeatures(builder2);
-		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
+		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST);
 		return new Biome.BiomeBuilder()
 				.hasPrecipitation(false)
 				.temperature(WilderSharedWorldgen.ParchedForest.TEMP)
@@ -507,7 +507,7 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.baseJungleSpawns(builder);
 		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addBirchJungleFeatures(builder2);
-		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
+		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE);
 		return new Biome.BiomeBuilder()
 				.hasPrecipitation(true)
 				.temperature(WilderSharedWorldgen.BirchJungle.TEMP)
@@ -546,7 +546,7 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.baseJungleSpawns(builder);
 		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addSparseBirchJungleFeatures(builder2);
-		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
+		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_SPARSE_JUNGLE);
 		return new Biome.BiomeBuilder()
 				.hasPrecipitation(true)
 				.temperature(WilderSharedWorldgen.BirchJungle.TEMP)
@@ -587,7 +587,7 @@ public final class RegisterWorldgen {
 		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 2, 4, 4)).addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 2, 2, 3));
 		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addBirchTaigaFeatures(builder2, old);
-		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
+		Music musicSound = Musics.createGameMusic(null);
 		return new Biome.BiomeBuilder()
 				.hasPrecipitation(true)
 				.temperature(WilderSharedWorldgen.BirchTaiga.TEMP)
@@ -627,7 +627,7 @@ public final class RegisterWorldgen {
 		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 2, 2, 2));
 		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addSemiBirchForestFeatures(builder2);
-		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
+		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST);
 		return new Biome.BiomeBuilder()
 				.hasPrecipitation(true)
 				.temperature(WilderSharedWorldgen.SemiBirchForest.TEMP)
@@ -665,7 +665,7 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.commonSpawns(builder);
 		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addDarkBirchForestFeatures(builder2);
-		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
+		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST);
 		return new Biome.BiomeBuilder()
 				.hasPrecipitation(true)
 				.temperature(WilderSharedWorldgen.DarkBirchForest.TEMP)
@@ -704,7 +704,7 @@ public final class RegisterWorldgen {
 		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 8, 2, 5));
 		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addFlowerFieldFeatures(builder2);
-		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_GAME);
+		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FLOWER_FOREST);
 		return new Biome.BiomeBuilder()
 				.hasPrecipitation(true)
 				.temperature(WilderSharedWorldgen.FlowerField.TEMP)
@@ -743,7 +743,7 @@ public final class RegisterWorldgen {
 		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 3, 4, 4));
 		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addTemperateRainforestFeatures(builder2);
-		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
+		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_SPARSE_JUNGLE);
 		return new Biome.BiomeBuilder()
 				.hasPrecipitation(true)
 				.temperature(WilderSharedWorldgen.TemperateRainforest.TEMP)
@@ -782,7 +782,7 @@ public final class RegisterWorldgen {
 		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 5, 4, 4));
 		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addRainforestFeatures(builder2);
-		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
+		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST);
 		return new Biome.BiomeBuilder()
 				.hasPrecipitation(true)
 				.temperature(WilderSharedWorldgen.Rainforest.TEMP)
@@ -822,7 +822,7 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.commonSpawns(builder);
 		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addDarkTaigaFeatures(builder2);
-		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
+		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST);
 		return new Biome.BiomeBuilder()
 				.hasPrecipitation(true)
 				.temperature(WilderSharedWorldgen.DarkTaiga.TEMP)
@@ -862,7 +862,7 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.commonSpawns(builder);
 		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addOldGrowthDarkForestFeatures(builder2);
-		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE_AND_FOREST);
+		Music musicSound = Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST);
 		return new Biome.BiomeBuilder()
 				.hasPrecipitation(true)
 				.temperature(WilderSharedWorldgen.OldGrowthDarkForest.TEMP)

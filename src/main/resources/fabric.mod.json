@@ -36,9 +36,7 @@
     "client": [
       "net.frozenblock.wilderwild.WilderWildClient"
     ],
-    "fabric-datagen": [
-      "net.frozenblock.wilderwild.misc.WilderWildDataGenerator"
-    ],
+
     "frozenlib:surfacerules": [
       "net.frozenblock.wilderwild.registry.RegisterSurfaceRules"
     ],

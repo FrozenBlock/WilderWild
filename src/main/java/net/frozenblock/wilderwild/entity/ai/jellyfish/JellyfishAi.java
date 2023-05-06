@@ -97,7 +97,7 @@ public class JellyfishAi {
 								ImmutableList.of(
 										Pair.of(BehaviorBuilder.triggerIf(jellyfish1 -> jellyfish1.getTarget() == null && jellyfish1.canRandomSwim(), FrozenBehaviorUtils.getOneShot(RandomStroll.swim(1.0F))), 2),
 										Pair.of(BehaviorBuilder.triggerIf(Entity::isInWaterOrBubble), 1),
-										Pair.of(BehaviorBuilder.triggerIf(Entity::isOnGround), 1)
+										Pair.of(BehaviorBuilder.triggerIf(Entity::onGround), 1)
 								)
 						),
 						new JellyfishHide(jellyfish, 1.25D, 8, 3)

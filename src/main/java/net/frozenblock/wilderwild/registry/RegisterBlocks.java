@@ -120,8 +120,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.properties.WoodType;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -131,12 +130,12 @@ public final class RegisterBlocks {
 		throw new UnsupportedOperationException("RegisterBlockEntities contains only static declarations.");
 	}
 
-    private static final MaterialColor BAOBAB_PLANKS_COLOR = MaterialColor.COLOR_ORANGE;
-    private static final MaterialColor BAOBAB_BARK_COLOR = MaterialColor.COLOR_BROWN;
-    private static final MaterialColor CYPRESS_PLANKS_COLOR = MaterialColor.COLOR_LIGHT_GRAY;
-    private static final MaterialColor CYPRESS_BARK_COLOR = MaterialColor.STONE;
-    private static final MaterialColor PALM_PLANKS_COLOR = MaterialColor.TERRACOTTA_WHITE;
-    private static final MaterialColor PALM_BARK_COLOR = MaterialColor.COLOR_LIGHT_GRAY;
+    private static final MapColor BAOBAB_PLANKS_COLOR = MapColor.COLOR_ORANGE;
+    private static final MapColor BAOBAB_BARK_COLOR = MapColor.COLOR_BROWN;
+    private static final MapColor CYPRESS_PLANKS_COLOR = MapColor.COLOR_LIGHT_GRAY;
+    private static final MapColor CYPRESS_BARK_COLOR = MapColor.STONE;
+    private static final MapColor PALM_PLANKS_COLOR = MapColor.TERRACOTTA_WHITE;
+    private static final MapColor PALM_BARK_COLOR = MapColor.COLOR_LIGHT_GRAY;
 
 	public static final BlockSetType BAOBAB_SET = BlockSetTypeRegistry.registerWood(
 			WilderSharedConstants.id("baobab")
@@ -158,8 +157,8 @@ public final class RegisterBlocks {
 
     // OTHER (BUILDING BLOCKS)
     public static final Block CHISELED_MUD_BRICKS = new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(1.5F).requiresTool().sounds(SoundType.MUD_BRICKS));
-	public static final Block SCORCHED_SAND = new ScorchedBlock(FabricBlockSettings.of(Material.DEPRECATED).strength(1.5F).sounds(RegisterBlockSoundTypes.SCORCHEDSAND).mapColor(MaterialColor.SAND).ticksRandomly(), Blocks.SAND.defaultBlockState(), true, SoundEvents.BRUSH_SAND, SoundEvents.BRUSH_SAND_COMPLETED);
-	public static final Block SCORCHED_RED_SAND = new ScorchedBlock(FabricBlockSettings.of(Material.DEPRECATED).strength(1.5F).sounds(RegisterBlockSoundTypes.SCORCHEDSAND).mapColor(MaterialColor.COLOR_ORANGE).ticksRandomly(), Blocks.RED_SAND.defaultBlockState(), true, SoundEvents.BRUSH_SAND, SoundEvents.BRUSH_SAND_COMPLETED);
+	public static final Block SCORCHED_SAND = new ScorchedBlock(FabricBlockSettings.of().strength(1.5F).sounds(RegisterBlockSoundTypes.SCORCHEDSAND).mapColor(MapColor.SAND).ticksRandomly(), Blocks.SAND.defaultBlockState(), true, SoundEvents.BRUSH_SAND, SoundEvents.BRUSH_SAND_COMPLETED);
+	public static final Block SCORCHED_RED_SAND = new ScorchedBlock(FabricBlockSettings.of().strength(1.5F).sounds(RegisterBlockSoundTypes.SCORCHEDSAND).mapColor(MapColor.COLOR_ORANGE).ticksRandomly(), Blocks.RED_SAND.defaultBlockState(), true, SoundEvents.BRUSH_SAND, SoundEvents.BRUSH_SAND_COMPLETED);
 
     public static void registerOtherBB() {
         registerBlockAfter(Items.MUD_BRICKS, "chiseled_mud_bricks", CHISELED_MUD_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
@@ -168,136 +167,136 @@ public final class RegisterBlocks {
     }
 
     // WOOD
-    public static final Block BAOBAB_PLANKS = new Block(FabricBlockSettings.of(Material.DEPRECATED, BAOBAB_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
-    public static final Block CYPRESS_PLANKS = new Block(FabricBlockSettings.of(Material.DEPRECATED, CYPRESS_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
-    public static final Block PALM_PLANKS = new Block(FabricBlockSettings.of(Material.DEPRECATED, PALM_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
+    public static final Block BAOBAB_PLANKS = new Block(FabricBlockSettings.of().mapColor(BAOBAB_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
+    public static final Block CYPRESS_PLANKS = new Block(FabricBlockSettings.of().mapColor(CYPRESS_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
+    public static final Block PALM_PLANKS = new Block(FabricBlockSettings.of().mapColor(PALM_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
 
-    public static final Block BAOBAB_LOG = new RotatedPillarBlock(FabricBlockSettings.of(Material.DEPRECATED, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? BAOBAB_PLANKS_COLOR : BAOBAB_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
-    public static final Block CYPRESS_LOG = new RotatedPillarBlock(FabricBlockSettings.of(Material.DEPRECATED, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? CYPRESS_PLANKS_COLOR : CYPRESS_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
-    public static final Block PALM_LOG = new RotatedPillarBlock(FabricBlockSettings.of(Material.DEPRECATED, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? PALM_PLANKS_COLOR : PALM_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
-	public static final Block PALM_CROWN = new PalmCrownBlock(FabricBlockSettings.of(Material.DEPRECATED, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? PALM_PLANKS_COLOR : PALM_BARK_COLOR).strength(2.0F).sound(RegisterBlockSoundTypes.PALM_CROWN).instrument(NoteBlockInstrument.BASS));
+    public static final Block BAOBAB_LOG = new RotatedPillarBlock(FabricBlockSettings.of().mapColor(state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? BAOBAB_PLANKS_COLOR : BAOBAB_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
+    public static final Block CYPRESS_LOG = new RotatedPillarBlock(FabricBlockSettings.of().mapColor(state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? CYPRESS_PLANKS_COLOR : CYPRESS_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
+    public static final Block PALM_LOG = new RotatedPillarBlock(FabricBlockSettings.of().mapColor(state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? PALM_PLANKS_COLOR : PALM_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
+	public static final Block PALM_CROWN = new PalmCrownBlock(FabricBlockSettings.of().mapColor(state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? PALM_PLANKS_COLOR : PALM_BARK_COLOR).strength(2.0F).sound(RegisterBlockSoundTypes.PALM_CROWN).instrument(NoteBlockInstrument.BASS));
 
-    public static final Block STRIPPED_BAOBAB_LOG = new RotatedPillarBlock(FabricBlockSettings.of(Material.DEPRECATED, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? BAOBAB_PLANKS_COLOR : BAOBAB_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
-    public static final Block STRIPPED_CYPRESS_LOG = new RotatedPillarBlock(FabricBlockSettings.of(Material.DEPRECATED, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? CYPRESS_PLANKS_COLOR : CYPRESS_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
-    public static final Block STRIPPED_PALM_LOG = new RotatedPillarBlock(FabricBlockSettings.of(Material.DEPRECATED, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? PALM_PLANKS_COLOR : PALM_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
+    public static final Block STRIPPED_BAOBAB_LOG = new RotatedPillarBlock(FabricBlockSettings.of().mapColor(state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? BAOBAB_PLANKS_COLOR : BAOBAB_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
+    public static final Block STRIPPED_CYPRESS_LOG = new RotatedPillarBlock(FabricBlockSettings.of().mapColor(state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? CYPRESS_PLANKS_COLOR : CYPRESS_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
+    public static final Block STRIPPED_PALM_LOG = new RotatedPillarBlock(FabricBlockSettings.of().mapColor(state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? PALM_PLANKS_COLOR : PALM_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
 
-    public static final Block STRIPPED_BAOBAB_WOOD = new RotatedPillarBlock(FabricBlockSettings.of(Material.DEPRECATED, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? BAOBAB_PLANKS_COLOR : BAOBAB_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
-    public static final Block STRIPPED_CYPRESS_WOOD = new RotatedPillarBlock(FabricBlockSettings.of(Material.DEPRECATED, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? CYPRESS_PLANKS_COLOR : CYPRESS_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
-    public static final Block STRIPPED_PALM_WOOD = new RotatedPillarBlock(FabricBlockSettings.of(Material.DEPRECATED, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? PALM_PLANKS_COLOR : PALM_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
+    public static final Block STRIPPED_BAOBAB_WOOD = new RotatedPillarBlock(FabricBlockSettings.of().mapColor(state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? BAOBAB_PLANKS_COLOR : BAOBAB_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
+    public static final Block STRIPPED_CYPRESS_WOOD = new RotatedPillarBlock(FabricBlockSettings.of().mapColor(state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? CYPRESS_PLANKS_COLOR : CYPRESS_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
+    public static final Block STRIPPED_PALM_WOOD = new RotatedPillarBlock(FabricBlockSettings.of().mapColor(state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? PALM_PLANKS_COLOR : PALM_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
 
-    public static final Block BAOBAB_WOOD = new RotatedPillarBlock(FabricBlockSettings.of(Material.DEPRECATED, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? BAOBAB_PLANKS_COLOR : BAOBAB_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
-    public static final Block CYPRESS_WOOD = new RotatedPillarBlock(FabricBlockSettings.of(Material.DEPRECATED, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? CYPRESS_PLANKS_COLOR : CYPRESS_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
-    public static final Block PALM_WOOD = new RotatedPillarBlock(FabricBlockSettings.of(Material.DEPRECATED, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? PALM_PLANKS_COLOR : PALM_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
+    public static final Block BAOBAB_WOOD = new RotatedPillarBlock(FabricBlockSettings.of().mapColor(state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? BAOBAB_PLANKS_COLOR : BAOBAB_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
+    public static final Block CYPRESS_WOOD = new RotatedPillarBlock(FabricBlockSettings.of().mapColor(state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? CYPRESS_PLANKS_COLOR : CYPRESS_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
+    public static final Block PALM_WOOD = new RotatedPillarBlock(FabricBlockSettings.of().mapColor(state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? PALM_PLANKS_COLOR : PALM_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
 
-    public static final Block BAOBAB_SLAB = new SlabBlock(FabricBlockSettings.of(Material.DEPRECATED, BAOBAB_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
-    public static final Block CYPRESS_SLAB = new SlabBlock(FabricBlockSettings.of(Material.DEPRECATED, CYPRESS_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
-    public static final Block PALM_SLAB = new SlabBlock(FabricBlockSettings.of(Material.DEPRECATED, PALM_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
+    public static final Block BAOBAB_SLAB = new SlabBlock(FabricBlockSettings.of().mapColor(BAOBAB_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
+    public static final Block CYPRESS_SLAB = new SlabBlock(FabricBlockSettings.of().mapColor(CYPRESS_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
+    public static final Block PALM_SLAB = new SlabBlock(FabricBlockSettings.of().mapColor(PALM_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
 
     public static final Block BAOBAB_STAIRS = new StairBlock(BAOBAB_PLANKS.defaultBlockState(), FabricBlockSettings.copyOf(BAOBAB_PLANKS).instrument(NoteBlockInstrument.BASS));
     public static final Block CYPRESS_STAIRS = new StairBlock(CYPRESS_PLANKS.defaultBlockState(), FabricBlockSettings.copyOf(CYPRESS_PLANKS).instrument(NoteBlockInstrument.BASS));
     public static final Block PALM_STAIRS = new StairBlock(PALM_PLANKS.defaultBlockState(), FabricBlockSettings.copyOf(PALM_PLANKS).instrument(NoteBlockInstrument.BASS));
 
     public static final Block BAOBAB_BUTTON = new ButtonBlock(
-			FabricBlockSettings.copyOf(Blocks.OAK_BUTTON).color(BAOBAB_PLANKS_COLOR),
+			FabricBlockSettings.copyOf(Blocks.OAK_BUTTON).mapColor(BAOBAB_PLANKS_COLOR),
 			BAOBAB_SET,
 			30, true
 	);
     public static final Block CYPRESS_BUTTON = new ButtonBlock(
-			FabricBlockSettings.copyOf(Blocks.OAK_BUTTON).color(CYPRESS_PLANKS_COLOR),
+			FabricBlockSettings.copyOf(Blocks.OAK_BUTTON).mapColor(CYPRESS_PLANKS_COLOR),
 			CYPRESS_SET,
 			30, true
 	);
 	public static final Block PALM_BUTTON = new ButtonBlock(
-			FabricBlockSettings.copyOf(Blocks.OAK_BUTTON).color(PALM_PLANKS_COLOR),
+			FabricBlockSettings.copyOf(Blocks.OAK_BUTTON).mapColor(PALM_PLANKS_COLOR),
 			PALM_SET,
 			30, true
 	);
 
     public static final Block BAOBAB_PRESSURE_PLATE = new PressurePlateBlock(
 			PressurePlateBlock.Sensitivity.EVERYTHING,
-			FabricBlockSettings.of(Material.DEPRECATED, BAOBAB_PLANKS_COLOR).noCollision().strength(0.5F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS),
+			FabricBlockSettings.of().mapColor(BAOBAB_PLANKS_COLOR).noCollision().strength(0.5F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS),
 			BAOBAB_SET
 	);
     public static final Block CYPRESS_PRESSURE_PLATE = new PressurePlateBlock(
 			PressurePlateBlock.Sensitivity.EVERYTHING,
-			FabricBlockSettings.of(Material.DEPRECATED, CYPRESS_PLANKS_COLOR).noCollision().strength(0.5F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS),
+			FabricBlockSettings.of().mapColor(CYPRESS_PLANKS_COLOR).noCollision().strength(0.5F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS),
 			CYPRESS_SET
 	);
 	public static final Block PALM_PRESSURE_PLATE = new PressurePlateBlock(
 			PressurePlateBlock.Sensitivity.EVERYTHING,
-			FabricBlockSettings.of(Material.DEPRECATED, PALM_PLANKS_COLOR).noCollision().strength(0.5F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS),
+			FabricBlockSettings.of().mapColor(PALM_PLANKS_COLOR).noCollision().strength(0.5F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS),
 			PALM_SET
 	);
 
     public static final Block BAOBAB_DOOR = new DoorBlock(
-			FabricBlockSettings.of(Material.DEPRECATED, BAOBAB_PLANKS_COLOR).strength(3.0F).sounds(SoundType.WOOD).nonOpaque().instrument(NoteBlockInstrument.BASS),
+			FabricBlockSettings.of().mapColor(BAOBAB_PLANKS_COLOR).strength(3.0F).sounds(SoundType.WOOD).nonOpaque().instrument(NoteBlockInstrument.BASS),
 			BAOBAB_SET
 	);
     public static final Block CYPRESS_DOOR = new DoorBlock(
-			FabricBlockSettings.of(Material.DEPRECATED, CYPRESS_PLANKS_COLOR).strength(3.0F).sounds(SoundType.WOOD).nonOpaque().instrument(NoteBlockInstrument.BASS),
+			FabricBlockSettings.of().mapColor(CYPRESS_PLANKS_COLOR).strength(3.0F).sounds(SoundType.WOOD).nonOpaque().instrument(NoteBlockInstrument.BASS),
 			CYPRESS_SET
 	);
 	public static final Block PALM_DOOR = new DoorBlock(
-			FabricBlockSettings.of(Material.DEPRECATED, PALM_PLANKS_COLOR).strength(3.0F).sounds(SoundType.WOOD).nonOpaque().instrument(NoteBlockInstrument.BASS),
+			FabricBlockSettings.of().mapColor(PALM_PLANKS_COLOR).strength(3.0F).sounds(SoundType.WOOD).nonOpaque().instrument(NoteBlockInstrument.BASS),
 			PALM_SET
 	);
 
     public static final Block BAOBAB_TRAPDOOR = new TrapDoorBlock(
-			FabricBlockSettings.of(Material.DEPRECATED, BAOBAB_PLANKS_COLOR).strength(3.0F).sounds(SoundType.WOOD).nonOpaque().allowsSpawning(RegisterBlocks::never).instrument(NoteBlockInstrument.BASS),
+			FabricBlockSettings.of().mapColor(BAOBAB_PLANKS_COLOR).strength(3.0F).sounds(SoundType.WOOD).nonOpaque().allowsSpawning(RegisterBlocks::never).instrument(NoteBlockInstrument.BASS),
 			BAOBAB_SET
 	);
     public static final Block CYPRESS_TRAPDOOR = new TrapDoorBlock(
-			FabricBlockSettings.of(Material.DEPRECATED, CYPRESS_PLANKS_COLOR).strength(3.0F).sounds(SoundType.WOOD).nonOpaque().allowsSpawning(RegisterBlocks::never).instrument(NoteBlockInstrument.BASS),
+			FabricBlockSettings.of().mapColor(CYPRESS_PLANKS_COLOR).strength(3.0F).sounds(SoundType.WOOD).nonOpaque().allowsSpawning(RegisterBlocks::never).instrument(NoteBlockInstrument.BASS),
 			CYPRESS_SET
 	);
 	public static final Block PALM_TRAPDOOR = new TrapDoorBlock(
-			FabricBlockSettings.of(Material.DEPRECATED, PALM_PLANKS_COLOR).strength(3.0F).sounds(SoundType.WOOD).nonOpaque().allowsSpawning(RegisterBlocks::never).instrument(NoteBlockInstrument.BASS),
+			FabricBlockSettings.of().mapColor(PALM_PLANKS_COLOR).strength(3.0F).sounds(SoundType.WOOD).nonOpaque().allowsSpawning(RegisterBlocks::never).instrument(NoteBlockInstrument.BASS),
 			PALM_SET
 	);
 
     public static final Block BAOBAB_FENCE_GATE = new FenceGateBlock(
-			FabricBlockSettings.of(Material.DEPRECATED, BAOBAB_PLANKS.defaultMaterialColor()).strength(2.0F, 3.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS),
+			FabricBlockSettings.of().mapColor(BAOBAB_PLANKS.defaultMapColor()).strength(2.0F, 3.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS),
 			BAOBAB_WOOD_TYPE
 	);
     public static final Block CYPRESS_FENCE_GATE = new FenceGateBlock(
-			FabricBlockSettings.of(Material.DEPRECATED, CYPRESS_PLANKS.defaultMaterialColor()).strength(2.0F, 3.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS),
+			FabricBlockSettings.of().mapColor(CYPRESS_PLANKS.defaultMapColor()).strength(2.0F, 3.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS),
 			CYPRESS_WOOD_TYPE
 	);
 	public static final Block PALM_FENCE_GATE = new FenceGateBlock(
-			FabricBlockSettings.of(Material.DEPRECATED, PALM_PLANKS.defaultMaterialColor()).strength(2.0F, 3.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS),
+			FabricBlockSettings.of().mapColor(PALM_PLANKS.defaultMapColor()).strength(2.0F, 3.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS),
 			PALM_WOOD_TYPE
 	);
 
-    public static final Block BAOBAB_NUT = new BaobabNutBlock(FabricBlockSettings.of(Material.PLANT).ticksRandomly().breakInstantly().sounds(RegisterBlockSoundTypes.BAOBAB_NUT).offsetType(BlockBehaviour.OffsetType.XZ).dynamicShape());
-    public static final Block POTTED_BAOBAB_NUT = new FlowerPotBlock(RegisterBlocks.BAOBAB_NUT, FabricBlockSettings.of(Material.DEPRECATED_NONSOLID).breakInstantly().nonOpaque().pushReaction(PushReaction.DESTROY));
-	public static final Block PRICKLY_PEAR_CACTUS = new PricklyPearCactusBlock(FabricBlockSettings.of(Material.DEPRECATED_NONSOLID).ticksRandomly().strength(0.4F).sounds(SoundType.WOOL).nonOpaque().pushReaction(PushReaction.DESTROY).offsetType(BlockBehaviour.OffsetType.XZ));
+    public static final Block BAOBAB_NUT = new BaobabNutBlock(FabricBlockSettings.of().ticksRandomly().breakInstantly().sounds(RegisterBlockSoundTypes.BAOBAB_NUT).offsetType(BlockBehaviour.OffsetType.XZ).dynamicShape());
+    public static final Block POTTED_BAOBAB_NUT = new FlowerPotBlock(RegisterBlocks.BAOBAB_NUT, FabricBlockSettings.of().breakInstantly().nonOpaque().pushReaction(PushReaction.DESTROY));
+	public static final Block PRICKLY_PEAR_CACTUS = new PricklyPearCactusBlock(FabricBlockSettings.of().ticksRandomly().strength(0.4F).sounds(SoundType.WOOL).nonOpaque().pushReaction(PushReaction.DESTROY).offsetType(BlockBehaviour.OffsetType.XZ));
 	public static final Block CYPRESS_SAPLING = new WaterloggableSaplingBlock(new CypressSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.BIRCH_SAPLING));
-    public static final Block POTTED_CYPRESS_SAPLING = new FlowerPotBlock(RegisterBlocks.CYPRESS_SAPLING, FabricBlockSettings.of(Material.DEPRECATED_NONSOLID).breakInstantly().nonOpaque().pushReaction(PushReaction.DESTROY));
-    public static final Block COCONUT = new CoconutBlock(FabricBlockSettings.of(Material.PLANT).breakInstantly().ticksRandomly().sounds(RegisterBlockSoundTypes.COCONUT));
-    public static final Block POTTED_COCONUT = new FlowerPotBlock(RegisterBlocks.COCONUT, FabricBlockSettings.of(Material.DEPRECATED_NONSOLID).breakInstantly().nonOpaque().pushReaction(PushReaction.DESTROY));
+    public static final Block POTTED_CYPRESS_SAPLING = new FlowerPotBlock(RegisterBlocks.CYPRESS_SAPLING, FabricBlockSettings.of().breakInstantly().nonOpaque().pushReaction(PushReaction.DESTROY));
+    public static final Block COCONUT = new CoconutBlock(FabricBlockSettings.of().breakInstantly().ticksRandomly().sounds(RegisterBlockSoundTypes.COCONUT));
+    public static final Block POTTED_COCONUT = new FlowerPotBlock(RegisterBlocks.COCONUT, FabricBlockSettings.of().breakInstantly().nonOpaque().pushReaction(PushReaction.DESTROY));
 
-    public static final Block BAOBAB_LEAVES = new BaobabLeaves(FabricBlockSettings.of(Material.DEPRECATED_NONSOLID, MaterialColor.COLOR_GREEN).strength(0.2F).ticksRandomly().sounds(SoundType.GRASS).nonOpaque().allowsSpawning(RegisterBlocks::canSpawnOnLeaves).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY));
-    public static final Block CYPRESS_LEAVES = new LeavesBlock(FabricBlockSettings.of(Material.DEPRECATED_NONSOLID, MaterialColor.COLOR_GREEN).strength(0.2F).ticksRandomly().sounds(SoundType.GRASS).nonOpaque().allowsSpawning(RegisterBlocks::canSpawnOnLeaves).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY));
-    public static final Block PALM_FRONDS = new PalmFrondsBlock(FabricBlockSettings.of(Material.DEPRECATED_NONSOLID, MaterialColor.COLOR_GREEN).strength(0.2F).ticksRandomly().sounds(SoundType.GRASS).nonOpaque().allowsSpawning(RegisterBlocks::canSpawnOnLeaves).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY));
+    public static final Block BAOBAB_LEAVES = new BaobabLeaves(FabricBlockSettings.of().mapColor(MapColor.COLOR_GREEN).strength(0.2F).ticksRandomly().sounds(SoundType.GRASS).nonOpaque().allowsSpawning(RegisterBlocks::canSpawnOnLeaves).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY));
+    public static final Block CYPRESS_LEAVES = new LeavesBlock(FabricBlockSettings.of().mapColor(MapColor.COLOR_GREEN).strength(0.2F).ticksRandomly().sounds(SoundType.GRASS).nonOpaque().allowsSpawning(RegisterBlocks::canSpawnOnLeaves).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY));
+    public static final Block PALM_FRONDS = new PalmFrondsBlock(FabricBlockSettings.of().mapColor(MapColor.COLOR_GREEN).strength(0.2F).ticksRandomly().sounds(SoundType.GRASS).nonOpaque().allowsSpawning(RegisterBlocks::canSpawnOnLeaves).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY));
 
-    public static final Block BAOBAB_FENCE = new FenceBlock(FabricBlockSettings.of(Material.DEPRECATED, BAOBAB_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
-    public static final Block CYPRESS_FENCE = new FenceBlock(FabricBlockSettings.of(Material.DEPRECATED, CYPRESS_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
-    public static final Block PALM_FENCE = new FenceBlock(FabricBlockSettings.of(Material.DEPRECATED, PALM_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
+    public static final Block BAOBAB_FENCE = new FenceBlock(FabricBlockSettings.of().mapColor(BAOBAB_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
+    public static final Block CYPRESS_FENCE = new FenceBlock(FabricBlockSettings.of().mapColor(CYPRESS_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
+    public static final Block PALM_FENCE = new FenceBlock(FabricBlockSettings.of().mapColor(PALM_PLANKS_COLOR).strength(2.0F, 3.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
 
-    public static final Block BAOBAB_SIGN_BLOCK = new FrozenSignBlock(FabricBlockSettings.of(Material.DEPRECATED, BAOBAB_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS), BAOBAB_WOOD_TYPE, WilderSharedConstants.id("blocks/baobab_sign"));
-    public static final Block BAOBAB_WALL_SIGN = new FrozenWallSignBlock(FabricBlockSettings.of(Material.DEPRECATED, BAOBAB_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).dropsLike(BAOBAB_SIGN_BLOCK).instrument(NoteBlockInstrument.BASS), BAOBAB_WOOD_TYPE, WilderSharedConstants.id("blocks/baobab_sign"));
-	public static final Block BAOBAB_HANGING_SIGN = new FrozenCeilingHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_HANGING_SIGN).color(BAOBAB_LOG.defaultMaterialColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS), BAOBAB_WOOD_TYPE, WilderSharedConstants.id("blocks/baobab_hanging_sign"));
-	public static final Block BAOBAB_WALL_HANGING_SIGN = new FrozenWallHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_WALL_HANGING_SIGN).color(BAOBAB_LOG.defaultMaterialColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).dropsLike(BAOBAB_HANGING_SIGN), BAOBAB_WOOD_TYPE, WilderSharedConstants.id("blocks/baobab_hanging_sign"));
+    public static final Block BAOBAB_SIGN_BLOCK = new FrozenSignBlock(FabricBlockSettings.of().mapColor(BAOBAB_LOG.defaultMapColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS), BAOBAB_WOOD_TYPE, WilderSharedConstants.id("blocks/baobab_sign"));
+    public static final Block BAOBAB_WALL_SIGN = new FrozenWallSignBlock(FabricBlockSettings.of().mapColor(BAOBAB_LOG.defaultMapColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).dropsLike(BAOBAB_SIGN_BLOCK).instrument(NoteBlockInstrument.BASS), BAOBAB_WOOD_TYPE, WilderSharedConstants.id("blocks/baobab_sign"));
+	public static final Block BAOBAB_HANGING_SIGN = new FrozenCeilingHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_HANGING_SIGN).mapColor(BAOBAB_LOG.defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS), BAOBAB_WOOD_TYPE, WilderSharedConstants.id("blocks/baobab_hanging_sign"));
+	public static final Block BAOBAB_WALL_HANGING_SIGN = new FrozenWallHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_WALL_HANGING_SIGN).mapColor(BAOBAB_LOG.defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).dropsLike(BAOBAB_HANGING_SIGN), BAOBAB_WOOD_TYPE, WilderSharedConstants.id("blocks/baobab_hanging_sign"));
 
-    public static final Block CYPRESS_SIGN_BLOCK = new FrozenSignBlock(FabricBlockSettings.of(Material.DEPRECATED, CYPRESS_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS), CYPRESS_WOOD_TYPE, WilderSharedConstants.id("blocks/cypress_sign"));
-    public static final Block CYPRESS_WALL_SIGN = new FrozenWallSignBlock(FabricBlockSettings.of(Material.DEPRECATED, CYPRESS_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS).dropsLike(CYPRESS_SIGN_BLOCK), CYPRESS_WOOD_TYPE, WilderSharedConstants.id("blocks/cypress_sign"));
-	public static final Block CYPRESS_HANGING_SIGN = new FrozenCeilingHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_HANGING_SIGN).color(CYPRESS_LOG.defaultMaterialColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS), CYPRESS_WOOD_TYPE, WilderSharedConstants.id("blocks/cypress_hanging_sign"));
-	public static final Block CYPRESS_WALL_HANGING_SIGN = new FrozenWallHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_WALL_HANGING_SIGN).color(CYPRESS_LOG.defaultMaterialColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).dropsLike(CYPRESS_HANGING_SIGN), CYPRESS_WOOD_TYPE, WilderSharedConstants.id("blocks/cypress_hanging_sign"));
+    public static final Block CYPRESS_SIGN_BLOCK = new FrozenSignBlock(FabricBlockSettings.of().mapColor(CYPRESS_LOG.defaultMapColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS), CYPRESS_WOOD_TYPE, WilderSharedConstants.id("blocks/cypress_sign"));
+    public static final Block CYPRESS_WALL_SIGN = new FrozenWallSignBlock(FabricBlockSettings.of().mapColor(CYPRESS_LOG.defaultMapColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS).dropsLike(CYPRESS_SIGN_BLOCK), CYPRESS_WOOD_TYPE, WilderSharedConstants.id("blocks/cypress_sign"));
+	public static final Block CYPRESS_HANGING_SIGN = new FrozenCeilingHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_HANGING_SIGN).mapColor(CYPRESS_LOG.defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS), CYPRESS_WOOD_TYPE, WilderSharedConstants.id("blocks/cypress_hanging_sign"));
+	public static final Block CYPRESS_WALL_HANGING_SIGN = new FrozenWallHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_WALL_HANGING_SIGN).mapColor(CYPRESS_LOG.defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).dropsLike(CYPRESS_HANGING_SIGN), CYPRESS_WOOD_TYPE, WilderSharedConstants.id("blocks/cypress_hanging_sign"));
 
-    public static final Block PALM_SIGN_BLOCK = new FrozenSignBlock(FabricBlockSettings.of(Material.DEPRECATED, PALM_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS), PALM_WOOD_TYPE, WilderSharedConstants.id("blocks/palm_sign"));
-    public static final Block PALM_WALL_SIGN = new FrozenWallSignBlock(FabricBlockSettings.of(Material.DEPRECATED, PALM_LOG.defaultMaterialColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS).dropsLike(PALM_SIGN_BLOCK), PALM_WOOD_TYPE, WilderSharedConstants.id("blocks/palm_sign"));
-	public static final Block PALM_HANGING_SIGN = new FrozenCeilingHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_HANGING_SIGN).color(PALM_LOG.defaultMaterialColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS), PALM_WOOD_TYPE, WilderSharedConstants.id("blocks/palm_hanging_sign"));
-	public static final Block PALM_WALL_HANGING_SIGN = new FrozenWallHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_WALL_HANGING_SIGN).color(PALM_LOG.defaultMaterialColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).dropsLike(PALM_HANGING_SIGN), PALM_WOOD_TYPE, WilderSharedConstants.id("blocks/palm_hanging_sign"));
+    public static final Block PALM_SIGN_BLOCK = new FrozenSignBlock(FabricBlockSettings.of().mapColor(PALM_LOG.defaultMapColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS), PALM_WOOD_TYPE, WilderSharedConstants.id("blocks/palm_sign"));
+    public static final Block PALM_WALL_SIGN = new FrozenWallSignBlock(FabricBlockSettings.of().mapColor(PALM_LOG.defaultMapColor()).noCollision().strength(1.0F).sounds(SoundType.WOOD).instrument(NoteBlockInstrument.BASS).dropsLike(PALM_SIGN_BLOCK), PALM_WOOD_TYPE, WilderSharedConstants.id("blocks/palm_sign"));
+	public static final Block PALM_HANGING_SIGN = new FrozenCeilingHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_HANGING_SIGN).mapColor(PALM_LOG.defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS), PALM_WOOD_TYPE, WilderSharedConstants.id("blocks/palm_hanging_sign"));
+	public static final Block PALM_WALL_HANGING_SIGN = new FrozenWallHangingSignBlock(FabricBlockSettings.copyOf(Blocks.OAK_WALL_HANGING_SIGN).mapColor(PALM_LOG.defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).dropsLike(PALM_HANGING_SIGN), PALM_WOOD_TYPE, WilderSharedConstants.id("blocks/palm_hanging_sign"));
 
     public static void registerWoods() {
     	String baobab = "baobab";
@@ -386,31 +385,31 @@ public final class RegisterBlocks {
 
     // HOLLOWED LOGS
 
-    public static final Block HOLLOWED_OAK_LOG = createHollowedLogBlock(MaterialColor.WOOD, MaterialColor.PODZOL);
-    public static final Block HOLLOWED_SPRUCE_LOG = createHollowedLogBlock(MaterialColor.PODZOL, MaterialColor.COLOR_BROWN);
-    public static final Block HOLLOWED_BIRCH_LOG = createHollowedLogBlock(MaterialColor.SAND, MaterialColor.QUARTZ);
-    public static final Block HOLLOWED_JUNGLE_LOG = createHollowedLogBlock(MaterialColor.DIRT, MaterialColor.PODZOL);
-    public static final Block HOLLOWED_ACACIA_LOG = createHollowedLogBlock(MaterialColor.COLOR_ORANGE, MaterialColor.STONE);
-    public static final Block HOLLOWED_DARK_OAK_LOG = createHollowedLogBlock(MaterialColor.COLOR_BROWN, MaterialColor.COLOR_BROWN);
-    public static final Block HOLLOWED_MANGROVE_LOG = createHollowedLogBlock(MaterialColor.COLOR_RED, MaterialColor.PODZOL);
-	public static final Block HOLLOWED_CHERRY_LOG = createHollowedLogBlock(MaterialColor.TERRACOTTA_WHITE, MaterialColor.TERRACOTTA_GRAY, RegisterBlockSoundTypes.HOLLOWED_CHERRY_LOG);
-	public static final Block HOLLOWED_CRIMSON_STEM = createHollowedStemBlock(MaterialColor.CRIMSON_STEM);
-	public static final Block HOLLOWED_WARPED_STEM = createHollowedStemBlock(MaterialColor.WARPED_STEM);
-    public static final Block HOLLOWED_BAOBAB_LOG = createHollowedLogBlock(MaterialColor.COLOR_ORANGE, MaterialColor.COLOR_BROWN);
-    public static final Block HOLLOWED_CYPRESS_LOG = createHollowedLogBlock(MaterialColor.COLOR_LIGHT_GRAY, MaterialColor.STONE);
+    public static final Block HOLLOWED_OAK_LOG = createHollowedLogBlock(MapColor.WOOD, MapColor.PODZOL);
+    public static final Block HOLLOWED_SPRUCE_LOG = createHollowedLogBlock(MapColor.PODZOL, MapColor.COLOR_BROWN);
+    public static final Block HOLLOWED_BIRCH_LOG = createHollowedLogBlock(MapColor.SAND, MapColor.QUARTZ);
+    public static final Block HOLLOWED_JUNGLE_LOG = createHollowedLogBlock(MapColor.DIRT, MapColor.PODZOL);
+    public static final Block HOLLOWED_ACACIA_LOG = createHollowedLogBlock(MapColor.COLOR_ORANGE, MapColor.STONE);
+    public static final Block HOLLOWED_DARK_OAK_LOG = createHollowedLogBlock(MapColor.COLOR_BROWN, MapColor.COLOR_BROWN);
+    public static final Block HOLLOWED_MANGROVE_LOG = createHollowedLogBlock(MapColor.COLOR_RED, MapColor.PODZOL);
+	public static final Block HOLLOWED_CHERRY_LOG = createHollowedLogBlock(MapColor.TERRACOTTA_WHITE, MapColor.TERRACOTTA_GRAY, RegisterBlockSoundTypes.HOLLOWED_CHERRY_LOG);
+	public static final Block HOLLOWED_CRIMSON_STEM = createHollowedStemBlock(MapColor.CRIMSON_STEM);
+	public static final Block HOLLOWED_WARPED_STEM = createHollowedStemBlock(MapColor.WARPED_STEM);
+    public static final Block HOLLOWED_BAOBAB_LOG = createHollowedLogBlock(MapColor.COLOR_ORANGE, MapColor.COLOR_BROWN);
+    public static final Block HOLLOWED_CYPRESS_LOG = createHollowedLogBlock(MapColor.COLOR_LIGHT_GRAY, MapColor.STONE);
 	public static final Block HOLLOWED_PALM_LOG = createHollowedLogBlock(PALM_PLANKS_COLOR, PALM_BARK_COLOR);
 
 	// STRIPPED HOLLOWED LOGS
-	public static final Block STRIPPED_HOLLOWED_OAK_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_OAK_LOG.defaultMaterialColor());
-	public static final Block STRIPPED_HOLLOWED_SPRUCE_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_SPRUCE_LOG.defaultMaterialColor());
-	public static final Block STRIPPED_HOLLOWED_BIRCH_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_BIRCH_LOG.defaultMaterialColor());
-	public static final Block STRIPPED_HOLLOWED_CHERRY_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_CHERRY_LOG.defaultMaterialColor(), RegisterBlockSoundTypes.HOLLOWED_CHERRY_LOG);
-	public static final Block STRIPPED_HOLLOWED_JUNGLE_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_JUNGLE_LOG.defaultMaterialColor());
-	public static final Block STRIPPED_HOLLOWED_ACACIA_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_ACACIA_LOG.defaultMaterialColor());
-	public static final Block STRIPPED_HOLLOWED_DARK_OAK_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_DARK_OAK_LOG.defaultMaterialColor());
-	public static final Block STRIPPED_HOLLOWED_MANGROVE_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_MANGROVE_LOG.defaultMaterialColor());
-	public static final Block STRIPPED_HOLLOWED_CRIMSON_STEM = createStrippedHollowedStemBlock(Blocks.STRIPPED_CRIMSON_STEM.defaultMaterialColor());
-	public static final Block STRIPPED_HOLLOWED_WARPED_STEM = createStrippedHollowedStemBlock(Blocks.STRIPPED_WARPED_STEM.defaultMaterialColor());
+	public static final Block STRIPPED_HOLLOWED_OAK_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_OAK_LOG.defaultMapColor());
+	public static final Block STRIPPED_HOLLOWED_SPRUCE_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_SPRUCE_LOG.defaultMapColor());
+	public static final Block STRIPPED_HOLLOWED_BIRCH_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_BIRCH_LOG.defaultMapColor());
+	public static final Block STRIPPED_HOLLOWED_CHERRY_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_CHERRY_LOG.defaultMapColor(), RegisterBlockSoundTypes.HOLLOWED_CHERRY_LOG);
+	public static final Block STRIPPED_HOLLOWED_JUNGLE_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_JUNGLE_LOG.defaultMapColor());
+	public static final Block STRIPPED_HOLLOWED_ACACIA_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_ACACIA_LOG.defaultMapColor());
+	public static final Block STRIPPED_HOLLOWED_DARK_OAK_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_DARK_OAK_LOG.defaultMapColor());
+	public static final Block STRIPPED_HOLLOWED_MANGROVE_LOG = createStrippedHollowedLogBlock(Blocks.STRIPPED_MANGROVE_LOG.defaultMapColor());
+	public static final Block STRIPPED_HOLLOWED_CRIMSON_STEM = createStrippedHollowedStemBlock(Blocks.STRIPPED_CRIMSON_STEM.defaultMapColor());
+	public static final Block STRIPPED_HOLLOWED_WARPED_STEM = createStrippedHollowedStemBlock(Blocks.STRIPPED_WARPED_STEM.defaultMapColor());
 	public static final Block STRIPPED_HOLLOWED_BAOBAB_LOG = createStrippedHollowedLogBlock(BAOBAB_PLANKS_COLOR);
 	public static final Block STRIPPED_HOLLOWED_CYPRESS_LOG = createStrippedHollowedLogBlock(CYPRESS_PLANKS_COLOR);
 	public static final Block STRIPPED_HOLLOWED_PALM_LOG = createStrippedHollowedLogBlock(PALM_PLANKS_COLOR);
@@ -460,13 +459,13 @@ public final class RegisterBlocks {
     }
 
     // SCULK
-    public static final Block SCULK_STAIRS = new SculkStairsBlock(Blocks.SCULK.defaultBlockState(), FabricBlockSettings.of(Material.DEPRECATED, MaterialColor.COLOR_BLACK).strength(0.2F).sounds(SoundType.SCULK));
-    public static final Block SCULK_SLAB = new SculkSlabBlock(FabricBlockSettings.of(Material.DEPRECATED, MaterialColor.COLOR_BLACK).strength(0.2F).sounds(SoundType.SCULK));
-    public static final Block SCULK_WALL = new SculkWallBlock(FabricBlockSettings.of(Material.DEPRECATED, MaterialColor.COLOR_BLACK).strength(0.2F).sounds(SoundType.SCULK));
-    public static final Block OSSEOUS_SCULK = new OsseousSculkBlock(FabricBlockSettings.of(Material.DEPRECATED, MaterialColor.SAND).requiresTool().strength(2.0F).sounds(RegisterBlockSoundTypes.OSSEOUS_SCULK));
+    public static final Block SCULK_STAIRS = new SculkStairsBlock(Blocks.SCULK.defaultBlockState(), FabricBlockSettings.of().mapColor(MapColor.COLOR_BLACK).strength(0.2F).sounds(SoundType.SCULK));
+    public static final Block SCULK_SLAB = new SculkSlabBlock(FabricBlockSettings.of().mapColor(MapColor.COLOR_BLACK).strength(0.2F).sounds(SoundType.SCULK));
+    public static final Block SCULK_WALL = new SculkWallBlock(FabricBlockSettings.of().mapColor(MapColor.COLOR_BLACK).strength(0.2F).sounds(SoundType.SCULK));
+    public static final Block OSSEOUS_SCULK = new OsseousSculkBlock(FabricBlockSettings.of().mapColor(MapColor.SAND).requiresTool().strength(2.0F).sounds(RegisterBlockSoundTypes.OSSEOUS_SCULK));
     public static final Block HANGING_TENDRIL = new HangingTendrilBlock(FabricBlockSettings.copyOf(Blocks.SCULK_SENSOR).strength(0.7F).collidable(false).ticksRandomly().luminance((state) -> 1)
             .sounds(RegisterBlockSoundTypes.HANGING_TENDRIL).emissiveLighting((state, level, pos) -> HangingTendrilBlock.shouldHavePogLighting(state)));
-    public static final Block ECHO_GLASS = new EchoGlassBlock(FabricBlockSettings.of(Material.DEPRECATED_NONSOLID, MaterialColor.COLOR_CYAN).strength(0.3F).nonOpaque().ticksRandomly().sounds(RegisterBlockSoundTypes.ECHO_GLASS).instrument(NoteBlockInstrument.HAT));
+    public static final Block ECHO_GLASS = new EchoGlassBlock(FabricBlockSettings.of().mapColor(MapColor.COLOR_CYAN).strength(0.3F).nonOpaque().ticksRandomly().sounds(RegisterBlockSoundTypes.ECHO_GLASS).instrument(NoteBlockInstrument.HAT));
 
     public static void registerDeepDark() {
 		registerBlockAfter(Items.DEEPSLATE_TILE_WALL,"sculk_wall", SCULK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
@@ -483,56 +482,56 @@ public final class RegisterBlocks {
     }
 
     // Mesoglea
-    public static final Block BLUE_PEARLESCENT_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(Material.DEPRECATED_NONSOLID, MaterialColor.QUARTZ).nonOpaque().strength(0.2F).slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(RegisterBlockSoundTypes.MESOGLEA).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never).dynamicBounds(), RegisterParticles.BLUE_PEARLESCENT_HANGING_MESOGLEA);
-    public static final Block PURPLE_PEARLESCENT_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(Material.DEPRECATED_NONSOLID, MaterialColor.COLOR_PURPLE).nonOpaque().strength(0.2F).slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(RegisterBlockSoundTypes.MESOGLEA).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never).dynamicBounds(), RegisterParticles.PURPLE_PEARLESCENT_HANGING_MESOGLEA);
-    public static final Block YELLOW_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(Material.DEPRECATED_NONSOLID, MaterialColor.COLOR_YELLOW).nonOpaque().strength(0.2F).slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(RegisterBlockSoundTypes.MESOGLEA).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never).dynamicBounds(), RegisterParticles.YELLOW_HANGING_MESOGLEA);
-    public static final Block BLUE_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(Material.DEPRECATED_NONSOLID, MaterialColor.COLOR_LIGHT_BLUE).nonOpaque().strength(0.2F).slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(RegisterBlockSoundTypes.MESOGLEA).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never).dynamicBounds(), RegisterParticles.BLUE_HANGING_MESOGLEA);
-    public static final Block LIME_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(Material.DEPRECATED_NONSOLID, MaterialColor.COLOR_LIGHT_GREEN).nonOpaque().strength(0.2F).slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(RegisterBlockSoundTypes.MESOGLEA).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never).dynamicBounds(), RegisterParticles.LIME_HANGING_MESOGLEA);
-    public static final Block RED_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(Material.DEPRECATED_NONSOLID, MaterialColor.COLOR_RED).nonOpaque().strength(0.2F).slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(RegisterBlockSoundTypes.MESOGLEA).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never).dynamicBounds(), RegisterParticles.RED_HANGING_MESOGLEA);
-    public static final Block PINK_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of(Material.DEPRECATED_NONSOLID, MaterialColor.COLOR_PINK).nonOpaque().strength(0.2F).slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(RegisterBlockSoundTypes.MESOGLEA).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never).dynamicBounds(), RegisterParticles.PINK_HANGING_MESOGLEA);
+    public static final Block BLUE_PEARLESCENT_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of().mapColor(MapColor.QUARTZ).nonOpaque().strength(0.2F).slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(RegisterBlockSoundTypes.MESOGLEA).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never).dynamicBounds(), RegisterParticles.BLUE_PEARLESCENT_HANGING_MESOGLEA);
+    public static final Block PURPLE_PEARLESCENT_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of().mapColor(MapColor.COLOR_PURPLE).nonOpaque().strength(0.2F).slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(RegisterBlockSoundTypes.MESOGLEA).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never).dynamicBounds(), RegisterParticles.PURPLE_PEARLESCENT_HANGING_MESOGLEA);
+    public static final Block YELLOW_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of().mapColor(MapColor.COLOR_YELLOW).nonOpaque().strength(0.2F).slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(RegisterBlockSoundTypes.MESOGLEA).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never).dynamicBounds(), RegisterParticles.YELLOW_HANGING_MESOGLEA);
+    public static final Block BLUE_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of().mapColor(MapColor.COLOR_LIGHT_BLUE).nonOpaque().strength(0.2F).slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(RegisterBlockSoundTypes.MESOGLEA).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never).dynamicBounds(), RegisterParticles.BLUE_HANGING_MESOGLEA);
+    public static final Block LIME_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of().mapColor(MapColor.COLOR_LIGHT_GREEN).nonOpaque().strength(0.2F).slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(RegisterBlockSoundTypes.MESOGLEA).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never).dynamicBounds(), RegisterParticles.LIME_HANGING_MESOGLEA);
+    public static final Block RED_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of().mapColor(MapColor.COLOR_RED).nonOpaque().strength(0.2F).slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(RegisterBlockSoundTypes.MESOGLEA).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never).dynamicBounds(), RegisterParticles.RED_HANGING_MESOGLEA);
+    public static final Block PINK_MESOGLEA = new MesogleaBlock(FabricBlockSettings.of().mapColor(MapColor.COLOR_PINK).nonOpaque().strength(0.2F).slipperiness(0.8F).emissiveLighting(RegisterBlocks::always).luminance((state) -> 7).sounds(RegisterBlockSoundTypes.MESOGLEA).suffocates(RegisterBlocks::never).blockVision(RegisterBlocks::never).dynamicBounds(), RegisterParticles.PINK_HANGING_MESOGLEA);
 
-    public static final Block BLUE_PEARLESCENT_NEMATOCYST = new NematocystBlock(FabricBlockSettings.of(Material.DEPRECATED_NONSOLID, MaterialColor.QUARTZ).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundTypes.NEMATOCYST));
-    public static final Block PURPLE_PEARLESCENT_NEMATOCYST = new NematocystBlock(FabricBlockSettings.of(Material.DEPRECATED_NONSOLID, MaterialColor.COLOR_PURPLE).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundTypes.NEMATOCYST));
-    public static final Block YELLOW_NEMATOCYST = new NematocystBlock(FabricBlockSettings.of(Material.DEPRECATED_NONSOLID, MaterialColor.COLOR_YELLOW).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundTypes.NEMATOCYST));
-    public static final Block BLUE_NEMATOCYST = new NematocystBlock(FabricBlockSettings.of(Material.DEPRECATED_NONSOLID, MaterialColor.COLOR_LIGHT_BLUE).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundTypes.NEMATOCYST));
-    public static final Block LIME_NEMATOCYST = new NematocystBlock(FabricBlockSettings.of(Material.DEPRECATED_NONSOLID, MaterialColor.COLOR_LIGHT_GREEN).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundTypes.NEMATOCYST));
-    public static final Block RED_NEMATOCYST = new NematocystBlock(FabricBlockSettings.of(Material.DEPRECATED_NONSOLID, MaterialColor.COLOR_RED).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundTypes.NEMATOCYST));
-    public static final Block PINK_NEMATOCYST = new NematocystBlock(FabricBlockSettings.of(Material.DEPRECATED_NONSOLID, MaterialColor.COLOR_PINK).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundTypes.NEMATOCYST));
+    public static final Block BLUE_PEARLESCENT_NEMATOCYST = new NematocystBlock(FabricBlockSettings.of().mapColor(MapColor.QUARTZ).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundTypes.NEMATOCYST));
+    public static final Block PURPLE_PEARLESCENT_NEMATOCYST = new NematocystBlock(FabricBlockSettings.of().mapColor(MapColor.COLOR_PURPLE).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundTypes.NEMATOCYST));
+    public static final Block YELLOW_NEMATOCYST = new NematocystBlock(FabricBlockSettings.of().mapColor(MapColor.COLOR_YELLOW).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundTypes.NEMATOCYST));
+    public static final Block BLUE_NEMATOCYST = new NematocystBlock(FabricBlockSettings.of().mapColor(MapColor.COLOR_LIGHT_BLUE).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundTypes.NEMATOCYST));
+    public static final Block LIME_NEMATOCYST = new NematocystBlock(FabricBlockSettings.of().mapColor(MapColor.COLOR_LIGHT_GREEN).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundTypes.NEMATOCYST));
+    public static final Block RED_NEMATOCYST = new NematocystBlock(FabricBlockSettings.of().mapColor(MapColor.COLOR_RED).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundTypes.NEMATOCYST));
+    public static final Block PINK_NEMATOCYST = new NematocystBlock(FabricBlockSettings.of().mapColor(MapColor.COLOR_PINK).noCollision().nonOpaque().emissiveLighting(RegisterBlocks::always).luminance((state) -> 4).sounds(RegisterBlockSoundTypes.NEMATOCYST));
 
     // MISC
 
-    public static final Block TERMITE_MOUND = new TermiteMound(FabricBlockSettings.of(Material.DEPRECATED, MaterialColor.COLOR_BROWN).strength(0.3F).sounds(RegisterBlockSoundTypes.TERMITEMOUND).ticksRandomly());
+    public static final Block TERMITE_MOUND = new TermiteMound(FabricBlockSettings.of().mapColor(MapColor.COLOR_BROWN).strength(0.3F).sounds(RegisterBlockSoundTypes.TERMITEMOUND).ticksRandomly());
     public static final Block STONE_CHEST = new StoneChestBlock(FabricBlockSettings.copyOf(Blocks.CHEST).sounds(SoundType.DEEPSLATE).strength(35.0F, 12.0F), () -> RegisterBlockEntities.STONE_CHEST);
 
     // PLANTS
-    public static final Block SEEDING_DANDELION = new SeedingDandelionBlock(MobEffects.SLOW_FALLING, 12, BlockBehaviour.Properties.of(Material.PLANT).noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ));
-    public static final Block POTTED_SEEDING_DANDELION = new FlowerPotBlock(RegisterBlocks.SEEDING_DANDELION, FabricBlockSettings.of(Material.DEPRECATED_NONSOLID).breakInstantly().nonOpaque().pushReaction(PushReaction.DESTROY));
-    public static final Block CARNATION = new FlowerBlock(MobEffects.REGENERATION, 12, BlockBehaviour.Properties.of(Material.PLANT).noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ));
-    public static final Block POTTED_CARNATION = new FlowerPotBlock(RegisterBlocks.CARNATION, FabricBlockSettings.of(Material.DEPRECATED_NONSOLID).breakInstantly().nonOpaque().pushReaction(PushReaction.DESTROY));
-    public static final Block GLORY_OF_THE_SNOW = new GloryOfTheSnowBlock(BlockBehaviour.Properties.of(Material.PLANT).noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).randomTicks(), List.of(FlowerColor.BLUE, FlowerColor.PINK, FlowerColor.PURPLE, FlowerColor.WHITE));
+    public static final Block SEEDING_DANDELION = new SeedingDandelionBlock(MobEffects.SLOW_FALLING, 12, BlockBehaviour.Properties.of().noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ));
+    public static final Block POTTED_SEEDING_DANDELION = new FlowerPotBlock(RegisterBlocks.SEEDING_DANDELION, FabricBlockSettings.of().breakInstantly().nonOpaque().pushReaction(PushReaction.DESTROY));
+    public static final Block CARNATION = new FlowerBlock(MobEffects.REGENERATION, 12, BlockBehaviour.Properties.of().noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ));
+    public static final Block POTTED_CARNATION = new FlowerPotBlock(RegisterBlocks.CARNATION, FabricBlockSettings.of().breakInstantly().nonOpaque().pushReaction(PushReaction.DESTROY));
+    public static final Block GLORY_OF_THE_SNOW = new GloryOfTheSnowBlock(BlockBehaviour.Properties.of().noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).randomTicks(), List.of(FlowerColor.BLUE, FlowerColor.PINK, FlowerColor.PURPLE, FlowerColor.WHITE));
 
-    public static final Block WHITE_GLORY_OF_THE_SNOW = new FlowerLichenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).noCollision().offsetType(BlockBehaviour.OffsetType.NONE).color(MaterialColor.QUARTZ).sound(SoundType.VINE));
-    public static final Block PINK_GLORY_OF_THE_SNOW = new FlowerLichenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).noCollision().offsetType(BlockBehaviour.OffsetType.NONE).color(MaterialColor.CRIMSON_STEM).sound(SoundType.VINE));
-    public static final Block PURPLE_GLORY_OF_THE_SNOW = new FlowerLichenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).noCollision().offsetType(BlockBehaviour.OffsetType.NONE).color(MaterialColor.COLOR_PURPLE).sound(SoundType.VINE));
-    public static final Block BLUE_GLORY_OF_THE_SNOW = new FlowerLichenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).noCollision().offsetType(BlockBehaviour.OffsetType.NONE).color(MaterialColor.COLOR_BLUE).sound(SoundType.VINE));
+    public static final Block WHITE_GLORY_OF_THE_SNOW = new FlowerLichenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).noCollision().offsetType(BlockBehaviour.OffsetType.NONE).mapColor(MapColor.QUARTZ).sound(SoundType.VINE));
+    public static final Block PINK_GLORY_OF_THE_SNOW = new FlowerLichenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).noCollision().offsetType(BlockBehaviour.OffsetType.NONE).mapColor(MapColor.CRIMSON_STEM).sound(SoundType.VINE));
+    public static final Block PURPLE_GLORY_OF_THE_SNOW = new FlowerLichenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).noCollision().offsetType(BlockBehaviour.OffsetType.NONE).mapColor(MapColor.COLOR_PURPLE).sound(SoundType.VINE));
+    public static final Block BLUE_GLORY_OF_THE_SNOW = new FlowerLichenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).noCollision().offsetType(BlockBehaviour.OffsetType.NONE).mapColor(MapColor.COLOR_BLUE).sound(SoundType.VINE));
 
-    public static final Block DATURA = new TallFlowerBlock(FabricBlockSettings.of(Material.DEPRECATED_NONSOLID).noCollision().breakInstantly().sounds(SoundType.GRASS).ignitedByLava().pushReaction(PushReaction.DESTROY).offsetType(BlockBehaviour.OffsetType.XZ));
-    public static final Block MILKWEED = new MilkweedBlock(FabricBlockSettings.of(Material.DEPRECATED_NONSOLID).noCollision().breakInstantly().ticksRandomly().sounds(SoundType.GRASS).ignitedByLava().pushReaction(PushReaction.DESTROY).offsetType(BlockBehaviour.OffsetType.XZ));
+    public static final Block DATURA = new TallFlowerBlock(FabricBlockSettings.of().noCollision().breakInstantly().sounds(SoundType.GRASS).ignitedByLava().pushReaction(PushReaction.DESTROY).offsetType(BlockBehaviour.OffsetType.XZ));
+    public static final Block MILKWEED = new MilkweedBlock(FabricBlockSettings.of().noCollision().breakInstantly().ticksRandomly().sounds(SoundType.GRASS).ignitedByLava().pushReaction(PushReaction.DESTROY).offsetType(BlockBehaviour.OffsetType.XZ));
 
     public static final Block CATTAIL = new WaterloggableTallFlowerBlock(FabricBlockSettings.copyOf(Blocks.ROSE_BUSH).sounds(SoundType.WET_GRASS).strength(0.0F).nonOpaque());
     public static final Block FLOWERING_LILY_PAD = new FloweringLilyPadBlock(FabricBlockSettings.copyOf(Blocks.LILY_PAD).sounds(SoundType.LILY_PAD));
-    public static final Block ALGAE = new AlgaeBlock(FabricBlockSettings.of(Material.PLANT).breakInstantly().nonOpaque().noCollision().sounds(RegisterBlockSoundTypes.ALGAE).pushReaction(PushReaction.DESTROY));
-	public static final Block BUSH = new WWBushBlock(FabricBlockSettings.of(Material.PLANT).breakInstantly().nonOpaque().noCollision().ticksRandomly().sounds(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ));
-	public static final Block POTTED_BUSH = new FlowerPotBlock(BUSH, FabricBlockSettings.of(Material.DEPRECATED_NONSOLID).breakInstantly().nonOpaque().pushReaction(PushReaction.DESTROY));
-	public static final Block TUMBLEWEED_PLANT = new TumbleweedPlantBlock(FabricBlockSettings.of(Material.PLANT).nonOpaque().sounds(RegisterBlockSoundTypes.TUMBLEWEED_PLANT).randomTicks());
-	public static final Block POTTED_TUMBLEWEED_PLANT = new FlowerPotBlock(TUMBLEWEED_PLANT, FabricBlockSettings.of(Material.DEPRECATED_NONSOLID).breakInstantly().nonOpaque().pushReaction(PushReaction.DESTROY));
-	public static final Block TUMBLEWEED = new TumbleweedBlock(FabricBlockSettings.of(Material.PLANT).breakInstantly().nonOpaque().sounds(RegisterBlockSoundTypes.TUMBLEWEED_PLANT).randomTicks());
-	public static final Block POTTED_TUMBLEWEED = new FlowerPotBlock(TUMBLEWEED, FabricBlockSettings.of(Material.DEPRECATED_NONSOLID).breakInstantly().nonOpaque().pushReaction(PushReaction.DESTROY));
+    public static final Block ALGAE = new AlgaeBlock(FabricBlockSettings.of().breakInstantly().nonOpaque().noCollision().sounds(RegisterBlockSoundTypes.ALGAE).pushReaction(PushReaction.DESTROY));
+	public static final Block BUSH = new WWBushBlock(FabricBlockSettings.of().breakInstantly().nonOpaque().noCollision().ticksRandomly().sounds(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ));
+	public static final Block POTTED_BUSH = new FlowerPotBlock(BUSH, FabricBlockSettings.of().breakInstantly().nonOpaque().pushReaction(PushReaction.DESTROY));
+	public static final Block TUMBLEWEED_PLANT = new TumbleweedPlantBlock(FabricBlockSettings.of().nonOpaque().sounds(RegisterBlockSoundTypes.TUMBLEWEED_PLANT).randomTicks());
+	public static final Block POTTED_TUMBLEWEED_PLANT = new FlowerPotBlock(TUMBLEWEED_PLANT, FabricBlockSettings.of().breakInstantly().nonOpaque().pushReaction(PushReaction.DESTROY));
+	public static final Block TUMBLEWEED = new TumbleweedBlock(FabricBlockSettings.of().breakInstantly().nonOpaque().sounds(RegisterBlockSoundTypes.TUMBLEWEED_PLANT).randomTicks());
+	public static final Block POTTED_TUMBLEWEED = new FlowerPotBlock(TUMBLEWEED, FabricBlockSettings.of().breakInstantly().nonOpaque().pushReaction(PushReaction.DESTROY));
 
-    public static final Block POTTED_BIG_DRIPLEAF = new FlowerPotBlock(Blocks.BIG_DRIPLEAF, FabricBlockSettings.of(Material.DEPRECATED_NONSOLID).breakInstantly().nonOpaque().pushReaction(PushReaction.DESTROY));
-    public static final Block POTTED_SMALL_DRIPLEAF = new FlowerPotBlock(Blocks.SMALL_DRIPLEAF, FabricBlockSettings.of(Material.DEPRECATED_NONSOLID).breakInstantly().nonOpaque().pushReaction(PushReaction.DESTROY));
-    public static final Block POTTED_GRASS = new FlowerPotBlock(Blocks.GRASS, FabricBlockSettings.of(Material.DEPRECATED_NONSOLID).breakInstantly().nonOpaque().pushReaction(PushReaction.DESTROY));
-	public static final Block POTTED_PRICKLY_PEAR = new FlowerPotBlock(PRICKLY_PEAR_CACTUS, FabricBlockSettings.of(Material.DEPRECATED_NONSOLID).breakInstantly().nonOpaque().pushReaction(PushReaction.DESTROY));
+    public static final Block POTTED_BIG_DRIPLEAF = new FlowerPotBlock(Blocks.BIG_DRIPLEAF, FabricBlockSettings.of().breakInstantly().nonOpaque().pushReaction(PushReaction.DESTROY));
+    public static final Block POTTED_SMALL_DRIPLEAF = new FlowerPotBlock(Blocks.SMALL_DRIPLEAF, FabricBlockSettings.of().breakInstantly().nonOpaque().pushReaction(PushReaction.DESTROY));
+    public static final Block POTTED_GRASS = new FlowerPotBlock(Blocks.GRASS, FabricBlockSettings.of().breakInstantly().nonOpaque().pushReaction(PushReaction.DESTROY));
+	public static final Block POTTED_PRICKLY_PEAR = new FlowerPotBlock(PRICKLY_PEAR_CACTUS, FabricBlockSettings.of().breakInstantly().nonOpaque().pushReaction(PushReaction.DESTROY));
 
     public static void registerPlants() {
         registerBlock(false, "potted_big_dripleaf", POTTED_BIG_DRIPLEAF);
@@ -562,7 +561,7 @@ public final class RegisterBlocks {
 
     public static final Block BROWN_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM_BLOCK).luminance(1).ticksRandomly().collidable(false).nonOpaque().sounds(RegisterBlockSoundTypes.MUSHROOM).hasPostProcess(RegisterBlocks::always).pushReaction(PushReaction.DESTROY));
     public static final Block RED_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.RED_MUSHROOM_BLOCK).ticksRandomly().collidable(false).nonOpaque().sounds(RegisterBlockSoundTypes.MUSHROOM).hasPostProcess(RegisterBlocks::always).pushReaction(PushReaction.DESTROY));
-    public static final Block POLLEN_BLOCK = new PollenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(BlockBehaviour.OffsetType.NONE).color(MaterialColor.SAND).sound(RegisterBlockSoundTypes.POLLEN));
+    public static final Block POLLEN_BLOCK = new PollenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(BlockBehaviour.OffsetType.NONE).mapColor(MapColor.SAND).sound(RegisterBlockSoundTypes.POLLEN));
 	//TODO: Rename & Sponge Sounds
 	public static final Block SMALL_SPONGE = new SmallSpongeBlock(FabricBlockSettings.copyOf(Blocks.SPONGE).strength(0.1F).collidable(false).nonOpaque().sounds(SoundType.WET_GRASS));
 
@@ -620,7 +619,7 @@ public final class RegisterBlocks {
 
     public static final Block NULL_BLOCK = new Block(FabricBlockSettings.copyOf(Blocks.STONE).sounds(RegisterBlockSoundTypes.NULL_BLOCK));
 
-    public static final Block DISPLAY_LANTERN = new DisplayLanternBlock(FabricBlockSettings.of(Material.DEPRECATED).strength(3.5f).sounds(SoundType.LANTERN).luminance((state) -> state.getValue(RegisterProperties.DISPLAY_LIGHT)).forceSolidOn().pushReaction(PushReaction.DESTROY));
+    public static final Block DISPLAY_LANTERN = new DisplayLanternBlock(FabricBlockSettings.of().strength(3.5f).sounds(SoundType.LANTERN).luminance((state) -> state.getValue(RegisterProperties.DISPLAY_LIGHT)).forceSolidOn().pushReaction(PushReaction.DESTROY));
 
     public static void registerMisc() {
         registerBlockBefore(Items.BEE_NEST, "termite_mound", TERMITE_MOUND, CreativeModeTabs.NATURAL_BLOCKS);
@@ -740,39 +739,39 @@ public final class RegisterBlocks {
 		}
 	}
 
-    private static HollowedLogBlock createHollowedLogBlock(MaterialColor topMapColor, MaterialColor sideMapColor, SoundType soundType) {
-        var settings = FabricBlockSettings.of(Material.DEPRECATED,
-						(state) -> state.getValue(HollowedLogBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor)
-				.strength(2.0F).sound(soundType).instrument(NoteBlockInstrument.BASS);
+    private static HollowedLogBlock createHollowedLogBlock(MapColor topMapColor, MapColor sideMapColor, SoundType soundType) {
+        var settings = FabricBlockSettings.of()
+			.mapColor((state) -> state.getValue(HollowedLogBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor)
+			.strength(2.0F).sound(soundType).instrument(NoteBlockInstrument.BASS);
 
 		return new HollowedLogBlock(settings);
     }
 
-	private static HollowedLogBlock createHollowedLogBlock(MaterialColor topMapColor, MaterialColor sideMapColor) {
+	private static HollowedLogBlock createHollowedLogBlock(MapColor topMapColor, MapColor sideMapColor) {
 		return createHollowedLogBlock(topMapColor, sideMapColor, RegisterBlockSoundTypes.HOLLOWED_LOG);
 	}
 
-	private static HollowedLogBlock createHollowedStemBlock(MaterialColor mapColor) {
-		return new HollowedLogBlock(FabricBlockSettings.of(Material.DEPRECATED,
-						(state) -> mapColor)
-				.strength(2.0F).sound(RegisterBlockSoundTypes.HOLLOWED_STEM).instrument(NoteBlockInstrument.BASS));
+	private static HollowedLogBlock createHollowedStemBlock(MapColor mapColor) {
+		return new HollowedLogBlock(FabricBlockSettings.of()
+			.mapColor((state) -> mapColor)
+			.strength(2.0F).sound(RegisterBlockSoundTypes.HOLLOWED_STEM).instrument(NoteBlockInstrument.BASS));
 	}
 
-	private static HollowedLogBlock createStrippedHollowedLogBlock(MaterialColor mapColor, SoundType soundType) {
-		var settings = FabricBlockSettings.of(Material.DEPRECATED,
-						(state) -> mapColor)
-				.strength(2.0F).sound(soundType).instrument(NoteBlockInstrument.BASS);
+	private static HollowedLogBlock createStrippedHollowedLogBlock(MapColor mapColor, SoundType soundType) {
+		var settings = FabricBlockSettings.of()
+			.mapColor((state) -> mapColor)
+			.strength(2.0F).sound(soundType).instrument(NoteBlockInstrument.BASS);
 
 		return new HollowedLogBlock(settings);
 	}
 
-	private static HollowedLogBlock createStrippedHollowedLogBlock(MaterialColor mapColor) {
+	private static HollowedLogBlock createStrippedHollowedLogBlock(MapColor mapColor) {
 		return createStrippedHollowedLogBlock(mapColor, RegisterBlockSoundTypes.HOLLOWED_LOG);
 	}
 
-	private static HollowedLogBlock createStrippedHollowedStemBlock(MaterialColor mapColor) {
-		return new HollowedLogBlock(FabricBlockSettings.of(Material.DEPRECATED,
-						(state) -> mapColor)
+	private static HollowedLogBlock createStrippedHollowedStemBlock(MapColor mapColor) {
+		return new HollowedLogBlock(FabricBlockSettings.of()
+			.mapColor((state) -> mapColor)
 				.strength(2.0F).sound(RegisterBlockSoundTypes.HOLLOWED_STEM).instrument(NoteBlockInstrument.BASS));
 	}
 
