@@ -11,7 +11,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:redstone_dust",
+          "name": "minecraft:redstone",
           "weight": 24
         },
         {

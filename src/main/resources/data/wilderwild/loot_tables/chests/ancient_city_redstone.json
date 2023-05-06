@@ -293,7 +293,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:redstone_dust",
+          "name": "minecraft:redstone",
           "weight": 7
         },
         {
