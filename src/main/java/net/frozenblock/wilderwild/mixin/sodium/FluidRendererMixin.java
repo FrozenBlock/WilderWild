@@ -19,8 +19,10 @@
 package net.frozenblock.wilderwild.mixin.sodium;
 
 import me.jellysquid.mods.sodium.client.model.quad.ModelQuadViewMutable;
+import me.jellysquid.mods.sodium.client.render.chunk.compile.ChunkBuildBuffers;
 import me.jellysquid.mods.sodium.client.render.chunk.compile.buffers.ChunkModelBuilder;
 import me.jellysquid.mods.sodium.client.render.chunk.compile.pipeline.FluidRenderer;
+import me.jellysquid.mods.sodium.client.render.chunk.data.ChunkRenderBounds;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.ModelBakery;
@@ -36,6 +38,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
@@ -63,7 +66,7 @@ public class FluidRendererMixin {
 	}
 
 	@Inject(method = "render", at = @At(value = "HEAD"))
-	private void wilderWild$getIsWater(BlockAndTintGetter world, FluidState fluidState, BlockPos pos, BlockPos offset, ChunkModelBuilder buffers, CallbackInfoReturnable<Boolean> info) {
+	private void wilderWild$getIsWater(BlockAndTintGetter world, FluidState fluidState, BlockPos pos, BlockPos offset, ChunkBuildBuffers buffers, ChunkRenderBounds.Builder bounds, CallbackInfo ci) {
 		this.wilderWild$isWater = fluidState.getType().is(FluidTags.WATER);
 	}
 

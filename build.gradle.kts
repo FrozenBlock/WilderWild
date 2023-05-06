@@ -210,9 +210,6 @@ dependencies {
     // To change the versions see the gradle.properties file
     minecraft("com.mojang:minecraft:$minecraft_version")
     mappings(loom.layered {
-        // please annoy treetrain if this doesnt work
-        mappings("org.quiltmc:quilt-mappings:$quilt_mappings:intermediary-v2")
-        parchment("org.parchmentmc.data:parchment-1.19.3:$parchment_mappings@zip")
         officialMojangMappings {
             nameSyntheticMembers = false
         }
