@@ -752,17 +752,17 @@ public final class WilderPlacedFeatures {
 		);
 
 		BROWN_MUSHROOM_PLACED.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_BROWN_MUSHROOM),
-				CountPlacement.of(10), InSquarePlacement.spread(),
+				CountPlacement.of(1), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
 		RED_MUSHROOM_PLACED.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_RED_MUSHROOM),
-				CountPlacement.of(10), InSquarePlacement.spread(),
+				CountPlacement.of(1), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
 		DARK_FOREST_MUSHROOM_PLACED.makeAndSetHolder(WilderConfiguredFeatures.MUSHROOMS_DARK_FOREST.getHolder(),
-				RarityFilter.onAverageOnceEvery(1), CountPlacement.of(6), InSquarePlacement.spread(),
+				RarityFilter.onAverageOnceEvery(4), CountPlacement.of(2), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
