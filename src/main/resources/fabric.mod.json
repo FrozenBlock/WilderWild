@@ -39,9 +39,6 @@
     "frozenlib:surfacerules": [
       "net.frozenblock.wilderwild.registry.RegisterSurfaceRules"
     ],
-    "frozenlib:events": [
-      "net.frozenblock.wilderwild.registry.RegisterWorldgen"
-    ],
     "frozenlib:mob_categories": [
       "net.frozenblock.wilderwild.WilderWild"
     ],
