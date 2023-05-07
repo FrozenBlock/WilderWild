@@ -16,36 +16,27 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.mixin.worldgen.general;
+package net.frozenblock.wilderwild.mixin.worldgen;
 
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.additions.feature.WilderTreeConfigured;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.block.grower.SpruceTreeGrower;
+import net.minecraft.world.level.block.grower.BirchTreeGrower;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value = SpruceTreeGrower.class, priority = 69420)
-public class SpruceTreeGrowerMixin {
+@Mixin(value = BirchTreeGrower.class, priority = 69420)
+public class BirchTreeGrowerMixin {
 
     @Inject(method = "getConfiguredFeature", at = @At("RETURN"), cancellable = true)
-    public void getConfiguredFeature(RandomSource random, boolean bees, CallbackInfoReturnable<ResourceKey<ConfiguredFeature<?, ?>>> info) {
+    public void wilderWild$getConfiguredFeature(RandomSource random, boolean bees, CallbackInfoReturnable<ResourceKey<? extends ConfiguredFeature<?, ?>>> info) {
 		if (WilderSharedConstants.config().wildTrees()) {
-			info.setReturnValue(random.nextFloat() < 0.1F ? WilderTreeConfigured.SPRUCE_SHORT.getKey() : WilderTreeConfigured.SPRUCE.getKey());
+			info.setReturnValue(bees ? WilderTreeConfigured.BIRCH_BEES_025.getKey() : WilderTreeConfigured.BIRCH_TREE.getKey());
 		}
     }
-
-	@Inject(method = "getConfiguredMegaFeature", at = @At("RETURN"), cancellable = true)
-	public void wilderWild$getConfiguredMegaFeature(RandomSource random, CallbackInfoReturnable<ResourceKey<? extends ConfiguredFeature<?, ?>>> info) {
-		if (WilderSharedConstants.config().wildTrees()) {
-			if (random.nextFloat() < 0.25F) {
-				info.setReturnValue(WilderTreeConfigured.SHORT_MEGA_SPRUCE.getKey());
-			}
-		}
-	}
 
 }
