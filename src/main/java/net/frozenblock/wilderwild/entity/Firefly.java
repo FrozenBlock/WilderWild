@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.entity;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import java.util.ArrayList;
 import java.util.List;

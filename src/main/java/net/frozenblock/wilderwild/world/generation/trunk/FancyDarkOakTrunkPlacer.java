@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.world.generation.trunk;
 
 import com.google.common.collect.Lists;
-import com.mojang.datafixers.util.Function3;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.ArrayList;

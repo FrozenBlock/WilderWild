@@ -26,8 +26,6 @@ import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
 
 public class TerralithModIntegration extends ModIntegration {
     public TerralithModIntegration() {

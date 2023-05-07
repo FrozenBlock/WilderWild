@@ -38,7 +38,6 @@ import net.lunade.copper.PoweredPipeDispenses;
 import net.lunade.copper.RegisterPipeNbtMethods;
 import net.lunade.copper.block_entity.CopperPipeEntity;
 import net.lunade.copper.blocks.CopperPipe;
-import net.lunade.copper.pipe_nbt.MoveablePipeDataHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.DustColorTransitionOptions;

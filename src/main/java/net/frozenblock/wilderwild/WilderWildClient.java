@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild;
 
 import java.util.Objects;
-import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -35,7 +34,6 @@ import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.menu.api.Panoramas;
 import net.frozenblock.lib.menu.api.Splashes;
 import net.frozenblock.lib.sound.api.FlyBySoundHub;
-import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.entity.render.blockentity.DisplayLanternBlockEntityRenderer;
 import net.frozenblock.wilderwild.entity.render.blockentity.HangingTendrilBlockEntityRenderer;
 import net.frozenblock.wilderwild.entity.render.blockentity.SculkSensorBlockEntityRenderer;
@@ -74,11 +72,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
