@@ -57,7 +57,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class WWBushBlock extends BushBlock implements BonemealableBlock {
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
-	public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
+	private static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
 
 	public WWBushBlock(BlockBehaviour.Properties properties) {
 		super(properties);
@@ -127,6 +127,7 @@ public class WWBushBlock extends BushBlock implements BonemealableBlock {
 	}
 
 	@Override
+	@NotNull
 	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		ItemStack itemStack = player.getItemInHand(hand);
 		if (itemStack.is(Items.SHEARS) && !isMinimumAge(state)) {
@@ -169,7 +170,7 @@ public class WWBushBlock extends BushBlock implements BonemealableBlock {
 
 	@Override
 	public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-		return !isAlmostFullyGrown(state) ? (double)level.random.nextFloat() < 0.65 : (double)level.random.nextFloat() < 0.45;
+		return !isAlmostFullyGrown(state) ? level.random.nextFloat() < 0.65 : level.random.nextFloat() < 0.45;
 	}
 
 	@Override
@@ -183,19 +184,26 @@ public class WWBushBlock extends BushBlock implements BonemealableBlock {
 
 	@Override
 	public long getSeed(@NotNull BlockState state, @NotNull BlockPos pos) {
-		return isFullyGrown(state) ? Mth.getSeed(pos.getX(), pos.below(state.getValue(HALF) == DoubleBlockHalf.LOWER ? 0 : 1).getY(), pos.getZ()) : super.getSeed(state, pos);
+		try {
+			return isFullyGrown(state) ? Mth.getSeed(pos.getX(), pos.below(state.getValue(HALF) == DoubleBlockHalf.LOWER ? 0 : 1).getY(), pos.getZ()) : super.getSeed(state, pos);
+		} catch (IllegalArgumentException e) {
+			return super.getSeed(state, pos);
+		}
 	}
 
 	@Override
 	public void playerWillDestroy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
-		if (isFullyGrown(state)) {
-			if (!level.isClientSide) {
+		if (isFullyGrown(state) && (!level.isClientSide)) {
 				if (player.isCreative()) {
-					preventCreativeDropFromBottomPart(level, pos, state, player);
+					try {
+						preventCreativeDropFromBottomPart(level, pos, state, player);
+					} catch (IllegalArgumentException e) {
+						Block.dropResources(state, level, pos, level.getBlockEntity(pos), player, player.getMainHandItem());
+					}
 				} else {
-					DoublePlantBlock.dropResources(state, level, pos, level.getBlockEntity(pos), player, player.getMainHandItem());
+					Block.dropResources(state, level, pos, level.getBlockEntity(pos), player, player.getMainHandItem());
 				}
-			}
+
 		}
 		super.playerWillDestroy(level, pos, state, player);
 	}
@@ -213,8 +221,11 @@ public class WWBushBlock extends BushBlock implements BonemealableBlock {
 		BlockPos blockPos;
 		BlockState blockState;
 		DoubleBlockHalf doubleBlockHalf = state.getValue(HALF);
-		if (doubleBlockHalf == DoubleBlockHalf.UPPER && (blockState = level.getBlockState(blockPos = pos.below())).is(state.getBlock()) && blockState.getValue(HALF) == DoubleBlockHalf.LOWER) {
-			BlockState blockState2 = blockState.hasProperty(BlockStateProperties.WATERLOGGED) && blockState.getValue(BlockStateProperties.WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
+		if (doubleBlockHalf == DoubleBlockHalf.UPPER
+			&& (blockState = level.getBlockState(blockPos = pos.below())).is(state.getBlock())
+			&& blockState.getValue(HALF) == DoubleBlockHalf.LOWER) {
+			BlockState blockState2 = blockState.hasProperty(BlockStateProperties.WATERLOGGED) && Boolean.TRUE.equals(blockState.getValue(BlockStateProperties.WATERLOGGED)) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
+
 			level.setBlock(blockPos, blockState2, 35);
 			level.levelEvent(player, 2001, blockPos, Block.getId(blockState));
 		}

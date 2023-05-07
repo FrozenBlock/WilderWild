@@ -1,8 +1,8 @@
 
-# This workflow automatically adds the mod's .jar
-# file to any release published to GitHub.
+# This workflow runs datagen and commits changes
+# to the repository.
 
-name: release
+name: datagen
 on:
   workflow_dispatch:
 
@@ -14,16 +14,23 @@ jobs:
         java: [17]    # Current Java LTS & minimum supported by Minecraft
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
-    env:
-      MAVEN_URL: ${{secrets.RELEASE_MAVEN_URL}}
-      MAVEN_USERNAME: ${{secrets.MAVEN_USERNAME}}
-      MAVEN_PASSWORD: ${{secrets.MAVEN_PASSWORD}}
-      GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-      CURSEFORGE_TOKEN: ${{secrets.CURSEFORGE_TOKEN}}
-      MODRINTH_TOKEN: ${{secrets.MODRINTH_TOKEN}}
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the
+      # added or changed files to the repository.
+      contents: write
     steps:
       - name: Checking Out the Repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Checking Out FrozenLib
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          repository: FrozenBlock/FrozenLib
+          ref: master
+          submodules: recursive
+          path: FrozenLib
       - name: Validating the Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
       - name: Setting up Java ${{ matrix.java }}
@@ -45,5 +52,7 @@ jobs:
           key: ${{ runner.os }}-gradle-#{{ hashFiles('**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-      - name: Publish to CurseForge and Modrinth
-        run: ./gradlew publishMod -PreleaseType=stable -PuseThirdPartyMods=false
+      - name: Run Datagen
+        run: ./gradlew runDatagen -PreleaseType=stable -PuseThirdPartyMods=false
+      - name: Commit Changes
+        uses: stefanzweifel/git-auto-commit-action@v4

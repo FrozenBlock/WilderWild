@@ -18,9 +18,8 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import java.util.ArrayList;
-import net.frozenblock.lib.worldgen.surface.api.FrozenDimensionBoundRuleSource;
-import net.frozenblock.lib.worldgen.surface.api.FrozenSurfaceRuleEntrypoint;
+import java.util.List;
+import net.frozenblock.lib.worldgen.surface.api.SurfaceRuleEvents;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
@@ -48,7 +47,7 @@ import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 
-public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
+public final class RegisterWorldgen implements SurfaceRuleEvents.OverworldSurfaceRuleCallback {
 
 	// Main Biomes
 	public static final ResourceKey<Biome> CYPRESS_WETLANDS = register("cypress_wetlands");
@@ -78,37 +77,40 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 	public static final ResourceKey<Biome> OLD_GROWTH_DARK_FOREST = register("old_growth_dark_forest");
 	public static final ResourceKey<Biome> SNOWY_OLD_GROWTH_PINE_TAIGA = register("snowy_old_growth_pine_taiga");
 
-	public static void registerWorldgen() {
-		WilderSharedConstants.logWild("Registering Biomes for", WilderSharedConstants.UNSTABLE_LOGGING);
+	static {
 		// MAIN BIOMES
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, CYPRESS_WETLANDS.location(), cypressWetlands());
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, MIXED_FOREST.location(), mixedForest());
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, OASIS.location(), oasis());
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, WARM_RIVER.location(), warmRiver());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, CYPRESS_WETLANDS, cypressWetlands());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, MIXED_FOREST, mixedForest());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, OASIS, oasis());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, WARM_RIVER, warmRiver());
 		// CAVE BIOMES
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, JELLYFISH_CAVES.location(), jellyfishCaves());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, JELLYFISH_CAVES, jellyfishCaves());
 		// TRANSITION BIOMES
 		// HOT
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, ARID_FOREST.location(), aridForest());
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, ARID_SAVANNA.location(), aridSavanna());
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, PARCHED_FOREST.location(), parchedForest());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, ARID_FOREST, aridForest());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, ARID_SAVANNA, aridSavanna());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, PARCHED_FOREST, parchedForest());
 		// TROPICAL
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, BIRCH_JUNGLE.location(), birchJungle());
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, SPARSE_BIRCH_JUNGLE.location(), sparseBirchJungle());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, BIRCH_JUNGLE, birchJungle());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, SPARSE_BIRCH_JUNGLE, sparseBirchJungle());
 		// TEMPERATE
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, BIRCH_TAIGA.location(), birchTaiga(false));
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, SEMI_BIRCH_FOREST.location(), semiBirchForest());
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, DARK_BIRCH_FOREST.location(), darkBirchForest());
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, FLOWER_FIELD.location(), flowerField());
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, TEMPERATE_RAINFOREST.location(), temperateRainforest());
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, RAINFOREST.location(), rainforest());
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, DARK_TAIGA.location(), darkTaiga());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, BIRCH_TAIGA, birchTaiga(false));
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, SEMI_BIRCH_FOREST, semiBirchForest());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, DARK_BIRCH_FOREST, darkBirchForest());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, FLOWER_FIELD, flowerField());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, TEMPERATE_RAINFOREST, temperateRainforest());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, RAINFOREST, rainforest());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, DARK_TAIGA, darkTaiga());
 		// OLD GROWTH
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, OLD_GROWTH_BIRCH_TAIGA.location(), birchTaiga(true));
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, OLD_GROWTH_DARK_FOREST.location(), oldGrowthDarkForest());
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, SNOWY_OLD_GROWTH_PINE_TAIGA.location(), oldGrowthSnowyTaiga());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, OLD_GROWTH_BIRCH_TAIGA, birchTaiga(true));
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, OLD_GROWTH_DARK_FOREST, oldGrowthDarkForest());
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, SNOWY_OLD_GROWTH_PINE_TAIGA, oldGrowthSnowyTaiga());
 
 		WilderNoise.init();
+	}
+
+	public static void registerWorldgen() {
+		WilderSharedConstants.logWild("Registering Biomes for", WilderSharedConstants.UNSTABLE_LOGGING);
 	}
 
 	private static ResourceKey<Biome> register(String name) {
@@ -876,36 +878,21 @@ public final class RegisterWorldgen implements FrozenSurfaceRuleEntrypoint {
 	}
 
 	@Override
-	public void addOverworldSurfaceRules(ArrayList<SurfaceRules.RuleSource> context) {
-		context.add(WilderSharedWorldgen.betaBeaches());
-		context.add(WilderSharedWorldgen.cypressSurfaceRules());
-		context.add(WilderSharedWorldgen.warmRiverRules());
-		context.add(WilderSharedWorldgen.oasisRules());
-		context.add(WilderSharedWorldgen.aridGrass());
-		context.add(WilderSharedWorldgen.aridRules());
-		context.add(WilderSharedWorldgen.oldGrowthSnowyTaigaRules());
-		context.add(WilderSharedWorldgen.oldGrowthDarkForestRules());
-		context.add(WilderSharedWorldgen.temperateRainforestRules());
-		context.add(WilderSharedWorldgen.rainforestRules());
+	public void addOverworldSurfaceRules(List<SurfaceRules.RuleSource> context) {
+		var rules = SurfaceRules.sequence(
+			WilderSharedWorldgen.betaBeaches(),
+			WilderSharedWorldgen.cypressSurfaceRules(),
+			WilderSharedWorldgen.warmRiverRules(),
+			WilderSharedWorldgen.oasisRules(),
+			WilderSharedWorldgen.aridGrass(),
+			WilderSharedWorldgen.aridRules(),
+			WilderSharedWorldgen.oldGrowthSnowyTaigaRules(),
+			WilderSharedWorldgen.oldGrowthDarkForestRules(),
+			WilderSharedWorldgen.temperateRainforestRules(),
+			WilderSharedWorldgen.rainforestRules()
+		);
+
+		context.add(rules);
 		WilderSharedConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
-	}
-
-	@Override
-	public void addOverworldSurfaceRulesNoPrelimSurface(ArrayList<SurfaceRules.RuleSource> context) {
-
-	}
-
-	@Override
-	public void addNetherSurfaceRules(ArrayList<SurfaceRules.RuleSource> context) {
-
-	}
-
-	@Override
-	public void addEndSurfaceRules(ArrayList<SurfaceRules.RuleSource> context) {
-
-	}
-
-	@Override
-	public void addSurfaceRules(ArrayList<FrozenDimensionBoundRuleSource> context) {
 	}
 }

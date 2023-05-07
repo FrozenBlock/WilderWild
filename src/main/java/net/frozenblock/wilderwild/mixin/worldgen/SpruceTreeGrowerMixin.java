@@ -16,42 +16,36 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.mixin.worldgen.general;
+package net.frozenblock.wilderwild.mixin.worldgen;
 
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.misc.interfaces.AbstractTreeGrowerInterface;
-import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.additions.feature.WilderTreeConfigured;
 import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.block.grower.OakTreeGrower;
+import net.minecraft.world.level.block.grower.SpruceTreeGrower;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value = OakTreeGrower.class, priority = 69420)
-public class OakTreeGrowerMixin {
+@Mixin(value = SpruceTreeGrower.class, priority = 69420)
+public class SpruceTreeGrowerMixin {
 
     @Inject(method = "getConfiguredFeature", at = @At("RETURN"), cancellable = true)
     public void wilderWild$getConfiguredFeature(RandomSource random, boolean bees, CallbackInfoReturnable<Holder<? extends ConfiguredFeature<?, ?>>> info) {
 		if (WilderSharedConstants.config().wildTrees()) {
-			AbstractTreeGrowerInterface treeGrowerInterface = (AbstractTreeGrowerInterface) OakTreeGrower.class.cast(this);
-			if (treeGrowerInterface.wilderWild$getLevel() != null && treeGrowerInterface.wilderWild$getPos() != null && random.nextFloat() <= 0.4F) {
-				Holder<Biome> biome = treeGrowerInterface.wilderWild$getLevel().getBiome(treeGrowerInterface.wilderWild$getPos());
-				if (biome.is(WilderBiomeTags.OAK_SAPLINGS_GROW_SWAMP_VARIANT)) {
-					info.setReturnValue(WilderTreeConfigured.SWAMP_TREE.getHolder());
-					return;
-				}
-			}
-			if (random.nextInt(10) == 0) {
-				info.setReturnValue(bees ? WilderTreeConfigured.FANCY_OAK_BEES_0004.getHolder() : WilderTreeConfigured.FANCY_OAK.getHolder());
-			} else {
-				info.setReturnValue(bees ? WilderTreeConfigured.OAK_BEES_0004.getHolder() : WilderTreeConfigured.OAK.getHolder());
-			}
+			info.setReturnValue(random.nextFloat() < 0.1F ? WilderTreeConfigured.SPRUCE_SHORT.getHolder() : WilderTreeConfigured.SPRUCE.getHolder());
 		}
     }
+
+	@Inject(method = "getConfiguredMegaFeature", at = @At("RETURN"), cancellable = true)
+	public void wilderWild$getConfiguredMegaFeature(RandomSource random, CallbackInfoReturnable<Holder<? extends ConfiguredFeature<?, ?>>> info) {
+		if (WilderSharedConstants.config().wildTrees()) {
+			if (random.nextFloat() < 0.25F) {
+				info.setReturnValue(WilderTreeConfigured.SHORT_MEGA_SPRUCE.getHolder());
+			}
+		}
+	}
 
 }

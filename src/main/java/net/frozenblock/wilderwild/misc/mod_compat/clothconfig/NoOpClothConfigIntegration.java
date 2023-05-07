@@ -142,22 +142,22 @@ public class NoOpClothConfigIntegration extends AbstractClothConfigIntegration {
 
 	@Override
 	public boolean snowballLandingSounds() {
-		return true;
+		return DefaultItemConfig.ProjectileLandingSoundsConfig.SNOWBALL_LANDING_SOUNDS;
 	}
 
 	@Override
 	public boolean eggLandingSounds() {
-		return true;
+		return DefaultItemConfig.ProjectileLandingSoundsConfig.EGG_LANDING_SOUNDS;
 	}
 
 	@Override
 	public boolean enderPearlLandingSounds() {
-		return true;
+		return DefaultItemConfig.ProjectileLandingSoundsConfig.ENDER_PEARL_LANDING_SOUNDS;
 	}
 
 	@Override
 	public boolean potionLandingSounds() {
-		return true;
+		return DefaultItemConfig.ProjectileLandingSoundsConfig.POTION_LANDING_SOUNDS;
 	}
 
 	@Override

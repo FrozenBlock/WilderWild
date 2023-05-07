@@ -4,4 +4,7 @@ Make sure to clear this after each release
 
 Put changelog here:
 -----------------
+- Fixed compatibility with WWOO
+- Fixed small biome placement issues
+- Optimized file size
 - Internal changes
