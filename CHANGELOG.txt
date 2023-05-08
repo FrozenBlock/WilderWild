@@ -9,4 +9,4 @@ Put changelog here:
 - Fixed rare crash when bushes generate in water
 - Reduced panorama resolution to 1024x1024
 - Optimized file size
-- Internal changes
+- Internal changes to surface rules
