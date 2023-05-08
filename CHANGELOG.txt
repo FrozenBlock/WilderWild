@@ -6,5 +6,7 @@ Put changelog here:
 -----------------
 - Fixed compatibility with WWOO
 - Fixed small biome placement issues
+- Fixed rare crash when bushes generate in water
+- Reduced panorama resolution to 1024x1024
 - Optimized file size
 - Internal changes
