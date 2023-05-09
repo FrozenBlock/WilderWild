@@ -136,7 +136,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 		}
 	}
 
-	@ModifyArg(method = {"m_ehrxwrfs","method_43265","lambda$tick$2"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/warden/Warden;playSound(Lnet/minecraft/sounds/SoundEvent;FF)V"), index = 0, require = 1)
+	@ModifyArg(method = {"m_ehrxwrfs", "method_43265", "lambda$tick$2"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/warden/Warden;playSound(Lnet/minecraft/sounds/SoundEvent;FF)V"), index = 0, require = 1)
 	private static SoundEvent wilderWild$modifySound(SoundEvent original) {
 		if (wilderWild$stella) {
 			return RegisterSounds.ENTITY_WARDEN_BRAP;

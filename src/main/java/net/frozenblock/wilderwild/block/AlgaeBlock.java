@@ -54,6 +54,7 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 	}
 
 	@Override
+	@NotNull
 	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
 		return SHAPE;
 	}
@@ -64,10 +65,11 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 	}
 
 	@Override
+	@NotNull
 	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockPos neighborPos) {
 		return !this.canSurvive(state, level, pos)
-				? Blocks.AIR.defaultBlockState()
-				: super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+			? Blocks.AIR.defaultBlockState()
+			: super.updateShape(state, direction, neighborState, level, pos, neighborPos);
 	}
 
 	@Override

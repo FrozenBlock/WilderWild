@@ -47,10 +47,8 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
 
 	@Shadow
 	private int lastStareSound;
-	@Shadow @Final
-	private static EntityDataAccessor<Boolean> DATA_CREEPY;
 
-    private EnderManMixin(EntityType<? extends Monster> entityType, Level level) {
+	private EnderManMixin(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
     }
 

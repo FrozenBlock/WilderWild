@@ -161,33 +161,18 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	public void spawnFireflies() {
 		if (this.level != null) {
 			if (!this.level.isClientSide) {
-				double extraHeight = this.getBlockState().getValue(BlockStateProperties.HANGING) ? 0.155 : 0;
-				for (DisplayLanternBlockEntity.FireflyInLantern firefly : this.getFireflies()) {
-					Firefly entity = RegisterEntities.FIREFLY.create(level);
-					if (entity != null) {
-						entity.moveTo(worldPosition.getX() + firefly.pos.x, worldPosition.getY() + firefly.y + extraHeight + 0.07, worldPosition.getZ() + firefly.pos.z, 0, 0);
-						entity.setFromBottle(true);
-						boolean spawned = level.addFreshEntity(entity);
-						if (spawned) {
-							entity.hasHome = true;
-							FireflyAi.rememberHome(entity, entity.blockPosition());
-							entity.setColor(firefly.color);
-							entity.setScale(1.0F);
-							if (!Objects.equals(firefly.customName, "")) {
-								entity.setCustomName(Component.nullToEmpty(firefly.customName));
-							}
-						} else {
-							WilderSharedConstants.log("Couldn't spawn Firefly from lantern @ " + worldPosition, WilderSharedConstants.UNSTABLE_LOGGING);
-						}
-					}
-				}
+				doFireflySpawns(level);
 			}
 		}
 	}
 
 	public void spawnFireflies(Level level) {
+		doFireflySpawns(level);
+	}
+
+	private void doFireflySpawns(Level level) {
 		double extraHeight = this.getBlockState().getValue(BlockStateProperties.HANGING) ? 0.155 : 0;
-		for (DisplayLanternBlockEntity.FireflyInLantern firefly : this.getFireflies()) {
+		for (FireflyInLantern firefly : this.getFireflies()) {
 			Firefly entity = RegisterEntities.FIREFLY.create(level);
 			if (entity != null) {
 				entity.moveTo(worldPosition.getX() + firefly.pos.x, worldPosition.getY() + firefly.y + extraHeight + 0.07, worldPosition.getZ() + firefly.pos.z, 0, 0);

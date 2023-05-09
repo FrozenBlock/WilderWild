@@ -73,7 +73,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	}
 
 	public void serverTick(Level level, BlockPos pos, BlockState state) {
-		if (this.ticksToStopTwitching == 0) {
+		if (this.ticksToStopTwitching <= 0) {
 			level.setBlockAndUpdate(pos, state.setValue(HangingTendrilBlock.TWITCHING, false));
 		}
 		--this.ticksToStopTwitching;

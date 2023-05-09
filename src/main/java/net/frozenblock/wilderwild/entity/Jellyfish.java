@@ -192,6 +192,7 @@ public class Jellyfish extends NoFlopAbstractFish {
     }
 
     @Override
+	@NotNull
     protected SoundEvent getSwimSound() {
         return RegisterSounds.ENTITY_JELLYFISH_SWIM;
     }
@@ -217,16 +218,19 @@ public class Jellyfish extends NoFlopAbstractFish {
     }
 
 	@Override
+	@NotNull
 	public Brain.Provider<Jellyfish> brainProvider() {
 		return Brain.provider(JellyfishAi.MEMORY_TYPES, JellyfishAi.SENSOR_TYPES);
 	}
 
     @Override
+	@NotNull
     protected Brain<Jellyfish> makeBrain(@NotNull Dynamic<?> dynamic) {
 		return JellyfishAi.makeBrain(this, this.brainProvider().makeBrain(dynamic));
     }
 
     @Override
+	@NotNull
     public Brain<Jellyfish> getBrain() {
         return (Brain<Jellyfish>) super.getBrain();
     }
@@ -377,6 +381,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
     @Override
+	@NotNull
     public SoundEvent getPickupSound() {
         return RegisterSounds.ITEM_BUCKET_FILL_JELLYFISH;
     }
@@ -409,6 +414,7 @@ public class Jellyfish extends NoFlopAbstractFish {
     }
 
     @Override
+	@NotNull
     public ItemStack getBucketItemStack() {
         return new ItemStack(RegisterItems.JELLYFISH_BUCKET);
     }
@@ -418,8 +424,7 @@ public class Jellyfish extends NoFlopAbstractFish {
     }
 
     public JellyfishVariant getVariant() {
-        JellyfishVariant variant = this.entityData.get(VARIANT);
-        return variant != null ? variant : JellyfishVariant.PINK;
+		return this.entityData.get(VARIANT);
     }
 
     public boolean isRGB() {

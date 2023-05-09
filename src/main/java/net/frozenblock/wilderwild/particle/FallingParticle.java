@@ -55,6 +55,7 @@ public class FallingParticle extends TextureSheetParticle {
 	}
 
 	@Override
+	@NotNull
 	public ParticleRenderType getRenderType() {
 		return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
 	}
@@ -69,16 +70,9 @@ public class FallingParticle extends TextureSheetParticle {
 
 	@Environment(EnvType.CLIENT)
 	public record Factory(SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
-		public Factory(SpriteSet spriteProvider) {
-			this.spriteProvider = spriteProvider;
-		}
-
+		@Override
 		public Particle createParticle(@NotNull SimpleParticleType termiteParticleOptions, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {
 			return new FallingParticle(clientLevel, x, y, z, g, h, i, this.spriteProvider);
-		}
-
-		public SpriteSet spriteProvider() {
-			return this.spriteProvider;
 		}
 	}
 }

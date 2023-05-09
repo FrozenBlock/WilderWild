@@ -44,6 +44,7 @@ public class WaterloggableTallFlowerBlock extends TallFlowerBlock implements Sim
     }
 
     @Override
+	@NotNull
     public BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
         if (state.getValue(WATERLOGGED)) {
             level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
@@ -61,6 +62,7 @@ public class WaterloggableTallFlowerBlock extends TallFlowerBlock implements Sim
     }
 
     @Override
+	@NotNull
     public FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }

@@ -74,110 +74,116 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
             nectar = entity.getCustomName().getString().toLowerCase().contains("nectar");
         }
 
-        int age = entity.getFlickerAge();
-        boolean flickers = entity.flickers();
         float prevScale = entity.getPrevScale();
         float scale = prevScale + (tickDelta * (entity.getScale() - prevScale));
 
         int overlay = getOverlay(entity, 0);
 
+		int age = entity.getFlickerAge();
+		float ageDelta = age + tickDelta;
+		boolean flickers = entity.flickers();
+
         matrices.pushPose();
         matrices.scale(scale, scale, scale);
         matrices.translate(0, yOffset, 0);
         matrices.mulPose(this.entityRenderDispatcher.cameraOrientation());
-        matrices.mulPose(one80Quat);
+		renderFirefly(matrices, vertexConsumers, light, nectar, overlay, age, flickers, one80Quat, NECTAR_LAYER, NECTAR_FLAP_LAYER, LAYER, entity.getColor(), layers, NECTAR_OVERLAY, (ageDelta) * pi);
 
-        PoseStack.Pose entry = matrices.last();
-        Matrix4f matrix4f = entry.pose();
-        Matrix3f matrix3f = entry.normal();
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(nectar ? age % 2 == 0 ? NECTAR_LAYER : NECTAR_FLAP_LAYER : LAYER);
-
-        vertexConsumer
-                .vertex(matrix4f, -0.5F, -0.5F, 0.0F)
-                .color(255, 255, 255, 255)
-                .uv(0, 1)
-                .overlayCoords(overlay)
-                .uv2(light)
-                .normal(matrix3f, 0.0F, 1.0F, 0.0F)
-                .endVertex();
-        vertexConsumer
-                .vertex(matrix4f, 0.5F, -0.5F, 0.0F)
-                .color(255, 255, 255, 255)
-                .uv(1, 1)
-                .overlayCoords(overlay)
-                .uv2(light)
-                .normal(matrix3f, 0.0F, 1.0F, 0.0F)
-                .endVertex();
-        vertexConsumer
-                .vertex(matrix4f, 0.5F, 0.5F, 0.0F)
-                .color(255, 255, 255, 255)
-                .uv(1, 0)
-                .overlayCoords(overlay)
-                .uv2(light)
-                .normal(matrix3f, 0.0F, 1.0F, 0.0F)
-                .endVertex();
-        vertexConsumer
-                .vertex(matrix4f, -0.5F, 0.5F, 0.0F)
-                .color(255, 255, 255, 255)
-                .uv(0, 0)
-                .overlayCoords(overlay)
-                .uv2(light)
-                .normal(matrix3f, 0.0F, 1.0F, 0.0F)
-                .endVertex();
-
-        if (entity.getColor() != null && layers.get(entity.getColor().getKey()) != null) {
-            if (!nectar) {
-                vertexConsumer = vertexConsumers.getBuffer(layers.get(entity.getColor().getKey()));
-            } else {
-                vertexConsumer = vertexConsumers.getBuffer(NECTAR_OVERLAY);
-            }
-        } else {
-            vertexConsumer = vertexConsumers.getBuffer(layers.get(FireflyColor.ON.getKey()));
-        }
-
-        int color = flickers ? (int) ((255 * (Math.cos(((age + tickDelta) * pi) * 0.025))) + 127.5) : (int) Math.max((255 * (Math.cos(((age + tickDelta) * pi) * 0.05))), 0);
-
-        vertexConsumer
-                .vertex(matrix4f, -0.5F, -0.5F, 0.0F)
-                .color(color, color, color, color)
-                .uv(0, 1)
-                .overlayCoords(overlay)
-                .uv2(light)
-                .normal(matrix3f, 0.0F, 1.0F, 0.0F)
-                .endVertex();
-        vertexConsumer
-                .vertex(matrix4f, 0.5F, -0.5F, 0.0F)
-                .color(color, color, color, color)
-                .uv(1, 1)
-                .overlayCoords(overlay)
-                .uv2(light)
-                .normal(matrix3f, 0.0F, 1.0F, 0.0F)
-                .endVertex();
-        vertexConsumer
-                .vertex(matrix4f, 0.5F, 0.5F, 0.0F)
-                .color(color, color, color, color)
-                .uv(1, 0)
-                .overlayCoords(overlay)
-                .uv2(light)
-                .normal(matrix3f, 0.0F, 1.0F, 0.0F)
-                .endVertex();
-        vertexConsumer
-                .vertex(matrix4f, -0.5F, 0.5F, 0.0F)
-                .color(color, color, color, color)
-                .uv(0, 0)
-                .overlayCoords(overlay)
-                .uv2(light)
-                .normal(matrix3f, 0.0F, 1.0F, 0.0F)
-                .endVertex();
-
-        matrices.popPose();
-
-        if (this.shouldShowName(entity)) {
+		if (this.shouldShowName(entity)) {
             this.renderNameTag(entity, entity.getDisplayName(), matrices, vertexConsumers, light);
         }
     }
 
-    @Override
+	public static void renderFirefly(@NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light, boolean nectar, int overlay, int age, boolean flickers, Quaternionf one80Quat, RenderType nectarLayer, RenderType nectarFlapLayer, RenderType layer, FireflyColor color2, Object2ObjectMap<ResourceLocation, RenderType> layers, RenderType nectarOverlay, double piAgeDelta) {
+		matrices.mulPose(one80Quat);
+
+		PoseStack.Pose entry = matrices.last();
+		Matrix4f matrix4f = entry.pose();
+		Matrix3f matrix3f = entry.normal();
+		VertexConsumer vertexConsumer = vertexConsumers.getBuffer(nectar ? age % 2 == 0 ? nectarLayer : nectarFlapLayer : layer);
+
+		vertexConsumer
+				.vertex(matrix4f, -0.5F, -0.5F, 0.0F)
+				.color(255, 255, 255, 255)
+				.uv(0, 1)
+				.overlayCoords(overlay)
+				.uv2(light)
+				.normal(matrix3f, 0.0F, 1.0F, 0.0F)
+				.endVertex();
+		vertexConsumer
+				.vertex(matrix4f, 0.5F, -0.5F, 0.0F)
+				.color(255, 255, 255, 255)
+				.uv(1, 1)
+				.overlayCoords(overlay)
+				.uv2(light)
+				.normal(matrix3f, 0.0F, 1.0F, 0.0F)
+				.endVertex();
+		vertexConsumer
+				.vertex(matrix4f, 0.5F, 0.5F, 0.0F)
+				.color(255, 255, 255, 255)
+				.uv(1, 0)
+				.overlayCoords(overlay)
+				.uv2(light)
+				.normal(matrix3f, 0.0F, 1.0F, 0.0F)
+				.endVertex();
+		vertexConsumer
+				.vertex(matrix4f, -0.5F, 0.5F, 0.0F)
+				.color(255, 255, 255, 255)
+				.uv(0, 0)
+				.overlayCoords(overlay)
+				.uv2(light)
+				.normal(matrix3f, 0.0F, 1.0F, 0.0F)
+				.endVertex();
+
+		if (color2 != null && layers.get(color2.getKey()) != null) {
+			if (!nectar) {
+				vertexConsumer = vertexConsumers.getBuffer(layers.get(color2.getKey()));
+			} else {
+				vertexConsumer = vertexConsumers.getBuffer(nectarOverlay);
+			}
+		} else {
+			vertexConsumer = vertexConsumers.getBuffer(layers.get(FireflyColor.ON.getKey()));
+		}
+
+		int color = flickers ? (int) ((255 * (Math.cos((piAgeDelta) * 0.025))) + 127.5) : (int) Math.max((255 * (Math.cos((piAgeDelta) * 0.05))), 0);
+
+		vertexConsumer
+				.vertex(matrix4f, -0.5F, -0.5F, 0.0F)
+				.color(color, color, color, color)
+				.uv(0, 1)
+				.overlayCoords(overlay)
+				.uv2(light)
+				.normal(matrix3f, 0.0F, 1.0F, 0.0F)
+				.endVertex();
+		vertexConsumer
+				.vertex(matrix4f, 0.5F, -0.5F, 0.0F)
+				.color(color, color, color, color)
+				.uv(1, 1)
+				.overlayCoords(overlay)
+				.uv2(light)
+				.normal(matrix3f, 0.0F, 1.0F, 0.0F)
+				.endVertex();
+		vertexConsumer
+				.vertex(matrix4f, 0.5F, 0.5F, 0.0F)
+				.color(color, color, color, color)
+				.uv(1, 0)
+				.overlayCoords(overlay)
+				.uv2(light)
+				.normal(matrix3f, 0.0F, 1.0F, 0.0F)
+				.endVertex();
+		vertexConsumer
+				.vertex(matrix4f, -0.5F, 0.5F, 0.0F)
+				.color(color, color, color, color)
+				.uv(0, 0)
+				.overlayCoords(overlay)
+				.uv2(light)
+				.normal(matrix3f, 0.0F, 1.0F, 0.0F)
+				.endVertex();
+
+		matrices.popPose();
+	}
+
+	@Override
     public ResourceLocation getTextureLocation(@NotNull Firefly entity) {
         return TEXTURE;
     }

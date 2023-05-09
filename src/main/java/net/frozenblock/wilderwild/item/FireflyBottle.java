@@ -52,6 +52,7 @@ public class FireflyBottle extends Item {
 	}
 
 	@Override
+	@NotNull
 	public ItemStack finishUsingItem(@NotNull ItemStack stack, @NotNull Level level, @NotNull LivingEntity user) {
 		Player playerEntity = user instanceof Player ? (Player) user : null;
 		if (playerEntity instanceof ServerPlayer) {

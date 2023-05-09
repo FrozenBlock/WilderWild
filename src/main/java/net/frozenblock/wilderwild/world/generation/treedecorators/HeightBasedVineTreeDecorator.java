@@ -31,6 +31,7 @@ import net.minecraft.world.level.block.VineBlock;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
+import org.jetbrains.annotations.NotNull;
 
 public class HeightBasedVineTreeDecorator extends TreeDecorator {
     public static final Codec<HeightBasedVineTreeDecorator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
@@ -49,10 +50,13 @@ public class HeightBasedVineTreeDecorator extends TreeDecorator {
         this.vinePlaceChance = vinePlaceChance;
     }
 
+	@Override
+	@NotNull
     protected TreeDecoratorType<?> type() {
         return WilderTreeDecorators.HEIGHT_BASED_VINE_TREE_DECORATOR;
     }
 
+	@Override
     public void place(Context generator) {
         RandomSource abstractRandom = generator.random();
         if (abstractRandom.nextFloat() <= this.chanceToDecorate) {

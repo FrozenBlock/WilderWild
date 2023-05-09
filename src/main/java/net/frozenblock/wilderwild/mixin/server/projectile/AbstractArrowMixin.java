@@ -38,11 +38,10 @@ public class AbstractArrowMixin {
     public void wilderWild$sendProjectileBreakParticles(BlockHitResult blockHitResult, CallbackInfo info) {
         if (WilderSharedConstants.config().projectileBreakParticles()) {
             AbstractArrow arrow = AbstractArrow.class.cast(this);
-            Vec3 speed = arrow.getDeltaMovement();
             if (!arrow.level().isClientSide) {
                 if (arrow.level() instanceof ServerLevel server) {
                     BlockState state = server.getBlockState(blockHitResult.getBlockPos());
-                    double d = speed.length(); //The distance the arrow travels on this given tick.
+                    double d = arrow.getDeltaMovement().length(); //The distance the arrow travels on this given tick.
                     int particleCalc = ((int) ((d * d) * 1.5));
                     if (particleCalc > 1 || (particleCalc == 1 && arrow.level().random.nextBoolean())) {
                         server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), blockHitResult.getLocation().x(), blockHitResult.getLocation().y(), blockHitResult.getLocation().z(), particleCalc == 1 ? 1 : server.random.nextIntBetweenInclusive(1, particleCalc), 0, 0, 0, 0.05D);

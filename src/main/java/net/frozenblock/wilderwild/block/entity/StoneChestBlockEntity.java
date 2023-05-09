@@ -192,39 +192,39 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
 
 	public void syncLidValuesWith(StoneChestBlockEntity otherStoneChest) {
 		if (otherStoneChest != null) {
-			otherStoneChest.openProgress = this.openProgress;
-			otherStoneChest.prevOpenProgress = this.prevOpenProgress;
-			otherStoneChest.highestLidPoint = this.highestLidPoint;
-			otherStoneChest.stillLidTicks = this.stillLidTicks;
-			otherStoneChest.cooldownTicks = this.cooldownTicks;
-			otherStoneChest.shouldSkip = true;
-			otherStoneChest.closing = this.closing;
+			syncValues(otherStoneChest);
 			otherStoneChest.updateSync();
 		}
 		this.updateSync();
 	}
 
 	public void updateSync() {
-		StoneChestBlockEntity stoneChest = getOtherEntity(this.level, this.worldPosition, this.getBlockState());
-		if (stoneChest != null) {
-			stoneChest.openProgress = this.openProgress;
-			stoneChest.prevOpenProgress = this.prevOpenProgress;
-			stoneChest.highestLidPoint = this.highestLidPoint;
-			stoneChest.stillLidTicks = this.stillLidTicks;
-			stoneChest.cooldownTicks = this.cooldownTicks;
-			stoneChest.shouldSkip = true;
-			stoneChest.closing = this.closing;
+		if (this.level != null) {
+			StoneChestBlockEntity stoneChest = getOtherEntity(this.level, this.worldPosition, this.getBlockState());
+			if (stoneChest != null) {
+				syncValues(stoneChest);
+				if (!this.level.isClientSide) {
+					for (ServerPlayer player : PlayerLookup.tracking(stoneChest)) {
+						player.connection.send(Objects.requireNonNull(stoneChest.getUpdatePacket()));
+					}
+				}
+			}
 			if (!this.level.isClientSide) {
-				for (ServerPlayer player : PlayerLookup.tracking(stoneChest)) {
-					player.connection.send(Objects.requireNonNull(stoneChest.getUpdatePacket()));
+				for (ServerPlayer player : PlayerLookup.tracking(this)) {
+					player.connection.send(Objects.requireNonNull(this.getUpdatePacket()));
 				}
 			}
 		}
-		if (!this.level.isClientSide) {
-			for (ServerPlayer player : PlayerLookup.tracking(this)) {
-				player.connection.send(Objects.requireNonNull(this.getUpdatePacket()));
-			}
-		}
+	}
+
+	private void syncValues(StoneChestBlockEntity otherStoneChest) {
+		otherStoneChest.openProgress = this.openProgress;
+		otherStoneChest.prevOpenProgress = this.prevOpenProgress;
+		otherStoneChest.highestLidPoint = this.highestLidPoint;
+		otherStoneChest.stillLidTicks = this.stillLidTicks;
+		otherStoneChest.cooldownTicks = this.cooldownTicks;
+		otherStoneChest.shouldSkip = true;
+		otherStoneChest.closing = this.closing;
 	}
 
 	@Override

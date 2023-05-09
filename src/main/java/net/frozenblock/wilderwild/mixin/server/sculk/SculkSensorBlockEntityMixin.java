@@ -27,6 +27,8 @@ import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -43,6 +45,7 @@ import net.minecraft.world.level.block.state.properties.SculkSensorPhase;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -117,9 +120,12 @@ public final class SculkSensorBlockEntityMixin extends BlockEntity implements Sc
         ++this.wilderWild$age;
         this.wilderWild$active = state.getValue(BlockStateProperties.SCULK_SENSOR_PHASE) == SculkSensorPhase.ACTIVE;
         if (this.wilderWild$active != this.wilderWild$prevActive || this.wilderWild$animTicks == 10) {
-            for (ServerPlayer player : PlayerLookup.tracking(level, pos)) {
-                player.connection.send(sensor.getUpdatePacket());
-            }
+			Packet<ClientGamePacketListener> sensorUpdatePacket = sensor.getUpdatePacket();
+			if (sensorUpdatePacket != null) {
+				for (ServerPlayer player : PlayerLookup.tracking(level, pos)) {
+					player.connection.send(sensorUpdatePacket);
+				}
+			}
         }
         this.wilderWild$prevActive = this.wilderWild$active;
     }
@@ -142,6 +148,7 @@ public final class SculkSensorBlockEntityMixin extends BlockEntity implements Sc
 
 	@Unique
     @Override
+	@NotNull
     public CompoundTag getUpdateTag() {
         return this.saveWithoutMetadata();
     }

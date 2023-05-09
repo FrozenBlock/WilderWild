@@ -113,18 +113,15 @@ public class PollenParticle extends TextureSheetParticle {
 		return this.quadSize * Mth.lerp(partialTicks, this.prevScale, this.scale);
 	}
 
+	@Override
+	@NotNull
     public ParticleRenderType getRenderType() {
         return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
     }
 
     @Environment(EnvType.CLIENT)
-    public static class PollenFactory implements ParticleProvider<SimpleParticleType> {
-        private final SpriteSet spriteProvider;
-
-        public PollenFactory(SpriteSet spriteProvider) {
-            this.spriteProvider = spriteProvider;
-        }
-
+	public record PollenFactory(SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
+		@Override
         public Particle createParticle(@NotNull SimpleParticleType defaultParticleType, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {
             PollenParticle pollenParticle = new PollenParticle(clientLevel, this.spriteProvider, x, y, z, 0.0D, -0.800000011920929D, 0.0D);
             pollenParticle.lifetime = Mth.randomBetweenInclusive(clientLevel.random, 500, 1000);

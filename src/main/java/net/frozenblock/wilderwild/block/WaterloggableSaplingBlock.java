@@ -85,6 +85,7 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWat
     }
 
 	@Override
+	@NotNull
     public BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
         if (state.getValue(WATERLOGGED)) {
             level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
@@ -94,6 +95,7 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWat
     }
 
 	@Override
+	@Nullable
     public FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }

@@ -80,7 +80,7 @@ public final class BigDripleafBlockMixin {
 		}
 	}
 
-	@Inject(method = "createBlockStateDefinition", at = @At("TAIL"), cancellable = true)
+	@Inject(method = "createBlockStateDefinition", at = @At("TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
 		builder.add(BlockStateProperties.POWERED);
 	}

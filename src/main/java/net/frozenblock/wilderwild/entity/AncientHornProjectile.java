@@ -225,7 +225,7 @@ public class AncientHornProjectile extends AbstractArrow {
 				}
 			}
 		}
-		if (!this.isRemoved() && hitResult != null && !noPhysics) {
+		if (!this.isRemoved() && !noPhysics) {
 			this.onHit(hitResult);
 			if (this.isRemoved()) {
 				return;
@@ -241,7 +241,6 @@ public class AncientHornProjectile extends AbstractArrow {
 				this.level().addParticle(ParticleTypes.CRIT, this.getX() + deltaX * (double) i / 4.0D, this.getY() + deltaY * (double) i / 4.0D, this.getZ() + deltaZ * (double) i / 4.0D, -deltaX, -deltaY + 0.2D, -deltaZ);
 			}
 		}
-		float divider = this.getBoundingBoxMultiplier() + 1F;
 		float moveDivider = this.getBoundingBoxMultiplier() * 0.5F + 1F;
 		double x = this.getX() + (deltaX / moveDivider);
 		double y = this.getY() + (deltaY / moveDivider);
@@ -603,7 +602,7 @@ public class AncientHornProjectile extends AbstractArrow {
     }
 
 	@Override
-	public void remove(RemovalReason reason) {
+	public void remove(@NotNull RemovalReason reason) {
 		this.hitEntities.clear();
 		super.remove(reason);
 	}

@@ -74,6 +74,7 @@ public class BaobabNutBlock extends SaplingBlock {
     }
 
     @Override
+	@NotNull
     public VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         Vec3 vec3d = state.getOffset(level, pos);
         VoxelShape voxelShape;
@@ -132,6 +133,7 @@ public class BaobabNutBlock extends SaplingBlock {
 	}
 
 	@Override //Only collision with projectiles so you can shoot them down
+	@NotNull
 	public VoxelShape getCollisionShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
 		if (blockState.is(this) && collisionContext instanceof EntityCollisionContext entityCollision && isHanging(blockState)) {
 			if (entityCollision.getEntity() != null) {

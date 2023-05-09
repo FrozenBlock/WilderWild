@@ -11,18 +11,21 @@ import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class FireflyBottleTrigger extends SimpleCriterionTrigger<FireflyBottleTrigger.TriggerInstance> {
 
 	public static final ResourceLocation ID = WilderSharedConstants.id("firefly_bottle");
 
 	@Override
+	@NotNull
 	public ResourceLocation getId() {
 		return ID;
 	}
 
 	@Override
-	public TriggerInstance createInstance(JsonObject jsonObject, ContextAwarePredicate contextAwarePredicate, DeserializationContext deserializationContext) {
+	@NotNull
+	public TriggerInstance createInstance(JsonObject jsonObject, @NotNull ContextAwarePredicate contextAwarePredicate, @NotNull DeserializationContext deserializationContext) {
 		ItemPredicate itemPredicate = ItemPredicate.fromJson(jsonObject.get("item"));
 		return new TriggerInstance(itemPredicate, contextAwarePredicate);
 	}
@@ -49,7 +52,8 @@ public class FireflyBottleTrigger extends SimpleCriterionTrigger<FireflyBottleTr
 	}
 
 		@Override
-		public JsonObject serializeToJson(SerializationContext context) {
+		@NotNull
+		public JsonObject serializeToJson(@NotNull SerializationContext context) {
 			JsonObject jsonObject = super.serializeToJson(context);
 			jsonObject.add("item", this.item.serializeToJson());
 			return jsonObject;

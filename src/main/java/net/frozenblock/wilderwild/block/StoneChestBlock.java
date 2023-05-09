@@ -165,6 +165,7 @@ public class StoneChestBlock extends ChestBlock {
     public static final DoubleBlockCombiner.Combiner<ChestBlockEntity, Optional<MenuProvider>> STONE_NAME_RETRIEVER = new DoubleBlockCombiner.Combiner<>() {
 
         @Override
+		@NotNull
         public Optional<MenuProvider> acceptDouble(final @NotNull ChestBlockEntity chestBlockEntity, final @NotNull ChestBlockEntity chestBlockEntity2) {
             final CompoundContainer inventory = new CompoundContainer(chestBlockEntity, chestBlockEntity2);
             return Optional.of(new MenuProvider() {
@@ -181,6 +182,7 @@ public class StoneChestBlock extends ChestBlock {
                 }
 
                 @Override
+				@NotNull
                 public Component getDisplayName() {
                     if (chestBlockEntity.hasCustomName()) {
                         return chestBlockEntity.getDisplayName();
@@ -194,11 +196,13 @@ public class StoneChestBlock extends ChestBlock {
         }
 
         @Override
+		@NotNull
         public Optional<MenuProvider> acceptSingle(@NotNull ChestBlockEntity chestBlockEntity) {
             return Optional.of(chestBlockEntity);
         }
 
         @Override
+		@NotNull
         public Optional<MenuProvider> acceptNone() {
             return Optional.empty();
         }
@@ -254,6 +258,7 @@ public class StoneChestBlock extends ChestBlock {
     }
 
     @Override
+	@NotNull
     public BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
         if (state.getValue(WATERLOGGED)) {
             level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));

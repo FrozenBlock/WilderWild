@@ -49,6 +49,7 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<
 	}
 
 	@Override
+	@NotNull
 	public Vec3 getRenderOffset(@NotNull Tumbleweed entity, float partialTicks) {
 		return new Vec3(0, 0.2375, 0);
 	}

@@ -70,6 +70,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 	private static final float crawlHeight = edgeAmount + hollowedAmount;
 
 	@Override
+	@NotNull
 	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		Direction direction = player.getMotionDirection();
 		Direction hitDirection = hit.getDirection();
@@ -113,6 +114,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
     }
 
 	@Override
+	@NotNull
 	public VoxelShape getCollisionShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
 		return switch (state.getValue(AXIS)) {
 			default -> X_COLLISION_SHAPE;
@@ -122,6 +124,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 	}
 
 	@Override
+	@NotNull
     public VoxelShape getInteractionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
         return RAYCAST_SHAPE;
     }
@@ -133,6 +136,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
     }
 
     @Override
+	@NotNull
     public BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
         if (state.getValue(WATERLOGGED)) {
             level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
@@ -142,6 +146,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
     }
 
     @Override
+	@NotNull
     public FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
@@ -153,6 +158,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
     }
 
     @Override
+	@NotNull
     public RenderShape getRenderShape(@NotNull BlockState blockState) {
         return RenderShape.MODEL;
     }

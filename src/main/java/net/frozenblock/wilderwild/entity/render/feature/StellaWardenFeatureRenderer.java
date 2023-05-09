@@ -45,14 +45,14 @@ public class StellaWardenFeatureRenderer<T extends Warden, M extends WardenModel
             VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderType.entityTranslucentEmissive(this.texture));
             this.getParentModel()
                     .renderToBuffer(
-                            matrixStack,
-                            vertexConsumer,
-                            i,
-                            LivingEntityRenderer.getOverlayCoords(wardenEntity, 0.0F),
-                            1.0F,
-                            1.0F,
-                            1.0F,
-                            this.alphaFunction.apply(wardenEntity, partialTick, j)
+						matrixStack,
+						vertexConsumer,
+						i,
+						LivingEntityRenderer.getOverlayCoords(wardenEntity, 0.0F),
+						1.0F,
+						1.0F,
+						1.0F,
+						this.alphaFunction.apply(wardenEntity, partialTick, j)
                     );
             this.resetDrawForAllParts();
         }

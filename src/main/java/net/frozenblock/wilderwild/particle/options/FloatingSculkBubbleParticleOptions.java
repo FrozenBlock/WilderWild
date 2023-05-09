@@ -48,6 +48,7 @@ public class FloatingSculkBubbleParticleOptions implements ParticleOptions {
 	public static final ParticleOptions.Deserializer<FloatingSculkBubbleParticleOptions> DESERIALIZER = new ParticleOptions.Deserializer<>() {
 
 		@Override
+		@NotNull
 		public FloatingSculkBubbleParticleOptions fromCommand(@NotNull ParticleType<FloatingSculkBubbleParticleOptions> particleType, @NotNull StringReader stringReader) throws CommandSyntaxException {
 			double d = stringReader.readDouble();
 			int i = stringReader.readInt();
@@ -57,6 +58,7 @@ public class FloatingSculkBubbleParticleOptions implements ParticleOptions {
 		}
 
 		@Override
+		@NotNull
 		public FloatingSculkBubbleParticleOptions fromNetwork(@NotNull ParticleType<FloatingSculkBubbleParticleOptions> particleType, @NotNull FriendlyByteBuf friendlyByteBuf) {
 			return new FloatingSculkBubbleParticleOptions(friendlyByteBuf.readDouble(), friendlyByteBuf.readInt(), FloatingSculkBubbleParticleOptions.readVelocity(friendlyByteBuf));
 		}
@@ -83,6 +85,7 @@ public class FloatingSculkBubbleParticleOptions implements ParticleOptions {
 	}
 
 	@Override
+	@NotNull
 	public ParticleType<?> getType() {
 		return RegisterParticles.FLOATING_SCULK_BUBBLE;
 	}
@@ -95,6 +98,7 @@ public class FloatingSculkBubbleParticleOptions implements ParticleOptions {
 		buffer.writeDouble(this.velocity.z());
 	}
 
+	@NotNull
 	public String writeToString() {
 		return String.format(Locale.ROOT, "%s %.2f %d %.2f %.2f %.2f", BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), this.getSize(), this.getMaxAge(), this.velocity.x(), this.velocity.y(), this.velocity.z());
 	}

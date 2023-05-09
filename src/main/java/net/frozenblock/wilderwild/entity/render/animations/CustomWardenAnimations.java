@@ -27,7 +27,7 @@ import net.minecraft.client.animation.Keyframe;
 import net.minecraft.client.animation.KeyframeAnimations;
 
 /**
- * put custom warden animations in here. for example, death, flying, swimming. not for overrides
+ * Put custom Warden animations in here. for example, death, flying, swimming. Not for overrides.
  */
 @Environment(EnvType.CLIENT)
 public final class CustomWardenAnimations {

@@ -40,7 +40,6 @@ import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
 public class TermiteParticle extends TextureSheetParticle {
-    private final SpriteSet spriteProvider;
 	private float prevScale = 0F;
 	private float scale = 0F;
 	private float targetScale = 0F;
@@ -57,11 +56,10 @@ public class TermiteParticle extends TextureSheetParticle {
 	private final float ySpinSpeed;
 	private final float zSpinSpeed;
 
-    public TermiteParticle(ClientLevel clientLevel, double x, double y, double z, SpriteSet spriteProvider) {
+    public TermiteParticle(ClientLevel clientLevel, SpriteSet spriteProvider, double x, double y, double z) {
         super(clientLevel, x, y, z);
-        this.spriteProvider = spriteProvider;
+		this.pickSprite(spriteProvider);
         this.hasPhysics = false;
-        this.setSpriteFromAge(spriteProvider);
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -80,6 +78,7 @@ public class TermiteParticle extends TextureSheetParticle {
     }
 
 	@Override
+	@NotNull
     public ParticleRenderType getRenderType() {
         return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
     }
@@ -182,20 +181,13 @@ public class TermiteParticle extends TextureSheetParticle {
 
 	@Environment(EnvType.CLIENT)
     public record Factory(SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
-        public Factory(SpriteSet spriteProvider) {
-            this.spriteProvider = spriteProvider;
-        }
-
+		@Override
         public Particle createParticle(@NotNull SimpleParticleType termiteParticleOptions, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {
-            TermiteParticle termite = new TermiteParticle(clientLevel, x, y, z, this.spriteProvider);
+            TermiteParticle termite = new TermiteParticle(clientLevel, spriteProvider, x, y, z);
             termite.setAlpha(1.0F);
 			termite.setLifetime(clientLevel.random.nextInt(10) + 5 + termite.age);
             termite.scale(0.75F);
             return termite;
-        }
-
-        public SpriteSet spriteProvider() {
-            return this.spriteProvider;
         }
 	}
 }

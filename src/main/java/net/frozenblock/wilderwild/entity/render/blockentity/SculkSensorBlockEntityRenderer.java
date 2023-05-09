@@ -66,6 +66,7 @@ public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> im
         return LayerDefinition.create(modelData, 64, 64);
     }
 
+	@Override
     public void render(@NotNull T entity, float partialTick, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
         if (WilderSharedConstants.config().mcLiveSensorTendrils()) {
             SculkSensorTickInterface tickInterface = ((SculkSensorTickInterface) entity);

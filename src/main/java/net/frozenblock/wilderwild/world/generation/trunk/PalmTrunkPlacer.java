@@ -46,12 +46,14 @@ public class PalmTrunkPlacer extends TrunkPlacer {
 	}
 
 	@Override
+	@NotNull
 	protected TrunkPlacerType<?> type() {
 		return WilderWild.PALM_TRUNK_PLACER;
 	}
 
 	@Override
-	public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> blockSetter, @NotNull RandomSource random, int freeTreeHeight, BlockPos pos, TreeConfiguration config) {
+	@NotNull
+	public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> blockSetter, @NotNull RandomSource random, int freeTreeHeight, BlockPos pos, @NotNull TreeConfiguration config) {
 		int n;
 		PalmTrunkPlacer.setDirtAt(level, blockSetter, random, pos.below(), config);
 		ArrayList<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();

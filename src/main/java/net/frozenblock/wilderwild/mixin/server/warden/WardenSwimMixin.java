@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.mixin.server.warden;
 import net.frozenblock.wilderwild.entity.ai.warden.WardenLookControl;
 import net.frozenblock.wilderwild.entity.ai.warden.WardenMoveControl;
 import net.frozenblock.wilderwild.entity.ai.warden.WardenNavigation;
-import net.frozenblock.wilderwild.misc.interfaces.SwimmingWarden;
+import net.frozenblock.wilderwild.misc.interfaces.SwimmingWardenInterface;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
@@ -49,7 +49,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = Warden.class, priority = 1001)
-public abstract class WardenSwimMixin extends Monster implements SwimmingWarden {
+public abstract class WardenSwimMixin extends Monster implements SwimmingWardenInterface {
 
 	private WardenSwimMixin(EntityType<? extends Monster> entityType, Level level) {
 		super(entityType, level);
@@ -173,5 +173,17 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWarden 
 		if (warden.isVisuallySwimming()) {
 			info.setReturnValue(EntityDimensions.scalable(warden.getType().getWidth(), 0.85F));
 		}
+	}
+
+	@Override
+	public boolean wilderWild$isTouchingWaterOrLava() {
+		Warden warden = Warden.class.cast(this);
+		return warden.isInWaterOrBubble() || warden.isInLava();
+	}
+
+	@Override
+	public boolean wilderWild$isSubmergedInWaterOrLava() {
+		Warden warden = Warden.class.cast(this);
+		return warden.isEyeInFluid(FluidTags.WATER) || warden.isEyeInFluid(FluidTags.LAVA);
 	}
 }

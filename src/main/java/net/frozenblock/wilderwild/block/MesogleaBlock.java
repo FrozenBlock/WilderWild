@@ -85,6 +85,7 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 	}
 
 	@Override
+	@NotNull
 	public VoxelShape getCollisionShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
 		if (collisionContext instanceof EntityCollisionContext entityCollisionContext && entityCollisionContext.getEntity() != null) {
 			if (blockState.getValue(WATERLOGGED)) {
@@ -130,6 +131,7 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 	}
 
 	@Override
+	@NotNull
 	public BlockState updateShape(BlockState blockState, @NotNull Direction direction, @NotNull BlockState blockState2, @NotNull LevelAccessor levelAccessor, @NotNull BlockPos blockPos, @NotNull BlockPos blockPos2) {
 		if (blockState.getValue(WATERLOGGED)) {
 			levelAccessor.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
@@ -138,6 +140,7 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 	}
 
 	@Override
+	@NotNull
 	public FluidState getFluidState(BlockState blockState) {
 		if (blockState.getValue(WATERLOGGED)) {
 			return Fluids.WATER.getSource(false);
@@ -157,6 +160,7 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 	}
 
 	@Override
+	@NotNull
 	public RenderShape getRenderShape(BlockState state) {
 		return state.getValue(BlockStateProperties.WATERLOGGED) && WilderSharedConstants.config().mesogleaLiquid() && !FrozenBools.HAS_SODIUM ? RenderShape.INVISIBLE : super.getRenderShape(state);
 	}

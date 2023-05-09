@@ -74,6 +74,7 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
     }
 
     @Override
+	@NotNull
     public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
         if (level instanceof ServerLevel) {
             FlowerColor color = state.getValue(COLORS);
@@ -82,9 +83,7 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
                 if (itemStack.is(Items.SHEARS)) {
                     Item item = color == FlowerColor.BLUE ? RegisterBlocks.BLUE_GLORY_OF_THE_SNOW.asItem() : color == FlowerColor.PINK ? RegisterBlocks.PINK_GLORY_OF_THE_SNOW.asItem() :
                             color == FlowerColor.PURPLE ? RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW.asItem() : RegisterBlocks.WHITE_GLORY_OF_THE_SNOW.asItem();
-                    ItemStack stack = new ItemStack(item);
-                    stack.setCount(level.random.nextIntBetweenInclusive(1, 2));
-                    popResource(level, pos, stack);
+                    popResource(level, pos, new ItemStack(item, level.random.nextIntBetweenInclusive(1, 2)));
                     level.setBlockAndUpdate(pos, state.getBlock().defaultBlockState());
                     level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
                     itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
@@ -98,6 +97,7 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
     }
 
 	@Override
+	@NotNull
     public VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         Vec3 vec3d = state.getOffset(level, pos);
         return SHAPE.move(vec3d.x, vec3d.y, vec3d.z);

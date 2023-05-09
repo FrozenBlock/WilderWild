@@ -59,6 +59,7 @@ public class TermiteMound extends BaseEntityBlock {
     }
 
 	@Override
+	@NotNull
 	public BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
 		boolean isSafe = TermiteManager.isPosSafeForTermites(level, neighborPos, neighborState);
 		if (isSafe != state.getValue(RegisterProperties.TERMITES_AWAKE)) {
@@ -119,6 +120,7 @@ public class TermiteMound extends BaseEntityBlock {
 	}
 
 	@Override
+	@NotNull
     public RenderShape getRenderShape(@NotNull BlockState blockState) {
         return RenderShape.MODEL;
     }

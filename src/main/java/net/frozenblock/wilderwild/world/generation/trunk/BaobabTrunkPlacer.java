@@ -56,6 +56,8 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 		this.insideBlockState = insideBlockState;
     }
 
+	@Override
+	@NotNull
     protected TrunkPlacerType<?> type() {
         return WilderWild.BAOBAB_TRUNK_PLACER;
     }
@@ -74,6 +76,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
      **/
 
     @Override
+	@NotNull
     public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, int height, @NotNull BlockPos startPos, @NotNull TreeConfiguration config) {
         BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 
@@ -82,8 +85,8 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 		List<BlockPos> placedLogs = Lists.newArrayList();
 
         double percentage = 30;
-        double branchpercentage = 40;
-        float toppercentage = 25;
+        double branchPercentage = 40;
+        float topPercentage = 25;
 
         for (int x = 0; x < 4; x++) { // X
             for (int z = 0; z < 4; z++) { // Z
@@ -154,10 +157,10 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
                         dir1 = Direction.EAST;
                         dir2 = Direction.SOUTH;
                     }
-                    if (AdvancedMath.random().nextDouble() <= toppercentage / 100) {
+                    if (AdvancedMath.random().nextDouble() <= topPercentage / 100) {
                         list.add(generateBranch(dir1, dir2, 1F / 4F, height, height / 4, 4, level, replacer, random, mutable, config, center, x, z, placedLogs));
                     }
-                    if (AdvancedMath.random().nextDouble() <= branchpercentage / 100) {
+                    if (AdvancedMath.random().nextDouble() <= branchPercentage / 100) {
                         float min = 1F / 3F, max = 1F;
                         float p = ((AdvancedMath.random().nextFloat() * (max - min)) + min);
                         list.add(generateBranch(dir1, dir2, p, height, height, 4, level, replacer, random, mutable, config, center, x, z, placedLogs));

@@ -69,6 +69,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 	}
 
     @Override
+	@NotNull
     public ParticleRenderType getRenderType() {
         return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
     }

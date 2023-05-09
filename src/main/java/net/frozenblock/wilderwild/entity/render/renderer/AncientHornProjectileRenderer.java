@@ -60,7 +60,9 @@ public class AncientHornProjectileRenderer<T extends AncientHornProjectile> exte
 
         matrices.scale(scale, scale, scale);
 
-        this.model.render(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, correctedAlpha, partialTick, projectile);
+		this.model.partialTick = partialTick;
+		this.model.projectile = projectile;
+        this.model.renderToBuffer(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, correctedAlpha);
 
         matrices.popPose();
         super.render(projectile, yaw, partialTick, matrices, vertexConsumers, light);

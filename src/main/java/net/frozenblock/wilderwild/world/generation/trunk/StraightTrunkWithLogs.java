@@ -55,11 +55,13 @@ public class StraightTrunkWithLogs extends TrunkPlacer {
     }
 
 	@Override
+	@NotNull
     protected TrunkPlacerType<?> type() {
         return WilderWild.STRAIGHT_TRUNK_WITH_LOGS_PLACER_TYPE;
     }
 
 	@Override
+	@NotNull
     public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, int height, BlockPos startPos, @NotNull TreeConfiguration config) {
         setDirtAt(level, replacer, random, startPos.below(), config);
         List<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();

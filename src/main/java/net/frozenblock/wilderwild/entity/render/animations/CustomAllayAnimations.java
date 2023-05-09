@@ -26,7 +26,7 @@ import net.minecraft.client.animation.Keyframe;
 import net.minecraft.client.animation.KeyframeAnimations;
 
 /**
- * put custom allay animations in here. for example, dancing, swimming. not for overrides
+ * Put custom Allay animations in here. for example, dancing, swimming. Not for overrides
  */
 @Environment(EnvType.CLIENT)
 public final class CustomAllayAnimations {

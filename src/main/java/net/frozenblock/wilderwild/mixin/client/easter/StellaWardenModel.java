@@ -37,11 +37,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(WardenModel.class)
 public abstract class StellaWardenModel<T extends Warden> implements WilderWardenModel {
 
-    @Final
-    @Shadow
-    protected ModelPart body;
-
-    @Final
+	@Final
     @Shadow
     protected ModelPart head;
 
@@ -62,7 +58,7 @@ public abstract class StellaWardenModel<T extends Warden> implements WilderWarde
     }
 
     @Override
-    public List<ModelPart> getHeadAndTendrils() {
+    public List<ModelPart> wilderWild$getHeadAndTendrils() {
         return this.wilderWild$headAndTendrils;
     }
 }

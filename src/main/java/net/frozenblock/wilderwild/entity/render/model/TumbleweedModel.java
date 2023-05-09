@@ -100,6 +100,7 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 	}
 
 	@Override
+	@NotNull
 	public ModelPart root() {
 		return this.root;
 	}

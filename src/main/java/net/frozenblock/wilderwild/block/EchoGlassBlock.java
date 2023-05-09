@@ -140,6 +140,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
     }
 
 	@Override
+	@NotNull
 	public ItemStack getCloneItemStack(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state) {
 		ItemStack superStack = super.getCloneItemStack(level, pos, state);
 		int damage = state.getValue(RegisterProperties.DAMAGE);

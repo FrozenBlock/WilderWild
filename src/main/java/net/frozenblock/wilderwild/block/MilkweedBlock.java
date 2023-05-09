@@ -72,6 +72,7 @@ public class MilkweedBlock extends TallFlowerBlock {
     }
 
     @Override
+	@NotNull
     public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		if (isFullyGrown(state)) {
 			ItemStack itemStack = player.getItemInHand(hand);

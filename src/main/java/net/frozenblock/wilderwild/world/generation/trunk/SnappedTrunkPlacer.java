@@ -42,11 +42,13 @@ public class SnappedTrunkPlacer extends TrunkPlacer {
     }
 
 	@Override
+	@NotNull
     protected TrunkPlacerType<?> type() {
         return WilderWild.SNAPPED_TRUNK_PLACER;
     }
 
 	@Override
+	@NotNull
     public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, int height, BlockPos startPos, @NotNull TreeConfiguration config) {
         setDirtAt(level, replacer, random, startPos.below(), config);
         BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();

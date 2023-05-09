@@ -80,7 +80,7 @@ public abstract class BaobabTreeSaplingGenerator extends AbstractMegaTreeGrower 
 	 * @return null as this feature is not applicable
 	 */
 	@Override
-	protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredMegaFeature(RandomSource random) {
+	protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredMegaFeature(@NotNull RandomSource random) {
 		return null;
 	}
 

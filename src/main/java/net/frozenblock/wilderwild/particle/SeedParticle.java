@@ -31,6 +31,7 @@ import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -63,18 +64,14 @@ public class SeedParticle extends TextureSheetParticle {
 		this.zd += wind.z() * multXZ;
     }
 
+	@Override
+	@NotNull
     public ParticleRenderType getRenderType() {
         return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
     }
 
     @Environment(EnvType.CLIENT)
-    public static class Factory implements ParticleProvider<SeedParticleOptions> {
-        private final SpriteSet spriteProvider;
-
-        public Factory(SpriteSet spriteProvider) {
-            this.spriteProvider = spriteProvider;
-        }
-
+	public record Factory(SpriteSet spriteProvider) implements ParticleProvider<SeedParticleOptions> {
         @Override
         public Particle createParticle(@NotNull SeedParticleOptions options, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             double windex = options.isControlled() ? xSpeed * 1.1 : ClientWindManager.getWindX(1) * 1.1;

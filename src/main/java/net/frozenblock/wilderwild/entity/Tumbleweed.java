@@ -72,6 +72,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -119,7 +120,10 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 			if (level.getRandom().nextInt(0,  diff == 0 ? 32 : (27 / diff)) == 0) {
 				int tagSelector = level.getRandom().nextInt(1, 6);
 				TagKey<Item> itemTag = tagSelector <= 1 ? WilderItemTags.TUMBLEWEED_RARE : tagSelector <= 3 ? WilderItemTags.TUMBLEWEED_MEDIUM : WilderItemTags.TUMBLEWEED_COMMON;
-				this.setItem(new ItemStack(TagUtils.getRandomEntry(level.getRandom(), itemTag)), true);
+				ItemLike itemLike = TagUtils.getRandomEntry(level.getRandom(), itemTag);
+				if (itemLike != null) {
+					this.setItem(new ItemStack(itemLike), true);
+				}
 			} else if (level.getRandom().nextInt(0, 15) == 0) {
 				this.setItem(new ItemStack(RegisterBlocks.TUMBLEWEED_PLANT), true);
 			}
@@ -378,6 +382,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	@Override
+	@NotNull
 	public Packet<ClientGamePacketListener> getAddEntityPacket() {
 		return new ClientboundAddEntityPacket(
 				this.getId(),
@@ -520,11 +525,13 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 
 	@Override
+	@NotNull
 	public Iterable<ItemStack> getArmorSlots() {
 		return NonNullList.withSize(1, ItemStack.EMPTY);
 	}
 
 	@Override
+	@NotNull
 	public ItemStack getItemBySlot(@NotNull EquipmentSlot slot) {
 		return ItemStack.EMPTY;
 	}
@@ -534,6 +541,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	@Override
+	@NotNull
 	public HumanoidArm getMainArm() {
 		return HumanoidArm.LEFT;
 	}

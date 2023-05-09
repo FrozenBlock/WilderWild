@@ -29,15 +29,14 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
+import org.jetbrains.annotations.NotNull;
 
 public class ShelfFungusTreeDecorator extends TreeDecorator {
-    public static final Codec<ShelfFungusTreeDecorator> CODEC = RecordCodecBuilder.create((instance) -> {
-        return instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter((treeDecorator) -> {
-            return treeDecorator.probability;
-        }), Codec.floatRange(0.0F, 1.0F).fieldOf("red_shelf_fungus_chance").forGetter((treeDecorator) -> {
-            return treeDecorator.redChance;
-        })).apply(instance, ShelfFungusTreeDecorator::new);
-    });
+    public static final Codec<ShelfFungusTreeDecorator> CODEC = RecordCodecBuilder.create((instance) ->
+		instance.group(
+			Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter((treeDecorator) -> treeDecorator.probability),
+			Codec.floatRange(0.0F, 1.0F).fieldOf("red_shelf_fungus_chance").forGetter((treeDecorator) -> treeDecorator.redChance)
+		).apply(instance, ShelfFungusTreeDecorator::new));
     private final float probability;
     private final float redChance;
 
@@ -46,10 +45,13 @@ public class ShelfFungusTreeDecorator extends TreeDecorator {
         this.redChance = redChance;
     }
 
+	@Override
+	@NotNull
     protected TreeDecoratorType<?> type() {
         return WilderTreeDecorators.FUNGUS_TREE_DECORATOR;
     }
 
+	@Override
     public void place(TreeDecorator.Context generator) {
         RandomSource abstractRandom = generator.random();
         if (abstractRandom.nextFloat() <= this.probability) {

@@ -75,6 +75,7 @@ public class FlowerLichenBlock extends MultifaceBlock {
     }
 
     @Override
+	@NotNull
     public MultifaceSpreader getSpreader() {
         return grower;
     }

@@ -40,10 +40,13 @@ public class ShortPalmFoliagePlacer extends FoliagePlacer {
         super(intProvider, intProvider2);
     }
 
+	@Override
+	@NotNull
     protected FoliagePlacerType<?> type() {
         return WilderWild.SHORT_PALM_FOLIAGE_PLACER;
     }
 
+	@Override
     protected void createFoliage(@NotNull LevelSimulatedReader level, @NotNull FoliageSetter blockSetter, @NotNull RandomSource random, @NotNull TreeConfiguration config, int i, FoliageAttachment foliageAttachment, int j, int k, int l) {
 		BlockPos blockPos = foliageAttachment.pos().above(l);
 		blockSetter.set(blockPos.below(), RegisterBlocks.PALM_CROWN.defaultBlockState());
@@ -96,10 +99,12 @@ public class ShortPalmFoliagePlacer extends FoliagePlacer {
 		return d < 0.6;
 	}
 
+	@Override
     public int foliageHeight(@NotNull RandomSource randomSource, int i, @NotNull TreeConfiguration treeConfiguration) {
         return 0;
     }
 
+	@Override
     protected boolean shouldSkipLocation(@NotNull RandomSource randomSource, int i, int j, int k, int l, boolean bl) {
         if (j == 0) {
             return (i > 1 || k > 1) && i != 0 && k != 0;

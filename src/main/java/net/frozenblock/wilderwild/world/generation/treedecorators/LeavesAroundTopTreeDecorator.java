@@ -31,6 +31,7 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 public class LeavesAroundTopTreeDecorator extends TreeDecorator {
 	public static final Codec<LeavesAroundTopTreeDecorator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
@@ -95,6 +96,7 @@ public class LeavesAroundTopTreeDecorator extends TreeDecorator {
 	}
 
 	@Override
+	@NotNull
 	protected TreeDecoratorType<?> type() {
 		return WilderTreeDecorators.LEAVES_AROUND_TOP_TREE_DECORATOR;
 	}

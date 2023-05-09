@@ -31,6 +31,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
+import org.jetbrains.annotations.NotNull;
 
 public class PollenTreeDecorator extends TreeDecorator {
     public static final Codec<PollenTreeDecorator> CODEC = RecordCodecBuilder.create((instance) ->
@@ -49,10 +50,13 @@ public class PollenTreeDecorator extends TreeDecorator {
 		this.maxPollenCount = maxPollenCount;
     }
 
+	@Override
+	@NotNull
     protected TreeDecoratorType<?> type() {
         return WilderTreeDecorators.POLLEN_TREE_DECORATOR;
     }
 
+	@Override
     public void place(Context generator) {
         RandomSource random = generator.random();
         if (random.nextFloat() <= this.chanceToDecorate) {

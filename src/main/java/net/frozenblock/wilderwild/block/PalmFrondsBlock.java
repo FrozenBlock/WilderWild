@@ -42,14 +42,17 @@ public class PalmFrondsBlock extends LeavesBlock implements BonemealableBlock {
         super(settings);
     }
 
+	@Override
     public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, @NotNull BlockState state, boolean isClient) {
         return level.getBlockState(pos.below()).isAir() && (state.getValue(BlockStateProperties.DISTANCE) < 2 || state.getValue(BlockStateProperties.PERSISTENT));
     }
 
+	@Override
     public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
         return true;
     }
 
+	@Override
     public void performBonemeal(ServerLevel level, @NotNull RandomSource random, BlockPos pos, @NotNull BlockState state) {
         level.setBlock(pos.below(), CoconutBlock.getDefaultHangingState(), 2);
     }
@@ -73,6 +76,7 @@ public class PalmFrondsBlock extends LeavesBlock implements BonemealableBlock {
 	}
 
 	@Override
+	@NotNull
 	public BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
 		int i;
 		if (state.getValue(WATERLOGGED)) {

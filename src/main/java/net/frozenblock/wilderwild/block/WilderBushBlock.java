@@ -54,11 +54,11 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class WWBushBlock extends BushBlock implements BonemealableBlock {
+public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	private static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
 
-	public WWBushBlock(BlockBehaviour.Properties properties) {
+	public WilderBushBlock(BlockBehaviour.Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0).setValue(HALF, DoubleBlockHalf.LOWER));
 	}
@@ -70,6 +70,7 @@ public class WWBushBlock extends BushBlock implements BonemealableBlock {
 	}
 
 	@Override
+	@NotNull
 	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
 		if (isFullyGrown(state)) {
 			DoubleBlockHalf doubleBlockHalf = state.getValue(HALF);

@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.server.warden;
 
 import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.misc.interfaces.SwimmingWarden;
+import net.frozenblock.wilderwild.misc.interfaces.SwimmingWardenInterface;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.ChatFormatting;
@@ -77,11 +77,6 @@ public final class WardenMixin extends Monster implements WilderWarden {
 		throw new AssertionError("Mixin injection failed - Wilder Wild WardenMixin.");
 	}
 
-	@Shadow
-	private boolean isDiggingOrEmerging() {
-		throw new AssertionError("Mixin injection failed - Wilder Wild WardenMixin.");
-	}
-
 	private WardenMixin(EntityType<? extends Monster> entityType, Level level) {
 		super(entityType, level);
 	}
@@ -131,7 +126,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 			warden.playSound(RegisterSounds.ENTITY_WARDEN_KIRBY_DEATH, 5.0F, 1.0F);
 		} else {
 			if (WilderSharedConstants.config().wardenDyingAnimation()) {
-				if (warden instanceof SwimmingWarden swim && swim.wilderWild$isSubmergedInWaterOrLava()) {
+				if (warden instanceof SwimmingWardenInterface swim && swim.wilderWild$isSubmergedInWaterOrLava()) {
 					warden.playSound(RegisterSounds.ENTITY_WARDEN_UNDERWATER_DYING, 0.75F, 1.0F);
 				} else {
 					warden.playSound(RegisterSounds.ENTITY_WARDEN_DYING, 5.0F, 1.0F);
@@ -215,7 +210,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 					if (this.wilderWild$isStella()) {
 						this.wilderWild$getKirbyDeathAnimationState().start(warden.tickCount);
 					} else {
-						if (warden instanceof SwimmingWarden swim && swim.wilderWild$isSubmergedInWaterOrLava()) {
+						if (warden instanceof SwimmingWardenInterface swim && swim.wilderWild$isSubmergedInWaterOrLava()) {
 							this.wilderWild$getSwimmingDyingAnimationState().start(warden.tickCount);
 						} else {
 							this.wilderWild$getDyingAnimationState().start(warden.tickCount);

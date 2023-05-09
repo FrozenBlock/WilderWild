@@ -145,6 +145,7 @@ public class ScorchedBlock extends BaseEntityBlock {
 	}
 
 	@Override
+	@NotNull
 	public ItemStack getCloneItemStack(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state) {
 		ItemStack superStack = super.getCloneItemStack(level, pos, state);
 		if (state.getValue(RegisterProperties.CRACKEDNESS) == 1) {
@@ -159,9 +160,9 @@ public class ScorchedBlock extends BaseEntityBlock {
 	}
 
 	@Override
+	@NotNull
 	public RenderShape getRenderShape(@NotNull BlockState blockState) {
 		return RenderShape.MODEL;
 	}
-
 }
 

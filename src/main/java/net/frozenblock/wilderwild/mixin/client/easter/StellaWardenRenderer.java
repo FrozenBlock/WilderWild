@@ -80,7 +80,7 @@ public abstract class StellaWardenRenderer extends MobRenderer<Warden, WardenMod
         );
         this.addLayer(
                 new StellaWardenFeatureRenderer<>(
-                        this, WILDERWILD$STELLA_TENDRILS_TEXTURE, (warden, partialTick, animationProgress) -> warden.getTendrilAnimation(partialTick), model -> ((WilderWardenModel) model).getHeadAndTendrils()
+                        this, WILDERWILD$STELLA_TENDRILS_TEXTURE, (warden, partialTick, animationProgress) -> warden.getTendrilAnimation(partialTick), model -> ((WilderWardenModel) model).wilderWild$getHeadAndTendrils()
                 )
         );
         this.addLayer(

@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.entity.render.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import java.util.Optional;
@@ -43,8 +42,6 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.NotNull;
-import org.joml.Matrix3f;
-import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 
 @Environment(EnvType.CLIENT)
@@ -83,100 +80,20 @@ public class DisplayLanternBlockEntityRenderer<T extends DisplayLanternBlockEnti
             matrices.mulPose(Axis.YP.rotation(n));
             this.itemRenderer.renderStatic(stack.get(), ItemDisplayContext.GROUND, light, OverlayTexture.NO_OVERLAY, matrices, vertexConsumers, lantern.getLevel(), 1);
             matrices.popPose();
-        } else if (cam != null) {
+        } else {
             double extraHeight = lantern.getBlockState().getValue(BlockStateProperties.HANGING) ? 0.38 : 0.225;
             for (DisplayLanternBlockEntity.FireflyInLantern entity : lantern.getFireflies()) {
                 boolean nectar = entity.getCustomName().toLowerCase().contains("nectar");
-                int age = entity.age;
-                boolean flickers = entity.flickers;
+
+				int age = entity.age;
                 double ageDelta = age + partialTick;
+				boolean flickers = entity.flickers;
 
                 matrices.pushPose();
                 matrices.translate(entity.pos.x, extraHeight + Math.sin(ageDelta * 0.03) * 0.15, entity.pos.z);
                 matrices.mulPose(cam);
-                matrices.mulPose(one80Quat);
-
-                PoseStack.Pose entry = matrices.last();
-                Matrix4f matrix4f = entry.pose();
-                Matrix3f matrix3f = entry.normal();
-                VertexConsumer vertexConsumer = vertexConsumers.getBuffer(nectar ? age % 2 == 0 ? NECTAR_LAYER : NECTAR_FLAP_LAYER : LAYER);
-
-                vertexConsumer
-                        .vertex(matrix4f, -0.5F, -0.5F, 0.0F)
-                        .color(255, 255, 255, 255)
-                        .uv(0, 1)
-                        .overlayCoords(overlay)
-                        .uv2(light)
-                        .normal(matrix3f, 0.0F, 1.0F, 0.0F)
-                        .endVertex();
-                vertexConsumer
-                        .vertex(matrix4f, 0.5F, -0.5F, 0.0F)
-                        .color(255, 255, 255, 255)
-                        .uv(1, 1)
-                        .overlayCoords(overlay)
-                        .uv2(light)
-                        .normal(matrix3f, 0.0F, 1.0F, 0.0F)
-                        .endVertex();
-                vertexConsumer
-                        .vertex(matrix4f, 0.5F, 0.5F, 0.0F)
-                        .color(255, 255, 255, 255)
-                        .uv(1, 0)
-                        .overlayCoords(overlay)
-                        .uv2(light)
-                        .normal(matrix3f, 0.0F, 1.0F, 0.0F)
-                        .endVertex();
-                vertexConsumer
-                        .vertex(matrix4f, -0.5F, 0.5F, 0.0F)
-                        .color(255, 255, 255, 255)
-                        .uv(0, 0)
-                        .overlayCoords(overlay)
-                        .uv2(light)
-                        .normal(matrix3f, 0.0F, 1.0F, 0.0F)
-                        .endVertex();
-
-                if (!nectar) {
-                    vertexConsumer = vertexConsumers.getBuffer(layers.get(entity.getColor().getKey()));
-                } else {
-                    vertexConsumer = vertexConsumers.getBuffer(NECTAR_OVERLAY);
-                }
-
-                int color = flickers ? (int) ((255 * (Math.cos((ageDelta * pi) * 0.025))) + 127.5) : (int) Math.max((255 * (Math.cos((ageDelta * pi) * 0.05))), 0);
-
-                vertexConsumer
-                        .vertex(matrix4f, -0.5F, -0.5F, 0.0F)
-                        .color(color, color, color, color)
-                        .uv(0, 1)
-                        .overlayCoords(overlay)
-                        .uv2(light)
-                        .normal(matrix3f, 0.0F, 1.0F, 0.0F)
-                        .endVertex();
-                vertexConsumer
-                        .vertex(matrix4f, 0.5F, -0.5F, 0.0F)
-                        .color(color, color, color, color)
-                        .uv(1, 1)
-                        .overlayCoords(overlay)
-                        .uv2(light)
-                        .normal(matrix3f, 0.0F, 1.0F, 0.0F)
-                        .endVertex();
-                vertexConsumer
-                        .vertex(matrix4f, 0.5F, 0.5F, 0.0F)
-                        .color(color, color, color, color)
-                        .uv(1, 0)
-                        .overlayCoords(overlay)
-                        .uv2(light)
-                        .normal(matrix3f, 0.0F, 1.0F, 0.0F)
-                        .endVertex();
-                vertexConsumer
-                        .vertex(matrix4f, -0.5F, 0.5F, 0.0F)
-                        .color(color, color, color, color)
-                        .uv(0, 0)
-                        .overlayCoords(overlay)
-                        .uv2(light)
-                        .normal(matrix3f, 0.0F, 1.0F, 0.0F)
-                        .endVertex();
-
-                matrices.popPose();
-            }
+				FireflyRenderer.renderFirefly(matrices, vertexConsumers, light, nectar, overlay, age, flickers, one80Quat, NECTAR_LAYER, NECTAR_FLAP_LAYER, LAYER, entity.getColor(), layers, NECTAR_OVERLAY, (ageDelta) * pi);
+			}
         }
     }
 

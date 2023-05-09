@@ -100,6 +100,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
     }
 
 	@Override
+	@NotNull
 	public BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
 		if (state.is(this) && !state.canSurvive(level, currentPos)) {
 			if (!isHanging(state)) {
@@ -112,6 +113,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	}
 
     @Override
+	@NotNull
     public VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         Vec3 vec3d = state.getOffset(level, pos);
         VoxelShape voxelShape;

@@ -148,7 +148,7 @@ public abstract class SculkBlockMixin {
             growthState = RegisterBlocks.SCULK_WALL.withPropertiesOf(chargePosState);
         }
 
-        if (canReturn && growthState != null) {
+        if (canReturn) {
             level.setBlock(newChargePos, growthState, 3);
 
             if (isWorldGen && growthState.getBlock() instanceof OsseousSculkBlock osseousSculkBlock) {

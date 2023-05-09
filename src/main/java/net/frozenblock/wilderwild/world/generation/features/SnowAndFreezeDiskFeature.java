@@ -45,6 +45,7 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
         super(codec);
     }
 
+	@Override
     public boolean place(FeaturePlaceContext<SnowAndIceDiskFeatureConfig> context) {
         boolean bl = false;
         BlockPos blockPos = context.origin();

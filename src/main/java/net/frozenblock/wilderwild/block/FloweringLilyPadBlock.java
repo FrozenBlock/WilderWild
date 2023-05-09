@@ -49,6 +49,7 @@ public class FloweringLilyPadBlock extends WaterlilyBlock {
     }
 
 	@Override
+	@NotNull
     public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return WaterlilyBlock.AABB;
     }

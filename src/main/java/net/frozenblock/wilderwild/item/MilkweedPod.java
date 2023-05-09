@@ -55,6 +55,7 @@ public class MilkweedPod extends Item {
 	}
 
 	@Override
+	@NotNull
 	public UseAnim getUseAnimation(@NotNull ItemStack stack) {
 		return UseAnim.TOOT_HORN;
 	}

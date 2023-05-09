@@ -44,7 +44,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class LevelRendererMixin {
 
     @Shadow
-    private @Nullable ClientLevel level;
+	@Nullable
+    private ClientLevel level;
 
     @Inject(method = "levelEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;playLocalSound(DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FFZ)V", ordinal = 0), cancellable = true)
     private void wilderWild$shriekerGargle(int eventId, BlockPos pos, int data, CallbackInfo info) {

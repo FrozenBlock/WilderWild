@@ -45,6 +45,7 @@ public class SeedParticleOptions implements ParticleOptions {
 	public static final Deserializer<SeedParticleOptions> DESERIALIZER = new Deserializer<>() {
 
 		@Override
+		@NotNull
 		public SeedParticleOptions fromCommand(@NotNull ParticleType<SeedParticleOptions> particleType, @NotNull StringReader stringReader) throws CommandSyntaxException {
 			boolean milkweed = stringReader.readBoolean();
 			boolean controlled = stringReader.readBoolean();
@@ -53,6 +54,7 @@ public class SeedParticleOptions implements ParticleOptions {
 		}
 
 		@Override
+		@NotNull
 		public SeedParticleOptions fromNetwork(@NotNull ParticleType<SeedParticleOptions> particleType, @NotNull FriendlyByteBuf friendlyByteBuf) {
 			return new SeedParticleOptions(friendlyByteBuf.readBoolean(), friendlyByteBuf.readBoolean());
 		}
@@ -64,6 +66,7 @@ public class SeedParticleOptions implements ParticleOptions {
 	}
 
 	@Override
+	@NotNull
 	public ParticleType<?> getType() {
 		return RegisterParticles.SEED;
 	}
@@ -73,6 +76,7 @@ public class SeedParticleOptions implements ParticleOptions {
 		buffer.writeBoolean(this.controlled);
 	}
 
+	@NotNull
 	public String writeToString() {
 		return String.format(Locale.ROOT, "%s %b %b", BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), this.isMilkweed, this.controlled);
 	}

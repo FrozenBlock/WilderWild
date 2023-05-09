@@ -68,11 +68,13 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
 	}
 
 	@Override
+	@NotNull
 	protected TrunkPlacerType<?> type() {
 		return WilderWild.JUNIPER_TRUNK_PLACER;
 	}
 
 	@Override
+	@NotNull
 	public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> blockSetter, @NotNull RandomSource random, int freeTreeHeight, BlockPos pos, @NotNull TreeConfiguration config) {
 		JuniperTrunkPlacer.setDirtAt(level, blockSetter, random, pos.below(), config);
 		int i = Math.max(0, freeTreeHeight - 1 + this.branchStartOffsetFromTop.sample(random));

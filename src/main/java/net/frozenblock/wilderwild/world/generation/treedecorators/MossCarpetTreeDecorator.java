@@ -28,6 +28,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
+import org.jetbrains.annotations.NotNull;
 
 public class MossCarpetTreeDecorator extends TreeDecorator {
     public static final Codec<MossCarpetTreeDecorator> CODEC = RecordCodecBuilder.create((instance) ->
@@ -43,10 +44,13 @@ public class MossCarpetTreeDecorator extends TreeDecorator {
         this.mossPlaceChance = mossPlaceChance;
     }
 
+	@Override
+	@NotNull
     protected TreeDecoratorType<?> type() {
         return WilderTreeDecorators.MOSS_CARPET_TREE_DECORATOR;
     }
 
+	@Override
     public void place(Context generator) {
         RandomSource random = generator.random();
         if (random.nextFloat() <= this.chanceToDecorate) {

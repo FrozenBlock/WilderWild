@@ -107,4 +107,5 @@ public class SculkShriekerBlockEntityMixin implements SculkShriekerTickInterface
 			}
 		}
 	}
+
 }

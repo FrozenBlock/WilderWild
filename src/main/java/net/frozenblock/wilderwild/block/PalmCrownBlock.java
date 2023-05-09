@@ -60,10 +60,12 @@ public class PalmCrownBlock extends BaseEntityBlock {
 	}
 
 	@Override
+	@NotNull
 	public RenderShape getRenderShape(@NotNull BlockState blockState) {
 		return RenderShape.MODEL;
 	}
 
+	@NotNull
 	public BlockState rotate(@NotNull BlockState state, @NotNull Rotation rotation) {
 		return RotatedPillarBlock.rotatePillar(state, rotation);
 	}

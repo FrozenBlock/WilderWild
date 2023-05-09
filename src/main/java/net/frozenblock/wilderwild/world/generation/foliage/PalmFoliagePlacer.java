@@ -52,6 +52,7 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 	public final IntProvider fronds;
 
 	@Override
+	@NotNull
 	protected FoliagePlacerType<?> type() {
 		return WilderWild.PALM_FOLIAGE_PLACER;
 	}
@@ -111,11 +112,13 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 		return d < 0.5 - SURROUNDING_LEAF_THRESHOLD;
 	}
 
-	public int foliageHeight(RandomSource randomSource, int i, TreeConfiguration treeConfiguration) {
+	@Override
+	public int foliageHeight(@NotNull RandomSource randomSource, int i, @NotNull TreeConfiguration treeConfiguration) {
 		return 0;
 	}
 
-	protected boolean shouldSkipLocation(RandomSource randomSource, int i, int j, int k, int l, boolean bl) {
+	@Override
+	protected boolean shouldSkipLocation(@NotNull RandomSource randomSource, int i, int j, int k, int l, boolean bl) {
 		if (j == 0) {
 			return (i > 1 || k > 1) && i != 0 && k != 0;
 		} else {

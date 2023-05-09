@@ -52,20 +52,8 @@ public class CopperHorn extends InstrumentItem {
         this.instrumentTag = instrumentTag;
 	}
 
-    public static ItemStack getStackForInstrument(Item item, Holder<Instrument> instrument) {
-        ItemStack itemStack = new ItemStack(item);
-        setInstrument(itemStack, instrument);
-        return itemStack;
-    }
-
-    private static void setInstrument(ItemStack stack, Holder<Instrument> instrument) {
-        CompoundTag nbtCompound = stack.getOrCreateTag();
-        nbtCompound.putString(
-                INSTRUMENT_KEY, (instrument.unwrapKey().orElseThrow(() -> new IllegalStateException("Invalid instrument"))).location().toString()
-        );
-    }
-
-    @Override
+	@Override
+	@NotNull
     public Optional<? extends Holder<Instrument>> getInstrument(ItemStack stack) {
         CompoundTag nbtCompound = stack.getTag();
         if (nbtCompound != null) {

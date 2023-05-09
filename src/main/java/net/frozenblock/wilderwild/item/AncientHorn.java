@@ -104,6 +104,7 @@ public class AncientHorn extends InstrumentItem {
     }
 
     @Override
+	@NotNull
     public Optional<? extends Holder<Instrument>> getInstrument(ItemStack stack) {
         CompoundTag nbtCompound = stack.getTag();
         if (nbtCompound != null) {

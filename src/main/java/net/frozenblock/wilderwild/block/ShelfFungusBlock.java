@@ -71,6 +71,7 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
     }
 
     @Override
+	@NotNull
     public InteractionResult use(BlockState state, @NotNull Level level, @NotNull BlockPos pos, Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
         ItemStack itemStack = player.getItemInHand(hand);
         int i = state.getValue(STAGE);
@@ -129,6 +130,7 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
     }
 
     @Override
+	@NotNull
     public BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
         if (state.getValue(WATERLOGGED)) {
             level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
@@ -137,11 +139,13 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
     }
 
     @Override
+	@NotNull
     public FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     @Override
+	@NotNull
     public VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return switch (state.getValue(FACE)) {
             case FLOOR -> FLOOR_SHAPE;

@@ -66,12 +66,14 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
     }
 
 	@Override
+	@NotNull
     protected TrunkPlacerType<?> type() {
         return WilderWild.FALLEN_TRUNK_WITH_LOGS_PLACER_TYPE;
     }
 
 	@Override
-    public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, int height, BlockPos startPos, @NotNull TreeConfiguration config) {
+	@NotNull
+    public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, int height, @NotNull BlockPos startPos, @NotNull TreeConfiguration config) {
         List<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();
         List<BlockPos> logs = Lists.newArrayList();
         BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();

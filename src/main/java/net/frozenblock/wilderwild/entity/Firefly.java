@@ -286,6 +286,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
     }
 
     @Override
+	@NotNull
     public Brain<Firefly> getBrain() {
         return (Brain<Firefly>) super.getBrain();
     }

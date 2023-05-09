@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.misc;
 
 import net.minecraft.util.StringRepresentable;
+import org.jetbrains.annotations.NotNull;
 
 public enum FlowerColor implements StringRepresentable {
     NONE("none"),
@@ -33,10 +34,13 @@ public enum FlowerColor implements StringRepresentable {
         this.name = name;
     }
 
+	@Override
     public String toString() {
         return this.name;
     }
 
+	@Override
+	@NotNull
     public String getSerializedName() {
         return this.name;
     }

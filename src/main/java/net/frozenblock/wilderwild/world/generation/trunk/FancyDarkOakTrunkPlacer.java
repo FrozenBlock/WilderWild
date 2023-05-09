@@ -37,11 +37,13 @@ public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
 	}
 
 	@Override
+	@NotNull
 	protected TrunkPlacerType<?> type() {
 		return WilderWild.FANCY_DARK_OAK_TRUNK_PLACER;
 	}
 
 	@Override
+	@NotNull
 	public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> blockSetter, @NotNull RandomSource random, int freeTreeHeight, BlockPos pos, @NotNull TreeConfiguration config) {
 		int r;
 		int q;
@@ -69,7 +71,7 @@ public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
 				o += direction.getStepZ();
 				--j;
 			}
-			if (!TreeFeature.isAirOrLeaves(level, blockPos2 = new BlockPos(n, r = l + q, o))) continue;
+			if (!TreeFeature.isAirOrLeaves(level, blockPos2 = new BlockPos(n, l + q, o))) continue;
 			boolean placedWest = this.placeLog(level, blockSetter, random, blockPos2, config);
 			boolean placedEast = this.placeLog(level, blockSetter, random, blockPos2.east(), config);
 			boolean placedSouth = this.placeLog(level, blockSetter, random, blockPos2.south(), config);
