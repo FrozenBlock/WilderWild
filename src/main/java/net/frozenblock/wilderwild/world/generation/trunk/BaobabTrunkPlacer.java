@@ -179,7 +179,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 				}
 			}
 			if (isSurrounded) {
-				replacer.accept(pos, Function.identity().apply(this.insideBlockState.getState(random, pos)));
+				replacer.accept(pos, (BlockState) Function.identity().apply(this.insideBlockState.getState(random, pos)));
 			}
 		}
 

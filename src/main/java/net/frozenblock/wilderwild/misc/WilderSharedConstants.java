@@ -61,7 +61,7 @@ public class WilderSharedConstants {
 
 	public static void logInsane(String string, boolean shouldLog) {
 		if (shouldLog) {
-			var amount = random().nextDouble() * 5;
+			var amount = AdvancedMath.random().nextDouble() * 5;
 			for (int i = 0; i < amount; i++) {
 				WilderSharedConstants.LOGGER.warn(string);
 				WilderSharedConstants.LOGGER.error(string);
