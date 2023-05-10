@@ -125,22 +125,26 @@ public class Jellyfish extends NoFlopAbstractFish {
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
         Holder<Biome> biome = level.getBiome(this.blockPosition());
+        var random = AdvancedMath.random();
 		this.setVariant(JellyfishVariant.PINK);
+
         if (biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)) {
-            this.setVariant(PEARLESCENT_VARIANTS.get(AdvancedMath.random().nextInt(PEARLESCENT_VARIANTS.size())));
+            this.setVariant(PEARLESCENT_VARIANTS.get(random.nextInt(PEARLESCENT_VARIANTS.size())));
         } else {
-            this.setVariant(COLORED_VARIANTS.get(AdvancedMath.random().nextInt(COLORED_VARIANTS.size())));
+            this.setVariant(COLORED_VARIANTS.get(random.nextInt(COLORED_VARIANTS.size())));
         }
         return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
     }
 
 	public void setVariantFromPos(Level level, BlockPos pos) {
 		Holder<Biome> biome = level.getBiome(pos);
+        var random = AdvancedMath.random();
 		this.setVariant(JellyfishVariant.PINK);
+
 		if (biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)) {
-			this.setVariant(PEARLESCENT_VARIANTS.get(AdvancedMath.random().nextInt(PEARLESCENT_VARIANTS.size())));
+			this.setVariant(PEARLESCENT_VARIANTS.get(random.nextInt(PEARLESCENT_VARIANTS.size())));
 		} else {
-			this.setVariant(COLORED_VARIANTS.get(AdvancedMath.random().nextInt(COLORED_VARIANTS.size())));
+			this.setVariant(COLORED_VARIANTS.get(random.nextInt(COLORED_VARIANTS.size())));
 		}
 	}
 

@@ -41,8 +41,8 @@ public class FloatingSculkBubbleParticleOptions implements ParticleOptions {
 					Codec.DOUBLE.fieldOf("size").forGetter((particleOptions) -> particleOptions.size),
 							Codec.INT.fieldOf("maxAge").forGetter((particleOptions) -> particleOptions.maxAge),
 							Vec3.CODEC.fieldOf("velocity").forGetter((particleOptions) -> particleOptions.velocity)
-					)
-					.apply(instance, FloatingSculkBubbleParticleOptions::new)
+			)
+			.apply(instance, FloatingSculkBubbleParticleOptions::new)
 	);
 
 	public static final ParticleOptions.Deserializer<FloatingSculkBubbleParticleOptions> DESERIALIZER = new ParticleOptions.Deserializer<>() {

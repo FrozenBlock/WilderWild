@@ -35,15 +35,32 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
 public class SmallSpongeFeatureConfig implements FeatureConfiguration {
-    public static final Codec<SmallSpongeFeatureConfig> CODEC = RecordCodecBuilder.create(
-            (instance) -> instance.group(Registry.BLOCK.byNameCodec().fieldOf("block").flatXmap(SmallSpongeFeatureConfig::validateBlock, DataResult::success).orElse((SmallSpongeBlock) RegisterBlocks.SMALL_SPONGE).forGetter(
-                    (config) -> config.sponge), Codec.intRange(1, 64).fieldOf("search_range").orElse(10).forGetter(
-                    (config) -> config.searchRange), Codec.BOOL.fieldOf("can_place_on_floor").orElse(false).forGetter(
-                    (config) -> config.placeOnFloor), Codec.BOOL.fieldOf("can_place_on_ceiling").orElse(false).forGetter(
-                    (config) -> config.placeOnCeiling), Codec.BOOL.fieldOf("can_place_on_wall").orElse(false).forGetter(
-                    (config) -> config.placeOnWalls), TagKey.codec(Registry.BLOCK_REGISTRY).fieldOf("can_be_placed_on").forGetter(
-                    (config) -> config.canPlaceOn)).apply(instance, SmallSpongeFeatureConfig::new)
+    public static final Codec<SmallSpongeFeatureConfig> CODEC = RecordCodecBuilder.create((instance) ->
+    instance.group(
+        Registry.BLOCK.byNameCodec().fieldOf("block")
+            .flatXmap(SmallSpongeFeatureConfig::validateBlock, DataResult::success)
+            .orElse((SmallSpongeBlock) RegisterBlocks.SMALL_SPONGE)
+            .forGetter(
+                config -> config.sponge
+            ),
+            Codec.intRange(1, 64).fieldOf("search_range").orElse(10).forGetter(
+                    config -> config.searchRange
+            ),
+            Codec.BOOL.fieldOf("can_place_on_floor").orElse(false).forGetter(
+                config -> config.placeOnFloor
+            ),
+            Codec.BOOL.fieldOf("can_place_on_ceiling").orElse(false).forGetter(
+                config -> config.placeOnCeiling
+            ),
+            Codec.BOOL.fieldOf("can_place_on_wall").orElse(false).forGetter(
+                config -> config.placeOnWalls
+            ),
+            TagKey.codec(Registry.BLOCK_REGISTRY).fieldOf("can_be_placed_on").forGetter(
+                config -> config.canPlaceOn
+            )
+        ).apply(instance, SmallSpongeFeatureConfig::new)
     );
+
     public final SmallSpongeBlock sponge;
     public final int searchRange;
     public final boolean placeOnFloor;

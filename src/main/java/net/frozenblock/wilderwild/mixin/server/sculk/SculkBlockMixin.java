@@ -125,7 +125,7 @@ public abstract class SculkBlockMixin {
 			} else if (level.getBlockState(belowCharge.below()).isAir() && level.getBlockState(belowCharge.below().below()).isAir()) {
 				canReturn = true;
 				growthState = RegisterBlocks.HANGING_TENDRIL.defaultBlockState();
-				if (isWorldGen && AdvancedMath.random().nextDouble() > 0.6) {
+				if (isWorldGen && random.nextDouble() > 0.6) {
 					growthSpawnCost = 0;
 				}
 				newChargePos = belowCharge;

@@ -68,7 +68,7 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
     @Override
     public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, RandomSource random) {
         if (random.nextFloat() > 0.9F && state.getValue(COLORS) == FlowerColor.NONE) {
-            level.setBlockAndUpdate(pos, state.setValue(COLORS, COLOR_LIST.get(AdvancedMath.random().nextInt(COLOR_LIST.size()))));
+            level.setBlockAndUpdate(pos, state.setValue(COLORS, COLOR_LIST.get(random.nextInt(COLOR_LIST.size()))));
         }
     }
 

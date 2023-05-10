@@ -48,10 +48,6 @@ public class WilderSharedConstants {
 
 	public static final int DATA_VERSION = 13;
 
-	public static RandomSource random() {
-		return AdvancedMath.random();
-	}
-
 	public static AbstractClothConfigIntegration config() {
 		return WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration();
 	}

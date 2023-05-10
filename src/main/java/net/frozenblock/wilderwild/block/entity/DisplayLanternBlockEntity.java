@@ -149,8 +149,12 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	}
 
 	public void addFirefly(FireflyBottle bottle, String name) {
-		Vec3 newVec = new Vec3(0.5 + (0.15 - AdvancedMath.random().nextDouble() * 0.3), 0, 0.5 + (0.15 - AdvancedMath.random().nextDouble() * 0.3));
-		this.fireflies.add(new FireflyInLantern(newVec, bottle.color, name, AdvancedMath.random().nextDouble() > 0.7, AdvancedMath.random().nextInt(20), 0));
+		var random = AdvancedMath.random();
+
+		Vec3 newVec = new Vec3(0.5 + (0.15 - random.nextDouble() * 0.3), 0, 0.5 + (0.15 - random.nextDouble() * 0.3));
+		var firefly = new FireflyInLantern(newVec, bottle.color, name, random.nextDouble() > 0.7, random.nextInt(20), 0);
+
+		this.fireflies.add(firefly);
 	}
 
 	public void removeFirefly(FireflyInLantern firefly) {
