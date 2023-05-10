@@ -18,6 +18,8 @@
 
 package net.frozenblock.wilderwild.mixin.server.sculk;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import com.llamalad7.mixinextras.sugar.Local;
 import java.util.Iterator;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
@@ -167,13 +169,14 @@ public abstract class SculkBlockMixin {
 		}
     }
 
-    @Inject(method = "getRandomGrowthState", at = @At(value = "RETURN", shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
-    private void wilderWild$getRandomGrowthState(LevelAccessor level, BlockPos pos, RandomSource random, boolean randomize, CallbackInfoReturnable<BlockState> info, BlockState blockState) {
-        if (this.wilderWild$canPlaceOsseousSculk && !blockState.is(Blocks.SCULK_SHRIEKER)) {
+    @ModifyReturnValue(method = "getRandomGrowthState", at = @At("RETURN"))
+    private BlockState wilderWild$getRandomGrowthState(BlockState original, LevelAccessor level, BlockPos pos, RandomSource random, boolean randomize, @Local BlockState blockState) {
+        if (this.wilderWild$wilderWild$canPlaceOsseousSculk && !blockState.is(BLocks.SCULK_SHRIEKER)) {
             int pillarHeight = (int) Mth.clamp(EasyNoiseSampler.sampleAbs(EasyNoiseSampler.perlinXoro, pos, WILDERWILD$RANDOMNESS, false, false) * WILDERWILD$HEIGHT_MULTIPLIER, 2, WILDERWILD$MAX_HEIGHT);
             blockState = RegisterBlocks.OSSEOUS_SCULK.defaultBlockState().setValue(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight).setValue(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight + 1);
-            info.setReturnValue(blockState.hasProperty(BlockStateProperties.WATERLOGGED) && !level.getFluidState(pos).isEmpty() ? blockState.setValue(BlockStateProperties.WATERLOGGED, true) : blockState);
+            return blockState.hasProperty(BlockStateProperties.WATERLOGGED) && !level.getFluidState(pos).isEmpty() ? blockState.setValue(BlockStateProperties.WATERLOGGED, true) : blockState;
         }
+        return original;
     }
 
 	@Unique

@@ -58,7 +58,6 @@ public class SculkShriekerBlockEntityMixin implements SculkShriekerTickInterface
         BlockState blockState = entity.getBlockState();
         if (blockState.getValue(RegisterProperties.SOULS_TAKEN) == 2) {
             info.setReturnValue(false);
-            info.cancel();
         }
     }
 
@@ -67,7 +66,6 @@ public class SculkShriekerBlockEntityMixin implements SculkShriekerTickInterface
         SculkShriekerBlockEntity entity = SculkShriekerBlockEntity.class.cast(this);
         if (entity.getBlockState().getValue(RegisterProperties.SOULS_TAKEN) == 2) {
             info.setReturnValue(false);
-            info.cancel();
         }
     }
 
