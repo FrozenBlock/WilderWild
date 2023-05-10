@@ -59,22 +59,6 @@ public class WilderSharedConstants {
 		}
 	}
 
-	public static void logInsane(String string, boolean shouldLog) {
-		if (shouldLog) {
-			var amount = AdvancedMath.random().nextDouble() * 5;
-			for (int i = 0; i < amount; i++) {
-				WilderSharedConstants.LOGGER.warn(string);
-				WilderSharedConstants.LOGGER.error(string);
-				WilderSharedConstants.LOGGER.warn(string);
-				WilderSharedConstants.LOGGER.error(string);
-				WilderSharedConstants.LOGGER.warn(string);
-				WilderSharedConstants.LOGGER.error(string);
-				WilderSharedConstants.LOGGER.warn(string);
-				WilderSharedConstants.LOGGER.error(string);
-			}
-		}
-	}
-
 	public static void log(Entity entity, String string, boolean shouldLog) {
 		if (shouldLog) {
 			WilderSharedConstants.LOGGER.info(entity.toString() + " : " + string + " : " + entity.position());
