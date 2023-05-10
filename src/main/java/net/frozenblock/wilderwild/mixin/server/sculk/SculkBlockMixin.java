@@ -171,7 +171,7 @@ public abstract class SculkBlockMixin {
 
     @ModifyReturnValue(method = "getRandomGrowthState", at = @At("RETURN"))
     private BlockState wilderWild$getRandomGrowthState(BlockState original, LevelAccessor level, BlockPos pos, RandomSource random, boolean randomize, @Local BlockState blockState) {
-        if (this.wilderWild$wilderWild$canPlaceOsseousSculk && !blockState.is(BLocks.SCULK_SHRIEKER)) {
+        if (this.wilderWild$wilderWild$canPlaceOsseousSculk && !blockState.is(Blocks.SCULK_SHRIEKER)) {
             int pillarHeight = (int) Mth.clamp(EasyNoiseSampler.sampleAbs(EasyNoiseSampler.perlinXoro, pos, WILDERWILD$RANDOMNESS, false, false) * WILDERWILD$HEIGHT_MULTIPLIER, 2, WILDERWILD$MAX_HEIGHT);
             blockState = RegisterBlocks.OSSEOUS_SCULK.defaultBlockState().setValue(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight).setValue(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight + 1);
             return blockState.hasProperty(BlockStateProperties.WATERLOGGED) && !level.getFluidState(pos).isEmpty() ? blockState.setValue(BlockStateProperties.WATERLOGGED, true) : blockState;
