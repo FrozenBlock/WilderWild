@@ -44,6 +44,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
@@ -108,8 +109,8 @@ public abstract class SculkBlockMixin {
         return this.wilderWild$canPlaceGrowth(levelAccessor, blockPos, sculkChargeHandler.isWorldGeneration());
     }
 
-    @Inject(method = "attemptUseCharge", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkBlock;getRandomGrowthState(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;Z)Lnet/minecraft/world/level/block/state/BlockState;", shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
-    private void wilderWild$newSculkSpread(SculkSpreader.ChargeCursor charge, LevelAccessor level, BlockPos catalystPos, RandomSource random, SculkSpreader sculkChargeHandler, boolean spread, CallbackInfoReturnable<Integer> info, int chargeAmount, BlockPos chargePos, boolean bl, int growthSpawnCost, BlockPos aboveChargePos) {
+    @ModifyVariable(method = "attemptUseCharge", at = @At(value = "STORE", target = "Lnet/minecraft/world/level/block/SculkBlock;getRandomGrowthState(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;Z)Lnet/minecraft/world/level/block/state/BlockState;"))
+    private void wilderWild$newSculkSpread(int original, SculkSpreader.ChargeCursor charge, LevelAccessor level, BlockPos catalystPos, RandomSource random, SculkSpreader sculkChargeHandler, boolean spread, @Local int chargeAmount, @Local BlockPos chargePos, @Local boolean bl, @Local int growthSpawnCost, @Local BlockPos aboveChargePos) {
         BlockState growthState = null;
         boolean isWorldGen = sculkChargeHandler.isWorldGeneration();
         boolean canReturn = false;
@@ -159,14 +160,16 @@ public abstract class SculkBlockMixin {
 					osseousSculkBlock.worldGenSpread(newChargePos, level, random);
                 }
             }
-            info.setReturnValue(Math.max(0, chargeAmount - growthSpawnCost));
 			SoundType growthSoundType = growthState.getSoundType();
             level.playSound(null, newChargePos, growthSoundType.getPlaceSound(), SoundSource.BLOCKS, growthSoundType.getVolume(), growthSoundType.getPitch());
+            return Math.max(0, chargeAmount - growthSpawnCost);
         } else {
 			if (this.wilderWild$isPlacingBelow) {
-				info.setReturnValue(chargeAmount);
+                return chargeAmount;
 			}
 		}
+
+        return original;
     }
 
     @ModifyReturnValue(method = "getRandomGrowthState", at = @At("RETURN"))
