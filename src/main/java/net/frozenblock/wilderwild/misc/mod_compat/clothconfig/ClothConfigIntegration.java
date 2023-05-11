@@ -331,7 +331,7 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 
 	@Override
 	public boolean restrictInstrumentSound() {
-
+		return ITEM.restrictInstrumentSound;
 	}
 
 	// WORLDGEN
