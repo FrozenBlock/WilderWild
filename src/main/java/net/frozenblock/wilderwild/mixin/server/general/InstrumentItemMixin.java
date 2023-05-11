@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.server.general;
 
-import com.llamalad7.mixinextras.injector.WrapOperation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
