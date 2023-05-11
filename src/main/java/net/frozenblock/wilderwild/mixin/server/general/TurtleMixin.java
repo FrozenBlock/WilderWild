@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.server.general;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.entity.ai.turtle.TurtleNearestAttackableGoal;
 import net.frozenblock.wilderwild.misc.interfaces.TurtleCooldownInterface;
@@ -46,11 +47,10 @@ public class TurtleMixin implements TurtleCooldownInterface {
         turtle.targetSelector.addGoal(10, new TurtleNearestAttackableGoal<>(turtle, Jellyfish.class, false));
     }
 
-    @Inject(method = "createAttributes", at = @At("RETURN"), cancellable = true)
-    private static void wilderWild$createAttributes(CallbackInfoReturnable<AttributeSupplier.Builder> info) {
-        AttributeSupplier.Builder builder = info.getReturnValue();
-        builder.add(Attributes.ATTACK_DAMAGE, 3.0);
-        info.setReturnValue(builder);
+    @ModifyReturnValue(method = "createAttributes", at = @At("RETURN"))
+    private static AttributeSupplier.Builder wilderWild$createAttributes(AttributeSupplier.Builder original) {
+        original.add(Attributes.ATTACK_DAMAGE, 3.0);
+        return original;
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
