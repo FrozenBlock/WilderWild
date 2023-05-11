@@ -110,7 +110,7 @@ public abstract class SculkBlockMixin {
     }
 
     @ModifyVariable(method = "attemptUseCharge", at = @At(value = "STORE", target = "Lnet/minecraft/world/level/block/SculkBlock;getRandomGrowthState(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;Z)Lnet/minecraft/world/level/block/state/BlockState;"))
-    private void wilderWild$newSculkSpread(int original, SculkSpreader.ChargeCursor charge, LevelAccessor level, BlockPos catalystPos, RandomSource random, SculkSpreader sculkChargeHandler, boolean spread, @Local int chargeAmount, @Local BlockPos chargePos, @Local boolean bl, @Local int growthSpawnCost, @Local BlockPos aboveChargePos) {
+    private int wilderWild$newSculkSpread(int original, SculkSpreader.ChargeCursor charge, LevelAccessor level, BlockPos catalystPos, RandomSource random, SculkSpreader sculkChargeHandler, boolean spread, @Local int chargeAmount, @Local BlockPos chargePos, @Local boolean bl, @Local int growthSpawnCost, @Local BlockPos aboveChargePos) {
         BlockState growthState = null;
         boolean isWorldGen = sculkChargeHandler.isWorldGeneration();
         boolean canReturn = false;
