@@ -18,6 +18,8 @@
 
 package net.frozenblock.wilderwild.mixin.server.warden;
 
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import java.util.function.Consumer;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -60,9 +62,6 @@ public class SonicBoomMixin implements WilderSonicBoom {
 	private Vec3 wilderWild$particlePos = null;
 
 	@Unique
-	private Vec3 wilderWild$vec32 = null;
-
-	@Unique
 	private static boolean wilderWild$stella;
 
 	@ModifyArg(method = "tick(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/monster/warden/Warden;J)V", at = @At(value = "INVOKE", target = "Ljava/util/Optional;ifPresent(Ljava/util/function/Consumer;)V", ordinal = 1))
@@ -83,17 +82,16 @@ public class SonicBoomMixin implements WilderSonicBoom {
 	}*/
 
 	@ModifyVariable(method = {"m_ehrxwrfs","method_43265","lambda$tick$2"}, at = @At(value = "CONSTANT", args = "intValue=1", shift = At.Shift.BY, by = 3), require = 1)
-	private static int wilderWild$modifyInt(int original) {
-		var vec32 = ((WilderSonicBoom) wilderWild$currentBoom).wilderWild$vec32();
+	private static int wilderWild$modifyInt(int original, @Share("vec32") LocalRef<Vec3> vec32Ref) {
 		if (((WilderSonicBoom) wilderWild$currentBoom).wilderWild$particlesEnded()) {
-			return Mth.floor(vec32.length()) + 10;
+			return Mth.floor(vec32Ref.get().length()) + 10;
 		}
 		return original;
 	}
 
 	@ModifyVariable(method = {"m_ehrxwrfs","method_43265","lambda$tick$2"}, at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/phys/Vec3;add(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;"), ordinal = 0, require = 1)
-	private static Vec3 wilderWild$modifyVec(Vec3 value) {
-		((WilderSonicBoom) wilderWild$currentBoom).wilderWild$setVec32(value);
+	private static Vec3 wilderWild$modifyVec(Vec3 value, @Share("vec32") LocalRef<Vec3> vec32Ref) {
+		vec32Ref.set(value);
 		return value;
 	}
 
@@ -177,18 +175,6 @@ public class SonicBoomMixin implements WilderSonicBoom {
 	@Override
 	public void wilderWild$setParticlePos(Vec3 pos) {
 		this.wilderWild$particlePos = pos;
-	}
-
-	@Unique
-	@Override
-	public Vec3 wilderWild$vec32() {
-		return this.wilderWild$vec32;
-	}
-
-	@Unique
-	@Override
-	public void wilderWild$setVec32(Vec3 vec32) {
-		this.wilderWild$vec32 = vec32;
 	}
 
 	@Unique
