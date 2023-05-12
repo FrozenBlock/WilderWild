@@ -229,7 +229,7 @@ public abstract class SculkBlockMixin {
 			}
 			this.wilderWild$isPlacingBelow = false;
 		}
-		return canPlaceGrowth(level, pos);
+		return false;
     }
 
 }
