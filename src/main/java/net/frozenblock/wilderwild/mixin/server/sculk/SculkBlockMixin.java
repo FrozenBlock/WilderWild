@@ -109,12 +109,12 @@ public abstract class SculkBlockMixin {
 	private boolean wilderWild$canPlaceOsseousSculk;
 
     @Inject(method = "attemptUseCharge", at = @At("HEAD"))
-    private void wilderWild$setChargeHandler(LevelAccessor level, BlockPos catalystPos, RandomSource random, SculkSpreader sculkChargeHandler, boolean spread, CallbackInfoReturnable<Integer> cir, @Share("chargeHandler") LocalRef<SculkSpreader> chargeHandlerRef) {
+    private void wilderWild$setChargeHandler(SculkSpreader.ChargeCursor charge, LevelAccessor level, BlockPos catalystPos, RandomSource random, SculkSpreader sculkChargeHandler, boolean spread, CallbackInfoReturnable<Integer> cir, @Share("chargeHandler") LocalRef<SculkSpreader> chargeHandlerRef) {
         chargeHandlerRef.set(sculkChargeHandler);        
     }
 
     @WrapOperation(method = "attemptUseCharge", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkBlock;canPlaceGrowth(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)Z"))
-    private boolean wilderWild$newWorldgenCharge(SculkSpreader.ChargeCursor charge, LevelAccessor levelAccessor, BlockPos blockPos, Operation<Boolean> original, @Share("chargeHandler") LocalRef<SculkSpreader> chargeHandlerRef) {
+    private boolean wilderWild$newWorldgenCharge(LevelAccessor levelAccessor, BlockPos blockPos, Operation<Boolean> original, @Share("chargeHandler") LocalRef<SculkSpreader> chargeHandlerRef) {
         if (this.wilderWild$canPlaceGrowth(levelAccessor, blockPos, chargeHandlerRef.get().isWorldGeneration())) {
             return true;
         }
