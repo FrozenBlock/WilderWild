@@ -49,7 +49,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-@Mixin(value = SculkBlock.class, priority = 69420)
+@Mixin(value = SculkBlock.class, priority = 990)
 public abstract class SculkBlockMixin {
 
     @Shadow
