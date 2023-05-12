@@ -114,7 +114,7 @@ public abstract class SculkBlockMixin {
     }
 
     @WrapOperation(method = "attemptUseCharge", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkBlock;canPlaceGrowth(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)Z"))
-    private boolean wilderWild$newWorldgenCharge(LevelAccessor levelAccessor, BlockPos blockPos, Operation<Boolean> original, @Share("chargeHandler") LocalRef<SculkSpreader> chargeHandlerRef) {
+    private boolean wilderWild$newWorldgenCharge(SculkSpreader.ChargeCursor charge, LevelAccessor levelAccessor, BlockPos blockPos, Operation<Boolean> original, @Share("chargeHandler") LocalRef<SculkSpreader> chargeHandlerRef) {
         if (this.wilderWild$canPlaceGrowth(levelAccessor, blockPos, chargeHandlerRef.get().isWorldGeneration())) {
             return true;
         }
