@@ -19,6 +19,8 @@
 package net.frozenblock.wilderwild.mixin.server.sculk;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.sugar.Local;
 import java.util.Iterator;
 import net.frozenblock.lib.math.api.AdvancedMath;
@@ -104,9 +106,12 @@ public abstract class SculkBlockMixin {
 	@Unique
 	private boolean wilderWild$canPlaceOsseousSculk;
 
-    @Redirect(method = "attemptUseCharge", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkBlock;canPlaceGrowth(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)Z"))
-    private boolean wilderWild$newWorldgenCharge(LevelAccessor levelAccessor, BlockPos blockPos, SculkSpreader.ChargeCursor charge, LevelAccessor level, BlockPos pos, RandomSource random, SculkSpreader sculkChargeHandler, boolean spread) {
-        return this.wilderWild$canPlaceGrowth(levelAccessor, blockPos, sculkChargeHandler.isWorldGeneration());
+    @WrapOperation(method = "attemptUseCharge", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkBlock;canPlaceGrowth(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)Z"))
+    private boolean wilderWild$newWorldgenCharge(LevelAccessor levelAccessor, BlockPos blockPos, SculkSpreader.ChargeCursor charge, LevelAccessor level, BlockPos pos, RandomSource random, SculkSpreader sculkChargeHandler, boolean spread, Operation<Boolean> original) {
+        if (this.wilderWild$canPlaceGrowth(levelAccessor, blockPos, sculkChargeHandler.isWorldGeneration())) {
+            return true;
+        }
+        return original.call(levelAccessor, blockPos);
     }
 
     @ModifyVariable(method = "attemptUseCharge", at = @At(value = "STORE", target = "Lnet/minecraft/world/level/block/SculkBlock;getRandomGrowthState(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;Z)Lnet/minecraft/world/level/block/state/BlockState;"))
