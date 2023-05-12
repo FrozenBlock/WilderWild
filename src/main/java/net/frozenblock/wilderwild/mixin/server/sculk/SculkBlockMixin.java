@@ -109,7 +109,7 @@ public abstract class SculkBlockMixin {
 	private boolean wilderWild$canPlaceOsseousSculk;
 
     @Inject(method = "attemptUseCharge", at = @At("HEAD"))
-    private void wilderWild$setChargeHandler(LevelAccessor level, BlockPos catalystPos, RandomSource random, SculkSpreader sculkChargeHandler, boolean spread, @Share("chargeHandler") LocalRef<SculkSpreader> chargeHandlerRef) {
+    private void wilderWild$setChargeHandler(LevelAccessor level, BlockPos catalystPos, RandomSource random, SculkSpreader sculkChargeHandler, boolean spread, CallbackInfoReturnable<Integer> cir, @Share("chargeHandler") LocalRef<SculkSpreader> chargeHandlerRef) {
         chargeHandlerRef.set(sculkChargeHandler);        
     }
 
