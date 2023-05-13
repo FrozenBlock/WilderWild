@@ -32,7 +32,7 @@ public class JellyfishRandomSwim extends RandomSwim {
 	@Override
 	public boolean checkExtraStartConditions(@NotNull ServerLevel level, @NotNull PathfinderMob pathfinder) {
 		if (!(pathfinder instanceof Jellyfish jellyfish)) {
-			throw new RuntimeException("IMAGINE USING JELLYFISH TASK FOR SOMETHING ELSE");
+			throw new IllegalStateException("Jellyfish random swim is being used on a non-jellyfish entity!");
 		} else {
 			return jellyfish.getTarget() == null && jellyfish.canRandomSwim() && super.checkExtraStartConditions(level, jellyfish);
 		}
