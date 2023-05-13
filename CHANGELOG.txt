@@ -8,6 +8,7 @@ Put changelog here:
 - Fixed compatibility with WWOO
 - Fixed small biome placement issues
 - Fixed rare crash when bushes generate in water
+- Fixed surface rules in the mod's biomes not applying whilst using TerraBlender
 - Reduced panorama resolution to 1024x1024
 - Optimized file size
 - Internal changes to surface rules
