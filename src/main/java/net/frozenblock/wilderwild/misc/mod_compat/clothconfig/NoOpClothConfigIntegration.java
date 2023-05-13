@@ -30,6 +30,8 @@ public class NoOpClothConfigIntegration extends AbstractClothConfigIntegration {
 		super();
 	}
 
+	// BLOCK
+
 	@Override
 	public boolean mcLiveSensorTendrils() {
 		return DefaultBlockConfig.MC_LIVE_SENSOR_TENDRILS;
@@ -297,6 +299,11 @@ public class NoOpClothConfigIntegration extends AbstractClothConfigIntegration {
 	@Override
 	public boolean itemCooldownsSave() {
 		return FrozenLibConfigValues.DefaultFrozenLibConfigValues.SAVE_ITEM_COOLDOWNS;
+	}
+
+	@Override
+	public boolean restrictInstrumentSound() {
+		return DefaultItemConfig.RESTRICT_INSTRUMENT_SOUND;
 	}
 
 	// WORLDGEN

@@ -58,7 +58,6 @@ public class SculkShriekerBlockEntityMixin implements SculkShriekerTickInterface
         BlockState blockState = entity.getBlockState();
         if (blockState.getValue(RegisterProperties.SOULS_TAKEN) == 2) {
             info.setReturnValue(false);
-            info.cancel();
         }
     }
 
@@ -67,7 +66,6 @@ public class SculkShriekerBlockEntityMixin implements SculkShriekerTickInterface
         SculkShriekerBlockEntity entity = SculkShriekerBlockEntity.class.cast(this);
         if (entity.getBlockState().getValue(RegisterProperties.SOULS_TAKEN) == 2) {
             info.setReturnValue(false);
-            info.cancel();
         }
     }
 
@@ -99,7 +97,9 @@ public class SculkShriekerBlockEntityMixin implements SculkShriekerTickInterface
 			this.listener.tick(level);
 			if (this.wilderWild$bubbles > 0) {
 				--this.wilderWild$bubbles;
-				EasyPacket.EasyFloatingSculkBubblePacket.createParticle(level, Vec3.atCenterOf(pos), AdvancedMath.random().nextDouble() > 0.7 ? 1 : 0, 20 + AdvancedMath.random().nextInt(80), 0.075, 1);
+                var random = AdvancedMath.random();
+
+				EasyPacket.EasyFloatingSculkBubblePacket.createParticle(level, Vec3.atCenterOf(pos), random.nextDouble() > 0.7 ? 1 : 0, 20 + random.nextInt(80), 0.075, 1);
 			}
 		}
 	}

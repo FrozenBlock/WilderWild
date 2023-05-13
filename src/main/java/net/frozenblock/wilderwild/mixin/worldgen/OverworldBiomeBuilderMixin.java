@@ -71,16 +71,6 @@ public final class OverworldBiomeBuilderMixin {
 					point.offset(),
 					RegisterWorldgen.DARK_TAIGA
 				);
-				this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.DarkTaiga.TEMPERATURE,
-					WilderSharedWorldgen.DarkTaiga.HUMIDITY_B,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset(),
-					RegisterWorldgen.DARK_TAIGA
-				);
 			}
 		}
 		if (WilderSharedConstants.config().generateMixedForest()) {
@@ -161,16 +151,6 @@ public final class OverworldBiomeBuilderMixin {
 						point.offset(),
 						RegisterWorldgen.BIRCH_TAIGA
 				);
-				this.addSurfaceBiome(
-						parameters,
-						WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
-						WilderSharedWorldgen.BirchTaiga.HUMIDITY_B,
-						point.continentalness(),
-						point.erosion(),
-						point.weirdness(),
-						point.offset(),
-						RegisterWorldgen.BIRCH_TAIGA
-				);
 			}
 		}
 		if (WilderSharedConstants.config().generateOldGrowthBirchTaiga()) {
@@ -185,43 +165,20 @@ public final class OverworldBiomeBuilderMixin {
 						point.offset(),
 						RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA
 				);
-				this.addSurfaceBiome(
-						parameters,
-						WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
-						WilderSharedWorldgen.BirchTaiga.HUMIDITY_B,
-						point.continentalness(),
-						point.erosion(),
-						point.weirdness(),
-						point.offset(),
-						RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA
-				);
 			}
 		}
 		if (WilderSharedConstants.config().generateBirchJungle()) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.JUNGLE)) {
-				if (point.humidity().equals(Humidity.FOUR)) {
-					this.addSurfaceBiome(
-							parameters,
-							WilderSharedWorldgen.BirchJungle.TEMPERATURE,
-							WilderSharedWorldgen.BirchJungle.HUMIDITY_A,
-							point.continentalness(),
-							point.erosion(),
-							point.weirdness(),
-							point.offset(),
-							RegisterWorldgen.BIRCH_JUNGLE
-					);
-				} else {
-					this.addSurfaceBiome(
-							parameters,
-							WilderSharedWorldgen.BirchJungle.TEMPERATURE,
-							WilderSharedWorldgen.BirchJungle.HUMIDITY_B,
-							point.continentalness(),
-							point.erosion(),
-							point.weirdness(),
-							point.offset(),
-							RegisterWorldgen.BIRCH_JUNGLE
-					);
-				}
+				this.addSurfaceBiome(
+					parameters,
+					WilderSharedWorldgen.BirchJungle.TEMPERATURE,
+					WilderSharedWorldgen.BirchJungle.HUMIDITY,
+					point.continentalness(),
+					point.erosion(),
+					point.weirdness(),
+					point.offset(),
+					RegisterWorldgen.BIRCH_JUNGLE
+				);
 			}
 		}
 		if (WilderSharedConstants.config().generateSparseBirchJungle()) {
@@ -229,7 +186,7 @@ public final class OverworldBiomeBuilderMixin {
 				this.addSurfaceBiome(
 						parameters,
 						WilderSharedWorldgen.BirchJungle.TEMPERATURE,
-						WilderSharedWorldgen.BirchJungle.HUMIDITY_A,
+						WilderSharedWorldgen.BirchJungle.HUMIDITY,
 						point.continentalness(),
 						point.erosion(),
 						point.weirdness(),
@@ -290,17 +247,7 @@ public final class OverworldBiomeBuilderMixin {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FOREST)) {
 				this.addSurfaceBiome(
 						parameters,
-						WilderSharedWorldgen.ParchedForest.TEMPERATURE_A,
-						WilderSharedWorldgen.ParchedForest.HUMIDITY,
-						point.continentalness(),
-						point.erosion(),
-						point.weirdness(),
-						point.offset(),
-						RegisterWorldgen.PARCHED_FOREST
-				);
-				this.addSurfaceBiome(
-						parameters,
-						WilderSharedWorldgen.ParchedForest.TEMPERATURE_B,
+						WilderSharedWorldgen.ParchedForest.TEMPERATURE,
 						WilderSharedWorldgen.ParchedForest.HUMIDITY,
 						point.continentalness(),
 						point.erosion(),
@@ -418,7 +365,6 @@ public final class OverworldBiomeBuilderMixin {
 
     @Inject(method = "addLowSlice", at = @At("TAIL"))
     private void wilderWild$injectLowSlice(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo info) {
-		wilderWild$injectBiomes(parameters);
 		if (WilderSharedConstants.config().generateCypressWetlands()) {
 			this.addSurfaceBiome(
 				parameters,
@@ -443,6 +389,7 @@ public final class OverworldBiomeBuilderMixin {
 				RegisterWorldgen.OASIS
 			);
 		}
+		wilderWild$injectBiomes(parameters);
     }
 
     @Inject(method = "addMidSlice", at = @At("TAIL")) // also can be injectMidBiomes

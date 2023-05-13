@@ -26,10 +26,6 @@ public interface WilderSonicBoom {
 
 	void wilderWild$setParticlePos(Vec3 pos);
 
-	Vec3 wilderWild$vec32();
-
-	void wilderWild$setVec32(Vec3 vec32);
-
 	boolean wilderWild$particlesEnded();
 
 	void wilderWild$endParticles();

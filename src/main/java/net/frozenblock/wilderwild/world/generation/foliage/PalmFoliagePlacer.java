@@ -38,7 +38,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class PalmFoliagePlacer extends FoliagePlacer {
 	public static final Codec<PalmFoliagePlacer> CODEC = RecordCodecBuilder.create((instance) ->
-			palmCodec(instance).apply(instance, PalmFoliagePlacer::new));
+			palmCodec(instance).apply(instance, PalmFoliagePlacer::new)
+	);
 
 	protected static <P extends PalmFoliagePlacer> Products.P3<RecordCodecBuilder.Mu<P>, IntProvider, IntProvider, IntProvider> palmCodec(RecordCodecBuilder.Instance<P> builder) {
 		return foliagePlacerParts(builder).and((IntProvider.codec(0, 16).fieldOf("fronds")).forGetter(placer -> placer.fronds));

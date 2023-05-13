@@ -4,7 +4,10 @@ Make sure to clear this after each release
 
 Put changelog here:
 -----------------
+- Added config option for restricting instrument sounds
 - Fixed compatibility with WWOO
 - Fixed small biome placement issues
+- Fixed rare crash when bushes generate in water
+- Reduced panorama resolution to 1024x1024
 - Optimized file size
-- Internal changes
+- Internal changes to surface rules

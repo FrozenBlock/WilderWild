@@ -33,6 +33,10 @@ import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
 public final class WilderWorldGen {
+	private WilderWorldGen() {
+		throw new UnsupportedOperationException("WilderWorldGen contains only static declarations.");
+	}
+
     public static void generateWildWorldGen() {
 		configureBuiltInBiomes();
         replaceFeatures();
@@ -76,7 +80,7 @@ public final class WilderWorldGen {
 		BiomeModifications.create(WilderSharedConstants.id("add_new_snow"))
 				.add(ModificationPhase.POST_PROCESSING,
 						BiomeSelectors.all(),
-						(context) -> {
+						context -> {
 					if (context.getGenerationSettings().removeFeature(MiscOverworldPlacements.FREEZE_TOP_LAYER)) {
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, MiscOverworldPlacements.FREEZE_TOP_LAYER);
 						if (WilderSharedConstants.config().snowBelowTrees()) {
@@ -89,7 +93,7 @@ public final class WilderWorldGen {
         BiomeModifications.create(WilderSharedConstants.id("replace_forest_grass"))
                 .add(ModificationPhase.REPLACEMENTS,
                         BiomeSelectors.tag(WilderBiomeTags.FOREST_GRASS),
-                        (context) -> {
+						context -> {
 					if (WilderSharedConstants.config().wildGrass()) {
 						context.getGenerationSettings().removeFeature(VegetationPlacements.PATCH_GRASS_FOREST);
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.GRASS_PLACED.getKey());
@@ -100,7 +104,7 @@ public final class WilderWorldGen {
 		BiomeModifications.create(WilderSharedConstants.id("rainforest_flowers"))
 				.add(ModificationPhase.REPLACEMENTS,
 						BiomeSelectors.includeByKey(RegisterWorldgen.RAINFOREST),
-						(context) -> {
+						context -> {
 					if (WilderSharedConstants.config().wildGrass()) {
 						context.getGenerationSettings().removeFeature(WilderPlacedFeatures.FLOWER_RAINFOREST_VANILLA.getKey());
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_RAINFOREST.getKey());
@@ -110,7 +114,7 @@ public final class WilderWorldGen {
 		BiomeModifications.create(WilderSharedConstants.id("temperate_rainforest_flowers"))
 				.add(ModificationPhase.REPLACEMENTS,
 						BiomeSelectors.includeByKey(RegisterWorldgen.TEMPERATE_RAINFOREST),
-						(context) -> {
+						context -> {
 							if (WilderSharedConstants.config().wildGrass()) {
 								context.getGenerationSettings().removeFeature(WilderPlacedFeatures.FLOWER_TEMPERATE_RAINFOREST_VANILLA.getKey());
 								context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_TEMPERATE_RAINFOREST.getKey());

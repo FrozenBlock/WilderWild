@@ -54,8 +54,8 @@ public class HeightBasedVineTreeDecorator extends TreeDecorator {
     }
 
     public void place(Context generator) {
-        RandomSource abstractRandom = generator.random();
-        if (abstractRandom.nextFloat() <= this.chanceToDecorate) {
+        RandomSource random = generator.random();
+        if (random.nextFloat() <= this.chanceToDecorate) {
 			List<BlockPos> list = new ArrayList<>();
 			list.addAll(generator.logs());
 			list.addAll(generator.roots());
@@ -63,7 +63,7 @@ public class HeightBasedVineTreeDecorator extends TreeDecorator {
             list.forEach((pos) -> {
                 if (pos.getY() <= this.maxHeight) {
                     for (Direction direction : Direction.Plane.HORIZONTAL) {
-                        if (abstractRandom.nextFloat() <= this.vinePlaceChance) {
+                        if (random.nextFloat() <= this.vinePlaceChance) {
                             BlockPos blockPos = pos.offset(direction.getStepX(), 0, direction.getStepZ());
                             if (generator.isAir(blockPos)) {
                                 BooleanProperty dir = direction == Direction.NORTH ? VineBlock.SOUTH : direction == Direction.SOUTH ? VineBlock.NORTH : direction == Direction.WEST ? VineBlock.EAST : VineBlock.WEST;
