@@ -39,7 +39,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class DripParticleMixin extends TextureSheetParticle implements WilderDripSuspendedParticleInterface {
 
 	@Unique
-	private boolean wilderWild$usesWind;
+	private boolean wilderWild$usesWind = false;
 
 	protected DripParticleMixin(ClientLevel clientLevel, double d, double e, double f) {
 		super(clientLevel, d, e, f);
