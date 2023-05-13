@@ -184,7 +184,7 @@ public final class WilderSharedWorldgen {
 		}
 
 		public static final Climate.Parameter TEMPERATURE = Temperature.ONE;
-		public static final Climate.Parameter HUMIDITY = Humidity.FIVE;
+		public static final Climate.Parameter HUMIDITY = Humidity.HUMID;
 
 		public static final float TEMP = -0.5F;
 		public static final float DOWNFALL = 0.4F;
@@ -372,8 +372,8 @@ public final class WilderSharedWorldgen {
 		public static final Climate.Parameter TEMPERATURE = Temperature.HOT;
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.THREE, Humidity.FIVE);
 		public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
-		public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_3, Erosion.EROSION_4);
-		public static final float OFFSET = 0.000F;
+		public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_3, Erosion.EROSION_5);
+		public static final float OFFSET = 0F;
 
 		public static final float TEMP = 2.0F;
 		public static final float DOWNFALL = 0.5F;

@@ -418,7 +418,6 @@ public final class OverworldBiomeBuilderMixin {
 
     @Inject(method = "addLowSlice", at = @At("TAIL"))
     private void wilderWild$injectLowSlice(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo info) {
-		wilderWild$injectBiomes(parameters);
 		if (WilderSharedConstants.config().generateCypressWetlands()) {
 			this.addSurfaceBiome(
 				parameters,
@@ -443,6 +442,7 @@ public final class OverworldBiomeBuilderMixin {
 				RegisterWorldgen.OASIS
 			);
 		}
+		wilderWild$injectBiomes(parameters);
     }
 
     @Inject(method = "addMidSlice", at = @At("TAIL")) // also can be injectMidBiomes
