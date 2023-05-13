@@ -40,6 +40,7 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class BaobabTrunkPlacer extends TrunkPlacer {
     public static final Codec<BaobabTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) ->
@@ -95,8 +96,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 
 
                 if (!AdvancedMath.squareBetween(x, z, 1, 2)) { // only sides
-
-                    if (AdvancedMath.random().nextDouble() <= percentage / 100) {
+                    if (random.nextDouble() <= percentage / 100) {
 						switch (x) {
 							case 0 -> {
 								setLogs(level, replacer, random, mutable, config, center, x - 1, 0, z, height / 2, placedLogs);
@@ -126,6 +126,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 							}
 						}
                     }
+
                     Direction dir1 = Direction.WEST;
                     Direction dir2 = null;
 
@@ -154,13 +155,15 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
                         dir1 = Direction.EAST;
                         dir2 = Direction.SOUTH;
                     }
-                    if (AdvancedMath.random().nextDouble() <= toppercentage / 100) {
-                        list.add(generateBranch(dir1, dir2, 1F / 4F, height, height / 4, 4, level, replacer, random, mutable, config, center, x, z, placedLogs));
+                    if (random.nextDouble() <= toppercentage / 100) {
+                        var attachment = generateBranch(dir1, dir2, 1F / 4F, height, height / 4, 4, level, replacer, random, mutable, config, center, x, z, placedLogs);
+                        if (attachment != null) list.add(attachment);
                     }
-                    if (AdvancedMath.random().nextDouble() <= branchpercentage / 100) {
+                    if (random.nextDouble() <= branchpercentage / 100) {
                         float min = 1F / 3F, max = 1F;
-                        float p = ((AdvancedMath.random().nextFloat() * (max - min)) + min);
-                        list.add(generateBranch(dir1, dir2, p, height, height, 4, level, replacer, random, mutable, config, center, x, z, placedLogs));
+                        float p = ((random.nextFloat() * (max - min)) + min);
+                        var attachment = generateBranch(dir1, dir2, p, height, height, 4, level, replacer, random, mutable, config, center, x, z, placedLogs);
+                        if (attachment != null) list.add(attachment);
                     }
                 }
             }
@@ -183,30 +186,23 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
         return list;
     }
 
+    @Nullable
     private FoliagePlacer.FoliageAttachment generateBranch(Direction dir1, Direction dir2, float yequation, int h, int minh, int l, LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, BlockPos.MutableBlockPos mutable, TreeConfiguration config, BlockPos startPos, int x, int z, List<BlockPos> logPoses) {
-        FoliagePlacer.FoliageAttachment node = null;
-
-        int height = (int) ((AdvancedMath.random().nextDouble() * (h - minh)) + minh);
+        int height = (int) ((random.nextDouble() * (h - minh)) + minh);
 
         for (int l1 = 1; l1 <= l; l1++) {
             int eq = (int) Math.floor(yequation * l1);
-            if (dir2 == null) {
-                BlockPos fpos = AdvancedMath.offset(startPos, dir1, l1);
-                BlockPos fpos2 = new BlockPos(fpos.getX() + x, fpos.getY() + height + eq + 1, fpos.getZ() + z);
-                setLog(level, replacer, random, mutable, config, fpos, x, height + eq, z, logPoses);
-                if (l1 == l) {
-                    node = new FoliagePlacer.FoliageAttachment(fpos2, 0, true);
-                }
-            } else {
-                BlockPos fpos = AdvancedMath.offset(AdvancedMath.offset(startPos, dir1, l1), dir2, l1);
-                BlockPos fpos2 = new BlockPos(fpos.getX() + x, fpos.getY() + height + eq + 1, fpos.getZ() + z);
-                setLog(level, replacer, random, mutable, config, fpos, x, height + eq, z, logPoses);
-                if (l1 == l) {
-                    node = new FoliagePlacer.FoliageAttachment(fpos2, 0, true);
-                }
-            }
+
+            BlockPos fpos = AdvancedMath.offset(startPos, dir1, l1);
+            if (dir2 != null) fpos = AdvancedMath.offset(fpos, dir2, l1);
+
+            BlockPos fpos2 = new BlockPos(fpos.getX() + x, fpos.getY() + height + eq + 1, fpos.getZ() + z);
+            setLog(level, replacer, random, mutable, config, fpos, x, height + eq, z, logPoses);
+
+            if (l1 == l)
+                return new FoliagePlacer.FoliageAttachment(fpos2, 0, true);
         }
-        return node;
+        return null;
     }
 
 	private void placeLogIfFree(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, BlockPos.MutableBlockPos pos, TreeConfiguration config, List<BlockPos> logPoses) {
@@ -233,9 +229,11 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 		this.setLog(level, replacer, random, pos, config, startPos, x, y, z, true, logPoses);
     }
 
-    private void terraformDirtBelow(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, BlockPos startPos, TreeConfiguration config, List<BlockPos> logPoses) {
+    private static void terraformDirtBelow(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, BlockPos startPos, TreeConfiguration config, List<BlockPos> logPoses) {
+        BlockGetter bgLevel = (BlockGetter) level;
+
         for (int y = 0; true; y++) {
-            if ((!isSolid((BlockGetter) level, startPos.below(y))) || ((BlockGetter) level).getBlockState(startPos.below(y)).getBlock() == Blocks.GRASS_BLOCK) {
+            if ((!isSolid(bgLevel, startPos.below(y))) || bgLevel.getBlockState(startPos.below(y)).getBlock() == Blocks.GRASS_BLOCK) {
                 setDirtAt(level, replacer, random, startPos.below(y), config, logPoses);
             } else {
                 break;
@@ -250,7 +248,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 		}
 	}
 
-    private boolean isSolid(BlockGetter level, BlockPos pos) {
+    private static boolean isSolid(BlockGetter level, BlockPos pos) {
         BlockState blockState = level.getBlockState(pos);
         return blockState.isFaceSturdy(level, pos, Direction.DOWN);
     }

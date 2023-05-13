@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.server.general;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
@@ -30,7 +31,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(RotatedPillarBlock.class)
+@Mixin(value = RotatedPillarBlock.class, priority = 990)
 public class RotatedPillarBlockMixin {
 
     @Inject(method = "createBlockStateDefinition", at = @At("TAIL"))
@@ -38,12 +39,12 @@ public class RotatedPillarBlockMixin {
 		builder.add(RegisterProperties.TERMITE_EDIBLE);
     }
 
-	@Inject(method = "getStateForPlacement", at = @At("RETURN"), cancellable = true)
-	public void wilderWild$getStateForPlacement(BlockPlaceContext context, CallbackInfoReturnable<BlockState> info) {
-		BlockState state = info.getReturnValue();
-		if (state != null && state.hasProperty(RegisterProperties.TERMITE_EDIBLE)) {
-			info.setReturnValue(state.setValue(RegisterProperties.TERMITE_EDIBLE, false));
+	@ModifyReturnValue(method = "getStateForPlacement", at = @At("RETURN"))
+	private BlockState wilderWild$getStateForPlacement(BlockState original) {
+		if (original != null && original.hasProperty(RegisterProperties.TERMITE_EDIBLE)) {
+			return original.setValue(RegisterProperties.TERMITE_EDIBLE, false);
 		}
+		return original;
 	}
 
 }

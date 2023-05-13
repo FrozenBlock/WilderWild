@@ -16,31 +16,36 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.mixin.worldgen.general;
+package net.frozenblock.wilderwild.mixin.worldgen;
 
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.additions.feature.WilderTreeConfigured;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.block.grower.DarkOakTreeGrower;
+import net.minecraft.world.level.block.grower.SpruceTreeGrower;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value = DarkOakTreeGrower.class, priority = 69420)
-public class DarkOakTreeGrowerMixin {
+@Mixin(value = SpruceTreeGrower.class, priority = 69420)
+public class SpruceTreeGrowerMixin {
 
-    @Inject(method = "getConfiguredMegaFeature", at = @At("RETURN"), cancellable = true)
-    public void getConfiguredMegaFeature(RandomSource randomSource, CallbackInfoReturnable<ResourceKey<ConfiguredFeature<?, ?>>> info) {
+    @Inject(method = "getConfiguredFeature", at = @At("RETURN"), cancellable = true)
+    public void getConfiguredFeature(RandomSource random, boolean bees, CallbackInfoReturnable<ResourceKey<ConfiguredFeature<?, ?>>> info) {
 		if (WilderSharedConstants.config().wildTrees()) {
-			if (randomSource.nextFloat() < 0.2F) {
-				info.setReturnValue(WilderTreeConfigured.TALL_DARK_OAK.getKey());
-			} else if (randomSource.nextFloat() < 0.2F) {
-				info.setReturnValue(WilderTreeConfigured.FANCY_TALL_DARK_OAK.getKey());
-			}
+			info.setReturnValue(random.nextFloat() < 0.1F ? WilderTreeConfigured.SPRUCE_SHORT.getKey() : WilderTreeConfigured.SPRUCE.getKey());
 		}
     }
+
+	@Inject(method = "getConfiguredMegaFeature", at = @At("RETURN"), cancellable = true)
+	public void wilderWild$getConfiguredMegaFeature(RandomSource random, CallbackInfoReturnable<ResourceKey<? extends ConfiguredFeature<?, ?>>> info) {
+		if (WilderSharedConstants.config().wildTrees()) {
+			if (random.nextFloat() < 0.25F) {
+				info.setReturnValue(WilderTreeConfigured.SHORT_MEGA_SPRUCE.getKey());
+			}
+		}
+	}
 
 }

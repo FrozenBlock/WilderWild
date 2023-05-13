@@ -48,7 +48,6 @@ public abstract class SlimeMixin extends Mob {
                 boolean test = spawnReason == MobSpawnType.SPAWNER || random.nextInt(5) == 0;
                 if (test && AlgaeBlock.isAlgaeNearbyForSlimeSpawn(level, pos, 1)) {
                     info.setReturnValue(true);
-                    info.cancel();
                 }
             }
         }

@@ -16,11 +16,10 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.mixin.worldgen.general;
+package net.frozenblock.wilderwild.mixin.worldgen;
 
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
-import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
@@ -59,32 +58,22 @@ public final class OverworldBiomeBuilderMixin {
     }
 
 	@Unique
-	private void wilderWild$injectSomeWilderWildBiomesToo(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-		if (WilderSharedConstants.config().generateMixedForest()) {
-			if (WilderSharedConstants.config().generateDarkTaiga()) {
-				for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST)) {
-					this.addSurfaceBiome(
-						parameters,
-						WilderSharedWorldgen.DarkTaiga.TEMPERATURE,
-						WilderSharedWorldgen.DarkTaiga.HUMIDITY,
-						point.continentalness(),
-						point.erosion(),
-						point.weirdness(),
-						point.offset(),
-						RegisterWorldgen.DARK_TAIGA
-					);
-					this.addSurfaceBiome(
-						parameters,
-						WilderSharedWorldgen.DarkTaiga.TEMPERATURE,
-						WilderSharedWorldgen.DarkTaiga.HUMIDITY_B,
-						point.continentalness(),
-						point.erosion(),
-						point.weirdness(),
-						point.offset(),
-						RegisterWorldgen.DARK_TAIGA
-					);
-				}
+	private void wilderWild$injectBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
+		if (WilderSharedConstants.config().generateDarkTaiga()) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST)) {
+				this.addSurfaceBiome(
+					parameters,
+					WilderSharedWorldgen.DarkTaiga.TEMPERATURE,
+					WilderSharedWorldgen.DarkTaiga.HUMIDITY,
+					point.continentalness(),
+					point.erosion(),
+					point.weirdness(),
+					point.offset(),
+					RegisterWorldgen.DARK_TAIGA
+				);
 			}
+		}
+		if (WilderSharedConstants.config().generateMixedForest()) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.TAIGA)) {
 				this.addSurfaceBiome(
 					parameters,
@@ -153,89 +142,56 @@ public final class OverworldBiomeBuilderMixin {
 		if (WilderSharedConstants.config().generateBirchTaiga()) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.TAIGA)) {
 				this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
-					WilderSharedWorldgen.BirchTaiga.HUMIDITY,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset(),
-					RegisterWorldgen.BIRCH_TAIGA
-				);
-				this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
-					WilderSharedWorldgen.BirchTaiga.HUMIDITY_B,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset(),
-					RegisterWorldgen.BIRCH_TAIGA
+						parameters,
+						WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
+						WilderSharedWorldgen.BirchTaiga.HUMIDITY,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						point.offset(),
+						RegisterWorldgen.BIRCH_TAIGA
 				);
 			}
 		}
 		if (WilderSharedConstants.config().generateOldGrowthBirchTaiga()) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.OLD_GROWTH_BIRCH_FOREST)) {
 				this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
-					WilderSharedWorldgen.BirchTaiga.HUMIDITY,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset(),
-					RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA
-				);
-				this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
-					WilderSharedWorldgen.BirchTaiga.HUMIDITY_B,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset(),
-					RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA
+						parameters,
+						WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
+						WilderSharedWorldgen.BirchTaiga.HUMIDITY,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						point.offset(),
+						RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA
 				);
 			}
 		}
 		if (WilderSharedConstants.config().generateBirchJungle()) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.JUNGLE)) {
-				if (point.humidity().equals(Humidity.FOUR)) {
-					this.addSurfaceBiome(
-						parameters,
-						WilderSharedWorldgen.BirchJungle.TEMPERATURE,
-						WilderSharedWorldgen.BirchJungle.HUMIDITY_A,
-						point.continentalness(),
-						point.erosion(),
-						point.weirdness(),
-						point.offset(),
-						RegisterWorldgen.BIRCH_JUNGLE
-					);
-				} else {
-					this.addSurfaceBiome(
-						parameters,
-						WilderSharedWorldgen.BirchJungle.TEMPERATURE,
-						WilderSharedWorldgen.BirchJungle.HUMIDITY_B,
-						point.continentalness(),
-						point.erosion(),
-						point.weirdness(),
-						point.offset(),
-						RegisterWorldgen.BIRCH_JUNGLE
-					);
-				}
+				this.addSurfaceBiome(
+					parameters,
+					WilderSharedWorldgen.BirchJungle.TEMPERATURE,
+					WilderSharedWorldgen.BirchJungle.HUMIDITY,
+					point.continentalness(),
+					point.erosion(),
+					point.weirdness(),
+					point.offset(),
+					RegisterWorldgen.BIRCH_JUNGLE
+				);
 			}
 		}
 		if (WilderSharedConstants.config().generateSparseBirchJungle()) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SPARSE_JUNGLE)) {
 				this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.BirchJungle.TEMPERATURE,
-					WilderSharedWorldgen.BirchJungle.HUMIDITY_A,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset(),
-					RegisterWorldgen.SPARSE_BIRCH_JUNGLE
+						parameters,
+						WilderSharedWorldgen.BirchJungle.TEMPERATURE,
+						WilderSharedWorldgen.BirchJungle.HUMIDITY,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						point.offset(),
+						RegisterWorldgen.SPARSE_BIRCH_JUNGLE
 				);
 			}
 		}
@@ -290,24 +246,14 @@ public final class OverworldBiomeBuilderMixin {
 		if (WilderSharedConstants.config().generateParchedForest()) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FOREST)) {
 				this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.ParchedForest.TEMPERATURE_A,
-					WilderSharedWorldgen.ParchedForest.HUMIDITY,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset(),
-					RegisterWorldgen.PARCHED_FOREST
-				);
-				this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.ParchedForest.TEMPERATURE_B,
-					WilderSharedWorldgen.ParchedForest.HUMIDITY,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset(),
-					RegisterWorldgen.PARCHED_FOREST
+						parameters,
+						WilderSharedWorldgen.ParchedForest.TEMPERATURE,
+						WilderSharedWorldgen.ParchedForest.HUMIDITY,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						point.offset(),
+						RegisterWorldgen.PARCHED_FOREST
 				);
 			}
 		}
@@ -417,112 +363,104 @@ public final class OverworldBiomeBuilderMixin {
 		}
 	}
 
-    @Inject(method = "addLowSlice", at = @At("TAIL")) // also can be injectLowBiomes
-    private void wilderWild$injectBiomesNearRivers(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo info) {
-        if (!FrozenBools.HAS_TERRABLENDER) {
-			wilderWild$injectSomeWilderWildBiomesToo(parameters);
-			if (WilderSharedConstants.config().generateCypressWetlands()) {
-				this.addSurfaceBiome(
-						parameters,
-						WilderSharedWorldgen.CypressWetlands.TEMPERATURE,
-						WilderSharedWorldgen.CypressWetlands.HUMIDITY,
-						WilderSharedWorldgen.CypressWetlands.CONTINENTALNESS,
-						WilderSharedWorldgen.CypressWetlands.EROSION,
-						weirdness,
-						WilderSharedWorldgen.CypressWetlands.OFFSET,
-						RegisterWorldgen.CYPRESS_WETLANDS
-				);
-			}
-			if (WilderSharedConstants.config().generateOasis()) {
-				this.addSurfaceBiome(
-						parameters,
-						WilderSharedWorldgen.Oasis.TEMPERATURE,
-						WilderSharedWorldgen.Oasis.HUMIDITY,
-						WilderSharedWorldgen.Oasis.CONTINENTALNESS,
-						WilderSharedWorldgen.Oasis.EROSION,
-						weirdness,
-						WilderSharedWorldgen.Oasis.OFFSET,
-						RegisterWorldgen.OASIS
-				);
-			}
-        }
+    @Inject(method = "addLowSlice", at = @At("TAIL"))
+    private void wilderWild$injectLowSlice(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo info) {
+		if (WilderSharedConstants.config().generateCypressWetlands()) {
+			this.addSurfaceBiome(
+				parameters,
+				WilderSharedWorldgen.CypressWetlands.TEMPERATURE,
+				WilderSharedWorldgen.CypressWetlands.HUMIDITY,
+				WilderSharedWorldgen.CypressWetlands.CONTINENTALNESS,
+				WilderSharedWorldgen.CypressWetlands.EROSION,
+				weirdness,
+				WilderSharedWorldgen.CypressWetlands.OFFSET,
+				RegisterWorldgen.CYPRESS_WETLANDS
+			);
+		}
+		if (WilderSharedConstants.config().generateOasis()) {
+			this.addSurfaceBiome(
+				parameters,
+				WilderSharedWorldgen.Oasis.TEMPERATURE,
+				WilderSharedWorldgen.Oasis.HUMIDITY,
+				WilderSharedWorldgen.Oasis.CONTINENTALNESS,
+				WilderSharedWorldgen.Oasis.EROSION,
+				weirdness,
+				WilderSharedWorldgen.Oasis.OFFSET,
+				RegisterWorldgen.OASIS
+			);
+		}
+		wilderWild$injectBiomes(parameters);
     }
 
     @Inject(method = "addMidSlice", at = @At("TAIL")) // also can be injectMidBiomes
     private void wilderWild$injectMixedBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo info) {
-        if (!FrozenBools.HAS_TERRABLENDER) {
-			if (WilderSharedConstants.config().generateCypressWetlands()) {
-				this.addSurfaceBiome(
-						parameters,
-						WilderSharedWorldgen.CypressWetlands.TEMPERATURE,
-						WilderSharedWorldgen.CypressWetlands.HUMIDITY,
-						WilderSharedWorldgen.CypressWetlands.CONTINENTALNESS,
-						WilderSharedWorldgen.CypressWetlands.EROSION,
-						weirdness,
-						WilderSharedWorldgen.CypressWetlands.OFFSET,
-						RegisterWorldgen.CYPRESS_WETLANDS
-				);
-			}
-			if (WilderSharedConstants.config().generateOasis()) {
-				this.addSurfaceBiome(
-						parameters,
-						WilderSharedWorldgen.Oasis.TEMPERATURE,
-						WilderSharedWorldgen.Oasis.HUMIDITY,
-						WilderSharedWorldgen.Oasis.CONTINENTALNESS,
-						WilderSharedWorldgen.Oasis.EROSION,
-						weirdness,
-						WilderSharedWorldgen.Oasis.OFFSET,
-						RegisterWorldgen.OASIS
-				);
-			}
-        }
+		if (WilderSharedConstants.config().generateCypressWetlands()) {
+			this.addSurfaceBiome(
+				parameters,
+				WilderSharedWorldgen.CypressWetlands.TEMPERATURE,
+				WilderSharedWorldgen.CypressWetlands.HUMIDITY,
+				WilderSharedWorldgen.CypressWetlands.CONTINENTALNESS,
+				WilderSharedWorldgen.CypressWetlands.EROSION,
+				weirdness,
+				WilderSharedWorldgen.CypressWetlands.OFFSET,
+				RegisterWorldgen.CYPRESS_WETLANDS
+			);
+		}
+		if (WilderSharedConstants.config().generateOasis()) {
+			this.addSurfaceBiome(
+				parameters,
+				WilderSharedWorldgen.Oasis.TEMPERATURE,
+				WilderSharedWorldgen.Oasis.HUMIDITY,
+				WilderSharedWorldgen.Oasis.CONTINENTALNESS,
+				WilderSharedWorldgen.Oasis.EROSION,
+				weirdness,
+				WilderSharedWorldgen.Oasis.OFFSET,
+				RegisterWorldgen.OASIS
+			);
+		}
     }
 
     @Inject(method = "addValleys", at = @At("TAIL")) // can also be injectValleyBiomes
     private void wilderWild$injectRiverBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo info) {
-        if (!FrozenBools.HAS_TERRABLENDER) {
-			if (WilderSharedConstants.config().generateCypressWetlands()) {
-				this.addSurfaceBiome(
-						parameters,
-						WilderSharedWorldgen.CypressWetlands.TEMPERATURE,
-						WilderSharedWorldgen.CypressWetlands.HUMIDITY,
-						WilderSharedWorldgen.CypressWetlands.CONTINENTALNESS,
-						WilderSharedWorldgen.CypressWetlands.EROSION,
-						weirdness,
-						WilderSharedWorldgen.CypressWetlands.OFFSET,
-						RegisterWorldgen.CYPRESS_WETLANDS
-				);
-			}
-			if (WilderSharedConstants.config().generateOasis()) {
-				this.addSurfaceBiome(
-						parameters,
-						WilderSharedWorldgen.Oasis.TEMPERATURE,
-						WilderSharedWorldgen.Oasis.HUMIDITY,
-						WilderSharedWorldgen.Oasis.CONTINENTALNESS,
-						WilderSharedWorldgen.Oasis.EROSION,
-						weirdness,
-						WilderSharedWorldgen.Oasis.OFFSET,
-						RegisterWorldgen.OASIS
-				);
-			}
-        }
+		if (WilderSharedConstants.config().generateCypressWetlands()) {
+			this.addSurfaceBiome(
+				parameters,
+				WilderSharedWorldgen.CypressWetlands.TEMPERATURE,
+				WilderSharedWorldgen.CypressWetlands.HUMIDITY,
+				WilderSharedWorldgen.CypressWetlands.CONTINENTALNESS,
+				WilderSharedWorldgen.CypressWetlands.EROSION,
+				weirdness,
+				WilderSharedWorldgen.CypressWetlands.OFFSET,
+				RegisterWorldgen.CYPRESS_WETLANDS
+			);
+		}
+		if (WilderSharedConstants.config().generateOasis()) {
+			this.addSurfaceBiome(
+				parameters,
+				WilderSharedWorldgen.Oasis.TEMPERATURE,
+				WilderSharedWorldgen.Oasis.HUMIDITY,
+				WilderSharedWorldgen.Oasis.CONTINENTALNESS,
+				WilderSharedWorldgen.Oasis.EROSION,
+				weirdness,
+				WilderSharedWorldgen.Oasis.OFFSET,
+				RegisterWorldgen.OASIS
+			);
+		}
     }
 
     @Inject(method = "addUndergroundBiomes", at = @At("TAIL"))
     private void wilderWild$addUndergroundBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, CallbackInfo info) {
-        if (!FrozenBools.HAS_TERRABLENDER) {
-			if (WilderSharedConstants.config().generateJellyfishCaves()) {
-				wilderWild$addSemiDeepBiome(
-						consumer,
-						WilderSharedWorldgen.JellyfishCaves.TEMPERATURE,
-						WilderSharedWorldgen.JellyfishCaves.HUMIDITY,
-						WilderSharedWorldgen.JellyfishCaves.CONTINENTALNESS,
-						WilderSharedWorldgen.JellyfishCaves.EROSION,
-						WilderSharedWorldgen.JellyfishCaves.WEIRDNESS,
-						WilderSharedWorldgen.JellyfishCaves.OFFSET,
-						RegisterWorldgen.JELLYFISH_CAVES
-				);
-			}
+        if (WilderSharedConstants.config().generateJellyfishCaves()) {
+			wilderWild$addSemiDeepBiome(
+				consumer,
+				WilderSharedWorldgen.JellyfishCaves.TEMPERATURE,
+				WilderSharedWorldgen.JellyfishCaves.HUMIDITY,
+				WilderSharedWorldgen.JellyfishCaves.CONTINENTALNESS,
+				WilderSharedWorldgen.JellyfishCaves.EROSION,
+				WilderSharedWorldgen.JellyfishCaves.WEIRDNESS,
+				WilderSharedWorldgen.JellyfishCaves.OFFSET,
+				RegisterWorldgen.JELLYFISH_CAVES
+			);
         }
     }
 
@@ -536,79 +474,79 @@ public final class OverworldBiomeBuilderMixin {
 
     @Inject(method = "addSurfaceBiome", at = @At("HEAD"), cancellable = true)
     private void wilderWild$addSurfaceBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, float offset, ResourceKey<Biome> biome, CallbackInfo info) {
-        if (!FrozenBools.HAS_TERRABLENDER) {
-            if (biome.equals(Biomes.MANGROVE_SWAMP) && WilderSharedConstants.config().modifyMangroveSwampPlacement()) {
-				wilderWild$replaceParameters(
-						parameters,
-						biome,
-						WilderSharedWorldgen.MangroveSwamp.TEMPERATURE,
-						WilderSharedWorldgen.MangroveSwamp.HUMIDITY,
-						continentalness,
-						erosion,
-						weirdness,
-						offset
-				);
-                info.cancel();
-            } else if (biome.equals(Biomes.SWAMP) && WilderSharedConstants.config().modifySwampPlacement()) {
-				wilderWild$replaceParameters(
-						parameters,
-						biome,
-						WilderSharedWorldgen.Swamp.TEMPERATURE,
-						WilderSharedWorldgen.Swamp.HUMIDITY,
-						continentalness,
-						erosion,
-						weirdness,
-						offset
-				);
-                info.cancel();
-            }
-        }
+		if (biome.equals(Biomes.MANGROVE_SWAMP) && WilderSharedConstants.config().modifyMangroveSwampPlacement()) {
+			wilderWild$replaceParameters(
+				parameters,
+				biome,
+				WilderSharedWorldgen.MangroveSwamp.TEMPERATURE,
+				WilderSharedWorldgen.MangroveSwamp.HUMIDITY,
+				continentalness,
+				erosion,
+				weirdness,
+				offset
+			);
+			info.cancel();
+		} else if (biome.equals(Biomes.SWAMP) && WilderSharedConstants.config().modifySwampPlacement()) {
+			wilderWild$replaceParameters(
+				parameters,
+				biome,
+				WilderSharedWorldgen.Swamp.TEMPERATURE,
+				WilderSharedWorldgen.Swamp.HUMIDITY,
+				continentalness,
+				erosion,
+				weirdness,
+				offset
+			);
+			info.cancel();
+		}
     }
 
 	@Inject(method = "addValleys", at = @At("HEAD"))
 	private void wilderWild$addValleys(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, Climate.Parameter weirdness, CallbackInfo info) {
+		ResourceKey<Biome> newRiver = WilderSharedConstants.config().generateWarmRiver() ? RegisterWorldgen.WARM_RIVER : Biomes.RIVER;
+
+		this.addSurfaceBiome(
+			consumer,
+			this.temperatures[3],
+			WilderSharedWorldgen.WarmRiver.HUMIDITY_TO_TWO,
+			this.coastContinentalness,
+			Climate.Parameter.span(this.erosions[0], this.erosions[1]),
+			weirdness,
+			0.0F,
+			weirdness.max() < 0L ? Biomes.STONY_SHORE : newRiver
+		);
+		this.addSurfaceBiome(
+			consumer,
+			this.temperatures[3],
+			WilderSharedWorldgen.WarmRiver.HUMIDITY_TO_TWO,
+			this.nearInlandContinentalness,
+			Climate.Parameter.span(this.erosions[0], this.erosions[1]),
+			weirdness,
+			0.0F,
+			newRiver
+		);
+		this.addSurfaceBiome(
+			consumer,
+			this.temperatures[3],
+			WilderSharedWorldgen.WarmRiver.HUMIDITY_TO_TWO,
+			Climate.Parameter.span(this.coastContinentalness, this.farInlandContinentalness),
+			Climate.Parameter.span(this.erosions[2], this.erosions[5]),
+			weirdness,
+			0.0F,
+			newRiver
+		);
+		this.addSurfaceBiome(
+			consumer,
+			this.temperatures[3],
+			WilderSharedWorldgen.WarmRiver.HUMIDITY_TO_TWO,
+			this.coastContinentalness,
+			this.erosions[6],
+			weirdness,
+			0.0F,
+			newRiver
+		);
+
 		if (WilderSharedConstants.config().modifyJunglePlacement()) {
-			ResourceKey<Biome> newRiver = WilderSharedConstants.config().generateWarmRiver() ? RegisterWorldgen.WARM_RIVER : Biomes.RIVER;
-			this.addSurfaceBiome(
-					consumer,
-					this.temperatures[3],
-					WilderSharedWorldgen.WarmRiver.HUMIDITY_TO_TWO,
-					this.coastContinentalness,
-					Climate.Parameter.span(this.erosions[0], this.erosions[1]),
-					weirdness,
-					0.0F,
-					weirdness.max() < 0L ? Biomes.STONY_SHORE : newRiver
-			);
-			this.addSurfaceBiome(
-					consumer,
-					this.temperatures[3],
-					WilderSharedWorldgen.WarmRiver.HUMIDITY_TO_TWO,
-					this.nearInlandContinentalness,
-					Climate.Parameter.span(this.erosions[0], this.erosions[1]),
-					weirdness,
-					0.0F,
-					newRiver
-			);
-			this.addSurfaceBiome(
-					consumer,
-					this.temperatures[3],
-					WilderSharedWorldgen.WarmRiver.HUMIDITY_TO_TWO,
-					Climate.Parameter.span(this.coastContinentalness, this.farInlandContinentalness),
-					Climate.Parameter.span(this.erosions[2], this.erosions[5]),
-					weirdness,
-					0.0F,
-					newRiver
-			);
-			this.addSurfaceBiome(
-					consumer,
-					this.temperatures[3],
-					WilderSharedWorldgen.WarmRiver.HUMIDITY_TO_TWO,
-					this.coastContinentalness,
-					this.erosions[6],
-					weirdness,
-					0.0F,
-					newRiver
-			);
 			this.addSurfaceBiome(
 					consumer,
 					this.temperatures[4],
@@ -650,46 +588,6 @@ public final class OverworldBiomeBuilderMixin {
 					newRiver
 			);
 		} else {
-			ResourceKey<Biome> newRiver = WilderSharedConstants.config().generateWarmRiver() ? RegisterWorldgen.WARM_RIVER : Biomes.RIVER;
-			this.addSurfaceBiome(
-					consumer,
-					this.temperatures[3],
-					WilderSharedWorldgen.WarmRiver.HUMIDITY_TO_TWO,
-					this.coastContinentalness,
-					Climate.Parameter.span(this.erosions[0], this.erosions[1]),
-					weirdness,
-					0.0F,
-					weirdness.max() < 0L ? Biomes.STONY_SHORE : newRiver
-			);
-			this.addSurfaceBiome(
-					consumer,
-					this.temperatures[3],
-					WilderSharedWorldgen.WarmRiver.HUMIDITY_TO_TWO,
-					this.nearInlandContinentalness,
-					Climate.Parameter.span(this.erosions[0], this.erosions[1]),
-					weirdness,
-					0.0F,
-					newRiver
-			);
-			this.addSurfaceBiome(
-					consumer,
-					this.temperatures[3],
-					WilderSharedWorldgen.WarmRiver.HUMIDITY_TO_TWO,
-					Climate.Parameter.span(this.coastContinentalness, this.farInlandContinentalness),
-					Climate.Parameter.span(this.erosions[2], this.erosions[5]),
-					weirdness,
-					0.0F,
-					newRiver
-			);
-			this.addSurfaceBiome(
-					consumer,
-					this.temperatures[3],
-					WilderSharedWorldgen.WarmRiver.HUMIDITY_TO_TWO,
-					this.coastContinentalness, this.erosions[6],
-					weirdness,
-					0.0F,
-					newRiver
-			);
 			this.addSurfaceBiome(
 					consumer,
 					this.temperatures[4],

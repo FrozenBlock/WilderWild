@@ -59,6 +59,7 @@ public final class ItemConfig implements ConfigData {
 	}
 
     public boolean projectileBreakParticles = DefaultItemConfig.PROJECTILE_BREAK_PARTICLES;
+	public boolean restrictInstrumentSound = DefaultItemConfig.RESTRICT_INSTRUMENT_SOUND;
 
     @Environment(EnvType.CLIENT)
     static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
@@ -142,12 +143,21 @@ public final class ItemConfig implements ConfigData {
                 .setDefaultValue(DefaultItemConfig.PROJECTILE_BREAK_PARTICLES)
                 .setSaveConsumer(newValue -> config.projectileBreakParticles = newValue)
                 .setTooltip(tooltip("projectile_break_particles"))
-                .build());
+                .build()
+		);
 
 		var itemCooldownsSave = category.addEntry(entryBuilder.startBooleanToggle(text("item_cooldowns_save"), FrozenLibConfig.get().config.saveItemCooldowns)
 				.setDefaultValue(FrozenLibConfigValues.DefaultFrozenLibConfigValues.SAVE_ITEM_COOLDOWNS)
 				.setSaveConsumer(newValue -> FrozenLibConfig.get().config.saveItemCooldowns = newValue)
 				.setTooltip(tooltip("item_cooldowns_save"))
-				.build());
+				.build()
+		);
+
+		var restrictInstrumentSound = category.addEntry(entryBuilder.startBooleanToggle(text("restrict_instrument_sound"), config.restrictInstrumentSound)
+			.setDefaultValue(DefaultItemConfig.RESTRICT_INSTRUMENT_SOUND)
+			.setSaveConsumer(newValue -> config.restrictInstrumentSound = newValue)
+			.setTooltip(tooltip("restrict_instrument_sound"))
+			.build()
+		);
     }
 }
