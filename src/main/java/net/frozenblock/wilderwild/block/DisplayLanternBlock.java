@@ -71,7 +71,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -277,26 +277,26 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Override
 	@NotNull
-	public List<ItemStack> getDrops(@NotNull BlockState state, LootContext.Builder builder) {
-		ResourceLocation identifier = this.getLootTable();
+	public List<ItemStack> getDrops(@NotNull BlockState blockState, LootParams.Builder builder) {
+		ResourceLocation resourceLocation = this.getLootTable();
 		if (builder.getOptionalParameter(LootContextParams.TOOL) != null) {
 			ItemStack stack = builder.getParameter(LootContextParams.TOOL);
 			if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) != 0) {
 				if (builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY) != null) {
 					BlockEntity blockEntity = builder.getParameter(LootContextParams.BLOCK_ENTITY);
 					if (blockEntity instanceof DisplayLanternBlockEntity lantern && !lantern.getFireflies().isEmpty()) {
-						identifier = WilderSharedConstants.id("blocks/display_lantern_fireflies");
+						resourceLocation = WilderSharedConstants.id("blocks/display_lantern_fireflies");
 					}
 				}
 			}
 		}
-		if (identifier == BuiltInLootTables.EMPTY) {
+		if (resourceLocation == BuiltInLootTables.EMPTY) {
 			return Collections.emptyList();
 		} else {
-			LootContext lootContext = builder.withParameter(LootContextParams.BLOCK_STATE, state).create(LootContextParamSets.BLOCK);
-			ServerLevel serverLevel = lootContext.getLevel();
-			LootTable lootTable = serverLevel.getServer().getLootData().getLootTable(identifier);
-			return lootTable.getRandomItems(lootContext);
+			LootParams lootParams = builder.withParameter(LootContextParams.BLOCK_STATE, blockState).create(LootContextParamSets.BLOCK);
+			ServerLevel serverLevel = lootParams.getLevel();
+			LootTable lootTable = serverLevel.getServer().getLootData().getLootTable(resourceLocation);
+			return lootTable.getRandomItems(lootParams);
 		}
 	}
 

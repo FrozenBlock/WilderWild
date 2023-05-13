@@ -23,6 +23,7 @@ import net.minecraft.nbt.ByteTag;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -39,7 +40,7 @@ public final class LootTableMixin {
 	private boolean wilderWild$isStoneChest = false;
 
 	@Inject(at = @At("HEAD"), method = "fill")
-	public void wilderWild$fill(Container container, LootContext context, CallbackInfo info) {
+	public void wilderWild$fill(Container container, LootParams lootParams, long l, CallbackInfo ci) {
 		this.wilderWild$isStoneChest = container instanceof StoneChestBlockEntity;
 	}
 

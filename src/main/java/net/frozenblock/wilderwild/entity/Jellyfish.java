@@ -78,9 +78,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.level.pathfinder.Path;
-import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -400,18 +397,12 @@ public class Jellyfish extends NoFlopAbstractFish {
         return false;
     }
 
-    public ResourceLocation getJellyLootTable() {
-        ResourceLocation resourceLocation = BuiltInRegistries.ENTITY_TYPE.getKey(RegisterEntities.JELLYFISH);
-        return new ResourceLocation(this.getVariant().getKey().getNamespace(), "entities/" + resourceLocation.getPath() + "_" + this.getVariant().getKey().getPath());
-    }
-
-    @Override
-    protected void dropFromLootTable(@NotNull DamageSource damageSource, boolean bl) {
-		ResourceLocation resourceLocation = this.getJellyLootTable();
-		LootTable lootTable = Objects.requireNonNull(this.level().getServer()).getLootData().getLootTable(resourceLocation);
-		LootContext.Builder builder = this.createLootContext(bl, damageSource);
-		lootTable.getRandomItems(builder.create(LootContextParamSets.ENTITY), this::spawnAtLocation);
-    }
+	@Override
+	@NotNull
+	public ResourceLocation getDefaultLootTable() {
+		ResourceLocation resourceLocation = BuiltInRegistries.ENTITY_TYPE.getKey(RegisterEntities.JELLYFISH);
+		return new ResourceLocation(this.getVariant().getKey().getNamespace(), "entities/" + resourceLocation.getPath() + "_" + this.getVariant().getKey().getPath());
+	}
 
     @Override
 	@NotNull
