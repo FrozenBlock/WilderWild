@@ -32,6 +32,7 @@ import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
@@ -54,9 +55,13 @@ public class SeedParticle extends TextureSheetParticle {
     public void tick() {
         super.tick();
 		this.windIntensity *= 0.945F;
-		boolean onGround = this.onGround;
-		double multXZ = (onGround ? 0.0005 : 0.007) * this.windIntensity;
-		double multY = (onGround ? 0.0005 : 0.0035) * this.windIntensity;
+		BlockPos blockPos = BlockPos.containing(this.x, this.y, this.z);
+		FluidState fluidState = this.level.getBlockState(blockPos).getFluidState();
+		if (!fluidState.isEmpty() && (fluidState.getHeight(this.level, blockPos) + (float)blockPos.getY()) >= this.y) {
+			return;
+		}
+		double multXZ = (this.onGround ? 0.0005 : 0.007) * this.windIntensity;
+		double multY = (this.onGround ? 0.0005 : 0.0035) * this.windIntensity;
 		Vec3 wind = ClientWindManager.getWindMovement(this.level, BlockPos.containing(this.x, this.y, this.z)).scale(WilderSharedConstants.config().particleWindMovement());
 		this.xd += wind.x() * multXZ;
 		this.yd += (wind.y() + 0.1) * multY;
