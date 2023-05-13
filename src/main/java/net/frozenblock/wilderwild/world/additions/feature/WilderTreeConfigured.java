@@ -436,7 +436,7 @@ public final class WilderTreeConfigured {
 
 		CHERRY_TREE.makeAndSetHolder(Feature.TREE,
 			cherry().decorators(
-					ImmutableList.of(
+					List.of(
 							SHELF_FUNGUS_00875_ONLY_RED
 					)
 			).build()
@@ -444,7 +444,7 @@ public final class WilderTreeConfigured {
 
 		DYING_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
 				cherry().decorators(
-						ImmutableList.of(
+						List.of(
 								SHELF_FUNGUS_00875_ONLY_RED,
 								VINES_1_UNDER_260_03
 						)
@@ -453,7 +453,7 @@ public final class WilderTreeConfigured {
 
 		TALL_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
 				tallCherry().decorators(
-						ImmutableList.of(
+						List.of(
 								SHELF_FUNGUS_00875_ONLY_RED
 						)
 				).build()
@@ -461,7 +461,7 @@ public final class WilderTreeConfigured {
 
 		TALL_DYING_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
 				tallCherry().decorators(
-						ImmutableList.of(
+						List.of(
 								SHELF_FUNGUS_00875_ONLY_RED,
 								VINES_1_UNDER_260_03
 						)
@@ -470,7 +470,7 @@ public final class WilderTreeConfigured {
 
 		CHERRY_BEES_025.makeAndSetHolder(Feature.TREE,
 				cherry().decorators(
-						ImmutableList.of(
+						List.of(
 								BEES_025,
 								POLLEN_01,
 								SHELF_FUNGUS_00875_ONLY_RED
@@ -480,7 +480,7 @@ public final class WilderTreeConfigured {
 
 		TALL_CHERRY_BEES_025.makeAndSetHolder(Feature.TREE,
 				tallCherry().decorators(
-						ImmutableList.of(
+						List.of(
 								BEES_025,
 								POLLEN_01,
 								SHELF_FUNGUS_00875_ONLY_RED
@@ -490,7 +490,7 @@ public final class WilderTreeConfigured {
 
 		FALLEN_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
 				fallenCherry().decorators(
-						ImmutableList.of(
+						List.of(
 								VINES_08_UNDER_260_075,
 								MOSS_CHERRY
 						)
@@ -509,7 +509,7 @@ public final class WilderTreeConfigured {
 						UniformInt.of(1, 2),
 						1
 				).ignoreVines().decorators(
-						ImmutableList.of(
+						List.of(
 								VINES_08_UNDER_260_075,
 								MOSS_MOSSY
 						)).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
