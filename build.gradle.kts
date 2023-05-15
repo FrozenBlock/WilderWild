@@ -263,7 +263,7 @@ dependencies {
 
 
     // MixinExtras
-    implementation("com.github.LlamaLad7:MixinExtras:0.2.0-beta.7")?.let { annotationProcessor(it) }
+    implementation("com.github.llamalad7.mixinextras:mixinextras-fabric:0.2.0-beta.7")?.let { annotationProcessor(it) }
 
     // Sodium
     modImplementation("maven.modrinth:sodium:${sodium_version}")
