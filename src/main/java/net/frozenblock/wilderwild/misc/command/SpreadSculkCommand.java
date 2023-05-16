@@ -53,13 +53,13 @@ public class SpreadSculkCommand {
 
 	private static int spreadSculk(CommandSourceStack source, BlockPos pos, boolean worldGen, int charge) {
 		SculkSpreadTicker.createAndSpawn(RegisterEntities.SCULK_SPREADER, source.getLevel(), pos, worldGen, charge);
-		source.sendSuccess(Component.translatable(worldGen ? "commands.sculkspread.worldgen.success" : "commands.sculkspread.success", pos.getX(), pos.getY(), pos.getZ(), charge), true);
+		source.sendSuccess(() -> Component.translatable(worldGen ? "commands.sculkspread.worldgen.success" : "commands.sculkspread.success", pos.getX(), pos.getY(), pos.getZ(), charge), true);
 		return 1;
 	}
 
 	private static int spreadSculk(CommandSourceStack source, Vec3 pos, boolean worldGen, int charge) {
 		SculkSpreadTicker.createAndSpawn(RegisterEntities.SCULK_SPREADER, source.getLevel(), BlockPos.containing(pos), worldGen, charge);
-		source.sendSuccess(Component.translatable(worldGen ? "commands.sculkspread.worldgen.success" : "commands.sculkspread.success", pos.x(), pos.y(), pos.z(), charge), true);
+		source.sendSuccess(() -> Component.translatable(worldGen ? "commands.sculkspread.worldgen.success" : "commands.sculkspread.success", pos.x(), pos.y(), pos.z(), charge), true);
 		return 1;
 	}
 
