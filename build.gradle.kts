@@ -30,6 +30,7 @@ plugins {
     id("org.ajoberstar.grgit") version("+")
     id("com.modrinth.minotaur") version("+")
     id("com.matthewprenger.cursegradle") version("+")
+    id("com.github.johnrengelman.shadow") version("+")
     `maven-publish`
     eclipse
     idea
@@ -139,6 +140,7 @@ loom {
 
 val includeModImplementation by configurations.creating
 val includeImplementation by configurations.creating
+val shadowInclude by configurations.creating
 
 configurations {
     include {
@@ -261,7 +263,7 @@ dependencies {
     modImplementation("com.github.glitchfiend:TerraBlender-fabric:${minecraft_version}-${terrablender_version}")
 
     // MixinExtras
-    implementation("com.github.llamalad7.mixinextras:mixinextras-fabric:0.2.0-beta.7")?.let { annotationProcessor(it) }
+    implementation("com.github.llamalad7.mixinextras:mixinextras-fabric:0.2.0-beta.7")?.let { annotationProcessor(it); shadowInclude(it) }
 
     // Sodium
     modCompileOnly("maven.modrinth:sodium:${sodium_version}")
@@ -369,6 +371,20 @@ tasks {
 
     withType(Test::class) {
         maxParallelForks = Runtime.getRuntime().availableProcessors().div(2)
+    }
+
+    shadowJar {
+        isEnableRelocation = true
+        relocationPrefix = "net.frozenblock.wilderwild.shadow"
+
+        configurations = listOf(shadowInclude)
+    }
+
+    remapJar {
+        dependsOn(shadowJar)
+        mustRunAfter(shadowJar)
+
+        input.set(shadowJar.get().archiveFile)
     }
 }
 
