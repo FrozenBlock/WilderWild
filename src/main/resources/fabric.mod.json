@@ -36,6 +36,9 @@
     "client": [
       "net.frozenblock.wilderwild.WilderWildClient"
     ],
+    "preLaunch": [
+      "net.frozenblock.wilderwild.misc.WilderWildPreLaunch"
+    ],
     "fabric-datagen": [
       "net.frozenblock.wilderwild.misc.WilderWildDataGenerator"
     ],
