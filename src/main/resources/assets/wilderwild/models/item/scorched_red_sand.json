@@ -3,7 +3,7 @@
   "overrides": [
     {
       "predicate": {
-        "cracked": 1
+        "crackedness": 1
       },
       "model": "wilderwild:item/scorched_red_sand_cracked"
     }
