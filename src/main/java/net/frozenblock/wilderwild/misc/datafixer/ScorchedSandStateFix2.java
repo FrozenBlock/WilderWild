@@ -35,11 +35,11 @@ public class ScorchedSandStateFix2 extends DataFix {
 	private final String name;
 	private final String blockId;
 
-	public DrySandStateFix(Schema outputSchema, String name, ResourceLocation blockId) {
+	public ScorchedSandStateFix2(Schema outputSchema, String name, ResourceLocation blockId) {
 		this(outputSchema, name, blockId.toString());
 	}
 
-	private DrySandStateFix(Schema outputSchema, String name, String blockId) {
+	private ScorchedSandStateFix2(Schema outputSchema, String name, String blockId) {
 		super(outputSchema, false);
 		this.name = name;
 		this.blockId = blockId;
