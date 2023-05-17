@@ -39,7 +39,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
@@ -50,14 +50,18 @@ import org.jetbrains.annotations.NotNull;
 public class ScorchedSandBlock extends Block {
 	public static final Map<BlockState, BlockState> SCORCH_MAP = new HashMap<>();
 	public static final Map<BlockState, BlockState> HYDRATE_MAP = new HashMap<>();
-	public static final IntegerProperty CRACKEDNESS = RegisterProperties.CRACKEDNESS;
-	private final int dustColor;
 
+	private static final BooleanProperty CRACKEDNESS = RegisterProperties.CRACKEDNESS;
+	private final int dustColor;
+	private final BlockState defaultState;
+	private final BlockState defaultStateCracked;
 	public final BlockState wetState;
 
 	public ScorchedSandBlock(Properties settings, BlockState wetState, int dustColor) {
 		super(settings);
-		this.registerDefaultState(this.stateDefinition.any().setValue(CRACKEDNESS, 0));
+		this.registerDefaultState(this.stateDefinition.any().setValue(CRACKEDNESS, false));
+		this.defaultState = this.defaultBlockState();
+		this.defaultStateCracked = defaultState.setValue(CRACKEDNESS, true);
 		this.wetState = wetState;
 		this.fillScorchMap(wetState, this.defaultBlockState());
 		this.dustColor = dustColor;
@@ -65,9 +69,9 @@ public class ScorchedSandBlock extends Block {
 
 	public void fillScorchMap(BlockState wetState, BlockState defaultState) {
 		SCORCH_MAP.put(wetState, defaultState);
-		SCORCH_MAP.put(defaultState, defaultState.setValue(RegisterProperties.CRACKEDNESS, 1));
+		SCORCH_MAP.put(defaultState, defaultState.setValue(RegisterProperties.CRACKEDNESS, true));
 		HYDRATE_MAP.put(defaultState, wetState);
-		HYDRATE_MAP.put(defaultState.setValue(RegisterProperties.CRACKEDNESS, 1), defaultState);
+		HYDRATE_MAP.put(defaultState.setValue(RegisterProperties.CRACKEDNESS, true), defaultState);
 	}
 
 	@Override
@@ -140,8 +144,8 @@ public class ScorchedSandBlock extends Block {
 	@Override
 	public ItemStack getCloneItemStack(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state) {
 		ItemStack superStack = super.getCloneItemStack(level, pos, state);
-		if (state.getValue(RegisterProperties.CRACKEDNESS) == 1) {
-			ItemBlockStateTagUtils.setProperty(superStack, RegisterProperties.CRACKEDNESS, 1);
+		if (state.getValue(RegisterProperties.CRACKEDNESS) == true) {
+			ItemBlockStateTagUtils.setProperty(superStack, RegisterProperties.CRACKEDNESS, true);
 		}
 		return superStack;
 	}
@@ -150,7 +154,7 @@ public class ScorchedSandBlock extends Block {
 	public void fillItemCategory(@NotNull CreativeModeTab tab, @NotNull NonNullList<ItemStack> items) {
 		super.fillItemCategory(tab, items);
 		ItemStack secondStack = new ItemStack(this);
-		ItemBlockStateTagUtils.setProperty(secondStack, RegisterProperties.CRACKEDNESS, 1);
+		ItemBlockStateTagUtils.setProperty(secondStack, RegisterProperties.CRACKEDNESS, true);
 		items.add(secondStack);
 	}
 

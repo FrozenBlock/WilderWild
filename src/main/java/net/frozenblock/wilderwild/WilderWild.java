@@ -36,6 +36,7 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.command.SpreadSculkCommand;
 import net.frozenblock.wilderwild.misc.datafixer.DrySandStateFix;
 import net.frozenblock.wilderwild.misc.datafixer.NematocystStateFix;
+import net.frozenblock.wilderwild.misc.datafixer.ScorchedSandStateFix2;
 import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes;
@@ -226,6 +227,10 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		Schema schemaV13 = builder.addSchema(13, NamespacedSchema::new);
 		SimpleFixes.addBlockRenameFix(builder, "Rename palm_leaves to palm_fronds", WilderSharedConstants.id("palm_leaves"), WilderSharedConstants.id("palm_fronds"), schemaV13);
 		SimpleFixes.addItemRenameFix(builder, "Rename palm_leaves to palm_fronds", WilderSharedConstants.id("palm_leaves"), WilderSharedConstants.id("palm_fronds"), schemaV13);
+        Schema schemaV14 = builder.addSchema(13, NamespacedSchema::new);
+        builder.addFixer(new ScorchedSandStateFix2(schemaV14, "scorched_sand_integer_to_boolean", WilderSharedConstants.id("scorched_sand")));
+        builder.addFixer(new ScorchedSandStateFix2(schemaV14, "scorched_red_sand_integer_to_boolean", WilderSharedConstants.id("scorched_red_sand")));
+
         QuiltDataFixes.buildAndRegisterFixer(mod, builder);
 		WilderSharedConstants.log("DataFixes for Wilder Wild have been applied", true);
     }
