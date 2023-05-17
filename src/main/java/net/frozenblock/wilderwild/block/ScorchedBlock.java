@@ -25,6 +25,7 @@ import net.frozenblock.wilderwild.block.entity.ScorchedBlockEntity;
 import net.frozenblock.wilderwild.misc.mod_compat.FrozenLibIntegration;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
@@ -32,6 +33,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
@@ -51,7 +53,11 @@ import org.jetbrains.annotations.Nullable;
 public class ScorchedBlock extends BaseEntityBlock {
 	public static final Map<BlockState, BlockState> SCORCH_MAP = new HashMap<>();
 	public static final Map<BlockState, BlockState> HYDRATE_MAP = new HashMap<>();
-	public static final IntegerProperty CRACKEDNESS = RegisterProperties.CRACKEDNESS;
+
+	private static final IntegerProperty CRACKEDNESS = RegisterProperties.CRACKEDNESS;
+	private static final IntegerProperty DUSTED = BlockStateProperties.DUSTED;
+	public static final int TICK_DELAY = 2;
+
 	public final boolean canBrush;
 	public final BlockState wetState;
 	public final SoundEvent brushSound;
@@ -59,7 +65,7 @@ public class ScorchedBlock extends BaseEntityBlock {
 
 	public ScorchedBlock(Properties settings, BlockState wetState, boolean canBrush, SoundEvent brushSound, SoundEvent brushCompletedSound) {
 		super(settings);
-		this.registerDefaultState(this.stateDefinition.any().setValue(CRACKEDNESS, 0));
+		this.registerDefaultState(this.stateDefinition.any().setValue(CRACKEDNESS, 0).setValue(DUSTED, 0));
 		this.wetState = wetState;
 		this.fillScorchMap(wetState, this.defaultBlockState());
 		this.canBrush = canBrush;
@@ -76,7 +82,18 @@ public class ScorchedBlock extends BaseEntityBlock {
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
-		builder.add(CRACKEDNESS, BlockStateProperties.DUSTED);
+		builder.add(CRACKEDNESS, DUSTED);
+	}
+
+	@Override
+	public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
+		level.scheduleTick(pos, this, TICK_DELAY);
+	}
+
+	@Override
+	public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos currentPos, BlockPos neighborPos) {
+		level.scheduleTick(currentPos, this, TICK_DELAY);
+		return super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
 	}
 
 	@Override
@@ -111,7 +128,7 @@ public class ScorchedBlock extends BaseEntityBlock {
 	}
 
 	private static BlockState stateWithoutDusting(BlockState state) {
-		return state.hasProperty(BlockStateProperties.DUSTED) ? state.setValue(BlockStateProperties.DUSTED, 0) : state;
+		return state.hasProperty(DUSTED) ? state.setValue(DUSTED, 0) : state;
 	}
 
 	@Override
