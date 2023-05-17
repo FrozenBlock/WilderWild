@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.entity.render.model;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
@@ -67,7 +66,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
         this.tentacle6 = this.tentacleBase.getChild("tentacle6");
         this.tentacle7 = this.tentacleBase.getChild("tentacle7");
         this.tentacle8 = this.tentacleBase.getChild("tentacle8");
-        this.tentacles = ImmutableList.of(this.tentacle1, this.tentacle2, this.tentacle3, this.tentacle4, this.tentacle5, this.tentacle6, this.tentacle7, this.tentacle8);
+        this.tentacles = List.of(this.tentacle1, this.tentacle2, this.tentacle3, this.tentacle4, this.tentacle5, this.tentacle6, this.tentacle7, this.tentacle8);
     }
 
     public static LayerDefinition createBodyLayer() {

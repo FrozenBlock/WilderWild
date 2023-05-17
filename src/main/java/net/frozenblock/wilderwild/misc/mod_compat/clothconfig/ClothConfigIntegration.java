@@ -58,6 +58,8 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	@Override
 	public void init() {}
 
+	// BLOCK
+
 	@Override
 	public boolean mcLiveSensorTendrils() {
 		return BLOCK.mcLiveSensorTendrils;
@@ -325,6 +327,11 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	@Override
 	public boolean itemCooldownsSave() {
 		return FROZENLIB.saveItemCooldowns;
+	}
+
+	@Override
+	public boolean restrictInstrumentSound() {
+		return ITEM.restrictInstrumentSound;
 	}
 
 	// WORLDGEN

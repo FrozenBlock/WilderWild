@@ -101,7 +101,6 @@ public final class WilderWildClient implements ClientModInitializer {
 		Splashes.addSplashLocation(WilderSharedConstants.id("texts/splashes.txt"));
 		Panoramas.addPanorama(WilderSharedConstants.id("textures/gui/title/first/panorama"));
 		Panoramas.addPanorama(WilderSharedConstants.id("textures/gui/title/second/panorama"));
-		Panoramas.addPanorama(WilderSharedConstants.id("textures/gui/title/third/panorama"));
 		EasterEggs.registerEaster();
 
 		BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CARNATION, RenderType.cutout());
@@ -323,12 +322,13 @@ public final class WilderWildClient implements ClientModInitializer {
 			ctx.execute(() -> {
 				if (ctx.level == null)
 					throw new IllegalStateException("why is your world null");
+				var random = AdvancedMath.random();
 				for (int i = 0; i < count; i++) {
-					double xVel = (AdvancedMath.random().nextDouble() - 0.5) / 9.5;
-					double zVel = (AdvancedMath.random().nextDouble() - 0.5) / 9.5;
+					double xVel = (random.nextDouble() - 0.5) / 9.5;
+					double zVel = (random.nextDouble() - 0.5) / 9.5;
 					if (size >= 1) {
-						xVel = (AdvancedMath.random().nextDouble() - 0.5) / 10.5;
-						zVel = (AdvancedMath.random().nextDouble() - 0.5) / 10.5;
+						xVel = (random.nextDouble() - 0.5) / 10.5;
+						zVel = (random.nextDouble() - 0.5) / 10.5;
 					}
 					ctx.level.addParticle(new FloatingSculkBubbleParticleOptions(size, age, new Vec3(xVel, yVel, zVel)), pos.x, pos.y, pos.z, 0, 0, 0);
 				}
