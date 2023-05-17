@@ -166,5 +166,11 @@ public class ScorchedSandBlock extends Block {
 			}
 		}
 	}
+
+	@Override
+	protected void finalize() {
+		SCORCH_MAP.remove(this.wetState);
+		HYDRATE_MAP.remove(this.defaultBlockState());
+	}
 }
 
