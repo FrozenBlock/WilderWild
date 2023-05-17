@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.Map;
@@ -102,9 +101,9 @@ public final class RegisterStructures {
 		register(
 				context,
 				WilderStructureProcessors.ABANDONED_CABIN,
-				ImmutableList.of(
+				List.of(
 						new RuleProcessor(
-								ImmutableList.of(
+								List.of(
 										new ProcessorRule(
 												new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICKS, 0.3F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_DEEPSLATE_BRICKS.defaultBlockState()
 										),
@@ -128,7 +127,7 @@ public final class RegisterStructures {
 				AbandonedCabinGenerator.CABIN,
 				new StructureTemplatePool(
 						holder2,
-						ImmutableList.of(
+						List.of(
 								Pair.of(AbandonedCabinGenerator.ofProcessedSingle("abandoned_cabin/cabin/abandoned_cabin_1", processor.getOrThrow(WilderStructureProcessors.ABANDONED_CABIN)), 1),
 								Pair.of(AbandonedCabinGenerator.ofProcessedSingle("abandoned_cabin/cabin/abandoned_cabin_2", processor.getOrThrow(WilderStructureProcessors.ABANDONED_CABIN)), 1),
 								Pair.of(AbandonedCabinGenerator.ofProcessedSingle("abandoned_cabin/cabin/abandoned_cabin_3", processor.getOrThrow(WilderStructureProcessors.ABANDONED_CABIN)), 1)

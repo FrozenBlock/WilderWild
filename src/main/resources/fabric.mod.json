@@ -36,7 +36,11 @@
     "client": [
       "net.frozenblock.wilderwild.WilderWildClient"
     ],
-    "frozenlib:surfacerules": [
+    "preLaunch": [
+      "net.frozenblock.wilderwild.misc.WilderWildPreLaunch"
+    ],
+
+    "frozenlib:events": [
       "net.frozenblock.wilderwild.registry.RegisterSurfaceRules"
     ],
     "frozenlib:mob_categories": [

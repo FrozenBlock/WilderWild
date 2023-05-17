@@ -101,4 +101,5 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
 			}
 		}
 	}
+
 }

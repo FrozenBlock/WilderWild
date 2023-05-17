@@ -1,10 +1,9 @@
 package net.frozenblock.wilderwild.registry;
 
-import java.util.ArrayList;
-import net.frozenblock.lib.worldgen.surface.FrozenSurfaceRules;
-import net.frozenblock.lib.worldgen.surface.api.FrozenDimensionBoundRuleSource;
-import net.frozenblock.lib.worldgen.surface.api.FrozenSurfaceRuleEntrypoint;
+import net.frozenblock.lib.worldgen.surface.api.FrozenSurfaceRules;
 import net.frozenblock.lib.worldgen.surface.impl.BiomeTagConditionSource;
+import java.util.List;
+import net.frozenblock.lib.worldgen.surface.api.SurfaceRuleEvents;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.generation.conditionsource.BetaBeachConditionSource;
@@ -14,46 +13,7 @@ import net.minecraft.world.level.levelgen.Noises;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 
-public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint {
-
-	@Override
-	public void addOverworldSurfaceRules(ArrayList<SurfaceRules.RuleSource> context) {
-		var rules = SurfaceRules.sequence(
-			betaBeaches(),
-			cypressSurfaceRules(),
-			warmRiverRules(),
-			oasisRules(),
-			aridGrass(),
-			aridRules(),
-			oldGrowthSnowyTaigaRules(),
-			oldGrowthDarkForestRules(),
-			temperateRainforestRules(),
-			rainforestRules()
-		);
-
-		context.add(rules);
-		WilderSharedConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
-	}
-
-	@Override
-	public void addOverworldSurfaceRulesNoPrelimSurface(ArrayList<SurfaceRules.RuleSource> context) {
-
-	}
-
-	@Override
-	public void addNetherSurfaceRules(ArrayList<SurfaceRules.RuleSource> context) {
-
-	}
-
-	@Override
-	public void addEndSurfaceRules(ArrayList<SurfaceRules.RuleSource> context) {
-
-	}
-
-	@Override
-	public void addSurfaceRules(ArrayList<FrozenDimensionBoundRuleSource> context) {
-
-	}
+public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceRuleCallback {
 
 	// SURFACE RULES
 
@@ -63,10 +23,21 @@ public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint {
 			SurfaceRules.ifTrue(
 				SurfaceRules.ON_FLOOR,
 				SurfaceRules.ifTrue(
-					SurfaceRules.yBlockCheck(VerticalAnchor.absolute(60), 0),
+					SurfaceRules.yBlockCheck(
+						VerticalAnchor.absolute(60),
+						0
+					),
 					SurfaceRules.ifTrue(
-						SurfaceRules.not(SurfaceRules.yBlockCheck(VerticalAnchor.absolute(63), 0)),
-						SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.SWAMP, 0.0), FrozenSurfaceRules.WATER)
+						SurfaceRules.not(
+							SurfaceRules.yBlockCheck(
+								VerticalAnchor.absolute(63),
+								0
+							)
+						),
+						SurfaceRules.ifTrue(
+							SurfaceRules.noiseCondition(Noises.SWAMP, 0.0),
+							FrozenSurfaceRules.WATER
+						)
 					)
 				)
 			)
@@ -114,7 +85,7 @@ public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint {
 							SurfaceRules.sequence(
 								SurfaceRules.ifTrue(
 									SurfaceRules.ON_CEILING,
-									FrozenSurfaceRules.	SANDSTONE
+									FrozenSurfaceRules.SANDSTONE
 								),
 								FrozenSurfaceRules.SAND
 							)
@@ -363,15 +334,23 @@ public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint {
 		);
 	}
 
-	//SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.isBiome(Biomes.FOREST, Biomes.FLOWER_FOREST, Biomes.JUNGLE),
-	// SurfaceRules.ifTrue(SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
-	// SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65),0),
-	// SurfaceRules.ifTrue(SurfaceRules.not(SurfaceRules.steep()),
-	// SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH, 0.12, 1.7976931348623157E308),
-	// SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR,
-	// SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.stoneDepthCheck(3, false, CaveSurface.CEILING),SANDSTONE), SAND})),
-	// SurfaceRules.ifTrue(SurfaceRules.waterStartCheck(-6, -1),
-	// SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR,
-	// SurfaceRules.sequence(new SurfaceRules.RuleSource[]{SurfaceRules.ifTrue(SurfaceRules.ON_CEILING,
-	// SANDSTONE), SAND})), SurfaceRules.ifTrue(SurfaceRules.DEEP_UNDER_FLOOR, SANDSTONE)}))}))})))})))}));
+
+	public void addOverworldSurfaceRules(List<SurfaceRules.RuleSource> context) {
+		var surfaceRules = SurfaceRules.sequence(
+			betaBeaches(),
+			cypressSurfaceRules(),
+			warmRiverRules(),
+			oasisRules(),
+			aridGrass(),
+			aridRules(),
+			oldGrowthSnowyTaigaRules(),
+			oldGrowthDarkForestRules(),
+			temperateRainforestRules(),
+			rainforestRules()
+		);
+
+		context.add(surfaceRules);
+		WilderSharedConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
+	}
+
 }

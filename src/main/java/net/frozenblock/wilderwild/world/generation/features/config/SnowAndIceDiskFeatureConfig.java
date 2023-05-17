@@ -24,13 +24,13 @@ import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
 public class SnowAndIceDiskFeatureConfig implements FeatureConfiguration {
-    public static final Codec<SnowAndIceDiskFeatureConfig> CODEC = RecordCodecBuilder.create(
-            (instance) -> instance.group(
+    public static final Codec<SnowAndIceDiskFeatureConfig> CODEC = RecordCodecBuilder.create((instance) ->
+		instance.group(
 					IntProvider.CODEC.fieldOf("radius").forGetter(config -> config.radius),
 					IntProvider.CODEC.fieldOf("iceRadius").forGetter(config -> config.iceRadius),
 					Codec.FLOAT.fieldOf("placeChance").forGetter(config -> config.placeChance),
 					Codec.FLOAT.fieldOf("startFadePercent").forGetter(config -> config.startFadePercent)
-			).apply(instance, SnowAndIceDiskFeatureConfig::new)
+		).apply(instance, SnowAndIceDiskFeatureConfig::new)
 	);
 
     public final IntProvider radius;

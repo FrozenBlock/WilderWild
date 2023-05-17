@@ -160,7 +160,7 @@ public class AncientHornProjectile extends AbstractArrow {
 		this.baseTick();
 		if (this.bubbles > 0 && this.level() instanceof ServerLevel server) {
 			--this.bubbles;
-			EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.position(), AdvancedMath.random().nextDouble() > 0.7 ? 1 : 0, 20 + AdvancedMath.random().nextInt(40), 0.05, server.random.nextIntBetweenInclusive(1, 3));
+			EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.position(), server.random.nextDouble() > 0.7 ? 1 : 0, 20 + server.random.nextInt(40), 0.05, server.random.nextIntBetweenInclusive(1, 3));
 		}
 		if (this.aliveTicks > WilderSharedConstants.config().hornLifespan()) {
 			this.remove(RemovalReason.DISCARDED);
@@ -368,7 +368,7 @@ public class AncientHornProjectile extends AbstractArrow {
 				}
 
 				if (SculkSensorBlock.canActivate(blockState)) {
-					sculkSensor.activate(null, level(), pos, this.level().getBlockState(pos), AdvancedMath.random().nextInt(15), blockEntity.getLastVibrationFrequency());
+					sculkSensor.activate(null, this.level(), pos, this.level().getBlockState(pos), server.random.nextInt(15), blockEntity.getLastVibrationFrequency());
 					this.level().gameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);
 					setCooldown(getCooldown(this.getOwner(), SENSOR_COOLDOWN));
 				}

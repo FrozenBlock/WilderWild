@@ -468,7 +468,7 @@ public final class WilderTreeConfigured {
 			cherry().decorators(
 				List.of(
 					SHELF_FUNGUS_00875_ONLY_RED
-					)
+				)
 			).build()
 		);
 
@@ -477,7 +477,7 @@ public final class WilderTreeConfigured {
 					List.of(
 						SHELF_FUNGUS_00875_ONLY_RED,
 						VINES_1_UNDER_260_03
-						)
+					)
 				).build()
 		);
 
@@ -485,7 +485,7 @@ public final class WilderTreeConfigured {
 				tallCherry().decorators(
 					List.of(
 						SHELF_FUNGUS_00875_ONLY_RED
-						)
+					)
 				).build()
 		);
 
@@ -542,7 +542,8 @@ public final class WilderTreeConfigured {
 					List.of(
 						VINES_08_UNDER_260_075,
 						MOSS_MOSSY
-					)).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+					)
+				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		SNAPPED_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
