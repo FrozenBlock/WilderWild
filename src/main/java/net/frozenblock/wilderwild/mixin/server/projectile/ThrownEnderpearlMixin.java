@@ -40,26 +40,26 @@ public class ThrownEnderpearlMixin {
 		ThrownEnderpearl pearl = ThrownEnderpearl.class.cast(this);
 
 		if (WilderSharedConstants.config().enderPearlLandingSounds()) {
-			if (!pearl.level.isClientSide) {
+			if (!pearl.level().isClientSide) {
 				Entity owner = pearl.getOwner();
 
 				if (owner instanceof ServerPlayer player) {
 					if (!pearl.isSilent()) {
-						float pitch = 0.9F + (pearl.level.random.nextFloat() * 0.2F);
-						pearl.level.playSound(player, pearl.getX(), pearl.getY(), pearl.getZ(), RegisterSounds.ITEM_ENDERPEARL_LAND, SoundSource.NEUTRAL, 0.6F, pitch);
+						float pitch = 0.9F + (pearl.level().random.nextFloat() * 0.2F);
+						pearl.level().playSound(player, pearl.getX(), pearl.getY(), pearl.getZ(), RegisterSounds.ITEM_ENDERPEARL_LAND, SoundSource.NEUTRAL, 0.6F, pitch);
 						FrozenSoundPackets.createLocalPlayerSound(player, RegisterSounds.ITEM_ENDERPEARL_LAND, 0.6F, pitch);
 					}
 					if (!player.isSilent()) {
-						float pitch = 0.9F + (pearl.level.random.nextFloat() * 0.2F);
-						pearl.level.playSound(player, pearl.getX(), pearl.getY(), pearl.getZ(), SoundEvents.CHORUS_FRUIT_TELEPORT, SoundSource.NEUTRAL, 0.4F, pitch);
+						float pitch = 0.9F + (pearl.level().random.nextFloat() * 0.2F);
+						pearl.level().playSound(player, pearl.getX(), pearl.getY(), pearl.getZ(), SoundEvents.CHORUS_FRUIT_TELEPORT, SoundSource.NEUTRAL, 0.4F, pitch);
 						FrozenSoundPackets.createLocalPlayerSound(player, SoundEvents.CHORUS_FRUIT_TELEPORT, 0.4F, pitch);
 					}
 				} else {
 					if (!pearl.isSilent()) {
-						pearl.level.playSound(null, pearl.getX(), pearl.getY(), pearl.getZ(), RegisterSounds.ITEM_ENDERPEARL_LAND, SoundSource.NEUTRAL, 0.6F, 0.85F + (pearl.level.random.nextFloat() * 0.2F));
+						pearl.level().playSound(null, pearl.getX(), pearl.getY(), pearl.getZ(), RegisterSounds.ITEM_ENDERPEARL_LAND, SoundSource.NEUTRAL, 0.6F, 0.85F + (pearl.level().random.nextFloat() * 0.2F));
 					}
 					if (owner != null && !owner.isSilent()) {
-						pearl.level.playSound(null, pearl.getX(), pearl.getY(), pearl.getZ(), SoundEvents.CHORUS_FRUIT_TELEPORT, SoundSource.NEUTRAL, 0.4F, 0.85F + (pearl.level.random.nextFloat() * 0.2F));
+						pearl.level().playSound(null, pearl.getX(), pearl.getY(), pearl.getZ(), SoundEvents.CHORUS_FRUIT_TELEPORT, SoundSource.NEUTRAL, 0.4F, 0.85F + (pearl.level().random.nextFloat() * 0.2F));
 					}
 				}
 			}

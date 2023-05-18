@@ -61,6 +61,7 @@ accessible    method    net/minecraft/world/effect/MobEffect    <init>    (Lnet/
 accessible    field    net/minecraft/world/entity/Mob    goalSelector    Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 accessible    field    net/minecraft/world/entity/Mob    targetSelector    Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 accessible    method    net/minecraft/world/entity/monster/warden/Warden    isDiggingOrEmerging    ()Z
+accessible    class    net/minecraft/world/entity/monster/warden/Warden$VibrationUser
 
 # Damage Sources
 accessible    method    net/minecraft/world/damagesource/DamageSources    source    (Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/world/damagesource/DamageSource;
@@ -81,8 +82,11 @@ accessible    method    net/minecraft/world/level/block/state/properties/BlockSe
 accessible    field    net/minecraft/world/level/block/BrushableBlock    turnsInto    Lnet/minecraft/world/level/block/Block;
 accessible    field    net/minecraft/world/level/block/BrushableBlock    brushSound    Lnet/minecraft/sounds/SoundEvent;
 accessible    field    net/minecraft/world/level/block/BrushableBlock    brushCompletedSound    Lnet/minecraft/sounds/SoundEvent;
+
 # Block Entities
 accessible    field    net/minecraft/world/level/block/entity/RandomizableContainerBlockEntity    lootTable    Lnet/minecraft/resources/ResourceLocation;
+accessible    class    net/minecraft/world/level/block/entity/SculkSensorBlockEntity$VibrationUser
+accessible    class    net/minecraft/world/level/block/entity/SculkShriekerBlockEntity$VibrationUser
 
 # Render Types
 accessible    class    net/minecraft/client/renderer/RenderType$CompositeState

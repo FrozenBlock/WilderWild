@@ -17,9 +17,10 @@
       "predicate": {
         "type": "minecraft:would_survive",
         "state": {
-          "Name": "minecraft:oak_sapling",
+          "Name": "wilderwild:bush",
           "Properties": {
-            "stage": "0"
+            "age": "0",
+            "half": "lower"
           }
         }
       }

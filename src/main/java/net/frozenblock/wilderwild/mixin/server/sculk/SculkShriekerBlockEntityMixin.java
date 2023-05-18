@@ -32,7 +32,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.GameEventListener;
-import net.minecraft.world.level.gameevent.vibrations.VibrationListener;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -46,8 +45,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(SculkShriekerBlockEntity.class)
 public class SculkShriekerBlockEntityMixin implements SculkShriekerTickInterface {
 
-	@Shadow
-	private VibrationListener listener;
 
 	@Unique
     public int wilderWild$bubbles;
@@ -61,12 +58,16 @@ public class SculkShriekerBlockEntityMixin implements SculkShriekerTickInterface
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "shouldListen", cancellable = true)
-    public void wilderWild$shouldListen(ServerLevel level, GameEventListener listener, BlockPos pos, GameEvent event, GameEvent.Context emitter, CallbackInfoReturnable<Boolean> info) {
-        SculkShriekerBlockEntity entity = SculkShriekerBlockEntity.class.cast(this);
-        if (entity.getBlockState().getValue(RegisterProperties.SOULS_TAKEN) == 2) {
-            info.setReturnValue(false);
-        }
+	@Mixin(SculkShriekerBlockEntity.VibrationUser.class)
+	public static class VibrationUserMixin {
+
+		@Inject(method = "canReceiveVibration", at = @At("HEAD"), cancellable = true)
+		private void wilderWild$canReceiveVibration(ServerLevel level, BlockPos pos, GameEvent event, GameEvent.Context emitter, CallbackInfoReturnable<Boolean> cir) {
+			SculkShriekerBlockEntity entity = SculkShriekerBlockEntity.class.cast(this);
+			if (entity.getBlockState().getValue(RegisterProperties.SOULS_TAKEN) == 2) {
+				cir.setReturnValue(false);
+			}
+		}
     }
 
     @Inject(at = @At("HEAD"), method = "tryShriek", cancellable = true)
@@ -93,14 +94,11 @@ public class SculkShriekerBlockEntityMixin implements SculkShriekerTickInterface
 
 	@Override
 	public void wilderWild$tickServer(Level level, BlockPos pos) {
-		if (level != null) {
-			this.listener.tick(level);
-			if (this.wilderWild$bubbles > 0) {
-				--this.wilderWild$bubbles;
-                var random = AdvancedMath.random();
+		if (level != null && (this.wilderWild$bubbles > 0)) {
+			--this.wilderWild$bubbles;
+			var random = AdvancedMath.random();
 
-				EasyPacket.EasyFloatingSculkBubblePacket.createParticle(level, Vec3.atCenterOf(pos), random.nextDouble() > 0.7 ? 1 : 0, 20 + random.nextInt(80), 0.075, 1);
-			}
+			EasyPacket.EasyFloatingSculkBubblePacket.createParticle(level, Vec3.atCenterOf(pos), random.nextDouble() > 0.7 ? 1 : 0, 20 + random.nextInt(80), 0.075, 1);
 		}
 	}
 }

@@ -72,6 +72,7 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -275,7 +276,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Override
 	@NotNull
-	public List<ItemStack> getDrops(@NotNull BlockState state, LootContext.Builder builder) {
+	public List<ItemStack> getDrops(@NotNull BlockState state, LootParams.Builder builder) {
 		ResourceLocation identifier = this.getLootTable();
 		if (builder.getOptionalParameter(LootContextParams.TOOL) != null) {
 			ItemStack stack = builder.getParameter(LootContextParams.TOOL);
@@ -291,7 +292,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 		if (identifier == BuiltInLootTables.EMPTY) {
 			return Collections.emptyList();
 		} else {
-			LootContext lootContext = builder.withParameter(LootContextParams.BLOCK_STATE, state).create(LootContextParamSets.BLOCK);
+			LootParams lootContext = builder.withParameter(LootContextParams.BLOCK_STATE, state).create(LootContextParamSets.BLOCK);
 			ServerLevel serverLevel = lootContext.getLevel();
 			LootTable lootTable = serverLevel.getServer().getLootData().getLootTable(identifier);
 			return lootTable.getRandomItems(lootContext);

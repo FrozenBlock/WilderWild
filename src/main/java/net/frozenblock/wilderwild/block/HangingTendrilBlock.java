@@ -163,7 +163,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	@Override
 	@Nullable
 	public <T extends BlockEntity> GameEventListener getListener(@NotNull ServerLevel level, @NotNull T blockEntity) {
-		return blockEntity instanceof HangingTendrilBlockEntity tendril ? tendril.getEventListener() : null;
+		return blockEntity instanceof HangingTendrilBlockEntity tendril ? tendril.getListener() : null;
 	}
 
 	@Override

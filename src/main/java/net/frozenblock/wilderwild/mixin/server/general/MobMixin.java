@@ -51,7 +51,7 @@ public class MobMixin {
 	@Inject(method = "checkSpawnObstruction", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$checkSpawnObstruction(LevelReader level, CallbackInfoReturnable<Boolean> info) {
 		if (Mob.class.cast(this) instanceof Slime slime) {
-			info.setReturnValue((!level.containsAnyLiquid(slime.getBoundingBox()) || AlgaeBlock.isAlgaeNearbyForSlimeSpawn(slime.getLevel(), slime.blockPosition(), 1)) && level.isUnobstructed(slime));
+			info.setReturnValue((!level.containsAnyLiquid(slime.getBoundingBox()) || AlgaeBlock.isAlgaeNearbyForSlimeSpawn(slime.level(), slime.blockPosition(), 1)) && level.isUnobstructed(slime));
 		}
 	}
 

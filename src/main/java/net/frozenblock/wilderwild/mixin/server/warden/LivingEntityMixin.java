@@ -53,16 +53,16 @@ public class LivingEntityMixin {
 			if (WilderSharedConstants.config().wardenDyingAnimation() || ((WilderWarden)warden).wilderWild$isStella()) {
 				((WilderWarden)warden).wilderWild$setDeathTicks(((WilderWarden)warden).wilderWild$getDeathTicks() + 1);
 
-				if (((WilderWarden)warden).wilderWild$getDeathTicks() == 35 && !warden.level.isClientSide()) {
+				if (((WilderWarden)warden).wilderWild$getDeathTicks() == 35 && !warden.level().isClientSide()) {
 					warden.deathTime = 35;
 				}
 
-				if (((WilderWarden)warden).wilderWild$getDeathTicks() == 53 && !warden.level.isClientSide()) {
-					warden.level.broadcastEntityEvent(warden, EntityEvent.POOF);
-					warden.level.broadcastEntityEvent(warden, (byte) 69420);
+				if (((WilderWarden)warden).wilderWild$getDeathTicks() == 53 && !warden.level().isClientSide()) {
+					warden.level().broadcastEntityEvent(warden, EntityEvent.POOF);
+					warden.level().broadcastEntityEvent(warden, (byte) 69420);
 				}
 
-				if (((WilderWarden)warden).wilderWild$getDeathTicks() == 70 && !warden.level.isClientSide()) {
+				if (((WilderWarden)warden).wilderWild$getDeathTicks() == 70 && !warden.level().isClientSide()) {
 					warden.remove(Entity.RemovalReason.KILLED);
 				}
 
