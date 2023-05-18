@@ -1,9 +1,10 @@
 package net.frozenblock.wilderwild.registry;
 
+import java.util.ArrayList;
+import net.frozenblock.lib.worldgen.surface.api.FrozenDimensionBoundRuleSource;
+import net.frozenblock.lib.worldgen.surface.api.FrozenSurfaceRuleEntrypoint;
 import net.frozenblock.lib.worldgen.surface.api.FrozenSurfaceRules;
 import net.frozenblock.lib.worldgen.surface.impl.BiomeTagConditionSource;
-import java.util.List;
-import net.frozenblock.lib.worldgen.surface.api.SurfaceRuleEvents;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.generation.conditionsource.BetaBeachConditionSource;
@@ -13,7 +14,7 @@ import net.minecraft.world.level.levelgen.Noises;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 
-public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceRuleCallback {
+public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint {
 
 	// SURFACE RULES
 
@@ -334,8 +335,8 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 		);
 	}
 
-
-	public void addOverworldSurfaceRules(List<SurfaceRules.RuleSource> context) {
+	@Override
+	public void addOverworldSurfaceRules(ArrayList<SurfaceRules.RuleSource> context) {
 		var surfaceRules = SurfaceRules.sequence(
 			betaBeaches(),
 			cypressSurfaceRules(),
@@ -353,4 +354,23 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 		WilderSharedConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
 	}
 
+	@Override
+	public void addOverworldSurfaceRulesNoPrelimSurface(ArrayList<SurfaceRules.RuleSource> context) {
+
+	}
+
+	@Override
+	public void addNetherSurfaceRules(ArrayList<SurfaceRules.RuleSource> context) {
+
+	}
+
+	@Override
+	public void addEndSurfaceRules(ArrayList<SurfaceRules.RuleSource> context) {
+
+	}
+
+	@Override
+	public void addSurfaceRules(ArrayList<FrozenDimensionBoundRuleSource> context) {
+
+	}
 }
