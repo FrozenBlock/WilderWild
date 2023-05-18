@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.block;
 
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -31,12 +32,12 @@ import org.jetbrains.annotations.NotNull;
 
 public class BaobabLeaves extends LeavesBlock implements BonemealableBlock {
 
-    public BaobabLeaves(BlockBehaviour.Properties settings) {
+    public BaobabLeaves(@NotNull BlockBehaviour.Properties settings) {
         super(settings);
     }
 
 	@Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, @NotNull BlockState state, boolean isClient) {
+    public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
         return level.getBlockState(pos.below()).isAir();
     }
 
@@ -46,7 +47,7 @@ public class BaobabLeaves extends LeavesBlock implements BonemealableBlock {
     }
 
 	@Override
-    public void performBonemeal(ServerLevel level, @NotNull RandomSource random, BlockPos pos, @NotNull BlockState state) {
-        level.setBlock(pos.below(), BaobabNutBlock.getDefaultHangingState(), 2);
+    public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
+        level.setBlock(pos.below(), RegisterBlocks.BAOBAB_NUT.getDefaultHangingState(), 2);
     }
 }

@@ -31,7 +31,7 @@ import org.jetbrains.annotations.NotNull;
 @Experimental
 public class FireflyHide extends MoveToBlockBehavior<Firefly> {
 
-	public FireflyHide(Firefly mob, double speedModifier, int searchRange, int verticalSearchRange) {
+	public FireflyHide(@NotNull Firefly mob, double speedModifier, int searchRange, int verticalSearchRange) {
 		super(mob, speedModifier, searchRange, verticalSearchRange);
 	}
 
@@ -61,11 +61,12 @@ public class FireflyHide extends MoveToBlockBehavior<Firefly> {
 	}
 
 	@Override
-	public boolean isValidTarget(LevelReader level, BlockPos pos) {
+	public boolean isValidTarget(@NotNull LevelReader level, @NotNull BlockPos pos) {
 		return level.getBlockState(pos).is(WilderBlockTags.FIREFLY_HIDEABLE_BLOCKS);
 	}
 
 	@Override
+	@NotNull
 	protected BlockPos getMoveToTarget() {
 		return this.blockPos;
 	}

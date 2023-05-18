@@ -39,6 +39,7 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class JellyfishBlockCollisions extends AbstractIterator<VoxelShape> {
@@ -128,6 +129,7 @@ public class JellyfishBlockCollisions extends AbstractIterator<VoxelShape> {
 		return true;
 	}
 
+	@NotNull
 	public static Iterable<VoxelShape> getJellyBlockCollisions(@Nullable Entity entity, AABB collisionBox, Level level) {
 		return () -> new JellyfishBlockCollisions(level, entity, collisionBox);
 	}

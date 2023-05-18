@@ -23,12 +23,13 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.control.LookControl;
 import net.minecraft.world.entity.monster.warden.Warden;
+import org.jetbrains.annotations.NotNull;
 
 public class WardenLookControl extends LookControl {
 
 	private final int maxYRotFromCenter;
 
-	public WardenLookControl(Warden warden, int maxYRotFromCenter) {
+	public WardenLookControl(@NotNull Warden warden, int maxYRotFromCenter) {
 		super(warden);
 		this.maxYRotFromCenter = maxYRotFromCenter;
 	}
@@ -64,7 +65,7 @@ public class WardenLookControl extends LookControl {
 		}
 	}
 
-	private static boolean entityTouchingWaterOrLava(Entity entity) {
+	private static boolean entityTouchingWaterOrLava(@NotNull Entity entity) {
 		return entity.isInWaterOrBubble() || entity.isInLava() || entity.isVisuallySwimming();
 	}
 }

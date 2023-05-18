@@ -46,6 +46,7 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.schedule.Activity;
+import org.jetbrains.annotations.NotNull;
 
 public class JellyfishAi {
 
@@ -63,7 +64,8 @@ public class JellyfishAi {
 			MemoryModuleType.IS_PANICKING
     );
 
-    public static Brain<Jellyfish> makeBrain(Jellyfish jellyfish, Brain<Jellyfish> brain) {
+	@NotNull
+    public static Brain<Jellyfish> makeBrain(@NotNull Jellyfish jellyfish, @NotNull Brain<Jellyfish> brain) {
         initCoreActivity(brain);
         initIdleActivity(jellyfish, brain);
         initFightActivity(jellyfish, brain);
@@ -73,7 +75,7 @@ public class JellyfishAi {
         return brain;
     }
 
-    private static void initCoreActivity(Brain<Jellyfish> brain) {
+    private static void initCoreActivity(@NotNull Brain<Jellyfish> brain) {
         brain.addActivity(
                 Activity.CORE,
                 0,
@@ -85,7 +87,7 @@ public class JellyfishAi {
         );
     }
 
-    private static void initIdleActivity(Jellyfish jellyfish, Brain<Jellyfish> brain) {
+    private static void initIdleActivity(@NotNull Jellyfish jellyfish, @NotNull Brain<Jellyfish> brain) {
         brain.addActivity(
                 Activity.IDLE,
 				10,
@@ -105,7 +107,7 @@ public class JellyfishAi {
         );
     }
 
-    private static void initFightActivity(Jellyfish jellyfish, Brain<Jellyfish> brain) {
+    private static void initFightActivity(@NotNull Jellyfish jellyfish, @NotNull Brain<Jellyfish> brain) {
         brain.addActivityAndRemoveMemoryWhenStopped(
                 Activity.FIGHT,
                 10,
@@ -120,26 +122,27 @@ public class JellyfishAi {
         );
     }
 
-    private static boolean isTarget(Jellyfish jellyfish, LivingEntity livingEntity) {
+    private static boolean isTarget(@NotNull Jellyfish jellyfish, @NotNull LivingEntity livingEntity) {
         return jellyfish.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).filter(livingEntity2 -> livingEntity2 == livingEntity).isPresent();
     }
 
-    public static void updateActivity(Jellyfish jellyfish) {
+    public static void updateActivity(@NotNull Jellyfish jellyfish) {
         Brain<Jellyfish> brain = jellyfish.getBrain();
         brain.setActiveActivityToFirstValid(List.of(Activity.FIGHT, Activity.IDLE));
     }
 
-    private static float getSpeedModifierChasing(LivingEntity livingEntity) {
+    private static float getSpeedModifierChasing(@NotNull LivingEntity livingEntity) {
 		return 2F;
     }
 
-    private static void onTargetInvalid(Jellyfish jellyfish, LivingEntity target) {
+    private static void onTargetInvalid(@NotNull Jellyfish jellyfish, @NotNull LivingEntity target) {
         if (jellyfish.getTarget() == target) {
             jellyfish.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
         }
     }
 
-    private static Optional<? extends LivingEntity> findNearestValidAttackTarget(Jellyfish jellyfish) {
+	@NotNull
+    private static Optional<? extends LivingEntity> findNearestValidAttackTarget(@NotNull Jellyfish jellyfish) {
         return jellyfish.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE);
     }
 }

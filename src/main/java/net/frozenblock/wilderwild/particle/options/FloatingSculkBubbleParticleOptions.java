@@ -70,7 +70,8 @@ public class FloatingSculkBubbleParticleOptions implements ParticleOptions {
 		this.velocity = velocity;
 	}
 
-	public static Vec3 readVec3(StringReader stringInput) throws CommandSyntaxException {
+	@NotNull
+	public static Vec3 readVec3(@NotNull StringReader stringInput) throws CommandSyntaxException {
 		stringInput.expect(' ');
 		double f = stringInput.readDouble();
 		stringInput.expect(' ');
@@ -80,7 +81,8 @@ public class FloatingSculkBubbleParticleOptions implements ParticleOptions {
 		return new Vec3(f, g, h);
 	}
 
-	public static Vec3 readVelocity(FriendlyByteBuf buffer) {
+	@NotNull
+	public static Vec3 readVelocity(@NotNull FriendlyByteBuf buffer) {
 		return new Vec3(buffer.readDouble(), buffer.readDouble(), buffer.readDouble());
 	}
 
@@ -90,7 +92,7 @@ public class FloatingSculkBubbleParticleOptions implements ParticleOptions {
 		return RegisterParticles.FLOATING_SCULK_BUBBLE;
 	}
 
-	public void writeToNetwork(FriendlyByteBuf buffer) {
+	public void writeToNetwork(@NotNull FriendlyByteBuf buffer) {
 		buffer.writeDouble(this.size);
 		buffer.writeInt(this.maxAge);
 		buffer.writeDouble(this.velocity.x());

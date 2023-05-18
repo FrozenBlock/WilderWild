@@ -51,7 +51,7 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
         return 240;
     }
 
-    protected FloatingSculkBubbleParticle(ClientLevel clientLevel, double x, double y, double z, double size, int maxAge, Vec3 velocity, SpriteSet spriteProvider) {
+    protected FloatingSculkBubbleParticle(ClientLevel clientLevel, double x, double y, double z, double size, int maxAge, @NotNull Vec3 velocity, SpriteSet spriteProvider) {
         super(clientLevel, x, y, z, 0, 0, 0);
         this.spriteProvider = spriteProvider;
         this.setSpriteFromAge(spriteProvider);

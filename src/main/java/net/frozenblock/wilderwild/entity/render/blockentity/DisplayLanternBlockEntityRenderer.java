@@ -57,18 +57,19 @@ public class DisplayLanternBlockEntityRenderer<T extends DisplayLanternBlockEnti
     private static final RenderType NECTAR_FLAP_LAYER = RenderType.entityCutout(WilderSharedConstants.id("textures/entity/firefly/nectar_wings_down.png"));
     private static final RenderType NECTAR_OVERLAY = RenderType.entityTranslucentEmissive(WilderSharedConstants.id("textures/entity/firefly/nectar_overlay.png"), true);
 
-    public DisplayLanternBlockEntityRenderer(Context ctx) {
+    public DisplayLanternBlockEntityRenderer(@NotNull Context ctx) {
         ctx.bakeLayer(WilderWildClient.DISPLAY_LANTERN);
         this.itemRenderer = ctx.getItemRenderer();
     }
 
+	@NotNull
     public static LayerDefinition getTexturedModelData() {
         MeshDefinition modelData = new MeshDefinition();
         return LayerDefinition.create(modelData, 64, 64);
     }
 
 	@Override
-    public void render(T lantern, float partialTick, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
+    public void render(@NotNull T lantern, float partialTick, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
         Quaternionf cam = Minecraft.getInstance().gameRenderer.getMainCamera().rotation();
         Optional<ItemStack> stack = lantern.getItem();
         if (!lantern.invEmpty() && stack.isPresent()) {
@@ -92,11 +93,9 @@ public class DisplayLanternBlockEntityRenderer<T extends DisplayLanternBlockEnti
                 matrices.pushPose();
                 matrices.translate(entity.pos.x, extraHeight + Math.sin(ageDelta * 0.03) * 0.15, entity.pos.z);
                 matrices.mulPose(cam);
-				FireflyRenderer.renderFirefly(matrices, vertexConsumers, light, nectar, overlay, age, flickers, one80Quat, NECTAR_LAYER, NECTAR_FLAP_LAYER, LAYER, entity.getColor(), layers, NECTAR_OVERLAY, (ageDelta) * pi);
+				FireflyRenderer.renderFirefly(matrices, vertexConsumers, light, nectar, overlay, age, flickers, one80Quat, NECTAR_LAYER, NECTAR_FLAP_LAYER, LAYER, entity.getColor(), NECTAR_OVERLAY, (ageDelta) * pi);
 			}
         }
     }
-
-    public static Object2ObjectMap<ResourceLocation, RenderType> layers = FireflyRenderer.layers;
 
 }

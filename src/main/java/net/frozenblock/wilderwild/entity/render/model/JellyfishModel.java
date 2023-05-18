@@ -52,7 +52,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     private final ModelPart tentacle8;
     private final List<ModelPart> tentacles;
 
-    public JellyfishModel(ModelPart root) {
+    public JellyfishModel(@NotNull ModelPart root) {
         super(FrozenRenderType::entityTranslucentEmissiveFixed);
         this.root = root;
         ModelPart bone = root.getChild("bone");
@@ -97,7 +97,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 	public float scale = 1F;
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		poseStack.scale(scale, scale, scale);
         poseStack.pushPose();
         poseStack.mulPose(Axis.XP.rotationDegrees(this.xRot));
@@ -114,7 +114,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     private static final float eightPi = -8 * pi180;
 
     @Override
-    public void prepareMobModel(T jelly, float limbSwing, float limbSwimgAmount, float partialTick) {
+    public void prepareMobModel(@NotNull T jelly, float limbSwing, float limbSwimgAmount, float partialTick) {
         this.xRot = -(jelly.xRot1 + partialTick * (jelly.xBodyRot - jelly.xRot1));
         this.tentXRot = -(jelly.xRot6 + partialTick * (jelly.xRot5 - jelly.xRot6));
 		this.scale = jelly.prevScale + partialTick * (jelly.scale - jelly.prevScale);
@@ -155,10 +155,12 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
     }
 
     @Override
+	@NotNull
     public ModelPart root() {
         return this.root;
     }
 
+	@NotNull
     public List<ModelPart> getTentacles() {
         return this.tentacles;
     }

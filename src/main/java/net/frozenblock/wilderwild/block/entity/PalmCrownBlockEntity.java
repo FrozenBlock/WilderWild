@@ -28,10 +28,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 public class PalmCrownBlockEntity extends BlockEntity {
 
-    public PalmCrownBlockEntity(BlockPos pos, BlockState state) {
+    public PalmCrownBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
         super(RegisterBlockEntities.PALM_CROWN, pos, state);
     }
 
@@ -47,7 +48,7 @@ public class PalmCrownBlockEntity extends BlockEntity {
 
 		private static boolean isAlt;
 
-		public static double distanceToClosestPalmCrown(BlockGetter blockGetter, BlockPos blockPos, int i) {
+		public static double distanceToClosestPalmCrown(@NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, int i) {
 			ArrayList<CrownPos> copiedList = (ArrayList<CrownPos>) getPoses().clone();
 			ArrayList<BlockPos> posList = new ArrayList<>();
 			int x = blockPos.getX();
@@ -105,11 +106,11 @@ public class PalmCrownBlockEntity extends BlockEntity {
 			isAlt = !isAlt;
 		}
 
-		public static void addPos(Level level, BlockPos pos) {
+		public static void addPos(@NotNull Level level, @NotNull BlockPos pos) {
 			getAltList().add(new CrownPos(pos, level.dimension().location()));
 		}
 
-		public record CrownPos(BlockPos pos, ResourceLocation dimension) {
+		public record CrownPos(@NotNull BlockPos pos, @NotNull ResourceLocation dimension) {
 
 		}
 	}

@@ -26,13 +26,14 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import org.jetbrains.annotations.NotNull;
 
 public class ScorchedBlockEntity extends BlockEntity {
 	private int brushCount;
 	private long brushCountResetsAtTick;
 	private long coolDownEndsAtTick;
 
-	public ScorchedBlockEntity(BlockPos blockPos, BlockState blockState) {
+	public ScorchedBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
 		super(RegisterBlockEntities.SCORCHED_BLOCK, blockPos, blockState);
 	}
 

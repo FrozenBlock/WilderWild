@@ -32,14 +32,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-public class SeedingDandelionBlock extends FlowerBlock {
+public class SeedingFlowerBlock extends FlowerBlock {
 
-    public SeedingDandelionBlock(MobEffect suspiciousStewEffect, int effectDuration, Properties settings) {
+    public SeedingFlowerBlock(@NotNull MobEffect suspiciousStewEffect, int effectDuration, @NotNull Properties settings) {
         super(suspiciousStewEffect, effectDuration, settings);
     }
 
 	@Override
-    public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, RandomSource random) {
+    public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
         if (random.nextFloat() > 0.95) {
             level.addParticle(new SeedParticleOptions(false, false), pos.getX() + 0.5, pos.getY() + 0.8, pos.getZ() + 0.5, 0.0D, 0.0D, 0.0D);
         }

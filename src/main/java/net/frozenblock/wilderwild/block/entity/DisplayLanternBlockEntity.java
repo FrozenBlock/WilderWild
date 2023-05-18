@@ -45,9 +45,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -61,12 +63,12 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 
     public int age;
 
-	public DisplayLanternBlockEntity(BlockPos pos, BlockState blockState) {
+	public DisplayLanternBlockEntity(@NotNull BlockPos pos, @NotNull BlockState blockState) {
 		super(RegisterBlockEntities.DISPLAY_LANTERN, pos, blockState);
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
 	}
 
-	public void serverTick(Level level, BlockPos pos) {
+	public void serverTick(@NotNull Level level, @NotNull BlockPos pos) {
 		if (!this.fireflies.isEmpty()) {
 			for (FireflyInLantern firefly : this.fireflies) {
 				firefly.tick(level, pos);
@@ -74,7 +76,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		}
 	}
 
-	public void clientTick(Level level, BlockPos pos) {
+	public void clientTick(@NotNull Level level, @NotNull BlockPos pos) {
 		this.age += 1;
 		if (!this.fireflies.isEmpty()) {
 			for (FireflyInLantern firefly : this.fireflies) {
@@ -84,8 +86,11 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	}
 
 	public void updateSync() {
-		for (ServerPlayer player : PlayerLookup.tracking(this)) {
-			player.connection.send(Objects.requireNonNull(this.getUpdatePacket()));
+		ClientboundBlockEntityDataPacket updatePacket = this.getUpdatePacket();
+		if (updatePacket != null) {
+			for (ServerPlayer player : PlayerLookup.tracking(this)) {
+				player.connection.send(updatePacket);
+			}
 		}
 	}
 
@@ -145,20 +150,19 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		tag.putInt("age", this.age);
 	}
 
+	@NotNull
 	public ArrayList<FireflyInLantern> getFireflies() {
 		return this.fireflies;
 	}
 
-	public void addFirefly(FireflyBottle bottle, String name) {
-		var random = AdvancedMath.random();
-
+	public void addFirefly(@NotNull LevelAccessor levelAccessor, @NotNull FireflyBottle bottle, @NotNull String name) {
+		RandomSource random = levelAccessor.getRandom();
 		Vec3 newVec = new Vec3(0.5 + (0.15 - random.nextDouble() * 0.3), 0, 0.5 + (0.15 - random.nextDouble() * 0.3));
 		var firefly = new FireflyInLantern(newVec, bottle.color, name, random.nextDouble() > 0.7, random.nextInt(20), 0);
-
 		this.fireflies.add(firefly);
 	}
 
-	public void removeFirefly(FireflyInLantern firefly) {
+	public void removeFirefly(@NotNull FireflyInLantern firefly) {
 		this.fireflies.remove(firefly);
 	}
 
@@ -170,11 +174,11 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		}
 	}
 
-	public void spawnFireflies(Level level) {
+	public void spawnFireflies(@NotNull Level level) {
 		doFireflySpawns(level);
 	}
 
-	private void doFireflySpawns(Level level) {
+	private void doFireflySpawns(@NotNull Level level) {
 		double extraHeight = this.getBlockState().getValue(BlockStateProperties.HANGING) ? 0.155 : 0;
 		for (FireflyInLantern firefly : this.getFireflies()) {
 			Firefly entity = RegisterEntities.FIREFLY.create(level);
@@ -216,7 +220,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 				Codec.DOUBLE.fieldOf("y").forGetter(FireflyInLantern::getY)
 		).apply(instance, FireflyInLantern::new));
 
-		public FireflyInLantern(Vec3 pos, FireflyColor color, String customName, boolean flickers, int age, double y) {
+		public FireflyInLantern(@NotNull Vec3 pos, @NotNull FireflyColor color, @NotNull String customName, boolean flickers, int age, double y) {
 			this.pos = pos;
 			this.color = color;
 			this.customName = customName;
@@ -244,14 +248,17 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 			}
 		}
 
+		@NotNull
 		public Vec3 getPos() {
 			return this.pos;
 		}
 
+		@NotNull
 		public FireflyColor getColor() {
 			return this.color;
 		}
 
+		@NotNull
 		public String getCustomName() {
 			return this.customName;
 		}

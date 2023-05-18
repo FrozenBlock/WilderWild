@@ -50,13 +50,14 @@ public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> im
     private static final RenderType SENSOR_LAYER = RenderType.entityCutout(WilderSharedConstants.id("textures/entity/sculk_sensor/inactive.png"));
     private static final RenderType ACTIVE_SENSOR_LAYER = RenderType.entityCutout(WilderSharedConstants.id("textures/entity/sculk_sensor/active.png"));
 
-    public SculkSensorBlockEntityRenderer(Context ctx) {
+    public SculkSensorBlockEntityRenderer(@NotNull Context ctx) {
         ModelPart root = ctx.bakeLayer(WilderWildClient.SCULK_SENSOR);
         this.base = root.getChild("base");
         this.se = root.getChild("se");
         this.ne = root.getChild("ne");
     }
 
+	@NotNull
     public static LayerDefinition getTexturedModelData() {
         MeshDefinition modelData = new MeshDefinition();
         PartDefinition modelPartData = modelData.getRoot();

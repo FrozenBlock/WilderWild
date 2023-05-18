@@ -37,7 +37,6 @@ public class ThrownEnderpearlMixin {
 
     @Inject(method = "onHit", at = @At("HEAD"))
 	public void wilderWild$onHit(HitResult result, CallbackInfo info) {
-
 		if (WilderSharedConstants.config().enderPearlLandingSounds()) {
 			ThrownEnderpearl pearl = ThrownEnderpearl.class.cast(this);
 			if (!pearl.level().isClientSide) {

@@ -25,47 +25,43 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SculkSpreader;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 public class SculkSpreadTicker extends SilentTicker {
 
 	public final SculkSpreader sculkSpreader;
 
-	public SculkSpreadTicker(EntityType<?> entityType, Level level) {
+	public SculkSpreadTicker(@NotNull EntityType<?> entityType, @NotNull Level level) {
 		super(entityType, level);
 		this.sculkSpreader = SculkSpreader.createLevelSpreader();
 	}
 
-	public SculkSpreadTicker(EntityType<?> entityType, Level level, boolean worldgen) {
-		super(entityType, level);
-		this.sculkSpreader = worldgen ? SculkSpreader.createWorldGenSpreader() : SculkSpreader.createLevelSpreader();
-	}
-
-	public SculkSpreadTicker(EntityType<?> entityType, Level level, BlockPos pos, boolean worldgen) {
+	public SculkSpreadTicker(@NotNull EntityType<?> entityType, @NotNull Level level, @NotNull BlockPos pos, boolean worldgen) {
 		super(entityType, level);
 		this.setPos(Vec3.atCenterOf(pos));
 		this.sculkSpreader = worldgen ? SculkSpreader.createWorldGenSpreader() : SculkSpreader.createLevelSpreader();
 	}
 
-	public static void createAndSpawn(EntityType<?> entityType, Level level, BlockPos pos, boolean worldgen, int charge) {
+	public static void createAndSpawn(@NotNull EntityType<?> entityType, @NotNull Level level, @NotNull BlockPos pos, boolean worldgen, int charge) {
 		SculkSpreadTicker sculkSpreadTicker = new SculkSpreadTicker(entityType, level, pos, worldgen);
 		level.addFreshEntity(sculkSpreadTicker);
 		sculkSpreadTicker.sculkSpreader.addCursors(pos, charge);
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag compound) {
+	public void addAdditionalSaveData(@NotNull CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
 		this.sculkSpreader.save(compound);
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag compound) {
+	public void readAdditionalSaveData(@NotNull CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
 		this.sculkSpreader.save(compound);
 	}
 
 	@Override
-	public void tick(Level level, Vec3 vec3, BlockPos pos, int ticks) {
+	public void tick(@NotNull Level level, @NotNull Vec3 vec3, @NotNull BlockPos pos, int ticks) {
 		if (!this.sculkSpreader.getCursors().isEmpty()) {
 			this.sculkSpreader.updateCursors(level, pos, level.random, true);
 		} else {

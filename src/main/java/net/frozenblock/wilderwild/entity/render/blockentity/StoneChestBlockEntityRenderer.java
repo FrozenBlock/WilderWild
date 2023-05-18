@@ -68,7 +68,7 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
     public static final Material STONE_LEFT_SCULK = getChestTextureId("ancient_left");
     public static final Material STONE_RIGHT_SCULK = getChestTextureId("ancient_right");
 
-    public StoneChestBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
+    public StoneChestBlockEntityRenderer(@NotNull BlockEntityRendererProvider.Context ctx) {
         super(ctx);
 
         ModelPart modelPart = ctx.bakeLayer(WilderWildClient.STONE_CHEST);
@@ -82,6 +82,7 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
         this.doubleChestRightLid = modelPart3.getChild(LID);
     }
 
+	@NotNull
     public static LayerDefinition createSingleBodyLayer() {
         MeshDefinition modelData = new MeshDefinition();
         PartDefinition modelPartData = modelData.getRoot();
@@ -90,6 +91,7 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
         return LayerDefinition.create(modelData, 64, 64);
     }
 
+	@NotNull
     public static LayerDefinition createDoubleBodyRightLayer() {
         MeshDefinition modelData = new MeshDefinition();
         PartDefinition modelPartData = modelData.getRoot();
@@ -98,6 +100,7 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
         return LayerDefinition.create(modelData, 64, 64);
     }
 
+	@NotNull
     public static LayerDefinition createDoubleBodyLeftLayer() {
         MeshDefinition modelData = new MeshDefinition();
         PartDefinition modelPartData = modelData.getRoot();
@@ -107,7 +110,7 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
     }
 
     @Override
-    public void render(T entity, float partialTick, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
+    public void render(@NotNull T entity, float partialTick, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
         Level level = entity.getLevel();
         boolean bl = level != null;
         BlockState blockState = bl ? entity.getBlockState() : Blocks.CHEST.defaultBlockState().setValue(StoneChestBlock.FACING, Direction.SOUTH);
@@ -147,17 +150,19 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
         }
     }
 
-    private void render(PoseStack matrices, VertexConsumer vertices, ModelPart lid, ModelPart base, float openFactor, int light, int overlay) {
+    private void render(@NotNull PoseStack matrices, @NotNull VertexConsumer vertices, @NotNull ModelPart lid, @NotNull ModelPart base, float openFactor, int light, int overlay) {
         lid.xRot = -(openFactor * 1.5707964F);
         lid.render(matrices, vertices, light, overlay);
         base.render(matrices, vertices, light, overlay);
     }
 
-    public static Material getChestTexture(ChestType type, boolean sculk) {
+	@NotNull
+    public static Material getChestTexture(@NotNull ChestType type, boolean sculk) {
         return !sculk ? getChestTexture(type, STONE, STONE_LEFT, STONE_RIGHT) : getChestTexture(type, STONE_SCULK, STONE_LEFT_SCULK, STONE_RIGHT_SCULK);
     }
 
-    private static Material getChestTexture(ChestType type, Material single, Material left, Material right) {
+	@NotNull
+    private static Material getChestTexture(@NotNull ChestType type, @NotNull Material single, @NotNull Material left, @NotNull Material right) {
 		return switch (type) {
 			case LEFT -> left;
 			case RIGHT -> right;
@@ -165,7 +170,8 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
 		};
     }
 
-    public static Material getChestTextureId(String variant) {
+	@NotNull
+    public static Material getChestTextureId(@NotNull String variant) {
         return new Material(Sheets.CHEST_SHEET, WilderSharedConstants.id("entity/stone_chest/" + variant));
     }
 }

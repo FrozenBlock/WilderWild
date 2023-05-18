@@ -35,7 +35,7 @@ import org.jetbrains.annotations.NotNull;
 public class SculkWallBlock extends WallBlock implements SculkBehaviour {
     private static final IntProvider EXPERIENCE = ConstantInt.of(1);
 
-    public SculkWallBlock(Properties settings) {
+    public SculkWallBlock(@NotNull Properties settings) {
         super(settings);
     }
 

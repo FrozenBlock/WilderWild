@@ -60,14 +60,14 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 
 	public final ParticleOptions dripParticle;
 
-	public MesogleaBlock(Properties properties, ParticleOptions dripParticle) {
+	public MesogleaBlock(@NotNull Properties properties, @NotNull ParticleOptions dripParticle) {
 		super(properties.pushReaction(PushReaction.DESTROY));
 		this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
 		this.dripParticle = dripParticle;
 	}
 
 	@Override
-	public void entityInside(BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
+	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
 		if (state.getValue(WATERLOGGED)) {
 			if (entity instanceof ItemEntity item) {
 				item.makeStuckInBlock(state, new Vec3(0.999D, 0.999D, 0.999D));
@@ -119,20 +119,20 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 	}
 
 	@Override
-	public int getLightBlock(BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos) {
+	public int getLightBlock(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos) {
 		return blockState.getValue(WATERLOGGED) ? 2 : 5;
 	}
 
 	@Override
 	@Nullable
-	public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
+	public BlockState getStateForPlacement(@NotNull BlockPlaceContext blockPlaceContext) {
 		FluidState fluidState = blockPlaceContext.getLevel().getFluidState(blockPlaceContext.getClickedPos());
 		return Objects.requireNonNull(super.getStateForPlacement(blockPlaceContext)).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
 	}
 
 	@Override
 	@NotNull
-	public BlockState updateShape(BlockState blockState, @NotNull Direction direction, @NotNull BlockState blockState2, @NotNull LevelAccessor levelAccessor, @NotNull BlockPos blockPos, @NotNull BlockPos blockPos2) {
+	public BlockState updateShape(@NotNull BlockState blockState, @NotNull Direction direction, @NotNull BlockState blockState2, @NotNull LevelAccessor levelAccessor, @NotNull BlockPos blockPos, @NotNull BlockPos blockPos2) {
 		if (blockState.getValue(WATERLOGGED)) {
 			levelAccessor.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
 		}
@@ -141,7 +141,7 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 
 	@Override
 	@NotNull
-	public FluidState getFluidState(BlockState blockState) {
+	public FluidState getFluidState(@NotNull BlockState blockState) {
 		if (blockState.getValue(WATERLOGGED)) {
 			return Fluids.WATER.getSource(false);
 		}
@@ -149,19 +149,19 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
 		builder.add(WATERLOGGED);
 	}
 
 	@Override
-	public boolean skipRendering(@NotNull BlockState blockState, BlockState blockState2, @NotNull Direction direction) {
+	public boolean skipRendering(@NotNull BlockState blockState, @NotNull BlockState blockState2, @NotNull Direction direction) {
 		boolean isThisWaterlogged = blockState.getValue(WATERLOGGED);
 		return blockState2.is(this) && (isThisWaterlogged == blockState2.getValue(WATERLOGGED) || isThisWaterlogged);
 	}
 
 	@Override
 	@NotNull
-	public RenderShape getRenderShape(BlockState state) {
+	public RenderShape getRenderShape(@NotNull BlockState state) {
 		return state.getValue(BlockStateProperties.WATERLOGGED) && WilderSharedConstants.config().mesogleaLiquid() && !FrozenBools.HAS_SODIUM ? RenderShape.INVISIBLE : super.getRenderShape(state);
 	}
 }

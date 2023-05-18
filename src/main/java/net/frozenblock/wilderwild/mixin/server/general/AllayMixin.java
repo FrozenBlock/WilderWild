@@ -34,8 +34,6 @@ public class AllayMixin implements WilderAllay {
 
     @Shadow
     private float dancingAnimationTicks;
-    @Unique
-    private final Allay wilderWild$allay = Allay.class.cast(this);
 
 	@Unique
     private final AnimationState wilderWild$dancingAnimationState = new AnimationState();
@@ -48,8 +46,9 @@ public class AllayMixin implements WilderAllay {
 
     @Inject(method = "tick", at = @At(value = "TAIL"))
     private void wilderWild$tickDancing(CallbackInfo info) {
-        if (wilderWild$allay.level().isClientSide && WilderSharedConstants.config().keyframeAllayDance()) {
-            if (wilderWild$allay.isDancing()) {
+		Allay allay = Allay.class.cast(this);
+        if (allay.level().isClientSide && WilderSharedConstants.config().keyframeAllayDance()) {
+            if (allay.isDancing()) {
                 this.wilderWild$getDancingAnimationState().startIfStopped((int) this.dancingAnimationTicks);
             } else {
                 this.wilderWild$getDancingAnimationState().stop();

@@ -77,7 +77,8 @@ public class SeedParticle extends TextureSheetParticle {
     @Environment(EnvType.CLIENT)
 	public record Factory(SpriteSet spriteProvider) implements ParticleProvider<SeedParticleOptions> {
         @Override
-        public Particle createParticle(@NotNull SeedParticleOptions options, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+		@NotNull
+		public Particle createParticle(@NotNull SeedParticleOptions options, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             double windex = options.isControlled() ? xSpeed * 1.1 : ClientWindManager.getWindX(1) * 1.1;
             double windZ = options.isControlled() ? zSpeed * 1.1 : ClientWindManager.getWindZ(1) * 1.1;
             SeedParticle seedParticle = new SeedParticle(level, this.spriteProvider, x, y, z, windex, -0.800000011920929D, windZ);

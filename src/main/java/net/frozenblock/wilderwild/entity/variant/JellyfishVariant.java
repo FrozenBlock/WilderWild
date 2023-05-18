@@ -24,6 +24,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 public class JellyfishVariant {
 
@@ -42,17 +43,19 @@ public class JellyfishVariant {
     private final ResourceLocation texture;
     private final boolean pearlescent;
 
-    public JellyfishVariant(ResourceLocation key, ResourceLocation texture, boolean pearlescent) {
+    public JellyfishVariant(@NotNull ResourceLocation key, @NotNull ResourceLocation texture, boolean pearlescent) {
         this.key = key;
         this.texture = texture;
         this.pearlescent = pearlescent;
 
     }
 
+	@NotNull
     public ResourceLocation getKey() {
         return this.key;
     }
 
+	@NotNull
     public ResourceLocation getTexture() {
         return this.texture;
     }
@@ -65,7 +68,8 @@ public class JellyfishVariant {
         return this.pearlescent;
     }
 
-    public static JellyfishVariant register(ResourceLocation key, ResourceLocation texture, boolean pearlescent) {
+	@NotNull
+    public static JellyfishVariant register(@NotNull ResourceLocation key, @NotNull ResourceLocation texture, boolean pearlescent) {
         return Registry.register(WilderRegistry.JELLYFISH_VARIANT, key, new JellyfishVariant(key, texture, pearlescent));
     }
 

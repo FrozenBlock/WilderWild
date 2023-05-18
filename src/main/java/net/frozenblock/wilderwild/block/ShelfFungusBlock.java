@@ -65,14 +65,14 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
     protected static final VoxelShape FLOOR_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 3.0D, 16.0D);
     protected static final VoxelShape CEILING_SHAPE = Block.box(0.0D, 13.0D, 0.0D, 16.0D, 16.0D, 16.0D);
 
-    public ShelfFungusBlock(Properties settings) {
+    public ShelfFungusBlock(@NotNull Properties settings) {
         super(settings);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false).setValue(FACE, AttachFace.WALL).setValue(STAGE, 1));
     }
 
     @Override
 	@NotNull
-    public InteractionResult use(BlockState state, @NotNull Level level, @NotNull BlockPos pos, Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+    public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
         ItemStack itemStack = player.getItemInHand(hand);
         int i = state.getValue(STAGE);
         if (i > 1 && itemStack.is(Items.SHEARS)) {
@@ -88,18 +88,18 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACE, FACING, AGE, STAGE, WATERLOGGED);
     }
 
     @Override
-    public boolean canBeReplaced(@NotNull BlockState state, BlockPlaceContext context) {
+    public boolean canBeReplaced(@NotNull BlockState state, @NotNull BlockPlaceContext context) {
         return !context.isSecondaryUseActive() && context.getItemInHand().is(this.asItem()) && state.getValue(STAGE) < 4 || super.canBeReplaced(state, context);
     }
 
     @Override
     @Nullable
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
+    public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
         BlockState insideState = context.getLevel().getBlockState(context.getClickedPos());
         if (insideState.is(this)) {
             return insideState.setValue(STAGE, Math.min(4, insideState.getValue(STAGE) + 1));
@@ -122,7 +122,8 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
         return null;
     }
 
-    public static AttachFace getFace(Direction direction) {
+	@NotNull
+    public static AttachFace getFace(@NotNull Direction direction) {
         if (direction.getAxis() == Direction.Axis.Y) {
             return direction == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR;
         }
@@ -140,13 +141,13 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
 
     @Override
 	@NotNull
-    public FluidState getFluidState(BlockState state) {
+    public FluidState getFluidState(@NotNull BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     @Override
 	@NotNull
-    public VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+    public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return switch (state.getValue(FACE)) {
             case FLOOR -> FLOOR_SHAPE;
             case WALL -> switch (state.getValue(FACING)) {
@@ -159,11 +160,11 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
         };
     }
 
-	public boolean isMaxAge(BlockState state) {
+	public boolean isMaxAge(@NotNull BlockState state) {
 		return state.getValue(AGE) == 2;
 	}
 
-	private static boolean isFullyGrown(BlockState state) {
+	private static boolean isFullyGrown(@NotNull BlockState state) {
 		return state.getValue(STAGE) == 4;
 	}
 

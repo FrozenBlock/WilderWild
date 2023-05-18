@@ -49,7 +49,7 @@ import org.jetbrains.annotations.NotNull;
 public class AlgaeBlock extends Block implements BonemealableBlock {
 	protected static final VoxelShape SHAPE = Block.box(0.0, 0.0, 0.0, 16, 1.0, 16);
 
-	public AlgaeBlock(BlockBehaviour.Properties settings) {
+	public AlgaeBlock(@NotNull BlockBehaviour.Properties settings) {
 		super(settings);
 	}
 
@@ -89,13 +89,14 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 		}
 	}
 
-	private static boolean canLayAt(BlockGetter level, BlockPos pos) {
+	private static boolean canLayAt(@NotNull BlockGetter level, @NotNull BlockPos pos) {
 		FluidState fluidState = level.getFluidState(pos);
 		FluidState fluidState2 = level.getFluidState(pos.above());
 		return fluidState.getType() == Fluids.WATER && fluidState2.getType() == Fluids.EMPTY;
 	}
 
-	public static List<Direction> shuffleOffsets(RandomSource random) {
+	@NotNull
+	public static List<Direction> shuffleOffsets(@NotNull RandomSource random) {
 		return Util.toShuffledList(Direction.Plane.HORIZONTAL.stream(), random);
 	}
 
@@ -127,7 +128,7 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 		this.bonemealPos = null;
 	}
 
-	public static boolean isAlgaeNearbyForSlimeSpawn(LevelAccessor level, BlockPos blockPos, int x) {
+	public static boolean isAlgaeNearbyForSlimeSpawn(@NotNull LevelAccessor level, @NotNull BlockPos blockPos, int x) {
 		Iterator<BlockPos> iterator = BlockPos.betweenClosed(blockPos.offset(-x, -x, -x), blockPos.offset(x, x, x)).iterator();
 		int count = 0;
 		BlockPos pos;

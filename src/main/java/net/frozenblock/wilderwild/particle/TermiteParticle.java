@@ -182,7 +182,8 @@ public class TermiteParticle extends TextureSheetParticle {
 	@Environment(EnvType.CLIENT)
     public record Factory(SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
 		@Override
-        public Particle createParticle(@NotNull SimpleParticleType termiteParticleOptions, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {
+		@NotNull
+		public Particle createParticle(@NotNull SimpleParticleType termiteParticleOptions, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {
             TermiteParticle termite = new TermiteParticle(clientLevel, spriteProvider, x, y, z);
             termite.setAlpha(1.0F);
 			termite.setLifetime(clientLevel.random.nextInt(10) + 5 + termite.age);

@@ -36,7 +36,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class FloweringLilyPadBlock extends WaterlilyBlock {
 
-    public FloweringLilyPadBlock(Properties settings) {
+    public FloweringLilyPadBlock(@NotNull Properties settings) {
         super(settings);
     }
 

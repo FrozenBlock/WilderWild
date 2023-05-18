@@ -46,7 +46,7 @@ public class FireflyBottle extends Item {
 
 	public final FireflyColor color;
 
-	public FireflyBottle(Properties settings, FireflyColor color) {
+	public FireflyBottle(@NotNull Properties settings, @NotNull FireflyColor color) {
 		super(settings);
 		this.color = color;
 	}
@@ -116,7 +116,7 @@ public class FireflyBottle extends Item {
 		return ItemUtils.startUsingInstantly(level, player, usedHand);
 	}
 
-	public static boolean isNectar(ItemStack stack) {
+	public static boolean isNectar(@NotNull ItemStack stack) {
 		return stack.hasCustomHoverName() && stack.getHoverName().getString().contains("nectar");
 	}
 

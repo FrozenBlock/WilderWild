@@ -60,7 +60,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 	protected static final VoxelShape Z_COLLISION_SHAPE = Shapes.or(Block.box(13.75, 0, 0, 16, 16, 16), Block.box(0, 0, 0, 2.25, 16, 16), Block.box(0, 13.75, 0, 16, 16, 16), Block.box(0, 0, 0, 16, 2.25, 16));
 	protected static final VoxelShape RAYCAST_SHAPE = Shapes.block();
 
-    public HollowedLogBlock(Properties settings) {
+    public HollowedLogBlock(@NotNull Properties settings) {
         super(settings);
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false).setValue(AXIS, Direction.Axis.Y));
     }
@@ -105,7 +105,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 	}
 
 	@Override
-    public VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+    public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return switch (state.getValue(AXIS)) {
             default -> X_SHAPE;
             case Y -> Y_SHAPE;
@@ -115,7 +115,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 
 	@Override
 	@NotNull
-	public VoxelShape getCollisionShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+	public VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
 		return switch (state.getValue(AXIS)) {
 			default -> X_COLLISION_SHAPE;
 			case Y -> Y_COLLISION_SHAPE;
@@ -147,7 +147,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 
     @Override
 	@NotNull
-    public FluidState getFluidState(BlockState state) {
+    public FluidState getFluidState(@NotNull BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
@@ -158,13 +158,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
     }
 
     @Override
-	@NotNull
-    public RenderShape getRenderShape(@NotNull BlockState blockState) {
-        return RenderShape.MODEL;
-    }
-
-    @Override
-    public boolean propagatesSkylightDown(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
+    public boolean propagatesSkylightDown(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
         return !(Boolean) state.getValue(WATERLOGGED);
     }
 
@@ -173,7 +167,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
         return true;
     }
 
-	public static void hollowEffects(Level level, Direction face, BlockState state, BlockPos pos, boolean isStem) {
+	public static void hollowEffects(@NotNull Level level, @NotNull Direction face, @NotNull BlockState state, @NotNull BlockPos pos, boolean isStem) {
 		if (level instanceof ServerLevel serverLevel) {
 			double stepX = face.getStepX();
 			double stepY = face.getStepY();
@@ -192,7 +186,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 		}
 	}
 
-	public static boolean hollow(Level level, BlockPos pos, BlockState state, Direction face, Block result, boolean isStem) {
+	public static boolean hollow(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Direction face, @NotNull Block result, boolean isStem) {
 		if (!level.isClientSide && state.hasProperty(BlockStateProperties.AXIS) && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 			HollowedLogBlock.hollowEffects(level, face, state, pos, isStem);
 			level.setBlockAndUpdate(pos, result.withPropertiesOf(state));

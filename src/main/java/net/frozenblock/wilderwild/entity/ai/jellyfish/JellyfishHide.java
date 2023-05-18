@@ -33,7 +33,7 @@ import org.jetbrains.annotations.NotNull;
 @Experimental
 public class JellyfishHide extends MoveToBlockBehavior<Jellyfish> {
 
-	public JellyfishHide(Jellyfish mob, double speedModifier, int searchRange, int verticalSearchRange) {
+	public JellyfishHide(@NotNull Jellyfish mob, double speedModifier, int searchRange, int verticalSearchRange) {
 		super(mob, speedModifier, searchRange, verticalSearchRange);
 	}
 
@@ -58,12 +58,13 @@ public class JellyfishHide extends MoveToBlockBehavior<Jellyfish> {
 	}
 
 	@Override
-	public boolean isValidTarget(LevelReader level, BlockPos pos) {
+	public boolean isValidTarget(@NotNull LevelReader level, @NotNull BlockPos pos) {
 		BlockState state = level.getBlockState(pos);
 		return (state.getBlock() instanceof MesogleaBlock || state.getBlock() instanceof NematocystBlock) && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED);
 	}
 
 	@Override
+	@NotNull
 	protected BlockPos getMoveToTarget() {
 		return this.blockPos;
 	}

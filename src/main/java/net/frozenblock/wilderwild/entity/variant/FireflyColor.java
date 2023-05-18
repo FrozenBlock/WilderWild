@@ -27,6 +27,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 public class FireflyColor {
 
@@ -59,20 +60,23 @@ public class FireflyColor {
     private final ResourceLocation key;
     private final ResourceLocation texture;
 
-    public FireflyColor(ResourceLocation key, ResourceLocation texture) {
+    public FireflyColor(@NotNull ResourceLocation key, @NotNull ResourceLocation texture) {
         this.key = key;
         this.texture = texture;
     }
 
+	@NotNull
     public ResourceLocation getKey() {
         return this.key;
     }
 
+	@NotNull
     public ResourceLocation getTexture() {
         return this.texture;
     }
 
-    public static FireflyColor register(ResourceLocation key, ResourceLocation texture) {
+	@NotNull
+    public static FireflyColor register(@NotNull ResourceLocation key, @NotNull ResourceLocation texture) {
         return Registry.register(WilderRegistry.FIREFLY_COLOR, key, new FireflyColor(key, texture));
     }
 

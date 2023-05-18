@@ -41,13 +41,17 @@ import net.minecraft.world.entity.ai.behavior.Swim;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class FireflyAi {
 
     private FireflyAi() {
     }
 
-    public static Brain<?> makeBrain(Firefly firefly, Brain<Firefly> brain) {
+	@NotNull
+	public static Brain<?> makeBrain(@NotNull Firefly firefly, @NotNull Brain<Firefly> brain) {
         addCoreActivities(brain);
         addIdleActivities(firefly, brain);
         brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
@@ -56,7 +60,7 @@ public class FireflyAi {
         return brain;
     }
 
-    private static void addCoreActivities(Brain<Firefly> brain) {
+    private static void addCoreActivities(@NotNull Brain<Firefly> brain) {
 		brain.addActivity(
 				Activity.CORE,
 				0,
@@ -68,7 +72,7 @@ public class FireflyAi {
 		);
     }
 
-    private static void addIdleActivities(Firefly firefly, Brain<Firefly> brain) {
+    private static void addIdleActivities(@NotNull Firefly firefly, @NotNull Brain<Firefly> brain) {
         brain.addActivity(
 				Activity.IDLE,
 				ImmutableList.of(
@@ -85,32 +89,34 @@ public class FireflyAi {
 		);
     }
 
-    public static void updateActivities(Firefly firefly) {
+    public static void updateActivities(@NotNull Firefly firefly) {
         firefly.getBrain().setActiveActivityToFirstValid(List.of(Activity.IDLE));
     }
 
-    public static BlockPos getHome(Firefly firefly) {
+	@Nullable
+    public static BlockPos getHome(@NotNull Firefly firefly) {
         Optional<GlobalPos> optional = firefly.getBrain().getMemory(MemoryModuleType.HOME);
         return optional.map(GlobalPos::pos).orElse(null);
     }
 
-    public static boolean isInHomeDimension(Firefly firefly) {
+    public static boolean isInHomeDimension(@NotNull Firefly firefly) {
         Optional<GlobalPos> optional = firefly.getBrain().getMemory(MemoryModuleType.HOME);
         return optional.filter(globalPos -> globalPos.dimension() == firefly.level().dimension()).isPresent();
     }
 
-    public static void rememberHome(LivingEntity firefly, BlockPos pos) {
+    public static void rememberHome(@NotNull LivingEntity firefly, @NotNull BlockPos pos) {
         Brain<?> brain = firefly.getBrain();
         GlobalPos globalPos = GlobalPos.of(firefly.level().dimension(), pos);
         brain.setMemory(MemoryModuleType.HOME, globalPos);
     }
 
-    private static boolean shouldGoTowardsHome(LivingEntity firefly, GlobalPos pos) {
+    private static boolean shouldGoTowardsHome(@NotNull LivingEntity firefly, @NotNull GlobalPos pos) {
         Level level = firefly.level();
         return ((Firefly) firefly).hasHome && level.dimension() == pos.dimension() && !((Firefly) firefly).shouldHide();
     }
 
-    private static Optional<PositionTracker> getLookTarget(LivingEntity firefly) {
+	@NotNull
+    private static Optional<PositionTracker> getLookTarget(@NotNull LivingEntity firefly) {
         Brain<?> brain = firefly.getBrain();
         Optional<GlobalPos> home = brain.getMemory(MemoryModuleType.HOME);
         if (home.isPresent()) {
@@ -123,7 +129,8 @@ public class FireflyAi {
         return Optional.empty();
     }
 
-    private static BlockPos randomPosAround(BlockPos pos, Level level) {
+	@NotNull
+    private static BlockPos randomPosAround(@NotNull BlockPos pos, @NotNull Level level) {
         return pos.offset(level.random.nextIntBetweenInclusive(-7, 7), level.random.nextIntBetweenInclusive(-7, 7), level.random.nextIntBetweenInclusive(-7, 7));
     }
 }

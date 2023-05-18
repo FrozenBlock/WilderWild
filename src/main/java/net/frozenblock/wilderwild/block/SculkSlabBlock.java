@@ -35,7 +35,7 @@ import org.jetbrains.annotations.NotNull;
 public class SculkSlabBlock extends SlabBlock implements SculkBehaviour {
     private static final IntProvider EXPERIENCE = ConstantInt.of(1);
 
-    public SculkSlabBlock(Properties settings) {
+    public SculkSlabBlock(@NotNull Properties settings) {
         super(settings);
     }
 

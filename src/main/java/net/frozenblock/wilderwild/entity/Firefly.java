@@ -105,7 +105,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
     public boolean wasNamedNectar;
     public boolean shouldCheckSpawn = true;
 
-    public Firefly(EntityType<? extends Firefly> entityType, Level level) {
+    public Firefly(@NotNull EntityType<? extends Firefly> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.LAVA, -1.0F);
         this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1.0F);
@@ -119,7 +119,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
         this.setColor(FireflyColor.ON);
     }
 
-    public static boolean canSpawn(EntityType<Firefly> type, LevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
+    public static boolean canSpawn(@NotNull EntityType<Firefly> type, @NotNull LevelAccessor level, MobSpawnType reason, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		boolean chance = random.nextInt(0, 75) == 0;
         if (level.getBiome(pos).is(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY)) {
             return chance && level.getBrightness(LightLayer.SKY, pos) >= 6;
@@ -174,7 +174,8 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		return !this.despawning ? tryCapture(player, hand).orElse(super.mobInteract(player, hand)) : InteractionResult.PASS;
     }
 
-    public Optional<InteractionResult> tryCapture(Player player, InteractionHand hand) {
+	@NotNull
+    public Optional<InteractionResult> tryCapture(@NotNull Player player, @NotNull InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
         if (itemStack.getItem() == Items.GLASS_BOTTLE && this.isAlive()) {
             WilderSharedConstants.log("Firefly capture attempt starting @ " + this.blockPosition().toShortString() + " by " + player.getDisplayName().getString(), WilderSharedConstants.UNSTABLE_LOGGING);
@@ -303,6 +304,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 				&& this.level().getBrightness(LightLayer.SKY, this.blockPosition()) >= 6;
     }
 
+	@NotNull
     public static AttributeSupplier.Builder addAttributes() {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 1.0D).add(Attributes.MOVEMENT_SPEED, 0.08F).add(Attributes.FLYING_SPEED, 0.08F).add(Attributes.FOLLOW_RANGE, 32);
     }
@@ -571,17 +573,17 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
         public static ArrayList<ResourceLocation> BIOMES = new ArrayList<>();
         public static ArrayList<FireflyColor> COLORS = new ArrayList<>();
 
-        public static void addBiomeColor(ResourceLocation biome, FireflyColor color) {
+        public static void addBiomeColor(@NotNull ResourceLocation biome, @NotNull FireflyColor color) {
             BIOMES.add(biome);
             COLORS.add(color);
         }
 
-        public static void addBiomeColor(ResourceKey<Biome> biome, FireflyColor color) {
+        public static void addBiomeColor(@NotNull ResourceKey<Biome> biome, @NotNull FireflyColor color) {
             addBiomeColor(biome.location(), color);
         }
 
         @Nullable
-        public static FireflyColor getBiomeColor(Holder<Biome> biomeEntry) {
+        public static FireflyColor getBiomeColor(@NotNull Holder<Biome> biomeEntry) {
             ArrayList<FireflyColor> colors = new ArrayList<>();
             for (int i = 0; i < BIOMES.size(); ++i) {
                 ResourceLocation biomeID = BIOMES.get(i);

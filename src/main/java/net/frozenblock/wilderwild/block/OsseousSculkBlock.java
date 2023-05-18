@@ -43,6 +43,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehaviour {
 	private static final ConstantInt EXPERIENCE = ConstantInt.of(3);
@@ -50,7 +51,7 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
 	public static final BooleanProperty UPSIDEDOWN = RegisterProperties.UPSIDE_DOWN;
 	public static final IntegerProperty TOTAL_HEIGHT = RegisterProperties.TOTAL_HEIGHT;
 
-    public OsseousSculkBlock(Properties settings) {
+    public OsseousSculkBlock(@NotNull Properties settings) {
         super(settings);
         this.registerDefaultState(this.stateDefinition.any().setValue(HEIGHT_LEFT, 0).setValue(AXIS, Direction.Axis.Y).setValue(UPSIDEDOWN, false).setValue(TOTAL_HEIGHT, 0));
     }
@@ -63,7 +64,7 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
         }
     }
 
-    public static Direction getDir(Direction.Axis axis, boolean upsideDown, RandomSource random) {
+    public static Direction getDir(@NotNull Direction.Axis axis, boolean upsideDown, @NotNull RandomSource random) {
 		switch (axis) {
 			case X -> {
 				return random.nextBoolean() ? Direction.EAST : Direction.WEST;
@@ -77,15 +78,17 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
 		}
     }
 
-	public static Direction.Axis getAxis(RandomSource random) {
+	@NotNull
+	public static Direction.Axis getAxis(@NotNull RandomSource random) {
 		return random.nextBoolean() ? Direction.Axis.X : Direction.Axis.Z;
 	}
 
-    public static Direction.Axis getAxis(BlockPos pos) {
+	@NotNull
+    public static Direction.Axis getAxis(@NotNull BlockPos pos) {
         return EasyNoiseSampler.sample(EasyNoiseSampler.perlinLocal, pos, 0.7, false, false) > 0 ? Direction.Axis.X : Direction.Axis.Z;
     }
 
-    public void convertToSculk(LevelAccessor level, BlockPos pos) {
+    public void convertToSculk(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
         BlockState state = level.getBlockState(pos);
         if (state.is(this)) {
             Direction.Axis axis = state.getValue(AXIS);
@@ -116,7 +119,7 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
     }
 
     @Override
-    public int attemptUseCharge(SculkSpreader.@NotNull ChargeCursor cursor, @NotNull LevelAccessor level, @NotNull BlockPos catalystPos, @NotNull RandomSource random, SculkSpreader spreadManager, boolean shouldConvertToBlock) {
+    public int attemptUseCharge(SculkSpreader.@NotNull ChargeCursor cursor, @NotNull LevelAccessor level, @NotNull BlockPos catalystPos, @NotNull RandomSource random, @NotNull SculkSpreader spreadManager, boolean shouldConvertToBlock) {
         if (spreadManager.isWorldGeneration()) {
             worldGenSpread(cursor.getPos(), level, random);
             return cursor.getCharge();
@@ -185,11 +188,11 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
         return i;
     }
 
-    public static boolean isSafeToReplace(BlockState state) {
+    public static boolean isSafeToReplace(@NotNull BlockState state) {
         return state.is(Blocks.SCULK_VEIN) || state.isAir() || state.is(Blocks.WATER);
     }
 
-    public void worldGenSpread(BlockPos blockPos, LevelAccessor level, RandomSource random) {
+    public void worldGenSpread(@NotNull BlockPos blockPos, @NotNull LevelAccessor level, @NotNull RandomSource random) {
         if (level.getBlockState(blockPos).is(this)) {
             int pillarHeight = level.getBlockState(blockPos).getValue(HEIGHT_LEFT);
             BlockPos topPos = getTop(level, blockPos, pillarHeight);
@@ -249,7 +252,8 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
         }
     }
 
-    public BlockPos getTop(LevelAccessor level, BlockPos pos, int max) {
+	@Nullable
+    public BlockPos getTop(@NotNull LevelAccessor level, @NotNull BlockPos pos, int max) {
         for (int i = 0; i < max; i++) {
             Block block = level.getBlockState(pos).getBlock();
             if (block != this) {
@@ -264,7 +268,8 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
         return null;
     }
 
-	public BlockPos getBottom(LevelAccessor level, BlockPos pos, int max) {
+	@Nullable
+	public BlockPos getBottom(@NotNull LevelAccessor level, @NotNull BlockPos pos, int max) {
 		for (int i = 0; i < max; i++) {
 			Block block = level.getBlockState(pos).getBlock();
 			if (block != this) {
@@ -281,12 +286,7 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
 	}
 
 	@Override
-    public int updateDecayDelay(int oldDecay) {
-        return 1;
-    }
-
-	@Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(HEIGHT_LEFT).add(BlockStateProperties.AXIS).add(UPSIDEDOWN).add(TOTAL_HEIGHT);
     }
 }

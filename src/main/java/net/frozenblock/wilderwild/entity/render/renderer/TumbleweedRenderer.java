@@ -43,7 +43,7 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<
 	private static final float pi180 = Mth.PI / 180;
 	private final ItemRenderer itemRenderer;
 
-	public TumbleweedRenderer(Context context) {
+	public TumbleweedRenderer(@NotNull Context context) {
 		super(context, new TumbleweedModel<>(context.bakeLayer(WilderWildClient.TUMBLEWEED)), 0.6F);
 		this.itemRenderer = context.getItemRenderer();
 	}

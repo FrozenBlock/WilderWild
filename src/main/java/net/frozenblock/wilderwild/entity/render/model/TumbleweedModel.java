@@ -53,9 +53,9 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
-		PartDefinition bone = partdefinition.addOrReplaceChild("bone", CubeListBuilder.create()
-				.texOffs(0, 28).addBox(-6.0F, -6.0F, -6.0F, 12.0F, 12.0F, 12.0F, new CubeDeformation(0.0F))
-				.texOffs(0, 0).addBox(-7.0F, -7.0F, -7.0F, 14.0F, 14.0F, 14.0F, new CubeDeformation(0.0F)), PartPose.offset(0F, 0F, 0F));
+		partdefinition.addOrReplaceChild("bone", CubeListBuilder.create()
+			.texOffs(0, 28).addBox(-6.0F, -6.0F, -6.0F, 12.0F, 12.0F, 12.0F, new CubeDeformation(0.0F))
+			.texOffs(0, 0).addBox(-7.0F, -7.0F, -7.0F, 14.0F, 14.0F, 14.0F, new CubeDeformation(0.0F)), PartPose.offset(0F, 0F, 0F));
 
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}

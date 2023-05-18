@@ -35,10 +35,11 @@ import org.jetbrains.annotations.NotNull;
 @Environment(EnvType.CLIENT)
 public class HangingTendrilBlockEntityRenderer<T extends HangingTendrilBlockEntity> extends BillboardBlockEntityRenderer<T> {
 
-    public HangingTendrilBlockEntityRenderer(Context ctx) {
+    public HangingTendrilBlockEntityRenderer(@NotNull Context ctx) {
         super(ctx);
     }
 
+	@NotNull
     public static LayerDefinition getTexturedModelData() {
 		return BillboardBlockEntityRenderer.getTexturedModelData();
     }
@@ -51,11 +52,13 @@ public class HangingTendrilBlockEntityRenderer<T extends HangingTendrilBlockEnti
     }
 
 	@Override
+	@NotNull
 	public ResourceLocation getTexture(T entity) {
 		return entity.texture;
 	}
 
 	@Override
+	@NotNull
 	public ModelPart getRoot(Context ctx) {
 		return ctx.bakeLayer(WilderWildClient.HANGING_TENDRIL);
 	}

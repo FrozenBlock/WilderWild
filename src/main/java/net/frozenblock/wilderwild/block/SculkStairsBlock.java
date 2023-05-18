@@ -35,7 +35,7 @@ import org.jetbrains.annotations.NotNull;
 public class SculkStairsBlock extends StairBlock implements SculkBehaviour {
     private static final IntProvider EXPERIENCE = ConstantInt.of(1);
 
-    public SculkStairsBlock(BlockState baseBlockState, Properties settings) {
+    public SculkStairsBlock(@NotNull BlockState baseBlockState, Properties settings) {
         super(baseBlockState, settings);
     }
 

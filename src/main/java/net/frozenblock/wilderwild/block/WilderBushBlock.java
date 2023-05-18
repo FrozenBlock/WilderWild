@@ -58,7 +58,7 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	private static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
 
-	public WilderBushBlock(BlockBehaviour.Properties properties) {
+	public WilderBushBlock(@NotNull BlockBehaviour.Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0).setValue(HALF, DoubleBlockHalf.LOWER));
 	}
@@ -110,25 +110,22 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 		}
 	}
 
-	public boolean grow(@NotNull Level level, @NotNull BlockState state, @NotNull BlockPos pos) {
+	public void grow(@NotNull Level level, @NotNull BlockState state, @NotNull BlockPos pos) {
 		BlockState setState = state.cycle(AGE);
 		if (isAlmostFullyGrown(state)) {
 			BlockPos above = pos.above();
 			if (level.getBlockState(above).isAir()) {
 				level.setBlock(pos, setState, 2);
 				level.setBlock(above, setState.setValue(HALF, DoubleBlockHalf.UPPER), 2);
-				return true;
 			}
 		} else {
 			level.setBlock(pos, setState, 2);
-			return true;
 		}
-		return false;
 	}
 
 	@Override
 	@NotNull
-	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		ItemStack itemStack = player.getItemInHand(hand);
 		if (itemStack.is(Items.SHEARS) && !isMinimumAge(state)) {
 			if (!level.isClientSide) {
@@ -149,7 +146,7 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 	}
 
 	@Override
-	protected boolean mayPlaceOn(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
+	protected boolean mayPlaceOn(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
 		return state.is(WilderBlockTags.BUSH_MAY_PLACE_ON) || super.mayPlaceOn(state, level, pos);
 	}
 
@@ -216,7 +213,7 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 		}
 	}
 
-	private static void preventCreativeDropFromBottomPart(Level level, BlockPos pos, BlockState state, Player player) {
+	private static void preventCreativeDropFromBottomPart(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable Player player) {
 		BlockPos blockPos;
 		BlockState blockState;
 		DoubleBlockHalf doubleBlockHalf = state.getValue(HALF);
@@ -230,6 +227,7 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 		}
 	}
 
+	@NotNull
 	public BlockState setAgeOnBothHalves(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, int age, boolean particles) {
 		BlockState setState = state.setValue(BlockStateProperties.AGE_2, age);
 		level.setBlockAndUpdate(pos, setState);

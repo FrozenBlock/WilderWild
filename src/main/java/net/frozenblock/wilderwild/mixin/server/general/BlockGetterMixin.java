@@ -50,34 +50,36 @@ public interface BlockGetterMixin {
 
 	@Shadow
 	@Nullable
-	public default BlockHitResult clipWithInteractionOverride(Vec3 startVec, Vec3 endVec, BlockPos pos, VoxelShape shape, BlockState state) {
+	default public BlockHitResult clipWithInteractionOverride(Vec3 startVec, Vec3 endVec, BlockPos pos, VoxelShape shape, BlockState state) {
 		throw new AssertionError("Mixin injection failed - Wilder Wild BlockGetterMixin.");
 	}
 
 	@Inject(method = "clip", at = @At(value = "HEAD"), cancellable = true)
-	public default void wilderWild$clip(ClipContext context2, CallbackInfoReturnable<BlockHitResult> info) {
+	default public void wilderWild$clip(ClipContext context2, CallbackInfoReturnable<BlockHitResult> info) {
 		if (context2.collisionContext instanceof EntityCollisionContext entityCollisionContext) {
 			if (entityCollisionContext.getEntity() instanceof Player player) {
 				BlockState headState = getBlockState(BlockPos.containing(player.getEyePosition()));
 				if (headState.getBlock() instanceof MesogleaBlock && headState.getValue(BlockStateProperties.WATERLOGGED)) {
 					BlockGetter blockGetter = BlockGetter.class.cast(this);
 					info.setReturnValue(
-						BlockGetter.traverseBlocks(context2.getFrom(), context2.getTo(), context2, (context, pos) -> {
-							BlockState blockState = this.getBlockState(pos);
-							FluidState fluidState = this.getFluidState(pos);
-							Vec3 vec3 = context.getFrom();
-							Vec3 vec32 = context.getTo();
-							VoxelShape voxelShape = (blockState.getBlock() instanceof MesogleaBlock && blockState.getValue(BlockStateProperties.WATERLOGGED)) ? Shapes.empty() : context.getBlockShape(blockState, blockGetter, pos);
-							BlockHitResult blockHitResult = this.clipWithInteractionOverride(vec3, vec32, pos, voxelShape, blockState);
-							VoxelShape voxelShape2 = context.getFluidShape(fluidState, blockGetter, pos);
-							BlockHitResult blockHitResult2 = voxelShape2.clip(vec3, vec32, pos);
-							double d = blockHitResult == null ? Double.MAX_VALUE : context.getFrom().distanceToSqr(blockHitResult.getLocation());
-							double e = blockHitResult2 == null ? Double.MAX_VALUE : context.getFrom().distanceToSqr(blockHitResult2.getLocation());
-							return d <= e ? blockHitResult : blockHitResult2;
-							}, context -> {
-							Vec3 vec3 = context.getFrom().subtract(context.getTo());
-							return BlockHitResult.miss(context.getTo(), Direction.getNearest(vec3.x, vec3.y, vec3.z), BlockPos.containing(context.getTo()));
-						}
+						BlockGetter.traverseBlocks(
+							context2.getFrom(), context2.getTo(), context2, (context, pos) -> {
+								BlockState blockState = this.getBlockState(pos);
+								FluidState fluidState = this.getFluidState(pos);
+								Vec3 vec3 = context.getFrom();
+								Vec3 vec32 = context.getTo();
+								VoxelShape voxelShape = (blockState.getBlock() instanceof MesogleaBlock && blockState.getValue(BlockStateProperties.WATERLOGGED)) ? Shapes.empty() : context.getBlockShape(blockState, blockGetter, pos);
+								BlockHitResult blockHitResult = this.clipWithInteractionOverride(vec3, vec32, pos, voxelShape, blockState);
+								VoxelShape voxelShape2 = context.getFluidShape(fluidState, blockGetter, pos);
+								BlockHitResult blockHitResult2 = voxelShape2.clip(vec3, vec32, pos);
+								double d = blockHitResult == null ? Double.MAX_VALUE : context.getFrom().distanceToSqr(blockHitResult.getLocation());
+								double e = blockHitResult2 == null ? Double.MAX_VALUE : context.getFrom().distanceToSqr(blockHitResult2.getLocation());
+								return d <= e ? blockHitResult : blockHitResult2;
+								},
+							context -> {
+								Vec3 vec3 = context.getFrom().subtract(context.getTo());
+								return BlockHitResult.miss(context.getTo(), Direction.getNearest(vec3.x, vec3.y, vec3.z), BlockPos.containing(context.getTo()));
+							}
 						)
 					);
 				}

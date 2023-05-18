@@ -297,7 +297,7 @@ public class AncientHornProjectile extends AbstractArrow {
 	}
 
 	@Override
-	public boolean canHitEntity(Entity entity) {
+	public boolean canHitEntity(@NotNull Entity entity) {
 		if (!entity.isSpectator() && entity.isAlive() && entity.isPickable() && !(entity instanceof Projectile)) {
 			Entity owner = this.getOwner();
 			return owner != null && (this.leftOwner || !owner.isPassengerOfSameVehicle(entity));
@@ -311,7 +311,7 @@ public class AncientHornProjectile extends AbstractArrow {
 	}
 
     @Override
-    protected void onHitBlock(BlockHitResult result) { //BLOCK INTERACTIONS
+    protected void onHitBlock(@NotNull BlockHitResult result) { //BLOCK INTERACTIONS
         this.inBlockState = this.level().getBlockState(result.getBlockPos());
         BlockState blockState = this.level().getBlockState(result.getBlockPos());
         Entity owner = this.getOwner();
@@ -380,7 +380,7 @@ public class AncientHornProjectile extends AbstractArrow {
 		this.remove(RemovalReason.DISCARDED);
 	}
 
-	private static void trySpawnWarden(ServerLevel level, BlockPos pos) {
+	private static void trySpawnWarden(@NotNull ServerLevel level, @NotNull BlockPos pos) {
 		if (level.getGameRules().getBoolean(GameRules.RULE_DO_WARDEN_SPAWNING)) {
 			Optional<Warden> warden = SpawnUtil.trySpawnMob(EntityType.WARDEN, MobSpawnType.TRIGGERED, level, pos, 20, 5, 6, SpawnUtil.Strategy.ON_TOP_OF_COLLIDER);
 			warden.ifPresent(wardenEntity -> wardenEntity.playSound(SoundEvents.WARDEN_AGITATED, 5.0F, 1.0F));
@@ -509,7 +509,7 @@ public class AncientHornProjectile extends AbstractArrow {
 	}
 
 	@Override
-	public void shootFromRotation(Entity shooter, float pitch, float yaw, float roll, float speed, float divergence) {
+	public void shootFromRotation(@NotNull Entity shooter, float pitch, float yaw, float roll, float speed, float divergence) {
 		float xRot = -Mth.sin(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F);
 		float yRot = -Mth.sin((pitch + roll) * 0.017453292F);
 		float zRot = Mth.cos(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F);
@@ -521,7 +521,7 @@ public class AncientHornProjectile extends AbstractArrow {
 	}
 
 	@Override
-	protected void onHit(HitResult result) {
+	protected void onHit(@NotNull HitResult result) {
 		HitResult.Type type = result.getType();
 		if (type == HitResult.Type.BLOCK) {
 			BlockHitResult blockHitResult = (BlockHitResult) result;
@@ -547,7 +547,7 @@ public class AncientHornProjectile extends AbstractArrow {
 		return true;
 	}
 
-    private void hitEntity(Entity entity) {
+    private void hitEntity(@NotNull Entity entity) {
         float damage = this.getDamage(entity);
         Entity owner = this.getOwner();
         if (entity != owner) {
@@ -621,7 +621,7 @@ public class AncientHornProjectile extends AbstractArrow {
 	}
 
 	public static class EntitySpawnPacket { //When the Fabric tutorial WORKS!!!!! BOM BOM BOM BOM BOM BOM BOM, BOBOBOM! DUNDUN!
-		public static Packet<ClientGamePacketListener> create(Entity entity, ResourceLocation packetID) {
+		public static Packet<ClientGamePacketListener> create(@NotNull Entity entity, @NotNull ResourceLocation packetID) {
 			if (entity.level().isClientSide)
 				throw new IllegalStateException("SpawnPacketUtil.create called on the logical client!");
 			FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
@@ -644,21 +644,22 @@ public class AncientHornProjectile extends AbstractArrow {
 				return (angleByte * 360) / 256F;
 			}
 
-			public static void writeAngle(FriendlyByteBuf byteBuf, float angle) {
+			public static void writeAngle(@NotNull FriendlyByteBuf byteBuf, float angle) {
 				byteBuf.writeByte(packAngle(angle));
 			}
 
-			public static float readAngle(FriendlyByteBuf byteBuf) {
+			public static float readAngle(@NotNull FriendlyByteBuf byteBuf) {
 				return unpackAngle(byteBuf.readByte());
 			}
 
-			public static void writeVec3d(FriendlyByteBuf byteBuf, Vec3 vec3d) {
+			public static void writeVec3d(@NotNull FriendlyByteBuf byteBuf, @NotNull Vec3 vec3d) {
 				byteBuf.writeDouble(vec3d.x);
 				byteBuf.writeDouble(vec3d.y);
 				byteBuf.writeDouble(vec3d.z);
 			}
 
-			public static Vec3 readVec3d(FriendlyByteBuf byteBuf) {
+			@NotNull
+			public static Vec3 readVec3d(@NotNull FriendlyByteBuf byteBuf) {
 				double x = byteBuf.readDouble();
 				double y = byteBuf.readDouble();
 				double z = byteBuf.readDouble();

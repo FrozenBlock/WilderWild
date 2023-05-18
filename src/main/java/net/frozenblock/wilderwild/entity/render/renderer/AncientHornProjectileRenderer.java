@@ -41,13 +41,13 @@ public class AncientHornProjectileRenderer<T extends AncientHornProjectile> exte
     private static final ResourceLocation TEXTURE = WilderSharedConstants.id("textures/entity/ancient_horn_projectile.png");
     private final AncientHornProjectileModel model;
 
-    public AncientHornProjectileRenderer(EntityRendererProvider.Context context) {
+    public AncientHornProjectileRenderer(@NotNull EntityRendererProvider.Context context) {
         super(context);
         this.model = new AncientHornProjectileModel(context.bakeLayer(WilderWildClient.ANCIENT_HORN_PROJECTILE_LAYER));
     }
 
     @Override
-    public void render(T projectile, float yaw, float partialTick, PoseStack matrices, MultiBufferSource vertexConsumers, int light) {
+    public void render(@NotNull T projectile, float yaw, float partialTick, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light) {
         matrices.pushPose();
         matrices.mulPose(Axis.YP.rotationDegrees((projectile.yRotO + partialTick * (projectile.getYRot() - projectile.yRotO)) - 90.0F));
         matrices.mulPose(Axis.ZP.rotationDegrees((projectile.xRotO + partialTick * (projectile.getXRot() - projectile.xRotO)) + 90.0F));
@@ -69,6 +69,7 @@ public class AncientHornProjectileRenderer<T extends AncientHornProjectile> exte
     }
 
     @Override
+	@NotNull
     public ResourceLocation getTextureLocation(@NotNull T entity) {
         return TEXTURE;
     }

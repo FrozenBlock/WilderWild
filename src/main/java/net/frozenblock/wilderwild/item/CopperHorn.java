@@ -46,14 +46,14 @@ public class CopperHorn extends InstrumentItem {
     private static final String INSTRUMENT_KEY = "instrument";
     private final TagKey<Instrument> instrumentTag;
 
-	public CopperHorn(Properties settings, TagKey<Instrument> instrumentTag) {
+	public CopperHorn(@NotNull Properties settings, @NotNull TagKey<Instrument> instrumentTag) {
         super(settings, instrumentTag);
         this.instrumentTag = instrumentTag;
 	}
 
 	@Override
 	@NotNull
-    public Optional<? extends Holder<Instrument>> getInstrument(ItemStack stack) {
+    public Optional<? extends Holder<Instrument>> getInstrument(@NotNull ItemStack stack) {
         CompoundTag nbtCompound = stack.getTag();
         if (nbtCompound != null) {
             ResourceLocation identifier = ResourceLocation.tryParse(nbtCompound.getString(INSTRUMENT_KEY));
@@ -82,7 +82,7 @@ public class CopperHorn extends InstrumentItem {
         }
     }
 
-    private static void playSound(Instrument instrument, Player user, Level level) {
+    private static void playSound(@NotNull Instrument instrument, @NotNull Player user, @NotNull Level level) {
         SoundEvent soundEvent = instrument.soundEvent().value();
         float range = instrument.range() / 16.0F;
         int note = (int) ((-user.getXRot() + 90) / 7.5);

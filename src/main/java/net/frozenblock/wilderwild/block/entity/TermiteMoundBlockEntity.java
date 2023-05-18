@@ -31,12 +31,12 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 
 	public final TermiteManager termiteManager;
 
-    public TermiteMoundBlockEntity(BlockPos pos, BlockState state) {
+    public TermiteMoundBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
         super(RegisterBlockEntities.TERMITE_MOUND, pos, state);
 		this.termiteManager = new TermiteManager();
     }
 
-    public void tick(Level level, BlockPos pos, boolean natural, boolean awake, boolean canSpawn) {
+    public void tick(@NotNull Level level, @NotNull BlockPos pos, boolean natural, boolean awake, boolean canSpawn) {
 		this.termiteManager.tick(level, pos, natural, awake, canSpawn);
 	}
 

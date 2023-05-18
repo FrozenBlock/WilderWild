@@ -40,7 +40,6 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
@@ -57,13 +56,13 @@ public class BaobabNutBlock extends SaplingBlock {
     };
     public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
 
-    public BaobabNutBlock(BlockBehaviour.Properties settings) {
+    public BaobabNutBlock(@NotNull BlockBehaviour.Properties settings) {
         super(new BaobabSaplingGenerator(), settings);
         this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0).setValue(AGE, 0).setValue(HANGING, false));
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(STAGE, AGE, HANGING);
     }
 
@@ -75,7 +74,7 @@ public class BaobabNutBlock extends SaplingBlock {
 
     @Override
 	@NotNull
-    public VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+    public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         Vec3 vec3d = state.getOffset(level, pos);
         VoxelShape voxelShape;
         if (!state.getValue(HANGING)) {
@@ -128,34 +127,31 @@ public class BaobabNutBlock extends SaplingBlock {
     }
 
 	@Override
-	public void onProjectileHit(Level world, @NotNull BlockState state, BlockHitResult hit, @NotNull Projectile projectile) {
+	public void onProjectileHit(@NotNull Level world, @NotNull BlockState state, @NotNull BlockHitResult hit, @NotNull Projectile projectile) {
 		world.destroyBlock(hit.getBlockPos(), true, projectile);
 	}
 
-	@Override //Only collision with projectiles so you can shoot them down
+	@Override
 	@NotNull
 	public VoxelShape getCollisionShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
-		if (blockState.is(this) && collisionContext instanceof EntityCollisionContext entityCollision && isHanging(blockState)) {
-			if (entityCollision.getEntity() != null) {
-				return !(entityCollision.getEntity() instanceof Projectile) ? Shapes.empty() : super.getCollisionShape(blockState, blockGetter, blockPos, collisionContext);
-			}
-		}
-		return Shapes.empty();
+		return isHanging(blockState) ? super.getCollisionShape(blockState, blockGetter, blockPos, collisionContext) : Shapes.empty();
 	}
 
-    private static boolean isHanging(BlockState state) {
+    private static boolean isHanging(@NotNull BlockState state) {
         return state.getValue(HANGING);
     }
 
-    private static boolean isFullyGrown(BlockState state) {
+    private static boolean isFullyGrown(@NotNull BlockState state) {
         return state.getValue(AGE) == MAX_AGE;
     }
 
-    public static BlockState getDefaultHangingState() {
+	@NotNull
+    public BlockState getDefaultHangingState() {
         return getHangingState(0);
     }
 
-    public static BlockState getHangingState(int age) {
-        return RegisterBlocks.BAOBAB_NUT.defaultBlockState().setValue(HANGING, true).setValue(AGE, age);
+	@NotNull
+    public BlockState getHangingState(int age) {
+        return this.defaultBlockState().setValue(HANGING, true).setValue(AGE, age);
     }
 }

@@ -40,9 +40,7 @@ public class WardenPathEvaluator extends WalkNodeEvaluator {
     private float oldWalkableCost;
     private float oldWaterBorderPenalty;
 
-    private final Long2ObjectMap<BlockPathTypes> nodeTypes = new Long2ObjectOpenHashMap<>();
-
-    public WardenPathEvaluator(boolean prefersShallowSwimming) {
+	public WardenPathEvaluator(boolean prefersShallowSwimming) {
 		this.prefersShallowSwimming = prefersShallowSwimming;
     }
 
@@ -78,6 +76,7 @@ public class WardenPathEvaluator extends WalkNodeEvaluator {
     }
 
 	@Override
+	@NotNull
 	public Target getGoal(double x, double y, double z) {
 		return !this.isEntitySubmergedInWaterOrLava(this.mob)
 				? super.getGoal(x, y, z)
@@ -121,8 +120,8 @@ public class WardenPathEvaluator extends WalkNodeEvaluator {
 		}
     }
 
-    private boolean isVerticalNeighborValid(@Nullable Node node, Node successor) {
-        return this.isNeighborValid(node, successor) && node.type == BlockPathTypes.WATER;
+    private boolean isVerticalNeighborValid(@Nullable Node node, @NotNull Node successor) {
+        return this.isNeighborValid(node, successor) && (node != null && node.type == BlockPathTypes.WATER);
     }
 
     @Override
@@ -153,11 +152,11 @@ public class WardenPathEvaluator extends WalkNodeEvaluator {
         }
     }
 
-    private boolean isEntityTouchingWaterOrLava(Entity entity) {
+    private boolean isEntityTouchingWaterOrLava(@NotNull Entity entity) {
         return entity.isInWaterOrBubble() || entity.isInLava() || entity.isVisuallySwimming();
     }
 
-    private boolean isEntitySubmergedInWaterOrLava(Entity entity) {
+    private boolean isEntitySubmergedInWaterOrLava(@NotNull Entity entity) {
         return entity.isEyeInFluid(FluidTags.WATER) || entity.isEyeInFluid(FluidTags.LAVA) || entity.isVisuallySwimming();
     }
 }

@@ -51,7 +51,7 @@ import org.jetbrains.annotations.Nullable;
 public class EchoGlassBlock extends TintedGlassBlock {
     public static final IntegerProperty DAMAGE = RegisterProperties.DAMAGE;
 
-    public EchoGlassBlock(Properties settings) {
+    public EchoGlassBlock(@NotNull Properties settings) {
         super(settings);
         this.registerDefaultState(this.defaultBlockState().setValue(DAMAGE, 0));
     }
@@ -73,7 +73,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
         }
     }
 
-    public static void damage(Level level, BlockPos pos) {
+    public static void damage(@NotNull Level level, @NotNull BlockPos pos) {
         BlockState state = level.getBlockState(pos);
         WilderSharedConstants.log("Echo Glass Damaged @ " + pos, WilderSharedConstants.UNSTABLE_LOGGING);
         if (state.getValue(DAMAGE) < 3) {
@@ -85,7 +85,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
         }
     }
 
-    public static void heal(Level level, BlockPos pos) {
+    public static void heal(@NotNull Level level, @NotNull BlockPos pos) {
         BlockState state = level.getBlockState(pos);
         if (state.getValue(DAMAGE) > 0) {
             WilderSharedConstants.log("Echo Glass Healed @ " + pos, WilderSharedConstants.UNSTABLE_LOGGING);
@@ -101,7 +101,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
         }
     }
 
-    public static int getLightLevel(Level level, BlockPos blockPos) {
+    public static int getLightLevel(@NotNull Level level, @NotNull BlockPos blockPos) {
 		BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
         int finalLight = 0;
         for (Direction direction : Direction.values()) {
@@ -114,7 +114,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
     }
 
 	@Override
-    public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
+    public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
         if (state.getValue(DAMAGE) < 3 && EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, player.getMainHandItem()) < 1 && !player.isCreative()) {
             level.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) + 1));
 			player.causeFoodExhaustion(0.005F);

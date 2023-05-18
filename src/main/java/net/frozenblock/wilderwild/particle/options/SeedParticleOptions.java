@@ -71,7 +71,7 @@ public class SeedParticleOptions implements ParticleOptions {
 		return RegisterParticles.SEED;
 	}
 
-	public void writeToNetwork(FriendlyByteBuf buffer) {
+	public void writeToNetwork(@NotNull FriendlyByteBuf buffer) {
 		buffer.writeBoolean(this.isMilkweed);
 		buffer.writeBoolean(this.controlled);
 	}

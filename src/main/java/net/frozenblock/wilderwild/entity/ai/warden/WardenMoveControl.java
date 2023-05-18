@@ -117,19 +117,11 @@ public class WardenMoveControl extends MoveControl {
         }
     }
 
-	public boolean buoyant() {
-		return this.buoyant;
-	}
-
-	public void setBuoyant(boolean value) {
-		this.buoyant = value;
-	}
-
-    private boolean touchingWaterOrLava(Entity entity) {
+    private boolean touchingWaterOrLava(@NotNull Entity entity) {
         return entity.isInWaterOrBubble() || entity.isInLava() || entity.isVisuallySwimming();
     }
 
-    private boolean submergedInWaterOrLava(Entity entity) {
+    private boolean submergedInWaterOrLava(@NotNull Entity entity) {
         return entity.isEyeInFluid(FluidTags.WATER) || entity.isEyeInFluid(FluidTags.LAVA) || entity.isVisuallySwimming();
     }
 }

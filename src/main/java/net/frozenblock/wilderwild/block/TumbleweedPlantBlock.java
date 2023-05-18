@@ -59,7 +59,7 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 	private static final VoxelShape FOURTH_SHAPE = Block.box(1, 0, 1, 15, 14, 15);
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 
-	public TumbleweedPlantBlock(BlockBehaviour.Properties properties) {
+	public TumbleweedPlantBlock(@NotNull BlockBehaviour.Properties properties) {
 		super(properties);
 	}
 
@@ -100,11 +100,11 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 	}
 
 	@Override
-	protected boolean mayPlaceOn(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
+	protected boolean mayPlaceOn(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
 		return state.is(BlockTags.DEAD_BUSH_MAY_PLACE_ON) || state.is(WilderBlockTags.BUSH_MAY_PLACE_ON) || super.mayPlaceOn(state, level, pos);
 	}
 
-	public static boolean isFullyGrown(BlockState state) {
+	public static boolean isFullyGrown(@NotNull BlockState state) {
 		return state.getValue(AGE) == 3;
 	}
 
@@ -124,7 +124,7 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 	}
 
 	@Override
-	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		ItemStack itemStack = player.getItemInHand(hand);
 		if (itemStack.is(Items.SHEARS) && isFullyGrown(state)) {
 			if (!level.isClientSide) {
@@ -145,7 +145,7 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		builder.add(AGE);
 	}

@@ -29,7 +29,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class PollenBlock extends FlowerLichenBlock {
 
-    public PollenBlock(Properties settings) {
+    public PollenBlock(@NotNull Properties settings) {
         super(settings);
     }
 

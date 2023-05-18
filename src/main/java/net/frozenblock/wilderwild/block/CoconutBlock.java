@@ -69,13 +69,13 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	private final AbstractTreeGrower treeGrower;
     public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
 
-    public CoconutBlock(Properties settings) {
+    public CoconutBlock(@NotNull Properties settings) {
         super(settings);
 		this.treeGrower = new PalmSaplingGenerator();
         this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0).setValue(AGE, 0).setValue(HANGING, false));
     }
 
-	public void advanceTree(ServerLevel level, BlockPos pos, BlockState state, RandomSource random) {
+	public void advanceTree(@NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull RandomSource random) {
 		if (state.getValue(STAGE) == 0) {
 			level.setBlock(pos, state.cycle(STAGE), 4);
 		} else {
@@ -84,12 +84,13 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	}
 
 	@Override
+	@NotNull
 	public VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
 		return state.is(this) && !isHanging(state) ? Shapes.empty() : super.getCollisionShape(state, level, pos, context);
 	}
 
 	@Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(STAGE, AGE, HANGING);
     }
 
@@ -101,7 +102,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 
 	@Override
 	@NotNull
-	public BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
+	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
 		if (state.is(this) && !state.canSurvive(level, currentPos)) {
 			if (!isHanging(state)) {
 				return Blocks.AIR.defaultBlockState();
@@ -114,7 +115,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 
     @Override
 	@NotNull
-    public VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+    public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         Vec3 vec3d = state.getOffset(level, pos);
         VoxelShape voxelShape;
         if (!state.getValue(HANGING)) {
@@ -127,12 +128,12 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
     }
 
     @Override
-    public boolean canSurvive(@NotNull BlockState state, LevelReader level, BlockPos pos) {
+    public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
 		BlockState stateAbove = level.getBlockState(pos.above());
         return state.is(this) && isHanging(state) ? (stateAbove.is(RegisterBlocks.PALM_FRONDS) && (stateAbove.getValue(BlockStateProperties.DISTANCE) <= 2 || PalmFrondsBlock.updateDistance(stateAbove, level, pos).getValue(BlockStateProperties.DISTANCE) <= 2 || stateAbove.getValue(BlockStateProperties.PERSISTENT))) : this.mayPlaceOn(level.getBlockState(pos.below()));
     }
 
-	protected boolean mayPlaceOn(BlockState state) {
+	protected boolean mayPlaceOn(@NotNull BlockState state) {
 		return state.is(BlockTags.DIRT) || state.is(Blocks.FARMLAND) || state.is(BlockTags.SAND);
 	}
 
@@ -171,7 +172,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
     }
 
 	@Override
-	public boolean propagatesSkylightDown(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
+	public boolean propagatesSkylightDown(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
 		return state.getFluidState().isEmpty();
 	}
 
@@ -196,12 +197,12 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	}
 
 	@Override
-	protected void falling(FallingBlockEntity entity) {
+	protected void falling(@NotNull FallingBlockEntity entity) {
 		entity.setHurtsEntities(0.5f, 3);
 	}
 
 	@Override
-	public void tick(@NotNull BlockState state, ServerLevel level, BlockPos pos, @NotNull RandomSource random) {
+	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if (pos.getY() < level.getMinBuildHeight() || state.is(this) &&  !isHanging(state)) {
 			return;
 		}
@@ -232,18 +233,20 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 	}
 
-    private static boolean isHanging(BlockState state) {
+    private static boolean isHanging(@NotNull BlockState state) {
         return state.getValue(HANGING);
     }
 
-    private static boolean isFullyGrown(BlockState state) {
+    private static boolean isFullyGrown(@NotNull BlockState state) {
         return state.getValue(AGE) == 2;
     }
 
+	@NotNull
     public static BlockState getDefaultHangingState() {
         return getHangingState(0);
     }
 
+	@NotNull
     public static BlockState getHangingState(int age) {
         return RegisterBlocks.COCONUT.defaultBlockState().setValue(HANGING, true).setValue(AGE, age);
     }

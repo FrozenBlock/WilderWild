@@ -66,7 +66,7 @@ public class FluidRendererMixin {
 
 	@Inject(method = "render", at = @At(value = "HEAD"))
 	private void wilderWild$getIsWater(BlockAndTintGetter world, FluidState fluidState, BlockPos pos, BlockPos offset, ChunkBuildBuffers buffers, ChunkRenderBounds.Builder bounds, CallbackInfo ci) {
-		this.wilderWild$isWater = fluidState.getType().is(FluidTags.WATER);
+		this.wilderWild$isWater = fluidState.is(FluidTags.WATER);
 	}
 
 	@Redirect(method = "render", at = @At(value = "INVOKE", target = "Lme/jellysquid/mods/sodium/client/model/quad/ModelQuadViewMutable;setSprite(Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V", ordinal = 1))

@@ -58,7 +58,7 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 
-	public PricklyPearCactusBlock(BlockBehaviour.Properties properties) {
+	public PricklyPearCactusBlock(@NotNull BlockBehaviour.Properties properties) {
 		super(properties);
 	}
 
@@ -78,18 +78,12 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 
 	@Override
 	@NotNull
-	public VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-		return Shapes.empty();
-	}
-
-	@Override
-	@NotNull
 	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
 		return OUTLINE_SHAPE;
 	}
 
 	@Override
-	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Entity entity) {
+	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
 		entity.makeStuckInBlock(state, new Vec3(0.800000011920929, 0.75, 0.800000011920929));
 		if (!(entity instanceof ItemEntity)) {
 			entity.hurt(level.damageSources().cactus(), 0.5F);
@@ -102,11 +96,11 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 	}
 
 	@Override
-	protected boolean mayPlaceOn(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
+	protected boolean mayPlaceOn(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
 		return state.is(BlockTags.SAND) || state.is(BlockTags.DIRT);
 	}
 
-	public static boolean isFullyGrown(BlockState state) {
+	public static boolean isFullyGrown(@NotNull BlockState state) {
 		return state.getValue(AGE) == 3;
 	}
 
@@ -122,7 +116,7 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 
 	@Override
 	@NotNull
-	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		ItemStack itemStack = player.getItemInHand(hand);
 		if (isFullyGrown(state)) {
 			level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
@@ -148,7 +142,7 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(AGE);
 	}
 }

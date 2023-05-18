@@ -109,7 +109,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 	private final Quaternionf rotation = new Quaternionf(0F, 0F, 0F, 0F);
 
 	@Override
-	public void render(@NotNull VertexConsumer buffer, Camera renderInfo, float partialTicks) {
+	public void render(@NotNull VertexConsumer buffer, @NotNull Camera renderInfo, float partialTicks) {
 		Vec3 vec3 = renderInfo.getPosition();
 		float f = (float)(Mth.lerp(partialTicks, this.xo, this.x) - vec3.x());
 		float g = (float)(Mth.lerp(partialTicks, this.yo, this.y) - vec3.y());

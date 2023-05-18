@@ -43,7 +43,7 @@ import org.jetbrains.annotations.Nullable;
 public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWaterloggedBlock {
     private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    public WaterloggableSaplingBlock(AbstractTreeGrower generator, Properties settings) {
+    public WaterloggableSaplingBlock(@NotNull AbstractTreeGrower generator, @NotNull Properties settings) {
         super(generator, settings);
         this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0).setValue(WATERLOGGED, false));
     }
@@ -78,7 +78,7 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWat
 	}
 
     @Nullable
-    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+    public BlockState getStateForPlacement(@NotNull BlockPlaceContext ctx) {
         FluidState fluidState = ctx.getLevel().getFluidState(ctx.getClickedPos());
         boolean bl = fluidState.getType() == Fluids.WATER;
         return Objects.requireNonNull(super.getStateForPlacement(ctx)).setValue(WATERLOGGED, bl);
@@ -86,7 +86,7 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWat
 
 	@Override
 	@NotNull
-    public BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
+    public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
         if (state.getValue(WATERLOGGED)) {
             level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
@@ -95,8 +95,8 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWat
     }
 
 	@Override
-	@Nullable
-    public FluidState getFluidState(BlockState state) {
+	@NotNull
+    public FluidState getFluidState(@NotNull BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 }

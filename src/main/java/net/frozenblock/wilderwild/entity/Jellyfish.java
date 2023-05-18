@@ -111,14 +111,14 @@ public class Jellyfish extends NoFlopAbstractFish {
 			.collect(Collectors.toList())
 	);
 
-    public Jellyfish(EntityType<? extends Jellyfish> entityType, Level level) {
+    public Jellyfish(@NotNull EntityType<? extends Jellyfish> entityType, Level level) {
         super(entityType, level);
 		this.getNavigation().setCanFloat(false);
     }
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
         Holder<Biome> biome = level.getBiome(this.blockPosition());
         var random = AdvancedMath.random();
 		this.setVariant(JellyfishVariant.PINK);
@@ -131,7 +131,7 @@ public class Jellyfish extends NoFlopAbstractFish {
         return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
     }
 
-	public void setVariantFromPos(Level level, BlockPos pos) {
+	public void setVariantFromPos(@NotNull Level level, @NotNull BlockPos pos) {
 		Holder<Biome> biome = level.getBiome(pos);
         var random = AdvancedMath.random();
 		this.setVariant(JellyfishVariant.PINK);
@@ -143,7 +143,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		}
 	}
 
-    public static boolean canSpawn(EntityType<Jellyfish> type, ServerLevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
+    public static boolean canSpawn(@NotNull EntityType<Jellyfish> type, @NotNull ServerLevelAccessor level, @NotNull MobSpawnType reason, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if (reason == MobSpawnType.SPAWNER) {
 			return true;
 		}
@@ -178,12 +178,13 @@ public class Jellyfish extends NoFlopAbstractFish {
         }
     }
 
-    public static AttributeSupplier.Builder addAttributes() {
+	@NotNull
+	public static AttributeSupplier.Builder addAttributes() {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.MOVEMENT_SPEED, 0.5F).add(Attributes.FOLLOW_RANGE, 32F);
     }
 
     @Override
-    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
+    protected float getStandingEyeHeight(@NotNull Pose pose, @NotNull EntityDimensions dimensions) {
         return dimensions.height * 0.5F;
     }
 
@@ -332,9 +333,11 @@ public class Jellyfish extends NoFlopAbstractFish {
         }
     }
 
-	public boolean moveToAccurate(@NotNull Entity entity, double speed) {
+	public void moveToAccurate(@NotNull Entity entity, double speed) {
 		Path path = this.getNavigation().createPath(entity, 0);
-		return path != null && this.getNavigation().moveTo(path, speed);
+		if (path != null) {
+			this.getNavigation().moveTo(path, speed);
+		}
 	}
 
     @Contract("null->false")
@@ -414,10 +417,11 @@ public class Jellyfish extends NoFlopAbstractFish {
         return new ItemStack(RegisterItems.JELLYFISH_BUCKET);
     }
 
-    public void setVariant(JellyfishVariant variant) {
+    public void setVariant(@NotNull JellyfishVariant variant) {
         this.entityData.set(VARIANT, variant);
     }
 
+	@NotNull
     public JellyfishVariant getVariant() {
 		return this.entityData.get(VARIANT);
     }
@@ -450,7 +454,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		this.ticksSinceSpawn = compound.getInt("ticksSinceSpawn");
     }
 
-	public static void spawnFromChest(Level level, BlockState state, BlockPos pos) {
+	public static void spawnFromChest(@NotNull Level level, @NotNull BlockState state, @NotNull BlockPos pos) {
 		Jellyfish jellyfish = new Jellyfish(RegisterEntities.JELLYFISH, level);
 		jellyfish.setVariantFromPos(level, pos);
 		double additionalX = 0;
@@ -467,7 +471,8 @@ public class Jellyfish extends NoFlopAbstractFish {
 		level.addFreshEntity(jellyfish);
 	}
 
-	public static List<Jellyfish> getJellyfish(ServerLevel level) {
+	@NotNull
+	public static List<Jellyfish> getJellyfish(@NotNull ServerLevel level) {
 		ArrayList<Jellyfish> jellyList = new ArrayList<>();
 		for (Entity entity : level.entityManager.getEntityGetter().getAll()) {
 			if (entity instanceof Jellyfish jellyfish && !jellyfish.isRemoved() && !jellyfish.isDeadOrDying()) {
@@ -477,7 +482,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		return jellyList;
 	}
 
-	public static int getNormalJellyfish(ServerLevel level) {
+	public static int getNormalJellyfish(@NotNull ServerLevel level) {
 		int count = 0;
 		for (Jellyfish jellyfish : getJellyfish(level)) {
 			if (jellyfish.getVariant().isNormal()) {
@@ -487,7 +492,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		return count;
 	}
 
-	public static int getPearlescentJellyfish(ServerLevel level) {
+	public static int getPearlescentJellyfish(@NotNull ServerLevel level) {
 		int count = 0;
 		for (Jellyfish jellyfish : getJellyfish(level)) {
 			if (jellyfish.getVariant().isPearlescent()) {

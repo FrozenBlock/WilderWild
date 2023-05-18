@@ -34,12 +34,12 @@ import net.minecraft.world.entity.monster.warden.Warden;
 import org.jetbrains.annotations.NotNull;
 
 public class StellaWardenFeatureRenderer<T extends Warden, M extends WardenModel<T>> extends WardenEmissiveLayer<T, M> {
-    public StellaWardenFeatureRenderer(RenderLayerParent<T, M> context, ResourceLocation texture, AlphaFunction<T> animationAngleAdjuster, DrawSelector<T, M> modelPartVisibility) {
+    public StellaWardenFeatureRenderer(@NotNull RenderLayerParent<T, M> context, @NotNull ResourceLocation texture, @NotNull AlphaFunction<T> animationAngleAdjuster, @NotNull DrawSelector<T, M> modelPartVisibility) {
         super(context, texture, animationAngleAdjuster, modelPartVisibility);
     }
 
     @Override
-    public void render(@NotNull PoseStack matrixStack, @NotNull MultiBufferSource vertexConsumerProvider, int i, T wardenEntity, float f, float g, float partialTick, float j, float k, float l) {
+    public void render(@NotNull PoseStack matrixStack, @NotNull MultiBufferSource vertexConsumerProvider, int i, @NotNull T wardenEntity, float f, float g, float partialTick, float j, float k, float l) {
         if (!wardenEntity.isInvisible() && ((WilderWarden) wardenEntity).wilderWild$isStella()) {
             this.onlyDrawSelectedParts();
             VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderType.entityTranslucentEmissive(this.texture));

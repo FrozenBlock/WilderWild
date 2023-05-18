@@ -44,12 +44,12 @@ import org.jetbrains.annotations.NotNull;
 
 public class MilkweedBlock extends TallFlowerBlock {
 
-    public MilkweedBlock(Properties settings) {
+    public MilkweedBlock(@NotNull Properties settings) {
         super(settings);
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(BlockStateProperties.AGE_3);
     }
@@ -63,7 +63,7 @@ public class MilkweedBlock extends TallFlowerBlock {
 	}
 
     @Override
-    public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, RandomSource random) {
+    public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
         if (random.nextFloat() > 0.83F) {
 			if (isLower(state) && isFullyGrown(state)) {
 				this.setAgeOnBothHalves(state, level, pos, state.getValue(BlockStateProperties.AGE_3) + 1);

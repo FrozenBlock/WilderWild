@@ -63,7 +63,7 @@ public class ScorchedBlock extends BaseEntityBlock {
 	public final SoundEvent brushSound;
 	public final SoundEvent brushCompletedSound;
 
-	public ScorchedBlock(Properties settings, BlockState wetState, boolean canBrush, SoundEvent brushSound, SoundEvent brushCompletedSound) {
+	public ScorchedBlock(@NotNull Properties settings,@NotNull  BlockState wetState, boolean canBrush, @NotNull SoundEvent brushSound, @NotNull SoundEvent brushCompletedSound) {
 		super(settings);
 		this.registerDefaultState(this.stateDefinition.any().setValue(CRACKEDNESS, 0).setValue(DUSTED, 0));
 		this.wetState = wetState;
@@ -73,7 +73,7 @@ public class ScorchedBlock extends BaseEntityBlock {
 		this.brushCompletedSound = brushCompletedSound;
 	}
 
-	public void fillScorchMap(BlockState wetState, BlockState defaultState) {
+	public void fillScorchMap(@NotNull BlockState wetState, @NotNull BlockState defaultState) {
 		SCORCH_MAP.put(wetState, defaultState);
 		SCORCH_MAP.put(defaultState, defaultState.setValue(RegisterProperties.CRACKEDNESS, 1));
 		HYDRATE_MAP.put(defaultState, wetState);
@@ -81,17 +81,17 @@ public class ScorchedBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(CRACKEDNESS, DUSTED);
 	}
 
 	@Override
-	public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
+	public void onPlace(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState oldState, boolean isMoving) {
 		level.scheduleTick(pos, this, TICK_DELAY);
 	}
 
 	@Override
-	public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos currentPos, BlockPos neighborPos) {
+	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
 		level.scheduleTick(currentPos, this, TICK_DELAY);
 		return super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
 	}
@@ -127,7 +127,8 @@ public class ScorchedBlock extends BaseEntityBlock {
 		}
 	}
 
-	private static BlockState stateWithoutDusting(BlockState state) {
+	@NotNull
+	private static BlockState stateWithoutDusting(@NotNull BlockState state) {
 		return state.hasProperty(DUSTED) ? state.setValue(DUSTED, 0) : state;
 	}
 

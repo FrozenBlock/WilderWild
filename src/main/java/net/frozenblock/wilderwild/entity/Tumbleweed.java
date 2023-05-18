@@ -106,7 +106,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	private static final EntityDataAccessor<Float> ITEM_X = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> ITEM_Z = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.FLOAT);
 
-    public Tumbleweed(EntityType<Tumbleweed> entityType, Level level) {
+    public Tumbleweed(@NotNull EntityType<Tumbleweed> entityType, Level level) {
 		super(entityType, level);
 		this.blocksBuilding = true;
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
@@ -131,10 +131,11 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
 	}
 
-	public static boolean canSpawn(EntityType<Tumbleweed> type, ServerLevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
+	public static boolean canSpawn(EntityType<Tumbleweed> type, @NotNull ServerLevelAccessor level, MobSpawnType reason, BlockPos pos, @NotNull RandomSource random) {
 		return level.getBrightness(LightLayer.SKY, pos) > 7 && random.nextInt(0, 60) == 1 && pos.getY() > level.getSeaLevel();
 	}
 
+	@NotNull
 	public static AttributeSupplier.Builder addAttributes() {
 		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 1D);
 	}
@@ -299,7 +300,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		this.remove(RemovalReason.KILLED);
 	}
 
-	public void setItem(ItemStack stack, boolean natural) {
+	public void setItem(@NotNull ItemStack stack, boolean natural) {
 		this.inventory.set(0, stack);
 		this.isItemNatural = natural;
 		this.randomizeItemOffsets();
@@ -309,11 +310,12 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		return entity.getPosition(0).distanceTo(this.getPosition(0)) > entity.getPosition(1).distanceTo(this.getPosition(1));
 	}
 
+	@NotNull
 	public Vec3 getDeltaPos() {
 		return this.getPosition(0).subtract(this.getPosition(1));
 	}
 
-	public boolean isSilkTouchOrShears(DamageSource damageSource) {
+	public boolean isSilkTouchOrShears(@NotNull DamageSource damageSource) {
 		if (damageSource.getDirectEntity() instanceof Player player) {
 			ItemStack stack = player.getMainHandItem();
 			return EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0 || stack.is(Items.SHEARS);
@@ -357,7 +359,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	@Override
-	protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
+	protected float getStandingEyeHeight(@NotNull Pose pose, @NotNull EntityDimensions dimensions) {
 		return dimensions.height * 0.5F;
 	}
 
@@ -400,7 +402,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	@Override
-	public void recreateFromPacket(ClientboundAddEntityPacket packet) {
+	public void recreateFromPacket(@NotNull ClientboundAddEntityPacket packet) {
 		double d = packet.getX();
 		double e = packet.getY();
 		double f = packet.getZ();
@@ -523,7 +525,6 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	protected void playSwimSound(float volume) {
 	}
 
-
 	@Override
 	@NotNull
 	public Iterable<ItemStack> getArmorSlots() {
@@ -547,7 +548,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	@Override
-	public void frozenLib$onSteppedOnBlock(Level level, BlockPos blockPos, BlockState blockState) {
+	public void frozenLib$onSteppedOnBlock(Level level, BlockPos blockPos, @NotNull BlockState blockState) {
 		if (blockState.is(WilderBlockTags.STOPS_TUMBLEWEED)) {
 			this.isTouchingStoppingBlock = true;
 		}

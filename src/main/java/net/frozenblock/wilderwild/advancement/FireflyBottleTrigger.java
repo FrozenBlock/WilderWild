@@ -25,12 +25,12 @@ public class FireflyBottleTrigger extends SimpleCriterionTrigger<FireflyBottleTr
 
 	@Override
 	@NotNull
-	public TriggerInstance createInstance(JsonObject jsonObject, @NotNull ContextAwarePredicate contextAwarePredicate, @NotNull DeserializationContext deserializationContext) {
+	public TriggerInstance createInstance(@NotNull JsonObject jsonObject, @NotNull ContextAwarePredicate contextAwarePredicate, @NotNull DeserializationContext deserializationContext) {
 		ItemPredicate itemPredicate = ItemPredicate.fromJson(jsonObject.get("item"));
 		return new TriggerInstance(itemPredicate, contextAwarePredicate);
 	}
 
-	public void trigger(ServerPlayer player, ItemStack stack) {
+	public void trigger(@NotNull ServerPlayer player, @NotNull ItemStack stack) {
 		this.trigger(player, (conditions) -> conditions.matches(stack));
 	}
 
@@ -38,16 +38,17 @@ public class FireflyBottleTrigger extends SimpleCriterionTrigger<FireflyBottleTr
 		extends AbstractCriterionTriggerInstance {
 		private final ItemPredicate item;
 
-		public TriggerInstance(ItemPredicate item, ContextAwarePredicate contextAwarePredicate) {
+		public TriggerInstance(@NotNull ItemPredicate item, @NotNull ContextAwarePredicate contextAwarePredicate) {
 			super(ID, contextAwarePredicate);
 			this.item = item;
 		}
 
-		public static TriggerInstance fireflyBottle(ItemPredicate item) {
+		@NotNull
+		public static TriggerInstance fireflyBottle(@NotNull ItemPredicate item) {
 			return new TriggerInstance(item, ContextAwarePredicate.ANY);
 		}
 
-		public boolean matches(ItemStack stack) {
+		public boolean matches(@NotNull ItemStack stack) {
 		return this.item.matches(stack);
 	}
 

@@ -34,18 +34,19 @@ public class WardenNavigation extends GroundPathNavigation {
 
     private final Warden entity;
 
-    public WardenNavigation(@NotNull Warden warden, Level level) {
+    public WardenNavigation(@NotNull Warden warden, @NotNull Level level) {
         super(warden, level);
         this.entity = warden;
     }
 
     @Override
+	@NotNull
     public PathFinder createPathFinder(int range) {
         this.nodeEvaluator = new WardenPathEvaluator(false);
         this.nodeEvaluator.setCanPassDoors(true);
         return new PathFinder(this.nodeEvaluator, range) {
 			@Override
-            public float distance(Node a, Node b) {
+            public float distance(@NotNull Node a, @NotNull Node b) {
                 return this.entitySubmergedInWaterOrLava(entity) ? a.distanceTo(b) : a.distanceToXZ(b);
             }
 
@@ -56,6 +57,7 @@ public class WardenNavigation extends GroundPathNavigation {
     }
 
     @Override
+	@NotNull
     protected Vec3 getTempMobPos() {
         return this.isInLiquid() ? new Vec3(this.entity.getX(), this.entity.getY(0.5), this.entity.getZ()) : super.getTempMobPos();
     }

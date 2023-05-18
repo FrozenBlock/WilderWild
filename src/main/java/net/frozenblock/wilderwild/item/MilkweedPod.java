@@ -32,7 +32,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class MilkweedPod extends Item {
 
-	public MilkweedPod(Properties settings) {
+	public MilkweedPod(@NotNull Properties settings) {
 		super(settings);
 	}
 
@@ -59,5 +59,4 @@ public class MilkweedPod extends Item {
 	public UseAnim getUseAnimation(@NotNull ItemStack stack) {
 		return UseAnim.TOOT_HORN;
 	}
-
 }

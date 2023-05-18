@@ -30,29 +30,21 @@ import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class TurtleNearestAttackableGoal<T extends LivingEntity> extends TargetGoal {
-    private static final int DEFAULT_RANDOM_INTERVAL = 10;
     protected final Class<T> targetType;
     protected final int randomInterval;
     @Nullable
     protected LivingEntity target;
     protected TargetingConditions targetConditions;
 
-    public TurtleNearestAttackableGoal(Mob mob, Class<T> class_, boolean bl) {
+    public TurtleNearestAttackableGoal(@NotNull Mob mob, @NotNull Class<T> class_, boolean bl) {
         this(mob, class_, 10, bl, false, null);
     }
 
-    public TurtleNearestAttackableGoal(Mob mob, Class<T> class_, boolean bl, Predicate<LivingEntity> predicate) {
-        this(mob, class_, 10, bl, false, predicate);
-    }
-
-    public TurtleNearestAttackableGoal(Mob mob, Class<T> class_, boolean bl, boolean bl2) {
-        this(mob, class_, 10, bl, bl2, null);
-    }
-
-    public TurtleNearestAttackableGoal(Mob mob, Class<T> class_, int i, boolean bl, boolean bl2, @Nullable Predicate<LivingEntity> predicate) {
+    public TurtleNearestAttackableGoal(@NotNull Mob mob, @NotNull Class<T> class_, int i, boolean bl, boolean bl2, @Nullable Predicate<LivingEntity> predicate) {
         super(mob, bl, bl2);
         this.targetType = class_;
         this.randomInterval = NearestAttackableTargetGoal.reducedTickDelay(i);
@@ -69,6 +61,7 @@ public class TurtleNearestAttackableGoal<T extends LivingEntity> extends TargetG
         return this.target != null && ((TurtleCooldownInterface) this.mob).wilderWild$getAttackCooldown() <= 0;
     }
 
+	@NotNull
     protected AABB getTargetSearchArea(double d) {
         return this.mob.getBoundingBox().inflate(d, 4.0, d);
     }

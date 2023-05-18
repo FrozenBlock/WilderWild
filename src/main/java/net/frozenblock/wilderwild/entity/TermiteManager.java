@@ -69,12 +69,12 @@ public class TermiteManager {
 	public TermiteManager() {
 	}
 
-	public void addTermite(BlockPos pos, boolean natural) {
+	public void addTermite(@NotNull BlockPos pos, boolean natural) {
 		Termite termite = new Termite(pos, pos, 0, 0, 0, natural);
 		this.termites.add(termite);
 	}
 
-	public void tick(Level level, BlockPos pos, boolean natural, boolean awake, boolean canSpawn) {
+	public void tick(@NotNull Level level, @NotNull BlockPos pos, boolean natural, boolean awake, boolean canSpawn) {
 		int maxTermites = maxTermites(natural, awake, canSpawn);
 		ArrayList<Termite> termitesToRemove = new ArrayList<>();
 		for (Termite termite : this.termites) {
@@ -110,7 +110,7 @@ public class TermiteManager {
 		termitesToRemove.clear();
 	}
 
-	public void clearTermites(Level level) {
+	public void clearTermites(@NotNull Level level) {
 		for (Termite termite : this.termites) {
 			level.gameEvent(null, GameEvent.ENTITY_DIE, Vec3.atCenterOf(termite.pos));
 			level.playSound(null, termite.pos, RegisterSounds.BLOCK_TERMITE_MOUND_ENTER, SoundSource.NEUTRAL, 0.6F, 1.0F);
@@ -192,7 +192,7 @@ public class TermiteManager {
 				Codec.BOOL.fieldOf("natural").orElse(true).forGetter(Termite::getNatural)
 		).apply(instance, Termite::new));
 
-		public Termite(BlockPos mound, BlockPos pos, int blockDestroyPower, int aliveTicks, int update, boolean natural) {
+		public Termite(@NotNull BlockPos mound, @NotNull BlockPos pos, int blockDestroyPower, int aliveTicks, int update, boolean natural) {
 			this.mound = mound;
 			this.pos = pos;
 			this.blockDestroyPower = blockDestroyPower;
@@ -201,7 +201,7 @@ public class TermiteManager {
 			this.natural = natural;
 		}
 
-		public boolean tick(Level level) {
+		public boolean tick(@NotNull Level level) {
 			boolean exit = false;
 			++this.aliveTicks;
 			if (this.aliveTicks > (this.natural ? 1200 : 2000) || isTooFar(this.natural, this.mound, this.pos)) {
@@ -294,7 +294,7 @@ public class TermiteManager {
 		}
 
 		@Nullable
-		public static BlockPos ledgePos(Level level, BlockPos pos, boolean natural) {
+		public static BlockPos ledgePos(@NotNull Level level, @NotNull BlockPos pos, boolean natural) {
 			BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 			BlockState state = level.getBlockState(mutableBlockPos);
 			if (DEGRADABLE_BLOCKS.containsKey(state.getBlock()) || state.is(WilderBlockTags.TERMITE_BREAKABLE)) {
@@ -314,7 +314,7 @@ public class TermiteManager {
 		}
 
 		@Nullable
-		public static BlockPos degradableBreakablePos(Level level, BlockPos pos, boolean natural) {
+		public static BlockPos degradableBreakablePos(@NotNull Level level, @NotNull BlockPos pos, boolean natural) {
 			BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 			List<Direction> directions = Util.shuffledCopy(Direction.values(), level.random);
 			BlockState upState = level.getBlockState(mutableBlockPos.move(Direction.UP));
@@ -328,7 +328,7 @@ public class TermiteManager {
 			return null;
 		}
 
-		private static boolean canEatBlock(boolean natural, BlockPos.MutableBlockPos mutableBlockPos, BlockState state) {
+		private static boolean canEatBlock(boolean natural, @NotNull BlockPos.MutableBlockPos mutableBlockPos, @NotNull BlockState state) {
 			if (((!natural ? DEGRADABLE_BLOCKS.containsKey(state.getBlock()) : NATURAL_DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || state.is(WilderBlockTags.TERMITE_BREAKABLE)) && isEdibleProperty(state)) {
 				if (state.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF) && state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER) {
 					mutableBlockPos.move(Direction.DOWN);
@@ -338,11 +338,11 @@ public class TermiteManager {
 			return false;
 		}
 
-		public static boolean isEdibleProperty(BlockState state) {
+		public static boolean isEdibleProperty(@NotNull BlockState state) {
 			return !WilderSharedConstants.config().termitesOnlyEatNaturalBlocks() || (state.hasProperty(RegisterProperties.TERMITE_EDIBLE) ? state.getValue(RegisterProperties.TERMITE_EDIBLE) : !state.is(BlockTags.LEAVES) || !state.hasProperty(BlockStateProperties.PERSISTENT) || !state.getValue(BlockStateProperties.PERSISTENT));
 		}
 
-		public static boolean exposedToAir(Level level, BlockPos pos, boolean natural) {
+		public static boolean exposedToAir(@NotNull Level level, @NotNull BlockPos pos, boolean natural) {
 			BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 			for (Direction direction : Direction.values()) {
 				BlockState state = level.getBlockState(mutableBlockPos.move(direction));
@@ -354,14 +354,14 @@ public class TermiteManager {
 			return false;
 		}
 
-		public static boolean canMove(LevelAccessor level, BlockPos pos) {
+		public static boolean canMove(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
 			if (level instanceof ServerLevel serverLevel) {
 				return serverLevel.shouldTickBlocksAt(pos);
 			}
 			return false;
 		}
 
-		public static boolean isBlockMovable(BlockState state, Direction direction) {
+		public static boolean isBlockMovable(@NotNull BlockState state, @NotNull Direction direction) {
 			if (state.is(WilderBlockTags.BLOCKS_TERMITE)) {
 				return false;
 			}
@@ -370,14 +370,16 @@ public class TermiteManager {
 			return moveableUp && moveableDown;
 		}
 
-		public static boolean isTooFar(boolean natural, BlockPos mound, BlockPos pos) {
+		public static boolean isTooFar(boolean natural, @NotNull BlockPos mound, @NotNull BlockPos pos) {
 			return !mound.closerThan(pos, natural ? 10 : 32);
 		}
 
+		@NotNull
 		public BlockPos getMoundPos() {
 			return this.mound;
 		}
 
+		@NotNull
 		public BlockPos getPos() {
 			return this.pos;
 		}
@@ -464,17 +466,17 @@ public class TermiteManager {
 			addNaturalDegradable(Blocks.SPRUCE_WOOD, Blocks.STRIPPED_SPRUCE_WOOD);
 		}
 
-		public static void addNaturalDegradable(Block degradable, Block result) {
+		public static void addNaturalDegradable(@NotNull Block degradable, @NotNull Block result) {
 			NATURAL_DEGRADABLE_BLOCKS.put(degradable, result);
 		}
 
-		public static void spawnGnawParticles(Level level, BlockState eatState, BlockPos pos) {
-			if (level.random.nextInt(0, 4) == 3 && level instanceof ServerLevel serverLevel) {
+		public static void spawnGnawParticles(@NotNull Level level, @NotNull BlockState eatState, @NotNull BlockPos pos) {
+			if (level instanceof ServerLevel serverLevel && level.random.nextInt(0, 4) == 3) {
 				serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, eatState), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(0, 3), 0.3F, 0.3F, 0.3F, 0.05D);
 			}
 		}
 
-		public static void spawnEatParticles(Level level, BlockState eatState, BlockPos pos) {
+		public static void spawnEatParticles(Level level, @NotNull BlockState eatState, @NotNull BlockPos pos) {
 			if (level instanceof ServerLevel serverLevel) {
 				serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, eatState), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(18, 25), 0.3F, 0.3F, 0.3F, 0.05D);
 			}

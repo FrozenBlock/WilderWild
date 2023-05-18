@@ -64,14 +64,14 @@ public class SmallSpongeBlock extends FaceAttachedHorizontalDirectionalBlock imp
     protected static final VoxelShape FLOOR_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 3.0D, 16.0D);
     protected static final VoxelShape CEILING_SHAPE = Block.box(0.0D, 13.0D, 0.0D, 16.0D, 16.0D, 16.0D);
 
-    public SmallSpongeBlock(Properties settings) {
+    public SmallSpongeBlock(@NotNull Properties settings) {
         super(settings);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false).setValue(FACE, AttachFace.WALL).setValue(STAGE, 0));
     }
 
     @Override
 	@NotNull
-    public InteractionResult use(BlockState state, @NotNull Level level, @NotNull BlockPos pos, Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+    public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
         ItemStack itemStack = player.getItemInHand(hand);
         int i = state.getValue(STAGE);
         if (i > 0 && itemStack.is(Items.SHEARS)) {
@@ -87,18 +87,18 @@ public class SmallSpongeBlock extends FaceAttachedHorizontalDirectionalBlock imp
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACE, FACING, STAGE, WATERLOGGED);
     }
 
     @Override
-    public boolean canBeReplaced(@NotNull BlockState state, BlockPlaceContext context) {
+    public boolean canBeReplaced(@NotNull BlockState state, @NotNull BlockPlaceContext context) {
         return !context.isSecondaryUseActive() && context.getItemInHand().is(this.asItem()) && state.getValue(STAGE) < 2 || super.canBeReplaced(state, context);
     }
 
     @Override
     @Nullable
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
+    public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
         BlockState insideState = context.getLevel().getBlockState(context.getClickedPos());
         if (insideState.is(this)) {
             return insideState.setValue(STAGE, Math.min(2, insideState.getValue(STAGE) + 1));
@@ -122,17 +122,17 @@ public class SmallSpongeBlock extends FaceAttachedHorizontalDirectionalBlock imp
         return null;
     }
 
-	public boolean isValidStateForPlacement(BlockGetter level, BlockPos pos, Direction direction) {
+	public boolean isValidStateForPlacement(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull Direction direction) {
 		BlockPos blockPos = pos.relative(direction);
 		return canAttachTo(level, direction, blockPos, level.getBlockState(blockPos));
 	}
 
-	public static boolean canAttachTo(BlockGetter level, Direction direction, BlockPos pos, BlockState state) {
+	public static boolean canAttachTo(@NotNull BlockGetter level, @NotNull Direction direction, @NotNull BlockPos pos, @NotNull BlockState state) {
 		return Block.isFaceFull(state.getBlockSupportShape(level, pos), direction.getOpposite()) || Block.isFaceFull(state.getCollisionShape(level, pos), direction.getOpposite());
 	}
 
 	@Nullable
-	public BlockState getStateForPlacement(BlockState currentState, BlockGetter level, BlockPos pos, Direction lookingDirection) {
+	public BlockState getStateForPlacement(@NotNull BlockState currentState, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull Direction lookingDirection) {
 		if (!this.isValidStateForPlacement(level, pos, lookingDirection)) {
 			return null;
 		} else {
@@ -157,7 +157,7 @@ public class SmallSpongeBlock extends FaceAttachedHorizontalDirectionalBlock imp
 
     @Override
 	@NotNull
-    public BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
+    public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
         if (state.getValue(WATERLOGGED)) {
             level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
@@ -166,13 +166,13 @@ public class SmallSpongeBlock extends FaceAttachedHorizontalDirectionalBlock imp
 
     @Override
 	@NotNull
-    public FluidState getFluidState(BlockState state) {
+    public FluidState getFluidState(@NotNull BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     @Override
 	@NotNull
-    public VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+    public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return switch (state.getValue(FACE)) {
             case FLOOR -> FLOOR_SHAPE;
             case WALL -> switch (state.getValue(FACING)) {

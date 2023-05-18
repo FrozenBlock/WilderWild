@@ -63,7 +63,7 @@ public class AncientHorn extends InstrumentItem {
     public static final int MIN_BUBBLES = 10;
     public static final int MAX_BUBBLES = 25;
 
-    public AncientHorn(Properties settings, TagKey<Instrument> tag) {
+    public AncientHorn(@NotNull Properties settings, @NotNull TagKey<Instrument> tag) {
         super(settings, tag);
         this.instrumentTag = tag;
     }
@@ -105,7 +105,7 @@ public class AncientHorn extends InstrumentItem {
 
     @Override
 	@NotNull
-    public Optional<? extends Holder<Instrument>> getInstrument(ItemStack stack) {
+    public Optional<? extends Holder<Instrument>> getInstrument(@NotNull ItemStack stack) {
         CompoundTag nbtCompound = stack.getTag();
         if (nbtCompound != null) {
             ResourceLocation resourceLocation = ResourceLocation.tryParse(nbtCompound.getString(TAG_INSTRUMENT));
@@ -125,7 +125,7 @@ public class AncientHorn extends InstrumentItem {
         return cooldown;
     }
 
-    public static int decreaseCooldown(Player user, int time) {
+    public static int decreaseCooldown(@NotNull Player user, int time) {
         if (!user.isCreative()) {
             ItemCooldowns manager = user.getCooldowns();
             ItemCooldowns.CooldownInstance entry = manager.cooldowns.get(RegisterItems.ANCIENT_HORN);
@@ -146,7 +146,7 @@ public class AncientHorn extends InstrumentItem {
         return UseAnim.TOOT_HORN;
     }
 
-    private static void play(Level level, Player player, Instrument instrument) {
+    private static void play(@NotNull Level level, @NotNull Player player, @NotNull Instrument instrument) {
         SoundEvent soundEvent = instrument.soundEvent().value();
         float range = instrument.range() / 16F;
         level.playSound(player, player, soundEvent, SoundSource.RECORDS, range, 1.0F);

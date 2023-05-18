@@ -45,7 +45,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class CoconutProjectile extends ThrowableItemProjectile {
 
-	public CoconutProjectile(EntityType<? extends CoconutProjectile> entityType, Level level) {
+	public CoconutProjectile(@NotNull EntityType<? extends CoconutProjectile> entityType, Level level) {
 		super(entityType, level);
 	}
 

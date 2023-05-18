@@ -56,18 +56,18 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
 
     public final List<FlowerColor> COLOR_LIST;
 
-    public GloryOfTheSnowBlock(Properties settings, List<FlowerColor> list) {
+    public GloryOfTheSnowBlock(@NotNull Properties settings, List<FlowerColor> list) {
         super(settings);
         this.COLOR_LIST = list;
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
         builder.add(COLORS);
     }
 
     @Override
-    public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, RandomSource random) {
+    public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
         if (random.nextFloat() > 0.9F && state.getValue(COLORS) == FlowerColor.NONE) {
             level.setBlockAndUpdate(pos, state.setValue(COLORS, COLOR_LIST.get(random.nextInt(COLOR_LIST.size()))));
         }

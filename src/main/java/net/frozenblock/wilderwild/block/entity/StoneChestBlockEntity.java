@@ -55,6 +55,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class StoneChestBlockEntity extends ChestBlockEntity implements NoInteractionStorage<ItemVariant> {
 	public float openProgress;
@@ -66,7 +67,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
 
 	public boolean shouldSkip = false;
 
-	public StoneChestBlockEntity(BlockPos blockPos, BlockState blockState) {
+	public StoneChestBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
 		super(RegisterBlockEntities.STONE_CHEST, blockPos, blockState);
 	}
 
@@ -98,7 +99,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
 		return Mth.lerp(delta, this.prevOpenProgress, this.openProgress);
 	}
 
-	public static void serverStoneTick(Level level, BlockPos pos, BlockState state, StoneChestBlockEntity blockEntity) {
+	public static void serverStoneTick(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @NotNull StoneChestBlockEntity blockEntity) {
 		ServerLevel serverLevel = (ServerLevel) level;
 		StoneChestBlockEntity stoneChest = getOtherEntity(serverLevel, pos, state);
 		if (!blockEntity.shouldSkip) {
@@ -127,7 +128,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
 		blockEntity.shouldSkip = false;
 	}
 
-	public static void clientStoneTick(Level level, BlockPos pos, BlockState state, StoneChestBlockEntity blockEntity) {
+	public static void clientStoneTick(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull StoneChestBlockEntity blockEntity) {
 		StoneChestBlockEntity stoneChest = getOtherEntity(level, pos, state);
 		if (!blockEntity.shouldSkip) {
 			if (blockEntity.cooldownTicks > 0) {
@@ -165,7 +166,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
 		this.stillLidTicks = (int) (Math.max((this.openProgress), 0.2) * 180 * multiplier);
 	}
 
-	public void onLidSlam(Level level, BlockPos pos, BlockState state, StoneChestBlockEntity otherStoneChest) {
+	public void onLidSlam(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable StoneChestBlockEntity otherStoneChest) {
 		if (!level.isClientSide && level instanceof ServerLevel server) {
 			if (this.highestLidPoint > 0.2F) {
 				server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, level.random.nextIntBetweenInclusive(3, (int) (this.highestLidPoint * 10) + 2), 0.21875F, 0, 0.21875F, 0.05D);
@@ -190,7 +191,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
 		return !(player.distanceToSqr((double) this.worldPosition.getX() + 0.5, (double) this.worldPosition.getY() + 0.5, (double) this.worldPosition.getZ() + 0.5) > 64.0) && ((!this.closing && this.openProgress >= 0.3));
 	}
 
-	public void syncLidValuesWith(StoneChestBlockEntity otherStoneChest) {
+	public void syncLidValuesWith(@Nullable StoneChestBlockEntity otherStoneChest) {
 		if (otherStoneChest != null) {
 			syncValues(otherStoneChest);
 			otherStoneChest.updateSync();
@@ -217,7 +218,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
 		}
 	}
 
-	private void syncValues(StoneChestBlockEntity otherStoneChest) {
+	private void syncValues(@NotNull StoneChestBlockEntity otherStoneChest) {
 		otherStoneChest.openProgress = this.openProgress;
 		otherStoneChest.prevOpenProgress = this.prevOpenProgress;
 		otherStoneChest.highestLidPoint = this.highestLidPoint;
@@ -233,11 +234,12 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
 	}
 
 	@Override
+	@NotNull
 	public CompoundTag getUpdateTag() {
 		return this.saveWithoutMetadata();
 	}
 
-	public static StoneChestBlockEntity getOtherEntity(Level level, BlockPos pos, BlockState state) {
+	public static StoneChestBlockEntity getOtherEntity(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
 		ChestType chestType = state.getValue(ChestBlock.TYPE);
 		double x = pos.getX();
 		double y = pos.getY();
@@ -262,7 +264,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
 		return entity;
 	}
 
-	public static StoneChestBlockEntity getLeftEntity(Level level, BlockPos pos, BlockState state, StoneChestBlockEntity source) {
+	public static StoneChestBlockEntity getLeftEntity(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull StoneChestBlockEntity source) {
 		ChestType chestType = state.getValue(ChestBlock.TYPE);
 		if (chestType == ChestType.SINGLE) {
 			return source;
@@ -286,12 +288,13 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
 		return entity;
 	}
 
-	public static boolean isLeft(BlockState state) {
+	public static boolean isLeft(@NotNull BlockState state) {
 		ChestType chestType = state.getValue(ChestBlock.TYPE);
 		return chestType == ChestType.LEFT;
 	}
 
 	@Override
+	@NotNull
 	protected Component getDefaultName() {
 		return Component.translatable("container.stone_chest");
 	}
@@ -307,6 +310,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
 		}
 	}
 
+	@NotNull
 	public ArrayList<ItemStack> nonAncientItems() {
 		ArrayList<ItemStack> items = new ArrayList<>();
 		for (ItemStack item : this.getItems()) {
@@ -317,6 +321,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
 		return items;
 	}
 
+	@NotNull
 	public ArrayList<ItemStack> ancientItems() {
 		ArrayList<ItemStack> items = new ArrayList<>();
 		for (ItemStack item : this.getItems()) {
@@ -344,7 +349,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
 		}
 
 		@Override
-		protected boolean isOwnContainer(Player player) {
+		protected boolean isOwnContainer(@NotNull Player player) {
 			if (player.containerMenu instanceof ChestMenu) {
 				Container inventory = ((ChestMenu) player.containerMenu).getContainer();
 				return inventory == StoneChestBlockEntity.this || inventory instanceof CompoundContainer && ((CompoundContainer) inventory).contains(StoneChestBlockEntity.this);
@@ -353,7 +358,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
 		}
 	};
 
-	public static void playSound(Level level, BlockPos pos, BlockState state, SoundEvent soundEvent, SoundEvent waterloggedSoundEvent, float volume) {
+	public static void playSound(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull SoundEvent soundEvent, @NotNull SoundEvent waterloggedSoundEvent, float volume) {
 		ChestType chestType = state.getValue(ChestBlock.TYPE);
 		double x = (double) pos.getX() + 0.5;
 		double y = (double) pos.getY() + 0.5;

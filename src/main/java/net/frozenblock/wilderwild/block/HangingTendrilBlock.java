@@ -76,27 +76,27 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	public static final BooleanProperty WRINGING_OUT = RegisterProperties.WRINGING_OUT;
 	protected static final VoxelShape OUTLINE_SHAPE = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 16.0D, 11.0D);
 
-	public HangingTendrilBlock(Properties settings) {
+	public HangingTendrilBlock(@NotNull Properties settings) {
 		super(settings);
 		this.registerDefaultState(this.stateDefinition.any().setValue(PHASE, SculkSensorPhase.INACTIVE).setValue(WATERLOGGED, false).setValue(TWITCHING, false).setValue(WRINGING_OUT, false).setValue(POWER, 0));
 	}
 
 	@Override
-	public boolean canSurvive(@NotNull BlockState state, LevelReader level, BlockPos pos) {
+	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
 		BlockPos blockPos = pos.above();
 		BlockState blockState = level.getBlockState(blockPos);
 		return blockState.isFaceSturdy(level, blockPos, Direction.DOWN);
 	}
 
 	@Override
-	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+	public BlockState getStateForPlacement(@NotNull BlockPlaceContext ctx) {
 		BlockPos blockPos = ctx.getClickedPos();
 		FluidState fluidState = ctx.getLevel().getFluidState(blockPos);
 		return this.defaultBlockState().setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
 	}
 
 	@Override
-	public void randomTick(BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if (!state.canSurvive(level, pos)) {
 			level.destroyBlock(pos, true);
 		} else if (SculkSensorBlock.getPhase(state) == SculkSensorPhase.INACTIVE) {
@@ -122,7 +122,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Override
 	@NotNull
-	public FluidState getFluidState(BlockState state) {
+	public FluidState getFluidState(@NotNull BlockState state) {
 		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
 	}
 
@@ -134,7 +134,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	public void onPlace(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull BlockState oldState, boolean isMoving) {
+	public void onPlace(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState oldState, boolean isMoving) {
 		if (level.isClientSide() || state.is(oldState.getBlock())) {
 			return;
 		}
@@ -145,7 +145,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	public void onRemove(BlockState state, @NotNull Level level, @NotNull BlockPos pos, BlockState newState, boolean isMoving) {
+	public void onRemove(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
 		if (state.is(newState.getBlock())) {
 			return;
 		}
@@ -163,7 +163,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Override
 	@Nullable
-	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
 		return !level.isClientSide ? createTickerHelper(type, RegisterBlockEntities.HANGING_TENDRIL, (worldx, pos, statex, blockEntity) ->
 			blockEntity.serverTick(worldx, pos, statex)
 		) : createTickerHelper(type, RegisterBlockEntities.HANGING_TENDRIL, (worldx, pos, statex, blockEntity) ->
@@ -188,7 +188,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 		return OUTLINE_SHAPE;
 	}
 
-	public static void deactivate(Level level, BlockPos pos, BlockState state) {
+	public static void deactivate(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
 		level.setBlock(pos, state.setValue(PHASE, SculkSensorPhase.INACTIVE).setValue(POWER, 0), 3);
 		if (!state.getValue(WATERLOGGED)) {
 			level.playSound(null, pos, RegisterSounds.BLOCK_HANGING_TENDRIL_CLICKING_STOP, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.2F + 0.8F);
@@ -201,7 +201,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 		return ACTIVE_TICKS;
 	}
 
-	public void activate(@Nullable Entity entity, Level world, BlockPos pos, BlockState state, int power, int j) {
+	public void activate(@Nullable Entity entity, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState state, int power, int j) {
 		world.setBlock(pos, state.setValue(PHASE, SculkSensorPhase.ACTIVE).setValue(POWER, power), 3);
 		world.scheduleTick(pos, state.getBlock(), this.getActiveTicks());
 		SculkSensorBlock.updateNeighbours(world, pos, state);
@@ -223,7 +223,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateDefinition.Builder<Block, net.minecraft.world.level.block.state.BlockState> builder) {
+	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, net.minecraft.world.level.block.state.BlockState> builder) {
 		builder.add(PHASE, POWER, WATERLOGGED, TWITCHING, WRINGING_OUT);
 	}
 
@@ -288,7 +288,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
     }
 
     @Override
-    public int attemptUseCharge(SculkSpreader.ChargeCursor cursor, @NotNull LevelAccessor level, @NotNull BlockPos catalystPos, @NotNull RandomSource random, @NotNull SculkSpreader spreadManager, boolean shouldConvertToBlock) {
+    public int attemptUseCharge(SculkSpreader.@NotNull ChargeCursor cursor, @NotNull LevelAccessor level, @NotNull BlockPos catalystPos, @NotNull RandomSource random, @NotNull SculkSpreader spreadManager, boolean shouldConvertToBlock) {
         if (level.getBlockEntity(cursor.getPos()) instanceof HangingTendrilBlockEntity tendrilEntity) {
             if (tendrilEntity.storedXP < 900) {
                 if (cursor.getCharge() > 1) {
@@ -303,7 +303,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
         return cursor.getCharge();
     }
 
-	public static boolean canActivate(BlockState state) {
+	public static boolean canActivate(@NotNull BlockState state) {
 		return SculkSensorBlock.getPhase(state) == SculkSensorPhase.INACTIVE;
 	}
 }
