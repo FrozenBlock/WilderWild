@@ -104,6 +104,7 @@ public class MilkweedBlock extends TallFlowerBlock {
 	}
 
 	public void setAgeOnBothHalves(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, int age) {
+		if (age > MAX_AGE) return;
 		level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.AGE_3, age));
 		BlockPos movedPos = state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER ? pos.below() : pos.above();
 		BlockState secondState = level.getBlockState(movedPos);
