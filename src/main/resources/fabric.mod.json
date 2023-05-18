@@ -39,8 +39,7 @@
     "preLaunch": [
       "net.frozenblock.wilderwild.misc.WilderWildPreLaunch"
     ],
-
-    "frozenlib:events": [
+    "frozenlib:surface_rules": [
       "net.frozenblock.wilderwild.registry.RegisterSurfaceRules"
     ],
     "frozenlib:mob_categories": [
