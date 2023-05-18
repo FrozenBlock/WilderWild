@@ -43,6 +43,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class MilkweedBlock extends TallFlowerBlock {
+	private static final int MAX_AGE = 3;
 
     public MilkweedBlock(Properties settings) {
         super(settings);
@@ -55,7 +56,7 @@ public class MilkweedBlock extends TallFlowerBlock {
     }
 
 	public static boolean isFullyGrown(@NotNull BlockState state) {
-		return state.getValue(BlockStateProperties.AGE_3) == 3;
+		return state.getValue(BlockStateProperties.AGE_3) == MAX_AGE;
 	}
 
 	public static boolean isLower(@NotNull BlockState state) {
