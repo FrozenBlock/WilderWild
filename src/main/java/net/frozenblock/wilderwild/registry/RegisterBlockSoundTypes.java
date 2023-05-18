@@ -26,6 +26,7 @@ public final class RegisterBlockSoundTypes {
 		throw new UnsupportedOperationException("RegisterBlockEntities contains only static declarations.");
 	}
 
+	//WILDER WILD SOUNDS
 	public static final SoundType ALGAE = new SoundType(0.8F, 1.0F,
 			RegisterSounds.BLOCK_ALGAE_BREAK,
 			RegisterSounds.BLOCK_ALGAE_STEP,
@@ -49,30 +50,6 @@ public final class RegisterBlockSoundTypes {
 			RegisterSounds.BLOCK_COCONUT_HIT,
 			RegisterSounds.BLOCK_COCONUT_FALL
 	);
-
-    public static final SoundType CLAY_BLOCK = new SoundType(0.9F, 1.0F,
-            RegisterSounds.BLOCK_CLAY_BREAK,
-            RegisterSounds.BLOCK_CLAY_STEP,
-            RegisterSounds.BLOCK_CLAY_PLACE,
-            RegisterSounds.BLOCK_CLAY_HIT,
-            RegisterSounds.BLOCK_CLAY_FALL
-    );
-
-	public static final SoundType CACTI = new SoundType(0.8F, 1.0F,
-			RegisterSounds.BLOCK_CACTUS_BREAK,
-			RegisterSounds.BLOCK_CACTUS_STEP,
-			RegisterSounds.BLOCK_CACTUS_PLACE,
-			RegisterSounds.BLOCK_CACTUS_HIT,
-			RegisterSounds.BLOCK_CACTUS_FALL
-	);
-
-    public static final SoundType GRAVELSOUNDS = new SoundType(0.8F, 1.0F,
-            RegisterSounds.BLOCK_GRAVEL_BREAK,
-            RegisterSounds.BLOCK_GRAVEL_STEP,
-            RegisterSounds.BLOCK_GRAVEL_PLACE,
-            RegisterSounds.BLOCK_GRAVEL_HIT,
-            RegisterSounds.BLOCK_GRAVEL_FALL
-    );
 
     public static final SoundType OSSEOUS_SCULK = new SoundType(1.0F, 1.0F,
             RegisterSounds.BLOCK_OSSEOUS_SCULK_BREAK,
@@ -146,107 +123,12 @@ public final class RegisterBlockSoundTypes {
             RegisterSounds.BLOCK_MESOGLEA_FALL
     );
 
-    public static final SoundType MUSHROOM = new SoundType(1.0F, 1.0F,
-            RegisterSounds.BLOCK_MUSHROOM_BREAK,
-            RegisterSounds.BLOCK_MUSHROOM_STEP,
-            RegisterSounds.BLOCK_MUSHROOM_PLACE,
-            RegisterSounds.BLOCK_MUSHROOM_HIT,
-            RegisterSounds.BLOCK_MUSHROOM_FALL
-    );
-
-    public static final SoundType MUSHROOM_BLOCK = new SoundType(1.0F, 1.0F,
-            RegisterSounds.BLOCK_MUSHROOM_BLOCK_BREAK,
-            RegisterSounds.BLOCK_MUSHROOM_BLOCK_STEP,
-            RegisterSounds.BLOCK_MUSHROOM_BLOCK_PLACE,
-            RegisterSounds.BLOCK_MUSHROOM_BLOCK_HIT,
-            RegisterSounds.BLOCK_MUSHROOM_BLOCK_FALL
-    );
-
-    public static final SoundType ICE_BLOCKS = new SoundType(1.0F, 1.25F,
-            RegisterSounds.BLOCK_ICE_BREAK,
-            RegisterSounds.BLOCK_ICE_STEP,
-            RegisterSounds.BLOCK_ICE_PLACE,
-            RegisterSounds.BLOCK_ICE_HIT,
-            RegisterSounds.BLOCK_ICE_FALL
-    );
-
-    public static final SoundType LEAVES = new SoundType(1.0F, 1.0F,
-            RegisterSounds.BLOCK_LEAVES_BREAK,
-            RegisterSounds.BLOCK_LEAVES_STEP,
-            RegisterSounds.BLOCK_LEAVES_PLACE,
-            RegisterSounds.BLOCK_LEAVES_HIT,
-            RegisterSounds.BLOCK_LEAVES_FALL
-    );
-
-    public static final SoundType FLOWER = new SoundType(0.8F, 1.0F,
-            RegisterSounds.BLOCK_FLOWER_BREAK,
-            RegisterSounds.BLOCK_FLOWER_STEP,
-            RegisterSounds.BLOCK_FLOWER_PLACE,
-            RegisterSounds.BLOCK_FLOWER_HIT,
-            RegisterSounds.BLOCK_FLOWER_FALL
-    );
-
 	public static final SoundType POLLEN = new SoundType(0.5F, 1.2F,
 			RegisterSounds.BLOCK_POLLEN_BREAK,
 			RegisterSounds.BLOCK_POLLEN_STEP,
 			RegisterSounds.BLOCK_POLLEN_PLACE,
 			RegisterSounds.BLOCK_POLLEN_HIT,
 			RegisterSounds.BLOCK_POLLEN_FALL
-	);
-
-    public static final SoundType WEB = new SoundType(1.0F, 1.5F,
-            RegisterSounds.BLOCK_COBWEB_BREAK,
-            RegisterSounds.BLOCK_COBWEB_STEP,
-            RegisterSounds.BLOCK_COBWEB_PLACE,
-            RegisterSounds.BLOCK_COBWEB_HIT,
-            RegisterSounds.BLOCK_COBWEB_FALL
-    );
-
-    public static final SoundType LILYPAD = new SoundType(1.0F, 1.0F,
-            SoundEvents.BIG_DRIPLEAF_BREAK,
-            SoundEvents.BIG_DRIPLEAF_STEP,
-            SoundEvents.LILY_PAD_PLACE,
-            SoundEvents.BIG_DRIPLEAF_HIT,
-            SoundEvents.BIG_DRIPLEAF_FALL
-    );
-
-	public static final SoundType SAPLING = new SoundType(1.0F, 1.0F,
-			RegisterSounds.BLOCK_SAPLING_BREAK,
-			RegisterSounds.BLOCK_SAPLING_STEP,
-			RegisterSounds.BLOCK_SAPLING_PLACE,
-			RegisterSounds.BLOCK_SAPLING_HIT,
-			RegisterSounds.BLOCK_SAPLING_FALL
-	);
-
-    public static final SoundType SUGARCANE = new SoundType(1.0F, 1.0F,
-            RegisterSounds.BLOCK_SUGAR_CANE_BREAK,
-            RegisterSounds.BLOCK_SUGAR_CANE_STEP,
-            RegisterSounds.BLOCK_SUGAR_CANE_PLACE,
-            RegisterSounds.BLOCK_SUGAR_CANE_HIT,
-            RegisterSounds.BLOCK_SUGAR_CANE_FALL
-    );
-
-    public static final SoundType COARSEDIRT = new SoundType(0.8F, 1.0F,
-            RegisterSounds.BLOCK_COARSE_DIRT_BREAK,
-            RegisterSounds.BLOCK_COARSE_DIRT_STEP,
-            RegisterSounds.BLOCK_COARSE_DIRT_PLACE,
-            RegisterSounds.BLOCK_COARSE_DIRT_HIT,
-            RegisterSounds.BLOCK_COARSE_DIRT_FALL
-    );
-
-	public static final SoundType SAND_STONE = new SoundType(0.7F, 1.1F,
-			RegisterSounds.BLOCK_SANDSTONE_BREAK,
-			RegisterSounds.BLOCK_SANDSTONE_STEP,
-			RegisterSounds.BLOCK_SANDSTONE_PLACE,
-			RegisterSounds.BLOCK_SANDSTONE_HIT,
-			RegisterSounds.BLOCK_SANDSTONE_FALL
-	);
-	public static final SoundType SCORCHEDSAND = new SoundType(0.8F, 1.0F,
-			RegisterSounds.BLOCK_SCORCHED_SAND_BREAK,
-			RegisterSounds.BLOCK_SCORCHED_SAND_STEP,
-			RegisterSounds.BLOCK_SCORCHED_SAND_PLACE,
-			RegisterSounds.BLOCK_SCORCHED_SAND_HIT,
-			RegisterSounds.BLOCK_SCORCHED_SAND_FALL
 	);
 
 	public static final SoundType TERMITEMOUND = new SoundType(0.8F, 1.0F,
@@ -256,14 +138,6 @@ public final class RegisterBlockSoundTypes {
 			RegisterSounds.BLOCK_TERMITE_MOUND_HIT,
 			RegisterSounds.BLOCK_TERMITE_MOUND_FALL
 	);
-
-    public static final SoundType REINFORCEDDEEPSLATE = new SoundType(1.0F, 1.0F,
-			RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_BREAK,
-			RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_STEP,
-			RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_PLACE,
-			RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_HIT,
-			RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_FALL
-    );
 
 	public static final SoundType TUMBLEWEED_PLANT = new SoundType(1.0F, 1.0F,
 			RegisterSounds.BLOCK_TUMBLEWEED_PLANT_BREAK,
@@ -279,6 +153,135 @@ public final class RegisterBlockSoundTypes {
 			RegisterSounds.BLOCK_PALM_CROWN_PLACE,
 			RegisterSounds.BLOCK_PALM_CROWN_HIT,
 			RegisterSounds.BLOCK_PALM_CROWN_FALL
+	);
+
+	//VANILLA SOUNDS
+
+	public static final SoundType CLAY = new SoundType(0.9F, 1.0F,
+		RegisterSounds.BLOCK_CLAY_BREAK,
+		RegisterSounds.BLOCK_CLAY_STEP,
+		RegisterSounds.BLOCK_CLAY_PLACE,
+		RegisterSounds.BLOCK_CLAY_HIT,
+		RegisterSounds.BLOCK_CLAY_FALL
+	);
+
+	public static final SoundType CACTI = new SoundType(0.8F, 1.0F,
+		RegisterSounds.BLOCK_CACTUS_BREAK,
+		RegisterSounds.BLOCK_CACTUS_STEP,
+		RegisterSounds.BLOCK_CACTUS_PLACE,
+		RegisterSounds.BLOCK_CACTUS_HIT,
+		RegisterSounds.BLOCK_CACTUS_FALL
+	);
+
+	public static final SoundType GRAVEL = new SoundType(0.8F, 1.0F,
+		RegisterSounds.BLOCK_GRAVEL_BREAK,
+		RegisterSounds.BLOCK_GRAVEL_STEP,
+		RegisterSounds.BLOCK_GRAVEL_PLACE,
+		RegisterSounds.BLOCK_GRAVEL_HIT,
+		RegisterSounds.BLOCK_GRAVEL_FALL
+	);
+
+	public static final SoundType MUSHROOM = new SoundType(1.0F, 1.0F,
+		RegisterSounds.BLOCK_MUSHROOM_BREAK,
+		RegisterSounds.BLOCK_MUSHROOM_STEP,
+		RegisterSounds.BLOCK_MUSHROOM_PLACE,
+		RegisterSounds.BLOCK_MUSHROOM_HIT,
+		RegisterSounds.BLOCK_MUSHROOM_FALL
+	);
+
+	public static final SoundType MUSHROOM_BLOCK = new SoundType(1.0F, 1.0F,
+		RegisterSounds.BLOCK_MUSHROOM_BLOCK_BREAK,
+		RegisterSounds.BLOCK_MUSHROOM_BLOCK_STEP,
+		RegisterSounds.BLOCK_MUSHROOM_BLOCK_PLACE,
+		RegisterSounds.BLOCK_MUSHROOM_BLOCK_HIT,
+		RegisterSounds.BLOCK_MUSHROOM_BLOCK_FALL
+	);
+
+	public static final SoundType ICE = new SoundType(1.0F, 1.25F,
+		RegisterSounds.BLOCK_ICE_BREAK,
+		RegisterSounds.BLOCK_ICE_STEP,
+		RegisterSounds.BLOCK_ICE_PLACE,
+		RegisterSounds.BLOCK_ICE_HIT,
+		RegisterSounds.BLOCK_ICE_FALL
+	);
+
+	public static final SoundType LEAVES = new SoundType(1.0F, 1.0F,
+		RegisterSounds.BLOCK_LEAVES_BREAK,
+		RegisterSounds.BLOCK_LEAVES_STEP,
+		RegisterSounds.BLOCK_LEAVES_PLACE,
+		RegisterSounds.BLOCK_LEAVES_HIT,
+		RegisterSounds.BLOCK_LEAVES_FALL
+	);
+
+	public static final SoundType FLOWER = new SoundType(0.8F, 1.0F,
+		RegisterSounds.BLOCK_FLOWER_BREAK,
+		RegisterSounds.BLOCK_FLOWER_STEP,
+		RegisterSounds.BLOCK_FLOWER_PLACE,
+		RegisterSounds.BLOCK_FLOWER_HIT,
+		RegisterSounds.BLOCK_FLOWER_FALL
+	);
+
+	public static final SoundType WEB = new SoundType(1.0F, 1.5F,
+		RegisterSounds.BLOCK_COBWEB_BREAK,
+		RegisterSounds.BLOCK_COBWEB_STEP,
+		RegisterSounds.BLOCK_COBWEB_PLACE,
+		RegisterSounds.BLOCK_COBWEB_HIT,
+		RegisterSounds.BLOCK_COBWEB_FALL
+	);
+
+	public static final SoundType LILYPAD = new SoundType(1.0F, 1.0F,
+		SoundEvents.BIG_DRIPLEAF_BREAK,
+		SoundEvents.BIG_DRIPLEAF_STEP,
+		SoundEvents.LILY_PAD_PLACE,
+		SoundEvents.BIG_DRIPLEAF_HIT,
+		SoundEvents.BIG_DRIPLEAF_FALL
+	);
+
+	public static final SoundType SAPLING = new SoundType(1.0F, 1.0F,
+		RegisterSounds.BLOCK_SAPLING_BREAK,
+		RegisterSounds.BLOCK_SAPLING_STEP,
+		RegisterSounds.BLOCK_SAPLING_PLACE,
+		RegisterSounds.BLOCK_SAPLING_HIT,
+		RegisterSounds.BLOCK_SAPLING_FALL
+	);
+
+	public static final SoundType SUGARCANE = new SoundType(1.0F, 1.0F,
+		RegisterSounds.BLOCK_SUGAR_CANE_BREAK,
+		RegisterSounds.BLOCK_SUGAR_CANE_STEP,
+		RegisterSounds.BLOCK_SUGAR_CANE_PLACE,
+		RegisterSounds.BLOCK_SUGAR_CANE_HIT,
+		RegisterSounds.BLOCK_SUGAR_CANE_FALL
+	);
+
+	public static final SoundType COARSEDIRT = new SoundType(0.8F, 1.0F,
+		RegisterSounds.BLOCK_COARSE_DIRT_BREAK,
+		RegisterSounds.BLOCK_COARSE_DIRT_STEP,
+		RegisterSounds.BLOCK_COARSE_DIRT_PLACE,
+		RegisterSounds.BLOCK_COARSE_DIRT_HIT,
+		RegisterSounds.BLOCK_COARSE_DIRT_FALL
+	);
+
+	public static final SoundType SANDSTONE = new SoundType(0.7F, 1.1F,
+		RegisterSounds.BLOCK_SANDSTONE_BREAK,
+		RegisterSounds.BLOCK_SANDSTONE_STEP,
+		RegisterSounds.BLOCK_SANDSTONE_PLACE,
+		RegisterSounds.BLOCK_SANDSTONE_HIT,
+		RegisterSounds.BLOCK_SANDSTONE_FALL
+	);
+	public static final SoundType SCORCHEDSAND = new SoundType(0.8F, 1.0F,
+		RegisterSounds.BLOCK_SCORCHED_SAND_BREAK,
+		RegisterSounds.BLOCK_SCORCHED_SAND_STEP,
+		RegisterSounds.BLOCK_SCORCHED_SAND_PLACE,
+		RegisterSounds.BLOCK_SCORCHED_SAND_HIT,
+		RegisterSounds.BLOCK_SCORCHED_SAND_FALL
+	);
+
+	public static final SoundType REINFORCEDDEEPSLATE = new SoundType(1.0F, 1.0F,
+		RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_BREAK,
+		RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_STEP,
+		RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_PLACE,
+		RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_HIT,
+		RegisterSounds.BLOCK_REINFORCED_DEEPSLATE_FALL
 	);
 
     public static void init() {

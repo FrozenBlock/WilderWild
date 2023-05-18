@@ -37,6 +37,8 @@ import net.frozenblock.wilderwild.misc.interfaces.WilderEnderman;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import static net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes.*;
 import static net.frozenblock.wilderwild.registry.RegisterBlocks.*;
+
+import net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -46,6 +48,9 @@ import net.minecraft.world.item.InstrumentItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import static net.minecraft.world.level.block.Blocks.*;
+import static net.minecraft.world.level.block.Blocks.CLAY;
+import static net.minecraft.world.level.block.Blocks.GRAVEL;
+import static net.minecraft.world.level.block.Blocks.SANDSTONE;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.PointedDripstoneBlock;
 import net.minecraft.world.level.block.SoundType;
@@ -108,7 +113,7 @@ public class FrozenLibIntegration extends ModIntegration {
             level.levelEvent(LevelEvent.DRIPSTONE_DRIP, blockPos, 0);
         });
         DripstoneDripWaterFrom.ON_DRIP_BLOCK.put(Blocks.MUD, (level, fluidInfo, blockPos) -> {
-            BlockState blockState = Blocks.CLAY.defaultBlockState();
+            BlockState blockState = CLAY.defaultBlockState();
             level.setBlockAndUpdate(fluidInfo.pos(), blockState);
             Block.pushEntitiesUp(fluidInfo.sourceState(), blockState, level, fluidInfo.pos());
             level.gameEvent(GameEvent.BLOCK_CHANGE, fluidInfo.pos(), GameEvent.Context.of(blockState));
@@ -123,13 +128,13 @@ public class FrozenLibIntegration extends ModIntegration {
 		RemoveableItemTags.register("wilderwild_is_ancient", (level, entity, slot, selected) -> true, true);
 
         addBlocks(new Block[]{CACTUS, PRICKLY_PEAR_CACTUS}, CACTI, WilderSharedConstants.config()::cactusSounds);
-        addBlock(CLAY, CLAY_BLOCK, WilderSharedConstants.config()::claySounds);
+        addBlock(CLAY, RegisterBlockSoundTypes.CLAY, WilderSharedConstants.config()::claySounds);
         addBlock(COARSE_DIRT, COARSEDIRT, WilderSharedConstants.config()::coarseDirtSounds);
         addBlock(COBWEB, WEB, WilderSharedConstants.config()::cobwebSounds);
         addBlock(DEAD_BUSH, SoundType.NETHER_SPROUTS, WilderSharedConstants.config()::deadBushSounds);
         addBlocks(new Block[]{DANDELION, POPPY, BLUE_ORCHID, ALLIUM, AZURE_BLUET, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, CORNFLOWER, LILY_OF_THE_VALLEY, SEEDING_DANDELION, CARNATION, GLORY_OF_THE_SNOW}, FLOWER, WilderSharedConstants.config()::flowerSounds);
-        addBlocks(new Block[]{FROSTED_ICE}, ICE_BLOCKS, WilderSharedConstants.config()::frostedIceSounds);
-        addBlock(GRAVEL, GRAVELSOUNDS, WilderSharedConstants.config()::gravelSounds);
+        addBlocks(new Block[]{FROSTED_ICE}, RegisterBlockSoundTypes.ICE, WilderSharedConstants.config()::frostedIceSounds);
+        addBlock(GRAVEL, RegisterBlockSoundTypes.GRAVEL, WilderSharedConstants.config()::gravelSounds);
 		addBlocks(new Block[]{ACACIA_SAPLING, BIRCH_SAPLING, DARK_OAK_SAPLING, JUNGLE_SAPLING, MANGROVE_PROPAGULE, OAK_SAPLING, SPRUCE_SAPLING, CYPRESS_SAPLING, BUSH}, SAPLING, WilderSharedConstants.config()::saplingSounds);
         addBlocks(new Block[]{ACACIA_LEAVES, BIRCH_LEAVES, DARK_OAK_LEAVES, JUNGLE_LEAVES, MANGROVE_LEAVES, OAK_LEAVES, SPRUCE_LEAVES, BAOBAB_LEAVES, CYPRESS_LEAVES, PALM_FRONDS}, LEAVES, WilderSharedConstants.config()::leafSounds);
         addBlocks(new Block[]{LILY_PAD, FLOWERING_LILY_PAD}, LILYPAD, WilderSharedConstants.config()::lilyPadSounds);
@@ -137,7 +142,7 @@ public class FrozenLibIntegration extends ModIntegration {
         addBlocks(new Block[]{RED_MUSHROOM_BLOCK, BROWN_MUSHROOM_BLOCK, MUSHROOM_STEM}, MUSHROOM_BLOCK, WilderSharedConstants.config()::mushroomBlockSounds);
         addBlock(PODZOL, SoundType.ROOTED_DIRT, WilderSharedConstants.config()::podzolSounds);
         addBlock(REINFORCED_DEEPSLATE, REINFORCEDDEEPSLATE, WilderSharedConstants.config()::reinforcedDeepslateSounds);
-		addBlocks(new Block[]{SANDSTONE, SANDSTONE_SLAB, SANDSTONE_STAIRS, SANDSTONE_WALL, CHISELED_SANDSTONE, CUT_SANDSTONE, SMOOTH_SANDSTONE, SMOOTH_SANDSTONE_SLAB, SMOOTH_SANDSTONE_STAIRS, RED_SANDSTONE, RED_SANDSTONE_SLAB, RED_SANDSTONE_STAIRS, RED_SANDSTONE_WALL, CHISELED_RED_SANDSTONE, CUT_RED_SANDSTONE, SMOOTH_RED_SANDSTONE, SMOOTH_RED_SANDSTONE_SLAB, SMOOTH_RED_SANDSTONE_STAIRS}, SAND_STONE, WilderSharedConstants.config()::sandstoneSounds);
+		addBlocks(new Block[]{SANDSTONE, SANDSTONE_SLAB, SANDSTONE_STAIRS, SANDSTONE_WALL, CHISELED_SANDSTONE, CUT_SANDSTONE, SMOOTH_SANDSTONE, SMOOTH_SANDSTONE_SLAB, SMOOTH_SANDSTONE_STAIRS, RED_SANDSTONE, RED_SANDSTONE_SLAB, RED_SANDSTONE_STAIRS, RED_SANDSTONE_WALL, CHISELED_RED_SANDSTONE, CUT_RED_SANDSTONE, SMOOTH_RED_SANDSTONE, SMOOTH_RED_SANDSTONE_SLAB, SMOOTH_RED_SANDSTONE_STAIRS}, RegisterBlockSoundTypes.SANDSTONE, WilderSharedConstants.config()::sandstoneSounds);
         addBlock(SUGAR_CANE, SUGARCANE, WilderSharedConstants.config()::sugarCaneSounds);
         addBlock(WITHER_ROSE, SoundType.SWEET_BERRY_BUSH, WilderSharedConstants.config()::witherRoseSounds);
     }
