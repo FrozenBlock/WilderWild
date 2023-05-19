@@ -21,12 +21,10 @@ package net.frozenblock.wilderwild.misc;
 import java.util.HashMap;
 import java.util.Map;
 import net.fabricmc.loader.api.FabricLoader;
-import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.misc.mod_compat.clothconfig.AbstractClothConfigIntegration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.Block;
 import org.slf4j.Logger;
@@ -45,7 +43,7 @@ public class WilderSharedConstants {
 	public static boolean UNSTABLE_LOGGING = FabricLoader.getInstance().isDevelopmentEnvironment();
     public static boolean areConfigsInit = false;
 
-	public static final int DATA_VERSION = 13;
+	public static final int DATA_VERSION = 14;
 
 	public static AbstractClothConfigIntegration config() {
 		return WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration();

@@ -42,6 +42,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
@@ -53,8 +54,7 @@ import org.jetbrains.annotations.Nullable;
 public class ScorchedBlock extends BaseEntityBlock {
 	public static final Map<BlockState, BlockState> SCORCH_MAP = new HashMap<>();
 	public static final Map<BlockState, BlockState> HYDRATE_MAP = new HashMap<>();
-
-	private static final IntegerProperty CRACKEDNESS = RegisterProperties.CRACKEDNESS;
+	private static final BooleanProperty CRACKEDNESS = RegisterProperties.CRACKED;
 	private static final IntegerProperty DUSTED = BlockStateProperties.DUSTED;
 	public static final int TICK_DELAY = 2;
 
@@ -63,21 +63,21 @@ public class ScorchedBlock extends BaseEntityBlock {
 	public final SoundEvent brushSound;
 	public final SoundEvent brushCompletedSound;
 
-	public ScorchedBlock(@NotNull Properties settings,@NotNull  BlockState wetState, boolean canBrush, @NotNull SoundEvent brushSound, @NotNull SoundEvent brushCompletedSound) {
+	public ScorchedBlock(@NotNull Properties settings, @NotNull BlockState wetState, boolean canBrush, @NotNull SoundEvent brushSound, @NotNull SoundEvent brushCompletedSound) {
 		super(settings);
-		this.registerDefaultState(this.stateDefinition.any().setValue(CRACKEDNESS, 0).setValue(DUSTED, 0));
+		this.registerDefaultState(this.stateDefinition.any().setValue(CRACKEDNESS, false));
 		this.wetState = wetState;
-		this.fillScorchMap(wetState, this.defaultBlockState());
+		this.fillScorchMap(wetState, this.defaultBlockState(), this.defaultBlockState().setValue(CRACKEDNESS, true));
 		this.canBrush = canBrush;
 		this.brushSound = brushSound;
 		this.brushCompletedSound = brushCompletedSound;
 	}
 
-	public void fillScorchMap(@NotNull BlockState wetState, @NotNull BlockState defaultState) {
+	public void fillScorchMap(@NotNull BlockState wetState, @NotNull BlockState defaultState, @NotNull BlockState defaultStateCracked) {
 		SCORCH_MAP.put(wetState, defaultState);
-		SCORCH_MAP.put(defaultState, defaultState.setValue(RegisterProperties.CRACKEDNESS, 1));
+		SCORCH_MAP.put(defaultState, defaultStateCracked);
 		HYDRATE_MAP.put(defaultState, wetState);
-		HYDRATE_MAP.put(defaultState.setValue(RegisterProperties.CRACKEDNESS, 1), defaultState);
+		HYDRATE_MAP.put(defaultStateCracked, defaultState);
 	}
 
 	@Override
@@ -166,21 +166,22 @@ public class ScorchedBlock extends BaseEntityBlock {
 	@NotNull
 	public ItemStack getCloneItemStack(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state) {
 		ItemStack superStack = super.getCloneItemStack(level, pos, state);
-		if (state.getValue(RegisterProperties.CRACKEDNESS) == 1) {
-			ItemBlockStateTagUtils.setProperty(superStack, RegisterProperties.CRACKEDNESS, 1);
+		if (state.getValue(RegisterProperties.CRACKED)) {
+			ItemBlockStateTagUtils.setProperty(superStack, RegisterProperties.CRACKED, true);
 		}
 		return superStack;
-	}
-
-	@Override
-	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		this.wetState.getBlock().animateTick(this.wetState, level, pos, random);
 	}
 
 	@Override
 	@NotNull
 	public RenderShape getRenderShape(@NotNull BlockState blockState) {
 		return RenderShape.MODEL;
+	}
+
+	@Override
+	protected void finalize() {
+		SCORCH_MAP.clear();
+		HYDRATE_MAP.clear();
 	}
 }
 

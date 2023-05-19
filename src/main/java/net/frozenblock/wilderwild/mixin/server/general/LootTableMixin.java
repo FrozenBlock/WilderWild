@@ -22,7 +22,6 @@ import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.minecraft.nbt.ByteTag;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import org.spongepowered.asm.mixin.Mixin;

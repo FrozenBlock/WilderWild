@@ -166,11 +166,11 @@ public final class RegisterItems {
 
 		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(entries -> {
 			var second = new ItemStack(SCORCHED_SAND);
-			ItemBlockStateTagUtils.setProperty(second, RegisterProperties.CRACKEDNESS, 1);
+			ItemBlockStateTagUtils.setProperty(second, RegisterProperties.CRACKED, true);
 			entries.addAfter(SCORCHED_SAND, second);
 
 			var secondRed = new ItemStack(SCORCHED_RED_SAND);
-			ItemBlockStateTagUtils.setProperty(secondRed, RegisterProperties.CRACKEDNESS, 1);
+			ItemBlockStateTagUtils.setProperty(secondRed, RegisterProperties.CRACKED, true);
 			entries.addAfter(SCORCHED_RED_SAND, secondRed);
 		});
     }
@@ -248,34 +248,35 @@ public final class RegisterItems {
 		CompostingChanceRegistry.INSTANCE.add(COCONUT, 0.3F);
     }
 
-	private static void registerInstrument(Item instrument, String path, TagKey<Instrument> tagKey, CreativeModeTab.TabVisibility tabVisibility, ResourceKey<CreativeModeTab>... tabs) {
-		actualRegister(instrument, path);
-		FrozenCreativeTabs.addInstrument(instrument, tagKey, tabVisibility, tabs);
-	}
-
+	@SafeVarargs
 	private static void registerInstrumentBefore(Item comparedItem, Item instrument, String path, TagKey<Instrument> tagKey, CreativeModeTab.TabVisibility tabVisibility, ResourceKey<CreativeModeTab>... tabs) {
 		actualRegister(instrument, path);
 		FrozenCreativeTabs.addInstrumentBefore(comparedItem, instrument, tagKey, tabVisibility, tabs);
 	}
 
+	@SafeVarargs
 	private static void registerItem(Item item, String path, ResourceKey<CreativeModeTab>... tabs) {
 		actualRegister(item, path);
 		FrozenCreativeTabs.add(item, tabs);
 	}
 
+	@SafeVarargs
 	private static void registerItemBefore(ItemLike comparedItem, Item item, String path, ResourceKey<CreativeModeTab>... tabs) {
 		registerItemBefore(comparedItem, item, path, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, tabs);
 	}
 
+	@SafeVarargs
 	private static void registerItemBefore(ItemLike comparedItem, Item item, String path, CreativeModeTab.TabVisibility tabVisibility, ResourceKey<CreativeModeTab>... tabs) {
 		actualRegister(item, path);
 		FrozenCreativeTabs.addBefore(comparedItem, item, tabVisibility, tabs);
 	}
 
+	@SafeVarargs
 	private static void registerItemAfter(ItemLike comparedItem, Item item, String path, ResourceKey<CreativeModeTab>... tabs) {
 		registerItemAfter(comparedItem, item, path, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, tabs);
 	}
 
+	@SafeVarargs
 	private static void registerItemAfter(ItemLike comparedItem, Item item, String path, CreativeModeTab.TabVisibility tabVisibility, ResourceKey<CreativeModeTab>... tabs) {
 		actualRegister(item, path);
 		FrozenCreativeTabs.addAfter(comparedItem, item, tabVisibility, tabs);

@@ -1,5 +1,5 @@
 {
-  "parent": "wilderwild:block/scorched_sand_0",
+  "parent": "wilderwild:block/scorched_sand",
   "overrides": [
     {
       "predicate": {

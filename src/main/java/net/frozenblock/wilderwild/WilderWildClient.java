@@ -250,8 +250,8 @@ public final class WilderWildClient implements ClientModInitializer {
 		ItemProperties.register(RegisterItems.ANCIENT_HORN, WilderSharedConstants.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
 		ItemProperties.register(RegisterItems.COPPER_HORN, WilderSharedConstants.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
 
-		ItemProperties.register(RegisterItems.SCORCHED_SAND, WilderSharedConstants.vanillaId("cracked"), (itemStack, clientLevel, livingEntity, seed) -> ItemBlockStateTagUtils.getProperty(itemStack, RegisterProperties.CRACKEDNESS, 0));
-		ItemProperties.register(RegisterItems.SCORCHED_RED_SAND, WilderSharedConstants.vanillaId("cracked"), (itemStack, clientLevel, livingEntity, seed) -> ItemBlockStateTagUtils.getProperty(itemStack, RegisterProperties.CRACKEDNESS, 0));
+		ItemProperties.register(RegisterItems.SCORCHED_SAND, WilderSharedConstants.vanillaId("cracked"), (itemStack, clientLevel, livingEntity, seed) -> ItemBlockStateTagUtils.getBoolProperty(itemStack, RegisterProperties.CRACKED, false) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.SCORCHED_RED_SAND, WilderSharedConstants.vanillaId("cracked"), (itemStack, clientLevel, livingEntity, seed) -> ItemBlockStateTagUtils.getBoolProperty(itemStack, RegisterProperties.CRACKED, false) ? 1F : 0F);
 		ItemProperties.register(RegisterItems.ECHO_GLASS, WilderSharedConstants.vanillaId("damage"), (itemStack, clientLevel, livingEntity, seed) -> ((float)ItemBlockStateTagUtils.getProperty(itemStack, RegisterProperties.DAMAGE, 0)) / 4F);
 		ItemProperties.register(Items.BEE_NEST, WilderSharedConstants.vanillaId("honey"), (itemStack, clientLevel, livingEntity, seed) -> ((float)ItemBlockStateTagUtils.getProperty(itemStack, BlockStateProperties.LEVEL_HONEY, 0)) / 5F);
 		ItemProperties.register(Items.BEEHIVE, WilderSharedConstants.vanillaId("honey"), (itemStack, clientLevel, livingEntity, seed) -> ((float)ItemBlockStateTagUtils.getProperty(itemStack, BlockStateProperties.LEVEL_HONEY, 0)) / 5F);
@@ -275,32 +275,48 @@ public final class WilderWildClient implements ClientModInitializer {
 		ItemProperties.register(RegisterItems.BROWN_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
 		ItemProperties.register(RegisterItems.LIGHT_GRAY_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
 
-		ColorProviderRegistry.BLOCK.register(
-				((state, level, pos, tintIndex) ->
-						level == null || pos == null ? 7455580 : 2129968
-				),
-				RegisterBlocks.FLOWERING_LILY_PAD
+		ColorProviderRegistry.ITEM.register(
+			((state, tintIndex) -> 5877296),
+			RegisterBlocks.BAOBAB_LEAVES
 		);
 
-		ColorProviderRegistry.ITEM.register(((state, tintIndex) -> 5877296), RegisterBlocks.BAOBAB_LEAVES);
-		ColorProviderRegistry.ITEM.register(((state, tintIndex) -> 5877296), RegisterBlocks.CYPRESS_LEAVES);
-		ColorProviderRegistry.ITEM.register(((state, tintIndex) -> 5877296), RegisterBlocks.PALM_FRONDS);
+		ColorProviderRegistry.ITEM.register(
+			((state, tintIndex) -> 5877296),
+			RegisterBlocks.CYPRESS_LEAVES
+		);
+
+		ColorProviderRegistry.ITEM.register(
+			((state, tintIndex) -> 5877296),
+			RegisterBlocks.PALM_FRONDS
+		);
+
+		ColorProviderRegistry.BLOCK.register(
+			((state, level, pos, tintIndex) ->
+				level == null || pos == null ? 7455580 : 2129968
+			),
+			RegisterBlocks.FLOWERING_LILY_PAD
+		);
 
 		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
 				BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
 		), RegisterBlocks.BAOBAB_LEAVES);
+
 		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
 				BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
 		), RegisterBlocks.CYPRESS_LEAVES);
+
 		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
 				BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
 		), RegisterBlocks.PALM_FRONDS);
+
 		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
 				BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
 		), RegisterBlocks.POTTED_GRASS);
+
 		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
 				BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
 		), RegisterBlocks.BUSH);
+
 		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
 				BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
 		), RegisterBlocks.POTTED_BUSH);
