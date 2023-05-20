@@ -22,6 +22,7 @@ import com.mojang.serialization.Codec;
 import java.util.Iterator;
 import net.frozenblock.wilderwild.block.WaterloggableTallFlowerBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.world.generation.features.config.CattailFeatureConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -32,30 +33,31 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.levelgen.Heightmap.Types;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
 import org.jetbrains.annotations.NotNull;
 
-public class CattailFeature extends Feature<ProbabilityFeatureConfiguration> {
+public class CattailFeature extends Feature<CattailFeatureConfig> {
 
-    public CattailFeature(@NotNull Codec<ProbabilityFeatureConfiguration> codec) {
+    public CattailFeature(@NotNull Codec<CattailFeatureConfig> codec) {
         super(codec);
     }
 
 	@Override
-    public boolean place(@NotNull FeaturePlaceContext<ProbabilityFeatureConfiguration> context) {
+    public boolean place(@NotNull FeaturePlaceContext<CattailFeatureConfig> context) {
         boolean generated = false;
         RandomSource random = context.random();
         WorldGenLevel level = context.level();
         BlockPos blockPos = context.origin();
+		CattailFeatureConfig config = context.config();
 		int posX = blockPos.getX();
 		int posZ = blockPos.getZ();
 		int maxHeight = level.getMaxBuildHeight() - 1;
 		BlockPos.MutableBlockPos bottomBlockPos = blockPos.mutable();
 		BlockPos.MutableBlockPos topBlockPos = blockPos.mutable();
-
-        for (int l = 0; l < random.nextIntBetweenInclusive(12, 21); l++) {
-            int randomX = random.nextIntBetweenInclusive(-7, 7);
-            int randomZ = random.nextIntBetweenInclusive(-7, 7);
+		BlockState topPlaceState = RegisterBlocks.CATTAIL.defaultBlockState().setValue(WaterloggableTallFlowerBlock.HALF, DoubleBlockHalf.UPPER);
+		int placementAttempts = config.placementAttempts().sample(random);
+        for (int l = 0; l < placementAttempts; l++) {
+            int randomX = config.width().sample(random);
+            int randomZ = config.width().sample(random);
 			int newX = posX + randomX;
 			int newZ = posZ + randomZ;
             int oceanFloorY = level.getHeight(Types.OCEAN_FLOOR, newX, newZ);
@@ -66,10 +68,12 @@ public class CattailFeature extends Feature<ProbabilityFeatureConfiguration> {
 				BlockState bottomPlaceState = RegisterBlocks.CATTAIL.defaultBlockState();
 				topBlockPos.set(bottomBlockPos).move(Direction.UP);
 				BlockState topState = level.getBlockState(topBlockPos);
-				if ((bottomState.isAir() || bottomStateIsWater) && topState.isAir() && bottomState.canSurvive(level, bottomBlockPos) && (bottomStateIsWater || isWaterNearby(level, bottomBlockPos, 2))) {
+				if ((bottomState.isAir() || bottomStateIsWater) && topState.isAir() && bottomPlaceState.canSurvive(level, bottomBlockPos) && (bottomStateIsWater || isWaterNearby(level, bottomBlockPos, 2))) {
 					bottomPlaceState = bottomPlaceState.setValue(WaterloggableTallFlowerBlock.WATERLOGGED, bottomStateIsWater);
-					level.setBlock(bottomBlockPos, bottomPlaceState, 2);
-					level.setBlock(topBlockPos, RegisterBlocks.CATTAIL.defaultBlockState().setValue(WaterloggableTallFlowerBlock.HALF, DoubleBlockHalf.UPPER), 2);
+					level.setBlock(bottomBlockPos, bottomPlaceState, 3);
+					if (topPlaceState.canSurvive(level, topBlockPos)) {
+						level.setBlock(topBlockPos, topPlaceState, 3);
+					}
 					generated = true;
 				}
 			}

@@ -9,11 +9,7 @@
         "termites_awake": "false"
       }
     },
-    "diskBlocks": [
-      "minecraft:coarse_dirt",
-      "minecraft:sand",
-      "minecraft:packed_mud"
-    ],
+    "diskBlocks": "#wilderwild:termite_disc_blocks",
     "height": {
       "type": "minecraft:uniform",
       "value": {
@@ -35,12 +31,6 @@
         "min_inclusive": 4
       }
     },
-    "replaceable": [
-      "minecraft:grass_block",
-      "minecraft:stone",
-      "minecraft:diorite",
-      "minecraft:andesite",
-      "minecraft:granite"
-    ]
+    "replaceable": "#wilderwild:termite_disc_replaceable"
   }
 }

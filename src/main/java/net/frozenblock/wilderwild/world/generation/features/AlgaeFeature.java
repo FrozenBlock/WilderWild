@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.world.generation.features;
 
 import com.mojang.serialization.Codec;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.world.generation.features.config.AlgaeFeatureConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
@@ -27,23 +28,22 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap.Types;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
 import org.jetbrains.annotations.NotNull;
 
-public class AlgaeFeature extends Feature<ProbabilityFeatureConfiguration> {
+public class AlgaeFeature extends Feature<AlgaeFeatureConfig> {
 
-    public AlgaeFeature(@NotNull Codec<ProbabilityFeatureConfiguration> codec) {
+    public AlgaeFeature(@NotNull Codec<AlgaeFeatureConfig> codec) {
         super(codec);
     }
 
-    public boolean place(@NotNull FeaturePlaceContext<ProbabilityFeatureConfiguration> context) {
+    public boolean place(@NotNull FeaturePlaceContext<AlgaeFeatureConfig> context) {
         boolean bl = false;
         BlockPos blockPos = context.origin();
         WorldGenLevel level = context.level();
         BlockPos s = blockPos.atY(level.getHeight(Types.MOTION_BLOCKING_NO_LEAVES, blockPos.getX(), blockPos.getZ()));
         int y = s.getY();
         RandomSource random = level.getRandom();
-        int radius = random.nextIntBetweenInclusive(4, 10);
+        int radius = context.config().radius().sample(random);
         //DISK
         BlockPos.MutableBlockPos mutableDisk = s.mutable();
         int bx = s.getX();

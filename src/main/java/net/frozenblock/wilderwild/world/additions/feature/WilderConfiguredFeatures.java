@@ -29,11 +29,14 @@ import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import static net.frozenblock.wilderwild.world.additions.feature.WilderFeatureUtils.register;
+import net.frozenblock.wilderwild.world.generation.features.config.AlgaeFeatureConfig;
+import net.frozenblock.wilderwild.world.generation.features.config.CattailFeatureConfig;
 import net.frozenblock.wilderwild.world.generation.features.config.LargeMesogleaConfig;
 import net.frozenblock.wilderwild.world.generation.features.config.ShelfFungusFeatureConfig;
 import net.frozenblock.wilderwild.world.generation.features.config.SmallSpongeFeatureConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderSet;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.features.CaveFeatures;
@@ -47,9 +50,7 @@ import net.minecraft.util.valueproviders.BiasedToBottomInt;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformFloat;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
@@ -58,7 +59,6 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockColumnConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomBooleanFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
@@ -485,13 +485,13 @@ public final class WilderConfiguredFeatures {
 
     public static final FrozenConfiguredFeature<ShelfFungusFeatureConfig, ConfiguredFeature<ShelfFungusFeatureConfig, ?>> RED_SHELF_FUNGUS_CONFIGURED = register("red_shelf_fungus");
 
-    public static final FrozenConfiguredFeature<ProbabilityFeatureConfiguration, ConfiguredFeature<ProbabilityFeatureConfiguration, ?>> CATTAIL = register("cattail");
+    public static final FrozenConfiguredFeature<CattailFeatureConfig, ConfiguredFeature<CattailFeatureConfig, ?>> CATTAIL = register("cattail");
 
-	public static final FrozenConfiguredFeature<ProbabilityFeatureConfiguration, ConfiguredFeature<ProbabilityFeatureConfiguration, ?>> CATTAIL_06 = register("cattail_06");
+	public static final FrozenConfiguredFeature<CattailFeatureConfig, ConfiguredFeature<CattailFeatureConfig, ?>> CATTAIL_SMALL = register("cattail_small");
 
     public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_FLOWERED_WATERLILY = register("patch_flowered_waterlily");
 
-    public static final FrozenConfiguredFeature<ProbabilityFeatureConfiguration, ConfiguredFeature<ProbabilityFeatureConfiguration, ?>> PATCH_ALGAE = register("patch_algae");
+    public static final FrozenConfiguredFeature<AlgaeFeatureConfig, ConfiguredFeature<AlgaeFeatureConfig, ?>> PATCH_ALGAE = register("patch_algae");
 
     public static final FrozenConfiguredFeature<ColumnWithDiskFeatureConfig, ConfiguredFeature<ColumnWithDiskFeatureConfig, ?>> TERMITE_CONFIGURED = register("termite_mound_baobab");
 
@@ -1687,15 +1687,9 @@ public final class WilderConfiguredFeatures {
 						true,
 						true,
 						0.5F,
-						HolderSet.direct(
-								Block::builtInRegistryHolder,
-								Blocks.GRASS_BLOCK,
-								Blocks.BIRCH_LEAVES,
-								Blocks.BIRCH_LOG,
-								Blocks.CHERRY_LEAVES,
-								Blocks.CHERRY_LOG,
-								Blocks.OAK_LEAVES,
-								Blocks.OAK_LOG
+						new HolderSet.Named<>(
+							BuiltInRegistries.BLOCK.holderOwner(),
+							WilderBlockTags.POLLEN_FEATURE_PLACEABLE
 						)
 				)
 		);
@@ -1707,15 +1701,9 @@ public final class WilderConfiguredFeatures {
 						true,
 						true,
 						true,
-						HolderSet.direct(
-								Block::builtInRegistryHolder,
-								Blocks.MANGROVE_LOG,
-								Blocks.DARK_OAK_LOG,
-								Blocks.BIRCH_LOG,
-								Blocks.OAK_LOG,
-								Blocks.MYCELIUM,
-								Blocks.MUSHROOM_STEM,
-								Blocks.SPRUCE_LOG
+						new HolderSet.Named<>(
+							BuiltInRegistries.BLOCK.holderOwner(),
+							WilderBlockTags.SHELF_FUNGUS_FEATURE_PLACEABLE
 						)
 				)
 		);
@@ -1727,24 +1715,19 @@ public final class WilderConfiguredFeatures {
 						true,
 						true,
 						true,
-						HolderSet.direct(
-								Block::builtInRegistryHolder,
-								Blocks.MANGROVE_LOG,
-								Blocks.DARK_OAK_LOG,
-								Blocks.BIRCH_LOG,
-								Blocks.OAK_LOG,
-								Blocks.MYCELIUM,
-								Blocks.MUSHROOM_STEM
+						new HolderSet.Named<>(
+							BuiltInRegistries.BLOCK.holderOwner(),
+							WilderBlockTags.SHELF_FUNGUS_FEATURE_PLACEABLE
 						)
 				)
 		);
 
 		CATTAIL.makeAndSetHolder(WilderWild.CATTAIL_FEATURE,
-				new ProbabilityFeatureConfiguration(0.8F)
+				new CattailFeatureConfig(UniformInt.of(-7, 7), UniformInt.of(12, 21))
 		);
 
-		CATTAIL_06.makeAndSetHolder(WilderWild.CATTAIL_FEATURE,
-				new ProbabilityFeatureConfiguration(0.6F)
+		CATTAIL_SMALL.makeAndSetHolder(WilderWild.CATTAIL_FEATURE,
+			new CattailFeatureConfig(UniformInt.of(-5, 5), UniformInt.of(6, 18))
 		);
 
 		PATCH_FLOWERED_WATERLILY.makeAndSetHolder(Feature.RANDOM_PATCH,
@@ -1760,7 +1743,7 @@ public final class WilderConfiguredFeatures {
 		);
 
 		PATCH_ALGAE.makeAndSetHolder(WilderWild.ALGAE_FEATURE,
-				new ProbabilityFeatureConfiguration(0.8F)
+				new AlgaeFeatureConfig(UniformInt.of(4, 10))
 		);
 
 		TERMITE_CONFIGURED.makeAndSetHolder(FrozenFeatures.COLUMN_WITH_DISK_FEATURE,
@@ -1769,19 +1752,13 @@ public final class WilderConfiguredFeatures {
 						UniformInt.of(4, 9),
 						UniformInt.of(3, 7),
 						UniformInt.of(1, 3),
-						HolderSet.direct(
-								Block::builtInRegistryHolder,
-								Blocks.GRASS_BLOCK,
-								Blocks.STONE,
-								Blocks.DIORITE,
-								Blocks.ANDESITE,
-								Blocks.GRANITE
+						new HolderSet.Named<>(
+							BuiltInRegistries.BLOCK.holderOwner(),
+							WilderBlockTags.TERMITE_DISC_REPLACEABLE
 						),
-						HolderSet.direct(
-								Block::builtInRegistryHolder,
-								Blocks.COARSE_DIRT,
-								Blocks.SAND,
-								Blocks.PACKED_MUD
+						new HolderSet.Named<>(
+							BuiltInRegistries.BLOCK.holderOwner(),
+							WilderBlockTags.TERMITE_DISC_BLOCKS
 						)
 				)
 		);
@@ -1932,48 +1909,30 @@ public final class WilderConfiguredFeatures {
 
 		NEMATOCYST_BLUE.makeAndSetHolder(WilderWild.NEMATOCYST_FEATURE,
 				new MultifaceGrowthConfiguration(
-						(MultifaceBlock) RegisterBlocks.BLUE_PEARLESCENT_NEMATOCYST,
+					RegisterBlocks.BLUE_PEARLESCENT_NEMATOCYST,
 						20,
 						true,
 						true,
 						true,
 						0.98F,
-						HolderSet.direct(
-								Block::builtInRegistryHolder,
-								Blocks.CLAY,
-								Blocks.STONE,
-								Blocks.ANDESITE,
-								Blocks.DIORITE,
-								Blocks.GRANITE,
-								Blocks.DRIPSTONE_BLOCK,
-								Blocks.CALCITE,
-								Blocks.TUFF,
-								Blocks.DEEPSLATE,
-								RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA
+						new HolderSet.Named<>(
+							BuiltInRegistries.BLOCK.holderOwner(),
+							WilderBlockTags.BLUE_NEMATOCYST_FEATURE_PLACEABLE
 						)
 				)
 		);
 
 		NEMATOCYST_PURPLE.makeAndSetHolder(WilderWild.NEMATOCYST_FEATURE,
 				new MultifaceGrowthConfiguration(
-						(MultifaceBlock) RegisterBlocks.PURPLE_PEARLESCENT_NEMATOCYST,
+					RegisterBlocks.PURPLE_PEARLESCENT_NEMATOCYST,
 						20,
 						true,
 						true,
 						true,
 						0.98F,
-						HolderSet.direct(
-								Block::builtInRegistryHolder,
-								Blocks.CLAY,
-								Blocks.STONE,
-								Blocks.ANDESITE,
-								Blocks.DIORITE,
-								Blocks.GRANITE,
-								Blocks.DRIPSTONE_BLOCK,
-								Blocks.CALCITE,
-								Blocks.TUFF,
-								Blocks.DEEPSLATE,
-								RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA
+						new HolderSet.Named<>(
+							BuiltInRegistries.BLOCK.holderOwner(),
+							WilderBlockTags.PURPLE_NEMATOCYST_FEATURE_PLACEABLE
 						)
 				)
 		);
@@ -2018,9 +1977,5 @@ public final class WilderConfiguredFeatures {
 						WilderBlockTags.SMALL_SPONGE_GROWS_ON
 				)
 		);
-    }
-
-    private static RandomPatchConfiguration createRandomPatchFeatureConfig(BlockStateProvider block, int tries) {
-        return FeatureUtils.simpleRandomPatchConfiguration(tries, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(block)));
     }
 }

@@ -1403,6 +1403,39 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.add(Blocks.RED_SAND)
 				.add(Blocks.RED_SANDSTONE)
 				.addOptionalTag(BlockTags.TERRACOTTA);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.POLLEN_FEATURE_PLACEABLE)
+				.add(Blocks.GRASS_BLOCK)
+				.addOptionalTag(BlockTags.LEAVES)
+				.addOptionalTag(BlockTags.OVERWORLD_NATURAL_LOGS);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.TERMITE_DISC_REPLACEABLE)
+				.addOptionalTag(BlockTags.DIRT)
+				.addOptionalTag(BlockTags.SAND)
+				.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.TERMITE_DISC_BLOCKS)
+				.add(Blocks.COARSE_DIRT)
+				.add(Blocks.SAND)
+				.add(Blocks.PACKED_MUD);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.BLUE_NEMATOCYST_FEATURE_PLACEABLE)
+				.add(Blocks.CLAY)
+				.add(Blocks.DRIPSTONE_BLOCK)
+				.add(Blocks.CALCITE)
+				.addOptional(WilderSharedConstants.id("blue_pearlescent_mesoglea"))
+				.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.PURPLE_NEMATOCYST_FEATURE_PLACEABLE)
+				.add(Blocks.CLAY)
+				.add(Blocks.DRIPSTONE_BLOCK)
+				.add(Blocks.CALCITE)
+				.addOptional(WilderSharedConstants.id("purple_pearlescent_mesoglea"))
+				.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.SHELF_FUNGUS_FEATURE_PLACEABLE)
+				.add(Blocks.MUSHROOM_STEM)
+				.addOptionalTag(BlockTags.OVERWORLD_NATURAL_LOGS);
 		}
 
 		private void generateCoconutSplitters() {

@@ -400,7 +400,6 @@ public final class WilderPlacedFeatures {
 	public static void registerPlacedFeatures(BootstapContext<PlacedFeature> entries) {
 
 		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
 		WilderSharedConstants.logWild("Registering WilderPlacedFeatures for ", true);
 
@@ -1102,7 +1101,7 @@ public final class WilderPlacedFeatures {
 				PlacementUtils.HEIGHTMAP_TOP_SOLID, BiomeFilter.biome()
 		);
 
-		PATCH_CATTAIL_COMMON.makeAndSetHolder(WilderConfiguredFeatures.CATTAIL_06.getHolder(),
+		PATCH_CATTAIL_COMMON.makeAndSetHolder(WilderConfiguredFeatures.CATTAIL_SMALL.getHolder(),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID, BiomeFilter.biome()
 		);

@@ -72,6 +72,12 @@ public final class WilderBlockTags {
 	public static final TagKey<Block> SANDSTONE_PATH_REPLACEABLE = bind("sandstone_path_replaceable");
 	public static final TagKey<Block> SMALL_COARSE_DIRT_PATH_REPLACEABLE = bind("small_coarse_dirt_path_replaceable");
 	public static final TagKey<Block> PACKED_MUD_PATH_BADLANDS_REPLACEABLE = bind("packed_mud_path_badlands_replaceable");
+	public static final TagKey<Block> POLLEN_FEATURE_PLACEABLE = bind("pollen_feature_placeable");
+	public static final TagKey<Block> TERMITE_DISC_REPLACEABLE = bind("termite_disc_replaceable");
+	public static final TagKey<Block> TERMITE_DISC_BLOCKS = bind("termite_disc_blocks");
+	public static final TagKey<Block> BLUE_NEMATOCYST_FEATURE_PLACEABLE = bind("blue_nematocyst_feature_placeable");
+	public static final TagKey<Block> PURPLE_NEMATOCYST_FEATURE_PLACEABLE = bind("purple_nematocyst_feature_placeable");
+	public static final TagKey<Block> SHELF_FUNGUS_FEATURE_PLACEABLE = bind("shelf_fungus_feature_placeable");
 
 	private static TagKey<Block> bind(String path) {
 		return TagKey.create(Registries.BLOCK, WilderSharedConstants.id(path));
