@@ -472,12 +472,12 @@ public final class WilderPlacedFeatures {
 		);
 
 		FALLEN_PALM_PLACED.makeAndSetHolder(WilderTreeConfigured.FALLEN_PALM.getHolder(),
-				RarityFilter.onAverageOnceEvery(30), InSquarePlacement.spread(),
+				RarityFilter.onAverageOnceEvery(60), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
 		FALLEN_PALM_PLACED_RARE.makeAndSetHolder(WilderTreeConfigured.FALLEN_PALM.getHolder(),
-				RarityFilter.onAverageOnceEvery(95), InSquarePlacement.spread(),
+				RarityFilter.onAverageOnceEvery(135), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
