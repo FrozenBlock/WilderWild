@@ -56,7 +56,7 @@ public class TermiteParticle extends TextureSheetParticle {
 	private final float ySpinSpeed;
 	private final float zSpinSpeed;
 
-    public TermiteParticle(ClientLevel clientLevel, SpriteSet spriteProvider, double x, double y, double z) {
+    public TermiteParticle(@NotNull ClientLevel clientLevel, @NotNull SpriteSet spriteProvider, double x, double y, double z) {
         super(clientLevel, x, y, z);
 		this.pickSprite(spriteProvider);
         this.hasPhysics = false;
@@ -106,7 +106,7 @@ public class TermiteParticle extends TextureSheetParticle {
 		return (float) Math.sin(((progress + offset) * Math.PI) / spinSpeed);
 	}
 
-	private float rotate(TermiteRotationType rotation, float progress, float offset, float spinSpeed) {
+	private float rotate(@NotNull TermiteRotationType rotation, float progress, float offset, float spinSpeed) {
 		return rotation == TermiteRotationType.COS ? cos(progress, offset, spinSpeed) : sin(progress, offset, spinSpeed);
 	}
 
@@ -161,6 +161,7 @@ public class TermiteParticle extends TextureSheetParticle {
 		return 0;
 	}
 
+	@NotNull
 	private BlockPos getLerpedTermiteBlockPos(double x, double y, double z, float cos, float sin, float aCos) {
 		return BlockPos.containing(
 				x + cos,
@@ -180,7 +181,7 @@ public class TermiteParticle extends TextureSheetParticle {
 	}
 
 	@Environment(EnvType.CLIENT)
-    public record Factory(SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
+    public record Factory(@NotNull SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
 		@Override
 		@NotNull
 		public Particle createParticle(@NotNull SimpleParticleType termiteParticleOptions, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {

@@ -43,7 +43,7 @@ public class PollenParticle extends TextureSheetParticle {
 	private float scale = 0F;
 	private float targetScale = 0F;
 
-    PollenParticle(ClientLevel level, SpriteSet spriteProvider, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
+    PollenParticle(@NotNull ClientLevel level, @NotNull SpriteSet spriteProvider, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
         super(level, x, y - 0.125D, z, velocityX, velocityY, velocityZ);
         this.setSize(0.01F, 0.02F);
         this.pickSprite(spriteProvider);
@@ -120,7 +120,7 @@ public class PollenParticle extends TextureSheetParticle {
     }
 
     @Environment(EnvType.CLIENT)
-	public record PollenFactory(SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
+	public record PollenFactory(@NotNull SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
 		@Override
 		@NotNull
         public Particle createParticle(@NotNull SimpleParticleType defaultParticleType, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {

@@ -47,11 +47,12 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
     private float currentInflation = 0;
     private float targetInflation = 2;
 
+	@Override
     public int getLightColor(float tint) {
         return 240;
     }
 
-    protected FloatingSculkBubbleParticle(ClientLevel clientLevel, double x, double y, double z, double size, int maxAge, @NotNull Vec3 velocity, SpriteSet spriteProvider) {
+    protected FloatingSculkBubbleParticle(@NotNull ClientLevel clientLevel, double x, double y, double z, double size, int maxAge, @NotNull Vec3 velocity, @NotNull SpriteSet spriteProvider) {
         super(clientLevel, x, y, z, 0, 0, 0);
         this.spriteProvider = spriteProvider;
         this.setSpriteFromAge(spriteProvider);
@@ -72,6 +73,7 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
         return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
     }
 
+	@Override
     public void setSpriteFromAge(@NotNull SpriteSet spriteProvider) {
         if (!this.removed) {
             int i = this.age < 3 ? this.age : (this.age < this.stayInflatedTime ? 3 : this.age - (this.stayInflatedTime) + 4);
@@ -165,6 +167,7 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
         this.setSpriteFromAge(this.spriteProvider);
     }
 
+	@Override
     public float getQuadSize(float partialTick) {
         return this.quadSize * Mth.lerp(partialTick, this.currentInflation, this.targetInflation);
     }

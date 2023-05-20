@@ -33,7 +33,7 @@ import org.jetbrains.annotations.NotNull;
 public class FallingParticle extends TextureSheetParticle {
 	private final SpriteSet spriteProvider;
 
-	FallingParticle(ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, SpriteSet spriteProvider) {
+	FallingParticle(@NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, @NotNull SpriteSet spriteProvider) {
 		this(level, x, y, z, spriteProvider);
 		this.xd *= 0.1f;
 		this.yd *= 0.1f;

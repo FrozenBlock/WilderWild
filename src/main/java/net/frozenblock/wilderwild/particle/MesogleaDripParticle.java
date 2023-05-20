@@ -48,7 +48,7 @@ import org.joml.Vector3f;
 @Environment(EnvType.CLIENT)
 public class MesogleaDripParticle extends TextureSheetParticle {
 
-    MesogleaDripParticle(ClientLevel clientLevel, double d, double e, double f) {
+    MesogleaDripParticle(@NotNull ClientLevel clientLevel, double d, double e, double f) {
         super(clientLevel, d, e, f);
         this.setSize(0.5F, 0.5F);
         this.gravity = 0.06F;
@@ -154,7 +154,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
     public static class BPMesogleaFallProvider implements ParticleProvider<SimpleParticleType> {
         protected final SpriteSet sprite;
 
-        public BPMesogleaFallProvider(SpriteSet spriteSet) {
+        public BPMesogleaFallProvider(@NotNull SpriteSet spriteSet) {
             this.sprite = spriteSet;
         }
 
@@ -170,7 +170,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
     public static class BPMesogleaHangProvider implements ParticleProvider<SimpleParticleType> {
         protected final SpriteSet sprite;
 
-        public BPMesogleaHangProvider(SpriteSet spriteSet) {
+        public BPMesogleaHangProvider(@NotNull SpriteSet spriteSet) {
             this.sprite = spriteSet;
         }
 
@@ -184,7 +184,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
     public static class BPMesogleaLandProvider implements ParticleProvider<SimpleParticleType> {
         protected final SpriteSet sprite;
 
-        public BPMesogleaLandProvider(SpriteSet spriteSet) {
+        public BPMesogleaLandProvider(@NotNull SpriteSet spriteSet) {
             this.sprite = spriteSet;
         }
 
@@ -201,7 +201,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
     public static class PPMesogleaFallProvider implements ParticleProvider<SimpleParticleType> {
         protected final SpriteSet sprite;
 
-        public PPMesogleaFallProvider(SpriteSet spriteSet) {
+        public PPMesogleaFallProvider(@NotNull SpriteSet spriteSet) {
             this.sprite = spriteSet;
         }
 
@@ -217,7 +217,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
     public static class PPMesogleaHangProvider implements ParticleProvider<SimpleParticleType> {
         protected final SpriteSet sprite;
 
-        public PPMesogleaHangProvider(SpriteSet spriteSet) {
+        public PPMesogleaHangProvider(@NotNull SpriteSet spriteSet) {
             this.sprite = spriteSet;
         }
 
@@ -231,7 +231,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
     public static class PPMesogleaLandProvider implements ParticleProvider<SimpleParticleType> {
         protected final SpriteSet sprite;
 
-        public PPMesogleaLandProvider(SpriteSet spriteSet) {
+        public PPMesogleaLandProvider(@NotNull SpriteSet spriteSet) {
             this.sprite = spriteSet;
         }
 
@@ -248,7 +248,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
     public static class BMesogleaFallProvider implements ParticleProvider<SimpleParticleType> {
         protected final SpriteSet sprite;
 
-        public BMesogleaFallProvider(SpriteSet spriteSet) {
+        public BMesogleaFallProvider(@NotNull SpriteSet spriteSet) {
             this.sprite = spriteSet;
         }
 
@@ -264,7 +264,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
     public static class BMesogleaHangProvider implements ParticleProvider<SimpleParticleType> {
         protected final SpriteSet sprite;
 
-        public BMesogleaHangProvider(SpriteSet spriteSet) {
+        public BMesogleaHangProvider(@NotNull SpriteSet spriteSet) {
             this.sprite = spriteSet;
         }
 
@@ -278,7 +278,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
     public static class BMesogleaLandProvider implements ParticleProvider<SimpleParticleType> {
         protected final SpriteSet sprite;
 
-        public BMesogleaLandProvider(SpriteSet spriteSet) {
+        public BMesogleaLandProvider(@NotNull SpriteSet spriteSet) {
             this.sprite = spriteSet;
         }
 
@@ -295,7 +295,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
     public static class YMesogleaFallProvider implements ParticleProvider<SimpleParticleType> {
         protected final SpriteSet sprite;
 
-        public YMesogleaFallProvider(SpriteSet spriteSet) {
+        public YMesogleaFallProvider(@NotNull SpriteSet spriteSet) {
             this.sprite = spriteSet;
         }
 
@@ -311,7 +311,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
     public static class YMesogleaHangProvider implements ParticleProvider<SimpleParticleType> {
         protected final SpriteSet sprite;
 
-        public YMesogleaHangProvider(SpriteSet spriteSet) {
+        public YMesogleaHangProvider(@NotNull SpriteSet spriteSet) {
             this.sprite = spriteSet;
         }
 
@@ -325,7 +325,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
     public static class YMesogleaLandProvider implements ParticleProvider<SimpleParticleType> {
         protected final SpriteSet sprite;
 
-        public YMesogleaLandProvider(SpriteSet spriteSet) {
+        public YMesogleaLandProvider(@NotNull SpriteSet spriteSet) {
             this.sprite = spriteSet;
         }
 
@@ -342,7 +342,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
     public static class LMesogleaFallProvider implements ParticleProvider<SimpleParticleType> {
         protected final SpriteSet sprite;
 
-        public LMesogleaFallProvider(SpriteSet spriteSet) {
+        public LMesogleaFallProvider(@NotNull SpriteSet spriteSet) {
             this.sprite = spriteSet;
         }
 
@@ -358,7 +358,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
     public static class LMesogleaHangProvider implements ParticleProvider<SimpleParticleType> {
         protected final SpriteSet sprite;
 
-        public LMesogleaHangProvider(SpriteSet spriteSet) {
+        public LMesogleaHangProvider(@NotNull SpriteSet spriteSet) {
             this.sprite = spriteSet;
         }
 
@@ -372,7 +372,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
     public static class LMesogleaLandProvider implements ParticleProvider<SimpleParticleType> {
         protected final SpriteSet sprite;
 
-        public LMesogleaLandProvider(SpriteSet spriteSet) {
+        public LMesogleaLandProvider(@NotNull SpriteSet spriteSet) {
             this.sprite = spriteSet;
         }
 
@@ -389,7 +389,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
     public static class RMesogleaFallProvider implements ParticleProvider<SimpleParticleType> {
         protected final SpriteSet sprite;
 
-        public RMesogleaFallProvider(SpriteSet spriteSet) {
+        public RMesogleaFallProvider(@NotNull SpriteSet spriteSet) {
             this.sprite = spriteSet;
         }
 
@@ -405,7 +405,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
     public static class RMesogleaHangProvider implements ParticleProvider<SimpleParticleType> {
         protected final SpriteSet sprite;
 
-        public RMesogleaHangProvider(SpriteSet spriteSet) {
+        public RMesogleaHangProvider(@NotNull SpriteSet spriteSet) {
             this.sprite = spriteSet;
         }
 
@@ -419,7 +419,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
     public static class RMesogleaLandProvider implements ParticleProvider<SimpleParticleType> {
         protected final SpriteSet sprite;
 
-        public RMesogleaLandProvider(SpriteSet spriteSet) {
+        public RMesogleaLandProvider(@NotNull SpriteSet spriteSet) {
             this.sprite = spriteSet;
         }
 
@@ -436,7 +436,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
     public static class PMesogleaFallProvider implements ParticleProvider<SimpleParticleType> {
         protected final SpriteSet sprite;
 
-        public PMesogleaFallProvider(SpriteSet spriteSet) {
+        public PMesogleaFallProvider(@NotNull SpriteSet spriteSet) {
             this.sprite = spriteSet;
         }
 
@@ -452,7 +452,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
     public static class PMesogleaHangProvider implements ParticleProvider<SimpleParticleType> {
         protected final SpriteSet sprite;
 
-        public PMesogleaHangProvider(SpriteSet spriteSet) {
+        public PMesogleaHangProvider(@NotNull SpriteSet spriteSet) {
             this.sprite = spriteSet;
         }
 
@@ -466,7 +466,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
     public static class PMesogleaLandProvider implements ParticleProvider<SimpleParticleType> {
         protected final SpriteSet sprite;
 
-        public PMesogleaLandProvider(SpriteSet spriteSet) {
+        public PMesogleaLandProvider(@NotNull SpriteSet spriteSet) {
             this.sprite = spriteSet;
         }
 
@@ -481,7 +481,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 
     @Environment(EnvType.CLIENT)
     static class DripLandParticle extends MesogleaDripParticle {
-        DripLandParticle(ClientLevel clientLevel, double d, double e, double f) {
+        DripLandParticle(@NotNull ClientLevel clientLevel, double d, double e, double f) {
             super(clientLevel, d, e, f);
             this.lifetime = (int) (16.0 / (AdvancedMath.random().nextDouble() * 0.8 + 0.2));
             this.scale(0.7F);
@@ -492,13 +492,13 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 
     @Environment(EnvType.CLIENT)
     static class FallingParticle extends MesogleaDripParticle {
-        FallingParticle(ClientLevel clientLevel, double d, double e, double f) {
+        FallingParticle(@NotNull ClientLevel clientLevel, double d, double e, double f) {
             this(clientLevel, d, e, f, (int) (64.0 / (AdvancedMath.random().nextDouble() * 0.8 + 0.2)));
             this.scale(0.7F);
 			this.lerpsToX(true);
         }
 
-        FallingParticle(ClientLevel clientLevel, double d, double e, double f, int i) {
+        FallingParticle(@NotNull ClientLevel clientLevel, double d, double e, double f, int i) {
             super(clientLevel, d, e, f);
             this.lifetime = i;
         }
@@ -515,7 +515,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
     static class FallAndLandParticle extends MesogleaDripParticle.FallingParticle {
         protected final ParticleOptions landParticle;
 
-        FallAndLandParticle(ClientLevel clientLevel, double d, double e, double f, ParticleOptions particleOptions) {
+        FallAndLandParticle(@NotNull ClientLevel clientLevel, double d, double e, double f, ParticleOptions particleOptions) {
             super(clientLevel, d, e, f);
             this.landParticle = particleOptions;
         }
@@ -537,7 +537,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
         private final ParticleOptions fallingParticle;
         private final SpriteSet spriteSet;
 
-        DripHangParticle(ClientLevel clientLevel, double d, double e, double f, ParticleOptions particleOptions, SpriteSet spriteSet) {
+        DripHangParticle(@NotNull ClientLevel clientLevel, double d, double e, double f, ParticleOptions particleOptions, SpriteSet spriteSet) {
             super(clientLevel, d, e - 0.1, f);
             this.fallingParticle = particleOptions;
             this.gravity *= 0.00F;

@@ -40,7 +40,7 @@ import org.jetbrains.annotations.NotNull;
 public class SeedParticle extends TextureSheetParticle {
     public double windIntensity;
 
-    SeedParticle(ClientLevel level, SpriteSet spriteProvider, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
+    SeedParticle(@NotNull ClientLevel level, @NotNull SpriteSet spriteProvider, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
         super(level, x, y - 0.125D, z, velocityX, velocityY, velocityZ);
         this.setSize(0.01F, 0.02F);
         this.pickSprite(spriteProvider);
@@ -75,7 +75,7 @@ public class SeedParticle extends TextureSheetParticle {
     }
 
     @Environment(EnvType.CLIENT)
-	public record Factory(SpriteSet spriteProvider) implements ParticleProvider<SeedParticleOptions> {
+	public record Factory(@NotNull SpriteSet spriteProvider) implements ParticleProvider<SeedParticleOptions> {
         @Override
 		@NotNull
 		public Particle createParticle(@NotNull SeedParticleOptions options, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
