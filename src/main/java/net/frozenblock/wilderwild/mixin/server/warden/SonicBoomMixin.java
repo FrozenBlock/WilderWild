@@ -40,6 +40,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -143,7 +145,8 @@ public class SonicBoomMixin implements WilderSonicBoom {
 	}
 
 	@Unique
-    private static BlockPos wilderWild$isOccluded(Level level, Vec3 start, Vec3 end) {
+	@Nullable
+    private static BlockPos wilderWild$isOccluded(@NotNull Level level, @NotNull Vec3 start, @NotNull Vec3 end) {
         Vec3 vec3d = new Vec3((double) Mth.floor(start.x) + 0.5D, (double) Mth.floor(start.y) + 0.5D, (double) Mth.floor(start.z) + 0.5D);
         Vec3 vec3d2 = new Vec3((double) Mth.floor(end.x) + 0.5D, (double) Mth.floor(end.y) + 0.5D, (double) Mth.floor(end.z) + 0.5D);
         BlockPos hitPos = null;
@@ -188,4 +191,5 @@ public class SonicBoomMixin implements WilderSonicBoom {
 	public void wilderWild$endParticles() {
 		this.wilderWild$particlesEnded = true;
 	}
+
 }
