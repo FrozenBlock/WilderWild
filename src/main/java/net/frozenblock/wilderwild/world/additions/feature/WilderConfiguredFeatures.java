@@ -26,6 +26,7 @@ import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.FlowerColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.RegisterFeatures;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import static net.frozenblock.wilderwild.world.additions.feature.WilderFeatureUtils.register;
@@ -1696,7 +1697,7 @@ public final class WilderConfiguredFeatures {
 				)
 		);
 
-		BROWN_SHELF_FUNGUS_CONFIGURED.makeAndSetHolder(WilderWild.SHELF_FUNGUS_FEATURE,
+		BROWN_SHELF_FUNGUS_CONFIGURED.makeAndSetHolder(RegisterFeatures.SHELF_FUNGUS_FEATURE,
 				new ShelfFungusFeatureConfig(
 						RegisterBlocks.BROWN_SHELF_FUNGUS,
 						20,
@@ -1710,7 +1711,7 @@ public final class WilderConfiguredFeatures {
 				)
 		);
 
-		RED_SHELF_FUNGUS_CONFIGURED.makeAndSetHolder(WilderWild.SHELF_FUNGUS_FEATURE,
+		RED_SHELF_FUNGUS_CONFIGURED.makeAndSetHolder(RegisterFeatures.SHELF_FUNGUS_FEATURE,
 				new ShelfFungusFeatureConfig(
 						RegisterBlocks.RED_SHELF_FUNGUS,
 						20,
@@ -1724,11 +1725,11 @@ public final class WilderConfiguredFeatures {
 				)
 		);
 
-		CATTAIL.makeAndSetHolder(WilderWild.CATTAIL_FEATURE,
+		CATTAIL.makeAndSetHolder(RegisterFeatures.CATTAIL_FEATURE,
 				new CattailFeatureConfig(UniformInt.of(-7, 7), UniformInt.of(12, 21))
 		);
 
-		CATTAIL_SMALL.makeAndSetHolder(WilderWild.CATTAIL_FEATURE,
+		CATTAIL_SMALL.makeAndSetHolder(RegisterFeatures.CATTAIL_FEATURE,
 			new CattailFeatureConfig(UniformInt.of(-5, 5), UniformInt.of(6, 18))
 		);
 
@@ -1744,11 +1745,11 @@ public final class WilderConfiguredFeatures {
 				)
 		);
 
-		PATCH_ALGAE.makeAndSetHolder(WilderWild.ALGAE_FEATURE,
+		PATCH_ALGAE.makeAndSetHolder(RegisterFeatures.ALGAE_FEATURE,
 				new AlgaeFeatureConfig(UniformInt.of(4, 10))
 		);
 
-		PATCH_ALGAE_SMALL.makeAndSetHolder(WilderWild.ALGAE_FEATURE,
+		PATCH_ALGAE_SMALL.makeAndSetHolder(RegisterFeatures.ALGAE_FEATURE,
 			new AlgaeFeatureConfig(UniformInt.of(2, 6))
 		);
 
@@ -1779,7 +1780,7 @@ public final class WilderConfiguredFeatures {
 				)
 		);
 
-		MESOGLEA_CLUSTER_PURPLE.makeAndSetHolder(WilderWild.LARGE_MESOGLEA_FEATURE,
+		MESOGLEA_CLUSTER_PURPLE.makeAndSetHolder(RegisterFeatures.LARGE_MESOGLEA_FEATURE,
 				new LargeMesogleaConfig(
 						30,
 						UniformInt.of(3, 10),
@@ -1794,7 +1795,7 @@ public final class WilderConfiguredFeatures {
 				)
 		);
 
-		MESOGLEA_CLUSTER_BLUE.makeAndSetHolder(WilderWild.LARGE_MESOGLEA_FEATURE,
+		MESOGLEA_CLUSTER_BLUE.makeAndSetHolder(RegisterFeatures.LARGE_MESOGLEA_FEATURE,
 				new LargeMesogleaConfig(
 						30,
 						UniformInt.of(3, 10),
@@ -1913,7 +1914,7 @@ public final class WilderConfiguredFeatures {
 				)
 		);
 
-		NEMATOCYST_BLUE.makeAndSetHolder(WilderWild.NEMATOCYST_FEATURE,
+		NEMATOCYST_BLUE.makeAndSetHolder(RegisterFeatures.NEMATOCYST_FEATURE,
 				new MultifaceGrowthConfiguration(
 					RegisterBlocks.BLUE_PEARLESCENT_NEMATOCYST,
 						20,
@@ -1928,7 +1929,7 @@ public final class WilderConfiguredFeatures {
 				)
 		);
 
-		NEMATOCYST_PURPLE.makeAndSetHolder(WilderWild.NEMATOCYST_FEATURE,
+		NEMATOCYST_PURPLE.makeAndSetHolder(RegisterFeatures.NEMATOCYST_FEATURE,
 				new MultifaceGrowthConfiguration(
 					RegisterBlocks.PURPLE_PEARLESCENT_NEMATOCYST,
 						20,
@@ -1943,7 +1944,7 @@ public final class WilderConfiguredFeatures {
 				)
 		);
 
-		LARGE_MESOGLEA_PURPLE.makeAndSetHolder(WilderWild.LARGE_MESOGLEA_FEATURE,
+		LARGE_MESOGLEA_PURPLE.makeAndSetHolder(RegisterFeatures.LARGE_MESOGLEA_FEATURE,
 				new LargeMesogleaConfig(
 						30,
 						UniformInt.of(3, 19),
@@ -1958,7 +1959,7 @@ public final class WilderConfiguredFeatures {
 				)
 		);
 
-		LARGE_MESOGLEA_BLUE.makeAndSetHolder(WilderWild.LARGE_MESOGLEA_FEATURE,
+		LARGE_MESOGLEA_BLUE.makeAndSetHolder(RegisterFeatures.LARGE_MESOGLEA_FEATURE,
 				new LargeMesogleaConfig(
 						30,
 						UniformInt.of(3, 19),
@@ -1973,7 +1974,7 @@ public final class WilderConfiguredFeatures {
 				)
 		);
 
-		SMALL_SPONGE.makeAndSetHolder(WilderWild.SMALL_SPONGE_FEATURE,
+		SMALL_SPONGE.makeAndSetHolder(RegisterFeatures.SMALL_SPONGE_FEATURE,
 				new SmallSpongeFeatureConfig(
 						RegisterBlocks.SMALL_SPONGE,
 						20,

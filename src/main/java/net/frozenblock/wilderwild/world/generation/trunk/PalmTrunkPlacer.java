@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.OptionalInt;
 import java.util.function.BiConsumer;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.registry.RegisterFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -48,7 +49,7 @@ public class PalmTrunkPlacer extends TrunkPlacer {
 	@Override
 	@NotNull
 	protected TrunkPlacerType<?> type() {
-		return WilderWild.PALM_TRUNK_PLACER;
+		return RegisterFeatures.PALM_TRUNK_PLACER;
 	}
 
 	@Override

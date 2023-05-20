@@ -31,6 +31,7 @@ import net.frozenblock.lib.worldgen.feature.api.features.config.PillarFeatureCon
 import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.RegisterFeatures;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
@@ -945,9 +946,9 @@ public final class WilderMiscConfigured {
 				)
 		);
 
-		SNOW_BLANKET.makeAndSetHolder(WilderWild.SNOW_BLANKET_FEATURE, NoneFeatureConfiguration.INSTANCE);
+		SNOW_BLANKET.makeAndSetHolder(RegisterFeatures.SNOW_BLANKET_FEATURE, NoneFeatureConfiguration.INSTANCE);
 
-		SNOW_AND_ICE_TRANSITION_DISK.makeAndSetHolder(WilderWild.SNOW_AND_FREEZE_DISK_FEATURE,
+		SNOW_AND_ICE_TRANSITION_DISK.makeAndSetHolder(RegisterFeatures.SNOW_AND_FREEZE_DISK_FEATURE,
 				new SnowAndIceDiskFeatureConfig(
 						UniformInt.of(6, 7),
 						UniformInt.of(2, 4),

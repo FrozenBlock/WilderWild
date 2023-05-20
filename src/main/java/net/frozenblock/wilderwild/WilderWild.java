@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild;
 
 import com.mojang.datafixers.schemas.Schema;
-import com.mojang.serialization.Codec;
 import java.util.ArrayList;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
@@ -43,6 +42,7 @@ import net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterCriteria;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.frozenblock.wilderwild.registry.RegisterFeatures;
 import net.frozenblock.wilderwild.registry.RegisterGameEvents;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterLootTables;
@@ -54,42 +54,11 @@ import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.registry.WilderRegistry;
 import net.frozenblock.wilderwild.world.additions.gen.WilderWorldGen;
 import net.frozenblock.wilderwild.world.generation.conditionsource.BetaBeachConditionSource;
-import net.frozenblock.wilderwild.world.generation.features.AlgaeFeature;
-import net.frozenblock.wilderwild.world.generation.features.CattailFeature;
-import net.frozenblock.wilderwild.world.generation.features.LargeMesogleaFeature;
-import net.frozenblock.wilderwild.world.generation.features.NematocystFeature;
-import net.frozenblock.wilderwild.world.generation.features.ShelfFungusFeature;
-import net.frozenblock.wilderwild.world.generation.features.SmallSpongeFeature;
-import net.frozenblock.wilderwild.world.generation.features.SnowAndFreezeDiskFeature;
-import net.frozenblock.wilderwild.world.generation.features.SnowBlanketFeature;
-import net.frozenblock.wilderwild.world.generation.features.config.AlgaeFeatureConfig;
-import net.frozenblock.wilderwild.world.generation.features.config.CattailFeatureConfig;
-import net.frozenblock.wilderwild.world.generation.features.config.LargeMesogleaConfig;
-import net.frozenblock.wilderwild.world.generation.features.config.ShelfFungusFeatureConfig;
-import net.frozenblock.wilderwild.world.generation.features.config.SmallSpongeFeatureConfig;
-import net.frozenblock.wilderwild.world.generation.features.config.SnowAndIceDiskFeatureConfig;
-import net.frozenblock.wilderwild.world.generation.foliage.PalmFoliagePlacer;
-import net.frozenblock.wilderwild.world.generation.foliage.ShortPalmFoliagePlacer;
-import net.frozenblock.wilderwild.world.generation.trunk.BaobabTrunkPlacer;
-import net.frozenblock.wilderwild.world.generation.trunk.FallenTrunkWithLogs;
-import net.frozenblock.wilderwild.world.generation.trunk.FancyDarkOakTrunkPlacer;
-import net.frozenblock.wilderwild.world.generation.trunk.JuniperTrunkPlacer;
-import net.frozenblock.wilderwild.world.generation.trunk.PalmTrunkPlacer;
-import net.frozenblock.wilderwild.world.generation.trunk.SnappedTrunkPlacer;
-import net.frozenblock.wilderwild.world.generation.trunk.StraightTrunkWithLogs;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import net.minecraft.world.level.GameRules;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
-import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
-import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
-import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixerBuilder;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixes;
@@ -104,31 +73,13 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		INSTANCE = this;
 	}
 
-	public static final TrunkPlacerType<StraightTrunkWithLogs> STRAIGHT_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("straight_trunk_logs_placer", StraightTrunkWithLogs.CODEC);
-    public static final TrunkPlacerType<FallenTrunkWithLogs> FALLEN_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("fallen_trunk_logs_placer", FallenTrunkWithLogs.CODEC);
-    public static final TrunkPlacerType<BaobabTrunkPlacer> BAOBAB_TRUNK_PLACER = registerTrunk("baobab_trunk_placer", BaobabTrunkPlacer.CODEC);
-	public static final TrunkPlacerType<PalmTrunkPlacer> PALM_TRUNK_PLACER = registerTrunk("palm_trunk_placer", PalmTrunkPlacer.CODEC);
-	public static final TrunkPlacerType<JuniperTrunkPlacer> JUNIPER_TRUNK_PLACER = registerTrunk("juniper_trunk_placer", JuniperTrunkPlacer.CODEC);
-	public static final TrunkPlacerType<FancyDarkOakTrunkPlacer> FANCY_DARK_OAK_TRUNK_PLACER = registerTrunk("fancy_dark_oak_trunk_placer", FancyDarkOakTrunkPlacer.CODEC);
-	public static final TrunkPlacerType<SnappedTrunkPlacer> SNAPPED_TRUNK_PLACER = registerTrunk("snapped_trunk_placer", SnappedTrunkPlacer.CODEC);
-
-	public static final Feature<ShelfFungusFeatureConfig> SHELF_FUNGUS_FEATURE = register("shelf_fungus_feature", new ShelfFungusFeature(ShelfFungusFeatureConfig.CODEC));
-	public static final Feature<SmallSpongeFeatureConfig> SMALL_SPONGE_FEATURE = register("small_sponge_feature", new SmallSpongeFeature(SmallSpongeFeatureConfig.CODEC));
-    public static final CattailFeature CATTAIL_FEATURE = register("cattail_feature", new CattailFeature(CattailFeatureConfig.CODEC));
-    public static final AlgaeFeature ALGAE_FEATURE = register("algae_feature", new AlgaeFeature(AlgaeFeatureConfig.CODEC));
-    public static final NematocystFeature NEMATOCYST_FEATURE = register("nematocyst_feature", new NematocystFeature(MultifaceGrowthConfiguration.CODEC));
-	public static final LargeMesogleaFeature LARGE_MESOGLEA_FEATURE = register("large_mesoglea_feature", new LargeMesogleaFeature(LargeMesogleaConfig.CODEC));
-	public static final SnowBlanketFeature SNOW_BLANKET_FEATURE = register("snow_blanket_feature", new SnowBlanketFeature(NoneFeatureConfiguration.CODEC));
-	public static final SnowAndFreezeDiskFeature SNOW_AND_FREEZE_DISK_FEATURE = register("snow_and_freeze_disk_feature", new SnowAndFreezeDiskFeature(SnowAndIceDiskFeatureConfig.CODEC));
-    public static final FoliagePlacerType<PalmFoliagePlacer> PALM_FOLIAGE_PLACER = registerFoliage("palm_foliage_placer", PalmFoliagePlacer.CODEC);
-	public static final FoliagePlacerType<ShortPalmFoliagePlacer> SHORT_PALM_FOLIAGE_PLACER = registerFoliage("short_palm_foliage_placer", ShortPalmFoliagePlacer.CODEC);
-
 
     @Override //Alan Wilder Wild
     public void onInitialize(String modId, ModContainer container) {
         WilderSharedConstants.startMeasuring(this);
         applyDataFixes(container);
 
+		RegisterFeatures.init();
         WilderRegistry.initRegistry();
         RegisterBlocks.registerBlocks();
         RegisterItems.registerItems();
@@ -225,18 +176,6 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
         QuiltDataFixes.buildAndRegisterFixer(mod, builder);
 		WilderSharedConstants.log("DataFixes for Wilder Wild have been applied", true);
     }
-
-    private static <P extends TrunkPlacer> TrunkPlacerType<P> registerTrunk(String id, Codec<P> codec) {
-        return Registry.register(BuiltInRegistries.TRUNK_PLACER_TYPE, WilderSharedConstants.id(id), new TrunkPlacerType<>(codec));
-    }
-
-	private static <P extends FoliagePlacer> FoliagePlacerType<P> registerFoliage(String id, Codec<P> codec) {
-		return Registry.register(BuiltInRegistries.FOLIAGE_PLACER_TYPE, WilderSharedConstants.id(id), new FoliagePlacerType<>(codec));
-	}
-
-	private static <FC extends FeatureConfiguration, T extends Feature<FC>> T register(String id, T feature) {
-		return Registry.register(BuiltInRegistries.FEATURE, WilderSharedConstants.id(id), feature);
-	}
 
     // GAME RULES
     public static final GameRules.Key<GameRules.BooleanValue> STONE_CHEST_CLOSES =
