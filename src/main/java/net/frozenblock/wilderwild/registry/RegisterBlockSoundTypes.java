@@ -197,12 +197,20 @@ public final class RegisterBlockSoundTypes {
 		RegisterSounds.BLOCK_MUSHROOM_BLOCK_FALL
 	);
 
-	public static final SoundType ICE = new SoundType(1.0F, 1.25F,
+	public static final SoundType ICE = new SoundType(1.0F, 1.0F,
 		RegisterSounds.BLOCK_ICE_BREAK,
 		RegisterSounds.BLOCK_ICE_STEP,
 		RegisterSounds.BLOCK_ICE_PLACE,
 		RegisterSounds.BLOCK_ICE_HIT,
 		RegisterSounds.BLOCK_ICE_FALL
+	);
+
+	public static final SoundType FROSTED_ICE = new SoundType(1.0F, 1.0F,
+		RegisterSounds.BLOCK_FROSTED_ICE_BREAK,
+		RegisterSounds.BLOCK_FROSTED_ICE_STEP,
+		RegisterSounds.BLOCK_FROSTED_ICE_PLACE,
+		RegisterSounds.BLOCK_FROSTED_ICE_HIT,
+		RegisterSounds.BLOCK_FROSTED_ICE_FALL
 	);
 
 	public static final SoundType LEAVES = new SoundType(1.0F, 1.0F,

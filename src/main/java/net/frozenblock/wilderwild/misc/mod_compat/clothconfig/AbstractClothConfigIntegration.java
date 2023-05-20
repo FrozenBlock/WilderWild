@@ -56,6 +56,8 @@ public abstract class AbstractClothConfigIntegration extends ModIntegration {
 
 	public abstract boolean gravelSounds();
 
+	public abstract boolean iceSounds();
+
 	public abstract boolean frostedIceSounds();
 
 	public abstract boolean leafSounds();

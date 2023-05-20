@@ -121,6 +121,11 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean iceSounds() {
+		return BLOCK_SOUNDS.iceSounds;
+	}
+
+	@Override
 	public boolean frostedIceSounds() {
 		return BLOCK_SOUNDS.frostedIceSounds;
 	}

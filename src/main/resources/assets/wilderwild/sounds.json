@@ -1077,20 +1077,22 @@
 	"subtitle": "subtitles.block.generic.break"
   },
   "block.ice.fall": {
-	"sounds": [
-	  {
-		"name": "minecraft:block.glass.fall",
-		"type": "event"
-	  }
-	]
+    "sounds": [
+      "wilderwild:block/ice/place1",
+      "wilderwild:block/ice/place2",
+      "wilderwild:block/ice/place3",
+      "wilderwild:block/ice/place4",
+      "wilderwild:block/ice/place5"
+    ]
   },
   "block.ice.hit": {
-	"sounds": [
-	  {
-		"name": "minecraft:block.glass.hit",
-		"type": "event"
-	  }
-	],
+    "sounds": [
+      "wilderwild:block/ice/place1",
+      "wilderwild:block/ice/place2",
+      "wilderwild:block/ice/place3",
+      "wilderwild:block/ice/place4",
+      "wilderwild:block/ice/place5"
+    ],
 	"subtitle": "subtitles.block.generic.hit"
   },
   "block.ice.place": {
@@ -1104,13 +1106,63 @@
 	"subtitle": "subtitles.block.generic.place"
   },
   "block.ice.step": {
-	"sounds": [
-	  {
-		"name": "minecraft:block.glass.step",
-		"type": "event"
-	  }
-	],
+    "sounds": [
+      "wilderwild:block/ice/place1",
+      "wilderwild:block/ice/place2",
+      "wilderwild:block/ice/place3",
+      "wilderwild:block/ice/place4",
+      "wilderwild:block/ice/place5"
+    ],
 	"subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.frosted_ice.break": {
+    "sounds": [
+      "wilderwild:block/frosted_ice/break1",
+      "wilderwild:block/frosted_ice/break2",
+      "wilderwild:block/frosted_ice/break3",
+      "wilderwild:block/frosted_ice/break4",
+      "wilderwild:block/frosted_ice/break5"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.frosted_ice.fall": {
+    "sounds": [
+      "wilderwild:block/ice/place1",
+      "wilderwild:block/ice/place2",
+      "wilderwild:block/ice/place3",
+      "wilderwild:block/ice/place4",
+      "wilderwild:block/ice/place5"
+    ]
+  },
+  "block.frosted_ice.hit": {
+    "sounds": [
+      "wilderwild:block/ice/place1",
+      "wilderwild:block/ice/place2",
+      "wilderwild:block/ice/place3",
+      "wilderwild:block/ice/place4",
+      "wilderwild:block/ice/place5"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.frosted_ice.place": {
+    "sounds": [
+      "wilderwild:block/ice/place1",
+      "wilderwild:block/ice/place2",
+      "wilderwild:block/ice/place3",
+      "wilderwild:block/ice/place4",
+      "wilderwild:block/ice/place5"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.frosted_ice.step": {
+    "sounds": [
+      "wilderwild:block/ice/place1",
+      "wilderwild:block/ice/place2",
+      "wilderwild:block/ice/place3",
+      "wilderwild:block/ice/place4",
+      "wilderwild:block/ice/place5"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
   },
   "block.leaves.break": {
 	"sounds": [

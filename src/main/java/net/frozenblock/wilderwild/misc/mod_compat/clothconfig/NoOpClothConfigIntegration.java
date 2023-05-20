@@ -93,6 +93,11 @@ public class NoOpClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean iceSounds() {
+		return DefaultBlockConfig.BlockSoundsConfig.ICE_SOUNDS;
+	}
+
+	@Override
 	public boolean frostedIceSounds() {
 		return DefaultBlockConfig.BlockSoundsConfig.FROSTED_ICE_SOUNDS;
 	}

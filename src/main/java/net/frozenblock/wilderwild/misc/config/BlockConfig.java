@@ -49,6 +49,7 @@ public final class BlockConfig implements ConfigData {
 		public boolean deadBushSounds = DefaultBlockConfig.BlockSoundsConfig.DEAD_BUSH_SOUNDS;
 		public boolean flowerSounds = DefaultBlockConfig.BlockSoundsConfig.FLOWER_SOUNDS;
 		public boolean saplingSounds = DefaultBlockConfig.BlockSoundsConfig.SAPLING_SOUNDS;
+		public boolean iceSounds = DefaultBlockConfig.BlockSoundsConfig.ICE_SOUNDS;
 		public boolean frostedIceSounds = DefaultBlockConfig.BlockSoundsConfig.FROSTED_ICE_SOUNDS;
 		public boolean gravelSounds = DefaultBlockConfig.BlockSoundsConfig.GRAVEL_SOUNDS;
 		public boolean leafSounds = DefaultBlockConfig.BlockSoundsConfig.LEAF_SOUNDS;
@@ -177,11 +178,17 @@ public final class BlockConfig implements ConfigData {
 				.setTooltip(tooltip("gravel_sounds"))
 				.build();
 
-		var frostedIceSounds = entryBuilder.startBooleanToggle(text("frosted_ice_sounds"), blockSounds.frostedIceSounds)
-				.setDefaultValue(DefaultBlockConfig.BlockSoundsConfig.FROSTED_ICE_SOUNDS)
-				.setSaveConsumer(newValue -> blockSounds.frostedIceSounds = newValue)
-				.setTooltip(tooltip("frosted_ice_sounds"))
+		var iceSounds = entryBuilder.startBooleanToggle(text("ice_sounds"), blockSounds.iceSounds)
+				.setDefaultValue(DefaultBlockConfig.BlockSoundsConfig.ICE_SOUNDS)
+				.setSaveConsumer(newValue -> blockSounds.iceSounds = newValue)
+				.setTooltip(tooltip("ice_sounds"))
 				.build();
+
+		var frostedIceSounds = entryBuilder.startBooleanToggle(text("frosted_ice_sounds"), blockSounds. frostedIceSounds)
+			.setDefaultValue(DefaultBlockConfig.BlockSoundsConfig.FROSTED_ICE_SOUNDS)
+			.setSaveConsumer(newValue -> blockSounds.frostedIceSounds = newValue)
+			.setTooltip(tooltip("frosted_ice_sounds"))
+			.build();
 
 		var leafSounds = entryBuilder.startBooleanToggle(text("leaf_sounds"), blockSounds.leafSounds)
 				.setDefaultValue(DefaultBlockConfig.BlockSoundsConfig.LEAF_SOUNDS)
@@ -235,7 +242,7 @@ public final class BlockConfig implements ConfigData {
 				false,
 				tooltip("block_sounds"),
 				cactusSounds, claySounds, coarseDirtSounds, cobwebSounds, deadBushSounds,
-				flowerSounds, saplingSounds, gravelSounds, frostedIceSounds, leafSounds,
+				flowerSounds, saplingSounds, gravelSounds, iceSounds, frostedIceSounds, leafSounds,
 				lilyPadSounds, mushroomBlockSounds, podzolSounds, reinforcedDeepslateSounds,
 				sugarCaneSounds, witherRoseSounds, sandstoneSounds
 		);

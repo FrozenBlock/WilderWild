@@ -150,6 +150,12 @@ public final class RegisterSounds {
     public static final SoundEvent BLOCK_ICE_STEP = register("block.ice.step");
     public static final SoundEvent BLOCK_ICE_FALL = register("block.ice.fall");
 
+	public static final SoundEvent BLOCK_FROSTED_ICE_PLACE = register("block.frosted_ice.place");
+	public static final SoundEvent BLOCK_FROSTED_ICE_HIT = register("block.frosted_ice.hit");
+	public static final SoundEvent BLOCK_FROSTED_ICE_BREAK = register("block.frosted_ice.break");
+	public static final SoundEvent BLOCK_FROSTED_ICE_STEP = register("block.frosted_ice.step");
+	public static final SoundEvent BLOCK_FROSTED_ICE_FALL = register("block.frosted_ice.fall");
+
     public static final SoundEvent BLOCK_LEAVES_PLACE = register("block.leaves.place");
     public static final SoundEvent BLOCK_LEAVES_HIT = register("block.leaves.hit");
     public static final SoundEvent BLOCK_LEAVES_BREAK = register("block.leaves.break");
