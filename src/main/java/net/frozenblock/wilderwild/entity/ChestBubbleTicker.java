@@ -35,16 +35,16 @@ import org.jetbrains.annotations.NotNull;
 
 public class ChestBubbleTicker extends SilentTicker {
 
-	public ChestBubbleTicker(@NotNull EntityType<?> entityType, Level level) {
+	public ChestBubbleTicker(@NotNull EntityType<?> entityType, @NotNull Level level) {
 		super(entityType, level);
 	}
 
-	public ChestBubbleTicker(@NotNull EntityType<?> entityType, Level level, BlockPos pos) {
+	public ChestBubbleTicker(@NotNull EntityType<?> entityType, @NotNull Level level, @NotNull BlockPos pos) {
 		super(entityType, level);
 		this.setPos(Vec3.atCenterOf(pos));
 	}
 
-	public static void createAndSpawn(@NotNull EntityType<?> entityType, Level level, BlockPos pos) {
+	public static void createAndSpawn(@NotNull EntityType<?> entityType, @NotNull Level level, @NotNull BlockPos pos) {
 		ChestBubbleTicker chestBubbleTicker = new ChestBubbleTicker(entityType, level, pos);
 		level.addFreshEntity(chestBubbleTicker);
 	}

@@ -111,7 +111,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 			.collect(Collectors.toList())
 	);
 
-    public Jellyfish(@NotNull EntityType<? extends Jellyfish> entityType, Level level) {
+    public Jellyfish(@NotNull EntityType<? extends Jellyfish> entityType, @NotNull Level level) {
         super(entityType, level);
 		this.getNavigation().setCanFloat(false);
     }

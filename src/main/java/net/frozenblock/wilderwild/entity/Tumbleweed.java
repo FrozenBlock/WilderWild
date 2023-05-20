@@ -106,7 +106,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	private static final EntityDataAccessor<Float> ITEM_X = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> ITEM_Z = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.FLOAT);
 
-    public Tumbleweed(@NotNull EntityType<Tumbleweed> entityType, Level level) {
+    public Tumbleweed(@NotNull EntityType<Tumbleweed> entityType, @NotNull Level level) {
 		super(entityType, level);
 		this.blocksBuilding = true;
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
@@ -131,7 +131,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
 	}
 
-	public static boolean canSpawn(EntityType<Tumbleweed> type, @NotNull ServerLevelAccessor level, MobSpawnType reason, BlockPos pos, @NotNull RandomSource random) {
+	public static boolean canSpawn(EntityType<Tumbleweed> type, @NotNull ServerLevelAccessor level, @NotNull MobSpawnType reason, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		return level.getBrightness(LightLayer.SKY, pos) > 7 && random.nextInt(0, 60) == 1 && pos.getY() > level.getSeaLevel();
 	}
 

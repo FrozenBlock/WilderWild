@@ -117,12 +117,12 @@ public class AncientHornProjectile extends AbstractArrow {
 	private BlockState inBlockState;
 	private IntArrayList hitEntities = new IntArrayList();
 
-	public AncientHornProjectile(@NotNull EntityType<? extends AncientHornProjectile> entityType, Level level) {
+	public AncientHornProjectile(@NotNull EntityType<? extends AncientHornProjectile> entityType, @NotNull Level level) {
 		super(entityType, level);
 		this.setSoundEvent(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE);
 	}
 
-	public AncientHornProjectile(Level level, double x, double y, double z) {
+	public AncientHornProjectile(@NotNull Level level, double x, double y, double z) {
 		super(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, x, y, z, level);
 		this.setSoundEvent(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE);
 	}

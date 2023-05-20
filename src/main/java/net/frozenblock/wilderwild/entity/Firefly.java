@@ -105,7 +105,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
     public boolean wasNamedNectar;
     public boolean shouldCheckSpawn = true;
 
-    public Firefly(@NotNull EntityType<? extends Firefly> entityType, Level level) {
+    public Firefly(@NotNull EntityType<? extends Firefly> entityType, @NotNull Level level) {
         super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.LAVA, -1.0F);
         this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1.0F);

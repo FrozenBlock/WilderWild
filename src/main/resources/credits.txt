@@ -1,47 +1,27 @@
-LiukRast - Founder of FrozenBlock, Programming, Incessant Frequent-Flying, Girlfriend Haver
-(real)
+Lunade (AViewFromTheTop) - Gameplay designer, did an uncountable amount of work: worldgen, transition biomes, blocks, block entities, items, wind, particles, advancements, loot tables, tags, mixins, had to implement everything that everyone else wanted *and* everything they wanted, you name it. Also goes uncredited for the amount of work they did- 70% of it.
 
-Soro - Biome edits, Worldgen features, Soro
-(soro)
+Treetrain1 - Bug fixes, Gradle fixes, Mixin fixer, most Mob AI
 
-Xfrtrex - Programming, Brainstorming, Bug fixes, EXFRECKLES SUSSUSUSUSUS, the third person listed in credits.txt, sus
-(he is sus)
+Soro - Original vegetation/tree generation reworks, biome ideas & gen
 
-Osmiooo - Programming, Bug fixes, Scary warden, Fan Haver
-(of which he has literally one now lol)
+LudoCrypt - New music
 
-Treetrain1 - Bug fixes, Gradle fixes, Programming, HEAHEHAEHAHEAHEHEHEHAEH, IS DEFINITELY NO SUSSY, being Merp's Fan, knows what a mixin is
-(until he was no longer :c )
+Merp - Most textures and sounds, came up with Mesoglea's functionality
 
-JarethTheRad - Structure assistance, is rad
-(rad)
+LiukRast - Baobab Trees
 
-AlexTheDolphin0 - played genshin while we all did stuff
-(he continues to)
+Enri - Italian Translation, came up with Jellyfish in chests
 
-Merp - :(
+JarethTheRad - Structure assistance
+
+Xfrtrex - Came up with Tumbleweed
 
 zozozrob_ - Cattail Textures & Concept Design
-(none of us knew he was on our server lol)
 
 Sculk Analyzer - Sculk Echoer Concept & Inspiration
-(Thank you!)
 
-Lunade (AViewFromTheTop) - best coder, deciphered a long-since-abandoned song from 2002, pushed three commits to create judaism, christianity, and islam, creator of tons of lost media, Gameplay Designer
-DID MORE THAN HALF OF THE WORK OF THIS MOD AND CONSTANTLY FIXED EVERYTHING
-(cool guy)
-(retainer of secrets, lives in faith and devotion)
-(in your room)
-
-LudoCrypt - Created godly music like it was nothing
-(how)
+Osmiooo - French Translation
 
 nekkok - Spanish Translation
 
-enri - Italian Translation
-
-SaishoVibes - Config Contributor, Signature Vibe, Skill Issue
-(an enigma from a land called "anime")
-
-wattles - Reviewing our mod and being awesome!
-(sir bottle with the jellyfish and plates)
+SaishoVibes - Config Contributor
