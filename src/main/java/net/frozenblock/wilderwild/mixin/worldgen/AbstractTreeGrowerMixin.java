@@ -57,4 +57,5 @@ public class AbstractTreeGrowerMixin implements AbstractTreeGrowerInterface {
 	public BlockPos wilderWild$getPos() {
 		return this.wilderWild$pos;
 	}
+
 }
