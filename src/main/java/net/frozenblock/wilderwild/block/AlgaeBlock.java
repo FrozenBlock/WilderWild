@@ -60,9 +60,9 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 	}
 
 	@Override
-	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, BlockPos pos) {
-		FluidState fluidState = level.getFluidState(pos);
-		FluidState fluidState2 = level.getFluidState(pos.above());
+	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
+		FluidState fluidState = level.getFluidState(pos.below());
+		FluidState fluidState2 = level.getFluidState(pos);
 		return fluidState.getType() == Fluids.WATER && fluidState2.getType() == Fluids.EMPTY;
 	}
 
@@ -82,7 +82,7 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 	}
 
 	@Override
-	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Entity entity) {
+	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
 		if (entity.getType().equals(EntityType.FALLING_BLOCK)) {
 			level.destroyBlock(pos, false);
 		}
@@ -140,5 +140,4 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 		} while (count < neededAmount);
 		return true;
 	}
-
 }
