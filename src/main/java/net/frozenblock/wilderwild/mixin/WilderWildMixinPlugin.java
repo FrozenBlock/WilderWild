@@ -47,7 +47,6 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 			return !FrozenBools.HAS_SODIUM;
 		}
 		if (mixinClassName.contains("CloudRenderer")) {
-			// the sodium cloud renderer mixin already has a return value
 			return !FrozenBools.HAS_SODIUM;
 		}
 		return true;

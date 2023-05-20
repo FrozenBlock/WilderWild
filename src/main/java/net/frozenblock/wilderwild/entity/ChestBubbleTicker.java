@@ -64,18 +64,12 @@ public class ChestBubbleTicker extends SilentTicker {
 							additionalZ += (double) direction.getStepZ() * 0.125;
 						}
 						server.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5 + additionalX, pos.getY() + 0.625, pos.getZ() + 0.5 + additionalZ, level.random.nextInt(4, 10), 0.21875F, 0, 0.21875F, 0.2D);
-					} else {
-						this.discard();
+						return;
 					}
-				} else {
-					this.discard();
 				}
-			} else {
-				this.discard();
 			}
-		} else {
-			this.discard();
 		}
+		this.discard();
 	}
 
 }
