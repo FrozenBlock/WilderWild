@@ -30,15 +30,16 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import org.jetbrains.annotations.NotNull;
 
 public class SmallSpongeFeature extends Feature<SmallSpongeFeatureConfig> {
 
-    public SmallSpongeFeature(Codec<SmallSpongeFeatureConfig> codec) {
+    public SmallSpongeFeature(@NotNull Codec<SmallSpongeFeatureConfig> codec) {
         super(codec);
     }
 
     @Override
-	public boolean place(FeaturePlaceContext<SmallSpongeFeatureConfig> context) {
+	public boolean place(@NotNull FeaturePlaceContext<SmallSpongeFeatureConfig> context) {
 		WorldGenLevel worldGenLevel = context.level();
 		BlockPos blockPos = context.origin();
 		RandomSource randomSource = context.random();
@@ -47,7 +48,7 @@ public class SmallSpongeFeature extends Feature<SmallSpongeFeatureConfig> {
 			return false;
 		} else {
 			List<Direction> list = config.shuffleDirections(randomSource);
-			if (generate(worldGenLevel, blockPos, worldGenLevel.getBlockState(blockPos), config, randomSource, list)) {
+			if (generate(worldGenLevel, blockPos, worldGenLevel.getBlockState(blockPos), config, list)) {
 				return true;
 			} else {
 				BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
@@ -63,7 +64,7 @@ public class SmallSpongeFeature extends Feature<SmallSpongeFeatureConfig> {
 							break;
 						}
 
-						if (generate(worldGenLevel, mutableBlockPos, blockState, config, randomSource, list2)) {
+						if (generate(worldGenLevel, mutableBlockPos, blockState, config, list2)) {
 							return true;
 						}
 					}
@@ -73,7 +74,7 @@ public class SmallSpongeFeature extends Feature<SmallSpongeFeatureConfig> {
 		}
 	}
 
-	public static boolean generate(WorldGenLevel level, BlockPos pos, BlockState state, SmallSpongeFeatureConfig config, RandomSource random, List<Direction> directions) {
+	public static boolean generate(@NotNull WorldGenLevel level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull SmallSpongeFeatureConfig config, @NotNull List<Direction> directions) {
 		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 
 		for(Direction direction : directions) {
@@ -94,7 +95,7 @@ public class SmallSpongeFeature extends Feature<SmallSpongeFeatureConfig> {
 		return false;
 	}
 
-	public static boolean isAirOrWater(BlockState state) {
+	public static boolean isAirOrWater(@NotNull BlockState state) {
 		return state.isAir() || state.is(Blocks.WATER);
 	}
 

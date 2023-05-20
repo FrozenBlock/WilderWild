@@ -36,17 +36,18 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import org.jetbrains.annotations.NotNull;
 
 public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfig> {
 	private static final BlockState snowState = Blocks.SNOW.defaultBlockState();
 	private static final BlockState iceState = Blocks.ICE.defaultBlockState();
 
-    public SnowAndFreezeDiskFeature(Codec<SnowAndIceDiskFeatureConfig> codec) {
+    public SnowAndFreezeDiskFeature(@NotNull Codec<SnowAndIceDiskFeatureConfig> codec) {
         super(codec);
     }
 
 	@Override
-    public boolean place(FeaturePlaceContext<SnowAndIceDiskFeatureConfig> context) {
+    public boolean place(@NotNull FeaturePlaceContext<SnowAndIceDiskFeatureConfig> context) {
         boolean bl = false;
         BlockPos blockPos = context.origin();
         WorldGenLevel level = context.level();
@@ -113,11 +114,11 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
         return bl;
     }
 
-	public static boolean canPlaceSnow(LevelReader level, BlockPos pos) {
+	public static boolean canPlaceSnow(@NotNull LevelReader level, @NotNull BlockPos pos) {
 		return pos.getY() >= level.getMinBuildHeight() && pos.getY() < level.getMaxBuildHeight() && level.getBrightness(LightLayer.BLOCK, pos) < 10 && (level.getBlockState(pos)).isAir() && Blocks.SNOW.defaultBlockState().canSurvive(level, pos);
 	}
 
-	public static boolean canPlaceIce(LevelReader level, BlockPos water) {
+	public static boolean canPlaceIce(@NotNull LevelReader level, @NotNull BlockPos water) {
 		if (water.getY() >= level.getMinBuildHeight() && water.getY() < level.getMaxBuildHeight() && level.getBrightness(LightLayer.BLOCK, water) < 10) {
 			BlockState blockState = level.getBlockState(water);
 			FluidState fluidState = level.getFluidState(water);

@@ -32,12 +32,12 @@ import org.jetbrains.annotations.NotNull;
 
 public class NematocystFeature extends MultifaceGrowthFeature {
 
-    public NematocystFeature(Codec<MultifaceGrowthConfiguration> codec) {
+    public NematocystFeature(@NotNull Codec<MultifaceGrowthConfiguration> codec) {
         super(codec);
     }
 
     @Override
-	public boolean place(FeaturePlaceContext<MultifaceGrowthConfiguration> context) {
+	public boolean place(@NotNull FeaturePlaceContext<MultifaceGrowthConfiguration> context) {
 		WorldGenLevel worldGenLevel = context.level();
 		BlockPos blockPos = context.origin();
 		RandomSource randomSource = context.random();
@@ -72,7 +72,7 @@ public class NematocystFeature extends MultifaceGrowthFeature {
 		}
 	}
 
-	public static boolean placeGrowthIfPossible(@NotNull WorldGenLevel level, BlockPos pos, @NotNull BlockState state, @NotNull MultifaceGrowthConfiguration config, @NotNull RandomSource random, List<Direction> directions) {
+	public static boolean placeGrowthIfPossible(@NotNull WorldGenLevel level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull MultifaceGrowthConfiguration config, @NotNull RandomSource random, @NotNull List<Direction> directions) {
 		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 
 		for(Direction direction : directions) {

@@ -37,6 +37,7 @@ import net.minecraft.world.level.levelgen.feature.DripstoneUtils;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class LargeMesogleaFeature extends Feature<LargeMesogleaConfig> {
@@ -46,7 +47,7 @@ public class LargeMesogleaFeature extends Feature<LargeMesogleaConfig> {
 	}
 
 	@Override
-	public boolean place(FeaturePlaceContext<LargeMesogleaConfig> context) {
+	public boolean place(@NotNull FeaturePlaceContext<LargeMesogleaConfig> context) {
 		WorldGenLevel worldGenLevel = context.level();
 		BlockPos blockPos = context.origin();
 		LargeMesogleaConfig largeMesogleaConfig = context.config();

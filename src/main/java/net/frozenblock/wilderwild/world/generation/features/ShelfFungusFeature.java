@@ -32,15 +32,16 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import org.jetbrains.annotations.NotNull;
 
 public class ShelfFungusFeature extends Feature<ShelfFungusFeatureConfig> {
 
-    public ShelfFungusFeature(Codec<ShelfFungusFeatureConfig> codec) {
+    public ShelfFungusFeature(@NotNull Codec<ShelfFungusFeatureConfig> codec) {
         super(codec);
     }
 
 	@Override
-    public boolean place(FeaturePlaceContext<ShelfFungusFeatureConfig> context) {
+    public boolean place(@NotNull FeaturePlaceContext<ShelfFungusFeatureConfig> context) {
         WorldGenLevel structureWorldAccess = context.level();
         RandomSource abstractRandom = context.random();
 		BlockPos blockPos = context.origin().above(abstractRandom.nextInt(0, 4));
@@ -49,7 +50,7 @@ public class ShelfFungusFeature extends Feature<ShelfFungusFeatureConfig> {
             return false;
         } else {
             List<Direction> list = shelfFungusFeatureConfig.shuffleDirections(abstractRandom);
-            if (generate(structureWorldAccess, blockPos, structureWorldAccess.getBlockState(blockPos), shelfFungusFeatureConfig, abstractRandom, list)) {
+            if (generate(structureWorldAccess, blockPos, shelfFungusFeatureConfig, abstractRandom, list)) {
                 return true;
             } else {
                 MutableBlockPos mutable = blockPos.mutable();
@@ -65,7 +66,7 @@ public class ShelfFungusFeature extends Feature<ShelfFungusFeatureConfig> {
                             break;
                         }
 
-                        if (generate(structureWorldAccess, mutable, blockState, shelfFungusFeatureConfig, abstractRandom, list2)) {
+                        if (generate(structureWorldAccess, mutable, shelfFungusFeatureConfig, abstractRandom, list2)) {
                             return true;
                         }
                     }
@@ -75,7 +76,7 @@ public class ShelfFungusFeature extends Feature<ShelfFungusFeatureConfig> {
         }
     }
 
-    public static boolean generate(WorldGenLevel level, BlockPos pos, BlockState state, ShelfFungusFeatureConfig config, RandomSource random, List<Direction> directions) {
+    public static boolean generate(@NotNull WorldGenLevel level, @NotNull BlockPos pos, @NotNull ShelfFungusFeatureConfig config, @NotNull RandomSource random, @NotNull List<Direction> directions) {
         MutableBlockPos mutable = pos.mutable();
         Iterator<Direction> var7 = directions.iterator();
 
@@ -97,18 +98,16 @@ public class ShelfFungusFeature extends Feature<ShelfFungusFeatureConfig> {
             }
         } while (!blockState.is(config.canPlaceOn));
 
-        BlockState blockState2 = config.fungus.defaultBlockState().setValue(ShelfFungusBlock.FACING, placementDirection).setValue(ShelfFungusBlock.FACE, ShelfFungusBlock.getFace(direction)).setValue(ShelfFungusBlock.STAGE, random.nextInt(3) + 1);
-        if (blockState2 == null) {
-            return false;
-        } else {
-            level.setBlock(pos, blockState2, 3);
-            level.getChunk(pos).markPosForPostprocessing(pos);
+		level.setBlock(pos, config.fungus.defaultBlockState()
+			.setValue(ShelfFungusBlock.FACING, placementDirection)
+			.setValue(ShelfFungusBlock.FACE, ShelfFungusBlock.getFace(direction))
+			.setValue(ShelfFungusBlock.STAGE, random.nextInt(3) + 1), 3);
+		level.getChunk(pos).markPosForPostprocessing(pos);
 
-            return true;
-        }
-    }
+		return true;
+	}
 
-    private static boolean isAirOrWater(BlockState state) {
+    private static boolean isAirOrWater(@NotNull BlockState state) {
         return state.isAir() || state.is(Blocks.WATER);
     }
 
