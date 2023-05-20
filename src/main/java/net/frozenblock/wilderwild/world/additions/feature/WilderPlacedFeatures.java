@@ -359,7 +359,7 @@ public final class WilderPlacedFeatures {
 
     public static final FrozenPlacedFeature PATCH_ALGAE = register("patch_algae");
 
-    public static final FrozenPlacedFeature PATCH_ALGAE_5 = register("patch_algae_5");
+    public static final FrozenPlacedFeature PATCH_ALGAE_SMALL = register("patch_algae_small");
 
     public static final FrozenPlacedFeature PATCH_BERRY_FOREST = register("patch_berry_forest");
 
@@ -1116,7 +1116,7 @@ public final class WilderPlacedFeatures {
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
-		PATCH_ALGAE_5.makeAndSetHolder(WilderConfiguredFeatures.PATCH_ALGAE.getHolder(),
+		PATCH_ALGAE_SMALL.makeAndSetHolder(WilderConfiguredFeatures.PATCH_ALGAE_SMALL.getHolder(),
 				RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);

@@ -493,6 +493,8 @@ public final class WilderConfiguredFeatures {
 
     public static final FrozenConfiguredFeature<AlgaeFeatureConfig, ConfiguredFeature<AlgaeFeatureConfig, ?>> PATCH_ALGAE = register("patch_algae");
 
+	public static final FrozenConfiguredFeature<AlgaeFeatureConfig, ConfiguredFeature<AlgaeFeatureConfig, ?>> PATCH_ALGAE_SMALL = register("patch_algae_small");
+
     public static final FrozenConfiguredFeature<ColumnWithDiskFeatureConfig, ConfiguredFeature<ColumnWithDiskFeatureConfig, ?>> TERMITE_CONFIGURED = register("termite_mound_baobab");
 
 	public static final SimpleWeightedRandomList<BlockState> TUMBLEWEED_PLANT_POOL = SimpleWeightedRandomList.<BlockState>builder()
@@ -1744,6 +1746,10 @@ public final class WilderConfiguredFeatures {
 
 		PATCH_ALGAE.makeAndSetHolder(WilderWild.ALGAE_FEATURE,
 				new AlgaeFeatureConfig(UniformInt.of(4, 10))
+		);
+
+		PATCH_ALGAE_SMALL.makeAndSetHolder(WilderWild.ALGAE_FEATURE,
+			new AlgaeFeatureConfig(UniformInt.of(2, 6))
 		);
 
 		TERMITE_CONFIGURED.makeAndSetHolder(FrozenFeatures.COLUMN_WITH_DISK_FEATURE,
