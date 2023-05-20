@@ -26,6 +26,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.entity.SlimeRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.monster.Slime;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -40,7 +41,7 @@ public final class MerpSlimeRenderer {
     private static final ResourceLocation WILDERWILD$MERP_SLIME = WilderSharedConstants.id("textures/entity/slime/merp_slime.png");
 
     @Inject(method = "getTextureLocation(Lnet/minecraft/world/entity/monster/Slime;)Lnet/minecraft/resources/ResourceLocation;", at = @At("RETURN"), cancellable = true)
-    public void wilderWild$getTextureLocation(Slime slimeEntity, CallbackInfoReturnable<ResourceLocation> info) {
+    public void wilderWild$getTextureLocation(@NotNull Slime slimeEntity, CallbackInfoReturnable<ResourceLocation> info) {
         String string = ChatFormatting.stripFormatting(slimeEntity.getName().getString());
         if (Objects.equals(string, "Merp")) {
             info.setReturnValue(WILDERWILD$MERP_SLIME);

@@ -83,7 +83,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
-
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
 	public static final IntegerProperty DISPLAY_LIGHT = RegisterProperties.DISPLAY_LIGHT;
@@ -301,5 +300,4 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 			return lootTable.getRandomItems(lootParams);
 		}
 	}
-
 }

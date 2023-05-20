@@ -40,7 +40,7 @@ public class SmallSpongeFeatureConfig implements FeatureConfiguration {
     instance.group(
         BuiltInRegistries.BLOCK.byNameCodec().fieldOf("block")
             .flatXmap(SmallSpongeFeatureConfig::validateBlock, DataResult::success)
-            .orElse((SmallSpongeBlock) RegisterBlocks.SMALL_SPONGE)
+            .orElse(RegisterBlocks.SMALL_SPONGE)
             .forGetter(
                 config -> config.sponge
             ),

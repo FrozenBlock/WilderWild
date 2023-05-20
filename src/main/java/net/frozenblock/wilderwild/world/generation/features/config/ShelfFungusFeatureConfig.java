@@ -41,7 +41,7 @@ public class ShelfFungusFeatureConfig implements FeatureConfiguration {
         instance.group(
             BuiltInRegistries.BLOCK.byNameCodec().fieldOf("block")
                 .flatXmap(ShelfFungusFeatureConfig::validateBlock, DataResult::success)
-                .orElse((ShelfFungusBlock) RegisterBlocks.BROWN_SHELF_FUNGUS)
+                .orElse(RegisterBlocks.BROWN_SHELF_FUNGUS)
                 .forGetter(config -> config.fungus),
             Codec.intRange(1, 64).fieldOf("search_range").orElse(10).forGetter(
                 config -> config.searchRange

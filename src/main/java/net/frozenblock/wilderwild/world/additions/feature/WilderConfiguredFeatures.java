@@ -23,8 +23,6 @@ import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.api.FrozenFeatures;
 import net.frozenblock.lib.worldgen.feature.api.features.config.ColumnWithDiskFeatureConfig;
 import net.frozenblock.wilderwild.WilderWild;
-import net.frozenblock.wilderwild.block.ShelfFungusBlock;
-import net.frozenblock.wilderwild.block.SmallSpongeBlock;
 import net.frozenblock.wilderwild.misc.FlowerColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
@@ -1683,7 +1681,7 @@ public final class WilderConfiguredFeatures {
 
 		POLLEN_CONFIGURED.makeAndSetHolder(Feature.MULTIFACE_GROWTH,
 				new MultifaceGrowthConfiguration(
-						(MultifaceBlock) RegisterBlocks.POLLEN_BLOCK,
+						RegisterBlocks.POLLEN_BLOCK,
 						20,
 						true,
 						true,
@@ -1704,7 +1702,7 @@ public final class WilderConfiguredFeatures {
 
 		BROWN_SHELF_FUNGUS_CONFIGURED.makeAndSetHolder(WilderWild.SHELF_FUNGUS_FEATURE,
 				new ShelfFungusFeatureConfig(
-						(ShelfFungusBlock) RegisterBlocks.BROWN_SHELF_FUNGUS,
+						RegisterBlocks.BROWN_SHELF_FUNGUS,
 						20,
 						true,
 						true,
@@ -1724,7 +1722,7 @@ public final class WilderConfiguredFeatures {
 
 		RED_SHELF_FUNGUS_CONFIGURED.makeAndSetHolder(WilderWild.SHELF_FUNGUS_FEATURE,
 				new ShelfFungusFeatureConfig(
-						(ShelfFungusBlock) RegisterBlocks.RED_SHELF_FUNGUS,
+						RegisterBlocks.RED_SHELF_FUNGUS,
 						20,
 						true,
 						true,
@@ -2012,7 +2010,7 @@ public final class WilderConfiguredFeatures {
 
 		SMALL_SPONGE.makeAndSetHolder(WilderWild.SMALL_SPONGE_FEATURE,
 				new SmallSpongeFeatureConfig(
-						(SmallSpongeBlock) RegisterBlocks.SMALL_SPONGE,
+						RegisterBlocks.SMALL_SPONGE,
 						20,
 						true,
 						true,

@@ -67,27 +67,27 @@ public final class RegisterItems {
 	}
 
 	// BLOCK ITEMS
-	public static final Item BAOBAB_NUT = new BlockItem(RegisterBlocks.BAOBAB_NUT, new FabricItemSettings().food(RegisterFood.BAOBAB_NUT));
-	public static final Item BAOBAB_SIGN = new SignItem(new FabricItemSettings().maxCount(16),
+	public static final BlockItem BAOBAB_NUT = new BlockItem(RegisterBlocks.BAOBAB_NUT, new FabricItemSettings().food(RegisterFood.BAOBAB_NUT));
+	public static final SignItem BAOBAB_SIGN = new SignItem(new FabricItemSettings().maxCount(16),
 			RegisterBlocks.BAOBAB_SIGN_BLOCK, RegisterBlocks.BAOBAB_WALL_SIGN
 	);
-	public static final Item BAOBAB_HANGING_SIGN = new HangingSignItem(RegisterBlocks.BAOBAB_HANGING_SIGN, RegisterBlocks.BAOBAB_WALL_HANGING_SIGN,
+	public static final HangingSignItem BAOBAB_HANGING_SIGN = new HangingSignItem(RegisterBlocks.BAOBAB_HANGING_SIGN, RegisterBlocks.BAOBAB_WALL_HANGING_SIGN,
 			new FabricItemSettings().maxCount(16)
 	);
-	public static final Item CYPRESS_SIGN = new SignItem(new FabricItemSettings().maxCount(16),
+	public static final SignItem CYPRESS_SIGN = new SignItem(new FabricItemSettings().maxCount(16),
 			RegisterBlocks.CYPRESS_SIGN_BLOCK, RegisterBlocks.CYPRESS_WALL_SIGN
 	);
-	public static final Item CYPRESS_HANGING_SIGN = new HangingSignItem(RegisterBlocks.CYPRESS_HANGING_SIGN, RegisterBlocks.CYPRESS_WALL_HANGING_SIGN,
+	public static final HangingSignItem CYPRESS_HANGING_SIGN = new HangingSignItem(RegisterBlocks.CYPRESS_HANGING_SIGN, RegisterBlocks.CYPRESS_WALL_HANGING_SIGN,
 			new FabricItemSettings().maxCount(16)
 	);
-	public static final Item PALM_SIGN = new SignItem(new FabricItemSettings().maxCount(16),
+	public static final SignItem PALM_SIGN = new SignItem(new FabricItemSettings().maxCount(16),
 			RegisterBlocks.PALM_SIGN_BLOCK, RegisterBlocks.PALM_WALL_SIGN
 	);
-	public static final Item PALM_HANGING_SIGN = new HangingSignItem(RegisterBlocks.PALM_HANGING_SIGN, RegisterBlocks.PALM_WALL_HANGING_SIGN,
+	public static final HangingSignItem PALM_HANGING_SIGN = new HangingSignItem(RegisterBlocks.PALM_HANGING_SIGN, RegisterBlocks.PALM_WALL_HANGING_SIGN,
 			new FabricItemSettings().maxCount(16)
 	);
 
-	public static final BlockItem COCONUT = new CoconutItem(RegisterBlocks.COCONUT, new FabricItemSettings());
+	public static final CoconutItem COCONUT = new CoconutItem(RegisterBlocks.COCONUT, new FabricItemSettings());
 
 	public static final BlockItem POLLEN = new BlockItem(RegisterBlocks.POLLEN_BLOCK, new FabricItemSettings());
 
@@ -100,37 +100,37 @@ public final class RegisterItems {
 	public static final RecordItem MUSIC_DISC_BENEATH = new RecordItem(15, RegisterSounds.MUSIC_DISC_BENEATH, new FabricItemSettings().maxCount(1).rarity(Rarity.RARE), 169);
 	public static final RecordItem MUSIC_DISC_GOAT_HORN_SYMPHONY = new RecordItem(15, RegisterSounds.MUSIC_DISC_GOATHORN_SYMPHONY, new FabricItemSettings().maxCount(1).rarity(Rarity.RARE), 144);
 	public static final RecordItem MUSIC_DISC_BACK = new RecordItem(15, RegisterSounds.MUSIC_DISC_BACK, new FabricItemSettings().maxCount(1).rarity(Rarity.RARE), 76);
-	public static final Item FIREFLY_SPAWN_EGG = new SpawnEggItem(RegisterEntities.FIREFLY, Integer.parseInt("2A2E2B", 16), Integer.parseInt("AAF644", 16), new FabricItemSettings());
-	public static final Item JELLYFISH_SPAWN_EGG = new SpawnEggItem(RegisterEntities.JELLYFISH, Integer.parseInt("E484E4", 16), Integer.parseInt("DF71DC", 16), new FabricItemSettings());
-	public static final Item JELLYFISH_BUCKET = new MobBucketItem(RegisterEntities.JELLYFISH, Fluids.WATER, RegisterSounds.ITEM_BUCKET_EMPTY_JELLYFISH, new FabricItemSettings().maxCount(1));
+	public static final SpawnEggItem FIREFLY_SPAWN_EGG = new SpawnEggItem(RegisterEntities.FIREFLY, Integer.parseInt("2A2E2B", 16), Integer.parseInt("AAF644", 16), new FabricItemSettings());
+	public static final SpawnEggItem JELLYFISH_SPAWN_EGG = new SpawnEggItem(RegisterEntities.JELLYFISH, Integer.parseInt("E484E4", 16), Integer.parseInt("DF71DC", 16), new FabricItemSettings());
+	public static final MobBucketItem JELLYFISH_BUCKET = new MobBucketItem(RegisterEntities.JELLYFISH, Fluids.WATER, RegisterSounds.ITEM_BUCKET_EMPTY_JELLYFISH, new FabricItemSettings().maxCount(1));
 	public static final Item SPLIT_COCONUT = new Item(new FabricItemSettings().food(new FoodProperties.Builder().nutrition(2).saturationMod(0.4F).build()));
 
-    public static final Item BAOBAB_BOAT_ITEM = new BoatItem(false, WilderEnumValues.BAOBAB, new FabricItemSettings().maxCount(1));
-    public static final Item BAOBAB_CHEST_BOAT_ITEM = new BoatItem(true, WilderEnumValues.BAOBAB, new FabricItemSettings().maxCount(1));
-    public static final Item CYPRESS_BOAT_ITEM = new BoatItem(false, WilderEnumValues.CYPRESS, new FabricItemSettings().maxCount(1));
-    public static final Item CYPRESS_CHEST_BOAT_ITEM = new BoatItem(true, WilderEnumValues.CYPRESS, new FabricItemSettings().maxCount(1));
-	public static final Item PALM_BOAT_ITEM = new BoatItem(false, WilderEnumValues.PALM, new FabricItemSettings().maxCount(1));
-	public static final Item PALM_CHEST_BOAT_ITEM = new BoatItem(true, WilderEnumValues.PALM, new FabricItemSettings().maxCount(1));
+    public static final BoatItem BAOBAB_BOAT_ITEM = new BoatItem(false, WilderEnumValues.BAOBAB, new FabricItemSettings().maxCount(1));
+    public static final BoatItem BAOBAB_CHEST_BOAT_ITEM = new BoatItem(true, WilderEnumValues.BAOBAB, new FabricItemSettings().maxCount(1));
+    public static final BoatItem CYPRESS_BOAT_ITEM = new BoatItem(false, WilderEnumValues.CYPRESS, new FabricItemSettings().maxCount(1));
+    public static final BoatItem CYPRESS_CHEST_BOAT_ITEM = new BoatItem(true, WilderEnumValues.CYPRESS, new FabricItemSettings().maxCount(1));
+	public static final BoatItem PALM_BOAT_ITEM = new BoatItem(false, WilderEnumValues.PALM, new FabricItemSettings().maxCount(1));
+	public static final BoatItem PALM_CHEST_BOAT_ITEM = new BoatItem(true, WilderEnumValues.PALM, new FabricItemSettings().maxCount(1));
 
-    public static final Item FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.ON);
-    public static final Item BLACK_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.BLACK);
-    public static final Item RED_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.RED);
-    public static final Item GREEN_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.GREEN);
-    public static final Item BROWN_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.BROWN);
-    public static final Item BLUE_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.BLUE);
-    public static final Item PURPLE_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.PURPLE);
-    public static final Item CYAN_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.CYAN);
-    public static final Item LIGHT_GRAY_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.LIGHT_GRAY);
-    public static final Item GRAY_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.GRAY);
-    public static final Item PINK_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.PINK);
-    public static final Item LIME_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.LIME);
-    public static final Item YELLOW_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.YELLOW);
-    public static final Item LIGHT_BLUE_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.LIGHT_BLUE);
-    public static final Item MAGENTA_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.MAGENTA);
-    public static final Item ORANGE_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.ORANGE);
-    public static final Item WHITE_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.WHITE);
+    public static final FireflyBottle FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.ON);
+    public static final FireflyBottle BLACK_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.BLACK);
+    public static final FireflyBottle RED_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.RED);
+    public static final FireflyBottle GREEN_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.GREEN);
+    public static final FireflyBottle BROWN_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.BROWN);
+    public static final FireflyBottle BLUE_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.BLUE);
+    public static final FireflyBottle PURPLE_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.PURPLE);
+    public static final FireflyBottle CYAN_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.CYAN);
+    public static final FireflyBottle LIGHT_GRAY_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.LIGHT_GRAY);
+    public static final FireflyBottle GRAY_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.GRAY);
+    public static final FireflyBottle PINK_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.PINK);
+    public static final FireflyBottle LIME_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.LIME);
+    public static final FireflyBottle YELLOW_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.YELLOW);
+    public static final FireflyBottle LIGHT_BLUE_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.LIGHT_BLUE);
+    public static final FireflyBottle MAGENTA_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.MAGENTA);
+    public static final FireflyBottle ORANGE_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.ORANGE);
+    public static final FireflyBottle WHITE_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.WHITE);
 
-    public static final Item PRICKLY_PEAR = new PrickOnUseBlockItem(RegisterBlocks.PRICKLY_PEAR_CACTUS, new FabricItemSettings().food(RegisterFood.PRICKLY_PEAR), 2F, RegisterSounds.PLAYER_HURT_CACTUS, RegisterDamageTypes.PRICKLY_PEAR);
+    public static final PrickOnUseBlockItem PRICKLY_PEAR = new PrickOnUseBlockItem(RegisterBlocks.PRICKLY_PEAR_CACTUS, new FabricItemSettings().food(RegisterFood.PRICKLY_PEAR), 2F, RegisterSounds.PLAYER_HURT_CACTUS, RegisterDamageTypes.PRICKLY_PEAR);
     public static final Item PEELED_PRICKLY_PEAR = new Item(new FabricItemSettings().food(Foods.APPLE));
 
     public static final Item ANCIENT_HORN_FRAGMENT = new Item(new FabricItemSettings().maxCount(64));
