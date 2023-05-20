@@ -60,7 +60,7 @@ public class FallingParticle extends TextureSheetParticle {
 		return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
 	}
 
-	public FallingParticle(ClientLevel level, double x, double y, double z, SpriteSet spriteProvider) {
+	public FallingParticle(@NotNull ClientLevel level, double x, double y, double z, @NotNull SpriteSet spriteProvider) {
 		super(level, x, y, z, 0.0, 0.0, 0.0);
 		this.spriteProvider = spriteProvider;
 		this.setSpriteFromAge(spriteProvider);
