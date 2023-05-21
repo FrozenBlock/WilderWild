@@ -31,6 +31,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import org.jetbrains.annotations.NotNull;
 
 public final class RegisterBlockEntities {
 	private RegisterBlockEntities() {
@@ -49,7 +50,8 @@ public final class RegisterBlockEntities {
         WilderSharedConstants.logWild("Registering BlockEntities for", WilderSharedConstants.UNSTABLE_LOGGING);
     }
 
-	private static <T extends BlockEntity> BlockEntityType<T> register(String path, FabricBlockEntityTypeBuilder.Factory<T> blockEntity, Block... blocks) {
+	@NotNull
+	private static <T extends BlockEntity> BlockEntityType<T> register(@NotNull String path, @NotNull FabricBlockEntityTypeBuilder.Factory<T> blockEntity, @NotNull Block... blocks) {
 		return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, WilderSharedConstants.id(path), FabricBlockEntityTypeBuilder.create(blockEntity, blocks).build(null));
 	}
 }
