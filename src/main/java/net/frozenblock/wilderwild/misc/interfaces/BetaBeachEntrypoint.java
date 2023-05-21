@@ -1,8 +1,8 @@
 package net.frozenblock.wilderwild.misc.interfaces;
 
+import java.util.List;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
-import java.util.List;
 
 public interface BetaBeachEntrypoint {
 
