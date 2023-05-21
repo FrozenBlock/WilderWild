@@ -182,7 +182,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 	}
 
 	@Override
-	public void newCategories(ArrayList<FrozenMobCategory> context) {
+	public void newCategories(@NotNull ArrayList<FrozenMobCategory> context) {
 		context.add(FrozenMobCategoryEntrypoint.createCategory(id("fireflies"), WilderSharedConstants.config().fireflySpawnCap(), true, false, 80));
 		context.add(FrozenMobCategoryEntrypoint.createCategory(id("jellyfish"), WilderSharedConstants.config().jellyfishSpawnCap(), true, false, 64));
 		context.add(FrozenMobCategoryEntrypoint.createCategory(id("tumbleweed"), WilderSharedConstants.config().tumbleweedSpawnCap(), true, false, 64));
