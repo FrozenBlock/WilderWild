@@ -1034,9 +1034,9 @@ public final class WilderConfiguredFeatures {
 		SNAPPED_CHERRY.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(WilderTreePlaced.SnAPPED_CHERRY_CHECKED.getHolder(), 1.0F)
+					new WeightedPlacedFeature(WilderTreePlaced.SNAPPED_CHERRY_CHECKED.getHolder(), 1.0F)
 				),
-				WilderTreePlaced.SnAPPED_CHERRY_CHECKED.getHolder()
+				WilderTreePlaced.SNAPPED_CHERRY_CHECKED.getHolder()
 			)
 		);
 

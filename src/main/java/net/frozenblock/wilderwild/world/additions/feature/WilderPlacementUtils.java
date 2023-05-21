@@ -14,18 +14,19 @@ public final class WilderPlacementUtils {
 		throw new UnsupportedOperationException("WilderPlacementUtils contains only static declarations.");
 	}
 
+	@NotNull
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public static <FC extends FeatureConfiguration> FrozenPlacedFeature register(@NotNull String id, Holder<ConfiguredFeature<FC, ?>> configured, @NotNull List<PlacementModifier> modifiers) {
-		var key = WilderSharedConstants.id(id);
-		var keyString = key.toString();
-		return new FrozenPlacedFeature(key)
+		return new FrozenPlacedFeature(WilderSharedConstants.id(id))
 			.makeAndSetHolder((Holder) configured, modifiers);
 	}
 
+	@NotNull
 	public static <FC extends FeatureConfiguration> FrozenPlacedFeature register(@NotNull String id, Holder<ConfiguredFeature<FC, ?>> registryEntry, @NotNull PlacementModifier... modifiers) {
 		return register(id, registryEntry, List.of(modifiers));
 	}
 
+	@NotNull
 	public static FrozenPlacedFeature register(@NotNull String id) {
 		var key = WilderSharedConstants.id(id);
 		return new FrozenPlacedFeature(key);

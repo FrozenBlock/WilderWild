@@ -51,6 +51,7 @@ import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceWaterDepthFilter;
+import org.jetbrains.annotations.NotNull;
 
 public final class WilderPlacedFeatures {
 	//FALLEN TREES
@@ -233,7 +234,7 @@ public final class WilderPlacedFeatures {
 		throw new UnsupportedOperationException("WilderPlacedFeatures contains only static declarations.");
 	}
 
-	public static void registerPlacedFeatures(BootstapContext<PlacedFeature> entries) {
+	public static void registerPlacedFeatures(@NotNull BootstapContext<PlacedFeature> entries) {
 
 		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 
@@ -420,7 +421,7 @@ public final class WilderPlacedFeatures {
 			treePlacement(PlacementUtils.countExtra(8, 0.1F, 1))
 		);
 
-		TREES_SNOWY.makeAndSetHolder(WilderTreeConfigured.SPRUCE.getHolder(),
+		TREES_SNOWY.makeAndSetHolder(WilderTreeConfigured.SPRUCE_SHORT.getHolder(),
 			treePlacement(PlacementUtils.countExtra(0, 0.1F, 1), Blocks.SPRUCE_SAPLING)
 		);
 

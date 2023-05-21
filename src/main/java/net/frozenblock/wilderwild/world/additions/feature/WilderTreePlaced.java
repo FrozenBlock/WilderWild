@@ -65,7 +65,7 @@ public final class WilderTreePlaced {
 	public static final FrozenPlacedFeature TALL_CHERRY_BEES_CHECKED = register("tall_cherry_bees_checked");
 	public static final FrozenPlacedFeature FALLEN_CHERRY_CHECKED = register("fallen_cherry_checked");
 	public static final FrozenPlacedFeature MOSSY_FALLEN_CHERRY_CHECKED = register("mossy_fallen_cherry_checked");
-	public static final FrozenPlacedFeature SnAPPED_CHERRY_CHECKED = register("snapped_cherry_checked");
+	public static final FrozenPlacedFeature SNAPPED_CHERRY_CHECKED = register("snapped_cherry_checked");
 	//OAK
 	public static final FrozenPlacedFeature OAK_CHECKED = register("oak_checked");
 	public static final FrozenPlacedFeature DYING_OAK_CHECKED = register("dying_oak_checked");
@@ -164,7 +164,6 @@ public final class WilderTreePlaced {
 	}
 
 	public static void registerTreePlaced() {
-
 		WilderSharedConstants.logWild("Registering WilderTreePlaced for", true);
 
 		// BIRCH
@@ -255,7 +254,7 @@ public final class WilderTreePlaced {
 			PlacementUtils.filteredByBlockSurvival(Blocks.CHERRY_SAPLING)
 		);
 
-		SnAPPED_CHERRY_CHECKED.makeAndSetHolder(WilderTreeConfigured.SNAPPED_CHERRY_TREE.getHolder(),
+		SNAPPED_CHERRY_CHECKED.makeAndSetHolder(WilderTreeConfigured.SNAPPED_CHERRY_TREE.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.CHERRY_SAPLING)
 		);
 
