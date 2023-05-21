@@ -60,6 +60,7 @@ import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluids;
+import org.jetbrains.annotations.NotNull;
 
 public final class RegisterItems {
 	private RegisterItems() {
@@ -249,40 +250,40 @@ public final class RegisterItems {
     }
 
 	@SafeVarargs
-	private static void registerInstrumentBefore(Item comparedItem, Item instrument, String path, TagKey<Instrument> tagKey, CreativeModeTab.TabVisibility tabVisibility, ResourceKey<CreativeModeTab>... tabs) {
+	private static void registerInstrumentBefore(@NotNull Item comparedItem, @NotNull Item instrument, @NotNull String path, @NotNull TagKey<Instrument> tagKey, @NotNull CreativeModeTab.TabVisibility tabVisibility, @NotNull ResourceKey<CreativeModeTab>... tabs) {
 		actualRegister(instrument, path);
 		FrozenCreativeTabs.addInstrumentBefore(comparedItem, instrument, tagKey, tabVisibility, tabs);
 	}
 
 	@SafeVarargs
-	private static void registerItem(Item item, String path, ResourceKey<CreativeModeTab>... tabs) {
+	private static void registerItem(@NotNull Item item, @NotNull String path, @NotNull ResourceKey<CreativeModeTab>... tabs) {
 		actualRegister(item, path);
 		FrozenCreativeTabs.add(item, tabs);
 	}
 
 	@SafeVarargs
-	private static void registerItemBefore(ItemLike comparedItem, Item item, String path, ResourceKey<CreativeModeTab>... tabs) {
+	private static void registerItemBefore(@NotNull ItemLike comparedItem, @NotNull Item item, @NotNull String path, @NotNull ResourceKey<CreativeModeTab>... tabs) {
 		registerItemBefore(comparedItem, item, path, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, tabs);
 	}
 
 	@SafeVarargs
-	private static void registerItemBefore(ItemLike comparedItem, Item item, String path, CreativeModeTab.TabVisibility tabVisibility, ResourceKey<CreativeModeTab>... tabs) {
+	private static void registerItemBefore(@NotNull ItemLike comparedItem, @NotNull Item item, @NotNull String path, @NotNull CreativeModeTab.TabVisibility tabVisibility, @NotNull ResourceKey<CreativeModeTab>... tabs) {
 		actualRegister(item, path);
 		FrozenCreativeTabs.addBefore(comparedItem, item, tabVisibility, tabs);
 	}
 
 	@SafeVarargs
-	private static void registerItemAfter(ItemLike comparedItem, Item item, String path, ResourceKey<CreativeModeTab>... tabs) {
+	private static void registerItemAfter(@NotNull ItemLike comparedItem, @NotNull Item item, @NotNull String path, @NotNull ResourceKey<CreativeModeTab>... tabs) {
 		registerItemAfter(comparedItem, item, path, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, tabs);
 	}
 
 	@SafeVarargs
-	private static void registerItemAfter(ItemLike comparedItem, Item item, String path, CreativeModeTab.TabVisibility tabVisibility, ResourceKey<CreativeModeTab>... tabs) {
+	private static void registerItemAfter(@NotNull ItemLike comparedItem, @NotNull Item item, @NotNull String path, @NotNull CreativeModeTab.TabVisibility tabVisibility, @NotNull ResourceKey<CreativeModeTab>... tabs) {
 		actualRegister(item, path);
 		FrozenCreativeTabs.addAfter(comparedItem, item, tabVisibility, tabs);
 	}
 
-	private static void actualRegister(Item item, String path) {
+	private static void actualRegister(@NotNull Item item, @NotNull String path) {
 		if (BuiltInRegistries.ITEM.getOptional(WilderSharedConstants.id(path)).isEmpty()) {
 			Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id(path), item);
 		}

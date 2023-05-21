@@ -27,8 +27,7 @@ import org.jetbrains.annotations.NotNull;
 
 public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint, BetaBeachEntrypoint {
 
-	// SURFACE RULES
-
+	@NotNull
 	public static SurfaceRules.RuleSource cypressSurfaceRules() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(RegisterWorldgen.CYPRESS_WETLANDS),
@@ -56,6 +55,7 @@ public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint, 
 		);
 	}
 
+	@NotNull
 	public static SurfaceRules.RuleSource warmRiverRules() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(RegisterWorldgen.WARM_RIVER),
@@ -72,6 +72,7 @@ public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint, 
 		);
 	}
 
+	@NotNull
 	public static SurfaceRules.RuleSource desertRules() {
 		return SurfaceRules.sequence(
 			SurfaceRules.ifTrue(
@@ -109,6 +110,7 @@ public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint, 
 		);
 	}
 
+	@NotNull
 	public static SurfaceRules.RuleSource oasisRules() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(RegisterWorldgen.OASIS),
@@ -116,6 +118,7 @@ public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint, 
 		);
 	}
 
+	@NotNull
 	public static SurfaceRules.RuleSource aridGrass() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(RegisterWorldgen.ARID_SAVANNA, RegisterWorldgen.ARID_FOREST),
@@ -156,6 +159,7 @@ public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint, 
 		);
 	}
 
+	@NotNull
 	public static SurfaceRules.RuleSource aridRules() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(RegisterWorldgen.ARID_SAVANNA, RegisterWorldgen.ARID_FOREST),
@@ -163,6 +167,7 @@ public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint, 
 		);
 	}
 
+	@NotNull
 	public static SurfaceRules.RuleSource oldGrowthSnowyTaigaRules() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA),
@@ -191,6 +196,8 @@ public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint, 
 			)
 		);
 	}
+
+	@NotNull
 	public static SurfaceRules.RuleSource oldGrowthDarkForestRules() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(RegisterWorldgen.OLD_GROWTH_DARK_FOREST),
@@ -208,6 +215,7 @@ public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint, 
 		);
 	}
 
+	@NotNull
 	public static SurfaceRules.RuleSource temperateRainforestRules() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(RegisterWorldgen.TEMPERATE_RAINFOREST),
@@ -233,6 +241,7 @@ public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint, 
 		);
 	}
 
+	@NotNull
 	public static SurfaceRules.RuleSource rainforestRules() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(RegisterWorldgen.RAINFOREST),
@@ -250,6 +259,7 @@ public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint, 
 		);
 	}
 
+	@NotNull
 	public static SurfaceRules.RuleSource gravelBetaBeach() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.UNDER_FLOOR,
@@ -266,6 +276,7 @@ public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint, 
 		);
 	}
 
+	@NotNull
 	public static SurfaceRules.RuleSource sandBetaBeach() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.DEEP_UNDER_FLOOR,
@@ -282,6 +293,7 @@ public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint, 
 		);
 	}
 
+	@NotNull
 	public static SurfaceRules.RuleSource multiLayerSandBetaBeach() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.DEEP_UNDER_FLOOR,
@@ -298,6 +310,7 @@ public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint, 
 		);
 	}
 
+	@NotNull
 	public static SurfaceRules.RuleSource betaBeaches() {
 		return SurfaceRules.ifTrue(
 			BetaBeachConditionSource.betaBeachConditionSource(),
@@ -309,6 +322,7 @@ public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint, 
 		);
 	}
 
+	@NotNull
 	public static SurfaceRules.RuleSource gravelBetaBeaches() {
 		return SurfaceRules.ifTrue(
 			BiomeTagConditionSource.isBiomeTag(WilderBiomeTags.GRAVEL_BEACH),
@@ -316,6 +330,7 @@ public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint, 
 		);
 	}
 
+	@NotNull
 	public static SurfaceRules.RuleSource sandBetaBeaches() {
 		return SurfaceRules.ifTrue(
 			BiomeTagConditionSource.isBiomeTag(WilderBiomeTags.SAND_BEACHES),
@@ -323,6 +338,7 @@ public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint, 
 		);
 	}
 
+	@NotNull
 	public static SurfaceRules.RuleSource multiLayerSandBetaBeaches() {
 		return SurfaceRules.ifTrue(
 			BiomeTagConditionSource.isBiomeTag(WilderBiomeTags.MULTI_LAYER_SAND_BEACHES),
@@ -330,6 +346,7 @@ public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint, 
 		);
 	}
 
+	@NotNull
 	public static SurfaceRules.RuleSource optimizedBetaBeaches() {
 		List<EntrypointContainer<BetaBeachEntrypoint>> betaBeachEntrypoints = FabricLoader.getInstance().getEntrypointContainers("wilderwild:beta_beaches", BetaBeachEntrypoint.class);
 		return SurfaceRules.ifTrue(
@@ -342,7 +359,8 @@ public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint, 
 		);
 	}
 
-	public static SurfaceRules.RuleSource optimizedGravelBetaBeaches(List<EntrypointContainer<BetaBeachEntrypoint>> containers) {
+	@NotNull
+	public static SurfaceRules.RuleSource optimizedGravelBetaBeaches(@NotNull List<EntrypointContainer<BetaBeachEntrypoint>> containers) {
 		List<ResourceKey<Biome>> biomes = new ArrayList<>();
 		for (EntrypointContainer<BetaBeachEntrypoint> container : containers) {
 			container.getEntrypoint().addGravelBeachBiomes(biomes);
@@ -353,7 +371,8 @@ public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint, 
 		);
 	}
 
-	public static SurfaceRules.RuleSource optimizedSandBetaBeaches(List<EntrypointContainer<BetaBeachEntrypoint>> containers) {
+	@NotNull
+	public static SurfaceRules.RuleSource optimizedSandBetaBeaches(@NotNull List<EntrypointContainer<BetaBeachEntrypoint>> containers) {
 		List<ResourceKey<Biome>> biomes = new ArrayList<>();
 		for (EntrypointContainer<BetaBeachEntrypoint> container : containers) {
 			container.getEntrypoint().addSandBeachBiomes(biomes);
@@ -364,7 +383,8 @@ public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint, 
 		);
 	}
 
-	public static SurfaceRules.RuleSource optimizedMultiLayerSandBetaBeaches(List<EntrypointContainer<BetaBeachEntrypoint>> containers) {
+	@NotNull
+	public static SurfaceRules.RuleSource optimizedMultiLayerSandBetaBeaches(@NotNull List<EntrypointContainer<BetaBeachEntrypoint>> containers) {
 		List<ResourceKey<Biome>> biomes = new ArrayList<>();
 		for (EntrypointContainer<BetaBeachEntrypoint> container : containers) {
 			container.getEntrypoint().addMultiLayerBeachBiomes(biomes);
@@ -415,7 +435,7 @@ public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint, 
 	}
 
 	@Override
-	public void addGravelBeachBiomes(List<ResourceKey<Biome>> context) {
+	public void addGravelBeachBiomes(@NotNull List<ResourceKey<Biome>> context) {
 		context.add(Biomes.BIRCH_FOREST);
 		context.add(Biomes.FROZEN_RIVER);
 		context.add(RegisterWorldgen.MIXED_FOREST);
@@ -431,7 +451,7 @@ public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint, 
 	}
 
 	@Override
-	public void addSandBeachBiomes(List<ResourceKey<Biome>> context) {
+	public void addSandBeachBiomes(@NotNull List<ResourceKey<Biome>> context) {
 		context.add(Biomes.DARK_FOREST);
 		context.add(Biomes.FLOWER_FOREST);
 		context.add(Biomes.FOREST);
@@ -442,7 +462,7 @@ public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint, 
 	}
 
 	@Override
-	public void addMultiLayerBeachBiomes(List<ResourceKey<Biome>> context) {
+	public void addMultiLayerBeachBiomes(@NotNull List<ResourceKey<Biome>> context) {
 		context.add(Biomes.BAMBOO_JUNGLE);
 		context.add(Biomes.JUNGLE);
 		context.add(Biomes.SAVANNA);

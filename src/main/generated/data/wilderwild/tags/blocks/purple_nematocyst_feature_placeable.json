@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:clay",
+    "minecraft:dripstone_block",
+    "minecraft:calcite",
+    {
+      "id": "wilderwild:purple_pearlescent_mesoglea",
+      "required": false
+    },
+    {
+      "id": "#minecraft:base_stone_overworld",
+      "required": false
+    }
+  ]
+}

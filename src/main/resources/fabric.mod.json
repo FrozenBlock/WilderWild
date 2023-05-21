@@ -8,7 +8,7 @@
     "Luna",
     "Treetrain1",
     "Soro",
-    "Merp",
+    "Merp"
   ],
   "contributors": [
     "LudoCrypt",
@@ -52,6 +52,9 @@
     ],
     "terrablender": [
       "net.frozenblock.wilderwild.misc.mod_compat.terrablender.BlenderInitializer"
+    ],
+    "fabric-datagen": [
+      "net.frozenblock.wilderwild.misc.WilderWildDataGenerator"
     ]
   },
   "mixins": [

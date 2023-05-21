@@ -36,6 +36,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
+import org.jetbrains.annotations.NotNull;
 
 public final class RegisterEntities {
 	private RegisterEntities() {
@@ -117,7 +118,8 @@ public final class RegisterEntities {
 		RegisterDamageTypes.init();
     }
 
-    private static <E extends Entity, T extends EntityType<E>> T register(String path, T entityType) {
+	@NotNull
+    private static <E extends Entity, T extends EntityType<E>> T register(@NotNull String path, @NotNull T entityType) {
         return Registry.register(BuiltInRegistries.ENTITY_TYPE, WilderSharedConstants.id(path), entityType);
     }
 }

@@ -22,6 +22,7 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.gameevent.GameEvent;
+import org.jetbrains.annotations.NotNull;
 
 public final class RegisterGameEvents {
 	private RegisterGameEvents() {
@@ -36,8 +37,9 @@ public final class RegisterGameEvents {
         WilderSharedConstants.logWild("Registering GameEvents for", WilderSharedConstants.UNSTABLE_LOGGING);
     }
 
-	private static GameEvent register(String path, int maxListeners) {
+	@NotNull
+	private static GameEvent register(@NotNull String path, int notificationRadius) {
 		var key = WilderSharedConstants.string(path);
-		return Registry.register(BuiltInRegistries.GAME_EVENT, key, new GameEvent(key, maxListeners));
+		return Registry.register(BuiltInRegistries.GAME_EVENT, key, new GameEvent(key, notificationRadius));
 	}
 }

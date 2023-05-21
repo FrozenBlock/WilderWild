@@ -29,6 +29,7 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
+import org.jetbrains.annotations.NotNull;
 
 public final class RegisterParticles {
 	private RegisterParticles() {
@@ -66,15 +67,18 @@ public final class RegisterParticles {
         WilderSharedConstants.logWild("Registering Particles for", WilderSharedConstants.UNSTABLE_LOGGING);
     }
 
-	private static SimpleParticleType register(String name, boolean alwaysShow) {
+	@NotNull
+	private static SimpleParticleType register(@NotNull String name, boolean alwaysShow) {
 		return Registry.register(BuiltInRegistries.PARTICLE_TYPE, WilderSharedConstants.id(name), FabricParticleTypes.simple(alwaysShow));
 	}
 
-	private static SimpleParticleType register(String name) {
+	@NotNull
+	private static SimpleParticleType register(@NotNull String name) {
 		return register(name, false);
 	}
 
-    private static <T extends ParticleOptions> ParticleType<T> register(String name, boolean alwaysShow, ParticleOptions.Deserializer<T> factory, Function<ParticleType<T>, Codec<T>> codecGetter) {
+	@NotNull
+    private static <T extends ParticleOptions> ParticleType<T> register(@NotNull String name, boolean alwaysShow, @NotNull ParticleOptions.Deserializer<T> factory, Function<ParticleType<T>, Codec<T>> codecGetter) {
         return Registry.register(BuiltInRegistries.PARTICLE_TYPE, WilderSharedConstants.id(name), new ParticleType<T>(alwaysShow, factory) {
             @Override
             public Codec<T> codec() {
