@@ -24,15 +24,16 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import org.jetbrains.annotations.NotNull;
 
 public class PalmSaplingGenerator extends AbstractTreeGrower {
 
 	public PalmSaplingGenerator() {
-
 	}
 
+	@Override
 	@Nullable
-	protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean largeHive) {
+	protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource random, boolean largeHive) {
 		return random.nextDouble() > 0.4 ? WilderTreeConfigured.PALM.getKey() : random.nextDouble() > 0.3 ? WilderTreeConfigured.TALL_PALM.getKey() : WilderTreeConfigured.TALL_WINE_PALM.getKey();
 	}
 }

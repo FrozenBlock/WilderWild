@@ -45,6 +45,7 @@ public class CypressSaplingGenerator extends AbstractTreeGrower {
 	private @Nullable BlockPos pos;
 
 	@Override
+	@Nullable
 	protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource random, boolean bees) {
 		if (this.level != null && this.pos != null) {
 			if (this.level.getBlockState(pos).getFluidState().is(FluidTags.WATER)) {
@@ -63,10 +64,10 @@ public class CypressSaplingGenerator extends AbstractTreeGrower {
         return WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES_SAPLING.getKey();
     }
 
+	@Override
 	public boolean growTree(@NotNull ServerLevel level, @NotNull ChunkGenerator generator, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull RandomSource random) {
 		this.level = level;
 		this.pos = pos;
 		return super.growTree(level, generator, pos, state, random);
 	}
-
 }
