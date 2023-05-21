@@ -46,106 +46,25 @@ public final class OverworldBiomeBuilderMixin {
 
 	@Shadow
 	@Final
-	public static float HIGH_START;
-	@Shadow
-	@Final
-	public static float PEAK_START;
-	@Shadow
-	@Final
-	public static float NEAR_INLAND_START;
-	@Shadow
-	@Final
-	public static float MID_INLAND_START;
-	@Shadow
-	@Final
-	public static float FAR_INLAND_START;
-	@Shadow
-	@Final
-	public static float EROSION_INDEX_1_START;
-	@Shadow
-	@Final
-	public static float EROSION_INDEX_2_START;
-	@Shadow
-	@Final
-	private static float VALLEY_SIZE;
-	@Shadow
-	@Final
-	private static float LOW_START;
-	@Shadow
-	@Final
-	private static float HIGH_END;
-	@Shadow
-	@Final
-	private static float PEAK_SIZE;
-	@Shadow
-	@Final
-	private static float PEAK_END;
-	@Shadow
-	@Final
-	private static float EROSION_DEEP_DARK_DRYNESS_THRESHOLD;
-	@Shadow
-	@Final
-	private static float DEPTH_DEEP_DARK_DRYNESS_THRESHOLD;
-	@Shadow
-	@Final
-	private Climate.Parameter FULL_RANGE;
-	@Shadow
-	@Final
 	private Climate.Parameter[] temperatures;
-	@Shadow
-	@Final
-	private Climate.Parameter[] humidities;
 	@Shadow
 	@Final
 	private Climate.Parameter[] erosions;
 	@Shadow
 	@Final
-	private Climate.Parameter FROZEN_RANGE;
-	@Shadow
-	@Final
-	private Climate.Parameter UNFROZEN_RANGE;
-	@Shadow
-	@Final
-	private Climate.Parameter mushroomFieldsContinentalness;
-	@Shadow
-	@Final
-	private Climate.Parameter deepOceanContinentalness;
-	@Shadow
-	@Final
-	private Climate.Parameter oceanContinentalness;
-	@Shadow
-	@Final
 	private Climate.Parameter coastContinentalness;
-	@Shadow
-	@Final
-	private Climate.Parameter inlandContinentalness;
 	@Shadow
 	@Final
 	private Climate.Parameter nearInlandContinentalness;
 	@Shadow
 	@Final
-	private Climate.Parameter midInlandContinentalness;
-	@Shadow
-	@Final
 	private Climate.Parameter farInlandContinentalness;
-	@Shadow
-	@Final
-	private ResourceKey<Biome>[][] OCEANS;
 	@Shadow
 	@Final
 	private ResourceKey<Biome>[][] MIDDLE_BIOMES;
 	@Shadow
 	@Final
 	private ResourceKey<Biome>[][] MIDDLE_BIOMES_VARIANT;
-	@Shadow
-	@Final
-	private ResourceKey<Biome>[][] PLATEAU_BIOMES;
-	@Shadow
-	@Final
-	private ResourceKey<Biome>[][] PLATEAU_BIOMES_VARIANT;
-	@Shadow
-	@Final
-	private ResourceKey<Biome>[][] SHATTERED_BIOMES;
 
 	@Unique
 	private static void wilderWild$replaceParameters(
