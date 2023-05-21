@@ -22,6 +22,7 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
+import org.jetbrains.annotations.NotNull;
 
 public final class WilderEntityTags {
 	private WilderEntityTags() {
@@ -35,7 +36,8 @@ public final class WilderEntityTags {
 	public static final TagKey<EntityType<?>> COCONUT_CANT_BONK = bind("coconut_cant_bonk");
 	public static final TagKey<EntityType<?>> COCONUT_CANT_SPLIT = bind("coconut_cant_split");
 
-    private static TagKey<EntityType<?>> bind(String path) {
+	@NotNull
+    private static TagKey<EntityType<?>> bind(@NotNull String path) {
         return TagKey.create(Registries.ENTITY_TYPE, WilderSharedConstants.id(path));
     }
 }

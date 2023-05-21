@@ -27,6 +27,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -83,7 +84,7 @@ public class WilderSharedConstants {
 	// MEASURING
 	public static final Map<Object, Long> INSTANT_MAP = new HashMap<>();
 
-	public static void startMeasuring(Object object) {
+	public static void startMeasuring(@NotNull Object object) {
 		long started = System.nanoTime();
 		String name = object.getClass().getName();
 		WilderSharedConstants.LOGGER.info("Started measuring {}", name.substring(name.lastIndexOf(".") + 1));
@@ -98,15 +99,18 @@ public class WilderSharedConstants {
 		}
 	}
 
-	public static ResourceLocation id(String path) {
+	@NotNull
+	public static ResourceLocation id(@NotNull String path) {
 		return new ResourceLocation(MOD_ID, path);
 	}
 
-	public static ResourceLocation vanillaId(String path) {
+	@NotNull
+	public static ResourceLocation vanillaId(@NotNull String path) {
 		return new ResourceLocation("minecraft", path);
 	}
 
-	public static String string(String path) {
+	@NotNull
+	public static String string(@NotNull String path) {
 		return WilderSharedConstants.id(path).toString();
 	}
 }

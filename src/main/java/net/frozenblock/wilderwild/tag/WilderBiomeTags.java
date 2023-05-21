@@ -22,6 +22,7 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
+import org.jetbrains.annotations.NotNull;
 
 public final class WilderBiomeTags {
 	private WilderBiomeTags() {
@@ -179,7 +180,8 @@ public final class WilderBiomeTags {
 
 	public static final TagKey<Biome> WILDER_WILD_BIOMES = bind("wilder_wild_biomes");
 
-    private static TagKey<Biome> bind(String path) {
+	@NotNull
+    private static TagKey<Biome> bind(@NotNull String path) {
         return TagKey.create(Registries.BIOME, WilderSharedConstants.id(path));
     }
 }

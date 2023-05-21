@@ -22,6 +22,7 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.NotNull;
 
 public final class WilderBlockTags {
 	private WilderBlockTags() {
@@ -79,7 +80,8 @@ public final class WilderBlockTags {
 	public static final TagKey<Block> PURPLE_NEMATOCYST_FEATURE_PLACEABLE = bind("purple_nematocyst_feature_placeable");
 	public static final TagKey<Block> SHELF_FUNGUS_FEATURE_PLACEABLE = bind("shelf_fungus_feature_placeable");
 
-	private static TagKey<Block> bind(String path) {
+	@NotNull
+	private static TagKey<Block> bind(@NotNull String path) {
 		return TagKey.create(Registries.BLOCK, WilderSharedConstants.id(path));
 	}
 }

@@ -22,6 +22,7 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import org.jetbrains.annotations.NotNull;
 
 public final class WilderItemTags {
 	private WilderItemTags() {
@@ -33,7 +34,8 @@ public final class WilderItemTags {
 	public static final TagKey<Item> TUMBLEWEED_MEDIUM = bind("tumbleweed_medium");
 	public static final TagKey<Item> TUMBLEWEED_RARE = bind("tumbleweed_rare");
 
-    private static TagKey<Item> bind(String path) {
+	@NotNull
+    private static TagKey<Item> bind(@NotNull String path) {
         return TagKey.create(Registries.ITEM, WilderSharedConstants.id(path));
     }
 }
