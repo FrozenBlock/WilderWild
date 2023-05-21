@@ -85,10 +85,13 @@ public class PollenParticle extends TextureSheetParticle {
 				this.lifetime = this.age;
 			}
 			if (this.age++ >= this.lifetime) {
-				if (this.prevScale <= 0.05F) {
+				if (this.prevScale == 0F) {
 					this.remove();
 				} else {
 					this.targetScale = 0F;
+					if (this.prevScale <= 0.04F) {
+						this.scale = 0F;
+					}
 				}
 			} else {
 				this.targetScale = 1F;
