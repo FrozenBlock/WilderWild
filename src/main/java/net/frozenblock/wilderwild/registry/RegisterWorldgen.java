@@ -605,7 +605,7 @@ public final class RegisterWorldgen {
 					.fogColor(WilderSharedWorldgen.BirchTaiga.FOG_COLOR)
 					.skyColor(WilderSharedWorldgen.BirchTaiga.SKY_COLOR)
 					.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-					.backgroundMusic(null).build())
+					.backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST)).build())
 			.mobSpawnSettings(builder.build())
 			.generationSettings(builder2.build())
 			.build();
