@@ -564,6 +564,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
 				.add(Biomes.DARK_FOREST)
 				.add(Biomes.TAIGA)
+				.add(Biomes.MANGROVE_SWAMP)
 				.addOptional(Biomes.CHERRY_GROVE)
 				.addOptional(RegisterWorldgen.CYPRESS_WETLANDS)
 				.addOptional(RegisterWorldgen.BIRCH_TAIGA)
@@ -642,6 +643,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.add(Biomes.SPARSE_JUNGLE)
 				.add(Biomes.JUNGLE)
 				.add(Biomes.BAMBOO_JUNGLE)
+				.add(Biomes.MANGROVE_SWAMP)
 				.addOptional(RegisterWorldgen.BIRCH_TAIGA)
 				.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
 				.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
@@ -963,12 +965,15 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptional(RegisterWorldgen.FLOWER_FIELD);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_DENSE_FERN)
+				.add(Biomes.MANGROVE_SWAMP)
 				.addOptional(RegisterWorldgen.CYPRESS_WETLANDS);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_DENSE_TALL_GRASS)
+				.add(Biomes.MANGROVE_SWAMP)
 				.addOptional(RegisterWorldgen.CYPRESS_WETLANDS);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SPARSE_JUNGLE_FLOWERS)
+				.add(Biomes.MANGROVE_SWAMP)
 				.add(Biomes.SPARSE_JUNGLE)
 				.add(Biomes.BAMBOO_JUNGLE)
 				.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
@@ -1000,6 +1005,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptional(RegisterWorldgen.FLOWER_FIELD);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_RAINFOREST_BUSH)
+				.add(Biomes.MANGROVE_SWAMP)
 				.addOptional(RegisterWorldgen.RAINFOREST)
 				.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
 
@@ -1146,6 +1152,15 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptional(RegisterWorldgen.ARID_SAVANNA)
 				.addOptional(RegisterWorldgen.PARCHED_FOREST);
 
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_MUD_BASIN)
+				.add(Biomes.MANGROVE_SWAMP);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_MUD_PILE)
+				.add(Biomes.MANGROVE_SWAMP);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_MUD_LAKE)
+				.add(Biomes.MANGROVE_SWAMP);
+
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_ALGAE_SMALL)
 				.addOptionalTag(BiomeTags.ALLOWS_SURFACE_SLIME_SPAWNS);
 
@@ -1164,6 +1179,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_MOSS_CARPET)
+				.add(Biomes.MANGROVE_SWAMP)
 				.add(Biomes.JUNGLE)
 				.add(Biomes.SPARSE_JUNGLE)
 				.add(Biomes.BAMBOO_JUNGLE)

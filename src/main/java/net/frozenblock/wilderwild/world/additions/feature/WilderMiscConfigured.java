@@ -142,7 +142,12 @@ public final class WilderMiscConfigured {
 	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> BASIN_MOSS = register("basin_moss");
 	public static final FrozenConfiguredFeature<LakeFeature.Configuration, ConfiguredFeature<LakeFeature.Configuration, ?>> MOSS_LAKE = register("moss_lake");
 
-	//SNOW
+	// MANGROVE SWAMP
+	public static final FrozenConfiguredFeature<BlockPileConfiguration, ConfiguredFeature<BlockPileConfiguration, ?>> MUD_PILE = register("mud_pile");
+	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> BASIN_MUD = register("basin_mud");
+	public static final FrozenConfiguredFeature<LakeFeature.Configuration, ConfiguredFeature<LakeFeature.Configuration, ?>> MUD_LAKE = register("mud_lake");
+
+	// SNOW
 	public static final FrozenConfiguredFeature<NoneFeatureConfiguration, ConfiguredFeature<NoneFeatureConfiguration, ?>> SNOW_BLANKET = register("snow_blanket");
 	public static final FrozenConfiguredFeature<SnowAndIceDiskFeatureConfig, ConfiguredFeature<SnowAndIceDiskFeatureConfig, ?>> SNOW_AND_ICE_TRANSITION_DISK = register("snow_and_freeze_transition_disk");
 	private static final RuleTest NATURAL_STONE = new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD);
@@ -895,6 +900,34 @@ public final class WilderMiscConfigured {
 			new LakeFeature.Configuration(
 				BlockStateProvider.simple(Blocks.WATER.defaultBlockState()),
 				BlockStateProvider.simple(Blocks.MOSS_BLOCK.defaultBlockState())
+			)
+		);
+
+		MUD_PILE.makeAndSetHolder(Feature.BLOCK_PILE,
+			new BlockPileConfiguration(
+				BlockStateProvider.simple(Blocks.MUD)
+			)
+		);
+
+		BASIN_MUD.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
+			new VegetationPatchConfiguration(
+				WilderBlockTags.BASIN_REPLACEABLE,
+				BlockStateProvider.simple(Blocks.MUD),
+				PlacementUtils.inlinePlaced(BLANK_SHUT_UP.getHolder()),
+				CaveSurface.FLOOR,
+				ConstantInt.of(2),
+				0.8F,
+				1,
+				0.000F,
+				UniformInt.of(1, 3),
+				0.7F
+			)
+		);
+
+		MUD_LAKE.makeAndSetHolder(Feature.LAKE,
+			new LakeFeature.Configuration(
+				BlockStateProvider.simple(Blocks.WATER.defaultBlockState()),
+				BlockStateProvider.simple(Blocks.MUD.defaultBlockState())
 			)
 		);
 

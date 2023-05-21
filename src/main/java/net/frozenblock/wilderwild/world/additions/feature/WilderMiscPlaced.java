@@ -115,7 +115,11 @@ public final class WilderMiscPlaced {
 	public static final FrozenPlacedFeature BASIN_MOSS = register("basin_moss");
 	public static final FrozenPlacedFeature MOSS_LAKE = register("moss_lake");
 	public static final FrozenPlacedFeature MOSS_LAKE_RARE = register("moss_lake_rare");
-	//SNOW
+	// MANGROVE SWAMP
+	public static final FrozenPlacedFeature MUD_PILE = register("mud_pile");
+	public static final FrozenPlacedFeature BASIN_MUD = register("basin_mud");
+	public static final FrozenPlacedFeature MUD_LAKE = register("mud_lake");
+	// SNOW
 	public static final FrozenPlacedFeature SNOW_BLANKET = register("snow_blanket");
 	public static final FrozenPlacedFeature SNOW_AND_ICE_TRANSITION = register("snow_and_freeze_transition");
 
@@ -537,6 +541,33 @@ public final class WilderMiscPlaced {
 		MOSS_LAKE_RARE.makeAndSetHolder(WilderMiscConfigured.MOSS_LAKE.getHolder(),
 			CountPlacement.of(1),
 			RarityFilter.onAverageOnceEvery(10),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING),
+			BiomeFilter.biome()
+		);
+
+		// MANGROVE SWAMP
+
+		MUD_PILE.makeAndSetHolder(WilderMiscConfigured.MUD_PILE.getHolder(),
+			RarityFilter.onAverageOnceEvery(9),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP,
+			BiomeFilter.biome()
+		);
+
+		BASIN_MUD.makeAndSetHolder(WilderMiscConfigured.BASIN_MUD.getHolder(),
+			RarityFilter.onAverageOnceEvery(5),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
+			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			BiomeFilter.biome()
+		);
+
+		MUD_LAKE.makeAndSetHolder(WilderMiscConfigured.MUD_LAKE.getHolder(),
+			CountPlacement.of(1),
+			RarityFilter.onAverageOnceEvery(1),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING),
