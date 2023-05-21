@@ -37,5 +37,7 @@ public final class WilderRegistry {
 	}
 
 	public static void initRegistry() {
+		FireflyColor.init();
+		JellyfishVariant.init();
 	}
 }

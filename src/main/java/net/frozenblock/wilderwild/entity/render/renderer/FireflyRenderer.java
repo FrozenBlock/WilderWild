@@ -52,7 +52,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 	private static final float pi = (float) Math.PI;
 	public static Object2ObjectMap<ResourceLocation, RenderType> layers = new Object2ObjectLinkedOpenHashMap<>() {{
 		Object2ObjectMap<ResourceLocation, ResourceLocation> colors = new Object2ObjectLinkedOpenHashMap<>();
-		WilderRegistry.FIREFLY_COLOR.forEach(color -> colors.put(color.getKey(), color.getTexture()));
+		WilderRegistry.FIREFLY_COLOR.forEach(color -> colors.put(color.key(), color.texture()));
 		colors.forEach((colorKey, texture) -> put(colorKey, RenderType.entityTranslucentEmissive(texture)));
 	}};
 	public FireflyRenderer(EntityRendererProvider.Context ctx) {
@@ -100,14 +100,14 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 			.normal(matrix3f, 0.0F, 1.0F, 0.0F)
 			.endVertex();
 
-		if (color2 != null && layers.get(color2.getKey()) != null) {
+		if (color2 != null && layers.get(color2.key()) != null) {
 			if (!nectar) {
-				vertexConsumer = vertexConsumers.getBuffer(layers.get(color2.getKey()));
+				vertexConsumer = vertexConsumers.getBuffer(layers.get(color2.key()));
 			} else {
 				vertexConsumer = vertexConsumers.getBuffer(nectarOverlay);
 			}
 		} else {
-			vertexConsumer = vertexConsumers.getBuffer(layers.get(FireflyColor.ON.getKey()));
+			vertexConsumer = vertexConsumers.getBuffer(layers.get(FireflyColor.ON.key()));
 		}
 
 		int color = flickers ? (int) ((255 * (Math.cos((piAgeDelta) * 0.025))) + 127.5) : (int) Math.max((255 * (Math.cos((piAgeDelta) * 0.05))), 0);

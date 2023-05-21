@@ -196,7 +196,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		if (itemStack.getItem() == Items.GLASS_BOTTLE && this.isAlive()) {
 			WilderSharedConstants.log("Firefly capture attempt starting @ " + this.blockPosition().toShortString() + " by " + player.getDisplayName().getString(), WilderSharedConstants.UNSTABLE_LOGGING);
 			FireflyColor color = this.getColor();
-			Optional<Item> optionalItem = BuiltInRegistries.ITEM.getOptional(new ResourceLocation(color.getKey().getNamespace(), Objects.equals(color, FireflyColor.ON) ? "firefly_bottle" : color.getKey().getPath() + "_firefly_bottle"));
+			Optional<Item> optionalItem = BuiltInRegistries.ITEM.getOptional(new ResourceLocation(color.key().getNamespace(), Objects.equals(color, FireflyColor.ON) ? "firefly_bottle" : color.key().getPath() + "_firefly_bottle"));
 			Item item = RegisterItems.FIREFLY_BOTTLE;
 			if (optionalItem.isPresent()) {
 				item = optionalItem.get();

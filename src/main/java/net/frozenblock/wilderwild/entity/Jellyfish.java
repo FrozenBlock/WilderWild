@@ -89,7 +89,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		.collect(Collectors.toList())
 	);
 	public static final ArrayList<JellyfishVariant> PEARLESCENT_VARIANTS = new ArrayList<>(WilderRegistry.JELLYFISH_VARIANT.stream()
-		.filter(JellyfishVariant::isPearlescent)
+		.filter(JellyfishVariant::pearlescent)
 		.collect(Collectors.toList())
 	);
 	private static final float MAX_TARGET_DISTANCE = 15F;
@@ -175,7 +175,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public static int getPearlescentJellyfish(@NotNull ServerLevel level) {
 		int count = 0;
 		for (Jellyfish jellyfish : getJellyfish(level)) {
-			if (jellyfish.getVariant().isPearlescent()) {
+			if (jellyfish.getVariant().pearlescent()) {
 				count += 1;
 			}
 		}
@@ -189,9 +189,9 @@ public class Jellyfish extends NoFlopAbstractFish {
 		var random = AdvancedMath.random();
 		this.setVariant(JellyfishVariant.PINK);
 
-		if (biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)) {
+		if (biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH) && !PEARLESCENT_VARIANTS.isEmpty()) {
 			this.setVariant(PEARLESCENT_VARIANTS.get(random.nextInt(PEARLESCENT_VARIANTS.size())));
-		} else {
+		} else if (!COLORED_VARIANTS.isEmpty()) {
 			this.setVariant(COLORED_VARIANTS.get(random.nextInt(COLORED_VARIANTS.size())));
 		}
 		return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
@@ -202,9 +202,9 @@ public class Jellyfish extends NoFlopAbstractFish {
 		var random = AdvancedMath.random();
 		this.setVariant(JellyfishVariant.PINK);
 
-		if (biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)) {
+		if (biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)  && !PEARLESCENT_VARIANTS.isEmpty()) {
 			this.setVariant(PEARLESCENT_VARIANTS.get(random.nextInt(PEARLESCENT_VARIANTS.size())));
-		} else {
+		} else if (!COLORED_VARIANTS.isEmpty()) {
 			this.setVariant(COLORED_VARIANTS.get(random.nextInt(COLORED_VARIANTS.size())));
 		}
 	}
@@ -450,7 +450,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@NotNull
 	public ResourceLocation getDefaultLootTable() {
 		ResourceLocation resourceLocation = BuiltInRegistries.ENTITY_TYPE.getKey(RegisterEntities.JELLYFISH);
-		return new ResourceLocation(this.getVariant().getKey().getNamespace(), "entities/" + resourceLocation.getPath() + "_" + this.getVariant().getKey().getPath());
+		return new ResourceLocation(this.getVariant().key().getNamespace(), "entities/" + resourceLocation.getPath() + "_" + this.getVariant().key().getPath());
 	}
 
 	@Override

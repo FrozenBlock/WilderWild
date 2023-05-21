@@ -29,12 +29,12 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
-public class FireflyColor {
+public record FireflyColor(ResourceLocation key, ResourceLocation texture) {
 
 	public static final Codec<FireflyColor> CODEC = ResourceLocation.CODEC
 		.listOf()
 		.comapFlatMap(
-			list -> Util.fixedSize(list, 2).map(listx -> new FireflyColor(listx.get(0), listx.get(1))), color -> List.of(color.getKey(), color.getTexture())
+			list -> Util.fixedSize(list, 2).map(listx -> new FireflyColor(listx.get(0), listx.get(1))), color -> List.of(color.key(), color.texture())
 		);
 
 	public static final EntityDataSerializer<FireflyColor> SERIALIZER = EntityDataSerializer.simpleId(WilderRegistry.FIREFLY_COLOR);
@@ -61,9 +61,6 @@ public class FireflyColor {
 		EntityDataSerializers.registerSerializer(SERIALIZER);
 	}
 
-	private final ResourceLocation key;
-	private final ResourceLocation texture;
-
 	public FireflyColor(@NotNull ResourceLocation key, @NotNull ResourceLocation texture) {
 		this.key = key;
 		this.texture = texture;
@@ -75,12 +72,15 @@ public class FireflyColor {
 	}
 
 	@NotNull
-	public ResourceLocation getKey() {
+	public ResourceLocation key() {
 		return this.key;
 	}
 
 	@NotNull
-	public ResourceLocation getTexture() {
+	public ResourceLocation texture() {
 		return this.texture;
+	}
+
+	public static void init() {
 	}
 }

@@ -81,6 +81,6 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
 		if (jellyfish.isRGB()) {
 			return WilderSharedConstants.id(WHITE_TEXTURE);
 		}
-		return jellyfish.getVariant().getTexture();
+		return jellyfish.getVariant().texture();
 	}
 }
