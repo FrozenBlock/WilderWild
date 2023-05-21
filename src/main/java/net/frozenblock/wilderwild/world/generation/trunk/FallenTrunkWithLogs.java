@@ -24,7 +24,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
 import java.util.function.BiConsumer;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -47,10 +46,10 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
 
 	protected static <P extends FallenTrunkWithLogs> Products.P7<RecordCodecBuilder.Mu<P>, Integer, Integer, Integer, Float, Float, IntProvider, IntProvider> fallenTrunkCodec(RecordCodecBuilder.Instance<P> builder) {
 		return trunkPlacerParts(builder)
-				.and(Codec.floatRange(0.0F, 1.0F).fieldOf("place_branch_chance").forGetter((trunkPlacer) -> trunkPlacer.logChance))
-				.and(Codec.floatRange(0.0F, 1.0F).fieldOf("success_in_water_chance").forGetter((trunkPlacer) -> trunkPlacer.successInWaterChance))
-				.and(IntProvider.NON_NEGATIVE_CODEC.fieldOf("max_logs").forGetter((trunkPlacer) -> trunkPlacer.maxLogs))
-				.and(IntProvider.NON_NEGATIVE_CODEC.fieldOf("max_height_above_hole").forGetter((trunkPlacer) -> trunkPlacer.maxHeightAboveHole));
+			.and(Codec.floatRange(0.0F, 1.0F).fieldOf("place_branch_chance").forGetter((trunkPlacer) -> trunkPlacer.logChance))
+			.and(Codec.floatRange(0.0F, 1.0F).fieldOf("success_in_water_chance").forGetter((trunkPlacer) -> trunkPlacer.successInWaterChance))
+			.and(IntProvider.NON_NEGATIVE_CODEC.fieldOf("max_logs").forGetter((trunkPlacer) -> trunkPlacer.maxLogs))
+			.and(IntProvider.NON_NEGATIVE_CODEC.fieldOf("max_height_above_hole").forGetter((trunkPlacer) -> trunkPlacer.maxHeightAboveHole));
 	}
 
     public final float logChance;
@@ -58,7 +57,7 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
 	public final IntProvider maxHeightAboveHole;
 	public final float successInWaterChance;
 
-    public FallenTrunkWithLogs(int baseHeight, int firstRandomHeight, int secondRandomHeight, float logChance, float successInWaterChance, IntProvider maxLogs, IntProvider maxHeightAboveHole) {
+    public FallenTrunkWithLogs(int baseHeight, int firstRandomHeight, int secondRandomHeight, float logChance, float successInWaterChance, @NotNull IntProvider maxLogs, @NotNull IntProvider maxHeightAboveHole) {
         super(baseHeight, firstRandomHeight, secondRandomHeight);
         this.logChance = logChance;
         this.maxLogs = maxLogs;
@@ -95,16 +94,7 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
                 if (solidBelow || logsAboveHole < maxAboveHole) {
                     int holeAddition = !solidBelow ? 1 : 0;
                     if (TreeFeature.validTreePos(level, mutable.set(x, startPos.getY(), z))) {
-						BlockState setState = config.trunkProvider.getState(random, mutable);
-                        if (setState.hasProperty(BlockStateProperties.AXIS)) {
-							Direction.Axis axis = logDir.getStepX() != 0 ? Direction.Axis.X : (logDir.getStepY() != 0 ? Direction.Axis.Y : Direction.Axis.Z);
-							setState = setState.setValue(BlockStateProperties.AXIS, axis);
-						}
-						if (setState.hasProperty(BlockStateProperties.WATERLOGGED)) {
-							setState = setState.setValue(BlockStateProperties.WATERLOGGED, isWaterAt(level, mutable));
-						}
-						replacer.accept(mutable, setState);
-						logs.add(mutable.immutable());
+						placeLog(logs, level, replacer, random, config, mutable, logDir);
 						if (i < height - 1 && random.nextFloat() < this.logChance && extraLogs < maxLogs) {
 							Direction direction = random.nextFloat() >= 0.33 ? Direction.Plane.HORIZONTAL.getRandomDirection(random) : Direction.Plane.VERTICAL.getRandomDirection(random);
 							this.generateExtraBranch(logs, level, replacer, random, config, mutable, logDir, direction);
@@ -120,7 +110,7 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
         return list;
     }
 
-    private void generateExtraBranch(List<BlockPos> logs, LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, TreeConfiguration config, BlockPos.MutableBlockPos pos, Direction offsetDir, Direction direction) {
+    private void generateExtraBranch(@NotNull List<BlockPos> logs, LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, @NotNull TreeConfiguration config, @NotNull BlockPos.MutableBlockPos pos, @NotNull Direction offsetDir, @NotNull Direction direction) {
         int x = pos.getX();
         int z = pos.getZ();
         int y = pos.getY();
@@ -129,22 +119,25 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
             z += direction.getStepZ();
             y += direction.getStepY();
             if (TreeFeature.validTreePos(level, pos.set(x, y, z))) {
-				BlockState setState = config.trunkProvider.getState(random, pos);
-                if (setState.hasProperty(BlockStateProperties.AXIS)) {
-                    Direction.Axis axis = direction.getStepX() != 0 ? Direction.Axis.X : (direction.getStepY() != 0 ? Direction.Axis.Y : Direction.Axis.Z);
-					setState = setState.setValue(BlockStateProperties.AXIS, axis);
-                }
-				if (setState.hasProperty(BlockStateProperties.WATERLOGGED)) {
-					setState = setState.setValue(BlockStateProperties.WATERLOGGED, isWaterAt(level, pos));
-				}
-				replacer.accept(pos, setState);
-				logs.add(pos.immutable());
-            }
+				placeLog(logs, level, replacer, random, config, pos, direction);
+			}
         }
     }
 
-	private static boolean isWaterAt(LevelSimulatedReader level, BlockPos blockpos) {
-		return level.isFluidAtPosition(blockpos, fluidState -> fluidState.is(FluidTags.WATER));
+	private void placeLog(@NotNull List<BlockPos> logs, LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, @NotNull TreeConfiguration config, @NotNull BlockPos.MutableBlockPos pos, @NotNull Direction direction) {
+		BlockState setState = config.trunkProvider.getState(random, pos);
+		if (setState.hasProperty(BlockStateProperties.AXIS)) {
+			Direction.Axis axis = direction.getStepX() != 0 ? Direction.Axis.X : (direction.getStepY() != 0 ? Direction.Axis.Y : Direction.Axis.Z);
+			setState = setState.setValue(BlockStateProperties.AXIS, axis);
+		}
+		if (setState.hasProperty(BlockStateProperties.WATERLOGGED)) {
+			setState = setState.setValue(BlockStateProperties.WATERLOGGED, isWaterAt(level, pos));
+		}
+		replacer.accept(pos, setState);
+		logs.add(pos.immutable());
 	}
 
+	private static boolean isWaterAt(@NotNull LevelSimulatedReader level, @NotNull BlockPos blockpos) {
+		return level.isFluidAtPosition(blockpos, fluidState -> fluidState.is(FluidTags.WATER));
+	}
 }

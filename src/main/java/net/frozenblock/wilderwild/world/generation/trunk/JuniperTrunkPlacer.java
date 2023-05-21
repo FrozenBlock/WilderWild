@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -47,10 +46,10 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
 
 	protected static <P extends JuniperTrunkPlacer> Products.P7<RecordCodecBuilder.Mu<P>, Integer, Integer, Integer, IntProvider, IntProvider, UniformInt, IntProvider> juniperCodec(RecordCodecBuilder.Instance<P> builder) {
 		return trunkPlacerParts(builder)
-				.and((IntProvider.codec(1, 3).fieldOf("branch_count")).forGetter(placer -> placer.branchCount))
-				.and((IntProvider.codec(2, 16).fieldOf("branch_horizontal_length")).forGetter(placer -> placer.branchHorizontalLength))
-				.and((UniformInt.CODEC.fieldOf("branch_start_offset_from_top")).forGetter(placer -> placer.branchStartOffsetFromTop))
-				.and((IntProvider.codec(-16, 16).fieldOf("branch_end_offset_from_top")).forGetter(placer -> placer.branchEndOffsetFromTop));
+			.and((IntProvider.codec(1, 3).fieldOf("branch_count")).forGetter(placer -> placer.branchCount))
+			.and((IntProvider.codec(2, 16).fieldOf("branch_horizontal_length")).forGetter(placer -> placer.branchHorizontalLength))
+			.and((UniformInt.CODEC.fieldOf("branch_start_offset_from_top")).forGetter(placer -> placer.branchStartOffsetFromTop))
+			.and((IntProvider.codec(-16, 16).fieldOf("branch_end_offset_from_top")).forGetter(placer -> placer.branchEndOffsetFromTop));
 	}
 
 	public final IntProvider branchCount;
@@ -59,7 +58,7 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
 	public final UniformInt secondBranchStartOffsetFromTop;
 	public final IntProvider branchEndOffsetFromTop;
 
-	public JuniperTrunkPlacer(int i, int j, int k, IntProvider intProvider, IntProvider intProvider2, UniformInt uniformInt, IntProvider intProvider3) {
+	public JuniperTrunkPlacer(int i, int j, int k, @NotNull IntProvider intProvider, @NotNull IntProvider intProvider2, @NotNull UniformInt uniformInt, @NotNull IntProvider intProvider3) {
 		super(i, j, k);
 		this.branchCount = intProvider;
 		this.branchHorizontalLength = intProvider2;
@@ -76,7 +75,7 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
 
 	@Override
 	@NotNull
-	public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> blockSetter, @NotNull RandomSource random, int freeTreeHeight, BlockPos pos, @NotNull TreeConfiguration config) {
+	public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> blockSetter, @NotNull RandomSource random, int freeTreeHeight, @NotNull BlockPos pos, @NotNull TreeConfiguration config) {
 		JuniperTrunkPlacer.setDirtAt(level, blockSetter, random, pos.below(), config);
 		int i = Math.max(0, freeTreeHeight - 1 + this.branchStartOffsetFromTop.sample(random));
 		int j = Math.max(0, freeTreeHeight - 1 + this.secondBranchStartOffsetFromTop.sample(random));
@@ -111,7 +110,8 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
 		return list;
 	}
 
-	private FoliagePlacer.FoliageAttachment generateBranch(LevelSimulatedReader world, BiConsumer<BlockPos, BlockState> biConsumer, RandomSource random, int i, BlockPos pos, TreeConfiguration treeConfiguration, Function<BlockState, BlockState> function, Direction direction, int j, boolean bl, BlockPos.MutableBlockPos mutablePos) {
+	@NotNull
+	private FoliagePlacer.FoliageAttachment generateBranch(@NotNull LevelSimulatedReader world, @NotNull BiConsumer<BlockPos, BlockState> biConsumer, @NotNull RandomSource random, int i, @NotNull BlockPos pos, @NotNull TreeConfiguration treeConfiguration, @NotNull Function<BlockState, BlockState> function, @NotNull Direction direction, int j, boolean bl, @NotNull BlockPos.MutableBlockPos mutablePos) {
 		int o;
 		mutablePos.set(pos).move(Direction.UP, j);
 		int k = i - 1 + this.branchEndOffsetFromTop.sample(random);

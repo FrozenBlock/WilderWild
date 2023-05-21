@@ -23,7 +23,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
 import java.util.function.BiConsumer;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -47,7 +46,7 @@ public class StraightTrunkWithLogs extends TrunkPlacer {
     private final IntProvider maxLogs;
     private final IntProvider logHeightFromTop;
 
-    public StraightTrunkWithLogs(int baseHeight, int firstRandomHeight, int secondRandomHeight, float logChance, IntProvider maxLogs, IntProvider logHeightFromTop, IntProvider extraBranchLength) {
+    public StraightTrunkWithLogs(int baseHeight, int firstRandomHeight, int secondRandomHeight, float logChance, @NotNull IntProvider maxLogs, @NotNull IntProvider logHeightFromTop, @NotNull IntProvider extraBranchLength) {
         super(baseHeight, firstRandomHeight, secondRandomHeight);
         this.logChance = logChance;
         this.maxLogs = maxLogs;
@@ -63,7 +62,7 @@ public class StraightTrunkWithLogs extends TrunkPlacer {
 
 	@Override
 	@NotNull
-    public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, int height, BlockPos startPos, @NotNull TreeConfiguration config) {
+    public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, int height, @NotNull BlockPos startPos, @NotNull TreeConfiguration config) {
         setDirtAt(level, replacer, random, startPos.below(), config);
         List<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();
         BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
@@ -86,7 +85,7 @@ public class StraightTrunkWithLogs extends TrunkPlacer {
         return list;
     }
 
-    private void generateExtraBranch(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, TreeConfiguration config, BlockPos.MutableBlockPos pos, int yOffset, Direction direction, int length) {
+    private void generateExtraBranch(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, @NotNull TreeConfiguration config, @NotNull BlockPos.MutableBlockPos pos, int yOffset, @NotNull Direction direction, int length) {
         int j = pos.getX();
         int k = pos.getZ();
         for (int l = 0; l < length; ++l) {
@@ -102,5 +101,4 @@ public class StraightTrunkWithLogs extends TrunkPlacer {
             }
         }
     }
-
 }

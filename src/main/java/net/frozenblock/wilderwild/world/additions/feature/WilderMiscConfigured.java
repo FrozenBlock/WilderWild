@@ -28,7 +28,6 @@ import net.frozenblock.lib.worldgen.feature.api.features.config.PathFeatureConfi
 import net.frozenblock.lib.worldgen.feature.api.features.config.PathSwapUnderWaterFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.PathTagFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.PillarFeatureConfig;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterFeatures;

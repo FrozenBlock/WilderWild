@@ -53,7 +53,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 
 	final BlockStateProvider insideBlockState;
 
-    public BaobabTrunkPlacer(int i, int j, int k, BlockStateProvider insideBlockState) {
+    public BaobabTrunkPlacer(int i, int j, int k, @NotNull BlockStateProvider insideBlockState) {
         super(i, j, k);
 		this.insideBlockState = insideBlockState;
     }
@@ -100,8 +100,6 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
                 if (!AdvancedMath.squareBetween(x, z, 1, 2)) { // only sides
 					boolean x0 = x == 0;
 					boolean x3 = x == 3;
-					boolean z0 = z == 0;
-					boolean z3 = z == 3;
 					Direction dir1 = Direction.WEST;
 					Direction dir2 = null;
 					boolean chance = random.nextDouble() <= percentage / 100;
@@ -121,7 +119,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 							terraformDirtBelow(level, replacer, random, usedPos.setWithOffset(center, x + 2, -1, z), config, placedLogs);
 						}
 					}
-					if (z0) {
+					if (z == 0) {
 						dir1 = Direction.NORTH;
 						if (x0) {
 							dir2 = Direction.WEST;
@@ -134,7 +132,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 							terraformDirtBelow(level, replacer, random, usedPos.setWithOffset(center, x, -1, z - 1), config, placedLogs);
 							terraformDirtBelow(level, replacer, random, usedPos.setWithOffset(center, x, -1, z - 2), config, placedLogs);
 						}
-					} else if (z3) {
+					} else if (z == 3) {
 						dir1 = Direction.SOUTH;
 						if (x0) {
 							dir2 = Direction.WEST;
