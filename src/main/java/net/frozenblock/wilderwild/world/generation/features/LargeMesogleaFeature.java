@@ -90,7 +90,8 @@ public class LargeMesogleaFeature extends Feature<LargeMesogleaConfig> {
 		}
 	}
 
-	private static LargeMesoglea makeMesoglea(BlockPos root, boolean pointingUp, RandomSource random, int radius, FloatProvider bluntnessBase, FloatProvider scaleBase) {
+	@NotNull
+	private static LargeMesoglea makeMesoglea(@NotNull BlockPos root, boolean pointingUp, @NotNull RandomSource random, int radius, @NotNull FloatProvider bluntnessBase, @NotNull FloatProvider scaleBase) {
 		return new LargeMesoglea(root, pointingUp, radius, bluntnessBase.sample(random), scaleBase.sample(random));
 	}
 
@@ -101,7 +102,7 @@ public class LargeMesogleaFeature extends Feature<LargeMesogleaConfig> {
 		private final double bluntness;
 		private final double scale;
 
-		LargeMesoglea(BlockPos root, boolean pointingUp, int radius, double bluntness, double scale) {
+		LargeMesoglea(@NotNull BlockPos root, boolean pointingUp, int radius, double bluntness, double scale) {
 			this.root = root;
 			this.pointingUp = pointingUp;
 			this.radius = radius;
@@ -113,7 +114,7 @@ public class LargeMesogleaFeature extends Feature<LargeMesogleaConfig> {
 				return this.getHeightAtRadius(0.0F);
 		}
 
-		boolean moveBackUntilBaseIsInsideStoneAndShrinkRadiusIfNecessary(WorldGenLevel level, WindOffsetter windOffsetter) {
+		boolean moveBackUntilBaseIsInsideStoneAndShrinkRadiusIfNecessary(@NotNull WorldGenLevel level, @NotNull WindOffsetter windOffsetter) {
 			while(this.radius > 1) {
 				BlockPos.MutableBlockPos mutableBlockPos = this.root.mutable();
 				int i = Math.min(10, this.getHeight());
@@ -141,7 +142,7 @@ public class LargeMesogleaFeature extends Feature<LargeMesogleaConfig> {
 			return (int) LargeMesogleaFeature.getMesogleaHeight(radius, this.radius, this.scale, this.bluntness);
 		}
 
-		void placeBlocks(WorldGenLevel level, RandomSource random, WindOffsetter windOffsetter, LargeMesogleaConfig config) {
+		void placeBlocks(@NotNull WorldGenLevel level, @NotNull RandomSource random, @NotNull WindOffsetter windOffsetter, @NotNull LargeMesogleaConfig config) {
 			for(int i = -this.radius; i <= this.radius; ++i) {
 				for(int j = -this.radius; j <= this.radius; ++j) {
 					float f = Mth.sqrt((float)(i * i + j * j));
@@ -173,7 +174,7 @@ public class LargeMesogleaFeature extends Feature<LargeMesogleaConfig> {
 			}
 		}
 
-		boolean isSuitableForWind(LargeMesogleaConfig config) {
+		boolean isSuitableForWind(@NotNull LargeMesogleaConfig config) {
 			return this.radius >= config.minRadiusForWind && this.bluntness >= (double)config.minBluntnessForWind;
 		}
 	}
@@ -183,7 +184,7 @@ public class LargeMesogleaFeature extends Feature<LargeMesogleaConfig> {
 		@Nullable
 		private final Vec3 windSpeed;
 
-		WindOffsetter(int originY, RandomSource random, FloatProvider magnitude) {
+		WindOffsetter(int originY, @NotNull RandomSource random, @NotNull FloatProvider magnitude) {
 			this.originY = originY;
 			float f = magnitude.sample(random);
 			float g = Mth.randomBetween(random, 0.0F, 3.1415927F);
@@ -195,11 +196,13 @@ public class LargeMesogleaFeature extends Feature<LargeMesogleaConfig> {
 			this.windSpeed = null;
 		}
 
+		@NotNull
 		static WindOffsetter noWind() {
 				return new WindOffsetter();
 		}
 
-		BlockPos offset(BlockPos pos) {
+		@NotNull
+		BlockPos offset(@NotNull BlockPos pos) {
 			if (this.windSpeed == null) {
 				return pos;
 			} else {
@@ -210,11 +213,11 @@ public class LargeMesogleaFeature extends Feature<LargeMesogleaConfig> {
 		}
 	}
 
-	protected static boolean isEmptyOrWater(LevelAccessor level, BlockPos pos) {
+	protected static boolean isEmptyOrWater(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
 		return level.isStateAtPosition(pos, DripstoneUtils::isEmptyOrWater);
 	}
 
-	protected static boolean isCircleMostlyEmbeddedInStone(WorldGenLevel level, BlockPos pos, int radius) {
+	protected static boolean isCircleMostlyEmbeddedInStone(@NotNull WorldGenLevel level, @NotNull BlockPos pos, int radius) {
 		if (isEmptyOrWaterOrLava(level, pos)) {
 			return false;
 		} else {
@@ -232,11 +235,11 @@ public class LargeMesogleaFeature extends Feature<LargeMesogleaConfig> {
 		}
 	}
 
-	protected static boolean isEmptyOrWaterOrLava(LevelAccessor level, BlockPos pos) {
+	protected static boolean isEmptyOrWaterOrLava(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
 		return level.isStateAtPosition(pos, LargeMesogleaFeature::isEmptyOrWaterOrLava);
 	}
 
-	public static boolean isEmptyOrWaterOrLava(BlockState state) {
+	public static boolean isEmptyOrWaterOrLava(@NotNull BlockState state) {
 		return state.isAir() || state.is(Blocks.WATER) || state.is(Blocks.LAVA);
 	}
 
@@ -254,5 +257,4 @@ public class LargeMesogleaFeature extends Feature<LargeMesogleaConfig> {
 		i = Math.max(i, 0.0);
 		return i / 0.384 * maxRadius;
 	}
-
 }

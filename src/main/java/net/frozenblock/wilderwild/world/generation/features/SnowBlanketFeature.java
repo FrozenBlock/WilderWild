@@ -34,8 +34,6 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 import org.jetbrains.annotations.NotNull;
 
 public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
-	private static final BlockState placeState = Blocks.SNOW.defaultBlockState();
-	private static final BlockState iceState = Blocks.ICE.defaultBlockState();
 
 	public SnowBlanketFeature(@NotNull Codec<NoneFeatureConfiguration> codec) {
 		super(codec);
@@ -50,6 +48,7 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 		boolean returnValue = false;
 		int posX = pos.getX();
 		int posZ = pos.getZ();
+		BlockState iceState = Blocks.ICE.defaultBlockState();
 		for(int i = 0; i < 16; i++) {
 			int x = posX + i;
 			for(int j = 0; j < 16; j++) {
@@ -64,7 +63,7 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 					}
 					mutablePlacementPos.move(Direction.UP);
 					if (biomeHolder.equals(lowerBiomeHolder)) {
-						if (placeSnowAtPosOneBiome(level, mutablePos, mutablePlacementPos, biomeHolder)) {
+						if (placeSnowAtPos(level, mutablePos, mutablePlacementPos, biomeHolder)) {
 							returnValue = true;
 						}
 					} else {
@@ -78,30 +77,16 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 		return returnValue;
 	}
 
-	private static boolean placeSnowAtPosOneBiome(@NotNull WorldGenLevel level, @NotNull BlockPos.MutableBlockPos motionBlockingPos, @NotNull BlockPos.MutableBlockPos belowLeavesPos, @NotNull Holder<Biome> biomeHolder) {
+	private static boolean placeSnowAtPos(@NotNull WorldGenLevel level, @NotNull BlockPos.MutableBlockPos motionBlockingPos, @NotNull BlockPos.MutableBlockPos belowLeavesPos, @NotNull Holder<Biome> biomeHolder) {
 		boolean returnValue = false;
 		int lowestY = belowLeavesPos.getY() - 1;
 		while (motionBlockingPos.getY() > lowestY) {
-			if (placeSnowLayerOneBiome(level, motionBlockingPos, biomeHolder)) {
+			if (placeSnowLayer(level, motionBlockingPos, biomeHolder)) {
 				returnValue = true;
 			}
 			motionBlockingPos.move(Direction.DOWN);
 		}
 		return returnValue;
-	}
-
-	private static boolean placeSnowLayerOneBiome(@NotNull WorldGenLevel level, @NotNull BlockPos.MutableBlockPos pos, @NotNull Holder<Biome> biomeHolder) {
-		Biome biome = biomeHolder.value();
-		if (biome.shouldSnow(level, pos)) {
-			level.setBlock(pos, placeState, 2);
-			BlockState belowState = level.getBlockState(pos.move(Direction.DOWN));
-			if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
-				level.setBlock(pos, belowState.setValue(BlockStateProperties.SNOWY, true), 2);
-			}
-			pos.move(Direction.UP);
-			return true;
-		}
-		return false;
 	}
 
 	private static boolean placeSnowAtPos(@NotNull WorldGenLevel level, @NotNull BlockPos.MutableBlockPos motionBlockingPos, @NotNull BlockPos.MutableBlockPos belowLeavesPos) {
@@ -117,10 +102,12 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 	}
 
 	private static boolean placeSnowLayer(@NotNull WorldGenLevel level, @NotNull BlockPos.MutableBlockPos pos) {
-		Holder<Biome> biomeHolder = level.getBiome(pos);
-		Biome biome = biomeHolder.value();
-		if (biome.shouldSnow(level, pos)) {
-			level.setBlock(pos, placeState, 2);
+		return placeSnowLayer(level, pos, level.getBiome(pos));
+	}
+
+	private static boolean placeSnowLayer(@NotNull WorldGenLevel level, BlockPos.@NotNull MutableBlockPos pos, @NotNull Holder<Biome> biomeHolder) {
+		if (biomeHolder.value().shouldSnow(level, pos)) {
+			level.setBlock(pos, Blocks.SNOW.defaultBlockState(), 2);
 			BlockState belowState = level.getBlockState(pos.move(Direction.DOWN));
 			if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
 				level.setBlock(pos, belowState.setValue(BlockStateProperties.SNOWY, true), 2);
@@ -130,5 +117,4 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 		}
 		return false;
 	}
-
 }

@@ -39,8 +39,6 @@ import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 
 public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfig> {
-	private static final BlockState snowState = Blocks.SNOW.defaultBlockState();
-	private static final BlockState iceState = Blocks.ICE.defaultBlockState();
 
     public SnowAndFreezeDiskFeature(@NotNull Codec<SnowAndIceDiskFeatureConfig> codec) {
         super(codec);
@@ -63,17 +61,16 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 			BlockPos.MutableBlockPos mutableDisk2 = new BlockPos.MutableBlockPos();
 			int bx = s.getX();
 			int bz = s.getZ();
+			BlockState snowState = Blocks.SNOW.defaultBlockState();
 			for (int x = bx - radius; x <= bx + radius; x++) {
 				for (int z = bz - radius; z <= bz + radius; z++) {
-					double distance = ((bx - x) * (bx - x) + (bz - z) * (bz - z));
-					if (distance < radius * radius) {
+					if (((bx - x) * (bx - x) + (bz - z) * (bz - z)) < radius * radius) {
 						mutableDisk.set(x, level.getHeight(Types.MOTION_BLOCKING, x, z), z);
-						mutableDisk2.set(mutableDisk).move(Direction.DOWN);
 						BlockState state = level.getBlockState(mutableDisk);
-						if (state != snowState) {
+						if (state.getBlock() != Blocks.SNOW) {
 							boolean fade = !mutableDisk.closerThan(s, radius * config.startFadePercent);
 							if (random.nextFloat() < config.placeChance && ((!fade || random.nextFloat() > 0.5F) && canPlaceSnow(level, mutableDisk))) {
-								BlockState belowState = level.getBlockState(mutableDisk2);
+								BlockState belowState = level.getBlockState(mutableDisk2.set(mutableDisk).move(Direction.DOWN));
 								if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
 									level.setBlock(mutableDisk2, belowState.setValue(BlockStateProperties.SNOWY, true), 2);
 								}
@@ -94,14 +91,13 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 			BlockPos.MutableBlockPos mutableDisk2 = new BlockPos.MutableBlockPos();
 			int bx = s.getX();
 			int bz = s.getZ();
+			BlockState iceState = Blocks.ICE.defaultBlockState();
 			for (int x = bx - radius; x <= bx + radius; x++) {
 				for (int z = bz - radius; z <= bz + radius; z++) {
-					double distance = ((bx - x) * (bx - x) + (bz - z) * (bz - z));
-					if (distance < radius * radius) {
+					if (((bx - x) * (bx - x) + (bz - z) * (bz - z)) < radius * radius) {
 						mutableDisk.set(x, level.getHeight(Types.MOTION_BLOCKING, x, z), z);
-						mutableDisk2.set(mutableDisk).move(Direction.DOWN);
-						BlockState state = level.getBlockState(mutableDisk2);
-						if (state != iceState) {
+						BlockState state = level.getBlockState(mutableDisk2.set(mutableDisk).move(Direction.DOWN));
+						if (state.getBlock() != Blocks.ICE) {
 							boolean fade = !mutableDisk.closerThan(s, radius * config.startFadePercent);
 							if (random.nextFloat() < config.placeChance && ((!fade || random.nextFloat() > 0.5F) && canPlaceIce(level, mutableDisk2))) {
 								level.setBlock(mutableDisk2, iceState, 2);

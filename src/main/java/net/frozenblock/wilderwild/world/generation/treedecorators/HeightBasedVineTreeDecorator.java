@@ -20,14 +20,14 @@ package net.frozenblock.wilderwild.world.generation.treedecorators;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.VineBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
@@ -60,23 +60,24 @@ public class HeightBasedVineTreeDecorator extends TreeDecorator {
     public void place(@NotNull Context generator) {
         RandomSource random = generator.random();
         if (random.nextFloat() <= this.chanceToDecorate) {
-			List<BlockPos> list = new ArrayList<>();
-			list.addAll(generator.logs());
-			list.addAll(generator.roots());
-			Collections.shuffle(list);
-            list.forEach((pos) -> {
-                if (pos.getY() <= this.maxHeight) {
-                    for (Direction direction : Direction.Plane.HORIZONTAL) {
-                        if (random.nextFloat() <= this.vinePlaceChance) {
-                            BlockPos blockPos = pos.offset(direction.getStepX(), 0, direction.getStepZ());
-                            if (generator.isAir(blockPos)) {
-                                BooleanProperty dir = direction == Direction.NORTH ? VineBlock.SOUTH : direction == Direction.SOUTH ? VineBlock.NORTH : direction == Direction.WEST ? VineBlock.EAST : VineBlock.WEST;
-                                generator.setBlock(blockPos, Blocks.VINE.defaultBlockState().setValue(dir, true));
-                            }
-                        }
-                    }
-                }
-            });
+			ObjectArrayList<BlockPos> poses = new ObjectArrayList<>(generator.logs());
+			poses.addAll(generator.roots());
+			Util.shuffle(poses, random);
+			BlockState vineState = Blocks.VINE.defaultBlockState();
+			BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+			for (BlockPos pos : poses) {
+				if (pos.getY() <= this.maxHeight) {
+					for (Direction direction : Direction.Plane.HORIZONTAL) {
+						if (random.nextFloat() <= this.vinePlaceChance) {
+							mutableBlockPos.setWithOffset(pos, direction);
+							if (generator.isAir(mutableBlockPos)) {
+								BooleanProperty dir = direction == Direction.NORTH ? VineBlock.SOUTH : direction == Direction.SOUTH ? VineBlock.NORTH : direction == Direction.WEST ? VineBlock.EAST : VineBlock.WEST;
+								generator.setBlock(mutableBlockPos, vineState.setValue(dir, true));
+							}
+						}
+					}
+				}
+			}
         }
     }
 }

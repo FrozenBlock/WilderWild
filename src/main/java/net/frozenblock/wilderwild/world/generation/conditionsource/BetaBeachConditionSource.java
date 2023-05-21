@@ -23,6 +23,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.world.level.levelgen.SurfaceRules;
+import org.jetbrains.annotations.NotNull;
 
 public final class BetaBeachConditionSource implements SurfaceRules.ConditionSource {
 	public static final KeyDispatchDataCodec<BetaBeachConditionSource> CODEC = KeyDispatchDataCodec.of(
@@ -38,6 +39,7 @@ public final class BetaBeachConditionSource implements SurfaceRules.ConditionSou
 
 	public int useless;
 
+	@NotNull
 	public static BetaBeachConditionSource betaBeachConditionSource() {
 		return new BetaBeachConditionSource(1); // 1 is useless
 	}
@@ -46,13 +48,17 @@ public final class BetaBeachConditionSource implements SurfaceRules.ConditionSou
 		this.useless = useless;
 	}
 
+	@Override
+	@NotNull
 	public KeyDispatchDataCodec<? extends SurfaceRules.ConditionSource> codec() {
 		return CODEC;
 	}
 
-	public SurfaceRules.Condition apply(SurfaceRules.Context context) {
+	@Override
+	@NotNull
+	public SurfaceRules.Condition apply(@NotNull SurfaceRules.Context context) {
 		class BetaBeachCondition extends SurfaceRules.LazyYCondition {
-			BetaBeachCondition(SurfaceRules.Context context) {
+			BetaBeachCondition(@NotNull SurfaceRules.Context context) {
 				super(context);
 			}
 
@@ -64,10 +70,7 @@ public final class BetaBeachConditionSource implements SurfaceRules.ConditionSou
 		return new BetaBeachCondition(context);
 	}
 
-	public boolean equals(Object object) {
-		return this == object;
-	}
-
+	@Override
 	public String toString() {
 		return "BiomeConditionSource[betaBeach]";
 	}

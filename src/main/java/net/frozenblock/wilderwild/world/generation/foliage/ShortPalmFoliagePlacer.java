@@ -47,7 +47,7 @@ public class ShortPalmFoliagePlacer extends FoliagePlacer {
     }
 
 	@Override
-    protected void createFoliage(@NotNull LevelSimulatedReader level, @NotNull FoliageSetter blockSetter, @NotNull RandomSource random, @NotNull TreeConfiguration config, int i, FoliageAttachment foliageAttachment, int j, int k, int l) {
+    protected void createFoliage(@NotNull LevelSimulatedReader level, @NotNull FoliageSetter blockSetter, @NotNull RandomSource random, @NotNull TreeConfiguration config, int i, @NotNull FoliageAttachment foliageAttachment, int j, int k, int l) {
 		BlockPos blockPos = foliageAttachment.pos().above(l);
 		blockSetter.set(blockPos.below(), RegisterBlocks.PALM_CROWN.defaultBlockState());
 		Vec3 origin = new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ());
@@ -62,42 +62,11 @@ public class ShortPalmFoliagePlacer extends FoliagePlacer {
 			double dirZ = offsetPos.z - origin.z;
 			double dirY = (random.nextDouble() - 0.5) * 2;
 			for (int r = 0; r < radius; r++) {
-				placeLeavesAtPos(level, blockSetter, random, config, blockPos, (dirX * r), (dirY * r), (dirZ * r));
+				PalmFoliagePlacer.placeLeavesAtPos(level, blockSetter, random, config, blockPos, (dirX * r), (dirY * r), (dirZ * r));
 			}
 			angle += rotAngle;
 		}
     }
-
-	public static void placeLeavesAtPos(LevelSimulatedReader level, FoliageSetter blockSetter, RandomSource random, TreeConfiguration config, BlockPos pos, double offX, double offY, double offZ) {
-		BlockPos placePos = pos.offset(BlockPos.containing(offX, offY, offZ));
-		tryPlaceLeaf(level, blockSetter, random, config, placePos);
-		if (shouldPlaceAbove(offX)) {
-			tryPlaceLeaf(level, blockSetter, random, config, placePos.offset(1, 0, 0));
-		}
-		if (shouldPlaceBelow(offX)) {
-			tryPlaceLeaf(level, blockSetter, random, config,  placePos.offset(-1, 0, 0));
-		}
-		if (shouldPlaceAbove(offY)) {
-			tryPlaceLeaf(level, blockSetter, random, config, placePos.above());
-		}
-		if (shouldPlaceBelow(offY)) {
-			tryPlaceLeaf(level, blockSetter, random, config, placePos.below());
-		}
-		if (shouldPlaceAbove(offZ)) {
-			tryPlaceLeaf(level, blockSetter, random, config, placePos.offset(0, 0, 1));
-		}
-		if (shouldPlaceBelow(offZ)) {
-			tryPlaceLeaf(level, blockSetter, random, config,  placePos.offset(0, 0, -1));
-		}
-	}
-
-	public static boolean shouldPlaceAbove(double d) {
-		return d > 0.4;
-	}
-
-	public static boolean shouldPlaceBelow(double d) {
-		return d < 0.6;
-	}
 
 	@Override
     public int foliageHeight(@NotNull RandomSource randomSource, int i, @NotNull TreeConfiguration treeConfiguration) {

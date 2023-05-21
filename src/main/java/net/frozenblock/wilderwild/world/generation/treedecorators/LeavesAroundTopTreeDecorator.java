@@ -50,7 +50,7 @@ public class LeavesAroundTopTreeDecorator extends TreeDecorator {
 	private final int requiredEmptyBlocks;
 	private final List<Direction> directions;
 
-	public LeavesAroundTopTreeDecorator(float f, int i, int j, BlockStateProvider blockStateProvider, int k, List<Direction> list) {
+	public LeavesAroundTopTreeDecorator(float f, int i, int j, @NotNull BlockStateProvider blockStateProvider, int k, @NotNull List<Direction> list) {
 		this.probability = f;
 		this.exclusionRadiusXZ = i;
 		this.exclusionRadiusY = j;
@@ -76,26 +76,34 @@ public class LeavesAroundTopTreeDecorator extends TreeDecorator {
 		HashSet<BlockPos> set = new HashSet<>();
 		RandomSource randomSource = context.random();
 		Vec3 highPos = new Vec3(highestPos.getX() + 0.5, highestPos.getY() + 0.5, highestPos.getZ() + 0.5);
+		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+		BlockPos.MutableBlockPos mutableBlockPos2 = new BlockPos.MutableBlockPos();
+		BlockPos.MutableBlockPos mutableBlockPos3 = new BlockPos.MutableBlockPos();
+		BlockPos.MutableBlockPos mutableCheckPos = new BlockPos.MutableBlockPos();
+
 		for (BlockPos blockPos : Util.shuffledCopy(context.leaves(), randomSource)) {
 			if (((int)(Math.sqrt(blockPos.distToCenterSqr(highPos)))) <= 2) {
 				Direction direction;
-				BlockPos blockPos2 = blockPos.relative(direction = Util.getRandom(this.directions, randomSource));
-				if (set.contains(blockPos2) || !(randomSource.nextFloat() < this.probability) || !this.hasRequiredEmptyBlocks(context, blockPos, direction))
+				mutableBlockPos.setWithOffset(blockPos, direction = Util.getRandom(this.directions, randomSource));
+				if (set.contains(mutableBlockPos) || !(randomSource.nextFloat() < this.probability) || !this.hasRequiredEmptyBlocks(context, blockPos, mutableCheckPos, direction))
 					continue;
-				BlockPos blockPos3 = blockPos2.offset(-this.exclusionRadiusXZ, -this.exclusionRadiusY, -this.exclusionRadiusXZ);
-				BlockPos blockPos4 = blockPos2.offset(this.exclusionRadiusXZ, this.exclusionRadiusY, this.exclusionRadiusXZ);
-				for (BlockPos blockPos5 : BlockPos.betweenClosed(blockPos3, blockPos4)) {
-					set.add(blockPos5.immutable());
+
+				for (BlockPos blockPos5 : BlockPos.betweenClosed(
+						mutableBlockPos2.setWithOffset(mutableCheckPos, -this.exclusionRadiusXZ, -this.exclusionRadiusY, -this.exclusionRadiusXZ),
+						mutableBlockPos3.setWithOffset(mutableCheckPos, this.exclusionRadiusXZ, this.exclusionRadiusY, this.exclusionRadiusXZ)
+					)
+				) {
+					set.add(blockPos5);
 				}
-				context.setBlock(blockPos2, this.blockProvider.getState(randomSource, blockPos2));
+				context.setBlock(mutableBlockPos, this.blockProvider.getState(randomSource, mutableBlockPos));
 			}
 		}
 	}
 
-	private boolean hasRequiredEmptyBlocks(TreeDecorator.Context context, BlockPos pos, Direction direction) {
+	private boolean hasRequiredEmptyBlocks(@NotNull TreeDecorator.Context context, @NotNull BlockPos pos, @NotNull BlockPos.MutableBlockPos mutableBlockPos, @NotNull Direction direction) {
 		for (int i = 1; i <= this.requiredEmptyBlocks; ++i) {
-			BlockPos blockPos = pos.relative(direction, i);
-			if (context.isAir(blockPos)) continue;
+			mutableBlockPos.set(pos).move(direction, i);
+			if (context.isAir(mutableBlockPos)) continue;
 			return false;
 		}
 		return true;

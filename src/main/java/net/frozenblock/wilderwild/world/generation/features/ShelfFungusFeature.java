@@ -110,5 +110,4 @@ public class ShelfFungusFeature extends Feature<ShelfFungusFeatureConfig> {
     private static boolean isAirOrWater(@NotNull BlockState state) {
         return state.isAir() || state.is(Blocks.WATER);
     }
-
 }

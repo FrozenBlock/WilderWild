@@ -22,6 +22,7 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
+import org.jetbrains.annotations.NotNull;
 
 public class WilderStructureProcessors {
 
@@ -30,7 +31,8 @@ public class WilderStructureProcessors {
     public static void init() {
     }
 
-	private static ResourceKey<StructureProcessorList> createKey(String string) {
+	@NotNull
+	private static ResourceKey<StructureProcessorList> createKey(@NotNull String string) {
 		return ResourceKey.create(Registries.PROCESSOR_LIST, WilderSharedConstants.id(string));
 	}
 }

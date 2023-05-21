@@ -99,6 +99,5 @@ public class NematocystFeature extends MultifaceGrowthFeature {
 		}
 		return false;
 	}
-
 }
 

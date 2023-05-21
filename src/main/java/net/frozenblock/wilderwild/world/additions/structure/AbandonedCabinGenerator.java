@@ -28,6 +28,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.structure.pools.SinglePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Contains the StructureTemplatePool for Abandoned Cabins
@@ -41,7 +42,8 @@ public class AbandonedCabinGenerator {
      * @param processorListEntry The processor list for the {@link SinglePoolElement}
      * @return A {@link SinglePoolElement} of the parameters given.
      */
-    public static Function<StructureTemplatePool.Projection, SinglePoolElement> ofProcessedSingle(String id, Holder<StructureProcessorList> processorListEntry) {
+	@NotNull
+    public static Function<StructureTemplatePool.Projection, SinglePoolElement> ofProcessedSingle(@NotNull String id, @NotNull Holder<StructureProcessorList> processorListEntry) {
         return projection -> new SinglePoolElement(Either.left(WilderSharedConstants.id(id)), processorListEntry, projection);
     }
 
@@ -51,7 +53,8 @@ public class AbandonedCabinGenerator {
     public static void init() {
     }
 
-	public static ResourceKey<StructureTemplatePool> createKey(String string) {
+	@NotNull
+	public static ResourceKey<StructureTemplatePool> createKey(@NotNull String string) {
 		return ResourceKey.create(Registries.TEMPLATE_POOL, WilderSharedConstants.id(string));
 	}
 }

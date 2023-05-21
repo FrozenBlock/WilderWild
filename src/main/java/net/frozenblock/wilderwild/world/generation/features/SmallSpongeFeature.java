@@ -98,6 +98,5 @@ public class SmallSpongeFeature extends Feature<SmallSpongeFeatureConfig> {
 	public static boolean isAirOrWater(@NotNull BlockState state) {
 		return state.isAir() || state.is(Blocks.WATER);
 	}
-
 }
 

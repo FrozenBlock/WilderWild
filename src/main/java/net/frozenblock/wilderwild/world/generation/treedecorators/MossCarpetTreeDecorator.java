@@ -20,12 +20,13 @@ package net.frozenblock.wilderwild.world.generation.treedecorators;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import java.util.Collections;
-import java.util.List;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 import org.jetbrains.annotations.NotNull;
@@ -54,18 +55,19 @@ public class MossCarpetTreeDecorator extends TreeDecorator {
     public void place(@NotNull Context generator) {
         RandomSource random = generator.random();
         if (random.nextFloat() <= this.chanceToDecorate) {
-            List<BlockPos> list = generator.logs();
-			list.addAll(generator.leaves());
-			Collections.shuffle(list);
+            ObjectArrayList<BlockPos> poses = new ObjectArrayList<>(generator.logs());
+			poses.addAll(generator.leaves());
+			Util.shuffle(poses, random);
 			BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-            list.forEach((pos) -> {
+			BlockState mossState = Blocks.MOSS_CARPET.defaultBlockState();
+			for (BlockPos pos : poses) {
 				mutableBlockPos.set(pos).move(Direction.UP);
 				if (generator.isAir(mutableBlockPos)) {
 					if (random.nextFloat() <= this.mossPlaceChance) {
-						generator.setBlock(mutableBlockPos, Blocks.MOSS_CARPET.defaultBlockState());
+						generator.setBlock(mutableBlockPos, mossState);
 					}
 				}
-            });
+			}
         }
     }
 }
