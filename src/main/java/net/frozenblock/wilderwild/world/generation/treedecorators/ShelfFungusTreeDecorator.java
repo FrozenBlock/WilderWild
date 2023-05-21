@@ -52,7 +52,7 @@ public class ShelfFungusTreeDecorator extends TreeDecorator {
     }
 
 	@Override
-    public void place(TreeDecorator.Context generator) {
+    public void place(@NotNull Context generator) {
         RandomSource abstractRandom = generator.random();
         if (abstractRandom.nextFloat() <= this.probability) {
             List<BlockPos> list = generator.logs();
@@ -72,5 +72,4 @@ public class ShelfFungusTreeDecorator extends TreeDecorator {
             });
         }
     }
-
 }

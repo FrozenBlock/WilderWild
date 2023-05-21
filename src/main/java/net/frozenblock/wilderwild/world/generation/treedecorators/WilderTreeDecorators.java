@@ -24,6 +24,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
+import org.jetbrains.annotations.NotNull;
 
 public final class WilderTreeDecorators {
     public static final TreeDecoratorType<ShelfFungusTreeDecorator> FUNGUS_TREE_DECORATOR = register("shelf_fungus_tree_decorator", ShelfFungusTreeDecorator.CODEC);
@@ -37,7 +38,8 @@ public final class WilderTreeDecorators {
         //Just to ensure the class is loaded.
     }
 
-    private static <P extends TreeDecorator> TreeDecoratorType<P> register(String id, Codec<P> codec) {
+	@NotNull
+    private static <P extends TreeDecorator> TreeDecoratorType<P> register(@NotNull String id, @NotNull Codec<P> codec) {
         return Registry.register(BuiltInRegistries.TREE_DECORATOR_TYPE, WilderSharedConstants.id(id), new TreeDecoratorType<P>(codec));
     }
 }

@@ -60,12 +60,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import net.minecraft.world.level.GameRules;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixerBuilder;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixes;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
 
 public final class WilderWild extends FrozenModInitializer implements FrozenMobCategoryEntrypoint {
 
+	@Nullable
 	public static WilderWild INSTANCE;
 
 	public WilderWild() {
@@ -73,21 +75,17 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		INSTANCE = this;
 	}
 
-
     @Override //Alan Wilder Wild
     public void onInitialize(String modId, ModContainer container) {
         WilderSharedConstants.startMeasuring(this);
         applyDataFixes(container);
 
-		RegisterFeatures.init();
         WilderRegistry.initRegistry();
         RegisterBlocks.registerBlocks();
         RegisterItems.registerItems();
-		RegisterWorldgen.init();
 		RegisterItems.registerBlockItems();
         RegisterGameEvents.registerEvents();
 		RegisterBlocks.registerDispenses();
-		WilderWorldGen.generateWildWorldGen();
 
         RegisterSounds.init();
         RegisterBlockSoundTypes.init();
@@ -98,6 +96,10 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		RegisterResources.register(container);
 		RegisterProperties.init();
 		RegisterCriteria.init();
+
+		RegisterFeatures.init();
+		RegisterWorldgen.init();
+		WilderWorldGen.generateWildWorldGen();
 
 		Registry.register(BuiltInRegistries.MATERIAL_CONDITION, WilderSharedConstants.id("beta_beach_condition_source"), BetaBeachConditionSource.CODEC.codec());
 

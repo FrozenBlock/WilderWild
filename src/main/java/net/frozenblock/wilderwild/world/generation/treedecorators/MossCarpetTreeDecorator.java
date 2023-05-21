@@ -51,7 +51,7 @@ public class MossCarpetTreeDecorator extends TreeDecorator {
     }
 
 	@Override
-    public void place(Context generator) {
+    public void place(@NotNull Context generator) {
         RandomSource random = generator.random();
         if (random.nextFloat() <= this.chanceToDecorate) {
             List<BlockPos> list = generator.logs();
@@ -68,5 +68,4 @@ public class MossCarpetTreeDecorator extends TreeDecorator {
             });
         }
     }
-
 }

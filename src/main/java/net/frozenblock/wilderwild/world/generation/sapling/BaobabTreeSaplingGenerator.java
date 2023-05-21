@@ -34,6 +34,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class BaobabTreeSaplingGenerator extends AbstractMegaTreeGrower {
+
     public BaobabTreeSaplingGenerator() {
     }
 
@@ -47,6 +48,7 @@ public abstract class BaobabTreeSaplingGenerator extends AbstractMegaTreeGrower 
 	 * @param random the random source object
 	 * @return true if the tree was successfully grown, false otherwise
 	 */
+	@Override
 	public boolean growTree(@NotNull ServerLevel level, @NotNull ChunkGenerator chunkGenerator, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull RandomSource random) {
 		// Loop through the x and z position offsets
 		for (int x = 0; x >= -4; --x) {
@@ -54,7 +56,7 @@ public abstract class BaobabTreeSaplingGenerator extends AbstractMegaTreeGrower 
 				// If the Baobab tree can be generated in the current position
 				if (canGenerateBaobabTree(state, level, pos, x, z)) {
 					// Attempt to generate the Baobab tree
-					return this.generateBaobabTree(level, chunkGenerator, pos, state, random, x, z);
+					return this.generateBaobabTree(level, chunkGenerator, pos, random, x, z);
 				}
 			}
 		}
@@ -70,7 +72,7 @@ public abstract class BaobabTreeSaplingGenerator extends AbstractMegaTreeGrower 
 	 * @return the resource key for the Baobab tree feature or null if not found
 	 */
 	@Nullable
-	protected abstract ResourceKey<ConfiguredFeature<?, ?>> getBaobabTreeFeature(RandomSource random);
+	protected abstract ResourceKey<ConfiguredFeature<?, ?>> getBaobabTreeFeature(@NotNull RandomSource random);
 
 
 	/**
@@ -90,13 +92,12 @@ public abstract class BaobabTreeSaplingGenerator extends AbstractMegaTreeGrower 
 	 * @param level The current server level.
 	 * @param chunkGenerator The chunk generator for the world.
 	 * @param pos The position for the tree to be generated.
-	 * @param state The state of the block.
 	 * @param random The random source.
-	 * @param xPos The x-coordinate position.
-	 * @param zPos The z-coordinate position.
+	 * @param xOffset The x-coordinate position.
+	 * @param zOffset The z-coordinate position.
 	 * @return true if the tree was successfully generated, false otherwise.
 	 */
-	public boolean generateBaobabTree(ServerLevel level, ChunkGenerator chunkGenerator, BlockPos pos, BlockState state, RandomSource random, int xPos, int zPos) {
+	public boolean generateBaobabTree(@NotNull ServerLevel level, @NotNull ChunkGenerator chunkGenerator, @NotNull BlockPos pos, @NotNull RandomSource random, int xOffset, int zOffset) {
 		// Get the resource key for the Baobab tree feature
 		ResourceKey<ConfiguredFeature<?, ?>> registryEntry = this.getBaobabTreeFeature(random);
 
@@ -110,28 +111,32 @@ public abstract class BaobabTreeSaplingGenerator extends AbstractMegaTreeGrower 
 			// Set the block state to air
 			BlockState blockState = Blocks.AIR.defaultBlockState();
 
+			// Create a mutable block pos for clearing the area
+			BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
+			int x = pos.getX();
+			int y = pos.getY();
+			int z = pos.getZ();
+
 			// Clear the area for the tree
-			for (var x = xPos; x <= xPos + 3; ++x) {
-				for (var z = zPos; z <= zPos + 3; ++z) {
-					var nutPos = pos.offset(x, 0, z);
-					level.setBlock(nutPos, blockState, 3);
-					level.getChunkSource().blockChanged(nutPos);
-				}
-			}
+			clearArea(level, xOffset, zOffset, x, y, z, blockState, mutableBlockPos);
 
 			// Try to place the tree in the world
-			if (configuredFeature.place(level, chunkGenerator, random, pos.offset(xPos, 0, zPos))) {
+			if (configuredFeature.place(level, chunkGenerator, random, pos.offset(xOffset, 0, zOffset))) {
 				return true;
 			} else {
 				// If the tree could not be placed, clear the area again
-				for (var x = xPos; x <= xPos + 3; ++x) {
-					for (var z = zPos; z <= zPos + 3; ++z) {
-						var nutPos = pos.offset(x, 0, z);
-						level.setBlock(nutPos, blockState, 3);
-						level.getChunkSource().blockChanged(nutPos);
-					}
-				}
+				clearArea(level, xOffset, zOffset, x, y, z, blockState, mutableBlockPos);
 				return false;
+			}
+		}
+	}
+
+	private void clearArea(@NotNull ServerLevel level, int xOffset, int zOffset, int xPos, int yPos, int zPos, @NotNull BlockState blockState, @NotNull BlockPos.MutableBlockPos mutableBlockPos) {
+		for (var x = xOffset; x <= xOffset + 3; ++x) {
+			for (var z = zOffset; z <= zOffset + 3; ++z) {
+				mutableBlockPos.set(xPos + x, yPos, zPos + z);
+				level.setBlock(mutableBlockPos, blockState, 3);
+				level.getChunkSource().blockChanged(mutableBlockPos);
 			}
 		}
 	}
@@ -146,7 +151,7 @@ public abstract class BaobabTreeSaplingGenerator extends AbstractMegaTreeGrower 
 	 * @param zPos the z position offset
 	 * @return true if the Baobab tree can be generated, false otherwise
 	 */
-	public static boolean canGenerateBaobabTree(BlockState state, BlockGetter level, BlockPos pos, int xPos, int zPos) {
+	public static boolean canGenerateBaobabTree(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, int xPos, int zPos) {
 		// Get the current block
 		Block block = state.getBlock();
 		// Initialize a flag to indicate if the tree can be generated

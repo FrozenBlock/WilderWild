@@ -30,10 +30,9 @@ public class BaobabSaplingGenerator extends BaobabTreeSaplingGenerator {
     public BaobabSaplingGenerator() {
     }
 
-
     @Nullable
     @Override
-    protected ResourceKey<ConfiguredFeature<?, ?>> getBaobabTreeFeature(RandomSource random) {
+    protected ResourceKey<ConfiguredFeature<?, ?>> getBaobabTreeFeature(@NotNull RandomSource random) {
         return random.nextFloat() < 0.856F ? WilderTreeConfigured.BAOBAB.getKey() : WilderTreeConfigured.BAOBAB_TALL.getKey();
     }
 

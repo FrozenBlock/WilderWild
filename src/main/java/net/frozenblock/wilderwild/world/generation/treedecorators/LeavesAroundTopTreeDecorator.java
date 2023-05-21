@@ -60,7 +60,13 @@ public class LeavesAroundTopTreeDecorator extends TreeDecorator {
 	}
 
 	@Override
-	public void place(TreeDecorator.Context context) {
+	@NotNull
+	protected TreeDecoratorType<?> type() {
+		return WilderTreeDecorators.LEAVES_AROUND_TOP_TREE_DECORATOR;
+	}
+
+	@Override
+	public void place(@NotNull Context context) {
 		BlockPos highestPos = context.logs().get(1);
 		for (BlockPos logPos : context.logs()) {
 			if (logPos.getY() > highestPos.getY()) {
@@ -93,12 +99,6 @@ public class LeavesAroundTopTreeDecorator extends TreeDecorator {
 			return false;
 		}
 		return true;
-	}
-
-	@Override
-	@NotNull
-	protected TreeDecoratorType<?> type() {
-		return WilderTreeDecorators.LEAVES_AROUND_TOP_TREE_DECORATOR;
 	}
 }
 

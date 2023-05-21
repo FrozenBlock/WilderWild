@@ -54,7 +54,7 @@ public class HeightBasedCobwebTreeDecorator extends TreeDecorator {
 	}
 
 	@Override
-	public void place(Context generator) {
+	public void place(@NotNull Context generator) {
 		RandomSource abstractRandom = generator.random();
 		if (abstractRandom.nextFloat() <= this.probability) {
 			List<BlockPos> list = generator.logs();
@@ -72,5 +72,4 @@ public class HeightBasedCobwebTreeDecorator extends TreeDecorator {
 			});
 		}
 	}
-
 }
