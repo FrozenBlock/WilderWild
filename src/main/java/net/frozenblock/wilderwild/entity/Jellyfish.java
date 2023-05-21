@@ -185,27 +185,22 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
-		Holder<Biome> biome = level.getBiome(this.blockPosition());
-		var random = AdvancedMath.random();
-		this.setVariant(JellyfishVariant.PINK);
-
-		if (biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH) && !PEARLESCENT_VARIANTS.isEmpty()) {
-			this.setVariant(PEARLESCENT_VARIANTS.get(random.nextInt(PEARLESCENT_VARIANTS.size())));
-		} else if (!COLORED_VARIANTS.isEmpty()) {
-			this.setVariant(COLORED_VARIANTS.get(random.nextInt(COLORED_VARIANTS.size())));
-		}
+		setVariantFromBiome(level.getBiome(this.blockPosition()));
 		return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
 	}
 
 	public void setVariantFromPos(@NotNull Level level, @NotNull BlockPos pos) {
-		Holder<Biome> biome = level.getBiome(pos);
+		setVariantFromBiome(level.getBiome(pos));
+	}
+
+	private void setVariantFromBiome(@NotNull Holder<Biome> biome) {
 		var random = AdvancedMath.random();
-		this.setVariant(JellyfishVariant.PINK);
+		this.setVariantFromBiome(JellyfishVariant.PINK);
 
 		if (biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)  && !PEARLESCENT_VARIANTS.isEmpty()) {
-			this.setVariant(PEARLESCENT_VARIANTS.get(random.nextInt(PEARLESCENT_VARIANTS.size())));
+			this.setVariantFromBiome(PEARLESCENT_VARIANTS.get(random.nextInt(PEARLESCENT_VARIANTS.size())));
 		} else if (!COLORED_VARIANTS.isEmpty()) {
-			this.setVariant(COLORED_VARIANTS.get(random.nextInt(COLORED_VARIANTS.size())));
+			this.setVariantFromBiome(COLORED_VARIANTS.get(random.nextInt(COLORED_VARIANTS.size())));
 		}
 	}
 
@@ -222,7 +217,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		if (tag.contains("variant")) {
 			JellyfishVariant variant = WilderRegistry.JELLYFISH_VARIANT.get(ResourceLocation.tryParse(tag.getString("variant")));
 			if (variant != null) {
-				this.setVariant(variant);
+				this.setVariantFromBiome(variant);
 			}
 		}
 	}
@@ -464,7 +459,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		return this.entityData.get(VARIANT);
 	}
 
-	public void setVariant(@NotNull JellyfishVariant variant) {
+	public void setVariantFromBiome(@NotNull JellyfishVariant variant) {
 		this.entityData.set(VARIANT, variant);
 	}
 
@@ -491,7 +486,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		super.readAdditionalSaveData(compound);
 		JellyfishVariant variant = WilderRegistry.JELLYFISH_VARIANT.get(ResourceLocation.tryParse(compound.getString("variant")));
 		if (variant != null) {
-			this.setVariant(variant);
+			this.setVariantFromBiome(variant);
 		}
 		this.ticksSinceSpawn = compound.getInt("ticksSinceSpawn");
 	}
