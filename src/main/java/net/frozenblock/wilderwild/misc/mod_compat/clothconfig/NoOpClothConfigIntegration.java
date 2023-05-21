@@ -319,6 +319,11 @@ public class NoOpClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean optimizedBetaBeaches() {
+		return DefaultWorldgenConfig.OPTIMIZED_BETA_BEACHES;
+	}
+
+	@Override
 	public boolean modifyJunglePlacement() {
 		return DefaultWorldgenConfig.BiomePlacement.MODIFY_JUNGLE_PLACEMENT;
 	}

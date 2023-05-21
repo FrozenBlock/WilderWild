@@ -150,6 +150,8 @@ public abstract class AbstractClothConfigIntegration extends ModIntegration {
 
 	public abstract boolean betaBeaches();
 
+	public abstract boolean optimizedBetaBeaches();
+
 	public abstract boolean modifyJunglePlacement();
 
 	public abstract boolean modifySwampPlacement();

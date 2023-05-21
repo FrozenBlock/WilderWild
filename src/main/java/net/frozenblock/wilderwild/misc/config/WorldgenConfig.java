@@ -71,6 +71,7 @@ public final class WorldgenConfig implements ConfigData {
 	}
 
     public boolean betaBeaches = DefaultWorldgenConfig.BETA_BEACHES;
+	public boolean optimizedBetaBeaches = DefaultWorldgenConfig.OPTIMIZED_BETA_BEACHES;
     public boolean dyingTrees = DefaultWorldgenConfig.DYING_TREES;
     public boolean fallenLogs = DefaultWorldgenConfig.FALLEN_LOGS;
 	public boolean snappedLogs = DefaultWorldgenConfig.SNAPPED_LOGS;
@@ -99,6 +100,11 @@ public final class WorldgenConfig implements ConfigData {
                 .setSaveConsumer(newValue -> config.betaBeaches = newValue)
                 .setTooltip(tooltip("beta_beaches"))
                 .build());
+		var optimizedBetaBeaches = category.addEntry(entryBuilder.startBooleanToggle(text("optimized_beta_beaches"), config.optimizedBetaBeaches)
+			.setDefaultValue(DefaultWorldgenConfig.OPTIMIZED_BETA_BEACHES)
+			.setSaveConsumer(newValue -> config.optimizedBetaBeaches = newValue)
+			.setTooltip(tooltip("optimized_beta_beaches"))
+			.build());
 
 		var cypressWetlands = entryBuilder.startBooleanToggle(text("generate_cypress_wetlands"), biomes.generateCypressWetlands)
 				.setDefaultValue(DefaultWorldgenConfig.BiomeGeneration.GENERATE_CYPRESS_WETLANDS)

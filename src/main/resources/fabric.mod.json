@@ -38,6 +38,9 @@
     "preLaunch": [
       "net.frozenblock.wilderwild.misc.WilderWildPreLaunch"
     ],
+    "wilderwild:beta_beaches": [
+      "net.frozenblock.wilderwild.registry.RegisterSurfaceRules"
+    ],
     "frozenlib:surface_rules": [
       "net.frozenblock.wilderwild.registry.RegisterSurfaceRules"
     ],

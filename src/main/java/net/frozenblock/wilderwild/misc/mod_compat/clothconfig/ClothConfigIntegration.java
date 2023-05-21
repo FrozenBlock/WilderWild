@@ -347,6 +347,11 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean optimizedBetaBeaches() {
+		return WORLDGEN.optimizedBetaBeaches;
+	}
+
+	@Override
 	public boolean modifyJunglePlacement() {
 		return BIOME_PLACEMENT.modifyJunglePlacement;
 	}
