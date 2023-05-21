@@ -66,6 +66,11 @@ public class FireflyHide extends MoveToBlockBehavior<Firefly> {
 	}
 
 	@Override
+	public double acceptedDistance() {
+		return 0.5D;
+	}
+
+	@Override
 	@NotNull
 	protected BlockPos getMoveToTarget() {
 		return this.blockPos;
