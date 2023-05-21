@@ -102,7 +102,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 					boolean x3 = x == 3;
 					boolean z0 = z == 0;
 					boolean z3 = z == 3;
-					Direction dir1 = null;
+					Direction dir1 = Direction.WEST;
 					Direction dir2 = null;
 					boolean chance = random.nextDouble() <= percentage / 100;
 					if (x0) {
