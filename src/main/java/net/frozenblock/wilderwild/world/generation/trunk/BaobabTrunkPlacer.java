@@ -81,6 +81,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 	@NotNull
     public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, int height, @NotNull BlockPos startPos, @NotNull TreeConfiguration config) {
         BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+		BlockPos.MutableBlockPos usedPos = new BlockPos.MutableBlockPos();
         BlockPos center = new BlockPos(startPos.getX() - 1, startPos.getY(), startPos.getZ() - 1);
         List<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();
 		List<BlockPos> placedLogs = Lists.newArrayList();
@@ -91,73 +92,62 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 
         for (int x = 0; x < 4; x++) { // X
             for (int z = 0; z < 4; z++) { // Z
-
-                terraformDirtBelow(level, replacer, random, new BlockPos(center.getX() + x, startPos.getY() - 1, center.getZ() + z), config, placedLogs);
+                terraformDirtBelow(level, replacer, random, usedPos.setWithOffset(center, x, -1, z), config, placedLogs);
                 for (int y = 0; y <= height; y++) {
                     setLog(level, replacer, random, mutable, config, center, x, y, z, placedLogs);
                 }
 
-
                 if (!AdvancedMath.squareBetween(x, z, 1, 2)) { // only sides
-                    if (random.nextDouble() <= percentage / 100) {
-						switch (x) {
-							case 0 -> {
-								setLogs(level, replacer, random, mutable, config, center, x - 1, 0, z, height / 2, placedLogs);
-								setLogs(level, replacer, random, mutable, config, center, x - 2, 0, z, height / 2 - 1, placedLogs);
-								terraformDirtBelow(level, replacer, random, new BlockPos(center.getX() + x - 1, startPos.getY() - 1, center.getZ() + z), config, placedLogs);
-								terraformDirtBelow(level, replacer, random, new BlockPos(center.getX() + x - 2, startPos.getY() - 1, center.getZ() + z), config, placedLogs);
-							}
-							case 3 -> {
-								setLogs(level, replacer, random, mutable, config, center, x + 1, 0, z, height / 2, placedLogs);
-								setLogs(level, replacer, random, mutable, config, center, x + 2, 0, z, height / 2 - 1, placedLogs);
-								terraformDirtBelow(level, replacer, random, new BlockPos(center.getX() + x + 1, startPos.getY() - 1, center.getZ() + z), config, placedLogs);
-								terraformDirtBelow(level, replacer, random, new BlockPos(center.getX() + x + 2, startPos.getY() - 1, center.getZ() + z), config, placedLogs);
-							}
+					boolean x0 = x == 0;
+					boolean x3 = x == 3;
+					boolean z0 = z == 0;
+					boolean z3 = z == 3;
+					Direction dir1 = null;
+					Direction dir2 = null;
+					boolean chance = random.nextDouble() <= percentage / 100;
+					if (x0) {
+						if (chance) {
+							setLogs(level, replacer, random, mutable, config, center, x - 1, 0, z, height / 2, placedLogs);
+							setLogs(level, replacer, random, mutable, config, center, x - 2, 0, z, height / 2 - 1, placedLogs);
+							terraformDirtBelow(level, replacer, random, usedPos.setWithOffset(center, x - 1, -1, z), config, placedLogs);
+							terraformDirtBelow(level, replacer, random, usedPos.setWithOffset(center, x - 2, -1, z), config, placedLogs);
 						}
-						switch (z) {
-							case 0 -> {
-								setLogs(level, replacer, random, mutable, config, center, x, 0, z - 1, height / 2, placedLogs);
-								setLogs(level, replacer, random, mutable, config, center, x, 0, z - 2, height / 2 - 1, placedLogs);
-								terraformDirtBelow(level, replacer, random, new BlockPos(center.getX() + x, startPos.getY() - 1, center.getZ() + z - 1), config, placedLogs);
-								terraformDirtBelow(level, replacer, random, new BlockPos(center.getX() + x, startPos.getY() - 1, center.getZ() + z - 2), config, placedLogs);
-							}
-							case 3 -> {
-								setLogs(level, replacer, random, mutable, config, center, x, 0, z + 1, height / 2, placedLogs);
-								setLogs(level, replacer, random, mutable, config, center, x, 0, z + 2, height / 2 - 1, placedLogs);
-								terraformDirtBelow(level, replacer, random, new BlockPos(center.getX() + x, startPos.getY() - 1, center.getZ() + z + 1), config, placedLogs);
-								terraformDirtBelow(level, replacer, random, new BlockPos(center.getX() + x, startPos.getY() - 1, center.getZ() + z + 2), config, placedLogs);
-							}
+					} else if (x3) {
+						dir1 = Direction.EAST;
+						if (chance) {
+							setLogs(level, replacer, random, mutable, config, center, x + 1, 0, z, height / 2, placedLogs);
+							setLogs(level, replacer, random, mutable, config, center, x + 2, 0, z, height / 2 - 1, placedLogs);
+							terraformDirtBelow(level, replacer, random, usedPos.setWithOffset(center, x + 1, -1, z), config, placedLogs);
+							terraformDirtBelow(level, replacer, random, usedPos.setWithOffset(center, x + 2, -1, z), config, placedLogs);
 						}
-                    }
-
-                    Direction dir1 = Direction.WEST;
-                    Direction dir2 = null;
-
-                    if (x == 3) {
-                        dir1 = Direction.EAST;
-                    }
-                    if (z == 0) {
-                        dir1 = Direction.NORTH;
-                    }
-                    if (z == 3) {
-                        dir1 = Direction.SOUTH;
-                    }
-                    if (x == 0 && z == 0) {
-                        dir1 = Direction.WEST;
-                        dir2 = Direction.NORTH;
-                    }
-                    if (x == 3 && z == 0) {
-                        dir1 = Direction.EAST;
-                        dir2 = Direction.NORTH;
-                    }
-                    if (x == 0 && z == 3) {
-                        dir1 = Direction.WEST;
-                        dir2 = Direction.SOUTH;
-                    }
-                    if (x == 3 && z == 3) {
-                        dir1 = Direction.EAST;
-                        dir2 = Direction.SOUTH;
-                    }
+					}
+					if (z0) {
+						dir1 = Direction.NORTH;
+						if (x0) {
+							dir2 = Direction.WEST;
+						} else if (x3) {
+							dir2 = Direction.EAST;
+						}
+						if (chance) {
+							setLogs(level, replacer, random, mutable, config, center, x, 0, z - 1, height / 2, placedLogs);
+							setLogs(level, replacer, random, mutable, config, center, x, 0, z - 2, height / 2 - 1, placedLogs);
+							terraformDirtBelow(level, replacer, random, usedPos.setWithOffset(center, x, -1, z - 1), config, placedLogs);
+							terraformDirtBelow(level, replacer, random, usedPos.setWithOffset(center, x, -1, z - 2), config, placedLogs);
+						}
+					} else if (z3) {
+						dir1 = Direction.SOUTH;
+						if (x0) {
+							dir2 = Direction.WEST;
+						} else if (x3) {
+							dir2 = Direction.EAST;
+						}
+						if (chance) {
+							setLogs(level, replacer, random, mutable, config, center, x, 0, z + 1, height / 2, placedLogs);
+							setLogs(level, replacer, random, mutable, config, center, x, 0, z + 2, height / 2 - 1, placedLogs);
+							terraformDirtBelow(level, replacer, random, usedPos.setWithOffset(center, x, -1, z + 1), config, placedLogs);
+							terraformDirtBelow(level, replacer, random, usedPos.setWithOffset(center, x, -1, z + 2), config, placedLogs);
+						}
+					}
 
                     if (random.nextDouble() <= topPercentage * 0.01) {
 						FoliagePlacer.FoliageAttachment attachment = generateBranch(dir1, dir2, 1F / 4F, height, height / 4, 4, level, replacer, random, mutable, config, center, x, z, placedLogs);
@@ -196,16 +186,16 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
     }
 
     @Nullable
-    private FoliagePlacer.FoliageAttachment generateBranch(@NotNull Direction dir1, @Nullable Direction dir2, float yEquation, int h, int minh, int maxLength, @NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, @NotNull BlockPos.MutableBlockPos mutable, @NotNull TreeConfiguration config, @NotNull BlockPos startPos, int x, int z, @NotNull List<BlockPos> logPoses) {
+    private FoliagePlacer.FoliageAttachment generateBranch(@NotNull Direction direction, @Nullable Direction direction2, float yEquation, int h, int minh, int maxLength, @NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, @NotNull BlockPos.MutableBlockPos mutable, @NotNull TreeConfiguration config, @NotNull BlockPos startPos, int x, int z, @NotNull List<BlockPos> logPoses) {
         int height = (int) ((random.nextDouble() * (h - minh)) + minh);
 		BlockPos.MutableBlockPos fPos = startPos.mutable();
 		BlockPos.MutableBlockPos fPos2 = startPos.mutable();
 
         for (int length = 1; length <= maxLength; length++) {
             int eq = (int) Math.floor(yEquation * length);
-			fPos.set(startPos).move(dir1, length);
-			if (dir2 != null) {
-				fPos.move(dir2, length);
+			fPos.set(startPos).move(direction, length);
+			if (direction2 != null) {
+				fPos.move(direction2, length);
 			}
             setLog(level, replacer, random, mutable, config, fPos, x, height + eq, z, logPoses);
             if (length == maxLength) {
@@ -241,10 +231,11 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 
     private static void terraformDirtBelow(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, @NotNull BlockPos startPos, @NotNull TreeConfiguration config, @NotNull List<BlockPos> logPoses) {
         BlockGetter bgLevel = (BlockGetter) level;
-
+		BlockPos.MutableBlockPos pos = startPos.mutable();
         for (int y = 0; true; y++) {
-            if ((!isSolid(bgLevel, startPos.below(y))) || bgLevel.getBlockState(startPos.below(y)).getBlock() == Blocks.GRASS_BLOCK) {
-                setDirtAt(level, replacer, random, startPos.below(y), config, logPoses);
+			pos.setWithOffset(startPos, 0, -y, 0);
+            if ((!isSolid(bgLevel, pos)) || bgLevel.getBlockState(pos).getBlock() == Blocks.GRASS_BLOCK) {
+                setDirtAt(level, replacer, random, pos, config, logPoses);
             } else {
                 break;
             }
