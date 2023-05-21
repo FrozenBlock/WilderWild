@@ -113,13 +113,13 @@ public final class WilderMiscGeneration {
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderMiscPlaced.MOSS_PILE.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_MUD_PILE),
-				GenerationStep.Decoration.VEGETAL_DECORATION, WilderMiscPlaced.MOSS_PILE.getKey());
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderMiscPlaced.MUD_PILE.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_MUD_BASIN),
-				GenerationStep.Decoration.LAKES, WilderMiscPlaced.MOSS_PILE.getKey());
+				GenerationStep.Decoration.LAKES, WilderMiscPlaced.BASIN_MUD.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_MUD_LAKE),
-				GenerationStep.Decoration.LAKES, WilderMiscPlaced.MOSS_PILE.getKey());
+				GenerationStep.Decoration.LAKES, WilderMiscPlaced.MUD_LAKE.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.MIXED_FOREST),
 				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.COARSE_PATH_5.getKey());
