@@ -63,6 +63,36 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 		this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0).setValue(HALF, DoubleBlockHalf.LOWER));
 	}
 
+	public static boolean isFullyGrown(@NotNull BlockState state) {
+		return state.getValue(AGE) == 2;
+	}
+
+	public static boolean isAlmostFullyGrown(@NotNull BlockState state) {
+		return state.getValue(AGE) == 1;
+	}
+
+	public static boolean isMinimumAge(@NotNull BlockState state) {
+		return state.getValue(AGE) == 0;
+	}
+
+	public static boolean isLower(@NotNull BlockState state) {
+		return state.getValue(HALF) == DoubleBlockHalf.LOWER;
+	}
+
+	private static void preventCreativeDropFromBottomPart(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable Player player) {
+		BlockPos blockPos;
+		BlockState blockState;
+		DoubleBlockHalf doubleBlockHalf = state.getValue(HALF);
+		if (doubleBlockHalf == DoubleBlockHalf.UPPER
+			&& (blockState = level.getBlockState(blockPos = pos.below())).is(state.getBlock())
+			&& blockState.getValue(HALF) == DoubleBlockHalf.LOWER) {
+			BlockState blockState2 = blockState.hasProperty(BlockStateProperties.WATERLOGGED) && Boolean.TRUE.equals(blockState.getValue(BlockStateProperties.WATERLOGGED)) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
+
+			level.setBlock(blockPos, blockState2, 35);
+			level.levelEvent(player, 2001, blockPos, Block.getId(blockState));
+		}
+	}
+
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
@@ -82,22 +112,6 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 			}
 		}
 		return super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
-	}
-
-	public static boolean isFullyGrown(@NotNull BlockState state) {
-		return state.getValue(AGE) == 2;
-	}
-
-	public static boolean isAlmostFullyGrown(@NotNull BlockState state) {
-		return state.getValue(AGE) == 1;
-	}
-
-	public static boolean isMinimumAge(@NotNull BlockState state) {
-		return state.getValue(AGE) == 0;
-	}
-
-	public static boolean isLower(@NotNull BlockState state) {
-		return state.getValue(HALF) == DoubleBlockHalf.LOWER;
 	}
 
 	@Override
@@ -178,6 +192,7 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 			this.grow(level, state, pos);
 		}
 	}
+
 	@Override
 	public long getSeed(@NotNull BlockState state, @NotNull BlockPos pos) {
 		try {
@@ -190,15 +205,15 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 	@Override
 	public void playerWillDestroy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
 		if (isFullyGrown(state) && (!level.isClientSide)) {
-				if (player.isCreative()) {
-					try {
-						preventCreativeDropFromBottomPart(level, pos, state, player);
-					} catch (IllegalArgumentException e) {
-						Block.dropResources(state, level, pos, level.getBlockEntity(pos), player, player.getMainHandItem());
-					}
-				} else {
+			if (player.isCreative()) {
+				try {
+					preventCreativeDropFromBottomPart(level, pos, state, player);
+				} catch (IllegalArgumentException e) {
 					Block.dropResources(state, level, pos, level.getBlockEntity(pos), player, player.getMainHandItem());
 				}
+			} else {
+				Block.dropResources(state, level, pos, level.getBlockEntity(pos), player, player.getMainHandItem());
+			}
 
 		}
 		super.playerWillDestroy(level, pos, state, player);
@@ -210,20 +225,6 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 			super.playerDestroy(level, player, pos, Blocks.AIR.defaultBlockState(), blockEntity, tool);
 		} else {
 			super.playerDestroy(level, player, pos, state, blockEntity, tool);
-		}
-	}
-
-	private static void preventCreativeDropFromBottomPart(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable Player player) {
-		BlockPos blockPos;
-		BlockState blockState;
-		DoubleBlockHalf doubleBlockHalf = state.getValue(HALF);
-		if (doubleBlockHalf == DoubleBlockHalf.UPPER
-			&& (blockState = level.getBlockState(blockPos = pos.below())).is(state.getBlock())
-			&& blockState.getValue(HALF) == DoubleBlockHalf.LOWER) {
-			BlockState blockState2 = blockState.hasProperty(BlockStateProperties.WATERLOGGED) && Boolean.TRUE.equals(blockState.getValue(BlockStateProperties.WATERLOGGED)) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
-
-			level.setBlock(blockPos, blockState2, 35);
-			level.levelEvent(player, 2001, blockPos, Block.getId(blockState));
 		}
 	}
 

@@ -44,6 +44,14 @@ public class FallingParticle extends TextureSheetParticle {
 		this.lifetime = level.random.nextInt(4, 8);
 	}
 
+	public FallingParticle(@NotNull ClientLevel level, double x, double y, double z, @NotNull SpriteSet spriteProvider) {
+		super(level, x, y, z, 0.0, 0.0, 0.0);
+		this.spriteProvider = spriteProvider;
+		this.setSpriteFromAge(spriteProvider);
+		this.gravity = 1.0f;
+		this.quadSize = 0.2F;
+	}
+
 	@Override
 	public void tick() {
 		super.tick();
@@ -58,14 +66,6 @@ public class FallingParticle extends TextureSheetParticle {
 	@NotNull
 	public ParticleRenderType getRenderType() {
 		return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
-	}
-
-	public FallingParticle(@NotNull ClientLevel level, double x, double y, double z, @NotNull SpriteSet spriteProvider) {
-		super(level, x, y, z, 0.0, 0.0, 0.0);
-		this.spriteProvider = spriteProvider;
-		this.setSpriteFromAge(spriteProvider);
-		this.gravity = 1.0f;
-		this.quadSize = 0.2F;
 	}
 
 	@Environment(EnvType.CLIENT)

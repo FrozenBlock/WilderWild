@@ -50,99 +50,99 @@ import org.jetbrains.annotations.NotNull;
 
 public class JellyfishAi {
 
-    public static final List<SensorType<? extends Sensor<? super Jellyfish>>> SENSOR_TYPES = List.of(
-            SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS
-    );
-    public static final List<? extends MemoryModuleType<?>> MEMORY_TYPES = List.of(
-            MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
-            MemoryModuleType.LOOK_TARGET,
-            MemoryModuleType.WALK_TARGET,
-            MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
-            MemoryModuleType.PATH,
-            MemoryModuleType.ATTACK_TARGET,
-            MemoryModuleType.NEAREST_ATTACKABLE,
-			MemoryModuleType.IS_PANICKING
-    );
+	public static final List<SensorType<? extends Sensor<? super Jellyfish>>> SENSOR_TYPES = List.of(
+		SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS
+	);
+	public static final List<? extends MemoryModuleType<?>> MEMORY_TYPES = List.of(
+		MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
+		MemoryModuleType.LOOK_TARGET,
+		MemoryModuleType.WALK_TARGET,
+		MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
+		MemoryModuleType.PATH,
+		MemoryModuleType.ATTACK_TARGET,
+		MemoryModuleType.NEAREST_ATTACKABLE,
+		MemoryModuleType.IS_PANICKING
+	);
 
 	@NotNull
-    public static Brain<Jellyfish> makeBrain(@NotNull Jellyfish jellyfish, @NotNull Brain<Jellyfish> brain) {
-        initCoreActivity(brain);
-        initIdleActivity(jellyfish, brain);
-        initFightActivity(jellyfish, brain);
+	public static Brain<Jellyfish> makeBrain(@NotNull Jellyfish jellyfish, @NotNull Brain<Jellyfish> brain) {
+		initCoreActivity(brain);
+		initIdleActivity(jellyfish, brain);
+		initFightActivity(jellyfish, brain);
 		brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
 		brain.setDefaultActivity(Activity.IDLE);
 		brain.useDefaultActivity();
-        return brain;
-    }
+		return brain;
+	}
 
-    private static void initCoreActivity(@NotNull Brain<Jellyfish> brain) {
-        brain.addActivity(
-                Activity.CORE,
-                0,
-                ImmutableList.of(
-                        new AnimalPanic(2.0F),
-                        new LookAtTargetSink(45, 90),
-                        new MoveToTargetSink()
-                )
-        );
-    }
+	private static void initCoreActivity(@NotNull Brain<Jellyfish> brain) {
+		brain.addActivity(
+			Activity.CORE,
+			0,
+			ImmutableList.of(
+				new AnimalPanic(2.0F),
+				new LookAtTargetSink(45, 90),
+				new MoveToTargetSink()
+			)
+		);
+	}
 
-    private static void initIdleActivity(@NotNull Jellyfish jellyfish, @NotNull Brain<Jellyfish> brain) {
-        brain.addActivity(
-                Activity.IDLE,
-				10,
-                ImmutableList.of(
-						StartAttacking.create(JellyfishAi::findNearestValidAttackTarget),
-						TryFindWater.create(6, 0.15F),
-						new RunOne<>(
-								ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
-								ImmutableList.of(
-										Pair.of(BehaviorBuilder.triggerIf(jellyfish1 -> jellyfish1.getTarget() == null && jellyfish1.canRandomSwim(), FrozenBehaviorUtils.getOneShot(RandomStroll.swim(1.0F))), 2),
-										Pair.of(BehaviorBuilder.triggerIf(Entity::isInWaterOrBubble), 1),
-										Pair.of(BehaviorBuilder.triggerIf(Entity::onGround), 1)
-								)
-						),
-						new JellyfishHide(jellyfish, 1.25D, 8, 3)
-				)
-        );
-    }
+	private static void initIdleActivity(@NotNull Jellyfish jellyfish, @NotNull Brain<Jellyfish> brain) {
+		brain.addActivity(
+			Activity.IDLE,
+			10,
+			ImmutableList.of(
+				StartAttacking.create(JellyfishAi::findNearestValidAttackTarget),
+				TryFindWater.create(6, 0.15F),
+				new RunOne<>(
+					ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
+					ImmutableList.of(
+						Pair.of(BehaviorBuilder.triggerIf(jellyfish1 -> jellyfish1.getTarget() == null && jellyfish1.canRandomSwim(), FrozenBehaviorUtils.getOneShot(RandomStroll.swim(1.0F))), 2),
+						Pair.of(BehaviorBuilder.triggerIf(Entity::isInWaterOrBubble), 1),
+						Pair.of(BehaviorBuilder.triggerIf(Entity::onGround), 1)
+					)
+				),
+				new JellyfishHide(jellyfish, 1.25D, 8, 3)
+			)
+		);
+	}
 
-    private static void initFightActivity(@NotNull Jellyfish jellyfish, @NotNull Brain<Jellyfish> brain) {
-        brain.addActivityAndRemoveMemoryWhenStopped(
-                Activity.FIGHT,
-                10,
-                ImmutableList.of(
-                        StopAttackingIfTargetInvalid.create(
-                                livingEntity -> !jellyfish.canTargetEntity(livingEntity), JellyfishAi::onTargetInvalid, false
-                        ),
-                        SetEntityLookTarget.create(livingEntity -> isTarget(jellyfish, livingEntity), (float) jellyfish.getAttributeValue(Attributes.FOLLOW_RANGE)),
-                        SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(JellyfishAi::getSpeedModifierChasing)
-                ),
-                MemoryModuleType.ATTACK_TARGET
-        );
-    }
+	private static void initFightActivity(@NotNull Jellyfish jellyfish, @NotNull Brain<Jellyfish> brain) {
+		brain.addActivityAndRemoveMemoryWhenStopped(
+			Activity.FIGHT,
+			10,
+			ImmutableList.of(
+				StopAttackingIfTargetInvalid.create(
+					livingEntity -> !jellyfish.canTargetEntity(livingEntity), JellyfishAi::onTargetInvalid, false
+				),
+				SetEntityLookTarget.create(livingEntity -> isTarget(jellyfish, livingEntity), (float) jellyfish.getAttributeValue(Attributes.FOLLOW_RANGE)),
+				SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(JellyfishAi::getSpeedModifierChasing)
+			),
+			MemoryModuleType.ATTACK_TARGET
+		);
+	}
 
-    private static boolean isTarget(@NotNull Jellyfish jellyfish, @NotNull LivingEntity livingEntity) {
-        return jellyfish.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).filter(livingEntity2 -> livingEntity2 == livingEntity).isPresent();
-    }
+	private static boolean isTarget(@NotNull Jellyfish jellyfish, @NotNull LivingEntity livingEntity) {
+		return jellyfish.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).filter(livingEntity2 -> livingEntity2 == livingEntity).isPresent();
+	}
 
-    public static void updateActivity(@NotNull Jellyfish jellyfish) {
-        Brain<Jellyfish> brain = jellyfish.getBrain();
-        brain.setActiveActivityToFirstValid(List.of(Activity.FIGHT, Activity.IDLE));
-    }
+	public static void updateActivity(@NotNull Jellyfish jellyfish) {
+		Brain<Jellyfish> brain = jellyfish.getBrain();
+		brain.setActiveActivityToFirstValid(List.of(Activity.FIGHT, Activity.IDLE));
+	}
 
-    private static float getSpeedModifierChasing(@NotNull LivingEntity livingEntity) {
+	private static float getSpeedModifierChasing(@NotNull LivingEntity livingEntity) {
 		return 2F;
-    }
+	}
 
-    private static void onTargetInvalid(@NotNull Jellyfish jellyfish, @NotNull LivingEntity target) {
-        if (jellyfish.getTarget() == target) {
-            jellyfish.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
-        }
-    }
+	private static void onTargetInvalid(@NotNull Jellyfish jellyfish, @NotNull LivingEntity target) {
+		if (jellyfish.getTarget() == target) {
+			jellyfish.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
+		}
+	}
 
 	@NotNull
-    private static Optional<? extends LivingEntity> findNearestValidAttackTarget(@NotNull Jellyfish jellyfish) {
-        return jellyfish.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE);
-    }
+	private static Optional<? extends LivingEntity> findNearestValidAttackTarget(@NotNull Jellyfish jellyfish) {
+		return jellyfish.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE);
+	}
 }

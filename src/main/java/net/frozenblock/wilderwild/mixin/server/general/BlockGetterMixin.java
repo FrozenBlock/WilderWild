@@ -43,24 +43,24 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public interface BlockGetterMixin {
 
 	@Shadow
-	public abstract BlockState getBlockState(BlockPos var1);
+	BlockState getBlockState(BlockPos var1);
 
 	@Shadow
-	public abstract FluidState getFluidState(BlockPos var1);
+	FluidState getFluidState(BlockPos var1);
 
 	@Shadow
 	@Nullable
-	default public BlockHitResult clipWithInteractionOverride(Vec3 startVec, Vec3 endVec, BlockPos pos, VoxelShape shape, BlockState state) {
+	default BlockHitResult clipWithInteractionOverride(Vec3 startVec, Vec3 endVec, BlockPos pos, VoxelShape shape, BlockState state) {
 		throw new AssertionError("Mixin injection failed - Wilder Wild BlockGetterMixin.");
 	}
 
 	@Inject(method = "clip", at = @At(value = "HEAD"), cancellable = true)
-	default public void wilderWild$clip(ClipContext context2, CallbackInfoReturnable<BlockHitResult> info) {
+	default void wilderWild$clip(ClipContext context2, CallbackInfoReturnable<BlockHitResult> info) {
 		if (context2.collisionContext instanceof EntityCollisionContext entityCollisionContext) {
 			if (entityCollisionContext.getEntity() instanceof Player player) {
 				BlockState headState = getBlockState(BlockPos.containing(player.getEyePosition()));
 				if (headState.getBlock() instanceof MesogleaBlock && headState.getValue(BlockStateProperties.WATERLOGGED)) {
-					BlockGetter blockGetter = BlockGetter.class.cast(this);
+					BlockGetter blockGetter = (BlockGetter) this;
 					info.setReturnValue(
 						BlockGetter.traverseBlocks(
 							context2.getFrom(), context2.getTo(), context2, (context, pos) -> {
@@ -75,7 +75,7 @@ public interface BlockGetterMixin {
 								double d = blockHitResult == null ? Double.MAX_VALUE : context.getFrom().distanceToSqr(blockHitResult.getLocation());
 								double e = blockHitResult2 == null ? Double.MAX_VALUE : context.getFrom().distanceToSqr(blockHitResult2.getLocation());
 								return d <= e ? blockHitResult : blockHitResult2;
-								},
+							},
 							context -> {
 								Vec3 vec3 = context.getFrom().subtract(context.getTo());
 								return BlockHitResult.miss(context.getTo(), Direction.getNearest(vec3.x, vec3.y, vec3.z), BlockPos.containing(context.getTo()));

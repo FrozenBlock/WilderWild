@@ -40,10 +40,15 @@ import org.jetbrains.annotations.NotNull;
 @Environment(EnvType.CLIENT)
 public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> {
 
+	public static final int blackOverlay = OverlayTexture.pack(0, 10);
+	private static final float pi180 = Mth.PI / 180;
 	private final ModelPart root;
 	private final ModelPart bone;
-	private static final float pi180 = Mth.PI / 180;
-
+	private float partialTick;
+	private float prevPitch;
+	private float pitch;
+	private float prevRoll;
+	private float roll;
 	public TumbleweedModel(ModelPart root) {
 		super(RenderType::entityCutoutNoCull);
 		this.root = root;
@@ -59,14 +64,6 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
-
-	private float partialTick;
-	private float prevPitch;
-	private float pitch;
-	private float prevRoll;
-	private float roll;
-
-	public static final int blackOverlay = OverlayTexture.pack(0, 10);
 
 	@Override
 	public void prepareMobModel(@NotNull T entity, float limbSwing, float limbSwingAmount, float partialTick) {

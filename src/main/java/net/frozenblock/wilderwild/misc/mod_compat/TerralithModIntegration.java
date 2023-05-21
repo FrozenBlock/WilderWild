@@ -28,19 +28,19 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 
 public class TerralithModIntegration extends ModIntegration {
-    public TerralithModIntegration() {
-        super("terralith");
-    }
+	public TerralithModIntegration() {
+		super("terralith");
+	}
 
-    @Override
-    public void init() {
-        Firefly.FireflyBiomeColorRegistry.addBiomeColor(id("cave/frostfire_caves"), FireflyColor.BLUE);
-        Firefly.FireflyBiomeColorRegistry.addBiomeColor(id("cave/frostfire_caves"), FireflyColor.LIGHT_BLUE);
+	@Override
+	public void init() {
+		Firefly.FireflyBiomeColorRegistry.addBiomeColor(id("cave/frostfire_caves"), FireflyColor.BLUE);
+		Firefly.FireflyBiomeColorRegistry.addBiomeColor(id("cave/frostfire_caves"), FireflyColor.LIGHT_BLUE);
 
-        Firefly.FireflyBiomeColorRegistry.addBiomeColor(id("cave/thermal_caves"), FireflyColor.RED);
-        Firefly.FireflyBiomeColorRegistry.addBiomeColor(id("cave/thermal_caves"), FireflyColor.ORANGE);
+		Firefly.FireflyBiomeColorRegistry.addBiomeColor(id("cave/thermal_caves"), FireflyColor.RED);
+		Firefly.FireflyBiomeColorRegistry.addBiomeColor(id("cave/thermal_caves"), FireflyColor.ORANGE);
 
-        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(getBiomeKey("cave/underground_jungle")),
-				FrozenMobCategories.getCategory(WilderSharedConstants.MOD_ID, "fireflies"), RegisterEntities.FIREFLY, 12, 2, 4);
-    }
+		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(getBiomeKey("cave/underground_jungle")),
+			FrozenMobCategories.getCategory(WilderSharedConstants.MOD_ID, "fireflies"), RegisterEntities.FIREFLY, 12, 2, 4);
+	}
 }

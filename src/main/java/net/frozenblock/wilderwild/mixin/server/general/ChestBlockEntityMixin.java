@@ -47,10 +47,10 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 @Mixin(ChestBlockEntity.class)
 public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 
-	@Unique boolean wilderWild$canBubble = true;
-
 	@Unique
 	private static BlockState wilderWild$playedSoundState;
+	@Unique
+	boolean wilderWild$canBubble = true;
 
 	@Inject(at = @At("HEAD"), method = "playSound")
 	private static void wilderWild$playSound(Level level, BlockPos pos, BlockState state, SoundEvent sound, CallbackInfo info) {
@@ -70,6 +70,32 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	}
 
 	@Unique
+	private static ChestBlockEntity wilderWild$getOtherEntity(Level level, BlockPos pos, BlockState state) {
+		ChestType chestType = state.getValue(ChestBlock.TYPE);
+		double x = pos.getX();
+		double y = pos.getY();
+		double z = pos.getZ();
+		if (chestType == ChestType.RIGHT) {
+			Direction direction = ChestBlock.getConnectedDirection(state);
+			x += direction.getStepX();
+			z += direction.getStepZ();
+		} else if (chestType == ChestType.LEFT) {
+			Direction direction = ChestBlock.getConnectedDirection(state);
+			x += direction.getStepX();
+			z += direction.getStepZ();
+		} else {
+			return null;
+		}
+		BlockPos newPos = BlockPos.containing(x, y, z);
+		BlockEntity be = level.getBlockEntity(newPos);
+		ChestBlockEntity entity = null;
+		if (be instanceof ChestBlockEntity chest) {
+			entity = chest;
+		}
+		return entity;
+	}
+
+	@Unique
 	@Override
 	public void wilderWild$bubble(Level level, BlockPos pos, BlockState state) {
 		if (level != null) {
@@ -79,7 +105,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 				ChestBlockEntity otherChest = wilderWild$getOtherEntity(level, pos, state);
 				if (otherChest != null) {
 					ChestBubbleTicker.createAndSpawn(RegisterEntities.CHEST_BUBBLER, level, otherChest.getBlockPos());
-					((ChestBlockEntityInterface)otherChest).wilderWild$setCanBubble(false);
+					((ChestBlockEntityInterface) otherChest).wilderWild$setCanBubble(false);
 				}
 			}
 		}
@@ -111,32 +137,6 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	}
 
 	@Unique
-	private static ChestBlockEntity wilderWild$getOtherEntity(Level level, BlockPos pos, BlockState state) {
-		ChestType chestType = state.getValue(ChestBlock.TYPE);
-		double x = pos.getX();
-		double y = pos.getY();
-		double z = pos.getZ();
-		if (chestType == ChestType.RIGHT) {
-			Direction direction = ChestBlock.getConnectedDirection(state);
-			x += direction.getStepX();
-			z += direction.getStepZ();
-		} else if (chestType == ChestType.LEFT) {
-			Direction direction = ChestBlock.getConnectedDirection(state);
-			x += direction.getStepX();
-			z += direction.getStepZ();
-		} else {
-			return null;
-		}
-		BlockPos newPos = BlockPos.containing(x, y, z);
-		BlockEntity be = level.getBlockEntity(newPos);
-		ChestBlockEntity entity = null;
-		if (be instanceof ChestBlockEntity chest) {
-			entity = chest;
-		}
-		return entity;
-	}
-
-	@Unique
 	@Override
 	public boolean wilderWild$getCanBubble() {
 		return this.wilderWild$canBubble;
@@ -151,9 +151,9 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	@Unique
 	@Override
 	public void wilderWild$syncBubble(ChestBlockEntity chest1, ChestBlockEntity chest2) {
-		if (!((ChestBlockEntityInterface)chest1).wilderWild$getCanBubble() || !((ChestBlockEntityInterface)chest2).wilderWild$getCanBubble()) {
-			((ChestBlockEntityInterface)chest1).wilderWild$setCanBubble(false);
-			((ChestBlockEntityInterface)chest2).wilderWild$setCanBubble(false);
+		if (!((ChestBlockEntityInterface) chest1).wilderWild$getCanBubble() || !((ChestBlockEntityInterface) chest2).wilderWild$getCanBubble()) {
+			((ChestBlockEntityInterface) chest1).wilderWild$setCanBubble(false);
+			((ChestBlockEntityInterface) chest2).wilderWild$setCanBubble(false);
 		}
 	}
 

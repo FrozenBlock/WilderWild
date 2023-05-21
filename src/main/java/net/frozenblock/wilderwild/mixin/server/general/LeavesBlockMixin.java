@@ -31,7 +31,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(LeavesBlock.class)
 public class LeavesBlockMixin {
 
-    @Inject(method = "updateDistance", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "updateDistance", at = @At("HEAD"), cancellable = true)
 	private static void wilderWild$updateDistance(BlockState state, LevelAccessor level, BlockPos pos, CallbackInfoReturnable<BlockState> info) {
 		if (state.getBlock() instanceof PalmFrondsBlock) {
 			info.setReturnValue(PalmFrondsBlock.updateDistance(state, level, pos));

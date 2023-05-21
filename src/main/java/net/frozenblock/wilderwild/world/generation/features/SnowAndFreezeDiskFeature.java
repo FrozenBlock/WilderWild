@@ -40,17 +40,30 @@ import org.jetbrains.annotations.NotNull;
 
 public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfig> {
 
-    public SnowAndFreezeDiskFeature(@NotNull Codec<SnowAndIceDiskFeatureConfig> codec) {
-        super(codec);
-    }
+	public SnowAndFreezeDiskFeature(@NotNull Codec<SnowAndIceDiskFeatureConfig> codec) {
+		super(codec);
+	}
+
+	public static boolean canPlaceSnow(@NotNull LevelReader level, @NotNull BlockPos pos) {
+		return pos.getY() >= level.getMinBuildHeight() && pos.getY() < level.getMaxBuildHeight() && level.getBrightness(LightLayer.BLOCK, pos) < 10 && (level.getBlockState(pos)).isAir() && Blocks.SNOW.defaultBlockState().canSurvive(level, pos);
+	}
+
+	public static boolean canPlaceIce(@NotNull LevelReader level, @NotNull BlockPos water) {
+		if (water.getY() >= level.getMinBuildHeight() && water.getY() < level.getMaxBuildHeight() && level.getBrightness(LightLayer.BLOCK, water) < 10) {
+			BlockState blockState = level.getBlockState(water);
+			FluidState fluidState = level.getFluidState(water);
+			return fluidState.getType() == Fluids.WATER && blockState.getBlock() instanceof LiquidBlock;
+		}
+		return false;
+	}
 
 	@Override
-    public boolean place(@NotNull FeaturePlaceContext<SnowAndIceDiskFeatureConfig> context) {
-        boolean bl = false;
-        BlockPos blockPos = context.origin();
-        WorldGenLevel level = context.level();
+	public boolean place(@NotNull FeaturePlaceContext<SnowAndIceDiskFeatureConfig> context) {
+		boolean bl = false;
+		BlockPos blockPos = context.origin();
+		WorldGenLevel level = context.level();
 		SnowAndIceDiskFeatureConfig config = context.config();
-        BlockPos s = blockPos.atY(level.getHeight(Types.MOTION_BLOCKING, blockPos.getX(), blockPos.getZ()));
+		BlockPos s = blockPos.atY(level.getHeight(Types.MOTION_BLOCKING, blockPos.getX(), blockPos.getZ()));
 		Biome biome = level.getBiome(s).value();
 		boolean coldEnough = !biome.warmEnoughToRain(s);
 		if (coldEnough) {
@@ -107,20 +120,7 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 				}
 			}
 		}
-        return bl;
-    }
-
-	public static boolean canPlaceSnow(@NotNull LevelReader level, @NotNull BlockPos pos) {
-		return pos.getY() >= level.getMinBuildHeight() && pos.getY() < level.getMaxBuildHeight() && level.getBrightness(LightLayer.BLOCK, pos) < 10 && (level.getBlockState(pos)).isAir() && Blocks.SNOW.defaultBlockState().canSurvive(level, pos);
-	}
-
-	public static boolean canPlaceIce(@NotNull LevelReader level, @NotNull BlockPos water) {
-		if (water.getY() >= level.getMinBuildHeight() && water.getY() < level.getMaxBuildHeight() && level.getBrightness(LightLayer.BLOCK, water) < 10) {
-			BlockState blockState = level.getBlockState(water);
-			FluidState fluidState = level.getFluidState(water);
-			return fluidState.getType() == Fluids.WATER && blockState.getBlock() instanceof LiquidBlock;
-		}
-		return false;
+		return bl;
 	}
 
 }

@@ -43,68 +43,68 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 
 public class CopperHorn extends InstrumentItem {
-    private static final String INSTRUMENT_KEY = "instrument";
-    private final TagKey<Instrument> instrumentTag;
+	private static final String INSTRUMENT_KEY = "instrument";
+	private final TagKey<Instrument> instrumentTag;
 
 	public CopperHorn(@NotNull Properties settings, @NotNull TagKey<Instrument> instrumentTag) {
-        super(settings, instrumentTag);
-        this.instrumentTag = instrumentTag;
+		super(settings, instrumentTag);
+		this.instrumentTag = instrumentTag;
+	}
+
+	private static void playSound(@NotNull Instrument instrument, @NotNull Player user, @NotNull Level level) {
+		SoundEvent soundEvent = instrument.soundEvent().value();
+		float range = instrument.range() / 16.0F;
+		int note = (int) ((-user.getXRot() + 90) / 7.5);
+
+		if (!level.isClientSide) {
+			float soundPitch = !user.isShiftKeyDown() ?
+				(float) Math.pow(2.0D, (note - 12.0F) / 12.0D) :
+				(float) Math.pow(2.0D, 0.01111F * -user.getXRot());
+			FrozenSoundPackets.createMovingRestrictionLoopingSound(level, user, soundEvent, SoundSource.RECORDS, range, soundPitch, WilderSharedConstants.id("instrument"), true);
+		}
+		level.gameEvent(GameEvent.INSTRUMENT_PLAY, user.position(), GameEvent.Context.of(user));
 	}
 
 	@Override
 	@NotNull
-    public Optional<? extends Holder<Instrument>> getInstrument(@NotNull ItemStack stack) {
-        CompoundTag nbtCompound = stack.getTag();
-        if (nbtCompound != null) {
-            ResourceLocation identifier = ResourceLocation.tryParse(nbtCompound.getString(INSTRUMENT_KEY));
-            if (identifier != null) {
-                return BuiltInRegistries.INSTRUMENT.getHolder(ResourceKey.create(Registries.INSTRUMENT, identifier));
-            }
-        }
+	public Optional<? extends Holder<Instrument>> getInstrument(@NotNull ItemStack stack) {
+		CompoundTag nbtCompound = stack.getTag();
+		if (nbtCompound != null) {
+			ResourceLocation identifier = ResourceLocation.tryParse(nbtCompound.getString(INSTRUMENT_KEY));
+			if (identifier != null) {
+				return BuiltInRegistries.INSTRUMENT.getHolder(ResourceKey.create(Registries.INSTRUMENT, identifier));
+			}
+		}
 
-        Iterator<Holder<Instrument>> iterator = BuiltInRegistries.INSTRUMENT.getTagOrEmpty(this.instrumentTag).iterator();
-        return iterator.hasNext() ? Optional.of(iterator.next()) : Optional.empty();
-    }
+		Iterator<Holder<Instrument>> iterator = BuiltInRegistries.INSTRUMENT.getTagOrEmpty(this.instrumentTag).iterator();
+		return iterator.hasNext() ? Optional.of(iterator.next()) : Optional.empty();
+	}
 
-    @Override
+	@Override
 	@NotNull
-    public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player user, @NotNull InteractionHand usedHand) {
-        ItemStack itemStack = user.getItemInHand(usedHand);
-        Optional<? extends Holder<Instrument>> optional = this.getInstrument(itemStack);
-        if (optional.isPresent()) {
-            var instrumentHolder = optional.get();
-            var instrument = instrumentHolder.value();
-            user.startUsingItem(usedHand);
-            playSound(instrument, user, level);
-            return InteractionResultHolder.consume(itemStack);
-        } else {
-            return InteractionResultHolder.fail(itemStack);
-        }
-    }
+	public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player user, @NotNull InteractionHand usedHand) {
+		ItemStack itemStack = user.getItemInHand(usedHand);
+		Optional<? extends Holder<Instrument>> optional = this.getInstrument(itemStack);
+		if (optional.isPresent()) {
+			var instrumentHolder = optional.get();
+			var instrument = instrumentHolder.value();
+			user.startUsingItem(usedHand);
+			playSound(instrument, user, level);
+			return InteractionResultHolder.consume(itemStack);
+		} else {
+			return InteractionResultHolder.fail(itemStack);
+		}
+	}
 
-    private static void playSound(@NotNull Instrument instrument, @NotNull Player user, @NotNull Level level) {
-        SoundEvent soundEvent = instrument.soundEvent().value();
-        float range = instrument.range() / 16.0F;
-        int note = (int) ((-user.getXRot() + 90) / 7.5);
+	@Override
+	public int getUseDuration(@NotNull ItemStack stack) {
+		Optional<? extends Holder<Instrument>> optional = this.getInstrument(stack);
+		return optional.map(instrumentRegistryEntry -> instrumentRegistryEntry.value().useDuration()).orElse(0);
+	}
 
-        if (!level.isClientSide) {
-            float soundPitch = !user.isShiftKeyDown() ?
-                    (float) Math.pow(2.0D, (note - 12.0F) / 12.0D) :
-                    (float) Math.pow(2.0D, 0.01111F * -user.getXRot());
-            FrozenSoundPackets.createMovingRestrictionLoopingSound(level, user, soundEvent, SoundSource.RECORDS, range, soundPitch, WilderSharedConstants.id("instrument"), true);
-        }
-        level.gameEvent(GameEvent.INSTRUMENT_PLAY, user.position(), GameEvent.Context.of(user));
-    }
-
-    @Override
-    public int getUseDuration(@NotNull ItemStack stack) {
-        Optional<? extends Holder<Instrument>> optional = this.getInstrument(stack);
-        return optional.map(instrumentRegistryEntry -> instrumentRegistryEntry.value().useDuration()).orElse(0);
-    }
-
-    @Override
+	@Override
 	@NotNull
-    public UseAnim getUseAnimation(@NotNull ItemStack stack) {
-        return UseAnim.TOOT_HORN;
-    }
+	public UseAnim getUseAnimation(@NotNull ItemStack stack) {
+		return UseAnim.TOOT_HORN;
+	}
 }

@@ -28,9 +28,9 @@ public class ClientMethodInteractionHandler {
 		throw new UnsupportedOperationException("ClientMethodInteractionHandler contains only static declarations.");
 	}
 
-    public static void playClientEnderManSound(@NotNull EnderMan enderMan) {
-        ClientMethods.playClientEnderManSound(enderMan);
-    }
+	public static void playClientEnderManSound(@NotNull EnderMan enderMan) {
+		ClientMethods.playClientEnderManSound(enderMan);
+	}
 
 	public static void playClientPlayerSoundIfSamePlayer(@NotNull SoundEvent sound, float volume, float pitch, @NotNull Entity compareTo) {
 		ClientMethods.playClientPlayerSoundIfSamePlayer(sound, volume, pitch, compareTo);

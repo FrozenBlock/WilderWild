@@ -26,24 +26,24 @@ import org.jetbrains.annotations.NotNull;
 
 public class NematocystBlock extends FaceClusterBlock {
 
-    private final NematocystSpreader spreader = new NematocystSpreader(this);
+	private final NematocystSpreader spreader = new NematocystSpreader(this);
 
-    public NematocystBlock(int height, int xzOffset, @NotNull Properties properties) {
-        super(height, xzOffset, properties);
-    }
+	public NematocystBlock(int height, int xzOffset, @NotNull Properties properties) {
+		super(height, xzOffset, properties);
+	}
 
-    public NematocystBlock(@NotNull Properties properties) {
-        this(7, 3, properties.pushReaction(PushReaction.DESTROY));
-    }
+	public NematocystBlock(@NotNull Properties properties) {
+		this(7, 3, properties.pushReaction(PushReaction.DESTROY));
+	}
 
-    @Override
-    public boolean skipRendering(@NotNull BlockState blockState, @NotNull BlockState blockState2, @NotNull Direction direction) {
-        return blockState2.is(this) || super.skipRendering(blockState, blockState2, direction);
-    }
+	@Override
+	public boolean skipRendering(@NotNull BlockState blockState, @NotNull BlockState blockState2, @NotNull Direction direction) {
+		return blockState2.is(this) || super.skipRendering(blockState, blockState2, direction);
+	}
 
-    @Override
+	@Override
 	@NotNull
-    public NematocystSpreader getSpreader() {
-        return this.spreader;
-    }
+	public NematocystSpreader getSpreader() {
+		return this.spreader;
+	}
 }

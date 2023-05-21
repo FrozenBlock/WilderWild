@@ -42,16 +42,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class JuniperTrunkPlacer extends TrunkPlacer {
 	public static final Codec<JuniperTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) ->
-			juniperCodec(instance).apply(instance, JuniperTrunkPlacer::new));
-
-	protected static <P extends JuniperTrunkPlacer> Products.P7<RecordCodecBuilder.Mu<P>, Integer, Integer, Integer, IntProvider, IntProvider, UniformInt, IntProvider> juniperCodec(RecordCodecBuilder.Instance<P> builder) {
-		return trunkPlacerParts(builder)
-			.and((IntProvider.codec(1, 3).fieldOf("branch_count")).forGetter(placer -> placer.branchCount))
-			.and((IntProvider.codec(2, 16).fieldOf("branch_horizontal_length")).forGetter(placer -> placer.branchHorizontalLength))
-			.and((UniformInt.CODEC.fieldOf("branch_start_offset_from_top")).forGetter(placer -> placer.branchStartOffsetFromTop))
-			.and((IntProvider.codec(-16, 16).fieldOf("branch_end_offset_from_top")).forGetter(placer -> placer.branchEndOffsetFromTop));
-	}
-
+		juniperCodec(instance).apply(instance, JuniperTrunkPlacer::new));
 	public final IntProvider branchCount;
 	public final IntProvider branchHorizontalLength;
 	public final UniformInt branchStartOffsetFromTop;
@@ -65,6 +56,14 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
 		this.branchStartOffsetFromTop = uniformInt;
 		this.secondBranchStartOffsetFromTop = UniformInt.of(uniformInt.getMinValue(), uniformInt.getMaxValue() - 1);
 		this.branchEndOffsetFromTop = intProvider3;
+	}
+
+	protected static <P extends JuniperTrunkPlacer> Products.P7<RecordCodecBuilder.Mu<P>, Integer, Integer, Integer, IntProvider, IntProvider, UniformInt, IntProvider> juniperCodec(RecordCodecBuilder.Instance<P> builder) {
+		return trunkPlacerParts(builder)
+			.and((IntProvider.codec(1, 3).fieldOf("branch_count")).forGetter(placer -> placer.branchCount))
+			.and((IntProvider.codec(2, 16).fieldOf("branch_horizontal_length")).forGetter(placer -> placer.branchHorizontalLength))
+			.and((UniformInt.CODEC.fieldOf("branch_start_offset_from_top")).forGetter(placer -> placer.branchStartOffsetFromTop))
+			.and((IntProvider.codec(-16, 16).fieldOf("branch_end_offset_from_top")).forGetter(placer -> placer.branchEndOffsetFromTop));
 	}
 
 	@Override
@@ -95,16 +94,16 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
 		}
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 		Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-		Function<BlockState, BlockState> function = state -> (BlockState)state.setValue(RotatedPillarBlock.AXIS, direction.getAxis());
+		Function<BlockState, BlockState> function = state -> (BlockState) state.setValue(RotatedPillarBlock.AXIS, direction.getAxis());
 		list.add(this.generateBranch(level, blockSetter, random, freeTreeHeight, pos, config, function, direction, i, i < l - 1, mutableBlockPos));
 		ArrayList<Direction> allDirsMF = new ArrayList<>();
 
-		for(Direction d : Direction.Plane.HORIZONTAL) {
-			if(d != direction) allDirsMF.add(d);
+		for (Direction d : Direction.Plane.HORIZONTAL) {
+			if (d != direction) allDirsMF.add(d);
 		}
 		Direction secondDir = allDirsMF.get((int) (Math.random() * 2));
 		if (moreThanOneBranch) {
-			function = state -> (BlockState)state.setValue(RotatedPillarBlock.AXIS, secondDir.getAxis());
+			function = state -> (BlockState) state.setValue(RotatedPillarBlock.AXIS, secondDir.getAxis());
 			list.add(this.generateBranch(level, blockSetter, random, freeTreeHeight, pos, config, function, secondDir, j, j < l - 1, mutableBlockPos));
 		}
 		return list;
@@ -124,7 +123,7 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
 		}
 		Direction direction2 = blockPos.getY() > mutablePos.getY() ? Direction.UP : Direction.DOWN;
 		while ((o = mutablePos.distManhattan(blockPos)) != 0) {
-			float f = (float)Math.abs(blockPos.getY() - mutablePos.getY()) / (float)o;
+			float f = (float) Math.abs(blockPos.getY() - mutablePos.getY()) / (float) o;
 			boolean bl3 = random.nextFloat() < f;
 			mutablePos.move(bl3 ? direction2 : direction);
 			this.placeLog(world, biConsumer, random, mutablePos, treeConfiguration, bl3 ? Function.identity() : function);

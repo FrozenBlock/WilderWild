@@ -45,10 +45,6 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 
 public final class RegisterWorldgen {
-	private RegisterWorldgen() {
-		throw new UnsupportedOperationException("RegisterWorldgen contains only static declarations.");
-	}
-
 	// Main Biomes
 	public static final ResourceKey<Biome> CYPRESS_WETLANDS = register("cypress_wetlands");
 	public static final ResourceKey<Biome> MIXED_FOREST = register("mixed_forest");
@@ -76,6 +72,9 @@ public final class RegisterWorldgen {
 	public static final ResourceKey<Biome> OLD_GROWTH_BIRCH_TAIGA = register("old_growth_birch_taiga");
 	public static final ResourceKey<Biome> OLD_GROWTH_DARK_FOREST = register("old_growth_dark_forest");
 	public static final ResourceKey<Biome> SNOWY_OLD_GROWTH_PINE_TAIGA = register("snowy_old_growth_pine_taiga");
+	private RegisterWorldgen() {
+		throw new UnsupportedOperationException("RegisterWorldgen contains only static declarations.");
+	}
 
 	public static void init() {
 
@@ -114,9 +113,9 @@ public final class RegisterWorldgen {
 	}
 
 	@NotNull
-    private static ResourceKey<Biome> register(@NotNull String name) {
-        return ResourceKey.create(Registries.BIOME, WilderSharedConstants.id(name));
-    }
+	private static ResourceKey<Biome> register(@NotNull String name) {
+		return ResourceKey.create(Registries.BIOME, WilderSharedConstants.id(name));
+	}
 
 	@NotNull
 	private static void register(@NotNull BootstapContext<Biome> entries, @NotNull ResourceKey<Biome> key, @NotNull Biome biome) {
@@ -177,6 +176,7 @@ public final class RegisterWorldgen {
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_SUGAR_CANE_SWAMP);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_PUMPKIN);
 	}
+
 	public static void addCypressWetlandsMobs(@NotNull MobSpawnSettings.Builder builder) {
 		builder.addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(EntityType.COD, 5, 2, 6));
 		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.FROG, 14, 4, 5));
@@ -191,13 +191,13 @@ public final class RegisterWorldgen {
 	public static Biome mixedForest(@NotNull BootstapContext<Biome> entries) {
 		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-        MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-        BiomeDefaultFeatures.commonSpawns(builder);
-        BiomeDefaultFeatures.plainsSpawns(builder);
-        builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 5, 4, 4));
-        BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-        addMixedForestFeatures(builder2);
-        return new Biome.BiomeBuilder()
+		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
+		BiomeDefaultFeatures.commonSpawns(builder);
+		BiomeDefaultFeatures.plainsSpawns(builder);
+		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 5, 4, 4));
+		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
+		addMixedForestFeatures(builder2);
+		return new Biome.BiomeBuilder()
 			.hasPrecipitation(true)
 			.temperature(WilderSharedWorldgen.MixedForest.TEMP)
 			.downfall(WilderSharedWorldgen.MixedForest.DOWNFALL)
@@ -212,7 +212,7 @@ public final class RegisterWorldgen {
 			.mobSpawnSettings(builder.build())
 			.generationSettings(builder2.build())
 			.build();
-    }
+	}
 
 	public static void addMixedForestFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MIXED_TREES.getKey());
@@ -228,11 +228,11 @@ public final class RegisterWorldgen {
 	public static Biome oasis(@NotNull BootstapContext<Biome> entries) {
 		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-        MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-        BiomeDefaultFeatures.desertSpawns(builder);
-        BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-        addOasisFeatures(builder2);
-        return new Biome.BiomeBuilder()
+		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
+		BiomeDefaultFeatures.desertSpawns(builder);
+		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
+		addOasisFeatures(builder2);
+		return new Biome.BiomeBuilder()
 			.hasPrecipitation(false)
 			.temperature(WilderSharedWorldgen.Oasis.TEMP)
 			.downfall(WilderSharedWorldgen.Oasis.DOWNFALL)
@@ -912,23 +912,23 @@ public final class RegisterWorldgen {
 		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addOldGrowthSnowyTaigaFeatures(builder2);
 		return new Biome.BiomeBuilder()
-				.hasPrecipitation(true)
-				.temperatureAdjustment(Biome.TemperatureModifier.FROZEN)
-				.temperature(WilderSharedWorldgen.OldGrowthSnowySpruceTaiga.TEMP)
-				.downfall(WilderSharedWorldgen.OldGrowthSnowySpruceTaiga.DOWNFALL)
-				.specialEffects(
-						new BiomeSpecialEffects.Builder()
-								.waterColor(WilderSharedWorldgen.OldGrowthSnowySpruceTaiga.WATER_COLOR)
-								.waterFogColor(WilderSharedWorldgen.OldGrowthSnowySpruceTaiga.WATER_FOG_COLOR)
-								.fogColor(WilderSharedWorldgen.OldGrowthSnowySpruceTaiga.FOG_COLOR)
-								.grassColorOverride(WilderSharedWorldgen.OldGrowthSnowySpruceTaiga.GRASS_COLOR)
-								.foliageColorOverride(WilderSharedWorldgen.OldGrowthSnowySpruceTaiga.FOLIAGE_COLOR)
-								.skyColor(WilderSharedWorldgen.OldGrowthSnowySpruceTaiga.SKY_COLOR)
-								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-								.backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_OLD_GROWTH_TAIGA)).build())
-				.mobSpawnSettings(builder.build())
-				.generationSettings(builder2.build())
-				.build();
+			.hasPrecipitation(true)
+			.temperatureAdjustment(Biome.TemperatureModifier.FROZEN)
+			.temperature(WilderSharedWorldgen.OldGrowthSnowySpruceTaiga.TEMP)
+			.downfall(WilderSharedWorldgen.OldGrowthSnowySpruceTaiga.DOWNFALL)
+			.specialEffects(
+				new BiomeSpecialEffects.Builder()
+					.waterColor(WilderSharedWorldgen.OldGrowthSnowySpruceTaiga.WATER_COLOR)
+					.waterFogColor(WilderSharedWorldgen.OldGrowthSnowySpruceTaiga.WATER_FOG_COLOR)
+					.fogColor(WilderSharedWorldgen.OldGrowthSnowySpruceTaiga.FOG_COLOR)
+					.grassColorOverride(WilderSharedWorldgen.OldGrowthSnowySpruceTaiga.GRASS_COLOR)
+					.foliageColorOverride(WilderSharedWorldgen.OldGrowthSnowySpruceTaiga.FOLIAGE_COLOR)
+					.skyColor(WilderSharedWorldgen.OldGrowthSnowySpruceTaiga.SKY_COLOR)
+					.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+					.backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_OLD_GROWTH_TAIGA)).build())
+			.mobSpawnSettings(builder.build())
+			.generationSettings(builder2.build())
+			.build();
 	}
 
 	public static void addOldGrowthSnowyTaigaFeatures(@NotNull BiomeGenerationSettings.Builder builder) {

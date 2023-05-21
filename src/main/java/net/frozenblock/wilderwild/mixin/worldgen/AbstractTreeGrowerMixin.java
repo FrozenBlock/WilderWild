@@ -40,11 +40,11 @@ public class AbstractTreeGrowerMixin implements AbstractTreeGrowerInterface {
 	@Unique
 	private BlockPos wilderWild$pos;
 
-    @Inject(method = "growTree", at = @At("HEAD"))
+	@Inject(method = "growTree", at = @At("HEAD"))
 	public void wilderWild$growTree(ServerLevel level, ChunkGenerator generator, BlockPos pos, BlockState state, RandomSource random, CallbackInfoReturnable<Boolean> info) {
 		this.wilderWild$level = level;
 		this.wilderWild$pos = pos;
-    }
+	}
 
 	@Unique
 	@Override

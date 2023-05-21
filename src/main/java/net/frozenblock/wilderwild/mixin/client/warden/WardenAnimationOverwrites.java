@@ -39,13 +39,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class WardenAnimationOverwrites {
 
 	@Final
-    @Mutable
-    @Shadow
+	@Mutable
+	@Shadow
 	public static AnimationDefinition WARDEN_EMERGE;
 
-    @Final
-    @Mutable
-    @Shadow
+	@Final
+	@Mutable
+	@Shadow
 	public static AnimationDefinition WARDEN_SNIFF;
 
 	@Shadow

@@ -48,8 +48,8 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
 	private int lastStareSound;
 
 	private EnderManMixin(EntityType<? extends Monster> entityType, Level level) {
-        super(entityType, level);
-    }
+		super(entityType, level);
+	}
 
 	@Unique
 	@Override
@@ -64,8 +64,8 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
 	}
 
 	@Inject(method = "playStareSound", at = @At(value = "HEAD"), cancellable = true)
-    public void wilderWild$playStareSound(CallbackInfo info) {
-        //NOTE: This only runs on the client.
+	public void wilderWild$playStareSound(CallbackInfo info) {
+		//NOTE: This only runs on the client.
 		if (WilderSharedConstants.config().movingStareSound()) {
 			info.cancel();
 			if (this.tickCount >= this.lastStareSound + 400) {
@@ -76,7 +76,7 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
 				}
 			}
 		}
-    }
+	}
 
 	@Inject(method = "onSyncedDataUpdated", at = @At("HEAD"))
 	public void wilderWild$onSyncedDataUpdated(EntityDataAccessor<?> key, CallbackInfo info) {

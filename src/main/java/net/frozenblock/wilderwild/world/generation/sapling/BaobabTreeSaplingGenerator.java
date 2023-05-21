@@ -35,17 +35,45 @@ import org.jetbrains.annotations.Nullable;
 
 public abstract class BaobabTreeSaplingGenerator extends AbstractMegaTreeGrower {
 
-    public BaobabTreeSaplingGenerator() {
-    }
+	public BaobabTreeSaplingGenerator() {
+	}
+
+	/**
+	 * This method checks if a Baobab tree can be generated in the specified position
+	 *
+	 * @param state the current block state
+	 * @param level the block getter object
+	 * @param pos   the block position
+	 * @param xPos  the x position offset
+	 * @param zPos  the z position offset
+	 * @return true if the Baobab tree can be generated, false otherwise
+	 */
+	public static boolean canGenerateBaobabTree(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, int xPos, int zPos) {
+		// Get the current block
+		Block block = state.getBlock();
+		// Initialize a flag to indicate if the tree can be generated
+		boolean canGenerate = true;
+		// Loop through the x and z position offsets
+		for (var x = xPos; x <= xPos + 3; ++x) {
+			for (var z = zPos; z <= zPos + 3; ++z) {
+				// If the block state at the current offset is not equal to the current block
+				if (!level.getBlockState(pos.offset(x, 0, z)).is(block))
+					// Set the flag to false
+					canGenerate = false;
+			}
+		}
+		// Return the result of the flag
+		return canGenerate;
+	}
 
 	/**
 	 * This method grows a Baobab tree in the specified position
 	 *
-	 * @param level the server level object
+	 * @param level          the server level object
 	 * @param chunkGenerator the chunk generator
-	 * @param pos the block position
-	 * @param state the current block state
-	 * @param random the random source object
+	 * @param pos            the block position
+	 * @param state          the current block state
+	 * @param random         the random source object
 	 * @return true if the tree was successfully grown, false otherwise
 	 */
 	@Override
@@ -74,7 +102,6 @@ public abstract class BaobabTreeSaplingGenerator extends AbstractMegaTreeGrower 
 	@Nullable
 	protected abstract ResourceKey<ConfiguredFeature<?, ?>> getBaobabTreeFeature(@NotNull RandomSource random);
 
-
 	/**
 	 * Overrides the parent method and returns null as this feature is not applicable for the current scenario.
 	 *
@@ -89,12 +116,12 @@ public abstract class BaobabTreeSaplingGenerator extends AbstractMegaTreeGrower 
 	/**
 	 * Generates a Baobab tree.
 	 *
-	 * @param level The current server level.
+	 * @param level          The current server level.
 	 * @param chunkGenerator The chunk generator for the world.
-	 * @param pos The position for the tree to be generated.
-	 * @param random The random source.
-	 * @param xOffset The x-coordinate position.
-	 * @param zOffset The z-coordinate position.
+	 * @param pos            The position for the tree to be generated.
+	 * @param random         The random source.
+	 * @param xOffset        The x-coordinate position.
+	 * @param zOffset        The z-coordinate position.
 	 * @return true if the tree was successfully generated, false otherwise.
 	 */
 	public boolean generateBaobabTree(@NotNull ServerLevel level, @NotNull ChunkGenerator chunkGenerator, @NotNull BlockPos pos, @NotNull RandomSource random, int xOffset, int zOffset) {
@@ -139,33 +166,5 @@ public abstract class BaobabTreeSaplingGenerator extends AbstractMegaTreeGrower 
 				level.getChunkSource().blockChanged(mutableBlockPos);
 			}
 		}
-	}
-
-	/**
-	 * This method checks if a Baobab tree can be generated in the specified position
-	 *
-	 * @param state the current block state
-	 * @param level the block getter object
-	 * @param pos the block position
-	 * @param xPos the x position offset
-	 * @param zPos the z position offset
-	 * @return true if the Baobab tree can be generated, false otherwise
-	 */
-	public static boolean canGenerateBaobabTree(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, int xPos, int zPos) {
-		// Get the current block
-		Block block = state.getBlock();
-		// Initialize a flag to indicate if the tree can be generated
-		boolean canGenerate = true;
-		// Loop through the x and z position offsets
-		for (var x = xPos; x <= xPos + 3; ++x) {
-			for (var z = zPos; z <= zPos + 3; ++z) {
-				// If the block state at the current offset is not equal to the current block
-				if (!level.getBlockState(pos.offset(x, 0, z)).is(block))
-					// Set the flag to false
-					canGenerate = false;
-			}
-		}
-		// Return the result of the flag
-		return canGenerate;
 	}
 }

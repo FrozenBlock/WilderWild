@@ -34,6 +34,9 @@ import org.slf4j.LoggerFactory;
 public class WilderSharedConstants {
 	public static final String MOD_ID = "wilderwild";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+	public static final int DATA_VERSION = 14;
+	// MEASURING
+	public static final Map<Object, Long> INSTANT_MAP = new HashMap<>();
 	@Deprecated(forRemoval = true)
 	public static boolean DEV_LOGGING = false;
 	/**
@@ -42,9 +45,7 @@ public class WilderSharedConstants {
 	 * It's smart to use this for at least registries.
 	 */
 	public static boolean UNSTABLE_LOGGING = FabricLoader.getInstance().isDevelopmentEnvironment();
-    public static boolean areConfigsInit = false;
-
-	public static final int DATA_VERSION = 14;
+	public static boolean areConfigsInit = false;
 
 	public static AbstractClothConfigIntegration config() {
 		return WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration();
@@ -80,9 +81,6 @@ public class WilderSharedConstants {
 			WilderSharedConstants.LOGGER.info(string + " " + WilderSharedConstants.MOD_ID);
 		}
 	}
-
-	// MEASURING
-	public static final Map<Object, Long> INSTANT_MAP = new HashMap<>();
 
 	public static void startMeasuring(@NotNull Object object) {
 		long started = System.nanoTime();

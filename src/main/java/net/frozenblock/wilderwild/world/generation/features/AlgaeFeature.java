@@ -33,64 +33,64 @@ import org.jetbrains.annotations.NotNull;
 
 public class AlgaeFeature extends Feature<AlgaeFeatureConfig> {
 
-    public AlgaeFeature(@NotNull Codec<AlgaeFeatureConfig> codec) {
-        super(codec);
-    }
+	public AlgaeFeature(@NotNull Codec<AlgaeFeatureConfig> codec) {
+		super(codec);
+	}
 
-    public boolean place(@NotNull FeaturePlaceContext<AlgaeFeatureConfig> context) {
-        boolean bl = false;
-        BlockPos blockPos = context.origin();
-        WorldGenLevel level = context.level();
-        BlockPos s = blockPos.atY(level.getHeight(Types.MOTION_BLOCKING_NO_LEAVES, blockPos.getX(), blockPos.getZ()));
-        int y = s.getY();
-        RandomSource random = level.getRandom();
-        int radius = context.config().radius().sample(random);
-        //DISK
-        BlockPos.MutableBlockPos mutableDisk = s.mutable();
-        int bx = s.getX();
-        int bz = s.getZ();
-        for (int x = bx - radius; x <= bx + radius; x++) {
-            for (int z = bz - radius; z <= bz + radius; z++) {
-                double distance = ((bx - x) * (bx - x) + ((bz - z) * (bz - z)));
-                if (distance < radius * radius) {
-                    mutableDisk.set(x, y, z);
-                    boolean fade = !mutableDisk.closerThan(s, radius * 0.8);
-                    boolean hasGeneratedThisRound = false;
-                    if (level.getBlockState(mutableDisk.move(Direction.DOWN)).is(Blocks.WATER) && level.getBlockState(mutableDisk.move(Direction.UP)).isAir()) {
-                        if (random.nextFloat() > 0.2F) {
-                            hasGeneratedThisRound = true;
-                            if (fade) {
-                                if (random.nextFloat() > 0.5F) {
-                                    level.setBlock(mutableDisk, RegisterBlocks.ALGAE.defaultBlockState(), 3);
-                                    bl = true;
-                                }
-                            } else {
-                                level.setBlock(mutableDisk, RegisterBlocks.ALGAE.defaultBlockState(), 3);
-                                bl = true;
-                            }
-                        }
-                    } else {
-                        for (int aY = 0; aY < 3; aY++) {
-                            mutableDisk.set(x, y + aY, z);
-                            if (level.getBlockState(mutableDisk.move(Direction.DOWN)).is(Blocks.WATER) && level.getBlockState(mutableDisk.move(Direction.UP)).isAir()) {
-                                hasGeneratedThisRound = true;
+	public boolean place(@NotNull FeaturePlaceContext<AlgaeFeatureConfig> context) {
+		boolean bl = false;
+		BlockPos blockPos = context.origin();
+		WorldGenLevel level = context.level();
+		BlockPos s = blockPos.atY(level.getHeight(Types.MOTION_BLOCKING_NO_LEAVES, blockPos.getX(), blockPos.getZ()));
+		int y = s.getY();
+		RandomSource random = level.getRandom();
+		int radius = context.config().radius().sample(random);
+		//DISK
+		BlockPos.MutableBlockPos mutableDisk = s.mutable();
+		int bx = s.getX();
+		int bz = s.getZ();
+		for (int x = bx - radius; x <= bx + radius; x++) {
+			for (int z = bz - radius; z <= bz + radius; z++) {
+				double distance = ((bx - x) * (bx - x) + ((bz - z) * (bz - z)));
+				if (distance < radius * radius) {
+					mutableDisk.set(x, y, z);
+					boolean fade = !mutableDisk.closerThan(s, radius * 0.8);
+					boolean hasGeneratedThisRound = false;
+					if (level.getBlockState(mutableDisk.move(Direction.DOWN)).is(Blocks.WATER) && level.getBlockState(mutableDisk.move(Direction.UP)).isAir()) {
+						if (random.nextFloat() > 0.2F) {
+							hasGeneratedThisRound = true;
+							if (fade) {
+								if (random.nextFloat() > 0.5F) {
+									level.setBlock(mutableDisk, RegisterBlocks.ALGAE.defaultBlockState(), 3);
+									bl = true;
+								}
+							} else {
+								level.setBlock(mutableDisk, RegisterBlocks.ALGAE.defaultBlockState(), 3);
+								bl = true;
+							}
+						}
+					} else {
+						for (int aY = 0; aY < 3; aY++) {
+							mutableDisk.set(x, y + aY, z);
+							if (level.getBlockState(mutableDisk.move(Direction.DOWN)).is(Blocks.WATER) && level.getBlockState(mutableDisk.move(Direction.UP)).isAir()) {
+								hasGeneratedThisRound = true;
 								bl = genAlgae(bl, level, random, mutableDisk, fade);
 							}
-                        }
-                    }
-                    if (!hasGeneratedThisRound) {
-                        for (int aY = -3; aY < 0; aY++) {
-                            mutableDisk.set(x, y + aY, z);
-                            if (level.getBlockState(mutableDisk.move(Direction.DOWN)).is(Blocks.WATER) && level.getBlockState(mutableDisk.move(Direction.UP)).isAir()) {
+						}
+					}
+					if (!hasGeneratedThisRound) {
+						for (int aY = -3; aY < 0; aY++) {
+							mutableDisk.set(x, y + aY, z);
+							if (level.getBlockState(mutableDisk.move(Direction.DOWN)).is(Blocks.WATER) && level.getBlockState(mutableDisk.move(Direction.UP)).isAir()) {
 								bl = genAlgae(bl, level, random, mutableDisk, fade);
 							}
-                        }
-                    }
-                }
-            }
-        }
-        return bl;
-    }
+						}
+					}
+				}
+			}
+		}
+		return bl;
+	}
 
 	private boolean genAlgae(boolean bl, WorldGenLevel level, @NotNull RandomSource random, @NotNull BlockPos.MutableBlockPos mutableDisk, boolean fade) {
 		if (random.nextFloat() > 0.2F) {

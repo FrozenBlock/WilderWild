@@ -56,22 +56,19 @@ public class SonicBoomMixin implements WilderSonicBoom {
 
 	@Unique
 	private static SonicBoom wilderWild$currentBoom;
-
+	@Unique
+	private static boolean wilderWild$stella;
 	@Unique
 	private boolean wilderWild$particlesEnded = false;
-
 	@Unique
 	private Vec3 wilderWild$particlePos = null;
 
-	@Unique
-	private static boolean wilderWild$stella;
-
-	@ModifyArg(method = "tick(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/monster/warden/Warden;J)V", at = @At(value = "INVOKE", target = "Ljava/util/Optional;ifPresent(Ljava/util/function/Consumer;)V", ordinal = 1))
-	private Consumer<? super LivingEntity> wilderWild$setCurrent(Consumer<? super LivingEntity> original) {
-		return target -> {
-			wilderWild$currentBoom = SonicBoom.class.cast(this);
-			original.accept(target);
-		};
+	@ModifyVariable(method = {"m_ehrxwrfs", "method_43265", "lambda$tick$2"}, at = @At(value = "CONSTANT", args = "intValue=1", shift = At.Shift.BY, by = 3), require = 1)
+	private static int wilderWild$modifyInt(int original, @Share("vec32") LocalRef<Vec3> vec32Ref) {
+		if (((WilderSonicBoom) wilderWild$currentBoom).wilderWild$particlesEnded()) {
+			return Mth.floor(vec32Ref.get().length()) + 10;
+		}
+		return original;
 	}
 
 	/*@ModifyConstant(method = "m_ehrxwrfs", constant = @Constant(intValue = 1))
@@ -83,27 +80,13 @@ public class SonicBoomMixin implements WilderSonicBoom {
 		return original;
 	}*/
 
-	@ModifyVariable(method = {"m_ehrxwrfs","method_43265","lambda$tick$2"}, at = @At(value = "CONSTANT", args = "intValue=1", shift = At.Shift.BY, by = 3), require = 1)
-	private static int wilderWild$modifyInt(int original, @Share("vec32") LocalRef<Vec3> vec32Ref) {
-		if (((WilderSonicBoom) wilderWild$currentBoom).wilderWild$particlesEnded()) {
-			return Mth.floor(vec32Ref.get().length()) + 10;
-		}
-		return original;
-	}
-
-	@ModifyVariable(method = {"m_ehrxwrfs","method_43265","lambda$tick$2"}, at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/phys/Vec3;add(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;"), ordinal = 0, require = 1)
+	@ModifyVariable(method = {"m_ehrxwrfs", "method_43265", "lambda$tick$2"}, at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/phys/Vec3;add(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;"), ordinal = 0, require = 1)
 	private static Vec3 wilderWild$modifyVec(Vec3 value, @Share("vec32") LocalRef<Vec3> vec32Ref) {
 		vec32Ref.set(value);
 		return value;
 	}
 
-	@Inject(method = "stop(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/monster/warden/Warden;J)V", at = @At("TAIL"))
-	private void wilderWild$reset(ServerLevel level, Warden entity, long gameTime, CallbackInfo info) {
-		this.wilderWild$particlesEnded = false;
-		this.wilderWild$particlePos = null;
-	}
-
-	@Inject(method = {"m_ehrxwrfs","method_43265","lambda$tick$2"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;sendParticles(Lnet/minecraft/core/particles/ParticleOptions;DDDIDDDD)I", shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD, require = 1)
+	@Inject(method = {"m_ehrxwrfs", "method_43265", "lambda$tick$2"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;sendParticles(Lnet/minecraft/core/particles/ParticleOptions;DDDIDDDD)I", shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD, require = 1)
 	private static void wilderWild$stopParticles(Warden warden, ServerLevel level, LivingEntity livingEntity, CallbackInfo info, Vec3 vec3, Vec3 vec32, Vec3 vec33, int i, Vec3 vec34) {
 		BlockPos hitPos = wilderWild$isOccluded(level, vec3, vec34);
 		if (hitPos != null) {
@@ -114,8 +97,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 		}
 	}
 
-
-	@Inject(method = {"m_ehrxwrfs","method_43265","lambda$tick$2"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z"), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true, require = 1)
+	@Inject(method = {"m_ehrxwrfs", "method_43265", "lambda$tick$2"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z"), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true, require = 1)
 	private static void wilderWild$tick(Warden warden, ServerLevel level, LivingEntity livingEntity, CallbackInfo info, Vec3 vec3, Vec3 vec32, Vec3 vec33) {
 		boolean blocked = false;
 		for (int i = 1; i < Mth.floor(vec32.length()) + 7; ++i) {
@@ -146,27 +128,41 @@ public class SonicBoomMixin implements WilderSonicBoom {
 
 	@Unique
 	@Nullable
-    private static BlockPos wilderWild$isOccluded(@NotNull Level level, @NotNull Vec3 start, @NotNull Vec3 end) {
-        Vec3 vec3d = new Vec3((double) Mth.floor(start.x) + 0.5D, (double) Mth.floor(start.y) + 0.5D, (double) Mth.floor(start.z) + 0.5D);
-        Vec3 vec3d2 = new Vec3((double) Mth.floor(end.x) + 0.5D, (double) Mth.floor(end.y) + 0.5D, (double) Mth.floor(end.z) + 0.5D);
-        BlockPos hitPos = null;
-        boolean blocked = true;
-        for (Direction direction : Direction.values()) {
-            Vec3 vec3d3 = vec3d.relative(direction, 9.999999747378752E-6D);
-            BlockHitResult hit = level.isBlockInLine(new ClipBlockStateContext(vec3d3, vec3d2, (state) -> state.is(RegisterBlocks.ECHO_GLASS)));
-            if (hit.getType() != HitResult.Type.BLOCK) {
-                blocked = false;
-            } else {
-                hitPos = hit.getBlockPos();
-            }
-        }
-        if (blocked) {
-            WilderSharedConstants.log("Warden Sonic Boom Blocked @ " + hitPos, WilderSharedConstants.UNSTABLE_LOGGING);
-            return hitPos;
-        } else {
-            return null;
-        }
-    }
+	private static BlockPos wilderWild$isOccluded(@NotNull Level level, @NotNull Vec3 start, @NotNull Vec3 end) {
+		Vec3 vec3d = new Vec3((double) Mth.floor(start.x) + 0.5D, (double) Mth.floor(start.y) + 0.5D, (double) Mth.floor(start.z) + 0.5D);
+		Vec3 vec3d2 = new Vec3((double) Mth.floor(end.x) + 0.5D, (double) Mth.floor(end.y) + 0.5D, (double) Mth.floor(end.z) + 0.5D);
+		BlockPos hitPos = null;
+		boolean blocked = true;
+		for (Direction direction : Direction.values()) {
+			Vec3 vec3d3 = vec3d.relative(direction, 9.999999747378752E-6D);
+			BlockHitResult hit = level.isBlockInLine(new ClipBlockStateContext(vec3d3, vec3d2, (state) -> state.is(RegisterBlocks.ECHO_GLASS)));
+			if (hit.getType() != HitResult.Type.BLOCK) {
+				blocked = false;
+			} else {
+				hitPos = hit.getBlockPos();
+			}
+		}
+		if (blocked) {
+			WilderSharedConstants.log("Warden Sonic Boom Blocked @ " + hitPos, WilderSharedConstants.UNSTABLE_LOGGING);
+			return hitPos;
+		} else {
+			return null;
+		}
+	}
+
+	@ModifyArg(method = "tick(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/monster/warden/Warden;J)V", at = @At(value = "INVOKE", target = "Ljava/util/Optional;ifPresent(Ljava/util/function/Consumer;)V", ordinal = 1))
+	private Consumer<? super LivingEntity> wilderWild$setCurrent(Consumer<? super LivingEntity> original) {
+		return target -> {
+			wilderWild$currentBoom = SonicBoom.class.cast(this);
+			original.accept(target);
+		};
+	}
+
+	@Inject(method = "stop(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/monster/warden/Warden;J)V", at = @At("TAIL"))
+	private void wilderWild$reset(ServerLevel level, Warden entity, long gameTime, CallbackInfo info) {
+		this.wilderWild$particlesEnded = false;
+		this.wilderWild$particlePos = null;
+	}
 
 	@Unique
 	@Override

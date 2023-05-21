@@ -20,6 +20,14 @@ package net.frozenblock.wilderwild.misc.config.defaultconfig;
 
 public class DefaultBlockConfig {
 
+	public static final boolean MC_LIVE_SENSOR_TENDRILS = false;
+	public static final boolean SHRIEKER_GARGLING = true;
+	public static final boolean SOUL_FIRE_SOUNDS = true;
+	public static final boolean BILLBOARD_TENDRILS = true;
+	public static final boolean MESOGLEA_LIQUID = false;
+	public static final boolean POLLEN_PARTICLES = true;
+	public static final boolean CACTUS_PLACEMENT = true;
+
 	public static class BlockSoundsConfig {
 		public static final boolean CACTUS_SOUNDS = true;
 		public static final boolean CLAY_SOUNDS = true;
@@ -48,12 +56,4 @@ public class DefaultBlockConfig {
 	public static class TermiteConfig {
 		public static final boolean ONLY_EAT_NATURAL_BLOCKS = true;
 	}
-
-	public static final boolean MC_LIVE_SENSOR_TENDRILS = false;
-	public static final boolean SHRIEKER_GARGLING = true;
-	public static final boolean SOUL_FIRE_SOUNDS = true;
-	public static final boolean BILLBOARD_TENDRILS = true;
-	public static final boolean MESOGLEA_LIQUID = false;
-	public static final boolean POLLEN_PARTICLES = true;
-	public static final boolean CACTUS_PLACEMENT = true;
 }

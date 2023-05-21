@@ -51,6 +51,10 @@ public class FireflyBottle extends Item {
 		this.color = color;
 	}
 
+	public static boolean isNectar(@NotNull ItemStack stack) {
+		return stack.hasCustomHoverName() && stack.getHoverName().getString().contains("nectar");
+	}
+
 	@Override
 	@NotNull
 	public ItemStack finishUsingItem(@NotNull ItemStack stack, @NotNull Level level, @NotNull LivingEntity user) {
@@ -114,10 +118,6 @@ public class FireflyBottle extends Item {
 		}
 		player.gameEvent(GameEvent.ITEM_INTERACT_FINISH);
 		return ItemUtils.startUsingInstantly(level, player, usedHand);
-	}
-
-	public static boolean isNectar(@NotNull ItemStack stack) {
-		return stack.hasCustomHoverName() && stack.getHoverName().getString().contains("nectar");
 	}
 
 	@Override

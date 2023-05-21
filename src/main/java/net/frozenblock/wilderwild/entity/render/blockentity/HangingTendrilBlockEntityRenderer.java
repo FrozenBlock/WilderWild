@@ -35,21 +35,21 @@ import org.jetbrains.annotations.NotNull;
 @Environment(EnvType.CLIENT)
 public class HangingTendrilBlockEntityRenderer<T extends HangingTendrilBlockEntity> extends BillboardBlockEntityRenderer<T> {
 
-    public HangingTendrilBlockEntityRenderer(@NotNull Context ctx) {
-        super(ctx);
-    }
+	public HangingTendrilBlockEntityRenderer(@NotNull Context ctx) {
+		super(ctx);
+	}
 
 	@NotNull
-    public static LayerDefinition getTexturedModelData() {
+	public static LayerDefinition getTexturedModelData() {
 		return BillboardBlockEntityRenderer.getTexturedModelData();
-    }
+	}
 
 	@Override
-    public void render(@NotNull T entity, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
-        if (WilderSharedConstants.config().billboardTendrils()) {
+	public void render(@NotNull T entity, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
+		if (WilderSharedConstants.config().billboardTendrils()) {
 			super.render(entity, partialTick, poseStack, vertexConsumers, light, overlay);
 		}
-    }
+	}
 
 	@Override
 	@NotNull

@@ -23,6 +23,6 @@ import net.minecraft.world.level.Level;
 
 public interface SculkShriekerTickInterface {
 
-    void wilderWild$tickServer(Level level, BlockPos pos);
+	void wilderWild$tickServer(Level level, BlockPos pos);
 
 }

@@ -31,17 +31,13 @@ import net.minecraft.network.FriendlyByteBuf;
 import org.jetbrains.annotations.NotNull;
 
 public class SeedParticleOptions implements ParticleOptions {
-	private final boolean isMilkweed;
-	private final boolean controlled;
-
 	public static final Codec<SeedParticleOptions> CODEC = RecordCodecBuilder.create((instance) ->
-			instance.group(
-					Codec.BOOL.fieldOf("is_milkweed").forGetter((particleOptions) -> particleOptions.isMilkweed),
-							Codec.BOOL.fieldOf("is_controlled").forGetter((particleOptions) -> particleOptions.controlled)
-					)
-					.apply(instance, SeedParticleOptions::new)
+		instance.group(
+				Codec.BOOL.fieldOf("is_milkweed").forGetter((particleOptions) -> particleOptions.isMilkweed),
+				Codec.BOOL.fieldOf("is_controlled").forGetter((particleOptions) -> particleOptions.controlled)
+			)
+			.apply(instance, SeedParticleOptions::new)
 	);
-
 	public static final Deserializer<SeedParticleOptions> DESERIALIZER = new Deserializer<>() {
 
 		@Override
@@ -59,6 +55,8 @@ public class SeedParticleOptions implements ParticleOptions {
 			return new SeedParticleOptions(friendlyByteBuf.readBoolean(), friendlyByteBuf.readBoolean());
 		}
 	};
+	private final boolean isMilkweed;
+	private final boolean controlled;
 
 	public SeedParticleOptions(boolean isMilkweed, boolean controlled) {
 		this.isMilkweed = isMilkweed;

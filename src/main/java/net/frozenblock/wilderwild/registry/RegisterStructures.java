@@ -28,7 +28,6 @@ import net.frozenblock.wilderwild.world.additions.structure.WilderStructureProce
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.Pools;
@@ -58,58 +57,57 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 import org.jetbrains.annotations.NotNull;
 
 public final class RegisterStructures {
+	public static final ResourceKey<StructureSet> ABANDONED_CABINS_KEY = ofSet("abandoned_cabins");
+	private static final ResourceKey<Structure> ABANDONED_CABIN_KEY = createKey("abandoned_cabin");
+
 	private RegisterStructures() {
 		throw new UnsupportedOperationException("RegisterStructures contains only static declarations.");
 	}
 
-    public static final ResourceKey<StructureSet> ABANDONED_CABINS_KEY = ofSet("abandoned_cabins");
+	@NotNull
+	private static ResourceKey<StructureSet> ofSet(@NotNull String id) {
+		return ResourceKey.create(Registries.STRUCTURE_SET, WilderSharedConstants.id(id));
+	}
+
+	public static void init() {
+		WilderSharedConstants.logWild("Registering Structures for", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderStructureProcessors.init();
+		AbandonedCabinGenerator.init();
+	}
 
 	@NotNull
-    private static ResourceKey<StructureSet> ofSet(@NotNull String id) {
-        return ResourceKey.create(Registries.STRUCTURE_SET, WilderSharedConstants.id(id));
-    }
-
-	private static final ResourceKey<Structure> ABANDONED_CABIN_KEY = createKey("abandoned_cabin");
-
-    public static void init() {
-        WilderSharedConstants.logWild("Registering Structures for", WilderSharedConstants.UNSTABLE_LOGGING);
-        WilderStructureProcessors.init();
-        AbandonedCabinGenerator.init();
-    }
+	private static ResourceKey<Structure> createKey(@NotNull String id) {
+		return ResourceKey.create(Registries.STRUCTURE, WilderSharedConstants.id(id));
+	}
 
 	@NotNull
-    private static ResourceKey<Structure> createKey(@NotNull String id) {
-        return ResourceKey.create(Registries.STRUCTURE, WilderSharedConstants.id(id));
-    }
+	private static Structure.StructureSettings structure(@NotNull HolderSet<Biome> holderSet, @NotNull Map<MobCategory, StructureSpawnOverride> spawns, @NotNull GenerationStep.Decoration featureStep, @NotNull TerrainAdjustment terrainAdaptation) {
+		return new Structure.StructureSettings(holderSet, spawns, featureStep, terrainAdaptation);
+	}
 
 	@NotNull
-    private static Structure.StructureSettings structure(@NotNull HolderSet<Biome> holderSet, @NotNull Map<MobCategory, StructureSpawnOverride> spawns, @NotNull GenerationStep.Decoration featureStep, @NotNull TerrainAdjustment terrainAdaptation) {
-        return new Structure.StructureSettings(holderSet, spawns, featureStep, terrainAdaptation);
-    }
-
-	@NotNull
-    private static Structure.StructureSettings structure(@NotNull HolderSet<Biome> holderSet, @NotNull GenerationStep.Decoration featureStep, @NotNull TerrainAdjustment terrainAdaptation) {
-        return structure(holderSet, Map.of(), featureStep, terrainAdaptation);
-    }
+	private static Structure.StructureSettings structure(@NotNull HolderSet<Biome> holderSet, @NotNull GenerationStep.Decoration featureStep, @NotNull TerrainAdjustment terrainAdaptation) {
+		return structure(holderSet, Map.of(), featureStep, terrainAdaptation);
+	}
 
 	public static void bootstrapProcessor(@NotNull BootstapContext<StructureProcessorList> context) {
 		register(
-				context,
-				WilderStructureProcessors.ABANDONED_CABIN,
-				List.of(
-						new RuleProcessor(
-								List.of(
-										new ProcessorRule(
-												new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICKS, 0.3F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_DEEPSLATE_BRICKS.defaultBlockState()
-										),
-										new ProcessorRule(
-												new RandomBlockMatchTest(Blocks.DEEPSLATE_TILES, 0.3F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_DEEPSLATE_TILES.defaultBlockState()
-										),
-										new ProcessorRule(new RandomBlockMatchTest(Blocks.SOUL_LANTERN, 0.05F), AlwaysTrueTest.INSTANCE, Blocks.AIR.defaultBlockState())
-								)
+			context,
+			WilderStructureProcessors.ABANDONED_CABIN,
+			List.of(
+				new RuleProcessor(
+					List.of(
+						new ProcessorRule(
+							new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICKS, 0.3F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_DEEPSLATE_BRICKS.defaultBlockState()
 						),
-						new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
-				)
+						new ProcessorRule(
+							new RandomBlockMatchTest(Blocks.DEEPSLATE_TILES, 0.3F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_DEEPSLATE_TILES.defaultBlockState()
+						),
+						new ProcessorRule(new RandomBlockMatchTest(Blocks.SOUL_LANTERN, 0.05F), AlwaysTrueTest.INSTANCE, Blocks.AIR.defaultBlockState())
+					)
+				),
+				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
+			)
 		);
 	}
 
@@ -119,16 +117,16 @@ public final class RegisterStructures {
 		Holder<StructureTemplatePool> holder2 = holderGetter2.getOrThrow(Pools.EMPTY);
 
 		context.register(
-				AbandonedCabinGenerator.CABIN,
-				new StructureTemplatePool(
-						holder2,
-						List.of(
-								Pair.of(AbandonedCabinGenerator.ofProcessedSingle("abandoned_cabin/cabin/abandoned_cabin_1", processor.getOrThrow(WilderStructureProcessors.ABANDONED_CABIN)), 1),
-								Pair.of(AbandonedCabinGenerator.ofProcessedSingle("abandoned_cabin/cabin/abandoned_cabin_2", processor.getOrThrow(WilderStructureProcessors.ABANDONED_CABIN)), 1),
-								Pair.of(AbandonedCabinGenerator.ofProcessedSingle("abandoned_cabin/cabin/abandoned_cabin_3", processor.getOrThrow(WilderStructureProcessors.ABANDONED_CABIN)), 1)
-						),
-						StructureTemplatePool.Projection.RIGID
-				)
+			AbandonedCabinGenerator.CABIN,
+			new StructureTemplatePool(
+				holder2,
+				List.of(
+					Pair.of(AbandonedCabinGenerator.ofProcessedSingle("abandoned_cabin/cabin/abandoned_cabin_1", processor.getOrThrow(WilderStructureProcessors.ABANDONED_CABIN)), 1),
+					Pair.of(AbandonedCabinGenerator.ofProcessedSingle("abandoned_cabin/cabin/abandoned_cabin_2", processor.getOrThrow(WilderStructureProcessors.ABANDONED_CABIN)), 1),
+					Pair.of(AbandonedCabinGenerator.ofProcessedSingle("abandoned_cabin/cabin/abandoned_cabin_3", processor.getOrThrow(WilderStructureProcessors.ABANDONED_CABIN)), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
 		);
 	}
 
@@ -136,31 +134,31 @@ public final class RegisterStructures {
 		HolderGetter<Biome> holderGetter = context.lookup(Registries.BIOME);
 		HolderGetter<StructureTemplatePool> templatePool = context.lookup(Registries.TEMPLATE_POOL);
 		context.register(
-				ABANDONED_CABIN_KEY,
-				new JigsawStructure(
-						structure(
-								holderGetter.getOrThrow(WilderBiomeTags.ABANDONED_CABIN_HAS_STRUCTURE),
-								//Arrays.stream(MobCategory.values())
-								//        .collect(Collectors.toMap(spawnGroup -> spawnGroup, spawnGroup -> new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE, WeightedRandomList.create()))),
-								GenerationStep.Decoration.UNDERGROUND_DECORATION,
-								TerrainAdjustment.BURY
-						),
-						templatePool.getOrThrow(AbandonedCabinGenerator.CABIN),
-						5,
-						UniformHeight.of(VerticalAnchor.absolute(-40), VerticalAnchor.absolute(0)),
-						false
-				)
+			ABANDONED_CABIN_KEY,
+			new JigsawStructure(
+				structure(
+					holderGetter.getOrThrow(WilderBiomeTags.ABANDONED_CABIN_HAS_STRUCTURE),
+					//Arrays.stream(MobCategory.values())
+					//        .collect(Collectors.toMap(spawnGroup -> spawnGroup, spawnGroup -> new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE, WeightedRandomList.create()))),
+					GenerationStep.Decoration.UNDERGROUND_DECORATION,
+					TerrainAdjustment.BURY
+				),
+				templatePool.getOrThrow(AbandonedCabinGenerator.CABIN),
+				5,
+				UniformHeight.of(VerticalAnchor.absolute(-40), VerticalAnchor.absolute(0)),
+				false
+			)
 		);
 	}
 
 	public static void bootstrapStructureSet(@NotNull BootstapContext<StructureSet> context) {
 		HolderGetter<Structure> structure = context.lookup(Registries.STRUCTURE);
 		context.register(
-				ABANDONED_CABINS_KEY,
-				new StructureSet(
-						structure.getOrThrow(ABANDONED_CABIN_KEY),
-						new RandomSpreadStructurePlacement(13, 5, RandomSpreadType.LINEAR, 25388232) // ancient city salt is 20083232
-				)
+			ABANDONED_CABINS_KEY,
+			new StructureSet(
+				structure.getOrThrow(ABANDONED_CABIN_KEY),
+				new RandomSpreadStructurePlacement(13, 5, RandomSpreadType.LINEAR, 25388232) // ancient city salt is 20083232
+			)
 		);
 	}
 

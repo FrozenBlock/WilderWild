@@ -46,43 +46,43 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(SculkSensorBlock.class)
 public abstract class SculkSensorBlockMixin extends BaseEntityBlock implements SimpleWaterloggedBlock {
 
-    private SculkSensorBlockMixin(Properties properties) {
-        super(properties);
-    }
+	private SculkSensorBlockMixin(Properties properties) {
+		super(properties);
+	}
 
-    @Inject(at = @At("TAIL"), method = "createBlockStateDefinition")
-    private void wilderWild$addHiccuppingState(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-        builder.add(RegisterProperties.HICCUPPING);
-    }
+	@Inject(at = @At("TAIL"), method = "createBlockStateDefinition")
+	private void wilderWild$addHiccuppingState(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
+		builder.add(RegisterProperties.HICCUPPING);
+	}
 
-    @Inject(method = "<init>", at = @At("TAIL"))
-    private void wilderWild$registerDefaultHiccupping(Properties properties, CallbackInfo ci) {
-        SculkSensorBlock sculkSensor = SculkSensorBlock.class.cast(this);
-        sculkSensor.registerDefaultState(sculkSensor.defaultBlockState().setValue(RegisterProperties.HICCUPPING, false));
-    }
+	@Inject(method = "<init>", at = @At("TAIL"))
+	private void wilderWild$registerDefaultHiccupping(Properties properties, CallbackInfo ci) {
+		SculkSensorBlock sculkSensor = SculkSensorBlock.class.cast(this);
+		sculkSensor.registerDefaultState(sculkSensor.defaultBlockState().setValue(RegisterProperties.HICCUPPING, false));
+	}
 
-    @Inject(at = @At("HEAD"), method = "getTicker", cancellable = true)
-    public <T extends BlockEntity> void wilderWild$overrideTicker(Level level, BlockState state, BlockEntityType<T> type, CallbackInfoReturnable<BlockEntityTicker<T>> info) {
-        if (level.isClientSide) {
-            info.setReturnValue(createTickerHelper(type, BlockEntityType.SCULK_SENSOR, (worldx, pos, statex, blockEntity) ->
+	@Inject(at = @At("HEAD"), method = "getTicker", cancellable = true)
+	public <T extends BlockEntity> void wilderWild$overrideTicker(Level level, BlockState state, BlockEntityType<T> type, CallbackInfoReturnable<BlockEntityTicker<T>> info) {
+		if (level.isClientSide) {
+			info.setReturnValue(createTickerHelper(type, BlockEntityType.SCULK_SENSOR, (worldx, pos, statex, blockEntity) ->
 				((SculkSensorTickInterface) blockEntity).wilderWild$tickClient(worldx, pos, statex)));
-        } else {
-            info.setReturnValue(createTickerHelper(type, BlockEntityType.SCULK_SENSOR, (worldx, pos, statex, blockEntity) ->
+		} else {
+			info.setReturnValue(createTickerHelper(type, BlockEntityType.SCULK_SENSOR, (worldx, pos, statex, blockEntity) ->
 				((SculkSensorTickInterface) blockEntity).wilderWild$tickServer((ServerLevel) worldx, pos, statex)));
-        }
-    }
+		}
+	}
 
-    @Inject(at = @At("HEAD"), method = "activate")
-    private void wilderWild$activate(@Nullable Entity entity, Level level, BlockPos pos, BlockState state, int power, int frequency, CallbackInfo info) {
-        if (level.getBlockEntity(pos) instanceof SculkSensorBlockEntity blockEntity) {
-            ((SculkSensorTickInterface) blockEntity).wilderWild$setActive(true);
-            ((SculkSensorTickInterface) blockEntity).wilderWild$setAnimTicks(10);
-        }
-    }
+	@Inject(at = @At("HEAD"), method = "activate")
+	private void wilderWild$activate(@Nullable Entity entity, Level level, BlockPos pos, BlockState state, int power, int frequency, CallbackInfo info) {
+		if (level.getBlockEntity(pos) instanceof SculkSensorBlockEntity blockEntity) {
+			((SculkSensorTickInterface) blockEntity).wilderWild$setActive(true);
+			((SculkSensorTickInterface) blockEntity).wilderWild$setAnimTicks(10);
+		}
+	}
 
-    @Inject(at = @At("HEAD"), method = "getRenderShape", cancellable = true)
-    public void wilderWild$getRenderShape(BlockState state, CallbackInfoReturnable<RenderShape> info) {
-        info.setReturnValue(WilderSharedConstants.config().mcLiveSensorTendrils() ? RenderShape.INVISIBLE : RenderShape.MODEL);
-    }
+	@Inject(at = @At("HEAD"), method = "getRenderShape", cancellable = true)
+	public void wilderWild$getRenderShape(BlockState state, CallbackInfoReturnable<RenderShape> info) {
+		info.setReturnValue(WilderSharedConstants.config().mcLiveSensorTendrils() ? RenderShape.INVISIBLE : RenderShape.MODEL);
+	}
 
 }

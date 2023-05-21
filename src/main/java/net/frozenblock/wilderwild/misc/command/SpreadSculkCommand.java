@@ -35,20 +35,20 @@ public class SpreadSculkCommand {
 
 	public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
 		dispatcher.register(Commands.literal("sculkspread")
-				.requires(source -> source.hasPermission(2))
-				.executes(context -> spreadSculk(context.getSource(), context.getSource().getPosition(), false, 10))
-				.then(((
-						Commands.argument("position", BlockPosArgument.blockPos())
-								.executes(context -> spreadSculk(context.getSource(), BlockPosArgument.getLoadedBlockPos(context, "position"), false, 10))
-								.then(((Commands.argument("charge", IntegerArgumentType.integer(1))
-										.executes(context -> spreadSculk(context.getSource(), BlockPosArgument.getLoadedBlockPos(context, "position"), false, IntegerArgumentType.getInteger(context, "charge")))
-										.then(((Commands.argument("isWorldGen", BoolArgumentType.bool())
-												.executes(context -> spreadSculk(context.getSource(), BlockPosArgument.getLoadedBlockPos(context, "position"), BoolArgumentType.getBool(context, "isWorldGen"), IntegerArgumentType.getInteger(context, "charge")))
-												))
-										)))
-								)
-						)
-				))
+			.requires(source -> source.hasPermission(2))
+			.executes(context -> spreadSculk(context.getSource(), context.getSource().getPosition(), false, 10))
+			.then(((
+				Commands.argument("position", BlockPosArgument.blockPos())
+					.executes(context -> spreadSculk(context.getSource(), BlockPosArgument.getLoadedBlockPos(context, "position"), false, 10))
+					.then(((Commands.argument("charge", IntegerArgumentType.integer(1))
+						.executes(context -> spreadSculk(context.getSource(), BlockPosArgument.getLoadedBlockPos(context, "position"), false, IntegerArgumentType.getInteger(context, "charge")))
+						.then(((Commands.argument("isWorldGen", BoolArgumentType.bool())
+								.executes(context -> spreadSculk(context.getSource(), BlockPosArgument.getLoadedBlockPos(context, "position"), BoolArgumentType.getBool(context, "isWorldGen"), IntegerArgumentType.getInteger(context, "charge")))
+							))
+						)))
+					)
+			)
+			))
 		);
 	}
 

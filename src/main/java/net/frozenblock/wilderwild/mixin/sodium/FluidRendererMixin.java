@@ -44,7 +44,8 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 @Mixin(FluidRenderer.class)
 public class FluidRendererMixin {
 
-	@Unique private final TextureAtlasSprite wilderWild$waterOverlay = ModelBakery.WATER_OVERLAY.sprite();
+	@Unique
+	private final TextureAtlasSprite wilderWild$waterOverlay = ModelBakery.WATER_OVERLAY.sprite();
 
 	@Unique
 	private float wilderWild$u0;

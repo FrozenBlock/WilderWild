@@ -24,14 +24,14 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import static net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes.LEAVES;
 
 public class BetterNetherIntegration extends ModIntegration {
-    public BetterNetherIntegration() {
-        super("betternether");
-    }
+	public BetterNetherIntegration() {
+		super("betternether");
+	}
 
-    @Override
-    public void init() {
-        addBlock(id("willow_leaves"), LEAVES, WilderSharedConstants.config()::leafSounds);
-        addBlock(id("rubeus_leaves"), LEAVES, WilderSharedConstants.config()::leafSounds);
-        addBlock(id("anchor_tree_leaves"), LEAVES, WilderSharedConstants.config()::leafSounds);
-    }
+	@Override
+	public void init() {
+		addBlock(id("willow_leaves"), LEAVES, WilderSharedConstants.config()::leafSounds);
+		addBlock(id("rubeus_leaves"), LEAVES, WilderSharedConstants.config()::leafSounds);
+		addBlock(id("anchor_tree_leaves"), LEAVES, WilderSharedConstants.config()::leafSounds);
+	}
 }

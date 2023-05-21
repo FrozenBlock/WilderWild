@@ -34,50 +34,14 @@ import org.jetbrains.annotations.NotNull;
 
 public class SmallSpongeFeature extends Feature<SmallSpongeFeatureConfig> {
 
-    public SmallSpongeFeature(@NotNull Codec<SmallSpongeFeatureConfig> codec) {
-        super(codec);
-    }
-
-    @Override
-	public boolean place(@NotNull FeaturePlaceContext<SmallSpongeFeatureConfig> context) {
-		WorldGenLevel worldGenLevel = context.level();
-		BlockPos blockPos = context.origin();
-		RandomSource randomSource = context.random();
-		SmallSpongeFeatureConfig config = context.config();
-		if (!isAirOrWater(worldGenLevel.getBlockState(blockPos))) {
-			return false;
-		} else {
-			List<Direction> list = config.shuffleDirections(randomSource);
-			if (generate(worldGenLevel, blockPos, worldGenLevel.getBlockState(blockPos), config, list)) {
-				return true;
-			} else {
-				BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
-
-				for(Direction direction : list) {
-					mutableBlockPos.set(blockPos);
-					List<Direction> list2 = config.shuffleDirections(randomSource, direction.getOpposite());
-
-					for(int i = 0; i < config.searchRange; ++i) {
-						mutableBlockPos.setWithOffset(blockPos, direction);
-						BlockState blockState = worldGenLevel.getBlockState(mutableBlockPos);
-						if (!isAirOrWater(blockState) && !blockState.is(config.sponge)) {
-							break;
-						}
-
-						if (generate(worldGenLevel, mutableBlockPos, blockState, config, list2)) {
-							return true;
-						}
-					}
-				}
-				return false;
-			}
-		}
+	public SmallSpongeFeature(@NotNull Codec<SmallSpongeFeatureConfig> codec) {
+		super(codec);
 	}
 
 	public static boolean generate(@NotNull WorldGenLevel level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull SmallSpongeFeatureConfig config, @NotNull List<Direction> directions) {
 		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 
-		for(Direction direction : directions) {
+		for (Direction direction : directions) {
 			BlockState blockState = level.getBlockState(mutableBlockPos.setWithOffset(pos, direction));
 			if (blockState.is(config.canPlaceOn)) {
 				BlockState blockState2 = config.sponge.getStateForPlacement(state, level, pos, direction);
@@ -97,6 +61,42 @@ public class SmallSpongeFeature extends Feature<SmallSpongeFeatureConfig> {
 
 	public static boolean isAirOrWater(@NotNull BlockState state) {
 		return state.isAir() || state.is(Blocks.WATER);
+	}
+
+	@Override
+	public boolean place(@NotNull FeaturePlaceContext<SmallSpongeFeatureConfig> context) {
+		WorldGenLevel worldGenLevel = context.level();
+		BlockPos blockPos = context.origin();
+		RandomSource randomSource = context.random();
+		SmallSpongeFeatureConfig config = context.config();
+		if (!isAirOrWater(worldGenLevel.getBlockState(blockPos))) {
+			return false;
+		} else {
+			List<Direction> list = config.shuffleDirections(randomSource);
+			if (generate(worldGenLevel, blockPos, worldGenLevel.getBlockState(blockPos), config, list)) {
+				return true;
+			} else {
+				BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
+
+				for (Direction direction : list) {
+					mutableBlockPos.set(blockPos);
+					List<Direction> list2 = config.shuffleDirections(randomSource, direction.getOpposite());
+
+					for (int i = 0; i < config.searchRange; ++i) {
+						mutableBlockPos.setWithOffset(blockPos, direction);
+						BlockState blockState = worldGenLevel.getBlockState(mutableBlockPos);
+						if (!isAirOrWater(blockState) && !blockState.is(config.sponge)) {
+							break;
+						}
+
+						if (generate(worldGenLevel, mutableBlockPos, blockState, config, list2)) {
+							return true;
+						}
+					}
+				}
+				return false;
+			}
+		}
 	}
 }
 

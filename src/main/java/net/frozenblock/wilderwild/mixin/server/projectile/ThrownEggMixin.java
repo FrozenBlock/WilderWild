@@ -31,7 +31,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ThrownEgg.class)
 public class ThrownEggMixin {
 
-    @Inject(method = "onHit", at = @At("HEAD"))
+	@Inject(method = "onHit", at = @At("HEAD"))
 	public void wilderWild$onHit(HitResult result, CallbackInfo info) {
 		if (WilderSharedConstants.config().eggLandingSounds()) {
 			ThrownEgg egg = ThrownEgg.class.cast(this);

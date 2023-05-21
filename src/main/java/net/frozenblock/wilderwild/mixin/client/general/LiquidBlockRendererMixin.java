@@ -59,16 +59,15 @@ public class LiquidBlockRendererMixin {
 	private float wilderWild$v0;
 	@Unique
 	private float wilderWild$v1;
-
-    @Inject(method = "shouldRenderFace", at = @At(value = "HEAD"), cancellable = true)
-    private static void wilderWild$shouldRenderFace(BlockAndTintGetter blockAndTintGetter, BlockPos blockPos, FluidState fluidState, BlockState blockState, Direction side, FluidState fluidState2, CallbackInfoReturnable<Boolean> info) {
-		if (blockState.getBlock() instanceof MesogleaBlock && side != Direction.UP && !FrozenBools.HAS_SODIUM) {
-            info.setReturnValue(false);
-        }
-    }
-
 	@Unique
 	private boolean wilderWild$isWater;
+
+	@Inject(method = "shouldRenderFace", at = @At(value = "HEAD"), cancellable = true)
+	private static void wilderWild$shouldRenderFace(BlockAndTintGetter blockAndTintGetter, BlockPos blockPos, FluidState fluidState, BlockState blockState, Direction side, FluidState fluidState2, CallbackInfoReturnable<Boolean> info) {
+		if (blockState.getBlock() instanceof MesogleaBlock && side != Direction.UP && !FrozenBools.HAS_SODIUM) {
+			info.setReturnValue(false);
+		}
+	}
 
 	@Inject(method = "tesselate", at = @At("HEAD"), cancellable = true)
 	private void wilderWild$getIsWater(BlockAndTintGetter level, BlockPos pos, VertexConsumer vertexConsumer, BlockState blockState, FluidState fluidState, CallbackInfo info) {

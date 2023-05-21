@@ -69,6 +69,39 @@ public class TermiteManager {
 	public TermiteManager() {
 	}
 
+	public static int maxTermites(boolean natural, boolean awake, boolean canSpawn) {
+		if (!canSpawn) {
+			return 0;
+		}
+		if (!awake) {
+			return natural ? 0 : 1;
+		}
+		return natural ? 3 : 5;
+	}
+
+	public static boolean areTermitesSafe(@NotNull Level level, @NotNull BlockPos pos) {
+		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
+		for (Direction direction : Direction.values()) {
+			if (!isPosSafeForTermites(level, mutableBlockPos.move(direction))) {
+				return false;
+			}
+			mutableBlockPos.move(direction, -1);
+		}
+		return true;
+	}
+
+	public static boolean isPosSafeForTermites(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
+		return isStateSafeForTermites(level.getBlockState(pos)) && level.getFluidState(pos).isEmpty();
+	}
+
+	public static boolean isPosSafeForTermites(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state) {
+		return isStateSafeForTermites(state) && level.getFluidState(pos).isEmpty();
+	}
+
+	public static boolean isStateSafeForTermites(@NotNull BlockState state) {
+		return !state.is(WilderBlockTags.KILLS_TERMITE) && (!state.hasProperty(BlockStateProperties.WATERLOGGED) || !state.getValue(BlockStateProperties.WATERLOGGED));
+	}
+
 	public void addTermite(@NotNull BlockPos pos, boolean natural) {
 		Termite termite = new Termite(pos, pos, 0, 0, 0, natural);
 		this.termites.add(termite);
@@ -118,39 +151,6 @@ public class TermiteManager {
 		this.termites.clear();
 	}
 
-	public static int maxTermites(boolean natural, boolean awake, boolean canSpawn) {
-		if (!canSpawn) {
-			return 0;
-		}
-		if (!awake) {
-			return natural ? 0 : 1;
-		}
-		return natural ? 3 : 5;
-	}
-
-	public static boolean areTermitesSafe(@NotNull Level level, @NotNull BlockPos pos) {
-		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
-		for (Direction direction : Direction.values()) {
-			if (!isPosSafeForTermites(level, mutableBlockPos.move(direction))) {
-				return false;
-			}
-			mutableBlockPos.move(direction, -1);
-		}
-		return true;
-	}
-
-	public static boolean isPosSafeForTermites(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
-		return isStateSafeForTermites(level.getBlockState(pos)) && level.getFluidState(pos).isEmpty();
-	}
-
-	public static boolean isPosSafeForTermites(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state) {
-		return isStateSafeForTermites(state) && level.getFluidState(pos).isEmpty();
-	}
-
-	public static boolean isStateSafeForTermites(@NotNull BlockState state) {
-		return !state.is(WilderBlockTags.KILLS_TERMITE) && (!state.hasProperty(BlockStateProperties.WATERLOGGED) || !state.getValue(BlockStateProperties.WATERLOGGED));
-	}
-
 	public void saveAdditional(@NotNull CompoundTag tag) {
 		tag.putInt("ticksToNextTermite", this.ticksToNextTermite);
 		Logger logger = WilderSharedConstants.LOGGER;
@@ -175,6 +175,16 @@ public class TermiteManager {
 	}
 
 	public static class Termite {
+		public static final Codec<Termite> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+			BlockPos.CODEC.fieldOf("mound").forGetter(Termite::getMoundPos),
+			BlockPos.CODEC.fieldOf("pos").forGetter(Termite::getPos),
+			Codec.intRange(0, 10000).fieldOf("blockDestroyPower").orElse(0).forGetter(Termite::getPower),
+			Codec.intRange(0, 2002).fieldOf("aliveTicks").orElse(0).forGetter(Termite::getAliveTicks),
+			Codec.intRange(0, 5).fieldOf("update").orElse(0).forGetter(Termite::getUpdateTicks),
+			Codec.BOOL.fieldOf("natural").orElse(true).forGetter(Termite::getNatural)
+		).apply(instance, Termite::new));
+		public static final Map<Block, Block> DEGRADABLE_BLOCKS = new HashMap<>();
+		public static final Map<Block, Block> NATURAL_DEGRADABLE_BLOCKS = new HashMap<>();
 		public BlockPos mound;
 		public BlockPos pos;
 		public int blockDestroyPower;
@@ -183,15 +193,6 @@ public class TermiteManager {
 		public boolean natural;
 		public boolean eating;
 
-		public static final Codec<Termite> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-				BlockPos.CODEC.fieldOf("mound").forGetter(Termite::getMoundPos),
-				BlockPos.CODEC.fieldOf("pos").forGetter(Termite::getPos),
-				Codec.intRange(0, 10000).fieldOf("blockDestroyPower").orElse(0).forGetter(Termite::getPower),
-				Codec.intRange(0, 2002).fieldOf("aliveTicks").orElse(0).forGetter(Termite::getAliveTicks),
-				Codec.intRange(0, 5).fieldOf("update").orElse(0).forGetter(Termite::getUpdateTicks),
-				Codec.BOOL.fieldOf("natural").orElse(true).forGetter(Termite::getNatural)
-		).apply(instance, Termite::new));
-
 		public Termite(@NotNull BlockPos mound, @NotNull BlockPos pos, int blockDestroyPower, int aliveTicks, int update, boolean natural) {
 			this.mound = mound;
 			this.pos = pos;
@@ -199,6 +200,166 @@ public class TermiteManager {
 			this.aliveTicks = aliveTicks;
 			this.update = update;
 			this.natural = natural;
+		}
+
+		@Nullable
+		public static BlockPos ledgePos(@NotNull Level level, @NotNull BlockPos pos, boolean natural) {
+			BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
+			BlockState state = level.getBlockState(mutableBlockPos);
+			if (DEGRADABLE_BLOCKS.containsKey(state.getBlock()) || state.is(WilderBlockTags.TERMITE_BREAKABLE)) {
+				return mutableBlockPos;
+			}
+			mutableBlockPos.move(Direction.DOWN);
+			state = level.getBlockState(mutableBlockPos);
+			if (!state.isAir() && isBlockMovable(state, Direction.DOWN) && exposedToAir(level, mutableBlockPos, natural)) {
+				return mutableBlockPos;
+			}
+			mutableBlockPos.move(Direction.UP, 2);
+			state = level.getBlockState(mutableBlockPos);
+			if (!state.isAir() && isBlockMovable(state, Direction.UP) && exposedToAir(level, mutableBlockPos, natural)) {
+				return mutableBlockPos;
+			}
+			return null;
+		}
+
+		@Nullable
+		public static BlockPos degradableBreakablePos(@NotNull Level level, @NotNull BlockPos pos, boolean natural) {
+			BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
+			List<Direction> directions = Util.shuffledCopy(Direction.values(), level.random);
+			BlockState upState = level.getBlockState(mutableBlockPos.move(Direction.UP));
+			if (canEatBlock(natural, mutableBlockPos, upState)) return mutableBlockPos;
+			mutableBlockPos.move(Direction.DOWN);
+			for (Direction direction : directions) {
+				BlockState state = level.getBlockState(mutableBlockPos.move(direction));
+				if (canEatBlock(natural, mutableBlockPos, state)) return mutableBlockPos;
+				mutableBlockPos.move(direction, -1);
+			}
+			return null;
+		}
+
+		private static boolean canEatBlock(boolean natural, @NotNull BlockPos.MutableBlockPos mutableBlockPos, @NotNull BlockState state) {
+			if (((!natural ? DEGRADABLE_BLOCKS.containsKey(state.getBlock()) : NATURAL_DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || state.is(WilderBlockTags.TERMITE_BREAKABLE)) && isEdibleProperty(state)) {
+				if (state.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF) && state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER) {
+					mutableBlockPos.move(Direction.DOWN);
+				}
+				return true;
+			}
+			return false;
+		}
+
+		public static boolean isEdibleProperty(@NotNull BlockState state) {
+			return !WilderSharedConstants.config().termitesOnlyEatNaturalBlocks() || (state.hasProperty(RegisterProperties.TERMITE_EDIBLE) ? state.getValue(RegisterProperties.TERMITE_EDIBLE) : !state.is(BlockTags.LEAVES) || !state.hasProperty(BlockStateProperties.PERSISTENT) || !state.getValue(BlockStateProperties.PERSISTENT));
+		}
+
+		public static boolean exposedToAir(@NotNull Level level, @NotNull BlockPos pos, boolean natural) {
+			BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
+			for (Direction direction : Direction.values()) {
+				BlockState state = level.getBlockState(mutableBlockPos.move(direction));
+				if (state.isAir() || (!state.isRedstoneConductor(level, mutableBlockPos) && !state.is(WilderBlockTags.BLOCKS_TERMITE)) || ((!natural && DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || (natural && NATURAL_DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || state.is(WilderBlockTags.TERMITE_BREAKABLE)) && isEdibleProperty(state)) {
+					return true;
+				}
+				mutableBlockPos.move(direction, -1);
+			}
+			return false;
+		}
+
+		public static boolean canMove(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
+			if (level instanceof ServerLevel serverLevel) {
+				return serverLevel.shouldTickBlocksAt(pos);
+			}
+			return false;
+		}
+
+		public static boolean isBlockMovable(@NotNull BlockState state, @NotNull Direction direction) {
+			if (state.is(WilderBlockTags.BLOCKS_TERMITE)) {
+				return false;
+			}
+			boolean moveableUp = !(direction == Direction.UP && (state.is(BlockTags.INSIDE_STEP_SOUND_BLOCKS) || state.is(BlockTags.REPLACEABLE_BY_TREES) || state.is(BlockTags.FLOWERS)));
+			boolean moveableDown = !(direction == Direction.DOWN && (state.is(Blocks.WATER) || state.is(Blocks.LAVA) || (state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED))));
+			return moveableUp && moveableDown;
+		}
+
+		public static boolean isTooFar(boolean natural, @NotNull BlockPos mound, @NotNull BlockPos pos) {
+			return !mound.closerThan(pos, natural ? 10 : 32);
+		}
+
+		public static void addDegradableBlocks() {
+			addDegradable(Blocks.ACACIA_LOG, Blocks.STRIPPED_ACACIA_LOG);
+			addDegradable(Blocks.STRIPPED_ACACIA_LOG, RegisterBlocks.STRIPPED_HOLLOWED_ACACIA_LOG);
+			addDegradable(RegisterBlocks.HOLLOWED_ACACIA_LOG, RegisterBlocks.STRIPPED_HOLLOWED_ACACIA_LOG);
+			addDegradable(Blocks.ACACIA_WOOD, Blocks.STRIPPED_ACACIA_WOOD);
+
+			addDegradable(Blocks.BIRCH_LOG, Blocks.STRIPPED_BIRCH_LOG);
+			addDegradable(Blocks.STRIPPED_BIRCH_LOG, RegisterBlocks.STRIPPED_HOLLOWED_BIRCH_LOG);
+			addDegradable(RegisterBlocks.HOLLOWED_BIRCH_LOG, RegisterBlocks.STRIPPED_HOLLOWED_BIRCH_LOG);
+			addDegradable(Blocks.BIRCH_WOOD, Blocks.STRIPPED_BIRCH_WOOD);
+
+			addDegradable(Blocks.OAK_LOG, Blocks.STRIPPED_OAK_LOG);
+			addDegradable(Blocks.STRIPPED_OAK_LOG, RegisterBlocks.STRIPPED_HOLLOWED_OAK_LOG);
+			addDegradable(RegisterBlocks.HOLLOWED_OAK_LOG, RegisterBlocks.STRIPPED_HOLLOWED_OAK_LOG);
+			addDegradable(Blocks.OAK_WOOD, Blocks.STRIPPED_OAK_WOOD);
+
+			addDegradable(Blocks.DARK_OAK_LOG, Blocks.STRIPPED_DARK_OAK_LOG);
+			addDegradable(Blocks.STRIPPED_DARK_OAK_LOG, RegisterBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG);
+			addDegradable(RegisterBlocks.HOLLOWED_DARK_OAK_LOG, RegisterBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG);
+			addDegradable(Blocks.DARK_OAK_WOOD, Blocks.STRIPPED_DARK_OAK_WOOD);
+
+			addDegradable(Blocks.JUNGLE_LOG, Blocks.STRIPPED_JUNGLE_LOG);
+			addDegradable(Blocks.STRIPPED_JUNGLE_LOG, RegisterBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG);
+			addDegradable(RegisterBlocks.HOLLOWED_JUNGLE_LOG, RegisterBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG);
+			addDegradable(Blocks.JUNGLE_WOOD, Blocks.STRIPPED_JUNGLE_WOOD);
+
+			addDegradable(Blocks.SPRUCE_LOG, Blocks.STRIPPED_SPRUCE_LOG);
+			addDegradable(Blocks.STRIPPED_SPRUCE_LOG, RegisterBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG);
+			addDegradable(RegisterBlocks.HOLLOWED_SPRUCE_LOG, RegisterBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG);
+			addDegradable(Blocks.SPRUCE_WOOD, Blocks.STRIPPED_SPRUCE_WOOD);
+
+			addDegradable(Blocks.MANGROVE_LOG, Blocks.STRIPPED_MANGROVE_LOG);
+			addDegradable(Blocks.STRIPPED_MANGROVE_LOG, RegisterBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG);
+			addDegradable(RegisterBlocks.HOLLOWED_MANGROVE_LOG, RegisterBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG);
+			addDegradable(Blocks.MANGROVE_WOOD, Blocks.STRIPPED_MANGROVE_WOOD);
+
+			addDegradable(Blocks.CHERRY_LOG, Blocks.STRIPPED_CHERRY_LOG);
+			addDegradable(Blocks.STRIPPED_CHERRY_LOG, RegisterBlocks.STRIPPED_HOLLOWED_CHERRY_LOG);
+			addDegradable(RegisterBlocks.HOLLOWED_CHERRY_LOG, RegisterBlocks.STRIPPED_HOLLOWED_CHERRY_LOG);
+			addDegradable(Blocks.CHERRY_WOOD, Blocks.STRIPPED_CHERRY_WOOD);
+		}
+
+		public static void addDegradable(Block degradable, Block result) {
+			DEGRADABLE_BLOCKS.put(degradable, result);
+		}
+
+		public static void addNaturalDegradableBlocks() {
+			addNaturalDegradable(Blocks.ACACIA_LOG, Blocks.STRIPPED_ACACIA_LOG);
+			addNaturalDegradable(Blocks.OAK_LOG, Blocks.STRIPPED_OAK_LOG);
+			addNaturalDegradable(Blocks.BIRCH_LOG, Blocks.STRIPPED_BIRCH_LOG);
+			addNaturalDegradable(Blocks.DARK_OAK_LOG, Blocks.STRIPPED_DARK_OAK_LOG);
+			addNaturalDegradable(Blocks.JUNGLE_LOG, Blocks.STRIPPED_JUNGLE_LOG);
+			addNaturalDegradable(Blocks.MANGROVE_LOG, Blocks.STRIPPED_MANGROVE_LOG);
+			addNaturalDegradable(Blocks.SPRUCE_LOG, Blocks.STRIPPED_SPRUCE_LOG);
+			addNaturalDegradable(Blocks.ACACIA_WOOD, Blocks.STRIPPED_ACACIA_WOOD);
+			addNaturalDegradable(Blocks.OAK_WOOD, Blocks.STRIPPED_OAK_WOOD);
+			addNaturalDegradable(Blocks.BIRCH_WOOD, Blocks.STRIPPED_BIRCH_WOOD);
+			addNaturalDegradable(Blocks.DARK_OAK_WOOD, Blocks.STRIPPED_DARK_OAK_WOOD);
+			addNaturalDegradable(Blocks.JUNGLE_WOOD, Blocks.STRIPPED_JUNGLE_WOOD);
+			addNaturalDegradable(Blocks.MANGROVE_WOOD, Blocks.STRIPPED_MANGROVE_WOOD);
+			addNaturalDegradable(Blocks.SPRUCE_WOOD, Blocks.STRIPPED_SPRUCE_WOOD);
+		}
+
+		public static void addNaturalDegradable(@NotNull Block degradable, @NotNull Block result) {
+			NATURAL_DEGRADABLE_BLOCKS.put(degradable, result);
+		}
+
+		public static void spawnGnawParticles(@NotNull Level level, @NotNull BlockState eatState, @NotNull BlockPos pos) {
+			if (level instanceof ServerLevel serverLevel && level.random.nextInt(0, 4) == 3) {
+				serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, eatState), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(0, 3), 0.3F, 0.3F, 0.3F, 0.05D);
+			}
+		}
+
+		public static void spawnEatParticles(Level level, @NotNull BlockState eatState, @NotNull BlockPos pos) {
+			if (level instanceof ServerLevel serverLevel) {
+				serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, eatState), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(18, 25), 0.3F, 0.3F, 0.3F, 0.05D);
+			}
 		}
 
 		public boolean tick(@NotNull Level level) {
@@ -293,87 +454,6 @@ public class TermiteManager {
 			}
 		}
 
-		@Nullable
-		public static BlockPos ledgePos(@NotNull Level level, @NotNull BlockPos pos, boolean natural) {
-			BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
-			BlockState state = level.getBlockState(mutableBlockPos);
-			if (DEGRADABLE_BLOCKS.containsKey(state.getBlock()) || state.is(WilderBlockTags.TERMITE_BREAKABLE)) {
-				return mutableBlockPos;
-			}
-			mutableBlockPos.move(Direction.DOWN);
-			state = level.getBlockState(mutableBlockPos);
-			if (!state.isAir() && isBlockMovable(state, Direction.DOWN) && exposedToAir(level, mutableBlockPos, natural)) {
-				return mutableBlockPos;
-			}
-			mutableBlockPos.move(Direction.UP, 2);
-			state = level.getBlockState(mutableBlockPos);
-			if (!state.isAir() && isBlockMovable(state, Direction.UP) && exposedToAir(level, mutableBlockPos, natural)) {
-				return mutableBlockPos;
-			}
-			return null;
-		}
-
-		@Nullable
-		public static BlockPos degradableBreakablePos(@NotNull Level level, @NotNull BlockPos pos, boolean natural) {
-			BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
-			List<Direction> directions = Util.shuffledCopy(Direction.values(), level.random);
-			BlockState upState = level.getBlockState(mutableBlockPos.move(Direction.UP));
-			if (canEatBlock(natural, mutableBlockPos, upState)) return mutableBlockPos;
-			mutableBlockPos.move(Direction.DOWN);
-			for (Direction direction : directions) {
-				BlockState state = level.getBlockState(mutableBlockPos.move(direction));
-				if (canEatBlock(natural, mutableBlockPos, state)) return mutableBlockPos;
-				mutableBlockPos.move(direction, -1);
-			}
-			return null;
-		}
-
-		private static boolean canEatBlock(boolean natural, @NotNull BlockPos.MutableBlockPos mutableBlockPos, @NotNull BlockState state) {
-			if (((!natural ? DEGRADABLE_BLOCKS.containsKey(state.getBlock()) : NATURAL_DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || state.is(WilderBlockTags.TERMITE_BREAKABLE)) && isEdibleProperty(state)) {
-				if (state.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF) && state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER) {
-					mutableBlockPos.move(Direction.DOWN);
-				}
-				return true;
-			}
-			return false;
-		}
-
-		public static boolean isEdibleProperty(@NotNull BlockState state) {
-			return !WilderSharedConstants.config().termitesOnlyEatNaturalBlocks() || (state.hasProperty(RegisterProperties.TERMITE_EDIBLE) ? state.getValue(RegisterProperties.TERMITE_EDIBLE) : !state.is(BlockTags.LEAVES) || !state.hasProperty(BlockStateProperties.PERSISTENT) || !state.getValue(BlockStateProperties.PERSISTENT));
-		}
-
-		public static boolean exposedToAir(@NotNull Level level, @NotNull BlockPos pos, boolean natural) {
-			BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
-			for (Direction direction : Direction.values()) {
-				BlockState state = level.getBlockState(mutableBlockPos.move(direction));
-				if (state.isAir() || (!state.isRedstoneConductor(level, mutableBlockPos) && !state.is(WilderBlockTags.BLOCKS_TERMITE)) || ((!natural && DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || (natural && NATURAL_DEGRADABLE_BLOCKS.containsKey(state.getBlock())) || state.is(WilderBlockTags.TERMITE_BREAKABLE))  && isEdibleProperty(state)) {
-					return true;
-				}
-				mutableBlockPos.move(direction, -1);
-			}
-			return false;
-		}
-
-		public static boolean canMove(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
-			if (level instanceof ServerLevel serverLevel) {
-				return serverLevel.shouldTickBlocksAt(pos);
-			}
-			return false;
-		}
-
-		public static boolean isBlockMovable(@NotNull BlockState state, @NotNull Direction direction) {
-			if (state.is(WilderBlockTags.BLOCKS_TERMITE)) {
-				return false;
-			}
-			boolean moveableUp = !(direction == Direction.UP && (state.is(BlockTags.INSIDE_STEP_SOUND_BLOCKS) || state.is(BlockTags.REPLACEABLE_BY_TREES) || state.is(BlockTags.FLOWERS)));
-			boolean moveableDown = !(direction == Direction.DOWN && (state.is(Blocks.WATER) || state.is(Blocks.LAVA) || (state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED))));
-			return moveableUp && moveableDown;
-		}
-
-		public static boolean isTooFar(boolean natural, @NotNull BlockPos mound, @NotNull BlockPos pos) {
-			return !mound.closerThan(pos, natural ? 10 : 32);
-		}
-
 		@NotNull
 		public BlockPos getMoundPos() {
 			return this.mound;
@@ -398,88 +478,6 @@ public class TermiteManager {
 
 		public boolean getNatural() {
 			return this.natural;
-		}
-
-		public static final Map<Block, Block> DEGRADABLE_BLOCKS = new HashMap<>();
-		public static final Map<Block, Block> NATURAL_DEGRADABLE_BLOCKS = new HashMap<>();
-
-		public static void addDegradableBlocks() {
-			addDegradable(Blocks.ACACIA_LOG, Blocks.STRIPPED_ACACIA_LOG);
-			addDegradable(Blocks.STRIPPED_ACACIA_LOG, RegisterBlocks.STRIPPED_HOLLOWED_ACACIA_LOG);
-			addDegradable(RegisterBlocks.HOLLOWED_ACACIA_LOG, RegisterBlocks.STRIPPED_HOLLOWED_ACACIA_LOG);
-			addDegradable(Blocks.ACACIA_WOOD, Blocks.STRIPPED_ACACIA_WOOD);
-
-			addDegradable(Blocks.BIRCH_LOG, Blocks.STRIPPED_BIRCH_LOG);
-			addDegradable(Blocks.STRIPPED_BIRCH_LOG, RegisterBlocks.STRIPPED_HOLLOWED_BIRCH_LOG);
-			addDegradable(RegisterBlocks.HOLLOWED_BIRCH_LOG, RegisterBlocks.STRIPPED_HOLLOWED_BIRCH_LOG);
-			addDegradable(Blocks.BIRCH_WOOD, Blocks.STRIPPED_BIRCH_WOOD);
-
-			addDegradable(Blocks.OAK_LOG, Blocks.STRIPPED_OAK_LOG);
-			addDegradable(Blocks.STRIPPED_OAK_LOG, RegisterBlocks.STRIPPED_HOLLOWED_OAK_LOG);
-			addDegradable(RegisterBlocks.HOLLOWED_OAK_LOG, RegisterBlocks.STRIPPED_HOLLOWED_OAK_LOG);
-			addDegradable(Blocks.OAK_WOOD, Blocks.STRIPPED_OAK_WOOD);
-
-			addDegradable(Blocks.DARK_OAK_LOG, Blocks.STRIPPED_DARK_OAK_LOG);
-			addDegradable(Blocks.STRIPPED_DARK_OAK_LOG, RegisterBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG);
-			addDegradable(RegisterBlocks.HOLLOWED_DARK_OAK_LOG, RegisterBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG);
-			addDegradable(Blocks.DARK_OAK_WOOD, Blocks.STRIPPED_DARK_OAK_WOOD);
-
-			addDegradable(Blocks.JUNGLE_LOG, Blocks.STRIPPED_JUNGLE_LOG);
-			addDegradable(Blocks.STRIPPED_JUNGLE_LOG, RegisterBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG);
-			addDegradable(RegisterBlocks.HOLLOWED_JUNGLE_LOG, RegisterBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG);
-			addDegradable(Blocks.JUNGLE_WOOD, Blocks.STRIPPED_JUNGLE_WOOD);
-
-			addDegradable(Blocks.SPRUCE_LOG, Blocks.STRIPPED_SPRUCE_LOG);
-			addDegradable(Blocks.STRIPPED_SPRUCE_LOG, RegisterBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG);
-			addDegradable(RegisterBlocks.HOLLOWED_SPRUCE_LOG, RegisterBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG);
-			addDegradable(Blocks.SPRUCE_WOOD, Blocks.STRIPPED_SPRUCE_WOOD);
-
-			addDegradable(Blocks.MANGROVE_LOG, Blocks.STRIPPED_MANGROVE_LOG);
-			addDegradable(Blocks.STRIPPED_MANGROVE_LOG, RegisterBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG);
-			addDegradable(RegisterBlocks.HOLLOWED_MANGROVE_LOG, RegisterBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG);
-			addDegradable(Blocks.MANGROVE_WOOD, Blocks.STRIPPED_MANGROVE_WOOD);
-
-			addDegradable(Blocks.CHERRY_LOG, Blocks.STRIPPED_CHERRY_LOG);
-			addDegradable(Blocks.STRIPPED_CHERRY_LOG, RegisterBlocks.STRIPPED_HOLLOWED_CHERRY_LOG);
-			addDegradable(RegisterBlocks.HOLLOWED_CHERRY_LOG, RegisterBlocks.STRIPPED_HOLLOWED_CHERRY_LOG);
-			addDegradable(Blocks.CHERRY_WOOD, Blocks.STRIPPED_CHERRY_WOOD);
-		}
-
-		public static void addDegradable(Block degradable, Block result) {
-			DEGRADABLE_BLOCKS.put(degradable, result);
-		}
-
-		public static void addNaturalDegradableBlocks() {
-			addNaturalDegradable(Blocks.ACACIA_LOG, Blocks.STRIPPED_ACACIA_LOG);
-			addNaturalDegradable(Blocks.OAK_LOG, Blocks.STRIPPED_OAK_LOG);
-			addNaturalDegradable(Blocks.BIRCH_LOG, Blocks.STRIPPED_BIRCH_LOG);
-			addNaturalDegradable(Blocks.DARK_OAK_LOG, Blocks.STRIPPED_DARK_OAK_LOG);
-			addNaturalDegradable(Blocks.JUNGLE_LOG, Blocks.STRIPPED_JUNGLE_LOG);
-			addNaturalDegradable(Blocks.MANGROVE_LOG, Blocks.STRIPPED_MANGROVE_LOG);
-			addNaturalDegradable(Blocks.SPRUCE_LOG, Blocks.STRIPPED_SPRUCE_LOG);
-			addNaturalDegradable(Blocks.ACACIA_WOOD, Blocks.STRIPPED_ACACIA_WOOD);
-			addNaturalDegradable(Blocks.OAK_WOOD, Blocks.STRIPPED_OAK_WOOD);
-			addNaturalDegradable(Blocks.BIRCH_WOOD, Blocks.STRIPPED_BIRCH_WOOD);
-			addNaturalDegradable(Blocks.DARK_OAK_WOOD, Blocks.STRIPPED_DARK_OAK_WOOD);
-			addNaturalDegradable(Blocks.JUNGLE_WOOD, Blocks.STRIPPED_JUNGLE_WOOD);
-			addNaturalDegradable(Blocks.MANGROVE_WOOD, Blocks.STRIPPED_MANGROVE_WOOD);
-			addNaturalDegradable(Blocks.SPRUCE_WOOD, Blocks.STRIPPED_SPRUCE_WOOD);
-		}
-
-		public static void addNaturalDegradable(@NotNull Block degradable, @NotNull Block result) {
-			NATURAL_DEGRADABLE_BLOCKS.put(degradable, result);
-		}
-
-		public static void spawnGnawParticles(@NotNull Level level, @NotNull BlockState eatState, @NotNull BlockPos pos) {
-			if (level instanceof ServerLevel serverLevel && level.random.nextInt(0, 4) == 3) {
-				serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, eatState), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(0, 3), 0.3F, 0.3F, 0.3F, 0.05D);
-			}
-		}
-
-		public static void spawnEatParticles(Level level, @NotNull BlockState eatState, @NotNull BlockPos pos) {
-			if (level instanceof ServerLevel serverLevel) {
-				serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, eatState), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(18, 25), 0.3F, 0.3F, 0.3F, 0.05D);
-			}
 		}
 	}
 }

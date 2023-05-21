@@ -90,6 +90,111 @@ public final class WilderWildClient implements ClientModInitializer {
 	public static final ModelLayerLocation JELLYFISH = new ModelLayerLocation(WilderSharedConstants.id("jellyfish"), "main");
 	public static final ModelLayerLocation TUMBLEWEED = new ModelLayerLocation(WilderSharedConstants.id("tumbleweed"), "main");
 
+	private static void receiveEasyEchoerBubblePacket() {
+		ClientPlayNetworking.registerGlobalReceiver(WilderWild.FLOATING_SCULK_BUBBLE_PACKET, (ctx, handler, byteBuf, responseSender) -> {
+			Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
+			double size = byteBuf.readDouble();
+			int age = byteBuf.readInt();
+			double yVel = byteBuf.readDouble();
+			int count = byteBuf.readVarInt();
+			ctx.execute(() -> {
+				if (ctx.level == null)
+					throw new IllegalStateException("why is your world null");
+				var random = AdvancedMath.random();
+				for (int i = 0; i < count; i++) {
+					double xVel = (random.nextDouble() - 0.5) / 9.5;
+					double zVel = (random.nextDouble() - 0.5) / 9.5;
+					if (size >= 1) {
+						xVel = (random.nextDouble() - 0.5) / 10.5;
+						zVel = (random.nextDouble() - 0.5) / 10.5;
+					}
+					ctx.level.addParticle(new FloatingSculkBubbleParticleOptions(size, age, new Vec3(xVel, yVel, zVel)), pos.x, pos.y, pos.z, 0, 0, 0);
+				}
+			});
+		});
+	}
+
+	private static void receiveSeedPacket() {
+		ClientPlayNetworking.registerGlobalReceiver(WilderWild.SEED_PACKET, (ctx, handler, byteBuf, responseSender) -> {
+			Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
+			int count = byteBuf.readVarInt();
+			boolean milkweed = byteBuf.readBoolean();
+			ctx.execute(() -> {
+				if (ctx.level == null)
+					throw new IllegalStateException("why is your world null");
+				for (int i = 0; i < count; i++) {
+					ctx.level.addParticle(new SeedParticleOptions(milkweed, false), pos.x, pos.y, pos.z, 0, 0, 0);
+				}
+			});
+		});
+	}
+
+	private static void receiveControlledSeedPacket() {
+		ClientPlayNetworking.registerGlobalReceiver(WilderWild.CONTROLLED_SEED_PACKET, (ctx, handler, byteBuf, responseSender) -> {
+			Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
+			double velx = byteBuf.readDouble();
+			double vely = byteBuf.readDouble();
+			double velz = byteBuf.readDouble();
+			int count = byteBuf.readVarInt();
+			boolean milkweed = byteBuf.readBoolean();
+			double posRandomizer = byteBuf.readDouble();
+			ctx.execute(() -> {
+				if (ctx.level == null)
+					throw new IllegalStateException("why is your world null");
+				for (int i = 0; i < count; i++) {
+					ctx.level.addParticle(new SeedParticleOptions(milkweed, true), pos.x, pos.y + ((ctx.level.random.nextBoolean() ? -1 : 1) * (ctx.level.random.nextDouble() * posRandomizer)), pos.z, velx, vely + (ctx.level.random.nextDouble() * 0.07), velz);
+				}
+			});
+		});
+	}
+
+	private static void receiveTermitePacket() {
+		ClientPlayNetworking.registerGlobalReceiver(WilderWild.TERMITE_PARTICLE_PACKET, (ctx, handler, byteBuf, responseSender) -> {
+			Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
+			AtomicInteger count = new AtomicInteger(byteBuf.readVarInt());
+			ctx.execute(() -> {
+				if (ctx.level == null)
+					throw new IllegalStateException("why is your world null");
+
+				count.addAndGet(-1);
+				ctx.level.addAlwaysVisibleParticle(RegisterParticles.TERMITE, pos.x, pos.y, pos.z, 0, 0, 0);
+				for (int i = 0; i < count.get(); i++) {
+					ctx.level.addParticle(RegisterParticles.TERMITE, pos.x, pos.y, pos.z, 0, 0, 0);
+				}
+			});
+		});
+	}
+
+	private static void receiveSensorHiccupPacket() {
+		ClientPlayNetworking.registerGlobalReceiver(WilderWild.SENSOR_HICCUP_PACKET, (ctx, handler, byteBuf, responseSender) -> {
+			Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
+			ctx.execute(() -> {
+				if (ctx.level == null)
+					throw new IllegalStateException("why is your world null");
+				ClientLevel level = ctx.level;
+				int i = 5578058;
+				boolean bl2 = level.random.nextBoolean();
+				if (bl2) {
+					double d = (double) (i >> 16 & 255) / 255.0D;
+					double e = (double) (i >> 8 & 255) / 255.0D;
+					double f = (double) (i & 255) / 255.0D;
+					level.addParticle(ParticleTypes.ENTITY_EFFECT, pos.x, pos.y, pos.z, d, e, f);
+				}
+			});
+		});
+	}
+
+	private static void receiveJellyStingPacket() {
+		ClientPlayNetworking.registerGlobalReceiver(WilderWild.JELLY_STING_PACKET, (ctx, handler, byteBuf, responseSender) -> ctx.execute(() -> {
+			if (ctx.level != null) {
+				LocalPlayer player = ctx.player;
+				if (player != null) {
+					ctx.level.playSound(player, player.getX(), player.getY(), player.getZ(), RegisterSounds.ENTITY_JELLYFISH_STING, SoundSource.NEUTRAL, 1.0F, ctx.level.random.nextFloat() * 0.2F + 0.9F);
+				}
+			}
+		}));
+	}
+
 	@Override
 	public void onInitializeClient() {
 		Splashes.addSplashLocation(WilderSharedConstants.id("texts/splashes.txt"));
@@ -252,10 +357,10 @@ public final class WilderWildClient implements ClientModInitializer {
 
 		ItemProperties.register(RegisterItems.SCORCHED_SAND, WilderSharedConstants.vanillaId("cracked"), (itemStack, clientLevel, livingEntity, seed) -> ItemBlockStateTagUtils.getBoolProperty(itemStack, RegisterProperties.CRACKED, false) ? 1F : 0F);
 		ItemProperties.register(RegisterItems.SCORCHED_RED_SAND, WilderSharedConstants.vanillaId("cracked"), (itemStack, clientLevel, livingEntity, seed) -> ItemBlockStateTagUtils.getBoolProperty(itemStack, RegisterProperties.CRACKED, false) ? 1F : 0F);
-		ItemProperties.register(RegisterItems.ECHO_GLASS, WilderSharedConstants.vanillaId("damage"), (itemStack, clientLevel, livingEntity, seed) -> ((float)ItemBlockStateTagUtils.getProperty(itemStack, RegisterProperties.DAMAGE, 0)) / 4F);
-		ItemProperties.register(Items.BEE_NEST, WilderSharedConstants.vanillaId("honey"), (itemStack, clientLevel, livingEntity, seed) -> ((float)ItemBlockStateTagUtils.getProperty(itemStack, BlockStateProperties.LEVEL_HONEY, 0)) / 5F);
-		ItemProperties.register(Items.BEEHIVE, WilderSharedConstants.vanillaId("honey"), (itemStack, clientLevel, livingEntity, seed) -> ((float)ItemBlockStateTagUtils.getProperty(itemStack, BlockStateProperties.LEVEL_HONEY, 0)) / 5F);
-		ItemProperties.register(Items.SCULK_SHRIEKER, WilderSharedConstants.vanillaId("souls_taken"), (itemStack, clientLevel, livingEntity, seed) -> ((float)ItemBlockStateTagUtils.getProperty(itemStack, RegisterProperties.SOULS_TAKEN, 0)) / 2F);
+		ItemProperties.register(RegisterItems.ECHO_GLASS, WilderSharedConstants.vanillaId("damage"), (itemStack, clientLevel, livingEntity, seed) -> ((float) ItemBlockStateTagUtils.getProperty(itemStack, RegisterProperties.DAMAGE, 0)) / 4F);
+		ItemProperties.register(Items.BEE_NEST, WilderSharedConstants.vanillaId("honey"), (itemStack, clientLevel, livingEntity, seed) -> ((float) ItemBlockStateTagUtils.getProperty(itemStack, BlockStateProperties.LEVEL_HONEY, 0)) / 5F);
+		ItemProperties.register(Items.BEEHIVE, WilderSharedConstants.vanillaId("honey"), (itemStack, clientLevel, livingEntity, seed) -> ((float) ItemBlockStateTagUtils.getProperty(itemStack, BlockStateProperties.LEVEL_HONEY, 0)) / 5F);
+		ItemProperties.register(Items.SCULK_SHRIEKER, WilderSharedConstants.vanillaId("souls_taken"), (itemStack, clientLevel, livingEntity, seed) -> ((float) ItemBlockStateTagUtils.getProperty(itemStack, RegisterProperties.SOULS_TAKEN, 0)) / 2F);
 
 		ItemProperties.register(RegisterItems.FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
 		ItemProperties.register(RegisterItems.CYAN_FIREFLY_BOTTLE, WilderSharedConstants.vanillaId("nectar"), (itemStack, clientLevel, livingEntity, seed) -> FireflyBottle.isNectar(itemStack) ? 1F : 0F);
@@ -298,132 +403,27 @@ public final class WilderWildClient implements ClientModInitializer {
 		);
 
 		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
-				BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
+			BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
 		), RegisterBlocks.BAOBAB_LEAVES);
 
 		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
-				BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
+			BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
 		), RegisterBlocks.CYPRESS_LEAVES);
 
 		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
-				BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
+			BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
 		), RegisterBlocks.PALM_FRONDS);
 
 		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
-				BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
+			BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
 		), RegisterBlocks.POTTED_GRASS);
 
 		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
-				BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
+			BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
 		), RegisterBlocks.BUSH);
 
 		ColorProviderRegistry.BLOCK.register(((state, level, pos, tintIndex) ->
-				BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
+			BiomeColors.getAverageFoliageColor(Objects.requireNonNull(level), Objects.requireNonNull(pos))
 		), RegisterBlocks.POTTED_BUSH);
-	}
-
-	private static void receiveEasyEchoerBubblePacket() {
-		ClientPlayNetworking.registerGlobalReceiver(WilderWild.FLOATING_SCULK_BUBBLE_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-			Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
-			double size = byteBuf.readDouble();
-			int age = byteBuf.readInt();
-			double yVel = byteBuf.readDouble();
-			int count = byteBuf.readVarInt();
-			ctx.execute(() -> {
-				if (ctx.level == null)
-					throw new IllegalStateException("why is your world null");
-				var random = AdvancedMath.random();
-				for (int i = 0; i < count; i++) {
-					double xVel = (random.nextDouble() - 0.5) / 9.5;
-					double zVel = (random.nextDouble() - 0.5) / 9.5;
-					if (size >= 1) {
-						xVel = (random.nextDouble() - 0.5) / 10.5;
-						zVel = (random.nextDouble() - 0.5) / 10.5;
-					}
-					ctx.level.addParticle(new FloatingSculkBubbleParticleOptions(size, age, new Vec3(xVel, yVel, zVel)), pos.x, pos.y, pos.z, 0, 0, 0);
-				}
-			});
-		});
-	}
-
-	private static void receiveSeedPacket() {
-		ClientPlayNetworking.registerGlobalReceiver(WilderWild.SEED_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-			Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
-			int count = byteBuf.readVarInt();
-			boolean milkweed = byteBuf.readBoolean();
-			ctx.execute(() -> {
-				if (ctx.level == null)
-					throw new IllegalStateException("why is your world null");
-				for (int i = 0; i < count; i++) {
-					ctx.level.addParticle(new SeedParticleOptions(milkweed, false), pos.x, pos.y, pos.z, 0, 0, 0);
-				}
-			});
-		});
-	}
-
-	private static void receiveControlledSeedPacket() {
-		ClientPlayNetworking.registerGlobalReceiver(WilderWild.CONTROLLED_SEED_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-			Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
-			double velx = byteBuf.readDouble();
-			double vely = byteBuf.readDouble();
-			double velz = byteBuf.readDouble();
-			int count = byteBuf.readVarInt();
-			boolean milkweed = byteBuf.readBoolean();
-			double posRandomizer = byteBuf.readDouble();
-			ctx.execute(() -> {
-				if (ctx.level == null)
-					throw new IllegalStateException("why is your world null");
-				for (int i = 0; i < count; i++) {
-					ctx.level.addParticle(new SeedParticleOptions(milkweed, true), pos.x, pos.y + ((ctx.level.random.nextBoolean() ? -1 : 1) * (ctx.level.random.nextDouble() * posRandomizer)), pos.z, velx, vely + (ctx.level.random.nextDouble() * 0.07), velz);
-				}
-			});
-		});
-	}
-
-	private static void receiveTermitePacket() {
-		ClientPlayNetworking.registerGlobalReceiver(WilderWild.TERMITE_PARTICLE_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-			Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
-			AtomicInteger count = new AtomicInteger(byteBuf.readVarInt());
-			ctx.execute(() -> {
-				if (ctx.level == null)
-					throw new IllegalStateException("why is your world null");
-
-				count.addAndGet(-1);
-				ctx.level.addAlwaysVisibleParticle(RegisterParticles.TERMITE, pos.x, pos.y, pos.z, 0, 0, 0);
-				for (int i = 0; i < count.get(); i++) {
-					ctx.level.addParticle(RegisterParticles.TERMITE, pos.x, pos.y, pos.z, 0, 0, 0);
-				}
-			});
-		});
-	}
-
-	private static void receiveSensorHiccupPacket() {
-		ClientPlayNetworking.registerGlobalReceiver(WilderWild.SENSOR_HICCUP_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-			Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
-			ctx.execute(() -> {
-				if (ctx.level == null)
-					throw new IllegalStateException("why is your world null");
-				ClientLevel level = ctx.level;
-				int i = 5578058;
-				boolean bl2 = level.random.nextBoolean();
-				if (bl2) {
-					double d = (double) (i >> 16 & 255) / 255.0D;
-					double e = (double) (i >> 8 & 255) / 255.0D;
-					double f = (double) (i & 255) / 255.0D;
-					level.addParticle(ParticleTypes.ENTITY_EFFECT, pos.x, pos.y, pos.z, d, e, f);
-				}
-			});
-		});
-	}
-
-	private static void receiveJellyStingPacket() {
-		ClientPlayNetworking.registerGlobalReceiver(WilderWild.JELLY_STING_PACKET, (ctx, handler, byteBuf, responseSender) -> ctx.execute(() -> {
-			if (ctx.level != null) {
-				LocalPlayer player = ctx.player;
-				if (player != null) {
-					ctx.level.playSound(player, player.getX(), player.getY(), player.getZ(), RegisterSounds.ENTITY_JELLYFISH_STING, SoundSource.NEUTRAL, 1.0F, ctx.level.random.nextFloat() * 0.2F + 0.9F);
-				}
-			}
-		}));
 	}
 }

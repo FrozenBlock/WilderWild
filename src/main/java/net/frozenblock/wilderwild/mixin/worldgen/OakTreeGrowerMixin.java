@@ -36,8 +36,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(value = OakTreeGrower.class, priority = 69420)
 public class OakTreeGrowerMixin {
 
-    @Inject(method = "getConfiguredFeature", at = @At("RETURN"), cancellable = true)
-    public void getConfiguredFeature(RandomSource random, boolean bees, CallbackInfoReturnable<ResourceKey<ConfiguredFeature<?, ?>>> info) {
+	@Inject(method = "getConfiguredFeature", at = @At("RETURN"), cancellable = true)
+	public void getConfiguredFeature(RandomSource random, boolean bees, CallbackInfoReturnable<ResourceKey<ConfiguredFeature<?, ?>>> info) {
 		if (WilderSharedConstants.config().wildTrees()) {
 			AbstractTreeGrowerInterface treeGrowerInterface = (AbstractTreeGrowerInterface) OakTreeGrower.class.cast(this);
 			if (treeGrowerInterface.wilderWild$getLevel() != null && treeGrowerInterface.wilderWild$getPos() != null && random.nextFloat() <= 0.4F) {
@@ -53,6 +53,6 @@ public class OakTreeGrowerMixin {
 				info.setReturnValue(bees ? WilderTreeConfigured.OAK_BEES_0004.getKey() : WilderTreeConfigured.OAK.getKey());
 			}
 		}
-    }
+	}
 
 }

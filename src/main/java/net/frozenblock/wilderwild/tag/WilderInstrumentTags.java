@@ -25,15 +25,14 @@ import net.minecraft.world.item.Instrument;
 import org.jetbrains.annotations.NotNull;
 
 public final class WilderInstrumentTags {
+	public static final TagKey<Instrument> ANCIENT_HORNS = bind("ancient_horns");
+	public static final TagKey<Instrument> COPPER_HORNS = bind("copper_horns");
 	private WilderInstrumentTags() {
 		throw new UnsupportedOperationException("WilderInstrumentTags contains only static declarations.");
 	}
 
-    public static final TagKey<Instrument> ANCIENT_HORNS = bind("ancient_horns");
-    public static final TagKey<Instrument> COPPER_HORNS = bind("copper_horns");
-
 	@NotNull
-    private static TagKey<Instrument> bind(@NotNull String path) {
-        return TagKey.create(Registries.INSTRUMENT, WilderSharedConstants.id(path));
-    }
+	private static TagKey<Instrument> bind(@NotNull String path) {
+		return TagKey.create(Registries.INSTRUMENT, WilderSharedConstants.id(path));
+	}
 }

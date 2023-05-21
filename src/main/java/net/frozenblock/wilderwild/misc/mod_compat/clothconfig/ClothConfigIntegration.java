@@ -28,17 +28,12 @@ import net.frozenblock.wilderwild.misc.config.WilderWildConfig;
 import net.frozenblock.wilderwild.misc.config.WorldgenConfig;
 
 public class ClothConfigIntegration extends AbstractClothConfigIntegration {
-	public ClothConfigIntegration() {
-		super();
-	}
-
 	private static final FrozenLibConfigCategory FROZENLIB = FrozenLibConfig.get().config;
 	private static final BlockConfig BLOCK = WilderWildConfig.get().block;
 	private static final EntityConfig ENTITY = WilderWildConfig.get().entity;
 	private static final ItemConfig ITEM = WilderWildConfig.get().item;
 	private static final WorldgenConfig WORLDGEN = WilderWildConfig.get().worldgen;
 	private static final MiscConfig MISC = WilderWildConfig.get().misc;
-
 	private static final EntityConfig.AllayConfig ALLAY = ENTITY.allay;
 	private static final ItemConfig.AncientHornConfig ANCIENT_HORN = ITEM.ancientHorn;
 	private static final MiscConfig.BiomeAmbienceConfig BIOME_AMBIENCE = MISC.biomeAmbience;
@@ -54,9 +49,13 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	private static final EntityConfig.FireflyConfig FIREFLY = ENTITY.firefly;
 	private static final EntityConfig.JellyfishConfig JELLYFISH = ENTITY.jellyfish;
 	private static final EntityConfig.TumbleweedConfig TUMBLEWEED = ENTITY.tumbleweed;
+	public ClothConfigIntegration() {
+		super();
+	}
 
 	@Override
-	public void init() {}
+	public void init() {
+	}
 
 	// BLOCK
 

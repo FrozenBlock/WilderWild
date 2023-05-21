@@ -38,40 +38,45 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(BigDripleafBlock.class)
 public final class BigDripleafBlockMixin {
 
+	@Shadow
+	private static void resetTilt(BlockState state, Level level, BlockPos pos) {
+		throw new AssertionError("Mixin injection failed - Wilder Wild BigDripleafBlockMixin.");
+	}
+
 	@Inject(method = "<init>", at = @At("RETURN"))
 	public void wilderWild$init(CallbackInfo info) {
 		BigDripleafBlock bigDripleafBlock = BigDripleafBlock.class.cast(this);
 		bigDripleafBlock.registerDefaultState(bigDripleafBlock.defaultBlockState().setValue(BlockStateProperties.POWERED, false));
 	}
 
-    @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
-    public void wilderWild$tickStem(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
-        if (state.getValue(BlockStateProperties.POWERED)) {
-            resetTilt(state, level, pos);
-            info.cancel();
-        }
-    }
+	@Inject(method = "tick", at = @At("HEAD"), cancellable = true)
+	public void wilderWild$tickStem(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
+		if (state.getValue(BlockStateProperties.POWERED)) {
+			resetTilt(state, level, pos);
+			info.cancel();
+		}
+	}
 
-    @Inject(method = "neighborChanged", at = @At("HEAD"), cancellable = true)
-    public void wilderWild$neighborStemChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving, CallbackInfo info) {
-        if (fromPos.equals(pos.below())) {
+	@Inject(method = "neighborChanged", at = @At("HEAD"), cancellable = true)
+	public void wilderWild$neighborStemChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving, CallbackInfo info) {
+		if (fromPos.equals(pos.below())) {
 			BlockState downState = level.getBlockState(fromPos);
 			if (downState.is(Blocks.BIG_DRIPLEAF_STEM)) {
 				state = state.setValue(BlockStateProperties.POWERED, downState.getValue(BlockStateProperties.POWERED));
 				level.setBlock(pos, state, 3);
 			}
-            if (state.getValue(BlockStateProperties.POWERED)) {
-                resetTilt(state, level, pos);
-                info.cancel();
-            }
-        } else {
+			if (state.getValue(BlockStateProperties.POWERED)) {
+				resetTilt(state, level, pos);
+				info.cancel();
+			}
+		} else {
 			BlockState downState = level.getBlockState(pos.below());
 			boolean hasNeighborSignal = level.hasNeighborSignal(pos);
 			if (!(downState.is(Blocks.BIG_DRIPLEAF_STEM) && downState.getValue(BlockStateProperties.POWERED)) && state.getValue(BlockStateProperties.POWERED) != hasNeighborSignal) {
 				level.setBlock(pos, state.setValue(BlockStateProperties.POWERED, hasNeighborSignal), 3);
 			}
 		}
-    }
+	}
 
 	@Inject(method = "entityInside", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$entityInside(BlockState state, Level level, BlockPos pos, Entity entity, CallbackInfo info) {
@@ -84,10 +89,5 @@ public final class BigDripleafBlockMixin {
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
 		builder.add(BlockStateProperties.POWERED);
 	}
-
-    @Shadow
-    private static void resetTilt(BlockState state, Level level, BlockPos pos) {
-		throw new AssertionError("Mixin injection failed - Wilder Wild BigDripleafBlockMixin.");
-    }
 
 }

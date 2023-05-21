@@ -32,10 +32,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value = RotatedPillarBlock.class, priority = 990)
 public class RotatedPillarBlockMixin {
 
-    @Inject(method = "createBlockStateDefinition", at = @At("TAIL"))
-    private void wilderWild$addTermiteEdibleState(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
+	@Inject(method = "createBlockStateDefinition", at = @At("TAIL"))
+	private void wilderWild$addTermiteEdibleState(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
 		builder.add(RegisterProperties.TERMITE_EDIBLE);
-    }
+	}
 
 	@ModifyReturnValue(method = "getStateForPlacement", at = @At("RETURN"))
 	private BlockState wilderWild$getStateForPlacement(BlockState original) {

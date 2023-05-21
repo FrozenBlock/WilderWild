@@ -32,22 +32,22 @@ import org.jetbrains.annotations.NotNull;
 
 public class BaobabLeaves extends LeavesBlock implements BonemealableBlock {
 
-    public BaobabLeaves(@NotNull BlockBehaviour.Properties settings) {
-        super(settings);
-    }
+	public BaobabLeaves(@NotNull BlockBehaviour.Properties settings) {
+		super(settings);
+	}
 
 	@Override
-    public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
-        return level.getBlockState(pos.below()).isAir();
-    }
+	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
+		return level.getBlockState(pos.below()).isAir();
+	}
 
 	@Override
-    public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-        return true;
-    }
+	public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
+		return true;
+	}
 
 	@Override
-    public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-        level.setBlock(pos.below(), RegisterBlocks.BAOBAB_NUT.getDefaultHangingState(), 2);
-    }
+	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
+		level.setBlock(pos.below(), RegisterBlocks.BAOBAB_NUT.getDefaultHangingState(), 2);
+	}
 }

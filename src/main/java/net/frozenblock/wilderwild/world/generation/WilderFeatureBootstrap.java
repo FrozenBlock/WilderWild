@@ -78,14 +78,14 @@ public class WilderFeatureBootstrap {
 	}
 
 	/**
-	 * @param configuredResourceKey	MUST BE A VANILLA CONFIGURED FEATURE
+	 * @param configuredResourceKey MUST BE A VANILLA CONFIGURED FEATURE
 	 */
 	public static Holder<PlacedFeature> register(BootstapContext<PlacedFeature> entries, ResourceKey<PlacedFeature> resourceKey, ResourceKey<ConfiguredFeature<?, ?>> configuredResourceKey, PlacementModifier... modifiers) {
 		return register(entries, resourceKey, configuredResourceKey, Arrays.asList(modifiers));
 	}
 
 	/**
-	 * @param configuredResourceKey	MUST BE A VANILLA CONFIGURED FEATURE
+	 * @param configuredResourceKey MUST BE A VANILLA CONFIGURED FEATURE
 	 */
 	public static Holder<PlacedFeature> register(BootstapContext<PlacedFeature> entries, ResourceKey<PlacedFeature> resourceKey, ResourceKey<ConfiguredFeature<?, ?>> configuredResourceKey, List<PlacementModifier> modifiers) {
 		return FrozenPlacementUtils.register(entries, resourceKey, entries.lookup(Registries.CONFIGURED_FEATURE).getOrThrow(configuredResourceKey), modifiers);

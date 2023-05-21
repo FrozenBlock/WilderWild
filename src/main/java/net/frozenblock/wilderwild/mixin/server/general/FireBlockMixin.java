@@ -34,9 +34,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class FireBlockMixin {
 
 	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;", ordinal = 0, shift = At.Shift.BEFORE))
-    public void wilderWild$tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
-        this.wilderWild$scorchTick(level, pos.below(), random);
-    }
+	public void wilderWild$tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
+		this.wilderWild$scorchTick(level, pos.below(), random);
+	}
 
 	@Unique
 	public void wilderWild$scorchTick(ServerLevel level, BlockPos pos, RandomSource random) {

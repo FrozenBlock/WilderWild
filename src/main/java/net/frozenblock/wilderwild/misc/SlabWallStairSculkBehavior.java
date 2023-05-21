@@ -33,15 +33,15 @@ import org.jetbrains.annotations.Nullable;
 
 public class SlabWallStairSculkBehavior implements SculkBehaviour {
 
-    @Override
-    public int attemptUseCharge(@NotNull SculkSpreader.ChargeCursor cursor, @NotNull LevelAccessor level, @NotNull BlockPos catalystPos, @NotNull RandomSource random, @NotNull SculkSpreader spreadManager, boolean shouldConvertToBlock) {
-        BlockPos cursorPos = cursor.getPos();
+	@Override
+	public int attemptUseCharge(@NotNull SculkSpreader.ChargeCursor cursor, @NotNull LevelAccessor level, @NotNull BlockPos catalystPos, @NotNull RandomSource random, @NotNull SculkSpreader spreadManager, boolean shouldConvertToBlock) {
+		BlockPos cursorPos = cursor.getPos();
 		level.setBlock(cursorPos, switchBlockStates(level.getBlockState(cursorPos)), 3);
 		return cursor.getCharge() - 1;
 	}
 
 	@Override
-    public boolean attemptSpreadVein(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable Collection<Direction> directions, boolean markForPostProcessing) {
+	public boolean attemptSpreadVein(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable Collection<Direction> directions, boolean markForPostProcessing) {
 		level.setBlock(pos, switchBlockStates(level.getBlockState(pos)), 3);
 		return true;
 	}

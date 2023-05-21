@@ -45,15 +45,9 @@ import org.jetbrains.annotations.NotNull;
 public class MilkweedBlock extends TallFlowerBlock {
 	private static final int MAX_AGE = 3;
 
-    public MilkweedBlock(@NotNull Properties settings) {
-        super(settings);
-    }
-
-    @Override
-    protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
-        super.createBlockStateDefinition(builder);
-        builder.add(BlockStateProperties.AGE_3);
-    }
+	public MilkweedBlock(@NotNull Properties settings) {
+		super(settings);
+	}
 
 	public static boolean isFullyGrown(@NotNull BlockState state) {
 		return state.getValue(BlockStateProperties.AGE_3) == MAX_AGE;
@@ -63,18 +57,24 @@ public class MilkweedBlock extends TallFlowerBlock {
 		return state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER;
 	}
 
-    @Override
-    public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-        if (random.nextFloat() > 0.83F) {
+	@Override
+	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
+		builder.add(BlockStateProperties.AGE_3);
+	}
+
+	@Override
+	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+		if (random.nextFloat() > 0.83F) {
 			if (isLower(state) && !isFullyGrown(state)) {
 				this.setAgeOnBothHalves(state, level, pos, state.getValue(BlockStateProperties.AGE_3) + 1);
 			}
-        }
-    }
+		}
+	}
 
-    @Override
+	@Override
 	@NotNull
-    public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		if (isFullyGrown(state)) {
 			ItemStack itemStack = player.getItemInHand(hand);
 			if (!level.isClientSide) {
@@ -92,8 +92,8 @@ public class MilkweedBlock extends TallFlowerBlock {
 			}
 			return InteractionResult.SUCCESS;
 		}
-        return super.use(state, level, pos, player, hand, hit);
-    }
+		return super.use(state, level, pos, player, hand, hit);
+	}
 
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {

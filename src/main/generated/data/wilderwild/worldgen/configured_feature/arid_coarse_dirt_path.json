@@ -15,10 +15,7 @@
     "noise": 3,
     "onlyExposed": false,
     "radius": 12,
-    "replaceable": [
-      "minecraft:dirt",
-      "minecraft:grass_block"
-    ],
+    "replaceable": "#minecraft:dirt",
     "useY": false
   }
 }

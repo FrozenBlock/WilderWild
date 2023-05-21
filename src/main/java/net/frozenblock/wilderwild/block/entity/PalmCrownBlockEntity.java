@@ -32,17 +32,17 @@ import org.jetbrains.annotations.NotNull;
 
 public class PalmCrownBlockEntity extends BlockEntity {
 
-    public PalmCrownBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-        super(RegisterBlockEntities.PALM_CROWN, pos, state);
-    }
+	public PalmCrownBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+		super(RegisterBlockEntities.PALM_CROWN, pos, state);
+	}
 
-    public void tick() {
+	public void tick() {
 		if (this.level != null) {
 			PalmCrownPositions.addPos(this.level, this.worldPosition);
 		}
-    }
+	}
 
-	public static class PalmCrownPositions{
+	public static class PalmCrownPositions {
 		private static final ArrayList<CrownPos> crownPosesOne = new ArrayList<>();
 		private static final ArrayList<CrownPos> crownPosesTwo = new ArrayList<>();
 

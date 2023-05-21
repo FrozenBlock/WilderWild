@@ -36,7 +36,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Particle.class)
 public abstract class ParticleMixin {
 
-	@Shadow @Final
+	@Shadow
+	@Final
 	protected ClientLevel level;
 	@Shadow
 	protected double xd;
@@ -57,7 +58,7 @@ public abstract class ParticleMixin {
 			if (dripSuspendedParticleInterface.wilderWild$usesWind()) {
 				BlockPos blockPos = BlockPos.containing(this.x, this.y, this.z);
 				FluidState fluidState = this.level.getBlockState(blockPos).getFluidState();
-				if (!fluidState.isEmpty() && (fluidState.getHeight(this.level, blockPos) + (float)blockPos.getY()) >= this.y) {
+				if (!fluidState.isEmpty() && (fluidState.getHeight(this.level, blockPos) + (float) blockPos.getY()) >= this.y) {
 					return;
 				}
 				Vec3 wind = ClientWindManager.getWindMovement(this.level, blockPos, 1.5).scale(WilderSharedConstants.config().particleWindMovement());

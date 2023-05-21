@@ -32,12 +32,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(value = SpruceTreeGrower.class, priority = 69420)
 public class SpruceTreeGrowerMixin {
 
-    @Inject(method = "getConfiguredFeature", at = @At("RETURN"), cancellable = true)
-    public void getConfiguredFeature(RandomSource random, boolean bees, CallbackInfoReturnable<ResourceKey<ConfiguredFeature<?, ?>>> info) {
+	@Inject(method = "getConfiguredFeature", at = @At("RETURN"), cancellable = true)
+	public void getConfiguredFeature(RandomSource random, boolean bees, CallbackInfoReturnable<ResourceKey<ConfiguredFeature<?, ?>>> info) {
 		if (WilderSharedConstants.config().wildTrees()) {
 			info.setReturnValue(random.nextFloat() < 0.1F ? WilderTreeConfigured.SPRUCE_SHORT.getKey() : WilderTreeConfigured.SPRUCE.getKey());
 		}
-    }
+	}
 
 	@Inject(method = "getConfiguredMegaFeature", at = @At("RETURN"), cancellable = true)
 	public void wilderWild$getConfiguredMegaFeature(RandomSource random, CallbackInfoReturnable<ResourceKey<? extends ConfiguredFeature<?, ?>>> info) {

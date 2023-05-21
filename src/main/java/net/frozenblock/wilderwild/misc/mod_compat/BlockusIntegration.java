@@ -24,13 +24,13 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import static net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes.LEAVES;
 
 public class BlockusIntegration extends ModIntegration {
-    public BlockusIntegration() {
-        super("blockus");
-    }
+	public BlockusIntegration() {
+		super("blockus");
+	}
 
-    @Override
-    public void init() {
-        addBlock(id("white_oak_leaves"), LEAVES, WilderSharedConstants.config()::leafSounds);
-        addBlock(id("legacy_leaves"), LEAVES, WilderSharedConstants.config()::leafSounds);
-    }
+	@Override
+	public void init() {
+		addBlock(id("white_oak_leaves"), LEAVES, WilderSharedConstants.config()::leafSounds);
+		addBlock(id("legacy_leaves"), LEAVES, WilderSharedConstants.config()::leafSounds);
+	}
 }

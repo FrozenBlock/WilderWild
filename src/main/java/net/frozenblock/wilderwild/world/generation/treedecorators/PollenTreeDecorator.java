@@ -33,33 +33,33 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorTy
 import org.jetbrains.annotations.NotNull;
 
 public class PollenTreeDecorator extends TreeDecorator {
-    public static final Codec<PollenTreeDecorator> CODEC = RecordCodecBuilder.create((instance) ->
-			instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("chanceToDecorate").forGetter((treeDecorator) -> treeDecorator.chanceToDecorate),
-					Codec.floatRange(0.0F, 1.0F).fieldOf("pollenPlaceChance").forGetter((treeDecorator) -> treeDecorator.pollenPlaceChance),
-					Codec.INT.fieldOf("maxPollenCount").forGetter((treeDecorator) -> treeDecorator.maxPollenCount)
-			).apply(instance, PollenTreeDecorator::new));
+	public static final Codec<PollenTreeDecorator> CODEC = RecordCodecBuilder.create((instance) ->
+		instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("chanceToDecorate").forGetter((treeDecorator) -> treeDecorator.chanceToDecorate),
+			Codec.floatRange(0.0F, 1.0F).fieldOf("pollenPlaceChance").forGetter((treeDecorator) -> treeDecorator.pollenPlaceChance),
+			Codec.INT.fieldOf("maxPollenCount").forGetter((treeDecorator) -> treeDecorator.maxPollenCount)
+		).apply(instance, PollenTreeDecorator::new));
 
-    private final float chanceToDecorate;
-    private final float pollenPlaceChance;
+	private final float chanceToDecorate;
+	private final float pollenPlaceChance;
 	private final int maxPollenCount;
 
-    public PollenTreeDecorator(float chanceToDecorate, float pollenPlaceChance, int maxPollenCount) {
-        this.chanceToDecorate = chanceToDecorate;
-        this.pollenPlaceChance = pollenPlaceChance;
+	public PollenTreeDecorator(float chanceToDecorate, float pollenPlaceChance, int maxPollenCount) {
+		this.chanceToDecorate = chanceToDecorate;
+		this.pollenPlaceChance = pollenPlaceChance;
 		this.maxPollenCount = maxPollenCount;
-    }
+	}
 
 	@Override
 	@NotNull
-    protected TreeDecoratorType<?> type() {
-        return WilderTreeDecorators.POLLEN_TREE_DECORATOR;
-    }
+	protected TreeDecoratorType<?> type() {
+		return WilderTreeDecorators.POLLEN_TREE_DECORATOR;
+	}
 
 	@Override
-    public void place(@NotNull Context generator) {
-        RandomSource random = generator.random();
-        if (random.nextFloat() <= this.chanceToDecorate) {
-            ObjectArrayList<BlockPos> poses = new ObjectArrayList<>(generator.logs());
+	public void place(@NotNull Context generator) {
+		RandomSource random = generator.random();
+		if (random.nextFloat() <= this.chanceToDecorate) {
+			ObjectArrayList<BlockPos> poses = new ObjectArrayList<>(generator.logs());
 			poses.addAll(generator.leaves());
 			Util.shuffle(poses, random);
 			BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
@@ -79,6 +79,6 @@ public class PollenTreeDecorator extends TreeDecorator {
 					}
 				}
 			}
-        }
-    }
+		}
+	}
 }

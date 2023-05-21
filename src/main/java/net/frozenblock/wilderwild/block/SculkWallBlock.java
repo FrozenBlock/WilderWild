@@ -33,22 +33,22 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public class SculkWallBlock extends WallBlock implements SculkBehaviour {
-    private static final IntProvider EXPERIENCE = ConstantInt.of(1);
+	private static final IntProvider EXPERIENCE = ConstantInt.of(1);
 
-    public SculkWallBlock(@NotNull Properties settings) {
-        super(settings);
-    }
+	public SculkWallBlock(@NotNull Properties settings) {
+		super(settings);
+	}
 
 	@Override
-    public void spawnAfterBreak(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull ItemStack stack, boolean dropExperience) {
-        super.spawnAfterBreak(state, level, pos, stack, dropExperience);
-        if (dropExperience) {
-            this.tryDropExperience(level, pos, stack, EXPERIENCE);
-        }
-    }
+	public void spawnAfterBreak(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull ItemStack stack, boolean dropExperience) {
+		super.spawnAfterBreak(state, level, pos, stack, dropExperience);
+		if (dropExperience) {
+			this.tryDropExperience(level, pos, stack, EXPERIENCE);
+		}
+	}
 
-    @Override
-    public int attemptUseCharge(SculkSpreader.@NotNull ChargeCursor cursor, @NotNull LevelAccessor level, @NotNull BlockPos catalystPos, RandomSource random, SculkSpreader spreadManager, boolean shouldConvertToBlock) {
-        return random.nextInt(spreadManager.chargeDecayRate()) == 0 ? Mth.floor((float) cursor.getCharge() * 0.5F) : cursor.getCharge();
-    }
+	@Override
+	public int attemptUseCharge(SculkSpreader.@NotNull ChargeCursor cursor, @NotNull LevelAccessor level, @NotNull BlockPos catalystPos, RandomSource random, SculkSpreader spreadManager, boolean shouldConvertToBlock) {
+		return random.nextInt(spreadManager.chargeDecayRate()) == 0 ? Mth.floor((float) cursor.getCharge() * 0.5F) : cursor.getCharge();
+	}
 }

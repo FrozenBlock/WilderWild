@@ -36,50 +36,18 @@ import org.jetbrains.annotations.NotNull;
 
 public class PalmFoliagePlacer extends FoliagePlacer {
 	public static final Codec<PalmFoliagePlacer> CODEC = RecordCodecBuilder.create((instance) ->
-			palmCodec(instance).apply(instance, PalmFoliagePlacer::new)
+		palmCodec(instance).apply(instance, PalmFoliagePlacer::new)
 	);
-
-	protected static <P extends PalmFoliagePlacer> Products.P3<RecordCodecBuilder.Mu<P>, IntProvider, IntProvider, IntProvider> palmCodec(RecordCodecBuilder.Instance<P> builder) {
-		return foliagePlacerParts(builder).and((IntProvider.codec(0, 16).fieldOf("fronds")).forGetter(placer -> placer.fronds));
-	}
-
 	private static final double SURROUNDING_LEAF_THRESHOLD = 0.175;
+	public final IntProvider fronds;
 
 	public PalmFoliagePlacer(@NotNull IntProvider intProvider, @NotNull IntProvider intProvider2, @NotNull IntProvider fronds) {
 		super(intProvider, intProvider2);
 		this.fronds = fronds;
 	}
 
-	public final IntProvider fronds;
-
-	@Override
-	@NotNull
-	protected FoliagePlacerType<?> type() {
-		return RegisterFeatures.PALM_FOLIAGE_PLACER;
-	}
-
-	@Override
-	protected void createFoliage(@NotNull LevelSimulatedReader level, @NotNull FoliageSetter blockSetter, @NotNull RandomSource random, @NotNull TreeConfiguration config, int i, @NotNull FoliageAttachment foliageAttachment, int j, int k, int l) {
-		BlockPos blockPos = foliageAttachment.pos().above(l);
-		blockSetter.set(blockPos.below(), RegisterBlocks.PALM_CROWN.defaultBlockState());
-		Vec3 origin = new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ());
-		double minRadius = this.radius.getMinValue();
-		double radius = minRadius + ((this.radius.getMaxValue() - minRadius) * random.nextDouble());
-		double minus = (Math.PI * radius) / (radius * radius);
-		int fronds = this.fronds.sample(random);
-		double rotAngle = 360 / (double) fronds;
-		double angle = random.nextDouble() * 360;
-
-		for (int a = 0; a < fronds; a++) {
-			Vec3 offsetPos = AdvancedMath.rotateAboutXZ(origin, 1, angle + (((random.nextDouble() * rotAngle) * 0.35) * (random.nextBoolean() ? 1 : -1)));
-			double dirX = offsetPos.x - origin.x;
-			double dirZ = offsetPos.z - origin.z;
-			for (double r = 0; r < radius; r += 0.2) {
-				double yOffset = (2 * (Math.sin((Math.PI * (r - 0.1)) / radius) - minus)) + (4.2 * (minus * 0.4));
-				placeLeavesAtPos(level, blockSetter, random, config, blockPos, (dirX * r), yOffset, (dirZ * r));
-			}
-			angle += rotAngle;
-		}
+	protected static <P extends PalmFoliagePlacer> Products.P3<RecordCodecBuilder.Mu<P>, IntProvider, IntProvider, IntProvider> palmCodec(RecordCodecBuilder.Instance<P> builder) {
+		return foliagePlacerParts(builder).and((IntProvider.codec(0, 16).fieldOf("fronds")).forGetter(placer -> placer.fronds));
 	}
 
 	public static void placeLeavesAtPos(@NotNull LevelSimulatedReader level, @NotNull FoliageSetter blockSetter, @NotNull RandomSource random, @NotNull TreeConfiguration config, @NotNull BlockPos pos, double offX, double offY, double offZ) {
@@ -111,6 +79,36 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 
 	public static boolean shouldPlaceBelow(double d) {
 		return d < 0.5 - SURROUNDING_LEAF_THRESHOLD;
+	}
+
+	@Override
+	@NotNull
+	protected FoliagePlacerType<?> type() {
+		return RegisterFeatures.PALM_FOLIAGE_PLACER;
+	}
+
+	@Override
+	protected void createFoliage(@NotNull LevelSimulatedReader level, @NotNull FoliageSetter blockSetter, @NotNull RandomSource random, @NotNull TreeConfiguration config, int i, @NotNull FoliageAttachment foliageAttachment, int j, int k, int l) {
+		BlockPos blockPos = foliageAttachment.pos().above(l);
+		blockSetter.set(blockPos.below(), RegisterBlocks.PALM_CROWN.defaultBlockState());
+		Vec3 origin = new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+		double minRadius = this.radius.getMinValue();
+		double radius = minRadius + ((this.radius.getMaxValue() - minRadius) * random.nextDouble());
+		double minus = (Math.PI * radius) / (radius * radius);
+		int fronds = this.fronds.sample(random);
+		double rotAngle = 360 / (double) fronds;
+		double angle = random.nextDouble() * 360;
+
+		for (int a = 0; a < fronds; a++) {
+			Vec3 offsetPos = AdvancedMath.rotateAboutXZ(origin, 1, angle + (((random.nextDouble() * rotAngle) * 0.35) * (random.nextBoolean() ? 1 : -1)));
+			double dirX = offsetPos.x - origin.x;
+			double dirZ = offsetPos.z - origin.z;
+			for (double r = 0; r < radius; r += 0.2) {
+				double yOffset = (2 * (Math.sin((Math.PI * (r - 0.1)) / radius) - minus)) + (4.2 * (minus * 0.4));
+				placeLeavesAtPos(level, blockSetter, random, config, blockPos, (dirX * r), yOffset, (dirZ * r));
+			}
+			angle += rotAngle;
+		}
 	}
 
 	@Override

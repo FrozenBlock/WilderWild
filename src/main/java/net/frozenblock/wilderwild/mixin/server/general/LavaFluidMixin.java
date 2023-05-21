@@ -34,9 +34,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class LavaFluidMixin {
 
 	@Inject(method = "randomTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/RandomSource;nextInt(I)I", ordinal = 0, shift = At.Shift.BEFORE))
-    public void wilderWild$randomTick(Level level, BlockPos pos, FluidState state, RandomSource random, CallbackInfo info) {
-        this.wilderWild$scorchTick(level, pos.below(), random);
-    }
+	public void wilderWild$randomTick(Level level, BlockPos pos, FluidState state, RandomSource random, CallbackInfo info) {
+		this.wilderWild$scorchTick(level, pos.below(), random);
+	}
 
 	@Unique
 	public void wilderWild$scorchTick(Level level, BlockPos pos, RandomSource random) {

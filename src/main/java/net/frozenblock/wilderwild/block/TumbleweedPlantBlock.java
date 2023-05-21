@@ -53,14 +53,18 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock {
+	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 	private static final VoxelShape FIRST_SHAPE = Block.box(3, 0, 3, 12, 9, 12);
 	private static final VoxelShape SECOND_SHAPE = Block.box(2, 0, 2, 14, 12, 14);
 	private static final VoxelShape THIRD_SHAPE = Block.box(1, 0, 1, 15, 14, 15);
 	private static final VoxelShape FOURTH_SHAPE = Block.box(1, 0, 1, 15, 14, 15);
-	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 
 	public TumbleweedPlantBlock(@NotNull BlockBehaviour.Properties properties) {
 		super(properties);
+	}
+
+	public static boolean isFullyGrown(@NotNull BlockState state) {
+		return state.getValue(AGE) == 3;
 	}
 
 	@Override
@@ -72,7 +76,7 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 				level.addFreshEntity(weed);
 				weed.setPos(new Vec3(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5));
 				int diff = level.getDifficulty().getId();
-				if (level.getRandom().nextInt(0,  diff == 0 ? 20 : (15 / diff)) == 0) {
+				if (level.getRandom().nextInt(0, diff == 0 ? 20 : (15 / diff)) == 0) {
 					weed.setItem(new ItemStack(RegisterBlocks.TUMBLEWEED_PLANT), true);
 				}
 				level.playSound(null, pos, RegisterSounds.ENTITY_TUMBLEWEED_DAMAGE, SoundSource.BLOCKS, 1.0F, 1.0F);
@@ -102,10 +106,6 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 	@Override
 	protected boolean mayPlaceOn(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
 		return state.is(BlockTags.DEAD_BUSH_MAY_PLACE_ON) || state.is(WilderBlockTags.BUSH_MAY_PLACE_ON) || super.mayPlaceOn(state, level, pos);
-	}
-
-	public static boolean isFullyGrown(@NotNull BlockState state) {
-		return state.getValue(AGE) == 3;
 	}
 
 	@Override

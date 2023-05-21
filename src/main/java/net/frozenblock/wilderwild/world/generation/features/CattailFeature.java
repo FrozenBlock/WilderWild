@@ -37,16 +37,28 @@ import org.jetbrains.annotations.NotNull;
 
 public class CattailFeature extends Feature<CattailFeatureConfig> {
 
-    public CattailFeature(@NotNull Codec<CattailFeatureConfig> codec) {
-        super(codec);
-    }
+	public CattailFeature(@NotNull Codec<CattailFeatureConfig> codec) {
+		super(codec);
+	}
+
+	public static boolean isWaterNearby(@NotNull WorldGenLevel level, @NotNull BlockPos blockPos, int x) {
+		Iterator<BlockPos> var2 = BlockPos.betweenClosed(blockPos.offset(-x, -x, -x), blockPos.offset(x, x, x)).iterator();
+		BlockPos blockPos2;
+		do {
+			if (!var2.hasNext()) {
+				return false;
+			}
+			blockPos2 = var2.next();
+		} while (!level.getBlockState(blockPos2).is(Blocks.WATER));
+		return true;
+	}
 
 	@Override
-    public boolean place(@NotNull FeaturePlaceContext<CattailFeatureConfig> context) {
-        boolean generated = false;
-        RandomSource random = context.random();
-        WorldGenLevel level = context.level();
-        BlockPos blockPos = context.origin();
+	public boolean place(@NotNull FeaturePlaceContext<CattailFeatureConfig> context) {
+		boolean generated = false;
+		RandomSource random = context.random();
+		WorldGenLevel level = context.level();
+		BlockPos blockPos = context.origin();
 		CattailFeatureConfig config = context.config();
 		int posX = blockPos.getX();
 		int posZ = blockPos.getZ();
@@ -55,12 +67,12 @@ public class CattailFeature extends Feature<CattailFeatureConfig> {
 		BlockPos.MutableBlockPos topBlockPos = blockPos.mutable();
 		BlockState topPlaceState = RegisterBlocks.CATTAIL.defaultBlockState().setValue(WaterloggableTallFlowerBlock.HALF, DoubleBlockHalf.UPPER);
 		int placementAttempts = config.placementAttempts().sample(random);
-        for (int l = 0; l < placementAttempts; l++) {
-            int randomX = config.width().sample(random);
-            int randomZ = config.width().sample(random);
+		for (int l = 0; l < placementAttempts; l++) {
+			int randomX = config.width().sample(random);
+			int randomZ = config.width().sample(random);
 			int newX = posX + randomX;
 			int newZ = posZ + randomZ;
-            int oceanFloorY = level.getHeight(Types.OCEAN_FLOOR, newX, newZ);
+			int oceanFloorY = level.getHeight(Types.OCEAN_FLOOR, newX, newZ);
 			if (oceanFloorY < maxHeight - 1) {
 				bottomBlockPos.set(newX, oceanFloorY, newZ);
 				BlockState bottomState = level.getBlockState(bottomBlockPos);
@@ -77,20 +89,8 @@ public class CattailFeature extends Feature<CattailFeatureConfig> {
 					generated = true;
 				}
 			}
-        }
+		}
 
-        return generated;
-    }
-
-    public static boolean isWaterNearby(@NotNull WorldGenLevel level, @NotNull BlockPos blockPos, int x) {
-        Iterator<BlockPos> var2 = BlockPos.betweenClosed(blockPos.offset(-x, -x, -x), blockPos.offset(x, x, x)).iterator();
-        BlockPos blockPos2;
-        do {
-            if (!var2.hasNext()) {
-                return false;
-            }
-            blockPos2 = var2.next();
-        } while (!level.getBlockState(blockPos2).is(Blocks.WATER));
-        return true;
-    }
+		return generated;
+	}
 }

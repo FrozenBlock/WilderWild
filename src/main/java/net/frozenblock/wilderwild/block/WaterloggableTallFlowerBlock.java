@@ -36,40 +36,40 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class WaterloggableTallFlowerBlock extends TallFlowerBlock implements SimpleWaterloggedBlock {
-    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    public WaterloggableTallFlowerBlock(@NotNull Properties settings) {
-        super(settings);
-        this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
-    }
+	public WaterloggableTallFlowerBlock(@NotNull Properties settings) {
+		super(settings);
+		this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
+	}
 
-    @Override
+	@Override
 	@NotNull
-    public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
-        if (state.getValue(WATERLOGGED)) {
-            level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
-        }
-        return super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
-    }
+	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
+		if (state.getValue(WATERLOGGED)) {
+			level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+		}
+		return super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
+	}
 
-    @Nullable
-    public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
-        BlockPos blockPos = context.getClickedPos();
-        Level level = context.getLevel();
-        FluidState fluidState = level.getFluidState(blockPos);
-        return blockPos.getY() < level.getMaxBuildHeight() - 1 && level.getBlockState(blockPos.above()).canBeReplaced(context) ?
-                this.defaultBlockState().setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER) : null;
-    }
+	@Nullable
+	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+		BlockPos blockPos = context.getClickedPos();
+		Level level = context.getLevel();
+		FluidState fluidState = level.getFluidState(blockPos);
+		return blockPos.getY() < level.getMaxBuildHeight() - 1 && level.getBlockState(blockPos.above()).canBeReplaced(context) ?
+			this.defaultBlockState().setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER) : null;
+	}
 
-    @Override
+	@Override
 	@NotNull
-    public FluidState getFluidState(@NotNull BlockState state) {
-        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
-    }
+	public FluidState getFluidState(@NotNull BlockState state) {
+		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+	}
 
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
-        super.createBlockStateDefinition(builder);
-        builder.add(WATERLOGGED);
-    }
+	@Override
+	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
+		builder.add(WATERLOGGED);
+	}
 }

@@ -54,10 +54,9 @@ import org.jetbrains.annotations.Nullable;
 public class ScorchedBlock extends BaseEntityBlock {
 	public static final Map<BlockState, BlockState> SCORCH_MAP = new HashMap<>();
 	public static final Map<BlockState, BlockState> HYDRATE_MAP = new HashMap<>();
+	public static final int TICK_DELAY = 2;
 	private static final BooleanProperty CRACKEDNESS = RegisterProperties.CRACKED;
 	private static final IntegerProperty DUSTED = BlockStateProperties.DUSTED;
-	public static final int TICK_DELAY = 2;
-
 	public final boolean canBrush;
 	public final BlockState wetState;
 	public final SoundEvent brushSound;
@@ -71,6 +70,35 @@ public class ScorchedBlock extends BaseEntityBlock {
 		this.canBrush = canBrush;
 		this.brushSound = brushSound;
 		this.brushCompletedSound = brushCompletedSound;
+	}
+
+	public static boolean canScorch(@NotNull BlockState state) {
+		return SCORCH_MAP.containsKey(stateWithoutDusting(state));
+	}
+
+	public static void scorch(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos) {
+		state = stateWithoutDusting(state);
+		if (canScorch(state)) {
+			level.setBlock(pos, SCORCH_MAP.get(state), 3);
+			level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
+		}
+	}
+
+	public static boolean canHydrate(@NotNull BlockState state) {
+		return HYDRATE_MAP.containsKey(stateWithoutDusting(state));
+	}
+
+	public static void hydrate(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos) {
+		state = stateWithoutDusting(state);
+		if (canHydrate(state)) {
+			level.setBlockAndUpdate(pos, HYDRATE_MAP.get(state));
+			level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
+		}
+	}
+
+	@NotNull
+	private static BlockState stateWithoutDusting(@NotNull BlockState state) {
+		return state.hasProperty(DUSTED) ? state.setValue(DUSTED, 0) : state;
 	}
 
 	public void fillScorchMap(@NotNull BlockState wetState, @NotNull BlockState defaultState, @NotNull BlockState defaultStateCracked) {
@@ -101,35 +129,6 @@ public class ScorchedBlock extends BaseEntityBlock {
 		if (precipitation == Biome.Precipitation.RAIN && level.getRandom().nextFloat() < 0.75F) {
 			hydrate(state, level, pos);
 		}
-	}
-
-	public static boolean canScorch(@NotNull BlockState state) {
-		return SCORCH_MAP.containsKey(stateWithoutDusting(state));
-	}
-
-	public static void scorch(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos) {
-		state = stateWithoutDusting(state);
-		if (canScorch(state)) {
-			level.setBlock(pos, SCORCH_MAP.get(state), 3);
-			level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
-		}
-	}
-
-	public static boolean canHydrate(@NotNull BlockState state) {
-		return HYDRATE_MAP.containsKey(stateWithoutDusting(state));
-	}
-
-	public static void hydrate(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos) {
-		state = stateWithoutDusting(state);
-		if (canHydrate(state)) {
-			level.setBlockAndUpdate(pos, HYDRATE_MAP.get(state));
-			level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
-		}
-	}
-
-	@NotNull
-	private static BlockState stateWithoutDusting(@NotNull BlockState state) {
-		return state.hasProperty(DUSTED) ? state.setValue(DUSTED, 0) : state;
 	}
 
 	@Override

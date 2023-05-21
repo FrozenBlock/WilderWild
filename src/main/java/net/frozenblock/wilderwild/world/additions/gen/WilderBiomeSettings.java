@@ -26,19 +26,19 @@ import net.minecraft.world.level.biome.Biomes;
 
 public final class WilderBiomeSettings {
 
-    static void init() {
-        BiomeModifications.create(WilderSharedConstants.id("replace_deep_dark_fog")).add(ModificationPhase.REPLACEMENTS,
-                (context) -> context.getBiomeKey().equals(Biomes.DEEP_DARK),
-                (modificationContext) -> modificationContext.getEffects().setFogColor(0));
+	static void init() {
+		BiomeModifications.create(WilderSharedConstants.id("replace_deep_dark_fog")).add(ModificationPhase.REPLACEMENTS,
+			(context) -> context.getBiomeKey().equals(Biomes.DEEP_DARK),
+			(modificationContext) -> modificationContext.getEffects().setFogColor(0));
 
 		BiomeModifications.create(WilderSharedConstants.id("replace_badlands_foliage_color")).add(ModificationPhase.REPLACEMENTS,
-				(context) -> context.hasTag(BiomeTags.IS_BADLANDS),
-				(modificationContext) -> modificationContext.getEffects().setFoliageColor(11445290));
+			(context) -> context.hasTag(BiomeTags.IS_BADLANDS),
+			(modificationContext) -> modificationContext.getEffects().setFoliageColor(11445290));
 
-        WilderMusic.playMusic();
-        WilderSpawns.addFireflies();
-        WilderSpawns.addJellyfish();
+		WilderMusic.playMusic();
+		WilderSpawns.addFireflies();
+		WilderSpawns.addJellyfish();
 		WilderSpawns.addTumbleweed();
 		WilderSpawns.addRabbits();
-    }
+	}
 }

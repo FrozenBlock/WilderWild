@@ -32,50 +32,14 @@ import org.jetbrains.annotations.NotNull;
 
 public class NematocystFeature extends MultifaceGrowthFeature {
 
-    public NematocystFeature(@NotNull Codec<MultifaceGrowthConfiguration> codec) {
-        super(codec);
-    }
-
-    @Override
-	public boolean place(@NotNull FeaturePlaceContext<MultifaceGrowthConfiguration> context) {
-		WorldGenLevel worldGenLevel = context.level();
-		BlockPos blockPos = context.origin();
-		RandomSource randomSource = context.random();
-		MultifaceGrowthConfiguration multifaceGrowthConfiguration = context.config();
-		if (!isAirOrWater(worldGenLevel.getBlockState(blockPos))) {
-			return false;
-		} else {
-			List<Direction> list = multifaceGrowthConfiguration.getShuffledDirections(randomSource);
-			if (placeGrowthIfPossible(worldGenLevel, blockPos, worldGenLevel.getBlockState(blockPos), multifaceGrowthConfiguration, randomSource, list)) {
-				return true;
-			} else {
-				BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
-
-				for(Direction direction : list) {
-					mutableBlockPos.set(blockPos);
-					List<Direction> list2 = multifaceGrowthConfiguration.getShuffledDirectionsExcept(randomSource, direction.getOpposite());
-
-					for(int i = 0; i < multifaceGrowthConfiguration.searchRange; ++i) {
-						mutableBlockPos.setWithOffset(blockPos, direction);
-						BlockState blockState = worldGenLevel.getBlockState(mutableBlockPos);
-						if (!isAirOrWater(blockState) && !blockState.is(multifaceGrowthConfiguration.placeBlock)) {
-							break;
-						}
-
-						if (placeGrowthIfPossible(worldGenLevel, mutableBlockPos, blockState, multifaceGrowthConfiguration, randomSource, list2)) {
-							return true;
-						}
-					}
-				}
-				return false;
-			}
-		}
+	public NematocystFeature(@NotNull Codec<MultifaceGrowthConfiguration> codec) {
+		super(codec);
 	}
 
 	public static boolean placeGrowthIfPossible(@NotNull WorldGenLevel level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull MultifaceGrowthConfiguration config, @NotNull RandomSource random, @NotNull List<Direction> directions) {
 		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 
-		for(Direction direction : directions) {
+		for (Direction direction : directions) {
 			BlockState blockState = level.getBlockState(mutableBlockPos.setWithOffset(pos, direction));
 			if (blockState.is(config.canBePlacedOn)) {
 				BlockState blockState2 = config.placeBlock.getStateForPlacement(state, level, pos, direction);
@@ -98,6 +62,42 @@ public class NematocystFeature extends MultifaceGrowthFeature {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public boolean place(@NotNull FeaturePlaceContext<MultifaceGrowthConfiguration> context) {
+		WorldGenLevel worldGenLevel = context.level();
+		BlockPos blockPos = context.origin();
+		RandomSource randomSource = context.random();
+		MultifaceGrowthConfiguration multifaceGrowthConfiguration = context.config();
+		if (!isAirOrWater(worldGenLevel.getBlockState(blockPos))) {
+			return false;
+		} else {
+			List<Direction> list = multifaceGrowthConfiguration.getShuffledDirections(randomSource);
+			if (placeGrowthIfPossible(worldGenLevel, blockPos, worldGenLevel.getBlockState(blockPos), multifaceGrowthConfiguration, randomSource, list)) {
+				return true;
+			} else {
+				BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
+
+				for (Direction direction : list) {
+					mutableBlockPos.set(blockPos);
+					List<Direction> list2 = multifaceGrowthConfiguration.getShuffledDirectionsExcept(randomSource, direction.getOpposite());
+
+					for (int i = 0; i < multifaceGrowthConfiguration.searchRange; ++i) {
+						mutableBlockPos.setWithOffset(blockPos, direction);
+						BlockState blockState = worldGenLevel.getBlockState(mutableBlockPos);
+						if (!isAirOrWater(blockState) && !blockState.is(multifaceGrowthConfiguration.placeBlock)) {
+							break;
+						}
+
+						if (placeGrowthIfPossible(worldGenLevel, mutableBlockPos, blockState, multifaceGrowthConfiguration, randomSource, list2)) {
+							return true;
+						}
+					}
+				}
+				return false;
+			}
+		}
 	}
 }
 

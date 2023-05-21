@@ -53,12 +53,15 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlock {
-    protected static final VoxelShape OUTLINE_SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 13.0D, 13.0D);
-
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
+	protected static final VoxelShape OUTLINE_SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 13.0D, 13.0D);
 
 	public PricklyPearCactusBlock(@NotNull BlockBehaviour.Properties properties) {
 		super(properties);
+	}
+
+	public static boolean isFullyGrown(@NotNull BlockState state) {
+		return state.getValue(AGE) == 3;
 	}
 
 	@Override
@@ -97,10 +100,6 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 	@Override
 	protected boolean mayPlaceOn(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
 		return state.is(BlockTags.SAND) || state.is(BlockTags.DIRT);
-	}
-
-	public static boolean isFullyGrown(@NotNull BlockState state) {
-		return state.getValue(AGE) == 3;
 	}
 
 	@Override

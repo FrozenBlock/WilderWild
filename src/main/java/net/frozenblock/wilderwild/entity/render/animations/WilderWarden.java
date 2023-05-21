@@ -22,13 +22,13 @@ import net.minecraft.world.entity.AnimationState;
 
 public interface WilderWarden {
 
-    AnimationState wilderWild$getDyingAnimationState();
+	AnimationState wilderWild$getDyingAnimationState();
 
-    AnimationState wilderWild$getSwimmingDyingAnimationState();
+	AnimationState wilderWild$getSwimmingDyingAnimationState();
 
-    AnimationState wilderWild$getKirbyDeathAnimationState();
+	AnimationState wilderWild$getKirbyDeathAnimationState();
 
-    boolean wilderWild$isStella();
+	boolean wilderWild$isStella();
 
 	void wilderWild$setDeathTicks(int i);
 

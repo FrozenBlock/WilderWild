@@ -19,7 +19,7 @@ public final class WilderPlacementUtils {
 		var key = WilderSharedConstants.id(id);
 		var keyString = key.toString();
 		return new FrozenPlacedFeature(key)
-				.makeAndSetHolder((Holder) configured, modifiers);
+			.makeAndSetHolder((Holder) configured, modifiers);
 	}
 
 	public static <FC extends FeatureConfiguration> FrozenPlacedFeature register(@NotNull String id, Holder<ConfiguredFeature<FC, ?>> registryEntry, @NotNull PlacementModifier... modifiers) {

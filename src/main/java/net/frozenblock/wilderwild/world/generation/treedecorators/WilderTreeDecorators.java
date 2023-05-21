@@ -27,19 +27,19 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorTy
 import org.jetbrains.annotations.NotNull;
 
 public final class WilderTreeDecorators {
-    public static final TreeDecoratorType<ShelfFungusTreeDecorator> FUNGUS_TREE_DECORATOR = register("shelf_fungus_tree_decorator", ShelfFungusTreeDecorator.CODEC);
-    public static final TreeDecoratorType<HeightBasedVineTreeDecorator> HEIGHT_BASED_VINE_TREE_DECORATOR = register("height_based_vine_tree_decorator", HeightBasedVineTreeDecorator.CODEC);
+	public static final TreeDecoratorType<ShelfFungusTreeDecorator> FUNGUS_TREE_DECORATOR = register("shelf_fungus_tree_decorator", ShelfFungusTreeDecorator.CODEC);
+	public static final TreeDecoratorType<HeightBasedVineTreeDecorator> HEIGHT_BASED_VINE_TREE_DECORATOR = register("height_based_vine_tree_decorator", HeightBasedVineTreeDecorator.CODEC);
 	public static final TreeDecoratorType<LeavesAroundTopTreeDecorator> LEAVES_AROUND_TOP_TREE_DECORATOR = register("leaves_around_top_decorator", LeavesAroundTopTreeDecorator.CODEC);
 	public static final TreeDecoratorType<HeightBasedCobwebTreeDecorator> HEIGHT_BASED_COBWEB_TREE_DECORATOR = register("height_based_cobweb_tree_decorator", HeightBasedCobwebTreeDecorator.CODEC);
 	public static final TreeDecoratorType<PollenTreeDecorator> POLLEN_TREE_DECORATOR = register("pollen_tree_decorator", PollenTreeDecorator.CODEC);
 	public static final TreeDecoratorType<MossCarpetTreeDecorator> MOSS_CARPET_TREE_DECORATOR = register("moss_carpet_tree_decorator", MossCarpetTreeDecorator.CODEC);
 
 	public static void generateTreeDecorators() {
-        //Just to ensure the class is loaded.
-    }
+		//Just to ensure the class is loaded.
+	}
 
 	@NotNull
-    private static <P extends TreeDecorator> TreeDecoratorType<P> register(@NotNull String id, @NotNull Codec<P> codec) {
-        return Registry.register(BuiltInRegistries.TREE_DECORATOR_TYPE, WilderSharedConstants.id(id), new TreeDecoratorType<P>(codec));
-    }
+	private static <P extends TreeDecorator> TreeDecoratorType<P> register(@NotNull String id, @NotNull Codec<P> codec) {
+		return Registry.register(BuiltInRegistries.TREE_DECORATOR_TYPE, WilderSharedConstants.id(id), new TreeDecoratorType<P>(codec));
+	}
 }

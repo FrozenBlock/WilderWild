@@ -38,20 +38,21 @@ public final class RegisterBlockEntities {
 		throw new UnsupportedOperationException("RegisterBlockEntities contains only static declarations.");
 	}
 
-    public static final BlockEntityType<HangingTendrilBlockEntity> HANGING_TENDRIL = register("hanging_tendril", HangingTendrilBlockEntity::new, RegisterBlocks.HANGING_TENDRIL);
-    public static final BlockEntityType<TermiteMoundBlockEntity> TERMITE_MOUND = register("termite_mound", TermiteMoundBlockEntity::new, RegisterBlocks.TERMITE_MOUND);
-    public static final BlockEntityType<DisplayLanternBlockEntity> DISPLAY_LANTERN = register("display_lantern", DisplayLanternBlockEntity::new, RegisterBlocks.DISPLAY_LANTERN);
-    public static final BlockEntityType<StoneChestBlockEntity> STONE_CHEST = register("stone_chest", StoneChestBlockEntity::new, RegisterBlocks.STONE_CHEST);
-	public static final BlockEntityType<PalmCrownBlockEntity> PALM_CROWN = register("palm_crown", PalmCrownBlockEntity::new, RegisterBlocks.PALM_CROWN);
-
-	public static final BlockEntityType<ScorchedBlockEntity> SCORCHED_BLOCK = register("scorched_block", ScorchedBlockEntity::new, RegisterBlocks.SCORCHED_SAND, RegisterBlocks.SCORCHED_RED_SAND);
-
-    public static void register() {
-        WilderSharedConstants.logWild("Registering BlockEntities for", WilderSharedConstants.UNSTABLE_LOGGING);
-    }
+	public static void register() {
+		WilderSharedConstants.logWild("Registering BlockEntities for", WilderSharedConstants.UNSTABLE_LOGGING);
+	}	public static final BlockEntityType<HangingTendrilBlockEntity> HANGING_TENDRIL = register("hanging_tendril", HangingTendrilBlockEntity::new, RegisterBlocks.HANGING_TENDRIL);
 
 	@NotNull
 	private static <T extends BlockEntity> BlockEntityType<T> register(@NotNull String path, @NotNull FabricBlockEntityTypeBuilder.Factory<T> blockEntity, @NotNull Block... blocks) {
 		return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, WilderSharedConstants.id(path), FabricBlockEntityTypeBuilder.create(blockEntity, blocks).build(null));
-	}
+	}	public static final BlockEntityType<TermiteMoundBlockEntity> TERMITE_MOUND = register("termite_mound", TermiteMoundBlockEntity::new, RegisterBlocks.TERMITE_MOUND);
+	public static final BlockEntityType<DisplayLanternBlockEntity> DISPLAY_LANTERN = register("display_lantern", DisplayLanternBlockEntity::new, RegisterBlocks.DISPLAY_LANTERN);
+	public static final BlockEntityType<StoneChestBlockEntity> STONE_CHEST = register("stone_chest", StoneChestBlockEntity::new, RegisterBlocks.STONE_CHEST);
+	public static final BlockEntityType<PalmCrownBlockEntity> PALM_CROWN = register("palm_crown", PalmCrownBlockEntity::new, RegisterBlocks.PALM_CROWN);
+
+	public static final BlockEntityType<ScorchedBlockEntity> SCORCHED_BLOCK = register("scorched_block", ScorchedBlockEntity::new, RegisterBlocks.SCORCHED_SAND, RegisterBlocks.SCORCHED_RED_SAND);
+
+
+
+
 }

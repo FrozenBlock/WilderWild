@@ -43,30 +43,30 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(LevelRenderer.class)
 public class LevelRendererMixin {
 
-    @Shadow
+	@Shadow
 	@Nullable
-    private ClientLevel level;
+	private ClientLevel level;
 
-    @Inject(method = "levelEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;playLocalSound(DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FFZ)V", ordinal = 0), cancellable = true)
-    private void wilderWild$shriekerGargle(int eventId, BlockPos pos, int data, CallbackInfo info) {
-        if (WilderSharedConstants.config().shriekerGargling()) {
-            assert this.level != null;
-            if (this.level.getBlockState(pos).getValue(BlockStateProperties.WATERLOGGED) || this.level.getBlockState(pos.above()).getBlock() == Blocks.WATER || this.level.getFluidState(pos.above()).is(FluidTags.WATER)) {
-                this.level
-                        .playLocalSound(
-                                (double) pos.getX() + 0.5D,
-                                (double) pos.getY() + SculkShriekerBlock.TOP_Y,
-                                (double) pos.getZ() + 0.5D,
-                                RegisterSounds.BLOCK_SCULK_SHRIEKER_GARGLE,
-                                SoundSource.BLOCKS,
-                                2.0F,
-                                0.6F + this.level.random.nextFloat() * 0.4F,
-                                false
-                        );
-                info.cancel();
-            }
-        }
-    }
+	@Inject(method = "levelEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;playLocalSound(DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FFZ)V", ordinal = 0), cancellable = true)
+	private void wilderWild$shriekerGargle(int eventId, BlockPos pos, int data, CallbackInfo info) {
+		if (WilderSharedConstants.config().shriekerGargling()) {
+			assert this.level != null;
+			if (this.level.getBlockState(pos).getValue(BlockStateProperties.WATERLOGGED) || this.level.getBlockState(pos.above()).getBlock() == Blocks.WATER || this.level.getFluidState(pos.above()).is(FluidTags.WATER)) {
+				this.level
+					.playLocalSound(
+						(double) pos.getX() + 0.5D,
+						(double) pos.getY() + SculkShriekerBlock.TOP_Y,
+						(double) pos.getZ() + 0.5D,
+						RegisterSounds.BLOCK_SCULK_SHRIEKER_GARGLE,
+						SoundSource.BLOCKS,
+						2.0F,
+						0.6F + this.level.random.nextFloat() * 0.4F,
+						false
+					);
+				info.cancel();
+			}
+		}
+	}
 
 	@Inject(method = "levelEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;addDestroyBlockEffect(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V", shift = At.Shift.BEFORE, ordinal = 1))
 	private void wilderWild$scorchedBrush(int type, BlockPos pos, int data, CallbackInfo ci) {

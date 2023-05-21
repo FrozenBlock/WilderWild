@@ -29,8 +29,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Creeper.class)
 public final class CreeperMixin {
 
-    @Inject(method = "spawnLingeringCloud", at = @At("HEAD"))
-    public void wilderWild$spawnLingeringCloud(CallbackInfo info) {
+	@Inject(method = "spawnLingeringCloud", at = @At("HEAD"))
+	public void wilderWild$spawnLingeringCloud(CallbackInfo info) {
 		if (WilderSharedConstants.config().potionLandingSounds()) {
 			Creeper creeper = Creeper.class.cast(this);
 			if (!creeper.getActiveEffects().isEmpty()) {
@@ -38,5 +38,5 @@ public final class CreeperMixin {
 				creeper.playSound(RegisterSounds.ITEM_POTION_LINGERING, 1.0F, 1.0F + (creeper.level().random.nextFloat() * 0.2F));
 			}
 		}
-    }
+	}
 }

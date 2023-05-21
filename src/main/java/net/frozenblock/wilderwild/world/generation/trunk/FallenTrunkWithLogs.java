@@ -42,7 +42,19 @@ import org.jetbrains.annotations.NotNull;
 
 public class FallenTrunkWithLogs extends TrunkPlacer {
 	public static final Codec<FallenTrunkWithLogs> CODEC = RecordCodecBuilder.create((instance) ->
-			fallenTrunkCodec(instance).apply(instance, FallenTrunkWithLogs::new));
+		fallenTrunkCodec(instance).apply(instance, FallenTrunkWithLogs::new));
+	public final float logChance;
+	public final IntProvider maxLogs;
+	public final IntProvider maxHeightAboveHole;
+	public final float successInWaterChance;
+
+	public FallenTrunkWithLogs(int baseHeight, int firstRandomHeight, int secondRandomHeight, float logChance, float successInWaterChance, @NotNull IntProvider maxLogs, @NotNull IntProvider maxHeightAboveHole) {
+		super(baseHeight, firstRandomHeight, secondRandomHeight);
+		this.logChance = logChance;
+		this.maxLogs = maxLogs;
+		this.maxHeightAboveHole = maxHeightAboveHole;
+		this.successInWaterChance = successInWaterChance;
+	}
 
 	protected static <P extends FallenTrunkWithLogs> Products.P7<RecordCodecBuilder.Mu<P>, Integer, Integer, Integer, Float, Float, IntProvider, IntProvider> fallenTrunkCodec(RecordCodecBuilder.Instance<P> builder) {
 		return trunkPlacerParts(builder)
@@ -52,48 +64,39 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
 			.and(IntProvider.NON_NEGATIVE_CODEC.fieldOf("max_height_above_hole").forGetter((trunkPlacer) -> trunkPlacer.maxHeightAboveHole));
 	}
 
-    public final float logChance;
-	public final IntProvider maxLogs;
-	public final IntProvider maxHeightAboveHole;
-	public final float successInWaterChance;
-
-    public FallenTrunkWithLogs(int baseHeight, int firstRandomHeight, int secondRandomHeight, float logChance, float successInWaterChance, @NotNull IntProvider maxLogs, @NotNull IntProvider maxHeightAboveHole) {
-        super(baseHeight, firstRandomHeight, secondRandomHeight);
-        this.logChance = logChance;
-        this.maxLogs = maxLogs;
-        this.maxHeightAboveHole = maxHeightAboveHole;
-		this.successInWaterChance = successInWaterChance;
-    }
+	private static boolean isWaterAt(@NotNull LevelSimulatedReader level, @NotNull BlockPos blockpos) {
+		return level.isFluidAtPosition(blockpos, fluidState -> fluidState.is(FluidTags.WATER));
+	}
 
 	@Override
 	@NotNull
-    protected TrunkPlacerType<?> type() {
-        return RegisterFeatures.FALLEN_TRUNK_WITH_LOGS_PLACER_TYPE;
-    }
+	protected TrunkPlacerType<?> type() {
+		return RegisterFeatures.FALLEN_TRUNK_WITH_LOGS_PLACER_TYPE;
+	}
 
 	@Override
 	@NotNull
-    public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, int height, @NotNull BlockPos startPos, @NotNull TreeConfiguration config) {
-        List<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();
-        List<BlockPos> logs = Lists.newArrayList();
-        BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-        int maxLogs = this.maxLogs.sample(random);
-        int maxAboveHole = this.maxHeightAboveHole.sample(random);
-        int logsAboveHole = 0;
-        Direction logDir = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-        int extraLogs = 0;
+	public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, int height, @NotNull BlockPos startPos, @NotNull TreeConfiguration config) {
+		List<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();
+		List<BlockPos> logs = Lists.newArrayList();
+		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+		int maxLogs = this.maxLogs.sample(random);
+		int maxAboveHole = this.maxHeightAboveHole.sample(random);
+		int logsAboveHole = 0;
+		Direction logDir = Direction.Plane.HORIZONTAL.getRandomDirection(random);
+		int extraLogs = 0;
 		if (isWaterAt(level, startPos) && random.nextFloat() > this.successInWaterChance) {
 			return list;
 		}
-        boolean solidBelowInitial = !TreeFeature.validTreePos(level, mutable.set(startPos.getX(), startPos.getY() - 1, startPos.getZ())) && !TreeFeature.isAirOrLeaves(level, mutable);
-        if (solidBelowInitial) {
-            for (int i = 0; i < height; ++i) {
-                int x = startPos.getX() + (logDir.getStepX() * i);
-                int z = startPos.getZ() + (logDir.getStepZ() * i);
-                boolean solidBelow = !TreeFeature.validTreePos(level, mutable.set(x, startPos.getY() - 1, z)) && !TreeFeature.isAirOrLeaves(level, mutable);
-                if (solidBelow || logsAboveHole < maxAboveHole) {
-                    int holeAddition = !solidBelow ? 1 : 0;
-                    if (TreeFeature.validTreePos(level, mutable.set(x, startPos.getY(), z))) {
+		boolean solidBelowInitial = !TreeFeature.validTreePos(level, mutable.set(startPos.getX(), startPos.getY() - 1, startPos.getZ())) && !TreeFeature.isAirOrLeaves(level, mutable);
+		if (solidBelowInitial) {
+			for (int i = 0; i < height; ++i) {
+				int x = startPos.getX() + (logDir.getStepX() * i);
+				int z = startPos.getZ() + (logDir.getStepZ() * i);
+				boolean solidBelow = !TreeFeature.validTreePos(level, mutable.set(x, startPos.getY() - 1, z)) && !TreeFeature.isAirOrLeaves(level, mutable);
+				if (solidBelow || logsAboveHole < maxAboveHole) {
+					int holeAddition = !solidBelow ? 1 : 0;
+					if (TreeFeature.validTreePos(level, mutable.set(x, startPos.getY(), z))) {
 						placeLog(logs, level, replacer, random, config, mutable, logDir);
 						if (i < height - 1 && random.nextFloat() < this.logChance && extraLogs < maxLogs) {
 							Direction direction = random.nextFloat() >= 0.33 ? Direction.Plane.HORIZONTAL.getRandomDirection(random) : Direction.Plane.VERTICAL.getRandomDirection(random);
@@ -102,27 +105,27 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
 						}
 						logsAboveHole += holeAddition;
 					} else {
-                        i = height + 2;
-                    }
-                }
-            }
-        }
-        return list;
-    }
+						i = height + 2;
+					}
+				}
+			}
+		}
+		return list;
+	}
 
-    private void generateExtraBranch(@NotNull List<BlockPos> logs, LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, @NotNull TreeConfiguration config, @NotNull BlockPos.MutableBlockPos pos, @NotNull Direction offsetDir, @NotNull Direction direction) {
-        int x = pos.getX();
-        int z = pos.getZ();
-        int y = pos.getY();
-        if (offsetDir.getAxis() != direction.getAxis()) {
-            x += direction.getStepX();
-            z += direction.getStepZ();
-            y += direction.getStepY();
-            if (TreeFeature.validTreePos(level, pos.set(x, y, z))) {
+	private void generateExtraBranch(@NotNull List<BlockPos> logs, LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, @NotNull TreeConfiguration config, @NotNull BlockPos.MutableBlockPos pos, @NotNull Direction offsetDir, @NotNull Direction direction) {
+		int x = pos.getX();
+		int z = pos.getZ();
+		int y = pos.getY();
+		if (offsetDir.getAxis() != direction.getAxis()) {
+			x += direction.getStepX();
+			z += direction.getStepZ();
+			y += direction.getStepY();
+			if (TreeFeature.validTreePos(level, pos.set(x, y, z))) {
 				placeLog(logs, level, replacer, random, config, pos, direction);
 			}
-        }
-    }
+		}
+	}
 
 	private void placeLog(@NotNull List<BlockPos> logs, LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, @NotNull TreeConfiguration config, @NotNull BlockPos.MutableBlockPos pos, @NotNull Direction direction) {
 		BlockState setState = config.trunkProvider.getState(random, pos);
@@ -135,9 +138,5 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
 		}
 		replacer.accept(pos, setState);
 		logs.add(pos.immutable());
-	}
-
-	private static boolean isWaterAt(@NotNull LevelSimulatedReader level, @NotNull BlockPos blockpos) {
-		return level.isFluidAtPosition(blockpos, fluidState -> fluidState.is(FluidTags.WATER));
 	}
 }

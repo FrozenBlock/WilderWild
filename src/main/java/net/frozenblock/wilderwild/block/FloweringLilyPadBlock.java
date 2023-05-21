@@ -36,28 +36,28 @@ import org.jetbrains.annotations.NotNull;
 
 public class FloweringLilyPadBlock extends WaterlilyBlock {
 
-    public FloweringLilyPadBlock(@NotNull Properties settings) {
-        super(settings);
-    }
+	public FloweringLilyPadBlock(@NotNull Properties settings) {
+		super(settings);
+	}
 
 	@Override
-    public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
-        super.entityInside(state, level, pos, entity);
-        if (level instanceof ServerLevel && entity instanceof Boat) {
-            level.destroyBlock(new BlockPos(pos), true, entity);
-        }
-    }
+	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
+		super.entityInside(state, level, pos, entity);
+		if (level instanceof ServerLevel && entity instanceof Boat) {
+			level.destroyBlock(new BlockPos(pos), true, entity);
+		}
+	}
 
 	@Override
 	@NotNull
-    public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-        return WaterlilyBlock.AABB;
-    }
+	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+		return WaterlilyBlock.AABB;
+	}
 
 	@Override
-    protected boolean mayPlaceOn(@NotNull BlockState floor, BlockGetter level, @NotNull BlockPos pos) {
-        FluidState fluidState = level.getFluidState(pos);
-        FluidState fluidState2 = level.getFluidState(pos.above());
-        return (fluidState.is(FluidTags.WATER) || floor.getBlock() instanceof IceBlock) && fluidState2.getType() == Fluids.EMPTY;
-    }
+	protected boolean mayPlaceOn(@NotNull BlockState floor, BlockGetter level, @NotNull BlockPos pos) {
+		FluidState fluidState = level.getFluidState(pos);
+		FluidState fluidState2 = level.getFluidState(pos.above());
+		return (fluidState.is(FluidTags.WATER) || floor.getBlock() instanceof IceBlock) && fluidState2.getType() == Fluids.EMPTY;
+	}
 }

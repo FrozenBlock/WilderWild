@@ -49,8 +49,8 @@ public class FireflyBottleTrigger extends SimpleCriterionTrigger<FireflyBottleTr
 		}
 
 		public boolean matches(@NotNull ItemStack stack) {
-		return this.item.matches(stack);
-	}
+			return this.item.matches(stack);
+		}
 
 		@Override
 		@NotNull

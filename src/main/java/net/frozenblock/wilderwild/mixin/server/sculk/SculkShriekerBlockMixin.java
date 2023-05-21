@@ -46,38 +46,38 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(SculkShriekerBlock.class)
 public class SculkShriekerBlockMixin extends BaseEntityBlock {
 
-    private SculkShriekerBlockMixin(Properties settings) {
-        super(settings);
-    }
+	private SculkShriekerBlockMixin(Properties settings) {
+		super(settings);
+	}
 
-    @Override
+	@Override
 	@NotNull
-    public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-        return Shapes.or(Block.box(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D), Block.box(1.0D, 8.0D, 1.0D, 15.0D, 15.0D, 15.0D));
-    }
+	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+		return Shapes.or(Block.box(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D), Block.box(1.0D, 8.0D, 1.0D, 15.0D, 15.0D, 15.0D));
+	}
 
-    @Inject(at = @At("TAIL"), method = "createBlockStateDefinition")
-    public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-        builder.add(RegisterProperties.SOULS_TAKEN);
-    }
+	@Inject(at = @At("TAIL"), method = "createBlockStateDefinition")
+	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
+		builder.add(RegisterProperties.SOULS_TAKEN);
+	}
 
-    @Inject(at = @At("HEAD"), method = "stepOn", cancellable = true)
-    public void wilderWild$stepOn(Level level, BlockPos pos, BlockState state, Entity entity, CallbackInfo info) {
-        if (state.getValue(RegisterProperties.SOULS_TAKEN) == 2) {
-            info.cancel();
-        }
-    }
+	@Inject(at = @At("HEAD"), method = "stepOn", cancellable = true)
+	public void wilderWild$stepOn(Level level, BlockPos pos, BlockState state, Entity entity, CallbackInfo info) {
+		if (state.getValue(RegisterProperties.SOULS_TAKEN) == 2) {
+			info.cancel();
+		}
+	}
 
 	@Inject(at = @At("HEAD"), method = "getTicker", cancellable = true)
 	public <T extends BlockEntity> void wilderWild$getTicker(Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> blockEntityType, CallbackInfoReturnable<BlockEntityTicker<T>> info) {
 		if (!level.isClientSide) {
-			info.setReturnValue(BaseEntityBlock.createTickerHelper(blockEntityType, BlockEntityType.SCULK_SHRIEKER, (_world, pos, _state, blockEntity) -> ((SculkShriekerTickInterface)blockEntity).wilderWild$tickServer(_world, pos)));
+			info.setReturnValue(BaseEntityBlock.createTickerHelper(blockEntityType, BlockEntityType.SCULK_SHRIEKER, (_world, pos, _state, blockEntity) -> ((SculkShriekerTickInterface) blockEntity).wilderWild$tickServer(_world, pos)));
 		}
 	}
 
-    @Shadow
-    public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	@Shadow
+	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		throw new AssertionError("Mixin injection failed - Wilder Wild SculkShriekerBlockMixin.");
-    }
+	}
 
 }

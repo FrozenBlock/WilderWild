@@ -4,10 +4,7 @@
     "heightmap": "OCEAN_FLOOR_WG",
     "innerChance": 0.925,
     "innerPercent": 0.55,
-    "innerReplaceable": [
-      "minecraft:sand",
-      "wilderwild:scorched_sand"
-    ],
+    "innerReplaceable": "#wilderwild:scorched_sand_feature_inner_replaceable",
     "innerState": {
       "type": "minecraft:simple_state_provider",
       "state": {
@@ -18,7 +15,7 @@
         }
       }
     },
-    "outerReplaceable": "minecraft:sand",
+    "outerReplaceable": "#wilderwild:scorched_sand_feature_replaceable",
     "outerState": {
       "type": "minecraft:simple_state_provider",
       "state": {

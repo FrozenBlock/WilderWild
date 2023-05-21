@@ -36,67 +36,31 @@ import org.jetbrains.annotations.NotNull;
 
 public class ShelfFungusFeature extends Feature<ShelfFungusFeatureConfig> {
 
-    public ShelfFungusFeature(@NotNull Codec<ShelfFungusFeatureConfig> codec) {
-        super(codec);
-    }
+	public ShelfFungusFeature(@NotNull Codec<ShelfFungusFeatureConfig> codec) {
+		super(codec);
+	}
 
-	@Override
-    public boolean place(@NotNull FeaturePlaceContext<ShelfFungusFeatureConfig> context) {
-        WorldGenLevel structureWorldAccess = context.level();
-        RandomSource abstractRandom = context.random();
-		BlockPos blockPos = context.origin().above(abstractRandom.nextInt(0, 4));
-        ShelfFungusFeatureConfig shelfFungusFeatureConfig = context.config();
-        if (!isAirOrWater(structureWorldAccess.getBlockState(blockPos))) {
-            return false;
-        } else {
-            List<Direction> list = shelfFungusFeatureConfig.shuffleDirections(abstractRandom);
-            if (generate(structureWorldAccess, blockPos, shelfFungusFeatureConfig, abstractRandom, list)) {
-                return true;
-            } else {
-                MutableBlockPos mutable = blockPos.mutable();
+	public static boolean generate(@NotNull WorldGenLevel level, @NotNull BlockPos pos, @NotNull ShelfFungusFeatureConfig config, @NotNull RandomSource random, @NotNull List<Direction> directions) {
+		MutableBlockPos mutable = pos.mutable();
+		Iterator<Direction> var7 = directions.iterator();
 
-                for (Direction direction : list) {
-                    mutable.set(blockPos);
-                    List<Direction> list2 = shelfFungusFeatureConfig.shuffleDirections(abstractRandom, direction.getOpposite());
+		Direction direction;
+		Direction placementDirection;
+		BlockState blockState;
+		do {
+			if (!var7.hasNext()) {
+				return false;
+			}
 
-                    for (int i = 0; i < shelfFungusFeatureConfig.searchRange; ++i) {
-                        mutable.setWithOffset(blockPos, direction);
-                        BlockState blockState = structureWorldAccess.getBlockState(mutable);
-                        if (!isAirOrWater(blockState) && !blockState.is(shelfFungusFeatureConfig.fungus)) {
-                            break;
-                        }
-
-                        if (generate(structureWorldAccess, mutable, shelfFungusFeatureConfig, abstractRandom, list2)) {
-                            return true;
-                        }
-                    }
-                }
-                return false;
-            }
-        }
-    }
-
-    public static boolean generate(@NotNull WorldGenLevel level, @NotNull BlockPos pos, @NotNull ShelfFungusFeatureConfig config, @NotNull RandomSource random, @NotNull List<Direction> directions) {
-        MutableBlockPos mutable = pos.mutable();
-        Iterator<Direction> var7 = directions.iterator();
-
-        Direction direction;
-        Direction placementDirection;
-        BlockState blockState;
-        do {
-            if (!var7.hasNext()) {
-                return false;
-            }
-
-            direction = var7.next();
-            blockState = level.getBlockState(mutable.setWithOffset(pos, direction));
-            placementDirection = direction;
-            if (placementDirection.getAxis() == Direction.Axis.Y) {
-                placementDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-            } else {
-                placementDirection = placementDirection.getOpposite();
-            }
-        } while (!blockState.is(config.canPlaceOn));
+			direction = var7.next();
+			blockState = level.getBlockState(mutable.setWithOffset(pos, direction));
+			placementDirection = direction;
+			if (placementDirection.getAxis() == Direction.Axis.Y) {
+				placementDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
+			} else {
+				placementDirection = placementDirection.getOpposite();
+			}
+		} while (!blockState.is(config.canPlaceOn));
 
 		level.setBlock(pos, config.fungus.defaultBlockState()
 			.setValue(ShelfFungusBlock.FACING, placementDirection)
@@ -107,7 +71,43 @@ public class ShelfFungusFeature extends Feature<ShelfFungusFeatureConfig> {
 		return true;
 	}
 
-    private static boolean isAirOrWater(@NotNull BlockState state) {
-        return state.isAir() || state.is(Blocks.WATER);
-    }
+	private static boolean isAirOrWater(@NotNull BlockState state) {
+		return state.isAir() || state.is(Blocks.WATER);
+	}
+
+	@Override
+	public boolean place(@NotNull FeaturePlaceContext<ShelfFungusFeatureConfig> context) {
+		WorldGenLevel structureWorldAccess = context.level();
+		RandomSource abstractRandom = context.random();
+		BlockPos blockPos = context.origin().above(abstractRandom.nextInt(0, 4));
+		ShelfFungusFeatureConfig shelfFungusFeatureConfig = context.config();
+		if (!isAirOrWater(structureWorldAccess.getBlockState(blockPos))) {
+			return false;
+		} else {
+			List<Direction> list = shelfFungusFeatureConfig.shuffleDirections(abstractRandom);
+			if (generate(structureWorldAccess, blockPos, shelfFungusFeatureConfig, abstractRandom, list)) {
+				return true;
+			} else {
+				MutableBlockPos mutable = blockPos.mutable();
+
+				for (Direction direction : list) {
+					mutable.set(blockPos);
+					List<Direction> list2 = shelfFungusFeatureConfig.shuffleDirections(abstractRandom, direction.getOpposite());
+
+					for (int i = 0; i < shelfFungusFeatureConfig.searchRange; ++i) {
+						mutable.setWithOffset(blockPos, direction);
+						BlockState blockState = structureWorldAccess.getBlockState(mutable);
+						if (!isAirOrWater(blockState) && !blockState.is(shelfFungusFeatureConfig.fungus)) {
+							break;
+						}
+
+						if (generate(structureWorldAccess, mutable, shelfFungusFeatureConfig, abstractRandom, list2)) {
+							return true;
+						}
+					}
+				}
+				return false;
+			}
+		}
+	}
 }

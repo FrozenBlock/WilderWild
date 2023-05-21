@@ -56,116 +56,116 @@ import org.jetbrains.annotations.Nullable;
 
 public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock implements SimpleWaterloggedBlock, BonemealableBlock {
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
-    public static final IntegerProperty STAGE = RegisterProperties.FUNGUS_STAGE;
-    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-    protected static final VoxelShape NORTH_WALL_SHAPE = Block.box(0.0D, 0.0D, 13.0D, 16.0D, 16.0D, 16.0D);
-    protected static final VoxelShape SOUTH_WALL_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 3.0D);
-    protected static final VoxelShape WEST_WALL_SHAPE = Block.box(13.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);
-    protected static final VoxelShape EAST_WALL_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 3.0D, 16.0D, 16.0D);
-    protected static final VoxelShape FLOOR_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 3.0D, 16.0D);
-    protected static final VoxelShape CEILING_SHAPE = Block.box(0.0D, 13.0D, 0.0D, 16.0D, 16.0D, 16.0D);
+	public static final IntegerProperty STAGE = RegisterProperties.FUNGUS_STAGE;
+	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+	protected static final VoxelShape NORTH_WALL_SHAPE = Block.box(0.0D, 0.0D, 13.0D, 16.0D, 16.0D, 16.0D);
+	protected static final VoxelShape SOUTH_WALL_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 3.0D);
+	protected static final VoxelShape WEST_WALL_SHAPE = Block.box(13.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);
+	protected static final VoxelShape EAST_WALL_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 3.0D, 16.0D, 16.0D);
+	protected static final VoxelShape FLOOR_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 3.0D, 16.0D);
+	protected static final VoxelShape CEILING_SHAPE = Block.box(0.0D, 13.0D, 0.0D, 16.0D, 16.0D, 16.0D);
 
-    public ShelfFungusBlock(@NotNull Properties settings) {
-        super(settings);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false).setValue(FACE, AttachFace.WALL).setValue(STAGE, 1));
-    }
-
-    @Override
-	@NotNull
-    public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
-        ItemStack itemStack = player.getItemInHand(hand);
-        int i = state.getValue(STAGE);
-        if (i > 1 && itemStack.is(Items.SHEARS)) {
-            popResource(level, pos, new ItemStack(state.getBlock().asItem()));
-            level.setBlockAndUpdate(pos, state.setValue(STAGE, i - 1));
-            level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
-            itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
-            level.gameEvent(player, GameEvent.SHEAR, pos);
-            return InteractionResult.sidedSuccess(level.isClientSide);
-        } else {
-            return super.use(state, level, pos, player, hand, hit);
-        }
-    }
-
-    @Override
-    protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACE, FACING, AGE, STAGE, WATERLOGGED);
-    }
-
-    @Override
-    public boolean canBeReplaced(@NotNull BlockState state, @NotNull BlockPlaceContext context) {
-        return !context.isSecondaryUseActive() && context.getItemInHand().is(this.asItem()) && state.getValue(STAGE) < 4 || super.canBeReplaced(state, context);
-    }
-
-    @Override
-    @Nullable
-    public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
-        BlockState insideState = context.getLevel().getBlockState(context.getClickedPos());
-        if (insideState.is(this)) {
-            return insideState.setValue(STAGE, Math.min(4, insideState.getValue(STAGE) + 1));
-        }
-        boolean waterlogged = insideState.hasProperty(BlockStateProperties.WATERLOGGED) ? insideState.getValue(BlockStateProperties.WATERLOGGED) : false;
-        if (!waterlogged) {
-            waterlogged = context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER;
-        }
-        for (Direction direction : context.getNearestLookingDirections()) {
-            BlockState blockState;
-            if (direction.getAxis() == Direction.Axis.Y) {
-                blockState = this.defaultBlockState().setValue(FACE, direction == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR).setValue(FACING, context.getHorizontalDirection()).setValue(WATERLOGGED, waterlogged);
-            } else {
-                blockState = this.defaultBlockState().setValue(FACE, AttachFace.WALL).setValue(FACING, direction.getOpposite()).setValue(WATERLOGGED, waterlogged);
-            }
-            if (blockState.canSurvive(context.getLevel(), context.getClickedPos())) {
-                return blockState;
-            }
-        }
-        return null;
-    }
+	public ShelfFungusBlock(@NotNull Properties settings) {
+		super(settings);
+		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false).setValue(FACE, AttachFace.WALL).setValue(STAGE, 1));
+	}
 
 	@NotNull
-    public static AttachFace getFace(@NotNull Direction direction) {
-        if (direction.getAxis() == Direction.Axis.Y) {
-            return direction == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR;
-        }
-        return AttachFace.WALL;
-    }
-
-    @Override
-	@NotNull
-    public BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
-        if (state.getValue(WATERLOGGED)) {
-            level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
-        }
-        return super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
-    }
-
-    @Override
-	@NotNull
-    public FluidState getFluidState(@NotNull BlockState state) {
-        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
-    }
-
-    @Override
-	@NotNull
-    public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-        return switch (state.getValue(FACE)) {
-            case FLOOR -> FLOOR_SHAPE;
-            case WALL -> switch (state.getValue(FACING)) {
-                case EAST -> EAST_WALL_SHAPE;
-                case WEST -> WEST_WALL_SHAPE;
-                case SOUTH -> SOUTH_WALL_SHAPE;
-                default -> NORTH_WALL_SHAPE;
-            };
-            case CEILING -> CEILING_SHAPE;
-        };
-    }
-
-	public boolean isMaxAge(@NotNull BlockState state) {
-		return state.getValue(AGE) == 2;
+	public static AttachFace getFace(@NotNull Direction direction) {
+		if (direction.getAxis() == Direction.Axis.Y) {
+			return direction == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR;
+		}
+		return AttachFace.WALL;
 	}
 
 	private static boolean isFullyGrown(@NotNull BlockState state) {
 		return state.getValue(STAGE) == 4;
+	}
+
+	@Override
+	@NotNull
+	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+		ItemStack itemStack = player.getItemInHand(hand);
+		int i = state.getValue(STAGE);
+		if (i > 1 && itemStack.is(Items.SHEARS)) {
+			popResource(level, pos, new ItemStack(state.getBlock().asItem()));
+			level.setBlockAndUpdate(pos, state.setValue(STAGE, i - 1));
+			level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
+			itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
+			level.gameEvent(player, GameEvent.SHEAR, pos);
+			return InteractionResult.sidedSuccess(level.isClientSide);
+		} else {
+			return super.use(state, level, pos, player, hand, hit);
+		}
+	}
+
+	@Override
+	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
+		builder.add(FACE, FACING, AGE, STAGE, WATERLOGGED);
+	}
+
+	@Override
+	public boolean canBeReplaced(@NotNull BlockState state, @NotNull BlockPlaceContext context) {
+		return !context.isSecondaryUseActive() && context.getItemInHand().is(this.asItem()) && state.getValue(STAGE) < 4 || super.canBeReplaced(state, context);
+	}
+
+	@Override
+	@Nullable
+	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+		BlockState insideState = context.getLevel().getBlockState(context.getClickedPos());
+		if (insideState.is(this)) {
+			return insideState.setValue(STAGE, Math.min(4, insideState.getValue(STAGE) + 1));
+		}
+		boolean waterlogged = insideState.hasProperty(BlockStateProperties.WATERLOGGED) ? insideState.getValue(BlockStateProperties.WATERLOGGED) : false;
+		if (!waterlogged) {
+			waterlogged = context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER;
+		}
+		for (Direction direction : context.getNearestLookingDirections()) {
+			BlockState blockState;
+			if (direction.getAxis() == Direction.Axis.Y) {
+				blockState = this.defaultBlockState().setValue(FACE, direction == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR).setValue(FACING, context.getHorizontalDirection()).setValue(WATERLOGGED, waterlogged);
+			} else {
+				blockState = this.defaultBlockState().setValue(FACE, AttachFace.WALL).setValue(FACING, direction.getOpposite()).setValue(WATERLOGGED, waterlogged);
+			}
+			if (blockState.canSurvive(context.getLevel(), context.getClickedPos())) {
+				return blockState;
+			}
+		}
+		return null;
+	}
+
+	@Override
+	@NotNull
+	public BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
+		if (state.getValue(WATERLOGGED)) {
+			level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+		}
+		return super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
+	}
+
+	@Override
+	@NotNull
+	public FluidState getFluidState(@NotNull BlockState state) {
+		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+	}
+
+	@Override
+	@NotNull
+	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+		return switch (state.getValue(FACE)) {
+			case FLOOR -> FLOOR_SHAPE;
+			case WALL -> switch (state.getValue(FACING)) {
+				case EAST -> EAST_WALL_SHAPE;
+				case WEST -> WEST_WALL_SHAPE;
+				case SOUTH -> SOUTH_WALL_SHAPE;
+				default -> NORTH_WALL_SHAPE;
+			};
+			case CEILING -> CEILING_SHAPE;
+		};
+	}
+
+	public boolean isMaxAge(@NotNull BlockState state) {
+		return state.getValue(AGE) == 2;
 	}
 
 	@Override

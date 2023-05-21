@@ -31,7 +31,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Snowball.class)
 public class SnowballMixin {
 
-    @Inject(method = "onHit", at = @At("HEAD"))
+	@Inject(method = "onHit", at = @At("HEAD"))
 	public void wilderWild$onHit(HitResult result, CallbackInfo info) {
 		if (WilderSharedConstants.config().snowballLandingSounds()) {
 			Snowball snowball = Snowball.class.cast(this);

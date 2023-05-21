@@ -67,8 +67,12 @@ import org.jetbrains.annotations.NotNull;
 
 public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
+	public static <T> HolderLookup.RegistryLookup<T> asLookup(HolderGetter<T> getter) {
+		return (HolderLookup.RegistryLookup<T>) getter;
+	}
+
 	@Override
-	public void onInitializeDataGenerator(FabricDataGenerator dataGenerator) {
+	public void onInitializeDataGenerator(@NotNull FabricDataGenerator dataGenerator) {
 		WilderFeatureFlags.init();
 		FrozenFeatureFlags.rebuild();
 		final FabricDataGenerator.Pack pack = dataGenerator.createPack();
@@ -79,19 +83,10 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(WilderDamageTypeTagProvider::new);
 		pack.addProvider(WilderItemTagProvider::new);
 		pack.addProvider(WilderEntityTagProvider::new);
-		/*final FabricDataGenerator.Pack experimentalPack = dataGenerator.createBuiltinResourcePack(WilderSharedConstants.id("update_1_20_additions"));
-		experimentalPack.addProvider((FabricDataGenerator.Pack.Factory<ExperimentRecipeProvider>) ExperimentRecipeProvider::new);
-		experimentalPack.addProvider(ExperimentBlockLootTableProvider::new);
-		experimentalPack.addProvider(ExperimentBlockTagProvider::new);
-		experimentalPack.addProvider(
-				(FabricDataGenerator.Pack.Factory<PackMetadataGenerator>) packOutput -> PackMetadataGenerator.forFeaturePack(
-						packOutput, Component.translatable("dataPack.wilderwild.update_1_20_additions.description"), FeatureFlagSet.of(WilderFeatureFlags.UPDATE_1_20_ADDITIONS)
-				)
-		);*/
 	}
 
 	@Override
-	public void buildRegistry(RegistrySetBuilder registryBuilder) {
+	public void buildRegistry(@NotNull RegistrySetBuilder registryBuilder) {
 		WilderSharedConstants.logWild("Registering Biomes for", WilderSharedConstants.UNSTABLE_LOGGING);
 
 		registryBuilder.add(Registries.DAMAGE_TYPE, RegisterDamageTypes::bootstrap);
@@ -107,12 +102,12 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 	private static class WilderRegistryProvider extends FabricDynamicRegistryProvider {
 
-		public WilderRegistryProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+		public WilderRegistryProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> registriesFuture) {
 			super(output, registriesFuture);
 		}
 
 		@Override
-		protected void configure(HolderLookup.Provider registries, Entries entries) {
+		protected void configure(@NotNull HolderLookup.Provider registries, @NotNull Entries entries) {
 			final var damageTypes = asLookup(entries.getLookup(Registries.DAMAGE_TYPE));
 
 			entries.addAll(damageTypes);
@@ -121,6 +116,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 		}
 
 		@Override
+		@NotNull
 		public String getName() {
 			return "Wilder Wild Dynamic Registries";
 		}
@@ -128,12 +124,12 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 	private static class WilderBiomeTagProvider extends FrozenBiomeTagProvider {
 
-		public WilderBiomeTagProvider(FabricDataOutput output, CompletableFuture registriesFuture) {
+		public WilderBiomeTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture registriesFuture) {
 			super(output, registriesFuture);
 		}
 
 		@Override
-		protected void addTags(HolderLookup.Provider arg) {
+		protected void addTags(@NotNull HolderLookup.Provider arg) {
 			this.generateBiomeTags();
 			this.generateClimateAndVegetationTags();
 			this.generateUtilityTags();
@@ -485,7 +481,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_CHERRY_TREES)
-					.addOptional(Biomes.CHERRY_GROVE);
+				.addOptional(Biomes.CHERRY_GROVE);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_OAK_AND_BIRCH_TREES)
 				.add(Biomes.FOREST)
@@ -532,7 +528,16 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_SPRUCE_TREES)
-				.addOptionalTag(BiomeTags.IS_TAIGA);
+				.add(Biomes.TAIGA)
+				.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA)
+				.add(Biomes.OLD_GROWTH_PINE_TAIGA)
+				.addOptional(RegisterWorldgen.BIRCH_TAIGA)
+				.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
+				.addOptional(RegisterWorldgen.DARK_TAIGA);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_CLEAN_FALLEN_SPRUCE_TREES)
+				.add(Biomes.SNOWY_TAIGA)
+				.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_SWAMP_OAK_TREES)
 				.add(Biomes.SWAMP);
@@ -541,7 +546,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.add(Biomes.MANGROVE_SWAMP);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.CHERRY_TREES)
-					.addOptional(Biomes.CHERRY_GROVE);
+				.addOptional(Biomes.CHERRY_GROVE);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_MOSS_LAKE)
 				.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
@@ -710,7 +715,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.CHERRY_FLOWERS)
-					.addOptional(Biomes.CHERRY_GROVE);
+				.addOptional(Biomes.CHERRY_GROVE);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_TUMBLEWEED_PLANT)
 				.add(Biomes.DESERT)
@@ -918,7 +923,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptional(RegisterWorldgen.MIXED_FOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_BUSH)
-					.addOptional(Biomes.CHERRY_GROVE);
+				.addOptional(Biomes.CHERRY_GROVE);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_PLAINS_FLOWERS)
 				.add(Biomes.PLAINS);
@@ -1261,7 +1266,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 	private static final class WilderBlockLootProvider extends FabricBlockLootTableProvider {
 
-		private WilderBlockLootProvider(FabricDataOutput dataOutput) {
+		private WilderBlockLootProvider(@NotNull FabricDataOutput dataOutput) {
 			super(dataOutput);
 		}
 
@@ -1272,18 +1277,18 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 		}
 
 		@Override
-		public void accept(BiConsumer<ResourceLocation, LootTable.Builder> resourceLocationBuilderBiConsumer) {
+		public void accept(@NotNull BiConsumer<ResourceLocation, LootTable.Builder> resourceLocationBuilderBiConsumer) {
 
 		}
 	}
 
 	private static final class WilderBlockTagProvider extends FabricTagProvider.BlockTagProvider {
-		public WilderBlockTagProvider(FabricDataOutput output, CompletableFuture completableFuture) {
+		public WilderBlockTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture completableFuture) {
 			super(output, completableFuture);
 		}
 
 		@Override
-		protected void addTags(HolderLookup.Provider arg) {
+		protected void addTags(@NotNull HolderLookup.Provider arg) {
 			this.generateFeatures();
 			this.generateDeepDark();
 			this.generateHollowedAndTermites();
@@ -1436,6 +1441,30 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBlockTags.SHELF_FUNGUS_FEATURE_PLACEABLE)
 				.add(Blocks.MUSHROOM_STEM)
 				.addOptionalTag(BlockTags.OVERWORLD_NATURAL_LOGS);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE)
+				.add(Blocks.SAND)
+				.addOptional(WilderSharedConstants.id("scorched_sand"));
+
+			this.getOrCreateTagBuilder(WilderBlockTags.SCORCHED_SAND_FEATURE_REPLACEABLE)
+				.add(Blocks.SAND);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE)
+				.add(Blocks.RED_SAND)
+				.addOptional(WilderSharedConstants.id("red_scorched_sand"));
+
+			this.getOrCreateTagBuilder(WilderBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE)
+				.add(Blocks.RED_SAND);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.MESOGLEA_PATH_REPLACEABLE)
+				.add(Blocks.CLAY)
+				.add(Blocks.DRIPSTONE_BLOCK)
+				.add(Blocks.CALCITE)
+				.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.OASIS_PATH_REPLACEABLE)
+				.add(Blocks.SAND)
+				.add(Blocks.SANDSTONE);
 		}
 
 		private void generateCoconutSplitters() {
@@ -1682,45 +1711,45 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 	private static final class WilderDamageTypeTagProvider extends FabricTagProvider<DamageType> {
 
-		public WilderDamageTypeTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+		public WilderDamageTypeTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> lookupProvider) {
 			super(output, Registries.DAMAGE_TYPE, lookupProvider);
 		}
 
 		@Override
-		public void addTags(HolderLookup.Provider arg) {
+		public void addTags(@NotNull HolderLookup.Provider arg) {
 			this.getOrCreateTagBuilder(DamageTypeTags.NO_ANGER)
-					.add(RegisterDamageTypes.TUMBLEWEED);
+				.add(RegisterDamageTypes.TUMBLEWEED);
 		}
 	}
 
 	private static final class WilderItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
-		public WilderItemTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
+		public WilderItemTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> completableFuture) {
 			super(output, completableFuture);
 		}
 
 		@Override
-		protected void addTags(HolderLookup.Provider arg) {
+		protected void addTags(@NotNull HolderLookup.Provider arg) {
 			this.getOrCreateTagBuilder(FrozenItemTags.ALWAYS_SAVE_COOLDOWNS)
-					.add(RegisterItems.ANCIENT_HORN);
+				.add(RegisterItems.ANCIENT_HORN);
 		}
 	}
 
 	private static final class WilderEntityTagProvider extends FabricTagProvider.EntityTypeTagProvider {
 
-		public WilderEntityTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
+		public WilderEntityTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> completableFuture) {
 			super(output, completableFuture);
 		}
 
 		@Override
-		protected void addTags(HolderLookup.Provider arg) {
+		protected void addTags(@NotNull HolderLookup.Provider arg) {
 			this.getOrCreateTagBuilder(WilderEntityTags.STAYS_IN_MESOGLEA)
-					.add(RegisterEntities.JELLYFISH);
+				.add(RegisterEntities.JELLYFISH);
 		}
 	}
 
 	private static class ExperimentBlockLootTableProvider extends FabricBlockLootTableProvider {
-		protected ExperimentBlockLootTableProvider(FabricDataOutput dataOutput) {
+		protected ExperimentBlockLootTableProvider(@NotNull FabricDataOutput dataOutput) {
 			super(dataOutput);
 		}
 
@@ -1731,36 +1760,36 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 		}
 
 		@Override
-		public void accept(BiConsumer<ResourceLocation, LootTable.Builder> resourceLocationBuilderBiConsumer) {
+		public void accept(@NotNull BiConsumer<ResourceLocation, LootTable.Builder> resourceLocationBuilderBiConsumer) {
 
 		}
 	}
 
 	private static class ExperimentBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
-		public ExperimentBlockTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+		public ExperimentBlockTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> registriesFuture) {
 			super(output, registriesFuture);
 		}
 
-		@Override
-		protected void addTags(HolderLookup.Provider arg) {
-			this.tag(BlockTags.CEILING_HANGING_SIGNS)
-					.add(key(RegisterBlocks.BAOBAB_HANGING_SIGN))
-					.add(key(RegisterBlocks.CYPRESS_HANGING_SIGN));
-
-			this.tag(BlockTags.WALL_HANGING_SIGNS)
-					.add(key(RegisterBlocks.BAOBAB_WALL_HANGING_SIGN))
-					.add(key(RegisterBlocks.CYPRESS_WALL_HANGING_SIGN));
+		private static ResourceKey<Block> key(@NotNull Block block) {
+			return BuiltInRegistries.BLOCK.getResourceKey(block).orElseThrow();
 		}
 
-		private static ResourceKey<Block> key(Block block) {
-			return BuiltInRegistries.BLOCK.getResourceKey(block).orElseThrow();
+		@Override
+		protected void addTags(@NotNull HolderLookup.Provider arg) {
+			this.tag(BlockTags.CEILING_HANGING_SIGNS)
+				.add(key(RegisterBlocks.BAOBAB_HANGING_SIGN))
+				.add(key(RegisterBlocks.CYPRESS_HANGING_SIGN));
+
+			this.tag(BlockTags.WALL_HANGING_SIGNS)
+				.add(key(RegisterBlocks.BAOBAB_WALL_HANGING_SIGN))
+				.add(key(RegisterBlocks.CYPRESS_WALL_HANGING_SIGN));
 		}
 	}
 
 	private static class ExperimentRecipeProvider extends RecipeProvider {
 
-		public ExperimentRecipeProvider(PackOutput packOutput) {
+		public ExperimentRecipeProvider(@NotNull PackOutput packOutput) {
 			super(packOutput);
 		}
 
@@ -1770,9 +1799,5 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			hangingSign(consumer, RegisterItems.BAOBAB_HANGING_SIGN, RegisterBlocks.STRIPPED_BAOBAB_LOG);
 			hangingSign(consumer, RegisterItems.CYPRESS_HANGING_SIGN, RegisterBlocks.STRIPPED_CYPRESS_LOG);
 		}
-	}
-
-	public static <T> HolderLookup.RegistryLookup<T> asLookup(HolderGetter<T> getter) {
-		return (HolderLookup.RegistryLookup<T>) getter;
 	}
 }

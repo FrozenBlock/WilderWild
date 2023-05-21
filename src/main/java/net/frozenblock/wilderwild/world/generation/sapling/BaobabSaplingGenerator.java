@@ -27,18 +27,18 @@ import org.jetbrains.annotations.Nullable;
 
 public class BaobabSaplingGenerator extends BaobabTreeSaplingGenerator {
 
-    public BaobabSaplingGenerator() {
-    }
+	public BaobabSaplingGenerator() {
+	}
 
-    @Override
+	@Override
 	@Nullable
-    protected ResourceKey<ConfiguredFeature<?, ?>> getBaobabTreeFeature(@NotNull RandomSource random) {
-        return random.nextFloat() < 0.856F ? WilderTreeConfigured.BAOBAB.getKey() : WilderTreeConfigured.BAOBAB_TALL.getKey();
-    }
+	protected ResourceKey<ConfiguredFeature<?, ?>> getBaobabTreeFeature(@NotNull RandomSource random) {
+		return random.nextFloat() < 0.856F ? WilderTreeConfigured.BAOBAB.getKey() : WilderTreeConfigured.BAOBAB_TALL.getKey();
+	}
 
-    @Override
+	@Override
 	@Nullable
-    protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource random, boolean bees) {
-        return null;
-    }
+	protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource random, boolean bees) {
+		return null;
+	}
 }

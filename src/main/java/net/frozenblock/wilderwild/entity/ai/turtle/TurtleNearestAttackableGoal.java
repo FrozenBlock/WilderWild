@@ -34,50 +34,50 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class TurtleNearestAttackableGoal<T extends LivingEntity> extends TargetGoal {
-    protected final Class<T> targetType;
-    protected final int randomInterval;
-    @Nullable
-    protected LivingEntity target;
-    protected TargetingConditions targetConditions;
+	protected final Class<T> targetType;
+	protected final int randomInterval;
+	@Nullable
+	protected LivingEntity target;
+	protected TargetingConditions targetConditions;
 
-    public TurtleNearestAttackableGoal(@NotNull Mob mob, @NotNull Class<T> class_, boolean bl) {
-        this(mob, class_, 10, bl, false, null);
-    }
+	public TurtleNearestAttackableGoal(@NotNull Mob mob, @NotNull Class<T> class_, boolean bl) {
+		this(mob, class_, 10, bl, false, null);
+	}
 
-    public TurtleNearestAttackableGoal(@NotNull Mob mob, @NotNull Class<T> class_, int i, boolean bl, boolean bl2, @Nullable Predicate<LivingEntity> predicate) {
-        super(mob, bl, bl2);
-        this.targetType = class_;
-        this.randomInterval = NearestAttackableTargetGoal.reducedTickDelay(i);
-        this.setFlags(EnumSet.of(Goal.Flag.TARGET));
-        this.targetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector(predicate);
-    }
+	public TurtleNearestAttackableGoal(@NotNull Mob mob, @NotNull Class<T> class_, int i, boolean bl, boolean bl2, @Nullable Predicate<LivingEntity> predicate) {
+		super(mob, bl, bl2);
+		this.targetType = class_;
+		this.randomInterval = NearestAttackableTargetGoal.reducedTickDelay(i);
+		this.setFlags(EnumSet.of(Goal.Flag.TARGET));
+		this.targetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector(predicate);
+	}
 
-    @Override
-    public boolean canUse() {
-        if (this.randomInterval > 0 && this.mob.getRandom().nextInt(this.randomInterval) != 0) {
-            return false;
-        }
-        this.findTarget();
-        return this.target != null && ((TurtleCooldownInterface) this.mob).wilderWild$getAttackCooldown() <= 0;
-    }
+	@Override
+	public boolean canUse() {
+		if (this.randomInterval > 0 && this.mob.getRandom().nextInt(this.randomInterval) != 0) {
+			return false;
+		}
+		this.findTarget();
+		return this.target != null && ((TurtleCooldownInterface) this.mob).wilderWild$getAttackCooldown() <= 0;
+	}
 
 	@NotNull
-    protected AABB getTargetSearchArea(double d) {
-        return this.mob.getBoundingBox().inflate(d, 4.0, d);
-    }
+	protected AABB getTargetSearchArea(double d) {
+		return this.mob.getBoundingBox().inflate(d, 4.0, d);
+	}
 
-    protected void findTarget() {
-        this.target = this.targetType == Player.class || this.targetType == ServerPlayer.class ? this.mob.level().getNearestPlayer(this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ()) : this.mob.level().getNearestEntity(this.mob.level().getEntitiesOfClass(this.targetType, this.getTargetSearchArea(this.getFollowDistance()), livingEntity -> true), this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
-    }
+	protected void findTarget() {
+		this.target = this.targetType == Player.class || this.targetType == ServerPlayer.class ? this.mob.level().getNearestPlayer(this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ()) : this.mob.level().getNearestEntity(this.mob.level().getEntitiesOfClass(this.targetType, this.getTargetSearchArea(this.getFollowDistance()), livingEntity -> true), this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
+	}
 
-    @Override
-    public void start() {
-        ((TurtleCooldownInterface) this.mob).wilderWild$setAttackCooldown(2400);
-        this.mob.setTarget(this.target);
-        super.start();
-    }
+	@Override
+	public void start() {
+		((TurtleCooldownInterface) this.mob).wilderWild$setAttackCooldown(2400);
+		this.mob.setTarget(this.target);
+		super.start();
+	}
 
-    public void setTarget(@Nullable LivingEntity livingEntity) {
-        this.target = livingEntity;
-    }
+	public void setTarget(@Nullable LivingEntity livingEntity) {
+		this.target = livingEntity;
+	}
 }

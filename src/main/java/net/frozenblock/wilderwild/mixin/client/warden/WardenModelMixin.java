@@ -42,45 +42,38 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 @Mixin(WardenModel.class)
 public class WardenModelMixin<T extends Warden> {
 
-	@Final
-	@Shadow
-	protected ModelPart bone;
-
-	@Final
-	@Shadow
-	protected ModelPart body;
-
-	@Final
-	@Shadow
-	protected ModelPart head;
-
-	@Final
-	@Shadow
-	protected ModelPart rightTendril;
-
-	@Final
-	@Shadow
-	protected ModelPart leftTendril;
-
-	@Final
-	@Shadow
-	protected ModelPart leftLeg;
-
-	@Final
-	@Shadow
-	protected ModelPart leftArm;
-
-	@Final
-	@Shadow
-	protected ModelPart rightLeg;
-
-	@Final
-	@Shadow
-	protected ModelPart rightArm;
-
+	@Unique
+	private static final float WILDERWILD$RAD = (float) (Math.PI / 180);
 	@Unique
 	@SuppressWarnings("unchecked")
 	private final WardenModel<T> wilderWild$model = WardenModel.class.cast(this);
+	@Final
+	@Shadow
+	protected ModelPart bone;
+	@Final
+	@Shadow
+	protected ModelPart body;
+	@Final
+	@Shadow
+	protected ModelPart head;
+	@Final
+	@Shadow
+	protected ModelPart rightTendril;
+	@Final
+	@Shadow
+	protected ModelPart leftTendril;
+	@Final
+	@Shadow
+	protected ModelPart leftLeg;
+	@Final
+	@Shadow
+	protected ModelPart leftArm;
+	@Final
+	@Shadow
+	protected ModelPart rightLeg;
+	@Final
+	@Shadow
+	protected ModelPart rightArm;
 
 	@Inject(at = @At("TAIL"), method = "animateTendrils", locals = LocalCapture.CAPTURE_FAILHARD)
 	private void wilderWild$animateCustomTendrils(T warden, float animationProgress, float tickDelta, CallbackInfo info, float cos) { //CUSTOM TENDRIL ANIMATION
@@ -111,9 +104,6 @@ public class WardenModelMixin<T extends Warden> {
 		wilderWild$model.animate(((WilderWarden) wardenEntity).wilderWild$getSwimmingDyingAnimationState(), CustomWardenAnimations.WATER_DYING, anim);
 		wilderWild$model.animate(((WilderWarden) wardenEntity).wilderWild$getKirbyDeathAnimationState(), CustomWardenAnimations.KIRBY_DEATH, anim);
 	}
-
-	@Unique
-	private static final float WILDERWILD$RAD = (float) (Math.PI / 180);
 
 	@Unique
 	private void wilderWild$animateSwimming(T warden, float angle, float distance, float anim, float headYaw, float headPitch, boolean moveLimbs, boolean canSwim) {

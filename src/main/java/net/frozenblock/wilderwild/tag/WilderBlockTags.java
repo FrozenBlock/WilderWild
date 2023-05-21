@@ -25,24 +25,20 @@ import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
 public final class WilderBlockTags {
-	private WilderBlockTags() {
-		throw new UnsupportedOperationException("WilderBlockTags contains only static declarations.");
-	}
-
-    public static final TagKey<Block> ANCIENT_CITY_BLOCKS = bind("ancient_city_blocks");
-    public static final TagKey<Block> SCULK_SLAB_REPLACEABLE_WORLDGEN = bind("sculk_slab_replaceable_worldgen");
-    public static final TagKey<Block> SCULK_STAIR_REPLACEABLE_WORLDGEN = bind("sculk_stair_replaceable_worldgen");
-    public static final TagKey<Block> SCULK_WALL_REPLACEABLE_WORLDGEN = bind("sculk_wall_replaceable_worldgen");
-    public static final TagKey<Block> SCULK_SLAB_REPLACEABLE = bind("sculk_slab_replaceable");
-    public static final TagKey<Block> SCULK_STAIR_REPLACEABLE = bind("sculk_stair_replaceable");
-    public static final TagKey<Block> SCULK_WALL_REPLACEABLE = bind("sculk_wall_replaceable");
-    public static final TagKey<Block> SCULK_VEIN_REMOVE = bind("sculk_vein_removed_on");
-    public static final TagKey<Block> ANCIENT_HORN_NON_COLLIDE = bind("ancient_horn_vibration_non_collide");
-    public static final TagKey<Block> KILLS_TERMITE = bind("kills_termite");
-    public static final TagKey<Block> TERMITE_BREAKABLE = bind("termite_breakable");
-    public static final TagKey<Block> BLOCKS_TERMITE = bind("blocks_termite");
-    public static final TagKey<Block> FIREFLY_HIDEABLE_BLOCKS = bind("firefly_hideable_blocks");
-    public static final TagKey<Block> PACKED_MUD_REPLACEABLE = bind("packed_mud_replaceable");
+	public static final TagKey<Block> ANCIENT_CITY_BLOCKS = bind("ancient_city_blocks");
+	public static final TagKey<Block> SCULK_SLAB_REPLACEABLE_WORLDGEN = bind("sculk_slab_replaceable_worldgen");
+	public static final TagKey<Block> SCULK_STAIR_REPLACEABLE_WORLDGEN = bind("sculk_stair_replaceable_worldgen");
+	public static final TagKey<Block> SCULK_WALL_REPLACEABLE_WORLDGEN = bind("sculk_wall_replaceable_worldgen");
+	public static final TagKey<Block> SCULK_SLAB_REPLACEABLE = bind("sculk_slab_replaceable");
+	public static final TagKey<Block> SCULK_STAIR_REPLACEABLE = bind("sculk_stair_replaceable");
+	public static final TagKey<Block> SCULK_WALL_REPLACEABLE = bind("sculk_wall_replaceable");
+	public static final TagKey<Block> SCULK_VEIN_REMOVE = bind("sculk_vein_removed_on");
+	public static final TagKey<Block> ANCIENT_HORN_NON_COLLIDE = bind("ancient_horn_vibration_non_collide");
+	public static final TagKey<Block> KILLS_TERMITE = bind("kills_termite");
+	public static final TagKey<Block> TERMITE_BREAKABLE = bind("termite_breakable");
+	public static final TagKey<Block> BLOCKS_TERMITE = bind("blocks_termite");
+	public static final TagKey<Block> FIREFLY_HIDEABLE_BLOCKS = bind("firefly_hideable_blocks");
+	public static final TagKey<Block> PACKED_MUD_REPLACEABLE = bind("packed_mud_replaceable");
 	public static final TagKey<Block> STRIPPED_HOLLOWED_LOGS = bind("stripped_hollowed_logs");
 	public static final TagKey<Block> BUSH_MAY_PLACE_ON = bind("bush_may_place_on");
 	public static final TagKey<Block> SAND_POOL_REPLACEABLE = bind("sand_pool_replaceable");
@@ -79,6 +75,15 @@ public final class WilderBlockTags {
 	public static final TagKey<Block> BLUE_NEMATOCYST_FEATURE_PLACEABLE = bind("blue_nematocyst_feature_placeable");
 	public static final TagKey<Block> PURPLE_NEMATOCYST_FEATURE_PLACEABLE = bind("purple_nematocyst_feature_placeable");
 	public static final TagKey<Block> SHELF_FUNGUS_FEATURE_PLACEABLE = bind("shelf_fungus_feature_placeable");
+	public static final TagKey<Block> SCORCHED_SAND_FEATURE_INNER_REPLACEABLE = bind("scorched_sand_feature_inner_replaceable");
+	public static final TagKey<Block> SCORCHED_SAND_FEATURE_REPLACEABLE = bind("scorched_sand_feature_replaceable");
+	public static final TagKey<Block> RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE = bind("red_scorched_sand_feature_inner_replaceable");
+	public static final TagKey<Block> RED_SCORCHED_SAND_FEATURE_REPLACEABLE = bind("red_scorched_sand_feature_replaceable");
+	public static final TagKey<Block> MESOGLEA_PATH_REPLACEABLE = bind("mesoglea_path_replaceable");
+	public static final TagKey<Block> OASIS_PATH_REPLACEABLE = bind("oasis_path_replaceable");
+	private WilderBlockTags() {
+		throw new UnsupportedOperationException("WilderBlockTags contains only static declarations.");
+	}
 
 	@NotNull
 	private static TagKey<Block> bind(@NotNull String path) {

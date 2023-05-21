@@ -32,30 +32,30 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorTy
 import org.jetbrains.annotations.NotNull;
 
 public class MossCarpetTreeDecorator extends TreeDecorator {
-    public static final Codec<MossCarpetTreeDecorator> CODEC = RecordCodecBuilder.create((instance) ->
-			instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("chanceToDecorate").forGetter((treeDecorator) -> treeDecorator.chanceToDecorate),
-					Codec.floatRange(0.0F, 1.0F).fieldOf("mossPlaceChance").forGetter((treeDecorator) -> treeDecorator.mossPlaceChance)
-			).apply(instance, MossCarpetTreeDecorator::new));
+	public static final Codec<MossCarpetTreeDecorator> CODEC = RecordCodecBuilder.create((instance) ->
+		instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("chanceToDecorate").forGetter((treeDecorator) -> treeDecorator.chanceToDecorate),
+			Codec.floatRange(0.0F, 1.0F).fieldOf("mossPlaceChance").forGetter((treeDecorator) -> treeDecorator.mossPlaceChance)
+		).apply(instance, MossCarpetTreeDecorator::new));
 
-    private final float chanceToDecorate;
-    private final float mossPlaceChance;
+	private final float chanceToDecorate;
+	private final float mossPlaceChance;
 
-    public MossCarpetTreeDecorator(float chanceToDecorate, float mossPlaceChance) {
-        this.chanceToDecorate = chanceToDecorate;
-        this.mossPlaceChance = mossPlaceChance;
-    }
+	public MossCarpetTreeDecorator(float chanceToDecorate, float mossPlaceChance) {
+		this.chanceToDecorate = chanceToDecorate;
+		this.mossPlaceChance = mossPlaceChance;
+	}
 
 	@Override
 	@NotNull
-    protected TreeDecoratorType<?> type() {
-        return WilderTreeDecorators.MOSS_CARPET_TREE_DECORATOR;
-    }
+	protected TreeDecoratorType<?> type() {
+		return WilderTreeDecorators.MOSS_CARPET_TREE_DECORATOR;
+	}
 
 	@Override
-    public void place(@NotNull Context generator) {
-        RandomSource random = generator.random();
-        if (random.nextFloat() <= this.chanceToDecorate) {
-            ObjectArrayList<BlockPos> poses = new ObjectArrayList<>(generator.logs());
+	public void place(@NotNull Context generator) {
+		RandomSource random = generator.random();
+		if (random.nextFloat() <= this.chanceToDecorate) {
+			ObjectArrayList<BlockPos> poses = new ObjectArrayList<>(generator.logs());
 			poses.addAll(generator.leaves());
 			Util.shuffle(poses, random);
 			BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
@@ -68,6 +68,6 @@ public class MossCarpetTreeDecorator extends TreeDecorator {
 					}
 				}
 			}
-        }
-    }
+		}
+	}
 }

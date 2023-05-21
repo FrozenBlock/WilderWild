@@ -19,22 +19,22 @@ public class CloudRendererMixin {
 	@ModifyVariable(method = "render", at = @At(value = "STORE"), ordinal = 2)
 	private float wilderWild$modifyY(float original, @Nullable ClientLevel world, LocalPlayer player, PoseStack matrices, Matrix4f projectionMatrix, float ticks, float tickDelta, double cameraX, double cameraY, double cameraZ) {
 		return ClientWindManager.shouldUseWind() && WilderSharedConstants.config().cloudMovement()
-				? (float) (original + 0.33D + Mth.clamp(ClientWindManager.getCloudY(tickDelta) * 12, -10, 10))
-				: original;
+			? (float) (original + 0.33D + Mth.clamp(ClientWindManager.getCloudY(tickDelta) * 12, -10, 10))
+			: original;
 	}
 
 	@ModifyVariable(method = "render", at = @At(value = "STORE"), ordinal = 4)
 	private double wilderWild$modifyX(double original, @Nullable ClientLevel world, LocalPlayer player, PoseStack matrices, Matrix4f projectionMatrix, float ticks, float tickDelta, double cameraX, double cameraY, double cameraZ) {
 		return ClientWindManager.shouldUseWind() && WilderSharedConstants.config().cloudMovement()
-				? cameraX - ClientWindManager.getCloudX(tickDelta) * 12
-				: original;
+			? cameraX - ClientWindManager.getCloudX(tickDelta) * 12
+			: original;
 	}
 
 	@ModifyVariable(method = "render", at = @At("STORE"), ordinal = 5)
 	private double wilderWild$modifyZ(double original, @Nullable ClientLevel world, LocalPlayer player, PoseStack matrices, Matrix4f projectionMatrix, float ticks, float tickDelta, double cameraX, double cameraY, double cameraZ) {
 		return ClientWindManager.shouldUseWind() && WilderSharedConstants.config().cloudMovement()
-				? (cameraZ + 0.33D) - ClientWindManager.getCloudZ(tickDelta) * 12
-				: original;
+			? (cameraZ + 0.33D) - ClientWindManager.getCloudZ(tickDelta) * 12
+			: original;
 	}
 
 }

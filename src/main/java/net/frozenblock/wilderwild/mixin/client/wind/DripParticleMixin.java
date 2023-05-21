@@ -45,6 +45,21 @@ public abstract class DripParticleMixin extends TextureSheetParticle implements 
 		super(clientLevel, d, e, f);
 	}
 
+	@Inject(method = "createSporeBlossomFallParticle", at = @At("RETURN"))
+	private static void wilderWild$createBlossomFallParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, CallbackInfoReturnable<Particle> info) {
+		if (info.getReturnValue() instanceof WilderDripSuspendedParticleInterface dripParticle) {
+			dripParticle.wilderWild$setUsesWind(true);
+		}
+	}
+
+	@Inject(method = "createNectarFallParticle", at = @At("RETURN"))
+	private static void wilderWild$createNectarFallParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, CallbackInfoReturnable<Particle> info) {
+		if (info.getReturnValue() instanceof WilderDripSuspendedParticleInterface dripParticle) {
+			dripParticle.wilderWild$setUsesWind(true);
+			info.getReturnValue().setColor(250F / 255F, 171F / 255F, 28F / 255F);
+		}
+	}
+
 	@Unique
 	@Override
 	public void wilderWild$setUsesWind(boolean bl) {
@@ -64,21 +79,6 @@ public abstract class DripParticleMixin extends TextureSheetParticle implements 
 			this.xd += wind.x * 0.001;
 			this.yd += wind.y * 0.00005;
 			this.zd += wind.z * 0.001;
-		}
-	}
-
-	@Inject(method = "createSporeBlossomFallParticle", at = @At("RETURN"))
-	private static void wilderWild$createBlossomFallParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, CallbackInfoReturnable<Particle> info) {
-		if (info.getReturnValue() instanceof WilderDripSuspendedParticleInterface dripParticle) {
-			dripParticle.wilderWild$setUsesWind(true);
-		}
-	}
-
-	@Inject(method = "createNectarFallParticle", at = @At("RETURN"))
-	private static void wilderWild$createNectarFallParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, CallbackInfoReturnable<Particle> info) {
-		if (info.getReturnValue() instanceof WilderDripSuspendedParticleInterface dripParticle) {
-			dripParticle.wilderWild$setUsesWind(true);
-			info.getReturnValue().setColor(250F / 255F, 171F / 255F, 28F / 255F);
 		}
 	}
 

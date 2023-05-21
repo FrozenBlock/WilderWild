@@ -38,24 +38,24 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class PollenParticle extends TextureSheetParticle {
-    public double windIntensity;
+	public double windIntensity;
 	private float prevScale = 0F;
 	private float scale = 0F;
 	private float targetScale = 0F;
 
-    PollenParticle(@NotNull ClientLevel level, @NotNull SpriteSet spriteProvider, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
-        super(level, x, y - 0.125D, z, velocityX, velocityY, velocityZ);
-        this.setSize(0.01F, 0.02F);
-        this.pickSprite(spriteProvider);
-        this.quadSize *= this.random.nextFloat() * 0.6F + 0.6F;
-        this.lifetime = (int) (16.0D / (AdvancedMath.random().nextDouble() * 0.8D + 0.2D));
-        this.hasPhysics = true;
-        this.friction = 1.0F;
-        this.gravity = 0.0F;
-    }
+	PollenParticle(@NotNull ClientLevel level, @NotNull SpriteSet spriteProvider, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
+		super(level, x, y - 0.125D, z, velocityX, velocityY, velocityZ);
+		this.setSize(0.01F, 0.02F);
+		this.pickSprite(spriteProvider);
+		this.quadSize *= this.random.nextFloat() * 0.6F + 0.6F;
+		this.lifetime = (int) (16.0D / (AdvancedMath.random().nextDouble() * 0.8D + 0.2D));
+		this.hasPhysics = true;
+		this.friction = 1.0F;
+		this.gravity = 0.0F;
+	}
 
-    @Override
-    public void tick() {
+	@Override
+	public void tick() {
 		if (WilderSharedConstants.config().pollenParticles()) {
 			BlockPos blockPos = BlockPos.containing(this.x, this.y, this.z);
 			boolean rain = this.level.isRainingAt(blockPos);
@@ -65,7 +65,7 @@ public class PollenParticle extends TextureSheetParticle {
 			this.xo = this.x;
 			this.yo = this.y;
 			this.zo = this.z;
-			this.yd -= 0.04 * (double)this.gravity;
+			this.yd -= 0.04 * (double) this.gravity;
 			this.move(this.xd, this.yd, this.zd);
 			if (this.speedUpWhenYMotionIsBlocked && this.y == this.yo) {
 				this.xd *= 1.1;
@@ -109,7 +109,7 @@ public class PollenParticle extends TextureSheetParticle {
 		} else {
 			this.remove();
 		}
-    }
+	}
 
 	@Override
 	public float getQuadSize(float partialTicks) {
@@ -118,21 +118,21 @@ public class PollenParticle extends TextureSheetParticle {
 
 	@Override
 	@NotNull
-    public ParticleRenderType getRenderType() {
-        return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
-    }
+	public ParticleRenderType getRenderType() {
+		return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
+	}
 
-    @Environment(EnvType.CLIENT)
+	@Environment(EnvType.CLIENT)
 	public record PollenFactory(@NotNull SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
 		@Override
 		@NotNull
-        public Particle createParticle(@NotNull SimpleParticleType defaultParticleType, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {
-            PollenParticle pollenParticle = new PollenParticle(clientLevel, this.spriteProvider, x, y, z, 0.0D, -0.800000011920929D, 0.0D);
-            pollenParticle.lifetime = Mth.randomBetweenInclusive(clientLevel.random, 500, 1000);
-            pollenParticle.gravity = 0.01F;
-            pollenParticle.setColor(250F / 255F, 171F / 255F, 28F / 255F);
+		public Particle createParticle(@NotNull SimpleParticleType defaultParticleType, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {
+			PollenParticle pollenParticle = new PollenParticle(clientLevel, this.spriteProvider, x, y, z, 0.0D, -0.800000011920929D, 0.0D);
+			pollenParticle.lifetime = Mth.randomBetweenInclusive(clientLevel.random, 500, 1000);
+			pollenParticle.gravity = 0.01F;
+			pollenParticle.setColor(250F / 255F, 171F / 255F, 28F / 255F);
 			pollenParticle.windIntensity = 0.05;
-            return pollenParticle;
-        }
-    }
+			return pollenParticle;
+		}
+	}
 }

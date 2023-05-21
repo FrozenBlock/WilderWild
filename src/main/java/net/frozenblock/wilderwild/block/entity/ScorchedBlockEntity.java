@@ -86,7 +86,7 @@ public class ScorchedBlockEntity extends BlockEntity {
 			this.brushCountResetsAtTick = 0L;
 			this.coolDownEndsAtTick = 0L;
 		} else {
-			this.level.scheduleTick(this.getBlockPos(), this.getBlockState().getBlock(), (int)(this.brushCountResetsAtTick - this.level.getGameTime()));
+			this.level.scheduleTick(this.getBlockPos(), this.getBlockState().getBlock(), (int) (this.brushCountResetsAtTick - this.level.getGameTime()));
 		}
 	}
 

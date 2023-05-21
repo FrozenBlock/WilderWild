@@ -34,37 +34,37 @@ import net.minecraft.world.entity.monster.warden.Warden;
 import org.jetbrains.annotations.NotNull;
 
 public class StellaWardenFeatureRenderer<T extends Warden, M extends WardenModel<T>> extends WardenEmissiveLayer<T, M> {
-    public StellaWardenFeatureRenderer(@NotNull RenderLayerParent<T, M> context, @NotNull ResourceLocation texture, @NotNull AlphaFunction<T> animationAngleAdjuster, @NotNull DrawSelector<T, M> modelPartVisibility) {
-        super(context, texture, animationAngleAdjuster, modelPartVisibility);
-    }
+	public StellaWardenFeatureRenderer(@NotNull RenderLayerParent<T, M> context, @NotNull ResourceLocation texture, @NotNull AlphaFunction<T> animationAngleAdjuster, @NotNull DrawSelector<T, M> modelPartVisibility) {
+		super(context, texture, animationAngleAdjuster, modelPartVisibility);
+	}
 
-    @Override
-    public void render(@NotNull PoseStack matrixStack, @NotNull MultiBufferSource vertexConsumerProvider, int i, @NotNull T wardenEntity, float f, float g, float partialTick, float j, float k, float l) {
-        if (!wardenEntity.isInvisible() && ((WilderWarden) wardenEntity).wilderWild$isStella()) {
-            this.onlyDrawSelectedParts();
-            VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderType.entityTranslucentEmissive(this.texture));
-            this.getParentModel()
-                    .renderToBuffer(
-						matrixStack,
-						vertexConsumer,
-						i,
-						LivingEntityRenderer.getOverlayCoords(wardenEntity, 0.0F),
-						1.0F,
-						1.0F,
-						1.0F,
-						this.alphaFunction.apply(wardenEntity, partialTick, j)
-                    );
-            this.resetDrawForAllParts();
-        }
-    }
+	@Override
+	public void render(@NotNull PoseStack matrixStack, @NotNull MultiBufferSource vertexConsumerProvider, int i, @NotNull T wardenEntity, float f, float g, float partialTick, float j, float k, float l) {
+		if (!wardenEntity.isInvisible() && ((WilderWarden) wardenEntity).wilderWild$isStella()) {
+			this.onlyDrawSelectedParts();
+			VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderType.entityTranslucentEmissive(this.texture));
+			this.getParentModel()
+				.renderToBuffer(
+					matrixStack,
+					vertexConsumer,
+					i,
+					LivingEntityRenderer.getOverlayCoords(wardenEntity, 0.0F),
+					1.0F,
+					1.0F,
+					1.0F,
+					this.alphaFunction.apply(wardenEntity, partialTick, j)
+				);
+			this.resetDrawForAllParts();
+		}
+	}
 
-    private void onlyDrawSelectedParts() {
-        List<ModelPart> list = this.drawSelector.getPartsToDraw(this.getParentModel());
-        this.getParentModel().root().getAllParts().forEach(part -> part.skipDraw = true);
-        list.forEach(part -> part.skipDraw = false);
-    }
+	private void onlyDrawSelectedParts() {
+		List<ModelPart> list = this.drawSelector.getPartsToDraw(this.getParentModel());
+		this.getParentModel().root().getAllParts().forEach(part -> part.skipDraw = true);
+		list.forEach(part -> part.skipDraw = false);
+	}
 
-    private void resetDrawForAllParts() {
-        this.getParentModel().root().getAllParts().forEach(part -> part.skipDraw = false);
-    }
+	private void resetDrawForAllParts() {
+		this.getParentModel().root().getAllParts().forEach(part -> part.skipDraw = false);
+	}
 }

@@ -30,7 +30,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ThrownExperienceBottle.class)
 public class ThrownExperienceBottleMixin {
 
-    @Inject(method = "onHit", at = @At("HEAD"))
+	@Inject(method = "onHit", at = @At("HEAD"))
 	public void wilderWild$onHit(HitResult result, CallbackInfo info) {
 		if (WilderSharedConstants.config().potionLandingSounds()) {
 			ThrownExperienceBottle expBottle = ThrownExperienceBottle.class.cast(this);

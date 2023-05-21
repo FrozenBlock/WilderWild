@@ -50,12 +50,9 @@ import org.slf4j.Logger;
 public class HangingTendrilBlockEntity extends BlockEntity implements GameEventListener.Holder<VibrationSystem.Listener>, VibrationSystem {
 
 	private static final Logger LOGGER = LogUtils.getLogger();
-	private VibrationSystem.Data vibrationData;
+	private static final String BASE_TEXTURE = "textures/entity/hanging_tendril/";
 	private final VibrationSystem.Listener vibrationListener;
 	private final VibrationSystem.User vibrationUser = this.createVibrationUser();
-	private int lastVibrationFrequency;
-	private static final String BASE_TEXTURE = "textures/entity/hanging_tendril/";
-
 	public int ticksToStopTwitching;
 	public int storedXP;
 	public int ringOutTicksLeft;
@@ -65,6 +62,8 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	public boolean active;
 	public boolean milk;
 	public int ticks;
+	private VibrationSystem.Data vibrationData;
+	private int lastVibrationFrequency;
 
 	public HangingTendrilBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		super(RegisterBlockEntities.HANGING_TENDRIL, pos, state);

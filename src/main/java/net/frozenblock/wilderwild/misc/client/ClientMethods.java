@@ -40,12 +40,12 @@ public class ClientMethods {
 		throw new UnsupportedOperationException("ClientMethods contains only static declarations.");
 	}
 
-    public static void playClientEnderManSound(@NotNull EnderMan enderMan) {
-        Minecraft client = Minecraft.getInstance();
-        if (client.level != null && enderMan.isAlive()) {
-            client.getSoundManager().play(new RestrictedMovingSound<>(enderMan, SoundEvents.ENDERMAN_STARE, SoundSource.HOSTILE, 2.5F, 1F, SoundPredicate.notSilentAndAlive(), true));
-        }
-    }
+	public static void playClientEnderManSound(@NotNull EnderMan enderMan) {
+		Minecraft client = Minecraft.getInstance();
+		if (client.level != null && enderMan.isAlive()) {
+			client.getSoundManager().play(new RestrictedMovingSound<>(enderMan, SoundEvents.ENDERMAN_STARE, SoundSource.HOSTILE, 2.5F, 1F, SoundPredicate.notSilentAndAlive(), true));
+		}
+	}
 
 	public static void playClientEnderManLoop(@NotNull EnderMan enderMan) {
 		Minecraft client = Minecraft.getInstance();

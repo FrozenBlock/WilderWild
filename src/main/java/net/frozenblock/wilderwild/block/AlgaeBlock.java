@@ -48,9 +48,16 @@ import org.jetbrains.annotations.Nullable;
 
 public class AlgaeBlock extends Block implements BonemealableBlock {
 	protected static final VoxelShape SHAPE = Block.box(0.0, 0.0, 0.0, 16, 1.0, 16);
+	@Nullable
+	private BlockPos bonemealPos = null;
 
 	public AlgaeBlock(@NotNull BlockBehaviour.Properties settings) {
 		super(settings);
+	}
+
+	@NotNull
+	public static List<Direction> shuffleOffsets(@NotNull RandomSource random) {
+		return Util.toShuffledList(Direction.Plane.HORIZONTAL.stream(), random);
 	}
 
 	@Override
@@ -90,14 +97,6 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 			entity.setDeltaMovement(entity.getDeltaMovement().multiply(0.8, 0.8, 0.8));
 		}
 	}
-
-	@NotNull
-	public static List<Direction> shuffleOffsets(@NotNull RandomSource random) {
-		return Util.toShuffledList(Direction.Plane.HORIZONTAL.stream(), random);
-	}
-
-	@Nullable
-	private BlockPos bonemealPos = null;
 
 	@Override
 	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {

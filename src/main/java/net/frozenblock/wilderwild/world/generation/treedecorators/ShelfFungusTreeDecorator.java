@@ -33,30 +33,30 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorTy
 import org.jetbrains.annotations.NotNull;
 
 public class ShelfFungusTreeDecorator extends TreeDecorator {
-    public static final Codec<ShelfFungusTreeDecorator> CODEC = RecordCodecBuilder.create((instance) ->
+	public static final Codec<ShelfFungusTreeDecorator> CODEC = RecordCodecBuilder.create((instance) ->
 		instance.group(
 			Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter((treeDecorator) -> treeDecorator.probability),
 			Codec.floatRange(0.0F, 1.0F).fieldOf("red_shelf_fungus_chance").forGetter((treeDecorator) -> treeDecorator.redChance)
 		).apply(instance, ShelfFungusTreeDecorator::new));
-    private final float probability;
-    private final float redChance;
+	private final float probability;
+	private final float redChance;
 
-    public ShelfFungusTreeDecorator(float probability, float redChance) {
-        this.probability = probability;
-        this.redChance = redChance;
-    }
+	public ShelfFungusTreeDecorator(float probability, float redChance) {
+		this.probability = probability;
+		this.redChance = redChance;
+	}
 
 	@Override
 	@NotNull
-    protected TreeDecoratorType<?> type() {
-        return WilderTreeDecorators.FUNGUS_TREE_DECORATOR;
-    }
+	protected TreeDecoratorType<?> type() {
+		return WilderTreeDecorators.FUNGUS_TREE_DECORATOR;
+	}
 
 	@Override
-    public void place(@NotNull Context generator) {
-        RandomSource abstractRandom = generator.random();
-        if (abstractRandom.nextFloat() <= this.probability) {
-            List<BlockPos> poses = generator.logs();
+	public void place(@NotNull Context generator) {
+		RandomSource abstractRandom = generator.random();
+		if (abstractRandom.nextFloat() <= this.probability) {
+			List<BlockPos> poses = generator.logs();
 			BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 			BlockState redState = RegisterBlocks.RED_SHELF_FUNGUS.defaultBlockState();
 			BlockState brownState = RegisterBlocks.BROWN_SHELF_FUNGUS.defaultBlockState();
@@ -74,6 +74,6 @@ public class ShelfFungusTreeDecorator extends TreeDecorator {
 					}
 				}
 			}
-        }
-    }
+		}
+	}
 }

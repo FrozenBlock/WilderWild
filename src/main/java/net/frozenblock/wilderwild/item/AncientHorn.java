@@ -52,104 +52,103 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class AncientHorn extends InstrumentItem {
-    private static final String TAG_INSTRUMENT = "instrument";
-    private final TagKey<Instrument> instrumentTag;
+	public static final int DEFAULT_COOLDOWN = 600;
+	public static final int CREATIVE_COOLDOWN = 5;
+	public static final int SHRIEKER_COOLDOWN = 1200;
+	public static final int SENSOR_COOLDOWN = 800;
+	public static final int TENDRIL_COOLDOWN = 780;
+	public static final int MIN_BUBBLES = 10;
+	public static final int MAX_BUBBLES = 25;
+	private static final String TAG_INSTRUMENT = "instrument";
+	private final TagKey<Instrument> instrumentTag;
 
-    public static final int DEFAULT_COOLDOWN = 600;
-    public static final int CREATIVE_COOLDOWN = 5;
-    public static final int SHRIEKER_COOLDOWN = 1200;
-    public static final int SENSOR_COOLDOWN = 800;
-    public static final int TENDRIL_COOLDOWN = 780;
-    public static final int MIN_BUBBLES = 10;
-    public static final int MAX_BUBBLES = 25;
+	public AncientHorn(@NotNull Properties settings, @NotNull TagKey<Instrument> tag) {
+		super(settings, tag);
+		this.instrumentTag = tag;
+	}
 
-    public AncientHorn(@NotNull Properties settings, @NotNull TagKey<Instrument> tag) {
-        super(settings, tag);
-        this.instrumentTag = tag;
-    }
+	public static int getCooldown(@Nullable Entity entity, int cooldown) {
+		if (entity instanceof Player player && player.isCreative()) {
+			return CREATIVE_COOLDOWN;
+		}
+		return cooldown;
+	}
 
-    @Override
+	public static int decreaseCooldown(@NotNull Player user, int time) {
+		if (!user.isCreative()) {
+			ItemCooldowns manager = user.getCooldowns();
+			ItemCooldowns.CooldownInstance entry = manager.cooldowns.get(RegisterItems.ANCIENT_HORN);
+			if (entry != null) {
+				int between = entry.endTime - entry.startTime;
+				if (between > 140 && between >= time) {
+					((CooldownInterface) user.getCooldowns()).changeCooldown(RegisterItems.ANCIENT_HORN, -time);
+					return time;
+				}
+			}
+		}
+		return -1;
+	}
+
+	private static void play(@NotNull Level level, @NotNull Player player, @NotNull Instrument instrument) {
+		SoundEvent soundEvent = instrument.soundEvent().value();
+		float range = instrument.range() / 16F;
+		level.playSound(player, player, soundEvent, SoundSource.RECORDS, range, 1.0F);
+	}
+
+	@Override
 	@NotNull
-    public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player user, @NotNull InteractionHand hand) {
-        ItemStack itemStack = user.getItemInHand(hand);
-        Optional<? extends Holder<Instrument>> optional = this.getInstrument(itemStack);
-        if (optional.isPresent()) {
-            Instrument instrument = optional.get().value();
-            user.startUsingItem(hand);
-            play(level, user, instrument);
-            user.getCooldowns().addCooldown(RegisterItems.ANCIENT_HORN, getCooldown(user, DEFAULT_COOLDOWN));
-            if (level instanceof ServerLevel server) {
-                AncientHornProjectile projectileEntity = new AncientHornProjectile(level, user.getX(), user.getEyeY(), user.getZ());
-                projectileEntity.shootFromRotation(user, user.getXRot(), user.getYRot(), 0.0F, 1.0F, 0.0F);
-                projectileEntity.setShotByPlayer(true);
-                server.addFreshEntity(projectileEntity);
-                FrozenSoundPackets.createMovingRestrictionLoopingSound(server, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, FrozenMain.id("default"), true);
-                ItemStack mainHand = user.getItemInHand(InteractionHand.MAIN_HAND);
-                ItemStack offHand = user.getItemInHand(InteractionHand.OFF_HAND);
-                if (mainHand.is(Items.WATER_BUCKET) || mainHand.is(Items.POTION) || offHand.is(Items.WATER_BUCKET) || offHand.is(Items.POTION)) {
-                    projectileEntity.setBubbles(level.random.nextIntBetweenInclusive(MIN_BUBBLES, MAX_BUBBLES));
-                }
-            }
-            return InteractionResultHolder.consume(itemStack);
-        } else {
-            WilderSharedConstants.LOGGER.error("Ancient Horn use failed");
-            return InteractionResultHolder.fail(itemStack);
-        }
-    }
+	public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player user, @NotNull InteractionHand hand) {
+		ItemStack itemStack = user.getItemInHand(hand);
+		Optional<? extends Holder<Instrument>> optional = this.getInstrument(itemStack);
+		if (optional.isPresent()) {
+			Instrument instrument = optional.get().value();
+			user.startUsingItem(hand);
+			play(level, user, instrument);
+			user.getCooldowns().addCooldown(RegisterItems.ANCIENT_HORN, getCooldown(user, DEFAULT_COOLDOWN));
+			if (level instanceof ServerLevel server) {
+				AncientHornProjectile projectileEntity = new AncientHornProjectile(level, user.getX(), user.getEyeY(), user.getZ());
+				projectileEntity.shootFromRotation(user, user.getXRot(), user.getYRot(), 0.0F, 1.0F, 0.0F);
+				projectileEntity.setShotByPlayer(true);
+				server.addFreshEntity(projectileEntity);
+				FrozenSoundPackets.createMovingRestrictionLoopingSound(server, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, FrozenMain.id("default"), true);
+				ItemStack mainHand = user.getItemInHand(InteractionHand.MAIN_HAND);
+				ItemStack offHand = user.getItemInHand(InteractionHand.OFF_HAND);
+				if (mainHand.is(Items.WATER_BUCKET) || mainHand.is(Items.POTION) || offHand.is(Items.WATER_BUCKET) || offHand.is(Items.POTION)) {
+					projectileEntity.setBubbles(level.random.nextIntBetweenInclusive(MIN_BUBBLES, MAX_BUBBLES));
+				}
+			}
+			return InteractionResultHolder.consume(itemStack);
+		} else {
+			WilderSharedConstants.LOGGER.error("Ancient Horn use failed");
+			return InteractionResultHolder.fail(itemStack);
+		}
+	}
 
-    @Override
-    public int getUseDuration(@NotNull ItemStack stack) {
-        Optional<? extends Holder<Instrument>> optional = this.getInstrument(stack);
-        return optional.map(instrumentRegistryEntry -> instrumentRegistryEntry.value().useDuration()).orElse(0);
-    }
+	@Override
+	public int getUseDuration(@NotNull ItemStack stack) {
+		Optional<? extends Holder<Instrument>> optional = this.getInstrument(stack);
+		return optional.map(instrumentRegistryEntry -> instrumentRegistryEntry.value().useDuration()).orElse(0);
+	}
 
-    @Override
+	@Override
 	@NotNull
-    public Optional<? extends Holder<Instrument>> getInstrument(@NotNull ItemStack stack) {
-        CompoundTag nbtCompound = stack.getTag();
-        if (nbtCompound != null) {
-            ResourceLocation resourceLocation = ResourceLocation.tryParse(nbtCompound.getString(TAG_INSTRUMENT));
-            if (resourceLocation != null) {
-                return BuiltInRegistries.INSTRUMENT.getHolder(ResourceKey.create(Registries.INSTRUMENT, resourceLocation));
-            }
-        }
+	public Optional<? extends Holder<Instrument>> getInstrument(@NotNull ItemStack stack) {
+		CompoundTag nbtCompound = stack.getTag();
+		if (nbtCompound != null) {
+			ResourceLocation resourceLocation = ResourceLocation.tryParse(nbtCompound.getString(TAG_INSTRUMENT));
+			if (resourceLocation != null) {
+				return BuiltInRegistries.INSTRUMENT.getHolder(ResourceKey.create(Registries.INSTRUMENT, resourceLocation));
+			}
+		}
 
-        Iterator<Holder<Instrument>> iterator = BuiltInRegistries.INSTRUMENT.getTagOrEmpty(this.instrumentTag).iterator();
-        return iterator.hasNext() ? Optional.of(iterator.next()) : Optional.empty();
-    }
+		Iterator<Holder<Instrument>> iterator = BuiltInRegistries.INSTRUMENT.getTagOrEmpty(this.instrumentTag).iterator();
+		return iterator.hasNext() ? Optional.of(iterator.next()) : Optional.empty();
+	}
 
-    public static int getCooldown(@Nullable Entity entity, int cooldown) {
-        if (entity instanceof Player player && player.isCreative()) {
-            return CREATIVE_COOLDOWN;
-        }
-        return cooldown;
-    }
-
-    public static int decreaseCooldown(@NotNull Player user, int time) {
-        if (!user.isCreative()) {
-            ItemCooldowns manager = user.getCooldowns();
-            ItemCooldowns.CooldownInstance entry = manager.cooldowns.get(RegisterItems.ANCIENT_HORN);
-            if (entry != null) {
-                int between = entry.endTime - entry.startTime;
-                if (between > 140 && between >= time) {
-                    ((CooldownInterface) user.getCooldowns()).changeCooldown(RegisterItems.ANCIENT_HORN, -time);
-                    return time;
-                }
-            }
-        }
-        return -1;
-    }
-
-    @Override
+	@Override
 	@NotNull
-    public UseAnim getUseAnimation(@NotNull ItemStack stack) {
-        return UseAnim.TOOT_HORN;
-    }
-
-    private static void play(@NotNull Level level, @NotNull Player player, @NotNull Instrument instrument) {
-        SoundEvent soundEvent = instrument.soundEvent().value();
-        float range = instrument.range() / 16F;
-        level.playSound(player, player, soundEvent, SoundSource.RECORDS, range, 1.0F);
-    }
+	public UseAnim getUseAnimation(@NotNull ItemStack stack) {
+		return UseAnim.TOOT_HORN;
+	}
 
 }

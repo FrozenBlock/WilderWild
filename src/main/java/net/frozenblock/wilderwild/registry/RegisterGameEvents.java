@@ -25,17 +25,15 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 
 public final class RegisterGameEvents {
+	public static final GameEvent SCULK_SENSOR_ACTIVATE = register("sculk_sensor_activate", 16);
+	public static final GameEvent TENDRIL_EXTRACT_XP = register("hanging_tendril_extract_xp", 16);
 	private RegisterGameEvents() {
 		throw new UnsupportedOperationException("RegisterGameEvents contains only static declarations.");
 	}
 
-    public static final GameEvent SCULK_SENSOR_ACTIVATE = register("sculk_sensor_activate", 16);
-    public static final GameEvent TENDRIL_EXTRACT_XP = register("hanging_tendril_extract_xp", 16);
-
-
-    public static void registerEvents() {
-        WilderSharedConstants.logWild("Registering GameEvents for", WilderSharedConstants.UNSTABLE_LOGGING);
-    }
+	public static void registerEvents() {
+		WilderSharedConstants.logWild("Registering GameEvents for", WilderSharedConstants.UNSTABLE_LOGGING);
+	}
 
 	@NotNull
 	private static GameEvent register(@NotNull String path, int notificationRadius) {

@@ -36,17 +36,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Mob.class)
 public class MobMixin {
 
-    @Shadow
-    public void setPathfindingMalus(BlockPathTypes nodeType, float malus) {
+	@Shadow
+	public void setPathfindingMalus(BlockPathTypes nodeType, float malus) {
 		throw new AssertionError("Mixin injection failed - Wilder Wild MobMixin.");
 	}
 
-    @Inject(method = "<init>", at = @At("TAIL"))
-    private void wilderWild$addUnpassableRail(EntityType<? extends Mob> entityType, Level level, CallbackInfo info) {
-        if (WilderSharedConstants.config().unpassableRail()) {
-            this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
-        }
-    }
+	@Inject(method = "<init>", at = @At("TAIL"))
+	private void wilderWild$addUnpassableRail(EntityType<? extends Mob> entityType, Level level, CallbackInfo info) {
+		if (WilderSharedConstants.config().unpassableRail()) {
+			this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
+		}
+	}
 
 	@Inject(method = "checkSpawnObstruction", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$checkSpawnObstruction(LevelReader level, CallbackInfoReturnable<Boolean> info) {

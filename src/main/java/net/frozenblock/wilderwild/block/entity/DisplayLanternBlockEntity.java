@@ -57,10 +57,9 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
 public class DisplayLanternBlockEntity extends BlockEntity {
-	public NonNullList<ItemStack> inventory;
 	private final ArrayList<FireflyInLantern> fireflies = new ArrayList<>();
-
-    public int age;
+	public NonNullList<ItemStack> inventory;
+	public int age;
 
 	public DisplayLanternBlockEntity(@NotNull BlockPos pos, @NotNull BlockState blockState) {
 		super(RegisterBlockEntities.DISPLAY_LANTERN, pos, blockState);
@@ -201,23 +200,21 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	}
 
 	public static class FireflyInLantern {
+		public static final Codec<FireflyInLantern> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+			Vec3.CODEC.fieldOf("pos").forGetter(FireflyInLantern::getPos),
+			FireflyColor.CODEC.fieldOf("color").forGetter(FireflyInLantern::getColor),
+			Codec.STRING.fieldOf("customName").orElse("").forGetter(FireflyInLantern::getCustomName),
+			Codec.BOOL.fieldOf("flickers").orElse(false).forGetter(FireflyInLantern::getFlickers),
+			Codec.INT.fieldOf("age").forGetter(FireflyInLantern::getAge),
+			Codec.DOUBLE.fieldOf("y").forGetter(FireflyInLantern::getY)
+		).apply(instance, FireflyInLantern::new));
 		public Vec3 pos;
 		public FireflyColor color;
 		public String customName;
 		public boolean flickers;
 		public int age;
 		public double y;
-
 		public boolean wasNamedNectar;
-
-		public static final Codec<FireflyInLantern> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-				Vec3.CODEC.fieldOf("pos").forGetter(FireflyInLantern::getPos),
-				FireflyColor.CODEC.fieldOf("color").forGetter(FireflyInLantern::getColor),
-				Codec.STRING.fieldOf("customName").orElse("").forGetter(FireflyInLantern::getCustomName),
-				Codec.BOOL.fieldOf("flickers").orElse(false).forGetter(FireflyInLantern::getFlickers),
-				Codec.INT.fieldOf("age").forGetter(FireflyInLantern::getAge),
-				Codec.DOUBLE.fieldOf("y").forGetter(FireflyInLantern::getY)
-		).apply(instance, FireflyInLantern::new));
 
 		public FireflyInLantern(@NotNull Vec3 pos, @NotNull FireflyColor color, @NotNull String customName, boolean flickers, int age, double y) {
 			this.pos = pos;
@@ -229,8 +226,8 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		}
 
 		public void tick(Level level, BlockPos pos) {
-            this.age += 1;
-            this.y = Math.sin(this.age * 0.03) * 0.15;
+			this.age += 1;
+			this.y = Math.sin(this.age * 0.03) * 0.15;
 			boolean isNectar = this.getCustomName().toLowerCase().contains("nectar");
 
 			if (isNectar != wasNamedNectar) {

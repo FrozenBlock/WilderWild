@@ -35,12 +35,12 @@ import org.jetbrains.annotations.NotNull;
 
 public class LeavesAroundTopTreeDecorator extends TreeDecorator {
 	public static final Codec<LeavesAroundTopTreeDecorator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-			Codec.FLOAT.fieldOf("probability").forGetter((treeDecorator) -> treeDecorator.probability),
-			Codec.intRange(0, 16).fieldOf("exclusionRadiusXZ").forGetter((treeDecorator) -> treeDecorator.exclusionRadiusXZ),
-			Codec.intRange(0, 16).fieldOf("exclusionRadiusY").forGetter((treeDecorator) -> treeDecorator.exclusionRadiusY),
-			BlockStateProvider.CODEC.fieldOf("blockProvider").forGetter((treeDecorator) -> treeDecorator.blockProvider),
-			Codec.INT.fieldOf("requiredEmptyBlocks").forGetter((treeDecorator) -> treeDecorator.requiredEmptyBlocks),
-			ExtraCodecs.nonEmptyList(Direction.CODEC.listOf()).fieldOf("directions").forGetter((treeDecorator) -> treeDecorator.directions)
+		Codec.FLOAT.fieldOf("probability").forGetter((treeDecorator) -> treeDecorator.probability),
+		Codec.intRange(0, 16).fieldOf("exclusionRadiusXZ").forGetter((treeDecorator) -> treeDecorator.exclusionRadiusXZ),
+		Codec.intRange(0, 16).fieldOf("exclusionRadiusY").forGetter((treeDecorator) -> treeDecorator.exclusionRadiusY),
+		BlockStateProvider.CODEC.fieldOf("blockProvider").forGetter((treeDecorator) -> treeDecorator.blockProvider),
+		Codec.INT.fieldOf("requiredEmptyBlocks").forGetter((treeDecorator) -> treeDecorator.requiredEmptyBlocks),
+		ExtraCodecs.nonEmptyList(Direction.CODEC.listOf()).fieldOf("directions").forGetter((treeDecorator) -> treeDecorator.directions)
 	).apply(instance, LeavesAroundTopTreeDecorator::new));
 
 	private final float probability;
@@ -82,16 +82,16 @@ public class LeavesAroundTopTreeDecorator extends TreeDecorator {
 		BlockPos.MutableBlockPos mutableCheckPos = new BlockPos.MutableBlockPos();
 
 		for (BlockPos blockPos : Util.shuffledCopy(context.leaves(), randomSource)) {
-			if (((int)(Math.sqrt(blockPos.distToCenterSqr(highPos)))) <= 2) {
+			if (((int) (Math.sqrt(blockPos.distToCenterSqr(highPos)))) <= 2) {
 				Direction direction;
 				mutableBlockPos.setWithOffset(blockPos, direction = Util.getRandom(this.directions, randomSource));
 				if (set.contains(mutableBlockPos) || !(randomSource.nextFloat() < this.probability) || !this.hasRequiredEmptyBlocks(context, blockPos, mutableCheckPos, direction))
 					continue;
 
 				for (BlockPos blockPos5 : BlockPos.betweenClosed(
-						mutableBlockPos2.setWithOffset(mutableCheckPos, -this.exclusionRadiusXZ, -this.exclusionRadiusY, -this.exclusionRadiusXZ),
-						mutableBlockPos3.setWithOffset(mutableCheckPos, this.exclusionRadiusXZ, this.exclusionRadiusY, this.exclusionRadiusXZ)
-					)
+					mutableBlockPos2.setWithOffset(mutableCheckPos, -this.exclusionRadiusXZ, -this.exclusionRadiusY, -this.exclusionRadiusXZ),
+					mutableBlockPos3.setWithOffset(mutableCheckPos, this.exclusionRadiusXZ, this.exclusionRadiusY, this.exclusionRadiusXZ)
+				)
 				) {
 					set.add(blockPos5);
 				}

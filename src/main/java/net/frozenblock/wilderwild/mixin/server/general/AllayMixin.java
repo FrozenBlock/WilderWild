@@ -32,28 +32,27 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Allay.class)
 public class AllayMixin implements WilderAllay {
 
-    @Shadow
-    private float dancingAnimationTicks;
+	@Unique
+	private final AnimationState wilderWild$dancingAnimationState = new AnimationState();
+	@Shadow
+	private float dancingAnimationTicks;
 
 	@Unique
-    private final AnimationState wilderWild$dancingAnimationState = new AnimationState();
+	@Override
+	public AnimationState wilderWild$getDancingAnimationState() {
+		return this.wilderWild$dancingAnimationState;
+	}
 
-	@Unique
-    @Override
-    public AnimationState wilderWild$getDancingAnimationState() {
-        return this.wilderWild$dancingAnimationState;
-    }
-
-    @Inject(method = "tick", at = @At(value = "TAIL"))
-    private void wilderWild$tickDancing(CallbackInfo info) {
+	@Inject(method = "tick", at = @At(value = "TAIL"))
+	private void wilderWild$tickDancing(CallbackInfo info) {
 		Allay allay = Allay.class.cast(this);
-        if (allay.level().isClientSide && WilderSharedConstants.config().keyframeAllayDance()) {
-            if (allay.isDancing()) {
-                this.wilderWild$getDancingAnimationState().startIfStopped((int) this.dancingAnimationTicks);
-            } else {
-                this.wilderWild$getDancingAnimationState().stop();
-            }
-        }
-    }
+		if (allay.level().isClientSide && WilderSharedConstants.config().keyframeAllayDance()) {
+			if (allay.isDancing()) {
+				this.wilderWild$getDancingAnimationState().startIfStopped((int) this.dancingAnimationTicks);
+			} else {
+				this.wilderWild$getDancingAnimationState().stop();
+			}
+		}
+	}
 
 }

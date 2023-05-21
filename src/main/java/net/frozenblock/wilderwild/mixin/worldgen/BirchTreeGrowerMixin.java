@@ -32,8 +32,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(value = BirchTreeGrower.class, priority = 69420)
 public class BirchTreeGrowerMixin {
 
-    @Inject(method = "getConfiguredFeature", at = @At("RETURN"), cancellable = true)
-    public void wilderWild$getConfiguredFeature(RandomSource random, boolean bees, CallbackInfoReturnable<ResourceKey<? extends ConfiguredFeature<?, ?>>> info) {
+	@Inject(method = "getConfiguredFeature", at = @At("RETURN"), cancellable = true)
+	public void wilderWild$getConfiguredFeature(RandomSource random, boolean bees, CallbackInfoReturnable<ResourceKey<? extends ConfiguredFeature<?, ?>>> info) {
 		if (WilderSharedConstants.config().wildTrees()) {
 			if (random.nextFloat() < 0.15F) {
 				info.setReturnValue(bees ? WilderTreeConfigured.SHORT_BIRCH_BEES_0004.getKey() : WilderTreeConfigured.SHORT_BIRCH.getKey());
@@ -41,6 +41,6 @@ public class BirchTreeGrowerMixin {
 				info.setReturnValue(bees ? WilderTreeConfigured.BIRCH_BEES_025.getKey() : WilderTreeConfigured.BIRCH_TREE.getKey());
 			}
 		}
-    }
+	}
 
 }

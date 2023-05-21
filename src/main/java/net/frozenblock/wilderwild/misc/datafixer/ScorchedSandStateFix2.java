@@ -29,9 +29,9 @@ import net.minecraft.util.datafix.fixes.References;
 
 public class ScorchedSandStateFix2 extends DataFix {
 
-    private static final String STATE = "crackedness";
+	private static final String STATE = "crackedness";
 	private static final String NEW_STATE = "cracked";
-    private static final String DEFAULT_VALUE = "false";
+	private static final String DEFAULT_VALUE = "false";
 
 	private final String name;
 	private final String blockId;
@@ -50,7 +50,7 @@ public class ScorchedSandStateFix2 extends DataFix {
 		Optional<String> optional = dynamic.get("Name").asString().result();
 		return optional.equals(Optional.of(this.blockId)) ? dynamic.update("Properties", dynamicx -> {
 			String string = dynamicx.get(STATE).asString(DEFAULT_VALUE);
-            String boolValue = string.equals("1") ? "true" : "false";
+			String boolValue = string.equals("1") ? "true" : "false";
 			return dynamicx.remove(STATE).set(NEW_STATE, dynamicx.createString(boolValue));
 		}) : dynamic;
 	}
@@ -58,7 +58,7 @@ public class ScorchedSandStateFix2 extends DataFix {
 	@Override
 	protected TypeRewriteRule makeRule() {
 		return this.fixTypeEverywhereTyped(
-				this.name, this.getInputSchema().getType(References.BLOCK_STATE), typed -> typed.update(DSL.remainderFinder(), this::fix)
+			this.name, this.getInputSchema().getType(References.BLOCK_STATE), typed -> typed.update(DSL.remainderFinder(), this::fix)
 		);
 	}
 }

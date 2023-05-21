@@ -47,21 +47,6 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 @Mixin(SculkSpreader.ChargeCursor.class)
 public class SculkSpreaderChargeCursorMixin {
 
-	//EDITS
-	@Redirect(method = "update", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkSpreader$ChargeCursor;getBlockBehaviour(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/SculkBehaviour;"))
-	private SculkBehaviour wilderWild$newSculkBehaviour(BlockState par1, LevelAccessor level, BlockPos pos, RandomSource random, SculkSpreader spreader, boolean spread) {
-		return wilderWild$getBlockBehaviourNew(par1, spreader.isWorldGeneration());
-	}
-
-	@Redirect(method = "update", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkSpreader$ChargeCursor;getValidMovementPos(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)Lnet/minecraft/core/BlockPos;"))
-	private BlockPos wilderWild$newValidMovementPos(LevelAccessor par1, BlockPos par2, RandomSource par3, LevelAccessor level, BlockPos pos, RandomSource random, SculkSpreader spreader, boolean spread) {
-		if (spreader.isWorldGeneration()) {
-			return wilderWild$getValidMovementPosWorldgen(par1, par2, par3);
-		} else {
-			return getValidMovementPos(par1, par2, par3);
-		}
-	}
-
 	@Inject(method = "isMovementUnobstructed", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/BlockPos;subtract(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/core/BlockPos;", shift = At.Shift.BEFORE), cancellable = true)
 	private static void wilderWild$isMovementUnobstructed(LevelAccessor level, BlockPos startPos, BlockPos spreadPos, CallbackInfoReturnable<Boolean> cir) {
 		BlockState cheatState = level.getBlockState(spreadPos);
@@ -181,5 +166,20 @@ public class SculkSpreaderChargeCursorMixin {
 	@Shadow
 	private static BlockPos getValidMovementPos(LevelAccessor level, BlockPos pos, RandomSource random) {
 		throw new AssertionError("Mixin injection failed - WilderWild SculkSpreaderChargeCursorMixin.");
+	}
+
+	//EDITS
+	@Redirect(method = "update", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkSpreader$ChargeCursor;getBlockBehaviour(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/SculkBehaviour;"))
+	private SculkBehaviour wilderWild$newSculkBehaviour(BlockState par1, LevelAccessor level, BlockPos pos, RandomSource random, SculkSpreader spreader, boolean spread) {
+		return wilderWild$getBlockBehaviourNew(par1, spreader.isWorldGeneration());
+	}
+
+	@Redirect(method = "update", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkSpreader$ChargeCursor;getValidMovementPos(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)Lnet/minecraft/core/BlockPos;"))
+	private BlockPos wilderWild$newValidMovementPos(LevelAccessor par1, BlockPos par2, RandomSource par3, LevelAccessor level, BlockPos pos, RandomSource random, SculkSpreader spreader, boolean spread) {
+		if (spreader.isWorldGeneration()) {
+			return wilderWild$getValidMovementPosWorldgen(par1, par2, par3);
+		} else {
+			return getValidMovementPos(par1, par2, par3);
+		}
 	}
 }

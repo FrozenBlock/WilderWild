@@ -37,21 +37,21 @@ public class AbandonedCabinGenerator {
 
 	public static final ResourceKey<StructureTemplatePool> CABIN = createKey("abandoned_cabin/cabin");
 
-    /**
-     * @param id                 The id for the {@link SinglePoolElement}'s {@link ResourceLocation}
-     * @param processorListEntry The processor list for the {@link SinglePoolElement}
-     * @return A {@link SinglePoolElement} of the parameters given.
-     */
+	/**
+	 * @param id                 The id for the {@link SinglePoolElement}'s {@link ResourceLocation}
+	 * @param processorListEntry The processor list for the {@link SinglePoolElement}
+	 * @return A {@link SinglePoolElement} of the parameters given.
+	 */
 	@NotNull
-    public static Function<StructureTemplatePool.Projection, SinglePoolElement> ofProcessedSingle(@NotNull String id, @NotNull Holder<StructureProcessorList> processorListEntry) {
-        return projection -> new SinglePoolElement(Either.left(WilderSharedConstants.id(id)), processorListEntry, projection);
-    }
+	public static Function<StructureTemplatePool.Projection, SinglePoolElement> ofProcessedSingle(@NotNull String id, @NotNull Holder<StructureProcessorList> processorListEntry) {
+		return projection -> new SinglePoolElement(Either.left(WilderSharedConstants.id(id)), processorListEntry, projection);
+	}
 
-    /**
-     * Initializes this class to register the {@link StructureTemplatePool}s
-     */
-    public static void init() {
-    }
+	/**
+	 * Initializes this class to register the {@link StructureTemplatePool}s
+	 */
+	public static void init() {
+	}
 
 	@NotNull
 	public static ResourceKey<StructureTemplatePool> createKey(@NotNull String string) {

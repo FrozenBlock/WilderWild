@@ -29,10 +29,10 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 
 public final class WilderTreesGeneration {
 
-    public static void generateTrees() {
-        if (WilderSharedConstants.config().dyingTrees()) {
+	public static void generateTrees() {
+		if (WilderSharedConstants.config().dyingTrees()) {
 
-        }
+		}
 
 		if (WilderSharedConstants.config().snappedLogs()) {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SNAPPED_OAK),
@@ -75,86 +75,89 @@ public final class WilderTreesGeneration {
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_CHERRY_PLACED.getKey());
 		}
 
-        if (WilderSharedConstants.config().fallenLogs()) {
-            BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_BIRCH_TREES),
-                    GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_BIRCH_PLACED.getKey());
+		if (WilderSharedConstants.config().fallenLogs()) {
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_BIRCH_TREES),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_BIRCH_PLACED.getKey());
 
-            BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_SPRUCE_TREES),
-                    GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_SPRUCE_PLACED.getKey());
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_SPRUCE_TREES),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_SPRUCE_PLACED.getKey());
 
-            BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_OAK_AND_SPRUCE_TREES),
-                    GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_OAK_AND_SPRUCE_PLACED.getKey());
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_CLEAN_FALLEN_SPRUCE_TREES),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.CLEAN_FALLEN_SPRUCE_PLACED.getKey());
 
-            BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_OAK_AND_BIRCH_TREES),
-                    GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_OAK_AND_BIRCH_PLACED.getKey());
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_OAK_AND_SPRUCE_TREES),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_OAK_AND_SPRUCE_PLACED.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_OAK_AND_BIRCH_TREES),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_OAK_AND_BIRCH_PLACED.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_MOSSY_FALLEN_MIXED_TREES),
-					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MOSSY_FALLEN_TREES_MIXED_PLACED.getKey());
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MOSSY_FALLEN_TREES_MIXED_PLACED.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_MOSSY_FALLEN_OAK_AND_BIRCH),
-					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MOSSY_FALLEN_TREES_OAK_AND_BIRCH_PLACED.getKey());
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MOSSY_FALLEN_TREES_OAK_AND_BIRCH_PLACED.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_CHERRY_TREES),
-					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_CHERRY_PLACED.getKey());
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_CHERRY_PLACED.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_ACACIA_AND_OAK),
-					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_ACACIA_AND_OAK_PLACED.getKey());
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_ACACIA_AND_OAK_PLACED.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_PALM),
-					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_PALM_PLACED.getKey());
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_PALM_PLACED.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_PALM_RARE),
-					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_PALM_PLACED_RARE.getKey());
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_PALM_PLACED_RARE.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_PALM_AND_JUNGLE_AND_OAK),
-					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_PALM_AND_JUNGLE_AND_OAK_PLACED.getKey());
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_PALM_AND_JUNGLE_AND_OAK_PLACED.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_BIRCH_AND_OAK_DARK_FOREST),
-					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_BIRCH_AND_OAK_DARK_FOREST_PLACED.getKey());
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_BIRCH_AND_OAK_DARK_FOREST_PLACED.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_SWAMP_OAK_TREES),
-					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_OAK_PLACED_SWAMP.getKey());
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_OAK_PLACED_SWAMP.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_MANGROVE_TREES),
-					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_MANGROVE_PLACED.getKey());
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_MANGROVE_PLACED.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_OAK_AND_CYPRESS_TREES),
-					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_OAK_AND_CYPRESS_PLACED.getKey());
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_OAK_AND_CYPRESS_PLACED.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.MIXED_FOREST),
-					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_TREES_MIXED_PLACED.getKey());
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_TREES_MIXED_PLACED.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.BIRCH_TAIGA, RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA),
-					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_BIRCH_AND_SPRUCE_PLACED.getKey());
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_BIRCH_AND_SPRUCE_PLACED.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.FLOWER_FIELD),
-					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_OAK_AND_BIRCH_PLACED_2.getKey());
-        }
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_OAK_AND_BIRCH_PLACED_2.getKey());
+		}
 
-        if (WilderSharedConstants.config().wildTrees()) {
+		if (WilderSharedConstants.config().wildTrees()) {
 			BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SPARSE_JUNGLE),
-					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PALM.getKey());
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PALM.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.JUNGLE),
-					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PALM_JUNGLE.getKey());
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PALM_JUNGLE.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_PALMS),
-					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PALM_RARE.getKey());
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PALM_RARE.getKey());
 
-            BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.FOREST),
-                    GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_BIRCH_AND_OAK.getKey());
+			BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.FOREST),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_BIRCH_AND_OAK.getKey());
 
-            BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SHORT_SPRUCE),
-                    GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SHORT_SPRUCE_PLACED.getKey());
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SHORT_SPRUCE),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SHORT_SPRUCE_PLACED.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_BIG_SHRUB),
-					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BIG_SHRUB.getKey());
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BIG_SHRUB.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SHORT_MEGA_SPRUCE),
-					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SHORT_MEGA_SPRUCE_PLACED.getKey());
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SHORT_MEGA_SPRUCE_PLACED.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SHORT_MEGA_SPRUCE_SNOWY),
-					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SHORT_MEGA_SPRUCE_ON_SNOW_PLACED.getKey());
-        }
-    }
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SHORT_MEGA_SPRUCE_ON_SNOW_PLACED.getKey());
+		}
+	}
 }

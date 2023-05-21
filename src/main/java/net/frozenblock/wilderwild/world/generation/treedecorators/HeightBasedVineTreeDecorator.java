@@ -34,32 +34,32 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorTy
 import org.jetbrains.annotations.NotNull;
 
 public class HeightBasedVineTreeDecorator extends TreeDecorator {
-    public static final Codec<HeightBasedVineTreeDecorator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-			Codec.floatRange(0.0F, 1.0F).fieldOf("chanceToDecorate").forGetter((treeDecorator) -> treeDecorator.chanceToDecorate),
-			Codec.intRange(-63, 319).fieldOf("maxHeight").forGetter((treeDecorator) -> treeDecorator.maxHeight),
-			Codec.floatRange(0.0F, 1.0F).fieldOf("vinePlaceChance").forGetter((treeDecorator) -> treeDecorator.vinePlaceChance)
+	public static final Codec<HeightBasedVineTreeDecorator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+		Codec.floatRange(0.0F, 1.0F).fieldOf("chanceToDecorate").forGetter((treeDecorator) -> treeDecorator.chanceToDecorate),
+		Codec.intRange(-63, 319).fieldOf("maxHeight").forGetter((treeDecorator) -> treeDecorator.maxHeight),
+		Codec.floatRange(0.0F, 1.0F).fieldOf("vinePlaceChance").forGetter((treeDecorator) -> treeDecorator.vinePlaceChance)
 	).apply(instance, HeightBasedVineTreeDecorator::new));
 
-    private final float chanceToDecorate;
-    private final int maxHeight;
-    private final float vinePlaceChance;
+	private final float chanceToDecorate;
+	private final int maxHeight;
+	private final float vinePlaceChance;
 
-    public HeightBasedVineTreeDecorator(float chanceToDecorate, int maxHeight, float vinePlaceChance) {
-        this.chanceToDecorate = chanceToDecorate;
-        this.maxHeight = maxHeight;
-        this.vinePlaceChance = vinePlaceChance;
-    }
+	public HeightBasedVineTreeDecorator(float chanceToDecorate, int maxHeight, float vinePlaceChance) {
+		this.chanceToDecorate = chanceToDecorate;
+		this.maxHeight = maxHeight;
+		this.vinePlaceChance = vinePlaceChance;
+	}
 
 	@Override
 	@NotNull
-    protected TreeDecoratorType<?> type() {
-        return WilderTreeDecorators.HEIGHT_BASED_VINE_TREE_DECORATOR;
-    }
+	protected TreeDecoratorType<?> type() {
+		return WilderTreeDecorators.HEIGHT_BASED_VINE_TREE_DECORATOR;
+	}
 
 	@Override
-    public void place(@NotNull Context generator) {
-        RandomSource random = generator.random();
-        if (random.nextFloat() <= this.chanceToDecorate) {
+	public void place(@NotNull Context generator) {
+		RandomSource random = generator.random();
+		if (random.nextFloat() <= this.chanceToDecorate) {
 			ObjectArrayList<BlockPos> poses = new ObjectArrayList<>(generator.logs());
 			poses.addAll(generator.roots());
 			Util.shuffle(poses, random);
@@ -78,6 +78,6 @@ public class HeightBasedVineTreeDecorator extends TreeDecorator {
 					}
 				}
 			}
-        }
-    }
+		}
+	}
 }

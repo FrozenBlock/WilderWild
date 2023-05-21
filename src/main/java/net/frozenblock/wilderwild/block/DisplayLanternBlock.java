@@ -94,6 +94,10 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 		this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, false).setValue(WATERLOGGED, false).setValue(DISPLAY_LIGHT, 0));
 	}
 
+	private static Direction attachedDirection(@NotNull BlockState state) {
+		return state.getValue(HANGING) ? Direction.DOWN : Direction.UP;
+	}
+
 	@Override
 	@NotNull
 	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
@@ -202,10 +206,6 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 		return Block.canSupportCenter(level, pos.relative(direction), direction.getOpposite());
 	}
 
-	private static Direction attachedDirection(@NotNull BlockState state) {
-		return state.getValue(HANGING) ? Direction.DOWN : Direction.UP;
-	}
-
 	@Override
 	@NotNull
 	public RenderShape getRenderShape(@NotNull BlockState blockState) {
@@ -232,7 +232,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	@Override
 	public void onRemove(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
-			if (level.getBlockEntity(pos)  instanceof DisplayLanternBlockEntity lantern) {
+			if (level.getBlockEntity(pos) instanceof DisplayLanternBlockEntity lantern) {
 				for (ItemStack item : lantern.inventory) {
 					popResource(level, pos, item);
 				}

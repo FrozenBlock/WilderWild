@@ -50,97 +50,97 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class EchoGlassBlock extends TintedGlassBlock {
-    public static final IntegerProperty DAMAGE = RegisterProperties.DAMAGE;
+	public static final IntegerProperty DAMAGE = RegisterProperties.DAMAGE;
 
-    public EchoGlassBlock(@NotNull Properties settings) {
-        super(settings);
-        this.registerDefaultState(this.defaultBlockState().setValue(DAMAGE, 0));
-    }
+	public EchoGlassBlock(@NotNull Properties settings) {
+		super(settings);
+		this.registerDefaultState(this.defaultBlockState().setValue(DAMAGE, 0));
+	}
 
-	@Override
-    protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(DAMAGE);
-    }
-
-    @Override
-    public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-        int light = getLightLevel(level, pos);
-        if (light <= 7) {
-            if (random.nextBoolean()) {
-                heal(level, pos);
-            }
-        } else {
-            damage(level, pos);
-        }
-    }
-
-    public static void damage(@NotNull Level level, @NotNull BlockPos pos) {
-        BlockState state = level.getBlockState(pos);
-        WilderSharedConstants.log("Echo Glass Damaged @ " + pos, WilderSharedConstants.UNSTABLE_LOGGING);
-        if (state.getValue(DAMAGE) < 3) {
-            level.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) + 1));
-            level.playSound(null, pos, RegisterSounds.BLOCK_ECHO_GLASS_CRACK, SoundSource.BLOCKS, 0.5F, 0.9F + level.getRandom().nextFloat() * 0.2F);
+	public static void damage(@NotNull Level level, @NotNull BlockPos pos) {
+		BlockState state = level.getBlockState(pos);
+		WilderSharedConstants.log("Echo Glass Damaged @ " + pos, WilderSharedConstants.UNSTABLE_LOGGING);
+		if (state.getValue(DAMAGE) < 3) {
+			level.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) + 1));
+			level.playSound(null, pos, RegisterSounds.BLOCK_ECHO_GLASS_CRACK, SoundSource.BLOCKS, 0.5F, 0.9F + level.getRandom().nextFloat() * 0.2F);
 			if (level instanceof ServerLevel serverLevel) {
 				serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(18, 25), 0.3F, 0.3F, 0.3F, 0.05D);
 			}
-        } else {
-            level.destroyBlock(pos, false);
-        }
-    }
+		} else {
+			level.destroyBlock(pos, false);
+		}
+	}
 
-    public static void heal(@NotNull Level level, @NotNull BlockPos pos) {
-        BlockState state = level.getBlockState(pos);
-        if (state.getValue(DAMAGE) > 0) {
-            WilderSharedConstants.log("Echo Glass Healed @ " + pos, WilderSharedConstants.UNSTABLE_LOGGING);
-            level.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) - 1));
-            level.playSound(
-                    null,
-                    pos,
-                    RegisterSounds.BLOCK_ECHO_GLASS_REPAIR,
-                    SoundSource.BLOCKS,
-                    1.0F,
-                    level.random.nextFloat() * 0.1F + 0.9F
-            );
-        }
-    }
+	public static void heal(@NotNull Level level, @NotNull BlockPos pos) {
+		BlockState state = level.getBlockState(pos);
+		if (state.getValue(DAMAGE) > 0) {
+			WilderSharedConstants.log("Echo Glass Healed @ " + pos, WilderSharedConstants.UNSTABLE_LOGGING);
+			level.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) - 1));
+			level.playSound(
+				null,
+				pos,
+				RegisterSounds.BLOCK_ECHO_GLASS_REPAIR,
+				SoundSource.BLOCKS,
+				1.0F,
+				level.random.nextFloat() * 0.1F + 0.9F
+			);
+		}
+	}
 
-    public static int getLightLevel(@NotNull Level level, @NotNull BlockPos blockPos) {
+	public static int getLightLevel(@NotNull Level level, @NotNull BlockPos blockPos) {
 		BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
-        int finalLight = 0;
-        for (Direction direction : Direction.values()) {
+		int finalLight = 0;
+		for (Direction direction : Direction.values()) {
 			mutableBlockPos.move(direction);
 			int newLight = !level.isRaining() ? level.getMaxLocalRawBrightness(mutableBlockPos) : level.getBrightness(LightLayer.BLOCK, mutableBlockPos);
-            finalLight = Math.max(finalLight, newLight);
+			finalLight = Math.max(finalLight, newLight);
 			mutableBlockPos.move(direction, -1);
-        }
-        return finalLight;
-    }
+		}
+		return finalLight;
+	}
 
 	@Override
-    public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
-        if (state.getValue(DAMAGE) < 3 && EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, player.getMainHandItem()) < 1 && !player.isCreative()) {
-            level.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) + 1));
-			player.causeFoodExhaustion(0.005F);
-        } else {
-            super.playerDestroy(level, player, pos, state, blockEntity, stack);
-            level.playSound(
-                    null,
-                    pos,
-                    SoundEvents.GLASS_BREAK,
-                    SoundSource.BLOCKS,
-                    0.9F,
-                    level.random.nextFloat() * 0.1F + 0.8F
-            );
-        }
-    }
+	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
+		builder.add(DAMAGE);
+	}
 
-    @Override
-    public void onProjectileHit(@NotNull Level level, @NotNull BlockState state, @NotNull BlockHitResult hit, @NotNull Projectile projectile) {
-        if (projectile instanceof AncientHornProjectile) {
-            damage(level, hit.getBlockPos());
-        }
-        super.onProjectileHit(level, state, hit, projectile);
-    }
+	@Override
+	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+		int light = getLightLevel(level, pos);
+		if (light <= 7) {
+			if (random.nextBoolean()) {
+				heal(level, pos);
+			}
+		} else {
+			damage(level, pos);
+		}
+	}
+
+	@Override
+	public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
+		if (state.getValue(DAMAGE) < 3 && EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, player.getMainHandItem()) < 1 && !player.isCreative()) {
+			level.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) + 1));
+			player.causeFoodExhaustion(0.005F);
+		} else {
+			super.playerDestroy(level, player, pos, state, blockEntity, stack);
+			level.playSound(
+				null,
+				pos,
+				SoundEvents.GLASS_BREAK,
+				SoundSource.BLOCKS,
+				0.9F,
+				level.random.nextFloat() * 0.1F + 0.8F
+			);
+		}
+	}
+
+	@Override
+	public void onProjectileHit(@NotNull Level level, @NotNull BlockState state, @NotNull BlockHitResult hit, @NotNull Projectile projectile) {
+		if (projectile instanceof AncientHornProjectile) {
+			damage(level, hit.getBlockPos());
+		}
+		super.onProjectileHit(level, state, hit, projectile);
+	}
 
 	@Override
 	@NotNull

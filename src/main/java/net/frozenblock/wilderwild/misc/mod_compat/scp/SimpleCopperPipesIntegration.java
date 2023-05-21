@@ -55,11 +55,11 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 
 public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesIntegration {
-    public SimpleCopperPipesIntegration() {
-        super();
-    }
-
 	public static final ResourceLocation HORN = WilderSharedConstants.id("ancient_horn");
+
+	public SimpleCopperPipesIntegration() {
+		super();
+	}
 
 	@Override
 	public void init() {
@@ -228,8 +228,8 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 		});
 
 		PipeMovementRestrictions.register(WilderSharedConstants.id("stone_chest"),
-				((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false),
-				((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false));
+			((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false),
+			((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false));
 
 	}
 

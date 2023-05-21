@@ -29,11 +29,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ExperienceOrb.class)
 public class ExperienceOrbMixin {
 
-    @Inject(at = @At("RETURN"), method = "repairPlayerItems", cancellable = true)
-    private void wilderWild$repairAncientHorn(Player player, int amount, CallbackInfoReturnable<Integer> info) {
-        if (AncientHorn.decreaseCooldown(player, amount * 5) != -1) {
-            info.setReturnValue(0);
-        }
-    }
+	@Inject(at = @At("RETURN"), method = "repairPlayerItems", cancellable = true)
+	private void wilderWild$repairAncientHorn(Player player, int amount, CallbackInfoReturnable<Integer> info) {
+		if (AncientHorn.decreaseCooldown(player, amount * 5) != -1) {
+			info.setReturnValue(0);
+		}
+	}
 
 }

@@ -35,54 +35,54 @@ import org.jetbrains.annotations.Nullable;
 
 public class WardenPathEvaluator extends WalkNodeEvaluator {
 	private final boolean prefersShallowSwimming;
-    private float oldWalkableCost;
-    private float oldWaterBorderPenalty;
+	private float oldWalkableCost;
+	private float oldWaterBorderPenalty;
 
 	public WardenPathEvaluator(boolean prefersShallowSwimming) {
 		this.prefersShallowSwimming = prefersShallowSwimming;
-    }
+	}
 
-    @Override
-    public void prepare(@NotNull PathNavigationRegion level, @NotNull Mob mob) {
-        super.prepare(level, mob);
-        mob.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-        this.oldWalkableCost = mob.getPathfindingMalus(BlockPathTypes.WALKABLE);
-        mob.setPathfindingMalus(BlockPathTypes.WALKABLE, 0.0F);
-        this.oldWaterBorderPenalty = mob.getPathfindingMalus(BlockPathTypes.WATER_BORDER);
-        mob.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 4.0F);
-    }
+	@Override
+	public void prepare(@NotNull PathNavigationRegion level, @NotNull Mob mob) {
+		super.prepare(level, mob);
+		mob.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+		this.oldWalkableCost = mob.getPathfindingMalus(BlockPathTypes.WALKABLE);
+		mob.setPathfindingMalus(BlockPathTypes.WALKABLE, 0.0F);
+		this.oldWaterBorderPenalty = mob.getPathfindingMalus(BlockPathTypes.WATER_BORDER);
+		mob.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 4.0F);
+	}
 
-    @Override
-    public void done() {
-        this.mob.setPathfindingMalus(BlockPathTypes.WALKABLE, this.oldWalkableCost);
-        this.mob.setPathfindingMalus(BlockPathTypes.WATER_BORDER, this.oldWaterBorderPenalty);
-        super.done();
-    }
+	@Override
+	public void done() {
+		this.mob.setPathfindingMalus(BlockPathTypes.WALKABLE, this.oldWalkableCost);
+		this.mob.setPathfindingMalus(BlockPathTypes.WATER_BORDER, this.oldWaterBorderPenalty);
+		super.done();
+	}
 
-    @Override
+	@Override
 	@NotNull
-    public Node getStart() {
+	public Node getStart() {
 		return !this.isEntityTouchingWaterOrLava(this.mob)
-				? super.getStart()
-				: this.getStartNode(
-						new BlockPos(
-								Mth.floor(this.mob.getBoundingBox().minX),
-								Mth.floor(this.mob.getBoundingBox().minY + 0.5),
-								Mth.floor(this.mob.getBoundingBox().minZ)
-						)
+			? super.getStart()
+			: this.getStartNode(
+			new BlockPos(
+				Mth.floor(this.mob.getBoundingBox().minX),
+				Mth.floor(this.mob.getBoundingBox().minY + 0.5),
+				Mth.floor(this.mob.getBoundingBox().minZ)
+			)
 		);
-    }
+	}
 
 	@Override
 	@NotNull
 	public Target getGoal(double x, double y, double z) {
 		return !this.isEntitySubmergedInWaterOrLava(this.mob)
-				? super.getGoal(x, y, z)
-				: this.getTargetFromNode(this.getNode(Mth.floor(x), Mth.floor(y + 0.5), Mth.floor(z)));
+			? super.getGoal(x, y, z)
+			: this.getTargetFromNode(this.getNode(Mth.floor(x), Mth.floor(y + 0.5), Mth.floor(z)));
 	}
 
-    @Override
-    public int getNeighbors(Node @NotNull [] successors, @NotNull Node node) {
+	@Override
+	public int getNeighbors(Node @NotNull [] successors, @NotNull Node node) {
 		if (!isEntitySubmergedInWaterOrLava(this.mob)) {
 			return super.getNeighbors(successors, node);
 		} else {
@@ -107,7 +107,7 @@ public class WardenPathEvaluator extends WalkNodeEvaluator {
 				successors[i++] = node3;
 			}
 
-			for(int k = 0; k < i; ++k) {
+			for (int k = 0; k < i; ++k) {
 				Node node4 = successors[k];
 				if (node4.type == BlockPathTypes.WATER && this.prefersShallowSwimming && node4.y < this.mob.level().getSeaLevel() - 10) {
 					++node4.costMalus;
@@ -116,46 +116,46 @@ public class WardenPathEvaluator extends WalkNodeEvaluator {
 
 			return i;
 		}
-    }
+	}
 
-    private boolean isVerticalNeighborValid(@Nullable Node node, @NotNull Node successor) {
-        return this.isNeighborValid(node, successor) && (node != null && node.type == BlockPathTypes.WATER);
-    }
+	private boolean isVerticalNeighborValid(@Nullable Node node, @NotNull Node successor) {
+		return this.isNeighborValid(node, successor) && (node != null && node.type == BlockPathTypes.WATER);
+	}
 
-    @Override
-    protected boolean isAmphibious() {
-        return true;
-    }
+	@Override
+	protected boolean isAmphibious() {
+		return true;
+	}
 
-    @Override
+	@Override
 	@NotNull
-    public BlockPathTypes getBlockPathType(@NotNull BlockGetter level, int x, int y, int z) {
-        BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-        BlockPathTypes pathNodeType = getBlockPathTypeRaw(level, mutable.set(x, y, z));
-        if (pathNodeType == BlockPathTypes.WATER || pathNodeType == BlockPathTypes.LAVA) {
-            for (Direction direction : Direction.values()) {
-                BlockPathTypes pathNodeType2 = getBlockPathTypeRaw(level, mutable.set(x, y, z).move(direction));
-                if (pathNodeType2 == BlockPathTypes.BLOCKED) {
-                    return BlockPathTypes.WATER_BORDER;
-                }
-            }
+	public BlockPathTypes getBlockPathType(@NotNull BlockGetter level, int x, int y, int z) {
+		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+		BlockPathTypes pathNodeType = getBlockPathTypeRaw(level, mutable.set(x, y, z));
+		if (pathNodeType == BlockPathTypes.WATER || pathNodeType == BlockPathTypes.LAVA) {
+			for (Direction direction : Direction.values()) {
+				BlockPathTypes pathNodeType2 = getBlockPathTypeRaw(level, mutable.set(x, y, z).move(direction));
+				if (pathNodeType2 == BlockPathTypes.BLOCKED) {
+					return BlockPathTypes.WATER_BORDER;
+				}
+			}
 
-            if (pathNodeType == BlockPathTypes.WATER) {
-                return BlockPathTypes.WATER;
-            } else {
-                return BlockPathTypes.LAVA;
-            }
-        } else {
-            return getBlockPathTypeStatic(level, mutable);
-        }
-    }
+			if (pathNodeType == BlockPathTypes.WATER) {
+				return BlockPathTypes.WATER;
+			} else {
+				return BlockPathTypes.LAVA;
+			}
+		} else {
+			return getBlockPathTypeStatic(level, mutable);
+		}
+	}
 
-    private boolean isEntityTouchingWaterOrLava(@NotNull Entity entity) {
-        return entity.isInWaterOrBubble() || entity.isInLava() || entity.isVisuallySwimming();
-    }
+	private boolean isEntityTouchingWaterOrLava(@NotNull Entity entity) {
+		return entity.isInWaterOrBubble() || entity.isInLava() || entity.isVisuallySwimming();
+	}
 
-    private boolean isEntitySubmergedInWaterOrLava(@NotNull Entity entity) {
-        return entity.isEyeInFluid(FluidTags.WATER) || entity.isEyeInFluid(FluidTags.LAVA) || entity.isVisuallySwimming();
-    }
+	private boolean isEntitySubmergedInWaterOrLava(@NotNull Entity entity) {
+		return entity.isEyeInFluid(FluidTags.WATER) || entity.isEyeInFluid(FluidTags.LAVA) || entity.isVisuallySwimming();
+	}
 }
 

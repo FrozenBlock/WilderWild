@@ -38,27 +38,27 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class StellaWardenModel<T extends Warden> implements WilderWardenModel {
 
 	@Final
-    @Shadow
-    protected ModelPart head;
+	@Shadow
+	protected ModelPart head;
 
-    @Final
-    @Shadow
-    protected ModelPart rightTendril;
+	@Final
+	@Shadow
+	protected ModelPart rightTendril;
 
-    @Final
-    @Shadow
-    protected ModelPart leftTendril;
+	@Final
+	@Shadow
+	protected ModelPart leftTendril;
 
 	@Unique
-    private List<ModelPart> wilderWild$headAndTendrils;
+	private List<ModelPart> wilderWild$headAndTendrils;
 
-    @Inject(method = "<init>", at = @At("TAIL"))
-    private void wilderWild$setHeadAndTendrils(ModelPart root, CallbackInfo info) {
-        this.wilderWild$headAndTendrils = List.of(this.head, this.leftTendril, this.rightTendril);
-    }
+	@Inject(method = "<init>", at = @At("TAIL"))
+	private void wilderWild$setHeadAndTendrils(ModelPart root, CallbackInfo info) {
+		this.wilderWild$headAndTendrils = List.of(this.head, this.leftTendril, this.rightTendril);
+	}
 
-    @Override
-    public List<ModelPart> wilderWild$getHeadAndTendrils() {
-        return this.wilderWild$headAndTendrils;
-    }
+	@Override
+	public List<ModelPart> wilderWild$getHeadAndTendrils() {
+		return this.wilderWild$headAndTendrils;
+	}
 }

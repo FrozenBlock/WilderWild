@@ -23,8 +23,8 @@ import net.minecraft.client.gui.screens.Screen;
 
 public final class ClientOnlyConfigInteractionHandler {
 
-    public static ConfigScreenFactory<Screen> buildScreen() {
-        return WilderWildConfig::buildScreen;
-    }
+	public static ConfigScreenFactory<Screen> buildScreen() {
+		return WilderWildConfig::buildScreen;
+	}
 
 }

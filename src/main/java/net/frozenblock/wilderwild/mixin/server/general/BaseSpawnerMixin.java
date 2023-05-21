@@ -33,14 +33,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(BaseSpawner.class)
 public class BaseSpawnerMixin {
 
-    @Shadow @Nullable private Entity displayEntity;
+	@Shadow
+	@Nullable
+	private Entity displayEntity;
 
-    @Inject(at = @At("HEAD"), method = "clientTick")
-    public void wilderWild$clientTick(Level level, BlockPos blockPos, CallbackInfo info) {
-        if (this.displayEntity instanceof Firefly firefly) {
-            firefly.setScale(2F);
+	@Inject(at = @At("HEAD"), method = "clientTick")
+	public void wilderWild$clientTick(Level level, BlockPos blockPos, CallbackInfo info) {
+		if (this.displayEntity instanceof Firefly firefly) {
+			firefly.setScale(2F);
 			firefly.setPrevScale(2F);
-        }
-    }
+		}
+	}
 
 }

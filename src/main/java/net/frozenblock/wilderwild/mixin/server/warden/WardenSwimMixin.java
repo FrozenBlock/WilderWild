@@ -51,19 +51,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(value = Warden.class, priority = 1001)
 public abstract class WardenSwimMixin extends Monster implements SwimmingWardenInterface {
 
-	private WardenSwimMixin(EntityType<? extends Monster> entityType, Level level) {
-		super(entityType, level);
-	}
-
-	@Shadow
-	public abstract boolean isDiggingOrEmerging();
-
 	@Unique
 	private float wilderWild$leaningPitch;
 	@Unique
 	private float wilderWild$lastLeaningPitch;
 	@Unique
 	private boolean wilderWild$pogSwimming;
+	private WardenSwimMixin(EntityType<? extends Monster> entityType, Level level) {
+		super(entityType, level);
+	}
+
+	@Shadow
+	public abstract boolean isDiggingOrEmerging();
 
 	@Inject(method = "tick", at = @At("TAIL"))
 	private void wilderWild$tick(CallbackInfo ci) {

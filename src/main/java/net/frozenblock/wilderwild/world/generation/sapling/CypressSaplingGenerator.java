@@ -36,8 +36,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class CypressSaplingGenerator extends AbstractTreeGrower {
 
-    public CypressSaplingGenerator() {
-    }
+	public CypressSaplingGenerator() {
+	}
 
 	@Override
 	@Nullable
@@ -54,9 +54,9 @@ public class CypressSaplingGenerator extends AbstractTreeGrower {
 				return WilderTreeConfigured.JUNIPER.getKey();
 			}
 		}
-        if (random.nextFloat() > 0.4F) {
-            return random.nextFloat() > 0.7F ? WilderTreeConfigured.CYPRESS.getKey() : WilderTreeConfigured.FUNGUS_CYPRESS.getKey();
-        }
-        return WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES_SAPLING.getKey();
-    }
+		if (random.nextFloat() > 0.4F) {
+			return random.nextFloat() > 0.7F ? WilderTreeConfigured.CYPRESS.getKey() : WilderTreeConfigured.FUNGUS_CYPRESS.getKey();
+		}
+		return WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES_SAPLING.getKey();
+	}
 }

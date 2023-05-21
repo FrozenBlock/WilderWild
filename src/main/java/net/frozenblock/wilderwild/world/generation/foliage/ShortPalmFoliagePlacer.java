@@ -34,20 +34,20 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class ShortPalmFoliagePlacer extends FoliagePlacer {
-    public static final Codec<ShortPalmFoliagePlacer> CODEC = RecordCodecBuilder.create((instance) -> foliagePlacerParts(instance).apply(instance, ShortPalmFoliagePlacer::new));
+	public static final Codec<ShortPalmFoliagePlacer> CODEC = RecordCodecBuilder.create((instance) -> foliagePlacerParts(instance).apply(instance, ShortPalmFoliagePlacer::new));
 
-    public ShortPalmFoliagePlacer(IntProvider intProvider, IntProvider intProvider2) {
-        super(intProvider, intProvider2);
-    }
+	public ShortPalmFoliagePlacer(IntProvider intProvider, IntProvider intProvider2) {
+		super(intProvider, intProvider2);
+	}
 
 	@Override
 	@NotNull
-    protected FoliagePlacerType<?> type() {
-        return RegisterFeatures.SHORT_PALM_FOLIAGE_PLACER;
-    }
+	protected FoliagePlacerType<?> type() {
+		return RegisterFeatures.SHORT_PALM_FOLIAGE_PLACER;
+	}
 
 	@Override
-    protected void createFoliage(@NotNull LevelSimulatedReader level, @NotNull FoliageSetter blockSetter, @NotNull RandomSource random, @NotNull TreeConfiguration config, int i, @NotNull FoliageAttachment foliageAttachment, int j, int k, int l) {
+	protected void createFoliage(@NotNull LevelSimulatedReader level, @NotNull FoliageSetter blockSetter, @NotNull RandomSource random, @NotNull TreeConfiguration config, int i, @NotNull FoliageAttachment foliageAttachment, int j, int k, int l) {
 		BlockPos blockPos = foliageAttachment.pos().above(l);
 		blockSetter.set(blockPos.below(), RegisterBlocks.PALM_CROWN.defaultBlockState());
 		Vec3 origin = new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ());
@@ -66,19 +66,19 @@ public class ShortPalmFoliagePlacer extends FoliagePlacer {
 			}
 			angle += rotAngle;
 		}
-    }
+	}
 
 	@Override
-    public int foliageHeight(@NotNull RandomSource randomSource, int i, @NotNull TreeConfiguration treeConfiguration) {
-        return 0;
-    }
+	public int foliageHeight(@NotNull RandomSource randomSource, int i, @NotNull TreeConfiguration treeConfiguration) {
+		return 0;
+	}
 
 	@Override
-    protected boolean shouldSkipLocation(@NotNull RandomSource randomSource, int i, int j, int k, int l, boolean bl) {
-        if (j == 0) {
-            return (i > 1 || k > 1) && i != 0 && k != 0;
-        } else {
-            return i == l && k == l && l > 0;
-        }
-    }
+	protected boolean shouldSkipLocation(@NotNull RandomSource randomSource, int i, int j, int k, int l, boolean bl) {
+		if (j == 0) {
+			return (i > 1 || k > 1) && i != 0 && k != 0;
+		} else {
+			return i == l && k == l && l > 0;
+		}
+	}
 }

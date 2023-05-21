@@ -44,34 +44,34 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Goat.class)
 public class GoatMixin {
 
-    @Shadow
-    @Final
-    private static EntityDataAccessor<Boolean> DATA_IS_SCREAMING_GOAT;
+	@Shadow
+	@Final
+	private static EntityDataAccessor<Boolean> DATA_IS_SCREAMING_GOAT;
 
-    @Unique
-    private boolean wilderWild$isTreetrain1() {
-        Goat goat = Goat.class.cast(this);
-        String string = ChatFormatting.stripFormatting(goat.getName().getString());
-        return Objects.equals(string, "Treetrain1");
-    }
+	@Unique
+	private boolean wilderWild$isTreetrain1() {
+		Goat goat = Goat.class.cast(this);
+		String string = ChatFormatting.stripFormatting(goat.getName().getString());
+		return Objects.equals(string, "Treetrain1");
+	}
 
-    @Inject(method = "isScreamingGoat", at = @At("RETURN"), cancellable = true)
-    private void wilderWild$isScreamingGoat(CallbackInfoReturnable<Boolean> info) {
-        if (this.wilderWild$isTreetrain1()) {
-            info.setReturnValue(true);
-        }
-    }
+	@Inject(method = "isScreamingGoat", at = @At("RETURN"), cancellable = true)
+	private void wilderWild$isScreamingGoat(CallbackInfoReturnable<Boolean> info) {
+		if (this.wilderWild$isTreetrain1()) {
+			info.setReturnValue(true);
+		}
+	}
 
-    @Inject(method = "createHorn", at = @At("RETURN"), cancellable = true)
-    public void wilderWild$createHorn(CallbackInfoReturnable<ItemStack> info) {
-        if (this.wilderWild$isTreetrain1()) {
-            Goat goat = Goat.class.cast(this);
-            RandomSource random = RandomSource.create(goat.getUUID().hashCode());
-            TagKey<Instrument> tagKey = goat.getEntityData().get(DATA_IS_SCREAMING_GOAT) ? InstrumentTags.SCREAMING_GOAT_HORNS : InstrumentTags.REGULAR_GOAT_HORNS;
-            HolderSet<Instrument> registryEntryList = BuiltInRegistries.INSTRUMENT.getOrCreateTag(tagKey);
+	@Inject(method = "createHorn", at = @At("RETURN"), cancellable = true)
+	public void wilderWild$createHorn(CallbackInfoReturnable<ItemStack> info) {
+		if (this.wilderWild$isTreetrain1()) {
+			Goat goat = Goat.class.cast(this);
+			RandomSource random = RandomSource.create(goat.getUUID().hashCode());
+			TagKey<Instrument> tagKey = goat.getEntityData().get(DATA_IS_SCREAMING_GOAT) ? InstrumentTags.SCREAMING_GOAT_HORNS : InstrumentTags.REGULAR_GOAT_HORNS;
+			HolderSet<Instrument> registryEntryList = BuiltInRegistries.INSTRUMENT.getOrCreateTag(tagKey);
 			Optional<Holder<Instrument>> optionalInstrumentHolder = registryEntryList.getRandomElement(random);
 			optionalInstrumentHolder.ifPresent(instrumentHolder -> info.setReturnValue(InstrumentItem.create(Items.GOAT_HORN, instrumentHolder)));
-        }
-    }
+		}
+	}
 
 }

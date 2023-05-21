@@ -32,19 +32,14 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class FloatingSculkBubbleParticleOptions implements ParticleOptions {
-	private final double size;
-	private final int maxAge;
-	private final Vec3 velocity;
-
 	public static final Codec<FloatingSculkBubbleParticleOptions> CODEC = RecordCodecBuilder.create((instance) ->
-			instance.group(
-					Codec.DOUBLE.fieldOf("size").forGetter((particleOptions) -> particleOptions.size),
-							Codec.INT.fieldOf("maxAge").forGetter((particleOptions) -> particleOptions.maxAge),
-							Vec3.CODEC.fieldOf("velocity").forGetter((particleOptions) -> particleOptions.velocity)
+		instance.group(
+				Codec.DOUBLE.fieldOf("size").forGetter((particleOptions) -> particleOptions.size),
+				Codec.INT.fieldOf("maxAge").forGetter((particleOptions) -> particleOptions.maxAge),
+				Vec3.CODEC.fieldOf("velocity").forGetter((particleOptions) -> particleOptions.velocity)
 			)
 			.apply(instance, FloatingSculkBubbleParticleOptions::new)
 	);
-
 	public static final ParticleOptions.Deserializer<FloatingSculkBubbleParticleOptions> DESERIALIZER = new ParticleOptions.Deserializer<>() {
 
 		@Override
@@ -63,6 +58,9 @@ public class FloatingSculkBubbleParticleOptions implements ParticleOptions {
 			return new FloatingSculkBubbleParticleOptions(friendlyByteBuf.readDouble(), friendlyByteBuf.readInt(), FloatingSculkBubbleParticleOptions.readVelocity(friendlyByteBuf));
 		}
 	};
+	private final double size;
+	private final int maxAge;
+	private final Vec3 velocity;
 
 	public FloatingSculkBubbleParticleOptions(double size, int maxAge, Vec3 velocity) {
 		this.size = size;

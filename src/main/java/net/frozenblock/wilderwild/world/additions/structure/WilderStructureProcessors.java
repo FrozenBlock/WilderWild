@@ -28,8 +28,8 @@ public class WilderStructureProcessors {
 
 	public static final ResourceKey<StructureProcessorList> ABANDONED_CABIN = createKey("abandoned_cabin");
 
-    public static void init() {
-    }
+	public static void init() {
+	}
 
 	@NotNull
 	private static ResourceKey<StructureProcessorList> createKey(@NotNull String string) {

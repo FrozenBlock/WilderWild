@@ -34,18 +34,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(CherryParticle.class)
 public abstract class CherryParticleMixin extends TextureSheetParticle {
 
+	@Unique
+	private double wilderWild$movementWithWindX;
+	@Unique
+	private double wilderWild$movementWithWindY;
+	@Unique
+	private double wilderWild$movementWithWindZ;
+
 	protected CherryParticleMixin(ClientLevel clientLevel, double d, double e, double f) {
 		super(clientLevel, d, e, f);
 	}
-
-	@Unique
-	private double wilderWild$movementWithWindX;
-
-	@Unique
-	private double wilderWild$movementWithWindY;
-
-	@Unique
-	private double wilderWild$movementWithWindZ;
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void wilderWild$tick(CallbackInfo info) {

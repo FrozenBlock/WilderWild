@@ -39,22 +39,22 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(InstrumentItem.class)
 public final class InstrumentItemMixin {
 
-    @Inject(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemCooldowns;addCooldown(Lnet/minecraft/world/item/Item;I)V", shift = At.Shift.AFTER))
-    private void wilderWild$removeCooldown(Level level, Player player, InteractionHand interactionHand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> info) {
-        if (WilderSharedConstants.config().restrictInstrumentSound()) {
-            player.getCooldowns().removeCooldown(InstrumentItem.class.cast(this));
-        }
-    }
+	@WrapOperation(method = "play", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playSound(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V"))
+	private static void wilderWild$playRestrictionSound(Level level, Player player, Entity entity, SoundEvent soundEvent, SoundSource soundSource, float volume, float pitch, Operation<Void> original) {
+		if (WilderSharedConstants.config().restrictInstrumentSound()) {
+			if (!level.isClientSide) {
+				FrozenSoundPackets.createMovingRestrictionSound(level, player, soundEvent, soundSource, volume, pitch, WilderSharedConstants.id("instrument"), true);
+			}
+		} else {
+			original.call(level, player, entity, soundEvent, soundSource, volume, pitch);
+		}
+	}
 
-    @WrapOperation(method = "play", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playSound(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V"))
-    private static void wilderWild$playRestrictionSound(Level level, Player player, Entity entity, SoundEvent soundEvent, SoundSource soundSource, float volume, float pitch, Operation<Void> original) {
-        if (WilderSharedConstants.config().restrictInstrumentSound()) {
-            if (!level.isClientSide) {
-                FrozenSoundPackets.createMovingRestrictionSound(level, player, soundEvent, soundSource, volume, pitch, WilderSharedConstants.id("instrument"), true);
-            }
-        } else {
-            original.call(level, player, entity, soundEvent, soundSource, volume, pitch);
-        }
-    }
+	@Inject(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemCooldowns;addCooldown(Lnet/minecraft/world/item/Item;I)V", shift = At.Shift.AFTER))
+	private void wilderWild$removeCooldown(Level level, Player player, InteractionHand interactionHand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> info) {
+		if (WilderSharedConstants.config().restrictInstrumentSound()) {
+			player.getCooldowns().removeCooldown(InstrumentItem.class.cast(this));
+		}
+	}
 
 }

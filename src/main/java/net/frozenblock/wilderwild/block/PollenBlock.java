@@ -29,12 +29,12 @@ import org.jetbrains.annotations.NotNull;
 
 public class PollenBlock extends FlowerLichenBlock {
 
-    public PollenBlock(@NotNull Properties settings) {
-        super(settings);
-    }
+	public PollenBlock(@NotNull Properties settings) {
+		super(settings);
+	}
 
-    @Override
-    public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	@Override
+	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if (WilderSharedConstants.config().pollenParticles()) {
 			int i = pos.getX();
 			int j = pos.getY();
@@ -48,5 +48,5 @@ public class PollenBlock extends FlowerLichenBlock {
 				}
 			}
 		}
-    }
+	}
 }

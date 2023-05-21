@@ -20,6 +20,8 @@ package net.frozenblock.wilderwild.misc.config.defaultconfig;
 
 public class DefaultEntityConfig {
 
+	public static final boolean UNPASSABLE_RAIL = false;
+
 	public static class AllayConfig {
 		public static final boolean KEYFRAME_ALLAY_DANCE = true;
 	}
@@ -51,6 +53,4 @@ public class DefaultEntityConfig {
 		public static final boolean WARDEN_EMERGES_FROM_EGG = false;
 		public static final boolean WARDEN_SWIM_ANIMATION = true;
 	}
-
-	public static final boolean UNPASSABLE_RAIL = false;
 }

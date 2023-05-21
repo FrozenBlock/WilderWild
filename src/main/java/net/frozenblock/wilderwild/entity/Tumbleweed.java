@@ -83,14 +83,19 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
+	private static final double windMultiplier = 1.4;
+	private static final double windClamp = 0.2;
+	private static final float rotationAmount = 55F;
+	private static final EntityDataAccessor<ItemStack> ITEM_STACK = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.ITEM_STACK);
+	private static final EntityDataAccessor<Float> ITEM_X = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Float> ITEM_Z = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.FLOAT);
+	private static final float maxItemOffset = 0.25F;
 	public NonNullList<ItemStack> inventory;
-
 	public boolean spawnedFromShears;
 	public int ticksSinceActive;
 	public boolean isItemNatural;
 	public boolean isTouchingStickingBlock;
 	public boolean isTouchingStoppingBlock;
-
 	public float prevPitch;
 	public float prevRoll;
 	public float pitch;
@@ -98,18 +103,19 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	public float itemX;
 	public float itemZ;
 
-	private static final double windMultiplier = 1.4;
-	private static final double windClamp = 0.2;
-	private static final float rotationAmount = 55F;
-
-	private static final EntityDataAccessor<ItemStack> ITEM_STACK = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.ITEM_STACK);
-	private static final EntityDataAccessor<Float> ITEM_X = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.FLOAT);
-	private static final EntityDataAccessor<Float> ITEM_Z = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.FLOAT);
-
-    public Tumbleweed(@NotNull EntityType<Tumbleweed> entityType, @NotNull Level level) {
+	public Tumbleweed(@NotNull EntityType<Tumbleweed> entityType, @NotNull Level level) {
 		super(entityType, level);
 		this.blocksBuilding = true;
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
+	}
+
+	public static boolean canSpawn(EntityType<Tumbleweed> type, @NotNull ServerLevelAccessor level, @NotNull MobSpawnType reason, @NotNull BlockPos pos, @NotNull RandomSource random) {
+		return level.getBrightness(LightLayer.SKY, pos) > 7 && random.nextInt(0, 60) == 1 && pos.getY() > level.getSeaLevel();
+	}
+
+	@NotNull
+	public static AttributeSupplier.Builder addAttributes() {
+		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 1D);
 	}
 
 	@Nullable
@@ -117,7 +123,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
 		if (this.inventory.get(0).isEmpty() && reason == MobSpawnType.NATURAL) {
 			int diff = difficulty.getDifficulty().getId();
-			if (level.getRandom().nextInt(0,  diff == 0 ? 32 : (27 / diff)) == 0) {
+			if (level.getRandom().nextInt(0, diff == 0 ? 32 : (27 / diff)) == 0) {
 				int tagSelector = level.getRandom().nextInt(1, 6);
 				TagKey<Item> itemTag = tagSelector <= 1 ? WilderItemTags.TUMBLEWEED_RARE : tagSelector <= 3 ? WilderItemTags.TUMBLEWEED_MEDIUM : WilderItemTags.TUMBLEWEED_COMMON;
 				ItemLike itemLike = TagUtils.getRandomEntry(level.getRandom(), itemTag);
@@ -129,15 +135,6 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 			}
 		}
 		return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
-	}
-
-	public static boolean canSpawn(EntityType<Tumbleweed> type, @NotNull ServerLevelAccessor level, @NotNull MobSpawnType reason, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		return level.getBrightness(LightLayer.SKY, pos) > 7 && random.nextInt(0, 60) == 1 && pos.getY() > level.getSeaLevel();
-	}
-
-	@NotNull
-	public static AttributeSupplier.Builder addAttributes() {
-		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 1D);
 	}
 
 	@Override
@@ -260,9 +257,9 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 			if (f > 10.0f) {
 				this.dropLeash(true, true);
 			} else if (f > 6.0f) {
-				double d = (entity.getX() - this.getX()) / (double)f;
-				double e = (entity.getY() - this.getY()) / (double)f;
-				double g = (entity.getZ() - this.getZ()) / (double)f;
+				double d = (entity.getX() - this.getX()) / (double) f;
+				double e = (entity.getY() - this.getY()) / (double) f;
+				double g = (entity.getZ() - this.getZ()) / (double) f;
 				this.setDeltaMovement(this.getDeltaMovement().add(Math.copySign(d * d * 0.4, d), Math.copySign(e * e * 0.4, e), Math.copySign(g * g * 0.4, g)));
 			}
 		}
@@ -387,17 +384,17 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	@NotNull
 	public Packet<ClientGamePacketListener> getAddEntityPacket() {
 		return new ClientboundAddEntityPacket(
-				this.getId(),
-				this.getUUID(),
-				this.getX(),
-				this.getY(),
-				this.getZ(),
-				this.pitch,
-				this.roll,
-				this.getType(),
-				0,
-				this.getDeltaMovement(),
-				this.yHeadRot
+			this.getId(),
+			this.getUUID(),
+			this.getX(),
+			this.getY(),
+			this.getZ(),
+			this.pitch,
+			this.roll,
+			this.getType(),
+			0,
+			this.getDeltaMovement(),
+			this.yHeadRot
 		);
 	}
 
@@ -487,34 +484,33 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		return !this.spawnedFromShears;
 	}
 
-	public void setVisibleItem(ItemStack itemStack) {
-		this.getEntityData().set(ITEM_STACK, itemStack);
-	}
-
 	public ItemStack getVisibleItem() {
 		return this.entityData.get(ITEM_STACK);
 	}
 
-	private static final float maxItemOffset = 0.25F;
+	public void setVisibleItem(ItemStack itemStack) {
+		this.getEntityData().set(ITEM_STACK, itemStack);
+	}
+
 	public void randomizeItemOffsets() {
 		this.setItemX((this.random.nextFloat() * (this.random.nextBoolean() ? 1 : -1)) * maxItemOffset);
 		this.setItemZ((this.random.nextFloat() * (this.random.nextBoolean() ? 1 : -1)) * maxItemOffset);
-	}
-
-	public void setItemX(float f) {
-		this.getEntityData().set(ITEM_X, f);
 	}
 
 	public float getItemX() {
 		return this.entityData.get(ITEM_X);
 	}
 
-	public void setItemZ(float f) {
-		this.getEntityData().set(ITEM_Z, f);
+	public void setItemX(float f) {
+		this.getEntityData().set(ITEM_X, f);
 	}
 
 	public float getItemZ() {
 		return this.entityData.get(ITEM_Z);
+	}
+
+	public void setItemZ(float f) {
+		this.getEntityData().set(ITEM_Z, f);
 	}
 
 	@Override

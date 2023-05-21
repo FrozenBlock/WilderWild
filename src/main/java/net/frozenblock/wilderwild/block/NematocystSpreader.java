@@ -38,7 +38,7 @@ public class NematocystSpreader extends MultifaceSpreader {
 		if (face.getAxis() == spreadDirection.getAxis()) {
 			return Optional.empty();
 		} else if (this.config.isOtherBlockValidAsSource(state) || this.config.hasFace(state, spreadDirection) && !this.config.hasFace(state, face)) {
-			for(MultifaceSpreader.SpreadType spreadType : this.config.getSpreadTypes()) {
+			for (MultifaceSpreader.SpreadType spreadType : this.config.getSpreadTypes()) {
 				MultifaceSpreader.SpreadPos spreadPos = spreadType.getSpreadPos(pos, face, spreadDirection);
 				if (predicate.test(level, pos, spreadPos)) {
 					return Optional.of(spreadPos);

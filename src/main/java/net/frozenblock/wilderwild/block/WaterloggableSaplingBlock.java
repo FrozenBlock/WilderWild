@@ -41,23 +41,23 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWaterloggedBlock {
-    private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+	private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    public WaterloggableSaplingBlock(@NotNull AbstractTreeGrower generator, @NotNull Properties settings) {
-        super(generator, settings);
-        this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0).setValue(WATERLOGGED, false));
-    }
+	public WaterloggableSaplingBlock(@NotNull AbstractTreeGrower generator, @NotNull Properties settings) {
+		super(generator, settings);
+		this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0).setValue(WATERLOGGED, false));
+	}
 
 	@Override
-    protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, net.minecraft.world.level.block.state.BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, net.minecraft.world.level.block.state.BlockState> builder) {
 		super.createBlockStateDefinition(builder);
-        builder.add(WATERLOGGED);
-    }
+		builder.add(WATERLOGGED);
+	}
 
-    @Override
-    protected boolean mayPlaceOn(@NotNull BlockState floor, @NotNull BlockGetter level, @NotNull BlockPos pos) {
-        return super.mayPlaceOn(floor, level, pos) || floor.is(Blocks.CLAY) || floor.is(Blocks.MUD) || floor.is(Blocks.SAND);
-    }
+	@Override
+	protected boolean mayPlaceOn(@NotNull BlockState floor, @NotNull BlockGetter level, @NotNull BlockPos pos) {
+		return super.mayPlaceOn(floor, level, pos) || floor.is(Blocks.CLAY) || floor.is(Blocks.MUD) || floor.is(Blocks.SAND);
+	}
 
 	@Override
 	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
@@ -77,26 +77,25 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWat
 		return super.canSurvive(state, level, pos);
 	}
 
-    @Nullable
-    public BlockState getStateForPlacement(@NotNull BlockPlaceContext ctx) {
-        FluidState fluidState = ctx.getLevel().getFluidState(ctx.getClickedPos());
-        boolean bl = fluidState.getType() == Fluids.WATER;
-        return Objects.requireNonNull(super.getStateForPlacement(ctx)).setValue(WATERLOGGED, bl);
-    }
+	@Nullable
+	public BlockState getStateForPlacement(@NotNull BlockPlaceContext ctx) {
+		FluidState fluidState = ctx.getLevel().getFluidState(ctx.getClickedPos());
+		boolean bl = fluidState.getType() == Fluids.WATER;
+		return Objects.requireNonNull(super.getStateForPlacement(ctx)).setValue(WATERLOGGED, bl);
+	}
 
 	@Override
 	@NotNull
-    public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
-        if (state.getValue(WATERLOGGED)) {
-            level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
-        }
-
-        return direction == Direction.UP && !state.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
-    }
+	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
+		if (state.getValue(WATERLOGGED)) {
+			level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+		}
+		return direction == Direction.UP && !state.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
+	}
 
 	@Override
 	@NotNull
-    public FluidState getFluidState(@NotNull BlockState state) {
-        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
-    }
+	public FluidState getFluidState(@NotNull BlockState state) {
+		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+	}
 }

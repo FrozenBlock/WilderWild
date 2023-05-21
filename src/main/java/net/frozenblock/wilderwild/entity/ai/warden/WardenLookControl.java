@@ -34,6 +34,10 @@ public class WardenLookControl extends LookControl {
 		this.maxYRotFromCenter = maxYRotFromCenter;
 	}
 
+	private static boolean entityTouchingWaterOrLava(@NotNull Entity entity) {
+		return entity.isInWaterOrBubble() || entity.isInLava() || entity.isVisuallySwimming();
+	}
+
 	@Override
 	public void tick() {
 		if (!entityTouchingWaterOrLava(this.mob)) {
@@ -42,9 +46,9 @@ public class WardenLookControl extends LookControl {
 			if (this.lookAtCooldown > 0) {
 				--this.lookAtCooldown;
 				this.getYRotD().ifPresent((float_) ->
-						this.mob.yHeadRot = this.rotateTowards(this.mob.yHeadRot, float_ + 20.0F, this.yMaxRotSpeed));
+					this.mob.yHeadRot = this.rotateTowards(this.mob.yHeadRot, float_ + 20.0F, this.yMaxRotSpeed));
 				this.getXRotD().ifPresent((float_) ->
-						this.mob.setXRot(this.rotateTowards(this.mob.getXRot(), float_ + 10.0F, this.xMaxRotAngle)));
+					this.mob.setXRot(this.rotateTowards(this.mob.getXRot(), float_ + 10.0F, this.xMaxRotAngle)));
 			} else {
 				if (this.mob.getNavigation().isDone()) {
 					this.mob.setXRot(this.rotateTowards(this.mob.getXRot(), 0.0F, 5.0F));
@@ -63,9 +67,5 @@ public class WardenLookControl extends LookControl {
 				var10000.yBodyRot += 4.0F;
 			}
 		}
-	}
-
-	private static boolean entityTouchingWaterOrLava(@NotNull Entity entity) {
-		return entity.isInWaterOrBubble() || entity.isInLava() || entity.isVisuallySwimming();
 	}
 }

@@ -24,12 +24,12 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import static net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes.LEAVES;
 
 public class EdenRingIntegration extends ModIntegration {
-    public EdenRingIntegration() {
-        super("edenring");
-    }
+	public EdenRingIntegration() {
+		super("edenring");
+	}
 
-    @Override
-    public void init() {
-        addBlock(id("auritis_leaves"), LEAVES, WilderSharedConstants.config()::leafSounds);
-    }
+	@Override
+	public void init() {
+		addBlock(id("auritis_leaves"), LEAVES, WilderSharedConstants.config()::leafSounds);
+	}
 }

@@ -40,9 +40,6 @@ import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
 public class TermiteParticle extends TextureSheetParticle {
-	private float prevScale = 0F;
-	private float scale = 0F;
-	private float targetScale = 0F;
 	private final TermiteRotationType xRot;
 	private final TermiteRotationType yRot;
 	private final TermiteRotationType zRot;
@@ -55,11 +52,14 @@ public class TermiteParticle extends TextureSheetParticle {
 	private final float xSpinSpeed;
 	private final float ySpinSpeed;
 	private final float zSpinSpeed;
+	private float prevScale = 0F;
+	private float scale = 0F;
+	private float targetScale = 0F;
 
-    public TermiteParticle(@NotNull ClientLevel clientLevel, @NotNull SpriteSet spriteProvider, double x, double y, double z) {
-        super(clientLevel, x, y, z);
+	public TermiteParticle(@NotNull ClientLevel clientLevel, @NotNull SpriteSet spriteProvider, double x, double y, double z) {
+		super(clientLevel, x, y, z);
 		this.pickSprite(spriteProvider);
-        this.hasPhysics = false;
+		this.hasPhysics = false;
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -75,16 +75,16 @@ public class TermiteParticle extends TextureSheetParticle {
 		this.xSpinSpeed = 8F + (clientLevel.random.nextFloat() * 8F);
 		this.ySpinSpeed = 8F + (clientLevel.random.nextFloat() * 8F);
 		this.zSpinSpeed = 8F + (clientLevel.random.nextFloat() * 8F);
-    }
+	}
 
 	@Override
 	@NotNull
-    public ParticleRenderType getRenderType() {
-        return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
-    }
+	public ParticleRenderType getRenderType() {
+		return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
+	}
 
 	@Override
-    public void tick() {
+	public void tick() {
 		this.prevScale = this.scale;
 		this.scale += (this.targetScale - this.scale) * 0.65F;
 		if (this.age++ >= this.lifetime) {
@@ -96,7 +96,7 @@ public class TermiteParticle extends TextureSheetParticle {
 		} else {
 			this.targetScale = 1F;
 		}
-    }
+	}
 
 	private float cos(float progress, float offset, float spinSpeed) {
 		return (float) Math.cos(((progress + offset) * Math.PI) / spinSpeed);
@@ -124,9 +124,9 @@ public class TermiteParticle extends TextureSheetParticle {
 
 		Quaternionf quaternion;
 		Vec3 vec3 = renderInfo.getPosition();
-		float f = (float)(x - vec3.x() + xRotation);
-		float g = (float)(y - vec3.y() + yRotation);
-		float h = (float)(z - vec3.z() + zRotation);
+		float f = (float) (x - vec3.x() + xRotation);
+		float g = (float) (y - vec3.y() + yRotation);
+		float h = (float) (z - vec3.z() + zRotation);
 		if (this.roll == 0.0f) {
 			quaternion = renderInfo.rotation();
 		} else {
@@ -164,9 +164,9 @@ public class TermiteParticle extends TextureSheetParticle {
 	@NotNull
 	private BlockPos getLerpedTermiteBlockPos(double x, double y, double z, float cos, float sin, float aCos) {
 		return BlockPos.containing(
-				x + cos,
-				y + sin,
-				z + aCos
+			x + cos,
+			y + sin,
+			z + aCos
 		);
 	}
 
@@ -181,15 +181,15 @@ public class TermiteParticle extends TextureSheetParticle {
 	}
 
 	@Environment(EnvType.CLIENT)
-    public record Factory(@NotNull SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
+	public record Factory(@NotNull SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
 		@Override
 		@NotNull
 		public Particle createParticle(@NotNull SimpleParticleType termiteParticleOptions, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {
-            TermiteParticle termite = new TermiteParticle(clientLevel, spriteProvider, x, y, z);
-            termite.setAlpha(1.0F);
+			TermiteParticle termite = new TermiteParticle(clientLevel, spriteProvider, x, y, z);
+			termite.setAlpha(1.0F);
 			termite.setLifetime(clientLevel.random.nextInt(10) + 5 + termite.age);
-            termite.scale(0.75F);
-            return termite;
-        }
+			termite.scale(0.75F);
+			return termite;
+		}
 	}
 }

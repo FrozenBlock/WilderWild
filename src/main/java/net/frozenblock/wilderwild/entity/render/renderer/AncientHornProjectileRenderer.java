@@ -38,44 +38,44 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class AncientHornProjectileRenderer<T extends AncientHornProjectile> extends EntityRenderer<T> {
-    private static final ResourceLocation TEXTURE = WilderSharedConstants.id("textures/entity/ancient_horn_projectile.png");
-    private final AncientHornProjectileModel model;
+	private static final ResourceLocation TEXTURE = WilderSharedConstants.id("textures/entity/ancient_horn_projectile.png");
+	private final AncientHornProjectileModel model;
 
-    public AncientHornProjectileRenderer(@NotNull EntityRendererProvider.Context context) {
-        super(context);
-        this.model = new AncientHornProjectileModel(context.bakeLayer(WilderWildClient.ANCIENT_HORN_PROJECTILE_LAYER));
-    }
+	public AncientHornProjectileRenderer(@NotNull EntityRendererProvider.Context context) {
+		super(context);
+		this.model = new AncientHornProjectileModel(context.bakeLayer(WilderWildClient.ANCIENT_HORN_PROJECTILE_LAYER));
+	}
 
-    @Override
-    public void render(@NotNull T projectile, float yaw, float partialTick, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light) {
-        matrices.pushPose();
-        matrices.mulPose(Axis.YP.rotationDegrees((projectile.yRotO + partialTick * (projectile.getYRot() - projectile.yRotO)) - 90.0F));
-        matrices.mulPose(Axis.ZP.rotationDegrees((projectile.xRotO + partialTick * (projectile.getXRot() - projectile.xRotO)) + 90.0F));
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(FrozenRenderType.ENTITY_TRANSLUCENT_EMISSIVE_FIXED.apply(TEXTURE, false));
+	@Override
+	public void render(@NotNull T projectile, float yaw, float partialTick, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light) {
+		matrices.pushPose();
+		matrices.mulPose(Axis.YP.rotationDegrees((projectile.yRotO + partialTick * (projectile.getYRot() - projectile.yRotO)) - 90.0F));
+		matrices.mulPose(Axis.ZP.rotationDegrees((projectile.xRotO + partialTick * (projectile.getXRot() - projectile.xRotO)) + 90.0F));
+		VertexConsumer vertexConsumer = vertexConsumers.getBuffer(FrozenRenderType.ENTITY_TRANSLUCENT_EMISSIVE_FIXED.apply(TEXTURE, false));
 
-        float multiplier = projectile.getBoundingBoxMultiplier();
-        float scale = multiplier + 1F;
-        float alpha = 1.0F - (multiplier / 15F);
-        float correctedAlpha = Math.max(alpha, 0.01F);
+		float multiplier = projectile.getBoundingBoxMultiplier();
+		float scale = multiplier + 1F;
+		float alpha = 1.0F - (multiplier / 15F);
+		float correctedAlpha = Math.max(alpha, 0.01F);
 
-        matrices.scale(scale, scale, scale);
+		matrices.scale(scale, scale, scale);
 
 		this.model.partialTick = partialTick;
 		this.model.projectile = projectile;
-        this.model.renderToBuffer(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, correctedAlpha);
+		this.model.renderToBuffer(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, correctedAlpha);
 
-        matrices.popPose();
-        super.render(projectile, yaw, partialTick, matrices, vertexConsumers, light);
-    }
+		matrices.popPose();
+		super.render(projectile, yaw, partialTick, matrices, vertexConsumers, light);
+	}
 
-    @Override
+	@Override
 	@NotNull
-    public ResourceLocation getTextureLocation(@NotNull T entity) {
-        return TEXTURE;
-    }
+	public ResourceLocation getTextureLocation(@NotNull T entity) {
+		return TEXTURE;
+	}
 
-    @Override
-    protected int getBlockLightLevel(@NotNull T entity, @NotNull BlockPos blockPos) {
-        return 15;
-    }
+	@Override
+	protected int getBlockLightLevel(@NotNull T entity, @NotNull BlockPos blockPos) {
+		return 15;
+	}
 }
