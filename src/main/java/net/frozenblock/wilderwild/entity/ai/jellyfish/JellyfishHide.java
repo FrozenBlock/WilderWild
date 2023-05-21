@@ -50,7 +50,6 @@ public class JellyfishHide extends MoveToBlockBehavior<Jellyfish> {
 	@Override
 	protected void tick(@NotNull ServerLevel level, @NotNull Jellyfish owner, long gameTime) {
 		super.tick(level, owner, gameTime);
-
 		if (this.isReachedTarget() && !owner.vanishing) {
 			level.broadcastEntityEvent(owner, (byte) 4);
 			owner.vanishing = true;
@@ -60,7 +59,12 @@ public class JellyfishHide extends MoveToBlockBehavior<Jellyfish> {
 	@Override
 	public boolean isValidTarget(@NotNull LevelReader level, @NotNull BlockPos pos) {
 		BlockState state = level.getBlockState(pos);
-		return (state.getBlock() instanceof MesogleaBlock || state.getBlock() instanceof NematocystBlock) && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED);
+		return (state.getBlock() instanceof MesogleaBlock || state.getBlock() instanceof NematocystBlock) && (state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED));
+	}
+
+	@Override
+	public double acceptedDistance() {
+		return 0.5D;
 	}
 
 	@Override
