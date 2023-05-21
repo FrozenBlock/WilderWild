@@ -1,12 +1,12 @@
-Lunade (AViewFromTheTop) - Gameplay designer, did an uncountable amount of work: worldgen, transition biomes, blocks, block entities, items, wind, particles, advancements, loot tables, tags, mixins, had to implement everything that everyone else wanted *and* everything they wanted, you name it. Also goes uncredited for the amount of work they did- 70% of it.
+Lunade (AViewFromTheTop) - Gameplay designer, producer, lead developer, QA, etc etc. Did a lot of stuff.
 
-Treetrain1 - Bug fixes, Gradle fixes, Mixin fixer, most Mob AI
+Treetrain1 - Bug fixes, Gradle fixes, Mixin fixer, most Mob AI, QA
 
 Soro - Original vegetation/tree generation reworks, biome ideas & gen
 
 LudoCrypt - New music
 
-Merp - Most textures and sounds, came up with Mesoglea's functionality
+Merp - Most textures and sounds, came up with Mesoglea's functionality, most mob animations & models
 
 LiukRast - Baobab Trees
 
@@ -14,7 +14,7 @@ Enri - Italian Translation, came up with Jellyfish in chests
 
 JarethTheRad - Structure assistance
 
-Xfrtrex - Came up with Tumbleweed
+Xfrtrex - Prickly Pear and Tumbleweed ideas
 
 zozozrob_ - Cattail Textures & Concept Design
 
