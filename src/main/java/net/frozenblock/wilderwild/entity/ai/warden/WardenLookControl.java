@@ -53,18 +53,14 @@ public class WardenLookControl extends LookControl {
 				if (this.mob.getNavigation().isDone()) {
 					this.mob.setXRot(this.rotateTowards(this.mob.getXRot(), 0.0F, 5.0F));
 				}
-
 				this.mob.yHeadRot = this.rotateTowards(this.mob.yHeadRot, this.mob.yBodyRot, this.yMaxRotSpeed);
 			}
 
 			float f = Mth.wrapDegrees(this.mob.yHeadRot - this.mob.yBodyRot);
-			Mob var10000;
 			if (f < (float) (-this.maxYRotFromCenter)) {
-				var10000 = this.mob;
-				var10000.yBodyRot -= 4.0F;
+				this.mob.yBodyRot -= 4.0F;
 			} else if (f > (float) this.maxYRotFromCenter) {
-				var10000 = this.mob;
-				var10000.yBodyRot += 4.0F;
+				this.mob.yBodyRot += 4.0F;
 			}
 		}
 	}

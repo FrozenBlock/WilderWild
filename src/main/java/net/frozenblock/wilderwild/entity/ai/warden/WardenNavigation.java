@@ -32,11 +32,11 @@ import org.jetbrains.annotations.NotNull;
 
 public class WardenNavigation extends GroundPathNavigation {
 
-	private final Warden entity;
+	private final Warden mob;
 
-	public WardenNavigation(@NotNull Warden warden, @NotNull Level level) {
-		super(warden, level);
-		this.entity = warden;
+	public WardenNavigation(@NotNull Warden mob, @NotNull Level level) {
+		super(mob, level);
+		this.mob = mob;
 	}
 
 	@Override
@@ -45,13 +45,13 @@ public class WardenNavigation extends GroundPathNavigation {
 		this.nodeEvaluator = new WardenPathEvaluator(false);
 		this.nodeEvaluator.setCanPassDoors(true);
 		return new PathFinder(this.nodeEvaluator, range) {
-			private static boolean entitySubmergedInWaterOrLava(Entity entity) {
+			private static boolean entitySubmergedInWaterOrLava(@NotNull Entity entity) {
 				return entity.isUnderWater() || entity.isEyeInFluid(FluidTags.LAVA) || entity.isVisuallySwimming();
 			}
 
 			@Override
 			public float distance(@NotNull Node a, @NotNull Node b) {
-				return this.entitySubmergedInWaterOrLava(entity) ? a.distanceTo(b) : a.distanceToXZ(b);
+				return this.entitySubmergedInWaterOrLava(mob) ? a.distanceTo(b) : a.distanceToXZ(b);
 			}
 		};
 	}
@@ -59,7 +59,7 @@ public class WardenNavigation extends GroundPathNavigation {
 	@Override
 	@NotNull
 	protected Vec3 getTempMobPos() {
-		return this.isInLiquid() ? new Vec3(this.entity.getX(), this.entity.getY(0.5), this.entity.getZ()) : super.getTempMobPos();
+		return this.isInLiquid() ? new Vec3(this.mob.getX(), this.mob.getY(0.5), this.mob.getZ()) : super.getTempMobPos();
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class WardenNavigation extends GroundPathNavigation {
 
 	@Override
 	protected boolean canMoveDirectly(@NotNull Vec3 origin, @NotNull Vec3 target) {
-		return this.isInLiquid() ? isClearForMovementBetween(this.entity, origin, target, false) : super.canMoveDirectly(origin, target);
+		return this.isInLiquid() ? isClearForMovementBetween(this.mob, origin, target, false) : super.canMoveDirectly(origin, target);
 	}
 
 	@Override
@@ -84,6 +84,6 @@ public class WardenNavigation extends GroundPathNavigation {
 
 	@Override
 	public boolean isInLiquid() {
-		return super.isInLiquid() || this.entity.isVisuallySwimming();
+		return super.isInLiquid() || this.mob.isVisuallySwimming();
 	}
 }
