@@ -79,6 +79,7 @@
     "client.easter.UppyBalloo",
     "client.easter.WardenEmissiveLayerMixin",
     "client.general.AllayModelMixin",
+    "client.general.EntityRenderDispatcherMixin",
     "client.general.LevelRendererMixin",
     "client.general.LiquidBlockRendererMixin",
     "client.general.SuspendedParticleMixin",

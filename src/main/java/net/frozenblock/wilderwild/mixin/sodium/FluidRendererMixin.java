@@ -29,6 +29,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import org.spongepowered.asm.mixin.Mixin;
@@ -39,6 +40,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Mixin(FluidRenderer.class)
@@ -58,9 +60,9 @@ public class FluidRendererMixin {
 	@Unique
 	private boolean wilderWild$isWater;
 
-	@Inject(method = "isFluidOccluded", at = @At(value = "HEAD"), cancellable = true)
-	private void wilderWild$isFluidOccluded(BlockAndTintGetter world, int x, int y, int z, Direction dir, Fluid fluid, CallbackInfoReturnable<Boolean> info) {
-		if (world.getBlockState(new BlockPos(x, y, z)).getBlock() instanceof MesogleaBlock && dir != Direction.UP) {
+	@Inject(method = "isFluidOccluded", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/BlockPos$MutableBlockPos;set(III)Lnet/minecraft/core/BlockPos$MutableBlockPos;", ordinal = 1), cancellable = true, locals = LocalCapture.CAPTURE_FAILSOFT)
+	private void wilderWild$isFluidOccluded(BlockAndTintGetter world, int x, int y, int z, Direction dir, Fluid fluid, CallbackInfoReturnable<Boolean> info, BlockPos pos, BlockState blockState) {
+		if (blockState.getBlock() instanceof MesogleaBlock && dir != Direction.UP) {
 			info.setReturnValue(true);
 		}
 	}
