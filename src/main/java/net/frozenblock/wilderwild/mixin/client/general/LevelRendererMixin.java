@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.client.general;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.ScorchedBlock;
@@ -68,11 +69,12 @@ public class LevelRendererMixin {
 		}
 	}
 
-	@Inject(method = "levelEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;addDestroyBlockEffect(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V", shift = At.Shift.BEFORE, ordinal = 1))
-	private void wilderWild$scorchedBrush(int type, BlockPos pos, int data, CallbackInfo ci) {
-		if (Block.stateById(data).getBlock() instanceof ScorchedBlock scorchedBlock) {
+	@ModifyExpressionValue(method = "levelEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;getBlock()Lnet/minecraft/world/level/block/Block;"))
+	private Block wilderWild$scorchedBrush(Block original, int eventId, BlockPos pos, int data) {
+		if (original instanceof ScorchedBlock scorchedBlock) {
 			this.level.playLocalSound(pos, scorchedBlock.brushCompletedSound, SoundSource.PLAYERS, 1.0F, 1.0F, false);
 		}
+		return original;
 	}
 
 }
