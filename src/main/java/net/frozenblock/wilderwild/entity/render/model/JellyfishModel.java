@@ -82,9 +82,9 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 		for (int i = 0; i < amount; ++i) {
 			double rot = (double) i * Math.PI * 2.0 / (double) amount;
 			partDefinition.addOrReplaceChild(createTentacleName(i), tentacle, PartPose.offsetAndRotation(
-					(float) Math.cos(rot) * 3.0F,
+					(float) Math.cos(rot) * 2.5F,
 					0.0F,
-					(float) Math.sin(rot) * 3.0F,
+					(float) Math.sin(rot) * 2.5F,
 					0.0F,
 					(float) (i * Math.PI * -2.0 / (double) amount + 1.5707963267948966),
 					0.0F
