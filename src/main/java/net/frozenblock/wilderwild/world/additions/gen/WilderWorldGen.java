@@ -116,7 +116,7 @@ public final class WilderWorldGen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.includeByKey(RegisterWorldgen.RAINFOREST),
 				context -> {
-					if (WilderSharedConstants.config().wildGrass()) {
+					if (WilderSharedConstants.config().wildFlowers()) {
 						context.getGenerationSettings().removeFeature(WilderPlacedFeatures.FLOWER_RAINFOREST_VANILLA.getKey());
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_RAINFOREST.getKey());
 					}
@@ -126,7 +126,7 @@ public final class WilderWorldGen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.includeByKey(RegisterWorldgen.TEMPERATE_RAINFOREST),
 				context -> {
-					if (WilderSharedConstants.config().wildGrass()) {
+					if (WilderSharedConstants.config().wildFlowers()) {
 						context.getGenerationSettings().removeFeature(WilderPlacedFeatures.FLOWER_TEMPERATE_RAINFOREST_VANILLA.getKey());
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_TEMPERATE_RAINFOREST.getKey());
 					}
