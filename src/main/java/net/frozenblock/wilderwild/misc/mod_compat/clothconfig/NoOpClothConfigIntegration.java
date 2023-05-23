@@ -220,6 +220,11 @@ public class NoOpClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public int jellyfishTentacles() {
+		return DefaultEntityConfig.JellyfishConfig.JELLYFISH_TENTACLES;
+	}
+
+	@Override
 	public int tumbleweedSpawnCap() {
 		return DefaultEntityConfig.TumbleweedConfig.TUMBLEWEED_SPAWN_CAP;
 	}

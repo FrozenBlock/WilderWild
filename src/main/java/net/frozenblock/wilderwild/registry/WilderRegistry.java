@@ -32,6 +32,7 @@ public final class WilderRegistry {
 	public static final MappedRegistry<JellyfishVariant> JELLYFISH_VARIANT = FabricRegistryBuilder.createSimple(JellyfishVariant.class, WilderSharedConstants.id("jellyfish_color"))
 		.attribute(RegistryAttribute.SYNCED)
 		.buildAndRegister();
+
 	private WilderRegistry() {
 		throw new UnsupportedOperationException("WilderRegistry contains only static declarations.");
 	}

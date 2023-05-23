@@ -385,6 +385,7 @@ public final class RegisterBlocks {
 	public static final RotatedPillarBlock STRIPPED_PALM_WOOD = new RotatedPillarBlock(FabricBlockSettings.create().mapColor(state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? PALM_PLANKS_COLOR : PALM_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
 	public static final RotatedPillarBlock PALM_WOOD = new RotatedPillarBlock(FabricBlockSettings.create().mapColor(state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? PALM_PLANKS_COLOR : PALM_BARK_COLOR).strength(2.0F).sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS));
 	public static final HollowedLogBlock HOLLOWED_PALM_LOG = createHollowedLogBlock(PALM_PLANKS_COLOR, PALM_BARK_COLOR);
+
 	private RegisterBlocks() {
 		throw new UnsupportedOperationException("RegisterBlockEntities contains only static declarations.");
 	}

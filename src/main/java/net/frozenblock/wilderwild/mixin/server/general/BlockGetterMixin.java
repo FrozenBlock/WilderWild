@@ -41,7 +41,7 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 public interface BlockGetterMixin {
 
 	@Shadow
-	public BlockState getBlockState(BlockPos var1);
+	BlockState getBlockState(BlockPos var1);
 
 	@Inject(method = "clip", at = @At("HEAD"))
 	default void wilderWild$checkIfInMesoglea(ClipContext clipContext, CallbackInfoReturnable<BlockHitResult> cir) {

@@ -61,6 +61,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 	private static final float hollowedAmount = 0.71875F;
 	private static final float edgeAmount = 0.140625F;
 	private static final float crawlHeight = edgeAmount + hollowedAmount;
+
 	public HollowedLogBlock(@NotNull Properties settings) {
 		super(settings);
 		this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false).setValue(AXIS, Direction.Axis.Y));

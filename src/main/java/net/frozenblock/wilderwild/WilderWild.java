@@ -79,6 +79,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 	public static final ResourceLocation JELLY_STING_PACKET = WilderSharedConstants.id("jelly_sting_packet");
 	@Nullable
 	public static WilderWild INSTANCE;
+
 	public WilderWild() {
 		super(WilderSharedConstants.MOD_ID);
 		INSTANCE = this;

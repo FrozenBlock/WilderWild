@@ -31,6 +31,7 @@ public final class WilderEntityTags {
 	public static final TagKey<EntityType<?>> JELLYFISH_CANT_STING = bind("jellyfish_cant_sting");
 	public static final TagKey<EntityType<?>> COCONUT_CANT_BONK = bind("coconut_cant_bonk");
 	public static final TagKey<EntityType<?>> COCONUT_CANT_SPLIT = bind("coconut_cant_split");
+
 	private WilderEntityTags() {
 		throw new UnsupportedOperationException("WilderEntityTags contains only static declarations.");
 	}

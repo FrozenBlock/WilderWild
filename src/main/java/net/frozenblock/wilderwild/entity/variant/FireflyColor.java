@@ -71,6 +71,9 @@ public record FireflyColor(ResourceLocation key, ResourceLocation texture) {
 		return Registry.register(WilderRegistry.FIREFLY_COLOR, key, new FireflyColor(key, texture));
 	}
 
+	public static void init() {
+	}
+
 	@NotNull
 	public ResourceLocation key() {
 		return this.key;
@@ -79,8 +82,5 @@ public record FireflyColor(ResourceLocation key, ResourceLocation texture) {
 	@NotNull
 	public ResourceLocation texture() {
 		return this.texture;
-	}
-
-	public static void init() {
 	}
 }

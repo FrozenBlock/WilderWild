@@ -120,10 +120,18 @@ public final class EntityConfig implements ConfigData {
 			.requireRestart()
 			.build();
 
+		var jellyfishTentacles = entryBuilder.startIntSlider(text("jellyfish_tentacles"), jellyfish.jellyfishTentacles, 0, 100)
+			.setDefaultValue(DefaultEntityConfig.JellyfishConfig.JELLYFISH_TENTACLES)
+			.setSaveConsumer(newValue -> jellyfish.jellyfishTentacles = newValue)
+			.setTooltip(tooltip("jellyfish_tentacles"))
+			.requireRestart()
+			.build();
+
 		var jellyfishCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("jellyfish"),
 			false,
 			tooltip("jellyfish"),
-			jellyfishSpawnCap
+			jellyfishSpawnCap,
+			jellyfishTentacles
 		);
 
 		var tumbleweedSpawnCap = entryBuilder.startIntSlider(text("tumbleweed_spawn_cap"), tumbleweed.tumbleweedSpawnCap, 0, 100)
@@ -208,6 +216,7 @@ public final class EntityConfig implements ConfigData {
 
 	public static class JellyfishConfig {
 		public int jellyfishSpawnCap = DefaultEntityConfig.JellyfishConfig.JELLYFISH_SPAWN_CAP;
+		public int jellyfishTentacles = DefaultEntityConfig.JellyfishConfig.JELLYFISH_TENTACLES;
 	}
 
 	public static class TumbleweedConfig {

@@ -197,7 +197,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		var random = AdvancedMath.random();
 		this.setVariantFromBiome(JellyfishVariant.PINK);
 
-		if (biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)  && !PEARLESCENT_VARIANTS.isEmpty()) {
+		if (biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH) && !PEARLESCENT_VARIANTS.isEmpty()) {
 			this.setVariantFromBiome(PEARLESCENT_VARIANTS.get(random.nextInt(PEARLESCENT_VARIANTS.size())));
 		} else if (!COLORED_VARIANTS.isEmpty()) {
 			this.setVariantFromBiome(COLORED_VARIANTS.get(random.nextInt(COLORED_VARIANTS.size())));

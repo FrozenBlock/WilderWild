@@ -49,6 +49,7 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	private static final EntityConfig.FireflyConfig FIREFLY = ENTITY.firefly;
 	private static final EntityConfig.JellyfishConfig JELLYFISH = ENTITY.jellyfish;
 	private static final EntityConfig.TumbleweedConfig TUMBLEWEED = ENTITY.tumbleweed;
+
 	public ClothConfigIntegration() {
 		super();
 	}
@@ -244,6 +245,11 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	@Override
 	public int jellyfishSpawnCap() {
 		return JELLYFISH.jellyfishSpawnCap;
+	}
+
+	@Override
+	public int jellyfishTentacles() {
+		return JELLYFISH.jellyfishTentacles;
 	}
 
 	@Override

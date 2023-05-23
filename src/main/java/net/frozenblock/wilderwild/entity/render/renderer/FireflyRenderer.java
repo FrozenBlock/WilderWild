@@ -55,6 +55,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 		WilderRegistry.FIREFLY_COLOR.forEach(color -> colors.put(color.key(), color.texture()));
 		colors.forEach((colorKey, texture) -> put(colorKey, RenderType.entityTranslucentEmissive(texture)));
 	}};
+
 	public FireflyRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx);
 	}

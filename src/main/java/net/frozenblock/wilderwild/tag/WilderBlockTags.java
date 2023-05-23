@@ -81,6 +81,7 @@ public final class WilderBlockTags {
 	public static final TagKey<Block> RED_SCORCHED_SAND_FEATURE_REPLACEABLE = bind("red_scorched_sand_feature_replaceable");
 	public static final TagKey<Block> MESOGLEA_PATH_REPLACEABLE = bind("mesoglea_path_replaceable");
 	public static final TagKey<Block> OASIS_PATH_REPLACEABLE = bind("oasis_path_replaceable");
+
 	private WilderBlockTags() {
 		throw new UnsupportedOperationException("WilderBlockTags contains only static declarations.");
 	}

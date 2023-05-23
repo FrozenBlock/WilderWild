@@ -57,6 +57,7 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 	private float wilderWild$lastLeaningPitch;
 	@Unique
 	private boolean wilderWild$pogSwimming;
+
 	private WardenSwimMixin(EntityType<? extends Monster> entityType, Level level) {
 		super(entityType, level);
 	}

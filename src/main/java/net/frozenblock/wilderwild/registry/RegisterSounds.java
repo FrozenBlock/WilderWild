@@ -293,6 +293,7 @@ public final class RegisterSounds {
 	public static final SoundEvent MUSIC_DISC_BACK = register("music_disc.back");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_FORESTS = registerForHolder("music.overworld.wild_forests");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_JELLYFISH_CAVES = registerForHolder("music.overworld.jellyfish_caves");
+
 	private RegisterSounds() {
 		throw new UnsupportedOperationException("RegisterSounds contains only static declarations.");
 	}

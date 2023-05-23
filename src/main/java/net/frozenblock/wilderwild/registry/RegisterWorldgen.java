@@ -72,6 +72,7 @@ public final class RegisterWorldgen {
 	public static final ResourceKey<Biome> OLD_GROWTH_BIRCH_TAIGA = register("old_growth_birch_taiga");
 	public static final ResourceKey<Biome> OLD_GROWTH_DARK_FOREST = register("old_growth_dark_forest");
 	public static final ResourceKey<Biome> SNOWY_OLD_GROWTH_PINE_TAIGA = register("snowy_old_growth_pine_taiga");
+
 	private RegisterWorldgen() {
 		throw new UnsupportedOperationException("RegisterWorldgen contains only static declarations.");
 	}

@@ -49,12 +49,14 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 	private float pitch;
 	private float prevRoll;
 	private float roll;
+
 	public TumbleweedModel(ModelPart root) {
 		super(RenderType::entityCutoutNoCull);
 		this.root = root;
 		this.bone = root.getChild("bone");
 	}
 
+	@NotNull
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();

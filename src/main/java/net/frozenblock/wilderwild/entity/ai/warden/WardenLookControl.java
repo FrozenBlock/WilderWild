@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.entity.ai.warden;
 
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.control.LookControl;
 import net.minecraft.world.entity.monster.warden.Warden;
 import org.jetbrains.annotations.NotNull;

@@ -46,6 +46,7 @@ public class AncientHornProjectileModel extends Model {
 	private final ModelPart back;
 	public AncientHornProjectile projectile;
 	public float partialTick;
+
 	public AncientHornProjectileModel(@NotNull ModelPart root) {
 		super(FrozenRenderType::entityTranslucentEmissiveFixed);
 		this.bone = root.getChild("bone");
@@ -54,6 +55,7 @@ public class AncientHornProjectileModel extends Model {
 		this.back = bone.getChild("back");
 	}
 
+	@NotNull
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition modelData = new MeshDefinition();
 		PartDefinition modelPartData = modelData.getRoot();

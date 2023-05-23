@@ -68,6 +68,13 @@ public class JellyfishHide extends MoveToBlockBehavior<Jellyfish> {
 	}
 
 	@Override
+	protected void moveMobToBlock() {
+		this.mob
+			.getNavigation()
+			.moveTo(this.blockPos.getX() + 0.5, this.blockPos.getY() + 0.5, this.blockPos.getZ() + 0.5, this.speedModifier);
+	}
+
+	@Override
 	@NotNull
 	protected BlockPos getMoveToTarget() {
 		return this.blockPos;

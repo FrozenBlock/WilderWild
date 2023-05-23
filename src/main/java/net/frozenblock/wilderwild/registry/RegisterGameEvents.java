@@ -27,6 +27,7 @@ import org.jetbrains.annotations.NotNull;
 public final class RegisterGameEvents {
 	public static final GameEvent SCULK_SENSOR_ACTIVATE = register("sculk_sensor_activate", 16);
 	public static final GameEvent TENDRIL_EXTRACT_XP = register("hanging_tendril_extract_xp", 16);
+
 	private RegisterGameEvents() {
 		throw new UnsupportedOperationException("RegisterGameEvents contains only static declarations.");
 	}

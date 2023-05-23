@@ -108,6 +108,8 @@ public abstract class AbstractClothConfigIntegration extends ModIntegration {
 
 	public abstract int jellyfishSpawnCap();
 
+	public abstract int jellyfishTentacles();
+
 	public abstract int tumbleweedSpawnCap();
 
 	public abstract boolean leashedTumbleweed();
