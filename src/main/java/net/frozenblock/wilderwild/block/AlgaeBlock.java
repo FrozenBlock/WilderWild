@@ -129,13 +129,11 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 	public boolean hasAmountNearby(@NotNull LevelAccessor level, @NotNull BlockPos blockPos, int x, int neededAmount) {
 		Iterator<BlockPos> iterator = BlockPos.betweenClosed(blockPos.offset(-x, -x, -x), blockPos.offset(x, x, x)).iterator();
 		int count = 0;
-		BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
 		do {
 			if (!iterator.hasNext()) {
 				return false;
 			}
-			mutableBlockPos.set(iterator.next());
-			if (level.getBlockState(mutableBlockPos).is(this)) {
+			if (level.getBlockState(iterator.next()).is(this)) {
 				count = count + 1;
 			}
 		} while (count < neededAmount);
