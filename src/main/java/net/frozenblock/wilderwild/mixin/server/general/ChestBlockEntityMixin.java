@@ -36,6 +36,7 @@ import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -70,6 +71,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	}
 
 	@Unique
+	@Nullable
 	private static ChestBlockEntity wilderWild$getOtherEntity(Level level, BlockPos pos, BlockState state) {
 		ChestType chestType = state.getValue(ChestBlock.TYPE);
 		double x = pos.getX();

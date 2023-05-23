@@ -51,25 +51,26 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 	}
 
 	public static void placeLeavesAtPos(@NotNull LevelSimulatedReader level, @NotNull FoliageSetter blockSetter, @NotNull RandomSource random, @NotNull TreeConfiguration config, @NotNull BlockPos pos, double offX, double offY, double offZ) {
-		BlockPos placePos = pos.offset(BlockPos.containing(offX, offY, offZ));
-		tryPlaceLeaf(level, blockSetter, random, config, placePos);
+		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable().move(BlockPos.containing(offX, offY, offZ));
+		BlockPos basePos = mutableBlockPos.immutable();
+		tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos);
 		if (shouldPlaceAbove(offX)) {
-			tryPlaceLeaf(level, blockSetter, random, config, placePos.offset(1, 0, 0));
+			tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos.move(1, 0, 0));
 		}
 		if (shouldPlaceBelow(offX)) {
-			tryPlaceLeaf(level, blockSetter, random, config, placePos.offset(-1, 0, 0));
+			tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos.set(basePos).move(-1, 0, 0));
 		}
 		if (shouldPlaceAbove(offY)) {
-			tryPlaceLeaf(level, blockSetter, random, config, placePos.above());
+			tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos.set(basePos).move(0, 1, 0));
 		}
 		if (shouldPlaceBelow(offY)) {
-			tryPlaceLeaf(level, blockSetter, random, config, placePos.below());
+			tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos.set(basePos).move(0, -1, 0));
 		}
 		if (shouldPlaceAbove(offZ)) {
-			tryPlaceLeaf(level, blockSetter, random, config, placePos.offset(0, 0, 1));
+			tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos.set(basePos).move(0, 0, 1));
 		}
 		if (shouldPlaceBelow(offZ)) {
-			tryPlaceLeaf(level, blockSetter, random, config, placePos.offset(0, 0, -1));
+			tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos.set(basePos).move(0, 0, -1));
 		}
 	}
 

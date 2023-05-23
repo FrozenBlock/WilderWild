@@ -38,6 +38,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -53,6 +54,7 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 	}
 
 	@Unique
+	@Nullable
 	private static ChestBlockEntity wilderWild$getOtherChest(LevelAccessor level, BlockPos pos, BlockState state) {
 		ChestType chestType = state.getValue(ChestBlock.TYPE);
 		double x = pos.getX();
