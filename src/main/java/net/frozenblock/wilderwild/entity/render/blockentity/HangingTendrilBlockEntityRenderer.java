@@ -53,13 +53,13 @@ public class HangingTendrilBlockEntityRenderer<T extends HangingTendrilBlockEnti
 
 	@Override
 	@NotNull
-	public ResourceLocation getTexture(T entity) {
+	public ResourceLocation getTexture(@NotNull T entity) {
 		return entity.texture;
 	}
 
 	@Override
 	@NotNull
-	public ModelPart getRoot(Context ctx) {
+	public ModelPart getRoot(@NotNull Context ctx) {
 		return ctx.bakeLayer(WilderWildClient.HANGING_TENDRIL);
 	}
 }

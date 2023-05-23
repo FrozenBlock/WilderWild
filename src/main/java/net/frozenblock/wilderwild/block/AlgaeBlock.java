@@ -90,11 +90,13 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 
 	@Override
 	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
-		if (entity.getType().equals(EntityType.FALLING_BLOCK)) {
-			level.destroyBlock(pos, false);
-		}
-		if (!entity.getType().is(WilderEntityTags.CAN_SWIM_IN_ALGAE)) {
-			entity.setDeltaMovement(entity.getDeltaMovement().multiply(0.8, 0.8, 0.8));
+		if (entity.getY() <= pos.getY() + 0.0625) {
+			if (entity.getType().equals(EntityType.FALLING_BLOCK)) {
+				level.destroyBlock(pos, false);
+			}
+			if (!entity.getType().is(WilderEntityTags.CAN_SWIM_IN_ALGAE)) {
+				entity.setDeltaMovement(entity.getDeltaMovement().multiply(0.8, 0.8, 0.8));
+			}
 		}
 	}
 

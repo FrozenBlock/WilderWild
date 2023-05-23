@@ -117,7 +117,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 			return true;
 		}
 		Holder<Biome> biome = level.getBiome(pos);
-		if (!biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH) && getNormalJellyfish(level.getLevel()) >= type.getCategory().getMaxInstancesPerChunk() / 3) {
+		if (!biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH) && getJellyfish(level.getLevel(), false) >= type.getCategory().getMaxInstancesPerChunk() / 3) {
 			return false;
 		}
 		if (biome.is(WilderBiomeTags.JELLYFISH_SPECIAL_SPAWN)) {
@@ -162,20 +162,10 @@ public class Jellyfish extends NoFlopAbstractFish {
 		return jellyList;
 	}
 
-	public static int getNormalJellyfish(@NotNull ServerLevel level) {
+	public static int getJellyfish(@NotNull ServerLevel level, boolean pearlescent) {
 		int count = 0;
 		for (Jellyfish jellyfish : getJellyfish(level)) {
-			if (jellyfish.getVariant().isNormal()) {
-				count += 1;
-			}
-		}
-		return count;
-	}
-
-	public static int getPearlescentJellyfish(@NotNull ServerLevel level) {
-		int count = 0;
-		for (Jellyfish jellyfish : getJellyfish(level)) {
-			if (jellyfish.getVariant().pearlescent()) {
+			if (pearlescent ? jellyfish.getVariant().pearlescent() : jellyfish.getVariant().isNormal()) {
 				count += 1;
 			}
 		}
