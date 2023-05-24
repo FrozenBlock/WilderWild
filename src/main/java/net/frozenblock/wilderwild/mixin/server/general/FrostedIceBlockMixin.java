@@ -25,6 +25,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.FrostedIceBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -36,7 +37,8 @@ public class FrostedIceBlockMixin {
 
 	@Inject(method = "slightlyMelt", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z", shift = At.Shift.AFTER))
 	private void wilderWild$slightlyMelt(BlockState blockState, Level level, BlockPos blockPos, CallbackInfoReturnable<Boolean> info) {
-		level.playSound(null, blockPos, FrostedIceBlock.class.cast(this).getSoundType(blockState).getBreakSound(), SoundSource.BLOCKS, 0.003F, 1.2F + level.getRandom().nextFloat() * 0.2F);
+		SoundType soundType = FrostedIceBlock.class.cast(this).getSoundType(blockState);
+		level.playSound(null, blockPos, soundType.getBreakSound(), SoundSource.BLOCKS, 0.003F, (soundType.getPitch() + 0.2F) + level.getRandom().nextFloat() * 0.2F);
 	}
 
 	@Inject(method = "slightlyMelt", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/FrostedIceBlock;melt(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V", shift = At.Shift.AFTER))
@@ -44,7 +46,8 @@ public class FrostedIceBlockMixin {
 		if (level instanceof ServerLevel serverLevel) {
 			serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, blockState), blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, level.random.nextInt(20, 30), 0.3F, 0.3F, 0.3F, 0.05D);
 		}
-		level.playSound(null, blockPos, FrostedIceBlock.class.cast(this).getSoundType(blockState).getBreakSound(), SoundSource.BLOCKS, 0.01F, 1.0F);
+		SoundType soundType = FrostedIceBlock.class.cast(this).getSoundType(blockState);
+		level.playSound(null, blockPos, soundType.getBreakSound(), SoundSource.BLOCKS, 0.01F, soundType.getPitch());
 	}
 
 }

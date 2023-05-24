@@ -96,25 +96,27 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
 		if (state.is(this)) {
 			Direction.Axis axis = state.getValue(AXIS);
 			Direction dir = getDir(axis, state.getValue(UPSIDEDOWN), level.getRandom());
-			if (level.getBlockState(pos.relative(dir)).is(this)) {
-				BlockPos newPos = pos.relative(dir);
-				BlockPos.MutableBlockPos mutableBlockPos = newPos.mutable();
+			BlockPos.MutableBlockPos mutableBlockPos = pos.mutable().move(dir);
+			if (level.getBlockState(mutableBlockPos).is(this)) {
+				BlockState stateReplace;
+				Direction oppositeDirection;
 				for (Direction direction : UPDATE_SHAPE_ORDER) {
-					mutableBlockPos.set(newPos);
-					BlockState stateReplace = level.getBlockState(mutableBlockPos.move(direction));
+					stateReplace = level.getBlockState(mutableBlockPos.move(direction));
+					oppositeDirection = direction.getOpposite();
 					BlockState stateSetTo = null;
 					if (stateReplace.is(Blocks.SCULK_VEIN)) {
-						stateSetTo = stateReplace.setValue(MultifaceBlock.getFaceProperty(direction.getOpposite()), true);
+						stateSetTo = stateReplace.setValue(MultifaceBlock.getFaceProperty(oppositeDirection), true);
 					}
 					if (stateReplace.isAir()) {
-						stateSetTo = Blocks.SCULK_VEIN.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(direction.getOpposite()), true);
+						stateSetTo = Blocks.SCULK_VEIN.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(oppositeDirection), true);
 					}
-					if (stateReplace == Blocks.WATER.defaultBlockState()) {
-						stateSetTo = Blocks.SCULK_VEIN.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(direction.getOpposite()), true).setValue(BlockStateProperties.WATERLOGGED, true);
+					if (stateReplace.getBlock() == Blocks.WATER) {
+						stateSetTo = Blocks.SCULK_VEIN.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(oppositeDirection), true).setValue(BlockStateProperties.WATERLOGGED, true);
 					}
 					if (stateSetTo != null) {
 						level.setBlock(mutableBlockPos, stateSetTo, 3);
 					}
+					mutableBlockPos.move(direction, -1);
 				}
 				level.setBlock(pos, Blocks.SCULK.defaultBlockState(), 3);
 			}
@@ -136,12 +138,15 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
 				int pillarHeight = level.getBlockState(blockPos).getValue(OsseousSculkBlock.HEIGHT_LEFT);
 				BlockPos topPos = getTop(level, blockPos, pillarHeight);
 				if (topPos != null) {
+					BlockPos.MutableBlockPos mutableBlockPos = topPos.mutable();
+					RandomSource randomSource = level.getRandom();
 					BlockState state = level.getBlockState(topPos);
 					pillarHeight = state.getValue(OsseousSculkBlock.HEIGHT_LEFT);
-					Direction direction = getDir(state.getValue(AXIS), state.getValue(UPSIDEDOWN), level.getRandom());
-					if (level.getBlockState(topPos.relative(direction)).isAir() || level.getBlockState(topPos.relative(direction)).getBlock() == Blocks.SCULK_VEIN) {
+					Direction direction = getDir(state.getValue(AXIS), state.getValue(UPSIDEDOWN), randomSource);
+					BlockState offsetState = level.getBlockState(mutableBlockPos.set(topPos).move(direction));
+					if (offsetState.isAir() || offsetState.getBlock() == Blocks.SCULK_VEIN) {
+						mutableBlockPos.set(topPos);
 						BlockState blockState = this.defaultBlockState().setValue(HEIGHT_LEFT, Math.max(0, pillarHeight - 1));
-
 						if (pillarHeight == 1 && !state.getValue(UPSIDEDOWN) && state.getValue(TOTAL_HEIGHT) > 0) {
 							if (EasyNoiseSampler.localRandom.nextInt(Math.max(1, state.getValue(TOTAL_HEIGHT) / 2)) <= 1) {
 								if (random.nextInt(11) == 0) {
@@ -154,25 +159,27 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
 							if (state.getValue(UPSIDEDOWN)) {
 								blockState = blockState.setValue(UPSIDEDOWN, true);
 								if (direction == Direction.DOWN && random.nextDouble() > 0.8) {
-									Direction ribCage = getDir(getAxis(level.getRandom()), false, level.getRandom());
-									if (isSafeToReplace(level.getBlockState(topPos.relative(ribCage)))) {
-										level.setBlock(topPos.relative(ribCage), this.defaultBlockState().setValue(AXIS, getAxis(level.getRandom())).setValue(TOTAL_HEIGHT, state.getValue(TOTAL_HEIGHT)).setValue(HEIGHT_LEFT, 0), 3);
-										if (isSafeToReplace(level.getBlockState(topPos.relative(ribCage).below()))) {
+									Direction ribCageDirection = getDir(getAxis(randomSource), false, randomSource);
+									if (isSafeToReplace(level.getBlockState(mutableBlockPos.move(ribCageDirection)))) {
+										level.setBlock(mutableBlockPos, this.defaultBlockState().setValue(AXIS, getAxis(randomSource)).setValue(TOTAL_HEIGHT, state.getValue(TOTAL_HEIGHT)).setValue(HEIGHT_LEFT, 0), 3);
+										if (isSafeToReplace(level.getBlockState(mutableBlockPos.move(Direction.DOWN)))) {
 											if (random.nextDouble() > 0.7) {
-												level.setBlock(topPos.relative(ribCage).below(), RegisterBlocks.HANGING_TENDRIL.defaultBlockState(), 3);
+												level.setBlock(mutableBlockPos, RegisterBlocks.HANGING_TENDRIL.defaultBlockState(), 3);
 											}
+											mutableBlockPos.move(Direction.UP);
 										}
 									}
+									mutableBlockPos.move(ribCageDirection, -1);
 								}
 							}
 						}
-						level.setBlock(topPos.relative(direction), blockState, 3);
+						level.setBlock(mutableBlockPos.move(direction), blockState, 3);
 						SoundType placedSoundType = blockState.getSoundType();
 						level.playSound(null, blockPos, placedSoundType.getPlaceSound(), SoundSource.BLOCKS, placedSoundType.getVolume(), placedSoundType.getPitch());
 						if (spreadManager.isWorldGeneration() && random.nextDouble() > 0.2) {
 							j = 0;
 						}
-						BlockPos bottom = getBottom(level, topPos.relative(direction), state.getValue(TOTAL_HEIGHT));
+						BlockPos bottom = getBottom(level, mutableBlockPos, state.getValue(TOTAL_HEIGHT));
 						if (bottom != null) {
 							BlockState bottomState = level.getBlockState(bottom);
 							if (bottomState.is(this)) {
@@ -196,15 +203,17 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
 			int pillarHeight = level.getBlockState(blockPos).getValue(HEIGHT_LEFT);
 			BlockPos topPos = getTop(level, blockPos, pillarHeight);
 			if (topPos != null) {
-				BlockState state = level.getBlockState(topPos);
+				BlockPos.MutableBlockPos mutableBlockPos = topPos.mutable();
+				BlockState state = level.getBlockState(mutableBlockPos);
+				RandomSource randomSource = level.getRandom();
 				pillarHeight = state.getValue(HEIGHT_LEFT);
-				Direction direction = getDir(state.getValue(AXIS), state.getValue(UPSIDEDOWN), level.getRandom());
-				if (level.getBlockState(topPos.relative(direction)).isAir() || level.getBlockState(topPos.relative(direction)).getBlock() == Blocks.SCULK_VEIN) {
+				Direction direction = getDir(state.getValue(AXIS), state.getValue(UPSIDEDOWN), randomSource);
+				BlockState offsetState = level.getBlockState(mutableBlockPos.move(direction));
+				if (offsetState.isAir() || offsetState.getBlock() == Blocks.SCULK_VEIN) {
+					mutableBlockPos.set(topPos);
 					BlockState blockState = this.defaultBlockState().setValue(HEIGHT_LEFT, Math.max(0, pillarHeight - 1));
-
 					if (pillarHeight == 1 && !state.getValue(UPSIDEDOWN) && state.getValue(TOTAL_HEIGHT) > 0) {
 						if (EasyNoiseSampler.localRandom.nextInt(Math.max(1, state.getValue(TOTAL_HEIGHT) / 2)) <= 1) {
-
 							if (random.nextInt(11) == 0) {
 								blockState = Blocks.SCULK_CATALYST.defaultBlockState();
 							}
@@ -215,22 +224,22 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
 						if (state.getValue(UPSIDEDOWN)) {
 							blockState = blockState.setValue(UPSIDEDOWN, true);
 							if (direction == Direction.DOWN && random.nextDouble() > 0.9) {
-								Direction ribCage = getDir(getAxis(topPos), false, level.getRandom());
-								if (isSafeToReplace(level.getBlockState(topPos.relative(ribCage)))) {
-									level.setBlock(topPos.relative(ribCage), this.defaultBlockState().setValue(AXIS, getAxis(topPos)).setValue(TOTAL_HEIGHT, state.getValue(TOTAL_HEIGHT)).setValue(HEIGHT_LEFT, 0), 3);
-									if (isSafeToReplace(level.getBlockState(topPos.relative(ribCage).below()))) {
+								Direction ribCage = getDir(getAxis(topPos), false, randomSource);
+								if (isSafeToReplace(level.getBlockState(mutableBlockPos.move(ribCage)))) {
+									level.setBlock(mutableBlockPos, this.defaultBlockState().setValue(AXIS, getAxis(topPos)).setValue(TOTAL_HEIGHT, state.getValue(TOTAL_HEIGHT)).setValue(HEIGHT_LEFT, 0), 3);
+									if (isSafeToReplace(level.getBlockState(mutableBlockPos.move(Direction.DOWN)))) {
 										if (random.nextDouble() > 0.66) {
-											level.setBlock(topPos.relative(ribCage).below(), RegisterBlocks.HANGING_TENDRIL.defaultBlockState(), 3);
+											level.setBlock(mutableBlockPos, RegisterBlocks.HANGING_TENDRIL.defaultBlockState(), 3);
 										}
 									}
 								}
 							}
 						}
 					}
-					level.setBlock(topPos.relative(direction), blockState, 3);
+					mutableBlockPos.set(topPos).move(direction);
+					level.setBlock(mutableBlockPos, blockState, 3);
 					SoundType placedSoundType = blockState.getSoundType();
 					level.playSound(null, blockPos, placedSoundType.getPlaceSound(), SoundSource.BLOCKS, placedSoundType.getVolume(), placedSoundType.getPitch());
-
 					if (blockState.getBlock() == Blocks.SCULK_CATALYST || (blockState.getBlock() == this && blockState.getValue(HEIGHT_LEFT) == 0)) {
 						for (int i = 0; i < 4; i++) {
 							BlockPos bottom = getBottom(level, topPos, state.getValue(TOTAL_HEIGHT));
@@ -253,33 +262,33 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
 
 	@Nullable
 	public BlockPos getTop(@NotNull LevelAccessor level, @NotNull BlockPos pos, int max) {
+		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
+		RandomSource randomSource = level.getRandom();
 		for (int i = 0; i < max; i++) {
-			Block block = level.getBlockState(pos).getBlock();
-			if (block != this) {
+			BlockState blockState = level.getBlockState(mutableBlockPos);
+			if (blockState.getBlock() != this) {
 				return null;
 			}
-			Direction direction = getDir(level.getBlockState(pos).getValue(AXIS), level.getBlockState(pos).getValue(UPSIDEDOWN), level.getRandom());
-			if (level.getBlockState(pos.relative(direction)).isAir() || level.getBlockState(pos.relative(direction)).getBlock() == Blocks.SCULK_VEIN) {
-				return pos;
+			BlockState offsetState = level.getBlockState(mutableBlockPos.move(getDir(blockState.getValue(AXIS), blockState.getValue(UPSIDEDOWN), randomSource)));
+			if (offsetState.isAir() || offsetState.getBlock() == Blocks.SCULK_VEIN) {
+				return pos.immutable();
 			}
-			pos = pos.relative(direction);
 		}
 		return null;
 	}
 
 	@Nullable
 	public BlockPos getBottom(@NotNull LevelAccessor level, @NotNull BlockPos pos, int max) {
+		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
+		RandomSource randomSource = level.getRandom();
 		for (int i = 0; i < max; i++) {
-			Block block = level.getBlockState(pos).getBlock();
-			if (block != this) {
+			BlockState blockState = level.getBlockState(mutableBlockPos);
+			if (blockState.getBlock() != this) {
 				return null;
 			}
-			BlockState state = level.getBlockState(pos);
-			Direction direction = getDir(state.getValue(AXIS), state.getValue(UPSIDEDOWN), level.getRandom()).getOpposite();
-			if (level.getBlockState(pos.relative(direction)).is(Blocks.SCULK)) {
-				return pos;
+			if (level.getBlockState(mutableBlockPos.move(getDir(blockState.getValue(AXIS), blockState.getValue(UPSIDEDOWN), randomSource), -1)).is(Blocks.SCULK)) {
+				return pos.immutable();
 			}
-			pos = pos.relative(direction);
 		}
 		return null;
 	}
