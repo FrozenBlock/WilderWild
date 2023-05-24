@@ -63,15 +63,15 @@ public class ScorchedSandBlock extends Block {
 		this.defaultState = this.defaultBlockState();
 		this.defaultStateCracked = defaultState.setValue(CRACKEDNESS, true);
 		this.wetState = wetState;
-		this.fillScorchMap(wetState, this.defaultBlockState());
+		this.fillScorchMap(this.wetState, this.defaultState, this.defaultStateCracked);
 		this.dustColor = dustColor;
 	}
 
-	public void fillScorchMap(BlockState wetState, BlockState defaultState) {
+	public void fillScorchMap(BlockState wetState, BlockState defaultState, BlockState defaultStateCracked) {
 		SCORCH_MAP.put(wetState, defaultState);
-		SCORCH_MAP.put(defaultState, defaultState.setValue(RegisterProperties.CRACKEDNESS, true));
+		SCORCH_MAP.put(defaultState, defaultStateCracked);
 		HYDRATE_MAP.put(defaultState, wetState);
-		HYDRATE_MAP.put(defaultState.setValue(RegisterProperties.CRACKEDNESS, true), defaultState);
+		HYDRATE_MAP.put(defaultStateCracked, defaultState);
 	}
 
 	@Override
@@ -174,7 +174,9 @@ public class ScorchedSandBlock extends Block {
 	@Override
 	protected void finalize() {
 		SCORCH_MAP.remove(this.wetState);
-		HYDRATE_MAP.remove(this.defaultBlockState());
+		SCORCH_MAP.remove(this.defaultState);
+		HYDRATE_MAP.remove(this.defaultState);
+		HYDRATE_MAP.remove(this.defaultStateCracked);
 	}
 }
 
