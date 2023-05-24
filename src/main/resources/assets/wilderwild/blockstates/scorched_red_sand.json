@@ -1,9 +1,9 @@
 {
   "variants": {
-    "crackedness=0": {
+    "crackedness=false": {
       "model": "wilderwild:block/scorched_red_sand_0"
     },
-    "crackedness=1": {
+    "crackedness=true": {
       "model": "wilderwild:block/scorched_red_sand_1"
     }
   }

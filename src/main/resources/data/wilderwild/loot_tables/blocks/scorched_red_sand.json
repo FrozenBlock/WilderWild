@@ -20,7 +20,7 @@
                   "condition": "minecraft:block_state_property",
                   "block": "wilderwild:scorched_red_sand",
                   "properties": {
-                    "crackedness": "1"
+                    "crackedness": "true"
                   }
                 }
               ]

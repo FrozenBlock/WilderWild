@@ -18,19 +18,18 @@
 
 package net.frozenblock.wilderwild.mixin.server.general;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.world.level.block.CactusBlock;
 import net.minecraft.world.level.material.Material;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(CactusBlock.class)
 public final class CactusBlockMixin {
 
-	@Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/material/Material;isSolid()Z"), method = "canSurvive")
-	public boolean wilderWild$canSurviveIsSolid(Material par1) {
-		return !WilderSharedConstants.config().cactusPlacement() && par1.isSolid();
+	@ModifyExpressionValue(method = "canSurvive", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/material/Material;isSolid()Z"))
+	private boolean wilderWild$canSurviveIsSolid(boolean original) {
+		return !WilderSharedConstants.config().cactusPlacement() && original;
 	}
-
 }
