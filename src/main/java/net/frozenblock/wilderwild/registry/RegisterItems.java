@@ -167,11 +167,11 @@ public final class RegisterItems {
 
 		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(entries -> {
 			var second = new ItemStack(SCORCHED_SAND);
-			ItemBlockStateTagUtils.setProperty(second, RegisterProperties.CRACKEDNESS, 1);
+			ItemBlockStateTagUtils.setProperty(second, RegisterProperties.CRACKEDNESS, true);
 			entries.addAfter(SCORCHED_SAND, second);
 
 			var secondRed = new ItemStack(SCORCHED_RED_SAND);
-			ItemBlockStateTagUtils.setProperty(secondRed, RegisterProperties.CRACKEDNESS, 1);
+			ItemBlockStateTagUtils.setProperty(secondRed, RegisterProperties.CRACKEDNESS, true);
 			entries.addAfter(SCORCHED_RED_SAND, secondRed);
 		});
     }

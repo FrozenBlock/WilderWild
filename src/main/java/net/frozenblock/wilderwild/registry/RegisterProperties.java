@@ -50,8 +50,8 @@ public final class RegisterProperties {
     //Stone Chest
     public static final BooleanProperty ANCIENT = BooleanProperty.create("ancient");
     public static final BooleanProperty HAS_SCULK = BooleanProperty.create("has_sculk");
-	//Dry Sand
-	public static final IntegerProperty CRACKEDNESS = IntegerProperty.create("crackedness", 0, 1);
+	//Scorched Sand
+    public static final BooleanProperty CRACKEDNESS = BooleanProperty.create("crackedness");
 
     //Vanilla Blocks
     public static final IntegerProperty SOULS_TAKEN = IntegerProperty.create("souls_taken", 0, 2); //Sculk Shrieker

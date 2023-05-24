@@ -9,6 +9,9 @@ Put changelog here:
 - Fixed small biome placement issues
 - Fixed rare crash when bushes generate in water
 - Fixed surface rules in the mod's biomes not applying whilst using TerraBlender
+- Fixed a crash when Milkweed are fully grown
+- Fixed mipmap levels being reduced
 - Reduced panorama resolution to 1024x1024
 - Optimized file size
 - Internal changes to surface rules
+- Minor compatibility improvements
