@@ -28,7 +28,7 @@ jobs:
         with:
           fetch-depth: 0
           repository: FrozenBlock/FrozenLib
-          ref: master
+          ref: 1.19.3
           submodules: recursive
           path: FrozenLib
       - name: Validating the Gradle Wrapper
