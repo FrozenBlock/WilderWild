@@ -31,7 +31,7 @@ jobs:
         with:
           fetch-depth: 0
           repository: FrozenBlock/FrozenLib
-          ref: 1.19.4
+          ref: 1.20
           submodules: recursive
           path: FrozenLib
       - name: Setup JDK ${{ matrix.java }}
