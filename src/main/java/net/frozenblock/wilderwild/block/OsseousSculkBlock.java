@@ -96,27 +96,25 @@ public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehavi
 		if (state.is(this)) {
 			Direction.Axis axis = state.getValue(AXIS);
 			Direction dir = getDir(axis, state.getValue(UPSIDEDOWN), level.getRandom());
-			BlockPos.MutableBlockPos mutableBlockPos = pos.mutable().move(dir);
-			if (level.getBlockState(mutableBlockPos).is(this)) {
-				BlockState stateReplace;
-				Direction oppositeDirection;
+			if (level.getBlockState(pos.relative(dir)).is(this)) {
+				BlockPos newPos = pos.relative(dir);
+				BlockPos.MutableBlockPos mutableBlockPos = newPos.mutable();
 				for (Direction direction : UPDATE_SHAPE_ORDER) {
-					stateReplace = level.getBlockState(mutableBlockPos.move(direction));
-					oppositeDirection = direction.getOpposite();
+					mutableBlockPos.set(newPos);
+					BlockState stateReplace = level.getBlockState(mutableBlockPos.move(direction));
 					BlockState stateSetTo = null;
 					if (stateReplace.is(Blocks.SCULK_VEIN)) {
-						stateSetTo = stateReplace.setValue(MultifaceBlock.getFaceProperty(oppositeDirection), true);
+						stateSetTo = stateReplace.setValue(MultifaceBlock.getFaceProperty(direction.getOpposite()), true);
 					}
 					if (stateReplace.isAir()) {
-						stateSetTo = Blocks.SCULK_VEIN.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(oppositeDirection), true);
+						stateSetTo = Blocks.SCULK_VEIN.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(direction.getOpposite()), true);
 					}
 					if (stateReplace == Blocks.WATER.defaultBlockState()) {
-						stateSetTo = Blocks.SCULK_VEIN.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(oppositeDirection), true).setValue(BlockStateProperties.WATERLOGGED, true);
+						stateSetTo = Blocks.SCULK_VEIN.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(direction.getOpposite()), true).setValue(BlockStateProperties.WATERLOGGED, true);
 					}
 					if (stateSetTo != null) {
 						level.setBlock(mutableBlockPos, stateSetTo, 3);
 					}
-					mutableBlockPos.move(direction, -1);
 				}
 				level.setBlock(pos, Blocks.SCULK.defaultBlockState(), 3);
 			}
