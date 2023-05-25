@@ -59,14 +59,12 @@ public class ScorchedBlock extends BaseEntityBlock {
 	private static final IntegerProperty DUSTED = BlockStateProperties.DUSTED;
 	public static final int TICK_DELAY = 2;
 
-	private final boolean canBrush;
-	private final int dustColor;
 	private final BlockState defaultState;
 	private final BlockState defaultStateCracked;
 	private final BlockState wetState;
-	private final boolean canBrush;
-	private final SoundEvent brushSound;
-	private final SoundEvent brushCompletedSound;
+	public final boolean canBrush;
+	public final SoundEvent brushSound;
+	public final SoundEvent brushCompletedSound;
 
 	public ScorchedBlock(Properties settings, BlockState wetState, boolean canBrush, SoundEvent brushSound, SoundEvent brushCompletedSound) {
 		super(settings);
@@ -75,7 +73,6 @@ public class ScorchedBlock extends BaseEntityBlock {
 		this.defaultStateCracked = defaultState.setValue(CRACKEDNESS, true);
 		this.wetState = wetState;
 		this.fillScorchMap(this.wetState, this.defaultState, this.defaultStateCracked);
-		this.dustColor = dustColor;
 		this.canBrush = canBrush;
 		this.brushSound = brushSound;
 		this.brushCompletedSound = brushCompletedSound;
