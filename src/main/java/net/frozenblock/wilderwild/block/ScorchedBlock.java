@@ -65,11 +65,18 @@ public class ScorchedBlock extends BaseEntityBlock {
 	public ScorchedBlock(@NotNull Properties settings, @NotNull BlockState wetState, boolean canBrush, @NotNull SoundEvent brushSound, @NotNull SoundEvent brushCompletedSound) {
 		super(settings);
 		this.registerDefaultState(this.stateDefinition.any().setValue(CRACKEDNESS, false));
-		this.wetState = wetState;
-		this.fillScorchMap(wetState, this.defaultBlockState(), this.defaultBlockState().setValue(CRACKEDNESS, true));
 		this.canBrush = canBrush;
 		this.brushSound = brushSound;
 		this.brushCompletedSound = brushCompletedSound;
+		this.wetState = wetState;
+		this.fillScorchMap(this.wetState, this.defaultBlockState(), this.defaultBlockState().setValue(CRACKEDNESS, true));
+	}
+
+	public void fillScorchMap(BlockState wetState, BlockState defaultState, BlockState defaultStateCracked) {
+		SCORCH_MAP.put(wetState, defaultState);
+		SCORCH_MAP.put(defaultState, defaultStateCracked);
+		HYDRATE_MAP.put(defaultState, wetState);
+		HYDRATE_MAP.put(defaultStateCracked, defaultState);
 	}
 
 	public static boolean canScorch(@NotNull BlockState state) {
@@ -99,13 +106,6 @@ public class ScorchedBlock extends BaseEntityBlock {
 	@NotNull
 	private static BlockState stateWithoutDusting(@NotNull BlockState state) {
 		return state.hasProperty(DUSTED) ? state.setValue(DUSTED, 0) : state;
-	}
-
-	public void fillScorchMap(@NotNull BlockState wetState, @NotNull BlockState defaultState, @NotNull BlockState defaultStateCracked) {
-		SCORCH_MAP.put(wetState, defaultState);
-		SCORCH_MAP.put(defaultState, defaultStateCracked);
-		HYDRATE_MAP.put(defaultState, wetState);
-		HYDRATE_MAP.put(defaultStateCracked, defaultState);
 	}
 
 	@Override

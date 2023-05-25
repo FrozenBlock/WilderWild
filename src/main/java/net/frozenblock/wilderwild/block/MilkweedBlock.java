@@ -63,14 +63,12 @@ public class MilkweedBlock extends TallFlowerBlock {
 		builder.add(BlockStateProperties.AGE_3);
 	}
 
-	@Override
-	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (random.nextFloat() > 0.83F) {
-			if (isLower(state) && !isFullyGrown(state)) {
-				this.setAgeOnBothHalves(state, level, pos, state.getValue(BlockStateProperties.AGE_3) + 1);
-			}
-		}
-	}
+    @Override
+    public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+        if (random.nextFloat() > 0.83F && isLower(state) && !isFullyGrown(state)) {
+			this.setAgeOnBothHalves(state, level, pos, state.getValue(BlockStateProperties.AGE_3) + 1);
+        }
+    }
 
 	@Override
 	@NotNull
@@ -101,11 +99,13 @@ public class MilkweedBlock extends TallFlowerBlock {
 			this.setAgeOnBothHalves(state, level, pos, state.getValue(BlockStateProperties.AGE_3) + 1);
 			return;
 		}
-		TallFlowerBlock.popResource(level, pos, new ItemStack(this));
+		Block.popResource(level, pos, new ItemStack(this));
 	}
 
 	public void setAgeOnBothHalves(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, int age) {
-		if (age > MAX_AGE) return;
+		if (age > MAX_AGE) {
+			return;
+		}
 		level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.AGE_3, age));
 		BlockPos movedPos = state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER ? pos.below() : pos.above();
 		BlockState secondState = level.getBlockState(movedPos);
