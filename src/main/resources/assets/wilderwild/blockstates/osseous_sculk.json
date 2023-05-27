@@ -1,16 +1,28 @@
 {
   "variants": {
-	"axis=x": {
-	  "model": "wilderwild:block/osseous_sculk",
-	  "x": 90,
-	  "y": 90
-	},
-	"axis=y": {
-	  "model": "wilderwild:block/osseous_sculk"
-	},
-	"axis=z": {
-	  "model": "wilderwild:block/osseous_sculk",
-	  "x": 90
-	}
+    "facing=west": {
+      "model": "wilderwild:block/osseous_sculk",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east": {
+      "model": "wilderwild:block/osseous_sculk",
+      "x": 90,
+      "y": 90
+    },
+    "facing=up": {
+      "model": "wilderwild:block/osseous_sculk"
+    },
+    "facing=down": {
+      "model": "wilderwild:block/osseous_sculk"
+    },
+    "facing=north": {
+      "model": "wilderwild:block/osseous_sculk",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "wilderwild:block/osseous_sculk",
+      "x": 90
+    }
   }
 }
