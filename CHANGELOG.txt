@@ -7,6 +7,9 @@ Put changelog here:
 - Added config option for restricting instrument sounds
 - Fixed compatibility with WWOO
 - Fixed small biome placement issues
+- Increased size of Oasis biome
+- Changed scorched sand "crackedness" property to use a boolean instead of an integer
+- Added a datafixer to convert old scorched sand "crackedness" properties
 - Fixed rare crash when bushes generate in water
 - Fixed surface rules in the mod's biomes not applying whilst using TerraBlender
 - Fixed a crash when Milkweed are fully grown
