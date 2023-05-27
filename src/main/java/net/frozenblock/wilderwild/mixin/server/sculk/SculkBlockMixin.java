@@ -195,6 +195,8 @@ public abstract class SculkBlockMixin {
 		}
 		this.wilderWild$level = null;
 		this.wilderWild$randomSource = null;
+		this.wilderWild$placedPos = null;
+		this.wilderWild$placedState = null;
 	}
 
 	@ModifyExpressionValue(method = "attemptUseCharge", at = @At(value = "INVOKE", target = "Ljava/lang/Math;max(II)I"))
