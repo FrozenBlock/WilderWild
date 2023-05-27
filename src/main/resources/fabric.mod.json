@@ -41,7 +41,7 @@
     "wilderwild:beta_beaches": [
       "net.frozenblock.wilderwild.registry.RegisterSurfaceRules"
     ],
-    "frozenlib:surface_rules": [
+    "frozenlib:events": [
       "net.frozenblock.wilderwild.registry.RegisterSurfaceRules"
     ],
     "frozenlib:mob_categories": [

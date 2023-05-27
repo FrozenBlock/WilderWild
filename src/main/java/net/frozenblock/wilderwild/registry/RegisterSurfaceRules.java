@@ -5,9 +5,8 @@ import java.util.List;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.entrypoint.EntrypointContainer;
 import net.frozenblock.lib.FrozenBools;
-import net.frozenblock.lib.worldgen.surface.api.FrozenDimensionBoundRuleSource;
-import net.frozenblock.lib.worldgen.surface.api.FrozenSurfaceRuleEntrypoint;
 import net.frozenblock.lib.worldgen.surface.api.FrozenSurfaceRules;
+import net.frozenblock.lib.worldgen.surface.api.SurfaceRuleEvents;
 import net.frozenblock.lib.worldgen.surface.impl.BiomeTagConditionSource;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.interfaces.BetaBeachEntrypoint;
@@ -25,7 +24,7 @@ import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import org.jetbrains.annotations.NotNull;
 
-public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint, BetaBeachEntrypoint {
+public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceRuleCallback, BetaBeachEntrypoint {
 
 	@NotNull
 	public static SurfaceRules.RuleSource cypressSurfaceRules() {
@@ -396,42 +395,22 @@ public final class RegisterSurfaceRules implements FrozenSurfaceRuleEntrypoint, 
 	}
 
 	@Override
-	public void addOverworldSurfaceRules(@NotNull ArrayList<SurfaceRules.RuleSource> context) {
-		SurfaceRules.RuleSource surfaceRules = SurfaceRules.sequence(
-			WilderSharedConstants.config().optimizedBetaBeaches() ? optimizedBetaBeaches() : betaBeaches(),
-			cypressSurfaceRules(),
-			warmRiverRules(),
-			oasisRules(),
-			aridGrass(),
-			aridRules(),
-			oldGrowthSnowyTaigaRules(),
-			oldGrowthDarkForestRules(),
-			temperateRainforestRules(),
-			rainforestRules()
+	public void addOverworldSurfaceRules(@NotNull List<SurfaceRules.RuleSource> context) {
+		context.add(
+			SurfaceRules.sequence(
+				WilderSharedConstants.config().optimizedBetaBeaches() ? optimizedBetaBeaches() : betaBeaches(),
+				cypressSurfaceRules(),
+				warmRiverRules(),
+				oasisRules(),
+				aridGrass(),
+				aridRules(),
+				oldGrowthSnowyTaigaRules(),
+				oldGrowthDarkForestRules(),
+				temperateRainforestRules(),
+				rainforestRules()
+			)
 		);
-
-		context.add(surfaceRules);
 		WilderSharedConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
-	}
-
-	@Override
-	public void addOverworldSurfaceRulesNoPrelimSurface(ArrayList<SurfaceRules.RuleSource> context) {
-
-	}
-
-	@Override
-	public void addNetherSurfaceRules(ArrayList<SurfaceRules.RuleSource> context) {
-
-	}
-
-	@Override
-	public void addEndSurfaceRules(ArrayList<SurfaceRules.RuleSource> context) {
-
-	}
-
-	@Override
-	public void addSurfaceRules(ArrayList<FrozenDimensionBoundRuleSource> context) {
-
 	}
 
 	@Override
