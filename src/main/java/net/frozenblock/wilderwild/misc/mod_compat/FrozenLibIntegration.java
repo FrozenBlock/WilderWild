@@ -141,7 +141,7 @@ public class FrozenLibIntegration extends ModIntegration {
 		addBlock(COARSE_DIRT, COARSEDIRT, WilderSharedConstants.config()::coarseDirtSounds);
 		addBlock(COBWEB, WEB, WilderSharedConstants.config()::cobwebSounds);
 		addBlock(DEAD_BUSH, SoundType.NETHER_SPROUTS, WilderSharedConstants.config()::deadBushSounds);
-		addBlocks(new Block[]{DANDELION, POPPY, BLUE_ORCHID, ALLIUM, AZURE_BLUET, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, CORNFLOWER, LILY_OF_THE_VALLEY, SEEDING_DANDELION, CARNATION, GLORY_OF_THE_SNOW}, FLOWER, WilderSharedConstants.config()::flowerSounds);
+		addBlocks(new Block[]{DANDELION, POPPY, BLUE_ORCHID, ALLIUM, AZURE_BLUET, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, CORNFLOWER, LILY_OF_THE_VALLEY, SEEDING_DANDELION, CARNATION, GLORY_OF_THE_SNOW, DATURA, MILKWEED, SUNFLOWER, ROSE_BUSH, PEONY, LILAC}, FLOWER, WilderSharedConstants.config()::flowerSounds);
 		addBlocks(new Block[]{ICE, BLUE_ICE, PACKED_ICE}, RegisterBlockSoundTypes.ICE, WilderSharedConstants.config()::iceSounds);
 		addBlock(FROSTED_ICE, RegisterBlockSoundTypes.FROSTED_ICE, WilderSharedConstants.config()::frostedIceSounds);
 		addBlock(GRAVEL, RegisterBlockSoundTypes.GRAVEL, WilderSharedConstants.config()::gravelSounds);
