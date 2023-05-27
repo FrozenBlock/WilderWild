@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.mixin;
 import java.util.List;
 import java.util.Set;
 import net.frozenblock.lib.FrozenBools;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
@@ -41,11 +42,11 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 	}
 
 	@Override
-	public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
+	public boolean shouldApplyMixin(String targetClassName, @NotNull String mixinClassName) {
 		if (mixinClassName.contains("sodium")) {
 			return FrozenBools.HAS_SODIUM && !mixinClassName.contains("FluidRenderer");
 		}
-		if (mixinClassName.contains("LiquidBlockRenderer") || mixinClassName.contains("CloudRenderer")) {
+		if (mixinClassName.contains("LiquidBlockRenderer") || mixinClassName.contains("CloudRenderer") || mixinClassName.contains("EntityRenderDispatcher")) {
 			return !FrozenBools.HAS_SODIUM;
 		}
 		return true;
