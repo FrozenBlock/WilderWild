@@ -28,5 +28,6 @@
     "recipes": [
       "wilderwild:cypress_hanging_sign"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

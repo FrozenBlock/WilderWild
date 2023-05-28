@@ -3,11 +3,11 @@
   "category": "redstone",
   "group": "wooden_button",
   "ingredients": [
-  	{
-	   "item": "wilderwild:palm_planks"
-  	}
+    {
+      "item": "wilderwild:palm_planks"
+    }
   ],
   "result": {
-	  "item": "wilderwild:palm_button"
+    "item": "wilderwild:palm_button"
   }
 }

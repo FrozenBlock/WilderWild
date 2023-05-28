@@ -3,20 +3,20 @@
   "category": "misc",
   "group": "stone_chest",
   "pattern": [
-	  "___",
-	  "# #",
-	  "###"
+    "___",
+    "# #",
+    "###"
   ],
   "key": {
-	  "_": {
-	    "item": "minecraft:cobbled_deepslate_slab"
-  	},
-	  "#": {
-	    "item": "minecraft:cobbled_deepslate"
-	  }
+    "_": {
+      "item": "minecraft:cobbled_deepslate_slab"
+    },
+    "#": {
+      "item": "minecraft:cobbled_deepslate"
+    }
   },
   "result": {
-  	"item": "wilderwild:stone_chest",
-	  "count": 1
+    "item": "wilderwild:stone_chest",
+    "count": 1
   }
 }

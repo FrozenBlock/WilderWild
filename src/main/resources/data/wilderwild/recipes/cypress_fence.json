@@ -3,19 +3,19 @@
   "category": "misc",
   "group": "wooden_fence",
   "key": {
-	  "#": {
-	   "item": "minecraft:stick"
-	  },
-	  "W": {
-	    "item": "wilderwild:cypress_planks"
-  	}
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "W": {
+      "item": "wilderwild:cypress_planks"
+    }
   },
   "pattern": [
-	  "W#W",
-	  "W#W"
+    "W#W",
+    "W#W"
   ],
   "result": {
-	  "count": 3,
-	  "item": "wilderwild:cypress_fence"
+    "count": 3,
+    "item": "wilderwild:cypress_fence"
   }
 }

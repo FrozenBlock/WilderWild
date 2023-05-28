@@ -2,15 +2,15 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-  	{
-	   "item": "minecraft:music_disc_otherside"
-  	},
-	  {
-	    "item": "minecraft:music_disc_5"
-	  }
+    {
+      "item": "minecraft:music_disc_otherside"
+    },
+    {
+      "item": "minecraft:music_disc_5"
+    }
   ],
   "result": {
-	  "item": "wilderwild:music_disc_back",
-	  "count": 1
+    "item": "wilderwild:music_disc_back",
+    "count": 1
   }
 }

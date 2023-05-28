@@ -1,7 +1,7 @@
 {
   "variants": {
-	"": {
-	  "model": "wilderwild:block/potted_tumbleweed_plant"
-	}
+    "": {
+      "model": "wilderwild:block/potted_tumbleweed_plant"
+    }
   }
 }

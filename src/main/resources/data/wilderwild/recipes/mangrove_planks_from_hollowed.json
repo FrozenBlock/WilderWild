@@ -3,12 +3,12 @@
   "category": "building",
   "group": "planks",
   "ingredients": [
-	  {
-	    "tag": "wilderwild:hollowed_mangrove_logs"
-	  }
+    {
+      "tag": "wilderwild:hollowed_mangrove_logs"
+    }
   ],
   "result": {
-	  "count": 2,
-	  "item": "minecraft:mangrove_planks"
+    "count": 2,
+    "item": "minecraft:mangrove_planks"
   }
 }

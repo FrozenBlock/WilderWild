@@ -42,6 +42,7 @@ import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
+import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.frozenblock.wilderwild.world.generation.WilderFeatureBootstrap;
 import net.frozenblock.wilderwild.world.generation.noise.WilderNoise;
 import net.minecraft.core.HolderGetter;
@@ -59,6 +60,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.flag.FeatureFlagSet;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -1759,6 +1761,14 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 		protected void addTags(@NotNull HolderLookup.Provider arg) {
 			this.getOrCreateTagBuilder(FrozenItemTags.ALWAYS_SAVE_COOLDOWNS)
 				.add(RegisterItems.ANCIENT_HORN);
+
+			this.getOrCreateTagBuilder(WilderItemTags.BROWN_MUSHROOM_STEW_INGREDIENTS)
+				.add(Items.BROWN_MUSHROOM)
+				.addOptional(WilderSharedConstants.id("brown_shelf_fungus"));
+
+			this.getOrCreateTagBuilder(WilderItemTags.RED_MUSHROOM_STEW_INGREDIENTS)
+				.add(Items.RED_MUSHROOM)
+				.addOptional(WilderSharedConstants.id("red_shelf_fungus"));
 		}
 	}
 

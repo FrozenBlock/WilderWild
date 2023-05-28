@@ -1,9 +1,9 @@
 {
   "values": [
-	"minecraft:squid",
-	"minecraft:glow_squid",
-	"minecraft:dolphin",
-	"wilderwild:jellyfish",
+    "minecraft:squid",
+    "minecraft:glow_squid",
+    "minecraft:dolphin",
+    "wilderwild:jellyfish",
     "wilderwild:tumbleweed"
   ]
 }

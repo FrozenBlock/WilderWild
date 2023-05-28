@@ -2,18 +2,18 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-	  "B": {
-	   "item": "minecraft:black_concrete"
-	  },
-	  "M": {
-	   "item": "minecraft:magenta_concrete"
-  	}
+    "B": {
+      "item": "minecraft:black_concrete"
+    },
+    "M": {
+      "item": "minecraft:magenta_concrete"
+    }
   },
   "pattern": [
-	  "BM",
-	  "MB"
+    "BM",
+    "MB"
   ],
   "result": {
-	  "item": "wilderwild:null_block"
+    "item": "wilderwild:null_block"
   }
 }

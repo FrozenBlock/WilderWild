@@ -3,16 +3,16 @@
   "category": "building",
   "group": "bark",
   "key": {
-  	"#": {
-	    "item": "wilderwild:hollowed_palm_log"
-  	}
+    "#": {
+      "item": "wilderwild:hollowed_palm_log"
+    }
   },
   "pattern": [
-  	"##",
-	  "##"
+    "##",
+    "##"
   ],
   "result": {
-	  "count": 2,
-  	"item": "wilderwild:palm_wood"
+    "count": 2,
+    "item": "wilderwild:palm_wood"
   }
 }

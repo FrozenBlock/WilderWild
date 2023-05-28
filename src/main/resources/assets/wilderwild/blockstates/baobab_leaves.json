@@ -1,7 +1,7 @@
 {
   "variants": {
-	"": {
-	  "model": "wilderwild:block/baobab_leaves"
-	}
+    "": {
+      "model": "wilderwild:block/baobab_leaves"
+    }
   }
 }

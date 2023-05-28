@@ -1,7 +1,7 @@
 {
   "variants": {
-	"": {
-	  "model": "wilderwild:block/potted_seeding_dandelion"
-	}
+    "": {
+      "model": "wilderwild:block/potted_seeding_dandelion"
+    }
   }
 }

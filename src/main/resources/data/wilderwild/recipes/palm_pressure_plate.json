@@ -3,14 +3,14 @@
   "category": "redstone",
   "group": "wooden_pressure_plate",
   "key": {
-	  "#": {
-	    "item": "wilderwild:palm_planks"
-	  }
+    "#": {
+      "item": "wilderwild:palm_planks"
+    }
   },
   "pattern": [
-	  "##"
+    "##"
   ],
   "result": {
-	  "item": "wilderwild:palm_pressure_plate"
+    "item": "wilderwild:palm_pressure_plate"
   }
 }

@@ -3,12 +3,12 @@
   "category": "building",
   "group": "planks",
   "ingredients": [
-	  {
+    {
       "tag": "wilderwild:baobab_logs"
-	  }
+    }
   ],
   "result": {
     "count": 4,
-	  "item": "wilderwild:baobab_planks"
+    "item": "wilderwild:baobab_planks"
   }
 }

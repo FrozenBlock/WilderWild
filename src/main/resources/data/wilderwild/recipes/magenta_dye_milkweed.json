@@ -3,12 +3,12 @@
   "category": "misc",
   "group": "magenta_dye",
   "ingredients": [
-	  {
-	    "item": "wilderwild:milkweed"
-	  }
+    {
+      "item": "wilderwild:milkweed"
+    }
   ],
   "result": {
-	  "item": "minecraft:magenta_dye",
-	  "count": 2
+    "item": "minecraft:magenta_dye",
+    "count": 2
   }
 }

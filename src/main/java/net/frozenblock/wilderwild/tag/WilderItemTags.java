@@ -29,6 +29,8 @@ public final class WilderItemTags {
 	public static final TagKey<Item> TUMBLEWEED_COMMON = bind("tumbleweed_common");
 	public static final TagKey<Item> TUMBLEWEED_MEDIUM = bind("tumbleweed_medium");
 	public static final TagKey<Item> TUMBLEWEED_RARE = bind("tumbleweed_rare");
+	public static final TagKey<Item> BROWN_MUSHROOM_STEW_INGREDIENTS = bind("brown_mushroom_stew_ingredients");
+	public static final TagKey<Item> RED_MUSHROOM_STEW_INGREDIENTS = bind("red_mushroom_stew_ingredients");
 
 	private WilderItemTags() {
 		throw new UnsupportedOperationException("WilderItemTags contains only static declarations.");

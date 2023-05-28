@@ -1,8 +1,8 @@
 {
   "variants": {
-	"termites_awake=false": {
-	  "model": "wilderwild:block/termite_mound"
-	},
+    "termites_awake=false": {
+      "model": "wilderwild:block/termite_mound"
+    },
     "termites_awake=true": {
       "model": "wilderwild:block/termite_mound_termites"
     }

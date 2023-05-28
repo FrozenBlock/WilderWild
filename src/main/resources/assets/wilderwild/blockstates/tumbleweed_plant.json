@@ -1,16 +1,16 @@
 {
   "variants": {
-	"age=0": {
-	  "model": "wilderwild:block/tumbleweed_plant_stage_0"
-	},
-	"age=1": {
-	  "model": "wilderwild:block/tumbleweed_plant_stage_1"
-	},
-	"age=2": {
-	  "model": "wilderwild:block/tumbleweed_plant_stage_2"
-	},
-	"age=3": {
-	  "model": "wilderwild:block/tumbleweed_plant_stage_3"
-	}
+    "age=0": {
+      "model": "wilderwild:block/tumbleweed_plant_stage_0"
+    },
+    "age=1": {
+      "model": "wilderwild:block/tumbleweed_plant_stage_1"
+    },
+    "age=2": {
+      "model": "wilderwild:block/tumbleweed_plant_stage_2"
+    },
+    "age=3": {
+      "model": "wilderwild:block/tumbleweed_plant_stage_3"
+    }
   }
 }

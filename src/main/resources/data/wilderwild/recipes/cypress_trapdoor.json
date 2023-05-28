@@ -3,16 +3,16 @@
   "category": "redstone",
   "group": "wooden_trapdoor",
   "key": {
-	  "#": {
-	   "item": "wilderwild:cypress_planks"
-	  }
+    "#": {
+      "item": "wilderwild:cypress_planks"
+    }
   },
   "pattern": [
-	  "###",
-	  "###"
+    "###",
+    "###"
   ],
   "result": {
-	  "count": 2,
-	  "item": "wilderwild:cypress_trapdoor"
+    "count": 2,
+    "item": "wilderwild:cypress_trapdoor"
   }
 }

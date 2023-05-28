@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-	"#wilderwild:baobab_logs",
-	"#wilderwild:cypress_logs",
+    "#wilderwild:baobab_logs",
+    "#wilderwild:cypress_logs",
     "#wilderwild:palm_logs",
     "#wilderwild:hollowed_logs"
   ]

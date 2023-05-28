@@ -3,11 +3,11 @@
   "category": "redstone",
   "group": "wooden_button",
   "ingredients": [
-	  {
-	   "item": "wilderwild:cypress_planks"
-  	}
+    {
+      "item": "wilderwild:cypress_planks"
+    }
   ],
   "result": {
-	  "item": "wilderwild:cypress_button"
+    "item": "wilderwild:cypress_button"
   }
 }

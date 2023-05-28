@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/button",
   "textures": {
-	"texture": "wilderwild:block/palm_planks"
+    "texture": "wilderwild:block/palm_planks"
   }
 }

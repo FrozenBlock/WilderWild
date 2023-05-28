@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-	"all": "wilderwild:block/echo_glass_1"
+    "all": "wilderwild:block/echo_glass_1"
   }
 }

@@ -3,18 +3,18 @@
   "category": "redstone",
   "group": "wooden_fence_gate",
   "key": {
-	  "#": {
-	   "item": "minecraft:stick"
-	  },
-	  "W": {
-	   "item": "wilderwild:cypress_planks"
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "W": {
+      "item": "wilderwild:cypress_planks"
     }
   },
   "pattern": [
-	  "#W#",
-	  "#W#"
+    "#W#",
+    "#W#"
   ],
   "result": {
-	  "item": "wilderwild:cypress_fence_gate"
+    "item": "wilderwild:cypress_fence_gate"
   }
 }
