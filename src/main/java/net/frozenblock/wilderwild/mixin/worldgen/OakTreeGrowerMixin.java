@@ -50,6 +50,9 @@ public class OakTreeGrowerMixin {
 			if (random.nextInt(10) == 0) {
 				info.setReturnValue(bees ? WilderTreeConfigured.FANCY_OAK_BEES_0004.getKey() : WilderTreeConfigured.FANCY_OAK.getKey());
 			} else {
+				if (random.nextFloat() < 0.075F) {
+					info.setReturnValue(random.nextBoolean() ? WilderTreeConfigured.SHRUB.getKey() : WilderTreeConfigured.BIG_SHRUB.getKey());
+				}
 				info.setReturnValue(bees ? WilderTreeConfigured.OAK_BEES_0004.getKey() : WilderTreeConfigured.OAK.getKey());
 			}
 		}
