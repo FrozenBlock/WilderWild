@@ -4,6 +4,7 @@
     "minecraft:windswept_savanna",
     "minecraft:savanna_plateau",
     "minecraft:savanna",
+    "minecraft:sunflower_plains",
     {
       "id": "wilderwild:flower_field",
       "required": false
