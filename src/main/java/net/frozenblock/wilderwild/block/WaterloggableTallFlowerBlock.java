@@ -18,9 +18,11 @@
 
 package net.frozenblock.wilderwild.block;
 
+import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -65,6 +67,11 @@ public class WaterloggableTallFlowerBlock extends TallFlowerBlock implements Sim
 	@NotNull
 	public FluidState getFluidState(@NotNull BlockState state) {
 		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+	}
+
+	@Override
+	protected boolean mayPlaceOn(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos) {
+		return super.mayPlaceOn(blockState, blockGetter, blockPos) || blockState.is(WilderBlockTags.CATTAIL_PLACEABLE) || blockState.is(WilderBlockTags.CATTAIL_MUD_PLACEABLE);
 	}
 
 	@Override

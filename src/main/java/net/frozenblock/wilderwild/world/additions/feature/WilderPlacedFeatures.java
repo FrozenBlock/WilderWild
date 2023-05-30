@@ -212,6 +212,8 @@ public final class WilderPlacedFeatures {
 	public static final FrozenPlacedFeature POLLEN_PLACED = register("pollen");
 	public static final FrozenPlacedFeature PATCH_CATTAIL = register("cattail");
 	public static final FrozenPlacedFeature PATCH_CATTAIL_COMMON = register("cattail_common");
+	public static final FrozenPlacedFeature PATCH_CATTAIL_MUD = register("cattail_mud");
+	public static final FrozenPlacedFeature PATCH_CATTAIL_MUD_COMMON = register("cattail_mud_common");
 	public static final FrozenPlacedFeature PATCH_FLOWERED_WATERLILY = register("patch_flowered_waterlily");
 	public static final FrozenPlacedFeature PATCH_ALGAE = register("patch_algae");
 	public static final FrozenPlacedFeature PATCH_ALGAE_SMALL = register("patch_algae_small");
@@ -976,6 +978,16 @@ public final class WilderPlacedFeatures {
 		PATCH_CATTAIL_COMMON.makeAndSetHolder(WilderConfiguredFeatures.CATTAIL_SMALL.getHolder(),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_TOP_SOLID, BiomeFilter.biome()
+		);
+
+		PATCH_CATTAIL_MUD.makeAndSetHolder(WilderConfiguredFeatures.CATTAIL_MUD.getHolder(),
+			RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
+		PATCH_CATTAIL_MUD_COMMON.makeAndSetHolder(WilderConfiguredFeatures.CATTAIL_MUD_SMALL.getHolder(),
+			CountPlacement.of(UniformInt.of(1, 2)), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
 		PATCH_FLOWERED_WATERLILY.makeAndSetHolder(WilderConfiguredFeatures.PATCH_FLOWERED_WATERLILY.getHolder(),

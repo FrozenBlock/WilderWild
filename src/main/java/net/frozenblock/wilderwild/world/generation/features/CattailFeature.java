@@ -25,8 +25,10 @@ import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.world.generation.features.config.CattailFeatureConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
@@ -67,6 +69,8 @@ public class CattailFeature extends Feature<CattailFeatureConfig> {
 		BlockPos.MutableBlockPos topBlockPos = blockPos.mutable();
 		BlockState topPlaceState = RegisterBlocks.CATTAIL.defaultBlockState().setValue(WaterloggableTallFlowerBlock.HALF, DoubleBlockHalf.UPPER);
 		int placementAttempts = config.placementAttempts().sample(random);
+		boolean waterPlacement = config.inWater();
+		TagKey<Block> placeableBlocks = config.placeableBlocks();
 		for (int l = 0; l < placementAttempts; l++) {
 			int randomX = config.width().sample(random);
 			int randomZ = config.width().sample(random);
@@ -80,9 +84,9 @@ public class CattailFeature extends Feature<CattailFeatureConfig> {
 				BlockState bottomPlaceState = RegisterBlocks.CATTAIL.defaultBlockState();
 				topBlockPos.set(bottomBlockPos).move(Direction.UP);
 				BlockState topState = level.getBlockState(topBlockPos);
-				if ((bottomState.isAir() || bottomStateIsWater) && topState.isAir() && bottomPlaceState.canSurvive(level, bottomBlockPos) && (bottomStateIsWater || isWaterNearby(level, bottomBlockPos, 2))) {
+				if ((bottomState.isAir() || (waterPlacement && bottomStateIsWater)) && topState.isAir() && bottomPlaceState.canSurvive(level, bottomBlockPos) && (!waterPlacement || (bottomStateIsWater || isWaterNearby(level, bottomBlockPos, 2))) && level.getBlockState(bottomBlockPos.move(Direction.DOWN)).is(placeableBlocks)) {
 					bottomPlaceState = bottomPlaceState.setValue(WaterloggableTallFlowerBlock.WATERLOGGED, bottomStateIsWater);
-					level.setBlock(bottomBlockPos, bottomPlaceState, 3);
+					level.setBlock(bottomBlockPos.move(Direction.UP), bottomPlaceState, 3);
 					if (topPlaceState.canSurvive(level, topBlockPos)) {
 						level.setBlock(topBlockPos, topPlaceState, 3);
 					}
@@ -90,7 +94,6 @@ public class CattailFeature extends Feature<CattailFeatureConfig> {
 				}
 			}
 		}
-
 		return generated;
 	}
 }

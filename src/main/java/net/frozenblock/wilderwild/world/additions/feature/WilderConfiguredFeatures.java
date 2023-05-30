@@ -388,6 +388,8 @@ public final class WilderConfiguredFeatures {
 	public static final FrozenConfiguredFeature<ShelfFungusFeatureConfig, ConfiguredFeature<ShelfFungusFeatureConfig, ?>> RED_SHELF_FUNGUS_CONFIGURED = register("red_shelf_fungus");
 	public static final FrozenConfiguredFeature<CattailFeatureConfig, ConfiguredFeature<CattailFeatureConfig, ?>> CATTAIL = register("cattail");
 	public static final FrozenConfiguredFeature<CattailFeatureConfig, ConfiguredFeature<CattailFeatureConfig, ?>> CATTAIL_SMALL = register("cattail_small");
+	public static final FrozenConfiguredFeature<CattailFeatureConfig, ConfiguredFeature<CattailFeatureConfig, ?>> CATTAIL_MUD = register("cattail_mud");
+	public static final FrozenConfiguredFeature<CattailFeatureConfig, ConfiguredFeature<CattailFeatureConfig, ?>> CATTAIL_MUD_SMALL = register("cattail_mud_small");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_FLOWERED_WATERLILY = register("patch_flowered_waterlily");
 	public static final FrozenConfiguredFeature<AlgaeFeatureConfig, ConfiguredFeature<AlgaeFeatureConfig, ?>> PATCH_ALGAE = register("patch_algae");
 	public static final FrozenConfiguredFeature<AlgaeFeatureConfig, ConfiguredFeature<AlgaeFeatureConfig, ?>> PATCH_ALGAE_SMALL = register("patch_algae_small");
@@ -1679,11 +1681,39 @@ public final class WilderConfiguredFeatures {
 		);
 
 		CATTAIL.makeAndSetHolder(RegisterFeatures.CATTAIL_FEATURE,
-			new CattailFeatureConfig(UniformInt.of(-7, 7), UniformInt.of(12, 21))
+			new CattailFeatureConfig(
+				UniformInt.of(-7, 7),
+				UniformInt.of(12, 21),
+				true,
+				WilderBlockTags.CATTAIL_PLACEABLE
+			)
 		);
 
 		CATTAIL_SMALL.makeAndSetHolder(RegisterFeatures.CATTAIL_FEATURE,
-			new CattailFeatureConfig(UniformInt.of(-5, 5), UniformInt.of(6, 18))
+			new CattailFeatureConfig(
+				UniformInt.of(-5, 5),
+				UniformInt.of(6, 18),
+				true,
+				WilderBlockTags.CATTAIL_PLACEABLE
+			)
+		);
+
+		CATTAIL_MUD.makeAndSetHolder(RegisterFeatures.CATTAIL_FEATURE,
+			new CattailFeatureConfig(
+				UniformInt.of(-7, 7),
+				UniformInt.of(12, 21),
+				false,
+				WilderBlockTags.CATTAIL_MUD_PLACEABLE
+			)
+		);
+
+		CATTAIL_MUD_SMALL.makeAndSetHolder(RegisterFeatures.CATTAIL_FEATURE,
+			new CattailFeatureConfig(
+				UniformInt.of(-5, 5),
+				UniformInt.of(6, 18),
+				false,
+				WilderBlockTags.CATTAIL_MUD_PLACEABLE
+			)
 		);
 
 		PATCH_FLOWERED_WATERLILY.makeAndSetHolder(Feature.RANDOM_PATCH,

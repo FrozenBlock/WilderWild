@@ -1359,11 +1359,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.generateFeatures();
 			this.generateDeepDark();
 			this.generateHollowedAndTermites();
-			this.generateCoconutSplitters();
-			this.generateTumbleweedStoppers();
-			this.getOrCreateTagBuilder(BlockTags.SAND)
-				.add(RegisterBlocks.SCORCHED_SAND)
-				.add(RegisterBlocks.SCORCHED_RED_SAND);
+			this.generateTags();;
 		}
 
 		private void generateFeatures() {
@@ -1534,7 +1530,14 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.add(Blocks.SANDSTONE);
 		}
 
-		private void generateCoconutSplitters() {
+		private void generateTags() {
+			this.getOrCreateTagBuilder(WilderBlockTags.STOPS_TUMBLEWEED)
+				.add(Blocks.MUD)
+				.add(Blocks.MUDDY_MANGROVE_ROOTS)
+				.add(Blocks.SLIME_BLOCK)
+				.add(Blocks.IRON_BARS)
+				.add(Blocks.HONEY_BLOCK);
+
 			this.getOrCreateTagBuilder(WilderBlockTags.SPLITS_COCONUT)
 				.addOptionalTag(BlockTags.MINEABLE_WITH_PICKAXE)
 				.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
@@ -1542,15 +1545,18 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptionalTag(BlockTags.DRAGON_IMMUNE)
 				.addOptionalTag(BlockTags.WITHER_IMMUNE)
 				.addOptionalTag(BlockTags.LOGS);
-		}
 
-		private void generateTumbleweedStoppers() {
-			this.getOrCreateTagBuilder(WilderBlockTags.STOPS_TUMBLEWEED)
-				.add(Blocks.MUD)
-				.add(Blocks.MUDDY_MANGROVE_ROOTS)
-				.add(Blocks.SLIME_BLOCK)
-				.add(Blocks.IRON_BARS)
-				.add(Blocks.HONEY_BLOCK);
+			this.getOrCreateTagBuilder(WilderBlockTags.CATTAIL_PLACEABLE)
+				.addOptionalTag(BlockTags.DIRT)
+				.addOptionalTag(BlockTags.SAND)
+				.add(Blocks.CLAY);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.CATTAIL_MUD_PLACEABLE)
+				.add(Blocks.MUD);
+
+			this.getOrCreateTagBuilder(BlockTags.SAND)
+				.add(RegisterBlocks.SCORCHED_SAND)
+				.add(RegisterBlocks.SCORCHED_RED_SAND);
 		}
 
 		private void generateDeepDark() {
