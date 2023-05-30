@@ -719,7 +719,6 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_MILKWEED)
 				.add(Biomes.BIRCH_FOREST)
 				.add(Biomes.FLOWER_FOREST)
-				.add(Biomes.PLAINS)
 				.add(Biomes.FOREST)
 				.add(Biomes.SWAMP)
 				.add(Biomes.SPARSE_JUNGLE)
