@@ -960,6 +960,14 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
 				.addOptional(RegisterWorldgen.DARK_TAIGA);
 
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SHRUB)
+				.add(Biomes.WINDSWEPT_SAVANNA)
+				.add(Biomes.SAVANNA_PLATEAU)
+				.add(Biomes.SAVANNA)
+				.addOptional(RegisterWorldgen.FLOWER_FIELD)
+				.addOptional(RegisterWorldgen.RAINFOREST)
+				.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
+
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_PLAINS_FLOWERS)
 				.add(Biomes.PLAINS)
 				.add(Biomes.MEADOW)

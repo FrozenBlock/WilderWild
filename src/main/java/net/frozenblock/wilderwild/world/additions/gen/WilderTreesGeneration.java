@@ -156,6 +156,9 @@ public final class WilderTreesGeneration {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FOREST_SHRUB),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SHRUBS_FOREST.getKey());
 
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SHRUB),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SHRUBS.getKey());
+
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SHORT_MEGA_SPRUCE),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SHORT_MEGA_SPRUCE_PLACED.getKey());
 

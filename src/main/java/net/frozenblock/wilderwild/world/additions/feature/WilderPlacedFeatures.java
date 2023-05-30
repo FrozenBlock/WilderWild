@@ -77,6 +77,7 @@ public final class WilderPlacedFeatures {
 	//TREES
 	public static final FrozenPlacedFeature TREES_PLAINS = register("trees_plains");
 	public static final FrozenPlacedFeature SHRUBS_FOREST = register("shrubs_forest");
+	public static final FrozenPlacedFeature SHRUBS = register("shrubs");
 	public static final FrozenPlacedFeature TREES_FLOWER_FIELD = register("trees_flower_field");
 	public static final FrozenPlacedFeature TREES_BIRCH_AND_OAK = register("trees_birch_and_oak");
 	public static final FrozenPlacedFeature TREES_SEMI_BIRCH_AND_OAK = register("trees_semi_birch_and_oak");
@@ -343,12 +344,17 @@ public final class WilderPlacedFeatures {
 		// TREES
 
 		TREES_PLAINS.makeAndSetHolder(WilderConfiguredFeatures.TREES_PLAINS.getHolder(),
-			PlacementUtils.countExtra(0, 0.2F, 1), InSquarePlacement.spread(), TREE_THRESHOLD,
+			PlacementUtils.countExtra(1, 0.1F, 1), RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(), TREE_THRESHOLD,
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome()
 		);
 
 		SHRUBS_FOREST.makeAndSetHolder(WilderConfiguredFeatures.SHRUBS.getHolder(),
-			PlacementUtils.countExtra(1, 0.2F, 1), RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(), TREE_THRESHOLD,
+			PlacementUtils.countExtra(1, 0.2F, 1), InSquarePlacement.spread(), TREE_THRESHOLD,
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome()
+		);
+
+		SHRUBS.makeAndSetHolder(WilderConfiguredFeatures.SHRUBS.getHolder(),
+			PlacementUtils.countExtra(1, 0.2F, 1), RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(), TREE_THRESHOLD,
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome()
 		);
 
@@ -771,7 +777,7 @@ public final class WilderPlacedFeatures {
 		);
 
 		TALL_GRASS_PLAINS.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_TALL_GRASS),
-			RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(),
+			RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
@@ -824,12 +830,12 @@ public final class WilderPlacedFeatures {
 
 		COMMON_SEEDING_DANDELION.makeAndSetHolder(WilderConfiguredFeatures.SEEDING_DANDELION.getHolder(),
 			RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
 		RARE_SEEDING_DANDELION.makeAndSetHolder(WilderConfiguredFeatures.SEEDING_DANDELION.getHolder(),
 			RarityFilter.onAverageOnceEvery(16), InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
 		CARNATION.makeAndSetHolder(WilderConfiguredFeatures.CARNATION.getHolder(),
@@ -844,11 +850,11 @@ public final class WilderPlacedFeatures {
 
 		COMMON_DATURA.makeAndSetHolder(WilderConfiguredFeatures.DATURA.getHolder(),
 			RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
 		FLOWER_PLAINS.makeAndSetHolder(WilderConfiguredFeatures.FLOWER_PLAINS.getHolder(),
-			CountPlacement.of(1), RarityFilter.onAverageOnceEvery(1), InSquarePlacement.spread(),
+			CountPlacement.of(1), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
@@ -1101,7 +1107,7 @@ public final class WilderPlacedFeatures {
 		PATCH_MELON.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_MELON),
 			RarityFilter.onAverageOnceEvery(64),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP,
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 	}

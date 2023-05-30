@@ -4,8 +4,12 @@
     "default": "wilderwild:big_shrub_checked",
     "features": [
       {
-        "chance": 0.425,
+        "chance": 0.3,
         "feature": "wilderwild:shrub_checked"
+      },
+      {
+        "chance": 0.6,
+        "feature": "wilderwild:big_shrub_checked"
       }
     ]
   }

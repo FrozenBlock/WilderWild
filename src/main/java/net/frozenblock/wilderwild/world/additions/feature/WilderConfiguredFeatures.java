@@ -494,19 +494,19 @@ public final class WilderConfiguredFeatures {
 				WilderTreePlaced.FALLEN_MANGROVE_CHECKED.getHolder()));
 
 		TREES_PLAINS.makeAndSetHolder(Feature.RANDOM_SELECTOR,
-			new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.FANCY_OAK_BEES_0004.getHolder()), 0.08F),
-				new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.FANCY_DYING_OAK_BEES_0004.getHolder()), 0.03F),
-				new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.SHORT_OAK.getHolder()), 0.3F),
-				new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.BIG_SHRUB.getHolder()), 0.45F),
-				new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.SHRUB.getHolder()), 0.25F)),
-				PlacementUtils.inlinePlaced(WilderTreeConfigured.OAK_BEES_0004.getHolder())));
+			new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.FANCY_OAK_BEES_0004.getHolder()), 0.04F),
+				new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.FANCY_DYING_OAK_BEES_0004.getHolder()), 0.02F),
+				new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.SHORT_OAK.getHolder()), 0.1F),
+				new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.SHRUB.getHolder()), 0.35F),
+				new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.BIG_SHRUB.getHolder()), 0.6F)),
+				PlacementUtils.inlinePlaced(WilderTreeConfigured.BIG_SHRUB.getHolder())));
 
 		TREES_FLOWER_FIELD.makeAndSetHolder(Feature.RANDOM_SELECTOR,
-			new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.FANCY_OAK_BEES_025.getHolder()), 0.4F),
+			new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.FANCY_OAK_BEES_025.getHolder()), 0.2F),
 				new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.FANCY_DYING_OAK_BEES_025.getHolder()), 0.09F),
 				new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.BIRCH_BEES_025.getHolder()), 0.1F),
 				new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.BIG_SHRUB.getHolder()), 0.5F),
-				new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.SHRUB.getHolder()), 0.1F),
+				new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.SHRUB.getHolder()), 0.3F),
 				new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.SHORT_OAK.getHolder()), 0.169F)),
 				PlacementUtils.inlinePlaced(WilderTreeConfigured.OAK_BEES_0004.getHolder())
 			)
@@ -894,7 +894,8 @@ public final class WilderConfiguredFeatures {
 		SHRUBS.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(WilderTreePlaced.SHRUB_CHECKED.getHolder(), 0.425F)
+					new WeightedPlacedFeature(WilderTreePlaced.SHRUB_CHECKED.getHolder(), 0.3F),
+					new WeightedPlacedFeature(WilderTreePlaced.BIG_SHRUB_CHECKED.getHolder(), 0.6F)
 				),
 				WilderTreePlaced.BIG_SHRUB_CHECKED.getHolder()
 			)
@@ -1095,7 +1096,7 @@ public final class WilderConfiguredFeatures {
 
 		FLOWER_PLAINS.makeAndSetHolder(Feature.FLOWER,
 			new RandomPatchConfiguration(
-				19,
+				22,
 				8,
 				3,
 				PlacementUtils.onlyWhenEmpty(

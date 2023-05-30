@@ -117,6 +117,7 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_BERRY_PATCH = bind("has_berry_patch");
 	public static final TagKey<Biome> HAS_BUSH = bind("has_bush");
 	public static final TagKey<Biome> HAS_FOREST_SHRUB = bind("has_forest_shrub");
+	public static final TagKey<Biome> HAS_SHRUB = bind("has_shrub");
 	public static final TagKey<Biome> HAS_PLAINS_FLOWERS = bind("has_plains_flowers");
 	public static final TagKey<Biome> HAS_CYPRESS_FLOWERS = bind("has_cypress_flowers");
 	public static final TagKey<Biome> HAS_RARE_MILKWEED = bind("has_rare_milkweed");
