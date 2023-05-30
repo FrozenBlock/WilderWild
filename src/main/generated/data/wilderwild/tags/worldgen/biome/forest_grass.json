@@ -8,6 +8,7 @@
     "minecraft:dark_forest",
     "minecraft:taiga",
     "minecraft:mangrove_swamp",
+    "minecraft:sunflower_plains",
     {
       "id": "minecraft:cherry_grove",
       "required": false

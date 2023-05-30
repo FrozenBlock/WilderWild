@@ -7,23 +7,30 @@
     },
     "features": [
       {
-        "chance": 0.33333334,
+        "chance": 0.08,
         "feature": {
           "feature": "wilderwild:fancy_oak_bees_0004",
           "placement": []
         }
       },
       {
-        "chance": 0.035,
+        "chance": 0.03,
         "feature": {
           "feature": "wilderwild:fancy_dying_oak_bees_0004",
           "placement": []
         }
       },
       {
-        "chance": 0.169,
+        "chance": 0.3,
         "feature": {
           "feature": "wilderwild:short_oak",
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.7,
+        "feature": {
+          "feature": "wilderwild:big_shrub",
           "placement": []
         }
       }

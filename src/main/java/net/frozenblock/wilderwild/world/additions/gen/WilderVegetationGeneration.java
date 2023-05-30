@@ -91,6 +91,10 @@ public final class WilderVegetationGeneration {
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SUNFLOWER_PLAINS_FLOWERS),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_SUNFLOWER_PLAINS.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.MEADOW),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_MEADOW.getKey());
+
 		}
 	}
 
@@ -165,6 +169,7 @@ public final class WilderVegetationGeneration {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_TUMBLEWEED_PLANT),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TUMBLEWEED.getKey());
 		}
+
 		if (WilderSharedConstants.config().wildGrass()) {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_NEW_RARE_GRASS),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.RARE_GRASS_PLACED.getKey());

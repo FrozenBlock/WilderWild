@@ -86,7 +86,9 @@ public final class WilderWorldGen {
 						if (WilderSharedConstants.config().snowBelowTrees()) {
 							context.getGenerationSettings().addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.SNOW_BLANKET.getKey());
 						}
-						context.getGenerationSettings().addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.SNOW_AND_ICE_TRANSITION.getKey());
+						if (WilderSharedConstants.config().surfaceTransitions()) {
+							context.getGenerationSettings().addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.SNOW_AND_ICE_TRANSITION.getKey());
+						}
 					}
 				});
 
@@ -98,6 +100,17 @@ public final class WilderWorldGen {
 						context.getGenerationSettings().removeFeature(VegetationPlacements.PATCH_GRASS_FOREST);
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.GRASS_PLACED.getKey());
 						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TALL_GRASS.getKey());
+					}
+				});
+
+		BiomeModifications.create(WilderSharedConstants.id("replace_plains_grass"))
+			.add(ModificationPhase.REPLACEMENTS,
+				BiomeSelectors.tag(WilderBiomeTags.PLAINS_GRASS),
+				context -> {
+					if (WilderSharedConstants.config().wildGrass()) {
+						context.getGenerationSettings().removeFeature(VegetationPlacements.PATCH_GRASS_PLAIN);
+						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.GRASS_PLAINS_PLACED.getKey());
+						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TALL_GRASS_PLAINS.getKey());
 					}
 				});
 

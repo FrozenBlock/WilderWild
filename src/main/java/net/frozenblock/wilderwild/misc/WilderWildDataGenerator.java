@@ -567,6 +567,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.add(Biomes.DARK_FOREST)
 				.add(Biomes.TAIGA)
 				.add(Biomes.MANGROVE_SWAMP)
+				.add(Biomes.SUNFLOWER_PLAINS)
 				.addOptional(Biomes.CHERRY_GROVE)
 				.addOptional(RegisterWorldgen.CYPRESS_WETLANDS)
 				.addOptional(RegisterWorldgen.BIRCH_TAIGA)
@@ -582,6 +583,10 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptional(RegisterWorldgen.RAINFOREST)
 				.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
 				.addOptional(RegisterWorldgen.DARK_TAIGA);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.PLAINS_GRASS)
+				.add(Biomes.PLAINS)
+				.add(Biomes.MEADOW);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_HUGE_RED_MUSHROOM)
 				.add(Biomes.FOREST)
@@ -646,6 +651,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.add(Biomes.JUNGLE)
 				.add(Biomes.BAMBOO_JUNGLE)
 				.add(Biomes.MANGROVE_SWAMP)
+				.add(Biomes.MEADOW)
 				.addOptional(RegisterWorldgen.BIRCH_TAIGA)
 				.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
 				.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
@@ -694,6 +700,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.add(Biomes.WINDSWEPT_HILLS)
 				.add(Biomes.WINDSWEPT_FOREST)
 				.add(Biomes.DARK_FOREST)
+				.add(Biomes.PLAINS)
 				.addOptional(Biomes.CHERRY_GROVE)
 				.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
 				.addOptional(RegisterWorldgen.DARK_TAIGA);
@@ -706,7 +713,6 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.add(Biomes.FLOWER_FOREST)
 				.add(Biomes.PLAINS)
 				.add(Biomes.FOREST)
-				.add(Biomes.MEADOW)
 				.add(Biomes.SWAMP)
 				.add(Biomes.SPARSE_JUNGLE)
 				.add(Biomes.JUNGLE)
@@ -733,6 +739,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_PALMS)
 				.add(Biomes.DESERT)
+				.add(Biomes.BEACH)
 				.addOptional(RegisterWorldgen.ARID_SAVANNA);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SHORT_SPRUCE)
@@ -930,7 +937,12 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptional(Biomes.CHERRY_GROVE);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_PLAINS_FLOWERS)
-				.add(Biomes.PLAINS);
+				.add(Biomes.PLAINS)
+				.add(Biomes.MEADOW)
+				.add(Biomes.FOREST)
+				.add(Biomes.BIRCH_FOREST)
+				.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
+				.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_CYPRESS_FLOWERS)
 				.addOptional(RegisterWorldgen.CYPRESS_WETLANDS);
@@ -964,6 +976,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.add(Biomes.WINDSWEPT_HILLS);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FLOWER_FIELD_TALL_GRASS)
+				.add(Biomes.PLAINS)
+				.add(Biomes.SUNFLOWER_PLAINS)
 				.addOptional(RegisterWorldgen.FLOWER_FIELD);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_DENSE_FERN)

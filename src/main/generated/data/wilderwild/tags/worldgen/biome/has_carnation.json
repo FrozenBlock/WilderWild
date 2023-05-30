@@ -10,6 +10,7 @@
     "minecraft:jungle",
     "minecraft:bamboo_jungle",
     "minecraft:mangrove_swamp",
+    "minecraft:meadow",
     {
       "id": "wilderwild:birch_taiga",
       "required": false

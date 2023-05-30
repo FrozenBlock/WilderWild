@@ -8,6 +8,7 @@
     "minecraft:windswept_hills",
     "minecraft:windswept_forest",
     "minecraft:dark_forest",
+    "minecraft:plains",
     {
       "id": "minecraft:cherry_grove",
       "required": false

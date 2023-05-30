@@ -167,8 +167,10 @@ public final class WilderPlacedFeatures {
 	public static final FrozenPlacedFeature BADLANDS_TALL_CACTUS_PLACED = register("badlands_tall_cactus_placed");
 	public static final FrozenPlacedFeature ARID_CACTUS_PLACED = register("arid_cactus_placed");
 	public static final FrozenPlacedFeature GRASS_PLACED = register("grass_placed");
+	public static final FrozenPlacedFeature GRASS_PLAINS_PLACED = register("grass_plains_placed");
 	public static final FrozenPlacedFeature RARE_GRASS_PLACED = register("rare_grass_placed");
 	public static final FrozenPlacedFeature TALL_GRASS = register("tall_grass");
+	public static final FrozenPlacedFeature TALL_GRASS_PLAINS = register("tall_grass_plains");
 	public static final FrozenPlacedFeature DENSE_TALL_GRASS_PLACED = register("dense_tall_grass_placed");
 	public static final FrozenPlacedFeature DENSE_FERN_PLACED = register("dense_fern_placed");
 	public static final FrozenPlacedFeature SEAGRASS_CYPRESS = register("seagrass_cypress");
@@ -185,6 +187,7 @@ public final class WilderPlacedFeatures {
 	public static final FrozenPlacedFeature DATURA_BIRCH = register("datura_birch");
 	public static final FrozenPlacedFeature COMMON_DATURA = register("common_datura");
 	public static final FrozenPlacedFeature FLOWER_PLAINS = register("flower_plains");
+	public static final FrozenPlacedFeature FLOWER_MEADOW = register("flower_meadow");
 	public static final FrozenPlacedFeature DENSE_FLOWER_PLACED = register("dense_flower_placed");
 	public static final FrozenPlacedFeature FLOWER_FOREST_FLOWERS = register("flower_forest_flowers");
 	public static final FrozenPlacedFeature CYPRESS_WETLANDS_FLOWERS = register("cypress_wetlands_flowers");
@@ -340,12 +343,12 @@ public final class WilderPlacedFeatures {
 		// TREES
 
 		TREES_PLAINS.makeAndSetHolder(WilderConfiguredFeatures.TREES_PLAINS.getHolder(),
-			PlacementUtils.countExtra(0, 0.05F, 1), InSquarePlacement.spread(), TREE_THRESHOLD,
+			PlacementUtils.countExtra(0, 0.2F, 1), InSquarePlacement.spread(), TREE_THRESHOLD,
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome()
 		);
 
 		TREES_FLOWER_FIELD.makeAndSetHolder(WilderConfiguredFeatures.TREES_FLOWER_FIELD.getHolder(),
-			PlacementUtils.countExtra(0, 0.1F, 1), InSquarePlacement.spread(), TREE_THRESHOLD,
+			PlacementUtils.countExtra(0, 0.25F, 1), InSquarePlacement.spread(), TREE_THRESHOLD,
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome()
 		);
 
@@ -744,6 +747,12 @@ public final class WilderPlacedFeatures {
 			BiomeFilter.biome()
 		);
 
+		GRASS_PLAINS_PLACED.makeAndSetHolder(WilderConfiguredFeatures.GRASS_AND_FERN.getHolder(),
+			CountPlacement.of(15), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
+		);
+
 		RARE_GRASS_PLACED.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_GRASS_JUNGLE),
 			CountPlacement.of(8), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
@@ -752,6 +761,12 @@ public final class WilderPlacedFeatures {
 
 		TALL_GRASS.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_TALL_GRASS),
 			RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
+		);
+
+		TALL_GRASS_PLAINS.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_TALL_GRASS),
+			RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
@@ -833,7 +848,12 @@ public final class WilderPlacedFeatures {
 		);
 
 		FLOWER_PLAINS.makeAndSetHolder(WilderConfiguredFeatures.FLOWER_PLAINS.getHolder(),
-			NoiseThresholdCountPlacement.of(-0.8, 15, 4), RarityFilter.onAverageOnceEvery(32), InSquarePlacement.spread(),
+			CountPlacement.of(1), RarityFilter.onAverageOnceEvery(1), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
+		FLOWER_MEADOW.makeAndSetHolder(WilderConfiguredFeatures.FLOWER_MEADOW.getHolder(),
+			CountPlacement.of(1), RarityFilter.onAverageOnceEvery(1), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 

@@ -45,6 +45,7 @@ import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.TreePlacements;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.InclusiveRange;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.BiasedToBottomInt;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -66,6 +67,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConf
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleRandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.VegetationPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.DualNoiseProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.NoiseProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.NoiseThresholdProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
@@ -155,6 +157,7 @@ public final class WilderConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> CARNATION = register("carnation");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> DATURA = register("datura");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_PLAINS = register("flower_plain");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_MEADOW = register("flower_meadow");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> MILKWEED = register("milkweed");
 	public static final SimpleWeightedRandomList<BlockState> GLORY_OF_THE_SNOW_POOL = SimpleWeightedRandomList.<BlockState>builder()
 		.add(RegisterBlocks.GLORY_OF_THE_SNOW.defaultBlockState().setValue(RegisterProperties.FLOWER_COLOR, FlowerColor.BLUE), 3)
@@ -368,12 +371,18 @@ public final class WilderConfiguredFeatures {
 
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> LARGE_FERN_AND_GRASS_2 = register("large_fern_and_grass_2");
 
-	public static final SimpleWeightedRandomList<BlockState> GRASS_AND_FERN_POOL = SimpleWeightedRandomList.<BlockState>builder()
+	public static final SimpleWeightedRandomList<BlockState> FERN_AND_GRASS_POOL = SimpleWeightedRandomList.<BlockState>builder()
 		.add(Blocks.GRASS.defaultBlockState(), 3)
 		.add(Blocks.FERN.defaultBlockState(), 1)
 		.build();
 
+	public static final SimpleWeightedRandomList<BlockState> GRASS_AND_FERN_POOL = SimpleWeightedRandomList.<BlockState>builder()
+		.add(Blocks.GRASS.defaultBlockState(), 11)
+		.add(Blocks.FERN.defaultBlockState(), 1)
+		.build();
+
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FERN_AND_GRASS = register("fern_and_grass");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> GRASS_AND_FERN = register("grass_and_fern");
 	public static final FrozenConfiguredFeature<MultifaceGrowthConfiguration, ConfiguredFeature<MultifaceGrowthConfiguration, ?>> POLLEN_CONFIGURED = register("pollen");
 	public static final FrozenConfiguredFeature<ShelfFungusFeatureConfig, ConfiguredFeature<ShelfFungusFeatureConfig, ?>> BROWN_SHELF_FUNGUS_CONFIGURED = register("brown_shelf_fungus");
 	public static final FrozenConfiguredFeature<ShelfFungusFeatureConfig, ConfiguredFeature<ShelfFungusFeatureConfig, ?>> RED_SHELF_FUNGUS_CONFIGURED = register("red_shelf_fungus");
@@ -485,16 +494,17 @@ public final class WilderConfiguredFeatures {
 				WilderTreePlaced.FALLEN_MANGROVE_CHECKED.getHolder()));
 
 		TREES_PLAINS.makeAndSetHolder(Feature.RANDOM_SELECTOR,
-			new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.FANCY_OAK_BEES_0004.getHolder()), 0.33333334F),
-				new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.FANCY_DYING_OAK_BEES_0004.getHolder()), 0.035F),
-				new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.SHORT_OAK.getHolder()), 0.169F)),
+			new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.FANCY_OAK_BEES_0004.getHolder()), 0.08F),
+				new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.FANCY_DYING_OAK_BEES_0004.getHolder()), 0.03F),
+				new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.SHORT_OAK.getHolder()), 0.3F),
+				new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.BIG_SHRUB.getHolder()), 0.7F)),
 				PlacementUtils.inlinePlaced(WilderTreeConfigured.OAK_BEES_0004.getHolder())));
 
 		TREES_FLOWER_FIELD.makeAndSetHolder(Feature.RANDOM_SELECTOR,
-			new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.FANCY_OAK_BEES_025.getHolder()), 0.577F),
+			new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.FANCY_OAK_BEES_025.getHolder()), 0.4F),
 				new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.FANCY_DYING_OAK_BEES_025.getHolder()), 0.09F),
 				new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.BIRCH_BEES_025.getHolder()), 0.1F),
-				new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.BIG_SHRUB.getHolder()), 0.23F),
+				new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.BIG_SHRUB.getHolder()), 0.6F),
 				new WeightedPlacedFeature(PlacementUtils.inlinePlaced(WilderTreeConfigured.SHORT_OAK.getHolder()), 0.169F)),
 				PlacementUtils.inlinePlaced(WilderTreeConfigured.OAK_BEES_0004.getHolder())
 			)
@@ -1073,31 +1083,61 @@ public final class WilderConfiguredFeatures {
 
 		FLOWER_PLAINS.makeAndSetHolder(Feature.FLOWER,
 			new RandomPatchConfiguration(
-				64,
-				6,
+				19,
+				8,
+				3,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(
+						new NoiseProvider(
+							5050L,
+							new NormalNoise.NoiseParameters(0, 1.0),
+							0.020833334F,
+							List.of(
+								RegisterBlocks.SEEDING_DANDELION.defaultBlockState(),
+								RegisterBlocks.CARNATION.defaultBlockState(),
+								Blocks.DANDELION.defaultBlockState(),
+								Blocks.POPPY.defaultBlockState(),
+								Blocks.ALLIUM.defaultBlockState(),
+								Blocks.AZURE_BLUET.defaultBlockState(),
+								Blocks.RED_TULIP.defaultBlockState(),
+								Blocks.ORANGE_TULIP.defaultBlockState(),
+								Blocks.WHITE_TULIP.defaultBlockState(),
+								Blocks.PINK_TULIP.defaultBlockState(),
+								Blocks.OXEYE_DAISY.defaultBlockState(),
+								Blocks.CORNFLOWER.defaultBlockState(),
+								Blocks.LILY_OF_THE_VALLEY.defaultBlockState()
+							)
+						)
+					)
+				)
+			)
+		);
+
+		FLOWER_MEADOW.makeAndSetHolder(Feature.FLOWER,
+			new RandomPatchConfiguration(
+				20,
+				8,
 				2,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(
-						new NoiseThresholdProvider(
+						new DualNoiseProvider(
+							new InclusiveRange<>(1, 3),
+							new NormalNoise.NoiseParameters(-10, 1.0),
+							1.0f,
 							2345L,
-							new NormalNoise.NoiseParameters(0, 1.0),
-							0.005F,
-							-0.8F,
-							0.33333334F,
-							Blocks.DANDELION.defaultBlockState(),
+							new NormalNoise.NoiseParameters(-3, 1.0),
+							1.0f,
 							List.of(
-								Blocks.ORANGE_TULIP.defaultBlockState(),
-								Blocks.RED_TULIP.defaultBlockState(),
-								Blocks.PINK_TULIP.defaultBlockState(),
-								Blocks.WHITE_TULIP.defaultBlockState()
-							),
-							List.of(
-								RegisterBlocks.SEEDING_DANDELION.defaultBlockState(),
+								RegisterBlocks.CARNATION.defaultBlockState(),
+								Blocks.ALLIUM.defaultBlockState(),
 								Blocks.POPPY.defaultBlockState(),
 								Blocks.AZURE_BLUET.defaultBlockState(),
+								Blocks.DANDELION.defaultBlockState(),
+								Blocks.CORNFLOWER.defaultBlockState(),
 								Blocks.OXEYE_DAISY.defaultBlockState(),
-								Blocks.CORNFLOWER.defaultBlockState()
+								RegisterBlocks.SEEDING_DANDELION.defaultBlockState()
 							)
 						)
 					)
@@ -1107,7 +1147,7 @@ public final class WilderConfiguredFeatures {
 
 		MILKWEED.makeAndSetHolder(Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(
-				32,
+				28,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(BlockStateProvider.simple(RegisterBlocks.MILKWEED))
@@ -1551,6 +1591,18 @@ public final class WilderConfiguredFeatures {
 		);
 
 		FERN_AND_GRASS.makeAndSetHolder(Feature.RANDOM_PATCH,
+			new RandomPatchConfiguration(
+				32,
+				7,
+				3,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(new WeightedStateProvider(FERN_AND_GRASS_POOL))
+				)
+			)
+		);
+
+		GRASS_AND_FERN.makeAndSetHolder(Feature.RANDOM_PATCH,
 			new RandomPatchConfiguration(
 				32,
 				7,

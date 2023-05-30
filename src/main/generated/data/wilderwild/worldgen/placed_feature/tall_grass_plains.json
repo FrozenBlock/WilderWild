@@ -1,13 +1,9 @@
 {
-  "feature": "wilderwild:flower_plain",
+  "feature": "minecraft:patch_tall_grass",
   "placement": [
     {
-      "type": "minecraft:count",
-      "count": 1
-    },
-    {
       "type": "minecraft:rarity_filter",
-      "chance": 1
+      "chance": 6
     },
     {
       "type": "minecraft:in_square"
