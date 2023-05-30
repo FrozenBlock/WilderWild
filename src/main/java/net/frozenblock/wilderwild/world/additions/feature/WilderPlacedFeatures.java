@@ -907,7 +907,7 @@ public final class WilderPlacedFeatures {
 		);
 
 		FLOWER_FLOWER_FIELD.makeAndSetHolder(WilderConfiguredFeatures.FLOWER_FLOWER_FIELD.getHolder(),
-			CountPlacement.of(3), RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(),
+			CountPlacement.of(UniformInt.of(1, 4)), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
@@ -957,7 +957,7 @@ public final class WilderPlacedFeatures {
 		);
 
 		TALL_FLOWER_FIELD_FLOWERS.makeAndSetHolder(WilderConfiguredFeatures.TALL_FLOWER_FLOWER_FIELD.getHolder(),
-			RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(),
+			RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, CountPlacement.of(ClampedInt.of(UniformInt.of(-1, 4), 0, 4)), BiomeFilter.biome()
 		);
 

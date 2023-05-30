@@ -1337,28 +1337,36 @@ public final class WilderConfiguredFeatures {
 						Feature.RANDOM_PATCH,
 						FeatureUtils.simplePatchConfiguration(
 							Feature.SIMPLE_BLOCK,
-							new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.LILAC))
+							new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.LILAC)),
+							List.of(),
+							9
 						)
 					),
 					PlacementUtils.inlinePlaced(
 						Feature.RANDOM_PATCH,
 						FeatureUtils.simplePatchConfiguration(
 							Feature.SIMPLE_BLOCK,
-							new SimpleBlockConfiguration(BlockStateProvider.simple(RegisterBlocks.MILKWEED))
+							new SimpleBlockConfiguration(BlockStateProvider.simple(RegisterBlocks.MILKWEED)),
+							List.of(),
+							9
 						)
 					),
 					PlacementUtils.inlinePlaced(
 						Feature.RANDOM_PATCH,
 						FeatureUtils.simplePatchConfiguration(
 							Feature.SIMPLE_BLOCK,
-							new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.ROSE_BUSH))
+							new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.ROSE_BUSH)),
+							List.of(),
+							9
 						)
 					),
 					PlacementUtils.inlinePlaced(
 						Feature.RANDOM_PATCH,
 						FeatureUtils.simplePatchConfiguration(
 							Feature.SIMPLE_BLOCK,
-							new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.PEONY))
+							new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.PEONY)),
+							List.of(),
+							9
 						)
 					)
 				)

@@ -852,6 +852,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptional(RegisterWorldgen.RAINFOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FIELD_FLOWERS)
+				.add(Biomes.FLOWER_FOREST)
 				.addOptional(RegisterWorldgen.FLOWER_FIELD);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SUNFLOWER_PLAINS_FLOWERS)
