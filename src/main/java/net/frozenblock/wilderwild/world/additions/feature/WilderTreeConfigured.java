@@ -758,7 +758,7 @@ public final class WilderTreeConfigured {
 					new LeaveVineDecorator(0.125F),
 					SHELF_FUNGUS_007
 				)
-			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.AIR)).build()
 		);
 
 		// SPRUCE
