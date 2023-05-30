@@ -84,6 +84,7 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_CATTAIL_COMMON = bind("has_cattail_common");
 	public static final TagKey<Biome> HAS_SEEDING_DANDELION = bind("has_seeding_dandelion");
 	public static final TagKey<Biome> HAS_COMMON_SEEDING_DANDELION = bind("has_common_seeding_dandelion");
+	public static final TagKey<Biome> HAS_RARE_SEEDING_DANDELION = bind("has_rare_seeding_dandelion");
 	public static final TagKey<Biome> HAS_MILKWEED = bind("has_milkweed");
 	public static final TagKey<Biome> CHERRY_FLOWERS = bind("cherry_flowers");
 	public static final TagKey<Biome> HAS_SUNFLOWER_PLAINS_FLOWERS = bind("has_sunflower_plains_flowers");
@@ -91,7 +92,7 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_SHORT_SPRUCE = bind("has_short_spruce");
 	public static final TagKey<Biome> HAS_SHORT_MEGA_SPRUCE = bind("has_short_mega_spruce");
 	public static final TagKey<Biome> HAS_SHORT_MEGA_SPRUCE_SNOWY = bind("has_short_mega_spruce_snowy");
-	public static final TagKey<Biome> HAS_BIG_SHRUB = bind("has_big_shrub");
+	public static final TagKey<Biome> HAS_BIG_COARSE_SHRUB = bind("has_big_coarse_shrub");
 	public static final TagKey<Biome> HAS_SNAPPED_OAK = bind("has_snapped_oak");
 	public static final TagKey<Biome> HAS_SNAPPED_BIRCH = bind("has_snapped_birch");
 	public static final TagKey<Biome> HAS_SNAPPED_SPRUCE = bind("has_snapped_spruce");
@@ -115,11 +116,10 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_FLOWERING_WATER_LILY = bind("has_flowering_water_lily");
 	public static final TagKey<Biome> HAS_BERRY_PATCH = bind("has_berry_patch");
 	public static final TagKey<Biome> HAS_BUSH = bind("has_bush");
+	public static final TagKey<Biome> HAS_FOREST_SHRUB = bind("has_forest_shrub");
 	public static final TagKey<Biome> HAS_PLAINS_FLOWERS = bind("has_plains_flowers");
 	public static final TagKey<Biome> HAS_CYPRESS_FLOWERS = bind("has_cypress_flowers");
-	public static final TagKey<Biome> HAS_CYPRESS_MILKWEED = bind("has_cypress_milkweed");
-	public static final TagKey<Biome> HAS_CYPRESS_SEEDING_DANDELION = bind("has_cypress_seeding_dandelion");
-	public static final TagKey<Biome> HAS_MIXED_DANDELION = bind("has_mixed_dandelion");
+	public static final TagKey<Biome> HAS_RARE_MILKWEED = bind("has_rare_milkweed");
 	public static final TagKey<Biome> HAS_LARGE_FERN_AND_GRASS = bind("has_large_fern_and_grass");
 	public static final TagKey<Biome> HAS_LARGE_FERN_AND_GRASS_RARE = bind("has_large_fern_and_grass_rare");
 	public static final TagKey<Biome> HAS_NEW_RARE_GRASS = bind("has_new_rare_grass");

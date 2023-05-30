@@ -28,9 +28,16 @@
         }
       },
       {
-        "chance": 0.6,
+        "chance": 0.5,
         "feature": {
           "feature": "wilderwild:big_shrub",
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.1,
+        "feature": {
+          "feature": "wilderwild:shrub",
           "placement": []
         }
       },

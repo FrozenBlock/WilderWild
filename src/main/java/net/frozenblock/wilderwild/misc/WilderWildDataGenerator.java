@@ -700,13 +700,21 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.add(Biomes.WINDSWEPT_HILLS)
 				.add(Biomes.WINDSWEPT_FOREST)
 				.add(Biomes.DARK_FOREST)
-				.add(Biomes.PLAINS)
 				.addOptional(Biomes.CHERRY_GROVE)
 				.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
-				.addOptional(RegisterWorldgen.DARK_TAIGA);
+				.addOptional(RegisterWorldgen.DARK_TAIGA)
+				.addOptional(RegisterWorldgen.MIXED_FOREST)
+				.addOptional(RegisterWorldgen.BIRCH_TAIGA)
+				.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
+				.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
+				.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
+				.addOptional(RegisterWorldgen.CYPRESS_WETLANDS);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COMMON_SEEDING_DANDELION)
 				.addOptional(Biomes.CHERRY_GROVE);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_RARE_SEEDING_DANDELION)
+				.add(Biomes.PLAINS);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_MILKWEED)
 				.add(Biomes.BIRCH_FOREST)
@@ -722,7 +730,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
 				.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
 				.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
-				.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
+				.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
+				.addOptional(RegisterWorldgen.CYPRESS_WETLANDS);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.CHERRY_FLOWERS)
 				.addOptional(Biomes.CHERRY_GROVE);
@@ -740,6 +749,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_PALMS)
 				.add(Biomes.DESERT)
 				.add(Biomes.BEACH)
+				.add(Biomes.JUNGLE)
+				.add(Biomes.SPARSE_JUNGLE)
 				.addOptional(RegisterWorldgen.ARID_SAVANNA);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SHORT_SPRUCE)
@@ -754,7 +765,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA)
 				.addOptional(RegisterWorldgen.DARK_TAIGA);
 
-			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_BIG_SHRUB)
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_BIG_COARSE_SHRUB)
 				.addOptionalTag(BiomeTags.IS_BADLANDS);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_OAK)
@@ -936,6 +947,20 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_BUSH)
 				.addOptional(Biomes.CHERRY_GROVE);
 
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FOREST_SHRUB)
+				.add(Biomes.FOREST)
+				.add(Biomes.FLOWER_FOREST)
+				.add(Biomes.DARK_FOREST)
+				.addOptional(RegisterWorldgen.ARID_FOREST)
+				.addOptional(RegisterWorldgen.PARCHED_FOREST)
+				.addOptional(RegisterWorldgen.RAINFOREST)
+				.addOptional(RegisterWorldgen.MIXED_FOREST)
+				.addOptional(RegisterWorldgen.CYPRESS_WETLANDS)
+				.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
+				.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
+				.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
+				.addOptional(RegisterWorldgen.DARK_TAIGA);
+
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_PLAINS_FLOWERS)
 				.add(Biomes.PLAINS)
 				.add(Biomes.MEADOW)
@@ -947,18 +972,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_CYPRESS_FLOWERS)
 				.addOptional(RegisterWorldgen.CYPRESS_WETLANDS);
 
-			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_CYPRESS_MILKWEED)
-				.addOptional(RegisterWorldgen.CYPRESS_WETLANDS);
-
-			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_CYPRESS_SEEDING_DANDELION)
-				.addOptional(RegisterWorldgen.CYPRESS_WETLANDS);
-
-			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_MIXED_DANDELION)
-				.addOptional(RegisterWorldgen.MIXED_FOREST)
-				.addOptional(RegisterWorldgen.BIRCH_TAIGA)
-				.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
-				.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
-				.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_RARE_MILKWEED)
+				.add(Biomes.PLAINS);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_LARGE_FERN_AND_GRASS)
 				.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA)

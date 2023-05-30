@@ -76,6 +76,7 @@ public final class WilderPlacedFeatures {
 	public static final FrozenPlacedFeature FALLEN_MANGROVE_PLACED = register("fallen_mangrove_placed");
 	//TREES
 	public static final FrozenPlacedFeature TREES_PLAINS = register("trees_plains");
+	public static final FrozenPlacedFeature SHRUBS_FOREST = register("shrubs_forest");
 	public static final FrozenPlacedFeature TREES_FLOWER_FIELD = register("trees_flower_field");
 	public static final FrozenPlacedFeature TREES_BIRCH_AND_OAK = register("trees_birch_and_oak");
 	public static final FrozenPlacedFeature TREES_SEMI_BIRCH_AND_OAK = register("trees_semi_birch_and_oak");
@@ -181,8 +182,7 @@ public final class WilderPlacedFeatures {
 	//FLOWERS
 	public static final FrozenPlacedFeature SEEDING_DANDELION = register("seeding_dandelion");
 	public static final FrozenPlacedFeature COMMON_SEEDING_DANDELION = register("common_seeding_dandelion");
-	public static final FrozenPlacedFeature SEEDING_DANDELION_MIXED = register("seeding_dandelion_mixed");
-	public static final FrozenPlacedFeature SEEDING_DANDELION_CYPRESS = register("seeding_dandelion_cypress");
+	public static final FrozenPlacedFeature RARE_SEEDING_DANDELION = register("rare_seeding_dandelion");
 	public static final FrozenPlacedFeature CARNATION = register("carnation");
 	public static final FrozenPlacedFeature DATURA_BIRCH = register("datura_birch");
 	public static final FrozenPlacedFeature COMMON_DATURA = register("common_datura");
@@ -192,7 +192,7 @@ public final class WilderPlacedFeatures {
 	public static final FrozenPlacedFeature FLOWER_FOREST_FLOWERS = register("flower_forest_flowers");
 	public static final FrozenPlacedFeature CYPRESS_WETLANDS_FLOWERS = register("cypress_wetlands_flowers");
 	public static final FrozenPlacedFeature MILKWEED = register("milkweed");
-	public static final FrozenPlacedFeature MILKWEED_CYPRESS = register("milkweed_cypress");
+	public static final FrozenPlacedFeature MILKWEED_RARE = register("milkweed_rare");
 	public static final FrozenPlacedFeature GLORY_OF_THE_SNOW = register("glory_of_the_snow");
 	public static final FrozenPlacedFeature GLORY_OF_THE_SNOW_JUNGLE = register("glory_of_the_snow_jungle");
 	public static final FrozenPlacedFeature GLORY_OF_THE_SNOW_SPARSE_JUNGLE = register("glory_of_the_snow_sparse_jungle");
@@ -344,6 +344,11 @@ public final class WilderPlacedFeatures {
 
 		TREES_PLAINS.makeAndSetHolder(WilderConfiguredFeatures.TREES_PLAINS.getHolder(),
 			PlacementUtils.countExtra(0, 0.2F, 1), InSquarePlacement.spread(), TREE_THRESHOLD,
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome()
+		);
+
+		SHRUBS_FOREST.makeAndSetHolder(WilderConfiguredFeatures.SHRUBS.getHolder(),
+			PlacementUtils.countExtra(1, 0.2F, 1), RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(), TREE_THRESHOLD,
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome()
 		);
 
@@ -511,7 +516,7 @@ public final class WilderPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome(), PlacementUtils.filteredByBlockSurvival(Blocks.MANGROVE_PROPAGULE)
 		);
 
-		BIG_SHRUB.makeAndSetHolder(WilderConfiguredFeatures.BIG_SHRUBS.getHolder(),
+		BIG_SHRUB.makeAndSetHolder(WilderConfiguredFeatures.BIG_COARSE_SHRUBS.getHolder(),
 			treePlacement(RarityFilter.onAverageOnceEvery(5))
 		);
 
@@ -822,14 +827,9 @@ public final class WilderPlacedFeatures {
 			PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
-		SEEDING_DANDELION_MIXED.makeAndSetHolder(WilderConfiguredFeatures.SEEDING_DANDELION.getHolder(),
-			RarityFilter.onAverageOnceEvery(9), InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
-		);
-
-		SEEDING_DANDELION_CYPRESS.makeAndSetHolder(WilderConfiguredFeatures.SEEDING_DANDELION.getHolder(),
-			RarityFilter.onAverageOnceEvery(9), InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		RARE_SEEDING_DANDELION.makeAndSetHolder(WilderConfiguredFeatures.SEEDING_DANDELION.getHolder(),
+			RarityFilter.onAverageOnceEvery(16), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
 		);
 
 		CARNATION.makeAndSetHolder(WilderConfiguredFeatures.CARNATION.getHolder(),
@@ -880,8 +880,8 @@ public final class WilderPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
-		MILKWEED_CYPRESS.makeAndSetHolder(WilderConfiguredFeatures.MILKWEED.getHolder(),
-			RarityFilter.onAverageOnceEvery(12), InSquarePlacement.spread(),
+		MILKWEED_RARE.makeAndSetHolder(WilderConfiguredFeatures.MILKWEED.getHolder(),
+			RarityFilter.onAverageOnceEvery(20), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 

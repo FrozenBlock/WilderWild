@@ -164,8 +164,10 @@ public final class WilderTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SHORT_FUNGUS_CYPRESS = register("short_fungus_cypress");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SWAMP_CYPRESS = register("swamp_cypress");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_CYPRESS = register("snapped_cypress");
-	//BIG SHRUB
+	//SHRUBS
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> BIG_SHRUB_COARSE = register("big_shrub_coarse");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> BIG_SHRUB = register("big_shrub");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SHRUB = register("shrub");
 	//PALM
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> PALM = register("palm");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_PALM = register("tall_palm");
@@ -224,7 +226,7 @@ public final class WilderTreeConfigured {
 				List.of(
 					SHELF_FUNGUS_007
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		BIRCH_BEES_0004.makeAndSetHolder(Feature.TREE,
@@ -234,7 +236,7 @@ public final class WilderTreeConfigured {
 					SHELF_FUNGUS_007,
 					POLLEN_01
 				)
-			).ignoreVines().build()
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		BIRCH_BEES_025.makeAndSetHolder(Feature.TREE,
@@ -244,7 +246,7 @@ public final class WilderTreeConfigured {
 					SHELF_FUNGUS_007,
 					POLLEN_025
 				)
-			).ignoreVines().build()
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		DYING_BIRCH.makeAndSetHolder(Feature.TREE,
@@ -253,7 +255,7 @@ public final class WilderTreeConfigured {
 					BEES_0004,
 					SHELF_FUNGUS_007
 				)
-			).ignoreVines().build()
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		SHORT_BIRCH_BEES_0004.makeAndSetHolder(Feature.TREE,
@@ -262,7 +264,7 @@ public final class WilderTreeConfigured {
 					BEES_0004,
 					SHELF_FUNGUS_006,
 					POLLEN_01)
-			).ignoreVines().build()
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		SUPER_BIRCH_BEES_0004.makeAndSetHolder(Feature.TREE,
@@ -271,7 +273,7 @@ public final class WilderTreeConfigured {
 					BEES_0004,
 					SHELF_FUNGUS_007,
 					POLLEN_01)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		DYING_SUPER_BIRCH.makeAndSetHolder(Feature.TREE,
@@ -280,7 +282,7 @@ public final class WilderTreeConfigured {
 					VINES_1_UNDER_260_05,
 					SHELF_FUNGUS_007
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		FALLEN_BIRCH_TREE.makeAndSetHolder(Feature.TREE,
@@ -315,7 +317,7 @@ public final class WilderTreeConfigured {
 				List.of(
 					SHELF_FUNGUS_006
 				)
-			).ignoreVines().build()
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		SHORT_DYING_BIRCH.makeAndSetHolder(Feature.TREE,
@@ -324,7 +326,7 @@ public final class WilderTreeConfigured {
 					SHELF_FUNGUS_006,
 					VINES_1_UNDER_260_03
 				)
-			).ignoreVines().build()
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		SUPER_BIRCH_BEES.makeAndSetHolder(Feature.TREE,
@@ -333,11 +335,11 @@ public final class WilderTreeConfigured {
 					BEES,
 					POLLEN_025
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		SUPER_BIRCH.makeAndSetHolder(Feature.TREE,
-			superBirch().build()
+			superBirch().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		SNAPPED_BIRCH.makeAndSetHolder(Feature.TREE,
@@ -353,7 +355,7 @@ public final class WilderTreeConfigured {
 					MOSS_BIRCH,
 					SHELF_FUNGUS_007
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		// CHERRY
@@ -363,7 +365,7 @@ public final class WilderTreeConfigured {
 				List.of(
 					SHELF_FUNGUS_00875_ONLY_RED
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		DYING_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
@@ -372,7 +374,7 @@ public final class WilderTreeConfigured {
 					SHELF_FUNGUS_00875_ONLY_RED,
 					VINES_1_UNDER_260_03
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		TALL_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
@@ -380,7 +382,7 @@ public final class WilderTreeConfigured {
 				List.of(
 					SHELF_FUNGUS_00875_ONLY_RED
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		TALL_DYING_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
@@ -389,7 +391,7 @@ public final class WilderTreeConfigured {
 					SHELF_FUNGUS_00875_ONLY_RED,
 					VINES_1_UNDER_260_03
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		CHERRY_BEES_025.makeAndSetHolder(Feature.TREE,
@@ -399,7 +401,7 @@ public final class WilderTreeConfigured {
 					POLLEN_01,
 					SHELF_FUNGUS_00875_ONLY_RED
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		TALL_CHERRY_BEES_025.makeAndSetHolder(Feature.TREE,
@@ -409,7 +411,7 @@ public final class WilderTreeConfigured {
 					POLLEN_01,
 					SHELF_FUNGUS_00875_ONLY_RED
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		FALLEN_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
@@ -453,7 +455,7 @@ public final class WilderTreeConfigured {
 					MOSS_CHERRY,
 					SHELF_FUNGUS_00875_ONLY_RED
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		// OAK
@@ -463,7 +465,7 @@ public final class WilderTreeConfigured {
 				List.of(
 					SHELF_FUNGUS_002
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		SHORT_OAK.makeAndSetHolder(Feature.TREE,
@@ -471,7 +473,7 @@ public final class WilderTreeConfigured {
 				List.of(
 					SHELF_FUNGUS_002
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		OAK_BEES_0004.makeAndSetHolder(Feature.TREE,
@@ -481,7 +483,7 @@ public final class WilderTreeConfigured {
 					SHELF_FUNGUS_006,
 					POLLEN_01
 				)
-			).ignoreVines().build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).ignoreVines().build()
 		);
 
 		DYING_OAK.makeAndSetHolder(Feature.TREE,
@@ -490,7 +492,7 @@ public final class WilderTreeConfigured {
 					VINES_1_UNDER_260_03,
 					SHELF_FUNGUS_006
 				)
-			).ignoreVines().build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).ignoreVines().build()
 		);
 
 		FANCY_OAK.makeAndSetHolder(Feature.TREE,
@@ -498,7 +500,7 @@ public final class WilderTreeConfigured {
 				List.of(
 					SHELF_FUNGUS_002
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		FANCY_DYING_OAK.makeAndSetHolder(Feature.TREE,
@@ -507,7 +509,7 @@ public final class WilderTreeConfigured {
 					VINES_1_UNDER_260_05,
 					SHELF_FUNGUS_007
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		FANCY_DYING_OAK_BEES_0004.makeAndSetHolder(Feature.TREE,
@@ -518,7 +520,7 @@ public final class WilderTreeConfigured {
 					POLLEN_01,
 					SHELF_FUNGUS_007
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		FANCY_OAK_BEES_0004.makeAndSetHolder(Feature.TREE,
@@ -528,7 +530,7 @@ public final class WilderTreeConfigured {
 					POLLEN_01,
 					SHELF_FUNGUS_002
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		FANCY_DYING_OAK_BEES_025.makeAndSetHolder(Feature.TREE,
@@ -539,7 +541,7 @@ public final class WilderTreeConfigured {
 					POLLEN_01,
 					SHELF_FUNGUS_002
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		FANCY_OAK_BEES_025.makeAndSetHolder(Feature.TREE,
@@ -549,7 +551,7 @@ public final class WilderTreeConfigured {
 					POLLEN_01,
 					SHELF_FUNGUS_002
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		FALLEN_OAK_TREE.makeAndSetHolder(Feature.TREE,
@@ -614,7 +616,7 @@ public final class WilderTreeConfigured {
 					POLLEN_025,
 					SHELF_FUNGUS_002
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		OLD_FANCY_DYING_OAK_BEES_0004.makeAndSetHolder(Feature.TREE,
@@ -631,7 +633,7 @@ public final class WilderTreeConfigured {
 					VINES_1_UNDER_260_05,
 					POLLEN_01
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		SNAPPED_OAK.makeAndSetHolder(Feature.TREE,
@@ -647,7 +649,7 @@ public final class WilderTreeConfigured {
 					MOSS_OAK,
 					SHELF_FUNGUS_007
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		// DARK OAK
@@ -664,7 +666,7 @@ public final class WilderTreeConfigured {
 					VINES_1_UNDER_260_05,
 					SHELF_FUNGUS_006
 				)
-			).ignoreVines().build()
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		TALL_DARK_OAK.makeAndSetHolder(Feature.TREE,
@@ -672,7 +674,7 @@ public final class WilderTreeConfigured {
 				List.of(
 					SHELF_FUNGUS_002
 				)
-			).ignoreVines().build()
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		FANCY_TALL_DARK_OAK.makeAndSetHolder(Feature.TREE,
@@ -680,7 +682,7 @@ public final class WilderTreeConfigured {
 				List.of(
 					SHELF_FUNGUS_002
 				)
-			).ignoreVines().build()
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		DYING_TALL_DARK_OAK.makeAndSetHolder(Feature.TREE,
@@ -689,7 +691,7 @@ public final class WilderTreeConfigured {
 					VINES_1_UNDER_260_05,
 					SHELF_FUNGUS_007
 				)
-			).ignoreVines().build()
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		DYING_FANCY_TALL_DARK_OAK.makeAndSetHolder(Feature.TREE,
@@ -698,7 +700,7 @@ public final class WilderTreeConfigured {
 					VINES_1_UNDER_260_05,
 					SHELF_FUNGUS_007
 				)
-			).ignoreVines().build()
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		COBWEB_TALL_DARK_OAK.makeAndSetHolder(Feature.TREE,
@@ -707,7 +709,7 @@ public final class WilderTreeConfigured {
 					COBWEB_1_UNDER_260_025,
 					SHELF_FUNGUS_002
 				)
-			).ignoreVines().build()
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		COBWEB_FANCY_TALL_DARK_OAK.makeAndSetHolder(Feature.TREE,
@@ -716,7 +718,7 @@ public final class WilderTreeConfigured {
 					COBWEB_1_UNDER_260_025,
 					SHELF_FUNGUS_002
 				)
-			).ignoreVines().build()
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		// SWAMP TREE
@@ -756,7 +758,7 @@ public final class WilderTreeConfigured {
 					new LeaveVineDecorator(0.125F),
 					SHELF_FUNGUS_007
 				)
-			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.OAK_LOG)).build()
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		// SPRUCE
@@ -772,7 +774,8 @@ public final class WilderTreeConfigured {
 					UniformInt.of(2, 3)
 				),
 				new TwoLayersFeatureSize(2, 0, 2)
-			).decorators(List.of(SHELF_FUNGUS_006_ONLY_BROWN)).ignoreVines().build()
+			).decorators(List.of(SHELF_FUNGUS_006_ONLY_BROWN))
+				.ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		SPRUCE_SHORT.makeAndSetHolder(Feature.TREE,
@@ -785,7 +788,8 @@ public final class WilderTreeConfigured {
 					UniformInt.of(0, 2),
 					UniformInt.of(2, 3)
 				),
-				new TwoLayersFeatureSize(2, 0, 2)).ignoreVines().build()
+				new TwoLayersFeatureSize(2, 0, 2))
+				.ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		FUNGUS_PINE.makeAndSetHolder(Feature.TREE,
@@ -803,7 +807,7 @@ public final class WilderTreeConfigured {
 					List.of(
 						SHELF_FUNGUS_006_ONLY_BROWN
 					)
-				).ignoreVines().build()
+				).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		DYING_FUNGUS_PINE.makeAndSetHolder(Feature.TREE,
@@ -822,7 +826,7 @@ public final class WilderTreeConfigured {
 					SHELF_FUNGUS_006_ONLY_BROWN,
 					VINES_1_UNDER_260_05
 				)
-			).ignoreVines().build()
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		MEGA_FUNGUS_SPRUCE.makeAndSetHolder(Feature.TREE,
@@ -840,7 +844,7 @@ public final class WilderTreeConfigured {
 					List.of(
 						new AlterGroundDecorator(BlockStateProvider.simple(Blocks.PODZOL)), SHELF_FUNGUS_006_ONLY_BROWN
 					)
-				).build()
+				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		MEGA_FUNGUS_PINE.makeAndSetHolder(Feature.TREE,
@@ -854,7 +858,8 @@ public final class WilderTreeConfigured {
 					UniformInt.of(3, 7)
 				),
 				new TwoLayersFeatureSize(1, 1, 2))
-				.decorators(List.of(new AlterGroundDecorator(BlockStateProvider.simple(Blocks.PODZOL)), SHELF_FUNGUS_006_ONLY_BROWN)).build()
+				.decorators(List.of(new AlterGroundDecorator(BlockStateProvider.simple(Blocks.PODZOL)), SHELF_FUNGUS_006_ONLY_BROWN))
+				.dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		DYING_MEGA_FUNGUS_PINE.makeAndSetHolder(Feature.TREE,
@@ -870,7 +875,7 @@ public final class WilderTreeConfigured {
 					SHELF_FUNGUS_006_ONLY_BROWN,
 					VINES_1_UNDER_260_075
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		FALLEN_SPRUCE_TREE.makeAndSetHolder(Feature.TREE,
@@ -916,7 +921,7 @@ public final class WilderTreeConfigured {
 				List.of(
 					SHELF_FUNGUS_006_ONLY_BROWN
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		SHORT_MEGA_FUNGUS_SPRUCE.makeAndSetHolder(Feature.TREE,
@@ -931,7 +936,7 @@ public final class WilderTreeConfigured {
 						SHELF_FUNGUS_006_ONLY_BROWN,
 						SHELF_FUNGUS_006_ONLY_BROWN
 					)
-				).build()
+				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		SHORT_MEGA_DYING_FUNGUS_SPRUCE.makeAndSetHolder(Feature.TREE,
@@ -947,7 +952,7 @@ public final class WilderTreeConfigured {
 					SHELF_FUNGUS_006_ONLY_BROWN,
 					VINES_1_UNDER_260_075
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		SHORT_MEGA_DYING_SPRUCE.makeAndSetHolder(Feature.TREE,
@@ -961,7 +966,7 @@ public final class WilderTreeConfigured {
 					SHELF_FUNGUS_006_ONLY_BROWN,
 					VINES_1_UNDER_260_075
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		SNAPPED_SPRUCE.makeAndSetHolder(Feature.TREE,
@@ -977,7 +982,7 @@ public final class WilderTreeConfigured {
 					MOSS_SPRUCE_PALM,
 					SHELF_FUNGUS_006_ONLY_BROWN
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		// BAOBAB
@@ -1050,7 +1055,7 @@ public final class WilderTreeConfigured {
 				List.of(
 					VINES_012_UNDER_76
 				)
-			).ignoreVines().build()
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		FALLEN_CYPRESS_TREE.makeAndSetHolder(Feature.TREE,
@@ -1074,7 +1079,7 @@ public final class WilderTreeConfigured {
 					SHELF_FUNGUS_006_ONLY_BROWN,
 					VINES_008_UNDER_82
 				)
-			).ignoreVines().build()
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		SHORT_CYPRESS.makeAndSetHolder(Feature.TREE,
@@ -1088,7 +1093,7 @@ public final class WilderTreeConfigured {
 				List.of(
 					VINES_012_UNDER_76
 				)
-			).ignoreVines().build()
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		SHORT_FUNGUS_CYPRESS.makeAndSetHolder(Feature.TREE,
@@ -1103,7 +1108,7 @@ public final class WilderTreeConfigured {
 					SHELF_FUNGUS_006_ONLY_BROWN,
 					VINES_008_UNDER_82
 				)
-			).ignoreVines().build()
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		SWAMP_CYPRESS.makeAndSetHolder(Feature.TREE,
@@ -1127,7 +1132,7 @@ public final class WilderTreeConfigured {
 					SHELF_FUNGUS_006_ONLY_BROWN,
 					VINES_008_UNDER_82
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		SNAPPED_CYPRESS.makeAndSetHolder(Feature.TREE,
@@ -1143,10 +1148,20 @@ public final class WilderTreeConfigured {
 					MOSS_CYPRESS,
 					SHELF_FUNGUS_006_ONLY_BROWN
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
-		// BIG SHRUB
+		// SHRUBS
+
+		BIG_SHRUB_COARSE.makeAndSetHolder(Feature.TREE,
+			new TreeConfiguration.TreeConfigurationBuilder(
+				BlockStateProvider.simple(Blocks.OAK_LOG),
+				new StraightTrunkPlacer(1, 0, 0),
+				BlockStateProvider.simple(Blocks.OAK_LEAVES),
+				new BushFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), 2),
+				new TwoLayersFeatureSize(0, 0, 0)
+			).dirt(BlockStateProvider.simple(Blocks.COARSE_DIRT)).build()
+		);
 
 		BIG_SHRUB.makeAndSetHolder(Feature.TREE,
 			new TreeConfiguration.TreeConfigurationBuilder(
@@ -1155,7 +1170,17 @@ public final class WilderTreeConfigured {
 				BlockStateProvider.simple(Blocks.OAK_LEAVES),
 				new BushFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), 2),
 				new TwoLayersFeatureSize(0, 0, 0)
-			).dirt(BlockStateProvider.simple(Blocks.COARSE_DIRT)).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		SHRUB.makeAndSetHolder(Feature.TREE,
+			new TreeConfiguration.TreeConfigurationBuilder(
+				BlockStateProvider.simple(Blocks.OAK_LOG),
+				new StraightTrunkPlacer(1, 0, 0),
+				BlockStateProvider.simple(Blocks.OAK_LEAVES),
+				new BushFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), 2),
+				new TwoLayersFeatureSize(0, 0, 0)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		// PALM
@@ -1187,7 +1212,7 @@ public final class WilderTreeConfigured {
 						)
 					)
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		TALL_PALM.makeAndSetHolder(Feature.TREE,
@@ -1218,7 +1243,7 @@ public final class WilderTreeConfigured {
 						)
 					)
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		SMALL_WINE_PALM.makeAndSetHolder(Feature.TREE,
@@ -1229,7 +1254,7 @@ public final class WilderTreeConfigured {
 				1,
 				2,
 				2
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		TALL_WINE_PALM.makeAndSetHolder(Feature.TREE,
@@ -1257,7 +1282,7 @@ public final class WilderTreeConfigured {
 						)
 					)
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		FALLEN_PALM.makeAndSetHolder(Feature.TREE,
@@ -1286,7 +1311,7 @@ public final class WilderTreeConfigured {
 				BlockStateProvider.simple(RegisterBlocks.CYPRESS_LEAVES),
 				new RandomSpreadFoliagePlacer(ConstantInt.of(2), ConstantInt.of(2), ConstantInt.of(2), 32),
 				new TwoLayersFeatureSize(1, 0, 2)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		//JUNGLE
@@ -1312,7 +1337,7 @@ public final class WilderTreeConfigured {
 					MOSS_JUNGLE,
 					SHELF_FUNGUS_007
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		//ACACIA
@@ -1336,7 +1361,7 @@ public final class WilderTreeConfigured {
 					VINES_012_UNDER_260,
 					SHELF_FUNGUS_006_ONLY_BROWN
 				)
-			).build()
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		//MANGROVE

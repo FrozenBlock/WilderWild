@@ -135,8 +135,10 @@ public final class WilderTreePlaced {
 		BlockPredicateFilter.forPredicate(SAND_GRASS_TREE_PREDICATE)
 	);
 	//SHRUB
+	public static final FrozenPlacedFeature BIG_SHRUB_COARSE_CHECKED = register("big_shrub_coarse_checked");
+	public static final FrozenPlacedFeature BIG_SHRUB_COARSE_GRASS_CHECKED = register("big_shrub_coarse_grass_checked");
 	public static final FrozenPlacedFeature BIG_SHRUB_CHECKED = register("big_shrub_checked");
-	public static final FrozenPlacedFeature BIG_SHRUB_GRASS_CHECKED = register("big_shrub_grass_checked");
+	public static final FrozenPlacedFeature SHRUB_CHECKED = register("shrub_checked");
 	//PALM
 	public static final FrozenPlacedFeature PALM_CHECKED = register("palm_checked");
 	public static final FrozenPlacedFeature TALL_PALM_CHECKED = register("tall_palm_checked");
@@ -478,11 +480,19 @@ public final class WilderTreePlaced {
 
 		// SHRUB
 
-		BIG_SHRUB_CHECKED.makeAndSetHolder(WilderTreeConfigured.BIG_SHRUB.getHolder(),
+		BIG_SHRUB_COARSE_CHECKED.makeAndSetHolder(WilderTreeConfigured.BIG_SHRUB_COARSE.getHolder(),
 			SAND_TREE_FILTER_DECORATOR
 		);
 
-		BIG_SHRUB_GRASS_CHECKED.makeAndSetHolder(WilderTreeConfigured.BIG_SHRUB.getHolder(),
+		BIG_SHRUB_COARSE_GRASS_CHECKED.makeAndSetHolder(WilderTreeConfigured.BIG_SHRUB_COARSE.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
+		);
+
+		BIG_SHRUB_CHECKED.makeAndSetHolder(WilderTreeConfigured.BIG_SHRUB.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
+		);
+
+		SHRUB_CHECKED.makeAndSetHolder(WilderTreeConfigured.SHRUB.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
 		);
 

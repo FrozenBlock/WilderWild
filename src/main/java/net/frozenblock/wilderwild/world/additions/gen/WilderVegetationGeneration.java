@@ -65,6 +65,12 @@ public final class WilderVegetationGeneration {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SEEDING_DANDELION),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SEEDING_DANDELION.getKey());
 
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_COMMON_SEEDING_DANDELION),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.COMMON_SEEDING_DANDELION.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_RARE_SEEDING_DANDELION),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.RARE_SEEDING_DANDELION.getKey());
+
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_MILKWEED),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MILKWEED.getKey());
 
@@ -80,14 +86,8 @@ public final class WilderVegetationGeneration {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_CYPRESS_FLOWERS),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.CYPRESS_WETLANDS_FLOWERS.getKey());
 
-			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_CYPRESS_MILKWEED),
-				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MILKWEED_CYPRESS.getKey());
-
-			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_CYPRESS_SEEDING_DANDELION),
-				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SEEDING_DANDELION_CYPRESS.getKey());
-
-			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_MIXED_DANDELION),
-				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SEEDING_DANDELION_MIXED.getKey());
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_RARE_MILKWEED),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MILKWEED_RARE.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SUNFLOWER_PLAINS_FLOWERS),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_SUNFLOWER_PLAINS.getKey());

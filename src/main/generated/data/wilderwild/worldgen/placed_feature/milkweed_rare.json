@@ -1,9 +1,9 @@
 {
-  "feature": "wilderwild:seeding_dandelion",
+  "feature": "wilderwild:milkweed",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
-      "chance": 9
+      "chance": 20
     },
     {
       "type": "minecraft:in_square"
