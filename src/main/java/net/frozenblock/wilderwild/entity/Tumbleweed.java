@@ -109,7 +109,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
 	}
 
-	public static boolean canSpawn(EntityType<Tumbleweed> type, @NotNull ServerLevelAccessor level, @NotNull MobSpawnType reason, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public static boolean canSpawn(EntityType<Tumbleweed> type, @NotNull ServerLevelAccessor level, MobSpawnType reason, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		return level.getBrightness(LightLayer.SKY, pos) > 7 && random.nextInt(0, 60) == 1 && pos.getY() > level.getSeaLevel();
 	}
 
@@ -154,7 +154,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 	@Override
 	protected void dropAllDeathLoot(@NotNull DamageSource damageSource) {
-		if (!this.isSilkTouchOrShears(damageSource)) {
+		if (!isSilkTouchOrShears(damageSource)) {
 			super.dropAllDeathLoot(damageSource);
 		}
 	}
@@ -173,7 +173,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 			this.isTouchingStickingBlock = false;
 		}
 		this.isTouchingStoppingBlock = false;
-		if (this.getFeetBlockState().is(BlockTags.CROPS) && this.level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !this.onGround()) {
+		if (!this.level().isClientSide && this.getFeetBlockState().is(BlockTags.CROPS) && this.level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !this.onGround()) {
 			this.level().destroyBlock(this.blockPosition(), true, this);
 		}
 		super.tick();
@@ -266,7 +266,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	public void pickupItem() {
-		if (this.inventory.get(0).isEmpty() && this.level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !this.isRemoved()) {
+		if (!this.level().isClientSide && this.inventory.get(0).isEmpty() && this.level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !this.isRemoved()) {
 			List<ItemEntity> list = this.level().getEntitiesOfClass(ItemEntity.class, this.getBoundingBox().inflate(0.15));
 			for (ItemEntity item : list) {
 				if (this.isMovingTowards(item)) {
@@ -312,7 +312,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		return this.getPosition(0).subtract(this.getPosition(1));
 	}
 
-	public boolean isSilkTouchOrShears(@NotNull DamageSource damageSource) {
+	public static boolean isSilkTouchOrShears(@NotNull DamageSource damageSource) {
 		if (damageSource.getDirectEntity() instanceof Player player) {
 			ItemStack stack = player.getMainHandItem();
 			return EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0 || stack.is(Items.SHEARS);
@@ -458,7 +458,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	@Override
 	public void die(@NotNull DamageSource damageSource) {
 		super.die(damageSource);
-		if (damageSource.getDirectEntity() instanceof Player) {
+		if (!this.level().isClientSide && damageSource.getDirectEntity() instanceof Player) {
 			if (this.level().getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT) && !damageSource.isCreativePlayer()) {
 				if (isSilkTouchOrShears(damageSource)) {
 					this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(RegisterBlocks.TUMBLEWEED)));

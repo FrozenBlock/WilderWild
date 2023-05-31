@@ -185,7 +185,7 @@ public class StoneChestBlock extends ChestBlock {
 	}
 
 	@Nullable
-	private static StoneChestBlockEntity getOtherChest(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public static StoneChestBlockEntity getOtherChest(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state) {
 		ChestType chestType = state.getValue(ChestBlock.TYPE);
 		double x = pos.getX();
 		double y = pos.getY();

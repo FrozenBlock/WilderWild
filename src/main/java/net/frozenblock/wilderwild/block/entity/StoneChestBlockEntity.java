@@ -23,7 +23,7 @@ import java.util.Objects;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.frozenblock.lib.storage.api.NoInteractionStorage;
-import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.block.StoneChestBlock;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
@@ -97,16 +97,15 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
 
 	public static void serverStoneTick(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @NotNull StoneChestBlockEntity blockEntity) {
 		ServerLevel serverLevel = (ServerLevel) level;
-		StoneChestBlockEntity stoneChest = getOtherEntity(serverLevel, pos, state);
+		StoneChestBlockEntity stoneChest = StoneChestBlock.getOtherChest(serverLevel, pos, state);
 		if (!blockEntity.shouldSkip) {
 			if (blockEntity.cooldownTicks > 0) {
 				--blockEntity.cooldownTicks;
 			}
-			boolean canClose = level.getGameRules().getBoolean(WilderWild.STONE_CHEST_CLOSES);
 			blockEntity.prevOpenProgress = blockEntity.openProgress;
 			if (blockEntity.stillLidTicks > 0) {
 				blockEntity.stillLidTicks -= 1;
-			} else if (blockEntity.openProgress > 0F && canClose) {
+			} else if (blockEntity.openProgress > 0F) {
 				serverLevel.gameEvent(null, GameEvent.CONTAINER_CLOSE, pos);
 				blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.0425F);
 				if (!blockEntity.closing) {
@@ -125,16 +124,15 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
 	}
 
 	public static void clientStoneTick(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull StoneChestBlockEntity blockEntity) {
-		StoneChestBlockEntity stoneChest = getOtherEntity(level, pos, state);
+		StoneChestBlockEntity stoneChest = StoneChestBlock.getOtherChest(level, pos, state);
 		if (!blockEntity.shouldSkip) {
 			if (blockEntity.cooldownTicks > 0) {
 				--blockEntity.cooldownTicks;
 			}
-			boolean canClose = level.getGameRules().getBoolean(WilderWild.STONE_CHEST_CLOSES);
 			blockEntity.prevOpenProgress = blockEntity.openProgress;
 			if (blockEntity.stillLidTicks > 0) {
 				blockEntity.stillLidTicks -= 1;
-			} else if (blockEntity.openProgress > 0F && canClose) {
+			} else if (blockEntity.openProgress > 0F) {
 				blockEntity.closing = true;
 				blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.0425F);
 				if (blockEntity.openProgress <= 0F) {
@@ -146,31 +144,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
 		if (isLeft(state)) {
 			blockEntity.syncLidValuesWith(stoneChest);
 		}
-	}
-
-	public static StoneChestBlockEntity getOtherEntity(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
-		ChestType chestType = state.getValue(ChestBlock.TYPE);
-		double x = pos.getX();
-		double y = pos.getY();
-		double z = pos.getZ();
-		if (chestType == ChestType.RIGHT) {
-			Direction direction = ChestBlock.getConnectedDirection(state);
-			x += direction.getStepX();
-			z += direction.getStepZ();
-		} else if (chestType == ChestType.LEFT) {
-			Direction direction = ChestBlock.getConnectedDirection(state);
-			x += direction.getStepX();
-			z += direction.getStepZ();
-		} else {
-			return null;
-		}
-		BlockPos newPos = BlockPos.containing(x, y, z);
-		BlockEntity be = level.getBlockEntity(newPos);
-		StoneChestBlockEntity entity = null;
-		if (be instanceof StoneChestBlockEntity stone) {
-			entity = stone;
-		}
-		return entity;
 	}
 
 	public static StoneChestBlockEntity getLeftEntity(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull StoneChestBlockEntity source) {
@@ -296,7 +269,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
 
 	public void updateSync() {
 		if (this.level != null) {
-			StoneChestBlockEntity stoneChest = getOtherEntity(this.level, this.worldPosition, this.getBlockState());
+			StoneChestBlockEntity stoneChest = StoneChestBlock.getOtherChest(this.level, this.worldPosition, this.getBlockState());
 			if (stoneChest != null) {
 				syncValues(stoneChest);
 				if (!this.level.isClientSide) {

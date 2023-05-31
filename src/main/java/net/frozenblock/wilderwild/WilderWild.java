@@ -67,9 +67,6 @@ import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
 
 public final class WilderWild extends FrozenModInitializer implements FrozenMobCategoryEntrypoint {
 
-	// GAME RULES
-	public static final GameRules.Key<GameRules.BooleanValue> STONE_CHEST_CLOSES =
-		GameRuleRegistry.register("stoneChestCloses", GameRules.Category.MISC, GameRuleFactory.createBooleanRule(true));
 	// PACKETS
 	public static final ResourceLocation SEED_PACKET = WilderSharedConstants.id("seed_particle_packet");
 	public static final ResourceLocation CONTROLLED_SEED_PACKET = WilderSharedConstants.id("controlled_seed_particle_packet");

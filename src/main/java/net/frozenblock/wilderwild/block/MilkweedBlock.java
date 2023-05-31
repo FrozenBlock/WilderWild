@@ -78,7 +78,7 @@ public class MilkweedBlock extends TallFlowerBlock {
 			if (!level.isClientSide) {
 				if (itemStack.is(Items.SHEARS)) {
 					ItemStack stack = new ItemStack(RegisterItems.MILKWEED_POD);
-					stack.setCount(level.random.nextIntBetweenInclusive(2, 7));
+					stack.setCount(level.random.nextIntBetweenInclusive(2, 5));
 					popResource(level, pos, stack);
 					level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
 					itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
