@@ -4,17 +4,6 @@ Make sure to clear this after each release
 
 Put changelog here:
 -----------------
-- Added config option for restricting instrument sounds
-- Fixed compatibility with WWOO
-- Fixed small biome placement issues
-- Increased size of Oasis biome
-- Changed scorched sand "crackedness" property to use a boolean instead of an integer
-- Added a datafixer to convert old scorched sand "crackedness" properties
-- Fixed rare crash when bushes generate in water
-- Fixed surface rules in the mod's biomes not applying whilst using TerraBlender
-- Fixed a crash when Milkweed are fully grown
-- Fixed mipmap levels being reduced
-- Reduced panorama resolution to 1024x1024
-- Optimized file size
-- Internal changes to surface rules
-- Minor compatibility improvements
+- Fixed crash when bushes try to place on water
+- (1.20) Fixed furnaces stopping after smelting 2 items
+- (1.20) Fixed the recipe book not working
