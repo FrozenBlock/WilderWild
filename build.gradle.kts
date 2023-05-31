@@ -251,7 +251,7 @@ dependencies {
     }
 
     // NBT Crafting
-    modImplementation("com.github.AViewFromTheTop:nbt-crafting:jitpack-1.20-pre2-SNAPSHOT")?.let { include(it) }
+    modImplementation("com.github.Treetrain1:nbt-crafting:jitpack-1.20-SNAPSHOT")?.let { include(it) }
 
     // CaffeineConfig
     modImplementation("net.caffeinemc:mixin-config:1.0.0+1.17")?.let { include(it) }
