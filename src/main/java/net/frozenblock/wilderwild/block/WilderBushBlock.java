@@ -167,7 +167,7 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 	@Override
 	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
 		BlockPos blockPos = pos.below();
-		if (!isLower(state)) {
+		if (state.is(this) && !isLower(state)) {
 			BlockState otherState = level.getBlockState(blockPos);
 			return otherState.is(this) && isLower(otherState) && isFullyGrown(otherState) && isFullyGrown(state);
 		}
