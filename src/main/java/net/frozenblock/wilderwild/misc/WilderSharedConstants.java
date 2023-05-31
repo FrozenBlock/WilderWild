@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
 public class WilderSharedConstants {
 	public static final String MOD_ID = "wilderwild";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-	public static final int DATA_VERSION = 14;
+	public static final int DATA_VERSION = 15;
 	// MEASURING
 	public static final Map<Object, Long> INSTANT_MAP = new HashMap<>();
 	@Deprecated(forRemoval = true)

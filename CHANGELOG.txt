@@ -4,20 +4,34 @@ Make sure to clear this after each release
 
 Put changelog here:
 -----------------
-- Added config option for restricting instrument sounds
-- Fixed compatibility with WWOO
-- Fixed small biome placement issues
-- Increased size of Oasis biome
-- Changed scorched sand "crackedness" property to use a boolean instead of an integer
-- Added a datafixer to convert old scorched sand "crackedness" properties
-- Fixed rare crash when bushes generate in water
-- Fixed surface rules in the mod's biomes not applying whilst using TerraBlender
-- Fixed a crash when Milkweed are fully grown
-- Fixed mipmap levels being reduced
-- Reduced panorama resolution to 1024x1024
-- Optimized file size
-- Internal changes
-- Added Suspicious Gravel blocks to Ancient Cities
-- Added Snapped Trees
-- Internal changes to surface rules
-- Minor compatibility improvements
+- Optimized Osseous Sculk generation more
+- Reworked new Sculk Spreading
+- Added Shrubs to many biomes like Plains, Forest, Dark Forest, and much more.
+- Added more flora to the Plains, Meadow, Flower Forest, Flower Field, Forest, Semi-Birch Forest, Birch Forest, and Mangrove Swamp biomes.
+- Cattails can now generate on Mud blocks if not nearby water.
+- Cattails no longer create pockets of air when they're supposed to be waterlogged.
+- Palms now rarely generate on Beaches.
+- Added Snapped variants of trees.
+- Mangrove Swamps have now been wilder-ified, including Cattails, Flowers, Bushes, Mud Basins, Mud Lakes, more Grass, Fern, and rare Mud Piles.
+- Algae no longer slows down entities outside its collision shape.
+- Decreased the size of uncommon Algae patches (Swamp & Mangrove Swamp.)
+- Fixed Baobab Nut collision.
+- Added a config option that controls how many tentacles Jellyfish have.
+- Added unique sounds for all Ice blocks.
+- Included all Tall Flowers in the "Flower Sounds" config.
+- Added Suspicious Gravel to Ancient Cities.
+- Added Stone Chests in Ancient Cities' centers.
+- Removed Stone Chest Closes gamerule.
+- Fixed Tumbleweed breaking crops only client-side.
+- Firefly Bottles can now be recolored.
+- Fixed a crash pertaining to Jellyfish variants and Firefly colors.
+- Shadows no longer render on waterlogged Mesoglea whilst Sodium isn't installed.
+- Fixed block-break sounds playing when Echo Glass only cracks.
+- Added new Frosted Ice melting sounds and particles.
+- Jellyfish and Firerflies now only hide when they're near the center of their target.
+- Changed Osseous Sculk's state from Axis to Facing (Direction.)
+- Made many more aspects of worldgen data-driven.
+- Optimized the way some features generate (Trees, Cattails, Algae, etc.)
+- Added a new "wilderwild:beta_beaches" entrypoint to optimize Beta Beach generation while the config option is set to true.
+- Lots of internal cleanup, reorganization, and optimizations.
+- Various bug fixes.

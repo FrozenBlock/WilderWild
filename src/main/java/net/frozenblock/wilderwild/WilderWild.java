@@ -33,6 +33,7 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.command.SpreadSculkCommand;
 import net.frozenblock.wilderwild.misc.datafixer.DrySandStateFix;
 import net.frozenblock.wilderwild.misc.datafixer.NematocystStateFix;
+import net.frozenblock.wilderwild.misc.datafixer.OsseousSculkStateFix;
 import net.frozenblock.wilderwild.misc.datafixer.ScorchedSandStateFix2;
 import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
@@ -128,6 +129,8 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		Schema schemaV14 = builder.addSchema(14, NamespacedSchema::new);
 		builder.addFixer(new ScorchedSandStateFix2(schemaV14, "scorched_sand_integer_to_boolean", WilderSharedConstants.id("scorched_sand")));
 		builder.addFixer(new ScorchedSandStateFix2(schemaV14, "scorched_red_sand_integer_to_boolean", WilderSharedConstants.id("scorched_red_sand")));
+		Schema schemaV15 = builder.addSchema(15, NamespacedSchema::new);
+		builder.addFixer(new OsseousSculkStateFix(schemaV15, "osseous_sculk_axis_to_direction", WilderSharedConstants.id("osseous_sculk")));
 
 		QuiltDataFixes.buildAndRegisterFixer(mod, builder);
 		WilderSharedConstants.log("DataFixes for Wilder Wild have been applied", true);
