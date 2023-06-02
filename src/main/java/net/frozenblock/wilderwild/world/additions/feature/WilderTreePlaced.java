@@ -260,7 +260,7 @@ public final class WilderTreePlaced {
 			PlacementUtils.filteredByBlockSurvival(Blocks.CHERRY_SAPLING)
 		);
 
-		SnAPPED_CHERRY_CHECKED.makeAndSetHolder(WilderTreeConfigured.SNAPPED_CHERRY_TREE.getHolder(),
+		SNAPPED_CHERRY_CHECKED.makeAndSetHolder(WilderTreeConfigured.SNAPPED_CHERRY_TREE.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.CHERRY_SAPLING)
 		);
 
