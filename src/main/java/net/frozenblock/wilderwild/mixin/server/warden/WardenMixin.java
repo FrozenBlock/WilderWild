@@ -172,6 +172,29 @@ public final class WardenMixin extends Monster implements WilderWarden {
 			}
 		}
 	}
+	@Mixin(Warden.VibrationUser.class)
+	public static class VibrationUserMixin {
+
+		@Inject(method = "onReceiveVibration", at = @At("HEAD"))
+		private void wilderWild$onReceiveVibration(ServerLevel world, BlockPos pos, GameEvent event, Entity sourceEntity, Entity entity, float distance, CallbackInfo ci) {
+			Warden warden = Warden.class.cast(this);
+			if (!warden.isDeadOrDying()) {
+				int additionalAnger = 0;
+				if (warden.level().getBlockState(pos).is(Blocks.SCULK_SENSOR)) {
+					if (warden.level().getBlockState(pos).getValue(RegisterProperties.HICCUPPING)) {
+						additionalAnger = 65;
+					}
+				}
+				if (sourceEntity != null) {
+					if (warden.closerThan(sourceEntity, 30.0D)) {
+						warden.increaseAngerAt(sourceEntity, additionalAnger, false);
+					}
+				} else {
+					warden.increaseAngerAt(entity, additionalAnger, false);
+				}
+			}
+		}
+	}
 
 	@Inject(method = "onSyncedDataUpdated", at = @At("HEAD"), cancellable = true)
 	private void wilderWild$onSyncedDataUpdated(EntityDataAccessor<?> data, CallbackInfo info) {
@@ -266,32 +289,4 @@ public final class WardenMixin extends Monster implements WilderWarden {
 			}
 		}
 	}
-
-	@Mixin(Warden.VibrationUser.class)
-	public static class VibrationUserMixin {
-
-		@Shadow
-		@Final
-		Warden field_44600;
-
-		@Inject(method = "onReceiveVibration", at = @At("HEAD"))
-		private void wilderWild$onReceiveVibration(ServerLevel world, BlockPos pos, GameEvent gameEvent, @Nullable Entity entity, @Nullable Entity sourceEntity, float f, CallbackInfo info) {
-			if (!field_44600.isDeadOrDying()) {
-				int additionalAnger = 0;
-				if (world.getBlockState(pos).is(Blocks.SCULK_SENSOR)) {
-					if (world.getBlockState(pos).getValue(RegisterProperties.HICCUPPING)) {
-						additionalAnger = 65;
-					}
-				}
-				if (sourceEntity != null) {
-					if (field_44600.closerThan(sourceEntity, 30.0D)) {
-						field_44600.increaseAngerAt(sourceEntity, additionalAnger, false);
-					}
-				} else {
-					field_44600.increaseAngerAt(entity, additionalAnger, false);
-				}
-			}
-		}
-	}
-
 }

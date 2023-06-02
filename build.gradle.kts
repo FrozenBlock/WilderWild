@@ -218,6 +218,9 @@ dependencies {
     // To change the versions see the gradle.properties file
     minecraft("com.mojang:minecraft:$minecraft_version")
     mappings(loom.layered {
+        // please annoy treetrain if this doesnt work
+        mappings("org.quiltmc:quilt-mappings:$quilt_mappings:intermediary-v2")
+        parchment("org.parchmentmc.data:parchment-1.19.3:$parchment_mappings@zip")
         officialMojangMappings {
             nameSyntheticMembers = false
         }
@@ -245,7 +248,7 @@ dependencies {
     modImplementation("com.terraformersmc:modmenu:${modmenu_version}")
 
     // Cloth Config
-    modCompileOnly("me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}") {
+    modImplementation("me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}") {
         exclude(group = "net.fabricmc.fabric-api")
         exclude(group = "com.terraformersmc")
     }
@@ -258,7 +261,6 @@ dependencies {
 
     // TerraBlender
     modCompileOnly("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
-    //modImplementation("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
 
     // MixinExtras
     implementation("com.github.llamalad7.mixinextras:mixinextras-fabric:0.2.0-beta.8")?.let { annotationProcessor(it); shadowInclude(it) }

@@ -260,6 +260,7 @@ public final class WorldgenConfig implements ConfigData {
 			.requireRestart()
 			.build()
 		);
+
 		var wilderWildGrass = category.addEntry(entryBuilder.startBooleanToggle(text("wilder_wild_grass"), config.wilderWildGrassGen)
 			.setDefaultValue(DefaultWorldgenConfig.WILDER_WILD_GRASS_GEN)
 			.setSaveConsumer(newValue -> config.wilderWildGrassGen = newValue)

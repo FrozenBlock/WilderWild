@@ -1065,6 +1065,124 @@ public final class WilderConfiguredFeatures {
 			)
 		);
 
+		SNAPPED_BIRCHES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(WilderTreePlaced.SNAPPED_BIRCH_CHECKED.getHolder(), 1.0F)
+				),
+				WilderTreePlaced.SNAPPED_BIRCH_CHECKED.getHolder()
+			)
+		);
+
+		SNAPPED_OAKS.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(WilderTreePlaced.SNAPPED_OAK_CHECKED.getHolder(), 1.0F)
+					),
+				WilderTreePlaced.SNAPPED_OAK_CHECKED.getHolder()
+			)
+		);
+
+		SNAPPED_BIRCH_AND_OAK.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(WilderTreePlaced.SNAPPED_BIRCH_CHECKED.getHolder(), 0.3F)
+				),
+				WilderTreePlaced.SNAPPED_OAK_CHECKED.getHolder()
+			)
+		);
+
+		SNAPPED_SPRUCES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(WilderTreePlaced.SNAPPED_SPRUCE_CHECKED.getHolder(), 1.0F)
+				),
+				WilderTreePlaced.SNAPPED_SPRUCE_CHECKED.getHolder()
+			)
+		);
+
+		SNAPPED_SPRUCES_ON_SNOW.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(WilderTreePlaced.SNAPPED_SPRUCE_ON_SNOW.getHolder(), 1.0F)
+				),
+				WilderTreePlaced.SNAPPED_SPRUCE_ON_SNOW.getHolder()
+			)
+		);
+
+		SNAPPED_BIRCH_AND_OAK_AND_SPRUCE.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(WilderTreePlaced.SNAPPED_BIRCH_CHECKED.getHolder(), 0.15F),
+					new WeightedPlacedFeature(WilderTreePlaced.SNAPPED_SPRUCE_CHECKED.getHolder(), 0.25F)
+				),
+				WilderTreePlaced.SNAPPED_OAK_CHECKED.getHolder()
+			)
+		);
+
+		SNAPPED_BIRCH_AND_SPRUCE.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(WilderTreePlaced.SNAPPED_BIRCH_CHECKED.getHolder(), 0.5F)
+				),
+				WilderTreePlaced.SNAPPED_SPRUCE_CHECKED.getHolder()
+			)
+		);
+
+		SNAPPED_CYPRESSES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(WilderTreePlaced.SNAPPED_CYPRESS_CHECKED.getHolder(), 1.0F)
+				),
+				WilderTreePlaced.SNAPPED_CYPRESS_CHECKED.getHolder()
+			)
+		);
+
+		SNAPPED_JUNGLES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(WilderTreePlaced.SNAPPED_JUNGLE_CHECKED.getHolder(), 1.0F)
+				),
+				WilderTreePlaced.SNAPPED_JUNGLE_CHECKED.getHolder()
+			)
+		);
+
+		SNAPPED_BIRCH_AND_JUNGLE.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(WilderTreePlaced.SNAPPED_BIRCH_CHECKED.getHolder(), 0.35F)
+				),
+				WilderTreePlaced.SNAPPED_JUNGLE_CHECKED.getHolder()
+			)
+		);
+
+		SNAPPED_ACACIAS.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(WilderTreePlaced.SNAPPED_ACACIA_CHECKED.getHolder(), 1.0F)
+				),
+				WilderTreePlaced.SNAPPED_ACACIA_CHECKED.getHolder()
+			)
+		);
+
+		SNAPPED_ACACIA_AND_OAK.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(WilderTreePlaced.SNAPPED_OAK_CHECKED.getHolder(), 0.3F)
+				),
+				WilderTreePlaced.SNAPPED_ACACIA_CHECKED.getHolder()
+			)
+		);
+
+		SNAPPED_CHERRY.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(WilderTreePlaced.SNAPPED_CHERRY_CHECKED.getHolder(), 1.0F)
+				),
+				WilderTreePlaced.SNAPPED_CHERRY_CHECKED.getHolder()
+			)
+		);
+
 		// FLOWERS
 
 		SEEDING_DANDELION.makeAndSetHolder(Feature.FLOWER,

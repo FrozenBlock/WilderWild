@@ -358,6 +358,22 @@ public final class WilderTreeConfigured {
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
+		SNAPPED_BIRCH.makeAndSetHolder(Feature.TREE,
+			snappedTrunkBuilder(
+				Blocks.BIRCH_LOG,
+				Blocks.BIRCH_LEAVES,
+				2,
+				1,
+				1
+			).decorators(
+				List.of(
+					VINES_012_UNDER_260,
+					MOSS_BIRCH,
+					SHELF_FUNGUS_007
+				)
+			).build()
+		);
+
 		// CHERRY
 
 		CHERRY_TREE.makeAndSetHolder(Feature.TREE,
@@ -456,6 +472,22 @@ public final class WilderTreeConfigured {
 					SHELF_FUNGUS_00875_ONLY_RED
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		SNAPPED_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
+			snappedTrunkBuilder(
+				Blocks.BIRCH_LOG,
+				Blocks.BIRCH_LEAVES,
+				2,
+				1,
+				1
+			).decorators(
+				List.of(
+					VINES_012_UNDER_260,
+					MOSS_CHERRY,
+					SHELF_FUNGUS_00875_ONLY_RED
+				)
+			).build()
 		);
 
 		// OAK
@@ -650,6 +682,22 @@ public final class WilderTreeConfigured {
 					SHELF_FUNGUS_007
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		SNAPPED_OAK.makeAndSetHolder(Feature.TREE,
+			snappedTrunkBuilder(
+				Blocks.OAK_LOG,
+				Blocks.OAK_LEAVES,
+				2,
+				1,
+				1
+			).decorators(
+				List.of(
+					VINES_012_UNDER_260,
+					MOSS_OAK,
+					SHELF_FUNGUS_007
+				)
+			).build()
 		);
 
 		// DARK OAK
@@ -983,6 +1031,22 @@ public final class WilderTreeConfigured {
 					SHELF_FUNGUS_006_ONLY_BROWN
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		SNAPPED_SPRUCE.makeAndSetHolder(Feature.TREE,
+			snappedTrunkBuilder(
+				Blocks.SPRUCE_LOG,
+				Blocks.SPRUCE_LEAVES,
+				2,
+				1,
+				1
+			).decorators(
+				List.of(
+					VINES_012_UNDER_260,
+					MOSS_SPRUCE_PALM,
+					SHELF_FUNGUS_006_ONLY_BROWN
+				)
+			).build()
 		);
 
 		// BAOBAB
@@ -1340,6 +1404,22 @@ public final class WilderTreeConfigured {
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
+		SNAPPED_JUNGLE.makeAndSetHolder(Feature.TREE,
+			snappedTrunkBuilder(
+				Blocks.JUNGLE_LOG,
+				Blocks.JUNGLE_LEAVES,
+				2,
+				1,
+				1
+			).decorators(
+				List.of(
+					VINES_012_UNDER_260,
+					MOSS_JUNGLE,
+					SHELF_FUNGUS_007
+				)
+			).build()
+		);
+
 		//ACACIA
 		FALLEN_ACACIA_TREE.makeAndSetHolder(Feature.TREE,
 			fallenAcacia().decorators(
@@ -1362,6 +1442,21 @@ public final class WilderTreeConfigured {
 					SHELF_FUNGUS_006_ONLY_BROWN
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		SNAPPED_ACACIA.makeAndSetHolder(Feature.TREE,
+			snappedTrunkBuilder(
+				Blocks.ACACIA_LOG,
+				Blocks.ACACIA_LEAVES,
+				2,
+				1,
+				1
+			).decorators(
+				List.of(
+					VINES_012_UNDER_260,
+					SHELF_FUNGUS_006_ONLY_BROWN
+				)
+			).build()
 		);
 
 		//MANGROVE
