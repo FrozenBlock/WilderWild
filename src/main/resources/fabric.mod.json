@@ -36,10 +36,13 @@
     "client": [
       "net.frozenblock.wilderwild.WilderWildClient"
     ],
+    "preLaunch": [
+      "net.frozenblock.wilderwild.misc.WilderWildPreLaunch"
+    ],
     "fabric-datagen": [
       "net.frozenblock.wilderwild.misc.WilderWildDataGenerator"
     ],
-    "frozenlib:surfacerules": [
+    "frozenlib:events": [
       "net.frozenblock.wilderwild.registry.RegisterSurfaceRules"
     ],
     "frozenlib:mob_categories": [
@@ -76,14 +79,14 @@
       "strategy": "curseforge",
       "projectID": "648511",
       "strict": "false"
-	},
-	"modmenu": {
-    "links": {
-      "modmenu.discord": "https://discord.gg/EpkBWm844s"
     },
-    "badges": [
-      "frozenblock"
-    ]
-	}
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/EpkBWm844s"
+      },
+      "badges": [
+        "frozenblock"
+      ]
+    }
   }
 }

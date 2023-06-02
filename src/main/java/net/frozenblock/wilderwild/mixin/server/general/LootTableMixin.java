@@ -23,6 +23,7 @@ import net.minecraft.nbt.ByteTag;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -39,8 +40,8 @@ public final class LootTableMixin {
 	private boolean wilderWild$isStoneChest = false;
 
 	@Inject(at = @At("HEAD"), method = "fill", cancellable = true)
-	public void wilderWild$fill(Container container, LootContext context, CallbackInfo info) {
-		this.wilderWild$isStoneChest = container instanceof StoneChestBlockEntity;
+	public void wilderWild$fill(Container inventory, LootParams lootParams, long l, CallbackInfo ci) {
+		this.wilderWild$isStoneChest = inventory instanceof StoneChestBlockEntity;
 	}
 
 	@ModifyArgs(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/Container;setItem(ILnet/minecraft/world/item/ItemStack;)V", ordinal = 1), method = "fill")

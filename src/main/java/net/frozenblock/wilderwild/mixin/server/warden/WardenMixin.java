@@ -184,24 +184,25 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	@Mixin(Warden.VibrationUser.class)
 	public static class VibrationUserMixin {
 
-		@Shadow @Final
-		Warden field_44600;
+	@Mixin(Warden.VibrationUser.class)
+	public static class VibrationUserMixin {
 
 		@Inject(method = "onReceiveVibration", at = @At("HEAD"))
-		private void wilderWild$onReceiveVibration(ServerLevel world, BlockPos pos, GameEvent gameEvent, @Nullable Entity entity, @Nullable Entity sourceEntity, float f, CallbackInfo info) {
-			if (!field_44600.isDeadOrDying()) {
+		private void wilderWild$onReceiveVibration(ServerLevel world, BlockPos pos, GameEvent event, Entity sourceEntity, Entity entity, float distance, CallbackInfo ci) {
+			Warden warden = Warden.class.cast(this);
+			if (!warden.isDeadOrDying()) {
 				int additionalAnger = 0;
-				if (world.getBlockState(pos).is(Blocks.SCULK_SENSOR)) {
-					if (world.getBlockState(pos).getValue(RegisterProperties.HICCUPPING)) {
+				if (warden.level().getBlockState(pos).is(Blocks.SCULK_SENSOR)) {
+					if (warden.level().getBlockState(pos).getValue(RegisterProperties.HICCUPPING)) {
 						additionalAnger = 65;
 					}
 				}
 				if (sourceEntity != null) {
-					if (field_44600.closerThan(sourceEntity, 30.0D)) {
-						field_44600.increaseAngerAt(sourceEntity, additionalAnger, false);
+					if (warden.closerThan(sourceEntity, 30.0D)) {
+						warden.increaseAngerAt(sourceEntity, additionalAnger, false);
 					}
 				} else {
-					field_44600.increaseAngerAt(entity, additionalAnger, false);
+					warden.increaseAngerAt(entity, additionalAnger, false);
 				}
 			}
 		}
@@ -234,8 +235,8 @@ public final class WardenMixin extends Monster implements WilderWarden {
 			double d = this.random.nextGaussian() * 0.02;
 			double e = this.random.nextGaussian() * 0.02;
 			double f = this.random.nextGaussian() * 0.02;
-			this.level.addParticle(ParticleTypes.SCULK_CHARGE_POP, this.getRandomX(1.0), this.getRandomY(), this.getRandomZ(1.0), d, e, f);
-			this.level.addParticle(ParticleTypes.SCULK_SOUL, this.getRandomX(1.0), this.getRandomY(), this.getRandomZ(1.0), d, e, f);
+			this.level().addParticle(ParticleTypes.SCULK_CHARGE_POP, this.getRandomX(1.0), this.getRandomY(), this.getRandomZ(1.0), d, e, f);
+			this.level().addParticle(ParticleTypes.SCULK_SOUL, this.getRandomX(1.0), this.getRandomY(), this.getRandomZ(1.0), d, e, f);
 		}
 	}
 

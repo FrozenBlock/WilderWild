@@ -466,64 +466,64 @@ public final class WilderTreeConfigured {
 
 		CHERRY_TREE.makeAndSetHolder(Feature.TREE,
 			cherry().decorators(
-				List.of(
-					SHELF_FUNGUS_00875_ONLY_RED
+					List.of(
+							SHELF_FUNGUS_00875_ONLY_RED
 					)
 			).build()
 		);
 
 		DYING_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
 				cherry().decorators(
-					List.of(
-						SHELF_FUNGUS_00875_ONLY_RED,
-						VINES_1_UNDER_260_03
+						List.of(
+								SHELF_FUNGUS_00875_ONLY_RED,
+								VINES_1_UNDER_260_03
 						)
 				).build()
 		);
 
 		TALL_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
 				tallCherry().decorators(
-					List.of(
-						SHELF_FUNGUS_00875_ONLY_RED
+						List.of(
+								SHELF_FUNGUS_00875_ONLY_RED
 						)
 				).build()
 		);
 
 		TALL_DYING_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
 				tallCherry().decorators(
-					List.of(
-						SHELF_FUNGUS_00875_ONLY_RED,
-						VINES_1_UNDER_260_03
-					)
+						List.of(
+								SHELF_FUNGUS_00875_ONLY_RED,
+								VINES_1_UNDER_260_03
+						)
 				).build()
 		);
 
 		CHERRY_BEES_025.makeAndSetHolder(Feature.TREE,
 				cherry().decorators(
-					List.of(
-						BEES_025,
-						POLLEN_01,
-						SHELF_FUNGUS_00875_ONLY_RED
-					)
+						List.of(
+								BEES_025,
+								POLLEN_01,
+								SHELF_FUNGUS_00875_ONLY_RED
+						)
 				).build()
 		);
 
 		TALL_CHERRY_BEES_025.makeAndSetHolder(Feature.TREE,
 				tallCherry().decorators(
-					List.of(
-						BEES_025,
-						POLLEN_01,
-						SHELF_FUNGUS_00875_ONLY_RED
-					)
+						List.of(
+								BEES_025,
+								POLLEN_01,
+								SHELF_FUNGUS_00875_ONLY_RED
+						)
 				).build()
 		);
 
 		FALLEN_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
 				fallenCherry().decorators(
-					List.of(
-						VINES_08_UNDER_260_075,
-						MOSS_CHERRY
-					)
+						List.of(
+								VINES_08_UNDER_260_075,
+								MOSS_CHERRY
+						)
 				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
@@ -539,10 +539,10 @@ public final class WilderTreeConfigured {
 						UniformInt.of(1, 2),
 						1
 				).ignoreVines().decorators(
-					List.of(
-						VINES_08_UNDER_260_075,
-						MOSS_MOSSY
-					)).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+						List.of(
+								VINES_08_UNDER_260_075,
+								MOSS_MOSSY
+						)).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		SNAPPED_CHERRY_TREE.makeAndSetHolder(Feature.TREE,

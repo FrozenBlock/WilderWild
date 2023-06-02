@@ -43,6 +43,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class MilkweedBlock extends TallFlowerBlock {
+	private static final int MAX_AGE = 3;
 
     public MilkweedBlock(Properties settings) {
         super(settings);
@@ -55,7 +56,7 @@ public class MilkweedBlock extends TallFlowerBlock {
     }
 
 	public static boolean isFullyGrown(@NotNull BlockState state) {
-		return state.getValue(BlockStateProperties.AGE_3) == 3;
+		return state.getValue(BlockStateProperties.AGE_3) == MAX_AGE;
 	}
 
 	public static boolean isLower(@NotNull BlockState state) {
@@ -64,10 +65,9 @@ public class MilkweedBlock extends TallFlowerBlock {
 
     @Override
     public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, RandomSource random) {
-        if (random.nextFloat() > 0.83F) {
-			if (isLower(state) && isFullyGrown(state)) {
+        if (random.nextFloat() > 0.83F && isLower(state) && !isFullyGrown(state)) {
 				this.setAgeOnBothHalves(state, level, pos, state.getValue(BlockStateProperties.AGE_3) + 1);
-			}
+
         }
     }
 
@@ -99,10 +99,11 @@ public class MilkweedBlock extends TallFlowerBlock {
 			this.setAgeOnBothHalves(state, level, pos, state.getValue(BlockStateProperties.AGE_3) + 1);
 			return;
 		}
-		TallFlowerBlock.popResource(level, pos, new ItemStack(this));
+		Block.popResource(level, pos, new ItemStack(this));
 	}
 
 	public void setAgeOnBothHalves(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, int age) {
+		if (age > MAX_AGE) return;
 		level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.AGE_3, age));
 		BlockPos movedPos = state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER ? pos.below() : pos.above();
 		BlockState secondState = level.getBlockState(movedPos);

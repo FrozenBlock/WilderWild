@@ -1287,11 +1287,6 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.add(RegisterBlocks.BAOBAB_HANGING_SIGN, noDrop());
 			this.add(RegisterBlocks.CYPRESS_HANGING_SIGN, noDrop());
 		}
-
-		@Override
-		public void accept(BiConsumer<ResourceLocation, LootTable.Builder> resourceLocationBuilderBiConsumer) {
-
-		}
 	}
 
 	private static final class WilderBlockTagProvider extends FabricTagProvider.BlockTagProvider {
@@ -1712,11 +1707,6 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 		public void generate() {
 			this.dropSelf(RegisterBlocks.BAOBAB_HANGING_SIGN);
 			this.dropSelf(RegisterBlocks.CYPRESS_HANGING_SIGN);
-		}
-
-		@Override
-		public void accept(BiConsumer<ResourceLocation, LootTable.Builder> resourceLocationBuilderBiConsumer) {
-
 		}
 	}
 

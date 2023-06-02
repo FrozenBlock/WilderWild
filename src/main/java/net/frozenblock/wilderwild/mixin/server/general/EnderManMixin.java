@@ -75,7 +75,7 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
 				this.lastStareSound = this.tickCount;
 				if (!this.isSilent()) {
 					ClientMethodInteractionHandler.playClientEnderManSound(EnderMan.class.cast(this));
-					this.level.playLocalSound(this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENDERMAN_STARE, this.getSoundSource(), 2.5F, 1.0F, false);
+					this.level().playLocalSound(this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENDERMAN_STARE, this.getSoundSource(), 2.5F, 1.0F, false);
 				}
 			}
 		}
@@ -98,7 +98,7 @@ public final class EnderManMixin extends Monster implements WilderEnderman {
 	public void wilderWild$createAngerLoop() {
 		if (WilderSharedConstants.config().angerLoopSound()) {
 			EnderMan enderMan = EnderMan.class.cast(this);
-			if (enderMan.level.isClientSide && this.wilderWild$canPlayLoopingSound) {
+			if (enderMan.level().isClientSide && this.wilderWild$canPlayLoopingSound) {
 				((EntityLoopingSoundInterface) enderMan).addSound(BuiltInRegistries.SOUND_EVENT.getKey(RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP), SoundSource.HOSTILE, 1.0F, 0.9F, WilderSharedConstants.id("enderman_anger"), true);
 				this.wilderWild$canPlayLoopingSound = false;
 			}

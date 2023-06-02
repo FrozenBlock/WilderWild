@@ -25,6 +25,7 @@ import net.frozenblock.wilderwild.block.entity.ScorchedBlockEntity;
 import net.frozenblock.wilderwild.misc.mod_compat.FrozenLibIntegration;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
@@ -32,6 +33,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
@@ -40,6 +42,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
@@ -51,32 +54,51 @@ import org.jetbrains.annotations.Nullable;
 public class ScorchedBlock extends BaseEntityBlock {
 	public static final Map<BlockState, BlockState> SCORCH_MAP = new HashMap<>();
 	public static final Map<BlockState, BlockState> HYDRATE_MAP = new HashMap<>();
-	public static final IntegerProperty CRACKEDNESS = RegisterProperties.CRACKEDNESS;
+
+	private static final BooleanProperty CRACKEDNESS = RegisterProperties.CRACKEDNESS;
+	private static final IntegerProperty DUSTED = BlockStateProperties.DUSTED;
+	public static final int TICK_DELAY = 2;
+
+	private final BlockState defaultState;
+	private final BlockState defaultStateCracked;
+	private final BlockState wetState;
 	public final boolean canBrush;
-	public final BlockState wetState;
 	public final SoundEvent brushSound;
 	public final SoundEvent brushCompletedSound;
 
 	public ScorchedBlock(Properties settings, BlockState wetState, boolean canBrush, SoundEvent brushSound, SoundEvent brushCompletedSound) {
 		super(settings);
-		this.registerDefaultState(this.stateDefinition.any().setValue(CRACKEDNESS, 0));
+		this.registerDefaultState(this.stateDefinition.any().setValue(CRACKEDNESS, false).setValue(DUSTED, 0));
+		this.defaultState = this.defaultBlockState();
+		this.defaultStateCracked = defaultState.setValue(CRACKEDNESS, true);
 		this.wetState = wetState;
-		this.fillScorchMap(wetState, this.defaultBlockState());
+		this.fillScorchMap(this.wetState, this.defaultState, this.defaultStateCracked);
 		this.canBrush = canBrush;
 		this.brushSound = brushSound;
 		this.brushCompletedSound = brushCompletedSound;
 	}
 
-	public void fillScorchMap(BlockState wetState, BlockState defaultState) {
+	public void fillScorchMap(BlockState wetState, BlockState defaultState, BlockState defaultStateCracked) {
 		SCORCH_MAP.put(wetState, defaultState);
-		SCORCH_MAP.put(defaultState, defaultState.setValue(RegisterProperties.CRACKEDNESS, 1));
+		SCORCH_MAP.put(defaultState, defaultStateCracked);
 		HYDRATE_MAP.put(defaultState, wetState);
-		HYDRATE_MAP.put(defaultState.setValue(RegisterProperties.CRACKEDNESS, 1), defaultState);
+		HYDRATE_MAP.put(defaultStateCracked, defaultState);
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
-		builder.add(CRACKEDNESS, BlockStateProperties.DUSTED);
+		builder.add(CRACKEDNESS, DUSTED);
+	}
+
+	@Override
+	public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
+		level.scheduleTick(pos, this, TICK_DELAY);
+	}
+
+	@Override
+	public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos currentPos, BlockPos neighborPos) {
+		level.scheduleTick(currentPos, this, TICK_DELAY);
+		return super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
 	}
 
 	@Override
@@ -111,7 +133,7 @@ public class ScorchedBlock extends BaseEntityBlock {
 	}
 
 	private static BlockState stateWithoutDusting(BlockState state) {
-		return state.hasProperty(BlockStateProperties.DUSTED) ? state.setValue(BlockStateProperties.DUSTED, 0) : state;
+		return state.hasProperty(DUSTED) ? state.setValue(DUSTED, 0) : state;
 	}
 
 	@Override
@@ -147,8 +169,8 @@ public class ScorchedBlock extends BaseEntityBlock {
 	@Override
 	public ItemStack getCloneItemStack(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state) {
 		ItemStack superStack = super.getCloneItemStack(level, pos, state);
-		if (state.getValue(RegisterProperties.CRACKEDNESS) == 1) {
-			ItemBlockStateTagUtils.setProperty(superStack, RegisterProperties.CRACKEDNESS, 1);
+		if (state.getValue(RegisterProperties.CRACKEDNESS) == true) {
+			ItemBlockStateTagUtils.setProperty(superStack, RegisterProperties.CRACKEDNESS, true);
 		}
 		return superStack;
 	}
@@ -163,5 +185,12 @@ public class ScorchedBlock extends BaseEntityBlock {
 		return RenderShape.MODEL;
 	}
 
+	@Override
+	protected void finalize() {
+		SCORCH_MAP.remove(this.wetState);
+		SCORCH_MAP.remove(this.defaultState);
+		HYDRATE_MAP.remove(this.defaultState);
+		HYDRATE_MAP.remove(this.defaultStateCracked);
+	}
 }
 

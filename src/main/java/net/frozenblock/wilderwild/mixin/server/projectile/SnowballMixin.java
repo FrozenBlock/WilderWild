@@ -35,7 +35,7 @@ public class SnowballMixin {
 	public void wilderWild$onHit(HitResult result, CallbackInfo info) {
 		Snowball snowball = Snowball.class.cast(this);
 		if (WilderSharedConstants.config().snowballLandingSounds()) {
-			snowball.level.playSound(null, snowball.getX(), snowball.getY(), snowball.getZ(), RegisterSounds.ITEM_SNOWBALL_LAND, SoundSource.BLOCKS, 0.3F, 0.85F + (snowball.level.random.nextFloat() * 0.2F));
+			snowball.level().playSound(null, snowball.getX(), snowball.getY(), snowball.getZ(), RegisterSounds.ITEM_SNOWBALL_LAND, SoundSource.BLOCKS, 0.3F, 0.85F + (snowball.level().random.nextFloat() * 0.2F));
 		}
 	}
 

@@ -101,7 +101,6 @@ public final class WilderWildClient implements ClientModInitializer {
 		Splashes.addSplashLocation(WilderSharedConstants.id("texts/splashes.txt"));
 		Panoramas.addPanorama(WilderSharedConstants.id("textures/gui/title/first/panorama"));
 		Panoramas.addPanorama(WilderSharedConstants.id("textures/gui/title/second/panorama"));
-		Panoramas.addPanorama(WilderSharedConstants.id("textures/gui/title/third/panorama"));
 		EasterEggs.registerEaster();
 
 		BlockRenderLayerMap.INSTANCE.putBlock(RegisterBlocks.CARNATION, RenderType.cutout());
@@ -257,8 +256,8 @@ public final class WilderWildClient implements ClientModInitializer {
 		ItemProperties.register(RegisterItems.ANCIENT_HORN, WilderSharedConstants.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
 		ItemProperties.register(RegisterItems.COPPER_HORN, WilderSharedConstants.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
 
-		ItemProperties.register(RegisterItems.SCORCHED_SAND, WilderSharedConstants.vanillaId("cracked"), (itemStack, clientLevel, livingEntity, seed) -> ItemBlockStateTagUtils.getProperty(itemStack, RegisterProperties.CRACKEDNESS, 0));
-		ItemProperties.register(RegisterItems.SCORCHED_RED_SAND, WilderSharedConstants.vanillaId("cracked"), (itemStack, clientLevel, livingEntity, seed) -> ItemBlockStateTagUtils.getProperty(itemStack, RegisterProperties.CRACKEDNESS, 0));
+		ItemProperties.register(RegisterItems.SCORCHED_SAND, WilderSharedConstants.vanillaId("crackedness"), (itemStack, clientLevel, livingEntity, seed) -> ItemBlockStateTagUtils.getBoolProperty(itemStack, RegisterProperties.CRACKEDNESS, false) ? 1F : 0F);
+		ItemProperties.register(RegisterItems.SCORCHED_RED_SAND, WilderSharedConstants.vanillaId("crackedness"), (itemStack, clientLevel, livingEntity, seed) -> ItemBlockStateTagUtils.getBoolProperty(itemStack, RegisterProperties.CRACKEDNESS, false) ? 1F : 0F);
 		ItemProperties.register(RegisterItems.ECHO_GLASS, WilderSharedConstants.vanillaId("damage"), (itemStack, clientLevel, livingEntity, seed) -> ((float)ItemBlockStateTagUtils.getProperty(itemStack, RegisterProperties.DAMAGE, 0)) / 4F);
 		ItemProperties.register(Items.BEE_NEST, WilderSharedConstants.vanillaId("honey"), (itemStack, clientLevel, livingEntity, seed) -> ((float)ItemBlockStateTagUtils.getProperty(itemStack, BlockStateProperties.LEVEL_HONEY, 0)) / 5F);
 		ItemProperties.register(Items.BEEHIVE, WilderSharedConstants.vanillaId("honey"), (itemStack, clientLevel, livingEntity, seed) -> ((float)ItemBlockStateTagUtils.getProperty(itemStack, BlockStateProperties.LEVEL_HONEY, 0)) / 5F);
@@ -323,12 +322,13 @@ public final class WilderWildClient implements ClientModInitializer {
 			ctx.execute(() -> {
 				if (ctx.level == null)
 					throw new IllegalStateException("why is your world null");
+				var random = AdvancedMath.random();
 				for (int i = 0; i < count; i++) {
-					double xVel = (AdvancedMath.random().nextDouble() - 0.5) / 9.5;
-					double zVel = (AdvancedMath.random().nextDouble() - 0.5) / 9.5;
+					double xVel = (random.nextDouble() - 0.5) / 9.5;
+					double zVel = (random.nextDouble() - 0.5) / 9.5;
 					if (size >= 1) {
-						xVel = (AdvancedMath.random().nextDouble() - 0.5) / 10.5;
-						zVel = (AdvancedMath.random().nextDouble() - 0.5) / 10.5;
+						xVel = (random.nextDouble() - 0.5) / 10.5;
+						zVel = (random.nextDouble() - 0.5) / 10.5;
 					}
 					ctx.level.addParticle(new FloatingSculkBubbleParticleOptions(size, age, new Vec3(xVel, yVel, zVel)), pos.x, pos.y, pos.z, 0, 0, 0);
 				}

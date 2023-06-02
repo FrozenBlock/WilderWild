@@ -80,8 +80,10 @@ import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -124,22 +126,26 @@ public class Jellyfish extends NoFlopAbstractFish {
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
         Holder<Biome> biome = level.getBiome(this.blockPosition());
+        var random = AdvancedMath.random();
 		this.setVariant(JellyfishVariant.PINK);
+
         if (biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)) {
-            this.setVariant(PEARLESCENT_VARIANTS.get(AdvancedMath.random().nextInt(PEARLESCENT_VARIANTS.size())));
+            this.setVariant(PEARLESCENT_VARIANTS.get(random.nextInt(PEARLESCENT_VARIANTS.size())));
         } else {
-            this.setVariant(COLORED_VARIANTS.get(AdvancedMath.random().nextInt(COLORED_VARIANTS.size())));
+            this.setVariant(COLORED_VARIANTS.get(random.nextInt(COLORED_VARIANTS.size())));
         }
         return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
     }
 
 	public void setVariantFromPos(Level level, BlockPos pos) {
 		Holder<Biome> biome = level.getBiome(pos);
+        var random = AdvancedMath.random();
 		this.setVariant(JellyfishVariant.PINK);
+
 		if (biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH)) {
-			this.setVariant(PEARLESCENT_VARIANTS.get(AdvancedMath.random().nextInt(PEARLESCENT_VARIANTS.size())));
+			this.setVariant(PEARLESCENT_VARIANTS.get(random.nextInt(PEARLESCENT_VARIANTS.size())));
 		} else {
-			this.setVariant(COLORED_VARIANTS.get(AdvancedMath.random().nextInt(COLORED_VARIANTS.size())));
+			this.setVariant(COLORED_VARIANTS.get(random.nextInt(COLORED_VARIANTS.size())));
 		}
 	}
 
@@ -285,7 +291,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 			if (this.prevScale <= 0F) {
 				this.discard();
 				//TODO: Hide sound
-				this.playSound(RegisterSounds.ENTITY_JELLYFISH_HIDE, 0.8F, 0.9F + level.random.nextFloat() * 0.2F);
+				this.playSound(RegisterSounds.ENTITY_JELLYFISH_HIDE, 0.8F, 0.9F + this.level().random.nextFloat() * 0.2F);
 			} else {
 				this.scale -= 0.25F;
 			}
@@ -303,23 +309,23 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@Override
 	public boolean doHurtTarget(@NotNull Entity target) {
-		this.level.broadcastEntityEvent(this, (byte) 4);
+		this.level().broadcastEntityEvent(this, (byte) 4);
 		return super.doHurtTarget(target);
 	}
 
     public void stingEntities() {
         if (this.isAlive()) {
-            List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.08));
+            List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.08));
             for (LivingEntity entity : list) {
                 if (this.targetingConditions.test(this, entity)) {
                     if (entity instanceof ServerPlayer player) {
                         if (player.hurt(this.damageSources().mobAttack(this), 3)) {
-                            player.addEffect(new MobEffectInstance(MobEffects.POISON, this.level.random.nextInt(100, 200), 0, false, false), this);
+                            player.addEffect(new MobEffectInstance(MobEffects.POISON, this.level().random.nextInt(100, 200), 0, false, false), this);
                             EasyPacket.sendJellySting(player);
                         }
                     } else if (entity instanceof Mob mob) {
                         if (mob.hurt(this.damageSources().mobAttack(this), (float) (3))) {
-                            mob.addEffect(new MobEffectInstance(MobEffects.POISON, this.level.random.nextInt(100, 200), 0), this);
+                            mob.addEffect(new MobEffectInstance(MobEffects.POISON, this.level().random.nextInt(100, 200), 0), this);
                             this.playSound(RegisterSounds.ENTITY_JELLYFISH_STING, 0.4F, this.random.nextFloat() * 0.2F + 0.9F);
                         }
                     }
@@ -336,7 +342,7 @@ public class Jellyfish extends NoFlopAbstractFish {
     @Contract("null->false")
     public boolean canTargetEntity(@Nullable Entity entity) {
         return entity instanceof LivingEntity livingEntity
-                && this.level == livingEntity.level
+                && this.level() == livingEntity.level()
                 && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)
                 && !this.isAlliedTo(livingEntity)
                 && livingEntity.getType() != EntityType.ARMOR_STAND
@@ -346,25 +352,25 @@ public class Jellyfish extends NoFlopAbstractFish {
 				&& !livingEntity.isRemoved()
 				&& livingEntity.distanceTo(this) < MAX_TARGET_DISTANCE
                 && !livingEntity.getType().is(WilderEntityTags.JELLYFISH_CANT_STING)
-                && this.level.getWorldBorder().isWithinBounds(livingEntity.getBoundingBox());
+                && this.level().getWorldBorder().isWithinBounds(livingEntity.getBoundingBox());
     }
 
     public final TargetingConditions targetingConditions = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().selector(this::canTargetEntity);
 
     @Override
     protected void customServerAiStep() {
-        ServerLevel serverLevel = (ServerLevel) this.level;
+        ServerLevel serverLevel = (ServerLevel) this.level();
         serverLevel.getProfiler().push("jellyfishBrain");
         this.getBrain().tick(serverLevel, this);
-        this.level.getProfiler().pop();
-        this.level.getProfiler().push("jellyfishActivityUpdate");
+        this.level().getProfiler().pop();
+        this.level().getProfiler().push("jellyfishActivityUpdate");
         JellyfishAi.updateActivity(this);
-        this.level.getProfiler().pop();
+        this.level().getProfiler().pop();
         super.customServerAiStep();
     }
 
 	public boolean shouldHide() {
-		if (this.level.getNearestPlayer(this, 24) == null) {
+		if (this.level().getNearestPlayer(this, 24) == null) {
 			return this.ticksSinceSpawn >= 150
 					&& !this.requiresCustomPersistence()
 					&& !this.isPersistenceRequired()
@@ -385,7 +391,7 @@ public class Jellyfish extends NoFlopAbstractFish {
     @Override
     public boolean hurt(@NotNull DamageSource source, float amount) {
         if (super.hurt(source, amount)) {
-            if (!this.level.isClientSide && this.level.getDifficulty() != Difficulty.PEACEFUL && !this.isNoAi() && this.brain.getMemory(MemoryModuleType.ATTACK_TARGET).isEmpty()) {
+            if (!this.level().isClientSide && this.level().getDifficulty() != Difficulty.PEACEFUL && !this.isNoAi() && this.brain.getMemory(MemoryModuleType.ATTACK_TARGET).isEmpty()) {
                 LivingEntity target = this.getLastHurtByMob();
 				if (this.canTargetEntity(target)) {
 					this.setAttackTarget(target);
@@ -402,11 +408,22 @@ public class Jellyfish extends NoFlopAbstractFish {
     }
 
     @Override
-    protected void dropFromLootTable(@NotNull DamageSource damageSource, boolean bl) {
+    protected void dropFromLootTable(@NotNull DamageSource damageSource, boolean hitByPlayer) {
 		ResourceLocation resourceLocation = this.getJellyLootTable();
-		LootTable lootTable = Objects.requireNonNull(this.level.getServer()).getLootData().getLootTable(resourceLocation);
-		LootContext.Builder builder = this.createLootContext(bl, damageSource);
-		lootTable.getRandomItems(builder.create(LootContextParamSets.ENTITY), this::spawnAtLocation);
+		LootTable lootTable = Objects.requireNonNull(this.level().getServer()).getLootData().getLootTable(resourceLocation);
+		var builder = new LootParams.Builder((ServerLevel) this.level())
+			.withParameter(LootContextParams.THIS_ENTITY, this)
+			.withParameter(LootContextParams.ORIGIN, this.position())
+			.withParameter(LootContextParams.DAMAGE_SOURCE, damageSource)
+			.withOptionalParameter(LootContextParams.KILLER_ENTITY, damageSource.getEntity())
+			.withOptionalParameter(LootContextParams.DIRECT_KILLER_ENTITY, damageSource.getDirectEntity());
+
+		if (hitByPlayer && this.lastHurtByPlayer != null) {
+			builder = builder.withParameter(LootContextParams.LAST_DAMAGE_PLAYER, this.lastHurtByPlayer).withLuck(this.lastHurtByPlayer.getLuck());
+		}
+
+		LootParams lootParams = builder.create(LootContextParamSets.ENTITY);
+		lootTable.getRandomItems(lootParams, this.getLootTableSeed(), this::spawnAtLocation);
     }
 
     @Override

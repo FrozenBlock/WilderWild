@@ -43,12 +43,12 @@ public class LightningBoltMixin {
 	}
 
 	private void wilderWild$scorchSand(LightningBolt bolt) {
-		if (this.visualOnly || bolt.level.isClientSide) {
+		if (this.visualOnly || bolt.level().isClientSide) {
 			return;
 		}
-		if (bolt.level instanceof ServerLevel serverLevel) {
+		if (bolt.level() instanceof ServerLevel serverLevel) {
 			BlockPos blockPos = this.getStrikePosition();
-			BlockState strikeState = bolt.level.getBlockState(blockPos);
+			BlockState strikeState = bolt.level().getBlockState(blockPos);
 			if (strikeState.is(Blocks.SAND) || strikeState.is(RegisterBlocks.SCORCHED_SAND)) {
 				WilderMiscConfigured.SCORCHED_SAND_DISK_LIGHTNING.getConfiguredFeature(serverLevel).place(serverLevel, serverLevel.getChunkSource().getGenerator(), serverLevel.getRandom(), blockPos);
 			}

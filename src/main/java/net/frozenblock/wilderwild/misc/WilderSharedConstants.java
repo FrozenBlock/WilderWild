@@ -46,11 +46,7 @@ public class WilderSharedConstants {
 	public static boolean UNSTABLE_LOGGING = FabricLoader.getInstance().isDevelopmentEnvironment();
     public static boolean areConfigsInit = false;
 
-	public static final int DATA_VERSION = 13;
-
-	public static RandomSource random() {
-		return AdvancedMath.random();
-	}
+	public static final int DATA_VERSION = 14;
 
 	public static AbstractClothConfigIntegration config() {
 		return WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration();
@@ -60,22 +56,6 @@ public class WilderSharedConstants {
 	public static void log(String string, boolean shouldLog) {
 		if (shouldLog) {
 			WilderSharedConstants.LOGGER.info(string);
-		}
-	}
-
-	public static void logInsane(String string, boolean shouldLog) {
-		if (shouldLog) {
-			var amount = random().nextDouble() * 5;
-			for (int i = 0; i < amount; i++) {
-				WilderSharedConstants.LOGGER.warn(string);
-				WilderSharedConstants.LOGGER.error(string);
-				WilderSharedConstants.LOGGER.warn(string);
-				WilderSharedConstants.LOGGER.error(string);
-				WilderSharedConstants.LOGGER.warn(string);
-				WilderSharedConstants.LOGGER.error(string);
-				WilderSharedConstants.LOGGER.warn(string);
-				WilderSharedConstants.LOGGER.error(string);
-			}
 		}
 	}
 

@@ -13,7 +13,7 @@
       "state": {
         "Name": "wilderwild:scorched_sand",
         "Properties": {
-          "crackedness": "1",
+          "crackedness": "true",
           "dusted": "0"
         }
       }
@@ -24,7 +24,7 @@
       "state": {
         "Name": "wilderwild:scorched_sand",
         "Properties": {
-          "crackedness": "0",
+          "crackedness": "false",
           "dusted": "0"
         }
       }
