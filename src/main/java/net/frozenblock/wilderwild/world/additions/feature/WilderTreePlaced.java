@@ -260,6 +260,10 @@ public final class WilderTreePlaced {
 			PlacementUtils.filteredByBlockSurvival(Blocks.CHERRY_SAPLING)
 		);
 
+		SnAPPED_CHERRY_CHECKED.makeAndSetHolder(WilderTreeConfigured.SNAPPED_CHERRY_TREE.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.CHERRY_SAPLING)
+		);
+
 		// OAK
 
 		OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.OAK.getHolder(),
@@ -319,6 +323,10 @@ public final class WilderTreePlaced {
 		CLEAN_FALLEN_SPRUCE_CHECKED.makeAndSetHolder(WilderTreeConfigured.CLEAN_FALLEN_SPRUCE_TREE.getHolder());
 
 		OLD_DYING_FANCY_OAK_BEES_0004.makeAndSetHolder(WilderTreeConfigured.OLD_FANCY_DYING_OAK_BEES_0004.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
+		);
+
+		SNAPPED_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.SNAPPED_OAK.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
 		);
 
@@ -429,6 +437,14 @@ public final class WilderTreePlaced {
 		);
 
 		SHORT_MEGA_DYING_SPRUCE_ON_SNOW.makeAndSetHolder(WilderTreeConfigured.SHORT_MEGA_DYING_SPRUCE.getHolder(),
+			SNOW_TREE_FILTER_DECORATOR
+		);
+
+		SNAPPED_SPRUCE_CHECKED.makeAndSetHolder(WilderTreeConfigured.SNAPPED_SPRUCE.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING)
+		);
+
+		SNAPPED_SPRUCE_ON_SNOW.makeAndSetHolder(WilderTreeConfigured.SNAPPED_SPRUCE.getHolder(),
 			SNOW_TREE_FILTER_DECORATOR
 		);
 

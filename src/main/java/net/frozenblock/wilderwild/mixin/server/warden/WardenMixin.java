@@ -172,6 +172,8 @@ public final class WardenMixin extends Monster implements WilderWarden {
 			}
 		}
 	}
+	@Mixin(Warden.VibrationUser.class)
+	public static class VibrationUserMixin {
 
 	@Inject(method = "onSyncedDataUpdated", at = @At("HEAD"), cancellable = true)
 	private void wilderWild$onSyncedDataUpdated(EntityDataAccessor<?> data, CallbackInfo info) {
