@@ -82,13 +82,13 @@ public class CopperHorn extends InstrumentItem {
 
 	@Override
 	@NotNull
-	public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player user, @NotNull InteractionHand usedHand) {
-		ItemStack itemStack = user.getItemInHand(usedHand);
+	public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player user, @NotNull InteractionHand interactionHand) {
+		ItemStack itemStack = user.getItemInHand(interactionHand);
 		Optional<? extends Holder<Instrument>> optional = this.getInstrument(itemStack);
 		if (optional.isPresent()) {
 			var instrumentHolder = optional.get();
 			var instrument = instrumentHolder.value();
-			user.startUsingItem(usedHand);
+			user.startUsingItem(interactionHand);
 			playSound(instrument, user, level);
 			return InteractionResultHolder.consume(itemStack);
 		} else {
