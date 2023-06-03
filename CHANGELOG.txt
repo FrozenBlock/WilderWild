@@ -32,7 +32,6 @@ Put changelog here:
 - Changed Osseous Sculk's state from Axis to Facing (Direction.)
 - Made many more aspects of worldgen data-driven.
 - Optimized the way some features generate (Trees, Cattails, Algae, etc.)
-- Added a new "wilderwild:beta_beaches" entrypoint to optimize Beta Beach generation while the config option is set to true.
 - Fixed broken loop in Deep Dark ambience.
 - Lots of internal cleanup, reorganization, and optimizations.
 - Various bug fixes.

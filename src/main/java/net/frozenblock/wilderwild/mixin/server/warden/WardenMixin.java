@@ -175,25 +175,27 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	@Mixin(Warden.VibrationUser.class)
 	public static class VibrationUserMixin {
 
+		@Shadow @Final Warden field_44600;
+
 		@Inject(method = "onReceiveVibration", at = @At("HEAD"))
 		private void wilderWild$onReceiveVibration(ServerLevel world, BlockPos pos, GameEvent event, Entity sourceEntity, Entity entity, float distance, CallbackInfo ci) {
-			Warden warden = Warden.class.cast(this);
-			if (!warden.isDeadOrDying()) {
+			if (!this.field_44600.isDeadOrDying()) {
 				int additionalAnger = 0;
-				if (warden.level().getBlockState(pos).is(Blocks.SCULK_SENSOR)) {
-					if (warden.level().getBlockState(pos).getValue(RegisterProperties.HICCUPPING)) {
+				if (this.field_44600.level().getBlockState(pos).is(Blocks.SCULK_SENSOR)) {
+					if (this.field_44600.level().getBlockState(pos).getValue(RegisterProperties.HICCUPPING)) {
 						additionalAnger = 65;
 					}
 				}
 				if (sourceEntity != null) {
-					if (warden.closerThan(sourceEntity, 30.0D)) {
-						warden.increaseAngerAt(sourceEntity, additionalAnger, false);
+					if (this.field_44600.closerThan(sourceEntity, 30.0D)) {
+						this.field_44600.increaseAngerAt(sourceEntity, additionalAnger, false);
 					}
 				} else {
-					warden.increaseAngerAt(entity, additionalAnger, false);
+					this.field_44600.increaseAngerAt(entity, additionalAnger, false);
 				}
 			}
 		}
+
 	}
 
 	@Inject(method = "onSyncedDataUpdated", at = @At("HEAD"), cancellable = true)
