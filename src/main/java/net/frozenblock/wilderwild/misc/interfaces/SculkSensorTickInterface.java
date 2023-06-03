@@ -30,15 +30,18 @@ public interface SculkSensorTickInterface {
 	void wilderWild$tickClient(Level level, BlockPos pos, BlockState state);
 
 	int wilderWild$getAge();
+	void wilderWild$setAge(int i);
 
 	int wilderWild$getAnimTicks();
+	void wilderWild$setAnimTicks(int i);
 
 	int wilderWild$getPrevAnimTicks();
+	void wilderWild$setPrevAnimTicks(int i);
 
 	boolean wilderWild$isActive();
-
 	void wilderWild$setActive(boolean active);
 
-	void wilderWild$setAnimTicks(int i);
+	boolean wilderWild$isPrevActive();
+	void wilderWild$setPrevActive(boolean active);
 
 }

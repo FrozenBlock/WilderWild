@@ -47,6 +47,8 @@
     "server.projectile.ThrownEnderpearlMixin",
     "server.projectile.ThrownExperienceBottleMixin",
     "server.projectile.ThrownPotionMixin",
+    "server.sculk.CalibratedSculkSensorBlockEntityMixin",
+    "server.sculk.CalibratedSculkSensorBlockMixin",
     "server.sculk.SculkBlockMixin",
     "server.sculk.SculkSensorBlockEntityMixin",
     "server.sculk.SculkSensorBlockEntityMixin$VibrationUserMixin",

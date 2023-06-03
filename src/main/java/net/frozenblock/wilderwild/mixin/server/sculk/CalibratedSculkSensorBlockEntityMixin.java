@@ -33,12 +33,11 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SculkSensorBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
+import net.minecraft.world.level.block.entity.CalibratedSculkSensorBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.SculkSensorPhase;
@@ -46,41 +45,20 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(SculkSensorBlockEntity.class)
-public final class SculkSensorBlockEntityMixin extends BlockEntity implements SculkSensorTickInterface {
+@Mixin(CalibratedSculkSensorBlockEntity.class)
+public abstract class CalibratedSculkSensorBlockEntityMixin extends BlockEntity implements SculkSensorTickInterface {
 
-	@Unique
-	public int wilderWild$animTicks;
-
-	@Unique
-	public int wilderWild$prevAnimTicks;
-
-	@Unique
-	public int wilderWild$age;
-
-	@Unique
-	public boolean wilderWild$active;
-
-	@Unique
-	public boolean wilderWild$prevActive;
-
-	private SculkSensorBlockEntityMixin(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+	private CalibratedSculkSensorBlockEntityMixin(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 	}
 
 	@Unique
 	@Override
 	public void wilderWild$tickServer(ServerLevel level, BlockPos pos, BlockState state) {
-		SculkSensorBlockEntity sensor = SculkSensorBlockEntity.class.cast(this);
+		CalibratedSculkSensorBlockEntity sensor = CalibratedSculkSensorBlockEntity.class.cast(this);
 		VibrationSystem.Ticker.tick(level, sensor.getVibrationData(), sensor.createVibrationUser());
 		boolean bl2 = level.random.nextBoolean();
 		if (state.getValue(RegisterProperties.HICCUPPING)) {
@@ -130,7 +108,7 @@ public final class SculkSensorBlockEntityMixin extends BlockEntity implements Sc
 	@Unique
 	@Override
 	public ClientboundBlockEntityDataPacket getUpdatePacket() {
-		return ClientboundBlockEntityDataPacket.create(SculkSensorBlockEntity.class.cast(this));
+		return ClientboundBlockEntityDataPacket.create(CalibratedSculkSensorBlockEntity.class.cast(this));
 	}
 
 	@Unique
@@ -138,100 +116,6 @@ public final class SculkSensorBlockEntityMixin extends BlockEntity implements Sc
 	@NotNull
 	public CompoundTag getUpdateTag() {
 		return this.saveWithoutMetadata();
-	}
-
-	@Unique
-	@Override
-	public int wilderWild$getAge() {
-		return this.wilderWild$age;
-	}
-
-	@Unique
-	@Override
-	public void wilderWild$setAge(int i) {
-		this.wilderWild$age = i;
-	}
-
-	@Unique
-	@Override
-	public int wilderWild$getAnimTicks() {
-		return this.wilderWild$animTicks;
-	}
-
-	@Unique
-	@Override
-	public int wilderWild$getPrevAnimTicks() {
-		return this.wilderWild$prevAnimTicks;
-	}
-
-	@Override
-	public void wilderWild$setPrevAnimTicks(int i) {
-		this.wilderWild$prevAnimTicks = i;
-	}
-
-	@Unique
-	@Override
-	public boolean wilderWild$isActive() {
-		return this.wilderWild$active;
-	}
-
-	@Unique
-	@Override
-	public void wilderWild$setActive(boolean active) {
-		this.wilderWild$active = active;
-	}
-
-	@Unique
-	@Override
-	public boolean wilderWild$isPrevActive() {
-		return this.wilderWild$prevActive;
-	}
-
-	@Unique
-	@Override
-	public void wilderWild$setPrevActive(boolean active) {
-		this.wilderWild$prevActive = active;
-	}
-
-	@Unique
-	@Override
-	public void wilderWild$setAnimTicks(int i) {
-		this.wilderWild$animTicks = i;
-	}
-
-	@Inject(at = @At("TAIL"), method = "load")
-	private void wilderWild$load(CompoundTag nbt, CallbackInfo info) {
-		this.wilderWild$setAge(nbt.getInt("age"));;
-		this.wilderWild$setAnimTicks(nbt.getInt("animTicks"));
-		this.wilderWild$setPrevAnimTicks(nbt.getInt("prevAnimTicks"));
-		this.wilderWild$setActive(nbt.getBoolean("active"));
-		this.wilderWild$setPrevActive(nbt.getBoolean("prevActive"));
-	}
-
-	@Inject(at = @At("TAIL"), method = "saveAdditional")
-	private void wilderWild$saveAdditional(CompoundTag nbt, CallbackInfo info) {
-		nbt.putInt("age", this.wilderWild$getAge());
-		nbt.putInt("animTicks", this.wilderWild$getAnimTicks());
-		nbt.putInt("prevAnimTicks", this.wilderWild$getPrevAnimTicks());
-		nbt.putBoolean("active", this.wilderWild$isActive());
-		nbt.putBoolean("prevActive", this.wilderWild$isPrevActive());
-	}
-
-	@Mixin(SculkSensorBlockEntity.VibrationUser.class)
-	public static class VibrationUserMixin {
-
-		@Shadow
-		@Final
-		public BlockPos blockPos;
-
-		@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkSensorBlock;activate(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;II)V", shift = At.Shift.AFTER), method = "onReceiveVibration")
-		private void wilderWild$onReceiveVibration(ServerLevel world, BlockPos pos, GameEvent gameEvent, @Nullable Entity entity, @Nullable Entity entity2, float f, CallbackInfo info) {
-			world.gameEvent(entity, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, this.blockPos);
-			BlockState blockState = world.getBlockState(this.blockPos);
-			if (blockState.hasProperty(RegisterProperties.HICCUPPING)) {
-				world.setBlockAndUpdate(this.blockPos, blockState.setValue(RegisterProperties.HICCUPPING, false));
-			}
-		}
 	}
 
 }

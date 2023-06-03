@@ -33,5 +33,6 @@ Put changelog here:
 - Made many more aspects of worldgen data-driven.
 - Optimized the way some features generate (Trees, Cattails, Algae, etc.)
 - Fixed broken loop in Deep Dark ambience.
+- Removed MC LIVE Sculk Sensor Tendril config in favor of a cleaner implementation using a Resource Pack.
 - Lots of internal cleanup, reorganization, and optimizations.
 - Various bug fixes.

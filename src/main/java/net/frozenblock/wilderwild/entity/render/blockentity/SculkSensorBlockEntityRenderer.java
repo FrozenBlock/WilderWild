@@ -41,16 +41,14 @@ import org.jetbrains.annotations.NotNull;
 @Environment(EnvType.CLIENT)
 public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> implements BlockEntityRenderer<T> {
 	private static final float pi = (float) Math.PI;
-	private static final float merp25 = 25 * (pi / 180);
+	private static final float merp25 = 25F * (pi / 180F);
 	private static final RenderType SENSOR_LAYER = RenderType.entityCutout(WilderSharedConstants.id("textures/entity/sculk_sensor/inactive.png"));
 	private static final RenderType ACTIVE_SENSOR_LAYER = RenderType.entityCutout(WilderSharedConstants.id("textures/entity/sculk_sensor/active.png"));
-	private final ModelPart base;
 	private final ModelPart ne;
 	private final ModelPart se;
 
 	public SculkSensorBlockEntityRenderer(@NotNull Context ctx) {
 		ModelPart root = ctx.bakeLayer(WilderWildClient.SCULK_SENSOR);
-		this.base = root.getChild("base");
 		this.se = root.getChild("se");
 		this.ne = root.getChild("ne");
 	}
@@ -59,7 +57,6 @@ public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> im
 	public static LayerDefinition getTexturedModelData() {
 		MeshDefinition modelData = new MeshDefinition();
 		PartDefinition modelPartData = modelData.getRoot();
-		modelPartData.addOrReplaceChild("base", CubeListBuilder.create().texOffs(0, 0).addBox(-8.0F, -8.0F, -8.0F, 16.0F, 8.0F, 16.0F), PartPose.offsetAndRotation(8.0F, 0.0F, 8.0F, 0, 0.0F, pi));
 		modelPartData.addOrReplaceChild("ne", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, 0.0F, 8.0F, 8.0F, 0.002F), PartPose.offsetAndRotation(3.0F, 8.0F, 3.0F, 0, -0.7854F, pi));
 		modelPartData.addOrReplaceChild("se", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, 0.0F, 8.0F, 8.0F, 0.002F), PartPose.offsetAndRotation(3.0F, 8.0F, 13.0F, 0, 0.7854F, pi));
 		return LayerDefinition.create(modelData, 64, 64);
@@ -67,7 +64,7 @@ public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> im
 
 	@Override
 	public void render(@NotNull T entity, float partialTick, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
-		if (WilderSharedConstants.config().mcLiveSensorTendrils()) {
+		if (WilderSharedConstants.MC_LIVE_TENDRILS) {
 			SculkSensorTickInterface tickInterface = ((SculkSensorTickInterface) entity);
 			VertexConsumer vertexConsumer = vertexConsumers.getBuffer(SENSOR_LAYER);
 			if (tickInterface.wilderWild$isActive()) {
@@ -82,7 +79,6 @@ public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> im
 				this.se.xRot = 0;
 			}
 
-			this.base.render(matrices, vertexConsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
 			this.ne.render(matrices, vertexConsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
 			this.se.render(matrices, vertexConsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
 			matrices.translate(0.625, 0, 0.625);

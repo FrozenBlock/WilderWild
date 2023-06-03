@@ -21,7 +21,6 @@ package net.frozenblock.wilderwild.misc.config.defaultconfig;
 public class DefaultWorldgenConfig {
 
 	public static final boolean BETA_BEACHES = true;
-	public static final boolean OPTIMIZED_BETA_BEACHES = true;
 	public static final boolean DYING_TREES = true;
 	public static final boolean FALLEN_LOGS = true;
 	public static final boolean SNAPPED_LOGS = true;

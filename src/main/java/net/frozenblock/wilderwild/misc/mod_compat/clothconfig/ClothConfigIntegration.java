@@ -61,11 +61,6 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	// BLOCK
 
 	@Override
-	public boolean mcLiveSensorTendrils() {
-		return BLOCK.mcLiveSensorTendrils;
-	}
-
-	@Override
 	public boolean billboardTendrils() {
 		return BLOCK.billboardTendrils;
 	}
@@ -349,11 +344,6 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	@Override
 	public boolean betaBeaches() {
 		return WORLDGEN.betaBeaches;
-	}
-
-	@Override
-	public boolean optimizedBetaBeaches() {
-		return WORLDGEN.optimizedBetaBeaches;
 	}
 
 	@Override

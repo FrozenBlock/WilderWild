@@ -32,8 +32,6 @@ public abstract class AbstractClothConfigIntegration extends ModIntegration {
 
 	// BLOCK
 
-	public abstract boolean mcLiveSensorTendrils();
-
 	public abstract boolean billboardTendrils();
 
 	public abstract boolean mesogleaLiquid();
@@ -151,8 +149,6 @@ public abstract class AbstractClothConfigIntegration extends ModIntegration {
 	// WORLDGEN
 
 	public abstract boolean betaBeaches();
-
-	public abstract boolean optimizedBetaBeaches();
 
 	public abstract boolean modifyJunglePlacement();
 

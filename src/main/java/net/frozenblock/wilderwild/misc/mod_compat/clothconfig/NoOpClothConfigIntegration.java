@@ -33,11 +33,6 @@ public class NoOpClothConfigIntegration extends AbstractClothConfigIntegration {
 	// BLOCK
 
 	@Override
-	public boolean mcLiveSensorTendrils() {
-		return DefaultBlockConfig.MC_LIVE_SENSOR_TENDRILS;
-	}
-
-	@Override
 	public boolean billboardTendrils() {
 		return DefaultBlockConfig.BILLBOARD_TENDRILS;
 	}
@@ -321,11 +316,6 @@ public class NoOpClothConfigIntegration extends AbstractClothConfigIntegration {
 	@Override
 	public boolean betaBeaches() {
 		return DefaultWorldgenConfig.BETA_BEACHES;
-	}
-
-	@Override
-	public boolean optimizedBetaBeaches() {
-		return DefaultWorldgenConfig.OPTIMIZED_BETA_BEACHES;
 	}
 
 	@Override

@@ -40,7 +40,6 @@ public final class BlockConfig implements ConfigData {
 	public final StoneChestConfig stoneChest = new StoneChestConfig();
 	@ConfigEntry.Gui.CollapsibleObject
 	public final TermiteConfig termite = new TermiteConfig();
-	public boolean mcLiveSensorTendrils = DefaultBlockConfig.MC_LIVE_SENSOR_TENDRILS;
 	public boolean shriekerGargling = DefaultBlockConfig.SHRIEKER_GARGLING;
 	public boolean soulFireSounds = DefaultBlockConfig.SOUL_FIRE_SOUNDS;
 	public boolean billboardTendrils = DefaultBlockConfig.BILLBOARD_TENDRILS;
@@ -55,13 +54,6 @@ public final class BlockConfig implements ConfigData {
 		var stoneChest = config.stoneChest;
 		var termite = config.termite;
 		category.setBackground(WilderSharedConstants.id("textures/config/block.png"));
-		var mcLiveSensorTendrils = category.addEntry(entryBuilder.startBooleanToggle(text("mc_live_sensor_tendrils"), config.mcLiveSensorTendrils)
-			.setDefaultValue(DefaultBlockConfig.MC_LIVE_SENSOR_TENDRILS)
-			.setSaveConsumer(newValue -> config.mcLiveSensorTendrils = newValue)
-			.setYesNoTextSupplier(bool -> text("mc_live_sensor_tendrils." + bool))
-			.setTooltip(tooltip("mc_live_sensor_tendrils"))
-			.build()
-		);
 		var shriekerGargling = category.addEntry(entryBuilder.startBooleanToggle(text("shrieker_gargling"), config.shriekerGargling)
 			.setDefaultValue(DefaultBlockConfig.SHRIEKER_GARGLING)
 			.setSaveConsumer(newValue -> config.shriekerGargling = newValue)

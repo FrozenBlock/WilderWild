@@ -3,7 +3,6 @@ package net.frozenblock.wilderwild.registry;
 import java.util.List;
 import net.frozenblock.lib.worldgen.surface.api.FrozenSurfaceRules;
 import net.frozenblock.lib.worldgen.surface.api.SurfaceRuleEvents;
-import net.frozenblock.lib.worldgen.surface.impl.OptimizedBiomeTagConditionSource;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.generation.conditionsource.BetaBeachConditionSource;
@@ -251,7 +250,7 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 	@NotNull
 	public static SurfaceRules.RuleSource gravelBetaBeaches() {
 		return SurfaceRules.ifTrue(
-			OptimizedBiomeTagConditionSource.isBiomeTag(WilderBiomeTags.GRAVEL_BEACH),
+			FrozenSurfaceRules.isBiomeTagOptimized(WilderBiomeTags.GRAVEL_BEACH),
 			SurfaceRules.ifTrue(
 				SurfaceRules.UNDER_FLOOR,
 				SurfaceRules.ifTrue(
@@ -271,7 +270,7 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 	@NotNull
 	public static SurfaceRules.RuleSource sandBetaBeaches() {
 		return SurfaceRules.ifTrue(
-			OptimizedBiomeTagConditionSource.isBiomeTag(WilderBiomeTags.SAND_BEACHES),
+			FrozenSurfaceRules.isBiomeTagOptimized(WilderBiomeTags.SAND_BEACHES),
 			SurfaceRules.ifTrue(
 				SurfaceRules.DEEP_UNDER_FLOOR,
 				SurfaceRules.ifTrue(
@@ -291,7 +290,7 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 	@NotNull
 	public static SurfaceRules.RuleSource multiLayerSandBetaBeaches() {
 		return SurfaceRules.ifTrue(
-			OptimizedBiomeTagConditionSource.isBiomeTag(WilderBiomeTags.MULTI_LAYER_SAND_BEACHES),
+			FrozenSurfaceRules.isBiomeTagOptimized(WilderBiomeTags.MULTI_LAYER_SAND_BEACHES),
 			SurfaceRules.ifTrue(
 				SurfaceRules.DEEP_UNDER_FLOOR,
 				SurfaceRules.ifTrue(

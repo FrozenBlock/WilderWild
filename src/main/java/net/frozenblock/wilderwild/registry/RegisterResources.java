@@ -31,5 +31,6 @@ public final class RegisterResources {
 	public static void register(ModContainer container) {
 		ResourceManagerHelper.registerBuiltinResourcePack(WilderSharedConstants.id("new_main_menu"), container, ResourcePackActivationType.DEFAULT_ENABLED);
 		ResourceManagerHelper.registerBuiltinResourcePack(WilderSharedConstants.id("old_wilder_wild_panoramas"), container, ResourcePackActivationType.NORMAL);
+		ResourceManagerHelper.registerBuiltinResourcePack(WilderSharedConstants.id("mc_live_tendrils"), container, ResourcePackActivationType.NORMAL);
 	}
 }
