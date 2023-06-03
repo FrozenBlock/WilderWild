@@ -35,13 +35,14 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> implements BlockEntityRenderer<T> {
-	private static final float pi = (float) Math.PI;
-	private static final float merp25 = 25F * (pi / 180F);
+	private static final float PI = Mth.PI;
+	private static final float MERP_25 = 25F * (PI / 180F);
 	private static final RenderType SENSOR_LAYER = RenderType.entityCutout(WilderSharedConstants.id("textures/entity/sculk_sensor/inactive.png"));
 	private static final RenderType ACTIVE_SENSOR_LAYER = RenderType.entityCutout(WilderSharedConstants.id("textures/entity/sculk_sensor/active.png"));
 	private final ModelPart ne;
@@ -57,8 +58,8 @@ public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> im
 	public static LayerDefinition getTexturedModelData() {
 		MeshDefinition modelData = new MeshDefinition();
 		PartDefinition modelPartData = modelData.getRoot();
-		modelPartData.addOrReplaceChild("ne", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, 0.0F, 8.0F, 8.0F, 0.002F), PartPose.offsetAndRotation(3.0F, 8.0F, 3.0F, 0, -0.7854F, pi));
-		modelPartData.addOrReplaceChild("se", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, 0.0F, 8.0F, 8.0F, 0.002F), PartPose.offsetAndRotation(3.0F, 8.0F, 13.0F, 0, 0.7854F, pi));
+		modelPartData.addOrReplaceChild("ne", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, 0.0F, 8.0F, 8.0F, 0.002F), PartPose.offsetAndRotation(3.0F, 8.0F, 3.0F, 0, -0.7854F, PI));
+		modelPartData.addOrReplaceChild("se", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, 0.0F, 8.0F, 8.0F, 0.002F), PartPose.offsetAndRotation(3.0F, 8.0F, 13.0F, 0, 0.7854F, PI));
 		return LayerDefinition.create(modelData, 64, 64);
 	}
 
@@ -71,8 +72,8 @@ public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> im
 				int prevTicks = tickInterface.wilderWild$getPrevAnimTicks();
 				float pitch = (prevTicks + partialTick * (tickInterface.wilderWild$getAnimTicks() - prevTicks)) * 0.1F;
 				float animProg = (tickInterface.wilderWild$getAge() + partialTick) * 2.25F;
-				this.ne.xRot = pitch * ((float) Math.cos(animProg) * merp25);
-				this.se.xRot = pitch * (-(float) Math.sin(animProg) * merp25);
+				this.ne.xRot = pitch * ((float) Math.cos(animProg) * MERP_25);
+				this.se.xRot = pitch * (-(float) Math.sin(animProg) * MERP_25);
 				vertexConsumer = vertexConsumers.getBuffer(ACTIVE_SENSOR_LAYER);
 			} else {
 				this.ne.xRot = 0;
