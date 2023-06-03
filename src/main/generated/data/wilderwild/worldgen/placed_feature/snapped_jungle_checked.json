@@ -1,5 +1,5 @@
 {
-  "feature": "wilderwild:snapped_jungle",
+  "feature": "wilderwild:snapped_jungle_tree",
   "placement": [
     {
       "type": "minecraft:block_predicate_filter",

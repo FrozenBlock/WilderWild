@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.misc;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
@@ -64,7 +63,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.storage.loot.LootTable;
 import org.jetbrains.annotations.NotNull;
 
 public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
@@ -1339,8 +1337,6 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 		@Override
 		public void generate() {
-			this.add(RegisterBlocks.BAOBAB_HANGING_SIGN, noDrop());
-			this.add(RegisterBlocks.CYPRESS_HANGING_SIGN, noDrop());
 		}
 	}
 

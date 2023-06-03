@@ -600,58 +600,6 @@ public final class WilderPlacedFeatures {
 			treePlacement(RarityFilter.onAverageOnceEvery(58))
 		);
 
-		SNAPPED_BIRCH_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_BIRCHES.getHolder(),
-			treePlacement(RarityFilter.onAverageOnceEvery(52))
-		);
-
-		SNAPPED_OAK_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_OAKS.getHolder(),
-			treePlacement(RarityFilter.onAverageOnceEvery(52))
-		);
-
-		SNAPPED_BIRCH_AND_OAK_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_BIRCH_AND_OAK.getHolder(),
-			treePlacement(RarityFilter.onAverageOnceEvery(52))
-		);
-
-		SNAPPED_SPRUCE_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_SPRUCES.getHolder(),
-			treePlacement(RarityFilter.onAverageOnceEvery(52))
-		);
-
-		SNAPPED_SPRUCE_ON_SNOW_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_SPRUCES_ON_SNOW.getHolder(),
-			treePlacement(RarityFilter.onAverageOnceEvery(52))
-		);
-
-		SNAPPED_BIRCH_AND_OAK_AND_SPRUCE_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_BIRCH_AND_OAK_AND_SPRUCE.getHolder(),
-			treePlacement(RarityFilter.onAverageOnceEvery(52))
-		);
-
-		SNAPPED_BIRCH_AND_SPRUCE_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_BIRCH_AND_SPRUCE.getHolder(),
-			treePlacement(RarityFilter.onAverageOnceEvery(52))
-		);
-
-		SNAPPED_CYPRESS_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_CYPRESSES.getHolder(),
-			treePlacement(RarityFilter.onAverageOnceEvery(52))
-		);
-
-		SNAPPED_JUNGLE_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_JUNGLES.getHolder(),
-			treePlacement(RarityFilter.onAverageOnceEvery(52))
-		);
-
-		SNAPPED_BIRCH_AND_JUNGLE_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_BIRCH_AND_JUNGLE.getHolder(),
-			treePlacement(RarityFilter.onAverageOnceEvery(52))
-		);
-
-		SNAPPED_ACACIA_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_ACACIAS.getHolder(),
-			treePlacement(RarityFilter.onAverageOnceEvery(52))
-		);
-
-		SNAPPED_ACACIA_AND_OAK_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_ACACIA_AND_OAK.getHolder(),
-			treePlacement(RarityFilter.onAverageOnceEvery(52))
-		);
-
-		SNAPPED_CHERRY_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_CHERRY.getHolder(),
-			treePlacement(RarityFilter.onAverageOnceEvery(58))
-		);
-
 		// MUSHROOMS
 
 		BROWN_SHELF_FUNGUS_PLACED.makeAndSetHolder(WilderConfiguredFeatures.BROWN_SHELF_FUNGUS_CONFIGURED.getHolder(),

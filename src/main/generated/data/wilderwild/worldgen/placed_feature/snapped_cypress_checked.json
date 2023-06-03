@@ -1,5 +1,5 @@
 {
-  "feature": "wilderwild:snapped_cypress",
+  "feature": "wilderwild:snapped_cypress_tree",
   "placement": [
     {
       "type": "minecraft:block_predicate_filter",

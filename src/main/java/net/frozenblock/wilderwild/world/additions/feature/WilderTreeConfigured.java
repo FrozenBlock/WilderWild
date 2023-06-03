@@ -98,7 +98,7 @@ public final class WilderTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SHORT_DYING_BIRCH = register("short_dying_birch");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SUPER_BIRCH_BEES = register("super_birch_bees");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SUPER_BIRCH = register("super_birch");
-	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_BIRCH = register("snapped_birch");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_BIRCH = register("snapped_birch_tree");
 	//CHERRY
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> CHERRY_TREE = register("cherry");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DYING_CHERRY_TREE = register("dying_cherry");
@@ -126,7 +126,7 @@ public final class WilderTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> MOSSY_FALLEN_STRAIGHT_OAK_TREE = register("mossy_fallen_straight_oak_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_OAK_BEES = register("fancy_oak_bees");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> OLD_FANCY_DYING_OAK_BEES_0004 = register("old_fancy_dying_oak_bees_0004");
-	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_OAK = register("snapped_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_OAK = register("snapped_oak_tree");
 	//DARK OAK
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DYING_DARK_OAK = register("dying_dark_oak");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_DARK_OAK = register("tall_dark_oak");
@@ -152,7 +152,7 @@ public final class WilderTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SHORT_MEGA_FUNGUS_SPRUCE = register("short_mega_fungus_spruce");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SHORT_MEGA_DYING_FUNGUS_SPRUCE = register("short_mega_dying_fungus_spruce");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SHORT_MEGA_DYING_SPRUCE = register("short_mega_dying_spruce");
-	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_SPRUCE = register("snapped_spruce");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_SPRUCE = register("snapped_spruce_tree");
 	//BAOBAB
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> BAOBAB = register("baobab");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> BAOBAB_TALL = register("baobab_tall");
@@ -163,7 +163,7 @@ public final class WilderTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SHORT_CYPRESS = register("short_cypress");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SHORT_FUNGUS_CYPRESS = register("short_fungus_cypress");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SWAMP_CYPRESS = register("swamp_cypress");
-	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_CYPRESS = register("snapped_cypress");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_CYPRESS = register("snapped_cypress_tree");
 	//SHRUBS
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> BIG_SHRUB_COARSE = register("big_shrub_coarse");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> BIG_SHRUB = register("big_shrub");
@@ -178,10 +178,10 @@ public final class WilderTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> JUNIPER = register("juniper");
 	//JUNGLE
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_JUNGLE_TREE = register("fallen_jungle_tree");
-	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_JUNGLE = register("snapped_jungle");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_JUNGLE = register("snapped_jungle_tree");
 	//ACACIA
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_ACACIA_TREE = register("fallen_acacia_tree");
-	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_ACACIA = register("snapped_acacia");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_ACACIA = register("snapped_acacia_tree");
 	//MANGROVE
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_MANGROVE_TREE = register("fallen_mangrove_tree");
 	private static final ShelfFungusTreeDecorator SHELF_FUNGUS_007 = new ShelfFungusTreeDecorator(0.074F, 0.3F);
@@ -358,22 +358,6 @@ public final class WilderTreeConfigured {
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
-		SNAPPED_BIRCH.makeAndSetHolder(Feature.TREE,
-			snappedTrunkBuilder(
-				Blocks.BIRCH_LOG,
-				Blocks.BIRCH_LEAVES,
-				2,
-				1,
-				1
-			).decorators(
-				List.of(
-					VINES_012_UNDER_260,
-					MOSS_BIRCH,
-					SHELF_FUNGUS_007
-				)
-			).build()
-		);
-
 		// CHERRY
 
 		CHERRY_TREE.makeAndSetHolder(Feature.TREE,
@@ -472,22 +456,6 @@ public final class WilderTreeConfigured {
 					SHELF_FUNGUS_00875_ONLY_RED
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
-		);
-
-		SNAPPED_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
-			snappedTrunkBuilder(
-				Blocks.BIRCH_LOG,
-				Blocks.BIRCH_LEAVES,
-				2,
-				1,
-				1
-			).decorators(
-				List.of(
-					VINES_012_UNDER_260,
-					MOSS_CHERRY,
-					SHELF_FUNGUS_00875_ONLY_RED
-				)
-			).build()
 		);
 
 		// OAK
@@ -682,22 +650,6 @@ public final class WilderTreeConfigured {
 					SHELF_FUNGUS_007
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
-		);
-
-		SNAPPED_OAK.makeAndSetHolder(Feature.TREE,
-			snappedTrunkBuilder(
-				Blocks.OAK_LOG,
-				Blocks.OAK_LEAVES,
-				2,
-				1,
-				1
-			).decorators(
-				List.of(
-					VINES_012_UNDER_260,
-					MOSS_OAK,
-					SHELF_FUNGUS_007
-				)
-			).build()
 		);
 
 		// DARK OAK
@@ -1031,22 +983,6 @@ public final class WilderTreeConfigured {
 					SHELF_FUNGUS_006_ONLY_BROWN
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
-		);
-
-		SNAPPED_SPRUCE.makeAndSetHolder(Feature.TREE,
-			snappedTrunkBuilder(
-				Blocks.SPRUCE_LOG,
-				Blocks.SPRUCE_LEAVES,
-				2,
-				1,
-				1
-			).decorators(
-				List.of(
-					VINES_012_UNDER_260,
-					MOSS_SPRUCE_PALM,
-					SHELF_FUNGUS_006_ONLY_BROWN
-				)
-			).build()
 		);
 
 		// BAOBAB
@@ -1404,22 +1340,6 @@ public final class WilderTreeConfigured {
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
-		SNAPPED_JUNGLE.makeAndSetHolder(Feature.TREE,
-			snappedTrunkBuilder(
-				Blocks.JUNGLE_LOG,
-				Blocks.JUNGLE_LEAVES,
-				2,
-				1,
-				1
-			).decorators(
-				List.of(
-					VINES_012_UNDER_260,
-					MOSS_JUNGLE,
-					SHELF_FUNGUS_007
-				)
-			).build()
-		);
-
 		//ACACIA
 		FALLEN_ACACIA_TREE.makeAndSetHolder(Feature.TREE,
 			fallenAcacia().decorators(
@@ -1442,21 +1362,6 @@ public final class WilderTreeConfigured {
 					SHELF_FUNGUS_006_ONLY_BROWN
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
-		);
-
-		SNAPPED_ACACIA.makeAndSetHolder(Feature.TREE,
-			snappedTrunkBuilder(
-				Blocks.ACACIA_LOG,
-				Blocks.ACACIA_LEAVES,
-				2,
-				1,
-				1
-			).decorators(
-				List.of(
-					VINES_012_UNDER_260,
-					SHELF_FUNGUS_006_ONLY_BROWN
-				)
-			).build()
 		);
 
 		//MANGROVE
