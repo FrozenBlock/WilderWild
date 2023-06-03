@@ -207,44 +207,42 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 	}
 
 	public void convertToSculk(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
-		BlockState state = level.getBlockState(pos);
+		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
+		BlockState state = level.getBlockState(mutableBlockPos);
 		if (state.is(this)) {
-			BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
-			if (level.getBlockState(mutableBlockPos).is(this)) {
-				BlockState stateReplace;
-				Direction oppositeDirection;
-				BlockState airState = Blocks.AIR.defaultBlockState();
-				for (Direction direction : UPDATE_SHAPE_ORDER) {
-					stateReplace = level.getBlockState(mutableBlockPos.move(direction));
-					oppositeDirection = direction.getOpposite();
-					if (stateReplace.is(Blocks.SCULK_VEIN)) {
-						stateReplace.setValue(MultifaceBlock.getFaceProperty(oppositeDirection), false);
-						if (MultifaceBlock.availableFaces(stateReplace).isEmpty()) {
-							stateReplace = airState;
-						}
-						level.setBlock(mutableBlockPos, stateReplace, 3);
+			BlockState stateReplace;
+			Direction oppositeDirection;
+			BlockState airState = Blocks.AIR.defaultBlockState();
+			for (Direction direction : UPDATE_SHAPE_ORDER) {
+				stateReplace = level.getBlockState(mutableBlockPos.move(direction));
+				oppositeDirection = direction.getOpposite();
+				if (stateReplace.is(Blocks.SCULK_VEIN)) {
+					stateReplace = stateReplace.setValue(MultifaceBlock.getFaceProperty(oppositeDirection), false);
+					if (MultifaceBlock.availableFaces(stateReplace).isEmpty()) {
+						stateReplace = airState;
 					}
-					mutableBlockPos.move(oppositeDirection);
+					level.setBlock(mutableBlockPos, stateReplace, 3);
 				}
-				mutableBlockPos.move(state.getValue(FACING));
-				for (Direction direction : UPDATE_SHAPE_ORDER) {
-					stateReplace = level.getBlockState(mutableBlockPos.move(direction));
-					oppositeDirection = direction.getOpposite();
-					BlockState stateSetTo = null;
-					if (stateReplace.is(Blocks.SCULK_VEIN)) {
-						stateSetTo = stateReplace.setValue(MultifaceBlock.getFaceProperty(oppositeDirection), true);
-					}
-					if (stateReplace.isAir()) {
-						stateSetTo = Blocks.SCULK_VEIN.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(oppositeDirection), true);
-					}
-					if (stateReplace.getBlock() == Blocks.WATER) {
-						stateSetTo = Blocks.SCULK_VEIN.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(oppositeDirection), true).setValue(BlockStateProperties.WATERLOGGED, true);
-					}
-					if (stateSetTo != null) {
-						level.setBlock(mutableBlockPos, stateSetTo, 3);
-					}
-					mutableBlockPos.move(oppositeDirection);
+				mutableBlockPos.move(oppositeDirection);
+			}
+			mutableBlockPos.move(state.getValue(FACING));
+			for (Direction direction : UPDATE_SHAPE_ORDER) {
+				stateReplace = level.getBlockState(mutableBlockPos.move(direction));
+				oppositeDirection = direction.getOpposite();
+				BlockState stateSetTo = null;
+				if (stateReplace.is(Blocks.SCULK_VEIN)) {
+					stateSetTo = stateReplace.setValue(MultifaceBlock.getFaceProperty(oppositeDirection), true);
 				}
+				if (stateReplace.isAir()) {
+					stateSetTo = Blocks.SCULK_VEIN.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(oppositeDirection), true);
+				}
+				if (stateReplace.getBlock() == Blocks.WATER) {
+					stateSetTo = Blocks.SCULK_VEIN.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(oppositeDirection), true).setValue(BlockStateProperties.WATERLOGGED, true);
+				}
+				if (stateSetTo != null) {
+					level.setBlock(mutableBlockPos, stateSetTo, 3);
+				}
+				mutableBlockPos.move(oppositeDirection);
 			}
 			level.setBlock(pos, Blocks.SCULK.defaultBlockState(), 3);
 		}
