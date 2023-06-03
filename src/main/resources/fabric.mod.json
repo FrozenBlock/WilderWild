@@ -38,9 +38,6 @@
     "preLaunch": [
       "net.frozenblock.wilderwild.misc.WilderWildPreLaunch"
     ],
-    "wilderwild:beta_beaches": [
-      "net.frozenblock.wilderwild.registry.RegisterSurfaceRules"
-    ],
     "frozenlib:events": [
       "net.frozenblock.wilderwild.registry.RegisterSurfaceRules"
     ],

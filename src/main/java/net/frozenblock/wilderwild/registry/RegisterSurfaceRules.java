@@ -1,30 +1,20 @@
 package net.frozenblock.wilderwild.registry;
 
-import java.util.ArrayList;
 import java.util.List;
-import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.entrypoint.EntrypointContainer;
-import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.worldgen.surface.api.FrozenSurfaceRules;
 import net.frozenblock.lib.worldgen.surface.api.SurfaceRuleEvents;
-import net.frozenblock.lib.worldgen.surface.impl.BiomeTagConditionSource;
+import net.frozenblock.lib.worldgen.surface.impl.OptimizedBiomeTagConditionSource;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.misc.interfaces.BetaBeachEntrypoint;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.generation.conditionsource.BetaBeachConditionSource;
 import net.frozenblock.wilderwild.world.generation.noise.WilderNoise;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Noises;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import org.jetbrains.annotations.NotNull;
 
-public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceRuleCallback, BetaBeachEntrypoint {
+public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceRuleCallback {
 
 	@NotNull
 	public static SurfaceRules.RuleSource cypressSurfaceRules() {
@@ -310,6 +300,30 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 	}
 
 	@NotNull
+	public static SurfaceRules.RuleSource gravelBetaBeaches() {
+		return SurfaceRules.ifTrue(
+			OptimizedBiomeTagConditionSource.isBiomeTag(WilderBiomeTags.GRAVEL_BEACH),
+			gravelBetaBeach()
+		);
+	}
+
+	@NotNull
+	public static SurfaceRules.RuleSource sandBetaBeaches() {
+		return SurfaceRules.ifTrue(
+			OptimizedBiomeTagConditionSource.isBiomeTag(WilderBiomeTags.SAND_BEACHES),
+			sandBetaBeach()
+		);
+	}
+
+	@NotNull
+	public static SurfaceRules.RuleSource multiLayerSandBetaBeaches() {
+		return SurfaceRules.ifTrue(
+			OptimizedBiomeTagConditionSource.isBiomeTag(WilderBiomeTags.MULTI_LAYER_SAND_BEACHES),
+			multiLayerSandBetaBeach()
+		);
+	}
+
+	@NotNull
 	public static SurfaceRules.RuleSource betaBeaches() {
 		return SurfaceRules.ifTrue(
 			BetaBeachConditionSource.betaBeachConditionSource(),
@@ -321,84 +335,11 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 		);
 	}
 
-	@NotNull
-	public static SurfaceRules.RuleSource gravelBetaBeaches() {
-		return SurfaceRules.ifTrue(
-			BiomeTagConditionSource.isBiomeTag(WilderBiomeTags.GRAVEL_BEACH),
-			gravelBetaBeach()
-		);
-	}
-
-	@NotNull
-	public static SurfaceRules.RuleSource sandBetaBeaches() {
-		return SurfaceRules.ifTrue(
-			BiomeTagConditionSource.isBiomeTag(WilderBiomeTags.SAND_BEACHES),
-			sandBetaBeach()
-		);
-	}
-
-	@NotNull
-	public static SurfaceRules.RuleSource multiLayerSandBetaBeaches() {
-		return SurfaceRules.ifTrue(
-			BiomeTagConditionSource.isBiomeTag(WilderBiomeTags.MULTI_LAYER_SAND_BEACHES),
-			multiLayerSandBetaBeach()
-		);
-	}
-
-	@NotNull
-	public static SurfaceRules.RuleSource optimizedBetaBeaches() {
-		List<EntrypointContainer<BetaBeachEntrypoint>> betaBeachEntrypoints = FabricLoader.getInstance().getEntrypointContainers("wilderwild:beta_beaches", BetaBeachEntrypoint.class);
-		return SurfaceRules.ifTrue(
-			BetaBeachConditionSource.betaBeachConditionSource(),
-			SurfaceRules.sequence(
-				optimizedGravelBetaBeaches(betaBeachEntrypoints),
-				optimizedSandBetaBeaches(betaBeachEntrypoints),
-				optimizedMultiLayerSandBetaBeaches(betaBeachEntrypoints)
-			)
-		);
-	}
-
-	@NotNull
-	public static SurfaceRules.RuleSource optimizedGravelBetaBeaches(@NotNull List<EntrypointContainer<BetaBeachEntrypoint>> containers) {
-		List<ResourceKey<Biome>> biomes = new ArrayList<>();
-		for (EntrypointContainer<BetaBeachEntrypoint> container : containers) {
-			container.getEntrypoint().addGravelBeachBiomes(biomes);
-		}
-		return SurfaceRules.ifTrue(
-			FrozenSurfaceRules.isBiome(biomes),
-			gravelBetaBeaches()
-		);
-	}
-
-	@NotNull
-	public static SurfaceRules.RuleSource optimizedSandBetaBeaches(@NotNull List<EntrypointContainer<BetaBeachEntrypoint>> containers) {
-		List<ResourceKey<Biome>> biomes = new ArrayList<>();
-		for (EntrypointContainer<BetaBeachEntrypoint> container : containers) {
-			container.getEntrypoint().addSandBeachBiomes(biomes);
-		}
-		return SurfaceRules.ifTrue(
-			FrozenSurfaceRules.isBiome(biomes),
-			sandBetaBeach()
-		);
-	}
-
-	@NotNull
-	public static SurfaceRules.RuleSource optimizedMultiLayerSandBetaBeaches(@NotNull List<EntrypointContainer<BetaBeachEntrypoint>> containers) {
-		List<ResourceKey<Biome>> biomes = new ArrayList<>();
-		for (EntrypointContainer<BetaBeachEntrypoint> container : containers) {
-			container.getEntrypoint().addMultiLayerBeachBiomes(biomes);
-		}
-		return SurfaceRules.ifTrue(
-			FrozenSurfaceRules.isBiome(biomes),
-			multiLayerSandBetaBeach()
-		);
-	}
-
 	@Override
 	public void addOverworldSurfaceRules(@NotNull List<SurfaceRules.RuleSource> context) {
 		context.add(
 			SurfaceRules.sequence(
-				WilderSharedConstants.config().optimizedBetaBeaches() ? optimizedBetaBeaches() : betaBeaches(),
+				betaBeaches(),
 				cypressSurfaceRules(),
 				warmRiverRules(),
 				oasisRules(),
@@ -411,46 +352,5 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 			)
 		);
 		WilderSharedConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
-	}
-
-	@Override
-	public void addGravelBeachBiomes(@NotNull List<ResourceKey<Biome>> context) {
-		context.add(Biomes.BIRCH_FOREST);
-		context.add(Biomes.FROZEN_RIVER);
-		context.add(RegisterWorldgen.MIXED_FOREST);
-		context.add(Biomes.OLD_GROWTH_BIRCH_FOREST);
-		context.add(Biomes.OLD_GROWTH_PINE_TAIGA);
-		context.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA);
-		context.add(Biomes.TAIGA);
-		context.add(Biomes.SNOWY_TAIGA);
-		context.add(RegisterWorldgen.BIRCH_TAIGA);
-		context.add(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA);
-		context.add(RegisterWorldgen.DARK_BIRCH_FOREST);
-		context.add(RegisterWorldgen.DARK_TAIGA);
-	}
-
-	@Override
-	public void addSandBeachBiomes(@NotNull List<ResourceKey<Biome>> context) {
-		context.add(Biomes.DARK_FOREST);
-		context.add(Biomes.FLOWER_FOREST);
-		context.add(Biomes.FOREST);
-		context.add(RegisterWorldgen.PARCHED_FOREST);
-		context.add(RegisterWorldgen.ARID_FOREST);
-		context.add(RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
-		context.add(RegisterWorldgen.SEMI_BIRCH_FOREST);
-	}
-
-	@Override
-	public void addMultiLayerBeachBiomes(@NotNull List<ResourceKey<Biome>> context) {
-		context.add(Biomes.BAMBOO_JUNGLE);
-		context.add(Biomes.JUNGLE);
-		context.add(Biomes.SAVANNA);
-		context.add(Biomes.SPARSE_JUNGLE);
-		context.add(RegisterWorldgen.BIRCH_JUNGLE);
-		context.add(RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
-		context.add(RegisterWorldgen.ARID_SAVANNA);
-		if (FrozenBools.HAS_TERRALITH) {
-			context.add(ResourceKey.create(Registries.BIOME, new ResourceLocation("terralith", "arid_highlands")));
-		}
 	}
 }
