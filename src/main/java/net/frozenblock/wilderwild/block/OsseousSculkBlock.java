@@ -212,14 +212,13 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 		if (state.is(this)) {
 			BlockState stateReplace;
 			Direction oppositeDirection;
-			BlockState airState = Blocks.AIR.defaultBlockState();
 			for (Direction direction : UPDATE_SHAPE_ORDER) {
 				stateReplace = level.getBlockState(mutableBlockPos.move(direction));
 				oppositeDirection = direction.getOpposite();
 				if (stateReplace.is(Blocks.SCULK_VEIN)) {
 					stateReplace = stateReplace.setValue(MultifaceBlock.getFaceProperty(oppositeDirection), false);
 					if (MultifaceBlock.availableFaces(stateReplace).isEmpty()) {
-						stateReplace = airState;
+						stateReplace = stateReplace.getValue(BlockStateProperties.WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
 					}
 					level.setBlock(mutableBlockPos, stateReplace, 3);
 				}
@@ -233,7 +232,7 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 				if (stateReplace.is(Blocks.SCULK_VEIN)) {
 					stateSetTo = stateReplace.setValue(MultifaceBlock.getFaceProperty(oppositeDirection), true);
 				}
-				if (stateReplace.isAir()) {
+				if (stateReplace.isAir() && !stateReplace.getFluidState().isEmpty()) {
 					stateSetTo = Blocks.SCULK_VEIN.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(oppositeDirection), true);
 				}
 				if (stateReplace.getBlock() == Blocks.WATER) {
