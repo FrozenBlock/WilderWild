@@ -51,11 +51,6 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 @Mixin(value = SculkBlock.class, priority = 69420)
 public abstract class SculkBlockMixin {
 
-	@Shadow
-	private static boolean canPlaceGrowth(LevelAccessor level, BlockPos pos) {
-		throw new AssertionError("Mixin injection failed - Wilder Wild SculkBlockMixin.");
-	}
-
 	/**
 	 * The height multiplier of the Osseous Sculk pillars.
 	 * <p>
@@ -105,7 +100,7 @@ public abstract class SculkBlockMixin {
 
 	@ModifyExpressionValue(method = "attemptUseCharge", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkBlock;canPlaceGrowth(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)Z"))
 	private boolean wilderWild$newWorldgenCharge(boolean original, SculkSpreader.ChargeCursor chargeCursor, LevelAccessor levelAccessor, BlockPos blockPos, RandomSource randomSource, SculkSpreader sculkSpreader, boolean bl) {
-		return this.wilderWild$canPlaceGrowth(levelAccessor, blockPos, sculkSpreader.isWorldGeneration()) || original;
+		return this.wilderWild$canPlaceGrowth(levelAccessor, chargeCursor.getPos(), sculkSpreader.isWorldGeneration()) || original;
 	}
 
 	@Inject(method = "attemptUseCharge", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkBlock;getRandomGrowthState(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;Z)Lnet/minecraft/world/level/block/state/BlockState;", shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
