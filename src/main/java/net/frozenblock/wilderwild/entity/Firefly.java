@@ -135,7 +135,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 1.0D).add(Attributes.MOVEMENT_SPEED, 0.08F).add(Attributes.FLYING_SPEED, 0.08F).add(Attributes.FOLLOW_RANGE, 32);
 	}
 
-	public static boolean isValidHomePos(Level level, BlockPos pos) {
+	public static boolean isValidHomePos(@NotNull Level level, @NotNull BlockPos pos) {
 		BlockState state = level.getBlockState(pos);
 		if (!state.getFluidState().isEmpty()) {
 			return false;

@@ -249,61 +249,22 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 	}
 
 	@NotNull
-	public static SurfaceRules.RuleSource gravelBetaBeach() {
-		return SurfaceRules.ifTrue(
-			SurfaceRules.UNDER_FLOOR,
-			SurfaceRules.ifTrue(
-				SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
-				SurfaceRules.ifTrue(
-					SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
-					SurfaceRules.ifTrue(
-						SurfaceRules.noiseCondition(WilderNoise.GRAVEL_BEACH_KEY, 0.12, 1.7976931348623157E308),
-						FrozenSurfaceRules.GRAVEL
-					)
-				)
-			)
-		);
-	}
-
-	@NotNull
-	public static SurfaceRules.RuleSource sandBetaBeach() {
-		return SurfaceRules.ifTrue(
-			SurfaceRules.DEEP_UNDER_FLOOR,
-			SurfaceRules.ifTrue(
-				SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
-				SurfaceRules.ifTrue(
-					SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
-					SurfaceRules.ifTrue(
-						SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH_KEY, 0.12, 1.7976931348623157E308),
-						FrozenSurfaceRules.SAND
-					)
-				)
-			)
-		);
-	}
-
-	@NotNull
-	public static SurfaceRules.RuleSource multiLayerSandBetaBeach() {
-		return SurfaceRules.ifTrue(
-			SurfaceRules.DEEP_UNDER_FLOOR,
-			SurfaceRules.ifTrue(
-				SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
-				SurfaceRules.ifTrue(
-					SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(64), 0)),
-					SurfaceRules.ifTrue(
-						SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH_KEY, 0.12, 1.7976931348623157E308),
-						FrozenSurfaceRules.SAND
-					)
-				)
-			)
-		);
-	}
-
-	@NotNull
 	public static SurfaceRules.RuleSource gravelBetaBeaches() {
 		return SurfaceRules.ifTrue(
 			OptimizedBiomeTagConditionSource.isBiomeTag(WilderBiomeTags.GRAVEL_BEACH),
-			gravelBetaBeach()
+			SurfaceRules.ifTrue(
+				SurfaceRules.UNDER_FLOOR,
+				SurfaceRules.ifTrue(
+					SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
+					SurfaceRules.ifTrue(
+						SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
+						SurfaceRules.ifTrue(
+							SurfaceRules.noiseCondition(WilderNoise.GRAVEL_BEACH_KEY, 0.12, 1.7976931348623157E308),
+							FrozenSurfaceRules.GRAVEL
+						)
+					)
+				)
+			)
 		);
 	}
 
@@ -311,7 +272,19 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 	public static SurfaceRules.RuleSource sandBetaBeaches() {
 		return SurfaceRules.ifTrue(
 			OptimizedBiomeTagConditionSource.isBiomeTag(WilderBiomeTags.SAND_BEACHES),
-			sandBetaBeach()
+			SurfaceRules.ifTrue(
+				SurfaceRules.DEEP_UNDER_FLOOR,
+				SurfaceRules.ifTrue(
+					SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
+					SurfaceRules.ifTrue(
+						SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
+						SurfaceRules.ifTrue(
+							SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH_KEY, 0.12, 1.7976931348623157E308),
+							FrozenSurfaceRules.SAND
+						)
+					)
+				)
+			)
 		);
 	}
 
@@ -319,7 +292,19 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 	public static SurfaceRules.RuleSource multiLayerSandBetaBeaches() {
 		return SurfaceRules.ifTrue(
 			OptimizedBiomeTagConditionSource.isBiomeTag(WilderBiomeTags.MULTI_LAYER_SAND_BEACHES),
-			multiLayerSandBetaBeach()
+			SurfaceRules.ifTrue(
+				SurfaceRules.DEEP_UNDER_FLOOR,
+				SurfaceRules.ifTrue(
+					SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
+					SurfaceRules.ifTrue(
+						SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(64), 0)),
+						SurfaceRules.ifTrue(
+							SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH_KEY, 0.12, 1.7976931348623157E308),
+							FrozenSurfaceRules.SAND
+						)
+					)
+				)
+			)
 		);
 	}
 
