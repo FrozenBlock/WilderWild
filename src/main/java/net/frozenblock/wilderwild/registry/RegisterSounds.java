@@ -275,7 +275,7 @@ public final class RegisterSounds {
 	public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_CLARINET_LOOP = registerForHolder("item.copper_horn.clarinet.loop");
 	public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_TRUMPET_LOOP = registerForHolder("item.copper_horn.trumpet.loop");
 	public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_TROMBONE_LOOP = registerForHolder("item.copper_horn.trombone.loop");
-	public static final SoundEvent ITEM_ENDERPEARL_LAND = register("item.enderpearl.land");
+	public static final SoundEvent ITEM_ENDER_PEARL_LAND = register("item.ender_pearl.land");
 	public static final SoundEvent ITEM_EGG_LAND = register("item.egg.land");
 	public static final SoundEvent ITEM_SNOWBALL_LAND = register("item.snowball.land");
 	public static final SoundEvent ITEM_POTION_SPLASH = register("item.potion.splash");

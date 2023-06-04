@@ -2498,13 +2498,13 @@
     ],
     "subtitle": "subtitles.entity.egg.land"
   },
-  "item.enderpearl.land": {
+  "item.ender_pearl.land": {
     "sounds": [
-      "wilderwild:item/enderpearl/land1",
-      "wilderwild:item/enderpearl/land2",
-      "wilderwild:item/enderpearl/land3"
+      "wilderwild:item/ender_pearl/land1",
+      "wilderwild:item/ender_pearl/land2",
+      "wilderwild:item/ender_pearl/land3"
     ],
-    "subtitle": "subtitles.entity.enderpearl.land"
+    "subtitle": "subtitles.entity.ender_pearl.land"
   },
   "item.snowball.land": {
     "sounds": [
