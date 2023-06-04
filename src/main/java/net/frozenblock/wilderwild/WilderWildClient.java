@@ -436,13 +436,12 @@ public final class WilderWildClient implements ClientModInitializer {
 		ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
 			@Override
 			public ResourceLocation getFabricId() {
-				return WilderSharedConstants.id("mc_live_tendrils_checker");
+				return WilderSharedConstants.id("wilder_wild_client_resource_listener");
 			}
 
 			@Override
 			public void onResourceManagerReload(@NotNull ResourceManager resourceManager) {
-				WilderSharedConstants.MC_LIVE_TENDRILS = resourceManager.getResource(WilderSharedConstants.id("textures/entity/sculk_sensor/inactive.png")).isPresent();
-				WilderSharedConstants.log("MC LIVE TENDRILS = " + WilderSharedConstants.MC_LIVE_TENDRILS, WilderSharedConstants.UNSTABLE_LOGGING);
+				WilderSharedConstants.MC_LIVE_TENDRILS = resourceManager.getResource(WilderSharedConstants.id("textures/entity/sculk_sensor/new_tendril_enabler.png")).isPresent();
 			}
 		});
 	}
