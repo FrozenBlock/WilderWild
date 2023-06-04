@@ -88,6 +88,8 @@ accessible    method    net/minecraft/world/level/block/Blocks    always    (Lne
 accessible    method    net/minecraft/world/level/block/Blocks    always    (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z
 accessible    method    net/minecraft/world/level/block/Blocks    never    (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/EntityType;)Ljava/lang/Boolean;
 accessible    method    net/minecraft/world/level/block/Blocks    never    (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z
+accessible    method    net/minecraft/world/level/block/ChestBlock    isCatSittingOnChest    (Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)Z
+accessible    method    net/minecraft/world/level/block/ChestBlock    isBlockedChestByBlock    (Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z
 
 # Block Entities
 accessible    field    net/minecraft/world/level/block/entity/RandomizableContainerBlockEntity    lootTable    Lnet/minecraft/resources/ResourceLocation;

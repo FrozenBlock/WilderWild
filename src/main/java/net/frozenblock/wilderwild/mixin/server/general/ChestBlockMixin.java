@@ -30,7 +30,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.AbstractChestBlock;
 import net.minecraft.world.level.block.ChestBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -55,29 +54,20 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 
 	@Unique
 	@Nullable
-	private static ChestBlockEntity wilderWild$getOtherChest(LevelAccessor level, BlockPos pos, BlockState state) {
+	private static ChestBlockEntity wilderWild$getOtherChest(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state) {
+		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 		ChestType chestType = state.getValue(ChestBlock.TYPE);
-		double x = pos.getX();
-		double y = pos.getY();
-		double z = pos.getZ();
 		if (chestType == ChestType.RIGHT) {
-			Direction direction = ChestBlock.getConnectedDirection(state);
-			x += direction.getStepX();
-			z += direction.getStepZ();
+			mutableBlockPos.move(ChestBlock.getConnectedDirection(state));
 		} else if (chestType == ChestType.LEFT) {
-			Direction direction = ChestBlock.getConnectedDirection(state);
-			x += direction.getStepX();
-			z += direction.getStepZ();
+			mutableBlockPos.move(ChestBlock.getConnectedDirection(state));
 		} else {
 			return null;
 		}
-		BlockPos newPos = BlockPos.containing(x, y, z);
-		BlockEntity be = level.getBlockEntity(newPos);
-		ChestBlockEntity entity = null;
-		if (be instanceof ChestBlockEntity chest) {
-			entity = chest;
+		if (level.getBlockEntity(mutableBlockPos) instanceof ChestBlockEntity chest) {
+			return chest;
 		}
-		return entity;
+		return null;
 	}
 
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;openMenu(Lnet/minecraft/world/MenuProvider;)Ljava/util/OptionalInt;", shift = At.Shift.BEFORE), method = "use")

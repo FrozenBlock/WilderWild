@@ -23,7 +23,6 @@ import net.frozenblock.wilderwild.misc.interfaces.ChestBlockEntityInterface;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -31,11 +30,11 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.ChestBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -72,29 +71,20 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 
 	@Unique
 	@Nullable
-	private static ChestBlockEntity wilderWild$getOtherEntity(Level level, BlockPos pos, BlockState state) {
+	private static ChestBlockEntity wilderWild$getOtherEntity(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
+		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 		ChestType chestType = state.getValue(ChestBlock.TYPE);
-		double x = pos.getX();
-		double y = pos.getY();
-		double z = pos.getZ();
 		if (chestType == ChestType.RIGHT) {
-			Direction direction = ChestBlock.getConnectedDirection(state);
-			x += direction.getStepX();
-			z += direction.getStepZ();
+			mutableBlockPos.move(ChestBlock.getConnectedDirection(state));
 		} else if (chestType == ChestType.LEFT) {
-			Direction direction = ChestBlock.getConnectedDirection(state);
-			x += direction.getStepX();
-			z += direction.getStepZ();
+			mutableBlockPos.move(ChestBlock.getConnectedDirection(state));
 		} else {
 			return null;
 		}
-		BlockPos newPos = BlockPos.containing(x, y, z);
-		BlockEntity be = level.getBlockEntity(newPos);
-		ChestBlockEntity entity = null;
-		if (be instanceof ChestBlockEntity chest) {
-			entity = chest;
+		if (level.getBlockEntity(mutableBlockPos) instanceof ChestBlockEntity chest) {
+			return chest;
 		}
-		return entity;
+		return null;
 	}
 
 	@Unique

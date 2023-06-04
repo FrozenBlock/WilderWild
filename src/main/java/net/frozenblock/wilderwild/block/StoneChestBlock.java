@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.block;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.BiPredicate;
 import java.util.function.Supplier;
@@ -42,7 +41,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.piglin.PiglinAi;
 import net.minecraft.world.entity.player.Inventory;
@@ -51,7 +49,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -70,7 +67,6 @@ import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -155,27 +151,12 @@ public class StoneChestBlock extends ChestBlock {
 		if (hasLid(level, pos)) {
 			return true;
 		}
-		return isBlockedChestByBlock(level, pos) || isCatSittingOnChest(level, pos) || !canInteract(level, pos);
+		return ChestBlock.isChestBlockedAt(level, pos) || !canInteract(level, pos);
 	}
+
 
 	public static boolean isStoneChestBlockedNoLid(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
-		return isBlockedChestByBlock(level, pos) || isCatSittingOnChest(level, pos) || !canInteract(level, pos);
-	}
-
-	private static boolean isBlockedChestByBlock(@NotNull BlockGetter level, @NotNull BlockPos pos) {
-		BlockPos blockPos = pos.above();
-		return level.getBlockState(blockPos).isRedstoneConductor(level, blockPos);
-	}
-
-	private static boolean isCatSittingOnChest(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
-		List<Cat> list = level.getEntitiesOfClass(Cat.class, new AABB(pos.getX(), pos.getY() + 1, pos.getZ(), pos.getX() + 1, pos.getY() + 2, pos.getZ() + 1));
-		if (!list.isEmpty()) {
-			for (Cat catEntity : list) {
-				if (!catEntity.isInSittingPose()) continue;
-				return true;
-			}
-		}
-		return false;
+		return ChestBlock.isChestBlockedAt(level, pos) || !canInteract(level, pos);
 	}
 
 	public static void spawnBreakParticles(@NotNull Level level, @NotNull ItemStack stack, @NotNull BlockPos pos) {
@@ -186,28 +167,19 @@ public class StoneChestBlock extends ChestBlock {
 
 	@Nullable
 	public static StoneChestBlockEntity getOtherChest(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state) {
+		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 		ChestType chestType = state.getValue(ChestBlock.TYPE);
-		double x = pos.getX();
-		double y = pos.getY();
-		double z = pos.getZ();
 		if (chestType == ChestType.RIGHT) {
-			Direction direction = ChestBlock.getConnectedDirection(state);
-			x += direction.getStepX();
-			z += direction.getStepZ();
+			mutableBlockPos.move(ChestBlock.getConnectedDirection(state));
 		} else if (chestType == ChestType.LEFT) {
-			Direction direction = ChestBlock.getConnectedDirection(state);
-			x += direction.getStepX();
-			z += direction.getStepZ();
+			mutableBlockPos.move(ChestBlock.getConnectedDirection(state));
 		} else {
 			return null;
 		}
-		BlockPos newPos = BlockPos.containing(x, y, z);
-		BlockEntity be = level.getBlockEntity(newPos);
-		StoneChestBlockEntity entity = null;
-		if (be instanceof StoneChestBlockEntity chest) {
-			entity = chest;
+		if (level.getBlockEntity(mutableBlockPos) instanceof StoneChestBlockEntity chest) {
+			return chest;
 		}
-		return entity;
+		return null;
 	}
 
 	@Override
@@ -216,46 +188,45 @@ public class StoneChestBlock extends ChestBlock {
 		if (level.isClientSide) {
 			return InteractionResult.SUCCESS;
 		}
-		BlockEntity entity = level.getBlockEntity(pos);
-		if (entity instanceof StoneChestBlockEntity stoneChest) {
+		if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity stoneChest) {
 			if (stoneChest.closing) {
 				return InteractionResult.FAIL;
 			}
 			boolean ancient = state.getValue(ANCIENT);
-			StoneChestBlockEntity stoneEntity = StoneChestBlockEntity.getLeftEntity(level, pos, state, stoneChest);
 			if (canInteract(level, pos)) {
 				MenuProvider namedScreenHandlerFactory = this.getMenuProvider(state, level, pos);
-				if (!hasLid(level, pos) && (!player.isShiftKeyDown() || stoneEntity.openProgress >= 0.5F) && namedScreenHandlerFactory != null) {
+				if (!hasLid(level, pos) && (!player.isShiftKeyDown() || stoneChest.openProgress >= 0.5F) && namedScreenHandlerFactory != null) {
 					player.openMenu(namedScreenHandlerFactory);
 					player.awardStat(this.getOpenChestStat());
 					PiglinAi.angerNearbyPiglins(player, true);
-				} else if (stoneEntity.openProgress < 0.5F) {
+				} else if (stoneChest.openProgress < 0.5F) {
 					MenuProvider lidCheck = this.getBlockEntitySourceIgnoreLid(state, level, pos, false).apply(STONE_NAME_RETRIEVER).orElse(null);
-					boolean first = stoneEntity.openProgress == 0F;
+					boolean first = stoneChest.openProgress == 0F;
 					if (lidCheck == null) {
-						if (stoneEntity.openProgress < 0.05F) {
-							stoneEntity.setLid(!ancient ? stoneEntity.openProgress + 0.025F : 0.05F);
+						if (stoneChest.openProgress < 0.05F) {
+							stoneChest.setLid(!ancient ? stoneChest.openProgress + 0.025F : 0.05F);
 						} else {
 							return InteractionResult.PASS;
 						}
 					} else {
-						stoneEntity.liftLid(0.025F, ancient);
+						stoneChest.liftLid(0.025F, ancient);
 					}
 					if (first) {
-						((ChestBlockEntityInterface) stoneEntity).wilderWild$bubble(level, pos, state);
-						ResourceLocation lootTable = stoneEntity.lootTable;
+						((ChestBlockEntityInterface) stoneChest).wilderWild$bubble(level, pos, state);
+						ResourceLocation lootTable = stoneChest.lootTable;
 						if (lootTable != null && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) && lootTable.getPath().toLowerCase().contains("shipwreck")) {
 							Jellyfish.spawnFromChest(level, state, pos);
 						}
 					}
 					StoneChestBlockEntity.playSound(level, pos, state, first ? RegisterSounds.BLOCK_STONE_CHEST_OPEN : RegisterSounds.BLOCK_STONE_CHEST_LIFT, first ? RegisterSounds.BLOCK_STONE_CHEST_OPEN_UNDERWATER : RegisterSounds.BLOCK_STONE_CHEST_LIFT_UNDERWATER, 0.35F);
 					level.gameEvent(player, GameEvent.CONTAINER_OPEN, pos);
-					stoneEntity.updateSync();
+					stoneChest.updateSync();
 				}
 			}
 			StoneChestBlockEntity otherChest = getOtherChest(level, pos, state);
 			if (otherChest != null) {
 				((ChestBlockEntityInterface) stoneChest).wilderWild$syncBubble(stoneChest, otherChest);
+				stoneChest.syncLidValuesWith(otherChest);
 			}
 		}
 		return InteractionResult.CONSUME;

@@ -47,7 +47,6 @@ import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.ChestBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.state.BlockState;
@@ -89,90 +88,64 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
 	public int stillLidTicks;
 	public int cooldownTicks;
 	public boolean closing;
-	public boolean shouldSkip = false;
+
+	protected long updateTime;
 
 	public StoneChestBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
 		super(RegisterBlockEntities.STONE_CHEST, blockPos, blockState);
 	}
 
-	public static void serverStoneTick(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @NotNull StoneChestBlockEntity blockEntity) {
+	public static void serverStoneTick(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @NotNull StoneChestBlockEntity stoneChest) {
 		ServerLevel serverLevel = (ServerLevel) level;
-		StoneChestBlockEntity stoneChest = StoneChestBlock.getOtherChest(serverLevel, pos, state);
-		if (!blockEntity.shouldSkip) {
-			if (blockEntity.cooldownTicks > 0) {
-				--blockEntity.cooldownTicks;
+		StoneChestBlockEntity otherChest = StoneChestBlock.getOtherChest(serverLevel, pos, state);
+		long gameTime = level.getGameTime();
+		if (gameTime != stoneChest.updateTime) {
+			if (stoneChest.cooldownTicks > 0) {
+				--stoneChest.cooldownTicks;
 			}
-			blockEntity.prevOpenProgress = blockEntity.openProgress;
-			if (blockEntity.stillLidTicks > 0) {
-				blockEntity.stillLidTicks -= 1;
-			} else if (blockEntity.openProgress > 0F) {
+			stoneChest.prevOpenProgress = stoneChest.openProgress;
+			if (stoneChest.stillLidTicks > 0) {
+				stoneChest.stillLidTicks -= 1;
+			} else if (stoneChest.openProgress > 0F) {
 				serverLevel.gameEvent(null, GameEvent.CONTAINER_CLOSE, pos);
-				blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.0425F);
-				if (!blockEntity.closing) {
-					blockEntity.closing = true;
+				stoneChest.openProgress = Math.max(0F, stoneChest.openProgress - 0.0425F);
+				if (!stoneChest.closing) {
+					stoneChest.closing = true;
 					playSound(serverLevel, pos, state, RegisterSounds.BLOCK_STONE_CHEST_CLOSE_START, RegisterSounds.BLOCK_STONE_CHEST_CLOSE_START_UNDERWATER, 0.3F);
 				}
-				if (blockEntity.openProgress <= 0F) {
-					blockEntity.onLidSlam(serverLevel, pos, state, stoneChest);
+				if (stoneChest.openProgress <= 0F) {
+					stoneChest.onLidSlam(serverLevel, pos, state, otherChest);
 				}
 			}
-			if (isLeft(state)) {
-				blockEntity.syncLidValuesWith(stoneChest);
+			stoneChest.updateTime = gameTime;
+			if (otherChest != null) {
+				stoneChest.syncLidValuesWith(otherChest);
 			}
 		}
-		blockEntity.shouldSkip = false;
 	}
 
-	public static void clientStoneTick(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull StoneChestBlockEntity blockEntity) {
-		StoneChestBlockEntity stoneChest = StoneChestBlock.getOtherChest(level, pos, state);
-		if (!blockEntity.shouldSkip) {
-			if (blockEntity.cooldownTicks > 0) {
-				--blockEntity.cooldownTicks;
+	public static void clientStoneTick(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull StoneChestBlockEntity stoneChest) {
+		StoneChestBlockEntity otherChest = StoneChestBlock.getOtherChest(level, pos, state);
+		long gameTime = level.getGameTime();
+		if (gameTime != stoneChest.updateTime) {
+			stoneChest.prevOpenProgress = stoneChest.openProgress;
+			if (stoneChest.cooldownTicks > 0) {
+				--stoneChest.cooldownTicks;
 			}
-			blockEntity.prevOpenProgress = blockEntity.openProgress;
-			if (blockEntity.stillLidTicks > 0) {
-				blockEntity.stillLidTicks -= 1;
-			} else if (blockEntity.openProgress > 0F) {
-				blockEntity.closing = true;
-				blockEntity.openProgress = Math.max(0F, blockEntity.openProgress - 0.0425F);
-				if (blockEntity.openProgress <= 0F) {
-					blockEntity.onLidSlam(level, pos, state, stoneChest);
+			if (stoneChest.stillLidTicks > 0) {
+				stoneChest.stillLidTicks -= 1;
+			} else if (stoneChest.openProgress > 0F) {
+				stoneChest.closing = true;
+				stoneChest.openProgress = Math.max(0F, stoneChest.openProgress - 0.0425F);
+				if (stoneChest.openProgress <= 0F) {
+					stoneChest.onLidSlam(level, pos, state, otherChest);
 				}
 			}
+			stoneChest.updateTime = gameTime;
+			if (otherChest != null) {
+				stoneChest.syncLidValuesWith(otherChest);
+			}
 		}
-		blockEntity.shouldSkip = false;
-		if (isLeft(state)) {
-			blockEntity.syncLidValuesWith(stoneChest);
-		}
-	}
-
-	public static StoneChestBlockEntity getLeftEntity(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull StoneChestBlockEntity source) {
-		ChestType chestType = state.getValue(ChestBlock.TYPE);
-		if (chestType == ChestType.SINGLE) {
-			return source;
-		}
-		double d = pos.getX();
-		double e = pos.getY();
-		double f = pos.getZ();
-		if (chestType == ChestType.RIGHT) {
-			Direction direction = ChestBlock.getConnectedDirection(state);
-			d += direction.getStepX();
-			f += direction.getStepZ();
-		} else if (chestType == ChestType.LEFT) {
-			return source;
-		}
-		BlockPos newPos = BlockPos.containing(d, e, f);
-		BlockEntity be = level.getBlockEntity(newPos);
-		StoneChestBlockEntity entity = null;
-		if (be instanceof StoneChestBlockEntity stone) {
-			entity = stone;
-		}
-		return entity;
-	}
-
-	public static boolean isLeft(@NotNull BlockState state) {
-		ChestType chestType = state.getValue(ChestBlock.TYPE);
-		return chestType == ChestType.LEFT;
 	}
 
 	public static void playSound(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull SoundEvent soundEvent, @NotNull SoundEvent waterloggedSoundEvent, float volume) {
@@ -196,24 +169,20 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
 	public void load(@NotNull CompoundTag tag) {
 		super.load(tag);
 		this.openProgress = tag.getFloat("openProgress");
-		this.prevOpenProgress = tag.getFloat("prevOpenProgress");
 		this.highestLidPoint = tag.getFloat("highestLidPoint");
 		this.stillLidTicks = tag.getInt("stillLidTicks");
 		this.cooldownTicks = tag.getInt("cooldownTicks");
 		this.closing = tag.getBoolean("closing");
-		this.shouldSkip = tag.getBoolean("shouldSkip");
 	}
 
 	@Override
 	protected void saveAdditional(@NotNull CompoundTag tag) {
 		super.saveAdditional(tag);
 		tag.putFloat("openProgress", this.openProgress);
-		tag.putFloat("prevOpenProgress", this.prevOpenProgress);
 		tag.putFloat("highestLidPoint", this.highestLidPoint);
 		tag.putInt("stillLidTicks", this.stillLidTicks);
 		tag.putInt("cooldownTicks", this.cooldownTicks);
 		tag.putBoolean("closing", this.closing);
-		tag.putBoolean("shouldSkip", this.shouldSkip);
 	}
 
 	public float getOpenProgress(float delta) {
@@ -268,19 +237,11 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
 	}
 
 	public void updateSync() {
-		if (this.level != null) {
-			StoneChestBlockEntity stoneChest = StoneChestBlock.getOtherChest(this.level, this.worldPosition, this.getBlockState());
-			if (stoneChest != null) {
-				syncValues(stoneChest);
-				if (!this.level.isClientSide) {
-					for (ServerPlayer player : PlayerLookup.tracking(stoneChest)) {
-						player.connection.send(Objects.requireNonNull(stoneChest.getUpdatePacket()));
-					}
-				}
-			}
-			if (!this.level.isClientSide) {
+		if (this.level != null && !this.level.isClientSide) {
+			ClientboundBlockEntityDataPacket updatePacket = this.getUpdatePacket();
+			if (updatePacket != null) {
 				for (ServerPlayer player : PlayerLookup.tracking(this)) {
-					player.connection.send(Objects.requireNonNull(this.getUpdatePacket()));
+					player.connection.send(updatePacket);
 				}
 			}
 		}
@@ -292,8 +253,8 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
 		otherStoneChest.highestLidPoint = this.highestLidPoint;
 		otherStoneChest.stillLidTicks = this.stillLidTicks;
 		otherStoneChest.cooldownTicks = this.cooldownTicks;
-		otherStoneChest.shouldSkip = true;
 		otherStoneChest.closing = this.closing;
+		otherStoneChest.updateTime = this.updateTime;
 	}
 
 	@Override
