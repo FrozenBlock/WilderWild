@@ -15,6 +15,8 @@ Put changelog here:
 - Mangrove Swamps have now been wilder-ified, including Cattails, Flowers, Bushes, Mud Basins, Mud Lakes, more Grass, Fern, and rare Mud Piles.
 - Algae no longer slows down entities outside its collision shape.
 - Decreased the size of uncommon Algae patches (Swamp & Mangrove Swamp.)
+- Added a new advancement "Bottle of Lightning" for capturing a Firefly in a Glass Bottle.
+- Incorporated Wilder Wild's new foods, mobs, and biomes into Vanilla's advancements (note that this may be overriden by other mods' data.)
 - Fixed Baobab Nut collision.
 - Added a config option that controls how many tentacles Jellyfish have.
 - Added unique sounds for all Ice blocks.
