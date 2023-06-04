@@ -36,5 +36,6 @@ Put changelog here:
 - Optimized the way some features generate (Trees, Cattails, Algae, etc.)
 - Fixed broken loop in Deep Dark ambience.
 - Removed MC LIVE Sculk Sensor Tendril config in favor of a cleaner implementation using a Resource Pack.
+- Added descriptions and proper names to Wilder Wild's built-in resource packs.
 - Lots of internal cleanup, reorganization, and optimizations.
 - Various bug fixes.
