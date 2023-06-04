@@ -346,11 +346,6 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	@Override
-	public boolean dampensVibrations() {
-		return true;
-	}
-
-	@Override
 	protected boolean canRide(@NotNull Entity vehicle) {
 		return false;
 	}
