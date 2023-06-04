@@ -18,6 +18,8 @@
 
 package net.frozenblock.wilderwild.mixin.server.sculk;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import java.util.Iterator;
 import net.frozenblock.wilderwild.misc.SlabWallStairSculkBehavior;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
@@ -40,7 +42,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
@@ -77,9 +78,9 @@ public abstract class SculkVeinBlockMixin extends MultifaceBlock implements Scul
 		}
 	}
 
-	@Redirect(method = "onDischarged", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z", ordinal = 1))
-	private boolean wilderWild$onDischarged(BlockState state, Block block) {
-		return state.is(WilderBlockTags.SCULK_VEIN_REMOVE);
+	@WrapOperation(method = "onDischarged", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z", ordinal = 1))
+	private boolean wilderWild$onDischarged(BlockState state, Block block, Operation<Boolean> operation) {
+		return state.is(RegisterBlocks.SCULK_SLAB) || state.is(RegisterBlocks.SCULK_STAIRS) || state.is(RegisterBlocks.SCULK_WALL) || operation.call(state, block);
 	}
 
 }

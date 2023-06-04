@@ -32,7 +32,6 @@ public final class WilderBlockTags {
 	public static final TagKey<Block> SCULK_SLAB_REPLACEABLE = bind("sculk_slab_replaceable");
 	public static final TagKey<Block> SCULK_STAIR_REPLACEABLE = bind("sculk_stair_replaceable");
 	public static final TagKey<Block> SCULK_WALL_REPLACEABLE = bind("sculk_wall_replaceable");
-	public static final TagKey<Block> SCULK_VEIN_REMOVE = bind("sculk_vein_removed_on");
 	public static final TagKey<Block> ANCIENT_HORN_NON_COLLIDE = bind("ancient_horn_vibration_non_collide");
 	public static final TagKey<Block> KILLS_TERMITE = bind("kills_termite");
 	public static final TagKey<Block> TERMITE_BREAKABLE = bind("termite_breakable");

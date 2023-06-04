@@ -18,37 +18,21 @@
 
 package net.frozenblock.wilderwild.mixin.server.sculk;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SculkVeinBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SculkVeinBlock.SculkVeinSpreaderConfig.class)
 public final class SculkVeinSpreaderConfigMixin {
 
-	@Unique
-	private BlockState wilderWild$capturedBlockState;
-
-	@ModifyExpressionValue(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/BlockGetter;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;", ordinal = 0), method = "stateCanBeReplaced")
-	private BlockState wilderWild$newBlocks(BlockState original) {
-		this.wilderWild$capturedBlockState = original;
-		return original;
-	}
-
-	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z", ordinal = 0, shift = At.Shift.BEFORE), method = "stateCanBeReplaced", cancellable = true)
-	private void wilderWild$newBlocks(BlockGetter level, BlockPos pos, BlockPos growPos, Direction direction, BlockState state, CallbackInfoReturnable<Boolean> info) {
-		if (this.wilderWild$capturedBlockState != null && (this.wilderWild$capturedBlockState.is(RegisterBlocks.OSSEOUS_SCULK) || this.wilderWild$capturedBlockState.is(RegisterBlocks.SCULK_SLAB) || this.wilderWild$capturedBlockState.is(RegisterBlocks.SCULK_STAIRS) || this.wilderWild$capturedBlockState.is(RegisterBlocks.SCULK_WALL))) {
-			info.setReturnValue(false);
-		}
-		this.wilderWild$capturedBlockState = null;
+	@WrapOperation(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z", ordinal = 0), method = "stateCanBeReplaced")
+	private boolean wilderWild$restrictGrowthOnNewBlocks(BlockState state, Block block, Operation<Boolean> operation) {
+		return state.is(RegisterBlocks.OSSEOUS_SCULK) || state.is(RegisterBlocks.SCULK_SLAB) || state.is(RegisterBlocks.SCULK_STAIRS) || state.is(RegisterBlocks.SCULK_WALL) || operation.call(state, block);
 	}
 
 }

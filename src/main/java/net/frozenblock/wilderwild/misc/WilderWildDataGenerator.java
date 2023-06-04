@@ -1628,12 +1628,6 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.add(Blocks.DEEPSLATE_TILE_STAIRS)
 				.addOptionalTag(WilderBlockTags.SCULK_STAIR_REPLACEABLE);
 
-			this.getOrCreateTagBuilder(WilderBlockTags.SCULK_VEIN_REMOVE)
-				.add(Blocks.SCULK)
-				.add(RegisterBlocks.SCULK_WALL)
-				.add(RegisterBlocks.SCULK_SLAB)
-				.add(RegisterBlocks.SCULK_STAIRS);
-
 			this.getOrCreateTagBuilder(WilderBlockTags.SCULK_WALL_REPLACEABLE)
 				.add(Blocks.COBBLESTONE_WALL)
 				.add(Blocks.GRANITE_WALL)
