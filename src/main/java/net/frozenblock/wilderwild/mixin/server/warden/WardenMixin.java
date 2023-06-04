@@ -18,6 +18,9 @@
 
 package net.frozenblock.wilderwild.mixin.server.warden;
 
+import net.frozenblock.wilderwild.entity.ChestBubbleTicker;
+import net.frozenblock.wilderwild.entity.SculkSpreadTicker;
+import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.interfaces.SwimmingWardenInterface;
@@ -172,6 +175,14 @@ public final class WardenMixin extends Monster implements WilderWarden {
 			}
 		}
 	}
+
+	@Inject(at = @At("HEAD"), method = "canTargetEntity(Lnet/minecraft/world/entity/Entity;)Z", cancellable = true)
+	public void canTargetEntity(Entity entity, CallbackInfoReturnable<Boolean> info) {
+		if (entity instanceof Tumbleweed || entity instanceof ChestBubbleTicker || entity instanceof SculkSpreadTicker) {
+			info.setReturnValue(false);
+		}
+	}
+
 	@Mixin(Warden.VibrationUser.class)
 	public static class VibrationUserMixin {
 
