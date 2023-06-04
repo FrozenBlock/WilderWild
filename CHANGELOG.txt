@@ -4,8 +4,11 @@ Make sure to clear this after each release
 
 Put changelog here:
 -----------------
-- Optimized Osseous Sculk generation more
-- Reworked new Sculk Spreading
+- Reworked and optimized most of Sculk Spreading.
+- Sculk Veins will no longer stay on Slabs and Stairs after being converted to Sculk Slabs and Sculk Stairs.
+- Sculk Sensors, Sculk Shriekers, Hanging Tendrils, and Osseous Sculk can now grow out of solid faces of Sculk Slabs and Sculk Stairs.
+- Changed Osseous Sculk's rotation state from Axis to Facing.
+- Removed Minecraft Live Sculk Sensor Tendril config in favor of a cleaner and bug-free implementation using a Resource Pack.
 - Added Shrubs to many biomes like Plains, Forest, Dark Forest, and much more.
 - Added more flora to the Plains, Meadow, Flower Forest, Flower Field, Forest, Semi-Birch Forest, Birch Forest, and Mangrove Swamp biomes.
 - Cattails can now generate on Mud blocks if not nearby water.
@@ -27,15 +30,15 @@ Put changelog here:
 - Fixed Tumbleweed breaking crops only client-side.
 - Firefly Bottles can now be recolored.
 - Fixed a crash pertaining to Jellyfish variants and Firefly colors.
-- Shadows no longer render on waterlogged Mesoglea whilst Sodium isn't installed.
+- Shadows no longer render on waterlogged Mesoglea. Change not applied with Sodium.
 - Fixed block-break sounds playing when Echo Glass only cracks.
 - Added new Frosted Ice melting sounds and particles.
 - Jellyfish and Firerflies now only hide when they're near the center of their target.
-- Changed Osseous Sculk's state from Axis to Facing (Direction.)
-- Made many more aspects of worldgen data-driven.
+- Made many more aspects of Wilder Wild's worldgen data-driven.
 - Optimized the way some features generate (Trees, Cattails, Algae, etc.)
 - Fixed broken loop in Deep Dark ambience.
-- Removed MC LIVE Sculk Sensor Tendril config in favor of a cleaner implementation using a Resource Pack.
+- Fixed a bug where Wardens would continuously attempt and fail to roar at Tumbleweeds.
+- Fixed broken Stone Chest animations and cleaned up their code.
 - Added descriptions and proper names to Wilder Wild's built-in resource packs.
 - Lots of internal cleanup, reorganization, and optimizations.
 - Various bug fixes.

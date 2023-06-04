@@ -210,6 +210,13 @@ public abstract class SculkBlockMixin {
 		}
 	}
 
+	@Inject(method = "canPlaceGrowth", at = @At("HEAD"), cancellable = true)
+	private static void wilderWild$canPlaceGrowth(LevelAccessor level, BlockPos pos, CallbackInfoReturnable<Boolean> info) {
+		if (!level.getBlockState(pos).isFaceSturdy(level, pos, Direction.UP)) {
+			info.setReturnValue(false);
+		}
+	}
+
 	@Unique
 	private static boolean wilderWild$ancientCityOrPillarNearby(LevelAccessor level, @NotNull BlockPos pos) {
 		int i = 0;
@@ -242,12 +249,14 @@ public abstract class SculkBlockMixin {
 
 	@Unique
 	private boolean wilderWild$canPlaceGrowth(@NotNull LevelAccessor level, @NotNull BlockPos pos, boolean isWorldGen) {
-		BlockState blockState = level.getBlockState(pos.below());
-		Block block = blockState.getBlock();
 		this.wilderWild$canPlaceOsseousSculk = wilderWild$canPlaceOsseousSculk(pos, isWorldGen, level);
-		if ((blockState.isAir() || block == Blocks.WATER || (this.wilderWild$canPlaceOsseousSculk && block == Blocks.LAVA) || block == Blocks.SCULK_VEIN) && level.getRandom().nextFloat() >= 0.75F) {
-			this.wilderWild$isPlacingBelow = true;
-			return true;
+		if (level.getBlockState(pos).isFaceSturdy(level, pos, Direction.DOWN)) {
+			BlockState blockState = level.getBlockState(pos.below());
+			Block block = blockState.getBlock();
+			if ((blockState.isAir() || block == Blocks.WATER || (this.wilderWild$canPlaceOsseousSculk && block == Blocks.LAVA) || block == Blocks.SCULK_VEIN) && level.getRandom().nextFloat() >= 0.75F) {
+				this.wilderWild$isPlacingBelow = true;
+				return true;
+			}
 		}
 		this.wilderWild$isPlacingBelow = false;
 		return false;

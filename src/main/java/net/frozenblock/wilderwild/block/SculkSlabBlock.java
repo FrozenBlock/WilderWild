@@ -53,7 +53,7 @@ public class SculkSlabBlock extends SlabBlock implements SculkBehaviour {
 	public int attemptUseCharge(@NotNull SculkSpreader.ChargeCursor cursor, @NotNull LevelAccessor level, @NotNull BlockPos catalystPos, @NotNull RandomSource random, @NotNull SculkSpreader spreader, boolean shouldConvertToBlock) {
 		BlockPos cursorPos = cursor.getPos();
 		BlockState blockState = level.getBlockState(cursor.getPos());
-		if (blockState.isFaceSturdy(level, cursorPos, Direction.UP) && blockState.isFaceSturdy(level, cursorPos, Direction.DOWN) && Blocks.SCULK instanceof SculkBlock sculkBlock) {
+		if ((blockState.isFaceSturdy(level, cursorPos, Direction.UP) || blockState.isFaceSturdy(level, cursorPos, Direction.DOWN)) && Blocks.SCULK instanceof SculkBlock sculkBlock) {
 			return sculkBlock.attemptUseCharge(cursor, level, catalystPos, random, spreader, shouldConvertToBlock);
 		}
 		int i = cursor.getCharge();
