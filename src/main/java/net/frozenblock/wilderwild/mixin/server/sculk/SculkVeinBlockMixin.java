@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.mixin.server.sculk;
 
 import java.util.Iterator;
+import net.frozenblock.wilderwild.misc.SlabWallStairSculkBehavior;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.core.BlockPos;
@@ -71,6 +72,7 @@ public abstract class SculkVeinBlockMixin extends MultifaceBlock implements Scul
 		if (canReturn) {
 			level.setBlock(blockPos, blockState3, 3);
 			Block.pushEntitiesUp(blockState2, blockState3, level, blockPos);
+			SlabWallStairSculkBehavior.clearSculkVeins(level, blockPos);
 			this.veinSpreader.spreadAll(blockState3, level, blockPos, sculkBehavior.isWorldGeneration());
 		}
 	}
@@ -79,30 +81,5 @@ public abstract class SculkVeinBlockMixin extends MultifaceBlock implements Scul
 	private boolean wilderWild$onDischarged(BlockState state, Block block) {
 		return state.is(WilderBlockTags.SCULK_VEIN_REMOVE);
 	}
-
-    /*@Inject(method = "onDischarged", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/LevelAccessor;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
-    public void onDischarged(LevelAccessor level, BlockState state, BlockPos pos, RandomSource random, CallbackInfo ci) {
-        boolean canReturn = false;
-        if (state.is(SculkVeinBlock.class.cast(this))) {
-            for(Direction direction : DIRECTIONS) {
-                BooleanProperty booleanProperty = getFaceProperty(direction);
-                if (state.getValue(booleanProperty) && level.getBlockState(pos.relative(direction)).is(WilderBlockTags.SCULK_VEIN_REMOVE)) {
-                    state = state.setValue(booleanProperty, false);
-                    canReturn = true;
-                }
-            }
-
-            if (!hasAnyFace(state)) {
-                FluidState fluidState = level.getFluidState(pos);
-                state = (fluidState.isEmpty() ? Blocks.AIR : Blocks.WATER).defaultBlockState();
-            }
-
-            if (canReturn) {
-                level.setBlock(pos, state, 3);
-                SculkBehaviour.super.onDischarged(level, state, pos, random);
-                ci.cancel();
-            }
-        }
-    }*/
 
 }

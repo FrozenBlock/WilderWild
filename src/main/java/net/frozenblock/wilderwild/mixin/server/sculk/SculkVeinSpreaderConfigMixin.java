@@ -43,9 +43,9 @@ public final class SculkVeinSpreaderConfigMixin {
 		return original;
 	}
 
-	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/BlockGetter;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;", ordinal = 0, shift = At.Shift.AFTER), method = "stateCanBeReplaced", cancellable = true)
+	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z", ordinal = 0, shift = At.Shift.BEFORE), method = "stateCanBeReplaced", cancellable = true)
 	private void wilderWild$newBlocks(BlockGetter level, BlockPos pos, BlockPos growPos, Direction direction, BlockState state, CallbackInfoReturnable<Boolean> info) {
-		if (this.wilderWild$capturedBlockState.is(RegisterBlocks.OSSEOUS_SCULK) || this.wilderWild$capturedBlockState.is(RegisterBlocks.SCULK_SLAB) || this.wilderWild$capturedBlockState.is(RegisterBlocks.SCULK_STAIRS) || this.wilderWild$capturedBlockState.is(RegisterBlocks.SCULK_WALL)) {
+		if (this.wilderWild$capturedBlockState != null && (this.wilderWild$capturedBlockState.is(RegisterBlocks.OSSEOUS_SCULK) || this.wilderWild$capturedBlockState.is(RegisterBlocks.SCULK_SLAB) || this.wilderWild$capturedBlockState.is(RegisterBlocks.SCULK_STAIRS) || this.wilderWild$capturedBlockState.is(RegisterBlocks.SCULK_WALL))) {
 			info.setReturnValue(false);
 		}
 		this.wilderWild$capturedBlockState = null;

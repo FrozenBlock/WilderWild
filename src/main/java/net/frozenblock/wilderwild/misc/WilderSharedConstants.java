@@ -47,6 +47,7 @@ public class WilderSharedConstants {
 	public static boolean UNSTABLE_LOGGING = FabricLoader.getInstance().isDevelopmentEnvironment();
 	public static boolean areConfigsInit = false;
 	public static boolean MC_LIVE_TENDRILS = false;
+	public static boolean IN_MESOGLEA = false;
 
 	public static AbstractClothConfigIntegration config() {
 		return WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration();

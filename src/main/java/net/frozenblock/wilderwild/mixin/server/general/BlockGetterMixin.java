@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
 import net.frozenblock.wilderwild.block.MesogleaBlock;
-import net.frozenblock.wilderwild.misc.WilderMixinValueHolder;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
@@ -49,18 +49,18 @@ public interface BlockGetterMixin {
 			if (entityCollisionContext.getEntity() instanceof Player player) {
 				BlockState headState = getBlockState(BlockPos.containing(player.getEyePosition()));
 				if (headState.getBlock() instanceof MesogleaBlock && headState.getValue(BlockStateProperties.WATERLOGGED)) {
-					WilderMixinValueHolder.inMesoglea = true;
+					WilderSharedConstants.IN_MESOGLEA = true;
 					return;
 				}
 			}
 		}
-		WilderMixinValueHolder.inMesoglea = false;
+		WilderSharedConstants.IN_MESOGLEA = false;
 	}
 
 	@ModifyArgs(method = "method_17743", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/BlockGetter;clipWithInteractionOverride(Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/shapes/VoxelShape;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/phys/BlockHitResult;"))
 	default void wilderWild$mesogleaClip(Args args) {
 		BlockState blockState = args.get(4);
-		if (WilderMixinValueHolder.inMesoglea && blockState.getBlock() instanceof MesogleaBlock && blockState.getValue(BlockStateProperties.WATERLOGGED)) {
+		if (WilderSharedConstants.IN_MESOGLEA && blockState.getBlock() instanceof MesogleaBlock && blockState.getValue(BlockStateProperties.WATERLOGGED)) {
 			args.set(3, Shapes.empty());
 		}
 	}

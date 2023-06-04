@@ -23,6 +23,7 @@ import java.util.Iterator;
 import java.util.Optional;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
+import net.frozenblock.wilderwild.misc.SlabWallStairSculkBehavior;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.core.BlockPos;
@@ -180,12 +181,14 @@ public abstract class SculkBlockMixin {
 	}
 
 	@Inject(method = "attemptUseCharge", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/LevelAccessor;playSound(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/BlockPos;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V", shift = At.Shift.AFTER))
-	private void wilderWild$handleOsseousGrowthAndValues(SculkSpreader.ChargeCursor chargeCursor, LevelAccessor levelAccessor, BlockPos blockPos, RandomSource randomSource, SculkSpreader sculkSpreader, boolean bl, CallbackInfoReturnable<Integer> cir) {
+	private void wilderWild$handlePlacement(SculkSpreader.ChargeCursor chargeCursor, LevelAccessor levelAccessor, BlockPos blockPos, RandomSource randomSource, SculkSpreader sculkSpreader, boolean bl, CallbackInfoReturnable<Integer> cir) {
 		if (this.wilderWild$isWorldgen && this.wilderWild$placedState.getBlock() instanceof OsseousSculkBlock osseousSculkBlock) {
 			int growthAmount = Math.max(0, this.wilderWild$placedState.getValue(OsseousSculkBlock.HEIGHT_LEFT) - this.wilderWild$randomSource.nextInt(2));
 			for (int a = 0; a < growthAmount; a++) {
 				osseousSculkBlock.worldGenSpread(this.wilderWild$placedPos, this.wilderWild$level, this.wilderWild$randomSource);
 			}
+		} else if (this.wilderWild$placedState.is(RegisterBlocks.SCULK_STAIRS) || this.wilderWild$placedState.is(RegisterBlocks.SCULK_SLAB) || this.wilderWild$placedState.is(RegisterBlocks.SCULK_WALL)) {
+			SlabWallStairSculkBehavior.clearSculkVeins(levelAccessor, this.wilderWild$placedPos);
 		}
 		this.wilderWild$level = null;
 		this.wilderWild$randomSource = null;
