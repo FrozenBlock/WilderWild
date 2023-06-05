@@ -88,6 +88,7 @@
         20,
         16
       ],
+      "shade": false,
       "rotation": {
         "angle": 45,
         "axis": "y",
@@ -98,7 +99,6 @@
         ],
         "rescale": true
       },
-      "shade": false,
       "faces": {
         "east": {
           "uv": [
@@ -131,6 +131,7 @@
         20,
         8
       ],
+      "shade": false,
       "rotation": {
         "angle": 45,
         "axis": "y",
@@ -141,7 +142,6 @@
         ],
         "rescale": true
       },
-      "shade": false,
       "faces": {
         "north": {
           "uv": [
@@ -186,18 +186,18 @@
       "faces": {
         "north": {
           "uv": [
-            4,
-            8,
             12,
+            8,
+            4,
             16
           ],
           "texture": "#tendrils"
         },
         "south": {
           "uv": [
-            12,
-            8,
             4,
+            8,
+            12,
             16
           ],
           "texture": "#tendrils"
@@ -227,18 +227,18 @@
       "faces": {
         "north": {
           "uv": [
-            12,
-            8,
             4,
+            8,
+            12,
             16
           ],
           "texture": "#tendrils"
         },
         "south": {
           "uv": [
-            4,
-            8,
             12,
+            8,
+            4,
             16
           ],
           "texture": "#tendrils"
