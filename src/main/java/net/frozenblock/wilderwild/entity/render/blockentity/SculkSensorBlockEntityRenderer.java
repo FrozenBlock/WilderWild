@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.entity.render.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWildClient;
@@ -74,25 +73,21 @@ public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> im
 	public void render(@NotNull T entity, float partialTick, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
 		if (WilderSharedConstants.MC_LIVE_TENDRILS) {
 			SculkSensorTickInterface tickInterface = ((SculkSensorTickInterface) entity);
-			VertexConsumer vertexConsumer;
 			if (tickInterface.wilderWild$isActive()) {
 				int prevTicks = tickInterface.wilderWild$getPrevAnimTicks();
-				float pitch = (prevTicks + partialTick * (tickInterface.wilderWild$getAnimTicks() - prevTicks)) * 0.1F;
-				float animProg = (tickInterface.wilderWild$getAge() + partialTick) * 2.25F;
-				float xRot = pitch * ((float) Math.cos(animProg) * MERP_25);
+				float xRot = (prevTicks + partialTick * (tickInterface.wilderWild$getAnimTicks() - prevTicks)) * 0.1F * ((float) Math.cos((tickInterface.wilderWild$getAge() + partialTick) * 2.25F) * MERP_25);
 				this.ne.xRot = xRot;
 				this.se.xRot = -xRot;
 				this.nw.xRot = -xRot;
 				this.sw.xRot = xRot;
-				vertexConsumer = vertexConsumers.getBuffer(ACTIVE_SENSOR_LAYER);
+				this.root.render(matrices, vertexConsumers.getBuffer(ACTIVE_SENSOR_LAYER), light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
 			} else {
 				this.ne.xRot = 0;
 				this.se.xRot = 0;
 				this.nw.xRot = 0;
 				this.sw.xRot = 0;
-				vertexConsumer = vertexConsumers.getBuffer(SENSOR_LAYER);
+				this.root.render(matrices, vertexConsumers.getBuffer(SENSOR_LAYER), light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
 			}
-			this.root.render(matrices, vertexConsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
 		}
 	}
 

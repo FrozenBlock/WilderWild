@@ -103,7 +103,7 @@ public final class SculkSensorBlockEntityMixin extends BlockEntity implements Sc
 			this.wilderWild$setAnimTicks(animTicks -= 1);
 		}
 		this.wilderWild$setAge(this.wilderWild$getAge() + 1);
-		this.wilderWild$setActive(state.getValue(BlockStateProperties.SCULK_SENSOR_PHASE) == SculkSensorPhase.ACTIVE);
+		this.wilderWild$setActive(state.getValue(BlockStateProperties.SCULK_SENSOR_PHASE) != SculkSensorPhase.INACTIVE);
 		if (this.wilderWild$isActive() != this.wilderWild$isPrevActive() || animTicks == 10) {
 			Packet<ClientGamePacketListener> sensorUpdatePacket = sensor.getUpdatePacket();
 			if (sensorUpdatePacket != null) {
