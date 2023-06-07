@@ -39,7 +39,7 @@ public final class WilderModIntegrations {
     public static final ModIntegration TECHREBORN_INTEGRATION = registerAndGet(TechRebornIntegration::new, "techreborn");
     public static final ModIntegration TERRALITH_INTEGRATION = registerAndGet(TerralithModIntegration::new, "terralith");
 	// TODO: re add simple copper pipes integration
-	public static final ModIntegrationSupplier<AbstractSimpleCopperPipesIntegration> SIMPLE_COPPER_PIPES_INTEGRATION = (ModIntegrationSupplier<AbstractSimpleCopperPipesIntegration>) register(NoOpSimpleCopperPipesIntegration::new, "copper_pipe");
+	//public static final ModIntegrationSupplier<AbstractSimpleCopperPipesIntegration> SIMPLE_COPPER_PIPES_INTEGRATION = register(SimpleCopperPipesIntegration::new, NoOpSimpleCopperPipesIntegration::new, "copper_pipe");
 	public static final ModIntegrationSupplier<AbstractClothConfigIntegration> CLOTH_CONFIG_INTEGRATION = register(ClothConfigIntegration::new, NoOpClothConfigIntegration::new, "cloth-config");
 
 	private WilderModIntegrations() {
