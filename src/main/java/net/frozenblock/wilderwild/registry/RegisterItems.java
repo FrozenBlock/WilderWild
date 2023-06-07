@@ -73,7 +73,6 @@ public final class RegisterItems {
 
     // ITEMS
     public static final MilkweedPod MILKWEED_POD = new MilkweedPod(new FabricItemSettings().group(CreativeModeTab.TAB_MISC).maxCount(64));
-    public static final RecordItem MUSIC_DISC_BENEATH = new RecordItem(15, RegisterSounds.MUSIC_DISC_BENEATH, new FabricItemSettings().maxCount(1).rarity(Rarity.RARE), 169);
     public static final RecordItem MUSIC_DISC_GOAT_HORN_SYMPHONY = new RecordItem(15, RegisterSounds.MUSIC_DISC_GOATHORN_SYMPHONY, new FabricItemSettings().group(CreativeModeTab.TAB_MISC).maxCount(1).rarity(Rarity.RARE), 144);
     public static final RecordItem MUSIC_DISC_BACK = new RecordItem(15, RegisterSounds.MUSIC_DISC_BACK, new FabricItemSettings().group(CreativeModeTab.TAB_MISC).maxCount(1).rarity(Rarity.RARE), 76);
     public static final Item FIREFLY_SPAWN_EGG = new SpawnEggItem(RegisterEntities.FIREFLY, Integer.parseInt("2A2E2B", 16), Integer.parseInt("AAF644", 16), new FabricItemSettings().group(CreativeModeTab.TAB_MISC));
@@ -151,7 +150,6 @@ public final class RegisterItems {
         Registry.register(Registry.ITEM, WilderSharedConstants.id("ancient_horn"), ANCIENT_HORN);
         Registry.register(Registry.ITEM, WilderSharedConstants.id("copper_horn"), COPPER_HORN);
         Registry.register(Registry.ITEM, WilderSharedConstants.id("milkweed_pod"), MILKWEED_POD);
-        Registry.register(Registry.ITEM, WilderSharedConstants.id("music_disc_beneath"), MUSIC_DISC_BENEATH);
         Registry.register(Registry.ITEM, WilderSharedConstants.id("music_disc_goathorn_symphony"), MUSIC_DISC_GOAT_HORN_SYMPHONY);
         Registry.register(Registry.ITEM, WilderSharedConstants.id("music_disc_back"), MUSIC_DISC_BACK);
         Registry.register(Registry.ITEM, WilderSharedConstants.id("firefly_spawn_egg"), FIREFLY_SPAWN_EGG);
