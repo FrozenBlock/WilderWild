@@ -266,8 +266,8 @@ dependencies {
     implementation("com.github.llamalad7.mixinextras:mixinextras-fabric:0.2.0-beta.8")?.let { annotationProcessor(it); shadowInclude(it) }
 
     // Sodium
-    modImplementation("maven.modrinth:sodium:${sodium_version}")
-    modImplementation("org.anarres:jcpp:1.4.14")
+    modCompileOnly("maven.modrinth:sodium:${sodium_version}")
+    modCompileOnly("org.anarres:jcpp:1.4.14")
 
     // BetterEnd
     modCompileOnly("maven.modrinth:betterend:${betterend_version}")
