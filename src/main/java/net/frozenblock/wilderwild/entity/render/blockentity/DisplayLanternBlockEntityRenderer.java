@@ -36,7 +36,6 @@ import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
@@ -51,8 +50,7 @@ public class DisplayLanternBlockEntityRenderer<T extends DisplayLanternBlockEnti
 
 	@NotNull
 	public static LayerDefinition getTexturedModelData() {
-		MeshDefinition modelData = new MeshDefinition();
-		return LayerDefinition.create(modelData, 64, 64);
+		return LayerDefinition.create(new MeshDefinition(), 64, 64);
 	}
 
 	@Override
@@ -60,21 +58,16 @@ public class DisplayLanternBlockEntityRenderer<T extends DisplayLanternBlockEnti
 		Optional<ItemStack> stack = lantern.getItem();
 		if (!lantern.invEmpty() && stack.isPresent()) {
 			matrices.pushPose();
-			double extraHeight = lantern.getBlockState().getValue(BlockStateProperties.HANGING) ? 0.25 : 0.125;
-			matrices.translate(0.5, extraHeight, 0.5);
+			matrices.translate(0.5F, lantern.clientHanging ? 0.25F : 0.125F, 0.5F);
 			matrices.scale(0.7F, 0.7F, 0.7F);
-			float n = (lantern.age + partialTick) / 20;
-			matrices.mulPose(Axis.YP.rotation(n));
+			matrices.mulPose(Axis.YP.rotation((lantern.age + partialTick) / 20F));
 			this.itemRenderer.renderStatic(stack.get(), ItemDisplayContext.GROUND, light, OverlayTexture.NO_OVERLAY, matrices, vertexConsumers, lantern.getLevel(), 1);
 			matrices.popPose();
 		} else {
-			double extraHeight = lantern.getBlockState().getValue(BlockStateProperties.HANGING) ? 0.38 : 0.225;
 			for (DisplayLanternBlockEntity.FireflyInLantern entity : lantern.getFireflies()) {
-				boolean nectar = entity.getCustomName().toLowerCase().contains("nectar");
 				int age = entity.age;
 				double ageDelta = age + partialTick;
-				boolean flickers = entity.flickers;
-				FireflyRenderer.renderFirefly(matrices, vertexConsumers, light, nectar, overlay, age, flickers, entity.getColor(), (ageDelta) * pi, 1F, (float)entity.pos.x, (float) (extraHeight + Math.sin(ageDelta * 0.03) * 0.15), (float)entity.pos.z, Minecraft.getInstance().gameRenderer.getMainCamera().rotation());
+				FireflyRenderer.renderFirefly(matrices, vertexConsumers, light, entity.getCustomName().toLowerCase().contains("nectar"), overlay, age, entity.flickers, entity.getColor(), (ageDelta) * pi, 1F, (float)entity.pos.x, lantern.clientHanging ? 0.38F : 0.225F + (float)Math.sin(ageDelta * 0.03F) * 0.15F, (float)entity.pos.z, Minecraft.getInstance().gameRenderer.getMainCamera().rotation());
 			}
 		}
 	}

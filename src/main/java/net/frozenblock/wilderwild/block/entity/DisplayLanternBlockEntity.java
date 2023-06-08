@@ -60,6 +60,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	private final ArrayList<FireflyInLantern> fireflies = new ArrayList<>();
 	public NonNullList<ItemStack> inventory;
 	public int age;
+	public boolean clientHanging;
 
 	public DisplayLanternBlockEntity(@NotNull BlockPos pos, @NotNull BlockState blockState) {
 		super(RegisterBlockEntities.DISPLAY_LANTERN, pos, blockState);
@@ -76,6 +77,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 
 	public void clientTick(@NotNull Level level, @NotNull BlockPos pos) {
 		this.age += 1;
+		this.clientHanging = this.getBlockState().getValue(BlockStateProperties.HANGING);
 		if (!this.fireflies.isEmpty()) {
 			for (FireflyInLantern firefly : this.fireflies) {
 				firefly.tick(level, pos);
