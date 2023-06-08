@@ -41,6 +41,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.SculkSensorPhase;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -92,6 +93,7 @@ public final class SculkSensorBlockEntityMixin extends BlockEntity implements Sc
     @Override
     public void wilderWild$tickServer(ServerLevel level, BlockPos pos, BlockState state) {
         SculkSensorBlockEntity sensor = SculkSensorBlockEntity.class.cast(this);
+		VibrationSystem.Ticker.tick(level, sensor.getVibrationData(), sensor.getVibrationUser());
 
         boolean bl2 = level.random.nextBoolean();
         if (state.getValue(RegisterProperties.HICCUPPING)) {

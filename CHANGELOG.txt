@@ -6,3 +6,4 @@ Put changelog here:
 -----------------
 - Removed the unused "Beneath" music disc
 - (1.20) Fixed crash when using Ancient Horn
+- (1.20) Fixed Sculk Sensor functionality
