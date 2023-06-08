@@ -441,7 +441,7 @@
   "tooltip.wilderwild.anger_loop_sound": "Whether or not Endermen will start an anger sound loop when their target is set.",
   "tooltip.wilderwild.beta_beaches": "Enables Beaches near water that generate independent of the biome,\nmirroring the beaches that existed in Minecraft Beta.",
   "tooltip.wilderwild.billboard_tendrils": "Whether or not Hanging Tendrils should use a billboard model\n(Flat plane that points at the camera.)",
-  "tooltip.wilderwild.mesoglea_liquid": "Whether or not Mesoglea will render like liquid when waterlogged.\nThis option will be disabled when using Sodium.",
+  "tooltip.wilderwild.mesoglea_liquid": "Whether or not Mesoglea will render like liquid when waterlogged.",
   "tooltip.wilderwild.pollen_particles": "Whether or not Pollen particles should spawn.\nCan help performance on low-end devices.",
   "tooltip.wilderwild.cactus_placement": "Whether or not Cacti can be placed next to other blocks.\nIf you have Cactus farms, it is recommended you disable this.",
   "tooltip.wilderwild.biome_ambience": "Contains options for biome ambience.",
