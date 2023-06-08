@@ -44,14 +44,22 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(SculkSensorBlockEntity.class)
-public final class SculkSensorBlockEntityMixin extends BlockEntity implements SculkSensorTickInterface {
+public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements SculkSensorTickInterface {
+
+	@Shadow
+	public abstract VibrationSystem.User getVibrationUser();
+
+	@Shadow
+	public abstract VibrationSystem.Data getVibrationData();
 
 	@Unique
     public int wilderWild$animTicks;
@@ -75,16 +83,18 @@ public final class SculkSensorBlockEntityMixin extends BlockEntity implements Sc
 	@Mixin(SculkSensorBlockEntity.VibrationUser.class)
 	public static class VibrationUserMixin {
 
+		@Shadow
+		@Final
+		protected BlockPos blockPos;
+
 		@Inject(at = @At("HEAD"), method = "onReceiveVibration")
 		private void wilderWild$onSignalReceive(ServerLevel level, BlockPos pos, GameEvent event, @Nullable Entity sourceEntity, @Nullable Entity entity, float distance, CallbackInfo info) {
-			var user = SculkSensorBlockEntity.VibrationUser.class.cast(this);
-			var sculkSensor = SculkSensorBlockEntity.class.cast(user);
 
-			BlockState blockState = sculkSensor.getBlockState();
+			BlockState blockState = level.getBlockState(this.blockPos);
 			if (SculkSensorBlock.canActivate(blockState)) {
-				level.gameEvent(entity, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, sculkSensor.getBlockPos());
-				BlockState state = level.getBlockState(sculkSensor.getBlockPos());
-				level.setBlockAndUpdate(sculkSensor.getBlockPos(), state.setValue(RegisterProperties.HICCUPPING, false));
+				level.gameEvent(entity, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, this.blockPos);
+				BlockState state = level.getBlockState(this.blockPos);
+				level.setBlockAndUpdate(this.blockPos, state.setValue(RegisterProperties.HICCUPPING, false));
 			}
 		}
 	}
@@ -93,7 +103,7 @@ public final class SculkSensorBlockEntityMixin extends BlockEntity implements Sc
     @Override
     public void wilderWild$tickServer(ServerLevel level, BlockPos pos, BlockState state) {
         SculkSensorBlockEntity sensor = SculkSensorBlockEntity.class.cast(this);
-		VibrationSystem.Ticker.tick(level, sensor.getVibrationData(), sensor.getVibrationUser());
+		VibrationSystem.Ticker.tick(level, this.getVibrationData(), this.getVibrationUser());
 
         boolean bl2 = level.random.nextBoolean();
         if (state.getValue(RegisterProperties.HICCUPPING)) {

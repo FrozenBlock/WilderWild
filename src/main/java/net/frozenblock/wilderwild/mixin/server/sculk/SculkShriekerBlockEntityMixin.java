@@ -32,8 +32,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.GameEventListener;
+import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -43,8 +45,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SculkShriekerBlockEntity.class)
-public class SculkShriekerBlockEntityMixin implements SculkShriekerTickInterface {
+public abstract class SculkShriekerBlockEntityMixin implements SculkShriekerTickInterface {
 
+
+	@Shadow
+	public abstract VibrationSystem.Data getVibrationData();
+
+	@Shadow
+	public abstract VibrationSystem.User getVibrationUser();
 
 	@Unique
     public int wilderWild$bubbles;
@@ -61,9 +69,13 @@ public class SculkShriekerBlockEntityMixin implements SculkShriekerTickInterface
 	@Mixin(SculkShriekerBlockEntity.VibrationUser.class)
 	public static class VibrationUserMixin {
 
+		@Shadow
+		@Final
+		SculkShriekerBlockEntity field_44621;
+
 		@Inject(method = "canReceiveVibration", at = @At("HEAD"), cancellable = true)
 		private void wilderWild$canReceiveVibration(ServerLevel level, BlockPos pos, GameEvent event, GameEvent.Context emitter, CallbackInfoReturnable<Boolean> cir) {
-			SculkShriekerBlockEntity entity = SculkShriekerBlockEntity.class.cast(this);
+			SculkShriekerBlockEntity entity = this.field_44621;
 			if (entity.getBlockState().getValue(RegisterProperties.SOULS_TAKEN) == 2) {
 				cir.setReturnValue(false);
 			}
@@ -94,11 +106,14 @@ public class SculkShriekerBlockEntityMixin implements SculkShriekerTickInterface
 
 	@Override
 	public void wilderWild$tickServer(Level level, BlockPos pos) {
-		if (level != null && (this.wilderWild$bubbles > 0)) {
-			--this.wilderWild$bubbles;
-			var random = AdvancedMath.random();
+		if (level != null) {
+			VibrationSystem.Ticker.tick(level, this.getVibrationData(), this.getVibrationUser());
+			if (this.wilderWild$bubbles > 0) {
+				--this.wilderWild$bubbles;
+				var random = AdvancedMath.random();
 
-			EasyPacket.EasyFloatingSculkBubblePacket.createParticle(level, Vec3.atCenterOf(pos), random.nextDouble() > 0.7 ? 1 : 0, 20 + random.nextInt(80), 0.075, 1);
+				EasyPacket.EasyFloatingSculkBubblePacket.createParticle(level, Vec3.atCenterOf(pos), random.nextDouble() > 0.7 ? 1 : 0, 20 + random.nextInt(80), 0.075, 1);
+			}
 		}
 	}
 }

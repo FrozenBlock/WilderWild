@@ -55,6 +55,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.GameEventListener;
 import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -78,7 +79,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	}
 
 	@Shadow
-	private boolean isDiggingOrEmerging() {
+	public boolean isDiggingOrEmerging() {
 		throw new AssertionError("Mixin injection failed - Wilder Wild WardenMixin.");
 	}
 
@@ -184,9 +185,13 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	@Mixin(Warden.VibrationUser.class)
 	public static class VibrationUserMixin {
 
+		@Shadow
+		@Final
+		Warden field_44600;
+
 		@Inject(method = "onReceiveVibration", at = @At("HEAD"))
 		private void wilderWild$onReceiveVibration(ServerLevel world, BlockPos pos, GameEvent event, Entity sourceEntity, Entity entity, float distance, CallbackInfo ci) {
-			Warden warden = Warden.class.cast(this);
+			Warden warden = this.field_44600;
 			if (!warden.isDeadOrDying()) {
 				int additionalAnger = 0;
 				if (warden.level().getBlockState(pos).is(Blocks.SCULK_SENSOR)) {
