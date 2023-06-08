@@ -143,9 +143,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		DataResult<Tag> var10000 = FireflyInLantern.CODEC.listOf().encodeStart(NbtOps.INSTANCE, this.fireflies);
 		Logger var10001 = WilderSharedConstants.LOGGER;
 		Objects.requireNonNull(var10001);
-		var10000.resultOrPartial(var10001::error).ifPresent((cursorsNbt) -> {
-			tag.put("Fireflies", cursorsNbt);
-		});
+		var10000.resultOrPartial(var10001::error).ifPresent((cursorsNbt) -> tag.put("Fireflies", cursorsNbt));
 		ContainerHelper.saveAllItems(tag, this.inventory);
 		tag.putInt("age", this.age);
 	}
@@ -185,8 +183,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 			if (entity != null) {
 				entity.moveTo(worldPosition.getX() + firefly.pos.x, worldPosition.getY() + firefly.y + extraHeight + 0.07, worldPosition.getZ() + firefly.pos.z, 0, 0);
 				entity.setFromBottle(true);
-				boolean spawned = level.addFreshEntity(entity);
-				if (spawned) {
+				if (level.addFreshEntity(entity)) {
 					entity.hasHome = true;
 					FireflyAi.rememberHome(entity, entity.blockPosition());
 					entity.setColor(firefly.color);
