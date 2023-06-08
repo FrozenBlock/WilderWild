@@ -24,17 +24,14 @@ import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.InstrumentItem;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemCooldowns;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(InstrumentItem.class)
 public final class InstrumentItemMixin {
@@ -50,10 +47,10 @@ public final class InstrumentItemMixin {
 		}
 	}
 
-	@Inject(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemCooldowns;addCooldown(Lnet/minecraft/world/item/Item;I)V", shift = At.Shift.AFTER))
-	private void wilderWild$removeCooldown(Level level, Player player, InteractionHand interactionHand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> info) {
-		if (WilderSharedConstants.config().restrictInstrumentSound()) {
-			player.getCooldowns().removeCooldown(InstrumentItem.class.cast(this));
+	@WrapOperation(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemCooldowns;addCooldown(Lnet/minecraft/world/item/Item;I)V"))
+	private void wilderWild$bypassCooldown(ItemCooldowns itemCooldowns, Item item, int useDuration, Operation<Void> original) {
+		if (!WilderSharedConstants.config().restrictInstrumentSound()) {
+			original.call(itemCooldowns, item, useDuration);
 		}
 	}
 

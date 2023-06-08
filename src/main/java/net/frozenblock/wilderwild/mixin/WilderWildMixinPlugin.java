@@ -44,7 +44,7 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 	@Override
 	public boolean shouldApplyMixin(String targetClassName, @NotNull String mixinClassName) {
 		if (mixinClassName.contains("sodium")) {
-			return FrozenBools.HAS_SODIUM && !mixinClassName.contains("FluidRenderer");
+			return FrozenBools.HAS_SODIUM;
 		}
 		if (mixinClassName.contains("LiquidBlockRenderer") || mixinClassName.contains("CloudRenderer") || mixinClassName.contains("EntityRenderDispatcher")) {
 			return !FrozenBools.HAS_SODIUM;

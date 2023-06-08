@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.mixin.sodium;
 
 import me.jellysquid.mods.sodium.client.model.quad.ModelQuadViewMutable;
 import me.jellysquid.mods.sodium.client.render.chunk.compile.ChunkBuildBuffers;
+import me.jellysquid.mods.sodium.client.render.chunk.compile.buffers.ChunkModelBuilder;
 import me.jellysquid.mods.sodium.client.render.chunk.compile.pipeline.FluidRenderer;
 import me.jellysquid.mods.sodium.client.render.chunk.data.ChunkRenderBounds;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
@@ -68,7 +69,7 @@ public class FluidRendererMixin {
 	}
 
 	@Inject(method = "render", at = @At(value = "HEAD"))
-	private void wilderWild$getIsWater(BlockAndTintGetter world, FluidState fluidState, BlockPos pos, BlockPos offset, ChunkBuildBuffers buffers, ChunkRenderBounds.Builder bounds, CallbackInfo ci) {
+	private void wilderWild$getIsWater(BlockAndTintGetter world, FluidState fluidState, BlockPos pos, BlockPos offset, ChunkModelBuilder buffers, CallbackInfoReturnable<Boolean> cir) {
 		this.wilderWild$isWater = fluidState.is(FluidTags.WATER);
 	}
 
