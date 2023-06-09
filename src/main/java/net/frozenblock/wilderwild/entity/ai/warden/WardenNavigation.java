@@ -73,9 +73,9 @@ public class WardenNavigation extends GroundPathNavigation {
 		return this.isInLiquid() ? isClearForMovementBetween(this.mob, origin, target, false) : super.canMoveDirectly(origin, target);
 	}
 
-	@Override
+	/*@Override
 	public void setCanFloat(boolean canSwim) {
-	}
+	}*/
 
 	@Override
 	protected boolean hasValidPathType(@NotNull BlockPathTypes pathType) {

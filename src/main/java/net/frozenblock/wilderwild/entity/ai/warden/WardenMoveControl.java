@@ -36,44 +36,19 @@ public class WardenMoveControl extends MoveControl {
 	private final float yawChange;
 	private final float speedInWater;
 	private final float speedInAir;
-	private final boolean buoyant;
 
-	public WardenMoveControl(@NotNull Warden mob, float pitchChange, float yawChange, float speedInWater, float speedInAir, boolean buoyant) {
+	public WardenMoveControl(@NotNull Warden mob, float pitchChange, float yawChange, float speedInWater, float speedInAir) {
 		super(mob);
 		this.mob = mob;
 		this.pitchChange = pitchChange;
 		this.yawChange = yawChange;
 		this.speedInWater = speedInWater;
 		this.speedInAir = speedInAir;
-		this.buoyant = buoyant;
 	}
 
 	@Override
 	public void tick() {
 		if (this.touchingWaterOrLava(this.mob)) {
-			if (this.buoyant) {
-				if (this.mob.getBrain().hasMemoryValue(MemoryModuleType.ROAR_TARGET) || this.mob.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET)) {
-					Optional<LivingEntity> ATTACK_TARGET = this.mob.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET);
-					Optional<LivingEntity> ROAR_TARGET = this.mob.getBrain().getMemory(MemoryModuleType.ROAR_TARGET);
-					if (ATTACK_TARGET.isPresent()) {
-						LivingEntity target = ATTACK_TARGET.get();
-						if ((!this.touchingWaterOrLava(target) || !this.submergedInWaterOrLava(this.mob)) && target.getY() > this.mob.getY()) {
-							this.mob.setDeltaMovement(this.mob.getDeltaMovement().add(0.0D, 0.01D, 0.0D));
-						}
-					} else if (ROAR_TARGET.isPresent()) {
-						LivingEntity target = ROAR_TARGET.get();
-						if ((!this.touchingWaterOrLava(target) || !this.submergedInWaterOrLava(this.mob)) && target.getY() > this.mob.getY()) {
-							this.mob.setDeltaMovement(this.mob.getDeltaMovement().add(0.0D, 0.01D, 0.0D));
-						}
-					}
-				} else {
-					if (!this.submergedInWaterOrLava(this.mob)) {
-						this.mob.setDeltaMovement(this.mob.getDeltaMovement().add(0.0D, 0.006D, 0.0D));
-					} else {
-						this.mob.setDeltaMovement(this.mob.getDeltaMovement().add(0.0D, 0.006D, 0.0D));
-					}
-				}
-			}
 
 			if (this.operation == MoveControl.Operation.MOVE_TO && !this.mob.getNavigation().isDone()) {
 				double d = this.wantedX - this.mob.getX();
