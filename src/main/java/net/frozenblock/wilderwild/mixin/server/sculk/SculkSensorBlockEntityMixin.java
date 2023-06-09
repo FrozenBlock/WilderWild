@@ -56,7 +56,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(SculkSensorBlockEntity.class)
-public final class SculkSensorBlockEntityMixin extends BlockEntity implements SculkSensorTickInterface {
+public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements SculkSensorTickInterface {
+
+	@Shadow
+	public abstract VibrationSystem.User getVibrationUser();
+
+	@Shadow
+	public abstract VibrationSystem.Data getVibrationData();
 
 	@Unique
 	public int wilderWild$animTicks;
@@ -81,7 +87,8 @@ public final class SculkSensorBlockEntityMixin extends BlockEntity implements Sc
 	@Override
 	public void wilderWild$tickServer(ServerLevel level, BlockPos pos, BlockState state) {
 		SculkSensorBlockEntity sensor = SculkSensorBlockEntity.class.cast(this);
-		VibrationSystem.Ticker.tick(level, sensor.getVibrationData(), sensor.createVibrationUser());
+		VibrationSystem.Ticker.tick(level, this.getVibrationData(), this.getVibrationUser());
+
 		boolean bl2 = level.random.nextBoolean();
 		if (state.getValue(RegisterProperties.HICCUPPING)) {
 			if (bl2) {

@@ -2591,11 +2591,6 @@
       }
     ]
   },
-  "music_disc.beneath": {
-    "sounds": [
-      "wilderwild:records/beneath"
-    ]
-  },
   "music_disc.goathorn_symphony": {
     "sounds": [
       "wilderwild:records/goathorn_symphony"

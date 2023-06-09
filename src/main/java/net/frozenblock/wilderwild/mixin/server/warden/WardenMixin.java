@@ -184,7 +184,9 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	@Mixin(Warden.VibrationUser.class)
 	public static class VibrationUserMixin {
 
-		@Shadow @Final Warden field_44600;
+		@Shadow
+		@Final
+		Warden field_44600;
 
 		@Inject(method = "onReceiveVibration", at = @At("HEAD"))
 		private void wilderWild$onReceiveVibration(ServerLevel world, BlockPos pos, GameEvent event, Entity sourceEntity, Entity entity, float distance, CallbackInfo ci) {

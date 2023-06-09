@@ -44,7 +44,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SculkShriekerBlockEntity.class)
-public class SculkShriekerBlockEntityMixin implements SculkShriekerTickInterface {
+public abstract class SculkShriekerBlockEntityMixin implements SculkShriekerTickInterface {
+
+
+	@Shadow
+	public abstract VibrationSystem.Data getVibrationData();
+
+	@Shadow
+	public abstract VibrationSystem.User getVibrationUser();
 
 	@Unique
 	public int wilderWild$bubbles;
@@ -83,11 +90,11 @@ public class SculkShriekerBlockEntityMixin implements SculkShriekerTickInterface
 	@Override
 	public void wilderWild$tickServer(Level level, BlockPos pos) {
 		if (level != null && !level.isClientSide) {
-			SculkShriekerBlockEntity sculkShriekerBlockEntity = SculkShriekerBlockEntity.class.cast(this);
-			VibrationSystem.Ticker.tick(level, sculkShriekerBlockEntity.getVibrationData(), sculkShriekerBlockEntity.getVibrationUser());
+			VibrationSystem.Ticker.tick(level, this.getVibrationData(), this.getVibrationUser());
 			if (this.wilderWild$bubbles > 0) {
 				--this.wilderWild$bubbles;
 				var random = AdvancedMath.random();
+
 				EasyPacket.EasyFloatingSculkBubblePacket.createParticle(level, Vec3.atCenterOf(pos), random.nextDouble() > 0.7 ? 1 : 0, 20 + random.nextInt(80), 0.075, 1);
 			}
 		}
@@ -102,7 +109,7 @@ public class SculkShriekerBlockEntityMixin implements SculkShriekerTickInterface
 
 		@Inject(at = @At("HEAD"), method = "canReceiveVibration", cancellable = true)
 		public void wilderWild$canReceiveVibration(ServerLevel world, BlockPos pos, GameEvent gameEvent, GameEvent.Context context, CallbackInfoReturnable<Boolean> info) {
-			if (field_44621.getBlockState().getValue(RegisterProperties.SOULS_TAKEN) == 2) {
+			if (this.field_44621.getBlockState().getValue(RegisterProperties.SOULS_TAKEN) == 2) {
 				info.setReturnValue(false);
 			}
 		}
