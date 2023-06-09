@@ -318,12 +318,12 @@ public class AncientHornProjectile extends AbstractArrow {
         this.inBlockState = this.level().getBlockState(result.getBlockPos());
         BlockState blockState = this.level().getBlockState(result.getBlockPos());
         Entity owner = this.getOwner();
-		/*if (WilderModIntegrations.SIMPLE_COPPER_PIPES_INTEGRATION.getIntegration().isCopperPipe(blockState) && owner != null
+		if (WilderModIntegrations.SIMPLE_COPPER_PIPES_INTEGRATION.getIntegration().isCopperPipe(blockState) && owner != null
 			&& (result.getDirection() == blockState.getValue(BlockStateProperties.FACING).getOpposite() && this.level() instanceof ServerLevel server)
 			&& (WilderModIntegrations.SIMPLE_COPPER_PIPES_INTEGRATION.getIntegration().addHornNbtToBlock(server, result.getBlockPos(), owner))
 		) {
 			this.discard();
-		}*/
+		}
         blockState.onProjectileHit(this.level(), blockState, result, this);
         Vec3 hitVec = result.getLocation().subtract(this.getX(), this.getY(), this.getZ());
         this.setDeltaMovement(hitVec);

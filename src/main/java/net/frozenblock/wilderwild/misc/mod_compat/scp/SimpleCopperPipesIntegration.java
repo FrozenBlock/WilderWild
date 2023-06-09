@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
-/*
+
 package net.frozenblock.wilderwild.misc.mod_compat.scp;
 
 import net.frozenblock.lib.FrozenBools;
@@ -256,4 +256,4 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 	}
 
 }
-*/
+
