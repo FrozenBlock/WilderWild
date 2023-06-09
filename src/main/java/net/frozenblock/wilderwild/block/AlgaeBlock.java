@@ -57,7 +57,7 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 
 	@NotNull
 	public static List<Direction> shuffleOffsets(@NotNull RandomSource random) {
-		return Util.toShuffledList(Direction.Plane.HORIZONTAL.stream(), random);
+		return Direction.Plane.HORIZONTAL.shuffledCopy(random);
 	}
 
 	@Override
@@ -104,7 +104,7 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
 		for (Direction offset : AlgaeBlock.shuffleOffsets(AdvancedMath.random())) {
 			BlockPos blockPos = pos.relative(offset);
-			if (level.getBlockState(blockPos).isAir() && this.canSurvive(this.defaultBlockState(), level, blockPos.below())) {
+			if (level.getBlockState(blockPos).isAir() && this.canSurvive(this.defaultBlockState(), level, blockPos)) {
 				this.bonemealPos = blockPos;
 				return true;
 			}
