@@ -38,6 +38,7 @@ import net.lunade.copper.PoweredPipeDispenses;
 import net.lunade.copper.RegisterPipeNbtMethods;
 import net.lunade.copper.block_entity.CopperPipeEntity;
 import net.lunade.copper.blocks.CopperPipe;
+import net.lunade.copper.pipe_nbt.MoveablePipeDataHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.DustColorTransitionOptions;
@@ -240,7 +241,7 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 		if (entity != null) {
 			if (entity instanceof CopperPipeEntity pipe) {
 				level.playSound(null, pos, CopperPipeMain.ITEM_IN, SoundSource.BLOCKS, 0.2F, (level.random.nextFloat() * 0.25F) + 0.8F);
-				//pipe.moveablePipeDataHandler.addSaveableMoveablePipeNbt(new MoveablePipeDataHandler.SaveableMovablePipeNbt().withVec3d(owner.position()).withVec3d2(owner.position()).withString(owner.getStringUUID()).withOnlyThroughOnePipe(true).withOnlyUseableOnce(true).withNBTID(HORN));
+				pipe.moveablePipeDataHandler.addSaveableMoveablePipeNbt(new MoveablePipeDataHandler.SaveableMovablePipeNbt().withVec3d(owner.position()).withVec3d2(owner.position()).withString(owner.getStringUUID()).withOnlyThroughOnePipe(true).withOnlyUseableOnce(true).withNBTID(HORN));
 				return true;
 			}
 		}
