@@ -113,6 +113,7 @@ public class AncientHornProjectile extends AbstractArrow {
 	private double vecZ;
 	private boolean shotByPlayer;
 	private int bubbles;
+	public boolean canInteractWithPipe = true;
 	private BlockState inBlockState;
 	private IntArrayList hitEntities = new IntArrayList();
 
@@ -320,12 +321,8 @@ public class AncientHornProjectile extends AbstractArrow {
 		this.inBlockState = this.level().getBlockState(result.getBlockPos());
 		BlockState blockState = this.level().getBlockState(result.getBlockPos());
 		Entity owner = this.getOwner();
-		if (WilderModIntegrations.SIMPLE_COPPER_PIPES_INTEGRATION.getIntegration().isCopperPipe(blockState) && owner != null) {
-			if (result.getDirection() == blockState.getValue(BlockStateProperties.FACING).getOpposite() && this.level() instanceof ServerLevel server) {
-				if (WilderModIntegrations.SIMPLE_COPPER_PIPES_INTEGRATION.getIntegration().addHornNbtToBlock(server, result.getBlockPos(), owner)) {
-					this.discard();
-				}
-			}
+		if (this.canInteractWithPipe && WilderModIntegrations.SIMPLE_COPPER_PIPES_INTEGRATION.getIntegration().isCopperPipe(blockState) && owner != null && result.getDirection() == blockState.getValue(BlockStateProperties.FACING).getOpposite() && this.level() instanceof ServerLevel server && WilderModIntegrations.SIMPLE_COPPER_PIPES_INTEGRATION.getIntegration().addHornNbtToBlock(server, result.getBlockPos(), owner)) {
+			this.discard();
 		}
 		blockState.onProjectileHit(this.level(), blockState, result, this);
 		Vec3 hitVec = result.getLocation().subtract(this.getX(), this.getY(), this.getZ());
@@ -484,6 +481,7 @@ public class AncientHornProjectile extends AbstractArrow {
 			compound.putInt("bubbles", this.bubbles);
 			compound.putFloat("boundingBoxMultiplier", this.getBoundingBoxMultiplier());
 			compound.putIntArray("hitEntities", this.hitEntities);
+			compound.putBoolean("canInteractWithPipe", this.canInteractWithPipe);
 		}
 	}
 
@@ -503,6 +501,9 @@ public class AncientHornProjectile extends AbstractArrow {
 			this.bubbles = compound.getInt("bubbles");
 			this.setBoundingBoxMultiplier(compound.getFloat("boundingBoxMultiplier"));
 			this.hitEntities = IntArrayList.wrap(compound.getIntArray("hitEntities"));
+			if (compound.contains("canInteractWithPipe")) {
+				this.canInteractWithPipe = compound.getBoolean("canInteractWithPipe");
+			}
 		}
 	}
 

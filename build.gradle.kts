@@ -242,7 +242,7 @@ dependencies {
     //include(modImplementation("net.caffeinemc:mixin-config:1.0.0+1.17"))
 
     // Lunade
-    modCompileOnly("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
+    modImplementation("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
 
     // Mod Menu
     modImplementation("com.terraformersmc:modmenu:${modmenu_version}")

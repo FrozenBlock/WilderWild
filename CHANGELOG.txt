@@ -40,5 +40,6 @@ Put changelog here:
 - Fixed a bug where Wardens would continuously attempt and fail to roar at Tumbleweeds.
 - Fixed broken Stone Chest animations and cleaned up their code.
 - Added descriptions and proper names to Wilder Wild's built-in resource packs.
+- The Ancient Horn's massive vibration can no longer be infinitely cycled through pipes.
 - Lots of internal cleanup, reorganization, and optimizations.
 - Various bug fixes.
