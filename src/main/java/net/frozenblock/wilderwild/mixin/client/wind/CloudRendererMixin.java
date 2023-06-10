@@ -14,28 +14,28 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public class CloudRendererMixin {
 
 	@ModifyVariable(method = "renderClouds", at = @At(value = "STORE"), ordinal = 4)
-	private double modifyXScroll(double original) {
+	private double wilderWild$modifyXScroll(double original) {
 		return WilderSharedConstants.config().cloudMovement() && ClientWindManager.shouldUseWind()
 			? 0
 			: original;
 	}
 
 	@ModifyVariable(method = "renderClouds", at = @At(value = "STORE"), ordinal = 5)
-	private double modifyX(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX) {
+	private double wilderWild$modifyX(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX) {
 		return WilderSharedConstants.config().cloudMovement() && ClientWindManager.shouldUseWind()
 			? original - ClientWindManager.getCloudX(partialTick)
 			: original;
 	}
 
 	@ModifyVariable(method = "renderClouds", at = @At("STORE"), ordinal = 6)
-	private double modifyY(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX, double camY) {
+	private double wilderWild$modifyY(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX, double camY) {
 		return WilderSharedConstants.config().cloudMovement() && ClientWindManager.shouldUseWind()
 			? original + Mth.clamp(ClientWindManager.getCloudY(partialTick), -10D, 10D)
 			: original;
 	}
 
 	@ModifyVariable(method = "renderClouds", at = @At("STORE"), ordinal = 7)
-	private double modifyZ(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX, double camY, double camZ) {
+	private double wilderWild$modifyZ(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX, double camY, double camZ) {
 		return WilderSharedConstants.config().cloudMovement() && ClientWindManager.shouldUseWind()
 			? original - ClientWindManager.getCloudZ(partialTick)
 			: original;
