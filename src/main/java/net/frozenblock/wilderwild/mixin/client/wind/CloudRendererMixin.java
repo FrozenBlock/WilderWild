@@ -14,36 +14,39 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(LevelRenderer.class)
 public class CloudRendererMixin {
 
+	@Unique
+	private boolean wilderWild$useWind;
+
 	@ModifyVariable(method = "renderClouds", at = @At(value = "STORE"), ordinal = 4)
 	private double wilderWild$modifyXScroll(double original) {
-		return useWind()
+		return (this.wilderWild$useWind = wilderWild$useWind())
 			? 0
 			: original;
 	}
 
 	@ModifyVariable(method = "renderClouds", at = @At(value = "STORE"), ordinal = 5)
 	private double wilderWild$modifyX(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX) {
-		return useWind()
+		return this.wilderWild$useWind
 			? original - ClientWindManager.getCloudX(partialTick)
 			: original;
 	}
 
 	@ModifyVariable(method = "renderClouds", at = @At("STORE"), ordinal = 6)
 	private double wilderWild$modifyY(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX, double camY) {
-		return useWind()
+		return this.wilderWild$useWind
 			? original + Mth.clamp(ClientWindManager.getCloudY(partialTick), -10D, 10D)
 			: original;
 	}
 
 	@ModifyVariable(method = "renderClouds", at = @At("STORE"), ordinal = 7)
 	private double wilderWild$modifyZ(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX, double camY, double camZ) {
-		return useWind()
+		return this.wilderWild$useWind
 			? original - ClientWindManager.getCloudZ(partialTick)
 			: original;
 	}
 
 	@Unique
-	private static boolean useWind() {
+	private static boolean wilderWild$useWind() {
 		return WilderSharedConstants.config().cloudMovement() && ClientWindManager.shouldUseWind();
 	}
 }
