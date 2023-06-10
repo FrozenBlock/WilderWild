@@ -14,9 +14,16 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public class CloudRendererMixin {
 
 	@ModifyVariable(method = "renderClouds", at = @At(value = "STORE"), ordinal = 4)
-	private double wilderWild$modifyXScroll(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick) {
+	private double wilderWild$modifyXScroll(double original) {
 		return WilderSharedConstants.config().cloudMovement() && ClientWindManager.shouldUseWind()
-			? -ClientWindManager.getCloudX(partialTick)
+			? 0
+			: original;
+	}
+
+	@ModifyVariable(method = "renderClouds", at = @At(value = "STORE"), ordinal = 5)
+	private double wilderWild$modifyX(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX) {
+		return WilderSharedConstants.config().cloudMovement() && ClientWindManager.shouldUseWind()
+			? original - ClientWindManager.getCloudX(partialTick)
 			: original;
 	}
 
