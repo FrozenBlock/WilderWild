@@ -7,12 +7,18 @@ import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.util.Mth;
 import org.joml.Matrix4f;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(LevelRenderer.class)
 public class CloudRendererMixin {
+
+	@ModifyVariable(method = "renderClouds", at = @At(value = "STORE"), ordinal = 4)
+	private double modifyXScroll(double original) {
+		return WilderSharedConstants.config().cloudMovement() && ClientWindManager.shouldUseWind()
+			? 0
+			: original;
+	}
 
 	@ModifyVariable(method = "renderClouds", at = @At(value = "STORE"), ordinal = 5)
 	private double modifyX(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX) {
