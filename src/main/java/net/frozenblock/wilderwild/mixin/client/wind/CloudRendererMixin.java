@@ -14,15 +14,6 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(LevelRenderer.class)
 public class CloudRendererMixin {
 
-	@Unique
-	private float wilderWild$cloudHeight;
-
-	@ModifyVariable(method = "renderClouds", at = @At(value = "STORE"), ordinal = 1)
-	private float getCloudHeight(float original) {
-		this.wilderWild$cloudHeight = original;
-		return original;
-	}
-
 	@ModifyVariable(method = "renderClouds", at = @At(value = "STORE"), ordinal = 5)
 	private double modifyX(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX) {
 		return WilderSharedConstants.config().cloudMovement() && ClientWindManager.shouldUseWind()
