@@ -42,5 +42,6 @@ Put changelog here:
 - Fixed broken Stone Chest animations and cleaned up their code.
 - Added descriptions and proper names to Wilder Wild's built-in resource packs.
 - The Ancient Horn's massive vibration can no longer be infinitely cycled through pipes.
+- Fixed cloud rendering at high coordinates
 - Lots of internal cleanup, reorganization, and optimizations.
 - Various bug fixes.
