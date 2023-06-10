@@ -23,10 +23,17 @@ public class CloudRendererMixin {
 			: original;
 	}
 
+	@ModifyVariable(method = "render", at = @At(value = "STORE"), ordinal = 3)
+	private double wilderWild$modifyXSroll(double original) {
+		return ClientWindManager.shouldUseWind() && WilderSharedConstants.config().cloudMovement()
+			? 0
+			: original;
+	}
+
 	@ModifyVariable(method = "render", at = @At(value = "STORE"), ordinal = 4)
 	private double wilderWild$modifyX(double original, @Nullable ClientLevel world, LocalPlayer player, PoseStack matrices, Matrix4f projectionMatrix, float ticks, float tickDelta, double cameraX, double cameraY, double cameraZ) {
 		return ClientWindManager.shouldUseWind() && WilderSharedConstants.config().cloudMovement()
-			? cameraX - ClientWindManager.getCloudX(tickDelta) * 12
+			? original - ClientWindManager.getCloudX(tickDelta) * 12
 			: original;
 	}
 
