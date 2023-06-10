@@ -18,14 +18,11 @@
 
 package net.frozenblock.wilderwild.entity.ai.warden;
 
-import java.util.Optional;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.monster.warden.Warden;
 import org.jetbrains.annotations.NotNull;
 
@@ -49,7 +46,6 @@ public class WardenMoveControl extends MoveControl {
 	@Override
 	public void tick() {
 		if (this.touchingWaterOrLava(this.mob)) {
-
 			if (this.operation == MoveControl.Operation.MOVE_TO && !this.mob.getNavigation().isDone()) {
 				double d = this.wantedX - this.mob.getX();
 				double e = this.wantedY - this.mob.getY();
@@ -71,7 +67,6 @@ public class WardenMoveControl extends MoveControl {
 							k = Mth.clamp(Mth.wrapDegrees(k), -this.pitchChange, this.pitchChange);
 							this.mob.setXRot(this.rotlerp(this.mob.getXRot(), k, 5.0F));
 						}
-
 						float k = Mth.cos(this.mob.getXRot() * (float) (Math.PI / 180.0));
 						float l = Mth.sin(this.mob.getXRot() * (float) (Math.PI / 180.0));
 						this.mob.zza = k * i;
@@ -79,7 +74,6 @@ public class WardenMoveControl extends MoveControl {
 					} else {
 						this.mob.setSpeed(i * this.speedInAir);
 					}
-
 				}
 			} else {
 				this.mob.setSpeed(0.0F);

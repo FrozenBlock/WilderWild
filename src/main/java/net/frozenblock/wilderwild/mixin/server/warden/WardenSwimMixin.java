@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.server.warden;
 
+import java.util.Optional;
 import net.frozenblock.wilderwild.entity.ai.warden.WardenLookControl;
 import net.frozenblock.wilderwild.entity.ai.warden.WardenMoveControl;
 import net.frozenblock.wilderwild.entity.ai.warden.WardenNavigation;
@@ -51,7 +52,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import java.util.Optional;
 
 @Mixin(value = Warden.class, priority = 1001)
 public abstract class WardenSwimMixin extends Monster implements SwimmingWardenInterface {

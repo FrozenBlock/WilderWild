@@ -42,7 +42,7 @@ public class WardenNavigation extends GroundPathNavigation {
 	@Override
 	@NotNull
 	public PathFinder createPathFinder(int range) {
-		this.nodeEvaluator = new WardenPathEvaluator(false);
+		this.nodeEvaluator = new WardenNodeEvaluator(false);
 		this.nodeEvaluator.setCanPassDoors(true);
 		return new PathFinder(this.nodeEvaluator, range) {
 			private static boolean entitySubmergedInWaterOrLava(@NotNull Entity entity) {
@@ -65,17 +65,13 @@ public class WardenNavigation extends GroundPathNavigation {
 	@Override
 	protected double getGroundY(@NotNull Vec3 pos) {
 		BlockPos blockPos = BlockPos.containing(pos);
-		return this.isInLiquid() || this.level.getBlockState(blockPos.below()).isAir() ? pos.y : WardenPathEvaluator.getFloorLevel(this.level, blockPos);
+		return this.isInLiquid() || this.level.getBlockState(blockPos.below()).isAir() ? pos.y : WardenNodeEvaluator.getFloorLevel(this.level, blockPos);
 	}
 
 	@Override
 	protected boolean canMoveDirectly(@NotNull Vec3 origin, @NotNull Vec3 target) {
 		return this.isInLiquid() ? isClearForMovementBetween(this.mob, origin, target, false) : super.canMoveDirectly(origin, target);
 	}
-
-	/*@Override
-	public void setCanFloat(boolean canSwim) {
-	}*/
 
 	@Override
 	protected boolean hasValidPathType(@NotNull BlockPathTypes pathType) {

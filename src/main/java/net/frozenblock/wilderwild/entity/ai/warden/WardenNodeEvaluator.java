@@ -33,12 +33,12 @@ import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class WardenPathEvaluator extends WalkNodeEvaluator {
+public class WardenNodeEvaluator extends WalkNodeEvaluator {
 	private final boolean prefersShallowSwimming;
 	private float oldWalkableCost;
 	private float oldWaterBorderPenalty;
 
-	public WardenPathEvaluator(boolean prefersShallowSwimming) {
+	public WardenNodeEvaluator(boolean prefersShallowSwimming) {
 		this.prefersShallowSwimming = prefersShallowSwimming;
 	}
 
