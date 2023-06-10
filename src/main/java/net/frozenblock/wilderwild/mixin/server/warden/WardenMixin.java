@@ -301,14 +301,10 @@ public final class WardenMixin extends Monster implements WilderWarden {
 
 	@Inject(method = "getDimensions", at = @At("RETURN"), cancellable = true)
 	public void wilderWild$getDimensions(Pose pose, CallbackInfoReturnable<EntityDimensions> info) {
-		Warden warden = Warden.class.cast(this);
-		if (!warden.isDiggingOrEmerging()) {
-			if (this.isVisuallySwimming()) {
-				info.setReturnValue(EntityDimensions.scalable(warden.getType().getWidth(), 0.85F));
-			}
+		if (!this.isDiggingOrEmerging()) {
 			if (WilderSharedConstants.config().wardenDyingAnimation() || this.wilderWild$isStella()) {
 				if (wilderWild$deathTicks > 0) {
-					info.setReturnValue(EntityDimensions.fixed(warden.getType().getWidth(), 0.35F));
+					info.setReturnValue(EntityDimensions.fixed(this.getType().getWidth(), 0.35F));
 				}
 			}
 		}

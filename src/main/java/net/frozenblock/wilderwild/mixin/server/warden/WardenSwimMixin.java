@@ -128,7 +128,6 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 			super.travel(travelVector);
 			this.wilderWild$pogSwimming = false;
 		}
-
 	}
 
 	@Inject(method = "<init>", at = @At("TAIL"))
@@ -190,9 +189,8 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 
 	@Inject(method = "getDimensions", at = @At("RETURN"), cancellable = true)
 	public void wilderWild$getDimensions(Pose pose, CallbackInfoReturnable<EntityDimensions> info) {
-		Warden warden = Warden.class.cast(this);
-		if (warden.isVisuallySwimming()) {
-			info.setReturnValue(EntityDimensions.scalable(warden.getType().getWidth(), 0.85F));
+		if (!this.isDiggingOrEmerging() && this.isVisuallySwimming()) {
+			info.setReturnValue(EntityDimensions.scalable(this.getType().getWidth(), 0.85F));
 		}
 	}
 
