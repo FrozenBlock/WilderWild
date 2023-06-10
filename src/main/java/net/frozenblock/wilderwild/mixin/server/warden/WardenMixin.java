@@ -160,17 +160,10 @@ public final class WardenMixin extends Monster implements WilderWarden {
 			&& !warden.hasPose(Pose.ROARING)
 			&& WilderSharedConstants.config().wardenAttacksImmediately()
 		) {
-			if (!(entity instanceof Player player)) {
+			if (!(entity instanceof Player player) || (!player.isCreative())) {
 				warden.increaseAngerAt(entity, AngerLevel.ANGRY.getMinimumAnger() + 20, false);
 				if (!livingEntity.isDeadOrDying() && warden.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isEmpty()) {
 					warden.setAttackTarget(livingEntity);
-				}
-			} else {
-				if (!player.isCreative()) {
-					warden.increaseAngerAt(entity, AngerLevel.ANGRY.getMinimumAnger() + 20, false);
-					if (!player.isDeadOrDying() && warden.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isEmpty()) {
-						warden.setAttackTarget(player);
-					}
 				}
 			}
 		}

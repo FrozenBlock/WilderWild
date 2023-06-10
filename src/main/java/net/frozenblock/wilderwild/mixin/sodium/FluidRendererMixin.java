@@ -55,7 +55,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
@@ -317,12 +316,10 @@ public class FluidRendererMixin {
 		}
 	}
 
-	@Redirect(method = "render", at = @At(value = "INVOKE", target = "Lme/jellysquid/mods/sodium/client/model/quad/ModelQuadViewMutable;setSprite(Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V", ordinal = 1))
-	private void wilderWild$switchSprites(ModelQuadViewMutable quad, TextureAtlasSprite sprite) {
+	@ModifyArgs(method = "render", at = @At(value = "INVOKE", target = "Lme/jellysquid/mods/sodium/client/model/quad/ModelQuadViewMutable;setSprite(Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V", ordinal = 1))
+	private void wilderWild$switchSprites(Args args) {
 		if (this.wilderWild$isWater) {
-			quad.setSprite(this.wilderWild$waterOverlay);
-		} else {
-			quad.setSprite(sprite);
+			args.set(0, this.wilderWild$waterOverlay);
 		}
 	}
 
