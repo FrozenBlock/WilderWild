@@ -59,6 +59,7 @@
     "server.sculk.SculkSpreaderChargeCursorMixin",
     "server.sculk.SculkVeinBlockMixin",
     "server.sculk.SculkVeinSpreaderConfigMixin",
+    "server.warden.EntityMixin",
     "server.warden.LivingEntityMixin",
     "server.warden.SonicBoomMixin",
     "server.warden.WardenMixin",
