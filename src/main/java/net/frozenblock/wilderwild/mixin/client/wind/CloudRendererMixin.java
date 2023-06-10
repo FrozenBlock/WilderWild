@@ -26,7 +26,7 @@ public class CloudRendererMixin {
 	@ModifyVariable(method = "renderClouds", at = @At(value = "STORE"), ordinal = 5)
 	private double modifyX(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX) {
 		return WilderSharedConstants.config().cloudMovement() && ClientWindManager.shouldUseWind()
-			? Mth.clamp((camX / 12.0) - ClientWindManager.getCloudX(partialTick), Double.MIN_VALUE, Double.MAX_VALUE)
+			? (camX / 12.0) - ClientWindManager.getCloudX(partialTick)
 			: original;
 	}
 
@@ -40,7 +40,7 @@ public class CloudRendererMixin {
 	@ModifyVariable(method = "renderClouds", at = @At("STORE"), ordinal = 7)
 	private double modifyZ(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX, double camY, double camZ) {
 		return WilderSharedConstants.config().cloudMovement() && ClientWindManager.shouldUseWind()
-			? Mth.clamp((camZ / 12.0D + 0.33D) - ClientWindManager.getCloudZ(partialTick), Double.MIN_VALUE, Double.MAX_VALUE)
+			? (camZ / 12.0D + 0.33D) - ClientWindManager.getCloudZ(partialTick)
 			: original;
 	}
 }
