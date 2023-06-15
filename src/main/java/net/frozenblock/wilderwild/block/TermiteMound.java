@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
-import net.frozenblock.wilderwild.entity.TermiteManager;
+import net.frozenblock.wilderwild.entity.ai.TermiteManager;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;

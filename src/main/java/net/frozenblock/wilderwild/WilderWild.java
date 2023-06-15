@@ -28,7 +28,7 @@ import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
 import net.frozenblock.lib.mobcategory.api.entrypoint.FrozenMobCategoryEntrypoint;
 import net.frozenblock.lib.mobcategory.impl.FrozenMobCategory;
 import net.frozenblock.wilderwild.block.entity.PalmCrownBlockEntity;
-import net.frozenblock.wilderwild.entity.TermiteManager;
+import net.frozenblock.wilderwild.entity.ai.TermiteManager;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.command.SpreadSculkCommand;
 import net.frozenblock.wilderwild.misc.datafixer.DrySandStateFix;

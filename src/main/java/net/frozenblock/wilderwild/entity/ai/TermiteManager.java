@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.entity;
+package net.frozenblock.wilderwild.entity.ai;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;

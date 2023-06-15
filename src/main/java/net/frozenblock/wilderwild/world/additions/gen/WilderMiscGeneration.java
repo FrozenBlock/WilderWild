@@ -53,7 +53,7 @@ public final class WilderMiscGeneration {
 				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.MOSS_PATH.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_PACKED_MUD_PATH),
-				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.PACKED_MUD_PATH.getKey());
+				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.PACKED_MUD_PATH.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_PACKED_MUD_ORE),
 				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.ORE_PACKED_MUD.getKey());
@@ -71,7 +71,7 @@ public final class WilderMiscGeneration {
 				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.COARSE_DIRT_PATH_SMALL.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_PACKED_MUD_PATH_BADLANDS),
-				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.PACKED_MUD_PATH_BADLANDS.getKey());
+				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.PACKED_MUD_PATH_BADLANDS.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SCORCHED_SAND),
 				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.SCORCHED_SAND.getKey());

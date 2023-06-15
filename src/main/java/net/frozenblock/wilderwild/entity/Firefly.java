@@ -522,8 +522,12 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		this.setFlickers(compound.getBoolean("flickers"));
 		this.setFlickerAge(compound.getInt("flickerAge"));
 		this.hasHome = compound.getBoolean("hasHome");
-		this.setScale(compound.getFloat("scale"));
-		this.setPrevScale(compound.getFloat("prevScale"));
+		if (compound.contains("scale")) {
+			this.setScale(compound.getFloat("scale"));
+		}
+		if (compound.contains("prevScale")) {
+			this.setPrevScale(compound.getFloat("prevScale"));
+		}
 		this.despawning = compound.getBoolean("despawning");
 		FireflyColor color = WilderRegistry.FIREFLY_COLOR.get(ResourceLocation.tryParse(compound.getString("color")));
 		if (color != null) {

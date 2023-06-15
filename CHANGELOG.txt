@@ -17,7 +17,7 @@ Put changelog here:
 - Added Snapped variants of trees.
 - Mangrove Swamps have now been wilder-ified, including Cattails, Flowers, Bushes, Mud Basins, Mud Lakes, more Grass, Fern, and rare Mud Piles.
 - Algae no longer slows down entities outside its collision shape.
-- Fixed Algae bonemealing
+- Fixed Algae bonemealing.
 - Decreased the size of uncommon Algae patches (Swamp & Mangrove Swamp.)
 - Added a new advancement "Bottle of Lightning" for capturing a Firefly in a Glass Bottle.
 - Incorporated Wilder Wild's new foods, mobs, and biomes into Vanilla's advancements (note that this may be overriden by other mods' data.)
@@ -41,7 +41,11 @@ Put changelog here:
 - Fixed a bug where Wardens would continuously attempt and fail to roar at Tumbleweeds.
 - Fixed broken Stone Chest animations and cleaned up their code.
 - Added descriptions and proper names to Wilder Wild's built-in resource packs.
-- The Ancient Horn's massive vibration can no longer be infinitely cycled through pipes.
-- Fixed cloud rendering at high coordinates
+- Fixed cloud rendering at high coordinates.
 - Lots of internal cleanup, reorganization, and optimizations.
 - Various bug fixes.
+
+Mod Compat Changes:
+- The Liquid Mesoglea feature (found in Block config) now works with Sodium enabled. (Sodium)
+- The Ancient Horn's massive vibration can no longer be infinitely cycled through Copper Pipes. (Simple Copper Pipes)
+- Falling leaves now follow FrozenLib/Wilder Wild's wind. (Falling Leaves)

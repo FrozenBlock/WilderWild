@@ -68,7 +68,7 @@ import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
 import net.frozenblock.wilderwild.block.WaterloggableTallFlowerBlock;
 import net.frozenblock.wilderwild.block.WilderBushBlock;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
-import net.frozenblock.wilderwild.entity.TermiteManager;
+import net.frozenblock.wilderwild.entity.ai.TermiteManager;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.misc.FlowerColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
