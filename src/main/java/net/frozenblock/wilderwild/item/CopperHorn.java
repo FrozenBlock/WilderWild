@@ -18,16 +18,10 @@
 
 package net.frozenblock.wilderwild.item;
 
-import java.util.Iterator;
 import java.util.Optional;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Holder;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
@@ -37,18 +31,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Instrument;
 import net.minecraft.world.item.InstrumentItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 
 public class CopperHorn extends InstrumentItem {
-	private static final String INSTRUMENT_KEY = "instrument";
-	private final TagKey<Instrument> instrumentTag;
 
-	public CopperHorn(@NotNull Properties settings, @NotNull TagKey<Instrument> instrumentTag) {
-		super(settings, instrumentTag);
-		this.instrumentTag = instrumentTag;
+	public CopperHorn(@NotNull Properties settings, @NotNull TagKey<Instrument> instruments) {
+		super(settings, instruments);
 	}
 
 	private static void playSound(@NotNull Instrument instrument, @NotNull Player user, @NotNull Level level) {
@@ -67,29 +57,12 @@ public class CopperHorn extends InstrumentItem {
 
 	@Override
 	@NotNull
-	public Optional<? extends Holder<Instrument>> getInstrument(@NotNull ItemStack stack) {
-		CompoundTag nbtCompound = stack.getTag();
-		if (nbtCompound != null) {
-			ResourceLocation identifier = ResourceLocation.tryParse(nbtCompound.getString(INSTRUMENT_KEY));
-			if (identifier != null) {
-				return BuiltInRegistries.INSTRUMENT.getHolder(ResourceKey.create(Registries.INSTRUMENT, identifier));
-			}
-		}
-
-		Iterator<Holder<Instrument>> iterator = BuiltInRegistries.INSTRUMENT.getTagOrEmpty(this.instrumentTag).iterator();
-		return iterator.hasNext() ? Optional.of(iterator.next()) : Optional.empty();
-	}
-
-	@Override
-	@NotNull
 	public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player user, @NotNull InteractionHand interactionHand) {
 		ItemStack itemStack = user.getItemInHand(interactionHand);
 		Optional<? extends Holder<Instrument>> optional = this.getInstrument(itemStack);
 		if (optional.isPresent()) {
-			var instrumentHolder = optional.get();
-			var instrument = instrumentHolder.value();
 			user.startUsingItem(interactionHand);
-			playSound(instrument, user, level);
+			playSound(optional.get().value(), user, level);
 			return InteractionResultHolder.consume(itemStack);
 		} else {
 			return InteractionResultHolder.fail(itemStack);
@@ -102,9 +75,4 @@ public class CopperHorn extends InstrumentItem {
 		return optional.map(instrumentRegistryEntry -> instrumentRegistryEntry.value().useDuration()).orElse(0);
 	}
 
-	@Override
-	@NotNull
-	public UseAnim getUseAnimation(@NotNull ItemStack stack) {
-		return UseAnim.TOOT_HORN;
-	}
 }
