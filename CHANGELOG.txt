@@ -51,4 +51,4 @@ Mod Compat Changes:
 - The Liquid Mesoglea feature (found in Block config) now works with Sodium enabled. (Sodium)
 - The Ancient Horn's massive vibration can no longer be infinitely cycled through Copper Pipes. (Simple Copper Pipes)
 - Falling leaves now follow FrozenLib/Wilder Wild's wind. (Falling Leaves)
-- Chests only bubbles according to Wilder Wild's rules instead of each time they're opened. (Make Bubbles Pop)
+- Chests only bubble according to Wilder Wild's rules instead of each time they're opened. (Make Bubbles Pop)
