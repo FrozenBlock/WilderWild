@@ -53,6 +53,9 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("fallingleaves")) {
 			return WilderSharedConstants.HAS_FALLINGLEAVES;
 		}
+		if (mixinClassName.contains("makebubblespop")) {
+			return WilderSharedConstants.HAS_MAKEBUBBLESPOP;
+		}
 		return true;
 	}
 

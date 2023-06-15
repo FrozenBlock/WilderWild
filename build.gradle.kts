@@ -63,6 +63,7 @@ val terrablender_version: String by project
 val terralith_version: String by project
 val tomsstorage_version: String by project
 val fallingleaves_version: String by project
+val makebubblespop_version: String by project
 
 val sodium_version: String by project
 val iris_version: String by project
@@ -272,6 +273,9 @@ dependencies {
 
     // FallingLeaves
     modCompileOnly("maven.modrinth:fallingleaves:${fallingleaves_version}")
+
+    // MakeBubblesPop
+    modCompileOnly("maven.modrinth:make_bubbles_pop:${makebubblespop_version}")
 
     // BetterEnd
     modCompileOnly("maven.modrinth:betterend:${betterend_version}")

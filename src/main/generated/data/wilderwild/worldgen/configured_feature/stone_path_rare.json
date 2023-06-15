@@ -7,7 +7,7 @@
         "Name": "minecraft:stone"
       }
     },
-    "chance": 0.15,
+    "chance": 0.215,
     "is3D": false,
     "maxThresh": 0.3,
     "minThresh": -0.2,

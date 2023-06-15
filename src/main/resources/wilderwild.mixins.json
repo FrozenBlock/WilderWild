@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "plugin": "net.frozenblock.wilderwild.mixin.WilderWildMixinPlugin",
   "mixins": [
+    "makebubblespop.BlockInteractHandlerMixin",
     "server.general.AllayMixin",
     "server.general.BaseFireBlockMixin",
     "server.general.BaseSpawnerMixin",

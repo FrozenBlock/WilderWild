@@ -194,7 +194,7 @@ public final class WilderMiscConfigured {
 				false,
 				false,
 				WilderBlockTags.GRAVEL_PATH_REPLACEABLE,
-				0.2F
+				0.21F
 			)
 		);
 
@@ -211,7 +211,7 @@ public final class WilderMiscConfigured {
 				false,
 				false,
 				WilderBlockTags.SAND_PATH_REPLACEABLE,
-				0.15F
+				0.25F
 			)
 		);
 
@@ -228,7 +228,7 @@ public final class WilderMiscConfigured {
 				false,
 				false,
 				WilderBlockTags.STONE_PATH_REPLACEABLE,
-				0.15F
+				0.215F
 			)
 		);
 

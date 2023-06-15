@@ -50,6 +50,7 @@ public class WilderSharedConstants {
 	public static boolean IN_MESOGLEA = false;
 
 	public static final boolean HAS_FALLINGLEAVES = FabricLoader.getInstance().isModLoaded("fallingleaves");
+	public static final boolean HAS_MAKEBUBBLESPOP = FabricLoader.getInstance().isModLoaded("make_bubbles_pop");
 
 	public static AbstractClothConfigIntegration config() {
 		return WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration();
