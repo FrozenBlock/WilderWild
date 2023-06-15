@@ -68,6 +68,11 @@ import net.minecraft.world.level.material.Fluids;
 
 public final class WilderMiscConfigured {
 
+	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> COARSE_DIRT_PATH_RARE = register("coarse_dirt_path_rare");
+	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> GRAVEL_PATH_RARE = register("gravel_path_rare");
+	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> SAND_PATH_RARE = register("sand_path_rare");
+	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> STONE_PATH_RARE = register("stone_path_rare");
+
 	// SWAMP
 	public static final FrozenConfiguredFeature<DiskConfiguration, ConfiguredFeature<DiskConfiguration, ?>> DISK_MUD = register("disk_mud");
 	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> MUD_PATH = register("mud_path");
@@ -159,6 +164,74 @@ public final class WilderMiscConfigured {
 	public static void registerMiscPlaced() {
 		WilderSharedConstants.logWild("Registering WilderMiscConfigured for", true);
 
+		COARSE_DIRT_PATH_RARE.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+			new PathTagFeatureConfig(
+				BlockStateProvider.simple(Blocks.COARSE_DIRT),
+				6,
+				3,
+				0.12,
+				-0.2,
+				0.3,
+				false,
+				false,
+				false,
+				false,
+				WilderBlockTags.COARSE_PATH_REPLACEABLE,
+				0.25F
+			)
+		);
+
+		GRAVEL_PATH_RARE.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+			new PathTagFeatureConfig(
+				BlockStateProvider.simple(Blocks.GRAVEL),
+				6,
+				4,
+				0.12,
+				-0.2,
+				0.3,
+				false,
+				false,
+				false,
+				false,
+				WilderBlockTags.GRAVEL_PATH_REPLACEABLE,
+				0.2F
+			)
+		);
+
+		SAND_PATH_RARE.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+			new PathTagFeatureConfig(
+				BlockStateProvider.simple(Blocks.SAND),
+				6,
+				1,
+				0.12,
+				-0.2,
+				0.3,
+				false,
+				false,
+				false,
+				false,
+				WilderBlockTags.SAND_PATH_REPLACEABLE,
+				0.15F
+			)
+		);
+
+		STONE_PATH_RARE.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+			new PathTagFeatureConfig(
+				BlockStateProvider.simple(Blocks.STONE),
+				6,
+				2,
+				0.12,
+				-0.2,
+				0.3,
+				false,
+				false,
+				false,
+				false,
+				WilderBlockTags.STONE_PATH_REPLACEABLE,
+				0.15F
+			)
+		);
+
 		DISK_MUD.makeAndSetHolder(Feature.DISK,
 			new DiskConfiguration(
 				new RuleBasedBlockStateProvider(
@@ -199,7 +272,7 @@ public final class WilderMiscConfigured {
 				false,
 				false,
 				WilderBlockTags.MUD_PATH_REPLACEABLE,
-				0.8F
+				0.75F
 			)
 		);
 
@@ -232,7 +305,7 @@ public final class WilderMiscConfigured {
 				false,
 				false,
 				WilderBlockTags.COARSE_PATH_REPLACEABLE,
-				0.7F
+				0.65F
 			)
 		);
 
@@ -399,7 +472,7 @@ public final class WilderMiscConfigured {
 				false,
 				false,
 				WilderBlockTags.PACKED_MUD_PATH_REPLACEABLE,
-				0.7F
+				0.675F
 			)
 		);
 

@@ -4,19 +4,19 @@
     "block": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "minecraft:packed_mud"
+        "Name": "minecraft:sand"
       }
     },
-    "chance": 0.675,
+    "chance": 0.15,
     "is3D": false,
-    "maxThresh": 1.0,
-    "minThresh": 0.2,
+    "maxThresh": 0.3,
+    "minThresh": -0.2,
     "multiplier": 0.12,
-    "multiplyY": true,
+    "multiplyY": false,
     "noise": 1,
     "onlyExposed": false,
-    "radius": 9,
-    "replaceable": "wilderwild:packed_mud_path_replaceable",
-    "useY": true
+    "radius": 6,
+    "replaceable": "wilderwild:sand_path_replaceable",
+    "useY": false
   }
 }

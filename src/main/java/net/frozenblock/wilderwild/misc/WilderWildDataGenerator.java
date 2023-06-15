@@ -1225,6 +1225,35 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
 				.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
 				.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_RARE_COARSE)
+				.add(Biomes.FOREST)
+				.add(Biomes.SAVANNA)
+				.add(Biomes.DARK_FOREST)
+				.addOptional(RegisterWorldgen.ARID_SAVANNA)
+				.addOptional(RegisterWorldgen.ARID_FOREST)
+				.addOptional(RegisterWorldgen.PARCHED_FOREST)
+				.addOptional(RegisterWorldgen.BIRCH_TAIGA)
+				.addOptional(RegisterWorldgen.MIXED_FOREST)
+				.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
+				.addOptional(RegisterWorldgen.DARK_TAIGA);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_RARE_SAND)
+				.add(Biomes.FOREST)
+				.add(Biomes.SAVANNA)
+				.add(Biomes.DARK_FOREST);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_RARE_GRAVEL)
+				.add(Biomes.FOREST)
+				.add(Biomes.BIRCH_FOREST)
+				.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
+				.add(Biomes.DARK_FOREST)
+				.addOptional(RegisterWorldgen.BIRCH_TAIGA)
+				.addOptional(RegisterWorldgen.MIXED_FOREST)
+				.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
+				.addOptional(RegisterWorldgen.DARK_TAIGA)
+				.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
+				.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
 		}
 
 		private void generateStructureTags() {
@@ -1442,6 +1471,22 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(WilderBlockTags.RIVER_GRAVEL_PATH_REPLACEABLE)
 				.add(Blocks.SAND);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.SAND_PATH_REPLACEABLE)
+				.add(Blocks.DIRT)
+				.add(Blocks.GRASS_BLOCK)
+				.add(Blocks.GRAVEL)
+				.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.GRAVEL_PATH_REPLACEABLE)
+				.add(Blocks.DIRT)
+				.add(Blocks.GRASS_BLOCK)
+				.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.STONE_PATH_REPLACEABLE)
+				.add(Blocks.DIRT)
+				.add(Blocks.GRASS_BLOCK)
+				.addOptionalTag(BlockTags.SAND);
 
 			this.getOrCreateTagBuilder(WilderBlockTags.PACKED_MUD_PATH_REPLACEABLE)
 				.add(Blocks.DIRT)

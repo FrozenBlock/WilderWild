@@ -37,6 +37,18 @@ public final class WilderMiscGeneration {
 		}
 
 		if (WilderSharedConstants.config().surfaceDecoration()) {
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_RARE_COARSE),
+				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.COARSE_PATH_RARE.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_RARE_GRAVEL),
+				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.GRAVEL_PATH_RARE.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_RARE_SAND),
+				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.SAND_PATH_RARE.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_RARE_STONE),
+				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.STONE_PATH_RARE.getKey());
+
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_DECORATIVE_MUD),
 				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.DISK_MUD.getKey());
 

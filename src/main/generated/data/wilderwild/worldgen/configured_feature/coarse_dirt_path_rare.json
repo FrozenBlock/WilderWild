@@ -4,19 +4,19 @@
     "block": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "minecraft:mud"
+        "Name": "minecraft:coarse_dirt"
       }
     },
-    "chance": 0.75,
+    "chance": 0.25,
     "is3D": false,
-    "maxThresh": 1.0,
-    "minThresh": 0.23,
-    "multiplier": 0.1,
+    "maxThresh": 0.3,
+    "minThresh": -0.2,
+    "multiplier": 0.12,
     "multiplyY": false,
-    "noise": 4,
+    "noise": 3,
     "onlyExposed": false,
-    "radius": 11,
-    "replaceable": "wilderwild:mud_path_replaceable",
+    "radius": 6,
+    "replaceable": "wilderwild:coarse_path_replaceable",
     "useY": false
   }
 }

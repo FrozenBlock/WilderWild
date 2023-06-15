@@ -4,19 +4,19 @@
     "block": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "minecraft:mud"
+        "Name": "minecraft:stone"
       }
     },
-    "chance": 0.75,
+    "chance": 0.15,
     "is3D": false,
-    "maxThresh": 1.0,
-    "minThresh": 0.23,
-    "multiplier": 0.1,
+    "maxThresh": 0.3,
+    "minThresh": -0.2,
+    "multiplier": 0.12,
     "multiplyY": false,
-    "noise": 4,
+    "noise": 2,
     "onlyExposed": false,
-    "radius": 11,
-    "replaceable": "wilderwild:mud_path_replaceable",
+    "radius": 6,
+    "replaceable": "wilderwild:stone_path_replaceable",
     "useY": false
   }
 }

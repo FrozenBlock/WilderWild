@@ -16,6 +16,8 @@ Put changelog here:
 - Palms now rarely generate on Beaches.
 - Added Snapped variants of trees.
 - Mangrove Swamps have now been wilder-ified, including Cattails, Flowers, Bushes, Mud Basins, Mud Lakes, more Grass, Fern, and rare Mud Piles.
+- Made path features look more natural.
+- Added new rare Coarse Dirt, Gravel, Sand, and Stone paths throughout the world.
 - Algae no longer slows down entities outside its collision shape.
 - Fixed Algae bonemealing.
 - Decreased the size of uncommon Algae patches (Swamp & Mangrove Swamp.)

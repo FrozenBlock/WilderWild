@@ -47,7 +47,7 @@ public final class WilderBlockTags {
 	public static final TagKey<Block> STOPS_TUMBLEWEED = bind("stops_tumbleweed");
 	public static final TagKey<Block> CATTAIL_PLACEABLE = bind("cattail_placeable");
 	public static final TagKey<Block> CATTAIL_MUD_PLACEABLE = bind("cattail_mud_placeable");
-	public static final TagKey<Block> STONE_TRANSITION_REPLACEABLE = bind("red_sand_transition_replaceable");
+	public static final TagKey<Block> STONE_TRANSITION_REPLACEABLE = bind("stone_transition_replaceable");
 	public static final TagKey<Block> STONE_TRANSITION_PLACEABLE = bind("stone_transition_placeable");
 	public static final TagKey<Block> SMALL_SAND_TRANSITION_REPLACEABLE = bind("small_sand_transition_replaceable");
 	public static final TagKey<Block> GRAVEL_TRANSITION_REPLACEABLE = bind("gravel_transition_replaceable");
@@ -65,6 +65,9 @@ public final class WilderBlockTags {
 	public static final TagKey<Block> UNDER_WATER_CLAY_PATH_REPLACEABLE = bind("under_water_clay_path_replaceable");
 	public static final TagKey<Block> BEACH_CLAY_PATH_REPLACEABLE = bind("beach_clay_path_replaceable");
 	public static final TagKey<Block> RIVER_GRAVEL_PATH_REPLACEABLE = bind("river_gravel_path_replaceable");
+	public static final TagKey<Block> SAND_PATH_REPLACEABLE = bind("sand_path_replaceable");
+	public static final TagKey<Block> GRAVEL_PATH_REPLACEABLE = bind("gravel_path_replaceable");
+	public static final TagKey<Block> STONE_PATH_REPLACEABLE = bind("stone_path_replaceable");
 	public static final TagKey<Block> PACKED_MUD_PATH_REPLACEABLE = bind("packed_mud_path_replaceable");
 	public static final TagKey<Block> MOSS_PATH_REPLACEABLE = bind("moss_path_replaceable");
 	public static final TagKey<Block> SANDSTONE_PATH_REPLACEABLE = bind("sandstone_path_replaceable");

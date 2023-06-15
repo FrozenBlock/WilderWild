@@ -49,6 +49,11 @@ import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
 
 public final class WilderMiscPlaced {
+
+	public static final FrozenPlacedFeature COARSE_PATH_RARE = register("coarse_dirt_path_rare");
+	public static final FrozenPlacedFeature GRAVEL_PATH_RARE = register("gravel_path_rare");
+	public static final FrozenPlacedFeature SAND_PATH_RARE = register("sand_path_rare");
+	public static final FrozenPlacedFeature STONE_PATH_RARE = register("stone_path_rare");
 	// SWAMP
 	public static final FrozenPlacedFeature DISK_MUD = register("disk_mud");
 	public static final FrozenPlacedFeature MUD_PATH = register("mud_path");
@@ -132,6 +137,34 @@ public final class WilderMiscPlaced {
 		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
 		WilderSharedConstants.logWild("Registering WilderMiscPlaced for", true);
+
+		COARSE_PATH_RARE.makeAndSetHolder(WilderMiscConfigured.COARSE_DIRT_PATH_RARE.getHolder(),
+			RarityFilter.onAverageOnceEvery(32),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
+		);
+
+		GRAVEL_PATH_RARE.makeAndSetHolder(WilderMiscConfigured.GRAVEL_PATH_RARE.getHolder(),
+			RarityFilter.onAverageOnceEvery(29),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
+		);
+
+		SAND_PATH_RARE.makeAndSetHolder(WilderMiscConfigured.SAND_PATH_RARE.getHolder(),
+			RarityFilter.onAverageOnceEvery(48),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
+		);
+
+		STONE_PATH_RARE.makeAndSetHolder(WilderMiscConfigured.STONE_PATH_RARE.getHolder(),
+			RarityFilter.onAverageOnceEvery(32),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
+		);
 
 		// SWAMP
 

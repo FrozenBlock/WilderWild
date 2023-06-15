@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:forest",
+    "minecraft:savanna",
+    "minecraft:dark_forest"
+  ]
+}
