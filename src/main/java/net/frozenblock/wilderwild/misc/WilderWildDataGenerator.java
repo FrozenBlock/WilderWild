@@ -1241,13 +1241,21 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_RARE_SAND)
 				.add(Biomes.FOREST)
 				.add(Biomes.SAVANNA)
-				.add(Biomes.DARK_FOREST);
+				.add(Biomes.DARK_FOREST)
+				.add(Biomes.PLAINS)
+				.add(Biomes.SUNFLOWER_PLAINS);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_RARE_GRAVEL)
 				.add(Biomes.FOREST)
 				.add(Biomes.BIRCH_FOREST)
 				.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
 				.add(Biomes.DARK_FOREST)
+				.add(Biomes.TAIGA)
+				.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA)
+				.add(Biomes.OLD_GROWTH_PINE_TAIGA)
+				.add(Biomes.FLOWER_FOREST)
+				.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
+				.addOptional(RegisterWorldgen.FLOWER_FIELD)
 				.addOptional(RegisterWorldgen.BIRCH_TAIGA)
 				.addOptional(RegisterWorldgen.MIXED_FOREST)
 				.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)

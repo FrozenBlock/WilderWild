@@ -3,6 +3,8 @@
   "values": [
     "minecraft:forest",
     "minecraft:savanna",
-    "minecraft:dark_forest"
+    "minecraft:dark_forest",
+    "minecraft:plains",
+    "minecraft:sunflower_plains"
   ]
 }
