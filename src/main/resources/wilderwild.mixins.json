@@ -99,6 +99,7 @@
     "client.wind.ParticleMixin",
     "client.wind.SnowflakeParticleMixin",
     "client.wind.SporeBlossomAirProviderMixin",
+    "fallingleaves.FallingLeafParticleMixin",
     "sodium.CloudRendererMixin",
     "sodium.FluidRendererMixin"
   ],

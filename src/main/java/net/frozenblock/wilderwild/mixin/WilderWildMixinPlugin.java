@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.mixin;
 import java.util.List;
 import java.util.Set;
 import net.frozenblock.lib.FrozenBools;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.tree.ClassNode;
@@ -48,6 +49,9 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		}
 		if (mixinClassName.contains("LiquidBlockRenderer") || mixinClassName.contains("CloudRenderer") || mixinClassName.contains("EntityRenderDispatcher")) {
 			return !FrozenBools.HAS_SODIUM;
+		}
+		if (mixinClassName.contains("fallingleaves")) {
+			return WilderSharedConstants.HAS_FALLINGLEAVES;
 		}
 		return true;
 	}
