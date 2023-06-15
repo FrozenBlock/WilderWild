@@ -1254,6 +1254,26 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptional(RegisterWorldgen.DARK_TAIGA)
 				.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
 				.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_RARE_STONE)
+				.add(Biomes.FOREST)
+				.add(Biomes.BIRCH_FOREST)
+				.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
+				.add(Biomes.DARK_FOREST)
+				.add(Biomes.TAIGA)
+				.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA)
+				.add(Biomes.OLD_GROWTH_PINE_TAIGA)
+				.add(Biomes.FLOWER_FOREST)
+				.add(Biomes.SAVANNA_PLATEAU)
+				.addOptional(RegisterWorldgen.MIXED_FOREST)
+				.addOptional(RegisterWorldgen.BIRCH_TAIGA)
+				.addOptional(RegisterWorldgen.MIXED_FOREST)
+				.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
+				.addOptional(RegisterWorldgen.DARK_TAIGA)
+				.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
+				.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
+				.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
+				.addOptional(RegisterWorldgen.FLOWER_FIELD);
 		}
 
 		private void generateStructureTags() {

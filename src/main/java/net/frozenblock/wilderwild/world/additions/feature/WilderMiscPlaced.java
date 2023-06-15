@@ -160,7 +160,7 @@ public final class WilderMiscPlaced {
 		);
 
 		STONE_PATH_RARE.makeAndSetHolder(WilderMiscConfigured.STONE_PATH_RARE.getHolder(),
-			RarityFilter.onAverageOnceEvery(32),
+			RarityFilter.onAverageOnceEvery(72),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
