@@ -7,7 +7,7 @@
         "Name": "minecraft:sand"
       }
     },
-    "chance": 0.975,
+    "chance": 0.925,
     "is3D": false,
     "maxThresh": 0.54,
     "minThresh": 0.2,

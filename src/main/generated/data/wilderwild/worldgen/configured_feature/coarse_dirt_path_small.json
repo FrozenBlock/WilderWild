@@ -7,7 +7,7 @@
         "Name": "minecraft:coarse_dirt"
       }
     },
-    "chance": 0.85,
+    "chance": 0.715,
     "is3D": false,
     "maxThresh": 1.0,
     "minThresh": 0.2,

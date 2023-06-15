@@ -7,7 +7,7 @@
         "Name": "minecraft:sandstone"
       }
     },
-    "chance": 0.775,
+    "chance": 0.65,
     "is3D": false,
     "maxThresh": 1.0,
     "minThresh": 0.4,
