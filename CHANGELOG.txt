@@ -19,7 +19,7 @@ Put changelog here:
 - Made path features look more natural.
 - Added new rare Coarse Dirt, Gravel, Sand, and Stone paths throughout the world.
 - Algae no longer slows down entities outside its collision shape.
-- Fixed Algae bonemealing.
+- Fixed Algae growth with Bone meal.
 - Decreased the size of uncommon Algae patches (Swamp & Mangrove Swamp.)
 - Added a new advancement "Bottle of Lightning" for capturing a Firefly in a Glass Bottle.
 - Incorporated Wilder Wild's new foods, mobs, and biomes into Vanilla's advancements (note that this may be overriden by other mods' data.)
@@ -36,7 +36,7 @@ Put changelog here:
 - Shadows no longer render on waterlogged Mesoglea. Change not applied with Sodium.
 - Fixed block-break sounds playing when Echo Glass only cracks.
 - Added new Frosted Ice melting sounds and particles.
-- Jellyfish and Firerflies now only hide when they're near the center of their target.
+- Jellyfish and Fireflies now only hide when they're near the center of their target.
 - Made many more aspects of Wilder Wild's worldgen data-driven.
 - Optimized the way some features generate (Trees, Cattails, Algae, etc.)
 - Fixed broken loop in Deep Dark ambience.
