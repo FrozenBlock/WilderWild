@@ -149,8 +149,8 @@ public class Jellyfish extends NoFlopAbstractFish {
 		jellyfish.setDeltaMovement(0, 0.1 + level.random.nextDouble() * 0.07, 0);
 		jellyfish.prevScale = 0F;
 		jellyfish.scale = 0F;
-		level.broadcastEntityEvent(jellyfish, (byte) 5);
 		level.addFreshEntity(jellyfish);
+		level.broadcastEntityEvent(jellyfish, (byte) 5);
 	}
 
 	@NotNull
@@ -343,7 +343,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 		if (this.growing) {
 			if (this.scale < 1F) {
-				this.scale += 0.5F;
+				this.scale += 0.25F;
 			} else {
 				this.scale = 1F;
 				this.growing = false;
