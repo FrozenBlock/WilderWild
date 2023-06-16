@@ -147,11 +147,18 @@ public final class EntityConfig implements ConfigData {
 			.setTooltip(tooltip("leashed_tumbleweed"))
 			.build();
 
+		var tumbleweedRotatesToLookDirection = entryBuilder.startBooleanToggle(text("tumbleweed_rotates_to_look_direction"), tumbleweed.tumbleweedRotatesToLookDirection)
+			.setDefaultValue(DefaultEntityConfig.TumbleweedConfig.TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION)
+			.setSaveConsumer(newValue -> tumbleweed.tumbleweedRotatesToLookDirection = newValue)
+			.setTooltip(tooltip("tumbleweed_rotates_to_look_direction"))
+			.build();
+
 		var tumbleweedCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("tumbleweed"),
 			false,
 			tooltip("tumbleweed"),
 			tumbleweedSpawnCap,
-			leashedTumbleweed
+			leashedTumbleweed,
+			tumbleweedRotatesToLookDirection
 		);
 
 
@@ -222,6 +229,7 @@ public final class EntityConfig implements ConfigData {
 	public static class TumbleweedConfig {
 		public int tumbleweedSpawnCap = DefaultEntityConfig.TumbleweedConfig.TUMBLEWEED_SPAWN_CAP;
 		public boolean leashedTumbleweed = DefaultEntityConfig.TumbleweedConfig.LEASHED_TUMBLEWEED;
+		public boolean tumbleweedRotatesToLookDirection = DefaultEntityConfig.TumbleweedConfig.LEASHED_TUMBLEWEED;
 	}
 
 	public static class WardenConfig {

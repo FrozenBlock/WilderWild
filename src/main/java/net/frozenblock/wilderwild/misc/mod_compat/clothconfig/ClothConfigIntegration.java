@@ -258,6 +258,11 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean tumbleweedRotatesToLookDirection() {
+		return TUMBLEWEED.tumbleweedRotatesToLookDirection;
+	}
+
+	@Override
 	public boolean wardenAttacksImmediately() {
 		return WARDEN.wardenAttacksImmediately;
 	}

@@ -112,6 +112,8 @@ public abstract class AbstractClothConfigIntegration extends ModIntegration {
 
 	public abstract boolean leashedTumbleweed();
 
+	public abstract boolean tumbleweedRotatesToLookDirection();
+
 	public abstract boolean wardenAttacksImmediately();
 
 	public abstract boolean wardenCustomTendrils();

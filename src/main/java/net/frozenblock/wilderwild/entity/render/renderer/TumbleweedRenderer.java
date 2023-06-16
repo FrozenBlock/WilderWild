@@ -72,7 +72,9 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<
 
 	@Override
 	protected void setupRotations(@NotNull Tumbleweed entityLiving, @NotNull PoseStack matrixStack, float ageInTicks, float rotationYaw, float partialTick) {
-
+		if (WilderSharedConstants.config().tumbleweedRotatesToLookDirection()) {
+			matrixStack.mulPose(Axis.YP.rotationDegrees(180.0f - rotationYaw));
+		}
 	}
 
 	@Override

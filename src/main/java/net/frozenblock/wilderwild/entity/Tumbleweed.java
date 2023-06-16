@@ -100,8 +100,11 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	public float prevRoll;
 	public float pitch;
 	public float roll;
+	public float prevTumble;
+	public float tumble;
 	public float itemX;
 	public float itemZ;
+	private float lookRot;
 
 	public Tumbleweed(@NotNull EntityType<Tumbleweed> entityType, @NotNull Level level) {
 		super(entityType, level);
@@ -193,17 +196,21 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	public void setAngles(@NotNull Vec3 deltaPos) {
-		if (deltaPos.horizontalDistance() > 0) {
-			this.setYRot(-((float) Mth.atan2(deltaPos.x, deltaPos.z)) * 57.295776f);
-			this.yBodyRot = this.getYRot();
+		if (deltaPos.horizontalDistance() > 0.01) {
+			this.lookRot = -((float) Mth.atan2(deltaPos.x, deltaPos.z)) * 57.295776F;
 		}
+		float yRot = this.getYRot();
+		this.setYRot(yRot += ((this.lookRot - yRot) * 0.25F));
+		this.yBodyRot = yRot;
 		this.prevPitch = this.pitch;
 		this.prevRoll = this.roll;
+		this.prevTumble = this.tumble;
 		float yRotAmount = (float) ((Math.abs(deltaPos.y) * 0.5F) * rotationAmount);
 		this.pitch -= deltaPos.z * rotationAmount;
 		this.roll -= deltaPos.x * rotationAmount;
 		this.pitch += yRotAmount;
 		this.roll += yRotAmount;
+		this.tumble += ((Math.abs(deltaPos.z) + Math.abs(deltaPos.x) + (Math.abs(deltaPos.x) * 0.5F)) * 0.5F) * rotationAmount;
 		if (this.pitch > 360F) {
 			this.pitch -= 360F;
 			this.prevPitch -= 360F;
@@ -217,6 +224,13 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		} else if (this.roll < 0F) {
 			this.roll += 360F;
 			this.prevRoll += 360F;
+		}
+		if (this.tumble > 360F) {
+			this.tumble -= 360F;
+			this.prevTumble -= 360F;
+		} else if (this.tumble < 0F) {
+			this.tumble += 360F;
+			this.prevTumble += 360F;
 		}
 	}
 
@@ -404,7 +418,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 			this.getType(),
 			0,
 			this.getDeltaMovement(),
-			this.yHeadRot
+			this.tumble
 		);
 	}
 
@@ -417,7 +431,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		this.pitch = packet.getXRot();
 		this.syncPacketPositionCodec(d, e, f);
 		this.yBodyRot = packet.getYHeadRot();
-		this.yHeadRot = packet.getYHeadRot();
+		this.tumble = packet.getYHeadRot();
 		this.yBodyRotO = this.yBodyRot;
 		this.yHeadRotO = this.yHeadRot;
 		this.setId(packet.getId());
@@ -438,6 +452,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		this.roll = compound.getFloat("TumbleRoll");
 		this.isTouchingStickingBlock = compound.getBoolean("isTouchingStickingBlock");
 		this.isTouchingStoppingBlock = compound.getBoolean("IsTouchingStoppingBlock");
+		this.lookRot = compound.getFloat("LookRot");
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
 		ContainerHelper.loadAllItems(compound, this.inventory);
 	}
@@ -454,6 +469,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		compound.putFloat("TumbleRoll", this.roll);
 		compound.putBoolean("isTouchingStickingBlock", this.isTouchingStickingBlock);
 		compound.putBoolean("IsTouchingStoppingBlock", this.isTouchingStoppingBlock);
+		compound.putFloat("LookRot", this.lookRot);
 		ContainerHelper.saveAllItems(compound, this.inventory);
 	}
 

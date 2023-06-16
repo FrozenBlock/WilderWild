@@ -230,6 +230,12 @@ public class NoOpClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean tumbleweedRotatesToLookDirection() {
+		return DefaultEntityConfig.TumbleweedConfig.TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION;
+	}
+
+
+	@Override
 	public boolean wardenAttacksImmediately() {
 		return DefaultEntityConfig.WardenConfig.WARDEN_ATTACKS_IMMEDIATELY;
 	}
