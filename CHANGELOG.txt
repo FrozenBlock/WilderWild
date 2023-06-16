@@ -41,6 +41,7 @@ Put changelog here:
 - Optimized the way some features generate (Trees, Cattails, Algae, etc.)
 - Fixed broken loop in Deep Dark ambience.
 - Fixed a bug where Wardens would continuously attempt and fail to roar at Tumbleweeds.
+- Tumbleweed entities now properly look in the direction they're moving.
 - Fixed broken Stone Chest animations and cleaned up their code.
 - Added descriptions and proper names to Wilder Wild's built-in resource packs.
 - Fixed cloud rendering at high coordinates.

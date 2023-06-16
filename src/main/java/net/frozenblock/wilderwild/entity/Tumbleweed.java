@@ -194,23 +194,29 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 	public void setAngles(@NotNull Vec3 deltaPos) {
 		if (deltaPos.horizontalDistance() > 0) {
-			this.setYRot(((float) Mth.atan2(deltaPos.x, deltaPos.z)) * 57.295776f);
+			this.setYRot(-((float) Mth.atan2(deltaPos.x, deltaPos.z)) * 57.295776f);
 			this.yBodyRot = this.getYRot();
 		}
 		this.prevPitch = this.pitch;
 		this.prevRoll = this.roll;
 		float yRotAmount = (float) ((Math.abs(deltaPos.y) * 0.5F) * rotationAmount);
-		this.pitch += deltaPos.z * rotationAmount;
-		this.roll += deltaPos.x * rotationAmount;
+		this.pitch -= deltaPos.z * rotationAmount;
+		this.roll -= deltaPos.x * rotationAmount;
 		this.pitch += yRotAmount;
 		this.roll += yRotAmount;
 		if (this.pitch > 360F) {
 			this.pitch -= 360F;
 			this.prevPitch -= 360F;
+		} else if (this.pitch < 0F) {
+			this.pitch += 360F;
+			this.prevPitch += 360F;
 		}
 		if (this.roll > 360F) {
 			this.roll -= 360F;
 			this.prevRoll -= 360F;
+		} else if (this.roll < 0F) {
+			this.roll += 360F;
+			this.prevRoll += 360F;
 		}
 	}
 
@@ -318,7 +324,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 	@NotNull
 	public Vec3 getDeltaPos() {
-		return this.getPosition(0).subtract(this.getPosition(1));
+		return this.getPosition(1).subtract(this.getPosition(0));
 	}
 
 	public static boolean isSilkTouchOrShears(@NotNull DamageSource damageSource) {
