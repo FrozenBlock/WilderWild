@@ -36,6 +36,7 @@ import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.DebugPackets;
@@ -225,6 +226,32 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@NotNull
 	protected SoundEvent getSwimSound() {
 		return RegisterSounds.ENTITY_JELLYFISH_SWIM;
+	}
+
+	@Override
+	protected void playSwimSound(float volume) {
+		super.playSwimSound(volume);
+		this.spawnBubbles();
+	}
+
+	@NotNull
+	private Vec3 rotateVector(@NotNull Vec3 vector) {
+		Vec3 vec3 = vector.xRot(this.xRot1 * ((float)Math.PI / 180F));
+		vec3 = vec3.yRot(-this.yBodyRotO * ((float)Math.PI / 180F));
+		return vec3;
+	}
+
+	private void spawnBubbles() {
+		if (this.level() instanceof ServerLevel serverLevel) {
+			double deltaLength = this.getDeltaMovement().length();
+			float bbHeight = this.getBbHeight();
+			Vec3 vec3 = this.rotateVector(new Vec3(0, -bbHeight, 0)).add(this.getX(), this.getY(), this.getZ());
+			for (int i = 0; i < this.random.nextInt(0, (int) (2 + (deltaLength * 25))); ++i) {
+				Vec3 vec32 = this.rotateVector(new Vec3((double) this.random.nextFloat() * 0.6 - 0.3, -1.0, (double) this.random.nextFloat() * 0.6 - 0.3));
+				Vec3 vec33 = vec32.scale(0.3 + (double) (this.random.nextFloat() * 2.0f));
+				serverLevel.sendParticles(ParticleTypes.BUBBLE, vec3.x, vec3.y + (bbHeight * 0.5), vec3.z, 0, vec33.x, vec33.y, vec33.z, (deltaLength * 2) + 0.1);
+			}
+		}
 	}
 
 	@Override
