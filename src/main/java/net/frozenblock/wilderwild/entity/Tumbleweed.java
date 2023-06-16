@@ -193,8 +193,8 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	public void setAngles(@NotNull Vec3 deltaPos) {
-		if (deltaPos.horizontalDistance() >= 0.01) {
-			this.setYRot(-((float) Mth.atan2(deltaPos.x, deltaPos.z)) * 57.295776f);
+		if (deltaPos.horizontalDistance() > 0) {
+			this.setYRot(((float) Mth.atan2(deltaPos.x, deltaPos.z)) * 57.295776f);
 			this.yBodyRot = this.getYRot();
 		}
 		this.prevPitch = this.pitch;
