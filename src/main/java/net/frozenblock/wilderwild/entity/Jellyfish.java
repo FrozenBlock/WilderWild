@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import net.frozenblock.lib.entity.api.NoFlopAbstractFish;
-import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.entity.ai.jellyfish.JellyfishAi;
 import net.frozenblock.wilderwild.entity.variant.JellyfishVariant;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
@@ -103,6 +102,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public float xRot5;
 	public float xRot6;
 	public boolean vanishing;
+	public boolean growing;
 	public float prevScale = 1F;
 	public float scale = 1F;
 	public int ticksSinceSpawn;
@@ -131,7 +131,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@NotNull
 	public static AttributeSupplier.Builder addAttributes() {
-		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.MOVEMENT_SPEED, 0.5F).add(Attributes.FOLLOW_RANGE, 32F);
+		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.MOVEMENT_SPEED, 0.5F).add(Attributes.FOLLOW_RANGE, MAX_TARGET_DISTANCE);
 	}
 
 	public static void spawnFromChest(@NotNull Level level, @NotNull BlockState state, @NotNull BlockPos pos) {
@@ -147,7 +147,8 @@ public class Jellyfish extends NoFlopAbstractFish {
 		jellyfish.setPos(pos.getX() + 0.5 + additionalX, pos.getY() + 0.75, pos.getZ() + 0.5 + additionalZ);
 		jellyfish.setDeltaMovement(0, 0.1 + level.random.nextDouble() * 0.07, 0);
 		jellyfish.prevScale = 0F;
-		jellyfish.scale = 1F;
+		jellyfish.scale = 0F;
+		level.broadcastEntityEvent(jellyfish, (byte) 5);
 		level.addFreshEntity(jellyfish);
 	}
 
@@ -175,22 +176,20 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
-		setVariantFromBiome(level.getBiome(this.blockPosition()));
+		setVariantFromBiome(level.getBiome(this.blockPosition()), level.getRandom());
 		return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
 	}
 
 	public void setVariantFromPos(@NotNull Level level, @NotNull BlockPos pos) {
-		setVariantFromBiome(level.getBiome(pos));
+		setVariantFromBiome(level.getBiome(pos), level.getRandom());
 	}
 
-	private void setVariantFromBiome(@NotNull Holder<Biome> biome) {
-		var random = AdvancedMath.random();
+	private void setVariantFromBiome(@NotNull Holder<Biome> biome, RandomSource randomSource) {
 		this.setVariantFromBiome(JellyfishVariant.PINK);
-
 		if (biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH) && !PEARLESCENT_VARIANTS.isEmpty()) {
-			this.setVariantFromBiome(PEARLESCENT_VARIANTS.get(random.nextInt(PEARLESCENT_VARIANTS.size())));
+			this.setVariantFromBiome(PEARLESCENT_VARIANTS.get(randomSource.nextInt(PEARLESCENT_VARIANTS.size())));
 		} else if (!COLORED_VARIANTS.isEmpty()) {
-			this.setVariantFromBiome(COLORED_VARIANTS.get(random.nextInt(COLORED_VARIANTS.size())));
+			this.setVariantFromBiome(COLORED_VARIANTS.get(randomSource.nextInt(COLORED_VARIANTS.size())));
 		}
 	}
 
@@ -315,7 +314,14 @@ public class Jellyfish extends NoFlopAbstractFish {
 			this.moveToAccurate(target, 2);
 		}
 
-		if (this.vanishing) {
+		if (this.growing) {
+			if (this.scale < 1F) {
+				this.scale += 0.5F;
+			} else {
+				this.scale = 1F;
+				this.growing = false;
+			}
+		} else if (this.vanishing) {
 			if (this.prevScale <= 0F) {
 				this.discard();
 				//TODO: Hide sound
@@ -330,15 +336,11 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public void handleEntityEvent(byte id) {
 		if (id == (byte) 4) {
 			this.vanishing = true;
+		} else if (id == (byte) 5) {
+			this.growing = true;
 		} else {
 			super.handleEntityEvent(id);
 		}
-	}
-
-	@Override
-	public boolean doHurtTarget(@NotNull Entity target) {
-		this.level().broadcastEntityEvent(this, (byte) 4);
-		return super.doHurtTarget(target);
 	}
 
 	public void stingEntities() {
