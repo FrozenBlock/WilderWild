@@ -215,7 +215,6 @@ public final class RegisterBlocks {
 	public static final WilderBushBlock BUSH = new WilderBushBlock(FabricBlockSettings.create().breakInstantly().nonOpaque().noCollision().ticksRandomly().sounds(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ));
 	public static final FlowerPotBlock POTTED_BUSH = new FlowerPotBlock(BUSH, FabricBlockSettings.create().breakInstantly().nonOpaque().pushReaction(PushReaction.DESTROY));
 	public static final TumbleweedPlantBlock TUMBLEWEED_PLANT = new TumbleweedPlantBlock(FabricBlockSettings.create().nonOpaque().sounds(RegisterBlockSoundTypes.TUMBLEWEED_PLANT).randomTicks());
-
 	// HOLLOWED LOGS
 	public static final FlowerPotBlock POTTED_TUMBLEWEED_PLANT = new FlowerPotBlock(TUMBLEWEED_PLANT, FabricBlockSettings.create().breakInstantly().nonOpaque().pushReaction(PushReaction.DESTROY));
 	public static final TumbleweedBlock TUMBLEWEED = new TumbleweedBlock(FabricBlockSettings.create().breakInstantly().nonOpaque().sounds(RegisterBlockSoundTypes.TUMBLEWEED_PLANT).randomTicks());
