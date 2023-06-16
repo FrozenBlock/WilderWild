@@ -177,10 +177,25 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 			this.level().destroyBlock(this.blockPosition(), true, this);
 		}
 		super.tick();
-		this.setYRot(0F);
 		Vec3 deltaPos = this.getDeltaPos();
-		if (deltaPos.horizontalDistance() != 0) {
-			this.setYRot(-((float) (Mth.atan2(deltaPos.x * 10, deltaPos.z * 10) * 57.2957763671875D) - 90));
+		this.setAngles(deltaPos);
+		if (this.level().isClientSide) {
+			this.itemX = this.getItemX();
+			this.itemZ = this.getItemZ();
+		} else if (!this.isRemoved() && this.level() instanceof ServerLevel serverLevel) {
+			this.heal(1F);
+			double brightness = this.level().getBrightness(LightLayer.SKY, BlockPos.containing(this.getEyePosition()));
+			this.checkActive(brightness);
+			this.moveWithWind(serverLevel, brightness, deltaPos);
+			this.tickAfterWindLeash();
+			this.pickupItem();
+		}
+	}
+
+	public void setAngles(@NotNull Vec3 deltaPos) {
+		if (deltaPos.horizontalDistance() >= 0.01) {
+			this.setYRot(-((float) Mth.atan2(deltaPos.x, deltaPos.z)) * 57.295776f);
+			this.yBodyRot = this.getYRot();
 		}
 		this.prevPitch = this.pitch;
 		this.prevRoll = this.roll;
@@ -197,55 +212,44 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 			this.roll -= 360F;
 			this.prevRoll -= 360F;
 		}
-		if (this.level().isClientSide) {
-			this.itemX = this.getItemX();
-			this.itemZ = this.getItemZ();
-		} else if (!this.isRemoved() && this.level() instanceof ServerLevel serverLevel) {
-			this.heal(1F);
-			double brightness = this.level().getBrightness(LightLayer.SKY, BlockPos.containing(this.getEyePosition()));
-			Player entity = this.level().getNearestPlayer(this, -1.0);
-			if (!this.requiresCustomPersistence() && ((brightness < 7 && (entity == null || entity.distanceTo(this) > 24)) || this.isTouchingStoppingBlock || this.isTouchingStickingBlock || (this.wasTouchingWater && !(this.getFeetBlockState().getBlock() instanceof MesogleaBlock)))) {
-				++this.ticksSinceActive;
-				if (this.ticksSinceActive >= 200) {
-					this.destroy(false);
-				}
-			} else {
-				this.ticksSinceActive = 0;
-			}
+	}
 
-			if (!(this.isTouchingStoppingBlock || this.isTouchingStickingBlock)) {
-				Vec3 deltaMovement = this.getDeltaMovement();
-				WindManager windManager = WindManager.getWindManager(serverLevel);
-				double multiplier = (Math.max((brightness - (Math.max(15 - brightness, 0))), 0) * 0.0667) * (this.wasTouchingWater ? 0.16777216 : 1);
-				double windX = Mth.clamp(windManager.windX * windMultiplier, -windClamp, windClamp);
-				double windZ = Mth.clamp(windManager.windZ * windMultiplier, -windClamp, windClamp);
-				deltaMovement = deltaMovement.add((windX * 0.2) * multiplier, 0, (windZ * 0.2) * multiplier);
-				deltaMovement = new Vec3(deltaMovement.x, deltaMovement.y < 0 ? deltaMovement.y * 0.88 : deltaMovement.y, deltaMovement.z);
-				if (deltaPos.y <= 0 && this.onGround()) {
-					deltaMovement = deltaMovement.add(0, Math.min(0.65, ((deltaPos.horizontalDistance() * 1.2))) * multiplier, 0);
-				}
-				if (deltaPos.x == 0) {
-					double nonNegX = deltaMovement.x < 0 ? -deltaMovement.x : deltaMovement.x;
-					deltaMovement = deltaMovement.add(0, (nonNegX * 1.8) * multiplier, 0);
-				}
-				if (deltaPos.z == 0) {
-					double nonNegZ = deltaMovement.z < 0 ? -deltaMovement.z : deltaMovement.z;
-					deltaMovement = deltaMovement.add(0, (nonNegZ * 1.8) * multiplier, 0);
-				}
-				if (this.wasEyeInWater) {
-					deltaMovement = deltaMovement.add(0, 0.01, 0);
-				}
-				this.setDeltaMovement(deltaMovement);
+	private void checkActive(double brightness) {
+		Player entity = this.level().getNearestPlayer(this, -1.0);
+		if (!this.requiresCustomPersistence() && ((brightness < 7 && (entity == null || entity.distanceTo(this) > 24)) || this.isTouchingStoppingBlock || this.isTouchingStickingBlock || (this.wasTouchingWater && !(this.getFeetBlockState().getBlock() instanceof MesogleaBlock)))) {
+			++this.ticksSinceActive;
+			if (this.ticksSinceActive >= 200) {
+				this.destroy(false);
 			}
+		} else {
+			this.ticksSinceActive = 0;
+		}
+	}
 
-			this.tickAfterWindLeash();
-
-			ItemStack stack = this.inventory.get(0);
-			if (stack.getCount() > 1) {
-				this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), stack.split(stack.getCount() - 1)));
+	private void moveWithWind(@NotNull ServerLevel serverLevel, double brightness, @NotNull Vec3 deltaPos) {
+		if (!(this.isTouchingStoppingBlock || this.isTouchingStickingBlock)) {
+			Vec3 deltaMovement = this.getDeltaMovement();
+			WindManager windManager = WindManager.getWindManager(serverLevel);
+			double multiplier = (Math.max((brightness - (Math.max(15 - brightness, 0))), 0) * 0.0667) * (this.wasTouchingWater ? 0.16777216 : 1);
+			double windX = Mth.clamp(windManager.windX * windMultiplier, -windClamp, windClamp);
+			double windZ = Mth.clamp(windManager.windZ * windMultiplier, -windClamp, windClamp);
+			deltaMovement = deltaMovement.add((windX * 0.2) * multiplier, 0, (windZ * 0.2) * multiplier);
+			deltaMovement = new Vec3(deltaMovement.x, deltaMovement.y < 0 ? deltaMovement.y * 0.88 : deltaMovement.y, deltaMovement.z);
+			if (deltaPos.y <= 0 && this.onGround()) {
+				deltaMovement = deltaMovement.add(0, Math.min(0.65, ((deltaPos.horizontalDistance() * 1.2))) * multiplier, 0);
 			}
-			this.pickupItem();
-			this.setVisibleItem(stack);
+			if (deltaPos.x == 0) {
+				double nonNegX = deltaMovement.x < 0 ? -deltaMovement.x : deltaMovement.x;
+				deltaMovement = deltaMovement.add(0, (nonNegX * 1.8) * multiplier, 0);
+			}
+			if (deltaPos.z == 0) {
+				double nonNegZ = deltaMovement.z < 0 ? -deltaMovement.z : deltaMovement.z;
+				deltaMovement = deltaMovement.add(0, (nonNegZ * 1.8) * multiplier, 0);
+			}
+			if (this.wasEyeInWater) {
+				deltaMovement = deltaMovement.add(0, 0.01, 0);
+			}
+			this.setDeltaMovement(deltaMovement);
 		}
 	}
 
@@ -266,7 +270,11 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	public void pickupItem() {
-		if (!this.level().isClientSide && this.inventory.get(0).isEmpty() && this.level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !this.isRemoved()) {
+		ItemStack inventoryStack = this.inventory.get(0);
+		if (inventoryStack.getCount() > 1) {
+			this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), inventoryStack.split(inventoryStack.getCount() - 1)));
+		}
+		if (!this.level().isClientSide && inventoryStack.isEmpty() && this.level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !this.isRemoved()) {
 			List<ItemEntity> list = this.level().getEntitiesOfClass(ItemEntity.class, this.getBoundingBox().inflate(0.15));
 			for (ItemEntity item : list) {
 				if (this.isMovingTowards(item)) {
@@ -280,6 +288,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 				}
 			}
 		}
+		this.setVisibleItem(this.inventory.get(0));
 	}
 
 	public void dropItem(boolean killed) {
