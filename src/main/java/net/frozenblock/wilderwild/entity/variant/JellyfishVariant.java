@@ -48,7 +48,6 @@ public record JellyfishVariant(@NotNull ResourceLocation key, @NotNull ResourceL
 		this.key = key;
 		this.texture = texture;
 		this.pearlescent = pearlescent;
-
 	}
 
 	@NotNull
