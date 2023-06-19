@@ -336,7 +336,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 		if (this.growing) {
 			if (this.scale < 1F) {
-				this.scale += 0.25F;
+				this.scale += 0.5F;
 			} else {
 				this.scale = 1F;
 				this.growing = false;
@@ -391,6 +391,8 @@ public class Jellyfish extends NoFlopAbstractFish {
 			this.vanishing = true;
 		} else if (id == (byte) 5) {
 			this.growing = true;
+			this.scale = 0F;
+			this.prevScale = 0F;
 		} else if (id == (byte) 7) {
 			double d = this.random.nextGaussian() * 0.02;
 			double e = this.random.nextGaussian() * 0.02;
