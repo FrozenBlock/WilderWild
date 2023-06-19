@@ -119,10 +119,10 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public float scale = 1F;
 	public int ticksSinceSpawn;
 	public int age;
-	private int forcedAge;
-	private int forcedAgeTimer;
 	public int fullness;
 	public int reproductionCooldown;
+	private int forcedAge;
+	private int forcedAgeTimer;
 	@Nullable
 	private UUID loveCause;
 
@@ -174,13 +174,6 @@ public class Jellyfish extends NoFlopAbstractFish {
 		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.MOVEMENT_SPEED, 0.5F).add(Attributes.FOLLOW_RANGE, MAX_TARGET_DISTANCE);
 	}
 
-	@Nullable
-	@Override
-	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
-		setVariant(level.getBiome(this.blockPosition()), level.getRandom());
-		return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
-	}
-
 	public static void spawnFromChest(@NotNull Level level, @NotNull BlockState state, @NotNull BlockPos pos) {
 		Jellyfish jellyfish = new Jellyfish(RegisterEntities.JELLYFISH, level);
 		jellyfish.setVariantFromPos(level, pos);
@@ -197,6 +190,17 @@ public class Jellyfish extends NoFlopAbstractFish {
 		jellyfish.scale = 0F;
 		level.addFreshEntity(jellyfish);
 		level.broadcastEntityEvent(jellyfish, (byte) 5);
+	}
+
+	public static int getSpeedUpSecondsWhenFeeding(int ticksUntilAdult) {
+		return (int) ((float) (ticksUntilAdult / 20) * 0.1F);
+	}
+
+	@Nullable
+	@Override
+	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
+		setVariant(level.getBiome(this.blockPosition()), level.getRandom());
+		return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
 	}
 
 	public void setVariantFromPos(@NotNull Level level, @NotNull BlockPos pos) {
@@ -349,7 +353,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		if (this.level().isClientSide) {
 			if (this.forcedAgeTimer > 0) {
 				if (this.forcedAgeTimer % 4 == 0) {
-					this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0), this.getRandomY() + 0.5, this.getRandomZ(1.0), 0.0, 0.0, 0.0);
+					this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0), this.getRandomY(), this.getRandomZ(1.0), 0.0, 0.0, 0.0);
 				}
 				--this.forcedAgeTimer;
 			}
@@ -522,7 +526,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	public void spawnChild(ServerLevel level) {
-		Jellyfish jellyfish = RegisterEntities.JELLYFISH.create(level);;
+		Jellyfish jellyfish = RegisterEntities.JELLYFISH.create(level);
 		if (jellyfish == null) {
 			return;
 		}
@@ -541,8 +545,8 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@NotNull
 	private Vec3 rotateVector(@NotNull Vec3 vector) {
-		Vec3 vec3 = vector.xRot(this.xRot1 * ((float)Math.PI / 180F));
-		vec3 = vec3.yRot(-this.yBodyRotO * ((float)Math.PI / 180F));
+		Vec3 vec3 = vector.xRot(this.xRot1 * ((float) Math.PI / 180F));
+		vec3 = vec3.yRot(-this.yBodyRotO * ((float) Math.PI / 180F));
 		return vec3;
 	}
 
@@ -631,6 +635,13 @@ public class Jellyfish extends NoFlopAbstractFish {
 		this.ageUp(amount, false);
 	}
 
+	public int getAge() {
+		if (this.level().isClientSide) {
+			return this.entityData.get(IS_BABY) ? -1 : 1;
+		}
+		return this.age;
+	}
+
 	public void setAge(int age) {
 		int i = this.getAge();
 		this.age = age;
@@ -638,13 +649,6 @@ public class Jellyfish extends NoFlopAbstractFish {
 			this.entityData.set(IS_BABY, age < 0);
 			this.ageBoundaryReached();
 		}
-	}
-
-	public int getAge() {
-		if (this.level().isClientSide) {
-			return this.entityData.get(IS_BABY) ? -1 : 1;
-		}
-		return this.age;
 	}
 
 	public void ageBoundaryReached() {
@@ -661,10 +665,6 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@Override
 	public void setBaby(boolean baby) {
 		this.setAge(baby ? -24000 : 0);
-	}
-
-	public static int getSpeedUpSecondsWhenFeeding(int ticksUntilAdult) {
-		return (int)((float)(ticksUntilAdult / 20) * 0.1F);
 	}
 
 	@Override

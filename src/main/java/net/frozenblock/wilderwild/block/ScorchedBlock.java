@@ -72,13 +72,6 @@ public class ScorchedBlock extends BaseEntityBlock {
 		this.fillScorchMap(this.wetState, this.defaultBlockState(), this.defaultBlockState().setValue(CRACKEDNESS, true));
 	}
 
-	public void fillScorchMap(BlockState wetState, BlockState defaultState, BlockState defaultStateCracked) {
-		SCORCH_MAP.put(wetState, defaultState);
-		SCORCH_MAP.put(defaultState, defaultStateCracked);
-		HYDRATE_MAP.put(defaultState, wetState);
-		HYDRATE_MAP.put(defaultStateCracked, defaultState);
-	}
-
 	public static boolean canScorch(@NotNull BlockState state) {
 		return SCORCH_MAP.containsKey(stateWithoutDusting(state));
 	}
@@ -106,6 +99,13 @@ public class ScorchedBlock extends BaseEntityBlock {
 	@NotNull
 	private static BlockState stateWithoutDusting(@NotNull BlockState state) {
 		return state.hasProperty(DUSTED) ? state.setValue(DUSTED, 0) : state;
+	}
+
+	public void fillScorchMap(BlockState wetState, BlockState defaultState, BlockState defaultStateCracked) {
+		SCORCH_MAP.put(wetState, defaultState);
+		SCORCH_MAP.put(defaultState, defaultStateCracked);
+		HYDRATE_MAP.put(defaultState, wetState);
+		HYDRATE_MAP.put(defaultStateCracked, defaultState);
 	}
 
 	@Override

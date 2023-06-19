@@ -20,6 +20,11 @@ public class CloudRendererMixin {
 	@Unique
 	private boolean wilderWild$useWind;
 
+	@Unique
+	private static boolean wilderWild$useWind() {
+		return WilderSharedConstants.config().cloudMovement() && ClientWindManager.shouldUseWind();
+	}
+
 	@ModifyVariable(method = "render", at = @At(value = "STORE"), ordinal = 2)
 	private float wilderWild$modifyY(float original, @Nullable ClientLevel world, LocalPlayer player, PoseStack matrices, Matrix4f projectionMatrix, float ticks, float tickDelta, double cameraX, double cameraY, double cameraZ) {
 		return (this.wilderWild$useWind = wilderWild$useWind())
@@ -39,10 +44,5 @@ public class CloudRendererMixin {
 		return this.wilderWild$useWind
 			? (cameraZ + 0.33D) - ClientWindManager.getCloudZ(tickDelta) * 12
 			: original;
-	}
-
-	@Unique
-	private static boolean wilderWild$useWind() {
-		return WilderSharedConstants.config().cloudMovement() && ClientWindManager.shouldUseWind();
 	}
 }

@@ -11,6 +11,11 @@ import randommcsomethin.fallingleaves.particle.FallingLeafParticle;
 @Mixin(FallingLeafParticle.class)
 public class FallingLeafParticleMixin {
 
+	@Unique
+	private static boolean wilderWild$useWind() {
+		return WilderSharedConstants.config().cloudMovement() && ClientWindManager.shouldUseWind();
+	}
+
 	@ModifyExpressionValue(method = "tick", at = @At(value = "FIELD", target = "Lrandommcsomethin/fallingleaves/util/Wind;windX:F"))
 	private float wilderWild$modifyWindX(float original) {
 		if (wilderWild$useWind()) {
@@ -25,11 +30,6 @@ public class FallingLeafParticleMixin {
 			return (float) ClientWindManager.windZ;
 		}
 		return original;
-	}
-
-	@Unique
-	private static boolean wilderWild$useWind() {
-		return WilderSharedConstants.config().cloudMovement() && ClientWindManager.shouldUseWind();
 	}
 
 }

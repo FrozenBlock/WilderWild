@@ -56,12 +56,6 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP).setValue(HEIGHT_LEFT, 0).setValue(TOTAL_HEIGHT, 0));
 	}
 
-	@Nullable
-	@Override
-	public BlockState getStateForPlacement(@NotNull BlockPlaceContext blockPlaceContext) {
-		return super.getStateForPlacement(blockPlaceContext).setValue(FACING, blockPlaceContext.getClickedFace().getOpposite());
-	}
-
 	public static Direction getDir(@NotNull Direction.Axis axis, @NotNull RandomSource random) {
 		if (axis == Direction.Axis.X) {
 			return random.nextBoolean() ? Direction.EAST : Direction.WEST;
@@ -81,6 +75,12 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 
 	public static boolean isSafeToReplace(@NotNull BlockState state) {
 		return state.is(Blocks.SCULK_VEIN) || state.isAir() || state.is(Blocks.WATER);
+	}
+
+	@Nullable
+	@Override
+	public BlockState getStateForPlacement(@NotNull BlockPlaceContext blockPlaceContext) {
+		return super.getStateForPlacement(blockPlaceContext).setValue(FACING, blockPlaceContext.getClickedFace().getOpposite());
 	}
 
 	@Override

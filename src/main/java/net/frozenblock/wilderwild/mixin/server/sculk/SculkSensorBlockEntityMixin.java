@@ -58,30 +58,26 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(SculkSensorBlockEntity.class)
 public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements SculkSensorTickInterface {
 
-	@Shadow
-	public abstract VibrationSystem.User getVibrationUser();
-
-	@Shadow
-	public abstract VibrationSystem.Data getVibrationData();
-
 	@Unique
 	public int wilderWild$animTicks;
-
 	@Unique
 	public int wilderWild$prevAnimTicks;
-
 	@Unique
 	public int wilderWild$age;
-
 	@Unique
 	public boolean wilderWild$active;
-
 	@Unique
 	public boolean wilderWild$prevActive;
 
 	private SculkSensorBlockEntityMixin(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 	}
+
+	@Shadow
+	public abstract VibrationSystem.User getVibrationUser();
+
+	@Shadow
+	public abstract VibrationSystem.Data getVibrationData();
 
 	@Unique
 	@Override
@@ -208,7 +204,7 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 
 	@Inject(at = @At("TAIL"), method = "load")
 	private void wilderWild$load(CompoundTag nbt, CallbackInfo info) {
-		this.wilderWild$setAge(nbt.getInt("age"));;
+		this.wilderWild$setAge(nbt.getInt("age"));
 		this.wilderWild$setAnimTicks(nbt.getInt("animTicks"));
 		this.wilderWild$setPrevAnimTicks(nbt.getInt("prevAnimTicks"));
 		this.wilderWild$setActive(nbt.getBoolean("active"));

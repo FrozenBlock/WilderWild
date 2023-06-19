@@ -62,17 +62,17 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 @Mixin(FluidRenderer.class)
 public class FluidRendererMixin {
 
-	@Shadow @Final
+	@Unique
+	private final TextureAtlasSprite wilderWild$waterOverlay = ModelBakery.WATER_OVERLAY.sprite();
+	@Shadow
+	@Final
 	private BlockPos.MutableBlockPos scratchPos;
-	@Shadow @Final
+	@Shadow
+	@Final
 	private ModelQuadViewMutable quad;
 	@Shadow
 	@Final
 	private LightPipelineProvider lighters;
-
-	@Unique
-	private final TextureAtlasSprite wilderWild$waterOverlay = ModelBakery.WATER_OVERLAY.sprite();
-
 	@Unique
 	private float wilderWild$u0;
 	@Unique
@@ -83,6 +83,10 @@ public class FluidRendererMixin {
 	private float wilderWild$v1;
 	@Unique
 	private boolean wilderWild$isWater;
+
+	@Shadow
+	private static void setVertex(ModelQuadViewMutable quad, int i, float x, float y, float z, float u, float v) {
+	}
 
 	@Inject(method = "isFluidOccluded", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/BlockPos$MutableBlockPos;set(III)Lnet/minecraft/core/BlockPos$MutableBlockPos;", ordinal = 1), cancellable = true, locals = LocalCapture.CAPTURE_FAILSOFT)
 	private void wilderWild$isFluidOccluded(BlockAndTintGetter world, int x, int y, int z, Direction dir, Fluid fluid, CallbackInfoReturnable<Boolean> info, BlockPos pos, BlockState blockState) {
@@ -391,10 +395,6 @@ public class FluidRendererMixin {
 
 	@Shadow
 	private void writeQuad(ChunkModelBuilder builder, BlockPos offset, ModelQuadView quad, ModelQuadFacing facing, ModelQuadWinding winding) {
-	}
-
-	@Shadow
-	private static void setVertex(ModelQuadViewMutable quad, int i, float x, float y, float z, float u, float v) {
 	}
 
 	@Shadow

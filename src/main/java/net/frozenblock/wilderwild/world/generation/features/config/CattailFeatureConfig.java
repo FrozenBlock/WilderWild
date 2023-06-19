@@ -26,7 +26,8 @@ import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
-public record CattailFeatureConfig(IntProvider width, IntProvider placementAttempts, boolean inWater, TagKey<Block> placeableBlocks) implements FeatureConfiguration {
+public record CattailFeatureConfig(IntProvider width, IntProvider placementAttempts, boolean inWater,
+								   TagKey<Block> placeableBlocks) implements FeatureConfiguration {
 	public static final Codec<CattailFeatureConfig> CODEC = RecordCodecBuilder.create((instance) ->
 		instance.group(
 			IntProvider.CODEC.fieldOf("width").forGetter(config -> config.width),

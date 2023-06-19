@@ -121,6 +121,14 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 1D);
 	}
 
+	public static boolean isSilkTouchOrShears(@NotNull DamageSource damageSource) {
+		if (damageSource.getDirectEntity() instanceof Player player) {
+			ItemStack stack = player.getMainHandItem();
+			return EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0 || stack.is(Items.SHEARS);
+		}
+		return false;
+	}
+
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
@@ -339,14 +347,6 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	@NotNull
 	public Vec3 getDeltaPos() {
 		return this.getPosition(1).subtract(this.getPosition(0));
-	}
-
-	public static boolean isSilkTouchOrShears(@NotNull DamageSource damageSource) {
-		if (damageSource.getDirectEntity() instanceof Player player) {
-			ItemStack stack = player.getMainHandItem();
-			return EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0 || stack.is(Items.SHEARS);
-		}
-		return false;
 	}
 
 	@Override

@@ -1407,7 +1407,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.generateFeatures();
 			this.generateDeepDark();
 			this.generateHollowedAndTermites();
-			this.generateTags();;
+			this.generateTags();
 		}
 
 		private void generateFeatures() {
