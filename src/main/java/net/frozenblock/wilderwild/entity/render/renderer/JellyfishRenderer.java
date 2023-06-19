@@ -25,10 +25,8 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.entity.Jellyfish;
-import net.frozenblock.wilderwild.entity.render.model.BabyJellyfishModel;
 import net.frozenblock.wilderwild.entity.render.model.JellyfishModel;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.core.BlockPos;
@@ -39,12 +37,9 @@ import org.jetbrains.annotations.NotNull;
 @Environment(EnvType.CLIENT)
 public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jellyfish>> {
 	private static final String WHITE_TEXTURE = "textures/entity/jellyfish/white.png";
-	private final JellyfishModel<Jellyfish> adultModel = this.getModel();
-	private final JellyfishModel<Jellyfish> babyModel;
 
 	public JellyfishRenderer(@NotNull Context context) {
 		super(context, new JellyfishModel<>(context.bakeLayer(WilderWildClient.JELLYFISH)), 0.3F);
-		this.babyModel = new BabyJellyfishModel<>(context.bakeLayer(WilderWildClient.BABY_JELLYFISH));
 	}
 
 	@Override
@@ -73,12 +68,6 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
 			model.green = 1;
 			model.blue = 1;
 		}
-	}
-
-	@Override
-	public void render(@NotNull Jellyfish jelly, float entityYaw, float partialTicks, @NotNull PoseStack matrixStack, @NotNull MultiBufferSource buffer, int packedLight) {
-		this.model = jelly.isBaby() ? this.babyModel : this.adultModel;
-		super.render(jelly, entityYaw, partialTicks, matrixStack, buffer, packedLight);
 	}
 
 	@Override

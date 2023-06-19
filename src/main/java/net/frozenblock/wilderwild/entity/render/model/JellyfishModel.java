@@ -40,13 +40,13 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
-	public static final float pi180 = Mth.PI / 180F;
-	public static final float eightPi = -8F * pi180;
 	private static final int JELLYFISH_TENTACLES = WilderSharedConstants.config().jellyfishTentacles();
-	public final ModelPart root;
-	public final ModelPart body;
-	public final ModelPart tentacleBase;
-	public final ModelPart[] tentacles;
+	private static final float pi180 = Mth.PI / 180F;
+	private static final float eightPi = -8F * pi180;
+	private final ModelPart root;
+	private final ModelPart body;
+	private final ModelPart tentacleBase;
+	private final ModelPart[] tentacles = new ModelPart[JELLYFISH_TENTACLES];
 	public float xRot;
 	public float tentXRot;
 
@@ -62,7 +62,6 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 		ModelPart bone = root.getChild("bone");
 		this.body = bone.getChild("body");
 		this.tentacleBase = bone.getChild("tentacleBase");
-		this.tentacles = this.createTentacleModelPart();
 		Arrays.setAll(this.tentacles, i -> tentacleBase.getChild(createTentacleName(i)));
 	}
 
@@ -78,7 +77,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 		return LayerDefinition.create(meshDefinition, 64, 64);
 	}
 
-	public static void makeTentacles(PartDefinition partDefinition, int amount) {
+	private static void makeTentacles(PartDefinition partDefinition, int amount) {
 		CubeListBuilder tentacle = CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 10.0F, 1.0F, new CubeDeformation(0.0F));
 		for (int i = 0; i < amount; ++i) {
 			double rot = (double) i * Math.PI * 2.0 / (double) amount;
@@ -95,7 +94,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 	}
 
 	@NotNull
-	public static String createTentacleName(int i) {
+	private static String createTentacleName(int i) {
 		return "tentacle" + i;
 	}
 
@@ -110,10 +109,6 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 		}
 
 		return g + f * angleCalc;
-	}
-
-	public ModelPart[] createTentacleModelPart() {
-		return new ModelPart[JELLYFISH_TENTACLES];
 	}
 
 	@Override

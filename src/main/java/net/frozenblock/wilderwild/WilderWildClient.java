@@ -42,7 +42,6 @@ import net.frozenblock.wilderwild.entity.render.blockentity.SculkSensorBlockEnti
 import net.frozenblock.wilderwild.entity.render.blockentity.StoneChestBlockEntityRenderer;
 import net.frozenblock.wilderwild.entity.render.easter.EasterEggs;
 import net.frozenblock.wilderwild.entity.render.model.AncientHornProjectileModel;
-import net.frozenblock.wilderwild.entity.render.model.BabyJellyfishModel;
 import net.frozenblock.wilderwild.entity.render.model.JellyfishModel;
 import net.frozenblock.wilderwild.entity.render.model.TumbleweedModel;
 import net.frozenblock.wilderwild.entity.render.renderer.AncientHornProjectileRenderer;
@@ -95,7 +94,6 @@ public final class WilderWildClient implements ClientModInitializer {
 	public static final ModelLayerLocation DOUBLE_STONE_CHEST_LEFT = new ModelLayerLocation(WilderSharedConstants.id("double_stone_chest_left"), "main");
 	public static final ModelLayerLocation DOUBLE_STONE_CHEST_RIGHT = new ModelLayerLocation(WilderSharedConstants.id("double_stone_chest_right"), "main");
 	public static final ModelLayerLocation JELLYFISH = new ModelLayerLocation(WilderSharedConstants.id("jellyfish"), "main");
-	public static final ModelLayerLocation BABY_JELLYFISH = new ModelLayerLocation(WilderSharedConstants.id("baby_jellyfish"), "main");
 	public static final ModelLayerLocation TUMBLEWEED = new ModelLayerLocation(WilderSharedConstants.id("tumbleweed"), "main");
 
 	private static void receiveEasyEchoerBubblePacket() {
@@ -332,7 +330,6 @@ public final class WilderWildClient implements ClientModInitializer {
 
 		EntityRendererRegistry.register(RegisterEntities.JELLYFISH, JellyfishRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(JELLYFISH, JellyfishModel::createBodyLayer);
-		EntityModelLayerRegistry.registerModelLayer(BABY_JELLYFISH, BabyJellyfishModel::createBodyLayer);
 
 		EntityRendererRegistry.register(RegisterEntities.TUMBLEWEED, TumbleweedRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(TUMBLEWEED, TumbleweedModel::createBodyLayer);
