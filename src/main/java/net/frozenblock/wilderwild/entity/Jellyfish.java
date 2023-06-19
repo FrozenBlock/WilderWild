@@ -204,7 +204,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		} else {
 			spawnData = jellyfishGroupData = new JellyfishGroupData(true, this.setVariant(level.getBiome(this.blockPosition()), level.getRandom()));
 		}
-		if (jellyfishGroupData.isShouldSpawnBaby() && jellyfishGroupData.getGroupSize() > 0 && level.getRandom().nextFloat() <= jellyfishGroupData.getBabySpawnChance()) {
+		if (jellyfishGroupData.isShouldSpawnBaby() && level.getRandom().nextFloat() <= jellyfishGroupData.getBabySpawnChance()) {
 			this.setBaby(true);
 		}
 		jellyfishGroupData.increaseGroupSizeByOne();
