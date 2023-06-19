@@ -124,8 +124,6 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public int reproductionCooldown;
 	private int forcedAge;
 	private int forcedAgeTimer;
-	@Nullable
-	private UUID loveCause;
 
 	public Jellyfish(@NotNull EntityType<? extends Jellyfish> entityType, @NotNull Level level) {
 		super(entityType, level);
@@ -686,6 +684,12 @@ public class Jellyfish extends NoFlopAbstractFish {
 		Bucketable.saveDefaultDataToBucketTag(this, stack);
 		CompoundTag compoundTag = stack.getOrCreateTag();
 		compoundTag.putString("variant", Objects.requireNonNull(WilderRegistry.JELLYFISH_VARIANT.getKey(this.getVariant())).toString());
+		compoundTag.putBoolean("canReproduce", this.canReproduce());
+		compoundTag.putInt("fullness", this.fullness);
+		compoundTag.putInt("reproductionCooldown", this.reproductionCooldown);
+		compoundTag.putInt("age", this.getAge());
+		compoundTag.putInt("forcedAge", this.forcedAge);
+		compoundTag.putBoolean("isBaby", this.isBaby());
 	}
 
 	@Override
@@ -697,6 +701,14 @@ public class Jellyfish extends NoFlopAbstractFish {
 				this.setVariant(variant);
 			}
 		}
+		if (tag.contains("canReproduce")) {
+			this.setCanReproduce(tag.getBoolean("canReproduce"));
+		}
+		this.fullness = tag.getInt("fullness");
+		this.reproductionCooldown = tag.getInt("reproductionCooldown");
+		this.setAge(tag.getInt("age"));
+		this.forcedAge = tag.getInt("forcedAge");
+		this.setBaby(tag.getBoolean("isBaby"));
 	}
 
 	@Override
@@ -706,9 +718,6 @@ public class Jellyfish extends NoFlopAbstractFish {
 		compound.putInt("ticksSinceSpawn", this.ticksSinceSpawn);
 		compound.putBoolean("canReproduce", this.canReproduce());
 		compound.putInt("fullness", this.fullness);
-		if (this.loveCause != null) {
-			compound.putUUID("loveCause", this.loveCause);
-		}
 		compound.putInt("reproductionCooldown", this.reproductionCooldown);
 		compound.putInt("age", this.getAge());
 		compound.putInt("forcedAge", this.forcedAge);
