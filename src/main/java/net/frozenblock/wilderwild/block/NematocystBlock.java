@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.block;
 
+import java.util.Optional;
 import net.frozenblock.lib.block.api.FaceClusterBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -26,7 +27,6 @@ import net.minecraft.world.level.block.MultifaceSpreader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.PushReaction;
 import org.jetbrains.annotations.NotNull;
-import java.util.Optional;
 
 public class NematocystBlock extends FaceClusterBlock {
 

@@ -38,6 +38,7 @@ public class DefaultEntityConfig {
 	public static class JellyfishConfig {
 		public static final int JELLYFISH_SPAWN_CAP = 30;
 		public static final int JELLYFISH_TENTACLES = 8;
+		public static final int BABY_JELLYFISH_TENTACLES = 6;
 	}
 
 	public static class TumbleweedConfig {

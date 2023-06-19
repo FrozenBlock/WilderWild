@@ -119,11 +119,16 @@ public final class EntityConfig implements ConfigData {
 			.setTooltip(tooltip("jellyfish_spawn_cap"))
 			.requireRestart()
 			.build();
-
 		var jellyfishTentacles = entryBuilder.startIntSlider(text("jellyfish_tentacles"), jellyfish.jellyfishTentacles, 0, 100)
 			.setDefaultValue(DefaultEntityConfig.JellyfishConfig.JELLYFISH_TENTACLES)
 			.setSaveConsumer(newValue -> jellyfish.jellyfishTentacles = newValue)
 			.setTooltip(tooltip("jellyfish_tentacles"))
+			.requireRestart()
+			.build();
+		var babyJellyfishTentacles = entryBuilder.startIntSlider(text("baby_jellyfish_tentacles"), jellyfish.babyJellyfishTentacles, 0, 100)
+			.setDefaultValue(DefaultEntityConfig.JellyfishConfig.BABY_JELLYFISH_TENTACLES)
+			.setSaveConsumer(newValue -> jellyfish.babyJellyfishTentacles = newValue)
+			.setTooltip(tooltip("baby_jellyfish_tentacles"))
 			.requireRestart()
 			.build();
 
@@ -131,7 +136,8 @@ public final class EntityConfig implements ConfigData {
 			false,
 			tooltip("jellyfish"),
 			jellyfishSpawnCap,
-			jellyfishTentacles
+			jellyfishTentacles,
+			babyJellyfishTentacles
 		);
 
 		var tumbleweedSpawnCap = entryBuilder.startIntSlider(text("tumbleweed_spawn_cap"), tumbleweed.tumbleweedSpawnCap, 0, 100)
@@ -224,6 +230,7 @@ public final class EntityConfig implements ConfigData {
 	public static class JellyfishConfig {
 		public int jellyfishSpawnCap = DefaultEntityConfig.JellyfishConfig.JELLYFISH_SPAWN_CAP;
 		public int jellyfishTentacles = DefaultEntityConfig.JellyfishConfig.JELLYFISH_TENTACLES;
+		public int babyJellyfishTentacles = DefaultEntityConfig.JellyfishConfig.BABY_JELLYFISH_TENTACLES;
 	}
 
 	public static class TumbleweedConfig {

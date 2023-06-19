@@ -248,6 +248,11 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public int babyJellyfishTentacles() {
+		return JELLYFISH.babyJellyfishTentacles;
+	}
+
+	@Override
 	public int tumbleweedSpawnCap() {
 		return TUMBLEWEED.tumbleweedSpawnCap;
 	}
