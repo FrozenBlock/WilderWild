@@ -24,7 +24,13 @@ Put changelog here:
 - Added a new advancement "Bottle of Lightning" for capturing a Firefly in a Glass Bottle.
 - Incorporated Wilder Wild's new foods, mobs, and biomes into Vanilla's advancements (note that this may be overriden by other mods' data.)
 - Fixed Baobab Nut collision.
+- Jellyfish can now reproduce.
+    - Repeatedly feeding a non-pearlescent Jellyfish with any non-pearlescent Nematocyst will eventually cause a baby Jellyfish to spawn.
+    - Repeatedly feeding a pearlescent Jellyfish with any pearlescent Nematocyst will eventually cause a baby Jellyfish to spawn.
+- Baby Jellyfish will only inflict 1 damage (half a heart) as opposed to three (a heart and a half.)
+- Bubbles will occasionally spawn behind adult Jellyfish as they swim.
 - Added a config option that controls how many tentacles Jellyfish have.
+- Only pearlescent Mesoglea will lift items and boats as opposed to all types prior.
 - Added unique sounds for all Ice blocks.
 - Included all Tall Flowers in the "Flower Sounds" config.
 - Added Suspicious Gravel to Ancient Cities.

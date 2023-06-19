@@ -58,26 +58,30 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
 	public final ParticleOptions dripParticle;
+	public final boolean pearlescent;
 
-	public MesogleaBlock(@NotNull Properties properties, @NotNull ParticleOptions dripParticle) {
+	public MesogleaBlock(@NotNull Properties properties, @NotNull ParticleOptions dripParticle, boolean pearlescent) {
 		super(properties.pushReaction(PushReaction.DESTROY));
 		this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
 		this.dripParticle = dripParticle;
+		this.pearlescent = pearlescent;
 	}
 
 	@Override
 	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
-		if (state.getValue(WATERLOGGED)) {
-			if (entity instanceof ItemEntity item) {
-				item.makeStuckInBlock(state, new Vec3(0.999D, 0.999D, 0.999D));
-				item.setDeltaMovement(item.getDeltaMovement().add(0, 0.025, 0));
-			}
-			if (entity instanceof Boat boat) {
-				Vec3 deltaMovement = boat.getDeltaMovement();
-				if (boat.isUnderWater() && deltaMovement.y < 0.175) {
-					boat.setDeltaMovement(deltaMovement.x, Math.min(0.175, deltaMovement.y + 0.05), deltaMovement.z);
-				} else if (deltaMovement.y < 0) {
-					boat.setDeltaMovement(deltaMovement.x, deltaMovement.y * 0.125, deltaMovement.z);
+		if (this.pearlescent) {
+			if (state.getValue(WATERLOGGED)) {
+				if (entity instanceof ItemEntity item) {
+					item.makeStuckInBlock(state, new Vec3(0.999D, 0.999D, 0.999D));
+					item.setDeltaMovement(item.getDeltaMovement().add(0, 0.025, 0));
+				}
+				if (entity instanceof Boat boat) {
+					Vec3 deltaMovement = boat.getDeltaMovement();
+					if (boat.isUnderWater() && deltaMovement.y < 0.175) {
+						boat.setDeltaMovement(deltaMovement.x, Math.min(0.175, deltaMovement.y + 0.05), deltaMovement.z);
+					} else if (deltaMovement.y < 0) {
+						boat.setDeltaMovement(deltaMovement.x, deltaMovement.y * 0.125, deltaMovement.z);
+					}
 				}
 			}
 		}

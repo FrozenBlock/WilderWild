@@ -192,10 +192,11 @@ public final class WilderWildClient implements ClientModInitializer {
 
 	private static void receiveJellyStingPacket() {
 		ClientPlayNetworking.registerGlobalReceiver(WilderWild.JELLY_STING_PACKET, (ctx, handler, byteBuf, responseSender) -> ctx.execute(() -> {
+			boolean baby = byteBuf.readBoolean();
 			if (ctx.level != null) {
 				LocalPlayer player = ctx.player;
 				if (player != null) {
-					ctx.level.playSound(player, player.getX(), player.getY(), player.getZ(), RegisterSounds.ENTITY_JELLYFISH_STING, SoundSource.NEUTRAL, 1.0F, ctx.level.random.nextFloat() * 0.2F + 0.9F);
+					ctx.level.playSound(player, player.getX(), player.getY(), player.getZ(), RegisterSounds.ENTITY_JELLYFISH_STING, SoundSource.NEUTRAL, 1.0F, ctx.level.random.nextFloat() * 0.2F + (baby ? 1.2F : 0.9F));
 				}
 			}
 		}));

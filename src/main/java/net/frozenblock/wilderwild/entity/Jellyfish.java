@@ -410,17 +410,20 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public void stingEntities() {
 		if (this.isAlive()) {
 			List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.08));
+			boolean baby = this.isBaby();
+			float damage = baby ? 1F : 3F;
+			int poisonDuration = baby ? this.level().random.nextInt(40, 100) : this.level().random.nextInt(100, 200);
 			for (LivingEntity entity : list) {
 				if (this.targetingConditions.test(this, entity)) {
 					if (entity instanceof ServerPlayer player) {
-						if (player.hurt(this.damageSources().mobAttack(this), 3F)) {
-							player.addEffect(new MobEffectInstance(MobEffects.POISON, this.level().random.nextInt(100, 200), 0, false, false), this);
-							EasyPacket.sendJellySting(player);
+						if (player.hurt(this.damageSources().mobAttack(this), damage)) {
+							player.addEffect(new MobEffectInstance(MobEffects.POISON, poisonDuration, 0, false, false), this);
+							EasyPacket.sendJellySting(player, baby);
 						}
 					} else if (entity instanceof Mob mob) {
-						if (mob.hurt(this.damageSources().mobAttack(this), 3F)) {
-							mob.addEffect(new MobEffectInstance(MobEffects.POISON, this.level().random.nextInt(100, 200), 0), this);
-							this.playSound(RegisterSounds.ENTITY_JELLYFISH_STING, 0.4F, this.random.nextFloat() * 0.2F + 0.9F);
+						if (mob.hurt(this.damageSources().mobAttack(this), damage)) {
+							mob.addEffect(new MobEffectInstance(MobEffects.POISON, poisonDuration, 0), this);
+							this.playSound(RegisterSounds.ENTITY_JELLYFISH_STING, 0.4F, this.random.nextFloat() * 0.2F + (baby ? 1.2F : 0.9F));
 						}
 					}
 				}
