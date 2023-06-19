@@ -78,6 +78,7 @@ import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -491,6 +492,9 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@Override
 	public InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
 		ItemStack itemStack = player.getItemInHand(hand);
+		if (itemStack.is(Items.WATER_BUCKET)) {
+			return super.mobInteract(player, hand);
+		}
 		if (!itemStack.is(WilderItemTags.NEMATOCYSTS) || (this.getVariant().pearlescent() && !itemStack.is(WilderItemTags.PEARLESCENT_NEMATOCYSTS)) || (this.getVariant().isNormal() && itemStack.is(WilderItemTags.PEARLESCENT_NEMATOCYSTS))) {
 			return InteractionResult.PASS;
 		}
