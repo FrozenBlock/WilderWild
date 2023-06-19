@@ -197,7 +197,17 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
-		setVariant(level.getBiome(this.blockPosition()), level.getRandom());
+		JellyfishGroupData jellyfishGroupData;
+		if (spawnData instanceof JellyfishGroupData jellyGroupData) {
+			this.setVariant(jellyGroupData.variant);
+			jellyfishGroupData = jellyGroupData;
+		} else {
+			spawnData = jellyfishGroupData = new JellyfishGroupData(true, this.setVariant(level.getBiome(this.blockPosition()), level.getRandom()));
+		}
+		if (jellyfishGroupData.isShouldSpawnBaby() && jellyfishGroupData.getGroupSize() > 0 && level.getRandom().nextFloat() <= jellyfishGroupData.getBabySpawnChance()) {
+			this.setBaby(true);
+		}
+		jellyfishGroupData.increaseGroupSizeByOne();
 		return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
 	}
 
@@ -205,13 +215,15 @@ public class Jellyfish extends NoFlopAbstractFish {
 		setVariant(level.getBiome(pos), level.getRandom());
 	}
 
-	private void setVariant(@NotNull Holder<Biome> biome, RandomSource randomSource) {
+	@NotNull
+	private JellyfishVariant setVariant(@NotNull Holder<Biome> biome, RandomSource randomSource) {
 		this.setVariant(JellyfishVariant.PINK);
 		if (biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH) && !PEARLESCENT_VARIANTS.isEmpty()) {
 			this.setVariant(PEARLESCENT_VARIANTS.get(randomSource.nextInt(PEARLESCENT_VARIANTS.size())));
 		} else if (!COLORED_VARIANTS.isEmpty()) {
 			this.setVariant(COLORED_VARIANTS.get(randomSource.nextInt(COLORED_VARIANTS.size())));
 		}
+		return this.getVariant();
 	}
 
 	@Override
@@ -742,6 +754,43 @@ public class Jellyfish extends NoFlopAbstractFish {
 		this.setAge(compound.getInt("age"));
 		this.forcedAge = compound.getInt("forcedAge");
 		this.setBaby(compound.getBoolean("isBaby"));
+	}
+
+	public static class JellyfishGroupData implements SpawnGroupData {
+		private int groupSize;
+		private final boolean shouldSpawnBaby;
+		private final float babySpawnChance;
+		private final JellyfishVariant variant;
+
+		private JellyfishGroupData(boolean shouldSpawnBaby, float babySpawnChance, JellyfishVariant variant) {
+			this.shouldSpawnBaby = shouldSpawnBaby;
+			this.babySpawnChance = babySpawnChance;
+			this.variant = variant;
+		}
+
+		public JellyfishGroupData(boolean shouldSpawnBaby, JellyfishVariant variant) {
+			this(shouldSpawnBaby, 0.15F, variant);
+		}
+
+		public JellyfishGroupData(float babySpawnChance, JellyfishVariant variant) {
+			this(true, babySpawnChance, variant);
+		}
+
+		public int getGroupSize() {
+			return this.groupSize;
+		}
+
+		public void increaseGroupSizeByOne() {
+			++this.groupSize;
+		}
+
+		public boolean isShouldSpawnBaby() {
+			return this.shouldSpawnBaby;
+		}
+
+		public float getBabySpawnChance() {
+			return this.babySpawnChance;
+		}
 	}
 
 }

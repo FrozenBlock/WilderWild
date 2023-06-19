@@ -43,7 +43,7 @@ public final class WilderSpawns {
 
 	public static void addJellyfish() {
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WilderBiomeTags.HAS_JELLYFISH),
-			FrozenMobCategories.getCategory(WilderSharedConstants.MOD_ID, "jellyfish"), RegisterEntities.JELLYFISH, 2, 1, 1);
+			FrozenMobCategories.getCategory(WilderSharedConstants.MOD_ID, "jellyfish"), RegisterEntities.JELLYFISH, 2, 1, 3);
 	}
 
 	public static void addTumbleweed() {
