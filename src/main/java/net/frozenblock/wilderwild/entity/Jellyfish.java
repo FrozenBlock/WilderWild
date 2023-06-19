@@ -22,7 +22,6 @@ import com.mojang.serialization.Dynamic;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 import java.util.stream.Collectors;
 import net.frozenblock.lib.entity.api.NoFlopAbstractFish;
 import net.frozenblock.wilderwild.entity.ai.jellyfish.JellyfishAi;
@@ -736,9 +735,6 @@ public class Jellyfish extends NoFlopAbstractFish {
 			this.setCanReproduce(compound.getBoolean("canReproduce"));
 		}
 		this.fullness = compound.getInt("fullness");
-		if (compound.hasUUID("loveCause")) {
-			this.loveCause = compound.getUUID("loveCause");
-		}
 		this.reproductionCooldown = compound.getInt("reproductionCooldown");
 		this.setAge(compound.getInt("age"));
 		this.forcedAge = compound.getInt("forcedAge");
