@@ -346,16 +346,6 @@ public class Jellyfish extends NoFlopAbstractFish {
 			}
 		}
 
-		this.reproductionCooldown -= 1;
-		this.setCanReproduce(
-			this.reproductionCooldown <= 0
-				&& !this.vanishing
-				&& !this.growing
-				&& this.getTarget() == null
-				&& this.isAlive()
-				&& !this.isRemoved()
-		);
-
 		if (this.level().isClientSide) {
 			if (this.forcedAgeTimer > 0) {
 				if (this.forcedAgeTimer % 4 == 0) {
@@ -372,6 +362,18 @@ public class Jellyfish extends NoFlopAbstractFish {
 			}
 		}
 
+		this.reproductionCooldown = Math.max(0, this.reproductionCooldown - 1);
+		this.setCanReproduce(
+			this.reproductionCooldown == 0
+				&& this.isInWaterOrBubble()
+				&& this.isUnderWater()
+				&& !this.vanishing
+				&& !this.growing
+				&& !this.isBaby()
+				&& this.isAlive()
+				&& !this.isRemoved()
+		);
+
 		AttributeInstance attributeInstance = this.getAttributes().getInstance(Attributes.MOVEMENT_SPEED);
 		if (attributeInstance != null) {
 			attributeInstance.setBaseValue(this.isBaby() ? 0.25 : 0.5);
@@ -384,6 +386,11 @@ public class Jellyfish extends NoFlopAbstractFish {
 			this.vanishing = true;
 		} else if (id == (byte) 5) {
 			this.growing = true;
+		} else if (id == (byte) 7) {
+			double d = this.random.nextGaussian() * 0.02;
+			double e = this.random.nextGaussian() * 0.02;
+			double f = this.random.nextGaussian() * 0.02;
+			this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0), this.getRandomY() + 0.5, this.getRandomZ(1.0), d, e, f);
 		} else if (id == (byte) 18) {
 			for (int i = 0; i < 7; ++i) {
 				double d = this.random.nextGaussian() * 0.02;
@@ -414,6 +421,13 @@ public class Jellyfish extends NoFlopAbstractFish {
 					}
 				}
 			}
+		}
+	}
+
+	@Override
+	protected void onOffspringSpawnedFromEgg(@NotNull Player player, @NotNull Mob child) {
+		if (child instanceof Jellyfish jellyfish) {
+			jellyfish.setVariant(this.getVariant());
 		}
 	}
 
@@ -453,17 +467,15 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	public boolean shouldHide() {
-		if (this.level().getNearestPlayer(this, 24) == null) {
-			return this.ticksSinceSpawn >= 150
-				&& !this.requiresCustomPersistence()
-				&& !this.isPersistenceRequired()
-				&& !this.hasCustomName()
-				&& !this.isLeashed()
-				&& this.getPassengers().isEmpty()
-				&& this.getTarget() == null
-				&& this.random.nextInt(0, 50) <= 2;
-		}
-		return false;
+		return this.level().getNearestPlayer(this, 24) == null
+			&& this.ticksSinceSpawn >= 150
+			&& !this.requiresCustomPersistence()
+			&& !this.isPersistenceRequired()
+			&& !this.hasCustomName()
+			&& !this.isLeashed()
+			&& this.getPassengers().isEmpty()
+			&& this.getTarget() == null
+			&& this.random.nextInt(0, 50) <= 2;
 	}
 
 	@Override
@@ -484,25 +496,27 @@ public class Jellyfish extends NoFlopAbstractFish {
 			}
 			this.ageUp(getSpeedUpSecondsWhenFeeding(-this.getAge()), true);
 			return InteractionResult.sidedSuccess(this.level().isClientSide);
-		}
-		if (this.level().isClientSide) {
-			return this.canReproduce() ? InteractionResult.SUCCESS : InteractionResult.PASS;
-		} else if (this.canReproduce() && !this.isBaby() && this.level() instanceof ServerLevel serverLevel) {
-			if (!player.getAbilities().instabuild) {
-				itemStack.shrink(1);
-			}
-			this.fullness += 1;
-			this.ticksSinceSpawn = 0;
-			if (this.fullness >= 8 && this.random.nextInt(3) == 0) {
-				this.spawnChild(serverLevel);
-				this.fullness = 0;
-				this.level().broadcastEntityEvent(this, (byte) 18);
-				this.reproductionCooldown = 6000;
+		} else if (this.canReproduce()) {
+			if (this.level().isClientSide) {
+				return InteractionResult.CONSUME;
+			} else if (this.level() instanceof ServerLevel serverLevel) {
+				if (!player.getAbilities().instabuild) {
+					itemStack.shrink(1);
+				}
+				this.fullness += 1;
+				this.ticksSinceSpawn = 0;
+				if (this.fullness >= 8 && this.random.nextInt(3) == 0) {
+					this.spawnChild(serverLevel);
+					this.fullness = 0;
+					this.level().broadcastEntityEvent(this, (byte) 18);
+					this.reproductionCooldown = 6000;
+					this.setCanReproduce(false);
+					return InteractionResult.SUCCESS;
+				} else {
+					this.level().broadcastEntityEvent(this, (byte) 7);
+				}
 				return InteractionResult.SUCCESS;
-			} else {
-				this.level().broadcastEntityEvent(this, (byte) 6);
 			}
-			return InteractionResult.CONSUME;
 		}
 		return InteractionResult.PASS;
 	}
@@ -657,7 +671,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	protected void defineSynchedData() {
 		super.defineSynchedData();
 		this.entityData.define(VARIANT, JellyfishVariant.PINK);
-		this.entityData.define(CAN_REPRODUCE, true);
+		this.entityData.define(CAN_REPRODUCE, false);
 		this.entityData.define(IS_BABY, false);
 	}
 
