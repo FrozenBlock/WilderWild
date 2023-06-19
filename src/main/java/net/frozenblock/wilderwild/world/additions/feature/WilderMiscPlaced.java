@@ -139,21 +139,21 @@ public final class WilderMiscPlaced {
 		WilderSharedConstants.logWild("Registering WilderMiscPlaced for", true);
 
 		COARSE_PATH_RARE.makeAndSetHolder(WilderMiscConfigured.COARSE_DIRT_PATH_RARE.getHolder(),
-			RarityFilter.onAverageOnceEvery(32),
+			RarityFilter.onAverageOnceEvery(36),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
 		GRAVEL_PATH_RARE.makeAndSetHolder(WilderMiscConfigured.GRAVEL_PATH_RARE.getHolder(),
-			RarityFilter.onAverageOnceEvery(29),
+			RarityFilter.onAverageOnceEvery(36),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
 		SAND_PATH_RARE.makeAndSetHolder(WilderMiscConfigured.SAND_PATH_RARE.getHolder(),
-			RarityFilter.onAverageOnceEvery(48),
+			RarityFilter.onAverageOnceEvery(96),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
