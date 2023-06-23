@@ -81,6 +81,7 @@ public final class WilderPlacedFeatures {
 	public static final FrozenPlacedFeature SHRUBS = register("shrubs");
 	public static final FrozenPlacedFeature TREES_FLOWER_FIELD = register("trees_flower_field");
 	public static final FrozenPlacedFeature TREES_BIRCH_AND_OAK = register("trees_birch_and_oak");
+	public static final FrozenPlacedFeature TREES_BIRCH_AND_OAK_ORIGINAL = register("trees_birch_and_oak_original");
 	public static final FrozenPlacedFeature TREES_SEMI_BIRCH_AND_OAK = register("trees_semi_birch_and_oak");
 	public static final FrozenPlacedFeature TREES_FLOWER_FOREST = register("trees_flower_forest");
 	public static final FrozenPlacedFeature DARK_FOREST_VEGETATION = register("dark_forest_vegetation");
@@ -367,6 +368,13 @@ public final class WilderPlacedFeatures {
 		);
 
 		TREES_BIRCH_AND_OAK.makeAndSetHolder(WilderConfiguredFeatures.TREES_BIRCH_AND_OAK.getHolder(),
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(12, 0.1F, 1))
+				.add(
+					TREE_CLEARING_FILTER
+				).build()
+		);
+
+		TREES_BIRCH_AND_OAK_ORIGINAL.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.TREES_BIRCH_AND_OAK),
 			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(12, 0.1F, 1))
 				.add(
 					TREE_CLEARING_FILTER
@@ -1173,5 +1181,5 @@ public final class WilderPlacedFeatures {
 		);
 	}
 
-	public static final NoisePlacementFilter TREE_CLEARING_FILTER = new NoisePlacementFilter(4, 0.01, 0.575, 1.0, 0.25, false, false, false);
+	public static final NoisePlacementFilter TREE_CLEARING_FILTER = new NoisePlacementFilter(4, 0.01, 0.625, 1.0, 0.3, false, false, false);
 }

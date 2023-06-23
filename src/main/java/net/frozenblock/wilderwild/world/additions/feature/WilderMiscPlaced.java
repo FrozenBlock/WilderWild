@@ -659,5 +659,5 @@ public final class WilderMiscPlaced {
 		return modifiers(CountPlacement.of(count), heightModifier);
 	}
 
-	public static final NoisePlacementFilter TREE_CLEARING_FILTER_INVERTED = new NoisePlacementFilter(4, 0.01, 0.575, 1.0, 0.1, false, false, true);
+	public static final NoisePlacementFilter TREE_CLEARING_FILTER_INVERTED = new NoisePlacementFilter(4, 0.01, 0.625, 1.0, 0.15, false, false, true);
 }

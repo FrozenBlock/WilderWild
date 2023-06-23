@@ -1,9 +1,21 @@
 {
-  "feature": "wilderwild:old_growth_birch_taiga_trees",
+  "feature": "minecraft:trees_birch_and_oak",
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 3
+      "count": {
+        "type": "minecraft:weighted_list",
+        "distribution": [
+          {
+            "data": 12,
+            "weight": 9
+          },
+          {
+            "data": 13,
+            "weight": 1
+          }
+        ]
+      }
     },
     {
       "type": "minecraft:in_square"

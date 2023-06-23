@@ -33,10 +33,10 @@
     },
     {
       "type": "frozenlib:noise_filter",
-      "fadeDist": 0.25,
+      "fadeDist": 0.3,
       "inside": false,
       "maxThresh": 1.0,
-      "minThresh": 0.575,
+      "minThresh": 0.625,
       "multiplier": 0.01,
       "multiplyY": false,
       "noise": 4,
