@@ -74,6 +74,25 @@ public final class WilderWorldGen {
 					}
 				}
 			);
+		BiomeModifications.create(WilderSharedConstants.id("rainforest_flowers"))
+			.add(ModificationPhase.REPLACEMENTS,
+				BiomeSelectors.includeByKey(RegisterWorldgen.RAINFOREST),
+				context -> {
+					if (WilderSharedConstants.config().wildFlowers()) {
+						context.getGenerationSettings().removeFeature(WilderPlacedFeatures.FLOWER_RAINFOREST_VANILLA.getKey());
+						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_RAINFOREST.getKey());
+					}
+				});
+
+		BiomeModifications.create(WilderSharedConstants.id("temperate_rainforest_flowers"))
+			.add(ModificationPhase.REPLACEMENTS,
+				BiomeSelectors.includeByKey(RegisterWorldgen.TEMPERATE_RAINFOREST),
+				context -> {
+					if (WilderSharedConstants.config().wildFlowers()) {
+						context.getGenerationSettings().removeFeature(WilderPlacedFeatures.FLOWER_TEMPERATE_RAINFOREST_VANILLA.getKey());
+						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_TEMPERATE_RAINFOREST.getKey());
+					}
+				});
 	}
 
 	private static void replaceFeatures() {
@@ -124,24 +143,13 @@ public final class WilderWorldGen {
 					}
 				});
 
-
-		BiomeModifications.create(WilderSharedConstants.id("rainforest_flowers"))
+		BiomeModifications.create(WilderSharedConstants.id("replace_forest_trees"))
 			.add(ModificationPhase.REPLACEMENTS,
-				BiomeSelectors.includeByKey(RegisterWorldgen.RAINFOREST),
+				BiomeSelectors.includeByKey(Biomes.FOREST),
 				context -> {
-					if (WilderSharedConstants.config().wildFlowers()) {
-						context.getGenerationSettings().removeFeature(WilderPlacedFeatures.FLOWER_RAINFOREST_VANILLA.getKey());
-						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_RAINFOREST.getKey());
-					}
-				});
-
-		BiomeModifications.create(WilderSharedConstants.id("temperate_rainforest_flowers"))
-			.add(ModificationPhase.REPLACEMENTS,
-				BiomeSelectors.includeByKey(RegisterWorldgen.TEMPERATE_RAINFOREST),
-				context -> {
-					if (WilderSharedConstants.config().wildFlowers()) {
-						context.getGenerationSettings().removeFeature(WilderPlacedFeatures.FLOWER_TEMPERATE_RAINFOREST_VANILLA.getKey());
-						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_TEMPERATE_RAINFOREST.getKey());
+					if (WilderSharedConstants.config().wildTrees()) {
+						context.getGenerationSettings().removeFeature(VegetationPlacements.TREES_BIRCH_AND_OAK);
+						context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_BIRCH_AND_OAK.getKey());
 					}
 				});
 

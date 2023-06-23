@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.world.additions.feature;
 
 import net.frozenblock.lib.worldgen.feature.api.FrozenPlacedFeature;
+import net.frozenblock.lib.worldgen.feature.api.placementmodifier.NoisePlacementFilter;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import static net.frozenblock.wilderwild.world.additions.feature.WilderPlacementUtils.register;
@@ -366,11 +367,17 @@ public final class WilderPlacedFeatures {
 		);
 
 		TREES_BIRCH_AND_OAK.makeAndSetHolder(WilderConfiguredFeatures.TREES_BIRCH_AND_OAK.getHolder(),
-			treePlacement(PlacementUtils.countExtra(12, 0.1F, 1))
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(12, 0.1F, 1))
+				.add(
+					TREE_CLEARING_FILTER
+				).build()
 		);
 
 		TREES_SEMI_BIRCH_AND_OAK.makeAndSetHolder(WilderConfiguredFeatures.TREES_SEMI_BIRCH_AND_OAK.getHolder(),
-			treePlacement(PlacementUtils.countExtra(11, 0.1F, 1))
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(11, 0.1F, 1))
+				.add(
+					TREE_CLEARING_FILTER
+				).build()
 		);
 
 		TREES_FLOWER_FOREST.makeAndSetHolder(WilderConfiguredFeatures.TREES_FLOWER_FOREST.getHolder(),
@@ -398,19 +405,31 @@ public final class WilderPlacedFeatures {
 		);
 
 		TREES_BIRCH.makeAndSetHolder(WilderConfiguredFeatures.TREES_BIRCH.getHolder(),
-			treePlacement(PlacementUtils.countExtra(10, 0.1F, 1))
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(10, 0.1F, 1))
+				.add(
+					TREE_CLEARING_FILTER
+				).build()
 		);
 
 		BIRCH_TALL.makeAndSetHolder(WilderConfiguredFeatures.TREES_BIRCH_TALL.getHolder(),
-			treePlacement(PlacementUtils.countExtra(10, 0.1F, 1))
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(10, 0.1F, 1))
+				.add(
+					TREE_CLEARING_FILTER
+				).build()
 		);
 
 		SPRUCE_PLACED.makeAndSetHolder(WilderConfiguredFeatures.TREES_TAIGA.getHolder(),
-			treePlacement(PlacementUtils.countExtra(10, 0.1F, 1))
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(10, 0.1F, 1))
+				.add(
+					TREE_CLEARING_FILTER
+				).build()
 		);
 
 		SHORT_SPRUCE_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SHORT_TREES_TAIGA.getHolder(),
-			treePlacement(PlacementUtils.countExtra(5, 0.1F, 1))
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(5, 0.1F, 1))
+				.add(
+					TREE_CLEARING_FILTER
+				).build()
 		);
 
 		SHORT_SPRUCE_RARE_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SHORT_TREES_TAIGA.getHolder(),
@@ -426,15 +445,24 @@ public final class WilderPlacedFeatures {
 		);
 
 		TREES_OLD_GROWTH_PINE_TAIGA.makeAndSetHolder(WilderConfiguredFeatures.TREES_OLD_GROWTH_PINE_TAIGA.getHolder(),
-			treePlacement(PlacementUtils.countExtra(10, 0.1F, 1))
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(10, 0.1F, 1))
+				.add(
+					TREE_CLEARING_FILTER
+				).build()
 		);
 
 		TREES_OLD_GROWTH_SPRUCE_TAIGA1.makeAndSetHolder(WilderConfiguredFeatures.TREES_OLD_GROWTH_SPRUCE_TAIGA.getHolder(),
-			treePlacement(PlacementUtils.countExtra(10, 0.1F, 1))
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(10, 0.1F, 1))
+				.add(
+					TREE_CLEARING_FILTER
+				).build()
 		);
 
 		TREES_OLD_GROWTH_SNOWY_PINE_TAIGA.makeAndSetHolder(WilderConfiguredFeatures.TREES_OLD_GROWTH_SNOWY_PINE_TAIGA.getHolder(),
-			treePlacement(PlacementUtils.countExtra(8, 0.1F, 1))
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(8, 0.1F, 1))
+				.add(
+					TREE_CLEARING_FILTER
+				).build()
 		);
 
 		TREES_SNOWY.makeAndSetHolder(WilderTreeConfigured.SPRUCE_SHORT.getHolder(),
@@ -479,31 +507,52 @@ public final class WilderPlacedFeatures {
 		);
 
 		MIXED_TREES.makeAndSetHolder(WilderConfiguredFeatures.MIXED_TREES.getHolder(),
-			treePlacement(PlacementUtils.countExtra(14, 0.1F, 1))
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(14, 0.1F, 1))
+				.add(
+					TREE_CLEARING_FILTER
+				).build()
 		);
 
 		TEMPERATE_RAINFOREST_TREES.makeAndSetHolder(WilderConfiguredFeatures.TEMPERATE_RAINFOREST_TREES.getHolder(),
-			treePlacement(PlacementUtils.countExtra(13, 0.1F, 1))
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(13, 0.1F, 1))
+				.add(
+					TREE_CLEARING_FILTER
+				).build()
 		);
 
 		RAINFOREST_TREES.makeAndSetHolder(WilderConfiguredFeatures.RAINFOREST_TREES.getHolder(),
-			treePlacement(PlacementUtils.countExtra(12, 0.1F, 1))
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(12, 0.1F, 1))
+				.add(
+					TREE_CLEARING_FILTER
+				).build()
 		);
 
 		BIRCH_TAIGA_TREES.makeAndSetHolder(WilderConfiguredFeatures.BIRCH_TAIGA_TREES.getHolder(),
-			treePlacement(CountPlacement.of(3))
+			VegetationPlacements.treePlacementBase(CountPlacement.of(3))
+				.add(
+					TREE_CLEARING_FILTER
+				).build()
 		);
 
 		OLD_GROWTH_BIRCH_TAIGA_TREES.makeAndSetHolder(WilderConfiguredFeatures.OLD_GROWTH_BIRCH_TAIGA_TREES.getHolder(),
-			treePlacement(CountPlacement.of(3))
+			VegetationPlacements.treePlacementBase(CountPlacement.of(3))
+				.add(
+					TREE_CLEARING_FILTER
+				).build()
 		);
 
 		PARCHED_FOREST_TREES.makeAndSetHolder(WilderConfiguredFeatures.PARCHED_FOREST_TREES.getHolder(),
-			treePlacement(PlacementUtils.countExtra(4, 0.1f, 1))
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(4, 0.1F, 1))
+				.add(
+					TREE_CLEARING_FILTER
+				).build()
 		);
 
 		ARID_FOREST_TREES.makeAndSetHolder(WilderConfiguredFeatures.ARID_FOREST_TREES.getHolder(),
-			treePlacement(CountPlacement.of(3))
+			VegetationPlacements.treePlacementBase(CountPlacement.of(3))
+				.add(
+					TREE_CLEARING_FILTER
+				).build()
 		);
 
 		BIRCH_JUNGLE_TREES.makeAndSetHolder(WilderConfiguredFeatures.BIRCH_JUNGLE_TREES.getHolder(),
@@ -1123,4 +1172,6 @@ public final class WilderPlacedFeatures {
 			BiomeFilter.biome()
 		);
 	}
+
+	public static final NoisePlacementFilter TREE_CLEARING_FILTER = new NoisePlacementFilter(4, 0.01, 0.575, 1.0, 0.25, false, false, false);
 }

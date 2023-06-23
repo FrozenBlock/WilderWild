@@ -144,6 +144,15 @@ public final class WilderMiscGeneration {
 
 			BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderMiscPlaced.PILE_SNOW.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_COARSE_DIRT_CLEARING),
+				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.COARSE_PATH_CLEARING.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_GRAVEL_CLEARING),
+				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.GRAVEL_PATH_CLEARING.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_ROOTED_DIRT_CLEARING),
+				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.ROOTED_DIRT_PATH_CLEARING.getKey());
 		}
 
 		if (WilderSharedConstants.config().surfaceTransitions()) {

@@ -72,6 +72,9 @@ public final class WilderMiscConfigured {
 	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> GRAVEL_PATH_RARE = register("gravel_path_rare");
 	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> SAND_PATH_RARE = register("sand_path_rare");
 	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> STONE_PATH_RARE = register("stone_path_rare");
+	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> COARSE_DIRT_PATH_CLEARING = register("coarse_dirt_path_clearing");
+	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> GRAVEL_PATH_CLEARING = register("gravel_path_clearing");
+	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> ROOTED_DIRT_PATH_CLEARING = register("rooted_dirt_path_clearing");
 
 	// SWAMP
 	public static final FrozenConfiguredFeature<DiskConfiguration, ConfiguredFeature<DiskConfiguration, ?>> DISK_MUD = register("disk_mud");
@@ -229,6 +232,57 @@ public final class WilderMiscConfigured {
 				false,
 				WilderBlockTags.STONE_PATH_REPLACEABLE,
 				0.215F
+			)
+		);
+
+		COARSE_DIRT_PATH_CLEARING.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+			new PathTagFeatureConfig(
+				BlockStateProvider.simple(Blocks.COARSE_DIRT),
+				6,
+				3,
+				0.07,
+				-0.085,
+				0.185,
+				false,
+				false,
+				false,
+				false,
+				WilderBlockTags.COARSE_PATH_REPLACEABLE,
+				0.3F
+			)
+		);
+
+		GRAVEL_PATH_CLEARING.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+			new PathTagFeatureConfig(
+				BlockStateProvider.simple(Blocks.GRAVEL),
+				6,
+				3,
+				0.07,
+				-0.075,
+				0.175,
+				false,
+				false,
+				false,
+				false,
+				WilderBlockTags.GRAVEL_PATH_REPLACEABLE,
+				0.3F
+			)
+		);
+
+		ROOTED_DIRT_PATH_CLEARING.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+			new PathTagFeatureConfig(
+				BlockStateProvider.simple(Blocks.ROOTED_DIRT),
+				6,
+				3,
+				0.07,
+				-0.095,
+				0.195,
+				false,
+				false,
+				false,
+				false,
+				WilderBlockTags.COARSE_PATH_REPLACEABLE,
+				0.4F
 			)
 		);
 

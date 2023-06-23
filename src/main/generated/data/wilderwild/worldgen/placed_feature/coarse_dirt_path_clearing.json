@@ -1,0 +1,36 @@
+{
+  "feature": "wilderwild:coarse_dirt_path_clearing",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": {
+        "type": "minecraft:uniform",
+        "value": {
+          "max_inclusive": 4,
+          "min_inclusive": 2
+        }
+      }
+    },
+    {
+      "type": "frozenlib:noise_filter",
+      "fadeDist": 0.1,
+      "inside": true,
+      "maxThresh": 1.0,
+      "minThresh": 0.575,
+      "multiplier": 0.01,
+      "multiplyY": false,
+      "noise": 4,
+      "useY": false
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "WORLD_SURFACE_WG"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

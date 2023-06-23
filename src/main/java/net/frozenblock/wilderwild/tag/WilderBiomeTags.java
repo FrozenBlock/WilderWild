@@ -151,6 +151,9 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_COARSE_DIRT_PATH_SMALL = bind("has_coarse_dirt_path_small");
 	public static final TagKey<Biome> HAS_PACKED_MUD_PATH_BADLANDS = bind("has_packed_mud_path_badlands");
 	public static final TagKey<Biome> HAS_SANDSTONE_PATH = bind("has_sandstone_path");
+	public static final TagKey<Biome> HAS_COARSE_DIRT_CLEARING = bind("has_coarse_dirt_clearing");
+	public static final TagKey<Biome> HAS_GRAVEL_CLEARING = bind("has_gravel_clearing");
+	public static final TagKey<Biome> HAS_ROOTED_DIRT_CLEARING = bind("has_rooted_dirt_clearing");
 	public static final TagKey<Biome> HAS_SCORCHED_SAND = bind("has_scorched_sand");
 	public static final TagKey<Biome> HAS_SCORCHED_RED_SAND = bind("has_scorched_red_sand");
 	public static final TagKey<Biome> HAS_SMALL_SAND_TRANSITION = bind("has_small_sand_transition");
