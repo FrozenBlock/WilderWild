@@ -6,17 +6,17 @@
       "count": {
         "type": "minecraft:uniform",
         "value": {
-          "max_inclusive": 3,
-          "min_inclusive": 1
+          "max_inclusive": 8,
+          "min_inclusive": 6
         }
       }
     },
     {
       "type": "frozenlib:noise_filter",
-      "fadeDist": 0.15,
+      "fadeDist": 0.25,
       "inside": true,
       "maxThresh": 1.0,
-      "minThresh": 0.625,
+      "minThresh": 0.7,
       "multiplier": 0.01,
       "multiplyY": false,
       "noise": 4,

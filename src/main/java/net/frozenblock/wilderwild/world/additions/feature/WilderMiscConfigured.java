@@ -70,7 +70,6 @@ public final class WilderMiscConfigured {
 
 	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> COARSE_DIRT_PATH_RARE = register("coarse_dirt_path_rare");
 	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> GRAVEL_PATH_RARE = register("gravel_path_rare");
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> SAND_PATH_RARE = register("sand_path_rare");
 	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> STONE_PATH_RARE = register("stone_path_rare");
 	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> COARSE_DIRT_PATH_CLEARING = register("coarse_dirt_path_clearing");
 	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> GRAVEL_PATH_CLEARING = register("gravel_path_clearing");
@@ -201,23 +200,6 @@ public final class WilderMiscConfigured {
 			)
 		);
 
-		SAND_PATH_RARE.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
-			new PathTagFeatureConfig(
-				BlockStateProvider.simple(Blocks.SAND),
-				6,
-				1,
-				0.12,
-				-0.2,
-				0.3,
-				false,
-				false,
-				false,
-				false,
-				WilderBlockTags.SAND_PATH_REPLACEABLE,
-				0.25F
-			)
-		);
-
 		STONE_PATH_RARE.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
 			new PathTagFeatureConfig(
 				BlockStateProvider.simple(Blocks.STONE),
@@ -238,7 +220,7 @@ public final class WilderMiscConfigured {
 		COARSE_DIRT_PATH_CLEARING.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
 			new PathTagFeatureConfig(
 				BlockStateProvider.simple(Blocks.COARSE_DIRT),
-				6,
+				3,
 				3,
 				0.07,
 				-0.085,
@@ -248,14 +230,14 @@ public final class WilderMiscConfigured {
 				false,
 				false,
 				WilderBlockTags.COARSE_PATH_REPLACEABLE,
-				0.3F
+				0.325F
 			)
 		);
 
 		GRAVEL_PATH_CLEARING.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
 			new PathTagFeatureConfig(
 				BlockStateProvider.simple(Blocks.GRAVEL),
-				6,
+				3,
 				3,
 				0.07,
 				-0.075,
@@ -265,14 +247,14 @@ public final class WilderMiscConfigured {
 				false,
 				false,
 				WilderBlockTags.GRAVEL_PATH_REPLACEABLE,
-				0.3F
+				0.325F
 			)
 		);
 
 		ROOTED_DIRT_PATH_CLEARING.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
 			new PathTagFeatureConfig(
 				BlockStateProvider.simple(Blocks.ROOTED_DIRT),
-				6,
+				3,
 				3,
 				0.07,
 				-0.095,
@@ -281,8 +263,8 @@ public final class WilderMiscConfigured {
 				false,
 				false,
 				false,
-				WilderBlockTags.COARSE_PATH_REPLACEABLE,
-				0.4F
+				WilderBlockTags.ROOTED_DIRT_PATH_REPLACEABLE,
+				0.35F
 			)
 		);
 

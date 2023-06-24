@@ -60,6 +60,7 @@ public final class WilderBlockTags {
 	public static final TagKey<Block> MUD_TRANSITION_PLACEABLE = bind("mud_transition_placeable");
 	public static final TagKey<Block> MUD_PATH_REPLACEABLE = bind("mud_path_replaceable");
 	public static final TagKey<Block> COARSE_PATH_REPLACEABLE = bind("coarse_path_replaceable");
+	public static final TagKey<Block> ROOTED_DIRT_PATH_REPLACEABLE = bind("rooted_dirt_path_replaceable");
 	public static final TagKey<Block> UNDER_WATER_SAND_PATH_REPLACEABLE = bind("under_water_sand_path_replaceable");
 	public static final TagKey<Block> UNDER_WATER_GRAVEL_PATH_REPLACEABLE = bind("under_water_gravel_path_replaceable");
 	public static final TagKey<Block> UNDER_WATER_CLAY_PATH_REPLACEABLE = bind("under_water_clay_path_replaceable");

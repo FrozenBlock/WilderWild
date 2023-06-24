@@ -11,6 +11,15 @@
     {
       "id": "wilderwild:rainforest",
       "required": false
+    },
+    "minecraft:dark_forest",
+    {
+      "id": "wilderwild:dark_birch_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:old_growth_dark_forest",
+      "required": false
     }
   ]
 }

@@ -53,7 +53,6 @@ public final class WilderMiscPlaced {
 
 	public static final FrozenPlacedFeature COARSE_PATH_RARE = register("coarse_dirt_path_rare");
 	public static final FrozenPlacedFeature GRAVEL_PATH_RARE = register("gravel_path_rare");
-	public static final FrozenPlacedFeature SAND_PATH_RARE = register("sand_path_rare");
 	public static final FrozenPlacedFeature STONE_PATH_RARE = register("stone_path_rare");
 	public static final FrozenPlacedFeature COARSE_PATH_CLEARING = register("coarse_dirt_path_clearing");
 	public static final FrozenPlacedFeature GRAVEL_PATH_CLEARING = register("gravel_path_clearing");
@@ -156,13 +155,6 @@ public final class WilderMiscPlaced {
 			BiomeFilter.biome()
 		);
 
-		SAND_PATH_RARE.makeAndSetHolder(WilderMiscConfigured.SAND_PATH_RARE.getHolder(),
-			RarityFilter.onAverageOnceEvery(96),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			BiomeFilter.biome()
-		);
-
 		STONE_PATH_RARE.makeAndSetHolder(WilderMiscConfigured.STONE_PATH_RARE.getHolder(),
 			RarityFilter.onAverageOnceEvery(72),
 			InSquarePlacement.spread(),
@@ -171,7 +163,7 @@ public final class WilderMiscPlaced {
 		);
 
 		COARSE_PATH_CLEARING.makeAndSetHolder(WilderMiscConfigured.COARSE_DIRT_PATH_CLEARING.getHolder(),
-			CountPlacement.of(UniformInt.of(2, 4)),
+			CountPlacement.of(UniformInt.of(10, 16)),
 			TREE_CLEARING_FILTER_INVERTED,
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
@@ -179,7 +171,7 @@ public final class WilderMiscPlaced {
 		);
 
 		GRAVEL_PATH_CLEARING.makeAndSetHolder(WilderMiscConfigured.GRAVEL_PATH_CLEARING.getHolder(),
-			CountPlacement.of(UniformInt.of(1, 3)),
+			CountPlacement.of(UniformInt.of(6, 8)),
 			TREE_CLEARING_FILTER_INVERTED,
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
@@ -187,7 +179,7 @@ public final class WilderMiscPlaced {
 		);
 
 		ROOTED_DIRT_PATH_CLEARING.makeAndSetHolder(WilderMiscConfigured.ROOTED_DIRT_PATH_CLEARING.getHolder(),
-			CountPlacement.of(UniformInt.of(1, 3)),
+			CountPlacement.of(UniformInt.of(6, 8)),
 			TREE_CLEARING_FILTER_INVERTED,
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
@@ -659,5 +651,5 @@ public final class WilderMiscPlaced {
 		return modifiers(CountPlacement.of(count), heightModifier);
 	}
 
-	public static final NoisePlacementFilter TREE_CLEARING_FILTER_INVERTED = new NoisePlacementFilter(4, 0.01, 0.625, 1.0, 0.15, false, false, true);
+	public static final NoisePlacementFilter TREE_CLEARING_FILTER_INVERTED = new NoisePlacementFilter(4, 0.01, 0.7, 1.0, 0.25, false, false, true);
 }

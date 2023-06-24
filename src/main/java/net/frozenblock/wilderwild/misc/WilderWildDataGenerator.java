@@ -1124,7 +1124,10 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.add(Biomes.BIRCH_FOREST)
 				.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
 				.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
-				.addOptional(RegisterWorldgen.RAINFOREST);
+				.addOptional(RegisterWorldgen.RAINFOREST)
+				.add(Biomes.DARK_FOREST)
+				.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
+				.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_ROOTED_DIRT_CLEARING)
 				.add(Biomes.FOREST)
@@ -1134,6 +1137,10 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA)
 				.add(Biomes.OLD_GROWTH_PINE_TAIGA)
 				.add(Biomes.SNOWY_TAIGA)
+				.add(Biomes.DARK_FOREST)
+				.addOptional(RegisterWorldgen.DARK_TAIGA)
+				.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
+				.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
 				.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
 				.addOptional(RegisterWorldgen.BIRCH_TAIGA)
 				.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
@@ -1145,6 +1152,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA)
 				.add(Biomes.OLD_GROWTH_PINE_TAIGA)
 				.add(Biomes.SNOWY_TAIGA)
+				.addOptional(RegisterWorldgen.DARK_TAIGA)
 				.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
 				.addOptional(RegisterWorldgen.BIRCH_TAIGA)
 				.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
@@ -1269,13 +1277,6 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptional(RegisterWorldgen.MIXED_FOREST)
 				.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
 				.addOptional(RegisterWorldgen.DARK_TAIGA);
-
-			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_RARE_SAND)
-				.add(Biomes.FOREST)
-				.add(Biomes.SAVANNA)
-				.add(Biomes.DARK_FOREST)
-				.add(Biomes.PLAINS)
-				.add(Biomes.SUNFLOWER_PLAINS);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_RARE_GRAVEL)
 				.add(Biomes.FOREST)
@@ -1510,6 +1511,10 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.add(Blocks.GRASS_BLOCK)
 				.add(Blocks.PODZOL);
 
+			this.getOrCreateTagBuilder(WilderBlockTags.ROOTED_DIRT_PATH_REPLACEABLE)
+				.add(Blocks.GRAVEL)
+				.addOptionalTag(BlockTags.DIRT);
+
 			this.getOrCreateTagBuilder(WilderBlockTags.UNDER_WATER_SAND_PATH_REPLACEABLE)
 				.add(Blocks.DIRT)
 				.add(Blocks.GRASS_BLOCK)
@@ -1541,6 +1546,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBlockTags.GRAVEL_PATH_REPLACEABLE)
 				.add(Blocks.DIRT)
 				.add(Blocks.GRASS_BLOCK)
+				.add(Blocks.COARSE_DIRT)
 				.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
 			this.getOrCreateTagBuilder(WilderBlockTags.STONE_PATH_REPLACEABLE)

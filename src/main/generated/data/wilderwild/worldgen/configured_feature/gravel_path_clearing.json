@@ -7,7 +7,7 @@
         "Name": "minecraft:gravel"
       }
     },
-    "chance": 0.3,
+    "chance": 0.325,
     "is3D": false,
     "maxThresh": 0.175,
     "minThresh": -0.075,
@@ -15,7 +15,7 @@
     "multiplyY": false,
     "noise": 3,
     "onlyExposed": false,
-    "radius": 6,
+    "radius": 3,
     "replaceable": "wilderwild:gravel_path_replaceable",
     "useY": false
   }

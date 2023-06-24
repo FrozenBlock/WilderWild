@@ -43,9 +43,6 @@ public final class WilderMiscGeneration {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_RARE_GRAVEL),
 				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.GRAVEL_PATH_RARE.getKey());
 
-			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_RARE_SAND),
-				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.SAND_PATH_RARE.getKey());
-
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_RARE_STONE),
 				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.STONE_PATH_RARE.getKey());
 
