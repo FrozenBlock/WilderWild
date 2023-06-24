@@ -33,7 +33,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.menu.api.Panoramas;
-import net.frozenblock.lib.menu.api.Splashes;
+import net.frozenblock.lib.menu.api.SplashTextAPI;
 import net.frozenblock.lib.sound.api.FlyBySoundHub;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.entity.render.blockentity.DisplayLanternBlockEntityRenderer;
@@ -98,7 +98,7 @@ public final class WilderWildClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		Splashes.addSplashLocation(WilderSharedConstants.id("texts/splashes.txt"));
+		SplashTextAPI.addSplashLocation(WilderSharedConstants.id("texts/splashes.txt"));
 		Panoramas.addPanorama(WilderSharedConstants.id("textures/gui/title/first/panorama"));
 		Panoramas.addPanorama(WilderSharedConstants.id("textures/gui/title/second/panorama"));
 		EasterEggs.registerEaster();
