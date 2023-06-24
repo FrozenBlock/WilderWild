@@ -223,14 +223,14 @@ public final class WilderMiscConfigured {
 				3,
 				3,
 				0.07,
-				-0.095,
-				0.195,
+				-0.075,
+				0.175,
 				false,
 				false,
 				false,
 				false,
 				WilderBlockTags.COARSE_PATH_REPLACEABLE,
-				0.575F
+				0.475F
 			)
 		);
 
@@ -240,14 +240,14 @@ public final class WilderMiscConfigured {
 				3,
 				3,
 				0.07,
-				-0.095,
-				0.195,
+				-0.075,
+				0.175,
 				false,
 				false,
 				false,
 				false,
 				WilderBlockTags.GRAVEL_PATH_REPLACEABLE,
-				0.575F
+				0.475F
 			)
 		);
 
@@ -257,14 +257,14 @@ public final class WilderMiscConfigured {
 				3,
 				3,
 				0.07,
-				-0.055,
-				0.155,
+				-0.035,
+				0.135,
 				false,
 				false,
 				false,
 				false,
 				WilderBlockTags.ROOTED_DIRT_PATH_REPLACEABLE,
-				0.4F
+				0.3F
 			)
 		);
 

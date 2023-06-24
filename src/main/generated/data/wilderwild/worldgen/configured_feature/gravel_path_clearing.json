@@ -7,10 +7,10 @@
         "Name": "minecraft:gravel"
       }
     },
-    "chance": 0.575,
+    "chance": 0.475,
     "is3D": false,
-    "maxThresh": 0.195,
-    "minThresh": -0.095,
+    "maxThresh": 0.175,
+    "minThresh": -0.075,
     "multiplier": 0.07,
     "multiplyY": false,
     "noise": 3,

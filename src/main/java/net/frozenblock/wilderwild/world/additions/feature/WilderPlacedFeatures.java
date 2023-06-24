@@ -630,7 +630,7 @@ public final class WilderPlacedFeatures {
 		);
 
 		SNAPPED_OAK_CLEARING_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_OAKS.getHolder(),
-			VegetationPlacements.treePlacementBase(RarityFilter.onAverageOnceEvery(3))
+			VegetationPlacements.treePlacementBase(RarityFilter.onAverageOnceEvery(2))
 				.add(
 					WilderPlacementUtils.TREE_CLEARING_FILTER_INVERTED
 				).build()
@@ -641,7 +641,7 @@ public final class WilderPlacedFeatures {
 		);
 
 		SNAPPED_BIRCH_AND_OAK_CLEARING_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_BIRCH_AND_OAK.getHolder(),
-			VegetationPlacements.treePlacementBase(RarityFilter.onAverageOnceEvery(3))
+			VegetationPlacements.treePlacementBase(RarityFilter.onAverageOnceEvery(2))
 				.add(
 					WilderPlacementUtils.TREE_CLEARING_FILTER_INVERTED
 				).build()
@@ -652,7 +652,7 @@ public final class WilderPlacedFeatures {
 		);
 
 		SNAPPED_SPRUCE_CLEARING_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_SPRUCES.getHolder(),
-			VegetationPlacements.treePlacementBase(RarityFilter.onAverageOnceEvery(3))
+			VegetationPlacements.treePlacementBase(RarityFilter.onAverageOnceEvery(2))
 				.add(
 					WilderPlacementUtils.TREE_CLEARING_FILTER_INVERTED
 				).build()
@@ -663,7 +663,7 @@ public final class WilderPlacedFeatures {
 		);
 
 		SNAPPED_SPRUCE_ON_SNOW_CLEARING_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_SPRUCES_ON_SNOW.getHolder(),
-			VegetationPlacements.treePlacementBase(RarityFilter.onAverageOnceEvery(3))
+			VegetationPlacements.treePlacementBase(RarityFilter.onAverageOnceEvery(2))
 				.add(
 					WilderPlacementUtils.TREE_CLEARING_FILTER_INVERTED
 				).build()
@@ -674,7 +674,7 @@ public final class WilderPlacedFeatures {
 		);
 
 		SNAPPED_BIRCH_AND_OAK_AND_SPRUCE_CLEARING_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_BIRCH_AND_OAK_AND_SPRUCE.getHolder(),
-			VegetationPlacements.treePlacementBase(RarityFilter.onAverageOnceEvery(3))
+			VegetationPlacements.treePlacementBase(RarityFilter.onAverageOnceEvery(2))
 				.add(
 					WilderPlacementUtils.TREE_CLEARING_FILTER_INVERTED
 				).build()
@@ -685,7 +685,7 @@ public final class WilderPlacedFeatures {
 		);
 
 		SNAPPED_BIRCH_AND_SPRUCE_CLEARING_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_BIRCH_AND_SPRUCE.getHolder(),
-			VegetationPlacements.treePlacementBase(RarityFilter.onAverageOnceEvery(3))
+			VegetationPlacements.treePlacementBase(RarityFilter.onAverageOnceEvery(2))
 				.add(
 					WilderPlacementUtils.TREE_CLEARING_FILTER_INVERTED
 				).build()

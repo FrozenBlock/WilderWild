@@ -7,10 +7,10 @@
         "Name": "minecraft:rooted_dirt"
       }
     },
-    "chance": 0.4,
+    "chance": 0.3,
     "is3D": false,
-    "maxThresh": 0.155,
-    "minThresh": -0.055,
+    "maxThresh": 0.135,
+    "minThresh": -0.035,
     "multiplier": 0.07,
     "multiplyY": false,
     "noise": 3,
