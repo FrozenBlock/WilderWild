@@ -1,5 +1,5 @@
 {
-  "feature": "wilderwild:beta_beach_sand_transition_disk",
+  "feature": "wilderwild:small_gravel_transition_disk",
   "placement": [
     {
       "type": "minecraft:count",
@@ -16,7 +16,7 @@
       "type": "minecraft:block_predicate_filter",
       "predicate": {
         "type": "minecraft:matching_block_tag",
-        "tag": "wilderwild:sand_transition_placeable"
+        "tag": "wilderwild:gravel_transition_placeable"
       }
     },
     {

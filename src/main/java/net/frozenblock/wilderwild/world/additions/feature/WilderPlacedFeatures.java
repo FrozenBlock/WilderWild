@@ -360,12 +360,14 @@ public final class WilderPlacedFeatures {
 
 		SHRUBS_FOREST.makeAndSetHolder(WilderConfiguredFeatures.SHRUBS.getHolder(),
 			PlacementUtils.countExtra(1, 0.2F, 1), InSquarePlacement.spread(), TREE_THRESHOLD,
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome()
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome(),
+			WilderPlacementUtils.SHRUB_CLEARING_FILTER
 		);
 
 		SHRUBS.makeAndSetHolder(WilderConfiguredFeatures.SHRUBS.getHolder(),
 			PlacementUtils.countExtra(1, 0.2F, 1), RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(), TREE_THRESHOLD,
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome()
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome(),
+			WilderPlacementUtils.SHRUB_CLEARING_FILTER
 		);
 
 		TREES_FLOWER_FIELD.makeAndSetHolder(WilderConfiguredFeatures.TREES_FLOWER_FIELD.getHolder(),

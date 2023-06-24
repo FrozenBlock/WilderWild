@@ -7,7 +7,7 @@
         "Name": "minecraft:coarse_dirt"
       }
     },
-    "chance": 0.525,
+    "chance": 0.7,
     "is3D": false,
     "maxThresh": 0.175,
     "minThresh": -0.075,
@@ -16,7 +16,7 @@
     "noise": 3,
     "onlyExposed": false,
     "radius": 3,
-    "replaceable": "wilderwild:coarse_path_replaceable",
+    "replaceable": "wilderwild:coarse_clearing_replaceable",
     "useY": false
   }
 }

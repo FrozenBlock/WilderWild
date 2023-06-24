@@ -1209,9 +1209,11 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptionalTag(WilderBiomeTags.SAND_BEACHES)
 				.addOptionalTag(WilderBiomeTags.MULTI_LAYER_SAND_BEACHES);
 
-			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_GRAVEL_TRANSITION)
-				.add(Biomes.WINDSWEPT_GRAVELLY_HILLS)
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_BETA_BEACH_GRAVEL_TRANSITION)
 				.addOptionalTag(WilderBiomeTags.GRAVEL_BEACH);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_GRAVEL_TRANSITION)
+				.add(Biomes.WINDSWEPT_GRAVELLY_HILLS);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_MUD_TRANSITION)
 				.add(Biomes.MANGROVE_SWAMP)
@@ -1522,9 +1524,15 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.add(Blocks.GRASS_BLOCK)
 				.add(Blocks.PODZOL);
 
+			this.getOrCreateTagBuilder(WilderBlockTags.COARSE_CLEARING_REPLACEABLE)
+				.add(Blocks.DIRT)
+				.add(Blocks.GRASS_BLOCK)
+				.add(Blocks.PODZOL)
+				.add(Blocks.GRAVEL);
+
 			this.getOrCreateTagBuilder(WilderBlockTags.ROOTED_DIRT_PATH_REPLACEABLE)
 				.add(Blocks.GRAVEL)
-				.addOptionalTag(BlockTags.DIRT);
+				.add(Blocks.COARSE_DIRT);
 
 			this.getOrCreateTagBuilder(WilderBlockTags.UNDER_WATER_SAND_PATH_REPLACEABLE)
 				.add(Blocks.DIRT)
@@ -1555,6 +1563,12 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
 			this.getOrCreateTagBuilder(WilderBlockTags.GRAVEL_PATH_REPLACEABLE)
+				.add(Blocks.DIRT)
+				.add(Blocks.GRASS_BLOCK)
+				.add(Blocks.COARSE_DIRT)
+				.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.GRAVEL_CLEARING_REPLACEABLE)
 				.add(Blocks.DIRT)
 				.add(Blocks.GRASS_BLOCK)
 				.add(Blocks.COARSE_DIRT)

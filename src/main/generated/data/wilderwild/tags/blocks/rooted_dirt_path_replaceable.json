@@ -2,9 +2,6 @@
   "replace": false,
   "values": [
     "minecraft:gravel",
-    {
-      "id": "#minecraft:dirt",
-      "required": false
-    }
+    "minecraft:coarse_dirt"
   ]
 }

@@ -7,7 +7,7 @@
         "Name": "minecraft:rooted_dirt"
       }
     },
-    "chance": 0.375,
+    "chance": 0.5,
     "is3D": false,
     "maxThresh": 0.135,
     "minThresh": -0.035,

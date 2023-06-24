@@ -51,6 +51,7 @@ Put changelog here:
 - Fixed a bug where Wardens would continuously attempt and fail to roar at Tumbleweeds.
 - Tumbleweed entities now properly look in the direction they're moving.
 - Fixed broken Stone Chest animations and cleaned up their code.
+- Fixed some missing recipe unlocks.
 - Added descriptions and proper names to Wilder Wild's built-in resource packs.
 - Fixed cloud rendering at high coordinates.
 - Lots of internal cleanup, reorganization, and optimizations.

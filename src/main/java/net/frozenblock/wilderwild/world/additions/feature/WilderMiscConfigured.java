@@ -229,8 +229,8 @@ public final class WilderMiscConfigured {
 				false,
 				false,
 				false,
-				WilderBlockTags.COARSE_PATH_REPLACEABLE,
-				0.525F
+				WilderBlockTags.COARSE_CLEARING_REPLACEABLE,
+				0.7F
 			)
 		);
 
@@ -246,8 +246,8 @@ public final class WilderMiscConfigured {
 				false,
 				false,
 				false,
-				WilderBlockTags.GRAVEL_PATH_REPLACEABLE,
-				0.525F
+				WilderBlockTags.GRAVEL_CLEARING_REPLACEABLE,
+				0.7F
 			)
 		);
 
@@ -264,7 +264,7 @@ public final class WilderMiscConfigured {
 				false,
 				false,
 				WilderBlockTags.ROOTED_DIRT_PATH_REPLACEABLE,
-				0.375F
+				0.5F
 			)
 		);
 

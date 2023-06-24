@@ -154,25 +154,28 @@ public final class WilderMiscGeneration {
 
 		if (WilderSharedConstants.config().surfaceTransitions()) {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SMALL_SAND_TRANSITION),
-				GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.SMALL_SAND_TRANSITION.getKey());
+				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.SMALL_SAND_TRANSITION.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SAND_TRANSITION),
-				GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.SAND_TRANSITION.getKey());
+				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.SAND_TRANSITION.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_RED_SAND_TRANSITION),
-				GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.RED_SAND_TRANSITION.getKey());
+				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.RED_SAND_TRANSITION.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_STONE_TRANSITION),
-				GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.STONE_TRANSITION.getKey());
+				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.STONE_TRANSITION.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_BETA_BEACH_SAND_TRANSITION),
-				GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.BETA_BEACH_SAND_TRANSITION.getKey());
+				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.BETA_BEACH_SAND_TRANSITION.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_BETA_BEACH_GRAVEL_TRANSITION),
+				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.BETA_BEACH_GRAVEL_TRANSITION.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_GRAVEL_TRANSITION),
-				GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.SMALL_GRAVEL_TRANSITION.getKey());
+				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.SMALL_GRAVEL_TRANSITION.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_MUD_TRANSITION),
-				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.MUD_TRANSITION.getKey());
+				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.MUD_TRANSITION.getKey());
 		}
 	}
 
