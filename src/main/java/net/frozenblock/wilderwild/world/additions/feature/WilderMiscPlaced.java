@@ -162,7 +162,7 @@ public final class WilderMiscPlaced {
 		);
 
 		COARSE_PATH_CLEARING.makeAndSetHolder(WilderMiscConfigured.COARSE_DIRT_PATH_CLEARING.getHolder(),
-			CountPlacement.of(UniformInt.of(20, 24)),
+			CountPlacement.of(UniformInt.of(9, 11)),
 			WilderPlacementUtils.TREE_CLEARING_FILTER_INVERTED,
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
@@ -170,7 +170,7 @@ public final class WilderMiscPlaced {
 		);
 
 		GRAVEL_PATH_CLEARING.makeAndSetHolder(WilderMiscConfigured.GRAVEL_PATH_CLEARING.getHolder(),
-			CountPlacement.of(UniformInt.of(20, 24)),
+			CountPlacement.of(UniformInt.of(9, 11)),
 			WilderPlacementUtils.TREE_CLEARING_FILTER_INVERTED,
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
@@ -178,7 +178,7 @@ public final class WilderMiscPlaced {
 		);
 
 		ROOTED_DIRT_PATH_CLEARING.makeAndSetHolder(WilderMiscConfigured.ROOTED_DIRT_PATH_CLEARING.getHolder(),
-			CountPlacement.of(UniformInt.of(20, 24)),
+			CountPlacement.of(UniformInt.of(7, 9)),
 			WilderPlacementUtils.TREE_CLEARING_FILTER_INVERTED,
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,

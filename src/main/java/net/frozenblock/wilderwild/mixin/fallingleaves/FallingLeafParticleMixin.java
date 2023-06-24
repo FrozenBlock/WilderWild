@@ -19,7 +19,7 @@ public class FallingLeafParticleMixin {
 	@ModifyExpressionValue(method = "tick", at = @At(value = "FIELD", target = "Lrandommcsomethin/fallingleaves/util/Wind;windX:F"))
 	private float wilderWild$modifyWindX(float original) {
 		if (wilderWild$useWind()) {
-			return (float) ClientWindManager.windX;
+			return (float) ClientWindManager.windX * 0.7F;
 		}
 		return original;
 	}
@@ -27,7 +27,7 @@ public class FallingLeafParticleMixin {
 	@ModifyExpressionValue(method = "tick", at = @At(value = "FIELD", target = "Lrandommcsomethin/fallingleaves/util/Wind;windZ:F"))
 	private float wilderWild$modifyWindZ(float original) {
 		if (wilderWild$useWind()) {
-			return (float) ClientWindManager.windZ;
+			return (float) ClientWindManager.windZ * 0.7F;
 		}
 		return original;
 	}

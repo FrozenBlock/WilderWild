@@ -7,15 +7,15 @@
         "Name": "minecraft:rooted_dirt"
       }
     },
-    "chance": 0.5,
+    "chance": 0.4,
     "is3D": false,
-    "maxThresh": 0.175,
-    "minThresh": -0.075,
+    "maxThresh": 0.155,
+    "minThresh": -0.055,
     "multiplier": 0.07,
     "multiplyY": false,
     "noise": 3,
     "onlyExposed": false,
-    "radius": 2,
+    "radius": 3,
     "replaceable": "wilderwild:rooted_dirt_path_replaceable",
     "useY": false
   }
