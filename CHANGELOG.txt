@@ -17,7 +17,9 @@ Put changelog here:
 - Added Snapped variants of trees.
 - Mangrove Swamps have now been wilder-ified, including Cattails, Flowers, Bushes, Mud Basins, Mud Lakes, more Grass, Fern, and rare Mud Piles.
 - Made path features look more natural.
-- Added new rare Coarse Dirt, Gravel, Sand, and Stone paths throughout the world.
+- Added new rare Coarse Dirt, Gravel, and Stone paths throughout the world.
+- Forest biomes now have clearings, with Rooted Dirt and Coarse Dirt/Gravel surrounding it.
+    - Snapped Trees will generate more frequently in clearings.
 - Algae no longer slows down entities outside its collision shape.
 - Fixed Algae growth with Bone meal.
 - Decreased the size of uncommon Algae patches (Swamp & Mangrove Swamp.)
