@@ -3,7 +3,7 @@
   "placement": [
     {
       "type": "minecraft:rarity_filter",
-      "chance": 2
+      "chance": 3
     },
     {
       "type": "minecraft:in_square"
@@ -21,10 +21,10 @@
     },
     {
       "type": "frozenlib:noise_filter",
-      "fadeDist": 0.1,
+      "fadeDist": 0.15,
       "inside": true,
       "maxThresh": 1.0,
-      "minThresh": 0.71,
+      "minThresh": 0.675,
       "multiplier": 0.0065,
       "multiplyY": false,
       "noise": 4,
