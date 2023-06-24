@@ -41,6 +41,14 @@
     {
       "id": "wilderwild:mixed_forest",
       "required": false
+    },
+    {
+      "id": "wilderwild:parched_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:arid_forest",
+      "required": false
     }
   ]
 }

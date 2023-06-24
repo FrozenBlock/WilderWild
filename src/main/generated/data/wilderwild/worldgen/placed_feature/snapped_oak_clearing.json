@@ -21,7 +21,7 @@
     },
     {
       "type": "frozenlib:noise_filter",
-      "fadeDist": 0.15,
+      "fadeDist": 0.175,
       "inside": true,
       "maxThresh": 1.0,
       "minThresh": 0.675,
