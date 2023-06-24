@@ -1121,16 +1121,27 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COARSE_DIRT_CLEARING)
 				.add(Biomes.FOREST)
+				.add(Biomes.FLOWER_FOREST)
 				.add(Biomes.BIRCH_FOREST)
 				.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
 				.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
 				.addOptional(RegisterWorldgen.RAINFOREST)
 				.add(Biomes.DARK_FOREST)
 				.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
-				.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
+				.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
+				.add(Biomes.TAIGA)
+				.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA)
+				.add(Biomes.OLD_GROWTH_PINE_TAIGA)
+				.add(Biomes.SNOWY_TAIGA)
+				.addOptional(RegisterWorldgen.DARK_TAIGA)
+				.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
+				.addOptional(RegisterWorldgen.BIRCH_TAIGA)
+				.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
+				.addOptional(RegisterWorldgen.MIXED_FOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_ROOTED_DIRT_CLEARING)
 				.add(Biomes.FOREST)
+				.add(Biomes.FLOWER_FOREST)
 				.add(Biomes.BIRCH_FOREST)
 				.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
 				.add(Biomes.TAIGA)

@@ -21,7 +21,6 @@ package net.frozenblock.wilderwild.world.additions.feature;
 import java.util.List;
 import net.frozenblock.lib.worldgen.feature.api.FrozenPlacedFeature;
 import net.frozenblock.lib.worldgen.feature.api.placementmodifier.LowerHeightmapPlacement;
-import net.frozenblock.lib.worldgen.feature.api.placementmodifier.NoisePlacementFilter;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import static net.frozenblock.wilderwild.world.additions.feature.WilderPlacementUtils.register;
@@ -163,24 +162,24 @@ public final class WilderMiscPlaced {
 		);
 
 		COARSE_PATH_CLEARING.makeAndSetHolder(WilderMiscConfigured.COARSE_DIRT_PATH_CLEARING.getHolder(),
-			CountPlacement.of(UniformInt.of(10, 16)),
-			TREE_CLEARING_FILTER_INVERTED,
+			CountPlacement.of(UniformInt.of(20, 24)),
+			WilderPlacementUtils.TREE_CLEARING_FILTER_INVERTED,
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
 		GRAVEL_PATH_CLEARING.makeAndSetHolder(WilderMiscConfigured.GRAVEL_PATH_CLEARING.getHolder(),
-			CountPlacement.of(UniformInt.of(6, 8)),
-			TREE_CLEARING_FILTER_INVERTED,
+			CountPlacement.of(UniformInt.of(20, 24)),
+			WilderPlacementUtils.TREE_CLEARING_FILTER_INVERTED,
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
 		ROOTED_DIRT_PATH_CLEARING.makeAndSetHolder(WilderMiscConfigured.ROOTED_DIRT_PATH_CLEARING.getHolder(),
-			CountPlacement.of(UniformInt.of(6, 8)),
-			TREE_CLEARING_FILTER_INVERTED,
+			CountPlacement.of(UniformInt.of(20, 24)),
+			WilderPlacementUtils.TREE_CLEARING_FILTER_INVERTED,
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
@@ -651,5 +650,4 @@ public final class WilderMiscPlaced {
 		return modifiers(CountPlacement.of(count), heightModifier);
 	}
 
-	public static final NoisePlacementFilter TREE_CLEARING_FILTER_INVERTED = new NoisePlacementFilter(4, 0.01, 0.7, 1.0, 0.25, false, false, true);
 }
