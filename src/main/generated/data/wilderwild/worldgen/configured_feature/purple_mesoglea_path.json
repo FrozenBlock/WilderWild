@@ -10,6 +10,7 @@
         }
       }
     },
+    "chance": 1.0,
     "is3D": true,
     "maxThresh": -0.5125,
     "minThresh": -0.5875,

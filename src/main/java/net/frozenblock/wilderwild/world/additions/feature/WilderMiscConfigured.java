@@ -231,7 +231,8 @@ public final class WilderMiscConfigured {
 						false,
 						false,
 						false,
-						WilderBlockTags.MUD_PATH_REPLACEABLE
+						WilderBlockTags.MUD_PATH_REPLACEABLE,
+						1F
 				)
 		);
 
@@ -263,7 +264,8 @@ public final class WilderMiscConfigured {
 						false,
 						false,
 						false,
-						WilderBlockTags.COARSE_PATH_REPLACEABLE
+						WilderBlockTags.COARSE_PATH_REPLACEABLE,
+						1F
 				)
 		);
 
@@ -279,7 +281,8 @@ public final class WilderMiscConfigured {
 						true,
 						false,
 						false,
-						WilderBlockTags.UNDER_WATER_SAND_PATH_REPLACEABLE
+						WilderBlockTags.UNDER_WATER_SAND_PATH_REPLACEABLE,
+						1F
 				)
 		);
 
@@ -295,7 +298,8 @@ public final class WilderMiscConfigured {
 						true,
 						false,
 						false,
-						WilderBlockTags.UNDER_WATER_GRAVEL_PATH_REPLACEABLE
+						WilderBlockTags.UNDER_WATER_GRAVEL_PATH_REPLACEABLE,
+						1F
 				)
 		);
 
@@ -311,7 +315,8 @@ public final class WilderMiscConfigured {
 						true,
 						false,
 						false,
-						WilderBlockTags.UNDER_WATER_CLAY_PATH_REPLACEABLE
+						WilderBlockTags.UNDER_WATER_CLAY_PATH_REPLACEABLE,
+						1F
 				)
 		);
 
@@ -327,7 +332,8 @@ public final class WilderMiscConfigured {
 						true,
 						false,
 						false,
-						WilderBlockTags.BEACH_CLAY_PATH_REPLACEABLE
+						WilderBlockTags.BEACH_CLAY_PATH_REPLACEABLE,
+						1F
 				)
 		);
 
@@ -343,7 +349,8 @@ public final class WilderMiscConfigured {
 						true,
 						false,
 						false,
-						WilderBlockTags.RIVER_GRAVEL_PATH_REPLACEABLE
+						WilderBlockTags.RIVER_GRAVEL_PATH_REPLACEABLE,
+						1F
 				)
 		);
 
@@ -424,7 +431,8 @@ public final class WilderMiscConfigured {
 						true,
 						false,
 						false,
-						WilderBlockTags.PACKED_MUD_PATH_REPLACEABLE
+						WilderBlockTags.PACKED_MUD_PATH_REPLACEABLE,
+						1F
 				)
 		);
 
@@ -440,7 +448,8 @@ public final class WilderMiscConfigured {
 						true,
 						false,
 						false,
-						WilderBlockTags.MOSS_PATH_REPLACEABLE
+						WilderBlockTags.MOSS_PATH_REPLACEABLE,
+						1F
 				)
 		);
 
@@ -464,7 +473,8 @@ public final class WilderMiscConfigured {
 						true,
 						false,
 						false,
-						WilderBlockTags.SANDSTONE_PATH_REPLACEABLE
+						WilderBlockTags.SANDSTONE_PATH_REPLACEABLE,
+						1F
 				)
 		);
 
@@ -560,7 +570,8 @@ public final class WilderMiscConfigured {
 						true,
 						false,
 						false,
-						WilderBlockTags.SMALL_COARSE_DIRT_PATH_REPLACEABLE
+						WilderBlockTags.SMALL_COARSE_DIRT_PATH_REPLACEABLE,
+						1F
 				)
 		);
 
@@ -576,7 +587,8 @@ public final class WilderMiscConfigured {
 						true,
 						false,
 						false,
-						WilderBlockTags.PACKED_MUD_PATH_BADLANDS_REPLACEABLE
+						WilderBlockTags.PACKED_MUD_PATH_BADLANDS_REPLACEABLE,
+						1F
 				)
 		);
 
@@ -782,7 +794,8 @@ public final class WilderMiscConfigured {
 								Blocks.CALCITE,
 								Blocks.TUFF,
 								Blocks.DEEPSLATE
-						)
+						),
+						1F
 				)
 		);
 
@@ -809,7 +822,8 @@ public final class WilderMiscConfigured {
 								Blocks.CALCITE,
 								Blocks.TUFF,
 								Blocks.DEEPSLATE
-						)
+						),
+						1F
 				)
 		);
 
@@ -853,7 +867,8 @@ public final class WilderMiscConfigured {
 						HolderSet.direct(
 								Blocks.SAND.builtInRegistryHolder(),
 								Blocks.SANDSTONE.builtInRegistryHolder()
-						)
+						),
+						1F
 				)
 		);
 
@@ -871,7 +886,8 @@ public final class WilderMiscConfigured {
 						false,
 						HolderSet.direct(
 								Blocks.SAND.builtInRegistryHolder()
-						)
+						),
+						1F
 				)
 		);
 
@@ -892,7 +908,8 @@ public final class WilderMiscConfigured {
 						HolderSet.direct(
 								Blocks.DIRT.builtInRegistryHolder(),
 								Blocks.GRASS_BLOCK.builtInRegistryHolder()
-						)
+						),
+						1F
 				)
 		);
 

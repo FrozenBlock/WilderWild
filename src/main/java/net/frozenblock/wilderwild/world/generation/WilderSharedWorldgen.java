@@ -653,7 +653,7 @@ public final class WilderSharedWorldgen {
 
 	public static SurfaceRules.RuleSource gravelBetaBeaches() {
 		return SurfaceRules.ifTrue(
-				BiomeTagConditionSource.isBiomeTag(WilderBiomeTags.GRAVEL_BEACH),
+				FrozenSurfaceRules.isBiomeTag(WilderBiomeTags.GRAVEL_BEACH),
 				SurfaceRules.ifTrue(
 						SurfaceRules.UNDER_FLOOR,
 						SurfaceRules.ifTrue(
@@ -672,7 +672,7 @@ public final class WilderSharedWorldgen {
 
 	public static SurfaceRules.RuleSource sandBetaBeaches() {
 		return SurfaceRules.ifTrue(
-				BiomeTagConditionSource.isBiomeTag(WilderBiomeTags.SAND_BEACHES),
+				FrozenSurfaceRules.isBiomeTag(WilderBiomeTags.SAND_BEACHES),
 				SurfaceRules.ifTrue(
 						SurfaceRules.DEEP_UNDER_FLOOR,
 						SurfaceRules.ifTrue(
@@ -691,7 +691,7 @@ public final class WilderSharedWorldgen {
 
 	public static SurfaceRules.RuleSource multilayerSandBetaBeaches() {
 		return SurfaceRules.ifTrue(
-				BiomeTagConditionSource.isBiomeTag(WilderBiomeTags.MULTI_LAYER_SAND_BEACHES),
+				FrozenSurfaceRules.isBiomeTag(WilderBiomeTags.MULTI_LAYER_SAND_BEACHES),
 				SurfaceRules.ifTrue(
 						SurfaceRules.DEEP_UNDER_FLOOR,
 						SurfaceRules.ifTrue(
