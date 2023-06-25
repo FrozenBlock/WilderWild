@@ -1068,14 +1068,14 @@ public final class WilderPlacedFeatures {
 		);
 
 		FLOWER_BIRCH_CLEARING.makeAndSetHolder(WilderConfiguredFeatures.FLOWERS_BIRCH_CLEARING.getHolder(),
-			CountPlacement.of(UniformInt.of(1, 3)),
+			CountPlacement.of(UniformInt.of(0, 2)),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome(),
 			WilderPlacementUtils.TREE_CLEARING_FILTER_INVERTED
 		);
 
 		FLOWER_FOREST_CLEARING.makeAndSetHolder(WilderConfiguredFeatures.FLOWERS_FOREST_CLEARING.getHolder(),
-			CountPlacement.of(UniformInt.of(1, 3)),
+			CountPlacement.of(UniformInt.of(0, 2)),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome(),
 			WilderPlacementUtils.TREE_CLEARING_FILTER_INVERTED

@@ -46,7 +46,7 @@
                 "data": {
                   "Name": "minecraft:blue_orchid"
                 },
-                "weight": 3
+                "weight": 2
               },
               {
                 "data": {
@@ -101,7 +101,7 @@
         }
       ]
     },
-    "tries": 28,
+    "tries": 24,
     "xz_spread": 7,
     "y_spread": 3
   }

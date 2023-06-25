@@ -275,7 +275,7 @@ public final class WilderConfiguredFeatures {
 		.add(RegisterBlocks.DATURA.defaultBlockState(), 1)
 		.add(RegisterBlocks.SEEDING_DANDELION.defaultBlockState(), 4)
 		.add(Blocks.LILAC.defaultBlockState(), 1)
-		.add(Blocks.BLUE_ORCHID.defaultBlockState(), 3)
+		.add(Blocks.BLUE_ORCHID.defaultBlockState(), 2)
 		.add(Blocks.CORNFLOWER.defaultBlockState(), 6)
 		.add(RegisterBlocks.CARNATION.defaultBlockState(), 3)
 		.add(Blocks.PINK_TULIP.defaultBlockState(), 3)
@@ -1367,7 +1367,7 @@ public final class WilderConfiguredFeatures {
 
 		FLOWERS_BIRCH_CLEARING.makeAndSetHolder(Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(
-				28,
+				24,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(new WeightedStateProvider(FLOWERS_BIRCH_CLEARING_POOL))
@@ -1377,7 +1377,7 @@ public final class WilderConfiguredFeatures {
 
 		FLOWERS_FOREST_CLEARING.makeAndSetHolder(Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(
-				28,
+				24,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(new WeightedStateProvider(FLOWERS_FOREST_CLEARING_POOL))
