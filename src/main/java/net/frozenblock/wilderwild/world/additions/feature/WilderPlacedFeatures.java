@@ -212,6 +212,8 @@ public final class WilderPlacedFeatures {
 	public static final FrozenPlacedFeature FLOWER_RAINFOREST_VANILLA = register("flower_rainforest_vanilla");
 	public static final FrozenPlacedFeature FLOWER_JUNGLE = register("flower_jungle");
 	public static final FrozenPlacedFeature FLOWER_SUNFLOWER_PLAINS = register("flower_sunflower_plains");
+	public static final FrozenPlacedFeature FLOWER_BIRCH_CLEARING = register("flower_birch_clearing");
+	public static final FrozenPlacedFeature FLOWER_FOREST_CLEARING = register("flower_forest_clearing");
 	public static final FrozenPlacedFeature FLOWER_SPARSE_JUNGLE = register("flower_sparse_jungle");
 	public static final FrozenPlacedFeature FLOWER_CHERRY = register("flower_cherry");
 	public static final FrozenPlacedFeature MOSS_CARPET = register("moss_carpet");
@@ -1063,6 +1065,20 @@ public final class WilderPlacedFeatures {
 		FLOWER_SUNFLOWER_PLAINS.makeAndSetHolder(WilderConfiguredFeatures.FLOWERS_SUNFLOWER_PLAINS.getHolder(),
 			CountPlacement.of(UniformInt.of(8, 14)), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
+		FLOWER_BIRCH_CLEARING.makeAndSetHolder(WilderConfiguredFeatures.FLOWERS_BIRCH_CLEARING.getHolder(),
+			CountPlacement.of(UniformInt.of(1, 3)),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome(),
+			WilderPlacementUtils.TREE_CLEARING_FILTER_INVERTED
+		);
+
+		FLOWER_FOREST_CLEARING.makeAndSetHolder(WilderConfiguredFeatures.FLOWERS_FOREST_CLEARING.getHolder(),
+			CountPlacement.of(UniformInt.of(1, 3)),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome(),
+			WilderPlacementUtils.TREE_CLEARING_FILTER_INVERTED
 		);
 
 		FLOWER_SPARSE_JUNGLE.makeAndSetHolder(WilderConfiguredFeatures.FLOWERS_JUNGLE.getHolder(),

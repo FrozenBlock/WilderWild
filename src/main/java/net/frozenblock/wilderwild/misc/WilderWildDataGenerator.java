@@ -1170,9 +1170,23 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptional(RegisterWorldgen.DARK_TAIGA)
 				.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
 				.addOptional(RegisterWorldgen.BIRCH_TAIGA)
-				.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
 				.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
 				.addOptional(RegisterWorldgen.MIXED_FOREST);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_BIRCH_CLEARING_FLOWERS)
+				.add(Biomes.BIRCH_FOREST)
+				.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
+				.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
+				.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
+				.addOptional(RegisterWorldgen.BIRCH_TAIGA)
+				.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FOREST_CLEARING_FLOWERS)
+				.add(Biomes.FOREST)
+				.add(Biomes.FLOWER_FOREST)
+				.add(Biomes.DARK_FOREST)
+				.addOptional(RegisterWorldgen.MIXED_FOREST)
+				.addOptional(RegisterWorldgen.RAINFOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SCORCHED_SAND)
 				.add(Biomes.DESERT)

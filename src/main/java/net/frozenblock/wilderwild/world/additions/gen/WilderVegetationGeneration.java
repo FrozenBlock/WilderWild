@@ -101,6 +101,11 @@ public final class WilderVegetationGeneration {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.MEADOW),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_MEADOW.getKey());
 
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_BIRCH_CLEARING_FLOWERS),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_BIRCH_CLEARING.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FOREST_CLEARING_FLOWERS),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_FOREST_CLEARING.getKey());
 		}
 	}
 

@@ -154,6 +154,8 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_COARSE_DIRT_CLEARING = bind("has_coarse_dirt_clearing");
 	public static final TagKey<Biome> HAS_GRAVEL_CLEARING = bind("has_gravel_clearing");
 	public static final TagKey<Biome> HAS_ROOTED_DIRT_CLEARING = bind("has_rooted_dirt_clearing");
+	public static final TagKey<Biome> HAS_BIRCH_CLEARING_FLOWERS = bind("has_birch_clearing_flowers");
+	public static final TagKey<Biome> HAS_FOREST_CLEARING_FLOWERS = bind("has_forest_clearing_flowers");
 	public static final TagKey<Biome> HAS_SCORCHED_SAND = bind("has_scorched_sand");
 	public static final TagKey<Biome> HAS_SCORCHED_RED_SAND = bind("has_scorched_red_sand");
 	public static final TagKey<Biome> HAS_SMALL_SAND_TRANSITION = bind("has_small_sand_transition");
