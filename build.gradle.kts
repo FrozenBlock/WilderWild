@@ -264,6 +264,9 @@ dependencies {
     // TerraBlender
     modCompileOnly("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
 
+    // Particle Rain
+    modImplementation("maven.modrinth:particle-rain:v2.0.5")
+
     // MixinExtras
     implementation("com.github.llamalad7.mixinextras:mixinextras-fabric:0.2.0-beta.8")?.let { annotationProcessor(it); shadowInclude(it) }
 

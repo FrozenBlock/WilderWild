@@ -70,8 +70,10 @@ public final class WilderMiscConfigured {
 
 	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> COARSE_DIRT_PATH_RARE = register("coarse_dirt_path_rare");
 	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> GRAVEL_PATH_RARE = register("gravel_path_rare");
-	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> SAND_PATH_RARE = register("sand_path_rare");
 	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> STONE_PATH_RARE = register("stone_path_rare");
+	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> COARSE_DIRT_PATH_CLEARING = register("coarse_dirt_path_clearing");
+	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> GRAVEL_PATH_CLEARING = register("gravel_path_clearing");
+	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> ROOTED_DIRT_PATH_CLEARING = register("rooted_dirt_path_clearing");
 
 	// SWAMP
 	public static final FrozenConfiguredFeature<DiskConfiguration, ConfiguredFeature<DiskConfiguration, ?>> DISK_MUD = register("disk_mud");
@@ -198,23 +200,6 @@ public final class WilderMiscConfigured {
 			)
 		);
 
-		SAND_PATH_RARE.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
-			new PathTagFeatureConfig(
-				BlockStateProvider.simple(Blocks.SAND),
-				6,
-				1,
-				0.12,
-				-0.2,
-				0.3,
-				false,
-				false,
-				false,
-				false,
-				WilderBlockTags.SAND_PATH_REPLACEABLE,
-				0.25F
-			)
-		);
-
 		STONE_PATH_RARE.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
 			new PathTagFeatureConfig(
 				BlockStateProvider.simple(Blocks.STONE),
@@ -229,6 +214,57 @@ public final class WilderMiscConfigured {
 				false,
 				WilderBlockTags.STONE_PATH_REPLACEABLE,
 				0.215F
+			)
+		);
+
+		COARSE_DIRT_PATH_CLEARING.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+			new PathTagFeatureConfig(
+				BlockStateProvider.simple(Blocks.COARSE_DIRT),
+				3,
+				3,
+				0.07,
+				-0.075,
+				0.175,
+				false,
+				false,
+				false,
+				false,
+				WilderBlockTags.COARSE_CLEARING_REPLACEABLE,
+				0.7F
+			)
+		);
+
+		GRAVEL_PATH_CLEARING.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+			new PathTagFeatureConfig(
+				BlockStateProvider.simple(Blocks.GRAVEL),
+				3,
+				3,
+				0.07,
+				-0.075,
+				0.175,
+				false,
+				false,
+				false,
+				false,
+				WilderBlockTags.GRAVEL_CLEARING_REPLACEABLE,
+				0.7F
+			)
+		);
+
+		ROOTED_DIRT_PATH_CLEARING.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
+			new PathTagFeatureConfig(
+				BlockStateProvider.simple(Blocks.ROOTED_DIRT),
+				3,
+				3,
+				0.07,
+				-0.035,
+				0.135,
+				false,
+				false,
+				false,
+				false,
+				WilderBlockTags.ROOTED_DIRT_PATH_REPLACEABLE,
+				0.5F
 			)
 		);
 

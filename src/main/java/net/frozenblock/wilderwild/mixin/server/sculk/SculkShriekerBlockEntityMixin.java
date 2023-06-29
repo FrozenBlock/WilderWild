@@ -47,14 +47,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class SculkShriekerBlockEntityMixin implements SculkShriekerTickInterface {
 
 
+	@Unique
+	public int wilderWild$bubbles;
+
 	@Shadow
 	public abstract VibrationSystem.Data getVibrationData();
 
 	@Shadow
 	public abstract VibrationSystem.User getVibrationUser();
-
-	@Unique
-	public int wilderWild$bubbles;
 
 	@Inject(at = @At("HEAD"), method = "canRespond", cancellable = true)
 	private void wilderWild$canRespond(ServerLevel level, CallbackInfoReturnable<Boolean> info) {

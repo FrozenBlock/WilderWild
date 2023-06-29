@@ -31,8 +31,9 @@ import net.minecraft.world.phys.Vec3;
 
 public class EasyPacket {
 
-	public static void sendJellySting(ServerPlayer player) {
+	public static void sendJellySting(ServerPlayer player, boolean baby) {
 		FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
+		byteBuf.writeBoolean(baby);
 		ServerPlayNetworking.send(player, WilderWild.JELLY_STING_PACKET, byteBuf);
 	}
 

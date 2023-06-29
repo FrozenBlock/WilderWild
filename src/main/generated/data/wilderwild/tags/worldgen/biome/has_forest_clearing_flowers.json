@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:forest",
+    "minecraft:flower_forest",
+    "minecraft:dark_forest",
+    {
+      "id": "wilderwild:mixed_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:rainforest",
+      "required": false
+    }
+  ]
+}

@@ -38,6 +38,24 @@ import org.jetbrains.annotations.Nullable;
 
 public class SlabWallStairSculkBehavior implements SculkBehaviour {
 
+	public static void clearSculkVeins(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
+		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
+		BlockState stateReplace;
+		Direction oppositeDirection;
+		for (Direction direction : BlockBehaviour.UPDATE_SHAPE_ORDER) {
+			stateReplace = level.getBlockState(mutableBlockPos.move(direction));
+			oppositeDirection = direction.getOpposite();
+			if (stateReplace.is(Blocks.SCULK_VEIN)) {
+				stateReplace = stateReplace.setValue(MultifaceBlock.getFaceProperty(oppositeDirection), false);
+				if (MultifaceBlock.availableFaces(stateReplace).isEmpty()) {
+					stateReplace = stateReplace.getValue(BlockStateProperties.WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
+				}
+				level.setBlock(mutableBlockPos, stateReplace, 3);
+			}
+			mutableBlockPos.move(oppositeDirection);
+		}
+	}
+
 	@Override
 	public int attemptUseCharge(@NotNull SculkSpreader.ChargeCursor cursor, @NotNull LevelAccessor level, @NotNull BlockPos catalystPos, @NotNull RandomSource random, @NotNull SculkSpreader spreader, boolean shouldConvertToBlock) {
 		BlockPos cursorPos = cursor.getPos();
@@ -62,24 +80,6 @@ public class SlabWallStairSculkBehavior implements SculkBehaviour {
 			clearSculkVeins(level, pos);
 		}
 		return true;
-	}
-
-	public static void clearSculkVeins(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
-		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
-		BlockState stateReplace;
-		Direction oppositeDirection;
-		for (Direction direction : BlockBehaviour.UPDATE_SHAPE_ORDER) {
-			stateReplace = level.getBlockState(mutableBlockPos.move(direction));
-			oppositeDirection = direction.getOpposite();
-			if (stateReplace.is(Blocks.SCULK_VEIN)) {
-				stateReplace = stateReplace.setValue(MultifaceBlock.getFaceProperty(oppositeDirection), false);
-				if (MultifaceBlock.availableFaces(stateReplace).isEmpty()) {
-					stateReplace = stateReplace.getValue(BlockStateProperties.WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
-				}
-				level.setBlock(mutableBlockPos, stateReplace, 3);
-			}
-			mutableBlockPos.move(oppositeDirection);
-		}
 	}
 
 	@Nullable

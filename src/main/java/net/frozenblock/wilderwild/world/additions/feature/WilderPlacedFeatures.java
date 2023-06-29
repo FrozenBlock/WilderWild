@@ -80,6 +80,7 @@ public final class WilderPlacedFeatures {
 	public static final FrozenPlacedFeature SHRUBS = register("shrubs");
 	public static final FrozenPlacedFeature TREES_FLOWER_FIELD = register("trees_flower_field");
 	public static final FrozenPlacedFeature TREES_BIRCH_AND_OAK = register("trees_birch_and_oak");
+	public static final FrozenPlacedFeature TREES_BIRCH_AND_OAK_ORIGINAL = register("trees_birch_and_oak_original");
 	public static final FrozenPlacedFeature TREES_SEMI_BIRCH_AND_OAK = register("trees_semi_birch_and_oak");
 	public static final FrozenPlacedFeature TREES_FLOWER_FOREST = register("trees_flower_forest");
 	public static final FrozenPlacedFeature DARK_FOREST_VEGETATION = register("dark_forest_vegetation");
@@ -124,12 +125,19 @@ public final class WilderPlacedFeatures {
 	public static final FrozenPlacedFeature PALM_RARE = register("palm_rare");
 	public static final FrozenPlacedFeature CHERRY_TREES = register("cherry_trees");
 	public static final FrozenPlacedFeature SNAPPED_OAK_PLACED = register("snapped_oak");
+	public static final FrozenPlacedFeature SNAPPED_OAK_CLEARING_PLACED = register("snapped_oak_clearing");
 	public static final FrozenPlacedFeature SNAPPED_BIRCH_PLACED = register("snapped_birch");
+	public static final FrozenPlacedFeature SNAPPED_BIRCH_CLEARING_PLACED = register("snapped_birch_clearing");
 	public static final FrozenPlacedFeature SNAPPED_BIRCH_AND_OAK_PLACED = register("snapped_birch_and_oak");
+	public static final FrozenPlacedFeature SNAPPED_BIRCH_AND_OAK_CLEARING_PLACED = register("snapped_birch_and_oak_clearing");
 	public static final FrozenPlacedFeature SNAPPED_SPRUCE_PLACED = register("snapped_spruce");
+	public static final FrozenPlacedFeature SNAPPED_SPRUCE_CLEARING_PLACED = register("snapped_spruce_clearing");
 	public static final FrozenPlacedFeature SNAPPED_SPRUCE_ON_SNOW_PLACED = register("snapped_spruce_on_snow");
+	public static final FrozenPlacedFeature SNAPPED_SPRUCE_ON_SNOW_CLEARING_PLACED = register("snapped_spruce_on_snow_clearing");
 	public static final FrozenPlacedFeature SNAPPED_BIRCH_AND_OAK_AND_SPRUCE_PLACED = register("snapped_birch_and_oak_and_spruce");
+	public static final FrozenPlacedFeature SNAPPED_BIRCH_AND_OAK_AND_SPRUCE_CLEARING_PLACED = register("snapped_birch_and_oak_and_spruce_clearing");
 	public static final FrozenPlacedFeature SNAPPED_BIRCH_AND_SPRUCE_PLACED = register("snapped_birch_and_spruce");
+	public static final FrozenPlacedFeature SNAPPED_BIRCH_AND_SPRUCE_CLEARING_PLACED = register("snapped_birch_and_spruce_clearing");
 	public static final FrozenPlacedFeature SNAPPED_CYPRESS_PLACED = register("snapped_cypress");
 	public static final FrozenPlacedFeature SNAPPED_JUNGLE_PLACED = register("snapped_jungle");
 	public static final FrozenPlacedFeature SNAPPED_BIRCH_AND_JUNGLE_PLACED = register("snapped_birch_and_jungle");
@@ -204,6 +212,8 @@ public final class WilderPlacedFeatures {
 	public static final FrozenPlacedFeature FLOWER_RAINFOREST_VANILLA = register("flower_rainforest_vanilla");
 	public static final FrozenPlacedFeature FLOWER_JUNGLE = register("flower_jungle");
 	public static final FrozenPlacedFeature FLOWER_SUNFLOWER_PLAINS = register("flower_sunflower_plains");
+	public static final FrozenPlacedFeature FLOWER_BIRCH_CLEARING = register("flower_birch_clearing");
+	public static final FrozenPlacedFeature FLOWER_FOREST_CLEARING = register("flower_forest_clearing");
 	public static final FrozenPlacedFeature FLOWER_SPARSE_JUNGLE = register("flower_sparse_jungle");
 	public static final FrozenPlacedFeature FLOWER_CHERRY = register("flower_cherry");
 	public static final FrozenPlacedFeature MOSS_CARPET = register("moss_carpet");
@@ -352,12 +362,14 @@ public final class WilderPlacedFeatures {
 
 		SHRUBS_FOREST.makeAndSetHolder(WilderConfiguredFeatures.SHRUBS.getHolder(),
 			PlacementUtils.countExtra(1, 0.2F, 1), InSquarePlacement.spread(), TREE_THRESHOLD,
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome()
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome(),
+			WilderPlacementUtils.SHRUB_CLEARING_FILTER
 		);
 
 		SHRUBS.makeAndSetHolder(WilderConfiguredFeatures.SHRUBS.getHolder(),
 			PlacementUtils.countExtra(1, 0.2F, 1), RarityFilter.onAverageOnceEvery(7), InSquarePlacement.spread(), TREE_THRESHOLD,
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome()
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome(),
+			WilderPlacementUtils.SHRUB_CLEARING_FILTER
 		);
 
 		TREES_FLOWER_FIELD.makeAndSetHolder(WilderConfiguredFeatures.TREES_FLOWER_FIELD.getHolder(),
@@ -366,51 +378,79 @@ public final class WilderPlacedFeatures {
 		);
 
 		TREES_BIRCH_AND_OAK.makeAndSetHolder(WilderConfiguredFeatures.TREES_BIRCH_AND_OAK.getHolder(),
-			treePlacement(PlacementUtils.countExtra(12, 0.1F, 1))
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(12, 0.1F, 1))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER
+				).build()
+		);
+
+		TREES_BIRCH_AND_OAK_ORIGINAL.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.TREES_BIRCH_AND_OAK),
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(12, 0.1F, 1))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER
+				).build()
 		);
 
 		TREES_SEMI_BIRCH_AND_OAK.makeAndSetHolder(WilderConfiguredFeatures.TREES_SEMI_BIRCH_AND_OAK.getHolder(),
-			treePlacement(PlacementUtils.countExtra(11, 0.1F, 1))
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(11, 0.1F, 1))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER
+				).build()
 		);
 
 		TREES_FLOWER_FOREST.makeAndSetHolder(WilderConfiguredFeatures.TREES_FLOWER_FOREST.getHolder(),
-			treePlacement(PlacementUtils.countExtra(8, 0.1F, 1))
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(8, 0.1F, 1))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER
+				).build()
 		);
 
 		DARK_FOREST_VEGETATION.makeAndSetHolder(WilderConfiguredFeatures.DARK_FOREST_VEGETATION.getHolder(),
-			CountPlacement.of(16), InSquarePlacement.spread(), TREE_THRESHOLD,
+			CountPlacement.of(16), InSquarePlacement.spread(), TREE_THRESHOLD, WilderPlacementUtils.TREE_CLEARING_FILTER,
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
 		OLD_GROWTH_DARK_FOREST_VEGETATION.makeAndSetHolder(WilderConfiguredFeatures.OLD_GROWTH_DARK_FOREST_VEGETATION.getHolder(),
-			CountPlacement.of(17), InSquarePlacement.spread(), TREE_THRESHOLD,
+			CountPlacement.of(17), InSquarePlacement.spread(), TREE_THRESHOLD, WilderPlacementUtils.TREE_CLEARING_FILTER,
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
 		DARK_BIRCH_FOREST_VEGETATION.makeAndSetHolder(WilderConfiguredFeatures.DARK_BIRCH_FOREST_VEGETATION.getHolder(),
-			CountPlacement.of(14), InSquarePlacement.spread(), TREE_THRESHOLD,
+			CountPlacement.of(14), InSquarePlacement.spread(), TREE_THRESHOLD, WilderPlacementUtils.TREE_CLEARING_FILTER,
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
 		DARK_TAIGA_VEGETATION.makeAndSetHolder(WilderConfiguredFeatures.DARK_TAIGA_VEGETATION.getHolder(),
-			CountPlacement.of(14), InSquarePlacement.spread(), TREE_THRESHOLD,
+			CountPlacement.of(14), InSquarePlacement.spread(), TREE_THRESHOLD, WilderPlacementUtils.TREE_CLEARING_FILTER,
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()
 		);
 
 		TREES_BIRCH.makeAndSetHolder(WilderConfiguredFeatures.TREES_BIRCH.getHolder(),
-			treePlacement(PlacementUtils.countExtra(10, 0.1F, 1))
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(10, 0.1F, 1))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER
+				).build()
 		);
 
 		BIRCH_TALL.makeAndSetHolder(WilderConfiguredFeatures.TREES_BIRCH_TALL.getHolder(),
-			treePlacement(PlacementUtils.countExtra(10, 0.1F, 1))
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(10, 0.1F, 1))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER
+				).build()
 		);
 
 		SPRUCE_PLACED.makeAndSetHolder(WilderConfiguredFeatures.TREES_TAIGA.getHolder(),
-			treePlacement(PlacementUtils.countExtra(10, 0.1F, 1))
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(10, 0.1F, 1))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER
+				).build()
 		);
 
 		SHORT_SPRUCE_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SHORT_TREES_TAIGA.getHolder(),
-			treePlacement(PlacementUtils.countExtra(5, 0.1F, 1))
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(5, 0.1F, 1))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER
+				).build()
 		);
 
 		SHORT_SPRUCE_RARE_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SHORT_TREES_TAIGA.getHolder(),
@@ -426,15 +466,24 @@ public final class WilderPlacedFeatures {
 		);
 
 		TREES_OLD_GROWTH_PINE_TAIGA.makeAndSetHolder(WilderConfiguredFeatures.TREES_OLD_GROWTH_PINE_TAIGA.getHolder(),
-			treePlacement(PlacementUtils.countExtra(10, 0.1F, 1))
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(10, 0.1F, 1))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER
+				).build()
 		);
 
 		TREES_OLD_GROWTH_SPRUCE_TAIGA1.makeAndSetHolder(WilderConfiguredFeatures.TREES_OLD_GROWTH_SPRUCE_TAIGA.getHolder(),
-			treePlacement(PlacementUtils.countExtra(10, 0.1F, 1))
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(10, 0.1F, 1))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER
+				).build()
 		);
 
 		TREES_OLD_GROWTH_SNOWY_PINE_TAIGA.makeAndSetHolder(WilderConfiguredFeatures.TREES_OLD_GROWTH_SNOWY_PINE_TAIGA.getHolder(),
-			treePlacement(PlacementUtils.countExtra(8, 0.1F, 1))
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(8, 0.1F, 1))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER
+				).build()
 		);
 
 		TREES_SNOWY.makeAndSetHolder(WilderTreeConfigured.SPRUCE_SHORT.getHolder(),
@@ -479,31 +528,52 @@ public final class WilderPlacedFeatures {
 		);
 
 		MIXED_TREES.makeAndSetHolder(WilderConfiguredFeatures.MIXED_TREES.getHolder(),
-			treePlacement(PlacementUtils.countExtra(14, 0.1F, 1))
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(14, 0.1F, 1))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER
+				).build()
 		);
 
 		TEMPERATE_RAINFOREST_TREES.makeAndSetHolder(WilderConfiguredFeatures.TEMPERATE_RAINFOREST_TREES.getHolder(),
-			treePlacement(PlacementUtils.countExtra(13, 0.1F, 1))
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(13, 0.1F, 1))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER
+				).build()
 		);
 
 		RAINFOREST_TREES.makeAndSetHolder(WilderConfiguredFeatures.RAINFOREST_TREES.getHolder(),
-			treePlacement(PlacementUtils.countExtra(12, 0.1F, 1))
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(12, 0.1F, 1))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER
+				).build()
 		);
 
 		BIRCH_TAIGA_TREES.makeAndSetHolder(WilderConfiguredFeatures.BIRCH_TAIGA_TREES.getHolder(),
-			treePlacement(CountPlacement.of(3))
+			VegetationPlacements.treePlacementBase(CountPlacement.of(3))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER
+				).build()
 		);
 
 		OLD_GROWTH_BIRCH_TAIGA_TREES.makeAndSetHolder(WilderConfiguredFeatures.OLD_GROWTH_BIRCH_TAIGA_TREES.getHolder(),
-			treePlacement(CountPlacement.of(3))
+			VegetationPlacements.treePlacementBase(CountPlacement.of(3))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER
+				).build()
 		);
 
 		PARCHED_FOREST_TREES.makeAndSetHolder(WilderConfiguredFeatures.PARCHED_FOREST_TREES.getHolder(),
-			treePlacement(PlacementUtils.countExtra(4, 0.1f, 1))
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(4, 0.1F, 1))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER
+				).build()
 		);
 
 		ARID_FOREST_TREES.makeAndSetHolder(WilderConfiguredFeatures.ARID_FOREST_TREES.getHolder(),
-			treePlacement(CountPlacement.of(3))
+			VegetationPlacements.treePlacementBase(CountPlacement.of(3))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER
+				).build()
 		);
 
 		BIRCH_JUNGLE_TREES.makeAndSetHolder(WilderConfiguredFeatures.BIRCH_JUNGLE_TREES.getHolder(),
@@ -552,28 +622,77 @@ public final class WilderPlacedFeatures {
 			treePlacement(RarityFilter.onAverageOnceEvery(52))
 		);
 
+		SNAPPED_BIRCH_CLEARING_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_BIRCHES.getHolder(),
+			VegetationPlacements.treePlacementBase(RarityFilter.onAverageOnceEvery(3))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER_INVERTED
+				).build()
+		);
+
 		SNAPPED_OAK_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_OAKS.getHolder(),
 			treePlacement(RarityFilter.onAverageOnceEvery(52))
+		);
+
+		SNAPPED_OAK_CLEARING_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_OAKS.getHolder(),
+			VegetationPlacements.treePlacementBase(RarityFilter.onAverageOnceEvery(3))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER_INVERTED
+				).build()
 		);
 
 		SNAPPED_BIRCH_AND_OAK_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_BIRCH_AND_OAK.getHolder(),
 			treePlacement(RarityFilter.onAverageOnceEvery(52))
 		);
 
+		SNAPPED_BIRCH_AND_OAK_CLEARING_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_BIRCH_AND_OAK.getHolder(),
+			VegetationPlacements.treePlacementBase(RarityFilter.onAverageOnceEvery(3))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER_INVERTED
+				).build()
+		);
+
 		SNAPPED_SPRUCE_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_SPRUCES.getHolder(),
 			treePlacement(RarityFilter.onAverageOnceEvery(52))
+		);
+
+		SNAPPED_SPRUCE_CLEARING_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_SPRUCES.getHolder(),
+			VegetationPlacements.treePlacementBase(RarityFilter.onAverageOnceEvery(3))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER_INVERTED
+				).build()
 		);
 
 		SNAPPED_SPRUCE_ON_SNOW_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_SPRUCES_ON_SNOW.getHolder(),
 			treePlacement(RarityFilter.onAverageOnceEvery(52))
 		);
 
+		SNAPPED_SPRUCE_ON_SNOW_CLEARING_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_SPRUCES_ON_SNOW.getHolder(),
+			VegetationPlacements.treePlacementBase(RarityFilter.onAverageOnceEvery(3))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER_INVERTED
+				).build()
+		);
+
 		SNAPPED_BIRCH_AND_OAK_AND_SPRUCE_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_BIRCH_AND_OAK_AND_SPRUCE.getHolder(),
 			treePlacement(RarityFilter.onAverageOnceEvery(52))
 		);
 
+		SNAPPED_BIRCH_AND_OAK_AND_SPRUCE_CLEARING_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_BIRCH_AND_OAK_AND_SPRUCE.getHolder(),
+			VegetationPlacements.treePlacementBase(RarityFilter.onAverageOnceEvery(3))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER_INVERTED
+				).build()
+		);
+
 		SNAPPED_BIRCH_AND_SPRUCE_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_BIRCH_AND_SPRUCE.getHolder(),
 			treePlacement(RarityFilter.onAverageOnceEvery(52))
+		);
+
+		SNAPPED_BIRCH_AND_SPRUCE_CLEARING_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_BIRCH_AND_SPRUCE.getHolder(),
+			VegetationPlacements.treePlacementBase(RarityFilter.onAverageOnceEvery(3))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER_INVERTED
+				).build()
 		);
 
 		SNAPPED_CYPRESS_PLACED.makeAndSetHolder(WilderConfiguredFeatures.SNAPPED_CYPRESSES.getHolder(),
@@ -948,6 +1067,20 @@ public final class WilderPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
+		FLOWER_BIRCH_CLEARING.makeAndSetHolder(WilderConfiguredFeatures.FLOWERS_BIRCH_CLEARING.getHolder(),
+			CountPlacement.of(UniformInt.of(0, 2)),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome(),
+			WilderPlacementUtils.TREE_CLEARING_FILTER_INVERTED
+		);
+
+		FLOWER_FOREST_CLEARING.makeAndSetHolder(WilderConfiguredFeatures.FLOWERS_FOREST_CLEARING.getHolder(),
+			CountPlacement.of(UniformInt.of(0, 2)),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome(),
+			WilderPlacementUtils.TREE_CLEARING_FILTER_INVERTED
+		);
+
 		FLOWER_SPARSE_JUNGLE.makeAndSetHolder(WilderConfiguredFeatures.FLOWERS_JUNGLE.getHolder(),
 			RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
@@ -1123,4 +1256,5 @@ public final class WilderPlacedFeatures {
 			BiomeFilter.biome()
 		);
 	}
+
 }

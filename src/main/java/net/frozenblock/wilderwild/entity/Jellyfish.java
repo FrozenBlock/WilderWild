@@ -33,6 +33,7 @@ import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.registry.WilderRegistry;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
+import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -41,6 +42,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -50,6 +52,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -57,19 +61,24 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
@@ -94,6 +103,8 @@ public class Jellyfish extends NoFlopAbstractFish {
 	);
 	private static final float MAX_TARGET_DISTANCE = 15F;
 	private static final EntityDataAccessor<JellyfishVariant> VARIANT = SynchedEntityData.defineId(Jellyfish.class, JellyfishVariant.SERIALIZER);
+	private static final EntityDataAccessor<Boolean> CAN_REPRODUCE = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> IS_BABY = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.BOOLEAN);
 	public final TargetingConditions targetingConditions = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().selector(this::canTargetEntity);
 	public float xBodyRot;
 	public float xRot1;
@@ -107,10 +118,36 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public float prevScale = 1F;
 	public float scale = 1F;
 	public int ticksSinceSpawn;
+	public int age;
+	public int fullness;
+	public int reproductionCooldown;
+	private int forcedAge;
+	private int forcedAgeTimer;
 
 	public Jellyfish(@NotNull EntityType<? extends Jellyfish> entityType, @NotNull Level level) {
 		super(entityType, level);
 		this.getNavigation().setCanFloat(false);
+	}
+
+	@NotNull
+	public static List<Jellyfish> getJellyfish(@NotNull ServerLevel level) {
+		ArrayList<Jellyfish> jellyList = new ArrayList<>();
+		for (Entity entity : level.entityManager.getEntityGetter().getAll()) {
+			if (entity instanceof Jellyfish jellyfish && !jellyfish.isRemoved() && !jellyfish.isDeadOrDying()) {
+				jellyList.add(jellyfish);
+			}
+		}
+		return jellyList;
+	}
+
+	public static int getJellyfish(@NotNull ServerLevel level, boolean pearlescent) {
+		int count = 0;
+		for (Jellyfish jellyfish : getJellyfish(level)) {
+			if (pearlescent ? jellyfish.getVariant().pearlescent() : jellyfish.getVariant().isNormal()) {
+				count += 1;
+			}
+		}
+		return count;
 	}
 
 	public static boolean canSpawn(@NotNull EntityType<Jellyfish> type, @NotNull ServerLevelAccessor level, @NotNull MobSpawnType reason, @NotNull BlockPos pos, @NotNull RandomSource random) {
@@ -153,63 +190,48 @@ public class Jellyfish extends NoFlopAbstractFish {
 		level.broadcastEntityEvent(jellyfish, (byte) 5);
 	}
 
-	@NotNull
-	public static List<Jellyfish> getJellyfish(@NotNull ServerLevel level) {
-		ArrayList<Jellyfish> jellyList = new ArrayList<>();
-		for (Entity entity : level.entityManager.getEntityGetter().getAll()) {
-			if (entity instanceof Jellyfish jellyfish && !jellyfish.isRemoved() && !jellyfish.isDeadOrDying()) {
-				jellyList.add(jellyfish);
-			}
-		}
-		return jellyList;
-	}
-
-	public static int getJellyfish(@NotNull ServerLevel level, boolean pearlescent) {
-		int count = 0;
-		for (Jellyfish jellyfish : getJellyfish(level)) {
-			if (pearlescent ? jellyfish.getVariant().pearlescent() : jellyfish.getVariant().isNormal()) {
-				count += 1;
-			}
-		}
-		return count;
+	public static int getSpeedUpSecondsWhenFeeding(int ticksUntilAdult) {
+		return (int) ((float) (ticksUntilAdult / 20) * 0.1F);
 	}
 
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
-		setVariantFromBiome(level.getBiome(this.blockPosition()), level.getRandom());
+		JellyfishGroupData jellyfishGroupData;
+		if (spawnData instanceof JellyfishGroupData jellyGroupData) {
+			this.setVariant(jellyGroupData.variant);
+			jellyfishGroupData = jellyGroupData;
+		} else {
+			spawnData = jellyfishGroupData = new JellyfishGroupData(true, this.setVariant(level.getBiome(this.blockPosition()), level.getRandom()));
+		}
+		if (jellyfishGroupData.isShouldSpawnBaby() && level.getRandom().nextFloat() <= jellyfishGroupData.getBabySpawnChance()) {
+			this.setBaby(true);
+		}
+		jellyfishGroupData.increaseGroupSizeByOne();
 		return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
 	}
 
 	public void setVariantFromPos(@NotNull Level level, @NotNull BlockPos pos) {
-		setVariantFromBiome(level.getBiome(pos), level.getRandom());
+		setVariant(level.getBiome(pos), level.getRandom());
 	}
 
-	private void setVariantFromBiome(@NotNull Holder<Biome> biome, RandomSource randomSource) {
-		this.setVariantFromBiome(JellyfishVariant.PINK);
+	@NotNull
+	private JellyfishVariant setVariant(@NotNull Holder<Biome> biome, RandomSource randomSource) {
+		this.setVariant(JellyfishVariant.PINK);
 		if (biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH) && !PEARLESCENT_VARIANTS.isEmpty()) {
-			this.setVariantFromBiome(PEARLESCENT_VARIANTS.get(randomSource.nextInt(PEARLESCENT_VARIANTS.size())));
+			this.setVariant(PEARLESCENT_VARIANTS.get(randomSource.nextInt(PEARLESCENT_VARIANTS.size())));
 		} else if (!COLORED_VARIANTS.isEmpty()) {
-			this.setVariantFromBiome(COLORED_VARIANTS.get(randomSource.nextInt(COLORED_VARIANTS.size())));
+			this.setVariant(COLORED_VARIANTS.get(randomSource.nextInt(COLORED_VARIANTS.size())));
 		}
+		return this.getVariant();
 	}
 
 	@Override
-	public void saveToBucketTag(@NotNull ItemStack stack) {
-		Bucketable.saveDefaultDataToBucketTag(this, stack);
-		CompoundTag compoundTag = stack.getOrCreateTag();
-		compoundTag.putString("variant", Objects.requireNonNull(WilderRegistry.JELLYFISH_VARIANT.getKey(this.getVariant())).toString());
-	}
-
-	@Override
-	public void loadFromBucketTag(@NotNull CompoundTag tag) {
-		Bucketable.loadDefaultDataFromBucketTag(this, tag);
-		if (tag.contains("variant")) {
-			JellyfishVariant variant = WilderRegistry.JELLYFISH_VARIANT.get(ResourceLocation.tryParse(tag.getString("variant")));
-			if (variant != null) {
-				this.setVariantFromBiome(variant);
-			}
+	public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
+		if (IS_BABY.equals(key)) {
+			this.refreshDimensions();
 		}
+		super.onSyncedDataUpdated(key);
 	}
 
 	@Override
@@ -232,26 +254,6 @@ public class Jellyfish extends NoFlopAbstractFish {
 	protected void playSwimSound(float volume) {
 		super.playSwimSound(volume);
 		this.spawnBubbles();
-	}
-
-	@NotNull
-	private Vec3 rotateVector(@NotNull Vec3 vector) {
-		Vec3 vec3 = vector.xRot(this.xRot1 * ((float)Math.PI / 180F));
-		vec3 = vec3.yRot(-this.yBodyRotO * ((float)Math.PI / 180F));
-		return vec3;
-	}
-
-	private void spawnBubbles() {
-		if (this.level() instanceof ServerLevel serverLevel) {
-			double deltaLength = this.getDeltaMovement().length();
-			float bbHeight = this.getBbHeight();
-			Vec3 vec3 = this.rotateVector(new Vec3(0, -bbHeight, 0)).add(this.getX(), this.getY(), this.getZ());
-			for (int i = 0; i < this.random.nextInt(0, (int) (2 + (deltaLength * 25))); ++i) {
-				Vec3 vec32 = this.rotateVector(new Vec3((double) this.random.nextFloat() * 0.6 - 0.3, -1.0, (double) this.random.nextFloat() * 0.6 - 0.3));
-				Vec3 vec33 = vec32.scale(0.3 + (double) (this.random.nextFloat() * 2.0f));
-				serverLevel.sendParticles(ParticleTypes.BUBBLE, vec3.x, vec3.y + (bbHeight * 0.5), vec3.z, 0, vec33.x, vec33.y, vec33.z, (deltaLength * 2) + 0.1);
-			}
-		}
 	}
 
 	@Override
@@ -343,7 +345,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 		if (this.growing) {
 			if (this.scale < 1F) {
-				this.scale += 0.25F;
+				this.scale += 0.5F;
 			} else {
 				this.scale = 1F;
 				this.growing = false;
@@ -357,6 +359,39 @@ public class Jellyfish extends NoFlopAbstractFish {
 				this.scale -= 0.25F;
 			}
 		}
+
+		if (this.level().isClientSide) {
+			if (this.forcedAgeTimer > 0) {
+				if (this.forcedAgeTimer % 4 == 0) {
+					this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0), this.getRandomY(), this.getRandomZ(1.0), 0.0, 0.0, 0.0);
+				}
+				--this.forcedAgeTimer;
+			}
+		} else if (this.isAlive()) {
+			int i = this.getAge();
+			if (i < 0) {
+				this.setAge(++i);
+			} else if (i > 0) {
+				this.setAge(--i);
+			}
+		}
+
+		this.reproductionCooldown = Math.max(0, this.reproductionCooldown - 1);
+		this.setCanReproduce(
+			this.reproductionCooldown == 0
+				&& this.isInWaterOrBubble()
+				&& this.isUnderWater()
+				&& !this.vanishing
+				&& !this.growing
+				&& !this.isBaby()
+				&& this.isAlive()
+				&& !this.isRemoved()
+		);
+
+		AttributeInstance attributeInstance = this.getAttributes().getInstance(Attributes.MOVEMENT_SPEED);
+		if (attributeInstance != null) {
+			attributeInstance.setBaseValue(this.isBaby() ? 0.25 : 0.5);
+		}
 	}
 
 	@Override
@@ -365,6 +400,20 @@ public class Jellyfish extends NoFlopAbstractFish {
 			this.vanishing = true;
 		} else if (id == (byte) 5) {
 			this.growing = true;
+			this.scale = 0F;
+			this.prevScale = 0F;
+		} else if (id == (byte) 7) {
+			double d = this.random.nextGaussian() * 0.02;
+			double e = this.random.nextGaussian() * 0.02;
+			double f = this.random.nextGaussian() * 0.02;
+			this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0), this.getRandomY() + 0.5, this.getRandomZ(1.0), d, e, f);
+		} else if (id == (byte) 18) {
+			for (int i = 0; i < 7; ++i) {
+				double d = this.random.nextGaussian() * 0.02;
+				double e = this.random.nextGaussian() * 0.02;
+				double f = this.random.nextGaussian() * 0.02;
+				this.level().addParticle(ParticleTypes.HEART, this.getRandomX(1.0), this.getRandomY() + 0.5, this.getRandomZ(1.0), d, e, f);
+			}
 		} else {
 			super.handleEntityEvent(id);
 		}
@@ -373,21 +422,31 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public void stingEntities() {
 		if (this.isAlive()) {
 			List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.08));
+			boolean baby = this.isBaby();
+			float damage = baby ? 1F : 3F;
+			int poisonDuration = baby ? this.level().random.nextInt(40, 100) : this.level().random.nextInt(100, 200);
 			for (LivingEntity entity : list) {
 				if (this.targetingConditions.test(this, entity)) {
 					if (entity instanceof ServerPlayer player) {
-						if (player.hurt(this.damageSources().mobAttack(this), 3)) {
-							player.addEffect(new MobEffectInstance(MobEffects.POISON, this.level().random.nextInt(100, 200), 0, false, false), this);
-							EasyPacket.sendJellySting(player);
+						if (player.hurt(this.damageSources().mobAttack(this), damage)) {
+							player.addEffect(new MobEffectInstance(MobEffects.POISON, poisonDuration, 0, false, false), this);
+							EasyPacket.sendJellySting(player, baby);
 						}
 					} else if (entity instanceof Mob mob) {
-						if (mob.hurt(this.damageSources().mobAttack(this), (float) (3))) {
-							mob.addEffect(new MobEffectInstance(MobEffects.POISON, this.level().random.nextInt(100, 200), 0), this);
-							this.playSound(RegisterSounds.ENTITY_JELLYFISH_STING, 0.4F, this.random.nextFloat() * 0.2F + 0.9F);
+						if (mob.hurt(this.damageSources().mobAttack(this), damage)) {
+							mob.addEffect(new MobEffectInstance(MobEffects.POISON, poisonDuration, 0), this);
+							this.playSound(RegisterSounds.ENTITY_JELLYFISH_STING, 0.4F, this.random.nextFloat() * 0.2F + (baby ? 1.2F : 0.9F));
 						}
 					}
 				}
 			}
+		}
+	}
+
+	@Override
+	protected void onOffspringSpawnedFromEgg(@NotNull Player player, @NotNull Mob child) {
+		if (child instanceof Jellyfish jellyfish) {
+			jellyfish.setVariant(this.getVariant());
 		}
 	}
 
@@ -427,23 +486,99 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	public boolean shouldHide() {
-		if (this.level().getNearestPlayer(this, 24) == null) {
-			return this.ticksSinceSpawn >= 150
-				&& !this.requiresCustomPersistence()
-				&& !this.isPersistenceRequired()
-				&& !this.hasCustomName()
-				&& !this.isLeashed()
-				&& this.getPassengers().isEmpty()
-				&& this.getTarget() == null
-				&& this.random.nextInt(0, 50) <= 2;
-		}
-		return false;
+		return this.level().getNearestPlayer(this, 24) == null
+			&& this.ticksSinceSpawn >= 150
+			&& !this.requiresCustomPersistence()
+			&& !this.isPersistenceRequired()
+			&& !this.hasCustomName()
+			&& !this.isLeashed()
+			&& this.getPassengers().isEmpty()
+			&& this.getTarget() == null
+			&& this.random.nextInt(0, 50) <= 2;
 	}
 
 	@Override
 	@NotNull
 	public SoundEvent getPickupSound() {
 		return RegisterSounds.ITEM_BUCKET_FILL_JELLYFISH;
+	}
+
+	@Override
+	public InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
+		ItemStack itemStack = player.getItemInHand(hand);
+		if (itemStack.is(Items.WATER_BUCKET)) {
+			return super.mobInteract(player, hand);
+		}
+		if (!itemStack.is(WilderItemTags.NEMATOCYSTS) || (this.getVariant().pearlescent() && !itemStack.is(WilderItemTags.PEARLESCENT_NEMATOCYSTS)) || (this.getVariant().isNormal() && itemStack.is(WilderItemTags.PEARLESCENT_NEMATOCYSTS))) {
+			return InteractionResult.PASS;
+		}
+		if (this.isBaby()) {
+			if (!player.getAbilities().instabuild) {
+				itemStack.shrink(1);
+			}
+			this.ageUp(getSpeedUpSecondsWhenFeeding(-this.getAge()), true);
+			return InteractionResult.sidedSuccess(this.level().isClientSide);
+		} else if (this.canReproduce()) {
+			if (this.level().isClientSide) {
+				return InteractionResult.CONSUME;
+			} else if (this.level() instanceof ServerLevel serverLevel) {
+				if (!player.getAbilities().instabuild) {
+					itemStack.shrink(1);
+				}
+				this.fullness += 1;
+				this.ticksSinceSpawn = 0;
+				if (this.fullness >= 8 && this.random.nextInt(3) == 0) {
+					this.spawnChild(serverLevel);
+					this.fullness = 0;
+					this.level().broadcastEntityEvent(this, (byte) 18);
+					this.reproductionCooldown = 6000;
+					this.setCanReproduce(false);
+					return InteractionResult.SUCCESS;
+				} else {
+					this.level().broadcastEntityEvent(this, (byte) 7);
+				}
+				return InteractionResult.SUCCESS;
+			}
+		}
+		return InteractionResult.PASS;
+	}
+
+	public void spawnChild(ServerLevel level) {
+		Jellyfish jellyfish = RegisterEntities.JELLYFISH.create(level);
+		if (jellyfish == null) {
+			return;
+		}
+		jellyfish.setBaby(true);
+		float bbHeight = this.getBbHeight();
+		Vec3 vec3 = this.rotateVector(new Vec3(0, -bbHeight, 0)).add(this.getX(), this.getY(), this.getZ());
+		jellyfish.moveTo(vec3.x, vec3.y + (bbHeight * 0.5), vec3.z, -this.getYRot(), -this.getXRot());
+		jellyfish.setDeltaMovement(this.getDeltaMovement().scale(-0.5));
+		jellyfish.setVariant(this.getVariant());
+		level.broadcastEntityEvent(this, (byte) 18);
+		if (level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
+			level.addFreshEntity(new ExperienceOrb(level, this.getX(), this.getY(), this.getZ(), this.getRandom().nextInt(7) + 1));
+		}
+		level.addFreshEntityWithPassengers(jellyfish);
+	}
+
+	@NotNull
+	private Vec3 rotateVector(@NotNull Vec3 vector) {
+		Vec3 vec3 = vector.xRot(this.xRot1 * ((float) Math.PI / 180F));
+		vec3 = vec3.yRot(-this.yBodyRotO * ((float) Math.PI / 180F));
+		return vec3;
+	}
+
+	private void spawnBubbles() {
+		if (this.level() instanceof ServerLevel serverLevel && !this.isBaby()) {
+			double deltaLength = this.getDeltaMovement().length();
+			float bbHeight = this.getBbHeight();
+			Vec3 vec3 = this.rotateVector(new Vec3(0, -bbHeight, 0)).add(this.getX(), this.getY(), this.getZ());
+			for (int i = 0; i < this.random.nextInt(0, (int) (2 + (deltaLength * 25))); ++i) {
+				Vec3 vec32 = this.rotateVector(new Vec3((double) this.random.nextFloat() * 0.6 - 0.3, -1.0, (double) this.random.nextFloat() * 0.6 - 0.3));
+				Vec3 vec33 = vec32.scale(0.3 + (double) (this.random.nextFloat() * 2.0f));
+				serverLevel.sendParticles(ParticleTypes.BUBBLE, vec3.x, vec3.y + (bbHeight * 0.5), vec3.z, 0, vec33.x, vec33.y, vec33.z, (deltaLength * 2) + 0.1);
+			}
+		}
 	}
 
 	@Override
@@ -478,8 +613,16 @@ public class Jellyfish extends NoFlopAbstractFish {
 		return this.entityData.get(VARIANT);
 	}
 
-	public void setVariantFromBiome(@NotNull JellyfishVariant variant) {
+	public void setVariant(@NotNull JellyfishVariant variant) {
 		this.entityData.set(VARIANT, variant);
+	}
+
+	public boolean canReproduce() {
+		return this.entityData.get(CAN_REPRODUCE);
+	}
+
+	public void setCanReproduce(boolean bl) {
+		this.entityData.set(CAN_REPRODUCE, bl);
 	}
 
 	public boolean isRGB() {
@@ -487,10 +630,99 @@ public class Jellyfish extends NoFlopAbstractFish {
 		return this.hasCustomName() && (name.equalsIgnoreCase("I_am_Merp") || name.equals("AroundTheWorld"));
 	}
 
+	public void ageUp(int amount, boolean forced) {
+		int i;
+		int j = i = this.getAge();
+		if ((i += amount * 20) > 0) {
+			i = 0;
+		}
+		int k = i - j;
+		this.setAge(i);
+		if (forced) {
+			this.forcedAge += k;
+			if (this.forcedAgeTimer == 0) {
+				this.forcedAgeTimer = 40;
+			}
+		}
+		if (this.getAge() == 0) {
+			this.setAge(this.forcedAge);
+		}
+	}
+
+	public void ageUp(int amount) {
+		this.ageUp(amount, false);
+	}
+
+	public int getAge() {
+		if (this.level().isClientSide) {
+			return this.entityData.get(IS_BABY) ? -1 : 1;
+		}
+		return this.age;
+	}
+
+	public void setAge(int age) {
+		int i = this.getAge();
+		this.age = age;
+		if (i < 0 && age >= 0 || i >= 0 && age < 0) {
+			this.entityData.set(IS_BABY, age < 0);
+			this.ageBoundaryReached();
+		}
+	}
+
+	public void ageBoundaryReached() {
+		if (!this.isBaby() && this.isPassenger() && this.getVehicle() instanceof Boat boat && !boat.hasEnoughSpaceFor(this)) {
+			this.stopRiding();
+		}
+	}
+
+	@Override
+	public boolean isBaby() {
+		return this.getAge() < 0;
+	}
+
+	@Override
+	public void setBaby(boolean baby) {
+		this.setAge(baby ? -24000 : 0);
+	}
+
 	@Override
 	protected void defineSynchedData() {
 		super.defineSynchedData();
 		this.entityData.define(VARIANT, JellyfishVariant.PINK);
+		this.entityData.define(CAN_REPRODUCE, false);
+		this.entityData.define(IS_BABY, false);
+	}
+
+	@Override
+	public void saveToBucketTag(@NotNull ItemStack stack) {
+		Bucketable.saveDefaultDataToBucketTag(this, stack);
+		CompoundTag compoundTag = stack.getOrCreateTag();
+		compoundTag.putString("variant", Objects.requireNonNull(WilderRegistry.JELLYFISH_VARIANT.getKey(this.getVariant())).toString());
+		compoundTag.putBoolean("canReproduce", this.canReproduce());
+		compoundTag.putInt("fullness", this.fullness);
+		compoundTag.putInt("reproductionCooldown", this.reproductionCooldown);
+		compoundTag.putInt("age", this.getAge());
+		compoundTag.putInt("forcedAge", this.forcedAge);
+		compoundTag.putBoolean("isBaby", this.isBaby());
+	}
+
+	@Override
+	public void loadFromBucketTag(@NotNull CompoundTag tag) {
+		Bucketable.loadDefaultDataFromBucketTag(this, tag);
+		if (tag.contains("variant")) {
+			JellyfishVariant variant = WilderRegistry.JELLYFISH_VARIANT.get(ResourceLocation.tryParse(tag.getString("variant")));
+			if (variant != null) {
+				this.setVariant(variant);
+			}
+		}
+		if (tag.contains("canReproduce")) {
+			this.setCanReproduce(tag.getBoolean("canReproduce"));
+		}
+		this.fullness = tag.getInt("fullness");
+		this.reproductionCooldown = tag.getInt("reproductionCooldown");
+		this.setAge(tag.getInt("age"));
+		this.forcedAge = tag.getInt("forcedAge");
+		this.setBaby(tag.getBoolean("isBaby"));
 	}
 
 	@Override
@@ -498,6 +730,12 @@ public class Jellyfish extends NoFlopAbstractFish {
 		super.addAdditionalSaveData(compound);
 		compound.putString("variant", Objects.requireNonNull(WilderRegistry.JELLYFISH_VARIANT.getKey(this.getVariant())).toString());
 		compound.putInt("ticksSinceSpawn", this.ticksSinceSpawn);
+		compound.putBoolean("canReproduce", this.canReproduce());
+		compound.putInt("fullness", this.fullness);
+		compound.putInt("reproductionCooldown", this.reproductionCooldown);
+		compound.putInt("age", this.getAge());
+		compound.putInt("forcedAge", this.forcedAge);
+		compound.putBoolean("isBaby", this.isBaby());
 	}
 
 	@Override
@@ -505,9 +743,54 @@ public class Jellyfish extends NoFlopAbstractFish {
 		super.readAdditionalSaveData(compound);
 		JellyfishVariant variant = WilderRegistry.JELLYFISH_VARIANT.get(ResourceLocation.tryParse(compound.getString("variant")));
 		if (variant != null) {
-			this.setVariantFromBiome(variant);
+			this.setVariant(variant);
 		}
 		this.ticksSinceSpawn = compound.getInt("ticksSinceSpawn");
+		if (compound.contains("canReproduce")) {
+			this.setCanReproduce(compound.getBoolean("canReproduce"));
+		}
+		this.fullness = compound.getInt("fullness");
+		this.reproductionCooldown = compound.getInt("reproductionCooldown");
+		this.setAge(compound.getInt("age"));
+		this.forcedAge = compound.getInt("forcedAge");
+		this.setBaby(compound.getBoolean("isBaby"));
+	}
+
+	public static class JellyfishGroupData implements SpawnGroupData {
+		private int groupSize;
+		private final boolean shouldSpawnBaby;
+		private final float babySpawnChance;
+		private final JellyfishVariant variant;
+
+		private JellyfishGroupData(boolean shouldSpawnBaby, float babySpawnChance, JellyfishVariant variant) {
+			this.shouldSpawnBaby = shouldSpawnBaby;
+			this.babySpawnChance = babySpawnChance;
+			this.variant = variant;
+		}
+
+		public JellyfishGroupData(boolean shouldSpawnBaby, JellyfishVariant variant) {
+			this(shouldSpawnBaby, 0.15F, variant);
+		}
+
+		public JellyfishGroupData(float babySpawnChance, JellyfishVariant variant) {
+			this(true, babySpawnChance, variant);
+		}
+
+		public int getGroupSize() {
+			return this.groupSize;
+		}
+
+		public void increaseGroupSizeByOne() {
+			++this.groupSize;
+		}
+
+		public boolean isShouldSpawnBaby() {
+			return this.shouldSpawnBaby;
+		}
+
+		public float getBabySpawnChance() {
+			return this.babySpawnChance;
+		}
 	}
 
 }

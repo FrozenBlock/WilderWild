@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.mixin.fallingleaves;
+package net.frozenblock.wilderwild.mixin.client.wind.fallingleaves;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.frozenblock.lib.wind.api.ClientWindManager;
@@ -11,10 +11,15 @@ import randommcsomethin.fallingleaves.particle.FallingLeafParticle;
 @Mixin(FallingLeafParticle.class)
 public class FallingLeafParticleMixin {
 
+	@Unique
+	private static boolean wilderWild$useWind() {
+		return WilderSharedConstants.config().cloudMovement() && ClientWindManager.shouldUseWind();
+	}
+
 	@ModifyExpressionValue(method = "tick", at = @At(value = "FIELD", target = "Lrandommcsomethin/fallingleaves/util/Wind;windX:F"))
 	private float wilderWild$modifyWindX(float original) {
 		if (wilderWild$useWind()) {
-			return (float) ClientWindManager.windX;
+			return (float) ClientWindManager.windX * 0.7F;
 		}
 		return original;
 	}
@@ -22,14 +27,9 @@ public class FallingLeafParticleMixin {
 	@ModifyExpressionValue(method = "tick", at = @At(value = "FIELD", target = "Lrandommcsomethin/fallingleaves/util/Wind;windZ:F"))
 	private float wilderWild$modifyWindZ(float original) {
 		if (wilderWild$useWind()) {
-			return (float) ClientWindManager.windZ;
+			return (float) ClientWindManager.windZ * 0.7F;
 		}
 		return original;
-	}
-
-	@Unique
-	private static boolean wilderWild$useWind() {
-		return WilderSharedConstants.config().cloudMovement() && ClientWindManager.shouldUseWind();
 	}
 
 }

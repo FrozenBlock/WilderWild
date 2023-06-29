@@ -97,6 +97,61 @@ public abstract class SculkBlockMixin {
 
 	@Unique
 	private boolean wilderWild$canPlaceOsseousSculk;
+	@Unique
+	private BlockPos wilderWild$placementPos = null;
+	@Unique
+	private BlockState wilderWild$placementState = null;
+	@Unique
+	private Optional<Integer> wilderWild$additionalGrowthCost = Optional.empty();
+	@Unique
+	private boolean wilderWild$isWorldgen;
+	@Unique
+	private boolean wilderWild$canPlace;
+	@Unique
+	private LevelAccessor wilderWild$level;
+	@Unique
+	private RandomSource wilderWild$randomSource;
+	@Unique
+	private BlockPos wilderWild$placedPos;
+	@Unique
+	private BlockState wilderWild$placedState;
+
+	@Inject(method = "canPlaceGrowth", at = @At("HEAD"), cancellable = true)
+	private static void wilderWild$canPlaceGrowth(LevelAccessor level, BlockPos pos, CallbackInfoReturnable<Boolean> info) {
+		if (!level.getBlockState(pos).isFaceSturdy(level, pos, Direction.UP)) {
+			info.setReturnValue(false);
+		}
+	}
+
+	@Unique
+	private static boolean wilderWild$ancientCityOrPillarNearby(LevelAccessor level, @NotNull BlockPos pos) {
+		int i = 0;
+		Iterator<BlockPos> var4 = BlockPos.betweenClosed(pos.offset(-2, -2, -2), pos.offset(2, 2, 2)).iterator();
+		do {
+			if (!var4.hasNext()) {
+				return false;
+			}
+			BlockPos blockPos = var4.next();
+			BlockState blockState2 = level.getBlockState(blockPos);
+			if (blockState2.is(WilderBlockTags.ANCIENT_CITY_BLOCKS) || (blockState2.is(RegisterBlocks.OSSEOUS_SCULK) && (blockPos.getX() != pos.getX() && blockPos.getZ() != pos.getZ()))) {
+				++i;
+			}
+			if (i >= 3) {
+				return true;
+			}
+		} while (true);
+	}
+
+	@Unique
+	private static boolean wilderWild$canPlaceOsseousSculk(BlockPos pos, boolean worldGen, LevelAccessor level) {
+		if (worldGen) {
+			if (!wilderWild$ancientCityOrPillarNearby(level, pos)) {
+				return EasyNoiseSampler.sample(EasyNoiseSampler.perlinXoro, pos, WILDERWILD$OSSEOUS_SCULK_AREA_SIZE, true, true) > WILDERWILD$OSSEOUS_SCULK_WORLD_GEN_THRESHOLD;
+			}
+			return false;
+		}
+		return level.getRandom().nextInt(0, 7) == 3;
+	}
 
 	@ModifyExpressionValue(method = "attemptUseCharge", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkBlock;canPlaceGrowth(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)Z"))
 	private boolean wilderWild$newWorldgenCharge(boolean original, SculkSpreader.ChargeCursor chargeCursor, LevelAccessor levelAccessor, BlockPos blockPos, RandomSource randomSource, SculkSpreader sculkSpreader, boolean bl) {
@@ -139,27 +194,6 @@ public abstract class SculkBlockMixin {
 
 		this.wilderWild$canPlace = this.wilderWild$placementState != null && this.wilderWild$placementPos != null;
 	}
-
-	@Unique
-	private BlockPos wilderWild$placementPos = null;
-	@Unique
-	private BlockState wilderWild$placementState = null;
-	@Unique
-	private Optional<Integer> wilderWild$additionalGrowthCost = Optional.empty();
-	@Unique
-	private boolean wilderWild$isWorldgen;
-	@Unique
-	private boolean wilderWild$canPlace;
-
-	@Unique
-	private LevelAccessor wilderWild$level;
-	@Unique
-	private RandomSource wilderWild$randomSource;
-
-	@Unique
-	private BlockPos wilderWild$placedPos;
-	@Unique
-	private BlockState wilderWild$placedState;
 
 	@ModifyArgs(method = "attemptUseCharge", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/LevelAccessor;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"))
 	private void wilderWild$newPlace(Args args) {
@@ -208,43 +242,6 @@ public abstract class SculkBlockMixin {
 			blockState = RegisterBlocks.OSSEOUS_SCULK.defaultBlockState().setValue(OsseousSculkBlock.HEIGHT_LEFT, pillarHeight).setValue(OsseousSculkBlock.TOTAL_HEIGHT, pillarHeight + 1);
 			info.setReturnValue(blockState.hasProperty(BlockStateProperties.WATERLOGGED) && !level.getFluidState(pos).isEmpty() ? blockState.setValue(BlockStateProperties.WATERLOGGED, true) : blockState);
 		}
-	}
-
-	@Inject(method = "canPlaceGrowth", at = @At("HEAD"), cancellable = true)
-	private static void wilderWild$canPlaceGrowth(LevelAccessor level, BlockPos pos, CallbackInfoReturnable<Boolean> info) {
-		if (!level.getBlockState(pos).isFaceSturdy(level, pos, Direction.UP)) {
-			info.setReturnValue(false);
-		}
-	}
-
-	@Unique
-	private static boolean wilderWild$ancientCityOrPillarNearby(LevelAccessor level, @NotNull BlockPos pos) {
-		int i = 0;
-		Iterator<BlockPos> var4 = BlockPos.betweenClosed(pos.offset(-2, -2, -2), pos.offset(2, 2, 2)).iterator();
-		do {
-			if (!var4.hasNext()) {
-				return false;
-			}
-			BlockPos blockPos = var4.next();
-			BlockState blockState2 = level.getBlockState(blockPos);
-			if (blockState2.is(WilderBlockTags.ANCIENT_CITY_BLOCKS) || (blockState2.is(RegisterBlocks.OSSEOUS_SCULK) && (blockPos.getX() != pos.getX() && blockPos.getZ() != pos.getZ()))) {
-				++i;
-			}
-			if (i >= 3) {
-				return true;
-			}
-		} while (true);
-	}
-
-	@Unique
-	private static boolean wilderWild$canPlaceOsseousSculk(BlockPos pos, boolean worldGen, LevelAccessor level) {
-		if (worldGen) {
-			if (!wilderWild$ancientCityOrPillarNearby(level, pos)) {
-				return EasyNoiseSampler.sample(EasyNoiseSampler.perlinXoro, pos, WILDERWILD$OSSEOUS_SCULK_AREA_SIZE, true, true) > WILDERWILD$OSSEOUS_SCULK_WORLD_GEN_THRESHOLD;
-			}
-			return false;
-		}
-		return level.getRandom().nextInt(0, 7) == 3;
 	}
 
 	@Unique

@@ -176,33 +176,6 @@ public final class WardenMixin extends Monster implements WilderWarden {
 		}
 	}
 
-	@Mixin(Warden.VibrationUser.class)
-	public static class VibrationUserMixin {
-
-		@Shadow
-		@Final
-		Warden field_44600;
-
-		@Inject(method = "onReceiveVibration", at = @At("HEAD"))
-		private void wilderWild$onReceiveVibration(ServerLevel world, BlockPos pos, GameEvent event, Entity sourceEntity, Entity entity, float distance, CallbackInfo ci) {
-			if (!this.field_44600.isDeadOrDying()) {
-				int additionalAnger = 0;
-				if (this.field_44600.level().getBlockState(pos).is(Blocks.SCULK_SENSOR)) {
-					if (this.field_44600.level().getBlockState(pos).getValue(RegisterProperties.HICCUPPING)) {
-						additionalAnger = 65;
-					}
-				}
-				if (sourceEntity != null) {
-					if (this.field_44600.closerThan(sourceEntity, 30.0D)) {
-						this.field_44600.increaseAngerAt(sourceEntity, additionalAnger, false);
-					}
-				} else {
-					this.field_44600.increaseAngerAt(entity, additionalAnger, false);
-				}
-			}
-		}
-	}
-
 	@Inject(method = "onSyncedDataUpdated", at = @At("HEAD"), cancellable = true)
 	private void wilderWild$onSyncedDataUpdated(EntityDataAccessor<?> data, CallbackInfo info) {
 		Warden warden = Warden.class.cast(this);
@@ -298,6 +271,33 @@ public final class WardenMixin extends Monster implements WilderWarden {
 			if (WilderSharedConstants.config().wardenDyingAnimation() || this.wilderWild$isStella()) {
 				if (wilderWild$deathTicks > 0) {
 					info.setReturnValue(EntityDimensions.fixed(this.getType().getWidth(), 0.35F));
+				}
+			}
+		}
+	}
+
+	@Mixin(Warden.VibrationUser.class)
+	public static class VibrationUserMixin {
+
+		@Shadow
+		@Final
+		Warden field_44600;
+
+		@Inject(method = "onReceiveVibration", at = @At("HEAD"))
+		private void wilderWild$onReceiveVibration(ServerLevel world, BlockPos pos, GameEvent event, Entity sourceEntity, Entity entity, float distance, CallbackInfo ci) {
+			if (!this.field_44600.isDeadOrDying()) {
+				int additionalAnger = 0;
+				if (this.field_44600.level().getBlockState(pos).is(Blocks.SCULK_SENSOR)) {
+					if (this.field_44600.level().getBlockState(pos).getValue(RegisterProperties.HICCUPPING)) {
+						additionalAnger = 65;
+					}
+				}
+				if (sourceEntity != null) {
+					if (this.field_44600.closerThan(sourceEntity, 30.0D)) {
+						this.field_44600.increaseAngerAt(sourceEntity, additionalAnger, false);
+					}
+				} else {
+					this.field_44600.increaseAngerAt(entity, additionalAnger, false);
 				}
 			}
 		}

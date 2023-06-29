@@ -17,6 +17,11 @@ public class CloudRendererMixin {
 	@Unique
 	private boolean wilderWild$useWind;
 
+	@Unique
+	private static boolean wilderWild$useWind() {
+		return WilderSharedConstants.config().cloudMovement() && ClientWindManager.shouldUseWind();
+	}
+
 	@ModifyVariable(method = "renderClouds", at = @At(value = "STORE"), ordinal = 4)
 	private double wilderWild$modifyXScroll(double original) {
 		return (this.wilderWild$useWind = wilderWild$useWind())
@@ -43,10 +48,5 @@ public class CloudRendererMixin {
 		return this.wilderWild$useWind
 			? original - ClientWindManager.getCloudZ(partialTick)
 			: original;
-	}
-
-	@Unique
-	private static boolean wilderWild$useWind() {
-		return WilderSharedConstants.config().cloudMovement() && ClientWindManager.shouldUseWind();
 	}
 }

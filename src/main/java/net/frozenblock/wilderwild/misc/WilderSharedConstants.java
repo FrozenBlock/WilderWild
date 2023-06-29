@@ -37,8 +37,9 @@ public class WilderSharedConstants {
 	public static final int DATA_VERSION = 15;
 	// MEASURING
 	public static final Map<Object, Long> INSTANT_MAP = new HashMap<>();
-	@Deprecated(forRemoval = true)
-	public static boolean DEV_LOGGING = false;
+	public static final boolean HAS_FALLINGLEAVES = FabricLoader.getInstance().isModLoaded("fallingleaves");
+	public static final boolean HAS_MAKEBUBBLESPOP = FabricLoader.getInstance().isModLoaded("make_bubbles_pop");
+	public static final boolean HAS_PARTICLERAIN= FabricLoader.getInstance().isModLoaded("particlerain");
 	/**
 	 * Used for features that may be unstable and crash in public builds.
 	 * <p>
@@ -48,9 +49,6 @@ public class WilderSharedConstants {
 	public static boolean areConfigsInit = false;
 	public static boolean MC_LIVE_TENDRILS = false;
 	public static boolean IN_MESOGLEA = false;
-
-	public static final boolean HAS_FALLINGLEAVES = FabricLoader.getInstance().isModLoaded("fallingleaves");
-	public static final boolean HAS_MAKEBUBBLESPOP = FabricLoader.getInstance().isModLoaded("make_bubbles_pop");
 
 	public static AbstractClothConfigIntegration config() {
 		return WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration();

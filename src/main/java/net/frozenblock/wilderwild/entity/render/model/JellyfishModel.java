@@ -41,8 +41,8 @@ import org.jetbrains.annotations.NotNull;
 @Environment(EnvType.CLIENT)
 public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 	private static final int JELLYFISH_TENTACLES = WilderSharedConstants.config().jellyfishTentacles();
-	private static final float pi180 = Mth.PI / 180;
-	private static final float eightPi = -8 * pi180;
+	private static final float pi180 = Mth.PI / 180F;
+	private static final float eightPi = -8F * pi180;
 	private final ModelPart root;
 	private final ModelPart body;
 	private final ModelPart tentacleBase;
@@ -113,7 +113,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 
 	@Override
 	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		poseStack.scale(scale, scale, scale);
+		poseStack.scale(this.scale, this.scale, this.scale);
 		poseStack.pushPose();
 		poseStack.mulPose(Axis.XP.rotationDegrees(this.xRot));
 		this.body.render(poseStack, buffer, packedLight, packedOverlay, this.red, this.green, this.blue, alpha);
@@ -129,7 +129,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 	public void prepareMobModel(@NotNull T jelly, float limbSwing, float limbSwimgAmount, float partialTick) {
 		this.xRot = -(jelly.xRot1 + partialTick * (jelly.xBodyRot - jelly.xRot1));
 		this.tentXRot = -(jelly.xRot6 + partialTick * (jelly.xRot5 - jelly.xRot6));
-		this.scale = jelly.prevScale + partialTick * (jelly.scale - jelly.prevScale);
+		this.scale = (jelly.prevScale + partialTick * (jelly.scale - jelly.prevScale)) * jelly.getScale();
 	}
 
 	@Override

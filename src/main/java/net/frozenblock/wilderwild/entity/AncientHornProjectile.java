@@ -104,7 +104,7 @@ public class AncientHornProjectile extends AbstractArrow {
 	public static final float MAX_SIZE = 30F;
 	private static final TagKey<Block> NON_COLLIDE = WilderBlockTags.ANCIENT_HORN_NON_COLLIDE;
 	private static final EntityDataAccessor<Float> BOUNDING_BOX_MULTIPLIER = SynchedEntityData.defineId(AncientHornProjectile.class, EntityDataSerializers.FLOAT);
-
+	public boolean canInteractWithPipe = true;
 	private boolean shot;
 	private boolean leftOwner;
 	private int aliveTicks;
@@ -113,7 +113,6 @@ public class AncientHornProjectile extends AbstractArrow {
 	private double vecZ;
 	private boolean shotByPlayer;
 	private int bubbles;
-	public boolean canInteractWithPipe = true;
 	private BlockState inBlockState;
 	private IntArrayList hitEntities = new IntArrayList();
 

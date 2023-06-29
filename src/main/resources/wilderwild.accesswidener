@@ -8,6 +8,7 @@ accessible    method    net/minecraft/world/level/levelgen/feature/treedecorator
 accessible    method    net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacerType    <init>    (Lcom/mojang/serialization/Codec;)V
 accessible    method    net/minecraft/world/level/levelgen/feature/foliageplacers/FoliagePlacerType    <init>    (Lcom/mojang/serialization/Codec;)V
 accessible    method    net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacer    isDirt    (Lnet/minecraft/world/level/LevelSimulatedReader;Lnet/minecraft/core/BlockPos;)Z
+accessible    method    net/minecraft/data/worldgen/placement/VegetationPlacements    treePlacementBase    (Lnet/minecraft/world/level/levelgen/placement/PlacementModifier;)Lcom/google/common/collect/ImmutableList$Builder;
 
 # Items
 extendable    method    net/minecraft/world/item/InstrumentItem    getInstrument    (Lnet/minecraft/world/item/ItemStack;)Ljava/util/Optional;
@@ -150,3 +151,8 @@ accessible    method    net/minecraft/core/HolderSet$Named    <init>    (Lnet/mi
 
 # Clipping
 accessible    field    net/minecraft/world/level/ClipContext    collisionContext    Lnet/minecraft/world/phys/shapes/CollisionContext;
+
+# Particles
+accessible    field    net/minecraft/client/particle/Particle    xd    D
+accessible    field    net/minecraft/client/particle/Particle    yd    D
+accessible    field    net/minecraft/client/particle/Particle    zd    D

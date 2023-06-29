@@ -63,12 +63,12 @@ public class MilkweedBlock extends TallFlowerBlock {
 		builder.add(BlockStateProperties.AGE_3);
 	}
 
-    @Override
-    public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-        if (random.nextFloat() > 0.83F && isLower(state) && !isFullyGrown(state)) {
+	@Override
+	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+		if (random.nextFloat() > 0.83F && isLower(state) && !isFullyGrown(state)) {
 			this.setAgeOnBothHalves(state, level, pos, state.getValue(BlockStateProperties.AGE_3) + 1);
-        }
-    }
+		}
+	}
 
 	@Override
 	@NotNull

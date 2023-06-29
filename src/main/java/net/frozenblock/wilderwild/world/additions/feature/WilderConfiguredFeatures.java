@@ -270,6 +270,36 @@ public final class WilderConfiguredFeatures {
 		.add(Blocks.PEONY.defaultBlockState(), 1)
 		.build();
 
+	public static final SimpleWeightedRandomList<BlockState> FLOWERS_BIRCH_CLEARING_POOL = SimpleWeightedRandomList.<BlockState>builder()
+		.add(RegisterBlocks.MILKWEED.defaultBlockState(), 1)
+		.add(RegisterBlocks.DATURA.defaultBlockState(), 1)
+		.add(RegisterBlocks.SEEDING_DANDELION.defaultBlockState(), 4)
+		.add(Blocks.LILAC.defaultBlockState(), 1)
+		.add(Blocks.BLUE_ORCHID.defaultBlockState(), 2)
+		.add(Blocks.CORNFLOWER.defaultBlockState(), 6)
+		.add(RegisterBlocks.CARNATION.defaultBlockState(), 3)
+		.add(Blocks.PINK_TULIP.defaultBlockState(), 3)
+		.add(Blocks.WHITE_TULIP.defaultBlockState(), 3)
+		.add(Blocks.ALLIUM.defaultBlockState(), 2)
+		.add(Blocks.PEONY.defaultBlockState(), 1)
+		.build();
+
+	public static final SimpleWeightedRandomList<BlockState> FLOWERS_FOREST_CLEARING_POOL = SimpleWeightedRandomList.<BlockState>builder()
+		.add(RegisterBlocks.MILKWEED.defaultBlockState(), 1)
+		.add(Blocks.SUNFLOWER.defaultBlockState(), 1)
+		.add(RegisterBlocks.SEEDING_DANDELION.defaultBlockState(), 3)
+		.add(Blocks.CORNFLOWER.defaultBlockState(), 2)
+		.add(RegisterBlocks.CARNATION.defaultBlockState(), 3)
+		.add(Blocks.DANDELION.defaultBlockState(), 3)
+		.add(Blocks.POPPY.defaultBlockState(), 5)
+		.add(Blocks.ORANGE_TULIP.defaultBlockState(), 2)
+		.add(Blocks.PINK_TULIP.defaultBlockState(), 1)
+		.add(Blocks.RED_TULIP.defaultBlockState(), 2)
+		.add(Blocks.WHITE_TULIP.defaultBlockState(), 2)
+		.add(Blocks.ALLIUM.defaultBlockState(), 1)
+		.add(Blocks.PEONY.defaultBlockState(), 1)
+		.build();
+
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_CYPRESS_WETLANDS = register("flowers_cypress_wetlands");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_TEMPERATE_RAINFOREST = register("flowers_temperate_rainforest");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_TEMPERATE_RAINFOREST_VANILLA = register("flowers_temperate_rainforest_vanilla");
@@ -280,6 +310,9 @@ public final class WilderConfiguredFeatures {
 	public static final FrozenConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> TALL_FLOWER_FLOWER_FIELD = register("tall_flower_flower_field");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_CHERRY = register("flowers_cherry");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_SUNFLOWER_PLAINS = register("flowers_sunflower_plains");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_BIRCH_CLEARING = register("flowers_birch_clearing");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_FOREST_CLEARING = register("flowers_forest_clearing");
+
 
 	//VEGETATION
 	public static final SimpleWeightedRandomList<BlockState> OASIS_GRASS_POOL = SimpleWeightedRandomList.<BlockState>builder()
@@ -1328,6 +1361,26 @@ public final class WilderConfiguredFeatures {
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(new WeightedStateProvider(FLOWERS_SUNFLOWER_PLAINS_POOL))
+				)
+			)
+		);
+
+		FLOWERS_BIRCH_CLEARING.makeAndSetHolder(Feature.FLOWER,
+			FeatureUtils.simpleRandomPatchConfiguration(
+				24,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(new WeightedStateProvider(FLOWERS_BIRCH_CLEARING_POOL))
+				)
+			)
+		);
+
+		FLOWERS_FOREST_CLEARING.makeAndSetHolder(Feature.FLOWER,
+			FeatureUtils.simpleRandomPatchConfiguration(
+				24,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(new WeightedStateProvider(FLOWERS_FOREST_CLEARING_POOL))
 				)
 			)
 		);

@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.mixin.makebubblespop;
+package net.frozenblock.wilderwild.mixin.server.general.makebubblespop;
 
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;

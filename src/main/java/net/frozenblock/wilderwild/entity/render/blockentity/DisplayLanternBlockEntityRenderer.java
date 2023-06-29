@@ -67,7 +67,7 @@ public class DisplayLanternBlockEntityRenderer<T extends DisplayLanternBlockEnti
 			for (DisplayLanternBlockEntity.FireflyInLantern entity : lantern.getFireflies()) {
 				int age = entity.age;
 				double ageDelta = age + partialTick;
-				FireflyRenderer.renderFirefly(matrices, vertexConsumers, light, entity.getCustomName().toLowerCase().contains("nectar"), overlay, age, entity.flickers, entity.getColor(), (ageDelta) * pi, 1F, (float)entity.pos.x, lantern.clientHanging ? 0.38F : 0.225F + (float)Math.sin(ageDelta * 0.03F) * 0.15F, (float)entity.pos.z, Minecraft.getInstance().gameRenderer.getMainCamera().rotation());
+				FireflyRenderer.renderFirefly(matrices, vertexConsumers, light, entity.getCustomName().toLowerCase().contains("nectar"), overlay, age, entity.flickers, entity.getColor(), (ageDelta) * pi, 1F, (float) entity.pos.x, lantern.clientHanging ? 0.38F : 0.225F + (float) Math.sin(ageDelta * 0.03F) * 0.15F, (float) entity.pos.z, Minecraft.getInstance().gameRenderer.getMainCamera().rotation());
 			}
 		}
 	}

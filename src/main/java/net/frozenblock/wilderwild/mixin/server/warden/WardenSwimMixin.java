@@ -67,6 +67,16 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 		super(entityType, level);
 	}
 
+	@Unique
+	private static boolean touchingWaterOrLava(@NotNull Entity entity) {
+		return entity.isInWaterOrBubble() || entity.isInLava() || entity.isVisuallySwimming();
+	}
+
+	@Unique
+	private static boolean submergedInWaterOrLava(@NotNull Entity entity) {
+		return entity.isEyeInFluid(FluidTags.WATER) || entity.isEyeInFluid(FluidTags.LAVA) || entity.isVisuallySwimming();
+	}
+
 	@Shadow
 	public abstract boolean isDiggingOrEmerging();
 
@@ -204,15 +214,5 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 	public boolean wilderWild$isSubmergedInWaterOrLava() {
 		Warden warden = Warden.class.cast(this);
 		return warden.isEyeInFluid(FluidTags.WATER) || warden.isEyeInFluid(FluidTags.LAVA);
-	}
-
-	@Unique
-	private static boolean touchingWaterOrLava(@NotNull Entity entity) {
-		return entity.isInWaterOrBubble() || entity.isInLava() || entity.isVisuallySwimming();
-	}
-
-	@Unique
-	private static boolean submergedInWaterOrLava(@NotNull Entity entity) {
-		return entity.isEyeInFluid(FluidTags.WATER) || entity.isEyeInFluid(FluidTags.LAVA) || entity.isVisuallySwimming();
 	}
 }

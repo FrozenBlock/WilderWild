@@ -43,9 +43,6 @@ public final class WilderMiscGeneration {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_RARE_GRAVEL),
 				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.GRAVEL_PATH_RARE.getKey());
 
-			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_RARE_SAND),
-				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.SAND_PATH_RARE.getKey());
-
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_RARE_STONE),
 				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.STONE_PATH_RARE.getKey());
 
@@ -144,29 +141,41 @@ public final class WilderMiscGeneration {
 
 			BiomeModifications.addFeature(BiomeSelectors.includeByKey(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderMiscPlaced.PILE_SNOW.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_COARSE_DIRT_CLEARING),
+				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.COARSE_PATH_CLEARING.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_GRAVEL_CLEARING),
+				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.GRAVEL_PATH_CLEARING.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_ROOTED_DIRT_CLEARING),
+				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.ROOTED_DIRT_PATH_CLEARING.getKey());
 		}
 
 		if (WilderSharedConstants.config().surfaceTransitions()) {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SMALL_SAND_TRANSITION),
-				GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.SMALL_SAND_TRANSITION.getKey());
+				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.SMALL_SAND_TRANSITION.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SAND_TRANSITION),
-				GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.SAND_TRANSITION.getKey());
+				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.SAND_TRANSITION.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_RED_SAND_TRANSITION),
-				GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.RED_SAND_TRANSITION.getKey());
+				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.RED_SAND_TRANSITION.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_STONE_TRANSITION),
-				GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.STONE_TRANSITION.getKey());
+				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.STONE_TRANSITION.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_BETA_BEACH_SAND_TRANSITION),
-				GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.BETA_BEACH_SAND_TRANSITION.getKey());
+				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.BETA_BEACH_SAND_TRANSITION.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_BETA_BEACH_GRAVEL_TRANSITION),
+				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.BETA_BEACH_GRAVEL_TRANSITION.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_GRAVEL_TRANSITION),
-				GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.SMALL_GRAVEL_TRANSITION.getKey());
+				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.SMALL_GRAVEL_TRANSITION.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_MUD_TRANSITION),
-				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.MUD_TRANSITION.getKey());
+				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.MUD_TRANSITION.getKey());
 		}
 	}
 

@@ -73,6 +73,28 @@ public final class WilderTreesGeneration {
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SNAPPED_CHERRY),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_CHERRY_PLACED.getKey());
+
+			// CLEARINGS
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SNAPPED_OAK),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_OAK_CLEARING_PLACED.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SNAPPED_BIRCH),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_BIRCH_CLEARING_PLACED.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SNAPPED_SPRUCE),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_SPRUCE_CLEARING_PLACED.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SNAPPED_SPRUCE_SNOWY),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_SPRUCE_ON_SNOW_CLEARING_PLACED.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SNAPPED_BIRCH_AND_OAK_AND_SPRUCE),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_BIRCH_AND_OAK_AND_SPRUCE_CLEARING_PLACED.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SNAPPED_BIRCH_AND_OAK),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_BIRCH_AND_OAK_CLEARING_PLACED.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SNAPPED_BIRCH_AND_SPRUCE),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_BIRCH_AND_SPRUCE_CLEARING_PLACED.getKey());
 		}
 
 		if (WilderSharedConstants.config().fallenLogs()) {
@@ -143,9 +165,6 @@ public final class WilderTreesGeneration {
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_PALMS),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PALM_RARE.getKey());
-
-			BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.FOREST),
-				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_BIRCH_AND_OAK.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SHORT_SPRUCE),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SHORT_SPRUCE_PLACED.getKey());
