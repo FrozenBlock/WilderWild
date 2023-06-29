@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.mixin.fallingleaves;
+package net.frozenblock.wilderwild.mixin.client.wind.fallingleaves;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.frozenblock.lib.wind.api.ClientWindManager;

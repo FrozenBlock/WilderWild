@@ -56,6 +56,9 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("makebubblespop")) {
 			return WilderSharedConstants.HAS_MAKEBUBBLESPOP;
 		}
+		if (mixinClassName.contains("particlerain")) {
+			return WilderSharedConstants.HAS_PARTICLERAIN;
+		}
 		return true;
 	}
 

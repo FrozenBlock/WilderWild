@@ -151,3 +151,8 @@ accessible    method    net/minecraft/core/HolderSet$Named    <init>    (Lnet/mi
 
 # Clipping
 accessible    field    net/minecraft/world/level/ClipContext    collisionContext    Lnet/minecraft/world/phys/shapes/CollisionContext;
+
+# Particles
+accessible    field    net/minecraft/client/particle/Particle    xd    D
+accessible    field    net/minecraft/client/particle/Particle    yd    D
+accessible    field    net/minecraft/client/particle/Particle    zd    D
