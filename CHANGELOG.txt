@@ -5,3 +5,4 @@ Make sure to clear this after each release
 Put changelog here:
 -----------------
 - Fixed mob spawners not running `finalizeSpawn()` when spawning mobs
+- Updated Ukrainian translation
