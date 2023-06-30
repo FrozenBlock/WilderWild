@@ -4,4 +4,4 @@ Make sure to clear this after each release
 
 Put changelog here:
 -----------------
-- Updated embedded FrozenLib to 1.3.1
+- Fixed mob spawners not running `finalizeSpawn()` when spawning mobs
