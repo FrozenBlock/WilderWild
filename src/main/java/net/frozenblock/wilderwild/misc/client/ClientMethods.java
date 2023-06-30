@@ -23,7 +23,9 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.lib.sound.api.instances.RestrictedMovingSound;
 import net.frozenblock.lib.sound.api.instances.RestrictedMovingSoundLoop;
 import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
+import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.misc.sound.TermiteSoundInstance;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.EntityBoundSoundInstance;
@@ -58,6 +60,17 @@ public class ClientMethods {
 		Minecraft client = Minecraft.getInstance();
 		if (client.level != null && compareTo == client.player) {
 			client.getSoundManager().play(new EntityBoundSoundInstance(sound, SoundSource.PLAYERS, volume, pitch, client.player, client.level.random.nextLong()));
+		}
+	}
+
+	public static void addTermiteSound(TermiteMoundBlockEntity mound, int termiteID, boolean eating) {
+		Minecraft client = Minecraft.getInstance();
+		if (client.level != null) {
+			if (eating) {
+				client.getSoundManager().play(new TermiteSoundInstance<>(mound, termiteID, RegisterSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW, SoundSource.BLOCKS, 0.2F, 1F, true));
+			} else {
+				client.getSoundManager().play(new TermiteSoundInstance<>(mound, termiteID, RegisterSounds.BLOCK_TERMITE_MOUND_TERMITE_IDLE, SoundSource.BLOCKS, 0.2F, 1F, false));
+			}
 		}
 	}
 

@@ -127,6 +127,7 @@ public class TermiteMound extends BaseEntityBlock {
 
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
-		return !level.isClientSide ? createTickerHelper(type, RegisterBlockEntities.TERMITE_MOUND, (worldx, pos, statex, blockEntity) -> blockEntity.tick(worldx, pos, statex.getValue(RegisterProperties.NATURAL), statex.getValue(RegisterProperties.TERMITES_AWAKE), statex.getValue(RegisterProperties.CAN_SPAWN_TERMITE))) : null;
+		return !level.isClientSide ? createTickerHelper(type, RegisterBlockEntities.TERMITE_MOUND, (worldx, pos, statex, blockEntity) -> blockEntity.tickServer(worldx, pos, statex.getValue(RegisterProperties.NATURAL), statex.getValue(RegisterProperties.TERMITES_AWAKE), statex.getValue(RegisterProperties.CAN_SPAWN_TERMITE)))
+			: createTickerHelper(type, RegisterBlockEntities.TERMITE_MOUND, (worldx, pos, statex, blockEntity) -> blockEntity.tickClient());
 	}
 }

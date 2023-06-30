@@ -18,10 +18,16 @@
 
 package net.frozenblock.wilderwild.block.entity;
 
+import it.unimi.dsi.fastutil.ints.IntArrayList;
+import java.util.ArrayList;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
+import net.frozenblock.wilderwild.misc.client.ClientMethodInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -30,14 +36,50 @@ import org.jetbrains.annotations.NotNull;
 public class TermiteMoundBlockEntity extends BlockEntity {
 
 	public final TermiteManager termiteManager;
+	public final IntArrayList clientTermiteIDs = new IntArrayList();
 
 	public TermiteMoundBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		super(RegisterBlockEntities.TERMITE_MOUND, pos, state);
 		this.termiteManager = new TermiteManager();
 	}
 
-	public void tick(@NotNull Level level, @NotNull BlockPos pos, boolean natural, boolean awake, boolean canSpawn) {
+	public void tickServer(@NotNull Level level, @NotNull BlockPos pos, boolean natural, boolean awake, boolean canSpawn) {
 		this.termiteManager.tick(level, pos, natural, awake, canSpawn);
+		this.updateSync();
+	}
+
+	public void tickClient() {
+		ArrayList<TermiteManager.Termite> termites = this.termiteManager.termites();
+		for (TermiteManager.Termite termite : termites) {
+			int termiteID = termite.getID();
+			if (!clientTermiteIDs.contains(termiteID)) {
+				ClientMethodInteractionHandler.addTermiteSound(this, termiteID, termite.getEating());
+			}
+		}
+		this.clientTermiteIDs.clear();
+		for (TermiteManager.Termite termite : termites) {
+			this.clientTermiteIDs.add(termite.getID());
+		}
+	}
+
+	public void updateSync() {
+		ClientboundBlockEntityDataPacket updatePacket = this.getUpdatePacket();
+		if (updatePacket != null) {
+			for (ServerPlayer player : PlayerLookup.tracking(this)) {
+				player.connection.send(updatePacket);
+			}
+		}
+	}
+
+	@Override
+	public ClientboundBlockEntityDataPacket getUpdatePacket() {
+		return ClientboundBlockEntityDataPacket.create(this);
+	}
+
+	@Override
+	@NotNull
+	public CompoundTag getUpdateTag() {
+		return this.saveWithoutMetadata();
 	}
 
 	@Override

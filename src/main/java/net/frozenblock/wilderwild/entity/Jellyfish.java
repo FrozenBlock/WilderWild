@@ -757,10 +757,10 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	public static class JellyfishGroupData implements SpawnGroupData {
-		private int groupSize;
 		private final boolean shouldSpawnBaby;
 		private final float babySpawnChance;
 		private final JellyfishVariant variant;
+		private int groupSize;
 
 		private JellyfishGroupData(boolean shouldSpawnBaby, float babySpawnChance, JellyfishVariant variant) {
 			this.shouldSpawnBaby = shouldSpawnBaby;

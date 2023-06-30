@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.misc.client;
 
+import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.EnderMan;
@@ -34,5 +35,9 @@ public class ClientMethodInteractionHandler {
 
 	public static void playClientPlayerSoundIfSamePlayer(@NotNull SoundEvent sound, float volume, float pitch, @NotNull Entity compareTo) {
 		ClientMethods.playClientPlayerSoundIfSamePlayer(sound, volume, pitch, compareTo);
+	}
+
+	public static void addTermiteSound(TermiteMoundBlockEntity mound, int termiteID, boolean eating) {
+		ClientMethods.addTermiteSound(mound, termiteID, eating);
 	}
 }
