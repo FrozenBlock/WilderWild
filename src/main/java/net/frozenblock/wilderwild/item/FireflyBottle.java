@@ -71,7 +71,6 @@ public class FireflyBottle extends Item {
 					entity.setFromBottle(true);
 					boolean spawned = server.addFreshEntity(entity);
 					if (spawned) {
-						player.awardStat(Stats.ITEM_USED.get(this));
 						player.setItemInHand(usedHand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
 						player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
 						entity.playSound(RegisterSounds.ITEM_BOTTLE_RELEASE_FIREFLY, 1.0F, level.random.nextFloat() * 0.2F + 0.9F);
