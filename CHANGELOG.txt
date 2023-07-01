@@ -34,7 +34,7 @@ Put changelog here:
 - Added two config options controlling how far Termites can travel from their Mounds.
 - Added unique sounds for all Ice blocks (was only Frosted Ice prior.)
 - Included all Tall Flowers in the "Flower Sounds" config.
-- Added Suspicious Gravel to Ancient Cities. Get your brushes ready and rip open your eyelids!
+- Added Suspicious Gravel to Ancient Cities. Get your brushes ready and rip off your eyelids!
 - Added Stone Chests in Ancient Cities' centers.
 - Removed Stone Chest Closes gamerule.
 - Firefly Bottles can now be recolored.
