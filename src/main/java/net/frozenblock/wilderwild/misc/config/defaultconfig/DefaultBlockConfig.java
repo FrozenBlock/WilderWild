@@ -54,5 +54,7 @@ public class DefaultBlockConfig {
 
 	public static class TermiteConfig {
 		public static final boolean ONLY_EAT_NATURAL_BLOCKS = true;
+		public static final int MAX_DISTANCE = 32;
+		public static final int MAX_NATURAL_DISTANCE = 10;
 	}
 }

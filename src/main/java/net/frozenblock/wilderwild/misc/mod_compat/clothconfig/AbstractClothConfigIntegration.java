@@ -88,6 +88,10 @@ public abstract class AbstractClothConfigIntegration extends ModIntegration {
 
 	public abstract boolean termitesOnlyEatNaturalBlocks();
 
+	public abstract int maxTermiteDistance();
+
+	public abstract int maxNaturalTermiteDistance();
+
 	public abstract boolean shriekerGargling();
 
 	public abstract boolean soulFireSounds();

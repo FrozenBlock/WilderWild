@@ -201,6 +201,16 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public int maxTermiteDistance() {
+		return TERMITE.maxDistance;
+	}
+
+	@Override
+	public int maxNaturalTermiteDistance() {
+		return TERMITE.maxNaturalDistance;
+	}
+
+	@Override
 	public boolean shriekerGargling() {
 		return BLOCK.shriekerGargling;
 	}

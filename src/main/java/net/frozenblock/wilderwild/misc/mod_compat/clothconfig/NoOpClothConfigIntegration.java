@@ -173,6 +173,16 @@ public class NoOpClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public int maxTermiteDistance() {
+		return DefaultBlockConfig.TermiteConfig.MAX_DISTANCE;
+	}
+
+	@Override
+	public int maxNaturalTermiteDistance() {
+		return DefaultBlockConfig.TermiteConfig.MAX_NATURAL_DISTANCE;
+	}
+
+	@Override
 	public boolean shriekerGargling() {
 		return DefaultBlockConfig.SHRIEKER_GARGLING;
 	}

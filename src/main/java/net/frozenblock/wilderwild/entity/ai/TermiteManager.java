@@ -299,7 +299,7 @@ public class TermiteManager {
 		}
 
 		public static boolean isTooFar(boolean natural, @NotNull BlockPos mound, @NotNull BlockPos pos) {
-			return !mound.closerThan(pos, natural ? 10 : 32);
+			return !mound.closerThan(pos, natural ? WilderSharedConstants.config().maxNaturalTermiteDistance() : WilderSharedConstants.config().maxTermiteDistance());
 		}
 
 		public static void addDegradableBlocks() {

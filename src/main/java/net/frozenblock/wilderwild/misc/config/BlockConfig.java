@@ -214,10 +214,22 @@ public final class BlockConfig implements ConfigData {
 			.setTooltip(tooltip("termites_only_eat_natural_blocks"))
 			.build();
 
+		var maxTermiteDistance = entryBuilder.startIntSlider(text("max_termite_distance"), termite.maxDistance, 1, 72)
+			.setDefaultValue(DefaultBlockConfig.TermiteConfig.MAX_DISTANCE)
+			.setSaveConsumer(newValue -> termite.maxDistance = newValue)
+			.setTooltip(tooltip("max_termite_distance"))
+			.build();
+
+		var maxNaturalTermiteDistance = entryBuilder.startIntSlider(text("max_natural_termite_distance"), termite.maxNaturalDistance, 1, 72)
+			.setDefaultValue(DefaultBlockConfig.TermiteConfig.MAX_NATURAL_DISTANCE)
+			.setSaveConsumer(newValue -> termite.maxNaturalDistance = newValue)
+			.setTooltip(tooltip("max_natural_termite_distance"))
+			.build();
+
 		var termiteCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("termite"),
 			false,
 			tooltip("termite"),
-			termitesOnlyEatNaturalBlocks
+			termitesOnlyEatNaturalBlocks, maxTermiteDistance, maxNaturalTermiteDistance
 		);
 
 		var stoneChestTimer = entryBuilder.startIntSlider(text("stone_chest_timer"), stoneChest.stoneChestTimer, 50, 200)
@@ -261,5 +273,7 @@ public final class BlockConfig implements ConfigData {
 
 	public static class TermiteConfig {
 		public boolean onlyEatNaturalBlocks = DefaultBlockConfig.TermiteConfig.ONLY_EAT_NATURAL_BLOCKS;
+		public int maxDistance = DefaultBlockConfig.TermiteConfig.MAX_DISTANCE;
+		public int maxNaturalDistance = DefaultBlockConfig.TermiteConfig.MAX_NATURAL_DISTANCE;
 	}
 }

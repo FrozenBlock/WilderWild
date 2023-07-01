@@ -30,9 +30,11 @@ Put changelog here:
 - Bubbles will occasionally spawn behind adult Jellyfish as they swim.
 - Added a config option that controls how many tentacles Jellyfish have.
 - Only pearlescent Mesoglea will lift items and boats as opposed to all types prior.
-- Added unique sounds for all Ice blocks.
+- Termites no longer spam sounds and quickly overload the sound cap. They now use sound loops that move along with them.
+
+- Added unique sounds for all Ice blocks (was only Frosted Ice prior.)
 - Included all Tall Flowers in the "Flower Sounds" config.
-- Added Suspicious Gravel to Ancient Cities.
+- Added Suspicious Gravel to Ancient Cities. Get your brushes ready and rip open your eyelids!
 - Added Stone Chests in Ancient Cities' centers.
 - Removed Stone Chest Closes gamerule.
 - Firefly Bottles can now be recolored.
@@ -44,7 +46,14 @@ Put changelog here:
 - Added descriptions and proper names to Wilder Wild's built-in resource packs.
 - Lots of internal cleanup, reorganization, and optimizations.
 
-- Various bug fixes.
+Mod Compat Changes/Additions:
+- The Liquid Mesoglea feature (found in Block config) now works with Sodium enabled. (Sodium)
+- The Ancient Horn's massive vibration can no longer be infinitely cycled through Copper Pipes. (Simple Copper Pipes)
+- Falling leaves now follow FrozenLib/Wilder Wild's wind. (Falling Leaves)
+- Chests only bubble according to Wilder Wild's rules instead of each time they're opened. (Make Bubbles Pop)
+- Rain, Snowflake, and Desert Dust particles now follow FrozenLib/WilderWild's wind. (Particle Rain)
+
+Bug Fixes:
 - Fixed block-break sounds playing when Echo Glass only cracks.
 - Fixed broken loop in Deep Dark ambience.
 - Fixed a bug where Wardens would continuously attempt and fail to roar at Tumbleweeds.
@@ -58,11 +67,5 @@ Put changelog here:
 - Algae no longer slows down entities outside its collision shape.
 - Fixed Algae growth with Bone meal.
 - Cattails no longer create pockets of air when they're supposed to be waterlogged.
+- Fixed a bug where players could dupe Fireflies by rapidly clicking with Bottles of Fireflies.
 - And many more that were unfortunately forgotten to be documented!
-
-Mod Compat Changes:
-- The Liquid Mesoglea feature (found in Block config) now works with Sodium enabled. (Sodium)
-- The Ancient Horn's massive vibration can no longer be infinitely cycled through Copper Pipes. (Simple Copper Pipes)
-- Falling leaves now follow FrozenLib/Wilder Wild's wind. (Falling Leaves)
-- Chests only bubble according to Wilder Wild's rules instead of each time they're opened. (Make Bubbles Pop)
-- Rain, Snowflake, and Desert Dust particles now follow FrozenLib/WilderWild's wind. (Particle Rain)
