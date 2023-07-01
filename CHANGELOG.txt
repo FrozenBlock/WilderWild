@@ -31,7 +31,7 @@ Put changelog here:
 - Added a config option that controls how many tentacles Jellyfish have.
 - Only pearlescent Mesoglea will lift items and boats as opposed to all types prior.
 - Termites no longer spam sounds and quickly overload the sound cap. They now use sound loops that move along with them.
-
+- Added two config options controlling how far Termites can travel from their Mounds.
 - Added unique sounds for all Ice blocks (was only Frosted Ice prior.)
 - Included all Tall Flowers in the "Flower Sounds" config.
 - Added Suspicious Gravel to Ancient Cities. Get your brushes ready and rip open your eyelids!
