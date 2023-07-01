@@ -54,6 +54,7 @@ Mod Compat Changes/Additions:
 - Rain, Snowflake, and Desert Dust particles now follow FrozenLib/WilderWild's wind. (Particle Rain)
 
 Bug Fixes:
+- Sculk Slabs no longer drop Palm Slabs.
 - Fixed block-break sounds playing when Echo Glass only cracks.
 - Fixed broken loop in Deep Dark ambience.
 - Fixed a bug where Wardens would continuously attempt and fail to roar at Tumbleweeds.
