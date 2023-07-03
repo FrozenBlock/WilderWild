@@ -51,7 +51,7 @@ Mod Compat Changes/Additions:
 - The Ancient Horn's massive vibration can no longer be infinitely cycled through Copper Pipes. (Simple Copper Pipes)
 - Falling leaves now follow FrozenLib/Wilder Wild's wind. (Falling Leaves)
 - Chests only bubble according to Wilder Wild's rules instead of each time they're opened. (Make Bubbles Pop)
-- Rain, Snowflake, and Desert Dust particles now follow FrozenLib/WilderWild's wind. (Particle Rain)
+- Rain, Snowflake, and Desert Dust particles now follow FrozenLib/Wilder Wild's wind. (Particle Rain)
 
 Bug Fixes:
 - Sculk Slabs no longer drop Palm Slabs.
@@ -69,4 +69,5 @@ Bug Fixes:
 - Fixed Algae growth with Bone meal.
 - Cattails no longer create pockets of air when they're supposed to be waterlogged.
 - Fixed a bug where players could dupe Fireflies by rapidly clicking with Bottles of Fireflies.
+- Endermen now properly play their moving/looping sounds when the config is enabled.
 - And many more that were unfortunately forgotten to be documented!

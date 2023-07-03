@@ -84,33 +84,14 @@ public class FrozenLibIntegration extends ModIntegration {
 		SoundPredicate.register(WilderSharedConstants.id("nectar"), (SoundPredicate.LoopPredicate<Firefly>) entity ->
 			!entity.isSilent() && entity.hasCustomName() && Objects.requireNonNull(entity.getCustomName()).getString().toLowerCase().contains("nectar")
 		);
-		SoundPredicate.register(WilderSharedConstants.id("enderman_anger"), new SoundPredicate.LoopPredicate<EnderMan>() {
-			@Override
-			public boolean test(EnderMan entity) {
-				if (entity.isSilent() || !entity.isAlive() || entity.isRemoved()) {
-					return false;
-				}
-				return entity.isCreepy();
+		SoundPredicate.register(WilderSharedConstants.id("enderman_anger"), (SoundPredicate.LoopPredicate<EnderMan>) entity -> {
+			if (entity.isSilent() || entity.isRemoved() || entity.isDeadOrDying()) {
+				return false;
 			}
-
-			@Override
-			public void onStart(@Nullable EnderMan entity) {
-				if (entity != null) {
-					((WilderEnderman) entity).wilderWild$setCanPlayLoopingSound(false);
-				}
-			}
-
-			@Override
-			public void onStop(@Nullable EnderMan entity) {
-				if (entity != null) {
-					((WilderEnderman) entity).wilderWild$setCanPlayLoopingSound(true);
-				}
-			}
+			return entity.isCreepy() || entity.hasBeenStaredAt();
 		});
 
-		ServerWorldEvents.LOAD.register((server, level) -> {
-			PlayerDamageSourceSounds.addDamageSound(level.damageSources().cactus(), RegisterSounds.PLAYER_HURT_CACTUS, WilderSharedConstants.id("cactus"));
-		});
+		ServerWorldEvents.LOAD.register((server, level) -> PlayerDamageSourceSounds.addDamageSound(level.damageSources().cactus(), RegisterSounds.PLAYER_HURT_CACTUS, WilderSharedConstants.id("cactus")));
 
 		HopperUntouchableList.BLACKLISTED_TYPES.add(RegisterBlockEntities.STONE_CHEST);
 		FrozenBools.useNewDripstoneLiquid = true;
