@@ -13,6 +13,7 @@ Put changelog here:
 - Added Stone Chests in Ancient Cities' centers.
 - Added a "tomb" to Ancient Cities' centers.
 - Tweaked the rarity of Ancient Horn Fragments.
+- Added Osseous Sculk and Hanging Tendrils to Ancient Cities' loot tables.
 - Removed Stone Chest Closes gamerule.
 - Added Shrubs to many biomes like Plains, Forest, Dark Forest, and much more.
 - Added more flora to the Plains, Meadow, Flower Forest, Flower Field, Forest, Semi-Birch Forest, Birch Forest, and Mangrove Swamp biomes.
