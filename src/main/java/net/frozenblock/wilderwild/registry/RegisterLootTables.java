@@ -31,6 +31,7 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.EntryGroup;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
 import net.minecraft.world.level.storage.loot.entries.TagEntry;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
@@ -48,25 +49,20 @@ public final class RegisterLootTables {
 		LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
 			if (BuiltInLootTables.ANCIENT_CITY.equals(id)) {
 				LootPool.Builder pool = LootPool.lootPool();
+				LootPoolSingletonContainer.Builder<?> ancientHorn =	LootItem.lootTableItem(RegisterItems.ANCIENT_HORN_FRAGMENT)
+					.setWeight(7)
+					.setQuality(Rarity.EPIC.ordinal() + 1)
+					.apply(
+						SetItemCountFunction.setCount(ConstantValue.exactly(1F))
+					);
 
-				pool.add(
+				LootPool.lootPool().add(
 					EntryGroup.list(
-						LootItem.lootTableItem(Blocks.AIR).setWeight(70).append(
-							LootItem.lootTableItem(RegisterItems.ANCIENT_HORN_FRAGMENT).setWeight(7).setQuality(Rarity.EPIC.ordinal() + 1).
-								apply(
-									SetItemCountFunction.setCount(ConstantValue.exactly(1F))
-								)
+						LootItem.lootTableItem(Blocks.AIR).setWeight(55).append(
+							ancientHorn
 						)
 					)
 				);
-
-				/*
-				pool.add(LootPool.lootPool()
-						.add(LootItem.lootTableItem(RegisterItems.ANCIENT_HORN_FRAGMENT).setWeight(2).setQuality(Rarity.EPIC.ordinal() + 1)).
-						apply(SetItemCountFunction.setCount(UniformGenerator.between(-0.4F, 1.15F)))
-						.add(LootItem.lootTableItem(RegisterItems.ANCIENT_HORN_FRAGMENT).setWeight(3))
-							.build()));
-				 */
 
 				tableBuilder.withPool(pool);
 			}
