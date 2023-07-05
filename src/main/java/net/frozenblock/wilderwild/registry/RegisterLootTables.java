@@ -32,6 +32,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.TagEntry;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public final class RegisterLootTables {
@@ -50,7 +51,7 @@ public final class RegisterLootTables {
 						.setWeight(1)
 						.setQuality(Rarity.EPIC.ordinal() + 2)
 						.apply(
-							SetItemCountFunction.setCount(UniformGenerator.between(-2.0F, 1.0F))
+							SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))
 						)
 				);
 
