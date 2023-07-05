@@ -49,19 +49,13 @@ public final class RegisterLootTables {
 		LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
 			if (BuiltInLootTables.ANCIENT_CITY.equals(id)) {
 				LootPool.Builder pool = LootPool.lootPool();
-				LootPoolSingletonContainer.Builder<?> ancientHorn =	LootItem.lootTableItem(RegisterItems.ANCIENT_HORN_FRAGMENT)
-					.setWeight(13)
-					.setQuality(Rarity.EPIC.ordinal() + 1)
-					.apply(
-						SetItemCountFunction.setCount(ConstantValue.exactly(1F))
-					);
-
 				LootPool.lootPool().add(
-					EntryGroup.list(
-						LootItem.lootTableItem(Blocks.AIR).setWeight(37).append(
-							ancientHorn
+					LootItem.lootTableItem(RegisterItems.ANCIENT_HORN_FRAGMENT)
+						.setWeight(1)
+						.setQuality(Rarity.EPIC.ordinal() + 2)
+						.apply(
+							SetItemCountFunction.setCount(UniformGenerator.between(-2.5F, 0.75F))
 						)
-					)
 				);
 
 				tableBuilder.withPool(pool);
