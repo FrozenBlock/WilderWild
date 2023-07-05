@@ -71,4 +71,5 @@ Bug Fixes:
 - Cattails no longer create pockets of air when they're supposed to be waterlogged.
 - Fixed a bug where players could dupe Fireflies by rapidly clicking with Bottles of Fireflies.
 - Endermen now properly play their moving/looping sounds when the config is enabled.
+- Ancient Horn and Prickly Pear damage sources now once again retain their properties.
 - And many more that were unfortunately forgotten to be documented!
