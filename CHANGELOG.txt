@@ -36,6 +36,7 @@ Put changelog here:
 - Included all Tall Flowers in the "Flower Sounds" config.
 - Added Suspicious Gravel to Ancient Cities. Get your brushes ready and rip off your eyelids!
 - Added Stone Chests in Ancient Cities' centers.
+- Tweaked the rarity of Ancient Horn Fragments.
 - Removed Stone Chest Closes gamerule.
 - Firefly Bottles can now be recolored.
 - Fixed a crash pertaining to Jellyfish variants and Firefly colors.

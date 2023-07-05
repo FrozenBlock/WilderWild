@@ -25,13 +25,16 @@ import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.entries.EntryGroup;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.TagEntry;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public final class RegisterLootTables {
@@ -44,9 +47,27 @@ public final class RegisterLootTables {
 		//ANCIENT HORN FRAGMENT
 		LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
 			if (BuiltInLootTables.ANCIENT_CITY.equals(id)) {
-				LootPool.Builder pool = LootPool.lootPool()
-					.add(LootItem.lootTableItem(RegisterItems.ANCIENT_HORN_FRAGMENT).setWeight(2).setQuality(Rarity.EPIC.ordinal() + 1)).
-					apply(SetItemCountFunction.setCount(UniformGenerator.between(-0.4F, 1.15F)));
+				LootPool.Builder pool = LootPool.lootPool();
+
+				pool.add(
+					EntryGroup.list(
+						LootItem.lootTableItem(Blocks.AIR).setWeight(70).append(
+							LootItem.lootTableItem(RegisterItems.ANCIENT_HORN_FRAGMENT).setWeight(7).setQuality(Rarity.EPIC.ordinal() + 1).
+								apply(
+									SetItemCountFunction.setCount(ConstantValue.exactly(1F))
+								)
+						)
+					)
+				);
+
+				/*
+				pool.add(LootPool.lootPool()
+						.add(LootItem.lootTableItem(RegisterItems.ANCIENT_HORN_FRAGMENT).setWeight(2).setQuality(Rarity.EPIC.ordinal() + 1)).
+						apply(SetItemCountFunction.setCount(UniformGenerator.between(-0.4F, 1.15F)))
+						.add(LootItem.lootTableItem(RegisterItems.ANCIENT_HORN_FRAGMENT).setWeight(3))
+							.build()));
+				 */
+
 				tableBuilder.withPool(pool);
 			}
 		});
