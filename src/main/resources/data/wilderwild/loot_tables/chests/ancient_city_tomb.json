@@ -335,7 +335,7 @@
             }
           ],
           "name": "minecraft:rotten_flesh",
-          "weight": 6
+          "weight": 9
         },
         {
           "type": "minecraft:item",
@@ -351,7 +351,7 @@
             }
           ],
           "name": "minecraft:bone",
-          "weight": 7
+          "weight": 9
         },
         {
           "type": "minecraft:item",
@@ -439,25 +439,6 @@
         "max": 10.0,
         "min": 5.0
       }
-    },
-    {
-      "bonus_rolls": 0.0,
-      "entries": [
-        {
-          "type": "minecraft:empty",
-          "weight": 60
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:ward_armor_trim_smithing_template",
-          "weight": 4
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:silence_armor_trim_smithing_template"
-        }
-      ],
-      "rolls": 1
     }
   ]
 }

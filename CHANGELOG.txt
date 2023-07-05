@@ -63,6 +63,7 @@ Bug Fixes:
 - Fixed a bug where Wardens would continuously attempt and fail to roar at Tumbleweeds.
 - Tumbleweed entities now properly look in the direction they're moving.
 - Fixed broken Stone Chest animations and cleaned up their code.
+- Fixed Stone Chests incorrectly dropping ancient items for probably the seventh time now.
 - Fixed some missing recipe unlocks.
 - Fixed cloud rendering at high coordinates.
 - Fixed Tumbleweed breaking crops only client-side.
