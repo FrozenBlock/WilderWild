@@ -58,7 +58,7 @@ public final class RegisterLootTables {
 
 				LootPool.lootPool().add(
 					EntryGroup.list(
-						LootItem.lootTableItem(Blocks.AIR).setWeight(45).append(
+						LootItem.lootTableItem(Blocks.AIR).setWeight(37).append(
 							ancientHorn
 						)
 					)
