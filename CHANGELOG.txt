@@ -9,6 +9,11 @@ Put changelog here:
 - Sculk Sensors, Sculk Shriekers, Hanging Tendrils, and Osseous Sculk can now grow out of solid faces of Sculk Slabs and Sculk Stairs.
 - Changed Osseous Sculk's rotation state from Axis to Facing.
 - Removed Minecraft Live Sculk Sensor Tendril config in favor of a cleaner and bug-free implementation using a Resource Pack.
+- Added Suspicious Gravel to Ancient Cities. Get your brushes ready and rip off your eyelids!
+- Added Stone Chests in Ancient Cities' centers.
+- Added a "tomb" to Ancient Cities' centers.
+- Tweaked the rarity of Ancient Horn Fragments.
+- Removed Stone Chest Closes gamerule.
 - Added Shrubs to many biomes like Plains, Forest, Dark Forest, and much more.
 - Added more flora to the Plains, Meadow, Flower Forest, Flower Field, Forest, Semi-Birch Forest, Birch Forest, and Mangrove Swamp biomes.
 - Cattails can now generate on Mud blocks if not nearby water.
@@ -34,10 +39,6 @@ Put changelog here:
 - Added two config options controlling how far Termites can travel from their Mounds.
 - Added unique sounds for all Ice blocks (was only Frosted Ice prior.)
 - Included all Tall Flowers in the "Flower Sounds" config.
-- Added Suspicious Gravel to Ancient Cities. Get your brushes ready and rip off your eyelids!
-- Added Stone Chests in Ancient Cities' centers.
-- Tweaked the rarity of Ancient Horn Fragments.
-- Removed Stone Chest Closes gamerule.
 - Firefly Bottles can now be recolored.
 - Fixed a crash pertaining to Jellyfish variants and Firefly colors.
 - Added new Frosted Ice melting sounds and particles.

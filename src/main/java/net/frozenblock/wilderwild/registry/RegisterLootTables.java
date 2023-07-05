@@ -120,5 +120,23 @@ public final class RegisterLootTables {
 				tableBuilder.withPool(pool);
 			}
 		});
+		//OSSEOUS SCULK
+		LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
+			if (BuiltInLootTables.ANCIENT_CITY.equals(id) && source.isBuiltin()) {
+				LootPool.Builder pool = LootPool.lootPool()
+					.add(LootItem.lootTableItem(RegisterBlocks.OSSEOUS_SCULK.asItem()).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 5.0F)));
+
+				tableBuilder.withPool(pool);
+			}
+		});
+		//HANGING TENDRIL
+		LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
+			if (BuiltInLootTables.ANCIENT_CITY.equals(id) && source.isBuiltin()) {
+				LootPool.Builder pool = LootPool.lootPool()
+					.add(LootItem.lootTableItem(RegisterBlocks.HANGING_TENDRIL.asItem()).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F)));
+
+				tableBuilder.withPool(pool);
+			}
+		});
 	}
 }
