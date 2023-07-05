@@ -50,7 +50,7 @@ public final class RegisterLootTables {
 			if (BuiltInLootTables.ANCIENT_CITY.equals(id)) {
 				LootPool.Builder pool = LootPool.lootPool();
 				LootPoolSingletonContainer.Builder<?> ancientHorn =	LootItem.lootTableItem(RegisterItems.ANCIENT_HORN_FRAGMENT)
-					.setWeight(7)
+					.setWeight(13)
 					.setQuality(Rarity.EPIC.ordinal() + 1)
 					.apply(
 						SetItemCountFunction.setCount(ConstantValue.exactly(1F))
