@@ -4,27 +4,24 @@
     "heightmap": "OCEAN_FLOOR_WG",
     "innerChance": 0.925,
     "innerPercent": 0.65,
-    "innerReplaceable": [
-      "minecraft:sand",
-      "wilderwild:scorched_sand"
-    ],
+    "innerReplaceable": "#wilderwild:scorched_sand_feature_inner_replaceable",
     "innerState": {
       "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "wilderwild:scorched_sand",
         "Properties": {
-          "crackedness": "true",
+          "cracked": "true",
           "dusted": "0"
         }
       }
     },
-    "outerReplaceable": "minecraft:sand",
+    "outerReplaceable": "#wilderwild:scorched_sand_feature_replaceable",
     "outerState": {
       "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "wilderwild:scorched_sand",
         "Properties": {
-          "crackedness": "false",
+          "cracked": "false",
           "dusted": "0"
         }
       }

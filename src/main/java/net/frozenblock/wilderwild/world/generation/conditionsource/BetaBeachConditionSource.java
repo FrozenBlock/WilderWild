@@ -23,36 +23,46 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.world.level.levelgen.SurfaceRules;
+import org.jetbrains.annotations.NotNull;
 
 public final class BetaBeachConditionSource implements SurfaceRules.ConditionSource {
 	public static final KeyDispatchDataCodec<BetaBeachConditionSource> CODEC = KeyDispatchDataCodec.of(
 		RecordCodecBuilder.mapCodec(instance ->
 			instance.group(
-							Codec.INT
-							.fieldOf("useless")
-							.forGetter(BetaBeachConditionSource::useless)
+					Codec.INT
+						.fieldOf("useless")
+						.forGetter(BetaBeachConditionSource::useless)
 				)
 				.apply(instance, BetaBeachConditionSource::new)
-			)
+		)
 	);
 
 	public int useless;
-
-	public static BetaBeachConditionSource betaBeachConditionSource() {
-		return new BetaBeachConditionSource(1); // 1 is useless
-	}
 
 	BetaBeachConditionSource(int useless) {
 		this.useless = useless;
 	}
 
+	@NotNull
+	public static BetaBeachConditionSource betaBeachConditionSource() {
+		return new BetaBeachConditionSource(1); // 1 is useless
+	}
+
+	public static int useless(Object o) {
+		return 0;
+	}
+
+	@Override
+	@NotNull
 	public KeyDispatchDataCodec<? extends SurfaceRules.ConditionSource> codec() {
 		return CODEC;
 	}
 
-	public SurfaceRules.Condition apply(SurfaceRules.Context context) {
+	@Override
+	@NotNull
+	public SurfaceRules.Condition apply(@NotNull SurfaceRules.Context context) {
 		class BetaBeachCondition extends SurfaceRules.LazyYCondition {
-			BetaBeachCondition(SurfaceRules.Context context) {
+			BetaBeachCondition(@NotNull SurfaceRules.Context context) {
 				super(context);
 			}
 
@@ -64,15 +74,9 @@ public final class BetaBeachConditionSource implements SurfaceRules.ConditionSou
 		return new BetaBeachCondition(context);
 	}
 
-	public boolean equals(Object object) {
-		return this == object;
-	}
-
+	@Override
+	@NotNull
 	public String toString() {
 		return "BiomeConditionSource[betaBeach]";
-	}
-
-	public static int useless(Object o) {
-		return 0;
 	}
 }

@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:clay",
+    "minecraft:dripstone_block",
+    "minecraft:calcite",
+    {
+      "id": "#minecraft:base_stone_overworld",
+      "required": false
+    }
+  ]
+}

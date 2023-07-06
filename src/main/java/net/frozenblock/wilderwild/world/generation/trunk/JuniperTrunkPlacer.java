@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.registry.RegisterFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -42,23 +42,14 @@ import org.jetbrains.annotations.NotNull;
 
 public class JuniperTrunkPlacer extends TrunkPlacer {
 	public static final Codec<JuniperTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) ->
-			juniperCodec(instance).apply(instance, JuniperTrunkPlacer::new));
-
-	protected static <P extends JuniperTrunkPlacer> Products.P7<RecordCodecBuilder.Mu<P>, Integer, Integer, Integer, IntProvider, IntProvider, UniformInt, IntProvider> juniperCodec(RecordCodecBuilder.Instance<P> builder) {
-		return trunkPlacerParts(builder)
-				.and((IntProvider.codec(1, 3).fieldOf("branch_count")).forGetter(placer -> placer.branchCount))
-				.and((IntProvider.codec(2, 16).fieldOf("branch_horizontal_length")).forGetter(placer -> placer.branchHorizontalLength))
-				.and((UniformInt.CODEC.fieldOf("branch_start_offset_from_top")).forGetter(placer -> placer.branchStartOffsetFromTop))
-				.and((IntProvider.codec(-16, 16).fieldOf("branch_end_offset_from_top")).forGetter(placer -> placer.branchEndOffsetFromTop));
-	}
-
+		juniperCodec(instance).apply(instance, JuniperTrunkPlacer::new));
 	public final IntProvider branchCount;
 	public final IntProvider branchHorizontalLength;
 	public final UniformInt branchStartOffsetFromTop;
 	public final UniformInt secondBranchStartOffsetFromTop;
 	public final IntProvider branchEndOffsetFromTop;
 
-	public JuniperTrunkPlacer(int i, int j, int k, IntProvider intProvider, IntProvider intProvider2, UniformInt uniformInt, IntProvider intProvider3) {
+	public JuniperTrunkPlacer(int i, int j, int k, @NotNull IntProvider intProvider, @NotNull IntProvider intProvider2, @NotNull UniformInt uniformInt, @NotNull IntProvider intProvider3) {
 		super(i, j, k);
 		this.branchCount = intProvider;
 		this.branchHorizontalLength = intProvider2;
@@ -67,13 +58,23 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
 		this.branchEndOffsetFromTop = intProvider3;
 	}
 
-	@Override
-	protected TrunkPlacerType<?> type() {
-		return WilderWild.JUNIPER_TRUNK_PLACER;
+	protected static <P extends JuniperTrunkPlacer> Products.P7<RecordCodecBuilder.Mu<P>, Integer, Integer, Integer, IntProvider, IntProvider, UniformInt, IntProvider> juniperCodec(RecordCodecBuilder.Instance<P> builder) {
+		return trunkPlacerParts(builder)
+			.and((IntProvider.codec(1, 3).fieldOf("branch_count")).forGetter(placer -> placer.branchCount))
+			.and((IntProvider.codec(2, 16).fieldOf("branch_horizontal_length")).forGetter(placer -> placer.branchHorizontalLength))
+			.and((UniformInt.CODEC.fieldOf("branch_start_offset_from_top")).forGetter(placer -> placer.branchStartOffsetFromTop))
+			.and((IntProvider.codec(-16, 16).fieldOf("branch_end_offset_from_top")).forGetter(placer -> placer.branchEndOffsetFromTop));
 	}
 
 	@Override
-	public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> blockSetter, @NotNull RandomSource random, int freeTreeHeight, BlockPos pos, @NotNull TreeConfiguration config) {
+	@NotNull
+	protected TrunkPlacerType<?> type() {
+		return RegisterFeatures.JUNIPER_TRUNK_PLACER;
+	}
+
+	@Override
+	@NotNull
+	public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> blockSetter, @NotNull RandomSource random, int freeTreeHeight, @NotNull BlockPos pos, @NotNull TreeConfiguration config) {
 		JuniperTrunkPlacer.setDirtAt(level, blockSetter, random, pos.below(), config);
 		int i = Math.max(0, freeTreeHeight - 1 + this.branchStartOffsetFromTop.sample(random));
 		int j = Math.max(0, freeTreeHeight - 1 + this.secondBranchStartOffsetFromTop.sample(random));
@@ -93,22 +94,23 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
 		}
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 		Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-		Function<BlockState, BlockState> function = state -> (BlockState)state.setValue(RotatedPillarBlock.AXIS, direction.getAxis());
+		Function<BlockState, BlockState> function = state -> (BlockState) state.setValue(RotatedPillarBlock.AXIS, direction.getAxis());
 		list.add(this.generateBranch(level, blockSetter, random, freeTreeHeight, pos, config, function, direction, i, i < l - 1, mutableBlockPos));
 		ArrayList<Direction> allDirsMF = new ArrayList<>();
 
-		for(Direction d : Direction.Plane.HORIZONTAL) {
-			if(d != direction) allDirsMF.add(d);
+		for (Direction d : Direction.Plane.HORIZONTAL) {
+			if (d != direction) allDirsMF.add(d);
 		}
 		Direction secondDir = allDirsMF.get((int) (Math.random() * 2));
 		if (moreThanOneBranch) {
-			function = state -> (BlockState)state.setValue(RotatedPillarBlock.AXIS, secondDir.getAxis());
+			function = state -> (BlockState) state.setValue(RotatedPillarBlock.AXIS, secondDir.getAxis());
 			list.add(this.generateBranch(level, blockSetter, random, freeTreeHeight, pos, config, function, secondDir, j, j < l - 1, mutableBlockPos));
 		}
 		return list;
 	}
 
-	private FoliagePlacer.FoliageAttachment generateBranch(LevelSimulatedReader world, BiConsumer<BlockPos, BlockState> biConsumer, RandomSource random, int i, BlockPos pos, TreeConfiguration treeConfiguration, Function<BlockState, BlockState> function, Direction direction, int j, boolean bl, BlockPos.MutableBlockPos mutablePos) {
+	@NotNull
+	private FoliagePlacer.FoliageAttachment generateBranch(@NotNull LevelSimulatedReader world, @NotNull BiConsumer<BlockPos, BlockState> biConsumer, @NotNull RandomSource random, int i, @NotNull BlockPos pos, @NotNull TreeConfiguration treeConfiguration, @NotNull Function<BlockState, BlockState> function, @NotNull Direction direction, int j, boolean bl, @NotNull BlockPos.MutableBlockPos mutablePos) {
 		int o;
 		mutablePos.set(pos).move(Direction.UP, j);
 		int k = i - 1 + this.branchEndOffsetFromTop.sample(random);
@@ -121,7 +123,7 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
 		}
 		Direction direction2 = blockPos.getY() > mutablePos.getY() ? Direction.UP : Direction.DOWN;
 		while ((o = mutablePos.distManhattan(blockPos)) != 0) {
-			float f = (float)Math.abs(blockPos.getY() - mutablePos.getY()) / (float)o;
+			float f = (float) Math.abs(blockPos.getY() - mutablePos.getY()) / (float) o;
 			boolean bl3 = random.nextFloat() < f;
 			mutablePos.move(bl3 ? direction2 : direction);
 			this.placeLog(world, biConsumer, random, mutablePos, treeConfiguration, bl3 ? Function.identity() : function);

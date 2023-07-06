@@ -28,119 +28,27 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 public class PalmCrownBlockEntity extends BlockEntity {
 
-    public PalmCrownBlockEntity(BlockPos pos, BlockState state) {
-        super(RegisterBlockEntities.PALM_CROWN, pos, state);
-    }
+	public PalmCrownBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+		super(RegisterBlockEntities.PALM_CROWN, pos, state);
+	}
 
-    public void tick() {
+	public void tick() {
 		if (this.level != null) {
 			PalmCrownPositions.addPos(this.level, this.worldPosition);
 		}
-    }
+	}
 
-	public static class PalmCrownPositions{
+	public static class PalmCrownPositions {
 		private static final ArrayList<CrownPos> crownPosesOne = new ArrayList<>();
 		private static final ArrayList<CrownPos> crownPosesTwo = new ArrayList<>();
 
 		private static boolean isAlt;
 
-		public static boolean isCrownNearby(Level level, BlockPos blockPos, int i) {
-			ArrayList<CrownPos> copiedList = (ArrayList<CrownPos>) getPoses().clone();
-			int x = blockPos.getX();
-			int y = blockPos.getY();
-			int z = blockPos.getZ();
-			BlockState state;
-			ResourceLocation dimension = level.dimension().location();
-			for (CrownPos crownPos : copiedList) {
-				if (crownPos.dimension.equals(dimension)) {
-					int xVal = crownPos.pos.getX() - x;
-					if (xVal >= -i && xVal <= i) {
-						int zVal = crownPos.pos.getZ() - z;
-						if (zVal >= -i && zVal <= i) {
-							int yVal = crownPos.pos.getY() - y;
-							if (yVal >= -i && yVal <= i) {
-								state = level.getBlockState(crownPos.pos);
-								if (state.getBlock() instanceof PalmCrownBlock) {
-									return true;
-								}
-							}
-						}
-					}
-				}
-			}
-			return false;
-		}
-
-		public static boolean isCrownNearbyBlockGetter(BlockGetter blockGetter, BlockPos blockPos, int i) {
-			ArrayList<CrownPos> copiedList = (ArrayList<CrownPos>) getPoses().clone();
-			int x = blockPos.getX();
-			int y = blockPos.getY();
-			int z = blockPos.getZ();
-			BlockState state;
-			for (CrownPos crownPos : copiedList) {
-				int xVal = crownPos.pos.getX() - x;
-				if (xVal >= -i && xVal <= i) {
-					int zVal = crownPos.pos.getZ() - z;
-					if (zVal >= -i && zVal <= i) {
-						int yVal = crownPos.pos.getY() - y;
-						if (yVal >= -i && yVal <= i) {
-							state = blockGetter.getBlockState(crownPos.pos);
-							if (state.getBlock() instanceof PalmCrownBlock) {
-								return true;
-							}
-						}
-					}
-				}
-			}
-			return false;
-		}
-
-		public static BlockPos closestPalmCrown(BlockGetter blockGetter, BlockPos blockPos, int i) {
-			ArrayList<CrownPos> copiedList = (ArrayList<CrownPos>) getPoses().clone();
-			ArrayList<BlockPos> posList = new ArrayList<>();
-			int x = blockPos.getX();
-			int y = blockPos.getY();
-			int z = blockPos.getZ();
-			BlockState state;
-			for (CrownPos crownPos : copiedList) {
-				int xVal = crownPos.pos.getX() - x;
-				if (xVal >= -i && xVal <= i) {
-					int zVal = crownPos.pos.getZ() - z;
-					if (zVal >= -i && zVal <= i) {
-						int yVal = crownPos.pos.getY() - y;
-						if (yVal >= -i && yVal <= i) {
-							state = blockGetter.getBlockState(crownPos.pos);
-							if (state.getBlock() instanceof PalmCrownBlock) {
-								posList.add(crownPos.pos);
-							}
-						}
-					}
-				}
-			}
-			Vec3 startPos = new Vec3(blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5);
-			if (!posList.isEmpty()) {
-				BlockPos closest = null;
-				double lowestDist = 99;
-				for (BlockPos pos : posList) {
-					if (closest == null) {
-						closest = pos;
-					} else {
-						double checkDist = Math.sqrt(pos.distToCenterSqr(startPos));
-						if (checkDist < lowestDist) {
-							lowestDist = checkDist;
-							closest = pos;
-						}
-					}
-				}
-				return closest;
-			}
-			return null;
-		}
-
-		public static double distanceToClosestPalmCrown(BlockGetter blockGetter, BlockPos blockPos, int i) {
+		public static double distanceToClosestPalmCrown(@NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, int i) {
 			ArrayList<CrownPos> copiedList = (ArrayList<CrownPos>) getPoses().clone();
 			ArrayList<BlockPos> posList = new ArrayList<>();
 			int x = blockPos.getX();
@@ -198,11 +106,11 @@ public class PalmCrownBlockEntity extends BlockEntity {
 			isAlt = !isAlt;
 		}
 
-		public static void addPos(Level level, BlockPos pos) {
+		public static void addPos(@NotNull Level level, @NotNull BlockPos pos) {
 			getAltList().add(new CrownPos(pos, level.dimension().location()));
 		}
 
-		public record CrownPos(BlockPos pos, ResourceLocation dimension) {
+		public record CrownPos(@NotNull BlockPos pos, @NotNull ResourceLocation dimension) {
 
 		}
 	}

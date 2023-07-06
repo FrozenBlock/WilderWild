@@ -20,6 +20,8 @@ package net.frozenblock.wilderwild.misc.config.defaultconfig;
 
 public class DefaultEntityConfig {
 
+	public static final boolean UNPASSABLE_RAIL = false;
+
 	public static class AllayConfig {
 		public static final boolean KEYFRAME_ALLAY_DANCE = true;
 	}
@@ -35,11 +37,13 @@ public class DefaultEntityConfig {
 
 	public static class JellyfishConfig {
 		public static final int JELLYFISH_SPAWN_CAP = 30;
+		public static final int JELLYFISH_TENTACLES = 8;
 	}
 
 	public static class TumbleweedConfig {
 		public static final int TUMBLEWEED_SPAWN_CAP = 10;
 		public static final boolean LEASHED_TUMBLEWEED = false;
+		public static final boolean TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION = false;
 	}
 
 	public static class WardenConfig {
@@ -51,6 +55,4 @@ public class DefaultEntityConfig {
 		public static final boolean WARDEN_EMERGES_FROM_EGG = false;
 		public static final boolean WARDEN_SWIM_ANIMATION = true;
 	}
-
-	public static final boolean UNPASSABLE_RAIL = false;
 }

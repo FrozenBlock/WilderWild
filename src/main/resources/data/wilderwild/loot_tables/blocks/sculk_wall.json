@@ -1,15 +1,15 @@
 {
   "type": "minecraft:block",
   "pools": [
-	{
-	  "rolls": 1.0,
-	  "bonus_rolls": 0.0,
-	  "entries": [
-		{
-		  "type": "minecraft:item",
-		  "name": "wilderwild:sculk_wall"
-		}
-	  ],
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "wilderwild:sculk_wall"
+        }
+      ],
       "conditions": [
         {
           "condition": "minecraft:match_tool",
@@ -25,6 +25,6 @@
           }
         }
       ]
-	}
+    }
   ]
 }

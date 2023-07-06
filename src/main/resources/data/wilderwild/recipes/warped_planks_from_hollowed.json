@@ -3,12 +3,12 @@
   "category": "building",
   "group": "planks",
   "ingredients": [
-	  {
-	   "tag": "wilderwild:hollowed_warped_stems"
-	  }
+    {
+      "tag": "wilderwild:hollowed_warped_stems"
+    }
   ],
   "result": {
-	  "count": 2,
-	  "item": "minecraft:warped_planks"
+    "count": 2,
+    "item": "minecraft:warped_planks"
   }
 }

@@ -4,14 +4,14 @@
     "heightmap": "OCEAN_FLOOR_WG",
     "innerChance": 0.5,
     "innerPercent": 0.5,
-    "innerReplaceable": "wilderwild:red_sand_transition_replaceable",
+    "innerReplaceable": "wilderwild:stone_transition_replaceable",
     "innerState": {
       "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "minecraft:stone"
       }
     },
-    "outerReplaceable": "wilderwild:red_sand_transition_replaceable",
+    "outerReplaceable": "wilderwild:stone_transition_replaceable",
     "outerState": {
       "type": "minecraft:simple_state_provider",
       "state": {

@@ -32,22 +32,18 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class FloatingSculkBubbleParticleOptions implements ParticleOptions {
-	private final double size;
-	private final int maxAge;
-	private final Vec3 velocity;
-
 	public static final Codec<FloatingSculkBubbleParticleOptions> CODEC = RecordCodecBuilder.create((instance) ->
-			instance.group(
-					Codec.DOUBLE.fieldOf("size").forGetter((particleOptions) -> particleOptions.size),
-							Codec.INT.fieldOf("maxAge").forGetter((particleOptions) -> particleOptions.maxAge),
-							Vec3.CODEC.fieldOf("velocity").forGetter((particleOptions) -> particleOptions.velocity)
+		instance.group(
+				Codec.DOUBLE.fieldOf("size").forGetter((particleOptions) -> particleOptions.size),
+				Codec.INT.fieldOf("maxAge").forGetter((particleOptions) -> particleOptions.maxAge),
+				Vec3.CODEC.fieldOf("velocity").forGetter((particleOptions) -> particleOptions.velocity)
 			)
 			.apply(instance, FloatingSculkBubbleParticleOptions::new)
 	);
-
 	public static final ParticleOptions.Deserializer<FloatingSculkBubbleParticleOptions> DESERIALIZER = new ParticleOptions.Deserializer<>() {
 
 		@Override
+		@NotNull
 		public FloatingSculkBubbleParticleOptions fromCommand(@NotNull ParticleType<FloatingSculkBubbleParticleOptions> particleType, @NotNull StringReader stringReader) throws CommandSyntaxException {
 			double d = stringReader.readDouble();
 			int i = stringReader.readInt();
@@ -57,10 +53,14 @@ public class FloatingSculkBubbleParticleOptions implements ParticleOptions {
 		}
 
 		@Override
+		@NotNull
 		public FloatingSculkBubbleParticleOptions fromNetwork(@NotNull ParticleType<FloatingSculkBubbleParticleOptions> particleType, @NotNull FriendlyByteBuf friendlyByteBuf) {
 			return new FloatingSculkBubbleParticleOptions(friendlyByteBuf.readDouble(), friendlyByteBuf.readInt(), FloatingSculkBubbleParticleOptions.readVelocity(friendlyByteBuf));
 		}
 	};
+	private final double size;
+	private final int maxAge;
+	private final Vec3 velocity;
 
 	public FloatingSculkBubbleParticleOptions(double size, int maxAge, Vec3 velocity) {
 		this.size = size;
@@ -68,7 +68,8 @@ public class FloatingSculkBubbleParticleOptions implements ParticleOptions {
 		this.velocity = velocity;
 	}
 
-	public static Vec3 readVec3(StringReader stringInput) throws CommandSyntaxException {
+	@NotNull
+	public static Vec3 readVec3(@NotNull StringReader stringInput) throws CommandSyntaxException {
 		stringInput.expect(' ');
 		double f = stringInput.readDouble();
 		stringInput.expect(' ');
@@ -78,16 +79,18 @@ public class FloatingSculkBubbleParticleOptions implements ParticleOptions {
 		return new Vec3(f, g, h);
 	}
 
-	public static Vec3 readVelocity(FriendlyByteBuf buffer) {
+	@NotNull
+	public static Vec3 readVelocity(@NotNull FriendlyByteBuf buffer) {
 		return new Vec3(buffer.readDouble(), buffer.readDouble(), buffer.readDouble());
 	}
 
 	@Override
+	@NotNull
 	public ParticleType<?> getType() {
 		return RegisterParticles.FLOATING_SCULK_BUBBLE;
 	}
 
-	public void writeToNetwork(FriendlyByteBuf buffer) {
+	public void writeToNetwork(@NotNull FriendlyByteBuf buffer) {
 		buffer.writeDouble(this.size);
 		buffer.writeInt(this.maxAge);
 		buffer.writeDouble(this.velocity.x());
@@ -95,6 +98,7 @@ public class FloatingSculkBubbleParticleOptions implements ParticleOptions {
 		buffer.writeDouble(this.velocity.z());
 	}
 
+	@NotNull
 	public String writeToString() {
 		return String.format(Locale.ROOT, "%s %.2f %d %.2f %.2f %.2f", BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), this.getSize(), this.getMaxAge(), this.velocity.x(), this.velocity.y(), this.velocity.z());
 	}

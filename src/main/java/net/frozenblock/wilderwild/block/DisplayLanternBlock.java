@@ -71,7 +71,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
-import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -84,20 +83,24 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
-
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
 	public static final IntegerProperty DISPLAY_LIGHT = RegisterProperties.DISPLAY_LIGHT;
 	protected static final VoxelShape STANDING_SHAPE = Shapes.or(Block.box(5.0D, 0.0D, 5.0D, 11.0D, 7.0D, 11.0D), Block.box(6.0D, 7.0D, 6.0D, 10.0D, 8.0D, 10.0D));
 	protected static final VoxelShape HANGING_SHAPE = Shapes.or(Block.box(5.0D, 2.0D, 5.0D, 11.0D, 9.0D, 11.0D), Block.box(6.0D, 9.0D, 6.0D, 10.0D, 10.0D, 10.0D));
 
-	public DisplayLanternBlock(Properties settings) {
+	public DisplayLanternBlock(@NotNull Properties settings) {
 		super(settings.pushReaction(PushReaction.DESTROY));
 		this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, false).setValue(WATERLOGGED, false).setValue(DISPLAY_LIGHT, 0));
 	}
 
+	private static Direction attachedDirection(@NotNull BlockState state) {
+		return state.getValue(HANGING) ? Direction.DOWN : Direction.UP;
+	}
+
 	@Override
-	public InteractionResult use(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+	@NotNull
+	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		if (level.isClientSide) {
 			return InteractionResult.SUCCESS;
 		}
@@ -111,7 +114,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 						if (stack.hasCustomHoverName()) {
 							name = stack.getHoverName().getString();
 						}
-						lantern.addFirefly(bottle, name);
+						lantern.addFirefly(level, bottle, name);
 						if (!player.isCreative()) {
 							player.getItemInHand(hand).shrink(1);
 						}
@@ -125,7 +128,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 				if (stack.is(Items.GLASS_BOTTLE)) {
 					if (!lantern.getFireflies().isEmpty()) {
 						DisplayLanternBlockEntity.FireflyInLantern fireflyInLantern = lantern.getFireflies().get(AdvancedMath.random().nextInt(lantern.getFireflies().size()));
-						Optional<Item> optionalItem = BuiltInRegistries.ITEM.getOptional(new ResourceLocation(fireflyInLantern.color.getKey().getNamespace(), Objects.equals(fireflyInLantern.color, FireflyColor.ON) ? "firefly_bottle" : fireflyInLantern.color.getKey().getPath() + "_firefly_bottle"));
+						Optional<Item> optionalItem = BuiltInRegistries.ITEM.getOptional(new ResourceLocation(fireflyInLantern.color.key().getNamespace(), Objects.equals(fireflyInLantern.color, FireflyColor.ON) ? "firefly_bottle" : fireflyInLantern.color.key().getPath() + "_firefly_bottle"));
 						Item item = RegisterItems.FIREFLY_BOTTLE;
 						if (optionalItem.isPresent()) {
 							item = optionalItem.get();
@@ -173,7 +176,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Nullable
 	@Override
-	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+	public BlockState getStateForPlacement(@NotNull BlockPlaceContext ctx) {
 		FluidState fluidState = ctx.getLevel().getFluidState(ctx.getClickedPos());
 		for (Direction direction : ctx.getNearestLookingDirections()) {
 			if (direction.getAxis() == Direction.Axis.Y) {
@@ -187,32 +190,31 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+	@NotNull
+	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
 		return state.getValue(HANGING) ? HANGING_SHAPE : STANDING_SHAPE;
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(HANGING, WATERLOGGED, DISPLAY_LIGHT);
 	}
 
 	@Override
-	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, BlockPos pos) {
+	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
 		Direction direction = attachedDirection(state).getOpposite();
 		return Block.canSupportCenter(level, pos.relative(direction), direction.getOpposite());
 	}
 
-	private static Direction attachedDirection(BlockState state) {
-		return state.getValue(HANGING) ? Direction.DOWN : Direction.UP;
-	}
-
 	@Override
+	@NotNull
 	public RenderShape getRenderShape(@NotNull BlockState blockState) {
 		return RenderShape.MODEL;
 	}
 
 	@Override
-	public BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
+	@NotNull
+	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
 		if (state.getValue(WATERLOGGED)) {
 			level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 		}
@@ -228,9 +230,9 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	public void onRemove(BlockState state, @NotNull Level level, @NotNull BlockPos pos, BlockState newState, boolean isMoving) {
+	public void onRemove(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
-			if (level.getBlockEntity(pos)  instanceof DisplayLanternBlockEntity lantern) {
+			if (level.getBlockEntity(pos) instanceof DisplayLanternBlockEntity lantern) {
 				for (ItemStack item : lantern.inventory) {
 					popResource(level, pos, item);
 				}
@@ -242,7 +244,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Override
 	@NotNull
-	public FluidState getFluidState(BlockState state) {
+	public FluidState getFluidState(@NotNull BlockState state) {
 		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
 	}
 
@@ -259,12 +261,12 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Override
 	@Nullable
-	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
 		return !level.isClientSide ? createTickerHelper(type, RegisterBlockEntities.DISPLAY_LANTERN, (worldx, pos, statex, blockEntity) -> blockEntity.serverTick(level, pos)) : createTickerHelper(type, RegisterBlockEntities.DISPLAY_LANTERN, (worldx, pos, statex, blockEntity) -> blockEntity.clientTick(level, pos));
 	}
 
 	@Override
-	public void playerDestroy(Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
+	public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
 		if (!level.isClientSide && blockEntity instanceof DisplayLanternBlockEntity lanternEntity) {
 			boolean silk = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) == 0 || player.isCreative();
 			if (silk && !lanternEntity.getFireflies().isEmpty()) {
@@ -276,27 +278,26 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Override
 	@NotNull
-	public List<ItemStack> getDrops(@NotNull BlockState state, LootParams.Builder builder) {
-		ResourceLocation identifier = this.getLootTable();
+	public List<ItemStack> getDrops(@NotNull BlockState blockState, @NotNull LootParams.Builder builder) {
+		ResourceLocation resourceLocation = this.getLootTable();
 		if (builder.getOptionalParameter(LootContextParams.TOOL) != null) {
 			ItemStack stack = builder.getParameter(LootContextParams.TOOL);
 			if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) != 0) {
 				if (builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY) != null) {
 					BlockEntity blockEntity = builder.getParameter(LootContextParams.BLOCK_ENTITY);
 					if (blockEntity instanceof DisplayLanternBlockEntity lantern && !lantern.getFireflies().isEmpty()) {
-						identifier = WilderSharedConstants.id("blocks/display_lantern_fireflies");
+						resourceLocation = WilderSharedConstants.id("blocks/display_lantern_fireflies");
 					}
 				}
 			}
 		}
-		if (identifier == BuiltInLootTables.EMPTY) {
+		if (resourceLocation == BuiltInLootTables.EMPTY) {
 			return Collections.emptyList();
 		} else {
-			LootParams lootContext = builder.withParameter(LootContextParams.BLOCK_STATE, state).create(LootContextParamSets.BLOCK);
-			ServerLevel serverLevel = lootContext.getLevel();
-			LootTable lootTable = serverLevel.getServer().getLootData().getLootTable(identifier);
-			return lootTable.getRandomItems(lootContext);
+			LootParams lootParams = builder.withParameter(LootContextParams.BLOCK_STATE, blockState).create(LootContextParamSets.BLOCK);
+			ServerLevel serverLevel = lootParams.getLevel();
+			LootTable lootTable = serverLevel.getServer().getLootData().getLootTable(resourceLocation);
+			return lootTable.getRandomItems(lootParams);
 		}
 	}
-
 }

@@ -36,58 +36,56 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class AncientHornProjectileModel extends Model {
-    private final ModelPart bone;
-    private final ModelPart front;
-    private final ModelPart middle;
-    private final ModelPart back;
+	private static final float pi = (float) Math.PI;
+	private static final float bonePitchYaw = 1.57079632F;
+	private static final float pulse2Extra = 8.0F / 1.5F;
+	private static final float pulse3Extra = 8.0F / 3.0F;
+	private final ModelPart bone;
+	private final ModelPart front;
+	private final ModelPart middle;
+	private final ModelPart back;
+	public AncientHornProjectile projectile;
+	public float partialTick;
 
-    public AncientHornProjectileModel(ModelPart root) {
-        super(FrozenRenderType::entityTranslucentEmissiveFixed);
-        this.bone = root.getChild("bone");
-        this.front = bone.getChild("front");
-        this.middle = bone.getChild("middle");
-        this.back = bone.getChild("back");
-    }
+	public AncientHornProjectileModel(@NotNull ModelPart root) {
+		super(FrozenRenderType::entityTranslucentEmissiveFixed);
+		this.bone = root.getChild("bone");
+		this.front = bone.getChild("front");
+		this.middle = bone.getChild("middle");
+		this.back = bone.getChild("back");
+	}
 
-    private static final float pi = (float) Math.PI;
-    private static final float bonePitchYaw = 1.57079632F;
-    private static final float pulse2Extra = 8.0F / 1.5F;
-    private static final float pulse3Extra = 8.0F / 3.0F;
+	@NotNull
+	public static LayerDefinition createBodyLayer() {
+		MeshDefinition modelData = new MeshDefinition();
+		PartDefinition modelPartData = modelData.getRoot();
+		PartDefinition bone = modelPartData.addOrReplaceChild("bone", CubeListBuilder.create(), PartPose.offsetAndRotation(4.0F, 0.0F, 0.0F, bonePitchYaw, bonePitchYaw, 0));
+		bone.addOrReplaceChild("front", CubeListBuilder.create().texOffs(0, 32).addBox(-8.0F, -8.0F, 0.0F, 16.0F, 16.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, -4.0F));
+		bone.addOrReplaceChild("middle", CubeListBuilder.create().texOffs(0, 16).addBox(-8.0F, -8.0F, 0.0F, 16.0F, 16.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		bone.addOrReplaceChild("back", CubeListBuilder.create().texOffs(0, 0).addBox(-8.0F, -8.0F, 0.0F, 16.0F, 16.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 4.0F));
+		return LayerDefinition.create(modelData, 64, 64);
+	}
 
-    public static LayerDefinition createBodyLayer() {
-        MeshDefinition modelData = new MeshDefinition();
-        PartDefinition modelPartData = modelData.getRoot();
-        PartDefinition bone = modelPartData.addOrReplaceChild("bone", CubeListBuilder.create(), PartPose.offsetAndRotation(4.0F, 0.0F, 0.0F, bonePitchYaw, bonePitchYaw, 0));
-        PartDefinition front = bone.addOrReplaceChild("front", CubeListBuilder.create().texOffs(0, 32).addBox(-8.0F, -8.0F, 0.0F, 16.0F, 16.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, -4.0F));
-        PartDefinition middle = bone.addOrReplaceChild("middle", CubeListBuilder.create().texOffs(0, 16).addBox(-8.0F, -8.0F, 0.0F, 16.0F, 16.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
-        PartDefinition back = bone.addOrReplaceChild("back", CubeListBuilder.create().texOffs(0, 0).addBox(-8.0F, -8.0F, 0.0F, 16.0F, 16.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 4.0F));
-        return LayerDefinition.create(modelData, 64, 64);
-    }
+	@Override
+	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+		float aliveDelta = this.projectile.getAliveTicks() + this.partialTick;
 
-    public void render(PoseStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha, float partialTick, AncientHornProjectile entity) {
-        float aliveDelta = entity.getAliveTicks() + partialTick;
+		float pulse = (((float) Math.sin((aliveDelta * pi) * 0.2F) * 0.16666667F) + 1);
+		float pulse2 = (((float) Math.sin(((aliveDelta + pulse2Extra) * pi) * 0.2F) * 0.16666667F) + 1);
+		float pulse3 = (((float) Math.sin(((aliveDelta + pulse3Extra) * pi) * 0.2F) * 0.16666667F) + 1);
 
-        float pulse = (((float) Math.sin((aliveDelta * pi) * 0.2F) * 0.16666667F) + 1);
-        float pulse2 = (((float) Math.sin(((aliveDelta + pulse2Extra) * pi) * 0.2F) * 0.16666667F) + 1);
-        float pulse3 = (((float) Math.sin(((aliveDelta + pulse3Extra) * pi) * 0.2F) * 0.16666667F) + 1);
+		this.front.xScale = pulse;
+		this.front.yScale = pulse;
+		this.front.z = pulse3 * 2.0F - 6.0F;
 
-        this.front.xScale = pulse;
-        this.front.yScale = pulse;
-        this.front.z = pulse3 * 2.0F - 6.0F;
+		this.middle.xScale = pulse2;
+		this.middle.yScale = pulse2;
+		this.middle.z = pulse * 2.0F - 2.0F;
 
-        this.middle.xScale = pulse2;
-        this.middle.yScale = pulse2;
-        this.middle.z = pulse * 2.0F - 2.0F;
+		this.back.xScale = pulse3;
+		this.back.yScale = pulse3;
+		this.back.z = pulse2 * 2.0F + 2.0F;
 
-        this.back.xScale = pulse3;
-        this.back.yScale = pulse3;
-        this.back.z = pulse2 * 2.0F + 2.0F;
-
-        this.bone.render(matrices, vertices, light, overlay, red, green, blue, alpha);
-    }
-
-    @Override
-    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-
-    }
+		this.bone.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+	}
 }

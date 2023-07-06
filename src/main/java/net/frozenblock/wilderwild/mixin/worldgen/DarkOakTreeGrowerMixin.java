@@ -32,8 +32,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(value = DarkOakTreeGrower.class, priority = 69420)
 public class DarkOakTreeGrowerMixin {
 
-    @Inject(method = "getConfiguredMegaFeature", at = @At("RETURN"), cancellable = true)
-    public void getConfiguredMegaFeature(RandomSource randomSource, CallbackInfoReturnable<ResourceKey<ConfiguredFeature<?, ?>>> info) {
+	@Inject(method = "getConfiguredMegaFeature", at = @At("RETURN"), cancellable = true)
+	public void getConfiguredMegaFeature(RandomSource randomSource, CallbackInfoReturnable<ResourceKey<ConfiguredFeature<?, ?>>> info) {
 		if (WilderSharedConstants.config().wildTrees()) {
 			if (randomSource.nextFloat() < 0.2F) {
 				info.setReturnValue(WilderTreeConfigured.TALL_DARK_OAK.getKey());
@@ -41,6 +41,6 @@ public class DarkOakTreeGrowerMixin {
 				info.setReturnValue(WilderTreeConfigured.FANCY_TALL_DARK_OAK.getKey());
 			}
 		}
-    }
+	}
 
 }

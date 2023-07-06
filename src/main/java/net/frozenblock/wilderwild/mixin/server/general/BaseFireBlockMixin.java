@@ -37,21 +37,21 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class BaseFireBlockMixin {
 
 	@Inject(method = "animateTick", at = @At("HEAD"))
-    public void wilderWild$animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random, CallbackInfo info) {
-        if (WilderSharedConstants.config().soulFireSounds() && state.is(Blocks.SOUL_FIRE)) {
-            if (random.nextInt(48) == 0) {
-                level.playLocalSound(
-                        (double) pos.getX() + 0.5,
-                        (double) pos.getY() + 0.5,
-                        (double) pos.getZ() + 0.5,
-                        RegisterSounds.BLOCK_SOUL_FIRE_AMBIENT,
-                        SoundSource.BLOCKS,
-                        0.6F + random.nextFloat(),
-                        random.nextFloat() * 0.7F + 0.3F,
-                        false
-                );
-            }
-        }
-    }
+	public void wilderWild$animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random, CallbackInfo info) {
+		if (WilderSharedConstants.config().soulFireSounds() && state.is(Blocks.SOUL_FIRE)) {
+			if (random.nextInt(48) == 0) {
+				level.playLocalSound(
+					(double) pos.getX() + 0.5,
+					(double) pos.getY() + 0.5,
+					(double) pos.getZ() + 0.5,
+					RegisterSounds.BLOCK_SOUL_FIRE_AMBIENT,
+					SoundSource.BLOCKS,
+					0.6F + random.nextFloat(),
+					random.nextFloat() * 0.7F + 0.3F,
+					false
+				);
+			}
+		}
+	}
 
 }

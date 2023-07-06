@@ -1,7 +1,7 @@
 {
   "variants": {
-	"": {
-	  "model": "wilderwild:block/potted_coconut"
-	}
+    "": {
+      "model": "wilderwild:block/potted_coconut"
+    }
   }
 }

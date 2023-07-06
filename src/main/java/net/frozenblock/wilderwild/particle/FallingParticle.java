@@ -33,7 +33,7 @@ import org.jetbrains.annotations.NotNull;
 public class FallingParticle extends TextureSheetParticle {
 	private final SpriteSet spriteProvider;
 
-	FallingParticle(ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, SpriteSet spriteProvider) {
+	FallingParticle(@NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, @NotNull SpriteSet spriteProvider) {
 		this(level, x, y, z, spriteProvider);
 		this.xd *= 0.1f;
 		this.yd *= 0.1f;
@@ -42,6 +42,14 @@ public class FallingParticle extends TextureSheetParticle {
 		this.yd += ySpeed;
 		this.zd += zSpeed;
 		this.lifetime = level.random.nextInt(4, 8);
+	}
+
+	public FallingParticle(@NotNull ClientLevel level, double x, double y, double z, @NotNull SpriteSet spriteProvider) {
+		super(level, x, y, z, 0.0, 0.0, 0.0);
+		this.spriteProvider = spriteProvider;
+		this.setSpriteFromAge(spriteProvider);
+		this.gravity = 1.0f;
+		this.quadSize = 0.2F;
 	}
 
 	@Override
@@ -55,30 +63,17 @@ public class FallingParticle extends TextureSheetParticle {
 	}
 
 	@Override
+	@NotNull
 	public ParticleRenderType getRenderType() {
 		return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
 	}
 
-	public FallingParticle(ClientLevel level, double x, double y, double z, SpriteSet spriteProvider) {
-		super(level, x, y, z, 0.0, 0.0, 0.0);
-		this.spriteProvider = spriteProvider;
-		this.setSpriteFromAge(spriteProvider);
-		this.gravity = 1.0f;
-		this.quadSize = 0.2F;
-	}
-
 	@Environment(EnvType.CLIENT)
 	public record Factory(SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
-		public Factory(SpriteSet spriteProvider) {
-			this.spriteProvider = spriteProvider;
-		}
-
+		@Override
+		@NotNull
 		public Particle createParticle(@NotNull SimpleParticleType termiteParticleOptions, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {
 			return new FallingParticle(clientLevel, x, y, z, g, h, i, this.spriteProvider);
-		}
-
-		public SpriteSet spriteProvider() {
-			return this.spriteProvider;
 		}
 	}
 }

@@ -23,54 +23,75 @@ import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.SculkBehaviour;
+import net.minecraft.world.level.block.SculkBlock;
 import net.minecraft.world.level.block.SculkSpreader;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class SlabWallStairSculkBehavior implements SculkBehaviour {
 
-    @Override
-    public int attemptUseCharge(SculkSpreader.ChargeCursor cursor, LevelAccessor level, @NotNull BlockPos catalystPos, @NotNull RandomSource random, @NotNull SculkSpreader spreadManager, boolean shouldConvertToBlock) {
-        BlockState placementState = null;
-        BlockPos cursorPos = cursor.getPos();
-        BlockState currentState = level.getBlockState(cursorPos);
-        if (currentState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || currentState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE)) {
-            placementState = RegisterBlocks.SCULK_STAIRS.withPropertiesOf(currentState);
-        } else if (currentState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || currentState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE)) {
-            placementState = RegisterBlocks.SCULK_WALL.withPropertiesOf(currentState);
-        } else if (currentState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || currentState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE)) {
-            placementState = RegisterBlocks.SCULK_SLAB.withPropertiesOf(currentState);
-        }
+	public static void clearSculkVeins(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
+		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
+		BlockState stateReplace;
+		Direction oppositeDirection;
+		for (Direction direction : BlockBehaviour.UPDATE_SHAPE_ORDER) {
+			stateReplace = level.getBlockState(mutableBlockPos.move(direction));
+			oppositeDirection = direction.getOpposite();
+			if (stateReplace.is(Blocks.SCULK_VEIN)) {
+				stateReplace = stateReplace.setValue(MultifaceBlock.getFaceProperty(oppositeDirection), false);
+				if (MultifaceBlock.availableFaces(stateReplace).isEmpty()) {
+					stateReplace = stateReplace.getValue(BlockStateProperties.WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
+				}
+				level.setBlock(mutableBlockPos, stateReplace, 3);
+			}
+			mutableBlockPos.move(oppositeDirection);
+		}
+	}
 
-        if (placementState != null) {
-            level.setBlock(cursorPos, placementState, 3);
-            return cursor.getCharge() - 1;
-        }
-        return random.nextInt(spreadManager.chargeDecayRate()) == 0 ? Mth.floor((float) cursor.getCharge() * 0.5F) : cursor.getCharge();
-    }
+	@Override
+	public int attemptUseCharge(@NotNull SculkSpreader.ChargeCursor cursor, @NotNull LevelAccessor level, @NotNull BlockPos catalystPos, @NotNull RandomSource random, @NotNull SculkSpreader spreader, boolean shouldConvertToBlock) {
+		BlockPos cursorPos = cursor.getPos();
+		int i = cursor.getCharge();
+		if (i != 0 && random.nextInt(spreader.chargeDecayRate()) == 0) {
+			boolean bl = cursorPos.closerThan(catalystPos, spreader.noGrowthRadius());
+			BlockState placeState = switchBlockStates(level.getBlockState(cursorPos));
+			if (!bl && placeState != null) {
+				level.setBlock(cursorPos, placeState, 3);
+				clearSculkVeins(level, cursorPos);
+			}
+			return random.nextInt(spreader.additionalDecayRate()) != 0 ? i : i - (bl ? 1 : SculkBlock.getDecayPenalty(spreader, cursorPos, catalystPos, i));
+		}
+		return i;
+	}
 
-    @Override
-    public boolean attemptSpreadVein(LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable Collection<Direction> directions, boolean markForPostProcessing) {
-        BlockState placementState = null;
-        BlockState currentState = level.getBlockState(pos);
-        if (currentState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || currentState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE)) {
-            placementState = RegisterBlocks.SCULK_STAIRS.withPropertiesOf(currentState);
-        } else if (currentState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || currentState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE)) {
-            placementState = RegisterBlocks.SCULK_WALL.withPropertiesOf(currentState);
-        } else if (currentState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || currentState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE)) {
-            placementState = RegisterBlocks.SCULK_SLAB.withPropertiesOf(currentState);
-        }
+	@Override
+	public boolean attemptSpreadVein(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable Collection<Direction> directions, boolean markForPostProcessing) {
+		BlockState placeState = switchBlockStates(level.getBlockState(pos));
+		if (placeState != null) {
+			level.setBlock(pos, placeState, 3);
+			clearSculkVeins(level, pos);
+		}
+		return true;
+	}
 
-        if (placementState != null) {
-            level.setBlock(pos, placementState, 3);
-            return true;
-        }
-        return false;
-    }
+	@Nullable
+	private BlockState switchBlockStates(@NotNull BlockState blockState) {
+		if (blockState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || blockState.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE)) {
+			return RegisterBlocks.SCULK_STAIRS.withPropertiesOf(blockState);
+		} else if (blockState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || blockState.is(WilderBlockTags.SCULK_WALL_REPLACEABLE)) {
+			return RegisterBlocks.SCULK_WALL.withPropertiesOf(blockState);
+		} else if (blockState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || blockState.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE)) {
+			return RegisterBlocks.SCULK_SLAB.withPropertiesOf(blockState);
+		}
+		return null;
+	}
 
 }

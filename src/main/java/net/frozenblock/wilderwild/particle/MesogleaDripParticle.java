@@ -48,16 +48,17 @@ import org.joml.Vector3f;
 @Environment(EnvType.CLIENT)
 public class MesogleaDripParticle extends TextureSheetParticle {
 
-    MesogleaDripParticle(ClientLevel clientLevel, double d, double e, double f) {
-        super(clientLevel, d, e, f);
-        this.setSize(0.5F, 0.5F);
-        this.gravity = 0.06F;
-        this.quadSize = 0.5F;
-    }
-
+	private final Quaternionf rotation = new Quaternionf(0F, 0F, 0F, 0F);
 	private boolean shouldTickUpXRotMultiplier;
 	private float prevXRotMultiplier;
 	private float xRotMultiplier;
+
+	MesogleaDripParticle(@NotNull ClientLevel clientLevel, double d, double e, double f) {
+		super(clientLevel, d, e, f);
+		this.setSize(0.5F, 0.5F);
+		this.gravity = 0.06F;
+		this.quadSize = 0.5F;
+	}
 
 	public void setBothXRotMultipliers(float f) {
 		this.prevXRotMultiplier = f;
@@ -68,51 +69,50 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 		this.shouldTickUpXRotMultiplier = b;
 	}
 
-    @Override
-    public ParticleRenderType getRenderType() {
-        return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
-    }
-
-    @Override
-    public int getLightColor(float f) {
-        return 240;
-    }
-
-    @Override
-    public void tick() {
-        this.xo = this.x;
-        this.yo = this.y;
-        this.zo = this.z;
-        this.preMoveUpdate();
-        if (this.removed) {
-            return;
-        }
-        this.yd -= this.gravity;
-        this.move(this.xd, this.yd, this.zd);
-        this.postMoveUpdate();
-        if (this.removed) {
-            return;
-        }
-		this.prevXRotMultiplier = this.xRotMultiplier;
-		this.xRotMultiplier += ((this.shouldTickUpXRotMultiplier ? 1F : 0F) - this.xRotMultiplier) * 0.25F;
-        this.xd *= 0.98F;
-        this.yd *= 0.98F;
-        this.zd *= 0.98F;
-        BlockPos blockPos = BlockPos.containing(this.x, this.y, this.z);
-        FluidState fluidState = this.level.getFluidState(blockPos);
-        if (fluidState.getType() == Fluids.WATER && this.y < (double) ((float) blockPos.getY() + fluidState.getHeight(this.level, blockPos))) {
-            this.remove();
-        }
-    }
-
-	private final Quaternionf rotation = new Quaternionf(0F, 0F, 0F, 0F);
+	@Override
+	@NotNull
+	public ParticleRenderType getRenderType() {
+		return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
+	}
 
 	@Override
-	public void render(@NotNull VertexConsumer buffer, Camera renderInfo, float partialTicks) {
+	public int getLightColor(float f) {
+		return 240;
+	}
+
+	@Override
+	public void tick() {
+		this.xo = this.x;
+		this.yo = this.y;
+		this.zo = this.z;
+		this.preMoveUpdate();
+		if (this.removed) {
+			return;
+		}
+		this.yd -= this.gravity;
+		this.move(this.xd, this.yd, this.zd);
+		this.postMoveUpdate();
+		if (this.removed) {
+			return;
+		}
+		this.prevXRotMultiplier = this.xRotMultiplier;
+		this.xRotMultiplier += ((this.shouldTickUpXRotMultiplier ? 1F : 0F) - this.xRotMultiplier) * 0.25F;
+		this.xd *= 0.98F;
+		this.yd *= 0.98F;
+		this.zd *= 0.98F;
+		BlockPos blockPos = BlockPos.containing(this.x, this.y, this.z);
+		FluidState fluidState = this.level.getFluidState(blockPos);
+		if (fluidState.getType() == Fluids.WATER && this.y < (double) ((float) blockPos.getY() + fluidState.getHeight(this.level, blockPos))) {
+			this.remove();
+		}
+	}
+
+	@Override
+	public void render(@NotNull VertexConsumer buffer, @NotNull Camera renderInfo, float partialTicks) {
 		Vec3 vec3 = renderInfo.getPosition();
-		float f = (float)(Mth.lerp(partialTicks, this.xo, this.x) - vec3.x());
-		float g = (float)(Mth.lerp(partialTicks, this.yo, this.y) - vec3.y());
-		float h = (float)(Mth.lerp(partialTicks, this.zo, this.z) - vec3.z());
+		float f = (float) (Mth.lerp(partialTicks, this.xo, this.x) - vec3.x());
+		float g = (float) (Mth.lerp(partialTicks, this.yo, this.y) - vec3.y());
+		float h = (float) (Mth.lerp(partialTicks, this.zo, this.z) - vec3.z());
 		this.rotation.set(0.0f, 0.0f, 0.0f, 1.0f);
 		this.rotation.mul(Axis.YP.rotationDegrees(-renderInfo.getYRot()));
 		this.rotation.mul(Axis.XP.rotationDegrees(renderInfo.getXRot() * (Mth.lerp(partialTicks, this.prevXRotMultiplier, this.xRotMultiplier))));
@@ -139,426 +139,426 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 		buffer.vertex(vector3fs[3].x(), vector3fs[3].y(), vector3fs[3].z()).uv(l, o).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(p).endVertex();
 	}
 
-    protected void preMoveUpdate() {
-        if (this.lifetime-- <= 0) {
-            this.remove();
-        }
-    }
+	protected void preMoveUpdate() {
+		if (this.lifetime-- <= 0) {
+			this.remove();
+		}
+	}
 
-    protected void postMoveUpdate() {
-    }
+	protected void postMoveUpdate() {
+	}
 
-    //Blue Pearlescent
-    @Environment(EnvType.CLIENT)
-    public static class BPMesogleaFallProvider implements ParticleProvider<SimpleParticleType> {
-        protected final SpriteSet sprite;
+	//Blue Pearlescent
+	@Environment(EnvType.CLIENT)
+	public static class BPMesogleaFallProvider implements ParticleProvider<SimpleParticleType> {
+		protected final SpriteSet sprite;
 
-        public BPMesogleaFallProvider(SpriteSet spriteSet) {
-            this.sprite = spriteSet;
-        }
+		public BPMesogleaFallProvider(@NotNull SpriteSet spriteSet) {
+			this.sprite = spriteSet;
+		}
 
-        @Override
-        public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-            MesogleaDripParticle.FallAndLandParticle dripParticle = new MesogleaDripParticle.FallAndLandParticle(clientLevel, d, e, f, RegisterParticles.BLUE_PEARLESCENT_LANDING_MESOGLEA);
-            dripParticle.pickSprite(this.sprite);
-            return dripParticle;
-        }
-    }
+		@Override
+		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
+			MesogleaDripParticle.FallAndLandParticle dripParticle = new MesogleaDripParticle.FallAndLandParticle(clientLevel, d, e, f, RegisterParticles.BLUE_PEARLESCENT_LANDING_MESOGLEA);
+			dripParticle.pickSprite(this.sprite);
+			return dripParticle;
+		}
+	}
 
-    @Environment(EnvType.CLIENT)
-    public static class BPMesogleaHangProvider implements ParticleProvider<SimpleParticleType> {
-        protected final SpriteSet sprite;
+	@Environment(EnvType.CLIENT)
+	public static class BPMesogleaHangProvider implements ParticleProvider<SimpleParticleType> {
+		protected final SpriteSet sprite;
 
-        public BPMesogleaHangProvider(SpriteSet spriteSet) {
-            this.sprite = spriteSet;
-        }
+		public BPMesogleaHangProvider(@NotNull SpriteSet spriteSet) {
+			this.sprite = spriteSet;
+		}
 
-        @Override
-        public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-            return new DripHangParticle(clientLevel, d, e, f, RegisterParticles.BLUE_PEARLESCENT_FALLING_MESOGLEA, sprite);
-        }
-    }
+		@Override
+		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
+			return new DripHangParticle(clientLevel, d, e, f, RegisterParticles.BLUE_PEARLESCENT_FALLING_MESOGLEA, sprite);
+		}
+	}
 
-    @Environment(EnvType.CLIENT)
-    public static class BPMesogleaLandProvider implements ParticleProvider<SimpleParticleType> {
-        protected final SpriteSet sprite;
+	@Environment(EnvType.CLIENT)
+	public static class BPMesogleaLandProvider implements ParticleProvider<SimpleParticleType> {
+		protected final SpriteSet sprite;
 
-        public BPMesogleaLandProvider(SpriteSet spriteSet) {
-            this.sprite = spriteSet;
-        }
+		public BPMesogleaLandProvider(@NotNull SpriteSet spriteSet) {
+			this.sprite = spriteSet;
+		}
 
-        @Override
-        public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-            MesogleaDripParticle.DripLandParticle dripParticle = new MesogleaDripParticle.DripLandParticle(clientLevel, d, e, f);
-            dripParticle.pickSprite(this.sprite);
-            return dripParticle;
-        }
-    }
+		@Override
+		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
+			MesogleaDripParticle.DripLandParticle dripParticle = new MesogleaDripParticle.DripLandParticle(clientLevel, d, e, f);
+			dripParticle.pickSprite(this.sprite);
+			return dripParticle;
+		}
+	}
 
-    //Purple Pearlescent
-    @Environment(EnvType.CLIENT)
-    public static class PPMesogleaFallProvider implements ParticleProvider<SimpleParticleType> {
-        protected final SpriteSet sprite;
+	//Purple Pearlescent
+	@Environment(EnvType.CLIENT)
+	public static class PPMesogleaFallProvider implements ParticleProvider<SimpleParticleType> {
+		protected final SpriteSet sprite;
 
-        public PPMesogleaFallProvider(SpriteSet spriteSet) {
-            this.sprite = spriteSet;
-        }
+		public PPMesogleaFallProvider(@NotNull SpriteSet spriteSet) {
+			this.sprite = spriteSet;
+		}
 
-        @Override
-        public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-            MesogleaDripParticle.FallAndLandParticle dripParticle = new MesogleaDripParticle.FallAndLandParticle(clientLevel, d, e, f, RegisterParticles.PURPLE_PEARLESCENT_LANDING_MESOGLEA);
-            dripParticle.pickSprite(this.sprite);
-            return dripParticle;
-        }
-    }
+		@Override
+		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
+			MesogleaDripParticle.FallAndLandParticle dripParticle = new MesogleaDripParticle.FallAndLandParticle(clientLevel, d, e, f, RegisterParticles.PURPLE_PEARLESCENT_LANDING_MESOGLEA);
+			dripParticle.pickSprite(this.sprite);
+			return dripParticle;
+		}
+	}
 
-    @Environment(EnvType.CLIENT)
-    public static class PPMesogleaHangProvider implements ParticleProvider<SimpleParticleType> {
-        protected final SpriteSet sprite;
+	@Environment(EnvType.CLIENT)
+	public static class PPMesogleaHangProvider implements ParticleProvider<SimpleParticleType> {
+		protected final SpriteSet sprite;
 
-        public PPMesogleaHangProvider(SpriteSet spriteSet) {
-            this.sprite = spriteSet;
-        }
+		public PPMesogleaHangProvider(@NotNull SpriteSet spriteSet) {
+			this.sprite = spriteSet;
+		}
 
-        @Override
-        public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-            return new DripHangParticle(clientLevel, d, e, f, RegisterParticles.PURPLE_PEARLESCENT_FALLING_MESOGLEA, sprite);
-        }
-    }
+		@Override
+		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
+			return new DripHangParticle(clientLevel, d, e, f, RegisterParticles.PURPLE_PEARLESCENT_FALLING_MESOGLEA, sprite);
+		}
+	}
 
-    @Environment(EnvType.CLIENT)
-    public static class PPMesogleaLandProvider implements ParticleProvider<SimpleParticleType> {
-        protected final SpriteSet sprite;
+	@Environment(EnvType.CLIENT)
+	public static class PPMesogleaLandProvider implements ParticleProvider<SimpleParticleType> {
+		protected final SpriteSet sprite;
 
-        public PPMesogleaLandProvider(SpriteSet spriteSet) {
-            this.sprite = spriteSet;
-        }
+		public PPMesogleaLandProvider(@NotNull SpriteSet spriteSet) {
+			this.sprite = spriteSet;
+		}
 
-        @Override
-        public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-            MesogleaDripParticle.DripLandParticle dripParticle = new MesogleaDripParticle.DripLandParticle(clientLevel, d, e, f);
-            dripParticle.pickSprite(this.sprite);
-            return dripParticle;
-        }
-    }
+		@Override
+		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
+			MesogleaDripParticle.DripLandParticle dripParticle = new MesogleaDripParticle.DripLandParticle(clientLevel, d, e, f);
+			dripParticle.pickSprite(this.sprite);
+			return dripParticle;
+		}
+	}
 
-    //Blue
-    @Environment(EnvType.CLIENT)
-    public static class BMesogleaFallProvider implements ParticleProvider<SimpleParticleType> {
-        protected final SpriteSet sprite;
+	//Blue
+	@Environment(EnvType.CLIENT)
+	public static class BMesogleaFallProvider implements ParticleProvider<SimpleParticleType> {
+		protected final SpriteSet sprite;
 
-        public BMesogleaFallProvider(SpriteSet spriteSet) {
-            this.sprite = spriteSet;
-        }
+		public BMesogleaFallProvider(@NotNull SpriteSet spriteSet) {
+			this.sprite = spriteSet;
+		}
 
-        @Override
-        public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-            MesogleaDripParticle.FallAndLandParticle dripParticle = new MesogleaDripParticle.FallAndLandParticle(clientLevel, d, e, f, RegisterParticles.BLUE_LANDING_MESOGLEA);
-            dripParticle.pickSprite(this.sprite);
-            return dripParticle;
-        }
-    }
+		@Override
+		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
+			MesogleaDripParticle.FallAndLandParticle dripParticle = new MesogleaDripParticle.FallAndLandParticle(clientLevel, d, e, f, RegisterParticles.BLUE_LANDING_MESOGLEA);
+			dripParticle.pickSprite(this.sprite);
+			return dripParticle;
+		}
+	}
 
-    @Environment(EnvType.CLIENT)
-    public static class BMesogleaHangProvider implements ParticleProvider<SimpleParticleType> {
-        protected final SpriteSet sprite;
+	@Environment(EnvType.CLIENT)
+	public static class BMesogleaHangProvider implements ParticleProvider<SimpleParticleType> {
+		protected final SpriteSet sprite;
 
-        public BMesogleaHangProvider(SpriteSet spriteSet) {
-            this.sprite = spriteSet;
-        }
+		public BMesogleaHangProvider(@NotNull SpriteSet spriteSet) {
+			this.sprite = spriteSet;
+		}
 
-        @Override
-        public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-            return new DripHangParticle(clientLevel, d, e, f, RegisterParticles.BLUE_FALLING_MESOGLEA, sprite);
-        }
-    }
+		@Override
+		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
+			return new DripHangParticle(clientLevel, d, e, f, RegisterParticles.BLUE_FALLING_MESOGLEA, sprite);
+		}
+	}
 
-    @Environment(EnvType.CLIENT)
-    public static class BMesogleaLandProvider implements ParticleProvider<SimpleParticleType> {
-        protected final SpriteSet sprite;
+	@Environment(EnvType.CLIENT)
+	public static class BMesogleaLandProvider implements ParticleProvider<SimpleParticleType> {
+		protected final SpriteSet sprite;
 
-        public BMesogleaLandProvider(SpriteSet spriteSet) {
-            this.sprite = spriteSet;
-        }
+		public BMesogleaLandProvider(@NotNull SpriteSet spriteSet) {
+			this.sprite = spriteSet;
+		}
 
-        @Override
-        public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-            MesogleaDripParticle.DripLandParticle dripParticle = new MesogleaDripParticle.DripLandParticle(clientLevel, d, e, f);
-            dripParticle.pickSprite(this.sprite);
-            return dripParticle;
-        }
-    }
+		@Override
+		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
+			MesogleaDripParticle.DripLandParticle dripParticle = new MesogleaDripParticle.DripLandParticle(clientLevel, d, e, f);
+			dripParticle.pickSprite(this.sprite);
+			return dripParticle;
+		}
+	}
 
-    //Yellow
-    @Environment(EnvType.CLIENT)
-    public static class YMesogleaFallProvider implements ParticleProvider<SimpleParticleType> {
-        protected final SpriteSet sprite;
+	//Yellow
+	@Environment(EnvType.CLIENT)
+	public static class YMesogleaFallProvider implements ParticleProvider<SimpleParticleType> {
+		protected final SpriteSet sprite;
 
-        public YMesogleaFallProvider(SpriteSet spriteSet) {
-            this.sprite = spriteSet;
-        }
+		public YMesogleaFallProvider(@NotNull SpriteSet spriteSet) {
+			this.sprite = spriteSet;
+		}
 
-        @Override
-        public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-            MesogleaDripParticle.FallAndLandParticle dripParticle = new MesogleaDripParticle.FallAndLandParticle(clientLevel, d, e, f, RegisterParticles.YELLOW_LANDING_MESOGLEA);
-            dripParticle.pickSprite(this.sprite);
-            return dripParticle;
-        }
-    }
+		@Override
+		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
+			MesogleaDripParticle.FallAndLandParticle dripParticle = new MesogleaDripParticle.FallAndLandParticle(clientLevel, d, e, f, RegisterParticles.YELLOW_LANDING_MESOGLEA);
+			dripParticle.pickSprite(this.sprite);
+			return dripParticle;
+		}
+	}
 
-    @Environment(EnvType.CLIENT)
-    public static class YMesogleaHangProvider implements ParticleProvider<SimpleParticleType> {
-        protected final SpriteSet sprite;
+	@Environment(EnvType.CLIENT)
+	public static class YMesogleaHangProvider implements ParticleProvider<SimpleParticleType> {
+		protected final SpriteSet sprite;
 
-        public YMesogleaHangProvider(SpriteSet spriteSet) {
-            this.sprite = spriteSet;
-        }
+		public YMesogleaHangProvider(@NotNull SpriteSet spriteSet) {
+			this.sprite = spriteSet;
+		}
 
-        @Override
-        public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
+		@Override
+		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
 			return new DripHangParticle(clientLevel, d, e, f, RegisterParticles.YELLOW_FALLING_MESOGLEA, sprite);
-        }
-    }
+		}
+	}
 
-    @Environment(EnvType.CLIENT)
-    public static class YMesogleaLandProvider implements ParticleProvider<SimpleParticleType> {
-        protected final SpriteSet sprite;
+	@Environment(EnvType.CLIENT)
+	public static class YMesogleaLandProvider implements ParticleProvider<SimpleParticleType> {
+		protected final SpriteSet sprite;
 
-        public YMesogleaLandProvider(SpriteSet spriteSet) {
-            this.sprite = spriteSet;
-        }
+		public YMesogleaLandProvider(@NotNull SpriteSet spriteSet) {
+			this.sprite = spriteSet;
+		}
 
-        @Override
-        public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-            MesogleaDripParticle.DripLandParticle dripParticle = new MesogleaDripParticle.DripLandParticle(clientLevel, d, e, f);
-            dripParticle.pickSprite(this.sprite);
-            return dripParticle;
-        }
-    }
+		@Override
+		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
+			MesogleaDripParticle.DripLandParticle dripParticle = new MesogleaDripParticle.DripLandParticle(clientLevel, d, e, f);
+			dripParticle.pickSprite(this.sprite);
+			return dripParticle;
+		}
+	}
 
-    //Lime
-    @Environment(EnvType.CLIENT)
-    public static class LMesogleaFallProvider implements ParticleProvider<SimpleParticleType> {
-        protected final SpriteSet sprite;
+	//Lime
+	@Environment(EnvType.CLIENT)
+	public static class LMesogleaFallProvider implements ParticleProvider<SimpleParticleType> {
+		protected final SpriteSet sprite;
 
-        public LMesogleaFallProvider(SpriteSet spriteSet) {
-            this.sprite = spriteSet;
-        }
+		public LMesogleaFallProvider(@NotNull SpriteSet spriteSet) {
+			this.sprite = spriteSet;
+		}
 
-        @Override
-        public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-            MesogleaDripParticle.FallAndLandParticle dripParticle = new MesogleaDripParticle.FallAndLandParticle(clientLevel, d, e, f, RegisterParticles.LIME_LANDING_MESOGLEA);
-            dripParticle.pickSprite(this.sprite);
-            return dripParticle;
-        }
-    }
+		@Override
+		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
+			MesogleaDripParticle.FallAndLandParticle dripParticle = new MesogleaDripParticle.FallAndLandParticle(clientLevel, d, e, f, RegisterParticles.LIME_LANDING_MESOGLEA);
+			dripParticle.pickSprite(this.sprite);
+			return dripParticle;
+		}
+	}
 
-    @Environment(EnvType.CLIENT)
-    public static class LMesogleaHangProvider implements ParticleProvider<SimpleParticleType> {
-        protected final SpriteSet sprite;
+	@Environment(EnvType.CLIENT)
+	public static class LMesogleaHangProvider implements ParticleProvider<SimpleParticleType> {
+		protected final SpriteSet sprite;
 
-        public LMesogleaHangProvider(SpriteSet spriteSet) {
-            this.sprite = spriteSet;
-        }
+		public LMesogleaHangProvider(@NotNull SpriteSet spriteSet) {
+			this.sprite = spriteSet;
+		}
 
-        @Override
-        public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
+		@Override
+		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
 			return new DripHangParticle(clientLevel, d, e, f, RegisterParticles.LIME_FALLING_MESOGLEA, sprite);
-        }
-    }
+		}
+	}
 
-    @Environment(EnvType.CLIENT)
-    public static class LMesogleaLandProvider implements ParticleProvider<SimpleParticleType> {
-        protected final SpriteSet sprite;
+	@Environment(EnvType.CLIENT)
+	public static class LMesogleaLandProvider implements ParticleProvider<SimpleParticleType> {
+		protected final SpriteSet sprite;
 
-        public LMesogleaLandProvider(SpriteSet spriteSet) {
-            this.sprite = spriteSet;
-        }
+		public LMesogleaLandProvider(@NotNull SpriteSet spriteSet) {
+			this.sprite = spriteSet;
+		}
 
-        @Override
-        public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-            MesogleaDripParticle.DripLandParticle dripParticle = new MesogleaDripParticle.DripLandParticle(clientLevel, d, e, f);
-            dripParticle.pickSprite(this.sprite);
-            return dripParticle;
-        }
-    }
+		@Override
+		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
+			MesogleaDripParticle.DripLandParticle dripParticle = new MesogleaDripParticle.DripLandParticle(clientLevel, d, e, f);
+			dripParticle.pickSprite(this.sprite);
+			return dripParticle;
+		}
+	}
 
-    //Red
-    @Environment(EnvType.CLIENT)
-    public static class RMesogleaFallProvider implements ParticleProvider<SimpleParticleType> {
-        protected final SpriteSet sprite;
+	//Red
+	@Environment(EnvType.CLIENT)
+	public static class RMesogleaFallProvider implements ParticleProvider<SimpleParticleType> {
+		protected final SpriteSet sprite;
 
-        public RMesogleaFallProvider(SpriteSet spriteSet) {
-            this.sprite = spriteSet;
-        }
+		public RMesogleaFallProvider(@NotNull SpriteSet spriteSet) {
+			this.sprite = spriteSet;
+		}
 
-        @Override
-        public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-            MesogleaDripParticle.FallAndLandParticle dripParticle = new MesogleaDripParticle.FallAndLandParticle(clientLevel, d, e, f, RegisterParticles.RED_HANGING_MESOGLEA);
-            dripParticle.pickSprite(this.sprite);
-            return dripParticle;
-        }
-    }
+		@Override
+		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
+			MesogleaDripParticle.FallAndLandParticle dripParticle = new MesogleaDripParticle.FallAndLandParticle(clientLevel, d, e, f, RegisterParticles.RED_HANGING_MESOGLEA);
+			dripParticle.pickSprite(this.sprite);
+			return dripParticle;
+		}
+	}
 
-    @Environment(EnvType.CLIENT)
-    public static class RMesogleaHangProvider implements ParticleProvider<SimpleParticleType> {
-        protected final SpriteSet sprite;
+	@Environment(EnvType.CLIENT)
+	public static class RMesogleaHangProvider implements ParticleProvider<SimpleParticleType> {
+		protected final SpriteSet sprite;
 
-        public RMesogleaHangProvider(SpriteSet spriteSet) {
-            this.sprite = spriteSet;
-        }
+		public RMesogleaHangProvider(@NotNull SpriteSet spriteSet) {
+			this.sprite = spriteSet;
+		}
 
-        @Override
-        public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-            return new DripHangParticle(clientLevel, d, e, f, RegisterParticles.RED_FALLING_MESOGLEA, sprite);
-        }
-    }
+		@Override
+		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
+			return new DripHangParticle(clientLevel, d, e, f, RegisterParticles.RED_FALLING_MESOGLEA, sprite);
+		}
+	}
 
-    @Environment(EnvType.CLIENT)
-    public static class RMesogleaLandProvider implements ParticleProvider<SimpleParticleType> {
-        protected final SpriteSet sprite;
+	@Environment(EnvType.CLIENT)
+	public static class RMesogleaLandProvider implements ParticleProvider<SimpleParticleType> {
+		protected final SpriteSet sprite;
 
-        public RMesogleaLandProvider(SpriteSet spriteSet) {
-            this.sprite = spriteSet;
-        }
+		public RMesogleaLandProvider(@NotNull SpriteSet spriteSet) {
+			this.sprite = spriteSet;
+		}
 
-        @Override
-        public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-            MesogleaDripParticle.DripLandParticle dripParticle = new MesogleaDripParticle.DripLandParticle(clientLevel, d, e, f);
-            dripParticle.pickSprite(this.sprite);
-            return dripParticle;
-        }
-    }
+		@Override
+		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
+			MesogleaDripParticle.DripLandParticle dripParticle = new MesogleaDripParticle.DripLandParticle(clientLevel, d, e, f);
+			dripParticle.pickSprite(this.sprite);
+			return dripParticle;
+		}
+	}
 
-    //Pink
-    @Environment(EnvType.CLIENT)
-    public static class PMesogleaFallProvider implements ParticleProvider<SimpleParticleType> {
-        protected final SpriteSet sprite;
+	//Pink
+	@Environment(EnvType.CLIENT)
+	public static class PMesogleaFallProvider implements ParticleProvider<SimpleParticleType> {
+		protected final SpriteSet sprite;
 
-        public PMesogleaFallProvider(SpriteSet spriteSet) {
-            this.sprite = spriteSet;
-        }
+		public PMesogleaFallProvider(@NotNull SpriteSet spriteSet) {
+			this.sprite = spriteSet;
+		}
 
-        @Override
-        public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-            MesogleaDripParticle.FallAndLandParticle dripParticle = new MesogleaDripParticle.FallAndLandParticle(clientLevel, d, e, f, RegisterParticles.PINK_LANDING_MESOGLEA);
-            dripParticle.pickSprite(this.sprite);
-            return dripParticle;
-        }
-    }
+		@Override
+		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
+			MesogleaDripParticle.FallAndLandParticle dripParticle = new MesogleaDripParticle.FallAndLandParticle(clientLevel, d, e, f, RegisterParticles.PINK_LANDING_MESOGLEA);
+			dripParticle.pickSprite(this.sprite);
+			return dripParticle;
+		}
+	}
 
-    @Environment(EnvType.CLIENT)
-    public static class PMesogleaHangProvider implements ParticleProvider<SimpleParticleType> {
-        protected final SpriteSet sprite;
+	@Environment(EnvType.CLIENT)
+	public static class PMesogleaHangProvider implements ParticleProvider<SimpleParticleType> {
+		protected final SpriteSet sprite;
 
-        public PMesogleaHangProvider(SpriteSet spriteSet) {
-            this.sprite = spriteSet;
-        }
+		public PMesogleaHangProvider(@NotNull SpriteSet spriteSet) {
+			this.sprite = spriteSet;
+		}
 
-        @Override
-        public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-            return new DripHangParticle(clientLevel, d, e, f, RegisterParticles.PINK_FALLING_MESOGLEA, sprite);
-        }
-    }
+		@Override
+		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
+			return new DripHangParticle(clientLevel, d, e, f, RegisterParticles.PINK_FALLING_MESOGLEA, sprite);
+		}
+	}
 
-    @Environment(EnvType.CLIENT)
-    public static class PMesogleaLandProvider implements ParticleProvider<SimpleParticleType> {
-        protected final SpriteSet sprite;
+	@Environment(EnvType.CLIENT)
+	public static class PMesogleaLandProvider implements ParticleProvider<SimpleParticleType> {
+		protected final SpriteSet sprite;
 
-        public PMesogleaLandProvider(SpriteSet spriteSet) {
-            this.sprite = spriteSet;
-        }
+		public PMesogleaLandProvider(@NotNull SpriteSet spriteSet) {
+			this.sprite = spriteSet;
+		}
 
-        @Override
-        public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-            MesogleaDripParticle.DripLandParticle dripParticle = new MesogleaDripParticle.DripLandParticle(clientLevel, d, e, f);
-            dripParticle.pickSprite(this.sprite);
-            return dripParticle;
-        }
-    }
+		@Override
+		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
+			MesogleaDripParticle.DripLandParticle dripParticle = new MesogleaDripParticle.DripLandParticle(clientLevel, d, e, f);
+			dripParticle.pickSprite(this.sprite);
+			return dripParticle;
+		}
+	}
 
 
-    @Environment(EnvType.CLIENT)
-    static class DripLandParticle extends MesogleaDripParticle {
-        DripLandParticle(ClientLevel clientLevel, double d, double e, double f) {
-            super(clientLevel, d, e, f);
-            this.lifetime = (int) (16.0 / (AdvancedMath.random().nextDouble() * 0.8 + 0.2));
-            this.scale(0.7F);
+	@Environment(EnvType.CLIENT)
+	static class DripLandParticle extends MesogleaDripParticle {
+		DripLandParticle(@NotNull ClientLevel clientLevel, double d, double e, double f) {
+			super(clientLevel, d, e, f);
+			this.lifetime = (int) (16.0 / (AdvancedMath.random().nextDouble() * 0.8 + 0.2));
+			this.scale(0.7F);
 			this.lerpsToX(true);
 			this.setBothXRotMultipliers(1F);
-        }
-    }
+		}
+	}
 
-    @Environment(EnvType.CLIENT)
-    static class FallingParticle extends MesogleaDripParticle {
-        FallingParticle(ClientLevel clientLevel, double d, double e, double f) {
-            this(clientLevel, d, e, f, (int) (64.0 / (AdvancedMath.random().nextDouble() * 0.8 + 0.2)));
-            this.scale(0.7F);
+	@Environment(EnvType.CLIENT)
+	static class FallingParticle extends MesogleaDripParticle {
+		FallingParticle(@NotNull ClientLevel clientLevel, double d, double e, double f) {
+			this(clientLevel, d, e, f, (int) (64.0 / (AdvancedMath.random().nextDouble() * 0.8 + 0.2)));
+			this.scale(0.7F);
 			this.lerpsToX(true);
-        }
+		}
 
-        FallingParticle(ClientLevel clientLevel, double d, double e, double f, int i) {
-            super(clientLevel, d, e, f);
-            this.lifetime = i;
-        }
+		FallingParticle(@NotNull ClientLevel clientLevel, double d, double e, double f, int i) {
+			super(clientLevel, d, e, f);
+			this.lifetime = i;
+		}
 
-        @Override
-        protected void postMoveUpdate() {
-            if (this.onGround) {
-                this.remove();
-            }
-        }
-    }
+		@Override
+		protected void postMoveUpdate() {
+			if (this.onGround) {
+				this.remove();
+			}
+		}
+	}
 
-    @Environment(EnvType.CLIENT)
-    static class FallAndLandParticle extends MesogleaDripParticle.FallingParticle {
-        protected final ParticleOptions landParticle;
+	@Environment(EnvType.CLIENT)
+	static class FallAndLandParticle extends MesogleaDripParticle.FallingParticle {
+		protected final ParticleOptions landParticle;
 
-        FallAndLandParticle(ClientLevel clientLevel, double d, double e, double f, ParticleOptions particleOptions) {
-            super(clientLevel, d, e, f);
-            this.landParticle = particleOptions;
-        }
+		FallAndLandParticle(@NotNull ClientLevel clientLevel, double d, double e, double f, ParticleOptions particleOptions) {
+			super(clientLevel, d, e, f);
+			this.landParticle = particleOptions;
+		}
 
-        @Override
-        protected void postMoveUpdate() {
-            if (this.onGround) {
-                this.remove();
-                this.level.addParticle(this.landParticle, this.x, this.y, this.z, 0.0, 0.0, 0.0);
-                SoundEvent soundEvent = RegisterSounds.PARTICLE_MESOGLEA_DRIP_LAND;
-                float f = Mth.randomBetween(this.random, 0.3F, 1.0F);
-                this.level.playLocalSound(this.x, this.y, this.z, soundEvent, SoundSource.BLOCKS, f, 1.0F, false);
-            }
-        }
-    }
+		@Override
+		protected void postMoveUpdate() {
+			if (this.onGround) {
+				this.remove();
+				this.level.addParticle(this.landParticle, this.x, this.y, this.z, 0.0, 0.0, 0.0);
+				SoundEvent soundEvent = RegisterSounds.PARTICLE_MESOGLEA_DRIP_LAND;
+				float f = Mth.randomBetween(this.random, 0.3F, 1.0F);
+				this.level.playLocalSound(this.x, this.y, this.z, soundEvent, SoundSource.BLOCKS, f, 1.0F, false);
+			}
+		}
+	}
 
-    @Environment(EnvType.CLIENT)
-    static class DripHangParticle extends MesogleaDripParticle {
-        private final ParticleOptions fallingParticle;
-        private final SpriteSet spriteSet;
+	@Environment(EnvType.CLIENT)
+	static class DripHangParticle extends MesogleaDripParticle {
+		private final ParticleOptions fallingParticle;
+		private final SpriteSet spriteSet;
 
-        DripHangParticle(ClientLevel clientLevel, double d, double e, double f, ParticleOptions particleOptions, SpriteSet spriteSet) {
-            super(clientLevel, d, e - 0.1, f);
-            this.fallingParticle = particleOptions;
-            this.gravity *= 0.00F;
-            this.lifetime = 40;
-            this.spriteSet = spriteSet;
-            this.setSpriteFromAge(this.spriteSet);
-            this.scale(0.7F);
-        }
+		DripHangParticle(@NotNull ClientLevel clientLevel, double d, double e, double f, ParticleOptions particleOptions, SpriteSet spriteSet) {
+			super(clientLevel, d, e - 0.1, f);
+			this.fallingParticle = particleOptions;
+			this.gravity *= 0.00F;
+			this.lifetime = 40;
+			this.spriteSet = spriteSet;
+			this.setSpriteFromAge(this.spriteSet);
+			this.scale(0.7F);
+		}
 
-        @Override
-        protected void preMoveUpdate() {
-            if (this.lifetime-- <= 0) {
-                this.remove();
-                this.level.addParticle(this.fallingParticle, this.x, this.y, this.z, this.xd, this.yd, this.zd);
-            }
-        }
+		@Override
+		protected void preMoveUpdate() {
+			if (this.lifetime-- <= 0) {
+				this.remove();
+				this.level.addParticle(this.fallingParticle, this.x, this.y, this.z, this.xd, this.yd, this.zd);
+			}
+		}
 
-        @Override
-        protected void postMoveUpdate() {
-            if (!this.removed) {
-                this.setSprite(spriteSet.get((int) (this.age * 0.2) + 1, (int) (this.lifetime * 0.2) + 1));
-            }
-        }
-    }
+		@Override
+		protected void postMoveUpdate() {
+			if (!this.removed) {
+				this.setSprite(spriteSet.get((int) (this.age * 0.2) + 1, (int) (this.lifetime * 0.2) + 1));
+			}
+		}
+	}
 }

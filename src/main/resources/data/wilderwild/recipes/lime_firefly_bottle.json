@@ -3,15 +3,15 @@
   "category": "misc",
   "group": "firefly_bottle",
   "ingredients": [
-	  {
-	    "item": "wilderwild:firefly_bottle"
-	  },
-	  {
-	   "item": "minecraft:lime_dye"
-	  }
+    {
+      "item": "wilderwild:firefly_bottle"
+    },
+    {
+      "item": "minecraft:lime_dye"
+    }
   ],
   "result": {
-	  "item": "wilderwild:lime_firefly_bottle",
-	  "count": 1
+    "item": "wilderwild:lime_firefly_bottle",
+    "count": 1
   }
 }

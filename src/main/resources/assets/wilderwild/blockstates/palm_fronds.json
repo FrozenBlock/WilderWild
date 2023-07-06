@@ -1,7 +1,7 @@
 {
   "variants": {
-	"": {
-	  "model": "wilderwild:block/palm_fronds"
-	}
+    "": {
+      "model": "wilderwild:block/palm_fronds"
+    }
   }
 }

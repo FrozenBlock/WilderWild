@@ -21,24 +21,23 @@ package net.frozenblock.wilderwild.world.generation.treedecorators;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
-
+import org.jetbrains.annotations.NotNull;
 
 public class HeightBasedCobwebTreeDecorator extends TreeDecorator {
-	public static final Codec<HeightBasedCobwebTreeDecorator> CODEC = RecordCodecBuilder.create((instance) -> {
-		return instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter((treeDecorator) -> {
-			return treeDecorator.probability;
-		}), Codec.intRange(-63, 319).fieldOf("maxHeight").forGetter((treeDecorator) -> {
-			return treeDecorator.maxHeight;
-		}), Codec.floatRange(0.0F, 1.0F).fieldOf("cobweb_count").forGetter((treeDecorator) -> {
-			return treeDecorator.cobweb_count;
-		})).apply(instance, HeightBasedCobwebTreeDecorator::new);
-	});
+	public static final Codec<HeightBasedCobwebTreeDecorator> CODEC = RecordCodecBuilder.create((instance) ->
+		instance.group(
+			Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter((treeDecorator) -> treeDecorator.probability),
+			Codec.intRange(-63, 319).fieldOf("maxHeight").forGetter((treeDecorator) -> treeDecorator.maxHeight),
+			Codec.floatRange(0.0F, 1.0F).fieldOf("cobweb_count").forGetter((treeDecorator) -> treeDecorator.cobweb_count)
+		).apply(instance, HeightBasedCobwebTreeDecorator::new));
 	private final float probability;
 	private final int maxHeight;
 	private final float cobweb_count;
@@ -49,27 +48,31 @@ public class HeightBasedCobwebTreeDecorator extends TreeDecorator {
 		this.cobweb_count = cobweb_count;
 	}
 
+	@Override
+	@NotNull
 	protected TreeDecoratorType<?> type() {
 		return WilderTreeDecorators.HEIGHT_BASED_COBWEB_TREE_DECORATOR;
 	}
 
-	public void place(Context generator) {
-		RandomSource abstractRandom = generator.random();
-		if (abstractRandom.nextFloat() <= this.probability) {
-			List<BlockPos> list = generator.logs();
-			list.forEach((pos) -> {
+	@Override
+	public void place(@NotNull Context generator) {
+		RandomSource random = generator.random();
+		if (random.nextFloat() <= this.probability) {
+			BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+			BlockState blockState = Blocks.COBWEB.defaultBlockState();
+			List<BlockPos> logs = Util.shuffledCopy(generator.logs(), random);
+			for (BlockPos pos : logs) {
 				if (pos.getY() <= this.maxHeight) {
 					for (Direction direction : Direction.Plane.HORIZONTAL) {
-						if (abstractRandom.nextFloat() <= this.cobweb_count) {
-							BlockPos blockPos = pos.offset(direction.getStepX(), 0, direction.getStepZ());
-							if (generator.isAir(blockPos)) {
-								generator.setBlock(blockPos, Blocks.COBWEB.defaultBlockState());
+						if (random.nextFloat() <= this.cobweb_count) {
+							mutableBlockPos.setWithOffset(pos, direction);
+							if (generator.isAir(mutableBlockPos)) {
+								generator.setBlock(mutableBlockPos, blockState);
 							}
 						}
 					}
 				}
-			});
+			}
 		}
 	}
-
 }

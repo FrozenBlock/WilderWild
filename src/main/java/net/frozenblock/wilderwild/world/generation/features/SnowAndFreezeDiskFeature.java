@@ -36,21 +36,34 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import org.jetbrains.annotations.NotNull;
 
 public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfig> {
-	private static final BlockState snowState = Blocks.SNOW.defaultBlockState();
-	private static final BlockState iceState = Blocks.ICE.defaultBlockState();
 
-    public SnowAndFreezeDiskFeature(Codec<SnowAndIceDiskFeatureConfig> codec) {
-        super(codec);
-    }
+	public SnowAndFreezeDiskFeature(@NotNull Codec<SnowAndIceDiskFeatureConfig> codec) {
+		super(codec);
+	}
 
-    public boolean place(FeaturePlaceContext<SnowAndIceDiskFeatureConfig> context) {
-        boolean bl = false;
-        BlockPos blockPos = context.origin();
-        WorldGenLevel level = context.level();
+	public static boolean canPlaceSnow(@NotNull LevelReader level, @NotNull BlockPos pos) {
+		return pos.getY() >= level.getMinBuildHeight() && pos.getY() < level.getMaxBuildHeight() && level.getBrightness(LightLayer.BLOCK, pos) < 10 && (level.getBlockState(pos)).isAir() && Blocks.SNOW.defaultBlockState().canSurvive(level, pos);
+	}
+
+	public static boolean canPlaceIce(@NotNull LevelReader level, @NotNull BlockPos water) {
+		if (water.getY() >= level.getMinBuildHeight() && water.getY() < level.getMaxBuildHeight() && level.getBrightness(LightLayer.BLOCK, water) < 10) {
+			BlockState blockState = level.getBlockState(water);
+			FluidState fluidState = level.getFluidState(water);
+			return fluidState.getType() == Fluids.WATER && blockState.getBlock() instanceof LiquidBlock;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean place(@NotNull FeaturePlaceContext<SnowAndIceDiskFeatureConfig> context) {
+		boolean bl = false;
+		BlockPos blockPos = context.origin();
+		WorldGenLevel level = context.level();
 		SnowAndIceDiskFeatureConfig config = context.config();
-        BlockPos s = blockPos.atY(level.getHeight(Types.MOTION_BLOCKING, blockPos.getX(), blockPos.getZ()));
+		BlockPos s = blockPos.atY(level.getHeight(Types.MOTION_BLOCKING, blockPos.getX(), blockPos.getZ()));
 		Biome biome = level.getBiome(s).value();
 		boolean coldEnough = !biome.warmEnoughToRain(s);
 		if (coldEnough) {
@@ -61,17 +74,16 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 			BlockPos.MutableBlockPos mutableDisk2 = new BlockPos.MutableBlockPos();
 			int bx = s.getX();
 			int bz = s.getZ();
+			BlockState snowState = Blocks.SNOW.defaultBlockState();
 			for (int x = bx - radius; x <= bx + radius; x++) {
 				for (int z = bz - radius; z <= bz + radius; z++) {
-					double distance = ((bx - x) * (bx - x) + (bz - z) * (bz - z));
-					if (distance < radius * radius) {
+					if (((bx - x) * (bx - x) + (bz - z) * (bz - z)) < radius * radius) {
 						mutableDisk.set(x, level.getHeight(Types.MOTION_BLOCKING, x, z), z);
-						mutableDisk2.set(mutableDisk).move(Direction.DOWN);
 						BlockState state = level.getBlockState(mutableDisk);
-						if (state != snowState) {
+						if (state.getBlock() != Blocks.SNOW) {
 							boolean fade = !mutableDisk.closerThan(s, radius * config.startFadePercent);
 							if (random.nextFloat() < config.placeChance && ((!fade || random.nextFloat() > 0.5F) && canPlaceSnow(level, mutableDisk))) {
-								BlockState belowState = level.getBlockState(mutableDisk2);
+								BlockState belowState = level.getBlockState(mutableDisk2.set(mutableDisk).move(Direction.DOWN));
 								if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
 									level.setBlock(mutableDisk2, belowState.setValue(BlockStateProperties.SNOWY, true), 2);
 								}
@@ -92,14 +104,13 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 			BlockPos.MutableBlockPos mutableDisk2 = new BlockPos.MutableBlockPos();
 			int bx = s.getX();
 			int bz = s.getZ();
+			BlockState iceState = Blocks.ICE.defaultBlockState();
 			for (int x = bx - radius; x <= bx + radius; x++) {
 				for (int z = bz - radius; z <= bz + radius; z++) {
-					double distance = ((bx - x) * (bx - x) + (bz - z) * (bz - z));
-					if (distance < radius * radius) {
+					if (((bx - x) * (bx - x) + (bz - z) * (bz - z)) < radius * radius) {
 						mutableDisk.set(x, level.getHeight(Types.MOTION_BLOCKING, x, z), z);
-						mutableDisk2.set(mutableDisk).move(Direction.DOWN);
-						BlockState state = level.getBlockState(mutableDisk2);
-						if (state != iceState) {
+						BlockState state = level.getBlockState(mutableDisk2.set(mutableDisk).move(Direction.DOWN));
+						if (state.getBlock() != Blocks.ICE) {
 							boolean fade = !mutableDisk.closerThan(s, radius * config.startFadePercent);
 							if (random.nextFloat() < config.placeChance && ((!fade || random.nextFloat() > 0.5F) && canPlaceIce(level, mutableDisk2))) {
 								level.setBlock(mutableDisk2, iceState, 2);
@@ -109,20 +120,7 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 				}
 			}
 		}
-        return bl;
-    }
-
-	public static boolean canPlaceSnow(LevelReader level, BlockPos pos) {
-		return pos.getY() >= level.getMinBuildHeight() && pos.getY() < level.getMaxBuildHeight() && level.getBrightness(LightLayer.BLOCK, pos) < 10 && (level.getBlockState(pos)).isAir() && Blocks.SNOW.defaultBlockState().canSurvive(level, pos);
-	}
-
-	public static boolean canPlaceIce(LevelReader level, BlockPos water) {
-		if (water.getY() >= level.getMinBuildHeight() && water.getY() < level.getMaxBuildHeight() && level.getBrightness(LightLayer.BLOCK, water) < 10) {
-			BlockState blockState = level.getBlockState(water);
-			FluidState fluidState = level.getFluidState(water);
-			return fluidState.getType() == Fluids.WATER && blockState.getBlock() instanceof LiquidBlock;
-		}
-		return false;
+		return bl;
 	}
 
 }

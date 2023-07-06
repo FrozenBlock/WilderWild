@@ -3,15 +3,15 @@
   "category": "building",
   "group": "wooden_slab",
   "key": {
-	  "#": {
-	    "item": "wilderwild:baobab_planks"
-	  }
+    "#": {
+      "item": "wilderwild:baobab_planks"
+    }
   },
   "pattern": [
-	  "###"
+    "###"
   ],
   "result": {
-	  "count": 6,
-	  "item": "wilderwild:baobab_slab"
+    "count": 6,
+    "item": "wilderwild:baobab_slab"
   }
 }

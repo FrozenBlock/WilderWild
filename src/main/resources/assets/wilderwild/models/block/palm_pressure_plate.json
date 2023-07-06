@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/pressure_plate_up",
   "textures": {
-	"texture": "wilderwild:block/palm_planks"
+    "texture": "wilderwild:block/palm_planks"
   }
 }

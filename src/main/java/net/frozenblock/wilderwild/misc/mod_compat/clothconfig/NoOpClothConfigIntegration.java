@@ -33,11 +33,6 @@ public class NoOpClothConfigIntegration extends AbstractClothConfigIntegration {
 	// BLOCK
 
 	@Override
-	public boolean mcLiveSensorTendrils() {
-		return DefaultBlockConfig.MC_LIVE_SENSOR_TENDRILS;
-	}
-
-	@Override
 	public boolean billboardTendrils() {
 		return DefaultBlockConfig.BILLBOARD_TENDRILS;
 	}
@@ -90,6 +85,11 @@ public class NoOpClothConfigIntegration extends AbstractClothConfigIntegration {
 	@Override
 	public boolean gravelSounds() {
 		return DefaultBlockConfig.BlockSoundsConfig.GRAVEL_SOUNDS;
+	}
+
+	@Override
+	public boolean iceSounds() {
+		return DefaultBlockConfig.BlockSoundsConfig.ICE_SOUNDS;
 	}
 
 	@Override
@@ -173,6 +173,16 @@ public class NoOpClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public int maxTermiteDistance() {
+		return DefaultBlockConfig.TermiteConfig.MAX_DISTANCE;
+	}
+
+	@Override
+	public int maxNaturalTermiteDistance() {
+		return DefaultBlockConfig.TermiteConfig.MAX_NATURAL_DISTANCE;
+	}
+
+	@Override
 	public boolean shriekerGargling() {
 		return DefaultBlockConfig.SHRIEKER_GARGLING;
 	}
@@ -215,6 +225,11 @@ public class NoOpClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public int jellyfishTentacles() {
+		return DefaultEntityConfig.JellyfishConfig.JELLYFISH_TENTACLES;
+	}
+
+	@Override
 	public int tumbleweedSpawnCap() {
 		return DefaultEntityConfig.TumbleweedConfig.TUMBLEWEED_SPAWN_CAP;
 	}
@@ -223,6 +238,12 @@ public class NoOpClothConfigIntegration extends AbstractClothConfigIntegration {
 	public boolean leashedTumbleweed() {
 		return DefaultEntityConfig.TumbleweedConfig.LEASHED_TUMBLEWEED;
 	}
+
+	@Override
+	public boolean tumbleweedRotatesToLookDirection() {
+		return DefaultEntityConfig.TumbleweedConfig.TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION;
+	}
+
 
 	@Override
 	public boolean wardenAttacksImmediately() {
@@ -441,6 +462,11 @@ public class NoOpClothConfigIntegration extends AbstractClothConfigIntegration {
 	@Override
 	public boolean fallenLogs() {
 		return DefaultWorldgenConfig.FALLEN_LOGS;
+	}
+
+	@Override
+	public boolean snappedLogs() {
+		return DefaultWorldgenConfig.SNAPPED_LOGS;
 	}
 
 	@Override

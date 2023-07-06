@@ -2,6 +2,9 @@
   "replace": false,
   "values": [
     "minecraft:desert",
+    "minecraft:beach",
+    "minecraft:jungle",
+    "minecraft:sparse_jungle",
     {
       "id": "wilderwild:arid_savanna",
       "required": false

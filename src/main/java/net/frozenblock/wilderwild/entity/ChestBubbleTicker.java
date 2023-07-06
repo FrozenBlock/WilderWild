@@ -31,25 +31,26 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 public class ChestBubbleTicker extends SilentTicker {
 
-	public ChestBubbleTicker(EntityType<?> entityType, Level level) {
+	public ChestBubbleTicker(@NotNull EntityType<?> entityType, @NotNull Level level) {
 		super(entityType, level);
 	}
 
-	public ChestBubbleTicker(EntityType<?> entityType, Level level, BlockPos pos) {
+	public ChestBubbleTicker(@NotNull EntityType<?> entityType, @NotNull Level level, @NotNull BlockPos pos) {
 		super(entityType, level);
 		this.setPos(Vec3.atCenterOf(pos));
 	}
 
-	public static void createAndSpawn(EntityType<?> entityType, Level level, BlockPos pos) {
+	public static void createAndSpawn(@NotNull EntityType<?> entityType, @NotNull Level level, @NotNull BlockPos pos) {
 		ChestBubbleTicker chestBubbleTicker = new ChestBubbleTicker(entityType, level, pos);
 		level.addFreshEntity(chestBubbleTicker);
 	}
 
 	@Override
-	public void tick(Level level, Vec3 vec3, BlockPos pos, int ticks) {
+	public void tick(@NotNull Level level, @NotNull Vec3 vec3, @NotNull BlockPos pos, int ticks) {
 		if (ticks <= 5) {
 			if (level instanceof ServerLevel server) {
 				BlockState state = level.getBlockState(pos);
@@ -63,18 +64,12 @@ public class ChestBubbleTicker extends SilentTicker {
 							additionalZ += (double) direction.getStepZ() * 0.125;
 						}
 						server.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5 + additionalX, pos.getY() + 0.625, pos.getZ() + 0.5 + additionalZ, level.random.nextInt(4, 10), 0.21875F, 0, 0.21875F, 0.2D);
-					} else {
-						this.discard();
+						return;
 					}
-				} else {
-					this.discard();
 				}
-			} else {
-				this.discard();
 			}
-		} else {
-			this.discard();
 		}
+		this.discard();
 	}
 
 }

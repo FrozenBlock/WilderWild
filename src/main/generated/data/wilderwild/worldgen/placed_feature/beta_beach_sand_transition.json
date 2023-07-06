@@ -20,6 +20,12 @@
       }
     },
     {
+      "type": "minecraft:surface_relative_threshold_filter",
+      "heightmap": "OCEAN_FLOOR_WG",
+      "max_inclusive": 66,
+      "min_inclusive": 48
+    },
+    {
       "type": "minecraft:biome"
     }
   ]

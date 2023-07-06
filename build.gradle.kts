@@ -62,6 +62,8 @@ val nbtcrafting_version: String by project
 val terrablender_version: String by project
 val terralith_version: String by project
 val tomsstorage_version: String by project
+val fallingleaves_version: String by project
+val makebubblespop_version: String by project
 
 val sodium_version: String by project
 val iris_version: String by project
@@ -262,12 +264,21 @@ dependencies {
     // TerraBlender
     modCompileOnly("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
 
+    // Particle Rain
+    modImplementation("maven.modrinth:particle-rain:v2.0.5")
+
     // MixinExtras
     implementation("com.github.llamalad7.mixinextras:mixinextras-fabric:0.2.0-beta.8")?.let { annotationProcessor(it); shadowInclude(it) }
 
     // Sodium
     modCompileOnly("maven.modrinth:sodium:${sodium_version}")
     modCompileOnly("org.anarres:jcpp:1.4.14")
+
+    // FallingLeaves
+    modCompileOnly("maven.modrinth:fallingleaves:${fallingleaves_version}")
+
+    // MakeBubblesPop
+    modCompileOnly("maven.modrinth:make_bubbles_pop:${makebubblespop_version}")
 
     // BetterEnd
     modCompileOnly("maven.modrinth:betterend:${betterend_version}")

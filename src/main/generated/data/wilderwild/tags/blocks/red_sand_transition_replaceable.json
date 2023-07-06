@@ -2,10 +2,6 @@
   "replace": false,
   "values": [
     "minecraft:grass_block",
-    "minecraft:dirt",
-    "minecraft:mud",
-    "minecraft:sand",
-    "minecraft:grass_block",
     "minecraft:gravel",
     "minecraft:mud",
     "minecraft:sand",

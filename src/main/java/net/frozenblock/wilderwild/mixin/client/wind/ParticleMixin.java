@@ -22,10 +22,9 @@ import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.client.WilderDripSuspendedParticleInterface;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.DripParticle;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.SuspendedParticle;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -37,7 +36,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Particle.class)
 public abstract class ParticleMixin {
 
-	@Shadow @Final
+	@Shadow
+	@Final
 	protected ClientLevel level;
 	@Shadow
 	protected double xd;
@@ -54,21 +54,19 @@ public abstract class ParticleMixin {
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void wilderWild$tick(CallbackInfo info) {
-		if (Particle.class.cast(this) instanceof DripParticle dripParticle) {
-			if (((WilderDripSuspendedParticleInterface)dripParticle).wilderWild$usesWind()) {
-				Vec3 wind = ClientWindManager.getWindMovement(this.level, BlockPos.containing(this.x, this.y, this.z), 1.5).scale(WilderSharedConstants.config().particleWindMovement());
-				this.xd += wind.x * 0.001;
-				this.yd += wind.y * 0.00005;
-				this.zd += wind.z * 0.001;
-			}
-		}
-		if (Particle.class.cast(this) instanceof SuspendedParticle suspendedParticle) {
-			if (((WilderDripSuspendedParticleInterface)suspendedParticle).wilderWild$usesWind()) {
-				Vec3 wind = ClientWindManager.getWindMovement(this.level, BlockPos.containing(this.x, this.y, this.z), 1.5).scale(WilderSharedConstants.config().particleWindMovement());
+		if (Particle.class.cast(this) instanceof WilderDripSuspendedParticleInterface dripSuspendedParticleInterface) {
+			if (dripSuspendedParticleInterface.wilderWild$usesWind()) {
+				BlockPos blockPos = BlockPos.containing(this.x, this.y, this.z);
+				FluidState fluidState = this.level.getBlockState(blockPos).getFluidState();
+				if (!fluidState.isEmpty() && (fluidState.getHeight(this.level, blockPos) + (float) blockPos.getY()) >= this.y) {
+					return;
+				}
+				Vec3 wind = ClientWindManager.getWindMovement(this.level, blockPos, 1.5).scale(WilderSharedConstants.config().particleWindMovement());
 				this.xd += wind.x * 0.001;
 				this.yd += wind.y * 0.00005;
 				this.zd += wind.z * 0.001;
 			}
 		}
 	}
+
 }

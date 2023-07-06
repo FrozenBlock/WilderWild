@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cross",
   "textures": {
-	"cross": "wilderwild:block/prickly_pear_3"
+    "cross": "wilderwild:block/prickly_pear_3"
   }
 }

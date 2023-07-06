@@ -1,13 +1,12 @@
 package net.frozenblock.wilderwild.world.generation.trunk;
 
 import com.google.common.collect.Lists;
-import com.mojang.datafixers.util.Function3;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
-import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.registry.RegisterFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -30,7 +29,7 @@ public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
 	private final float logChance;
 	private final IntProvider maxLogs;
 
-	public FancyDarkOakTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight, float logChance, IntProvider maxLogs, IntProvider extraBranchLength) {
+	public FancyDarkOakTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight, float logChance, @NotNull IntProvider maxLogs, @NotNull IntProvider extraBranchLength) {
 		super(baseHeight, firstRandomHeight, secondRandomHeight);
 		this.logChance = logChance;
 		this.maxLogs = maxLogs;
@@ -38,12 +37,14 @@ public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
 	}
 
 	@Override
+	@NotNull
 	protected TrunkPlacerType<?> type() {
-		return WilderWild.FANCY_DARK_OAK_TRUNK_PLACER;
+		return RegisterFeatures.FANCY_DARK_OAK_TRUNK_PLACER;
 	}
 
 	@Override
-	public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> blockSetter, @NotNull RandomSource random, int freeTreeHeight, BlockPos pos, @NotNull TreeConfiguration config) {
+	@NotNull
+	public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> blockSetter, @NotNull RandomSource random, int freeTreeHeight, @NotNull BlockPos pos, @NotNull TreeConfiguration config) {
 		int r;
 		int q;
 		ArrayList<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();
@@ -70,7 +71,7 @@ public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
 				o += direction.getStepZ();
 				--j;
 			}
-			if (!TreeFeature.isAirOrLeaves(level, blockPos2 = new BlockPos(n, r = l + q, o))) continue;
+			if (!TreeFeature.isAirOrLeaves(level, blockPos2 = new BlockPos(n, l + q, o))) continue;
 			boolean placedWest = this.placeLog(level, blockSetter, random, blockPos2, config);
 			boolean placedEast = this.placeLog(level, blockSetter, random, blockPos2.east(), config);
 			boolean placedSouth = this.placeLog(level, blockSetter, random, blockPos2.south(), config);
@@ -131,7 +132,7 @@ public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
 		return list;
 	}
 
-	private void generateExtraBranch(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, TreeConfiguration config, BlockPos.MutableBlockPos pos, Direction direction, int length, List<FoliagePlacer.FoliageAttachment> foliageAttachments) {
+	private void generateExtraBranch(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, @NotNull TreeConfiguration config, @NotNull BlockPos.MutableBlockPos pos, @NotNull Direction direction, int length, @NotNull List<FoliagePlacer.FoliageAttachment> foliageAttachments) {
 		int j = pos.getX();
 		int k = pos.getZ();
 		int y = pos.getY();

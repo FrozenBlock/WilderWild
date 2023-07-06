@@ -39,6 +39,7 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class JellyfishBlockCollisions extends AbstractIterator<VoxelShape> {
@@ -73,6 +74,27 @@ public class JellyfishBlockCollisions extends AbstractIterator<VoxelShape> {
 		this.cursor = new Cursor3D(i, k, m, j, l, n);
 	}
 
+	public static boolean noJellyCollision(Level level, @Nullable Entity entity, AABB collisionBox) {
+		for (VoxelShape voxelShape : JellyfishBlockCollisions.getJellyBlockCollisions(entity, collisionBox, level)) {
+			if (voxelShape.isEmpty()) continue;
+			return false;
+		}
+		if (!level.getEntityCollisions(entity, collisionBox).isEmpty()) {
+			return false;
+		}
+		if (entity != null) {
+			WorldBorder worldBorder = level.getWorldBorder();
+			VoxelShape voxelShape2 = worldBorder.isInsideCloseToBorder(entity, collisionBox) ? worldBorder.getCollisionShape() : null;
+			return voxelShape2 == null || !Shapes.joinIsNotEmpty(voxelShape2, Shapes.create(collisionBox), BooleanOp.AND);
+		}
+		return true;
+	}
+
+	@NotNull
+	public static Iterable<VoxelShape> getJellyBlockCollisions(@Nullable Entity entity, AABB collisionBox, Level level) {
+		return () -> new JellyfishBlockCollisions(level, entity, collisionBox);
+	}
+
 	@Nullable
 	private BlockGetter getChunk(int x, int z) {
 		BlockGetter blockGetter;
@@ -99,10 +121,11 @@ public class JellyfishBlockCollisions extends AbstractIterator<VoxelShape> {
 			this.pos.set(i, j, k);
 			BlockState blockState = blockGetter.getBlockState(this.pos);
 			Block block = blockState.getBlock();
-			if ((this.onlySuffocatingBlocks && !blockState.isSuffocating(blockGetter, this.pos) || l == 1 && !blockState.hasLargeCollisionShape() || l == 2 && !blockState.is(Blocks.MOVING_PISTON)) || (block instanceof MesogleaBlock && blockState.getValue(BlockStateProperties.WATERLOGGED))) continue;
+			if ((this.onlySuffocatingBlocks && !blockState.isSuffocating(blockGetter, this.pos) || l == 1 && !blockState.hasLargeCollisionShape() || l == 2 && !blockState.is(Blocks.MOVING_PISTON)) || (block instanceof MesogleaBlock && blockState.getValue(BlockStateProperties.WATERLOGGED)))
+				continue;
 			VoxelShape voxelShape = blockState.getCollisionShape(this.collisionGetter, this.pos, this.context);
 			if (voxelShape == Shapes.block()) {
-				if (!this.box.intersects(i, j, k, (double)i + 1.0, (double)j + 1.0, (double)k + 1.0)) continue;
+				if (!this.box.intersects(i, j, k, (double) i + 1.0, (double) j + 1.0, (double) k + 1.0)) continue;
 				return voxelShape.move(i, j, k);
 			}
 			VoxelShape voxelShape2 = voxelShape.move(i, j, k);
@@ -110,26 +133,6 @@ public class JellyfishBlockCollisions extends AbstractIterator<VoxelShape> {
 			return voxelShape2;
 		}
 		return this.endOfData();
-	}
-
-	public static boolean noJellyCollision(Level level, @Nullable Entity entity, AABB collisionBox) {
-		for (VoxelShape voxelShape : JellyfishBlockCollisions.getJellyBlockCollisions(entity, collisionBox, level)) {
-			if (voxelShape.isEmpty()) continue;
-			return false;
-		}
-		if (!level.getEntityCollisions(entity, collisionBox).isEmpty()) {
-			return false;
-		}
-		if (entity != null) {
-			WorldBorder worldBorder = level.getWorldBorder();
-			VoxelShape voxelShape2 = worldBorder.isInsideCloseToBorder(entity, collisionBox) ? worldBorder.getCollisionShape() : null;
-			return voxelShape2 == null || !Shapes.joinIsNotEmpty(voxelShape2, Shapes.create(collisionBox), BooleanOp.AND);
-		}
-		return true;
-	}
-
-	public static Iterable<VoxelShape> getJellyBlockCollisions(@Nullable Entity entity, AABB collisionBox, Level level) {
-		return () -> new JellyfishBlockCollisions(level, entity, collisionBox);
 	}
 }
 

@@ -1,8 +1,8 @@
 {
   "type": "minecraft:block",
   "pools": [
-	{
-	  "bonus_rolls": 0.0,
+    {
+      "bonus_rolls": 0.0,
       "conditions": [
         {
           "condition": "minecraft:any_of",
@@ -31,13 +31,13 @@
           ]
         }
       ],
-	  "entries": [
-		{
-		  "type": "minecraft:item",
-		  "name": "wilderwild:algae"
-		}
-	  ],
-	  "rolls": 1.0
-	}
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "wilderwild:algae"
+        }
+      ],
+      "rolls": 1.0
+    }
   ]
 }

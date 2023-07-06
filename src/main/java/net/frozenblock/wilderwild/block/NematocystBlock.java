@@ -18,32 +18,62 @@
 
 package net.frozenblock.wilderwild.block;
 
+import java.util.Optional;
 import net.frozenblock.lib.block.api.FaceClusterBlock;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.MultifaceSpreader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.PushReaction;
 import org.jetbrains.annotations.NotNull;
 
 public class NematocystBlock extends FaceClusterBlock {
 
-    private final NematocystSpreader spreader = new NematocystSpreader(this);
+	private final NematocystSpreader spreader = new NematocystSpreader(this);
 
-    public NematocystBlock(int height, int xzOffset, Properties properties) {
-        super(height, xzOffset, properties);
-    }
+	public NematocystBlock(int height, int xzOffset, @NotNull Properties properties) {
+		super(height, xzOffset, properties);
+	}
 
-    public NematocystBlock(Properties properties) {
-        this(7, 3, properties.pushReaction(PushReaction.DESTROY));
-    }
+	public NematocystBlock(@NotNull Properties properties) {
+		this(7, 3, properties.pushReaction(PushReaction.DESTROY));
+	}
 
-    @Override
-    public boolean skipRendering(@NotNull BlockState blockState, BlockState blockState2, @NotNull Direction direction) {
-        return blockState2.is(this) || super.skipRendering(blockState, blockState2, direction);
-    }
+	@Override
+	public boolean skipRendering(@NotNull BlockState blockState, @NotNull BlockState blockState2, @NotNull Direction direction) {
+		return blockState2.is(this) || super.skipRendering(blockState, blockState2, direction);
+	}
 
-    @Override
+	@Override
 	@NotNull
-    public NematocystSpreader getSpreader() {
-        return this.spreader;
-    }
+	public NematocystSpreader getSpreader() {
+		return this.spreader;
+	}
+
+	public static class NematocystSpreader extends MultifaceSpreader {
+
+		public NematocystSpreader(@NotNull NematocystBlock block) {
+			super(block);
+		}
+
+		@Override
+		@NotNull
+		public Optional<SpreadPos> getSpreadFromFaceTowardDirection(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull Direction spreadDirection, @NotNull Direction face, @NotNull MultifaceSpreader.SpreadPredicate predicate) {
+			if (face.getAxis() == spreadDirection.getAxis()) {
+				return Optional.empty();
+			} else if (this.config.isOtherBlockValidAsSource(state) || this.config.hasFace(state, spreadDirection) && !this.config.hasFace(state, face)) {
+				for (MultifaceSpreader.SpreadType spreadType : this.config.getSpreadTypes()) {
+					MultifaceSpreader.SpreadPos spreadPos = spreadType.getSpreadPos(pos, face, spreadDirection);
+					if (predicate.test(level, pos, spreadPos)) {
+						return Optional.of(spreadPos);
+					}
+				}
+				return Optional.empty();
+			} else {
+				return Optional.empty();
+			}
+		}
+	}
+
 }

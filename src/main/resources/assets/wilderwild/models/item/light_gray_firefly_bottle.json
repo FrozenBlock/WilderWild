@@ -1,7 +1,7 @@
 {
   "parent": "item/generated",
   "textures": {
-	"layer0": "wilderwild:item/light_gray_firefly_bottle"
+    "layer0": "wilderwild:item/light_gray_firefly_bottle"
   },
   "overrides": [
     {

@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.block.entity;
 
+import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -26,11 +27,9 @@ import net.frozenblock.wilderwild.registry.RegisterGameEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.level.Level;
@@ -46,16 +45,14 @@ import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
 
 public class HangingTendrilBlockEntity extends BlockEntity implements GameEventListener.Holder<VibrationSystem.Listener>, VibrationSystem {
 
+	private static final Logger LOGGER = LogUtils.getLogger();
 	private static final String BASE_TEXTURE = "textures/entity/hanging_tendril/";
-
-	private Data vibrationData;
-	private final Listener listener;
-	private final User vibrationUser = this.createVibrationUser();
-	private int lastVibrationFrequency;
-
+	private final VibrationSystem.Listener vibrationListener;
+	private final VibrationSystem.User vibrationUser = this.createVibrationUser();
 	public int ticksToStopTwitching;
 	public int storedXP;
 	public int ringOutTicksLeft;
@@ -65,19 +62,17 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	public boolean active;
 	public boolean milk;
 	public int ticks;
+	private VibrationSystem.Data vibrationData;
+	private int lastVibrationFrequency;
 
-	public HangingTendrilBlockEntity(BlockPos pos, BlockState state) {
+	public HangingTendrilBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		super(RegisterBlockEntities.HANGING_TENDRIL, pos, state);
-		this.vibrationData = new Data();
-		this.listener = new Listener(this);
+		this.vibrationData = new VibrationSystem.Data();
+		this.vibrationListener = new VibrationSystem.Listener(this);
 	}
 
-	public User createVibrationUser() {
-		return new VibrationUser(this.getBlockPos());
-	}
-
-	public void serverTick(Level level, BlockPos pos, BlockState state) {
-		if (this.ticksToStopTwitching == 0) {
+	public void serverTick(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
+		if (this.ticksToStopTwitching <= 0) {
 			level.setBlockAndUpdate(pos, state.setValue(HangingTendrilBlock.TWITCHING, false));
 		}
 		--this.ticksToStopTwitching;
@@ -92,9 +87,10 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 				level.gameEvent(null, RegisterGameEvents.TENDRIL_EXTRACT_XP, pos);
 			}
 		}
+		VibrationSystem.Ticker.tick(level, this.getVibrationData(), this.getVibrationUser());
 	}
 
-	public void clientTick(BlockState state) {
+	public void clientTick(@NotNull BlockState state) {
 		this.twitching = this.ticksToStopTwitching > 0;
 		this.milk = this.ringOutTicksLeft > 0;
 		this.active = !SculkSensorBlock.canActivate(state);
@@ -132,11 +128,8 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		this.ticksToStopTwitching = tag.getInt("ticksToStopTwitching");
 		this.storedXP = tag.getInt("storedXP");
 		this.ringOutTicksLeft = tag.getInt("ringOutTicksLeft");
-		if (tag.contains("listener", Tag.TAG_COMPOUND)) {
-			Data.CODEC
-					.parse(new Dynamic<>(NbtOps.INSTANCE, tag.getCompound("listener")))
-					.resultOrPartial(WilderSharedConstants.LOGGER::error)
-					.ifPresent(data -> this.vibrationData = data);
+		if (tag.contains("listener", 10)) {
+			VibrationSystem.Data.CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, tag.getCompound("listener"))).resultOrPartial(LOGGER::error).ifPresent(data -> this.vibrationData = data);
 		}
 	}
 
@@ -147,18 +140,13 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		tag.putInt("ticksToStopTwitching", this.ticksToStopTwitching);
 		tag.putInt("storedXP", this.storedXP);
 		tag.putInt("ringOutTicksLeft", this.ringOutTicksLeft);
-		Data.CODEC
-				.encodeStart(NbtOps.INSTANCE, this.vibrationData)
-				.resultOrPartial(WilderSharedConstants.LOGGER::error)
-				.ifPresent(listenerNbt -> tag.put("listener", listenerNbt));
+		VibrationSystem.Data.CODEC.encodeStart(NbtOps.INSTANCE, this.vibrationData).resultOrPartial(LOGGER::error).ifPresent(nbt -> tag.put("listener", nbt));
+
 	}
 
-	public Data getVibrationData() {
-		return this.vibrationData;
-	}
-
-	public User getVibrationUser() {
-		return this.vibrationUser;
+	@NotNull
+	public VibrationSystem.User createVibrationUser() {
+		return new HangingTendrilBlockEntity.VibrationUser(this.getBlockPos());
 	}
 
 	public int getLastVibrationFrequency() {
@@ -169,11 +157,26 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		this.lastVibrationFrequency = lastVibrationFrequency;
 	}
 
+	@Override
+	@NotNull
 	public Listener getListener() {
-		return this.listener;
+		return this.vibrationListener;
 	}
 
-	public class VibrationUser implements User {
+	@Override
+	@NotNull
+	public Data getVibrationData() {
+		return this.vibrationData;
+	}
+
+	@Override
+	@NotNull
+	public User getVibrationUser() {
+		return this.vibrationUser;
+	}
+
+	public class VibrationUser
+		implements VibrationSystem.User {
 		public static final int LISTENER_RANGE = 4;
 		protected final BlockPos blockPos;
 		private final PositionSource positionSource;
@@ -189,6 +192,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		}
 
 		@Override
+		@NotNull
 		public PositionSource getPositionSource() {
 			return this.positionSource;
 		}
@@ -199,23 +203,22 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		}
 
 		@Override
-		public boolean canReceiveVibration(ServerLevel world, BlockPos pos, GameEvent event, GameEvent.Context eventContext) {
-			return (!pos.equals(this.blockPos) || event != GameEvent.BLOCK_DESTROY && event != GameEvent.BLOCK_PLACE)
-				&& SculkSensorBlock.canActivate(HangingTendrilBlockEntity.this.getBlockState())
-				&& !HangingTendrilBlockEntity.this.getBlockState().getValue(HangingTendrilBlock.WRINGING_OUT);
+		public boolean canReceiveVibration(@NotNull ServerLevel world, @NotNull BlockPos pos, @NotNull GameEvent gameEvent, @Nullable GameEvent.Context context) {
+			if (pos.equals(this.blockPos) && (gameEvent == GameEvent.BLOCK_DESTROY || gameEvent == GameEvent.BLOCK_PLACE)) {
+				return false;
+			}
+			return HangingTendrilBlock.canActivate(HangingTendrilBlockEntity.this.getBlockState()) && !HangingTendrilBlockEntity.this.getBlockState().getValue(HangingTendrilBlock.WRINGING_OUT);
 		}
 
 		@Override
-		public void onReceiveVibration(ServerLevel world, BlockPos pos, GameEvent event, @Nullable Entity sourceEntity, @Nullable Entity entity, float distance) {
+		public void onReceiveVibration(@NotNull ServerLevel world, @NotNull BlockPos pos, @NotNull GameEvent gameEvent, @Nullable Entity entity, @Nullable Entity entity2, float f) {
 			BlockState blockState = HangingTendrilBlockEntity.this.getBlockState();
-			BlockPos blockPos = HangingTendrilBlockEntity.this.getBlockPos();
-
 			if (SculkSensorBlock.canActivate(blockState)) {
-				HangingTendrilBlockEntity.this.setLastVibrationFrequency(VibrationSystem.getGameEventFrequency(event));
+				HangingTendrilBlockEntity.this.setLastVibrationFrequency(VibrationSystem.getGameEventFrequency(gameEvent));
+				int i = VibrationSystem.getRedstoneStrengthForDistance(f, this.getListenerRadius());
 				Block block = blockState.getBlock();
-
-				if (block instanceof HangingTendrilBlock tendril) {
-					tendril.activate(sourceEntity, level, blockPos, blockState, event);
+				if (block instanceof HangingTendrilBlock hangingTendrilBlock) {
+					hangingTendrilBlock.activate(entity, world, this.blockPos, blockState, i, HangingTendrilBlockEntity.this.getLastVibrationFrequency());
 				}
 			}
 		}

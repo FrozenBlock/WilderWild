@@ -42,7 +42,7 @@ import org.jetbrains.annotations.Nullable;
 public class PalmCrownBlock extends BaseEntityBlock {
 	public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.AXIS;
 
-	public PalmCrownBlock(Properties properties) {
+	public PalmCrownBlock(@NotNull Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.defaultBlockState().setValue(AXIS, Direction.Axis.Y));
 	}
@@ -60,21 +60,24 @@ public class PalmCrownBlock extends BaseEntityBlock {
 	}
 
 	@Override
+	@NotNull
 	public RenderShape getRenderShape(@NotNull BlockState blockState) {
 		return RenderShape.MODEL;
 	}
 
+	@Override
+	@NotNull
 	public BlockState rotate(@NotNull BlockState state, @NotNull Rotation rotation) {
 		return RotatedPillarBlock.rotatePillar(state, rotation);
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
 		builder.add(AXIS);
 	}
 
 	@Override
-	public BlockState getStateForPlacement(BlockPlaceContext context) {
+	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
 		return this.defaultBlockState().setValue(AXIS, context.getClickedFace().getAxis());
 	}
 }

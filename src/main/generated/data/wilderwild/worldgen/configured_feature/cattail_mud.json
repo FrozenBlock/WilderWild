@@ -1,0 +1,21 @@
+{
+  "type": "wilderwild:cattail_feature",
+  "config": {
+    "placeableBlocks": "wilderwild:cattail_mud_placeable",
+    "placementAttempts": {
+      "type": "minecraft:uniform",
+      "value": {
+        "max_inclusive": 21,
+        "min_inclusive": 12
+      }
+    },
+    "water": false,
+    "width": {
+      "type": "minecraft:uniform",
+      "value": {
+        "max_inclusive": 7,
+        "min_inclusive": -7
+      }
+    }
+  }
+}

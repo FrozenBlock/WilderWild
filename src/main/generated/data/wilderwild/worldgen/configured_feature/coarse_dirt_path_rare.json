@@ -1,0 +1,22 @@
+{
+  "type": "frozenlib:noise_path_tag_feature",
+  "config": {
+    "block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:coarse_dirt"
+      }
+    },
+    "chance": 0.25,
+    "is3D": false,
+    "maxThresh": 0.3,
+    "minThresh": -0.2,
+    "multiplier": 0.12,
+    "multiplyY": false,
+    "noise": 3,
+    "onlyExposed": false,
+    "radius": 6,
+    "replaceable": "wilderwild:coarse_path_replaceable",
+    "useY": false
+  }
+}

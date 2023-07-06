@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.block;
 
 import java.util.Objects;
-import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.block.api.shape.FrozenShapes;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
@@ -59,32 +58,37 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
 	public final ParticleOptions dripParticle;
+	public final boolean pearlescent;
 
-	public MesogleaBlock(Properties properties, ParticleOptions dripParticle) {
+	public MesogleaBlock(@NotNull Properties properties, @NotNull ParticleOptions dripParticle, boolean pearlescent) {
 		super(properties.pushReaction(PushReaction.DESTROY));
 		this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
 		this.dripParticle = dripParticle;
+		this.pearlescent = pearlescent;
 	}
 
 	@Override
-	public void entityInside(BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
-		if (state.getValue(WATERLOGGED)) {
-			if (entity instanceof ItemEntity item) {
-				item.makeStuckInBlock(state, new Vec3(0.999D, 0.999D, 0.999D));
-				item.setDeltaMovement(item.getDeltaMovement().add(0, 0.025, 0));
-			}
-			if (entity instanceof Boat boat) {
-				Vec3 deltaMovement = boat.getDeltaMovement();
-				if (boat.isUnderWater() && deltaMovement.y < 0.175) {
-					boat.setDeltaMovement(deltaMovement.x, Math.min(0.175, deltaMovement.y + 0.05), deltaMovement.z);
-				} else if (deltaMovement.y < 0) {
-					boat.setDeltaMovement(deltaMovement.x, deltaMovement.y * 0.125, deltaMovement.z);
+	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
+		if (this.pearlescent) {
+			if (state.getValue(WATERLOGGED)) {
+				if (entity instanceof ItemEntity item) {
+					item.makeStuckInBlock(state, new Vec3(0.999D, 0.999D, 0.999D));
+					item.setDeltaMovement(item.getDeltaMovement().add(0, 0.025, 0));
+				}
+				if (entity instanceof Boat boat) {
+					Vec3 deltaMovement = boat.getDeltaMovement();
+					if (boat.isUnderWater() && deltaMovement.y < 0.175) {
+						boat.setDeltaMovement(deltaMovement.x, Math.min(0.175, deltaMovement.y + 0.05), deltaMovement.z);
+					} else if (deltaMovement.y < 0) {
+						boat.setDeltaMovement(deltaMovement.x, deltaMovement.y * 0.125, deltaMovement.z);
+					}
 				}
 			}
 		}
 	}
 
 	@Override
+	@NotNull
 	public VoxelShape getCollisionShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
 		if (collisionContext instanceof EntityCollisionContext entityCollisionContext && entityCollisionContext.getEntity() != null) {
 			if (blockState.getValue(WATERLOGGED)) {
@@ -118,19 +122,20 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 	}
 
 	@Override
-	public int getLightBlock(BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos) {
+	public int getLightBlock(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos) {
 		return blockState.getValue(WATERLOGGED) ? 2 : 5;
 	}
 
 	@Override
 	@Nullable
-	public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
+	public BlockState getStateForPlacement(@NotNull BlockPlaceContext blockPlaceContext) {
 		FluidState fluidState = blockPlaceContext.getLevel().getFluidState(blockPlaceContext.getClickedPos());
 		return Objects.requireNonNull(super.getStateForPlacement(blockPlaceContext)).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
 	}
 
 	@Override
-	public BlockState updateShape(BlockState blockState, @NotNull Direction direction, @NotNull BlockState blockState2, @NotNull LevelAccessor levelAccessor, @NotNull BlockPos blockPos, @NotNull BlockPos blockPos2) {
+	@NotNull
+	public BlockState updateShape(@NotNull BlockState blockState, @NotNull Direction direction, @NotNull BlockState blockState2, @NotNull LevelAccessor levelAccessor, @NotNull BlockPos blockPos, @NotNull BlockPos blockPos2) {
 		if (blockState.getValue(WATERLOGGED)) {
 			levelAccessor.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
 		}
@@ -138,7 +143,8 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 	}
 
 	@Override
-	public FluidState getFluidState(BlockState blockState) {
+	@NotNull
+	public FluidState getFluidState(@NotNull BlockState blockState) {
 		if (blockState.getValue(WATERLOGGED)) {
 			return Fluids.WATER.getSource(false);
 		}
@@ -146,18 +152,19 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
 		builder.add(WATERLOGGED);
 	}
 
 	@Override
-	public boolean skipRendering(@NotNull BlockState blockState, BlockState blockState2, @NotNull Direction direction) {
+	public boolean skipRendering(@NotNull BlockState blockState, @NotNull BlockState blockState2, @NotNull Direction direction) {
 		boolean isThisWaterlogged = blockState.getValue(WATERLOGGED);
 		return blockState2.is(this) && (isThisWaterlogged == blockState2.getValue(WATERLOGGED) || isThisWaterlogged);
 	}
 
 	@Override
-	public RenderShape getRenderShape(BlockState state) {
-		return state.getValue(BlockStateProperties.WATERLOGGED) && WilderSharedConstants.config().mesogleaLiquid() && !FrozenBools.HAS_SODIUM ? RenderShape.INVISIBLE : super.getRenderShape(state);
+	@NotNull
+	public RenderShape getRenderShape(@NotNull BlockState state) {
+		return state.getValue(BlockStateProperties.WATERLOGGED) && WilderSharedConstants.config().mesogleaLiquid() ? RenderShape.INVISIBLE : RenderShape.MODEL;
 	}
 }

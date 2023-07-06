@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-	"#wilderwild:goat_drop_music_discs",
-	"wilderwild:music_disc_back"
+    "#wilderwild:goat_drop_music_discs",
+    "wilderwild:music_disc_back"
   ]
 }

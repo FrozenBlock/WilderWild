@@ -3,25 +3,25 @@
   "category": "equipment",
   "group": "ancient_horn",
   "key": {
-	  "#": {
-	   "item": "wilderwild:ancient_horn_fragment"
-	  },
-	  "I": {
-	    "item": "minecraft:echo_shard"
-	  },
-	  "G": {
-	    "item": "minecraft:gold_ingot"
-	  }
+    "#": {
+      "item": "wilderwild:ancient_horn_fragment"
+    },
+    "I": {
+      "item": "minecraft:echo_shard"
+    },
+    "G": {
+      "item": "minecraft:gold_ingot"
+    }
   },
   "pattern": [
-  	"#G#",
-	  "#I#",
-	  "I#I"
+    "#G#",
+    "#I#",
+    "I#I"
   ],
   "result": {
-	  "item": "wilderwild:ancient_horn",
-	  "data": {
+    "item": "wilderwild:ancient_horn",
+    "data": {
       "instrument": "wilderwild:ancient_horn"
-	  }
+    }
   }
 }

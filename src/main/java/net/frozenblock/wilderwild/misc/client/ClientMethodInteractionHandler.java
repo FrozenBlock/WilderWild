@@ -18,20 +18,26 @@
 
 package net.frozenblock.wilderwild.misc.client;
 
+import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.EnderMan;
+import org.jetbrains.annotations.NotNull;
 
 public class ClientMethodInteractionHandler {
 	private ClientMethodInteractionHandler() {
 		throw new UnsupportedOperationException("ClientMethodInteractionHandler contains only static declarations.");
 	}
 
-    public static void playClientEnderManSound(EnderMan enderMan) {
-        ClientMethods.playClientEnderManSound(enderMan);
-    }
+	public static void playClientEnderManSound(@NotNull EnderMan enderMan) {
+		ClientMethods.playClientEnderManSound(enderMan);
+	}
 
-	public static void playClientPlayerSoundIfSamePlayer(SoundEvent sound, float volume, float pitch, Entity compareTo) {
+	public static void playClientPlayerSoundIfSamePlayer(@NotNull SoundEvent sound, float volume, float pitch, @NotNull Entity compareTo) {
 		ClientMethods.playClientPlayerSoundIfSamePlayer(sound, volume, pitch, compareTo);
+	}
+
+	public static void addTermiteSound(TermiteMoundBlockEntity mound, int termiteID, boolean eating) {
+		ClientMethods.addTermiteSound(mound, termiteID, eating);
 	}
 }

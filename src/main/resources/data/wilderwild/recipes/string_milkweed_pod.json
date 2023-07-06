@@ -3,12 +3,12 @@
   "category": "misc",
   "group": "string",
   "ingredients": [
-	  {
-	   "item": "wilderwild:milkweed_pod"
-	  }
+    {
+      "item": "wilderwild:milkweed_pod"
+    }
   ],
   "result": {
-	  "item": "minecraft:string",
-	  "count": 1
+    "item": "minecraft:string",
+    "count": 1
   }
 }

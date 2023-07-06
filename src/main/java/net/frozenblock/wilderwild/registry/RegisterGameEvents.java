@@ -22,22 +22,23 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.gameevent.GameEvent;
+import org.jetbrains.annotations.NotNull;
 
 public final class RegisterGameEvents {
+	public static final GameEvent SCULK_SENSOR_ACTIVATE = register("sculk_sensor_activate", 16);
+	public static final GameEvent TENDRIL_EXTRACT_XP = register("hanging_tendril_extract_xp", 16);
+
 	private RegisterGameEvents() {
 		throw new UnsupportedOperationException("RegisterGameEvents contains only static declarations.");
 	}
 
-    public static final GameEvent SCULK_SENSOR_ACTIVATE = register("sculk_sensor_activate", 16);
-    public static final GameEvent TENDRIL_EXTRACT_XP = register("hanging_tendril_extract_xp", 16);
+	public static void registerEvents() {
+		WilderSharedConstants.logWild("Registering GameEvents for", WilderSharedConstants.UNSTABLE_LOGGING);
+	}
 
-
-    public static void registerEvents() {
-        WilderSharedConstants.logWild("Registering GameEvents for", WilderSharedConstants.UNSTABLE_LOGGING);
-    }
-
-	private static GameEvent register(String path, int maxListeners) {
+	@NotNull
+	private static GameEvent register(@NotNull String path, int notificationRadius) {
 		var key = WilderSharedConstants.string(path);
-		return Registry.register(BuiltInRegistries.GAME_EVENT, key, new GameEvent(key, maxListeners));
+		return Registry.register(BuiltInRegistries.GAME_EVENT, key, new GameEvent(key, notificationRadius));
 	}
 }

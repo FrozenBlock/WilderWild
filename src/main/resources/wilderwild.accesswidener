@@ -8,6 +8,7 @@ accessible    method    net/minecraft/world/level/levelgen/feature/treedecorator
 accessible    method    net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacerType    <init>    (Lcom/mojang/serialization/Codec;)V
 accessible    method    net/minecraft/world/level/levelgen/feature/foliageplacers/FoliagePlacerType    <init>    (Lcom/mojang/serialization/Codec;)V
 accessible    method    net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacer    isDirt    (Lnet/minecraft/world/level/LevelSimulatedReader;Lnet/minecraft/core/BlockPos;)Z
+accessible    method    net/minecraft/data/worldgen/placement/VegetationPlacements    treePlacementBase    (Lnet/minecraft/world/level/levelgen/placement/PlacementModifier;)Lcom/google/common/collect/ImmutableList$Builder;
 
 # Items
 extendable    method    net/minecraft/world/item/InstrumentItem    getInstrument    (Lnet/minecraft/world/item/ItemStack;)Ljava/util/Optional;
@@ -44,12 +45,14 @@ accessible    method    net/minecraft/client/model/HierarchicalModel    animate 
 accessible    field    net/minecraft/world/entity/LivingEntity    dead    Z
 accessible    method    net/minecraft/world/entity/Entity    updateInWaterStateAndDoWaterCurrentPushing    ()V
 accessible    field    net/minecraft/server/level/ServerLevel    entityManager    Lnet/minecraft/world/level/entity/PersistentEntitySectionManager;
+accessible    class    net/minecraft/world/entity/monster/warden/Warden$VibrationUser
 
 # Entity Behaviors
 accessible    field    net/minecraft/world/entity/ai/Brain    availableBehaviorsByPriority    Ljava/util/Map;
 
 # Entity Spawns
 accessible    class    net/minecraft/world/entity/SpawnPlacements$Data
+accessible    method    net/minecraft/world/level/block/Blocks ocelotOrParrot (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/EntityType;)Ljava/lang/Boolean;
 
 # Entity Rendering
 accessible    field    net/minecraft/client/renderer/entity/layers/WardenEmissiveLayer    alphaFunction    Lnet/minecraft/client/renderer/entity/layers/WardenEmissiveLayer$AlphaFunction;
@@ -61,7 +64,6 @@ accessible    method    net/minecraft/world/effect/MobEffect    <init>    (Lnet/
 accessible    field    net/minecraft/world/entity/Mob    goalSelector    Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 accessible    field    net/minecraft/world/entity/Mob    targetSelector    Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 accessible    method    net/minecraft/world/entity/monster/warden/Warden    isDiggingOrEmerging    ()Z
-accessible    class    net/minecraft/world/entity/monster/warden/Warden$VibrationUser
 
 # Damage Sources
 accessible    method    net/minecraft/world/damagesource/DamageSources    source    (Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/world/damagesource/DamageSource;
@@ -82,6 +84,15 @@ accessible    method    net/minecraft/world/level/block/state/properties/BlockSe
 accessible    field    net/minecraft/world/level/block/BrushableBlock    turnsInto    Lnet/minecraft/world/level/block/Block;
 accessible    field    net/minecraft/world/level/block/BrushableBlock    brushSound    Lnet/minecraft/sounds/SoundEvent;
 accessible    field    net/minecraft/world/level/block/BrushableBlock    brushCompletedSound    Lnet/minecraft/sounds/SoundEvent;
+accessible    method    net/minecraft/world/level/block/SculkSensorBlock    updateNeighbours    (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
+accessible    method    net/minecraft/world/level/block/Blocks    always    (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/EntityType;)Ljava/lang/Boolean;
+accessible    method    net/minecraft/world/level/block/Blocks    always    (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z
+accessible    method    net/minecraft/world/level/block/Blocks    never    (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/EntityType;)Ljava/lang/Boolean;
+accessible    method    net/minecraft/world/level/block/Blocks    never    (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z
+accessible    method    net/minecraft/world/level/block/ChestBlock    isCatSittingOnChest    (Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)Z
+accessible    method    net/minecraft/world/level/block/ChestBlock    isBlockedChestByBlock    (Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z
+accessible    field    net/minecraft/world/level/block/state/BlockBehaviour    UPDATE_SHAPE_ORDER    [Lnet/minecraft/core/Direction;
+accessible    method    net/minecraft/world/level/block/SculkBlock    getDecayPenalty    (Lnet/minecraft/world/level/block/SculkSpreader;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;I)I
 
 # Block Entities
 accessible    field    net/minecraft/world/level/block/entity/RandomizableContainerBlockEntity    lootTable    Lnet/minecraft/resources/ResourceLocation;
@@ -136,6 +147,12 @@ accessible    method    net/minecraft/sounds/SoundEvent    <init>    (Lnet/minec
 accessible    method    net/minecraft/world/level/levelgen/feature/configurations/MultifaceGrowthConfiguration    apply    (Lnet/minecraft/world/level/block/Block;)Lcom/mojang/serialization/DataResult;
 accessible    method    net/minecraft/world/level/levelgen/feature/MultifaceGrowthFeature    isAirOrWater    (Lnet/minecraft/world/level/block/state/BlockState;)Z
 accessible    field    net/minecraft/world/level/block/MultifaceSpreader$DefaultSpreaderConfig    block    Lnet/minecraft/world/level/block/MultifaceBlock;
+accessible    method    net/minecraft/core/HolderSet$Named    <init>    (Lnet/minecraft/core/HolderOwner;Lnet/minecraft/tags/TagKey;)V
 
 # Clipping
 accessible    field    net/minecraft/world/level/ClipContext    collisionContext    Lnet/minecraft/world/phys/shapes/CollisionContext;
+
+# Particles
+accessible    field    net/minecraft/client/particle/Particle    xd    D
+accessible    field    net/minecraft/client/particle/Particle    yd    D
+accessible    field    net/minecraft/client/particle/Particle    zd    D

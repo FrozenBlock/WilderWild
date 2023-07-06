@@ -24,12 +24,12 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import static net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes.LEAVES;
 
 public class TechRebornIntegration extends ModIntegration {
-    public TechRebornIntegration() {
-        super("techreborn");
-    }
+	public TechRebornIntegration() {
+		super("techreborn");
+	}
 
-    @Override
-    public void init() {
-        addBlock(id("rubber_leaves"), LEAVES, WilderSharedConstants.config()::leafSounds);
-    }
+	@Override
+	public void init() {
+		addBlock(id("rubber_leaves"), LEAVES, WilderSharedConstants.config()::leafSounds);
+	}
 }

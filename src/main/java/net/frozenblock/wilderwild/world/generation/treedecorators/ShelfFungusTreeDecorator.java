@@ -26,49 +26,54 @@ import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
+import org.jetbrains.annotations.NotNull;
 
 public class ShelfFungusTreeDecorator extends TreeDecorator {
-    public static final Codec<ShelfFungusTreeDecorator> CODEC = RecordCodecBuilder.create((instance) -> {
-        return instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter((treeDecorator) -> {
-            return treeDecorator.probability;
-        }), Codec.floatRange(0.0F, 1.0F).fieldOf("red_shelf_fungus_chance").forGetter((treeDecorator) -> {
-            return treeDecorator.redChance;
-        })).apply(instance, ShelfFungusTreeDecorator::new);
-    });
-    private final float probability;
-    private final float redChance;
+	public static final Codec<ShelfFungusTreeDecorator> CODEC = RecordCodecBuilder.create((instance) ->
+		instance.group(
+			Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter((treeDecorator) -> treeDecorator.probability),
+			Codec.floatRange(0.0F, 1.0F).fieldOf("red_shelf_fungus_chance").forGetter((treeDecorator) -> treeDecorator.redChance)
+		).apply(instance, ShelfFungusTreeDecorator::new));
+	private final float probability;
+	private final float redChance;
 
-    public ShelfFungusTreeDecorator(float probability, float redChance) {
-        this.probability = probability;
-        this.redChance = redChance;
-    }
+	public ShelfFungusTreeDecorator(float probability, float redChance) {
+		this.probability = probability;
+		this.redChance = redChance;
+	}
 
-    protected TreeDecoratorType<?> type() {
-        return WilderTreeDecorators.FUNGUS_TREE_DECORATOR;
-    }
+	@Override
+	@NotNull
+	protected TreeDecoratorType<?> type() {
+		return WilderTreeDecorators.FUNGUS_TREE_DECORATOR;
+	}
 
-    public void place(TreeDecorator.Context generator) {
-        RandomSource abstractRandom = generator.random();
-        if (abstractRandom.nextFloat() <= this.probability) {
-            List<BlockPos> list = generator.logs();
-            list.forEach((pos) -> {
-                for (Direction direction : Direction.Plane.HORIZONTAL) {
-                    if (abstractRandom.nextFloat() <= 0.25F) {
-                        BlockPos blockPos = pos.offset(direction.getStepX(), 0, direction.getStepZ());
-                        if (generator.isAir(blockPos)) {
-                            if (generator.random().nextFloat() < redChance) {
-                                generator.setBlock(blockPos, RegisterBlocks.RED_SHELF_FUNGUS.defaultBlockState().setValue(ShelfFungusBlock.STAGE, abstractRandom.nextInt(3) + 1).setValue(ShelfFungusBlock.FACE, AttachFace.WALL).setValue(ShelfFungusBlock.FACING, direction));
-                            } else {
-                                generator.setBlock(blockPos, RegisterBlocks.BROWN_SHELF_FUNGUS.defaultBlockState().setValue(ShelfFungusBlock.STAGE, abstractRandom.nextInt(3) + 1).setValue(ShelfFungusBlock.FACE, AttachFace.WALL).setValue(ShelfFungusBlock.FACING, direction));
-                            }
-                        }
-                    }
-                }
-            });
-        }
-    }
-
+	@Override
+	public void place(@NotNull Context generator) {
+		RandomSource abstractRandom = generator.random();
+		if (abstractRandom.nextFloat() <= this.probability) {
+			List<BlockPos> poses = generator.logs();
+			BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+			BlockState redState = RegisterBlocks.RED_SHELF_FUNGUS.defaultBlockState();
+			BlockState brownState = RegisterBlocks.BROWN_SHELF_FUNGUS.defaultBlockState();
+			for (BlockPos pos : poses) {
+				for (Direction direction : Direction.Plane.HORIZONTAL) {
+					if (abstractRandom.nextFloat() <= 0.25F) {
+						mutableBlockPos.setWithOffset(pos, direction);
+						if (generator.isAir(mutableBlockPos)) {
+							if (generator.random().nextFloat() < redChance) {
+								generator.setBlock(mutableBlockPos, redState.setValue(ShelfFungusBlock.STAGE, abstractRandom.nextInt(3) + 1).setValue(ShelfFungusBlock.FACE, AttachFace.WALL).setValue(ShelfFungusBlock.FACING, direction));
+							} else {
+								generator.setBlock(mutableBlockPos, brownState.setValue(ShelfFungusBlock.STAGE, abstractRandom.nextInt(3) + 1).setValue(ShelfFungusBlock.FACE, AttachFace.WALL).setValue(ShelfFungusBlock.FACING, direction));
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }

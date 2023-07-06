@@ -3,15 +3,15 @@
   "category": "building",
   "group": "wooden_slab",
   "key": {
-	  "#": {
-	    "item": "wilderwild:palm_planks"
-  	}
+    "#": {
+      "item": "wilderwild:palm_planks"
+    }
   },
   "pattern": [
-	  "###"
+    "###"
   ],
   "result": {
-	  "count": 6,
-	  "item": "wilderwild:palm_slab"
+    "count": 6,
+    "item": "wilderwild:palm_slab"
   }
 }

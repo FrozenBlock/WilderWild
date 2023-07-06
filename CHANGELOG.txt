@@ -4,5 +4,75 @@ Make sure to clear this after each release
 
 Put changelog here:
 -----------------
-- Fixed mob spawners not running `finalizeSpawn()` when spawning mobs
-- Updated Ukrainian translation
+- Reworked and optimized most of Sculk Spreading.
+- Sculk Veins will no longer stay on Slabs and Stairs after being converted to Sculk Slabs and Sculk Stairs.
+- Sculk Sensors, Sculk Shriekers, Hanging Tendrils, and Osseous Sculk can now grow out of solid faces of Sculk Slabs and Sculk Stairs.
+- Changed Osseous Sculk's rotation state from Axis to Facing.
+- Removed Minecraft Live Sculk Sensor Tendril config in favor of a cleaner and bug-free implementation using a Resource Pack.
+- Added Suspicious Gravel to Ancient Cities. Get your brushes ready and rip off your eyelids!
+- Added Stone Chests in Ancient Cities' centers.
+- Added a "tomb" to Ancient Cities' centers.
+- Tweaked the rarity of Ancient Horn Fragments.
+- Added Osseous Sculk and Hanging Tendrils to Ancient Cities' loot tables.
+- Removed Stone Chest Closes gamerule.
+- Added Shrubs to many biomes like Plains, Forest, Dark Forest, and much more.
+- Added more flora to the Plains, Meadow, Flower Forest, Flower Field, Forest, Semi-Birch Forest, Birch Forest, and Mangrove Swamp biomes.
+- Cattails can now generate on Mud blocks if not nearby water.
+- Palms now rarely generate on Beaches.
+- Added Snapped variants of trees.
+- Mangrove Swamps have now been wilder-ified, including Cattails, Flowers, Bushes, Mud Basins, Mud Lakes, more Grass, Fern, and rare Mud Piles.
+- Made path features look more natural.
+- Added new rare Coarse Dirt, Gravel, and Stone paths throughout the world.
+- Forest biomes now have clearings, with Rooted Dirt and Coarse Dirt/Gravel surrounding it.
+    - Snapped Trees will generate more frequently in clearings.
+    - Flowers will generate more commonly in clearings in Forest and Birch Forest biomes and their variants.
+- Decreased the size of uncommon Algae patches (Swamp & Mangrove Swamp.)
+- Added a new advancement "Bottle of Lightning" for capturing a Firefly in a Glass Bottle.
+- Incorporated Wilder Wild's new foods, mobs, and biomes into Vanilla's advancements (note that this may be overriden by other mods' data.)
+- Jellyfish can now reproduce.
+    - Repeatedly feeding a non-pearlescent Jellyfish with any non-pearlescent Nematocyst will eventually cause a baby Jellyfish to spawn.
+    - Repeatedly feeding a pearlescent Jellyfish with any pearlescent Nematocyst will eventually cause a baby Jellyfish to spawn.
+- Baby Jellyfish will only inflict 1 damage (half a heart) as opposed to three (a heart and a half.)
+- Bubbles will occasionally spawn behind adult Jellyfish as they swim.
+- Added a config option that controls how many tentacles Jellyfish have.
+- Only pearlescent Mesoglea will lift items and boats as opposed to all types prior.
+- Termites no longer spam sounds and quickly overload the sound cap. They now use sound loops that move along with them.
+- Added two config options controlling how far Termites can travel from their Mounds.
+- Added unique sounds for all Ice blocks (was only Frosted Ice prior.)
+- Included all Tall Flowers in the "Flower Sounds" config.
+- Firefly Bottles can now be recolored.
+- Fixed a crash pertaining to Jellyfish variants and Firefly colors.
+- Added new Frosted Ice melting sounds and particles.
+- Jellyfish and Fireflies now only hide when they're near the center of their target.
+- Made many more aspects of Wilder Wild's worldgen data-driven.
+- Optimized the way some features generate (Trees, Cattails, Algae, etc.)
+- Added descriptions and proper names to Wilder Wild's built-in resource packs.
+- Lots of internal cleanup, reorganization, and optimizations.
+
+Mod Compat Changes/Additions:
+- The Liquid Mesoglea feature (found in Block config) now works with Sodium enabled. (Sodium)
+- The Ancient Horn's massive vibration can no longer be infinitely cycled through Copper Pipes. (Simple Copper Pipes)
+- Falling leaves now follow FrozenLib/Wilder Wild's wind. (Falling Leaves)
+- Chests only bubble according to Wilder Wild's rules instead of each time they're opened. (Make Bubbles Pop)
+- Rain, Snowflake, and Desert Dust particles now follow FrozenLib/Wilder Wild's wind. (Particle Rain)
+
+Bug Fixes:
+- Sculk Slabs no longer drop Palm Slabs.
+- Fixed block-break sounds playing when Echo Glass only cracks.
+- Fixed broken loop in Deep Dark ambience.
+- Fixed a bug where Wardens would continuously attempt and fail to roar at Tumbleweeds.
+- Tumbleweed entities now properly look in the direction they're moving.
+- Fixed broken Stone Chest animations and cleaned up their code.
+- Fixed Stone Chests incorrectly dropping ancient items for probably the seventh time now.
+- Fixed some missing recipe unlocks.
+- Fixed cloud rendering at high coordinates.
+- Fixed Tumbleweed breaking crops only client-side.
+- Fixed Baobab Nut collision.
+- Shadows no longer render on waterlogged Mesoglea. Change not applied with Sodium.
+- Algae no longer slows down entities outside its collision shape.
+- Fixed Algae growth with Bone meal.
+- Cattails no longer create pockets of air when they're supposed to be waterlogged.
+- Fixed a bug where players could dupe Fireflies by rapidly clicking with Bottles of Fireflies.
+- Endermen now properly play their moving/looping sounds when the config is enabled.
+- Ancient Horn and Prickly Pear damage sources now once again retain their properties.
+- And many more that were unfortunately forgotten to be documented!

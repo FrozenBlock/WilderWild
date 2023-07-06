@@ -21,7 +21,6 @@ package net.frozenblock.wilderwild.mixin.server.general;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.world.level.block.CactusBlock;
-import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -32,4 +31,5 @@ public final class CactusBlockMixin {
 	private boolean wilderWild$canSurviveIsSolid(boolean original) {
 		return !WilderSharedConstants.config().cactusPlacement() && original;
 	}
+
 }

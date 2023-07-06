@@ -1,7 +1,7 @@
 {
   "variants": {
-	"": {
-	  "model": "wilderwild:block/prickly_pear_cactus"
-	}
+    "": {
+      "model": "wilderwild:block/prickly_pear_cactus"
+    }
   }
 }

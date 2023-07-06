@@ -10,7 +10,7 @@
         }
       }
     },
-    "chance": 1.0,
+    "chance": 0.8,
     "is3D": false,
     "maxThresh": 1.0,
     "minThresh": 0.4,
@@ -19,10 +19,7 @@
     "noise": 4,
     "onlyExposed": false,
     "radius": 11,
-    "replaceable": [
-      "minecraft:sand",
-      "minecraft:sandstone"
-    ],
+    "replaceable": "#wilderwild:oasis_path_replaceable",
     "useY": false,
     "waterPathBlock": {
       "type": "minecraft:simple_state_provider",

@@ -29,7 +29,7 @@ import org.spongepowered.asm.mixin.Unique;
 public abstract class SuspendedParticleMixin extends TextureSheetParticle implements WilderDripSuspendedParticleInterface {
 
 	@Unique
-	private boolean wilderWild$usesWind;
+	private boolean wilderWild$usesWind = false;
 
 	protected SuspendedParticleMixin(ClientLevel clientLevel, double d, double e, double f) {
 		super(clientLevel, d, e, f);

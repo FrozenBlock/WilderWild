@@ -20,6 +20,13 @@ package net.frozenblock.wilderwild.misc.config.defaultconfig;
 
 public class DefaultBlockConfig {
 
+	public static final boolean SHRIEKER_GARGLING = true;
+	public static final boolean SOUL_FIRE_SOUNDS = true;
+	public static final boolean BILLBOARD_TENDRILS = true;
+	public static final boolean MESOGLEA_LIQUID = false;
+	public static final boolean POLLEN_PARTICLES = true;
+	public static final boolean CACTUS_PLACEMENT = true;
+
 	public static class BlockSoundsConfig {
 		public static final boolean CACTUS_SOUNDS = true;
 		public static final boolean CLAY_SOUNDS = true;
@@ -28,6 +35,7 @@ public class DefaultBlockConfig {
 		public static final boolean DEAD_BUSH_SOUNDS = true;
 		public static final boolean FLOWER_SOUNDS = true;
 		public static final boolean SAPLING_SOUNDS = true;
+		public static final boolean ICE_SOUNDS = true;
 		public static final boolean FROSTED_ICE_SOUNDS = true;
 		public static final boolean GRAVEL_SOUNDS = true;
 		public static final boolean LEAF_SOUNDS = true;
@@ -46,13 +54,7 @@ public class DefaultBlockConfig {
 
 	public static class TermiteConfig {
 		public static final boolean ONLY_EAT_NATURAL_BLOCKS = true;
+		public static final int MAX_DISTANCE = 32;
+		public static final int MAX_NATURAL_DISTANCE = 10;
 	}
-
-	public static final boolean MC_LIVE_SENSOR_TENDRILS = false;
-	public static final boolean SHRIEKER_GARGLING = true;
-	public static final boolean SOUL_FIRE_SOUNDS = true;
-	public static final boolean BILLBOARD_TENDRILS = true;
-	public static final boolean MESOGLEA_LIQUID = false;
-	public static final boolean POLLEN_PARTICLES = true;
-	public static final boolean CACTUS_PLACEMENT = true;
 }

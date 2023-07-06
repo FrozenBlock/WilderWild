@@ -32,8 +32,6 @@ public abstract class AbstractClothConfigIntegration extends ModIntegration {
 
 	// BLOCK
 
-	public abstract boolean mcLiveSensorTendrils();
-
 	public abstract boolean billboardTendrils();
 
 	public abstract boolean mesogleaLiquid();
@@ -55,6 +53,8 @@ public abstract class AbstractClothConfigIntegration extends ModIntegration {
 	public abstract boolean flowerSounds();
 
 	public abstract boolean gravelSounds();
+
+	public abstract boolean iceSounds();
 
 	public abstract boolean frostedIceSounds();
 
@@ -88,6 +88,10 @@ public abstract class AbstractClothConfigIntegration extends ModIntegration {
 
 	public abstract boolean termitesOnlyEatNaturalBlocks();
 
+	public abstract int maxTermiteDistance();
+
+	public abstract int maxNaturalTermiteDistance();
+
 	public abstract boolean shriekerGargling();
 
 	public abstract boolean soulFireSounds();
@@ -106,9 +110,13 @@ public abstract class AbstractClothConfigIntegration extends ModIntegration {
 
 	public abstract int jellyfishSpawnCap();
 
+	public abstract int jellyfishTentacles();
+
 	public abstract int tumbleweedSpawnCap();
 
 	public abstract boolean leashedTumbleweed();
+
+	public abstract boolean tumbleweedRotatesToLookDirection();
 
 	public abstract boolean wardenAttacksImmediately();
 
@@ -199,6 +207,8 @@ public abstract class AbstractClothConfigIntegration extends ModIntegration {
 	public abstract boolean dyingTrees();
 
 	public abstract boolean fallenLogs();
+
+	public abstract boolean snappedLogs();
 
 	public abstract boolean wildTrees();
 

@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.client.general;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.ScorchedBlock;
@@ -29,49 +30,46 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SculkShriekerBlock;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin(LevelRenderer.class)
 public class LevelRendererMixin {
 
-    @Shadow
-    private @Nullable ClientLevel level;
+	@Shadow
+	@Nullable
+	private ClientLevel level;
 
-    @Inject(method = "levelEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;playLocalSound(DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FFZ)V", ordinal = 0), cancellable = true)
-    private void wilderWild$shriekerGargle(int eventId, BlockPos pos, int data, CallbackInfo info) {
-        if (WilderSharedConstants.config().shriekerGargling()) {
-            assert this.level != null;
-            if (this.level.getBlockState(pos).getValue(BlockStateProperties.WATERLOGGED) || this.level.getBlockState(pos.above()).getBlock() == Blocks.WATER || this.level.getFluidState(pos.above()).is(FluidTags.WATER)) {
-                this.level
-                        .playLocalSound(
-                                (double) pos.getX() + 0.5D,
-                                (double) pos.getY() + SculkShriekerBlock.TOP_Y,
-                                (double) pos.getZ() + 0.5D,
-                                RegisterSounds.BLOCK_SCULK_SHRIEKER_GARGLE,
-                                SoundSource.BLOCKS,
-                                2.0F,
-                                0.6F + this.level.random.nextFloat() * 0.4F,
-                                false
-                        );
-                info.cancel();
-            }
-        }
-    }
+	@ModifyExpressionValue(method = "levelEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;getValue(Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/lang/Comparable;", ordinal = 0))
+	private Comparable<Boolean> wilderWild$shriekerGargle(Comparable<Boolean> original, int eventId, BlockPos pos, int data) {
+		if (WilderSharedConstants.config().shriekerGargling()) {
+			if (original.compareTo(true) == 0 || this.level.getFluidState(pos.above()).is(FluidTags.WATER)) {
+				this.level
+					.playLocalSound(
+						(double) pos.getX() + 0.5D,
+						(double) pos.getY() + SculkShriekerBlock.TOP_Y,
+						(double) pos.getZ() + 0.5D,
+						RegisterSounds.BLOCK_SCULK_SHRIEKER_GARGLE,
+						SoundSource.BLOCKS,
+						2.0F,
+						0.6F + this.level.random.nextFloat() * 0.4F,
+						false
+					);
+			}
+		}
+		return original;
+	}
 
-	@Inject(method = "levelEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;addDestroyBlockEffect(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V", shift = At.Shift.BEFORE, ordinal = 1))
-	private void wilderWild$scorchedBrush(int type, BlockPos pos, int data, CallbackInfo ci) {
-		if (Block.stateById(data).getBlock() instanceof ScorchedBlock scorchedBlock) {
+	@ModifyExpressionValue(method = "levelEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;getBlock()Lnet/minecraft/world/level/block/Block;"))
+	private Block wilderWild$scorchedBrush(Block original, int eventId, BlockPos pos, int data) {
+		if (original instanceof ScorchedBlock scorchedBlock) {
 			this.level.playLocalSound(pos, scorchedBlock.brushCompletedSound, SoundSource.PLAYERS, 1.0F, 1.0F, false);
 		}
+		return original;
 	}
 
 }

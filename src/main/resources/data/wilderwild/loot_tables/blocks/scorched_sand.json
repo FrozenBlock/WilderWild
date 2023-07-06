@@ -13,14 +13,14 @@
               "function": "minecraft:copy_state",
               "block": "wilderwild:scorched_sand",
               "properties": [
-                "crackedness"
+                "cracked"
               ],
               "conditions": [
                 {
                   "condition": "minecraft:block_state_property",
                   "block": "wilderwild:scorched_sand",
                   "properties": {
-                    "crackedness": "true"
+                    "cracked": "true"
                   }
                 }
               ]

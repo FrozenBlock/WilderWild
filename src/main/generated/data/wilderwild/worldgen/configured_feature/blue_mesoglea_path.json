@@ -19,17 +19,7 @@
     "noise": 1,
     "onlyExposed": false,
     "radius": 14,
-    "replaceable": [
-      "minecraft:clay",
-      "minecraft:stone",
-      "minecraft:andesite",
-      "minecraft:diorite",
-      "minecraft:granite",
-      "minecraft:dripstone_block",
-      "minecraft:calcite",
-      "minecraft:tuff",
-      "minecraft:deepslate"
-    ],
+    "replaceable": "#wilderwild:mesoglea_path_replaceable",
     "useY": true
   }
 }

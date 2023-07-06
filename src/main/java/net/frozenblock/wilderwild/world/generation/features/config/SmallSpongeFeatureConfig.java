@@ -36,81 +36,81 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
 public class SmallSpongeFeatureConfig implements FeatureConfiguration {
-    public static final Codec<SmallSpongeFeatureConfig> CODEC = RecordCodecBuilder.create((instance) ->
-    instance.group(
-        BuiltInRegistries.BLOCK.byNameCodec().fieldOf("block")
-            .flatXmap(SmallSpongeFeatureConfig::validateBlock, DataResult::success)
-            .orElse((SmallSpongeBlock) RegisterBlocks.SMALL_SPONGE)
-            .forGetter(
-                config -> config.sponge
-            ),
-            Codec.intRange(1, 64).fieldOf("search_range").orElse(10).forGetter(
-                    config -> config.searchRange
-            ),
-            Codec.BOOL.fieldOf("can_place_on_floor").orElse(false).forGetter(
-                config -> config.placeOnFloor
-            ),
-            Codec.BOOL.fieldOf("can_place_on_ceiling").orElse(false).forGetter(
-                config -> config.placeOnCeiling
-            ),
-            Codec.BOOL.fieldOf("can_place_on_wall").orElse(false).forGetter(
-                config -> config.placeOnWalls
-            ),
-            TagKey.codec(Registries.BLOCK).fieldOf("can_be_placed_on").forGetter(
-                config -> config.canPlaceOn
-            )
-        ).apply(instance, SmallSpongeFeatureConfig::new)
-    );
+	public static final Codec<SmallSpongeFeatureConfig> CODEC = RecordCodecBuilder.create((instance) ->
+		instance.group(
+			BuiltInRegistries.BLOCK.byNameCodec().fieldOf("block")
+				.flatXmap(SmallSpongeFeatureConfig::validateBlock, DataResult::success)
+				.orElse(RegisterBlocks.SMALL_SPONGE)
+				.forGetter(
+					config -> config.sponge
+				),
+			Codec.intRange(1, 64).fieldOf("search_range").orElse(10).forGetter(
+				config -> config.searchRange
+			),
+			Codec.BOOL.fieldOf("can_place_on_floor").orElse(false).forGetter(
+				config -> config.placeOnFloor
+			),
+			Codec.BOOL.fieldOf("can_place_on_ceiling").orElse(false).forGetter(
+				config -> config.placeOnCeiling
+			),
+			Codec.BOOL.fieldOf("can_place_on_wall").orElse(false).forGetter(
+				config -> config.placeOnWalls
+			),
+			TagKey.codec(Registries.BLOCK).fieldOf("can_be_placed_on").forGetter(
+				config -> config.canPlaceOn
+			)
+		).apply(instance, SmallSpongeFeatureConfig::new)
+	);
 
-    public final SmallSpongeBlock sponge;
-    public final int searchRange;
-    public final boolean placeOnFloor;
-    public final boolean placeOnCeiling;
-    public final boolean placeOnWalls;
-    public final TagKey<Block> canPlaceOn;
-    private final ObjectArrayList<Direction> directions;
+	public final SmallSpongeBlock sponge;
+	public final int searchRange;
+	public final boolean placeOnFloor;
+	public final boolean placeOnCeiling;
+	public final boolean placeOnWalls;
+	public final TagKey<Block> canPlaceOn;
+	private final ObjectArrayList<Direction> directions;
 
-    private static DataResult<SmallSpongeBlock> validateBlock(Block block) {
-        DataResult<SmallSpongeBlock> var10000;
-        if (block instanceof SmallSpongeBlock smallSpongeBlock) {
-            var10000 = DataResult.success(smallSpongeBlock);
-        } else {
-            var10000 = DataResult.error(() -> "Growth block should be a small sponge block bruh bruh bruh bruh bruh");
-        }
+	public SmallSpongeFeatureConfig(SmallSpongeBlock sponge, int searchRange, boolean placeOnFloor, boolean placeOnCeiling, boolean placeOnWalls, TagKey<Block> canPlaceOn) {
+		this.sponge = sponge;
+		this.searchRange = searchRange;
+		this.placeOnFloor = placeOnFloor;
+		this.placeOnCeiling = placeOnCeiling;
+		this.placeOnWalls = placeOnWalls;
+		this.canPlaceOn = canPlaceOn;
+		this.directions = new ObjectArrayList<>(6);
+		if (placeOnCeiling) {
+			this.directions.add(Direction.UP);
+		}
 
-        return var10000;
-    }
+		if (placeOnFloor) {
+			this.directions.add(Direction.DOWN);
+		}
 
-    public SmallSpongeFeatureConfig(SmallSpongeBlock sponge, int searchRange, boolean placeOnFloor, boolean placeOnCeiling, boolean placeOnWalls, TagKey<Block> canPlaceOn) {
-        this.sponge = sponge;
-        this.searchRange = searchRange;
-        this.placeOnFloor = placeOnFloor;
-        this.placeOnCeiling = placeOnCeiling;
-        this.placeOnWalls = placeOnWalls;
-        this.canPlaceOn = canPlaceOn;
-        this.directions = new ObjectArrayList<>(6);
-        if (placeOnCeiling) {
-            this.directions.add(Direction.UP);
-        }
+		if (placeOnWalls) {
+			Direction.Plane var10000 = Direction.Plane.HORIZONTAL;
+			ObjectArrayList<Direction> var10001 = this.directions;
+			Objects.requireNonNull(var10001);
+			var10000.forEach(var10001::add);
+		}
 
-        if (placeOnFloor) {
-            this.directions.add(Direction.DOWN);
-        }
+	}
 
-        if (placeOnWalls) {
-            Direction.Plane var10000 = Direction.Plane.HORIZONTAL;
-            ObjectArrayList<Direction> var10001 = this.directions;
-            Objects.requireNonNull(var10001);
-            var10000.forEach(var10001::add);
-        }
+	private static DataResult<SmallSpongeBlock> validateBlock(Block block) {
+		DataResult<SmallSpongeBlock> var10000;
+		if (block instanceof SmallSpongeBlock smallSpongeBlock) {
+			var10000 = DataResult.success(smallSpongeBlock);
+		} else {
+			var10000 = DataResult.error(() -> "Growth block should be a small sponge block bruh bruh bruh bruh bruh");
+		}
 
-    }
+		return var10000;
+	}
 
-    public List<Direction> shuffleDirections(RandomSource random, Direction excluded) {
-        return Util.toShuffledList(this.directions.stream().filter((direction) -> direction != excluded), random);
-    }
+	public List<Direction> shuffleDirections(RandomSource random, Direction excluded) {
+		return Util.toShuffledList(this.directions.stream().filter((direction) -> direction != excluded), random);
+	}
 
-    public List<Direction> shuffleDirections(RandomSource random) {
-        return Util.shuffledCopy(this.directions, random);
-    }
+	public List<Direction> shuffleDirections(RandomSource random) {
+		return Util.shuffledCopy(this.directions, random);
+	}
 }

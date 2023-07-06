@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/wall_inventory",
   "textures": {
-	"wall": "minecraft:block/sculk"
+    "wall": "minecraft:block/sculk"
   }
 }

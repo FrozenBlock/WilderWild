@@ -1,34 +1,35 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-	"e": {
-	  "conditions": {
-		"items": [
-		  {
-			"items": [
-			  "wilderwild:ancient_horn_fragment"
-			]
-		  }
-		]
-	  },
-	  "trigger": "minecraft:inventory_changed"
-	},
-	"has_the_recipe": {
-	  "conditions": {
-		"recipe": "wilderwild:ancient_horn"
-	  },
-	  "trigger": "minecraft:recipe_unlocked"
-	}
+    "e": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "wilderwild:ancient_horn_fragment"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "wilderwild:ancient_horn"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
   },
   "requirements": [
-	[
-	  "e",
-	  "has_the_recipe"
-	]
+    [
+      "e",
+      "has_the_recipe"
+    ]
   ],
   "rewards": {
-	"recipes": [
-	  "wilderwild:ancient_horn"
-	]
-  }
+    "recipes": [
+      "wilderwild:ancient_horn"
+    ]
+  },
+  "sends_telemetry_event": false
 }

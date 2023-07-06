@@ -1,0 +1,22 @@
+{
+  "type": "frozenlib:noise_path_tag_feature",
+  "config": {
+    "block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:gravel"
+      }
+    },
+    "chance": 0.21,
+    "is3D": false,
+    "maxThresh": 0.3,
+    "minThresh": -0.2,
+    "multiplier": 0.12,
+    "multiplyY": false,
+    "noise": 4,
+    "onlyExposed": false,
+    "radius": 6,
+    "replaceable": "wilderwild:gravel_path_replaceable",
+    "useY": false
+  }
+}

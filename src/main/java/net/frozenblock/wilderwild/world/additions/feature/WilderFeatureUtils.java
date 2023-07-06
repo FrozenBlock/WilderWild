@@ -13,10 +13,12 @@ public final class WilderFeatureUtils {
 		throw new UnsupportedOperationException("WilderFeatureUtils contains only static declarations.");
 	}
 
-	public static FrozenConfiguredFeature<NoneFeatureConfiguration, ConfiguredFeature<NoneFeatureConfiguration, ?>> register(String id, Feature<NoneFeatureConfiguration> feature) {
+	@NotNull
+	public static FrozenConfiguredFeature<NoneFeatureConfiguration, ConfiguredFeature<NoneFeatureConfiguration, ?>> register(@NotNull String id, @NotNull Feature<NoneFeatureConfiguration> feature) {
 		return register(id, feature, FeatureConfiguration.NONE);
 	}
 
+	@NotNull
 	public static <FC extends FeatureConfiguration, F extends Feature<FC>> FrozenConfiguredFeature<FC, ConfiguredFeature<FC, ?>> register(@NotNull String id, F feature, @NotNull FC config) {
 		var key = WilderSharedConstants.id(id);
 		FrozenConfiguredFeature<FC, ConfiguredFeature<FC, ?>> frozen = new FrozenConfiguredFeature<>(key);
@@ -24,6 +26,7 @@ public final class WilderFeatureUtils {
 		return frozen;
 	}
 
+	@NotNull
 	public static <FC extends FeatureConfiguration, F extends Feature<FC>> FrozenConfiguredFeature<FC, ConfiguredFeature<FC, ?>> register(@NotNull String id) {
 		var key = WilderSharedConstants.id(id);
 		return new FrozenConfiguredFeature<>(key);

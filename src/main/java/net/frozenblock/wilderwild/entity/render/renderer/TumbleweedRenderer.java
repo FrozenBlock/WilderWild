@@ -27,7 +27,6 @@ import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.render.model.TumbleweedModel;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -44,12 +43,13 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<
 	private static final float pi180 = Mth.PI / 180;
 	private final ItemRenderer itemRenderer;
 
-	public TumbleweedRenderer(Context context) {
+	public TumbleweedRenderer(@NotNull Context context) {
 		super(context, new TumbleweedModel<>(context.bakeLayer(WilderWildClient.TUMBLEWEED)), 0.6F);
 		this.itemRenderer = context.getItemRenderer();
 	}
 
 	@Override
+	@NotNull
 	public Vec3 getRenderOffset(@NotNull Tumbleweed entity, float partialTicks) {
 		return new Vec3(0, 0.2375, 0);
 	}
@@ -72,7 +72,9 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<
 
 	@Override
 	protected void setupRotations(@NotNull Tumbleweed entityLiving, @NotNull PoseStack matrixStack, float ageInTicks, float rotationYaw, float partialTick) {
-
+		if (WilderSharedConstants.config().tumbleweedRotatesToLookDirection()) {
+			matrixStack.mulPose(Axis.YP.rotationDegrees(180.0f - rotationYaw));
+		}
 	}
 
 	@Override

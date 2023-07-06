@@ -32,7 +32,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class MilkweedPod extends Item {
 
-	public MilkweedPod(Properties settings) {
+	public MilkweedPod(@NotNull Properties settings) {
 		super(settings);
 	}
 
@@ -40,7 +40,9 @@ public class MilkweedPod extends Item {
 	@NotNull
 	public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player user, @NotNull InteractionHand hand) {
 		ItemStack itemStack = user.getItemInHand(hand);
-		itemStack.shrink(1);
+		if (!user.getAbilities().instabuild) {
+			itemStack.shrink(1);
+		}
 		if (level instanceof ServerLevel server) {
 			float pitch = user.getXRot();
 			float yaw = user.getYRot();
@@ -55,8 +57,8 @@ public class MilkweedPod extends Item {
 	}
 
 	@Override
+	@NotNull
 	public UseAnim getUseAnimation(@NotNull ItemStack stack) {
 		return UseAnim.TOOT_HORN;
 	}
-
 }

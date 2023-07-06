@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
-import net.frozenblock.wilderwild.entity.TermiteManager;
+import net.frozenblock.wilderwild.entity.ai.TermiteManager;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
@@ -42,24 +42,45 @@ import org.jetbrains.annotations.Nullable;
 
 public class TermiteMound extends BaseEntityBlock {
 
-    public TermiteMound(Properties settings) {
-        super(settings);
+	public TermiteMound(@NotNull Properties settings) {
+		super(settings);
 		this.registerDefaultState(this.stateDefinition.any().setValue(RegisterProperties.NATURAL, false).setValue(RegisterProperties.TERMITES_AWAKE, false).setValue(RegisterProperties.CAN_SPAWN_TERMITE, false));
-    }
+	}
 
-    @Nullable
-    @Override
-    public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-        return new TermiteMoundBlockEntity(pos, state);
-    }
+	public static boolean canTermitesWaken(@NotNull Level level, @NotNull BlockPos pos) {
+		return !shouldTermitesSleep(level, getLightLevel(level, pos));
+	}
 
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(RegisterProperties.NATURAL, RegisterProperties.TERMITES_AWAKE, RegisterProperties.CAN_SPAWN_TERMITE);
-    }
+	public static boolean shouldTermitesSleep(@NotNull Level level, int light) {
+		return level.isNight() && light < 7;
+	}
+
+	public static int getLightLevel(@NotNull Level level, @NotNull BlockPos blockPos) {
+		BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
+		int finalLight = 0;
+		for (Direction direction : Direction.values()) {
+			mutableBlockPos.move(direction);
+			int newLight = !level.isRaining() ? level.getMaxLocalRawBrightness(mutableBlockPos) : level.getBrightness(LightLayer.BLOCK, mutableBlockPos);
+			finalLight = Math.max(finalLight, newLight);
+			mutableBlockPos.move(direction, -1);
+		}
+		return finalLight;
+	}
+
+	@Nullable
+	@Override
+	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+		return new TermiteMoundBlockEntity(pos, state);
+	}
 
 	@Override
-	public BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
+	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
+		builder.add(RegisterProperties.NATURAL, RegisterProperties.TERMITES_AWAKE, RegisterProperties.CAN_SPAWN_TERMITE);
+	}
+
+	@Override
+	@NotNull
+	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
 		boolean isSafe = TermiteManager.isPosSafeForTermites(level, neighborPos, neighborState);
 		if (isSafe != state.getValue(RegisterProperties.TERMITES_AWAKE)) {
 			state.setValue(RegisterProperties.TERMITES_AWAKE, isSafe);
@@ -71,12 +92,12 @@ public class TermiteMound extends BaseEntityBlock {
 	}
 
 	@Override
-	public void onPlace(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull BlockState oldState, boolean isMoving) {
+	public void onPlace(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState oldState, boolean isMoving) {
 		level.scheduleTick(pos, this, level.random.nextInt(40, 200));
 	}
 
 	@Override
-	public void onRemove(BlockState state, @NotNull Level level, @NotNull BlockPos pos, BlockState newState, boolean isMoving) {
+	public void onRemove(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
 			if (level.getBlockEntity(pos) instanceof TermiteMoundBlockEntity termiteMoundBlockEntity) {
 				termiteMoundBlockEntity.termiteManager.clearTermites(level);
@@ -98,33 +119,15 @@ public class TermiteMound extends BaseEntityBlock {
 		level.scheduleTick(pos, this, random.nextInt(90, 150));
 	}
 
-	public static boolean canTermitesWaken(@NotNull Level level, @NotNull BlockPos pos) {
-		return !shouldTermitesSleep(level, getLightLevel(level, pos));
-	}
-
-	public static boolean shouldTermitesSleep(Level level, int light) {
-		return level.isNight() && light < 7;
-	}
-
-	public static int getLightLevel(Level level, BlockPos blockPos) {
-		BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
-		int finalLight = 0;
-		for (Direction direction : Direction.values()) {
-			mutableBlockPos.move(direction);
-			int newLight = !level.isRaining() ? level.getMaxLocalRawBrightness(mutableBlockPos) : level.getBrightness(LightLayer.BLOCK, mutableBlockPos);
-			finalLight = Math.max(finalLight, newLight);
-			mutableBlockPos.move(direction, -1);
-		}
-		return finalLight;
-	}
-
 	@Override
-    public RenderShape getRenderShape(@NotNull BlockState blockState) {
-        return RenderShape.MODEL;
-    }
+	@NotNull
+	public RenderShape getRenderShape(@NotNull BlockState blockState) {
+		return RenderShape.MODEL;
+	}
 
-    @Nullable
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
-        return !level.isClientSide ? createTickerHelper(type, RegisterBlockEntities.TERMITE_MOUND, (worldx, pos, statex, blockEntity) -> blockEntity.tick(worldx, pos, statex.getValue(RegisterProperties.NATURAL), statex.getValue(RegisterProperties.TERMITES_AWAKE), statex.getValue(RegisterProperties.CAN_SPAWN_TERMITE))) : null;
-    }
+	@Nullable
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
+		return !level.isClientSide ? createTickerHelper(type, RegisterBlockEntities.TERMITE_MOUND, (worldx, pos, statex, blockEntity) -> blockEntity.tickServer(worldx, pos, statex.getValue(RegisterProperties.NATURAL), statex.getValue(RegisterProperties.TERMITES_AWAKE), statex.getValue(RegisterProperties.CAN_SPAWN_TERMITE)))
+			: createTickerHelper(type, RegisterBlockEntities.TERMITE_MOUND, (worldx, pos, statex, blockEntity) -> blockEntity.tickClient());
+	}
 }

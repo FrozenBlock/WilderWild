@@ -18,55 +18,45 @@
 
 package net.frozenblock.wilderwild.world.generation.sapling;
 
+import net.frozenblock.wilderwild.misc.interfaces.AbstractTreeGrowerInterface;
 import net.frozenblock.wilderwild.world.additions.feature.WilderConfiguredFeatures;
 import net.frozenblock.wilderwild.world.additions.feature.WilderTreeConfigured;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class CypressSaplingGenerator extends AbstractTreeGrower {
 
-    public CypressSaplingGenerator() {
-    }
-
-	private @Nullable ServerLevel level;
-
-	private @Nullable BlockPos pos;
+	public CypressSaplingGenerator() {
+	}
 
 	@Override
+	@Nullable
 	protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource random, boolean bees) {
-		if (this.level != null && this.pos != null) {
-			if (this.level.getBlockState(pos).getFluidState().is(FluidTags.WATER)) {
+		AbstractTreeGrowerInterface treeGrowerInterface = (AbstractTreeGrowerInterface) this;
+		ServerLevel level = treeGrowerInterface.wilderWild$getLevel();
+		BlockPos pos = treeGrowerInterface.wilderWild$getPos();
+		if (level != null && pos != null) {
+			if (level.getBlockState(pos).getFluidState().is(FluidTags.WATER)) {
 				return WilderTreeConfigured.SWAMP_CYPRESS.getKey();
 			}
-			Holder<Biome> biome = this.level.getBiome(this.pos);
+			Holder<Biome> biome = level.getBiome(pos);
 			if (biome.is(BiomeTags.IS_BADLANDS)) {
 				return WilderTreeConfigured.JUNIPER.getKey();
 			}
 		}
-        if (random.nextFloat() > 0.4F) {
-            return random.nextFloat() > 0.7F ? WilderTreeConfigured.CYPRESS.getKey() : WilderTreeConfigured.FUNGUS_CYPRESS.getKey();
-        }
-		this.level = null;
-		this.pos = null;
-        return WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES_SAPLING.getKey();
-    }
-
-	public boolean growTree(@NotNull ServerLevel level, @NotNull ChunkGenerator generator, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull RandomSource random) {
-		this.level = level;
-		this.pos = pos;
-		return super.growTree(level, generator, pos, state, random);
+		if (random.nextFloat() > 0.4F) {
+			return random.nextFloat() > 0.7F ? WilderTreeConfigured.CYPRESS.getKey() : WilderTreeConfigured.FUNGUS_CYPRESS.getKey();
+		}
+		return WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES_SAPLING.getKey();
 	}
-
 }

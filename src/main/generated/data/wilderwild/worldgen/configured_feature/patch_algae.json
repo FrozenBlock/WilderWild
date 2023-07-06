@@ -1,6 +1,12 @@
 {
   "type": "wilderwild:algae_feature",
   "config": {
-    "probability": 0.8
+    "radius": {
+      "type": "minecraft:uniform",
+      "value": {
+        "max_inclusive": 10,
+        "min_inclusive": 4
+      }
+    }
   }
 }

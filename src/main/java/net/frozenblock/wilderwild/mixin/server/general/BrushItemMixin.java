@@ -30,6 +30,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -68,13 +69,13 @@ public class BrushItemMixin {
 
 	@Inject(method = "onUseTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;isClientSide()Z", shift = At.Shift.BEFORE), cancellable = true)
 	public void wilderWild$brushScorchedBlocks(Level level, LivingEntity livingEntity2, ItemStack itemStack, int i, CallbackInfo info) {
-		if (this.wilderWild$brushScorchedBlocks(level, livingEntity2, itemStack, i)) {
+		if (this.wilderWild$brushScorchedBlocks(level, livingEntity2, itemStack)) {
 			info.cancel();
 		}
 	}
 
 	@Unique
-	private boolean wilderWild$brushScorchedBlocks(Level level, LivingEntity livingEntity, ItemStack stack, int i) {
+	private boolean wilderWild$brushScorchedBlocks(@NotNull Level level, LivingEntity livingEntity, @NotNull ItemStack stack) {
 		if (!level.isClientSide() && this.wilderWild$blockHitResult != null && this.wilderWild$blockState != null && livingEntity instanceof Player player) {
 			BlockPos blockPos = this.wilderWild$blockHitResult.getBlockPos();
 			BlockEntity blockEntity = level.getBlockEntity(blockPos);

@@ -3,15 +3,15 @@
   "category": "building",
   "group": "wooden_slab",
   "key": {
-	  "#": {
-	    "item": "wilderwild:cypress_planks"
-	  }
+    "#": {
+      "item": "wilderwild:cypress_planks"
+    }
   },
   "pattern": [
-	  "###"
+    "###"
   ],
   "result": {
-	  "count": 6,
-	  "item": "wilderwild:cypress_slab"
+    "count": 6,
+    "item": "wilderwild:cypress_slab"
   }
 }

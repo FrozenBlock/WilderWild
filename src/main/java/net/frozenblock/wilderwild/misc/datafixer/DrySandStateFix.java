@@ -29,11 +29,11 @@ import net.minecraft.util.datafix.fixes.References;
 
 public class DrySandStateFix extends DataFix {
 
-	private final String name;
-	private final String blockId;
 	private static final String OLD_STATE = "crackness";
 	private static final String NEW_STATE = "crackedness";
 	private static final String DEFAULT_VALUE = "0";
+	private final String name;
+	private final String blockId;
 
 	public DrySandStateFix(Schema outputSchema, String name, ResourceLocation blockId) {
 		this(outputSchema, name, blockId.toString());
@@ -56,7 +56,7 @@ public class DrySandStateFix extends DataFix {
 	@Override
 	protected TypeRewriteRule makeRule() {
 		return this.fixTypeEverywhereTyped(
-				this.name, this.getInputSchema().getType(References.BLOCK_STATE), typed -> typed.update(DSL.remainderFinder(), this::fix)
+			this.name, this.getInputSchema().getType(References.BLOCK_STATE), typed -> typed.update(DSL.remainderFinder(), this::fix)
 		);
 	}
 }

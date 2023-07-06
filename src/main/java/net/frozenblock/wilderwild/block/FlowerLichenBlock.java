@@ -32,50 +32,51 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import org.jetbrains.annotations.NotNull;
 
 public class FlowerLichenBlock extends MultifaceBlock {
-    private final MultifaceSpreader grower = new MultifaceSpreader(this);
+	private final MultifaceSpreader grower = new MultifaceSpreader(this);
 
-    public FlowerLichenBlock(Properties settings) {
-        super(settings);
-    }
+	public FlowerLichenBlock(@NotNull Properties settings) {
+		super(settings);
+	}
 
-	@Override
-    protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
-        for (Direction direction : DIRECTIONS) {
-            if (this.isFaceSupported(direction)) {
-                builder.add(getFaceProperty(direction));
-            }
-        }
-    }
+	public static boolean canAttachToNoWater(@NotNull BlockGetter level, @NotNull Direction direction, @NotNull BlockPos pos, @NotNull BlockState state) {
+		return Block.isFaceFull(state.getBlockSupportShape(level, pos), direction.getOpposite()) || Block.isFaceFull(state.getCollisionShape(level, pos), direction.getOpposite()) && !level.getBlockState(pos).is(Blocks.WATER);
+	}
 
 	@Override
-    public boolean canSurvive(@NotNull BlockState state, LevelReader level, @NotNull BlockPos pos) {
-        boolean bl = false;
-        if (level.getBlockState(pos).is(Blocks.WATER)) {
-            return false;
-        }
-        for (Direction direction : DIRECTIONS) {
-            if (hasFace(state, direction)) {
-                BlockPos blockPos = pos.relative(direction);
-                if (!canAttachToNoWater(level, direction, blockPos, level.getBlockState(blockPos))) {
-                    return false;
-                }
-                bl = true;
-            }
-        }
-        return bl;
-    }
-
-    public static boolean canAttachToNoWater(BlockGetter level, Direction direction, BlockPos pos, BlockState state) {
-        return Block.isFaceFull(state.getBlockSupportShape(level, pos), direction.getOpposite()) || Block.isFaceFull(state.getCollisionShape(level, pos), direction.getOpposite()) && !level.getBlockState(pos).is(Blocks.WATER);
-    }
+	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
+		for (Direction direction : DIRECTIONS) {
+			if (this.isFaceSupported(direction)) {
+				builder.add(getFaceProperty(direction));
+			}
+		}
+	}
 
 	@Override
-    public boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
-        return !context.getItemInHand().is(state.getBlock().asItem()) || super.canBeReplaced(state, context);
-    }
+	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
+		boolean bl = false;
+		if (level.getBlockState(pos).is(Blocks.WATER)) {
+			return false;
+		}
+		for (Direction direction : DIRECTIONS) {
+			if (hasFace(state, direction)) {
+				BlockPos blockPos = pos.relative(direction);
+				if (!canAttachToNoWater(level, direction, blockPos, level.getBlockState(blockPos))) {
+					return false;
+				}
+				bl = true;
+			}
+		}
+		return bl;
+	}
 
-    @Override
-    public MultifaceSpreader getSpreader() {
-        return grower;
-    }
+	@Override
+	public boolean canBeReplaced(@NotNull BlockState state, @NotNull BlockPlaceContext context) {
+		return !context.getItemInHand().is(state.getBlock().asItem()) || super.canBeReplaced(state, context);
+	}
+
+	@Override
+	@NotNull
+	public MultifaceSpreader getSpreader() {
+		return grower;
+	}
 }

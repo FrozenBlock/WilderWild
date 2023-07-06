@@ -5,21 +5,20 @@
   "name": "Wilder Wild",
   "description": "Overhauls the Wild Update, adding features and improving existing ones.",
   "authors": [
-    "FrozenBlock"
-  ],
-  "contributors": [
     "Luna",
     "Treetrain1",
-    "Merp",
     "Soro",
+    "Merp"
+  ],
+  "contributors": [
+    "LudoCrypt",
     "Liukrast",
     "Xfrtrex",
-    "Osmiooo",
-    "AlexTheDolphin0",
     "SaishoVibes",
     "zozozrob_",
     "Enri",
-    "LudoCrypt"
+    "magistermaks",
+    "Osmiooo"
   ],
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/wilder-wild",
@@ -39,9 +38,6 @@
     "preLaunch": [
       "net.frozenblock.wilderwild.misc.WilderWildPreLaunch"
     ],
-    "fabric-datagen": [
-      "net.frozenblock.wilderwild.misc.WilderWildDataGenerator"
-    ],
     "frozenlib:events": [
       "net.frozenblock.wilderwild.registry.RegisterSurfaceRules"
     ],
@@ -53,6 +49,9 @@
     ],
     "terrablender": [
       "net.frozenblock.wilderwild.misc.mod_compat.terrablender.BlenderInitializer"
+    ],
+    "fabric-datagen": [
+      "net.frozenblock.wilderwild.misc.WilderWildDataGenerator"
     ]
   },
   "mixins": [

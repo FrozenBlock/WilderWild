@@ -33,13 +33,13 @@ import org.jetbrains.annotations.NotNull;
 
 public class CoconutItem extends BlockItem {
 
-	public CoconutItem(Block block, Properties properties) {
+	public CoconutItem(@NotNull Block block, @NotNull Properties properties) {
 		super(block, properties);
 	}
 
 	@Override
 	@NotNull
-	public InteractionResultHolder<ItemStack> use(Level level, Player player, @NotNull InteractionHand usedHand) {
+	public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand usedHand) {
 		ItemStack itemStack = player.getItemInHand(usedHand);
 		level.playSound(null, player.getX(), player.getY(), player.getZ(), RegisterSounds.ITEM_COCONUT_THROW, SoundSource.NEUTRAL, 0.5f, 0.4f / (level.getRandom().nextFloat() * 0.4f + 0.8f));
 		if (!level.isClientSide) {

@@ -18,15 +18,17 @@
 
 package net.frozenblock.wilderwild.mixin.server.general;
 
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscConfigured;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LightningBolt;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -42,18 +44,18 @@ public class LightningBoltMixin {
 		this.wilderWild$scorchSand(LightningBolt.class.cast(this));
 	}
 
-	private void wilderWild$scorchSand(LightningBolt bolt) {
+	@Unique
+	private void wilderWild$scorchSand(@NotNull LightningBolt bolt) {
 		if (this.visualOnly || bolt.level().isClientSide) {
 			return;
 		}
 		if (bolt.level() instanceof ServerLevel serverLevel) {
 			BlockPos blockPos = this.getStrikePosition();
-			BlockState strikeState = bolt.level().getBlockState(blockPos);
-			if (strikeState.is(Blocks.SAND) || strikeState.is(RegisterBlocks.SCORCHED_SAND)) {
-				WilderMiscConfigured.SCORCHED_SAND_DISK_LIGHTNING.getConfiguredFeature(serverLevel).place(serverLevel, serverLevel.getChunkSource().getGenerator(), serverLevel.getRandom(), blockPos);
-			}
-			if (strikeState.is(Blocks.RED_SAND) || strikeState.is(RegisterBlocks.SCORCHED_RED_SAND)) {
-				WilderMiscConfigured.SCORCHED_RED_SAND_DISK_LIGHTNING.getConfiguredFeature(serverLevel).place(serverLevel, serverLevel.getChunkSource().getGenerator(), serverLevel.getRandom(), blockPos);
+			if (bolt.level().getBlockState(blockPos).is(BlockTags.SAND)) {
+				ChunkGenerator chunkGenerator = serverLevel.getChunkSource().getGenerator();
+				RandomSource randomSource = serverLevel.getRandom();
+				WilderMiscConfigured.SCORCHED_SAND_DISK_LIGHTNING.getConfiguredFeature(serverLevel).place(serverLevel, chunkGenerator, randomSource, blockPos);
+				WilderMiscConfigured.SCORCHED_RED_SAND_DISK_LIGHTNING.getConfiguredFeature(serverLevel).place(serverLevel, chunkGenerator, randomSource, blockPos);
 			}
 		}
 	}

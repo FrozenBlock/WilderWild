@@ -1,9 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "minecraft:sculk",
-    "wilderwild:sculk_wall",
-    "wilderwild:sculk_slab",
-    "wilderwild:sculk_stairs"
-  ]
-}

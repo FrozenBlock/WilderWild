@@ -28,17 +28,12 @@ import net.frozenblock.wilderwild.misc.config.WilderWildConfig;
 import net.frozenblock.wilderwild.misc.config.WorldgenConfig;
 
 public class ClothConfigIntegration extends AbstractClothConfigIntegration {
-	public ClothConfigIntegration() {
-		super();
-	}
-
 	private static final FrozenLibConfigCategory FROZENLIB = FrozenLibConfig.get().config;
 	private static final BlockConfig BLOCK = WilderWildConfig.get().block;
 	private static final EntityConfig ENTITY = WilderWildConfig.get().entity;
 	private static final ItemConfig ITEM = WilderWildConfig.get().item;
 	private static final WorldgenConfig WORLDGEN = WilderWildConfig.get().worldgen;
 	private static final MiscConfig MISC = WilderWildConfig.get().misc;
-
 	private static final EntityConfig.AllayConfig ALLAY = ENTITY.allay;
 	private static final ItemConfig.AncientHornConfig ANCIENT_HORN = ITEM.ancientHorn;
 	private static final MiscConfig.BiomeAmbienceConfig BIOME_AMBIENCE = MISC.biomeAmbience;
@@ -55,15 +50,15 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	private static final EntityConfig.JellyfishConfig JELLYFISH = ENTITY.jellyfish;
 	private static final EntityConfig.TumbleweedConfig TUMBLEWEED = ENTITY.tumbleweed;
 
+	public ClothConfigIntegration() {
+		super();
+	}
+
 	@Override
-	public void init() {}
+	public void init() {
+	}
 
 	// BLOCK
-
-	@Override
-	public boolean mcLiveSensorTendrils() {
-		return BLOCK.mcLiveSensorTendrils;
-	}
 
 	@Override
 	public boolean billboardTendrils() {
@@ -118,6 +113,11 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	@Override
 	public boolean gravelSounds() {
 		return BLOCK_SOUNDS.gravelSounds;
+	}
+
+	@Override
+	public boolean iceSounds() {
+		return BLOCK_SOUNDS.iceSounds;
 	}
 
 	@Override
@@ -201,6 +201,16 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public int maxTermiteDistance() {
+		return TERMITE.maxDistance;
+	}
+
+	@Override
+	public int maxNaturalTermiteDistance() {
+		return TERMITE.maxNaturalDistance;
+	}
+
+	@Override
 	public boolean shriekerGargling() {
 		return BLOCK.shriekerGargling;
 	}
@@ -243,6 +253,11 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public int jellyfishTentacles() {
+		return JELLYFISH.jellyfishTentacles;
+	}
+
+	@Override
 	public int tumbleweedSpawnCap() {
 		return TUMBLEWEED.tumbleweedSpawnCap;
 	}
@@ -250,6 +265,11 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	@Override
 	public boolean leashedTumbleweed() {
 		return TUMBLEWEED.leashedTumbleweed;
+	}
+
+	@Override
+	public boolean tumbleweedRotatesToLookDirection() {
+		return TUMBLEWEED.tumbleweedRotatesToLookDirection;
 	}
 
 	@Override
@@ -469,6 +489,11 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	@Override
 	public boolean fallenLogs() {
 		return WORLDGEN.fallenLogs;
+	}
+
+	@Override
+	public boolean snappedLogs() {
+		return WORLDGEN.snappedLogs;
 	}
 
 	@Override

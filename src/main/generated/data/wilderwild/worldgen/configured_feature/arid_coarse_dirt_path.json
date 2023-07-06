@@ -7,7 +7,7 @@
         "Name": "minecraft:coarse_dirt"
       }
     },
-    "chance": 1.0,
+    "chance": 0.825,
     "is3D": false,
     "maxThresh": 0.55,
     "minThresh": -0.15,
@@ -16,10 +16,7 @@
     "noise": 3,
     "onlyExposed": false,
     "radius": 12,
-    "replaceable": [
-      "minecraft:dirt",
-      "minecraft:grass_block"
-    ],
+    "replaceable": "#minecraft:dirt",
     "useY": false
   }
 }

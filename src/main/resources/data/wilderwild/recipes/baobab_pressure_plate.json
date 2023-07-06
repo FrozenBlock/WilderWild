@@ -3,14 +3,14 @@
   "category": "redstone",
   "group": "wooden_pressure_plate",
   "key": {
-	  "#": {
-	    "item": "wilderwild:baobab_planks"
-	  }
+    "#": {
+      "item": "wilderwild:baobab_planks"
+    }
   },
   "pattern": [
-	  "##"
+    "##"
   ],
   "result": {
-	  "item": "wilderwild:baobab_pressure_plate"
+    "item": "wilderwild:baobab_pressure_plate"
   }
 }

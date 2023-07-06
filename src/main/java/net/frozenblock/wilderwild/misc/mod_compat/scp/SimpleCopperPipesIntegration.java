@@ -56,11 +56,11 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 
 public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesIntegration {
-    public SimpleCopperPipesIntegration() {
-        super();
-    }
-
 	public static final ResourceLocation HORN = WilderSharedConstants.id("ancient_horn");
+
+	public SimpleCopperPipesIntegration() {
+		super();
+	}
 
 	@Override
 	public void init() {
@@ -76,6 +76,7 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 						projectileEntity.shoot(direction.getStepX(), direction.getStepY(), direction.getStepZ(), 1.0F, 0.0F);
 						projectileEntity.setOwner(nbt.foundEntity);
 						projectileEntity.setShotByPlayer(true);
+						projectileEntity.canInteractWithPipe = false;
 						level.addFreshEntity(projectileEntity);
 						FrozenSoundPackets.createMovingRestrictionLoopingSound(level, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, FrozenMain.id("default"), true);
 					}
@@ -229,8 +230,8 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 		});
 
 		PipeMovementRestrictions.register(WilderSharedConstants.id("stone_chest"),
-				((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false),
-				((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false));
+			((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false),
+			((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false));
 
 	}
 
@@ -256,4 +257,3 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 	}
 
 }
-

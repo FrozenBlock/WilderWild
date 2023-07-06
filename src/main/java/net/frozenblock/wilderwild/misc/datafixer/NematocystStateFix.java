@@ -29,10 +29,10 @@ import net.minecraft.util.datafix.fixes.References;
 
 public class NematocystStateFix extends DataFix {
 
-	private final String name;
-	private final String blockId;
 	private static final String OLD_STATE = "facing";
 	private static final String DEFAULT_VALUE = "up";
+	private final String name;
+	private final String blockId;
 
 	public NematocystStateFix(Schema outputSchema, String name, ResourceLocation blockId) {
 		this(outputSchema, name, blockId.toString());
@@ -64,7 +64,7 @@ public class NematocystStateFix extends DataFix {
 	@Override
 	protected TypeRewriteRule makeRule() {
 		return this.fixTypeEverywhereTyped(
-				this.name, this.getInputSchema().getType(References.BLOCK_STATE), typed -> typed.update(DSL.remainderFinder(), this::fix)
+			this.name, this.getInputSchema().getType(References.BLOCK_STATE), typed -> typed.update(DSL.remainderFinder(), this::fix)
 		);
 	}
 }

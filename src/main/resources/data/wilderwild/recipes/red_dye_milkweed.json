@@ -3,12 +3,12 @@
   "category": "misc",
   "group": "red_dye",
   "ingredients": [
-	  {
-	    "item": "wilderwild:milkweed"
-	  }
+    {
+      "item": "wilderwild:milkweed"
+    }
   ],
   "result": {
-	"item": "minecraft:red_dye",
-	"count": 2
+    "item": "minecraft:red_dye",
+    "count": 2
   }
 }

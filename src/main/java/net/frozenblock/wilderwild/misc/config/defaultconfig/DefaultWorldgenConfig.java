@@ -20,6 +20,24 @@ package net.frozenblock.wilderwild.misc.config.defaultconfig;
 
 public class DefaultWorldgenConfig {
 
+	public static final boolean BETA_BEACHES = true;
+	public static final boolean DYING_TREES = true;
+	public static final boolean FALLEN_LOGS = true;
+	public static final boolean SNAPPED_LOGS = true;
+	public static final boolean WILDER_WILD_TREE_GEN = true;
+	public static final boolean WILDER_WILD_GRASS_GEN = true;
+	public static final boolean WILDER_WILD_FLOWER_GEN = true;
+	public static final boolean WILDER_WILD_BUSH_GEN = true;
+	public static final boolean WILDER_WILD_CACTUS_GEN = true;
+	public static final boolean WILDER_WILD_MUSHROOM_GEN = true;
+	public static final boolean TUMBLEWEED_GEN = true;
+	public static final boolean ALGAE_GEN = true;
+	public static final boolean TERMITE_GEN = true;
+	public static final boolean SURFACE_DECORATION = true;
+	public static final boolean SNOW_BELOW_TREES = true;
+	public static final boolean SURFACE_TRANSITIONS = true;
+	public static final boolean NEW_WITCH_HUTS = true;
+
 	public static class BiomePlacement {
 		public static final boolean MODIFY_WINDSWEPT_SAVANNA_PLACEMENT = true;
 		public static final boolean MODIFY_JUNGLE_PLACEMENT = true;
@@ -49,21 +67,4 @@ public class DefaultWorldgenConfig {
 		public static final boolean GENERATE_RAINFOREST = true;
 		public static final boolean GENERATE_DARK_TAIGA = true;
 	}
-
-	public static final boolean BETA_BEACHES = true;
-	public static final boolean DYING_TREES = true;
-	public static final boolean FALLEN_LOGS = true;
-	public static final boolean WILDER_WILD_TREE_GEN = true;
-	public static final boolean WILDER_WILD_GRASS_GEN = true;
-	public static final boolean WILDER_WILD_FLOWER_GEN = true;
-	public static final boolean WILDER_WILD_BUSH_GEN = true;
-	public static final boolean WILDER_WILD_CACTUS_GEN = true;
-	public static final boolean WILDER_WILD_MUSHROOM_GEN = true;
-	public static final boolean TUMBLEWEED_GEN = true;
-	public static final boolean ALGAE_GEN = true;
-	public static final boolean TERMITE_GEN = true;
-	public static final boolean SURFACE_DECORATION = true;
-	public static final boolean SNOW_BELOW_TREES = true;
-	public static final boolean SURFACE_TRANSITIONS = true;
-	public static final boolean NEW_WITCH_HUTS = true;
 }

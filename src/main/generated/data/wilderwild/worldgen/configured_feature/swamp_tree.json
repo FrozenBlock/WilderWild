@@ -15,11 +15,7 @@
     "dirt_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "minecraft:oak_log",
-        "Properties": {
-          "axis": "y",
-          "termite_edible": "true"
-        }
+        "Name": "minecraft:air"
       }
     },
     "foliage_placer": {

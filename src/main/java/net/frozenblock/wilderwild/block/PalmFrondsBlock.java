@@ -38,21 +38,50 @@ import org.jetbrains.annotations.NotNull;
 
 public class PalmFrondsBlock extends LeavesBlock implements BonemealableBlock {
 
-    public PalmFrondsBlock(Properties settings) {
-        super(settings);
-    }
+	public PalmFrondsBlock(@NotNull Properties settings) {
+		super(settings);
+	}
 
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, @NotNull BlockState state, boolean isClient) {
-        return level.getBlockState(pos.below()).isAir() && (state.getValue(BlockStateProperties.DISTANCE) < 2 || state.getValue(BlockStateProperties.PERSISTENT));
-    }
+	public static boolean nextToLeafOrCrown(@NotNull BlockState neighbor) {
+		return neighbor.is(RegisterBlocks.PALM_FRONDS) || neighbor.is(RegisterBlocks.PALM_CROWN);
+	}
 
-    public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-        return true;
-    }
+	@NotNull
+	public static BlockState updateDistance(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
+		int dist = Mth.clamp((int) (PalmCrownBlockEntity.PalmCrownPositions.distanceToClosestPalmCrown(level, pos, 7)), 1, 7);
+		int i = 7;
+		boolean validCrown = false;
+		for (BlockPos blockPos : BlockPos.betweenClosed(pos.offset(-1, -1, -1), pos.offset(1, 1, 1))) {
+			if (!validCrown && nextToLeafOrCrown(level.getBlockState(blockPos))) {
+				validCrown = true;
+			}
+			i = Math.min(i, getDistanceAt(level.getBlockState(blockPos)) + 1);
+			if (i == 1) break;
+		}
+		return state.setValue(DISTANCE, Math.min(validCrown ? dist : i, i));
+	}
 
-    public void performBonemeal(ServerLevel level, @NotNull RandomSource random, BlockPos pos, @NotNull BlockState state) {
-        level.setBlock(pos.below(), CoconutBlock.getDefaultHangingState(), 2);
-    }
+	public static int getDistanceAt(@NotNull BlockState neighbor) {
+		if (neighbor.is(BlockTags.LOGS)) {
+			return 0;
+		}
+		return 7;
+	}
+
+	@Override
+	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
+		return level.getBlockState(pos.below()).isAir() && (state.getValue(BlockStateProperties.DISTANCE) < 2 || state.getValue(BlockStateProperties.PERSISTENT));
+	}
+
+	@Override
+	public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
+		return true;
+	}
+
+	@Override
+	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
+		level.setBlock(pos.below(), CoconutBlock.getDefaultHangingState(), 2);
+	}
 
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
@@ -68,12 +97,13 @@ public class PalmFrondsBlock extends LeavesBlock implements BonemealableBlock {
 	}
 
 	@Override
-	public void tick(@NotNull BlockState state, ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		level.setBlock(pos, updateDistance(state, level, pos), 3);
 	}
 
 	@Override
-	public BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
+	@NotNull
+	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
 		int i;
 		if (state.getValue(WATERLOGGED)) {
 			level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
@@ -84,33 +114,8 @@ public class PalmFrondsBlock extends LeavesBlock implements BonemealableBlock {
 		return state;
 	}
 
-	public static boolean nextToLeafOrCrown(BlockState neighbor) {
-		return neighbor.is(RegisterBlocks.PALM_FRONDS) || neighbor.is(RegisterBlocks.PALM_CROWN);
-	}
-
-	public static BlockState updateDistance(BlockState state, LevelReader level, BlockPos pos) {
-		int dist = Mth.clamp((int) (PalmCrownBlockEntity.PalmCrownPositions.distanceToClosestPalmCrown(level, pos, 7)), 1, 7);
-		int i = 7;
-		boolean validCrown = false;
-		for (BlockPos blockPos : BlockPos.betweenClosed(pos.offset(-1, -1, -1), pos.offset(1, 1, 1))) {
-			if (!validCrown && nextToLeafOrCrown(level.getBlockState(blockPos))) {
-				validCrown = true;
-			}
-			i = Math.min(i, getDistanceAt(level.getBlockState(blockPos)) + 1);
-			if (i == 1) break;
-		}
-		return state.setValue(DISTANCE, Math.min(validCrown ? dist : i, i));
-	}
-
-	public static int getDistanceAt(BlockState neighbor) {
-		if (neighbor.is(BlockTags.LOGS)) {
-			return 0;
-		}
-		return 7;
-	}
-
 	@Override
-	public boolean isRandomlyTicking(BlockState state) {
+	public boolean isRandomlyTicking(@NotNull BlockState state) {
 		return !state.getValue(PERSISTENT);
 	}
 }

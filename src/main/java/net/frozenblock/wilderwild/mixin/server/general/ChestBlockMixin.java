@@ -30,7 +30,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.AbstractChestBlock;
 import net.minecraft.world.level.block.ChestBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -38,6 +37,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -52,6 +52,24 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 		super(properties, blockEntityType);
 	}
 
+	@Unique
+	@Nullable
+	private static ChestBlockEntity wilderWild$getOtherChest(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state) {
+		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
+		ChestType chestType = state.getValue(ChestBlock.TYPE);
+		if (chestType == ChestType.RIGHT) {
+			mutableBlockPos.move(ChestBlock.getConnectedDirection(state));
+		} else if (chestType == ChestType.LEFT) {
+			mutableBlockPos.move(ChestBlock.getConnectedDirection(state));
+		} else {
+			return null;
+		}
+		if (level.getBlockEntity(mutableBlockPos) instanceof ChestBlockEntity chest) {
+			return chest;
+		}
+		return null;
+	}
+
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;openMenu(Lnet/minecraft/world/MenuProvider;)Ljava/util/OptionalInt;", shift = At.Shift.BEFORE), method = "use")
 	public void wilderWild$useBeforeOpenMenu(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit, CallbackInfoReturnable<InteractionResult> info) {
 		if (level.getBlockEntity(pos) instanceof ChestBlockEntity sourceChest) {
@@ -60,7 +78,7 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 					Jellyfish.spawnFromChest(level, state, pos);
 				}
 			}
-			((ChestBlockEntityInterface)sourceChest).wilderWild$bubble(level, pos, state);
+			((ChestBlockEntityInterface) sourceChest).wilderWild$bubble(level, pos, state);
 		}
 	}
 
@@ -74,20 +92,20 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 				boolean wasLogged = blockStateUnneeded.getValue(BlockStateProperties.WATERLOGGED);
 				if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
 					if (!otherState.getValue(BlockStateProperties.WATERLOGGED)) {
-						((ChestBlockEntityInterface)chest).wilderWild$setCanBubble(true);
-						((ChestBlockEntityInterface)otherChest).wilderWild$setCanBubble(true);
-					} else if (!((ChestBlockEntityInterface)otherChest).wilderWild$getCanBubble()) {
-						((ChestBlockEntityInterface)chest).wilderWild$setCanBubble(false);
+						((ChestBlockEntityInterface) chest).wilderWild$setCanBubble(true);
+						((ChestBlockEntityInterface) otherChest).wilderWild$setCanBubble(true);
+					} else if (!((ChestBlockEntityInterface) otherChest).wilderWild$getCanBubble()) {
+						((ChestBlockEntityInterface) chest).wilderWild$setCanBubble(false);
 					}
 				}
 			} else {
 				boolean wasLogged = blockStateUnneeded.getValue(BlockStateProperties.WATERLOGGED);
 				if (wasLogged != state.getValue(BlockStateProperties.WATERLOGGED) && wasLogged) {
-					((ChestBlockEntityInterface)chest).wilderWild$setCanBubble(true);
+					((ChestBlockEntityInterface) chest).wilderWild$setCanBubble(true);
 				}
 			}
 			if (otherChest != null && level.getBlockEntity(currentPos) instanceof ChestBlockEntity sourceChest) {
-				((ChestBlockEntityInterface)sourceChest).wilderWild$syncBubble(sourceChest, otherChest);
+				((ChestBlockEntityInterface) sourceChest).wilderWild$syncBubble(sourceChest, otherChest);
 			}
 		}
 	}
@@ -95,34 +113,8 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/Containers;dropContents(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/Container;)V", shift = At.Shift.BEFORE), method = "onRemove")
 	public void onRemove(BlockState state, @NotNull Level level, @NotNull BlockPos pos, BlockState newState, boolean isMoving, CallbackInfo info) {
 		if (level.getBlockEntity(pos) instanceof ChestBlockEntity chestBlockEntity) {
-			((ChestBlockEntityInterface)chestBlockEntity).wilderWild$bubbleBurst(state);
+			((ChestBlockEntityInterface) chestBlockEntity).wilderWild$bubbleBurst(state);
 		}
-	}
-
-	@Unique
-	private static ChestBlockEntity wilderWild$getOtherChest(LevelAccessor level, BlockPos pos, BlockState state) {
-		ChestType chestType = state.getValue(ChestBlock.TYPE);
-		double x = pos.getX();
-		double y = pos.getY();
-		double z = pos.getZ();
-		if (chestType == ChestType.RIGHT) {
-			Direction direction = ChestBlock.getConnectedDirection(state);
-			x += direction.getStepX();
-			z += direction.getStepZ();
-		} else if (chestType == ChestType.LEFT) {
-			Direction direction = ChestBlock.getConnectedDirection(state);
-			x += direction.getStepX();
-			z += direction.getStepZ();
-		} else {
-			return null;
-		}
-		BlockPos newPos = BlockPos.containing(x, y, z);
-		BlockEntity be = level.getBlockEntity(newPos);
-		ChestBlockEntity entity = null;
-		if (be instanceof ChestBlockEntity chest) {
-			entity = chest;
-		}
-		return entity;
 	}
 
 }

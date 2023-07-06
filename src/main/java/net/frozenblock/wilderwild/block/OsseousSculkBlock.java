@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
@@ -29,264 +28,267 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.MultifaceBlock;
-import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.SculkBehaviour;
 import net.minecraft.world.level.block.SculkSpreader;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public class OsseousSculkBlock extends RotatedPillarBlock implements SculkBehaviour {
-	private static final ConstantInt EXPERIENCE = ConstantInt.of(3);
+public class OsseousSculkBlock extends Block implements SculkBehaviour {
+	public static final DirectionProperty FACING = BlockStateProperties.FACING;
 	public static final IntegerProperty HEIGHT_LEFT = RegisterProperties.PILLAR_HEIGHT_LEFT;
-	public static final BooleanProperty UPSIDEDOWN = RegisterProperties.UPSIDE_DOWN;
 	public static final IntegerProperty TOTAL_HEIGHT = RegisterProperties.TOTAL_HEIGHT;
+	private static final ConstantInt EXPERIENCE = ConstantInt.of(3);
 
-    public OsseousSculkBlock(Properties settings) {
-        super(settings);
-        this.registerDefaultState(this.stateDefinition.any().setValue(HEIGHT_LEFT, 0).setValue(AXIS, Direction.Axis.Y).setValue(UPSIDEDOWN, false).setValue(TOTAL_HEIGHT, 0));
-    }
+	public OsseousSculkBlock(@NotNull Properties settings) {
+		super(settings);
+		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP).setValue(HEIGHT_LEFT, 0).setValue(TOTAL_HEIGHT, 0));
+	}
 
-	@Override
-    public void spawnAfterBreak(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull ItemStack stack, boolean dropExperience) {
-        super.spawnAfterBreak(state, level, pos, stack, dropExperience);
-        if (dropExperience) {
-            this.tryDropExperience(level, pos, stack, EXPERIENCE);
-        }
-    }
-
-    public static Direction getDir(Direction.Axis axis, boolean upsideDown, RandomSource random) {
-		switch (axis) {
-			case X -> {
-				return random.nextBoolean() ? Direction.EAST : Direction.WEST;
-			}
-			case Y -> {
-				return upsideDown ? Direction.DOWN : Direction.UP;
-			}
-			default -> {
-				return random.nextBoolean() ? Direction.NORTH : Direction.SOUTH;
-			}
+	public static Direction getDir(@NotNull Direction.Axis axis, @NotNull RandomSource random) {
+		if (axis == Direction.Axis.X) {
+			return random.nextBoolean() ? Direction.EAST : Direction.WEST;
 		}
-    }
+		return random.nextBoolean() ? Direction.NORTH : Direction.SOUTH;
+	}
 
-	public static Direction.Axis getAxis(RandomSource random) {
+	@NotNull
+	public static Direction.Axis getAxis(@NotNull RandomSource random) {
 		return random.nextBoolean() ? Direction.Axis.X : Direction.Axis.Z;
 	}
 
-    public static Direction.Axis getAxis(BlockPos pos) {
-        return EasyNoiseSampler.sample(EasyNoiseSampler.perlinLocal, pos, 0.7, false, false) > 0 ? Direction.Axis.X : Direction.Axis.Z;
-    }
+	@NotNull
+	public static Direction.Axis getAxis(@NotNull BlockPos pos) {
+		return EasyNoiseSampler.sample(EasyNoiseSampler.perlinLocal, pos, 0.7, false, false) > 0 ? Direction.Axis.X : Direction.Axis.Z;
+	}
 
-    public void convertToSculk(LevelAccessor level, BlockPos pos) {
-        BlockState state = level.getBlockState(pos);
-        if (state.is(this)) {
-            Direction.Axis axis = state.getValue(AXIS);
-            Direction dir = getDir(axis, state.getValue(UPSIDEDOWN), level.getRandom());
-            if (level.getBlockState(pos.relative(dir)).is(this)) {
-                BlockPos newPos = pos.relative(dir);
-				BlockPos.MutableBlockPos mutableBlockPos = newPos.mutable();
-                for (Direction direction : UPDATE_SHAPE_ORDER) {
-					mutableBlockPos.set(newPos);
-                    BlockState stateReplace = level.getBlockState(mutableBlockPos.move(direction));
-                    BlockState stateSetTo = null;
-                    if (stateReplace.is(Blocks.SCULK_VEIN)) {
-                        stateSetTo = stateReplace.setValue(MultifaceBlock.getFaceProperty(direction.getOpposite()), true);
-                    }
-                    if (stateReplace.isAir()) {
-                        stateSetTo = Blocks.SCULK_VEIN.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(direction.getOpposite()), true);
-                    }
-                    if (stateReplace == Blocks.WATER.defaultBlockState()) {
-                        stateSetTo = Blocks.SCULK_VEIN.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(direction.getOpposite()), true).setValue(BlockStateProperties.WATERLOGGED, true);
-                    }
-                    if (stateSetTo != null) {
-                        level.setBlock(mutableBlockPos, stateSetTo, 3);
-                    }
-                }
-                level.setBlock(pos, Blocks.SCULK.defaultBlockState(), 3);
-            }
-        }
-    }
+	public static boolean isSafeToReplace(@NotNull BlockState state) {
+		return state.is(Blocks.SCULK_VEIN) || state.isAir() || state.is(Blocks.WATER);
+	}
 
-    @Override
-    public int attemptUseCharge(SculkSpreader.@NotNull ChargeCursor cursor, @NotNull LevelAccessor level, @NotNull BlockPos catalystPos, @NotNull RandomSource random, SculkSpreader spreadManager, boolean shouldConvertToBlock) {
-        if (spreadManager.isWorldGeneration()) {
-            worldGenSpread(cursor.getPos(), level, random);
-            return cursor.getCharge();
-        }
-        int i = cursor.getCharge();
-        int j = 1;
-        if (i != 0 && random.nextInt(2) == 0) {
-            BlockPos blockPos = cursor.getPos();
-            boolean bl = blockPos.closerThan(catalystPos, spreadManager.noGrowthRadius());
-            if (!bl) {
-                int pillarHeight = level.getBlockState(blockPos).getValue(OsseousSculkBlock.HEIGHT_LEFT);
-                BlockPos topPos = getTop(level, blockPos, pillarHeight);
-                if (topPos != null) {
-                    BlockState state = level.getBlockState(topPos);
-                    pillarHeight = state.getValue(OsseousSculkBlock.HEIGHT_LEFT);
-                    Direction direction = getDir(state.getValue(AXIS), state.getValue(UPSIDEDOWN), level.getRandom());
-                    if (level.getBlockState(topPos.relative(direction)).isAir() || level.getBlockState(topPos.relative(direction)).getBlock() == Blocks.SCULK_VEIN) {
-                        BlockState blockState = this.defaultBlockState().setValue(HEIGHT_LEFT, Math.max(0, pillarHeight - 1));
+	@Nullable
+	@Override
+	public BlockState getStateForPlacement(@NotNull BlockPlaceContext blockPlaceContext) {
+		return super.getStateForPlacement(blockPlaceContext).setValue(FACING, blockPlaceContext.getClickedFace().getOpposite());
+	}
 
-                        if (pillarHeight == 1 && !state.getValue(UPSIDEDOWN) && state.getValue(TOTAL_HEIGHT) > 0) {
-                            if (EasyNoiseSampler.localRandom.nextInt(Math.max(1, state.getValue(TOTAL_HEIGHT) / 2)) <= 1) {
-                                if (random.nextInt(11) == 0) {
-                                    blockState = Blocks.SCULK_CATALYST.defaultBlockState();
-                                }
-                            }
-                        }
-                        if (blockState.getBlock() == this) {
-                            blockState = blockState.setValue(TOTAL_HEIGHT, state.getValue(TOTAL_HEIGHT));
-                            if (state.getValue(UPSIDEDOWN)) {
-                                blockState = blockState.setValue(UPSIDEDOWN, true);
-                                if (direction == Direction.DOWN && random.nextDouble() > 0.8) {
-                                    Direction ribCage = getDir(getAxis(level.getRandom()), false, level.getRandom());
-                                    if (isSafeToReplace(level.getBlockState(topPos.relative(ribCage)))) {
-                                        level.setBlock(topPos.relative(ribCage), this.defaultBlockState().setValue(AXIS, getAxis(level.getRandom())).setValue(TOTAL_HEIGHT, state.getValue(TOTAL_HEIGHT)).setValue(HEIGHT_LEFT, 0), 3);
-                                        if (isSafeToReplace(level.getBlockState(topPos.relative(ribCage).below()))) {
-                                            if (random.nextDouble() > 0.7) {
-                                                level.setBlock(topPos.relative(ribCage).below(), RegisterBlocks.HANGING_TENDRIL.defaultBlockState(), 3);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        level.setBlock(topPos.relative(direction), blockState, 3);
-						SoundType placedSoundType = blockState.getSoundType();
-                        level.playSound(null, blockPos, placedSoundType.getPlaceSound(), SoundSource.BLOCKS, placedSoundType.getVolume(), placedSoundType.getPitch());
-                        if (spreadManager.isWorldGeneration() && random.nextDouble() > 0.2) {
-                            j = 0;
-                        }
-                        BlockPos bottom = getBottom(level, topPos.relative(direction), state.getValue(TOTAL_HEIGHT));
-                        if (bottom != null) {
-                            BlockState bottomState = level.getBlockState(bottom);
-                            if (bottomState.is(this)) {
-                                int piece = bottomState.getValue(HEIGHT_LEFT);
-                                int total = bottomState.getValue(TOTAL_HEIGHT);
-                                if ((total) - piece <= total / 3) {
-                                    convertToSculk(level, bottom);
-                                }
-                            }
-                        }
-                        return Math.max(0, i - j);
-                    }
-                }
-            }
-        }
-        return i;
-    }
+	@Override
+	public void spawnAfterBreak(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull ItemStack stack, boolean dropExperience) {
+		super.spawnAfterBreak(state, level, pos, stack, dropExperience);
+		if (dropExperience) {
+			this.tryDropExperience(level, pos, stack, EXPERIENCE);
+		}
+	}
 
-    public static boolean isSafeToReplace(BlockState state) {
-        return state.is(Blocks.SCULK_VEIN) || state.isAir() || state.is(Blocks.WATER);
-    }
+	@Override
+	public int attemptUseCharge(SculkSpreader.@NotNull ChargeCursor cursor, @NotNull LevelAccessor level, @NotNull BlockPos catalystPos, @NotNull RandomSource random, @NotNull SculkSpreader spreadManager, boolean shouldConvertToBlock) {
+		if (spreadManager.isWorldGeneration()) {
+			worldGenSpread(cursor.getPos(), level, random);
+			return cursor.getCharge();
+		}
+		int i = cursor.getCharge();
+		int j = 1;
+		if (i != 0 && random.nextInt(2) == 0) {
+			BlockPos blockPos = cursor.getPos();
+			boolean bl = blockPos.closerThan(catalystPos, spreadManager.noGrowthRadius());
+			if (!bl) {
+				int pillarHeightLeft = level.getBlockState(blockPos).getValue(OsseousSculkBlock.HEIGHT_LEFT);
+				if (pillarHeightLeft > 0) {
+					BlockPos topPos = getTop(level, blockPos, pillarHeightLeft);
+					if (topPos != null) {
+						BlockPos.MutableBlockPos mutableBlockPos = topPos.mutable();
+						BlockState state = level.getBlockState(topPos);
+						pillarHeightLeft = state.getValue(HEIGHT_LEFT);
+						Direction direction = state.getValue(FACING);
+						BlockState offsetState = level.getBlockState(mutableBlockPos.move(direction));
+						if (offsetState.isAir() || offsetState.getBlock() == Blocks.SCULK_VEIN) {
+							BlockState blockState = getGrowthState(random, pillarHeightLeft, state, direction);
+							if (blockState.getBlock() == this) {
+								blockState = blockState.setValue(TOTAL_HEIGHT, state.getValue(TOTAL_HEIGHT)).setValue(FACING, direction);
+								if (direction == Direction.DOWN && random.nextDouble() > 0.8) {
+									Direction nextDirection = getDir(getAxis(random), random);
+									if (isSafeToReplace(level.getBlockState(mutableBlockPos.setWithOffset(topPos, nextDirection)))) {
+										BlockState ribState = this.defaultBlockState().setValue(FACING, nextDirection).setValue(TOTAL_HEIGHT, state.getValue(TOTAL_HEIGHT)).setValue(HEIGHT_LEFT, 0);
+										level.setBlock(mutableBlockPos, ribState, 3);
+										SoundType placedSoundType = ribState.getSoundType();
+										level.playSound(null, mutableBlockPos, placedSoundType.getPlaceSound(), SoundSource.BLOCKS, placedSoundType.getVolume(), placedSoundType.getPitch());
+										if (isSafeToReplace(level.getBlockState(mutableBlockPos.move(Direction.DOWN))) && random.nextDouble() > 0.7) {
+											BlockState tendrilState = RegisterBlocks.HANGING_TENDRIL.defaultBlockState();
+											level.setBlock(mutableBlockPos, tendrilState, 3);
+											SoundType tendrilSoundType = tendrilState.getSoundType();
+											level.playSound(null, mutableBlockPos, tendrilSoundType.getPlaceSound(), SoundSource.BLOCKS, tendrilSoundType.getVolume(), tendrilSoundType.getPitch());
+										}
+									}
+								}
+							}
+							level.setBlock(mutableBlockPos.setWithOffset(topPos, direction), blockState, 3);
+							SoundType placedSoundType = blockState.getSoundType();
+							level.playSound(null, mutableBlockPos, placedSoundType.getPlaceSound(), SoundSource.BLOCKS, placedSoundType.getVolume(), placedSoundType.getPitch());
+							workOnBottom(level, mutableBlockPos, state);
+							return Math.max(0, i - j);
+						}
+					}
+				}
+			}
+		}
+		return i;
+	}
 
-    public void worldGenSpread(BlockPos blockPos, LevelAccessor level, RandomSource random) {
-        if (level.getBlockState(blockPos).is(this)) {
-            int pillarHeight = level.getBlockState(blockPos).getValue(HEIGHT_LEFT);
-            BlockPos topPos = getTop(level, blockPos, pillarHeight);
-            if (topPos != null) {
-                BlockState state = level.getBlockState(topPos);
-                pillarHeight = state.getValue(HEIGHT_LEFT);
-                Direction direction = getDir(state.getValue(AXIS), state.getValue(UPSIDEDOWN), level.getRandom());
-                if (level.getBlockState(topPos.relative(direction)).isAir() || level.getBlockState(topPos.relative(direction)).getBlock() == Blocks.SCULK_VEIN) {
-                    BlockState blockState = this.defaultBlockState().setValue(HEIGHT_LEFT, Math.max(0, pillarHeight - 1));
+	public void worldGenSpread(@NotNull BlockPos blockPos, @NotNull LevelAccessor level, @NotNull RandomSource random) {
+		BlockState firstState = level.getBlockState(blockPos);
+		if (firstState.is(this)) {
+			int pillarHeightLeft = firstState.getValue(HEIGHT_LEFT);
+			if (pillarHeightLeft > 0) {
+				BlockPos topPos = getTop(level, blockPos, pillarHeightLeft);
+				if (topPos != null) {
+					BlockPos.MutableBlockPos mutableBlockPos = topPos.mutable();
+					BlockState state = level.getBlockState(topPos);
+					pillarHeightLeft = state.getValue(HEIGHT_LEFT);
+					Direction direction = state.getValue(FACING);
+					BlockState offsetState = level.getBlockState(mutableBlockPos.move(direction));
+					if (offsetState.isAir() || offsetState.getBlock() == Blocks.SCULK_VEIN) {
+						BlockState blockState = getGrowthState(random, pillarHeightLeft, state, direction);
+						if (blockState.getBlock() == this) {
+							blockState = blockState.setValue(TOTAL_HEIGHT, state.getValue(TOTAL_HEIGHT)).setValue(FACING, direction);
+							if (direction == Direction.DOWN && random.nextDouble() > 0.8) {
+								Direction nextDirection = getDir(getAxis(random), random);
+								if (isSafeToReplace(level.getBlockState(mutableBlockPos.setWithOffset(topPos, nextDirection)))) {
+									level.setBlock(mutableBlockPos, this.defaultBlockState().setValue(FACING, nextDirection).setValue(TOTAL_HEIGHT, state.getValue(TOTAL_HEIGHT)).setValue(HEIGHT_LEFT, 0), 3);
+									if (isSafeToReplace(level.getBlockState(mutableBlockPos.move(Direction.DOWN)))) {
+										if (random.nextDouble() > 0.6) {
+											level.setBlock(mutableBlockPos, RegisterBlocks.HANGING_TENDRIL.defaultBlockState(), 3);
+										}
+									}
+								}
+							}
+						}
+						level.setBlock(mutableBlockPos.setWithOffset(topPos, direction), blockState, 3);
+						workOnBottom(level, topPos, state);
+					}
+				}
+			}
+		}
+	}
 
-                    if (pillarHeight == 1 && !state.getValue(UPSIDEDOWN) && state.getValue(TOTAL_HEIGHT) > 0) {
-                        if (EasyNoiseSampler.localRandom.nextInt(Math.max(1, state.getValue(TOTAL_HEIGHT) / 2)) <= 1) {
+	private BlockState getGrowthState(@NotNull RandomSource random, int pillarHeightLeft, @NotNull BlockState state, @NotNull Direction direction) {
+		BlockState blockState = this.defaultBlockState().setValue(HEIGHT_LEFT, Math.max(0, pillarHeightLeft - 1));
+		if (
+			pillarHeightLeft == 1 && direction == Direction.UP && state.getValue(TOTAL_HEIGHT) > 0
+				&& EasyNoiseSampler.localRandom.nextInt(Math.max(1, state.getValue(TOTAL_HEIGHT) / 2)) <= 1
+				&& random.nextInt(11) == 0
+		) {
+			blockState = Blocks.SCULK_CATALYST.defaultBlockState();
+		}
+		return blockState;
+	}
 
-                            if (random.nextInt(11) == 0) {
-                                blockState = Blocks.SCULK_CATALYST.defaultBlockState();
-                            }
-                        }
-                    }
-                    if (blockState.getBlock() == this) {
-                        blockState = blockState.setValue(TOTAL_HEIGHT, state.getValue(TOTAL_HEIGHT));
-                        if (state.getValue(UPSIDEDOWN)) {
-                            blockState = blockState.setValue(UPSIDEDOWN, true);
-                            if (direction == Direction.DOWN && random.nextDouble() > 0.9) {
-                                Direction ribCage = getDir(getAxis(topPos), false, level.getRandom());
-                                if (isSafeToReplace(level.getBlockState(topPos.relative(ribCage)))) {
-                                    level.setBlock(topPos.relative(ribCage), this.defaultBlockState().setValue(AXIS, getAxis(topPos)).setValue(TOTAL_HEIGHT, state.getValue(TOTAL_HEIGHT)).setValue(HEIGHT_LEFT, 0), 3);
-                                    if (isSafeToReplace(level.getBlockState(topPos.relative(ribCage).below()))) {
-                                        if (random.nextDouble() > 0.66) {
-                                            level.setBlock(topPos.relative(ribCage).below(), RegisterBlocks.HANGING_TENDRIL.defaultBlockState(), 3);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    level.setBlock(topPos.relative(direction), blockState, 3);
-					SoundType placedSoundType = blockState.getSoundType();
-					level.playSound(null, blockPos, placedSoundType.getPlaceSound(), SoundSource.BLOCKS, placedSoundType.getVolume(), placedSoundType.getPitch());
+	private void workOnBottom(@NotNull LevelAccessor level, @NotNull BlockPos topPos, @NotNull BlockState state) {
+		BlockPos bottom = getBottom(level, topPos, state.getValue(TOTAL_HEIGHT));
+		if (bottom != null) {
+			BlockState bottomState = level.getBlockState(bottom);
+			if (bottomState.is(this)) {
+				int total = bottomState.getValue(TOTAL_HEIGHT);
+				if ((total) - bottomState.getValue(HEIGHT_LEFT) <= total / 3) {
+					this.convertToSculk(level, bottom);
+				}
+			}
+		}
+	}
 
-                    if (blockState.getBlock() == Blocks.SCULK_CATALYST || (blockState.getBlock() == this && blockState.getValue(HEIGHT_LEFT) == 0)) {
-                        for (int i = 0; i < 4; i++) {
-                            BlockPos bottom = getBottom(level, topPos, state.getValue(TOTAL_HEIGHT));
-                            if (bottom != null) {
-                                BlockState bottomState = level.getBlockState(bottom);
-                                if (bottomState.is(this)) {
-                                    int piece = bottomState.getValue(HEIGHT_LEFT);
-                                    int total = bottomState.getValue(TOTAL_HEIGHT);
-                                    if ((total) - piece <= total / 3) {
-                                        this.convertToSculk(level, bottom);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+	public void convertToSculk(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
+		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
+		BlockState state = level.getBlockState(mutableBlockPos);
+		if (state.is(this)) {
+			BlockState stateReplace;
+			Direction oppositeDirection;
+			for (Direction direction : UPDATE_SHAPE_ORDER) {
+				stateReplace = level.getBlockState(mutableBlockPos.move(direction));
+				oppositeDirection = direction.getOpposite();
+				if (stateReplace.is(Blocks.SCULK_VEIN)) {
+					stateReplace = stateReplace.setValue(MultifaceBlock.getFaceProperty(oppositeDirection), false);
+					if (MultifaceBlock.availableFaces(stateReplace).isEmpty()) {
+						stateReplace = stateReplace.getValue(BlockStateProperties.WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
+					}
+					level.setBlock(mutableBlockPos, stateReplace, 3);
+				}
+				mutableBlockPos.move(oppositeDirection);
+			}
+			mutableBlockPos.move(state.getValue(FACING));
+			for (Direction direction : UPDATE_SHAPE_ORDER) {
+				stateReplace = level.getBlockState(mutableBlockPos.move(direction));
+				oppositeDirection = direction.getOpposite();
+				BlockState stateSetTo = null;
+				if (stateReplace.is(Blocks.SCULK_VEIN)) {
+					stateSetTo = stateReplace.setValue(MultifaceBlock.getFaceProperty(oppositeDirection), true);
+				}
+				if (stateReplace.isAir() && stateReplace.getFluidState().isEmpty()) {
+					stateSetTo = Blocks.SCULK_VEIN.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(oppositeDirection), true);
+				}
+				if (stateReplace.getBlock() == Blocks.WATER) {
+					stateSetTo = Blocks.SCULK_VEIN.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(oppositeDirection), true).setValue(BlockStateProperties.WATERLOGGED, true);
+				}
+				if (stateSetTo != null) {
+					level.setBlock(mutableBlockPos, stateSetTo, 3);
+				}
+				mutableBlockPos.move(oppositeDirection);
+			}
+			level.setBlock(pos, Blocks.SCULK.defaultBlockState(), 3);
+		}
+	}
 
-    public BlockPos getTop(LevelAccessor level, BlockPos pos, int max) {
-        for (int i = 0; i < max; i++) {
-            Block block = level.getBlockState(pos).getBlock();
-            if (block != this) {
-                return null;
-            }
-            Direction direction = getDir(level.getBlockState(pos).getValue(AXIS), level.getBlockState(pos).getValue(UPSIDEDOWN), level.getRandom());
-            if (level.getBlockState(pos.relative(direction)).isAir() || level.getBlockState(pos.relative(direction)).getBlock() == Blocks.SCULK_VEIN) {
-                return pos;
-            }
-            pos = pos.relative(direction);
-        }
-        return null;
-    }
-
-	public BlockPos getBottom(LevelAccessor level, BlockPos pos, int max) {
+	@Nullable
+	public BlockPos getTop(@NotNull LevelAccessor level, @NotNull BlockPos pos, int max) {
+		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
+		BlockPos.MutableBlockPos mutableBlockPos2 = pos.mutable();
 		for (int i = 0; i < max; i++) {
-			Block block = level.getBlockState(pos).getBlock();
-			if (block != this) {
+			BlockState blockState = level.getBlockState(mutableBlockPos);
+			if (blockState.getBlock() != this) {
 				return null;
 			}
-			BlockState state = level.getBlockState(pos);
-			Direction direction = getDir(state.getValue(AXIS), state.getValue(UPSIDEDOWN), level.getRandom()).getOpposite();
-			if (level.getBlockState(pos.relative(direction)).is(Blocks.SCULK)) {
-				return pos;
+			BlockState offsetState = level.getBlockState(mutableBlockPos2.move(blockState.getValue(FACING)));
+			if (offsetState.isAir() || offsetState.getBlock() == Blocks.SCULK_VEIN) {
+				return mutableBlockPos.immutable();
 			}
-			pos = pos.relative(direction);
+			mutableBlockPos.set(mutableBlockPos2);
+		}
+		return null;
+	}
+
+	@Nullable
+	public BlockPos getBottom(@NotNull LevelAccessor level, @NotNull BlockPos pos, int max) {
+		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
+		BlockPos.MutableBlockPos mutableBlockPos2 = pos.mutable();
+		for (int i = 0; i < max; i++) {
+			BlockState blockState = level.getBlockState(mutableBlockPos);
+			if (blockState.getBlock() != this) {
+				return null;
+			}
+			if (level.getBlockState(mutableBlockPos2.move(blockState.getValue(FACING), -1)).is(Blocks.SCULK)) {
+				return mutableBlockPos.immutable();
+			}
+			mutableBlockPos.set(mutableBlockPos2);
 		}
 		return null;
 	}
 
 	@Override
-    public int updateDecayDelay(int oldDecay) {
-        return 1;
-    }
+	public BlockState rotate(@NotNull BlockState blockState, @NotNull Rotation rotation) {
+		return blockState.setValue(FACING, rotation.rotate(blockState.getValue(FACING)));
+	}
 
 	@Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(HEIGHT_LEFT).add(BlockStateProperties.AXIS).add(UPSIDEDOWN).add(TOTAL_HEIGHT);
-    }
+	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
+		builder.add(FACING).add(HEIGHT_LEFT).add(TOTAL_HEIGHT);
+	}
 }

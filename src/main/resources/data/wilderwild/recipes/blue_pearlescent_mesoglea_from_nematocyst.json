@@ -3,16 +3,16 @@
   "category": "building",
   "group": "mesoglea",
   "key": {
-	  "#": {
-	   "item": "wilderwild:blue_pearlescent_nematocyst"
-  	}
+    "#": {
+      "item": "wilderwild:blue_pearlescent_nematocyst"
+    }
   },
   "pattern": [
-	  "##",
-	  "##"
+    "##",
+    "##"
   ],
   "result": {
-	  "count": 1,
-	  "item": "wilderwild:blue_pearlescent_mesoglea"
+    "count": 1,
+    "item": "wilderwild:blue_pearlescent_mesoglea"
   }
 }

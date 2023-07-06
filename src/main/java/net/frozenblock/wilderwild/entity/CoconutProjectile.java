@@ -28,10 +28,8 @@ import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.EntityEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
@@ -47,15 +45,15 @@ import org.jetbrains.annotations.NotNull;
 
 public class CoconutProjectile extends ThrowableItemProjectile {
 
-	public CoconutProjectile(EntityType<? extends CoconutProjectile> entityType, Level level) {
+	public CoconutProjectile(@NotNull EntityType<? extends CoconutProjectile> entityType, @NotNull Level level) {
 		super(entityType, level);
 	}
 
-	public CoconutProjectile(Level level, LivingEntity shooter) {
+	public CoconutProjectile(@NotNull Level level, @NotNull LivingEntity shooter) {
 		super(RegisterEntities.COCONUT, shooter, level);
 	}
 
-	public CoconutProjectile(Level level, double x, double y, double z) {
+	public CoconutProjectile(@NotNull Level level, double x, double y, double z) {
 		super(RegisterEntities.COCONUT, x, y, z, level);
 	}
 
@@ -112,7 +110,7 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 				server.addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(RegisterItems.SPLIT_COCONUT)));
 			}
 			EntityDimensions dimensions = this.getDimensions(Pose.STANDING);
-			server.sendParticles(RegisterParticles.COCONUT_SPLASH, this.position().x + (dimensions.width * 0.5), this.position().y + (dimensions.height * 0.5), this.position().z + (dimensions.width * 0.5), this.level().random.nextInt(1, 5), dimensions.width / 4F, dimensions.height / 4F, dimensions.width / 4F, 0.1D);
+			server.sendParticles(RegisterParticles.COCONUT_SPLASH, this.position().x + (dimensions.width * 0.5), this.position().y + (dimensions.height * 0.5), this.position().z + (dimensions.width * 0.5), level().random.nextInt(1, 5), dimensions.width / 4F, dimensions.height / 4F, dimensions.width / 4F, 0.1D);
 			this.discard();
 		}
 	}

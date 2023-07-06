@@ -21,15 +21,13 @@ package net.frozenblock.wilderwild.world.generation.foliage;
 import com.mojang.datafixers.Products;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import java.util.function.BiConsumer;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.RegisterFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
@@ -38,29 +36,60 @@ import org.jetbrains.annotations.NotNull;
 
 public class PalmFoliagePlacer extends FoliagePlacer {
 	public static final Codec<PalmFoliagePlacer> CODEC = RecordCodecBuilder.create((instance) ->
-			palmCodec(instance).apply(instance, PalmFoliagePlacer::new)
+		palmCodec(instance).apply(instance, PalmFoliagePlacer::new)
 	);
+	private static final double SURROUNDING_LEAF_THRESHOLD = 0.175;
+	public final IntProvider fronds;
+
+	public PalmFoliagePlacer(@NotNull IntProvider intProvider, @NotNull IntProvider intProvider2, @NotNull IntProvider fronds) {
+		super(intProvider, intProvider2);
+		this.fronds = fronds;
+	}
 
 	protected static <P extends PalmFoliagePlacer> Products.P3<RecordCodecBuilder.Mu<P>, IntProvider, IntProvider, IntProvider> palmCodec(RecordCodecBuilder.Instance<P> builder) {
 		return foliagePlacerParts(builder).and((IntProvider.codec(0, 16).fieldOf("fronds")).forGetter(placer -> placer.fronds));
 	}
 
-	private static final double SURROUNDING_LEAF_THRESHOLD = 0.175;
-
-	public PalmFoliagePlacer(IntProvider intProvider, IntProvider intProvider2, IntProvider fronds) {
-		super(intProvider, intProvider2);
-		this.fronds = fronds;
+	public static void placeLeavesAtPos(@NotNull LevelSimulatedReader level, @NotNull FoliageSetter blockSetter, @NotNull RandomSource random, @NotNull TreeConfiguration config, @NotNull BlockPos pos, double offX, double offY, double offZ) {
+		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable().move(BlockPos.containing(offX, offY, offZ));
+		BlockPos basePos = mutableBlockPos.immutable();
+		tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos);
+		if (shouldPlaceAbove(offX)) {
+			tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos.move(1, 0, 0));
+		}
+		if (shouldPlaceBelow(offX)) {
+			tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos.set(basePos).move(-1, 0, 0));
+		}
+		if (shouldPlaceAbove(offY)) {
+			tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos.set(basePos).move(0, 1, 0));
+		}
+		if (shouldPlaceBelow(offY)) {
+			tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos.set(basePos).move(0, -1, 0));
+		}
+		if (shouldPlaceAbove(offZ)) {
+			tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos.set(basePos).move(0, 0, 1));
+		}
+		if (shouldPlaceBelow(offZ)) {
+			tryPlaceLeaf(level, blockSetter, random, config, mutableBlockPos.set(basePos).move(0, 0, -1));
+		}
 	}
 
-	public final IntProvider fronds;
+	public static boolean shouldPlaceAbove(double d) {
+		return d > 0.5 + SURROUNDING_LEAF_THRESHOLD;
+	}
+
+	public static boolean shouldPlaceBelow(double d) {
+		return d < 0.5 - SURROUNDING_LEAF_THRESHOLD;
+	}
 
 	@Override
+	@NotNull
 	protected FoliagePlacerType<?> type() {
-		return WilderWild.PALM_FOLIAGE_PLACER;
+		return RegisterFeatures.PALM_FOLIAGE_PLACER;
 	}
 
 	@Override
-	protected void createFoliage(@NotNull LevelSimulatedReader level, @NotNull FoliageSetter blockSetter, @NotNull RandomSource random, @NotNull TreeConfiguration config, int i, FoliageAttachment foliageAttachment, int j, int k, int l) {
+	protected void createFoliage(@NotNull LevelSimulatedReader level, @NotNull FoliageSetter blockSetter, @NotNull RandomSource random, @NotNull TreeConfiguration config, int i, @NotNull FoliageAttachment foliageAttachment, int j, int k, int l) {
 		BlockPos blockPos = foliageAttachment.pos().above(l);
 		blockSetter.set(blockPos.below(), RegisterBlocks.PALM_CROWN.defaultBlockState());
 		Vec3 origin = new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ());
@@ -83,42 +112,13 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 		}
 	}
 
-	public static void placeLeavesAtPos(LevelSimulatedReader level, FoliageSetter blockSetter, RandomSource random, TreeConfiguration config, BlockPos pos, double offX, double offY, double offZ) {
-		BlockPos placePos = pos.offset(BlockPos.containing(offX, offY, offZ));
-		tryPlaceLeaf(level, blockSetter, random, config, placePos);
-		if (shouldPlaceAbove(offX)) {
-			tryPlaceLeaf(level, blockSetter, random, config, placePos.offset(1, 0, 0));
-		}
-		if (shouldPlaceBelow(offX)) {
-			tryPlaceLeaf(level, blockSetter, random, config, placePos.offset(-1, 0, 0));
-		}
-		if (shouldPlaceAbove(offY)) {
-			tryPlaceLeaf(level, blockSetter, random, config, placePos.above());
-		}
-		if (shouldPlaceBelow(offY)) {
-			tryPlaceLeaf(level, blockSetter, random, config, placePos.below());
-		}
-		if (shouldPlaceAbove(offZ)) {
-			tryPlaceLeaf(level, blockSetter, random, config, placePos.offset(0, 0, 1));
-		}
-		if (shouldPlaceBelow(offZ)) {
-			tryPlaceLeaf(level, blockSetter, random, config, placePos.offset(0, 0, -1));
-		}
-	}
-
-	public static boolean shouldPlaceAbove(double d) {
-		return d > 0.5 + SURROUNDING_LEAF_THRESHOLD;
-	}
-
-	public static boolean shouldPlaceBelow(double d) {
-		return d < 0.5 - SURROUNDING_LEAF_THRESHOLD;
-	}
-
-	public int foliageHeight(RandomSource randomSource, int i, TreeConfiguration treeConfiguration) {
+	@Override
+	public int foliageHeight(@NotNull RandomSource randomSource, int i, @NotNull TreeConfiguration treeConfiguration) {
 		return 0;
 	}
 
-	protected boolean shouldSkipLocation(RandomSource randomSource, int i, int j, int k, int l, boolean bl) {
+	@Override
+	protected boolean shouldSkipLocation(@NotNull RandomSource randomSource, int i, int j, int k, int l, boolean bl) {
 		if (j == 0) {
 			return (i > 1 || k > 1) && i != 0 && k != 0;
 		} else {

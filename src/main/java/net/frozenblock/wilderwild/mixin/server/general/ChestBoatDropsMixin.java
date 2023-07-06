@@ -30,18 +30,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ChestBoat.class)
 public final class ChestBoatDropsMixin {
 
-    //CREDIT TO nyuppo/fabric-boat-example ON GITHUB
+	//CREDIT TO nyuppo/fabric-boat-example ON GITHUB
 
-    @Inject(method = "getDropItem", at = @At("RETURN"), cancellable = true)
-    public void wilderWild$getModdedChestBoats(CallbackInfoReturnable<Item> info) {
+	@Inject(method = "getDropItem", at = @At("RETURN"), cancellable = true)
+	public void wilderWild$getModdedChestBoats(CallbackInfoReturnable<Item> info) {
 		var boat = ChestBoat.class.cast(this);
-        if (boat.getVariant() == WilderEnumValues.BAOBAB) {
-            info.setReturnValue(RegisterItems.BAOBAB_CHEST_BOAT_ITEM);
-        } else if (boat.getVariant() == WilderEnumValues.CYPRESS) {
-            info.setReturnValue(RegisterItems.CYPRESS_CHEST_BOAT_ITEM);
-        } else if (boat.getVariant() == WilderEnumValues.PALM) {
+		if (boat.getVariant() == WilderEnumValues.BAOBAB) {
+			info.setReturnValue(RegisterItems.BAOBAB_CHEST_BOAT_ITEM);
+		} else if (boat.getVariant() == WilderEnumValues.CYPRESS) {
+			info.setReturnValue(RegisterItems.CYPRESS_CHEST_BOAT_ITEM);
+		} else if (boat.getVariant() == WilderEnumValues.PALM) {
 			info.setReturnValue(RegisterItems.PALM_CHEST_BOAT_ITEM);
 		}
-    }
+	}
 
 }

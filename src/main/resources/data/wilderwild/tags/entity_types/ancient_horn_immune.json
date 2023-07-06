@@ -1,8 +1,8 @@
 {
   "values": [
-	"minecraft:wither",
-	"minecraft:warden",
-	"minecraft:ender_dragon",
+    "minecraft:wither",
+    "minecraft:warden",
+    "minecraft:ender_dragon",
     "wilderwild:tumbleweed",
     {
       "id": "sculk_worm:sculk_segment_entity",

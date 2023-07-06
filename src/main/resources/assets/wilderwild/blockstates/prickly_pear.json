@@ -1,16 +1,16 @@
 {
   "variants": {
-	"age=0": {
-	  "model": "wilderwild:block/prickly_pear_0"
-	},
-	"age=1": {
-	  "model": "wilderwild:block/prickly_pear_1"
-	},
-	"age=2": {
-	  "model": "wilderwild:block/prickly_pear_2"
-	},
-	"age=3": {
-	  "model": "wilderwild:block/prickly_pear_3"
-	}
+    "age=0": {
+      "model": "wilderwild:block/prickly_pear_0"
+    },
+    "age=1": {
+      "model": "wilderwild:block/prickly_pear_1"
+    },
+    "age=2": {
+      "model": "wilderwild:block/prickly_pear_2"
+    },
+    "age=3": {
+      "model": "wilderwild:block/prickly_pear_3"
+    }
   }
 }

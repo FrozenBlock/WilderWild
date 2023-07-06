@@ -21,9 +21,7 @@ package net.frozenblock.wilderwild.block;
 import java.util.Iterator;
 import java.util.List;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -45,29 +43,41 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class AlgaeBlock extends Block implements BonemealableBlock {
 	protected static final VoxelShape SHAPE = Block.box(0.0, 0.0, 0.0, 16, 1.0, 16);
+	@Nullable
+	private BlockPos bonemealPos = null;
 
-	public AlgaeBlock(BlockBehaviour.Properties settings) {
+	public AlgaeBlock(@NotNull BlockBehaviour.Properties settings) {
 		super(settings);
 	}
 
+	@NotNull
+	public static List<Direction> shuffleOffsets(@NotNull RandomSource random) {
+		return Direction.Plane.HORIZONTAL.shuffledCopy(random);
+	}
+
 	@Override
+	@NotNull
 	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
 		return SHAPE;
 	}
 
 	@Override
-	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, BlockPos pos) {
-		return canLayAt(level, pos.below());
+	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
+		FluidState fluidState = level.getFluidState(pos.below());
+		FluidState fluidState2 = level.getFluidState(pos);
+		return fluidState.getType() == Fluids.WATER && fluidState2.getType() == Fluids.EMPTY;
 	}
 
 	@Override
+	@NotNull
 	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockPos neighborPos) {
 		return !this.canSurvive(state, level, pos)
-				? Blocks.AIR.defaultBlockState()
-				: super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+			? Blocks.AIR.defaultBlockState()
+			: super.updateShape(state, direction, neighborState, level, pos, neighborPos);
 	}
 
 	@Override
@@ -78,32 +88,22 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 	}
 
 	@Override
-	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Entity entity) {
-		if (entity.getType().equals(EntityType.FALLING_BLOCK)) {
-			level.destroyBlock(pos, false);
+	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
+		if (entity.getY() <= pos.getY() + SHAPE.max(Direction.Axis.Y)) {
+			if (entity.getType().equals(EntityType.FALLING_BLOCK)) {
+				level.destroyBlock(pos, false);
+			}
+			if (!entity.getType().is(WilderEntityTags.CAN_SWIM_IN_ALGAE)) {
+				entity.setDeltaMovement(entity.getDeltaMovement().multiply(0.8, 0.8, 0.8));
+			}
 		}
-		if (!entity.getType().is(WilderEntityTags.CAN_SWIM_IN_ALGAE)) {
-			entity.setDeltaMovement(entity.getDeltaMovement().multiply(0.8, 0.8, 0.8));
-		}
 	}
-
-	private static boolean canLayAt(BlockGetter level, BlockPos pos) {
-		FluidState fluidState = level.getFluidState(pos);
-		FluidState fluidState2 = level.getFluidState(pos.above());
-		return fluidState.getType() == Fluids.WATER && fluidState2.getType() == Fluids.EMPTY;
-	}
-
-	public static List<Direction> shuffleOffsets(RandomSource random) {
-		return Util.toShuffledList(Direction.Plane.HORIZONTAL.stream(), random);
-	}
-
-	private BlockPos bonemealPos = null;
 
 	@Override
 	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
 		for (Direction offset : AlgaeBlock.shuffleOffsets(AdvancedMath.random())) {
 			BlockPos blockPos = pos.relative(offset);
-			if (level.getBlockState(blockPos).isAir() && canLayAt(level, blockPos.below())) {
+			if (level.getBlockState(blockPos).isAir() && this.canSurvive(this.defaultBlockState(), level, blockPos)) {
 				this.bonemealPos = blockPos;
 				return true;
 			}
@@ -120,25 +120,22 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
 		if (this.bonemealPos != null) {
 			level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, this.bonemealPos, 0);
-			level.setBlockAndUpdate(this.bonemealPos, state);
+			level.setBlockAndUpdate(this.bonemealPos, this.defaultBlockState());
 		}
 		this.bonemealPos = null;
 	}
 
-	public static boolean isAlgaeNearbyForSlimeSpawn(LevelAccessor level, BlockPos blockPos, int x) {
+	public boolean hasAmountNearby(@NotNull LevelAccessor level, @NotNull BlockPos blockPos, int x, int neededAmount) {
 		Iterator<BlockPos> iterator = BlockPos.betweenClosed(blockPos.offset(-x, -x, -x), blockPos.offset(x, x, x)).iterator();
 		int count = 0;
-		BlockPos pos;
 		do {
 			if (!iterator.hasNext()) {
 				return false;
 			}
-			pos = iterator.next();
-			if (level.getBlockState(pos).is(RegisterBlocks.ALGAE)) {
+			if (level.getBlockState(iterator.next()).is(this)) {
 				count = count + 1;
 			}
-		} while (count < 3);
+		} while (count < neededAmount);
 		return true;
 	}
-
 }

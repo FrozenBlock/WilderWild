@@ -7,7 +7,7 @@
         "Name": "minecraft:clay"
       }
     },
-    "chance": 1.0,
+    "chance": 0.9,
     "is3D": false,
     "maxThresh": 0.85,
     "minThresh": 0.5,

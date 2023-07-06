@@ -21,6 +21,9 @@ package net.frozenblock.wilderwild.mixin;
 import java.util.List;
 import java.util.Set;
 import net.frozenblock.lib.FrozenBools;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
@@ -34,21 +37,27 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 	}
 
 	@Override
+	@Nullable
 	public String getRefMapperConfig() {
 		return null;
 	}
 
 	@Override
-	public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
+	public boolean shouldApplyMixin(String targetClassName, @NotNull String mixinClassName) {
 		if (mixinClassName.contains("sodium")) {
 			return FrozenBools.HAS_SODIUM;
 		}
-		if (mixinClassName.contains("LiquidBlockRenderer")) {
+		if (mixinClassName.contains("LiquidBlockRenderer") || mixinClassName.contains("CloudRenderer") || mixinClassName.contains("EntityRenderDispatcher")) {
 			return !FrozenBools.HAS_SODIUM;
 		}
-		if (mixinClassName.contains("CloudRenderer")) {
-			// the sodium cloud renderer mixin already has a return value
-			return !FrozenBools.HAS_SODIUM;
+		if (mixinClassName.contains("fallingleaves")) {
+			return WilderSharedConstants.HAS_FALLINGLEAVES;
+		}
+		if (mixinClassName.contains("makebubblespop")) {
+			return WilderSharedConstants.HAS_MAKEBUBBLESPOP;
+		}
+		if (mixinClassName.contains("particlerain")) {
+			return WilderSharedConstants.HAS_PARTICLERAIN;
 		}
 		return true;
 	}
@@ -59,6 +68,7 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 	}
 
 	@Override
+	@Nullable
 	public List<String> getMixins() {
 		return null;
 	}

@@ -35,27 +35,31 @@ import org.jetbrains.annotations.NotNull;
 @Environment(EnvType.CLIENT)
 public class HangingTendrilBlockEntityRenderer<T extends HangingTendrilBlockEntity> extends BillboardBlockEntityRenderer<T> {
 
-    public HangingTendrilBlockEntityRenderer(Context ctx) {
-        super(ctx);
-    }
+	public HangingTendrilBlockEntityRenderer(@NotNull Context ctx) {
+		super(ctx);
+	}
 
-    public static LayerDefinition getTexturedModelData() {
+	@NotNull
+	public static LayerDefinition getTexturedModelData() {
 		return BillboardBlockEntityRenderer.getTexturedModelData();
-    }
-
-    public void render(@NotNull T entity, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
-        if (WilderSharedConstants.config().billboardTendrils()) {
-			super.render(entity, partialTick, poseStack, vertexConsumers, light, overlay);
-		}
-    }
+	}
 
 	@Override
-	public ResourceLocation getTexture(T entity) {
+	public void render(@NotNull T entity, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
+		if (WilderSharedConstants.config().billboardTendrils()) {
+			super.render(entity, partialTick, poseStack, vertexConsumers, light, overlay);
+		}
+	}
+
+	@Override
+	@NotNull
+	public ResourceLocation getTexture(@NotNull T entity) {
 		return entity.texture;
 	}
 
 	@Override
-	public ModelPart getRoot(Context ctx) {
+	@NotNull
+	public ModelPart getRoot(@NotNull Context ctx) {
 		return ctx.bakeLayer(WilderWildClient.HANGING_TENDRIL);
 	}
 }

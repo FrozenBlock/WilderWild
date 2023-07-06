@@ -1,7 +1,7 @@
 {
   "variants": {
-	"": {
-	  "model": "wilderwild:block/palm_planks"
-	}
+    "": {
+      "model": "wilderwild:block/palm_planks"
+    }
   }
 }

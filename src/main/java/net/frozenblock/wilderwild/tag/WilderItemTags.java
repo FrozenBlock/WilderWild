@@ -22,18 +22,24 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import org.jetbrains.annotations.NotNull;
 
 public final class WilderItemTags {
+	public static final TagKey<Item> GOAT_DROP_MUSIC_DISCS = bind("goat_drop_music_discs");
+	public static final TagKey<Item> NEMATOCYSTS = bind("nematocysts");
+	public static final TagKey<Item> PEARLESCENT_NEMATOCYSTS = bind("pearlescent_nematocysts");
+	public static final TagKey<Item> TUMBLEWEED_COMMON = bind("tumbleweed_common");
+	public static final TagKey<Item> TUMBLEWEED_MEDIUM = bind("tumbleweed_medium");
+	public static final TagKey<Item> TUMBLEWEED_RARE = bind("tumbleweed_rare");
+	public static final TagKey<Item> BROWN_MUSHROOM_STEW_INGREDIENTS = bind("brown_mushroom_stew_ingredients");
+	public static final TagKey<Item> RED_MUSHROOM_STEW_INGREDIENTS = bind("red_mushroom_stew_ingredients");
+
 	private WilderItemTags() {
 		throw new UnsupportedOperationException("WilderItemTags contains only static declarations.");
 	}
 
-    public static final TagKey<Item> GOAT_DROP_MUSIC_DISCS = bind("goat_drop_music_discs");
-	public static final TagKey<Item> TUMBLEWEED_COMMON = bind("tumbleweed_common");
-	public static final TagKey<Item> TUMBLEWEED_MEDIUM = bind("tumbleweed_medium");
-	public static final TagKey<Item> TUMBLEWEED_RARE = bind("tumbleweed_rare");
-
-    private static TagKey<Item> bind(String path) {
-        return TagKey.create(Registries.ITEM, WilderSharedConstants.id(path));
-    }
+	@NotNull
+	private static TagKey<Item> bind(@NotNull String path) {
+		return TagKey.create(Registries.ITEM, WilderSharedConstants.id(path));
+	}
 }

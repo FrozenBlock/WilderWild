@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:sand",
+    {
+      "id": "wilderwild:scorched_sand",
+      "required": false
+    }
+  ]
+}

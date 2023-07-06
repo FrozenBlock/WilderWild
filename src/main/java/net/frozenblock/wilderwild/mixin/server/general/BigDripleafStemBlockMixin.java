@@ -33,9 +33,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(BigDripleafStemBlock.class)
 public final class BigDripleafStemBlockMixin extends HorizontalDirectionalBlock {
 
-    private BigDripleafStemBlockMixin(Properties properties) {
-        super(properties);
-    }
+	private BigDripleafStemBlockMixin(Properties properties) {
+		super(properties);
+	}
 
 	@Inject(method = "<init>", at = @At("RETURN"))
 	public void wilderWild$init(CallbackInfo info) {
@@ -43,15 +43,15 @@ public final class BigDripleafStemBlockMixin extends HorizontalDirectionalBlock 
 		bigDripleafStemBlock.registerDefaultState(bigDripleafStemBlock.defaultBlockState().setValue(BlockStateProperties.POWERED, false));
 	}
 
-    @Inject(at = @At("TAIL"), method = "createBlockStateDefinition")
-    public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-        builder.add(BlockStateProperties.POWERED);
-    }
+	@Inject(at = @At("TAIL"), method = "createBlockStateDefinition")
+	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
+		builder.add(BlockStateProperties.POWERED);
+	}
 
-    @Inject(method = "<init>", at = @At("TAIL"))
-    private void wilderWild$bigDripleafStemBlock(BlockBehaviour.Properties setting, CallbackInfo info) {
-        BigDripleafStemBlock stem = BigDripleafStemBlock.class.cast(this);
-        stem.registerDefaultState(stem.defaultBlockState().setValue(BlockStateProperties.POWERED, false));
-    }
+	@Inject(method = "<init>", at = @At("TAIL"))
+	private void wilderWild$bigDripleafStemBlock(BlockBehaviour.Properties setting, CallbackInfo info) {
+		BigDripleafStemBlock stem = BigDripleafStemBlock.class.cast(this);
+		stem.registerDefaultState(stem.defaultBlockState().setValue(BlockStateProperties.POWERED, false));
+	}
 
 }
