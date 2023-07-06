@@ -22,6 +22,7 @@ import com.mojang.serialization.Dynamic;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import net.frozenblock.lib.entity.api.NoFlopAbstractFish;
 import net.frozenblock.wilderwild.entity.ai.jellyfish.JellyfishAi;
@@ -129,25 +130,14 @@ public class Jellyfish extends NoFlopAbstractFish {
 		this.getNavigation().setCanFloat(false);
 	}
 
-	@NotNull
-	public static List<Jellyfish> getJellyfish(@NotNull ServerLevel level) {
-		ArrayList<Jellyfish> jellyList = new ArrayList<>();
-		for (Entity entity : level.entityManager.getEntityGetter().getAll()) {
-			if (entity instanceof Jellyfish jellyfish && !jellyfish.isRemoved() && !jellyfish.isDeadOrDying()) {
-				jellyList.add(jellyfish);
-			}
-		}
-		return jellyList;
-	}
-
 	public static int getJellyfish(@NotNull ServerLevel level, boolean pearlescent) {
-		int count = 0;
-		for (Jellyfish jellyfish : getJellyfish(level)) {
-			if (pearlescent ? jellyfish.getVariant().pearlescent() : jellyfish.getVariant().isNormal()) {
-				count += 1;
+		AtomicInteger count = new AtomicInteger();
+		level.entityManager.getEntityGetter().getAll().forEach(entity -> {
+			if (entity instanceof Jellyfish jellyfish && (pearlescent ? jellyfish.getVariant().pearlescent() : jellyfish.getVariant().isNormal())) {
+				count.addAndGet(1);
 			}
-		}
-		return count;
+		});
+		return count.get();
 	}
 
 	public static boolean canSpawn(@NotNull EntityType<Jellyfish> type, @NotNull ServerLevelAccessor level, @NotNull MobSpawnType reason, @NotNull BlockPos pos, @NotNull RandomSource random) {
