@@ -22,6 +22,7 @@ import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import java.util.function.Consumer;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
+import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.interfaces.WilderSonicBoom;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
@@ -148,6 +149,11 @@ public class SonicBoomMixin implements WilderSonicBoom {
 		} else {
 			return null;
 		}
+	}
+
+	@Inject(method = "tick(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/monster/warden/Warden;J)V", at = @At("HEAD"))
+	private void tick(ServerLevel level, Warden owner, long gameTime, CallbackInfo ci) {
+		wilderWild$stella = ((WilderWarden) owner).wilderWild$isStella();
 	}
 
 	@ModifyArg(method = "tick(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/monster/warden/Warden;J)V", at = @At(value = "INVOKE", target = "Ljava/util/Optional;ifPresent(Ljava/util/function/Consumer;)V", ordinal = 1))

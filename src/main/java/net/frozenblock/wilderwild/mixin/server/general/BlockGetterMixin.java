@@ -45,14 +45,13 @@ public interface BlockGetterMixin {
 
 	@Inject(method = "clip", at = @At("HEAD"))
 	default void wilderWild$checkIfInMesoglea(ClipContext clipContext, CallbackInfoReturnable<BlockHitResult> cir) {
-		if (clipContext.collisionContext instanceof EntityCollisionContext entityCollisionContext) {
-			if (entityCollisionContext.getEntity() instanceof Player player) {
+		if (clipContext.collisionContext instanceof EntityCollisionContext entityCollisionContext
+			&& entityCollisionContext.getEntity() instanceof Player player) {
 				BlockState headState = getBlockState(BlockPos.containing(player.getEyePosition()));
 				if (headState.getBlock() instanceof MesogleaBlock && headState.getValue(BlockStateProperties.WATERLOGGED)) {
 					WilderSharedConstants.IN_MESOGLEA = true;
 					return;
 				}
-			}
 		}
 		WilderSharedConstants.IN_MESOGLEA = false;
 	}

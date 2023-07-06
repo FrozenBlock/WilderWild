@@ -73,10 +73,8 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;openMenu(Lnet/minecraft/world/MenuProvider;)Ljava/util/OptionalInt;", shift = At.Shift.BEFORE), method = "use")
 	public void wilderWild$useBeforeOpenMenu(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit, CallbackInfoReturnable<InteractionResult> info) {
 		if (level.getBlockEntity(pos) instanceof ChestBlockEntity sourceChest) {
-			if (sourceChest.lootTable != null) {
-				if (state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) && sourceChest.lootTable.getPath().toLowerCase().contains("shipwreck") && level.random.nextInt(0, 3) == 1) {
-					Jellyfish.spawnFromChest(level, state, pos);
-				}
+			if (sourceChest.lootTable != null && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) && sourceChest.lootTable.getPath().toLowerCase().contains("shipwreck") && level.random.nextInt(0, 3) == 1) {
+				Jellyfish.spawnFromChest(level, state, pos);
 			}
 			((ChestBlockEntityInterface) sourceChest).wilderWild$bubble(level, pos, state);
 		}

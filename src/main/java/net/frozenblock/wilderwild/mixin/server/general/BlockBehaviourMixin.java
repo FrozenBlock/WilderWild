@@ -45,21 +45,19 @@ public class BlockBehaviourMixin {
 
 	@Inject(at = @At("HEAD"), method = "neighborChanged", cancellable = true)
 	public void wilderWild$neighborChanged(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Block block, @NotNull BlockPos fromPos, boolean isMoving, CallbackInfo info) {
-		if (BlockBehaviour.class.cast(this) instanceof BigDripleafStemBlock bigDripleafStemBlock) {
-			if (!level.isClientSide) {
+		if (BlockBehaviour.class.cast(this) instanceof BigDripleafStemBlock && !level.isClientSide()) {
 				BlockState downState = level.getBlockState(pos.below());
 				boolean receivingPower = level.hasNeighborSignal(pos) || (downState.is(Blocks.BIG_DRIPLEAF_STEM) && downState.getValue(BlockStateProperties.POWERED));
 				if (state.getValue(BlockStateProperties.POWERED) != receivingPower) {
 					level.setBlock(pos, state.setValue(BlockStateProperties.POWERED, receivingPower), 3);
 				}
 				info.cancel();
-			}
 		}
 	}
 
 	@Inject(at = @At("HEAD"), method = "getCollisionShape", cancellable = true)
 	public void wilderWild$getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context, CallbackInfoReturnable<VoxelShape> info) {
-		if (BlockBehaviour.class.cast(this) instanceof LeavesBlock leavesBlock && context instanceof EntityCollisionContext entityCollisionContext && entityCollisionContext.getEntity() instanceof Tumbleweed tumbleweed) {
+		if (BlockBehaviour.class.cast(this) instanceof LeavesBlock && context instanceof EntityCollisionContext entityCollisionContext && entityCollisionContext.getEntity() instanceof Tumbleweed tumbleweed) {
 			tumbleweed.isTouchingStickingBlock = true;
 			info.setReturnValue(Shapes.empty());
 		}

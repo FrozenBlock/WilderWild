@@ -39,7 +39,7 @@ public final class LootTableMixin {
 	private boolean wilderWild$isStoneChest = false;
 
 	@Inject(at = @At("HEAD"), method = "fill")
-	public void wilderWild$fill(Container container, LootParams lootParams, long l, CallbackInfo ci) {
+	public void wilderWild$fill(Container container, LootParams parameterSet, long seed, CallbackInfo ci) {
 		this.wilderWild$isStoneChest = container instanceof StoneChestBlockEntity;
 	}
 

@@ -1458,6 +1458,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 		@Override
 		public void generate() {
+			this.dropSelf(RegisterBlocks.BAOBAB_HANGING_SIGN);
+			this.dropSelf(RegisterBlocks.CYPRESS_HANGING_SIGN);
+			this.dropSelf(RegisterBlocks.PALM_HANGING_SIGN);
 		}
 	}
 

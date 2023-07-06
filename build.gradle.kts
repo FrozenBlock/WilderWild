@@ -222,7 +222,7 @@ dependencies {
     mappings(loom.layered {
         // please annoy treetrain if this doesnt work
         mappings("org.quiltmc:quilt-mappings:$quilt_mappings:intermediary-v2")
-        parchment("org.parchmentmc.data:parchment-1.19.3:$parchment_mappings@zip")
+        parchment("org.parchmentmc.data:parchment-$parchment_mappings@zip")
         officialMojangMappings {
             nameSyntheticMembers = false
         }
@@ -268,7 +268,7 @@ dependencies {
     modImplementation("maven.modrinth:particle-rain:v2.0.5")
 
     // MixinExtras
-    implementation("com.github.llamalad7.mixinextras:mixinextras-fabric:0.2.0-beta.8")?.let { annotationProcessor(it); shadowInclude(it) }
+    implementation("com.github.llamalad7.mixinextras:mixinextras-fabric:0.2.0-beta.9")?.let { annotationProcessor(it); }
 
     // Sodium
     modCompileOnly("maven.modrinth:sodium:${sodium_version}")
