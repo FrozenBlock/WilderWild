@@ -1,9 +1,6 @@
 {
   "replace": false,
   "values": [
-    "minecraft:kelp",
-    "minecraft:seagrass",
-    "wilderwild:algae",
     "minecraft:cod",
     "minecraft:salmon"
   ]
