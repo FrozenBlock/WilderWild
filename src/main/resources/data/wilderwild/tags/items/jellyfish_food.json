@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:kelp",
+    "minecraft:seagrass",
+    "minecraft:tall_seagrass",
+    "wilderwild:algae",
+    "minecraft:cod",
+    "minecraft:salmon"
+  ]
+}

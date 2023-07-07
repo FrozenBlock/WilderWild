@@ -26,6 +26,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import net.frozenblock.lib.entity.api.NoFlopAbstractFish;
 import net.frozenblock.wilderwild.entity.ai.jellyfish.JellyfishAi;
+import net.frozenblock.wilderwild.entity.ai.jellyfish.JellyfishTemptGoal;
 import net.frozenblock.wilderwild.entity.variant.JellyfishVariant;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
@@ -49,6 +50,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
@@ -72,13 +74,23 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.BreedGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.FollowParentGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -128,6 +140,11 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public Jellyfish(@NotNull EntityType<? extends Jellyfish> entityType, @NotNull Level level) {
 		super(entityType, level);
 		this.getNavigation().setCanFloat(false);
+	}
+
+	@Override
+	protected void registerGoals() {
+		this.goalSelector.addGoal(3, new JellyfishTemptGoal(this, 1.25));
 	}
 
 	public static int getJellyfish(@NotNull ServerLevel level, boolean pearlescent) {
@@ -499,7 +516,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		if (itemStack.is(Items.WATER_BUCKET)) {
 			return super.mobInteract(player, hand);
 		}
-		if (!itemStack.is(WilderItemTags.NEMATOCYSTS) || (this.getVariant().pearlescent() && !itemStack.is(WilderItemTags.PEARLESCENT_NEMATOCYSTS)) || (this.getVariant().isNormal() && itemStack.is(WilderItemTags.PEARLESCENT_NEMATOCYSTS))) {
+		if (!itemStack.is(this.getVariant().reproductionFood())) {
 			return InteractionResult.PASS;
 		}
 		if (this.isBaby()) {

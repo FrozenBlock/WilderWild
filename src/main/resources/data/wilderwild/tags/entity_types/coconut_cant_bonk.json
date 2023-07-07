@@ -3,6 +3,10 @@
     "minecraft:squid",
     "minecraft:glow_squid",
     "minecraft:dolphin",
+    "minecraft:spider",
+    "minecraft:cave_spider",
+    "minecraft:ghast",
+    "wilderwild:firefly",
     "wilderwild:jellyfish",
     "wilderwild:tumbleweed"
   ]
