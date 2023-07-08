@@ -30,8 +30,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class JellyfishTemptGoal extends Goal {
 	private static final TargetingConditions TEMP_TARGETING = TargetingConditions.forNonCombat().range(10.0).ignoreLineOfSight();
-	private final TargetingConditions targetingConditions;
 	protected final Jellyfish mob;
+	private final TargetingConditions targetingConditions;
 	private final double speedModifier;
 	@Nullable
 	protected Player player;
@@ -85,6 +85,7 @@ public class JellyfishTemptGoal extends Goal {
 			this.mob.moveToAccurate(this.player, this.speedModifier);
 		}
 	}
+
 	public boolean isRunning() {
 		return this.isRunning;
 	}

@@ -29,8 +29,9 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import org.jetbrains.annotations.NotNull;
 
-public record JellyfishVariant(@NotNull ResourceLocation key, @NotNull ResourceLocation texture, @NotNull boolean pearlescent, @NotNull
-TagKey<Item> reproductionFood) {
+public record JellyfishVariant(@NotNull ResourceLocation key, @NotNull ResourceLocation texture,
+							   @NotNull boolean pearlescent, @NotNull
+							   TagKey<Item> reproductionFood) {
 
 	public static final EntityDataSerializer<JellyfishVariant> SERIALIZER = EntityDataSerializer.simpleId(WilderRegistry.JELLYFISH_VARIANT);
 

@@ -33,7 +33,6 @@ import net.frozenblock.lib.storage.api.HopperUntouchableList;
 import net.frozenblock.lib.tick.api.BlockScheduledTicks;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.misc.interfaces.WilderEnderman;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes;
 import static net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes.*;
@@ -59,7 +58,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
-import org.jetbrains.annotations.Nullable;
 
 public class FrozenLibIntegration extends ModIntegration {
 	public FrozenLibIntegration() {

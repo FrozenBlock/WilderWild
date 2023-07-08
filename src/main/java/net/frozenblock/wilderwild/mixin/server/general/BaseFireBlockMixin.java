@@ -37,8 +37,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class BaseFireBlockMixin {
 
 	@Inject(method = "animateTick", at = @At("HEAD"))
-    public void wilderWild$animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random, CallbackInfo info) {
-        if (WilderSharedConstants.config().soulFireSounds() && state.is(Blocks.SOUL_FIRE) && random.nextInt(48) == 0) {
+	public void wilderWild$animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random, CallbackInfo info) {
+		if (WilderSharedConstants.config().soulFireSounds() && state.is(Blocks.SOUL_FIRE) && random.nextInt(48) == 0) {
 			level.playLocalSound(
 				pos.getX() + 0.5,
 				pos.getY() + 0.5,
@@ -49,7 +49,7 @@ public class BaseFireBlockMixin {
 				random.nextFloat() * 0.7F + 0.3F,
 				false
 			);
-        }
-    }
+		}
+	}
 
 }
