@@ -94,13 +94,13 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
 		}
 
 		BlockPos endPos = startPos.relative(logDir, height);
-		int aboveSolidAmount = 1;
+		int aboveSolidAmount = 0;
 		boolean isEndAboveSolid = false;
 		Iterable<BlockPos> poses = BlockPos.betweenClosed(startPos, endPos);
 		for (BlockPos blockPos : poses) {
 			mutable.set(blockPos);
 			if (TreeFeature.validTreePos(level, mutable)) {
-				if (!TreeFeature.validTreePos(level, mutable.setWithOffset(blockPos, Direction.DOWN)) && !TreeFeature.isAirOrLeaves(level, mutable)) {
+				if (!TreeFeature.validTreePos(level, mutable.move(Direction.DOWN)) && !TreeFeature.isAirOrLeaves(level, mutable)) {
 					aboveSolidAmount += 1;
 					mutable.move(Direction.UP);
 					if (mutable.equals(endPos)) {
