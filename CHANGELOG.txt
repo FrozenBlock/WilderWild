@@ -25,7 +25,7 @@ Put changelog here:
 - Added new rare Coarse Dirt, Gravel, and Stone paths throughout the world.
 - Forest biomes now have clearings, with Rooted Dirt and Coarse Dirt/Gravel surrounding it.
     - Snapped Trees will generate more frequently in clearings.
-    - Flowers will generate more commonly in clearfings in Forest and Birch Forest biomes and their variants.
+    - Flowers will generate more commonly in clearings in Forest and Birch Forest biomes and their variants.
 - Reworked Fallen Tree generation once more.
     - Most Fallen Trees now generate with full Logs, though have a small chance to generate with Hollowed Logs.
     - As long as the ending of the Tree is on solid ground or above 50% of the Tree is on solid ground, the Fallen Tree will generate.
