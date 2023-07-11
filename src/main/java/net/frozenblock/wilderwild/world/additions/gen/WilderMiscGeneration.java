@@ -26,6 +26,7 @@ import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
 public final class WilderMiscGeneration {
@@ -177,6 +178,9 @@ public final class WilderMiscGeneration {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_MUD_TRANSITION),
 				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.MUD_TRANSITION.getKey());
 		}
+
+		BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.RIVER),
+				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.RIVER_POOL.getKey());
 	}
 
 }

@@ -41,6 +41,7 @@ public final class WilderBlockTags {
 	public static final TagKey<Block> STRIPPED_HOLLOWED_LOGS = bind("stripped_hollowed_logs");
 	public static final TagKey<Block> BUSH_MAY_PLACE_ON = bind("bush_may_place_on");
 	public static final TagKey<Block> SAND_POOL_REPLACEABLE = bind("sand_pool_replaceable");
+	public static final TagKey<Block> RIVER_POOL_REPLACEABLE = bind("river_pool_replaceable");
 	public static final TagKey<Block> SMALL_SPONGE_GROWS_ON = bind("small_sponge_grows_on");
 	public static final TagKey<Block> BASIN_REPLACEABLE = bind("basin_replaceable");
 	public static final TagKey<Block> SPLITS_COCONUT = bind("splits_coconut");
