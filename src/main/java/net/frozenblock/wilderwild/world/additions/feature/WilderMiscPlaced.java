@@ -315,12 +315,12 @@ public final class WilderMiscPlaced {
 		);
 
 		RIVER_POOL.makeAndSetHolder(WilderMiscConfigured.RIVER_POOL.getHolder(),
-				CountPlacement.of(100),
+				CountPlacement.of(10),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 				HeightRangePlacement.uniform(VerticalAnchor.absolute(62), VerticalAnchor.aboveBottom(65)),
 				EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 4),
-				RandomOffsetPlacement.vertical(ConstantInt.of(5)),
+				RandomOffsetPlacement.vertical(ConstantInt.of(1)),
 				BiomeFilter.biome()
 		);
 

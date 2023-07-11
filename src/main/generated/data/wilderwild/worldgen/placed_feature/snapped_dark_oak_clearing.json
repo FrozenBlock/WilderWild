@@ -1,0 +1,34 @@
+{
+  "feature": "wilderwild:snapped_dark_oaks",
+  "placement": [
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 3
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:surface_water_depth_filter",
+      "max_water_depth": 0
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "OCEAN_FLOOR"
+    },
+    {
+      "type": "minecraft:biome"
+    },
+    {
+      "type": "frozenlib:noise_filter",
+      "fadeDist": 0.175,
+      "inside": true,
+      "maxThresh": 1.0,
+      "minThresh": 0.675,
+      "multiplier": 0.0065,
+      "multiplyY": false,
+      "noise": 4,
+      "useY": false
+    }
+  ]
+}
