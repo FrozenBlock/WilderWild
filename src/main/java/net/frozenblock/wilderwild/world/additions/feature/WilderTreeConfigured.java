@@ -733,7 +733,7 @@ public final class WilderTreeConfigured {
 				2,
 				1,
 				1,
-				0.75F
+				0.5F
 			).decorators(
 				List.of(
 					VINES_012_UNDER_260,
@@ -1011,9 +1011,9 @@ public final class WilderTreeConfigured {
 				Blocks.SPRUCE_LOG,
 				Blocks.SPRUCE_LEAVES,
 				2,
+				2,
 				1,
-				1,
-				0.675F
+				0.575F
 			).decorators(
 				List.of(
 					VINES_012_UNDER_260,
@@ -1383,7 +1383,7 @@ public final class WilderTreeConfigured {
 				Blocks.JUNGLE_LEAVES,
 				3,
 				1,
-				1,
+				2,
 				0.5F
 			).decorators(
 				List.of(

@@ -54,7 +54,7 @@
       "type": "wilderwild:large_snapped_trunk_placer",
       "base_height": 3,
       "height_rand_a": 1,
-      "height_rand_b": 1,
+      "height_rand_b": 2,
       "minimum_height_percentage": 0.5
     },
     "trunk_provider": {
