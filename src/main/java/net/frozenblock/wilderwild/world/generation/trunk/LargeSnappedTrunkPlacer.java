@@ -19,12 +19,14 @@
 package net.frozenblock.wilderwild.world.generation.trunk;
 
 import com.google.common.collect.Lists;
+import com.mojang.datafixers.Products;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
 import java.util.function.BiConsumer;
 import net.frozenblock.wilderwild.registry.RegisterFeatures;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.state.BlockState;
@@ -35,10 +37,21 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import org.jetbrains.annotations.NotNull;
 
 public class LargeSnappedTrunkPlacer extends TrunkPlacer {
-	public static final Codec<LargeSnappedTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) -> trunkPlacerParts(instance).apply(instance, LargeSnappedTrunkPlacer::new));
+	public static final Codec<LargeSnappedTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) ->
+		largeSnappedTrunkCodec(instance).apply(instance, LargeSnappedTrunkPlacer::new));
 
-	public LargeSnappedTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight) {
+	public final float minimumHeightPercent;
+	private final float heightDifferenceFromMax;
+
+	public LargeSnappedTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight, float minimumHeightPercent) {
 		super(baseHeight, firstRandomHeight, secondRandomHeight);
+		this.minimumHeightPercent = minimumHeightPercent;
+		this.heightDifferenceFromMax = 1F - minimumHeightPercent;
+	}
+
+	protected static <P extends LargeSnappedTrunkPlacer> Products.P4<RecordCodecBuilder.Mu<P>, Integer, Integer, Integer, Float> largeSnappedTrunkCodec(RecordCodecBuilder.Instance<P> builder) {
+		return trunkPlacerParts(builder)
+			.and(Codec.floatRange(0.0F, 1.0F).fieldOf("minimum_height_percentage").forGetter((trunkPlacer) -> trunkPlacer.minimumHeightPercent));
 	}
 
 	@Override
@@ -50,24 +63,33 @@ public class LargeSnappedTrunkPlacer extends TrunkPlacer {
 	@Override
 	@NotNull
 	public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, int height, @NotNull BlockPos startPos, @NotNull TreeConfiguration config) {
-		setDirtAt(level, replacer, random, startPos.below(), config);
-		setDirtAt(level, replacer, random, startPos.below().east(), config);
-		setDirtAt(level, replacer, random, startPos.below().south(), config);
-		setDirtAt(level, replacer, random, startPos.below().south().east(), config);
 		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-		for (int i = 0; i < height; ++i) {
-			this.placeLog(level, replacer, random, mutable, config, startPos, 0, i, 0);
-			if (i < height - 1) {
-				this.placeLog(level, replacer, random, mutable, config, startPos, 1, i, 0);
-				this.placeLog(level, replacer, random, mutable, config, startPos, 1, i, 1);
-				this.placeLog(level, replacer, random, mutable, config, startPos, 0, i, 1);
-			}
-		}
+		int percentedHeight = (int) ((float) height * this.minimumHeightPercent);
+		int differenceInHeight = height - percentedHeight;
+
+		setDirtAt(level, replacer, random, mutable.move(Direction.DOWN), config);
+		placeQuarter(level, replacer, random, config, mutable.setWithOffset(startPos, 1, -1, 0), differenceInHeight, percentedHeight);
+
+		setDirtAt(level, replacer, random, mutable.setWithOffset(startPos, Direction.EAST).move(Direction.DOWN), config);
+		placeQuarter(level, replacer, random, config, mutable.setWithOffset(startPos, 1, -1, 0), differenceInHeight, percentedHeight);
+
+		setDirtAt(level, replacer, random, mutable.setWithOffset(startPos, Direction.SOUTH).move(Direction.DOWN), config);
+		placeQuarter(level, replacer, random, config, mutable.setWithOffset(startPos, 0, -1, 1), differenceInHeight, percentedHeight);
+
+		setDirtAt(level, replacer, random, mutable.setWithOffset(startPos, Direction.SOUTH).move(Direction.EAST).move(Direction.DOWN), config);
+		placeQuarter(level, replacer, random, config, mutable.setWithOffset(startPos, 1, -1, 1), differenceInHeight, percentedHeight);
+
 		return Lists.newArrayList();
 	}
-	private void placeLog(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, BlockPos.MutableBlockPos pos, TreeConfiguration config, BlockPos offsetPos, int offsetX, int offsetY, int offsetZ) {
-		pos.setWithOffset(offsetPos, offsetX, offsetY, offsetZ);
-		this.placeLogIfFree(level, blockSetter, random, pos, config);
+
+	private void placeQuarter(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, @NotNull TreeConfiguration config, @NotNull BlockPos.MutableBlockPos pos, int differenceInHeight, int percentedHeight) {
+		int newHeight = percentedHeight + (int) ((float) differenceInHeight * this.heightDifferenceFromMax);
+		for (int i = 0; i < newHeight; ++i) {
+			this.placeLog(level, replacer, random, config, pos.move(Direction.UP));
+		}
 	}
 
+	private void placeLog(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> blockSetter, @NotNull RandomSource random, @NotNull TreeConfiguration config, @NotNull BlockPos.MutableBlockPos pos) {
+		this.placeLogIfFree(level, blockSetter, random, pos, config);
+	}
 }

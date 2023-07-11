@@ -58,5 +58,4 @@ public class SnappedTrunkPlacer extends TrunkPlacer {
 		}
 		return Lists.newArrayList();
 	}
-
 }

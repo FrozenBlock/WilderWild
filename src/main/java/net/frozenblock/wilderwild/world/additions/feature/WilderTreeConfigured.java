@@ -725,20 +725,22 @@ public final class WilderTreeConfigured {
 				)
 			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
+
 		LARGE_SNAPPED_DARK_OAK.makeAndSetHolder(Feature.TREE,
-				largeSnappedTrunkBuilder(
-						Blocks.DARK_OAK_LOG,
-						Blocks.DARK_OAK_LEAVES,
-						2,
-						1,
-						1
-				).decorators(
-						List.of(
-								VINES_012_UNDER_260,
-								MOSS_OAK,
-								SHELF_FUNGUS_002
-						)
-				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+			largeSnappedTrunkBuilder(
+				Blocks.DARK_OAK_LOG,
+				Blocks.DARK_OAK_LEAVES,
+				2,
+				1,
+				1,
+				0.75F
+			).decorators(
+				List.of(
+					VINES_012_UNDER_260,
+					MOSS_OAK,
+					SHELF_FUNGUS_002
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		// SWAMP TREE
@@ -1005,19 +1007,20 @@ public final class WilderTreeConfigured {
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 		LARGE_SNAPPED_SPRUCE.makeAndSetHolder(Feature.TREE,
-				largeSnappedTrunkBuilder(
-						Blocks.SPRUCE_LOG,
-						Blocks.SPRUCE_LEAVES,
-						2,
-						1,
-						1
-				).decorators(
-						List.of(
-								VINES_012_UNDER_260,
-								MOSS_SPRUCE_PALM,
-								SHELF_FUNGUS_006_ONLY_BROWN
-						)
-				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+			largeSnappedTrunkBuilder(
+				Blocks.SPRUCE_LOG,
+				Blocks.SPRUCE_LEAVES,
+				2,
+				1,
+				1,
+				0.675F
+			).decorators(
+				List.of(
+					VINES_012_UNDER_260,
+					MOSS_SPRUCE_PALM,
+					SHELF_FUNGUS_006_ONLY_BROWN
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		// BAOBAB
@@ -1375,19 +1378,20 @@ public final class WilderTreeConfigured {
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 		LARGE_SNAPPED_JUNGLE.makeAndSetHolder(Feature.TREE,
-				largeSnappedTrunkBuilder(
-						Blocks.JUNGLE_LOG,
-						Blocks.JUNGLE_LEAVES,
-						3,
-						1,
-						1
-				).decorators(
-						List.of(
-								VINES_012_UNDER_260,
-								MOSS_JUNGLE,
-								SHELF_FUNGUS_007
-						)
-				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+			largeSnappedTrunkBuilder(
+				Blocks.JUNGLE_LOG,
+				Blocks.JUNGLE_LEAVES,
+				3,
+				1,
+				1,
+				0.5F
+			).decorators(
+				List.of(
+					VINES_012_UNDER_260,
+					MOSS_JUNGLE,
+					SHELF_FUNGUS_007
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		//ACACIA
@@ -1466,10 +1470,11 @@ public final class WilderTreeConfigured {
 			BlockStateProvider.simple(leaves), new BlobFoliagePlacer(ConstantInt.of(1), ConstantInt.of(0), 3), //FOILAGE PLACER DOES NOTHING
 			new TwoLayersFeatureSize(1, 0, 1));
 	}
-	private static TreeConfiguration.TreeConfigurationBuilder largeSnappedTrunkBuilder(Block log, Block leaves, int baseHeight, int firstRHeight, int secondRHeight) {
-		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new LargeSnappedTrunkPlacer(baseHeight, firstRHeight, secondRHeight),
-				BlockStateProvider.simple(leaves), new BlobFoliagePlacer(ConstantInt.of(1), ConstantInt.of(0), 3), //FOILAGE PLACER DOES NOTHING
-				new TwoLayersFeatureSize(1, 0, 1));
+
+	private static TreeConfiguration.TreeConfigurationBuilder largeSnappedTrunkBuilder(Block log, Block leaves, int baseHeight, int firstRHeight, int secondRHeight, float minimumHeightPercent) {
+		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new LargeSnappedTrunkPlacer(baseHeight, firstRHeight, secondRHeight, minimumHeightPercent),
+			BlockStateProvider.simple(leaves), new BlobFoliagePlacer(ConstantInt.of(1), ConstantInt.of(0), 3), //FOILAGE PLACER DOES NOTHING
+			new TwoLayersFeatureSize(1, 0, 1));
 	}
 
 	private static TreeConfiguration.TreeConfigurationBuilder birch() {
@@ -1547,7 +1552,7 @@ public final class WilderTreeConfigured {
 	}
 
 	private static TreeConfiguration.TreeConfigurationBuilder fallenJungle() {
-		return fallenTrunkBuilder(Blocks.JUNGLE_LOG, RegisterBlocks.HOLLOWED_JUNGLE_LOG, Blocks.JUNGLE_LEAVES,4, 2, 1, 0.0F, UniformInt.of(1, 2), 0F).ignoreVines();
+		return fallenTrunkBuilder(Blocks.JUNGLE_LOG, RegisterBlocks.HOLLOWED_JUNGLE_LOG, Blocks.JUNGLE_LEAVES, 4, 2, 1, 0.0F, UniformInt.of(1, 2), 0F).ignoreVines();
 	}
 
 	private static TreeConfiguration.TreeConfigurationBuilder fallenMangrove() {
