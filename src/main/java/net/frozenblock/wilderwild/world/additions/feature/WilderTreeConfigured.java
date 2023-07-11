@@ -730,7 +730,7 @@ public final class WilderTreeConfigured {
 			largeSnappedTrunkBuilder(
 				Blocks.DARK_OAK_LOG,
 				Blocks.DARK_OAK_LEAVES,
-				2,
+				1,
 				1,
 				1,
 				2
@@ -1006,6 +1006,7 @@ public final class WilderTreeConfigured {
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
+
 		LARGE_SNAPPED_SPRUCE.makeAndSetHolder(Feature.TREE,
 			largeSnappedTrunkBuilder(
 				Blocks.SPRUCE_LOG,
@@ -1377,6 +1378,7 @@ public final class WilderTreeConfigured {
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
+
 		LARGE_SNAPPED_JUNGLE.makeAndSetHolder(Feature.TREE,
 			largeSnappedTrunkBuilder(
 				Blocks.JUNGLE_LOG,
