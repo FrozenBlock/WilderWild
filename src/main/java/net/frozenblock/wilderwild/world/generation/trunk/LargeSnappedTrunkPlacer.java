@@ -68,7 +68,7 @@ public class LargeSnappedTrunkPlacer extends TrunkPlacer {
 		int differenceInHeight = height - percentedHeight;
 
 		setDirtAt(level, replacer, random, mutable.setWithOffset(startPos, Direction.DOWN), config);
-		placeQuarter(level, replacer, random, config, mutable.setWithOffset(startPos, 1, -1, 0), differenceInHeight, percentedHeight);
+		placeQuarter(level, replacer, random, config, mutable.setWithOffset(startPos, 0, -1, 0), differenceInHeight, percentedHeight);
 
 		setDirtAt(level, replacer, random, mutable.setWithOffset(startPos, Direction.EAST).move(Direction.DOWN), config);
 		placeQuarter(level, replacer, random, config, mutable.setWithOffset(startPos, 1, -1, 0), differenceInHeight, percentedHeight);
