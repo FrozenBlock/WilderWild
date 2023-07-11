@@ -67,7 +67,7 @@ public class LargeSnappedTrunkPlacer extends TrunkPlacer {
 		int percentedHeight = (int) ((float) height * this.minimumHeightPercent);
 		int differenceInHeight = height - percentedHeight;
 
-		setDirtAt(level, replacer, random, mutable.move(Direction.DOWN), config);
+		setDirtAt(level, replacer, random, mutable.setWithOffset(startPos, Direction.DOWN), config);
 		placeQuarter(level, replacer, random, config, mutable.setWithOffset(startPos, 1, -1, 0), differenceInHeight, percentedHeight);
 
 		setDirtAt(level, replacer, random, mutable.setWithOffset(startPos, Direction.EAST).move(Direction.DOWN), config);
@@ -83,7 +83,7 @@ public class LargeSnappedTrunkPlacer extends TrunkPlacer {
 	}
 
 	private void placeQuarter(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, @NotNull TreeConfiguration config, @NotNull BlockPos.MutableBlockPos pos, int differenceInHeight, int percentedHeight) {
-		int newHeight = percentedHeight + (int) ((float) differenceInHeight * this.heightDifferenceFromMax);
+		int newHeight = percentedHeight + (int) ((float) differenceInHeight * (this.heightDifferenceFromMax * random.nextFloat()));
 		for (int i = 0; i < newHeight; ++i) {
 			this.placeLog(level, replacer, random, config, pos.move(Direction.UP));
 		}
