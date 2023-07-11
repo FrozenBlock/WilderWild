@@ -793,9 +793,19 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptional(RegisterWorldgen.DARK_TAIGA)
 				.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
 
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_LARGE_SPRUCE)
+				.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA)
+				.add(Biomes.OLD_GROWTH_PINE_TAIGA)
+				.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
+
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_SPRUCE_SNOWY)
 				.add(Biomes.SNOWY_TAIGA)
 				.add(Biomes.GROVE)
+				.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_LARGE_SPRUCE_SNOWY)
+				.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA)
+				.add(Biomes.OLD_GROWTH_PINE_TAIGA)
 				.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_BIRCH_AND_OAK)
@@ -820,6 +830,11 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.add(Biomes.BAMBOO_JUNGLE)
 				.add(Biomes.SPARSE_JUNGLE);
 
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_LARGE_JUNGLE)
+				.add(Biomes.JUNGLE)
+				.add(Biomes.BAMBOO_JUNGLE)
+				.add(Biomes.SPARSE_JUNGLE);
+
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_BIRCH_AND_JUNGLE)
 				.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
 				.addOptional(RegisterWorldgen.BIRCH_JUNGLE);
@@ -834,6 +849,12 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_CHERRY)
 				.addOptional(Biomes.CHERRY_GROVE);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_DARK_OAK)
+				.add(Biomes.DARK_FOREST)
+				.addOptional(RegisterWorldgen.DARK_TAIGA)
+				.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
+				.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_POLLEN)
 				.add(Biomes.BIRCH_FOREST)

@@ -313,6 +313,7 @@ public final class WilderMiscPlaced {
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.GRAVEL_TRANSITION_PLACEABLE)),
 			BiomeFilter.biome()
 		);
+
 		RIVER_POOL.makeAndSetHolder(WilderMiscConfigured.RIVER_POOL.getHolder(),
 				CountPlacement.of(10),
 				InSquarePlacement.spread(),

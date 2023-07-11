@@ -143,15 +143,19 @@ public final class WilderConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_OAKS = register("snapped_oaks");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_BIRCH_AND_OAK = register("snapped_birch_and_oak");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_SPRUCES = register("snapped_spruces");
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_LARGE_SPRUCES = register("snapped_large_spruces");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_SPRUCES_ON_SNOW = register("snapped_spruces_on_snow");
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_LARGE_SPRUCES_ON_SNOW = register("snapped_large_spruces_on_snow");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_BIRCH_AND_OAK_AND_SPRUCE = register("snapped_birch_and_oak_and_spruce");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_BIRCH_AND_SPRUCE = register("snapped_birch_and_spruce");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_CYPRESSES = register("snapped_cypresses");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_JUNGLES = register("snapped_jungles");
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_LARGE_JUNGLES = register("snapped_large_jungles");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_BIRCH_AND_JUNGLE = register("snapped_birch_and_jungle");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_ACACIAS = register("snapped_acacias");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_ACACIA_AND_OAK = register("snapped_acacia_and_oak");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_CHERRY = register("snapped_cherry");
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_DARK_OAKS = register("snapped_dark_oaks");
 	//FLOWERS
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> SEEDING_DANDELION = register("seeding_dandelion");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> CARNATION = register("carnation");
@@ -1025,6 +1029,24 @@ public final class WilderConfiguredFeatures {
 			)
 		);
 
+		SNAPPED_LARGE_SPRUCES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(WilderTreePlaced.LARGE_SNAPPED_SPRUCE_CHECKED.getHolder(), 1.0F)
+				),
+				WilderTreePlaced.LARGE_SNAPPED_SPRUCE_CHECKED.getHolder()
+			)
+		);
+
+		SNAPPED_LARGE_SPRUCES_ON_SNOW.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(WilderTreePlaced.LARGE_SNAPPED_SPRUCE_ON_SNOW_CHECKED.getHolder(), 1.0F)
+				),
+				WilderTreePlaced.LARGE_SNAPPED_SPRUCE_ON_SNOW_CHECKED.getHolder()
+			)
+		);
+
 		SNAPPED_BIRCH_AND_OAK_AND_SPRUCE.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
@@ -1062,6 +1084,15 @@ public final class WilderConfiguredFeatures {
 			)
 		);
 
+		SNAPPED_LARGE_JUNGLES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(WilderTreePlaced.LARGE_SNAPPED_JUNGLE_CHECKED.getHolder(), 1.0F)
+				),
+				WilderTreePlaced.LARGE_SNAPPED_JUNGLE_CHECKED.getHolder()
+			)
+		);
+
 		SNAPPED_BIRCH_AND_JUNGLE.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
@@ -1095,6 +1126,15 @@ public final class WilderConfiguredFeatures {
 					new WeightedPlacedFeature(WilderTreePlaced.SNAPPED_CHERRY_CHECKED.getHolder(), 1.0F)
 				),
 				WilderTreePlaced.SNAPPED_CHERRY_CHECKED.getHolder()
+			)
+		);
+
+		SNAPPED_DARK_OAKS.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(WilderTreePlaced.LARGE_SNAPPED_DARK_OAK_CHECKED.getHolder(), 1.0F)
+				),
+				WilderTreePlaced.LARGE_SNAPPED_DARK_OAK_CHECKED.getHolder()
 			)
 		);
 

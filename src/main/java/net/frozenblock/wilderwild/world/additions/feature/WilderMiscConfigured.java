@@ -495,6 +495,7 @@ public final class WilderMiscConfigured {
 				Heightmap.Types.OCEAN_FLOOR_WG
 			)
 		);
+
 		RIVER_POOL.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
 				new VegetationPatchConfiguration(
 						WilderBlockTags.RIVER_POOL_REPLACEABLE,
