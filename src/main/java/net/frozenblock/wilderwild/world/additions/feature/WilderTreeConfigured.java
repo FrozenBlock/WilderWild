@@ -733,7 +733,7 @@ public final class WilderTreeConfigured {
 				2,
 				1,
 				1,
-				0.5F
+				2
 			).decorators(
 				List.of(
 					VINES_012_UNDER_260,
@@ -1013,7 +1013,7 @@ public final class WilderTreeConfigured {
 				2,
 				2,
 				1,
-				0.575F
+				2
 			).decorators(
 				List.of(
 					VINES_012_UNDER_260,
@@ -1384,7 +1384,7 @@ public final class WilderTreeConfigured {
 				3,
 				1,
 				2,
-				0.5F
+				3
 			).decorators(
 				List.of(
 					VINES_012_UNDER_260,
@@ -1471,8 +1471,8 @@ public final class WilderTreeConfigured {
 			new TwoLayersFeatureSize(1, 0, 1));
 	}
 
-	private static TreeConfiguration.TreeConfigurationBuilder largeSnappedTrunkBuilder(Block log, Block leaves, int baseHeight, int firstRHeight, int secondRHeight, float minimumHeightPercent) {
-		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new LargeSnappedTrunkPlacer(baseHeight, firstRHeight, secondRHeight, minimumHeightPercent),
+	private static TreeConfiguration.TreeConfigurationBuilder largeSnappedTrunkBuilder(Block log, Block leaves, int baseHeight, int firstRHeight, int secondRHeight, int maxAdditionalHeight) {
+		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new LargeSnappedTrunkPlacer(baseHeight, firstRHeight, secondRHeight, UniformInt.of(0, maxAdditionalHeight)),
 			BlockStateProvider.simple(leaves), new BlobFoliagePlacer(ConstantInt.of(1), ConstantInt.of(0), 3), //FOILAGE PLACER DOES NOTHING
 			new TwoLayersFeatureSize(1, 0, 1));
 	}

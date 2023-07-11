@@ -28,6 +28,7 @@ import net.frozenblock.wilderwild.registry.RegisterFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
@@ -40,18 +41,16 @@ public class LargeSnappedTrunkPlacer extends TrunkPlacer {
 	public static final Codec<LargeSnappedTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) ->
 		largeSnappedTrunkCodec(instance).apply(instance, LargeSnappedTrunkPlacer::new));
 
-	public final float minimumHeightPercent;
-	private final float heightDifferenceFromMax;
+	public final UniformInt additionalHeight;
 
-	public LargeSnappedTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight, float minimumHeightPercent) {
+	public LargeSnappedTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight, UniformInt additionalHeight) {
 		super(baseHeight, firstRandomHeight, secondRandomHeight);
-		this.minimumHeightPercent = minimumHeightPercent;
-		this.heightDifferenceFromMax = 1F - minimumHeightPercent;
+		this.additionalHeight = additionalHeight;
 	}
 
-	protected static <P extends LargeSnappedTrunkPlacer> Products.P4<RecordCodecBuilder.Mu<P>, Integer, Integer, Integer, Float> largeSnappedTrunkCodec(RecordCodecBuilder.Instance<P> builder) {
+	protected static <P extends LargeSnappedTrunkPlacer> Products.P4<RecordCodecBuilder.Mu<P>, Integer, Integer, Integer, UniformInt> largeSnappedTrunkCodec(RecordCodecBuilder.Instance<P> builder) {
 		return trunkPlacerParts(builder)
-			.and(Codec.floatRange(0.0F, 1.0F).fieldOf("minimum_height_percentage").forGetter((trunkPlacer) -> trunkPlacer.minimumHeightPercent));
+			.and(UniformInt.CODEC.fieldOf("additional_height").forGetter((trunkPlacer) -> trunkPlacer.additionalHeight));
 	}
 
 	@Override
@@ -64,26 +63,24 @@ public class LargeSnappedTrunkPlacer extends TrunkPlacer {
 	@NotNull
 	public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, int height, @NotNull BlockPos startPos, @NotNull TreeConfiguration config) {
 		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-		int percentedHeight = (int) ((float) height * this.minimumHeightPercent);
-		int differenceInHeight = height - percentedHeight;
 
 		setDirtAt(level, replacer, random, mutable.setWithOffset(startPos, Direction.DOWN), config);
-		placeQuarter(level, replacer, random, config, mutable.setWithOffset(startPos, 0, -1, 0), differenceInHeight, percentedHeight);
+		placeQuarter(level, replacer, random, config, mutable.setWithOffset(startPos, 0, -1, 0), height);
 
 		setDirtAt(level, replacer, random, mutable.setWithOffset(startPos, Direction.EAST).move(Direction.DOWN), config);
-		placeQuarter(level, replacer, random, config, mutable.setWithOffset(startPos, 1, -1, 0), differenceInHeight, percentedHeight);
+		placeQuarter(level, replacer, random, config, mutable.setWithOffset(startPos, 1, -1, 0), height);
 
 		setDirtAt(level, replacer, random, mutable.setWithOffset(startPos, Direction.SOUTH).move(Direction.DOWN), config);
-		placeQuarter(level, replacer, random, config, mutable.setWithOffset(startPos, 0, -1, 1), differenceInHeight, percentedHeight);
+		placeQuarter(level, replacer, random, config, mutable.setWithOffset(startPos, 0, -1, 1), height);
 
 		setDirtAt(level, replacer, random, mutable.setWithOffset(startPos, Direction.SOUTH).move(Direction.EAST).move(Direction.DOWN), config);
-		placeQuarter(level, replacer, random, config, mutable.setWithOffset(startPos, 1, -1, 1), differenceInHeight, percentedHeight);
+		placeQuarter(level, replacer, random, config, mutable.setWithOffset(startPos, 1, -1, 1), height);
 
 		return Lists.newArrayList();
 	}
 
-	private void placeQuarter(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, @NotNull TreeConfiguration config, @NotNull BlockPos.MutableBlockPos pos, int differenceInHeight, int percentedHeight) {
-		int newHeight = percentedHeight + (int) ((float) differenceInHeight * (this.heightDifferenceFromMax * random.nextFloat()));
+	private void placeQuarter(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, @NotNull TreeConfiguration config, @NotNull BlockPos.MutableBlockPos pos, int height) {
+		int newHeight = height + this.additionalHeight.sample(random);
 		for (int i = 0; i < newHeight; ++i) {
 			this.placeLog(level, replacer, random, config, pos.move(Direction.UP));
 		}
