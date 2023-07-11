@@ -39,6 +39,7 @@ import net.frozenblock.wilderwild.world.generation.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.generation.trunk.FancyDarkOakTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.JuniperTrunkPlacer;
+import net.frozenblock.wilderwild.world.generation.trunk.LargeSnappedTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.PalmTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.SnappedTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.StraightTrunkWithLogs;
@@ -135,6 +136,8 @@ public final class WilderTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DYING_FANCY_TALL_DARK_OAK = register("dying_fancy_tall_dark_oak");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> COBWEB_TALL_DARK_OAK = register("cobweb_tall_dark_oak");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> COBWEB_FANCY_TALL_DARK_OAK = register("cobweb_fancy_tall_dark_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_SNAPPED_DARK_OAK = register("large_snapped_dark_oak_tree");
+
 	//SWAMP TREE
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SWAMP_TREE = register("swamp_tree");
 	//SPRUCE
@@ -153,6 +156,7 @@ public final class WilderTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SHORT_MEGA_DYING_FUNGUS_SPRUCE = register("short_mega_dying_fungus_spruce");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SHORT_MEGA_DYING_SPRUCE = register("short_mega_dying_spruce");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_SPRUCE = register("snapped_spruce_tree");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_SNAPPED_SPRUCE = register("large_snapped_spruce_tree");
 	//BAOBAB
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> BAOBAB = register("baobab");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> BAOBAB_TALL = register("baobab_tall");
@@ -179,6 +183,7 @@ public final class WilderTreeConfigured {
 	//JUNGLE
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_JUNGLE_TREE = register("fallen_jungle_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_JUNGLE = register("snapped_jungle_tree");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_SNAPPED_JUNGLE = register("large_snapped_jungle_tree");
 	//ACACIA
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_ACACIA_TREE = register("fallen_acacia_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_ACACIA = register("snapped_acacia_tree");
@@ -720,6 +725,21 @@ public final class WilderTreeConfigured {
 				)
 			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
+		LARGE_SNAPPED_DARK_OAK.makeAndSetHolder(Feature.TREE,
+				largeSnappedTrunkBuilder(
+						Blocks.DARK_OAK_LOG,
+						Blocks.DARK_OAK_LEAVES,
+						2,
+						1,
+						1
+				).decorators(
+						List.of(
+								VINES_012_UNDER_260,
+								MOSS_OAK,
+								SHELF_FUNGUS_002
+						)
+				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
 
 		// SWAMP TREE
 
@@ -983,6 +1003,21 @@ public final class WilderTreeConfigured {
 					SHELF_FUNGUS_006_ONLY_BROWN
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+		LARGE_SNAPPED_SPRUCE.makeAndSetHolder(Feature.TREE,
+				largeSnappedTrunkBuilder(
+						Blocks.SPRUCE_LOG,
+						Blocks.SPRUCE_LEAVES,
+						2,
+						1,
+						1
+				).decorators(
+						List.of(
+								VINES_012_UNDER_260,
+								MOSS_SPRUCE_PALM,
+								SHELF_FUNGUS_006_ONLY_BROWN
+						)
+				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		// BAOBAB
@@ -1339,6 +1374,21 @@ public final class WilderTreeConfigured {
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
+		LARGE_SNAPPED_JUNGLE.makeAndSetHolder(Feature.TREE,
+				largeSnappedTrunkBuilder(
+						Blocks.JUNGLE_LOG,
+						Blocks.JUNGLE_LEAVES,
+						3,
+						1,
+						1
+				).decorators(
+						List.of(
+								VINES_012_UNDER_260,
+								MOSS_JUNGLE,
+								SHELF_FUNGUS_007
+						)
+				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
 
 		//ACACIA
 		FALLEN_ACACIA_TREE.makeAndSetHolder(Feature.TREE,
@@ -1415,6 +1465,11 @@ public final class WilderTreeConfigured {
 		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new SnappedTrunkPlacer(baseHeight, firstRHeight, secondRHeight),
 			BlockStateProvider.simple(leaves), new BlobFoliagePlacer(ConstantInt.of(1), ConstantInt.of(0), 3), //FOILAGE PLACER DOES NOTHING
 			new TwoLayersFeatureSize(1, 0, 1));
+	}
+	private static TreeConfiguration.TreeConfigurationBuilder largeSnappedTrunkBuilder(Block log, Block leaves, int baseHeight, int firstRHeight, int secondRHeight) {
+		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new LargeSnappedTrunkPlacer(baseHeight, firstRHeight, secondRHeight),
+				BlockStateProvider.simple(leaves), new BlobFoliagePlacer(ConstantInt.of(1), ConstantInt.of(0), 3), //FOILAGE PLACER DOES NOTHING
+				new TwoLayersFeatureSize(1, 0, 1));
 	}
 
 	private static TreeConfiguration.TreeConfigurationBuilder birch() {
