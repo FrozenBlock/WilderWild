@@ -151,6 +151,9 @@ public final class WilderMiscGeneration {
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_ROOTED_DIRT_CLEARING),
 				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.ROOTED_DIRT_PATH_CLEARING.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.RIVER),
+					GenerationStep.Decoration.LAKES, WilderMiscPlaced.RIVER_POOL.getKey());
 		}
 
 		if (WilderSharedConstants.config().surfaceTransitions()) {
@@ -178,9 +181,6 @@ public final class WilderMiscGeneration {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_MUD_TRANSITION),
 				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.MUD_TRANSITION.getKey());
 		}
-
-		BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.RIVER),
-				GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.RIVER_POOL.getKey());
 	}
 
 }
