@@ -315,7 +315,7 @@ public final class WilderMiscPlaced {
 		);
 
 		RIVER_POOL.makeAndSetHolder(WilderMiscConfigured.RIVER_POOL.getHolder(),
-				CountPlacement.of(10),
+				CountPlacement.of(100),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 				HeightRangePlacement.uniform(VerticalAnchor.absolute(62), VerticalAnchor.aboveBottom(65)),
