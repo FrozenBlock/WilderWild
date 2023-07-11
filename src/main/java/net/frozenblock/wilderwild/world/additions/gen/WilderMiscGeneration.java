@@ -180,7 +180,7 @@ public final class WilderMiscGeneration {
 		}
 
 		BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.RIVER),
-				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.RIVER_POOL.getKey());
+				GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.RIVER_POOL.getKey());
 	}
 
 }

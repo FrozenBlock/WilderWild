@@ -318,7 +318,7 @@ public final class WilderMiscPlaced {
 				CountPlacement.of(100),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-				HeightRangePlacement.uniform(VerticalAnchor.absolute(62), VerticalAnchor.aboveBottom(65)),
+				HeightRangePlacement.uniform(VerticalAnchor.absolute(62), VerticalAnchor.aboveBottom(68)),
 				EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 4),
 				RandomOffsetPlacement.vertical(ConstantInt.of(1)),
 				BiomeFilter.biome()
