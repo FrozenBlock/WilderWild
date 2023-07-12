@@ -248,7 +248,9 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@Override
 	protected void playSwimSound(float volume) {
 		super.playSwimSound(volume);
-		this.spawnBubbles();
+		if (this.random.nextFloat() < 0.5F) {
+			this.spawnBubbles();
+		}
 	}
 
 	@Override
