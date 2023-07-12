@@ -14,15 +14,12 @@ Put changelog here:
 - Added a "tomb" to Ancient Cities' centers.
 - Tweaked the rarity of Ancient Horn Fragments.
 - Added Osseous Sculk and Hanging Tendrils to Ancient Cities' loot tables.
-- Removed Stone Chest Closes gamerule.
+- Removed Stone Chest Closes gamerule as it caused issues in multiplayer.
 - Added Shrubs to many biomes like Plains, Forest, Dark Forest, and much more.
 - Added more flora to the Plains, Meadow, Flower Forest, Flower Field, Forest, Semi-Birch Forest, Birch Forest, and Mangrove Swamp biomes.
 - Cattails can now generate on Mud blocks if not nearby water.
 - Palms now rarely generate on Beaches.
 - Added Snapped variants of trees.
-- Mangrove Swamps have now been wilder-ified, including Cattails, Flowers, Bushes, Mud Basins, Mud Lakes, more Grass, Fern, and rare Mud Piles.
-- Made path features look more natural.
-- Added new rare Coarse Dirt, Gravel, and Stone paths throughout the world.
 - Forest biomes now have clearings, with Rooted Dirt and Coarse Dirt/Gravel surrounding it.
     - Snapped Trees will generate more frequently in clearings.
     - Flowers will generate more commonly in clearings in Forest and Birch Forest biomes and their variants.
@@ -31,8 +28,12 @@ Put changelog here:
     - As long as the ending of the Tree is on solid ground or above 50% of the Tree is on solid ground, the Fallen Tree will generate.
         - Previously, when a Fallen Tree wasn't above solid ground its remaining height would decrease, and once above roughly two or more non-solid blocks, its generation would cease completely.
         - This change helps Fallen Trees not generate and end up extremely short, and makes them a lot more realistic.
+- Mangrove Swamps have now been wilder-ified, including Cattails, Flowers, Bushes, Mud Basins, Mud Lakes, more Grass, Fern, and rare Mud Piles.
+- Made path features look more natural.
+- Added new rare Coarse Dirt, Gravel, and Stone paths throughout the world.
 - Decreased the size of uncommon Algae patches (Swamp & Mangrove Swamp.)
-- Added a new advancement "Bottle of Lightning" for capturing a Firefly in a Glass Bottle.
+- Removed Deepslate Pools in favor of regular Stone Pools, which now no longer change the bordering block of the pools.
+- Rivers now generate small Pools to increase the area covered in water, and to allow previously dry areas above sea level to have a bit of water.
 - Incorporated Wilder Wild's new foods, mobs, and biomes into Vanilla's advancements (note that this may be overriden by other mods' data.)
 - Jellyfish can now reproduce.
     - Repeatedly feeding a Jellyfish Cod or Salmon will eventually cause a baby Jellyfish to spawn.
@@ -41,14 +42,14 @@ Put changelog here:
 - Bubbles will occasionally spawn behind adult Jellyfish as they swim.
 - Added a config option that controls how many tentacles Jellyfish have.
 - Only pearlescent Mesoglea will lift items and boats as opposed to all types prior.
+- Jellyfish and Fireflies now only hide when they're near the center of their target.
+- Added a new advancement "Bottle of Lightning" for capturing a Firefly in a Glass Bottle.
+- Firefly Bottles can now be recolored.
 - Termites no longer spam sounds and quickly overload the sound cap. They now use sound loops that move along with them.
 - Added two config options controlling how far Termites can travel from their Mounds.
 - Added unique sounds for all Ice blocks (was only Frosted Ice prior.)
 - Included all Tall Flowers in the "Flower Sounds" config.
-- Firefly Bottles can now be recolored.
-- Fixed a crash pertaining to Jellyfish variants and Firefly colors.
 - Added new Frosted Ice melting sounds and particles.
-- Jellyfish and Fireflies now only hide when they're near the center of their target.
 - Made many more aspects of Wilder Wild's worldgen data-driven.
 - Optimized the way some features generate (Trees, Cattails, Algae, etc.)
 - Added descriptions and proper names to Wilder Wild's built-in resource packs.
@@ -74,6 +75,7 @@ Bug Fixes:
 - Fixed Tumbleweed breaking crops only client-side.
 - Fixed Baobab Nut collision.
 - Shadows no longer render on waterlogged Mesoglea. Change not applied with Sodium.
+- Fixed a crash pertaining to Jellyfish variants and Firefly colors.
 - Algae no longer slows down entities outside its collision shape.
 - Fixed Algae growth with Bone meal.
 - Cattails no longer create pockets of air when they're supposed to be waterlogged.

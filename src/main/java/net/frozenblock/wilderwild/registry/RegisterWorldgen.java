@@ -356,8 +356,7 @@ public final class RegisterWorldgen {
 	public static void addJellyfishCavesFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
 		BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
 		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, CavePlacements.MONSTER_ROOM_DEEP);
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, WilderMiscPlaced.JELLYFISH_DEEPSLATE_POOL.getKey());
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, WilderMiscPlaced.JELLYFISH_STONE_POOL.getKey());
+		builder.addFeature(GenerationStep.Decoration.LAKES, WilderMiscPlaced.JELLYFISH_STONE_POOL.getKey());
 		BiomeDefaultFeatures.addDefaultUndergroundVariety(builder);
 		BiomeDefaultFeatures.addSurfaceFreezing(builder);
 		BiomeDefaultFeatures.addPlainGrass(builder);

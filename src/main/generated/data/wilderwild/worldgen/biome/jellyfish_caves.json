@@ -33,6 +33,7 @@
   "features": [
     [],
     [
+      "wilderwild:jellyfish_stone_pool",
       "minecraft:lake_lava_underground",
       "minecraft:lake_lava_surface"
     ],
@@ -46,9 +47,7 @@
       "wilderwild:purple_mesoglea_path"
     ],
     [
-      "minecraft:monster_room_deep",
-      "wilderwild:jellyfish_deepslate_pool",
-      "wilderwild:jellyfish_stone_pool"
+      "minecraft:monster_room_deep"
     ],
     [],
     [],

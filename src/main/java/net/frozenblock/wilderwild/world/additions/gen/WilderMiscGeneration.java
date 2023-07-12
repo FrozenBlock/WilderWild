@@ -74,9 +74,6 @@ public final class WilderMiscGeneration {
 			BiomeModifications.addFeature(FrozenBiomeSelectors.foundInOverworldExcept(WilderBiomeTags.NO_POOLS),
 				GenerationStep.Decoration.LAKES, WilderMiscPlaced.STONE_POOL.getKey());
 
-			BiomeModifications.addFeature(FrozenBiomeSelectors.foundInOverworldExcept(WilderBiomeTags.NO_POOLS),
-				GenerationStep.Decoration.LAKES, WilderMiscPlaced.DEEPSLATE_POOL.getKey());
-
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_COARSE_DIRT_PATH_SMALL),
 				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.COARSE_DIRT_PATH_SMALL.getKey());
 

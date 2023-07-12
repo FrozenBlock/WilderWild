@@ -96,10 +96,8 @@ public final class WilderMiscPlaced {
 	// JELLYFISH CAVES
 	public static final FrozenPlacedFeature EXTRA_GLOW_LICHEN = register("extra_glow_lichen");
 	public static final FrozenPlacedFeature STONE_POOL = register("stone_pool");
-	public static final FrozenPlacedFeature DEEPSLATE_POOL = register("deepslate_pool");
 	public static final FrozenPlacedFeature ORE_CALCITE = register("ore_calcite");
 	public static final BlockPredicate ONLY_IN_WATER_PREDICATE = BlockPredicate.matchesBlocks(Blocks.WATER);
-	public static final FrozenPlacedFeature JELLYFISH_DEEPSLATE_POOL = register("jellyfish_deepslate_pool");
 	public static final FrozenPlacedFeature JELLYFISH_STONE_POOL = register("jellyfish_stone_pool");
 	public static final FrozenPlacedFeature MESOGLEA_PILLAR = register("blue_mesoglea_pillar");
 	public static final FrozenPlacedFeature PURPLE_MESOGLEA_PILLAR = register("purple_mesoglea_pillar");
@@ -317,8 +315,8 @@ public final class WilderMiscPlaced {
 		RIVER_POOL.makeAndSetHolder(WilderMiscConfigured.RIVER_POOL.getHolder(),
 				CountPlacement.of(20),
 				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-				HeightRangePlacement.uniform(VerticalAnchor.absolute(63), VerticalAnchor.aboveBottom(256)),
+				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				HeightRangePlacement.uniform(VerticalAnchor.absolute(63), VerticalAnchor.absolute(72)),
 				EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
 				RandomOffsetPlacement.vertical(ConstantInt.of(1)),
 				BiomeFilter.biome()
@@ -427,18 +425,9 @@ public final class WilderMiscPlaced {
 		);
 
 		STONE_POOL.makeAndSetHolder(WilderMiscConfigured.STONE_POOL.getHolder(),
-			RarityFilter.onAverageOnceEvery(13),
+			RarityFilter.onAverageOnceEvery(6),
 			InSquarePlacement.spread(),
-			HeightRangePlacement.uniform(VerticalAnchor.absolute(5), VerticalAnchor.aboveBottom(108)),
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
-			BiomeFilter.biome()
-		);
-
-		DEEPSLATE_POOL.makeAndSetHolder(WilderMiscConfigured.DEEPSLATE_POOL.getHolder(),
-			RarityFilter.onAverageOnceEvery(13),
-			InSquarePlacement.spread(),
-			HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.absolute(5)),
+			HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(5), VerticalAnchor.aboveBottom(108)),
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
 			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
 			BiomeFilter.biome()
@@ -448,19 +437,10 @@ public final class WilderMiscPlaced {
 			modifiersWithCount(2, HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(64)))
 		);
 
-		JELLYFISH_DEEPSLATE_POOL.makeAndSetHolder(WilderMiscConfigured.DEEPSLATE_POOL.getHolder(),
-			CountPlacement.of(30),
-			InSquarePlacement.spread(),
-			HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(67)),
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
-			BiomeFilter.biome()
-		);
-
 		JELLYFISH_STONE_POOL.makeAndSetHolder(WilderMiscConfigured.STONE_POOL.getHolder(),
-			CountPlacement.of(30),
+			CountPlacement.of(60),
 			InSquarePlacement.spread(),
-			HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(68), VerticalAnchor.top()),
+			HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.top()),
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
 			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
 			BiomeFilter.biome()

@@ -124,7 +124,6 @@ public final class WilderMiscConfigured {
 	public static final FrozenConfiguredFeature<OreConfiguration, ConfiguredFeature<OreConfiguration, ?>> ORE_CALCITE = register("ore_calcite");
 	public static final FrozenConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> BLANK_SHUT_UP = register("blank_shut_up");
 	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> STONE_POOL = register("stone_pool");
-	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> DEEPSLATE_POOL = register("deepslate_pool");
 	public static final FrozenConfiguredFeature<PillarFeatureConfig, ConfiguredFeature<PillarFeatureConfig, ?>> UPWARDS_MESOGLEA_PILLAR = register("blue_mesoglea_pillar");
 	public static final FrozenConfiguredFeature<PillarFeatureConfig, ConfiguredFeature<PillarFeatureConfig, ?>> PURPLE_MESOGLEA_PILLAR = register("purple_mesoglea_pillar");
 	public static final FrozenConfiguredFeature<PillarFeatureConfig, ConfiguredFeature<PillarFeatureConfig, ?>> DOWNWARDS_MESOGLEA_PILLAR = register("downwards_blue_mesoglea_pillar");
@@ -506,7 +505,7 @@ public final class WilderMiscConfigured {
 						0.8F,
 						1,
 						0.000F,
-						UniformInt.of(8, 14),
+						UniformInt.of(2, 3),
 						0.7F
 				)
 		);
@@ -791,25 +790,10 @@ public final class WilderMiscConfigured {
 			)
 		);
 
-		STONE_POOL.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
+		STONE_POOL.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH_LESS_BORDERS,
 			new VegetationPatchConfiguration(
 				BlockTags.LUSH_GROUND_REPLACEABLE,
 				BlockStateProvider.simple(Blocks.STONE),
-				PlacementUtils.inlinePlaced(BLANK_SHUT_UP.getHolder()),
-				CaveSurface.FLOOR,
-				ConstantInt.of(4),
-				0.8F,
-				2,
-				0.000F,
-				UniformInt.of(12, 15),
-				0.7F
-			)
-		);
-
-		DEEPSLATE_POOL.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
-				BlockTags.LUSH_GROUND_REPLACEABLE,
-				BlockStateProvider.simple(Blocks.DEEPSLATE),
 				PlacementUtils.inlinePlaced(BLANK_SHUT_UP.getHolder()),
 				CaveSurface.FLOOR,
 				ConstantInt.of(4),

@@ -10,14 +10,14 @@
     },
     {
       "type": "minecraft:heightmap",
-      "heightmap": "WORLD_SURFACE_WG"
+      "heightmap": "OCEAN_FLOOR_WG"
     },
     {
       "type": "minecraft:height_range",
       "height": {
         "type": "minecraft:uniform",
         "max_inclusive": {
-          "above_bottom": 256
+          "absolute": 72
         },
         "min_inclusive": {
           "absolute": 63
