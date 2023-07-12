@@ -505,7 +505,7 @@ public final class WilderMiscConfigured {
 						0.8F,
 						1,
 						0.000F,
-						UniformInt.of(2, 3),
+						UniformInt.of(4, 8),
 						0.7F
 				)
 		);
