@@ -1297,6 +1297,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_ALGAE)
 				.addOptional(RegisterWorldgen.CYPRESS_WETLANDS);
 
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_RIVER_POOLS)
+				.add(Biomes.RIVER);
+
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_MOSS_BASIN)
 				.add(Biomes.JUNGLE)
 				.add(Biomes.SPARSE_JUNGLE)

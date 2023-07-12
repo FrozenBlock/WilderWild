@@ -184,6 +184,7 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_MUD_LAKE = bind("has_mud_lake");
 	public static final TagKey<Biome> HAS_ALGAE_SMALL = bind("has_algae_small");
 	public static final TagKey<Biome> HAS_ALGAE = bind("has_algae");
+	public static final TagKey<Biome> HAS_RIVER_POOLS = bind("has_river_pools");
 	public static final TagKey<Biome> HAS_RARE_COARSE = bind("has_rare_coarse");
 	public static final TagKey<Biome> HAS_RARE_GRAVEL = bind("has_rare_gravel");
 	public static final TagKey<Biome> HAS_RARE_STONE = bind("has_rare_stone");
