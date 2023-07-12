@@ -496,7 +496,7 @@ public final class WilderMiscConfigured {
 			)
 		);
 
-		RIVER_POOL.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
+		RIVER_POOL.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH_LESS_BORDERS,
 				new VegetationPatchConfiguration(
 						WilderBlockTags.RIVER_POOL_REPLACEABLE,
 						BlockStateProvider.simple(Blocks.GRASS_BLOCK),

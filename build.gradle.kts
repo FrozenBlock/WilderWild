@@ -240,9 +240,6 @@ dependencies {
         modImplementation("maven.modrinth:frozenlib:$frozenlib_version")?.let { include(it) }
     }
 
-    // CaffeineConfig
-    //include(modImplementation("net.caffeinemc:mixin-config:1.0.0+1.17"))
-
     // Simple Copper Pipes
     modImplementation("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
 
@@ -265,7 +262,7 @@ dependencies {
     modCompileOnly("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
 
     // Particle Rain
-    modImplementation("maven.modrinth:particle-rain:v2.0.5")
+    modCompileOnly("maven.modrinth:particle-rain:v2.0.5")
 
     // MixinExtras
     implementation("com.github.llamalad7.mixinextras:mixinextras-fabric:0.2.0-beta.9")?.let { annotationProcessor(it); }

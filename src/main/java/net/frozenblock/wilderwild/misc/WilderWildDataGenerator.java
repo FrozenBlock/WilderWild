@@ -1697,6 +1697,11 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBlockTags.OASIS_PATH_REPLACEABLE)
 				.add(Blocks.SAND)
 				.add(Blocks.SANDSTONE);
+
+			this.getOrCreateTagBuilder(WilderBlockTags.RIVER_POOL_REPLACEABLE)
+				.addOptionalTag(BlockTags.SAND)
+				.addOptionalTag(BlockTags.DIRT)
+				.add(Blocks.CLAY);
 		}
 
 		private void generateTags() {

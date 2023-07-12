@@ -1,5 +1,5 @@
 {
-  "type": "frozenlib:circular_waterlogged_vegetation_patch",
+  "type": "frozenlib:circular_waterlogged_vegetation_patch_less_borders",
   "config": {
     "depth": 5,
     "extra_bottom_block_chance": 0.8,

@@ -1,7 +1,14 @@
 {
   "replace": false,
   "values": [
-    "minecraft:sand",
-    "minecraft:grass_block"
+    {
+      "id": "#minecraft:sand",
+      "required": false
+    },
+    {
+      "id": "#minecraft:dirt",
+      "required": false
+    },
+    "minecraft:clay"
   ]
 }
