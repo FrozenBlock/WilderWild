@@ -542,11 +542,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 	}
 
 	@Override
-	protected boolean canRide(@NotNull Entity vehicle) {
-		return false;
-	}
-
-	@Override
 	public boolean canDisableShield() {
 		return false;
 	}
