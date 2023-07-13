@@ -151,6 +151,8 @@ public final class WilderMiscGeneration {
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_RIVER_POOLS),
 					GenerationStep.Decoration.LAKES, WilderMiscPlaced.RIVER_POOL.getKey());
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_RIVER_POOLS),
+					GenerationStep.Decoration.LAKES, WilderMiscPlaced.SMALL_RIVER_POOL.getKey());
 		}
 
 		if (WilderSharedConstants.config().surfaceTransitions()) {

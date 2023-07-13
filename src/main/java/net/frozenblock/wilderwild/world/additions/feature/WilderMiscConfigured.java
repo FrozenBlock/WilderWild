@@ -96,6 +96,7 @@ public final class WilderMiscConfigured {
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> BETA_BEACH_SAND_TRANSITION_DISK = register("beta_beach_sand_transition_disk");
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SMALL_GRAVEL_TRANSITION_DISK = register("small_gravel_transition_disk");
 	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> RIVER_POOL = register("river_pool");
+	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> SMALL_RIVER_POOL = register("small_river_pool");
 
 	// SAVANNA
 	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> PACKED_MUD_PATH = register("packed_mud_path");
@@ -501,11 +502,25 @@ public final class WilderMiscConfigured {
 						BlockStateProvider.simple(Blocks.GRASS_BLOCK),
 						PlacementUtils.inlinePlaced(BLANK_SHUT_UP.getHolder()),
 						CaveSurface.FLOOR,
-						ConstantInt.of(5),
+						ConstantInt.of(1),
 						0.8F,
 						1,
 						0.000F,
 						UniformInt.of(4, 8),
+						0.7F
+				)
+		);
+		SMALL_RIVER_POOL.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH_LESS_BORDERS,
+				new VegetationPatchConfiguration(
+						WilderBlockTags.RIVER_POOL_REPLACEABLE,
+						BlockStateProvider.simple(Blocks.GRASS_BLOCK),
+						PlacementUtils.inlinePlaced(BLANK_SHUT_UP.getHolder()),
+						CaveSurface.FLOOR,
+						ConstantInt.of(1),
+						0.8F,
+						1,
+						0.000F,
+						UniformInt.of(1, 2),
 						0.7F
 				)
 		);

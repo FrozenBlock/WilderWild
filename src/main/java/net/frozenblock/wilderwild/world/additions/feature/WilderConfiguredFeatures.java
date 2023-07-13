@@ -417,6 +417,12 @@ public final class WilderConfiguredFeatures {
 		.add(Blocks.GRASS.defaultBlockState(), 11)
 		.add(Blocks.FERN.defaultBlockState(), 1)
 		.build();
+	public static final SimpleWeightedRandomList<BlockState> TALL_GRASS_AND_GRASS_POOL = SimpleWeightedRandomList.<BlockState>builder()
+			.add(Blocks.TALL_GRASS.defaultBlockState(), 1)
+			.add(Blocks.GRASS.defaultBlockState(), 4)
+			.build();
+
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> TALL_GRASS_AND_GRASS_RIVER = register("tall_grass_and_grass_river");
 
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FERN_AND_GRASS = register("fern_and_grass");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> GRASS_AND_FERN = register("grass_and_fern");
@@ -1704,6 +1710,16 @@ public final class WilderConfiguredFeatures {
 					new SimpleBlockConfiguration(new WeightedStateProvider(LARGE_FERN_AND_GRASS_POOL_2))
 				)
 			)
+		);
+
+		TALL_GRASS_AND_GRASS_RIVER.makeAndSetHolder(Feature.RANDOM_PATCH,
+				FeatureUtils.simpleRandomPatchConfiguration(
+						16,
+						PlacementUtils.onlyWhenEmpty(
+								Feature.SIMPLE_BLOCK,
+								new SimpleBlockConfiguration(new WeightedStateProvider(TALL_GRASS_AND_GRASS_POOL))
+						)
+				)
 		);
 
 		FERN_AND_GRASS.makeAndSetHolder(Feature.RANDOM_PATCH,

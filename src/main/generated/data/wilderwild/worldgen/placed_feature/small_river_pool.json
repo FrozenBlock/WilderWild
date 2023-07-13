@@ -1,9 +1,9 @@
 {
-  "feature": "wilderwild:river_pool",
+  "feature": "wilderwild:small_river_pool",
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 20
+      "count": 8
     },
     {
       "type": "minecraft:in_square"
@@ -17,10 +17,10 @@
       "height": {
         "type": "minecraft:uniform",
         "max_inclusive": {
-          "absolute": 64
+          "absolute": 72
         },
         "min_inclusive": {
-          "absolute": 62
+          "absolute": 65
         }
       }
     },

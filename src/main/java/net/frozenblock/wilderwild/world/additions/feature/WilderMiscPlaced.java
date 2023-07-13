@@ -77,6 +77,7 @@ public final class WilderMiscPlaced {
 	public static final FrozenPlacedFeature BETA_BEACH_GRAVEL_TRANSITION = register("beta_beach_gravel_transition");
 	public static final FrozenPlacedFeature SMALL_GRAVEL_TRANSITION = register("small_gravel_transition");
 	public static final FrozenPlacedFeature RIVER_POOL = register("river_pool");
+	public static final FrozenPlacedFeature SMALL_RIVER_POOL = register("small_river_pool");
 	// SAVANNA
 	public static final FrozenPlacedFeature PACKED_MUD_PATH = register("packed_mud_path");
 	// JUNGLE
@@ -316,7 +317,16 @@ public final class WilderMiscPlaced {
 				CountPlacement.of(20),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
-				HeightRangePlacement.uniform(VerticalAnchor.absolute(63), VerticalAnchor.absolute(72)),
+				HeightRangePlacement.uniform(VerticalAnchor.absolute(62), VerticalAnchor.absolute(64)),
+				EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
+				RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+				BiomeFilter.biome()
+		);
+		SMALL_RIVER_POOL.makeAndSetHolder(WilderMiscConfigured.SMALL_RIVER_POOL.getHolder(),
+				CountPlacement.of(8),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				HeightRangePlacement.uniform(VerticalAnchor.absolute(65), VerticalAnchor.absolute(72)),
 				EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
 				RandomOffsetPlacement.vertical(ConstantInt.of(1)),
 				BiomeFilter.biome()
