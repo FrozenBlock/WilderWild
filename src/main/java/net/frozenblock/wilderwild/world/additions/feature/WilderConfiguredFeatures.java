@@ -422,7 +422,7 @@ public final class WilderConfiguredFeatures {
 			.add(Blocks.GRASS.defaultBlockState(), 4)
 			.build();
 
-	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> TALL_GRASS_AND_GRASS_RIVER = register("tall_grass_and_grass_river");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> TALL_GRASS_AND_GRASS_WATER = register("tall_grass_and_grass_water");
 
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FERN_AND_GRASS = register("fern_and_grass");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> GRASS_AND_FERN = register("grass_and_fern");
@@ -1712,7 +1712,7 @@ public final class WilderConfiguredFeatures {
 			)
 		);
 
-		TALL_GRASS_AND_GRASS_RIVER.makeAndSetHolder(Feature.RANDOM_PATCH,
+		TALL_GRASS_AND_GRASS_WATER.makeAndSetHolder(Feature.RANDOM_PATCH,
 				FeatureUtils.simpleRandomPatchConfiguration(
 						16,
 						PlacementUtils.onlyWhenEmpty(

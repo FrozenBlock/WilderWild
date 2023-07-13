@@ -315,11 +315,11 @@ public final class WilderWorldGen {
 
 		BiomeModifications.create(WilderSharedConstants.id("replace_water_trees"))
 				.add(ModificationPhase.REPLACEMENTS,
-						BiomeSelectors.tag(WilderBiomeTags.HAS_RIVER_POOLS),
+						BiomeSelectors.tag(WilderBiomeTags.HAS_WATER_SHRUBS),
 						context -> {
 							if (WilderSharedConstants.config().wildTrees()) {
 								context.getGenerationSettings().removeFeature(VegetationPlacements.TREES_WATER);
-								context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SHRUBS_RIVER.getKey());
+								context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SHRUBS_WATER.getKey());
 							}
 						});
 

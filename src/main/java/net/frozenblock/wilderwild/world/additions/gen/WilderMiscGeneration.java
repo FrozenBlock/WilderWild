@@ -149,9 +149,9 @@ public final class WilderMiscGeneration {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_ROOTED_DIRT_CLEARING),
 				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.ROOTED_DIRT_PATH_CLEARING.getKey());
 
-			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_RIVER_POOLS),
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_WATER_POOLS),
 					GenerationStep.Decoration.LAKES, WilderMiscPlaced.RIVER_POOL.getKey());
-			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_RIVER_POOLS),
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_WATER_POOLS),
 					GenerationStep.Decoration.LAKES, WilderMiscPlaced.SMALL_RIVER_POOL.getKey());
 		}
 

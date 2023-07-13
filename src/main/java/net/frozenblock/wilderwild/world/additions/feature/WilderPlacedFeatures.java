@@ -78,7 +78,7 @@ public final class WilderPlacedFeatures {
 	public static final FrozenPlacedFeature TREES_PLAINS = register("trees_plains");
 	public static final FrozenPlacedFeature SHRUBS_FOREST = register("shrubs_forest");
 	public static final FrozenPlacedFeature SHRUBS = register("shrubs");
-	public static final FrozenPlacedFeature SHRUBS_RIVER = register("shrubs_river");
+	public static final FrozenPlacedFeature SHRUBS_WATER = register("shrubs_water");
 	public static final FrozenPlacedFeature TREES_FLOWER_FIELD = register("trees_flower_field");
 	public static final FrozenPlacedFeature TREES_BIRCH_AND_OAK = register("trees_birch_and_oak");
 	public static final FrozenPlacedFeature TREES_BIRCH_AND_OAK_ORIGINAL = register("trees_birch_and_oak_original");
@@ -194,7 +194,7 @@ public final class WilderPlacedFeatures {
 	public static final FrozenPlacedFeature SEAGRASS_CYPRESS = register("seagrass_cypress");
 	public static final FrozenPlacedFeature LARGE_FERN_AND_GRASS = register("large_fern_and_grass");
 	public static final FrozenPlacedFeature LARGE_FERN_AND_GRASS_RARE = register("large_fern_and_grass_rare");
-	public static final FrozenPlacedFeature TALL_GRASS_AND_GRASS_RIVER = register("tall_grass_and_grass_river");
+	public static final FrozenPlacedFeature TALL_GRASS_AND_GRASS_WATER = register("tall_grass_and_grass_water");
 	public static final FrozenPlacedFeature FLOWER_FIELD_GRASS_PLACED = register("flower_field_grass_placed");
 	public static final FrozenPlacedFeature PATCH_TALL_GRASS_FF = register("patch_tall_grass_ff");
 	//FLOWERS
@@ -381,7 +381,7 @@ public final class WilderPlacedFeatures {
 			WilderPlacementUtils.SHRUB_CLEARING_FILTER
 		);
 
-		SHRUBS_RIVER.makeAndSetHolder(WilderConfiguredFeatures.SHRUBS.getHolder(),
+		SHRUBS_WATER.makeAndSetHolder(WilderConfiguredFeatures.SHRUBS.getHolder(),
 				PlacementUtils.countExtra(1, 0.2F, 1), RarityFilter.onAverageOnceEvery(10), InSquarePlacement.spread(), TREE_THRESHOLD,
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome(),
 				WilderPlacementUtils.SHRUB_CLEARING_FILTER
@@ -983,7 +983,7 @@ public final class WilderPlacedFeatures {
 			BiomeFilter.biome()
 		);
 
-		TALL_GRASS_AND_GRASS_RIVER.makeAndSetHolder(WilderConfiguredFeatures.TALL_GRASS_AND_GRASS_RIVER.getHolder(),
+		TALL_GRASS_AND_GRASS_WATER.makeAndSetHolder(WilderConfiguredFeatures.TALL_GRASS_AND_GRASS_WATER.getHolder(),
 				RarityFilter.onAverageOnceEvery(2), CountPlacement.of(3), InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 				BiomeFilter.biome()

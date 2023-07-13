@@ -200,8 +200,8 @@ public final class WilderVegetationGeneration {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_DENSE_TALL_GRASS),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DENSE_TALL_GRASS_PLACED.getKey());
 
-			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_RIVER_POOLS),
-					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TALL_GRASS_AND_GRASS_RIVER.getKey());
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_WATER_GRASS),
+					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TALL_GRASS_AND_GRASS_WATER.getKey());
 		}
 	}
 
