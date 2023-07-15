@@ -466,6 +466,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.add(Biomes.JUNGLE)
 				.add(Biomes.SAVANNA)
 				.add(Biomes.SPARSE_JUNGLE)
+				.add(Biomes.CHERRY_GROVE)
 				.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
 				.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
 				.addOptional(RegisterWorldgen.ARID_SAVANNA)

@@ -355,6 +355,11 @@ public class NoOpClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean modifyCherryGrovePlacement() {
+		return DefaultWorldgenConfig.BiomePlacement.MODIFY_CHERRY_GROVE_PLACEMENT;
+	}
+
+	@Override
 	public boolean generateCypressWetlands() {
 		return DefaultWorldgenConfig.BiomeGeneration.GENERATE_CYPRESS_WETLANDS;
 	}
