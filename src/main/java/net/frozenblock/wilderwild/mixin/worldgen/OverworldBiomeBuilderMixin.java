@@ -501,6 +501,18 @@ public final class OverworldBiomeBuilderMixin {
 				RegisterWorldgen.OASIS
 			);
 		}
+		if (WilderSharedConstants.config().generateOasis()) {
+			this.addSurfaceBiome(
+					parameters,
+					WilderSharedWorldgen.CherryGrove.TEMPERATURE,
+					WilderSharedWorldgen.CherryGrove.HUMIDITY,
+					WilderSharedWorldgen.CherryGrove.CONTINENTALNESS,
+					WilderSharedWorldgen.CherryGrove.EROSION,
+					WilderSharedWorldgen.CherryGrove.WEIRDNESS,
+					WilderSharedWorldgen.CherryGrove.OFFSET,
+					Biomes.CHERRY_GROVE
+			);
+		}
 	}
 
 	@Inject(method = "addValleys", at = @At("TAIL")) // can also be injectValleyBiomes

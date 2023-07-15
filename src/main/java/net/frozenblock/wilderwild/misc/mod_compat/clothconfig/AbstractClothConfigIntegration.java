@@ -164,6 +164,8 @@ public abstract class AbstractClothConfigIntegration extends ModIntegration {
 
 	public abstract boolean modifyWindsweptSavannaPlacement();
 
+	public abstract boolean modifyCherryGrovePlacement();
+
 	public abstract boolean generateCypressWetlands();
 
 	public abstract boolean generateJellyfishCaves();

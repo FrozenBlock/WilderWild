@@ -31,10 +31,12 @@ Put changelog here:
 - Mangrove Swamps have now been wilder-ified, including Cattails, Flowers, Bushes, Mud Basins, Mud Lakes, more Grass, Fern, and rare Mud Piles.
 - Made path features look more natural.
 - Added new rare Coarse Dirt, Gravel, and Stone paths throughout the world.
+- Cherry Grove can generate near rivers, according to many Mojang promo arts.
 - Decreased the size of uncommon Algae patches (Swamp & Mangrove Swamp.)
 - Removed Deepslate Pools in favor of regular Stone Pools, which now no longer change the bordering block of the pools.
-- Rivers now generate small Pools to increase the area covered in water, and to allow previously dry areas above sea level to have a bit of water.
-- Incorporated Wilder Wild's new foods, mobs, and biomes into Vanilla's advancements (note that this may be overriden by other mods' data.)
+- Rivers and Oceans now generate small Pools to increase the area covered in water, and to allow previously dry areas above sea level to have a bit of water.
+- Added more grass in dry areas of Rivers and Oceans, and replaced Oaks with Shurbs.
+- Incorporated Wilder Wild's new foods, mobs, and biomes into Vanilla's advancements (note that this may be overriden by other mods' data).
 - Jellyfish can now reproduce.
     - Repeatedly feeding a Jellyfish Cod or Salmon will eventually cause a baby Jellyfish to spawn.
     - Holding Cod or Salmon will cause nearby Jellyfish to follow you.
