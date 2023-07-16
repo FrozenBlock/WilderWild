@@ -169,8 +169,8 @@ public class Jellyfish extends NoFlopAbstractFish {
 		double additionalZ = 0;
 		if (state.hasProperty(BlockStateProperties.CHEST_TYPE) && state.getValue(BlockStateProperties.CHEST_TYPE) != ChestType.SINGLE) {
 			Direction direction = ChestBlock.getConnectedDirection(state);
-			additionalX += (double) direction.getStepX() * 0.25;
-			additionalZ += (double) direction.getStepZ() * 0.25;
+			additionalX += direction.getStepX() * 0.25;
+			additionalZ += direction.getStepZ() * 0.25;
 		}
 		jellyfish.setPos(pos.getX() + 0.5 + additionalX, pos.getY() + 0.75, pos.getZ() + 0.5 + additionalZ);
 		jellyfish.setDeltaMovement(0, 0.1 + level.random.nextDouble() * 0.07, 0);
