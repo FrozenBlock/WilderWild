@@ -25,7 +25,7 @@ buildscript {
 
 plugins {
     id("fabric-loom") version("+")
-    id("io.github.juuxel.loom-quiltflower") version("+")
+    id("io.github.juuxel.loom-vineflower") version("+")
     id("org.quiltmc.gradle.licenser") version("+")
     id("org.ajoberstar.grgit") version("+")
     id("com.modrinth.minotaur") version("+")
@@ -193,12 +193,12 @@ repositories {
         name = "Siphalor's Maven"
         url = uri("https://maven.siphalor.de")
     }*/
-    maven {
+    /*maven {
         url = uri("https://maven.flashyreese.me/releases")
     }
     maven {
         url = uri("https://maven.flashyreese.me/snapshots")
-    }
+    }*/
     maven {
         url = uri("https://maven.minecraftforge.net/")
     }
@@ -256,7 +256,7 @@ dependencies {
     modImplementation("com.github.Treetrain1:nbt-crafting:jitpack-1.20-SNAPSHOT")?.let { include(it) }
 
     // CaffeineConfig
-    modImplementation("net.caffeinemc:mixin-config:1.0.0+1.17")?.let { include(it) }
+    //modImplementation("net.caffeinemc:mixin-config:1.0.0+1.17")?.let { include(it) }
 
     // TerraBlender
     modCompileOnly("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
@@ -321,16 +321,12 @@ dependencies {
     }*/
 }
 
-quiltflower {
-    quiltflowerVersion.set("1.8.0")
-}
-
 tasks {
     processResources {
         val properties = HashMap<String, Any>()
         properties["mod_id"] = mod_id
         properties["version"] = version
-        properties["minecraft_version"] = "~1.20-"
+        properties["minecraft_version"] = "~$minecraft_version-"
 
         properties.forEach { (a, b) -> inputs.property(a, b) }
 
