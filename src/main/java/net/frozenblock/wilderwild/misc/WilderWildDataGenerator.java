@@ -447,6 +447,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA)
 				.add(Biomes.TAIGA)
 				.add(Biomes.SNOWY_TAIGA)
+				.add(Biomes.RIVER)
 				.addOptional(RegisterWorldgen.BIRCH_TAIGA)
 				.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
 				.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
@@ -456,6 +457,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.add(Biomes.DARK_FOREST)
 				.add(Biomes.FLOWER_FOREST)
 				.add(Biomes.FOREST)
+				.add(Biomes.RIVER)
 				.addOptional(RegisterWorldgen.PARCHED_FOREST)
 				.addOptional(RegisterWorldgen.ARID_FOREST)
 				.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
@@ -1717,6 +1719,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBlockTags.RIVER_POOL_REPLACEABLE)
 				.addOptionalTag(BlockTags.SAND)
 				.addOptionalTag(BlockTags.DIRT)
+				.add(Blocks.GRAVEL)
 				.add(Blocks.CLAY);
 		}
 

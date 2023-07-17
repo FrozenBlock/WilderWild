@@ -9,6 +9,7 @@
       "id": "#minecraft:dirt",
       "required": false
     },
+    "minecraft:gravel",
     "minecraft:clay"
   ]
 }

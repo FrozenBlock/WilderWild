@@ -9,6 +9,7 @@
     "minecraft:old_growth_spruce_taiga",
     "minecraft:taiga",
     "minecraft:snowy_taiga",
+    "minecraft:river",
     {
       "id": "wilderwild:birch_taiga",
       "required": false
