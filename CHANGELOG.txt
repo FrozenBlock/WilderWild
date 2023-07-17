@@ -71,21 +71,22 @@ Bug Fixes:
 - Sculk Slabs no longer drop Palm Slabs.
 - Fixed block-break sounds playing when Echo Glass only cracks.
 - Fixed broken loop in Deep Dark ambience.
-- Fixed a bug where Wardens would continuously attempt and fail to roar at Tumbleweeds.
-- Tumbleweed entities now properly look in the direction they're moving.
 - Fixed broken Stone Chest animations and cleaned up their code.
 - Fixed Stone Chests incorrectly dropping ancient items for probably the seventh time now.
 - Fixed some missing recipe unlocks.
 - Fixed cloud rendering at high coordinates.
+- Ancient Horn and Prickly Pear damage sources now once again retain their unique properties.
+- Fixed a bug where Wardens would continuously attempt and fail to roar at Tumbleweeds.
+- Tumbleweed entities now properly look in the direction they're moving.
 - Fixed Tumbleweed breaking crops only client-side.
 - Fixed Baobab Nut collision.
-- Shadows no longer render on waterlogged Mesoglea. Change not applied with Sodium.
-- Fixed a crash pertaining to Jellyfish variants and Firefly colors.
+- Fixed Palm Hanging Signs not having a language entry.
+- Logs no longer flicker when hollowed.
 - Algae no longer slows down entities outside its collision shape.
 - Fixed Algae growth with Bone meal.
 - Cattails no longer create pockets of air when they're supposed to be waterlogged.
+- Shadows no longer render on waterlogged Mesoglea. Change not applied with Sodium.
+- Fixed a crash pertaining to Jellyfish variants and Firefly colors.
 - Fixed a bug where players could dupe Fireflies by rapidly clicking with Bottles of Fireflies.
 - Endermen now properly play their moving/looping sounds when the config is enabled.
-- Ancient Horn and Prickly Pear damage sources now once again retain their properties.
-- Fixed Palm Hanging Signs not having a language entry.
 - And many more that were unfortunately forgotten to be documented!
