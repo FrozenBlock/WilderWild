@@ -80,6 +80,7 @@ Bug Fixes:
 - Tumbleweed entities now properly look in the direction they're moving.
 - Fixed Tumbleweed breaking crops client-side, causing desyncs with the server.
 - Fixed Baobab Nut collision.
+- Fixed Logs flickering when being Hollowed.
 - Fixed Palm Hanging Signs not having a language entry.
 - Algae no longer slows down entities outside its collision shape.
 - Fixed Algae growth with Bone meal.

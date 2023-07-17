@@ -6,6 +6,7 @@
   "plugin": "net.frozenblock.wilderwild.mixin.WilderWildMixinPlugin",
   "mixins": [
     "server.general.AllayMixin",
+    "server.general.AxeItemMixin",
     "server.general.BaseFireBlockMixin",
     "server.general.BaseSpawnerMixin",
     "server.general.BigDripleafBlockMixin",
