@@ -78,7 +78,7 @@ Bug Fixes:
 - Ancient Horn and Prickly Pear damage sources now once again retain their unique properties.
 - Fixed a bug where Wardens would continuously attempt and fail to roar at Tumbleweeds.
 - Tumbleweed entities now properly look in the direction they're moving.
-- Fixed Tumbleweed breaking crops only client-side.
+- Fixed Tumbleweed breaking crops client-side, causing desyncs with the server.
 - Fixed Baobab Nut collision.
 - Fixed Palm Hanging Signs not having a language entry.
 - Logs no longer flicker when hollowed.
