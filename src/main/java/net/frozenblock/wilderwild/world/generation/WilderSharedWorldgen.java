@@ -357,7 +357,7 @@ public final class WilderSharedWorldgen {
 
 	public static final class WarmRiver {
 		public static final Climate.Parameter WARM_RANGE = Climate.Parameter.span(0.550F, 1.000F);
-		public static final Climate.Parameter UNFROZEN_NOT_WARM_RANGE = Climate.Parameter.span(0.000F, 0.200F);
+		public static final Climate.Parameter UNFROZEN_NOT_WARM_RANGE = Climate.Parameter.span(-0.450F, 0.200F);
 		public static final Climate.Parameter HUMIDITY_TO_TWO = Climate.Parameter.span(-0.100F, 0.000F);
 		public static final Climate.Parameter HUMIDITY_TO_THREE = Climate.Parameter.span(0.000F, 0.100F);
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.100F, 0.100F);

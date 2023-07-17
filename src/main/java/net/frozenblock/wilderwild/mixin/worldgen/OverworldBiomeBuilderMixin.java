@@ -516,7 +516,7 @@ public final class OverworldBiomeBuilderMixin {
 		}
 	}
 
-	@Inject(method = "addValleys", at = @At("TAIL")) // can also be injectValleyBiomes
+	@Inject(method = "addValleys", at = @At("TAIL"))
 	private void wilderWild$injectRiverBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo info) {
 		if (WilderSharedConstants.config().generateCypressWetlands()) {
 			this.addSurfaceBiome(
