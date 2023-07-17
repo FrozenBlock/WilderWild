@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.block;
 
 import java.util.HashMap;
 import java.util.Map;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
 import net.frozenblock.wilderwild.block.entity.ScorchedBlockEntity;
 import net.frozenblock.wilderwild.misc.mod_compat.FrozenLibIntegration;
@@ -52,8 +53,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ScorchedBlock extends BaseEntityBlock {
-	public static final Map<BlockState, BlockState> SCORCH_MAP = new HashMap<>();
-	public static final Map<BlockState, BlockState> HYDRATE_MAP = new HashMap<>();
+	public static final Map<BlockState, BlockState> SCORCH_MAP = new Object2ObjectOpenHashMap<>();
+	public static final Map<BlockState, BlockState> HYDRATE_MAP = new Object2ObjectOpenHashMap<>();
 	public static final int TICK_DELAY = 2;
 	private static final BooleanProperty CRACKEDNESS = RegisterProperties.CRACKED;
 	private static final IntegerProperty DUSTED = BlockStateProperties.DUSTED;

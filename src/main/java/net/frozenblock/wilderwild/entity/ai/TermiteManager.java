@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -192,8 +193,8 @@ public class TermiteManager {
 			Codec.INT.fieldOf("id").orElse(0).forGetter(Termite::getID)
 		).apply(instance, Termite::new));
 
-		public static final Map<Block, Block> DEGRADABLE_BLOCKS = new HashMap<>();
-		public static final Map<Block, Block> NATURAL_DEGRADABLE_BLOCKS = new HashMap<>();
+		public static final Map<Block, Block> DEGRADABLE_BLOCKS = new Object2ObjectOpenHashMap<>();
+		public static final Map<Block, Block> NATURAL_DEGRADABLE_BLOCKS = new Object2ObjectOpenHashMap<>();
 
 		public BlockPos mound;
 		public BlockPos pos;

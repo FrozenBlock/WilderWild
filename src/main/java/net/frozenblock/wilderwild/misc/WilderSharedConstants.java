@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.misc;
 
 import java.util.HashMap;
 import java.util.Map;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.misc.mod_compat.clothconfig.AbstractClothConfigIntegration;
@@ -36,7 +37,7 @@ public class WilderSharedConstants {
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static final int DATA_VERSION = 15;
 	// MEASURING
-	public static final Map<Object, Long> INSTANT_MAP = new HashMap<>();
+	public static final Map<Object, Long> INSTANT_MAP = new Object2ObjectOpenHashMap<>();
 	public static final boolean HAS_FALLINGLEAVES = FabricLoader.getInstance().isModLoaded("fallingleaves");
 	public static final boolean HAS_MAKEBUBBLESPOP = FabricLoader.getInstance().isModLoaded("make_bubbles_pop");
 	public static final boolean HAS_PARTICLERAIN = FabricLoader.getInstance().isModLoaded("particlerain");
