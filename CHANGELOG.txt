@@ -81,7 +81,6 @@ Bug Fixes:
 - Fixed Tumbleweed breaking crops client-side, causing desyncs with the server.
 - Fixed Baobab Nut collision.
 - Fixed Palm Hanging Signs not having a language entry.
-- Logs no longer flicker when hollowed.
 - Algae no longer slows down entities outside its collision shape.
 - Fixed Algae growth with Bone meal.
 - Cattails no longer create pockets of air when they're supposed to be waterlogged.
