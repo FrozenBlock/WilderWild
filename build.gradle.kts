@@ -30,7 +30,6 @@ plugins {
     id("org.ajoberstar.grgit") version("+")
     id("com.modrinth.minotaur") version("+")
     id("com.matthewprenger.cursegradle") version("+")
-    id("com.github.johnrengelman.shadow") version("+")
     `maven-publish`
     eclipse
     idea
@@ -142,7 +141,6 @@ loom {
 
 val includeModImplementation by configurations.creating
 val includeImplementation by configurations.creating
-val shadowInclude by configurations.creating
 
 configurations {
     include {
@@ -375,20 +373,6 @@ tasks {
 
     withType(Test::class) {
         maxParallelForks = Runtime.getRuntime().availableProcessors().div(2)
-    }
-
-    shadowJar {
-        isEnableRelocation = true
-        relocationPrefix = "net.frozenblock.wilderwild.shadow"
-
-        configurations = listOf(shadowInclude)
-    }
-
-    remapJar {
-        dependsOn(shadowJar)
-        mustRunAfter(shadowJar)
-
-        input.set(shadowJar.get().archiveFile)
     }
 }
 
