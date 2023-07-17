@@ -1931,10 +1931,7 @@
   },
   "block.termite_mound.termite_gnaw": {
     "sounds": [
-      "wilderwild:block/termite_mound/termites_gnaw1",
-      "wilderwild:block/termite_mound/termites_gnaw2",
-      "wilderwild:block/termite_mound/termites_gnaw3",
-      "wilderwild:block/termite_mound/termites_gnaw4"
+      "wilderwild:block/termite_mound/termites_gnaw"
     ],
     "subtitle": "subtitles.block.termite_mound.termite_gnaw"
   },
