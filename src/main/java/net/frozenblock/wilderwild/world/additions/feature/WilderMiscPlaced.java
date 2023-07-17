@@ -314,22 +314,23 @@ public final class WilderMiscPlaced {
 		);
 
 		RIVER_POOL.makeAndSetHolder(WilderMiscConfigured.RIVER_POOL.getHolder(),
-				CountPlacement.of(20),
-				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP_TOP_SOLID,
-				HeightRangePlacement.uniform(VerticalAnchor.absolute(62), VerticalAnchor.absolute(64)),
-				EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-				RandomOffsetPlacement.vertical(ConstantInt.of(1)),
-				BiomeFilter.biome()
+			CountPlacement.of(20), RarityFilter.onAverageOnceEvery(3),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_TOP_SOLID,
+			HeightRangePlacement.uniform(VerticalAnchor.absolute(62), VerticalAnchor.absolute(64)),
+			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
+			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			BiomeFilter.biome()
 		);
+
 		SMALL_RIVER_POOL.makeAndSetHolder(WilderMiscConfigured.SMALL_RIVER_POOL.getHolder(),
-				CountPlacement.of(8),
-				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP_TOP_SOLID,
-				HeightRangePlacement.uniform(VerticalAnchor.absolute(65), VerticalAnchor.absolute(72)),
-				EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-				RandomOffsetPlacement.vertical(ConstantInt.of(1)),
-				BiomeFilter.biome()
+			CountPlacement.of(8), RarityFilter.onAverageOnceEvery(3),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_TOP_SOLID,
+			HeightRangePlacement.uniform(VerticalAnchor.absolute(65), VerticalAnchor.absolute(72)),
+			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
+			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			BiomeFilter.biome()
 		);
 
 		// SAVANNA

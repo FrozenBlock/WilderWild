@@ -15,6 +15,9 @@ Put changelog here:
 - Tweaked the rarity of Ancient Horn Fragments.
 - Added Osseous Sculk and Hanging Tendrils to Ancient Cities' loot tables.
 - Removed Stone Chest Closes gamerule as it caused issues in multiplayer.
+- Cherry Groves now occasionally generate near rivers.
+    - This change was made to maintain parity with some of Mojang's promotional material.
+    - Alongside this change, Cherry Groves now generate Sand Beta Beaches.
 - Added Shrubs to many biomes like Plains, Forest, Dark Forest, and much more.
 - Added more flora to the Plains, Meadow, Flower Forest, Flower Field, Forest, Semi-Birch Forest, Birch Forest, and Mangrove Swamp biomes.
 - Cattails can now generate on Mud blocks if not nearby water.
@@ -31,11 +34,11 @@ Put changelog here:
 - Mangrove Swamps have now been wilder-ified, including Cattails, Flowers, Bushes, Mud Basins, Mud Lakes, more Grass, Fern, and rare Mud Piles.
 - Made path features look more natural.
 - Added new rare Coarse Dirt, Gravel, and Stone paths throughout the world.
-- Cherry Grove can generate near rivers, according to many Mojang promo arts.
 - Decreased the size of uncommon Algae patches (Swamp & Mangrove Swamp.)
 - Removed Deepslate Pools in favor of regular Stone Pools, which now no longer change the bordering block of the pools.
-- Rivers and Oceans now generate small Pools to increase the area covered in water, and to allow previously dry areas above sea level to have a bit of water.
-- Added more grass in dry areas of Rivers and Oceans, and replaced Oaks with Shurbs.
+- Oceans and Rivers now generate small pools to increase the area covered in water, allowing previously dry areas above sea level to have a bit of water.
+- Grass generates more frequently on exposed areas of Ocean and River biomes.
+- Replaced Oak trees in Ocean and River biomes with Shrubs.
 - Incorporated Wilder Wild's new foods, mobs, and biomes into Vanilla's advancements (note that this may be overriden by other mods' data).
 - Jellyfish can now reproduce.
     - Repeatedly feeding a Jellyfish Cod or Salmon will eventually cause a baby Jellyfish to spawn.

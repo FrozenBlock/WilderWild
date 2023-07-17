@@ -201,7 +201,7 @@ public final class WilderVegetationGeneration {
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DENSE_TALL_GRASS_PLACED.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_WATER_GRASS),
-					GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TALL_GRASS_AND_GRASS_WATER.getKey());
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TALL_GRASS_AND_GRASS_WATER.getKey());
 		}
 	}
 

@@ -2,7 +2,9 @@
   "replace": false,
   "values": [
     "minecraft:river",
-    "minecraft:ocean",
-    "minecraft:deep_ocean"
+    {
+      "id": "#minecraft:is_ocean",
+      "required": false
+    }
   ]
 }

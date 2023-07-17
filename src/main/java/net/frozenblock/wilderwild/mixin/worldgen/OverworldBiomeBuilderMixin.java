@@ -501,16 +501,16 @@ public final class OverworldBiomeBuilderMixin {
 				RegisterWorldgen.OASIS
 			);
 		}
-		if (WilderSharedConstants.config().generateOasis()) {
+		if (WilderSharedConstants.config().modifyCherryGrovePlacement()) {
 			this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.CherryGrove.TEMPERATURE,
-					WilderSharedWorldgen.CherryGrove.HUMIDITY,
-					WilderSharedWorldgen.CherryGrove.CONTINENTALNESS,
-					WilderSharedWorldgen.CherryGrove.EROSION,
-					WilderSharedWorldgen.CherryGrove.WEIRDNESS,
-					WilderSharedWorldgen.CherryGrove.OFFSET,
-					Biomes.CHERRY_GROVE
+				parameters,
+				WilderSharedWorldgen.CherryGrove.TEMPERATURE,
+				WilderSharedWorldgen.CherryGrove.HUMIDITY,
+				WilderSharedWorldgen.CherryGrove.CONTINENTALNESS,
+				WilderSharedWorldgen.CherryGrove.EROSION,
+				WilderSharedWorldgen.CherryGrove.WEIRDNESS,
+				WilderSharedWorldgen.CherryGrove.OFFSET,
+				Biomes.CHERRY_GROVE
 			);
 		}
 	}

@@ -497,32 +497,32 @@ public final class WilderMiscConfigured {
 		);
 
 		RIVER_POOL.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH_LESS_BORDERS,
-				new VegetationPatchConfiguration(
-						WilderBlockTags.RIVER_POOL_REPLACEABLE,
-						BlockStateProvider.simple(Blocks.GRASS_BLOCK),
-						PlacementUtils.inlinePlaced(BLANK_SHUT_UP.getHolder()),
-						CaveSurface.FLOOR,
-						ConstantInt.of(1),
-						0.8F,
-						1,
-						0.000F,
-						UniformInt.of(4, 8),
-						0.7F
-				)
+			new VegetationPatchConfiguration(
+				WilderBlockTags.RIVER_POOL_REPLACEABLE,
+				BlockStateProvider.simple(Blocks.GRASS_BLOCK),
+				PlacementUtils.inlinePlaced(BLANK_SHUT_UP.getHolder()),
+				CaveSurface.FLOOR,
+				ConstantInt.of(1),
+				0.8F,
+				1,
+				0.000F,
+				UniformInt.of(4, 8),
+				0.7F
+			)
 		);
 		SMALL_RIVER_POOL.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH_LESS_BORDERS,
-				new VegetationPatchConfiguration(
-						WilderBlockTags.RIVER_POOL_REPLACEABLE,
-						BlockStateProvider.simple(Blocks.GRASS_BLOCK),
-						PlacementUtils.inlinePlaced(BLANK_SHUT_UP.getHolder()),
-						CaveSurface.FLOOR,
-						ConstantInt.of(1),
-						0.8F,
-						1,
-						0.000F,
-						UniformInt.of(1, 2),
-						0.7F
-				)
+			new VegetationPatchConfiguration(
+				WilderBlockTags.RIVER_POOL_REPLACEABLE,
+				BlockStateProvider.simple(Blocks.GRASS_BLOCK),
+				PlacementUtils.inlinePlaced(BLANK_SHUT_UP.getHolder()),
+				CaveSurface.FLOOR,
+				ConstantInt.of(1),
+				0.8F,
+				1,
+				0.000F,
+				UniformInt.of(1, 2),
+				0.7F
+			)
 		);
 
 		PACKED_MUD_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,

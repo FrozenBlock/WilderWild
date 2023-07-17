@@ -382,9 +382,9 @@ public final class WilderPlacedFeatures {
 		);
 
 		SHRUBS_WATER.makeAndSetHolder(WilderConfiguredFeatures.SHRUBS.getHolder(),
-				PlacementUtils.countExtra(1, 0.2F, 1), RarityFilter.onAverageOnceEvery(10), InSquarePlacement.spread(), TREE_THRESHOLD,
-				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome(),
-				WilderPlacementUtils.SHRUB_CLEARING_FILTER
+			PlacementUtils.countExtra(1, 0.2F, 1), RarityFilter.onAverageOnceEvery(10), InSquarePlacement.spread(), TREE_THRESHOLD,
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome(),
+			WilderPlacementUtils.SHRUB_CLEARING_FILTER
 		);
 
 		TREES_FLOWER_FIELD.makeAndSetHolder(WilderConfiguredFeatures.TREES_FLOWER_FIELD.getHolder(),
@@ -984,9 +984,9 @@ public final class WilderPlacedFeatures {
 		);
 
 		TALL_GRASS_AND_GRASS_WATER.makeAndSetHolder(WilderConfiguredFeatures.TALL_GRASS_AND_GRASS_WATER.getHolder(),
-				RarityFilter.onAverageOnceEvery(2), CountPlacement.of(3), InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-				BiomeFilter.biome()
+			RarityFilter.onAverageOnceEvery(2), CountPlacement.of(3), InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
 		);
 
 		FLOWER_FIELD_GRASS_PLACED.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_GRASS_JUNGLE),

@@ -26,7 +26,6 @@ import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
 public final class WilderMiscGeneration {
@@ -150,9 +149,9 @@ public final class WilderMiscGeneration {
 				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.ROOTED_DIRT_PATH_CLEARING.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_WATER_POOLS),
-					GenerationStep.Decoration.LAKES, WilderMiscPlaced.RIVER_POOL.getKey());
+				GenerationStep.Decoration.LAKES, WilderMiscPlaced.RIVER_POOL.getKey());
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_WATER_POOLS),
-					GenerationStep.Decoration.LAKES, WilderMiscPlaced.SMALL_RIVER_POOL.getKey());
+				GenerationStep.Decoration.LAKES, WilderMiscPlaced.SMALL_RIVER_POOL.getKey());
 		}
 
 		if (WilderSharedConstants.config().surfaceTransitions()) {

@@ -198,6 +198,13 @@ public final class WorldgenConfig implements ConfigData {
 			sparseBirchJungle, temperateRainforest, warmRiver
 		);
 
+		var cherryGrove = entryBuilder.startBooleanToggle(text("modify_cherry_grove_placement"), biomePlacement.modifyCherryGrovePlacement)
+			.setDefaultValue(DefaultWorldgenConfig.BiomePlacement.MODIFY_CHERRY_GROVE_PLACEMENT)
+			.setSaveConsumer(newValue -> biomePlacement.modifyCherryGrovePlacement = newValue)
+			.setYesNoTextSupplier(bool -> text("biome_placement." + bool))
+			.setTooltip(tooltip("modify_cherry_grove_placement"))
+			.requireRestart()
+			.build();
 		var jungle = entryBuilder.startBooleanToggle(text("modify_jungle_placement"), biomePlacement.modifyJunglePlacement)
 			.setDefaultValue(DefaultWorldgenConfig.BiomePlacement.MODIFY_JUNGLE_PLACEMENT)
 			.setSaveConsumer(newValue -> biomePlacement.modifyJunglePlacement = newValue)
@@ -230,7 +237,7 @@ public final class WorldgenConfig implements ConfigData {
 		var biomePlacementCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("biome_placement"),
 			false,
 			tooltip("biome_placement"),
-			jungle, mangroveSwamp, swamp, windsweptSavanna
+			cherryGrove, jungle, mangroveSwamp, swamp, windsweptSavanna
 		);
 
         /*var dyingTrees = category.addEntry(entryBuilder.startBooleanToggle(text("dying_trees"), config.dyingTrees)
