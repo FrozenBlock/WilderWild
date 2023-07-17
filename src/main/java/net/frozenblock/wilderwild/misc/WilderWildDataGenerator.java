@@ -1300,17 +1300,18 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_WATER_POOLS)
 				.add(Biomes.RIVER)
-				.add(Biomes.OCEAN)
-				.add(Biomes.DEEP_OCEAN);
+				.addOptionalTag(BiomeTags.IS_OCEAN)
+				.addOptionalTag(ConventionalBiomeTags.OCEAN);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_WATER_SHRUBS)
 				.add(Biomes.RIVER)
-				.add(Biomes.OCEAN)
-				.add(Biomes.DEEP_OCEAN);
+				.addOptionalTag(BiomeTags.IS_OCEAN)
+				.addOptionalTag(ConventionalBiomeTags.OCEAN);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_WATER_GRASS)
 				.add(Biomes.RIVER)
-				.addOptionalTag(BiomeTags.IS_OCEAN);
+				.addOptionalTag(BiomeTags.IS_OCEAN)
+				.addOptionalTag(ConventionalBiomeTags.OCEAN);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_MOSS_BASIN)
 				.add(Biomes.JUNGLE)
