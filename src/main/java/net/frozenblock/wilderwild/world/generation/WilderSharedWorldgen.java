@@ -419,7 +419,7 @@ public final class WilderSharedWorldgen {
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.TWO, Humidity.FOUR);
 		public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.INLAND, Continentalness.MID_INLAND);
 		public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_4, Erosion.EROSION_5);
-		public static final Climate.Parameter WEIRDNESS = Climate.Parameter.span(Weirdness.LOW_SLICE_VARIANT_ASCENDING, Weirdness.MID_SLICE_VARIANT_ASCENDING);
+		public static final Climate.Parameter WEIRDNESS = Climate.Parameter.span(Weirdness.PEAK_VARIANT, Weirdness.MID_SLICE_VARIANT_ASCENDING);
 		public static final float OFFSET = 0F;
 
 
