@@ -2,9 +2,14 @@
   "replace": false,
   "values": [
     "minecraft:mangrove_swamp",
+    "minecraft:swamp",
     "minecraft:jungle",
     "minecraft:sparse_jungle",
     "minecraft:bamboo_jungle",
+    {
+      "id": "wilderwild:cypress_wetlands",
+      "required": false
+    },
     {
       "id": "wilderwild:rainforest",
       "required": false
