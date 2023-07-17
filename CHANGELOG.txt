@@ -68,6 +68,8 @@ Mod Compat Changes/Additions:
 - Rain, Snowflake, and Desert Dust particles now follow FrozenLib/Wilder Wild's wind. (Particle Rain)
 
 Bug Fixes:
+- Rivers now generate properly.
+    - Previously, roughly half of all regular (non-frozen and non-warm) Rivers that were supposed to generate weren't able to.
 - Sculk Slabs no longer drop Palm Slabs.
 - Fixed block-break sounds playing when Echo Glass only cracks.
 - Fixed broken loop in Deep Dark ambience.
