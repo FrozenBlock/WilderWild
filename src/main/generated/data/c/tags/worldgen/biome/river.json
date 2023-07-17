@@ -4,6 +4,10 @@
     {
       "id": "wilderwild:warm_river",
       "required": false
+    },
+    {
+      "id": "wilderwild:cypress_wetlands",
+      "required": false
     }
   ]
 }

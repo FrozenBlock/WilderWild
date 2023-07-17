@@ -18,6 +18,7 @@ Put changelog here:
 - Cherry Groves now occasionally generate near rivers.
     - This change was made to maintain parity with some of Mojang's promotional material.
     - Alongside this change, Cherry Groves now generate Sand Beta Beaches.
+- Beta Beaches are now integrated with Rivers.
 - Added Shrubs to many biomes like Plains, Forest, Dark Forest, and much more.
 - Added more flora to the Plains, Meadow, Flower Forest, Flower Field, Forest, Semi-Birch Forest, Birch Forest, and Mangrove Swamp biomes.
 - Cattails can now generate on Mud blocks if not nearby water.

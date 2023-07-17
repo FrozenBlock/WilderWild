@@ -227,8 +227,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptional(RegisterWorldgen.ARID_SAVANNA);
 
 			this.getOrCreateTagBuilder(BiomeTags.IS_RIVER)
-				.addOptional(RegisterWorldgen.OASIS)
-				.addOptional(RegisterWorldgen.WARM_RIVER);
+				.addOptional(RegisterWorldgen.WARM_RIVER)
+				.addOptional(RegisterWorldgen.CYPRESS_WETLANDS);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.RAINFOREST)
 				.addOptional(RegisterWorldgen.RAINFOREST)
@@ -342,7 +342,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptional(RegisterWorldgen.BIRCH_TAIGA);
 
 			this.getOrCreateTagBuilder(ConventionalBiomeTags.RIVER)
-				.addOptional(RegisterWorldgen.WARM_RIVER);
+				.addOptional(RegisterWorldgen.WARM_RIVER)
+				.addOptional(RegisterWorldgen.CYPRESS_WETLANDS);
 
 			this.getOrCreateTagBuilder(ConventionalBiomeTags.SWAMP)
 				.addOptional(RegisterWorldgen.CYPRESS_WETLANDS);
@@ -441,13 +442,13 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBiomeTags.GRAVEL_BEACH)
 				.add(Biomes.BIRCH_FOREST)
 				.add(Biomes.FROZEN_RIVER)
-				.add(RegisterWorldgen.MIXED_FOREST)
 				.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
 				.add(Biomes.OLD_GROWTH_PINE_TAIGA)
 				.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA)
 				.add(Biomes.TAIGA)
 				.add(Biomes.SNOWY_TAIGA)
 				.add(Biomes.RIVER)
+				.addOptional(RegisterWorldgen.MIXED_FOREST)
 				.addOptional(RegisterWorldgen.BIRCH_TAIGA)
 				.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
 				.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
@@ -457,6 +458,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.add(Biomes.DARK_FOREST)
 				.add(Biomes.FLOWER_FOREST)
 				.add(Biomes.FOREST)
+				.add(Biomes.FROZEN_RIVER)
 				.add(Biomes.RIVER)
 				.addOptional(RegisterWorldgen.PARCHED_FOREST)
 				.addOptional(RegisterWorldgen.ARID_FOREST)
