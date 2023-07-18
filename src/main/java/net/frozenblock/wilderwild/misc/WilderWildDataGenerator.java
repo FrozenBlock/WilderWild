@@ -1395,8 +1395,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptional(RegisterWorldgen.RAINFOREST)
 				.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
 				.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
-				.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
-				.addOptional(RegisterWorldgen.WARM_BEACH);
+				.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_RARE_COARSE)
 				.add(Biomes.FOREST)

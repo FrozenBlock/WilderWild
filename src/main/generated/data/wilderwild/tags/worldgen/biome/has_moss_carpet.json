@@ -25,10 +25,6 @@
     {
       "id": "wilderwild:sparse_birch_jungle",
       "required": false
-    },
-    {
-      "id": "wilderwild:warm_beach",
-      "required": false
     }
   ]
 }
