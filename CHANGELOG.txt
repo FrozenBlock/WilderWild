@@ -66,6 +66,7 @@ Put changelog here:
 - Made many more aspects of Wilder Wild's worldgen data-driven.
 - Optimized the way some features generate (Trees, Cattails, Algae, etc.)
 - Added descriptions and proper names to Wilder Wild's built-in resource packs.
+- Clouds now move slower, no longer moving dramatically fast.
 - Lots of internal cleanup, reorganization, and optimizations.
 
 Mod Compat Changes/Additions:
