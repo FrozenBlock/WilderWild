@@ -39,8 +39,6 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> {
-
-	public static final int blackOverlay = OverlayTexture.pack(0, 10);
 	private static final float pi180 = Mth.PI / 180F;
 	private final ModelPart root;
 	private final ModelPart bone;
@@ -99,12 +97,12 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 			poseStack.pushPose();
 			poseStack.mulPose(Axis.ZP.rotation(Mth.lerp(this.partialTick, this.prevRoll, this.roll) * pi180));
 			poseStack.pushPose();
-			this.root.render(poseStack, vertexConsumer, packedLight, blackOverlay, red, green, blue, alpha);
+			this.root.render(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, red, green, blue, alpha);
 			poseStack.popPose();
 			poseStack.popPose();
 			poseStack.popPose();
 		} else {
-			this.root.render(poseStack, vertexConsumer, packedLight, blackOverlay, red, green, blue, alpha);
+			this.root.render(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, red, green, blue, alpha);
 		}
 		poseStack.popPose();
 	}
