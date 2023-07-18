@@ -7,6 +7,7 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.generation.conditionsource.BetaBeachConditionSource;
 import net.frozenblock.wilderwild.world.generation.noise.WilderNoise;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Noises;
 import net.minecraft.world.level.levelgen.SurfaceRules;
@@ -55,6 +56,39 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 						FrozenSurfaceRules.SAND
 					),
 					FrozenSurfaceRules.SANDSTONE
+				)
+			)
+		);
+	}
+
+	@NotNull
+	public static SurfaceRules.RuleSource fallingBlockAndSafeBlockRules(Block fallingBlock, Block safeBlock) {
+		SurfaceRules.RuleSource fallingBlockSource = FrozenSurfaceRules.makeStateRule(fallingBlock);
+		SurfaceRules.RuleSource safeBlockSource = FrozenSurfaceRules.makeStateRule(safeBlock);
+		return SurfaceRules.sequence(
+			SurfaceRules.ifTrue(
+				SurfaceRules.ON_FLOOR,
+				SurfaceRules.ifTrue(
+					SurfaceRules.waterBlockCheck(-1, 0),
+					SurfaceRules.sequence(
+						SurfaceRules.ifTrue(
+							SurfaceRules.ON_CEILING,
+							safeBlockSource
+						),
+						fallingBlockSource
+					)
+				)
+			),
+			SurfaceRules.ifTrue(
+				SurfaceRules.waterStartCheck(-6, -1),
+				SurfaceRules.sequence(
+					SurfaceRules.sequence(
+						SurfaceRules.ifTrue(
+							SurfaceRules.ON_CEILING,
+							safeBlockSource
+						),
+						fallingBlockSource
+					)
 				)
 			)
 		);
@@ -259,7 +293,7 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 						SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
 						SurfaceRules.ifTrue(
 							SurfaceRules.noiseCondition(WilderNoise.GRAVEL_BEACH_KEY, 0.12, 1.7976931348623157E308),
-							FrozenSurfaceRules.GRAVEL
+							fallingBlockAndSafeBlockRules(Blocks.GRAVEL, Blocks.STONE)
 						)
 					)
 				)
@@ -279,7 +313,7 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 						SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
 						SurfaceRules.ifTrue(
 							SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH_KEY, 0.12, 1.7976931348623157E308),
-							FrozenSurfaceRules.SAND
+							fallingBlockAndSafeBlockRules(Blocks.SAND, Blocks.SANDSTONE)
 						)
 					)
 				)
@@ -299,7 +333,7 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 						SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(64), 0)),
 						SurfaceRules.ifTrue(
 							SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH_KEY, 0.12, 1.7976931348623157E308),
-							FrozenSurfaceRules.SAND
+							fallingBlockAndSafeBlockRules(Blocks.SAND, Blocks.SANDSTONE)
 						)
 					)
 				)

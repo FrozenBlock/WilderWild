@@ -19,6 +19,7 @@ Put changelog here:
     - This change was made to maintain parity with some of Mojang's promotional material.
     - Alongside this change, Cherry Groves now generate Sand Beta Beaches.
 - Beta Beaches are now integrated with Rivers.
+- Beta Beaches now place Stone below Gravel and Sandstone below Sand to prevent lag spikes and ugly missing patches in the floor.
 - Added Shrubs to many biomes like Plains, Forest, Dark Forest, and much more.
 - Added more flora to the Plains, Meadow, Flower Forest, Flower Field, Forest, Semi-Birch Forest, Birch Forest, and Mangrove Swamp biomes.
 - Moss Carpets and Moss Piles now occasionally generate in Swamp, Mangrove Swamp, and Cypress Wetlands biomes.
