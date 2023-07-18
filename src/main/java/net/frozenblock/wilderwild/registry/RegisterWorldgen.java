@@ -331,21 +331,18 @@ public final class RegisterWorldgen {
 		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
 		MobSpawnSettings.Builder builder = (new MobSpawnSettings.Builder()).addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.TURTLE, 5, 2, 5));
 		BiomeDefaultFeatures.commonSpawns(builder);
-		builder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.DROWNED, 100, 1, 1));
 		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addWarmBeachFeatures(builder2);
 		return new Biome.BiomeBuilder()
 			.hasPrecipitation(true)
-			.temperature(WilderSharedWorldgen.WarmRiver.TEMP)
-			.downfall(WilderSharedWorldgen.WarmRiver.DOWNFALL)
+			.temperature(WilderSharedWorldgen.WarmBeach.TEMP)
+			.downfall(WilderSharedWorldgen.WarmBeach.DOWNFALL)
 			.specialEffects(
 				new BiomeSpecialEffects.Builder()
-					.grassColorOverride(WilderSharedWorldgen.WarmRiver.GRASS_COLOR)
-					.foliageColorOverride(WilderSharedWorldgen.WarmRiver.FOLIAGE_COLOR)
-					.waterColor(WilderSharedWorldgen.WarmRiver.WATER_COLOR)
-					.waterFogColor(WilderSharedWorldgen.WarmRiver.WATER_FOG_COLOR)
-					.skyColor(WilderSharedWorldgen.WarmRiver.SKY_COLOR)
-					.fogColor(WilderSharedWorldgen.WarmRiver.FOG_COLOR)
+					.waterColor(WilderSharedWorldgen.WarmBeach.WATER_COLOR)
+					.waterFogColor(WilderSharedWorldgen.WarmBeach.WATER_FOG_COLOR)
+					.skyColor(WilderSharedWorldgen.WarmBeach.SKY_COLOR)
+					.fogColor(WilderSharedWorldgen.WarmBeach.FOG_COLOR)
 					.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
 					.backgroundMusic(null)
 					.build())

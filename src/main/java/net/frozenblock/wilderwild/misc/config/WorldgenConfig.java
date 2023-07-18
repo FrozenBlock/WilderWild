@@ -230,6 +230,13 @@ public final class WorldgenConfig implements ConfigData {
 			.setTooltip(tooltip("modify_mangrove_swamp_placement"))
 			.requireRestart()
 			.build();
+		var stonyShore = entryBuilder.startBooleanToggle(text("modify_stony_shore_placement"), biomePlacement.modifyStonyShorePlacement)
+			.setDefaultValue(DefaultWorldgenConfig.BiomePlacement.MODIFY_STONY_SHORE_PLACEMENT)
+			.setSaveConsumer(newValue -> biomePlacement.modifyStonyShorePlacement = newValue)
+			.setYesNoTextSupplier(bool -> text("biome_placement." + bool))
+			.setTooltip(tooltip("modify_stony_shore_placement"))
+			.requireRestart()
+			.build();
 		var swamp = entryBuilder.startBooleanToggle(text("modify_swamp_placement"), biomePlacement.modifySwampPlacement)
 			.setDefaultValue(DefaultWorldgenConfig.BiomePlacement.MODIFY_SWAMP_PLACEMENT)
 			.setSaveConsumer(newValue -> biomePlacement.modifySwampPlacement = newValue)
@@ -248,7 +255,7 @@ public final class WorldgenConfig implements ConfigData {
 		var biomePlacementCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("biome_placement"),
 			false,
 			tooltip("biome_placement"),
-			cherryGrove, jungle, mangroveSwamp, swamp, windsweptSavanna
+			cherryGrove, jungle, mangroveSwamp, stonyShore, swamp, windsweptSavanna
 		);
 
 		var hotBiomes = entryBuilder.startBooleanToggle(text("hot_water"), waterColors.modifyHotWater)
