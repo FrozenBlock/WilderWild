@@ -631,7 +631,7 @@ public final class WilderPlacedFeatures {
 		);
 
 		PALMS_WARM_BEACH.makeAndSetHolder(WilderConfiguredFeatures.PALMS_OASIS.getHolder(),
-			treePlacement(RarityFilter.onAverageOnceEvery(12))
+			treePlacement(RarityFilter.onAverageOnceEvery(7))
 		);
 
 		CHERRY_TREES.makeAndSetHolder(WilderConfiguredFeatures.CHERRIES.getHolder(),
