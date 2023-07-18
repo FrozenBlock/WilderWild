@@ -15,6 +15,8 @@ Put changelog here:
 - Tweaked the rarity of Ancient Horn Fragments.
 - Added Osseous Sculk and Hanging Tendrils to Ancient Cities' loot tables.
 - Removed Stone Chest Closes gamerule as it caused issues in multiplayer.
+- Added the Warm Beach biome, replacing Beaches in warmer climates.
+    - Palms and Moss Carpets frequently generate here, and Seagrass grows in the surrounding water.
 - Cherry Groves now occasionally generate near rivers.
     - This change was made to maintain parity with some of Mojang's promotional material.
     - Alongside this change, Cherry Groves now generate Sand Beta Beaches.
@@ -42,6 +44,7 @@ Put changelog here:
 - Oceans and Rivers now generate small pools to increase the area covered in water, allowing previously dry areas above sea level to have a bit of water.
 - Grass generates more frequently on exposed areas of Ocean and River biomes.
 - Replaced Oak trees in Ocean and River biomes with Shrubs.
+- Added configs for updating the Water colors of all Hot, Lukewarm, Snowy, and Frozen biomes.
 - Updated a few config texts to have better grammar.
     - Biome placement config tooltips now explain the changes made to each biome's placement while enabled.
 - Adjusted Glory of the Snow bounding box.
