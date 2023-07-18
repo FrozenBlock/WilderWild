@@ -22,13 +22,12 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -428,8 +427,8 @@ public class TermiteManager {
 					if (blockState.isAir()) {
 						direction = Direction.DOWN;
 					}
-					BlockPos offest = this.pos.relative(direction);
-					BlockState state = level.getBlockState(offest);
+					BlockPos offset = this.pos.relative(direction);
+					BlockState state = level.getBlockState(offset);
 					if (!isStateSafeForTermites(state)) {
 						return false;
 					}
@@ -444,11 +443,11 @@ public class TermiteManager {
 							this.pos = priority;
 							exit = true;
 						} else {
-							BlockPos ledge = ledgePos(level, offest, natural);
+							BlockPos ledge = ledgePos(level, offset, natural);
 							BlockPos posUp = this.pos.above();
 							BlockState stateUp = level.getBlockState(posUp);
-							if (exposedToAir(level, offest, natural) && isBlockMovable(state, direction) && !(direction != Direction.DOWN && state.isAir() && (!this.mound.closerThan(this.pos, 1.5)) && ledge == null)) {
-								this.pos = offest;
+							if (exposedToAir(level, offset, natural) && isBlockMovable(state, direction) && !(direction != Direction.DOWN && state.isAir() && (!this.mound.closerThan(this.pos, 1.5)) && ledge == null)) {
+								this.pos = offset;
 								if (ledge != null) {
 									this.pos = ledge;
 								}

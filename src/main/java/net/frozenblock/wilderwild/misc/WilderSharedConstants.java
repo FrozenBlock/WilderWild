@@ -18,9 +18,8 @@
 
 package net.frozenblock.wilderwild.misc;
 
-import java.util.HashMap;
-import java.util.Map;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import java.util.Map;
 import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
 import net.frozenblock.wilderwild.misc.mod_compat.clothconfig.AbstractClothConfigIntegration;
