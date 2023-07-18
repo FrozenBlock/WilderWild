@@ -1,5 +1,5 @@
 {
-  "feature": "wilderwild:cattail_mud_small",
+  "feature": "wilderwild:cattail_mud",
   "placement": [
     {
       "type": "minecraft:count",
@@ -13,7 +13,7 @@
     },
     {
       "type": "minecraft:rarity_filter",
-      "chance": 4
+      "chance": 2
     },
     {
       "type": "minecraft:in_square"

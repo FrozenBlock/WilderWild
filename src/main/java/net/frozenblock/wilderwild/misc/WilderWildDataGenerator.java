@@ -736,8 +736,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptional(RegisterWorldgen.DARK_TAIGA);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_CATTAIL_UNCOMMON)
-				.addOptionalTag(BiomeTags.IS_OCEAN)
-				.addOptionalTag(BiomeTags.IS_BEACH);
+				.add(Biomes.OCEAN)
+				.add(Biomes.DEEP_OCEAN)
+				.add(Biomes.BEACH);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_CATTAIL_COMMON)
 				.add(Biomes.SWAMP)
