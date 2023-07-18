@@ -55,10 +55,10 @@ Put changelog here:
 - Jellyfish can now reproduce.
     - Repeatedly feeding a Jellyfish Cod or Salmon will eventually cause a baby Jellyfish to spawn.
     - Holding Cod or Salmon will cause nearby Jellyfish to follow you.
-- Baby Jellyfish will only inflict 1 damage (half a heart) as opposed to three (a heart and a half.)
+    - Baby Jellyfish will only inflict 1 damage (half a heart) as opposed to three (a heart and a half.)
 - Bubbles will occasionally spawn behind adult Jellyfish as they swim.
 - Added a config option that controls how many tentacles Jellyfish have.
-- Only pearlescent Mesoglea will lift items and boats as opposed to all types prior.
+- Only Pearlescent Mesoglea will lift items and boats as opposed to all types prior.
 - Jellyfish and Fireflies now only hide when they're near the center of their target.
 - Added a new advancement "Bottle of Lightning" for capturing a Firefly in a Glass Bottle.
 - Firefly Bottles can now be recolored.
