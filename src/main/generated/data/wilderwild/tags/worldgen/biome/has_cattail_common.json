@@ -26,6 +26,14 @@
     {
       "id": "wilderwild:dark_taiga",
       "required": false
+    },
+    {
+      "id": "#minecraft:is_ocean",
+      "required": false
+    },
+    {
+      "id": "#minecraft:is_beach",
+      "required": false
     }
   ]
 }

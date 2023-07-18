@@ -44,6 +44,7 @@ Put changelog here:
 - Oceans and Rivers now generate small pools to increase the area covered in water, allowing previously dry areas above sea level to have a bit of water.
 - Grass generates more frequently on exposed areas of Ocean and River biomes.
 - Replaced Oak trees in Ocean and River biomes with Shrubs.
+- Cattails now generate in Ocean and River biomes.
 - Added configs for updating the Water colors of all Hot, Lukewarm, Snowy, and Frozen biomes.
 - Updated a few config texts to have better grammar.
     - Biome placement config tooltips now explain the changes made to each biome's placement while enabled.

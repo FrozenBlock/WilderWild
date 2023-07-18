@@ -733,7 +733,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
 				.addOptional(RegisterWorldgen.RAINFOREST)
 				.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
-				.addOptional(RegisterWorldgen.DARK_TAIGA);
+				.addOptional(RegisterWorldgen.DARK_TAIGA)
+			;
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_CATTAIL_COMMON)
 				.add(Biomes.SWAMP)
@@ -743,7 +744,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
 				.addOptional(RegisterWorldgen.RAINFOREST)
 				.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
-				.addOptional(RegisterWorldgen.DARK_TAIGA);
+				.addOptional(RegisterWorldgen.DARK_TAIGA)
+				.addOptionalTag(BiomeTags.IS_OCEAN)
+				.addOptionalTag(BiomeTags.IS_BEACH);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SEEDING_DANDELION)
 				.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
