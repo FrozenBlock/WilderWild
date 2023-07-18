@@ -37,6 +37,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 
 	public final TermiteManager termiteManager;
 	public final IntArrayList clientTermiteIDs = new IntArrayList();
+	public final IntArrayList prevClientTermiteIDs = new IntArrayList();
 
 	public TermiteMoundBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		super(RegisterBlockEntities.TERMITE_MOUND, pos, state);
@@ -51,10 +52,12 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 	public void tickClient() {
 		for (TermiteManager.Termite termite : this.termiteManager.termites()) {
 			int termiteID = termite.getID();
-			if (!clientTermiteIDs.contains(termiteID)) {
+			if (clientTermiteIDs.contains(termiteID) && !this.prevClientTermiteIDs.contains(termiteID)) {
 				ClientMethodInteractionHandler.addTermiteSound(this, termiteID, termite.getEating());
 			}
 		}
+		this.prevClientTermiteIDs.clear();
+		this.prevClientTermiteIDs.addAll(this.clientTermiteIDs);
 		this.clientTermiteIDs.clear();
 		for (TermiteManager.Termite termite : this.termiteManager.termites()) {
 			this.clientTermiteIDs.add(termite.getID());
