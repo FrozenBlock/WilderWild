@@ -49,7 +49,7 @@ public final class RegisterLootTables {
 					.setWeight(1)
 					.setQuality(Rarity.EPIC.ordinal() + 4)
 					.apply(
-						SetItemCountFunction.setCount(UniformGenerator.between(-3.5F, 0.75F))
+						SetItemCountFunction.setCount(UniformGenerator.between(-3.5F, 1.0F))
 					)
 				);
 
