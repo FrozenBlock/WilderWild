@@ -49,14 +49,16 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 	}
 
 	public void tickClient() {
-		this.termiteManager.termites().forEach(termite -> {
+		for (TermiteManager.Termite termite : this.termiteManager.termites()) {
 			int termiteID = termite.getID();
 			if (!clientTermiteIDs.contains(termiteID)) {
 				ClientMethodInteractionHandler.addTermiteSound(this, termiteID, termite.getEating());
 			}
-		});
+		}
 		this.clientTermiteIDs.clear();
-		this.termiteManager.termites().forEach(termite -> this.clientTermiteIDs.add(termite.getID()));
+		for (TermiteManager.Termite termite : this.termiteManager.termites()) {
+			this.clientTermiteIDs.add(termite.getID());
+		}
 	}
 
 	public void updateSync() {
