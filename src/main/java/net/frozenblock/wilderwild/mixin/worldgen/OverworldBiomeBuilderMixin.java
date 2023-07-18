@@ -444,6 +444,20 @@ public final class OverworldBiomeBuilderMixin {
 					RegisterWorldgen.SEMI_BIRCH_FOREST
 				);
 			}
+			if (WilderSharedConstants.config().modifyStonyShorePlacement()) {
+				for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.BEACH)) {
+					this.addSurfaceBiome(
+							parameters,
+							WilderSharedWorldgen.StonyShoreTaiga.TEMPERATURE,
+							WilderSharedWorldgen.StonyShoreTaiga.HUMIDITY,
+							WilderSharedWorldgen.StonyShoreTaiga.CONTINENTALNESS,
+							WilderSharedWorldgen.StonyShoreTaiga.EROSION,
+							point.weirdness(),
+							point.offset(),
+							Biomes.STONY_SHORE
+					);
+				}
+			}
 		}
 	}
 

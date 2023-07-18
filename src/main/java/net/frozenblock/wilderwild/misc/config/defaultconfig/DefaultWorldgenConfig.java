@@ -44,6 +44,7 @@ public class DefaultWorldgenConfig {
 		public static final boolean MODIFY_SWAMP_PLACEMENT = true;
 		public static final boolean MODIFY_MANGROVE_SWAMP_PLACEMENT = true;
 		public static final boolean MODIFY_CHERRY_GROVE_PLACEMENT = true;
+		public static final boolean MODIFY_STONY_SHORE_PLACEMENT = true;
 	}
 
 	public static class BiomeGeneration {

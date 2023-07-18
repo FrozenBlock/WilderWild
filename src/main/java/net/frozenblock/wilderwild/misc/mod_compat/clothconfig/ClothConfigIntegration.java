@@ -388,6 +388,11 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean modifyStonyShorePlacement() {
+		return BIOME_PLACEMENT.modifyStonyShorePlacement;
+	}
+
+	@Override
 	public boolean generateCypressWetlands() {
 		return BIOME_GENERATION.generateCypressWetlands;
 	}

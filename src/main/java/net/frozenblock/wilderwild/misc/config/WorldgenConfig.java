@@ -407,6 +407,7 @@ public final class WorldgenConfig implements ConfigData {
 		public boolean modifySwampPlacement = DefaultWorldgenConfig.BiomePlacement.MODIFY_SWAMP_PLACEMENT;
 		public boolean modifyMangroveSwampPlacement = DefaultWorldgenConfig.BiomePlacement.MODIFY_MANGROVE_SWAMP_PLACEMENT;
 		public boolean modifyCherryGrovePlacement = DefaultWorldgenConfig.BiomePlacement.MODIFY_CHERRY_GROVE_PLACEMENT;
+		public boolean modifyStonyShorePlacement = DefaultWorldgenConfig.BiomePlacement.MODIFY_STONY_SHORE_PLACEMENT;
 	}
 
 	public static class BiomeGeneration {

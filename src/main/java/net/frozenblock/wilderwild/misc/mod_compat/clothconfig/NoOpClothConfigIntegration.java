@@ -360,6 +360,11 @@ public class NoOpClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean modifyStonyShorePlacement() {
+		return DefaultWorldgenConfig.BiomePlacement.MODIFY_STONY_SHORE_PLACEMENT;
+	}
+
+	@Override
 	public boolean generateCypressWetlands() {
 		return DefaultWorldgenConfig.BiomeGeneration.GENERATE_CYPRESS_WETLANDS;
 	}

@@ -426,7 +426,19 @@ public final class WilderSharedWorldgen {
 
 
 		private CherryGrove() {
-			throw new UnsupportedOperationException("Oasis contains only static declarations.");
+			throw new UnsupportedOperationException("Cherry Grove contains only static declarations.");
+		}
+	}
+	public static final class StonyShoreTaiga {
+		public static final Climate.Parameter TEMPERATURE = Temperature.COOL;
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.THREE, Humidity.FIVE);
+		public static final Climate.Parameter CONTINENTALNESS = Continentalness.COAST;
+		public static final Climate.Parameter EROSION = Erosion.EROSION_4;
+		public static final float OFFSET = 0F;
+
+
+		private StonyShoreTaiga() {
+			throw new UnsupportedOperationException("Stony Shore Taiga contains only static declarations.");
 		}
 	}
 }
