@@ -40,6 +40,7 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	private static final MiscConfig.BiomeMusicConfig BIOME_MUSIC = MISC.biomeMusic;
 	private static final WorldgenConfig.BiomeGeneration BIOME_GENERATION = WORLDGEN.biomeGeneration;
 	private static final WorldgenConfig.BiomePlacement BIOME_PLACEMENT = WORLDGEN.biomePlacement;
+	private static final WorldgenConfig.WaterColors WATER_COLORS = WORLDGEN.waterColors;
 	private static final BlockConfig.BlockSoundsConfig BLOCK_SOUNDS = BLOCK.blockSounds;
 	private static final EntityConfig.EnderManConfig ENDER_MAN = ENTITY.enderMan;
 	private static final ItemConfig.ProjectileLandingSoundsConfig PROJECTILE_LANDING_SOUNDS = WilderWildConfig.get().item.projectileLandingSounds;
@@ -412,6 +413,11 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean generateWarmBeach() {
+		return BIOME_GENERATION.generateWarmBeach;
+	}
+
+	@Override
 	public boolean generateBirchTaiga() {
 		return BIOME_GENERATION.generateBirchTaiga;
 	}
@@ -484,6 +490,26 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	@Override
 	public boolean generateDarkTaiga() {
 		return BIOME_GENERATION.generateDarkTaiga;
+	}
+
+	@Override
+	public boolean hotWater() {
+		return WATER_COLORS.modifyHotWater;
+	}
+
+	@Override
+	public boolean lukewarmWater() {
+		return WATER_COLORS.modifyLukewarmWater;
+	}
+
+	@Override
+	public boolean snowyWater() {
+		return WATER_COLORS.modifySnowyWater;
+	}
+
+	@Override
+	public boolean frozenWater() {
+		return WATER_COLORS.modifyFrozenWater;
 	}
 
 	@Override

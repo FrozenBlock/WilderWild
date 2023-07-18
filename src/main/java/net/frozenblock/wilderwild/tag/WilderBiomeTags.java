@@ -89,6 +89,7 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> CHERRY_FLOWERS = bind("cherry_flowers");
 	public static final TagKey<Biome> HAS_SUNFLOWER_PLAINS_FLOWERS = bind("has_sunflower_plains_flowers");
 	public static final TagKey<Biome> HAS_PALMS = bind("has_palms");
+	public static final TagKey<Biome> HAS_WARM_BEACH_PALMS = bind("has_warm_beach_palms");
 	public static final TagKey<Biome> HAS_SHORT_SPRUCE = bind("has_short_spruce");
 	public static final TagKey<Biome> HAS_SHORT_MEGA_SPRUCE = bind("has_short_mega_spruce");
 	public static final TagKey<Biome> HAS_SHORT_MEGA_SPRUCE_SNOWY = bind("has_short_mega_spruce_snowy");
@@ -194,6 +195,10 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> GRAVEL_BEACH = bind("gravel_beaches");
 	public static final TagKey<Biome> SAND_BEACHES = bind("sand_beaches");
 	public static final TagKey<Biome> MULTI_LAYER_SAND_BEACHES = bind("multi_layer_sand_beaches");
+	public static final TagKey<Biome> LUKEWARM_WATER = bind("lukewarm_water");
+	public static final TagKey<Biome> HOT_WATER = bind("hot_water");
+	public static final TagKey<Biome> SNOWY_WATER = bind("snowy_water");
+	public static final TagKey<Biome> FROZEN_WATER = bind("frozen_water");
 	public static final TagKey<Biome> WILDER_WILD_BIOMES = bind("wilder_wild_biomes");
 
 	private WilderBiomeTags() {

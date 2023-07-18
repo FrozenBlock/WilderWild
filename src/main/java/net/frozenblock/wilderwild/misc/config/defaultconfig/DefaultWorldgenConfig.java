@@ -52,6 +52,7 @@ public class DefaultWorldgenConfig {
 		public static final boolean GENERATE_MIXED_FOREST = true;
 		public static final boolean GENERATE_OASIS = true;
 		public static final boolean GENERATE_WARM_RIVER = true;
+		public static final boolean GENERATE_WARM_BEACH = true;
 		public static final boolean GENERATE_BIRCH_TAIGA = true;
 		public static final boolean GENERATE_OLD_GROWTH_BIRCH_TAIGA = true;
 		public static final boolean GENERATE_FLOWER_FIELD = true;
@@ -67,5 +68,15 @@ public class DefaultWorldgenConfig {
 		public static final boolean GENERATE_TEMPERATE_RAINFOREST = true;
 		public static final boolean GENERATE_RAINFOREST = true;
 		public static final boolean GENERATE_DARK_TAIGA = true;
+	}
+
+	public static class WaterColors {
+		//WARM
+		public static final boolean LUKEWARM_BIOMES = true;
+		public static final boolean HOT_BIOMES = true;
+
+		//COLD
+		public static final boolean SNOWY_BIOMES = true;
+		public static final boolean FROZEN_BIOMES = true;
 	}
 }

@@ -733,6 +733,13 @@ public final class OverworldBiomeBuilderMixin {
 		}
 	}
 
+	@Inject(method = "pickBeachBiome", at = @At("HEAD"), cancellable = true)
+	private void wilderWild$injectWarmBeach(int temperature, int humidity, CallbackInfoReturnable<ResourceKey<Biome>> info) {
+		if (WilderSharedConstants.config().generateWarmBeach() && temperature == 3) {
+			info.setReturnValue(RegisterWorldgen.WARM_BEACH);
+		}
+	}
+
 	@ModifyArgs(method = "addValleys", at = @At(value = "INVOKE",
 		target = "Lnet/minecraft/world/level/biome/OverworldBiomeBuilder;addSurfaceBiome(Ljava/util/function/Consumer;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;FLnet/minecraft/resources/ResourceKey;)V",
 		ordinal = 1
@@ -772,4 +779,5 @@ public final class OverworldBiomeBuilderMixin {
 			args.set(1, WilderSharedWorldgen.WarmRiver.UNFROZEN_NOT_WARM_RANGE);
 		}
 	}
+
 }

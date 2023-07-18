@@ -124,6 +124,7 @@ public final class WilderPlacedFeatures {
 	public static final FrozenPlacedFeature PALM_JUNGLE = register("palm_jungle");
 	public static final FrozenPlacedFeature PALMS_OASIS = register("palms_oasis");
 	public static final FrozenPlacedFeature PALM_RARE = register("palm_rare");
+	public static final FrozenPlacedFeature PALMS_WARM_BEACH = register("palms_warm_beach");
 	public static final FrozenPlacedFeature CHERRY_TREES = register("cherry_trees");
 	public static final FrozenPlacedFeature SNAPPED_OAK_PLACED = register("snapped_oak");
 	public static final FrozenPlacedFeature SNAPPED_OAK_CLEARING_PLACED = register("snapped_oak_clearing");
@@ -627,6 +628,10 @@ public final class WilderPlacedFeatures {
 
 		PALM_RARE.makeAndSetHolder(WilderConfiguredFeatures.PALMS_OASIS.getHolder(),
 			treePlacement(RarityFilter.onAverageOnceEvery(52))
+		);
+
+		PALMS_WARM_BEACH.makeAndSetHolder(WilderConfiguredFeatures.PALMS_OASIS.getHolder(),
+			treePlacement(RarityFilter.onAverageOnceEvery(12))
 		);
 
 		CHERRY_TREES.makeAndSetHolder(WilderConfiguredFeatures.CHERRIES.getHolder(),

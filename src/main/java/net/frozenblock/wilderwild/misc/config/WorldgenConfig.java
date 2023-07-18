@@ -39,6 +39,9 @@ public final class WorldgenConfig implements ConfigData {
 
 	@ConfigEntry.Gui.CollapsibleObject
 	public final BiomePlacement biomePlacement = new BiomePlacement();
+
+	@ConfigEntry.Gui.CollapsibleObject
+	public final WaterColors waterColors = new WaterColors();
 	public boolean betaBeaches = DefaultWorldgenConfig.BETA_BEACHES;
 	public boolean dyingTrees = DefaultWorldgenConfig.DYING_TREES;
 	public boolean fallenLogs = DefaultWorldgenConfig.FALLEN_LOGS;
@@ -62,7 +65,9 @@ public final class WorldgenConfig implements ConfigData {
 		var config = WilderWildConfig.get().worldgen;
 		var biomePlacement = config.biomePlacement;
 		var biomes = config.biomeGeneration;
+		var waterColors = config.waterColors;
 		category.setBackground(WilderSharedConstants.id("textures/config/worldgen.png"));
+
 		var betaBeaches = category.addEntry(entryBuilder.startBooleanToggle(text("beta_beaches"), config.betaBeaches)
 			.setDefaultValue(DefaultWorldgenConfig.BETA_BEACHES)
 			.setSaveConsumer(newValue -> config.betaBeaches = newValue)
@@ -97,6 +102,12 @@ public final class WorldgenConfig implements ConfigData {
 			.setDefaultValue(DefaultWorldgenConfig.BiomeGeneration.GENERATE_WARM_RIVER)
 			.setSaveConsumer(newValue -> biomes.generateWarmRiver = newValue)
 			.setTooltip(tooltip("generate_warm_river"))
+			.requireRestart()
+			.build();
+		var warmBeach = entryBuilder.startBooleanToggle(text("generate_warm_beach"), biomes.generateWarmBeach)
+			.setDefaultValue(DefaultWorldgenConfig.BiomeGeneration.GENERATE_WARM_BEACH)
+			.setSaveConsumer(newValue -> biomes.generateWarmBeach = newValue)
+			.setTooltip(tooltip("generate_warm_beach"))
 			.requireRestart()
 			.build();
 		var birchTaiga = entryBuilder.startBooleanToggle(text("generate_birch_taiga"), biomes.generateBirchTaiga)
@@ -195,7 +206,7 @@ public final class WorldgenConfig implements ConfigData {
 			tooltip("biome_generation"),
 			aridForest, aridSavanna, birchJungle, birchTaiga, cypressWetlands, darkBirchForest, darkTaiga, flowerField, jellyfishCaves, mixedForest,
 			oasis, oldGrowthBirchTaiga, oldGrowthDarkForest, oldGrowthSnowyTaiga, parchedForest, rainforest, semiBirchForest,
-			sparseBirchJungle, temperateRainforest, warmRiver
+			sparseBirchJungle, temperateRainforest, warmBeach, warmRiver
 		);
 
 		var cherryGrove = entryBuilder.startBooleanToggle(text("modify_cherry_grove_placement"), biomePlacement.modifyCherryGrovePlacement)
@@ -238,6 +249,41 @@ public final class WorldgenConfig implements ConfigData {
 			false,
 			tooltip("biome_placement"),
 			cherryGrove, jungle, mangroveSwamp, swamp, windsweptSavanna
+		);
+
+		var hotBiomes = entryBuilder.startBooleanToggle(text("hot_water"), waterColors.modifyHotWater)
+			.setDefaultValue(DefaultWorldgenConfig.WaterColors.HOT_BIOMES)
+			.setSaveConsumer(newValue -> waterColors.modifyHotWater = newValue)
+			.setYesNoTextSupplier(bool -> text("water_colors." + bool))
+			.setTooltip(tooltip("hot_water"))
+			.requireRestart()
+			.build();
+		var lukewarmBiomes = entryBuilder.startBooleanToggle(text("lukewarm_water"), waterColors.modifyLukewarmWater)
+			.setDefaultValue(DefaultWorldgenConfig.WaterColors.LUKEWARM_BIOMES)
+			.setSaveConsumer(newValue -> waterColors.modifyLukewarmWater = newValue)
+			.setYesNoTextSupplier(bool -> text("water_colors." + bool))
+			.setTooltip(tooltip("lukewarm_water"))
+			.requireRestart()
+			.build();
+		var snowyBiomes = entryBuilder.startBooleanToggle(text("snowy_water"), waterColors.modifySnowyWater)
+			.setDefaultValue(DefaultWorldgenConfig.WaterColors.SNOWY_BIOMES)
+			.setSaveConsumer(newValue -> waterColors.modifySnowyWater = newValue)
+			.setYesNoTextSupplier(bool -> text("water_colors." + bool))
+			.setTooltip(tooltip("snowy_water"))
+			.requireRestart()
+			.build();
+		var frozenBiomes = entryBuilder.startBooleanToggle(text("frozen_water"), waterColors.modifyFrozenWater)
+			.setDefaultValue(DefaultWorldgenConfig.WaterColors.FROZEN_BIOMES)
+			.setSaveConsumer(newValue -> waterColors.modifyFrozenWater = newValue)
+			.setYesNoTextSupplier(bool -> text("water_colors." + bool))
+			.setTooltip(tooltip("frozen_water"))
+			.requireRestart()
+			.build();
+
+		var waterColorCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("water_colors"),
+			false,
+			tooltip("water_colors"),
+			hotBiomes, lukewarmBiomes, snowyBiomes, frozenBiomes
 		);
 
         /*var dyingTrees = category.addEntry(entryBuilder.startBooleanToggle(text("dying_trees"), config.dyingTrees)
@@ -369,6 +415,7 @@ public final class WorldgenConfig implements ConfigData {
 		public boolean generateMixedForest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_MIXED_FOREST;
 		public boolean generateOasis = DefaultWorldgenConfig.BiomeGeneration.GENERATE_OASIS;
 		public boolean generateWarmRiver = DefaultWorldgenConfig.BiomeGeneration.GENERATE_WARM_RIVER;
+		public boolean generateWarmBeach = DefaultWorldgenConfig.BiomeGeneration.GENERATE_WARM_BEACH;
 		public boolean generateBirchTaiga = DefaultWorldgenConfig.BiomeGeneration.GENERATE_BIRCH_TAIGA;
 		public boolean generateOldGrowthBirchTaiga = DefaultWorldgenConfig.BiomeGeneration.GENERATE_OLD_GROWTH_BIRCH_TAIGA;
 		public boolean generateFlowerField = DefaultWorldgenConfig.BiomeGeneration.GENERATE_FLOWER_FIELD;
@@ -386,4 +433,10 @@ public final class WorldgenConfig implements ConfigData {
 		public boolean generateDarkTaiga = DefaultWorldgenConfig.BiomeGeneration.GENERATE_DARK_TAIGA;
 	}
 
+	public static class WaterColors {
+		public boolean modifyLukewarmWater = DefaultWorldgenConfig.WaterColors.LUKEWARM_BIOMES;
+		public boolean modifyHotWater = DefaultWorldgenConfig.WaterColors.HOT_BIOMES;
+		public boolean modifySnowyWater = DefaultWorldgenConfig.WaterColors.SNOWY_BIOMES;
+		public boolean modifyFrozenWater = DefaultWorldgenConfig.WaterColors.FROZEN_BIOMES;
+	}
 }

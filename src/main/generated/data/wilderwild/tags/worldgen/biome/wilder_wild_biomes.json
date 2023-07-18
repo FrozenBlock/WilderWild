@@ -18,6 +18,10 @@
       "required": false
     },
     {
+      "id": "wilderwild:warm_beach",
+      "required": false
+    },
+    {
       "id": "wilderwild:jellyfish_caves",
       "required": false
     },

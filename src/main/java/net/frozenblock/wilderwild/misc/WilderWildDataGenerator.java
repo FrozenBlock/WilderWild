@@ -143,6 +143,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptional(RegisterWorldgen.MIXED_FOREST)
 				.addOptional(RegisterWorldgen.OASIS)
 				.addOptional(RegisterWorldgen.WARM_RIVER)
+				.addOptional(RegisterWorldgen.WARM_BEACH)
 				.addOptional(RegisterWorldgen.JELLYFISH_CAVES)
 				.addOptional(RegisterWorldgen.ARID_FOREST)
 				.addOptional(RegisterWorldgen.ARID_SAVANNA)
@@ -230,6 +231,12 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptional(RegisterWorldgen.WARM_RIVER)
 				.addOptional(RegisterWorldgen.CYPRESS_WETLANDS);
 
+			this.getOrCreateTagBuilder(BiomeTags.IS_BEACH)
+				.addOptional(RegisterWorldgen.WARM_BEACH);
+
+			this.getOrCreateTagBuilder(ConventionalBiomeTags.BEACH)
+				.addOptional(RegisterWorldgen.WARM_BEACH);
+
 			this.getOrCreateTagBuilder(WilderBiomeTags.RAINFOREST)
 				.addOptional(RegisterWorldgen.RAINFOREST)
 				.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
@@ -246,6 +253,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptional(RegisterWorldgen.MIXED_FOREST)
 				.addOptional(RegisterWorldgen.PARCHED_FOREST)
 				.addOptional(RegisterWorldgen.WARM_RIVER)
+				.addOptional(RegisterWorldgen.WARM_BEACH)
 				.addOptional(RegisterWorldgen.FLOWER_FIELD)
 				.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
 				.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
@@ -350,6 +358,45 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(ConventionalBiomeTags.UNDERGROUND)
 				.addOptional(RegisterWorldgen.JELLYFISH_CAVES);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.LUKEWARM_WATER)
+				.add(Biomes.DARK_FOREST)
+				.add(Biomes.SAVANNA)
+				.add(Biomes.SAVANNA_PLATEAU)
+				.add(Biomes.WINDSWEPT_SAVANNA)
+				.add(Biomes.JUNGLE)
+				.add(Biomes.BAMBOO_JUNGLE)
+				.add(Biomes.SPARSE_JUNGLE)
+				.addOptional(RegisterWorldgen.DARK_TAIGA)
+				.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
+				.addOptional(RegisterWorldgen.PARCHED_FOREST)
+				.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
+				.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
+				.addOptional(RegisterWorldgen.WARM_RIVER)
+				.addOptional(RegisterWorldgen.WARM_BEACH);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HOT_WATER)
+				.add(Biomes.DESERT)
+				.add(Biomes.BADLANDS)
+				.add(Biomes.ERODED_BADLANDS)
+				.add(Biomes.WOODED_BADLANDS)
+				.addOptional(RegisterWorldgen.ARID_FOREST)
+				.addOptional(RegisterWorldgen.ARID_SAVANNA);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.SNOWY_WATER)
+				.add(Biomes.SNOWY_TAIGA)
+				.add(Biomes.SNOWY_BEACH)
+				.add(Biomes.SNOWY_PLAINS)
+				.add(Biomes.SNOWY_SLOPES)
+				.add(Biomes.GROVE)
+				.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.FROZEN_WATER)
+				.add(Biomes.FROZEN_RIVER)
+				.add(Biomes.FROZEN_OCEAN)
+				.add(Biomes.FROZEN_PEAKS)
+				.add(Biomes.ICE_SPIKES)
+				.add(Biomes.FROZEN_PEAKS);
 		}
 
 		private void generateUtilityTags() {
@@ -394,7 +441,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptionalTag(WilderBiomeTags.SAND_BEACHES)
 				.addOptionalTag(WilderBiomeTags.MULTI_LAYER_SAND_BEACHES)
 				.addOptional(RegisterWorldgen.OASIS)
-				.addOptional(RegisterWorldgen.WARM_RIVER);
+				.addOptional(RegisterWorldgen.WARM_RIVER)
+				.addOptional(RegisterWorldgen.WARM_BEACH);
 
 			this.getOrCreateTagBuilder(FrozenBiomeTags.CAN_LIGHTNING_OVERRIDE)
 				.add(Biomes.DESERT)
@@ -421,6 +469,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 
 			this.getOrCreateTagBuilder(BiomeTags.MORE_FREQUENT_DROWNED_SPAWNS)
 				.addOptional(RegisterWorldgen.WARM_RIVER)
+				.addOptional(RegisterWorldgen.WARM_BEACH)
 				.addOptional(RegisterWorldgen.JELLYFISH_CAVES)
 				.addOptional(RegisterWorldgen.OASIS)
 				.addOptional(RegisterWorldgen.CYPRESS_WETLANDS);
@@ -518,7 +567,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_PALM_RARE)
 				.add(Biomes.DESERT)
 				.addOptional(RegisterWorldgen.ARID_FOREST)
-				.addOptional(RegisterWorldgen.ARID_SAVANNA);
+				.addOptional(RegisterWorldgen.ARID_SAVANNA)
+				.addOptional(RegisterWorldgen.WARM_BEACH);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_PALM_AND_JUNGLE_AND_OAK)
 				.add(Biomes.JUNGLE)
@@ -754,6 +804,9 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.add(Biomes.JUNGLE)
 				.add(Biomes.SPARSE_JUNGLE)
 				.addOptional(RegisterWorldgen.ARID_SAVANNA);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_WARM_BEACH_PALMS)
+				.addOptional(RegisterWorldgen.WARM_BEACH);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SHORT_SPRUCE)
 				.add(Biomes.TAIGA)
@@ -1229,7 +1282,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SMALL_SAND_TRANSITION)
 				.add(Biomes.SNOWY_BEACH)
 				.add(Biomes.BEACH)
-				.addOptional(RegisterWorldgen.WARM_RIVER);
+				.addOptional(RegisterWorldgen.WARM_RIVER)
+				.addOptional(RegisterWorldgen.WARM_BEACH);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SAND_TRANSITION)
 				.add(Biomes.DESERT)
@@ -1341,7 +1395,8 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptional(RegisterWorldgen.RAINFOREST)
 				.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
 				.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
-				.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
+				.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
+				.addOptional(RegisterWorldgen.WARM_BEACH);
 
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_RARE_COARSE)
 				.add(Biomes.FOREST)

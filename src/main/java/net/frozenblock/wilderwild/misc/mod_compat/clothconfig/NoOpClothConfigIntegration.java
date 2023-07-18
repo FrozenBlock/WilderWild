@@ -385,6 +385,11 @@ public class NoOpClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
+	public boolean generateWarmBeach() {
+		return DefaultWorldgenConfig.BiomeGeneration.GENERATE_WARM_BEACH;
+	}
+
+	@Override
 	public boolean generateBirchTaiga() {
 		return DefaultWorldgenConfig.BiomeGeneration.GENERATE_BIRCH_TAIGA;
 	}
@@ -457,6 +462,26 @@ public class NoOpClothConfigIntegration extends AbstractClothConfigIntegration {
 	@Override
 	public boolean generateDarkTaiga() {
 		return DefaultWorldgenConfig.BiomeGeneration.GENERATE_DARK_TAIGA;
+	}
+
+	@Override
+	public boolean hotWater() {
+		return DefaultWorldgenConfig.WaterColors.HOT_BIOMES;
+	}
+
+	@Override
+	public boolean lukewarmWater() {
+		return DefaultWorldgenConfig.WaterColors.LUKEWARM_BIOMES;
+	}
+
+	@Override
+	public boolean snowyWater() {
+		return DefaultWorldgenConfig.WaterColors.SNOWY_BIOMES;
+	}
+
+	@Override
+	public boolean frozenWater() {
+		return DefaultWorldgenConfig.WaterColors.FROZEN_BIOMES;
 	}
 
 	@Override

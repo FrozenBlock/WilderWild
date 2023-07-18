@@ -1,21 +1,23 @@
 {
   "replace": false,
   "values": [
-    "minecraft:mangrove_swamp",
-    "minecraft:swamp",
+    "minecraft:dark_forest",
+    "minecraft:savanna",
+    "minecraft:savanna_plateau",
+    "minecraft:windswept_savanna",
     "minecraft:jungle",
-    "minecraft:sparse_jungle",
     "minecraft:bamboo_jungle",
+    "minecraft:sparse_jungle",
     {
-      "id": "wilderwild:cypress_wetlands",
+      "id": "wilderwild:dark_taiga",
       "required": false
     },
     {
-      "id": "wilderwild:rainforest",
+      "id": "wilderwild:old_growth_dark_forest",
       "required": false
     },
     {
-      "id": "wilderwild:temperate_rainforest",
+      "id": "wilderwild:parched_forest",
       "required": false
     },
     {
@@ -24,6 +26,10 @@
     },
     {
       "id": "wilderwild:sparse_birch_jungle",
+      "required": false
+    },
+    {
+      "id": "wilderwild:warm_river",
       "required": false
     },
     {

@@ -176,6 +176,8 @@ public abstract class AbstractClothConfigIntegration extends ModIntegration {
 
 	public abstract boolean generateWarmRiver();
 
+	public abstract boolean generateWarmBeach();
+
 	public abstract boolean generateBirchTaiga();
 
 	public abstract boolean generateOldGrowthBirchTaiga();
@@ -205,6 +207,14 @@ public abstract class AbstractClothConfigIntegration extends ModIntegration {
 	public abstract boolean generateRainforest();
 
 	public abstract boolean generateDarkTaiga();
+
+	public abstract boolean hotWater();
+
+	public abstract boolean lukewarmWater();
+
+	public abstract boolean snowyWater();
+
+	public abstract boolean frozenWater();
 
 	public abstract boolean dyingTrees();
 

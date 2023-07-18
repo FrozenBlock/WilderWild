@@ -45,23 +45,6 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 	}
 
 	@NotNull
-	public static SurfaceRules.RuleSource warmRiverRules() {
-		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(RegisterWorldgen.WARM_RIVER),
-			SurfaceRules.ifTrue(
-				SurfaceRules.yBlockCheck(VerticalAnchor.absolute(32), 0),
-				SurfaceRules.sequence(
-					SurfaceRules.ifTrue(
-						SurfaceRules.DEEP_UNDER_FLOOR,
-						FrozenSurfaceRules.SAND
-					),
-					FrozenSurfaceRules.SANDSTONE
-				)
-			)
-		);
-	}
-
-	@NotNull
 	public static SurfaceRules.RuleSource fallingBlockAndSafeBlockRules(Block fallingBlock, Block safeBlock) {
 		SurfaceRules.RuleSource fallingBlockSource = FrozenSurfaceRules.makeStateRule(fallingBlock);
 		SurfaceRules.RuleSource safeBlockSource = FrozenSurfaceRules.makeStateRule(safeBlock);
@@ -95,7 +78,18 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 	}
 
 	@NotNull
-	public static SurfaceRules.RuleSource desertRules() {
+	public static SurfaceRules.RuleSource warmRiverRules() {
+		return SurfaceRules.ifTrue(
+			SurfaceRules.isBiome(RegisterWorldgen.WARM_RIVER),
+			SurfaceRules.ifTrue(
+				SurfaceRules.yBlockCheck(VerticalAnchor.absolute(32), 0),
+				fallingBlockAndSafeBlockRules(Blocks.SAND, Blocks.SANDSTONE)
+			)
+		);
+	}
+
+	@NotNull
+	public static SurfaceRules.RuleSource desertAndBeachRules() {
 		return SurfaceRules.sequence(
 			SurfaceRules.ifTrue(
 				SurfaceRules.ON_FLOOR,
@@ -133,10 +127,18 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 	}
 
 	@NotNull
+	public static SurfaceRules.RuleSource warmBeachRules() {
+		return SurfaceRules.ifTrue(
+			SurfaceRules.isBiome(RegisterWorldgen.WARM_BEACH),
+			desertAndBeachRules()
+		);
+	}
+
+	@NotNull
 	public static SurfaceRules.RuleSource oasisRules() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(RegisterWorldgen.OASIS),
-			desertRules()
+			desertAndBeachRules()
 		);
 	}
 
@@ -185,7 +187,7 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 	public static SurfaceRules.RuleSource aridRules() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(RegisterWorldgen.ARID_SAVANNA, RegisterWorldgen.ARID_FOREST),
-			desertRules()
+			desertAndBeachRules()
 		);
 	}
 
@@ -360,6 +362,7 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 				betaBeaches(),
 				cypressSurfaceRules(),
 				warmRiverRules(),
+				warmBeachRules(),
 				oasisRules(),
 				aridGrass(),
 				aridRules(),

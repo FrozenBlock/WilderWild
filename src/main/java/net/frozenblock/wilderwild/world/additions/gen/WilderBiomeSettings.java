@@ -36,6 +36,7 @@ public final class WilderBiomeSettings {
 			(modificationContext) -> modificationContext.getEffects().setFoliageColor(11445290));
 
 		WilderMusic.playMusic();
+		WilderWater.stirWater();
 		WilderSpawns.addFireflies();
 		WilderSpawns.addJellyfish();
 		WilderSpawns.addTumbleweed();

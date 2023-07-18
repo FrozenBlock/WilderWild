@@ -74,7 +74,6 @@
     ],
     [
       "minecraft:glow_lichen",
-      "minecraft:trees_water",
       "minecraft:flower_default",
       "minecraft:patch_grass_badlands",
       "minecraft:brown_mushroom_normal",
@@ -99,7 +98,14 @@
       }
     ],
     "axolotls": [],
-    "creature": [],
+    "creature": [
+      {
+        "type": "minecraft:turtle",
+        "maxCount": 5,
+        "minCount": 2,
+        "weight": 5
+      }
+    ],
     "misc": [],
     "monster": [
       {
@@ -165,22 +171,8 @@
         "weight": 10
       }
     ],
-    "water_ambient": [
-      {
-        "type": "minecraft:salmon",
-        "maxCount": 5,
-        "minCount": 1,
-        "weight": 5
-      }
-    ],
-    "water_creature": [
-      {
-        "type": "minecraft:squid",
-        "maxCount": 4,
-        "minCount": 1,
-        "weight": 2
-      }
-    ],
+    "water_ambient": [],
+    "water_creature": [],
     "wilderwildfireflies": [],
     "wilderwildjellyfish": [],
     "wilderwildtumbleweed": []

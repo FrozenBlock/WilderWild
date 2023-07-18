@@ -50,6 +50,7 @@ public final class RegisterWorldgen {
 	public static final ResourceKey<Biome> MIXED_FOREST = register("mixed_forest");
 	public static final ResourceKey<Biome> OASIS = register("oasis");
 	public static final ResourceKey<Biome> WARM_RIVER = register("warm_river");
+	public static final ResourceKey<Biome> WARM_BEACH = register("warm_beach");
 	// Cave Biomes
 	public static final ResourceKey<Biome> JELLYFISH_CAVES = register("jellyfish_caves");
 	// Transition Biomes
@@ -89,6 +90,7 @@ public final class RegisterWorldgen {
 		register(context, RegisterWorldgen.MIXED_FOREST, RegisterWorldgen.mixedForest(context));
 		register(context, RegisterWorldgen.OASIS, RegisterWorldgen.oasis(context));
 		register(context, RegisterWorldgen.WARM_RIVER, RegisterWorldgen.warmRiver(context));
+		register(context, RegisterWorldgen.WARM_BEACH, RegisterWorldgen.warmBeach(context));
 		// CAVE BIOMES
 		register(context, RegisterWorldgen.JELLYFISH_CAVES, RegisterWorldgen.jellyfishCaves(context));
 		// TRANSITION BIOMES
@@ -285,7 +287,7 @@ public final class RegisterWorldgen {
 		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		addWarmRiverFeatures(builder2);
 		return new Biome.BiomeBuilder()
-			.hasPrecipitation(false)
+			.hasPrecipitation(true)
 			.temperature(WilderSharedWorldgen.WarmRiver.TEMP)
 			.downfall(WilderSharedWorldgen.WarmRiver.DOWNFALL)
 			.specialEffects(
@@ -314,6 +316,53 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
 		BiomeDefaultFeatures.addWaterTrees(builder);
+		BiomeDefaultFeatures.addDefaultFlowers(builder);
+		BiomeDefaultFeatures.addDefaultGrass(builder);
+		BiomeDefaultFeatures.addDefaultMushrooms(builder);
+		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_RIVER);
+		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_GRAVEL_PATH_RIVER.getKey());
+	}
+
+	//WARM BEACH
+	@NotNull
+	public static Biome warmBeach(@NotNull BootstapContext<Biome> entries) {
+		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
+		MobSpawnSettings.Builder builder = (new MobSpawnSettings.Builder()).addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.TURTLE, 5, 2, 5));
+		BiomeDefaultFeatures.commonSpawns(builder);
+		builder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.DROWNED, 100, 1, 1));
+		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
+		addWarmBeachFeatures(builder2);
+		return new Biome.BiomeBuilder()
+			.hasPrecipitation(true)
+			.temperature(WilderSharedWorldgen.WarmRiver.TEMP)
+			.downfall(WilderSharedWorldgen.WarmRiver.DOWNFALL)
+			.specialEffects(
+				new BiomeSpecialEffects.Builder()
+					.grassColorOverride(WilderSharedWorldgen.WarmRiver.GRASS_COLOR)
+					.foliageColorOverride(WilderSharedWorldgen.WarmRiver.FOLIAGE_COLOR)
+					.waterColor(WilderSharedWorldgen.WarmRiver.WATER_COLOR)
+					.waterFogColor(WilderSharedWorldgen.WarmRiver.WATER_FOG_COLOR)
+					.skyColor(WilderSharedWorldgen.WarmRiver.SKY_COLOR)
+					.fogColor(WilderSharedWorldgen.WarmRiver.FOG_COLOR)
+					.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+					.backgroundMusic(null)
+					.build())
+			.mobSpawnSettings(builder.build())
+			.generationSettings(builder2.build())
+			.build();
+	}
+
+	public static void addWarmBeachFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
+		BiomeDefaultFeatures.addDefaultCarversAndLakes(builder);
+		BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
+		BiomeDefaultFeatures.addDefaultMonsterRoom(builder);
+		BiomeDefaultFeatures.addDefaultUndergroundVariety(builder);
+		BiomeDefaultFeatures.addDefaultSprings(builder);
+		BiomeDefaultFeatures.addSurfaceFreezing(builder);
+		BiomeDefaultFeatures.addDefaultOres(builder);
+		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
 		BiomeDefaultFeatures.addDefaultFlowers(builder);
 		BiomeDefaultFeatures.addDefaultGrass(builder);
 		BiomeDefaultFeatures.addDefaultMushrooms(builder);
