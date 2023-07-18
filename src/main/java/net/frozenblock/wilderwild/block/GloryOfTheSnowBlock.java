@@ -52,7 +52,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock {
 	public static final EnumProperty<FlowerColor> COLORS = RegisterProperties.FLOWER_COLOR;
-	private static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 10.0D, 14.0D);
+	private static final VoxelShape SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 4.0D, 13.0D);
+	private static final VoxelShape GROWN_SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 8.0D, 13.0D);
 	public final List<FlowerColor> COLOR_LIST;
 
 	public GloryOfTheSnowBlock(@NotNull Properties settings, List<FlowerColor> list) {
@@ -97,9 +98,10 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
 
 	@Override
 	@NotNull
-	public VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+		VoxelShape shape = state.getValue(COLORS) == FlowerColor.NONE ? SHAPE : GROWN_SHAPE;
 		Vec3 vec3d = state.getOffset(level, pos);
-		return SHAPE.move(vec3d.x, vec3d.y, vec3d.z);
+		return shape.move(vec3d.x, vec3d.y, vec3d.z);
 	}
 
 	@Override

@@ -41,6 +41,11 @@ Put changelog here:
 - Oceans and Rivers now generate small pools to increase the area covered in water, allowing previously dry areas above sea level to have a bit of water.
 - Grass generates more frequently on exposed areas of Ocean and River biomes.
 - Replaced Oak trees in Ocean and River biomes with Shrubs.
+- Updated a few config texts to have better grammar.
+    - Biome placement config tooltips now explain the changes made to each biome's placement while enabled.
+- Adjusted Glory of the Snow bounding box.
+- "Glory of the Snow" is now capitalized properly.
+    - "Of" and "The" were previously capitalized.
 - Incorporated Wilder Wild's new foods, mobs, and biomes into Vanilla's advancements (note that this may be overriden by other mods' data).
 - Jellyfish can now reproduce.
     - Repeatedly feeding a Jellyfish Cod or Salmon will eventually cause a baby Jellyfish to spawn.
