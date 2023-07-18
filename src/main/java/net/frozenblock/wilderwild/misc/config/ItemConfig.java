@@ -129,13 +129,6 @@ public final class ItemConfig implements ConfigData {
 			.build()
 		);
 
-		var itemCooldownsSave = category.addEntry(entryBuilder.startBooleanToggle(text("item_cooldowns_save"), FrozenLibConfig.get().config.saveItemCooldowns)
-			.setDefaultValue(FrozenLibConfigValues.DefaultFrozenLibConfigValues.SAVE_ITEM_COOLDOWNS)
-			.setSaveConsumer(newValue -> FrozenLibConfig.get().config.saveItemCooldowns = newValue)
-			.setTooltip(tooltip("item_cooldowns_save"))
-			.build()
-		);
-
 		var restrictInstrumentSound = category.addEntry(entryBuilder.startBooleanToggle(text("restrict_instrument_sound"), config.restrictInstrumentSound)
 			.setDefaultValue(DefaultItemConfig.RESTRICT_INSTRUMENT_SOUND)
 			.setSaveConsumer(newValue -> config.restrictInstrumentSound = newValue)
