@@ -1173,8 +1173,8 @@ public final class WilderPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_TOP_SOLID, BiomeFilter.biome()
 		);
 
-		PATCH_CATTAIL_UNCOMMON.makeAndSetHolder(WilderConfiguredFeatures.CATTAIL.getHolder(),
-			RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(),
+		PATCH_CATTAIL_UNCOMMON.makeAndSetHolder(WilderConfiguredFeatures.CATTAIL_SMALL.getHolder(),
+			RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_TOP_SOLID, BiomeFilter.biome()
 		);
 
@@ -1188,8 +1188,8 @@ public final class WilderPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
-		PATCH_CATTAIL_MUD_UNCOMMON.makeAndSetHolder(WilderConfiguredFeatures.CATTAIL_MUD.getHolder(),
-			CountPlacement.of(UniformInt.of(1, 2)), RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(),
+		PATCH_CATTAIL_MUD_UNCOMMON.makeAndSetHolder(WilderConfiguredFeatures.CATTAIL_MUD_SMALL.getHolder(),
+			CountPlacement.of(UniformInt.of(1, 2)), RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 
