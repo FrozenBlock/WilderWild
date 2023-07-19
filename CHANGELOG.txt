@@ -31,6 +31,7 @@ Put changelog here:
 - Moss Carpets and Moss Piles now occasionally generate in Swamp, Mangrove Swamp, and Cypress Wetlands biomes.
 - Cattails can now generate on Mud blocks if not nearby water.
 - Palms now rarely generate on Beaches.
+- Improved Baobab and Fancy Dark Oak branch generation.
 - Added Snapped variants of trees.
 - Forest biomes now have clearings, with Rooted Dirt and Coarse Dirt/Gravel surrounding it.
     - Snapped Trees will generate more frequently in clearings.
