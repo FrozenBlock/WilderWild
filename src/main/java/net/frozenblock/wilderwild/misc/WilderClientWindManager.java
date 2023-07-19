@@ -6,6 +6,7 @@ import net.frozenblock.lib.wind.api.ClientWindManagerExtension;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.Mth;
+import org.jetbrains.annotations.NotNull;
 import static net.frozenblock.lib.wind.api.ClientWindManager.*;
 
 @Environment(EnvType.CLIENT)
@@ -39,7 +40,7 @@ public class WilderClientWindManager implements ClientWindManagerExtension {
 	}
 
 	@Override
-	public void receiveSyncPacket(FriendlyByteBuf byteBuf, Minecraft minecraft) {
+	public void receiveSyncPacket(@NotNull FriendlyByteBuf byteBuf, @NotNull Minecraft minecraft) {
 		double cloudX = byteBuf.readDouble();
 		double cloudY = byteBuf.readDouble();
 		double cloudZ = byteBuf.readDouble();

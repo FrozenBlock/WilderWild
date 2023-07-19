@@ -117,11 +117,11 @@ public class FrozenLibIntegration extends ModIntegration {
 			}
 		});
 
-		WindManager.addExtension(WilderWindManager::new, new WilderClientWindManager());
+		WindManager.addExtension(WilderWindManager::new);
 		RemoveableItemTags.register("wilderwild_is_ancient", (level, entity, slot, selected) -> true, true);
 
 		addBlocks(new Block[]{CACTUS, PRICKLY_PEAR_CACTUS}, CACTI, () -> BlockConfig.get().blockSounds.cactusSounds);
-		addBlock(CLAY, RegisterBlockSoundTypes.CLAY, () ->BlockConfig.get().blockSounds.claySounds);
+		addBlock(CLAY, RegisterBlockSoundTypes.CLAY, () -> BlockConfig.get().blockSounds.claySounds);
 		addBlock(COARSE_DIRT, COARSEDIRT, () -> BlockConfig.get().blockSounds.coarseDirtSounds);
 		addBlock(COBWEB, WEB, () -> BlockConfig.get().blockSounds.cobwebSounds);
 		addBlock(DEAD_BUSH, SoundType.NETHER_SPROUTS, () -> BlockConfig.get().blockSounds.deadBushSounds);

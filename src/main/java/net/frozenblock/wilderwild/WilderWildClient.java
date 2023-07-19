@@ -50,6 +50,7 @@ import net.frozenblock.wilderwild.entity.render.renderer.JellyfishRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.TumbleweedRenderer;
 import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.misc.mod_compat.client.WilderClientModIntegrations;
 import net.frozenblock.wilderwild.particle.FallingParticle;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.MesogleaDripParticle;
@@ -445,5 +446,7 @@ public final class WilderWildClient implements ClientModInitializer {
 				WilderSharedConstants.MC_LIVE_TENDRILS = resourceManager.getResource(WilderSharedConstants.id("textures/entity/sculk_sensor/new_tendril_enabler.png")).isPresent();
 			}
 		});
+
+		WilderClientModIntegrations.init();
 	}
 }

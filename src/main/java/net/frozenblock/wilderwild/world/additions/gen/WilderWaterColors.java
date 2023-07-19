@@ -25,8 +25,8 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
 
-public final class WilderWater {
-	private WilderWater() {
+public final class WilderWaterColors {
+	private WilderWaterColors() {
 		throw new UnsupportedOperationException("WilderWater contains only static declarations.");
 	}
 
