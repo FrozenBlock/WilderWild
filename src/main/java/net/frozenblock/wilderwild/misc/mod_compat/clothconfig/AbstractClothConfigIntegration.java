@@ -148,8 +148,6 @@ public abstract class AbstractClothConfigIntegration extends ModIntegration {
 
 	public abstract boolean projectileBreakParticles();
 
-	public abstract boolean itemCooldownsSave();
-
 	public abstract boolean restrictInstrumentSound();
 
 	// WORLDGEN

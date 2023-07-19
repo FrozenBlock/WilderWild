@@ -318,11 +318,6 @@ public class NoOpClothConfigIntegration extends AbstractClothConfigIntegration {
 	}
 
 	@Override
-	public boolean itemCooldownsSave() {
-		return FrozenLibConfigValues.DefaultFrozenLibConfigValues.SAVE_ITEM_COOLDOWNS;
-	}
-
-	@Override
 	public boolean restrictInstrumentSound() {
 		return DefaultItemConfig.RESTRICT_INSTRUMENT_SOUND;
 	}

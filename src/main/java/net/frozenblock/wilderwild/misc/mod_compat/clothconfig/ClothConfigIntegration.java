@@ -18,8 +18,6 @@
 
 package net.frozenblock.wilderwild.misc.mod_compat.clothconfig;
 
-import net.frozenblock.lib.config.frozenlib_config.FrozenLibConfig;
-import net.frozenblock.lib.config.frozenlib_config.FrozenLibConfigCategory;
 import net.frozenblock.wilderwild.misc.config.BlockConfig;
 import net.frozenblock.wilderwild.misc.config.EntityConfig;
 import net.frozenblock.wilderwild.misc.config.ItemConfig;
@@ -28,7 +26,6 @@ import net.frozenblock.wilderwild.misc.config.WilderWildConfig;
 import net.frozenblock.wilderwild.misc.config.WorldgenConfig;
 
 public class ClothConfigIntegration extends AbstractClothConfigIntegration {
-	private static final FrozenLibConfigCategory FROZENLIB = FrozenLibConfig.get().config;
 	private static final BlockConfig BLOCK = WilderWildConfig.get().block;
 	private static final EntityConfig ENTITY = WilderWildConfig.get().entity;
 	private static final ItemConfig ITEM = WilderWildConfig.get().item;
@@ -343,11 +340,6 @@ public class ClothConfigIntegration extends AbstractClothConfigIntegration {
 	@Override
 	public boolean projectileBreakParticles() {
 		return ITEM.projectileBreakParticles;
-	}
-
-	@Override
-	public boolean itemCooldownsSave() {
-		return FROZENLIB.saveItemCooldowns;
 	}
 
 	@Override
