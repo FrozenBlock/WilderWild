@@ -20,9 +20,11 @@ package net.frozenblock.wilderwild;
 
 import com.mojang.datafixers.schemas.Schema;
 import java.util.ArrayList;
+import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
 import net.frozenblock.lib.mobcategory.api.entrypoint.FrozenMobCategoryEntrypoint;
@@ -37,6 +39,7 @@ import net.frozenblock.wilderwild.misc.datafixer.NematocystStateFix;
 import net.frozenblock.wilderwild.misc.datafixer.OsseousSculkStateFix;
 import net.frozenblock.wilderwild.misc.datafixer.ScorchedSandStateFix2;
 import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
+import net.frozenblock.wilderwild.misc.mod_compat.client.WilderClientModIntegrations;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
@@ -176,6 +179,9 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> SpreadSculkCommand.register(dispatcher));
 
 		WilderModIntegrations.init();
+		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
+			WilderClientModIntegrations.init();
+		}
 
 		WilderSharedConstants.stopMeasuring(this);
 	}
