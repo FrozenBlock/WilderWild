@@ -31,9 +31,12 @@ import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
 import net.frozenblock.lib.spotting_icons.api.SpottingIconPredicate;
 import net.frozenblock.lib.storage.api.HopperUntouchableList;
 import net.frozenblock.lib.tick.api.BlockScheduledTicks;
+import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.entity.Firefly;
+import net.frozenblock.wilderwild.misc.WilderClientWindManager;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.misc.WilderWindManager;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes;
 import static net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes.*;
@@ -114,6 +117,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			}
 		});
 
+		WindManager.addExtension(WilderWindManager::new, new WilderClientWindManager());
 		RemoveableItemTags.register("wilderwild_is_ancient", (level, entity, slot, selected) -> true, true);
 
 		addBlocks(new Block[]{CACTUS, PRICKLY_PEAR_CACTUS}, CACTI, () -> BlockConfig.get().blockSounds.cactusSounds);

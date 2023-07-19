@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import me.jellysquid.mods.sodium.client.render.immediate.CloudRenderer;
 import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.wilderwild.config.MiscConfig;
+import net.frozenblock.wilderwild.misc.WilderClientWindManager;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.util.Mth;
@@ -28,21 +29,21 @@ public class CloudRendererMixin {
 	@ModifyVariable(method = "render", at = @At(value = "STORE"), ordinal = 2)
 	private float wilderWild$modifyY(float original, @Nullable ClientLevel world, LocalPlayer player, PoseStack matrices, Matrix4f projectionMatrix, float ticks, float tickDelta, double cameraX, double cameraY, double cameraZ) {
 		return (this.wilderWild$useWind = wilderWild$useWind())
-			? (float) (original + 0.33D + Mth.clamp(ClientWindManager.getCloudY(tickDelta) * 12, -10, 10))
+			? (float) (original + 0.33D + Mth.clamp(WilderClientWindManager.getCloudY(tickDelta) * 12, -10, 10))
 			: original;
 	}
 
 	@ModifyVariable(method = "render", at = @At(value = "STORE"), ordinal = 4)
 	private double wilderWild$modifyX(double original, @Nullable ClientLevel world, LocalPlayer player, PoseStack matrices, Matrix4f projectionMatrix, float ticks, float tickDelta, double cameraX, double cameraY, double cameraZ) {
 		return this.wilderWild$useWind
-			? cameraX - ClientWindManager.getCloudX(tickDelta) * 12
+			? cameraX - WilderClientWindManager.getCloudX(tickDelta) * 12
 			: original;
 	}
 
 	@ModifyVariable(method = "render", at = @At("STORE"), ordinal = 5)
 	private double wilderWild$modifyZ(double original, @Nullable ClientLevel world, LocalPlayer player, PoseStack matrices, Matrix4f projectionMatrix, float ticks, float tickDelta, double cameraX, double cameraY, double cameraZ) {
 		return this.wilderWild$useWind
-			? (cameraZ + 0.33D) - ClientWindManager.getCloudZ(tickDelta) * 12
+			? (cameraZ + 0.33D) - WilderClientWindManager.getCloudZ(tickDelta) * 12
 			: original;
 	}
 }

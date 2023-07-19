@@ -110,6 +110,10 @@ public class WilderSharedConstants {
 		return WilderSharedConstants.id(path).toString();
 	}
 
+	public static String safeString(String path) {
+		return MOD_ID + "_" + path;
+	}
+
 	/**
 	 * @return A text component for use in a Config GUI
 	 */
