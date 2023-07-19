@@ -16,15 +16,24 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.misc.config;
+package net.frozenblock.wilderwild.config.gui;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
+import com.terraformersmc.modmenu.api.ModMenuApi;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.frozenblock.lib.FrozenBools;
 import net.minecraft.client.gui.screens.Screen;
 
-public final class ClientOnlyConfigInteractionHandler {
+@Environment(EnvType.CLIENT)
+public final class ModMenuIntegration implements ModMenuApi {
 
-	public static ConfigScreenFactory<Screen> buildScreen() {
-		return WilderWildConfig::buildScreen;
+	@Override
+	public ConfigScreenFactory<Screen> getModConfigScreenFactory() {
+		if (FrozenBools.HAS_CLOTH_CONFIG) {
+			return ClientScreenBuilder.buildScreen();
+		}
+		return (screen -> null);
 	}
 
 }

@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.misc.config.defaultconfig;
+package net.frozenblock.wilderwild.config.defaults;
 
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 
@@ -25,7 +25,7 @@ public final class DefaultItemConfig {
 	public static final boolean PROJECTILE_BREAK_PARTICLES = true;
 	public static final boolean RESTRICT_INSTRUMENT_SOUND = true;
 
-	public static class AncientHornConfig {
+	public static final class AncientHornConfig {
 		public static final boolean ANCIENT_HORN_CAN_SUMMON_WARDEN = true;
 		public static final int ANCIENT_HORN_LIFESPAN = AncientHornProjectile.DEFAULT_LIFESPAN;
 		public static final int ANCIENT_HORN_MOB_DAMAGE = 22;

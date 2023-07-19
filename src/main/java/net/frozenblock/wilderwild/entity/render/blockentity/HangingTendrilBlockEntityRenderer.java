@@ -24,7 +24,7 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.lib.block.api.entity.BillboardBlockEntityRenderer;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.BlockConfig;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -46,7 +46,7 @@ public class HangingTendrilBlockEntityRenderer<T extends HangingTendrilBlockEnti
 
 	@Override
 	public void render(@NotNull T entity, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
-		if (WilderSharedConstants.config().billboardTendrils()) {
+		if (BlockConfig.get().billboardTendrils) {
 			super.render(entity, partialTick, poseStack, vertexConsumers, light, overlay);
 		}
 	}

@@ -18,13 +18,12 @@
 
 package net.frozenblock.wilderwild.misc;
 
-import java.util.HashMap;
-import java.util.Map;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import java.nio.file.Path;
+import java.util.Map;
 import net.fabricmc.loader.api.FabricLoader;
-import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
-import net.frozenblock.wilderwild.misc.mod_compat.clothconfig.AbstractClothConfigIntegration;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.Block;
@@ -47,13 +46,8 @@ public class WilderSharedConstants {
 	 * It's smart to use this for at least registries.
 	 */
 	public static boolean UNSTABLE_LOGGING = FabricLoader.getInstance().isDevelopmentEnvironment();
-	public static boolean areConfigsInit = false;
 	public static boolean MC_LIVE_TENDRILS = false;
 	public static boolean IN_MESOGLEA = false;
-
-	public static AbstractClothConfigIntegration config() {
-		return WilderModIntegrations.CLOTH_CONFIG_INTEGRATION.getIntegration();
-	}
 
 	// LOGGING
 	public static void log(String string, boolean shouldLog) {
@@ -114,5 +108,23 @@ public class WilderSharedConstants {
 	@NotNull
 	public static String string(@NotNull String path) {
 		return WilderSharedConstants.id(path).toString();
+	}
+
+	/**
+	 * @return A text component for use in a Config GUI
+	 */
+	public static Component text(String key) {
+		return Component.translatable("option." + MOD_ID + "." + key);
+	}
+
+	/**
+	 * @return A tooltip component for use in a Config GUI
+	 */
+	public static Component tooltip(String key) {
+		return Component.translatable("tooltip." + MOD_ID + "." + key);
+	}
+
+	public static Path configPath(String name, boolean json5) {
+		return Path.of("./config/" + MOD_ID + "/" + name + "." + (json5 ? "json5" : "json"));
 	}
 }

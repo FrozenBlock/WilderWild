@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.mixin.client.wind;
 
 import net.frozenblock.lib.wind.api.ClientWindManager;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.MiscConfig;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.ExplodeParticle;
 import net.minecraft.client.particle.TextureSheetParticle;
@@ -39,7 +39,7 @@ public abstract class ExplodeParticleMixin extends TextureSheetParticle {
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void wilderWild$tick(CallbackInfo info) {
-		Vec3 wind = ClientWindManager.getWindMovement(this.level, BlockPos.containing(this.x, this.y, this.z), 1.5).scale(WilderSharedConstants.config().particleWindMovement());
+		Vec3 wind = ClientWindManager.getWindMovement(this.level, BlockPos.containing(this.x, this.y, this.z), 1.5).scale(MiscConfig.get().particleWindMovement);
 		this.xd += wind.x * 0.001;
 		this.yd += wind.y * 0.00005;
 		this.zd += wind.z * 0.001;

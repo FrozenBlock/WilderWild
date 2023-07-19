@@ -30,6 +30,7 @@ import java.util.Objects;
 import java.util.Optional;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
+import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
@@ -267,7 +268,7 @@ public class TermiteManager {
 		}
 
 		public static boolean isEdibleProperty(@NotNull BlockState state) {
-			return !WilderSharedConstants.config().termitesOnlyEatNaturalBlocks() || (state.hasProperty(RegisterProperties.TERMITE_EDIBLE) ? state.getValue(RegisterProperties.TERMITE_EDIBLE) : !state.is(BlockTags.LEAVES) || !state.hasProperty(BlockStateProperties.PERSISTENT) || !state.getValue(BlockStateProperties.PERSISTENT));
+			return !BlockConfig.get().termite.onlyEatNaturalBlocks || (state.hasProperty(RegisterProperties.TERMITE_EDIBLE) ? state.getValue(RegisterProperties.TERMITE_EDIBLE) : !state.is(BlockTags.LEAVES) || !state.hasProperty(BlockStateProperties.PERSISTENT) || !state.getValue(BlockStateProperties.PERSISTENT));
 		}
 
 		public static boolean exposedToAir(@NotNull Level level, @NotNull BlockPos pos, boolean natural) {
@@ -299,7 +300,7 @@ public class TermiteManager {
 		}
 
 		public static boolean isTooFar(boolean natural, @NotNull BlockPos mound, @NotNull BlockPos pos) {
-			return !mound.closerThan(pos, natural ? WilderSharedConstants.config().maxNaturalTermiteDistance() : WilderSharedConstants.config().maxTermiteDistance());
+			return !mound.closerThan(pos, natural ? BlockConfig.get().termite.maxNaturalDistance : BlockConfig.get().termite.maxDistance);
 		}
 
 		public static void addDegradableBlocks() {

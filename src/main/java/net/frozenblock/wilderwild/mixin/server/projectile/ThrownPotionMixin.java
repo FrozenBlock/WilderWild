@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.server.projectile;
 
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.ItemConfig;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.world.entity.projectile.ThrownPotion;
 import net.minecraft.world.item.alchemy.PotionUtils;
@@ -34,7 +34,7 @@ public class ThrownPotionMixin {
 
 	@Inject(method = "onHit", at = @At("HEAD"))
 	public void wilderWild$onHit(HitResult result, CallbackInfo info) {
-		if (WilderSharedConstants.config().potionLandingSounds()) {
+		if (ItemConfig.get().projectileLandingSounds.potionLandingSounds) {
 			ThrownPotion potion = ThrownPotion.class.cast(this);
 			potion.playSound(RegisterSounds.ITEM_POTION_SPLASH, 1.0F, 1.0F);
 			if (!PotionUtils.getMobEffects(potion.getItem()).isEmpty()) {

@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.worldgen;
 
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.world.additions.feature.WilderTreeConfigured;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
@@ -34,14 +34,14 @@ public class SpruceTreeGrowerMixin {
 
 	@Inject(method = "getConfiguredFeature", at = @At("RETURN"), cancellable = true)
 	public void getConfiguredFeature(RandomSource random, boolean bees, CallbackInfoReturnable<ResourceKey<ConfiguredFeature<?, ?>>> info) {
-		if (WilderSharedConstants.config().wildTrees()) {
+		if (WorldgenConfig.get().wilderWildTreeGen) {
 			info.setReturnValue(random.nextFloat() < 0.1F ? WilderTreeConfigured.SPRUCE_SHORT.getKey() : WilderTreeConfigured.SPRUCE.getKey());
 		}
 	}
 
 	@Inject(method = "getConfiguredMegaFeature", at = @At("RETURN"), cancellable = true)
 	public void wilderWild$getConfiguredMegaFeature(RandomSource random, CallbackInfoReturnable<ResourceKey<? extends ConfiguredFeature<?, ?>>> info) {
-		if (WilderSharedConstants.config().wildTrees()) {
+		if (WorldgenConfig.get().wilderWildTreeGen) {
 			if (random.nextFloat() < 0.25F) {
 				info.setReturnValue(WilderTreeConfigured.SHORT_MEGA_SPRUCE.getKey());
 			}

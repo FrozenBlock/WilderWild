@@ -31,6 +31,7 @@ import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
 import net.frozenblock.lib.spotting_icons.api.SpottingIconPredicate;
 import net.frozenblock.lib.storage.api.HopperUntouchableList;
 import net.frozenblock.lib.tick.api.BlockScheduledTicks;
+import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
@@ -115,24 +116,24 @@ public class FrozenLibIntegration extends ModIntegration {
 
 		RemoveableItemTags.register("wilderwild_is_ancient", (level, entity, slot, selected) -> true, true);
 
-		addBlocks(new Block[]{CACTUS, PRICKLY_PEAR_CACTUS}, CACTI, WilderSharedConstants.config()::cactusSounds);
-		addBlock(CLAY, RegisterBlockSoundTypes.CLAY, WilderSharedConstants.config()::claySounds);
-		addBlock(COARSE_DIRT, COARSEDIRT, WilderSharedConstants.config()::coarseDirtSounds);
-		addBlock(COBWEB, WEB, WilderSharedConstants.config()::cobwebSounds);
-		addBlock(DEAD_BUSH, SoundType.NETHER_SPROUTS, WilderSharedConstants.config()::deadBushSounds);
-		addBlocks(new Block[]{DANDELION, POPPY, BLUE_ORCHID, ALLIUM, AZURE_BLUET, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, CORNFLOWER, LILY_OF_THE_VALLEY, SEEDING_DANDELION, CARNATION, GLORY_OF_THE_SNOW, DATURA, MILKWEED, SUNFLOWER, ROSE_BUSH, PEONY, LILAC}, FLOWER, WilderSharedConstants.config()::flowerSounds);
-		addBlocks(new Block[]{ICE, BLUE_ICE, PACKED_ICE}, RegisterBlockSoundTypes.ICE, WilderSharedConstants.config()::iceSounds);
-		addBlock(FROSTED_ICE, RegisterBlockSoundTypes.FROSTED_ICE, WilderSharedConstants.config()::frostedIceSounds);
-		addBlock(GRAVEL, RegisterBlockSoundTypes.GRAVEL, WilderSharedConstants.config()::gravelSounds);
-		addBlocks(new Block[]{ACACIA_SAPLING, BIRCH_SAPLING, DARK_OAK_SAPLING, JUNGLE_SAPLING, MANGROVE_PROPAGULE, OAK_SAPLING, SPRUCE_SAPLING, CYPRESS_SAPLING, BUSH}, SAPLING, WilderSharedConstants.config()::saplingSounds);
-		addBlocks(new Block[]{ACACIA_LEAVES, BIRCH_LEAVES, DARK_OAK_LEAVES, JUNGLE_LEAVES, MANGROVE_LEAVES, OAK_LEAVES, SPRUCE_LEAVES, BAOBAB_LEAVES, CYPRESS_LEAVES, PALM_FRONDS}, LEAVES, WilderSharedConstants.config()::leafSounds);
-		addBlocks(new Block[]{LILY_PAD, FLOWERING_LILY_PAD}, LILYPAD, WilderSharedConstants.config()::lilyPadSounds);
-		addBlocks(new Block[]{RED_MUSHROOM, BROWN_MUSHROOM}, MUSHROOM, WilderSharedConstants.config()::mushroomBlockSounds);
-		addBlocks(new Block[]{RED_MUSHROOM_BLOCK, BROWN_MUSHROOM_BLOCK, MUSHROOM_STEM}, MUSHROOM_BLOCK, WilderSharedConstants.config()::mushroomBlockSounds);
-		addBlock(PODZOL, SoundType.ROOTED_DIRT, WilderSharedConstants.config()::podzolSounds);
-		addBlock(REINFORCED_DEEPSLATE, REINFORCEDDEEPSLATE, WilderSharedConstants.config()::reinforcedDeepslateSounds);
-		addBlocks(new Block[]{SANDSTONE, SANDSTONE_SLAB, SANDSTONE_STAIRS, SANDSTONE_WALL, CHISELED_SANDSTONE, CUT_SANDSTONE, SMOOTH_SANDSTONE, SMOOTH_SANDSTONE_SLAB, SMOOTH_SANDSTONE_STAIRS, RED_SANDSTONE, RED_SANDSTONE_SLAB, RED_SANDSTONE_STAIRS, RED_SANDSTONE_WALL, CHISELED_RED_SANDSTONE, CUT_RED_SANDSTONE, SMOOTH_RED_SANDSTONE, SMOOTH_RED_SANDSTONE_SLAB, SMOOTH_RED_SANDSTONE_STAIRS}, RegisterBlockSoundTypes.SANDSTONE, WilderSharedConstants.config()::sandstoneSounds);
-		addBlock(SUGAR_CANE, SUGARCANE, WilderSharedConstants.config()::sugarCaneSounds);
-		addBlock(WITHER_ROSE, SoundType.SWEET_BERRY_BUSH, WilderSharedConstants.config()::witherRoseSounds);
+		addBlocks(new Block[]{CACTUS, PRICKLY_PEAR_CACTUS}, CACTI, () -> BlockConfig.get().blockSounds.cactusSounds);
+		addBlock(CLAY, RegisterBlockSoundTypes.CLAY, () ->BlockConfig.get().blockSounds.claySounds);
+		addBlock(COARSE_DIRT, COARSEDIRT, () -> BlockConfig.get().blockSounds.coarseDirtSounds);
+		addBlock(COBWEB, WEB, () -> BlockConfig.get().blockSounds.cobwebSounds);
+		addBlock(DEAD_BUSH, SoundType.NETHER_SPROUTS, () -> BlockConfig.get().blockSounds.deadBushSounds);
+		addBlocks(new Block[]{DANDELION, POPPY, BLUE_ORCHID, ALLIUM, AZURE_BLUET, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, CORNFLOWER, LILY_OF_THE_VALLEY, SEEDING_DANDELION, CARNATION, GLORY_OF_THE_SNOW, DATURA, MILKWEED, SUNFLOWER, ROSE_BUSH, PEONY, LILAC}, FLOWER, () -> BlockConfig.get().blockSounds.flowerSounds);
+		addBlocks(new Block[]{ICE, BLUE_ICE, PACKED_ICE}, RegisterBlockSoundTypes.ICE, () -> BlockConfig.get().blockSounds.iceSounds);
+		addBlock(FROSTED_ICE, RegisterBlockSoundTypes.FROSTED_ICE, () -> BlockConfig.get().blockSounds.frostedIceSounds);
+		addBlock(GRAVEL, RegisterBlockSoundTypes.GRAVEL, () -> BlockConfig.get().blockSounds.gravelSounds);
+		addBlocks(new Block[]{ACACIA_SAPLING, BIRCH_SAPLING, DARK_OAK_SAPLING, JUNGLE_SAPLING, MANGROVE_PROPAGULE, OAK_SAPLING, SPRUCE_SAPLING, CYPRESS_SAPLING, BUSH}, SAPLING, () -> BlockConfig.get().blockSounds.saplingSounds);
+		addBlocks(new Block[]{ACACIA_LEAVES, BIRCH_LEAVES, DARK_OAK_LEAVES, JUNGLE_LEAVES, MANGROVE_LEAVES, OAK_LEAVES, SPRUCE_LEAVES, BAOBAB_LEAVES, CYPRESS_LEAVES, PALM_FRONDS}, LEAVES, () -> BlockConfig.get().blockSounds.leafSounds);
+		addBlocks(new Block[]{LILY_PAD, FLOWERING_LILY_PAD}, LILYPAD, () -> BlockConfig.get().blockSounds.lilyPadSounds);
+		addBlocks(new Block[]{RED_MUSHROOM, BROWN_MUSHROOM}, MUSHROOM, () -> BlockConfig.get().blockSounds.mushroomBlockSounds);
+		addBlocks(new Block[]{RED_MUSHROOM_BLOCK, BROWN_MUSHROOM_BLOCK, MUSHROOM_STEM}, MUSHROOM_BLOCK, () -> BlockConfig.get().blockSounds.mushroomBlockSounds);
+		addBlock(PODZOL, SoundType.ROOTED_DIRT, () -> BlockConfig.get().blockSounds.podzolSounds);
+		addBlock(REINFORCED_DEEPSLATE, REINFORCEDDEEPSLATE, () -> BlockConfig.get().blockSounds.reinforcedDeepslateSounds);
+		addBlocks(new Block[]{SANDSTONE, SANDSTONE_SLAB, SANDSTONE_STAIRS, SANDSTONE_WALL, CHISELED_SANDSTONE, CUT_SANDSTONE, SMOOTH_SANDSTONE, SMOOTH_SANDSTONE_SLAB, SMOOTH_SANDSTONE_STAIRS, RED_SANDSTONE, RED_SANDSTONE_SLAB, RED_SANDSTONE_STAIRS, RED_SANDSTONE_WALL, CHISELED_RED_SANDSTONE, CUT_RED_SANDSTONE, SMOOTH_RED_SANDSTONE, SMOOTH_RED_SANDSTONE_SLAB, SMOOTH_RED_SANDSTONE_STAIRS}, RegisterBlockSoundTypes.SANDSTONE, () -> BlockConfig.get().blockSounds.sandstoneSounds);
+		addBlock(SUGAR_CANE, SUGARCANE, () -> BlockConfig.get().blockSounds.sugarCaneSounds);
+		addBlock(WITHER_ROSE, SoundType.SWEET_BERRY_BUSH, () -> BlockConfig.get().blockSounds.witherRoseSounds);
 	}
 }

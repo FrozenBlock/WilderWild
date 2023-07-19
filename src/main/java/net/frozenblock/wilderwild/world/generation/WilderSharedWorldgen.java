@@ -23,7 +23,7 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.world.level.biome.Climate;
 
@@ -188,7 +188,7 @@ public final class WilderSharedWorldgen {
 
 	public static final class AridForest {
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.530F, 0.570F);
-		public static final Climate.Parameter HUMIDITY = WilderSharedConstants.config().modifyJunglePlacement() ? Climate.Parameter.span(-0.095F, 0.1F) : Climate.Parameter.span(-0.095F, 0.15F);
+		public static final Climate.Parameter HUMIDITY = WorldgenConfig.get().biomePlacement.modifyJunglePlacement ? Climate.Parameter.span(-0.095F, 0.1F) : Climate.Parameter.span(-0.095F, 0.15F);
 		public static final float TEMP = 1.75F;
 		public static final float DOWNFALL = 0.05F;
 		public static final int WATER_COLOR = 4159204;

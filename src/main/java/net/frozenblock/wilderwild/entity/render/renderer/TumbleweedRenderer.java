@@ -23,6 +23,7 @@ import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWildClient;
+import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.render.model.TumbleweedModel;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -72,7 +73,7 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<
 
 	@Override
 	protected void setupRotations(@NotNull Tumbleweed entityLiving, @NotNull PoseStack matrixStack, float ageInTicks, float rotationYaw, float partialTick) {
-		if (WilderSharedConstants.config().tumbleweedRotatesToLookDirection()) {
+		if (EntityConfig.get().tumbleweed.tumbleweedRotatesToLookDirection) {
 			matrixStack.mulPose(Axis.YP.rotationDegrees(180.0f - rotationYaw));
 		}
 	}

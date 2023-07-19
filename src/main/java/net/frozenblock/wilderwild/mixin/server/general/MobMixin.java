@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.server.general;
 
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -43,7 +43,7 @@ public class MobMixin {
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void wilderWild$addUnpassableRail(EntityType<? extends Mob> entityType, Level level, CallbackInfo info) {
-		if (WilderSharedConstants.config().unpassableRail()) {
+		if (EntityConfig.get().unpassableRail) {
 			this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
 		}
 	}

@@ -23,9 +23,6 @@ import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.lib.integration.api.ModIntegrationSupplier;
 import net.frozenblock.lib.integration.api.ModIntegrations;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.misc.mod_compat.clothconfig.AbstractClothConfigIntegration;
-import net.frozenblock.wilderwild.misc.mod_compat.clothconfig.ClothConfigIntegration;
-import net.frozenblock.wilderwild.misc.mod_compat.clothconfig.NoOpClothConfigIntegration;
 import net.frozenblock.wilderwild.misc.mod_compat.scp.AbstractSimpleCopperPipesIntegration;
 import net.frozenblock.wilderwild.misc.mod_compat.scp.NoOpSimpleCopperPipesIntegration;
 import net.frozenblock.wilderwild.misc.mod_compat.scp.SimpleCopperPipesIntegration;
@@ -40,7 +37,6 @@ public final class WilderModIntegrations {
 	public static final ModIntegration TECHREBORN_INTEGRATION = registerAndGet(TechRebornIntegration::new, "techreborn");
 	public static final ModIntegration TERRALITH_INTEGRATION = registerAndGet(TerralithModIntegration::new, "terralith");
 	public static final ModIntegrationSupplier<AbstractSimpleCopperPipesIntegration> SIMPLE_COPPER_PIPES_INTEGRATION = register(SimpleCopperPipesIntegration::new, NoOpSimpleCopperPipesIntegration::new, "copper_pipe");
-	public static final ModIntegrationSupplier<AbstractClothConfigIntegration> CLOTH_CONFIG_INTEGRATION = register(ClothConfigIntegration::new, NoOpClothConfigIntegration::new, "cloth-config");
 
 	private WilderModIntegrations() {
 		throw new UnsupportedOperationException("WilderModIntegrations contains only static declarations.");

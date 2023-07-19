@@ -23,7 +23,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.liquid.render.api.LiquidRenderUtils;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.BlockConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.LiquidBlockRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -70,7 +70,7 @@ public class LiquidBlockRendererMixin {
 
 	@Inject(method = "tesselate", at = @At("HEAD"), cancellable = true)
 	private void wilderWild$getIsWater(BlockAndTintGetter level, BlockPos pos, VertexConsumer vertexConsumer, BlockState blockState, FluidState fluidState, CallbackInfo info) {
-		if (WilderSharedConstants.config().mesogleaLiquid() && blockState.getBlock() instanceof MesogleaBlock) {
+		if (BlockConfig.get().mesogleaLiquid && blockState.getBlock() instanceof MesogleaBlock) {
 			LiquidRenderUtils.tesselateWithSingleTexture(level, pos, vertexConsumer, blockState, fluidState, Minecraft.getInstance().getModelManager().getBlockModelShaper().getBlockModel(blockState).getParticleIcon());
 			info.cancel();
 		}

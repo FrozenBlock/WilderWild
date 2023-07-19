@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.mixin.server.projectile;
 
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.ItemConfig;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -37,7 +37,7 @@ public class ThrownEnderpearlMixin {
 
 	@Inject(method = "onHit", at = @At("HEAD"))
 	public void wilderWild$onHit(HitResult result, CallbackInfo info) {
-		if (WilderSharedConstants.config().enderPearlLandingSounds()) {
+		if (ItemConfig.get().projectileLandingSounds.enderPearlLandingSounds) {
 			ThrownEnderpearl pearl = ThrownEnderpearl.class.cast(this);
 			if (!pearl.level().isClientSide) {
 				Entity owner = pearl.getOwner();

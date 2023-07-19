@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.worldgen;
 
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.world.additions.feature.WilderTreeConfigured;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
@@ -34,7 +34,7 @@ public class BirchTreeGrowerMixin {
 
 	@Inject(method = "getConfiguredFeature", at = @At("RETURN"), cancellable = true)
 	public void wilderWild$getConfiguredFeature(RandomSource random, boolean bees, CallbackInfoReturnable<ResourceKey<? extends ConfiguredFeature<?, ?>>> info) {
-		if (WilderSharedConstants.config().wildTrees()) {
+		if (WorldgenConfig.get().wilderWildTreeGen) {
 			if (random.nextFloat() < 0.15F) {
 				info.setReturnValue(bees ? WilderTreeConfigured.SHORT_BIRCH_BEES_0004.getKey() : WilderTreeConfigured.SHORT_BIRCH.getKey());
 			} else {

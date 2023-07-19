@@ -3,7 +3,7 @@ package net.frozenblock.wilderwild.mixin.sodium;
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.jellysquid.mods.sodium.client.render.immediate.CloudRenderer;
 import net.frozenblock.lib.wind.api.ClientWindManager;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.MiscConfig;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.util.Mth;
@@ -22,7 +22,7 @@ public class CloudRendererMixin {
 
 	@Unique
 	private static boolean wilderWild$useWind() {
-		return WilderSharedConstants.config().cloudMovement() && ClientWindManager.shouldUseWind();
+		return MiscConfig.get().cloudMovement && ClientWindManager.shouldUseWind();
 	}
 
 	@ModifyVariable(method = "render", at = @At(value = "STORE"), ordinal = 2)

@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.particle;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.wind.api.ClientWindManager;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.MiscConfig;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.Minecraft;
@@ -84,7 +84,7 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
 	@Override
 	public void tick() {
 		super.tick();
-		Vec3 wind = ClientWindManager.getWindMovement(this.level, BlockPos.containing(this.x, this.y, this.z), 1.5).scale(WilderSharedConstants.config().particleWindMovement());
+		Vec3 wind = ClientWindManager.getWindMovement(this.level, BlockPos.containing(this.x, this.y, this.z), 1.5).scale(MiscConfig.get().particleWindMovement);
 		this.xd += wind.x * 0.001;
 		this.yd += wind.y * 0.00005;
 		this.zd += wind.z * 0.001;

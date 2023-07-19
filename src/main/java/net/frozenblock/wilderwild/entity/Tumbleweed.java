@@ -23,7 +23,7 @@ import net.frozenblock.lib.entity.impl.EntityStepOnBlockInterface;
 import net.frozenblock.lib.tag.api.TagUtils;
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterDamageTypes;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -361,7 +361,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 	@Override
 	public boolean canBeLeashed(@NotNull Player player) {
-		return WilderSharedConstants.config().leashedTumbleweed();
+		return EntityConfig.get().tumbleweed.leashedTumbleweed;
 	}
 
 	@Override

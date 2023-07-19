@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.server.projectile;
 
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.ItemConfig;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.world.entity.monster.Creeper;
 import org.spongepowered.asm.mixin.Mixin;
@@ -31,7 +31,7 @@ public final class CreeperMixin {
 
 	@Inject(method = "spawnLingeringCloud", at = @At("HEAD"))
 	public void wilderWild$spawnLingeringCloud(CallbackInfo info) {
-		if (WilderSharedConstants.config().potionLandingSounds()) {
+		if (ItemConfig.get().projectileLandingSounds.potionLandingSounds) {
 			Creeper creeper = Creeper.class.cast(this);
 			if (!creeper.getActiveEffects().isEmpty()) {
 				creeper.playSound(RegisterSounds.ITEM_POTION_MAGIC, 1.0F, 1.0F + (creeper.level().random.nextFloat() * 0.2F));

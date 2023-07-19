@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.mixin.client.wind.fallingleaves;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.frozenblock.lib.wind.api.ClientWindManager;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.MiscConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,7 +13,7 @@ public class FallingLeafParticleMixin {
 
 	@Unique
 	private static boolean wilderWild$useWind() {
-		return WilderSharedConstants.config().cloudMovement() && ClientWindManager.shouldUseWind();
+		return MiscConfig.get().cloudMovement && ClientWindManager.shouldUseWind();
 	}
 
 	@ModifyExpressionValue(method = "tick", at = @At(value = "FIELD", target = "Lrandommcsomethin/fallingleaves/util/Wind;windX:F"))

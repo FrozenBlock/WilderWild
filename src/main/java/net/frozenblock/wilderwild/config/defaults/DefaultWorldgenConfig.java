@@ -16,9 +16,9 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.misc.config.defaultconfig;
+package net.frozenblock.wilderwild.config.defaults;
 
-public class DefaultWorldgenConfig {
+public final class DefaultWorldgenConfig {
 
 	public static final boolean BETA_BEACHES = true;
 	public static final boolean DYING_TREES = true;
@@ -38,7 +38,7 @@ public class DefaultWorldgenConfig {
 	public static final boolean SURFACE_TRANSITIONS = true;
 	public static final boolean NEW_WITCH_HUTS = true;
 
-	public static class BiomePlacement {
+	public static final class BiomePlacement {
 		public static final boolean MODIFY_WINDSWEPT_SAVANNA_PLACEMENT = true;
 		public static final boolean MODIFY_JUNGLE_PLACEMENT = true;
 		public static final boolean MODIFY_SWAMP_PLACEMENT = true;
@@ -47,7 +47,7 @@ public class DefaultWorldgenConfig {
 		public static final boolean MODIFY_STONY_SHORE_PLACEMENT = true;
 	}
 
-	public static class BiomeGeneration {
+	public static final class BiomeGeneration {
 		public static final boolean GENERATE_CYPRESS_WETLANDS = true;
 		public static final boolean GENERATE_JELLYFISH_CAVES = true;
 		public static final boolean GENERATE_MIXED_FOREST = true;
@@ -71,7 +71,7 @@ public class DefaultWorldgenConfig {
 		public static final boolean GENERATE_DARK_TAIGA = true;
 	}
 
-	public static class WaterColors {
+	public static final class WaterColors {
 		//WARM
 		public static final boolean LUKEWARM_BIOMES = true;
 		public static final boolean HOT_BIOMES = true;

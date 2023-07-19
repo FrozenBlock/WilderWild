@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.world.additions.gen;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
@@ -30,11 +30,11 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 public final class WilderTreesGeneration {
 
 	public static void generateTrees() {
-		if (WilderSharedConstants.config().dyingTrees()) {
+		if (WorldgenConfig.get().dyingTrees) {
 
 		}
 
-		if (WilderSharedConstants.config().snappedLogs()) {
+		if (WorldgenConfig.get().snappedLogs) {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SNAPPED_OAK),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_OAK_PLACED.getKey());
 
@@ -118,7 +118,7 @@ public final class WilderTreesGeneration {
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SNAPPED_DARK_OAK_CLEARING_PLACED.getKey());
 		}
 
-		if (WilderSharedConstants.config().fallenLogs()) {
+		if (WorldgenConfig.get().fallenLogs) {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_FALLEN_BIRCH_TREES),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_BIRCH_PLACED.getKey());
 
@@ -177,7 +177,7 @@ public final class WilderTreesGeneration {
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FALLEN_OAK_AND_BIRCH_PLACED_2.getKey());
 		}
 
-		if (WilderSharedConstants.config().wildTrees()) {
+		if (WorldgenConfig.get().wilderWildTreeGen) {
 			BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SPARSE_JUNGLE),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PALM.getKey());
 

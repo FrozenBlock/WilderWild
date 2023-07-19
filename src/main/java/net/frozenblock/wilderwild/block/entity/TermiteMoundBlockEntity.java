@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.block.entity;
 
 import it.unimi.dsi.fastutil.ints.IntArrayList;
-import java.util.ArrayList;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
 import net.frozenblock.wilderwild.misc.client.ClientMethodInteractionHandler;

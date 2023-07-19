@@ -1,50 +1,24 @@
-/*
- * Copyright 2022-2023 FrozenBlock
- * This file is part of Wilder Wild.
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
- */
+package net.frozenblock.wilderwild.config.gui;
 
-package net.frozenblock.wilderwild.misc.config;
-
-import me.shedaniel.autoconfig.ConfigData;
-import me.shedaniel.autoconfig.annotation.Config;
-import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
+import net.frozenblock.wilderwild.config.ItemConfig;
+import net.frozenblock.wilderwild.config.defaults.DefaultItemConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
-import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
-import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultItemConfig;
+import static net.frozenblock.wilderwild.misc.WilderSharedConstants.text;
+import static net.frozenblock.wilderwild.misc.WilderSharedConstants.tooltip;
 
-@Config(name = "item")
-public final class ItemConfig implements ConfigData {
+@Environment(EnvType.CLIENT)
+public final class ItemConfigGui {
+	private ItemConfigGui() {
+		throw new UnsupportedOperationException("ItemConfigGui contains only static declarations.");
+	}
 
-	@ConfigEntry.Gui.CollapsibleObject
-	public final AncientHornConfig ancientHorn = new AncientHornConfig();
-
-	@ConfigEntry.Gui.CollapsibleObject
-	public final ProjectileLandingSoundsConfig projectileLandingSounds = new ProjectileLandingSoundsConfig();
-	public boolean projectileBreakParticles = DefaultItemConfig.PROJECTILE_BREAK_PARTICLES;
-	public boolean restrictInstrumentSound = DefaultItemConfig.RESTRICT_INSTRUMENT_SOUND;
-
-	@Environment(EnvType.CLIENT)
-	static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
-		var config = WilderWildConfig.get().item;
+	public static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
+		var config = ItemConfig.get();
 		var ancientHorn = config.ancientHorn;
 		var projectileLandingSounds = config.projectileLandingSounds;
 		category.setBackground(WilderSharedConstants.id("textures/config/item.png"));
@@ -133,21 +107,5 @@ public final class ItemConfig implements ConfigData {
 			.setTooltip(tooltip("restrict_instrument_sound"))
 			.build()
 		);
-	}
-
-	public static class AncientHornConfig {
-		public boolean ancientHornCanSummonWarden = DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_CAN_SUMMON_WARDEN;
-		public int ancientHornLifespan = DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_LIFESPAN;
-		public int ancientHornMobDamage = DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_MOB_DAMAGE;
-		public int ancientHornPlayerDamage = DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_PLAYER_DAMAGE;
-		public boolean ancientHornShattersGlass = DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_SHATTERS_GLASS;
-		public float ancientHornSizeMultiplier = DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_SIZE_MULTIPLIER;
-	}
-
-	public static class ProjectileLandingSoundsConfig {
-		public boolean snowballLandingSounds = DefaultItemConfig.ProjectileLandingSoundsConfig.SNOWBALL_LANDING_SOUNDS;
-		public boolean eggLandingSounds = DefaultItemConfig.ProjectileLandingSoundsConfig.EGG_LANDING_SOUNDS;
-		public boolean enderPearlLandingSounds = DefaultItemConfig.ProjectileLandingSoundsConfig.ENDER_PEARL_LANDING_SOUNDS;
-		public boolean potionLandingSounds = DefaultItemConfig.ProjectileLandingSoundsConfig.POTION_LANDING_SOUNDS;
 	}
 }

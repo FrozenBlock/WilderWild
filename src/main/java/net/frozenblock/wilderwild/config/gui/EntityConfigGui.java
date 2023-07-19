@@ -1,61 +1,24 @@
-/*
- * Copyright 2022-2023 FrozenBlock
- * This file is part of Wilder Wild.
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
- */
+package net.frozenblock.wilderwild.config.gui;
 
-package net.frozenblock.wilderwild.misc.config;
-
-import me.shedaniel.autoconfig.ConfigData;
-import me.shedaniel.autoconfig.annotation.Config;
-import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
+import net.frozenblock.wilderwild.config.EntityConfig;
+import net.frozenblock.wilderwild.config.defaults.DefaultEntityConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.text;
-import static net.frozenblock.wilderwild.misc.config.WilderWildConfig.tooltip;
-import net.frozenblock.wilderwild.misc.config.defaultconfig.DefaultEntityConfig;
+import static net.frozenblock.wilderwild.misc.WilderSharedConstants.text;
+import static net.frozenblock.wilderwild.misc.WilderSharedConstants.tooltip;
 
-@Config(name = "entity")
-public final class EntityConfig implements ConfigData {
+@Environment(EnvType.CLIENT)
+public final class EntityConfigGui {
+	private EntityConfigGui() {
+		throw new UnsupportedOperationException("EntityConfigGui contains only static declarations.");
+	}
 
-	@ConfigEntry.Gui.CollapsibleObject
-	public final AllayConfig allay = new AllayConfig();
-
-	@ConfigEntry.Gui.CollapsibleObject
-	public final EnderManConfig enderMan = new EnderManConfig();
-
-	@ConfigEntry.Gui.CollapsibleObject
-	public final FireflyConfig firefly = new FireflyConfig();
-
-	@ConfigEntry.Gui.CollapsibleObject
-	public final JellyfishConfig jellyfish = new JellyfishConfig();
-
-	@ConfigEntry.Gui.CollapsibleObject
-	public final TumbleweedConfig tumbleweed = new TumbleweedConfig();
-
-	@ConfigEntry.Gui.CollapsibleObject
-	public final WardenConfig warden = new WardenConfig();
-	public boolean unpassableRail = DefaultEntityConfig.UNPASSABLE_RAIL;
-
-	@Environment(EnvType.CLIENT)
-	static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
-		var config = WilderWildConfig.get().entity;
+	public static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
+		var config = EntityConfig.get();
 		var allay = config.allay;
 		var enderMan = config.enderMan;
 		var firefly = config.firefly;
@@ -206,39 +169,5 @@ public final class EntityConfig implements ConfigData {
 			tooltip("warden"),
 			instantAttack, dying, command, egg, swimming, tendrils, sniff
 		);
-	}
-
-	public static class AllayConfig {
-		public boolean keyframeAllayDance = DefaultEntityConfig.AllayConfig.KEYFRAME_ALLAY_DANCE;
-	}
-
-	public static class EnderManConfig {
-		public boolean angerLoopSound = DefaultEntityConfig.EnderManConfig.ANGER_LOOP_SOUND;
-		public boolean movingStareSound = DefaultEntityConfig.EnderManConfig.MOVING_STARE_SOUND;
-	}
-
-	public static class FireflyConfig {
-		public int fireflySpawnCap = DefaultEntityConfig.FireflyConfig.FIREFLY_SPAWN_CAP;
-	}
-
-	public static class JellyfishConfig {
-		public int jellyfishSpawnCap = DefaultEntityConfig.JellyfishConfig.JELLYFISH_SPAWN_CAP;
-		public int jellyfishTentacles = DefaultEntityConfig.JellyfishConfig.JELLYFISH_TENTACLES;
-	}
-
-	public static class TumbleweedConfig {
-		public int tumbleweedSpawnCap = DefaultEntityConfig.TumbleweedConfig.TUMBLEWEED_SPAWN_CAP;
-		public boolean leashedTumbleweed = DefaultEntityConfig.TumbleweedConfig.LEASHED_TUMBLEWEED;
-		public boolean tumbleweedRotatesToLookDirection = DefaultEntityConfig.TumbleweedConfig.LEASHED_TUMBLEWEED;
-	}
-
-	public static class WardenConfig {
-		public boolean wardenAttacksImmediately = DefaultEntityConfig.WardenConfig.WARDEN_ATTACKS_IMMEDIATELY;
-		public boolean wardenCustomTendrils = DefaultEntityConfig.WardenConfig.WARDEN_CUSTOM_TENDRILS;
-		public boolean wardenBedrockSniff = DefaultEntityConfig.WardenConfig.WARDEN_BEDROCK_SNIFF;
-		public boolean wardenDyingAnimation = DefaultEntityConfig.WardenConfig.WARDEN_DYING_ANIMATION;
-		public boolean wardenEmergesFromCommand = DefaultEntityConfig.WardenConfig.WARDEN_EMERGES_FROM_COMMAND;
-		public boolean wardenEmergesFromEgg = DefaultEntityConfig.WardenConfig.WARDEN_EMERGES_FROM_EGG;
-		public boolean wardenSwimAnimation = DefaultEntityConfig.WardenConfig.WARDEN_SWIM_ANIMATION;
 	}
 }

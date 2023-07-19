@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.server.general;
 
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
@@ -38,7 +38,7 @@ public class BaseFireBlockMixin {
 
 	@Inject(method = "animateTick", at = @At("HEAD"))
 	public void wilderWild$animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random, CallbackInfo info) {
-		if (WilderSharedConstants.config().soulFireSounds() && state.is(Blocks.SOUL_FIRE) && random.nextInt(48) == 0) {
+		if (BlockConfig.get().soulFireSounds && state.is(Blocks.SOUL_FIRE) && random.nextInt(48) == 0) {
 			level.playLocalSound(
 				pos.getX() + 0.5,
 				pos.getY() + 0.5,

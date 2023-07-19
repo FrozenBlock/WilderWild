@@ -18,9 +18,10 @@
 
 package net.frozenblock.wilderwild.misc.mod_compat;
 
+import java.util.function.BooleanSupplier;
 import net.frozenblock.lib.integration.api.ModIntegration;
 import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.addBlock;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.BlockConfig;
 import static net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes.LEAVES;
 
 public class BetterEndIntegration extends ModIntegration {
@@ -30,11 +31,12 @@ public class BetterEndIntegration extends ModIntegration {
 
 	@Override
 	public void init() {
-		addBlock(id("pythadendron_leaves"), LEAVES, WilderSharedConstants.config()::leafSounds);
-		addBlock(id("lacugrove_leaves"), LEAVES, WilderSharedConstants.config()::leafSounds);
-		addBlock(id("dragon_tree_leaves"), LEAVES, WilderSharedConstants.config()::leafSounds);
-		addBlock(id("tenanea_leaves"), LEAVES, WilderSharedConstants.config()::leafSounds);
-		addBlock(id("helix_tree_leaves"), LEAVES, WilderSharedConstants.config()::leafSounds);
-		addBlock(id("lucernia_leaves"), LEAVES, WilderSharedConstants.config()::leafSounds);
+		BooleanSupplier condition = () -> BlockConfig.get().blockSounds.leafSounds;
+		addBlock(id("pythadendron_leaves"), LEAVES, condition);
+		addBlock(id("lacugrove_leaves"), LEAVES, condition);
+		addBlock(id("dragon_tree_leaves"), LEAVES, condition);
+		addBlock(id("tenanea_leaves"), LEAVES, condition);
+		addBlock(id("helix_tree_leaves"), LEAVES, condition);
+		addBlock(id("lucernia_leaves"), LEAVES, condition);
 	}
 }

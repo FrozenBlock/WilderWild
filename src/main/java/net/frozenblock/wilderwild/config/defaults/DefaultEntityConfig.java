@@ -16,37 +16,37 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.misc.config.defaultconfig;
+package net.frozenblock.wilderwild.config.defaults;
 
-public class DefaultEntityConfig {
+public final class DefaultEntityConfig {
 
 	public static final boolean UNPASSABLE_RAIL = false;
 
-	public static class AllayConfig {
+	public static final class AllayConfig {
 		public static final boolean KEYFRAME_ALLAY_DANCE = true;
 	}
 
-	public static class EnderManConfig {
+	public static final class EnderManConfig {
 		public static final boolean ANGER_LOOP_SOUND = true;
 		public static final boolean MOVING_STARE_SOUND = true;
 	}
 
-	public static class FireflyConfig {
+	public static final class FireflyConfig {
 		public static final int FIREFLY_SPAWN_CAP = 56;
 	}
 
-	public static class JellyfishConfig {
+	public static final class JellyfishConfig {
 		public static final int JELLYFISH_SPAWN_CAP = 30;
 		public static final int JELLYFISH_TENTACLES = 8;
 	}
 
-	public static class TumbleweedConfig {
+	public static final class TumbleweedConfig {
 		public static final int TUMBLEWEED_SPAWN_CAP = 10;
 		public static final boolean LEASHED_TUMBLEWEED = false;
 		public static final boolean TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION = false;
 	}
 
-	public static class WardenConfig {
+	public static final class WardenConfig {
 		public static final boolean WARDEN_ATTACKS_IMMEDIATELY = true;
 		public static final boolean WARDEN_CUSTOM_TENDRILS = true;
 		public static final boolean WARDEN_BEDROCK_SNIFF = true;

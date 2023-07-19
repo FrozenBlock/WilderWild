@@ -16,9 +16,9 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.misc.config.defaultconfig;
+package net.frozenblock.wilderwild.config.defaults;
 
-public class DefaultBlockConfig {
+public final class DefaultBlockConfig {
 
 	public static final boolean SHRIEKER_GARGLING = true;
 	public static final boolean SOUL_FIRE_SOUNDS = true;
@@ -27,7 +27,7 @@ public class DefaultBlockConfig {
 	public static final boolean POLLEN_PARTICLES = true;
 	public static final boolean CACTUS_PLACEMENT = true;
 
-	public static class BlockSoundsConfig {
+	public static final class BlockSoundsConfig {
 		public static final boolean CACTUS_SOUNDS = true;
 		public static final boolean CLAY_SOUNDS = true;
 		public static final boolean COARSE_DIRT_SOUNDS = true;
@@ -48,11 +48,11 @@ public class DefaultBlockConfig {
 		public static final boolean WITHER_ROSE_SOUNDS = true;
 	}
 
-	public static class StoneChestConfig {
+	public static final class StoneChestConfig {
 		public static final int STONE_CHEST_TIMER = 100;
 	}
 
-	public static class TermiteConfig {
+	public static final class TermiteConfig {
 		public static final boolean ONLY_EAT_NATURAL_BLOCKS = true;
 		public static final int MAX_DISTANCE = 32;
 		public static final int MAX_NATURAL_DISTANCE = 10;

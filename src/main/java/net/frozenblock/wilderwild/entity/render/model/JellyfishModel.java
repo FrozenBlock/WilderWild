@@ -25,8 +25,8 @@ import java.util.Arrays;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.entity.api.rendering.FrozenRenderType;
+import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.Jellyfish;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -40,7 +40,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
-	private static final int JELLYFISH_TENTACLES = WilderSharedConstants.config().jellyfishTentacles();
+	private static final int JELLYFISH_TENTACLES = EntityConfig.get().jellyfish.jellyfishTentacles;
 	private static final float pi180 = Mth.PI / 180F;
 	private static final float eightPi = -8F * pi180;
 	private final ModelPart root;

@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.world.additions.gen;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.frozenblock.lib.worldgen.biome.api.modifications.FrozenBiomeSelectors;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
@@ -31,12 +31,12 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 public final class WilderMiscGeneration {
 
 	public static void generateMisc() {
-		if (WilderSharedConstants.config().termiteGen()) {
+		if (WorldgenConfig.get().termiteGen) {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_TERMITE_MOUND),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TERMITE_PLACED.getKey());
 		}
 
-		if (WilderSharedConstants.config().surfaceDecoration()) {
+		if (WorldgenConfig.get().surfaceDecoration) {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_RARE_COARSE),
 				GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WilderMiscPlaced.COARSE_PATH_RARE.getKey());
 
@@ -154,7 +154,7 @@ public final class WilderMiscGeneration {
 				GenerationStep.Decoration.LAKES, WilderMiscPlaced.SMALL_RIVER_POOL.getKey());
 		}
 
-		if (WilderSharedConstants.config().surfaceTransitions()) {
+		if (WorldgenConfig.get().surfaceTransitions) {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_SMALL_SAND_TRANSITION),
 				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.SMALL_SAND_TRANSITION.getKey());
 

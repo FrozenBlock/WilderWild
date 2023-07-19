@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
+import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.client.ClientMethodInteractionHandler;
 import net.frozenblock.wilderwild.misc.interfaces.WilderEnderman;
@@ -65,7 +66,7 @@ public abstract class EnderManMixin extends Monster implements WilderEnderman {
 	@Inject(method = "playStareSound", at = @At(value = "HEAD"), cancellable = true)
 	public void wilderWild$playStareSound(CallbackInfo info) {
 		//NOTE: This only runs on the client.
-		if (WilderSharedConstants.config().movingStareSound()) {
+		if (EntityConfig.get().enderMan.movingStareSound) {
 			info.cancel();
 			if (this.tickCount >= this.lastStareSound + 400) {
 				this.lastStareSound = this.tickCount;
@@ -106,7 +107,7 @@ public abstract class EnderManMixin extends Monster implements WilderEnderman {
 	@Unique
 	@Override
 	public void wilderWild$createAngerLoop() {
-		if (WilderSharedConstants.config().angerLoopSound() && this.wilderWild$canPlayLoopingSound) {
+		if (EntityConfig.get().enderMan.angerLoopSound && this.wilderWild$canPlayLoopingSound) {
 			this.wilderWild$canPlayLoopingSound = false;
 			EnderMan enderMan = EnderMan.class.cast(this);
 			FrozenSoundPackets.createMovingRestrictionLoopingSound(enderMan.level(), enderMan, RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP, SoundSource.HOSTILE, 1F, 0.9F, WilderSharedConstants.id("enderman_anger"), true);

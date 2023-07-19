@@ -22,7 +22,7 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.ScorchedBlock;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.LevelRenderer;
@@ -46,7 +46,7 @@ public class LevelRendererMixin {
 
 	@ModifyExpressionValue(method = "levelEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;getValue(Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/lang/Comparable;", ordinal = 0))
 	private Comparable<Boolean> wilderWild$shriekerGargle(Comparable<Boolean> original, int eventId, BlockPos pos, int data) {
-		if (WilderSharedConstants.config().shriekerGargling()) {
+		if (BlockConfig.get().shriekerGargling) {
 			if (original.compareTo(true) == 0 || this.level.getFluidState(pos.above()).is(FluidTags.WATER)) {
 				this.level
 					.playLocalSound(
