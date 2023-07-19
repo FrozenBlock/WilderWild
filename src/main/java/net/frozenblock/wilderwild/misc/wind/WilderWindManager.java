@@ -1,12 +1,11 @@
-package net.frozenblock.wilderwild.misc;
+package net.frozenblock.wilderwild.misc.wind;
 
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.lib.wind.api.WindManagerExtension;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import org.jetbrains.annotations.NotNull;
-import static net.frozenblock.wilderwild.misc.WilderSharedConstants.safeString;
-import static net.frozenblock.wilderwild.misc.WilderSharedConstants.string;
 
 public class WilderWindManager implements WindManagerExtension {
 
@@ -63,15 +62,15 @@ public class WilderWindManager implements WindManagerExtension {
 
 	@Override
 	public void load(@NotNull CompoundTag compoundTag) {
-		this.cloudX = compoundTag.getDouble(safeString("cloudX"));
-		this.cloudY = compoundTag.getDouble(safeString("cloudY"));
-		this.cloudZ = compoundTag.getDouble(safeString("cloudZ"));
+		this.cloudX = compoundTag.getDouble(WilderSharedConstants.safeString("cloudX"));
+		this.cloudY = compoundTag.getDouble(WilderSharedConstants.safeString("cloudY"));
+		this.cloudZ = compoundTag.getDouble(WilderSharedConstants.safeString("cloudZ"));
 	}
 
 	@Override
 	public void save(@NotNull CompoundTag compoundTag) {
-		compoundTag.putDouble(safeString("cloudX"), this.cloudX);
-		compoundTag.putDouble(safeString("cloudY"), this.cloudY);
-		compoundTag.putDouble(safeString("cloudZ"), this.cloudZ);
+		compoundTag.putDouble(WilderSharedConstants.safeString("cloudX"), this.cloudX);
+		compoundTag.putDouble(WilderSharedConstants.safeString("cloudY"), this.cloudY);
+		compoundTag.putDouble(WilderSharedConstants.safeString("cloudZ"), this.cloudZ);
 	}
 }

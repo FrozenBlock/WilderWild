@@ -27,6 +27,7 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 public final class WilderClientModIntegrations {
 
 	public static final ClientModIntegration CLIENT_FROZENLIB_INTEGRATION = registerAndGet(ClientFrozenLibIntegration::new, "frozenlib");
+
 	private WilderClientModIntegrations() {
 		throw new UnsupportedOperationException("WilderModIntegrations contains only static declarations.");
 	}

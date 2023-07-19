@@ -22,7 +22,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.integration.api.client.ClientModIntegration;
 import net.frozenblock.lib.wind.api.ClientWindManager;
-import net.frozenblock.wilderwild.misc.WilderClientWindManager;
+import net.frozenblock.wilderwild.misc.wind.WilderClientWindManager;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 
 @Environment(EnvType.CLIENT)
@@ -34,6 +34,6 @@ public class ClientFrozenLibIntegration extends ClientModIntegration {
 	@Override
 	public void init() {
 		WilderSharedConstants.log("FrozenLib client mod integration ran!", WilderSharedConstants.UNSTABLE_LOGGING);
-		ClientWindManager.addExtension(WilderClientWindManager::new);
+		ClientWindManager.addExtension(new WilderClientWindManager());
 	}
 }

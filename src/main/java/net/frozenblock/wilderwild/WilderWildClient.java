@@ -205,6 +205,7 @@ public final class WilderWildClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
+		WilderClientModIntegrations.init();
 		SplashTextAPI.addSplashLocation(WilderSharedConstants.id("texts/splashes.txt"));
 		Panoramas.addPanorama(WilderSharedConstants.id("textures/gui/title/first/panorama"));
 		Panoramas.addPanorama(WilderSharedConstants.id("textures/gui/title/second/panorama"));
@@ -446,7 +447,5 @@ public final class WilderWildClient implements ClientModInitializer {
 				WilderSharedConstants.MC_LIVE_TENDRILS = resourceManager.getResource(WilderSharedConstants.id("textures/entity/sculk_sensor/new_tendril_enabler.png")).isPresent();
 			}
 		});
-
-		WilderClientModIntegrations.init();
 	}
 }
