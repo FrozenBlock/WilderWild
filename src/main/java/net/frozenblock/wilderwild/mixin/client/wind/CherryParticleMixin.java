@@ -47,7 +47,7 @@ public abstract class CherryParticleMixin extends TextureSheetParticle {
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void wilderWild$tick(CallbackInfo info) {
-		Vec3 wind = ClientWindManager.getWindMovement(this.level, BlockPos.containing(this.x, this.y, this.z), 1.5).scale(MiscConfig.get().particleWindMovement);
+		Vec3 wind = ClientWindManager.getWindMovement(this.level, BlockPos.containing(this.x, this.y, this.z), 1.5).scale(MiscConfig.get().getParticleWindIntensity());
 		this.wilderWild$movementWithWindX = this.xd + wind.x * 0.00075;
 		this.wilderWild$movementWithWindY = (this.yd - this.gravity) + wind.y * 0.00001;
 		this.wilderWild$movementWithWindZ = this.zd + wind.z * 0.00075;

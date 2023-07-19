@@ -84,7 +84,7 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
 	@Override
 	public void tick() {
 		super.tick();
-		Vec3 wind = ClientWindManager.getWindMovement(this.level, BlockPos.containing(this.x, this.y, this.z), 1.5).scale(MiscConfig.get().particleWindMovement);
+		Vec3 wind = ClientWindManager.getWindMovement(this.level, BlockPos.containing(this.x, this.y, this.z), 1.5).scale(MiscConfig.get().getParticleWindIntensity());
 		this.xd += wind.x * 0.001;
 		this.yd += wind.y * 0.00005;
 		this.zd += wind.z * 0.001;

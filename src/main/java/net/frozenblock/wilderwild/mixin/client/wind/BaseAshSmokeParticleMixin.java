@@ -39,7 +39,7 @@ public abstract class BaseAshSmokeParticleMixin extends TextureSheetParticle {
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void wilderWild$tick(CallbackInfo info) {
-		Vec3 wind = ClientWindManager.getWindMovement(this.level, BlockPos.containing(this.x, this.y, this.z), 1.5).scale(MiscConfig.get().particleWindMovement);
+		Vec3 wind = ClientWindManager.getWindMovement(this.level, BlockPos.containing(this.x, this.y, this.z), 1.5).scale(MiscConfig.get().getParticleWindIntensity());
 		this.xd += wind.x * 0.0005;
 		this.yd += wind.y * 0.000001;
 		this.zd += wind.z * 0.0005;

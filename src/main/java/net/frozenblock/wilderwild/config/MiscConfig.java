@@ -55,6 +55,10 @@ public final class MiscConfig {
 		return INSTANCE;
 	}
 
+	public double getParticleWindIntensity() {
+		return ((double) this.particleWindMovement) * 0.01;
+	}
+
 	public static class BiomeAmbienceConfig {
 		public boolean deepDarkAmbience = DefaultMiscConfig.BiomeAmbienceConfig.DEEP_DARK_AMBIENCE;
 		public boolean dripstoneCavesAmbience = DefaultMiscConfig.BiomeAmbienceConfig.DRIPSTONE_CAVES_AMBIENCE;

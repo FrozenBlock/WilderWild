@@ -61,7 +61,7 @@ public abstract class ParticleMixin {
 				if (!fluidState.isEmpty() && (fluidState.getHeight(this.level, blockPos) + blockPos.getY()) >= this.y) {
 					return;
 				}
-				Vec3 wind = ClientWindManager.getWindMovement(this.level, blockPos, 1.5).scale(MiscConfig.get().particleWindMovement);
+				Vec3 wind = ClientWindManager.getWindMovement(this.level, blockPos, 1.5).scale(MiscConfig.get().getParticleWindIntensity());
 				this.xd += wind.x * 0.001;
 				this.yd += wind.y * 0.00005;
 				this.zd += wind.z * 0.001;

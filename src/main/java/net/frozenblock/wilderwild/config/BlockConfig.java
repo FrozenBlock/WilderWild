@@ -106,6 +106,10 @@ public final class BlockConfig {
 
 	public static class StoneChestConfig {
 		public int stoneChestTimer = DefaultBlockConfig.StoneChestConfig.STONE_CHEST_TIMER;
+
+		public double getStoneChestTimer() {
+			return ((double) this.stoneChestTimer) * 0.01;
+		}
 	}
 
 	public static class TermiteConfig {

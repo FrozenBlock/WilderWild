@@ -192,15 +192,13 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements NoInterac
 	public void liftLid(float liftAmount, boolean ancient) {
 		this.openProgress = Mth.clamp(this.openProgress + (!ancient ? liftAmount * 2 : liftAmount), 0.0F, 0.5F);
 		this.highestLidPoint = this.openProgress;
-		float multiplier = BlockConfig.get().stoneChest.stoneChestTimer / 100F;
-		this.stillLidTicks = (int) (Math.max((this.openProgress), 0.2) * (!ancient ? 220 : 160) * multiplier);
+		this.stillLidTicks = (int) (Math.max((this.openProgress), 0.2) * (!ancient ? 220 : 160) * BlockConfig.get().stoneChest.getStoneChestTimer());
 	}
 
 	public void setLid(float liftAmount) {
 		this.openProgress = Mth.clamp(liftAmount, 0.0F, 0.5F);
 		this.highestLidPoint = this.openProgress;
-		float multiplier = BlockConfig.get().stoneChest.stoneChestTimer / 100F;
-		this.stillLidTicks = (int) (Math.max((this.openProgress), 0.2) * 180 * multiplier);
+		this.stillLidTicks = (int) (Math.max((this.openProgress), 0.2) * 180 * BlockConfig.get().stoneChest.getStoneChestTimer());
 	}
 
 	public void onLidSlam(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable StoneChestBlockEntity otherStoneChest) {
