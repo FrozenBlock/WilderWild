@@ -54,11 +54,8 @@ val frozenlib_version: String by project
 
 val betterend_version: String by project
 val betternether_version: String by project
-val modmenu_version: String by project
-val cloth_config_version: String by project
 val copperpipes_version: String by project
 val nbtcrafting_version: String by project
-val terrablender_version: String by project
 val terralith_version: String by project
 val tomsstorage_version: String by project
 val fallingleaves_version: String by project
@@ -231,39 +228,19 @@ dependencies {
     modImplementation("net.fabricmc.fabric-api:fabric-api:$fabric_version")
 
     // FrozenLib
-    println("Using local FrozenLib: $local_frozenlib")
-    if (local_frozenlib) {
-        implementation(project(path = ":FrozenLib", configuration = "dev"))?.let { include(it) }
-    } else {
-        modImplementation("maven.modrinth:frozenlib:$frozenlib_version")?.let { include(it) }
-    }
+    modApi("maven.modrinth:frozenlib:$frozenlib_version")?.let { include(it) }
 
     // Simple Copper Pipes
-    modImplementation("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
-
-    // Mod Menu
-    modImplementation("com.terraformersmc:modmenu:${modmenu_version}")
-
-    // Cloth Config
-    modImplementation("me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}") {
-        exclude(group = "net.fabricmc.fabric-api")
-        exclude(group = "com.terraformersmc")
-    }
+    modApi("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
 
     // NBT Crafting
-    modImplementation("com.github.Treetrain1:nbt-crafting:jitpack-1.20-SNAPSHOT")?.let { include(it) }
+    modApi("com.github.Treetrain1:nbt-crafting:jitpack-1.20-SNAPSHOT")?.let { include(it) }
 
     // CaffeineConfig
     //modImplementation("net.caffeinemc:mixin-config:1.0.0+1.17")?.let { include(it) }
 
-    // TerraBlender
-    modCompileOnly("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
-
     // Particle Rain
     modCompileOnly("maven.modrinth:particle-rain:v2.0.5")
-
-    // MixinExtras
-    implementation("com.github.llamalad7.mixinextras:mixinextras-fabric:0.2.0-beta.9")?.let { annotationProcessor(it); }
 
     // Sodium
     modCompileOnly("maven.modrinth:sodium:${sodium_version}")
@@ -345,11 +322,11 @@ tasks {
         }
     }
 
-    //license {
-    //    rule(project.file("codeformat/HEADER"))
+    license {
+        rule(project.file("codeformat/HEADER"))
 
-    //    include("**/*.java")
-    //}
+        include("**/*.java")
+    }
 
     register("javadocJar", Jar::class) {
         dependsOn(javadoc)
