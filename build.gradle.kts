@@ -247,6 +247,9 @@ dependencies {
     // Particle Rain
     modCompileOnly("maven.modrinth:particle-rain:v2.0.5")
 
+    // MixinExtras
+    implementation("com.github.llamalad7.mixinextras:mixinextras-fabric:0.2.0-beta.9")?.let { annotationProcessor(it); }
+
     // Sodium
     modCompileOnly("maven.modrinth:sodium:${sodium_version}")
     modCompileOnly("org.anarres:jcpp:1.4.14")
@@ -380,7 +383,7 @@ java {
 tasks {
     jar {
         from("LICENSE") {
-            rename { "${it}_${base.archivesName}" }
+            rename { "${it}_${base.archivesName.get()}" }
         }
     }
 }
