@@ -481,6 +481,12 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		this.entityData.define(ITEM_Z, 0F);
 	}
 
+	@Nullable
+	@Override
+	public ItemStack getPickResult() {
+		return new ItemStack(RegisterBlocks.TUMBLEWEED);
+	}
+
 	@Override
 	public void die(@NotNull DamageSource damageSource) {
 		super.die(damageSource);

@@ -100,6 +100,7 @@ Bug Fixes:
 - Fixed a bug where Wardens would continuously attempt and fail to roar at Tumbleweeds.
 - Tumbleweed entities now properly look in the direction they're moving.
 - Fixed Tumbleweed breaking crops client-side, causing desyncs with the server.
+- Tumbleweed can now be properly picked (middle-clicked.)
 - Fixed Baobab Nut collision.
 - Fixed Logs flickering when being Hollowed.
 - Fixed Palm Hanging Signs not having a language entry.
