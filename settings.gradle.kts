@@ -56,16 +56,17 @@ fun localRepository(repo: String, dependencySub: String, kotlin: Boolean) {
 			println("Running on GitHub")
 		}
         if (file.exists()) {
-			includeBuild(path) {
+			/*includeBuild(path) {
+                this.name = repo
 				dependencySubstitution {
 					if (dependencySub != "") {
 						substitute(module(dependencySub)).using(project(":"))
 					}
 				}
-			}
-            //include(prefixedRepoName)
-            //project(prefixedRepoName).projectDir = file
-            //project(prefixedRepoName).buildFileName = "./build.gradle" + if (kotlin) ".kts" else ""
+			}*/
+            include(prefixedRepoName)
+            project(prefixedRepoName).projectDir = file
+            project(prefixedRepoName).buildFileName = "./build.gradle" + if (kotlin) ".kts" else ""
 			println("Included local repo $repo")
         } else {
 			println("Local repo $repo not found")

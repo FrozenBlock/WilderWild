@@ -1,10 +1,7 @@
 import com.matthewprenger.cursegradle.CurseArtifact
-import com.matthewprenger.cursegradle.CurseExtension
 import com.matthewprenger.cursegradle.CurseProject
 import com.matthewprenger.cursegradle.CurseRelation
-import com.modrinth.minotaur.ModrinthExtension
 import groovy.xml.XmlSlurper
-import org.ajoberstar.grgit.Grgit
 import org.codehaus.groovy.runtime.ResourceGroovyMethods
 import java.io.FileInputStream
 import java.nio.file.Files
@@ -56,6 +53,7 @@ val betterend_version: String by project
 val betternether_version: String by project
 val copperpipes_version: String by project
 val nbtcrafting_version: String by project
+val terrablender_version: String by project
 val terralith_version: String by project
 val tomsstorage_version: String by project
 val fallingleaves_version: String by project
@@ -85,7 +83,7 @@ base {
     archivesName.set(archives_base_name)
 }
 
-version = getVersion()
+version = getModVersion()
 group = maven_group
 
 val local_frozenlib = findProject(":FrozenLib") != null
@@ -228,13 +226,20 @@ dependencies {
     modImplementation("net.fabricmc.fabric-api:fabric-api:$fabric_version")
 
     // FrozenLib
-    modApi("maven.modrinth:frozenlib:$frozenlib_version")?.let { include(it) }
+    if (local_frozenlib) {
+        api(project(":FrozenLib", configuration = "namedElements"))?.let { include(it) }
+    } else {
+        modApi("maven.modrinth:frozenlib:$frozenlib_version")?.let { include(it) }
+    }
 
     // Simple Copper Pipes
     modApi("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
 
     // NBT Crafting
     modApi("com.github.Treetrain1:nbt-crafting:jitpack-1.20-SNAPSHOT")?.let { include(it) }
+
+    // TerraBlender
+    modCompileOnlyApi("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
 
     // CaffeineConfig
     //modImplementation("net.caffeinemc:mixin-config:1.0.0+1.17")?.let { include(it) }
@@ -385,7 +390,7 @@ artifacts {
     archives(javadocJar)
 }
 
-fun getVersion(): String {
+fun getModVersion(): String {
     var version = "$mod_version-$mod_loader+$minecraft_version"
 
     if (release != null && !release) {
