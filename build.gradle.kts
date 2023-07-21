@@ -51,6 +51,8 @@ val frozenlib_version: String by project
 
 val betterend_version: String by project
 val betternether_version: String by project
+val modmenu_version: String by project
+val cloth_config_version: String by project
 val copperpipes_version: String by project
 val nbtcrafting_version: String by project
 val terrablender_version: String by project
@@ -234,6 +236,15 @@ dependencies {
 
     // Simple Copper Pipes
     modApi("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
+
+    // Mod Menu
+    modImplementation("com.terraformersmc:modmenu:$modmenu_version")
+
+    // Cloth Config
+    modImplementation("me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version") {
+        exclude(group = "net.fabricmc.fabric-api")
+        exclude(group = "com.terraformersmc")
+    }
 
     // NBT Crafting
     modApi("com.github.Treetrain1:nbt-crafting:jitpack-1.20-SNAPSHOT")?.let { include(it) }
