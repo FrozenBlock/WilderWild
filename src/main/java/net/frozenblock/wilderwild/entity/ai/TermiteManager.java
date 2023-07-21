@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -22,14 +22,15 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
+import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
@@ -192,8 +193,8 @@ public class TermiteManager {
 			Codec.INT.fieldOf("id").orElse(0).forGetter(Termite::getID)
 		).apply(instance, Termite::new));
 
-		public static final Map<Block, Block> DEGRADABLE_BLOCKS = new HashMap<>();
-		public static final Map<Block, Block> NATURAL_DEGRADABLE_BLOCKS = new HashMap<>();
+		public static final Map<Block, Block> DEGRADABLE_BLOCKS = new Object2ObjectOpenHashMap<>();
+		public static final Map<Block, Block> NATURAL_DEGRADABLE_BLOCKS = new Object2ObjectOpenHashMap<>();
 
 		public BlockPos mound;
 		public BlockPos pos;
@@ -267,7 +268,7 @@ public class TermiteManager {
 		}
 
 		public static boolean isEdibleProperty(@NotNull BlockState state) {
-			return !WilderSharedConstants.config().termitesOnlyEatNaturalBlocks() || (state.hasProperty(RegisterProperties.TERMITE_EDIBLE) ? state.getValue(RegisterProperties.TERMITE_EDIBLE) : !state.is(BlockTags.LEAVES) || !state.hasProperty(BlockStateProperties.PERSISTENT) || !state.getValue(BlockStateProperties.PERSISTENT));
+			return !BlockConfig.get().termite.onlyEatNaturalBlocks || (state.hasProperty(RegisterProperties.TERMITE_EDIBLE) ? state.getValue(RegisterProperties.TERMITE_EDIBLE) : !state.is(BlockTags.LEAVES) || !state.hasProperty(BlockStateProperties.PERSISTENT) || !state.getValue(BlockStateProperties.PERSISTENT));
 		}
 
 		public static boolean exposedToAir(@NotNull Level level, @NotNull BlockPos pos, boolean natural) {
@@ -299,7 +300,7 @@ public class TermiteManager {
 		}
 
 		public static boolean isTooFar(boolean natural, @NotNull BlockPos mound, @NotNull BlockPos pos) {
-			return !mound.closerThan(pos, natural ? WilderSharedConstants.config().maxNaturalTermiteDistance() : WilderSharedConstants.config().maxTermiteDistance());
+			return !mound.closerThan(pos, natural ? BlockConfig.get().termite.maxNaturalDistance : BlockConfig.get().termite.maxDistance);
 		}
 
 		public static void addDegradableBlocks() {
@@ -427,8 +428,8 @@ public class TermiteManager {
 					if (blockState.isAir()) {
 						direction = Direction.DOWN;
 					}
-					BlockPos offest = this.pos.relative(direction);
-					BlockState state = level.getBlockState(offest);
+					BlockPos offset = this.pos.relative(direction);
+					BlockState state = level.getBlockState(offset);
 					if (!isStateSafeForTermites(state)) {
 						return false;
 					}
@@ -443,11 +444,11 @@ public class TermiteManager {
 							this.pos = priority;
 							exit = true;
 						} else {
-							BlockPos ledge = ledgePos(level, offest, natural);
+							BlockPos ledge = ledgePos(level, offset, natural);
 							BlockPos posUp = this.pos.above();
 							BlockState stateUp = level.getBlockState(posUp);
-							if (exposedToAir(level, offest, natural) && isBlockMovable(state, direction) && !(direction != Direction.DOWN && state.isAir() && (!this.mound.closerThan(this.pos, 1.5)) && ledge == null)) {
-								this.pos = offest;
+							if (exposedToAir(level, offset, natural) && isBlockMovable(state, direction) && !(direction != Direction.DOWN && state.isAir() && (!this.mound.closerThan(this.pos, 1.5)) && ledge == null)) {
+								this.pos = offset;
 								if (ledge != null) {
 									this.pos = ledge;
 								}

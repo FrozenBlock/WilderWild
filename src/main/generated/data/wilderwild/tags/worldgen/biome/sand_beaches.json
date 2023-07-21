@@ -4,6 +4,8 @@
     "minecraft:dark_forest",
     "minecraft:flower_forest",
     "minecraft:forest",
+    "minecraft:frozen_river",
+    "minecraft:river",
     {
       "id": "wilderwild:parched_forest",
       "required": false

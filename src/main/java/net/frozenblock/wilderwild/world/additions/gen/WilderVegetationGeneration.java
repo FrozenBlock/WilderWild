@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.world.additions.gen;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -28,7 +28,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 public final class WilderVegetationGeneration {
 
 	public static void generateFlower() {
-		if (WilderSharedConstants.config().wildFlowers()) {
+		if (WorldgenConfig.get().wilderWildFlowerGen) {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_CARNATION),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.CARNATION.getKey());
 
@@ -61,6 +61,12 @@ public final class WilderVegetationGeneration {
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_CATTAIL),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_CATTAIL_MUD.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_CATTAIL_UNCOMMON),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_CATTAIL_UNCOMMON.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_CATTAIL_UNCOMMON),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_CATTAIL_MUD_UNCOMMON.getKey());
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_CATTAIL_COMMON),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_CATTAIL_COMMON.getKey());
@@ -110,7 +116,7 @@ public final class WilderVegetationGeneration {
 	}
 
 	public static void generateBush() {
-		if (WilderSharedConstants.config().wildBushes()) {
+		if (WorldgenConfig.get().wilderWildBushGen) {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_BUSH),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.GENERIC_BUSH_PLACED.getKey());
 
@@ -150,7 +156,7 @@ public final class WilderVegetationGeneration {
 	}
 
 	public static void generateCacti() {
-		if (WilderSharedConstants.config().wildCacti()) {
+		if (WorldgenConfig.get().wilderWildCactusGen) {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_TALL_CACTUS),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TALL_CACTUS_PLACED.getKey());
 
@@ -166,7 +172,7 @@ public final class WilderVegetationGeneration {
 	}
 
 	public static void generateAlgae() {
-		if (WilderSharedConstants.config().algae()) {
+		if (WorldgenConfig.get().algae) {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_ALGAE_SMALL),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_ALGAE_SMALL.getKey());
 
@@ -176,12 +182,12 @@ public final class WilderVegetationGeneration {
 	}
 
 	public static void generateGrass() {
-		if (WilderSharedConstants.config().tumbleweed()) {
+		if (WorldgenConfig.get().tumbleweed) {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_TUMBLEWEED_PLANT),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TUMBLEWEED.getKey());
 		}
 
-		if (WilderSharedConstants.config().wildGrass()) {
+		if (WorldgenConfig.get().wilderWildGrassGen) {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_NEW_RARE_GRASS),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.RARE_GRASS_PLACED.getKey());
 
@@ -199,11 +205,14 @@ public final class WilderVegetationGeneration {
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_DENSE_TALL_GRASS),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DENSE_TALL_GRASS_PLACED.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_WATER_GRASS),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TALL_GRASS_AND_GRASS_WATER.getKey());
 		}
 	}
 
 	public static void generateMushroom() {
-		if (WilderSharedConstants.config().wildMushrooms()) {
+		if (WorldgenConfig.get().wilderWildMushroomGen) {
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_HUGE_RED_MUSHROOM),
 				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.HUGE_RED_MUSHROOM_PLACED.getKey());
 

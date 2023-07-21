@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.mixin.server.general;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.BlockConfig;
 import net.minecraft.world.level.block.CactusBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -29,7 +29,7 @@ public final class CactusBlockMixin {
 
 	@ModifyExpressionValue(method = "canSurvive", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;isSolid()Z"))
 	private boolean wilderWild$canSurviveIsSolid(boolean original) {
-		return !WilderSharedConstants.config().cactusPlacement() && original;
+		return !BlockConfig.get().cactusPlacement && original;
 	}
 
 }

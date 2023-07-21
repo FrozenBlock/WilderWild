@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -28,19 +28,18 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 
 public final class WilderRegistry {
+	public static final ResourceKey<Registry<FireflyColor>> FIREFLY_COLOR_REGISTRY = ResourceKey.createRegistryKey(WilderSharedConstants.id("firefly_color"));
+	public static final ResourceKey<Registry<JellyfishVariant>> JELLYFISH_VARIANT_REGISTRY = ResourceKey.createRegistryKey(WilderSharedConstants.id("jellyfish_color"));
+	public static final MappedRegistry<FireflyColor> FIREFLY_COLOR = FabricRegistryBuilder.createSimple(FIREFLY_COLOR_REGISTRY)
+		.attribute(RegistryAttribute.SYNCED)
+		.buildAndRegister();
+	public static final MappedRegistry<JellyfishVariant> JELLYFISH_VARIANT = FabricRegistryBuilder.createSimple(JELLYFISH_VARIANT_REGISTRY)
+		.attribute(RegistryAttribute.SYNCED)
+		.buildAndRegister();
+
 	private WilderRegistry() {
 		throw new UnsupportedOperationException("WilderRegistry contains only static declarations.");
 	}
-
-	public static final ResourceKey<Registry<FireflyColor>> FIREFLY_COLOR_REGISTRY = ResourceKey.createRegistryKey(WilderSharedConstants.id("firefly_color"));
-	public static final ResourceKey<Registry<JellyfishVariant>> JELLYFISH_VARIANT_REGISTRY = ResourceKey.createRegistryKey(WilderSharedConstants.id("jellyfish_color"));
-
-    public static final MappedRegistry<FireflyColor> FIREFLY_COLOR = FabricRegistryBuilder.createSimple(FIREFLY_COLOR_REGISTRY)
-            .attribute(RegistryAttribute.SYNCED)
-            .buildAndRegister();
-    public static final MappedRegistry<JellyfishVariant> JELLYFISH_VARIANT = FabricRegistryBuilder.createSimple(JELLYFISH_VARIANT_REGISTRY)
-            .attribute(RegistryAttribute.SYNCED)
-            .buildAndRegister();
 
 	public static void initRegistry() {
 		FireflyColor.init();

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.server.projectile;
 
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.ItemConfig;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.projectile.Snowball;
@@ -33,7 +33,7 @@ public class SnowballMixin {
 
 	@Inject(method = "onHit", at = @At("HEAD"))
 	public void wilderWild$onHit(HitResult result, CallbackInfo info) {
-		if (WilderSharedConstants.config().snowballLandingSounds()) {
+		if (ItemConfig.get().projectileLandingSounds.snowballLandingSounds) {
 			Snowball snowball = Snowball.class.cast(this);
 			snowball.level().playSound(null, snowball.getX(), snowball.getY(), snowball.getZ(), RegisterSounds.ITEM_SNOWBALL_LAND, SoundSource.BLOCKS, 0.3F, 0.85F + (snowball.level().random.nextFloat() * 0.2F));
 		}

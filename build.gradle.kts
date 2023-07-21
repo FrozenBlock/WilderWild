@@ -1,10 +1,7 @@
 import com.matthewprenger.cursegradle.CurseArtifact
-import com.matthewprenger.cursegradle.CurseExtension
 import com.matthewprenger.cursegradle.CurseProject
 import com.matthewprenger.cursegradle.CurseRelation
-import com.modrinth.minotaur.ModrinthExtension
 import groovy.xml.XmlSlurper
-import org.ajoberstar.grgit.Grgit
 import org.codehaus.groovy.runtime.ResourceGroovyMethods
 import java.io.FileInputStream
 import java.nio.file.Files
@@ -30,7 +27,6 @@ plugins {
     id("org.ajoberstar.grgit") version("+")
     id("com.modrinth.minotaur") version("+")
     id("com.matthewprenger.cursegradle") version("+")
-    id("com.github.johnrengelman.shadow") version("+")
     `maven-publish`
     eclipse
     idea
@@ -55,8 +51,6 @@ val frozenlib_version: String by project
 
 val betterend_version: String by project
 val betternether_version: String by project
-val modmenu_version: String by project
-val cloth_config_version: String by project
 val copperpipes_version: String by project
 val nbtcrafting_version: String by project
 val terrablender_version: String by project
@@ -89,7 +83,7 @@ base {
     archivesName.set(archives_base_name)
 }
 
-version = getVersion()
+version = getModVersion()
 group = maven_group
 
 val local_frozenlib = findProject(":FrozenLib") != null
@@ -142,7 +136,6 @@ loom {
 
 val includeModImplementation by configurations.creating
 val includeImplementation by configurations.creating
-val shadowInclude by configurations.creating
 
 configurations {
     include {
@@ -233,36 +226,26 @@ dependencies {
     modImplementation("net.fabricmc.fabric-api:fabric-api:$fabric_version")
 
     // FrozenLib
-    println("Using local FrozenLib: $local_frozenlib")
     if (local_frozenlib) {
-        implementation(project(path = ":FrozenLib", configuration = "dev"))?.let { include(it) }
+        api(project(":FrozenLib", configuration = "namedElements"))?.let { include(it) }
     } else {
-        modImplementation("maven.modrinth:frozenlib:$frozenlib_version")?.let { include(it) }
+        modApi("maven.modrinth:frozenlib:$frozenlib_version")?.let { include(it) }
     }
 
     // Simple Copper Pipes
-    modImplementation("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
-
-    // Mod Menu
-    modImplementation("com.terraformersmc:modmenu:${modmenu_version}")
-
-    // Cloth Config
-    modImplementation("me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}") {
-        exclude(group = "net.fabricmc.fabric-api")
-        exclude(group = "com.terraformersmc")
-    }
+    modApi("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
 
     // NBT Crafting
-    modImplementation("com.github.Treetrain1:nbt-crafting:jitpack-1.20-SNAPSHOT")?.let { include(it) }
+    modApi("com.github.Treetrain1:nbt-crafting:jitpack-1.20-SNAPSHOT")?.let { include(it) }
+
+    // TerraBlender
+    modCompileOnlyApi("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
 
     // CaffeineConfig
     //modImplementation("net.caffeinemc:mixin-config:1.0.0+1.17")?.let { include(it) }
 
-    // TerraBlender
-    modCompileOnly("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
-
     // Particle Rain
-    modImplementation("maven.modrinth:particle-rain:v2.0.5")
+    modCompileOnly("maven.modrinth:particle-rain:v2.0.5")
 
     // MixinExtras
     implementation("com.github.llamalad7.mixinextras:mixinextras-fabric:0.2.0-beta.9")?.let { annotationProcessor(it); }
@@ -347,11 +330,11 @@ tasks {
         }
     }
 
-    //license {
-    //    rule(project.file("codeformat/HEADER"))
+    license {
+        rule(project.file("codeformat/HEADER"))
 
-    //    include("**/*.java")
-    //}
+        include("**/*.java")
+    }
 
     register("javadocJar", Jar::class) {
         dependsOn(javadoc)
@@ -375,20 +358,6 @@ tasks {
 
     withType(Test::class) {
         maxParallelForks = Runtime.getRuntime().availableProcessors().div(2)
-    }
-
-    shadowJar {
-        isEnableRelocation = true
-        relocationPrefix = "net.frozenblock.wilderwild.shadow"
-
-        configurations = listOf(shadowInclude)
-    }
-
-    remapJar {
-        dependsOn(shadowJar)
-        mustRunAfter(shadowJar)
-
-        input.set(shadowJar.get().archiveFile)
     }
 }
 
@@ -414,7 +383,7 @@ java {
 tasks {
     jar {
         from("LICENSE") {
-            rename { "${it}_${base.archivesName}" }
+            rename { "${it}_${base.archivesName.get()}" }
         }
     }
 }
@@ -424,7 +393,7 @@ artifacts {
     archives(javadocJar)
 }
 
-fun getVersion(): String {
+fun getModVersion(): String {
     var version = "$mod_version-$mod_loader+$minecraft_version"
 
     if (release != null && !release) {

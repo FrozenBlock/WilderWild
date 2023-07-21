@@ -18,8 +18,8 @@
       "tick_delay": 6000
     },
     "sky_color": 7515647,
-    "water_color": 4566514,
-    "water_fog_color": 267827
+    "water_color": 4159204,
+    "water_fog_color": 329011
   },
   "features": [
     [],
@@ -87,7 +87,7 @@
       "minecraft:freeze_top_layer"
     ]
   ],
-  "has_precipitation": false,
+  "has_precipitation": true,
   "spawn_costs": {},
   "spawners": {
     "ambient": [

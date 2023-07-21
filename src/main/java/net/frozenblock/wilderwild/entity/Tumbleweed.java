@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -23,7 +23,7 @@ import net.frozenblock.lib.entity.impl.EntityStepOnBlockInterface;
 import net.frozenblock.lib.tag.api.TagUtils;
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterDamageTypes;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -361,7 +361,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 	@Override
 	public boolean canBeLeashed(@NotNull Player player) {
-		return WilderSharedConstants.config().leashedTumbleweed();
+		return EntityConfig.get().tumbleweed.leashedTumbleweed;
 	}
 
 	@Override
@@ -479,6 +479,12 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		this.entityData.define(ITEM_STACK, ItemStack.EMPTY);
 		this.entityData.define(ITEM_X, 0F);
 		this.entityData.define(ITEM_Z, 0F);
+	}
+
+	@Nullable
+	@Override
+	public ItemStack getPickResult() {
+		return new ItemStack(RegisterBlocks.TUMBLEWEED);
 	}
 
 	@Override

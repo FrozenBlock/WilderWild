@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -95,6 +95,8 @@ public final class WilderMiscConfigured {
 	public static final FrozenConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ?>> SMALL_SAND_TRANSITION_DISK = register("small_sand_transition_disk");
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> BETA_BEACH_SAND_TRANSITION_DISK = register("beta_beach_sand_transition_disk");
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SMALL_GRAVEL_TRANSITION_DISK = register("small_gravel_transition_disk");
+	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> RIVER_POOL = register("river_pool");
+	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> SMALL_RIVER_POOL = register("small_river_pool");
 
 	// SAVANNA
 	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> PACKED_MUD_PATH = register("packed_mud_path");
@@ -123,7 +125,6 @@ public final class WilderMiscConfigured {
 	public static final FrozenConfiguredFeature<OreConfiguration, ConfiguredFeature<OreConfiguration, ?>> ORE_CALCITE = register("ore_calcite");
 	public static final FrozenConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> BLANK_SHUT_UP = register("blank_shut_up");
 	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> STONE_POOL = register("stone_pool");
-	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> DEEPSLATE_POOL = register("deepslate_pool");
 	public static final FrozenConfiguredFeature<PillarFeatureConfig, ConfiguredFeature<PillarFeatureConfig, ?>> UPWARDS_MESOGLEA_PILLAR = register("blue_mesoglea_pillar");
 	public static final FrozenConfiguredFeature<PillarFeatureConfig, ConfiguredFeature<PillarFeatureConfig, ?>> PURPLE_MESOGLEA_PILLAR = register("purple_mesoglea_pillar");
 	public static final FrozenConfiguredFeature<PillarFeatureConfig, ConfiguredFeature<PillarFeatureConfig, ?>> DOWNWARDS_MESOGLEA_PILLAR = register("downwards_blue_mesoglea_pillar");
@@ -495,6 +496,35 @@ public final class WilderMiscConfigured {
 			)
 		);
 
+		RIVER_POOL.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH_LESS_BORDERS,
+			new VegetationPatchConfiguration(
+				WilderBlockTags.RIVER_POOL_REPLACEABLE,
+				BlockStateProvider.simple(Blocks.GRASS_BLOCK),
+				PlacementUtils.inlinePlaced(BLANK_SHUT_UP.getHolder()),
+				CaveSurface.FLOOR,
+				ConstantInt.of(1),
+				0.8F,
+				1,
+				0.000F,
+				UniformInt.of(4, 8),
+				0.7F
+			)
+		);
+		SMALL_RIVER_POOL.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH_LESS_BORDERS,
+			new VegetationPatchConfiguration(
+				WilderBlockTags.RIVER_POOL_REPLACEABLE,
+				BlockStateProvider.simple(Blocks.GRASS_BLOCK),
+				PlacementUtils.inlinePlaced(BLANK_SHUT_UP.getHolder()),
+				CaveSurface.FLOOR,
+				ConstantInt.of(1),
+				0.8F,
+				1,
+				0.000F,
+				UniformInt.of(1, 2),
+				0.7F
+			)
+		);
+
 		PACKED_MUD_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
 			new PathTagFeatureConfig(
 				BlockStateProvider.simple(Blocks.PACKED_MUD),
@@ -775,25 +805,10 @@ public final class WilderMiscConfigured {
 			)
 		);
 
-		STONE_POOL.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
+		STONE_POOL.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH_LESS_BORDERS,
 			new VegetationPatchConfiguration(
 				BlockTags.LUSH_GROUND_REPLACEABLE,
 				BlockStateProvider.simple(Blocks.STONE),
-				PlacementUtils.inlinePlaced(BLANK_SHUT_UP.getHolder()),
-				CaveSurface.FLOOR,
-				ConstantInt.of(4),
-				0.8F,
-				2,
-				0.000F,
-				UniformInt.of(12, 15),
-				0.7F
-			)
-		);
-
-		DEEPSLATE_POOL.makeAndSetHolder(FrozenFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
-				BlockTags.LUSH_GROUND_REPLACEABLE,
-				BlockStateProvider.simple(Blocks.DEEPSLATE),
 				PlacementUtils.inlinePlaced(BLANK_SHUT_UP.getHolder()),
 				CaveSurface.FLOOR,
 				ConstantInt.of(4),

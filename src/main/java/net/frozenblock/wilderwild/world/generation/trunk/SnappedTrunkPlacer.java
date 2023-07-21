@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -58,5 +58,4 @@ public class SnappedTrunkPlacer extends TrunkPlacer {
 		}
 		return Lists.newArrayList();
 	}
-
 }

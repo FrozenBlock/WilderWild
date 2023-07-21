@@ -1,8 +1,27 @@
+/*
+ * Copyright 2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.mixin.client.wind;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.frozenblock.lib.wind.api.ClientWindManager;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.MiscConfig;
+import net.frozenblock.wilderwild.misc.wind.WilderClientWindManager;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.util.Mth;
 import org.joml.Matrix4f;
@@ -19,7 +38,7 @@ public class CloudRendererMixin {
 
 	@Unique
 	private static boolean wilderWild$useWind() {
-		return WilderSharedConstants.config().cloudMovement() && ClientWindManager.shouldUseWind();
+		return MiscConfig.get().cloudMovement && ClientWindManager.shouldUseWind();
 	}
 
 	@ModifyVariable(method = "renderClouds", at = @At(value = "STORE"), ordinal = 4)
@@ -32,21 +51,21 @@ public class CloudRendererMixin {
 	@ModifyVariable(method = "renderClouds", at = @At(value = "STORE"), ordinal = 5)
 	private double wilderWild$modifyX(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX) {
 		return this.wilderWild$useWind
-			? original - ClientWindManager.getCloudX(partialTick)
+			? original - WilderClientWindManager.getCloudX(partialTick)
 			: original;
 	}
 
 	@ModifyVariable(method = "renderClouds", at = @At("STORE"), ordinal = 6)
 	private double wilderWild$modifyY(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX, double camY) {
 		return this.wilderWild$useWind
-			? original + Mth.clamp(ClientWindManager.getCloudY(partialTick), -10D, 10D)
+			? original + Mth.clamp(WilderClientWindManager.getCloudY(partialTick), -10D, 10D)
 			: original;
 	}
 
 	@ModifyVariable(method = "renderClouds", at = @At("STORE"), ordinal = 7)
 	private double wilderWild$modifyZ(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX, double camY, double camZ) {
 		return this.wilderWild$useWind
-			? original - ClientWindManager.getCloudZ(partialTick)
+			? original - WilderClientWindManager.getCloudZ(partialTick)
 			: original;
 	}
 }

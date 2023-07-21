@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.worldgen;
 
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.world.additions.feature.WilderTreeConfigured;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
@@ -34,7 +34,7 @@ public class DarkOakTreeGrowerMixin {
 
 	@Inject(method = "getConfiguredMegaFeature", at = @At("RETURN"), cancellable = true)
 	public void getConfiguredMegaFeature(RandomSource randomSource, CallbackInfoReturnable<ResourceKey<ConfiguredFeature<?, ?>>> info) {
-		if (WilderSharedConstants.config().wildTrees()) {
+		if (WorldgenConfig.get().wilderWildTreeGen) {
 			if (randomSource.nextFloat() < 0.2F) {
 				info.setReturnValue(WilderTreeConfigured.TALL_DARK_OAK.getKey());
 			} else if (randomSource.nextFloat() < 0.2F) {

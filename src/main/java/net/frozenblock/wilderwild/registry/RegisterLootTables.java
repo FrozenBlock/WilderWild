@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -32,7 +32,6 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.TagEntry;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public final class RegisterLootTables {
@@ -50,7 +49,7 @@ public final class RegisterLootTables {
 					.setWeight(1)
 					.setQuality(Rarity.EPIC.ordinal() + 4)
 					.apply(
-						SetItemCountFunction.setCount(UniformGenerator.between(-3.5F, 0.75F))
+						SetItemCountFunction.setCount(UniformGenerator.between(-3.5F, 1.0F))
 					)
 				);
 

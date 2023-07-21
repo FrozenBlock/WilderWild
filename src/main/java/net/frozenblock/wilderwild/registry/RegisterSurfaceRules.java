@@ -1,3 +1,21 @@
+/*
+ * Copyright 2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.registry;
 
 import java.util.List;
@@ -7,6 +25,7 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.world.generation.conditionsource.BetaBeachConditionSource;
 import net.frozenblock.wilderwild.world.generation.noise.WilderNoise;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Noises;
 import net.minecraft.world.level.levelgen.SurfaceRules;
@@ -44,24 +63,51 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 	}
 
 	@NotNull
-	public static SurfaceRules.RuleSource warmRiverRules() {
-		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(RegisterWorldgen.WARM_RIVER),
+	public static SurfaceRules.RuleSource fallingBlockAndSafeBlockRules(Block fallingBlock, Block safeBlock) {
+		SurfaceRules.RuleSource fallingBlockSource = FrozenSurfaceRules.makeStateRule(fallingBlock);
+		SurfaceRules.RuleSource safeBlockSource = FrozenSurfaceRules.makeStateRule(safeBlock);
+		return SurfaceRules.sequence(
 			SurfaceRules.ifTrue(
-				SurfaceRules.yBlockCheck(VerticalAnchor.absolute(32), 0),
+				SurfaceRules.ON_FLOOR,
+				SurfaceRules.ifTrue(
+					SurfaceRules.waterBlockCheck(-1, 0),
+					SurfaceRules.sequence(
+						SurfaceRules.ifTrue(
+							SurfaceRules.ON_CEILING,
+							safeBlockSource
+						),
+						fallingBlockSource
+					)
+				)
+			),
+			SurfaceRules.ifTrue(
+				SurfaceRules.waterStartCheck(-6, -1),
 				SurfaceRules.sequence(
-					SurfaceRules.ifTrue(
-						SurfaceRules.DEEP_UNDER_FLOOR,
-						FrozenSurfaceRules.SAND
-					),
-					FrozenSurfaceRules.SANDSTONE
+					SurfaceRules.sequence(
+						SurfaceRules.ifTrue(
+							SurfaceRules.ON_CEILING,
+							safeBlockSource
+						),
+						fallingBlockSource
+					)
 				)
 			)
 		);
 	}
 
 	@NotNull
-	public static SurfaceRules.RuleSource desertRules() {
+	public static SurfaceRules.RuleSource warmRiverRules() {
+		return SurfaceRules.ifTrue(
+			SurfaceRules.isBiome(RegisterWorldgen.WARM_RIVER),
+			SurfaceRules.ifTrue(
+				SurfaceRules.yBlockCheck(VerticalAnchor.absolute(32), 0),
+				fallingBlockAndSafeBlockRules(Blocks.SAND, Blocks.SANDSTONE)
+			)
+		);
+	}
+
+	@NotNull
+	public static SurfaceRules.RuleSource desertAndBeachRules() {
 		return SurfaceRules.sequence(
 			SurfaceRules.ifTrue(
 				SurfaceRules.ON_FLOOR,
@@ -99,10 +145,18 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 	}
 
 	@NotNull
+	public static SurfaceRules.RuleSource warmBeachRules() {
+		return SurfaceRules.ifTrue(
+			SurfaceRules.isBiome(RegisterWorldgen.WARM_BEACH),
+			desertAndBeachRules()
+		);
+	}
+
+	@NotNull
 	public static SurfaceRules.RuleSource oasisRules() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(RegisterWorldgen.OASIS),
-			desertRules()
+			desertAndBeachRules()
 		);
 	}
 
@@ -151,7 +205,7 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 	public static SurfaceRules.RuleSource aridRules() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(RegisterWorldgen.ARID_SAVANNA, RegisterWorldgen.ARID_FOREST),
-			desertRules()
+			desertAndBeachRules()
 		);
 	}
 
@@ -259,7 +313,7 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 						SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
 						SurfaceRules.ifTrue(
 							SurfaceRules.noiseCondition(WilderNoise.GRAVEL_BEACH_KEY, 0.12, 1.7976931348623157E308),
-							FrozenSurfaceRules.GRAVEL
+							fallingBlockAndSafeBlockRules(Blocks.GRAVEL, Blocks.STONE)
 						)
 					)
 				)
@@ -279,7 +333,7 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 						SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
 						SurfaceRules.ifTrue(
 							SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH_KEY, 0.12, 1.7976931348623157E308),
-							FrozenSurfaceRules.SAND
+							fallingBlockAndSafeBlockRules(Blocks.SAND, Blocks.SANDSTONE)
 						)
 					)
 				)
@@ -299,7 +353,7 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 						SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(64), 0)),
 						SurfaceRules.ifTrue(
 							SurfaceRules.noiseCondition(WilderNoise.SAND_BEACH_KEY, 0.12, 1.7976931348623157E308),
-							FrozenSurfaceRules.SAND
+							fallingBlockAndSafeBlockRules(Blocks.SAND, Blocks.SANDSTONE)
 						)
 					)
 				)
@@ -326,6 +380,7 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 				betaBeaches(),
 				cypressSurfaceRules(),
 				warmRiverRules(),
+				warmBeachRules(),
 				oasisRules(),
 				aridGrass(),
 				aridRules(),

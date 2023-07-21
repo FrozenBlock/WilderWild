@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -42,8 +42,7 @@ public final class MerpSlimeRenderer {
 
 	@Inject(method = "getTextureLocation(Lnet/minecraft/world/entity/monster/Slime;)Lnet/minecraft/resources/ResourceLocation;", at = @At("RETURN"), cancellable = true)
 	public void wilderWild$getTextureLocation(@NotNull Slime slimeEntity, CallbackInfoReturnable<ResourceLocation> info) {
-		String string = ChatFormatting.stripFormatting(slimeEntity.getName().getString());
-		if (Objects.equals(string, "Merp")) {
+		if (Objects.equals(ChatFormatting.stripFormatting(slimeEntity.getName().getString()), "Merp")) {
 			info.setReturnValue(WILDERWILD$MERP_SLIME);
 		}
 	}

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.server.projectile;
 
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.ItemConfig;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.world.entity.projectile.ThrownExperienceBottle;
 import net.minecraft.world.phys.HitResult;
@@ -32,7 +32,7 @@ public class ThrownExperienceBottleMixin {
 
 	@Inject(method = "onHit", at = @At("HEAD"))
 	public void wilderWild$onHit(HitResult result, CallbackInfo info) {
-		if (WilderSharedConstants.config().potionLandingSounds()) {
+		if (ItemConfig.get().projectileLandingSounds.potionLandingSounds) {
 			ThrownExperienceBottle expBottle = ThrownExperienceBottle.class.cast(this);
 			expBottle.playSound(RegisterSounds.ITEM_EXPERIENCE_BOTTLE_SPLASH, 1.0F, 0.85F + (expBottle.level().random.nextFloat() * 0.2F));
 		}

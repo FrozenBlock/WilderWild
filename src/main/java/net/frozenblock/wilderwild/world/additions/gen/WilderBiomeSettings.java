@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -36,6 +36,7 @@ public final class WilderBiomeSettings {
 			(modificationContext) -> modificationContext.getEffects().setFoliageColor(11445290));
 
 		WilderMusic.playMusic();
+		WilderWaterColors.stirWater();
 		WilderSpawns.addFireflies();
 		WilderSpawns.addJellyfish();
 		WilderSpawns.addTumbleweed();

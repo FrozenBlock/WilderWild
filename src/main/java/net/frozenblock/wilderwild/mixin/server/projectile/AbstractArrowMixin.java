@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.server.projectile;
 
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.ItemConfig;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -35,7 +35,7 @@ public class AbstractArrowMixin {
 
 	@Inject(method = "onHitBlock", at = @At("HEAD"))
 	public void wilderWild$sendProjectileBreakParticles(BlockHitResult blockHitResult, CallbackInfo info) {
-		if (WilderSharedConstants.config().projectileBreakParticles()) {
+		if (ItemConfig.get().projectileBreakParticles) {
 			AbstractArrow arrow = AbstractArrow.class.cast(this);
 			if (!arrow.level().isClientSide) {
 				if (arrow.level() instanceof ServerLevel server) {

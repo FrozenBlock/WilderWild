@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -47,11 +47,11 @@ public interface BlockGetterMixin {
 	default void wilderWild$checkIfInMesoglea(ClipContext clipContext, CallbackInfoReturnable<BlockHitResult> cir) {
 		if (clipContext.collisionContext instanceof EntityCollisionContext entityCollisionContext
 			&& entityCollisionContext.getEntity() instanceof Player player) {
-				BlockState headState = getBlockState(BlockPos.containing(player.getEyePosition()));
-				if (headState.getBlock() instanceof MesogleaBlock && headState.getValue(BlockStateProperties.WATERLOGGED)) {
-					WilderSharedConstants.IN_MESOGLEA = true;
-					return;
-				}
+			BlockState headState = getBlockState(BlockPos.containing(player.getEyePosition()));
+			if (headState.getBlock() instanceof MesogleaBlock && headState.getValue(BlockStateProperties.WATERLOGGED)) {
+				WilderSharedConstants.IN_MESOGLEA = true;
+				return;
+			}
 		}
 		WilderSharedConstants.IN_MESOGLEA = false;
 	}

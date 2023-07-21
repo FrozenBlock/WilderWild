@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -46,12 +46,12 @@ public class BlockBehaviourMixin {
 	@Inject(at = @At("HEAD"), method = "neighborChanged", cancellable = true)
 	public void wilderWild$neighborChanged(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Block block, @NotNull BlockPos fromPos, boolean isMoving, CallbackInfo info) {
 		if (BlockBehaviour.class.cast(this) instanceof BigDripleafStemBlock && !level.isClientSide()) {
-				BlockState downState = level.getBlockState(pos.below());
-				boolean receivingPower = level.hasNeighborSignal(pos) || (downState.is(Blocks.BIG_DRIPLEAF_STEM) && downState.getValue(BlockStateProperties.POWERED));
-				if (state.getValue(BlockStateProperties.POWERED) != receivingPower) {
-					level.setBlock(pos, state.setValue(BlockStateProperties.POWERED, receivingPower), 3);
-				}
-				info.cancel();
+			BlockState downState = level.getBlockState(pos.below());
+			boolean receivingPower = level.hasNeighborSignal(pos) || (downState.is(Blocks.BIG_DRIPLEAF_STEM) && downState.getValue(BlockStateProperties.POWERED));
+			if (state.getValue(BlockStateProperties.POWERED) != receivingPower) {
+				level.setBlock(pos, state.setValue(BlockStateProperties.POWERED, receivingPower), 3);
+			}
+			info.cancel();
 		}
 	}
 

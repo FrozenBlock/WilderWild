@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -94,6 +94,7 @@ public final class WilderTreePlaced {
 	public static final FrozenPlacedFeature DYING_DARK_OAK_CHECKED = register("dying_dark_oak_checked");
 	public static final FrozenPlacedFeature COBWEB_TALL_DARK_OAK_CHECKED = register("cobweb_tall_dark_oak_checked");
 	public static final FrozenPlacedFeature COBWEB_FANCY_TALL_DARK_OAK_CHECKED = register("cobweb_fancy_tall_dark_oak_checked");
+	public static final FrozenPlacedFeature LARGE_SNAPPED_DARK_OAK_CHECKED = register("large_snapped_dark_oak_checked");
 	//SWAMP TREE
 	public static final FrozenPlacedFeature SWAMP_TREE_CHECKED = register("swamp_tree_checked");
 	//SPRUCE
@@ -117,6 +118,8 @@ public final class WilderTreePlaced {
 	public static final FrozenPlacedFeature SHORT_MEGA_DYING_SPRUCE_ON_SNOW = register("short_mega_dying_spruce_on_snow");
 	public static final FrozenPlacedFeature SNAPPED_SPRUCE_CHECKED = register("snapped_spruce_checked");
 	public static final FrozenPlacedFeature SNAPPED_SPRUCE_ON_SNOW = register("snapped_spruces_on_snow");
+	public static final FrozenPlacedFeature LARGE_SNAPPED_SPRUCE_CHECKED = register("large_snapped_spruce_checked");
+	public static final FrozenPlacedFeature LARGE_SNAPPED_SPRUCE_ON_SNOW_CHECKED = register("large_snapped_spruces_on_snow");
 	//BAOBAB
 	public static final FrozenPlacedFeature BAOBAB = register("baobab");
 	public static final FrozenPlacedFeature BAOBAB_TALL = register("baobab_tall");
@@ -150,6 +153,7 @@ public final class WilderTreePlaced {
 	//JUNGLE
 	public static final FrozenPlacedFeature FALLEN_JUNGLE_CHECKED = register("fallen_jungle_checked");
 	public static final FrozenPlacedFeature SNAPPED_JUNGLE_CHECKED = register("snapped_jungle_checked");
+	public static final FrozenPlacedFeature LARGE_SNAPPED_JUNGLE_CHECKED = register("large_snapped_jungle_checked");
 	//ACACIA
 	public static final FrozenPlacedFeature FALLEN_ACACIA_CHECKED = register("fallen_acacia_checked");
 	public static final FrozenPlacedFeature SNAPPED_ACACIA_CHECKED = register("snapped_acacia_checked");
@@ -346,11 +350,15 @@ public final class WilderTreePlaced {
 			PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
 		);
 
-
 		COBWEB_TALL_DARK_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.COBWEB_TALL_DARK_OAK.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
 		);
+
 		COBWEB_FANCY_TALL_DARK_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.COBWEB_FANCY_TALL_DARK_OAK.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
+		);
+
+		LARGE_SNAPPED_DARK_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.LARGE_SNAPPED_DARK_OAK.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
 		);
 
@@ -437,6 +445,14 @@ public final class WilderTreePlaced {
 		);
 
 		SNAPPED_SPRUCE_ON_SNOW.makeAndSetHolder(WilderTreeConfigured.SNAPPED_SPRUCE.getHolder(),
+			SNOW_TREE_FILTER_DECORATOR
+		);
+
+		LARGE_SNAPPED_SPRUCE_CHECKED.makeAndSetHolder(WilderTreeConfigured.SNAPPED_SPRUCE.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING)
+		);
+
+		LARGE_SNAPPED_SPRUCE_ON_SNOW_CHECKED.makeAndSetHolder(WilderTreeConfigured.LARGE_SNAPPED_SPRUCE.getHolder(),
 			SNOW_TREE_FILTER_DECORATOR
 		);
 
@@ -527,6 +543,10 @@ public final class WilderTreePlaced {
 		FALLEN_JUNGLE_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_JUNGLE_TREE.getHolder());
 
 		SNAPPED_JUNGLE_CHECKED.makeAndSetHolder(WilderTreeConfigured.SNAPPED_JUNGLE.getHolder(),
+			PlacementUtils.filteredByBlockSurvival(Blocks.JUNGLE_SAPLING)
+		);
+
+		LARGE_SNAPPED_JUNGLE_CHECKED.makeAndSetHolder(WilderTreeConfigured.LARGE_SNAPPED_JUNGLE.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.JUNGLE_SAPLING)
 		);
 

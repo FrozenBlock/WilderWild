@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -39,6 +39,7 @@ import net.frozenblock.wilderwild.world.generation.trunk.BaobabTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.FallenTrunkWithLogs;
 import net.frozenblock.wilderwild.world.generation.trunk.FancyDarkOakTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.JuniperTrunkPlacer;
+import net.frozenblock.wilderwild.world.generation.trunk.LargeSnappedTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.PalmTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.SnappedTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.StraightTrunkWithLogs;
@@ -135,6 +136,8 @@ public final class WilderTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DYING_FANCY_TALL_DARK_OAK = register("dying_fancy_tall_dark_oak");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> COBWEB_TALL_DARK_OAK = register("cobweb_tall_dark_oak");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> COBWEB_FANCY_TALL_DARK_OAK = register("cobweb_fancy_tall_dark_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_SNAPPED_DARK_OAK = register("large_snapped_dark_oak_tree");
+
 	//SWAMP TREE
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SWAMP_TREE = register("swamp_tree");
 	//SPRUCE
@@ -153,6 +156,7 @@ public final class WilderTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SHORT_MEGA_DYING_FUNGUS_SPRUCE = register("short_mega_dying_fungus_spruce");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SHORT_MEGA_DYING_SPRUCE = register("short_mega_dying_spruce");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_SPRUCE = register("snapped_spruce_tree");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_SNAPPED_SPRUCE = register("large_snapped_spruce_tree");
 	//BAOBAB
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> BAOBAB = register("baobab");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> BAOBAB_TALL = register("baobab_tall");
@@ -179,6 +183,7 @@ public final class WilderTreeConfigured {
 	//JUNGLE
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_JUNGLE_TREE = register("fallen_jungle_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_JUNGLE = register("snapped_jungle_tree");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_SNAPPED_JUNGLE = register("large_snapped_jungle_tree");
 	//ACACIA
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_ACACIA_TREE = register("fallen_acacia_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_ACACIA = register("snapped_acacia_tree");
@@ -297,12 +302,12 @@ public final class WilderTreeConfigured {
 		MOSSY_FALLEN_BIRCH_TREE.makeAndSetHolder(Feature.TREE,
 			fallenTrunkBuilder(
 				Blocks.BIRCH_LOG,
+				RegisterBlocks.HOLLOWED_BIRCH_LOG,
 				Blocks.BIRCH_LEAVES,
 				3,
 				1,
 				2,
 				0.185F,
-				UniformInt.of(1, 2),
 				UniformInt.of(1, 2),
 				1
 			).ignoreVines().decorators(
@@ -426,14 +431,14 @@ public final class WilderTreeConfigured {
 		MOSSY_FALLEN_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
 			fallenTrunkBuilder(
 				Blocks.CHERRY_LOG,
+				RegisterBlocks.HOLLOWED_CHERRY_LOG,
 				Blocks.CHERRY_LEAVES,
 				3,
 				1,
 				2,
 				0.075F,
 				UniformInt.of(1, 2),
-				UniformInt.of(1, 2),
-				1
+				0.075F
 			).ignoreVines().decorators(
 				List.of(
 					VINES_08_UNDER_260_075,
@@ -574,14 +579,14 @@ public final class WilderTreeConfigured {
 		MOSSY_FALLEN_OAK_TREE.makeAndSetHolder(Feature.TREE,
 			fallenTrunkBuilder(
 				Blocks.OAK_LOG,
+				RegisterBlocks.HOLLOWED_OAK_LOG,
 				Blocks.OAK_LEAVES,
 				3,
 				1,
 				2,
 				0.175F,
 				UniformInt.of(1, 2),
-				UniformInt.of(1, 2),
-				1
+				0.075F
 			).ignoreVines().decorators(
 				List.of(
 					VINES_08_UNDER_260_075,
@@ -593,14 +598,14 @@ public final class WilderTreeConfigured {
 		MOSSY_FALLEN_STRAIGHT_OAK_TREE.makeAndSetHolder(Feature.TREE,
 			fallenTrunkBuilder(
 				Blocks.OAK_LOG,
+				RegisterBlocks.HOLLOWED_OAK_LOG,
 				Blocks.OAK_LEAVES,
 				3,
 				1,
 				1,
 				0.0F,
 				UniformInt.of(1, 2),
-				UniformInt.of(1, 2),
-				1
+				0.075F
 			).ignoreVines().decorators(
 				List.of(
 					VINES_08_UNDER_260_075,
@@ -719,6 +724,23 @@ public final class WilderTreeConfigured {
 					SHELF_FUNGUS_002
 				)
 			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		LARGE_SNAPPED_DARK_OAK.makeAndSetHolder(Feature.TREE,
+			largeSnappedTrunkBuilder(
+				Blocks.DARK_OAK_LOG,
+				Blocks.DARK_OAK_LEAVES,
+				1,
+				1,
+				1,
+				2
+			).decorators(
+				List.of(
+					VINES_012_UNDER_260,
+					MOSS_OAK,
+					SHELF_FUNGUS_002
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		// SWAMP TREE
@@ -890,14 +912,14 @@ public final class WilderTreeConfigured {
 		MOSSY_FALLEN_SPRUCE_TREE.makeAndSetHolder(Feature.TREE,
 			fallenTrunkBuilder(
 				Blocks.SPRUCE_LOG,
+				RegisterBlocks.HOLLOWED_SPRUCE_LOG,
 				Blocks.SPRUCE_LEAVES,
 				5,
 				1,
 				2,
 				0.0F,
 				UniformInt.of(1, 2),
-				UniformInt.of(1, 2),
-				1
+				0.075F
 			).ignoreVines().decorators(
 				List.of(
 					VINES_08_UNDER_260_075,
@@ -976,6 +998,23 @@ public final class WilderTreeConfigured {
 				2,
 				1,
 				1
+			).decorators(
+				List.of(
+					VINES_012_UNDER_260,
+					MOSS_SPRUCE_PALM,
+					SHELF_FUNGUS_006_ONLY_BROWN
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		LARGE_SNAPPED_SPRUCE.makeAndSetHolder(Feature.TREE,
+			largeSnappedTrunkBuilder(
+				Blocks.SPRUCE_LOG,
+				Blocks.SPRUCE_LEAVES,
+				2,
+				2,
+				1,
+				2
 			).decorators(
 				List.of(
 					VINES_012_UNDER_260,
@@ -1340,6 +1379,23 @@ public final class WilderTreeConfigured {
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
+		LARGE_SNAPPED_JUNGLE.makeAndSetHolder(Feature.TREE,
+			largeSnappedTrunkBuilder(
+				Blocks.JUNGLE_LOG,
+				Blocks.JUNGLE_LEAVES,
+				3,
+				1,
+				2,
+				3
+			).decorators(
+				List.of(
+					VINES_012_UNDER_260,
+					MOSS_JUNGLE,
+					SHELF_FUNGUS_007
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
 		//ACACIA
 		FALLEN_ACACIA_TREE.makeAndSetHolder(Feature.TREE,
 			fallenAcacia().decorators(
@@ -1381,9 +1437,9 @@ public final class WilderTreeConfigured {
 			new TwoLayersFeatureSize(1, 0, 1));
 	}
 
-	private static TreeConfiguration.TreeConfigurationBuilder fallenTrunkBuilder(Block log, Block leaves, int baseHeight, int firstRHeight, int secondRHeight, float logChance, IntProvider maxLogs, IntProvider maxHeightAboveHole, int radius) {
-		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new FallenTrunkWithLogs(baseHeight, firstRHeight, secondRHeight, logChance, 0.8F, maxLogs, maxHeightAboveHole),
-			BlockStateProvider.simple(leaves), new BlobFoliagePlacer(ConstantInt.of(radius), ConstantInt.of(0), 3), //FOILAGE PLACER DOES NOTHING
+	private static TreeConfiguration.TreeConfigurationBuilder fallenTrunkBuilder(Block log, Block hollowedLog, Block leaves, int baseHeight, int firstRHeight, int secondRHeight, float logChance, IntProvider maxLogs, float hollowedChance) {
+		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new FallenTrunkWithLogs(baseHeight, firstRHeight, secondRHeight, BlockStateProvider.simple(hollowedLog), logChance, 0.8F, hollowedChance, maxLogs),
+			BlockStateProvider.simple(leaves), new BlobFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0), 3), //FOILAGE PLACER DOES NOTHING
 			new TwoLayersFeatureSize(1, 0, 1));
 	}
 
@@ -1417,6 +1473,12 @@ public final class WilderTreeConfigured {
 			new TwoLayersFeatureSize(1, 0, 1));
 	}
 
+	private static TreeConfiguration.TreeConfigurationBuilder largeSnappedTrunkBuilder(Block log, Block leaves, int baseHeight, int firstRHeight, int secondRHeight, int maxAdditionalHeight) {
+		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new LargeSnappedTrunkPlacer(baseHeight, firstRHeight, secondRHeight, UniformInt.of(0, maxAdditionalHeight)),
+			BlockStateProvider.simple(leaves), new BlobFoliagePlacer(ConstantInt.of(1), ConstantInt.of(0), 3), //FOILAGE PLACER DOES NOTHING
+			new TwoLayersFeatureSize(1, 0, 1));
+	}
+
 	private static TreeConfiguration.TreeConfigurationBuilder birch() {
 		return builder(Blocks.BIRCH_LOG, Blocks.BIRCH_LEAVES, 8, 5, 4, 0.15F, UniformInt.of(1, 2), UniformInt.of(1, 3), ConstantInt.of(1), 2).ignoreVines();
 	}
@@ -1430,11 +1492,11 @@ public final class WilderTreeConfigured {
 	}
 
 	private static TreeConfiguration.TreeConfigurationBuilder fallenBirch() {
-		return fallenTrunkBuilder(Blocks.BIRCH_LOG, Blocks.BIRCH_LEAVES, 3, 1, 2, 0.15F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines();
+		return fallenTrunkBuilder(Blocks.BIRCH_LOG, RegisterBlocks.HOLLOWED_BIRCH_LOG, Blocks.BIRCH_LEAVES, 3, 1, 2, 0.15F, UniformInt.of(1, 2), 0.075F).ignoreVines();
 	}
 
 	private static TreeConfiguration.TreeConfigurationBuilder fallenCherry() {
-		return fallenTrunkBuilder(Blocks.CHERRY_LOG, Blocks.CHERRY_LEAVES, 3, 1, 2, 0.05F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines();
+		return fallenTrunkBuilder(Blocks.CHERRY_LOG, RegisterBlocks.HOLLOWED_CHERRY_LOG, Blocks.CHERRY_LEAVES, 3, 1, 2, 0.05F, UniformInt.of(1, 2), 0.075F).ignoreVines();
 	}
 
 	private static TreeConfiguration.TreeConfigurationBuilder oak() {
@@ -1450,11 +1512,11 @@ public final class WilderTreeConfigured {
 	}
 
 	private static TreeConfiguration.TreeConfigurationBuilder fallenOak() {
-		return fallenTrunkBuilder(Blocks.OAK_LOG, Blocks.OAK_LEAVES, 3, 1, 2, 0.15F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines();
+		return fallenTrunkBuilder(Blocks.OAK_LOG, RegisterBlocks.HOLLOWED_OAK_LOG, Blocks.OAK_LEAVES, 3, 1, 2, 0.15F, UniformInt.of(1, 2), 0.075F).ignoreVines();
 	}
 
 	private static TreeConfiguration.TreeConfigurationBuilder fallenCypress() {
-		return fallenTrunkBuilder(RegisterBlocks.CYPRESS_LOG, RegisterBlocks.CYPRESS_LEAVES, 3, 2, 2, 0.0F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines();
+		return fallenTrunkBuilder(RegisterBlocks.CYPRESS_LOG, RegisterBlocks.CYPRESS_LOG, RegisterBlocks.CYPRESS_LEAVES, 3, 2, 2, 0.0F, UniformInt.of(1, 2), 0.125F).ignoreVines();
 	}
 
 	private static TreeConfiguration.TreeConfigurationBuilder tallDarkOak() {
@@ -1480,22 +1542,22 @@ public final class WilderTreeConfigured {
 	}
 
 	private static TreeConfiguration.TreeConfigurationBuilder fallenSpruce() {
-		return fallenTrunkBuilder(Blocks.SPRUCE_LOG, Blocks.SPRUCE_LEAVES, 5, 1, 2, 0.0F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines();
+		return fallenTrunkBuilder(Blocks.SPRUCE_LOG, RegisterBlocks.HOLLOWED_SPRUCE_LOG, Blocks.SPRUCE_LEAVES, 5, 1, 2, 0.0F, UniformInt.of(1, 2), 0.075F).ignoreVines();
 	}
 
 	private static TreeConfiguration.TreeConfigurationBuilder fallenPalm() {
-		return fallenTrunkBuilder(RegisterBlocks.PALM_LOG, RegisterBlocks.PALM_FRONDS, 5, 1, 2, 0.0F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines();
+		return fallenTrunkBuilder(RegisterBlocks.PALM_LOG, RegisterBlocks.HOLLOWED_PALM_LOG, RegisterBlocks.PALM_FRONDS, 5, 1, 2, 0.0F, UniformInt.of(1, 2), 0.045F).ignoreVines();
 	}
 
 	private static TreeConfiguration.TreeConfigurationBuilder fallenAcacia() {
-		return fallenTrunkBuilder(Blocks.ACACIA_LOG, Blocks.ACACIA_LEAVES, 3, 1, 1, 0.0F, ConstantInt.of(1), UniformInt.of(1, 2), 1).ignoreVines();
+		return fallenTrunkBuilder(Blocks.ACACIA_LOG, RegisterBlocks.HOLLOWED_ACACIA_LOG, Blocks.ACACIA_LEAVES, 3, 1, 1, 0.0F, ConstantInt.of(1), 0.055F).ignoreVines();
 	}
 
 	private static TreeConfiguration.TreeConfigurationBuilder fallenJungle() {
-		return fallenTrunkBuilder(Blocks.JUNGLE_LOG, Blocks.JUNGLE_LEAVES, 4, 2, 1, 0.0F, UniformInt.of(1, 2), UniformInt.of(1, 2), 1).ignoreVines();
+		return fallenTrunkBuilder(Blocks.JUNGLE_LOG, RegisterBlocks.HOLLOWED_JUNGLE_LOG, Blocks.JUNGLE_LEAVES, 4, 2, 1, 0.0F, UniformInt.of(1, 2), 0F).ignoreVines();
 	}
 
 	private static TreeConfiguration.TreeConfigurationBuilder fallenMangrove() {
-		return fallenTrunkBuilder(Blocks.MANGROVE_LOG, Blocks.MANGROVE_LEAVES, 4, 2, 1, 0.0F, ConstantInt.of(1), UniformInt.of(1, 2), 1).ignoreVines();
+		return fallenTrunkBuilder(Blocks.MANGROVE_LOG, RegisterBlocks.HOLLOWED_MANGROVE_LOG, Blocks.MANGROVE_LEAVES, 4, 2, 1, 0.0F, ConstantInt.of(1), 0.1F).ignoreVines();
 	}
 }

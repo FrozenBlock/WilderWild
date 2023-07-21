@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -23,7 +23,7 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.world.level.biome.Climate;
 
@@ -188,7 +188,7 @@ public final class WilderSharedWorldgen {
 
 	public static final class AridForest {
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.530F, 0.570F);
-		public static final Climate.Parameter HUMIDITY = WilderSharedConstants.config().modifyJunglePlacement() ? Climate.Parameter.span(-0.095F, 0.1F) : Climate.Parameter.span(-0.095F, 0.15F);
+		public static final Climate.Parameter HUMIDITY = WorldgenConfig.get().biomePlacement.modifyJunglePlacement ? Climate.Parameter.span(-0.095F, 0.1F) : Climate.Parameter.span(-0.095F, 0.15F);
 		public static final float TEMP = 1.75F;
 		public static final float DOWNFALL = 0.05F;
 		public static final int WATER_COLOR = 4159204;
@@ -357,14 +357,16 @@ public final class WilderSharedWorldgen {
 
 	public static final class WarmRiver {
 		public static final Climate.Parameter WARM_RANGE = Climate.Parameter.span(0.550F, 1.000F);
-		public static final Climate.Parameter UNFROZEN_NOT_WARM_RANGE = Climate.Parameter.span(0.000F, 0.200F);
+		public static final Climate.Parameter UNFROZEN_NOT_WARM_RANGE = Climate.Parameter.span(-0.450F, 0.200F);
 		public static final Climate.Parameter HUMIDITY_TO_TWO = Climate.Parameter.span(-0.100F, 0.000F);
 		public static final Climate.Parameter HUMIDITY_TO_THREE = Climate.Parameter.span(0.000F, 0.100F);
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.100F, 0.100F);
 		public static final float TEMP = 1.5F;
 		public static final float DOWNFALL = 0.15F;
-		public static final int WATER_COLOR = 4566514;
-		public static final int WATER_FOG_COLOR = 267827;
+		public static final int NEW_WATER_COLOR = 4566514;
+		public static final int NEW_WATER_FOG_COLOR = 267827;
+		public static final int WATER_COLOR = 4159204;
+		public static final int WATER_FOG_COLOR = 329011;
 		public static final int FOG_COLOR = 12638463;
 		public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 		public static final int FOLIAGE_COLOR = 11445290;
@@ -372,6 +374,19 @@ public final class WilderSharedWorldgen {
 
 		private WarmRiver() {
 			throw new UnsupportedOperationException("WarmRiver contains only static declarations.");
+		}
+	}
+
+	public static final class WarmBeach {
+		public static final float TEMP = 1.1F;
+		public static final float DOWNFALL = 0.6F;
+		public static final int WATER_COLOR = 4159204;
+		public static final int WATER_FOG_COLOR = 329011;
+		public static final int FOG_COLOR = 12638463;
+		public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
+
+		private WarmBeach() {
+			throw new UnsupportedOperationException("WarmBeach contains only static declarations.");
 		}
 	}
 
@@ -411,6 +426,32 @@ public final class WilderSharedWorldgen {
 
 		private MangroveSwamp() {
 			throw new UnsupportedOperationException("MangroveSwamp contains only static declarations.");
+		}
+	}
+
+	public static final class CherryGrove {
+		public static final Climate.Parameter TEMPERATURE = Temperature.NEUTRAL;
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.TWO, Humidity.FOUR);
+		public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.INLAND, Continentalness.MID_INLAND);
+		public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_4, Erosion.EROSION_5);
+		public static final Climate.Parameter WEIRDNESS = Climate.Parameter.span(Weirdness.MID_SLICE_VARIANT_ASCENDING, Weirdness.MID_SLICE_VARIANT_DESCENDING);
+		public static final float OFFSET = 0F;
+
+
+		private CherryGrove() {
+			throw new UnsupportedOperationException("Cherry Grove contains only static declarations.");
+		}
+	}
+	public static final class StonyShoreTaiga {
+		public static final Climate.Parameter TEMPERATURE = Temperature.COOL;
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.THREE, Humidity.FIVE);
+		public static final Climate.Parameter CONTINENTALNESS = Continentalness.COAST;
+		public static final Climate.Parameter EROSION = Erosion.EROSION_4;
+		public static final float OFFSET = 0F;
+
+
+		private StonyShoreTaiga() {
+			throw new UnsupportedOperationException("Stony Shore Taiga contains only static declarations.");
 		}
 	}
 }

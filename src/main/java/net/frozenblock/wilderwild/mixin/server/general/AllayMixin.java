@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -18,8 +18,8 @@
 
 package net.frozenblock.wilderwild.mixin.server.general;
 
+import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.render.animations.WilderAllay;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.animal.allay.Allay;
 import org.spongepowered.asm.mixin.Mixin;
@@ -46,7 +46,7 @@ public class AllayMixin implements WilderAllay {
 	@Inject(method = "tick", at = @At(value = "TAIL"))
 	private void wilderWild$tickDancing(CallbackInfo info) {
 		Allay allay = Allay.class.cast(this);
-		if (allay.level().isClientSide && WilderSharedConstants.config().keyframeAllayDance()) {
+		if (allay.level().isClientSide && EntityConfig.get().allay.keyframeAllayDance) {
 			if (allay.isDancing()) {
 				this.wilderWild$getDancingAnimationState().startIfStopped((int) this.dancingAnimationTicks);
 			} else {

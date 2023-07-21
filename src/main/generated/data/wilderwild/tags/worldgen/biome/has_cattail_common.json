@@ -3,6 +3,9 @@
   "values": [
     "minecraft:swamp",
     "minecraft:mangrove_swamp",
+    "minecraft:warm_ocean",
+    "minecraft:lukewarm_ocean",
+    "minecraft:deep_lukewarm_ocean",
     {
       "id": "wilderwild:cypress_wetlands",
       "required": false
@@ -25,6 +28,10 @@
     },
     {
       "id": "wilderwild:dark_taiga",
+      "required": false
+    },
+    {
+      "id": "wilderwild:warm_beach",
       "required": false
     }
   ]

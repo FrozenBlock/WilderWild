@@ -1,9 +1,28 @@
+/*
+ * Copyright 2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.mixin.sodium;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.jellysquid.mods.sodium.client.render.immediate.CloudRenderer;
 import net.frozenblock.lib.wind.api.ClientWindManager;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.MiscConfig;
+import net.frozenblock.wilderwild.misc.wind.WilderClientWindManager;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.util.Mth;
@@ -22,27 +41,27 @@ public class CloudRendererMixin {
 
 	@Unique
 	private static boolean wilderWild$useWind() {
-		return WilderSharedConstants.config().cloudMovement() && ClientWindManager.shouldUseWind();
+		return MiscConfig.get().cloudMovement && ClientWindManager.shouldUseWind();
 	}
 
 	@ModifyVariable(method = "render", at = @At(value = "STORE"), ordinal = 2)
 	private float wilderWild$modifyY(float original, @Nullable ClientLevel world, LocalPlayer player, PoseStack matrices, Matrix4f projectionMatrix, float ticks, float tickDelta, double cameraX, double cameraY, double cameraZ) {
 		return (this.wilderWild$useWind = wilderWild$useWind())
-			? (float) (original + 0.33D + Mth.clamp(ClientWindManager.getCloudY(tickDelta) * 12, -10, 10))
+			? (float) (original + 0.33D + Mth.clamp(WilderClientWindManager.getCloudY(tickDelta) * 12, -10, 10))
 			: original;
 	}
 
 	@ModifyVariable(method = "render", at = @At(value = "STORE"), ordinal = 4)
 	private double wilderWild$modifyX(double original, @Nullable ClientLevel world, LocalPlayer player, PoseStack matrices, Matrix4f projectionMatrix, float ticks, float tickDelta, double cameraX, double cameraY, double cameraZ) {
 		return this.wilderWild$useWind
-			? cameraX - ClientWindManager.getCloudX(tickDelta) * 12
+			? cameraX - WilderClientWindManager.getCloudX(tickDelta) * 12
 			: original;
 	}
 
 	@ModifyVariable(method = "render", at = @At("STORE"), ordinal = 5)
 	private double wilderWild$modifyZ(double original, @Nullable ClientLevel world, LocalPlayer player, PoseStack matrices, Matrix4f projectionMatrix, float ticks, float tickDelta, double cameraX, double cameraY, double cameraZ) {
 		return this.wilderWild$useWind
-			? (cameraZ + 0.33D) - ClientWindManager.getCloudZ(tickDelta) * 12
+			? (cameraZ + 0.33D) - WilderClientWindManager.getCloudZ(tickDelta) * 12
 			: original;
 	}
 }

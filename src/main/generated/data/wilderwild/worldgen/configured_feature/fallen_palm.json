@@ -24,7 +24,7 @@
       "type": "minecraft:blob_foliage_placer",
       "height": 3,
       "offset": 0,
-      "radius": 1
+      "radius": 0
     },
     "foliage_provider": {
       "type": "minecraft:simple_state_provider",
@@ -50,11 +50,16 @@
       "base_height": 5,
       "height_rand_a": 1,
       "height_rand_b": 2,
-      "max_height_above_hole": {
-        "type": "minecraft:uniform",
-        "value": {
-          "max_inclusive": 2,
-          "min_inclusive": 1
+      "hollow_chance": 0.045,
+      "hollowed_state": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "wilderwild:hollowed_palm_log",
+          "Properties": {
+            "axis": "y",
+            "termite_edible": "true",
+            "waterlogged": "false"
+          }
         }
       },
       "max_logs": {

@@ -1,3 +1,21 @@
+/*
+ * Copyright 2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.world.generation.trunk;
 
 import com.google.common.collect.Lists;
@@ -145,11 +163,9 @@ public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
 			j += direction.getStepX();
 			k += direction.getStepZ();
 			if (TreeFeature.validTreePos(level, pos.set(j, y, k))) {
-				if (config.trunkProvider.getState(random, pos.set(j, y, k)).hasProperty(BlockStateProperties.AXIS) && !lastOne) {
+				if (config.trunkProvider.getState(random, pos.set(j, y, k)).hasProperty(BlockStateProperties.AXIS)) {
 					Direction.Axis axis = direction.getStepX() != 0 ? Direction.Axis.X : Direction.Axis.Z;
 					replacer.accept(pos.set(j, y, k), config.trunkProvider.getState(random, pos.set(j, y, k)).setValue(BlockStateProperties.AXIS, axis));
-				} else {
-					this.placeLog(level, replacer, random, pos.set(j, y, k), config);
 					if (lastOne) {
 						foliageAttachments.add(new FoliagePlacer.FoliageAttachment(pos.move(Direction.UP), 0, false));
 					}

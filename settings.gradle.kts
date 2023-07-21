@@ -57,6 +57,7 @@ fun localRepository(repo: String, dependencySub: String, kotlin: Boolean) {
 		}
         if (file.exists()) {
 			/*includeBuild(path) {
+                this.name = repo
 				dependencySubstitution {
 					if (dependencySub != "") {
 						substitute(module(dependencySub)).using(project(":"))

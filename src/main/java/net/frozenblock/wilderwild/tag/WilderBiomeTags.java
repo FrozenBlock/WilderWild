@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -81,6 +81,7 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_DATURA = bind("has_datura");
 	public static final TagKey<Biome> HAS_CARNATION = bind("has_carnation");
 	public static final TagKey<Biome> HAS_CATTAIL = bind("has_cattail");
+	public static final TagKey<Biome> HAS_CATTAIL_UNCOMMON = bind("has_cattail_uncommon");
 	public static final TagKey<Biome> HAS_CATTAIL_COMMON = bind("has_cattail_common");
 	public static final TagKey<Biome> HAS_SEEDING_DANDELION = bind("has_seeding_dandelion");
 	public static final TagKey<Biome> HAS_COMMON_SEEDING_DANDELION = bind("has_common_seeding_dandelion");
@@ -89,6 +90,7 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> CHERRY_FLOWERS = bind("cherry_flowers");
 	public static final TagKey<Biome> HAS_SUNFLOWER_PLAINS_FLOWERS = bind("has_sunflower_plains_flowers");
 	public static final TagKey<Biome> HAS_PALMS = bind("has_palms");
+	public static final TagKey<Biome> HAS_WARM_BEACH_PALMS = bind("has_warm_beach_palms");
 	public static final TagKey<Biome> HAS_SHORT_SPRUCE = bind("has_short_spruce");
 	public static final TagKey<Biome> HAS_SHORT_MEGA_SPRUCE = bind("has_short_mega_spruce");
 	public static final TagKey<Biome> HAS_SHORT_MEGA_SPRUCE_SNOWY = bind("has_short_mega_spruce_snowy");
@@ -97,15 +99,19 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_SNAPPED_BIRCH = bind("has_snapped_birch");
 	public static final TagKey<Biome> HAS_SNAPPED_SPRUCE = bind("has_snapped_spruce");
 	public static final TagKey<Biome> HAS_SNAPPED_SPRUCE_SNOWY = bind("has_snapped_spruce_snowy");
+	public static final TagKey<Biome> HAS_SNAPPED_LARGE_SPRUCE = bind("has_snapped_large_spruce");
+	public static final TagKey<Biome> HAS_SNAPPED_LARGE_SPRUCE_SNOWY = bind("has_snapped_large_spruce_snowy");
 	public static final TagKey<Biome> HAS_SNAPPED_BIRCH_AND_OAK = bind("has_snapped_birch_and_oak");
 	public static final TagKey<Biome> HAS_SNAPPED_BIRCH_AND_OAK_AND_SPRUCE = bind("has_snapped_birch_and_oak_and_spruce");
 	public static final TagKey<Biome> HAS_SNAPPED_BIRCH_AND_SPRUCE = bind("has_snapped_birch_and_spruce");
 	public static final TagKey<Biome> HAS_SNAPPED_CYPRESS = bind("has_snapped_cypress");
 	public static final TagKey<Biome> HAS_SNAPPED_JUNGLE = bind("has_snapped_jungle");
+	public static final TagKey<Biome> HAS_SNAPPED_LARGE_JUNGLE = bind("has_snapped_large_jungle");
 	public static final TagKey<Biome> HAS_SNAPPED_BIRCH_AND_JUNGLE = bind("has_snapped_birch_and_jungle");
 	public static final TagKey<Biome> HAS_SNAPPED_ACACIA = bind("has_snapped_acacia");
 	public static final TagKey<Biome> HAS_SNAPPED_ACACIA_AND_OAK = bind("has_snapped_acacia_and_oak");
 	public static final TagKey<Biome> HAS_SNAPPED_CHERRY = bind("has_snapped_cherry");
+	public static final TagKey<Biome> HAS_SNAPPED_DARK_OAK = bind("has_snapped_dark_oak");
 	public static final TagKey<Biome> HAS_POLLEN = bind("has_pollen");
 	public static final TagKey<Biome> HAS_FIELD_FLOWERS = bind("has_field_flowers");
 	public static final TagKey<Biome> HAS_RED_SHELF_FUNGUS = bind("has_red_shelf_fungus");
@@ -180,6 +186,9 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_MUD_LAKE = bind("has_mud_lake");
 	public static final TagKey<Biome> HAS_ALGAE_SMALL = bind("has_algae_small");
 	public static final TagKey<Biome> HAS_ALGAE = bind("has_algae");
+	public static final TagKey<Biome> HAS_WATER_POOLS = bind("has_water_pools");
+	public static final TagKey<Biome> HAS_WATER_SHRUBS = bind("has_water_shrubs");
+	public static final TagKey<Biome> HAS_WATER_GRASS = bind("has_water_grass");
 	public static final TagKey<Biome> HAS_RARE_COARSE = bind("has_rare_coarse");
 	public static final TagKey<Biome> HAS_RARE_GRAVEL = bind("has_rare_gravel");
 	public static final TagKey<Biome> HAS_RARE_STONE = bind("has_rare_stone");
@@ -187,6 +196,10 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> GRAVEL_BEACH = bind("gravel_beaches");
 	public static final TagKey<Biome> SAND_BEACHES = bind("sand_beaches");
 	public static final TagKey<Biome> MULTI_LAYER_SAND_BEACHES = bind("multi_layer_sand_beaches");
+	public static final TagKey<Biome> LUKEWARM_WATER = bind("lukewarm_water");
+	public static final TagKey<Biome> HOT_WATER = bind("hot_water");
+	public static final TagKey<Biome> SNOWY_WATER = bind("snowy_water");
+	public static final TagKey<Biome> FROZEN_WATER = bind("frozen_water");
 	public static final TagKey<Biome> WILDER_WILD_BIOMES = bind("wilder_wild_biomes");
 
 	private WilderBiomeTags() {

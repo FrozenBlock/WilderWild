@@ -45,7 +45,7 @@
       "net.frozenblock.wilderwild.WilderWild"
     ],
     "modmenu": [
-      "net.frozenblock.wilderwild.misc.config.ModMenuIntegration"
+      "net.frozenblock.wilderwild.config.gui.ModMenuIntegration"
     ],
     "terrablender": [
       "net.frozenblock.wilderwild.misc.mod_compat.terrablender.BlenderInitializer"

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -18,8 +18,8 @@
 
 package net.frozenblock.wilderwild.mixin.server.warden;
 
+import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityEvent;
@@ -37,7 +37,7 @@ public class LivingEntityMixin {
 	@Inject(method = "isAlive", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$isAlive(CallbackInfoReturnable<Boolean> info) {
 		if (LivingEntity.class.cast(this) instanceof Warden warden) {
-			if (WilderSharedConstants.config().wardenDyingAnimation() || ((WilderWarden) warden).wilderWild$isStella()) {
+			if (EntityConfig.get().warden.wardenDyingAnimation || ((WilderWarden) warden).wilderWild$isStella()) {
 				info.setReturnValue(((WilderWarden) warden).wilderWild$getDeathTicks() < 70 && !warden.isRemoved());
 			}
 		}
@@ -46,7 +46,7 @@ public class LivingEntityMixin {
 	@Inject(method = "tickDeath", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$tickDeath(CallbackInfo info) {
 		if (LivingEntity.class.cast(this) instanceof Warden warden) {
-			if (WilderSharedConstants.config().wardenDyingAnimation() || ((WilderWarden) warden).wilderWild$isStella()) {
+			if (EntityConfig.get().warden.wardenDyingAnimation || ((WilderWarden) warden).wilderWild$isStella()) {
 				((WilderWarden) warden).wilderWild$setDeathTicks(((WilderWarden) warden).wilderWild$getDeathTicks() + 1);
 
 				if (((WilderWarden) warden).wilderWild$getDeathTicks() == 35 && !warden.level().isClientSide()) {
@@ -70,7 +70,7 @@ public class LivingEntityMixin {
 	@Inject(method = "die", at = @At("TAIL"))
 	public void wilderWild$die(DamageSource damageSource, CallbackInfo info) {
 		if (LivingEntity.class.cast(this) instanceof Warden warden) {
-			if (WilderSharedConstants.config().wardenDyingAnimation() || ((WilderWarden) warden).wilderWild$isStella()) {
+			if (EntityConfig.get().warden.wardenDyingAnimation || ((WilderWarden) warden).wilderWild$isStella()) {
 				warden.getBrain().removeAllBehaviors();
 				warden.setNoAi(true);
 			}

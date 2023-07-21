@@ -9,6 +9,10 @@
     {
       "id": "wilderwild:arid_savanna",
       "required": false
+    },
+    {
+      "id": "wilderwild:warm_beach",
+      "required": false
     }
   ]
 }

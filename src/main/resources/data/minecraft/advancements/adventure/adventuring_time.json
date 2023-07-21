@@ -913,6 +913,22 @@
       },
       "trigger": "minecraft:location"
     },
+    "wilderwild:warm_beach": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biome": "wilderwild:warm_beach"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
     "wilderwild:birch_taiga": {
       "conditions": {
         "player": [
@@ -1357,6 +1373,9 @@
     ],
     [
       "wilderwild:warm_river"
+    ],
+    [
+      "wilderwild:warm_beach"
     ],
     [
       "wilderwild:birch_taiga"

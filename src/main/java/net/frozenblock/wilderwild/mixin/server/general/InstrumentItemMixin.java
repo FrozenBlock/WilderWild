@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.mixin.server.general;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
+import net.frozenblock.wilderwild.config.ItemConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -38,7 +39,7 @@ public final class InstrumentItemMixin {
 
 	@WrapOperation(method = "play", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playSound(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V"))
 	private static void wilderWild$playRestrictionSound(Level level, Player player, Entity entity, SoundEvent soundEvent, SoundSource soundSource, float volume, float pitch, Operation<Void> original) {
-		if (WilderSharedConstants.config().restrictInstrumentSound()) {
+		if (ItemConfig.get().restrictInstrumentSound) {
 			if (!level.isClientSide) {
 				FrozenSoundPackets.createMovingRestrictionSound(level, player, soundEvent, soundSource, volume, pitch, WilderSharedConstants.id("instrument"), true);
 			}
@@ -49,7 +50,7 @@ public final class InstrumentItemMixin {
 
 	@WrapOperation(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemCooldowns;addCooldown(Lnet/minecraft/world/item/Item;I)V"))
 	private void wilderWild$bypassCooldown(ItemCooldowns itemCooldowns, Item item, int useDuration, Operation<Void> original) {
-		if (!WilderSharedConstants.config().restrictInstrumentSound()) {
+		if (!ItemConfig.get().restrictInstrumentSound) {
 			original.call(itemCooldowns, item, useDuration);
 		}
 	}

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -18,9 +18,10 @@
 
 package net.frozenblock.wilderwild.misc.mod_compat;
 
+import java.util.function.BooleanSupplier;
 import net.frozenblock.lib.integration.api.ModIntegration;
 import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.addBlock;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.BlockConfig;
 import static net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes.LEAVES;
 
 public class EdenRingIntegration extends ModIntegration {
@@ -30,6 +31,7 @@ public class EdenRingIntegration extends ModIntegration {
 
 	@Override
 	public void init() {
-		addBlock(id("auritis_leaves"), LEAVES, WilderSharedConstants.config()::leafSounds);
+		BooleanSupplier condition = () -> BlockConfig.get().blockSounds.leafSounds;
+		addBlock(id("auritis_leaves"), LEAVES, condition);
 	}
 }

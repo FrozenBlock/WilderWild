@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -26,6 +26,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import net.frozenblock.lib.entity.api.NoFlopAbstractFish;
 import net.frozenblock.wilderwild.entity.ai.jellyfish.JellyfishAi;
+import net.frozenblock.wilderwild.entity.ai.jellyfish.JellyfishTemptGoal;
 import net.frozenblock.wilderwild.entity.variant.JellyfishVariant;
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
@@ -34,7 +35,6 @@ import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.registry.WilderRegistry;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
-import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -184,6 +184,11 @@ public class Jellyfish extends NoFlopAbstractFish {
 		return (int) ((float) (ticksUntilAdult / 20) * 0.1F);
 	}
 
+	@Override
+	protected void registerGoals() {
+		this.goalSelector.addGoal(3, new JellyfishTemptGoal(this, 1.25));
+	}
+
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
@@ -243,7 +248,9 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@Override
 	protected void playSwimSound(float volume) {
 		super.playSwimSound(volume);
-		this.spawnBubbles();
+		if (this.random.nextFloat() < 0.5F) {
+			this.spawnBubbles();
+		}
 	}
 
 	@Override
@@ -499,7 +506,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		if (itemStack.is(Items.WATER_BUCKET)) {
 			return super.mobInteract(player, hand);
 		}
-		if (!itemStack.is(WilderItemTags.NEMATOCYSTS) || (this.getVariant().pearlescent() && !itemStack.is(WilderItemTags.PEARLESCENT_NEMATOCYSTS)) || (this.getVariant().isNormal() && itemStack.is(WilderItemTags.PEARLESCENT_NEMATOCYSTS))) {
+		if (!itemStack.is(this.getVariant().reproductionFood())) {
 			return InteractionResult.PASS;
 		}
 		if (this.isBaby()) {

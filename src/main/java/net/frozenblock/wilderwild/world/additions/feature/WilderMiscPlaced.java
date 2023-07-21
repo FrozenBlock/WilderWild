@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -76,6 +76,8 @@ public final class WilderMiscPlaced {
 	public static final FrozenPlacedFeature BETA_BEACH_SAND_TRANSITION = register("beta_beach_sand_transition");
 	public static final FrozenPlacedFeature BETA_BEACH_GRAVEL_TRANSITION = register("beta_beach_gravel_transition");
 	public static final FrozenPlacedFeature SMALL_GRAVEL_TRANSITION = register("small_gravel_transition");
+	public static final FrozenPlacedFeature RIVER_POOL = register("river_pool");
+	public static final FrozenPlacedFeature SMALL_RIVER_POOL = register("small_river_pool");
 	// SAVANNA
 	public static final FrozenPlacedFeature PACKED_MUD_PATH = register("packed_mud_path");
 	// JUNGLE
@@ -95,10 +97,8 @@ public final class WilderMiscPlaced {
 	// JELLYFISH CAVES
 	public static final FrozenPlacedFeature EXTRA_GLOW_LICHEN = register("extra_glow_lichen");
 	public static final FrozenPlacedFeature STONE_POOL = register("stone_pool");
-	public static final FrozenPlacedFeature DEEPSLATE_POOL = register("deepslate_pool");
 	public static final FrozenPlacedFeature ORE_CALCITE = register("ore_calcite");
 	public static final BlockPredicate ONLY_IN_WATER_PREDICATE = BlockPredicate.matchesBlocks(Blocks.WATER);
-	public static final FrozenPlacedFeature JELLYFISH_DEEPSLATE_POOL = register("jellyfish_deepslate_pool");
 	public static final FrozenPlacedFeature JELLYFISH_STONE_POOL = register("jellyfish_stone_pool");
 	public static final FrozenPlacedFeature MESOGLEA_PILLAR = register("blue_mesoglea_pillar");
 	public static final FrozenPlacedFeature PURPLE_MESOGLEA_PILLAR = register("purple_mesoglea_pillar");
@@ -313,6 +313,26 @@ public final class WilderMiscPlaced {
 			BiomeFilter.biome()
 		);
 
+		RIVER_POOL.makeAndSetHolder(WilderMiscConfigured.RIVER_POOL.getHolder(),
+			CountPlacement.of(20), RarityFilter.onAverageOnceEvery(3),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_TOP_SOLID,
+			HeightRangePlacement.uniform(VerticalAnchor.absolute(62), VerticalAnchor.absolute(64)),
+			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
+			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			BiomeFilter.biome()
+		);
+
+		SMALL_RIVER_POOL.makeAndSetHolder(WilderMiscConfigured.SMALL_RIVER_POOL.getHolder(),
+			CountPlacement.of(8), RarityFilter.onAverageOnceEvery(3),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_TOP_SOLID,
+			HeightRangePlacement.uniform(VerticalAnchor.absolute(65), VerticalAnchor.absolute(72)),
+			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
+			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			BiomeFilter.biome()
+		);
+
 		// SAVANNA
 
 		PACKED_MUD_PATH.makeAndSetHolder(WilderMiscConfigured.PACKED_MUD_PATH.getHolder(),
@@ -416,18 +436,9 @@ public final class WilderMiscPlaced {
 		);
 
 		STONE_POOL.makeAndSetHolder(WilderMiscConfigured.STONE_POOL.getHolder(),
-			RarityFilter.onAverageOnceEvery(13),
+			RarityFilter.onAverageOnceEvery(6),
 			InSquarePlacement.spread(),
-			HeightRangePlacement.uniform(VerticalAnchor.absolute(5), VerticalAnchor.aboveBottom(108)),
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
-			BiomeFilter.biome()
-		);
-
-		DEEPSLATE_POOL.makeAndSetHolder(WilderMiscConfigured.DEEPSLATE_POOL.getHolder(),
-			RarityFilter.onAverageOnceEvery(13),
-			InSquarePlacement.spread(),
-			HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.absolute(5)),
+			HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(5), VerticalAnchor.aboveBottom(108)),
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
 			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
 			BiomeFilter.biome()
@@ -437,19 +448,10 @@ public final class WilderMiscPlaced {
 			modifiersWithCount(2, HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(64)))
 		);
 
-		JELLYFISH_DEEPSLATE_POOL.makeAndSetHolder(WilderMiscConfigured.DEEPSLATE_POOL.getHolder(),
-			CountPlacement.of(30),
-			InSquarePlacement.spread(),
-			HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(67)),
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
-			BiomeFilter.biome()
-		);
-
 		JELLYFISH_STONE_POOL.makeAndSetHolder(WilderMiscConfigured.STONE_POOL.getHolder(),
-			CountPlacement.of(30),
+			CountPlacement.of(60),
 			InSquarePlacement.spread(),
-			HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(68), VerticalAnchor.top()),
+			HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.top()),
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
 			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
 			BiomeFilter.biome()

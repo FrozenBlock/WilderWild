@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -18,9 +18,9 @@
 
 package net.frozenblock.wilderwild.mixin.server.warden;
 
+import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.interfaces.SwimmingWardenInterface;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -129,7 +129,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 		if (this.wilderWild$isStella()) {
 			warden.playSound(RegisterSounds.ENTITY_WARDEN_KIRBY_DEATH, 5.0F, 1.0F);
 		} else {
-			if (WilderSharedConstants.config().wardenDyingAnimation()) {
+			if (EntityConfig.get().warden.wardenDyingAnimation) {
 				if (warden instanceof SwimmingWardenInterface swim && swim.wilderWild$isSubmergedInWaterOrLava()) {
 					warden.playSound(RegisterSounds.ENTITY_WARDEN_UNDERWATER_DYING, 0.75F, 1.0F);
 				} else {
@@ -141,7 +141,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 
 	@Inject(at = @At("RETURN"), method = "finalizeSpawn")
 	public void wilderWild$finalizeSpawn(ServerLevelAccessor serverLevelAccess, DifficultyInstance localDifficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData, @Nullable CompoundTag nbtCompound, CallbackInfoReturnable<SpawnGroupData> info) {
-		if ((WilderSharedConstants.config().wardenEmergesFromEgg() && spawnReason == MobSpawnType.SPAWN_EGG) || (WilderSharedConstants.config().wardenEmergesFromCommand() && spawnReason == MobSpawnType.COMMAND)) {
+		if ((EntityConfig.get().warden.wardenEmergesFromEgg && spawnReason == MobSpawnType.SPAWN_EGG) || (EntityConfig.get().warden.wardenEmergesFromCommand && spawnReason == MobSpawnType.COMMAND)) {
 			this.setPose(Pose.EMERGING);
 			this.getBrain().setMemoryWithExpiry(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, WardenAi.EMERGE_DURATION);
 			this.playSound(SoundEvents.WARDEN_AGITATED, 5.0f, 1.0f);
@@ -158,7 +158,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 			&& !warden.isDiggingOrEmerging()
 			&& !warden.hasPose(Pose.DYING)
 			&& !warden.hasPose(Pose.ROARING)
-			&& WilderSharedConstants.config().wardenAttacksImmediately()
+			&& EntityConfig.get().warden.wardenAttacksImmediately
 		) {
 			if (!(entity instanceof Player player) || !player.isCreative()) {
 				warden.increaseAngerAt(entity, AngerLevel.ANGRY.getMinimumAnger() + 20, false);
@@ -179,7 +179,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	@Inject(method = "onSyncedDataUpdated", at = @At("HEAD"), cancellable = true)
 	private void wilderWild$onSyncedDataUpdated(EntityDataAccessor<?> data, CallbackInfo info) {
 		Warden warden = Warden.class.cast(this);
-		if (WilderSharedConstants.config().wardenDyingAnimation() || this.wilderWild$isStella()) {
+		if (EntityConfig.get().warden.wardenDyingAnimation || this.wilderWild$isStella()) {
 			if (DATA_POSE.equals(data)) {
 				if (warden.getPose() == Pose.DYING) {
 					if (this.wilderWild$isStella()) {
@@ -230,7 +230,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	@Inject(method = "tick", at = @At("TAIL"))
 	private void wilderWild$tick(CallbackInfo info) {
 		Warden warden = Warden.class.cast(this);
-		if (WilderSharedConstants.config().wardenDyingAnimation() || this.wilderWild$isStella()) {
+		if (EntityConfig.get().warden.wardenDyingAnimation || this.wilderWild$isStella()) {
 			if (warden.getPose() == Pose.DYING) {
 				this.clientDiggingParticles(this.wilderWild$getDyingAnimationState());
 			}
@@ -268,7 +268,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	@Inject(method = "getDimensions", at = @At("RETURN"), cancellable = true)
 	public void wilderWild$getDimensions(Pose pose, CallbackInfoReturnable<EntityDimensions> info) {
 		if (!this.isDiggingOrEmerging()) {
-			if (WilderSharedConstants.config().wardenDyingAnimation() || this.wilderWild$isStella()) {
+			if (EntityConfig.get().warden.wardenDyingAnimation || this.wilderWild$isStella()) {
 				if (wilderWild$deathTicks > 0) {
 					info.setReturnValue(EntityDimensions.fixed(this.getType().getWidth(), 0.35F));
 				}

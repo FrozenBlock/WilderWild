@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.mixin.worldgen;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.structure.structures.SwampHutPiece;
@@ -32,7 +32,7 @@ public class SwampHutPieceMixin {
 
 	@ModifyExpressionValue(method = "postProcess", at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/block/Blocks;SPRUCE_PLANKS:Lnet/minecraft/world/level/block/Block;"))
 	public Block wilderWild$newPlanks(Block original) {
-		if (WilderSharedConstants.config().newWitchHuts()) {
+		if (WorldgenConfig.get().newWitchHuts) {
 			return RegisterBlocks.CYPRESS_PLANKS;
 		}
 		return original;
@@ -40,7 +40,7 @@ public class SwampHutPieceMixin {
 
 	@ModifyExpressionValue(method = "postProcess", at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/block/Blocks;SPRUCE_STAIRS:Lnet/minecraft/world/level/block/Block;"))
 	public Block wilderWild$newStairs(Block original) {
-		if (WilderSharedConstants.config().newWitchHuts()) {
+		if (WorldgenConfig.get().newWitchHuts) {
 			return RegisterBlocks.CYPRESS_STAIRS;
 		}
 		return original;

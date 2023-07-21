@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -33,6 +33,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
@@ -208,16 +209,18 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 	@Nullable
 	private FoliagePlacer.FoliageAttachment generateBranch(@NotNull Direction direction, @Nullable Direction direction2, float yEquation, int h, int minh, int maxLength, @NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, @NotNull BlockPos.MutableBlockPos mutable, @NotNull TreeConfiguration config, @NotNull BlockPos startPos, int x, int z, @NotNull List<BlockPos> logPoses) {
 		int height = (int) ((random.nextDouble() * (h - minh)) + minh);
+		BlockPos.MutableBlockPos prevFPos = startPos.mutable();
 		BlockPos.MutableBlockPos fPos = startPos.mutable();
 		BlockPos.MutableBlockPos fPos2 = startPos.mutable();
 
 		for (int length = 1; length <= maxLength; length++) {
 			int eq = (int) Math.floor(yEquation * length);
+			prevFPos.set(fPos);
 			fPos.set(startPos).move(direction, length);
 			if (direction2 != null) {
 				fPos.move(direction2, length);
 			}
-			setLog(level, replacer, random, mutable, config, fPos, x, height + eq, z, logPoses);
+			this.placeLog(level, replacer, random, mutable.setWithOffset(fPos, x, height + eq, z), config, (state) -> state.trySetValue(RotatedPillarBlock.AXIS, this.getLogAxis(prevFPos, fPos)));
 			if (length == maxLength) {
 				return new FoliagePlacer.FoliageAttachment(fPos2.setWithOffset(fPos, x, height + eq + 1, z), 0, true);
 			}
@@ -247,5 +250,22 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 
 	private void setLog(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, @NotNull BlockPos.MutableBlockPos pos, @NotNull TreeConfiguration config, @NotNull BlockPos startPos, int x, int y, int z, List<BlockPos> logPoses) {
 		this.setLog(level, replacer, random, pos, config, startPos, x, y, z, true, logPoses);
+	}
+
+	@NotNull
+	private Direction.Axis getLogAxis(@NotNull BlockPos pos, @NotNull BlockPos otherPos) {
+		Direction.Axis axis = Direction.Axis.Y;
+		int i = Math.abs(otherPos.getX() - pos.getX());
+		int j = Math.abs(otherPos.getZ() - pos.getZ());
+		int k = Math.max(i, j);
+		if (k > 0) {
+			if (i == k) {
+				axis = Direction.Axis.X;
+			} else {
+				axis = Direction.Axis.Z;
+			}
+		}
+
+		return axis;
 	}
 }

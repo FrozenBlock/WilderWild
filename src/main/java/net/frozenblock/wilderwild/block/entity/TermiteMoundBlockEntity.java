@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.block.entity;
 
 import it.unimi.dsi.fastutil.ints.IntArrayList;
-import java.util.ArrayList;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
 import net.frozenblock.wilderwild.misc.client.ClientMethodInteractionHandler;
@@ -37,6 +36,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 
 	public final TermiteManager termiteManager;
 	public final IntArrayList clientTermiteIDs = new IntArrayList();
+	public final IntArrayList prevClientTermiteIDs = new IntArrayList();
 
 	public TermiteMoundBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		super(RegisterBlockEntities.TERMITE_MOUND, pos, state);
@@ -49,15 +49,16 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 	}
 
 	public void tickClient() {
-		ArrayList<TermiteManager.Termite> termites = this.termiteManager.termites();
-		for (TermiteManager.Termite termite : termites) {
+		for (TermiteManager.Termite termite : this.termiteManager.termites()) {
 			int termiteID = termite.getID();
-			if (!clientTermiteIDs.contains(termiteID)) {
+			if (clientTermiteIDs.contains(termiteID) && !this.prevClientTermiteIDs.contains(termiteID)) {
 				ClientMethodInteractionHandler.addTermiteSound(this, termiteID, termite.getEating());
 			}
 		}
+		this.prevClientTermiteIDs.clear();
+		this.prevClientTermiteIDs.addAll(this.clientTermiteIDs);
 		this.clientTermiteIDs.clear();
-		for (TermiteManager.Termite termite : termites) {
+		for (TermiteManager.Termite termite : this.termiteManager.termites()) {
 			this.clientTermiteIDs.add(termite.getID());
 		}
 	}

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -538,11 +538,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 
 	@Override
 	protected boolean shouldStayCloseToLeashHolder() {
-		return false;
-	}
-
-	@Override
-	protected boolean canRide(@NotNull Entity vehicle) {
 		return false;
 	}
 

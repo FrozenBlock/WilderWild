@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.world.generation.conditionsource;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import org.jetbrains.annotations.NotNull;
@@ -67,7 +67,7 @@ public final class BetaBeachConditionSource implements SurfaceRules.ConditionSou
 			}
 
 			protected boolean compute() {
-				return WilderSharedConstants.config().betaBeaches();
+				return WorldgenConfig.get().betaBeaches;
 			}
 		}
 
