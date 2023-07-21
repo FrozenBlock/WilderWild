@@ -218,7 +218,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 				int i = VibrationSystem.getRedstoneStrengthForDistance(f, this.getListenerRadius());
 				Block block = blockState.getBlock();
 				if (block instanceof HangingTendrilBlock hangingTendrilBlock) {
-					hangingTendrilBlock.activate(entity, world, this.blockPos, blockState, i, HangingTendrilBlockEntity.this.getLastVibrationFrequency());
+					hangingTendrilBlock.activate(entity, world, this.blockPos, blockState, gameEvent, i, HangingTendrilBlockEntity.this.getLastVibrationFrequency());
 				}
 			}
 		}

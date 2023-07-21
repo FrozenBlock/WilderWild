@@ -209,13 +209,14 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 		return ACTIVE_TICKS;
 	}
 
-	public void activate(@Nullable Entity entity, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState state, int power, int j) {
+	public void activate(@Nullable Entity entity, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull GameEvent gameEvent, int power, int j) {
 		world.setBlock(pos, state.setValue(PHASE, SculkSensorPhase.ACTIVE).setValue(POWER, power), 3);
 		world.scheduleTick(pos, state.getBlock(), this.getActiveTicks());
 		SculkSensorBlock.updateNeighbours(world, pos, state);
 		SculkSensorBlock.tryResonateVibration(entity, world, pos, j);
-		world.gameEvent(entity, VibrationSystem.getResonanceEventByFrequency(j), pos);
-		world.gameEvent(entity, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
+		boolean tendrilsCarryEvents = BlockConfig.get().tendrilsCarryEvents;
+		world.gameEvent(tendrilsCarryEvents ? entity : null, VibrationSystem.getResonanceEventByFrequency(j), pos);
+		world.gameEvent(tendrilsCarryEvents ? entity : null, tendrilsCarryEvents ? gameEvent : GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
 		if (!state.getValue(WATERLOGGED)) {
 			world.playSound(
 				null,

@@ -52,6 +52,8 @@ public final class BlockConfig {
 
 	public boolean billboardTendrils = DefaultBlockConfig.BILLBOARD_TENDRILS;
 
+	public boolean tendrilsCarryEvents = DefaultBlockConfig.TENDRILS_CARRY_EVENTS;
+
 	public boolean mesogleaLiquid = DefaultBlockConfig.MESOGLEA_LIQUID;
 
 	public boolean pollenParticles = DefaultBlockConfig.POLLEN_PARTICLES;

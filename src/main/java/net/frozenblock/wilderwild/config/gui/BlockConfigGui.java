@@ -59,6 +59,12 @@ public final class BlockConfigGui {
 			.setTooltip(tooltip("billboard_tendrils"))
 			.build()
 		);
+		var tendrilsCarryEvents = category.addEntry(entryBuilder.startBooleanToggle(text("tendrils_carry_events"), config.tendrilsCarryEvents)
+			.setDefaultValue(DefaultBlockConfig.TENDRILS_CARRY_EVENTS)
+			.setSaveConsumer(newValue -> config.tendrilsCarryEvents = newValue)
+			.setTooltip(tooltip("tendrils_carry_events"))
+			.build()
+		);
 		var mesogleaLiquid = category.addEntry(entryBuilder.startBooleanToggle(text("mesoglea_liquid"), config.mesogleaLiquid)
 			.setDefaultValue(DefaultBlockConfig.MESOGLEA_LIQUID)
 			.setSaveConsumer(newValue -> config.mesogleaLiquid = newValue)

@@ -23,6 +23,7 @@ public final class DefaultBlockConfig {
 	public static final boolean SHRIEKER_GARGLING = true;
 	public static final boolean SOUL_FIRE_SOUNDS = true;
 	public static final boolean BILLBOARD_TENDRILS = true;
+	public static final boolean TENDRILS_CARRY_EVENTS = false;
 	public static final boolean MESOGLEA_LIQUID = false;
 	public static final boolean POLLEN_PARTICLES = true;
 	public static final boolean CACTUS_PLACEMENT = true;
