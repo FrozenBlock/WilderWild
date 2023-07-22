@@ -860,8 +860,8 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.addForestFlowers(builder);
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
-		BiomeDefaultFeatures.addForestGrass(builder);
 		BiomeDefaultFeatures.addDefaultFlowers(builder);
+		BiomeDefaultFeatures.addForestGrass(builder);
 		BiomeDefaultFeatures.addDefaultMushrooms(builder);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 	}

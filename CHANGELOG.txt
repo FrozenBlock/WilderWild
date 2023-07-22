@@ -6,3 +6,4 @@ Put changelog here:
 -----------------
 - Added a config option to allow Hanging Tendrils to retransmit game event context
 - Fixed camels not spawning in Desert Villages
+- Fixed a feature order cycle error that would occur when custom grass generation is set to false
