@@ -1,10 +1,10 @@
 {
-  "type": "frozenlib:fading_disk_feature",
+  "type": "frozenlib:fading_disk_tag_feature",
   "config": {
     "heightmap": "OCEAN_FLOOR_WG",
     "innerChance": 0.925,
     "innerPercent": 0.55,
-    "innerReplaceable": "#wilderwild:red_scorched_sand_feature_inner_replaceable",
+    "innerReplaceable": "wilderwild:red_scorched_sand_feature_inner_replaceable",
     "innerState": {
       "type": "minecraft:simple_state_provider",
       "state": {
@@ -15,7 +15,7 @@
         }
       }
     },
-    "outerReplaceable": "#wilderwild:red_scorched_sand_feature_replaceable",
+    "outerReplaceable": "wilderwild:red_scorched_sand_feature_replaceable",
     "outerState": {
       "type": "minecraft:simple_state_provider",
       "state": {
