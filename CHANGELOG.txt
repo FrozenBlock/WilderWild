@@ -2,8 +2,9 @@ Hello
 Put changelog in plain text please
 Make sure to clear this after each release
 
-Put changelog here:
+What's new:
 -----------------
 - Added a config option to allow Hanging Tendrils to retransmit game event context
 - Fixed camels not spawning in Desert Villages
 - Fixed a feature order cycle error that would occur when custom grass generation is set to false
+- Fixed Scorched Sand and Scorched Red Sand features not generating.

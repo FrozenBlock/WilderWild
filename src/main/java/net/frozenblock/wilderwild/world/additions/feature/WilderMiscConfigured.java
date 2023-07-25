@@ -108,17 +108,17 @@ public final class WilderMiscConfigured {
 	public static final RuleTest PACKED_MUD_REPLACEABLE = new TagMatchTest(WilderBlockTags.PACKED_MUD_REPLACEABLE);
 	public static final FrozenConfiguredFeature<OreConfiguration, ConfiguredFeature<OreConfiguration, ?>> ORE_PACKED_MUD = register("ore_packed_mud");
 	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> SANDSTONE_PATH = register("sandstone_path");
-	public static final FrozenConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> SCORCHED_SAND_DISK = register("scorched_sand");
-	public static final FrozenConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> SCORCHED_SAND_DISK_HUGE = register("scorched_sand_huge");
-	public static final FrozenConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> SCORCHED_SAND_DISK_LIGHTNING = register("scorched_sand_lightning");
+	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SCORCHED_SAND_DISK = register("scorched_sand");
+	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SCORCHED_SAND_DISK_HUGE = register("scorched_sand_huge");
+	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SCORCHED_SAND_DISK_LIGHTNING = register("scorched_sand_lightning");
 	public static final FrozenConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ?>> SAND_TRANSITION_DISK = register("sand_transition");
 
 	// BADLANDS
 	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> COARSE_DIRT_PATH_SMALL = register("coarse_dirt_path_small");
 	public static final FrozenConfiguredFeature<PathTagFeatureConfig, ConfiguredFeature<PathTagFeatureConfig, ?>> PACKED_MUD_PATH_BADLANDS = register("packed_mud_path_badlands");
-	public static final FrozenConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> SCORCHED_RED_SAND_DISK = register("scorched_red_sand");
-	public static final FrozenConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> SCORCHED_RED_SAND_DISK_HUGE = register("scorched_red_sand_huge");
-	public static final FrozenConfiguredFeature<FadingDiskFeatureConfig, ConfiguredFeature<FadingDiskFeatureConfig, ?>> SCORCHED_RED_SAND_DISK_LIGHTNING = register("scorched_red_sand_lightning");
+	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SCORCHED_RED_SAND_DISK = register("scorched_red_sand");
+	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SCORCHED_RED_SAND_DISK_HUGE = register("scorched_red_sand_huge");
+	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> SCORCHED_RED_SAND_DISK_LIGHTNING = register("scorched_red_sand_lightning");
 	public static final FrozenConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ConfiguredFeature<FadingDiskTagBiomeFeatureConfig, ?>> RED_SAND_TRANSITION_DISK = register("red_sand_transition");
 
 	// JELLYFISH CAVES
@@ -584,8 +584,8 @@ public final class WilderMiscConfigured {
 			)
 		);
 
-		SCORCHED_SAND_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_FEATURE,
-			new FadingDiskFeatureConfig(
+		SCORCHED_SAND_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
+			new FadingDiskTagFeatureConfig(
 				true,
 				BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKED, true)),
 				BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState()),
@@ -594,20 +594,14 @@ public final class WilderMiscConfigured {
 				0.925F,
 				0.65F,
 				0.8F,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WilderBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE
-				),
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WilderBlockTags.SCORCHED_SAND_FEATURE_REPLACEABLE
-				),
+				WilderBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE,
+				WilderBlockTags.SCORCHED_SAND_FEATURE_REPLACEABLE,
 				Heightmap.Types.OCEAN_FLOOR_WG
 			)
 		);
 
-		SCORCHED_SAND_DISK_HUGE.makeAndSetHolder(FrozenFeatures.FADING_DISK_FEATURE,
-			new FadingDiskFeatureConfig(
+		SCORCHED_SAND_DISK_HUGE.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
+			new FadingDiskTagFeatureConfig(
 				true,
 				BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKED, true)),
 				BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState()),
@@ -616,20 +610,14 @@ public final class WilderMiscConfigured {
 				0.875F,
 				0.65F,
 				0.8F,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WilderBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE
-				),
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WilderBlockTags.SCORCHED_SAND_FEATURE_REPLACEABLE
-				),
+				WilderBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE,
+				WilderBlockTags.SCORCHED_SAND_FEATURE_REPLACEABLE,
 				Heightmap.Types.OCEAN_FLOOR_WG
 			)
 		);
 
-		SCORCHED_SAND_DISK_LIGHTNING.makeAndSetHolder(FrozenFeatures.FADING_DISK_FEATURE,
-			new FadingDiskFeatureConfig(
+		SCORCHED_SAND_DISK_LIGHTNING.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
+			new FadingDiskTagFeatureConfig(
 				false,
 				BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKED, true)),
 				BlockStateProvider.simple(RegisterBlocks.SCORCHED_SAND.defaultBlockState()),
@@ -638,14 +626,8 @@ public final class WilderMiscConfigured {
 				0.925F,
 				0.55F,
 				0.8F,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WilderBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE
-				),
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WilderBlockTags.SCORCHED_SAND_FEATURE_REPLACEABLE
-				),
+				WilderBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE,
+				WilderBlockTags.SCORCHED_SAND_FEATURE_REPLACEABLE,
 				Heightmap.Types.OCEAN_FLOOR_WG
 			)
 		);
@@ -701,8 +683,8 @@ public final class WilderMiscConfigured {
 			)
 		);
 
-		SCORCHED_RED_SAND_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_FEATURE,
-			new FadingDiskFeatureConfig(
+		SCORCHED_RED_SAND_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
+			new FadingDiskTagFeatureConfig(
 				true,
 				BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKED, true)),
 				BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState()),
@@ -711,20 +693,14 @@ public final class WilderMiscConfigured {
 				0.925F,
 				0.65F,
 				0.8F,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WilderBlockTags.RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE
-				),
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WilderBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE
-				),
+				WilderBlockTags.RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE,
+				WilderBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE,
 				Heightmap.Types.OCEAN_FLOOR_WG
 			)
 		);
 
-		SCORCHED_RED_SAND_DISK_HUGE.makeAndSetHolder(FrozenFeatures.FADING_DISK_FEATURE,
-			new FadingDiskFeatureConfig(
+		SCORCHED_RED_SAND_DISK_HUGE.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
+			new FadingDiskTagFeatureConfig(
 				true,
 				BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKED, true)),
 				BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState()),
@@ -733,20 +709,14 @@ public final class WilderMiscConfigured {
 				0.875F,
 				0.65F,
 				0.8F,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WilderBlockTags.RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE
-				),
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WilderBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE
-				),
+				WilderBlockTags.RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE,
+				WilderBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE,
 				Heightmap.Types.OCEAN_FLOOR_WG
 			)
 		);
 
-		SCORCHED_RED_SAND_DISK_LIGHTNING.makeAndSetHolder(FrozenFeatures.FADING_DISK_FEATURE,
-			new FadingDiskFeatureConfig(
+		SCORCHED_RED_SAND_DISK_LIGHTNING.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
+			new FadingDiskTagFeatureConfig(
 				false,
 				BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(RegisterProperties.CRACKED, true)),
 				BlockStateProvider.simple(RegisterBlocks.SCORCHED_RED_SAND.defaultBlockState()),
@@ -755,14 +725,8 @@ public final class WilderMiscConfigured {
 				0.925F,
 				0.55F,
 				0.8F,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WilderBlockTags.RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE
-				),
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK.holderOwner(),
-					WilderBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE
-				),
+				WilderBlockTags.RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE,
+				WilderBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE,
 				Heightmap.Types.OCEAN_FLOOR_WG
 			)
 		);
