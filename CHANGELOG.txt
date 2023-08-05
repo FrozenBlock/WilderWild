@@ -5,3 +5,5 @@ Make sure to clear this after each release
 What's new:
 -----------------
 - Fixed compatibility with Sodium 0.5.0
+- Fixed Cypress Boat and Cypress Chest Boat placement in the Creative Inventory
+- Moved custom boats to after the Bamboo rafts

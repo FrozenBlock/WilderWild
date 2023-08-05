@@ -169,11 +169,11 @@ public final class RegisterItems {
 	public static void registerItems() {
 		WilderSharedConstants.logWild("Registering Items for", WilderSharedConstants.UNSTABLE_LOGGING);
 		//BOATS
-		registerItemAfter(Items.MANGROVE_CHEST_BOAT, BAOBAB_BOAT_ITEM, "baobab_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerItemAfter(Items.BAMBOO_CHEST_RAFT, BAOBAB_BOAT_ITEM, "baobab_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItemAfter(BAOBAB_BOAT_ITEM, BAOBAB_CHEST_BOAT_ITEM, "baobab_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItemAfter(BAOBAB_CHEST_BOAT_ITEM, CYPRESS_CHEST_BOAT_ITEM, "cypress_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItemAfter(CYPRESS_CHEST_BOAT_ITEM, CYPRESS_BOAT_ITEM, "cypress_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItemAfter(CYPRESS_BOAT_ITEM, PALM_BOAT_ITEM, "palm_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerItemAfter(BAOBAB_CHEST_BOAT_ITEM, CYPRESS_BOAT_ITEM, "cypress_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerItemAfter(CYPRESS_BOAT_ITEM, CYPRESS_CHEST_BOAT_ITEM, "cypress_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerItemAfter(CYPRESS_CHEST_BOAT_ITEM, PALM_BOAT_ITEM, "palm_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItemAfter(PALM_BOAT_ITEM, PALM_CHEST_BOAT_ITEM, "palm_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
 
 		registerItemBefore(Items.INK_SAC, MILKWEED_POD, "milkweed_pod", CreativeModeTabs.INGREDIENTS);
