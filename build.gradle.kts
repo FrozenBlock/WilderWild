@@ -262,8 +262,7 @@ dependencies {
     implementation("com.github.llamalad7.mixinextras:mixinextras-fabric:0.2.0-beta.9")?.let { annotationProcessor(it); }
 
     // Sodium
-    modCompileOnly("maven.modrinth:sodium:${sodium_version}")
-    modCompileOnly("org.anarres:jcpp:1.4.14")
+    modImplementation("maven.modrinth:sodium:${sodium_version}")
 
     // FallingLeaves
     modCompileOnly("maven.modrinth:fallingleaves:${fallingleaves_version}")
