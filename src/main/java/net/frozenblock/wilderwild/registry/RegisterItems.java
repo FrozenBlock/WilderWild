@@ -169,7 +169,7 @@ public final class RegisterItems {
 	public static void registerItems() {
 		WilderSharedConstants.logWild("Registering Items for", WilderSharedConstants.UNSTABLE_LOGGING);
 		//BOATS
-		registerItemAfter(Items.BAMBOO_CHEST_RAFT, BAOBAB_BOAT_ITEM, "baobab_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerItemAfter(Items.MANGROVE_CHEST_BOAT, BAOBAB_BOAT_ITEM, "baobab_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItemAfter(BAOBAB_BOAT_ITEM, BAOBAB_CHEST_BOAT_ITEM, "baobab_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItemAfter(BAOBAB_CHEST_BOAT_ITEM, CYPRESS_BOAT_ITEM, "cypress_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItemAfter(CYPRESS_BOAT_ITEM, CYPRESS_CHEST_BOAT_ITEM, "cypress_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
