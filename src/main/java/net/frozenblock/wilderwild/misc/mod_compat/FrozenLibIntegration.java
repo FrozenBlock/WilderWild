@@ -47,6 +47,7 @@ import static net.frozenblock.wilderwild.registry.RegisterBlocks.*;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.InstrumentItem;
@@ -83,8 +84,8 @@ public class FrozenLibIntegration extends ModIntegration {
 	public void init() {
 		WilderSharedConstants.log("FrozenLib mod integration ran!", WilderSharedConstants.UNSTABLE_LOGGING);
 		SpottingIconPredicate.register(WilderSharedConstants.id("stella"), entity -> entity.hasCustomName() && entity.getCustomName().getString().equalsIgnoreCase("stella"));
-		SoundPredicate.register(WilderSharedConstants.id("instrument"), (SoundPredicate.LoopPredicate<Player>) player ->
-			(player.getUseItem().getItem() instanceof InstrumentItem)
+		SoundPredicate.register(WilderSharedConstants.id("instrument"), (SoundPredicate.LoopPredicate<LivingEntity>) entity ->
+			(entity.getUseItem().getItem() instanceof InstrumentItem)
 		);
 		SoundPredicate.register(WilderSharedConstants.id("nectar"), (SoundPredicate.LoopPredicate<Firefly>) entity ->
 			!entity.isSilent() && entity.hasCustomName() && Objects.requireNonNull(entity.getCustomName()).getString().toLowerCase().contains("nectar")
