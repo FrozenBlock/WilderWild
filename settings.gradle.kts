@@ -35,7 +35,7 @@ fun localRepository(repo: String, dependencySub: String, kotlin: Boolean) {
 
     val github = System.getenv("GITHUB_ACTIONS") == "true"
 
-    val allowLocalRepoUse = true
+    val allowLocalRepoUse = false
     val allowLocalRepoInConsoleMode = true
 
     val androidInjectedInvokedFromIde by extra("android.injected.invoked.from.ide")
