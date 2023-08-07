@@ -235,19 +235,19 @@ dependencies {
     }
 
     // Simple Copper Pipes
-    modApi("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
+    modCompileOnlyApi("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
 
     // Mod Menu
-    modImplementation("com.terraformersmc:modmenu:$modmenu_version")
+    modCompileOnly("com.terraformersmc:modmenu:$modmenu_version")
 
     // Cloth Config
-    modImplementation("me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version") {
+    modCompileOnly("me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version") {
         exclude(group = "net.fabricmc.fabric-api")
         exclude(group = "com.terraformersmc")
     }
 
     // NBT Crafting
-    modApi("com.github.Treetrain1:nbt-crafting:jitpack-1.20-SNAPSHOT")?.let { include(it) }
+    modApi("com.github.Treetrain1:nbt-crafting:jitpack-1.20.2-SNAPSHOT")?.let { include(it) }
 
     // TerraBlender
     modCompileOnlyApi("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
@@ -262,7 +262,7 @@ dependencies {
     implementation("com.github.llamalad7.mixinextras:mixinextras-fabric:0.2.0-beta.9")?.let { annotationProcessor(it); }
 
     // Sodium
-    modImplementation("maven.modrinth:sodium:${sodium_version}")
+    modCompileOnly("maven.modrinth:sodium:${sodium_version}")
 
     // FallingLeaves
     modCompileOnly("maven.modrinth:fallingleaves:${fallingleaves_version}")
@@ -319,7 +319,7 @@ tasks {
         val properties = HashMap<String, Any>()
         properties["mod_id"] = mod_id
         properties["version"] = version
-        properties["minecraft_version"] = "~$minecraft_version-"
+        properties["minecraft_version"] = "~1.20.2-"
 
         properties.forEach { (a, b) -> inputs.property(a, b) }
 
