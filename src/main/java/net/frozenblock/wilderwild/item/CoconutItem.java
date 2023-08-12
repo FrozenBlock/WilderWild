@@ -39,6 +39,7 @@ public class CoconutItem extends BlockItem {
 		super(block, properties);
 	}
 
+	@Override
 	public InteractionResult useOn(UseOnContext context) {
 		InteractionResult interactionResult = super.useOn(context);
 		if (interactionResult == InteractionResult.FAIL) {
