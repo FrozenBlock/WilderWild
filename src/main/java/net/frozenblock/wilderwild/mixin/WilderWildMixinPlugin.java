@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.mixin;
 import java.util.List;
 import java.util.Set;
 import net.frozenblock.lib.FrozenBools;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.misc.WilderPreMixinInjectConstants;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.tree.ClassNode;
@@ -51,13 +51,13 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 			return !FrozenBools.HAS_SODIUM;
 		}
 		if (mixinClassName.contains("fallingleaves")) {
-			return WilderSharedConstants.HAS_FALLINGLEAVES;
+			return WilderPreMixinInjectConstants.HAS_FALLINGLEAVES;
 		}
 		if (mixinClassName.contains("makebubblespop")) {
-			return WilderSharedConstants.HAS_MAKEBUBBLESPOP;
+			return WilderPreMixinInjectConstants.HAS_MAKEBUBBLESPOP;
 		}
 		if (mixinClassName.contains("particlerain")) {
-			return WilderSharedConstants.HAS_PARTICLERAIN;
+			return WilderPreMixinInjectConstants.HAS_PARTICLERAIN;
 		}
 		return true;
 	}
