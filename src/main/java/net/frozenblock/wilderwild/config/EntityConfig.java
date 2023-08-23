@@ -87,7 +87,8 @@ public final class EntityConfig {
 	public static class TumbleweedConfig {
 		public int tumbleweedSpawnCap = DefaultEntityConfig.TumbleweedConfig.TUMBLEWEED_SPAWN_CAP;
 		public boolean leashedTumbleweed = DefaultEntityConfig.TumbleweedConfig.LEASHED_TUMBLEWEED;
-		public boolean tumbleweedRotatesToLookDirection = DefaultEntityConfig.TumbleweedConfig.LEASHED_TUMBLEWEED;
+		public boolean tumbleweedDestroysCrops = DefaultEntityConfig.TumbleweedConfig.TUMBLEWEED_DESTROYS_CROPS;
+		public boolean tumbleweedRotatesToLookDirection = DefaultEntityConfig.TumbleweedConfig.TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION;
 	}
 
 	public static class WardenConfig {
