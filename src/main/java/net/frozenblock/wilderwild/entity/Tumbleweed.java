@@ -185,7 +185,9 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		}
 		this.isTouchingStoppingBlock = false;
 		if (!this.level().isClientSide && this.getFeetBlockState().is(BlockTags.CROPS) && this.level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !this.onGround()) {
-			this.level().destroyBlock(this.blockPosition(), true, this);
+			if (EntityConfig.get().tumbleweed.tumbleweedDestroysCrops) {
+				this.level().destroyBlock(this.blockPosition(), true, this);
+			}
 		}
 		super.tick();
 		Vec3 deltaPos = this.getDeltaPos();
