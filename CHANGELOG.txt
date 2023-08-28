@@ -12,3 +12,4 @@ What's new:
 - Marked versions of Sodium prior to 0.5.0 as incompatible with Wilder Wild.
 - Fixed Mixins to the Component class not being applied due to Wilder Wild loading the class prior to injection.
 - Updated russian translation - Clarthen
+- Updated embedded FrozenLib to 1.3.7
