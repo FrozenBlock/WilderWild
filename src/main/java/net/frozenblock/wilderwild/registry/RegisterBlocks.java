@@ -956,6 +956,7 @@ public final class RegisterBlocks {
 		registry.add(RegisterItems.PALM_BOAT_ITEM, 1200);
 		registry.add(RegisterItems.PALM_CHEST_BOAT_ITEM, 1200);
 		registry.add(PALM_LOG.asItem(), 300);
+		registry.add(PALM_CROWN.asItem(), 300);
 		registry.add(STRIPPED_PALM_LOG.asItem(), 300);
 		registry.add(PALM_WOOD.asItem(), 300);
 		registry.add(STRIPPED_PALM_WOOD.asItem(), 300);
