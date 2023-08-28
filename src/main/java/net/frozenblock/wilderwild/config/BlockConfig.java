@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
+import net.frozenblock.lib.config.api.instance.json.JsonType;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.wilderwild.config.defaults.DefaultBlockConfig;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.MOD_ID;
@@ -33,7 +34,7 @@ public final class BlockConfig {
 			MOD_ID,
 			BlockConfig.class,
 			configPath("block", true),
-			true
+			JsonType.JSON5
 		)
 	);
 
