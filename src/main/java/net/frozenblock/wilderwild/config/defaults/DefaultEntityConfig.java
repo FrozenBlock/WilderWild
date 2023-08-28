@@ -43,6 +43,7 @@ public final class DefaultEntityConfig {
 	public static final class TumbleweedConfig {
 		public static final int TUMBLEWEED_SPAWN_CAP = 10;
 		public static final boolean LEASHED_TUMBLEWEED = false;
+		public static final boolean TUMBLEWEED_DESTROYS_CROPS = true;
 		public static final boolean TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION = false;
 	}
 

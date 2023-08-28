@@ -128,6 +128,12 @@ public final class EntityConfigGui {
 			.setTooltip(tooltip("leashed_tumbleweed"))
 			.build();
 
+		var tumbleweedDestroysCrops = entryBuilder.startBooleanToggle(text("tumbleweed_destroys_crops"), tumbleweed.tumbleweedDestroysCrops)
+			.setDefaultValue(DefaultEntityConfig.TumbleweedConfig.TUMBLEWEED_DESTROYS_CROPS)
+			.setSaveConsumer(newValue -> tumbleweed.tumbleweedDestroysCrops = newValue)
+			.setTooltip(tooltip("tumbleweed_destroys_crops"))
+			.build();
+
 		var tumbleweedRotatesToLookDirection = entryBuilder.startBooleanToggle(text("tumbleweed_rotates_to_look_direction"), tumbleweed.tumbleweedRotatesToLookDirection)
 			.setDefaultValue(DefaultEntityConfig.TumbleweedConfig.TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION)
 			.setSaveConsumer(newValue -> tumbleweed.tumbleweedRotatesToLookDirection = newValue)
@@ -139,6 +145,7 @@ public final class EntityConfigGui {
 			tooltip("tumbleweed"),
 			tumbleweedSpawnCap,
 			leashedTumbleweed,
+			tumbleweedDestroysCrops,
 			tumbleweedRotatesToLookDirection
 		);
 
