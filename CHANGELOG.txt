@@ -4,5 +4,6 @@ Make sure to clear this after each release
 
 What's new:
 -----------------
+- Palm Crowns can now be used as fuel in smelting
 - Updated russian translation - Clarthen
 - Improved compatibility with the mod's stripped logs and stripped logs
