@@ -4,4 +4,11 @@ Make sure to clear this after each release
 
 What's new:
 -----------------
-- Updated to 23w31a
+- Coconuts can now be thrown if they can't be placed while aimed at a block.
+- Coconuts can now be split in Stonecutters.
+- Palm Crowns can now be used as fuel in smelting
+- Added a config option to prevent Tumbleweed from destroying crops.
+- Added Stripped Wood and Stripped Logs to conventional tags (stripped_logs and stripped_wood.)
+- Marked versions of Sodium prior to 0.5.0 as incompatible with Wilder Wild.
+- Fixed Mixins to the Component class not being applied due to Wilder Wild loading the class prior to injection.
+- Updated russian translation - Clarthen

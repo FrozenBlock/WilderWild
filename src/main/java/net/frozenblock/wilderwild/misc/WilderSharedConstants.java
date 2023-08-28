@@ -37,9 +37,6 @@ public class WilderSharedConstants {
 	public static final int DATA_VERSION = 15;
 	// MEASURING
 	public static final Map<Object, Long> INSTANT_MAP = new Object2ObjectOpenHashMap<>();
-	public static final boolean HAS_FALLINGLEAVES = FabricLoader.getInstance().isModLoaded("fallingleaves");
-	public static final boolean HAS_MAKEBUBBLESPOP = FabricLoader.getInstance().isModLoaded("make_bubbles_pop");
-	public static final boolean HAS_PARTICLERAIN = FabricLoader.getInstance().isModLoaded("particlerain");
 	/**
 	 * Used for features that may be unstable and crash in public builds.
 	 * <p>
