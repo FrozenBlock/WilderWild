@@ -18,26 +18,36 @@
 
 package net.frozenblock.wilderwild.mixin.server.mesoglea_column;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import java.util.Optional;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BubbleColumnBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import java.util.Optional;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(BubbleColumnBlock.class)
-public class BubbleColumnBlockMixin {
+public abstract class BubbleColumnBlockMixin extends Block {
 
-	@Inject(method = "tick", at = @At("HEAD"))
+	public BubbleColumnBlockMixin(Properties properties) {
+		super(properties);
+	}
+
+	@Inject(method = "tick", at = @At("TAIL"))
 	public void wilderWild$tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
 		MesogleaBlock.updateColumn(level, pos.above(), state);
 	}
@@ -55,6 +65,42 @@ public class BubbleColumnBlockMixin {
 		if (MesogleaBlock.hasBubbleColumn(neighborState)) {
 			level.scheduleTick(pos, BubbleColumnBlock.class.cast(this), 5);
 		}
+	}
+
+	@ModifyExpressionValue(
+		method = "updateColumn(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;)V",
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/BubbleColumnBlock;canExistIn(Lnet/minecraft/world/level/block/state/BlockState;)Z", ordinal = 1)
+	)
+	private static boolean wilderWild$updateColumnBooleanTweak(boolean original) {
+		return true;
+	}
+
+	@Inject(
+		method = "updateColumn(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;)V",
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/LevelAccessor;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z", ordinal = 1, shift = At.Shift.BEFORE),
+		cancellable = true,
+		locals = LocalCapture.CAPTURE_FAILHARD
+	)
+	private static void wilderWild$updateColumnIfStatement(LevelAccessor level, BlockPos pos, BlockState fluid, BlockState state, CallbackInfo info, BlockState columnState, BlockPos.MutableBlockPos mutableBlockPos) {
+		BlockState mutableState = level.getBlockState(mutableBlockPos);
+		if (!canExistIn(mutableState)) {
+			if (MesogleaBlock.isColumnSupportingMesoglea(mutableState)) {
+				MesogleaBlock.updateColumn(level, mutableBlockPos, state);
+				info.cancel();
+			} else {
+				info.cancel();
+			}
+		}
+	}
+
+	@Override
+	public void neighborChanged(BlockState state, @NotNull Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
+		level.scheduleTick(pos, this, 5);
+	}
+
+	@Shadow
+	private static boolean canExistIn(BlockState blockState) {
+		throw new AssertionError("Mixin injection failed - Wilder Wild BubbleColumnBlockMixin.");
 	}
 
 }
