@@ -47,6 +47,9 @@ public final class BlockConfig {
 	@CollapsibleObject
 	public final TermiteConfig termite = new TermiteConfig();
 
+	@CollapsibleObject
+	public final MesogleaConfig mesoglea = new MesogleaConfig();
+
 	public boolean shriekerGargling = DefaultBlockConfig.SHRIEKER_GARGLING;
 
 	public boolean soulFireSounds = DefaultBlockConfig.SOUL_FIRE_SOUNDS;
@@ -54,8 +57,6 @@ public final class BlockConfig {
 	public boolean billboardTendrils = DefaultBlockConfig.BILLBOARD_TENDRILS;
 
 	public boolean tendrilsCarryEvents = DefaultBlockConfig.TENDRILS_CARRY_EVENTS;
-
-	public boolean mesogleaLiquid = DefaultBlockConfig.MESOGLEA_LIQUID;
 
 	public boolean pollenParticles = DefaultBlockConfig.POLLEN_PARTICLES;
 
@@ -119,5 +120,10 @@ public final class BlockConfig {
 		public boolean onlyEatNaturalBlocks = DefaultBlockConfig.TermiteConfig.ONLY_EAT_NATURAL_BLOCKS;
 		public int maxDistance = DefaultBlockConfig.TermiteConfig.MAX_DISTANCE;
 		public int maxNaturalDistance = DefaultBlockConfig.TermiteConfig.MAX_NATURAL_DISTANCE;
+	}
+
+	public static class MesogleaConfig {
+		public boolean mesogleaLiquid = DefaultBlockConfig.MesogleaConfig.MESOGLEA_LIQUID;
+		public boolean mesogleaBubbleColumns = DefaultBlockConfig.MesogleaConfig.MESOGLEA_BUBBLE_COLUMNS;
 	}
 }

@@ -65,12 +65,6 @@ public final class BlockConfigGui {
 			.setTooltip(tooltip("tendrils_carry_events"))
 			.build()
 		);
-		var mesogleaLiquid = category.addEntry(entryBuilder.startBooleanToggle(text("mesoglea_liquid"), config.mesogleaLiquid)
-			.setDefaultValue(DefaultBlockConfig.MESOGLEA_LIQUID)
-			.setSaveConsumer(newValue -> config.mesogleaLiquid = newValue)
-			.setTooltip(tooltip("mesoglea_liquid"))
-			.build()
-		);
 		var pollenParticles = category.addEntry(entryBuilder.startBooleanToggle(text("pollen_particles"), config.pollenParticles)
 			.setDefaultValue(DefaultBlockConfig.POLLEN_PARTICLES)
 			.setSaveConsumer(newValue -> config.pollenParticles = newValue)
@@ -199,6 +193,24 @@ public final class BlockConfigGui {
 			flowerSounds, saplingSounds, gravelSounds, iceSounds, frostedIceSounds, leafSounds,
 			lilyPadSounds, mushroomBlockSounds, podzolSounds, reinforcedDeepslateSounds,
 			sugarCaneSounds, witherRoseSounds, sandstoneSounds
+		);
+
+		var mesogleaLiquid = entryBuilder.startBooleanToggle(text("mesoglea_liquid"), config.mesoglea.mesogleaLiquid)
+			.setDefaultValue(DefaultBlockConfig.MesogleaConfig.MESOGLEA_LIQUID)
+			.setSaveConsumer(newValue -> config.mesoglea.mesogleaLiquid = newValue)
+			.setTooltip(tooltip("mesoglea_liquid"))
+			.build();
+
+		var mesogleaBubbleColumns = entryBuilder.startBooleanToggle(text("mesoglea_bubble_columns"), config.mesoglea.mesogleaBubbleColumns)
+			.setDefaultValue(DefaultBlockConfig.MesogleaConfig.MESOGLEA_BUBBLE_COLUMNS)
+			.setSaveConsumer(newValue -> config.mesoglea.mesogleaBubbleColumns = newValue)
+			.setTooltip(tooltip("mesoglea_bubble_columns"))
+			.build();
+
+		var mesogleaCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("mesoglea"),
+			false,
+			tooltip("mesoglea"),
+			mesogleaBubbleColumns, mesogleaLiquid
 		);
 
 		var termitesOnlyEatNaturalBlocks = entryBuilder.startBooleanToggle(text("termites_only_eat_natural_blocks"), termite.onlyEatNaturalBlocks)
