@@ -4,4 +4,5 @@ Make sure to clear this after each release
 
 What's new:
 -----------------
+- Added Mesoglea Bubble Columns.
 - Axes no longer attempt to interact with every block, which previously prevented interaction with offhand items.

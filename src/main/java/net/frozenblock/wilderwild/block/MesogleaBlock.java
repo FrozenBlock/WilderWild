@@ -153,9 +153,9 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 									shape = Shapes.or(shape, FrozenShapes.makePlaneFromDirection(direction, 0.25F));
 								}
 							}
-							return shape;
 						}
 					}
+					return shape;
 				}
 			}
 			for (Direction direction : Direction.values()) {
