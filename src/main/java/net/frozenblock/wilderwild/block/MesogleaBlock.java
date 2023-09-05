@@ -272,10 +272,8 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 						return;
 					}
 					mutableBlockPos.move(Direction.UP);
-				} else if (mutableState.is(Blocks.WATER)) {
-					BubbleColumnBlock.updateColumn(level, mutableBlockPos, state);
-					return;
 				} else {
+					BubbleColumnBlock.updateColumn(level, mutableBlockPos, state);
 					return;
 				}
 			}

@@ -93,12 +93,8 @@ public abstract class BubbleColumnBlockMixin extends Block {
 		if (BlockConfig.get().mesoglea.mesogleaBubbleColumns) {
 			BlockState mutableState = level.getBlockState(mutableBlockPos);
 			if (!canExistIn(mutableState)) {
-				if (MesogleaBlock.isColumnSupportingMesoglea(mutableState)) {
-					MesogleaBlock.updateColumn(level, mutableBlockPos, state);
-					info.cancel();
-				} else {
-					info.cancel();
-				}
+				MesogleaBlock.updateColumn(level, mutableBlockPos, state);
+				info.cancel();
 			}
 		}
 	}
