@@ -207,6 +207,9 @@ public abstract class SculkBlockMixin {
 
 	@ModifyArgs(method = "attemptUseCharge", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/LevelAccessor;playSound(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/BlockPos;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V"))
 	private void wilderWild$newSounds(Args args) {
+		if(this.wilderWild$placedState == null) {
+			return;
+		}
 		args.set(1, this.wilderWild$placedPos);
 		SoundType soundType = this.wilderWild$placedState.getSoundType();
 		args.set(2, soundType.getPlaceSound());
