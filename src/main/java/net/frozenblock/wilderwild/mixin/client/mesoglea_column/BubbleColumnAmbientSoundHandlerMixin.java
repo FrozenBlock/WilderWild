@@ -44,7 +44,7 @@ public class BubbleColumnAmbientSoundHandlerMixin {
 	}
 
 	@WrapOperation(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;getValue(Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/lang/Comparable;", ordinal = 0))
-	private static boolean wilderWild$blockStateValueCheckWithMesoglea(BlockState state, Property<?> property, Operation<Boolean> operation) {
+	private static Comparable<Boolean> wilderWild$blockStateValueCheckWithMesoglea(BlockState state, Property<?> property, Operation<Comparable<Boolean>> operation) {
 		return state.hasProperty(BubbleColumnBlock.DRAG_DOWN) ? operation.call(state, property) : MesogleaBlock.isDraggingDown(state);
 	}
 
