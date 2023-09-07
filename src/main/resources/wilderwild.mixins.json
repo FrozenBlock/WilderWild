@@ -91,6 +91,7 @@
     "client.general.LevelRendererMixin",
     "client.general.LiquidBlockRendererMixin",
     "client.general.SuspendedParticleMixin",
+    "client.mesoglea_column.BubbleColumnAmbientSoundHandlerMixin",
     "client.warden.WardenAnimationOverwrites",
     "client.warden.WardenModelMixin",
     "client.wind.BaseAshSmokeParticleMixin",

@@ -128,6 +128,10 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 		return isColumnSupportingMesoglea(blockState) && blockState.getValue(BUBBLE_DIRECTION) != BubbleDirection.NONE;
 	}
 
+	public static boolean isDraggingDown(BlockState blockState) {
+		return isColumnSupportingMesoglea(blockState) && blockState.getValue(BUBBLE_DIRECTION) == BubbleDirection.DOWN;
+	}
+
 	public static Optional<Direction> getDragDirection(BlockState blockState) {
 		return isColumnSupportingMesoglea(blockState) ? blockState.getValue(BUBBLE_DIRECTION).direction : Optional.empty();
 	}
