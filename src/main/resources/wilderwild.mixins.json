@@ -41,7 +41,6 @@
     "server.general.SlimeMixin",
     "server.general.SpawnPlacementsMixin",
     "server.general.TurtleMixin",
-    "server.general.makebubblespop.BlockInteractHandlerMixin",
     "server.mesoglea_column.BlockBehaviourMixin",
     "server.mesoglea_column.BreathAirGoalMixin",
     "server.mesoglea_column.BubbleColumnBlockMixin",

@@ -8,3 +8,4 @@ What's new:
 - Axes no longer attempt to interact with every block, which previously prevented interaction with offhand items.
 - Sodium now properly renders Mesoglea with the liquid rendering option enabled.
 - Stone chests can no longer be interacted with via the Fabric Transfer API.
+- Removed changes to the Make Bubbles Pop mod as it switched strictly to mixins.
