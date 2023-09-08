@@ -27,6 +27,8 @@ import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.frozenblock.lib.axe.api.AxeBehaviors;
 import net.frozenblock.lib.block.api.FrozenCeilingHangingSignBlock;
 import net.frozenblock.lib.block.api.FrozenSignBlock;
@@ -34,6 +36,7 @@ import net.frozenblock.lib.block.api.FrozenWallHangingSignBlock;
 import net.frozenblock.lib.block.api.FrozenWallSignBlock;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
 import net.frozenblock.lib.item.api.bonemeal.BonemealBehaviors;
+import net.frozenblock.lib.storage.api.NoInteractionStorage;
 import net.frozenblock.wilderwild.block.AlgaeBlock;
 import net.frozenblock.wilderwild.block.BaobabLeaves;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
@@ -764,6 +767,7 @@ public final class RegisterBlocks {
 		registerFuels();
 		registerBonemeal();
 		registerAxe();
+		registerInventories();
 	}
 
 	private static void registerStrippable() {
@@ -1077,4 +1081,7 @@ public final class RegisterBlocks {
 			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.STRIPPED_HOLLOWED_PALM_LOG, false));
 	}
 
+	private static void registerInventories() {
+		ItemStorage.SIDED.registerForBlocks((level, pos, state, blockEntity, direction) -> new NoInteractionStorage<ItemVariant>(), STONE_CHEST);
+	}
 }
