@@ -40,7 +40,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.CompoundContainer;
 import net.minecraft.world.Container;
-import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.ItemStack;
@@ -55,7 +54,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class StoneChestBlockEntity extends ChestBlockEntity implements WorldlyContainer {
+public class StoneChestBlockEntity extends ChestBlockEntity {
 	private final ContainerOpenersCounter stoneStateManager = new ContainerOpenersCounter() {
 
 		@Override
@@ -302,21 +301,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity implements WorldlyCo
 			}
 		}
 		return items;
-	}
-
-	@Override
-	public int[] getSlotsForFace(Direction side) {
-		return new int[0];
-	}
-
-	@Override
-	public boolean canPlaceItemThroughFace(int index, ItemStack itemStack, @Nullable Direction direction) {
-		return false;
-	}
-
-	@Override
-	public boolean canTakeItemThroughFace(int index, ItemStack stack, Direction direction) {
-		return false;
 	}
 
 }
