@@ -21,8 +21,6 @@ package net.frozenblock.wilderwild.block.entity;
 import java.util.ArrayList;
 import java.util.Objects;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
-import net.frozenblock.lib.storage.api.NoInteractionStorage;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
 import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
@@ -56,7 +54,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class StoneChestBlockEntity extends ChestBlockEntity implements NoInteractionStorage<ItemVariant> {
+public class StoneChestBlockEntity extends ChestBlockEntity {
 	private final ContainerOpenersCounter stoneStateManager = new ContainerOpenersCounter() {
 
 		@Override
