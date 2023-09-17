@@ -216,11 +216,11 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		this.prevRoll = this.roll;
 		this.prevTumble = this.tumble;
 		float yRotAmount = (float) ((Math.abs(deltaPos.y) * 0.5F) * rotationAmount);
-		this.pitch -= deltaPos.z * rotationAmount;
-		this.roll -= deltaPos.x * rotationAmount;
+		this.pitch -= (float) (deltaPos.z * rotationAmount);
+		this.roll -= (float) (deltaPos.x * rotationAmount);
 		this.pitch += yRotAmount;
 		this.roll += yRotAmount;
-		this.tumble += ((Math.abs(deltaPos.z) + Math.abs(deltaPos.x) + (Math.abs(deltaPos.x) * 0.5F)) * 0.5F) * rotationAmount;
+		this.tumble += (float) (((Math.abs(deltaPos.z) + Math.abs(deltaPos.x) + (Math.abs(deltaPos.x) * 0.5F)) * 0.5F) * rotationAmount);
 		if (this.pitch > 360F) {
 			this.pitch -= 360F;
 			this.prevPitch -= 360F;
