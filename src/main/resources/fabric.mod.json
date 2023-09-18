@@ -67,8 +67,7 @@
     "java": ">=17"
   },
   "breaks": {
-    "quilted_fabric_api": "4.0.0-beta.8",
-    "sodium": "<0.5.0"
+    "quilted_fabric_api": "4.0.0-beta.8"
   },
   "suggests": {
     "cloth-config": "*",
