@@ -45,7 +45,7 @@ val mod_loader: String by project
 val maven_group: String by project
 val archives_base_name: String by project
 
-val fabric_version: String by project
+val fabric_api_version: String by project
 val fabric_asm_version: String by project
 val frozenlib_version: String by project
 
@@ -225,7 +225,7 @@ dependencies {
     modImplementation("net.fabricmc:fabric-loader:$loader_version")
 
     // Fabric API. This is technically optional, but you probably want it anyway.
-    modImplementation("net.fabricmc.fabric-api:fabric-api:$fabric_version")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:$fabric_api_version")
 
     // FrozenLib
     if (local_frozenlib) {
@@ -320,6 +320,10 @@ tasks {
         properties["mod_id"] = mod_id
         properties["version"] = version
         properties["minecraft_version"] = "~1.20.2-"
+
+        properties["fabric_loader_version"] = ">=$loader_version"
+        properties["fabric_api_version"] = ">=$fabric_api_version"
+        properties["frozenlib_version"] = ">=${frozenlib_version.split('-').first}-"
 
         properties.forEach { (a, b) -> inputs.property(a, b) }
 

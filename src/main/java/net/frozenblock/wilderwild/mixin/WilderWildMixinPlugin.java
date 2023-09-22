@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.mixin;
 
 import java.util.List;
 import java.util.Set;
+import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.wilderwild.misc.WilderPreMixinInjectConstants;
 import org.jetbrains.annotations.NotNull;
@@ -45,7 +46,7 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 	@Override
 	public boolean shouldApplyMixin(String targetClassName, @NotNull String mixinClassName) {
 		if (mixinClassName.contains("sodium")) {
-			return FrozenBools.HAS_SODIUM;
+			return FrozenBools.HAS_SODIUM && FabricLoader.getInstance().getModContainer("sodium").orElseThrow().getMetadata().getVersion().getFriendlyString().contains("0.5.");
 		}
 		if (mixinClassName.contains("LiquidBlockRenderer") || mixinClassName.contains("CloudRenderer") || mixinClassName.contains("EntityRenderDispatcher")) {
 			return !FrozenBools.HAS_SODIUM;
