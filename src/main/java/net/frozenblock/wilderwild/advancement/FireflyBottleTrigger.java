@@ -33,14 +33,6 @@ import java.util.Optional;
 
 public class FireflyBottleTrigger extends SimpleCriterionTrigger<FireflyBottleTrigger.TriggerInstance> {
 
-	public static final ResourceLocation ID = WilderSharedConstants.id("firefly_bottle");
-
-	@Override
-	@NotNull
-	public ResourceLocation getId() {
-		return ID;
-	}
-
 	@Override
 	@NotNull
 	public TriggerInstance createInstance(@NotNull JsonObject jsonObject, @NotNull Optional<ContextAwarePredicate> contextAwarePredicate, @NotNull DeserializationContext deserializationContext) {
@@ -57,7 +49,7 @@ public class FireflyBottleTrigger extends SimpleCriterionTrigger<FireflyBottleTr
 		private final Optional<ItemPredicate> item;
 
 		public TriggerInstance(@NotNull Optional<ItemPredicate> item, @NotNull Optional<ContextAwarePredicate> contextAwarePredicate) {
-			super(ID, contextAwarePredicate);
+			super(contextAwarePredicate);
 			this.item = item;
 		}
 
