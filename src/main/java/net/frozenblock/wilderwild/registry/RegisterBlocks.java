@@ -148,11 +148,11 @@ public final class RegisterBlocks {
 	public static final FlowerPotBlock POTTED_CYPRESS_SAPLING = new FlowerPotBlock(RegisterBlocks.CYPRESS_SAPLING, FabricBlockSettings.create().breakInstantly().nonOpaque().pushReaction(PushReaction.DESTROY));
 	public static final CoconutBlock COCONUT = new CoconutBlock(FabricBlockSettings.create().breakInstantly().ticksRandomly().sounds(RegisterBlockSoundTypes.COCONUT));
 	public static final FlowerPotBlock POTTED_COCONUT = new FlowerPotBlock(RegisterBlocks.COCONUT, FabricBlockSettings.create().breakInstantly().nonOpaque().pushReaction(PushReaction.DESTROY));
-	public static final BaobabLeaves BAOBAB_LEAVES = new BaobabLeaves(FabricBlockSettings.create().mapColor(MapColor.COLOR_GREEN).strength(0.2F).ticksRandomly().sounds(SoundType.GRASS).nonOpaque().allowsSpawning(Blocks::ocelotOrParrot).suffocates(Blocks::never).blockVision(Blocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY));
-	public static final LeavesBlock CYPRESS_LEAVES = new LeavesBlock(FabricBlockSettings.create().mapColor(MapColor.COLOR_GREEN).strength(0.2F).ticksRandomly().sounds(SoundType.GRASS).nonOpaque().allowsSpawning(Blocks::ocelotOrParrot).suffocates(Blocks::never).blockVision(Blocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY));
-	public static final PalmFrondsBlock PALM_FRONDS = new PalmFrondsBlock(FabricBlockSettings.create().mapColor(MapColor.COLOR_GREEN).strength(0.2F).ticksRandomly().sounds(SoundType.GRASS).nonOpaque().allowsSpawning(Blocks::ocelotOrParrot).suffocates(Blocks::never).blockVision(Blocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY));
+	public static final BaobabLeaves BAOBAB_LEAVES = new BaobabLeaves(FabricBlockSettings.create().mapColor(MapColor.PLANT).strength(0.2f).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(Blocks::ocelotOrParrot).isSuffocating(Blocks::never).isViewBlocking(Blocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(Blocks::never));
+	public static final LeavesBlock CYPRESS_LEAVES = Blocks.leaves(SoundType.GRASS);
+	public static final PalmFrondsBlock PALM_FRONDS = new PalmFrondsBlock(FabricBlockSettings.create().mapColor(MapColor.PLANT).strength(0.2f).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(Blocks::ocelotOrParrot).isSuffocating(Blocks::never).isViewBlocking(Blocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(Blocks::never));
 	public static final HollowedLogBlock HOLLOWED_OAK_LOG = createHollowedLogBlock(MapColor.WOOD, MapColor.PODZOL);
-	public static final HollowedLogBlock HOLLOWED_SPRUCE_LOG = createHollowedLogBlock(MapColor.PODZOL, MapColor.COLOR_BROWN);
+	public static final HollowedLogBlock HOLLOWED_SPRUCE_LOG =  createHollowedLogBlock(MapColor.PODZOL, MapColor.COLOR_BROWN);
 	public static final HollowedLogBlock HOLLOWED_BIRCH_LOG = createHollowedLogBlock(MapColor.SAND, MapColor.QUARTZ);
 	public static final HollowedLogBlock HOLLOWED_JUNGLE_LOG = createHollowedLogBlock(MapColor.DIRT, MapColor.PODZOL);
 	public static final HollowedLogBlock HOLLOWED_ACACIA_LOG = createHollowedLogBlock(MapColor.COLOR_ORANGE, MapColor.STONE);
