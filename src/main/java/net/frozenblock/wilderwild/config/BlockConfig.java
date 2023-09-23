@@ -50,6 +50,7 @@ public final class BlockConfig {
 	@CollapsibleObject
 	public final MesogleaConfig mesoglea = new MesogleaConfig();
 
+
 	public boolean shriekerGargling = DefaultBlockConfig.SHRIEKER_GARGLING;
 
 	public boolean soulFireSounds = DefaultBlockConfig.SOUL_FIRE_SOUNDS;
@@ -59,6 +60,8 @@ public final class BlockConfig {
 	public boolean tendrilsCarryEvents = DefaultBlockConfig.TENDRILS_CARRY_EVENTS;
 
 	public boolean pollenParticles = DefaultBlockConfig.POLLEN_PARTICLES;
+
+	public boolean logHollowing = DefaultBlockConfig.LOG_HOLLOWING;
 
 	public boolean cactusPlacement = DefaultBlockConfig.CACTUS_PLACEMENT;
 

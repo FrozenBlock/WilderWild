@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.block;
 
+import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -87,7 +88,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 	}
 
 	public static boolean hollow(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Direction face, @NotNull Block result, boolean isStem) {
-		if (!level.isClientSide && state.hasProperty(BlockStateProperties.AXIS) && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
+		if (BlockConfig.get().logHollowing && !level.isClientSide && state.hasProperty(BlockStateProperties.AXIS) && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
 			HollowedLogBlock.hollowEffects(level, face, state, pos, isStem);
 			level.setBlockAndUpdate(pos, result.withPropertiesOf(state));
 			return true;

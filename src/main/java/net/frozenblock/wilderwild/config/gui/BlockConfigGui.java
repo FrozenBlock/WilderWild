@@ -71,6 +71,12 @@ public final class BlockConfigGui {
 			.setTooltip(tooltip("pollen_particles"))
 			.build()
 		);
+		var logHollowing = category.addEntry(entryBuilder.startBooleanToggle(text("log_hollowing"), config.logHollowing)
+			.setDefaultValue(DefaultBlockConfig.LOG_HOLLOWING)
+			.setSaveConsumer(newValue -> config.logHollowing = newValue)
+			.setTooltip(tooltip("log_hollowing"))
+			.build()
+		);
 		var cactusPlacement = category.addEntry(entryBuilder.startBooleanToggle(text("cactus_placement"), config.cactusPlacement)
 			.setDefaultValue(DefaultBlockConfig.CACTUS_PLACEMENT)
 			.setSaveConsumer(newValue -> config.cactusPlacement = newValue)

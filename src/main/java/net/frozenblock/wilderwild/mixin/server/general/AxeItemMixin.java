@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.server.general;
 
+import net.frozenblock.wilderwild.config.BlockConfig;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.context.UseOnContext;
@@ -33,7 +34,7 @@ public class AxeItemMixin {
 
 	@Inject(method = "useOn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z", ordinal = 0, shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
 	public void useOn(UseOnContext context, CallbackInfoReturnable<InteractionResult> info, Level level) {
-		if (level.isClientSide) {
+		if (level.isClientSide && BlockConfig.get().logHollowing) {
 			info.setReturnValue(InteractionResult.sidedSuccess(true));
 		}
 	}
