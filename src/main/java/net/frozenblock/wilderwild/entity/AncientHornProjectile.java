@@ -50,7 +50,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.common.ClientCommonPacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -628,7 +628,7 @@ public class AncientHornProjectile extends AbstractArrow {
 	}
 
 	public static class EntitySpawnPacket { //When the Fabric tutorial WORKS!!!!! BOM BOM BOM BOM BOM BOM BOM, BOBOBOM! DUNDUN!
-		public static Packet<ClientGamePacketListener> create(@NotNull Entity entity, @NotNull ResourceLocation packetID) {
+		public static Packet<ClientCommonPacketListener> create(@NotNull Entity entity, @NotNull ResourceLocation packetID) {
 			if (entity.level().isClientSide)
 				throw new IllegalStateException("SpawnPacketUtil.create called on the logical client!");
 			FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
