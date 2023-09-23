@@ -62,21 +62,21 @@ public class PalmTrunkPlacer extends TrunkPlacer {
 		int i = freeTreeHeight - random.nextInt(4) - 1;
 		int j = 4 - random.nextInt(3);
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-		int k = pos.getX();
-		int l = pos.getZ();
+		double x = pos.getX();
+		double z = pos.getZ();
 		OptionalInt optionalInt = OptionalInt.empty();
 		for (int m = 0; m < freeTreeHeight; ++m) {
 			n = pos.getY() + m;
 			if (m >= i && j > 0) {
-				k += offset.x();
-				l += offset.z();
+				x += offset.x();
+				z += offset.z();
 				--j;
 			}
-			if (!this.placeLog(level, blockSetter, random, mutableBlockPos.set(k, n, l), config)) continue;
+			if (!this.placeLog(level, blockSetter, random, mutableBlockPos.set(x, n, z), config)) continue;
 			optionalInt = OptionalInt.of(n + 1);
 		}
 		if (optionalInt.isPresent()) {
-			list.add(new FoliagePlacer.FoliageAttachment(new BlockPos(k, optionalInt.getAsInt(), l), 1, false));
+			list.add(new FoliagePlacer.FoliageAttachment(BlockPos.containing(x, optionalInt.getAsInt(), z), 1, false));
 		}
 		return list;
 	}

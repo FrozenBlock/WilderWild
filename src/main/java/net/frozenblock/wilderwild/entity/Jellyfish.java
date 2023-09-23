@@ -324,10 +324,10 @@ public class Jellyfish extends NoFlopAbstractFish {
 			this.heal(0.02F);
 			Vec3 vec3 = this.getDeltaMovement();
 			if (vec3.horizontalDistance() > 0.005) {
-				this.yBodyRot += (-(Mth.atan2(vec3.x, vec3.z)) * 57.295776F - this.yBodyRot) * 0.1F;
+				this.yBodyRot += (float) ((-(Mth.atan2(vec3.x, vec3.z)) * 57.295776F - this.yBodyRot) * 0.1F);
 				this.setYRot(this.yBodyRot);
 			}
-			this.xBodyRot += (-(Mth.atan2(vec3.horizontalDistance(), vec3.y)) * 57.295776F - this.xBodyRot) * 0.1F;
+			this.xBodyRot += (float) ((-(Mth.atan2(vec3.horizontalDistance(), vec3.y)) * 57.295776F - this.xBodyRot) * 0.1F);
 		} else {
 			this.xBodyRot += (-90.0F - this.xBodyRot) * 0.02F;
 		}

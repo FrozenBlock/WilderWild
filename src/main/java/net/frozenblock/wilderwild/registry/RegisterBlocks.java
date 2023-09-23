@@ -1082,6 +1082,6 @@ public final class RegisterBlocks {
 	}
 
 	private static void registerInventories() {
-		ItemStorage.SIDED.registerForBlocks((level, pos, state, blockEntity, direction) -> new NoInteractionStorage<ItemVariant>(), STONE_CHEST);
+		ItemStorage.SIDED.registerForBlocks((level, pos, state, blockEntity, direction) -> new NoInteractionStorage<>(), STONE_CHEST);
 	}
 }

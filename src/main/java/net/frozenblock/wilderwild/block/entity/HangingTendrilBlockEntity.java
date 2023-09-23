@@ -203,11 +203,12 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		}
 
 		@Override
-		public boolean canReceiveVibration(@NotNull ServerLevel world, @NotNull BlockPos pos, @NotNull GameEvent gameEvent, @Nullable GameEvent.Context context) {
+		public boolean canReceiveVibration(@NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull GameEvent gameEvent, @Nullable GameEvent.Context context) {
 			if (pos.equals(this.blockPos) && (gameEvent == GameEvent.BLOCK_DESTROY || gameEvent == GameEvent.BLOCK_PLACE)) {
 				return false;
 			}
-			return HangingTendrilBlock.canActivate(HangingTendrilBlockEntity.this.getBlockState()) && !HangingTendrilBlockEntity.this.getBlockState().getValue(HangingTendrilBlock.WRINGING_OUT);
+			BlockState state = level.getBlockState(HangingTendrilBlockEntity.this.getBlockPos());
+			return state.getBlock() instanceof HangingTendrilBlock && HangingTendrilBlock.canActivate(state) && !state.getValue(HangingTendrilBlock.WRINGING_OUT);
 		}
 
 		@Override
