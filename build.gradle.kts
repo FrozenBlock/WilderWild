@@ -46,6 +46,7 @@ val maven_group: String by project
 val archives_base_name: String by project
 
 val fabric_api_version: String by project
+val mixin_extras_version: String by project
 val fabric_asm_version: String by project
 val frozenlib_version: String by project
 
@@ -256,7 +257,7 @@ dependencies {
     modCompileOnly("maven.modrinth:particle-rain:v2.0.5")
 
     // MixinExtras
-    implementation("com.github.llamalad7.mixinextras:mixinextras-fabric:0.2.0-beta.9")?.let { annotationProcessor(it); }
+    implementation("com.github.llamalad7.mixinextras:mixinextras-fabric:$mixin_extras_version")?.let { annotationProcessor(it); }
 
     // Sodium
     modImplementation("maven.modrinth:sodium:${sodium_version}")
