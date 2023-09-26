@@ -34,7 +34,7 @@ public class EntityTypeMixin {
 		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z", ordinal = 0, shift = At.Shift.BEFORE),
 		cancellable = true
 	)
-	private static void wilderWild$isBlockDangerousWithPricklyPear(BlockState state, CallbackInfoReturnable<Boolean> info) {
+	private void wilderWild$isBlockDangerousWithPricklyPear(BlockState state, CallbackInfoReturnable<Boolean> info) {
 		if (state.is(RegisterBlocks.PRICKLY_PEAR_CACTUS)) {
 			info.setReturnValue(true);
 		}
