@@ -548,7 +548,6 @@ curseforge {
             optionalDependency("terrablender-fabric")
             optionalDependency("simple-copper-pipes")
             embeddedLibrary("frozenlib")
-            embeddedLibrary("nbt-crafting")
         })
         mainArtifact(remapJar, closureOf<CurseArtifact> {
             displayName = display_name
