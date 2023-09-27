@@ -22,7 +22,6 @@ buildscript {
 
 plugins {
     id("fabric-loom") version("+")
-    id("io.github.juuxel.loom-vineflower") version("+")
     id("org.quiltmc.gradle.licenser") version("+")
     id("org.ajoberstar.grgit") version("+")
     id("com.modrinth.minotaur") version("+")
@@ -46,6 +45,7 @@ val maven_group: String by project
 val archives_base_name: String by project
 
 val fabric_api_version: String by project
+val mixin_extras_version: String by project
 val fabric_asm_version: String by project
 val frozenlib_version: String by project
 
@@ -259,7 +259,7 @@ dependencies {
     modCompileOnly("maven.modrinth:particle-rain:v2.0.5")
 
     // MixinExtras
-    implementation("com.github.llamalad7.mixinextras:mixinextras-fabric:0.2.0-beta.9")?.let { annotationProcessor(it); }
+    implementation("com.github.llamalad7.mixinextras:mixinextras-fabric:$mixin_extras_version")?.let { annotationProcessor(it); }
 
     // Sodium
     modCompileOnly("maven.modrinth:sodium:${sodium_version}")
@@ -323,7 +323,7 @@ tasks {
 
         properties["fabric_loader_version"] = ">=$loader_version"
         properties["fabric_api_version"] = ">=$fabric_api_version"
-        properties["frozenlib_version"] = ">=${frozenlib_version.split('-').first}-"
+        properties["frozenlib_version"] = ">=${frozenlib_version.split('-').first()}-"
 
         properties.forEach { (a, b) -> inputs.property(a, b) }
 
