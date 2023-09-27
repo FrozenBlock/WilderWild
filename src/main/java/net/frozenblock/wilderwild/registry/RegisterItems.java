@@ -33,6 +33,7 @@ import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.item.MilkweedPod;
 import net.frozenblock.wilderwild.misc.WilderEnumValues;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.misc.recipe.CopperHornRecipe;
 import net.frozenblock.wilderwild.tag.WilderInstrumentTags;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -48,6 +49,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Instrument;
+import net.minecraft.world.item.Instruments;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -57,12 +59,19 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 
 public final class RegisterItems {
+
+	// RECIPE SERIALIZERS
+	public static final RecipeSerializer<CopperHornRecipe> COPPER_HORN_CRAFTING = registerSerializer("crafting_copper_horn", new SimpleCraftingRecipeSerializer(CopperHornRecipe::new));
+
 	// BLOCK ITEMS
 	public static final BlockItem BAOBAB_NUT = new BlockItem(RegisterBlocks.BAOBAB_NUT, new FabricItemSettings().food(RegisterFood.BAOBAB_NUT));
 	public static final SignItem BAOBAB_SIGN = new SignItem(new FabricItemSettings().maxCount(16),
@@ -236,6 +245,14 @@ public final class RegisterItems {
 		CompostingChanceRegistry.INSTANCE.add(MILKWEED_POD, 0.25F);
 		CompostingChanceRegistry.INSTANCE.add(SPLIT_COCONUT, 0.15F);
 		CompostingChanceRegistry.INSTANCE.add(COCONUT, 0.3F);
+
+		CopperHornRecipe.INSTRUMENT_TO_COPPER_INSTRUMENT_MAP.put(BuiltInRegistries.INSTRUMENT.get(Instruments.DREAM_GOAT_HORN), BuiltInRegistries.INSTRUMENT.get(CLARINET_COPPER_HORN));
+		CopperHornRecipe.INSTRUMENT_TO_COPPER_INSTRUMENT_MAP.put(BuiltInRegistries.INSTRUMENT.get(Instruments.CALL_GOAT_HORN), BuiltInRegistries.INSTRUMENT.get(FLUTE_COPPER_HORN));
+		CopperHornRecipe.INSTRUMENT_TO_COPPER_INSTRUMENT_MAP.put(BuiltInRegistries.INSTRUMENT.get(Instruments.SING_GOAT_HORN), BuiltInRegistries.INSTRUMENT.get(OBOE_COPPER_HORN));
+		CopperHornRecipe.INSTRUMENT_TO_COPPER_INSTRUMENT_MAP.put(BuiltInRegistries.INSTRUMENT.get(Instruments.PONDER_GOAT_HORN), BuiltInRegistries.INSTRUMENT.get(SAX_COPPER_HORN));
+		CopperHornRecipe.INSTRUMENT_TO_COPPER_INSTRUMENT_MAP.put(BuiltInRegistries.INSTRUMENT.get(Instruments.SEEK_GOAT_HORN), BuiltInRegistries.INSTRUMENT.get(TROMBONE_COPPER_HORN));
+		CopperHornRecipe.INSTRUMENT_TO_COPPER_INSTRUMENT_MAP.put(BuiltInRegistries.INSTRUMENT.get(Instruments.ADMIRE_GOAT_HORN), BuiltInRegistries.INSTRUMENT.get(TRUMPET_COPPER_HORN));
+		CopperHornRecipe.INSTRUMENT_TO_COPPER_INSTRUMENT_MAP.put(BuiltInRegistries.INSTRUMENT.get(Instruments.FEEL_GOAT_HORN), BuiltInRegistries.INSTRUMENT.get(TUBA_COPPER_HORN));
 	}
 
 	@SafeVarargs
@@ -276,5 +293,9 @@ public final class RegisterItems {
 		if (BuiltInRegistries.ITEM.getOptional(WilderSharedConstants.id(path)).isEmpty()) {
 			Registry.register(BuiltInRegistries.ITEM, WilderSharedConstants.id(path), item);
 		}
+	}
+
+	private static <S extends RecipeSerializer<T>, T extends Recipe<?>> @NotNull S registerSerializer(String key, S recipeSerializer) {
+		return Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, WilderSharedConstants.id(key), recipeSerializer);
 	}
 }

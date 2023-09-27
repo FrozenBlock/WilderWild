@@ -1,25 +1,30 @@
 package net.frozenblock.wilderwild.misc.recipe;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import net.frozenblock.wilderwild.registry.RegisterItems;
+import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.Instrument;
+import net.minecraft.world.item.InstrumentItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.MapItem;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
+import org.jetbrains.annotations.NotNull;
 
-public class CopperHornRecipe
-	extends ShapedRecipe {
+public class CopperHornRecipe extends ShapedRecipe {
 
-	public CopperHornRecipe(ResourceLocation id, CraftingBookCategory category) {
-		super(id, "", category, 3, 3, NonNullList.of(Ingredient.EMPTY, new Ingredient[]{Ingredient.of(Items.PAPER), Ingredient.of(Items.PAPER), Ingredient.of(Items.PAPER), Ingredient.of(Items.PAPER), Ingredient.of(Items.FILLED_MAP), Ingredient.of(Items.PAPER), Ingredient.of(Items.PAPER), Ingredient.of(Items.PAPER), Ingredient.of(Items.PAPER)}), new ItemStack(Items.MAP));
+	public static final Map<Instrument, Instrument> INSTRUMENT_TO_COPPER_INSTRUMENT_MAP = new HashMap<>();
+
+	public CopperHornRecipe(CraftingBookCategory category) {
+		super("", category, 3, 2, NonNullList.of(Ingredient.EMPTY, new Ingredient[]{Ingredient.of(Items.COPPER_INGOT), Ingredient.of(Items.GOAT_HORN), Ingredient.of(Items.COPPER_INGOT), Ingredient.of(Items.AIR), Ingredient.of(Items.COPPER_INGOT), Ingredient.of(Items.AIR)}), new ItemStack(RegisterItems.COPPER_HORN));
 	}
 
 	@Override
@@ -27,41 +32,36 @@ public class CopperHornRecipe
 		if (!super.matches(inv, level)) {
 			return false;
 		}
-		ItemStack itemStack = MapExtendingRecipe.findFilledMap(inv);
+
+		ItemStack itemStack = findGoatHorn(inv);
 		if (itemStack.isEmpty()) {
 			return false;
 		}
-		MapItemSavedData mapItemSavedData = MapItem.getSavedData(itemStack, level);
-		if (mapItemSavedData == null) {
-			return false;
+
+		if (itemStack.getItem() instanceof InstrumentItem instrumentItem) {
+			return instrumentItem.getInstrument(itemStack).filter(instrumentHolder -> INSTRUMENT_TO_COPPER_INSTRUMENT_MAP.containsKey(instrumentHolder.value())).isPresent();
 		}
-		if (mapItemSavedData.isExplorationMap()) {
-			return false;
-		}
-		return mapItemSavedData.scale < 4;
+		return false;
 	}
 
 	@Override
 	public ItemStack assemble(CraftingContainer container, RegistryAccess registryAccess) {
-		ItemStack itemStack = MapExtendingRecipe.findFilledMap(container).copyWithCount(1);
-		itemStack.getOrCreateTag().putInt("map_scale_direction", 1);
-		ItemStack stack = super.assemble(container, registryAccess);
-		if (stack.getTag() != null) {
-			CompoundTag instrumentTag = stack.getTag().getCompound("Instrument");
-			String stringValue = property.getName();
-			if (stateTag.contains(stringValue)) {
-				return property.getValue(stateTag.getString(stringValue)).orElse(defaultValue);
-			}
+		ItemStack goatHorn = findGoatHorn(container);
+		Optional<? extends Holder<Instrument>> optionalInstrument;
+		if (goatHorn.getItem() instanceof InstrumentItem instrumentItem && (optionalInstrument = instrumentItem.getInstrument(goatHorn)).isPresent()) {
+			return InstrumentItem.create(super.assemble(container, registryAccess).getItem(), optionalInstrument.get());
 		}
 		return super.assemble(container, registryAccess);
 	}
 
-	private static ItemStack findFilledMap(CraftingContainer container) {
-		for (int i = 0; i < container.getContainerSize(); ++i) {
+	private static ItemStack findGoatHorn(@NotNull CraftingContainer container) {
+		for(int i = 0; i < container.getContainerSize(); ++i) {
 			ItemStack itemStack = container.getItem(i);
-			if (!itemStack.is(Items.FILLED_MAP)) continue;
-			return itemStack;
+			if (itemStack.is(Items.GOAT_HORN)) {
+				return itemStack;
+			}
 		}
+
 		return ItemStack.EMPTY;
 	}
 
@@ -72,7 +72,7 @@ public class CopperHornRecipe
 
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return RecipeSerializer.MAP_EXTENDING;
+		return RegisterItems.COPPER_HORN_CRAFTING;
 	}
 }
 
