@@ -26,7 +26,7 @@ public class CopperHornRecipe extends ShapedRecipe {
 	public static final Map<ResourceKey<Instrument>, ResourceKey<Instrument>> INSTRUMENT_TO_COPPER_INSTRUMENT_MAP = new HashMap<>();
 
 	public CopperHornRecipe(CraftingBookCategory category) {
-		super("", category, 3, 2, NonNullList.of(Ingredient.EMPTY, Ingredient.of(Items.COPPER_INGOT), Ingredient.of(Items.GOAT_HORN), Ingredient.of(Items.COPPER_INGOT), Ingredient.of(Items.AIR), Ingredient.of(Items.COPPER_INGOT), Ingredient.of(Items.AIR)), new ItemStack(RegisterItems.COPPER_HORN));
+		super("wilderwild_copper_horn", category, 3, 2, NonNullList.of(Ingredient.EMPTY, Ingredient.of(Items.COPPER_INGOT), Ingredient.of(Items.GOAT_HORN), Ingredient.of(Items.COPPER_INGOT), Ingredient.of(Items.AIR), Ingredient.of(Items.COPPER_INGOT), Ingredient.of(Items.AIR)), new ItemStack(RegisterItems.COPPER_HORN));
 	}
 
 	@Override
