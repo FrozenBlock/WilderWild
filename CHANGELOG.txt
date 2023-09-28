@@ -6,6 +6,7 @@ What's new:
 -----------------
 - Added Mesoglea Bubble Columns.
 - Axes no longer attempt to interact with every block, which previously prevented interaction with offhand items.
+- Hopefully fixed Hanging Tendrils crashing while using C2ME during world generation. Please report this issue to us if it persists.
 - Sodium now properly renders Mesoglea with the liquid rendering option enabled.
 - Prickly Pears are now accounted for as "dangerous blocks" when pathfinding, just like regular Cacti.
 - Removed changes to the Make Bubbles Pop mod as it switched strictly to mixins.
