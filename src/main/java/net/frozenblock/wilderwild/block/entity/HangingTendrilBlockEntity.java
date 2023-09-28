@@ -110,6 +110,14 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		}
 	}
 
+	public int getStoredXP() {
+		return this.storedXP;
+	}
+
+	public void setStoredXP(int i) {
+		this.storedXP = i;
+	}
+
 	@Override
 	public ClientboundBlockEntityDataPacket getUpdatePacket() {
 		return ClientboundBlockEntityDataPacket.create(this);
