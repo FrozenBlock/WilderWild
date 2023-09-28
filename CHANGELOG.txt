@@ -7,9 +7,8 @@ What's new:
 - Added Mesoglea Bubble Columns.
 - Axes no longer attempt to interact with every block, which previously prevented interaction with offhand items.
 - Sodium now properly renders Mesoglea with the liquid rendering option enabled.
-- Stone chests can no longer be interacted with via the Fabric Transfer API.
 - Prickly Pears are now accounted for as "dangerous blocks" when pathfinding, just like regular Cacti.
 - Removed changes to the Make Bubbles Pop mod as it switched strictly to mixins.
 - Wilder Wild's leaves now use the same color as Vanilla's leaves on the map.
 - Small Sponges now use Vanilla's Sponge sounds as opposed to Wet Grass sounds.
-- Removed embedded Nbt Crafting
+- Removed embedded Nbt Crafting as it became too difficult to maintain. This has been replaced in favor of a custom recipe type for Copper Horns.
