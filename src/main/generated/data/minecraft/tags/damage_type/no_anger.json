@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "wilderwild:tumbleweed"
+    "wilderwild:tumbleweed",
+    "wilderwild:prickly_pear"
   ]
 }

@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.misc;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -50,7 +49,6 @@ import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.resources.ResourceKey;
@@ -2049,7 +2047,20 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 		@Override
 		public void addTags(@NotNull HolderLookup.Provider arg) {
 			this.getOrCreateTagBuilder(DamageTypeTags.NO_ANGER)
-				.add(RegisterDamageTypes.TUMBLEWEED);
+				.add(RegisterDamageTypes.TUMBLEWEED)
+				.add(RegisterDamageTypes.PRICKLY_PEAR);
+
+			this.getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ARMOR)
+				.add(RegisterDamageTypes.ANCIENT_HORN);
+
+			this.getOrCreateTagBuilder(DamageTypeTags.BYPASSES_EFFECTS)
+				.add(RegisterDamageTypes.PRICKLY_PEAR);
+
+			this.getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ENCHANTMENTS)
+				.add(RegisterDamageTypes.ANCIENT_HORN);
+
+			this.getOrCreateTagBuilder(DamageTypeTags.WITCH_RESISTANT_TO)
+				.add(RegisterDamageTypes.ANCIENT_HORN);
 		}
 	}
 

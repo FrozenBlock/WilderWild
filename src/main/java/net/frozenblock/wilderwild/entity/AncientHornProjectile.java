@@ -224,8 +224,9 @@ public class AncientHornProjectile extends AbstractArrow {
 						shouldDamage = false;
 					}
 					int uuid = entity.getUUID().hashCode();
-					if (this.hitEntities.contains(uuid))
+					if (this.hitEntities.contains(uuid)) {
 						shouldDamage = false;
+					}
 					if (shouldDamage) {
 						this.hitEntities.add(uuid);
 						this.hitEntity(entity);
@@ -278,25 +279,20 @@ public class AncientHornProjectile extends AbstractArrow {
 	}
 
 	public void setCooldown(int cooldownTicks) {
-		Entity owner = this.getOwner();
-		if (owner != null) {
-			if (owner instanceof Player user) {
-				user.getCooldowns().addCooldown(RegisterItems.ANCIENT_HORN, cooldownTicks);
-			}
+		if (this.getOwner() instanceof ServerPlayer user) {
+			user.getCooldowns().addCooldown(RegisterItems.ANCIENT_HORN, cooldownTicks);
 		}
 	}
 
 	public void addCooldown(int cooldownTicks) {
-		Entity owner = this.getOwner();
-		if (owner instanceof Player user && !user.isCreative()) {
+		if (this.getOwner() instanceof ServerPlayer user && !user.isCreative()) {
 			ItemCooldowns manager = user.getCooldowns();
 			ItemCooldowns.CooldownInstance entry = manager.cooldowns.get(RegisterItems.ANCIENT_HORN);
 			if (entry != null) {
-				int cooldown = (entry.endTime - entry.startTime) + cooldownTicks;
 				manager.removeCooldown(RegisterItems.ANCIENT_HORN);
-				manager.addCooldown(RegisterItems.ANCIENT_HORN, Math.min(600, cooldown));
+				manager.addCooldown(RegisterItems.ANCIENT_HORN, (entry.endTime - entry.startTime) + cooldownTicks);
 			} else {
-				manager.addCooldown(RegisterItems.ANCIENT_HORN, Math.min(600, cooldownTicks));
+				manager.addCooldown(RegisterItems.ANCIENT_HORN, cooldownTicks);
 			}
 		}
 	}
@@ -545,17 +541,19 @@ public class AncientHornProjectile extends AbstractArrow {
 	}
 
 	private void hitEntity(@NotNull Entity entity) {
+		WilderSharedConstants.log("FIRST", WilderSharedConstants.UNSTABLE_LOGGING);
 		try (Level level = this.level()) {
 			float damage = this.getDamage(entity);
 			Entity owner = this.getOwner();
+			WilderSharedConstants.log("SECOND", WilderSharedConstants.UNSTABLE_LOGGING);
 			if (entity != owner) {
 				DamageSource damageSource;
 				if (owner == null) {
 					damageSource = this.damageSources().source(RegisterDamageTypes.ANCIENT_HORN, this, this);
 				} else {
 					damageSource = this.damageSources().source(RegisterDamageTypes.ANCIENT_HORN, this, owner);
-					if (owner instanceof LivingEntity) {
-						((LivingEntity) owner).setLastHurtMob(entity);
+					if (owner instanceof LivingEntity livingEntity) {
+						livingEntity.setLastHurtMob(entity);
 					}
 				}
 				int fireTicks = entity.getRemainingFireTicks();
@@ -569,18 +567,14 @@ public class AncientHornProjectile extends AbstractArrow {
 				} else if (!entity.getType().is(WilderEntityTags.ANCIENT_HORN_IMMUNE)) {
 					if (entity.hurt(damageSource, damage)) {
 						if (entity instanceof LivingEntity livingEntity) {
-							if (!level.isClientSide && owner instanceof LivingEntity) {
-								EnchantmentHelper.doPostHurtEffects(livingEntity, owner);
-								EnchantmentHelper.doPostDamageEffects((LivingEntity) owner, livingEntity);
+							if (!level.isClientSide && owner instanceof LivingEntity livingOwner) {
+								EnchantmentHelper.doPostHurtEffects(livingEntity, livingOwner);
+								EnchantmentHelper.doPostDamageEffects(livingOwner, livingEntity);
 							}
 							this.doPostHurtEffects(livingEntity);
 							if (livingEntity.isDeadOrDying() && level instanceof ServerLevel server) {
 								server.sendParticles(ParticleTypes.SCULK_SOUL, livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ(), 1, 0.2D, 0.0D, 0.2D, 0.0D);
-								if (this.getOwner() != null) {
-									if (this.getOwner() instanceof ServerPlayer) {
-										addCooldown(livingEntity.getExperienceReward() * 10);
-									}
-								}
+								addCooldown(livingEntity.getExperienceReward() * 10);
 							}
 						}
 						this.playSound(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE, 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
