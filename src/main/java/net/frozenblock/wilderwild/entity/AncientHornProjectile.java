@@ -143,11 +143,7 @@ public class AncientHornProjectile extends AbstractArrow {
 	}
 
 	public List<Entity> collidingEntities() {
-		try (Level level = this.level()) {
-			return level.getEntities(this, this.getBoundingBox().expandTowards(this.getDeltaMovement()).inflate(1.0D), this::canHitEntity);
-		} catch (IOException ignored) {
-			return Collections.emptyList();
-		}
+		return this.level().getEntities(this, this.getBoundingBox().expandTowards(this.getDeltaMovement()).inflate(1.0D), this::canHitEntity);
 	}
 
 	@Override
@@ -541,57 +537,54 @@ public class AncientHornProjectile extends AbstractArrow {
 	}
 
 	private void hitEntity(@NotNull Entity entity) {
-		WilderSharedConstants.log("FIRST", WilderSharedConstants.UNSTABLE_LOGGING);
-		try (Level level = this.level()) {
-			float damage = this.getDamage(entity);
-			Entity owner = this.getOwner();
-			WilderSharedConstants.log("SECOND", WilderSharedConstants.UNSTABLE_LOGGING);
-			if (entity != owner) {
-				DamageSource damageSource;
-				if (owner == null) {
-					damageSource = this.damageSources().source(RegisterDamageTypes.ANCIENT_HORN, this, this);
-				} else {
-					damageSource = this.damageSources().source(RegisterDamageTypes.ANCIENT_HORN, this, owner);
-					if (owner instanceof LivingEntity livingEntity) {
-						livingEntity.setLastHurtMob(entity);
-					}
+		Level level = this.level();
+		float damage = this.getDamage(entity);
+		Entity owner = this.getOwner();
+		if (entity != owner) {
+			DamageSource damageSource;
+			if (owner == null) {
+				damageSource = this.damageSources().source(RegisterDamageTypes.ANCIENT_HORN, this, this);
+			} else {
+				damageSource = this.damageSources().source(RegisterDamageTypes.ANCIENT_HORN, this, owner);
+				if (owner instanceof LivingEntity livingEntity) {
+					livingEntity.setLastHurtMob(entity);
 				}
-				int fireTicks = entity.getRemainingFireTicks();
-				if (this.isOnFire()) {
-					entity.setSecondsOnFire(5);
-				}
-				if (entity instanceof Warden warden && owner != null && canInteract()) {
-					warden.increaseAngerAt(owner, AngerLevel.ANGRY.getMinimumAnger() + 20, true);
-					warden.playSound(SoundEvents.WARDEN_TENDRIL_CLICKS, 5.0F, warden.getVoicePitch());
-					this.discard();
-				} else if (!entity.getType().is(WilderEntityTags.ANCIENT_HORN_IMMUNE)) {
-					if (entity.hurt(damageSource, damage)) {
-						if (entity instanceof LivingEntity livingEntity) {
-							if (!level.isClientSide && owner instanceof LivingEntity livingOwner) {
-								EnchantmentHelper.doPostHurtEffects(livingEntity, livingOwner);
-								EnchantmentHelper.doPostDamageEffects(livingOwner, livingEntity);
-							}
-							this.doPostHurtEffects(livingEntity);
-							if (livingEntity.isDeadOrDying() && level instanceof ServerLevel server) {
-								server.sendParticles(ParticleTypes.SCULK_SOUL, livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ(), 1, 0.2D, 0.0D, 0.2D, 0.0D);
-								addCooldown(livingEntity.getExperienceReward() * 10);
-							}
+			}
+			int fireTicks = entity.getRemainingFireTicks();
+			if (this.isOnFire()) {
+				entity.setSecondsOnFire(5);
+			}
+			if (entity instanceof Warden warden && owner != null && canInteract()) {
+				warden.increaseAngerAt(owner, AngerLevel.ANGRY.getMinimumAnger() + 20, true);
+				warden.playSound(SoundEvents.WARDEN_TENDRIL_CLICKS, 5.0F, warden.getVoicePitch());
+				this.discard();
+			} else if (!entity.getType().is(WilderEntityTags.ANCIENT_HORN_IMMUNE)) {
+				if (entity.hurt(damageSource, damage)) {
+					if (entity instanceof LivingEntity livingEntity) {
+						if (!level.isClientSide && owner instanceof LivingEntity livingOwner) {
+							EnchantmentHelper.doPostHurtEffects(livingEntity, livingOwner);
+							EnchantmentHelper.doPostDamageEffects(livingOwner, livingEntity);
 						}
-						this.playSound(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE, 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
-					} else {
-						entity.setRemainingFireTicks(fireTicks);
-						if (!level.isClientSide && this.getDeltaMovement().lengthSqr() < 1.0E-7D) {
-							this.discard();
+						this.doPostHurtEffects(livingEntity);
+						if (livingEntity.isDeadOrDying() && level instanceof ServerLevel server) {
+							server.sendParticles(ParticleTypes.SCULK_SOUL, livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ(), 1, 0.2D, 0.0D, 0.2D, 0.0D);
+							addCooldown(livingEntity.getExperienceReward() * 10);
 						}
 					}
+					this.playSound(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE, 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
 				} else {
 					entity.setRemainingFireTicks(fireTicks);
 					if (!level.isClientSide && this.getDeltaMovement().lengthSqr() < 1.0E-7D) {
 						this.discard();
 					}
 				}
+			} else {
+				entity.setRemainingFireTicks(fireTicks);
+				if (!level.isClientSide && this.getDeltaMovement().lengthSqr() < 1.0E-7D) {
+					this.discard();
+				}
 			}
-		} catch (IOException ignored) {}
+		}
 	}
 
 	@Override
