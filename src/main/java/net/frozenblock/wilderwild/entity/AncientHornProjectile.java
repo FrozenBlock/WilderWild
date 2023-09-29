@@ -143,11 +143,7 @@ public class AncientHornProjectile extends AbstractArrow {
 	}
 
 	public List<Entity> collidingEntities() {
-		try (Level level = this.level()) {
-			return level.getEntities(this, this.getBoundingBox().expandTowards(this.getDeltaMovement()).inflate(1.0D), this::canHitEntity);
-		} catch (IOException ignored) {
-			return Collections.emptyList();
-		}
+		return this.level().getEntities(this, this.getBoundingBox().expandTowards(this.getDeltaMovement()).inflate(1.0D), this::canHitEntity);
 	}
 
 	@Override
