@@ -29,6 +29,7 @@ import net.frozenblock.lib.mobcategory.api.entrypoint.FrozenMobCategoryEntrypoin
 import net.frozenblock.lib.mobcategory.impl.FrozenMobCategory;
 import net.frozenblock.wilderwild.block.entity.PalmCrownBlockEntity;
 import net.frozenblock.wilderwild.config.EntityConfig;
+import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.command.SpreadSculkCommand;
@@ -169,9 +170,19 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		TermiteManager.Termite.addNaturalDegradableBlocks();
 
 		RegisterBlocks.registerBlockProperties();
-
-		ServerLifecycleEvents.SERVER_STOPPED.register((server) -> PalmCrownBlockEntity.PalmCrownPositions.clearAll());
-		ServerTickEvents.START_SERVER_TICK.register((listener) -> PalmCrownBlockEntity.PalmCrownPositions.clearAndSwitch());
+		
+		ServerLifecycleEvents.SERVER_STOPPED.register((listener) ->
+			{
+				PalmCrownBlockEntity.PalmCrownPositions.clearAll();
+				Jellyfish.clearLevelToNonPearlescentCount();
+			}
+		);
+		ServerTickEvents.START_SERVER_TICK.register((listener) ->
+			{
+				PalmCrownBlockEntity.PalmCrownPositions.clearAndSwitch();
+				Jellyfish.clearLevelToNonPearlescentCount();
+			}
+		);
 
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> SpreadSculkCommand.register(dispatcher));
 

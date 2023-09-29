@@ -20,7 +20,9 @@ package net.frozenblock.wilderwild.entity;
 
 import com.mojang.serialization.Dynamic;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -107,6 +109,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	private static final EntityDataAccessor<Boolean> CAN_REPRODUCE = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> IS_BABY = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.BOOLEAN);
 	public final TargetingConditions targetingConditions = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().selector(this::canTargetEntity);
+	private static final Map<ServerLevelAccessor, Integer> NON_PEARLESCENT_JELLYFISH_PER_LEVEL = new HashMap<>();
 	public float xBodyRot;
 	public float xRot1;
 	public float xRot2;
@@ -132,12 +135,19 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	public static int getJellyfish(@NotNull ServerLevel level, boolean pearlescent) {
 		AtomicInteger count = new AtomicInteger();
-		level.entityManager.getEntityGetter().getAll().forEach(entity -> {
-			if (entity instanceof Jellyfish jellyfish && (pearlescent ? jellyfish.getVariant().pearlescent() : jellyfish.getVariant().isNormal())) {
-				count.addAndGet(1);
-			}
-		});
+		if (!NON_PEARLESCENT_JELLYFISH_PER_LEVEL.containsKey(level)) {
+			level.entityManager.getEntityGetter().getAll().forEach(entity -> {
+				if (entity instanceof Jellyfish jellyfish && (pearlescent ? jellyfish.getVariant().pearlescent() : jellyfish.getVariant().isNormal())) {
+					count.addAndGet(1);
+				}
+			});
+			NON_PEARLESCENT_JELLYFISH_PER_LEVEL.put(level, count.get());
+		}
 		return count.get();
+	}
+
+	public static void clearLevelToNonPearlescentCount() {
+		NON_PEARLESCENT_JELLYFISH_PER_LEVEL.clear();
 	}
 
 	public static boolean canSpawn(@NotNull EntityType<Jellyfish> type, @NotNull ServerLevelAccessor level, @NotNull MobSpawnType reason, @NotNull BlockPos pos, @NotNull RandomSource random) {
@@ -145,7 +155,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 			return true;
 		}
 		Holder<Biome> biome = level.getBiome(pos);
-		if (!biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH) && getJellyfish(level.getLevel(), false) >= type.getCategory().getMaxInstancesPerChunk() / 3) {
+		if (biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH) || getJellyfish(level.getLevel(), false) >= type.getCategory().getMaxInstancesPerChunk() / 3) {
 			return false;
 		}
 		if (biome.is(WilderBiomeTags.JELLYFISH_SPECIAL_SPAWN)) {
