@@ -13,4 +13,6 @@ What's new:
 - Wilder Wild's leaves now use the same color as Vanilla's leaves on the map.
 - Small Sponges now use Vanilla's Sponge sounds as opposed to Wet Grass sounds.
 - Removed embedded Nbt Crafting as it became too difficult to maintain. This has been replaced in favor of a custom recipe type for Copper Horns.
-- Added new splash texts, because why not.
+- Significantly optimized Jellyfish's getJellyfish method.
+- Fixed Ancient Horns freezing the world.
+- Added new splash texts because why not.
