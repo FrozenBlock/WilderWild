@@ -170,7 +170,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		TermiteManager.Termite.addNaturalDegradableBlocks();
 
 		RegisterBlocks.registerBlockProperties();
-		
+
 		ServerLifecycleEvents.SERVER_STOPPED.register((listener) ->
 			{
 				PalmCrownBlockEntity.PalmCrownPositions.clearAll();

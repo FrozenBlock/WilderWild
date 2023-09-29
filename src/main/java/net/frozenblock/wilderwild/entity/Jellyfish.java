@@ -142,6 +142,8 @@ public class Jellyfish extends NoFlopAbstractFish {
 				}
 			});
 			NON_PEARLESCENT_JELLYFISH_PER_LEVEL.put(level, count.get());
+		} else {
+			count.set(NON_PEARLESCENT_JELLYFISH_PER_LEVEL.get(level));
 		}
 		return count.get();
 	}
