@@ -11,3 +11,5 @@ What's new:
 - Prickly Pears are now accounted for as "dangerous blocks" when pathfinding, just like regular Cacti.
 - Removed changes to the Make Bubbles Pop mod as it switched strictly to mixins.
 - Wilder Wild's leaves now use the same color as Vanilla's leaves on the map.
+- Significantly optimized Jellyfish's getJellyfish method.
+- Added new splash texts because why not.
