@@ -16,7 +16,7 @@ buildscript {
         gradlePluginPortal()
     }
     dependencies {
-        classpath("org.kohsuke:github-api:1.313")
+        classpath("org.kohsuke:github-api:1.316")
     }
 }
 
@@ -54,7 +54,6 @@ val betternether_version: String by project
 val modmenu_version: String by project
 val cloth_config_version: String by project
 val copperpipes_version: String by project
-val nbtcrafting_version: String by project
 val terrablender_version: String by project
 val terralith_version: String by project
 val fallingleaves_version: String by project
@@ -232,19 +231,16 @@ dependencies {
         modApi("maven.modrinth:frozenlib:$frozenlib_version")?.let { include(it) }
 
     // Simple Copper Pipes
-    modApi("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
+    modCompileOnlyApi("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
 
     // Mod Menu
-    modImplementation("com.terraformersmc:modmenu:$modmenu_version")
+    modCompileOnly("com.terraformersmc:modmenu:$modmenu_version")
 
     // Cloth Config
-    modImplementation("me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version") {
+    modCompileOnly("me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version") {
         exclude(group = "net.fabricmc.fabric-api")
         exclude(group = "com.terraformersmc")
     }
-
-    // NBT Crafting
-    modApi("com.github.Treetrain1:nbt-crafting:jitpack-1.20-SNAPSHOT")?.let { include(it) }
 
     // TerraBlender
     modCompileOnlyApi("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
@@ -259,7 +255,7 @@ dependencies {
     implementation("com.github.llamalad7.mixinextras:mixinextras-fabric:$mixin_extras_version")?.let { annotationProcessor(it); }
 
     // Sodium
-    modImplementation("maven.modrinth:sodium:${sodium_version}")
+    modCompileOnly("maven.modrinth:sodium:${sodium_version}")
 
     // FallingLeaves
     modCompileOnly("maven.modrinth:fallingleaves:${fallingleaves_version}")
@@ -313,7 +309,7 @@ tasks {
         val properties = HashMap<String, Any>()
         properties["mod_id"] = mod_id
         properties["version"] = version
-        properties["minecraft_version"] = "~$minecraft_version-"
+        properties["minecraft_version"] = "~1.20.2-"
 
         properties["fabric_loader_version"] = ">=$loader_version"
         properties["fabric_api_version"] = ">=$fabric_api_version"
@@ -545,7 +541,6 @@ curseforge {
             optionalDependency("terrablender-fabric")
             optionalDependency("simple-copper-pipes")
             embeddedLibrary("frozenlib")
-            embeddedLibrary("nbt-crafting")
         })
         mainArtifact(remapJar, closureOf<CurseArtifact> {
             displayName = display_name
@@ -584,7 +579,6 @@ modrinth {
         optional.project("modmenu")
         optional.project("simple-copper-pipes")
         embedded.project("frozenlib")
-        embedded.project("nbt-crafting")
     }
 }
 

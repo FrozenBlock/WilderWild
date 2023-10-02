@@ -76,12 +76,11 @@ import net.frozenblock.wilderwild.entity.ai.TermiteManager;
 import net.frozenblock.wilderwild.misc.FlowerColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.generation.sapling.CypressSaplingGenerator;
-import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
-import net.minecraft.core.PositionImpl;
 import net.minecraft.core.Registry;
 import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
+import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.BlockFamilies;
@@ -229,8 +228,7 @@ public final class RegisterBlocks {
 	public static final ShelfFungusBlock BROWN_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM_BLOCK).luminance(1).ticksRandomly().collidable(false).nonOpaque().sounds(RegisterBlockSoundTypes.MUSHROOM).hasPostProcess(Blocks::always).pushReaction(PushReaction.DESTROY));
 	public static final ShelfFungusBlock RED_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.RED_MUSHROOM_BLOCK).ticksRandomly().collidable(false).nonOpaque().sounds(RegisterBlockSoundTypes.MUSHROOM).hasPostProcess(Blocks::always).pushReaction(PushReaction.DESTROY));
 	public static final PollenBlock POLLEN_BLOCK = new PollenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(BlockBehaviour.OffsetType.NONE).mapColor(MapColor.SAND).sound(RegisterBlockSoundTypes.POLLEN));
-	//TODO: Rename & Sponge Sounds
-	public static final SmallSpongeBlock SMALL_SPONGE = new SmallSpongeBlock(FabricBlockSettings.copyOf(Blocks.SPONGE).strength(0.1F).collidable(false).nonOpaque().sounds(SoundType.WET_GRASS));
+	public static final SmallSpongeBlock SMALL_SPONGE = new SmallSpongeBlock(FabricBlockSettings.copyOf(Blocks.SPONGE).strength(0.1F).collidable(false).nonOpaque().sounds(SoundType.SPONGE));
 	public static final Block NULL_BLOCK = new Block(FabricBlockSettings.copyOf(Blocks.STONE).sounds(RegisterBlockSoundTypes.NULL_BLOCK));
 	public static final DisplayLanternBlock DISPLAY_LANTERN = new DisplayLanternBlock(FabricBlockSettings.create().strength(3.5f).sounds(SoundType.LANTERN).luminance((state) -> state.getValue(RegisterProperties.DISPLAY_LIGHT)).forceSolidOn().pushReaction(PushReaction.DESTROY));
 	private static final MapColor BAOBAB_PLANKS_COLOR = MapColor.COLOR_ORANGE;
@@ -629,16 +627,13 @@ public final class RegisterBlocks {
 			@Override
 			@NotNull
 			public ItemStack execute(@NotNull BlockSource source, @NotNull ItemStack stack) {
-				Level level = source.getLevel();
-				Direction direction = source.getBlockState().getValue(DispenserBlock.FACING);
-				double d = source.x() + (double) direction.getStepX();
-				double e = source.y() + (double) direction.getStepY();
-				double f = source.z() + (double) direction.getStepZ();
-				Position position = new PositionImpl(d, e, f);
+				Level level = source.level();
+				Direction direction = source.state().getValue(DispenserBlock.FACING);
+				Vec3 position = source.center().add(direction.getStepX(), direction.getStepY(), direction.getStepZ());
 				Tumbleweed tumbleweed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
-				Vec3 vec3 = (new Vec3(direction.getStepX(), direction.getStepY() + 0.1, direction.getStepZ())).normalize().add(level.random.triangle(0.0D, 0.0172275D * (double) 6), level.random.triangle(0.0D, 0.0172275D * (double) 6), level.random.triangle(0.0D, 0.0172275D * (double) 6)).scale(1.1);
+				Vec3 vec3 = new Vec3(direction.getStepX(), direction.getStepY() + 0.1, direction.getStepZ()).normalize().add(level.random.triangle(0.0D, 0.0172275D * 6D), level.random.triangle(0.0D, 0.0172275D * 6D), level.random.triangle(0.0D, 0.0172275D * 6D)).scale(1.1);
 				tumbleweed.setDeltaMovement(vec3);
-				tumbleweed.setPos(position.x(), position.y(), position.z());
+				tumbleweed.setPos(position);
 				level.addFreshEntity(tumbleweed);
 				stack.shrink(1);
 				return stack;

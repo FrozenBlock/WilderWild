@@ -8,6 +8,9 @@ on:
 
 jobs:
   qodana:
+    strategy:
+      matrix:
+        java: [ 17 ]
     runs-on: ubuntu-latest
     steps:
       - name: Cache Dependencies

@@ -100,7 +100,7 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
+	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
 		for (Direction offset : AlgaeBlock.shuffleOffsets(AdvancedMath.random())) {
 			BlockPos blockPos = pos.relative(offset);
 			if (level.getBlockState(blockPos).isAir() && this.canSurvive(this.defaultBlockState(), level, blockPos)) {
