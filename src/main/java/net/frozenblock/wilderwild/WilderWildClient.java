@@ -209,7 +209,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		Panoramas.addPanorama(WilderSharedConstants.id("textures/gui/title/second/panorama"));
 		EasterEggs.registerEaster();
 
-		var renderLayerRegistry = BlockRenderLayerMap.INSTANCE;
+		BlockRenderLayerMap renderLayerRegistry = BlockRenderLayerMap.INSTANCE;
 
 		renderLayerRegistry.putBlock(RegisterBlocks.CARNATION, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.SEEDING_DANDELION, RenderType.cutout());
@@ -296,7 +296,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		renderLayerRegistry.putBlock(RegisterBlocks.TUMBLEWEED_PLANT, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.TUMBLEWEED, RenderType.cutout());
 
-		var particleRegistry = ParticleFactoryRegistry.getInstance();
+		ParticleFactoryRegistry particleRegistry = ParticleFactoryRegistry.getInstance();
 
 		particleRegistry.register(RegisterParticles.POLLEN, PollenParticle.PollenFactory::new);
 		particleRegistry.register(RegisterParticles.SEED, SeedParticle.Factory::new);
