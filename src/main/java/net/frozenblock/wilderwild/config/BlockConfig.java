@@ -24,8 +24,8 @@ import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.wilderwild.config.defaults.DefaultBlockConfig;
-import static net.frozenblock.wilderwild.misc.WilderSharedConstants.MOD_ID;
-import static net.frozenblock.wilderwild.misc.WilderSharedConstants.configPath;
+import static net.frozenblock.wilderwild.WilderSharedConstants.MOD_ID;
+import static net.frozenblock.wilderwild.WilderWildConfigUtilsKt.configPath;
 
 public final class BlockConfig {
 

@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.entity.variant;
 
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.WilderRegistry;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.minecraft.core.Registry;

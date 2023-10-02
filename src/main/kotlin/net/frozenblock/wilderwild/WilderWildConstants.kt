@@ -15,117 +15,124 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
+package net.frozenblock.wilderwild
 
-package net.frozenblock.wilderwild.misc;
+import net.fabricmc.loader.api.FabricLoader
+import net.minecraft.core.BlockPos
+import net.minecraft.network.chat.Component
+import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.entity.Entity
+import net.minecraft.world.level.block.Block
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import java.nio.file.Path;
-import java.util.Map;
-import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.level.block.Block;
-import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+const val MOD_ID = "wilderwild"
 
-public class WilderSharedConstants {
-	public static final String MOD_ID = "wilderwild";
-	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-	public static final int DATA_VERSION = 15;
-	// MEASURING
-	public static final Map<Object, Long> INSTANT_MAP = new Object2ObjectOpenHashMap<>();
-	/**
-	 * Used for features that may be unstable and crash in public builds.
-	 * <p>
-	 * It's smart to use this for at least registries.
-	 */
-	public static boolean UNSTABLE_LOGGING = FabricLoader.getInstance().isDevelopmentEnvironment();
-	public static boolean MC_LIVE_TENDRILS = false;
-	public static boolean IN_MESOGLEA = false;
+const val MOD_NAME = "Wilder Wild"
 
-	// LOGGING
-	public static void log(String string, boolean shouldLog) {
-		if (shouldLog) {
-			WilderSharedConstants.LOGGER.info(string);
-		}
-	}
+@JvmField
+val LOGGER: Logger = LoggerFactory.getLogger(MOD_ID)
 
-	public static void log(Entity entity, String string, boolean shouldLog) {
-		if (shouldLog) {
-			WilderSharedConstants.LOGGER.info(entity.toString() + " : " + string + " : " + entity.position());
-		}
-	}
+const val DATA_VERSION: Long = 15
 
-	public static void log(Block block, String string, boolean shouldLog) {
-		if (shouldLog) {
-			WilderSharedConstants.LOGGER.info(block.toString() + " : " + string + " : ");
-		}
-	}
+/**
+ * Used for features that may be unstable and crash in public builds.
+ *
+ *
+ * It's smart to use this for at least registries.
+ */
+@JvmField
+var UNSTABLE_LOGGING = FabricLoader.getInstance().isDevelopmentEnvironment
 
-	public static void log(Block block, BlockPos pos, String string, boolean shouldLog) {
-		if (shouldLog) {
-			WilderSharedConstants.LOGGER.info(block.toString() + " : " + string + " : " + pos);
-		}
-	}
+@JvmField
+var MC_LIVE_TENDRILS = false
 
-	public static void logWild(String string, boolean shouldLog) {
-		if (shouldLog) {
-			WilderSharedConstants.LOGGER.info(string + " " + WilderSharedConstants.MOD_ID);
-		}
-	}
+@JvmField
+var IN_MESOGLEA = false
 
-	public static void startMeasuring(@NotNull Object object) {
-		long started = System.nanoTime();
-		String name = object.getClass().getName();
-		WilderSharedConstants.LOGGER.info("Started measuring {}", name.substring(name.lastIndexOf(".") + 1));
-		INSTANT_MAP.put(object, started);
-	}
+object WilderSharedConstants {
+    @Deprecated("Use new one", level = DeprecationLevel.ERROR)
+    const val MOD_ID = net.frozenblock.wilderwild.MOD_ID
 
-	public static void stopMeasuring(Object object) {
-		if (INSTANT_MAP.containsKey(object)) {
-			String name = object.getClass().getName();
-			WilderSharedConstants.LOGGER.info("{} took {} nanoseconds", name.substring(name.lastIndexOf(".") + 1), System.nanoTime() - INSTANT_MAP.get(object));
-			INSTANT_MAP.remove(object);
-		}
-	}
+    @JvmField
+    @Deprecated("Use new one", level = DeprecationLevel.ERROR)
+	val LOGGER: Logger = net.frozenblock.wilderwild.LOGGER
+    const val DATA_VERSION = 15
 
-	@NotNull
-	public static ResourceLocation id(@NotNull String path) {
-		return new ResourceLocation(MOD_ID, path);
-	}
+    /**
+     * Used for features that may be unstable and crash in public builds.
+     *
+     *
+     * It's smart to use this for at least registries.
+     */
+	@JvmField
+    @Deprecated("Use new one", level = DeprecationLevel.ERROR)
+	var UNSTABLE_LOGGING = net.frozenblock.wilderwild.UNSTABLE_LOGGING
 
-	@NotNull
-	public static ResourceLocation vanillaId(@NotNull String path) {
-		return new ResourceLocation("minecraft", path);
-	}
+    // LOGGING
+	@JvmStatic
+    @Deprecated("Use new one", level = DeprecationLevel.ERROR)
+	fun log(string: String?, shouldLog: Boolean = true) {
+        net.frozenblock.wilderwild.log(string, shouldLog)
+    }
 
-	@NotNull
-	public static String string(@NotNull String path) {
-		return WilderSharedConstants.id(path).toString();
-	}
+    @JvmStatic
+    @Deprecated("Use new one", level = DeprecationLevel.ERROR)
+    fun log(entity: Entity?, string: String?, shouldLog: Boolean = true) {
+        net.frozenblock.wilderwild.log(entity, string, shouldLog)
+    }
 
-	public static String safeString(String path) {
-		return MOD_ID + "_" + path;
-	}
+    @JvmStatic
+    @Deprecated("Use new one", level = DeprecationLevel.ERROR)
+    fun log(block: Block, string: String, shouldLog: Boolean = true) {
+        net.frozenblock.wilderwild.log(block, string, shouldLog)
+    }
 
-	/**
-	 * @return A text component for use in a Config GUI
-	 */
-	public static Component text(String key) {
-		return Component.translatable("option." + MOD_ID + "." + key);
-	}
+    @JvmStatic
+    @Deprecated("Use new one", level = DeprecationLevel.ERROR)
+	fun log(block: Block, pos: BlockPos, string: String, shouldLog: Boolean = true) {
+        net.frozenblock.wilderwild.log(block, pos, string, shouldLog)
+    }
 
-	/**
-	 * @return A tooltip component for use in a Config GUI
-	 */
-	public static Component tooltip(String key) {
-		return Component.translatable("tooltip." + MOD_ID + "." + key);
-	}
+    @JvmStatic
+    @Deprecated("Use new one", level = DeprecationLevel.ERROR)
+	fun logWild(string: String, shouldLog: Boolean = true) {
+        net.frozenblock.wilderwild.logWild(string, shouldLog)
+    }
 
-	public static Path configPath(String name, boolean json5) {
-		return Path.of("./config/" + MOD_ID + "/" + name + "." + (json5 ? "json5" : "json"));
-	}
+    @JvmStatic
+    @Deprecated("Use new one", level = DeprecationLevel.ERROR)
+	fun id(path: String): ResourceLocation
+        = net.frozenblock.wilderwild.id(path)
+
+    @JvmStatic
+    @Deprecated("Use new one", level = DeprecationLevel.ERROR)
+	fun vanillaId(path: String): ResourceLocation
+        = net.frozenblock.wilderwild.vanillaId(path)
+
+    @JvmStatic
+    @Deprecated("Use new one", level = DeprecationLevel.ERROR)
+	fun string(path: String): String
+        = net.frozenblock.wilderwild.string(path)
+
+    @JvmStatic
+    @Deprecated("Use new one", level = DeprecationLevel.ERROR)
+	fun safeString(path: String): String
+        = net.frozenblock.wilderwild.safeString(path)
+
+    /**
+     * @return A text component for use in a Config GUI
+     */
+	@JvmStatic
+    @Deprecated("Use new one", level = DeprecationLevel.ERROR)
+	fun text(key: String): Component
+        = net.frozenblock.wilderwild.text(key)
+
+    /**
+     * @return A tooltip component for use in a Config GUI
+     */
+	@JvmStatic
+    @Deprecated("Use new one", level = DeprecationLevel.ERROR)
+	fun tooltip(key: String): Component
+        = net.frozenblock.wilderwild.tooltip(key)
 }

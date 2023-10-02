@@ -25,9 +25,9 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
 import net.frozenblock.wilderwild.config.ItemConfig;
 import net.frozenblock.wilderwild.config.defaults.DefaultItemConfig;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import static net.frozenblock.wilderwild.misc.WilderSharedConstants.text;
-import static net.frozenblock.wilderwild.misc.WilderSharedConstants.tooltip;
+import net.frozenblock.wilderwild.WilderSharedConstants;
+import static net.frozenblock.wilderwild.WilderSharedConstants.text;
+import static net.frozenblock.wilderwild.WilderSharedConstants.tooltip;
 
 @Environment(EnvType.CLIENT)
 public final class ItemConfigGui {

@@ -318,6 +318,7 @@ tasks {
 
         properties["fabric_loader_version"] = ">=$loader_version"
         properties["fabric_api_version"] = ">=$fabric_api_version"
+        properties["fabric_kotlin_version"] = ">=$fabric_kotlin_version"
         properties["frozenlib_version"] = ">=${frozenlib_version.split('-').first()}-"
 
         properties.forEach { (a, b) -> inputs.property(a, b) }

@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import com.mojang.serialization.Codec;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.generation.features.AlgaeFeature;
 import net.frozenblock.wilderwild.world.generation.features.CattailFeature;
 import net.frozenblock.wilderwild.world.generation.features.LargeMesogleaFeature;
