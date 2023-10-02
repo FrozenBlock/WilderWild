@@ -103,7 +103,7 @@ public abstract class FluidRendererMixin {
 	@Inject(method = "render", at = @At(value = "HEAD"), cancellable = true)
 	private void wilderWild$getIsWater(WorldSlice world, FluidState fluidState, BlockPos pos, BlockPos offset, ChunkBuildBuffers buffers, CallbackInfo info) {
 		BlockState blockState = world.getBlockState(pos);
-		if (BlockConfig.get().mesogleaLiquid && blockState.getBlock() instanceof MesogleaBlock) {
+		if (BlockConfig.get().mesoglea.mesogleaLiquid && blockState.getBlock() instanceof MesogleaBlock) {
 			this.wilderWild$renderWithSingleTexture(world, fluidState, pos, offset, buffers, blockState, Minecraft.getInstance().getModelManager().getBlockModelShaper().getBlockModel(blockState).getParticleIcon());
 			info.cancel();
 		}
@@ -303,10 +303,10 @@ public abstract class FluidRendererMixin {
 					}
 
 					u1 = sprite.getU(0.0);
-					float u2 = sprite.getU(8.0);
+					float u2 = sprite.getU(16.0);
 					float v1 = sprite.getV((1.0F - c1) * 16.0F * 0.5F);
 					float v2 = sprite.getV((1.0F - c2) * 16.0F * 0.5F);
-					float v3 = sprite.getV(8.0);
+					float v3 = sprite.getV(16.0);
 					quad.setSprite(sprite);
 					setVertex(quad, 0, x2, c2, z2, u2, v2);
 					setVertex(quad, 1, x2, yOffset, z2, u2, v3);

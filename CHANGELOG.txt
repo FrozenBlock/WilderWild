@@ -4,4 +4,13 @@ Make sure to clear this after each release
 
 What's new:
 -----------------
-- Fixed world generation hanging.
+- Added Mesoglea Bubble Columns.
+- Axes no longer attempt to interact with every block, which previously prevented interaction with offhand items.
+- Sodium now properly renders Mesoglea with the liquid rendering option enabled.
+- Stone chests can no longer be interacted with via the Fabric Transfer API.
+- Prickly Pears are now accounted for as "dangerous blocks" when pathfinding, just like regular Cacti.
+- Removed changes to the Make Bubbles Pop mod as it switched strictly to mixins.
+- Wilder Wild's leaves now use the same color as Vanilla's leaves on the map.
+- Significantly optimized Jellyfish's getJellyfish method.
+- Fixed Ancient Horns freezing the world.
+- Added new splash texts because why not.

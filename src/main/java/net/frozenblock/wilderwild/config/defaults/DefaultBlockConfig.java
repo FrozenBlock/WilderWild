@@ -24,8 +24,8 @@ public final class DefaultBlockConfig {
 	public static final boolean SOUL_FIRE_SOUNDS = true;
 	public static final boolean BILLBOARD_TENDRILS = true;
 	public static final boolean TENDRILS_CARRY_EVENTS = false;
-	public static final boolean MESOGLEA_LIQUID = false;
 	public static final boolean POLLEN_PARTICLES = true;
+	public static final boolean LOG_HOLLOWING = true;
 	public static final boolean CACTUS_PLACEMENT = true;
 
 	public static final class BlockSoundsConfig {
@@ -57,5 +57,10 @@ public final class DefaultBlockConfig {
 		public static final boolean ONLY_EAT_NATURAL_BLOCKS = true;
 		public static final int MAX_DISTANCE = 32;
 		public static final int MAX_NATURAL_DISTANCE = 10;
+	}
+
+	public static final class MesogleaConfig {
+		public static final boolean MESOGLEA_LIQUID = false;
+		public static final boolean MESOGLEA_BUBBLE_COLUMNS = true;
 	}
 }

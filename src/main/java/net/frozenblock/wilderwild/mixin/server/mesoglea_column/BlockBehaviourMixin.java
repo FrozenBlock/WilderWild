@@ -16,26 +16,28 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.mixin.server.general;
+package net.frozenblock.wilderwild.mixin.server.mesoglea_column;
 
 import net.frozenblock.wilderwild.config.BlockConfig;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BubbleColumnBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(AxeItem.class)
-public class AxeItemMixin {
+@Mixin(BlockBehaviour.class)
+public class BlockBehaviourMixin {
 
-	@Inject(method = "useOn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z", ordinal = 0, shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
-	public void useOn(UseOnContext context, CallbackInfoReturnable<InteractionResult> info, Level level) {
-		if (level.isClientSide && BlockConfig.get().logHollowing) {
-			info.setReturnValue(InteractionResult.sidedSuccess(true));
+	@Inject(at = @At("HEAD"), method = "neighborChanged")
+	public void wilderWild$neighborChanged(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Block block, @NotNull BlockPos fromPos, boolean isMoving, CallbackInfo info) {
+		if (BlockBehaviour.class.cast(this) instanceof BubbleColumnBlock && !level.isClientSide && BlockConfig.get().mesoglea.mesogleaBubbleColumns) {
+			level.scheduleTick(pos, BubbleColumnBlock.class.cast(this), 5);
 		}
 	}
 

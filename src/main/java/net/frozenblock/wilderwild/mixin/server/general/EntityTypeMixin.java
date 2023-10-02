@@ -16,25 +16,29 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.mixin.server.general.makebubblespop;
+package net.frozenblock.wilderwild.mixin.server.general;
 
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.BlockHitResult;
-import net.tschipcraft.make_bubbles_pop.event.BlockInteractHandler;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(BlockInteractHandler.class)
-public class BlockInteractHandlerMixin {
+@Mixin(EntityType.class)
+public class EntityTypeMixin {
 
-	@Inject(method = "interact", at = @At("HEAD"), cancellable = true)
-	public void wilderWild$cancelBubbles(Player player, Level world, InteractionHand hand, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> info) {
-		info.setReturnValue(InteractionResult.PASS);
+	@Inject(
+		method = "isBlockDangerous",
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z", ordinal = 0, shift = At.Shift.BEFORE),
+		cancellable = true
+	)
+	private void wilderWild$isBlockDangerousWithPricklyPear(BlockState state, CallbackInfoReturnable<Boolean> info) {
+		if (state.is(RegisterBlocks.PRICKLY_PEAR_CACTUS)) {
+			info.setReturnValue(true);
+		}
 	}
+
 
 }

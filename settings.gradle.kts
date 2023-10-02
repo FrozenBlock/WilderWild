@@ -31,7 +31,7 @@ localRepository("FrozenLib", "maven.modrinth:frozenlib", true)
 
 
 fun localRepository(repo: String, dependencySub: String, kotlin: Boolean) {
-	println("Attempting to include local repo $repo")
+    println("Attempting to include local repo $repo")
 
     val github = System.getenv("GITHUB_ACTIONS") == "true"
 
@@ -44,32 +44,31 @@ fun localRepository(repo: String, dependencySub: String, kotlin: Boolean) {
 
     val isIDE = androidInjectedInvokedFromIde != "" || (System.getenv(xpcServiceName) ?: "").contains("intellij") || (System.getenv(xpcServiceName) ?: "").contains(".idea") || System.getenv(ideaInitialDirectory) != null
 
-	var path = "../$repo"
+    var path = "../$repo"
     var file = File(path)
 
     val prefixedRepoName = ":$repo"
 
     if (allowLocalRepoUse && (isIDE || allowLocalRepoInConsoleMode)) {
-		if (github) {
+        if (github) {
             path = repo
-			file = File(path)
-			println("Running on GitHub")
-		}
+            file = File(path)
+            println("Running on GitHub")
+        }
         if (file.exists()) {
-			/*includeBuild(path) {
-                this.name = repo
-				dependencySubstitution {
-					if (dependencySub != "") {
-						substitute(module(dependencySub)).using(project(":"))
-					}
-				}
-			}*/
+            /*includeBuild(path) {
+                dependencySubstitution {
+                    if (dependencySub != "") {
+                        substitute(module(dependencySub)).using(project(":"))
+                    }
+                }
+            }*/
             include(prefixedRepoName)
             project(prefixedRepoName).projectDir = file
             project(prefixedRepoName).buildFileName = "./build.gradle" + if (kotlin) ".kts" else ""
-			println("Included local repo $repo")
+            println("Included local repo $repo")
         } else {
-			println("Local repo $repo not found")
-		}
-	}
+            println("Local repo $repo not found")
+        }
+    }
 }
