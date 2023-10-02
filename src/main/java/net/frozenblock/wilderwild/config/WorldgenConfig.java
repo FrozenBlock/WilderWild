@@ -26,11 +26,12 @@ import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.wilderwild.config.defaults.DefaultWorldgenConfig;
 import static net.frozenblock.wilderwild.WilderSharedConstants.MOD_ID;
 import static net.frozenblock.wilderwild.WilderWildConfigUtilsKt.configPath;
+import static net.frozenblock.wilderwild.WilderWildConfigUtilsKt.jsonConfig;
 
 public final class WorldgenConfig {
 
 	private static final Config<WorldgenConfig> INSTANCE = ConfigRegistry.register(
-		new JsonConfig<>(
+		jsonConfig(
 			MOD_ID,
 			WorldgenConfig.class,
 			configPath("worldgen", true),

@@ -26,11 +26,12 @@ import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.wilderwild.config.defaults.DefaultBlockConfig;
 import static net.frozenblock.wilderwild.WilderSharedConstants.MOD_ID;
 import static net.frozenblock.wilderwild.WilderWildConfigUtilsKt.configPath;
+import static net.frozenblock.wilderwild.WilderWildConfigUtilsKt.jsonConfig;
 
 public final class BlockConfig {
 
 	private static final Config<BlockConfig> INSTANCE = ConfigRegistry.register(
-		new JsonConfig<>(
+		jsonConfig(
 			MOD_ID,
 			BlockConfig.class,
 			configPath("block", true),
