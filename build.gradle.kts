@@ -22,7 +22,6 @@ buildscript {
 
 plugins {
     id("fabric-loom") version("+")
-    id("io.github.juuxel.loom-vineflower") version("+") apply false
     id("org.quiltmc.gradle.licenser") version("+")
     id("org.ajoberstar.grgit") version("+")
     id("com.modrinth.minotaur") version("+")
@@ -379,8 +378,6 @@ java {
     // If you remove this line, sources will not be generated.
     withSourcesJar()
 }
-
-
 
 artifacts {
     archives(sourcesJar)
