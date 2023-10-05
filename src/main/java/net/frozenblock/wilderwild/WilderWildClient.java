@@ -42,9 +42,11 @@ import net.frozenblock.wilderwild.entity.render.blockentity.SculkSensorBlockEnti
 import net.frozenblock.wilderwild.entity.render.blockentity.StoneChestBlockEntityRenderer;
 import net.frozenblock.wilderwild.entity.render.easter.EasterEggs;
 import net.frozenblock.wilderwild.entity.render.model.AncientHornProjectileModel;
+import net.frozenblock.wilderwild.entity.render.model.CrabModel;
 import net.frozenblock.wilderwild.entity.render.model.JellyfishModel;
 import net.frozenblock.wilderwild.entity.render.model.TumbleweedModel;
 import net.frozenblock.wilderwild.entity.render.renderer.AncientHornProjectileRenderer;
+import net.frozenblock.wilderwild.entity.render.renderer.CrabRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.FireflyRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.JellyfishRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.TumbleweedRenderer;
@@ -95,6 +97,7 @@ public final class WilderWildClient implements ClientModInitializer {
 	public static final ModelLayerLocation DOUBLE_STONE_CHEST_RIGHT = new ModelLayerLocation(WilderSharedConstants.id("double_stone_chest_right"), "main");
 	public static final ModelLayerLocation JELLYFISH = new ModelLayerLocation(WilderSharedConstants.id("jellyfish"), "main");
 	public static final ModelLayerLocation TUMBLEWEED = new ModelLayerLocation(WilderSharedConstants.id("tumbleweed"), "main");
+	public static final ModelLayerLocation CRAB = new ModelLayerLocation(WilderSharedConstants.id("crab"), "main");
 
 	private static void receiveEasyEchoerBubblePacket() {
 		ClientPlayNetworking.registerGlobalReceiver(WilderWild.FLOATING_SCULK_BUBBLE_PACKET, (ctx, handler, byteBuf, responseSender) -> {
@@ -333,6 +336,9 @@ public final class WilderWildClient implements ClientModInitializer {
 
 		EntityRendererRegistry.register(RegisterEntities.TUMBLEWEED, TumbleweedRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(TUMBLEWEED, TumbleweedModel::createBodyLayer);
+
+		EntityRendererRegistry.register(RegisterEntities.CRAB, CrabRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(CRAB, CrabModel::createBodyLayer);
 
 		EntityRendererRegistry.register(RegisterEntities.COCONUT, ThrownItemRenderer::new);
 
