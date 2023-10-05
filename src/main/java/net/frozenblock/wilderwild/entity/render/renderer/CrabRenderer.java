@@ -5,7 +5,6 @@ import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.entity.render.model.CrabModel;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -14,11 +13,11 @@ public class CrabRenderer<T extends Crab> extends MobRenderer<T, CrabModel<T>> {
 	private static final ResourceLocation CRAB_LOCATION = WilderSharedConstants.id("textures/entity/crab/crab.png");
 
 	public CrabRenderer(EntityRendererProvider.Context context) {
-		this(context, ModelLayers.SPIDER);
+		this(context, WilderWildClient.CRAB);
 	}
 
 	public CrabRenderer(EntityRendererProvider.Context context, ModelLayerLocation layer) {
-		super(context, new CrabModel<>(context.bakeLayer(WilderWildClient.CRAB)), 0.6F);
+		super(context, new CrabModel<>(context.bakeLayer(layer)), 0.6F);
 	}
 
 	@Override

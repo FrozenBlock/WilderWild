@@ -1,5 +1,9 @@
 package net.frozenblock.wilderwild.entity.render.model;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Axis;
+import net.frozenblock.wilderwild.entity.Crab;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -8,18 +12,16 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
+import org.jetbrains.annotations.NotNull;
+import org.joml.Math;
 
-public class CrabModel<T extends Entity> extends HierarchicalModel<T> {
+public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 
-	private static final String BODY_0 = "body0";
-	private static final String BODY_1 = "body1";
-	private static final String RIGHT_MIDDLE_FRONT_LEG = "right_middle_front_leg";
-	private static final String LEFT_MIDDLE_FRONT_LEG = "left_middle_front_leg";
-	private static final String RIGHT_MIDDLE_HIND_LEG = "right_middle_hind_leg";
-	private static final String LEFT_MIDDLE_HIND_LEG = "left_middle_hind_leg";
+	private static final float pi180 = Mth.PI / 180F;
+	private static final float PIHalf_f = (float) (Math.PI * 0.5);
+
 	private final ModelPart root;
-	private final ModelPart head;
+	private final ModelPart body;
 	private final ModelPart rightHindLeg;
 	private final ModelPart leftHindLeg;
 	private final ModelPart rightMiddleHindLeg;
@@ -29,15 +31,17 @@ public class CrabModel<T extends Entity> extends HierarchicalModel<T> {
 	private final ModelPart rightFrontLeg;
 	private final ModelPart leftFrontLeg;
 
+	public float xRot;
+
 	public CrabModel(ModelPart root) {
 		this.root = root;
-		this.head = root.getChild("head");
+		this.body = root.getChild("body");
 		this.rightHindLeg = root.getChild("right_hind_leg");
 		this.leftHindLeg = root.getChild("left_hind_leg");
-		this.rightMiddleHindLeg = root.getChild(RIGHT_MIDDLE_HIND_LEG);
-		this.leftMiddleHindLeg = root.getChild(LEFT_MIDDLE_HIND_LEG);
-		this.rightMiddleFrontLeg = root.getChild(RIGHT_MIDDLE_FRONT_LEG);
-		this.leftMiddleFrontLeg = root.getChild(LEFT_MIDDLE_FRONT_LEG);
+		this.rightMiddleHindLeg = root.getChild("right_middle_hind_leg");
+		this.leftMiddleHindLeg = root.getChild("left_middle_hind_leg");
+		this.rightMiddleFrontLeg = root.getChild("right_middle_front_leg");
+		this.leftMiddleFrontLeg = root.getChild("left_middle_front_leg");
 		this.rightFrontLeg = root.getChild("right_front_leg");
 		this.leftFrontLeg = root.getChild("left_front_leg");
 	}
@@ -45,19 +49,18 @@ public class CrabModel<T extends Entity> extends HierarchicalModel<T> {
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshDefinition = new MeshDefinition();
 		PartDefinition partDefinition = meshDefinition.getRoot();
-		partDefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(32, 4).addBox(-4.0f, -4.0f, -8.0f, 8.0f, 8.0f, 8.0f), PartPose.offset(0.0f, 15.0f, -3.0f));
-		partDefinition.addOrReplaceChild(BODY_0, CubeListBuilder.create().texOffs(0, 0).addBox(-3.0f, -3.0f, -3.0f, 6.0f, 6.0f, 6.0f), PartPose.offset(0.0f, 15.0f, 0.0f));
-		partDefinition.addOrReplaceChild(BODY_1, CubeListBuilder.create().texOffs(0, 12).addBox(-5.0f, -4.0f, -6.0f, 10.0f, 8.0f, 12.0f), PartPose.offset(0.0f, 15.0f, 9.0f));
-		CubeListBuilder cubeListBuilder = CubeListBuilder.create().texOffs(18, 0).addBox(-15.0f, -1.0f, -1.0f, 16.0f, 2.0f, 2.0f);
-		CubeListBuilder cubeListBuilder2 = CubeListBuilder.create().texOffs(18, 0).mirror().addBox(-1.0f, -1.0f, -1.0f, 16.0f, 2.0f, 2.0f);
-		partDefinition.addOrReplaceChild("right_hind_leg", cubeListBuilder, PartPose.offset(-4.0f, 15.0f, 2.0f));
-		partDefinition.addOrReplaceChild("left_hind_leg", cubeListBuilder2, PartPose.offset(4.0f, 15.0f, 2.0f));
-		partDefinition.addOrReplaceChild(RIGHT_MIDDLE_HIND_LEG, cubeListBuilder, PartPose.offset(-4.0f, 15.0f, 1.0f));
-		partDefinition.addOrReplaceChild(LEFT_MIDDLE_HIND_LEG, cubeListBuilder2, PartPose.offset(4.0f, 15.0f, 1.0f));
-		partDefinition.addOrReplaceChild(RIGHT_MIDDLE_FRONT_LEG, cubeListBuilder, PartPose.offset(-4.0f, 15.0f, 0.0f));
-		partDefinition.addOrReplaceChild(LEFT_MIDDLE_FRONT_LEG, cubeListBuilder2, PartPose.offset(4.0f, 15.0f, 0.0f));
-		partDefinition.addOrReplaceChild("right_front_leg", cubeListBuilder, PartPose.offset(-4.0f, 15.0f, -1.0f));
-		partDefinition.addOrReplaceChild("left_front_leg", cubeListBuilder2, PartPose.offset(4.0f, 15.0f, -1.0f));
+		partDefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(32, 4).addBox(-4.0f, -4.0f, -8.0f, 8.0f, 8.0f, 8.0f), PartPose.offset(0.0f, 15.0f, 0.0f));
+
+		CubeListBuilder rightLeg = CubeListBuilder.create().texOffs(18, 0).addBox(-15.0f, -1.0f, -1.0f, 16.0f, 2.0f, 2.0f);
+		CubeListBuilder leftLeg = CubeListBuilder.create().texOffs(18, 0).mirror().addBox(-1.0f, -1.0f, -1.0f, 16.0f, 2.0f, 2.0f);
+		partDefinition.addOrReplaceChild("right_hind_leg", rightLeg, PartPose.offset(-4.0f, 15.0f, 2.0f));
+		partDefinition.addOrReplaceChild("left_hind_leg", leftLeg, PartPose.offset(4.0f, 15.0f, 2.0f));
+		partDefinition.addOrReplaceChild("right_middle_hind_leg", rightLeg, PartPose.offset(-4.0f, 15.0f, 1.0f));
+		partDefinition.addOrReplaceChild("left_middle_hind_leg", leftLeg, PartPose.offset(4.0f, 15.0f, 1.0f));
+		partDefinition.addOrReplaceChild("right_middle_front_leg", rightLeg, PartPose.offset(-4.0f, 15.0f, 0.0f));
+		partDefinition.addOrReplaceChild("left_middle_front_leg", leftLeg, PartPose.offset(4.0f, 15.0f, 0.0f));
+		partDefinition.addOrReplaceChild("right_front_leg", rightLeg, PartPose.offset(-4.0f, 15.0f, -1.0f));
+		partDefinition.addOrReplaceChild("left_front_leg", leftLeg, PartPose.offset(4.0f, 15.0f, -1.0f));
 		return LayerDefinition.create(meshDefinition, 64, 32);
 	}
 
@@ -68,48 +71,43 @@ public class CrabModel<T extends Entity> extends HierarchicalModel<T> {
 
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.head.yRot = netHeadYaw * ((float)Math.PI / 180);
-		this.head.xRot = headPitch * ((float)Math.PI / 180);
-		this.rightHindLeg.zRot = -0.7853982f;
-		this.leftHindLeg.zRot = 0.7853982f;
-		this.rightMiddleHindLeg.zRot = -0.58119464f;
-		this.leftMiddleHindLeg.zRot = 0.58119464f;
-		this.rightMiddleFrontLeg.zRot = -0.58119464f;
-		this.leftMiddleFrontLeg.zRot = 0.58119464f;
-		this.rightFrontLeg.zRot = -0.7853982f;
-		this.leftFrontLeg.zRot = 0.7853982f;
-		this.rightHindLeg.yRot = 0.7853982f;
-		this.leftHindLeg.yRot = -0.7853982f;
-		this.rightMiddleHindLeg.yRot = 0.3926991f;
-		this.leftMiddleHindLeg.yRot = -0.3926991f;
-		this.rightMiddleFrontLeg.yRot = -0.3926991f;
-		this.leftMiddleFrontLeg.yRot = 0.3926991f;
-		this.rightFrontLeg.yRot = -0.7853982f;
-		this.leftFrontLeg.yRot = 0.7853982f;
-		float i = -(Mth.cos(limbSwing * 0.6662f * 2.0f + 0.0f) * 0.4f) * limbSwingAmount;
-		float j = -(Mth.cos(limbSwing * 0.6662f * 2.0f + (float)Math.PI) * 0.4f) * limbSwingAmount;
-		float k = -(Mth.cos(limbSwing * 0.6662f * 2.0f + 1.5707964f) * 0.4f) * limbSwingAmount;
-		float l = -(Mth.cos(limbSwing * 0.6662f * 2.0f + 4.712389f) * 0.4f) * limbSwingAmount;
-		float m = Math.abs(Mth.sin(limbSwing * 0.6662f + 0.0f) * 0.4f) * limbSwingAmount;
-		float n = Math.abs(Mth.sin(limbSwing * 0.6662f + (float)Math.PI) * 0.4f) * limbSwingAmount;
-		float o = Math.abs(Mth.sin(limbSwing * 0.6662f + 1.5707964f) * 0.4f) * limbSwingAmount;
-		float p = Math.abs(Mth.sin(limbSwing * 0.6662f + 4.712389f) * 0.4f) * limbSwingAmount;
-		this.rightHindLeg.yRot += i;
-		this.leftHindLeg.yRot += -i;
-		this.rightMiddleHindLeg.yRot += j;
-		this.leftMiddleHindLeg.yRot += -j;
-		this.rightMiddleFrontLeg.yRot += k;
-		this.leftMiddleFrontLeg.yRot += -k;
-		this.rightFrontLeg.yRot += l;
-		this.leftFrontLeg.yRot += -l;
-		this.rightHindLeg.zRot += m;
-		this.leftHindLeg.zRot += -m;
-		this.rightMiddleHindLeg.zRot += n;
-		this.leftMiddleHindLeg.zRot += -n;
-		this.rightMiddleFrontLeg.zRot += o;
-		this.leftMiddleFrontLeg.zRot += -o;
-		this.rightFrontLeg.zRot += p;
-		this.leftFrontLeg.zRot += -p;
+		//this.body.yRot = netHeadYaw * 0.017453292F;
+		//this.body.xRot = headPitch * 0.017453292F;
+
+		float fastAngle = limbSwing * 0.6662f;
+		float fastAngleTwo = fastAngle * 2f;
+
+		float hindYaw = 0.7853982f -(Math.sin((fastAngleTwo) + PIHalf_f) * 0.4f) * limbSwingAmount;
+		float middleYaw = 0.3926991f -(Math.sin((fastAngleTwo + 3.1415927F) + PIHalf_f) * 0.4f) * limbSwingAmount;
+		float middleFrontYaw = -0.3926991f -(Math.sin((fastAngleTwo + 1.5707964f) + PIHalf_f) * 0.4f) * limbSwingAmount;
+		float frontYaw = -0.7853982f -(Math.sin((fastAngleTwo + 4.712389f) + PIHalf_f) * 0.4f) * limbSwingAmount;
+
+		this.rightHindLeg.yRot = hindYaw;
+		this.leftHindLeg.yRot = -hindYaw;
+		this.rightMiddleHindLeg.yRot = middleYaw;
+		this.leftMiddleHindLeg.yRot = -middleYaw;
+		this.rightMiddleFrontLeg.yRot = middleFrontYaw;
+		this.leftMiddleFrontLeg.yRot = -middleFrontYaw;
+		this.rightFrontLeg.yRot = frontYaw;
+		this.leftFrontLeg.yRot = -frontYaw;
+
+		float hindRoll = -0.7853982f + Math.abs(Math.sin(fastAngle) * 0.4f) * limbSwingAmount;
+		float middleRoll = -0.58119464f + Math.abs(Math.sin(fastAngle + 3.1415927F) * 0.4f) * limbSwingAmount;
+		float middleFrontRoll = -0.58119464f + Math.abs(Math.sin(fastAngle + 1.5707964f) * 0.4f) * limbSwingAmount;
+		float frontRoll = -0.7853982f + Math.abs(Math.sin(fastAngle + 4.712389f) * 0.4f) * limbSwingAmount;
+
+		this.rightHindLeg.xRot = hindRoll;
+		this.leftHindLeg.xRot = -hindRoll;
+		this.rightMiddleHindLeg.xRot = middleRoll;
+		this.leftMiddleHindLeg.xRot = -middleRoll;
+		this.rightMiddleFrontLeg.xRot = middleFrontRoll;
+		this.leftMiddleFrontLeg.xRot = -middleFrontRoll;
+
+		//TODO
+		this.rightFrontLeg.yRot = frontYaw;
+		this.leftFrontLeg.yRot = -frontYaw;
+		this.rightFrontLeg.xRot = frontRoll;
+		this.leftFrontLeg.xRot = -frontRoll;
 	}
 }
 
