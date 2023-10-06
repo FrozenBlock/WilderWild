@@ -95,25 +95,34 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		limbSwing *= 2F;
 		float halfFastAngle = limbSwing * 0.3331F;
 		float fastAngle = halfFastAngle * 2F;
+		float walkA = (1F - Math.sin(halfFastAngle)) * Math.min(1F, limbSwingAmount * 4);
+		float walkB = (1F - Math.sin(-halfFastAngle)) * Math.min(1F, limbSwingAmount * 4);
 
 		float legRoll = Math.sin(halfFastAngle) * 0.4F * limbSwingAmount;
-		float fixedLegRoll = Mth.lerp(1F - Math.sin(halfFastAngle), legRoll, -10F * pi180);
-		this.back_right_leg.zRot += fixedLegRoll;
-		this.middle_right_leg.zRot += -fixedLegRoll;
-		this.front_right_leg.zRot += fixedLegRoll;
+		this.back_right_leg.zRot += Mth.lerp(walkA, legRoll, 50F * pi180);
+		this.middle_right_leg.zRot += Mth.lerp(walkB, legRoll, 50F * pi180);
+		this.front_right_leg.zRot += Mth.lerp(walkA, legRoll, 50F * pi180);
 
-		this.back_left_leg.zRot += -fixedLegRoll;
-		this.middle_left_leg.zRot += fixedLegRoll;
-		this.front_left_leg.zRot += -fixedLegRoll;
+		this.back_left_leg.zRot += Mth.lerp(walkB, legRoll, -50F * pi180);
+		this.middle_left_leg.zRot += Mth.lerp(walkA, legRoll, -50F * pi180);
+		this.front_left_leg.zRot += Mth.lerp(walkB, legRoll, -50F * pi180);
 
-		float legOffset = legRoll * 2F;
-		this.back_right_leg.y += -legOffset * 3F;
-		this.middle_right_leg.y += legOffset * 3F;
-		this.front_right_leg.y += -legOffset * 3F;
+		float legOffset = legRoll * -2F;
+		this.back_right_leg.y -= walkA;
+		this.middle_right_leg.y -= walkB;
+		this.front_right_leg.y -= walkA;
 
-		this.back_left_leg.y += legOffset * 3F;
-		this.middle_left_leg.y += -legOffset * 3F;
-		this.front_left_leg.y += legOffset * 3F;
+		this.back_left_leg.y -= -walkB;
+		this.middle_left_leg.y -= walkA;
+		this.front_left_leg.y -= -walkB;
+
+		this.back_right_leg.x -= -walkB;
+		this.middle_right_leg.x -= -walkA;
+		this.front_right_leg.x -= -walkB;
+
+		this.back_left_leg.x += -walkA;
+		this.middle_left_leg.x += -walkB;
+		this.front_left_leg.x += -walkA;
 
 		this.body.zRot += legRoll;
 		//this.legs.zRot += legRoll;
