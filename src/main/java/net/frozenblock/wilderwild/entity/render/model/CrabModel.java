@@ -89,14 +89,12 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-
-		//limbSwing *= 5F;
-		limbSwingAmount *= 2F;
+		limbSwingAmount *= 3F;
 		limbSwing *= 2F;
 		float halfFastAngle = limbSwing * 0.3331F;
-		float fastAngle = halfFastAngle * 2F;
-		float walkA = (1F - Math.sin(halfFastAngle)) * Math.min(1F, limbSwingAmount * 4);
-		float walkB = (1F - Math.sin(-halfFastAngle)) * Math.min(1F, limbSwingAmount * 4);
+		float halfFastAngleDelayed = (limbSwing + 0.25F) * 0.3331F;
+		float walkA = ((1F - Math.sin(halfFastAngle)) * Math.min(1F, limbSwingAmount * 4) * 0.5F) - 0.5F;
+		float walkB = ((1F - Math.sin(-halfFastAngle)) * Math.min(1F, limbSwingAmount * 4) * 0.5F) - 0.5F;
 
 		float legRoll = Math.sin(halfFastAngle) * 0.4F * limbSwingAmount;
 		this.back_right_leg.zRot += Mth.lerp(walkA, legRoll, 50F * pi180);
@@ -107,25 +105,26 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		this.middle_left_leg.zRot += Mth.lerp(walkA, legRoll, -50F * pi180);
 		this.front_left_leg.zRot += Mth.lerp(walkB, legRoll, -50F * pi180);
 
-		float legOffset = legRoll * -2F;
-		this.back_right_leg.y -= walkA;
-		this.middle_right_leg.y -= walkB;
-		this.front_right_leg.y -= walkA;
+		this.back_right_leg.y += -walkA;
+		this.middle_right_leg.y += -walkB;
+		this.front_right_leg.y += -walkA;
 
-		this.back_left_leg.y -= -walkB;
-		this.middle_left_leg.y -= walkA;
-		this.front_left_leg.y -= -walkB;
+		this.back_left_leg.y += -walkB;
+		this.middle_left_leg.y += -walkA;
+		this.front_left_leg.y += -walkB;
 
-		this.back_right_leg.x -= -walkB;
-		this.middle_right_leg.x -= -walkA;
-		this.front_right_leg.x -= -walkB;
+		float walkADelayed = ((1F - Math.sin(halfFastAngleDelayed)) * Math.min(1F, limbSwingAmount * 4) * 0.5F) - 0.5F;
+		float walkBDelayed = ((1F - Math.sin(-halfFastAngleDelayed)) * Math.min(1F, limbSwingAmount * 4) * 0.5F) - 0.5F;
 
-		this.back_left_leg.x += -walkA;
-		this.middle_left_leg.x += -walkB;
-		this.front_left_leg.x += -walkA;
+		this.back_right_leg.x += -walkBDelayed;
+		this.middle_right_leg.x += -walkADelayed;
+		this.front_right_leg.x += -walkBDelayed;
 
-		this.body.zRot += legRoll;
-		//this.legs.zRot += legRoll;
+		this.back_left_leg.x += walkADelayed;
+		this.middle_left_leg.x += walkBDelayed;
+		this.front_left_leg.x += walkADelayed;
+
+		this.body.zRot += legRoll * 0.3F;
 
 		//TODO: ATTACK ANIM
 		this.body.yRot = Mth.sin(Mth.sqrt(this.attackTime) * ((float) java.lang.Math.PI * 2)) * -0.2f;
@@ -137,8 +136,11 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		float g = Mth.sin(f * (float) java.lang.Math.PI);
 		float h = Mth.sin(this.attackTime * (float) java.lang.Math.PI) * -(this.body.xRot - 0.7f) * 0.75f;
 		this.main_claw.xRot -= g * 1.2f + h;
-		this.main_claw.yRot -= g * 1.2f + h;
-		this.main_claw.zRot = Mth.sin(this.attackTime * (float) java.lang.Math.PI) * -1.2f;
+		this.main_claw.yRot += g * 1.2f + h;
+		this.main_claw.zRot += Mth.sin(this.attackTime * (float) java.lang.Math.PI) * 1.2f;
+
+		this.claw_top.zRot += Mth.sin(this.attackTime * (float) java.lang.Math.PI) * 1.2f;
+		this.claw_bottom.zRot = -this.claw_top.zRot;
 	}
 
 	@Override
