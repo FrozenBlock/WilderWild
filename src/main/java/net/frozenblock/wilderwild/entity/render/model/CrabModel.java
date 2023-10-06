@@ -96,7 +96,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		float walkA = Mth.lerp(movementDelta, 0F, ((1F - Math.sin(halfFastAngle)) * Math.min(1F, limbSwingAmount * 5) * 0.5F) - 0.5F);
 		float walkB = Mth.lerp(movementDelta, 0F, ((1F - Math.sin(-halfFastAngle)) * Math.min(1F, limbSwingAmount * 5) * 0.5F) - 0.5F);
 
-		float legRoll = Math.sin(halfFastAngle) * 0.4F * limbSwingAmount * 2;
+		float legRoll = Math.sin(halfFastAngle) * 0.4F * limbSwingAmount;
 		this.back_right_leg.zRot += Mth.lerp(walkA, -legRoll, 50F * pi180);
 		this.middle_right_leg.zRot += Mth.lerp(walkB, legRoll, 50F * pi180);
 		this.front_right_leg.zRot += Mth.lerp(walkA, -legRoll, 50F * pi180);
