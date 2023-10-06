@@ -113,8 +113,8 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		this.middle_left_leg.y += -walkA;
 		this.front_left_leg.y += -walkB;
 
-		float walkADelayed = Mth.lerp(movementDelta, 0F, (((1F - Math.sin(halfFastAngleDelayed)) * Math.min(1F, limbSwingAmount * 5) * 0.5F) - 0.5F) * 2F);
-		float walkBDelayed = Mth.lerp(movementDelta, 0F, (((1F - Math.sin(-halfFastAngleDelayed)) * Math.min(1F, limbSwingAmount * 5) * 0.5F) - 0.5F) * 2F);
+		float walkADelayed = Mth.lerp(movementDelta, 0F, (((1F - Math.sin(halfFastAngleDelayed)) * Math.min(1F, limbSwingAmount * 5) * 0.5F) - 0.5F));
+		float walkBDelayed = Mth.lerp(movementDelta, 0F, (((1F - Math.sin(-halfFastAngleDelayed)) * Math.min(1F, limbSwingAmount * 5) * 0.5F) - 0.5F));
 
 		this.back_right_leg.x += walkBDelayed;
 		this.middle_right_leg.x += walkADelayed;
