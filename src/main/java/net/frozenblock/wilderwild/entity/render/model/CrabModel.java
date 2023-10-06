@@ -36,7 +36,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 
 	public float xRot;
 
-	public CrabModel(ModelPart root) {
+	public CrabModel(@NotNull ModelPart root) {
 		this.root = root;
 
 		this.body = root.getChild("body");
@@ -97,21 +97,8 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		float doubleSwingAmount = limbSwingAmount * 2F;
 		float halfFastAngle = limbSwing * 0.3331F;
 		float fastAngle = halfFastAngle * 0.662F;
-		float fastAngleTwo = fastAngle * 2F;
 
-		/*
-		float hindYaw = 0.7853982F -(Math.sin((fastAngleTwo) + PIHalf_f) * 0.4F) * doubleSwingAmount;
-		float middleYaw = 0.3926991F -(Math.sin((fastAngleTwo + 3.1415927F) + PIHalf_f) * 0.4F) * doubleSwingAmount;
-		float frontYaw = -0.7853982F -(Math.sin((fastAngleTwo + 4.712389F) + PIHalf_f) * 0.4F) * doubleSwingAmount;
-
-		this.back_right_leg.yRot += hindYaw;
-		this.back_left_leg.yRot += -hindYaw;
-		this.middle_right_leg.yRot += middleYaw;
-		this.middle_left_leg.yRot += -middleYaw;
-		this.front_right_leg.yRot += frontYaw;
-		 */
-
-		float legRoll = Math.sin(fastAngle) * 0.4F * doubleSwingAmount;
+		float legRoll = Math.sin(halfFastAngle) * 0.4F * doubleSwingAmount;
 
 		this.back_right_leg.zRot += legRoll;
 		this.middle_right_leg.zRot += -legRoll;
@@ -122,6 +109,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		this.front_left_leg.zRot += -legRoll;
 
 		this.body.zRot += legRoll;
+		this.legs.zRot += legRoll;
 
 
 		//TODO: ATTACK ANIM
