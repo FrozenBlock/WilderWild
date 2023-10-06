@@ -5,6 +5,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -96,7 +97,6 @@ public class Crab extends Animal {
 		this.climAnim += ((this.isClimbing() ? 1F : 0F) - this.climAnim) * 0.2F;
 	}
 
-
 	@Override
 	public boolean onClimbable() {
 		return this.isClimbing();
@@ -110,6 +110,13 @@ public class Crab extends Animal {
 		byte b = this.entityData.get(DATA_FLAGS_ID);
 		b = climbing ? (byte)(b | 1) : (byte)(b & 0xFFFFFFFE);
 		this.entityData.set(DATA_FLAGS_ID, b);
+	}
+
+	@Override
+	public void calculateEntityAnimation(boolean includeHeight) {
+		includeHeight = this.isClimbing();
+		float f = (float) Mth.length(this.getX() - this.xo, includeHeight ? this.getY() - this.yo : 0.0, this.getZ() - this.zo);
+		this.updateWalkAnimation(f);
 	}
 
 	@Nullable

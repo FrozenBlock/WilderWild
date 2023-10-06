@@ -89,21 +89,21 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		limbSwingAmount *= 3F;
+		float movementDelta = java.lang.Math.min(limbSwingAmount * 4F, 1.0F);
 		limbSwing *= 2F;
 		float halfFastAngle = limbSwing * 0.3331F;
-		float halfFastAngleDelayed = (limbSwing + 0.25F) * 0.3331F;
-		float walkA = ((1F - Math.sin(halfFastAngle)) * Math.min(1F, limbSwingAmount * 4) * 0.5F) - 0.5F;
-		float walkB = ((1F - Math.sin(-halfFastAngle)) * Math.min(1F, limbSwingAmount * 4) * 0.5F) - 0.5F;
+		float halfFastAngleDelayed = (limbSwing + 1F) * 0.3331F;
+		float walkA = Mth.lerp(movementDelta, 0F, ((1F - Math.sin(halfFastAngle)) * Math.min(1F, limbSwingAmount * 5) * 0.5F) - 0.5F);
+		float walkB = Mth.lerp(movementDelta, 0F, ((1F - Math.sin(-halfFastAngle)) * Math.min(1F, limbSwingAmount * 5) * 0.5F) - 0.5F);
 
-		float legRoll = Math.sin(halfFastAngle) * 0.4F * limbSwingAmount;
-		this.back_right_leg.zRot += Mth.lerp(walkA, legRoll, 50F * pi180);
+		float legRoll = Math.sin(halfFastAngle) * 0.4F * limbSwingAmount * 2;
+		this.back_right_leg.zRot += Mth.lerp(walkA, -legRoll, 50F * pi180);
 		this.middle_right_leg.zRot += Mth.lerp(walkB, legRoll, 50F * pi180);
-		this.front_right_leg.zRot += Mth.lerp(walkA, legRoll, 50F * pi180);
+		this.front_right_leg.zRot += Mth.lerp(walkA, -legRoll, 50F * pi180);
 
-		this.back_left_leg.zRot += Mth.lerp(walkB, legRoll, -50F * pi180);
+		this.back_left_leg.zRot += Mth.lerp(walkB, -legRoll, -50F * pi180);
 		this.middle_left_leg.zRot += Mth.lerp(walkA, legRoll, -50F * pi180);
-		this.front_left_leg.zRot += Mth.lerp(walkB, legRoll, -50F * pi180);
+		this.front_left_leg.zRot += Mth.lerp(walkB, -legRoll, -50F * pi180);
 
 		this.back_right_leg.y += -walkA;
 		this.middle_right_leg.y += -walkB;
@@ -113,18 +113,18 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		this.middle_left_leg.y += -walkA;
 		this.front_left_leg.y += -walkB;
 
-		float walkADelayed = ((1F - Math.sin(halfFastAngleDelayed)) * Math.min(1F, limbSwingAmount * 4) * 0.5F) - 0.5F;
-		float walkBDelayed = ((1F - Math.sin(-halfFastAngleDelayed)) * Math.min(1F, limbSwingAmount * 4) * 0.5F) - 0.5F;
+		float walkADelayed = Mth.lerp(movementDelta, 0F, (((1F - Math.sin(halfFastAngleDelayed)) * Math.min(1F, limbSwingAmount * 5) * 0.5F) - 0.5F) * 2F);
+		float walkBDelayed = Mth.lerp(movementDelta, 0F, (((1F - Math.sin(-halfFastAngleDelayed)) * Math.min(1F, limbSwingAmount * 5) * 0.5F) - 0.5F) * 2F);
 
-		this.back_right_leg.x += -walkBDelayed;
-		this.middle_right_leg.x += -walkADelayed;
-		this.front_right_leg.x += -walkBDelayed;
+		this.back_right_leg.x += walkBDelayed;
+		this.middle_right_leg.x += walkADelayed;
+		this.front_right_leg.x += walkBDelayed;
 
-		this.back_left_leg.x += walkADelayed;
-		this.middle_left_leg.x += walkBDelayed;
-		this.front_left_leg.x += walkADelayed;
+		this.back_left_leg.x += -walkADelayed;
+		this.middle_left_leg.x += -walkBDelayed;
+		this.front_left_leg.x += -walkADelayed;
 
-		this.body.zRot += legRoll * 0.3F;
+		this.body.zRot += legRoll;
 
 		//TODO: ATTACK ANIM
 		this.body.yRot = Mth.sin(Mth.sqrt(this.attackTime) * ((float) java.lang.Math.PI * 2)) * -0.2f;
