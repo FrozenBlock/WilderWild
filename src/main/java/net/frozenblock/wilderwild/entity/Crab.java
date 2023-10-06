@@ -7,11 +7,14 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
 import net.minecraft.world.entity.animal.Animal;
@@ -25,6 +28,7 @@ public class Crab extends Animal {
 
 	private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.BYTE);
 	private static final float MAX_TARGET_DISTANCE = 15F;
+	private static final float MOVEMENT_SPEED = 0.45F;
 
 	public float climAnim;
 	public float prevClimbAnim;
@@ -37,12 +41,17 @@ public class Crab extends Animal {
 
 	@Override
 	public void registerGoals() {
-		this.goalSelector.addGoal(6, new RandomStrollGoal(this, 0.5));
+		this.goalSelector.addGoal(6, new RandomStrollGoal(this, MOVEMENT_SPEED));
+		this.targetSelector.addGoal(4, new MeleeAttackGoal(this, 0.55, false));
+		this.targetSelector.addGoal(1, new HurtByTargetGoal(this, new Class[0]));
 	}
 
 	@NotNull
 	public static AttributeSupplier.Builder addAttributes() {
-		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.MOVEMENT_SPEED, 0.5F).add(Attributes.FOLLOW_RANGE, MAX_TARGET_DISTANCE);
+		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D)
+			.add(Attributes.MOVEMENT_SPEED, MOVEMENT_SPEED)
+			.add(Attributes.ATTACK_DAMAGE, 1.0F)
+			.add(Attributes.FOLLOW_RANGE, MAX_TARGET_DISTANCE);
 	}
 
 	@Override
@@ -73,6 +82,7 @@ public class Crab extends Animal {
 
 	@Override
 	public void aiStep() {
+		this.updateSwingTime();
 		super.aiStep();
 	}
 
@@ -85,6 +95,7 @@ public class Crab extends Animal {
 		this.prevClimbAnim = this.climAnim;
 		this.climAnim += ((this.isClimbing() ? 1F : 0F) - this.climAnim) * 0.2F;
 	}
+
 
 	@Override
 	public boolean onClimbable() {

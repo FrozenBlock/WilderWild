@@ -27,9 +27,10 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 	private final ModelPart rightMiddleLeg;
 	private final ModelPart leftMiddleLeg;
 	private final ModelPart rightFrontLeg;
-	private final ModelPart leftFrontLeg;
+	private final ModelPart claw;
 
 	public float xRot;
+	private float tickDelta;
 
 	public CrabModel(@NotNull ModelPart root) {
 		this.root = root;
@@ -39,7 +40,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		this.rightMiddleLeg = root.getChild("right_middle_leg");
 		this.leftMiddleLeg = root.getChild("left_middle_leg");
 		this.rightFrontLeg = root.getChild("right_front_leg");
-		this.leftFrontLeg = root.getChild("left_front_leg");
+		this.claw = root.getChild("claw");
 	}
 
 	public static @NotNull LayerDefinition createBodyLayer() {
@@ -53,7 +54,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		partDefinition.addOrReplaceChild("right_middle_leg", rightLeg, PartPose.offset(-4.0f, 0.0f, 1.0f));
 		partDefinition.addOrReplaceChild("left_middle_leg", leftLeg, PartPose.offset(4.0f, 0.0f, 1.0f));
 		partDefinition.addOrReplaceChild("right_front_leg", rightLeg, PartPose.offset(-4.0f, 0.0f, -1.0f));
-		partDefinition.addOrReplaceChild("left_front_leg", CubeListBuilder.create().texOffs(18, 0).addBox(-4.0f, -1.0f, -1.0f, 4.0f, 4.0f, 4.0f), PartPose.offset(4.0f, -2.0f, -4.0f));
+		partDefinition.addOrReplaceChild("claw", CubeListBuilder.create().texOffs(18, 0).addBox(-4.0f, -1.0f, -1.0f, 4.0f, 4.0f, 4.0f), PartPose.offset(4.0f, -2.0f, -4.0f));
 		return LayerDefinition.create(meshDefinition, 64, 32);
 	}
 
@@ -64,6 +65,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 
 	@Override
 	public void prepareMobModel(@NotNull T entity, float limbSwing, float limbSwimgAmount, float partialTick) {
+		this.tickDelta = partialTick;
 		this.xRot = (Mth.lerp(partialTick, entity.prevClimbAnim, entity.climAnim) * -75F);
 	}
 
@@ -82,25 +84,25 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		//this.body.yRot = netHeadYaw * 0.017453292F;
 		//this.body.xRot = headPitch * 0.017453292F;
 
-		float doubleSwing = limbSwingAmount * 2;
-		float halfFastAngle = limbSwing * 0.3331f;
-		float fastAngle = halfFastAngle * 2f;
-		float fastAngleTwo = fastAngle * 2f;
+		limbSwing *= 5F;
+		float doubleSwingAmount = limbSwingAmount * 2F;
+		float halfFastAngle = limbSwing * 0.3331F;
+		float fastAngle = halfFastAngle * 0.662F;
+		float fastAngleTwo = fastAngle * 2F;
 
-		float hindYaw = 0.7853982f -(Math.sin((fastAngleTwo) + PIHalf_f) * 0.4f) * doubleSwing;
-		float middleYaw = 0.3926991f -(Math.sin((fastAngleTwo + 3.1415927F) + PIHalf_f) * 0.4f) * doubleSwing;
-		float frontYaw = -0.7853982f -(Math.sin((fastAngleTwo + 4.712389f) + PIHalf_f) * 0.4f) * doubleSwing;
+		float hindYaw = 0.7853982F -(Math.sin((fastAngleTwo) + PIHalf_f) * 0.4F) * doubleSwingAmount;
+		float middleYaw = 0.3926991F -(Math.sin((fastAngleTwo + 3.1415927F) + PIHalf_f) * 0.4F) * doubleSwingAmount;
+		float frontYaw = -0.7853982F -(Math.sin((fastAngleTwo + 4.712389F) + PIHalf_f) * 0.4F) * doubleSwingAmount;
 
 		this.rightHindLeg.yRot = hindYaw;
 		this.leftHindLeg.yRot = -hindYaw;
 		this.rightMiddleLeg.yRot = middleYaw;
 		this.leftMiddleLeg.yRot = -middleYaw;
 		this.rightFrontLeg.yRot = frontYaw;
-		this.leftFrontLeg.yRot = -frontYaw;
 
-		float hindRoll = -0.7853982f + Math.abs(Math.sin(fastAngle) * 0.4f) * doubleSwing;
-		float middleRoll = -0.58119464f + Math.abs(Math.sin(fastAngle + 3.1415927F) * 0.4f) * doubleSwing;
-		float middleFrontRoll = -0.58119464f + Math.abs(Math.sin(fastAngle + 1.5707964f) * 0.4f) * doubleSwing;
+		float hindRoll = -0.7853982F + Math.abs(Math.sin(fastAngle) * 0.4F) * doubleSwingAmount;
+		float middleRoll = -0.58119464F + Math.abs(Math.sin(fastAngle + 3.1415927F) * 0.4F) * doubleSwingAmount;
+		float middleFrontRoll = -0.58119464F + Math.abs(Math.sin(fastAngle + 1.5707964F) * 0.4F) * doubleSwingAmount;
 
 		this.rightHindLeg.xRot = hindRoll;
 		this.leftHindLeg.xRot = hindRoll;
@@ -109,11 +111,27 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		this.rightFrontLeg.xRot = middleFrontRoll;
 
 		//TODO: BIG CLAW
-		float bigClawYaw = -0.3926991f -(Math.sin((fastAngle + 1.5707964f) + PIHalf_f) * 0.4f) * limbSwingAmount;
-		float bigClawRoll = -0.58119464f + Math.abs(Math.sin(halfFastAngle + 1.5707964f) * 0.4f) * limbSwingAmount;
+		float bigClawYaw = -0.3926991F -(Math.sin((fastAngle + 1.5707964F) + PIHalf_f) * 0.4F) * limbSwingAmount;
+		float bigClawRoll = -0.58119464F + Math.abs(Math.sin(halfFastAngle + 1.5707964F) * 0.4F) * limbSwingAmount;
 
-		this.leftFrontLeg.yRot = -bigClawYaw;
-		this.leftFrontLeg.xRot = bigClawRoll;
+		this.claw.yRot = -bigClawYaw;
+		this.claw.xRot = bigClawRoll;
+
+		//TODO: ATTACK ANIM
+		this.body.yRot = Mth.sin(Mth.sqrt(this.attackTime) * ((float) java.lang.Math.PI * 2)) * -0.2f;
+
+		float f = 1.0f - this.attackTime;
+		f *= f;
+		f *= f;
+		f = 1.0f - f;
+		float g = Mth.sin(f * (float) java.lang.Math.PI);
+		float h = Mth.sin(this.attackTime * (float) java.lang.Math.PI) * -(this.body.xRot - 0.7f) * 0.75f;
+		this.claw.xRot -= g * 1.2f + h;
+		this.claw.yRot -= g * 1.2f + h;
+		this.claw.zRot = Mth.sin(this.attackTime * (float) java.lang.Math.PI) * -1.2f;
+
+		//this.claw.yRot += this.attackTime * Math.PI;
+		//this.claw.zRot = (float) (1F - this.attackTime * Math.PI * 0.5F);
 	}
 }
 
