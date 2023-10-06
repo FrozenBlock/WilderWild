@@ -25,6 +25,7 @@ public class Crab extends Animal {
 
 	private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.BYTE);
 	private static final float MAX_TARGET_DISTANCE = 15F;
+	private static final float MOVEMENT_SPEED = 0.3F;
 
 	public float climAnim;
 	public float prevClimbAnim;
@@ -37,12 +38,12 @@ public class Crab extends Animal {
 
 	@Override
 	public void registerGoals() {
-		this.goalSelector.addGoal(6, new RandomStrollGoal(this, 0.5));
+		this.goalSelector.addGoal(6, new RandomStrollGoal(this, MOVEMENT_SPEED));
 	}
 
 	@NotNull
 	public static AttributeSupplier.Builder addAttributes() {
-		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.MOVEMENT_SPEED, 0.5F).add(Attributes.FOLLOW_RANGE, MAX_TARGET_DISTANCE);
+		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.MOVEMENT_SPEED, MOVEMENT_SPEED).add(Attributes.FOLLOW_RANGE, MAX_TARGET_DISTANCE);
 	}
 
 	@Override
