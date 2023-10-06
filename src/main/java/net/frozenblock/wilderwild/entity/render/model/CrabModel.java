@@ -27,8 +27,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 	private final ModelPart rightMiddleLeg;
 	private final ModelPart leftMiddleLeg;
 	private final ModelPart rightFrontLeg;
-	private final ModelPart claw;
-	private final ModelPart hinge;
+	private final ModelPart leftFrontLeg;
 
 	public float xRot;
 
@@ -40,8 +39,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		this.rightMiddleLeg = root.getChild("right_middle_leg");
 		this.leftMiddleLeg = root.getChild("left_middle_leg");
 		this.rightFrontLeg = root.getChild("right_front_leg");
-		this.claw = root.getChild("claw");
-		this.hinge = this.claw.getChild("hinge");
+		this.leftFrontLeg = root.getChild("left_front_leg");
 	}
 
 	public static @NotNull LayerDefinition createBodyLayer() {
@@ -55,8 +53,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		partDefinition.addOrReplaceChild("right_middle_leg", rightLeg, PartPose.offset(-4.0f, 0.0f, 1.0f));
 		partDefinition.addOrReplaceChild("left_middle_leg", leftLeg, PartPose.offset(4.0f, 0.0f, 1.0f));
 		partDefinition.addOrReplaceChild("right_front_leg", rightLeg, PartPose.offset(-4.0f, 0.0f, -1.0f));
-		PartDefinition claw = partDefinition.addOrReplaceChild("claw", CubeListBuilder.create().texOffs(18, 0).addBox(-4.0f, 1.0f, -1.0f, 4.0f, 2.0f, 2.0f), PartPose.offset(4.0f, -2.0f, -4.0f));
-		claw.addOrReplaceChild("hinge", CubeListBuilder.create().texOffs(18, 0).addBox(0.0f, 2.0f, 0.0f, -4.0f, -1.0f, 2.0f), PartPose.offset(0.0f, 0.0f, 0.0f));
+		partDefinition.addOrReplaceChild("left_front_leg", CubeListBuilder.create().texOffs(18, 0).addBox(-4.0f, -1.0f, -1.0f, 4.0f, 4.0f, 4.0f), PartPose.offset(4.0f, -2.0f, -4.0f));
 		return LayerDefinition.create(meshDefinition, 64, 32);
 	}
 
@@ -99,6 +96,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		this.rightMiddleLeg.yRot = middleYaw;
 		this.leftMiddleLeg.yRot = -middleYaw;
 		this.rightFrontLeg.yRot = frontYaw;
+		this.leftFrontLeg.yRot = -frontYaw;
 
 		float hindRoll = -0.7853982f + Math.abs(Math.sin(fastAngle) * 0.4f) * doubleSwing;
 		float middleRoll = -0.58119464f + Math.abs(Math.sin(fastAngle + 3.1415927F) * 0.4f) * doubleSwing;
@@ -114,9 +112,8 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		float bigClawYaw = -0.3926991f -(Math.sin((fastAngle + 1.5707964f) + PIHalf_f) * 0.4f) * limbSwingAmount;
 		float bigClawRoll = -0.58119464f + Math.abs(Math.sin(halfFastAngle + 1.5707964f) * 0.4f) * limbSwingAmount;
 
-		this.claw.yRot = -bigClawYaw;
-		this.claw.xRot = bigClawRoll;
-		this.hinge.yRot = bigClawYaw * 2;
+		this.leftFrontLeg.yRot = -bigClawYaw;
+		this.leftFrontLeg.xRot = bigClawRoll;
 	}
 }
 
