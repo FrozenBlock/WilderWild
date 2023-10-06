@@ -116,8 +116,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		this.front_left_leg.y += legOffset * 3F;
 
 		this.body.zRot += legRoll;
-		this.legs.zRot += legRoll;
-
+		//this.legs.zRot += legRoll;
 
 		//TODO: ATTACK ANIM
 		this.body.yRot = Mth.sin(Mth.sqrt(this.attackTime) * ((float) java.lang.Math.PI * 2)) * -0.2f;
