@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.entity;
 
+import net.frozenblock.wilderwild.entity.ai.crab.CrabJumpControl;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -31,6 +32,7 @@ public class Crab extends Animal {
 	public Crab(EntityType<? extends Crab> entityType, Level level) {
 		super(entityType, level);
 		this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+		this.jumpControl = new CrabJumpControl(this);
 	}
 
 	@Override
