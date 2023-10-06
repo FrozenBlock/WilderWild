@@ -82,15 +82,14 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		//this.body.yRot = netHeadYaw * 0.017453292F;
 		//this.body.xRot = headPitch * 0.017453292F;
 
-		limbSwingAmount *= 2;
-
-		float fastAngle = limbSwing * 0.6662f;
+		float doubleSwing = limbSwingAmount * 2;
+		float halfFastAngle = limbSwing * 0.3331f;
+		float fastAngle = halfFastAngle * 2f;
 		float fastAngleTwo = fastAngle * 2f;
 
-		float hindYaw = 0.7853982f -(Math.sin((fastAngleTwo) + PIHalf_f) * 0.4f) * limbSwingAmount;
-		float middleYaw = 0.3926991f -(Math.sin((fastAngleTwo + 3.1415927F) + PIHalf_f) * 0.4f) * limbSwingAmount;
-		float middleFrontYaw = -0.3926991f -(Math.sin((fastAngleTwo + 1.5707964f) + PIHalf_f) * 0.4f) * limbSwingAmount;
-		float frontYaw = -0.7853982f -(Math.sin((fastAngleTwo + 4.712389f) + PIHalf_f) * 0.4f) * limbSwingAmount;
+		float hindYaw = 0.7853982f -(Math.sin((fastAngleTwo) + PIHalf_f) * 0.4f) * doubleSwing;
+		float middleYaw = 0.3926991f -(Math.sin((fastAngleTwo + 3.1415927F) + PIHalf_f) * 0.4f) * doubleSwing;
+		float frontYaw = -0.7853982f -(Math.sin((fastAngleTwo + 4.712389f) + PIHalf_f) * 0.4f) * doubleSwing;
 
 		this.rightHindLeg.yRot = hindYaw;
 		this.leftHindLeg.yRot = -hindYaw;
@@ -99,21 +98,22 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		this.rightFrontLeg.yRot = frontYaw;
 		this.leftFrontLeg.yRot = -frontYaw;
 
-		float hindRoll = -0.7853982f + Math.abs(Math.sin(fastAngle) * 0.4f) * limbSwingAmount;
-		float middleRoll = -0.58119464f + Math.abs(Math.sin(fastAngle + 3.1415927F) * 0.4f) * limbSwingAmount;
-		float middleFrontRoll = -0.58119464f + Math.abs(Math.sin(fastAngle + 1.5707964f) * 0.4f) * limbSwingAmount;
-		float frontRoll = -0.7853982f + Math.abs(Math.sin(fastAngle + 4.712389f) * 0.4f) * limbSwingAmount;
+		float hindRoll = -0.7853982f + Math.abs(Math.sin(fastAngle) * 0.4f) * doubleSwing;
+		float middleRoll = -0.58119464f + Math.abs(Math.sin(fastAngle + 3.1415927F) * 0.4f) * doubleSwing;
+		float middleFrontRoll = -0.58119464f + Math.abs(Math.sin(fastAngle + 1.5707964f) * 0.4f) * doubleSwing;
 
 		this.rightHindLeg.xRot = hindRoll;
 		this.leftHindLeg.xRot = hindRoll;
 		this.rightMiddleLeg.xRot = middleRoll;
 		this.leftMiddleLeg.xRot = middleRoll;
+		this.rightFrontLeg.xRot = middleFrontRoll;
 
-		//TODO
-		this.rightFrontLeg.yRot = frontYaw;
-		this.leftFrontLeg.yRot = -middleFrontYaw;
-		this.rightFrontLeg.xRot = 0F;
-		this.leftFrontLeg.xRot = middleFrontRoll;
+		//TODO: BIG CLAW
+		float bigClawYaw = -0.3926991f -(Math.sin((fastAngle + 1.5707964f) + PIHalf_f) * 0.4f) * limbSwingAmount;
+		float bigClawRoll = -0.58119464f + Math.abs(Math.sin(halfFastAngle + 1.5707964f) * 0.4f) * limbSwingAmount;
+
+		this.leftFrontLeg.yRot = -bigClawYaw;
+		this.leftFrontLeg.xRot = bigClawRoll;
 	}
 }
 
