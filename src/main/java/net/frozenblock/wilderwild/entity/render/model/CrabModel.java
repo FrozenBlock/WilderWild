@@ -62,14 +62,10 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 
 		PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(-5, -5).addBox(-4.0F, -2.0F, -2.0F, 8.0F, 3.0F, 7.0F, new CubeDeformation(0.0F))
 			.texOffs(2, 2).addBox(-4.0F, -4.0F, 5.01F, 8.0F, 5.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, -2.0F));
-
 		PartDefinition right_claw = body.addOrReplaceChild("right_claw", CubeListBuilder.create().texOffs(0, 0).addBox(1.0F, -1.0F, -1.0F, 3.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-6.0F, -1.0F, 4.25F, 0.0F, -0.6981F, 0.2618F));
 
-		//MAIN CLAW
 		PartDefinition main_claw = body.addOrReplaceChild("main_claw", CubeListBuilder.create(), PartPose.offsetAndRotation(6.0F, -1.5F, 4.25F, 0.0F, 0.6981F, -0.5236F));
-
 		PartDefinition claw_top = main_claw.addOrReplaceChild("claw_top", CubeListBuilder.create().texOffs(0, 0).addBox(-6.0F, -1.5F, -1.0F, 6.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0, 0, 0, 0, 0, 0));
-
 		PartDefinition claw_bottom = main_claw.addOrReplaceChild("claw_bottom", CubeListBuilder.create().texOffs(0, 0).addBox(-6.0F, 0.5F, -1.0F, 6.0F, 1.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0, 0, 0, 0, 0, 0));
 
 		//LEGS
@@ -93,13 +89,12 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		limbSwing *= 5F;
+		//limbSwing *= 5F;
 		float doubleSwingAmount = limbSwingAmount * 2F;
 		float halfFastAngle = limbSwing * 0.3331F;
-		float fastAngle = halfFastAngle * 0.662F;
+		float fastAngle = halfFastAngle * 2F;
 
 		float legRoll = Math.sin(halfFastAngle) * 0.4F * doubleSwingAmount;
-
 		this.back_right_leg.zRot += legRoll;
 		this.middle_right_leg.zRot += -legRoll;
 		this.front_right_leg.zRot += legRoll;
@@ -107,6 +102,15 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		this.back_left_leg.zRot += -legRoll;
 		this.middle_left_leg.zRot += legRoll;
 		this.front_left_leg.zRot += -legRoll;
+
+		float legOffset = Math.sin(halfFastAngle * (Math.min(1F, doubleSwingAmount * limbSwingAmount)));
+		this.back_right_leg.y -= legOffset;
+		this.middle_right_leg.y -= -legOffset;
+		this.front_right_leg.y -= legOffset;
+
+		this.back_left_leg.y -= -legOffset;
+		this.middle_left_leg.y -= legOffset;
+		this.front_left_leg.y -= -legOffset;
 
 		this.body.zRot += legRoll;
 		this.legs.zRot += legRoll;
