@@ -33,6 +33,7 @@ public class Crab extends Animal {
 
 	public float climbAnimX;
 	public float prevClimbAnimX;
+	public float viewAngle;
 
 	public Crab(EntityType<? extends Crab> entityType, Level level) {
 		super(entityType, level);
@@ -114,6 +115,7 @@ public class Crab extends Animal {
 				if (viewAngle > 360F) {
 					viewAngle -= 360F;
 				}
+				this.viewAngle = viewAngle;
 
 				float difference = deltaAngle - viewAngle;
 				if (difference < 0F) {
