@@ -29,7 +29,8 @@ public class Crab extends Animal {
 	private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.BYTE);
 	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_X = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
 	private static final float MAX_TARGET_DISTANCE = 15F;
-	private static final float MOVEMENT_SPEED = 0.45F;
+	private static final float MOVEMENT_SPEED = 0.16F;
+	private static final float WATER_MOVEMENT_SPEED = 0.576F;
 
 	public float climbAnimX;
 	public float prevClimbAnimX;
@@ -44,8 +45,8 @@ public class Crab extends Animal {
 
 	@Override
 	public void registerGoals() {
-		this.goalSelector.addGoal(6, new RandomStrollGoal(this, MOVEMENT_SPEED));
-		this.targetSelector.addGoal(4, new MeleeAttackGoal(this, 0.55, false));
+		this.goalSelector.addGoal(6, new RandomStrollGoal(this, 1));
+		this.targetSelector.addGoal(4, new MeleeAttackGoal(this, 1.15, false));
 		this.targetSelector.addGoal(1, new HurtByTargetGoal(this, new Class[0]));
 	}
 
@@ -53,7 +54,8 @@ public class Crab extends Animal {
 	public static AttributeSupplier.Builder addAttributes() {
 		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D)
 			.add(Attributes.MOVEMENT_SPEED, MOVEMENT_SPEED)
-			.add(Attributes.ATTACK_DAMAGE, 1.0F)
+			.add(Attributes.JUMP_STRENGTH, 0.0D)
+			.add(Attributes.ATTACK_DAMAGE, 1.0D)
 			.add(Attributes.FOLLOW_RANGE, MAX_TARGET_DISTANCE);
 	}
 
@@ -87,6 +89,9 @@ public class Crab extends Animal {
 	@Override
 	public void aiStep() {
 		this.updateSwingTime();
+		if (this.getAttribute(Attributes.MOVEMENT_SPEED) != null) {
+			this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(this.isInWater() ? WATER_MOVEMENT_SPEED : MOVEMENT_SPEED);
+		}
 		super.aiStep();
 	}
 
