@@ -131,9 +131,9 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 
 		this.body.zRot += legRoll;
 		//this.body.zRot += Mth.lerp(this.rotationYProgress, this.zRot, this.zRot + 180F) * pi180;
-		this.body.zRot += Mth.lerp(this.rotationYProgress, this.xRot, this.xRot + 180F) * pi180;
+		this.body.zRot += xRot * pi180;
 		//this.legs.zRot += Mth.lerp(this.rotationYProgress, this.zRot, this.zRot + 180F) * pi180;
-		this.legs.zRot += Mth.lerp(this.rotationYProgress, this.xRot, this.xRot + 180F) * pi180;
+		this.legs.zRot += xRot * pi180;
 
 		//TODO: ATTACK ANIM
 		this.body.yRot = Mth.sin(Mth.sqrt(this.attackTime) * ((float) java.lang.Math.PI * 2)) * -0.2f;
