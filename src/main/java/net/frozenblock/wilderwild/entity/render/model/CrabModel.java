@@ -85,7 +85,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 
 	@Override
 	public void prepareMobModel(@NotNull T entity, float limbSwing, float limbSwingAmount, float partialTick) {
-		this.xRot = Mth.lerp(partialTick, entity.prevClimbAnimX, entity.climbAnimX) * 75F;
+		this.xRot = Mth.lerp(partialTick, entity.prevClimbAnimX, entity.climbAnimX) * 150F;
 		this.zRot = entity.isClimbing() ? (Math.abs(75F) - Math.abs(this.xRot)) * this.xRot < 0 ? -1F : 1F : 0F;
 		this.rotationYProgress = entity.viewAngle / 360F;
 	}
@@ -132,9 +132,9 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		this.body.zRot += legRoll;
 		//poseStack.mulPose(Axis.XP.rotationDegrees(this.zRot * 75F));
 		//poseStack.mulPose(Axis.ZP.rotationDegrees(this.xRot * 75F));
-		this.body.xRot += Mth.lerp(this.rotationYProgress, this.xRot, this.xRot + 180F);
+		this.body.zRot += Mth.lerp(this.rotationYProgress, this.xRot, this.xRot + 180F) * pi180;
 		//this.body.zRot += (this.zRot) * pi180 * -Mth.cos((float) (2 * this.rotationYProgress * Math.PI));
-		this.legs.xRot += Mth.lerp(this.rotationYProgress, this.xRot, this.xRot + 180F);
+		this.legs.zRot += Mth.lerp(this.rotationYProgress, this.xRot, this.xRot + 180F)  * pi180;
 		//this.legs.zRot += (this.zRot) * pi180 * -Mth.cos((float) (2 * this.rotationYProgress * Math.PI));
 
 		//TODO: ATTACK ANIM
