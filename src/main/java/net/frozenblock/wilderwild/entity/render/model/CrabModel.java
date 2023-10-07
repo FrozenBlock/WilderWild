@@ -85,7 +85,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 
 	@Override
 	public void prepareMobModel(@NotNull T entity, float limbSwing, float limbSwingAmount, float partialTick) {
-		this.xRot = Mth.lerp(partialTick, entity.prevClimbAnimX, entity.climbAnimX) * 150F;
+		this.xRot = Mth.lerp(partialTick, entity.prevClimbAnimX, entity.climbAnimX) * 75F;
 		this.zRot = entity.isClimbing() ? (Math.abs(75F) - Math.abs(this.xRot)) * this.xRot < 0 ? -1F : 1F : 0F;
 		this.rotationYProgress = entity.viewAngle / 360F;
 	}
@@ -95,7 +95,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		float movementDelta = java.lang.Math.min(limbSwingAmount * 4F, 1.0F);
-		limbSwing *= 3F;
+		limbSwing *= 4.5F;
 		float halfFastAngle = limbSwing * 0.3331F;
 		float halfFastAngleDelayed = (limbSwing + 1F) * 0.3331F;
 		float walkA = Mth.lerp(movementDelta, 0F, ((1F - Math.sin(halfFastAngle)) * Math.min(1F, limbSwingAmount * 5) * 0.5F) - 0.5F);
@@ -130,12 +130,10 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		this.front_left_leg.x += -walkADelayed;
 
 		this.body.zRot += legRoll;
-		//poseStack.mulPose(Axis.XP.rotationDegrees(this.zRot * 75F));
-		//poseStack.mulPose(Axis.ZP.rotationDegrees(this.xRot * 75F));
 		this.body.zRot += Mth.lerp(this.rotationYProgress, this.xRot, this.xRot + 180F) * pi180;
-		//this.body.zRot += (this.zRot) * pi180 * -Mth.cos((float) (2 * this.rotationYProgress * Math.PI));
-		this.legs.zRot += Mth.lerp(this.rotationYProgress, this.xRot, this.xRot + 180F)  * pi180;
-		//this.legs.zRot += (this.zRot) * pi180 * -Mth.cos((float) (2 * this.rotationYProgress * Math.PI));
+		this.body.xRot += Mth.lerp(this.rotationYProgress, this.zRot, this.zRot + 180F) * pi180;
+		this.legs.zRot += Mth.lerp(this.rotationYProgress, this.xRot, this.xRot + 180F) * pi180;
+		this.legs.xRot += Mth.lerp(this.rotationYProgress, this.zRot, this.zRot + 180F) * pi180;
 
 		//TODO: ATTACK ANIM
 		this.body.yRot = Mth.sin(Mth.sqrt(this.attackTime) * ((float) java.lang.Math.PI * 2)) * -0.2f;
