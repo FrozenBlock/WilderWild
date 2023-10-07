@@ -80,7 +80,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		PartDefinition front_right_leg = legs.addOrReplaceChild("front_right_leg", CubeListBuilder.create().texOffs(28, 12).addBox(-0.5F, 0.0F, -0.5F, 1.0F, 4.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(4.0F, 1.0F, 1.75F, 0.3414F, -0.0741F, -0.7109F));
 		PartDefinition front_left_leg = legs.addOrReplaceChild("front_left_leg", CubeListBuilder.create().texOffs(28, 12).addBox(-0.5F, 0.0F, -0.5F, 1.0F, 4.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-4.0F, 1.0F, 1.75F, 0.3414F, 0.0741F, 0.7109F));
 
-		return LayerDefinition.create(meshdefinition, 64, 64);
+		return LayerDefinition.create(meshdefinition, 32, 32);
 	}
 
 	@Override
