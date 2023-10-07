@@ -35,6 +35,8 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 	private final ModelPart front_left_leg;
 
 	public float xRot;
+	public float zRot;
+	public float rotationYProgress;
 
 	public CrabModel(@NotNull ModelPart root) {
 		this.root = root;
@@ -83,12 +85,22 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 
 	@Override
 	public void prepareMobModel(@NotNull T entity, float limbSwing, float limbSwingAmount, float partialTick) {
-		this.xRot = Mth.lerp(partialTick, entity.prevClimbAnim, entity.climAnim) * -75F;
+		this.xRot = Mth.lerp(partialTick, entity.prevClimbAnimX, entity.climbAnimX) * 75F;
+		this.zRot = entity.isClimbing() ? (Math.abs(75F) - Math.abs(this.xRot)) * this.xRot < 0 ? -1F : 1F : 0F;
+		this.rotationYProgress = entity.yBodyRot;
+		if (this.rotationYProgress < 0F) {
+			this.rotationYProgress += 360F;
+		}
+		if (this.rotationYProgress > 360F) {
+			this.rotationYProgress -= 360F;
+		}
+		this.rotationYProgress /= 360F;
 	}
 
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+
 		float movementDelta = java.lang.Math.min(limbSwingAmount * 4F, 1.0F);
 		limbSwing *= 3F;
 		float halfFastAngle = limbSwing * 0.3331F;
@@ -125,6 +137,12 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		this.front_left_leg.x += -walkADelayed;
 
 		this.body.zRot += legRoll;
+		//poseStack.mulPose(Axis.XP.rotationDegrees(this.zRot * 75F));
+		//poseStack.mulPose(Axis.ZP.rotationDegrees(this.xRot * 75F));
+		this.body.xRot += ((this.xRot) * pi180);
+		this.body.zRot += (this.zRot) * pi180;
+		this.legs.xRot += ((this.xRot) * pi180);
+		this.legs.zRot += (this.zRot) * pi180;
 
 		//TODO: ATTACK ANIM
 		this.body.yRot = Mth.sin(Mth.sqrt(this.attackTime) * ((float) java.lang.Math.PI * 2)) * -0.2f;
@@ -147,7 +165,6 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 	public void renderToBuffer(@NotNull PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		poseStack.pushPose();
 		poseStack.translate(0, 1.3F, 0);
-		poseStack.mulPose(Axis.XP.rotationDegrees(this.xRot));
 		poseStack.mulPose(Axis.YP.rotationDegrees(90F));
 		this.root().render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
 		poseStack.popPose();

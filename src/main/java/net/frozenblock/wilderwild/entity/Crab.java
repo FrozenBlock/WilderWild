@@ -10,7 +10,6 @@ import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobType;
-import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
@@ -28,12 +27,12 @@ import org.jetbrains.annotations.Nullable;
 
 public class Crab extends Animal {
 	private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.BYTE);
-	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_X = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
 	private static final float MAX_TARGET_DISTANCE = 15F;
 	private static final float MOVEMENT_SPEED = 0.45F;
 
-	public float climAnim;
-	public float prevClimbAnim;
+	public float climbAnimX;
+	public float prevClimbAnimX;
 
 	public Crab(EntityType<? extends Crab> entityType, Level level) {
 		super(entityType, level);
@@ -66,7 +65,7 @@ public class Crab extends Animal {
 	protected void defineSynchedData() {
 		super.defineSynchedData();
 		this.entityData.define(DATA_FLAGS_ID, (byte)0);
-		this.entityData.define(TARGET_CLIMBING_ANIM, 0F);
+		this.entityData.define(TARGET_CLIMBING_ANIM_X, 0F);
 	}
 
 	@Override
@@ -92,22 +91,49 @@ public class Crab extends Animal {
 
 	@Override
 	public void tick() {
+		if (!this.level().isClientSide) {
+			if (this.isClimbing()) {
+				Vec3 deltaMovement = this.getDeltaMovement();
+				float deltaAngle = (float) Math.atan2(deltaMovement.z(), deltaMovement.x());
+				deltaAngle = (float) (180F * deltaAngle / Math.PI);
+				deltaAngle = (360F + deltaAngle) % 360F;
+				if (deltaAngle < 0F) {
+					deltaAngle += 360F;
+				}
+				if (deltaAngle > 360F) {
+					deltaAngle -= 360F;
+				}
+
+				Vec3 viewVector = this.getViewVector(1F);
+				float viewAngle = (float) Math.atan2(viewVector.z(), viewVector.x());
+				viewAngle = (float) (180F * viewAngle / Math.PI);
+				viewAngle = (360F + viewAngle) % 360F;
+				if (viewAngle < 0F) {
+					viewAngle += 360F;
+				}
+				if (viewAngle > 360F) {
+					viewAngle -= 360F;
+				}
+
+				float difference = deltaAngle - viewAngle;
+				if (difference < 0F) {
+					difference += 360F;
+				}
+				if (difference > 360F) {
+					difference -= 360F;
+				}
+
+				this.setTargetClimbAnimX(difference / 180F);
+			} else {
+				this.setTargetClimbAnimX(0F);
+			}
+		}
 		super.tick();
 		if (!this.level().isClientSide) {
 			this.setClimbing(this.horizontalCollision);
-			Vec3 deltaMovement = this.getDeltaMovement();
-			float facingAngle = this.getYHeadRot();
-			float deltaAngle = (float) Math.atan2(deltaMovement.x(), deltaMovement.z());
-			deltaAngle = (float) (180F * deltaAngle / Math.PI);
-			deltaAngle = (360F + deltaAngle) % 360F;
-
-			float difference = (deltaAngle - facingAngle) - 180F;
-			//System.out.println("facing: " + facingAngle + ", moving: " + deltaAngle + ", difference: " + difference);
-			this.setTargetClimbAnim(Mth.clamp((difference / 180F) * 1.5F, -1, 1));
 		}
-		//System.out.println(this.targetClimbAnim());
-		this.prevClimbAnim = this.climAnim;
-		this.climAnim += ((this.isClimbing() ? this.targetClimbAnim() : 0F) - this.climAnim) * 0.2F;
+		this.prevClimbAnimX = this.climbAnimX;
+		this.climbAnimX += ((this.isClimbing() ? -Mth.cos(this.targetClimbAnimX() * Mth.PI) : 0F) - this.climbAnimX) * 0.2F;
 	}
 
 	@Override
@@ -125,12 +151,12 @@ public class Crab extends Animal {
 		this.entityData.set(DATA_FLAGS_ID, b);
 	}
 
-	public float targetClimbAnim() {
-		return this.entityData.get(TARGET_CLIMBING_ANIM);
+	public float targetClimbAnimX() {
+		return this.entityData.get(TARGET_CLIMBING_ANIM_X);
 	}
 
-	public void setTargetClimbAnim(float f) {
-		this.entityData.set(TARGET_CLIMBING_ANIM, f);
+	public void setTargetClimbAnimX(float f) {
+		this.entityData.set(TARGET_CLIMBING_ANIM_X, f);
 	}
 
 	@Override
