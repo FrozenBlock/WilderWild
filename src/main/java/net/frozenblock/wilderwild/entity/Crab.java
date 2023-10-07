@@ -135,7 +135,7 @@ public class Crab extends Animal {
 			this.setClimbing(this.horizontalCollision);
 		}
 		this.prevClimbAnimX = this.climbAnimX;
-		this.climbAnimX += ((this.isClimbing() ? -Mth.cos(this.targetClimbAnimX() * Mth.PI) : 0F) - this.climbAnimX) * 0.2F;
+		this.climbAnimX += ((this.isClimbing() ? Mth.clamp(-Mth.cos(this.targetClimbAnimX() * Mth.PI) * 10F, -1F, 1F) : 0F) - this.climbAnimX) * 0.2F;
 	}
 
 	@Override
