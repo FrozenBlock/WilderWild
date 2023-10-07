@@ -90,7 +90,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		float movementDelta = java.lang.Math.min(limbSwingAmount * 4F, 1.0F);
-		limbSwing *= 2F;
+		limbSwing *= 3F;
 		float halfFastAngle = limbSwing * 0.3331F;
 		float halfFastAngleDelayed = (limbSwing + 1F) * 0.3331F;
 		float walkA = Mth.lerp(movementDelta, 0F, ((1F - Math.sin(halfFastAngle)) * Math.min(1F, limbSwingAmount * 5) * 0.5F) - 0.5F);

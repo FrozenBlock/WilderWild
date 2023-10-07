@@ -8,9 +8,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
@@ -22,12 +22,13 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Crab extends Animal {
-
 	private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.BYTE);
+	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
 	private static final float MAX_TARGET_DISTANCE = 15F;
 	private static final float MOVEMENT_SPEED = 0.45F;
 
@@ -38,6 +39,7 @@ public class Crab extends Animal {
 		super(entityType, level);
 		this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
 		this.jumpControl = new CrabJumpControl(this);
+		this.setMaxUpStep(0.2F);
 	}
 
 	@Override
@@ -64,6 +66,7 @@ public class Crab extends Animal {
 	protected void defineSynchedData() {
 		super.defineSynchedData();
 		this.entityData.define(DATA_FLAGS_ID, (byte)0);
+		this.entityData.define(TARGET_CLIMBING_ANIM, 0F);
 	}
 
 	@Override
@@ -92,9 +95,19 @@ public class Crab extends Animal {
 		super.tick();
 		if (!this.level().isClientSide) {
 			this.setClimbing(this.horizontalCollision);
+			Vec3 deltaMovement = this.getDeltaMovement();
+			float facingAngle = this.getYHeadRot();
+			float deltaAngle = (float) Math.atan2(deltaMovement.x(), deltaMovement.z());
+			deltaAngle = (float) (180F * deltaAngle / Math.PI);
+			deltaAngle = (360F + deltaAngle) % 360F;
+
+			float difference = (deltaAngle - facingAngle) - 180F;
+			//System.out.println("facing: " + facingAngle + ", moving: " + deltaAngle + ", difference: " + difference);
+			this.setTargetClimbAnim(Mth.clamp((difference / 180F) * 1.5F, -1, 1));
 		}
+		//System.out.println(this.targetClimbAnim());
 		this.prevClimbAnim = this.climAnim;
-		this.climAnim += ((this.isClimbing() ? 1F : 0F) - this.climAnim) * 0.2F;
+		this.climAnim += ((this.isClimbing() ? this.targetClimbAnim() : 0F) - this.climAnim) * 0.2F;
 	}
 
 	@Override
@@ -110,6 +123,14 @@ public class Crab extends Animal {
 		byte b = this.entityData.get(DATA_FLAGS_ID);
 		b = climbing ? (byte)(b | 1) : (byte)(b & 0xFFFFFFFE);
 		this.entityData.set(DATA_FLAGS_ID, b);
+	}
+
+	public float targetClimbAnim() {
+		return this.entityData.get(TARGET_CLIMBING_ANIM);
+	}
+
+	public void setTargetClimbAnim(float f) {
+		this.entityData.set(TARGET_CLIMBING_ANIM, f);
 	}
 
 	@Override
