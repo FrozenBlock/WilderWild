@@ -541,7 +541,6 @@ curseforge {
             optionalDependency("terrablender-fabric")
             optionalDependency("simple-copper-pipes")
             embeddedLibrary("frozenlib")
-            embeddedLibrary("nbt-crafting")
         })
         mainArtifact(remapJar, closureOf<CurseArtifact> {
             displayName = display_name
@@ -580,7 +579,6 @@ modrinth {
         optional.project("modmenu")
         optional.project("simple-copper-pipes")
         embedded.project("frozenlib")
-        embedded.project("nbt-crafting")
     }
 }
 
