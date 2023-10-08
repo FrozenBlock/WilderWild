@@ -94,6 +94,9 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+		bobClaw(this.main_claw, ageInTicks, 2F);
+		bobClaw(this.left_claw, ageInTicks, -2F);
+
 		float movementDelta = Math.min(limbSwingAmount * 4F, 1.0F);
 		limbSwing *= 4.75F;
 		float fastAngle = limbSwing * 0.3331F;
@@ -146,6 +149,11 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		this.main_claw.zRot += attackSin * 20F * pi180;
 		this.claw_top.zRot += attackSin * 45F * pi180;
 		this.claw_bottom.zRot = -this.claw_top.zRot;
+	}
+
+	private static void bobClaw(@NotNull ModelPart modelPart, float ageInTicks, float multiplier) {
+		modelPart.zRot += multiplier * (Mth.cos(ageInTicks * 0.09f) * 0.05f + 0.05f);
+		modelPart.yRot += multiplier * (Mth.sin(ageInTicks * 0.067f) * 0.05f);
 	}
 
 	@Override
