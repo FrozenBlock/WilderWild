@@ -95,7 +95,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		float movementDelta = Math.min(limbSwingAmount * 4F, 1.0F);
-		limbSwing *= 4.5F;
+		limbSwing *= 4.75F;
 		float halfFastAngle = limbSwing * 0.3331F;
 		float halfFastAngleDelayed = (float) ((limbSwing + Math.PI) * 0.3331F);
 		float limbSwing5 = Math.min(1F, limbSwingAmount * 5) * 0.5F;
@@ -132,10 +132,9 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		this.middle_left_leg.x -= walkBDelayed;
 		this.front_left_leg.x -= walkADelayed;
 
-		this.body.zRot += legRoll;
 		float climbRotRadians = xRot * pi180;
-		this.body.zRot += climbRotRadians;
-		this.legs.zRot += climbRotRadians;
+		this.body.zRot = legRoll + climbRotRadians;
+		this.legs.zRot = climbRotRadians;
 
 		//TODO: ATTACK ANIM
 		this.body.yRot = Mth.sin(Mth.sqrt(this.attackTime) * ((float) Math.PI * 2)) * -0.2f;
@@ -144,13 +143,12 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		f *= f;
 		f *= f;
 		f = 1.0f - f;
-		float g = Mth.sin(f * (float) java.lang.Math.PI);
-		float h = Mth.sin(this.attackTime * (float) Math.PI) * -(this.body.xRot - 0.7f) * 0.75f;
-		this.main_claw.xRot -= g * 1.2f + h;
-		this.main_claw.yRot += g * 1.2f + h;
-		this.main_claw.zRot += Mth.sin(this.attackTime * (float) Math.PI) * 1.2f;
-
-		this.claw_top.zRot += Mth.sin(this.attackTime * (float) Math.PI) * 1.2f;
+		float attackSin = Mth.sin(this.attackTime * (float) Math.PI);
+		this.main_claw.x += attackSin * 1.5F;
+		this.main_claw.xRot += attackSin * -80F * pi180;
+		this.main_claw.yRot += attackSin * 100F * pi180;
+		this.main_claw.zRot += attackSin * 20F * pi180;
+		this.claw_top.zRot += attackSin * 45F * pi180;
 		this.claw_bottom.zRot = -this.claw_top.zRot;
 	}
 
