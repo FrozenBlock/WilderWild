@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.frozenblock.wilderwild.entity.Crab;
+import net.frozenblock.wilderwild.entity.render.animations.CrabAnimations;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -94,6 +95,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+		this.animate(entity.diggingAnimationState, CrabAnimations.TEMP_DIG, ageInTicks);
 		bobClaw(this.main_claw, ageInTicks, 2F);
 		bobClaw(this.left_claw, ageInTicks, -2F);
 

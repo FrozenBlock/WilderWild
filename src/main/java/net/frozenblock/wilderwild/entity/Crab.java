@@ -1,15 +1,21 @@
 package net.frozenblock.wilderwild.entity;
 
 import net.frozenblock.wilderwild.entity.ai.crab.CrabJumpControl;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
@@ -20,6 +26,8 @@ import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -32,6 +40,7 @@ public class Crab extends Animal {
 	private static final float MOVEMENT_SPEED = 0.16F;
 	private static final float WATER_MOVEMENT_SPEED = 0.576F;
 
+	public AnimationState diggingAnimationState = new AnimationState();
 	public float climbAnimX;
 	public float prevClimbAnimX;
 	public float viewAngle;
@@ -55,7 +64,7 @@ public class Crab extends Animal {
 		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D)
 			.add(Attributes.MOVEMENT_SPEED, MOVEMENT_SPEED)
 			.add(Attributes.JUMP_STRENGTH, 0.0D)
-			.add(Attributes.ATTACK_DAMAGE, 1.0D)
+			.add(Attributes.ATTACK_DAMAGE, 2.0D)
 			.add(Attributes.FOLLOW_RANGE, MAX_TARGET_DISTANCE);
 	}
 
@@ -134,6 +143,9 @@ public class Crab extends Animal {
 			} else {
 				this.setTargetClimbAnimX(0F);
 			}
+			if (this.level().random.nextFloat() < 0.01F) {
+				this.setPose(Pose.DIGGING);
+			}
 		}
 		super.tick();
 		if (!this.level().isClientSide) {
@@ -141,6 +153,21 @@ public class Crab extends Animal {
 		}
 		this.prevClimbAnimX = this.climbAnimX;
 		this.climbAnimX += ((this.isClimbing() ? Mth.clamp(-Mth.cos(this.targetClimbAnimX() * Mth.PI) * 10F, -1F, 1F) : 0F) - this.climbAnimX) * 0.2F;
+		if (this.level().isClientSide()) {
+			if (this.getPose() == Pose.DIGGING) {
+				this.clientDiggingParticles(this.diggingAnimationState);
+			}
+		}
+	}
+
+	@Override
+	public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+		if (DATA_POSE.equals(key)) {
+			if (this.getPose() == Pose.DIGGING) {
+				this.diggingAnimationState.start(this.tickCount);
+			}
+		}
+		super.onSyncedDataUpdated(key);
 	}
 
 	@Override
@@ -177,6 +204,21 @@ public class Crab extends Animal {
 	@Override
 	public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
 		return null;
+	}
+
+	private void clientDiggingParticles(AnimationState animationState) {
+		if ((float)animationState.getAccumulatedTime() < 4500.0f) {
+			RandomSource randomSource = this.getRandom();
+			BlockState blockState = this.getBlockStateOn();
+			if (blockState.getRenderShape() != RenderShape.INVISIBLE) {
+				for (int i = 0; i < 30; ++i) {
+					double d = this.getX() + (double)Mth.randomBetween(randomSource, -0.25f, 0.25f);
+					double e = this.getY();
+					double f = this.getZ() + (double)Mth.randomBetween(randomSource, -0.25f, 0.25f);
+					this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, blockState), d, e, f, 0.0, 0.0, 0.0);
+				}
+			}
+		}
 	}
 
 	/*
