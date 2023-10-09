@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.entity;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabJumpControl;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -39,11 +40,14 @@ public class Crab extends Animal {
 	private static final float MAX_TARGET_DISTANCE = 15F;
 	private static final float MOVEMENT_SPEED = 0.16F;
 	private static final float WATER_MOVEMENT_SPEED = 0.576F;
+	private static final int DIG_TICKS_UNTIL_PARTICLES = 17;
+	private static final int DIG_TICKS_UNTIL_STOP_PARTICLES = 82;
 
 	public AnimationState diggingAnimationState = new AnimationState();
 	public float climbAnimX;
 	public float prevClimbAnimX;
 	public float viewAngle;
+	public int digTicks;
 
 	public Crab(EntityType<? extends Crab> entityType, Level level) {
 		super(entityType, level);
@@ -153,9 +157,11 @@ public class Crab extends Animal {
 		}
 		this.prevClimbAnimX = this.climbAnimX;
 		this.climbAnimX += ((this.isClimbing() ? Mth.clamp(-Mth.cos(this.targetClimbAnimX() * Mth.PI) * 10F, -1F, 1F) : 0F) - this.climbAnimX) * 0.2F;
-		if (this.level().isClientSide()) {
-			if (this.getPose() == Pose.DIGGING) {
-				this.clientDiggingParticles(this.diggingAnimationState);
+		if (this.getPose() == Pose.DIGGING) {
+			if (this.level().isClientSide()) {
+				if (this.diggingAnimationState.getAccumulatedTime() > DIG_TICKS_UNTIL_PARTICLES && this.diggingAnimationState.getAccumulatedTime() < DIG_TICKS_UNTIL_STOP_PARTICLES) {
+					this.clientDiggingParticles(this.diggingAnimationState);
+				}
 			}
 		}
 	}
@@ -219,6 +225,18 @@ public class Crab extends Animal {
 				}
 			}
 		}
+	}
+
+	@Override
+	public void addAdditionalSaveData(CompoundTag compound) {
+		super.addAdditionalSaveData(compound);
+		compound.putInt("DigTicks", this.digTicks);
+	}
+
+	@Override
+	public void readAdditionalSaveData(CompoundTag compound) {
+		super.readAdditionalSaveData(compound);
+		this.digTicks = compound.getInt("DigTicks");
 	}
 
 	/*
