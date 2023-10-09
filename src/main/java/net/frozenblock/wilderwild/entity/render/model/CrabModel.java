@@ -24,6 +24,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 
 	private final ModelPart root;
 	private final ModelPart body;
+	private final ModelPart torso;
 	private final ModelPart main_claw;
 	private final ModelPart claw_top;
 	private final ModelPart claw_bottom;
@@ -44,6 +45,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		this.root = root;
 
 		this.body = root.getChild("body");
+		this.torso = body.getChild("torso");
 		this.main_claw = this.body.getChild("main_claw");
 		this.claw_top = this.main_claw.getChild("claw_top");
 		this.claw_bottom = this.main_claw.getChild("claw_bottom");
@@ -64,8 +66,10 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 2).addBox(-4.0F, -2.0F, -2.0F, 8.0F, 3.0F, 7.0F, new CubeDeformation(0.0F))
-			.texOffs(7, 0).addBox(-4.0F, -4.0F, 5.0F, 8.0F, 2.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, -2.0F));
+		PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, -2.0F));
+
+		PartDefinition torso = body.addOrReplaceChild("torso", CubeListBuilder.create().texOffs(0, 2).addBox(-4.0F, -2.0F, -2.0F, 8.0F, 3.0F, 7.0F, new CubeDeformation(0.0F))
+			.texOffs(7, 0).addBox(-4.0F, -4.0F, 5.0F, 8.0F, 2.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
 		PartDefinition left_claw = body.addOrReplaceChild("left_claw", CubeListBuilder.create().texOffs(16, 12).addBox(1.0F, -1.0F, -1.0F, 3.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-6.0F, -1.0F, 4.25F, 0.0F, -0.6981F, 0.2618F));
 
@@ -96,6 +100,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.animate(entity.diggingAnimationState, CrabAnimations.CRAB_DIG, ageInTicks);
+		this.animate(entity.diggingAnimationState, CrabAnimations.CRAB_EMERGE, ageInTicks);
 		bobClaw(this.main_claw, ageInTicks, 2F);
 		bobClaw(this.left_claw, ageInTicks, -2F);
 

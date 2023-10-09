@@ -9,8 +9,10 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntityType;
@@ -45,6 +47,7 @@ public class Crab extends Animal {
 	private static final int DIG_TICKS_UNTIL_STOP_PARTICLES = 82;
 
 	public AnimationState diggingAnimationState = new AnimationState();
+	public AnimationState emergingAnimationState = new AnimationState();
 	public float climbAnimX;
 	public float prevClimbAnimX;
 	public float viewAngle;
@@ -148,9 +151,6 @@ public class Crab extends Animal {
 			} else {
 				this.setTargetClimbAnimX(0F);
 			}
-			if (this.level().random.nextFloat() < 0.01F) {
-				this.setPose(Pose.DIGGING);
-			}
 		}
 		super.tick();
 		if (!this.level().isClientSide) {
@@ -167,6 +167,18 @@ public class Crab extends Animal {
 				this.setDiggingTicks(this.diggingTicks() + 1);
 			}
 		}
+	}
+
+	@Override
+	public boolean isInvulnerableTo(DamageSource source) {
+		if (this.isDiggingOrEmerging() && !source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
+			return true;
+		}
+		return super.isInvulnerableTo(source);
+	}
+
+	public boolean isDiggingOrEmerging() {
+		return this.hasPose(Pose.DIGGING) || this.hasPose(Pose.EMERGING);
 	}
 
 	@Override
