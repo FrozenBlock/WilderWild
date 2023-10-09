@@ -65,7 +65,7 @@ public final class CrabAnimations {
 					AnimationChannel.Interpolations.CATMULLROM),
 				new Keyframe(0.8343334f, KeyframeAnimations.degreeVec(-20f, 0f, 0f),
 					AnimationChannel.Interpolations.CATMULLROM),
-				new Keyframe(0.875f, KeyframeAnimations.degreeVec(-23f, 0f, 0f),
+				new Keyframe(0.875f, KeyframeAnimations.degreeVec(-20f, 0f, 0f),
 					AnimationChannel.Interpolations.CATMULLROM),
 				new Keyframe(0.9167666f, KeyframeAnimations.degreeVec(-20.28f, -2.5f, 2.5f),
 					AnimationChannel.Interpolations.CATMULLROM),
@@ -791,5 +791,4 @@ public final class CrabAnimations {
 					AnimationChannel.Interpolations.CATMULLROM),
 				new Keyframe(4.541677f, KeyframeAnimations.degreeVec(-133.33f, 0f, 15f),
 					AnimationChannel.Interpolations.CATMULLROM))).build();
-
 }
