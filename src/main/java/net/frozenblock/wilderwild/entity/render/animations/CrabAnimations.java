@@ -110,7 +110,7 @@ public final class CrabAnimations {
 				new Keyframe(0.20834334f, KeyframeAnimations.degreeVec(64.51f, -10.6f, 90.82f),
 					AnimationChannel.Interpolations.LINEAR))).build();
 
-	public static final AnimationDefinition CRAB_EMERGE = AnimationDefinition.Builder.withLength(1.375f)
+	public static final AnimationDefinition CRAB_EMERGE = AnimationDefinition.Builder.withLength(1.4167667f)
 		.addAnimation("body",
 			new AnimationChannel(AnimationChannel.Targets.POSITION,
 				new Keyframe(0f, KeyframeAnimations.posVec(0f, 0f, 0f),
@@ -153,7 +153,7 @@ public final class CrabAnimations {
 					AnimationChannel.Interpolations.CATMULLROM),
 				new Keyframe(0.9583434f, KeyframeAnimations.posVec(1f, -0.75f, 0.5f),
 					AnimationChannel.Interpolations.CATMULLROM),
-				new Keyframe(1.2916767f, KeyframeAnimations.posVec(0f, 0f, 0f),
+				new Keyframe(1.375f, KeyframeAnimations.posVec(0f, 0f, 0f),
 					AnimationChannel.Interpolations.CATMULLROM)))
 		.addAnimation("left_claw",
 			new AnimationChannel(AnimationChannel.Targets.ROTATION,
@@ -173,7 +173,7 @@ public final class CrabAnimations {
 					AnimationChannel.Interpolations.CATMULLROM),
 				new Keyframe(0.9583434f, KeyframeAnimations.degreeVec(231.74f, -19.99f, 89.01f),
 					AnimationChannel.Interpolations.CATMULLROM),
-				new Keyframe(1.2916767f, KeyframeAnimations.degreeVec(0f, 0f, 360f),
+				new Keyframe(1.375f, KeyframeAnimations.degreeVec(0f, 0f, 360f),
 					AnimationChannel.Interpolations.CATMULLROM)))
 		.addAnimation("main_claw",
 			new AnimationChannel(AnimationChannel.Targets.POSITION,
@@ -193,7 +193,7 @@ public final class CrabAnimations {
 					AnimationChannel.Interpolations.CATMULLROM),
 				new Keyframe(0.9583434f, KeyframeAnimations.posVec(-1f, -0.75f, 0.5f),
 					AnimationChannel.Interpolations.CATMULLROM),
-				new Keyframe(1.2916767f, KeyframeAnimations.posVec(0f, 0f, 0f),
+				new Keyframe(1.375f, KeyframeAnimations.posVec(0f, 0f, 0f),
 					AnimationChannel.Interpolations.CATMULLROM)))
 		.addAnimation("main_claw",
 			new AnimationChannel(AnimationChannel.Targets.ROTATION,
@@ -213,7 +213,7 @@ public final class CrabAnimations {
 					AnimationChannel.Interpolations.CATMULLROM),
 				new Keyframe(0.9583434f, KeyframeAnimations.degreeVec(231.74f, 19.99f, -89.01f),
 					AnimationChannel.Interpolations.CATMULLROM),
-				new Keyframe(1.2916767f, KeyframeAnimations.degreeVec(0f, 0f, -360f),
+				new Keyframe(1.375f, KeyframeAnimations.degreeVec(0f, 0f, -360f),
 					AnimationChannel.Interpolations.CATMULLROM)))
 		.addAnimation("claw_top",
 			new AnimationChannel(AnimationChannel.Targets.POSITION,

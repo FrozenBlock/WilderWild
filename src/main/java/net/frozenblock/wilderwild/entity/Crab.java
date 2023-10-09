@@ -153,9 +153,6 @@ public class Crab extends Animal {
 			} else {
 				this.setTargetClimbAnimX(0F);
 			}
-			if (this.level().random.nextFloat() < 0.01F) {
-				this.setPose(Pose.DIGGING);
-			}
 		}
 		super.tick();
 		if (!this.level().isClientSide) {
