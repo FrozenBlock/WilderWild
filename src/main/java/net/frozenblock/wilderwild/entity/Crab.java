@@ -45,6 +45,8 @@ public class Crab extends Animal {
 	private static final float WATER_MOVEMENT_SPEED = 0.576F;
 	private static final int DIG_TICKS_UNTIL_PARTICLES = 17;
 	private static final int DIG_TICKS_UNTIL_STOP_PARTICLES = 82;
+	private static final int EMERGE_TICKS_UNTIL_PARTICLES = 1;
+	private static final int EMERGE_TICKS_UNTIL_STOP_PARTICLES = 16;
 
 	public AnimationState diggingAnimationState = new AnimationState();
 	public AnimationState emergingAnimationState = new AnimationState();
@@ -151,6 +153,9 @@ public class Crab extends Animal {
 			} else {
 				this.setTargetClimbAnimX(0F);
 			}
+			if (this.level().random.nextFloat() < 0.01F) {
+				this.setPose(Pose.DIGGING);
+			}
 		}
 		super.tick();
 		if (!this.level().isClientSide) {
@@ -161,11 +166,21 @@ public class Crab extends Animal {
 		if (this.getPose() == Pose.DIGGING) {
 			if (this.level().isClientSide()) {
 				if (this.diggingTicks() > DIG_TICKS_UNTIL_PARTICLES && this.diggingTicks() < DIG_TICKS_UNTIL_STOP_PARTICLES) {
-					this.clientDiggingParticles(this.diggingAnimationState);
+					this.clientDiggingParticles();
 				}
 			} else {
 				this.setDiggingTicks(this.diggingTicks() + 1);
 			}
+		} else if (this.getPose() == Pose.EMERGING) {
+			if (this.level().isClientSide()) {
+				if (this.diggingTicks() >= EMERGE_TICKS_UNTIL_PARTICLES && this.diggingTicks() <= EMERGE_TICKS_UNTIL_STOP_PARTICLES) {
+					this.clientDiggingParticles();
+				}
+			} else {
+				this.setDiggingTicks(this.diggingTicks() + 1);
+			}
+		} else if (!this.level().isClientSide()) {
+			this.setDiggingTicks(0);
 		}
 	}
 
@@ -186,6 +201,8 @@ public class Crab extends Animal {
 		if (DATA_POSE.equals(key)) {
 			if (this.getPose() == Pose.DIGGING) {
 				this.diggingAnimationState.start(this.tickCount);
+			} else if (this.getPose() == Pose.EMERGING) {
+				this.emergingAnimationState.start(this.tickCount);
 			}
 		}
 		super.onSyncedDataUpdated(key);
@@ -235,17 +252,15 @@ public class Crab extends Animal {
 		return null;
 	}
 
-	private void clientDiggingParticles(AnimationState animationState) {
-		if ((float)animationState.getAccumulatedTime() < 4500.0f) {
-			RandomSource randomSource = this.getRandom();
-			BlockState blockState = this.getBlockStateOn();
-			if (blockState.getRenderShape() != RenderShape.INVISIBLE) {
-				for (int i = 0; i < 30; ++i) {
-					double d = this.getX() + (double)Mth.randomBetween(randomSource, -0.25f, 0.25f);
-					double e = this.getY();
-					double f = this.getZ() + (double)Mth.randomBetween(randomSource, -0.25f, 0.25f);
-					this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, blockState), d, e, f, 0.0, 0.0, 0.0);
-				}
+	private void clientDiggingParticles() {
+		RandomSource randomSource = this.getRandom();
+		BlockState blockState = this.getBlockStateOn();
+		if (blockState.getRenderShape() != RenderShape.INVISIBLE) {
+			for (int i = 0; i < 30; ++i) {
+				double d = this.getX() + (double)Mth.randomBetween(randomSource, -0.25f, 0.25f);
+				double e = this.getY();
+				double f = this.getZ() + (double)Mth.randomBetween(randomSource, -0.25f, 0.25f);
+				this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, blockState), d, e, f, 0.0, 0.0, 0.0);
 			}
 		}
 	}
