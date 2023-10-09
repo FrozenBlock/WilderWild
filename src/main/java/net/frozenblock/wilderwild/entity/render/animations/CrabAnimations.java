@@ -269,13 +269,13 @@ public final class CrabAnimations {
 					AnimationChannel.Interpolations.CATMULLROM),
 				new Keyframe(0.125f, KeyframeAnimations.degreeVec(17.5f, 0f, 0f),
 					AnimationChannel.Interpolations.CATMULLROM)))
-		.addAnimation("claw",
+		.addAnimation("claw_top",
 			new AnimationChannel(AnimationChannel.Targets.POSITION,
 				new Keyframe(0.4167667f, KeyframeAnimations.posVec(0f, 0f, 0f),
 					AnimationChannel.Interpolations.CATMULLROM),
 				new Keyframe(0.9583434f, KeyframeAnimations.posVec(0f, 0f, 0f),
 					AnimationChannel.Interpolations.CATMULLROM)))
-		.addAnimation("claw",
+		.addAnimation("claw_top",
 			new AnimationChannel(AnimationChannel.Targets.ROTATION,
 				new Keyframe(0.4167667f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
 					AnimationChannel.Interpolations.CATMULLROM),
@@ -283,11 +283,11 @@ public final class CrabAnimations {
 					AnimationChannel.Interpolations.CATMULLROM),
 				new Keyframe(0.8343334f, KeyframeAnimations.degreeVec(0f, 0f, 27.5f),
 					AnimationChannel.Interpolations.CATMULLROM)))
-		.addAnimation("dactylus",
+		.addAnimation("claw_bottom",
 			new AnimationChannel(AnimationChannel.Targets.POSITION,
 				new Keyframe(0.9583434f, KeyframeAnimations.posVec(0f, 0f, 0f),
 					AnimationChannel.Interpolations.CATMULLROM)))
-		.addAnimation("dactylus",
+		.addAnimation("claw_bottom",
 			new AnimationChannel(AnimationChannel.Targets.ROTATION,
 				new Keyframe(0.875f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
 					AnimationChannel.Interpolations.CATMULLROM),
