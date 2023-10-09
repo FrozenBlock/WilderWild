@@ -139,8 +139,8 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		this.front_left_leg.x -= walkADelayed;
 
 		float climbRotRadians = xRot * pi180;
-		this.body.zRot = legRoll + climbRotRadians;
-		this.legs.zRot = climbRotRadians;
+		this.body.zRot += legRoll + climbRotRadians;
+		this.legs.zRot += climbRotRadians;
 
 		//Attack Anim
 		this.body.yRot = Mth.sin(Mth.sqrt(this.attackTime) * (doublePI)) * -0.2f;
@@ -150,7 +150,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		this.main_claw.yRot += attackSin * 100F * pi180;
 		this.main_claw.zRot += attackSin * 20F * pi180;
 		this.claw_top.zRot += attackSin * 45F * pi180;
-		this.claw_bottom.zRot = -this.claw_top.zRot;
+		this.claw_bottom.zRot -= this.claw_top.zRot;
 	}
 
 	private static void bobClaw(@NotNull ModelPart modelPart, float ageInTicks, float multiplier) {
