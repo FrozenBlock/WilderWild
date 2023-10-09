@@ -37,6 +37,7 @@ import org.jetbrains.annotations.Nullable;
 public class Crab extends Animal {
 	private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.BYTE);
 	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_X = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Integer> DIGGING_TICKS = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.INT);
 	private static final float MAX_TARGET_DISTANCE = 15F;
 	private static final float MOVEMENT_SPEED = 0.16F;
 	private static final float WATER_MOVEMENT_SPEED = 0.576F;
@@ -47,7 +48,6 @@ public class Crab extends Animal {
 	public float climbAnimX;
 	public float prevClimbAnimX;
 	public float viewAngle;
-	public int digTicks;
 
 	public Crab(EntityType<? extends Crab> entityType, Level level) {
 		super(entityType, level);
@@ -82,6 +82,7 @@ public class Crab extends Animal {
 		super.defineSynchedData();
 		this.entityData.define(DATA_FLAGS_ID, (byte)0);
 		this.entityData.define(TARGET_CLIMBING_ANIM_X, 0F);
+		this.entityData.define(DIGGING_TICKS, 0);
 	}
 
 	@Override
@@ -159,9 +160,11 @@ public class Crab extends Animal {
 		this.climbAnimX += ((this.isClimbing() ? Mth.clamp(-Mth.cos(this.targetClimbAnimX() * Mth.PI) * 10F, -1F, 1F) : 0F) - this.climbAnimX) * 0.2F;
 		if (this.getPose() == Pose.DIGGING) {
 			if (this.level().isClientSide()) {
-				if (this.diggingAnimationState.getAccumulatedTime() > DIG_TICKS_UNTIL_PARTICLES && this.diggingAnimationState.getAccumulatedTime() < DIG_TICKS_UNTIL_STOP_PARTICLES) {
+				if (this.diggingTicks() > DIG_TICKS_UNTIL_PARTICLES && this.diggingTicks() < DIG_TICKS_UNTIL_STOP_PARTICLES) {
 					this.clientDiggingParticles(this.diggingAnimationState);
 				}
+			} else {
+				this.setDiggingTicks(this.diggingTicks() + 1);
 			}
 		}
 	}
@@ -199,6 +202,14 @@ public class Crab extends Animal {
 		this.entityData.set(TARGET_CLIMBING_ANIM_X, f);
 	}
 
+	public int diggingTicks() {
+		return this.entityData.get(DIGGING_TICKS);
+	}
+
+	public void setDiggingTicks(int i) {
+		this.entityData.set(DIGGING_TICKS, i);
+	}
+
 	@Override
 	public void calculateEntityAnimation(boolean includeHeight) {
 		includeHeight = this.isClimbing();
@@ -230,13 +241,13 @@ public class Crab extends Animal {
 	@Override
 	public void addAdditionalSaveData(CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
-		compound.putInt("DigTicks", this.digTicks);
+		compound.putInt("DigTicks", this.diggingTicks());
 	}
 
 	@Override
 	public void readAdditionalSaveData(CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
-		this.digTicks = compound.getInt("DigTicks");
+		this.setDiggingTicks(compound.getInt("DigTicks"));
 	}
 
 	/*
