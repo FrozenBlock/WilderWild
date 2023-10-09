@@ -731,9 +731,9 @@ public final class CrabAnimations {
 					AnimationChannel.Interpolations.CATMULLROM),
 				new Keyframe(3.9583435f, KeyframeAnimations.degreeVec(-78.33f, 0f, 15f),
 					AnimationChannel.Interpolations.CATMULLROM),
-				new Keyframe(4.291677f, KeyframeAnimations.degreeVec(-110.83f, 0f, 15f),
+				new Keyframe(4.291677f, KeyframeAnimations.degreeVec(-110.83f, 0f, -15f),
 					AnimationChannel.Interpolations.CATMULLROM),
-				new Keyframe(4.541677f, KeyframeAnimations.degreeVec(-133.33f, 0f, 15f),
+				new Keyframe(4.541677f, KeyframeAnimations.degreeVec(-133.33f, 0f, -15f),
 					AnimationChannel.Interpolations.CATMULLROM)))
 		.addAnimation("back_right_leg",
 			new AnimationChannel(AnimationChannel.Targets.POSITION,
@@ -787,9 +787,9 @@ public final class CrabAnimations {
 					AnimationChannel.Interpolations.CATMULLROM),
 				new Keyframe(3.9583435f, KeyframeAnimations.degreeVec(-78.33f, 0f, -15f),
 					AnimationChannel.Interpolations.CATMULLROM),
-				new Keyframe(4.291677f, KeyframeAnimations.degreeVec(-110.83f, 0f, -15f),
+				new Keyframe(4.291677f, KeyframeAnimations.degreeVec(-110.83f, 0f, 15f),
 					AnimationChannel.Interpolations.CATMULLROM),
-				new Keyframe(4.541677f, KeyframeAnimations.degreeVec(-133.33f, 0f, -15f),
+				new Keyframe(4.541677f, KeyframeAnimations.degreeVec(-133.33f, 0f, 15f),
 					AnimationChannel.Interpolations.CATMULLROM))).build();
 
 }
