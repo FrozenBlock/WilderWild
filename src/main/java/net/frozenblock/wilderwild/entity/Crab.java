@@ -270,6 +270,11 @@ public class Crab extends Animal {
 	}
 
 	@Override
+	public boolean canRandomSwim() {
+		return super.canRandomSwim() && !this.isDiggingOrEmerging();
+	}
+
+	@Override
 	public boolean isInvulnerableTo(DamageSource source) {
 		if (this.isDiggingOrEmerging() && !source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
 			return true;
