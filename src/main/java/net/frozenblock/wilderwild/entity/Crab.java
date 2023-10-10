@@ -186,8 +186,6 @@ public class Crab extends Animal {
 				} else {
 					if (this.diggingTicks() - DIG_LENGTH_IN_TICKS >= 0) {
 						this.ticksUntilDigOrEmerge -= 1;
-					} else {
-						this.ticksUntilDigOrEmerge = this.random.nextInt(800, 1200);
 					}
 					this.setDiggingTicks(this.diggingTicks() + 1);
 				}
@@ -219,6 +217,7 @@ public class Crab extends Animal {
 			if (this.getTarget() == null || this.distanceTo(this.getTarget()) > MAX_TARGET_DISTANCE) {
 				if (this.canHide()) {
 					this.setPose(Pose.DIGGING);
+					this.ticksUntilDigOrEmerge = this.random.nextInt(800, 1200) + DIG_LENGTH_IN_TICKS;
 				} else {
 					this.ticksUntilDigOrEmerge -= 1;
 				}
@@ -306,9 +305,14 @@ public class Crab extends Animal {
 	public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
 		if (DATA_POSE.equals(key)) {
 			if (this.getPose() == Pose.DIGGING) {
+				this.emergingAnimationState.stop();
 				this.diggingAnimationState.start(this.tickCount);
 			} else if (this.getPose() == Pose.EMERGING) {
+				this.diggingAnimationState.stop();
 				this.emergingAnimationState.start(this.tickCount);
+			} else {
+				this.diggingAnimationState.stop();
+				this.emergingAnimationState.stop();
 			}
 		}
 		super.onSyncedDataUpdated(key);
