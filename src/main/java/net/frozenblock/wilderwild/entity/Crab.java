@@ -59,6 +59,16 @@ public class Crab extends Animal {
 	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_X = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Integer> DIGGING_TICKS = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.INT);
 
+	protected static final List<SensorType<? extends Sensor<? super Crab>>> SENSORS = List.of(SensorType.NEAREST_LIVING_ENTITIES);
+	protected static final List<? extends MemoryModuleType<?>> MEMORY_MODULES = List.of(
+		MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
+		MemoryModuleType.LOOK_TARGET,
+		MemoryModuleType.WALK_TARGET,
+		MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
+		MemoryModuleType.PATH,
+		MemoryModuleType.IS_PANICKING
+	);
+
 	public final TargetingConditions targetingConditions = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().selector(this::canTargetEntity);
 	public final AnimationState diggingAnimationState = new AnimationState();
 	public final AnimationState emergingAnimationState = new AnimationState();
@@ -78,6 +88,18 @@ public class Crab extends Animal {
 		this.jumpControl = new CrabJumpControl(this);
 		this.setMaxUpStep(0.2F);
 		this.ticksUntilDigOrEmerge = level.getRandom().nextInt(400, 800);
+	}
+
+	@Override
+	@NotNull
+	protected Brain.Provider<Crab> brainProvider() {
+		return Brain.provider(MEMORY_MODULES, SENSORS);
+	}
+
+	@Override
+	@NotNull
+	protected Brain<?> makeBrain(@NotNull Dynamic<?> dynamic) {
+		return CrabAi.makeBrain(this, this.brainProvider().makeBrain(dynamic));
 	}
 
 	@Override
@@ -232,6 +254,17 @@ public class Crab extends Animal {
 				}
 			}
 		}
+	}
+
+	@Override
+	protected void customServerAiStep() {
+		this.level().getProfiler().push("crabBrain");
+		this.getBrain().tick((ServerLevel) this.level(), this);
+		this.level().getProfiler().pop();
+		this.level().getProfiler().push("crabActivityUpdate");
+		CrabAi.updateActivities(this);
+		this.level().getProfiler().pop();
+		super.customServerAiStep();
 	}
 
 	@Override
