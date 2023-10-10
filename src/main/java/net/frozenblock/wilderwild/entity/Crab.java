@@ -105,14 +105,34 @@ public class Crab extends Animal {
 	}
 
 	@Override
+	@NotNull
+	public Brain<Crab> getBrain() {
+		return (Brain<Crab>) super.getBrain();
+	}
+
+	@Override
+	protected void sendDebugPackets() {
+		super.sendDebugPackets();
+		DebugPackets.sendEntityBrain(this);
+	}
+
+	@Override
+	@Nullable
+	public LivingEntity getTarget() {
+		return this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
+	}
+
+	public void setAttackTarget(@Nullable LivingEntity target) {
+		this.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, target);
+	}
+
+	@Override
 	public boolean isInvisible() {
 		return super.isInvisible() || this.isInvisibleWhileUnderground();
 	}
 
 	@Override
 	public void registerGoals() {
-		this.goalSelector.addGoal(6, new CrabRandomStrollGoal(this, 1));
-		this.targetSelector.addGoal(4, new MeleeAttackGoal(this, 1.15, false));
 		this.targetSelector.addGoal(1, new HurtByTargetGoal(this, new Class[0]));
 	}
 
