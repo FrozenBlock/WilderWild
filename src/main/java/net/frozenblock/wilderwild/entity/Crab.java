@@ -48,7 +48,7 @@ import org.jetbrains.annotations.Nullable;
 public class Crab extends Animal {
 	private static final float MAX_TARGET_DISTANCE = 15F;
 	private static final double MOVEMENT_SPEED = 0.16;
-	private static final double WATER_MOVEMENT_SPEED = 0.576F;
+	private static final double WATER_MOVEMENT_SPEED = 0.576;
 	private static final int DIG_TICKS_UNTIL_PARTICLES = 17;
 	private static final int DIG_TICKS_UNTIL_STOP_PARTICLES = 82;
 	private static final int DIG_LENGTH_IN_TICKS = 95;
