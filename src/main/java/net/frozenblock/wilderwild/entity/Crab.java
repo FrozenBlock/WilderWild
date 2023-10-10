@@ -259,7 +259,7 @@ public class Crab extends Animal {
 	}
 
 	public boolean isInvisibleWhileUnderground() {
-		return this.hasPose(Pose.DIGGING) && this.diggingTicks() > 95;
+		return this.hasPose(Pose.DIGGING) && this.diggingTicks() > DIG_LENGTH_IN_TICKS;
 	}
 
 	@Contract("null->false")
@@ -293,7 +293,7 @@ public class Crab extends Animal {
 			return true;
 		}
 		return this.ticksUntilDigOrEmerge >= 0
-			&& this.level().getNearestPlayer(this, 4) != null
+			&& this.level().getNearestPlayer(this, 4) == null
 			&& !this.isLeashed()
 			&& this.getPassengers().isEmpty()
 			&& this.getTarget() == null
