@@ -185,9 +185,7 @@ public class Crab extends Animal {
 					this.setPose(Pose.EMERGING);
 					this.setDiggingTicks(0);
 				} else {
-					if (this.diggingTicks() - DIG_LENGTH_IN_TICKS >= 0) {
-						this.ticksUntilDigOrEmerge -= 1;
-					}
+					this.ticksUntilDigOrEmerge -= 1;
 					this.setDiggingTicks(this.diggingTicks() + 1);
 				}
 			}
@@ -207,25 +205,25 @@ public class Crab extends Animal {
 				}
 			}
 		}
-		if (!isClient) {
-			this.setClimbing(this.horizontalCollision);
-		}
 		this.prevClimbAnimX = this.climbAnimX;
 		this.climbAnimX += ((this.isClimbing() ? Mth.clamp(-Mth.cos(this.targetClimbAnimX() * Mth.PI) * 10F, -1F, 1F) : 0F) - this.climbAnimX) * 0.2F;
-		if (!this.isDiggingOrEmerging()) {
-			if (this.getTarget() == null || this.distanceTo(this.getTarget()) > MAX_TARGET_DISTANCE) {
-				if (this.canHide()) {
-					this.setPose(Pose.DIGGING);
-					this.ticksUntilDigOrEmerge = this.random.nextInt(800, 1200) + DIG_LENGTH_IN_TICKS;
+		if (!isClient) {
+			this.setClimbing(this.horizontalCollision);
+			if (!this.isDiggingOrEmerging()) {
+				if (this.getTarget() == null || this.distanceTo(this.getTarget()) > MAX_TARGET_DISTANCE) {
+					if (this.canHide()) {
+						this.setPose(Pose.DIGGING);
+						this.ticksUntilDigOrEmerge = this.random.nextInt(800, 1200) + DIG_LENGTH_IN_TICKS;
+					} else {
+						this.ticksUntilDigOrEmerge -= 1;
+					}
 				} else {
-					this.ticksUntilDigOrEmerge -= 1;
+					this.ticksUntilDigOrEmerge = this.random.nextInt(800, 1200);
 				}
 			} else {
-				this.ticksUntilDigOrEmerge = this.random.nextInt(800, 1200);
-			}
-		} else {
-			if (this.hasPose(Pose.DIGGING) && !this.canContinueToHide()) {
-				this.ticksUntilDigOrEmerge = 0;
+				if (this.hasPose(Pose.DIGGING) && !this.canContinueToHide()) {
+					this.ticksUntilDigOrEmerge = 0;
+				}
 			}
 		}
 	}
