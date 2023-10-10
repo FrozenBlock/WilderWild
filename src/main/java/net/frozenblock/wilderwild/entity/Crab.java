@@ -69,7 +69,11 @@ public class Crab extends Animal {
 
 	public Crab(EntityType<? extends Crab> entityType, Level level) {
 		super(entityType, level);
+		this.setPathfindingMalus(BlockPathTypes.LAVA, -1.0F);
+		this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1.0F);
 		this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+		this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 16.0F);
+		this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
 		this.moveControl = new CrabMoveControl(this);
 		this.jumpControl = new CrabJumpControl(this);
 		this.setMaxUpStep(0.2F);
