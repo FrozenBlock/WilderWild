@@ -184,11 +184,14 @@ public class Crab extends Animal {
 				} else {
 					if (this.diggingTicks() - DIG_LENGTH_IN_TICKS >= 0) {
 						this.ticksUntilDigOrEmerge -= 1;
+					} else {
+						this.ticksUntilDigOrEmerge = this.random.nextInt(800, 2400);
 					}
-				this.setDiggingTicks(this.diggingTicks() + 1);
+					this.setDiggingTicks(this.diggingTicks() + 1);
 				}
 			}
-		} else if (this.getPose() == Pose.EMERGING) {
+		}
+		if (this.getPose() == Pose.EMERGING) {
 			if (isClient) {
 				if (this.diggingTicks() >= EMERGE_TICKS_UNTIL_PARTICLES && this.diggingTicks() <= EMERGE_TICKS_UNTIL_STOP_PARTICLES) {
 					this.clientDiggingParticles();
@@ -197,7 +200,7 @@ public class Crab extends Animal {
 				this.setDiggingTicks(this.diggingTicks() + 1);
 				if (this.diggingTicks() > EMERGE_LENGTH_IN_TICKS) {
 					this.setPose(Pose.STANDING);
-					this.ticksUntilDigOrEmerge = this.random.nextInt(400, 800);
+					this.ticksUntilDigOrEmerge = this.random.nextInt(400, 1200);
 				}
 			}
 		}
@@ -215,7 +218,6 @@ public class Crab extends Animal {
 				this.ticksUntilDigOrEmerge = this.random.nextInt(400, 800);
 			}
 		} else if (this.hasPose(Pose.DIGGING)) {
-			this.ticksUntilDigOrEmerge -= 1;
 			if (this.level().getNearestPlayer(this, 4) != null) {
 				this.ticksUntilDigOrEmerge = 0;
 			}
@@ -248,7 +250,7 @@ public class Crab extends Animal {
 	}
 
 	public boolean isInvisibleWhileUnderground() {
-		return this.diggingTicks() > 95;
+		return this.hasPose(Pose.DIGGING) && this.diggingTicks() > 95;
 	}
 
 	@Contract("null->false")
