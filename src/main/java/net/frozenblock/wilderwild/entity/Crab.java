@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.entity;
 
 import net.frozenblock.wilderwild.entity.ai.crab.CrabJumpControl;
+import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -8,14 +9,16 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.Pose;
@@ -26,6 +29,7 @@ import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -33,6 +37,7 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -45,20 +50,31 @@ public class Crab extends Animal {
 	private static final float WATER_MOVEMENT_SPEED = 0.576F;
 	private static final int DIG_TICKS_UNTIL_PARTICLES = 17;
 	private static final int DIG_TICKS_UNTIL_STOP_PARTICLES = 82;
+	private static final int DIG_LENGTH_IN_TICKS = 95;
 	private static final int EMERGE_TICKS_UNTIL_PARTICLES = 1;
 	private static final int EMERGE_TICKS_UNTIL_STOP_PARTICLES = 16;
+	private static final int EMERGE_LENGTH_IN_TICKS = 29;
 
+	public final TargetingConditions targetingConditions = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().selector(this::canTargetEntity);
 	public AnimationState diggingAnimationState = new AnimationState();
 	public AnimationState emergingAnimationState = new AnimationState();
 	public float climbAnimX;
 	public float prevClimbAnimX;
 	public float viewAngle;
+	public int ticksUntilDigOrEmerge;
+	public boolean invisibleWhileUnderground;
 
 	public Crab(EntityType<? extends Crab> entityType, Level level) {
 		super(entityType, level);
 		this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
 		this.jumpControl = new CrabJumpControl(this);
 		this.setMaxUpStep(0.2F);
+		this.ticksUntilDigOrEmerge = level.getRandom().nextInt(400, 800);
+	}
+
+	@Override
+	public boolean isInvisible() {
+		return super.isInvisible() || this.invisibleWhileUnderground;
 	}
 
 	@Override
@@ -116,7 +132,8 @@ public class Crab extends Animal {
 
 	@Override
 	public void tick() {
-		if (!this.level().isClientSide) {
+		boolean isClient = this.level().isClientSide();
+		if (!isClient) {
 			if (this.isClimbing()) {
 				Vec3 deltaMovement = this.getDeltaMovement();
 				float deltaAngle = (float) Math.atan2(deltaMovement.z(), deltaMovement.x());
@@ -155,29 +172,53 @@ public class Crab extends Animal {
 			}
 		}
 		super.tick();
-		if (!this.level().isClientSide) {
-			this.setClimbing(this.horizontalCollision);
-		}
-		this.prevClimbAnimX = this.climbAnimX;
-		this.climbAnimX += ((this.isClimbing() ? Mth.clamp(-Mth.cos(this.targetClimbAnimX() * Mth.PI) * 10F, -1F, 1F) : 0F) - this.climbAnimX) * 0.2F;
 		if (this.getPose() == Pose.DIGGING) {
-			if (this.level().isClientSide()) {
+			if (isClient) {
 				if (this.diggingTicks() > DIG_TICKS_UNTIL_PARTICLES && this.diggingTicks() < DIG_TICKS_UNTIL_STOP_PARTICLES) {
 					this.clientDiggingParticles();
 				}
 			} else {
+				if (this.ticksUntilDigOrEmerge <= 0) {
+					this.setPose(Pose.EMERGING);
+					this.setDiggingTicks(0);
+				} else {
+					if (this.diggingTicks() - DIG_LENGTH_IN_TICKS >= 0) {
+						this.ticksUntilDigOrEmerge -= 1;
+					}
 				this.setDiggingTicks(this.diggingTicks() + 1);
+				}
 			}
 		} else if (this.getPose() == Pose.EMERGING) {
-			if (this.level().isClientSide()) {
+			if (isClient) {
 				if (this.diggingTicks() >= EMERGE_TICKS_UNTIL_PARTICLES && this.diggingTicks() <= EMERGE_TICKS_UNTIL_STOP_PARTICLES) {
 					this.clientDiggingParticles();
 				}
 			} else {
 				this.setDiggingTicks(this.diggingTicks() + 1);
+				if (this.diggingTicks() > EMERGE_LENGTH_IN_TICKS) {
+					this.setPose(Pose.STANDING);
+					this.ticksUntilDigOrEmerge = this.random.nextInt(400, 800);
+				}
 			}
-		} else if (!this.level().isClientSide()) {
-			this.setDiggingTicks(0);
+		}
+		if (!isClient) {
+			this.setClimbing(this.horizontalCollision);
+		} else {
+			this.invisibleWhileUnderground = this.isInvisibleWhileUnderground();
+		}
+		this.prevClimbAnimX = this.climbAnimX;
+		this.climbAnimX += ((this.isClimbing() ? Mth.clamp(-Mth.cos(this.targetClimbAnimX() * Mth.PI) * 10F, -1F, 1F) : 0F) - this.climbAnimX) * 0.2F;
+		if (!this.hasPose(Pose.DIGGING) && !this.hasPose(Pose.EMERGING)) {
+			if (this.getTarget() == null || this.distanceTo(this.getTarget()) > MAX_TARGET_DISTANCE) {
+				this.ticksUntilDigOrEmerge -= 1;
+			} else {
+				this.ticksUntilDigOrEmerge = this.random.nextInt(400, 800);
+			}
+		} else if (this.hasPose(Pose.DIGGING)) {
+			this.ticksUntilDigOrEmerge -= 1;
+			if (this.level().getNearestPlayer(this, 4) != null) {
+				this.ticksUntilDigOrEmerge = 0;
+			}
 		}
 	}
 
@@ -189,8 +230,48 @@ public class Crab extends Animal {
 		return super.isInvulnerableTo(source);
 	}
 
+	@Override
+	public boolean isPushable() {
+		return !this.isDiggingOrEmerging() && super.isPushable();
+	}
+
+	@Override
+	protected void doPush(Entity entity) {
+		if (this.isInvisibleWhileUnderground()) {
+			return;
+		}
+		super.doPush(entity);
+	}
+
 	public boolean isDiggingOrEmerging() {
 		return this.hasPose(Pose.DIGGING) || this.hasPose(Pose.EMERGING);
+	}
+
+	public boolean isInvisibleWhileUnderground() {
+		return this.diggingTicks() > 95;
+	}
+
+	@Contract("null->false")
+	public boolean canTargetEntity(@Nullable Entity entity) {
+		return entity instanceof LivingEntity livingEntity
+			&& this.level() == livingEntity.level()
+			&& EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)
+			&& !this.isAlliedTo(livingEntity)
+			&& livingEntity.getType() != EntityType.ARMOR_STAND
+			&& livingEntity.getType() != RegisterEntities.CRAB
+			&& !livingEntity.isInvulnerable()
+			&& !livingEntity.isDeadOrDying()
+			&& !livingEntity.isRemoved()
+			&& livingEntity.distanceTo(this) < MAX_TARGET_DISTANCE
+			&& this.level().getWorldBorder().isWithinBounds(livingEntity.getBoundingBox());
+	}
+
+	public boolean canHide() {
+		return this.ticksUntilDigOrEmerge <= 0
+			&& this.level().getNearestPlayer(this, 24) == null
+			&& !this.isLeashed()
+			&& this.getPassengers().isEmpty()
+			&& this.getTarget() == null;
 	}
 
 	@Override
@@ -266,19 +347,16 @@ public class Crab extends Animal {
 	public void addAdditionalSaveData(CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
 		compound.putInt("DigTicks", this.diggingTicks());
+		compound.putInt("TicksUntilDigOrEmerge", this.ticksUntilDigOrEmerge);
 	}
 
 	@Override
 	public void readAdditionalSaveData(CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
 		this.setDiggingTicks(compound.getInt("DigTicks"));
+		if (compound.contains("TicksUntilDigOrEmerge")) {
+			this.ticksUntilDigOrEmerge = compound.getInt("TicksUntilDigOrEmerge");
+		}
 	}
-
-	/*
-	@Override
-	protected float getWaterSlowDown() {
-		return 1F;
-	}
-	 */
 
 }
