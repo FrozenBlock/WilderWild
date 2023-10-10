@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.entity;
 
 import net.frozenblock.wilderwild.entity.ai.crab.CrabJumpControl;
+import net.frozenblock.wilderwild.entity.ai.crab.CrabMoveControl;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -64,11 +65,11 @@ public class Crab extends Animal {
 	public float prevClimbAnimX;
 	public float viewAngle;
 	public int ticksUntilDigOrEmerge;
-	public boolean invisibleWhileUnderground;
 
 	public Crab(EntityType<? extends Crab> entityType, Level level) {
 		super(entityType, level);
 		this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+		this.moveControl = new CrabMoveControl(this);
 		this.jumpControl = new CrabJumpControl(this);
 		this.setMaxUpStep(0.2F);
 		this.ticksUntilDigOrEmerge = level.getRandom().nextInt(400, 800);
@@ -76,7 +77,7 @@ public class Crab extends Animal {
 
 	@Override
 	public boolean isInvisible() {
-		return super.isInvisible() || this.invisibleWhileUnderground;
+		return super.isInvisible() || this.isInvisibleWhileUnderground();
 	}
 
 	@Override
@@ -134,7 +135,7 @@ public class Crab extends Animal {
 
 	@Override
 	public void tick() {
-		boolean isClient = this.level().isClientSide();
+		boolean isClient = this.level().isClientSide;
 		if (!isClient) {
 			if (this.isClimbing()) {
 				Vec3 deltaMovement = this.getDeltaMovement();
@@ -208,8 +209,6 @@ public class Crab extends Animal {
 		}
 		if (!isClient) {
 			this.setClimbing(this.horizontalCollision);
-		} else {
-			this.invisibleWhileUnderground = this.isInvisibleWhileUnderground();
 		}
 		this.prevClimbAnimX = this.climbAnimX;
 		this.climbAnimX += ((this.isClimbing() ? Mth.clamp(-Mth.cos(this.targetClimbAnimX() * Mth.PI) * 10F, -1F, 1F) : 0F) - this.climbAnimX) * 0.2F;
@@ -225,7 +224,6 @@ public class Crab extends Animal {
 				this.ticksUntilDigOrEmerge = this.random.nextInt(800, 1200);
 			}
 		} else {
-			this.getNavigation().stop();
 			if (this.hasPose(Pose.DIGGING) && !this.canContinueToHide()) {
 				this.ticksUntilDigOrEmerge = 0;
 			}
@@ -277,7 +275,7 @@ public class Crab extends Animal {
 	}
 
 	public boolean canHide() {
-		return this.ticksUntilDigOrEmerge <= 0
+		return this.ticksUntilDigOrEmerge < 0
 			&& this.level().getNearestPlayer(this, 24) == null
 			&& !this.isLeashed()
 			&& this.getPassengers().isEmpty()
@@ -366,7 +364,7 @@ public class Crab extends Animal {
 		RandomSource randomSource = this.getRandom();
 		BlockState blockState = this.getBlockStateOn();
 		if (blockState.getRenderShape() != RenderShape.INVISIBLE) {
-			for (int i = 0; i < 30; ++i) {
+			for (int i = 0; i < 10; ++i) {
 				double d = this.getX() + (double)Mth.randomBetween(randomSource, -0.25f, 0.25f);
 				double e = this.getY();
 				double f = this.getZ() + (double)Mth.randomBetween(randomSource, -0.25f, 0.25f);
