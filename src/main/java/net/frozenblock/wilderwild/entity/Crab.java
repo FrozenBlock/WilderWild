@@ -59,13 +59,15 @@ public class Crab extends Animal {
 	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_X = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Integer> DIGGING_TICKS = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.INT);
 
-	protected static final List<SensorType<? extends Sensor<? super Crab>>> SENSORS = List.of(SensorType.NEAREST_LIVING_ENTITIES);
+	protected static final List<SensorType<? extends Sensor<? super Crab>>> SENSORS = List.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS);
 	protected static final List<? extends MemoryModuleType<?>> MEMORY_MODULES = List.of(
 		MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
 		MemoryModuleType.LOOK_TARGET,
 		MemoryModuleType.WALK_TARGET,
 		MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
 		MemoryModuleType.PATH,
+		MemoryModuleType.ATTACK_TARGET,
+		MemoryModuleType.NEAREST_ATTACKABLE,
 		MemoryModuleType.IS_PANICKING
 	);
 
