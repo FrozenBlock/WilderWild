@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.entity;
 
 import net.frozenblock.wilderwild.entity.ai.crab.CrabJumpControl;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabMoveControl;
+import net.frozenblock.wilderwild.entity.ai.crab.CrabRandomStrollGoal;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -82,7 +83,7 @@ public class Crab extends Animal {
 
 	@Override
 	public void registerGoals() {
-		this.goalSelector.addGoal(6, new RandomStrollGoal(this, 1));
+		this.goalSelector.addGoal(6, new CrabRandomStrollGoal(this, 1));
 		this.targetSelector.addGoal(4, new MeleeAttackGoal(this, 1.15, false));
 		this.targetSelector.addGoal(1, new HurtByTargetGoal(this, new Class[0]));
 	}
