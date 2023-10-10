@@ -210,9 +210,10 @@ public class Crab extends Animal {
 		if (!isClient) {
 			this.setClimbing(this.horizontalCollision);
 			if (!this.isDiggingOrEmerging()) {
-				if (this.getTarget() == null || this.distanceTo(this.getTarget()) > MAX_TARGET_DISTANCE) {
+				if ((this.getTarget() == null || this.distanceTo(this.getTarget()) > MAX_TARGET_DISTANCE) && this.level().getNearestPlayer(this, 24) == null) {
 					if (this.canHide()) {
 						this.setPose(Pose.DIGGING);
+						this.getNavigation().stop();
 						this.ticksUntilDigOrEmerge = this.random.nextInt(800, 1200) + DIG_LENGTH_IN_TICKS;
 					} else {
 						this.ticksUntilDigOrEmerge -= 1;
@@ -274,7 +275,6 @@ public class Crab extends Animal {
 
 	public boolean canHide() {
 		return this.ticksUntilDigOrEmerge < 0
-			&& this.level().getNearestPlayer(this, 24) == null
 			&& !this.isLeashed()
 			&& this.getPassengers().isEmpty()
 			&& this.getTarget() == null
