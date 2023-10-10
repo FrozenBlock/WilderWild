@@ -46,22 +46,22 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Crab extends Animal {
-	private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.BYTE);
-	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_X = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
-	private static final EntityDataAccessor<Integer> DIGGING_TICKS = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.INT);
 	private static final float MAX_TARGET_DISTANCE = 15F;
-	private static final float MOVEMENT_SPEED = 0.16F;
-	private static final float WATER_MOVEMENT_SPEED = 0.576F;
+	private static final double MOVEMENT_SPEED = 0.16;
+	private static final double WATER_MOVEMENT_SPEED = 0.576F;
 	private static final int DIG_TICKS_UNTIL_PARTICLES = 17;
 	private static final int DIG_TICKS_UNTIL_STOP_PARTICLES = 82;
 	private static final int DIG_LENGTH_IN_TICKS = 95;
 	private static final int EMERGE_TICKS_UNTIL_PARTICLES = 1;
 	private static final int EMERGE_TICKS_UNTIL_STOP_PARTICLES = 16;
 	private static final int EMERGE_LENGTH_IN_TICKS = 29;
+	private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.BYTE);
+	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_X = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Integer> DIGGING_TICKS = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.INT);
 
 	public final TargetingConditions targetingConditions = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().selector(this::canTargetEntity);
-	public AnimationState diggingAnimationState = new AnimationState();
-	public AnimationState emergingAnimationState = new AnimationState();
+	public final AnimationState diggingAnimationState = new AnimationState();
+	public final AnimationState emergingAnimationState = new AnimationState();
 	public float climbAnimX;
 	public float prevClimbAnimX;
 	public float viewAngle;
