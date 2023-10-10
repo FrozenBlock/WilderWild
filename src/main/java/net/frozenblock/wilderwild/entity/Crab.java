@@ -199,10 +199,10 @@ public class Crab extends Animal {
 					this.clientDiggingParticles();
 				}
 			} else {
+				this.ticksUntilDigOrEmerge = this.random.nextInt(800, 2400);
 				if (this.diggingTicks() > EMERGE_LENGTH_IN_TICKS) {
 					this.setPose(Pose.STANDING);
 					this.setDiggingTicks(0);
-					this.ticksUntilDigOrEmerge = this.random.nextInt(800, 2400);
 				} else {
 					this.setDiggingTicks(this.diggingTicks() + 1);
 				}
