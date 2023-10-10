@@ -23,6 +23,6 @@ public final class CrabAi {
                 new LookAtTargetSink(45, 90),
                 new MoveToTargetSink()
             )
-        )
+        );
     }
 }
