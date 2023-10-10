@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.entity;
 
 import net.frozenblock.wilderwild.entity.ai.crab.CrabJumpControl;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -37,6 +38,7 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -63,6 +65,7 @@ public class Crab extends Animal {
 	public float viewAngle;
 	public int ticksUntilDigOrEmerge;
 	public boolean invisibleWhileUnderground;
+	public @Nullable BlockPos lastHiddenHomeBlock;
 
 	public Crab(EntityType<? extends Crab> entityType, Level level) {
 		super(entityType, level);
@@ -185,7 +188,7 @@ public class Crab extends Animal {
 					if (this.diggingTicks() - DIG_LENGTH_IN_TICKS >= 0) {
 						this.ticksUntilDigOrEmerge -= 1;
 					} else {
-						this.ticksUntilDigOrEmerge = this.random.nextInt(800, 2400);
+						this.ticksUntilDigOrEmerge = this.random.nextInt(800, 1200);
 					}
 					this.setDiggingTicks(this.diggingTicks() + 1);
 				}
@@ -200,7 +203,8 @@ public class Crab extends Animal {
 				this.setDiggingTicks(this.diggingTicks() + 1);
 				if (this.diggingTicks() > EMERGE_LENGTH_IN_TICKS) {
 					this.setPose(Pose.STANDING);
-					this.ticksUntilDigOrEmerge = this.random.nextInt(400, 1200);
+					this.setDiggingTicks(0);
+					this.ticksUntilDigOrEmerge = this.random.nextInt(800, 2400);
 				}
 			}
 		}
@@ -211,14 +215,19 @@ public class Crab extends Animal {
 		}
 		this.prevClimbAnimX = this.climbAnimX;
 		this.climbAnimX += ((this.isClimbing() ? Mth.clamp(-Mth.cos(this.targetClimbAnimX() * Mth.PI) * 10F, -1F, 1F) : 0F) - this.climbAnimX) * 0.2F;
-		if (!this.hasPose(Pose.DIGGING) && !this.hasPose(Pose.EMERGING)) {
+		if (!this.isDiggingOrEmerging()) {
 			if (this.getTarget() == null || this.distanceTo(this.getTarget()) > MAX_TARGET_DISTANCE) {
-				this.ticksUntilDigOrEmerge -= 1;
+				if (this.canHide()) {
+					this.setPose(Pose.DIGGING);
+					this.lastHiddenHomeBlock = this.blockPosition().below();
+				} else {
+					this.ticksUntilDigOrEmerge -= 1;
+				}
 			} else {
-				this.ticksUntilDigOrEmerge = this.random.nextInt(400, 800);
+				this.ticksUntilDigOrEmerge = this.random.nextInt(800, 1200);
 			}
-		} else if (this.hasPose(Pose.DIGGING)) {
-			if (this.level().getNearestPlayer(this, 4) != null) {
+		} else {
+			if (this.hasPose(Pose.DIGGING) && !this.canContinueToHide()) {
 				this.ticksUntilDigOrEmerge = 0;
 			}
 		}
@@ -273,7 +282,21 @@ public class Crab extends Animal {
 			&& this.level().getNearestPlayer(this, 24) == null
 			&& !this.isLeashed()
 			&& this.getPassengers().isEmpty()
-			&& this.getTarget() == null;
+			&& this.getTarget() == null
+			&& this.onGround()
+			&& this.getFeetBlockState().getCollisionShape(this.level(), this.blockPosition(), CollisionContext.of(this)).isEmpty()
+			&& this.level().getBlockState(this.blockPosition().below()).isCollisionShapeFullBlock(this.level(), this.blockPosition());
+	}
+
+	public boolean canContinueToHide() {
+		return this.ticksUntilDigOrEmerge >= 0
+			&& this.level().getNearestPlayer(this, 4) != null
+			&& !this.isLeashed()
+			&& this.getPassengers().isEmpty()
+			&& this.getTarget() == null
+			&& this.onGround()
+			&& this.getFeetBlockState().getCollisionShape(this.level(), this.blockPosition(), CollisionContext.of(this)).isEmpty()
+			&& this.level().getBlockState(this.blockPosition().below()).isCollisionShapeFullBlock(this.level(), this.blockPosition());
 	}
 
 	@Override
@@ -350,6 +373,11 @@ public class Crab extends Animal {
 		super.addAdditionalSaveData(compound);
 		compound.putInt("DigTicks", this.diggingTicks());
 		compound.putInt("TicksUntilDigOrEmerge", this.ticksUntilDigOrEmerge);
+		if (this.lastHiddenHomeBlock != null) {
+			compound.putInt("LastHiddenBlockX", this.lastHiddenHomeBlock.getX());
+			compound.putInt("LastHiddenBlockY", this.lastHiddenHomeBlock.getY());
+			compound.putInt("LastHiddenBlockZ", this.lastHiddenHomeBlock.getZ());
+		}
 	}
 
 	@Override
@@ -358,6 +386,9 @@ public class Crab extends Animal {
 		this.setDiggingTicks(compound.getInt("DigTicks"));
 		if (compound.contains("TicksUntilDigOrEmerge")) {
 			this.ticksUntilDigOrEmerge = compound.getInt("TicksUntilDigOrEmerge");
+		}
+		if (compound.contains("LastHiddenBlockX") && compound.contains("LastHiddenBlockY") && compound.contains("LastHiddenBlockZ")) {
+			this.lastHiddenHomeBlock = new BlockPos(compound.getInt("LastHiddenBlockX"),compound.getInt("LastHiddenBlockY"), compound.getInt("LastHiddenBlockZ"));
 		}
 	}
 
