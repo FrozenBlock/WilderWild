@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.tags.EntityTypeTags;

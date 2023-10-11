@@ -25,7 +25,7 @@ import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.config.ItemConfig;
 import net.frozenblock.wilderwild.config.MiscConfig;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
-import static net.frozenblock.wilderwild.WilderSharedConstants.text;
+import static net.frozenblock.wilderwild.misc.WilderSharedConstants.text;
 import net.minecraft.client.gui.screens.Screen;
 
 public final class MainConfigGui {

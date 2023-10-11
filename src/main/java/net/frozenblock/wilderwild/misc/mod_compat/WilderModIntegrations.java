@@ -22,7 +22,7 @@ import java.util.function.Supplier;
 import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.lib.integration.api.ModIntegrationSupplier;
 import net.frozenblock.lib.integration.api.ModIntegrations;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.mod_compat.scp.AbstractSimpleCopperPipesIntegration;
 import net.frozenblock.wilderwild.misc.mod_compat.scp.NoOpSimpleCopperPipesIntegration;
 import net.frozenblock.wilderwild.misc.mod_compat.scp.SimpleCopperPipesIntegration;

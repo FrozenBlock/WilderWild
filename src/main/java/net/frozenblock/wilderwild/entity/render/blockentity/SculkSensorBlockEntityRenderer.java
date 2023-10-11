@@ -21,9 +21,8 @@ package net.frozenblock.wilderwild.entity.render.blockentity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.WilderWildConstantsKt;
 import net.frozenblock.wilderwild.WilderWildClient;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.interfaces.SculkSensorTickInterface;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -72,7 +71,7 @@ public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> im
 
 	@Override
 	public void render(@NotNull T entity, float partialTick, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
-		if (WilderWildConstantsKt.MC_LIVE_TENDRILS) {
+		if (WilderSharedConstants.MC_LIVE_TENDRILS) {
 			SculkSensorTickInterface tickInterface = ((SculkSensorTickInterface) entity);
 			if (tickInterface.wilderWild$isActive()) {
 				int prevTicks = tickInterface.wilderWild$getPrevAnimTicks();

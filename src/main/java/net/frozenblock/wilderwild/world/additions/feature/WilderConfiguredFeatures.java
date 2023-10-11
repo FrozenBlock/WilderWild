@@ -23,7 +23,7 @@ import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.api.FrozenFeatures;
 import net.frozenblock.lib.worldgen.feature.api.features.config.ColumnWithDiskFeatureConfig;
 import net.frozenblock.wilderwild.misc.FlowerColor;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterFeatures;
 import net.frozenblock.wilderwild.registry.RegisterProperties;

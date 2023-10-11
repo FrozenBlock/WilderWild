@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.misc.wind;
 
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.lib.wind.api.WindManagerExtension;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import org.jetbrains.annotations.NotNull;

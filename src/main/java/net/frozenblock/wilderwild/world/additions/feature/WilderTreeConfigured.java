@@ -24,7 +24,7 @@ import java.util.OptionalInt;
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeature;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
 import net.frozenblock.wilderwild.block.CoconutBlock;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import static net.frozenblock.wilderwild.world.additions.feature.WilderFeatureUtils.register;
 import net.frozenblock.wilderwild.world.generation.foliage.PalmFoliagePlacer;

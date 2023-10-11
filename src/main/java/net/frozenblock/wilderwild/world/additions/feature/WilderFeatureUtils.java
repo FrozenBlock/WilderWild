@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.world.additions.feature;
 
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeature;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;

@@ -31,7 +31,6 @@ import net.frozenblock.lib.datagen.api.FrozenBiomeTagProvider;
 import net.frozenblock.lib.feature_flag.api.FrozenFeatureFlags;
 import net.frozenblock.lib.tag.api.FrozenBiomeTags;
 import net.frozenblock.lib.tag.api.FrozenItemTags;
-import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterDamageTypes;
 import net.frozenblock.wilderwild.registry.RegisterEntities;

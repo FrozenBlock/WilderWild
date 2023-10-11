@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.misc;
 
 import net.frozenblock.lib.feature_flag.api.FrozenFeatureFlags;
-import net.frozenblock.wilderwild.WilderSharedConstants;
 import net.minecraft.world.flag.FeatureFlag;
 
 public class WilderFeatureFlags {

@@ -32,7 +32,7 @@ import net.frozenblock.wilderwild.item.CopperHorn;
 import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.item.MilkweedPod;
 import net.frozenblock.wilderwild.misc.WilderEnumValues;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.recipe.CopperHornRecipe;
 import net.frozenblock.wilderwild.tag.WilderInstrumentTags;
 import net.minecraft.core.Registry;

@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.server.general;
 
 import net.frozenblock.lib.spotting_icons.impl.EntitySpottingIconInterface;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
-import net.frozenblock.wilderwild.WilderSharedConstants;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.Nullable;
