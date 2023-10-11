@@ -1,5 +1,7 @@
 package net.frozenblock.wilderwild.entity;
 
+import com.mojang.serialization.Dynamic;
+import net.frozenblock.wilderwild.entity.ai.crab.CrabAi;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabJumpControl;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabMoveControl;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabRandomStrollGoal;
@@ -8,6 +10,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -25,13 +28,17 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
+import net.minecraft.world.entity.ai.sensing.Sensor;
+import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.Level;
@@ -44,6 +51,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import java.util.List;
 
 public class Crab extends Animal {
 	private static final float MAX_TARGET_DISTANCE = 15F;
@@ -276,6 +284,7 @@ public class Crab extends Animal {
 				}
 			}
 		}
+
 	}
 
 	@Override

@@ -1,7 +1,31 @@
 package net.frozenblock.wilderwild.entity.ai.crab;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
+import com.mojang.datafixers.util.Pair;
+import net.frozenblock.lib.entity.behavior.api.FrozenBehaviorUtils;
+import net.frozenblock.wilderwild.entity.Crab;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
+import net.minecraft.world.entity.ai.behavior.MoveToTargetSink;
+import net.minecraft.world.entity.ai.behavior.RandomStroll;
+import net.minecraft.world.entity.ai.behavior.RunOne;
+import net.minecraft.world.entity.ai.behavior.SetEntityLookTarget;
+import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromAttackTargetIfTargetOutOfReach;
+import net.minecraft.world.entity.ai.behavior.StartAttacking;
+import net.minecraft.world.entity.ai.behavior.StopAttackingIfTargetInvalid;
+import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.memory.MemoryStatus;
+import net.minecraft.world.entity.schedule.Activity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import java.util.List;
+import java.util.Optional;
 
 public final class CrabAi {
     private CrabAi() {}
