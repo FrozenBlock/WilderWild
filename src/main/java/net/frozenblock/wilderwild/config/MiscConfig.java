@@ -26,12 +26,11 @@ import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.wilderwild.config.defaults.DefaultMiscConfig;
 import static net.frozenblock.wilderwild.WilderSharedConstants.MOD_ID;
 import static net.frozenblock.wilderwild.WilderWildConfigUtilsKt.configPath;
-import static net.frozenblock.wilderwild.WilderWildConfigUtilsKt.jsonConfig;
 
 public final class MiscConfig {
 
 	private static final Config<MiscConfig> INSTANCE = ConfigRegistry.register(
-		jsonConfig(
+		new JsonConfig<>(
 			MOD_ID,
 			MiscConfig.class,
 			configPath("misc", true),

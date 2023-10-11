@@ -27,12 +27,11 @@ import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.wilderwild.config.defaults.DefaultEntityConfig;
 import static net.frozenblock.wilderwild.WilderSharedConstants.MOD_ID;
 import static net.frozenblock.wilderwild.WilderWildConfigUtilsKt.configPath;
-import static net.frozenblock.wilderwild.WilderWildConfigUtilsKt.jsonConfig;
 
 public final class EntityConfig {
 
 	private static final Config<EntityConfig> INSTANCE = ConfigRegistry.register(
-		jsonConfig(
+		new JsonConfig<>(
 			MOD_ID,
 			EntityConfig.class,
 			configPath("entity", true),
