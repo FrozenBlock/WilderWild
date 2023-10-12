@@ -24,14 +24,14 @@ public class CrabDig<E extends Crab> extends Behavior<E> {
 
 	@Override
 	protected boolean checkExtraStartConditions(ServerLevel level, @NotNull E owner) {
-		return owner.onGround();
+		return owner.canInitiallyHide();
 	}
 
 	@Override
 	protected void start(ServerLevel level, @NotNull E crab, long gameTime) {
 		crab.setPose(Pose.DIGGING);
 		//TODO: CRAB DIG SOUNDS
-		crab.playSound(SoundEvents.WARDEN_DIG, 0.25f, 3.0f);
+		crab.playSound(SoundEvents.WARDEN_DIG, 0.25f, 5.0f);
 		crab.resetDiggingTicks();
 	}
 

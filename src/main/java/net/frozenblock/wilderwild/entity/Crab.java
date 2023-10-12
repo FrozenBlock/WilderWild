@@ -324,7 +324,6 @@ public class Crab extends Animal implements VibrationSystem {
 	@Contract("null->false")
 	public boolean canTargetEntity(@Nullable Entity entity) {
 		return !this.isDiggingOrEmerging()
-			&& !CrabAi.isUnderground(this)
 			&& entity instanceof LivingEntity livingEntity
 			&& this.level() == livingEntity.level()
 			&& EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)
@@ -334,7 +333,6 @@ public class Crab extends Animal implements VibrationSystem {
 			&& !livingEntity.isInvulnerable()
 			&& !livingEntity.isDeadOrDying()
 			&& !livingEntity.isRemoved()
-			&& livingEntity.distanceTo(this) < MAX_TARGET_DISTANCE
 			&& this.level().getWorldBorder().isWithinBounds(livingEntity.getBoundingBox());
 	}
 
@@ -342,6 +340,11 @@ public class Crab extends Animal implements VibrationSystem {
 		return this.onGround()
 			&& this.getFeetBlockState().getCollisionShape(this.level(), this.blockPosition(), CollisionContext.of(this)).isEmpty()
 			&& this.level().getBlockState(this.blockPosition().below()).isCollisionShapeFullBlock(this.level(), this.blockPosition());
+	}
+
+	public boolean canInitiallyHide() {
+		return this.level().getNearestPlayer(this, 16) == null
+			&& this.canHideOnGround();
 	}
 
 	public boolean canContinueToHide() {

@@ -160,10 +160,9 @@ public final class CrabAi {
     }
 
 	public static void wasHurtBy(@NotNull Crab crab, LivingEntity target) {
-		if (!crab.canTargetEntity(target)) {
-			return;
+		if (crab.canTargetEntity(target)) {
+			CrabAi.maybeRetaliate(crab, target);
 		}
-		CrabAi.maybeRetaliate(crab, target);
 	}
 
 	public static void maybeRetaliate(@NotNull Crab crab, LivingEntity target) {
@@ -183,7 +182,7 @@ public final class CrabAi {
 			return;
 		}
 		if (crab.getBrain().checkMemory(RegisterMemoryModuleTypes.UNDERGROUND, MemoryStatus.VALUE_PRESENT)) {
-			crab.getBrain().eraseMemory(MemoryModuleType.DIG_COOLDOWN);
+			CrabAi.clearDigCooldown(crab);
 		}
 		crab.getBrain().eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
 		crab.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, target);
