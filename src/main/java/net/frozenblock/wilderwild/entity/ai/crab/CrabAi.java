@@ -115,7 +115,7 @@ public final class CrabAi {
                     ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
                     ImmutableList.of(
 						Pair.of(RandomStroll.stroll(1F), 1),
-						Pair.of(new DoNothing(30, 60), 2)
+						Pair.of(new DoNothing(30, 100), 2)
                     )
                 )
             )
@@ -161,20 +161,16 @@ public final class CrabAi {
 
 	public static void wasHurtBy(@NotNull Crab crab, LivingEntity target) {
 		if (crab.canTargetEntity(target)) {
-			CrabAi.maybeRetaliate(crab, target);
-		}
-	}
+			if (!Sensor.isEntityAttackableIgnoringLineOfSight(crab, target)) {
+				return;
+			}
+			if (BehaviorUtils.isOtherTargetMuchFurtherAwayThanCurrentAttackTarget(crab, target, 4.0)) {
+				return;
+			}
 
-	public static void maybeRetaliate(@NotNull Crab crab, LivingEntity target) {
-		if (!Sensor.isEntityAttackableIgnoringLineOfSight(crab, target)) {
-			return;
+			CrabAi.setAngerTarget(crab, target);
+			CrabAi.broadcastAngerTarget(crab, target);
 		}
-		if (BehaviorUtils.isOtherTargetMuchFurtherAwayThanCurrentAttackTarget(crab, target, 4.0)) {
-			return;
-		}
-
-		CrabAi.setAngerTarget(crab, target);
-		CrabAi.broadcastAngerTarget(crab, target);
 	}
 
 	public static void setAngerTarget(@NotNull Crab crab, LivingEntity target) {

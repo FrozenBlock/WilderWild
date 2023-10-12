@@ -234,6 +234,9 @@ public class Crab extends Animal implements VibrationSystem {
 				this.setTargetClimbAnimX(0F);
 			}
 		}
+		if (this.level() instanceof ServerLevel serverLevel) {
+			VibrationSystem.Ticker.tick(serverLevel, this.vibrationData, this.vibrationUser);
+		}
 		super.tick();
 
 		if (this.hasPose(Pose.DIGGING)) {
@@ -432,7 +435,7 @@ public class Crab extends Animal implements VibrationSystem {
 	public void addAdditionalSaveData(CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
 		compound.putInt("DigTicks", this.diggingTicks());
-		VibrationSystem.Data.CODEC.encodeStart(NbtOps.INSTANCE, this.vibrationData).resultOrPartial(WilderSharedConstants.LOGGER::error).ifPresent(tag -> compound.put("listener", (Tag)tag));
+		VibrationSystem.Data.CODEC.encodeStart(NbtOps.INSTANCE, this.vibrationData).resultOrPartial(WilderSharedConstants.LOGGER::error).ifPresent(tag -> compound.put("listener", tag));
 	}
 
 	@Override
@@ -440,9 +443,7 @@ public class Crab extends Animal implements VibrationSystem {
 		super.readAdditionalSaveData(compound);
 		this.setDiggingTicks(compound.getInt("DigTicks"));
 		if (compound.contains("listener", 10)) {
-			VibrationSystem.Data.CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, compound.getCompound("listener"))).resultOrPartial(WilderSharedConstants.LOGGER::error).ifPresent(data -> {
-				this.vibrationData = data;
-			});
+			VibrationSystem.Data.CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, compound.getCompound("listener"))).resultOrPartial(WilderSharedConstants.LOGGER::error).ifPresent(data -> this.vibrationData = data);
 		}
 	}
 
@@ -493,12 +494,12 @@ public class Crab extends Animal implements VibrationSystem {
 
 		@Override
 		public boolean canReceiveVibration(ServerLevel level, BlockPos pos, GameEvent gameEvent, GameEvent.Context context) {
-			return CrabAi.isUnderground(Crab.this) && (context.sourceEntity() instanceof Player || context.affectedState() != null);
+			return Crab.this.isAlive() && Crab.this.isInvisibleWhileUnderground() && (context.sourceEntity() instanceof Player || context.affectedState() != null);
 		}
 
 		@Override
 		public void onReceiveVibration(ServerLevel level, BlockPos pos, GameEvent gameEvent, @Nullable Entity entity, @Nullable Entity playerEntity, float distance) {
-			if (!Crab.this.isDeadOrDying() && CrabAi.isUnderground(Crab.this)) {
+			if (Crab.this.isAlive() && Crab.this.isInvisibleWhileUnderground()) {
 				CrabAi.clearDigCooldown(Crab.this);
 				Crab.this.playSound(SoundEvents.WARDEN_TENDRIL_CLICKS, 1.0f, Crab.this.getVoicePitch());
 			}
