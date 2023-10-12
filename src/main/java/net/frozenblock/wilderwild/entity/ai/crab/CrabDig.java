@@ -31,7 +31,6 @@ public class CrabDig<E extends Crab> extends Behavior<E> {
 	@Override
 	protected void start(ServerLevel level, @NotNull E crab, long gameTime) {
 		crab.getNavigation().stop();
-		crab.setDeltaMovement(Vec3.ZERO);
 		crab.setPose(Pose.DIGGING);
 		//TODO: CRAB DIG SOUNDS
 		crab.playSound(SoundEvents.WARDEN_DIG, 0.25f, 5.0f);

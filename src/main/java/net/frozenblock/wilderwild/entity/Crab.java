@@ -494,7 +494,7 @@ public class Crab extends Animal implements VibrationSystem {
 
 		@Override
 		public boolean canReceiveVibration(ServerLevel level, BlockPos pos, GameEvent gameEvent, GameEvent.Context context) {
-			return Crab.this.isAlive() && Crab.this.isInvisibleWhileUnderground() && (context.sourceEntity() instanceof Player || context.affectedState() != null);
+			return Crab.this.isAlive() && Crab.this.isInvisibleWhileUnderground() && context.sourceEntity() instanceof Player;
 		}
 
 		@Override
