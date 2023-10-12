@@ -57,6 +57,8 @@ public final class CrabAi {
     @NotNull
     public static Brain<?> makeBrain(@NotNull Crab crab, @NotNull Brain<Crab> brain) {
         addCoreActivity(brain);
+		initEmergeActivity(brain);
+		initDiggingActivity(brain);
         addIdleActivity(crab, brain);
         addFightActivity(crab, brain);
         brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
@@ -111,7 +113,7 @@ public final class CrabAi {
                 new RunOne<>(
                     ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
                     ImmutableList.of(
-						Pair.of(BehaviorBuilder.triggerIf(crab1 -> crab1.getTarget() == null, FrozenBehaviorUtils.getOneShot(RandomStroll.stroll(1.0F))), 2),
+						Pair.of(RandomStroll.stroll(1F), 2),
 						Pair.of(new DoNothing(30, 60), 1)
                     )
                 )
