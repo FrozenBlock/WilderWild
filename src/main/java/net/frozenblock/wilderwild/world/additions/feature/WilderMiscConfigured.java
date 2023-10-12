@@ -21,7 +21,6 @@ package net.frozenblock.wilderwild.world.additions.feature;
 import java.util.List;
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.api.FrozenFeatures;
-import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskTagBiomeFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskTagFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.PathFeatureConfig;

@@ -39,5 +39,6 @@ public class CrabDig<E extends Crab> extends Behavior<E> {
 	protected void stop(ServerLevel level, @NotNull E crab, long gameTime) {
 		crab.getBrain().setMemory(RegisterMemoryModuleTypes.UNDERGROUND, true);
 		crab.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, CrabAi.getRandomEmergeCooldown(crab));
+		crab.resetDiggingTicks();
 	}
 }

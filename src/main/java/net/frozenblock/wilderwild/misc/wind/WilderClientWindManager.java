@@ -20,12 +20,12 @@ package net.frozenblock.wilderwild.misc.wind;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import static net.frozenblock.lib.wind.api.ClientWindManager.*;
 import net.frozenblock.lib.wind.api.ClientWindManagerExtension;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
-import static net.frozenblock.lib.wind.api.ClientWindManager.*;
 
 @Environment(EnvType.CLIENT)
 public class WilderClientWindManager implements ClientWindManagerExtension {

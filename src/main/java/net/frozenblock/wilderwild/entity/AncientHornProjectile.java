@@ -20,8 +20,6 @@ package net.frozenblock.wilderwild.entity;
 
 import io.netty.buffer.Unpooled;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
-import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;

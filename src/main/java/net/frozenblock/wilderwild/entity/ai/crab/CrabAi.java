@@ -4,8 +4,8 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
+import java.util.List;
 import java.util.Optional;
-import net.frozenblock.lib.entity.behavior.api.FrozenBehaviorUtils;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
 import net.minecraft.util.Unit;
@@ -29,6 +29,7 @@ import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
 import net.minecraft.world.entity.ai.behavior.warden.ForceUnmount;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
+import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.schedule.Activity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -157,6 +158,62 @@ public final class CrabAi {
     private static Optional<? extends LivingEntity> findNearestValidAttackTarget(@NotNull Crab crab) {
         return crab.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE);
     }
+
+	public static void wasHurtBy(@NotNull Crab crab, LivingEntity target) {
+		if (!crab.canTargetEntity(target)) {
+			return;
+		}
+		CrabAi.maybeRetaliate(crab, target);
+	}
+
+	public static void maybeRetaliate(@NotNull Crab crab, LivingEntity target) {
+		if (!Sensor.isEntityAttackableIgnoringLineOfSight(crab, target)) {
+			return;
+		}
+		if (BehaviorUtils.isOtherTargetMuchFurtherAwayThanCurrentAttackTarget(crab, target, 4.0)) {
+			return;
+		}
+
+		CrabAi.setAngerTarget(crab, target);
+		CrabAi.broadcastAngerTarget(crab, target);
+	}
+
+	public static void setAngerTarget(@NotNull Crab crab, LivingEntity target) {
+		if (!Sensor.isEntityAttackableIgnoringLineOfSight(crab, target)) {
+			return;
+		}
+		if (crab.getBrain().checkMemory(RegisterMemoryModuleTypes.UNDERGROUND, MemoryStatus.VALUE_PRESENT)) {
+			crab.getBrain().eraseMemory(MemoryModuleType.DIG_COOLDOWN);
+		}
+		crab.getBrain().eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
+		crab.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, target);
+	}
+
+	public static void broadcastAngerTarget(@NotNull Crab crab, LivingEntity target) {
+		CrabAi.getNearbyCrabs(crab).forEach(nearbyCrab -> CrabAi.setAngerTargetIfCloserThanCurrent(crab, target));
+	}
+
+	private static void setAngerTargetIfCloserThanCurrent(@NotNull Crab crab, LivingEntity currentTarget) {
+		Optional<LivingEntity> optional = CrabAi.getAngerTarget(crab);
+		LivingEntity livingEntity = BehaviorUtils.getNearestTarget(crab, optional, currentTarget);
+		if (optional.isPresent() && optional.get() == livingEntity) {
+			return;
+		}
+		CrabAi.setAngerTarget(crab, livingEntity);
+	}
+
+	@NotNull
+	private static Optional<LivingEntity> getAngerTarget(@NotNull Crab crab) {
+		return crab.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET);
+	}
+
+	private static List<LivingEntity> getNearbyCrabs(@NotNull Crab crab) {
+		Optional<List<LivingEntity>> livingEntities = crab.getBrain().getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES);
+		if (livingEntities.isPresent()) {
+			return livingEntities.get().stream().filter(livingEntity -> livingEntity instanceof Crab).toList();
+		}
+		return ImmutableList.of();
+	}
 
 	public static void setDigCooldown(@NotNull Crab crab) {
 		if (crab.getBrain().hasMemoryValue(MemoryModuleType.DIG_COOLDOWN)) {

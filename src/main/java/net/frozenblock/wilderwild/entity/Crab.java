@@ -69,7 +69,10 @@ public class Crab extends Animal {
 	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_X = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Integer> DIGGING_TICKS = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.INT);
 
-	protected static final List<SensorType<? extends Sensor<? super Crab>>> SENSORS = List.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS);
+	protected static final List<SensorType<? extends Sensor<? super Crab>>> SENSORS = List.of(
+		SensorType.NEAREST_LIVING_ENTITIES,
+		SensorType.NEAREST_PLAYERS
+	);
 	protected static final List<? extends MemoryModuleType<?>> MEMORY_MODULES = List.of(
 		MemoryModuleType.NEAREST_LIVING_ENTITIES,
 		MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
@@ -79,7 +82,7 @@ public class Crab extends Animal {
 		MemoryModuleType.PATH,
 		MemoryModuleType.ATTACK_TARGET,
 		MemoryModuleType.NEAREST_ATTACKABLE,
-		MemoryModuleType.IS_PANICKING,
+		MemoryModuleType.HURT_BY,
 		MemoryModuleType.IS_EMERGING,
 		MemoryModuleType.DIG_COOLDOWN,
 		RegisterMemoryModuleTypes.UNDERGROUND
@@ -248,7 +251,18 @@ public class Crab extends Animal {
 				CrabAi.clearDigCooldown(this);
 			}
 		}
+	}
 
+	@Override
+	public boolean hurt(DamageSource source, float amount) {
+		boolean bl = super.hurt(source, amount);
+		if (this.level().isClientSide) {
+			return false;
+		}
+		if (bl && source.getEntity() instanceof LivingEntity livingEntity) {
+			CrabAi.wasHurtBy(this, livingEntity);
+		}
+		return bl;
 	}
 
 	@Override

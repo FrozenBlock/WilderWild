@@ -33,5 +33,6 @@ public class CrabEmerge<E extends Crab> extends Behavior<E> {
 		if (crab.hasPose(Pose.EMERGING)) {
 			crab.setPose(Pose.STANDING);
 		}
+		crab.resetDiggingTicks();
 	}
 }
