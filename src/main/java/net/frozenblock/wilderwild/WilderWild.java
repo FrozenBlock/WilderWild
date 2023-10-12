@@ -47,6 +47,7 @@ import net.frozenblock.wilderwild.registry.RegisterFeatures;
 import net.frozenblock.wilderwild.registry.RegisterGameEvents;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterLootTables;
+import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterResources;
@@ -153,6 +154,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		RegisterSounds.init();
 		RegisterBlockSoundTypes.init();
 		RegisterBlockEntities.register();
+		RegisterMemoryModuleTypes.register();
 		RegisterEntities.init();
 		RegisterLootTables.init();
 		RegisterParticles.registerParticles();

@@ -1,12 +1,12 @@
 package net.frozenblock.wilderwild.entity;
 
 import com.mojang.serialization.Dynamic;
+import java.util.List;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabAi;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabJumpControl;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabMoveControl;
-import net.frozenblock.wilderwild.entity.ai.crab.CrabRandomStrollGoal;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
-import net.minecraft.core.BlockPos;
+import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -31,8 +31,6 @@ import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
@@ -51,24 +49,24 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import java.util.List;
 
 public class Crab extends Animal {
-	private static final float MAX_TARGET_DISTANCE = 15F;
-	private static final double MOVEMENT_SPEED = 0.16;
-	private static final double WATER_MOVEMENT_SPEED = 0.576;
+	public static final float MAX_TARGET_DISTANCE = 15F;
+	public static final double MOVEMENT_SPEED = 0.16;
+	public static final double WATER_MOVEMENT_SPEED = 0.576;
 	private static final int DIG_TICKS_UNTIL_PARTICLES = 17;
 	private static final int DIG_TICKS_UNTIL_STOP_PARTICLES = 82;
-	private static final int DIG_LENGTH_IN_TICKS = 95;
+	public static final int DIG_LENGTH_IN_TICKS = 95;
 	private static final int EMERGE_TICKS_UNTIL_PARTICLES = 1;
 	private static final int EMERGE_TICKS_UNTIL_STOP_PARTICLES = 16;
-	private static final int EMERGE_LENGTH_IN_TICKS = 29;
+	public static final int EMERGE_LENGTH_IN_TICKS = 29;
 	private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.BYTE);
 	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_X = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Integer> DIGGING_TICKS = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.INT);
 
 	protected static final List<SensorType<? extends Sensor<? super Crab>>> SENSORS = List.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS);
 	protected static final List<? extends MemoryModuleType<?>> MEMORY_MODULES = List.of(
+		MemoryModuleType.NEAREST_LIVING_ENTITIES,
 		MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
 		MemoryModuleType.LOOK_TARGET,
 		MemoryModuleType.WALK_TARGET,
@@ -76,7 +74,10 @@ public class Crab extends Animal {
 		MemoryModuleType.PATH,
 		MemoryModuleType.ATTACK_TARGET,
 		MemoryModuleType.NEAREST_ATTACKABLE,
-		MemoryModuleType.IS_PANICKING
+		MemoryModuleType.IS_PANICKING,
+		MemoryModuleType.IS_EMERGING,
+		MemoryModuleType.DIG_COOLDOWN,
+		RegisterMemoryModuleTypes.UNDERGROUND
 	);
 
 	public final TargetingConditions targetingConditions = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().selector(this::canTargetEntity);
@@ -232,19 +233,14 @@ public class Crab extends Animal {
 			}
 		}
 		super.tick();
+
 		if (this.hasPose(Pose.DIGGING)) {
 			if (isClient) {
 				if (this.diggingTicks() > DIG_TICKS_UNTIL_PARTICLES && this.diggingTicks() < DIG_TICKS_UNTIL_STOP_PARTICLES) {
 					this.clientDiggingParticles();
 				}
 			} else {
-				if (this.ticksUntilDigOrEmerge <= 0) {
-					this.setPose(Pose.EMERGING);
-					this.setDiggingTicks(0);
-				} else {
-					this.ticksUntilDigOrEmerge -= 1;
-					this.setDiggingTicks(this.diggingTicks() + 1);
-				}
+				this.setDiggingTicks(this.diggingTicks() + 1);
 			}
 		}
 		if (this.hasPose(Pose.EMERGING)) {
@@ -253,35 +249,15 @@ public class Crab extends Animal {
 					this.clientDiggingParticles();
 				}
 			} else {
-				this.ticksUntilDigOrEmerge = this.random.nextInt(800, 2400);
-				if (this.diggingTicks() > EMERGE_LENGTH_IN_TICKS) {
-					this.setPose(Pose.STANDING);
-					this.setDiggingTicks(0);
-				} else {
-					this.setDiggingTicks(this.diggingTicks() + 1);
-				}
+				this.setDiggingTicks(this.diggingTicks() + 1);
 			}
 		}
 		this.prevClimbAnimX = this.climbAnimX;
 		this.climbAnimX += ((this.isClimbing() ? Mth.clamp(-Mth.cos(this.targetClimbAnimX() * Mth.PI) * 10F, -1F, 1F) : 0F) - this.climbAnimX) * 0.2F;
 		if (!isClient) {
 			this.setClimbing(this.horizontalCollision);
-			if (!this.isDiggingOrEmerging()) {
-				if ((this.getTarget() == null || this.distanceTo(this.getTarget()) > MAX_TARGET_DISTANCE) && this.level().getNearestPlayer(this, 24) == null) {
-					if (this.canHide()) {
-						this.setPose(Pose.DIGGING);
-						this.getNavigation().stop();
-						this.ticksUntilDigOrEmerge = this.random.nextInt(800, 1200) + DIG_LENGTH_IN_TICKS;
-					} else {
-						this.ticksUntilDigOrEmerge -= 1;
-					}
-				} else {
-					this.ticksUntilDigOrEmerge = this.random.nextInt(800, 1200);
-				}
-			} else {
-				if (this.hasPose(Pose.DIGGING) && !this.canContinueToHide()) {
-					this.ticksUntilDigOrEmerge = 0;
-				}
+			if (CrabAi.isUnderground(this) && !this.canContinueToHide()) {
+				CrabAi.clearDigCooldown(this);
 			}
 		}
 
@@ -293,14 +269,9 @@ public class Crab extends Animal {
 		this.getBrain().tick((ServerLevel) this.level(), this);
 		this.level().getProfiler().pop();
 		this.level().getProfiler().push("crabActivityUpdate");
-		CrabAi.updateActivities(this);
+		CrabAi.updateActivity(this);
 		this.level().getProfiler().pop();
 		super.customServerAiStep();
-	}
-
-	@Override
-	public boolean canRandomSwim() {
-		return super.canRandomSwim() && !this.isDiggingOrEmerging();
 	}
 
 	@Override
@@ -334,7 +305,9 @@ public class Crab extends Animal {
 
 	@Contract("null->false")
 	public boolean canTargetEntity(@Nullable Entity entity) {
-		return entity instanceof LivingEntity livingEntity
+		return !this.isDiggingOrEmerging()
+			&& !CrabAi.isUnderground(this)
+			&& entity instanceof LivingEntity livingEntity
 			&& this.level() == livingEntity.level()
 			&& EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)
 			&& !this.isAlliedTo(livingEntity)
@@ -347,28 +320,15 @@ public class Crab extends Animal {
 			&& this.level().getWorldBorder().isWithinBounds(livingEntity.getBoundingBox());
 	}
 
-	public boolean canHide() {
-		return this.ticksUntilDigOrEmerge < 0
-			&& !this.isLeashed()
-			&& this.getPassengers().isEmpty()
-			&& this.getTarget() == null
-			&& this.onGround()
+	public boolean canHideOnGround() {
+		return this.onGround()
 			&& this.getFeetBlockState().getCollisionShape(this.level(), this.blockPosition(), CollisionContext.of(this)).isEmpty()
 			&& this.level().getBlockState(this.blockPosition().below()).isCollisionShapeFullBlock(this.level(), this.blockPosition());
 	}
 
 	public boolean canContinueToHide() {
-		if (this.diggingTicks() <= DIG_LENGTH_IN_TICKS) {
-			return true;
-		}
-		return this.ticksUntilDigOrEmerge >= 0
-			&& this.level().getNearestPlayer(this, 4) == null
-			&& !this.isLeashed()
-			&& this.getPassengers().isEmpty()
-			&& this.getTarget() == null
-			&& this.onGround()
-			&& this.getFeetBlockState().getCollisionShape(this.level(), this.blockPosition(), CollisionContext.of(this)).isEmpty()
-			&& this.level().getBlockState(this.blockPosition().below()).isCollisionShapeFullBlock(this.level(), this.blockPosition());
+		return this.level().getNearestPlayer(this, 4) == null
+			&& this.canHideOnGround();
 	}
 
 	@Override
@@ -419,11 +379,14 @@ public class Crab extends Animal {
 		this.entityData.set(DIGGING_TICKS, i);
 	}
 
+	public void resetDiggingTicks() {
+		this.setDiggingTicks(0);
+	}
+
 	@Override
-	public void calculateEntityAnimation(boolean includeHeight) {
-		includeHeight = this.isClimbing();
-		float f = (float) Mth.length(this.getX() - this.xo, includeHeight ? this.getY() - this.yo : 0.0, this.getZ() - this.zo);
-		this.updateWalkAnimation(f);
+	public void travel(Vec3 travelVector) {
+		super.travel(travelVector);
+		this.calculateEntityAnimation(this.isClimbing());
 	}
 
 	@Nullable
