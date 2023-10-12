@@ -39,7 +39,6 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 
 	public float xRot;
 	public float zRot;
-	public float rotationYProgress;
 
 	public CrabModel(@NotNull ModelPart root) {
 		this.root = root;
@@ -93,7 +92,6 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 	public void prepareMobModel(@NotNull T entity, float limbSwing, float limbSwingAmount, float partialTick) {
 		this.xRot = Mth.lerp(partialTick, entity.prevClimbAnimX, entity.climbAnimX) * 75F;
 		this.zRot = entity.isClimbing() ? (Math.abs(75F) - Math.abs(this.xRot)) * this.xRot < 0 ? -1F : 1F : 0F;
-		this.rotationYProgress = entity.viewAngle / 360F;
 	}
 
 	@Override

@@ -85,8 +85,6 @@ public class Crab extends Animal {
 	public final AnimationState emergingAnimationState = new AnimationState();
 	public float climbAnimX;
 	public float prevClimbAnimX;
-	public float viewAngle;
-	public int ticksUntilDigOrEmerge;
 
 	public Crab(EntityType<? extends Crab> entityType, Level level) {
 		super(entityType, level);
@@ -98,7 +96,6 @@ public class Crab extends Animal {
 		this.moveControl = new CrabMoveControl(this);
 		this.jumpControl = new CrabJumpControl(this);
 		this.setMaxUpStep(0.2F);
-		this.ticksUntilDigOrEmerge = level.getRandom().nextInt(400, 800);
 	}
 
 	@Override
@@ -200,33 +197,13 @@ public class Crab extends Animal {
 				float deltaAngle = (float) Math.atan2(deltaMovement.z(), deltaMovement.x());
 				deltaAngle = (float) (180F * deltaAngle / Math.PI);
 				deltaAngle = (360F + deltaAngle) % 360F;
-				if (deltaAngle < 0F) {
-					deltaAngle += 360F;
-				}
-				if (deltaAngle > 360F) {
-					deltaAngle -= 360F;
-				}
 
 				Vec3 viewVector = this.getViewVector(1F);
 				float viewAngle = (float) Math.atan2(viewVector.z(), viewVector.x());
 				viewAngle = (float) (180F * viewAngle / Math.PI);
 				viewAngle = (360F + viewAngle) % 360F;
-				if (viewAngle < 0F) {
-					viewAngle += 360F;
-				}
-				if (viewAngle > 360F) {
-					viewAngle -= 360F;
-				}
-				this.viewAngle = viewAngle;
 
 				float difference = deltaAngle - viewAngle;
-				if (difference < 0F) {
-					difference += 360F;
-				}
-				if (difference > 360F) {
-					difference -= 360F;
-				}
-
 				this.setTargetClimbAnimX(difference / 180F);
 			} else {
 				this.setTargetClimbAnimX(0F);
@@ -253,7 +230,7 @@ public class Crab extends Animal {
 			}
 		}
 		this.prevClimbAnimX = this.climbAnimX;
-		this.climbAnimX += ((this.isClimbing() ? Mth.clamp(-Mth.cos(this.targetClimbAnimX() * Mth.PI) * 10F, -1F, 1F) : 0F) - this.climbAnimX) * 0.2F;
+		this.climbAnimX += ((this.isClimbing() ? -Math.cos(this.targetClimbAnimX() * Mth.PI) >= -0.2F ? 1F : -1F : 0F) - this.climbAnimX) * 0.2F;
 		if (!isClient) {
 			this.setClimbing(this.horizontalCollision);
 			if (CrabAi.isUnderground(this) && !this.canContinueToHide()) {
@@ -412,16 +389,12 @@ public class Crab extends Animal {
 	public void addAdditionalSaveData(CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
 		compound.putInt("DigTicks", this.diggingTicks());
-		compound.putInt("TicksUntilDigOrEmerge", this.ticksUntilDigOrEmerge);
 	}
 
 	@Override
 	public void readAdditionalSaveData(CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
 		this.setDiggingTicks(compound.getInt("DigTicks"));
-		if (compound.contains("TicksUntilDigOrEmerge")) {
-			this.ticksUntilDigOrEmerge = compound.getInt("TicksUntilDigOrEmerge");
-		}
 	}
 
 }

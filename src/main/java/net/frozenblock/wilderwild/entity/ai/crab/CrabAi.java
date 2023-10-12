@@ -14,6 +14,7 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
+import net.minecraft.world.entity.ai.behavior.DoNothing;
 import net.minecraft.world.entity.ai.behavior.EraseMemoryIf;
 import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
 import net.minecraft.world.entity.ai.behavior.MeleeAttack;
@@ -110,7 +111,8 @@ public final class CrabAi {
                 new RunOne<>(
                     ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
                     ImmutableList.of(
-						Pair.of(BehaviorBuilder.triggerIf(crab1 -> crab1.getTarget() == null, FrozenBehaviorUtils.getOneShot(RandomStroll.stroll(1.0F))), 2)
+						Pair.of(BehaviorBuilder.triggerIf(crab1 -> crab1.getTarget() == null, FrozenBehaviorUtils.getOneShot(RandomStroll.stroll(1.0F))), 2),
+						Pair.of(new DoNothing(30, 60), 1)
                     )
                 )
             )
