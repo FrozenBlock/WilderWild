@@ -79,8 +79,8 @@ public final class CrabAi {
 		brain.addActivityAndRemoveMemoryWhenStopped(
 			Activity.EMERGE,
 			5,
-			(ImmutableList<? extends BehaviorControl<? super Crab>>) ImmutableList.of(
-				new CrabEmerge(EMERGE_DURATION)
+			ImmutableList.of(
+				new CrabEmerge<>(EMERGE_DURATION)
 			),
 			MemoryModuleType.IS_EMERGING
 		);
