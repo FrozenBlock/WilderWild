@@ -209,10 +209,7 @@ public final class CrabAi {
 
 	private static List<LivingEntity> getNearbyCrabs(@NotNull Crab crab) {
 		Optional<List<LivingEntity>> livingEntities = crab.getBrain().getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES);
-		if (livingEntities.isPresent()) {
-			return livingEntities.get().stream().filter(livingEntity -> livingEntity instanceof Crab).toList();
-		}
-		return ImmutableList.of();
+		return livingEntities.map(entities -> entities.stream().filter(livingEntity -> livingEntity instanceof Crab).toList()).orElseGet(ImmutableList::of);
 	}
 
 	public static void setDigCooldown(@NotNull Crab crab) {
