@@ -230,7 +230,7 @@ public class Crab extends Animal {
 			}
 		}
 		this.prevClimbAnimX = this.climbAnimX;
-		this.climbAnimX += ((this.isClimbing() ? -Math.cos(this.targetClimbAnimX() * Mth.PI) >= -0.2F ? 1F : -1F : 0F) - this.climbAnimX) * 0.2F;
+		this.climbAnimX += ((this.isClimbing() ? -Math.cos(this.targetClimbAnimX() * Mth.PI) <= 0.15F ? -1F : 1F : 0F) - this.climbAnimX) * 0.2F;
 		if (!isClient) {
 			this.setClimbing(this.horizontalCollision);
 			if (CrabAi.isUnderground(this) && !this.canContinueToHide()) {
