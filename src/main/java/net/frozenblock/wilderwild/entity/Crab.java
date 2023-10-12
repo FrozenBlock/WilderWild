@@ -361,9 +361,8 @@ public class Crab extends Animal {
 	}
 
 	@Override
-	public void travel(Vec3 travelVector) {
-		super.travel(travelVector);
-		this.calculateEntityAnimation(this.isClimbing());
+	public void calculateEntityAnimation(boolean includeHeight) {
+		super.calculateEntityAnimation(this.isClimbing());
 	}
 
 	@Nullable
