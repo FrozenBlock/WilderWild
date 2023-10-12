@@ -2,20 +2,28 @@ package net.frozenblock.wilderwild.entity;
 
 import com.mojang.serialization.Dynamic;
 import java.util.List;
+import java.util.function.BiConsumer;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabAi;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabJumpControl;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabMoveControl;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.tags.GameEventTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.Unit;
@@ -35,7 +43,6 @@ import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
@@ -43,11 +50,17 @@ import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.DynamicGameEventListener;
+import net.minecraft.world.level.gameevent.EntityPositionSource;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.gameevent.PositionSource;
+import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -55,7 +68,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Crab extends Animal {
+public class Crab extends Animal implements VibrationSystem {
 	public static final float MAX_TARGET_DISTANCE = 15F;
 	public static final double MOVEMENT_SPEED = 0.16;
 	public static final double WATER_MOVEMENT_SPEED = 0.576;
@@ -82,6 +95,7 @@ public class Crab extends Animal {
 		MemoryModuleType.PATH,
 		MemoryModuleType.ATTACK_TARGET,
 		MemoryModuleType.NEAREST_ATTACKABLE,
+		MemoryModuleType.ATTACK_COOLING_DOWN,
 		MemoryModuleType.HURT_BY,
 		MemoryModuleType.IS_EMERGING,
 		MemoryModuleType.DIG_COOLDOWN,
@@ -91,19 +105,25 @@ public class Crab extends Animal {
 	public final TargetingConditions targetingConditions = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().selector(this::canTargetEntity);
 	public final AnimationState diggingAnimationState = new AnimationState();
 	public final AnimationState emergingAnimationState = new AnimationState();
+	private final DynamicGameEventListener<VibrationSystem.Listener> dynamicGameEventListener;
+	private final VibrationSystem.User vibrationUser;
+	private VibrationSystem.Data vibrationData;
 	public float climbAnimX;
 	public float prevClimbAnimX;
 
 	public Crab(EntityType<? extends Crab> entityType, Level level) {
 		super(entityType, level);
+		this.vibrationUser = new Crab.VibrationUser();
+		this.vibrationData = new VibrationSystem.Data();
+		this.dynamicGameEventListener = new DynamicGameEventListener<>(new VibrationSystem.Listener(this));
+		this.moveControl = new CrabMoveControl(this);
+		this.jumpControl = new CrabJumpControl(this);
+		this.setMaxUpStep(0.2F);
 		this.setPathfindingMalus(BlockPathTypes.LAVA, -1.0F);
 		this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1.0F);
 		this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
 		this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 16.0F);
 		this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
-		this.moveControl = new CrabMoveControl(this);
-		this.jumpControl = new CrabJumpControl(this);
-		this.setMaxUpStep(0.2F);
 	}
 
 	@Override
@@ -142,18 +162,9 @@ public class Crab extends Animal {
 		return this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
 	}
 
-	public void setAttackTarget(@Nullable LivingEntity target) {
-		this.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, target);
-	}
-
 	@Override
 	public boolean isInvisible() {
 		return super.isInvisible() || this.isInvisibleWhileUnderground();
-	}
-
-	@Override
-	public void registerGoals() {
-		this.targetSelector.addGoal(1, new HurtByTargetGoal(this, new Class[0]));
 	}
 
 	@NotNull
@@ -244,7 +255,7 @@ public class Crab extends Animal {
 			}
 		}
 		this.prevClimbAnimX = this.climbAnimX;
-		this.climbAnimX += ((this.isClimbing() ? -Math.cos(this.targetClimbAnimX() * Mth.PI) <= 0.15F ? -1F : 1F : 0F) - this.climbAnimX) * 0.2F;
+		this.climbAnimX += ((this.isClimbing() ? -Math.cos(this.targetClimbAnimX() * Mth.PI) <= 0.2F ? -1F : 1F : 0F) - this.climbAnimX) * 0.2F;
 		if (!isClient) {
 			this.setClimbing(this.horizontalCollision);
 			if (CrabAi.isUnderground(this) && !this.canContinueToHide()) {
@@ -295,6 +306,11 @@ public class Crab extends Animal {
 			return;
 		}
 		super.doPush(entity);
+	}
+
+	@Override
+	public boolean ignoreExplosion() {
+		return this.isDiggingOrEmerging();
 	}
 
 	public boolean isDiggingOrEmerging() {
@@ -413,12 +429,78 @@ public class Crab extends Animal {
 	public void addAdditionalSaveData(CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
 		compound.putInt("DigTicks", this.diggingTicks());
+		VibrationSystem.Data.CODEC.encodeStart(NbtOps.INSTANCE, this.vibrationData).resultOrPartial(WilderSharedConstants.LOGGER::error).ifPresent(tag -> compound.put("listener", (Tag)tag));
 	}
 
 	@Override
 	public void readAdditionalSaveData(CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
 		this.setDiggingTicks(compound.getInt("DigTicks"));
+		if (compound.contains("listener", 10)) {
+			VibrationSystem.Data.CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, compound.getCompound("listener"))).resultOrPartial(WilderSharedConstants.LOGGER::error).ifPresent(data -> {
+				this.vibrationData = data;
+			});
+		}
+	}
+
+	@Override
+	public VibrationSystem.Data getVibrationData() {
+		return this.vibrationData;
+	}
+
+	@Override
+	public VibrationSystem.User getVibrationUser() {
+		return this.vibrationUser;
+	}
+
+	@Override
+	public void updateDynamicGameEventListener(BiConsumer<DynamicGameEventListener<?>, ServerLevel> listenerConsumer) {
+		if (this.level() instanceof ServerLevel serverLevel) {
+			listenerConsumer.accept(this.dynamicGameEventListener, serverLevel);
+		}
+	}
+
+	public class VibrationUser implements VibrationSystem.User {
+		private static final int GAME_EVENT_LISTENER_RANGE = 8;
+		private final PositionSource positionSource;
+
+		VibrationUser() {
+			this.positionSource = new EntityPositionSource(Crab.this, Crab.this.getEyeHeight());
+		}
+
+		@Override
+		public int getListenerRadius() {
+			return GAME_EVENT_LISTENER_RANGE;
+		}
+
+		@Override
+		public PositionSource getPositionSource() {
+			return this.positionSource;
+		}
+
+		@Override
+		public TagKey<GameEvent> getListenableEvents() {
+			return GameEventTags.VIBRATIONS;
+		}
+
+		@Override
+		public boolean canTriggerAvoidVibration() {
+			return false;
+		}
+
+		@Override
+		public boolean canReceiveVibration(ServerLevel level, BlockPos pos, GameEvent gameEvent, GameEvent.Context context) {
+			return CrabAi.isUnderground(Crab.this) && (context.sourceEntity() instanceof Player || context.affectedState() != null);
+		}
+
+		@Override
+		public void onReceiveVibration(ServerLevel level, BlockPos pos, GameEvent gameEvent, @Nullable Entity entity, @Nullable Entity playerEntity, float distance) {
+			if (!Crab.this.isDeadOrDying() && CrabAi.isUnderground(Crab.this)) {
+				CrabAi.clearDigCooldown(Crab.this);
+				Crab.this.playSound(SoundEvents.WARDEN_TENDRIL_CLICKS, 1.0f, Crab.this.getVoicePitch());
+			}
+
+		}
 	}
 
 }

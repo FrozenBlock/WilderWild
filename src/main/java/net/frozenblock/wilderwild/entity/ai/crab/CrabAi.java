@@ -145,7 +145,7 @@ public final class CrabAi {
     }
 
     private static float getSpeedModifierChasing(@Nullable LivingEntity livingEntity) {
-        return 2F;
+        return 1.3F;
     }
 
     private static void onTargetInvalid(@NotNull Crab crab, @NotNull LivingEntity target) {
