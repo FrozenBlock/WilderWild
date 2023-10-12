@@ -113,8 +113,8 @@ public final class CrabAi {
                 new RunOne<>(
                     ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
                     ImmutableList.of(
-						Pair.of(RandomStroll.stroll(1F), 2),
-						Pair.of(new DoNothing(30, 60), 1)
+						Pair.of(RandomStroll.stroll(1F), 1),
+						Pair.of(new DoNothing(30, 60), 2)
                     )
                 )
             )
