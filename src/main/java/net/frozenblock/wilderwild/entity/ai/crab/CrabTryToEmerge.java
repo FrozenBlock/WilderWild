@@ -14,10 +14,15 @@ public class CrabTryToEmerge {
 			instance.present(RegisterMemoryModuleTypes.UNDERGROUND),
 			instance.absent(MemoryModuleType.DIG_COOLDOWN)
 		).apply(instance, (isEmerging, underground, digCooldown) -> (world, crab, l) -> {
-			isEmerging.setWithExpiry(Unit.INSTANCE, Crab.EMERGE_LENGTH_IN_TICKS);
-			digCooldown.setWithExpiry(Unit.INSTANCE, CrabAi.getRandomDigCooldown(crab));
-			underground.erase();
-			return true;
+			if (crab.canEmerge()) {
+				isEmerging.setWithExpiry(Unit.INSTANCE, Crab.EMERGE_LENGTH_IN_TICKS);
+				digCooldown.setWithExpiry(Unit.INSTANCE, CrabAi.getRandomDigCooldown(crab));
+				underground.erase();
+				return true;
+			} else {
+				digCooldown.setWithExpiry(Unit.INSTANCE, 40L);
+				return false;
+			}
 		}));
 	}
 }

@@ -22,7 +22,9 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.GameEventTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
@@ -344,7 +346,7 @@ public class Crab extends Animal implements VibrationSystem {
 	public boolean canHideOnGround() {
 		return this.onGround()
 			&& this.getFeetBlockState().getCollisionShape(this.level(), this.blockPosition(), CollisionContext.of(this)).isEmpty()
-			&& this.level().getBlockState(this.blockPosition().below()).isCollisionShapeFullBlock(this.level(), this.blockPosition());
+			&& this.level().getBlockState(this.getOnPos()).isCollisionShapeFullBlock(this.level(), this.blockPosition());
 	}
 
 	public boolean canInitiallyHide() {
@@ -355,6 +357,12 @@ public class Crab extends Animal implements VibrationSystem {
 	public boolean canContinueToHide() {
 		return this.level().getNearestPlayer(this, 4) == null
 			&& this.canHideOnGround();
+	}
+
+	public boolean canEmerge() {
+		BlockPos blockPos = this.blockPosition();
+		BlockState state = this.level().getBlockState(blockPos);
+		return !state.is(BlockTags.FIRE) && !state.getFluidState().is(FluidTags.LAVA);
 	}
 
 	@Override

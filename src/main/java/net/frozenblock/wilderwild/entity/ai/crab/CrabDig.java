@@ -10,12 +10,19 @@ import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class CrabDig<E extends Crab> extends Behavior<E> {
 	public CrabDig(int duration) {
-		super(ImmutableMap.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT, MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT), duration);
+		super(
+			ImmutableMap.of(
+				MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT,
+				MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT,
+				MemoryModuleType.DIG_COOLDOWN, MemoryStatus.REGISTERED,
+				RegisterMemoryModuleTypes.UNDERGROUND, MemoryStatus.REGISTERED
+			),
+			duration
+		);
 	}
 
 	@Override
