@@ -40,28 +40,25 @@ import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
+import net.frozenblock.wilderwild.tag.WilderGameEventTags;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.frozenblock.wilderwild.world.generation.WilderFeatureBootstrap;
 import net.frozenblock.wilderwild.world.generation.noise.WilderNoise;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.tags.GameEventTags;
 import net.minecraft.world.damagesource.DamageType;
-import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 
 public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
@@ -82,6 +79,7 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(WilderDamageTypeTagProvider::new);
 		pack.addProvider(WilderItemTagProvider::new);
 		pack.addProvider(WilderEntityTagProvider::new);
+		pack.addProvider(WilderGameEventTagProvider::new);
 	}
 
 	@Override
@@ -2098,51 +2096,28 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 		}
 	}
 
-	private static class ExperimentBlockLootTableProvider extends FabricBlockLootTableProvider {
-		protected ExperimentBlockLootTableProvider(@NotNull FabricDataOutput dataOutput) {
-			super(dataOutput);
-		}
+	private static final class WilderGameEventTagProvider extends FabricTagProvider.GameEventTagProvider {
 
-		@Override
-		public void generate() {
-			this.dropSelf(RegisterBlocks.BAOBAB_HANGING_SIGN);
-			this.dropSelf(RegisterBlocks.CYPRESS_HANGING_SIGN);
-		}
-	}
-
-	private static class ExperimentBlockTagProvider extends FabricTagProvider.BlockTagProvider {
-
-		public ExperimentBlockTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> registriesFuture) {
-			super(output, registriesFuture);
-		}
-
-		private static ResourceKey<Block> key(@NotNull Block block) {
-			return BuiltInRegistries.BLOCK.getResourceKey(block).orElseThrow();
+		public WilderGameEventTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> completableFuture) {
+			super(output, completableFuture);
 		}
 
 		@Override
 		protected void addTags(@NotNull HolderLookup.Provider arg) {
-			this.tag(BlockTags.CEILING_HANGING_SIGNS)
-				.add(key(RegisterBlocks.BAOBAB_HANGING_SIGN))
-				.add(key(RegisterBlocks.CYPRESS_HANGING_SIGN));
+			this.getOrCreateTagBuilder(WilderGameEventTags.CRAB_CAN_ALWAYS_DETECT)
+				.add(GameEvent.EXPLODE)
+				.add(GameEvent.PRIME_FUSE)
+				.add(GameEvent.BLOCK_PLACE)
+				.add(GameEvent.BLOCK_DESTROY)
+				.add(GameEvent.PROJECTILE_LAND)
+				.add(GameEvent.HIT_GROUND)
+				.add(GameEvent.FLUID_PICKUP)
+				.add(GameEvent.FLUID_PLACE);
 
-			this.tag(BlockTags.WALL_HANGING_SIGNS)
-				.add(key(RegisterBlocks.BAOBAB_WALL_HANGING_SIGN))
-				.add(key(RegisterBlocks.CYPRESS_WALL_HANGING_SIGN));
+			this.getOrCreateTagBuilder(WilderGameEventTags.CRAB_CAN_DETECT)
+				.addOptionalTag(WilderGameEventTags.CRAB_CAN_ALWAYS_DETECT)
+				.addOptionalTag(GameEventTags.VIBRATIONS);
 		}
 	}
 
-	private static class ExperimentRecipeProvider extends RecipeProvider {
-
-		public ExperimentRecipeProvider(@NotNull PackOutput packOutput) {
-			super(packOutput);
-		}
-
-		@Override
-		public void buildRecipes(final @NotNull RecipeOutput output) {
-			generateForEnabledBlockFamilies(output, FeatureFlagSet.of(WilderFeatureFlags.UPDATE_1_20_ADDITIONS));
-			hangingSign(output, RegisterItems.BAOBAB_HANGING_SIGN, RegisterBlocks.STRIPPED_BAOBAB_LOG);
-			hangingSign(output, RegisterItems.CYPRESS_HANGING_SIGN, RegisterBlocks.STRIPPED_CYPRESS_LOG);
-		}
-	}
 }

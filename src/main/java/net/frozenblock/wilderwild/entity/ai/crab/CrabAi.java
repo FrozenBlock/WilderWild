@@ -12,6 +12,7 @@ import net.minecraft.util.Unit;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.behavior.AnimalPanic;
 import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
 import net.minecraft.world.entity.ai.behavior.DoNothing;
@@ -74,7 +75,8 @@ public final class CrabAi {
             0,
             ImmutableList.of(
                 new LookAtTargetSink(45, 90),
-                new MoveToTargetSink()
+                new MoveToTargetSink(),
+				new AnimalPanic(1.65F, pathfinderMob -> pathfinderMob.isFreezing() || pathfinderMob.isOnFire())
             )
         );
     }

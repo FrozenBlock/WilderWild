@@ -9,6 +9,7 @@ import net.frozenblock.wilderwild.entity.ai.crab.CrabMoveControl;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
+import net.frozenblock.wilderwild.tag.WilderGameEventTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -97,6 +98,7 @@ public class Crab extends Animal implements VibrationSystem {
 		MemoryModuleType.NEAREST_ATTACKABLE,
 		MemoryModuleType.ATTACK_COOLING_DOWN,
 		MemoryModuleType.HURT_BY,
+		MemoryModuleType.IS_PANICKING,
 		MemoryModuleType.IS_EMERGING,
 		MemoryModuleType.DIG_COOLDOWN,
 		RegisterMemoryModuleTypes.UNDERGROUND
@@ -422,7 +424,7 @@ public class Crab extends Animal implements VibrationSystem {
 		RandomSource randomSource = this.getRandom();
 		BlockState blockState = this.getBlockStateOn();
 		if (blockState.getRenderShape() != RenderShape.INVISIBLE) {
-			for (int i = 0; i < 10; ++i) {
+			for (int i = 0; i < 8; ++i) {
 				double d = this.getX() + (double)Mth.randomBetween(randomSource, -0.25f, 0.25f);
 				double e = this.getY();
 				double f = this.getZ() + (double)Mth.randomBetween(randomSource, -0.25f, 0.25f);
@@ -484,7 +486,7 @@ public class Crab extends Animal implements VibrationSystem {
 
 		@Override
 		public TagKey<GameEvent> getListenableEvents() {
-			return GameEventTags.VIBRATIONS;
+			return WilderGameEventTags.CRAB_CAN_DETECT;
 		}
 
 		@Override
@@ -494,7 +496,7 @@ public class Crab extends Animal implements VibrationSystem {
 
 		@Override
 		public boolean canReceiveVibration(ServerLevel level, BlockPos pos, GameEvent gameEvent, GameEvent.Context context) {
-			return Crab.this.isAlive() && Crab.this.isInvisibleWhileUnderground() && context.sourceEntity() instanceof Player;
+			return Crab.this.isAlive() && Crab.this.isInvisibleWhileUnderground() && (context.sourceEntity() instanceof Player || gameEvent.is(WilderGameEventTags.CRAB_CAN_ALWAYS_DETECT));
 		}
 
 		@Override
