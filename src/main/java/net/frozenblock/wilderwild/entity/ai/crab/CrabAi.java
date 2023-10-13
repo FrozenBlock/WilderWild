@@ -82,9 +82,9 @@ public final class CrabAi {
 			Activity.CORE,
 			0,
 			ImmutableList.of(
+				new AnimalPanic(1.65F, pathfinderMob -> (pathfinderMob.isFreezing() || pathfinderMob.isOnFire()) && !(pathfinderMob instanceof Crab crab && crab.isDiggingOrEmerging())),
 				new LookAtTargetSink(45, 90),
-				new MoveToTargetSink(),
-				new AnimalPanic(1.65F, pathfinderMob -> pathfinderMob.isFreezing() || pathfinderMob.isOnFire())
+				new MoveToTargetSink()
 			)
 		);
 	}
