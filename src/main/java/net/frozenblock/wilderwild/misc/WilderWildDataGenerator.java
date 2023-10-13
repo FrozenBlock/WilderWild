@@ -1806,6 +1806,12 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.addOptionalTag(BlockTags.WITHER_IMMUNE)
 				.addOptionalTag(BlockTags.LOGS);
 
+			this.getOrCreateTagBuilder(WilderBlockTags.CRAB_CAN_HIDE)
+				.addOptionalTag(BlockTags.DIRT)
+				.addOptionalTag(BlockTags.SAND)
+				.add(Blocks.CLAY)
+				.add(Blocks.GRAVEL);
+
 			this.getOrCreateTagBuilder(WilderBlockTags.CATTAIL_PLACEABLE)
 				.addOptionalTag(BlockTags.DIRT)
 				.addOptionalTag(BlockTags.SAND)

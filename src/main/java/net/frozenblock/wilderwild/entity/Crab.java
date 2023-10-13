@@ -10,8 +10,10 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.RegisterSensorTypes;
+import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.frozenblock.wilderwild.tag.WilderGameEventTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -347,9 +349,14 @@ public class Crab extends Animal implements VibrationSystem {
 	}
 
 	public boolean canHideOnGround() {
+		BlockPos onPos = this.getOnPos();
+		BlockPos topPos = this.blockPosition();
+		if (onPos.equals(topPos)) {
+			topPos = topPos.above();
+		}
 		return this.onGround()
-			&& this.getFeetBlockState().getCollisionShape(this.level(), this.blockPosition(), CollisionContext.of(this)).isEmpty()
-			&& this.level().getBlockState(this.getOnPos()).isCollisionShapeFullBlock(this.level(), this.blockPosition());
+			&& !this.isColliding(topPos, this.level().getBlockState(onPos))
+			&& this.level().getBlockState(this.getOnPos()).is(WilderBlockTags.CRAB_CAN_HIDE);
 	}
 
 	public boolean canInitiallyHide() {
