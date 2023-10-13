@@ -7,16 +7,22 @@ import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.Optional;
 import net.frozenblock.wilderwild.entity.Crab;
+import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
+import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.minecraft.util.Unit;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.behavior.AnimalMakeLove;
 import net.minecraft.world.entity.ai.behavior.AnimalPanic;
+import net.minecraft.world.entity.ai.behavior.BabyFollowAdult;
 import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
 import net.minecraft.world.entity.ai.behavior.DoNothing;
 import net.minecraft.world.entity.ai.behavior.EraseMemoryIf;
+import net.minecraft.world.entity.ai.behavior.FollowTemptation;
 import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
 import net.minecraft.world.entity.ai.behavior.MeleeAttack;
 import net.minecraft.world.entity.ai.behavior.MoveToTargetSink;
@@ -32,10 +38,12 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.schedule.Activity;
+import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class CrabAi {
+	private static final UniformInt ADULT_FOLLOW_RANGE = UniformInt.of(5, 16);
 	private static final int DIGGING_DURATION = Crab.DIG_LENGTH_IN_TICKS;
 	private static final int EMERGE_DURATION = Crab.EMERGE_LENGTH_IN_TICKS;
 
@@ -113,6 +121,13 @@ public final class CrabAi {
 			10,
 			ImmutableList.of(
 				CrabTryToEmerge.create(),
+				new AnimalMakeLove(RegisterEntities.CRAB, 0.8F),
+				new RunOne<>(
+					ImmutableList.of(
+						Pair.of(new FollowTemptation(CrabAi::getSpeedModifier), 1),
+						Pair.of(BabyFollowAdult.create(ADULT_FOLLOW_RANGE, CrabAi::getSpeedModifierFollowingAdult), 1)
+					)
+				),
 				StartAttacking.create(CrabAi::findNearestValidAttackTarget),
 				new RunOne<>(
 					ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
@@ -149,6 +164,14 @@ public final class CrabAi {
 
 	private static float getSpeedModifierChasing(@Nullable LivingEntity livingEntity) {
 		return 1.3F;
+	}
+
+	private static float getSpeedModifierFollowingAdult(LivingEntity entity) {
+		return 1.2F;
+	}
+
+	private static float getSpeedModifier(LivingEntity entity) {
+		return 1F;
 	}
 
 	private static void onTargetInvalid(@NotNull Crab crab, @NotNull LivingEntity target) {
@@ -206,6 +229,7 @@ public final class CrabAi {
 		return crab.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET);
 	}
 
+	@NotNull
 	private static Optional<List<Crab>> getNearbyCrabs(@NotNull Crab crab) {
 		return crab.getBrain().getMemory(RegisterMemoryModuleTypes.NEARBY_CRABS);
 	}
@@ -228,6 +252,11 @@ public final class CrabAi {
 
 	public static boolean isUnderground(@NotNull Crab crab) {
 		return crab.getBrain().hasMemoryValue(RegisterMemoryModuleTypes.IS_UNDERGROUND);
+	}
+
+	@NotNull
+	public static Ingredient getTemptations() {
+		return Ingredient.of(WilderItemTags.CRAB_TEMPT_ITEMS);
 	}
 
 	public static int getRandomDigCooldown(@NotNull LivingEntity entity) {

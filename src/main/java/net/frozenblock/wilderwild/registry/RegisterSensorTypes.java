@@ -19,12 +19,14 @@
 package net.frozenblock.wilderwild.registry;
 
 import java.util.function.Supplier;
+import net.frozenblock.wilderwild.entity.ai.crab.CrabAi;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabSpecificSensor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
+import net.minecraft.world.entity.ai.sensing.TemptingSensor;
 import org.jetbrains.annotations.NotNull;
 
 public final class RegisterSensorTypes {
@@ -37,6 +39,7 @@ public final class RegisterSensorTypes {
 	}
 
 	public static final SensorType<CrabSpecificSensor> CRAB_SPECIFIC_SENSOR = register("crab_specific_sensor", CrabSpecificSensor::new);
+	public static final SensorType<TemptingSensor> CRAB_TEMPTATIONS = register("crab_temptations", () -> new TemptingSensor(CrabAi.getTemptations()));
 
 	@NotNull
 	private static <U extends Sensor<?>> SensorType<U> register(String key, Supplier<U> sensorSupplier) {

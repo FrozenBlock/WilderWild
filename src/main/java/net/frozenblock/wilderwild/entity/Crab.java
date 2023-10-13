@@ -8,12 +8,13 @@ import net.frozenblock.wilderwild.entity.ai.crab.CrabJumpControl;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabMoveControl;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.RegisterSensorTypes;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.frozenblock.wilderwild.tag.WilderGameEventTags;
+import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -23,6 +24,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.DamageTypeTags;
@@ -32,6 +34,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.Unit;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.AnimationState;
@@ -54,7 +58,9 @@ import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -67,13 +73,12 @@ import net.minecraft.world.level.gameevent.PositionSource;
 import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.shapes.CollisionContext;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Crab extends Animal implements VibrationSystem {
-	public static final float MAX_TARGET_DISTANCE = 15F;
+public class Crab extends Animal implements VibrationSystem, Bucketable {
+	public static final float MAX_TARGET_DISTANCE = 16F;
 	public static final double MOVEMENT_SPEED = 0.16;
 	public static final double WATER_MOVEMENT_SPEED = 0.576;
 	public static final int DIG_LENGTH_IN_TICKS = 95;
@@ -81,6 +86,8 @@ public class Crab extends Animal implements VibrationSystem {
 	protected static final List<SensorType<? extends Sensor<? super Crab>>> SENSORS = List.of(
 		SensorType.NEAREST_LIVING_ENTITIES,
 		SensorType.NEAREST_PLAYERS,
+		SensorType.NEAREST_ADULT,
+		RegisterSensorTypes.CRAB_TEMPTATIONS,
 		RegisterSensorTypes.CRAB_SPECIFIC_SENSOR
 	);
 	protected static final List<? extends MemoryModuleType<?>> MEMORY_MODULES = List.of(
@@ -97,6 +104,8 @@ public class Crab extends Animal implements VibrationSystem {
 		MemoryModuleType.IS_PANICKING,
 		MemoryModuleType.IS_EMERGING,
 		MemoryModuleType.DIG_COOLDOWN,
+		MemoryModuleType.TEMPTING_PLAYER,
+		MemoryModuleType.BREED_TARGET,
 		RegisterMemoryModuleTypes.IS_UNDERGROUND,
 		RegisterMemoryModuleTypes.NEARBY_CRABS
 	);
@@ -107,6 +116,7 @@ public class Crab extends Animal implements VibrationSystem {
 	private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.BYTE);
 	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_X = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Integer> DIGGING_TICKS = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.BOOLEAN);
 	public final TargetingConditions targetingConditions = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().selector(this::canTargetEntity);
 	public final AnimationState diggingAnimationState = new AnimationState();
 	public final AnimationState emergingAnimationState = new AnimationState();
@@ -192,6 +202,7 @@ public class Crab extends Animal implements VibrationSystem {
 		this.entityData.define(DATA_FLAGS_ID, (byte) 0);
 		this.entityData.define(TARGET_CLIMBING_ANIM_X, 0F);
 		this.entityData.define(DIGGING_TICKS, 0);
+		this.entityData.define(FROM_BUCKET, false);
 	}
 
 	@Override
@@ -428,6 +439,21 @@ public class Crab extends Animal implements VibrationSystem {
 	}
 
 	@Override
+	public boolean isFood(@NotNull ItemStack stack) {
+		return stack.is(WilderItemTags.CRAB_TEMPT_ITEMS);
+	}
+
+	@Override
+	public boolean fromBucket() {
+		return this.entityData.get(FROM_BUCKET);
+	}
+
+	@Override
+	public void setFromBucket(boolean fromBucket) {
+		this.entityData.set(FROM_BUCKET, fromBucket);
+	}
+
+	@Override
 	public void calculateEntityAnimation(boolean includeHeight) {
 		super.calculateEntityAnimation(this.isClimbing());
 	}
@@ -435,7 +461,52 @@ public class Crab extends Animal implements VibrationSystem {
 	@Nullable
 	@Override
 	public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-		return null;
+		Crab crab = RegisterEntities.CRAB.create(level);
+		if (crab != null) {
+			crab.setPersistenceRequired();
+		}
+		return crab;
+	}
+
+	@Override
+	public InteractionResult mobInteract(Player player, InteractionHand hand) {
+		return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
+	}
+
+	@Override
+	public void saveToBucketTag(ItemStack stack) {
+		Bucketable.saveDefaultDataToBucketTag(this, stack);
+		CompoundTag compoundTag = stack.getOrCreateTag();
+		compoundTag.putInt("Age", this.getAge());
+	}
+
+	@Override
+	public void loadFromBucketTag(CompoundTag tag) {
+		Bucketable.loadDefaultDataFromBucketTag(this, tag);
+		if (tag.contains("Age")) {
+			this.setAge(tag.getInt("Age"));
+		}
+	}
+
+	@Override
+	public ItemStack getBucketItemStack() {
+		return new ItemStack(RegisterItems.CRAB_BUCKET);
+	}
+
+	//TODO: CRAB BUCKET SOUND
+	@Override
+	public SoundEvent getPickupSound() {
+		return SoundEvents.BUCKET_FILL_AXOLOTL;
+	}
+
+	@Override
+	public boolean requiresCustomPersistence() {
+		return super.requiresCustomPersistence() || this.fromBucket();
+	}
+
+	@Override
+	public boolean removeWhenFarAway(double distanceToClosestPlayer) {
+		return !this.fromBucket() && !this.hasCustomName();
 	}
 
 	private void clientDiggingParticles() {
@@ -454,6 +525,7 @@ public class Crab extends Animal implements VibrationSystem {
 	@Override
 	public void addAdditionalSaveData(CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
+		compound.putBoolean("FromBucket", this.fromBucket());
 		compound.putInt("DigTicks", this.diggingTicks());
 		VibrationSystem.Data.CODEC.encodeStart(NbtOps.INSTANCE, this.vibrationData).resultOrPartial(WilderSharedConstants.LOGGER::error).ifPresent(tag -> compound.put("listener", tag));
 	}
@@ -461,6 +533,7 @@ public class Crab extends Animal implements VibrationSystem {
 	@Override
 	public void readAdditionalSaveData(CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
+		this.setFromBucket(compound.getBoolean("FromBucket"));
 		this.setDiggingTicks(compound.getInt("DigTicks"));
 		if (compound.contains("listener", 10)) {
 			VibrationSystem.Data.CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, compound.getCompound("listener"))).resultOrPartial(WilderSharedConstants.LOGGER::error).ifPresent(data -> this.vibrationData = data);
