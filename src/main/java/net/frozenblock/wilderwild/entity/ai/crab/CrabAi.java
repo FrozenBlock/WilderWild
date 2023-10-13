@@ -101,7 +101,7 @@ public final class CrabAi {
 			),
 			ImmutableSet.of(
 				Pair.of(MemoryModuleType.DIG_COOLDOWN, MemoryStatus.VALUE_ABSENT),
-				Pair.of(RegisterMemoryModuleTypes.UNDERGROUND, MemoryStatus.VALUE_ABSENT)
+				Pair.of(RegisterMemoryModuleTypes.IS_UNDERGROUND, MemoryStatus.VALUE_ABSENT)
 			)
 		);
 	}
@@ -179,7 +179,7 @@ public final class CrabAi {
 		if (!Sensor.isEntityAttackableIgnoringLineOfSight(crab, target)) {
 			return;
 		}
-		if (crab.getBrain().checkMemory(RegisterMemoryModuleTypes.UNDERGROUND, MemoryStatus.VALUE_PRESENT)) {
+		if (crab.getBrain().checkMemory(RegisterMemoryModuleTypes.IS_UNDERGROUND, MemoryStatus.VALUE_PRESENT)) {
 			clearDigCooldown(crab);
 		}
 		crab.getBrain().eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
@@ -226,7 +226,7 @@ public final class CrabAi {
 	}
 
 	public static boolean isUnderground(@NotNull Crab crab) {
-		return crab.getBrain().hasMemoryValue(RegisterMemoryModuleTypes.UNDERGROUND);
+		return crab.getBrain().hasMemoryValue(RegisterMemoryModuleTypes.IS_UNDERGROUND);
 	}
 
 	public static int getRandomDigCooldown(@NotNull LivingEntity entity) {

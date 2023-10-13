@@ -25,6 +25,7 @@ import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.util.Unit;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import org.jetbrains.annotations.NotNull;
 
@@ -37,7 +38,7 @@ public final class RegisterMemoryModuleTypes {
 		WilderSharedConstants.logWild("Registering MemoryModuleTypes for", WilderSharedConstants.UNSTABLE_LOGGING);
 	}
 
-	public static final MemoryModuleType<Boolean> UNDERGROUND = register("underground");
+	public static final MemoryModuleType<Unit> IS_UNDERGROUND = register("underground", Codec.unit(Unit.INSTANCE));
 	public static final MemoryModuleType<List<Crab>> NEARBY_CRABS = register("nearby_crabs");
 
 	@NotNull

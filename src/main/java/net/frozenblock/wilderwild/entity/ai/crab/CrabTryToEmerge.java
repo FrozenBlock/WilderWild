@@ -11,7 +11,7 @@ public class CrabTryToEmerge {
 	public static BehaviorControl<Crab> create() {
 		return BehaviorBuilder.create(instance -> instance.group(
 			instance.registered(MemoryModuleType.IS_EMERGING),
-			instance.present(RegisterMemoryModuleTypes.UNDERGROUND),
+			instance.present(RegisterMemoryModuleTypes.IS_UNDERGROUND),
 			instance.absent(MemoryModuleType.DIG_COOLDOWN)
 		).apply(instance, (isEmerging, underground, digCooldown) -> (world, crab, l) -> {
 			if (crab.canEmerge()) {

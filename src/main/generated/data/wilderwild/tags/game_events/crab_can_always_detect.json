@@ -6,7 +6,6 @@
     "minecraft:block_place",
     "minecraft:block_destroy",
     "minecraft:projectile_land",
-    "minecraft:hit_ground",
     "minecraft:fluid_pickup",
     "minecraft:fluid_place"
   ]

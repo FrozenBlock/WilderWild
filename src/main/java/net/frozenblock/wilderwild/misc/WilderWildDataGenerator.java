@@ -2110,7 +2110,6 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 				.add(GameEvent.BLOCK_PLACE)
 				.add(GameEvent.BLOCK_DESTROY)
 				.add(GameEvent.PROJECTILE_LAND)
-				.add(GameEvent.HIT_GROUND)
 				.add(GameEvent.FLUID_PICKUP)
 				.add(GameEvent.FLUID_PLACE);
 

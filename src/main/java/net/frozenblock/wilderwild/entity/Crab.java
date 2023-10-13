@@ -95,7 +95,7 @@ public class Crab extends Animal implements VibrationSystem {
 		MemoryModuleType.IS_PANICKING,
 		MemoryModuleType.IS_EMERGING,
 		MemoryModuleType.DIG_COOLDOWN,
-		RegisterMemoryModuleTypes.UNDERGROUND,
+		RegisterMemoryModuleTypes.IS_UNDERGROUND,
 		RegisterMemoryModuleTypes.NEARBY_CRABS
 	);
 	private static final int DIG_TICKS_UNTIL_PARTICLES = 17;
@@ -334,8 +334,7 @@ public class Crab extends Animal implements VibrationSystem {
 
 	@Contract("null->false")
 	public boolean canTargetEntity(@Nullable Entity entity) {
-		return !this.isDiggingOrEmerging()
-			&& entity instanceof LivingEntity livingEntity
+		return entity instanceof LivingEntity livingEntity
 			&& this.level() == livingEntity.level()
 			&& EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)
 			&& !this.isAlliedTo(livingEntity)
