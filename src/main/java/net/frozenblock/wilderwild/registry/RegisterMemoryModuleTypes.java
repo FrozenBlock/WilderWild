@@ -19,7 +19,9 @@
 package net.frozenblock.wilderwild.registry;
 
 import com.mojang.serialization.Codec;
+import java.util.List;
 import java.util.Optional;
+import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -36,12 +38,15 @@ public final class RegisterMemoryModuleTypes {
 	}
 
 	public static final MemoryModuleType<Boolean> UNDERGROUND = register("underground");
+	public static final MemoryModuleType<List<Crab>> NEARBY_CRABS = register("nearby_crabs");
 
-	private static <U> @NotNull MemoryModuleType<U> register(String identifier, Codec<U> codec) {
+	@NotNull
+	private static <U> MemoryModuleType<U> register(String identifier, Codec<U> codec) {
 		return Registry.register(BuiltInRegistries.MEMORY_MODULE_TYPE, WilderSharedConstants.id(identifier), new MemoryModuleType<>(Optional.of(codec)));
 	}
 
-	private static <U> @NotNull MemoryModuleType<U> register(String identifier) {
+	@NotNull
+	private static <U> MemoryModuleType<U> register(String identifier) {
 		return Registry.register(BuiltInRegistries.MEMORY_MODULE_TYPE, WilderSharedConstants.id(identifier), new MemoryModuleType<>(Optional.empty()));
 	}
 

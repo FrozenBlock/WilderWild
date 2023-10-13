@@ -46,13 +46,6 @@ public abstract class BubbleColumnBlockMixin extends Block {
 		super(properties);
 	}
 
-	@Inject(method = "tick", at = @At("TAIL"))
-	public void wilderWild$tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
-		if (BlockConfig.get().mesoglea.mesogleaBubbleColumns) {
-			MesogleaBlock.updateColumn(level, pos.above(), state);
-		}
-	}
-
 	@Inject(method = "getColumnState", at = @At("HEAD"), cancellable = true)
 	private static void wilderWild$getColumnState(BlockState blockState, CallbackInfoReturnable<BlockState> info) {
 		if (BlockConfig.get().mesoglea.mesogleaBubbleColumns) {
@@ -60,15 +53,6 @@ public abstract class BubbleColumnBlockMixin extends Block {
 			dragDirection.ifPresent(direction -> info.setReturnValue(
 				Blocks.BUBBLE_COLUMN.defaultBlockState().setValue(BubbleColumnBlock.DRAG_DOWN, direction == Direction.DOWN)
 			));
-		}
-	}
-
-	@Inject(method = "updateShape", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/Block;updateShape(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;", shift = At.Shift.BEFORE))
-	public void wilderWild$updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos, CallbackInfoReturnable<BlockState> cir) {
-		if (BlockConfig.get().mesoglea.mesogleaBubbleColumns) {
-			if (MesogleaBlock.hasBubbleColumn(neighborState)) {
-				level.scheduleTick(pos, BubbleColumnBlock.class.cast(this), 5);
-			}
 		}
 	}
 
@@ -102,6 +86,22 @@ public abstract class BubbleColumnBlockMixin extends Block {
 	@Shadow
 	private static boolean canExistIn(BlockState blockState) {
 		throw new AssertionError("Mixin injection failed - Wilder Wild BubbleColumnBlockMixin.");
+	}
+
+	@Inject(method = "tick", at = @At("TAIL"))
+	public void wilderWild$tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
+		if (BlockConfig.get().mesoglea.mesogleaBubbleColumns) {
+			MesogleaBlock.updateColumn(level, pos.above(), state);
+		}
+	}
+
+	@Inject(method = "updateShape", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/Block;updateShape(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;", shift = At.Shift.BEFORE))
+	public void wilderWild$updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos, CallbackInfoReturnable<BlockState> cir) {
+		if (BlockConfig.get().mesoglea.mesogleaBubbleColumns) {
+			if (MesogleaBlock.hasBubbleColumn(neighborState)) {
+				level.scheduleTick(pos, BubbleColumnBlock.class.cast(this), 5);
+			}
+		}
 	}
 
 }

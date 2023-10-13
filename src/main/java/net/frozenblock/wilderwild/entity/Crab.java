@@ -9,13 +9,13 @@ import net.frozenblock.wilderwild.entity.ai.crab.CrabMoveControl;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
+import net.frozenblock.wilderwild.registry.RegisterSensorTypes;
 import net.frozenblock.wilderwild.tag.WilderGameEventTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -25,7 +25,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.GameEventTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -75,19 +74,12 @@ public class Crab extends Animal implements VibrationSystem {
 	public static final float MAX_TARGET_DISTANCE = 15F;
 	public static final double MOVEMENT_SPEED = 0.16;
 	public static final double WATER_MOVEMENT_SPEED = 0.576;
-	private static final int DIG_TICKS_UNTIL_PARTICLES = 17;
-	private static final int DIG_TICKS_UNTIL_STOP_PARTICLES = 82;
 	public static final int DIG_LENGTH_IN_TICKS = 95;
-	private static final int EMERGE_TICKS_UNTIL_PARTICLES = 1;
-	private static final int EMERGE_TICKS_UNTIL_STOP_PARTICLES = 16;
 	public static final int EMERGE_LENGTH_IN_TICKS = 29;
-	private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.BYTE);
-	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_X = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
-	private static final EntityDataAccessor<Integer> DIGGING_TICKS = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.INT);
-
 	protected static final List<SensorType<? extends Sensor<? super Crab>>> SENSORS = List.of(
 		SensorType.NEAREST_LIVING_ENTITIES,
-		SensorType.NEAREST_PLAYERS
+		SensorType.NEAREST_PLAYERS,
+		RegisterSensorTypes.CRAB_SPECIFIC_SENSOR
 	);
 	protected static final List<? extends MemoryModuleType<?>> MEMORY_MODULES = List.of(
 		MemoryModuleType.NEAREST_LIVING_ENTITIES,
@@ -103,17 +95,24 @@ public class Crab extends Animal implements VibrationSystem {
 		MemoryModuleType.IS_PANICKING,
 		MemoryModuleType.IS_EMERGING,
 		MemoryModuleType.DIG_COOLDOWN,
-		RegisterMemoryModuleTypes.UNDERGROUND
+		RegisterMemoryModuleTypes.UNDERGROUND,
+		RegisterMemoryModuleTypes.NEARBY_CRABS
 	);
-
+	private static final int DIG_TICKS_UNTIL_PARTICLES = 17;
+	private static final int DIG_TICKS_UNTIL_STOP_PARTICLES = 82;
+	private static final int EMERGE_TICKS_UNTIL_PARTICLES = 1;
+	private static final int EMERGE_TICKS_UNTIL_STOP_PARTICLES = 16;
+	private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.BYTE);
+	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_X = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Integer> DIGGING_TICKS = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.INT);
 	public final TargetingConditions targetingConditions = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().selector(this::canTargetEntity);
 	public final AnimationState diggingAnimationState = new AnimationState();
 	public final AnimationState emergingAnimationState = new AnimationState();
 	private final DynamicGameEventListener<VibrationSystem.Listener> dynamicGameEventListener;
 	private final VibrationSystem.User vibrationUser;
-	private VibrationSystem.Data vibrationData;
 	public float climbAnimX;
 	public float prevClimbAnimX;
+	private VibrationSystem.Data vibrationData;
 
 	public Crab(EntityType<? extends Crab> entityType, Level level) {
 		super(entityType, level);
@@ -128,6 +127,15 @@ public class Crab extends Animal implements VibrationSystem {
 		this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
 		this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 16.0F);
 		this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
+	}
+
+	@NotNull
+	public static AttributeSupplier.Builder addAttributes() {
+		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D)
+			.add(Attributes.MOVEMENT_SPEED, MOVEMENT_SPEED)
+			.add(Attributes.JUMP_STRENGTH, 0.0D)
+			.add(Attributes.ATTACK_DAMAGE, 2.0D)
+			.add(Attributes.FOLLOW_RANGE, MAX_TARGET_DISTANCE);
 	}
 
 	@Override
@@ -171,15 +179,6 @@ public class Crab extends Animal implements VibrationSystem {
 		return super.isInvisible() || this.isInvisibleWhileUnderground();
 	}
 
-	@NotNull
-	public static AttributeSupplier.Builder addAttributes() {
-		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D)
-			.add(Attributes.MOVEMENT_SPEED, MOVEMENT_SPEED)
-			.add(Attributes.JUMP_STRENGTH, 0.0D)
-			.add(Attributes.ATTACK_DAMAGE, 2.0D)
-			.add(Attributes.FOLLOW_RANGE, MAX_TARGET_DISTANCE);
-	}
-
 	@Override
 	protected PathNavigation createNavigation(Level level) {
 		return new WallClimberNavigation(this, level);
@@ -188,7 +187,7 @@ public class Crab extends Animal implements VibrationSystem {
 	@Override
 	protected void defineSynchedData() {
 		super.defineSynchedData();
-		this.entityData.define(DATA_FLAGS_ID, (byte)0);
+		this.entityData.define(DATA_FLAGS_ID, (byte) 0);
 		this.entityData.define(TARGET_CLIMBING_ANIM_X, 0F);
 		this.entityData.define(DIGGING_TICKS, 0);
 	}
@@ -277,8 +276,13 @@ public class Crab extends Animal implements VibrationSystem {
 		if (this.level().isClientSide) {
 			return false;
 		}
-		if (bl && source.getEntity() instanceof LivingEntity livingEntity) {
-			CrabAi.wasHurtBy(this, livingEntity);
+		if (bl) {
+			if (source.getEntity() instanceof LivingEntity livingEntity) {
+				CrabAi.wasHurtBy(this, livingEntity);
+			}
+			if (!this.isDiggingOrEmerging()) {
+				CrabAi.setDigCooldown(this);
+			}
 		}
 		return bl;
 	}
@@ -393,7 +397,7 @@ public class Crab extends Animal implements VibrationSystem {
 
 	public void setClimbing(boolean climbing) {
 		byte b = this.entityData.get(DATA_FLAGS_ID);
-		b = climbing ? (byte)(b | 1) : (byte)(b & 0xFFFFFFFE);
+		b = climbing ? (byte) (b | 1) : (byte) (b & 0xFFFFFFFE);
 		this.entityData.set(DATA_FLAGS_ID, b);
 	}
 
@@ -433,9 +437,9 @@ public class Crab extends Animal implements VibrationSystem {
 		BlockState blockState = this.getBlockStateOn();
 		if (blockState.getRenderShape() != RenderShape.INVISIBLE) {
 			for (int i = 0; i < 8; ++i) {
-				double d = this.getX() + (double)Mth.randomBetween(randomSource, -0.25f, 0.25f);
+				double d = this.getX() + (double) Mth.randomBetween(randomSource, -0.25f, 0.25f);
 				double e = this.getY();
-				double f = this.getZ() + (double)Mth.randomBetween(randomSource, -0.25f, 0.25f);
+				double f = this.getZ() + (double) Mth.randomBetween(randomSource, -0.25f, 0.25f);
 				this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, blockState), d, e, f, 0.0, 0.0, 0.0);
 			}
 		}

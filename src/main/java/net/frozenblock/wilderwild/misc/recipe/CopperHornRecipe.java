@@ -29,6 +29,17 @@ public class CopperHornRecipe extends ShapedRecipe {
 		super("wilderwild_copper_horn", category, 3, 2, NonNullList.of(Ingredient.EMPTY, Ingredient.of(Items.COPPER_INGOT), Ingredient.of(Items.GOAT_HORN), Ingredient.of(Items.COPPER_INGOT), Ingredient.of(Items.AIR), Ingredient.of(Items.COPPER_INGOT), Ingredient.of(Items.AIR)), new ItemStack(RegisterItems.COPPER_HORN));
 	}
 
+	private static ItemStack findGoatHorn(@NotNull CraftingContainer container) {
+		for (int i = 0; i < container.getContainerSize(); ++i) {
+			ItemStack itemStack = container.getItem(i);
+			if (itemStack.is(Items.GOAT_HORN)) {
+				return itemStack;
+			}
+		}
+
+		return ItemStack.EMPTY;
+	}
+
 	@Override
 	public boolean matches(CraftingContainer inv, Level level) {
 		if (!super.matches(inv, level)) {
@@ -57,17 +68,6 @@ public class CopperHornRecipe extends ShapedRecipe {
 			return InstrumentItem.create(super.assemble(container, registryAccess).getItem(), copperHornHolder);
 		}
 		return super.assemble(container, registryAccess);
-	}
-
-	private static ItemStack findGoatHorn(@NotNull CraftingContainer container) {
-		for(int i = 0; i < container.getContainerSize(); ++i) {
-			ItemStack itemStack = container.getItem(i);
-			if (itemStack.is(Items.GOAT_HORN)) {
-				return itemStack;
-			}
-		}
-
-		return ItemStack.EMPTY;
 	}
 
 	@Override

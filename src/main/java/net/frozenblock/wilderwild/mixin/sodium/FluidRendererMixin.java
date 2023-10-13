@@ -90,6 +90,11 @@ public abstract class FluidRendererMixin {
 	private static void setVertex(ModelQuadViewMutable quad, int i, float x, float y, float z, float u, float v) {
 	}
 
+	@Shadow
+	private static FluidRenderHandler getFluidRenderHandler(FluidState fluidState) {
+		return null;
+	}
+
 	@Inject(method = "isFluidOccluded", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/BlockPos$MutableBlockPos;set(III)Lnet/minecraft/core/BlockPos$MutableBlockPos;", ordinal = 1), cancellable = true, locals = LocalCapture.CAPTURE_FAILSOFT)
 	private void wilderWild$isFluidOccluded(BlockAndTintGetter world, int x, int y, int z, Direction dir, Fluid fluid, CallbackInfoReturnable<Boolean> info, BlockPos pos, BlockState blockState) {
 		if (blockState.getBlock() instanceof MesogleaBlock && dir != Direction.UP) {
@@ -404,9 +409,4 @@ public abstract class FluidRendererMixin {
 
 	@Shadow
 	protected abstract ColorProvider<FluidState> getColorProvider(Fluid fluid, FluidRenderHandler handler);
-
-	@Shadow
-	private static FluidRenderHandler getFluidRenderHandler(FluidState fluidState) {
-		return null;
-	}
 }

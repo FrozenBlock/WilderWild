@@ -28,8 +28,8 @@ public enum BubbleDirection implements StringRepresentable {
 	UP("up", Optional.of(Direction.UP)),
 	DOWN("down", Optional.of(Direction.DOWN));
 
-	private final String name;
 	public final Optional<Direction> direction;
+	private final String name;
 
 	BubbleDirection(String name, Optional<Direction> direction) {
 		this.name = name;

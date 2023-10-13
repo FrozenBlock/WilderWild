@@ -88,6 +88,11 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		return LayerDefinition.create(meshdefinition, 32, 32);
 	}
 
+	private static void bobClaw(@NotNull ModelPart modelPart, float ageInTicks, float multiplier) {
+		modelPart.zRot += multiplier * (Mth.cos(ageInTicks * 0.09f) * 0.05f + 0.05f);
+		modelPart.yRot += multiplier * (Mth.sin(ageInTicks * 0.067f) * 0.05f);
+	}
+
 	@Override
 	public void prepareMobModel(@NotNull T entity, float limbSwing, float limbSwingAmount, float partialTick) {
 		this.xRot = Mth.lerp(partialTick, entity.prevClimbAnimX, entity.climbAnimX) * 75F;
@@ -154,11 +159,6 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		this.main_claw.zRot += attackSin * 20F * pi180;
 		this.claw_top.zRot += attackSin * 45F * pi180;
 		this.claw_bottom.zRot -= this.claw_top.zRot;
-	}
-
-	private static void bobClaw(@NotNull ModelPart modelPart, float ageInTicks, float multiplier) {
-		modelPart.zRot += multiplier * (Mth.cos(ageInTicks * 0.09f) * 0.05f + 0.05f);
-		modelPart.yRot += multiplier * (Mth.sin(ageInTicks * 0.067f) * 0.05f);
 	}
 
 	@Override

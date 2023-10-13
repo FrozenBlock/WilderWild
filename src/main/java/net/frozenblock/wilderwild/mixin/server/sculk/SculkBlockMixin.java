@@ -207,7 +207,7 @@ public abstract class SculkBlockMixin {
 
 	@ModifyArgs(method = "attemptUseCharge", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/LevelAccessor;playSound(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/BlockPos;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V"))
 	private void wilderWild$newSounds(Args args) {
-		if(this.wilderWild$placedState == null) {
+		if (this.wilderWild$placedState == null) {
 			return;
 		}
 		args.set(1, this.wilderWild$placedPos);
@@ -219,7 +219,7 @@ public abstract class SculkBlockMixin {
 
 	@Inject(method = "attemptUseCharge", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/LevelAccessor;playSound(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/BlockPos;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V", shift = At.Shift.AFTER))
 	private void wilderWild$handlePlacement(SculkSpreader.ChargeCursor chargeCursor, LevelAccessor levelAccessor, BlockPos blockPos, RandomSource randomSource, SculkSpreader sculkSpreader, boolean bl, CallbackInfoReturnable<Integer> cir) {
-		if(this.wilderWild$placedState == null) {
+		if (this.wilderWild$placedState == null) {
 			return;
 		}
 		if (this.wilderWild$isWorldgen && this.wilderWild$placedState.getBlock() instanceof OsseousSculkBlock osseousSculkBlock) {
