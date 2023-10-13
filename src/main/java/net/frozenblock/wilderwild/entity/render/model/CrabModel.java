@@ -38,7 +38,8 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 	private final ModelPart front_left_leg;
 
 	public float xRot;
-	public float zRot;
+
+	public float scale;
 
 	public CrabModel(@NotNull ModelPart root) {
 		this.root = root;
@@ -96,7 +97,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 	@Override
 	public void prepareMobModel(@NotNull T entity, float limbSwing, float limbSwingAmount, float partialTick) {
 		this.xRot = Mth.lerp(partialTick, entity.prevClimbAnimX, entity.climbAnimX) * 75F;
-		this.zRot = entity.isClimbing() ? (Math.abs(75F) - Math.abs(this.xRot)) * this.xRot < 0 ? -1F : 1F : 0F;
+		this.scale = entity.getScale();
 	}
 
 	@Override
@@ -166,6 +167,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		poseStack.pushPose();
 		poseStack.translate(0, 1.3F, 0);
 		poseStack.mulPose(Axis.YP.rotationDegrees(90F));
+		poseStack.scale(this.scale, this.scale, this.scale);
 		this.root().render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
 		poseStack.popPose();
 	}

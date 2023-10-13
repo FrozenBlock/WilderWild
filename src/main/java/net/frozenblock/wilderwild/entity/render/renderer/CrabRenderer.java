@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.entity.render.renderer;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.entity.render.model.CrabModel;
@@ -8,6 +9,7 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 public class CrabRenderer<T extends Crab> extends MobRenderer<T, CrabModel<T>> {
 	private static final ResourceLocation CRAB_LOCATION = WilderSharedConstants.id("textures/entity/crab/crab.png");
@@ -18,6 +20,12 @@ public class CrabRenderer<T extends Crab> extends MobRenderer<T, CrabModel<T>> {
 
 	public CrabRenderer(EntityRendererProvider.Context context, ModelLayerLocation layer) {
 		super(context, new CrabModel<>(context.bakeLayer(layer)), 0.3F);
+	}
+
+	@Override
+	protected void setupRotations(@NotNull T crab, @NotNull PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks) {
+		poseStack.translate(0, crab.isBaby() ? -0.1 : 0, 0);
+		super.setupRotations(crab, poseStack, ageInTicks, rotationYaw, partialTicks);
 	}
 
 	@Override
