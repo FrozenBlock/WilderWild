@@ -1,6 +1,8 @@
 package net.frozenblock.wilderwild.entity.ai.crab;
 
 import com.google.common.collect.ImmutableMap;
+import java.util.List;
+import java.util.Optional;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -10,6 +12,7 @@ import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
+import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class CrabDig<E extends Crab> extends Behavior<E> {
@@ -19,6 +22,7 @@ public class CrabDig<E extends Crab> extends Behavior<E> {
 				MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT,
 				MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT,
 				MemoryModuleType.DIG_COOLDOWN, MemoryStatus.REGISTERED,
+				MemoryModuleType.NEAREST_PLAYERS, MemoryStatus.REGISTERED,
 				RegisterMemoryModuleTypes.IS_UNDERGROUND, MemoryStatus.REGISTERED
 			),
 			duration
@@ -31,8 +35,9 @@ public class CrabDig<E extends Crab> extends Behavior<E> {
 	}
 
 	@Override
-	protected boolean checkExtraStartConditions(ServerLevel level, @NotNull E owner) {
-		return owner.canInitiallyHide();
+	protected boolean checkExtraStartConditions(ServerLevel level, @NotNull E crab) {
+		Optional<List<Player>> optionalList = crab.getBrain().getMemory(MemoryModuleType.NEAREST_PLAYERS);
+		return !crab.canHideOnGround() || optionalList.isEmpty() || optionalList.get().isEmpty();
 	}
 
 	@Override

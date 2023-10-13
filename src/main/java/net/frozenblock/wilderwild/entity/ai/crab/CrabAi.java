@@ -46,6 +46,7 @@ public final class CrabAi {
 	private static final UniformInt ADULT_FOLLOW_RANGE = UniformInt.of(5, 16);
 	private static final int DIGGING_DURATION = Crab.DIG_LENGTH_IN_TICKS;
 	private static final int EMERGE_DURATION = Crab.EMERGE_LENGTH_IN_TICKS;
+	public static final int UNDERGROUND_PLAYER_RANGE = Crab.UNDERGROUND_PLAYER_RANGE;
 
 	private static final BehaviorControl<Crab> DIG_COOLDOWN_SETTER = BehaviorBuilder.create(instance -> instance.group(instance.registered(MemoryModuleType.DIG_COOLDOWN)).apply(instance, memoryAccessor -> (world, crab, l) -> {
 		if (instance.tryGet(memoryAccessor).isPresent()) {

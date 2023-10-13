@@ -83,6 +83,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	public static final double WATER_MOVEMENT_SPEED = 0.576;
 	public static final int DIG_LENGTH_IN_TICKS = 95;
 	public static final int EMERGE_LENGTH_IN_TICKS = 29;
+	public static final int UNDERGROUND_PLAYER_RANGE = 4;
 	protected static final List<SensorType<? extends Sensor<? super Crab>>> SENSORS = List.of(
 		SensorType.NEAREST_LIVING_ENTITIES,
 		SensorType.NEAREST_PLAYERS,
@@ -229,23 +230,13 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		super.aiStep();
 	}
 
+
 	@Override
 	public void tick() {
 		boolean isClient = this.level().isClientSide;
 		if (!isClient) {
 			if (this.isClimbing()) {
-				Vec3 deltaMovement = this.getDeltaMovement();
-				float deltaAngle = (float) Math.atan2(deltaMovement.z(), deltaMovement.x());
-				deltaAngle = (float) (180F * deltaAngle / Math.PI);
-				deltaAngle = (360F + deltaAngle) % 360F;
-
-				Vec3 viewVector = this.getViewVector(1F);
-				float viewAngle = (float) Math.atan2(viewVector.z(), viewVector.x());
-				viewAngle = (float) (180F * viewAngle / Math.PI);
-				viewAngle = (360F + viewAngle) % 360F;
-
-				float difference = deltaAngle - viewAngle;
-				this.setTargetClimbAnimX(difference / 180F);
+				this.setTargetClimbAnimX(getAngleFromVec3(this.getDeltaMovement()) - getAngleFromVec3(this.getViewVector(1F)) / 180F);
 			} else {
 				this.setTargetClimbAnimX(0F);
 			}
@@ -254,31 +245,22 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			VibrationSystem.Ticker.tick(serverLevel, this.vibrationData, this.vibrationUser);
 		}
 		super.tick();
-
-		if (this.hasPose(Pose.DIGGING)) {
-			if (isClient) {
-				if (this.diggingTicks() > DIG_TICKS_UNTIL_PARTICLES && this.diggingTicks() < DIG_TICKS_UNTIL_STOP_PARTICLES) {
-					this.clientDiggingParticles();
-				}
-			} else {
-				this.setDiggingTicks(this.diggingTicks() + 1);
-			}
-		}
-		if (this.hasPose(Pose.EMERGING)) {
-			if (isClient) {
-				if (this.diggingTicks() >= EMERGE_TICKS_UNTIL_PARTICLES && this.diggingTicks() <= EMERGE_TICKS_UNTIL_STOP_PARTICLES) {
-					this.clientDiggingParticles();
-				}
-			} else {
-				this.setDiggingTicks(this.diggingTicks() + 1);
-			}
-		}
 		this.prevClimbAnimX = this.climbAnimX;
 		this.climbAnimX += ((this.isClimbing() ? -Math.cos(this.targetClimbAnimX() * Mth.PI) <= 0.2F ? -1F : 1F : 0F) - this.climbAnimX) * 0.2F;
 		if (!isClient) {
 			this.setClimbing(this.horizontalCollision);
-			if (CrabAi.isUnderground(this) && !this.canContinueToHide()) {
-				CrabAi.clearDigCooldown(this);
+			if (this.isDiggingOrEmerging()) {
+				this.setDiggingTicks(this.diggingTicks() + 1);
+			}
+		} else {
+			if (this.hasPose(Pose.DIGGING)) {
+				if (this.diggingTicks() > DIG_TICKS_UNTIL_PARTICLES && this.diggingTicks() < DIG_TICKS_UNTIL_STOP_PARTICLES) {
+					this.clientDiggingParticles();
+				}
+			} else if (this.hasPose(Pose.EMERGING)) {
+				if (this.diggingTicks() >= EMERGE_TICKS_UNTIL_PARTICLES && this.diggingTicks() <= EMERGE_TICKS_UNTIL_STOP_PARTICLES) {
+					this.clientDiggingParticles();
+				}
 			}
 		}
 	}
@@ -370,18 +352,11 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			&& this.level().getBlockState(this.getOnPos()).is(WilderBlockTags.CRAB_CAN_HIDE);
 	}
 
-	public boolean canInitiallyHide() {
-		return this.level().getNearestPlayer(this, 16) == null
-			&& this.canHideOnGround();
-	}
-
-	public boolean canContinueToHide() {
-		return this.level().getNearestPlayer(this, 4) == null
-			&& this.canHideOnGround();
-	}
-
 	public boolean canEmerge() {
 		BlockPos blockPos = this.blockPosition();
+		if (blockPos.equals(this.getOnPos())) {
+			blockPos = blockPos.above();
+		}
 		BlockState state = this.level().getBlockState(blockPos);
 		return !state.is(BlockTags.FIRE) && !state.getFluidState().is(FluidTags.LAVA);
 	}
@@ -520,6 +495,13 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 				this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, blockState), d, e, f, 0.0, 0.0, 0.0);
 			}
 		}
+	}
+
+	private static float getAngleFromVec3(@NotNull Vec3 vec3) {
+		float angle = (float) Math.atan2(vec3.z(), vec3.x());
+		angle = (float) (180F * angle / Math.PI);
+		angle = (360F + angle) % 360F;
+		return angle;
 	}
 
 	@Override
