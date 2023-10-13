@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "plugin": "net.frozenblock.wilderwild.mixin.WilderWildMixinPlugin",
   "mixins": [
+    "server.crab.VibrationSystemTickerMixin",
     "server.general.AllayMixin",
     "server.general.AxeItemMixin",
     "server.general.BaseFireBlockMixin",
