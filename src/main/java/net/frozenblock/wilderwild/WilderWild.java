@@ -144,7 +144,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		applyDataFixes(container);
 
 		WilderRegistry.initRegistry();
-		RegisterBlocks.registerBlocks();
+		RegisterBlocks.init();
 		RegisterItems.registerItems();
 		RegisterItems.registerBlockItems();
 		RegisterGameEvents.registerEvents();
