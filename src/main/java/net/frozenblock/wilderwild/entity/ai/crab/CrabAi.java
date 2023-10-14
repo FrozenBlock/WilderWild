@@ -121,7 +121,8 @@ public final class CrabAi {
 		brain.addActivityWithConditions(
 			Activity.HIDE,
 			ImmutableList.of(
-				Pair.of(0, CrabHeal.create())
+				Pair.of(0, CrabTryToEmerge.create()),
+				Pair.of(1, CrabHeal.create())
 			),
 			ImmutableSet.of(
 				Pair.of(MemoryModuleType.DIG_COOLDOWN, MemoryStatus.VALUE_PRESENT),
@@ -135,7 +136,6 @@ public final class CrabAi {
 			Activity.IDLE,
 			10,
 			ImmutableList.of(
-				CrabTryToEmerge.create(),
 				new AnimalMakeLove(RegisterEntities.CRAB, 0.8F),
 				new RunOne<>(
 					ImmutableList.of(
