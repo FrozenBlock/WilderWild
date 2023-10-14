@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.function.BiConsumer;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabAi;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabJumpControl;
-import net.frozenblock.wilderwild.entity.ai.crab.CrabMoveControl;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
@@ -107,6 +106,8 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		MemoryModuleType.IS_EMERGING,
 		MemoryModuleType.DIG_COOLDOWN,
 		MemoryModuleType.TEMPTING_PLAYER,
+		MemoryModuleType.IS_TEMPTED,
+		MemoryModuleType.TEMPTATION_COOLDOWN_TICKS,
 		MemoryModuleType.BREED_TARGET,
 		RegisterMemoryModuleTypes.IS_UNDERGROUND,
 		RegisterMemoryModuleTypes.NEARBY_CRABS,
@@ -141,6 +142,11 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
 		this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 16.0F);
 		this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
+	}
+
+	@Override
+	protected PathNavigation createNavigation(Level level) {
+		return new WallClimberNavigation(this, level);
 	}
 
 	@NotNull
