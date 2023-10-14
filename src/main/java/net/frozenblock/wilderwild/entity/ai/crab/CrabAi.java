@@ -102,17 +102,6 @@ public final class CrabAi {
 		);
 	}
 
-	private static void initHideActivity(@NotNull Brain<Crab> brain) {
-		brain.addActivityAndRemoveMemoryWhenStopped(
-			Activity.HIDE,
-			5,
-			ImmutableList.of(
-				CrabHeal.create()
-			),
-			RegisterMemoryModuleTypes.IS_UNDERGROUND
-		);
-	}
-
 	private static void initDiggingActivity(@NotNull Brain<Crab> brain) {
 		brain.addActivityWithConditions(
 			Activity.DIG,
@@ -124,6 +113,19 @@ public final class CrabAi {
 				Pair.of(MemoryModuleType.DIG_COOLDOWN, MemoryStatus.VALUE_ABSENT),
 				Pair.of(RegisterMemoryModuleTypes.IS_UNDERGROUND, MemoryStatus.VALUE_ABSENT),
 				Pair.of(MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT)
+			)
+		);
+	}
+
+	private static void initHideActivity(@NotNull Brain<Crab> brain) {
+		brain.addActivityWithConditions(
+			Activity.HIDE,
+			ImmutableList.of(
+				Pair.of(0, CrabHeal.create())
+			),
+			ImmutableSet.of(
+				Pair.of(MemoryModuleType.DIG_COOLDOWN, MemoryStatus.VALUE_PRESENT),
+				Pair.of(RegisterMemoryModuleTypes.IS_UNDERGROUND, MemoryStatus.VALUE_PRESENT)
 			)
 		);
 	}
