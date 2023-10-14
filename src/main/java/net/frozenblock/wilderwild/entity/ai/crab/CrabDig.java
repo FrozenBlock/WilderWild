@@ -37,7 +37,7 @@ public class CrabDig<E extends Crab> extends Behavior<E> {
 	@Override
 	protected boolean checkExtraStartConditions(ServerLevel level, @NotNull E crab) {
 		Optional<List<Player>> optionalList = crab.getBrain().getMemory(MemoryModuleType.NEAREST_PLAYERS);
-		return crab.canHideOnGround() || (optionalList.isEmpty() || optionalList.get().isEmpty());
+		return crab.canHideOnGround() && (optionalList.isEmpty() || optionalList.get().isEmpty());
 	}
 
 	@Override
