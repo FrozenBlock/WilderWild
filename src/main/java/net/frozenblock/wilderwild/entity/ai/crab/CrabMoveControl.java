@@ -14,7 +14,7 @@ public class CrabMoveControl extends MoveControl {
 
 	@Override
 	public void tick() {
-		if (!this.mob.isDiggingOrEmerging() && this.mob.getNavigation().isInProgress()) {
+		if (!this.mob.isDiggingOrEmerging()) {
 			super.tick();
 		}
 	}

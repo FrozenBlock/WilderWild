@@ -37,8 +37,9 @@ public final class RegisterMemoryModuleTypes {
 		WilderSharedConstants.logWild("Registering MemoryModuleTypes for", WilderSharedConstants.UNSTABLE_LOGGING);
 	}
 
-	public static final MemoryModuleType<Boolean> IS_UNDERGROUND = register("is_underground");
+	public static final MemoryModuleType<Boolean> IS_UNDERGROUND = register("is_underground", Codec.BOOL);
 	public static final MemoryModuleType<List<Crab>> NEARBY_CRABS = register("nearby_crabs");
+	public static final MemoryModuleType<Integer> HEAL_COOLDOWN_TICKS = register("heal_cooldown_ticks", Codec.INT);
 
 	@NotNull
 	private static <U> MemoryModuleType<U> register(String identifier, Codec<U> codec) {

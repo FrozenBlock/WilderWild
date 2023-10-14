@@ -62,7 +62,7 @@ public final class CrabAi {
 	}));
 
 	public static void updateActivity(@NotNull Crab crab) {
-		crab.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.EMERGE, Activity.DIG, Activity.FIGHT, Activity.IDLE));
+		crab.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.EMERGE, Activity.DIG, Activity.HIDE, Activity.FIGHT, Activity.IDLE));
 	}
 
 	@NotNull
@@ -70,6 +70,7 @@ public final class CrabAi {
 		addCoreActivity(brain);
 		initEmergeActivity(brain);
 		initDiggingActivity(brain);
+		initHideActivity(brain);
 		addIdleActivity(crab, brain);
 		addFightActivity(crab, brain);
 		brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
@@ -98,6 +99,17 @@ public final class CrabAi {
 				new CrabEmerge<>(EMERGE_DURATION)
 			),
 			MemoryModuleType.IS_EMERGING
+		);
+	}
+
+	private static void initHideActivity(@NotNull Brain<Crab> brain) {
+		brain.addActivityAndRemoveMemoryWhenStopped(
+			Activity.HIDE,
+			5,
+			ImmutableList.of(
+				CrabHeal.create()
+			),
+			RegisterMemoryModuleTypes.IS_UNDERGROUND
 		);
 	}
 

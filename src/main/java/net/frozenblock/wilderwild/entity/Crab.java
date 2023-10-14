@@ -109,7 +109,8 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		MemoryModuleType.TEMPTING_PLAYER,
 		MemoryModuleType.BREED_TARGET,
 		RegisterMemoryModuleTypes.IS_UNDERGROUND,
-		RegisterMemoryModuleTypes.NEARBY_CRABS
+		RegisterMemoryModuleTypes.NEARBY_CRABS,
+		RegisterMemoryModuleTypes.HEAL_COOLDOWN_TICKS
 	);
 	private static final int DIG_TICKS_UNTIL_PARTICLES = 17;
 	private static final int DIG_TICKS_UNTIL_STOP_PARTICLES = 82;
@@ -133,7 +134,6 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		this.vibrationUser = new Crab.VibrationUser();
 		this.vibrationData = new VibrationSystem.Data();
 		this.dynamicGameEventListener = new DynamicGameEventListener<>(new VibrationSystem.Listener(this));
-		this.moveControl = new CrabMoveControl(this);
 		this.jumpControl = new CrabJumpControl(this);
 		this.setMaxUpStep(0.2F);
 		this.setPathfindingMalus(BlockPathTypes.LAVA, -1.0F);
@@ -191,11 +191,6 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Override
 	public boolean isInvisible() {
 		return super.isInvisible() || this.isInvisibleWhileUnderground();
-	}
-
-	@Override
-	protected PathNavigation createNavigation(Level level) {
-		return new WallClimberNavigation(this, level);
 	}
 
 	@Override
@@ -431,7 +426,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	@Override
 	public void calculateEntityAnimation(boolean includeHeight) {
-		super.calculateEntityAnimation(this.isClimbing());
+		super.calculateEntityAnimation(this.isClimbing() || includeHeight);
 	}
 
 	@Nullable
