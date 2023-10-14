@@ -84,7 +84,7 @@ public final class CrabAi {
 			Activity.CORE,
 			0,
 			ImmutableList.of(
-				new AnimalPanic(1.65F, pathfinderMob -> (pathfinderMob.isFreezing() || pathfinderMob.isOnFire()) && !((Crab)pathfinderMob).isDiggingOrEmerging()),
+				new AnimalPanic(1.65F, pathfinderMob -> (pathfinderMob.getLastHurtByMob() != null && pathfinderMob.isBaby()) || (pathfinderMob.isFreezing() || pathfinderMob.isOnFire()) && !((Crab)pathfinderMob).isDiggingOrEmerging()),
 				new LookAtTargetSink(45, 90),
 				new MoveToTargetSink()
 			)
@@ -215,6 +215,9 @@ public final class CrabAi {
 	}
 
 	public static void setAngerTarget(@NotNull Crab crab, LivingEntity target) {
+		if (crab.isBaby()) {
+			return;
+		}
 		if (!Sensor.isEntityAttackableIgnoringLineOfSight(crab, target)) {
 			return;
 		}
