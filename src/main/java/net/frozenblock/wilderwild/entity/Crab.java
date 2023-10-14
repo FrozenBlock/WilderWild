@@ -88,6 +88,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		SensorType.NEAREST_LIVING_ENTITIES,
 		SensorType.NEAREST_PLAYERS,
 		SensorType.NEAREST_ADULT,
+		SensorType.HURT_BY,
 		RegisterSensorTypes.CRAB_TEMPTATIONS,
 		RegisterSensorTypes.CRAB_SPECIFIC_SENSOR
 	);
@@ -132,7 +133,6 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		this.vibrationUser = new Crab.VibrationUser();
 		this.vibrationData = new VibrationSystem.Data();
 		this.dynamicGameEventListener = new DynamicGameEventListener<>(new VibrationSystem.Listener(this));
-		this.moveControl = new CrabMoveControl(this);
 		this.jumpControl = new CrabJumpControl(this);
 		this.setMaxUpStep(0.2F);
 		this.setPathfindingMalus(BlockPathTypes.LAVA, -1.0F);

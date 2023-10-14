@@ -83,7 +83,7 @@ public final class CrabAi {
 			Activity.CORE,
 			0,
 			ImmutableList.of(
-				new AnimalPanic(1.65F, pathfinderMob -> (pathfinderMob.isFreezing() || pathfinderMob.isOnFire()) && !(pathfinderMob instanceof Crab crab && crab.isDiggingOrEmerging())),
+				new AnimalPanic(1.65F, pathfinderMob -> (pathfinderMob.isFreezing() || pathfinderMob.isOnFire()) && !((Crab)pathfinderMob).isDiggingOrEmerging()),
 				new LookAtTargetSink(45, 90),
 				new MoveToTargetSink()
 			)
@@ -236,15 +236,11 @@ public final class CrabAi {
 	}
 
 	public static void setDigCooldown(@NotNull Crab crab) {
-		if (crab.getBrain().hasMemoryValue(MemoryModuleType.DIG_COOLDOWN)) {
-			crab.getBrain().setMemoryWithExpiry(
-				MemoryModuleType.DIG_COOLDOWN,
-				Unit.INSTANCE,
-				Math.max(getRandomDigCooldown(crab),
-					crab.getBrain().getTimeUntilExpiry(MemoryModuleType.DIG_COOLDOWN)
-				)
-			);
-		}
+		crab.getBrain().setMemoryWithExpiry(
+			MemoryModuleType.DIG_COOLDOWN,
+			Unit.INSTANCE,
+			getRandomDigCooldown(crab)
+		);
 	}
 
 	public static void clearDigCooldown(@NotNull Crab crab) {
