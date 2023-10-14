@@ -6,6 +6,7 @@
   "plugin": "net.frozenblock.wilderwild.mixin.WilderWildMixinPlugin",
   "mixins": [
     "server.crab.VibrationSystemTickerMixin",
+    "server.crab.WallClimberNavigationMixin",
     "server.general.AllayMixin",
     "server.general.AxeItemMixin",
     "server.general.BaseFireBlockMixin",
