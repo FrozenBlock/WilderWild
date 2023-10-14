@@ -83,7 +83,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	public static final double WATER_MOVEMENT_SPEED = 0.576;
 	public static final int DIG_LENGTH_IN_TICKS = 95;
 	public static final int EMERGE_LENGTH_IN_TICKS = 29;
-	public static final int UNDERGROUND_PLAYER_RANGE = 4;
+	public static final double UNDERGROUND_PLAYER_RANGE = 4;
 	protected static final List<SensorType<? extends Sensor<? super Crab>>> SENSORS = List.of(
 		SensorType.NEAREST_LIVING_ENTITIES,
 		SensorType.NEAREST_PLAYERS,
@@ -348,7 +348,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			topPos = topPos.above();
 		}
 		return this.onGround()
-			&& !this.isColliding(topPos, this.level().getBlockState(onPos))
+			&& !this.isColliding(topPos, this.level().getBlockState(topPos))
 			&& this.level().getBlockState(this.getOnPos()).is(WilderBlockTags.CRAB_CAN_HIDE);
 	}
 
