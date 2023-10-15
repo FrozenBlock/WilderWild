@@ -10,6 +10,7 @@ import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.RegisterSensorTypes;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.frozenblock.wilderwild.tag.WilderGameEventTags;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
@@ -24,7 +25,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.FluidTags;
@@ -295,6 +295,32 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		super.customServerAiStep();
 	}
 
+	@Nullable
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSource) {
+		return RegisterSounds.ENTITY_CRAB_HURT;
+	}
+
+	@Nullable
+	@Override
+	protected SoundEvent getDeathSound() {
+		return RegisterSounds.ENTITY_CRAB_DEATH;
+	}
+
+	@Nullable
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return RegisterSounds.ENTITY_CRAB_IDLE;
+	}
+
+	@Override
+	public void playAmbientSound() {
+		SoundEvent soundEvent = this.getAmbientSound();
+		if (soundEvent != null) {
+			this.playSound(soundEvent, this.getSoundVolume() * 0.5F, this.getVoicePitch());
+		}
+	}
+
 	@Override
 	public boolean isInvulnerableTo(DamageSource source) {
 		if (this.isDiggingOrEmerging() && !source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
@@ -470,10 +496,9 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		return new ItemStack(RegisterItems.CRAB_BUCKET);
 	}
 
-	//TODO: CRAB BUCKET SOUND
 	@Override
 	public SoundEvent getPickupSound() {
-		return SoundEvents.BUCKET_FILL_AXOLOTL;
+		return RegisterSounds.ITEM_BUCKET_FILL_CRAB;
 	}
 
 	@Override
@@ -578,7 +603,6 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		public void onReceiveVibration(ServerLevel level, BlockPos pos, GameEvent gameEvent, @Nullable Entity entity, @Nullable Entity playerEntity, float distance) {
 			if (Crab.this.isAlive() && Crab.this.isInvisibleWhileUnderground()) {
 				CrabAi.clearDigCooldown(Crab.this);
-				Crab.this.playSound(SoundEvents.WARDEN_TENDRIL_CLICKS, 1.0f, Crab.this.getVoicePitch());
 			}
 
 		}

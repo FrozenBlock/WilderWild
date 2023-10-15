@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Unit;
@@ -44,8 +45,7 @@ public class CrabDig<E extends Crab> extends Behavior<E> {
 	protected void start(ServerLevel level, @NotNull E crab, long gameTime) {
 		crab.getNavigation().stop();
 		crab.setPose(Pose.DIGGING);
-		//TODO: CRAB DIG SOUNDS
-		crab.playSound(SoundEvents.WARDEN_DIG, 0.25f, 5.0f);
+		crab.playSound(RegisterSounds.ENTITY_CRAB_DIG, 0.5F, 1.0F);
 		crab.resetDiggingTicks();
 	}
 

@@ -246,6 +246,11 @@ public final class RegisterSounds {
 	public static final SoundEvent ENTITY_JELLYFISH_HIDE = register("entity.jellyfish.hide");
 	public static final SoundEvent ENTITY_JELLYFISH_DEATH_WATER = register("entity.jellyfish.death_water");
 	public static final SoundEvent ENTITY_JELLYFISH_DEATH = register("entity.jellyfish.death");
+	public static final SoundEvent ENTITY_CRAB_IDLE = register("entity.crab.idle");
+	public static final SoundEvent ENTITY_CRAB_ATTACK = register("entity.crab.attack");
+	public static final SoundEvent ENTITY_CRAB_HURT = register("entity.crab.hurt");
+	public static final SoundEvent ENTITY_CRAB_DEATH = register("entity.crab.death");
+	public static final SoundEvent ENTITY_CRAB_DIG = register("entity.crab.dig");
 	public static final SoundEvent ENTITY_TUMBLEWEED_BOUNCE = register("entity.tumbleweed.bounce");
 	public static final SoundEvent ENTITY_TUMBLEWEED_BREAK = register("entity.tumbleweed.break");
 	public static final SoundEvent ENTITY_TUMBLEWEED_DAMAGE = register("entity.tumbleweed.damage");
@@ -264,6 +269,8 @@ public final class RegisterSounds {
 	public static final SoundEvent ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY = register("item.bottle.put_in_lantern_firefly");
 	public static final SoundEvent ITEM_BUCKET_FILL_JELLYFISH = register("item.bucket.fill_jellyfish");
 	public static final SoundEvent ITEM_BUCKET_EMPTY_JELLYFISH = register("item.bucket.empty_jellyfish");
+	public static final SoundEvent ITEM_BUCKET_FILL_CRAB = register("item.bucket.fill_crab");
+	public static final SoundEvent ITEM_BUCKET_EMPTY_CRAB = register("item.bucket.empty_crab");
 	public static final SoundEvent ITEM_COCONUT_THROW = register("item.coconut.throw");
 	public static final SoundEvent ITEM_COCONUT_LAND_BREAK = register("item.coconut.land_break");
 	public static final SoundEvent ITEM_COCONUT_LAND = register("item.coconut.land");

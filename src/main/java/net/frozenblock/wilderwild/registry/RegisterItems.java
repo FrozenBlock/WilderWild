@@ -102,8 +102,7 @@ public final class RegisterItems {
 	public static final SpawnEggItem JELLYFISH_SPAWN_EGG = new SpawnEggItem(RegisterEntities.JELLYFISH, Integer.parseInt("E484E4", 16), Integer.parseInt("DF71DC", 16), new FabricItemSettings());
 	public static final MobBucketItem JELLYFISH_BUCKET = new MobBucketItem(RegisterEntities.JELLYFISH, Fluids.WATER, RegisterSounds.ITEM_BUCKET_EMPTY_JELLYFISH, new FabricItemSettings().maxCount(1));
 	public static final SpawnEggItem CRAB_SPAWN_EGG = new SpawnEggItem(RegisterEntities.CRAB, Integer.parseInt("F98334", 16), Integer.parseInt("F9C366", 16), new FabricItemSettings());
-	//TODO: CRAB BUCKET SOUNDS
-	public static final MobBucketItem CRAB_BUCKET = new MobBucketItem(RegisterEntities.CRAB, Fluids.WATER, RegisterSounds.ITEM_BUCKET_EMPTY_JELLYFISH, new FabricItemSettings().maxCount(1));
+	public static final MobBucketItem CRAB_BUCKET = new MobBucketItem(RegisterEntities.CRAB, Fluids.WATER, RegisterSounds.ITEM_BUCKET_EMPTY_CRAB, new FabricItemSettings().maxCount(1));
 	public static final Item SPLIT_COCONUT = new Item(new FabricItemSettings().food(new FoodProperties.Builder().nutrition(2).saturationMod(0.4F).build()));
 	public static final BoatItem BAOBAB_BOAT_ITEM = new BoatItem(false, WilderEnumValues.BAOBAB, new FabricItemSettings().maxCount(1));
 	public static final BoatItem BAOBAB_CHEST_BOAT_ITEM = new BoatItem(true, WilderEnumValues.BAOBAB, new FabricItemSettings().maxCount(1));
