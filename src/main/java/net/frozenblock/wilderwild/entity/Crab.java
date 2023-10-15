@@ -75,6 +75,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Math;
 
 public class Crab extends Animal implements VibrationSystem, Bucketable {
 	public static final float MAX_TARGET_DISTANCE = 16F;
@@ -94,6 +95,9 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	protected static final List<? extends MemoryModuleType<?>> MEMORY_MODULES = List.of(
 		MemoryModuleType.NEAREST_LIVING_ENTITIES,
 		MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
+		MemoryModuleType.NEAREST_PLAYERS,
+		MemoryModuleType.NEAREST_VISIBLE_PLAYER,
+		MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER,
 		MemoryModuleType.LOOK_TARGET,
 		MemoryModuleType.WALK_TARGET,
 		MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
@@ -246,21 +250,17 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Override
 	public void tick() {
 		boolean isClient = this.level().isClientSide;
-		if (!isClient) {
-			if (this.isClimbing()) {
-				this.setTargetClimbAnimX(getAngleFromVec3(this.getDeltaMovement()) - getAngleFromVec3(this.getViewVector(1F)) / 180F);
-			} else {
-				this.setTargetClimbAnimX(0F);
-			}
-		}
 		if (this.level() instanceof ServerLevel serverLevel) {
 			VibrationSystem.Ticker.tick(serverLevel, this.vibrationData, this.vibrationUser);
 		}
 		super.tick();
-		this.prevClimbAnimX = this.climbAnimX;
-		this.climbAnimX += ((this.isClimbing() ? -Math.cos(this.targetClimbAnimX() * Mth.PI) <= 0.2F ? -1F : 1F : 0F) - this.climbAnimX) * 0.2F;
 		if (!isClient) {
 			this.setClimbing(this.horizontalCollision);
+			if (this.isClimbing()) {
+				this.setTargetClimbAnimX((float) -Math.cos(((getAngleFromVec3(this.getDeltaMovement()) - getAngleFromVec3(this.getViewVector(1F))) * Math.PI) / 180F));
+			} else {
+				this.setTargetClimbAnimX(0F);
+			}
 			if (this.isDiggingOrEmerging()) {
 				this.setDiggingTicks(this.diggingTicks() + 1);
 			}
@@ -275,6 +275,8 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 				}
 			}
 		}
+		this.prevClimbAnimX = this.climbAnimX;
+		this.climbAnimX += ((this.isClimbing() ? -Math.cos(this.targetClimbAnimX() * Mth.PI) <= 0.2F ? -1F : 1F : 0F) - this.climbAnimX) * 0.2F;
 	}
 
 	@Override
@@ -327,7 +329,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	public void playAmbientSound() {
 		SoundEvent soundEvent = this.getAmbientSound();
 		if (soundEvent != null) {
-			this.playSound(soundEvent, this.getSoundVolume() * 0.025F, this.getVoicePitch());
+			this.playSound(soundEvent, this.getSoundVolume() * 0.065F, this.getVoicePitch());
 		}
 	}
 
@@ -337,6 +339,12 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			return true;
 		}
 		return super.isInvulnerableTo(source);
+	}
+
+	@Override
+	public boolean doHurtTarget(Entity target) {
+		this.playSound(RegisterSounds.ENTITY_CRAB_ATTACK, 1.0F, this.getVoicePitch());
+		return super.doHurtTarget(target);
 	}
 
 	@Override
@@ -387,7 +395,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		}
 		return this.onGround()
 			&& !this.isColliding(topPos, this.level().getBlockState(topPos))
-			&& this.level().getBlockState(this.getOnPos()).is(WilderBlockTags.CRAB_CAN_HIDE);
+			&& this.level().getBlockState(onPos).is(WilderBlockTags.CRAB_CAN_HIDE);
 	}
 
 	public boolean canEmerge() {
