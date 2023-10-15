@@ -414,15 +414,20 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Override
 	public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
 		if (DATA_POSE.equals(key)) {
-			if (this.getPose() == Pose.DIGGING) {
-				this.emergingAnimationState.stop();
-				this.diggingAnimationState.start(this.tickCount);
-			} else if (this.getPose() == Pose.EMERGING) {
-				this.diggingAnimationState.stop();
-				this.emergingAnimationState.start(this.tickCount);
-			} else {
-				this.diggingAnimationState.stop();
-				this.emergingAnimationState.stop();
+			switch (this.getPose()) {
+				case DIGGING -> {
+					this.emergingAnimationState.stop();
+					this.diggingAnimationState.start(this.tickCount);
+				}
+				case EMERGING -> {
+					this.diggingAnimationState.stop();
+					this.emergingAnimationState.start(this.tickCount);
+				}
+				default -> {
+					this.diggingAnimationState.stop();
+					this.emergingAnimationState.stop();
+				}
+
 			}
 		}
 		super.onSyncedDataUpdated(key);
