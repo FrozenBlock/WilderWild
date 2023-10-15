@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild.entity;
 
 import com.mojang.serialization.Dynamic;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.BiConsumer;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabAi;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabJumpControl;
@@ -99,6 +100,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		MemoryModuleType.NEAREST_PLAYERS,
 		MemoryModuleType.NEAREST_VISIBLE_PLAYER,
 		MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER,
+		RegisterMemoryModuleTypes.IS_PLAYER_NEARBY,
 		MemoryModuleType.LOOK_TARGET,
 		MemoryModuleType.WALK_TARGET,
 		MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
@@ -107,6 +109,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		MemoryModuleType.NEAREST_ATTACKABLE,
 		MemoryModuleType.ATTACK_COOLING_DOWN,
 		MemoryModuleType.HURT_BY,
+		MemoryModuleType.HURT_BY_ENTITY,
 		MemoryModuleType.IS_PANICKING,
 		MemoryModuleType.IS_EMERGING,
 		MemoryModuleType.DIG_COOLDOWN,
@@ -263,6 +266,10 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			}
 			if (this.isDiggingOrEmerging()) {
 				this.setDiggingTicks(this.diggingTicks() + 1);
+			}
+			Optional<List<Player>> nearbyplayers = this.getBrain().getMemory(MemoryModuleType.NEAREST_PLAYERS);
+			if (nearbyplayers.isPresent() && !nearbyplayers.get().isEmpty()) {
+				this.getBrain().setMemoryWithExpiry(RegisterMemoryModuleTypes.IS_PLAYER_NEARBY, true, 80L);
 			}
 		} else {
 			switch (this.getPose()) {
