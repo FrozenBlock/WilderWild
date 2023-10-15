@@ -1,6 +1,9 @@
 package net.frozenblock.wilderwild.entity.ai.crab;
 
-import com.google.common.collect.ImmutableMap;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -15,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 public class CrabDig<E extends Crab> extends Behavior<E> {
 	public CrabDig(int duration) {
 		super(
-			ImmutableMap.of(
+			Map.of(
 				MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT,
 				MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT,
 				MemoryModuleType.NEAREST_PLAYERS, MemoryStatus.REGISTERED,
@@ -32,11 +35,15 @@ public class CrabDig<E extends Crab> extends Behavior<E> {
 
 	@Override
 	protected boolean checkExtraStartConditions(ServerLevel level, @NotNull E crab) {
-		boolean noPlayers = crab.getBrain().getMemory(MemoryModuleType.NEAREST_PLAYERS).get().isEmpty();
-		if (!noPlayers) {
-			crab.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, 80L);
+		try {
+			boolean noPlayers = crab.getBrain().getMemory(MemoryModuleType.NEAREST_PLAYERS).get().isEmpty();
+			if (!noPlayers) {
+				crab.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, 80L);
+			}
+			return noPlayers && crab.canHideOnGround();
+		} catch (NoSuchElementException e) {
+			return false;
 		}
-		return noPlayers && crab.canHideOnGround();
 	}
 
 	@Override

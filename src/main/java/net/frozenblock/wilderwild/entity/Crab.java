@@ -39,6 +39,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityEvent;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -125,7 +126,6 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_X = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Integer> DIGGING_TICKS = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.BOOLEAN);
-	public final TargetingConditions targetingConditions = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().selector(this::canTargetEntity);
 	public final AnimationState diggingAnimationState = new AnimationState();
 	public final AnimationState emergingAnimationState = new AnimationState();
 	private final DynamicGameEventListener<VibrationSystem.Listener> dynamicGameEventListener;
@@ -265,13 +265,16 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 				this.setDiggingTicks(this.diggingTicks() + 1);
 			}
 		} else {
-			if (this.hasPose(Pose.DIGGING)) {
-				if (this.diggingTicks() > DIG_TICKS_UNTIL_PARTICLES && this.diggingTicks() < DIG_TICKS_UNTIL_STOP_PARTICLES) {
-					this.clientDiggingParticles();
+			switch (this.getPose()) {
+				case DIGGING -> {
+					if (this.diggingTicks() > DIG_TICKS_UNTIL_PARTICLES && this.diggingTicks() < DIG_TICKS_UNTIL_STOP_PARTICLES) {
+						this.clientDiggingParticles();
+					}
 				}
-			} else if (this.hasPose(Pose.EMERGING)) {
-				if (this.diggingTicks() >= EMERGE_TICKS_UNTIL_PARTICLES && this.diggingTicks() <= EMERGE_TICKS_UNTIL_STOP_PARTICLES) {
-					this.clientDiggingParticles();
+				case EMERGING -> {
+					if (this.diggingTicks() >= EMERGE_TICKS_UNTIL_PARTICLES && this.diggingTicks() <= EMERGE_TICKS_UNTIL_STOP_PARTICLES) {
+						this.clientDiggingParticles();
+					}
 				}
 			}
 		}
@@ -331,6 +334,13 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		if (soundEvent != null) {
 			this.playSound(soundEvent, this.getSoundVolume() * 0.065F, this.getVoicePitch());
 		}
+	}
+
+	@Override
+	public boolean doHurtTarget(Entity target) {
+		this.level().broadcastEntityEvent(this, EntityEvent.START_ATTACKING);
+		this.playSound(RegisterSounds.ENTITY_CRAB_HURT, 10.0F, this.getVoicePitch());
+		return super.doHurtTarget(target);
 	}
 
 	@Override
