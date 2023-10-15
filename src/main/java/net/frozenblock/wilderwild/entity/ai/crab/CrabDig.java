@@ -1,6 +1,9 @@
 package net.frozenblock.wilderwild.entity.ai.crab;
 
-import com.google.common.collect.ImmutableMap;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -15,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 public class CrabDig<E extends Crab> extends Behavior<E> {
 	public CrabDig(int duration) {
 		super(
-			ImmutableMap.of(
+			Map.of(
 				MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT,
 				MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT,
 				RegisterMemoryModuleTypes.IS_UNDERGROUND, MemoryStatus.REGISTERED

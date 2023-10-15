@@ -40,6 +40,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityEvent;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -128,7 +129,6 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_X = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Integer> DIGGING_TICKS = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.BOOLEAN);
-	public final TargetingConditions targetingConditions = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().selector(this::canTargetEntity);
 	public final AnimationState diggingAnimationState = new AnimationState();
 	public final AnimationState emergingAnimationState = new AnimationState();
 	private final DynamicGameEventListener<VibrationSystem.Listener> dynamicGameEventListener;
@@ -272,13 +272,16 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 				this.getBrain().setMemoryWithExpiry(RegisterMemoryModuleTypes.IS_PLAYER_NEARBY, true, 80L);
 			}
 		} else {
-			if (this.hasPose(Pose.DIGGING)) {
-				if (this.diggingTicks() > DIG_TICKS_UNTIL_PARTICLES && this.diggingTicks() < DIG_TICKS_UNTIL_STOP_PARTICLES) {
-					this.clientDiggingParticles();
+			switch (this.getPose()) {
+				case DIGGING -> {
+					if (this.diggingTicks() > DIG_TICKS_UNTIL_PARTICLES && this.diggingTicks() < DIG_TICKS_UNTIL_STOP_PARTICLES) {
+						this.clientDiggingParticles();
+					}
 				}
-			} else if (this.hasPose(Pose.EMERGING)) {
-				if (this.diggingTicks() >= EMERGE_TICKS_UNTIL_PARTICLES && this.diggingTicks() <= EMERGE_TICKS_UNTIL_STOP_PARTICLES) {
-					this.clientDiggingParticles();
+				case EMERGING -> {
+					if (this.diggingTicks() >= EMERGE_TICKS_UNTIL_PARTICLES && this.diggingTicks() <= EMERGE_TICKS_UNTIL_STOP_PARTICLES) {
+						this.clientDiggingParticles();
+					}
 				}
 			}
 		}
@@ -341,17 +344,18 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@Override
+	public boolean doHurtTarget(Entity target) {
+		this.level().broadcastEntityEvent(this, EntityEvent.START_ATTACKING);
+		this.playSound(RegisterSounds.ENTITY_CRAB_HURT, 10.0F, this.getVoicePitch());
+		return super.doHurtTarget(target);
+	}
+
+	@Override
 	public boolean isInvulnerableTo(DamageSource source) {
 		if (this.isDiggingOrEmerging() && !source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
 			return true;
 		}
 		return super.isInvulnerableTo(source);
-	}
-
-	@Override
-	public boolean doHurtTarget(Entity target) {
-		this.playSound(RegisterSounds.ENTITY_CRAB_ATTACK, 1.0F, this.getVoicePitch());
-		return super.doHurtTarget(target);
 	}
 
 	@Override
@@ -417,15 +421,20 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Override
 	public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
 		if (DATA_POSE.equals(key)) {
-			if (this.getPose() == Pose.DIGGING) {
-				this.emergingAnimationState.stop();
-				this.diggingAnimationState.start(this.tickCount);
-			} else if (this.getPose() == Pose.EMERGING) {
-				this.diggingAnimationState.stop();
-				this.emergingAnimationState.start(this.tickCount);
-			} else {
-				this.diggingAnimationState.stop();
-				this.emergingAnimationState.stop();
+			switch (this.getPose()) {
+				case DIGGING -> {
+					this.emergingAnimationState.stop();
+					this.diggingAnimationState.start(this.tickCount);
+				}
+				case EMERGING -> {
+					this.diggingAnimationState.stop();
+					this.emergingAnimationState.start(this.tickCount);
+				}
+				default -> {
+					this.diggingAnimationState.stop();
+					this.emergingAnimationState.stop();
+				}
+
 			}
 		}
 		super.onSyncedDataUpdated(key);
