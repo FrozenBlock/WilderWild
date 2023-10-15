@@ -352,12 +352,6 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@Override
-	public boolean doHurtTarget(Entity target) {
-		this.playSound(RegisterSounds.ENTITY_CRAB_ATTACK, 1.0F, this.getVoicePitch());
-		return super.doHurtTarget(target);
-	}
-
-	@Override
 	public boolean isPushable() {
 		return !this.isDiggingOrEmerging() && super.isPushable();
 	}
