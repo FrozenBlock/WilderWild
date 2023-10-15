@@ -61,14 +61,14 @@ public class LiquidBlockRendererMixin {
 	@Unique
 	private boolean wilderWild$isWater;
 
-	@Inject(method = "shouldRenderFace", at = @At(value = "HEAD"), cancellable = true)
+	@Inject(method = "shouldRenderFace", at = @At(value = "HEAD"), cancellable = true, require = 0)
 	private static void wilderWild$shouldRenderFace(BlockAndTintGetter blockAndTintGetter, BlockPos blockPos, FluidState fluidState, BlockState blockState, Direction side, FluidState fluidState2, CallbackInfoReturnable<Boolean> info) {
 		if (blockState.getBlock() instanceof MesogleaBlock && side != Direction.UP) {
 			info.setReturnValue(false);
 		}
 	}
 
-	@Inject(method = "tesselate", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "tesselate", at = @At("HEAD"), cancellable = true, require = 0)
 	private void wilderWild$getIsWater(BlockAndTintGetter level, BlockPos pos, VertexConsumer vertexConsumer, BlockState blockState, FluidState fluidState, CallbackInfo info) {
 		if (BlockConfig.get().mesoglea.mesogleaLiquid && blockState.getBlock() instanceof MesogleaBlock) {
 			LiquidRenderUtils.tesselateWithSingleTexture(level, pos, vertexConsumer, blockState, fluidState, Minecraft.getInstance().getModelManager().getBlockModelShaper().getBlockModel(blockState).getParticleIcon());
