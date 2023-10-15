@@ -317,7 +317,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	public void playAmbientSound() {
 		SoundEvent soundEvent = this.getAmbientSound();
 		if (soundEvent != null) {
-			this.playSound(soundEvent, this.getSoundVolume() * 0.5F, this.getVoicePitch());
+			this.playSound(soundEvent, this.getSoundVolume() * 0.025F, this.getVoicePitch());
 		}
 	}
 
