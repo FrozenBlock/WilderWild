@@ -77,7 +77,7 @@ public class LiquidBlockRendererMixin {
 		this.wilderWild$isWater = fluidState.is(FluidTags.WATER);
 	}
 
-	@ModifyArgs(method = "tesselate", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/block/LiquidBlockRenderer;vertex(Lcom/mojang/blaze3d/vertex/VertexConsumer;DDDFFFFFI)V", ordinal = 8))
+	@ModifyArgs(method = "tesselate", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/block/LiquidBlockRenderer;vertex(Lcom/mojang/blaze3d/vertex/VertexConsumer;DDDFFFFFI)V", ordinal = 8), require = 0)
 	private void wilderWild$sideTextureBottom1(Args args) {
 		if (this.wilderWild$isWater) {
 			this.wilderWild$u0 = this.waterOverlay.getU0();
@@ -89,7 +89,7 @@ public class LiquidBlockRendererMixin {
 		}
 	}
 
-	@ModifyArgs(method = "tesselate", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/block/LiquidBlockRenderer;vertex(Lcom/mojang/blaze3d/vertex/VertexConsumer;DDDFFFFFI)V", ordinal = 9))
+	@ModifyArgs(method = "tesselate", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/block/LiquidBlockRenderer;vertex(Lcom/mojang/blaze3d/vertex/VertexConsumer;DDDFFFFFI)V", ordinal = 9), require = 0)
 	private void wilderWild$sideTextureBottom2(Args args) {
 		if (this.wilderWild$isWater) {
 			args.set(7, this.wilderWild$u0);
@@ -97,7 +97,7 @@ public class LiquidBlockRendererMixin {
 		}
 	}
 
-	@ModifyArgs(method = "tesselate", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/block/LiquidBlockRenderer;vertex(Lcom/mojang/blaze3d/vertex/VertexConsumer;DDDFFFFFI)V", ordinal = 10))
+	@ModifyArgs(method = "tesselate", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/block/LiquidBlockRenderer;vertex(Lcom/mojang/blaze3d/vertex/VertexConsumer;DDDFFFFFI)V", ordinal = 10), require = 0)
 	private void wilderWild$sideTextureBottom3(Args args) {
 		if (this.wilderWild$isWater) {
 			args.set(7, this.wilderWild$u1);
@@ -105,7 +105,7 @@ public class LiquidBlockRendererMixin {
 		}
 	}
 
-	@ModifyArgs(method = "tesselate", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/block/LiquidBlockRenderer;vertex(Lcom/mojang/blaze3d/vertex/VertexConsumer;DDDFFFFFI)V", ordinal = 11))
+	@ModifyArgs(method = "tesselate", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/block/LiquidBlockRenderer;vertex(Lcom/mojang/blaze3d/vertex/VertexConsumer;DDDFFFFFI)V", ordinal = 11), require = 0)
 	private void wilderWild$sideTextureBottom4(Args args) {
 		if (this.wilderWild$isWater) {
 			args.set(7, this.wilderWild$u1);
