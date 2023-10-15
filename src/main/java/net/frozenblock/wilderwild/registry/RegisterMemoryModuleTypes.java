@@ -40,6 +40,7 @@ public final class RegisterMemoryModuleTypes {
 	public static final MemoryModuleType<Boolean> IS_UNDERGROUND = register("is_underground", Codec.BOOL);
 	public static final MemoryModuleType<List<Crab>> NEARBY_CRABS = register("nearby_crabs");
 	public static final MemoryModuleType<Integer> HEAL_COOLDOWN_TICKS = register("heal_cooldown_ticks", Codec.INT);
+	public static final MemoryModuleType<Boolean> IS_PLAYER_NEARBY = register("is_player_nearby", Codec.BOOL);
 
 	@NotNull
 	private static <U> MemoryModuleType<U> register(String identifier, Codec<U> codec) {

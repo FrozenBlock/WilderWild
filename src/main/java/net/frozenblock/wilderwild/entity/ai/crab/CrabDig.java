@@ -18,7 +18,6 @@ public class CrabDig<E extends Crab> extends Behavior<E> {
 			ImmutableMap.of(
 				MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT,
 				MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT,
-				MemoryModuleType.NEAREST_PLAYERS, MemoryStatus.REGISTERED,
 				RegisterMemoryModuleTypes.IS_UNDERGROUND, MemoryStatus.REGISTERED
 			),
 			duration
@@ -32,11 +31,7 @@ public class CrabDig<E extends Crab> extends Behavior<E> {
 
 	@Override
 	protected boolean checkExtraStartConditions(ServerLevel level, @NotNull E crab) {
-		boolean noPlayers = crab.getBrain().getMemory(MemoryModuleType.NEAREST_PLAYERS).get().isEmpty();
-		if (!noPlayers) {
-			crab.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, 80L);
-		}
-		return noPlayers && crab.canHideOnGround();
+		return crab.canHideOnGround();
 	}
 
 	@Override
