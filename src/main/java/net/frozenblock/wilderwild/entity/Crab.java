@@ -185,6 +185,16 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
 		this.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, CrabAi.getRandomDigCooldown(this));
+		if (reason == MobSpawnType.BUCKET) {
+			return spawnData;
+		}
+		if (spawnData instanceof CrabGroupData crabGroupData) {
+			if (crabGroupData.getGroupSize() >= 2 && random.nextFloat() <= 0.4F) {
+				this.setAge(-24000);
+			}
+		} else {
+			spawnData = new CrabGroupData();
+		}
 		return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
 	}
 
@@ -606,6 +616,15 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			}
 
 		}
+	}
+
+	public static class CrabGroupData
+		extends AgeableMob.AgeableMobGroupData {
+
+		public CrabGroupData() {
+			super(false);
+		}
+
 	}
 
 }
