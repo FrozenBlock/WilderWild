@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.entity;
 
 import com.mojang.serialization.Dynamic;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.BiConsumer;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabAi;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabJumpControl;
@@ -58,7 +57,6 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
@@ -93,7 +91,9 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		SensorType.NEAREST_ADULT,
 		SensorType.HURT_BY,
 		RegisterSensorTypes.CRAB_TEMPTATIONS,
-		RegisterSensorTypes.CRAB_SPECIFIC_SENSOR
+		RegisterSensorTypes.CRAB_SPECIFIC_SENSOR,
+		RegisterSensorTypes.CRAB_NEARBY_PLAYER_SENSOR,
+		RegisterSensorTypes.CRAB_CAN_DIG_SENSOR
 	);
 	protected static final List<? extends MemoryModuleType<?>> MEMORY_MODULES = List.of(
 		MemoryModuleType.NEAREST_LIVING_ENTITIES,
@@ -114,6 +114,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		MemoryModuleType.IS_PANICKING,
 		MemoryModuleType.IS_EMERGING,
 		MemoryModuleType.DIG_COOLDOWN,
+		RegisterMemoryModuleTypes.CAN_DIG,
 		MemoryModuleType.TEMPTING_PLAYER,
 		MemoryModuleType.IS_TEMPTED,
 		MemoryModuleType.TEMPTATION_COOLDOWN_TICKS,
@@ -270,10 +271,6 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			}
 			if (this.isDiggingOrEmerging()) {
 				this.setDiggingTicks(this.diggingTicks() + 1);
-			}
-			Optional<List<Player>> nearbyplayers = this.getBrain().getMemory(MemoryModuleType.NEAREST_PLAYERS);
-			if (nearbyplayers.isPresent() && !nearbyplayers.get().isEmpty()) {
-				this.getBrain().setMemoryWithExpiry(RegisterMemoryModuleTypes.IS_PLAYER_NEARBY, true, 80L);
 			}
 		} else {
 			switch (this.getPose()) {

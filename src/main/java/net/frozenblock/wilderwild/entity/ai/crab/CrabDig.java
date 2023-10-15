@@ -1,9 +1,6 @@
 package net.frozenblock.wilderwild.entity.ai.crab;
 
-import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -30,11 +27,6 @@ public class CrabDig<E extends Crab> extends Behavior<E> {
 	@Override
 	protected boolean canStillUse(ServerLevel level, E entity, long gameTime) {
 		return true;
-	}
-
-	@Override
-	protected boolean checkExtraStartConditions(ServerLevel level, @NotNull E crab) {
-		return crab.canHideOnGround();
 	}
 
 	@Override
