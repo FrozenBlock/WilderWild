@@ -543,10 +543,10 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		BlockState blockState = this.getBlockStateOn();
 		if (blockState.getRenderShape() != RenderShape.INVISIBLE) {
 			for (int i = 0; i < 8; ++i) {
-				double d = this.getX() + (double) Mth.randomBetween(randomSource, -0.25f, 0.25f);
-				double e = this.getY();
-				double f = this.getZ() + (double) Mth.randomBetween(randomSource, -0.25f, 0.25f);
-				this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, blockState), d, e, f, 0.0, 0.0, 0.0);
+				double x = this.getX() + Mth.randomBetween(randomSource, -0.25f, 0.25f);
+				double y = this.getY();
+				double z = this.getZ() + Mth.randomBetween(randomSource, -0.25f, 0.25f);
+				this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, blockState), x, y, z, 0.0, 0.0, 0.0);
 			}
 		}
 	}
