@@ -50,6 +50,7 @@ import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -152,6 +153,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@Override
+	@NotNull
 	protected PathNavigation createNavigation(Level level) {
 		return new WallClimberNavigation(this, level);
 	}
@@ -179,6 +181,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	@Override
 	@NotNull
+	@SuppressWarnings("unchecked")
 	public Brain<Crab> getBrain() {
 		return (Brain<Crab>) super.getBrain();
 	}
@@ -243,8 +246,9 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Override
 	public void aiStep() {
 		this.updateSwingTime();
-		if (this.getAttribute(Attributes.MOVEMENT_SPEED) != null) {
-			this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(this.isInWater() ? WATER_MOVEMENT_SPEED : MOVEMENT_SPEED);
+		AttributeInstance movementSpeed = this.getAttribute(Attributes.MOVEMENT_SPEED);
+		if (movementSpeed != null) {
+			movementSpeed.setBaseValue(this.isInWater() ? WATER_MOVEMENT_SPEED : MOVEMENT_SPEED);
 		}
 		super.aiStep();
 	}
