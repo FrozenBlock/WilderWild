@@ -18,10 +18,12 @@ public class CrabNearbyPlayerSensor extends Sensor<LivingEntity> {
 	@Override
 	protected void doTick(ServerLevel level, LivingEntity entity) {
 		Brain<?> brain = entity.getBrain();
-		if (brain.getMemory(MemoryModuleType.NEAREST_PLAYERS).get().isEmpty()) {
-			brain.eraseMemory(RegisterMemoryModuleTypes.IS_PLAYER_NEARBY);
-		} else {
+		if (brain.hasMemoryValue(MemoryModuleType.NEAREST_PLAYERS) && !brain.getMemory(MemoryModuleType.NEAREST_PLAYERS).get().isEmpty()) {
 			brain.setMemory(RegisterMemoryModuleTypes.IS_PLAYER_NEARBY, true);
+			System.out.println("PLAYER NEARBY");
+		} else {
+			brain.eraseMemory(RegisterMemoryModuleTypes.IS_PLAYER_NEARBY);
+			System.out.println("NO PLAYER");
 		}
 	}
 

@@ -18,8 +18,8 @@ public abstract class WallClimberNavigationMixin extends PathNavigation {
 
 	@ModifyExpressionValue(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Mob;getBbWidth()F"))
 	public float tick(float original) {
-		if (this.mob instanceof Crab) {
-			return original * 2F;
+		if (this.mob instanceof Crab crab) {
+			return original * (crab.isBaby() ? 4F : 2F);
 		}
 		return original;
 	}
