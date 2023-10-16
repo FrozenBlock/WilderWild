@@ -382,7 +382,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	public boolean isInvisibleWhileUnderground() {
-		return this.diggingTicks() > DIG_LENGTH_IN_TICKS;
+		return this.hasPose(Pose.DIGGING) && this.diggingTicks() > DIG_LENGTH_IN_TICKS;
 	}
 
 	@Contract("null->false")
@@ -580,6 +580,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		compound.putBoolean("FromBucket", this.fromBucket());
 		compound.putInt("DigTicks", this.diggingTicks());
 		VibrationSystem.Data.CODEC.encodeStart(NbtOps.INSTANCE, this.vibrationData).resultOrPartial(WilderSharedConstants.LOGGER::error).ifPresent(tag -> compound.put("listener", tag));
+		compound.putString("EntityPose", this.getPose().name());
 	}
 
 	@Override
@@ -590,6 +591,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		if (compound.contains("listener", 10)) {
 			VibrationSystem.Data.CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, compound.getCompound("listener"))).resultOrPartial(WilderSharedConstants.LOGGER::error).ifPresent(data -> this.vibrationData = data);
 		}
+		this.setPose(Pose.valueOf(compound.getString("EntityPose")));
 	}
 
 	@Override
