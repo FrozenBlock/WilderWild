@@ -75,9 +75,9 @@ public class WardenModelMixin<T extends Warden> {
 	@Shadow
 	protected ModelPart rightArm;
 
-	@Inject(at = @At("TAIL"), method = "animateTendrils", locals = LocalCapture.CAPTURE_FAILHARD)
+	@Inject(at = @At("TAIL"), method = "animateTendrils", locals = LocalCapture.CAPTURE_FAILHARD, require = 0)
 	private void wilderWild$animateCustomTendrils(T warden, float animationProgress, float tickDelta, CallbackInfo info, float cos) { //CUSTOM TENDRIL ANIMATION
-		float sin = warden.getTendrilAnimation(tickDelta) * (float) (-Math.sin((double) animationProgress * 2.25D) * Math.PI * 0.1F);
+		float sin = warden.getTendrilAnimation(tickDelta) * (float) (-Math.sin(animationProgress * 2.25D) * Math.PI * 0.1F);
 
 		if (EntityConfig.get().warden.wardenCustomTendrils) {
 			this.leftTendril.xRot = cos;
@@ -93,7 +93,7 @@ public class WardenModelMixin<T extends Warden> {
 		}
 	}
 
-	@Inject(method = "setupAnim(Lnet/minecraft/world/entity/monster/warden/Warden;FFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/WardenModel;animate(Lnet/minecraft/world/entity/AnimationState;Lnet/minecraft/client/animation/AnimationDefinition;F)V", ordinal = 0, shift = At.Shift.BEFORE))
+	@Inject(method = "setupAnim(Lnet/minecraft/world/entity/monster/warden/Warden;FFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/WardenModel;animate(Lnet/minecraft/world/entity/AnimationState;Lnet/minecraft/client/animation/AnimationDefinition;F)V", ordinal = 0, shift = At.Shift.BEFORE), require = 0)
 	private void wilderWild$setupAnim(T wardenEntity, float angle, float distance, float anim, float headYaw, float headPitch, CallbackInfo info) {
 		boolean canSwim = !wardenEntity.hasPose(Pose.EMERGING) && !wardenEntity.hasPose(Pose.DIGGING) && !wardenEntity.hasPose(Pose.DYING) && !((WilderWarden) wardenEntity).wilderWild$getSwimmingDyingAnimationState().isStarted() && !((WilderWarden) wardenEntity).wilderWild$getKirbyDeathAnimationState().isStarted();
 		boolean shouldMoveLimbs = !wardenEntity.hasPose(Pose.ROARING) && !wardenEntity.hasPose(Pose.EMERGING) && !wardenEntity.hasPose(Pose.DIGGING);

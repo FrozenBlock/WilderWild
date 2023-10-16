@@ -4,8 +4,5 @@ Make sure to clear this after each release
 
 What's new:
 -----------------
-- Removed embedded NBT Crafting (backported from 1.20.2)
-- Updated block registration to start on class load
-- Updated liquid block renderer mixin requirements to 0
-- Changed creative tab handling to be more safe
-- Updated embedded FrozenLib to 1.3.13
+- Updated mixins to be more lenient if they can't be applied
+- Added compatibility for Embeddium if used on Forge via Sinytra Connector

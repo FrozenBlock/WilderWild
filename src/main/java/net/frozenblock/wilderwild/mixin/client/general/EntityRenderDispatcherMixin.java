@@ -43,13 +43,13 @@ public class EntityRenderDispatcherMixin {
 	@Unique
 	private static BlockState wilderWild$currentBlockState;
 
-	@ModifyExpressionValue(method = "renderBlockShadow", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/chunk/ChunkAccess;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;"))
+	@ModifyExpressionValue(method = "renderBlockShadow", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/chunk/ChunkAccess;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;"), require = 0)
 	private static BlockState wilderWild$captureBlockState(BlockState original) {
 		wilderWild$currentBlockState = original;
 		return original;
 	}
 
-	@Inject(method = "renderBlockShadow", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/LightTexture;getBrightness(Lnet/minecraft/world/level/dimension/DimensionType;I)F", shift = At.Shift.BEFORE), cancellable = true)
+	@Inject(method = "renderBlockShadow", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/LightTexture;getBrightness(Lnet/minecraft/world/level/dimension/DimensionType;I)F", shift = At.Shift.BEFORE), cancellable = true, require = 0)
 	private static void wilderWild$stopRenderIfMesoglea(PoseStack.Pose pose, VertexConsumer vertexConsumer, ChunkAccess chunkAccess, LevelReader levelReader, BlockPos blockPos, double d, double e, double f, float g, float h, CallbackInfo info) {
 		if (wilderWild$currentBlockState.getBlock() instanceof MesogleaBlock && (wilderWild$currentBlockState.hasProperty(BlockStateProperties.WATERLOGGED) && wilderWild$currentBlockState.getValue(BlockStateProperties.WATERLOGGED))) {
 			info.cancel();

@@ -36,7 +36,7 @@ public class DesertDustParticleMixin {
 		return MiscConfig.get().cloudMovement && ClientWindManager.shouldUseWind();
 	}
 
-	@Inject(method = "tick", at = @At("TAIL"))
+	@Inject(method = "tick", at = @At("TAIL"), require = 0)
 	private void wilderWild$modifyWind(CallbackInfo info) {
 		if (wilderWild$useWind()) {
 			DesertDustParticle.class.cast(this).xd = Mth.clamp(ClientWindManager.windX * 3, -0.4, 0.4);
