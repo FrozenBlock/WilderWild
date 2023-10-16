@@ -71,7 +71,7 @@ public final class CrabAi {
 		initEmergeActivity(brain);
 		initDiggingActivity(brain);
 		initHideActivity(brain);
-		addIdleActivity(crab, brain);
+		addIdleActivity(brain);
 		addFightActivity(crab, brain);
 		brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
 		brain.setDefaultActivity(Activity.IDLE);
@@ -134,7 +134,7 @@ public final class CrabAi {
 		);
 	}
 
-	private static void addIdleActivity(@NotNull Crab crab, @NotNull Brain<Crab> brain) {
+	private static void addIdleActivity(@NotNull Brain<Crab> brain) {
 		brain.addActivity(
 			Activity.IDLE,
 			10,
