@@ -4,15 +4,8 @@ Make sure to clear this after each release
 
 What's new:
 -----------------
-- Added Mesoglea Bubble Columns.
-- Axes no longer attempt to interact with every block, which previously prevented interaction with offhand items.
-- Hopefully fixed Hanging Tendrils crashing while using C2ME during world generation. Please report this issue to us if it persists.
-- Sodium now properly renders Mesoglea with the liquid rendering option enabled.
-- Prickly Pears are now accounted for as "dangerous blocks" when pathfinding, just like regular Cacti.
-- Removed changes to the Make Bubbles Pop mod as it switched strictly to mixins.
-- Wilder Wild's leaves now use the same color as Vanilla's leaves on the map.
-- Small Sponges now use Vanilla's Sponge sounds as opposed to Wet Grass sounds.
-- Removed embedded Nbt Crafting as it became too difficult to maintain. This has been replaced in favor of a custom recipe type for Copper Horns.
-- Significantly optimized Jellyfish's getJellyfish method.
-- Fixed Ancient Horns freezing the world.
-- Added new splash texts because why not.
+- Removed embedded NBT Crafting (backported from 1.20.2)
+- Updated block registration to start on class load
+- Updated liquid block renderer mixin requirements to 0
+- Changed creative tab handling to be more safe
+- Updated embedded FrozenLib to 1.3.13

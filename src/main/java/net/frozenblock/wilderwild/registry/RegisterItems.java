@@ -159,10 +159,10 @@ public final class RegisterItems {
 		registerItemAfter(BAOBAB_SIGN, BAOBAB_HANGING_SIGN, "baobab_hanging_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
 
 		registerItemAfter(Items.GLOW_LICHEN, POLLEN, "pollen", CreativeModeTabs.NATURAL_BLOCKS);
-		registerItemAfter(Blocks.CACTUS, PRICKLY_PEAR, "prickly_pear", CreativeModeTabs.NATURAL_BLOCKS);
-		registerItemAfter(Blocks.TINTED_GLASS, ECHO_GLASS, "echo_glass", CreativeModeTabs.FUNCTIONAL_BLOCKS);
-		registerItemAfter(Blocks.SAND, SCORCHED_SAND, "scorched_sand", CreativeModeTabs.NATURAL_BLOCKS);
-		registerItemAfter(Blocks.RED_SAND, SCORCHED_RED_SAND, "scorched_red_sand", CreativeModeTabs.NATURAL_BLOCKS);
+		registerItemAfter(Items.CACTUS, PRICKLY_PEAR, "prickly_pear", CreativeModeTabs.NATURAL_BLOCKS);
+		registerItemAfter(Items.TINTED_GLASS, ECHO_GLASS, "echo_glass", CreativeModeTabs.FUNCTIONAL_BLOCKS);
+		registerItemAfter(Items.SAND, SCORCHED_SAND, "scorched_sand", CreativeModeTabs.NATURAL_BLOCKS);
+		registerItemAfter(Items.RED_SAND, SCORCHED_RED_SAND, "scorched_red_sand", CreativeModeTabs.NATURAL_BLOCKS);
 
 		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(entries -> {
 			var second = new ItemStack(SCORCHED_SAND);
@@ -194,7 +194,7 @@ public final class RegisterItems {
 		registerItemAfter(Items.GLOW_BERRIES, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.FOOD_AND_DRINKS);
 		registerItemAfter(Items.MANGROVE_PROPAGULE, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemAfter(Items.EGG, COCONUT, "coconut", CreativeModeTabs.COMBAT);
-		registerItemAfter(RegisterBlocks.CYPRESS_SAPLING, COCONUT, "coconut", CreativeModeTabs.NATURAL_BLOCKS);
+		registerItemAfter(RegisterBlocks.CYPRESS_SAPLING.asItem(), COCONUT, "coconut", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemAfter(BAOBAB_NUT, SPLIT_COCONUT, "split_coconut", CreativeModeTabs.FOOD_AND_DRINKS);
 		registerItemAfter(SPLIT_COCONUT, PRICKLY_PEAR, "prickly_pear", CreativeModeTabs.FOOD_AND_DRINKS);
 		registerItemAfter(PRICKLY_PEAR, PEELED_PRICKLY_PEAR, "peeled_prickly_pear", CreativeModeTabs.FOOD_AND_DRINKS);

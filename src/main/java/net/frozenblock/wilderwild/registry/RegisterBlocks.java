@@ -593,6 +593,13 @@ public final class RegisterBlocks {
 		registerBlockBefore(Items.SPONGE, "lime_nematocyst", LIME_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
 	}
 
+	public static void init() {}
+
+	// register blocks after blocks are initialized
+	static {
+		registerBlocks();
+	}
+
 	public static void registerBlocks() {
 		WilderSharedConstants.logWild("Registering Blocks for", WilderSharedConstants.UNSTABLE_LOGGING);
 
