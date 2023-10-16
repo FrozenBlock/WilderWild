@@ -287,7 +287,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			}
 		}
 		this.prevClimbAnimX = this.climbAnimX;
-		this.climbAnimX += ((this.isClimbing() ? -Math.cos(this.targetClimbAnimX() * Mth.PI) <= 0.2F ? -1F : 1F : 0F) - this.climbAnimX) * 0.2F;
+		this.climbAnimX += ((this.isClimbing() ? Math.cos(this.targetClimbAnimX() * Mth.PI) >=- 0.2F ? -1F : 1F : 0F) - this.climbAnimX) * 0.2F;
 	}
 
 	@Override
