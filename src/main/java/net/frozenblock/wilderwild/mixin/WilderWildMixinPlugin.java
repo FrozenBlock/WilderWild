@@ -21,6 +21,8 @@ package net.frozenblock.wilderwild.mixin;
 import java.util.List;
 import java.util.Set;
 import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.Version;
+import net.fabricmc.loader.api.VersionParsingException;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.wilderwild.misc.WilderPreMixinInjectConstants;
 import org.jetbrains.annotations.NotNull;
@@ -31,6 +33,7 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 	private static final String MIXIN_PATH = "net.frozenblock.wilderwild.mixin.";
+	private static final boolean FORGE = FabricLoader.getInstance().isModLoaded("connector");
 
 	@Override
 	public void onLoad(String mixinPackage) {
@@ -46,9 +49,16 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 	@Override
 	public boolean shouldApplyMixin(String targetClassName, @NotNull String mixinClassName) {
 		if (mixinClassName.contains("sodium")) {
+			if (FORGE)
+				try {
+					return FabricLoader.getInstance().isModLoaded("embeddium") && FabricLoader.getInstance().getModContainer("embeddium").orElseThrow().getMetadata().getVersion().compareTo(Version.parse("0.2")) > 0;
+				} catch (VersionParsingException e) {
+					return false;
+				}
 			return FrozenBools.HAS_SODIUM && FabricLoader.getInstance().getModContainer("sodium").orElseThrow().getMetadata().getVersion().getFriendlyString().contains("0.5.");
 		}
 		if (mixinClassName.contains("LiquidBlockRenderer") || mixinClassName.contains("CloudRenderer") || mixinClassName.contains("EntityRenderDispatcher")) {
+			if (FORGE) return !FabricLoader.getInstance().isModLoaded("embeddium");
 			return !FrozenBools.HAS_SODIUM;
 		}
 		if (mixinClassName.contains("fallingleaves")) {

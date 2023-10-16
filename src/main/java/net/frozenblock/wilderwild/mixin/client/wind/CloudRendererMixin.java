@@ -41,28 +41,28 @@ public class CloudRendererMixin {
 		return MiscConfig.get().cloudMovement && ClientWindManager.shouldUseWind();
 	}
 
-	@ModifyVariable(method = "renderClouds", at = @At(value = "STORE"), ordinal = 4)
+	@ModifyVariable(method = "renderClouds", at = @At(value = "STORE"), ordinal = 4, require = 0)
 	private double wilderWild$modifyXScroll(double original) {
 		return (this.wilderWild$useWind = wilderWild$useWind())
 			? 0
 			: original;
 	}
 
-	@ModifyVariable(method = "renderClouds", at = @At(value = "STORE"), ordinal = 5)
+	@ModifyVariable(method = "renderClouds", at = @At(value = "STORE"), ordinal = 5, require = 0)
 	private double wilderWild$modifyX(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX) {
 		return this.wilderWild$useWind
 			? original - WilderClientWindManager.getCloudX(partialTick)
 			: original;
 	}
 
-	@ModifyVariable(method = "renderClouds", at = @At("STORE"), ordinal = 6)
+	@ModifyVariable(method = "renderClouds", at = @At("STORE"), ordinal = 6, require = 0)
 	private double wilderWild$modifyY(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX, double camY) {
 		return this.wilderWild$useWind
 			? original + Mth.clamp(WilderClientWindManager.getCloudY(partialTick), -10D, 10D)
 			: original;
 	}
 
-	@ModifyVariable(method = "renderClouds", at = @At("STORE"), ordinal = 7)
+	@ModifyVariable(method = "renderClouds", at = @At("STORE"), ordinal = 7, require = 0)
 	private double wilderWild$modifyZ(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX, double camY, double camZ) {
 		return this.wilderWild$useWind
 			? original - WilderClientWindManager.getCloudZ(partialTick)

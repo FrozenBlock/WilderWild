@@ -93,14 +93,14 @@ public abstract class FluidRendererMixin {
 	private static void setVertex(ModelQuadViewMutable quad, int i, float x, float y, float z, float u, float v) {
 	}
 
-	@Inject(method = "isFluidOccluded", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/BlockPos$MutableBlockPos;set(III)Lnet/minecraft/core/BlockPos$MutableBlockPos;", ordinal = 1), cancellable = true, locals = LocalCapture.CAPTURE_FAILSOFT)
+	@Inject(method = "isFluidOccluded", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/BlockPos$MutableBlockPos;set(III)Lnet/minecraft/core/BlockPos$MutableBlockPos;", ordinal = 1), cancellable = true, locals = LocalCapture.CAPTURE_FAILSOFT, require = 0)
 	private void wilderWild$isFluidOccluded(BlockAndTintGetter world, int x, int y, int z, Direction dir, Fluid fluid, CallbackInfoReturnable<Boolean> info, BlockPos pos, BlockState blockState) {
 		if (blockState.getBlock() instanceof MesogleaBlock && dir != Direction.UP) {
 			info.setReturnValue(true);
 		}
 	}
 
-	@Inject(method = "render", at = @At(value = "HEAD"), cancellable = true)
+	@Inject(method = "render", at = @At(value = "HEAD"), cancellable = true, require = 0)
 	private void wilderWild$getIsWater(WorldSlice world, FluidState fluidState, BlockPos pos, BlockPos offset, ChunkBuildBuffers buffers, CallbackInfo info) {
 		BlockState blockState = world.getBlockState(pos);
 		if (BlockConfig.get().mesoglea.mesogleaLiquid && blockState.getBlock() instanceof MesogleaBlock) {
@@ -327,14 +327,14 @@ public abstract class FluidRendererMixin {
 		}
 	}
 
-	@ModifyArgs(method = "render", at = @At(value = "INVOKE", target = "Lme/jellysquid/mods/sodium/client/model/quad/ModelQuadViewMutable;setSprite(Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V", ordinal = 1))
+	@ModifyArgs(method = "render", at = @At(value = "INVOKE", target = "Lme/jellysquid/mods/sodium/client/model/quad/ModelQuadViewMutable;setSprite(Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V", ordinal = 1), require = 0)
 	private void wilderWild$switchSprites(Args args) {
 		if (this.wilderWild$isWater) {
 			args.set(0, this.wilderWild$waterOverlay);
 		}
 	}
 
-	@ModifyArgs(method = "render", at = @At(value = "INVOKE", target = "Lme/jellysquid/mods/sodium/client/render/chunk/compile/pipeline/FluidRenderer;setVertex(Lme/jellysquid/mods/sodium/client/model/quad/ModelQuadViewMutable;IFFFFF)V", ordinal = 4))
+	@ModifyArgs(method = "render", at = @At(value = "INVOKE", target = "Lme/jellysquid/mods/sodium/client/render/chunk/compile/pipeline/FluidRenderer;setVertex(Lme/jellysquid/mods/sodium/client/model/quad/ModelQuadViewMutable;IFFFFF)V", ordinal = 4), require = 0)
 	private void wilderWild$sideTextureBottom1(Args args) {
 		if (this.wilderWild$isWater) {
 			this.wilderWild$u0 = this.wilderWild$waterOverlay.getU0();
@@ -346,7 +346,7 @@ public abstract class FluidRendererMixin {
 		}
 	}
 
-	@ModifyArgs(method = "render", at = @At(value = "INVOKE", target = "Lme/jellysquid/mods/sodium/client/render/chunk/compile/pipeline/FluidRenderer;setVertex(Lme/jellysquid/mods/sodium/client/model/quad/ModelQuadViewMutable;IFFFFF)V", ordinal = 5))
+	@ModifyArgs(method = "render", at = @At(value = "INVOKE", target = "Lme/jellysquid/mods/sodium/client/render/chunk/compile/pipeline/FluidRenderer;setVertex(Lme/jellysquid/mods/sodium/client/model/quad/ModelQuadViewMutable;IFFFFF)V", ordinal = 5), require = 0)
 	private void wilderWild$sideTextureBottom2(Args args) {
 		if (this.wilderWild$isWater) {
 			args.set(5, this.wilderWild$u0);
@@ -354,7 +354,7 @@ public abstract class FluidRendererMixin {
 		}
 	}
 
-	@ModifyArgs(method = "render", at = @At(value = "INVOKE", target = "Lme/jellysquid/mods/sodium/client/render/chunk/compile/pipeline/FluidRenderer;setVertex(Lme/jellysquid/mods/sodium/client/model/quad/ModelQuadViewMutable;IFFFFF)V", ordinal = 6))
+	@ModifyArgs(method = "render", at = @At(value = "INVOKE", target = "Lme/jellysquid/mods/sodium/client/render/chunk/compile/pipeline/FluidRenderer;setVertex(Lme/jellysquid/mods/sodium/client/model/quad/ModelQuadViewMutable;IFFFFF)V", ordinal = 6), require = 0)
 	private void wilderWild$sideTextureBottom3(Args args) {
 		if (this.wilderWild$isWater) {
 			args.set(5, this.wilderWild$u1);
@@ -362,7 +362,7 @@ public abstract class FluidRendererMixin {
 		}
 	}
 
-	@ModifyArgs(method = "render", at = @At(value = "INVOKE", target = "Lme/jellysquid/mods/sodium/client/render/chunk/compile/pipeline/FluidRenderer;setVertex(Lme/jellysquid/mods/sodium/client/model/quad/ModelQuadViewMutable;IFFFFF)V", ordinal = 7))
+	@ModifyArgs(method = "render", at = @At(value = "INVOKE", target = "Lme/jellysquid/mods/sodium/client/render/chunk/compile/pipeline/FluidRenderer;setVertex(Lme/jellysquid/mods/sodium/client/model/quad/ModelQuadViewMutable;IFFFFF)V", ordinal = 7), require = 0)
 	private void wilderWild$sideTextureBottom4(Args args) {
 		if (this.wilderWild$isWater) {
 			args.set(5, this.wilderWild$u1);

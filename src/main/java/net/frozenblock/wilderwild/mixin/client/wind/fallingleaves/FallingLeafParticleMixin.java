@@ -34,7 +34,7 @@ public class FallingLeafParticleMixin {
 		return MiscConfig.get().cloudMovement && ClientWindManager.shouldUseWind();
 	}
 
-	@ModifyExpressionValue(method = "tick", at = @At(value = "FIELD", target = "Lrandommcsomethin/fallingleaves/util/Wind;windX:F"))
+	@ModifyExpressionValue(method = "tick", at = @At(value = "FIELD", target = "Lrandommcsomethin/fallingleaves/util/Wind;windX:F"), require = 0)
 	private float wilderWild$modifyWindX(float original) {
 		if (wilderWild$useWind()) {
 			return (float) ClientWindManager.windX * 0.7F;
@@ -42,7 +42,7 @@ public class FallingLeafParticleMixin {
 		return original;
 	}
 
-	@ModifyExpressionValue(method = "tick", at = @At(value = "FIELD", target = "Lrandommcsomethin/fallingleaves/util/Wind;windZ:F"))
+	@ModifyExpressionValue(method = "tick", at = @At(value = "FIELD", target = "Lrandommcsomethin/fallingleaves/util/Wind;windZ:F"), require = 0)
 	private float wilderWild$modifyWindZ(float original) {
 		if (wilderWild$useWind()) {
 			return (float) ClientWindManager.windZ * 0.7F;
