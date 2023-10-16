@@ -591,7 +591,9 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		if (compound.contains("listener", 10)) {
 			VibrationSystem.Data.CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, compound.getCompound("listener"))).resultOrPartial(WilderSharedConstants.LOGGER::error).ifPresent(data -> this.vibrationData = data);
 		}
-		this.setPose(Pose.valueOf(compound.getString("EntityPose")));
+		if (compound.contains("EntityPose")) {
+			this.setPose(Pose.valueOf(compound.getString("EntityPose")));
+		}
 	}
 
 	@Override
