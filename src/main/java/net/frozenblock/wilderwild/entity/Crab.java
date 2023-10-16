@@ -419,6 +419,13 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		return !state.is(BlockTags.FIRE) && !state.getFluidState().is(FluidTags.LAVA);
 	}
 
+	public void endNavigation() {
+		this.getNavigation().stop();
+		if (this.getNavigation() instanceof WallClimberNavigation wallClimberNavigation) {
+			wallClimberNavigation.pathToPosition = null;
+		}
+	}
+
 	@Override
 	public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
 		if (DATA_POSE.equals(key)) {
