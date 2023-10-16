@@ -24,8 +24,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class AncientHornRecipe extends ShapedRecipe {
 
-	public AncientHornRecipe(ResourceLocation location, CraftingBookCategory category) {
-		super(location, "wilderwild_ancient_horn", category, 3, 3,
+	public AncientHornRecipe(CraftingBookCategory category) {
+		super("wilderwild_ancient_horn", category, 3, 3,
 			NonNullList.of(
 				Ingredient.of(RegisterItems.ANCIENT_HORN_FRAGMENT), Ingredient.of(Items.GOLD_INGOT), Ingredient.of(RegisterItems.ANCIENT_HORN_FRAGMENT),
 				Ingredient.of(RegisterItems.ANCIENT_HORN_FRAGMENT), Ingredient.of(Items.ECHO_SHARD), Ingredient.of(RegisterItems.ANCIENT_HORN_FRAGMENT),
