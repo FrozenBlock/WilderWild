@@ -19,11 +19,10 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.advancement.FireflyBottleTrigger;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.advancements.CriteriaTriggers;
 
 public final class RegisterCriteria {
-	public static final FireflyBottleTrigger FIREFLY_BOTTLE = CriteriaTriggers.register(WilderSharedConstants.string("firefly_bottle"), new FireflyBottleTrigger());
+	public static final FireflyBottleTrigger FIREFLY_BOTTLE = CriteriaTriggers.register(new FireflyBottleTrigger());
 
 	private RegisterCriteria() {
 		throw new UnsupportedOperationException("RegisterCriteria contains only static declarations.");
