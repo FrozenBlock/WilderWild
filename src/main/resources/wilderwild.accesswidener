@@ -47,6 +47,7 @@ accessible    field    net/minecraft/world/entity/LivingEntity    dead    Z
 accessible    method    net/minecraft/world/entity/Entity    updateInWaterStateAndDoWaterCurrentPushing    ()V
 accessible    field    net/minecraft/server/level/ServerLevel    entityManager    Lnet/minecraft/world/level/entity/PersistentEntitySectionManager;
 accessible    class    net/minecraft/world/entity/monster/warden/Warden$VibrationUser
+accessible    field    net/minecraft/world/entity/ai/navigation/WallClimberNavigation    pathToPosition    Lnet/minecraft/core/BlockPos;
 
 # Entity Behaviors
 accessible    field    net/minecraft/world/entity/ai/Brain    availableBehaviorsByPriority    Ljava/util/Map;

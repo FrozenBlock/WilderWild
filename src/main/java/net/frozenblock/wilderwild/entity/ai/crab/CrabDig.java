@@ -10,6 +10,7 @@ import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
+import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
 import org.jetbrains.annotations.NotNull;
 
 public class CrabDig<E extends Crab> extends Behavior<E> {
@@ -32,6 +33,9 @@ public class CrabDig<E extends Crab> extends Behavior<E> {
 	@Override
 	protected void start(ServerLevel level, @NotNull E crab, long gameTime) {
 		crab.getNavigation().stop();
+		if (crab.getNavigation() instanceof WallClimberNavigation wallClimberNavigation) {
+			wallClimberNavigation.pathToPosition = null;
+		}
 		crab.setPose(Pose.DIGGING);
 		crab.playSound(RegisterSounds.ENTITY_CRAB_DIG, 0.5F, 1.0F);
 		crab.resetDiggingTicks();
