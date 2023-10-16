@@ -4,5 +4,4 @@ Make sure to clear this after each release
 
 What's new:
 -----------------
-- Fixed Ancient Horn crafting
-- Fixed chunk loading
+- Reverted registry changes in 2.1.7

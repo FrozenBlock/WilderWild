@@ -594,16 +594,6 @@ public final class RegisterBlocks {
 		registerBlockBefore(Items.SPONGE, "lime_nematocyst", LIME_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
 	}
 
-	private static boolean initialized = false;
-	public static void init() {
-		if (!initialized) registerBlocks();
-	}
-
-	// register blocks after blocks are initialized
-	static {
-		if (FabricLoader.getInstance().isModLoaded("connector")) registerBlocks();
-	}
-
 	public static void registerBlocks() {
 		WilderSharedConstants.logWild("Registering Blocks for", WilderSharedConstants.UNSTABLE_LOGGING);
 
@@ -614,7 +604,6 @@ public final class RegisterBlocks {
 		registerPlants();
 		registerNotSoPlants();
 		registerMisc();
-		initialized = true;
 	}
 
 	public static void registerDispenses() {
