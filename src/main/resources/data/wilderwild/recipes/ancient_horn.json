@@ -1,27 +1,5 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "wilderwild:crafting_ancient_horn",
   "category": "equipment",
-  "group": "ancient_horn",
-  "key": {
-    "#": {
-      "item": "wilderwild:ancient_horn_fragment"
-    },
-    "I": {
-      "item": "minecraft:echo_shard"
-    },
-    "G": {
-      "item": "minecraft:gold_ingot"
-    }
-  },
-  "pattern": [
-    "#G#",
-    "#I#",
-    "I#I"
-  ],
-  "result": {
-    "item": "wilderwild:ancient_horn",
-    "data": {
-      "instrument": "wilderwild:ancient_horn"
-    }
-  }
+  "group": "wilderwild_ancient_horn"
 }

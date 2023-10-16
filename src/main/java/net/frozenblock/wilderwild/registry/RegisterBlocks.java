@@ -29,6 +29,7 @@ import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.lib.axe.api.AxeBehaviors;
 import net.frozenblock.lib.block.api.FrozenCeilingHangingSignBlock;
 import net.frozenblock.lib.block.api.FrozenSignBlock;
@@ -595,11 +596,14 @@ public final class RegisterBlocks {
 		registerBlockBefore(Items.SPONGE, "lime_nematocyst", LIME_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
 	}
 
-	public static void init() {}
+	private static boolean initialized = false;
+	public static void init() {
+		if (!initialized) registerBlocks();
+	}
 
 	// register blocks after blocks are initialized
 	static {
-		registerBlocks();
+		if (FabricLoader.getInstance().isModLoaded("connector")) registerBlocks();
 	}
 
 	public static void registerBlocks() {
@@ -612,6 +616,7 @@ public final class RegisterBlocks {
 		registerPlants();
 		registerNotSoPlants();
 		registerMisc();
+		initialized = true;
 	}
 
 	public static void registerDispenses() {
