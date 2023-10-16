@@ -5,4 +5,3 @@ Make sure to clear this after each release
 What's new:
 -----------------
 - Updated mixins to be more lenient if they can't be applied
-- Added compatibility for Embeddium if used on Forge via Sinytra Connector
