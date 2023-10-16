@@ -17,7 +17,7 @@ public class CrabDig<E extends Crab> extends Behavior<E> {
 		super(
 			Map.of(
 				MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT,
-				MemoryModuleType.WALK_TARGET, MemoryStatus.REGISTERED,
+				MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT,
 				RegisterMemoryModuleTypes.IS_UNDERGROUND, MemoryStatus.REGISTERED
 			),
 			duration
@@ -31,7 +31,6 @@ public class CrabDig<E extends Crab> extends Behavior<E> {
 
 	@Override
 	protected void start(ServerLevel level, @NotNull E crab, long gameTime) {
-		crab.getBrain().eraseMemory(MemoryModuleType.WALK_TARGET);
 		crab.getNavigation().stop();
 		crab.setPose(Pose.DIGGING);
 		crab.playSound(RegisterSounds.ENTITY_CRAB_DIG, 0.5F, 1.0F);
