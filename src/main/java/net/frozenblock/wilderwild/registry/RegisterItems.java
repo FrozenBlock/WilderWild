@@ -33,6 +33,7 @@ import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.item.MilkweedPod;
 import net.frozenblock.wilderwild.misc.WilderEnumValues;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.misc.recipe.AncientHornRecipe;
 import net.frozenblock.wilderwild.misc.recipe.CopperHornRecipe;
 import net.frozenblock.wilderwild.tag.WilderInstrumentTags;
 import net.minecraft.core.Registry;
@@ -70,6 +71,8 @@ import org.jetbrains.annotations.NotNull;
 public final class RegisterItems {
 
 	// RECIPE SERIALIZERS
+	public static final RecipeSerializer<AncientHornRecipe> ANCIENT_HORN_CRAFTING = registerSerializer("crafting_ancient_horn", new SimpleCraftingRecipeSerializer(AncientHornRecipe::new));
+
 	public static final RecipeSerializer<CopperHornRecipe> COPPER_HORN_CRAFTING = registerSerializer("crafting_copper_horn", new SimpleCraftingRecipeSerializer(CopperHornRecipe::new));
 
 	// BLOCK ITEMS
