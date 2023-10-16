@@ -251,6 +251,7 @@ public final class RegisterSounds {
 	public static final SoundEvent ENTITY_CRAB_HURT = register("entity.crab.hurt");
 	public static final SoundEvent ENTITY_CRAB_DEATH = register("entity.crab.death");
 	public static final SoundEvent ENTITY_CRAB_DIG = register("entity.crab.dig");
+	public static final SoundEvent ENTITY_CRAB_EMERGE = register("entity.crab.emerge");
 	public static final SoundEvent ENTITY_TUMBLEWEED_BOUNCE = register("entity.tumbleweed.bounce");
 	public static final SoundEvent ENTITY_TUMBLEWEED_BREAK = register("entity.tumbleweed.break");
 	public static final SoundEvent ENTITY_TUMBLEWEED_DAMAGE = register("entity.tumbleweed.damage");

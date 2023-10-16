@@ -2277,6 +2277,12 @@
     ],
     "subtitle": "subtitles.entity.crab.dig"
   },
+  "entity.crab.emerge": {
+    "sounds": [
+      "wilderwild:mob/crab/emerge"
+    ],
+    "subtitle": "subtitles.entity.crab.emerge"
+  },
   "entity.tumbleweed.bounce": {
     "sounds": [
       "wilderwild:mob/tumbleweed/bounce1",
