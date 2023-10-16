@@ -4,7 +4,6 @@ Make sure to clear this after each release
 
 What's new:
 -----------------
-- Removed embedded NBT Crafting (backported from 1.20.2)
 - Updated block registration to start on class load
 - Updated liquid block renderer mixin requirements to 0
 - Changed creative tab handling to be more safe
