@@ -231,13 +231,13 @@ dependencies {
         modApi("maven.modrinth:frozenlib:$frozenlib_version")?.let { include(it) }
 
     // Simple Copper Pipes
-    modCompileOnlyApi("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
+    modApi("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
 
     // Mod Menu
-    modCompileOnly("com.terraformersmc:modmenu:$modmenu_version")
+    modImplementation("com.terraformersmc:modmenu:$modmenu_version")
 
     // Cloth Config
-    modCompileOnly("me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version") {
+    modImplementation("me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version") {
         exclude(group = "net.fabricmc.fabric-api")
         exclude(group = "com.terraformersmc")
     }
@@ -255,7 +255,7 @@ dependencies {
     implementation("com.github.llamalad7.mixinextras:mixinextras-fabric:$mixin_extras_version")?.let { annotationProcessor(it); }
 
     // Sodium
-    modCompileOnly("maven.modrinth:sodium:${sodium_version}")
+    modImplementation("maven.modrinth:sodium:${sodium_version}")
 
     // FallingLeaves
     modCompileOnly("maven.modrinth:fallingleaves:${fallingleaves_version}")

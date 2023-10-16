@@ -115,7 +115,7 @@ public class BaobabNutBlock extends SaplingBlock {
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(@NotNull LevelReader world, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public boolean isValidBonemealTarget(@NotNull LevelReader world, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
 		return state.is(this) && (!isHanging(state) || !isFullyGrown(state));
 	}
 

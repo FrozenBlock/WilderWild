@@ -79,11 +79,7 @@ public class WardenNavigation extends GroundPathNavigation {
 	}
 
 	@Override
-	protected boolean canUpdatePath() {
-		return this.mob.onGround() || this.isInLiquid() || this.mob.isPassenger();
-	}
-
 	public boolean isInLiquid() {
-		return this.mob.isInLiquid() || this.mob.isVisuallySwimming();
+		return super.isInLiquid() || this.mob.isVisuallySwimming();
 	}
 }

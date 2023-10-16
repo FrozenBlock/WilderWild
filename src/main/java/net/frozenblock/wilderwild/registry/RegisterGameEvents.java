@@ -39,6 +39,6 @@ public final class RegisterGameEvents {
 	@NotNull
 	private static GameEvent register(@NotNull String path, int notificationRadius) {
 		var key = WilderSharedConstants.string(path);
-		return Registry.register(BuiltInRegistries.GAME_EVENT, key, new GameEvent(notificationRadius));
+		return Registry.register(BuiltInRegistries.GAME_EVENT, key, new GameEvent(key, notificationRadius));
 	}
 }
