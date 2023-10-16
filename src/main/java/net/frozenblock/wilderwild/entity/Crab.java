@@ -502,6 +502,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		Crab crab = RegisterEntities.CRAB.create(level);
 		if (crab != null) {
 			crab.setPersistenceRequired();
+			crab.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, CrabAi.getRandomDigCooldown(crab));
 		}
 		return crab;
 	}
