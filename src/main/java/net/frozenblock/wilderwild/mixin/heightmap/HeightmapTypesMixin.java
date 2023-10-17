@@ -66,7 +66,7 @@ public class HeightmapTypesMixin {
 			last.ordinal() + 1,
 			"WILDERWILDOCEAN_FLOOR_NO_LEAVES",
 			Heightmap.Usage.LIVE_WORLD,
-			state -> state.blocksMotion() && !(state.getBlock() instanceof LeavesBlock)
+			state -> state.blocksMotion() && state.getBlock() != Blocks.WATER && !(state.getBlock() instanceof LeavesBlock)
 		);
 		WilderEnumValues.OCEAN_FLOOR_NO_LEAVES = oceanFloorNoLeaves;
 		types.add(oceanFloorNoLeaves);
