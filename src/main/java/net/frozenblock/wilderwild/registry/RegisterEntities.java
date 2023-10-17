@@ -36,7 +36,6 @@ import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.levelgen.Heightmap;
 import org.jetbrains.annotations.NotNull;
 
@@ -83,10 +82,10 @@ public final class RegisterEntities {
 	public static final EntityType<Crab> CRAB = register(
 		"crab",
 		FabricEntityTypeBuilder.createMob()
-			.spawnGroup(MobCategory.CREATURE)
+			.spawnGroup(FrozenMobCategories.getCategory(WilderSharedConstants.MOD_ID, "crab"))
 			.entityFactory(Crab::new)
 			.defaultAttributes(Crab::addAttributes)
-			.spawnRestriction(SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules)
+			.spawnRestriction(SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Crab::canSpawn)
 			.dimensions(EntityDimensions.scalable(0.5F, 0.5F))
 			.build()
 	);

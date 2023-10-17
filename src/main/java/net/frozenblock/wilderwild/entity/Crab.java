@@ -11,10 +11,12 @@ import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.RegisterSensorTypes;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.frozenblock.wilderwild.tag.WilderGameEventTags;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -64,6 +66,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.DynamicGameEventListener;
@@ -71,6 +74,7 @@ import net.minecraft.world.level.gameevent.EntityPositionSource;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.PositionSource;
 import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
@@ -209,6 +213,22 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
 	}
 
+	public static boolean canSpawn(@NotNull EntityType<Crab> type, @NotNull ServerLevelAccessor level, @NotNull MobSpawnType reason, @NotNull BlockPos pos, @NotNull RandomSource random) {
+		if (reason == MobSpawnType.SPAWNER) {
+			return true;
+		}
+		if (level.getRawBrightness(pos, 0) > 8 && level.getBlockState(level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, pos)).is(WilderBlockTags.CRAB_CAN_HIDE)) {
+			int randomBound = 150;
+			Holder<Biome> biome = level.getBiome(pos);
+			if (biome.is(WilderBiomeTags.HAS_COMMON_CRAB)) {
+				randomBound = 90;
+			}
+			int seaLevel = level.getSeaLevel();
+			return (random.nextInt(0, randomBound) == 0 && (pos.getY() <= seaLevel || pos.getY() <= seaLevel + 6));
+		}
+		return false;
+	}
+
 	@Override
 	@Nullable
 	public LivingEntity getTarget() {
@@ -253,7 +273,6 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		}
 		super.aiStep();
 	}
-
 
 	@Override
 	public void tick() {

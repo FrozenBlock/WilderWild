@@ -429,6 +429,20 @@ public class WilderWildDataGenerator implements DataGeneratorEntrypoint {
 			this.getOrCreateTagBuilder(WilderBiomeTags.JELLYFISH_SPECIAL_SPAWN)
 				.addOptional(RegisterWorldgen.JELLYFISH_CAVES);
 
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_CRAB)
+				.add(Biomes.BEACH)
+				.addOptional(RegisterWorldgen.WARM_BEACH)
+				.add(Biomes.OCEAN)
+				.add(Biomes.DEEP_OCEAN)
+				.addOptional(RegisterWorldgen.CYPRESS_WETLANDS)
+				.addOptionalTag(WilderBiomeTags.HAS_COMMON_CRAB);
+
+			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COMMON_CRAB)
+				.add(Biomes.LUKEWARM_OCEAN)
+				.add(Biomes.DEEP_LUKEWARM_OCEAN)
+				.add(Biomes.WARM_OCEAN)
+				.add(Biomes.MANGROVE_SWAMP);
+
 			this.getOrCreateTagBuilder(WilderBiomeTags.HAS_TUMBLEWEED_ENTITY)
 				.add(Biomes.DESERT)
 				.add(Biomes.WINDSWEPT_SAVANNA)

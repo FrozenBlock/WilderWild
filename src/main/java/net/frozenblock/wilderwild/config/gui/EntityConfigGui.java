@@ -41,6 +41,7 @@ public final class EntityConfigGui {
 		var enderMan = config.enderMan;
 		var firefly = config.firefly;
 		var jellyfish = config.jellyfish;
+		var crab = config.crab;
 		var tumbleweed = config.tumbleweed;
 		var warden = config.warden;
 		category.setBackground(WilderSharedConstants.id("textures/config/entity.png"));
@@ -113,6 +114,19 @@ public final class EntityConfigGui {
 			tooltip("jellyfish"),
 			jellyfishSpawnCap,
 			jellyfishTentacles
+		);
+
+		var crabSpawnCap = entryBuilder.startIntSlider(text("crab_spawn_cap"), crab.crabSpawnCap, 0, 100)
+			.setDefaultValue(DefaultEntityConfig.CrabConfig.CRAB_SPAWN_CAP)
+			.setSaveConsumer(newValue -> crab.crabSpawnCap = newValue)
+			.setTooltip(tooltip("crab_spawn_cap"))
+			.requireRestart()
+			.build();
+
+		var crabCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("crab"),
+			false,
+			tooltip("crab"),
+			crabSpawnCap
 		);
 
 		var tumbleweedSpawnCap = entryBuilder.startIntSlider(text("tumbleweed_spawn_cap"), tumbleweed.tumbleweedSpawnCap, 0, 100)

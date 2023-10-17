@@ -40,6 +40,10 @@ public final class DefaultEntityConfig {
 		public static final int JELLYFISH_TENTACLES = 8;
 	}
 
+	public static final class CrabConfig {
+		public static final int CRAB_SPAWN_CAP = 30;
+	}
+
 	public static final class TumbleweedConfig {
 		public static final int TUMBLEWEED_SPAWN_CAP = 10;
 		public static final boolean LEASHED_TUMBLEWEED = false;

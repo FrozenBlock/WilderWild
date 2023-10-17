@@ -52,6 +52,9 @@ public final class EntityConfig {
 	public final JellyfishConfig jellyfish = new JellyfishConfig();
 
 	@CollapsibleObject
+	public final CrabConfig crab = new CrabConfig();
+
+	@CollapsibleObject
 	public final TumbleweedConfig tumbleweed = new TumbleweedConfig();
 
 	@CollapsibleObject
@@ -83,6 +86,10 @@ public final class EntityConfig {
 	public static class JellyfishConfig {
 		public int jellyfishSpawnCap = DefaultEntityConfig.JellyfishConfig.JELLYFISH_SPAWN_CAP;
 		public int jellyfishTentacles = DefaultEntityConfig.JellyfishConfig.JELLYFISH_TENTACLES;
+	}
+
+	public static class CrabConfig {
+		public int crabSpawnCap = DefaultEntityConfig.CrabConfig.CRAB_SPAWN_CAP;
 	}
 
 	public static class TumbleweedConfig {
