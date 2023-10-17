@@ -114,6 +114,7 @@ public final class CrabAi {
 				Pair.of(RegisterMemoryModuleTypes.IS_UNDERGROUND, MemoryStatus.VALUE_ABSENT),
 				Pair.of(MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT),
 				Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT),
+				Pair.of(MemoryModuleType.NEAREST_PLAYERS, MemoryStatus.VALUE_PRESENT),
 				Pair.of(RegisterMemoryModuleTypes.IS_PLAYER_NEARBY, MemoryStatus.VALUE_ABSENT),
 				Pair.of(RegisterMemoryModuleTypes.CAN_DIG, MemoryStatus.VALUE_PRESENT)
 			)
