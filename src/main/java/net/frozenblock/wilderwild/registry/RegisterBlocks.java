@@ -230,7 +230,7 @@ public final class RegisterBlocks {
 	public static final ShelfFungusBlock BROWN_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM_BLOCK).luminance(1).ticksRandomly().collidable(false).nonOpaque().sounds(RegisterBlockSoundTypes.MUSHROOM).hasPostProcess(Blocks::always).pushReaction(PushReaction.DESTROY));
 	public static final ShelfFungusBlock RED_SHELF_FUNGUS = new ShelfFungusBlock(FabricBlockSettings.copyOf(Blocks.RED_MUSHROOM_BLOCK).ticksRandomly().collidable(false).nonOpaque().sounds(RegisterBlockSoundTypes.MUSHROOM).hasPostProcess(Blocks::always).pushReaction(PushReaction.DESTROY));
 	public static final PollenBlock POLLEN_BLOCK = new PollenBlock(FabricBlockSettings.copyOf(Blocks.GRASS).collidable(false).offsetType(BlockBehaviour.OffsetType.NONE).mapColor(MapColor.SAND).sound(RegisterBlockSoundTypes.POLLEN));
-	public static final SmallSpongeBlock SMALL_SPONGE = new SmallSpongeBlock(FabricBlockSettings.copyOf(Blocks.SPONGE).strength(0.1F).collidable(false).nonOpaque().sounds(SoundType.SPONGE));
+	public static final SmallSpongeBlock SMALL_SPONGE = new SmallSpongeBlock(FabricBlockSettings.copyOf(Blocks.SPONGE).strength(0.1F).collidable(false).nonOpaque().sounds(SoundType.WET_GRASS));
 	public static final Block NULL_BLOCK = new Block(FabricBlockSettings.copyOf(Blocks.STONE).sounds(RegisterBlockSoundTypes.NULL_BLOCK));
 	public static final DisplayLanternBlock DISPLAY_LANTERN = new DisplayLanternBlock(FabricBlockSettings.create().strength(3.5f).sounds(SoundType.LANTERN).luminance((state) -> state.getValue(RegisterProperties.DISPLAY_LIGHT)).forceSolidOn().pushReaction(PushReaction.DESTROY));
 	private static final MapColor BAOBAB_PLANKS_COLOR = MapColor.COLOR_ORANGE;

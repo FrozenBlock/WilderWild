@@ -9,6 +9,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.Instrument;
 import net.minecraft.world.item.InstrumentItem;
@@ -25,8 +26,8 @@ public class CopperHornRecipe extends ShapedRecipe {
 
 	public static final Map<ResourceKey<Instrument>, ResourceKey<Instrument>> INSTRUMENT_TO_COPPER_INSTRUMENT_MAP = new HashMap<>();
 
-	public CopperHornRecipe(CraftingBookCategory category) {
-		super("wilderwild_copper_horn", category, 3, 2, NonNullList.of(Ingredient.EMPTY, Ingredient.of(Items.COPPER_INGOT), Ingredient.of(Items.GOAT_HORN), Ingredient.of(Items.COPPER_INGOT), Ingredient.of(Items.AIR), Ingredient.of(Items.COPPER_INGOT), Ingredient.of(Items.AIR)), new ItemStack(RegisterItems.COPPER_HORN));
+	public CopperHornRecipe(ResourceLocation id, CraftingBookCategory category) {
+		super(id, "wilderwild_copper_horn", category, 3, 2, NonNullList.of(Ingredient.EMPTY, Ingredient.of(Items.COPPER_INGOT), Ingredient.of(Items.GOAT_HORN), Ingredient.of(Items.COPPER_INGOT), Ingredient.of(Items.AIR), Ingredient.of(Items.COPPER_INGOT), Ingredient.of(Items.AIR)), new ItemStack(RegisterItems.COPPER_HORN));
 	}
 
 	@Override

@@ -71,9 +71,9 @@ import org.jetbrains.annotations.NotNull;
 public final class RegisterItems {
 
 	// RECIPE SERIALIZERS
-	public static final RecipeSerializer<AncientHornRecipe> ANCIENT_HORN_CRAFTING = registerSerializer("crafting_ancient_horn", new SimpleCraftingRecipeSerializer(AncientHornRecipe::new));
+	public static final RecipeSerializer<AncientHornRecipe> ANCIENT_HORN_CRAFTING = registerSerializer("crafting_ancient_horn", new SimpleCraftingRecipeSerializer<>(AncientHornRecipe::new));
 
-	public static final RecipeSerializer<CopperHornRecipe> COPPER_HORN_CRAFTING = registerSerializer("crafting_copper_horn", new SimpleCraftingRecipeSerializer(CopperHornRecipe::new));
+	public static final RecipeSerializer<CopperHornRecipe> COPPER_HORN_CRAFTING = registerSerializer("crafting_copper_horn", new SimpleCraftingRecipeSerializer<>(CopperHornRecipe::new));
 
 	// BLOCK ITEMS
 	public static final BlockItem BAOBAB_NUT = new BlockItem(RegisterBlocks.BAOBAB_NUT, new FabricItemSettings().food(RegisterFood.BAOBAB_NUT));

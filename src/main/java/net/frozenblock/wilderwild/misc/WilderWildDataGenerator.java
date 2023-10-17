@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.misc;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
