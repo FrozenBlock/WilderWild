@@ -67,6 +67,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.DynamicGameEventListener;
@@ -224,7 +225,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 				randomBound = 10;
 			}
 			int seaLevel = level.getSeaLevel();
-			return (random.nextInt(0, randomBound) == 0 && pos.getY() <= seaLevel);
+			return (random.nextInt(0, randomBound) == 0 && pos.getY() <= seaLevel) && level.getBlockState(pos).is(Blocks.WATER) && pos.getY() >= seaLevel - 33 && pos.getY() <= seaLevel + 4;
 		}
 		return false;
 	}
