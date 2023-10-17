@@ -29,6 +29,7 @@ import net.frozenblock.lib.mobcategory.api.entrypoint.FrozenMobCategoryEntrypoin
 import net.frozenblock.lib.mobcategory.impl.FrozenMobCategory;
 import net.frozenblock.wilderwild.block.entity.PalmCrownBlockEntity;
 import net.frozenblock.wilderwild.config.EntityConfig;
+import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -179,12 +180,14 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 			{
 				PalmCrownBlockEntity.PalmCrownPositions.clearAll();
 				Jellyfish.clearLevelToNonPearlescentCount();
+				Crab.clearLevelToCrabCount();
 			}
 		);
 		ServerTickEvents.START_SERVER_TICK.register((listener) ->
 			{
 				PalmCrownBlockEntity.PalmCrownPositions.clearAndSwitch();
 				Jellyfish.clearLevelToNonPearlescentCount();
+				Crab.clearLevelToCrabCount();
 			}
 		);
 
@@ -199,7 +202,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 	public void newCategories(@NotNull ArrayList<FrozenMobCategory> context) {
 		context.add(FrozenMobCategoryEntrypoint.createCategory(id("fireflies"), EntityConfig.get().firefly.fireflySpawnCap, true, false, 80));
 		context.add(FrozenMobCategoryEntrypoint.createCategory(id("jellyfish"), EntityConfig.get().jellyfish.jellyfishSpawnCap, true, false, 64));
-		context.add(FrozenMobCategoryEntrypoint.createCategory(id("crab"), EntityConfig.get().crab.crabSpawnCap, true, false, 128));
+		context.add(FrozenMobCategoryEntrypoint.createCategory(id("crab"), EntityConfig.get().crab.crabSpawnCap, true, false, 84));
 		context.add(FrozenMobCategoryEntrypoint.createCategory(id("tumbleweed"), EntityConfig.get().tumbleweed.tumbleweedSpawnCap, true, false, 64));
 	}
 }

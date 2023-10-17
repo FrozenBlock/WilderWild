@@ -1,7 +1,10 @@
 package net.frozenblock.wilderwild.entity;
 
 import com.mojang.serialization.Dynamic;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabAi;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabJumpControl;
@@ -75,7 +78,6 @@ import net.minecraft.world.level.gameevent.EntityPositionSource;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.PositionSource;
 import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
-import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
@@ -90,6 +92,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	public static final int DIG_LENGTH_IN_TICKS = 95;
 	public static final int EMERGE_LENGTH_IN_TICKS = 29;
 	public static final double UNDERGROUND_PLAYER_RANGE = 4;
+	private static final Map<ServerLevelAccessor, Integer> CRABS_PER_LEVEL = new HashMap<>();
 	protected static final List<SensorType<? extends Sensor<? super Crab>>> SENSORS = List.of(
 		SensorType.NEAREST_LIVING_ENTITIES,
 		SensorType.NEAREST_PLAYERS,
@@ -214,20 +217,35 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
 	}
 
+	public static int getCrabs(@NotNull ServerLevel level) {
+		AtomicInteger count = new AtomicInteger();
+		if (!CRABS_PER_LEVEL.containsKey(level)) {
+			level.entityManager.getEntityGetter().getAll().forEach(entity -> {
+				if (entity instanceof Crab) {
+					count.addAndGet(1);
+				}
+			});
+			CRABS_PER_LEVEL.put(level, count.get());
+		} else {
+			count.set(CRABS_PER_LEVEL.get(level));
+		}
+		return count.get();
+	}
+
+	public static void clearLevelToCrabCount() {
+		CRABS_PER_LEVEL.clear();
+	}
+
 	public static boolean canSpawn(@NotNull EntityType<Crab> type, @NotNull ServerLevelAccessor level, @NotNull MobSpawnType reason, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if (reason == MobSpawnType.SPAWNER) {
 			return true;
 		}
-		if (level.getBlockState(pos.below()).is(WilderBlockTags.CRAB_CAN_HIDE)) {
-			int randomBound = 40;
-			Holder<Biome> biome = level.getBiome(pos);
-			if (biome.is(WilderBiomeTags.HAS_COMMON_CRAB)) {
-				randomBound = 10;
-			}
-			int seaLevel = level.getSeaLevel();
-			return random.nextInt(0, randomBound) == 0 && level.getBlockState(pos).is(Blocks.WATER) && pos.getY() >= seaLevel - 33 && pos.getY() <= seaLevel;
+		Holder<Biome> biome = level.getBiome(pos);
+		if (!biome.is(WilderBiomeTags.HAS_COMMON_CRAB) && getCrabs(level.getLevel()) >= type.getCategory().getMaxInstancesPerChunk() / 3) {
+			return false;
 		}
-		return false;
+		int seaLevel = level.getSeaLevel();
+		return random.nextInt(0, 20) == 0 && level.getBlockState(pos).is(Blocks.WATER) && pos.getY() >= seaLevel - 33 && pos.getY() <= seaLevel;
 	}
 
 	@Override
