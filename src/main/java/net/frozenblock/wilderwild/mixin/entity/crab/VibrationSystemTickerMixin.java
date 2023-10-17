@@ -1,4 +1,4 @@
-package net.frozenblock.wilderwild.mixin.server.crab;
+package net.frozenblock.wilderwild.mixin.entity.crab;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;

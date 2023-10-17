@@ -18,12 +18,8 @@
 
 package net.frozenblock.wilderwild.mixin.entity.tumbleweed;
 
-import net.frozenblock.lib.spotting_icons.impl.EntitySpottingIconInterface;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
