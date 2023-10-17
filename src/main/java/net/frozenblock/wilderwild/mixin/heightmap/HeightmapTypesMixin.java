@@ -60,15 +60,15 @@ public class HeightmapTypesMixin {
 		var types = new ArrayList<>(Arrays.asList($VALUES));
 		var last = types.get(types.size() - 1);
 
-		var baobab = wilderWild$newType(
+		var oceanFloorNoLeaves = wilderWild$newType(
 			"WILDERWILDOCEAN_FLOOR_NO_LEAVES",
 			last.ordinal() + 1,
 			"WILDERWILDOCEAN_FLOOR_NO_LEAVES",
 			Heightmap.Usage.LIVE_WORLD,
 			state -> state.blocksMotion() && !(state.getBlock() instanceof LeavesBlock)
 		);
-		WilderEnumValues.OCEAN_FLOOR_NO_LEAVES = baobab;
-		types.add(baobab);
+		WilderEnumValues.OCEAN_FLOOR_NO_LEAVES = oceanFloorNoLeaves;
+		types.add(oceanFloorNoLeaves);
 
 		$VALUES = types.toArray(new Heightmap.Types[0]);
 	}
