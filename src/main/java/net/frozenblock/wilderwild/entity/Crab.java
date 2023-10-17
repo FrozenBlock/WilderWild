@@ -218,10 +218,10 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			return true;
 		}
 		if (level.getBlockState(pos.below()).is(WilderBlockTags.CRAB_CAN_HIDE)) {
-			int randomBound = 90;
+			int randomBound = 120;
 			Holder<Biome> biome = level.getBiome(pos);
 			if (biome.is(WilderBiomeTags.HAS_COMMON_CRAB)) {
-				randomBound = 30;
+				randomBound = 40;
 			}
 			int seaLevel = level.getSeaLevel();
 			return (random.nextInt(0, randomBound) == 0 && pos.getY() <= seaLevel + 6);
