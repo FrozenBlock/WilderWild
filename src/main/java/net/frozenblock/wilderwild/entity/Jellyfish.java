@@ -157,7 +157,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 			return true;
 		}
 		Holder<Biome> biome = level.getBiome(pos);
-		if (biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH) || getJellyfish(level.getLevel(), false) >= type.getCategory().getMaxInstancesPerChunk() / 3) {
+		if (!biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH) && getJellyfish(level.getLevel(), false) >= type.getCategory().getMaxInstancesPerChunk() / 3) {
 			return false;
 		}
 		if (biome.is(WilderBiomeTags.JELLYFISH_SPECIAL_SPAWN)) {
