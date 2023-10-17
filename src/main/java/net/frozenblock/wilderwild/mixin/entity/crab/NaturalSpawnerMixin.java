@@ -25,6 +25,7 @@ import net.frozenblock.wilderwild.misc.WilderEnumValues;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.NaturalSpawner;
 import net.minecraft.world.level.chunk.ChunkAccess;
@@ -40,9 +41,20 @@ public class NaturalSpawnerMixin {
 	)
 	private static BlockPos.MutableBlockPos wilderWild$spawnCategoryForPosition(BlockPos.MutableBlockPos mutableBlockPos, int x, int y, int z, Operation<BlockPos.MutableBlockPos> operation, MobCategory category, ServerLevel level, ChunkAccess chunk, BlockPos pos, NaturalSpawner.SpawnPredicate filter, NaturalSpawner.AfterSpawnCallback callback) {
 		if (category == FrozenMobCategories.getCategory(WilderSharedConstants.MOD_ID, "crab")) {
-			return operation.call(mutableBlockPos, x, level.getHeight(WilderEnumValues.OCEAN_FLOOR_NO_LEAVES, x, z), z);
+			return mutableBlockPos.set(x, level.getHeight(WilderEnumValues.OCEAN_FLOOR_NO_LEAVES, x, z), z);
 		}
 		return operation.call(mutableBlockPos, x, y, z);
+	}
+
+	@WrapOperation(
+		method = "spawnCategoryForPosition(Lnet/minecraft/world/entity/MobCategory;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/chunk/ChunkAccess;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/NaturalSpawner$SpawnPredicate;Lnet/minecraft/world/level/NaturalSpawner$AfterSpawnCallback;)V",
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Mob;moveTo(DDDFF)V", ordinal = 0)
+	)
+	private static void wilderWild$spawnCategoryForPosition(Mob mob, double x, double y, double z, float yRot, float xRot, Operation<Void> operation, MobCategory category, ServerLevel level, ChunkAccess chunk, BlockPos pos, NaturalSpawner.SpawnPredicate filter, NaturalSpawner.AfterSpawnCallback callback) {
+		if (category == FrozenMobCategories.getCategory(WilderSharedConstants.MOD_ID, "crab")) {
+			operation.call(x, (double)level.getHeight(WilderEnumValues.OCEAN_FLOOR_NO_LEAVES, (int)x, (int)z), z, yRot, xRot);
+		}
+		operation.call(x, y, z, yRot, xRot);
 	}
 
 }

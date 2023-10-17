@@ -240,19 +240,16 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		if (reason == MobSpawnType.SPAWNER) {
 			return true;
 		}
-		if (level.getBlockState(pos.below()).is(WilderBlockTags.CRAB_CAN_HIDE)) {
-			Holder<Biome> biome = level.getBiome(pos);
-			int randomBound = 30;
-			if (!biome.is(WilderBiomeTags.HAS_COMMON_CRAB)) {
-				randomBound = 100;
-				if (getCrabs(level.getLevel()) >= type.getCategory().getMaxInstancesPerChunk() / 3) {
-					return false;
-				}
+		Holder<Biome> biome = level.getBiome(pos);
+		int randomBound = 30;
+		if (!biome.is(WilderBiomeTags.HAS_COMMON_CRAB)) {
+			randomBound = 100;
+			if (getCrabs(level.getLevel()) >= type.getCategory().getMaxInstancesPerChunk() / 3) {
+				return false;
 			}
-			int seaLevel = level.getSeaLevel();
-			return random.nextInt(0, randomBound) == 0 && level.getBlockState(pos).is(Blocks.WATER) && pos.getY() >= seaLevel - 33 && pos.getY() <= seaLevel + 3;
 		}
-		return false;
+		int seaLevel = level.getSeaLevel();
+		return random.nextInt(0, randomBound) == 0 && pos.getY() >= seaLevel - 33 && pos.getY() <= seaLevel + 3 && level.getBlockState(pos.below()).is(WilderBlockTags.CRAB_CAN_HIDE);
 	}
 
 	@Override
