@@ -23,13 +23,12 @@ import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
-import net.frozenblock.wilderwild.config.defaults.DefaultMiscConfig;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.MOD_ID;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.configPath;
 
 public final class MiscConfig {
 
-	private static final Config<MiscConfig> INSTANCE = ConfigRegistry.register(
+	public static final Config<MiscConfig> INSTANCE = ConfigRegistry.register(
 		new JsonConfig<>(
 			MOD_ID,
 			MiscConfig.class,
@@ -40,7 +39,7 @@ public final class MiscConfig {
 
 	public boolean cloudMovement = true;
 
-	public int particleWindMovement = DefaultMiscConfig.PARTICLE_WIND_MOVEMENT;
+	public int particleWindMovement = 100;
 
 	@CollapsibleObject
 	public BiomeAmbienceConfig biomeAmbience = new BiomeAmbienceConfig();
@@ -49,11 +48,13 @@ public final class MiscConfig {
 	public BiomeMusicConfig biomeMusic = new BiomeMusicConfig();
 
 	public static MiscConfig get() {
-		return INSTANCE.config();
+		return get(false);
 	}
 
-	public static Config<MiscConfig> getConfigInstance() {
-		return INSTANCE;
+	public static MiscConfig get(boolean real) {
+		if (real)
+			return INSTANCE.instance();
+		return INSTANCE.config();
 	}
 
 	public double getParticleWindIntensity() {
@@ -61,12 +62,12 @@ public final class MiscConfig {
 	}
 
 	public static class BiomeAmbienceConfig {
-		public boolean deepDarkAmbience = DefaultMiscConfig.BiomeAmbienceConfig.DEEP_DARK_AMBIENCE;
-		public boolean dripstoneCavesAmbience = DefaultMiscConfig.BiomeAmbienceConfig.DRIPSTONE_CAVES_AMBIENCE;
-		public boolean lushCavesAmbience = DefaultMiscConfig.BiomeAmbienceConfig.LUSH_CAVES_AMBIENCE;
+		public boolean deepDarkAmbience = true;
+		public boolean dripstoneCavesAmbience = true;
+		public boolean lushCavesAmbience = true;
 	}
 
 	public static class BiomeMusicConfig {
-		public boolean wilderForestMusic = DefaultMiscConfig.BiomeMusicConfig.WILDER_FOREST_MUSIC;
+		public boolean wilderForestMusic = true;
 	}
 }

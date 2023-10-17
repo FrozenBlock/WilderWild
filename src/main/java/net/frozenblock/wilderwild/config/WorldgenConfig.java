@@ -23,13 +23,12 @@ import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
-import net.frozenblock.wilderwild.config.defaults.DefaultWorldgenConfig;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.MOD_ID;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.configPath;
 
 public final class WorldgenConfig {
 
-	private static final Config<WorldgenConfig> INSTANCE = ConfigRegistry.register(
+	public static final Config<WorldgenConfig> INSTANCE = ConfigRegistry.register(
 		new JsonConfig<>(
 			MOD_ID,
 			WorldgenConfig.class,
@@ -46,69 +45,116 @@ public final class WorldgenConfig {
 
 	@CollapsibleObject
 	public final WaterColors waterColors = new WaterColors();
-	public boolean betaBeaches = DefaultWorldgenConfig.BETA_BEACHES;
-	public boolean dyingTrees = DefaultWorldgenConfig.DYING_TREES;
-	public boolean fallenLogs = DefaultWorldgenConfig.FALLEN_LOGS;
-	public boolean snappedLogs = DefaultWorldgenConfig.SNAPPED_LOGS;
-	public boolean wilderWildTreeGen = DefaultWorldgenConfig.WILDER_WILD_TREE_GEN;
-	public boolean wilderWildGrassGen = DefaultWorldgenConfig.WILDER_WILD_GRASS_GEN;
-	public boolean wilderWildFlowerGen = DefaultWorldgenConfig.WILDER_WILD_FLOWER_GEN;
-	public boolean wilderWildBushGen = DefaultWorldgenConfig.WILDER_WILD_BUSH_GEN;
-	public boolean wilderWildCactusGen = DefaultWorldgenConfig.WILDER_WILD_CACTUS_GEN;
-	public boolean wilderWildMushroomGen = DefaultWorldgenConfig.WILDER_WILD_MUSHROOM_GEN;
-	public boolean tumbleweed = DefaultWorldgenConfig.TUMBLEWEED_GEN;
-	public boolean algae = DefaultWorldgenConfig.ALGAE_GEN;
-	public boolean termiteGen = DefaultWorldgenConfig.TERMITE_GEN;
-	public boolean surfaceDecoration = DefaultWorldgenConfig.SURFACE_DECORATION;
-	public boolean snowBelowTrees = DefaultWorldgenConfig.SNOW_BELOW_TREES;
-	public boolean surfaceTransitions = DefaultWorldgenConfig.SURFACE_TRANSITIONS;
-	public boolean newWitchHuts = DefaultWorldgenConfig.NEW_WITCH_HUTS;
+
+	public boolean betaBeaches = true;
+
+	public boolean dyingTrees = true;
+
+	public boolean fallenLogs = true;
+
+	public boolean snappedLogs = true;
+
+	public boolean wilderWildTreeGen = true;
+
+	public boolean wilderWildGrassGen = true;
+
+	public boolean wilderWildFlowerGen = true;
+
+	public boolean wilderWildBushGen = true;
+
+	public boolean wilderWildCactusGen = true;
+
+	public boolean wilderWildMushroomGen = true;
+
+	public boolean tumbleweed = true;
+
+	public boolean algae = true;
+
+	public boolean termiteGen = true;
+
+	public boolean surfaceDecoration = true;
+
+	public boolean snowBelowTrees = true;
+
+	public boolean surfaceTransitions = true;
+
+	public boolean newWitchHuts = true;
 
 	public static WorldgenConfig get() {
+		return get(false);
+	}
+
+	public static WorldgenConfig get(boolean real) {
+		if (real)
+			return INSTANCE.instance();
 		return INSTANCE.config();
 	}
 
-	public static Config<WorldgenConfig> getConfigInstance() {
-		return INSTANCE;
-	}
-
 	public static class BiomePlacement {
-		public boolean modifyWindsweptSavannaPlacement = DefaultWorldgenConfig.BiomePlacement.MODIFY_WINDSWEPT_SAVANNA_PLACEMENT;
-		public boolean modifyJunglePlacement = DefaultWorldgenConfig.BiomePlacement.MODIFY_JUNGLE_PLACEMENT;
-		public boolean modifySwampPlacement = DefaultWorldgenConfig.BiomePlacement.MODIFY_SWAMP_PLACEMENT;
-		public boolean modifyMangroveSwampPlacement = DefaultWorldgenConfig.BiomePlacement.MODIFY_MANGROVE_SWAMP_PLACEMENT;
-		public boolean modifyCherryGrovePlacement = DefaultWorldgenConfig.BiomePlacement.MODIFY_CHERRY_GROVE_PLACEMENT;
-		public boolean modifyStonyShorePlacement = DefaultWorldgenConfig.BiomePlacement.MODIFY_STONY_SHORE_PLACEMENT;
+		public boolean modifyWindsweptSavannaPlacement = true;
+
+		public boolean modifyJunglePlacement = true;
+
+		public boolean modifySwampPlacement = true;
+
+		public boolean modifyMangroveSwampPlacement = true;
+
+		public boolean modifyCherryGrovePlacement = true;
+
+		public boolean modifyStonyShorePlacement = true;
 	}
 
 	public static class BiomeGeneration {
-		public boolean generateCypressWetlands = DefaultWorldgenConfig.BiomeGeneration.GENERATE_CYPRESS_WETLANDS;
-		public boolean generateJellyfishCaves = DefaultWorldgenConfig.BiomeGeneration.GENERATE_JELLYFISH_CAVES;
-		public boolean generateMixedForest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_MIXED_FOREST;
-		public boolean generateOasis = DefaultWorldgenConfig.BiomeGeneration.GENERATE_OASIS;
-		public boolean generateWarmRiver = DefaultWorldgenConfig.BiomeGeneration.GENERATE_WARM_RIVER;
-		public boolean generateWarmBeach = DefaultWorldgenConfig.BiomeGeneration.GENERATE_WARM_BEACH;
-		public boolean generateBirchTaiga = DefaultWorldgenConfig.BiomeGeneration.GENERATE_BIRCH_TAIGA;
-		public boolean generateOldGrowthBirchTaiga = DefaultWorldgenConfig.BiomeGeneration.GENERATE_OLD_GROWTH_BIRCH_TAIGA;
-		public boolean generateFlowerField = DefaultWorldgenConfig.BiomeGeneration.GENERATE_FLOWER_FIELD;
-		public boolean generateAridSavanna = DefaultWorldgenConfig.BiomeGeneration.GENERATE_ARID_SAVANNA;
-		public boolean generateParchedForest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_PARCHED_FOREST;
-		public boolean generateAridForest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_ARID_FOREST;
-		public boolean generateOldGrowthSnowyTaiga = DefaultWorldgenConfig.BiomeGeneration.GENERATE_OLD_GROWTH_SNOWY_TAIGA;
-		public boolean generateBirchJungle = DefaultWorldgenConfig.BiomeGeneration.GENERATE_BIRCH_JUNGLE;
-		public boolean generateSparseBirchJungle = DefaultWorldgenConfig.BiomeGeneration.GENERATE_SPARSE_BIRCH_JUNGLE;
-		public boolean generateOldGrowthDarkForest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_OLD_GROWTH_DARK_FOREST;
-		public boolean generateDarkBirchForest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_DARK_BIRCH_FOREST;
-		public boolean generateSemiBirchForest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_SEMI_BIRCH_FOREST;
-		public boolean generateTemperateRainforest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_TEMPERATE_RAINFOREST;
-		public boolean generateRainforest = DefaultWorldgenConfig.BiomeGeneration.GENERATE_RAINFOREST;
-		public boolean generateDarkTaiga = DefaultWorldgenConfig.BiomeGeneration.GENERATE_DARK_TAIGA;
+		public boolean generateCypressWetlands = true;
+
+		public boolean generateJellyfishCaves = true;
+
+		public boolean generateMixedForest = true;
+
+		public boolean generateOasis = true;
+
+		public boolean generateWarmRiver = true;
+
+		public boolean generateWarmBeach = true;
+
+		public boolean generateBirchTaiga = true;
+
+		public boolean generateOldGrowthBirchTaiga = true;
+
+		public boolean generateFlowerField = true;
+
+		public boolean generateAridSavanna = true;
+
+		public boolean generateParchedForest = true;
+
+		public boolean generateAridForest = true;
+
+		public boolean generateOldGrowthSnowyTaiga = true;
+
+		public boolean generateBirchJungle = true;
+
+		public boolean generateSparseBirchJungle = true;
+
+		public boolean generateOldGrowthDarkForest = true;
+
+		public boolean generateDarkBirchForest = true;
+
+		public boolean generateSemiBirchForest = true;
+
+		public boolean generateTemperateRainforest = true;
+
+		public boolean generateRainforest = true;
+
+		public boolean generateDarkTaiga = true;
 	}
 
 	public static class WaterColors {
-		public boolean modifyLukewarmWater = DefaultWorldgenConfig.WaterColors.LUKEWARM_BIOMES;
-		public boolean modifyHotWater = DefaultWorldgenConfig.WaterColors.HOT_BIOMES;
-		public boolean modifySnowyWater = DefaultWorldgenConfig.WaterColors.SNOWY_BIOMES;
-		public boolean modifyFrozenWater = DefaultWorldgenConfig.WaterColors.FROZEN_BIOMES;
+		public boolean modifyLukewarmWater = true;
+
+		public boolean modifyHotWater = true;
+
+		public boolean modifySnowyWater = true;
+
+		public boolean modifyFrozenWater = true;
 	}
 }

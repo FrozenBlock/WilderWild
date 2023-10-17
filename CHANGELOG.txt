@@ -8,4 +8,6 @@ What's new:
 - Added Mixins Config
     - File only for now
 - Refactored mixins for the new Mixins Config
+- Removed default config classes in favor of `Config.defaultInstance()`
+- Added Biome Music category to Misc Config
 - Updated embedded FrozenLib to 1.3.14
