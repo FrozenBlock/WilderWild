@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 import net.frozenblock.wilderwild.misc.WilderEnumValues;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -60,15 +61,15 @@ public class HeightmapTypesMixin {
 		var types = new ArrayList<>(Arrays.asList($VALUES));
 		var last = types.get(types.size() - 1);
 
-		var baobab = wilderWild$newType(
+		var oceanFloorNoLeaves = wilderWild$newType(
 			"WILDERWILDOCEAN_FLOOR_NO_LEAVES",
 			last.ordinal() + 1,
 			"WILDERWILDOCEAN_FLOOR_NO_LEAVES",
 			Heightmap.Usage.LIVE_WORLD,
-			state -> state.blocksMotion() && !(state.getBlock() instanceof LeavesBlock)
+			state -> state.blocksMotion() && state.getBlock() != Blocks.WATER && !(state.getBlock() instanceof LeavesBlock)
 		);
-		WilderEnumValues.OCEAN_FLOOR_NO_LEAVES = baobab;
-		types.add(baobab);
+		WilderEnumValues.OCEAN_FLOOR_NO_LEAVES = oceanFloorNoLeaves;
+		types.add(oceanFloorNoLeaves);
 
 		$VALUES = types.toArray(new Heightmap.Types[0]);
 	}
