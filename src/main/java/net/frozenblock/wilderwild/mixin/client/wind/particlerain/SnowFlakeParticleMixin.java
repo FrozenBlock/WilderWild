@@ -36,7 +36,7 @@ public class SnowFlakeParticleMixin {
 		return MiscConfig.get().cloudMovement && ClientWindManager.shouldUseWind();
 	}
 
-	@Inject(method = "tick", at = @At("TAIL"))
+	@Inject(method = "tick", at = @At("TAIL"), require = 0)
 	private void wilderWild$modifyWind(CallbackInfo info) {
 		if (wilderWild$useWind()) {
 			SnowFlakeParticle.class.cast(this).xd += Mth.clamp(ClientWindManager.windX, -0.0015, 0.0015);

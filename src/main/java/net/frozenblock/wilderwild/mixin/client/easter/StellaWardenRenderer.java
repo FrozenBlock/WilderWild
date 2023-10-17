@@ -58,7 +58,7 @@ public abstract class StellaWardenRenderer extends MobRenderer<Warden, WardenMod
 	}
 
 	@Inject(method = "<init>", at = @At("TAIL"))
-	private void wilderWild$addStellaLayers(EntityRendererProvider.Context context, CallbackInfo info) {
+	private void addStellaLayers(EntityRendererProvider.Context context, CallbackInfo info) {
 		this.addLayer(
 			new StellaWardenFeatureRenderer<>(this, WILDERWILD$STELLA_BIOLUMINESCENT_LAYER_TEXTURE, (warden, partialTick, animationProgress) -> 1.0F, WardenModel::getBioluminescentLayerModelParts)
 		);

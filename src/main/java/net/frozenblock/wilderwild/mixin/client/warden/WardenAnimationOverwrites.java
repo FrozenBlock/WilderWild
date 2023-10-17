@@ -41,19 +41,19 @@ public class WardenAnimationOverwrites {
 	@Final
 	@Mutable
 	@Shadow
-	public static AnimationDefinition WARDEN_EMERGE;
+	private static AnimationDefinition WARDEN_EMERGE;
 
 	@Final
 	@Mutable
 	@Shadow
-	public static AnimationDefinition WARDEN_SNIFF;
+	private static AnimationDefinition WARDEN_SNIFF;
 
 	@Shadow
 	@Final
 	@Mutable
-	public static AnimationDefinition WARDEN_DIG;
+	private static AnimationDefinition WARDEN_DIG;
 
-	@Inject(method = "<clinit>", at = @At("TAIL"))
+	@Inject(method = "<clinit>", at = @At("TAIL"), require = 0)
 	private static void wilderWild$config(CallbackInfo info) {
 		//TODO: config option for improved & dig
 		WARDEN_DIG = AnimationDefinition.Builder.withLength(5.167667f)

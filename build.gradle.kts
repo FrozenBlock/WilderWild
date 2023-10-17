@@ -16,7 +16,7 @@ buildscript {
         gradlePluginPortal()
     }
     dependencies {
-        classpath("org.kohsuke:github-api:1.316")
+        classpath("org.kohsuke:github-api:+")
     }
 }
 
@@ -309,7 +309,7 @@ tasks {
         val properties = HashMap<String, Any>()
         properties["mod_id"] = mod_id
         properties["version"] = version
-        properties["minecraft_version"] = "~1.20.2-"
+        properties["minecraft_version"] = "~$minecraft_version-"
 
         properties["fabric_loader_version"] = ">=$loader_version"
         properties["fabric_api_version"] = ">=$fabric_api_version"

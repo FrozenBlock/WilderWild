@@ -33,6 +33,7 @@ import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.item.MilkweedPod;
 import net.frozenblock.wilderwild.misc.WilderEnumValues;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.misc.recipe.AncientHornRecipe;
 import net.frozenblock.wilderwild.misc.recipe.CopperHornRecipe;
 import net.frozenblock.wilderwild.tag.WilderInstrumentTags;
 import net.minecraft.core.Registry;
@@ -68,6 +69,10 @@ import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 
 public final class RegisterItems {
+
+	// RECIPE SERIALIZERS
+	public static final RecipeSerializer<AncientHornRecipe> ANCIENT_HORN_CRAFTING = registerSerializer("crafting_ancient_horn", new SimpleCraftingRecipeSerializer(AncientHornRecipe::new));
+	public static final RecipeSerializer<CopperHornRecipe> COPPER_HORN_CRAFTING = registerSerializer("crafting_copper_horn", new SimpleCraftingRecipeSerializer(CopperHornRecipe::new));
 
 	// BLOCK ITEMS
 	public static final BlockItem BAOBAB_NUT = new BlockItem(RegisterBlocks.BAOBAB_NUT, new FabricItemSettings().food(RegisterFood.BAOBAB_NUT));
@@ -134,8 +139,6 @@ public final class RegisterItems {
 	public static final AncientHorn ANCIENT_HORN = new AncientHorn(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC), WilderInstrumentTags.ANCIENT_HORNS);
 	public static final ResourceKey<Instrument> ANCIENT_HORN_INSTRUMENT = ResourceKey.create(Registries.INSTRUMENT, WilderSharedConstants.id("ancient_horn"));
 	public static final CopperHorn COPPER_HORN = new CopperHorn(new FabricItemSettings().maxCount(1), WilderInstrumentTags.COPPER_HORNS);
-	// RECIPE SERIALIZERS
-	public static final RecipeSerializer<CopperHornRecipe> COPPER_HORN_CRAFTING = registerSerializer("crafting_copper_horn", new SimpleCraftingRecipeSerializer(CopperHornRecipe::new));
 	public static final ResourceKey<Instrument> SAX_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WilderSharedConstants.id("sax_copper_horn"));
 	public static final ResourceKey<Instrument> TUBA_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WilderSharedConstants.id("tuba_copper_horn"));
 	public static final ResourceKey<Instrument> FLUTE_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WilderSharedConstants.id("flute_copper_horn"));
@@ -160,10 +163,10 @@ public final class RegisterItems {
 		registerItemAfter(BAOBAB_SIGN, BAOBAB_HANGING_SIGN, "baobab_hanging_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
 
 		registerItemAfter(Items.GLOW_LICHEN, POLLEN, "pollen", CreativeModeTabs.NATURAL_BLOCKS);
-		registerItemAfter(Blocks.CACTUS, PRICKLY_PEAR, "prickly_pear", CreativeModeTabs.NATURAL_BLOCKS);
-		registerItemAfter(Blocks.TINTED_GLASS, ECHO_GLASS, "echo_glass", CreativeModeTabs.FUNCTIONAL_BLOCKS);
-		registerItemAfter(Blocks.SAND, SCORCHED_SAND, "scorched_sand", CreativeModeTabs.NATURAL_BLOCKS);
-		registerItemAfter(Blocks.RED_SAND, SCORCHED_RED_SAND, "scorched_red_sand", CreativeModeTabs.NATURAL_BLOCKS);
+		registerItemAfter(Items.CACTUS, PRICKLY_PEAR, "prickly_pear", CreativeModeTabs.NATURAL_BLOCKS);
+		registerItemAfter(Items.TINTED_GLASS, ECHO_GLASS, "echo_glass", CreativeModeTabs.FUNCTIONAL_BLOCKS);
+		registerItemAfter(Items.SAND, SCORCHED_SAND, "scorched_sand", CreativeModeTabs.NATURAL_BLOCKS);
+		registerItemAfter(Items.RED_SAND, SCORCHED_RED_SAND, "scorched_red_sand", CreativeModeTabs.NATURAL_BLOCKS);
 
 		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(entries -> {
 			var second = new ItemStack(SCORCHED_SAND);
@@ -197,7 +200,7 @@ public final class RegisterItems {
 		registerItemAfter(Items.GLOW_BERRIES, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.FOOD_AND_DRINKS);
 		registerItemAfter(Items.MANGROVE_PROPAGULE, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemAfter(Items.EGG, COCONUT, "coconut", CreativeModeTabs.COMBAT);
-		registerItemAfter(RegisterBlocks.CYPRESS_SAPLING, COCONUT, "coconut", CreativeModeTabs.NATURAL_BLOCKS);
+		registerItemAfter(RegisterBlocks.CYPRESS_SAPLING.asItem(), COCONUT, "coconut", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemAfter(BAOBAB_NUT, SPLIT_COCONUT, "split_coconut", CreativeModeTabs.FOOD_AND_DRINKS);
 		registerItemAfter(SPLIT_COCONUT, PRICKLY_PEAR, "prickly_pear", CreativeModeTabs.FOOD_AND_DRINKS);
 		registerItemAfter(PRICKLY_PEAR, PEELED_PRICKLY_PEAR, "peeled_prickly_pear", CreativeModeTabs.FOOD_AND_DRINKS);
