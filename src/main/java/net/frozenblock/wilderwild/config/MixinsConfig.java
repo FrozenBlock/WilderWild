@@ -28,7 +28,7 @@ import static net.frozenblock.wilderwild.misc.WilderSharedConstants.configPath;
 
 public final class MixinsConfig {
 
-	private static final Config<MixinsConfig> INSTANCE = ConfigRegistry.register(
+	public static final Config<MixinsConfig> INSTANCE = ConfigRegistry.register(
 		new JsonConfig<>(
 			MOD_ID,
 			MixinsConfig.class,
