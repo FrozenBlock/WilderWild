@@ -40,7 +40,7 @@ public class NaturalSpawnerMixin {
 		at = @At(value = "INVOKE", target = "Lnet/minecraft/core/BlockPos$MutableBlockPos;set(III)Lnet/minecraft/core/BlockPos$MutableBlockPos;", ordinal = 0)
 	)
 	private static BlockPos.MutableBlockPos wilderWild$spawnCategoryForPosition(BlockPos.MutableBlockPos mutableBlockPos, int x, int y, int z, Operation<BlockPos.MutableBlockPos> operation, MobCategory category, ServerLevel level, ChunkAccess chunk, BlockPos pos, NaturalSpawner.SpawnPredicate filter, NaturalSpawner.AfterSpawnCallback callback) {
-		if (category == FrozenMobCategories.getCategory(WilderSharedConstants.MOD_ID, "crab")) {
+		if (category.getName().equals("wilderwildcrab")) {
 			return mutableBlockPos.set(x, level.getHeight(WilderEnumValues.OCEAN_FLOOR_NO_LEAVES, x, z), z);
 		}
 		return operation.call(mutableBlockPos, x, y, z);
@@ -51,7 +51,7 @@ public class NaturalSpawnerMixin {
 		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Mob;moveTo(DDDFF)V", ordinal = 0)
 	)
 	private static void wilderWild$spawnCategoryForPosition(Mob mob, double x, double y, double z, float yRot, float xRot, Operation<Void> operation, MobCategory category, ServerLevel level, ChunkAccess chunk, BlockPos pos, NaturalSpawner.SpawnPredicate filter, NaturalSpawner.AfterSpawnCallback callback) {
-		if (category == FrozenMobCategories.getCategory(WilderSharedConstants.MOD_ID, "crab")) {
+		if (category.getName().equals("wilderwildcrab")) {
 			operation.call(mob, x, (double)level.getHeight(WilderEnumValues.OCEAN_FLOOR_NO_LEAVES, (int)x, (int)z), z, yRot, xRot);
 		} else {
 			operation.call(mob, x, y, z, yRot, xRot);
