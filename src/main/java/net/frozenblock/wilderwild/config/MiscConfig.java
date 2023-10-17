@@ -38,7 +38,7 @@ public final class MiscConfig {
 		)
 	);
 
-	public boolean cloudMovement = DefaultMiscConfig.CLOUD_MOVEMENT;
+	public boolean cloudMovement = true;
 
 	public int particleWindMovement = DefaultMiscConfig.PARTICLE_WIND_MOVEMENT;
 

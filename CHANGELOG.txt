@@ -5,3 +5,7 @@ Make sure to clear this after each release
 What's new:
 -----------------
 - Reverted registry changes in 2.1.7
+- Added Mixins Config
+    - File only for now
+- Refactored mixins for the new Mixins Config
+- Updated embedded FrozenLib to 1.3.14

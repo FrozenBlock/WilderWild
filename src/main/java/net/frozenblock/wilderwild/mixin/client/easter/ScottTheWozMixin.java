@@ -46,7 +46,7 @@ public class ScottTheWozMixin {
 	private User user;
 
 	@Inject(method = "getSplash", at = @At("TAIL"), cancellable = true, require = 0)
-	public void wilderWild$getSplash(CallbackInfoReturnable<String> info) {
+	public void getSplash(CallbackInfoReturnable<String> info) {
 		String lowerName = this.user.getName().toLowerCase();
 		if (this.user != null && (RANDOM.nextInt(this.splashes.size()) == 42 || lowerName.contains("scot") || lowerName.contains("skot") || lowerName.contains("sct") || lowerName.contains("skt"))) {
 			info.setReturnValue("Hey all, " + this.user.getName() + " here.");
