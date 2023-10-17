@@ -49,7 +49,7 @@ public abstract class WardenEmissiveLayerMixin<T extends Warden, M extends Warde
 	}
 
 	@Inject(at = @At("HEAD"), method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/world/entity/monster/warden/Warden;FFFFFF)V", cancellable = true)
-	public void wilderWild$preventIfStella(PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i, T wardenEntity, float f, float g, float partialTick, float j, float k, float l, CallbackInfo info) {
+	public void preventIfStella(PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i, T wardenEntity, float f, float g, float partialTick, float j, float k, float l, CallbackInfo info) {
 		if (((WilderWarden) wardenEntity).wilderWild$isStella()) {
 			info.cancel();
 		}
