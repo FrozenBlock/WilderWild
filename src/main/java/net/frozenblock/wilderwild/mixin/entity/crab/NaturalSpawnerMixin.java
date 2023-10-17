@@ -30,7 +30,6 @@ import net.minecraft.world.level.NaturalSpawner;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(NaturalSpawner.class)
 public class NaturalSpawnerMixin {
@@ -39,7 +38,7 @@ public class NaturalSpawnerMixin {
 		method = "spawnCategoryForPosition(Lnet/minecraft/world/entity/MobCategory;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/chunk/ChunkAccess;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/NaturalSpawner$SpawnPredicate;Lnet/minecraft/world/level/NaturalSpawner$AfterSpawnCallback;)V",
 		at = @At(value = "INVOKE", target = "Lnet/minecraft/core/BlockPos$MutableBlockPos;set(III)Lnet/minecraft/core/BlockPos$MutableBlockPos;", ordinal = 0)
 	)
-	private static BlockPos.MutableBlockPos wilderWild$spawnCategoryForPosition(BlockPos.MutableBlockPos mutableBlockPos, int x, int y, int z, Operation<BlockPos.MutableBlockPos> operation, MobCategory category, ServerLevel level, ChunkAccess chunk, BlockPos pos, NaturalSpawner.SpawnPredicate filter, NaturalSpawner.AfterSpawnCallback callback, CallbackInfo info) {
+	private static BlockPos.MutableBlockPos wilderWild$spawnCategoryForPosition(BlockPos.MutableBlockPos mutableBlockPos, int x, int y, int z, Operation<BlockPos.MutableBlockPos> operation, MobCategory category, ServerLevel level, ChunkAccess chunk, BlockPos pos, NaturalSpawner.SpawnPredicate filter, NaturalSpawner.AfterSpawnCallback callback) {
 		if (category == FrozenMobCategories.getCategory(WilderSharedConstants.MOD_ID, "crab")) {
 			return operation.call(mutableBlockPos, x, level.getHeight(WilderEnumValues.OCEAN_FLOOR_NO_LEAVES, x, z), z);
 		}
