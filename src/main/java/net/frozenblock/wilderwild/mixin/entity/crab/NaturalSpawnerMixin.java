@@ -26,6 +26,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.NaturalSpawner;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -37,7 +39,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public class NaturalSpawnerMixin {
 
 	@Unique @Nullable
-	private static BlockPos.MutableBlockPos wilderWild$mutableCrabPos;
+	private static BlockPos wilderWild$mutableCrabPos;
 
 	@WrapOperation(
 		method = "spawnCategoryForPosition(Lnet/minecraft/world/entity/MobCategory;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/chunk/ChunkAccess;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/NaturalSpawner$SpawnPredicate;Lnet/minecraft/world/level/NaturalSpawner$AfterSpawnCallback;)V",
@@ -45,7 +47,7 @@ public class NaturalSpawnerMixin {
 	)
 	private static BlockPos.MutableBlockPos wilderWild$spawnCategoryForPosition(BlockPos.MutableBlockPos mutableBlockPos, int x, int y, int z, Operation<BlockPos.MutableBlockPos> operation, MobCategory category, ServerLevel level, ChunkAccess chunk, BlockPos pos, NaturalSpawner.SpawnPredicate filter, NaturalSpawner.AfterSpawnCallback callback) {
 		if (category.getName().equals("wilderwildcrab")) {
-			wilderWild$mutableCrabPos = wilderWild$findFloorPos(level, x, y, z, 10);
+			wilderWild$mutableCrabPos = wilderWild$findFloorPos(level, x, y, z, 12);
 			return mutableBlockPos.set(wilderWild$mutableCrabPos.getX(), wilderWild$mutableCrabPos.getY(), wilderWild$mutableCrabPos.getZ());
 		}
 		wilderWild$mutableCrabPos = null;
@@ -66,18 +68,21 @@ public class NaturalSpawnerMixin {
 
 	@Unique
 	@NotNull
-	private static BlockPos.MutableBlockPos wilderWild$findFloorPos(ServerLevel level, int x, int startY, int z, int maxSearch) {
+	private static BlockPos wilderWild$findFloorPos(ServerLevel level, int x, int startY, int z, int maxSearch) {
+		BlockPos original = new BlockPos(x, startY, z);
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos(x, startY, z);
 		BlockPos.MutableBlockPos mutableBlockPosBelow = new BlockPos.MutableBlockPos(x, startY, z);
 		Direction moveDirection = level.getBlockState(mutableBlockPos).isSolid() ? Direction.UP : Direction.DOWN;
-		for (int i = 0; i < maxSearch + 1; i++) {
-			if (level.getBlockState(mutableBlockPosBelow).isSolid() && !level.getBlockState(mutableBlockPos).isSolid()) {
-				break;
+		BlockState inBlockState;
+		for (int i = 0; i < maxSearch; i++) {
+			inBlockState = level.getBlockState(mutableBlockPos);
+			if (level.getBlockState(mutableBlockPosBelow).isSolid() && (inBlockState.isAir() || inBlockState.is(Blocks.WATER))) {
+				return mutableBlockPos;
 			}
 			mutableBlockPos.move(moveDirection);
 			mutableBlockPosBelow.set(mutableBlockPos).move(Direction.DOWN);
 		}
-		return mutableBlockPos;
+		return original;
 	}
 
 }
