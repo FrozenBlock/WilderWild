@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.entity;
 
 import com.mojang.serialization.Dynamic;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -645,7 +646,9 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			VibrationSystem.Data.CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, compound.getCompound("listener"))).resultOrPartial(WilderSharedConstants.LOGGER::error).ifPresent(data -> this.vibrationData = data);
 		}
 		if (compound.contains("EntityPose")) {
-			this.setPose(Pose.valueOf(compound.getString("EntityPose")));
+			if (Arrays.stream(Pose.values()).anyMatch(pose -> pose.name().equals(compound.getString("EntityPose")))) {
+				this.setPose(Pose.valueOf(compound.getString("EntityPose")));
+			}
 		}
 	}
 
