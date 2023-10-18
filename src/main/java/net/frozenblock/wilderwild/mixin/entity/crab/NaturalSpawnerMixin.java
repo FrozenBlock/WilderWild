@@ -58,7 +58,7 @@ public class NaturalSpawnerMixin {
 	)
 	private static void wilderWild$spawnCategoryForPosition(Mob mob, double x, double y, double z, float yRot, float xRot, Operation<Void> operation, MobCategory category, ServerLevel level, ChunkAccess chunk, BlockPos pos, NaturalSpawner.SpawnPredicate filter, NaturalSpawner.AfterSpawnCallback callback) {
 		if (category.getName().equals("wilderwildcrab") && wilderWild$mutableCrabPos != null) {
-			operation.call(mob, wilderWild$mutableCrabPos.getX(), wilderWild$mutableCrabPos.getY(), wilderWild$mutableCrabPos.getZ(), yRot, xRot);
+			operation.call(mob, (double) wilderWild$mutableCrabPos.getX(), (double) wilderWild$mutableCrabPos.getY(), (double) wilderWild$mutableCrabPos.getZ(), yRot, xRot);
 		} else {
 			operation.call(mob, x, y, z, yRot, xRot);
 		}
