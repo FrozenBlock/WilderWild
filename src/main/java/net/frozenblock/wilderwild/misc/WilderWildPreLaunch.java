@@ -28,7 +28,7 @@ public class WilderWildPreLaunch implements PreLaunchEntrypoint {
 	@Override
 	public void onPreLaunch() {
 		MixinExtrasBootstrap.init();
-		// replace this with a config option at some point
+		// TODO replace this with a config option at some point
 		ConfigRegistry.register(FrozenLibConfig.INSTANCE, new ConfigModification<>(config -> config.saveItemCooldowns = true));
 	}
 }
