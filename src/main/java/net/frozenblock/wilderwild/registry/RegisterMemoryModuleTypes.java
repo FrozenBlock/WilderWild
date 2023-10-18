@@ -25,6 +25,7 @@ import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.util.Unit;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import org.jetbrains.annotations.NotNull;
 
@@ -42,6 +43,7 @@ public final class RegisterMemoryModuleTypes {
 	public static final MemoryModuleType<Integer> HEAL_COOLDOWN_TICKS = register("heal_cooldown_ticks", Codec.INT);
 	public static final MemoryModuleType<Boolean> IS_PLAYER_NEARBY = register("is_player_nearby", Codec.BOOL);
 	public static final MemoryModuleType<Boolean> CAN_DIG = register("can_dig", Codec.BOOL);
+	public static final MemoryModuleType<Unit> FIRST_BRAIN_TICK = register("first_brain_tick");
 
 	@NotNull
 	private static <U> MemoryModuleType<U> register(String identifier, Codec<U> codec) {

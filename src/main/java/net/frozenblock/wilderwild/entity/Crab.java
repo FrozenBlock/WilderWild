@@ -70,7 +70,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.DynamicGameEventListener;
@@ -129,7 +128,8 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		MemoryModuleType.BREED_TARGET,
 		RegisterMemoryModuleTypes.IS_UNDERGROUND,
 		RegisterMemoryModuleTypes.NEARBY_CRABS,
-		RegisterMemoryModuleTypes.HEAL_COOLDOWN_TICKS
+		RegisterMemoryModuleTypes.HEAL_COOLDOWN_TICKS,
+		RegisterMemoryModuleTypes.FIRST_BRAIN_TICK
 	);
 	private static final int DIG_TICKS_UNTIL_PARTICLES = 17;
 	private static final int DIG_TICKS_UNTIL_STOP_PARTICLES = 82;
@@ -358,6 +358,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		CrabAi.updateActivity(this);
 		this.level().getProfiler().pop();
 		super.customServerAiStep();
+		this.getBrain().setMemory(RegisterMemoryModuleTypes.FIRST_BRAIN_TICK, Unit.INSTANCE);
 	}
 
 	@Nullable
