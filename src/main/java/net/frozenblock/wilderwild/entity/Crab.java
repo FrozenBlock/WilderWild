@@ -141,6 +141,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.BOOLEAN);
 	public final AnimationState diggingAnimationState = new AnimationState();
 	public final AnimationState emergingAnimationState = new AnimationState();
+	public final AnimationState hidingAnimationState = new AnimationState();
 	private final DynamicGameEventListener<VibrationSystem.Listener> dynamicGameEventListener;
 	private final VibrationSystem.User vibrationUser;
 	public float climbAnimX;
@@ -312,17 +313,17 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 				this.setTargetClimbAnimX(0F);
 			}
 			if (this.isDiggingOrEmerging()) {
-				this.setDiggingTicks(this.diggingTicks() + 1);
+				this.setDiggingTicks(this.getDiggingTicks() + 1);
 			}
 		} else {
 			switch (this.getPose()) {
 				case DIGGING -> {
-					if (this.diggingTicks() > DIG_TICKS_UNTIL_PARTICLES && this.diggingTicks() < DIG_TICKS_UNTIL_STOP_PARTICLES) {
+					if (this.getDiggingTicks() > DIG_TICKS_UNTIL_PARTICLES && this.getDiggingTicks() < DIG_TICKS_UNTIL_STOP_PARTICLES) {
 						this.clientDiggingParticles();
 					}
 				}
 				case EMERGING -> {
-					if (this.diggingTicks() >= EMERGE_TICKS_UNTIL_PARTICLES && this.diggingTicks() <= EMERGE_TICKS_UNTIL_STOP_PARTICLES) {
+					if (this.getDiggingTicks() >= EMERGE_TICKS_UNTIL_PARTICLES && this.getDiggingTicks() <= EMERGE_TICKS_UNTIL_STOP_PARTICLES) {
 						this.clientDiggingParticles();
 					}
 				}
@@ -425,7 +426,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	public boolean isInvisibleWhileUnderground() {
-		return this.hasPose(Pose.DIGGING) && this.diggingTicks() > DIG_LENGTH_IN_TICKS;
+		return this.hasPose(Pose.DIGGING) && this.getDiggingTicks() > DIG_LENGTH_IN_TICKS;
 	}
 
 	@Contract("null->false")
@@ -474,18 +475,27 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		if (DATA_POSE.equals(key)) {
 			switch (this.getPose()) {
 				case DIGGING -> {
-					this.emergingAnimationState.stop();
 					this.diggingAnimationState.start(this.tickCount);
+					this.emergingAnimationState.stop();
+					this.hidingAnimationState.stop();
 				}
 				case EMERGING -> {
 					this.diggingAnimationState.stop();
 					this.emergingAnimationState.start(this.tickCount);
+					this.hidingAnimationState.stop();
 				}
 				default -> {
 					this.diggingAnimationState.stop();
 					this.emergingAnimationState.stop();
+					this.hidingAnimationState.stop();
 				}
 
+			}
+		} else if (DIGGING_TICKS.equals(key) && this.getDiggingTicks() > DIG_LENGTH_IN_TICKS) {
+			if (this.getPose() == Pose.DIGGING) {
+				this.diggingAnimationState.stop();
+				this.emergingAnimationState.stop();
+				this.hidingAnimationState.start(this.tickCount);
 			}
 		}
 		super.onSyncedDataUpdated(key);
@@ -514,7 +524,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		this.entityData.set(TARGET_CLIMBING_ANIM_X, f);
 	}
 
-	public int diggingTicks() {
+	public int getDiggingTicks() {
 		return this.entityData.get(DIGGING_TICKS);
 	}
 
@@ -621,7 +631,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	public void addAdditionalSaveData(CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
 		compound.putBoolean("FromBucket", this.fromBucket());
-		compound.putInt("DigTicks", this.diggingTicks());
+		compound.putInt("DigTicks", this.getDiggingTicks());
 		VibrationSystem.Data.CODEC.encodeStart(NbtOps.INSTANCE, this.vibrationData).resultOrPartial(WilderSharedConstants.LOGGER::error).ifPresent(tag -> compound.put("listener", tag));
 		compound.putString("EntityPose", this.getPose().name());
 	}

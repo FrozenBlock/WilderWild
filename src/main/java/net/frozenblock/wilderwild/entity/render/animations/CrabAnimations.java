@@ -1125,4 +1125,94 @@ public final class CrabAnimations {
 					AnimationChannel.Interpolations.CATMULLROM),
 				new Keyframe(1.0416767f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
 					AnimationChannel.Interpolations.CATMULLROM))).build();
+
+	public static final AnimationDefinition CRAB_EMERGE_WAIT = AnimationDefinition.Builder.withLength(0.0f)
+		.addAnimation("body",
+			new AnimationChannel(AnimationChannel.Targets.POSITION,
+				new Keyframe(0f, KeyframeAnimations.posVec(0f, 0f, 0f),
+					AnimationChannel.Interpolations.LINEAR)))
+		.addAnimation("body",
+			new AnimationChannel(AnimationChannel.Targets.ROTATION,
+				new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
+					AnimationChannel.Interpolations.LINEAR)))
+		.addAnimation("left_claw",
+			new AnimationChannel(AnimationChannel.Targets.POSITION,
+				new Keyframe(0f, KeyframeAnimations.posVec(1f, -11f, -1f),
+					AnimationChannel.Interpolations.CATMULLROM)))
+		.addAnimation("left_claw",
+			new AnimationChannel(AnimationChannel.Targets.ROTATION,
+				new Keyframe(0f, KeyframeAnimations.degreeVec(106.46f, 24.89f, 223.04f),
+					AnimationChannel.Interpolations.CATMULLROM)))
+		.addAnimation("main_claw",
+			new AnimationChannel(AnimationChannel.Targets.POSITION,
+				new Keyframe(0f, KeyframeAnimations.posVec(-1f, -11f, 0f),
+					AnimationChannel.Interpolations.CATMULLROM)))
+		.addAnimation("main_claw",
+			new AnimationChannel(AnimationChannel.Targets.ROTATION,
+				new Keyframe(0f, KeyframeAnimations.degreeVec(106.46f, -24.89f, -223.04f),
+					AnimationChannel.Interpolations.CATMULLROM)))
+		.addAnimation("claw_top",
+			new AnimationChannel(AnimationChannel.Targets.POSITION,
+				new Keyframe(0f, KeyframeAnimations.posVec(0f, 0f, 0f),
+					AnimationChannel.Interpolations.LINEAR)))
+		.addAnimation("claw_top",
+			new AnimationChannel(AnimationChannel.Targets.ROTATION,
+				new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
+					AnimationChannel.Interpolations.LINEAR)))
+		.addAnimation("front_left_leg",
+			new AnimationChannel(AnimationChannel.Targets.POSITION,
+				new Keyframe(0f, KeyframeAnimations.posVec(0f, -9f, 0f),
+					AnimationChannel.Interpolations.CATMULLROM)))
+		.addAnimation("front_left_leg",
+			new AnimationChannel(AnimationChannel.Targets.ROTATION,
+				new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
+					AnimationChannel.Interpolations.CATMULLROM)))
+		.addAnimation("front_right_leg",
+			new AnimationChannel(AnimationChannel.Targets.POSITION,
+				new Keyframe(0f, KeyframeAnimations.posVec(0f, -9f, 0f),
+					AnimationChannel.Interpolations.CATMULLROM)))
+		.addAnimation("front_right_leg",
+			new AnimationChannel(AnimationChannel.Targets.ROTATION,
+				new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
+					AnimationChannel.Interpolations.CATMULLROM)))
+		.addAnimation("middle_left_leg",
+			new AnimationChannel(AnimationChannel.Targets.POSITION,
+				new Keyframe(0f, KeyframeAnimations.posVec(0f, -9f, 0f),
+					AnimationChannel.Interpolations.CATMULLROM)))
+		.addAnimation("middle_left_leg",
+			new AnimationChannel(AnimationChannel.Targets.ROTATION,
+				new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
+					AnimationChannel.Interpolations.CATMULLROM)))
+		.addAnimation("middle_right_leg",
+			new AnimationChannel(AnimationChannel.Targets.POSITION,
+				new Keyframe(0f, KeyframeAnimations.posVec(0f, -9f, 0f),
+					AnimationChannel.Interpolations.CATMULLROM)))
+		.addAnimation("middle_right_leg",
+			new AnimationChannel(AnimationChannel.Targets.ROTATION,
+				new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
+					AnimationChannel.Interpolations.CATMULLROM)))
+		.addAnimation("back_left_leg",
+			new AnimationChannel(AnimationChannel.Targets.POSITION,
+				new Keyframe(0f, KeyframeAnimations.posVec(0f, -9f, 0f),
+					AnimationChannel.Interpolations.CATMULLROM)))
+		.addAnimation("back_left_leg",
+			new AnimationChannel(AnimationChannel.Targets.ROTATION,
+				new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
+					AnimationChannel.Interpolations.CATMULLROM)))
+		.addAnimation("back_right_leg",
+			new AnimationChannel(AnimationChannel.Targets.POSITION,
+				new Keyframe(0f, KeyframeAnimations.posVec(0f, -9f, 0f),
+					AnimationChannel.Interpolations.CATMULLROM)))
+		.addAnimation("back_right_leg",
+			new AnimationChannel(AnimationChannel.Targets.ROTATION,
+				new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
+					AnimationChannel.Interpolations.CATMULLROM)))
+		.addAnimation("torso",
+			new AnimationChannel(AnimationChannel.Targets.POSITION,
+				new Keyframe(0f, KeyframeAnimations.posVec(0f, -9f, 0f),
+					AnimationChannel.Interpolations.CATMULLROM)))
+		.addAnimation("torso",
+			new AnimationChannel(AnimationChannel.Targets.ROTATION,
+				new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
+					AnimationChannel.Interpolations.CATMULLROM))).build();
 }

@@ -103,6 +103,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+		this.animate(entity.hidingAnimationState, CrabAnimations.CRAB_EMERGE_WAIT, ageInTicks);
 		this.animate(entity.diggingAnimationState, CrabAnimations.CRAB_DIG, ageInTicks);
 		this.animate(entity.emergingAnimationState, CrabAnimations.CRAB_EMERGE, ageInTicks);
 		bobClaw(this.main_claw, ageInTicks, 2F);
