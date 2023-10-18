@@ -249,9 +249,9 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			return true;
 		}
 		Holder<Biome> biome = level.getBiome(pos);
-		int randomBound = 1;
+		int randomBound = 30;
 		if (!biome.is(WilderBiomeTags.HAS_COMMON_CRAB)) {
-			randomBound = 1;
+			randomBound = 100;
 			if (getCrabs(level.getLevel()) >= type.getCategory().getMaxInstancesPerChunk() / 3) {
 				return false;
 			}
