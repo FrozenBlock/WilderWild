@@ -149,7 +149,7 @@ public final class CrabAi {
 				),
 				StartAttacking.create(CrabAi::findNearestValidAttackTarget),
 				new RunOne<>(
-					ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
+					ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT, RegisterMemoryModuleTypes.FIRST_BRAIN_TICK, MemoryStatus.VALUE_PRESENT),
 					ImmutableList.of(
 						Pair.of(RandomStroll.stroll(1F), 1),
 						Pair.of(new DoNothing(30, 100), 2)
