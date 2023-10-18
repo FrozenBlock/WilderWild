@@ -69,12 +69,13 @@ public class NaturalSpawnerMixin {
 	private static BlockPos.MutableBlockPos wilderWild$findFloorPos(ServerLevel level, int x, int startY, int z, int maxSearch) {
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos(x, startY, z);
 		BlockPos.MutableBlockPos mutableBlockPosBelow = new BlockPos.MutableBlockPos(x, startY, z);
-		for (int i = 0; i < maxSearch; i++) {
-			mutableBlockPos.move(Direction.DOWN);
-			mutableBlockPosBelow.set(mutableBlockPos).move(Direction.DOWN);
-			if (level.getBlockState(mutableBlockPosBelow).isSolid()) {
+		Direction moveDirection = level.getBlockState(mutableBlockPos).isSolid() ? Direction.UP : Direction.DOWN;
+		for (int i = 0; i < maxSearch + 1; i++) {
+			if (level.getBlockState(mutableBlockPosBelow).isSolid() && !level.getBlockState(mutableBlockPos).isSolid()) {
 				break;
 			}
+			mutableBlockPos.move(moveDirection);
+			mutableBlockPosBelow.set(mutableBlockPos).move(Direction.DOWN);
 		}
 		return mutableBlockPos;
 	}
