@@ -47,7 +47,7 @@ public class NaturalSpawnerMixin {
 	)
 	private static BlockPos.MutableBlockPos wilderWild$spawnCategoryForPosition(BlockPos.MutableBlockPos mutableBlockPos, int x, int y, int z, Operation<BlockPos.MutableBlockPos> operation, MobCategory category, ServerLevel level, ChunkAccess chunk, BlockPos pos, NaturalSpawner.SpawnPredicate filter, NaturalSpawner.AfterSpawnCallback callback) {
 		if (category.getName().equals("wilderwildcrab")) {
-			wilderWild$mutableCrabPos = wilderWild$findFloorPos(level, x, y, z, 12);
+			wilderWild$mutableCrabPos = wilderWild$findFloorPos(level, x, y, z, 11);
 			return mutableBlockPos.set(wilderWild$mutableCrabPos.getX(), wilderWild$mutableCrabPos.getY(), wilderWild$mutableCrabPos.getZ());
 		}
 		wilderWild$mutableCrabPos = null;
@@ -71,9 +71,9 @@ public class NaturalSpawnerMixin {
 	private static BlockPos wilderWild$findFloorPos(ServerLevel level, int x, int startY, int z, int maxSearch) {
 		BlockPos original = new BlockPos(x, startY, z);
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos(x, startY, z);
-		BlockPos.MutableBlockPos mutableBlockPosBelow = new BlockPos.MutableBlockPos(x, startY, z);
-		Direction moveDirection = level.getBlockState(mutableBlockPos).isSolid() ? Direction.UP : Direction.DOWN;
-		BlockState inBlockState;
+		BlockPos.MutableBlockPos mutableBlockPosBelow = new BlockPos.MutableBlockPos(x, startY, z).move(Direction.DOWN);
+		BlockState inBlockState = level.getBlockState(mutableBlockPos);
+		Direction moveDirection = !(inBlockState.isAir() || inBlockState.is(Blocks.WATER)) ? Direction.UP : Direction.DOWN;
 		for (int i = 0; i < maxSearch; i++) {
 			inBlockState = level.getBlockState(mutableBlockPos);
 			if (level.getBlockState(mutableBlockPosBelow).isSolid() && (inBlockState.isAir() || inBlockState.is(Blocks.WATER))) {
