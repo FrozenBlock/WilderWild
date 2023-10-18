@@ -68,6 +68,7 @@ import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
@@ -210,7 +211,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			return spawnData;
 		}
 		if (spawnData instanceof CrabGroupData crabGroupData) {
-			if (crabGroupData.getGroupSize() >= 2 && random.nextFloat() <= 0.4F) {
+			if (crabGroupData.getGroupSize() >= 2) {
 				this.setAge(-24000);
 			}
 		} else {
@@ -234,6 +235,11 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		return count.get();
 	}
 
+	@Override
+	public float getWalkTargetValue(BlockPos pos, LevelReader level) {
+		return 0.0f;
+	}
+
 	public static void clearLevelToCrabCount() {
 		CRABS_PER_LEVEL.clear();
 	}
@@ -243,9 +249,9 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			return true;
 		}
 		Holder<Biome> biome = level.getBiome(pos);
-		int randomBound = 20;
+		int randomBound = 1;
 		if (!biome.is(WilderBiomeTags.HAS_COMMON_CRAB)) {
-			randomBound = 50;
+			randomBound = 1;
 			if (getCrabs(level.getLevel()) >= type.getCategory().getMaxInstancesPerChunk() / 3) {
 				return false;
 			}

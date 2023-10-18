@@ -36,7 +36,6 @@
     "entity.boat.BoatDropsMixin",
     "entity.boat.BoatTypeMixin",
     "entity.boat.ChestBoatDropsMixin",
-    "entity.crab.NaturalSpawnerMixin",
     "entity.crab.VibrationSystemTickerMixin",
     "entity.crab.WallClimberNavigationMixin",
     "entity.easter.EntityMixin",
