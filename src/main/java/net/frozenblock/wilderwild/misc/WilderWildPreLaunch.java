@@ -20,10 +20,15 @@ package net.frozenblock.wilderwild.misc;
 
 import com.llamalad7.mixinextras.MixinExtrasBootstrap;
 import net.fabricmc.loader.api.entrypoint.PreLaunchEntrypoint;
+import net.frozenblock.lib.config.api.instance.ConfigModification;
+import net.frozenblock.lib.config.api.registry.ConfigRegistry;
+import net.frozenblock.lib.config.frozenlib_config.FrozenLibConfig;
 
 public class WilderWildPreLaunch implements PreLaunchEntrypoint {
 	@Override
 	public void onPreLaunch() {
 		MixinExtrasBootstrap.init();
+		// replace this with a config option at some point
+		ConfigRegistry.register(FrozenLibConfig.INSTANCE, new ConfigModification<>(config -> config.saveItemCooldowns = true));
 	}
 }
