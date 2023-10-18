@@ -50,7 +50,6 @@
     "entity.slime.SpawnPlacementsMixin",
     "entity.tumbleweed.EntityMixin",
     "entity.turtle.TurtleMixin",
-    "heightmap.HeightmapTypesMixin",
     "item.axe.AxeItemMixin",
     "item.brush.BrushItemMixin",
     "item.instrument.InstrumentItemMixin",

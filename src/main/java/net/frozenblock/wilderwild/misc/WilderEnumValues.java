@@ -19,17 +19,14 @@
 package net.frozenblock.wilderwild.misc;
 
 import net.minecraft.world.entity.vehicle.Boat;
-import net.minecraft.world.level.levelgen.Heightmap;
 
 public final class WilderEnumValues {
-	public static Heightmap.Types OCEAN_FLOOR_NO_LEAVES;
 	public static Boat.Type BAOBAB;
 	public static Boat.Type CYPRESS;
 	public static Boat.Type PALM;
 
 	//CREDIT TO nyuppo/fabric-boat-example ON GITHUB
 	static {
-		Heightmap.Types.values();
 		Boat.Type.values();
 	}
 
