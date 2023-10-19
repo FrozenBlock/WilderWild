@@ -197,6 +197,7 @@ public final class CrabAi {
 		if (crab.getTarget() == target) {
 			crab.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
 		}
+		crab.endNavigation();
 	}
 
 	@NotNull

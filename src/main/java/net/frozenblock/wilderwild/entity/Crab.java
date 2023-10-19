@@ -38,6 +38,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.Unit;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -424,6 +425,11 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@Override
+	public boolean isPushedByFluid() {
+		return false;
+	}
+
+	@Override
 	public boolean ignoreExplosion() {
 		return this.isDiggingOrEmerging();
 	}
@@ -440,6 +446,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	public boolean canTargetEntity(@Nullable Entity entity) {
 		return entity instanceof LivingEntity livingEntity
 			&& this.level() == livingEntity.level()
+			&& !this.level().getDifficulty().equals(Difficulty.PEACEFUL)
 			&& EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)
 			&& !this.isAlliedTo(livingEntity)
 			&& livingEntity.getType() != EntityType.ARMOR_STAND
