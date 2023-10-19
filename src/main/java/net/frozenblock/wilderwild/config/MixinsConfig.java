@@ -18,17 +18,17 @@
 
 package net.frozenblock.wilderwild.config;
 
-import blue.endless.jankson.Comment;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
+import net.frozenblock.lib.shadow.blue.endless.jankson.Comment;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.MOD_ID;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.configPath;
 
 public final class MixinsConfig {
 
-	private static final Config<MixinsConfig> INSTANCE = ConfigRegistry.register(
+	public static final Config<MixinsConfig> INSTANCE = ConfigRegistry.register(
 		new JsonConfig<>(
 			MOD_ID,
 			MixinsConfig.class,

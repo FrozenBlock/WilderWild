@@ -24,6 +24,7 @@ import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.config.ItemConfig;
 import net.frozenblock.wilderwild.config.MiscConfig;
+import net.frozenblock.wilderwild.config.MixinsConfig;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.text;
 import net.minecraft.client.gui.screens.Screen;
@@ -32,11 +33,12 @@ public final class MainConfigGui {
 	public static Screen buildScreen(Screen parent) {
 		var configBuilder = ConfigBuilder.create().setParentScreen(parent).setTitle(text("component.title"));
 		configBuilder.setSavingRunnable(() -> {
-			BlockConfig.getConfigInstance().save();
-			EntityConfig.getConfigInstance().save();
-			ItemConfig.getConfigInstance().save();
-			MiscConfig.getConfigInstance().save();
-			WorldgenConfig.getConfigInstance().save();
+			BlockConfig.INSTANCE.save();
+			EntityConfig.INSTANCE.save();
+			ItemConfig.INSTANCE.save();
+			MiscConfig.INSTANCE.save();
+			MixinsConfig.INSTANCE.save();
+			WorldgenConfig.INSTANCE.save();
 		});
 		var block = configBuilder.getOrCreateCategory(text("block"));
 		var entity = configBuilder.getOrCreateCategory(text("entity"));

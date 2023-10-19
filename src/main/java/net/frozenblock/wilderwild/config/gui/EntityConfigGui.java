@@ -24,7 +24,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
 import net.frozenblock.wilderwild.config.EntityConfig;
-import net.frozenblock.wilderwild.config.defaults.DefaultEntityConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.text;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.tooltip;
@@ -36,7 +35,8 @@ public final class EntityConfigGui {
 	}
 
 	public static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
-		var config = EntityConfig.get();
+		var config = EntityConfig.get(true);
+		var defaultConfig = EntityConfig.INSTANCE.defaultInstance();
 		var allay = config.allay;
 		var enderMan = config.enderMan;
 		var firefly = config.firefly;
@@ -46,14 +46,14 @@ public final class EntityConfigGui {
 		var warden = config.warden;
 		category.setBackground(WilderSharedConstants.id("textures/config/entity.png"));
 		var unpassableRail = category.addEntry(entryBuilder.startBooleanToggle(text("unpassable_rail"), config.unpassableRail)
-			.setDefaultValue(DefaultEntityConfig.UNPASSABLE_RAIL)
+			.setDefaultValue(defaultConfig.unpassableRail)
 			.setSaveConsumer(newValue -> config.unpassableRail = newValue)
 			.setTooltip(tooltip("unpassable_rail"))
 			.requireRestart()
 			.build());
 
 		var keyframeAllayDance = entryBuilder.startBooleanToggle(text("keyframe_allay_dance"), allay.keyframeAllayDance)
-			.setDefaultValue(DefaultEntityConfig.AllayConfig.KEYFRAME_ALLAY_DANCE)
+			.setDefaultValue(defaultConfig.allay.keyframeAllayDance)
 			.setSaveConsumer(newValue -> allay.keyframeAllayDance = newValue)
 			.setTooltip(tooltip("keyframe_allay_dance"))
 			.requireRestart()
@@ -66,12 +66,12 @@ public final class EntityConfigGui {
 		);
 
 		var angerLoopSound = entryBuilder.startBooleanToggle(text("anger_loop_sound"), enderMan.angerLoopSound)
-			.setDefaultValue(DefaultEntityConfig.EnderManConfig.ANGER_LOOP_SOUND)
+			.setDefaultValue(defaultConfig.enderMan.angerLoopSound)
 			.setSaveConsumer(newValue -> enderMan.angerLoopSound = newValue)
 			.setTooltip(tooltip("anger_loop_sound"))
 			.build();
 		var movingStareSound = entryBuilder.startBooleanToggle(text("moving_stare_sound"), enderMan.movingStareSound)
-			.setDefaultValue(DefaultEntityConfig.EnderManConfig.MOVING_STARE_SOUND)
+			.setDefaultValue(defaultConfig.enderMan.movingStareSound)
 			.setSaveConsumer(newValue -> enderMan.movingStareSound = newValue)
 			.setTooltip(tooltip("moving_stare_sound"))
 			.build();
@@ -83,7 +83,7 @@ public final class EntityConfigGui {
 		);
 
 		var fireflySpawnCap = entryBuilder.startIntSlider(text("firefly_spawn_cap"), firefly.fireflySpawnCap, 0, 100)
-			.setDefaultValue(DefaultEntityConfig.FireflyConfig.FIREFLY_SPAWN_CAP)
+			.setDefaultValue(defaultConfig.firefly.fireflySpawnCap)
 			.setSaveConsumer(newValue -> firefly.fireflySpawnCap = newValue)
 			.setTooltip(tooltip("firefly_spawn_cap"))
 			.requireRestart()
@@ -96,14 +96,14 @@ public final class EntityConfigGui {
 		);
 
 		var jellyfishSpawnCap = entryBuilder.startIntSlider(text("jellyfish_spawn_cap"), jellyfish.jellyfishSpawnCap, 0, 100)
-			.setDefaultValue(DefaultEntityConfig.JellyfishConfig.JELLYFISH_SPAWN_CAP)
+			.setDefaultValue(defaultConfig.jellyfish.jellyfishSpawnCap)
 			.setSaveConsumer(newValue -> jellyfish.jellyfishSpawnCap = newValue)
 			.setTooltip(tooltip("jellyfish_spawn_cap"))
 			.requireRestart()
 			.build();
 
 		var jellyfishTentacles = entryBuilder.startIntSlider(text("jellyfish_tentacles"), jellyfish.jellyfishTentacles, 0, 100)
-			.setDefaultValue(DefaultEntityConfig.JellyfishConfig.JELLYFISH_TENTACLES)
+			.setDefaultValue(defaultConfig.jellyfish.jellyfishTentacles)
 			.setSaveConsumer(newValue -> jellyfish.jellyfishTentacles = newValue)
 			.setTooltip(tooltip("jellyfish_tentacles"))
 			.requireRestart()
@@ -130,26 +130,26 @@ public final class EntityConfigGui {
 		);
 
 		var tumbleweedSpawnCap = entryBuilder.startIntSlider(text("tumbleweed_spawn_cap"), tumbleweed.tumbleweedSpawnCap, 0, 100)
-			.setDefaultValue(DefaultEntityConfig.TumbleweedConfig.TUMBLEWEED_SPAWN_CAP)
+			.setDefaultValue(defaultConfig.tumbleweed.tumbleweedSpawnCap)
 			.setSaveConsumer(newValue -> tumbleweed.tumbleweedSpawnCap = newValue)
 			.setTooltip(tooltip("tumbleweed_spawn_cap"))
 			.requireRestart()
 			.build();
 
 		var leashedTumbleweed = entryBuilder.startBooleanToggle(text("leashed_tumbleweed"), tumbleweed.leashedTumbleweed)
-			.setDefaultValue(DefaultEntityConfig.TumbleweedConfig.LEASHED_TUMBLEWEED)
+			.setDefaultValue(defaultConfig.tumbleweed.leashedTumbleweed)
 			.setSaveConsumer(newValue -> tumbleweed.leashedTumbleweed = newValue)
 			.setTooltip(tooltip("leashed_tumbleweed"))
 			.build();
 
 		var tumbleweedDestroysCrops = entryBuilder.startBooleanToggle(text("tumbleweed_destroys_crops"), tumbleweed.tumbleweedDestroysCrops)
-			.setDefaultValue(DefaultEntityConfig.TumbleweedConfig.TUMBLEWEED_DESTROYS_CROPS)
+			.setDefaultValue(defaultConfig.tumbleweed.tumbleweedDestroysCrops)
 			.setSaveConsumer(newValue -> tumbleweed.tumbleweedDestroysCrops = newValue)
 			.setTooltip(tooltip("tumbleweed_destroys_crops"))
 			.build();
 
 		var tumbleweedRotatesToLookDirection = entryBuilder.startBooleanToggle(text("tumbleweed_rotates_to_look_direction"), tumbleweed.tumbleweedRotatesToLookDirection)
-			.setDefaultValue(DefaultEntityConfig.TumbleweedConfig.TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION)
+			.setDefaultValue(defaultConfig.tumbleweed.tumbleweedRotatesToLookDirection)
 			.setSaveConsumer(newValue -> tumbleweed.tumbleweedRotatesToLookDirection = newValue)
 			.setTooltip(tooltip("tumbleweed_rotates_to_look_direction"))
 			.build();
@@ -165,38 +165,38 @@ public final class EntityConfigGui {
 
 
 		var instantAttack = entryBuilder.startBooleanToggle(text("warden_attacks_immediately"), warden.wardenAttacksImmediately)
-			.setDefaultValue(DefaultEntityConfig.WardenConfig.WARDEN_ATTACKS_IMMEDIATELY)
+			.setDefaultValue(defaultConfig.warden.wardenAttacksImmediately)
 			.setSaveConsumer(newValue -> warden.wardenAttacksImmediately = newValue)
 			.setTooltip(tooltip("warden_attacks_immediately"))
 			.build();
 		var dying = entryBuilder.startBooleanToggle(text("warden_dying_animation"), warden.wardenDyingAnimation)
-			.setDefaultValue(DefaultEntityConfig.WardenConfig.WARDEN_DYING_ANIMATION)
+			.setDefaultValue(defaultConfig.warden.wardenDyingAnimation)
 			.setSaveConsumer(newValue -> warden.wardenDyingAnimation = newValue)
 			.setTooltip(tooltip("warden_dying_animation"))
 			.build();
 		var command = entryBuilder.startBooleanToggle(text("warden_emerges_from_command"), warden.wardenEmergesFromCommand)
-			.setDefaultValue(DefaultEntityConfig.WardenConfig.WARDEN_EMERGES_FROM_COMMAND)
+			.setDefaultValue(defaultConfig.warden.wardenEmergesFromCommand)
 			.setSaveConsumer(newValue -> warden.wardenEmergesFromCommand = newValue)
 			.setTooltip(tooltip("warden_emerges_from_command"))
 			.build();
 		var egg = entryBuilder.startBooleanToggle(text("warden_emerges_from_egg"), warden.wardenEmergesFromEgg)
-			.setDefaultValue(DefaultEntityConfig.WardenConfig.WARDEN_EMERGES_FROM_EGG)
+			.setDefaultValue(defaultConfig.warden.wardenEmergesFromEgg)
 			.setSaveConsumer(newValue -> warden.wardenEmergesFromEgg = newValue)
 			.setTooltip(tooltip("warden_emerges_from_egg"))
 			.build();
 		var swimming = entryBuilder.startBooleanToggle(text("warden_swim_animation"), warden.wardenSwimAnimation)
-			.setDefaultValue(DefaultEntityConfig.WardenConfig.WARDEN_SWIM_ANIMATION)
+			.setDefaultValue(defaultConfig.warden.wardenSwimAnimation)
 			.setSaveConsumer(newValue -> warden.wardenSwimAnimation = newValue)
 			.setTooltip(tooltip("warden_swim_animation"))
 			.build();
 		var tendrils = entryBuilder.startBooleanToggle(text("warden_custom_tendrils"), warden.wardenCustomTendrils)
-			.setDefaultValue(DefaultEntityConfig.WardenConfig.WARDEN_CUSTOM_TENDRILS)
+			.setDefaultValue(defaultConfig.warden.wardenCustomTendrils)
 			.setSaveConsumer(newValue -> warden.wardenCustomTendrils = newValue)
 			.setYesNoTextSupplier(bool -> text("warden_custom_tendrils." + bool))
 			.setTooltip(tooltip("warden_custom_tendrils"))
 			.build();
 		var sniff = entryBuilder.startBooleanToggle(text("warden_bedrock_sniff"), warden.wardenBedrockSniff)
-			.setDefaultValue(DefaultEntityConfig.WardenConfig.WARDEN_BEDROCK_SNIFF)
+			.setDefaultValue(defaultConfig.warden.wardenBedrockSniff)
 			.setSaveConsumer(newValue -> warden.wardenBedrockSniff = newValue)
 			.setYesNoTextSupplier(bool -> text("warden_bedrock_sniff." + bool))
 			.setTooltip(tooltip("warden_bedrock_sniff"))

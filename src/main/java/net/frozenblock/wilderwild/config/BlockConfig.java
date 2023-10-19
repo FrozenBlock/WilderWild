@@ -23,13 +23,12 @@ import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
-import net.frozenblock.wilderwild.config.defaults.DefaultBlockConfig;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.MOD_ID;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.configPath;
 
 public final class BlockConfig {
 
-	private static final Config<BlockConfig> INSTANCE = ConfigRegistry.register(
+	public static final Config<BlockConfig> INSTANCE = ConfigRegistry.register(
 		new JsonConfig<>(
 			MOD_ID,
 			BlockConfig.class,
@@ -50,69 +49,70 @@ public final class BlockConfig {
 	@CollapsibleObject
 	public final MesogleaConfig mesoglea = new MesogleaConfig();
 
+	public boolean shriekerGargling = true;
 
-	public boolean shriekerGargling = DefaultBlockConfig.SHRIEKER_GARGLING;
+	public boolean soulFireSounds = true;
 
-	public boolean soulFireSounds = DefaultBlockConfig.SOUL_FIRE_SOUNDS;
+	public boolean billboardTendrils = true;
 
-	public boolean billboardTendrils = DefaultBlockConfig.BILLBOARD_TENDRILS;
+	public boolean tendrilsCarryEvents = false;
 
-	public boolean tendrilsCarryEvents = DefaultBlockConfig.TENDRILS_CARRY_EVENTS;
+	public boolean pollenParticles = true;
 
-	public boolean pollenParticles = DefaultBlockConfig.POLLEN_PARTICLES;
+	public boolean logHollowing = true;
 
-	public boolean logHollowing = DefaultBlockConfig.LOG_HOLLOWING;
-
-	public boolean cactusPlacement = DefaultBlockConfig.CACTUS_PLACEMENT;
+	public boolean cactusPlacement = true;
 
 	public static BlockConfig get() {
+		return get(false);
+	}
+
+	public static BlockConfig get(boolean real) {
+		if (real)
+			return INSTANCE.instance();
 		return INSTANCE.config();
 	}
 
-	public static Config<BlockConfig> getConfigInstance() {
-		return INSTANCE;
-	}
-
 	public static class BlockSoundsConfig {
-		public boolean cactusSounds = DefaultBlockConfig.BlockSoundsConfig.CACTUS_SOUNDS;
+		public boolean cactusSounds = true;
 
-		public boolean claySounds = DefaultBlockConfig.BlockSoundsConfig.CLAY_SOUNDS;
+		public boolean claySounds = true;
 
-		public boolean coarseDirtSounds = DefaultBlockConfig.BlockSoundsConfig.COARSE_DIRT_SOUNDS;
+		public boolean coarseDirtSounds = true;
 
-		public boolean cobwebSounds = DefaultBlockConfig.BlockSoundsConfig.COBWEB_SOUNDS;
+		public boolean cobwebSounds = true;
 
-		public boolean deadBushSounds = DefaultBlockConfig.BlockSoundsConfig.DEAD_BUSH_SOUNDS;
+		public boolean deadBushSounds = true;
 
-		public boolean flowerSounds = DefaultBlockConfig.BlockSoundsConfig.FLOWER_SOUNDS;
+		public boolean flowerSounds = true;
 
-		public boolean saplingSounds = DefaultBlockConfig.BlockSoundsConfig.SAPLING_SOUNDS;
+		public boolean saplingSounds = true;
 
-		public boolean iceSounds = DefaultBlockConfig.BlockSoundsConfig.ICE_SOUNDS;
+		public boolean iceSounds = true;
 
-		public boolean frostedIceSounds = DefaultBlockConfig.BlockSoundsConfig.FROSTED_ICE_SOUNDS;
+		public boolean frostedIceSounds = true;
 
-		public boolean gravelSounds = DefaultBlockConfig.BlockSoundsConfig.GRAVEL_SOUNDS;
+		public boolean gravelSounds = true;
 
-		public boolean leafSounds = DefaultBlockConfig.BlockSoundsConfig.LEAF_SOUNDS;
+		public boolean leafSounds = true;
 
-		public boolean lilyPadSounds = DefaultBlockConfig.BlockSoundsConfig.LILY_PAD_SOUNDS;
+		public boolean lilyPadSounds = true;
 
-		public boolean mushroomBlockSounds = DefaultBlockConfig.BlockSoundsConfig.MUSHROOM_BLOCK_SOUNDS;
+		public boolean mushroomBlockSounds = true;
 
-		public boolean podzolSounds = DefaultBlockConfig.BlockSoundsConfig.PODZOL_SOUNDS;
+		public boolean podzolSounds = true;
 
-		public boolean reinforcedDeepslateSounds = DefaultBlockConfig.BlockSoundsConfig.REINFORCED_DEEPSLATE_SOUNDS;
+		public boolean reinforcedDeepslateSounds = true;
 
-		public boolean sandstoneSounds = DefaultBlockConfig.BlockSoundsConfig.SANDSTONE_SOUNDS;
+		public boolean sandstoneSounds = true;
 
-		public boolean sugarCaneSounds = DefaultBlockConfig.BlockSoundsConfig.SUGAR_CANE_SOUNDS;
+		public boolean sugarCaneSounds = true;
 
-		public boolean witherRoseSounds = DefaultBlockConfig.BlockSoundsConfig.WITHER_ROSE_SOUNDS;
+		public boolean witherRoseSounds = true;
 	}
 
 	public static class StoneChestConfig {
-		public int stoneChestTimer = DefaultBlockConfig.StoneChestConfig.STONE_CHEST_TIMER;
+		public int stoneChestTimer = 100;
 
 		public double getStoneChestTimer() {
 			return ((double) this.stoneChestTimer) * 0.01;
@@ -120,13 +120,13 @@ public final class BlockConfig {
 	}
 
 	public static class TermiteConfig {
-		public boolean onlyEatNaturalBlocks = DefaultBlockConfig.TermiteConfig.ONLY_EAT_NATURAL_BLOCKS;
-		public int maxDistance = DefaultBlockConfig.TermiteConfig.MAX_DISTANCE;
-		public int maxNaturalDistance = DefaultBlockConfig.TermiteConfig.MAX_NATURAL_DISTANCE;
+		public boolean onlyEatNaturalBlocks = true;
+		public int maxDistance = 32;
+		public int maxNaturalDistance = 10;
 	}
 
 	public static class MesogleaConfig {
-		public boolean mesogleaLiquid = DefaultBlockConfig.MesogleaConfig.MESOGLEA_LIQUID;
-		public boolean mesogleaBubbleColumns = DefaultBlockConfig.MesogleaConfig.MESOGLEA_BUBBLE_COLUMNS;
+		public boolean mesogleaLiquid = false;
+		public boolean mesogleaBubbleColumns = true;
 	}
 }
