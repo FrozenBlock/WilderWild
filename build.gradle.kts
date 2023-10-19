@@ -234,10 +234,10 @@ dependencies {
     modApi("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
 
     // Mod Menu
-    modImplementation("com.terraformersmc:modmenu:$modmenu_version")
+    modApi("com.terraformersmc:modmenu:$modmenu_version")
 
     // Cloth Config
-    modImplementation("me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version") {
+    modApi("me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version") {
         exclude(group = "net.fabricmc.fabric-api")
         exclude(group = "com.terraformersmc")
     }

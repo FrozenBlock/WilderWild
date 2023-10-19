@@ -1,7 +1,10 @@
 {
   "replace": false,
   "values": [
-    "#wilderwild:mesoglea",
+    {
+      "id": "#wilderwild:mesoglea",
+      "required": false
+    },
     "wilderwild:scorched_sand",
     "wilderwild:scorched_red_sand",
     "wilderwild:termite_mound"

@@ -23,13 +23,13 @@ import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
-import net.frozenblock.wilderwild.config.defaults.DefaultItemConfig;
+import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.MOD_ID;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.configPath;
 
 public final class ItemConfig {
 
-	private static final Config<ItemConfig> INSTANCE = ConfigRegistry.register(
+	public static final Config<ItemConfig> INSTANCE = ConfigRegistry.register(
 		new JsonConfig<>(
 			MOD_ID,
 			ItemConfig.class,
@@ -44,31 +44,33 @@ public final class ItemConfig {
 	@CollapsibleObject
 	public final ProjectileLandingSoundsConfig projectileLandingSounds = new ProjectileLandingSoundsConfig();
 
-	public boolean projectileBreakParticles = DefaultItemConfig.PROJECTILE_BREAK_PARTICLES;
+	public boolean projectileBreakParticles = true;
 
-	public boolean restrictInstrumentSound = DefaultItemConfig.RESTRICT_INSTRUMENT_SOUND;
+	public boolean restrictInstrumentSound = true;
 
 	public static ItemConfig get() {
+		return get(false);
+	}
+
+	public static ItemConfig get(boolean real) {
+		if (real)
+			return INSTANCE.instance();
 		return INSTANCE.config();
 	}
 
-	public static Config<ItemConfig> getConfigInstance() {
-		return INSTANCE;
-	}
-
 	public static class AncientHornConfig {
-		public boolean ancientHornCanSummonWarden = DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_CAN_SUMMON_WARDEN;
-		public int ancientHornLifespan = DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_LIFESPAN;
-		public int ancientHornMobDamage = DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_MOB_DAMAGE;
-		public int ancientHornPlayerDamage = DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_PLAYER_DAMAGE;
-		public boolean ancientHornShattersGlass = DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_SHATTERS_GLASS;
-		public float ancientHornSizeMultiplier = DefaultItemConfig.AncientHornConfig.ANCIENT_HORN_SIZE_MULTIPLIER;
+		public boolean ancientHornCanSummonWarden = true;
+		public int ancientHornLifespan = AncientHornProjectile.DEFAULT_LIFESPAN;
+		public int ancientHornMobDamage = 22;
+		public int ancientHornPlayerDamage = 15;
+		public boolean ancientHornShattersGlass = false;
+		public float ancientHornSizeMultiplier = 0F;
 	}
 
 	public static class ProjectileLandingSoundsConfig {
-		public boolean snowballLandingSounds = DefaultItemConfig.ProjectileLandingSoundsConfig.SNOWBALL_LANDING_SOUNDS;
-		public boolean eggLandingSounds = DefaultItemConfig.ProjectileLandingSoundsConfig.EGG_LANDING_SOUNDS;
-		public boolean enderPearlLandingSounds = DefaultItemConfig.ProjectileLandingSoundsConfig.ENDER_PEARL_LANDING_SOUNDS;
-		public boolean potionLandingSounds = DefaultItemConfig.ProjectileLandingSoundsConfig.POTION_LANDING_SOUNDS;
+		public boolean snowballLandingSounds = true;
+		public boolean eggLandingSounds = true;
+		public boolean enderPearlLandingSounds = true;
+		public boolean potionLandingSounds = true;
 	}
 }

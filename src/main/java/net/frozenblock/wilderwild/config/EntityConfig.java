@@ -24,13 +24,12 @@ import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
-import net.frozenblock.wilderwild.config.defaults.DefaultEntityConfig;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.MOD_ID;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.configPath;
 
 public final class EntityConfig {
 
-	private static final Config<EntityConfig> INSTANCE = ConfigRegistry.register(
+	public static final Config<EntityConfig> INSTANCE = ConfigRegistry.register(
 		new JsonConfig<>(
 			MOD_ID,
 			EntityConfig.class,
@@ -57,48 +56,50 @@ public final class EntityConfig {
 	@CollapsibleObject
 	public final WardenConfig warden = new WardenConfig();
 
-	public boolean unpassableRail = DefaultEntityConfig.UNPASSABLE_RAIL;
+	public boolean unpassableRail = false;
 
 	public static EntityConfig get() {
+		return get(false);
+	}
+
+	public static EntityConfig get(boolean real) {
+		if (real)
+			return INSTANCE.instance();
 		return INSTANCE.config();
 	}
 
-	public static Config<EntityConfig> getConfigInstance() {
-		return INSTANCE;
-	}
-
 	public static class AllayConfig {
-		public boolean keyframeAllayDance = DefaultEntityConfig.AllayConfig.KEYFRAME_ALLAY_DANCE;
+		public boolean keyframeAllayDance = true;
 	}
 
 	public static class EnderManConfig {
-		public boolean angerLoopSound = DefaultEntityConfig.EnderManConfig.ANGER_LOOP_SOUND;
-		public boolean movingStareSound = DefaultEntityConfig.EnderManConfig.MOVING_STARE_SOUND;
+		public boolean angerLoopSound = true;
+		public boolean movingStareSound = true;
 	}
 
 	public static class FireflyConfig {
-		public int fireflySpawnCap = DefaultEntityConfig.FireflyConfig.FIREFLY_SPAWN_CAP;
+		public int fireflySpawnCap = 56;
 	}
 
 	public static class JellyfishConfig {
-		public int jellyfishSpawnCap = DefaultEntityConfig.JellyfishConfig.JELLYFISH_SPAWN_CAP;
-		public int jellyfishTentacles = DefaultEntityConfig.JellyfishConfig.JELLYFISH_TENTACLES;
+		public int jellyfishSpawnCap = 30;
+		public int jellyfishTentacles = 8;
 	}
 
 	public static class TumbleweedConfig {
-		public int tumbleweedSpawnCap = DefaultEntityConfig.TumbleweedConfig.TUMBLEWEED_SPAWN_CAP;
-		public boolean leashedTumbleweed = DefaultEntityConfig.TumbleweedConfig.LEASHED_TUMBLEWEED;
-		public boolean tumbleweedDestroysCrops = DefaultEntityConfig.TumbleweedConfig.TUMBLEWEED_DESTROYS_CROPS;
-		public boolean tumbleweedRotatesToLookDirection = DefaultEntityConfig.TumbleweedConfig.TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION;
+		public int tumbleweedSpawnCap = 10;
+		public boolean leashedTumbleweed = false;
+		public boolean tumbleweedDestroysCrops = true;
+		public boolean tumbleweedRotatesToLookDirection = false;
 	}
 
 	public static class WardenConfig {
-		public boolean wardenAttacksImmediately = DefaultEntityConfig.WardenConfig.WARDEN_ATTACKS_IMMEDIATELY;
-		public boolean wardenCustomTendrils = DefaultEntityConfig.WardenConfig.WARDEN_CUSTOM_TENDRILS;
-		public boolean wardenBedrockSniff = DefaultEntityConfig.WardenConfig.WARDEN_BEDROCK_SNIFF;
-		public boolean wardenDyingAnimation = DefaultEntityConfig.WardenConfig.WARDEN_DYING_ANIMATION;
-		public boolean wardenEmergesFromCommand = DefaultEntityConfig.WardenConfig.WARDEN_EMERGES_FROM_COMMAND;
-		public boolean wardenEmergesFromEgg = DefaultEntityConfig.WardenConfig.WARDEN_EMERGES_FROM_EGG;
-		public boolean wardenSwimAnimation = DefaultEntityConfig.WardenConfig.WARDEN_SWIM_ANIMATION;
+		public boolean wardenAttacksImmediately = true;
+		public boolean wardenCustomTendrils = true;
+		public boolean wardenBedrockSniff = true;
+		public boolean wardenDyingAnimation = true;
+		public boolean wardenEmergesFromCommand = false;
+		public boolean wardenEmergesFromEgg = false;
+		public boolean wardenSwimAnimation = true;
 	}
 }
