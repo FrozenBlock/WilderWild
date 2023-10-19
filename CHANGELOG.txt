@@ -15,3 +15,4 @@ What's new:
     - Can be scooped up in Buckets.
 - Fixed Jellyfish no longer spawning in Jellyfish Caves.
 - Slightly optimized Rainbow Jellyfish rendering.
+- Added a translation string for Coconut projectiles.

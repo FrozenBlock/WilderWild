@@ -1,3 +1,21 @@
+/*
+ * Copyright 2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.entity.ai.crab;
 
 import com.google.common.collect.ImmutableList;
@@ -13,6 +31,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
+import org.jetbrains.annotations.NotNull;
 
 public class CrabSpecificSensor extends Sensor<LivingEntity> {
 	@Override
@@ -21,7 +40,7 @@ public class CrabSpecificSensor extends Sensor<LivingEntity> {
 	}
 
 	@Override
-	protected void doTick(ServerLevel level, LivingEntity entity) {
+	protected void doTick(ServerLevel level, @NotNull LivingEntity entity) {
 		Brain<?> brain = entity.getBrain();
 		ArrayList<Crab> crabs = Lists.newArrayList();
 		List<LivingEntity> entities = brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).orElse(ImmutableList.of());

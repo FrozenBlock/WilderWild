@@ -63,7 +63,6 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 		return RegisterItems.COCONUT;
 	}
 
-
 	@Override
 	public void handleEntityEvent(byte id) {
 		if (id == 3) {
