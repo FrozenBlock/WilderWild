@@ -54,5 +54,4 @@ public final class RegisterBlockEntities {
 	public static final BlockEntityType<PalmCrownBlockEntity> PALM_CROWN = register("palm_crown", PalmCrownBlockEntity::new, RegisterBlocks.PALM_CROWN);
 	public static final BlockEntityType<ScorchedBlockEntity> SCORCHED_BLOCK = register("scorched_block", ScorchedBlockEntity::new, RegisterBlocks.SCORCHED_SAND, RegisterBlocks.SCORCHED_RED_SAND);
 
-
 }

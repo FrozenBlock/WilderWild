@@ -5,8 +5,8 @@ Make sure to clear this after each release
 What's new:
 -----------------
 - Added the Crab!
-    - Crabs are neutral mobs that spawn in areas with large amounts of water and have a big Claw.
-    - If no players are close to it and it's not been disturbed for a while, the Crab will hide in the ground.
+    - Crabs are neutral mobs that spawn in Mangrove Swamps, Warm Oceans, Lukewarm Oceans, Deep Lukewarm Oceans, Oceans, Deep Oceans, Warm Beaches, Beaches, and Cypress Wetlands.
+    - If no players are close to a Crab and it's not been disturbed for a while, the Crab will hide in the ground.
     - If a player comes nearby or a loud vibration occurs, the Crab will come back out of hiding.
     - When attacked, the Crab will run towards its attacker and call all other Crabs nearby, even those in hiding, for backup.
     - Baby Crabs cannot attack, and will instead panic.
@@ -14,4 +14,4 @@ What's new:
     - Can climb up walls.
     - Can be scooped up in Buckets.
 - Fixed Jellyfish no longer spawning in Jellyfish Caves.
-- Slightly sped up Rainbow Jellyfish rendering.
+- Slightly optimized Rainbow Jellyfish rendering.

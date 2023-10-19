@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
+import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabAi;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabJumpControl;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -160,8 +161,10 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		this.setPathfindingMalus(BlockPathTypes.LAVA, -1.0F);
 		this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1.0F);
 		this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-		this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 16.0F);
-		this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
+		this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
+		if (EntityConfig.get().unpassableRail) {
+			this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
+		}
 	}
 
 	@Override
@@ -210,6 +213,9 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		if (reason == MobSpawnType.BUCKET) {
 			return spawnData;
 		}
+		if (reason == MobSpawnType.NATURAL) {
+			this.getBrain().setMemoryWithExpiry(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, EMERGE_LENGTH_IN_TICKS);
+		}
 		if (spawnData instanceof CrabGroupData crabGroupData) {
 			if (crabGroupData.getGroupSize() >= 2) {
 				this.setAge(-24000);
@@ -251,7 +257,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		Holder<Biome> biome = level.getBiome(pos);
 		int randomBound = 30;
 		if (!biome.is(WilderBiomeTags.HAS_COMMON_CRAB)) {
-			randomBound = 100;
+			randomBound = 90;
 			if (getCrabs(level.getLevel()) >= type.getCategory().getMaxInstancesPerChunk() / 3) {
 				return false;
 			}

@@ -50,6 +50,16 @@
         }
       },
       "trigger": "minecraft:filled_bucket"
+    },
+    "crab_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "wilderwild:crab_bucket"
+          ]
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
     }
   },
   "display": {
@@ -73,7 +83,8 @@
       "tropical_fish_bucket",
       "pufferfish_bucket",
       "salmon_bucket",
-      "jellyfish_bucket"
+      "jellyfish_bucket",
+      "crab_bucket"
     ]
   ]
 }

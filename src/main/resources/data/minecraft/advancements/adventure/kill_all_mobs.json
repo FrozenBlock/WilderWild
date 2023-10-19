@@ -504,6 +504,20 @@
         ]
       },
       "trigger": "minecraft:player_killed_entity"
+    },
+    "wilderwild:crab": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "wilderwild:crab"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
     }
   },
   "display": {
@@ -630,6 +644,9 @@
     ],
     [
       "wilderwild:jellyfish"
+    ],
+    [
+      "wilderwild:crab"
     ]
   ],
   "rewards": {
