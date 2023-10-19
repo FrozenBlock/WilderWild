@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.datagen;
 
+import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 import net.frozenblock.lib.datagen.api.FrozenBiomeTagProvider;
@@ -11,7 +12,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biomes;
 import org.jetbrains.annotations.NotNull;
-import java.util.concurrent.CompletableFuture;
 
 final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
@@ -322,6 +322,20 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.JELLYFISH_SPECIAL_SPAWN)
 			.addOptional(RegisterWorldgen.JELLYFISH_CAVES);
+
+		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_CRAB)
+			.add(Biomes.BEACH)
+			.addOptional(RegisterWorldgen.WARM_BEACH)
+			.add(Biomes.OCEAN)
+			.add(Biomes.DEEP_OCEAN)
+			.addOptional(RegisterWorldgen.CYPRESS_WETLANDS)
+			.addOptionalTag(WilderBiomeTags.HAS_COMMON_CRAB);
+
+		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COMMON_CRAB)
+			.add(Biomes.LUKEWARM_OCEAN)
+			.add(Biomes.DEEP_LUKEWARM_OCEAN)
+			.add(Biomes.WARM_OCEAN)
+			.add(Biomes.MANGROVE_SWAMP);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_TUMBLEWEED_ENTITY)
 			.add(Biomes.DESERT)

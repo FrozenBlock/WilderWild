@@ -90,7 +90,7 @@ public final class EntityConfig {
 	}
 
 	public static class CrabConfig {
-		public int crabSpawnCap = DefaultEntityConfig.CrabConfig.CRAB_SPAWN_CAP;
+		public int crabSpawnCap = 25;
 	}
 
 	public static class TumbleweedConfig {

@@ -117,7 +117,7 @@ public final class EntityConfigGui {
 		);
 
 		var crabSpawnCap = entryBuilder.startIntSlider(text("crab_spawn_cap"), crab.crabSpawnCap, 0, 100)
-			.setDefaultValue(DefaultEntityConfig.CrabConfig.CRAB_SPAWN_CAP)
+			.setDefaultValue(defaultConfig.crab.crabSpawnCap)
 			.setSaveConsumer(newValue -> crab.crabSpawnCap = newValue)
 			.setTooltip(tooltip("crab_spawn_cap"))
 			.requireRestart()

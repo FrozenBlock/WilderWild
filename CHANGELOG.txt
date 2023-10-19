@@ -4,11 +4,14 @@ Make sure to clear this after each release
 
 What's new:
 -----------------
-- Reverted registry changes in 2.1.7
-- Added Mixins Config
-    - File only for now
-- Refactored mixins for the new Mixins Config
-- Removed default config classes in favor of `Config.defaultInstance()`
-- Added Biome Music category to Misc Config
-- Refactored data generation
-- Updated embedded FrozenLib to 1.3.14
+- Added the Crab!
+    - Crabs are neutral mobs that spawn in areas with large amounts of water and have a big Claw.
+    - If no players are close to it and it's not been disturbed for a while, the Crab will hide in the ground.
+    - If a player comes nearby or a loud vibration occurs, the Crab will come back out of hiding.
+    - When attacked, the Crab will run towards its attacker and call all other Crabs nearby, even those in hiding, for backup.
+    - Baby Crabs cannot attack, and will instead panic.
+    - Can be bred with Kelp.
+    - Can climb up walls.
+    - Can be scooped up in Buckets.
+- Fixed Jellyfish no longer spawning in Jellyfish Caves.
+- Slightly sped up Rainbow Jellyfish rendering.
