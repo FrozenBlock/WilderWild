@@ -475,7 +475,7 @@ public final class RegisterBlocks {
 			.strength(0.1F)
 			.noCollision()
 			.nonOpaque()
-			.sounds(SoundType.SPONGE)
+			.sounds(SoundType.WET_GRASS)
 	);
 
 	public static final Block NULL_BLOCK = new Block(
