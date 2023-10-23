@@ -5,7 +5,9 @@
     "wilderwild:stripped_palm_log",
     "wilderwild:palm_wood",
     "wilderwild:stripped_palm_wood",
-    "wilderwild:palm_crown",
-    "#wilderwild:hollowed_palm_logs"
+    {
+      "id": "#wilderwild:hollowed_palm_logs",
+      "required": false
+    }
   ]
 }

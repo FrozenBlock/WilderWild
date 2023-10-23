@@ -235,14 +235,14 @@ final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 			.add(Blocks.CLAY)
 			.add(Blocks.DRIPSTONE_BLOCK)
 			.add(Blocks.CALCITE)
-			.addOptional(WilderSharedConstants.id("blue_pearlescent_mesoglea"))
+			.add(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
 		this.getOrCreateTagBuilder(WilderBlockTags.PURPLE_NEMATOCYST_FEATURE_PLACEABLE)
 			.add(Blocks.CLAY)
 			.add(Blocks.DRIPSTONE_BLOCK)
 			.add(Blocks.CALCITE)
-			.addOptional(WilderSharedConstants.id("purple_pearlescent_mesoglea"))
+			.add(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
 		this.getOrCreateTagBuilder(WilderBlockTags.SHELF_FUNGUS_FEATURE_PLACEABLE)
@@ -251,14 +251,14 @@ final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
 		this.getOrCreateTagBuilder(WilderBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE)
 			.add(Blocks.SAND)
-			.addOptional(WilderSharedConstants.id("scorched_sand"));
+			.add(RegisterBlocks.SCORCHED_SAND);
 
 		this.getOrCreateTagBuilder(WilderBlockTags.SCORCHED_SAND_FEATURE_REPLACEABLE)
 			.add(Blocks.SAND);
 
 		this.getOrCreateTagBuilder(WilderBlockTags.RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE)
 			.add(Blocks.RED_SAND)
-			.addOptional(WilderSharedConstants.id("red_scorched_sand"));
+			.add(RegisterBlocks.SCORCHED_RED_SAND);
 
 		this.getOrCreateTagBuilder(WilderBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE)
 			.add(Blocks.RED_SAND);
@@ -281,6 +281,33 @@ final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 	}
 
 	private void generateTags() {
+		this.getOrCreateTagBuilder(WilderBlockTags.BAOBAB_LOGS)
+			.add(RegisterBlocks.BAOBAB_LOG)
+			.add(RegisterBlocks.STRIPPED_BAOBAB_LOG)
+			.add(RegisterBlocks.BAOBAB_WOOD)
+			.add(RegisterBlocks.STRIPPED_BAOBAB_WOOD)
+			.addOptionalTag(WilderBlockTags.HOLLOWED_BAOBAB_LOGS);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.CYPRESS_LOGS)
+			.add(RegisterBlocks.CYPRESS_LOG)
+			.add(RegisterBlocks.STRIPPED_CYPRESS_LOG)
+			.add(RegisterBlocks.CYPRESS_WOOD)
+			.add(RegisterBlocks.STRIPPED_CYPRESS_WOOD)
+			.addOptionalTag(WilderBlockTags.HOLLOWED_CYPRESS_LOGS);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.PALM_LOGS)
+			.add(RegisterBlocks.PALM_LOG)
+			.add(RegisterBlocks.STRIPPED_PALM_LOG)
+			.add(RegisterBlocks.PALM_WOOD)
+			.add(RegisterBlocks.STRIPPED_PALM_WOOD)
+			.addOptionalTag(WilderBlockTags.HOLLOWED_PALM_LOGS);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.BASIN_REPLACEABLE)
+			.add(Blocks.GRASS_BLOCK)
+			.add(Blocks.COARSE_DIRT)
+			.add(Blocks.PODZOL)
+			.add(Blocks.MOSS_BLOCK);
+
 		this.getOrCreateTagBuilder(WilderBlockTags.STOPS_TUMBLEWEED)
 			.add(Blocks.MUD)
 			.add(Blocks.MUDDY_MANGROVE_ROOTS)
@@ -464,22 +491,10 @@ final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 			.add(Blocks.REDSTONE_BLOCK)
 			.add(Blocks.REDSTONE_TORCH)
 			.add(Blocks.REDSTONE_WALL_TORCH)
-			.addOptional(ResourceKey.create(
-				Registries.BLOCK,
-				WilderSharedConstants.id("hollowed_crimson_stem")
-			))
-			.addOptional(ResourceKey.create(
-				Registries.BLOCK,
-				WilderSharedConstants.id("hollowed_warped_stem")
-			))
-			.addOptional(ResourceKey.create(
-				Registries.BLOCK,
-				WilderSharedConstants.id("stripped_hollowed_crimson_stem")
-			))
-			.addOptional(ResourceKey.create(
-				Registries.BLOCK,
-				WilderSharedConstants.id("stripped_hollowed_warped_stem")
-			))
+			.add(RegisterBlocks.HOLLOWED_CRIMSON_STEM)
+			.add(RegisterBlocks.HOLLOWED_WARPED_STEM)
+			.add(RegisterBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM)
+			.add(RegisterBlocks.STRIPPED_HOLLOWED_WARPED_STEM)
 			.addOptionalTag(BlockTags.WARPED_STEMS)
 			.addOptionalTag(BlockTags.CRIMSON_STEMS);
 
@@ -496,24 +511,9 @@ final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 			.add(Blocks.STRIPPED_OAK_WOOD)
 			.add(Blocks.STRIPPED_SPRUCE_WOOD)
 			.add(Blocks.STRIPPED_ACACIA_WOOD)
-			.addOptional(
-				ResourceKey.create(
-					Registries.BLOCK,
-					WilderSharedConstants.id("stripped_baobab_wood")
-				)
-			)
-			.addOptional(
-				ResourceKey.create(
-					Registries.BLOCK,
-					WilderSharedConstants.id("stripped_cypress_wood")
-				)
-			)
-			.addOptional(
-				ResourceKey.create(
-					Registries.BLOCK,
-					WilderSharedConstants.id("stripped_palm_wood")
-				)
-			)
+			.add(RegisterBlocks.STRIPPED_BAOBAB_WOOD)
+			.add(RegisterBlocks.STRIPPED_CYPRESS_WOOD)
+			.add(RegisterBlocks.STRIPPED_PALM_WOOD)
 			.addOptional(
 				ResourceKey.create(
 					Registries.BLOCK,
