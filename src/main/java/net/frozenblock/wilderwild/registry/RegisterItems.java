@@ -133,6 +133,8 @@ public final class RegisterItems {
 	public static final FireflyBottle WHITE_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.WHITE);
 	public static final PrickOnUseBlockItem PRICKLY_PEAR = new PrickOnUseBlockItem(RegisterBlocks.PRICKLY_PEAR_CACTUS, new FabricItemSettings().food(RegisterFood.PRICKLY_PEAR), 2F, RegisterSounds.PLAYER_HURT_CACTUS, RegisterDamageTypes.PRICKLY_PEAR);
 	public static final Item PEELED_PRICKLY_PEAR = new Item(new FabricItemSettings().food(Foods.APPLE));
+	public static final Item CRAB_CLAW = new Item(new FabricItemSettings().food(RegisterFood.CRAB_CLAW));
+	public static final Item COOKED_CRAB_CLAW = new Item(new FabricItemSettings().food(RegisterFood.COOKED_CRAB_CLAW));
 	public static final Item ANCIENT_HORN_FRAGMENT = new Item(new FabricItemSettings().maxCount(64));
 	// INSTRUMENT
 	public static final AncientHorn ANCIENT_HORN = new AncientHorn(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC), WilderInstrumentTags.ANCIENT_HORNS);
@@ -203,6 +205,8 @@ public final class RegisterItems {
 		registerItemAfter(BAOBAB_NUT, SPLIT_COCONUT, "split_coconut", CreativeModeTabs.FOOD_AND_DRINKS);
 		registerItemAfter(SPLIT_COCONUT, PRICKLY_PEAR, "prickly_pear", CreativeModeTabs.FOOD_AND_DRINKS);
 		registerItemAfter(PRICKLY_PEAR, PEELED_PRICKLY_PEAR, "peeled_prickly_pear", CreativeModeTabs.FOOD_AND_DRINKS);
+		registerItemAfter(PEELED_PRICKLY_PEAR, CRAB_CLAW, "crab_claw", CreativeModeTabs.FOOD_AND_DRINKS);
+		registerItemAfter(CRAB_CLAW, COOKED_CRAB_CLAW, "cooked_crab_claw", CreativeModeTabs.FOOD_AND_DRINKS);
 
 		Registry.register(BuiltInRegistries.INSTRUMENT, ANCIENT_HORN_INSTRUMENT, new Instrument(RegisterSounds.ITEM_ANCIENT_HORN_CALL, 300, 256.0F));
 		Registry.register(BuiltInRegistries.INSTRUMENT, SAX_COPPER_HORN, new Instrument(RegisterSounds.ITEM_COPPER_HORN_SAX_LOOP, 32767, 64.0F));
