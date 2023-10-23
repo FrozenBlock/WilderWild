@@ -4,11 +4,7 @@ Make sure to clear this after each release
 
 What's new:
 -----------------
-- Reverted registry changes in 2.1.7
-- Added Mixins Config
-    - File only for now
-- Refactored mixins for the new Mixins Config
-- Removed default config classes in favor of `Config.defaultInstance()`
-- Added Biome Music category to Misc Config
-- Refactored data generation
-- Updated embedded FrozenLib to 1.3.14
+- Fixed lava not igniting Wilder Wild's logs
+- Fixed other issues regarding block properties
+    - Done by making a copy of equivalent vanilla blocks and changing what's necessary
+        - Should also improve forward compatibility
