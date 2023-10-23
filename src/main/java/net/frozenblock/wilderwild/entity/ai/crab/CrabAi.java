@@ -23,13 +23,17 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.minecraft.util.Unit;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -41,12 +45,14 @@ import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
 import net.minecraft.world.entity.ai.behavior.DoNothing;
 import net.minecraft.world.entity.ai.behavior.EraseMemoryIf;
 import net.minecraft.world.entity.ai.behavior.FollowTemptation;
+import net.minecraft.world.entity.ai.behavior.GateBehavior;
 import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
 import net.minecraft.world.entity.ai.behavior.MeleeAttack;
 import net.minecraft.world.entity.ai.behavior.MoveToTargetSink;
 import net.minecraft.world.entity.ai.behavior.RandomStroll;
 import net.minecraft.world.entity.ai.behavior.RunOne;
 import net.minecraft.world.entity.ai.behavior.SetEntityLookTarget;
+import net.minecraft.world.entity.ai.behavior.SetEntityLookTargetSometimes;
 import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromAttackTargetIfTargetOutOfReach;
 import net.minecraft.world.entity.ai.behavior.StartAttacking;
 import net.minecraft.world.entity.ai.behavior.StopAttackingIfTargetInvalid;
@@ -61,6 +67,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class CrabAi {
+	private static final float SPEED_MODIFIER = 1F;
+	private static final float FOLLOWING_ADULT_SPEED_MODIFIER = 1.2F;
+	private static final float CHASING_SPEED_MODIFIER = 1.3F;
 	private static final UniformInt ADULT_FOLLOW_RANGE = UniformInt.of(5, 16);
 	private static final int DIGGING_DURATION = Crab.DIG_LENGTH_IN_TICKS;
 	private static final int EMERGE_DURATION = Crab.EMERGE_LENGTH_IN_TICKS;
@@ -80,18 +89,18 @@ public final class CrabAi {
 	}));
 
 	public static void updateActivity(@NotNull Crab crab) {
-		crab.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.EMERGE, Activity.DIG, Activity.HIDE, Activity.FIGHT, Activity.IDLE));
+		crab.getBrain().setActiveActivityToFirstValid(List.of(Activity.EMERGE, Activity.DIG, Activity.HIDE, Activity.FIGHT, Activity.IDLE));
 	}
 
 	@NotNull
-	public static Brain<?> makeBrain(@NotNull Crab crab, @NotNull Brain<Crab> brain) {
+	public static Brain<Crab> makeBrain(@NotNull Crab crab, @NotNull Brain<Crab> brain) {
 		addCoreActivity(brain);
 		initEmergeActivity(brain);
 		initDiggingActivity(brain);
 		initHideActivity(brain);
 		addIdleActivity(brain);
 		addFightActivity(crab, brain);
-		brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
+		brain.setCoreActivities(Set.of(Activity.CORE));
 		brain.setDefaultActivity(Activity.IDLE);
 		brain.useDefaultActivity();
 		return brain;
@@ -127,7 +136,7 @@ public final class CrabAi {
 				Pair.of(0, new ForceUnmount()),
 				Pair.of(1, new CrabDig<>(DIGGING_DURATION))
 			),
-			ImmutableSet.of(
+			Set.of(
 				Pair.of(RegisterMemoryModuleTypes.FIRST_BRAIN_TICK, MemoryStatus.VALUE_PRESENT),
 				Pair.of(MemoryModuleType.DIG_COOLDOWN, MemoryStatus.VALUE_ABSENT),
 				Pair.of(RegisterMemoryModuleTypes.IS_UNDERGROUND, MemoryStatus.VALUE_ABSENT),
@@ -146,7 +155,7 @@ public final class CrabAi {
 				Pair.of(0, CrabTryToEmerge.create()),
 				Pair.of(1, CrabHeal.create())
 			),
-			ImmutableSet.of(
+			Set.of(
 				Pair.of(MemoryModuleType.DIG_COOLDOWN, MemoryStatus.VALUE_PRESENT),
 				Pair.of(RegisterMemoryModuleTypes.IS_UNDERGROUND, MemoryStatus.VALUE_PRESENT)
 			)
@@ -156,21 +165,33 @@ public final class CrabAi {
 	private static void addIdleActivity(@NotNull Brain<Crab> brain) {
 		brain.addActivity(
 			Activity.IDLE,
-			10,
 			ImmutableList.of(
-				new AnimalMakeLove(RegisterEntities.CRAB, 0.8F),
-				new RunOne<>(
-					List.of(
-						Pair.of(new FollowTemptation(CrabAi::getSpeedModifier), 1),
-						Pair.of(BabyFollowAdult.create(ADULT_FOLLOW_RANGE, CrabAi::getSpeedModifierFollowingAdult), 1)
+				Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))),
+				Pair.of(1, new AnimalMakeLove(RegisterEntities.CRAB, 0.8F)),
+				Pair.of(
+					2,
+					new RunOne<>(
+						List.of(
+							Pair.of(new FollowTemptation(CrabAi::getSpeedModifier), 1),
+							Pair.of(BabyFollowAdult.create(ADULT_FOLLOW_RANGE, CrabAi::getSpeedModifierFollowingAdult), 1)
+						)
 					)
 				),
-				StartAttacking.create(CrabAi::findNearestValidAttackTarget),
-				new RunOne<>(
-					ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT, RegisterMemoryModuleTypes.FIRST_BRAIN_TICK, MemoryStatus.VALUE_PRESENT),
-					List.of(
-						Pair.of(RandomStroll.stroll(1F), 1),
-						Pair.of(new DoNothing(30, 100), 2)
+				Pair.of(3, StartAttacking.create(CrabAi::findNearestValidAttackTarget)),
+				Pair.of(
+					4,
+					new GateBehavior<>(
+						Map.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT, RegisterMemoryModuleTypes.FIRST_BRAIN_TICK, MemoryStatus.VALUE_PRESENT),
+						ImmutableSet.of(),
+						GateBehavior.OrderPolicy.ORDERED,
+						GateBehavior.RunningPolicy.TRY_ALL,
+						List.of(
+							Pair.of(RandomStroll.swim(1F), 2),
+							Pair.of(RandomStroll.stroll(1F), 2),
+							Pair.of(new DoNothing(30, 100), 3),
+							Pair.of(BehaviorBuilder.triggerIf(Entity::isInWaterOrBubble), 5),
+							Pair.of(BehaviorBuilder.triggerIf(Entity::onGround), 5)
+						)
 					)
 				)
 			)
@@ -200,15 +221,15 @@ public final class CrabAi {
 	}
 
 	private static float getSpeedModifierChasing(@Nullable LivingEntity livingEntity) {
-		return 1.3F;
+		return CHASING_SPEED_MODIFIER;
 	}
 
 	private static float getSpeedModifierFollowingAdult(LivingEntity entity) {
-		return 1.2F;
+		return FOLLOWING_ADULT_SPEED_MODIFIER;
 	}
 
 	private static float getSpeedModifier(LivingEntity entity) {
-		return 1F;
+		return SPEED_MODIFIER;
 	}
 
 	private static void onTargetInvalid(@NotNull Crab crab, @NotNull LivingEntity target) {
