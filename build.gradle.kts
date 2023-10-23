@@ -311,7 +311,7 @@ tasks {
         properties["version"] = version
         properties["minecraft_version"] = "~$minecraft_version-"
 
-        properties["fabric_loader_version"] = ">=$loader_version"
+        properties["fabric_loader_version"] = ">=0.14.22"
         properties["fabric_api_version"] = ">=$fabric_api_version"
         properties["frozenlib_version"] = ">=${frozenlib_version.split('-').first()}-"
 
