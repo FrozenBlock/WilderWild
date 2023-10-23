@@ -21,7 +21,6 @@ package net.frozenblock.wilderwild.datagen;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.frozenblock.lib.feature_flag.api.FrozenFeatureFlags;
-import net.frozenblock.wilderwild.datagen.lang.WWEngUSProvider;
 import net.frozenblock.wilderwild.misc.WilderFeatureFlags;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterDamageTypes;
@@ -49,7 +48,6 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 
 		// ASSETS
 
-		pack.addProvider(WWEngUSProvider::new);
 		pack.addProvider(WWModelProvider::new);
 
 		// DATA
