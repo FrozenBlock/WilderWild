@@ -48,22 +48,10 @@
     "minecraft:redstone_block",
     "minecraft:redstone_torch",
     "minecraft:redstone_wall_torch",
-    {
-      "id": "wilderwild:hollowed_crimson_stem",
-      "required": false
-    },
-    {
-      "id": "wilderwild:hollowed_warped_stem",
-      "required": false
-    },
-    {
-      "id": "wilderwild:stripped_hollowed_crimson_stem",
-      "required": false
-    },
-    {
-      "id": "wilderwild:stripped_hollowed_warped_stem",
-      "required": false
-    },
+    "wilderwild:hollowed_crimson_stem",
+    "wilderwild:hollowed_warped_stem",
+    "wilderwild:stripped_hollowed_crimson_stem",
+    "wilderwild:stripped_hollowed_warped_stem",
     {
       "id": "#minecraft:warped_stems",
       "required": false

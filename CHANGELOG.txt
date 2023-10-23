@@ -8,6 +8,7 @@ What's new:
 - Fixed other issues regarding block properties
     - Done by making a copy of equivalent vanilla blocks and changing what's necessary
         - Should also improve forward compatibility
+- Fixed scorched red sand not generating in some cases when it should generate
 - Lowered Fabric Loader dependency to 0.14.22
 - Bumped Fabric API requirement to 0.90.4
     - Contains critical changes
