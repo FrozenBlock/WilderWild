@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabAi;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabJumpControl;
@@ -228,11 +229,10 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
 		this.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, CrabAi.getRandomDigCooldown(this));
-		if (reason == MobSpawnType.BUCKET) {
-			return spawnData;
-		}
-		if (reason == MobSpawnType.NATURAL) {
-			this.getBrain().setMemoryWithExpiry(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, EMERGE_LENGTH_IN_TICKS);
+		switch (reason) {
+			case BUCKET -> { return spawnData; }
+			case NATURAL -> this.getBrain().setMemoryWithExpiry(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, EMERGE_LENGTH_IN_TICKS);
+			default -> {}
 		}
 		if (spawnData instanceof CrabGroupData crabGroupData) {
 			if (crabGroupData.getGroupSize() >= 2) {
@@ -310,6 +310,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@Override
+	@NotNull
 	public MobType getMobType() {
 		return MobType.ARTHROPOD;
 	}
@@ -358,10 +359,13 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 						this.clientDiggingParticles();
 					}
 				}
+				default -> {}
 			}
 		}
 		this.prevClimbAnimX = this.climbAnimX;
-		this.climbAnimX += ((this.isClimbing() ? Math.cos(this.targetClimbAnimX() * Mth.PI) >= -0.275F ? -1F : 1F : 0F) - this.climbAnimX) * 0.2F;
+		// supplier so that it isn't evaluated each time
+		Supplier<Float> climbingVal = () -> Math.cos(this.targetClimbAnimX() * Mth.PI) >= -0.275F ? -1F : 1F;
+		this.climbAnimX += ((this.isClimbing() ? climbingVal.get() : 0F) - this.climbAnimX) * 0.2F;
 	}
 
 	@Override
@@ -689,11 +693,13 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@Override
+	@NotNull
 	public VibrationSystem.Data getVibrationData() {
 		return this.vibrationData;
 	}
 
 	@Override
+	@NotNull
 	public VibrationSystem.User getVibrationUser() {
 		return this.vibrationUser;
 	}
@@ -719,11 +725,13 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		}
 
 		@Override
+		@NotNull
 		public PositionSource getPositionSource() {
 			return this.positionSource;
 		}
 
 		@Override
+		@NotNull
 		public TagKey<GameEvent> getListenableEvents() {
 			return WilderGameEventTags.CRAB_CAN_DETECT;
 		}

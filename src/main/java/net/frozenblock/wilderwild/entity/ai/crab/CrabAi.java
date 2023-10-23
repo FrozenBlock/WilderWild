@@ -160,7 +160,7 @@ public final class CrabAi {
 			ImmutableList.of(
 				new AnimalMakeLove(RegisterEntities.CRAB, 0.8F),
 				new RunOne<>(
-					ImmutableList.of(
+					List.of(
 						Pair.of(new FollowTemptation(CrabAi::getSpeedModifier), 1),
 						Pair.of(BabyFollowAdult.create(ADULT_FOLLOW_RANGE, CrabAi::getSpeedModifierFollowingAdult), 1)
 					)
@@ -168,7 +168,7 @@ public final class CrabAi {
 				StartAttacking.create(CrabAi::findNearestValidAttackTarget),
 				new RunOne<>(
 					ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT, RegisterMemoryModuleTypes.FIRST_BRAIN_TICK, MemoryStatus.VALUE_PRESENT),
-					ImmutableList.of(
+					List.of(
 						Pair.of(RandomStroll.stroll(1F), 1),
 						Pair.of(new DoNothing(30, 100), 2)
 					)

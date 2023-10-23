@@ -158,8 +158,8 @@ public abstract class SculkBlockMixin {
 		return this.wilderWild$canPlaceGrowth(levelAccessor, chargeCursor.getPos(), sculkSpreader.isWorldGeneration()) || original;
 	}
 
-	@Inject(method = "attemptUseCharge", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkBlock;getRandomGrowthState(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;Z)Lnet/minecraft/world/level/block/state/BlockState;", shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD)
-	private void wilderWild$getPlacementState(SculkSpreader.ChargeCursor charge, LevelAccessor level, BlockPos catalystPos, RandomSource random, SculkSpreader sculkChargeHandler, boolean spread, CallbackInfoReturnable<Integer> info, int chargeAmount, BlockPos chargePos, boolean bl, int growthSpawnCost, BlockPos aboveChargePos) {
+	@Inject(method = "attemptUseCharge", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkBlock;getRandomGrowthState(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;Z)Lnet/minecraft/world/level/block/state/BlockState;"), locals = LocalCapture.CAPTURE_FAILHARD)
+	private void wilderWild$getPlacementState(SculkSpreader.ChargeCursor charge, LevelAccessor level, BlockPos catalystPos, RandomSource random, SculkSpreader sculkChargeHandler, boolean shouldConvertBlocks, CallbackInfoReturnable<Integer> cir, int chargeAmount, BlockPos chargePos, int growthSpawnCost, BlockPos aboveChargePos) {
 		this.wilderWild$placementState = null;
 		this.wilderWild$placementPos = null;
 		this.wilderWild$additionalGrowthCost = Optional.empty();
