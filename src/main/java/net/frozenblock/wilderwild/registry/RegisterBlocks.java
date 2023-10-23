@@ -855,7 +855,7 @@ public final class RegisterBlocks {
 		String baobab = "baobab";
 		String cypress = "cypress";
 		String palm = "palm";
-		String wood = "baobab";
+		String wood = baobab;
 		//BAOBAB IN BUILDING BLOCKS
 		registerBlockAfter(Items.MANGROVE_BUTTON, wood + "_log", BAOBAB_LOG, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(BAOBAB_LOG, wood + "_wood", BAOBAB_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
@@ -874,7 +874,7 @@ public final class RegisterBlocks {
 		registerBlockAfter(Items.MANGROVE_LOG, wood + "_log", BAOBAB_LOG, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(Items.FLOWERING_AZALEA_LEAVES, wood + "_leaves", BAOBAB_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
 
-		wood = "cypress";
+		wood = cypress;
 		//CYPRESS IN BUILDING BLOCKS
 		registerBlockAfter(BAOBAB_BUTTON, wood + "_log", CYPRESS_LOG, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(CYPRESS_LOG, wood + "_wood", CYPRESS_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
@@ -893,7 +893,7 @@ public final class RegisterBlocks {
 		registerBlockAfter(BAOBAB_LOG, wood + "_log", CYPRESS_LOG, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(BAOBAB_LEAVES, wood + "_leaves", CYPRESS_LEAVES, CreativeModeTabs.NATURAL_BLOCKS);
 
-		wood = "palm";
+		wood = palm;
 		//PALM IN BUILDING BLOCKS
 		registerBlockAfter(CYPRESS_BUTTON, wood + "_log", PALM_LOG, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(PALM_LOG, wood + "_wood", PALM_WOOD, CreativeModeTabs.BUILDING_BLOCKS);
