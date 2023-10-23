@@ -4,7 +4,7 @@ Make sure to clear this after each release
 
 What's new:
 -----------------
-- Fixed lava not igniting Wilder Wild's logs
+- Fixed lava not igniting Wilder Wild's wood
 - Fixed other issues regarding block properties
     - Done by making a copy of equivalent vanilla blocks and changing what's necessary
         - Should also improve forward compatibility
