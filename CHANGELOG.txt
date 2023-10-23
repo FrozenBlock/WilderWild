@@ -8,3 +8,4 @@ What's new:
 - Fixed other issues regarding block properties
     - Done by making a copy of equivalent vanilla blocks and changing what's necessary
         - Should also improve forward compatibility
+- Lowered Fabric Loader dependency to 0.14.22
