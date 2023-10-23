@@ -9,3 +9,4 @@ What's new:
     - Done by making a copy of equivalent vanilla blocks and changing what's necessary
         - Should also improve forward compatibility
 - Lowered Fabric Loader dependency to 0.14.22
+- Updated embedded FrozenLib to 1.3.15
