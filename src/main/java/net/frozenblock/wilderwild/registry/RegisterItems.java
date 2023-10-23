@@ -76,19 +76,19 @@ public final class RegisterItems {
 	// BLOCK ITEMS
 	public static final BlockItem BAOBAB_NUT = new BlockItem(RegisterBlocks.BAOBAB_NUT, new FabricItemSettings().food(RegisterFood.BAOBAB_NUT));
 	public static final SignItem BAOBAB_SIGN = new SignItem(new FabricItemSettings().maxCount(16),
-		RegisterBlocks.BAOBAB_SIGN_BLOCK, RegisterBlocks.BAOBAB_WALL_SIGN
+		RegisterBlocks.BAOBAB_SIGN, RegisterBlocks.BAOBAB_WALL_SIGN
 	);
 	public static final HangingSignItem BAOBAB_HANGING_SIGN = new HangingSignItem(RegisterBlocks.BAOBAB_HANGING_SIGN, RegisterBlocks.BAOBAB_WALL_HANGING_SIGN,
 		new FabricItemSettings().maxCount(16)
 	);
 	public static final SignItem CYPRESS_SIGN = new SignItem(new FabricItemSettings().maxCount(16),
-		RegisterBlocks.CYPRESS_SIGN_BLOCK, RegisterBlocks.CYPRESS_WALL_SIGN
+		RegisterBlocks.CYPRESS_SIGN, RegisterBlocks.CYPRESS_WALL_SIGN
 	);
 	public static final HangingSignItem CYPRESS_HANGING_SIGN = new HangingSignItem(RegisterBlocks.CYPRESS_HANGING_SIGN, RegisterBlocks.CYPRESS_WALL_HANGING_SIGN,
 		new FabricItemSettings().maxCount(16)
 	);
 	public static final SignItem PALM_SIGN = new SignItem(new FabricItemSettings().maxCount(16),
-		RegisterBlocks.PALM_SIGN_BLOCK, RegisterBlocks.PALM_WALL_SIGN
+		RegisterBlocks.PALM_SIGN, RegisterBlocks.PALM_WALL_SIGN
 	);
 	public static final HangingSignItem PALM_HANGING_SIGN = new HangingSignItem(RegisterBlocks.PALM_HANGING_SIGN, RegisterBlocks.PALM_WALL_HANGING_SIGN,
 		new FabricItemSettings().maxCount(16)
