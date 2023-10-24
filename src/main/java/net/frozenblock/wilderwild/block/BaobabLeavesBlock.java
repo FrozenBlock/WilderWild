@@ -30,9 +30,9 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public class BaobabLeaves extends LeavesBlock implements BonemealableBlock {
+public class BaobabLeavesBlock extends LeavesBlock implements BonemealableBlock {
 
-	public BaobabLeaves(@NotNull BlockBehaviour.Properties settings) {
+	public BaobabLeavesBlock(@NotNull BlockBehaviour.Properties settings) {
 		super(settings);
 	}
 

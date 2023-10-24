@@ -40,9 +40,9 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class TermiteMound extends BaseEntityBlock {
+public class TermiteMoundBlock extends BaseEntityBlock {
 
-	public TermiteMound(@NotNull Properties settings) {
+	public TermiteMoundBlock(@NotNull Properties settings) {
 		super(settings);
 		this.registerDefaultState(this.stateDefinition.any().setValue(RegisterProperties.NATURAL, false).setValue(RegisterProperties.TERMITES_AWAKE, false).setValue(RegisterProperties.CAN_SPAWN_TERMITE, false));
 	}

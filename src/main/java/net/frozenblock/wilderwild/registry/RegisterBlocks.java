@@ -37,7 +37,7 @@ import net.frozenblock.lib.item.api.FrozenCreativeTabs;
 import net.frozenblock.lib.item.api.bonemeal.BonemealBehaviors;
 import net.frozenblock.lib.storage.api.NoInteractionStorage;
 import net.frozenblock.wilderwild.block.AlgaeBlock;
-import net.frozenblock.wilderwild.block.BaobabLeaves;
+import net.frozenblock.wilderwild.block.BaobabLeavesBlock;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
 import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
@@ -63,7 +63,7 @@ import net.frozenblock.wilderwild.block.SeedingFlowerBlock;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
 import net.frozenblock.wilderwild.block.SmallSpongeBlock;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
-import net.frozenblock.wilderwild.block.TermiteMound;
+import net.frozenblock.wilderwild.block.TermiteMoundBlock;
 import net.frozenblock.wilderwild.block.TumbleweedBlock;
 import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
 import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
@@ -183,7 +183,7 @@ public final class RegisterBlocks {
 	public static final CoconutBlock COCONUT = new CoconutBlock(FabricBlockSettings.create().breakInstantly().ticksRandomly().sounds(RegisterBlockSoundTypes.COCONUT));
 	public static final FlowerPotBlock POTTED_COCONUT = Blocks.flowerPot(COCONUT);
 	public static final LeavesBlock CYPRESS_LEAVES = Blocks.leaves(SoundType.GRASS); // in front so the other leaves can have a copy of its settings
-	public static final BaobabLeaves BAOBAB_LEAVES = new BaobabLeaves(FabricBlockSettings.copyOf(CYPRESS_LEAVES));
+	public static final BaobabLeavesBlock BAOBAB_LEAVES = new BaobabLeavesBlock(FabricBlockSettings.copyOf(CYPRESS_LEAVES));
 	public static final PalmFrondsBlock PALM_FRONDS = new PalmFrondsBlock(FabricBlockSettings.copyOf(CYPRESS_LEAVES));
 	public static final HollowedLogBlock HOLLOWED_OAK_LOG = createHollowedLogBlock(MapColor.WOOD, MapColor.PODZOL);
 	public static final HollowedLogBlock HOLLOWED_SPRUCE_LOG =  createHollowedLogBlock(MapColor.PODZOL, MapColor.COLOR_BROWN);
@@ -317,7 +317,7 @@ public final class RegisterBlocks {
 
 	// MISC
 
-	public static final TermiteMound TERMITE_MOUND = new TermiteMound(
+	public static final TermiteMoundBlock TERMITE_MOUND = new TermiteMoundBlock(
 		FabricBlockSettings.create()
 			.mapColor(MapColor.COLOR_BROWN)
 			.strength(0.3F)
