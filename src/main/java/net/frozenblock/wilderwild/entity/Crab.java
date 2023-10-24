@@ -168,6 +168,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	private final VibrationSystem.User vibrationUser;
 	public float climbAnimX;
 	public float prevClimbAnimX;
+	public Vec3 prevMovement;
 	private VibrationSystem.Data vibrationData;
 
 	public Crab(EntityType<? extends Crab> entityType, Level level) {
@@ -176,6 +177,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		this.vibrationData = new VibrationSystem.Data();
 		this.dynamicGameEventListener = new DynamicGameEventListener<>(new VibrationSystem.Listener(this));
 		this.jumpControl = new CrabJumpControl(this);
+		this.prevMovement = Vec3.ZERO;
 		this.setMaxUpStep(0.2F);
 		this.setPathfindingMalus(BlockPathTypes.LAVA, -1.0F);
 		this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1.0F);
@@ -340,7 +342,10 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		if (!isClient) {
 			this.setClimbing(this.horizontalCollision);
 			if (this.isClimbing()) {
-				this.setTargetClimbAnimX((Math.abs(getAngleFromVec3(this.getDeltaMovement())) - Math.abs(getAngleFromVec3(this.getViewVector(1F)))) / 180F);
+				Vec3 usedMovement = this.getDeltaMovement();
+				if (usedMovement.x == 0 && usedMovement.z == 0) usedMovement = this.prevMovement;
+				this.setTargetClimbAnimX(Math.abs(getAngleFromVec3(usedMovement) - getAngleFromVec3(this.getViewVector(1F))) / 180F);
+				this.prevMovement = usedMovement;
 			} else {
 				this.setTargetClimbAnimX(0F);
 			}
