@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(ServerGamePacketListenerImpl.class)
 public class ServerGamePacketListenerImplMixin {
 
+	/*
 	@Shadow
 	public ServerPlayer player;
 
@@ -41,5 +42,6 @@ public class ServerGamePacketListenerImplMixin {
 		}
 		return original;
 	}
+	 */
 
 }

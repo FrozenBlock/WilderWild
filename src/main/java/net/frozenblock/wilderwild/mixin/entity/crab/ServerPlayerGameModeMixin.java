@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(ServerPlayerGameMode.class)
 public class ServerPlayerGameModeMixin {
 
+	/*
 	@Shadow @Final
 	protected ServerPlayer player;
 
@@ -23,5 +24,6 @@ public class ServerPlayerGameModeMixin {
 		}
 		return original;
 	}
+	 */
 
 }

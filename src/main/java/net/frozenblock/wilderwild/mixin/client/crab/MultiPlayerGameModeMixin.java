@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(MultiPlayerGameMode.class)
 public class MultiPlayerGameModeMixin {
 
+	/*
 	@Shadow @Final
 	private Minecraft minecraft;
 
@@ -26,5 +27,6 @@ public class MultiPlayerGameModeMixin {
 		}
 		return original;
 	}
+	 */
 
 }
