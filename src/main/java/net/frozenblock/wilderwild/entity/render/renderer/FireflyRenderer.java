@@ -48,9 +48,9 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 	private static final RenderType NECTAR_LAYER = RenderType.entityCutout(WilderSharedConstants.id("textures/entity/firefly/nectar.png"));
 	private static final RenderType NECTAR_FLAP_LAYER = RenderType.entityCutout(WilderSharedConstants.id("textures/entity/firefly/nectar_wings_down.png"));
 	private static final RenderType NECTAR_OVERLAY = RenderType.entityTranslucentEmissive(WilderSharedConstants.id("textures/entity/firefly/nectar_overlay.png"), true);
-	private static final float yOffset = 0.155F;
-	private static final Quaternionf one80Quat = Axis.YP.rotationDegrees(180.0F);
-	private static final float pi = (float) Math.PI;
+	private static final float Y_OFFSET = 0.155F;
+	private static final Quaternionf ONE_HUNDRED_EIGHTY_QUAT = Axis.YP.rotationDegrees(180.0F);
+	private static final float PI = (float) Math.PI;
 	public static final Object2ObjectMap<ResourceLocation, RenderType> LAYERS = new Object2ObjectLinkedOpenHashMap<>() {{
 		Object2ObjectMap<ResourceLocation, ResourceLocation> colors = new Object2ObjectLinkedOpenHashMap<>();
 		WilderRegistry.FIREFLY_COLOR.forEach(color -> colors.put(color.key(), color.texture()));
@@ -66,7 +66,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 		matrices.scale(scale, scale, scale);
 		matrices.translate(xOffset, yOffset, zOffset);
 		matrices.mulPose(rotation);
-		matrices.mulPose(one80Quat);
+		matrices.mulPose(ONE_HUNDRED_EIGHTY_QUAT);
 
 		PoseStack.Pose entry = matrices.last();
 		Matrix4f matrix4f = entry.pose();
@@ -108,7 +108,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 			.endVertex();
 
 		if (color != null && LAYERS.get(color.key()) != null) {
-			RenderType layer = nectar ? NECTAR_LAYER : LAYERS.get(color.key());
+			RenderType layer = nectar ? NECTAR_OVERLAY : LAYERS.get(color.key());
 			vertexConsumer = vertexConsumers.getBuffer(layer);
 		} else {
 			vertexConsumer = vertexConsumers.getBuffer(LAYERS.get(FireflyColor.ON.key()));
@@ -175,7 +175,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 		boolean flickers = entity.flickers();
 
 
-		renderFirefly(matrices, vertexConsumers, light, nectar, overlay, age, flickers, entity.getColor(), (ageDelta) * pi, scale, 0F, yOffset, 0F, this.entityRenderDispatcher.cameraOrientation());
+		renderFirefly(matrices, vertexConsumers, light, nectar, overlay, age, flickers, entity.getColor(), (ageDelta) * PI, scale, 0F, Y_OFFSET, 0F, this.entityRenderDispatcher.cameraOrientation());
 
 		if (this.shouldShowName(entity)) {
 			this.renderNameTag(entity, entity.getDisplayName(), matrices, vertexConsumers, light);

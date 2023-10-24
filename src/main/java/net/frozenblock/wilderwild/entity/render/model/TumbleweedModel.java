@@ -39,7 +39,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> {
-	private static final float pi180 = Mth.PI / 180F;
+	private static final float PI_180 = Mth.PI / 180F;
 	private final ModelPart root;
 	private final ModelPart bone;
 	private float partialTick;
@@ -81,7 +81,7 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 	@Override
 	public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		if (EntityConfig.get().tumbleweed.tumbleweedRotatesToLookDirection) {
-			this.root.xRot = (Mth.lerp(this.partialTick, this.prevTumble, this.tumble)) * pi180;
+			this.root.xRot = (Mth.lerp(this.partialTick, this.prevTumble, this.tumble)) * PI_180;
 		} else {
 			this.root.xRot = 0F;
 		}
@@ -93,9 +93,9 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 		poseStack.translate(0, 1.3, 0);
 		if (!EntityConfig.get().tumbleweed.tumbleweedRotatesToLookDirection) {
 			poseStack.pushPose();
-			poseStack.mulPose(Axis.XP.rotation(Mth.lerp(this.partialTick, this.prevPitch, this.pitch) * pi180));
+			poseStack.mulPose(Axis.XP.rotation(Mth.lerp(this.partialTick, this.prevPitch, this.pitch) * PI_180));
 			poseStack.pushPose();
-			poseStack.mulPose(Axis.ZP.rotation(Mth.lerp(this.partialTick, this.prevRoll, this.roll) * pi180));
+			poseStack.mulPose(Axis.ZP.rotation(Mth.lerp(this.partialTick, this.prevRoll, this.roll) * PI_180));
 			poseStack.pushPose();
 			this.root.render(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, red, green, blue, alpha);
 			poseStack.popPose();

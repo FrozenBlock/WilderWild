@@ -41,8 +41,8 @@ import org.jetbrains.annotations.NotNull;
 @Environment(EnvType.CLIENT)
 public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 	private static final int JELLYFISH_TENTACLES = EntityConfig.get().jellyfish.jellyfishTentacles;
-	private static final float pi180 = Mth.PI / 180F;
-	private static final float eightPi = -8F * pi180;
+	private static final float PI_180 = Mth.PI / 180F;
+	private static final float EIGHT_PI = -8F * PI_180;
 	private final ModelPart root;
 	private final ModelPart body;
 	private final ModelPart tentacleBase;
@@ -152,7 +152,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 		float sinPivotY = (-sinIdle * 2.0F) + 1.8F;
 		this.tentacleBase.y = sinPivotY + movementDelta * (((6F - (squashStretch * 5F)) * 2) - sinPivotY); //this.tentacleBase.y = MathHelper.lerp(movementDelta, (-sinIdle * 2.0F) + 1.8F, (6F - (squashStretch * 5F)) * 2);
 
-		float tentRot = -fasterRotLerp(movementDelta, (float) (-Math.sin((ageInTicks - 10) * 0.1F) * 0.2F) + eightPi, (float) (-Math.sin(animation + 5) * 20 - 7.5F) * pi180);
+		float tentRot = -fasterRotLerp(movementDelta, (float) (-Math.sin((ageInTicks - 10) * 0.1F) * 0.2F) + EIGHT_PI, (float) (-Math.sin(animation + 5) * 20 - 7.5F) * PI_180);
 		for (ModelPart modelPart : this.tentacles) {
 			PartPose initialPose = modelPart.getInitialPose();
 			modelPart.x = initialPose.x * squash;

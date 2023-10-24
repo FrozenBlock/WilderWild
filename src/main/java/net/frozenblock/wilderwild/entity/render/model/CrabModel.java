@@ -36,9 +36,9 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Math;
 
 public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
-	private static final float pi180 = Mth.PI / 180F;
-	private static final float doublePI = Mth.PI * 2F;
-	private static final float fiftyRadians = 50F * pi180;
+	private static final float PI_180 = Mth.PI / 180F;
+	private static final float DOUBLE_PI = Mth.PI * 2F;
+	private static final float FIFTY_RADIANS = 50F * PI_180;
 
 	private final ModelPart root;
 	private final ModelPart body;
@@ -136,8 +136,8 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		float walkB = Mth.lerp(movementDelta, 0F, ((1F + fastAngleSin) * limbSwing5) - 0.5F);
 
 		float legRoll = Math.sin(fastAngle) * 0.4F * limbSwingAmount;
-		float lerpedWalkA = Mth.lerp(walkA, -legRoll, fiftyRadians);
-		float lerpedWalkB = Mth.lerp(walkB, legRoll, fiftyRadians);
+		float lerpedWalkA = Mth.lerp(walkA, -legRoll, FIFTY_RADIANS);
+		float lerpedWalkB = Mth.lerp(walkB, legRoll, FIFTY_RADIANS);
 		this.back_right_leg.zRot += lerpedWalkA;
 		this.middle_right_leg.zRot += lerpedWalkB;
 		this.front_right_leg.zRot += lerpedWalkA;
@@ -166,18 +166,18 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		this.middle_left_leg.x -= walkBDelayed;
 		this.front_left_leg.x -= walkADelayed;
 
-		float climbRotRadians = xRot * pi180;
+		float climbRotRadians = xRot * PI_180;
 		this.body.zRot += legRoll + climbRotRadians;
 		this.legs.zRot += climbRotRadians;
 
 		//Attack Anim
-		this.body.yRot = Mth.sin(Mth.sqrt(this.attackTime) * (doublePI)) * -0.2F;
+		this.body.yRot = Mth.sin(Mth.sqrt(this.attackTime) * (DOUBLE_PI)) * -0.2F;
 		float attackSin = Mth.sin(this.attackTime * (float) Math.PI);
 		this.main_claw.x += attackSin * 1.5F;
-		this.main_claw.xRot += attackSin * -80F * pi180;
-		this.main_claw.yRot += attackSin * 100F * pi180;
-		this.main_claw.zRot += attackSin * 20F * pi180;
-		this.claw_top.zRot += attackSin * 45F * pi180;
+		this.main_claw.xRot += attackSin * -80F * PI_180;
+		this.main_claw.yRot += attackSin * 100F * PI_180;
+		this.main_claw.zRot += attackSin * 20F * PI_180;
+		this.claw_top.zRot += attackSin * 45F * PI_180;
 		this.claw_bottom.zRot -= this.claw_top.zRot;
 	}
 
