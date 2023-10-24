@@ -14,7 +14,7 @@ What's new:
     - Can climb up walls.
     - Can be scooped up in Buckets.
     - Will drop its Claw upon death, which can be cooked.
-    - Can be brewed with an Awkward potion to create a Potion of Reaching.
+    - The Crab's Claw can also be brewed with an Awkward potion to create a Potion of Reaching.
 - Added the Reach Boost effect!
     - Extends the player's reach by 1 block per level.
     - Does not affect attacking, only impacts interactions with Items and Blocks, including both placing and breaking.

@@ -23,6 +23,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
+import java.util.function.Supplier;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -38,7 +39,6 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
-import java.util.function.Supplier;
 
 public class FireflyRenderer extends EntityRenderer<Firefly> {
 	//CREDIT TO magistermaks ON GITHUB!!
