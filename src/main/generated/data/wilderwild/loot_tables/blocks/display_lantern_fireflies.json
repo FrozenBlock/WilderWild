@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_nbt",
+              "ops": [
+                {
+                  "op": "replace",
+                  "source": "Fireflies",
+                  "target": "BlockEntityTag.Fireflies"
+                }
+              ],
+              "source": "block_entity"
+            }
+          ],
+          "name": "wilderwild:display_lantern"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}
