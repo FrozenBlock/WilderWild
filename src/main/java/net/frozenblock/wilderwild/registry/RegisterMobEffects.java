@@ -18,16 +18,35 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import org.jetbrains.annotations.NotNull;
 
 public final class RegisterMobEffects {
 
-	public static final MobEffect REACH = register("reach_boost", new MobEffect(MobEffectCategory.BENEFICIAL, 16646020));
+	public static final MobEffect REACH = register(
+		"reach_boost",
+		new MobEffect(MobEffectCategory.BENEFICIAL, 16646020)
+			.addAttributeModifier(
+				ReachEntityAttributes.REACH,
+				Mth.createInsecureUUID(RandomSource.createNewThreadLocalInstance()).toString(),
+				0.75,
+				AttributeModifier.Operation.ADDITION
+			)
+			.addAttributeModifier(
+				ReachEntityAttributes.ATTACK_RANGE,
+				Mth.createInsecureUUID(RandomSource.createNewThreadLocalInstance()).toString(),
+				0.75,
+				AttributeModifier.Operation.ADDITION
+			)
+	);
 
 	private RegisterMobEffects() {
 		throw new UnsupportedOperationException("RegisterMobEffects contains only static declarations.");

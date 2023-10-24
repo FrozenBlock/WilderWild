@@ -201,6 +201,12 @@ repositories {
         name = "Quilt"
         url = uri("https://maven.quiltmc.org/repository/release")
     }
+    maven {
+        url = uri("https://maven.jamieswhiteshirt.com/libs-release")
+        content {
+            includeGroup("com.jamieswhiteshirt")
+        }
+    }
 
     flatDir {
         dirs("libs")
@@ -241,6 +247,9 @@ dependencies {
         exclude(group = "net.fabricmc.fabric-api")
         exclude(group = "com.terraformersmc")
     }
+
+    // Reach Entity Attributes
+    modApi("com.jamieswhiteshirt:reach-entity-attributes:2.4.0")?.let { include(it) }
 
     // TerraBlender
     modCompileOnlyApi("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
