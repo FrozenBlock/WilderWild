@@ -36,6 +36,7 @@
     "entity.boat.BoatDropsMixin",
     "entity.boat.BoatTypeMixin",
     "entity.boat.ChestBoatDropsMixin",
+    "entity.crab.ServerGamePacketListenerImpl",
     "entity.crab.ServerPlayerGameModeMixin",
     "entity.crab.VibrationSystemTickerMixin",
     "entity.crab.WallClimberNavigationMixin",

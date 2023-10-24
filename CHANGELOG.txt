@@ -14,6 +14,9 @@ What's new:
     - Can climb up walls.
     - Can be scooped up in Buckets.
     - Will drop its Claw upon death, which can be cooked.
+- Added the Reach Boost effect!
+    - Extends the player's reach by 0.75 per level.
+    - Does not affect attacking, only impacts interactions with Items and Blocks, including both placing and breaking.
 - Fixed Jellyfish no longer spawning in Jellyfish Caves.
 - Slightly optimized Rainbow Jellyfish rendering.
 - Added a translation string for Coconut projectiles.
