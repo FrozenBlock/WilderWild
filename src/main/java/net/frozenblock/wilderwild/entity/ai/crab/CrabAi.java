@@ -166,7 +166,6 @@ public final class CrabAi {
 		brain.addActivity(
 			Activity.IDLE,
 			ImmutableList.of(
-				Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))),
 				Pair.of(1, new AnimalMakeLove(RegisterEntities.CRAB, 0.8F)),
 				Pair.of(
 					2,
@@ -180,15 +179,12 @@ public final class CrabAi {
 				Pair.of(3, StartAttacking.create(CrabAi::findNearestValidAttackTarget)),
 				Pair.of(
 					4,
-					new GateBehavior<>(
+					new RunOne<>(
 						Map.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT, RegisterMemoryModuleTypes.FIRST_BRAIN_TICK, MemoryStatus.VALUE_PRESENT),
-						ImmutableSet.of(),
-						GateBehavior.OrderPolicy.ORDERED,
-						GateBehavior.RunningPolicy.TRY_ALL,
 						List.of(
 							Pair.of(RandomStroll.swim(1F), 2),
 							Pair.of(RandomStroll.stroll(1F), 2),
-							Pair.of(new DoNothing(30, 100), 3),
+							Pair.of(new DoNothing(30, 100), 1),
 							Pair.of(BehaviorBuilder.triggerIf(Entity::isInWaterOrBubble), 5),
 							Pair.of(BehaviorBuilder.triggerIf(Entity::onGround), 5)
 						)
