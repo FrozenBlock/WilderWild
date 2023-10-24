@@ -14,9 +14,11 @@ What's new:
     - Can climb up walls.
     - Can be scooped up in Buckets.
     - Will drop its Claw upon death, which can be cooked.
+    - Can be brewed with an Awkward potion to create a Potion of Reaching.
 - Added the Reach Boost effect!
     - Extends the player's reach by 0.75 per level.
     - Does not affect attacking, only impacts interactions with Items and Blocks, including both placing and breaking.
+        - There is, however, a config option to let this impact the attack reach.
 - Fixed Jellyfish no longer spawning in Jellyfish Caves.
 - Slightly optimized Rainbow Jellyfish rendering.
 - Added a translation string for Coconut projectiles.
