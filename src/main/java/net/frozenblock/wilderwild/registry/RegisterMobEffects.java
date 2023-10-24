@@ -40,13 +40,19 @@ public final class RegisterMobEffects {
 				0.75,
 				AttributeModifier.Operation.ADDITION
 			)
-			.addAttributeModifier(
+	);
+
+	static {
+		// config option
+		if (true) {
+			REACH.addAttributeModifier(
 				ReachEntityAttributes.ATTACK_RANGE,
 				Mth.createInsecureUUID(RandomSource.createNewThreadLocalInstance()).toString(),
 				0.75,
 				AttributeModifier.Operation.ADDITION
-			)
-	);
+			);
+		}
+	}
 
 	private RegisterMobEffects() {
 		throw new UnsupportedOperationException("RegisterMobEffects contains only static declarations.");
