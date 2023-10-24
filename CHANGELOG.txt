@@ -25,5 +25,7 @@ What's new:
 - Removed the Fabric Loader version requirement in hopes it will fix issues with Quilt.
 - Changed the grammar of Wilder Wild's advancements to align with Vanilla.
 - Refactored BaobabLeaves and TermiteMound classes to be BaobabLeavesBlock and TermiteMoundBlock respectively.
+- Fixed Fireflies with the Nectar easter egg not properly rendering their glowing overlay.
+- Fixed Firefly Bottles with the Nectar easter egg not using the Nectar texture.
 - Fixed Display Lantern silk touch loot table
 - Fixed compatibility with Roughly Enough Resources
