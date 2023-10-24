@@ -108,13 +108,13 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 	}
 
 	private static void bobClaw(@NotNull ModelPart modelPart, float ageInTicks, float multiplier) {
-		modelPart.zRot += multiplier * (Mth.cos(ageInTicks * 0.09f) * 0.05f + 0.05f);
-		modelPart.yRot += multiplier * (Mth.sin(ageInTicks * 0.067f) * 0.05f);
+		modelPart.zRot += multiplier * (Mth.cos(ageInTicks * 0.09F) * 0.05F + 0.05F);
+		modelPart.yRot += multiplier * (Mth.sin(ageInTicks * 0.067F) * 0.05F);
 	}
 
 	@Override
 	public void prepareMobModel(@NotNull T entity, float limbSwing, float limbSwingAmount, float partialTick) {
-		this.xRot = Mth.lerp(partialTick, entity.prevClimbAnimX, entity.climbAnimX) * 75F;
+		this.xRot = Mth.lerp(partialTick, entity.prevClimbAnimX, entity.climbAnimX) * 85F;
 		this.scale = entity.getScale();
 	}
 
@@ -171,7 +171,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		this.legs.zRot += climbRotRadians;
 
 		//Attack Anim
-		this.body.yRot = Mth.sin(Mth.sqrt(this.attackTime) * (doublePI)) * -0.2f;
+		this.body.yRot = Mth.sin(Mth.sqrt(this.attackTime) * (doublePI)) * -0.2F;
 		float attackSin = Mth.sin(this.attackTime * (float) Math.PI);
 		this.main_claw.x += attackSin * 1.5F;
 		this.main_claw.xRot += attackSin * -80F * pi180;
