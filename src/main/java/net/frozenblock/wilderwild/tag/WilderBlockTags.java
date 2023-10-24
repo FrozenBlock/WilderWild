@@ -34,6 +34,9 @@ public final class WilderBlockTags {
 	public static final TagKey<Block> SCULK_STAIR_REPLACEABLE = bind("sculk_stair_replaceable");
 	public static final TagKey<Block> SCULK_WALL_REPLACEABLE = bind("sculk_wall_replaceable");
 	public static final TagKey<Block> ANCIENT_HORN_NON_COLLIDE = bind("ancient_horn_vibration_non_collide");
+	public static final TagKey<Block> BAOBAB_LOGS = bind("baobab_logs");
+	public static final TagKey<Block> CYPRESS_LOGS = bind("cypress_logs");
+	public static final TagKey<Block> PALM_LOGS = bind("palm_logs");
 	public static final TagKey<Block> KILLS_TERMITE = bind("kills_termite");
 	public static final TagKey<Block> TERMITE_BREAKABLE = bind("termite_breakable");
 	public static final TagKey<Block> BLOCKS_TERMITE = bind("blocks_termite");
@@ -41,6 +44,9 @@ public final class WilderBlockTags {
 	public static final TagKey<Block> PACKED_MUD_REPLACEABLE = bind("packed_mud_replaceable");
 	public static final TagKey<Block> HOLLOWED_LOGS = bind("hollowed_logs");
 	public static final TagKey<Block> STRIPPED_HOLLOWED_LOGS = bind("stripped_hollowed_logs");
+	public static final TagKey<Block> HOLLOWED_BAOBAB_LOGS = bind("hollowed_baobab_logs");
+	public static final TagKey<Block> HOLLOWED_CYPRESS_LOGS = bind("hollowed_cypress_logs");
+	public static final TagKey<Block> HOLLOWED_PALM_LOGS = bind("hollowed_palm_logs");
 	public static final TagKey<Block> BUSH_MAY_PLACE_ON = bind("bush_may_place_on");
 	public static final TagKey<Block> SAND_POOL_REPLACEABLE = bind("sand_pool_replaceable");
 	public static final TagKey<Block> RIVER_POOL_REPLACEABLE = bind("river_pool_replaceable");

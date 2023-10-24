@@ -19,18 +19,9 @@
     "minecraft:stripped_oak_wood",
     "minecraft:stripped_spruce_wood",
     "minecraft:stripped_acacia_wood",
-    {
-      "id": "wilderwild:stripped_baobab_wood",
-      "required": false
-    },
-    {
-      "id": "wilderwild:stripped_cypress_wood",
-      "required": false
-    },
-    {
-      "id": "wilderwild:stripped_palm_wood",
-      "required": false
-    },
+    "wilderwild:stripped_baobab_wood",
+    "wilderwild:stripped_cypress_wood",
+    "wilderwild:stripped_palm_wood",
     {
       "id": "immersive_weathering:leaf_piles",
       "required": false
