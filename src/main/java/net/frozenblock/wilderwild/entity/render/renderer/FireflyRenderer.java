@@ -38,6 +38,7 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
+import java.util.function.Supplier;
 
 public class FireflyRenderer extends EntityRenderer<Firefly> {
 	//CREDIT TO magistermaks ON GITHUB!!
@@ -50,7 +51,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 	private static final float yOffset = 0.155F;
 	private static final Quaternionf one80Quat = Axis.YP.rotationDegrees(180.0F);
 	private static final float pi = (float) Math.PI;
-	public static Object2ObjectMap<ResourceLocation, RenderType> layers = new Object2ObjectLinkedOpenHashMap<>() {{
+	public static final Object2ObjectMap<ResourceLocation, RenderType> LAYERS = new Object2ObjectLinkedOpenHashMap<>() {{
 		Object2ObjectMap<ResourceLocation, ResourceLocation> colors = new Object2ObjectLinkedOpenHashMap<>();
 		WilderRegistry.FIREFLY_COLOR.forEach(color -> colors.put(color.key(), color.texture()));
 		colors.forEach((colorKey, texture) -> put(colorKey, RenderType.entityTranslucentEmissive(texture)));
@@ -70,7 +71,8 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 		PoseStack.Pose entry = matrices.last();
 		Matrix4f matrix4f = entry.pose();
 		Matrix3f matrix3f = entry.normal();
-		VertexConsumer vertexConsumer = vertexConsumers.getBuffer(nectar ? age % 2 == 0 ? NECTAR_LAYER : NECTAR_FLAP_LAYER : LAYER);
+		Supplier<RenderType> nectarLayer = () -> age % 2 == 0 ? NECTAR_LAYER : NECTAR_FLAP_LAYER;
+		VertexConsumer vertexConsumer = vertexConsumers.getBuffer(nectar ? nectarLayer.get() : LAYER);
 
 		vertexConsumer
 			.vertex(matrix4f, -0.5F, -0.5F, 0.0F)
@@ -105,14 +107,11 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 			.normal(matrix3f, 0.0F, 1.0F, 0.0F)
 			.endVertex();
 
-		if (color != null && layers.get(color.key()) != null) {
-			if (!nectar) {
-				vertexConsumer = vertexConsumers.getBuffer(layers.get(color.key()));
-			} else {
-				vertexConsumer = vertexConsumers.getBuffer(NECTAR_OVERLAY);
-			}
+		if (color != null && LAYERS.get(color.key()) != null) {
+			RenderType layer = nectar ? NECTAR_LAYER : LAYERS.get(color.key());
+			vertexConsumer = vertexConsumers.getBuffer(layer);
 		} else {
-			vertexConsumer = vertexConsumers.getBuffer(layers.get(FireflyColor.ON.key()));
+			vertexConsumer = vertexConsumers.getBuffer(LAYERS.get(FireflyColor.ON.key()));
 		}
 
 		int calcColor = flickers ? (int) ((255 * (Math.cos((piAgeDelta) * 0.025))) + 127.5) : (int) Math.max((255 * (Math.cos((piAgeDelta) * 0.05))), 0);

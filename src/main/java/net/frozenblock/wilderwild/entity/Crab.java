@@ -680,6 +680,9 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		compound.putInt("DigTicks", this.getDiggingTicks());
 		VibrationSystem.Data.CODEC.encodeStart(NbtOps.INSTANCE, this.vibrationData).resultOrPartial(WilderSharedConstants.LOGGER::error).ifPresent(tag -> compound.put("listener", tag));
 		compound.putString("EntityPose", this.getPose().name());
+		compound.putDouble("prevX", this.prevMovement.x);
+		compound.putDouble("prevY", this.prevMovement.y);
+		compound.putDouble("prevZ", this.prevMovement.z);
 	}
 
 	@Override
@@ -690,11 +693,12 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		if (compound.contains("listener", 10)) {
 			VibrationSystem.Data.CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, compound.getCompound("listener"))).resultOrPartial(WilderSharedConstants.LOGGER::error).ifPresent(data -> this.vibrationData = data);
 		}
-		if (compound.contains("EntityPose")) {
-			if (Arrays.stream(Pose.values()).anyMatch(pose -> pose.name().equals(compound.getString("EntityPose")))) {
-				this.setPose(Pose.valueOf(compound.getString("EntityPose")));
-			}
+		if (compound.contains("EntityPose")
+			&& (Arrays.stream(Pose.values()).anyMatch(pose -> pose.name().equals(compound.getString("EntityPose"))))
+		) {
+			this.setPose(Pose.valueOf(compound.getString("EntityPose")));
 		}
+		this.prevMovement = new Vec3(compound.getDouble("prevX"), compound.getDouble("prevY"), compound.getDouble("prevZ"));
 	}
 
 	@Override
