@@ -16,7 +16,7 @@ What's new:
     - Will drop its Claw upon death, which can be cooked.
     - Can be brewed with an Awkward potion to create a Potion of Reaching.
 - Added the Reach Boost effect!
-    - Extends the player's reach by 0.75 per level.
+    - Extends the player's reach by 1 block per level.
     - Does not affect attacking, only impacts interactions with Items and Blocks, including both placing and breaking.
         - There is, however, a config option to let this impact the attack reach.
 - Fixed Jellyfish no longer spawning in Jellyfish Caves.
@@ -25,3 +25,5 @@ What's new:
 - Removed the Fabric Loader version requirement in hopes it will fix issues with Quilt.
 - Changed the grammar of Wilder Wild's advancements to align with Vanilla.
 - Refactored BaobabLeaves and TermiteMound classes to be BaobabLeavesBlock and TermiteMoundBlock respectively.
+- Fixed Display Lantern silk touch loot table
+- Fixed compatibility with Roughly Enough Resources

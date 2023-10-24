@@ -619,6 +619,7 @@ val github by tasks.register("github") {
 }
 
 val publishMod by tasks.register("publishMod") {
+    throw UnsupportedOperationException("YOU CANT PUBLISH UNTIL YOU TEST ROUGHLY ENOUGH RESOURCES COMPAT")
     dependsOn(tasks.publish)
     dependsOn(github)
     dependsOn(tasks.curseforge)
