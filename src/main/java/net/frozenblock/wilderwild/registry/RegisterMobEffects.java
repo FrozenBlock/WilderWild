@@ -36,7 +36,7 @@ public final class RegisterMobEffects {
 		new MobEffect(MobEffectCategory.BENEFICIAL, 16646020)
 			.addAttributeModifier(
 				ReachEntityAttributes.REACH,
-				Mth.createInsecureUUID(RandomSource.createNewThreadLocalInstance()).toString(),
+				"DA6D90D0-722B-11EE-87D4-325096B39F47",
 				0.75,
 				AttributeModifier.Operation.ADDITION
 			)
@@ -47,7 +47,7 @@ public final class RegisterMobEffects {
 		if (true) {
 			REACH.addAttributeModifier(
 				ReachEntityAttributes.ATTACK_RANGE,
-				Mth.createInsecureUUID(RandomSource.createNewThreadLocalInstance()).toString(),
+				"F2439145-BA25-4DEC-B11A-218B56EF22BB",
 				0.75,
 				AttributeModifier.Operation.ADDITION
 			);
