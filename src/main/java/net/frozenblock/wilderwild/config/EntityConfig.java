@@ -91,6 +91,7 @@ public final class EntityConfig {
 
 	public static class CrabConfig {
 		public int crabSpawnCap = 25;
+		public boolean reachAffectsAttack = false;
 	}
 
 	public static class TumbleweedConfig {

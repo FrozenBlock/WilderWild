@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
+import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -43,8 +44,7 @@ public final class RegisterMobEffects {
 	);
 
 	static {
-		// config option
-		if (true) {
+		if (EntityConfig.get().crab.reachAffectsAttack) {
 			REACH.addAttributeModifier(
 				ReachEntityAttributes.ATTACK_RANGE,
 				"F2439145-BA25-4DEC-B11A-218B56EF22BB",

@@ -112,8 +112,7 @@ public final class EntityConfigGui {
 		var jellyfishCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("jellyfish"),
 			false,
 			tooltip("jellyfish"),
-			jellyfishSpawnCap,
-			jellyfishTentacles
+			jellyfishSpawnCap, jellyfishTentacles
 		);
 
 		var crabSpawnCap = entryBuilder.startIntSlider(text("crab_spawn_cap"), crab.crabSpawnCap, 0, 100)
@@ -123,10 +122,17 @@ public final class EntityConfigGui {
 			.requireRestart()
 			.build();
 
+		var reachAffectsAttack = entryBuilder.startBooleanToggle(text("reach_affects_attack"), crab.reachAffectsAttack)
+			.setDefaultValue(defaultConfig.crab.reachAffectsAttack)
+			.setSaveConsumer(newValue -> crab.reachAffectsAttack = newValue)
+			.setTooltip(tooltip("reach_affects_attack"))
+			.requireRestart()
+			.build();
+
 		var crabCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("crab"),
 			false,
 			tooltip("crab"),
-			crabSpawnCap
+			crabSpawnCap, reachAffectsAttack
 		);
 
 		var tumbleweedSpawnCap = entryBuilder.startIntSlider(text("tumbleweed_spawn_cap"), tumbleweed.tumbleweedSpawnCap, 0, 100)
@@ -157,10 +163,7 @@ public final class EntityConfigGui {
 		var tumbleweedCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("tumbleweed"),
 			false,
 			tooltip("tumbleweed"),
-			tumbleweedSpawnCap,
-			leashedTumbleweed,
-			tumbleweedDestroysCrops,
-			tumbleweedRotatesToLookDirection
+			tumbleweedSpawnCap, leashedTumbleweed, tumbleweedDestroysCrops, tumbleweedRotatesToLookDirection
 		);
 
 
