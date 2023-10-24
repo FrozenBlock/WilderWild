@@ -364,20 +364,6 @@
       },
       "trigger": "minecraft:bred_animals"
     },
-    "wilderwild:jellyfish": {
-      "conditions": {
-        "child": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "type": "wilderwild:jellyfish"
-            }
-          }
-        ]
-      },
-      "trigger": "minecraft:bred_animals"
-    },
     "wilderwild:crab": {
       "conditions": {
         "child": [
@@ -480,9 +466,6 @@
     ],
     [
       "minecraft:sniffer"
-    ],
-    [
-      "wilderwild:jellyfish"
     ],
     [
       "wilderwild:crab"
