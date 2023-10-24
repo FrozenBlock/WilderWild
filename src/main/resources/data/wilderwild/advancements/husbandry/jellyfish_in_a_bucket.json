@@ -15,7 +15,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.husbandry.jellyfish_in_a_bucket.description"
+      "translate": "wilderwild.advancements.husbandry.jellyfish_in_a_bucket.description"
     },
     "frame": "task",
     "hidden": false,
@@ -24,7 +24,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.husbandry.jellyfish_in_a_bucket.title"
+      "translate": "wilderwild.advancements.husbandry.jellyfish_in_a_bucket.title"
     }
   },
   "requirements": [
