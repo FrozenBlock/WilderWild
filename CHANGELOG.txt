@@ -13,7 +13,9 @@ What's new:
     - Can be bred with Kelp.
     - Can climb up walls.
     - Can be scooped up in Buckets.
+    - Will drop its Claw upon death, which can be cooked.
 - Fixed Jellyfish no longer spawning in Jellyfish Caves.
 - Slightly optimized Rainbow Jellyfish rendering.
 - Added a translation string for Coconut projectiles.
 - Removed the Fabric Loader version requirement in hopes it will fix issues with Quilt.
+- Changed the grammar of Wilder Wild's advancements to align with Vanilla.

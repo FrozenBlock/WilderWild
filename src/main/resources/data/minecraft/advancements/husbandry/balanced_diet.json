@@ -440,6 +440,26 @@
         }
       },
       "trigger": "minecraft:consume_item"
+    },
+    "crab_claw": {
+      "conditions": {
+        "item": {
+          "items": [
+            "wilderwild:crab_claw"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "cooked_crab_claw": {
+      "conditions": {
+        "item": {
+          "items": [
+            "wilderwild:cooked_crab_claw"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
     }
   },
   "display": {
@@ -589,6 +609,12 @@
     ],
     [
       "peeled_prickly_pear"
+    ],
+    [
+      "crab_claw"
+    ],
+    [
+      "cooked_crab_claw"
     ]
   ],
   "rewards": {
