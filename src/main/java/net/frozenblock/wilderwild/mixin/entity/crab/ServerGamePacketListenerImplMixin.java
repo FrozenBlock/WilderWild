@@ -19,7 +19,7 @@ public class ServerGamePacketListenerImplMixin {
 	public double wilderWild$handleUseItemOn(double original) {
 		if (this.player != null && this.player.hasEffect(RegisterMobEffects.REACH)) {
 			int amplifier = this.player.getEffect(RegisterMobEffects.REACH).getAmplifier() + 1;
-			return original + (amplifier * 0.75D);
+			return Mth.square(Math.sqrt(original) + amplifier * 0.75D);
 		}
 		return original;
 	}
@@ -37,7 +37,7 @@ public class ServerGamePacketListenerImplMixin {
 	public double wilderWild$handleInteract(double original) {
 		if (this.player != null && this.player.hasEffect(RegisterMobEffects.REACH)) {
 			int amplifier = this.player.getEffect(RegisterMobEffects.REACH).getAmplifier() + 1;
-			return original + (amplifier * 0.75D);
+			return Mth.square(Math.sqrt(original) + amplifier * 0.75D);
 		}
 		return original;
 	}
