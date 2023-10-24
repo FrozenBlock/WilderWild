@@ -89,7 +89,6 @@
   "client": [
     "client.allay.AllayModelMixin",
     "client.brush.LevelRendererMixin",
-    "client.crab.MultiPlayerGameModeMixin",
     "client.easter.MerpSlimeRenderer",
     "client.easter.ScottTheWozMixin",
     "client.easter.StellaWardenModel",
