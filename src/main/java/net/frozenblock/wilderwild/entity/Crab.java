@@ -605,7 +605,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	@Override
 	protected float getStandingEyeHeight(@NotNull Pose pose, @NotNull EntityDimensions dimensions) {
-		return dimensions.height * 0.5F;
+		return dimensions.height * 0.65F;
 	}
 
 	@Nullable
