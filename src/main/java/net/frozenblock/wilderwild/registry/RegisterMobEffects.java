@@ -23,8 +23,6 @@ import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -40,19 +38,13 @@ public final class RegisterMobEffects {
 				"DA6D90D0-722B-11EE-87D4-325096B39F47",
 				0.75,
 				AttributeModifier.Operation.ADDITION
-			)
-	);
-
-	static {
-		if (EntityConfig.get().crab.reachAffectsAttack) {
-			REACH.addAttributeModifier(
+			).addAttributeModifier(
 				ReachEntityAttributes.ATTACK_RANGE,
 				"F2439145-BA25-4DEC-B11A-218B56EF22BB",
-				0.75,
+				EntityConfig.get().crab.reachAffectsAttack ? 0.75 : 0,
 				AttributeModifier.Operation.ADDITION
-			);
-		}
-	}
+			)
+	);
 
 	private RegisterMobEffects() {
 		throw new UnsupportedOperationException("RegisterMobEffects contains only static declarations.");
