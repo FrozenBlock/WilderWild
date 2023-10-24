@@ -17,6 +17,13 @@
                 }
               ],
               "source": "block_entity"
+            },
+            {
+              "block": "wilderwild:display_lantern",
+              "function": "minecraft:copy_state",
+              "properties": [
+                "display_light"
+              ]
             }
           ],
           "name": "wilderwild:display_lantern"

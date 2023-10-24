@@ -70,6 +70,7 @@ public class WWLootProvider extends SimpleFabricLootTableProvider {
 					.add(
 						LootItem.lootTableItem(RegisterBlocks.DISPLAY_LANTERN)
 							.apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy("Fireflies", "BlockEntityTag.Fireflies"))
+							.apply(CopyBlockState.copyState(RegisterBlocks.DISPLAY_LANTERN).copy(DisplayLanternBlock.DISPLAY_LIGHT))
 					)
 			)
 		);
