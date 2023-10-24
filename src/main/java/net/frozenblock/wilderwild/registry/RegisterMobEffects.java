@@ -32,16 +32,16 @@ public final class RegisterMobEffects {
 
 	public static final MobEffect REACH = register(
 		"reach_boost",
-		new MobEffect(MobEffectCategory.BENEFICIAL, 16646020)
+		new MobEffect(MobEffectCategory.BENEFICIAL, 47784)
 			.addAttributeModifier(
 				ReachEntityAttributes.REACH,
 				"DA6D90D0-722B-11EE-87D4-325096B39F47",
-				0.75,
+				1,
 				AttributeModifier.Operation.ADDITION
 			).addAttributeModifier(
 				ReachEntityAttributes.ATTACK_RANGE,
 				"F2439145-BA25-4DEC-B11A-218B56EF22BB",
-				EntityConfig.get().crab.reachAffectsAttack ? 0.75 : 0,
+				EntityConfig.get().crab.reachAffectsAttack ? 1 : 0,
 				AttributeModifier.Operation.ADDITION
 			)
 	);
