@@ -2262,7 +2262,7 @@
   },
   "entity.crab.idle": {
     "sounds": [
-      "wilderwild:mob/crab/idle",
+      "wilderwild:mob/crab/idle1",
       "wilderwild:mob/crab/idle2",
       "wilderwild:mob/crab/idle3",
       "wilderwild:mob/crab/idle4",

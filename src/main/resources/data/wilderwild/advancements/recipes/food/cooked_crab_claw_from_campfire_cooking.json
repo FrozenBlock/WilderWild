@@ -23,7 +23,7 @@
   "requirements": [
     [
       "has_crab_claw",
-      "has_chicken"
+      "has_the_recipe"
     ]
   ],
   "rewards": {
