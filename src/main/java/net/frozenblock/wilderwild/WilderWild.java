@@ -79,12 +79,9 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 	public static final ResourceLocation TERMITE_PARTICLE_PACKET = WilderSharedConstants.id("termite_particle_packet");
 	public static final ResourceLocation SENSOR_HICCUP_PACKET = WilderSharedConstants.id("sensor_hiccup_packet");
 	public static final ResourceLocation JELLY_STING_PACKET = WilderSharedConstants.id("jelly_sting_packet");
-	@Nullable
-	public static WilderWild INSTANCE;
 
 	public WilderWild() {
 		super(WilderSharedConstants.MOD_ID);
-		INSTANCE = this;
 	}
 
 	private static void applyDataFixes(final @NotNull ModContainer mod) {
