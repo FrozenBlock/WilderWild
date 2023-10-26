@@ -29,13 +29,15 @@ import net.minecraft.world.entity.ai.sensing.Sensor;
 import org.jetbrains.annotations.NotNull;
 
 public class CrabCanDigSensor extends Sensor<Crab> {
+
 	@Override
+	@NotNull
 	public Set<MemoryModuleType<?>> requires() {
 		return ImmutableSet.of(RegisterMemoryModuleTypes.CAN_DIG);
 	}
 
 	@Override
-	protected void doTick(ServerLevel level, @NotNull Crab crab) {
+	protected void doTick(@NotNull ServerLevel level, @NotNull Crab crab) {
 		Brain<?> brain = crab.getBrain();
 		if (crab.canHideOnGround()) {
 			brain.setMemory(RegisterMemoryModuleTypes.CAN_DIG, true);

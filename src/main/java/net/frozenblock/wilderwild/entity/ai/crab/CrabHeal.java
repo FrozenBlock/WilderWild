@@ -23,9 +23,13 @@ import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
 import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 public class CrabHeal {
-	public static BehaviorControl<Crab> create() {
+
+	@Contract(" -> new")
+	public static @NotNull BehaviorControl<Crab> create() {
 		return BehaviorBuilder.create(instance -> instance.group(
 			instance.present(RegisterMemoryModuleTypes.IS_UNDERGROUND),
 			instance.present(MemoryModuleType.DIG_COOLDOWN),

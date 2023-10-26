@@ -27,6 +27,7 @@ import java.util.Set;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
+import net.frozenblock.wilderwild.registry.RegisterSensorTypes;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.minecraft.util.Unit;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -56,6 +57,7 @@ import net.minecraft.world.entity.ai.behavior.warden.ForceUnmount;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.sensing.Sensor;
+import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
@@ -69,6 +71,47 @@ public final class CrabAi {
 	private static final int DIGGING_DURATION = Crab.DIG_LENGTH_IN_TICKS;
 	private static final int EMERGE_DURATION = Crab.EMERGE_LENGTH_IN_TICKS;
 	public static final double UNDERGROUND_PLAYER_RANGE = Crab.UNDERGROUND_PLAYER_RANGE;
+	public static final List<SensorType<? extends Sensor<? super Crab>>> SENSORS = List.of(
+		SensorType.NEAREST_LIVING_ENTITIES,
+		SensorType.NEAREST_PLAYERS,
+		SensorType.NEAREST_ADULT,
+		SensorType.HURT_BY,
+		RegisterSensorTypes.CRAB_ATTACKABLES,
+		RegisterSensorTypes.CRAB_TEMPTATIONS,
+		RegisterSensorTypes.CRAB_SPECIFIC_SENSOR,
+		RegisterSensorTypes.CRAB_NEARBY_PLAYER_SENSOR,
+		RegisterSensorTypes.CRAB_CAN_DIG_SENSOR
+	);
+	public static final List<? extends MemoryModuleType<?>> MEMORY_MODULES = List.of(
+		MemoryModuleType.NEAREST_LIVING_ENTITIES,
+		MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
+		MemoryModuleType.NEAREST_PLAYERS,
+		MemoryModuleType.NEAREST_VISIBLE_PLAYER,
+		MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER,
+		RegisterMemoryModuleTypes.IS_PLAYER_NEARBY,
+		MemoryModuleType.LOOK_TARGET,
+		MemoryModuleType.WALK_TARGET,
+		MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
+		MemoryModuleType.PATH,
+		MemoryModuleType.ATTACK_TARGET,
+		MemoryModuleType.NEAREST_ATTACKABLE,
+		MemoryModuleType.HAS_HUNTING_COOLDOWN,
+		MemoryModuleType.ATTACK_COOLING_DOWN,
+		MemoryModuleType.HURT_BY,
+		MemoryModuleType.HURT_BY_ENTITY,
+		MemoryModuleType.IS_PANICKING,
+		MemoryModuleType.IS_EMERGING,
+		MemoryModuleType.DIG_COOLDOWN,
+		RegisterMemoryModuleTypes.CAN_DIG,
+		MemoryModuleType.TEMPTING_PLAYER,
+		MemoryModuleType.IS_TEMPTED,
+		MemoryModuleType.TEMPTATION_COOLDOWN_TICKS,
+		MemoryModuleType.BREED_TARGET,
+		RegisterMemoryModuleTypes.IS_UNDERGROUND,
+		RegisterMemoryModuleTypes.NEARBY_CRABS,
+		RegisterMemoryModuleTypes.HEAL_COOLDOWN_TICKS,
+		RegisterMemoryModuleTypes.FIRST_BRAIN_TICK
+	);
 
 	private static final BehaviorControl<Crab> DIG_COOLDOWN_SETTER = BehaviorBuilder.create(instance -> instance.group(instance.registered(MemoryModuleType.DIG_COOLDOWN)).apply(instance, memoryAccessor -> (world, crab, l) -> {
 		if (instance.tryGet(memoryAccessor).isPresent()) {
@@ -76,9 +119,10 @@ public final class CrabAi {
 		}
 		return true;
 	}));
-	private static final BehaviorControl<Crab> EMERGE_COOLDOWN_SETTER = BehaviorBuilder.create(instance -> instance.group(instance.registered(MemoryModuleType.DIG_COOLDOWN)).apply(instance, memoryAccessor -> (world, crab, l) -> {
+
+	private static final BehaviorControl<Crab> HUNTING_COOLDOWN_SETTER = BehaviorBuilder.create(instance -> instance.group(instance.registered(MemoryModuleType.HAS_HUNTING_COOLDOWN)).apply(instance, memoryAccessor -> (world, crab, l) -> {
 		if (instance.tryGet(memoryAccessor).isPresent()) {
-			memoryAccessor.setWithExpiry(Unit.INSTANCE, getRandomEmergeCooldown(crab));
+			memoryAccessor.setWithExpiry(true, 2400);
 		}
 		return true;
 	}));
@@ -195,6 +239,7 @@ public final class CrabAi {
 			10,
 			ImmutableList.of(
 				DIG_COOLDOWN_SETTER,
+				HUNTING_COOLDOWN_SETTER,
 				StopAttackingIfTargetInvalid.create(
 					livingEntity -> !crab.canTargetEntity(livingEntity), CrabAi::onTargetInvalid, true
 				),

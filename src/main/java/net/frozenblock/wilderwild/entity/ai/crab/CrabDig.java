@@ -31,6 +31,7 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import org.jetbrains.annotations.NotNull;
 
 public class CrabDig<E extends Crab> extends Behavior<E> {
+
 	public CrabDig(int duration) {
 		super(
 			Map.of(
@@ -43,12 +44,12 @@ public class CrabDig<E extends Crab> extends Behavior<E> {
 	}
 
 	@Override
-	protected boolean canStillUse(ServerLevel level, E entity, long gameTime) {
+	protected boolean canStillUse(@NotNull ServerLevel level, @NotNull E entity, long gameTime) {
 		return true;
 	}
 
 	@Override
-	protected void start(ServerLevel level, @NotNull E crab, long gameTime) {
+	protected void start(@NotNull ServerLevel level, @NotNull E crab, long gameTime) {
 		crab.endNavigation();
 		crab.setPose(Pose.DIGGING);
 		crab.playSound(RegisterSounds.ENTITY_CRAB_DIG, 0.5F, 1.0F);
@@ -56,7 +57,7 @@ public class CrabDig<E extends Crab> extends Behavior<E> {
 	}
 
 	@Override
-	protected void stop(ServerLevel level, @NotNull E crab, long gameTime) {
+	protected void stop(@NotNull ServerLevel level, @NotNull E crab, long gameTime) {
 		if (crab.hasPose(Pose.DIGGING)) {
 			crab.getBrain().setMemory(RegisterMemoryModuleTypes.IS_UNDERGROUND, true);
 			crab.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, CrabAi.getRandomEmergeCooldown(crab));

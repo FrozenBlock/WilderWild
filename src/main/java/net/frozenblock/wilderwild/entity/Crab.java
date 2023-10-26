@@ -21,7 +21,6 @@ package net.frozenblock.wilderwild.entity;
 import com.mojang.serialization.Dynamic;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
@@ -33,7 +32,6 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
-import net.frozenblock.wilderwild.registry.RegisterSensorTypes;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
@@ -83,8 +81,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
-import net.minecraft.world.entity.ai.sensing.Sensor;
-import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
@@ -115,45 +111,6 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	public static final int EMERGE_LENGTH_IN_TICKS = 29;
 	public static final double UNDERGROUND_PLAYER_RANGE = 4;
 	private static final Map<ServerLevelAccessor, Integer> CRABS_PER_LEVEL = new HashMap<>();
-	protected static final List<SensorType<? extends Sensor<? super Crab>>> SENSORS = List.of(
-		SensorType.NEAREST_LIVING_ENTITIES,
-		SensorType.NEAREST_PLAYERS,
-		SensorType.NEAREST_ADULT,
-		SensorType.HURT_BY,
-		RegisterSensorTypes.CRAB_TEMPTATIONS,
-		RegisterSensorTypes.CRAB_SPECIFIC_SENSOR,
-		RegisterSensorTypes.CRAB_NEARBY_PLAYER_SENSOR,
-		RegisterSensorTypes.CRAB_CAN_DIG_SENSOR
-	);
-	protected static final List<? extends MemoryModuleType<?>> MEMORY_MODULES = List.of(
-		MemoryModuleType.NEAREST_LIVING_ENTITIES,
-		MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
-		MemoryModuleType.NEAREST_PLAYERS,
-		MemoryModuleType.NEAREST_VISIBLE_PLAYER,
-		MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER,
-		RegisterMemoryModuleTypes.IS_PLAYER_NEARBY,
-		MemoryModuleType.LOOK_TARGET,
-		MemoryModuleType.WALK_TARGET,
-		MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
-		MemoryModuleType.PATH,
-		MemoryModuleType.ATTACK_TARGET,
-		MemoryModuleType.NEAREST_ATTACKABLE,
-		MemoryModuleType.ATTACK_COOLING_DOWN,
-		MemoryModuleType.HURT_BY,
-		MemoryModuleType.HURT_BY_ENTITY,
-		MemoryModuleType.IS_PANICKING,
-		MemoryModuleType.IS_EMERGING,
-		MemoryModuleType.DIG_COOLDOWN,
-		RegisterMemoryModuleTypes.CAN_DIG,
-		MemoryModuleType.TEMPTING_PLAYER,
-		MemoryModuleType.IS_TEMPTED,
-		MemoryModuleType.TEMPTATION_COOLDOWN_TICKS,
-		MemoryModuleType.BREED_TARGET,
-		RegisterMemoryModuleTypes.IS_UNDERGROUND,
-		RegisterMemoryModuleTypes.NEARBY_CRABS,
-		RegisterMemoryModuleTypes.HEAL_COOLDOWN_TICKS,
-		RegisterMemoryModuleTypes.FIRST_BRAIN_TICK
-	);
 	private static final int DIG_TICKS_UNTIL_PARTICLES = 17;
 	private static final int DIG_TICKS_UNTIL_STOP_PARTICLES = 82;
 	private static final int EMERGE_TICKS_UNTIL_PARTICLES = 1;
@@ -207,7 +164,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Override
 	@NotNull
 	protected Brain.Provider<Crab> brainProvider() {
-		return Brain.provider(MEMORY_MODULES, SENSORS);
+		return Brain.provider(CrabAi.MEMORY_MODULES, CrabAi.SENSORS);
 	}
 
 	@Override
@@ -629,6 +586,10 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		Bucketable.saveDefaultDataToBucketTag(this, stack);
 		CompoundTag compoundTag = stack.getOrCreateTag();
 		compoundTag.putInt("Age", this.getAge());
+		Brain<Crab> brain = this.getBrain();
+		if (brain.hasMemoryValue(MemoryModuleType.HAS_HUNTING_COOLDOWN)) {
+			compoundTag.putLong("HuntingCooldown", brain.getTimeUntilExpiry(MemoryModuleType.HAS_HUNTING_COOLDOWN));
+		}
 	}
 
 	@Override
@@ -636,6 +597,9 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		Bucketable.loadDefaultDataFromBucketTag(this, tag);
 		if (tag.contains("Age")) {
 			this.setAge(tag.getInt("Age"));
+		}
+		if (tag.contains("HuntingCooldown")) {
+			this.getBrain().setMemoryWithExpiry(MemoryModuleType.HAS_HUNTING_COOLDOWN, true, tag.getLong("HuntingCooldown"));
 		}
 	}
 

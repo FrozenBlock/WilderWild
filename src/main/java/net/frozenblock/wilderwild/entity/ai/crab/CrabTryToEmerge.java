@@ -25,9 +25,13 @@ import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 public class CrabTryToEmerge {
-	public static BehaviorControl<Crab> create() {
+
+	@Contract(" -> new")
+	public static @NotNull BehaviorControl<Crab> create() {
 		return BehaviorBuilder.create(instance -> instance.group(
 			instance.registered(MemoryModuleType.IS_EMERGING),
 			instance.present(RegisterMemoryModuleTypes.IS_UNDERGROUND),

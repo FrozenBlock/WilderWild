@@ -34,13 +34,15 @@ import net.minecraft.world.entity.ai.sensing.Sensor;
 import org.jetbrains.annotations.NotNull;
 
 public class CrabSpecificSensor extends Sensor<LivingEntity> {
+
 	@Override
+	@NotNull
 	public Set<MemoryModuleType<?>> requires() {
 		return ImmutableSet.of(RegisterMemoryModuleTypes.NEARBY_CRABS, MemoryModuleType.NEAREST_LIVING_ENTITIES);
 	}
 
 	@Override
-	protected void doTick(ServerLevel level, @NotNull LivingEntity entity) {
+	protected void doTick(@NotNull ServerLevel level, @NotNull LivingEntity entity) {
 		Brain<?> brain = entity.getBrain();
 		ArrayList<Crab> crabs = Lists.newArrayList();
 		List<LivingEntity> entities = brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).orElse(ImmutableList.of());
@@ -51,5 +53,4 @@ public class CrabSpecificSensor extends Sensor<LivingEntity> {
 		}
 		brain.setMemory(RegisterMemoryModuleTypes.NEARBY_CRABS, crabs);
 	}
-
 }
