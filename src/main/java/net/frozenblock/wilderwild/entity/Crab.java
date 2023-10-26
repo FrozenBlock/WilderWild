@@ -640,11 +640,14 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@Override
+	@NotNull
 	public ItemStack getBucketItemStack() {
 		return new ItemStack(RegisterItems.CRAB_BUCKET);
 	}
 
+
 	@Override
+	@NotNull
 	public SoundEvent getPickupSound() {
 		return RegisterSounds.ITEM_BUCKET_FILL_CRAB;
 	}
