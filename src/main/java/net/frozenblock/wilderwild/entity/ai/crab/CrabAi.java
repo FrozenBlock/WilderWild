@@ -121,9 +121,7 @@ public final class CrabAi {
 	}));
 
 	private static final BehaviorControl<Crab> HUNTING_COOLDOWN_SETTER = BehaviorBuilder.create(instance -> instance.group(instance.registered(MemoryModuleType.HAS_HUNTING_COOLDOWN)).apply(instance, memoryAccessor -> (world, crab, l) -> {
-		if (instance.tryGet(memoryAccessor).isPresent()) {
-			memoryAccessor.setWithExpiry(true, 2400);
-		}
+		memoryAccessor.setWithExpiry(true, 2400);
 		return true;
 	}));
 

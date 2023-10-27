@@ -28,9 +28,9 @@ import org.jetbrains.annotations.NotNull;
 public class CrabAttackablesSensor extends NearestVisibleLivingEntitySensor {
 
 	public CrabAttackablesSensor() {
-
 	}
 
+	@Override
 	protected boolean isMatchingEntity(@NotNull LivingEntity attacker, @NotNull LivingEntity target) {
 		return this.isClose(attacker, target) && this.isHuntTarget(attacker, target) && Sensor.isEntityAttackable(attacker, target);
 	}
@@ -40,9 +40,10 @@ public class CrabAttackablesSensor extends NearestVisibleLivingEntitySensor {
 	}
 
 	private boolean isClose(LivingEntity attacker, @NotNull LivingEntity target) {
-		return Math.sqrt(target.distanceToSqr(attacker)) <= 8D;
+		return target.distanceToSqr(attacker) <= 64.0D;
 	}
 
+	@Override
 	@NotNull
 	protected MemoryModuleType<LivingEntity> getMemory() {
 		return MemoryModuleType.NEAREST_ATTACKABLE;
