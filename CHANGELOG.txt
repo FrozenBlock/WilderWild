@@ -29,3 +29,4 @@ What's new:
 - Fixed Firefly Bottles with the Nectar easter egg not using the Nectar texture.
 - Fixed Display Lantern silk touch loot table
 - Fixed compatibility with Roughly Enough Resources
+- Added Palm Crowns into tags it was missing from.
