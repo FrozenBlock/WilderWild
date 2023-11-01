@@ -46,17 +46,22 @@ import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes;
 import static net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes.*;
 import static net.frozenblock.wilderwild.registry.RegisterBlocks.*;
+import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.Criterion;
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.KilledTrigger;
 import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.advancements.critereon.PlayerTrigger;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.item.InstrumentItem;
@@ -156,28 +161,36 @@ public class FrozenLibIntegration extends ModIntegration {
 
 		AdvancementEvents.INIT.register(holder -> {
 			Advancement advancement = holder.value();
-			if (holder.id().equals(new ResourceLocation("adventure/adventuring_time"))) {
-				addBiomeRequirement(advancement, RegisterWorldgen.CYPRESS_WETLANDS);
-				addBiomeRequirement(advancement, RegisterWorldgen.MIXED_FOREST);
-				addBiomeRequirement(advancement, RegisterWorldgen.OASIS);
-				addBiomeRequirement(advancement, RegisterWorldgen.WARM_RIVER);
-				addBiomeRequirement(advancement, RegisterWorldgen.WARM_BEACH);
-				addBiomeRequirement(advancement, RegisterWorldgen.JELLYFISH_CAVES);
-				addBiomeRequirement(advancement, RegisterWorldgen.ARID_FOREST);
-				addBiomeRequirement(advancement, RegisterWorldgen.ARID_SAVANNA);
-				addBiomeRequirement(advancement, RegisterWorldgen.PARCHED_FOREST);
-				addBiomeRequirement(advancement, RegisterWorldgen.BIRCH_JUNGLE);
-				addBiomeRequirement(advancement, RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
-				addBiomeRequirement(advancement, RegisterWorldgen.BIRCH_TAIGA);
-				addBiomeRequirement(advancement, RegisterWorldgen.SEMI_BIRCH_FOREST);
-				addBiomeRequirement(advancement, RegisterWorldgen.DARK_BIRCH_FOREST);
-				addBiomeRequirement(advancement, RegisterWorldgen.FLOWER_FIELD);
-				addBiomeRequirement(advancement, RegisterWorldgen.TEMPERATE_RAINFOREST);
-				addBiomeRequirement(advancement, RegisterWorldgen.RAINFOREST);
-				addBiomeRequirement(advancement, RegisterWorldgen.DARK_TAIGA);
-				addBiomeRequirement(advancement, RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA);
-				addBiomeRequirement(advancement, RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
-				addBiomeRequirement(advancement, RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
+			switch (holder.id().toString()) {
+				case "minecraft:adventure/adventuring_time" -> {
+					addBiomeRequirement(advancement, RegisterWorldgen.CYPRESS_WETLANDS);
+					addBiomeRequirement(advancement, RegisterWorldgen.MIXED_FOREST);
+					addBiomeRequirement(advancement, RegisterWorldgen.OASIS);
+					addBiomeRequirement(advancement, RegisterWorldgen.WARM_RIVER);
+					addBiomeRequirement(advancement, RegisterWorldgen.WARM_BEACH);
+					addBiomeRequirement(advancement, RegisterWorldgen.JELLYFISH_CAVES);
+					addBiomeRequirement(advancement, RegisterWorldgen.ARID_FOREST);
+					addBiomeRequirement(advancement, RegisterWorldgen.ARID_SAVANNA);
+					addBiomeRequirement(advancement, RegisterWorldgen.PARCHED_FOREST);
+					addBiomeRequirement(advancement, RegisterWorldgen.BIRCH_JUNGLE);
+					addBiomeRequirement(advancement, RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
+					addBiomeRequirement(advancement, RegisterWorldgen.BIRCH_TAIGA);
+					addBiomeRequirement(advancement, RegisterWorldgen.SEMI_BIRCH_FOREST);
+					addBiomeRequirement(advancement, RegisterWorldgen.DARK_BIRCH_FOREST);
+					addBiomeRequirement(advancement, RegisterWorldgen.FLOWER_FIELD);
+					addBiomeRequirement(advancement, RegisterWorldgen.TEMPERATE_RAINFOREST);
+					addBiomeRequirement(advancement, RegisterWorldgen.RAINFOREST);
+					addBiomeRequirement(advancement, RegisterWorldgen.DARK_TAIGA);
+					addBiomeRequirement(advancement, RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA);
+					addBiomeRequirement(advancement, RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
+					addBiomeRequirement(advancement, RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
+				}
+				case "minecraft:adventure/kill_all_mobs" -> {
+					addEntityKillRequirement(advancement, RegisterEntities.CRAB);
+					addEntityKillRequirement(advancement, RegisterEntities.FIREFLY);
+					addEntityKillRequirement(advancement, RegisterEntities.JELLYFISH);
+				}
+				default -> {}
 			}
 		});
 	}
@@ -185,6 +198,11 @@ public class FrozenLibIntegration extends ModIntegration {
 	private static void addBiomeRequirement(Advancement advancement, ResourceKey<Biome> key) {
 		AdvancementAPI.addCriteria(advancement, key.location().toString(), inBiome(key));
 		AdvancementAPI.addRequirements(advancement, new AdvancementRequirements(new String[][]{{key.location().toString()}}));
+	}
+
+	private static void addEntityKillRequirement(Advancement advancement, EntityType<?> type) {
+		ResourceLocation key = BuiltInRegistries.ENTITY_TYPE.getKey(type);
+		AdvancementAPI.addCriteria(advancement, key.toString(), KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(type)));
 	}
 
 	private static Criterion<PlayerTrigger.TriggerInstance> inBiome(ResourceKey<Biome> key) {
