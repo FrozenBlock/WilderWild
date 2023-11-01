@@ -38,6 +38,7 @@ import net.frozenblock.lib.tick.api.BlockScheduledTicks;
 import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.config.BlockConfig;
+import net.frozenblock.wilderwild.config.MiscConfig;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.wind.WilderClientWindManager;
@@ -46,17 +47,26 @@ import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes;
 import static net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes.*;
 import static net.frozenblock.wilderwild.registry.RegisterBlocks.*;
+import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.Criterion;
+import net.minecraft.advancements.critereon.BredAnimalsTrigger;
+import net.minecraft.advancements.critereon.ConsumeItemTrigger;
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.FilledBucketTrigger;
+import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.advancements.critereon.PlayerTrigger;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.item.InstrumentItem;
@@ -156,28 +166,81 @@ public class FrozenLibIntegration extends ModIntegration {
 
 		AdvancementEvents.INIT.register(holder -> {
 			Advancement advancement = holder.value();
-			if (holder.id().equals(new ResourceLocation("adventure/adventuring_time"))) {
-				addBiomeRequirement(advancement, RegisterWorldgen.CYPRESS_WETLANDS);
-				addBiomeRequirement(advancement, RegisterWorldgen.MIXED_FOREST);
-				addBiomeRequirement(advancement, RegisterWorldgen.OASIS);
-				addBiomeRequirement(advancement, RegisterWorldgen.WARM_RIVER);
-				addBiomeRequirement(advancement, RegisterWorldgen.WARM_BEACH);
-				addBiomeRequirement(advancement, RegisterWorldgen.JELLYFISH_CAVES);
-				addBiomeRequirement(advancement, RegisterWorldgen.ARID_FOREST);
-				addBiomeRequirement(advancement, RegisterWorldgen.ARID_SAVANNA);
-				addBiomeRequirement(advancement, RegisterWorldgen.PARCHED_FOREST);
-				addBiomeRequirement(advancement, RegisterWorldgen.BIRCH_JUNGLE);
-				addBiomeRequirement(advancement, RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
-				addBiomeRequirement(advancement, RegisterWorldgen.BIRCH_TAIGA);
-				addBiomeRequirement(advancement, RegisterWorldgen.SEMI_BIRCH_FOREST);
-				addBiomeRequirement(advancement, RegisterWorldgen.DARK_BIRCH_FOREST);
-				addBiomeRequirement(advancement, RegisterWorldgen.FLOWER_FIELD);
-				addBiomeRequirement(advancement, RegisterWorldgen.TEMPERATE_RAINFOREST);
-				addBiomeRequirement(advancement, RegisterWorldgen.RAINFOREST);
-				addBiomeRequirement(advancement, RegisterWorldgen.DARK_TAIGA);
-				addBiomeRequirement(advancement, RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA);
-				addBiomeRequirement(advancement, RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
-				addBiomeRequirement(advancement, RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
+			if (MiscConfig.get().modifyAdvancements) {
+				if (holder.id().equals(new ResourceLocation("adventure/adventuring_time"))) {
+					addBiomeRequirement(advancement, RegisterWorldgen.CYPRESS_WETLANDS);
+					addBiomeRequirement(advancement, RegisterWorldgen.MIXED_FOREST);
+					addBiomeRequirement(advancement, RegisterWorldgen.OASIS);
+					addBiomeRequirement(advancement, RegisterWorldgen.WARM_RIVER);
+					addBiomeRequirement(advancement, RegisterWorldgen.WARM_BEACH);
+					addBiomeRequirement(advancement, RegisterWorldgen.JELLYFISH_CAVES);
+					addBiomeRequirement(advancement, RegisterWorldgen.ARID_FOREST);
+					addBiomeRequirement(advancement, RegisterWorldgen.ARID_SAVANNA);
+					addBiomeRequirement(advancement, RegisterWorldgen.PARCHED_FOREST);
+					addBiomeRequirement(advancement, RegisterWorldgen.BIRCH_JUNGLE);
+					addBiomeRequirement(advancement, RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
+					addBiomeRequirement(advancement, RegisterWorldgen.BIRCH_TAIGA);
+					addBiomeRequirement(advancement, RegisterWorldgen.SEMI_BIRCH_FOREST);
+					addBiomeRequirement(advancement, RegisterWorldgen.DARK_BIRCH_FOREST);
+					addBiomeRequirement(advancement, RegisterWorldgen.FLOWER_FIELD);
+					addBiomeRequirement(advancement, RegisterWorldgen.TEMPERATE_RAINFOREST);
+					addBiomeRequirement(advancement, RegisterWorldgen.RAINFOREST);
+					addBiomeRequirement(advancement, RegisterWorldgen.DARK_TAIGA);
+					addBiomeRequirement(advancement, RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA);
+					addBiomeRequirement(advancement, RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
+					addBiomeRequirement(advancement, RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
+				} else if (holder.id().equals(new ResourceLocation("husbandry/balanced_diet"))) {
+					AdvancementAPI.addCriteria(advancement, "wilderwild:baobab_nut", CriteriaTriggers.CONSUME_ITEM.createCriterion(
+						ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.BAOBAB_NUT).triggerInstance())
+					);
+					AdvancementAPI.addCriteria(advancement, "wilderwild:split_coconut", CriteriaTriggers.CONSUME_ITEM.createCriterion(
+						ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.SPLIT_COCONUT).triggerInstance())
+					);
+					AdvancementAPI.addCriteria(advancement, "wilderwild:crab_claw", CriteriaTriggers.CONSUME_ITEM.createCriterion(
+						ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.CRAB_CLAW).triggerInstance())
+					);
+					AdvancementAPI.addCriteria(advancement, "wilderwild:cooked_crab_claw", CriteriaTriggers.CONSUME_ITEM.createCriterion(
+						ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.COOKED_CRAB_CLAW).triggerInstance())
+					);
+					AdvancementAPI.addCriteria(advancement, "wilderwild:prickly_pear", CriteriaTriggers.CONSUME_ITEM.createCriterion(
+						ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.PRICKLY_PEAR).triggerInstance())
+					);
+					AdvancementAPI.addCriteria(advancement, "wilderwild:peeled_prickly_pear", CriteriaTriggers.CONSUME_ITEM.createCriterion(
+						ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.PEELED_PRICKLY_PEAR).triggerInstance())
+					);
+					AdvancementAPI.addRequirements(advancement,
+						new AdvancementRequirements(new String[][]{{
+							"wilderwild:baobab_nut",
+							"wilderwild:split_coconut",
+							"wilderwild:crab_claw",
+							"wilderwild:cooked_crab_claw",
+							"wilderwild:prickly_pear",
+							"wilderwild:peeled_prickly_pear"
+						}})
+					);
+				} else if (holder.id().equals(new ResourceLocation("husbandry/bred_all_animals"))) {
+					AdvancementAPI.addCriteria(advancement, "wilderwild:crab", CriteriaTriggers.BRED_ANIMALS.createCriterion(
+						BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(RegisterEntities.CRAB)).triggerInstance())
+					);
+					AdvancementAPI.addRequirements(advancement, new
+						AdvancementRequirements(new String[][]{{
+							"wilderwild:crab"
+						}})
+					);
+				} else if (holder.id().equals(new ResourceLocation("husbandry/tactical_fishing"))) {
+					AdvancementAPI.addCriteria(advancement, "wilderwild:crab_bucket", CriteriaTriggers.FILLED_BUCKET.createCriterion(
+						FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(RegisterItems.CRAB_BUCKET)).triggerInstance())
+					);
+					AdvancementAPI.addCriteria(advancement, "wilderwild:jellyfish_bucket", CriteriaTriggers.FILLED_BUCKET.createCriterion(
+						FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(RegisterItems.CRAB_BUCKET)).triggerInstance())
+					);
+					AdvancementAPI.addRequirements(advancement, new
+						AdvancementRequirements(new String[][]{{
+							"wilderwild:crab_bucket",
+							"wilderwild:jellyfish_bucket"
+						}})
+					);
+				}
 			}
 		});
 	}

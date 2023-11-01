@@ -37,6 +37,7 @@ public final class MiscConfig {
 		)
 	);
 
+	public boolean modifyAdvancements = true;
 	public boolean cloudMovement = true;
 
 	public int particleWindMovement = 100;

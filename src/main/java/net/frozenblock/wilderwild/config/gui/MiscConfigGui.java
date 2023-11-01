@@ -41,6 +41,13 @@ public final class MiscConfigGui {
 		var biomeMusic = config.biomeMusic;
 		category.setBackground(WilderSharedConstants.id("textures/config/misc.png"));
 
+		var modifyAdvancements = category.addEntry(entryBuilder.startBooleanToggle(text("modofy_advancements"), config.modifyAdvancements)
+			.setDefaultValue(defaultConfig.modifyAdvancements)
+			.setSaveConsumer(newValue -> config.modifyAdvancements = newValue)
+			.setTooltip(tooltip("modofy_advancements"))
+			.build()
+		);
+
 		var cloudMovement = category.addEntry(entryBuilder.startBooleanToggle(text("cloud_movement"), config.cloudMovement)
 			.setDefaultValue(defaultConfig.cloudMovement)
 			.setSaveConsumer(newValue -> config.cloudMovement = newValue)
