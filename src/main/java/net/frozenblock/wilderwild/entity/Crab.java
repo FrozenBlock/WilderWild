@@ -495,12 +495,10 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 				}
 
 			}
-		} else if (DIGGING_TICKS.equals(key) && this.getDiggingTicks() > DIG_LENGTH_IN_TICKS) {
-			if (this.getPose() == Pose.DIGGING) {
-				this.diggingAnimationState.stop();
-				this.emergingAnimationState.stop();
-				this.hidingAnimationState.start(this.tickCount);
-			}
+		} else if (DIGGING_TICKS.equals(key) && this.getDiggingTicks() > DIG_LENGTH_IN_TICKS && this.getPose() == Pose.DIGGING) {
+			this.diggingAnimationState.stop();
+			this.emergingAnimationState.stop();
+			this.hidingAnimationState.start(this.tickCount);
 		}
 		super.onSyncedDataUpdated(key);
 	}

@@ -176,20 +176,16 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 
 		RegisterBlocks.registerBlockProperties();
 
-		ServerLifecycleEvents.SERVER_STOPPED.register((listener) ->
-			{
-				PalmCrownBlockEntity.PalmCrownPositions.clearAll();
-				Jellyfish.clearLevelToNonPearlescentCount();
-				Crab.clearLevelToCrabCount();
-			}
-		);
-		ServerTickEvents.START_SERVER_TICK.register((listener) ->
-			{
-				PalmCrownBlockEntity.PalmCrownPositions.clearAndSwitch();
-				Jellyfish.clearLevelToNonPearlescentCount();
-				Crab.clearLevelToCrabCount();
-			}
-		);
+		ServerLifecycleEvents.SERVER_STOPPED.register(listener -> {
+			PalmCrownBlockEntity.PalmCrownPositions.clearAll();
+			Jellyfish.clearLevelToNonPearlescentCount();
+			Crab.clearLevelToCrabCount();
+		});
+		ServerTickEvents.START_SERVER_TICK.register(listener -> {
+			PalmCrownBlockEntity.PalmCrownPositions.clearAndSwitch();
+			Jellyfish.clearLevelToNonPearlescentCount();
+			Crab.clearLevelToCrabCount();
+		});
 
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> SpreadSculkCommand.register(dispatcher));
 

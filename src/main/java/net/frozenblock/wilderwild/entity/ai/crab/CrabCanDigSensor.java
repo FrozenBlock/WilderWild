@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.entity.ai.crab;
 
-import com.google.common.collect.ImmutableSet;
 import java.util.Set;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
@@ -33,7 +32,7 @@ public class CrabCanDigSensor extends Sensor<Crab> {
 	@Override
 	@NotNull
 	public Set<MemoryModuleType<?>> requires() {
-		return ImmutableSet.of(RegisterMemoryModuleTypes.CAN_DIG);
+		return Set.of(RegisterMemoryModuleTypes.CAN_DIG);
 	}
 
 	@Override
