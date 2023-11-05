@@ -33,8 +33,6 @@ import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.item.MilkweedPod;
 import net.frozenblock.wilderwild.misc.WilderEnumValues;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.misc.recipe.AncientHornRecipe;
-import net.frozenblock.wilderwild.misc.recipe.CopperHornRecipe;
 import net.frozenblock.wilderwild.tag.WilderInstrumentTags;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -62,16 +60,11 @@ import net.minecraft.world.item.SignItem;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 
 public final class RegisterItems {
-
-	// RECIPE SERIALIZERS
-	public static final RecipeSerializer<AncientHornRecipe> ANCIENT_HORN_CRAFTING = registerSerializer("crafting_ancient_horn", new SimpleCraftingRecipeSerializer(AncientHornRecipe::new));
-	public static final RecipeSerializer<CopperHornRecipe> COPPER_HORN_CRAFTING = registerSerializer("crafting_copper_horn", new SimpleCraftingRecipeSerializer(CopperHornRecipe::new));
 
 	// BLOCK ITEMS
 	public static final BlockItem BAOBAB_NUT = new BlockItem(RegisterBlocks.BAOBAB_NUT, new FabricItemSettings().food(RegisterFood.BAOBAB_NUT));
@@ -254,14 +247,6 @@ public final class RegisterItems {
 		CompostingChanceRegistry.INSTANCE.add(MILKWEED_POD, 0.25F);
 		CompostingChanceRegistry.INSTANCE.add(SPLIT_COCONUT, 0.15F);
 		CompostingChanceRegistry.INSTANCE.add(COCONUT, 0.3F);
-
-		CopperHornRecipe.INSTRUMENT_TO_COPPER_INSTRUMENT_MAP.put(Instruments.DREAM_GOAT_HORN, CLARINET_COPPER_HORN);
-		CopperHornRecipe.INSTRUMENT_TO_COPPER_INSTRUMENT_MAP.put(Instruments.CALL_GOAT_HORN, FLUTE_COPPER_HORN);
-		CopperHornRecipe.INSTRUMENT_TO_COPPER_INSTRUMENT_MAP.put(Instruments.SING_GOAT_HORN, OBOE_COPPER_HORN);
-		CopperHornRecipe.INSTRUMENT_TO_COPPER_INSTRUMENT_MAP.put(Instruments.PONDER_GOAT_HORN, SAX_COPPER_HORN);
-		CopperHornRecipe.INSTRUMENT_TO_COPPER_INSTRUMENT_MAP.put(Instruments.SEEK_GOAT_HORN, TROMBONE_COPPER_HORN);
-		CopperHornRecipe.INSTRUMENT_TO_COPPER_INSTRUMENT_MAP.put(Instruments.ADMIRE_GOAT_HORN, TRUMPET_COPPER_HORN);
-		CopperHornRecipe.INSTRUMENT_TO_COPPER_INSTRUMENT_MAP.put(Instruments.FEEL_GOAT_HORN, TUBA_COPPER_HORN);
 	}
 
 	@SafeVarargs
