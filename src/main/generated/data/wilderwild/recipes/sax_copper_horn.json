@@ -11,7 +11,9 @@
       "base": {
         "item": "minecraft:goat_horn"
       },
-      "nbt": "{instrument:\"minecraft:ponder_goat_horn\"}",
+      "nbt": {
+        "instrument": "minecraft:ponder_goat_horn"
+      },
       "strict": true
     }
   },
