@@ -309,7 +309,7 @@ tasks {
         val properties = HashMap<String, Any>()
         properties["mod_id"] = mod_id
         properties["version"] = version
-        properties["minecraft_version"] = "~$minecraft_version-"
+        properties["minecraft_version"] = "~1.20.3-"//"~$minecraft_version-"
 
         properties["fabric_loader_version"] = ">=0.14.22"
         properties["fabric_api_version"] = ">=$fabric_api_version"

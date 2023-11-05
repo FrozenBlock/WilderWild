@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.block;
 
+import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.block.entity.PalmCrownBlockEntity;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.minecraft.core.BlockPos;
@@ -45,6 +46,11 @@ public class PalmCrownBlock extends BaseEntityBlock {
 	public PalmCrownBlock(@NotNull Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.defaultBlockState().setValue(AXIS, Direction.Axis.Y));
+	}
+
+	@Override
+	protected MapCodec<? extends BaseEntityBlock> codec() {
+		return null;
 	}
 
 	@Nullable

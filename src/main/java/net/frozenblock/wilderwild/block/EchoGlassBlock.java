@@ -38,6 +38,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.TintedGlassBlock;
@@ -144,7 +145,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
 
 	@Override
 	@NotNull
-	public ItemStack getCloneItemStack(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public ItemStack getCloneItemStack(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
 		ItemStack superStack = super.getCloneItemStack(level, pos, state);
 		int damage = state.getValue(RegisterProperties.DAMAGE);
 		if (damage != 0) {

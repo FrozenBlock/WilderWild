@@ -4,6 +4,9 @@ accessWidener    v2    named
 accessible    class    net/minecraft/world/level/block/SculkVeinBlock$SculkVeinSpreaderConfig
 
 # Tree Features
+extendable class net/minecraft/world/level/block/grower/TreeGrower
+extendable method net/minecraft/world/level/block/grower/TreeGrower getConfiguredFeature (Lnet/minecraft/util/RandomSource;Z)Lnet/minecraft/resources/ResourceKey;
+extendable method net/minecraft/world/level/block/grower/TreeGrower getConfiguredMegaFeature (Lnet/minecraft/util/RandomSource;)Lnet/minecraft/resources/ResourceKey;
 accessible    method    net/minecraft/world/level/levelgen/feature/treedecorators/TreeDecoratorType    <init>    (Lcom/mojang/serialization/Codec;)V
 accessible    method    net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacerType    <init>    (Lcom/mojang/serialization/Codec;)V
 accessible    method    net/minecraft/world/level/levelgen/feature/foliageplacers/FoliagePlacerType    <init>    (Lcom/mojang/serialization/Codec;)V

@@ -19,10 +19,11 @@
 package net.frozenblock.wilderwild.block;
 
 import java.util.Objects;
+import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.frozenblock.wilderwild.world.generation.sapling.PalmSaplingGenerator;
+import net.frozenblock.wilderwild.world.generation.sapling.WWTreeGrowers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -42,7 +43,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.FallingBlock;
-import net.minecraft.world.level.block.grower.AbstractTreeGrower;
+import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -67,12 +69,17 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 		Shapes.or(Block.box(0, 5, 0, 16, 16, 15)),
 		Block.box(2, 0, 2, 14, 12, 14)
 	};
-	private final AbstractTreeGrower treeGrower;
+	private final TreeGrower treeGrower;
 
 	public CoconutBlock(@NotNull Properties settings) {
 		super(settings);
-		this.treeGrower = new PalmSaplingGenerator();
+		this.treeGrower = WWTreeGrowers.PALM;
 		this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0).setValue(AGE, 0).setValue(HANGING, false));
+	}
+
+	@Override
+	protected MapCodec<? extends FallingBlock> codec() {
+		return null;
 	}
 
 	private static boolean isHanging(@NotNull BlockState state) {
