@@ -52,6 +52,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(WWDamageTypeTagProvider::new);
 		pack.addProvider(WWItemTagProvider::new);
 		pack.addProvider(WWEntityTagProvider::new);
+		pack.addProvider(WWRecipeProvider::new);
 	}
 
 	@Override
