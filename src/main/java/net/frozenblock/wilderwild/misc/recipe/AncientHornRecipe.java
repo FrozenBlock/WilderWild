@@ -21,7 +21,7 @@ public class AncientHornRecipe extends ShapedRecipe {
 				Ingredient.of(RegisterItems.ANCIENT_HORN_FRAGMENT), Ingredient.of(Items.GOLD_INGOT), Ingredient.of(RegisterItems.ANCIENT_HORN_FRAGMENT),
 				Ingredient.of(RegisterItems.ANCIENT_HORN_FRAGMENT), Ingredient.of(Items.ECHO_SHARD), Ingredient.of(RegisterItems.ANCIENT_HORN_FRAGMENT),
 				Ingredient.of(Items.ECHO_SHARD), Ingredient.of(RegisterItems.ANCIENT_HORN_FRAGMENT), Ingredient.of(Items.ECHO_SHARD)
-			), new ItemStack(RegisterItems.COPPER_HORN)
+			), new ItemStack(RegisterItems.ANCIENT_HORN)
 		);
 	}
 
