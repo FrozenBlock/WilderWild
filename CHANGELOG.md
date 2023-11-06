@@ -14,7 +14,7 @@ What's new:
     - Can be bred with Kelp.
     - Can climb up walls.
     - Can be scooped up in Buckets.
-    - Will drop its Claw upon death, which can be cooked.
+    - Has a chance to drop its Claw upon death (only when killed by a player), which can be cooked.
     - The Crab's Claw can also be brewed with an Awkward potion to create a Potion of Reaching.
 - ### Added the Reach Boost effect!
     - Extends the player's reach by 1 block per level.
@@ -27,7 +27,7 @@ What's new:
 - Added a translation string for Coconut projectiles.
 - Removed the Fabric Loader version requirement in hopes it will fix issues with Quilt.
 - Changed the grammar of Wilder Wild's advancements to align with Vanilla.
-- Refactored BaobabLeaves and TermiteMound classes to be BaobabLeavesBlock and TermiteMoundBlock respectively.
+- Refactored `BaobabLeaves` and `TermiteMound` classes to be `BaobabLeavesBlock` and `TermiteMoundBlock` respectively.
 - Fixed Fireflies with the Nectar easter egg not properly rendering their glowing overlay.
 - Fixed Firefly Bottles with the Nectar easter egg not using the Nectar texture.
 - Fixed Display Lantern silk touch loot table
