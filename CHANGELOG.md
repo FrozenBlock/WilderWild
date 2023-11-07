@@ -27,8 +27,7 @@ Thank you!
 
 ---
 
-- Fixed liquid rendering with Sodium ([#175](https://github.com/FrozenBlock/WilderWild/issues/175))
-  - Use Nvidium for the best results, as it fixes multiple translucency sorting issues introduced by Sodium.
+- Fixed Mesoglea liquid rendering extending 16 tiles out instead of only encompassing 1 tile
 - Fixed Jellyfish no longer spawning in Jellyfish Caves
 - Slightly optimized Jellyfish rendering with the rainbow easter egg
 - Added a translation string for Coconut projectiles

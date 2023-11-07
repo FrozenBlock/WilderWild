@@ -73,6 +73,7 @@ public class LiquidBlockRendererMixin {
 		if (BlockConfig.get().mesoglea.mesogleaLiquid && blockState.getBlock() instanceof MesogleaBlock) {
 			LiquidRenderUtils.tesselateWithSingleTexture(level, pos, vertexConsumer, blockState, fluidState, Minecraft.getInstance().getModelManager().getBlockModelShaper().getBlockModel(blockState).getParticleIcon());
 			info.cancel();
+			return;
 		}
 		this.wilderWild$isWater = fluidState.is(FluidTags.WATER);
 	}
