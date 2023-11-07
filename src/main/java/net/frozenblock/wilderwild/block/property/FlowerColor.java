@@ -16,24 +16,22 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.misc;
+package net.frozenblock.wilderwild.block.property;
 
-import java.util.Optional;
-import net.minecraft.core.Direction;
 import net.minecraft.util.StringRepresentable;
 import org.jetbrains.annotations.NotNull;
 
-public enum BubbleDirection implements StringRepresentable {
-	NONE("none", Optional.empty()),
-	UP("up", Optional.of(Direction.UP)),
-	DOWN("down", Optional.of(Direction.DOWN));
+public enum FlowerColor implements StringRepresentable {
+	NONE("none"),
+	BLUE("blue"),
+	WHITE("white"),
+	PINK("pink"),
+	PURPLE("purple");
 
-	public final Optional<Direction> direction;
 	private final String name;
 
-	BubbleDirection(String name, Optional<Direction> direction) {
+	FlowerColor(String name) {
 		this.name = name;
-		this.direction = direction;
 	}
 
 	@Override

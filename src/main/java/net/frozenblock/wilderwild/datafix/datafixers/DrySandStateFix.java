@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.misc.datafixer;
+package net.frozenblock.wilderwild.datafix.datafixers;
 
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.DataFix;
@@ -27,20 +27,19 @@ import java.util.Optional;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.datafix.fixes.References;
 
-public class OsseousSculkStateFix extends DataFix {
+public class DrySandStateFix extends DataFix {
 
-	private static final String OLD_STATE = "axis";
-	private static final String NEW_STATE = "facing";
-	private static final String DEFAULT_VALUE = "y";
-	private static final String UPSIDE_DOWN_STATE = "upside_down";
+	private static final String OLD_STATE = "crackness";
+	private static final String NEW_STATE = "crackedness";
+	private static final String DEFAULT_VALUE = "0";
 	private final String name;
 	private final String blockId;
 
-	public OsseousSculkStateFix(Schema outputSchema, String name, ResourceLocation blockId) {
+	public DrySandStateFix(Schema outputSchema, String name, ResourceLocation blockId) {
 		this(outputSchema, name, blockId.toString());
 	}
 
-	private OsseousSculkStateFix(Schema outputSchema, String name, String blockId) {
+	private DrySandStateFix(Schema outputSchema, String name, String blockId) {
 		super(outputSchema, false);
 		this.name = name;
 		this.blockId = blockId;
@@ -50,14 +49,7 @@ public class OsseousSculkStateFix extends DataFix {
 		Optional<String> optional = dynamic.get("Name").asString().result();
 		return optional.equals(Optional.of(this.blockId)) ? dynamic.update("Properties", dynamicx -> {
 			String string = dynamicx.get(OLD_STATE).asString(DEFAULT_VALUE);
-			String direction;
-			switch (string) {
-				case "x" -> direction = "west";
-				case "y" -> direction = dynamicx.get(UPSIDE_DOWN_STATE).asBoolean(true) ? "down" : "up";
-				case "z" -> direction = "north";
-				default -> direction = "down";
-			}
-			return dynamicx.remove(OLD_STATE).set(NEW_STATE, dynamicx.createString(direction));
+			return dynamicx.remove(OLD_STATE).set(NEW_STATE, dynamicx.createString(string));
 		}) : dynamic;
 	}
 

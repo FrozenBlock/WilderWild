@@ -61,7 +61,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 		super(ctx);
 	}
 
-	public static void renderFirefly(@NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light, boolean nectar, int overlay, int age, boolean flickers, FireflyColor color, double piAgeDelta, float scale, float xOffset, float yOffset, float zOffset, Quaternionf rotation) {
+	public static void renderFirefly(@NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light, boolean nectar, int overlay, int age, float tickDelta, boolean flickers, FireflyColor color, float scale, float xOffset, float yOffset, float zOffset, Quaternionf rotation) {
 		matrices.pushPose();
 		matrices.scale(scale, scale, scale);
 		matrices.translate(xOffset, yOffset, zOffset);
@@ -114,7 +114,9 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 			vertexConsumer = vertexConsumers.getBuffer(LAYERS.get(FireflyColor.ON.key()));
 		}
 
-		int calcColor = flickers ? (int) ((255 * (Math.cos((piAgeDelta) * 0.025))) + 127.5) : (int) Math.max((255 * (Math.cos((piAgeDelta) * 0.05))), 0);
+		int calcColor = flickers ?
+			(int) (((age + tickDelta) * PI) * -4D) :
+			(int) Math.max((255D * (Math.cos(((age + tickDelta) * PI) * 0.05D))), 0D);
 
 		vertexConsumer
 			.vertex(matrix4f, -0.5F, -0.5F, 0.0F)
@@ -171,11 +173,10 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 		int overlay = getOverlay(entity, 0);
 
 		int age = entity.getFlickerAge();
-		float ageDelta = age + tickDelta;
 		boolean flickers = entity.flickers();
 
 
-		renderFirefly(matrices, vertexConsumers, light, nectar, overlay, age, flickers, entity.getColor(), (ageDelta) * PI, scale, 0F, Y_OFFSET, 0F, this.entityRenderDispatcher.cameraOrientation());
+		renderFirefly(matrices, vertexConsumers, light, nectar, overlay, age, tickDelta, flickers, entity.getColor(), scale, 0F, Y_OFFSET, 0F, this.entityRenderDispatcher.cameraOrientation());
 
 		if (this.shouldShowName(entity)) {
 			this.renderNameTag(entity, entity.getDisplayName(), matrices, vertexConsumers, light);

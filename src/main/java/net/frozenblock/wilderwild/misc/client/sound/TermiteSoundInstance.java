@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.misc.sound;
+package net.frozenblock.wilderwild.misc.client.sound;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

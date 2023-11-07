@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.block;
 import java.util.Optional;
 import net.frozenblock.lib.block.api.shape.FrozenShapes;
 import net.frozenblock.wilderwild.config.BlockConfig;
-import net.frozenblock.wilderwild.misc.BubbleDirection;
+import net.frozenblock.wilderwild.block.property.BubbleDirection;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.BlockPos;

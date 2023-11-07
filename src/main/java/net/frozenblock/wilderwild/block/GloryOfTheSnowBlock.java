@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.block;
 
 import java.util.List;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.wilderwild.misc.FlowerColor;
+import net.frozenblock.wilderwild.block.property.FlowerColor;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;

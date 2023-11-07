@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.misc.datafixer;
+package net.frozenblock.wilderwild.datafix.datafixers;
 
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.DataFix;

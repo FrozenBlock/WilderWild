@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.misc;
+package net.frozenblock.wilderwild.block.sculk_behavior;
 
 import java.util.Collection;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;

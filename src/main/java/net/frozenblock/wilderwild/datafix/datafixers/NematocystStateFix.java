@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.misc.datafixer;
+package net.frozenblock.wilderwild.datafix.datafixers;
 
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.DataFix;
@@ -27,19 +27,18 @@ import java.util.Optional;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.datafix.fixes.References;
 
-public class DrySandStateFix extends DataFix {
+public class NematocystStateFix extends DataFix {
 
-	private static final String OLD_STATE = "crackness";
-	private static final String NEW_STATE = "crackedness";
-	private static final String DEFAULT_VALUE = "0";
+	private static final String OLD_STATE = "facing";
+	private static final String DEFAULT_VALUE = "up";
 	private final String name;
 	private final String blockId;
 
-	public DrySandStateFix(Schema outputSchema, String name, ResourceLocation blockId) {
+	public NematocystStateFix(Schema outputSchema, String name, ResourceLocation blockId) {
 		this(outputSchema, name, blockId.toString());
 	}
 
-	private DrySandStateFix(Schema outputSchema, String name, String blockId) {
+	private NematocystStateFix(Schema outputSchema, String name, String blockId) {
 		super(outputSchema, false);
 		this.name = name;
 		this.blockId = blockId;
@@ -49,7 +48,16 @@ public class DrySandStateFix extends DataFix {
 		Optional<String> optional = dynamic.get("Name").asString().result();
 		return optional.equals(Optional.of(this.blockId)) ? dynamic.update("Properties", dynamicx -> {
 			String string = dynamicx.get(OLD_STATE).asString(DEFAULT_VALUE);
-			return dynamicx.remove(OLD_STATE).set(NEW_STATE, dynamicx.createString(string));
+			String trueDirection;
+			switch (string) {
+				case "down" -> trueDirection = "up";
+				case "north" -> trueDirection = "south";
+				case "south" -> trueDirection = "north";
+				case "east" -> trueDirection = "west";
+				case "west" -> trueDirection = "east";
+				default -> trueDirection = "down";
+			}
+			return dynamicx.remove(OLD_STATE).set(trueDirection, dynamicx.createString("true"));
 		}) : dynamic;
 	}
 
