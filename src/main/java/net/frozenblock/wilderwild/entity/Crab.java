@@ -45,6 +45,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
@@ -115,7 +116,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	private static final int DIG_TICKS_UNTIL_STOP_PARTICLES = 82;
 	private static final int EMERGE_TICKS_UNTIL_PARTICLES = 1;
 	private static final int EMERGE_TICKS_UNTIL_STOP_PARTICLES = 16;
-	private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.BYTE);
+	private static final EntityDataAccessor<MoveState> MOVE_STATE = SynchedEntityData.defineId(Crab.class, MoveState.SERIALIZER);
 	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_X = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Integer> DIGGING_TICKS = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.BOOLEAN);
@@ -258,7 +259,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Override
 	protected void defineSynchedData() {
 		super.defineSynchedData();
-		this.entityData.define(DATA_FLAGS_ID, (byte) 0);
+		this.entityData.define(MOVE_STATE, MoveState.WALKING);
 		this.entityData.define(TARGET_CLIMBING_ANIM_X, 0F);
 		this.entityData.define(DIGGING_TICKS, 0);
 		this.entityData.define(FROM_BUCKET, false);
@@ -298,7 +299,8 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		}
 		super.tick();
 		if (!isClient) {
-			this.setClimbing(this.horizontalCollision);
+			if (horizontalCollision) this.setMoveState(MoveState.CLIMBING);
+				else this.setMoveState(MoveState.WALKING);
 			if (this.isClimbing()) {
 				Vec3 usedMovement = this.getDeltaMovement();
 				if (usedMovement.x == 0 && usedMovement.z == 0) usedMovement = this.prevMovement;
@@ -508,14 +510,25 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		return this.isClimbing();
 	}
 
-	public boolean isClimbing() {
-		return (this.entityData.get(DATA_FLAGS_ID) & 1) != 0;
+	@Override
+	public boolean isDescending() {
+		return this.isCrabDescending();
 	}
 
-	public void setClimbing(boolean climbing) {
-		byte b = this.entityData.get(DATA_FLAGS_ID);
-		b = climbing ? (byte) (b | 1) : (byte) (b & 0xFFFFFFFE);
-		this.entityData.set(DATA_FLAGS_ID, b);
+	public MoveState moveState() {
+		return this.entityData.get(MOVE_STATE);
+	}
+
+	public boolean isClimbing() {
+		return this.moveState() == MoveState.CLIMBING;
+	}
+
+	public boolean isCrabDescending() {
+		return this.moveState() == MoveState.DESCENDING;
+	}
+
+	public void setMoveState(MoveState state) {
+		this.entityData.set(MOVE_STATE, state);
 	}
 
 	public float targetClimbAnimX() {
@@ -695,7 +708,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		private static final int GAME_EVENT_LISTENER_RANGE = 8;
 		private final PositionSource positionSource;
 
-		VibrationUser() {
+		private VibrationUser() {
 			this.positionSource = new EntityPositionSource(Crab.this, Crab.this.getEyeHeight());
 		}
 
@@ -744,4 +757,15 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	}
 
+	public enum MoveState {
+		WALKING,
+		CLIMBING,
+		DESCENDING;
+
+		public static final EntityDataSerializer<MoveState> SERIALIZER = EntityDataSerializer.simpleEnum(MoveState.class);
+
+		static {
+			EntityDataSerializers.registerSerializer(SERIALIZER);
+		}
+	}
 }
