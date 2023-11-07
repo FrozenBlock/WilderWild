@@ -47,8 +47,8 @@ public class SeedParticle extends TextureSheetParticle {
 		this.quadSize *= this.random.nextFloat() * 0.6F + 0.6F;
 		this.lifetime = (int) (16.0D / (AdvancedMath.random().nextDouble() * 0.8D + 0.2D));
 		this.hasPhysics = true;
-		this.friction = 1.0F;
-		this.gravity = 0.0F;
+		this.friction = 1F;
+		this.gravity = 0F;
 	}
 
 	@Override
@@ -60,11 +60,11 @@ public class SeedParticle extends TextureSheetParticle {
 		if (!fluidState.isEmpty() && (fluidState.getHeight(this.level, blockPos) + (float) blockPos.getY()) >= this.y) {
 			return;
 		}
-		double multXZ = (this.onGround ? 0.0005 : 0.007) * this.windIntensity;
-		double multY = (this.onGround ? 0.0005 : 0.0035) * this.windIntensity;
+		double multXZ = (this.onGround ? 0.0005D : 0.007D) * this.windIntensity;
+		double multY = (this.onGround ? 0.0005D : 0.0035D) * this.windIntensity;
 		Vec3 wind = ClientWindManager.getWindMovement(this.level, BlockPos.containing(this.x, this.y, this.z)).scale(MiscConfig.get().getParticleWindIntensity());
 		this.xd += wind.x() * multXZ;
-		this.yd += (wind.y() + 0.1) * multY;
+		this.yd += (wind.y() + 0.1D) * multY;
 		this.zd += wind.z() * multXZ;
 	}
 
@@ -79,16 +79,16 @@ public class SeedParticle extends TextureSheetParticle {
 		@Override
 		@NotNull
 		public Particle createParticle(@NotNull SeedParticleOptions options, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-			double windex = options.isControlled() ? xSpeed * 1.1 : ClientWindManager.getWindX(1) * 1.1;
-			double windZ = options.isControlled() ? zSpeed * 1.1 : ClientWindManager.getWindZ(1) * 1.1;
+			double windex = options.isControlled() ? xSpeed * 1.1D : ClientWindManager.getWindX(1F) * 1.1D;
+			double windZ = options.isControlled() ? zSpeed * 1.1D : ClientWindManager.getWindZ(1F) * 1.1D;
 			SeedParticle seedParticle = new SeedParticle(level, this.spriteProvider, x, y, z, windex, -0.800000011920929D, windZ);
 			seedParticle.lifetime = Mth.randomBetweenInclusive(level.random, 500, 1000);
 			seedParticle.gravity = 0.01F;
-			seedParticle.xd = (windex + level.random.triangle(0, 0.8)) / 17;
-			seedParticle.zd = (windZ + level.random.triangle(0, 0.8)) / 17;
+			seedParticle.xd = (windex + level.random.triangle(0D, 0.8D)) / 17D;
+			seedParticle.zd = (windZ + level.random.triangle(0D, 0.8D)) / 17D;
 			seedParticle.yd = options.isControlled() ? ySpeed / 17 : seedParticle.yd;
 			seedParticle.setColor(250F / 255F, 250F / 255F, 250F / 255F);
-			seedParticle.windIntensity = options.isControlled() ? 0.5 : 1;
+			seedParticle.windIntensity = options.isControlled() ? 0.5D : 1D;
 			return seedParticle;
 		}
 	}
