@@ -28,6 +28,7 @@ import java.util.function.Supplier;
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabAi;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabJumpControl;
+import net.frozenblock.wilderwild.entity.ai.crab.CrabMoveControl;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
@@ -145,6 +146,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		if (EntityConfig.get().unpassableRail) {
 			this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
 		}
+		this.moveControl = new CrabMoveControl(this);
 	}
 
 	@Override
@@ -223,6 +225,11 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Override
 	public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
 		return 0F;
+	}
+
+	@Override
+	public boolean isSuppressingSlidingDownLadder() {
+		return !this.getMoveControl().hasWanted() && this.onClimbable();
 	}
 
 	public static void clearLevelToCrabCount() {
