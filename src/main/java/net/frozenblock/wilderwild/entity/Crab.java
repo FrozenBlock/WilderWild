@@ -383,9 +383,9 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 							Vec3 differenceBetween = wallPos.subtract(this.position());
 							this.setDeltaMovement(
 								this.getDeltaMovement().add(
-									differenceBetween.x() < 0D ? -0.1D : differenceBetween.x() > 0D ? 0.1D : 0D,
+									differenceBetween.x() < 0D ? -0.025D : differenceBetween.x() > 0D ? 0.025D : 0D,
 									0D,
-									differenceBetween.z() < 0D ? -0.1D : differenceBetween.z() > 0D ? 0.1D : 0D
+									differenceBetween.z() < 0D ? -0.025D : differenceBetween.z() > 0D ? 0.025D : 0D
 								)
 							);
 						}
