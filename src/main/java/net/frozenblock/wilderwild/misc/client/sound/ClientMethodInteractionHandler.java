@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.misc.client.sound;
 
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
-import net.frozenblock.wilderwild.misc.client.sound.ClientMethods;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.EnderMan;

@@ -1,10 +1,10 @@
 package net.frozenblock.wilderwild;
 
+import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import java.util.Optional;
 
 public class MoveToFrozenLib {
 

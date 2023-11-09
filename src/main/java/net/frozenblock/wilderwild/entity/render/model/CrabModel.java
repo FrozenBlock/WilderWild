@@ -119,7 +119,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 	}
 
 	@Override
-	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.animate(entity.hidingAnimationState, CrabAnimations.CRAB_EMERGE_WAIT, ageInTicks);
 		this.animate(entity.diggingAnimationState, CrabAnimations.CRAB_DIG, ageInTicks);
@@ -182,7 +182,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 	}
 
 	@Override
-	public void renderToBuffer(@NotNull PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		poseStack.pushPose();
 		poseStack.translate(0, 1.3F, 0);
 		poseStack.mulPose(Axis.YP.rotationDegrees(90F));
@@ -192,6 +192,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 	}
 
 	@Override
+	@NotNull
 	public ModelPart root() {
 		return this.root;
 	}

@@ -127,6 +127,9 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	private static final double LATCH_TO_WALL_FORCE = 0.0195D;
 	private static final EntityDataAccessor<MoveState> MOVE_STATE = SynchedEntityData.defineId(Crab.class, MoveState.SERIALIZER);
 	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_X = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_Y = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<ClimbingFace> CLIMBING_FACE = SynchedEntityData.defineId(Crab.class, ClimbingFace.SERIALIZER);
+	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_AMOUNT = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Integer> DIGGING_TICKS = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.BOOLEAN);
 	public final AnimationState diggingAnimationState = new AnimationState();
@@ -134,10 +137,16 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	public final AnimationState hidingAnimationState = new AnimationState();
 	private final DynamicGameEventListener<VibrationSystem.Listener> dynamicGameEventListener;
 	private final VibrationSystem.User vibrationUser;
-	public float climbAnimX;
-	public float prevClimbAnimX;
 	public Vec3 prevMovement;
 	private VibrationSystem.Data vibrationData;
+
+	// CLIENT VARIABLES
+	public float climbAnimX;
+	public float prevClimbAnimX;
+	public float climbAnimY;
+	public float prevClimbAnimY;
+	public float prevClimbDirectionAmount;
+	public float climbDirectionAmount;
 
 	public Crab(EntityType<? extends Crab> entityType, Level level) {
 		super(entityType, level);
@@ -276,8 +285,11 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		super.defineSynchedData();
 		this.entityData.define(MOVE_STATE, MoveState.WALKING);
 		this.entityData.define(TARGET_CLIMBING_ANIM_X, 0F);
+		this.entityData.define(TARGET_CLIMBING_ANIM_Y, 0F);
+		this.entityData.define(TARGET_CLIMBING_ANIM_AMOUNT, 0F);
 		this.entityData.define(DIGGING_TICKS, 0);
 		this.entityData.define(FROM_BUCKET, false);
+		this.entityData.define(CLIMBING_FACE, ClimbingFace.NORTH);
 	}
 
 	@Override
@@ -368,10 +380,17 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			if (this.horizontalCollision) {
 				Vec3 usedMovement = this.getDeltaMovement();
 				this.setMoveState(usedMovement.y() >= 0 ? MoveState.CLIMBING : MoveState.DESCENDING);
+				//TODO: (Treetrain) find a way to get the face the Crab is walking on
+				Direction climbedDirection = Direction.getNearest(usedMovement.x(), usedMovement.y(), usedMovement.z());
+				this.setClimbingFace(climbedDirection);
 				if (usedMovement.x == 0 && usedMovement.z == 0) usedMovement = this.prevMovement;
 				this.setTargetClimbAnimX(
 					Math.abs(getAngleFromVec3(usedMovement) - getAngleFromVec3(this.getViewVector(1F))) / 180F
 				);
+				this.setTargetClimbAnimY(
+					this.getClimbingFace().rotation
+				);
+				this.setTargetClimbAnimAmount(1F);
 				this.prevMovement = usedMovement;
 			} else {
 				this.setMoveState(MoveState.WALKING);
@@ -410,11 +429,14 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 				}
 				default -> {}
 			}
+			this.prevClimbAnimX = this.climbAnimX;
+			Supplier<Float> climbingVal = () -> (Math.cos(this.targetClimbAnimX() * Mth.PI) >= -0.275F ? -1F : 1F);
+			this.climbAnimX += ((this.onClimbable() ? climbingVal.get() : 0F) - this.climbAnimX) * 0.2F;
+			this.prevClimbAnimY = this.climbAnimY;
+			this.climbAnimY += ((this.onClimbable() ? this.getClimbingFace().rotation : 0F) - this.climbDirectionAmount) * 0.2F;
+			this.prevClimbDirectionAmount = this.climbDirectionAmount;
+			this.climbDirectionAmount += ((this.onClimbable() ? 1F : 0F) - this.climbDirectionAmount) * 0.2F;
 		}
-		this.prevClimbAnimX = this.climbAnimX;
-		// supplier so that it isn't evaluated each time
-		Supplier<Float> climbingVal = () -> (Math.cos(this.targetClimbAnimX() * Mth.PI) >= -0.275F ? -1F : 1F);
-		this.climbAnimX += ((this.isClimbing() ? climbingVal.get() : 0F) - this.climbAnimX) * 0.2F;
 	}
 
 	@Override
@@ -611,8 +633,23 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		return this.moveState() == MoveState.DESCENDING;
 	}
 
-	public void setMoveState(MoveState state) {
+	public void setMoveState(@NotNull MoveState state) {
 		this.entityData.set(MOVE_STATE, state);
+	}
+
+	public ClimbingFace getClimbingFace() {
+		return this.entityData.get(CLIMBING_FACE);
+	}
+
+	public void setClimbingFace(@NotNull Direction direction) {
+		this.entityData.set(CLIMBING_FACE,
+			switch (direction) {
+				case EAST -> ClimbingFace.EAST;
+				case WEST -> ClimbingFace.WEST;
+				case SOUTH -> ClimbingFace.SOUTH;
+				default -> ClimbingFace.NORTH;
+			}
+		);
 	}
 
 	public float targetClimbAnimX() {
@@ -621,6 +658,22 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	public void setTargetClimbAnimX(float f) {
 		this.entityData.set(TARGET_CLIMBING_ANIM_X, f);
+	}
+
+	public float targetClimbAnimY() {
+		return this.entityData.get(TARGET_CLIMBING_ANIM_Y);
+	}
+
+	public void setTargetClimbAnimY(float f) {
+		this.entityData.set(TARGET_CLIMBING_ANIM_Y, f);
+	}
+
+	public float targetClimbAnimAmount() {
+		return this.entityData.get(TARGET_CLIMBING_ANIM_AMOUNT);
+	}
+
+	public void setTargetClimbAnimAmount(float f) {
+		this.entityData.set(TARGET_CLIMBING_ANIM_AMOUNT, f);
 	}
 
 	public int getDiggingTicks() {
@@ -748,9 +801,13 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		compound.putInt("DigTicks", this.getDiggingTicks());
 		VibrationSystem.Data.CODEC.encodeStart(NbtOps.INSTANCE, this.vibrationData).resultOrPartial(WilderSharedConstants.LOGGER::error).ifPresent(tag -> compound.put("listener", tag));
 		compound.putString("EntityPose", this.getPose().name());
-		compound.putDouble("prevX", this.prevMovement.x);
-		compound.putDouble("prevY", this.prevMovement.y);
-		compound.putDouble("prevZ", this.prevMovement.z);
+		compound.putDouble("PrevX", this.prevMovement.x);
+		compound.putDouble("PrevY", this.prevMovement.y);
+		compound.putDouble("PrevZ", this.prevMovement.z);
+		compound.putString("ClimbingFace", this.getClimbingFace().name());
+		compound.putFloat("TargetClimbAnimX", this.targetClimbAnimX());
+		compound.putFloat("TargetClimbAnimY", this.targetClimbAnimY());
+		compound.putFloat("TargetClimbAnimAmount", this.targetClimbAnimAmount());
 	}
 
 	@Override
@@ -761,12 +818,16 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		if (compound.contains("listener", 10)) {
 			VibrationSystem.Data.CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, compound.getCompound("listener"))).resultOrPartial(WilderSharedConstants.LOGGER::error).ifPresent(data -> this.vibrationData = data);
 		}
-		if (compound.contains("EntityPose")
-			&& (Arrays.stream(Pose.values()).anyMatch(pose -> pose.name().equals(compound.getString("EntityPose"))))
-		) {
+		if (compound.contains("EntityPose") && (Arrays.stream(Pose.values()).anyMatch(pose -> pose.name().equals(compound.getString("EntityPose"))))) {
 			this.setPose(Pose.valueOf(compound.getString("EntityPose")));
 		}
-		this.prevMovement = new Vec3(compound.getDouble("prevX"), compound.getDouble("prevY"), compound.getDouble("prevZ"));
+		this.prevMovement = new Vec3(compound.getDouble("PrevX"), compound.getDouble("PrevY"), compound.getDouble("PrevZ"));
+		if (compound.contains("ClimbingFace") && (Arrays.stream(ClimbingFace.values()).anyMatch(climbingFace -> climbingFace.name().equals(compound.getString("ClimbingFace"))))) {
+			this.setClimbingFace(ClimbingFace.valueOf(compound.getString("ClimbingFace")).direction);
+		}
+		this.setTargetClimbAnimX(compound.getFloat("TargetClimbAnimX"));
+		this.setTargetClimbAnimY(compound.getFloat("TargetClimbAnimY"));
+		this.setTargetClimbAnimAmount(compound.getFloat("TargetClimbAnimAmount"));
 	}
 
 	@Override
@@ -847,6 +908,34 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		DESCENDING;
 
 		public static final EntityDataSerializer<MoveState> SERIALIZER = EntityDataSerializer.simpleEnum(MoveState.class);
+
+		static {
+			EntityDataSerializers.registerSerializer(SERIALIZER);
+		}
+	}
+
+	public enum ClimbingFace {
+		NORTH("north", Direction.NORTH, -90F),
+		EAST("east", Direction.EAST, 90F),
+		SOUTH("south", Direction.SOUTH, 0F),
+		WEST("west", Direction.WEST, 180F);
+
+		public final Direction direction;
+		public final String name;
+		public final float rotation;
+
+		ClimbingFace(String name, Direction direction, float rotation) {
+			this.name = name;
+			this.direction = direction;
+			this.rotation = rotation;
+		}
+
+		@Override
+		public String toString() {
+			return this.name;
+		}
+
+		public static final EntityDataSerializer<ClimbingFace> SERIALIZER = EntityDataSerializer.simpleEnum(ClimbingFace.class);
 
 		static {
 			EntityDataSerializers.registerSerializer(SERIALIZER);

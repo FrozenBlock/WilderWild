@@ -27,6 +27,7 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
 public class CrabRenderer<T extends Crab> extends MobRenderer<T, CrabModel<T>> {
@@ -43,16 +44,22 @@ public class CrabRenderer<T extends Crab> extends MobRenderer<T, CrabModel<T>> {
 	@Override
 	protected void setupRotations(@NotNull T crab, @NotNull PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks) {
 		poseStack.translate(0, crab.isBaby() ? -0.1 : 0, 0);
+		float newYaw = Mth.lerp(
+			Mth.lerp(partialTicks, crab.prevClimbDirectionAmount, crab.climbDirectionAmount),
+			rotationYaw,
+			Mth.lerp(partialTicks, crab.prevClimbAnimY, crab.climbAnimY)
+		);
 		super.setupRotations(crab, poseStack, ageInTicks, rotationYaw, partialTicks);
 	}
 
 	@Override
-	protected float getFlipDegrees(T livingEntity) {
+	protected float getFlipDegrees(@NotNull T livingEntity) {
 		return 180.0f;
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(T entity) {
+	@NotNull
+	public ResourceLocation getTextureLocation(@NotNull T entity) {
 		return CRAB_LOCATION;
 	}
 
