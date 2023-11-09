@@ -314,7 +314,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 				if (this.isCrabDescending() && this.level().noBlockCollision(this, this.makeBoundingBox().expandTowards(0, -this.getEmptyAreaSearchDistance(), 0))) {
 					this.cancelMovementToDescend = this.latchOntoWall(LATCH_TO_WALL_FORCE, false);
 				} else if (!this.onGround()) {
-					this.latchOntoWall(LATCH_TO_WALL_FORCE, false);
+					//this.latchOntoWall(LATCH_TO_WALL_FORCE, false);
 				}
 				//TODO: (Treetrain) find a way to get the face the Crab is walking on
 				Direction climbedDirection = Direction.getNearest(usedMovement.x(), usedMovement.y(), usedMovement.z());
