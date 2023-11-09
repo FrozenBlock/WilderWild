@@ -124,6 +124,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	private static final int DIG_TICKS_UNTIL_STOP_PARTICLES = 82;
 	private static final int EMERGE_TICKS_UNTIL_PARTICLES = 1;
 	private static final int EMERGE_TICKS_UNTIL_STOP_PARTICLES = 16;
+	private static final double LATCH_TO_WALL_FORCE = 0.0125D;
 	private static final EntityDataAccessor<MoveState> MOVE_STATE = SynchedEntityData.defineId(Crab.class, MoveState.SERIALIZER);
 	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_X = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Integer> DIGGING_TICKS = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.INT);
@@ -383,9 +384,9 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 							Vec3 differenceBetween = wallPos.subtract(this.position());
 							this.setDeltaMovement(
 								this.getDeltaMovement().add(
-									differenceBetween.x() < 0D ? -0.025D : differenceBetween.x() > 0D ? 0.025D : 0D,
+									differenceBetween.x() < 0D ? -LATCH_TO_WALL_FORCE : differenceBetween.x() > 0D ? LATCH_TO_WALL_FORCE : 0D,
 									0D,
-									differenceBetween.z() < 0D ? -0.025D : differenceBetween.z() > 0D ? 0.025D : 0D
+									differenceBetween.z() < 0D ? -LATCH_TO_WALL_FORCE : differenceBetween.z() > 0D ? LATCH_TO_WALL_FORCE : 0D
 								)
 							);
 						}
