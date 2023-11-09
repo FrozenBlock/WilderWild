@@ -332,10 +332,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		return selectedPos;
 	}
 
-	public boolean isWallPosSlowable(@Nullable BlockPos pos) {
-		if (pos == null) {
-			return false;
-		}
+	public boolean isWallPosSlowable(@NotNull BlockPos pos) {
 		BlockState state = this.level().getBlockState(pos);
 		if (state.isAir() || state.getFluidState().is(FluidTags.LAVA)) {
 			return false;
@@ -364,15 +361,16 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			} else {
 				this.setMoveState(MoveState.WALKING);
 				this.setTargetClimbAnimX(0F);
-				if (!this.onGround() && !this.isClimbing() && WalkNodeEvaluator.getFloorLevel(this.level(), this.blockPosition()) == 0) {
+				BlockPos crabBlockPos = this.blockPosition();
+				if (!this.onGround() && !this.isClimbing() && WalkNodeEvaluator.getFloorLevel(this.level(), this.blockPosition()) == crabBlockPos.getY() - 1) {
 					BlockPos wallPos = this.findNearestWall();
 					if (wallPos != null) {
-						BlockPos differenceBetween = wallPos.subtract(this.blockPosition());
+						BlockPos differenceBetween = wallPos.subtract(crabBlockPos);
 						this.setDeltaMovement(
 							this.getDeltaMovement().add(
-								differenceBetween.getX() * 0.1D,
+								differenceBetween.getX() * 0.5D,
 								0,
-								differenceBetween.getZ() * 0.1D
+								differenceBetween.getZ() * 0.5D
 							)
 						);
 					}
