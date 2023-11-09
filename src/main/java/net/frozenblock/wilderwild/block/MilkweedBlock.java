@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.misc.server.EasyPacket;
 import net.frozenblock.wilderwild.registry.RegisterItems;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -84,6 +85,7 @@ public class MilkweedBlock extends TallFlowerBlock {
 					itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
 					level.gameEvent(player, GameEvent.SHEAR, pos);
 				} else {
+					level.playSound(null, player.getX(), player.getY(), player.getZ(), RegisterSounds.BLOCK_MILKWEED_RUSTLE, SoundSource.BLOCKS, 0.8F, 0.9F + (level.random.nextFloat() * 0.15F));
 					EasyPacket.EasySeedPacket.createParticle(level, Vec3.atCenterOf(pos).add(0, 0.3, 0), level.random.nextIntBetweenInclusive(14, 28), true);
 				}
 				this.setAgeOnBothHalves(state, level, pos, 0);

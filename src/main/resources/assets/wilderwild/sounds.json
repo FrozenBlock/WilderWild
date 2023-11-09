@@ -1345,6 +1345,15 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.milkweed.rustle": {
+    "sounds": [
+      "wilderwild:block/milkweed/rustle1",
+      "wilderwild:block/milkweed/rustle2",
+      "wilderwild:block/milkweed/rustle3",
+      "wilderwild:block/milkweed/rustle4"
+    ],
+    "subtitle": "subtitles.block.milkweed.rustle"
+  },
   "block.null_block.break": {
     "sounds": [
       "wilderwild:block/null_block/break1",

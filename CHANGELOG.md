@@ -27,6 +27,7 @@ Thank you!
 
 ---
 
+- Milkweed now plays a sound when rustled
 - Fixed Mesoglea liquid rendering extending 16 tiles out instead of only encompassing 1 tile
 - Fixed Jellyfish no longer spawning in Jellyfish Caves
 - Slightly optimized Jellyfish rendering with the rainbow easter egg
