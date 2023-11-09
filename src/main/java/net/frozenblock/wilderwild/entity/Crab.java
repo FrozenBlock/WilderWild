@@ -375,7 +375,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			} else {
 				this.setMoveState(MoveState.WALKING);
 				this.setTargetClimbAnimX(0F);
-				if (!this.onGround()) {
+				if (!this.onGround() && !this.isInWater()) {
 					AABB floorCheckBox = this.makeBoundingBox().expandTowards(0, -2, 0);
 					if (!level().getBlockCollisions(this, floorCheckBox).iterator().hasNext()) {
 						Vec3 wallPos = this.findNearestWall();
