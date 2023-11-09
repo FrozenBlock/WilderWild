@@ -36,4 +36,12 @@ public class LivingEntityMixin {
 		return original;
 	}
 
+	@ModifyExpressionValue(method = "handleRelativeFrictionAndCalculateMovement", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;onClimbable()Z"))
+	public boolean wilderWild$crabHandleRelativeFrictionAndCalculateMovement(boolean original) {
+		if (LivingEntity.class.cast(this) instanceof Crab crab) {
+			return crab.isClimbing();
+		}
+		return original;
+	}
+
 }

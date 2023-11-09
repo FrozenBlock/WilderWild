@@ -431,8 +431,8 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 				default -> {}
 			}
 			this.prevClimbAnimX = this.climbAnimX;
-			Supplier<Float> climbingVal = () -> (Math.cos(this.targetClimbAnimX() * Mth.PI) >= -0.275F ? -1F : 1F);
-			this.climbAnimX += ((this.onClimbable() ? climbingVal.get() : 0F) - this.climbAnimX) * (this.isClimbing() ? 0.2F : -0.2F);
+			Supplier<Float> climbingVal = () -> (Math.cos(this.targetClimbAnimX() * Mth.PI) >= -0.275F ? -1F : 1F) * (this.isClimbing() ? 1F : -1F);
+			this.climbAnimX += ((this.onClimbable() ? climbingVal.get() : 0F) - this.climbAnimX) * 0.2F;
 			this.prevClimbAnimY = this.climbAnimY;
 			this.climbAnimY += ((this.onClimbable() ? this.getClimbingFace().rotation : 0F) - this.climbDirectionAmount) * 0.2F;
 			this.prevClimbDirectionAmount = this.climbDirectionAmount;
