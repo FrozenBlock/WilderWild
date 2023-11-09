@@ -225,21 +225,6 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
 	}
 
-	public static int getCrabs(@NotNull ServerLevel level) {
-		AtomicInteger count = new AtomicInteger();
-		if (!CRABS_PER_LEVEL.containsKey(level)) {
-			level.entityManager.getEntityGetter().getAll().forEach(entity -> {
-				if (entity instanceof Crab) {
-					count.addAndGet(1);
-				}
-			});
-			CRABS_PER_LEVEL.put(level, count.get());
-		} else {
-			count.set(CRABS_PER_LEVEL.get(level));
-		}
-		return count.get();
-	}
-
 	@Override
 	public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
 		return 0F;
@@ -314,67 +299,6 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		super.aiStep();
 	}
 
-	@Nullable
-	public Vec3 findNearestWall() {
-		BlockPos crabPos = this.blockPosition();
-		ArrayList<Vec3> vecs = new ArrayList<>();
-		Vec3 crabVec3 = this.position();
-		CollisionContext collisionContext = CollisionContext.of(this);
-		for (BlockPos pos : BlockPos.betweenClosed(crabPos.offset(-1, 0, -1), crabPos.offset(1, 0, 1))) {
-			BlockState state = this.level().getBlockState(pos);
-			VoxelShape collisionShape = state.getCollisionShape(this.level(), pos, collisionContext);
-			if (isWallPosSlowable(pos, state, collisionShape)) {
-				Optional<Vec3> optionalVec3 = MoveToFrozenLib.closestPointTo(pos, collisionShape, crabVec3);
-				if (optionalVec3.isPresent()) {
-					vecs.add(optionalVec3.get());
-				} else if (state.getFluidState().is(FluidTags.WATER)) {
-					vecs.add(pos.getCenter());
-				}
-			}
-		}
-		return getClosestPos(vecs);
-	}
-
-	@Nullable
-	public Vec3 getClosestPos(@NotNull ArrayList<Vec3> vec3s) {
-		double lowestDistance = Double.MAX_VALUE;
-		Vec3 selectedVec3 = null;
-		Vec3 thisPos = this.getEyePosition();
-		if (!vec3s.isEmpty()) {
-			for (Vec3 vec3 : vec3s) {
-				double distance = vec3.distanceTo(thisPos);
-				if (distance < lowestDistance) {
-					lowestDistance = distance;
-					selectedVec3 = vec3;
-				}
-			}
-		}
-		return selectedVec3;
-	}
-
-	public boolean isWallPosSlowable(@NotNull BlockPos pos, @NotNull BlockState state, @NotNull VoxelShape collisionShape) {
-		if (state.isAir() || state.getFluidState().is(FluidTags.LAVA)) {
-			return false;
-		}
-		return (!collisionShape.isEmpty() && !(pos.getY() + collisionShape.min(Direction.Axis.Y) > this.getEyeY())) || (state.getFluidState().is(FluidTags.WATER));
-	}
-
-	public boolean latchOntoWall(double latchForce, boolean stopDownwardsMovement) {
-		boolean canLatch = false;
-		Vec3 wallPos = this.findNearestWall();
-		if (wallPos != null) {
-			canLatch = true;
-			Vec3 differenceBetween = wallPos.subtract(this.position());
-			Vec3 deltaMovement = this.getDeltaMovement();
-			this.setDeltaMovement(
-				deltaMovement.x() + (differenceBetween.x() < 0D ? -latchForce : differenceBetween.x() > 0D ? latchForce : 0D),
-				(stopDownwardsMovement ? Math.max(0, deltaMovement.y()) : deltaMovement.y()),
-				deltaMovement.z() + (differenceBetween.z() < 0D ? -latchForce : differenceBetween.z() > 0D ? latchForce : 0D)
-			);
-		}
-		return canLatch;
-	}
-
 	@Override
 	public void tick() {
 		boolean isClient = this.level().isClientSide;
@@ -386,7 +310,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			this.cancelMovementToDescend = false;
 			if (this.horizontalCollision) {
 				Vec3 usedMovement = this.getDeltaMovement();
-				this.setMoveState(usedMovement.y() >= 0 ? MoveState.CLIMBING : MoveState.DESCENDING);
+				this.setMoveState(this.getDeltaPos().y() >= 0 ? MoveState.CLIMBING : MoveState.DESCENDING);
 				if (this.isCrabDescending() && this.level().noBlockCollision(this, this.makeBoundingBox().expandTowards(0, -2, 0))) {
 					this.cancelMovementToDescend = this.latchOntoWall(LATCH_TO_WALL_FORCE, false);
 				} else if (!this.onGround()) {
@@ -467,6 +391,67 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		this.level().getProfiler().pop();
 		super.customServerAiStep();
 		this.getBrain().setMemory(RegisterMemoryModuleTypes.FIRST_BRAIN_TICK, Unit.INSTANCE);
+	}
+
+	@Nullable
+	public Vec3 findNearestWall() {
+		BlockPos crabPos = this.blockPosition();
+		ArrayList<Vec3> vecs = new ArrayList<>();
+		Vec3 crabVec3 = this.position();
+		CollisionContext collisionContext = CollisionContext.of(this);
+		for (BlockPos pos : BlockPos.betweenClosed(crabPos.offset(-1, 0, -1), crabPos.offset(1, 0, 1))) {
+			BlockState state = this.level().getBlockState(pos);
+			VoxelShape collisionShape = state.getCollisionShape(this.level(), pos, collisionContext);
+			if (isWallPosSlowable(pos, state, collisionShape)) {
+				Optional<Vec3> optionalVec3 = MoveToFrozenLib.closestPointTo(pos, collisionShape, crabVec3);
+				if (optionalVec3.isPresent()) {
+					vecs.add(optionalVec3.get());
+				} else if (state.getFluidState().is(FluidTags.WATER)) {
+					vecs.add(pos.getCenter());
+				}
+			}
+		}
+		return getClosestPos(vecs);
+	}
+
+	@Nullable
+	public Vec3 getClosestPos(@NotNull ArrayList<Vec3> vec3s) {
+		double lowestDistance = Double.MAX_VALUE;
+		Vec3 selectedVec3 = null;
+		Vec3 thisPos = this.getEyePosition();
+		if (!vec3s.isEmpty()) {
+			for (Vec3 vec3 : vec3s) {
+				double distance = vec3.distanceTo(thisPos);
+				if (distance < lowestDistance) {
+					lowestDistance = distance;
+					selectedVec3 = vec3;
+				}
+			}
+		}
+		return selectedVec3;
+	}
+
+	public boolean isWallPosSlowable(@NotNull BlockPos pos, @NotNull BlockState state, @NotNull VoxelShape collisionShape) {
+		if (state.isAir() || state.getFluidState().is(FluidTags.LAVA)) {
+			return false;
+		}
+		return (!collisionShape.isEmpty() && !(pos.getY() + collisionShape.min(Direction.Axis.Y) > this.getEyeY())) || (state.getFluidState().is(FluidTags.WATER));
+	}
+
+	public boolean latchOntoWall(double latchForce, boolean stopDownwardsMovement) {
+		boolean canLatch = false;
+		Vec3 wallPos = this.findNearestWall();
+		if (wallPos != null) {
+			canLatch = true;
+			Vec3 differenceBetween = wallPos.subtract(this.position());
+			Vec3 deltaMovement = this.getDeltaMovement();
+			this.setDeltaMovement(
+				deltaMovement.x() + (differenceBetween.x() < 0D ? -latchForce : differenceBetween.x() > 0D ? latchForce : 0D),
+				(stopDownwardsMovement ? Math.max(0, deltaMovement.y()) : deltaMovement.y()),
+				deltaMovement.z() + (differenceBetween.z() < 0D ? -latchForce : differenceBetween.z() > 0D ? latchForce : 0D)
+			);
+		}
+		return canLatch;
 	}
 
 	@Nullable
@@ -588,6 +573,11 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			return wallClimberNavigation.pathToPosition == null;
 		}
 		return this.getNavigation().isDone();
+	}
+
+	@NotNull
+	public Vec3 getDeltaPos() {
+		return this.getPosition(1).subtract(this.getPosition(0));
 	}
 
 	@Override
@@ -781,6 +771,21 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Override
 	public boolean removeWhenFarAway(double distanceToClosestPlayer) {
 		return !this.fromBucket() && !this.hasCustomName();
+	}
+
+	public static int getCrabs(@NotNull ServerLevel level) {
+		AtomicInteger count = new AtomicInteger();
+		if (!CRABS_PER_LEVEL.containsKey(level)) {
+			level.entityManager.getEntityGetter().getAll().forEach(entity -> {
+				if (entity instanceof Crab) {
+					count.addAndGet(1);
+				}
+			});
+			CRABS_PER_LEVEL.put(level, count.get());
+		} else {
+			count.set(CRABS_PER_LEVEL.get(level));
+		}
+		return count.get();
 	}
 
 	private void clientDiggingParticles() {
