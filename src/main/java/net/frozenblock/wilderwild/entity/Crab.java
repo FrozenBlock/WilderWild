@@ -23,9 +23,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
+import net.frozenblock.wilderwild.MoveToFrozenLib;
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabAi;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabJumpControl;
@@ -101,7 +103,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.PositionSource;
 import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -308,10 +310,17 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		BlockPos crabPos = this.blockPosition();
 		ArrayList<Vec3> vecs = new ArrayList<>();
 		Vec3 crabVec3 = this.position();
+		CollisionContext collisionContext = CollisionContext.of(this);
 		for (BlockPos pos : BlockPos.betweenClosed(crabPos.offset(-1, 0, -1), crabPos.offset(1, 0, 1))) {
-			VoxelShape collisionShape = this.level().getBlockState(pos).getCollisionShape(this.level(), pos, CollisionContext.of(this));
-			if (isWallPosSlowable(pos, collisionShape)) {
-				collisionShape.closestPointTo(crabVec3).ifPresent(vecs::add);
+			BlockState state = this.level().getBlockState(pos);
+			VoxelShape collisionShape = state.getCollisionShape(this.level(), pos, collisionContext);
+			if (isWallPosSlowable(pos, state, collisionShape)) {
+				Optional<Vec3> optionalVec3 = MoveToFrozenLib.closestPointTo(pos, collisionShape, crabVec3);
+				if (optionalVec3.isPresent()) {
+					vecs.add(optionalVec3.get());
+				} else if (state.getFluidState().is(FluidTags.WATER)) {
+					vecs.add(pos.getCenter());
+				}
 			}
 		}
 		return getClosestPos(vecs);
@@ -334,8 +343,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		return selectedVec3;
 	}
 
-	public boolean isWallPosSlowable(@NotNull BlockPos pos, @NotNull VoxelShape collisionShape) {
-		BlockState state = this.level().getBlockState(pos);
+	public boolean isWallPosSlowable(@NotNull BlockPos pos, @NotNull BlockState state, @NotNull VoxelShape collisionShape) {
 		if (state.isAir() || state.getFluidState().is(FluidTags.LAVA)) {
 			return false;
 		}
@@ -353,7 +361,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		}
 		super.tick();
 		if (!isClient) {
-			if (horizontalCollision) {
+			if (this.horizontalCollision) {
 				Vec3 usedMovement = this.getDeltaMovement();
 				this.setMoveState(usedMovement.y() >= 0 ? MoveState.CLIMBING : MoveState.DESCENDING);
 				if (usedMovement.x == 0 && usedMovement.z == 0) usedMovement = this.prevMovement;
@@ -365,18 +373,20 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 				this.setMoveState(MoveState.WALKING);
 				this.setTargetClimbAnimX(0F);
 				Vec3 crabPos = this.position();
-				BlockPos crabBlockPos = this.blockPosition();
-				if (!this.onGround() && WalkNodeEvaluator.getFloorLevel(this.level(), crabBlockPos) <= crabBlockPos.getY() - 0.9) {
-					Vec3 wallPos = this.findNearestWall();
-					if (wallPos != null) {
-						Vec3 differenceBetween = wallPos.subtract(crabPos);
-						this.setDeltaMovement(
-							this.getDeltaMovement().add(
-								(differenceBetween.x() < 0 ? -1 : differenceBetween.x() != 0 ? 1 : 0) * 2D,
-								0,
-								(differenceBetween.z() < 0 ? -1 : differenceBetween.z() != 0 ? 1 : 0) * 2D
-							)
-						);
+				if (!this.onGround()) {
+					AABB floorCheckBox = this.makeBoundingBox().expandTowards(0, -2, 0);
+					if (!level().getBlockCollisions(this, floorCheckBox).iterator().hasNext()) {
+						Vec3 wallPos = this.findNearestWall();
+						if (wallPos != null) {
+							Vec3 differenceBetween = wallPos.subtract(crabPos);
+							this.setDeltaMovement(
+								this.getDeltaMovement().add(
+									differenceBetween.x() < 0D ? -0.25D : differenceBetween.x() > 0D ? 0.25D : 0D,
+									0D,
+									differenceBetween.z() < 0D ? -0.25D : differenceBetween.z() > 0D ? 0.25D : 0D
+								)
+							);
+						}
 					}
 				}
 			}
