@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.entity;
 
 import com.mojang.serialization.Dynamic;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +40,7 @@ import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.frozenblock.wilderwild.tag.WilderGameEventTags;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -99,7 +101,10 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.PositionSource;
 import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -194,7 +199,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		this.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, CrabAi.getRandomDigCooldown(this));
 		switch (reason) {
 			case BUCKET -> { return spawnData; }
-			case NATURAL -> this.getBrain().setMemoryWithExpiry(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, EMERGE_LENGTH_IN_TICKS);
+			case NATURAL, TRIGGERED, REINFORCEMENT -> this.getBrain().setMemoryWithExpiry(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, EMERGE_LENGTH_IN_TICKS);
 			default -> {}
 		}
 		if (spawnData instanceof CrabGroupData crabGroupData) {
@@ -298,6 +303,50 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		super.aiStep();
 	}
 
+	@Nullable
+	public BlockPos findNearestWall() {
+		BlockPos.MutableBlockPos evaluatingPos = this.blockPosition().mutable();
+		ArrayList<BlockPos> poses = new ArrayList<>();
+		for (Direction direction : Direction.Plane.HORIZONTAL.shuffledCopy(this.random)) {
+			evaluatingPos.move(direction);
+			if (isWallPosSlowable(evaluatingPos)) {
+				poses.add(evaluatingPos.immutable());
+			}
+			evaluatingPos.move(direction.getOpposite());
+		}
+		return getClosestPos(poses);
+	}
+
+	@Nullable
+	public BlockPos getClosestPos(@NotNull ArrayList<BlockPos> poses) {
+		double lowestDistance = Double.MAX_VALUE;
+		BlockPos selectedPos = null;
+		Vec3 thisPos = new Vec3(this.getX(), this.getBlockY() + 0.5D, this.getZ());
+		if (!poses.isEmpty()) {
+			for (BlockPos pos : poses) {
+				if (pos.distToCenterSqr(thisPos) < lowestDistance) {
+					selectedPos = pos;
+				}
+			}
+		}
+		return selectedPos;
+	}
+
+	public boolean isWallPosSlowable(@Nullable BlockPos pos) {
+		if (pos == null) {
+			return false;
+		}
+		BlockState state = this.level().getBlockState(pos);
+		if (state.isAir() || state.getFluidState().is(FluidTags.LAVA)) {
+			return false;
+		}
+		VoxelShape collisionShape = state.getCollisionShape(this.level(), pos, CollisionContext.of(this));
+		if ((collisionShape.isEmpty() && !state.getFluidState().is(FluidTags.WATER)) || pos.getY() + collisionShape.min(Direction.Axis.Y) > this.getEyeY()) {
+			return false;
+		}
+		return true;
+	}
+
 	@Override
 	public void tick() {
 		boolean isClient = this.level().isClientSide;
@@ -306,15 +355,28 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		}
 		super.tick();
 		if (!isClient) {
-			if (horizontalCollision) this.setMoveState(MoveState.CLIMBING);
-				else this.setMoveState(MoveState.WALKING);
-			if (this.isClimbing()) {
+			if (horizontalCollision) {
+				this.setMoveState(MoveState.CLIMBING);
 				Vec3 usedMovement = this.getDeltaMovement();
 				if (usedMovement.x == 0 && usedMovement.z == 0) usedMovement = this.prevMovement;
 				this.setTargetClimbAnimX(Math.abs(getAngleFromVec3(usedMovement) - getAngleFromVec3(this.getViewVector(1F))) / 180F);
 				this.prevMovement = usedMovement;
 			} else {
+				this.setMoveState(MoveState.WALKING);
 				this.setTargetClimbAnimX(0F);
+				if (!this.onGround() && !this.isClimbing() && WalkNodeEvaluator.getFloorLevel(this.level(), this.blockPosition()) == 0) {
+					BlockPos wallPos = this.findNearestWall();
+					if (wallPos != null) {
+						BlockPos differenceBetween = wallPos.subtract(this.blockPosition());
+						this.setDeltaMovement(
+							this.getDeltaMovement().add(
+								differenceBetween.getX() * 0.1D,
+								0,
+								differenceBetween.getZ() * 0.1D
+							)
+						);
+					}
+				}
 			}
 			if (this.isDiggingOrEmerging()) {
 				this.setDiggingTicks(this.getDiggingTicks() + 1);
