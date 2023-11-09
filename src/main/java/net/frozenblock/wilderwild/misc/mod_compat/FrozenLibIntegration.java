@@ -84,6 +84,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
+import org.jetbrains.annotations.NotNull;
 
 public class FrozenLibIntegration extends ModIntegration {
 	public FrozenLibIntegration() {
@@ -234,7 +235,7 @@ public class FrozenLibIntegration extends ModIntegration {
 							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(RegisterItems.CRAB_BUCKET)).triggerInstance())
 						);
 						AdvancementAPI.addCriteria(advancement, "wilderwild:jellyfish_bucket", CriteriaTriggers.FILLED_BUCKET.createCriterion(
-							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(RegisterItems.CRAB_BUCKET)).triggerInstance())
+							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(RegisterItems.JELLYFISH_BUCKET)).triggerInstance())
 						);
 						AdvancementAPI.addRequirements(advancement, new
 								AdvancementRequirements(new String[][]{{
@@ -250,11 +251,12 @@ public class FrozenLibIntegration extends ModIntegration {
 		});
 	}
 
-	private static void addBiomeRequirement(Advancement advancement, ResourceKey<Biome> key) {
+	private static void addBiomeRequirement(@NotNull Advancement advancement, @NotNull ResourceKey<Biome> key) {
 		AdvancementAPI.addCriteria(advancement, key.location().toString(), inBiome(key));
 		AdvancementAPI.addRequirements(advancement, new AdvancementRequirements(new String[][]{{key.location().toString()}}));
 	}
 
+	@NotNull
 	private static Criterion<PlayerTrigger.TriggerInstance> inBiome(ResourceKey<Biome> key) {
 		return PlayerTrigger.TriggerInstance.located(LocationPredicate.Builder.inBiome(key));
 	}
