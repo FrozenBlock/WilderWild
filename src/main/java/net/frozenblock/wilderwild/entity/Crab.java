@@ -245,11 +245,6 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		return 0F;
 	}
 
-	@Override
-	public boolean isSuppressingSlidingDownLadder() {
-		return !this.navigationRunning() && this.onClimbable();
-	}
-
 	public static void clearLevelToCrabCount() {
 		CRABS_PER_LEVEL.clear();
 	}
