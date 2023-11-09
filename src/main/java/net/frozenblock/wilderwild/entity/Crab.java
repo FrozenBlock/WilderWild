@@ -381,9 +381,9 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 							Vec3 differenceBetween = wallPos.subtract(crabPos);
 							this.setDeltaMovement(
 								this.getDeltaMovement().add(
-									differenceBetween.x() < 0D ? -0.25D : differenceBetween.x() > 0D ? 0.25D : 0D,
+									differenceBetween.x() < 0D ? -0.1D : differenceBetween.x() > 0D ? 0.1D : 0D,
 									0D,
-									differenceBetween.z() < 0D ? -0.25D : differenceBetween.z() > 0D ? 0.25D : 0D
+									differenceBetween.z() < 0D ? -0.1D : differenceBetween.z() > 0D ? 0.1D : 0D
 								)
 							);
 						}
@@ -410,8 +410,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		}
 		this.prevClimbAnimX = this.climbAnimX;
 		// supplier so that it isn't evaluated each time
-		Supplier<Float> climbingVal = () ->
-			(Math.cos(this.targetClimbAnimX() * Mth.PI) >= -0.275F ? -1F : 1F) * (this.isCrabDescending() ? -1F : 1F);
+		Supplier<Float> climbingVal = () -> (Math.cos(this.targetClimbAnimX() * Mth.PI) >= -0.275F ? -1F : 1F);
 		this.climbAnimX += ((this.isClimbing() ? climbingVal.get() : 0F) - this.climbAnimX) * 0.2F;
 	}
 
