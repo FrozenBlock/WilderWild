@@ -304,40 +304,41 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@Nullable
-	public BlockPos findNearestWall() {
-		BlockPos.MutableBlockPos evaluatingPos = this.blockPosition().mutable();
-		ArrayList<BlockPos> poses = new ArrayList<>();
-		for (Direction direction : Direction.Plane.HORIZONTAL.shuffledCopy(this.random)) {
-			evaluatingPos.move(direction);
-			if (isWallPosSlowable(evaluatingPos)) {
-				poses.add(evaluatingPos.immutable());
+	public Vec3 findNearestWall() {
+		BlockPos crabPos = this.blockPosition();
+		ArrayList<Vec3> vecs = new ArrayList<>();
+		Vec3 crabVec3 = this.position();
+		for (BlockPos pos : BlockPos.betweenClosed(crabPos.offset(-1, 0, -1), crabPos.offset(1, 0, 1))) {
+			VoxelShape collisionShape = this.level().getBlockState(pos).getCollisionShape(this.level(), pos, CollisionContext.of(this));
+			if (isWallPosSlowable(pos, collisionShape)) {
+				collisionShape.closestPointTo(crabVec3).ifPresent(vecs::add);
 			}
-			evaluatingPos.move(direction.getOpposite());
 		}
-		return getClosestPos(poses);
+		return getClosestPos(vecs);
 	}
 
 	@Nullable
-	public BlockPos getClosestPos(@NotNull ArrayList<BlockPos> poses) {
+	public Vec3 getClosestPos(@NotNull ArrayList<Vec3> vec3s) {
 		double lowestDistance = Double.MAX_VALUE;
-		BlockPos selectedPos = null;
-		Vec3 thisPos = new Vec3(this.getX(), this.getBlockY() + 0.5D, this.getZ());
-		if (!poses.isEmpty()) {
-			for (BlockPos pos : poses) {
-				if (pos.distToCenterSqr(thisPos) < lowestDistance) {
-					selectedPos = pos;
+		Vec3 selectedVec3 = null;
+		Vec3 thisPos = this.getEyePosition();
+		if (!vec3s.isEmpty()) {
+			for (Vec3 vec3 : vec3s) {
+				double distance = vec3.distanceTo(thisPos);
+				if (distance < lowestDistance) {
+					lowestDistance = distance;
+					selectedVec3 = vec3;
 				}
 			}
 		}
-		return selectedPos;
+		return selectedVec3;
 	}
 
-	public boolean isWallPosSlowable(@NotNull BlockPos pos) {
+	public boolean isWallPosSlowable(@NotNull BlockPos pos, @NotNull VoxelShape collisionShape) {
 		BlockState state = this.level().getBlockState(pos);
 		if (state.isAir() || state.getFluidState().is(FluidTags.LAVA)) {
 			return false;
 		}
-		VoxelShape collisionShape = state.getCollisionShape(this.level(), pos, CollisionContext.of(this));
 		if ((collisionShape.isEmpty() && !state.getFluidState().is(FluidTags.WATER)) || pos.getY() + collisionShape.min(Direction.Axis.Y) > this.getEyeY()) {
 			return false;
 		}
@@ -363,16 +364,17 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			} else {
 				this.setMoveState(MoveState.WALKING);
 				this.setTargetClimbAnimX(0F);
+				Vec3 crabPos = this.position();
 				BlockPos crabBlockPos = this.blockPosition();
 				if (!this.onGround() && WalkNodeEvaluator.getFloorLevel(this.level(), crabBlockPos) <= crabBlockPos.getY() - 0.9) {
-					BlockPos wallPos = this.findNearestWall();
+					Vec3 wallPos = this.findNearestWall();
 					if (wallPos != null) {
-						BlockPos differenceBetween = wallPos.subtract(crabBlockPos);
+						Vec3 differenceBetween = wallPos.subtract(crabPos);
 						this.setDeltaMovement(
 							this.getDeltaMovement().add(
-								differenceBetween.getX() * 2D,
+								(differenceBetween.x() < 0 ? -1 : differenceBetween.x() != 0 ? 1 : 0) * 2D,
 								0,
-								differenceBetween.getZ() * 2D
+								(differenceBetween.z() < 0 ? -1 : differenceBetween.z() != 0 ? 1 : 0) * 2D
 							)
 						);
 					}
