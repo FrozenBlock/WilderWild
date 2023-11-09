@@ -347,7 +347,10 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		if (state.isAir() || state.getFluidState().is(FluidTags.LAVA)) {
 			return false;
 		}
-		if ((collisionShape.isEmpty() && !state.getFluidState().is(FluidTags.WATER)) || pos.getY() + collisionShape.min(Direction.Axis.Y) > this.getEyeY()) {
+		if (state.getFluidState().is(FluidTags.WATER)) {
+			return true;
+		}
+		if (collisionShape.isEmpty() || pos.getY() + collisionShape.min(Direction.Axis.Y) > this.getEyeY()) {
 			return false;
 		}
 		return true;
