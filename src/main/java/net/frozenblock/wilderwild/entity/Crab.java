@@ -353,24 +353,26 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		super.tick();
 		if (!isClient) {
 			if (horizontalCollision) {
-				this.setMoveState(MoveState.CLIMBING);
 				Vec3 usedMovement = this.getDeltaMovement();
+				this.setMoveState(usedMovement.y() >= 0 ? MoveState.CLIMBING : MoveState.DESCENDING);
 				if (usedMovement.x == 0 && usedMovement.z == 0) usedMovement = this.prevMovement;
-				this.setTargetClimbAnimX(Math.abs(getAngleFromVec3(usedMovement) - getAngleFromVec3(this.getViewVector(1F))) / 180F);
+				this.setTargetClimbAnimX(
+					Math.abs(getAngleFromVec3(usedMovement) - getAngleFromVec3(this.getViewVector(1F))) / 180F
+				);
 				this.prevMovement = usedMovement;
 			} else {
 				this.setMoveState(MoveState.WALKING);
 				this.setTargetClimbAnimX(0F);
 				BlockPos crabBlockPos = this.blockPosition();
-				if (!this.onGround() && !this.isClimbing() && WalkNodeEvaluator.getFloorLevel(this.level(), this.blockPosition()) == crabBlockPos.getY() - 1) {
+				if (!this.onGround() && WalkNodeEvaluator.getFloorLevel(this.level(), crabBlockPos) <= crabBlockPos.getY() - 0.9) {
 					BlockPos wallPos = this.findNearestWall();
 					if (wallPos != null) {
 						BlockPos differenceBetween = wallPos.subtract(crabBlockPos);
 						this.setDeltaMovement(
 							this.getDeltaMovement().add(
-								differenceBetween.getX() * 0.5D,
+								differenceBetween.getX() * 2D,
 								0,
-								differenceBetween.getZ() * 0.5D
+								differenceBetween.getZ() * 2D
 							)
 						);
 					}
@@ -396,7 +398,8 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		}
 		this.prevClimbAnimX = this.climbAnimX;
 		// supplier so that it isn't evaluated each time
-		Supplier<Float> climbingVal = () -> Math.cos(this.targetClimbAnimX() * Mth.PI) >= -0.275F ? -1F : 1F;
+		Supplier<Float> climbingVal = () ->
+			(Math.cos(this.targetClimbAnimX() * Mth.PI) >= -0.275F ? -1F : 1F) * (this.isCrabDescending() ? -1F : 1F);
 		this.climbAnimX += ((this.isClimbing() ? climbingVal.get() : 0F) - this.climbAnimX) * 0.2F;
 	}
 
@@ -574,7 +577,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	@Override
 	public boolean onClimbable() {
-		return this.isClimbing();
+		return this.isClimbing() || this.isCrabDescending();
 	}
 
 	@Override
@@ -635,7 +638,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	@Override
 	public void calculateEntityAnimation(boolean includeHeight) {
-		super.calculateEntityAnimation(this.isClimbing() || includeHeight);
+		super.calculateEntityAnimation(this.onClimbable() || includeHeight);
 	}
 
 	@Override
