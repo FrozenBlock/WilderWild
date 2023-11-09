@@ -14,8 +14,7 @@ public class CrabMoveControl extends MoveControl {
 
 	@Override
 	public void tick() {
-		if (!crab.isDiggingOrEmerging()) { //not needed but good to have anyway
-			//TODO: release controls but don't move if on walls and going down
+		if (!this.crab.isDiggingOrEmerging() && !this.crab.cancelMovementToDescend) {
 			super.tick();
 		}
 	}

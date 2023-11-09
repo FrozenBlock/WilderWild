@@ -138,6 +138,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	private final DynamicGameEventListener<VibrationSystem.Listener> dynamicGameEventListener;
 	private final VibrationSystem.User vibrationUser;
 	public Vec3 prevMovement;
+	public boolean cancelMovementToDescend;
 	private VibrationSystem.Data vibrationData;
 
 	// CLIENT VARIABLES
@@ -377,6 +378,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		}
 		super.tick();
 		if (!isClient) {
+			this.cancelMovementToDescend = false;
 			if (this.horizontalCollision) {
 				Vec3 usedMovement = this.getDeltaMovement();
 				this.setMoveState(usedMovement.y() >= 0 ? MoveState.CLIMBING : MoveState.DESCENDING);
@@ -400,6 +402,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 					if (!level().getBlockCollisions(this, floorCheckBox).iterator().hasNext()) {
 						Vec3 wallPos = this.findNearestWall();
 						if (wallPos != null) {
+							this.cancelMovementToDescend = true;
 							Vec3 differenceBetween = wallPos.subtract(this.position());
 							this.setDeltaMovement(
 								this.getDeltaMovement().add(
@@ -725,6 +728,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@Override
+	@NotNull
 	public InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
 		return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
 	}
@@ -804,6 +808,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		compound.putDouble("PrevX", this.prevMovement.x);
 		compound.putDouble("PrevY", this.prevMovement.y);
 		compound.putDouble("PrevZ", this.prevMovement.z);
+		compound.putBoolean("CancelMovementToDescend", this.cancelMovementToDescend);
 		compound.putString("ClimbingFace", this.getClimbingFace().name());
 		compound.putFloat("TargetClimbAnimX", this.targetClimbAnimX());
 		compound.putFloat("TargetClimbAnimY", this.targetClimbAnimY());
@@ -822,6 +827,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			this.setPose(Pose.valueOf(compound.getString("EntityPose")));
 		}
 		this.prevMovement = new Vec3(compound.getDouble("PrevX"), compound.getDouble("PrevY"), compound.getDouble("PrevZ"));
+		this.cancelMovementToDescend = compound.getBoolean("CancelMovementToDescend");
 		if (compound.contains("ClimbingFace") && (Arrays.stream(ClimbingFace.values()).anyMatch(climbingFace -> climbingFace.name().equals(compound.getString("ClimbingFace"))))) {
 			this.setClimbingFace(ClimbingFace.valueOf(compound.getString("ClimbingFace")).direction);
 		}
