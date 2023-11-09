@@ -14,7 +14,7 @@ public class CrabMoveControl extends MoveControl {
 
 	@Override
 	public void tick() {
-		if (!this.crab.isDiggingOrEmerging() && !this.crab.cancelMovementToDescend) {
+		if (!this.crab.cancelMovementToDescend) {
 			super.tick();
 		}
 	}
