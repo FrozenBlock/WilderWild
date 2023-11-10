@@ -114,7 +114,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 
 	@Override
 	public void prepareMobModel(@NotNull T entity, float limbSwing, float limbSwingAmount, float partialTick) {
-		this.xRot = Mth.lerp(partialTick, entity.prevClimbAnimX, entity.climbAnimX) * 85F;
+		this.xRot = Mth.lerp(partialTick, entity.prevClimbAnimX, entity.climbAnimX);
 		this.scale = entity.getScale();
 	}
 

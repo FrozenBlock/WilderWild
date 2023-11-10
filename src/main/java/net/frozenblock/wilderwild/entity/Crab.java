@@ -310,7 +310,11 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			this.cancelMovementToDescend = false;
 			if (this.horizontalCollision) {
 				Vec3 usedMovement = this.getDeltaMovement();
-				this.setMoveState(this.getDeltaPos().y() >= 0 ? MoveState.CLIMBING : MoveState.DESCENDING);
+				this.setMoveState(
+					this.getDeltaPos().y() >= 0 ?
+						this.verticalCollision && !this.verticalCollisionBelow ? MoveState.CLIMBING_ON_CEILING : MoveState.CLIMBING
+						: MoveState.DESCENDING
+				);
 				if (this.isCrabDescending() && this.level().noBlockCollision(this, this.makeBoundingBox().expandTowards(0, -this.getEmptyAreaSearchDistance(), 0))) {
 					this.cancelMovementToDescend = this.latchOntoWall(LATCH_TO_WALL_FORCE, false);
 				} else if (!this.onGround()) {
@@ -355,7 +359,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 				default -> {}
 			}
 			this.prevClimbAnimX = this.climbAnimX;
-			Supplier<Float> climbingVal = () -> (Math.cos(this.targetClimbAnimX() * Mth.PI) >= -0.275F ? -1F : 1F) * (this.isClimbing() ? 1F : -1F);
+			Supplier<Float> climbingVal = () -> this.isClimbingOnCeiling() ? 180F : (Math.cos(this.targetClimbAnimX() * Mth.PI) >= -0.275F ? -1F : 1F) * (this.isClimbing() ? 85F : -85F);
 			this.climbAnimX += ((this.onClimbable() ? climbingVal.get() : 0F) - this.climbAnimX) * 0.2F;
 			this.prevClimbAnimY = this.climbAnimY;
 			this.climbAnimY += ((this.onClimbable() ? this.getClimbingFace().rotation : 0F) - this.climbDirectionAmount) * 0.2F;
@@ -615,7 +619,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	@Override
 	public boolean onClimbable() {
-		return this.isClimbing() || this.isCrabDescending();
+		return this.isClimbing() || this.isClimbingOnCeiling() || this.isCrabDescending();
 	}
 
 	@Override
@@ -629,6 +633,10 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	public boolean isClimbing() {
 		return this.moveState() == MoveState.CLIMBING;
+	}
+
+	public boolean isClimbingOnCeiling() {
+		return this.moveState() == MoveState.CLIMBING_ON_CEILING;
 	}
 
 	public boolean isCrabDescending() {
@@ -925,6 +933,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	public enum MoveState {
 		WALKING,
 		CLIMBING,
+		CLIMBING_ON_CEILING,
 		DESCENDING;
 
 		public static final EntityDataSerializer<MoveState> SERIALIZER = EntityDataSerializer.simpleEnum(MoveState.class);
