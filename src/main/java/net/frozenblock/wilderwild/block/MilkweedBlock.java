@@ -25,6 +25,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -42,6 +43,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class MilkweedBlock extends TallFlowerBlock {
 	private static final int MAX_AGE = 3;
@@ -67,7 +69,7 @@ public class MilkweedBlock extends TallFlowerBlock {
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if (random.nextFloat() > 0.83F && isLower(state) && !isFullyGrown(state)) {
-			this.setAgeOnBothHalves(state, level, pos, state.getValue(BlockStateProperties.AGE_3) + 1);
+			setAgeOnBothHalves(this, state, level, pos, state.getValue(BlockStateProperties.AGE_3) + 1);
 		}
 	}
 
@@ -78,40 +80,47 @@ public class MilkweedBlock extends TallFlowerBlock {
 			ItemStack itemStack = player.getItemInHand(hand);
 			if (!level.isClientSide) {
 				if (itemStack.is(Items.SHEARS)) {
-					ItemStack stack = new ItemStack(RegisterItems.MILKWEED_POD);
-					stack.setCount(level.random.nextIntBetweenInclusive(2, 5));
-					popResource(level, pos, stack);
-					level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
 					itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
-					level.gameEvent(player, GameEvent.SHEAR, pos);
+					player.awardStat(Stats.ITEM_USED.get(Items.SHEARS));
+					shear(level, pos, player);
 				} else {
 					level.playSound(null, player.getX(), player.getY(), player.getZ(), RegisterSounds.BLOCK_MILKWEED_RUSTLE, SoundSource.BLOCKS, 0.8F, 0.9F + (level.random.nextFloat() * 0.15F));
 					EasyPacket.EasySeedPacket.createParticle(level, Vec3.atCenterOf(pos).add(0, 0.3, 0), level.random.nextIntBetweenInclusive(14, 28), true);
+					setAgeOnBothHalves(this, state, level, pos, 0);
 				}
-				this.setAgeOnBothHalves(state, level, pos, 0);
 			}
 			return InteractionResult.SUCCESS;
 		}
 		return super.use(state, level, pos, player, hand, hit);
 	}
 
+	public static void shear(@NotNull Level level, BlockPos pos, @Nullable Player player) {
+		ItemStack stack = new ItemStack(RegisterItems.MILKWEED_POD);
+		stack.setCount(level.random.nextIntBetweenInclusive(2, 5));
+		popResource(level, pos, stack);
+		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
+		level.gameEvent(player, GameEvent.SHEAR, pos);
+		BlockState state = level.getBlockState(pos);
+		setAgeOnBothHalves(state.getBlock(), state, level, pos, 0);
+	}
+
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
 		if (isLower(state) && !isFullyGrown(state)) {
-			this.setAgeOnBothHalves(state, level, pos, state.getValue(BlockStateProperties.AGE_3) + 1);
+			setAgeOnBothHalves(this, state, level, pos, state.getValue(BlockStateProperties.AGE_3) + 1);
 			return;
 		}
 		Block.popResource(level, pos, new ItemStack(this));
 	}
 
-	public void setAgeOnBothHalves(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, int age) {
+	public static void setAgeOnBothHalves(Block thisBlock, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, int age) {
 		if (age > MAX_AGE) {
 			return;
 		}
 		level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.AGE_3, age));
 		BlockPos movedPos = state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER ? pos.below() : pos.above();
 		BlockState secondState = level.getBlockState(movedPos);
-		if (secondState.is(this)) {
+		if (secondState.is(thisBlock)) {
 			level.setBlockAndUpdate(movedPos, secondState.setValue(BlockStateProperties.AGE_3, age));
 		}
 	}
