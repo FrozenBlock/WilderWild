@@ -82,7 +82,7 @@ public class MilkweedBlock extends TallFlowerBlock {
 				if (itemStack.is(Items.SHEARS)) {
 					itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
 					player.awardStat(Stats.ITEM_USED.get(Items.SHEARS));
-					shear(level, pos, player);
+					shear(level, pos, state, player);
 				} else {
 					level.playSound(null, player.getX(), player.getY(), player.getZ(), RegisterSounds.BLOCK_MILKWEED_RUSTLE, SoundSource.BLOCKS, 0.8F, 0.9F + (level.random.nextFloat() * 0.15F));
 					EasyPacket.EasySeedPacket.createParticle(level, Vec3.atCenterOf(pos).add(0, 0.3, 0), level.random.nextIntBetweenInclusive(14, 28), true);
@@ -94,13 +94,12 @@ public class MilkweedBlock extends TallFlowerBlock {
 		return super.use(state, level, pos, player, hand, hit);
 	}
 
-	public static void shear(@NotNull Level level, BlockPos pos, @Nullable Player player) {
+	public static void shear(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @Nullable Player player) {
 		ItemStack stack = new ItemStack(RegisterItems.MILKWEED_POD);
 		stack.setCount(level.random.nextIntBetweenInclusive(2, 5));
 		popResource(level, pos, stack);
 		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
 		level.gameEvent(player, GameEvent.SHEAR, pos);
-		BlockState state = level.getBlockState(pos);
 		setAgeOnBothHalves(state.getBlock(), state, level, pos, 0);
 	}
 

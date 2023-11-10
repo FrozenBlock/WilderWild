@@ -16,10 +16,11 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.mixin.block.milkweed;
+package net.frozenblock.wilderwild.mixin.block.dispenser;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.frozenblock.wilderwild.block.GloryOfTheSnowBlock;
 import net.frozenblock.wilderwild.block.MilkweedBlock;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.BlockPos;
@@ -36,14 +37,24 @@ public class ShearsDispenseItemBehaviorMixin {
 
 	@WrapOperation(method = "execute", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/dispenser/ShearsDispenseItemBehavior;tryShearBeehive(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;)Z"))
 	private static boolean wilderWild$execute(ServerLevel usedLevel, BlockPos pos, @NotNull Operation<Boolean> operation) {
-		return operation.call(usedLevel, pos) || wilderWild$tryShearMilkweed(usedLevel, pos);
+		return operation.call(usedLevel, pos) || wilderWild$tryShearMilkweed(usedLevel, pos) || wilderWild$tryShearGloryOfTheSnow(usedLevel, pos);
 	}
 
 	@Unique
 	private static boolean wilderWild$tryShearMilkweed(@NotNull ServerLevel level, BlockPos pos) {
 		BlockState blockState = level.getBlockState(pos);
 		if (blockState.getBlock() == RegisterBlocks.MILKWEED && MilkweedBlock.isFullyGrown(blockState)) {
-			MilkweedBlock.shear(level, pos, null);
+			MilkweedBlock.shear(level, pos, blockState, null);
+			return true;
+		}
+		return false;
+	}
+
+	@Unique
+	private static boolean wilderWild$tryShearGloryOfTheSnow(@NotNull ServerLevel level, BlockPos pos) {
+		BlockState blockState = level.getBlockState(pos);
+		if (blockState.getBlock() == RegisterBlocks.GLORY_OF_THE_SNOW && GloryOfTheSnowBlock.hasColor(blockState)) {
+			GloryOfTheSnowBlock.shear(level, pos, blockState, null);
 			return true;
 		}
 		return false;
