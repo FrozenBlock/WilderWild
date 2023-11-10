@@ -31,7 +31,7 @@ public class LivingEntityMixin {
 	@ModifyExpressionValue(method = "travel", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;onClimbable()Z"))
 	public boolean wilderWild$crabTravel(boolean original) {
 		if (LivingEntity.class.cast(this) instanceof Crab crab) {
-			return crab.isClimbing() || crab.isClimbing();
+			return crab.isClimbing();
 		}
 		return original;
 	}
@@ -39,7 +39,7 @@ public class LivingEntityMixin {
 	@ModifyExpressionValue(method = "handleRelativeFrictionAndCalculateMovement", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;onClimbable()Z"))
 	public boolean wilderWild$crabHandleRelativeFrictionAndCalculateMovement(boolean original) {
 		if (LivingEntity.class.cast(this) instanceof Crab crab) {
-			return crab.isClimbing() || crab.isClimbingOnCeiling();
+			return crab.isClimbing();
 		}
 		return original;
 	}
