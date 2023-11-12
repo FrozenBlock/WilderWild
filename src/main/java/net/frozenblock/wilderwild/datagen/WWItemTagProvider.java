@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.datagen;
 
+import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.frozenblock.lib.tag.api.FrozenItemTags;
@@ -9,8 +10,6 @@ import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.concurrent.CompletableFuture;
 
 final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 

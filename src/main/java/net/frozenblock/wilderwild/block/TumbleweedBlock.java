@@ -18,8 +18,8 @@
 
 package net.frozenblock.wilderwild.block;
 
-import java.util.Objects;
 import com.mojang.serialization.MapCodec;
+import java.util.Objects;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;

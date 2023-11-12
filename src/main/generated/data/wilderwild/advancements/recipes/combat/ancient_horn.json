@@ -30,6 +30,5 @@
     "recipes": [
       "wilderwild:ancient_horn"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

@@ -18,8 +18,8 @@
 
 package net.frozenblock.wilderwild.block;
 
-import java.util.Optional;
 import com.mojang.serialization.MapCodec;
+import java.util.Optional;
 import net.frozenblock.lib.block.api.FaceClusterBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
