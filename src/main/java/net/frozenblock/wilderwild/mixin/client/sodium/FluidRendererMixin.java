@@ -120,7 +120,8 @@ public abstract class FluidRendererMixin {
 		int posZ = pos.getZ();
 		Fluid fluid = fluidState.getType();
 		boolean sfUp = this.isFluidOccludedAndNotSameBlock(world, posX, posY, posZ, Direction.UP, fluid, blockState);
-		boolean sfDown = this.isFluidOccludedAndNotSameBlock(world, posX, posY, posZ, Direction.DOWN, fluid, blockState) || !this.isSideExposed(world, posX, posY, posZ, Direction.DOWN, 0.8888889F);
+		boolean sfDown = this.isFluidOccludedAndNotSameBlock(world, posX, posY, posZ, Direction.DOWN, fluid, blockState)
+			|| !this.isSideExposed(world, posX, posY, posZ, Direction.DOWN, 0.8888889F);
 		boolean sfNorth = this.isFluidOccludedAndNotSameBlock(world, posX, posY, posZ, Direction.NORTH, fluid, blockState);
 		boolean sfSouth = this.isFluidOccludedAndNotSameBlock(world, posX, posY, posZ, Direction.SOUTH, fluid, blockState);
 		boolean sfWest = this.isFluidOccludedAndNotSameBlock(world, posX, posY, posZ, Direction.WEST, fluid, blockState);
@@ -162,10 +163,10 @@ public abstract class FluidRendererMixin {
 			quad.setFlags(0);
 			float u1 = sprite.getU(0.0);
 			float c1 = u1;
-			float c2 = sprite.getU(1.0);
+			float c2 = sprite.getU(16.0);
 			float x1 = c2;
 			float z1 = sprite.getV(0.0);
-			float x2 = sprite.getV(1.0);
+			float x2 = sprite.getV(16.0);
 			float z2 = x2;
 			if (!sfUp && this.isSideExposed(world, posX, posY, posZ, Direction.UP, Math.min(Math.min(northWestHeight, southWestHeight), Math.min(southEastHeight, northEastHeight)))) {
 				northWestHeight -= 0.001F;
@@ -303,10 +304,10 @@ public abstract class FluidRendererMixin {
 						isOverlay = true;
 					}
 					u1 = sprite.getU(0.0);
-					float u2 = sprite.getU(1.0);
-					float v1 = sprite.getV((1.0F - c1) * 0.5F);
-					float v2 = sprite.getV((1.0F - c2) * 0.5F);
-					float v3 = sprite.getV(1.0F);
+					float u2 = sprite.getU(16.0);
+					float v1 = sprite.getV((1.0 - c1) * 0.5);
+					float v2 = sprite.getV((1.0 - c2) * 0.5);
+					float v3 = sprite.getV(16.0);
 					quad.setSprite(sprite);
 					setVertex(quad, 0, x2, c2, z2, u2, v2);
 					setVertex(quad, 1, x2, yOffset, z2, u2, v3);

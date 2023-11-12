@@ -6,4 +6,4 @@ What's new:
 
 -----------------
 - Fixed Mesoglea liquid rendering extending 16 tiles out instead of only encompassing one tile
-- Updated embedded FrozenLib to 1.4.2
+- Updated embedded FrozenLib to 1.4.3
