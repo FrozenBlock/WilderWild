@@ -103,6 +103,7 @@ public abstract class FluidRendererMixin {
 		if (BlockConfig.get().mesoglea.mesogleaLiquid && blockState.getBlock() instanceof MesogleaBlock) {
 			this.wilderWild$renderWithSingleTexture(world, fluidState, pos, offset, buffers, blockState, Minecraft.getInstance().getModelManager().getBlockModelShaper().getBlockModel(blockState).getParticleIcon());
 			info.cancel();
+			return;
 		}
 		this.wilderWild$isWater = fluidState.is(FluidTags.WATER);
 	}
@@ -158,10 +159,10 @@ public abstract class FluidRendererMixin {
 			quad.setFlags(0);
 			float u1 = sprite.getU(0.0F);
 			float c1 = u1;
-			float c2 = sprite.getU(16.0F);
+			float c2 = sprite.getU(1.0F);
 			float x1 = c2;
 			float z1 = sprite.getV(0.0F);
-			float x2 = sprite.getV(16.0F);
+			float x2 = sprite.getV(1.0F);
 			float z2 = x2;
 			if (!sfUp && this.isSideExposed(world, posX, posY, posZ, Direction.UP, Math.min(Math.min(northWestHeight, southWestHeight), Math.min(southEastHeight, northEastHeight)))) {
 				northWestHeight -= 0.001F;
@@ -299,10 +300,10 @@ public abstract class FluidRendererMixin {
 						isOverlay = true;
 					}
 					u1 = sprite.getU(0.0F);
-					float u2 = sprite.getU(16.0F);
-					float v1 = sprite.getV((1.0F - c1) * 16.0F * 0.5F);
-					float v2 = sprite.getV((1.0F - c2) * 16.0F * 0.5F);
-					float v3 = sprite.getV(16.0F);
+					float u2 = sprite.getU(1.0F);
+					float v1 = sprite.getV((1.0F - c1) * 0.5F);
+					float v2 = sprite.getV((1.0F - c2) * 0.5F);
+					float v3 = sprite.getV(1.0F);
 					quad.setSprite(sprite);
 					setVertex(quad, 0, x2, c2, z2, u2, v2);
 					setVertex(quad, 1, x2, yOffset, z2, u2, v3);
