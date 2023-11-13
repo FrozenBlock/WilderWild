@@ -44,6 +44,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.item.ItemStack;
@@ -196,6 +197,16 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 				}
 			}
 		}
+	}
+
+	public int getComparatorOutput() {
+		if (this.invEmpty()) {
+			return 15;
+		}
+		if (!this.noFireflies()) {
+			return Mth.clamp(this.getFireflies().size() * 4, 0, 15);
+		}
+		return 0;
 	}
 
 	public static class FireflyInLantern {

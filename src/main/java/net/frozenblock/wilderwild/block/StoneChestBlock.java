@@ -393,6 +393,20 @@ public class StoneChestBlock extends ChestBlock {
 	}
 
 	@Override
+	public boolean hasAnalogOutputSignal(@NotNull BlockState state) {
+		return true;
+	}
+
+	@Override
+	public int getAnalogOutputSignal(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos) {
+		BlockEntity blockEntity = level.getBlockEntity(pos);
+		if (blockEntity instanceof StoneChestBlockEntity stoneChestBlockEntity) {
+			return stoneChestBlockEntity.getComparatorOutput();
+		}
+		return 0;
+	}
+
+	@Override
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(FACING, TYPE, WATERLOGGED, ANCIENT, SCULK);
 	}

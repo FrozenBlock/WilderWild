@@ -266,6 +266,20 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
+	public boolean hasAnalogOutputSignal(@NotNull BlockState state) {
+		return true;
+	}
+
+	@Override
+	public int getAnalogOutputSignal(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos) {
+		BlockEntity blockEntity = level.getBlockEntity(pos);
+		if (blockEntity instanceof DisplayLanternBlockEntity displayLanternBlockEntity) {
+			return displayLanternBlockEntity.getComparatorOutput();
+		}
+		return 0;
+	}
+
+	@Override
 	public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
 		if (!level.isClientSide && blockEntity instanceof DisplayLanternBlockEntity lanternEntity) {
 			boolean silk = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) == 0 || player.isCreative();

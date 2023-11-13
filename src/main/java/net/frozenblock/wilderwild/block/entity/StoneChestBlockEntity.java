@@ -199,6 +199,10 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		this.stillLidTicks = (int) (Math.max((this.openProgress), 0.2) * 180 * BlockConfig.get().stoneChest.getStoneChestTimer());
 	}
 
+	public int getComparatorOutput() {
+		return (int) (this.openProgress * 30F);
+	}
+
 	public void onLidSlam(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable StoneChestBlockEntity otherStoneChest) {
 		if (!level.isClientSide && level instanceof ServerLevel server) {
 			if (this.highestLidPoint > 0.2F) {
