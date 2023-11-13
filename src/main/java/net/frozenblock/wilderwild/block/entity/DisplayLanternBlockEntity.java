@@ -159,6 +159,9 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		Vec3 newVec = new Vec3(0.5 + (0.15 - random.nextDouble() * 0.3), 0, 0.5 + (0.15 - random.nextDouble() * 0.3));
 		var firefly = new FireflyInLantern(newVec, bottle.color, name, random.nextDouble() > 0.7, random.nextInt(20), 0);
 		this.fireflies.add(firefly);
+		if (this.level != null) {
+			this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
+		}
 	}
 
 	public void removeFirefly(@NotNull FireflyInLantern firefly) {
@@ -200,7 +203,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	}
 
 	public int getComparatorOutput() {
-		if (this.invEmpty()) {
+		if (!this.invEmpty()) {
 			return 15;
 		}
 		if (!this.noFireflies()) {

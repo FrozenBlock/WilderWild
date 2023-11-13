@@ -122,6 +122,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 						level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(lantern.getFireflies().size() * 3, 0, 15)));
 						level.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.2F + 0.9F);
 						lantern.updateSync();
+						level.updateNeighbourForOutputSignal(pos, this);
 						return InteractionResult.SUCCESS;
 					}
 				}
@@ -145,6 +146,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 						((DisplayLanternBlockEntity) entity).removeFirefly(fireflyInLantern);
 						level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(lantern.getFireflies().size() * 3, 0, 15)));
 						lantern.updateSync();
+						level.updateNeighbourForOutputSignal(pos, this);
 						return InteractionResult.SUCCESS;
 					}
 				}
@@ -158,6 +160,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 					level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(light, 0, 15)));
 					lantern.inventory.set(0, stack.split(1));
 					lantern.updateSync();
+					level.updateNeighbourForOutputSignal(pos, this);
 					return InteractionResult.SUCCESS;
 				}
 			} else if (lantern.noFireflies()) {
@@ -167,6 +170,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 					lantern.inventory.clear();
 					lantern.updateSync();
 					level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, 0));
+					level.updateNeighbourForOutputSignal(pos, this);
 					return InteractionResult.SUCCESS;
 				}
 			}
@@ -237,6 +241,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 					popResource(level, pos, item);
 				}
 				lantern.inventory.clear();
+				level.updateNeighbourForOutputSignal(pos, this);
 			}
 		}
 		super.onRemove(state, level, pos, newState, isMoving);

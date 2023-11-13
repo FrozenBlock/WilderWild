@@ -105,6 +105,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 			if (stoneChest.stillLidTicks > 0) {
 				stoneChest.stillLidTicks -= 1;
 			} else if (stoneChest.openProgress > 0F) {
+				level.updateNeighbourForOutputSignal(pos, stoneChest.getBlockState().getBlock());
 				serverLevel.gameEvent(null, GameEvent.CONTAINER_CLOSE, pos);
 				stoneChest.openProgress = Math.max(0F, stoneChest.openProgress - 0.0425F);
 				if (!stoneChest.closing) {
@@ -191,12 +192,18 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		this.openProgress = Mth.clamp(this.openProgress + (!ancient ? liftAmount * 2 : liftAmount), 0.0F, 0.5F);
 		this.highestLidPoint = this.openProgress;
 		this.stillLidTicks = (int) (Math.max((this.openProgress), 0.2) * (!ancient ? 220 : 160) * BlockConfig.get().stoneChest.getStoneChestTimer());
+		if (this.level != null) {
+			this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
+		}
 	}
 
 	public void setLid(float liftAmount) {
 		this.openProgress = Mth.clamp(liftAmount, 0.0F, 0.5F);
 		this.highestLidPoint = this.openProgress;
 		this.stillLidTicks = (int) (Math.max((this.openProgress), 0.2) * 180 * BlockConfig.get().stoneChest.getStoneChestTimer());
+		if (this.level != null) {
+			this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
+		}
 	}
 
 	public int getComparatorOutput() {
@@ -230,7 +237,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 
 	public void syncLidValuesWith(@Nullable StoneChestBlockEntity otherStoneChest) {
 		if (otherStoneChest != null) {
-			syncValues(otherStoneChest);
+			this.syncValues(otherStoneChest);
 			otherStoneChest.updateSync();
 		}
 		this.updateSync();
@@ -248,6 +255,9 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	}
 
 	private void syncValues(@NotNull StoneChestBlockEntity otherStoneChest) {
+		if (otherStoneChest.openProgress != this.openProgress && this.level != null) {
+			this.level.updateNeighbourForOutputSignal(otherStoneChest.getBlockPos(), otherStoneChest.getBlockState().getBlock());
+		}
 		otherStoneChest.openProgress = this.openProgress;
 		otherStoneChest.prevOpenProgress = this.prevOpenProgress;
 		otherStoneChest.highestLidPoint = this.highestLidPoint;
