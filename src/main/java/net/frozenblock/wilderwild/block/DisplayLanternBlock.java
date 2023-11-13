@@ -288,7 +288,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
 		if (!level.isClientSide && blockEntity instanceof DisplayLanternBlockEntity lanternEntity) {
 			boolean silk = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) == 0 || player.isCreative();
-			if (silk && !lanternEntity.getFireflies().isEmpty()) {
+			if (!silk && !lanternEntity.getFireflies().isEmpty()) {
 				lanternEntity.spawnFireflies(level);
 			}
 		}
