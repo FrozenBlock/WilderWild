@@ -2,9 +2,7 @@ Please clear changelog after each release.
 Thank you!
 
 -----------------
-# Wilder Wild 2.2
-## What's new?
-
+Additions
 ---
 
 - ### Added the Crab!
@@ -23,14 +21,12 @@ Thank you!
     - Does not affect attacking, only impacts interactions with Items and Blocks including both placing and breaking.
         - There is, however, a config option to let this impact the attack reach.
 
-## Bug Fixes & Other Changes
-
+Bug Fixes & Other Changes
 ---
 
 - Milkweed now plays a sound when rustled
 - Milkweed can now be sheared with a Dispenser
 - Glory of the Snow can now be sheared with a Dispenser
-- Fixed Mesoglea liquid rendering extending 16 tiles out instead of only encompassing 1 tile
 - Fixed Jellyfish no longer spawning in Jellyfish Caves
 - Slightly optimized Jellyfish rendering with the rainbow easter egg
 - Added a translation string for Coconut projectiles

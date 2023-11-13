@@ -65,9 +65,12 @@ import net.minecraft.advancements.critereon.PlayerTrigger;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.item.InstrumentItem;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -85,6 +88,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class FrozenLibIntegration extends ModIntegration {
 	public FrozenLibIntegration() {
@@ -103,9 +107,28 @@ public class FrozenLibIntegration extends ModIntegration {
 	public void init() {
 		WilderSharedConstants.log("FrozenLib mod integration ran!", WilderSharedConstants.UNSTABLE_LOGGING);
 		SpottingIconPredicate.register(WilderSharedConstants.id("stella"), entity -> entity.hasCustomName() && entity.getCustomName().getString().equalsIgnoreCase("stella"));
-		SoundPredicate.register(WilderSharedConstants.id("instrument"), (SoundPredicate.LoopPredicate<LivingEntity>) entity ->
-			(entity.getUseItem().getItem() instanceof InstrumentItem)
-		);
+		SoundPredicate.register(WilderSharedConstants.id("instrument"), new SoundPredicate.LoopPredicate<LivingEntity>() {
+
+			private boolean firstCheck = true;
+
+			@Override
+			public Boolean firstTickTest(LivingEntity entity) {
+				return true;
+			}
+
+			@Override
+            public boolean test(LivingEntity entity) {
+				if (firstCheck) {
+					firstCheck = false;
+					InteractionHand hand = !entity.getItemInHand(InteractionHand.MAIN_HAND).isEmpty() ? InteractionHand.MAIN_HAND : !entity.getItemInHand(InteractionHand.OFF_HAND).isEmpty() ? InteractionHand.OFF_HAND : null;
+					if (hand == null) return false;
+
+					ItemStack stack = entity.getItemInHand(hand);
+					return stack.getItem() instanceof InstrumentItem;
+				}
+				return entity.getUseItem().getItem() instanceof InstrumentItem;
+			}
+        });
 		SoundPredicate.register(WilderSharedConstants.id("nectar"), (SoundPredicate.LoopPredicate<Firefly>) entity ->
 			!entity.isSilent() && entity.hasCustomName() && Objects.requireNonNull(entity.getCustomName()).getString().toLowerCase().contains("nectar")
 		);
