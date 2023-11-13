@@ -41,3 +41,18 @@ Bug Fixes & Other Changes
 - Added Palm Crowns into tags it was missing from
 - Hopefully resolved world generation issues with C2ME ([#311](https://github.com/FrozenBlock/WilderWild/issues/311))
 - Refactored multiple classes to improve internal organization
+
+Wilder Wild 2.2 Newsletter - *Luna*
+---
+
+Hey, all! This is Luna/AViewFromTheTop here. :)
+
+I decided to start this "newsletter" of sorts as an easier way to communicate with you all, and to share things that I (or Treetrain, if he decides to write as well) would like our community to look out for and whatnot.
+
+First order of business, I'm hoping I've just been able to fix ([#311](https://github.com/FrozenBlock/WilderWild/issues/311)), The issue where C2ME would sometimes cause crashes while generating a Deep Dark biome. I'd like for you all to test if this issue has actually been fixed, and if not, to create a new [issue for it on our GitHub page](https://github.com/FrozenBlock/WilderWild/issues).
+
+Aside from that, I'd appreciate if you all could give us feedback on Crabs! They've been quite troublesome to make and I'm sure I wasn't able to incorporate every idea possible into them, so I'd like to know what you think could be improved upon or what may be missing. On that note, help from other modders to get their rotation and navigation working flawlessly would be very much appreciated!
+
+The last thing I'd like to mention is that we're open to new sound designers and texture artists! I would prefer to have a few of each so we don't have to pawn all our requests on to one person, and to allow for more flexibility and looser deadlines in our team. It would also be beneficial to be able to review multiple takes on one idea, if need be!
+
+-Luna.
