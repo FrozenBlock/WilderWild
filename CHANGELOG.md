@@ -53,6 +53,11 @@ First order of business, I'm hoping I've just been able to fix ([#311](https://g
 
 Aside from that, I'd appreciate if you all could give us feedback on Crabs! They've been quite troublesome to make and I'm sure I wasn't able to incorporate every idea possible into them, so I'd like to know what you think could be improved upon or what may be missing. On that note, help from other modders to get their rotation and navigation working flawlessly would be very much appreciated!
 
+Crabs work a bit like Wardens, by the way. They can detect specific game events while hiding underground, which will cause them to emerge. They will *always* emerge if a Player is within 4 blocks of them, however. Projectiles landing, explosions, blocks breaking, etc. will cause a Crab to emerge.
+So why didn't I make "lower" vibrations trigger this? As a matter of fact, it's based both on fact and for gameplay reasons. Crabs hardly have good enough hearing and mostly depend on pressure changes to tell where things are, if I remember correctly. While researching this I came across someone who found a Crab would immediately react to someone jumping, but wouldn't budge with music blasting directly towards it.
+Now, I understand how the assortment of Vibrations I chose for the Crab to react to may be omitting some relatively logical options, though, I personally believe there is substantial enough reason to do so on the gameplay side of things. I want Crabs to have a balance between feeling sneaky, ruthless, yet innocent and still maintaining a naive nature. I don't want them emerging if they can tell they wouldn't be in possible immediate danger!
+I almost forgot to mention, too, this behavior was inspired by the Sheargrubs in Pikmin. I want Crabs to occassionally surprise the player when they suddenly emerge, you know? Scary.
+
 The last thing I'd like to mention is that we're open to new sound designers and texture artists! I would prefer to have a few of each so we don't have to pawn all our requests on to one person, and to allow for more flexibility and looser deadlines in our team. It would also be beneficial to be able to review multiple takes on one idea, if need be!
 
 -Luna.
