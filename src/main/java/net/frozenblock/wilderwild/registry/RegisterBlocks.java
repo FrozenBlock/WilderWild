@@ -483,8 +483,8 @@ public final class RegisterBlocks {
 	);
 
 	public static final DisplayLanternBlock DISPLAY_LANTERN = new DisplayLanternBlock(
-		FabricBlockSettings.copyOf(Blocks.LANTERN)
-			.luminance(state -> state.getValue(RegisterProperties.DISPLAY_LIGHT))
+		FabricBlockSettings.create().mapColor(MapColor.METAL).forceSolidOn().strength(3.5F).sound(SoundType.LANTERN)
+			.lightLevel(state -> state.getValue(RegisterProperties.DISPLAY_LIGHT))
 	);
 
 	private static final MapColor BAOBAB_PLANKS_COLOR = MapColor.COLOR_ORANGE;

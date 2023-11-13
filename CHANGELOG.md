@@ -43,6 +43,7 @@ Bug Fixes & Other Changes
 - Instrument items will now properly play on servers instead of immediately cutting out ([#284](https://github.com/FrozenBlock/WilderWild/issues/284))
 - Stone Chests will now interact with Redstone Comparators, outputting a signal based on how high their lid is lifted ([#319](https://github.com/FrozenBlock/WilderWild/issues/319))
 - Display Lanterns will now interact with Redstone Comparators, outputting a full signal if they have an item inside, or a signal based upon how many Fireflies are placed inside
+- Display Lanterns will now properly spawn Fireflies that were held inside of them when broken
 - Refactored multiple classes to improve internal organization
 
 Wilder Wild 2.2 Newsletter - *Luna*
