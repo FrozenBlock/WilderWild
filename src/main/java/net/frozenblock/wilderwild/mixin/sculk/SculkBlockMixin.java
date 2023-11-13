@@ -108,8 +108,6 @@ public abstract class SculkBlockMixin {
 	@Unique
 	private boolean wilderWild$canPlace;
 	@Unique
-	private LevelAccessor wilderWild$level;
-	@Unique
 	private RandomSource wilderWild$randomSource;
 	@Unique
 	private BlockPos wilderWild$placedPos;
@@ -159,12 +157,11 @@ public abstract class SculkBlockMixin {
 	}
 
 	@Inject(method = "attemptUseCharge", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkBlock;getRandomGrowthState(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;Z)Lnet/minecraft/world/level/block/state/BlockState;"), locals = LocalCapture.CAPTURE_FAILHARD)
-	private void wilderWild$getPlacementState(SculkSpreader.ChargeCursor charge, LevelAccessor level, BlockPos catalystPos, RandomSource random, SculkSpreader sculkChargeHandler, boolean shouldConvertBlocks, CallbackInfoReturnable<Integer> cir, int chargeAmount, BlockPos chargePos, int growthSpawnCost, BlockPos aboveChargePos) {
+	private void wilderWild$getPlacementState(SculkSpreader.ChargeCursor cursor, LevelAccessor level, BlockPos pos, RandomSource random, SculkSpreader spreader, boolean shouldConvertBlocks, CallbackInfoReturnable<Integer> cir, int charge, BlockPos chargePos, boolean withinNoGrowthRadius, int growthSpawnCost, BlockPos blockPos2) {
 		this.wilderWild$placementState = null;
 		this.wilderWild$placementPos = null;
 		this.wilderWild$additionalGrowthCost = Optional.empty();
-		this.wilderWild$isWorldgen = sculkChargeHandler.isWorldGeneration();
-		this.wilderWild$level = level;
+		this.wilderWild$isWorldgen = spreader.isWorldGeneration();
 		this.wilderWild$randomSource = random;
 
 		if (this.wilderWild$isPlacingBelow) {
@@ -197,6 +194,9 @@ public abstract class SculkBlockMixin {
 
 	@ModifyArgs(method = "attemptUseCharge", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/LevelAccessor;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"))
 	private void wilderWild$newPlace(Args args) {
+		if (this.wilderWild$placementPos == null && this.wilderWild$placementState == null && this.wilderWild$placedPos == null && this.wilderWild$placedState == null) {
+			return;
+		}
 		if (this.wilderWild$canPlace) {
 			args.set(0, this.wilderWild$placementPos);
 			args.set(1, this.wilderWild$placementState);
@@ -207,7 +207,7 @@ public abstract class SculkBlockMixin {
 
 	@ModifyArgs(method = "attemptUseCharge", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/LevelAccessor;playSound(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/BlockPos;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V"))
 	private void wilderWild$newSounds(Args args) {
-		if (this.wilderWild$placedState == null) {
+		if (this.wilderWild$placedState == null || this.wilderWild$placedPos == null) {
 			return;
 		}
 		args.set(1, this.wilderWild$placedPos);
@@ -219,18 +219,17 @@ public abstract class SculkBlockMixin {
 
 	@Inject(method = "attemptUseCharge", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/LevelAccessor;playSound(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/BlockPos;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V", shift = At.Shift.AFTER))
 	private void wilderWild$handlePlacement(SculkSpreader.ChargeCursor chargeCursor, LevelAccessor levelAccessor, BlockPos blockPos, RandomSource randomSource, SculkSpreader sculkSpreader, boolean bl, CallbackInfoReturnable<Integer> cir) {
-		if (this.wilderWild$placedState == null) {
+		if (this.wilderWild$placedState == null || this.wilderWild$placedPos == null) {
 			return;
 		}
 		if (this.wilderWild$isWorldgen && this.wilderWild$placedState.getBlock() instanceof OsseousSculkBlock osseousSculkBlock) {
 			int growthAmount = Math.max(0, this.wilderWild$placedState.getValue(OsseousSculkBlock.HEIGHT_LEFT) - this.wilderWild$randomSource.nextInt(2));
 			for (int a = 0; a < growthAmount; a++) {
-				osseousSculkBlock.worldGenSpread(this.wilderWild$placedPos, this.wilderWild$level, this.wilderWild$randomSource);
+				osseousSculkBlock.worldGenSpread(this.wilderWild$placedPos, levelAccessor, this.wilderWild$randomSource);
 			}
 		} else if (this.wilderWild$placedState.is(RegisterBlocks.SCULK_STAIRS) || this.wilderWild$placedState.is(RegisterBlocks.SCULK_SLAB) || this.wilderWild$placedState.is(RegisterBlocks.SCULK_WALL)) {
 			SlabWallStairSculkBehavior.clearSculkVeins(levelAccessor, this.wilderWild$placedPos);
 		}
-		this.wilderWild$level = null;
 		this.wilderWild$randomSource = null;
 		this.wilderWild$placedPos = null;
 		this.wilderWild$placedState = null;
