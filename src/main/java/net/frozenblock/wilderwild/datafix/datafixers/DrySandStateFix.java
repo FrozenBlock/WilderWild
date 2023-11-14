@@ -26,6 +26,7 @@ import com.mojang.serialization.Dynamic;
 import java.util.Optional;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.datafix.fixes.References;
+import org.jetbrains.annotations.NotNull;
 
 public class DrySandStateFix extends DataFix {
 
@@ -35,7 +36,7 @@ public class DrySandStateFix extends DataFix {
 	private final String name;
 	private final String blockId;
 
-	public DrySandStateFix(Schema outputSchema, String name, ResourceLocation blockId) {
+	public DrySandStateFix(Schema outputSchema, String name, @NotNull ResourceLocation blockId) {
 		this(outputSchema, name, blockId.toString());
 	}
 
@@ -45,7 +46,7 @@ public class DrySandStateFix extends DataFix {
 		this.blockId = blockId;
 	}
 
-	private Dynamic<?> fix(Dynamic<?> dynamic) {
+	private Dynamic<?> fix(@NotNull Dynamic<?> dynamic) {
 		Optional<String> optional = dynamic.get("Name").asString().result();
 		return optional.equals(Optional.of(this.blockId)) ? dynamic.update("Properties", dynamicx -> {
 			String string = dynamicx.get(OLD_STATE).asString(DEFAULT_VALUE);

@@ -218,7 +218,7 @@ public abstract class SculkBlockMixin {
 			return;
 		}
 		if (sculkSpreader.isWorldGeneration() && this.wilderWild$placedState.getBlock() instanceof OsseousSculkBlock osseousSculkBlock) {
-			int growthAmount = Math.max(0, this.wilderWild$placedState.getValue(OsseousSculkBlock.HEIGHT_LEFT) - randomSource.nextInt(2));
+			int growthAmount = Math.max(0, this.wilderWild$placedState.getValue(OsseousSculkBlock.HEIGHT_LEFT));
 			for (int a = 0; a < growthAmount; a++) {
 				osseousSculkBlock.worldGenSpread(this.wilderWild$placedPos, levelAccessor, randomSource);
 			}
