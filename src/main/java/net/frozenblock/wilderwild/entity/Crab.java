@@ -27,7 +27,8 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
-import net.frozenblock.wilderwild.MoveToFrozenLib;
+
+import net.frozenblock.lib.block.api.shape.FrozenShapes;
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabAi;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabJumpControl;
@@ -400,13 +401,11 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	public Vec3 findNearestWall() {
 		BlockPos crabPos = this.blockPosition();
 		ArrayList<Vec3> vecs = new ArrayList<>();
-		Vec3 crabVec3 = this.position();
-		CollisionContext collisionContext = CollisionContext.of(this);
 		for (BlockPos pos : BlockPos.betweenClosed(crabPos.offset(-1, 0, -1), crabPos.offset(1, 0, 1))) {
 			BlockState state = this.level().getBlockState(pos);
-			VoxelShape collisionShape = state.getCollisionShape(this.level(), pos, collisionContext);
+			VoxelShape collisionShape = state.getCollisionShape(this.level(), pos, CollisionContext.of(this));
 			if (isWallPosSlowable(pos, state, collisionShape)) {
-				Optional<Vec3> optionalVec3 = MoveToFrozenLib.closestPointTo(pos, collisionShape, crabVec3);
+				Optional<Vec3> optionalVec3 = FrozenShapes.closestPointTo(pos, collisionShape, this.position());
 				if (optionalVec3.isPresent()) {
 					vecs.add(optionalVec3.get());
 				} else if (state.getFluidState().is(FluidTags.WATER)) {
