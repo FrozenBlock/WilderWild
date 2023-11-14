@@ -57,7 +57,7 @@ public abstract class SculkBlockMixin {
 	 * At higher values, most Osseous Sculk pillars will be taller.
 	 */
 	@Unique
-	private static final int WILDERWILD$HEIGHT_MULTIPLIER = 20;
+	private static final int WILDERWILD$HEIGHT_MULTIPLIER = 25;
 
 	/**
 	 * The maximum height of an Osseous Sculk pillar.
