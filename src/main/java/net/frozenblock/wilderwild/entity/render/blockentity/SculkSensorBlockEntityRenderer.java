@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.entity.render.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WilderWildClient;
@@ -34,16 +35,17 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
-import net.minecraft.util.Mth;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.resources.model.Material;
 import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> implements BlockEntityRenderer<T> {
-	private static final float PI = Mth.PI;
-	private static final float MERP_25 = 25F * (PI / 180F);
-	private static final RenderType SENSOR_LAYER = RenderType.entityCutout(WilderSharedConstants.id("textures/entity/sculk_sensor/inactive.png"));
-	private static final RenderType ACTIVE_SENSOR_LAYER = RenderType.entityCutout(WilderSharedConstants.id("textures/entity/sculk_sensor/active.png"));
+	private static final float PI = (float) Math.PI;
+	private static final float RADIANS_25 = 25F * (PI / 180F);
+	public static final Material INACTIVE_MATERIAL = new Material(TextureAtlas.LOCATION_BLOCKS, WilderSharedConstants.id("entity/sculk_sensor/inactive.png"));
+	public static final Material ACTIVE_MATERIAL = new Material(TextureAtlas.LOCATION_BLOCKS, WilderSharedConstants.id("entity/sculk_sensor/active.png"));
 	private final ModelPart root;
 	private final ModelPart ne;
 	private final ModelPart se;
@@ -70,24 +72,26 @@ public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> im
 	}
 
 	@Override
-	public void render(@NotNull T entity, float partialTick, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
+	public void render(@NotNull T sculkSensorBlockEntity, float partialTick, @NotNull PoseStack matrices, @NotNull MultiBufferSource buffer, int light, int overlay) {
 		if (WilderSharedConstants.MC_LIVE_TENDRILS) {
-			SculkSensorTickInterface tickInterface = ((SculkSensorTickInterface) entity);
-			if (tickInterface.wilderWild$isActive()) {
-				int prevTicks = tickInterface.wilderWild$getPrevAnimTicks();
-				float xRot = (prevTicks + partialTick * (tickInterface.wilderWild$getAnimTicks() - prevTicks)) * 0.1F * ((float) Math.cos((tickInterface.wilderWild$getAge() + partialTick) * 2.25F) * MERP_25);
+			SculkSensorTickInterface sculkSensorTickInterface = ((SculkSensorTickInterface) sculkSensorBlockEntity);
+			VertexConsumer vertexConsumer;
+			if (sculkSensorTickInterface.wilderWild$isActive()) {
+				int prevTicks = sculkSensorTickInterface.wilderWild$getPrevAnimTicks();
+				float xRot = (prevTicks + partialTick * (sculkSensorTickInterface.wilderWild$getAnimTicks() - prevTicks)) * 0.1F * ((float) Math.cos((sculkSensorTickInterface.wilderWild$getAge() + partialTick) * 2.25F) * RADIANS_25);
 				this.ne.xRot = xRot;
 				this.se.xRot = -xRot;
 				this.nw.xRot = -xRot;
 				this.sw.xRot = xRot;
-				this.root.render(matrices, vertexConsumers.getBuffer(ACTIVE_SENSOR_LAYER), light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+				vertexConsumer = ACTIVE_MATERIAL.buffer(buffer, RenderType::entityCutout);
 			} else {
 				this.ne.xRot = 0;
 				this.se.xRot = 0;
 				this.nw.xRot = 0;
 				this.sw.xRot = 0;
-				this.root.render(matrices, vertexConsumers.getBuffer(SENSOR_LAYER), light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+				vertexConsumer = INACTIVE_MATERIAL.buffer(buffer, RenderType::entityCutout);
 			}
+			this.root.render(matrices, vertexConsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
 		}
 	}
 
