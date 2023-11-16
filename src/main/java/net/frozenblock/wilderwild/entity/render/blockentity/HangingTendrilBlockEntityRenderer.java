@@ -45,9 +45,9 @@ public class HangingTendrilBlockEntityRenderer<T extends HangingTendrilBlockEnti
 	}
 
 	@Override
-	public void render(@NotNull T entity, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
+	public void render(@NotNull T entity, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int light, int overlay) {
 		if (BlockConfig.get().billboardTendrils) {
-			super.render(entity, partialTick, poseStack, vertexConsumers, light, overlay);
+			super.render(entity, partialTick, poseStack, buffer, light, overlay);
 		}
 	}
 

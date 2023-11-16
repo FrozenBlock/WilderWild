@@ -70,7 +70,7 @@ public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> im
 	}
 
 	@Override
-	public void render(@NotNull T entity, float partialTick, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
+	public void render(@NotNull T entity, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int light, int overlay) {
 		if (WilderSharedConstants.MC_LIVE_TENDRILS) {
 			SculkSensorTickInterface tickInterface = ((SculkSensorTickInterface) entity);
 			if (tickInterface.wilderWild$isActive()) {
@@ -80,13 +80,13 @@ public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> im
 				this.se.xRot = -xRot;
 				this.nw.xRot = -xRot;
 				this.sw.xRot = xRot;
-				this.root.render(matrices, vertexConsumers.getBuffer(ACTIVE_SENSOR_LAYER), light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+				this.root.render(poseStack, buffer.getBuffer(ACTIVE_SENSOR_LAYER), light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
 			} else {
 				this.ne.xRot = 0;
 				this.se.xRot = 0;
 				this.nw.xRot = 0;
 				this.sw.xRot = 0;
-				this.root.render(matrices, vertexConsumers.getBuffer(SENSOR_LAYER), light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+				this.root.render(poseStack, buffer.getBuffer(SENSOR_LAYER), light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
 			}
 		}
 	}

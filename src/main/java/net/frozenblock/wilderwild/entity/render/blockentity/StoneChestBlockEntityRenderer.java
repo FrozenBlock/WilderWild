@@ -128,7 +128,7 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
 	}
 
 	@Override
-	public void render(@NotNull T entity, float partialTick, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
+	public void render(@NotNull T entity, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int light, int overlay) {
 		Level level = entity.getLevel();
 		boolean bl = level != null;
 		BlockState blockState = bl ? entity.getBlockState() : Blocks.CHEST.defaultBlockState().setValue(StoneChestBlock.FACING, Direction.SOUTH);
@@ -136,11 +136,11 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
 		Block block = blockState.getBlock();
 		if (block instanceof AbstractChestBlock<?> abstractStoneChestBlock) {
 			boolean bl2 = chestType != ChestType.SINGLE;
-			matrices.pushPose();
+			poseStack.pushPose();
 			float f = blockState.getValue(StoneChestBlock.FACING).toYRot();
-			matrices.translate(0.5, 0.5, 0.5);
-			matrices.mulPose(Axis.YP.rotationDegrees(-f));
-			matrices.translate(-0.5, -0.5, -0.5);
+			poseStack.translate(0.5, 0.5, 0.5);
+			poseStack.mulPose(Axis.YP.rotationDegrees(-f));
+			poseStack.translate(-0.5, -0.5, -0.5);
 			DoubleBlockCombiner.NeighborCombineResult<? extends ChestBlockEntity> propertySource;
 			if (bl) {
 				propertySource = abstractStoneChestBlock.combine(blockState, level, entity.getBlockPos(), true);
@@ -153,18 +153,18 @@ public class StoneChestBlockEntityRenderer<T extends StoneChestBlockEntity & Lid
 			openProg = 1.0F - openProg * openProg * openProg;
 			int i = propertySource.apply(new BrightnessCombiner<>()).applyAsInt(light);
 			Material spriteIdentifier = getChestTexture(chestType, entity.getBlockState().getValue(RegisterProperties.HAS_SCULK));
-			VertexConsumer vertexConsumer = spriteIdentifier.buffer(vertexConsumers, RenderType::entityCutout);
+			VertexConsumer vertexConsumer = spriteIdentifier.buffer(buffer, RenderType::entityCutout);
 			if (bl2) {
 				if (chestType == ChestType.LEFT) {
-					this.render(matrices, vertexConsumer, this.doubleChestLeftLid, this.doubleChestLeftBase, openProg, i, overlay);
+					this.render(poseStack, vertexConsumer, this.doubleChestLeftLid, this.doubleChestLeftBase, openProg, i, overlay);
 				} else {
-					this.render(matrices, vertexConsumer, this.doubleChestRightLid, this.doubleChestRightBase, openProg, i, overlay);
+					this.render(poseStack, vertexConsumer, this.doubleChestRightLid, this.doubleChestRightBase, openProg, i, overlay);
 				}
 			} else {
-				this.render(matrices, vertexConsumer, this.singleChestLid, this.singleChestBase, openProg, i, overlay);
+				this.render(poseStack, vertexConsumer, this.singleChestLid, this.singleChestBase, openProg, i, overlay);
 			}
 
-			matrices.popPose();
+			poseStack.popPose();
 		}
 	}
 
