@@ -30,7 +30,7 @@ import net.frozenblock.wilderwild.config.ItemConfig;
 import static net.frozenblock.wilderwild.item.AncientHorn.*;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
-import net.frozenblock.wilderwild.misc.server.EasyPacket;
+import net.frozenblock.wilderwild.networking.WilderNetworking;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterDamageTypes;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
@@ -167,7 +167,7 @@ public class AncientHornProjectile extends AbstractArrow {
 		this.shakeTime = 0;
 		if (this.bubbles > 0 && this.level() instanceof ServerLevel server) {
 			--this.bubbles;
-			EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.position(), server.random.nextDouble() > 0.7 ? 1 : 0, 20 + server.random.nextInt(40), 0.05, server.random.nextIntBetweenInclusive(1, 3));
+			WilderNetworking.EasyFloatingSculkBubblePacket.createParticle(server, this.position(), server.random.nextDouble() > 0.7 ? 1 : 0, 20 + server.random.nextInt(40), 0.05, server.random.nextIntBetweenInclusive(1, 3));
 		}
 		if (this.aliveTicks > ItemConfig.get().ancientHorn.ancientHornLifespan) {
 			this.remove(RemovalReason.DISCARDED);
@@ -192,7 +192,7 @@ public class AncientHornProjectile extends AbstractArrow {
 		Vec3 deltaPosition;
 
 		if (this.isInWater() && level() instanceof ServerLevel server) {
-			EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, new Vec3(this.xo, this.yo, this.zo), 0, 60, 0.05, 4);
+			WilderNetworking.EasyFloatingSculkBubblePacket.createParticle(server, new Vec3(this.xo, this.yo, this.zo), 0, 60, 0.05, 4);
 		}
 		if (this.isInWaterOrRain() || blockState.is(Blocks.POWDER_SNOW)) {
 			this.clearFire();

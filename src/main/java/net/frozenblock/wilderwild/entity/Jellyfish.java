@@ -30,7 +30,7 @@ import net.frozenblock.lib.entity.api.NoFlopAbstractFish;
 import net.frozenblock.wilderwild.entity.ai.jellyfish.JellyfishAi;
 import net.frozenblock.wilderwild.entity.ai.jellyfish.JellyfishTemptGoal;
 import net.frozenblock.wilderwild.entity.variant.JellyfishVariant;
-import net.frozenblock.wilderwild.misc.server.EasyPacket;
+import net.frozenblock.wilderwild.networking.WilderNetworking;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -439,7 +439,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 					if (entity instanceof ServerPlayer player) {
 						if (player.hurt(this.damageSources().mobAttack(this), damage)) {
 							player.addEffect(new MobEffectInstance(MobEffects.POISON, poisonDuration, 0, false, false), this);
-							EasyPacket.sendJellySting(player, baby);
+							WilderNetworking.sendJellySting(player, baby);
 						}
 					} else if (entity instanceof Mob mob) {
 						if (mob.hurt(this.damageSources().mobAttack(this), damage)) {

@@ -16,20 +16,30 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.misc.server;
+package net.frozenblock.wilderwild.networking;
 
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.WilderWild;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
-public class EasyPacket {
+public class WilderNetworking {
+
+	public static final ResourceLocation SEED_PACKET = WilderSharedConstants.id("seed_particle_packet");
+	public static final ResourceLocation CONTROLLED_SEED_PACKET = WilderSharedConstants.id("controlled_seed_particle_packet");
+	public static final ResourceLocation FLOATING_SCULK_BUBBLE_PACKET = WilderSharedConstants.id("floating_sculk_bubble_easy_packet");
+	public static final ResourceLocation TERMITE_PARTICLE_PACKET = WilderSharedConstants.id("termite_particle_packet");
+	public static final ResourceLocation SENSOR_HICCUP_PACKET = WilderSharedConstants.id("sensor_hiccup_packet");
+	public static final ResourceLocation JELLY_STING_PACKET = WilderSharedConstants.id("jelly_sting_packet");
 
 	public static void sendJellySting(ServerPlayer player, boolean baby) {
 		FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
@@ -38,7 +48,7 @@ public class EasyPacket {
 	}
 
 	public static class EasySeedPacket {
-		public static void createParticle(Level level, Vec3 pos, int count, boolean isMilkweed) {
+		public static void createParticle(@NotNull Level level, Vec3 pos, int count, boolean isMilkweed) {
 			if (level.isClientSide)
 				throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK SPAWN ON SERVER NEXT TIME PLS");
 			FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
@@ -52,7 +62,7 @@ public class EasyPacket {
 			}
 		}
 
-		public static void createControlledParticle(Level level, Vec3 pos, double xvel, double yvel, double zvel, int count, boolean isMilkweed, int radius, double posRandomizer) {
+		public static void createControlledParticle(@NotNull Level level, Vec3 pos, double xvel, double yvel, double zvel, int count, boolean isMilkweed, int radius, double posRandomizer) {
 			if (level.isClientSide)
 				throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK SPAWN ON SERVER NEXT TIME PLS");
 			FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
@@ -72,7 +82,7 @@ public class EasyPacket {
 	}
 
 	public static class EasyFloatingSculkBubblePacket {
-		public static void createParticle(Level level, Vec3 pos, double size, int maxAge, double yVel, int count) {
+		public static void createParticle(@NotNull Level level, Vec3 pos, double size, int maxAge, double yVel, int count) {
 			if (level.isClientSide)
 				throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK SPAWN ON SERVER NEXT TIME PLS");
 			FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
@@ -90,7 +100,7 @@ public class EasyPacket {
 	}
 
 	public static class EasySensorHiccupPacket {
-		public static void createParticle(Level level, Vec3 pos) {
+		public static void createParticle(@NotNull Level level, Vec3 pos) {
 			if (level.isClientSide)
 				throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK SPAWN ON SERVER NEXT TIME STUPID IDIOT");
 			FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
@@ -104,7 +114,7 @@ public class EasyPacket {
 	}
 
 	public static class EasyTermitePacket {
-		public static void createParticle(Level level, Vec3 pos, int count) {
+		public static void createParticle(@NotNull Level level, Vec3 pos, int count) {
 			if (level.isClientSide)
 				throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK SPAWN ON SERVER NEXT TIME PLS");
 			FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
