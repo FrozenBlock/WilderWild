@@ -322,7 +322,7 @@ tasks {
 
         properties["fabric_loader_version"] = ">=0.14.22"
         properties["fabric_api_version"] = ">=$fabric_api_version"
-        properties["frozenlib_version"] = ">=${frozenlib_version.split('-').first()}-"
+        properties["frozenlib_version"] = ">=${frozenlib_version.split('-').firstOrNull()}-"
 
         properties.forEach { (a, b) -> inputs.property(a, b) }
 

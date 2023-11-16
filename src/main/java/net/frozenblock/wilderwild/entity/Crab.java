@@ -22,6 +22,7 @@ import com.mojang.serialization.Dynamic;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -417,17 +418,15 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@Nullable
-	public Vec3 getClosestPos(@NotNull ArrayList<Vec3> vec3s) {
-		double lowestDistance = Double.MAX_VALUE;
+	public Vec3 getClosestPos(@NotNull List<Vec3> vec3s) {
+		double lowestDistance = Double.MAX_VALUE;`
 		Vec3 selectedVec3 = null;
 		Vec3 thisPos = this.getEyePosition();
-		if (!vec3s.isEmpty()) {
-			for (Vec3 vec3 : vec3s) {
-				double distance = vec3.distanceTo(thisPos);
-				if (distance < lowestDistance) {
-					lowestDistance = distance;
-					selectedVec3 = vec3;
-				}
+		for (Vec3 vec3 : vec3s) {
+			double distance = vec3.distanceTo(thisPos);
+			if (distance < lowestDistance) {
+				lowestDistance = distance;
+				selectedVec3 = vec3;
 			}
 		}
 		return selectedVec3;
