@@ -60,7 +60,7 @@ public class DisplayLanternBlockEntityRenderer<T extends DisplayLanternBlockEnti
 			poseStack.translate(0.5F, lantern.clientHanging ? 0.25F : 0.125F, 0.5F);
 			poseStack.scale(0.7F, 0.7F, 0.7F);
 			poseStack.mulPose(Axis.YP.rotation((lantern.age + partialTick) / 20F));
-			this.itemRenderer.renderStatic(stack.get(), ItemDisplayContext.FIXED, light, OverlayTexture.NO_OVERLAY, poseStack, buffer, lantern.getLevel(), 1);
+			this.itemRenderer.renderStatic(stack.get(), ItemDisplayContext.GROUND, light, OverlayTexture.NO_OVERLAY, poseStack, buffer, lantern.getLevel(), 1);
 			poseStack.popPose();
 		} else {
 			for (DisplayLanternBlockEntity.FireflyInLantern entity : lantern.getFireflies()) {
