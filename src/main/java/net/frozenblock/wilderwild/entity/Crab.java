@@ -419,7 +419,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	@Nullable
 	public Vec3 getClosestPos(@NotNull List<Vec3> vec3s) {
-		double lowestDistance = Double.MAX_VALUE;`
+		double lowestDistance = Double.MAX_VALUE;
 		Vec3 selectedVec3 = null;
 		Vec3 thisPos = this.getEyePosition();
 		for (Vec3 vec3 : vec3s) {
