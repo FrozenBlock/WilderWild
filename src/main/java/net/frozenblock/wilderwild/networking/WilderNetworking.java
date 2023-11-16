@@ -21,7 +21,6 @@ package net.frozenblock.wilderwild.networking;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.frozenblock.wilderwild.WilderWild;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -44,7 +43,7 @@ public class WilderNetworking {
 	public static void sendJellySting(ServerPlayer player, boolean baby) {
 		FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
 		byteBuf.writeBoolean(baby);
-		ServerPlayNetworking.send(player, WilderWild.JELLY_STING_PACKET, byteBuf);
+		ServerPlayNetworking.send(player, JELLY_STING_PACKET, byteBuf);
 	}
 
 	public static class EasySeedPacket {
@@ -58,7 +57,7 @@ public class WilderNetworking {
 			byteBuf.writeVarInt(count);
 			byteBuf.writeBoolean(isMilkweed);
 			for (ServerPlayer player : PlayerLookup.around((ServerLevel) level, pos, 128)) {
-				ServerPlayNetworking.send(player, WilderWild.SEED_PACKET, byteBuf);
+				ServerPlayNetworking.send(player, SEED_PACKET, byteBuf);
 			}
 		}
 
@@ -76,7 +75,7 @@ public class WilderNetworking {
 			byteBuf.writeBoolean(isMilkweed);
 			byteBuf.writeDouble(posRandomizer);
 			for (ServerPlayer player : PlayerLookup.around((ServerLevel) level, pos, radius)) {
-				ServerPlayNetworking.send(player, WilderWild.CONTROLLED_SEED_PACKET, byteBuf);
+				ServerPlayNetworking.send(player, CONTROLLED_SEED_PACKET, byteBuf);
 			}
 		}
 	}
@@ -94,7 +93,7 @@ public class WilderNetworking {
 			byteBuf.writeDouble(yVel);
 			byteBuf.writeVarInt(count);
 			for (ServerPlayer player : PlayerLookup.around((ServerLevel) level, pos, 32)) {
-				ServerPlayNetworking.send(player, WilderWild.FLOATING_SCULK_BUBBLE_PACKET, byteBuf);
+				ServerPlayNetworking.send(player, FLOATING_SCULK_BUBBLE_PACKET, byteBuf);
 			}
 		}
 	}
@@ -108,7 +107,7 @@ public class WilderNetworking {
 			byteBuf.writeDouble(pos.y);
 			byteBuf.writeDouble(pos.z);
 			for (ServerPlayer player : PlayerLookup.around((ServerLevel) level, pos, 32)) {
-				ServerPlayNetworking.send(player, WilderWild.SENSOR_HICCUP_PACKET, byteBuf);
+				ServerPlayNetworking.send(player, SENSOR_HICCUP_PACKET, byteBuf);
 			}
 		}
 	}
@@ -123,7 +122,7 @@ public class WilderNetworking {
 			byteBuf.writeDouble(pos.z);
 			byteBuf.writeVarInt(count);
 			for (ServerPlayer player : PlayerLookup.tracking((ServerLevel) level, BlockPos.containing(pos))) {
-				ServerPlayNetworking.send(player, WilderWild.TERMITE_PARTICLE_PACKET, byteBuf);
+				ServerPlayNetworking.send(player, TERMITE_PARTICLE_PACKET, byteBuf);
 			}
 		}
 	}
