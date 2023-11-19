@@ -33,7 +33,9 @@ public final class WorldgenConfig {
 			MOD_ID,
 			WorldgenConfig.class,
 			configPath("worldgen", true),
-			JsonType.JSON5
+			JsonType.JSON5,
+			null,
+			null
 		)
 	);
 

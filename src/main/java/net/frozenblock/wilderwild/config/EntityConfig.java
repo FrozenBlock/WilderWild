@@ -34,7 +34,9 @@ public final class EntityConfig {
 			MOD_ID,
 			EntityConfig.class,
 			configPath("entity", true),
-			JsonType.JSON5
+			JsonType.JSON5,
+			null,
+			null
 		)
 	);
 

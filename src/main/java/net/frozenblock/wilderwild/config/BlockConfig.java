@@ -33,7 +33,9 @@ public final class BlockConfig {
 			MOD_ID,
 			BlockConfig.class,
 			configPath("block", true),
-			JsonType.JSON5
+			JsonType.JSON5,
+			null,
+			null
 		)
 	);
 
