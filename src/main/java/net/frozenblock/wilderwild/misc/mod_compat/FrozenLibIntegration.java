@@ -49,6 +49,7 @@ import static net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes.*;
 import static net.frozenblock.wilderwild.registry.RegisterBlocks.*;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
+import net.frozenblock.wilderwild.registry.RegisterMobEffects;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.minecraft.advancements.Advancement;
@@ -57,10 +58,12 @@ import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.BredAnimalsTrigger;
 import net.minecraft.advancements.critereon.ConsumeItemTrigger;
+import net.minecraft.advancements.critereon.EffectsChangedTrigger;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.FilledBucketTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.LocationPredicate;
+import net.minecraft.advancements.critereon.MobEffectsPredicate;
 import net.minecraft.advancements.critereon.PlayerTrigger;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
@@ -211,7 +214,7 @@ public class FrozenLibIntegration extends ModIntegration {
 						addBiomeRequirement(advancement, RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
 						addBiomeRequirement(advancement, RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
 					}
-					case "husbandry/balanced_diet" -> {
+					case "minecraft:husbandry/balanced_diet" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:baobab_nut", CriteriaTriggers.CONSUME_ITEM.createCriterion(
 							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.BAOBAB_NUT).triggerInstance())
 						);
@@ -241,7 +244,7 @@ public class FrozenLibIntegration extends ModIntegration {
 							}})
 						);
 					}
-					case "husbandry/bred_all_animals" -> {
+					case "minecraft:husbandry/bred_all_animals" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:crab", CriteriaTriggers.BRED_ANIMALS.createCriterion(
 							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(RegisterEntities.CRAB)).triggerInstance())
 						);
@@ -251,7 +254,7 @@ public class FrozenLibIntegration extends ModIntegration {
 							}})
 						);
 					}
-					case "husbandry/tactical_fishing" -> {
+					case "minecraft:husbandry/tactical_fishing" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:crab_bucket", CriteriaTriggers.FILLED_BUCKET.createCriterion(
 							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(RegisterItems.CRAB_BUCKET)).triggerInstance())
 						);
@@ -265,9 +268,18 @@ public class FrozenLibIntegration extends ModIntegration {
 							}})
 						);
 					}
-					default -> {
-					}
+					case "minecraft:nether/all_potions", "minecraft:nether/all_effects" ->
+						AdvancementAPI.addCriteria(
+							advancement,
+							"wilderwild:reach_boost",
+							EffectsChangedTrigger.TriggerInstance.hasEffects(
+									MobEffectsPredicate.Builder.effects()
+										.and(RegisterMobEffects.REACH)
+								)
+						);
+					default -> {}
 				}
+
 			}
 		});
 	}
