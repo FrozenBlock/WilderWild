@@ -18,6 +18,8 @@
 
 package net.frozenblock.wilderwild.misc.mod_compat;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -66,9 +68,13 @@ import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.advancements.critereon.MobEffectsPredicate;
 import net.minecraft.advancements.critereon.PlayerTrigger;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.item.InstrumentItem;
@@ -268,15 +274,18 @@ public class FrozenLibIntegration extends ModIntegration {
 							}})
 						);
 					}
-					case "minecraft:nether/all_potions", "minecraft:nether/all_effects" ->
-						AdvancementAPI.addCriteria(
-							advancement,
-							"wilderwild:reach_boost",
-							EffectsChangedTrigger.TriggerInstance.hasEffects(
-									MobEffectsPredicate.Builder.effects()
-										.and(RegisterMobEffects.REACH)
-								)
+					case "minecraft:nether/all_potions", "minecraft:nether/all_effects" -> {
+                        Criterion<EffectsChangedTrigger.TriggerInstance> criterion = (Criterion<EffectsChangedTrigger.TriggerInstance>) advancement.criteria().get("all_effects");
+						MobEffectsPredicate predicate = criterion.triggerInstance().effects.orElseThrow();
+						Map<Holder<MobEffect>, MobEffectsPredicate.MobEffectInstancePredicate> map = new HashMap<>(predicate.effectMap);
+						map.put(
+							BuiltInRegistries.MOB_EFFECT.getHolderOrThrow(
+								BuiltInRegistries.MOB_EFFECT.getResourceKey(RegisterMobEffects.REACH).orElseThrow()
+							),
+							new MobEffectsPredicate.MobEffectInstancePredicate()
 						);
+						predicate.effectMap = map;
+                    }
 					default -> {}
 				}
 
