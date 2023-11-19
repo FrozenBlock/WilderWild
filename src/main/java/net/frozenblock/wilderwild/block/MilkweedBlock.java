@@ -109,7 +109,7 @@ public class MilkweedBlock extends TallFlowerBlock {
 			setAgeOnBothHalves(this, state, level, pos, state.getValue(BlockStateProperties.AGE_3) + 1);
 			return;
 		}
-		Block.popResource(level, pos, new ItemStack(this));
+		super.performBonemeal(level, random, pos, state);
 	}
 
 	public static void setAgeOnBothHalves(Block thisBlock, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, int age) {
