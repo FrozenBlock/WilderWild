@@ -65,8 +65,6 @@ public final class BlockConfig {
 
 	public boolean cactusPlacement = true;
 
-	public final int leafDistance = 10;
-
 	public static BlockConfig get() {
 		return get(false);
 	}
