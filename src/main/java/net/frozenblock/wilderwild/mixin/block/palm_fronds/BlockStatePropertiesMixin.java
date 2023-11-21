@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.block.palm_fronds;
 
-import net.frozenblock.wilderwild.config.BlockConfig;
+import net.frozenblock.wilderwild.block.PalmFrondsBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.spongepowered.asm.mixin.Mixin;
@@ -31,7 +31,7 @@ public class BlockStatePropertiesMixin {
 
 	@Redirect(method = "<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/properties/IntegerProperty;create(Ljava/lang/String;II)Lnet/minecraft/world/level/block/state/properties/IntegerProperty;", ordinal = 0), slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=distance")))
 	private static IntegerProperty wilderWild$newReinforced(String name, int min, int max) {
-		return IntegerProperty.create(name, min, BlockConfig.get().leafDistance);
+		return IntegerProperty.create(name, min, PalmFrondsBlock.DECAY_DISTANCE);
 	}
 
 

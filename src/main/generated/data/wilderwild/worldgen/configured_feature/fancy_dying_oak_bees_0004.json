@@ -41,7 +41,7 @@
       "state": {
         "Name": "minecraft:oak_leaves",
         "Properties": {
-          "distance": "10",
+          "distance": "7",
           "persistent": "false",
           "waterlogged": "false"
         }

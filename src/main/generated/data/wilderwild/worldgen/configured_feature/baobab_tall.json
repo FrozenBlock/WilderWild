@@ -51,7 +51,7 @@
       "state": {
         "Name": "wilderwild:baobab_leaves",
         "Properties": {
-          "distance": "10",
+          "distance": "7",
           "persistent": "false",
           "waterlogged": "false"
         }
