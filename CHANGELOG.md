@@ -24,6 +24,7 @@ Additions
 Bug Fixes & Other Changes
 ---
 
+- The leaf decay range has been changed to 10 instead of 7 in order to accommodate Palm Fronds.
 - Milkweed now plays a sound when rustled
 - Milkweed can now be sheared with a Dispenser
 - Glory of the Snow can now be sheared with a Dispenser

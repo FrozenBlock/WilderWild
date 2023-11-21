@@ -19,10 +19,10 @@
 package net.frozenblock.wilderwild.mixin.sculk;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import java.util.Iterator;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import java.util.Iterator;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
 import net.frozenblock.wilderwild.block.sculk_behavior.SlabWallStairSculkBehavior;

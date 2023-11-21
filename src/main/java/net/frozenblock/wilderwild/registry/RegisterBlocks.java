@@ -51,7 +51,6 @@ import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.block.MilkweedBlock;
 import net.frozenblock.wilderwild.block.NematocystBlock;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
-import net.frozenblock.wilderwild.block.PalmCrownBlock;
 import net.frozenblock.wilderwild.block.PalmFrondsBlock;
 import net.frozenblock.wilderwild.block.PollenBlock;
 import net.frozenblock.wilderwild.block.PricklyPearCactusBlock;
@@ -821,7 +820,7 @@ public final class RegisterBlocks {
 		WilderSharedConstants.id("blocks/palm_hanging_sign")
 	);
 
-	public static final PalmCrownBlock PALM_CROWN = new PalmCrownBlock(
+	public static final RotatedPillarBlock PALM_CROWN = new RotatedPillarBlock(
 		FabricBlockSettings.copyOf(Blocks.OAK_LOG)
 			.mapColor(state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? PALM_PLANKS_COLOR : PALM_BARK_COLOR)
 			.sounds(RegisterBlockSoundTypes.PALM_CROWN)

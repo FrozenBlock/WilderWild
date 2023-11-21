@@ -10,6 +10,7 @@
     "block.cactus.WalkNodeEvaluatorMixin",
     "block.chest.ChestBlockEntityMixin",
     "block.chest.ChestBlockMixin",
+    "block.dispenser.ShearsDispenseItemBehaviorMixin",
     "block.dripleaf.BigDripleafBlockMixin",
     "block.dripleaf.BigDripleafStemBlockMixin",
     "block.dripleaf.BlockBehaviourMixin",
@@ -19,7 +20,6 @@
     "block.fire.FireBlockMixin",
     "block.ice.FrostedIceBlockMixin",
     "block.lava.LavaFluidMixin",
-    "block.leaves.LeavesBlockMixin",
     "block.mesoglea.BlockBehaviourMixin",
     "block.mesoglea.BlockGetterMixin",
     "block.mesoglea.BreathAirGoalMixin",
@@ -28,7 +28,8 @@
     "block.mesoglea.LivingEntityMixin",
     "block.mesoglea.MagmaBlockMixin",
     "block.mesoglea.SoulSandBlockMixin",
-    "block.dispenser.ShearsDispenseItemBehaviorMixin",
+    "block.palm_fronds.BlockStatePropertiesMixin",
+    "block.palm_fronds.LeavesBlockMixin",
     "block.reinforced_deepslate.BlocksMixin",
     "block.spawner.BaseSpawnerMixin",
     "block.termite.RotatedPillarBlockMixin",
@@ -86,7 +87,8 @@
     "worldgen.tree.CherryTreeGrowerMixin",
     "worldgen.tree.DarkOakTreeGrowerMixin",
     "worldgen.tree.OakTreeGrowerMixin",
-    "worldgen.tree.SpruceTreeGrowerMixin"
+    "worldgen.tree.SpruceTreeGrowerMixin",
+    "worldgen.tree.TreeFeatureMixin"
   ],
   "client": [
     "client.allay.AllayModelMixin",

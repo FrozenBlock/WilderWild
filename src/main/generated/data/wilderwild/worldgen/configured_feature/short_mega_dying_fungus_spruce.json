@@ -42,7 +42,7 @@
       "state": {
         "Name": "minecraft:spruce_leaves",
         "Properties": {
-          "distance": "7",
+          "distance": "10",
           "persistent": "false",
           "waterlogged": "false"
         }

@@ -148,7 +148,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	@Override
 	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
 		BlockState stateAbove = level.getBlockState(pos.above());
-		return state.is(this) && isHanging(state) ? (stateAbove.is(RegisterBlocks.PALM_FRONDS) && (stateAbove.getValue(BlockStateProperties.DISTANCE) <= 2 || PalmFrondsBlock.updateDistance(stateAbove, level, pos).getValue(BlockStateProperties.DISTANCE) <= 2 || stateAbove.getValue(BlockStateProperties.PERSISTENT))) : this.mayPlaceOn(level.getBlockState(pos.below()));
+		return state.is(this) && isHanging(state) ? (stateAbove.is(RegisterBlocks.PALM_FRONDS) && (stateAbove.getValue(BlockStateProperties.DISTANCE) <= 2 || stateAbove.getValue(BlockStateProperties.PERSISTENT))) : this.mayPlaceOn(level.getBlockState(pos.below()));
 	}
 
 	protected boolean mayPlaceOn(@NotNull BlockState state) {

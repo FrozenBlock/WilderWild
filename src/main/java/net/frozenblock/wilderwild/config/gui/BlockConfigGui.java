@@ -83,6 +83,14 @@ public final class BlockConfigGui {
 			.setTooltip(tooltip("cactus_placement"))
 			.build()
 		);
+		/*
+		var leafDistance = category.addEntry(entryBuilder.startIntSlider(text("leaf_distance"), config.leafDistance, 7, 15)
+			.setDefaultValue(defaultConfig.leafDistance)
+			.setSaveConsumer(newValue -> config.leafDistance = newValue)
+			.setTooltip(tooltip("leaf_distance"))
+			.build()
+		);
+		 */
 
 		var cactusSounds = entryBuilder.startBooleanToggle(text("cactus_sounds"), blockSounds.cactusSounds)
 			.setDefaultValue(defaultConfig.blockSounds.cactusSounds)

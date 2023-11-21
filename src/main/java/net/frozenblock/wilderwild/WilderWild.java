@@ -26,7 +26,6 @@ import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
 import net.frozenblock.lib.mobcategory.api.entrypoint.FrozenMobCategoryEntrypoint;
 import net.frozenblock.lib.mobcategory.impl.FrozenMobCategory;
-import net.frozenblock.wilderwild.block.entity.PalmCrownBlockEntity;
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.datafix.WilderDataFixer;
 import net.frozenblock.wilderwild.entity.Crab;
@@ -99,12 +98,10 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		RegisterBlocks.registerBlockProperties();
 
 		ServerLifecycleEvents.SERVER_STOPPED.register(listener -> {
-			PalmCrownBlockEntity.PalmCrownPositions.clearAll();
 			Jellyfish.clearLevelToNonPearlescentCount();
 			Crab.clearLevelToCrabCount();
 		});
 		ServerTickEvents.START_SERVER_TICK.register(listener -> {
-			PalmCrownBlockEntity.PalmCrownPositions.clearAndSwitch();
 			Jellyfish.clearLevelToNonPearlescentCount();
 			Crab.clearLevelToCrabCount();
 		});
