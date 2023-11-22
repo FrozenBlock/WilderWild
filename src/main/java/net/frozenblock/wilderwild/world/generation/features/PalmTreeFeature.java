@@ -3,6 +3,10 @@ package net.frozenblock.wilderwild.world.generation.features;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mojang.serialization.Codec;
+import java.util.Iterator;
+import java.util.List;
+import java.util.OptionalInt;
+import java.util.Set;
 import net.frozenblock.wilderwild.block.PalmFrondsBlock;
 import net.frozenblock.wilderwild.misc.interfaces.TreeFeatureLeavesUpdate;
 import net.minecraft.core.BlockPos;
@@ -17,10 +21,6 @@ import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.phys.shapes.BitSetDiscreteVoxelShape;
 import net.minecraft.world.phys.shapes.DiscreteVoxelShape;
 import org.jetbrains.annotations.NotNull;
-import java.util.Iterator;
-import java.util.List;
-import java.util.OptionalInt;
-import java.util.Set;
 
 public class PalmTreeFeature extends TreeFeature implements TreeFeatureLeavesUpdate {
 

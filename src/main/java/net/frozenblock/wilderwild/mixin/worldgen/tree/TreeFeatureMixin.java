@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.mixin.worldgen.tree;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import java.util.Set;
 import net.frozenblock.wilderwild.misc.interfaces.TreeFeatureLeavesUpdate;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -36,7 +37,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import java.util.Set;
 
 @Mixin(value = TreeFeature.class, priority = 69420)
 public abstract class TreeFeatureMixin implements TreeFeatureLeavesUpdate {

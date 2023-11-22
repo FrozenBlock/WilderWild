@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.block;
 
+import java.util.OptionalInt;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -34,7 +35,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
-import java.util.OptionalInt;
 
 public class PalmFrondsBlock extends LeavesBlock implements BonemealableBlock {
 

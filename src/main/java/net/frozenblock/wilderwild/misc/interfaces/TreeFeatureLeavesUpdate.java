@@ -1,11 +1,11 @@
 package net.frozenblock.wilderwild.misc.interfaces;
 
+import java.util.Set;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.phys.shapes.DiscreteVoxelShape;
 import org.jetbrains.annotations.NotNull;
-import java.util.Set;
 
 public interface TreeFeatureLeavesUpdate {
 
