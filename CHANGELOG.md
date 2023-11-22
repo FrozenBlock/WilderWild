@@ -47,6 +47,7 @@ Bug Fixes & Other Changes
 - Display Lanterns will now properly spawn Fireflies that were held inside of them when broken
 - Osseous Sculk will now cover branches in Sculk Veins when its base is converted to Sculk
 - Increased the chances of larger Oseeous Sculk generating during worldgen
+- Locked Frosted Ice's updated cracking (playing sounds and spawning particles) behind the Frosted Ice Sounds config.
 - Refactored multiple classes to improve internal organization
 
 Wilder Wild 2.2 Newsletter - *Luna*

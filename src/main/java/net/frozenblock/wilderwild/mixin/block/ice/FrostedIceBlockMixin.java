@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.block.ice;
 
+import net.frozenblock.wilderwild.config.BlockConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -37,17 +38,21 @@ public class FrostedIceBlockMixin {
 
 	@Inject(method = "slightlyMelt", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z", shift = At.Shift.AFTER))
 	private void wilderWild$slightlyMelt(BlockState blockState, Level level, BlockPos blockPos, CallbackInfoReturnable<Boolean> info) {
-		SoundType soundType = FrostedIceBlock.class.cast(this).getSoundType(blockState);
-		level.playSound(null, blockPos, soundType.getBreakSound(), SoundSource.BLOCKS, 0.003F, (soundType.getPitch() + 0.2F) + level.getRandom().nextFloat() * 0.2F);
+		if (BlockConfig.get().blockSounds.frostedIceSounds) {
+			SoundType soundType = FrostedIceBlock.class.cast(this).getSoundType(blockState);
+			level.playSound(null, blockPos, soundType.getBreakSound(), SoundSource.BLOCKS, 0.003F, (soundType.getPitch() + 0.2F) + level.getRandom().nextFloat() * 0.2F);
+		}
 	}
 
 	@Inject(method = "slightlyMelt", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/FrostedIceBlock;melt(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V", shift = At.Shift.AFTER))
 	private void wildWilder$melt(BlockState blockState, Level level, BlockPos blockPos, CallbackInfoReturnable<Boolean> info) {
-		if (level instanceof ServerLevel serverLevel) {
-			serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, blockState), blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, level.random.nextInt(20, 30), 0.3F, 0.3F, 0.3F, 0.05D);
+		if (BlockConfig.get().blockSounds.frostedIceSounds) {
+			if (level instanceof ServerLevel serverLevel) {
+				serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, blockState), blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, level.random.nextInt(20, 30), 0.3F, 0.3F, 0.3F, 0.05D);
+			}
+			SoundType soundType = FrostedIceBlock.class.cast(this).getSoundType(blockState);
+			level.playSound(null, blockPos, soundType.getBreakSound(), SoundSource.BLOCKS, 0.01F, soundType.getPitch());
 		}
-		SoundType soundType = FrostedIceBlock.class.cast(this).getSoundType(blockState);
-		level.playSound(null, blockPos, soundType.getBreakSound(), SoundSource.BLOCKS, 0.01F, soundType.getPitch());
 	}
 
 }
