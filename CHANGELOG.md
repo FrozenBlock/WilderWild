@@ -24,7 +24,8 @@ Additions
 Bug Fixes & Other Changes
 ---
 
-- The leaf decay range has been changed to 10 instead of 7 in order to accommodate Palm Fronds.
+- Tweaked leaf distance to 10 in order to accommodate for Palm Fronds, so they now work like regular leaves
+    - Other leaf types will still cap out at 7, but can be changed with commands or a Debug Stick to go up to 10
 - Milkweed now plays a sound when rustled
 - Milkweed can now be sheared with a Dispenser
 - Glory of the Snow can now be sheared with a Dispenser
@@ -37,6 +38,10 @@ Bug Fixes & Other Changes
 - Fixed Firefly Bottles with the Nectar easter egg not using the Nectar texture
 - Increased the chances of a flickering Firefly spawning (smooth pulsing vs. flickering)
 - Changed how flickering Fireflies calculate their colors ([#316](https://github.com/FrozenBlock/WilderWild/issues/316))
+- Locked Frosted Ice's updated cracking (playing sounds and spawning particles) behind the "New Frosted Ice Cracking" config option
+- Disabling the option for Termites to only eat natural blocks will now no longer add the "termite_edible" property to any blocks
+    - Disabling the option will now require the game to restart, but may now also fix potential compat issues
+- Added a config option for whether or not Dripleaves will use our Redstone powering functionality with them
 - Fixed Display Lantern silk touch loot table
 - Fixed compatibility with Roughly Enough Resources ([#315](https://github.com/FrozenBlock/WilderWild/issues/315))
 - Added Palm Crowns into tags it was missing from
@@ -45,9 +50,8 @@ Bug Fixes & Other Changes
 - Stone Chests will now interact with Redstone Comparators, outputting a signal based on how high their lid is lifted ([#319](https://github.com/FrozenBlock/WilderWild/issues/319))
 - Display Lanterns will now interact with Redstone Comparators, outputting a full signal if they have an item inside, or a signal based upon how many Fireflies are placed inside
 - Display Lanterns will now properly spawn Fireflies that were held inside of them when broken
-- Osseous Sculk will now cover branches in Sculk Veins when its base is converted to Sculk
+- Osseous Sculk will now cover their branches in Sculk Veins when its base is converted to Sculk
 - Increased the chances of larger Oseeous Sculk generating during worldgen
-- Locked Frosted Ice's updated cracking (playing sounds and spawning particles) behind the Frosted Ice Sounds config.
 - Refactored multiple classes to improve internal organization
 
 Wilder Wild 2.2 Newsletter - *Luna*

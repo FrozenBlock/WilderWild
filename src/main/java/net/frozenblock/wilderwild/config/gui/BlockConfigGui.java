@@ -83,14 +83,19 @@ public final class BlockConfigGui {
 			.setTooltip(tooltip("cactus_placement"))
 			.build()
 		);
-		/*
-		var leafDistance = category.addEntry(entryBuilder.startIntSlider(text("leaf_distance"), config.leafDistance, 7, 15)
-			.setDefaultValue(defaultConfig.leafDistance)
-			.setSaveConsumer(newValue -> config.leafDistance = newValue)
-			.setTooltip(tooltip("leaf_distance"))
+		var frostedIceCracking = category.addEntry(entryBuilder.startBooleanToggle(text("frosted_ice_cracking"), config.frostedIceCracking)
+			.setDefaultValue(defaultConfig.frostedIceCracking)
+			.setSaveConsumer(newValue -> config.frostedIceCracking = newValue)
+			.setTooltip(tooltip("frosted_ice_cracking"))
 			.build()
 		);
-		 */
+		var dripleafPowering = category.addEntry(entryBuilder.startBooleanToggle(text("dripleaf_powering"), config.dripleafPowering)
+			.setDefaultValue(defaultConfig.dripleafPowering)
+			.setSaveConsumer(newValue -> config.dripleafPowering = newValue)
+			.setTooltip(tooltip("dripleaf_powering"))
+			.requireRestart()
+			.build()
+		);
 
 		var cactusSounds = entryBuilder.startBooleanToggle(text("cactus_sounds"), blockSounds.cactusSounds)
 			.setDefaultValue(defaultConfig.blockSounds.cactusSounds)
@@ -231,6 +236,7 @@ public final class BlockConfigGui {
 			.setDefaultValue(defaultConfig.termite.onlyEatNaturalBlocks)
 			.setSaveConsumer(newValue -> termite.onlyEatNaturalBlocks = newValue)
 			.setTooltip(tooltip("termites_only_eat_natural_blocks"))
+			.requireRestart()
 			.build();
 
 		var maxTermiteDistance = entryBuilder.startIntSlider(text("max_termite_distance"), termite.maxDistance, 1, 72)

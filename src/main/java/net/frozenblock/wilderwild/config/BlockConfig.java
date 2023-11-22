@@ -65,6 +65,10 @@ public final class BlockConfig {
 
 	public boolean cactusPlacement = true;
 
+	public boolean frostedIceCracking = true;
+
+	public boolean dripleafPowering = true;
+
 	public static BlockConfig get() {
 		return get(false);
 	}
