@@ -20,6 +20,7 @@
     "block.fire.FireBlockMixin",
     "block.ice.FrostedIceBlockMixin",
     "block.lava.LavaFluidMixin",
+    "block.leaves.LeavesBlockMixin",
     "block.mesoglea.BlockBehaviourMixin",
     "block.mesoglea.BlockGetterMixin",
     "block.mesoglea.BreathAirGoalMixin",

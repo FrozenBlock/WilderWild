@@ -47,7 +47,7 @@ public class PalmFrondsBlock extends LeavesBlock implements BonemealableBlock {
 
 	@Override
 	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
-		return level.getBlockState(pos.below()).isAir() && (state.getValue(DISTANCE) < 2 || state.getValue(LeavesBlock.PERSISTENT));
+		return level.getBlockState(pos.below()).isAir() && (state.getValue(DISTANCE) < 2 || state.getValue(PERSISTENT));
 	}
 
 	@Override
@@ -61,22 +61,22 @@ public class PalmFrondsBlock extends LeavesBlock implements BonemealableBlock {
 	}
 
 	@Override
-	public boolean isRandomlyTicking(BlockState state) {
+	public boolean isRandomlyTicking(@NotNull BlockState state) {
 		return state.getValue(DISTANCE) == DECAY_DISTANCE && !state.getValue(PERSISTENT);
 	}
 
 	@Override
-	protected boolean decaying(BlockState state) {
+	protected boolean decaying(@NotNull BlockState state) {
 		return !state.getValue(PERSISTENT) && state.getValue(DISTANCE) == DECAY_DISTANCE;
 	}
 
 	@Override
-	public void tick(@NotNull BlockState state, ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		level.setBlock(pos, updateDistance(state, level, pos), 3);
 	}
 
 	@Override
-	public BlockState getStateForPlacement(BlockPlaceContext context) {
+	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
 		FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
 		BlockState blockState = this.defaultBlockState()
 			.setValue(PERSISTENT, Boolean.TRUE)
@@ -84,7 +84,7 @@ public class PalmFrondsBlock extends LeavesBlock implements BonemealableBlock {
 		return updateDistance(blockState, context.getLevel(), context.getClickedPos());
 	}
 
-	private static BlockState updateDistance(BlockState state, LevelAccessor level, BlockPos pos) {
+	private static @NotNull BlockState updateDistance(BlockState state, LevelAccessor level, BlockPos pos) {
 		int i = DECAY_DISTANCE;
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 
@@ -104,7 +104,7 @@ public class PalmFrondsBlock extends LeavesBlock implements BonemealableBlock {
 	}
 
 	@NotNull
-	public static OptionalInt getOptionalDistanceAt(BlockState state) {
+	public static OptionalInt getOptionalDistanceAt(@NotNull BlockState state) {
 		if (state.is(BlockTags.LOGS)) {
 			return OptionalInt.of(0);
 		}
