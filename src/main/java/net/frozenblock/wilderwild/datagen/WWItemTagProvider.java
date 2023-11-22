@@ -23,10 +23,15 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.frozenblock.lib.tag.api.FrozenItemTags;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
 final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
@@ -35,8 +40,22 @@ final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 		super(output, completableFuture);
 	}
 
+	private TagKey<Item> getTag(String id) {
+		return TagKey.create(this.registryKey, new ResourceLocation(id));
+	}
+
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
+		this.getOrCreateTagBuilder(getTag("c:stripped_logs"))
+			.add(RegisterBlocks.STRIPPED_BAOBAB_LOG.asItem())
+			.add(RegisterBlocks.STRIPPED_CYPRESS_LOG.asItem())
+			.add(RegisterBlocks.STRIPPED_PALM_LOG.asItem());
+
+		this.getOrCreateTagBuilder(getTag("c:stripped_wood"))
+			.add(RegisterBlocks.STRIPPED_BAOBAB_WOOD.asItem())
+			.add(RegisterBlocks.STRIPPED_CYPRESS_WOOD.asItem())
+			.add(RegisterBlocks.STRIPPED_PALM_WOOD.asItem());
+
 		this.getOrCreateTagBuilder(FrozenItemTags.ALWAYS_SAVE_COOLDOWNS)
 			.add(RegisterItems.ANCIENT_HORN);
 

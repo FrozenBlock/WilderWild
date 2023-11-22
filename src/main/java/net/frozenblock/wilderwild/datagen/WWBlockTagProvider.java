@@ -56,16 +56,6 @@ final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 	}
 
 	private void generateCompat() {
-		this.getOrCreateTagBuilder(getTag("c:stripped_logs"))
-			.add(RegisterBlocks.STRIPPED_BAOBAB_LOG)
-			.add(RegisterBlocks.STRIPPED_CYPRESS_LOG)
-			.add(RegisterBlocks.STRIPPED_PALM_LOG);
-
-		this.getOrCreateTagBuilder(getTag("c:stripped_wood"))
-			.add(RegisterBlocks.STRIPPED_BAOBAB_WOOD)
-			.add(RegisterBlocks.STRIPPED_CYPRESS_WOOD)
-			.add(RegisterBlocks.STRIPPED_PALM_WOOD);
-
 		this.getOrCreateTagBuilder(getTag("custom_sculk:ceiling_sculk_activators"))
 			.add(RegisterBlocks.OSSEOUS_SCULK)
 			.add(RegisterBlocks.HANGING_TENDRIL);

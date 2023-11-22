@@ -24,8 +24,10 @@ Additions
 Bug Fixes & Other Changes
 ---
 
-- Tweaked leaf distance to 10 in order to accommodate for Palm Fronds, so they now work like regular leaves
+- Tweaked leaf decay distance to 10 in order to accommodate for Palm Fronds, so they now work like regular leaves
     - Other leaf types will still cap out at 7, but can be changed with commands or a Debug Stick to go up to 10
+- Removed the custom distance detection from Palm Crowns
+- Fixed compatibility between Wilder Wild's stripped logs and Create
 - Milkweed now plays a sound when rustled
 - Milkweed can now be sheared with a Dispenser
 - Glory of the Snow can now be sheared with a Dispenser
