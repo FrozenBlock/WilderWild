@@ -69,6 +69,7 @@ public abstract class TreeFeatureMixin implements TreeFeatureLeavesUpdate {
 		});
 	}
 
+	@Unique
 	@Override
 	public DiscreteVoxelShape wilderWild$updateLeaves(LevelAccessor level, @NotNull BoundingBox box, Set<BlockPos> rootPositions, Set<BlockPos> trunkPositions, Set<BlockPos> foliagePositions) {
 		return updateLeaves(level, box, rootPositions, trunkPositions, foliagePositions);
