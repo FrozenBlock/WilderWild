@@ -362,7 +362,6 @@ public class Jellyfish extends NoFlopAbstractFish {
 		} else if (this.vanishing) {
 			if (this.prevScale <= 0F) {
 				this.discard();
-				//TODO: Hide sound
 				this.playSound(RegisterSounds.ENTITY_JELLYFISH_HIDE, 0.8F, 0.9F + this.level().random.nextFloat() * 0.2F);
 			} else {
 				this.scale -= 0.25F;

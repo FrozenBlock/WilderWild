@@ -435,7 +435,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		if (state.isAir() || state.getFluidState().is(FluidTags.LAVA)) {
 			return false;
 		}
-		return (!collisionShape.isEmpty() && !(pos.getY() + collisionShape.min(Direction.Axis.Y) > this.getEyeY())) || (state.getFluidState().is(FluidTags.WATER));
+		return (!collisionShape.isEmpty() && pos.getY() + collisionShape.min(Direction.Axis.Y) <= this.getEyeY()) || (state.getFluidState().is(FluidTags.WATER));
 	}
 
 	public boolean latchOntoWall(double latchForce, boolean stopDownwardsMovement) {
@@ -755,7 +755,6 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	public ItemStack getBucketItemStack() {
 		return new ItemStack(RegisterItems.CRAB_BUCKET);
 	}
-
 
 	@Override
 	@NotNull
