@@ -28,6 +28,7 @@ import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.advancement.api.AdvancementAPI;
 import net.frozenblock.lib.advancement.api.AdvancementEvents;
 import net.frozenblock.lib.block.api.dripstone.DripstoneDripWaterFrom;
+import net.frozenblock.lib.block.api.dripstone.DripstoneUtils;
 import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.lib.item.api.RemoveableItemTags;
 import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.addBlock;
@@ -153,7 +154,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			level.levelEvent(LevelEvent.DRIPSTONE_DRIP, blockPos, 0);
 		});
 		BlockScheduledTicks.TICKS.put(Blocks.DIRT, (blockState, serverLevel, blockPos, randomSource) -> {
-			if (getDripstoneFluid(serverLevel, blockPos) == Fluids.WATER) {
+			if (DripstoneUtils.getDripstoneFluid(serverLevel, blockPos) == Fluids.WATER) {
 				serverLevel.setBlock(blockPos, Blocks.MUD.defaultBlockState(), 3);
 			}
 		});

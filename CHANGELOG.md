@@ -21,40 +21,48 @@ Additions
     - Does not affect attacking, only impacts interactions with Items and Blocks including both placing and breaking.
         - There is, however, a config option to let this impact attack reach.
 
-Bug Fixes & Other Changes
+Bug Fixes & Changes
 ---
 
 - Tweaked leaf decay distance to 10 in order to accommodate for Palm Fronds, so they now work like regular leaves
     - Other leaf types will still cap out at 7, but can be changed with commands or a Debug Stick to go up to 10
 - Removed the custom distance detection from Palm Crowns
+- Added Palm Crowns to tags it was missing from
+- Added a translation string for Coconut projectiles
 - Fixed compatibility between Wilder Wild's stripped logs and Create
+
 - Milkweed now plays a sound when rustled
 - Milkweed can now be sheared with a Dispenser
 - Glory of the Snow can now be sheared with a Dispenser
-- Fixed Jellyfish no longer spawning in Jellyfish Caves
-- Slightly optimized Jellyfish rendering with the rainbow easter egg
-- Added a translation string for Coconut projectiles
-- Removed the Fabric Loader version requirement in hopes it will fix issues with Quilt
-- Changed the grammar of Wilder Wild's advancements to align with Vanilla's
+
 - Fixed Fireflies with the Nectar easter egg not properly rendering their glowing overlay
 - Fixed Firefly Bottles with the Nectar easter egg not using the Nectar texture
 - Increased the chances of a flickering Firefly spawning (smooth pulsing vs. flickering)
 - Changed how flickering Fireflies calculate their colors ([#316](https://github.com/FrozenBlock/WilderWild/issues/316))
-- Locked Frosted Ice's updated cracking (playing sounds and spawning particles) behind the "New Frosted Ice Cracking" config option
-- Disabling the option for Termites to only eat natural blocks will now no longer add the "termite_edible" property to any blocks
-    - Disabling the option will now require the game to restart, but may now also fix potential compat issues
-- Added a config option for whether or not Dripleaves will use our Redstone powering functionality with them
-- Fixed Display Lantern silk touch loot table
-- Fixed compatibility with Roughly Enough Resources ([#315](https://github.com/FrozenBlock/WilderWild/issues/315))
-- Added Palm Crowns into tags it was missing from
-- Hopefully resolved world generation issues with C2ME ([#311](https://github.com/FrozenBlock/WilderWild/issues/311))
-- Instrument items will now properly play on servers instead of immediately cutting out ([#284](https://github.com/FrozenBlock/WilderWild/issues/284))
-- Stone Chests will now interact with Redstone Comparators, outputting a signal based on how high their lid is lifted ([#319](https://github.com/FrozenBlock/WilderWild/issues/319))
+
 - Display Lanterns will now interact with Redstone Comparators, outputting a full signal if they have an item inside, or a signal based upon how many Fireflies are placed inside
+- Fixed an issue pertaining to Silk Touch with the Display Lantern's loot table
 - Display Lanterns will now properly spawn Fireflies that were held inside of them when broken
+
+- Disabling the option for Termites to only eat natural blocks will now no longer add the "termite_edible" property to any blocks
+    - Disabling the option will now require the game to restart, but may occasionally fix compat issues in return
+
+- Fixed Jellyfish no longer spawning in Jellyfish Caves
+- Slightly optimized Jellyfish rendering with the rainbow easter egg
+
 - Osseous Sculk will now cover their branches in Sculk Veins when its base is converted to Sculk
 - Increased the chances of larger Oseeous Sculk generating during worldgen
-- Refactored multiple classes to improve internal organization
+- Stone Chests will now interact with Redstone Comparators, outputting a signal based on how high their lid is lifted ([#319](https://github.com/FrozenBlock/WilderWild/issues/319))
+
+- Added a "New Frosted Ice Cracking" config option to control Frosted Ice's updated cracking (playing sounds and spawning particles)
+- Added a config option for whether or not Dripleaves will use updated Redstone powering functionality
+
+- Removed the Fabric Loader version requirement in hopes it will fix issues with Quilt
+- Changed the grammar of Wilder Wild's advancements to align with Vanilla's
+- Fixed compatibility with Roughly Enough Resources ([#315](https://github.com/FrozenBlock/WilderWild/issues/315))
+- Hopefully resolved world generation issues with C2ME ([#311](https://github.com/FrozenBlock/WilderWild/issues/311))
+- Instrument items will now properly play on servers instead of immediately cutting out ([#284](https://github.com/FrozenBlock/WilderWild/issues/284))
+- Refactored and cleaned up multiple classes and mixins to improve internal organization
 
 Wilder Wild 2.2 Newsletter - *Luna*
 ---
