@@ -18,14 +18,15 @@
 
 package net.frozenblock.wilderwild.mixin.block.dripstone;
 
+import net.frozenblock.lib.block.api.dripstone.DripstoneUtils;
 import net.frozenblock.lib.tag.api.FrozenBlockTags;
 import net.frozenblock.wilderwild.block.ScorchedBlock;
-import net.frozenblock.wilderwild.misc.mod_compat.FrozenLibIntegration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -37,9 +38,12 @@ public final class FallingBlockMixin {
 
 	@Inject(at = @At("HEAD"), method = "tick")
 	public void wilderWild$tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
-		if (state.is(FrozenBlockTags.DRIPSTONE_CAN_DRIP_ON) && ScorchedBlock.canScorch(state)) {
-			if (FrozenLibIntegration.getDripstoneFluid(level, pos) == Fluids.LAVA && random.nextBoolean()) {
+		if (state.is(FrozenBlockTags.DRIPSTONE_CAN_DRIP_ON) && random.nextBoolean()) {
+			Fluid dripFluid = DripstoneUtils.getDripstoneFluid(level, pos);
+			if (dripFluid == Fluids.LAVA) {
 				ScorchedBlock.scorch(state, level, pos);
+			} else if (dripFluid == Fluids.WATER) {
+				ScorchedBlock.hydrate(state, level, pos);
 			}
 		}
 	}

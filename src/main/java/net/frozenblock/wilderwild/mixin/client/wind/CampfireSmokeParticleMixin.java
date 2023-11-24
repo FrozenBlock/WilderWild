@@ -44,4 +44,5 @@ public abstract class CampfireSmokeParticleMixin extends TextureSheetParticle {
 		this.yd += wind.y * 0.000002;
 		this.zd += wind.z * 0.0005;
 	}
+
 }

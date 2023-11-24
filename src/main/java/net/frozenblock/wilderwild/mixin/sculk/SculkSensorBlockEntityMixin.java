@@ -81,7 +81,7 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 
 	@Unique
 	@Override
-	public void wilderWild$tickServer(ServerLevel level, BlockPos pos, BlockState state) {
+	public void wilderWild$tickServer(ServerLevel level, BlockPos pos, @NotNull BlockState state) {
 		SculkSensorBlockEntity sensor = SculkSensorBlockEntity.class.cast(this);
 		VibrationSystem.Ticker.tick(level, this.getVibrationData(), this.getVibrationUser());
 

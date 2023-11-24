@@ -66,6 +66,7 @@ public class CloudRendererMixin {
 	private double wilderWild$modifyZ(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX, double camY, double camZ) {
 		return this.wilderWild$useWind
 			? original - WilderClientWindManager.getCloudZ(partialTick)
+
 			: original;
 	}
 }

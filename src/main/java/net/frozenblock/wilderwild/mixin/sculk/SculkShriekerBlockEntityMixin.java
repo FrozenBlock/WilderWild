@@ -46,7 +46,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(SculkShriekerBlockEntity.class)
 public abstract class SculkShriekerBlockEntityMixin implements SculkShriekerTickInterface {
 
-
 	@Unique
 	public int wilderWild$bubbles;
 

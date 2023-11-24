@@ -80,7 +80,7 @@ public class SculkSpreaderChargeCursorMixin {
 
 	@Unique
 	@NotNull
-	private static boolean wilderWild$isMovementUnobstructedWorldgen(LevelAccessor level, BlockPos fromPos, BlockPos toPos) {
+	private static boolean wilderWild$isMovementUnobstructedWorldgen(LevelAccessor level, @NotNull BlockPos fromPos, BlockPos toPos) {
 		if (fromPos.distManhattan(toPos) == 1) {
 			return true;
 		}
@@ -103,7 +103,7 @@ public class SculkSpreaderChargeCursorMixin {
 
 	@Unique
 	@NotNull
-	private static BlockPos wilderWild$getValidMovementPosWorldgen(LevelAccessor level, BlockPos pos, RandomSource random) {
+	private static BlockPos wilderWild$getValidMovementPosWorldgen(LevelAccessor level, @NotNull BlockPos pos, RandomSource random) {
 		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 		BlockPos.MutableBlockPos mutableBlockPos2 = pos.mutable();
 		for (Vec3i vec3i : getRandomizedNonCornerNeighbourOffsets(random)) {

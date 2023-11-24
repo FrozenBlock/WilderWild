@@ -29,6 +29,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.monster.warden.Warden;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -196,7 +197,8 @@ public class WardenModelMixin<T extends Warden> {
 	}
 
 	@Unique
-	private boolean wilderWild$isSubmerged(Warden warden) {
+	private boolean wilderWild$isSubmerged(@NotNull Warden warden) {
 		return warden.isInWaterOrBubble() || warden.isEyeInFluid(FluidTags.LAVA);
 	}
+
 }

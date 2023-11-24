@@ -57,7 +57,7 @@ public abstract class CalibratedSculkSensorBlockEntityMixin extends BlockEntity 
 
 	@Unique
 	@Override
-	public void wilderWild$tickServer(ServerLevel level, BlockPos pos, BlockState state) {
+	public void wilderWild$tickServer(ServerLevel level, BlockPos pos, @NotNull BlockState state) {
 		CalibratedSculkSensorBlockEntity sensor = CalibratedSculkSensorBlockEntity.class.cast(this);
 		VibrationSystem.Ticker.tick(level, sensor.getVibrationData(), sensor.createVibrationUser());
 		boolean bl2 = level.random.nextBoolean();

@@ -30,9 +30,8 @@ import org.spongepowered.asm.mixin.injection.Slice;
 public class BlockStatePropertiesMixin {
 
 	@Redirect(method = "<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/properties/IntegerProperty;create(Ljava/lang/String;II)Lnet/minecraft/world/level/block/state/properties/IntegerProperty;", ordinal = 0), slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=distance")))
-	private static IntegerProperty wilderWild$newReinforced(String name, int min, int max) {
+	private static IntegerProperty wilderWild$newDecayDistance(String name, int min, int max) {
 		return IntegerProperty.create(name, min, PalmFrondsBlock.DECAY_DISTANCE);
 	}
-
 
 }

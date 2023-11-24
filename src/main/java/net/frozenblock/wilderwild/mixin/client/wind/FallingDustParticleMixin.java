@@ -44,4 +44,5 @@ public abstract class FallingDustParticleMixin extends TextureSheetParticle {
 		this.yd += wind.y * 0.00005;
 		this.zd += wind.z * 0.001;
 	}
+
 }

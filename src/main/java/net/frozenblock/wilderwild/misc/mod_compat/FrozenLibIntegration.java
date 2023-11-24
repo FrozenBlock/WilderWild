@@ -67,11 +67,9 @@ import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.advancements.critereon.MobEffectsPredicate;
 import net.minecraft.advancements.critereon.PlayerTrigger;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.LivingEntity;
@@ -88,25 +86,16 @@ import static net.minecraft.world.level.block.Blocks.ICE;
 import static net.minecraft.world.level.block.Blocks.SANDSTONE;
 import static net.minecraft.world.level.block.Blocks.*;
 import net.minecraft.world.level.block.LevelEvent;
-import net.minecraft.world.level.block.PointedDripstoneBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 
 public class FrozenLibIntegration extends ModIntegration {
+
 	public FrozenLibIntegration() {
 		super("frozenlib");
-	}
-
-	public static Fluid getDripstoneFluid(ServerLevel level, BlockPos pos) {
-		BlockPos blockPos = PointedDripstoneBlock.findStalactiteTipAboveCauldron(level, pos);
-		if (blockPos == null) {
-			return Fluids.EMPTY;
-		}
-		return PointedDripstoneBlock.getCauldronFillFluidType(level, blockPos);
 	}
 
 	@Override

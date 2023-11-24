@@ -24,6 +24,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.LavaFluid;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -39,7 +40,7 @@ public class LavaFluidMixin {
 	}
 
 	@Unique
-	public void wilderWild$scorchTick(Level level, BlockPos pos, RandomSource random) {
+	public void wilderWild$scorchTick(Level level, BlockPos pos, @NotNull RandomSource random) {
 		if (random.nextFloat() <= 0.275F) {
 			ScorchedBlock.scorch(level.getBlockState(pos), level, pos);
 		}
