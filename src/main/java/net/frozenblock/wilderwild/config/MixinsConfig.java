@@ -34,7 +34,9 @@ public final class MixinsConfig {
 			MixinsConfig.class,
 			configPath("mixins", true),
 			JsonType.JSON5,
-			false
+			false,
+			null,
+			null
 		)
 	);
 
