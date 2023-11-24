@@ -25,6 +25,7 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
 import net.frozenblock.wilderwild.config.MiscConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import org.jetbrains.annotations.NotNull;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.text;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.tooltip;
 
@@ -34,7 +35,7 @@ public final class MiscConfigGui {
 		throw new UnsupportedOperationException("MiscConfigGui contains only static declarations.");
 	}
 
-	public static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
+	public static void setupEntries(@NotNull ConfigCategory category, @NotNull ConfigEntryBuilder entryBuilder) {
 		var config = MiscConfig.get(true);
 		var defaultConfig = MiscConfig.INSTANCE.defaultInstance();
 		var biomeAmbience = config.biomeAmbience;

@@ -25,6 +25,7 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import org.jetbrains.annotations.NotNull;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.text;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.tooltip;
 
@@ -34,7 +35,7 @@ public final class WorldgenConfigGui {
 		throw new UnsupportedOperationException("WorldgenConfigGui contains only static declarations.");
 	}
 
-	public static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
+	public static void setupEntries(@NotNull ConfigCategory category, @NotNull ConfigEntryBuilder entryBuilder) {
 		var config = WorldgenConfig.get(true);
 		var defaultConfig = WorldgenConfig.INSTANCE.defaultInstance();
 		var biomePlacement = config.biomePlacement;
