@@ -5,5 +5,5 @@ Make sure to clear this after each release
 What's new:
 
 -----------------
-- Fixed Mesoglea liquid rendering extending 16 tiles out instead of only encompassing one tile
-- Updated embedded FrozenLib to 1.4.3
+- Fixed compatibility issue with Create's List Filter
+- Updated embedded FrozenLib to 1.4.4

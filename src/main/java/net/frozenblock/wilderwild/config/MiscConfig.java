@@ -33,7 +33,9 @@ public final class MiscConfig {
 			MOD_ID,
 			MiscConfig.class,
 			configPath("misc", true),
-			JsonType.JSON5
+			JsonType.JSON5,
+			null,
+			null
 		)
 	);
 

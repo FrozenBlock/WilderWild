@@ -34,7 +34,9 @@ public final class ItemConfig {
 			MOD_ID,
 			ItemConfig.class,
 			configPath("item", true),
-			JsonType.JSON5
+			JsonType.JSON5,
+			null,
+			null
 		)
 	);
 
