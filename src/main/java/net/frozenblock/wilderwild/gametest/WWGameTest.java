@@ -9,6 +9,7 @@ import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
@@ -48,31 +49,31 @@ public class WWGameTest implements FabricGameTest {
 		);
 
 		TrackedPosition<Vec3> hollowedOak = TrackedPosition.createRelative(helper, Blocks.OAK_LOG, new Vec3(9.5, 2.5, 0.5));
-		TrackedPosition<Vec3> strippedHollowedOak = TrackedPosition.createRelative(helper, Blocks.OAK_LOG, new Vec3(9.5, 2.5, 1.5));
+		TrackedPosition<Vec3> strippedHollowedOak = TrackedPosition.createRelative(helper, Blocks.STRIPPED_OAK_LOG, new Vec3(9.5, 2.5, 1.5));
 		TrackedPosition<Vec3> hollowedSpruce = TrackedPosition.createRelative(helper, Blocks.SPRUCE_LOG, new Vec3(9.5, 2.5, 2.5));
-		TrackedPosition<Vec3> strippedHollowedSpruce = TrackedPosition.createRelative(helper, Blocks.SPRUCE_LOG, new Vec3(9.5, 2.5, 3.5));
+		TrackedPosition<Vec3> strippedHollowedSpruce = TrackedPosition.createRelative(helper, Blocks.STRIPPED_SPRUCE_LOG, new Vec3(9.5, 2.5, 3.5));
 		TrackedPosition<Vec3> hollowedBirch = TrackedPosition.createRelative(helper, Blocks.BIRCH_LOG, new Vec3(9.5, 2.5, 4.5));
-		TrackedPosition<Vec3> strippedHollowedBirch = TrackedPosition.createRelative(helper, Blocks.BIRCH_LOG, new Vec3(9.5, 2.5, 5.5));
+		TrackedPosition<Vec3> strippedHollowedBirch = TrackedPosition.createRelative(helper, Blocks.STRIPPED_BIRCH_LOG, new Vec3(9.5, 2.5, 5.5));
 		TrackedPosition<Vec3> hollowedJungle = TrackedPosition.createRelative(helper, Blocks.JUNGLE_LOG, new Vec3(9.5, 2.5, 6.5));
-		TrackedPosition<Vec3> strippedHollowedJungle = TrackedPosition.createRelative(helper, Blocks.JUNGLE_LOG, new Vec3(9.5, 2.5, 7.5));
+		TrackedPosition<Vec3> strippedHollowedJungle = TrackedPosition.createRelative(helper, Blocks.STRIPPED_JUNGLE_LOG, new Vec3(9.5, 2.5, 7.5));
 		TrackedPosition<Vec3> hollowedAcacia = TrackedPosition.createRelative(helper, Blocks.ACACIA_LOG, new Vec3(9.5, 2.5, 8.5));
-		TrackedPosition<Vec3> strippedHollowedAcacia = TrackedPosition.createRelative(helper, Blocks.ACACIA_LOG, new Vec3(9.5, 2.5, 9.5));
+		TrackedPosition<Vec3> strippedHollowedAcacia = TrackedPosition.createRelative(helper, Blocks.STRIPPED_ACACIA_LOG, new Vec3(9.5, 2.5, 9.5));
 		TrackedPosition<Vec3> hollowedDarkOak = TrackedPosition.createRelative(helper, Blocks.DARK_OAK_LOG, new Vec3(6.5, 2.5, 0.5));
-		TrackedPosition<Vec3> strippedHollowedollowedDarkOak = TrackedPosition.createRelative(helper, Blocks.DARK_OAK_LOG, new Vec3(6.5, 2.5, 1.5));
+		TrackedPosition<Vec3> strippedHollowedollowedDarkOak = TrackedPosition.createRelative(helper, Blocks.STRIPPED_DARK_OAK_LOG, new Vec3(6.5, 2.5, 1.5));
 		TrackedPosition<Vec3> hollowedMangrove = TrackedPosition.createRelative(helper, Blocks.MANGROVE_LOG, new Vec3(6.5, 2.5, 2.5));
-		TrackedPosition<Vec3> strippedHollowedMangrove = TrackedPosition.createRelative(helper, Blocks.MANGROVE_LOG, new Vec3(6.5, 2.5, 3.5));
+		TrackedPosition<Vec3> strippedHollowedMangrove = TrackedPosition.createRelative(helper, Blocks.STRIPPED_MANGROVE_LOG, new Vec3(6.5, 2.5, 3.5));
 		TrackedPosition<Vec3> hollowedBaobab = TrackedPosition.createRelative(helper, RegisterBlocks.BAOBAB_LOG, new Vec3(6.5, 2.5, 4.5));
-		TrackedPosition<Vec3> strippedHollowedBaobab = TrackedPosition.createRelative(helper, RegisterBlocks.BAOBAB_LOG, new Vec3(6.5, 2.5, 5.5));
+		TrackedPosition<Vec3> strippedHollowedBaobab = TrackedPosition.createRelative(helper, RegisterBlocks.STRIPPED_BAOBAB_LOG, new Vec3(6.5, 2.5, 5.5));
 		TrackedPosition<Vec3> hollowedCypress = TrackedPosition.createRelative(helper, RegisterBlocks.CYPRESS_LOG, new Vec3(6.5, 2.5, 6.5));
-		TrackedPosition<Vec3> strippedHollowedCypress = TrackedPosition.createRelative(helper, RegisterBlocks.CYPRESS_LOG, new Vec3(6.5, 2.5, 7.5));
+		TrackedPosition<Vec3> strippedHollowedCypress = TrackedPosition.createRelative(helper, RegisterBlocks.STRIPPED_CYPRESS_LOG, new Vec3(6.5, 2.5, 7.5));
 		TrackedPosition<Vec3> hollowedPalm = TrackedPosition.createRelative(helper, RegisterBlocks.PALM_LOG, new Vec3(6.5, 2.5, 8.5));
-		TrackedPosition<Vec3> strippedHollowedPalm = TrackedPosition.createRelative(helper, RegisterBlocks.PALM_LOG, new Vec3(6.5, 2.5, 9.5));
+		TrackedPosition<Vec3> strippedHollowedPalm = TrackedPosition.createRelative(helper, RegisterBlocks.STRIPPED_PALM_LOG, new Vec3(6.5, 2.5, 9.5));
 		TrackedPosition<Vec3> hollowedCherry = TrackedPosition.createRelative(helper, Blocks.CHERRY_LOG, new Vec3(3.5, 2.5, 0.5));
-		TrackedPosition<Vec3> strippedHollowedCherry = TrackedPosition.createRelative(helper, Blocks.CHERRY_LOG, new Vec3(3.5, 2.5, 1.5));
+		TrackedPosition<Vec3> strippedHollowedCherry = TrackedPosition.createRelative(helper, Blocks.STRIPPED_CHERRY_LOG, new Vec3(3.5, 2.5, 1.5));
 		TrackedPosition<Vec3> hollowedCrimson = TrackedPosition.createRelative(helper, Blocks.CRIMSON_STEM, new Vec3(3.5, 2.5, 2.5));
-		TrackedPosition<Vec3> strippedHollowedCrimson = TrackedPosition.createRelative(helper, Blocks.CRIMSON_STEM, new Vec3(3.5, 2.5, 3.5));
+		TrackedPosition<Vec3> strippedHollowedCrimson = TrackedPosition.createRelative(helper, Blocks.STRIPPED_CRIMSON_STEM, new Vec3(3.5, 2.5, 3.5));
 		TrackedPosition<Vec3> hollowedWarped = TrackedPosition.createRelative(helper, Blocks.WARPED_STEM, new Vec3(3.5, 2.5, 4.5));
-		TrackedPosition<Vec3> strippedHollowedWarped = TrackedPosition.createRelative(helper, Blocks.WARPED_STEM, new Vec3(3.5, 2.5, 5.5));
+		TrackedPosition<Vec3> strippedHollowedWarped = TrackedPosition.createRelative(helper, Blocks.STRIPPED_WARPED_STEM, new Vec3(3.5, 2.5, 5.5));
 		List<TrackedPosition<Vec3>> hollowedLogs = List.of(
 			hollowedOak, hollowedSpruce, hollowedBirch, hollowedJungle, hollowedAcacia,
 			hollowedDarkOak, hollowedMangrove, hollowedBaobab, hollowedCypress, hollowedPalm,
@@ -95,12 +96,62 @@ public class WWGameTest implements FabricGameTest {
 			for (TrackedPosition<Vec3> location : hollowedLogs) {
 				Vec3 absolute = location.absolute();
 
-				player.setPos(absolute.add(-2, -2.5, 0));
+				player.setPos(absolute.add(-1, -0.5, 0));
 				player.lookAt(EntityAnchorArgument.Anchor.EYES, absolute.add(0, 0.5, 0));
 				BlockHitResult hitResult = (BlockHitResult) player.pick(2, 1.0F, false);
 				UseOnContext context = new UseOnContext(player, InteractionHand.MAIN_HAND, hitResult);
 				stack.useOn(context); // simulates a player using an axe on the log
 			}
+		});
+
+		helper.runAfterDelay(2, () -> {
+			// remove fake player
+			helper.getLevel().getServer().getPlayerList().remove(player);
+			player.remove(Entity.RemovalReason.DISCARDED);
+
+			// check logs
+			strippedOak.assertBlockPresent(helper, Blocks.STRIPPED_OAK_LOG);
+			strippedSpruce.assertBlockPresent(helper, Blocks.STRIPPED_SPRUCE_LOG);
+			strippedBirch.assertBlockPresent(helper, Blocks.STRIPPED_BIRCH_LOG);
+			strippedJungle.assertBlockPresent(helper, Blocks.STRIPPED_JUNGLE_LOG);
+			strippedAcacia.assertBlockPresent(helper, Blocks.STRIPPED_ACACIA_LOG);
+			strippedDarkOak.assertBlockPresent(helper, Blocks.STRIPPED_DARK_OAK_LOG);
+			strippedMangrove.assertBlockPresent(helper, Blocks.STRIPPED_MANGROVE_LOG);
+			strippedBaobab.assertBlockPresent(helper, RegisterBlocks.STRIPPED_BAOBAB_LOG);
+			strippedCypress.assertBlockPresent(helper, RegisterBlocks.STRIPPED_CYPRESS_LOG);
+			strippedPalm.assertBlockPresent(helper, RegisterBlocks.STRIPPED_PALM_LOG);
+			strippedCherry.assertBlockPresent(helper, Blocks.STRIPPED_CHERRY_LOG);
+			strippedCrimson.assertBlockPresent(helper, Blocks.STRIPPED_CRIMSON_STEM);
+			strippedWarped.assertBlockPresent(helper, Blocks.STRIPPED_WARPED_STEM);
+
+			hollowedOak.assertBlockPresent(helper, RegisterBlocks.HOLLOWED_OAK_LOG);
+			strippedHollowedOak.assertBlockPresent(helper, RegisterBlocks.STRIPPED_HOLLOWED_OAK_LOG);
+			hollowedSpruce.assertBlockPresent(helper, RegisterBlocks.HOLLOWED_SPRUCE_LOG);
+			strippedHollowedSpruce.assertBlockPresent(helper, RegisterBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG);
+			hollowedBirch.assertBlockPresent(helper, RegisterBlocks.HOLLOWED_BIRCH_LOG);
+			strippedHollowedBirch.assertBlockPresent(helper, RegisterBlocks.STRIPPED_HOLLOWED_BIRCH_LOG);
+			hollowedJungle.assertBlockPresent(helper, RegisterBlocks.HOLLOWED_JUNGLE_LOG);
+			strippedHollowedJungle.assertBlockPresent(helper, RegisterBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG);
+			hollowedAcacia.assertBlockPresent(helper, RegisterBlocks.HOLLOWED_ACACIA_LOG);
+			strippedHollowedAcacia.assertBlockPresent(helper, RegisterBlocks.STRIPPED_HOLLOWED_ACACIA_LOG);
+			hollowedDarkOak.assertBlockPresent(helper, RegisterBlocks.HOLLOWED_DARK_OAK_LOG);
+			strippedHollowedollowedDarkOak.assertBlockPresent(helper, RegisterBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG);
+			hollowedMangrove.assertBlockPresent(helper, RegisterBlocks.HOLLOWED_MANGROVE_LOG);
+			strippedHollowedMangrove.assertBlockPresent(helper, RegisterBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG);
+			hollowedBaobab.assertBlockPresent(helper, RegisterBlocks.HOLLOWED_BAOBAB_LOG);
+			strippedHollowedBaobab.assertBlockPresent(helper, RegisterBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG);
+			hollowedCypress.assertBlockPresent(helper, RegisterBlocks.HOLLOWED_CYPRESS_LOG);
+			strippedHollowedCypress.assertBlockPresent(helper, RegisterBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG);
+			hollowedPalm.assertBlockPresent(helper, RegisterBlocks.HOLLOWED_PALM_LOG);
+			strippedHollowedPalm.assertBlockPresent(helper, RegisterBlocks.STRIPPED_HOLLOWED_PALM_LOG);
+			hollowedCherry.assertBlockPresent(helper, RegisterBlocks.HOLLOWED_CHERRY_LOG);
+			strippedHollowedCherry.assertBlockPresent(helper, RegisterBlocks.STRIPPED_HOLLOWED_CHERRY_LOG);
+			hollowedCrimson.assertBlockPresent(helper, RegisterBlocks.HOLLOWED_CRIMSON_STEM);
+			strippedHollowedCrimson.assertBlockPresent(helper, RegisterBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM);
+			hollowedWarped.assertBlockPresent(helper, RegisterBlocks.HOLLOWED_WARPED_STEM);
+			strippedHollowedWarped.assertBlockPresent(helper, RegisterBlocks.STRIPPED_HOLLOWED_WARPED_STEM);
+
+			helper.succeed();
 		});
 	}
 }
