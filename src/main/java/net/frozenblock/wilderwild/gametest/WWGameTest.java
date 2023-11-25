@@ -47,12 +47,56 @@ public class WWGameTest implements FabricGameTest {
 			strippedCherry, strippedCrimson, strippedWarped
 		);
 
+		TrackedPosition<Vec3> hollowedOak = TrackedPosition.createRelative(helper, Blocks.OAK_LOG, new Vec3(9.5, 2.5, 0.5));
+		TrackedPosition<Vec3> strippedHollowedOak = TrackedPosition.createRelative(helper, Blocks.OAK_LOG, new Vec3(9.5, 2.5, 1.5));
+		TrackedPosition<Vec3> hollowedSpruce = TrackedPosition.createRelative(helper, Blocks.SPRUCE_LOG, new Vec3(9.5, 2.5, 2.5));
+		TrackedPosition<Vec3> strippedHollowedSpruce = TrackedPosition.createRelative(helper, Blocks.SPRUCE_LOG, new Vec3(9.5, 2.5, 3.5));
+		TrackedPosition<Vec3> hollowedBirch = TrackedPosition.createRelative(helper, Blocks.BIRCH_LOG, new Vec3(9.5, 2.5, 4.5));
+		TrackedPosition<Vec3> strippedHollowedBirch = TrackedPosition.createRelative(helper, Blocks.BIRCH_LOG, new Vec3(9.5, 2.5, 5.5));
+		TrackedPosition<Vec3> hollowedJungle = TrackedPosition.createRelative(helper, Blocks.JUNGLE_LOG, new Vec3(9.5, 2.5, 6.5));
+		TrackedPosition<Vec3> strippedHollowedJungle = TrackedPosition.createRelative(helper, Blocks.JUNGLE_LOG, new Vec3(9.5, 2.5, 7.5));
+		TrackedPosition<Vec3> hollowedAcacia = TrackedPosition.createRelative(helper, Blocks.ACACIA_LOG, new Vec3(9.5, 2.5, 8.5));
+		TrackedPosition<Vec3> strippedHollowedAcacia = TrackedPosition.createRelative(helper, Blocks.ACACIA_LOG, new Vec3(9.5, 2.5, 9.5));
+		TrackedPosition<Vec3> hollowedDarkOak = TrackedPosition.createRelative(helper, Blocks.DARK_OAK_LOG, new Vec3(6.5, 2.5, 0.5));
+		TrackedPosition<Vec3> strippedHollowedollowedDarkOak = TrackedPosition.createRelative(helper, Blocks.DARK_OAK_LOG, new Vec3(6.5, 2.5, 1.5));
+		TrackedPosition<Vec3> hollowedMangrove = TrackedPosition.createRelative(helper, Blocks.MANGROVE_LOG, new Vec3(6.5, 2.5, 2.5));
+		TrackedPosition<Vec3> strippedHollowedMangrove = TrackedPosition.createRelative(helper, Blocks.MANGROVE_LOG, new Vec3(6.5, 2.5, 3.5));
+		TrackedPosition<Vec3> hollowedBaobab = TrackedPosition.createRelative(helper, RegisterBlocks.BAOBAB_LOG, new Vec3(6.5, 2.5, 4.5));
+		TrackedPosition<Vec3> strippedHollowedBaobab = TrackedPosition.createRelative(helper, RegisterBlocks.BAOBAB_LOG, new Vec3(6.5, 2.5, 5.5));
+		TrackedPosition<Vec3> hollowedCypress = TrackedPosition.createRelative(helper, RegisterBlocks.CYPRESS_LOG, new Vec3(6.5, 2.5, 6.5));
+		TrackedPosition<Vec3> strippedHollowedCypress = TrackedPosition.createRelative(helper, RegisterBlocks.CYPRESS_LOG, new Vec3(6.5, 2.5, 7.5));
+		TrackedPosition<Vec3> hollowedPalm = TrackedPosition.createRelative(helper, RegisterBlocks.PALM_LOG, new Vec3(6.5, 2.5, 8.5));
+		TrackedPosition<Vec3> strippedHollowedPalm = TrackedPosition.createRelative(helper, RegisterBlocks.PALM_LOG, new Vec3(6.5, 2.5, 9.5));
+		TrackedPosition<Vec3> hollowedCherry = TrackedPosition.createRelative(helper, Blocks.CHERRY_LOG, new Vec3(3.5, 2.5, 0.5));
+		TrackedPosition<Vec3> strippedHollowedCherry = TrackedPosition.createRelative(helper, Blocks.CHERRY_LOG, new Vec3(3.5, 2.5, 1.5));
+		TrackedPosition<Vec3> hollowedCrimson = TrackedPosition.createRelative(helper, Blocks.CRIMSON_STEM, new Vec3(3.5, 2.5, 2.5));
+		TrackedPosition<Vec3> strippedHollowedCrimson = TrackedPosition.createRelative(helper, Blocks.CRIMSON_STEM, new Vec3(3.5, 2.5, 3.5));
+		TrackedPosition<Vec3> hollowedWarped = TrackedPosition.createRelative(helper, Blocks.WARPED_STEM, new Vec3(3.5, 2.5, 4.5));
+		TrackedPosition<Vec3> strippedHollowedWarped = TrackedPosition.createRelative(helper, Blocks.WARPED_STEM, new Vec3(3.5, 2.5, 5.5));
+		List<TrackedPosition<Vec3>> hollowedLogs = List.of(
+			hollowedOak, hollowedSpruce, hollowedBirch, hollowedJungle, hollowedAcacia,
+			hollowedDarkOak, hollowedMangrove, hollowedBaobab, hollowedCypress, hollowedPalm,
+			hollowedCherry, hollowedCrimson, hollowedWarped,
+			strippedHollowedOak, strippedHollowedSpruce, strippedHollowedBirch, strippedHollowedJungle, strippedHollowedAcacia,
+			strippedHollowedollowedDarkOak, strippedHollowedMangrove, strippedHollowedBaobab, strippedHollowedCypress, strippedHollowedPalm,
+			strippedHollowedCherry, strippedHollowedCrimson, strippedHollowedWarped
+		);
+
 		helper.runAfterDelay(1L, () -> {
 			for (TrackedPosition<Vec3> location : strippedLogs) {
 				Vec3 absolute = location.absolute();
 
 				player.setPos(absolute.add(-2, -2.5, 0));
 				player.lookAt(EntityAnchorArgument.Anchor.EYES, absolute.add(0, 0, -0.5));
+				BlockHitResult hitResult = (BlockHitResult) player.pick(2, 1.0F, false);
+				UseOnContext context = new UseOnContext(player, InteractionHand.MAIN_HAND, hitResult);
+				stack.useOn(context); // simulates a player using an axe on the log
+			}
+			for (TrackedPosition<Vec3> location : hollowedLogs) {
+				Vec3 absolute = location.absolute();
+
+				player.setPos(absolute.add(-2, -2.5, 0));
+				player.lookAt(EntityAnchorArgument.Anchor.EYES, absolute.add(0, 0.5, 0));
 				BlockHitResult hitResult = (BlockHitResult) player.pick(2, 1.0F, false);
 				UseOnContext context = new UseOnContext(player, InteractionHand.MAIN_HAND, hitResult);
 				stack.useOn(context); // simulates a player using an axe on the log
