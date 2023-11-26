@@ -60,6 +60,7 @@ Bug Fixes & Changes
 
 - Removed the Fabric Loader version requirement in hopes it will fix issues with Quilt
 - Changed the grammar of Wilder Wild's advancements to align with Vanilla's
+- Fixed Ancient Horns not sending a game event on use
 - Fixed compatibility with Roughly Enough Resources ([#315](https://github.com/FrozenBlock/WilderWild/issues/315))
 - Hopefully resolved world generation issues with C2ME ([#311](https://github.com/FrozenBlock/WilderWild/issues/311))
 - Instrument items will now properly play on servers instead of immediately cutting out ([#284](https://github.com/FrozenBlock/WilderWild/issues/284))

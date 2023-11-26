@@ -163,6 +163,7 @@ public class AncientHornProjectile extends AbstractArrow {
 
 	@Override
 	public void tick() {
+		final double pi180 = 180 / Math.PI;
 		this.baseTick();
 		this.shakeTime = 0;
 		if (this.bubbles > 0 && this.level() instanceof ServerLevel server) {
@@ -174,6 +175,7 @@ public class AncientHornProjectile extends AbstractArrow {
 		}
 		++this.aliveTicks;
 		if (!this.shot) {
+			this.gameEvent(GameEvent.PROJECTILE_SHOOT, this.getOwner());
 			this.shot = true;
 		}
 		if (!this.leftOwner) {
@@ -182,8 +184,8 @@ public class AncientHornProjectile extends AbstractArrow {
 		Vec3 deltaMovement = this.getDeltaMovement();
 		if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
 			double horizontalDistance = deltaMovement.horizontalDistance();
-			this.setYRot((float) (Mth.atan2(deltaMovement.x, deltaMovement.z) * 57.2957763671875D));
-			this.setXRot((float) (Mth.atan2(deltaMovement.y, horizontalDistance) * 57.2957763671875D));
+			this.setYRot((float) (Mth.atan2(deltaMovement.x, deltaMovement.z) * pi180));
+			this.setXRot((float) (Mth.atan2(deltaMovement.y, horizontalDistance) * pi180));
 			this.yRotO = this.getYRot();
 			this.xRotO = this.getXRot();
 		}
@@ -241,7 +243,7 @@ public class AncientHornProjectile extends AbstractArrow {
 		double deltaZ = deltaMovement.z;
 		if (this.isCritArrow()) {
 			for (int i = 0; i < 4; ++i) {
-				this.level().addParticle(ParticleTypes.CRIT, this.getX() + deltaX * (double) i / 4.0D, this.getY() + deltaY * (double) i / 4.0D, this.getZ() + deltaZ * (double) i / 4.0D, -deltaX, -deltaY + 0.2D, -deltaZ);
+				this.level().addParticle(ParticleTypes.CRIT, this.getX() + deltaX * i / 4.0D, this.getY() + deltaY * (double) i / 4.0D, this.getZ() + deltaZ * (double) i / 4.0D, -deltaX, -deltaY + 0.2D, -deltaZ);
 			}
 		}
 		float moveDivider = this.getBoundingBoxMultiplier() * 0.5F + 1F;
@@ -250,11 +252,11 @@ public class AncientHornProjectile extends AbstractArrow {
 		double z = this.getZ() + (deltaZ / moveDivider);
 		double horizontalDistance = deltaMovement.horizontalDistance();
 		if (noPhysics) {
-			this.setYRot((float) (Mth.atan2(-deltaX, -deltaZ) * 57.2957763671875D));
+			this.setYRot((float) (Mth.atan2(-deltaX, -deltaZ) * pi180));
 		} else {
-			this.setYRot((float) (Mth.atan2(deltaX, deltaZ) * 57.2957763671875D));
+			this.setYRot((float) (Mth.atan2(deltaX, deltaZ) * pi180));
 		}
-		this.setXRot((float) (Mth.atan2(deltaY, horizontalDistance) * 57.2957763671875D));
+		this.setXRot((float) (Mth.atan2(deltaY, horizontalDistance) * pi180));
 		this.setXRot(lerpRotation(this.xRotO, this.getXRot()));
 		this.setYRot(lerpRotation(this.yRotO, this.getYRot()));
 
