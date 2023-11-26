@@ -44,7 +44,7 @@ public final class BlockConfigGui {
 		var termite = config.termite;
 		category.setBackground(WilderSharedConstants.id("textures/config/block.png"));
 		var shriekerGargling = category.addEntry(
-			FrozenClothConfig.makeFieldBuilderWithSyncData(
+			FrozenClothConfig.syncedBuilder(
 				entryBuilder.startBooleanToggle(text("shrieker_gargling"), config.shriekerGargling)
 					.setDefaultValue(defaultConfig.shriekerGargling)
 					.setSaveConsumer(newValue -> config.shriekerGargling = newValue)
@@ -55,7 +55,7 @@ public final class BlockConfigGui {
 			.build()
 		);
 		var soulFireSounds = category.addEntry(
-			FrozenClothConfig.makeFieldBuilderWithSyncData(
+			FrozenClothConfig.syncedBuilder(
 				entryBuilder.startBooleanToggle(text("soul_fire_sounds"), config.soulFireSounds)
 					.setDefaultValue(defaultConfig.soulFireSounds)
 					.setSaveConsumer(newValue -> config.soulFireSounds = newValue)
@@ -66,7 +66,7 @@ public final class BlockConfigGui {
 			.build()
 		);
 		var billboardTendrils = category.addEntry(
-			FrozenClothConfig.makeFieldBuilderWithSyncData(
+			FrozenClothConfig.syncedBuilder(
 				entryBuilder.startBooleanToggle(text("billboard_tendrils"), config.billboardTendrils)
 					.setDefaultValue(defaultConfig.billboardTendrils)
 					.setSaveConsumer(newValue -> config.billboardTendrils = newValue)
@@ -77,7 +77,7 @@ public final class BlockConfigGui {
 			.build()
 		);
 		var tendrilsCarryEvents = category.addEntry(
-			FrozenClothConfig.makeFieldBuilderWithSyncData(
+			FrozenClothConfig.syncedBuilder(
 				entryBuilder.startBooleanToggle(text("tendrils_carry_events"), config.tendrilsCarryEvents)
 					.setDefaultValue(defaultConfig.tendrilsCarryEvents)
 					.setSaveConsumer(newValue -> config.tendrilsCarryEvents = newValue)
@@ -88,7 +88,7 @@ public final class BlockConfigGui {
 			.build()
 		);
 		var pollenParticles = category.addEntry(
-			FrozenClothConfig.makeFieldBuilderWithSyncData(
+			FrozenClothConfig.syncedBuilder(
 				entryBuilder.startBooleanToggle(text("pollen_particles"), config.pollenParticles)
 					.setDefaultValue(defaultConfig.pollenParticles)
 					.setSaveConsumer(newValue -> config.pollenParticles = newValue)
@@ -99,7 +99,7 @@ public final class BlockConfigGui {
 			.build()
 		);
 		var logHollowing = category.addEntry(
-			FrozenClothConfig.makeFieldBuilderWithSyncData(
+			FrozenClothConfig.syncedBuilder(
 				entryBuilder.startBooleanToggle(text("log_hollowing"), config.logHollowing)
 					.setDefaultValue(defaultConfig.logHollowing)
 					.setSaveConsumer(newValue -> config.logHollowing = newValue)
@@ -110,7 +110,7 @@ public final class BlockConfigGui {
 			.build()
 		);
 		var cactusPlacement = category.addEntry(
-			FrozenClothConfig.makeFieldBuilderWithSyncData(
+			FrozenClothConfig.syncedBuilder(
 				entryBuilder.startBooleanToggle(text("cactus_placement"), config.cactusPlacement)
 					.setDefaultValue(defaultConfig.cactusPlacement)
 					.setSaveConsumer(newValue -> config.cactusPlacement = newValue)
@@ -121,7 +121,7 @@ public final class BlockConfigGui {
 			.build()
 		);
 		var frostedIceCracking = category.addEntry(
-			FrozenClothConfig.makeFieldBuilderWithSyncData(
+			FrozenClothConfig.syncedBuilder(
 				entryBuilder.startBooleanToggle(text("frosted_ice_cracking"), config.frostedIceCracking)
 					.setDefaultValue(defaultConfig.frostedIceCracking)
 					.setSaveConsumer(newValue -> config.frostedIceCracking = newValue)
@@ -132,7 +132,7 @@ public final class BlockConfigGui {
 			.build()
 		);
 		var dripleafPowering = category.addEntry(
-			FrozenClothConfig.makeFieldBuilderWithSyncData(
+			FrozenClothConfig.syncedBuilder(
 				entryBuilder.startBooleanToggle(text("dripleaf_powering"), config.dripleafPowering)
 					.setDefaultValue(defaultConfig.dripleafPowering)
 					.setSaveConsumer(newValue -> config.dripleafPowering = newValue)
@@ -261,7 +261,7 @@ public final class BlockConfigGui {
 			sugarCaneSounds, witherRoseSounds, sandstoneSounds
 		);
 
-		var mesogleaLiquid = FrozenClothConfig.makeFieldBuilderWithSyncData(
+		var mesogleaLiquid = FrozenClothConfig.syncedBuilder(
 			entryBuilder.startBooleanToggle(text("mesoglea_liquid"), config.mesoglea.mesogleaLiquid)
 				.setDefaultValue(defaultConfig.mesoglea.mesogleaLiquid)
 				.setSaveConsumer(newValue -> config.mesoglea.mesogleaLiquid = newValue)
@@ -271,7 +271,7 @@ public final class BlockConfigGui {
 			)
 			.build();
 
-		var mesogleaBubbleColumns = FrozenClothConfig.makeFieldBuilderWithSyncData(
+		var mesogleaBubbleColumns = FrozenClothConfig.syncedBuilder(
 			entryBuilder.startBooleanToggle(text("mesoglea_bubble_columns"), config.mesoglea.mesogleaBubbleColumns)
 				.setDefaultValue(defaultConfig.mesoglea.mesogleaBubbleColumns)
 				.setSaveConsumer(newValue -> config.mesoglea.mesogleaBubbleColumns = newValue)
@@ -287,7 +287,7 @@ public final class BlockConfigGui {
 			mesogleaBubbleColumns, mesogleaLiquid
 		);
 
-		var termitesOnlyEatNaturalBlocks = FrozenClothConfig.makeFieldBuilderWithSyncData(
+		var termitesOnlyEatNaturalBlocks = FrozenClothConfig.syncedBuilder(
 			entryBuilder.startBooleanToggle(text("termites_only_eat_natural_blocks"), termite.onlyEatNaturalBlocks)
 				.setDefaultValue(defaultConfig.termite.onlyEatNaturalBlocks)
 				.setSaveConsumer(newValue -> termite.onlyEatNaturalBlocks = newValue)
@@ -298,7 +298,7 @@ public final class BlockConfigGui {
 			)
 			.build();
 
-		var maxTermiteDistance = FrozenClothConfig.makeFieldBuilderWithSyncData(
+		var maxTermiteDistance = FrozenClothConfig.syncedBuilder(
 			entryBuilder.startIntSlider(text("max_termite_distance"), termite.maxDistance, 1, 72)
 				.setDefaultValue(defaultConfig.termite.maxDistance)
 				.setSaveConsumer(newValue -> termite.maxDistance = newValue)
@@ -308,7 +308,7 @@ public final class BlockConfigGui {
 			)
 			.build();
 
-		var maxNaturalTermiteDistance = FrozenClothConfig.makeFieldBuilderWithSyncData(
+		var maxNaturalTermiteDistance = FrozenClothConfig.syncedBuilder(
 			entryBuilder.startIntSlider(text("max_natural_termite_distance"), termite.maxNaturalDistance, 1, 72)
 				.setDefaultValue(defaultConfig.termite.maxNaturalDistance)
 				.setSaveConsumer(newValue -> termite.maxNaturalDistance = newValue)
@@ -324,7 +324,7 @@ public final class BlockConfigGui {
 			termitesOnlyEatNaturalBlocks, maxTermiteDistance, maxNaturalTermiteDistance
 		);
 
-		var stoneChestTimer = FrozenClothConfig.makeFieldBuilderWithSyncData(
+		var stoneChestTimer = FrozenClothConfig.syncedBuilder(
 			entryBuilder.startIntSlider(text("stone_chest_timer"), stoneChest.stoneChestTimer, 50, 200)
 				.setDefaultValue(defaultConfig.stoneChest.stoneChestTimer)
 				.setSaveConsumer(newValue -> stoneChest.stoneChestTimer = newValue)
