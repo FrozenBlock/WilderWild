@@ -54,8 +54,7 @@ Avoid the use of abbreviations in javadocs, except if they describe the name of 
 The `$` character can be used in mixins to mark a semantic separation in the name.
 It allows to separate the actual name of the variable and the namespace, `wilderWild`.
 
-Fields marked as `@Unique` must be prefixed with `wilderWild$` or `WILDERWILD$` if the field is static and final.
-Methods marked with `@Unique` do not need prefixes.
+Methods marked with `@Unique` must be prefixed with `wilderWild$`.
 
 
 ## Licensing & DCO
