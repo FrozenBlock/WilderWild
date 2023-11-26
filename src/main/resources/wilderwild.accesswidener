@@ -73,6 +73,9 @@ accessible    field    net/minecraft/world/entity/Mob    goalSelector    Lnet/mi
 accessible    field    net/minecraft/world/entity/Mob    targetSelector    Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 accessible    method    net/minecraft/world/entity/monster/warden/Warden    isDiggingOrEmerging    ()Z
 
+# Projectiles
+accessible field net/minecraft/world/entity/projectile/Projectile hasBeenShot Z
+
 # Damage Sources
 accessible    method    net/minecraft/world/damagesource/DamageSources    source    (Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/world/damagesource/DamageSource;
 accessible    method    net/minecraft/world/damagesource/DamageSources    source    (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/entity/Entity;)Lnet/minecraft/world/damagesource/DamageSource;

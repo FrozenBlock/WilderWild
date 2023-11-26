@@ -106,7 +106,6 @@ public class AncientHornProjectile extends AbstractArrow {
 	private static final TagKey<Block> NON_COLLIDE = WilderBlockTags.ANCIENT_HORN_NON_COLLIDE;
 	private static final EntityDataAccessor<Float> BOUNDING_BOX_MULTIPLIER = SynchedEntityData.defineId(AncientHornProjectile.class, EntityDataSerializers.FLOAT);
 	public boolean canInteractWithPipe = true;
-	private boolean shot;
 	private boolean leftOwner;
 	private int aliveTicks;
 	private double vecX;
@@ -174,9 +173,9 @@ public class AncientHornProjectile extends AbstractArrow {
 			this.remove(RemovalReason.DISCARDED);
 		}
 		++this.aliveTicks;
-		if (!this.shot) {
+		if (!this.hasBeenShot) {
 			this.gameEvent(GameEvent.PROJECTILE_SHOOT, this.getOwner());
-			this.shot = true;
+			this.hasBeenShot = true;
 		}
 		if (!this.leftOwner) {
 			this.leftOwner = this.checkLeftOwner();
@@ -243,10 +242,10 @@ public class AncientHornProjectile extends AbstractArrow {
 		double deltaZ = deltaMovement.z;
 		if (this.isCritArrow()) {
 			for (int i = 0; i < 4; ++i) {
-				this.level().addParticle(ParticleTypes.CRIT, this.getX() + deltaX * i / 4.0D, this.getY() + deltaY * (double) i / 4.0D, this.getZ() + deltaZ * (double) i / 4.0D, -deltaX, -deltaY + 0.2D, -deltaZ);
+				this.level().addParticle(ParticleTypes.CRIT, this.getX() + deltaX * i / 4.0, this.getY() + deltaY * i / 4.0, this.getZ() + deltaZ * i / 4.0, -deltaX, -deltaY + 0.2, -deltaZ);
 			}
 		}
-		float moveDivider = this.getBoundingBoxMultiplier() * 0.5F + 1F;
+		float moveDivider = (float) (this.getBoundingBoxMultiplier() * 0.5 + 1);
 		double x = this.getX() + (deltaX / moveDivider);
 		double y = this.getY() + (deltaY / moveDivider);
 		double z = this.getZ() + (deltaZ / moveDivider);
@@ -271,7 +270,7 @@ public class AncientHornProjectile extends AbstractArrow {
 	@Override
 	@NotNull
 	public AABB makeBoundingBox() {
-		return super.makeBoundingBox().inflate(this.getBoundingBoxMultiplier() / 2F);
+		return super.makeBoundingBox().inflate(this.getBoundingBoxMultiplier() / 2);
 	}
 
 	public void setCooldown(int cooldownTicks) {
@@ -318,7 +317,7 @@ public class AncientHornProjectile extends AbstractArrow {
 		blockState.onProjectileHit(this.level(), blockState, result, this);
 		Vec3 hitVec = result.getLocation().subtract(this.getX(), this.getY(), this.getZ());
 		this.setDeltaMovement(hitVec);
-		Vec3 hitNormal = hitVec.normalize().scale(0.05000000074505806D);
+		Vec3 hitNormal = hitVec.normalize().scale(0.05);
 		this.setPosRaw(this.getX() - hitNormal.x, this.getY() - hitNormal.y, this.getZ() - hitNormal.z);
 		this.playSound(this.getHitGroundSoundEvent(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
 		this.inGround = true;
@@ -463,7 +462,7 @@ public class AncientHornProjectile extends AbstractArrow {
 			if (this.leftOwner) {
 				compound.putBoolean("LeftOwner", true);
 			}
-			compound.putBoolean("HasBeenShot", this.shot);
+			compound.putBoolean("HasBeenShot", this.hasBeenShot);
 			compound.putDouble("originX", this.vecX);
 			compound.putDouble("originY", this.vecY);
 			compound.putDouble("originZ", this.vecZ);
@@ -483,7 +482,7 @@ public class AncientHornProjectile extends AbstractArrow {
 			}
 			this.aliveTicks = compound.getInt("aliveTicks");
 			this.leftOwner = compound.getBoolean("LeftOwner");
-			this.shot = compound.getBoolean("HasBeenShot");
+			this.hasBeenShot = compound.getBoolean("HasBeenShot");
 			this.vecX = compound.getDouble("originX");
 			this.vecY = compound.getDouble("originY");
 			this.vecZ = compound.getDouble("originZ");
