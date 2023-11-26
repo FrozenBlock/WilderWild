@@ -19,6 +19,8 @@
 package net.frozenblock.wilderwild.config;
 
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
+import net.frozenblock.lib.config.api.annotation.FieldIdentifier;
+import net.frozenblock.lib.config.api.annotation.UnsyncableEntry;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
@@ -51,22 +53,33 @@ public final class BlockConfig {
 	@CollapsibleObject
 	public final MesogleaConfig mesoglea = new MesogleaConfig();
 
+	@FieldIdentifier(identifier = "shriekerGargling")
 	public boolean shriekerGargling = true;
 
+	@FieldIdentifier(identifier = "soulFireSounds")
 	public boolean soulFireSounds = true;
 
+	@UnsyncableEntry
+	@FieldIdentifier(identifier = "billboardTendrils")
 	public boolean billboardTendrils = true;
 
+	@FieldIdentifier(identifier = "tendrilsCarryEvents")
 	public boolean tendrilsCarryEvents = false;
 
+	@UnsyncableEntry
+	@FieldIdentifier(identifier = "pollenParticles")
 	public boolean pollenParticles = true;
 
+	@FieldIdentifier(identifier = "logHollowing")
 	public boolean logHollowing = true;
 
+	@FieldIdentifier(identifier = "cactusPlacement")
 	public boolean cactusPlacement = true;
 
+	@FieldIdentifier(identifier = "frostedIceCracking")
 	public boolean frostedIceCracking = true;
 
+	@FieldIdentifier(identifier = "dripleafPowering")
 	public boolean dripleafPowering = true;
 
 	public static BlockConfig get() {
@@ -80,44 +93,63 @@ public final class BlockConfig {
 	}
 
 	public static class BlockSoundsConfig {
+		@UnsyncableEntry
 		public boolean cactusSounds = true;
 
+		@UnsyncableEntry
 		public boolean claySounds = true;
 
+		@UnsyncableEntry
 		public boolean coarseDirtSounds = true;
 
+		@UnsyncableEntry
 		public boolean cobwebSounds = true;
 
+		@UnsyncableEntry
 		public boolean deadBushSounds = true;
 
+		@UnsyncableEntry
 		public boolean flowerSounds = true;
 
+		@UnsyncableEntry
 		public boolean saplingSounds = true;
 
+		@UnsyncableEntry
 		public boolean iceSounds = true;
 
+		@UnsyncableEntry
 		public boolean frostedIceSounds = true;
 
+		@UnsyncableEntry
 		public boolean gravelSounds = true;
 
+		@UnsyncableEntry
 		public boolean leafSounds = true;
 
+		@UnsyncableEntry
 		public boolean lilyPadSounds = true;
 
+		@UnsyncableEntry
 		public boolean mushroomBlockSounds = true;
 
+		@UnsyncableEntry
 		public boolean podzolSounds = true;
 
+		@UnsyncableEntry
 		public boolean reinforcedDeepslateSounds = true;
 
+		@UnsyncableEntry
 		public boolean sandstoneSounds = true;
 
+		@UnsyncableEntry
 		public boolean sugarCaneSounds = true;
 
+		@UnsyncableEntry
 		public boolean witherRoseSounds = true;
 	}
 
 	public static class StoneChestConfig {
+		@FieldIdentifier(identifier = "stoneChestTimer")
 		public int stoneChestTimer = 100;
 
 		public double getStoneChestTimer() {
@@ -126,13 +158,22 @@ public final class BlockConfig {
 	}
 
 	public static class TermiteConfig {
+		@FieldIdentifier(identifier = "onlyEatNaturalBlocks")
 		public boolean onlyEatNaturalBlocks = true;
+
+		@FieldIdentifier(identifier = "maxDistance")
 		public int maxDistance = 32;
+
+		@FieldIdentifier(identifier = "maxNaturalDistance")
 		public int maxNaturalDistance = 10;
 	}
 
 	public static class MesogleaConfig {
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "mesogleaLiquid")
 		public boolean mesogleaLiquid = false;
+
+		@FieldIdentifier(identifier = "mesogleaBubbleColumns")
 		public boolean mesogleaBubbleColumns = true;
 	}
 }

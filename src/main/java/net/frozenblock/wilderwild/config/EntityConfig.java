@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.config;
 
 
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
+import net.frozenblock.lib.config.api.annotation.UnsyncableEntry;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
@@ -74,11 +75,14 @@ public final class EntityConfig {
 	}
 
 	public static class AllayConfig {
+		@UnsyncableEntry
 		public boolean keyframeAllayDance = true;
 	}
 
 	public static class EnderManConfig {
 		public boolean angerLoopSound = true;
+
+		@UnsyncableEntry
 		public boolean movingStareSound = true;
 	}
 
@@ -88,28 +92,44 @@ public final class EntityConfig {
 
 	public static class JellyfishConfig {
 		public int jellyfishSpawnCap = 30;
+
+		@UnsyncableEntry
 		public int jellyfishTentacles = 8;
 	}
 
 	public static class CrabConfig {
 		public int crabSpawnCap = 25;
+
 		public boolean reachAffectsAttack = false;
 	}
 
 	public static class TumbleweedConfig {
 		public int tumbleweedSpawnCap = 10;
+
 		public boolean leashedTumbleweed = false;
+
 		public boolean tumbleweedDestroysCrops = true;
+
+		@UnsyncableEntry
 		public boolean tumbleweedRotatesToLookDirection = false;
 	}
 
 	public static class WardenConfig {
 		public boolean wardenAttacksImmediately = true;
+
+		@UnsyncableEntry
 		public boolean wardenCustomTendrils = true;
+
+		@UnsyncableEntry
 		public boolean wardenBedrockSniff = true;
+
 		public boolean wardenDyingAnimation = true;
+
 		public boolean wardenEmergesFromCommand = false;
+
 		public boolean wardenEmergesFromEgg = false;
+
+		@UnsyncableEntry
 		public boolean wardenSwimAnimation = true;
 	}
 }

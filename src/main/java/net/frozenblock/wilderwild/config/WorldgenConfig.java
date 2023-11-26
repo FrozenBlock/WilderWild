@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.config;
 
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
+import net.frozenblock.lib.config.api.annotation.UnsyncableEntry;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
@@ -151,12 +152,16 @@ public final class WorldgenConfig {
 	}
 
 	public static class WaterColors {
+		@UnsyncableEntry
 		public boolean modifyLukewarmWater = true;
 
+		@UnsyncableEntry
 		public boolean modifyHotWater = true;
 
+		@UnsyncableEntry
 		public boolean modifySnowyWater = true;
 
+		@UnsyncableEntry
 		public boolean modifyFrozenWater = true;
 	}
 }

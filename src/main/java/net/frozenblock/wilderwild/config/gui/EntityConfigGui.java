@@ -167,7 +167,6 @@ public final class EntityConfigGui {
 			tumbleweedSpawnCap, leashedTumbleweed, tumbleweedDestroysCrops, tumbleweedRotatesToLookDirection
 		);
 
-
 		var instantAttack = entryBuilder.startBooleanToggle(text("warden_attacks_immediately"), warden.wardenAttacksImmediately)
 			.setDefaultValue(defaultConfig.warden.wardenAttacksImmediately)
 			.setSaveConsumer(newValue -> warden.wardenAttacksImmediately = newValue)

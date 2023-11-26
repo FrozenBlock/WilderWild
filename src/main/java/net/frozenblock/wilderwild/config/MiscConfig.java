@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.config;
 
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
+import net.frozenblock.lib.config.api.annotation.UnsyncableEntry;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
@@ -40,8 +41,11 @@ public final class MiscConfig {
 	);
 
 	public boolean modifyAdvancements = true;
+
+	@UnsyncableEntry
 	public boolean cloudMovement = true;
 
+	@UnsyncableEntry
 	public int particleWindMovement = 100;
 
 	@CollapsibleObject
@@ -65,12 +69,18 @@ public final class MiscConfig {
 	}
 
 	public static class BiomeAmbienceConfig {
+		@UnsyncableEntry
 		public boolean deepDarkAmbience = true;
+
+		@UnsyncableEntry
 		public boolean dripstoneCavesAmbience = true;
+
+		@UnsyncableEntry
 		public boolean lushCavesAmbience = true;
 	}
 
 	public static class BiomeMusicConfig {
+		@UnsyncableEntry
 		public boolean wilderForestMusic = true;
 	}
 }
