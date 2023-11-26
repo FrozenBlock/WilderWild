@@ -114,7 +114,7 @@ public class AncientHornProjectile extends AbstractArrow {
 	private boolean shotByPlayer;
 	private int bubbles;
 	private BlockState inBlockState;
-	private IntArrayList hitEntities = new IntArrayList();
+	private List<Integer> hitEntities = new IntArrayList();
 
 	public AncientHornProjectile(@NotNull EntityType<? extends AncientHornProjectile> entityType, @NotNull Level level) {
 		super(entityType, level);
@@ -498,9 +498,10 @@ public class AncientHornProjectile extends AbstractArrow {
 
 	@Override
 	public void shootFromRotation(@NotNull Entity shooter, float pitch, float yaw, float roll, float speed, float divergence) {
-		float xRot = -Mth.sin(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F);
-		float yRot = -Mth.sin((pitch + roll) * 0.017453292F);
-		float zRot = Mth.cos(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F);
+		final float pi180 = (float) Math.PI / 180;
+		float xRot = -Mth.sin(yaw * pi180) * Mth.cos(pitch * pi180);
+		float yRot = -Mth.sin((pitch + roll) * pi180);
+		float zRot = Mth.cos(yaw * pi180) * Mth.cos(pitch * pi180);
 		this.shoot(xRot, yRot, zRot, speed, divergence);
 		this.vecX = shooter.getX();
 		this.vecY = shooter.getEyeY();
@@ -605,51 +606,4 @@ public class AncientHornProjectile extends AbstractArrow {
 	public void gameEvent(@NotNull GameEvent event, @Nullable Entity entity) {
 	}
 
-	public static class EntitySpawnPacket { //When the Fabric tutorial WORKS!!!!! BOM BOM BOM BOM BOM BOM BOM, BOBOBOM! DUNDUN!
-		public static Packet<ClientCommonPacketListener> create(@NotNull Entity entity, @NotNull ResourceLocation packetID) {
-			if (entity.level().isClientSide)
-				throw new IllegalStateException("SpawnPacketUtil.create called on the logical client!");
-			FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
-			byteBuf.writeVarInt(BuiltInRegistries.ENTITY_TYPE.getId(entity.getType()));
-			byteBuf.writeUUID(entity.getUUID());
-			byteBuf.writeVarInt(entity.getId());
-			PacketBufUtil.writeVec3d(byteBuf, entity.position());
-			PacketBufUtil.writeAngle(byteBuf, entity.getXRot());
-			PacketBufUtil.writeAngle(byteBuf, entity.getYRot());
-			return ServerPlayNetworking.createS2CPacket(packetID, byteBuf);
-		}
-
-		public static final class PacketBufUtil {
-
-			public static byte packAngle(float angle) {
-				return (byte) Mth.floor(angle * 256 / 360);
-			}
-
-			public static float unpackAngle(byte angleByte) {
-				return (angleByte * 360) / 256F;
-			}
-
-			public static void writeAngle(@NotNull FriendlyByteBuf byteBuf, float angle) {
-				byteBuf.writeByte(packAngle(angle));
-			}
-
-			public static float readAngle(@NotNull FriendlyByteBuf byteBuf) {
-				return unpackAngle(byteBuf.readByte());
-			}
-
-			public static void writeVec3d(@NotNull FriendlyByteBuf byteBuf, @NotNull Vec3 vec3d) {
-				byteBuf.writeDouble(vec3d.x);
-				byteBuf.writeDouble(vec3d.y);
-				byteBuf.writeDouble(vec3d.z);
-			}
-
-			@NotNull
-			public static Vec3 readVec3d(@NotNull FriendlyByteBuf byteBuf) {
-				double x = byteBuf.readDouble();
-				double y = byteBuf.readDouble();
-				double z = byteBuf.readDouble();
-				return new Vec3(x, y, z);
-			}
-		}
-	}
 }
