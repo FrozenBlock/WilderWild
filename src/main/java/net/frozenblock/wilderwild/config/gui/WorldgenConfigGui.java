@@ -412,7 +412,6 @@ public final class WorldgenConfigGui {
 				)
 				.build()
 		);
-
 		var wilderWildGrass = category.addEntry(
 			FrozenClothConfig.syncedBuilder(
 					entryBuilder.startBooleanToggle(text("wilder_wild_grass"), config.wilderWildGrassGen)
