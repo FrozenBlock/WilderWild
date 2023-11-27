@@ -22,12 +22,13 @@ import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
 import net.frozenblock.wilderwild.config.ItemConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import org.jetbrains.annotations.NotNull;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.text;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.tooltip;
+import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public final class ItemConfigGui {
@@ -37,44 +38,80 @@ public final class ItemConfigGui {
 
 	public static void setupEntries(@NotNull ConfigCategory category, @NotNull ConfigEntryBuilder entryBuilder) {
 		var config = ItemConfig.get(true);
+		Class<? extends ItemConfig> clazz = config.getClass();
+		Config<?> configInstance = ItemConfig.INSTANCE;
+		var modifiedConfig = ItemConfig.getWithSync();
 		var defaultConfig = ItemConfig.INSTANCE.defaultInstance();
 		var ancientHorn = config.ancientHorn;
+		var modifiedAncientHorn = modifiedConfig.ancientHorn;
 		var projectileLandingSounds = config.projectileLandingSounds;
+		var modifiedProjectileLandingSounds = modifiedConfig.projectileLandingSounds;
 		category.setBackground(WilderSharedConstants.id("textures/config/item.png"));
-		var summonsWarden = entryBuilder.startBooleanToggle(text("ancient_horn_can_summon_warden"), ancientHorn.ancientHornCanSummonWarden)
-			.setDefaultValue(defaultConfig.ancientHorn.ancientHornCanSummonWarden)
-			.setSaveConsumer(newValue -> ancientHorn.ancientHornCanSummonWarden = newValue)
-			.setTooltip(tooltip("ancient_horn_can_summon_warden"))
+
+		var summonsWarden = FrozenClothConfig.syncedBuilder(
+				entryBuilder.startBooleanToggle(text("ancient_horn_can_summon_warden"), modifiedAncientHorn.ancientHornCanSummonWarden)
+					.setDefaultValue(defaultConfig.ancientHorn.ancientHornCanSummonWarden)
+					.setSaveConsumer(newValue -> ancientHorn.ancientHornCanSummonWarden = newValue)
+					.setTooltip(tooltip("ancient_horn_can_summon_warden")),
+				config.ancientHorn.getClass(),
+				"ancientHornCanSummonWarden",
+				configInstance
+			)
 			.build();
 
-		var lifespan = entryBuilder.startIntSlider(text("ancient_horn_lifespan"), ancientHorn.ancientHornLifespan, 0, 1000)
-			.setDefaultValue(defaultConfig.ancientHorn.ancientHornLifespan)
-			.setSaveConsumer(newValue -> ancientHorn.ancientHornLifespan = newValue)
-			.setTooltip(tooltip("ancient_horn_lifespan"))
+		var lifespan = FrozenClothConfig.syncedBuilder(
+				entryBuilder.startIntSlider(text("ancient_horn_lifespan"), modifiedAncientHorn.ancientHornLifespan, 0, 1000)
+					.setDefaultValue(defaultConfig.ancientHorn.ancientHornLifespan)
+					.setSaveConsumer(newValue -> ancientHorn.ancientHornLifespan = newValue)
+					.setTooltip(tooltip("ancient_horn_lifespan")),
+				config.ancientHorn.getClass(),
+				"ancientHornLifespan",
+				configInstance
+			)
 			.build();
 
-		var mobDamage = entryBuilder.startIntSlider(text("ancient_horn_mob_damage"), ancientHorn.ancientHornMobDamage, 0, 50)
-			.setDefaultValue(defaultConfig.ancientHorn.ancientHornMobDamage)
-			.setSaveConsumer(newValue -> ancientHorn.ancientHornMobDamage = newValue)
-			.setTooltip(tooltip("ancient_horn_mob_damage"))
+		var mobDamage = FrozenClothConfig.syncedBuilder(
+				entryBuilder.startIntSlider(text("ancient_horn_mob_damage"), modifiedAncientHorn.ancientHornMobDamage, 0, 50)
+					.setDefaultValue(defaultConfig.ancientHorn.ancientHornMobDamage)
+					.setSaveConsumer(newValue -> ancientHorn.ancientHornMobDamage = newValue)
+					.setTooltip(tooltip("ancient_horn_mob_damage")),
+				config.ancientHorn.getClass(),
+				"ancientHornMobDamage",
+				configInstance
+			)
 			.build();
 
-		var playerDamage = entryBuilder.startIntSlider(text("ancient_horn_player_damage"), ancientHorn.ancientHornPlayerDamage, 0, 50)
-			.setDefaultValue(defaultConfig.ancientHorn.ancientHornPlayerDamage)
-			.setSaveConsumer(newValue -> ancientHorn.ancientHornPlayerDamage = newValue)
-			.setTooltip(tooltip("ancient_horn_player_damage"))
+		var playerDamage = FrozenClothConfig.syncedBuilder(
+				entryBuilder.startIntSlider(text("ancient_horn_player_damage"), modifiedAncientHorn.ancientHornPlayerDamage, 0, 50)
+					.setDefaultValue(defaultConfig.ancientHorn.ancientHornPlayerDamage)
+					.setSaveConsumer(newValue -> ancientHorn.ancientHornPlayerDamage = newValue)
+					.setTooltip(tooltip("ancient_horn_player_damage")),
+				config.ancientHorn.getClass(),
+				"ancientHornPlayerDamage",
+				configInstance
+			)
 			.build();
 
-		var shattersGlass = entryBuilder.startBooleanToggle(text("ancient_horn_shatters_glass"), ancientHorn.ancientHornShattersGlass)
-			.setDefaultValue(defaultConfig.ancientHorn.ancientHornShattersGlass)
-			.setSaveConsumer(newValue -> ancientHorn.ancientHornShattersGlass = newValue)
-			.setTooltip(tooltip("ancient_horn_shatters_glass"))
+		var shattersGlass = FrozenClothConfig.syncedBuilder(
+				entryBuilder.startBooleanToggle(text("ancient_horn_shatters_glass"), modifiedAncientHorn.ancientHornShattersGlass)
+					.setDefaultValue(defaultConfig.ancientHorn.ancientHornShattersGlass)
+					.setSaveConsumer(newValue -> ancientHorn.ancientHornShattersGlass = newValue)
+					.setTooltip(tooltip("ancient_horn_shatters_glass")),
+				config.ancientHorn.getClass(),
+				"ancientHornShattersGlass",
+				configInstance
+			)
 			.build();
 
-		var sizeMultiplier = entryBuilder.startFloatField(text("ancient_horn_size_multiplier"), ancientHorn.ancientHornSizeMultiplier)
-			.setDefaultValue(defaultConfig.ancientHorn.ancientHornSizeMultiplier)
-			.setSaveConsumer(newValue -> ancientHorn.ancientHornSizeMultiplier = newValue)
-			.setTooltip(tooltip("ancient_horn_size_multiplier"))
+		var sizeMultiplier = FrozenClothConfig.syncedBuilder(
+				entryBuilder.startFloatField(text("ancient_horn_size_multiplier"), modifiedAncientHorn.ancientHornSizeMultiplier)
+					.setDefaultValue(defaultConfig.ancientHorn.ancientHornSizeMultiplier)
+					.setSaveConsumer(newValue -> ancientHorn.ancientHornSizeMultiplier = newValue)
+					.setTooltip(tooltip("ancient_horn_size_multiplier")),
+				config.ancientHorn.getClass(),
+				"ancientHornSizeMultiplier",
+				configInstance
+			)
 			.build();
 
 		var ancientHornCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("ancient_horn"),
@@ -83,28 +120,48 @@ public final class ItemConfigGui {
 			summonsWarden, lifespan, mobDamage, playerDamage, shattersGlass, sizeMultiplier
 		);
 
-		var snowballLandingSounds = entryBuilder.startBooleanToggle(text("snowball_landing_sounds"), projectileLandingSounds.snowballLandingSounds)
-			.setDefaultValue(defaultConfig.projectileLandingSounds.snowballLandingSounds)
-			.setSaveConsumer(newValue -> projectileLandingSounds.snowballLandingSounds = newValue)
-			.setTooltip(tooltip("snowball_landing_sounds"))
+		var snowballLandingSounds = FrozenClothConfig.syncedBuilder(
+				entryBuilder.startBooleanToggle(text("snowball_landing_sounds"), modifiedProjectileLandingSounds.snowballLandingSounds)
+					.setDefaultValue(defaultConfig.projectileLandingSounds.snowballLandingSounds)
+					.setSaveConsumer(newValue -> projectileLandingSounds.snowballLandingSounds = newValue)
+					.setTooltip(tooltip("snowball_landing_sounds")),
+				config.projectileLandingSounds.getClass(),
+				"snowballLandingSounds",
+				configInstance
+			)
 			.build();
 
-		var eggLandingSounds = entryBuilder.startBooleanToggle(text("egg_landing_sounds"), projectileLandingSounds.eggLandingSounds)
-			.setDefaultValue(defaultConfig.projectileLandingSounds.eggLandingSounds)
-			.setSaveConsumer(newValue -> projectileLandingSounds.eggLandingSounds = newValue)
-			.setTooltip(tooltip("egg_landing_sounds"))
+		var eggLandingSounds = FrozenClothConfig.syncedBuilder(
+				entryBuilder.startBooleanToggle(text("egg_landing_sounds"), modifiedProjectileLandingSounds.eggLandingSounds)
+					.setDefaultValue(defaultConfig.projectileLandingSounds.eggLandingSounds)
+					.setSaveConsumer(newValue -> projectileLandingSounds.eggLandingSounds = newValue)
+					.setTooltip(tooltip("egg_landing_sounds")),
+				config.projectileLandingSounds.getClass(),
+				"eggLandingSounds",
+				configInstance
+			)
 			.build();
 
-		var enderPearlLandingSounds = entryBuilder.startBooleanToggle(text("ender_pearl_landing_sounds"), projectileLandingSounds.enderPearlLandingSounds)
-			.setDefaultValue(defaultConfig.projectileLandingSounds.enderPearlLandingSounds)
-			.setSaveConsumer(newValue -> projectileLandingSounds.enderPearlLandingSounds = newValue)
-			.setTooltip(tooltip("ender_pearl_landing_sounds"))
+		var enderPearlLandingSounds = FrozenClothConfig.syncedBuilder(
+				entryBuilder.startBooleanToggle(text("ender_pearl_landing_sounds"), modifiedProjectileLandingSounds.enderPearlLandingSounds)
+					.setDefaultValue(defaultConfig.projectileLandingSounds.enderPearlLandingSounds)
+					.setSaveConsumer(newValue -> projectileLandingSounds.enderPearlLandingSounds = newValue)
+					.setTooltip(tooltip("ender_pearl_landing_sounds")),
+				config.projectileLandingSounds.getClass(),
+				"enderPearlLandingSounds",
+				configInstance
+			)
 			.build();
 
-		var potionLandingSounds = entryBuilder.startBooleanToggle(text("potion_landing_sounds"), projectileLandingSounds.potionLandingSounds)
-			.setDefaultValue(defaultConfig.projectileLandingSounds.potionLandingSounds)
-			.setSaveConsumer(newValue -> projectileLandingSounds.potionLandingSounds = newValue)
-			.setTooltip(tooltip("potion_landing_sounds"))
+		var potionLandingSounds = FrozenClothConfig.syncedBuilder(
+				entryBuilder.startBooleanToggle(text("potion_landing_sounds"), modifiedProjectileLandingSounds.potionLandingSounds)
+					.setDefaultValue(defaultConfig.projectileLandingSounds.potionLandingSounds)
+					.setSaveConsumer(newValue -> projectileLandingSounds.potionLandingSounds = newValue)
+					.setTooltip(tooltip("potion_landing_sounds")),
+				config.projectileLandingSounds.getClass(),
+				"potionLandingSounds",
+				configInstance
+			)
 			.build();
 
 		var projectileLandingSoundsCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("projectile_landing_sounds"),
@@ -113,18 +170,30 @@ public final class ItemConfigGui {
 			snowballLandingSounds, eggLandingSounds, enderPearlLandingSounds, potionLandingSounds
 		);
 
-		var projectileBreakParticles = category.addEntry(entryBuilder.startBooleanToggle(text("projectile_break_particles"), config.projectileBreakParticles)
-			.setDefaultValue(defaultConfig.projectileBreakParticles)
-			.setSaveConsumer(newValue -> config.projectileBreakParticles = newValue)
-			.setTooltip(tooltip("projectile_break_particles"))
-			.build()
+		var projectileBreakParticles = category.addEntry(
+			FrozenClothConfig.syncedBuilder(
+					entryBuilder.startBooleanToggle(text("projectile_break_particles"), modifiedConfig.projectileBreakParticles)
+						.setDefaultValue(defaultConfig.projectileBreakParticles)
+						.setSaveConsumer(newValue -> config.projectileBreakParticles = newValue)
+						.setTooltip(tooltip("projectile_break_particles")),
+					clazz,
+					"projectileBreakParticles",
+					configInstance
+				)
+				.build()
 		);
 
-		var restrictInstrumentSound = category.addEntry(entryBuilder.startBooleanToggle(text("restrict_instrument_sound"), config.restrictInstrumentSound)
-			.setDefaultValue(defaultConfig.restrictInstrumentSound)
-			.setSaveConsumer(newValue -> config.restrictInstrumentSound = newValue)
-			.setTooltip(tooltip("restrict_instrument_sound"))
-			.build()
+		var restrictInstrumentSound = category.addEntry(
+			FrozenClothConfig.syncedBuilder(
+					entryBuilder.startBooleanToggle(text("restrict_instrument_sound"), modifiedConfig.restrictInstrumentSound)
+						.setDefaultValue(defaultConfig.restrictInstrumentSound)
+						.setSaveConsumer(newValue -> config.restrictInstrumentSound = newValue)
+						.setTooltip(tooltip("restrict_instrument_sound")),
+					clazz,
+					"restricInstrumentSound",
+					configInstance
+				)
+				.build()
 		);
 	}
 }
