@@ -76,6 +76,10 @@ public final class EntityConfig {
 		return INSTANCE.config();
 	}
 
+	public static EntityConfig getWithSync() {
+		return INSTANCE.configWithSync();
+	}
+
 	public static class AllayConfig {
 		@UnsyncableEntry
 		@FieldIdentifier(identifier = "keyframeAllayDance")

@@ -38,20 +38,28 @@ public final class EntityConfigGui {
 
 	public static void setupEntries(@NotNull ConfigCategory category, @NotNull ConfigEntryBuilder entryBuilder) {
 		var config = EntityConfig.get(true);
+		var modifiedConfig = EntityConfig.getWithSync();
 		Class<? extends EntityConfig> clazz = config.getClass();
 		Config<?> configInstance = EntityConfig.INSTANCE;
 		var defaultConfig = EntityConfig.INSTANCE.defaultInstance();
 		var allay = config.allay;
+		var modifiedAllay = modifiedConfig.allay;
 		var enderMan = config.enderMan;
+		var modifiedEnderMan = modifiedConfig.enderMan;
 		var firefly = config.firefly;
+		var modifiedFirefly = modifiedConfig.firefly;
 		var jellyfish = config.jellyfish;
+		var modifiedJellyfish = modifiedConfig.jellyfish;
 		var crab = config.crab;
+		var modifiedCrab = modifiedConfig.crab;
 		var tumbleweed = config.tumbleweed;
+		var modifiedTumbleweed = modifiedConfig.tumbleweed;
 		var warden = config.warden;
+		var modifiedWarden = modifiedConfig.warden;
 		category.setBackground(WilderSharedConstants.id("textures/config/entity.png"));
 		var unpassableRail = category.addEntry(
 			FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("unpassable_rail"), config.unpassableRail)
+					entryBuilder.startBooleanToggle(text("unpassable_rail"), modifiedConfig.unpassableRail)
 						.setDefaultValue(defaultConfig.unpassableRail)
 						.setSaveConsumer(newValue -> config.unpassableRail = newValue)
 						.setTooltip(tooltip("unpassable_rail"))
@@ -65,7 +73,7 @@ public final class EntityConfigGui {
 
 		var keyframeAllayDance = FrozenClothConfig.syncedBuilder(
 				entryBuilder.startBooleanToggle(
-						text("keyframe_allay_dance"), allay.keyframeAllayDance)
+						text("keyframe_allay_dance"), modifiedAllay.keyframeAllayDance)
 					.setDefaultValue(defaultConfig.allay.keyframeAllayDance)
 					.setSaveConsumer(newValue -> allay.keyframeAllayDance = newValue)
 					.setTooltip(tooltip("keyframe_allay_dance"))
@@ -83,7 +91,7 @@ public final class EntityConfigGui {
 		);
 
 		var angerLoopSound = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("anger_loop_sound"), enderMan.angerLoopSound)
+				entryBuilder.startBooleanToggle(text("anger_loop_sound"), modifiedEnderMan.angerLoopSound)
 					.setDefaultValue(defaultConfig.enderMan.angerLoopSound)
 					.setSaveConsumer(newValue -> enderMan.angerLoopSound = newValue)
 					.setTooltip(tooltip("anger_loop_sound")),
@@ -93,7 +101,7 @@ public final class EntityConfigGui {
 			)
 			.build();
 		var movingStareSound = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("moving_stare_sound"), enderMan.movingStareSound)
+				entryBuilder.startBooleanToggle(text("moving_stare_sound"), modifiedEnderMan.movingStareSound)
 					.setDefaultValue(defaultConfig.enderMan.movingStareSound)
 					.setSaveConsumer(newValue -> enderMan.movingStareSound = newValue)
 					.setTooltip(tooltip("moving_stare_sound")),
@@ -110,7 +118,7 @@ public final class EntityConfigGui {
 		);
 
 		var fireflySpawnCap = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startIntSlider(text("firefly_spawn_cap"), firefly.fireflySpawnCap, 0, 100)
+				entryBuilder.startIntSlider(text("firefly_spawn_cap"), modifiedFirefly.fireflySpawnCap, 0, 100)
 					.setDefaultValue(defaultConfig.firefly.fireflySpawnCap)
 					.setSaveConsumer(newValue -> firefly.fireflySpawnCap = newValue)
 					.setTooltip(tooltip("firefly_spawn_cap"))
@@ -128,7 +136,7 @@ public final class EntityConfigGui {
 		);
 
 		var jellyfishSpawnCap = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startIntSlider(text("jellyfish_spawn_cap"), jellyfish.jellyfishSpawnCap, 0, 100)
+				entryBuilder.startIntSlider(text("jellyfish_spawn_cap"), modifiedJellyfish.jellyfishSpawnCap, 0, 100)
 					.setDefaultValue(defaultConfig.jellyfish.jellyfishSpawnCap)
 					.setSaveConsumer(newValue -> jellyfish.jellyfishSpawnCap = newValue)
 					.setTooltip(tooltip("jellyfish_spawn_cap"))
@@ -140,7 +148,7 @@ public final class EntityConfigGui {
 			.build();
 
 		var jellyfishTentacles = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startIntSlider(text("jellyfish_tentacles"), jellyfish.jellyfishTentacles, 0, 100)
+				entryBuilder.startIntSlider(text("jellyfish_tentacles"), modifiedJellyfish.jellyfishTentacles, 0, 100)
 					.setDefaultValue(defaultConfig.jellyfish.jellyfishTentacles)
 					.setSaveConsumer(newValue -> jellyfish.jellyfishTentacles = newValue)
 					.setTooltip(tooltip("jellyfish_tentacles"))
@@ -158,7 +166,7 @@ public final class EntityConfigGui {
 		);
 
 		var crabSpawnCap = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startIntSlider(text("crab_spawn_cap"), crab.crabSpawnCap, 0, 100)
+				entryBuilder.startIntSlider(text("crab_spawn_cap"), modifiedCrab.crabSpawnCap, 0, 100)
 					.setDefaultValue(defaultConfig.crab.crabSpawnCap)
 					.setSaveConsumer(newValue -> crab.crabSpawnCap = newValue)
 					.setTooltip(tooltip("crab_spawn_cap"))
@@ -170,7 +178,7 @@ public final class EntityConfigGui {
 			.build();
 
 		var reachAffectsAttack = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("reach_affects_attack"), crab.reachAffectsAttack)
+				entryBuilder.startBooleanToggle(text("reach_affects_attack"), modifiedCrab.reachAffectsAttack)
 					.setDefaultValue(defaultConfig.crab.reachAffectsAttack)
 					.setSaveConsumer(newValue -> crab.reachAffectsAttack = newValue)
 					.setTooltip(tooltip("reach_affects_attack"))
@@ -188,7 +196,7 @@ public final class EntityConfigGui {
 		);
 
 		var tumbleweedSpawnCap = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startIntSlider(text("tumbleweed_spawn_cap"), tumbleweed.tumbleweedSpawnCap, 0, 100)
+				entryBuilder.startIntSlider(text("tumbleweed_spawn_cap"), modifiedTumbleweed.tumbleweedSpawnCap, 0, 100)
 					.setDefaultValue(defaultConfig.tumbleweed.tumbleweedSpawnCap)
 					.setSaveConsumer(newValue -> tumbleweed.tumbleweedSpawnCap = newValue)
 					.setTooltip(tooltip("tumbleweed_spawn_cap"))
@@ -200,7 +208,7 @@ public final class EntityConfigGui {
 			.build();
 
 		var leashedTumbleweed = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("leashed_tumbleweed"), tumbleweed.leashedTumbleweed)
+				entryBuilder.startBooleanToggle(text("leashed_tumbleweed"), modifiedTumbleweed.leashedTumbleweed)
 					.setDefaultValue(defaultConfig.tumbleweed.leashedTumbleweed)
 					.setSaveConsumer(newValue -> tumbleweed.leashedTumbleweed = newValue)
 					.setTooltip(tooltip("leashed_tumbleweed")),
@@ -211,7 +219,7 @@ public final class EntityConfigGui {
 			.build();
 
 		var tumbleweedDestroysCrops = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("tumbleweed_destroys_crops"), tumbleweed.tumbleweedDestroysCrops)
+				entryBuilder.startBooleanToggle(text("tumbleweed_destroys_crops"), modifiedTumbleweed.tumbleweedDestroysCrops)
 					.setDefaultValue(defaultConfig.tumbleweed.tumbleweedDestroysCrops)
 					.setSaveConsumer(newValue -> tumbleweed.tumbleweedDestroysCrops = newValue)
 					.setTooltip(tooltip("tumbleweed_destroys_crops")),
@@ -222,7 +230,7 @@ public final class EntityConfigGui {
 			.build();
 
 		var tumbleweedRotatesToLookDirection = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("tumbleweed_rotates_to_look_direction"), tumbleweed.tumbleweedRotatesToLookDirection)
+				entryBuilder.startBooleanToggle(text("tumbleweed_rotates_to_look_direction"), modifiedTumbleweed.tumbleweedRotatesToLookDirection)
 					.setDefaultValue(defaultConfig.tumbleweed.tumbleweedRotatesToLookDirection)
 					.setSaveConsumer(newValue -> tumbleweed.tumbleweedRotatesToLookDirection = newValue)
 					.setTooltip(tooltip("tumbleweed_rotates_to_look_direction")),
@@ -239,7 +247,7 @@ public final class EntityConfigGui {
 		);
 
 		var instantAttack = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("warden_attacks_immediately"), warden.wardenAttacksImmediately)
+				entryBuilder.startBooleanToggle(text("warden_attacks_immediately"), modifiedWarden.wardenAttacksImmediately)
 					.setDefaultValue(defaultConfig.warden.wardenAttacksImmediately)
 					.setSaveConsumer(newValue -> warden.wardenAttacksImmediately = newValue)
 					.setTooltip(tooltip("warden_attacks_immediately")),
@@ -249,7 +257,7 @@ public final class EntityConfigGui {
 			)
 			.build();
 		var dying = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("warden_dying_animation"), warden.wardenDyingAnimation)
+				entryBuilder.startBooleanToggle(text("warden_dying_animation"), modifiedWarden.wardenDyingAnimation)
 					.setDefaultValue(defaultConfig.warden.wardenDyingAnimation)
 					.setSaveConsumer(newValue -> warden.wardenDyingAnimation = newValue)
 					.setTooltip(tooltip("warden_dying_animation")),
@@ -259,7 +267,7 @@ public final class EntityConfigGui {
 			)
 			.build();
 		var command = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("warden_emerges_from_command"), warden.wardenEmergesFromCommand)
+				entryBuilder.startBooleanToggle(text("warden_emerges_from_command"), modifiedWarden.wardenEmergesFromCommand)
 					.setDefaultValue(defaultConfig.warden.wardenEmergesFromCommand)
 					.setSaveConsumer(newValue -> warden.wardenEmergesFromCommand = newValue)
 					.setTooltip(tooltip("warden_emerges_from_command")),
@@ -269,7 +277,7 @@ public final class EntityConfigGui {
 			)
 			.build();
 		var egg = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("warden_emerges_from_egg"), warden.wardenEmergesFromEgg)
+				entryBuilder.startBooleanToggle(text("warden_emerges_from_egg"), modifiedWarden.wardenEmergesFromEgg)
 					.setDefaultValue(defaultConfig.warden.wardenEmergesFromEgg)
 					.setSaveConsumer(newValue -> warden.wardenEmergesFromEgg = newValue)
 					.setTooltip(tooltip("warden_emerges_from_egg")),
@@ -279,7 +287,7 @@ public final class EntityConfigGui {
 			)
 			.build();
 		var swimming = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("warden_swim_animation"), warden.wardenSwimAnimation)
+				entryBuilder.startBooleanToggle(text("warden_swim_animation"), modifiedWarden.wardenSwimAnimation)
 					.setDefaultValue(defaultConfig.warden.wardenSwimAnimation)
 					.setSaveConsumer(newValue -> warden.wardenSwimAnimation = newValue)
 					.setTooltip(tooltip("warden_swim_animation")),
@@ -289,7 +297,7 @@ public final class EntityConfigGui {
 			)
 			.build();
 		var tendrils = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("warden_custom_tendrils"), warden.wardenCustomTendrils)
+				entryBuilder.startBooleanToggle(text("warden_custom_tendrils"), modifiedWarden.wardenCustomTendrils)
 					.setDefaultValue(defaultConfig.warden.wardenCustomTendrils)
 					.setSaveConsumer(newValue -> warden.wardenCustomTendrils = newValue)
 					.setYesNoTextSupplier(bool -> text("warden_custom_tendrils." + bool))
@@ -300,7 +308,7 @@ public final class EntityConfigGui {
 			)
 			.build();
 		var sniff = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("warden_bedrock_sniff"), warden.wardenBedrockSniff)
+				entryBuilder.startBooleanToggle(text("warden_bedrock_sniff"), modifiedWarden.wardenBedrockSniff)
 					.setDefaultValue(defaultConfig.warden.wardenBedrockSniff)
 					.setSaveConsumer(newValue -> warden.wardenBedrockSniff = newValue)
 					.setYesNoTextSupplier(bool -> text("warden_bedrock_sniff." + bool))

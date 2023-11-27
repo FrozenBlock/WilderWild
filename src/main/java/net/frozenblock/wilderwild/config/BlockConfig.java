@@ -92,6 +92,10 @@ public final class BlockConfig {
 		return INSTANCE.config();
 	}
 
+	public static BlockConfig getWithSync() {
+		return INSTANCE.configWithSync();
+	}
+
 	public static class BlockSoundsConfig {
 		@UnsyncableEntry
 		public boolean cactusSounds = true;
