@@ -48,7 +48,7 @@ public final class MiscConfigGui {
 
 		var modifyAdvancements = category.addEntry(
 			FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("modofy_advancements"), modifiedConfig.modifyAdvancements)
+					entryBuilder.startBooleanToggle(text("modify_advancements"), modifiedConfig.modifyAdvancements)
 						.setDefaultValue(defaultConfig.modifyAdvancements)
 						.setSaveConsumer(newValue -> config.modifyAdvancements = newValue)
 						.setTooltip(tooltip("modofy_advancements")),
