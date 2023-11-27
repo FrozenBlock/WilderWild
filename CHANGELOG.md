@@ -44,9 +44,6 @@ Bug Fixes & Changes
 - Fixed an issue pertaining to Silk Touch with the Display Lantern's loot table
 - Display Lanterns will now properly spawn Fireflies that were held inside of them when broken
 
-- Disabling the option for Termites to only eat natural blocks will now no longer add the "termite_edible" property to any blocks
-    - Disabling the option will now require the game to restart, but may occasionally fix compat issues in return
-
 - Fixed Jellyfish no longer spawning in Jellyfish Caves
 - Slightly optimized Jellyfish rendering with the rainbow easter egg
 
@@ -54,6 +51,9 @@ Bug Fixes & Changes
 - Increased the chances of larger Oseeous Sculk generating during worldgen
 - Stone Chests will now interact with Redstone Comparators, outputting a signal based on how high their lid is lifted ([#319](https://github.com/FrozenBlock/WilderWild/issues/319))
 
+- The config will now sync between server and client
+    - Operators of servers will modify the server's config upon modifying it on their end
+    - Non-operators will see that config options that don't solely pertain to the client will be blocked out and set to the server's value
 - Added a "New Frosted Ice Cracking" config option to control Frosted Ice's updated cracking (playing sounds and spawning particles)
 - Added a config option for whether or not Dripleaves will use updated Redstone powering functionality
 - Swapped the placement of the Misc and Worldgen config tabs

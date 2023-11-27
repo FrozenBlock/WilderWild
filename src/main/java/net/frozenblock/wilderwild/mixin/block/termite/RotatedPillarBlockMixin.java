@@ -35,9 +35,7 @@ public class RotatedPillarBlockMixin {
 
 	@Inject(method = "createBlockStateDefinition", at = @At("TAIL"))
 	private void addTermiteEdibleState(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		if (BlockConfig.get().termite.onlyEatNaturalBlocks) {
-			builder.add(RegisterProperties.TERMITE_EDIBLE);
-		}
+		builder.add(RegisterProperties.TERMITE_EDIBLE);
 	}
 
 	@ModifyReturnValue(method = "getStateForPlacement", at = @At("RETURN"))
