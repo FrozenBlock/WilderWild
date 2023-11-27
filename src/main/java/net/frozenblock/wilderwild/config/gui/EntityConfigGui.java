@@ -284,7 +284,7 @@ public final class EntityConfigGui {
 					.setSaveConsumer(newValue -> warden.wardenSwimAnimation = newValue)
 					.setTooltip(tooltip("warden_swim_animation")),
 				warden.getClass(),
-				"wardenSwimAnimtion",
+				"wardenSwimAnimation",
 				configInstance
 			)
 			.build();

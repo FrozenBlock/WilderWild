@@ -87,7 +87,7 @@ public final class EntityConfig {
 		public boolean angerLoopSound = true;
 
 		@UnsyncableEntry
-		@FieldIdentifier(identifier = "movingStateSound")
+		@FieldIdentifier(identifier = "movingStareSound")
 		public boolean movingStareSound = true;
 	}
 
