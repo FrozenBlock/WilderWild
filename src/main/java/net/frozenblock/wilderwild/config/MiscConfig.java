@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.config;
 
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
+import net.frozenblock.lib.config.api.annotation.FieldIdentifier;
 import net.frozenblock.lib.config.api.annotation.UnsyncableEntry;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
@@ -40,6 +41,7 @@ public final class MiscConfig {
 		)
 	);
 
+	@FieldIdentifier(identifier = "modifyAdvancements")
 	public boolean modifyAdvancements = true;
 
 	@UnsyncableEntry
@@ -62,6 +64,10 @@ public final class MiscConfig {
 		if (real)
 			return INSTANCE.instance();
 		return INSTANCE.config();
+	}
+
+	public static MiscConfig getWithSync() {
+		return INSTANCE.configWithSync();
 	}
 
 	public double getParticleWindIntensity() {

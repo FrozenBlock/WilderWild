@@ -39,7 +39,7 @@ public final class ItemConfigGui {
 	public static void setupEntries(@NotNull ConfigCategory category, @NotNull ConfigEntryBuilder entryBuilder) {
 		var config = ItemConfig.get(true);
 		Class<? extends ItemConfig> clazz = config.getClass();
-		Config<?> configInstance = ItemConfig.INSTANCE;
+		Config<? extends ItemConfig> configInstance = ItemConfig.INSTANCE;
 		var modifiedConfig = ItemConfig.getWithSync();
 		var defaultConfig = ItemConfig.INSTANCE.defaultInstance();
 		var ancientHorn = config.ancientHorn;
