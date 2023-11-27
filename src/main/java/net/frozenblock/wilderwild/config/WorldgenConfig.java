@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.config;
 
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
+import net.frozenblock.lib.config.api.annotation.FieldIdentifier;
 import net.frozenblock.lib.config.api.annotation.UnsyncableEntry;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
@@ -49,38 +50,56 @@ public final class WorldgenConfig {
 	@CollapsibleObject
 	public final WaterColors waterColors = new WaterColors();
 
+	@FieldIdentifier(identifier = "betaBeaches")
 	public boolean betaBeaches = true;
 
+	@FieldIdentifier(identifier = "dyingTrees")
 	public boolean dyingTrees = true;
 
+	@FieldIdentifier(identifier = "fallenLogs")
 	public boolean fallenLogs = true;
 
+
+	@FieldIdentifier(identifier = "snappedLogs")
 	public boolean snappedLogs = true;
 
+	@FieldIdentifier(identifier = "wilderWildTreeGen")
 	public boolean wilderWildTreeGen = true;
 
+	@FieldIdentifier(identifier = "wilderWildGrassGen")
 	public boolean wilderWildGrassGen = true;
 
+	@FieldIdentifier(identifier = "wilderWildFlowerGen")
 	public boolean wilderWildFlowerGen = true;
 
+	@FieldIdentifier(identifier = "wilderWildBushGen")
 	public boolean wilderWildBushGen = true;
 
+	@FieldIdentifier(identifier = "wilderWildCactusGen")
 	public boolean wilderWildCactusGen = true;
 
+	@FieldIdentifier(identifier = "wilderWildMushroomGen")
 	public boolean wilderWildMushroomGen = true;
 
+	@FieldIdentifier(identifier = "tumbleweed")
 	public boolean tumbleweed = true;
 
+	@FieldIdentifier(identifier = "algae")
 	public boolean algae = true;
 
+	@FieldIdentifier(identifier = "termiteGen")
 	public boolean termiteGen = true;
 
+	@FieldIdentifier(identifier = "surfaceDecoration")
 	public boolean surfaceDecoration = true;
 
+	@FieldIdentifier(identifier = "snowBelowTrees")
 	public boolean snowBelowTrees = true;
 
+	@FieldIdentifier(identifier = "surfaceTransitions")
 	public boolean surfaceTransitions = true;
 
+	@FieldIdentifier(identifier = "newWitchHuts")
 	public boolean newWitchHuts = true;
 
 	public static WorldgenConfig get() {
@@ -94,60 +113,87 @@ public final class WorldgenConfig {
 	}
 
 	public static class BiomePlacement {
+		@FieldIdentifier(identifier = "modifyWindsweptSavannaPlacement")
 		public boolean modifyWindsweptSavannaPlacement = true;
 
+		@FieldIdentifier(identifier = "modifyJunglePlacement")
 		public boolean modifyJunglePlacement = true;
 
+		@FieldIdentifier(identifier = "modifySwampPlacement")
 		public boolean modifySwampPlacement = true;
 
+		@FieldIdentifier(identifier = "modifyMangroveSwampPlacement")
 		public boolean modifyMangroveSwampPlacement = true;
 
+		@FieldIdentifier(identifier = "modifyCherryGrovePlacement")
 		public boolean modifyCherryGrovePlacement = true;
 
+		@FieldIdentifier(identifier = "modifyStonyShorePlacement")
 		public boolean modifyStonyShorePlacement = true;
 	}
 
 	public static class BiomeGeneration {
+		@FieldIdentifier(identifier = "generateCypressWetlands")
 		public boolean generateCypressWetlands = true;
 
+		@FieldIdentifier(identifier = "generateJellyfishCaves")
 		public boolean generateJellyfishCaves = true;
 
+		@FieldIdentifier(identifier = "generateMixedForest")
 		public boolean generateMixedForest = true;
 
+		@FieldIdentifier(identifier = "generateOasis")
 		public boolean generateOasis = true;
 
+		@FieldIdentifier(identifier = "generateWarmRiver")
 		public boolean generateWarmRiver = true;
 
+		@FieldIdentifier(identifier = "generateWarmBeach")
 		public boolean generateWarmBeach = true;
 
+		@FieldIdentifier(identifier = "generateBirchTaiga")
 		public boolean generateBirchTaiga = true;
 
+		@FieldIdentifier(identifier = "generateOldGrowthBirchTaiga")
 		public boolean generateOldGrowthBirchTaiga = true;
 
+		@FieldIdentifier(identifier = "generateFlowerField")
 		public boolean generateFlowerField = true;
 
+		@FieldIdentifier(identifier = "generateAridSavanna")
 		public boolean generateAridSavanna = true;
 
+		@FieldIdentifier(identifier = "generateParchedForest")
 		public boolean generateParchedForest = true;
 
+		@FieldIdentifier(identifier = "generateAridForest")
 		public boolean generateAridForest = true;
 
+		@FieldIdentifier(identifier = "generateOldGrowthSnowyTaiga")
 		public boolean generateOldGrowthSnowyTaiga = true;
 
+		@FieldIdentifier(identifier = "generateBirchJungle")
 		public boolean generateBirchJungle = true;
 
+		@FieldIdentifier(identifier = "generateSparseBirchJungle")
 		public boolean generateSparseBirchJungle = true;
 
+		@FieldIdentifier(identifier = "generateOldGrowthDarkForest")
 		public boolean generateOldGrowthDarkForest = true;
 
+		@FieldIdentifier(identifier = "generateDarkBirchForest")
 		public boolean generateDarkBirchForest = true;
 
+		@FieldIdentifier(identifier = "generateSemiBirchForest")
 		public boolean generateSemiBirchForest = true;
 
+		@FieldIdentifier(identifier = "generateTemperateRainforest")
 		public boolean generateTemperateRainforest = true;
 
+		@FieldIdentifier(identifier = "generateRainforest")
 		public boolean generateRainforest = true;
 
+		@FieldIdentifier(identifier = "generateDarkTaiga")
 		public boolean generateDarkTaiga = true;
 	}
 
