@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.config.gui;
 
-import java.util.function.Supplier;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
@@ -40,7 +39,7 @@ public final class BlockConfigGui {
 	public static void setupEntries(@NotNull ConfigCategory category, @NotNull ConfigEntryBuilder entryBuilder) {
 		var config = BlockConfig.get(true);
 		Class<? extends BlockConfig> clazz = config.getClass();
-		Supplier<Config<?>> configSupplier = () -> BlockConfig.INSTANCE;
+		Config<?> configInstance = BlockConfig.INSTANCE;
 		var defaultConfig = BlockConfig.INSTANCE.defaultInstance();
 		var blockSounds = config.blockSounds;
 		var stoneChest = config.stoneChest;
@@ -54,7 +53,7 @@ public final class BlockConfigGui {
 						.setTooltip(tooltip("shrieker_gargling")),
 					clazz,
 					"shriekerGargling",
-					configSupplier
+					configInstance
 				)
 				.build()
 		);
@@ -66,7 +65,7 @@ public final class BlockConfigGui {
 						.setTooltip(tooltip("soul_fire_sounds")),
 					clazz,
 					"soulFireSounds",
-					configSupplier
+					configInstance
 				)
 				.build()
 		);
@@ -78,7 +77,7 @@ public final class BlockConfigGui {
 						.setTooltip(tooltip("billboard_tendrils")),
 					clazz,
 					"billboardTendrils",
-					configSupplier
+					configInstance
 				)
 				.build()
 		);
@@ -90,7 +89,7 @@ public final class BlockConfigGui {
 						.setTooltip(tooltip("tendrils_carry_events")),
 					clazz,
 					"tendrilsCarryEvents",
-					configSupplier
+					configInstance
 				)
 				.build()
 		);
@@ -102,7 +101,7 @@ public final class BlockConfigGui {
 						.setTooltip(tooltip("pollen_particles")),
 					clazz,
 					"pollenParticles",
-					configSupplier
+					configInstance
 				)
 				.build()
 		);
@@ -114,7 +113,7 @@ public final class BlockConfigGui {
 						.setTooltip(tooltip("log_hollowing")),
 					clazz,
 					"logHollowing",
-					configSupplier
+					configInstance
 				)
 				.build()
 		);
@@ -126,7 +125,7 @@ public final class BlockConfigGui {
 						.setTooltip(tooltip("cactus_placement")),
 					clazz,
 					"cactusPlacement",
-					configSupplier
+					configInstance
 				)
 				.build()
 		);
@@ -138,7 +137,7 @@ public final class BlockConfigGui {
 						.setTooltip(tooltip("frosted_ice_cracking")),
 					clazz,
 					"frostedIceCracking",
-					configSupplier
+					configInstance
 				)
 				.build()
 		);
@@ -151,7 +150,7 @@ public final class BlockConfigGui {
 						.requireRestart(),
 					clazz,
 					"dripleafPowering",
-					configSupplier
+					configInstance
 				)
 				.build()
 		);
@@ -280,7 +279,7 @@ public final class BlockConfigGui {
 					.setTooltip(tooltip("mesoglea_liquid")),
 				config.mesoglea.getClass(),
 				"mesogleaLiquid",
-				configSupplier
+				configInstance
 			)
 			.build();
 
@@ -291,7 +290,7 @@ public final class BlockConfigGui {
 					.setTooltip(tooltip("mesoglea_bubble_columns")),
 				config.mesoglea.getClass(),
 				"mesogleaBubbleColumns",
-				configSupplier
+				configInstance
 			)
 			.build();
 
@@ -309,7 +308,7 @@ public final class BlockConfigGui {
 					.requireRestart(),
 				termite.getClass(),
 				"onlyEatNaturalBlocks",
-				configSupplier
+				configInstance
 			)
 			.build();
 
@@ -320,7 +319,7 @@ public final class BlockConfigGui {
 					.setTooltip(tooltip("max_termite_distance")),
 				termite.getClass(),
 				"maxDistance",
-				configSupplier
+				configInstance
 			)
 			.build();
 
@@ -331,7 +330,7 @@ public final class BlockConfigGui {
 					.setTooltip(tooltip("max_natural_termite_distance")),
 				termite.getClass(),
 				"maxNaturalDistance",
-				configSupplier
+				configInstance
 			)
 			.build();
 
@@ -348,7 +347,7 @@ public final class BlockConfigGui {
 					.setTooltip(tooltip("stone_chest_timer")),
 				stoneChest.getClass(),
 				"stoneChestTimer",
-				configSupplier
+				configInstance
 			)
 			.build();
 
