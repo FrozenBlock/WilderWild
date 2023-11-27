@@ -190,7 +190,7 @@ public final class ItemConfigGui {
 						.setSaveConsumer(newValue -> config.restrictInstrumentSound = newValue)
 						.setTooltip(tooltip("restrict_instrument_sound")),
 					clazz,
-					"restricInstrumentSound",
+					"restrictInstrumentSound",
 					configInstance
 				)
 				.build()
