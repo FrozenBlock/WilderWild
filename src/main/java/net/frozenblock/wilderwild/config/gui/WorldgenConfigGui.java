@@ -38,18 +38,21 @@ public final class WorldgenConfigGui {
 
 	public static void setupEntries(@NotNull ConfigCategory category, @NotNull ConfigEntryBuilder entryBuilder) {
 		var config = WorldgenConfig.get(true);
+		var modifiedConfig = WorldgenConfig.getWithSync();
 		Class<? extends WorldgenConfig> clazz = config.getClass();
 		Config<? extends WorldgenConfig> configInstance = WorldgenConfig.INSTANCE;
 
 		var defaultConfig = WorldgenConfig.INSTANCE.defaultInstance();
 		var biomePlacement = config.biomePlacement;
+		var modifiedBiomePlacement = modifiedConfig.biomePlacement;
 		var biomes = config.biomeGeneration;
+		var modifiedBiomes = modifiedConfig.biomeGeneration;
 		var waterColors = config.waterColors;
 		category.setBackground(WilderSharedConstants.id("textures/config/worldgen.png"));
 
 		var betaBeaches = category.addEntry(
 			FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("beta_beaches"), config.betaBeaches)
+					entryBuilder.startBooleanToggle(text("beta_beaches"), modifiedConfig.betaBeaches)
 						.setDefaultValue(defaultConfig.betaBeaches)
 						.setSaveConsumer(newValue -> config.betaBeaches = newValue)
 						.setTooltip(tooltip("beta_beaches")),
@@ -61,7 +64,7 @@ public final class WorldgenConfigGui {
 		);
 
 		var cypressWetlands = FrozenClothConfig.syncedBuilder(
-			entryBuilder.startBooleanToggle(text("generate_cypress_wetlands"), biomes.generateCypressWetlands)
+			entryBuilder.startBooleanToggle(text("generate_cypress_wetlands"), modifiedBiomes.generateCypressWetlands)
 				.setDefaultValue(defaultConfig.biomeGeneration.generateCypressWetlands)
 				.setSaveConsumer(newValue -> biomes.generateCypressWetlands = newValue)
 				.setTooltip(tooltip("generate_cypress_wetlands"))
@@ -71,7 +74,7 @@ public final class WorldgenConfigGui {
 			configInstance
 		).build();
 		var jellyfishCaves = FrozenClothConfig.syncedBuilder(
-			entryBuilder.startBooleanToggle(text("generate_jellyfish_caves"), biomes.generateJellyfishCaves)
+			entryBuilder.startBooleanToggle(text("generate_jellyfish_caves"), modifiedBiomes.generateJellyfishCaves)
 				.setDefaultValue(defaultConfig.biomeGeneration.generateJellyfishCaves)
 				.setSaveConsumer(newValue -> biomes.generateJellyfishCaves = newValue)
 				.setTooltip(tooltip("generate_jellyfish_caves"))
@@ -81,7 +84,7 @@ public final class WorldgenConfigGui {
 			configInstance
 		).build();
 		var mixedForest = FrozenClothConfig.syncedBuilder(
-			entryBuilder.startBooleanToggle(text("generate_mixed_forest"), biomes.generateMixedForest)
+			entryBuilder.startBooleanToggle(text("generate_mixed_forest"), modifiedBiomes.generateMixedForest)
 				.setDefaultValue(defaultConfig.biomeGeneration.generateMixedForest)
 				.setSaveConsumer(newValue -> biomes.generateMixedForest = newValue)
 				.setTooltip(tooltip("generate_mixed_forest"))
@@ -91,7 +94,7 @@ public final class WorldgenConfigGui {
 			configInstance
 		).build();
 		var oasis = FrozenClothConfig.syncedBuilder(
-			entryBuilder.startBooleanToggle(text("generate_oasis"), biomes.generateOasis)
+			entryBuilder.startBooleanToggle(text("generate_oasis"), modifiedBiomes.generateOasis)
 				.setDefaultValue(defaultConfig.biomeGeneration.generateOasis)
 				.setSaveConsumer(newValue -> biomes.generateOasis = newValue)
 				.setTooltip(tooltip("generate_oasis"))
@@ -101,7 +104,7 @@ public final class WorldgenConfigGui {
 			configInstance
 		).build();
 		var warmRiver = FrozenClothConfig.syncedBuilder(
-			entryBuilder.startBooleanToggle(text("generate_warm_river"), biomes.generateWarmRiver)
+			entryBuilder.startBooleanToggle(text("generate_warm_river"), modifiedBiomes.generateWarmRiver)
 				.setDefaultValue(defaultConfig.biomeGeneration.generateWarmRiver)
 				.setSaveConsumer(newValue -> biomes.generateWarmRiver = newValue)
 				.setTooltip(tooltip("generate_warm_river"))
@@ -111,7 +114,7 @@ public final class WorldgenConfigGui {
 			configInstance
 		).build();
 		var warmBeach = FrozenClothConfig.syncedBuilder(
-			entryBuilder.startBooleanToggle(text("generate_warm_beach"), biomes.generateWarmBeach)
+			entryBuilder.startBooleanToggle(text("generate_warm_beach"), modifiedBiomes.generateWarmBeach)
 				.setDefaultValue(defaultConfig.biomeGeneration.generateWarmBeach)
 				.setSaveConsumer(newValue -> biomes.generateWarmBeach = newValue)
 				.setTooltip(tooltip("generate_warm_beach"))
@@ -121,7 +124,7 @@ public final class WorldgenConfigGui {
 			configInstance
 		).build();
 		var birchTaiga = FrozenClothConfig.syncedBuilder(
-			entryBuilder.startBooleanToggle(text("generate_birch_taiga"), biomes.generateBirchTaiga)
+			entryBuilder.startBooleanToggle(text("generate_birch_taiga"), modifiedBiomes.generateBirchTaiga)
 				.setDefaultValue(defaultConfig.biomeGeneration.generateBirchTaiga)
 				.setSaveConsumer(newValue -> biomes.generateBirchTaiga = newValue)
 				.setTooltip(tooltip("generate_birch_taiga"))
@@ -131,7 +134,7 @@ public final class WorldgenConfigGui {
 			configInstance
 		).build();
 		var oldGrowthBirchTaiga = FrozenClothConfig.syncedBuilder(
-			entryBuilder.startBooleanToggle(text("generate_old_growth_birch_taiga"), biomes.generateOldGrowthBirchTaiga)
+			entryBuilder.startBooleanToggle(text("generate_old_growth_birch_taiga"), modifiedBiomes.generateOldGrowthBirchTaiga)
 				.setDefaultValue(defaultConfig.biomeGeneration.generateOldGrowthBirchTaiga)
 				.setSaveConsumer(newValue -> biomes.generateOldGrowthBirchTaiga = newValue)
 				.setTooltip(tooltip("generate_old_growth_birch_taiga"))
@@ -141,7 +144,7 @@ public final class WorldgenConfigGui {
 			configInstance
 		).build();
 		var flowerField = FrozenClothConfig.syncedBuilder(
-			entryBuilder.startBooleanToggle(text("generate_flower_field"), biomes.generateFlowerField)
+			entryBuilder.startBooleanToggle(text("generate_flower_field"), modifiedBiomes.generateFlowerField)
 				.setDefaultValue(defaultConfig.biomeGeneration.generateFlowerField)
 				.setSaveConsumer(newValue -> biomes.generateFlowerField = newValue)
 				.setTooltip(tooltip("generate_flower_field"))
@@ -151,7 +154,7 @@ public final class WorldgenConfigGui {
 			configInstance
 		).build();
 		var aridSavanna = FrozenClothConfig.syncedBuilder(
-			entryBuilder.startBooleanToggle(text("generate_arid_savanna"), biomes.generateAridSavanna)
+			entryBuilder.startBooleanToggle(text("generate_arid_savanna"), modifiedBiomes.generateAridSavanna)
 				.setDefaultValue(defaultConfig.biomeGeneration.generateAridSavanna)
 				.setSaveConsumer(newValue -> biomes.generateAridSavanna = newValue)
 				.setTooltip(tooltip("generate_arid_savanna"))
@@ -161,7 +164,7 @@ public final class WorldgenConfigGui {
 			configInstance
 		).build();
 		var parchedForest = FrozenClothConfig.syncedBuilder(
-			entryBuilder.startBooleanToggle(text("generate_parched_forest"), biomes.generateParchedForest)
+			entryBuilder.startBooleanToggle(text("generate_parched_forest"), modifiedBiomes.generateParchedForest)
 				.setDefaultValue(defaultConfig.biomeGeneration.generateParchedForest)
 				.setSaveConsumer(newValue -> biomes.generateParchedForest = newValue)
 				.setTooltip(tooltip("generate_parched_forest"))
@@ -171,7 +174,7 @@ public final class WorldgenConfigGui {
 			configInstance
 		).build();
 		var aridForest = FrozenClothConfig.syncedBuilder(
-			entryBuilder.startBooleanToggle(text("generate_arid_forest"), biomes.generateAridForest)
+			entryBuilder.startBooleanToggle(text("generate_arid_forest"), modifiedBiomes.generateAridForest)
 				.setDefaultValue(defaultConfig.biomeGeneration.generateAridForest)
 				.setSaveConsumer(newValue -> biomes.generateAridForest = newValue)
 				.setTooltip(tooltip("generate_arid_forest"))
@@ -181,7 +184,7 @@ public final class WorldgenConfigGui {
 			configInstance
 		).build();
 		var oldGrowthSnowyTaiga = FrozenClothConfig.syncedBuilder(
-			entryBuilder.startBooleanToggle(text("generate_snowy_old_growth_pine_taiga"), biomes.generateOldGrowthSnowyTaiga)
+			entryBuilder.startBooleanToggle(text("generate_snowy_old_growth_pine_taiga"), modifiedBiomes.generateOldGrowthSnowyTaiga)
 				.setDefaultValue(defaultConfig.biomeGeneration.generateOldGrowthSnowyTaiga)
 				.setSaveConsumer(newValue -> biomes.generateOldGrowthSnowyTaiga = newValue)
 				.setTooltip(tooltip("generate_snowy_old_growth_pine_taiga"))
@@ -191,7 +194,7 @@ public final class WorldgenConfigGui {
 			configInstance
 		).build();
 		var birchJungle = FrozenClothConfig.syncedBuilder(
-			entryBuilder.startBooleanToggle(text("generate_birch_jungle"), biomes.generateBirchJungle)
+			entryBuilder.startBooleanToggle(text("generate_birch_jungle"), modifiedBiomes.generateBirchJungle)
 				.setDefaultValue(defaultConfig.biomeGeneration.generateBirchJungle)
 				.setSaveConsumer(newValue -> biomes.generateBirchJungle = newValue)
 				.setTooltip(tooltip("generate_birch_jungle"))
@@ -201,7 +204,7 @@ public final class WorldgenConfigGui {
 			configInstance
 		).build();
 		var sparseBirchJungle = FrozenClothConfig.syncedBuilder(
-			entryBuilder.startBooleanToggle(text("generate_sparse_birch_jungle"), biomes.generateSparseBirchJungle)
+			entryBuilder.startBooleanToggle(text("generate_sparse_birch_jungle"), modifiedBiomes.generateSparseBirchJungle)
 				.setDefaultValue(defaultConfig.biomeGeneration.generateSparseBirchJungle)
 				.setSaveConsumer(newValue -> biomes.generateSparseBirchJungle = newValue)
 				.setTooltip(tooltip("generate_sparse_birch_jungle"))
@@ -211,7 +214,7 @@ public final class WorldgenConfigGui {
 			configInstance
 		).build();
 		var oldGrowthDarkForest = FrozenClothConfig.syncedBuilder(
-			entryBuilder.startBooleanToggle(text("generate_old_growth_dark_forest"), biomes.generateOldGrowthDarkForest)
+			entryBuilder.startBooleanToggle(text("generate_old_growth_dark_forest"), modifiedBiomes.generateOldGrowthDarkForest)
 				.setDefaultValue(defaultConfig.biomeGeneration.generateOldGrowthDarkForest)
 				.setSaveConsumer(newValue -> biomes.generateOldGrowthDarkForest = newValue)
 				.setTooltip(tooltip("generate_old_growth_dark_forest"))
@@ -221,7 +224,7 @@ public final class WorldgenConfigGui {
 			configInstance
 		).build();
 		var darkBirchForest = FrozenClothConfig.syncedBuilder(
-			entryBuilder.startBooleanToggle(text("generate_dark_birch_forest"), biomes.generateDarkBirchForest)
+			entryBuilder.startBooleanToggle(text("generate_dark_birch_forest"), modifiedBiomes.generateDarkBirchForest)
 				.setDefaultValue(defaultConfig.biomeGeneration.generateDarkBirchForest)
 				.setSaveConsumer(newValue -> biomes.generateDarkBirchForest = newValue)
 				.setTooltip(tooltip("generate_dark_birch_forest"))
@@ -231,7 +234,7 @@ public final class WorldgenConfigGui {
 			configInstance
 		).build();
 		var semiBirchForest = FrozenClothConfig.syncedBuilder(
-			entryBuilder.startBooleanToggle(text("generate_semi_birch_forest"), biomes.generateSemiBirchForest)
+			entryBuilder.startBooleanToggle(text("generate_semi_birch_forest"), modifiedBiomes.generateSemiBirchForest)
 				.setDefaultValue(defaultConfig.biomeGeneration.generateSemiBirchForest)
 				.setSaveConsumer(newValue -> biomes.generateSemiBirchForest = newValue)
 				.setTooltip(tooltip("generate_semi_birch_forest"))
@@ -241,7 +244,7 @@ public final class WorldgenConfigGui {
 			configInstance
 		).build();
 		var temperateRainforest = FrozenClothConfig.syncedBuilder(
-			entryBuilder.startBooleanToggle(text("generate_temperate_rainforest"), biomes.generateTemperateRainforest)
+			entryBuilder.startBooleanToggle(text("generate_temperate_rainforest"), modifiedBiomes.generateTemperateRainforest)
 				.setDefaultValue(defaultConfig.biomeGeneration.generateTemperateRainforest)
 				.setSaveConsumer(newValue -> biomes.generateTemperateRainforest = newValue)
 				.setTooltip(tooltip("generate_temperate_rainforest"))
@@ -251,7 +254,7 @@ public final class WorldgenConfigGui {
 			configInstance
 		).build();
 		var rainforest = FrozenClothConfig.syncedBuilder(
-			entryBuilder.startBooleanToggle(text("generate_rainforest"), biomes.generateRainforest)
+			entryBuilder.startBooleanToggle(text("generate_rainforest"), modifiedBiomes.generateRainforest)
 				.setDefaultValue(defaultConfig.biomeGeneration.generateRainforest)
 				.setSaveConsumer(newValue -> biomes.generateRainforest = newValue)
 				.setTooltip(tooltip("generate_rainforest"))
@@ -261,7 +264,7 @@ public final class WorldgenConfigGui {
 			configInstance
 		).build();
 		var darkTaiga = FrozenClothConfig.syncedBuilder(
-			entryBuilder.startBooleanToggle(text("generate_dark_taiga"), biomes.generateDarkTaiga)
+			entryBuilder.startBooleanToggle(text("generate_dark_taiga"), modifiedBiomes.generateDarkTaiga)
 				.setDefaultValue(defaultConfig.biomeGeneration.generateDarkTaiga)
 				.setSaveConsumer(newValue -> biomes.generateDarkTaiga = newValue)
 				.setTooltip(tooltip("generate_dark_taiga"))
@@ -280,7 +283,7 @@ public final class WorldgenConfigGui {
 		);
 
 		var cherryGrove = FrozenClothConfig.syncedBuilder(
-			entryBuilder.startBooleanToggle(text("modify_cherry_grove_placement"), biomePlacement.modifyCherryGrovePlacement)
+			entryBuilder.startBooleanToggle(text("modify_cherry_grove_placement"), modifiedBiomePlacement.modifyCherryGrovePlacement)
 				.setDefaultValue(defaultConfig.biomePlacement.modifyCherryGrovePlacement)
 				.setSaveConsumer(newValue -> biomePlacement.modifyCherryGrovePlacement = newValue)
 				.setYesNoTextSupplier(bool -> text("biome_placement." + bool))
@@ -291,7 +294,7 @@ public final class WorldgenConfigGui {
 			configInstance
 		).build();
 		var jungle = FrozenClothConfig.syncedBuilder(
-			entryBuilder.startBooleanToggle(text("modify_jungle_placement"), biomePlacement.modifyJunglePlacement)
+			entryBuilder.startBooleanToggle(text("modify_jungle_placement"), modifiedBiomePlacement.modifyJunglePlacement)
 				.setDefaultValue(defaultConfig.biomePlacement.modifyJunglePlacement)
 				.setSaveConsumer(newValue -> biomePlacement.modifyJunglePlacement = newValue)
 				.setYesNoTextSupplier(bool -> text("biome_placement." + bool))
@@ -302,7 +305,7 @@ public final class WorldgenConfigGui {
 			configInstance
 		).build();
 		var mangroveSwamp = FrozenClothConfig.syncedBuilder(
-			entryBuilder.startBooleanToggle(text("modify_mangrove_swamp_placement"), biomePlacement.modifyMangroveSwampPlacement)
+			entryBuilder.startBooleanToggle(text("modify_mangrove_swamp_placement"), modifiedBiomePlacement.modifyMangroveSwampPlacement)
 				.setDefaultValue(defaultConfig.biomePlacement.modifyMangroveSwampPlacement)
 				.setSaveConsumer(newValue -> biomePlacement.modifyMangroveSwampPlacement = newValue)
 				.setYesNoTextSupplier(bool -> text("biome_placement." + bool))
@@ -313,7 +316,7 @@ public final class WorldgenConfigGui {
 			configInstance
 		).build();
 		var stonyShore = FrozenClothConfig.syncedBuilder(
-			entryBuilder.startBooleanToggle(text("modify_stony_shore_placement"), biomePlacement.modifyStonyShorePlacement)
+			entryBuilder.startBooleanToggle(text("modify_stony_shore_placement"), modifiedBiomePlacement.modifyStonyShorePlacement)
 				.setDefaultValue(defaultConfig.biomePlacement.modifyStonyShorePlacement)
 				.setSaveConsumer(newValue -> biomePlacement.modifyStonyShorePlacement = newValue)
 				.setYesNoTextSupplier(bool -> text("biome_placement." + bool))
@@ -324,7 +327,7 @@ public final class WorldgenConfigGui {
 			configInstance
 		).build();
 		var swamp = FrozenClothConfig.syncedBuilder(
-			entryBuilder.startBooleanToggle(text("modify_swamp_placement"), biomePlacement.modifySwampPlacement)
+			entryBuilder.startBooleanToggle(text("modify_swamp_placement"), modifiedBiomePlacement.modifySwampPlacement)
 				.setDefaultValue(defaultConfig.biomePlacement.modifySwampPlacement)
 				.setSaveConsumer(newValue -> biomePlacement.modifySwampPlacement = newValue)
 				.setYesNoTextSupplier(bool -> text("biome_placement." + bool))
@@ -335,7 +338,7 @@ public final class WorldgenConfigGui {
 			configInstance
 		).build();
 		var windsweptSavanna = FrozenClothConfig.syncedBuilder(
-			entryBuilder.startBooleanToggle(text("modify_windswept_savanna_placement"), biomePlacement.modifyWindsweptSavannaPlacement)
+			entryBuilder.startBooleanToggle(text("modify_windswept_savanna_placement"), modifiedBiomePlacement.modifyWindsweptSavannaPlacement)
 				.setDefaultValue(defaultConfig.biomePlacement.modifyWindsweptSavannaPlacement)
 				.setSaveConsumer(newValue -> biomePlacement.modifyWindsweptSavannaPlacement = newValue)
 				.setYesNoTextSupplier(bool -> text("biome_placement." + bool))
@@ -389,7 +392,7 @@ public final class WorldgenConfigGui {
 
 		var fallenLogs = category.addEntry(
 			FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("fallen_logs"), config.fallenLogs)
+					entryBuilder.startBooleanToggle(text("fallen_logs"), modifiedConfig.fallenLogs)
 						.setDefaultValue(defaultConfig.fallenLogs)
 						.setSaveConsumer(newValue -> config.fallenLogs = newValue)
 						.setTooltip(tooltip("fallen_logs"))
@@ -401,7 +404,7 @@ public final class WorldgenConfigGui {
 				.build()
 		);
 		var snappedLogs = category.addEntry(FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("snapped_logs"), config.snappedLogs)
+					entryBuilder.startBooleanToggle(text("snapped_logs"), modifiedConfig.snappedLogs)
 						.setDefaultValue(defaultConfig.snappedLogs)
 						.setSaveConsumer(newValue -> config.snappedLogs = newValue)
 						.setTooltip(tooltip("snapped_logs"))
@@ -414,7 +417,7 @@ public final class WorldgenConfigGui {
 		);
 		var wilderWildGrass = category.addEntry(
 			FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("wilder_wild_grass"), config.wilderWildGrassGen)
+					entryBuilder.startBooleanToggle(text("wilder_wild_grass"), modifiedConfig.wilderWildGrassGen)
 						.setDefaultValue(defaultConfig.wilderWildGrassGen)
 						.setSaveConsumer(newValue -> config.wilderWildGrassGen = newValue)
 						.setTooltip(tooltip("wilder_wild_grass"))
@@ -427,7 +430,7 @@ public final class WorldgenConfigGui {
 		);
 		var wilderWildFlowers = category.addEntry(
 			FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("wilder_wild_flowers"), config.wilderWildFlowerGen)
+					entryBuilder.startBooleanToggle(text("wilder_wild_flowers"), modifiedConfig.wilderWildFlowerGen)
 						.setDefaultValue(defaultConfig.wilderWildFlowerGen)
 						.setSaveConsumer(newValue -> config.wilderWildFlowerGen = newValue)
 						.setTooltip(tooltip("wilder_wild_flowers"))
@@ -440,7 +443,7 @@ public final class WorldgenConfigGui {
 		);
 		var wilderWildTrees = category.addEntry(
 			FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("wilder_wild_trees"), config.wilderWildTreeGen)
+					entryBuilder.startBooleanToggle(text("wilder_wild_trees"), modifiedConfig.wilderWildTreeGen)
 						.setDefaultValue(defaultConfig.wilderWildTreeGen)
 						.setSaveConsumer(newValue -> config.wilderWildTreeGen = newValue)
 						.setTooltip(tooltip("wilder_wild_trees"))
@@ -453,7 +456,7 @@ public final class WorldgenConfigGui {
 		);
 		var wilderWildBushes = category.addEntry(
 			FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("wilder_wild_bushes"), config.wilderWildBushGen)
+					entryBuilder.startBooleanToggle(text("wilder_wild_bushes"), modifiedConfig.wilderWildBushGen)
 						.setDefaultValue(defaultConfig.wilderWildBushGen)
 						.setSaveConsumer(newValue -> config.wilderWildBushGen = newValue)
 						.setTooltip(tooltip("wilder_wild_bushes"))
@@ -466,7 +469,7 @@ public final class WorldgenConfigGui {
 		);
 		var wilderWildCacti = category.addEntry(
 			FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("wilder_wild_cacti"), config.wilderWildCactusGen)
+					entryBuilder.startBooleanToggle(text("wilder_wild_cacti"), modifiedConfig.wilderWildCactusGen)
 						.setDefaultValue(defaultConfig.wilderWildCactusGen)
 						.setSaveConsumer(newValue -> config.wilderWildCactusGen = newValue)
 						.setTooltip(tooltip("wilder_wild_cacti"))
@@ -479,7 +482,7 @@ public final class WorldgenConfigGui {
 		);
 		var wilderWildMushrooms = category.addEntry(
 			FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("wilder_wild_mushrooms"), config.wilderWildMushroomGen)
+					entryBuilder.startBooleanToggle(text("wilder_wild_mushrooms"), modifiedConfig.wilderWildMushroomGen)
 						.setDefaultValue(defaultConfig.wilderWildMushroomGen)
 						.setSaveConsumer(newValue -> config.wilderWildMushroomGen = newValue)
 						.setTooltip(tooltip("wilder_wild_mushrooms"))
@@ -492,7 +495,7 @@ public final class WorldgenConfigGui {
 		);
 		var tumbleweed = category.addEntry(
 			FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("tumbleweed_gen"), config.tumbleweed)
+					entryBuilder.startBooleanToggle(text("tumbleweed_gen"), modifiedConfig.tumbleweed)
 						.setDefaultValue(defaultConfig.tumbleweed)
 						.setSaveConsumer(newValue -> config.tumbleweed = newValue)
 						.setTooltip(tooltip("tumbleweed_gen"))
@@ -505,7 +508,7 @@ public final class WorldgenConfigGui {
 		);
 		var algae = category.addEntry(
 			FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("algae_gen"), config.algae)
+					entryBuilder.startBooleanToggle(text("algae_gen"), modifiedConfig.algae)
 						.setDefaultValue(defaultConfig.algae)
 						.setSaveConsumer(newValue -> config.algae = newValue)
 						.setTooltip(tooltip("algae_gen"))
@@ -518,7 +521,7 @@ public final class WorldgenConfigGui {
 		);
 		var termite = category.addEntry(
 			FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("termite_gen"), config.termiteGen)
+					entryBuilder.startBooleanToggle(text("termite_gen"), modifiedConfig.termiteGen)
 						.setDefaultValue(defaultConfig.termiteGen)
 						.setSaveConsumer(newValue -> config.termiteGen = newValue)
 						.setTooltip(tooltip("termite_gen"))
@@ -531,7 +534,7 @@ public final class WorldgenConfigGui {
 		);
 		var surfaceDecoration = category.addEntry(
 			FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("surface_decoration"), config.surfaceDecoration)
+					entryBuilder.startBooleanToggle(text("surface_decoration"), modifiedConfig.surfaceDecoration)
 						.setDefaultValue(defaultConfig.surfaceDecoration)
 						.setSaveConsumer(newValue -> config.surfaceDecoration = newValue)
 						.setTooltip(tooltip("surface_decoration"))
@@ -544,7 +547,7 @@ public final class WorldgenConfigGui {
 		);
 		var snowBelowTrees = category.addEntry(
 			FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("snow_below_trees"), config.snowBelowTrees)
+					entryBuilder.startBooleanToggle(text("snow_below_trees"), modifiedConfig.snowBelowTrees)
 						.setDefaultValue(defaultConfig.snowBelowTrees)
 						.setSaveConsumer(newValue -> config.snowBelowTrees = newValue)
 						.setTooltip(tooltip("snow_below_trees"))
@@ -557,7 +560,7 @@ public final class WorldgenConfigGui {
 		);
 		var surfaceTransitions = category.addEntry(
 			FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("surface_transitions"), config.surfaceTransitions)
+					entryBuilder.startBooleanToggle(text("surface_transitions"), modifiedConfig.surfaceTransitions)
 						.setDefaultValue(defaultConfig.surfaceTransitions)
 						.setSaveConsumer(newValue -> config.surfaceTransitions = newValue)
 						.setTooltip(tooltip("surface_transitions"))
@@ -570,7 +573,7 @@ public final class WorldgenConfigGui {
 		);
 		var newWitchHuts = category.addEntry(
 			FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("new_witch_huts"), config.newWitchHuts)
+					entryBuilder.startBooleanToggle(text("new_witch_huts"), modifiedConfig.newWitchHuts)
 						.setDefaultValue(defaultConfig.newWitchHuts)
 						.setSaveConsumer(newValue -> config.newWitchHuts = newValue)
 						.setTooltip(tooltip("new_witch_huts"))
