@@ -112,6 +112,10 @@ public final class WorldgenConfig {
 		return INSTANCE.config();
 	}
 
+	public static WorldgenConfig getWithSync() {
+		return INSTANCE.configWithSync();
+	}
+
 	public static class BiomePlacement {
 		@FieldIdentifier(identifier = "modifyWindsweptSavannaPlacement")
 		public boolean modifyWindsweptSavannaPlacement = true;
