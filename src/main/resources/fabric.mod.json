@@ -75,11 +75,6 @@
     "terrablender": "*"
   },
   "custom": {
-    "modupdater": {
-      "strategy": "curseforge",
-      "projectID": "648511",
-      "strict": "false"
-    },
     "modmenu": {
       "links": {
         "modmenu.discord": "https://discord.gg/EpkBWm844s"
