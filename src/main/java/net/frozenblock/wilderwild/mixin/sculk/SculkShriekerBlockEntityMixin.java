@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.mixin.sculk;
 
 import net.frozenblock.lib.math.api.AdvancedMath;
+import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.misc.interfaces.SculkShriekerTickInterface;
 import net.frozenblock.wilderwild.networking.WilderNetworking;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
@@ -70,7 +71,7 @@ public abstract class SculkShriekerBlockEntityMixin implements SculkShriekerTick
 		if (shrieker.getBlockState().getValue(RegisterProperties.SOULS_TAKEN) == 2) {
 			info.cancel();
 		} else {
-			if (shrieker.getBlockState().getValue(BlockStateProperties.WATERLOGGED)) {
+			if (BlockConfig.get().shriekerGargling && shrieker.getBlockState().getValue(BlockStateProperties.WATERLOGGED)) {
 				this.wilderWild$bubbles = 50;
 			}
 		}

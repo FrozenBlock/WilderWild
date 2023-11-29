@@ -29,7 +29,7 @@ Bug Fixes & Changes
 - Removed the custom distance detection from Palm Crowns
 - Added Palm Crowns to tags it was missing from
 - Added a translation string for Coconut projectiles
-- Fixed compatibility between Wilder Wild's stripped logs and Create
+- Fixed compatibility between Wilder Wild's Stripped Logs and Create
 
 - Milkweed now plays a sound when rustled
 - Milkweed can now be sheared with a Dispenser
@@ -49,6 +49,7 @@ Bug Fixes & Changes
 
 - Osseous Sculk will now cover their branches in Sculk Veins when its base is converted to Sculk
 - Increased the chances of larger Oseeous Sculk generating during worldgen
+- Sculk Shriekers will now only create Sculk Bubbles underwater if the Shrieker Gargling config is enabled
 - Stone Chests will now interact with Redstone Comparators, outputting a signal based on how high their lid is lifted ([#319](https://github.com/FrozenBlock/WilderWild/issues/319))
 
 - The config will now sync between server and client
