@@ -7,7 +7,7 @@
     "noise": 2,
     "noise_scale": 0.1,
     "only_place_when_exposed": false,
-    "placement_probability": 0.915,
+    "placement_chance": 0.915,
     "radius": 14,
     "replaceable_blocks": "wilderwild:beach_clay_path_replaceable",
     "scale_y": true,

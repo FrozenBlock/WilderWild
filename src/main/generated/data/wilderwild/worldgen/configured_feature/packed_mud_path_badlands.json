@@ -7,7 +7,7 @@
     "noise": 3,
     "noise_scale": 0.7,
     "only_place_when_exposed": false,
-    "placement_probability": 0.9,
+    "placement_chance": 0.9,
     "radius": 4,
     "replaceable_blocks": "wilderwild:packed_mud_path_badlands_replaceable",
     "scale_y": true,

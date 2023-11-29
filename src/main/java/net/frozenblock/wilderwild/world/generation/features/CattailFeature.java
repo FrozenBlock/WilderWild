@@ -70,7 +70,7 @@ public class CattailFeature extends Feature<CattailFeatureConfig> {
 		BlockState topPlaceState = RegisterBlocks.CATTAIL.defaultBlockState().setValue(WaterloggableTallFlowerBlock.HALF, DoubleBlockHalf.UPPER);
 		int placementAttempts = config.placementAttempts().sample(random);
 		boolean waterPlacement = config.onlyPlaceInWater();
-		TagKey<Block> placeableBlocks = config.placeableBlocks();
+		TagKey<Block> placeableBlocks = config.canBePlacedOn();
 		for (int l = 0; l < placementAttempts; l++) {
 			int randomX = config.width().sample(random);
 			int randomZ = config.width().sample(random);

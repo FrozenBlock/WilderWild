@@ -42,22 +42,22 @@ public class StraightTrunkWithBranches extends TrunkPlacer {
 	public static final Codec<StraightTrunkWithBranches> CODEC = RecordCodecBuilder.create((instance) ->
 		trunkPlacerParts(instance)
 			.and(
-				instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("branch_probability").forGetter((trunkPlacer) -> trunkPlacer.branchProbability),
+				instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("branch_chance").forGetter((trunkPlacer) -> trunkPlacer.branchChance),
 					IntProvider.NON_NEGATIVE_CODEC.fieldOf("max_log_count").forGetter((trunkPlacer) -> trunkPlacer.maxLogCount),
 					IntProvider.NON_NEGATIVE_CODEC.fieldOf("branch_height_from_top").forGetter((trunkPlacer) -> trunkPlacer.branchHeightFromTop),
 					IntProvider.NON_NEGATIVE_CODEC.fieldOf("extra_branch_length").forGetter((trunkPlacer) -> trunkPlacer.branchLength)
 			)
 			).apply(instance, StraightTrunkWithBranches::new));
 
-	private final float branchProbability;
+	private final float branchChance;
 	private final IntProvider maxLogCount;
 	private final IntProvider branchHeightFromTop;
 	private final IntProvider branchLength;
 
 
-	public StraightTrunkWithBranches(int baseHeight, int firstRandomHeight, int secondRandomHeight, float branchProbability, @NotNull IntProvider maxLogCount, @NotNull IntProvider branchHeightFromTop, @NotNull IntProvider branchLength) {
+	public StraightTrunkWithBranches(int baseHeight, int firstRandomHeight, int secondRandomHeight, float branchChance, @NotNull IntProvider maxLogCount, @NotNull IntProvider branchHeightFromTop, @NotNull IntProvider branchLength) {
 		super(baseHeight, firstRandomHeight, secondRandomHeight);
-		this.branchProbability = branchProbability;
+		this.branchChance = branchChance;
 		this.maxLogCount = maxLogCount;
 		this.branchHeightFromTop = branchHeightFromTop;
 		this.branchLength = branchLength;
@@ -81,7 +81,7 @@ public class StraightTrunkWithBranches extends TrunkPlacer {
 		for (int i = 0; i < height; ++i) {
 			int j = startPos.getY() + i;
 			if (this.placeLog(level, replacer, random, mutable.set(startPos.getX(), j, startPos.getZ()), config)
-				&& i < height - 1 && random.nextFloat() < this.branchProbability && extraLogs < maxLogs && (height - 4) - i <= branchHeightFromTop) {
+				&& i < height - 1 && random.nextFloat() < this.branchChance && extraLogs < maxLogs && (height - 4) - i <= branchHeightFromTop) {
 				Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
 				this.generateExtraBranch(level, replacer, random, config, mutable, j, direction, this.branchLength.sample(random));
 				++extraLogs;

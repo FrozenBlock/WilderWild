@@ -28,20 +28,20 @@ public class SnowAndIceDiskFeatureConfig implements FeatureConfiguration {
 		instance.group(
 			IntProvider.CODEC.fieldOf("radius").forGetter(config -> config.radius),
 			IntProvider.CODEC.fieldOf("ice_radius").forGetter(config -> config.iceRadius),
-			Codec.FLOAT.fieldOf("placement_probability").forGetter(config -> config.placeChance),
+			Codec.FLOAT.fieldOf("placement_chance").forGetter(config -> config.placementChance),
 			Codec.FLOAT.fieldOf("fade_start_distance_percent").forGetter(config -> config.fadeStartDistancePercent)
 		).apply(instance, SnowAndIceDiskFeatureConfig::new)
 	);
 
 	public final IntProvider radius;
 	public final IntProvider iceRadius;
-	public final float placeChance;
+	public final float placementChance;
 	public final float fadeStartDistancePercent;
 
-	public SnowAndIceDiskFeatureConfig(IntProvider radius, IntProvider iceRadius, float placeChance, float fadeStartDistancePercent) {
+	public SnowAndIceDiskFeatureConfig(IntProvider radius, IntProvider iceRadius, float placementChance, float fadeStartDistancePercent) {
 		this.radius = radius;
 		this.iceRadius = iceRadius;
-		this.placeChance = placeChance;
+		this.placementChance = placementChance;
 		this.fadeStartDistancePercent = fadeStartDistancePercent;
 	}
 }

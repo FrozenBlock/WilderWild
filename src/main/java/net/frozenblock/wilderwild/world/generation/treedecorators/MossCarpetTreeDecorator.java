@@ -34,15 +34,15 @@ import org.jetbrains.annotations.NotNull;
 public class MossCarpetTreeDecorator extends TreeDecorator {
 	public static final Codec<MossCarpetTreeDecorator> CODEC = RecordCodecBuilder.create((instance) ->
 		instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter((treeDecorator) -> treeDecorator.probability),
-			Codec.floatRange(0.0F, 1.0F).fieldOf("placement_probability").forGetter((treeDecorator) -> treeDecorator.placementProbability)
+			Codec.floatRange(0.0F, 1.0F).fieldOf("placement_chance").forGetter((treeDecorator) -> treeDecorator.placementChance)
 		).apply(instance, MossCarpetTreeDecorator::new));
 
 	private final float probability;
-	private final float placementProbability;
+	private final float placementChance;
 
-	public MossCarpetTreeDecorator(float probability, float placementProbability) {
+	public MossCarpetTreeDecorator(float probability, float placementChance) {
 		this.probability = probability;
-		this.placementProbability = placementProbability;
+		this.placementChance = placementChance;
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class MossCarpetTreeDecorator extends TreeDecorator {
 			for (BlockPos pos : poses) {
 				mutableBlockPos.set(pos).move(Direction.UP);
 				if (generator.isAir(mutableBlockPos)) {
-					if (random.nextFloat() <= this.placementProbability) {
+					if (random.nextFloat() <= this.placementChance) {
 						generator.setBlock(mutableBlockPos, mossState);
 					}
 				}

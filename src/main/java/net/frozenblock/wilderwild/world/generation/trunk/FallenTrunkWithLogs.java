@@ -47,28 +47,28 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
 		fallenTrunkCodec(instance).apply(instance, FallenTrunkWithLogs::new));
 
 	public final BlockStateProvider hollowedState;
-	public final float logChance;
-	public final IntProvider maxLogs;
-	public final float hollowedLogProbability;
-	public final float successInWaterProbability;
+	public final float branchChance;
+	public final IntProvider maxBranchCount;
+	public final float hollowedLogChance;
+	public final float successInWaterChance;
 
-	public FallenTrunkWithLogs(int baseHeight, int firstRandomHeight, int secondRandomHeight, BlockStateProvider hollowedState, float logChance, float successInWaterProbability, float hollowedLogProbability, @NotNull IntProvider maxLogs) {
+	public FallenTrunkWithLogs(int baseHeight, int firstRandomHeight, int secondRandomHeight, BlockStateProvider hollowedState, float branchChance, float successInWaterChance, float hollowedLogProbability, @NotNull IntProvider maxBranchCount) {
 		super(baseHeight, firstRandomHeight, secondRandomHeight);
 		this.hollowedState = hollowedState;
-		this.logChance = logChance;
-		this.maxLogs = maxLogs;
-		this.hollowedLogProbability = hollowedLogProbability;
-		this.successInWaterProbability = successInWaterProbability;
+		this.branchChance = branchChance;
+		this.maxBranchCount = maxBranchCount;
+		this.hollowedLogChance = hollowedLogProbability;
+		this.successInWaterChance = successInWaterChance;
 	}
 
 	@Contract("_ -> new")
 	protected static <P extends FallenTrunkWithLogs> Products.@NotNull P8<RecordCodecBuilder.Mu<P>, Integer, Integer, Integer, BlockStateProvider, Float, Float, Float, IntProvider> fallenTrunkCodec(RecordCodecBuilder.Instance<P> builder) {
 		return trunkPlacerParts(builder)
 			.and(BlockStateProvider.CODEC.fieldOf("hollowed_state").forGetter((trunkPlacer) -> trunkPlacer.hollowedState))
-			.and(Codec.floatRange(0.0F, 1.0F).fieldOf("place_branch_chance").forGetter((trunkPlacer) -> trunkPlacer.logChance))
-			.and(Codec.floatRange(0.0F, 1.0F).fieldOf("success_in_water_probability").forGetter((trunkPlacer) -> trunkPlacer.successInWaterProbability))
-			.and(Codec.floatRange(0.0F, 1.0F).fieldOf("hollowed_log_probability").forGetter((trunkPlacer) -> trunkPlacer.hollowedLogProbability))
-			.and(IntProvider.NON_NEGATIVE_CODEC.fieldOf("max_logs").forGetter((trunkPlacer) -> trunkPlacer.maxLogs));
+			.and(Codec.floatRange(0.0F, 1.0F).fieldOf("branch_chance").forGetter((trunkPlacer) -> trunkPlacer.branchChance))
+			.and(Codec.floatRange(0.0F, 1.0F).fieldOf("success_in_water_chance").forGetter((trunkPlacer) -> trunkPlacer.successInWaterChance))
+			.and(Codec.floatRange(0.0F, 1.0F).fieldOf("hollowed_log_chance").forGetter((trunkPlacer) -> trunkPlacer.hollowedLogChance))
+			.and(IntProvider.NON_NEGATIVE_CODEC.fieldOf("max_branch_count").forGetter((trunkPlacer) -> trunkPlacer.maxBranchCount));
 	}
 
 	private static boolean isWaterAt(@NotNull LevelSimulatedReader level, @NotNull BlockPos blockpos) {
@@ -87,11 +87,11 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
 		List<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();
 		List<BlockPos> logs = Lists.newArrayList();
 		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-		int maxLogs = this.maxLogs.sample(random);
-		boolean hollow = random.nextFloat() < this.hollowedLogProbability;
+		int maxLogs = this.maxBranchCount.sample(random);
+		boolean hollow = random.nextFloat() < this.hollowedLogChance;
 		Direction logDir = Direction.Plane.HORIZONTAL.getRandomDirection(random);
 		int extraLogs = 0;
-		if (isWaterAt(level, startPos) && random.nextFloat() > this.successInWaterProbability) {
+		if (isWaterAt(level, startPos) && random.nextFloat() > this.successInWaterChance) {
 			return list;
 		}
 
@@ -124,7 +124,7 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
 			for (BlockPos blockPos : poses) {
 				mutable.set(blockPos);
 				placeLog(logs, level, replacer, random, config, mutable, logDir, hollow);
-				if (random.nextFloat() < this.logChance && extraLogs < maxLogs) {
+				if (random.nextFloat() < this.branchChance && extraLogs < maxLogs) {
 					Direction direction = random.nextFloat() >= 0.33 ? Direction.Plane.HORIZONTAL.getRandomDirection(random) : Direction.Plane.VERTICAL.getRandomDirection(random);
 					this.generateExtraBranch(logs, level, replacer, random, config, mutable, logDir, direction, hollow);
 					++extraLogs;

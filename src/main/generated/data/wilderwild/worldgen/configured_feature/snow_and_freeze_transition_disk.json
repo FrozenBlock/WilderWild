@@ -9,7 +9,7 @@
         "min_inclusive": 2
       }
     },
-    "placement_probability": 0.65,
+    "placement_chance": 0.65,
     "radius": {
       "type": "minecraft:uniform",
       "value": {

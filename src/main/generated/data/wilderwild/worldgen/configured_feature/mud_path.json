@@ -7,7 +7,7 @@
     "noise": 4,
     "noise_scale": 0.1,
     "only_place_when_exposed": false,
-    "placement_probability": 0.75,
+    "placement_chance": 0.75,
     "radius": 11,
     "replaceable_blocks": "wilderwild:mud_path_replaceable",
     "scale_y": false,

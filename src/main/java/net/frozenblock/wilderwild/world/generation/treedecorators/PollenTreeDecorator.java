@@ -35,17 +35,17 @@ import org.jetbrains.annotations.NotNull;
 public class PollenTreeDecorator extends TreeDecorator {
 	public static final Codec<PollenTreeDecorator> CODEC = RecordCodecBuilder.create((instance) ->
 		instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter((treeDecorator) -> treeDecorator.probability),
-			Codec.floatRange(0.0F, 1.0F).fieldOf("placement_probability").forGetter((treeDecorator) -> treeDecorator.placementProbability),
+			Codec.floatRange(0.0F, 1.0F).fieldOf("placement_chance").forGetter((treeDecorator) -> treeDecorator.placementChance),
 			Codec.INT.fieldOf("max_count").forGetter((treeDecorator) -> treeDecorator.maxCount)
 		).apply(instance, PollenTreeDecorator::new));
 
 	private final float probability;
-	private final float placementProbability;
+	private final float placementChance;
 	private final int maxCount;
 
-	public PollenTreeDecorator(float probability, float placementProbability, int maxCount) {
+	public PollenTreeDecorator(float probability, float placementChance, int maxCount) {
 		this.probability = probability;
-		this.placementProbability = placementProbability;
+		this.placementChance = placementChance;
 		this.maxCount = maxCount;
 	}
 
@@ -72,7 +72,7 @@ public class PollenTreeDecorator extends TreeDecorator {
 				for (Direction direction : Direction.values()) {
 					mutableBlockPos.setWithOffset(pos, direction);
 					if (generator.isAir(mutableBlockPos)) {
-						if (random.nextFloat() <= this.placementProbability) {
+						if (random.nextFloat() <= this.placementChance) {
 							generator.setBlock(mutableBlockPos, pollenState.setValue(MultifaceBlock.getFaceProperty(direction.getOpposite()), true));
 							placedPollen += 1;
 						}

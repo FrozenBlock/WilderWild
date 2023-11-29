@@ -1,8 +1,8 @@
 {
   "type": "wilderwild:cattail_feature",
   "config": {
+    "can_be_placed_on": "wilderwild:cattail_placeable",
     "only_place_in_water": true,
-    "placeable_blocks": "wilderwild:cattail_placeable",
     "placement_attempts": {
       "type": "minecraft:uniform",
       "value": {

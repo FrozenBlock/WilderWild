@@ -7,7 +7,7 @@
     "noise": 4,
     "noise_scale": 0.05,
     "only_place_when_exposed": false,
-    "placement_probability": 0.925,
+    "placement_chance": 0.925,
     "radius": 16,
     "replaceable_blocks": "wilderwild:under_water_sand_path_replaceable",
     "scale_y": true,

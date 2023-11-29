@@ -7,7 +7,7 @@
     "noise": 3,
     "noise_scale": 0.15,
     "only_place_when_exposed": false,
-    "placement_probability": 0.825,
+    "placement_chance": 0.825,
     "radius": 12,
     "replaceable_blocks": "#minecraft:dirt",
     "scale_y": false,

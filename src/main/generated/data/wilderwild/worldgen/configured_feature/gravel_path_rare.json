@@ -7,7 +7,7 @@
     "noise": 4,
     "noise_scale": 0.12,
     "only_place_when_exposed": false,
-    "placement_probability": 0.21,
+    "placement_chance": 0.21,
     "radius": 6,
     "replaceable_blocks": "wilderwild:gravel_path_replaceable",
     "scale_y": false,

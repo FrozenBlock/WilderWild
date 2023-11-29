@@ -9,7 +9,7 @@
       {
         "type": "wilderwild:pollen_tree_decorator",
         "max_count": 5,
-        "placement_probability": 0.025,
+        "placement_chance": 0.025,
         "probability": 0.25
       }
     ],
@@ -47,6 +47,7 @@
     "trunk_placer": {
       "type": "wilderwild:straight_trunk_logs_placer",
       "base_height": 8,
+      "branch_chance": 0.15,
       "branch_height_from_top": {
         "type": "minecraft:uniform",
         "value": {
@@ -54,7 +55,6 @@
           "min_inclusive": 1
         }
       },
-      "branch_probability": 0.15,
       "extra_branch_length": 1,
       "height_rand_a": 6,
       "height_rand_b": 6,

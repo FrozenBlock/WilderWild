@@ -44,19 +44,19 @@ public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
 	public static final Codec<FancyDarkOakTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) ->
 		trunkPlacerParts(instance)
 			.and(
-				instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("branch_probability").forGetter((trunkPlacer) -> trunkPlacer.branchProbability),
+				instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("branch_chance").forGetter((trunkPlacer) -> trunkPlacer.branchChance),
 					IntProvider.NON_NEGATIVE_CODEC.fieldOf("max_branch_count").forGetter((trunkPlacer) -> trunkPlacer.maxLogCount),
 					IntProvider.NON_NEGATIVE_CODEC.fieldOf("branch_length").forGetter((trunkPlacer) -> trunkPlacer.branchLength)
 				)
 			).apply(instance, FancyDarkOakTrunkPlacer::new));
 
-	private final float branchProbability;
+	private final float branchChance;
 	private final IntProvider maxLogCount;
 	private final IntProvider branchLength;
 
-	public FancyDarkOakTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight, float branchProbability, @NotNull IntProvider maxLogCount, @NotNull IntProvider branchLength) {
+	public FancyDarkOakTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight, float branchChance, @NotNull IntProvider maxLogCount, @NotNull IntProvider branchLength) {
 		super(baseHeight, firstRandomHeight, secondRandomHeight);
-		this.branchProbability = branchProbability;
+		this.branchChance = branchChance;
 		this.maxLogCount = maxLogCount;
 		this.branchLength = branchLength;
 	}
@@ -101,7 +101,7 @@ public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
 			boolean placedEast = this.placeLog(level, blockSetter, random, blockPos2.east(), config);
 			boolean placedSouth = this.placeLog(level, blockSetter, random, blockPos2.south(), config);
 			boolean placedSouthEast = this.placeLog(level, blockSetter, random, blockPos2.east().south(), config);
-			if (extraLogs < maxLogs && random.nextFloat() < this.branchProbability && (q * 3) > freeTreeHeight) {
+			if (extraLogs < maxLogs && random.nextFloat() < this.branchChance && (q * 3) > freeTreeHeight) {
 				Direction chosenRandomDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
 				int length = this.branchLength.sample(random);
 				BlockPos.MutableBlockPos extraPos = blockPos2.mutable();

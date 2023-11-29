@@ -7,7 +7,7 @@
     "noise": 2,
     "noise_scale": 0.1,
     "only_place_when_exposed": false,
-    "placement_probability": 0.725,
+    "placement_chance": 0.725,
     "radius": 9,
     "replaceable_blocks": "#wilderwild:oasis_path_replaceable",
     "scale_y": true,

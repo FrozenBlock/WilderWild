@@ -7,7 +7,7 @@
     "noise": 1,
     "noise_scale": 0.025,
     "only_place_when_exposed": false,
-    "placement_probability": 1.0,
+    "placement_chance": 1.0,
     "radius": 14,
     "replaceable_blocks": "#wilderwild:mesoglea_path_replaceable",
     "scale_y": true,

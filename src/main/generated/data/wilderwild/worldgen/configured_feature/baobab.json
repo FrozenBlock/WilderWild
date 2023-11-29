@@ -70,7 +70,7 @@
       "base_height": 13,
       "height_rand_a": 3,
       "height_rand_b": 2,
-      "inside_block_state": {
+      "inside_state": {
         "type": "minecraft:simple_state_provider",
         "state": {
           "Name": "wilderwild:stripped_baobab_log",
