@@ -4,14 +4,15 @@
     "decorators": [
       {
         "type": "wilderwild:height_based_cobweb_tree_decorator",
-        "cobweb_count": 0.17,
-        "maxHeight": 260,
+        "max_height": 260,
+        "placement_probability": 0.17,
         "probability": 1.0
       },
       {
         "type": "wilderwild:shelf_fungus_tree_decorator",
+        "placement_probability": 0.25,
         "probability": 0.02,
-        "red_shelf_fungus_chance": 0.4
+        "red_shelf_fungus_probability": 0.4
       }
     ],
     "dirt_provider": {
@@ -49,23 +50,23 @@
     "trunk_placer": {
       "type": "wilderwild:fancy_dark_oak_trunk_placer",
       "base_height": 10,
-      "extra_branch_length": {
+      "branch_length": {
         "type": "minecraft:uniform",
         "value": {
           "max_inclusive": 4,
           "min_inclusive": 1
         }
       },
+      "branch_probability": 1.0,
       "height_rand_a": 3,
       "height_rand_b": 4,
-      "max_logs": {
+      "max_branch_count": {
         "type": "minecraft:uniform",
         "value": {
           "max_inclusive": 2,
           "min_inclusive": 1
         }
-      },
-      "place_branch_chance": 1.0
+      }
     },
     "trunk_provider": {
       "type": "minecraft:simple_state_provider",

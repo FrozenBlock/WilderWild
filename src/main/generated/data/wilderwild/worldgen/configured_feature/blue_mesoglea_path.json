@@ -1,7 +1,17 @@
 {
   "type": "frozenlib:noise_path_feature",
   "config": {
-    "block": {
+    "is_3d": true,
+    "max_threshold": 0.5875,
+    "min_threshold": 0.5125,
+    "noise": 1,
+    "noise_scale": 0.025,
+    "only_place_when_exposed": false,
+    "placement_probability": 1.0,
+    "radius": 14,
+    "replaceable_blocks": "#wilderwild:mesoglea_path_replaceable",
+    "scale_y": true,
+    "state": {
       "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "wilderwild:blue_pearlescent_mesoglea",
@@ -11,16 +21,6 @@
         }
       }
     },
-    "chance": 1.0,
-    "is3D": true,
-    "maxThresh": 0.5875,
-    "minThresh": 0.5125,
-    "multiplier": 0.025,
-    "multiplyY": true,
-    "noise": 1,
-    "onlyExposed": false,
-    "radius": 14,
-    "replaceable": "#wilderwild:mesoglea_path_replaceable",
-    "useY": true
+    "use_y": true
   }
 }

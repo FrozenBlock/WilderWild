@@ -1,22 +1,22 @@
 {
   "type": "frozenlib:noise_path_tag_feature",
   "config": {
-    "block": {
+    "is_3d": false,
+    "max_threshold": 1.0,
+    "min_threshold": 0.2,
+    "noise": 1,
+    "noise_scale": 0.12,
+    "only_place_when_exposed": false,
+    "placement_probability": 0.675,
+    "radius": 9,
+    "replaceable_blocks": "wilderwild:packed_mud_path_replaceable",
+    "scale_y": true,
+    "state": {
       "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "minecraft:packed_mud"
       }
     },
-    "chance": 0.675,
-    "is3D": false,
-    "maxThresh": 1.0,
-    "minThresh": 0.2,
-    "multiplier": 0.12,
-    "multiplyY": true,
-    "noise": 1,
-    "onlyExposed": false,
-    "radius": 9,
-    "replaceable": "wilderwild:packed_mud_path_replaceable",
-    "useY": true
+    "use_y": true
   }
 }

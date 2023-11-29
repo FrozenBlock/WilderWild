@@ -14,14 +14,14 @@
     },
     {
       "type": "frozenlib:noise_filter",
-      "fadeDist": 0.175,
-      "inside": true,
+      "fade_distance": 0.175,
       "maxThresh": 1.0,
-      "minThresh": 0.675,
-      "multiplier": 0.0065,
-      "multiplyY": false,
+      "min_threshold": 0.675,
+      "must_be_inside": true,
       "noise": 4,
-      "useY": false
+      "noise_scale": 0.0065,
+      "scale_y": false,
+      "use_y": false
     },
     {
       "type": "minecraft:biome"

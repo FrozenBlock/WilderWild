@@ -38,6 +38,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class JuniperTrunkPlacer extends TrunkPlacer {
@@ -58,7 +59,8 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
 		this.branchEndOffsetFromTop = intProvider3;
 	}
 
-	protected static <P extends JuniperTrunkPlacer> Products.P7<RecordCodecBuilder.Mu<P>, Integer, Integer, Integer, IntProvider, IntProvider, UniformInt, IntProvider> juniperCodec(RecordCodecBuilder.Instance<P> builder) {
+	@Contract("_ -> new")
+	protected static <P extends JuniperTrunkPlacer> Products.@NotNull P7<RecordCodecBuilder.Mu<P>, Integer, Integer, Integer, IntProvider, IntProvider, UniformInt, IntProvider> juniperCodec(RecordCodecBuilder.Instance<P> builder) {
 		return trunkPlacerParts(builder)
 			.and((IntProvider.codec(1, 3).fieldOf("branch_count")).forGetter(placer -> placer.branchCount))
 			.and((IntProvider.codec(2, 16).fieldOf("branch_horizontal_length")).forGetter(placer -> placer.branchHorizontalLength))

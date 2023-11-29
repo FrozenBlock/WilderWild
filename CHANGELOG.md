@@ -59,6 +59,8 @@ Bug Fixes & Changes
 - Added a config option for whether or not Dripleaves will use updated Redstone powering functionality
 - Swapped the placement of the Misc and Worldgen config tabs
 
+- Refactored the names of many fields in Wilder Wild's configured features to be more consistent with Vanilla
+
 - Removed the Fabric Loader version requirement in hopes it will fix issues with Quilt
 - Changed the grammar of Wilder Wild's advancements to align with Vanilla's
 - Fixed compatibility with Roughly Enough Resources ([#315](https://github.com/FrozenBlock/WilderWild/issues/315))

@@ -42,7 +42,7 @@ import net.frozenblock.wilderwild.world.generation.trunk.JuniperTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.LargeSnappedTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.PalmTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.SnappedTrunkPlacer;
-import net.frozenblock.wilderwild.world.generation.trunk.StraightTrunkWithLogs;
+import net.frozenblock.wilderwild.world.generation.trunk.StraightTrunkWithBranches;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -83,6 +83,8 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.GiantTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.UpwardsBranchingTrunkPlacer;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 public final class WilderTreeConfigured {
 	//BIRCH
@@ -189,11 +191,11 @@ public final class WilderTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_ACACIA = register("snapped_acacia_tree");
 	//MANGROVE
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_MANGROVE_TREE = register("fallen_mangrove_tree");
-	private static final ShelfFungusTreeDecorator SHELF_FUNGUS_007 = new ShelfFungusTreeDecorator(0.074F, 0.3F);
-	private static final ShelfFungusTreeDecorator SHELF_FUNGUS_006 = new ShelfFungusTreeDecorator(0.064F, 0.15F);
-	private static final ShelfFungusTreeDecorator SHELF_FUNGUS_002 = new ShelfFungusTreeDecorator(0.02F, 0.4F);
-	private static final ShelfFungusTreeDecorator SHELF_FUNGUS_006_ONLY_BROWN = new ShelfFungusTreeDecorator(0.064F, 0.0F);
-	private static final ShelfFungusTreeDecorator SHELF_FUNGUS_00875_ONLY_RED = new ShelfFungusTreeDecorator(0.0875F, 1.0F);
+	private static final ShelfFungusTreeDecorator SHELF_FUNGUS_007 = new ShelfFungusTreeDecorator(0.074F, 0.25F, 0.3F);
+	private static final ShelfFungusTreeDecorator SHELF_FUNGUS_006 = new ShelfFungusTreeDecorator(0.064F, 0.25F, 0.15F);
+	private static final ShelfFungusTreeDecorator SHELF_FUNGUS_002 = new ShelfFungusTreeDecorator(0.02F, 0.25F, 0.4F);
+	private static final ShelfFungusTreeDecorator SHELF_FUNGUS_006_ONLY_BROWN = new ShelfFungusTreeDecorator(0.064F, 0.25F, 0.0F);
+	private static final ShelfFungusTreeDecorator SHELF_FUNGUS_00875_ONLY_RED = new ShelfFungusTreeDecorator(0.0875F, 0.25F, 1.0F);
 	private static final HeightBasedVineTreeDecorator VINES_012_UNDER_76 = new HeightBasedVineTreeDecorator(0.12F, 76, 0.25F);
 	private static final HeightBasedVineTreeDecorator VINES_012_UNDER_260 = new HeightBasedVineTreeDecorator(0.12F, 260, 0.25F);
 	private static final HeightBasedVineTreeDecorator VINES_008_UNDER_82 = new HeightBasedVineTreeDecorator(0.08F, 82, 0.25F);
@@ -1431,132 +1433,159 @@ public final class WilderTreeConfigured {
 		);
 	}
 
-	private static TreeConfiguration.TreeConfigurationBuilder builder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, float logChance, IntProvider maxLogs, IntProvider logHeightFromTop, IntProvider extraBranchLength, int radius) {
-		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new StraightTrunkWithLogs(baseHeight, firstRandomHeight, secondRandomHeight, logChance, maxLogs, logHeightFromTop, extraBranchLength),
+	@Contract("_, _, _, _, _, _, _, _, _, _ -> new")
+	private static TreeConfiguration.@NotNull TreeConfigurationBuilder builder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, float logChance, IntProvider maxLogs, IntProvider logHeightFromTop, IntProvider extraBranchLength, int radius) {
+		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new StraightTrunkWithBranches(baseHeight, firstRandomHeight, secondRandomHeight, logChance, maxLogs, logHeightFromTop, extraBranchLength),
 			BlockStateProvider.simple(leaves), new BlobFoliagePlacer(ConstantInt.of(radius), ConstantInt.of(0), 3),
 			new TwoLayersFeatureSize(1, 0, 1));
 	}
 
-	private static TreeConfiguration.TreeConfigurationBuilder fallenTrunkBuilder(Block log, Block hollowedLog, Block leaves, int baseHeight, int firstRHeight, int secondRHeight, float logChance, IntProvider maxLogs, float hollowedChance) {
+	@Contract("_, _, _, _, _, _, _, _, _ -> new")
+	private static TreeConfiguration.@NotNull TreeConfigurationBuilder fallenTrunkBuilder(Block log, Block hollowedLog, Block leaves, int baseHeight, int firstRHeight, int secondRHeight, float logChance, IntProvider maxLogs, float hollowedChance) {
 		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new FallenTrunkWithLogs(baseHeight, firstRHeight, secondRHeight, BlockStateProvider.simple(hollowedLog), logChance, 0.8F, hollowedChance, maxLogs),
 			BlockStateProvider.simple(leaves), new BlobFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0), 3), //FOILAGE PLACER DOES NOTHING
 			new TwoLayersFeatureSize(1, 0, 1));
 	}
 
-	private static TreeConfiguration.TreeConfigurationBuilder darkOakBuilder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, int radius) {
+	@Contract("_, _, _, _, _, _ -> new")
+	private static TreeConfiguration.@NotNull TreeConfigurationBuilder darkOakBuilder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, int radius) {
 		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new DarkOakTrunkPlacer(baseHeight, firstRandomHeight, secondRandomHeight),
 			BlockStateProvider.simple(leaves), new DarkOakFoliagePlacer(ConstantInt.of(radius), ConstantInt.of(0)),
 			new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty()));
 	}
 
-	private static TreeConfiguration.TreeConfigurationBuilder fancyDarkOakBuilder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, float logChance, IntProvider maxLogs, IntProvider extraBranchLength, int radius) {
+	@Contract("_, _, _, _, _, _, _, _, _ -> new")
+	private static TreeConfiguration.@NotNull TreeConfigurationBuilder fancyDarkOakBuilder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, float logChance, IntProvider maxLogs, IntProvider extraBranchLength, int radius) {
 		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new FancyDarkOakTrunkPlacer(baseHeight, firstRandomHeight, secondRandomHeight, logChance, maxLogs, extraBranchLength),
 			BlockStateProvider.simple(leaves), new DarkOakFoliagePlacer(ConstantInt.of(radius), ConstantInt.of(0)),
 			new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty()));
 	}
 
-	private static TreeConfiguration.TreeConfigurationBuilder palmBuilder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, int minRad, int maxRad, int minFronds, int maxFronds) {
+	@Contract("_, _, _, _, _, _, _, _, _ -> new")
+	private static TreeConfiguration.@NotNull TreeConfigurationBuilder palmBuilder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, int minRad, int maxRad, int minFronds, int maxFronds) {
 		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new PalmTrunkPlacer(baseHeight, firstRandomHeight, secondRandomHeight),
-			BlockStateProvider.simple(leaves), new PalmFoliagePlacer(UniformInt.of(minRad, maxRad), ConstantInt.of(0), UniformInt.of(minFronds, maxFronds)),
+			BlockStateProvider.simple(leaves), new PalmFoliagePlacer(UniformInt.of(minRad, maxRad), ConstantInt.of(0), UniformInt.of(minFronds, maxFronds), BlockStateProvider.simple(RegisterBlocks.PALM_CROWN)),
 			new TwoLayersFeatureSize(1, 0, 1));
 	}
 
-	private static TreeConfiguration.TreeConfigurationBuilder winePalmBuilder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, int radius) {
+	@Contract("_, _, _, _, _, _ -> new")
+	private static TreeConfiguration.@NotNull TreeConfigurationBuilder winePalmBuilder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, int radius) {
 		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new StraightTrunkPlacer(baseHeight, firstRandomHeight, secondRandomHeight),
-			BlockStateProvider.simple(leaves), new ShortPalmFoliagePlacer(ConstantInt.of(radius), ConstantInt.of(0)),
+			BlockStateProvider.simple(leaves), new ShortPalmFoliagePlacer(ConstantInt.of(radius), ConstantInt.of(0), BlockStateProvider.simple(RegisterBlocks.PALM_CROWN)),
 			new TwoLayersFeatureSize(1, 0, 1));
 	}
 
-	private static TreeConfiguration.TreeConfigurationBuilder snappedTrunkBuilder(Block log, Block leaves, int baseHeight, int firstRHeight, int secondRHeight) {
+	@Contract("_, _, _, _, _ -> new")
+	private static TreeConfiguration.@NotNull TreeConfigurationBuilder snappedTrunkBuilder(Block log, Block leaves, int baseHeight, int firstRHeight, int secondRHeight) {
 		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new SnappedTrunkPlacer(baseHeight, firstRHeight, secondRHeight),
 			BlockStateProvider.simple(leaves), new BlobFoliagePlacer(ConstantInt.of(1), ConstantInt.of(0), 3), //FOILAGE PLACER DOES NOTHING
 			new TwoLayersFeatureSize(1, 0, 1));
 	}
 
-	private static TreeConfiguration.TreeConfigurationBuilder largeSnappedTrunkBuilder(Block log, Block leaves, int baseHeight, int firstRHeight, int secondRHeight, int maxAdditionalHeight) {
+	@Contract("_, _, _, _, _, _ -> new")
+	private static TreeConfiguration.@NotNull TreeConfigurationBuilder largeSnappedTrunkBuilder(Block log, Block leaves, int baseHeight, int firstRHeight, int secondRHeight, int maxAdditionalHeight) {
 		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log), new LargeSnappedTrunkPlacer(baseHeight, firstRHeight, secondRHeight, UniformInt.of(0, maxAdditionalHeight)),
 			BlockStateProvider.simple(leaves), new BlobFoliagePlacer(ConstantInt.of(1), ConstantInt.of(0), 3), //FOILAGE PLACER DOES NOTHING
 			new TwoLayersFeatureSize(1, 0, 1));
 	}
 
-	private static TreeConfiguration.TreeConfigurationBuilder birch() {
+	private static TreeConfiguration.@NotNull TreeConfigurationBuilder birch() {
 		return builder(Blocks.BIRCH_LOG, Blocks.BIRCH_LEAVES, 8, 5, 4, 0.15F, UniformInt.of(1, 2), UniformInt.of(1, 3), ConstantInt.of(1), 2).ignoreVines();
 	}
 
+	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder superBirch() {
 		return builder(Blocks.BIRCH_LOG, Blocks.BIRCH_LEAVES, 8, 6, 6, 0.15F, UniformInt.of(1, 2), UniformInt.of(1, 3), ConstantInt.of(1), 2).ignoreVines();
 	}
 
+	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder shortBirch() {
 		return builder(Blocks.BIRCH_LOG, Blocks.BIRCH_LEAVES, 6, 2, 2, 0.12F, UniformInt.of(1, 2), UniformInt.of(1, 3), ConstantInt.of(1), 2).ignoreVines();
 	}
 
+	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fallenBirch() {
 		return fallenTrunkBuilder(Blocks.BIRCH_LOG, RegisterBlocks.HOLLOWED_BIRCH_LOG, Blocks.BIRCH_LEAVES, 3, 1, 2, 0.15F, UniformInt.of(1, 2), 0.075F).ignoreVines();
 	}
 
+	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fallenCherry() {
 		return fallenTrunkBuilder(Blocks.CHERRY_LOG, RegisterBlocks.HOLLOWED_CHERRY_LOG, Blocks.CHERRY_LEAVES, 3, 1, 2, 0.05F, UniformInt.of(1, 2), 0.075F).ignoreVines();
 	}
 
+	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder oak() {
 		return builder(Blocks.OAK_LOG, Blocks.OAK_LEAVES, 6, 2, 1, 0.1F, UniformInt.of(1, 2), UniformInt.of(1, 3), ConstantInt.of(1), 2).ignoreVines();
 	}
 
+	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder shortOak() {
 		return builder(Blocks.OAK_LOG, Blocks.OAK_LEAVES, 4, 1, 0, 0.095F, UniformInt.of(1, 2), UniformInt.of(1, 3), ConstantInt.of(1), 2).ignoreVines();
 	}
 
+	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fancyOak() {
 		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.OAK_LOG), new FancyTrunkPlacer(5, 16, 0), BlockStateProvider.simple(Blocks.OAK_LEAVES), new FancyFoliagePlacer(ConstantInt.of(3), ConstantInt.of(3), 4), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)))).ignoreVines();
 	}
 
+	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fallenOak() {
 		return fallenTrunkBuilder(Blocks.OAK_LOG, RegisterBlocks.HOLLOWED_OAK_LOG, Blocks.OAK_LEAVES, 3, 1, 2, 0.15F, UniformInt.of(1, 2), 0.075F).ignoreVines();
 	}
 
+	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fallenCypress() {
 		return fallenTrunkBuilder(RegisterBlocks.CYPRESS_LOG, RegisterBlocks.CYPRESS_LOG, RegisterBlocks.CYPRESS_LEAVES, 3, 2, 2, 0.0F, UniformInt.of(1, 2), 0.125F).ignoreVines();
 	}
 
+	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder tallDarkOak() {
 		return darkOakBuilder(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_LEAVES, 8, 3, 4, 1).ignoreVines();
 	}
 
+	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fancyTallDarkOak() {
 		return fancyDarkOakBuilder(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_LEAVES, 10, 3, 4, 1.0F, UniformInt.of(1, 2), UniformInt.of(1, 4), 1).ignoreVines();
 	}
 
+	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder cherry() {
 		return cherryBuilder(Blocks.CHERRY_LOG, Blocks.CHERRY_LEAVES, 7, 1, 2, UniformInt.of(2, 4), UniformInt.of(-4, -3), UniformInt.of(-1, 0));
 	}
 
+	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder tallCherry() {
 		return cherryBuilder(Blocks.CHERRY_LOG, Blocks.CHERRY_LEAVES, 9, 3, 2, UniformInt.of(3, 5), UniformInt.of(-6, -4), UniformInt.of(-2, 0));
 	}
 
+	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder cherryBuilder(Block log, Block leaves, int baseHeight, int randomHeight1, int randomHeight2, IntProvider branchLength, UniformInt branchStartOffsetFromTop, UniformInt branchEndOffsetFromTop) {
 		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(log),
 			new CherryTrunkPlacer(baseHeight, randomHeight1, randomHeight2, UniformInt.of(1, 3), branchLength, branchStartOffsetFromTop, branchEndOffsetFromTop), BlockStateProvider.simple(leaves), new CherryFoliagePlacer(ConstantInt.of(4), ConstantInt.of(0), ConstantInt.of(5), 0.25F, 0.5F, 0.16666667F, 0.33333334F),
 			new TwoLayersFeatureSize(1, 0, 2))).ignoreVines();
 	}
 
+	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fallenSpruce() {
 		return fallenTrunkBuilder(Blocks.SPRUCE_LOG, RegisterBlocks.HOLLOWED_SPRUCE_LOG, Blocks.SPRUCE_LEAVES, 5, 1, 2, 0.0F, UniformInt.of(1, 2), 0.075F).ignoreVines();
 	}
 
+	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fallenPalm() {
 		return fallenTrunkBuilder(RegisterBlocks.PALM_LOG, RegisterBlocks.HOLLOWED_PALM_LOG, RegisterBlocks.PALM_FRONDS, 5, 1, 2, 0.0F, UniformInt.of(1, 2), 0.045F).ignoreVines();
 	}
 
+	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fallenAcacia() {
 		return fallenTrunkBuilder(Blocks.ACACIA_LOG, RegisterBlocks.HOLLOWED_ACACIA_LOG, Blocks.ACACIA_LEAVES, 3, 1, 1, 0.0F, ConstantInt.of(1), 0.055F).ignoreVines();
 	}
 
+	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fallenJungle() {
 		return fallenTrunkBuilder(Blocks.JUNGLE_LOG, RegisterBlocks.HOLLOWED_JUNGLE_LOG, Blocks.JUNGLE_LEAVES, 4, 2, 1, 0.0F, UniformInt.of(1, 2), 0F).ignoreVines();
 	}
 
+	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fallenMangrove() {
 		return fallenTrunkBuilder(Blocks.MANGROVE_LOG, RegisterBlocks.HOLLOWED_MANGROVE_LOG, Blocks.MANGROVE_LEAVES, 4, 2, 1, 0.0F, ConstantInt.of(1), 0.1F).ignoreVines();
 	}

@@ -36,14 +36,17 @@ public class ShelfFungusTreeDecorator extends TreeDecorator {
 	public static final Codec<ShelfFungusTreeDecorator> CODEC = RecordCodecBuilder.create((instance) ->
 		instance.group(
 			Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter((treeDecorator) -> treeDecorator.probability),
-			Codec.floatRange(0.0F, 1.0F).fieldOf("red_shelf_fungus_chance").forGetter((treeDecorator) -> treeDecorator.redChance)
+			Codec.floatRange(0.0F, 1.0F).fieldOf("placement_probability").forGetter((treeDecorator) -> treeDecorator.placementProbability),
+			Codec.floatRange(0.0F, 1.0F).fieldOf("red_shelf_fungus_probability").forGetter((treeDecorator) -> treeDecorator.red_shelf_fungus_probability)
 		).apply(instance, ShelfFungusTreeDecorator::new));
 	private final float probability;
-	private final float redChance;
+	private final float placementProbability;
+	private final float red_shelf_fungus_probability;
 
-	public ShelfFungusTreeDecorator(float probability, float redChance) {
+	public ShelfFungusTreeDecorator(float probability, float placementProbability, float red_shelf_fungus_probability) {
 		this.probability = probability;
-		this.redChance = redChance;
+		this.placementProbability = placementProbability;
+		this.red_shelf_fungus_probability = red_shelf_fungus_probability;
 	}
 
 	@Override
@@ -62,10 +65,10 @@ public class ShelfFungusTreeDecorator extends TreeDecorator {
 			BlockState brownState = RegisterBlocks.BROWN_SHELF_FUNGUS.defaultBlockState();
 			for (BlockPos pos : poses) {
 				for (Direction direction : Direction.Plane.HORIZONTAL) {
-					if (abstractRandom.nextFloat() <= 0.25F) {
+					if (abstractRandom.nextFloat() <= this.placementProbability) {
 						mutableBlockPos.setWithOffset(pos, direction);
 						if (generator.isAir(mutableBlockPos)) {
-							if (generator.random().nextFloat() < redChance) {
+							if (generator.random().nextFloat() < red_shelf_fungus_probability) {
 								generator.setBlock(mutableBlockPos, redState.setValue(ShelfFungusBlock.STAGE, abstractRandom.nextInt(3) + 1).setValue(ShelfFungusBlock.FACE, AttachFace.WALL).setValue(ShelfFungusBlock.FACING, direction));
 							} else {
 								generator.setBlock(mutableBlockPos, brownState.setValue(ShelfFungusBlock.STAGE, abstractRandom.nextInt(3) + 1).setValue(ShelfFungusBlock.FACE, AttachFace.WALL).setValue(ShelfFungusBlock.FACING, direction));

@@ -22,7 +22,6 @@ import com.mojang.datafixers.Products;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -31,7 +30,9 @@ import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class PalmFoliagePlacer extends FoliagePlacer {
@@ -39,15 +40,23 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 		palmCodec(instance).apply(instance, PalmFoliagePlacer::new)
 	);
 	private static final double SURROUNDING_LEAF_THRESHOLD = 0.175;
-	public final IntProvider fronds;
+	public final IntProvider frondCount;
+	public final BlockStateProvider crownState;
 
-	public PalmFoliagePlacer(@NotNull IntProvider intProvider, @NotNull IntProvider intProvider2, @NotNull IntProvider fronds) {
-		super(intProvider, intProvider2);
-		this.fronds = fronds;
+	public PalmFoliagePlacer(@NotNull IntProvider radius, @NotNull IntProvider offset, @NotNull IntProvider frondCount, @NotNull BlockStateProvider crownState) {
+		super(radius, offset);
+		this.frondCount = frondCount;
+		this.crownState = crownState;
 	}
 
-	protected static <P extends PalmFoliagePlacer> Products.P3<RecordCodecBuilder.Mu<P>, IntProvider, IntProvider, IntProvider> palmCodec(RecordCodecBuilder.Instance<P> builder) {
-		return foliagePlacerParts(builder).and((IntProvider.codec(0, 16).fieldOf("fronds")).forGetter(placer -> placer.fronds));
+	@Contract("_ -> new")
+	protected static <P extends PalmFoliagePlacer> Products.@NotNull P4<RecordCodecBuilder.Mu<P>, IntProvider, IntProvider, IntProvider, BlockStateProvider> palmCodec(RecordCodecBuilder.Instance<P> builder) {
+		return foliagePlacerParts(builder)
+			.and(
+				IntProvider.codec(0, 16).fieldOf("frond_count").forGetter(placer -> placer.frondCount)
+			).and(
+				BlockStateProvider.CODEC.fieldOf("crown_state").forGetter(placer -> placer.crownState)
+			);
 	}
 
 	public static void placeLeavesAtPos(@NotNull LevelSimulatedReader level, @NotNull FoliageSetter blockSetter, @NotNull RandomSource random, @NotNull TreeConfiguration config, @NotNull BlockPos pos, double offX, double offY, double offZ) {
@@ -91,12 +100,13 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 	@Override
 	protected void createFoliage(@NotNull LevelSimulatedReader level, @NotNull FoliageSetter blockSetter, @NotNull RandomSource random, @NotNull TreeConfiguration config, int i, @NotNull FoliageAttachment foliageAttachment, int j, int k, int l) {
 		BlockPos blockPos = foliageAttachment.pos().above(l);
-		blockSetter.set(blockPos.below(), RegisterBlocks.PALM_CROWN.defaultBlockState());
+		BlockPos belowPos = blockPos.below();
+		blockSetter.set(belowPos, this.crownState.getState(random, belowPos));
 		Vec3 origin = new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ());
 		double minRadius = this.radius.getMinValue();
 		double radius = minRadius + ((this.radius.getMaxValue() - minRadius) * random.nextDouble());
 		double minus = (Math.PI * radius) / (radius * radius);
-		int fronds = this.fronds.sample(random);
+		int fronds = this.frondCount.sample(random);
 		double rotAngle = 360 / (double) fronds;
 		double angle = random.nextDouble() * 360;
 
@@ -118,11 +128,11 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 	}
 
 	@Override
-	protected boolean shouldSkipLocation(@NotNull RandomSource randomSource, int i, int j, int k, int l, boolean bl) {
-		if (j == 0) {
-			return (i > 1 || k > 1) && i != 0 && k != 0;
+	protected boolean shouldSkipLocation(@NotNull RandomSource random, int localX, int localY, int localZ, int range, boolean large) {
+		if (localY == 0) {
+			return (localX > 1 || localZ > 1) && localX != 0 && localZ != 0;
 		} else {
-			return i == l && k == l && l > 0;
+			return localX == range && localZ == range && range > 0;
 		}
 	}
 }

@@ -457,7 +457,7 @@ public final class WilderMiscPlaced {
 			BiomeFilter.biome()
 		);
 
-		MESOGLEA_PILLAR.makeAndSetHolder(WilderMiscConfigured.UPWARDS_MESOGLEA_PILLAR.getHolder(),
+		MESOGLEA_PILLAR.makeAndSetHolder(WilderMiscConfigured.BLUE_MESOGLEA_COLUMN.getHolder(),
 			CountPlacement.of(7),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.top()),
@@ -466,7 +466,7 @@ public final class WilderMiscPlaced {
 			BiomeFilter.biome()
 		);
 
-		PURPLE_MESOGLEA_PILLAR.makeAndSetHolder(WilderMiscConfigured.PURPLE_MESOGLEA_PILLAR.getHolder(),
+		PURPLE_MESOGLEA_PILLAR.makeAndSetHolder(WilderMiscConfigured.PURPLE_MESOGLEA_COLUMN.getHolder(),
 			CountPlacement.of(7),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.top()),

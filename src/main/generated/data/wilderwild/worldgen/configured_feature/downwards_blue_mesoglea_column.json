@@ -1,13 +1,6 @@
 {
-  "type": "frozenlib:downwards_pillar",
+  "type": "frozenlib:downwards_column",
   "config": {
-    "columnBlock": {
-      "Name": "wilderwild:blue_pearlescent_mesoglea",
-      "Properties": {
-        "bubble_direction": "none",
-        "waterlogged": "true"
-      }
-    },
     "height": {
       "type": "minecraft:uniform",
       "value": {
@@ -15,10 +8,17 @@
         "min_inclusive": 3
       }
     },
-    "replaceable": [
+    "replaceable_blocks": [
       "wilderwild:blue_pearlescent_mesoglea",
       "wilderwild:purple_pearlescent_mesoglea",
       "minecraft:water"
-    ]
+    ],
+    "state": {
+      "Name": "wilderwild:blue_pearlescent_mesoglea",
+      "Properties": {
+        "bubble_direction": "none",
+        "waterlogged": "true"
+      }
+    }
   }
 }

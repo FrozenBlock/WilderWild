@@ -10,6 +10,16 @@
     },
     "foliage_placer": {
       "type": "wilderwild:short_palm_foliage_placer",
+      "crown_state": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "wilderwild:palm_crown",
+          "Properties": {
+            "axis": "y",
+            "termite_edible": "true"
+          }
+        }
+      },
       "offset": 0,
       "radius": 2
     },

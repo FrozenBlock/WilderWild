@@ -39,6 +39,7 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class FallenTrunkWithLogs extends TrunkPlacer {
@@ -48,24 +49,25 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
 	public final BlockStateProvider hollowedState;
 	public final float logChance;
 	public final IntProvider maxLogs;
-	public final float hollowedChance;
-	public final float successInWaterChance;
+	public final float hollowedLogProbability;
+	public final float successInWaterProbability;
 
-	public FallenTrunkWithLogs(int baseHeight, int firstRandomHeight, int secondRandomHeight, BlockStateProvider hollowedState, float logChance, float successInWaterChance, float hollowedChance, @NotNull IntProvider maxLogs) {
+	public FallenTrunkWithLogs(int baseHeight, int firstRandomHeight, int secondRandomHeight, BlockStateProvider hollowedState, float logChance, float successInWaterProbability, float hollowedLogProbability, @NotNull IntProvider maxLogs) {
 		super(baseHeight, firstRandomHeight, secondRandomHeight);
 		this.hollowedState = hollowedState;
 		this.logChance = logChance;
 		this.maxLogs = maxLogs;
-		this.hollowedChance = hollowedChance;
-		this.successInWaterChance = successInWaterChance;
+		this.hollowedLogProbability = hollowedLogProbability;
+		this.successInWaterProbability = successInWaterProbability;
 	}
 
-	protected static <P extends FallenTrunkWithLogs> Products.P8<RecordCodecBuilder.Mu<P>, Integer, Integer, Integer, BlockStateProvider, Float, Float, Float, IntProvider> fallenTrunkCodec(RecordCodecBuilder.Instance<P> builder) {
+	@Contract("_ -> new")
+	protected static <P extends FallenTrunkWithLogs> Products.@NotNull P8<RecordCodecBuilder.Mu<P>, Integer, Integer, Integer, BlockStateProvider, Float, Float, Float, IntProvider> fallenTrunkCodec(RecordCodecBuilder.Instance<P> builder) {
 		return trunkPlacerParts(builder)
 			.and(BlockStateProvider.CODEC.fieldOf("hollowed_state").forGetter((trunkPlacer) -> trunkPlacer.hollowedState))
 			.and(Codec.floatRange(0.0F, 1.0F).fieldOf("place_branch_chance").forGetter((trunkPlacer) -> trunkPlacer.logChance))
-			.and(Codec.floatRange(0.0F, 1.0F).fieldOf("success_in_water_chance").forGetter((trunkPlacer) -> trunkPlacer.successInWaterChance))
-			.and(Codec.floatRange(0.0F, 1.0F).fieldOf("hollow_chance").forGetter((trunkPlacer) -> trunkPlacer.hollowedChance))
+			.and(Codec.floatRange(0.0F, 1.0F).fieldOf("success_in_water_probability").forGetter((trunkPlacer) -> trunkPlacer.successInWaterProbability))
+			.and(Codec.floatRange(0.0F, 1.0F).fieldOf("hollowed_log_probability").forGetter((trunkPlacer) -> trunkPlacer.hollowedLogProbability))
 			.and(IntProvider.NON_NEGATIVE_CODEC.fieldOf("max_logs").forGetter((trunkPlacer) -> trunkPlacer.maxLogs));
 	}
 
@@ -86,10 +88,10 @@ public class FallenTrunkWithLogs extends TrunkPlacer {
 		List<BlockPos> logs = Lists.newArrayList();
 		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		int maxLogs = this.maxLogs.sample(random);
-		boolean hollow = random.nextFloat() < this.hollowedChance;
+		boolean hollow = random.nextFloat() < this.hollowedLogProbability;
 		Direction logDir = Direction.Plane.HORIZONTAL.getRandomDirection(random);
 		int extraLogs = 0;
-		if (isWaterAt(level, startPos) && random.nextFloat() > this.successInWaterChance) {
+		if (isWaterAt(level, startPos) && random.nextFloat() > this.successInWaterProbability) {
 			return list;
 		}
 

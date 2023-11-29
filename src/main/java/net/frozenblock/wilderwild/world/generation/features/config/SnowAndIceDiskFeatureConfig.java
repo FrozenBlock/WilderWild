@@ -27,21 +27,21 @@ public class SnowAndIceDiskFeatureConfig implements FeatureConfiguration {
 	public static final Codec<SnowAndIceDiskFeatureConfig> CODEC = RecordCodecBuilder.create((instance) ->
 		instance.group(
 			IntProvider.CODEC.fieldOf("radius").forGetter(config -> config.radius),
-			IntProvider.CODEC.fieldOf("iceRadius").forGetter(config -> config.iceRadius),
-			Codec.FLOAT.fieldOf("placeChance").forGetter(config -> config.placeChance),
-			Codec.FLOAT.fieldOf("startFadePercent").forGetter(config -> config.startFadePercent)
+			IntProvider.CODEC.fieldOf("ice_radius").forGetter(config -> config.iceRadius),
+			Codec.FLOAT.fieldOf("placement_probability").forGetter(config -> config.placeChance),
+			Codec.FLOAT.fieldOf("fade_start_distance_percent").forGetter(config -> config.fadeStartDistancePercent)
 		).apply(instance, SnowAndIceDiskFeatureConfig::new)
 	);
 
 	public final IntProvider radius;
 	public final IntProvider iceRadius;
 	public final float placeChance;
-	public final float startFadePercent;
+	public final float fadeStartDistancePercent;
 
-	public SnowAndIceDiskFeatureConfig(IntProvider radius, IntProvider iceRadius, float placeChance, float startFadePercent) {
+	public SnowAndIceDiskFeatureConfig(IntProvider radius, IntProvider iceRadius, float placeChance, float fadeStartDistancePercent) {
 		this.radius = radius;
 		this.iceRadius = iceRadius;
 		this.placeChance = placeChance;
-		this.startFadePercent = startFadePercent;
+		this.fadeStartDistancePercent = fadeStartDistancePercent;
 	}
 }

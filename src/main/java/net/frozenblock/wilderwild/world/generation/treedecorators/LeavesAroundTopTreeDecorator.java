@@ -36,27 +36,27 @@ import org.jetbrains.annotations.NotNull;
 public class LeavesAroundTopTreeDecorator extends TreeDecorator {
 	public static final Codec<LeavesAroundTopTreeDecorator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
 		Codec.FLOAT.fieldOf("probability").forGetter((treeDecorator) -> treeDecorator.probability),
-		Codec.intRange(0, 16).fieldOf("exclusionRadiusXZ").forGetter((treeDecorator) -> treeDecorator.exclusionRadiusXZ),
-		Codec.intRange(0, 16).fieldOf("exclusionRadiusY").forGetter((treeDecorator) -> treeDecorator.exclusionRadiusY),
-		BlockStateProvider.CODEC.fieldOf("blockProvider").forGetter((treeDecorator) -> treeDecorator.blockProvider),
-		Codec.INT.fieldOf("requiredEmptyBlocks").forGetter((treeDecorator) -> treeDecorator.requiredEmptyBlocks),
+		Codec.intRange(0, 16).fieldOf("exclusion_radius_xz").forGetter((treeDecorator) -> treeDecorator.exclusionRadiusXZ),
+		Codec.intRange(0, 16).fieldOf("exclusion_radius_y").forGetter((treeDecorator) -> treeDecorator.exclusionRadiusY),
+		BlockStateProvider.CODEC.fieldOf("state").forGetter((treeDecorator) -> treeDecorator.state),
+		Codec.INT.fieldOf("empty_block_count_for_placement").forGetter((treeDecorator) -> treeDecorator.emptyBlockCountForPlacement),
 		ExtraCodecs.nonEmptyList(Direction.CODEC.listOf()).fieldOf("directions").forGetter((treeDecorator) -> treeDecorator.directions)
 	).apply(instance, LeavesAroundTopTreeDecorator::new));
 
 	private final float probability;
 	private final int exclusionRadiusXZ;
 	private final int exclusionRadiusY;
-	private final BlockStateProvider blockProvider;
-	private final int requiredEmptyBlocks;
+	private final BlockStateProvider state;
+	private final int emptyBlockCountForPlacement;
 	private final List<Direction> directions;
 
-	public LeavesAroundTopTreeDecorator(float f, int i, int j, @NotNull BlockStateProvider blockStateProvider, int k, @NotNull List<Direction> list) {
-		this.probability = f;
-		this.exclusionRadiusXZ = i;
-		this.exclusionRadiusY = j;
-		this.blockProvider = blockStateProvider;
-		this.requiredEmptyBlocks = k;
-		this.directions = list;
+	public LeavesAroundTopTreeDecorator(float probability, int exclusionRadiusXZ, int exclusionRadiusY, @NotNull BlockStateProvider state, int emptyBlockCountForPlacement, @NotNull List<Direction> directions) {
+		this.probability = probability;
+		this.exclusionRadiusXZ = exclusionRadiusXZ;
+		this.exclusionRadiusY = exclusionRadiusY;
+		this.state = state;
+		this.emptyBlockCountForPlacement = emptyBlockCountForPlacement;
+		this.directions = directions;
 	}
 
 	@Override
@@ -95,13 +95,13 @@ public class LeavesAroundTopTreeDecorator extends TreeDecorator {
 				) {
 					set.add(blockPos5);
 				}
-				context.setBlock(mutableBlockPos, this.blockProvider.getState(randomSource, mutableBlockPos));
+				context.setBlock(mutableBlockPos, this.state.getState(randomSource, mutableBlockPos));
 			}
 		}
 	}
 
 	private boolean hasRequiredEmptyBlocks(@NotNull TreeDecorator.Context context, @NotNull BlockPos pos, @NotNull BlockPos.MutableBlockPos mutableBlockPos, @NotNull Direction direction) {
-		for (int i = 1; i <= this.requiredEmptyBlocks; ++i) {
+		for (int i = 1; i <= this.emptyBlockCountForPlacement; ++i) {
 			mutableBlockPos.set(pos).move(direction, i);
 			if (context.isAir(mutableBlockPos)) continue;
 			return false;

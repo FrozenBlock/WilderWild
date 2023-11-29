@@ -1,15 +1,15 @@
 {
   "type": "wilderwild:cattail_feature",
   "config": {
-    "placeableBlocks": "wilderwild:cattail_placeable",
-    "placementAttempts": {
+    "only_place_in_water": true,
+    "placeable_blocks": "wilderwild:cattail_placeable",
+    "placement_attempts": {
       "type": "minecraft:uniform",
       "value": {
         "max_inclusive": 21,
         "min_inclusive": 12
       }
     },
-    "water": true,
     "width": {
       "type": "minecraft:uniform",
       "value": {

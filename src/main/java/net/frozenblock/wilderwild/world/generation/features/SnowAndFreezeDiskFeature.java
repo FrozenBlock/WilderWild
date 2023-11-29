@@ -81,7 +81,7 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 						mutableDisk.set(x, level.getHeight(Types.MOTION_BLOCKING, x, z), z);
 						BlockState state = level.getBlockState(mutableDisk);
 						if (state.getBlock() != Blocks.SNOW) {
-							boolean fade = !mutableDisk.closerThan(s, radius * config.startFadePercent);
+							boolean fade = !mutableDisk.closerThan(s, radius * config.fadeStartDistancePercent);
 							if (random.nextFloat() < config.placeChance && ((!fade || random.nextFloat() > 0.5F) && canPlaceSnow(level, mutableDisk))) {
 								BlockState belowState = level.getBlockState(mutableDisk2.set(mutableDisk).move(Direction.DOWN));
 								if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
@@ -111,7 +111,7 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 						mutableDisk.set(x, level.getHeight(Types.MOTION_BLOCKING, x, z), z);
 						BlockState state = level.getBlockState(mutableDisk2.set(mutableDisk).move(Direction.DOWN));
 						if (state.getBlock() != Blocks.ICE) {
-							boolean fade = !mutableDisk.closerThan(s, radius * config.startFadePercent);
+							boolean fade = !mutableDisk.closerThan(s, radius * config.fadeStartDistancePercent);
 							if (random.nextFloat() < config.placeChance && ((!fade || random.nextFloat() > 0.5F) && canPlaceIce(level, mutableDisk2))) {
 								level.setBlock(mutableDisk2, iceState, 2);
 							}

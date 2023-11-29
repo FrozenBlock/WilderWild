@@ -1,27 +1,19 @@
 {
   "type": "frozenlib:column_with_disk_feature",
   "config": {
-    "columnBlock": {
-      "Name": "wilderwild:termite_mound",
-      "Properties": {
-        "can_spawn_termites": "false",
-        "natural": "true",
-        "termites_awake": "false"
+    "additional_height": {
+      "type": "minecraft:uniform",
+      "value": {
+        "max_inclusive": 3,
+        "min_inclusive": 1
       }
     },
-    "diskBlocks": "#wilderwild:termite_disc_blocks",
+    "disk_blocks": "#wilderwild:termite_disc_blocks",
     "height": {
       "type": "minecraft:uniform",
       "value": {
         "max_inclusive": 7,
         "min_inclusive": 3
-      }
-    },
-    "height2": {
-      "type": "minecraft:uniform",
-      "value": {
-        "max_inclusive": 3,
-        "min_inclusive": 1
       }
     },
     "radius": {
@@ -31,6 +23,14 @@
         "min_inclusive": 4
       }
     },
-    "replaceable": "#wilderwild:termite_disc_replaceable"
+    "replaceable_blocks": "#wilderwild:termite_disc_replaceable",
+    "state": {
+      "Name": "wilderwild:termite_mound",
+      "Properties": {
+        "can_spawn_termites": "false",
+        "natural": "true",
+        "termites_awake": "false"
+      }
+    }
   }
 }

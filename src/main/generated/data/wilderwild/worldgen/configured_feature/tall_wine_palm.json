@@ -4,7 +4,14 @@
     "decorators": [
       {
         "type": "wilderwild:leaves_around_top_decorator",
-        "blockProvider": {
+        "directions": [
+          "down"
+        ],
+        "empty_block_count_for_placement": 4,
+        "exclusion_radius_xz": 0,
+        "exclusion_radius_y": 0,
+        "probability": 0.3,
+        "state": {
           "type": "minecraft:randomized_int_state_provider",
           "property": "age",
           "source": {
@@ -19,14 +26,7 @@
             }
           },
           "values": 0
-        },
-        "directions": [
-          "down"
-        ],
-        "exclusionRadiusXZ": 0,
-        "exclusionRadiusY": 0,
-        "probability": 0.3,
-        "requiredEmptyBlocks": 4
+        }
       }
     ],
     "dirt_provider": {
@@ -37,6 +37,16 @@
     },
     "foliage_placer": {
       "type": "wilderwild:short_palm_foliage_placer",
+      "crown_state": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "wilderwild:palm_crown",
+          "Properties": {
+            "axis": "y",
+            "termite_edible": "true"
+          }
+        }
+      },
       "offset": 0,
       "radius": 2
     },

@@ -34,19 +34,19 @@ import org.jetbrains.annotations.NotNull;
 
 public class PollenTreeDecorator extends TreeDecorator {
 	public static final Codec<PollenTreeDecorator> CODEC = RecordCodecBuilder.create((instance) ->
-		instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("chanceToDecorate").forGetter((treeDecorator) -> treeDecorator.chanceToDecorate),
-			Codec.floatRange(0.0F, 1.0F).fieldOf("pollenPlaceChance").forGetter((treeDecorator) -> treeDecorator.pollenPlaceChance),
-			Codec.INT.fieldOf("maxPollenCount").forGetter((treeDecorator) -> treeDecorator.maxPollenCount)
+		instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter((treeDecorator) -> treeDecorator.probability),
+			Codec.floatRange(0.0F, 1.0F).fieldOf("placement_probability").forGetter((treeDecorator) -> treeDecorator.placementProbability),
+			Codec.INT.fieldOf("max_count").forGetter((treeDecorator) -> treeDecorator.maxCount)
 		).apply(instance, PollenTreeDecorator::new));
 
-	private final float chanceToDecorate;
-	private final float pollenPlaceChance;
-	private final int maxPollenCount;
+	private final float probability;
+	private final float placementProbability;
+	private final int maxCount;
 
-	public PollenTreeDecorator(float chanceToDecorate, float pollenPlaceChance, int maxPollenCount) {
-		this.chanceToDecorate = chanceToDecorate;
-		this.pollenPlaceChance = pollenPlaceChance;
-		this.maxPollenCount = maxPollenCount;
+	public PollenTreeDecorator(float probability, float placementProbability, int maxCount) {
+		this.probability = probability;
+		this.placementProbability = placementProbability;
+		this.maxCount = maxCount;
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class PollenTreeDecorator extends TreeDecorator {
 	@Override
 	public void place(@NotNull Context generator) {
 		RandomSource random = generator.random();
-		if (random.nextFloat() <= this.chanceToDecorate) {
+		if (random.nextFloat() <= this.probability) {
 			ObjectArrayList<BlockPos> poses = new ObjectArrayList<>(generator.logs());
 			poses.addAll(generator.leaves());
 			Util.shuffle(poses, random);
@@ -66,13 +66,13 @@ public class PollenTreeDecorator extends TreeDecorator {
 			int placedPollen = 0;
 			BlockState pollenState = RegisterBlocks.POLLEN_BLOCK.defaultBlockState();
 			for (BlockPos pos : poses) {
-				if (placedPollen >= this.maxPollenCount) {
+				if (placedPollen >= this.maxCount) {
 					return;
 				}
 				for (Direction direction : Direction.values()) {
 					mutableBlockPos.setWithOffset(pos, direction);
 					if (generator.isAir(mutableBlockPos)) {
-						if (random.nextFloat() <= this.pollenPlaceChance) {
+						if (random.nextFloat() <= this.placementProbability) {
 							generator.setBlock(mutableBlockPos, pollenState.setValue(MultifaceBlock.getFaceProperty(direction.getOpposite()), true));
 							placedPollen += 1;
 						}

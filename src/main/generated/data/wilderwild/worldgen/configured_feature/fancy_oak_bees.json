@@ -8,14 +8,15 @@
       },
       {
         "type": "wilderwild:pollen_tree_decorator",
-        "chanceToDecorate": 0.25,
-        "maxPollenCount": 5,
-        "pollenPlaceChance": 0.025
+        "max_count": 5,
+        "placement_probability": 0.025,
+        "probability": 0.25
       },
       {
         "type": "wilderwild:shelf_fungus_tree_decorator",
+        "placement_probability": 0.25,
         "probability": 0.02,
-        "red_shelf_fungus_chance": 0.4
+        "red_shelf_fungus_probability": 0.4
       }
     ],
     "dirt_provider": {

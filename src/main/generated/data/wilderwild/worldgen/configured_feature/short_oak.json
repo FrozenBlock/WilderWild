@@ -4,8 +4,9 @@
     "decorators": [
       {
         "type": "wilderwild:shelf_fungus_tree_decorator",
+        "placement_probability": 0.25,
         "probability": 0.02,
-        "red_shelf_fungus_chance": 0.4
+        "red_shelf_fungus_probability": 0.4
       }
     ],
     "dirt_provider": {
@@ -42,24 +43,24 @@
     "trunk_placer": {
       "type": "wilderwild:straight_trunk_logs_placer",
       "base_height": 4,
-      "extra_branch_length": 1,
-      "height_rand_a": 1,
-      "height_rand_b": 0,
-      "log_height_from_top": {
+      "branch_height_from_top": {
         "type": "minecraft:uniform",
         "value": {
           "max_inclusive": 3,
           "min_inclusive": 1
         }
       },
-      "max_logs": {
+      "branch_probability": 0.095,
+      "extra_branch_length": 1,
+      "height_rand_a": 1,
+      "height_rand_b": 0,
+      "max_log_count": {
         "type": "minecraft:uniform",
         "value": {
           "max_inclusive": 2,
           "min_inclusive": 1
         }
-      },
-      "place_branch_chance": 0.095
+      }
     },
     "trunk_provider": {
       "type": "minecraft:simple_state_provider",
