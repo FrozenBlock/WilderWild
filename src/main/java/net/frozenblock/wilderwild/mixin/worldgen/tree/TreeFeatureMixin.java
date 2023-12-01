@@ -49,9 +49,15 @@ public abstract class TreeFeatureMixin implements TreeFeatureLeavesUpdate {
 	@Unique
 	private static TreeFeature currentFeature = null;
 
-	@Inject(method = "place", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/levelgen/structure/BoundingBox;encapsulatingPositions(Ljava/lang/Iterable;)Ljava/util/Optional;"))
-	private void wilderWild$place(FeaturePlaceContext<TreeConfiguration> context, CallbackInfoReturnable<Boolean> cir) {
-		currentFeature = (TreeFeature) (Object) this;
+	@Inject(
+		method = "place",
+		at = @At(
+			value = "INVOKE", target = "Lnet/minecraft/world/level/levelgen/structure/BoundingBox;encapsulatingPositions(Ljava/lang/Iterable;)Ljava/util/Optional;",
+			shift = At.Shift.BEFORE
+		)
+	)
+	private void wilderWild$place(FeaturePlaceContext<TreeConfiguration> context, CallbackInfoReturnable<Boolean> info) {
+		currentFeature = TreeFeature.class.cast(this);
 	}
 
 	@WrapOperation(
