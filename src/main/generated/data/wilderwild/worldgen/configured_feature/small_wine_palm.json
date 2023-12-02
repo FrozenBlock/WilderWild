@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:tree",
+  "type": "wilderwild:palm_tree",
   "config": {
     "decorators": [],
     "dirt_provider": {

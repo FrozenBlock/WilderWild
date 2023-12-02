@@ -1,12 +1,7 @@
 {
-  "type": "minecraft:tree",
+  "type": "wilderwild:palm_tree",
   "config": {
-    "decorators": [
-      {
-        "type": "wilderwild:coconut_tree_decorator",
-        "placement_chance": 0.25
-      }
-    ],
+    "decorators": [],
     "dirt_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {

@@ -23,15 +23,14 @@ import java.util.Optional;
 import java.util.OptionalInt;
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeature;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
-import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.RegisterFeatures;
 import static net.frozenblock.wilderwild.world.additions.feature.WilderFeatureUtils.register;
 import net.frozenblock.wilderwild.world.generation.foliage.PalmFoliagePlacer;
 import net.frozenblock.wilderwild.world.generation.foliage.ShortPalmFoliagePlacer;
 import net.frozenblock.wilderwild.world.generation.treedecorators.HeightBasedCobwebTreeDecorator;
 import net.frozenblock.wilderwild.world.generation.treedecorators.HeightBasedVineTreeDecorator;
-import net.frozenblock.wilderwild.world.generation.treedecorators.CoconutTreeDecorator;
 import net.frozenblock.wilderwild.world.generation.treedecorators.MossCarpetTreeDecorator;
 import net.frozenblock.wilderwild.world.generation.treedecorators.PollenTreeDecorator;
 import net.frozenblock.wilderwild.world.generation.treedecorators.ShelfFungusTreeDecorator;
@@ -1226,7 +1225,7 @@ public final class WilderTreeConfigured {
 
 		// PALM
 
-		PALM.makeAndSetHolder(Feature.TREE,
+		PALM.makeAndSetHolder(RegisterFeatures.PALM_TREE_FEATURE,
 			palmBuilder(
 				RegisterBlocks.PALM_LOG,
 				RegisterBlocks.PALM_FRONDS,
@@ -1236,16 +1235,10 @@ public final class WilderTreeConfigured {
 				3,
 				4,
 				9
-			).decorators(
-				List.of(
-					new CoconutTreeDecorator(
-						0.25F
-					)
-				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
-		TALL_PALM.makeAndSetHolder(Feature.TREE,
+		TALL_PALM.makeAndSetHolder(RegisterFeatures.PALM_TREE_FEATURE,
 			palmBuilder(
 				RegisterBlocks.PALM_LOG,
 				RegisterBlocks.PALM_FRONDS,
@@ -1256,16 +1249,10 @@ public final class WilderTreeConfigured {
 				3,
 				5,
 				10
-			).decorators(
-				List.of(
-					new CoconutTreeDecorator(
-						0.25F
-					)
-				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
-		SMALL_WINE_PALM.makeAndSetHolder(Feature.TREE,
+		SMALL_WINE_PALM.makeAndSetHolder(RegisterFeatures.PALM_TREE_FEATURE,
 			winePalmBuilder(
 				RegisterBlocks.PALM_LOG,
 				RegisterBlocks.PALM_FRONDS,
@@ -1276,7 +1263,7 @@ public final class WilderTreeConfigured {
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
-		TALL_WINE_PALM.makeAndSetHolder(Feature.TREE,
+		TALL_WINE_PALM.makeAndSetHolder(RegisterFeatures.PALM_TREE_FEATURE,
 			winePalmBuilder(
 				RegisterBlocks.PALM_LOG,
 				RegisterBlocks.PALM_FRONDS,
@@ -1284,12 +1271,6 @@ public final class WilderTreeConfigured {
 				3,
 				3,
 				2
-			).decorators(
-				List.of(
-					new CoconutTreeDecorator(
-						0.3F
-					)
-				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 

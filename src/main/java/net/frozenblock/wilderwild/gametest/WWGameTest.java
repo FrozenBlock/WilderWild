@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild.gametest;
 
+import java.util.List;
 import net.fabricmc.fabric.api.gametest.v1.FabricGameTest;
 import net.frozenblock.lib.gametest.api.TrackedPosition;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -16,7 +17,6 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import java.util.List;
 
 public class WWGameTest implements FabricGameTest {
 

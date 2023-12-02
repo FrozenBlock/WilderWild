@@ -7,8 +7,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.OptionalInt;
 import java.util.Set;
+import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.PalmFrondsBlock;
 import net.frozenblock.wilderwild.misc.interfaces.TreeFeatureLeavesUpdate;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.LevelAccessor;
@@ -23,8 +25,8 @@ import net.minecraft.world.phys.shapes.DiscreteVoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 public class PalmTreeFeature extends TreeFeature implements TreeFeatureLeavesUpdate {
-
 	private static final int MAX_DISTANCE = PalmFrondsBlock.DECAY_DISTANCE;
+	private static final float COCONUT_CHANCE = 0.4F;
 
 	public PalmTreeFeature(Codec<TreeConfiguration> codec) {
 		super(codec);
@@ -57,11 +59,16 @@ public class PalmTreeFeature extends TreeFeature implements TreeFeatureLeavesUpd
 
 				Iterator<BlockPos> iterator = list.get(k).iterator();
 				BlockPos blockPos2 = iterator.next();
+				BlockPos coconutPos = blockPos2.below();
 				iterator.remove();
 				if (box.isInside(blockPos2)) {
 					if (k != 0) {
 						BlockState blockState = level.getBlockState(blockPos2);
 						setBlockKnownShape(level, blockPos2, blockState.setValue(BlockStateProperties.DISTANCE, k));
+						if (k <= CoconutBlock.VALID_FROND_DISTANCE && level.getRandom().nextFloat() <= COCONUT_CHANCE && box.isInside(coconutPos) && level.getBlockState(coconutPos).isAir()) {
+							level.setBlock(coconutPos, RegisterBlocks.COCONUT.defaultBlockState().setValue(BlockStateProperties.HANGING, true), 19);
+							discreteVoxelShape.fill(coconutPos.getX() - box.minX(), coconutPos.getY() - box.minY(), coconutPos.getZ() - box.minZ());
+						}
 					}
 
 					discreteVoxelShape.fill(blockPos2.getX() - box.minX(), blockPos2.getY() - box.minY(), blockPos2.getZ() - box.minZ());
