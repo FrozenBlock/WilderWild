@@ -36,6 +36,7 @@ Bug Fixes & Changes
 - Milkweed now plays a sound when rustled
 - Milkweed can now be sheared with a Dispenser
 - Glory of the Snow can now be sheared with a Dispenser
+- Prickly Pear's Damage Source has been added to the bypasses_armor tag
 
 - Fixed Fireflies with the Nectar easter egg not properly rendering their glowing overlay
 - Fixed Firefly Bottles with the Nectar easter egg not using the Nectar texture
