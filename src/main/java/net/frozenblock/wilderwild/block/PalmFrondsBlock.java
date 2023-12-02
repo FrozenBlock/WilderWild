@@ -38,7 +38,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class PalmFrondsBlock extends LeavesBlock implements BonemealableBlock {
 
-	public static final int DECAY_DISTANCE = 10;
+	public static final int DECAY_DISTANCE = 12;
 
 	public PalmFrondsBlock(@NotNull Properties settings) {
 		super(settings);
