@@ -28,7 +28,7 @@
       "state": {
         "Name": "wilderwild:palm_fronds",
         "Properties": {
-          "distance": "10",
+          "distance": "12",
           "persistent": "false",
           "waterlogged": "false"
         }

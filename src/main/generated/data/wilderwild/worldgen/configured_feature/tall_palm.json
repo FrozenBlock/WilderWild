@@ -3,30 +3,8 @@
   "config": {
     "decorators": [
       {
-        "type": "wilderwild:leaves_around_top_decorator",
-        "directions": [
-          "down"
-        ],
-        "empty_block_count_for_placement": 4,
-        "exclusion_radius_xz": 0,
-        "exclusion_radius_y": 0,
-        "probability": 0.25,
-        "state": {
-          "type": "minecraft:randomized_int_state_provider",
-          "property": "age",
-          "source": {
-            "type": "minecraft:simple_state_provider",
-            "state": {
-              "Name": "wilderwild:coconut",
-              "Properties": {
-                "age": "0",
-                "hanging": "true",
-                "stage": "0"
-              }
-            }
-          },
-          "values": 0
-        }
+        "type": "wilderwild:coconut_tree_decorator",
+        "placement_chance": 0.25
       }
     ],
     "dirt_provider": {
@@ -68,7 +46,7 @@
       "state": {
         "Name": "wilderwild:palm_fronds",
         "Properties": {
-          "distance": "10",
+          "distance": "12",
           "persistent": "false",
           "waterlogged": "false"
         }

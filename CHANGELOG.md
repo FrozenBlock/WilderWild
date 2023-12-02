@@ -27,6 +27,7 @@ Bug Fixes & Changes
 - Tweaked leaf decay distance to 10 in order to accommodate for Palm Fronds, so they now work like regular leaves
     - Other leaf types will still cap out at 7, but can be changed with commands or a Debug Stick to go up to 10
 - Removed the custom distance detection from Palm Crowns
+- Reworked how Coconuts are placed on Palms
 - Added Palm Crowns to tags it was missing from
 - Added a translation string for Coconut projectiles
 - Fixed compatibility between Wilder Wild's Stripped Logs and Create
@@ -60,6 +61,7 @@ Bug Fixes & Changes
 - Swapped the placement of the Misc and Worldgen config tabs
 
 - Refactored many aspects Wilder Wild's configured features' field names to be more consistent with Vanilla
+- Replaced LeavesAroundTopTreeDecorator with CoconutTreeDecorator
 
 - Removed the Fabric Loader version requirement in hopes it will fix issues with Quilt
 - Changed the grammar of Wilder Wild's advancements to align with Vanilla's

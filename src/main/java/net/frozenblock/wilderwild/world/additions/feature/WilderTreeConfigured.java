@@ -31,7 +31,7 @@ import net.frozenblock.wilderwild.world.generation.foliage.PalmFoliagePlacer;
 import net.frozenblock.wilderwild.world.generation.foliage.ShortPalmFoliagePlacer;
 import net.frozenblock.wilderwild.world.generation.treedecorators.HeightBasedCobwebTreeDecorator;
 import net.frozenblock.wilderwild.world.generation.treedecorators.HeightBasedVineTreeDecorator;
-import net.frozenblock.wilderwild.world.generation.treedecorators.LeavesAroundTopTreeDecorator;
+import net.frozenblock.wilderwild.world.generation.treedecorators.CoconutTreeDecorator;
 import net.frozenblock.wilderwild.world.generation.treedecorators.MossCarpetTreeDecorator;
 import net.frozenblock.wilderwild.world.generation.treedecorators.PollenTreeDecorator;
 import net.frozenblock.wilderwild.world.generation.treedecorators.ShelfFungusTreeDecorator;
@@ -1238,19 +1238,8 @@ public final class WilderTreeConfigured {
 				9
 			).decorators(
 				List.of(
-					new LeavesAroundTopTreeDecorator(
-						0.25F,
-						0,
-						0,
-						new RandomizedIntStateProvider(
-							BlockStateProvider.simple(RegisterBlocks.COCONUT.defaultBlockState().setValue(BlockStateProperties.HANGING, true)),
-							CoconutBlock.AGE,
-							ConstantInt.of(0)
-						),
-						4,
-						List.of(
-							Direction.DOWN
-						)
+					new CoconutTreeDecorator(
+						0.25F
 					)
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
@@ -1269,19 +1258,8 @@ public final class WilderTreeConfigured {
 				10
 			).decorators(
 				List.of(
-					new LeavesAroundTopTreeDecorator(
-						0.25F,
-						0,
-						0,
-						new RandomizedIntStateProvider(
-							BlockStateProvider.simple(RegisterBlocks.COCONUT.defaultBlockState().setValue(BlockStateProperties.HANGING, true)),
-							CoconutBlock.AGE,
-							ConstantInt.of(0)
-						),
-						4,
-						List.of(
-							Direction.DOWN
-						)
+					new CoconutTreeDecorator(
+						0.25F
 					)
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
@@ -1308,19 +1286,8 @@ public final class WilderTreeConfigured {
 				2
 			).decorators(
 				List.of(
-					new LeavesAroundTopTreeDecorator(
-						0.3F,
-						0,
-						0,
-						new RandomizedIntStateProvider(
-							BlockStateProvider.simple(RegisterBlocks.COCONUT.defaultBlockState().setValue(BlockStateProperties.HANGING, true)),
-							CoconutBlock.AGE,
-							ConstantInt.of(0)
-						),
-						4,
-						List.of(
-							Direction.DOWN
-						)
+					new CoconutTreeDecorator(
+						0.3F
 					)
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
