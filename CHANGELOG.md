@@ -63,6 +63,8 @@ Bug Fixes & Changes
 
 - Refactored many aspects Wilder Wild's configured features' field names to be more consistent with Vanilla
 - Removed LeavesAroundTopTreeDecorator
+- Removed additional Plains flowers from Meadows
+- Increased the amount of flowers that typically generate in Meadows
 
 - Removed the Fabric Loader version requirement in hopes it will fix issues with Quilt
 - Changed the grammar of Wilder Wild's advancements to align with Vanilla's

@@ -981,7 +981,6 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_PLAINS_FLOWERS)
 			.add(Biomes.PLAINS)
-			.add(Biomes.MEADOW)
 			.add(Biomes.FOREST)
 			.add(Biomes.BIRCH_FOREST)
 			.add(Biomes.OLD_GROWTH_BIRCH_FOREST)

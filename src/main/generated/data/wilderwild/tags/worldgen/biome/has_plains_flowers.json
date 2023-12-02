@@ -2,7 +2,6 @@
   "replace": false,
   "values": [
     "minecraft:plains",
-    "minecraft:meadow",
     "minecraft:forest",
     "minecraft:birch_forest",
     "minecraft:old_growth_birch_forest",

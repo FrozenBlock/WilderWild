@@ -1224,13 +1224,13 @@ public final class WilderConfiguredFeatures {
 							new NormalNoise.NoiseParameters(-3, 1.0),
 							1.0f,
 							List.of(
-								RegisterBlocks.CARNATION.defaultBlockState(),
 								Blocks.ALLIUM.defaultBlockState(),
 								Blocks.POPPY.defaultBlockState(),
 								Blocks.AZURE_BLUET.defaultBlockState(),
-								Blocks.DANDELION.defaultBlockState(),
 								Blocks.CORNFLOWER.defaultBlockState(),
+								RegisterBlocks.CARNATION.defaultBlockState(),
 								Blocks.OXEYE_DAISY.defaultBlockState(),
+								Blocks.DANDELION.defaultBlockState(),
 								RegisterBlocks.SEEDING_DANDELION.defaultBlockState()
 							)
 						)

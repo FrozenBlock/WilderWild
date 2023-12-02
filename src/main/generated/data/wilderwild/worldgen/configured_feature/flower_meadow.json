@@ -24,9 +24,6 @@
             "slow_scale": 1.0,
             "states": [
               {
-                "Name": "wilderwild:carnation"
-              },
-              {
                 "Name": "minecraft:allium"
               },
               {
@@ -36,13 +33,16 @@
                 "Name": "minecraft:azure_bluet"
               },
               {
-                "Name": "minecraft:dandelion"
-              },
-              {
                 "Name": "minecraft:cornflower"
               },
               {
+                "Name": "wilderwild:carnation"
+              },
+              {
                 "Name": "minecraft:oxeye_daisy"
+              },
+              {
+                "Name": "minecraft:dandelion"
               },
               {
                 "Name": "wilderwild:seeding_dandelion"
