@@ -44,7 +44,6 @@ public class WilderSharedConstants {
 	 */
 	public static boolean UNSTABLE_LOGGING = FabricLoader.getInstance().isDevelopmentEnvironment();
 	public static boolean MC_LIVE_TENDRILS = false;
-	public static boolean IN_MESOGLEA = false;
 
 	// LOGGING
 	public static void log(String string, boolean shouldLog) {

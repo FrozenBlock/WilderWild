@@ -49,6 +49,8 @@ Bug Fixes & Changes
 
 - Fixed Jellyfish no longer spawning in Jellyfish Caves
 - Slightly optimized Jellyfish rendering with the rainbow easter egg
+- Reworked how clipping works with Waterlogged Mesoglea, as it will now apply to all entities as opposed to just players as is much more stable
+    - This comes alongside BlockGetterMixin having much cleaner code, and the removal of IN_MESOGLEA in WilderSharedConstants
 
 - Osseous Sculk will now cover their branches in Sculk Veins when its base is converted to Sculk
 - Increased the chances of larger Oseeous Sculk generating during worldgen

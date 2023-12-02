@@ -18,24 +18,22 @@
 
 package net.frozenblock.wilderwild.mixin.block.mesoglea;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArgs;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Mixin(BlockGetter.class)
 public interface BlockGetterMixin {
@@ -43,25 +41,24 @@ public interface BlockGetterMixin {
 	@Shadow
 	BlockState getBlockState(BlockPos var1);
 
-	@Inject(method = "clip", at = @At("HEAD"))
-	default void wilderWild$checkIfInMesoglea(ClipContext clipContext, CallbackInfoReturnable<BlockHitResult> cir) {
-		if (clipContext.collisionContext instanceof EntityCollisionContext entityCollisionContext
-			&& entityCollisionContext.getEntity() instanceof Player player) {
-			BlockState headState = getBlockState(BlockPos.containing(player.getEyePosition()));
+	@WrapOperation(
+		method = "method_17743",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/BlockGetter;clipWithInteractionOverride(Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/shapes/VoxelShape;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/phys/BlockHitResult;"
+		)
+	)
+	default BlockHitResult wilderWild$mesogleaClip(BlockGetter instance, Vec3 startVec, Vec3 endVec, BlockPos pos, VoxelShape shape, BlockState state, Operation<BlockHitResult> operation, ClipContext clipContext) {
+		if (
+			clipContext.collisionContext instanceof EntityCollisionContext entityCollisionContext
+				&& entityCollisionContext.getEntity() != null
+		) {
+			BlockState headState = getBlockState(BlockPos.containing(entityCollisionContext.getEntity().getEyePosition()));
 			if (headState.getBlock() instanceof MesogleaBlock && headState.getValue(BlockStateProperties.WATERLOGGED)) {
-				WilderSharedConstants.IN_MESOGLEA = true;
-				return;
+				shape = Shapes.empty();
 			}
 		}
-		WilderSharedConstants.IN_MESOGLEA = false;
-	}
-
-	@ModifyArgs(method = "method_17743", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/BlockGetter;clipWithInteractionOverride(Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/shapes/VoxelShape;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/phys/BlockHitResult;"))
-	default void wilderWild$mesogleaClip(Args args) {
-		BlockState blockState = args.get(4);
-		if (WilderSharedConstants.IN_MESOGLEA && blockState.getBlock() instanceof MesogleaBlock && blockState.getValue(BlockStateProperties.WATERLOGGED)) {
-			args.set(3, Shapes.empty());
-		}
+		return operation.call(instance, startVec, endVec, pos, shape, state);
 	}
 
 }
