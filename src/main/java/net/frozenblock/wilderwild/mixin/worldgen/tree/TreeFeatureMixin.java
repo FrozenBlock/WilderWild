@@ -18,17 +18,18 @@
 
 package net.frozenblock.wilderwild.mixin.worldgen.tree;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.google.common.collect.Iterables;
 import java.util.Set;
 import net.frozenblock.wilderwild.misc.interfaces.TreeFeatureLeavesUpdate;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.phys.shapes.DiscreteVoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
@@ -37,6 +38,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(value = TreeFeature.class, priority = 69420)
 public abstract class TreeFeatureMixin implements TreeFeatureLeavesUpdate {
@@ -46,33 +48,26 @@ public abstract class TreeFeatureMixin implements TreeFeatureLeavesUpdate {
 		return null;
 	}
 
-	@Unique
-	private static TreeFeature currentFeature = null;
-
 	@Inject(
 		method = "place",
 		at = @At(
 			value = "INVOKE", target = "Lnet/minecraft/world/level/levelgen/structure/BoundingBox;encapsulatingPositions(Ljava/lang/Iterable;)Ljava/util/Optional;",
 			shift = At.Shift.BEFORE
-		)
+		),
+		locals = LocalCapture.CAPTURE_FAILHARD,
+		cancellable = true
 	)
-	private void wilderWild$place(FeaturePlaceContext<TreeConfiguration> context, CallbackInfoReturnable<Boolean> info) {
-		currentFeature = TreeFeature.class.cast(this);
+	private void wilderWild$place(FeaturePlaceContext<TreeConfiguration> context, CallbackInfoReturnable<Boolean> info, WorldGenLevel worldGenLevel, RandomSource randomSource, BlockPos blockPos, TreeConfiguration treeConfiguration, Set<BlockPos> set, Set<BlockPos> set2, Set<BlockPos> set3, Set<BlockPos> set4) {
+		info.setReturnValue(this.wilderWild$encapsulatePositionsAndUpdateLeaves(worldGenLevel, set, set2, set3, set4));
 	}
 
-	@WrapOperation(
-		method = "method_35363",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/levelgen/feature/TreeFeature;updateLeaves(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/world/level/levelgen/structure/BoundingBox;Ljava/util/Set;Ljava/util/Set;Ljava/util/Set;)Lnet/minecraft/world/phys/shapes/DiscreteVoxelShape;"
-		)
-	)
-	private static DiscreteVoxelShape wilderWild$updateLeaves(LevelAccessor level, BoundingBox box, Set<BlockPos> rootPositions, Set<BlockPos> trunkPositions, Set<BlockPos> foliagePositions, Operation<DiscreteVoxelShape> original) {
-		return Util.make(() -> {
-			DiscreteVoxelShape shape = ((TreeFeatureLeavesUpdate) currentFeature).wilderWild$updateLeaves(level, box, rootPositions, trunkPositions, foliagePositions);
-			currentFeature = null;
-			return shape;
-		});
+	@Unique
+	public boolean wilderWild$encapsulatePositionsAndUpdateLeaves(LevelAccessor worldGenLevel, Set<BlockPos> set, Set<BlockPos> set2, Set<BlockPos> set3, Set<BlockPos> set4) {
+		return BoundingBox.encapsulatingPositions(Iterables.concat(set, set2, set3, set4)).map((boundingBox) -> {
+			DiscreteVoxelShape discreteVoxelShape = this.wilderWild$updateLeaves(worldGenLevel, boundingBox, set2, set4, set);
+			StructureTemplate.updateShapeAtEdge(worldGenLevel, 3, discreteVoxelShape, boundingBox.minX(), boundingBox.minY(), boundingBox.minZ());
+			return true;
+		}).orElse(false);
 	}
 
 	@Unique
