@@ -53,6 +53,7 @@ Bug Fixes & Changes
 - Increased the chances of larger Oseeous Sculk generating during worldgen
 - Sculk Shriekers will now only create Sculk Bubbles underwater if the Shrieker Gargling config is enabled
 - Stone Chests will now interact with Redstone Comparators, outputting a signal based on how high their lid is lifted ([#319](https://github.com/FrozenBlock/WilderWild/issues/319))
+- Echo Glass now occludes Vibrations
 
 - The config will now sync between server and client
     - Operators of servers will modify the server's config upon modifying it on their end

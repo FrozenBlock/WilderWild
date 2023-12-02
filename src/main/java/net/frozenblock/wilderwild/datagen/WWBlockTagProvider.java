@@ -440,6 +440,9 @@ final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 			.add(Blocks.DEEPSLATE_BRICK_WALL)
 			.add(Blocks.DEEPSLATE_TILE_WALL)
 			.addOptionalTag(WilderBlockTags.SCULK_WALL_REPLACEABLE);
+
+		this.getOrCreateTagBuilder(BlockTags.OCCLUDES_VIBRATION_SIGNALS)
+			.add(RegisterBlocks.ECHO_GLASS);
 	}
 
 	private void generateHollowedAndTermites() {
