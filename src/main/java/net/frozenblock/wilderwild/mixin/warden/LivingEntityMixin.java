@@ -25,6 +25,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityEvent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.warden.Warden;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -47,21 +48,19 @@ public class LivingEntityMixin {
 	public void wilderWild$tickDeath(CallbackInfo info) {
 		if (LivingEntity.class.cast(this) instanceof Warden warden) {
 			if (EntityConfig.get().warden.wardenDyingAnimation || ((WilderWarden) warden).wilderWild$isStella()) {
-				((WilderWarden) warden).wilderWild$setDeathTicks(((WilderWarden) warden).wilderWild$getDeathTicks() + 1);
-
-				if (((WilderWarden) warden).wilderWild$getDeathTicks() == 35 && !warden.level().isClientSide()) {
-					warden.deathTime = 35;
+				Level level = warden.level();
+				int deathTicks = ((WilderWarden) warden).wilderWild$getDeathTicks() + 1;
+				((WilderWarden) warden).wilderWild$setDeathTicks(deathTicks);
+				if (!level.isClientSide()) {
+					if (deathTicks == 35) {
+						warden.deathTime = 35;
+					} else if (deathTicks == 53) {
+						level.broadcastEntityEvent(warden, EntityEvent.POOF);
+						level.broadcastEntityEvent(warden, (byte) 69420);
+					} else if (deathTicks == 70) {
+						warden.remove(Entity.RemovalReason.KILLED);
+					}
 				}
-
-				if (((WilderWarden) warden).wilderWild$getDeathTicks() == 53 && !warden.level().isClientSide()) {
-					warden.level().broadcastEntityEvent(warden, EntityEvent.POOF);
-					warden.level().broadcastEntityEvent(warden, (byte) 69420);
-				}
-
-				if (((WilderWarden) warden).wilderWild$getDeathTicks() == 70 && !warden.level().isClientSide()) {
-					warden.remove(Entity.RemovalReason.KILLED);
-				}
-
 				info.cancel();
 			}
 		}

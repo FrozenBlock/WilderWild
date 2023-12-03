@@ -72,15 +72,6 @@ public class SonicBoomMixin implements WilderSonicBoom {
 		return original;
 	}
 
-	/*@ModifyConstant(method = "m_ehrxwrfs", constant = @Constant(intValue = 1))
-	private static int sus(int original) {
-		var vec32 = ((WilderSonicBoom) wilderWild$currentBoom).vec32();
-		if (((WilderSonicBoom) wilderWild$currentBoom).particlesEnded()) {
-			return Mth.floor(vec32.length()) + 10;
-		}
-		return original;
-	}*/
-
 	@ModifyVariable(method = {"m_ehrxwrfs", "method_43265", "lambda$tick$2"}, at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/phys/Vec3;add(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;"), ordinal = 0, require = 1)
 	private static Vec3 wilderWild$modifyVec(Vec3 value, @Share("vec32") LocalRef<Vec3> vec32Ref) {
 		vec32Ref.set(value);

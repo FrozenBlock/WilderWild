@@ -61,7 +61,7 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 	@Unique
 	private float wilderWild$lastLeaningPitch;
 	@Unique
-	private boolean wilderWild$pogSwimming;
+	private boolean wilderWild$newSwimming;
 
 	private WardenSwimMixin(EntityType<? extends Monster> entityType, Level level) {
 		super(entityType, level);
@@ -90,12 +90,12 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 
 	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
 	public void wilderWild$addAdditionalSaveData(CompoundTag nbt, CallbackInfo info) {
-		nbt.putBoolean("pogSwimming", this.wilderWild$pogSwimming);
+		nbt.putBoolean("newSwimming", this.wilderWild$newSwimming);
 	}
 
 	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
 	public void wilderWild$readAdditionalSaveData(CompoundTag nbt, CallbackInfo info) {
-		this.wilderWild$pogSwimming = nbt.getBoolean("pogSwimming");
+		this.wilderWild$newSwimming = nbt.getBoolean("newSwimming");
 	}
 
 	@Unique
@@ -110,7 +110,7 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 
 	@Override
 	public boolean isVisuallySwimming() {
-		return this.wilderWild$pogSwimming || super.isVisuallySwimming();
+		return this.wilderWild$newSwimming || super.isVisuallySwimming();
 	}
 
 	@Inject(at = @At("RETURN"), method = "createNavigation", cancellable = true)
@@ -133,10 +133,10 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 				}
 			}
 
-			this.wilderWild$pogSwimming = this.getFluidHeight(FluidTags.WATER) >= this.getEyeHeight(this.getPose()) * 0.75 || this.getFluidHeight(FluidTags.LAVA) >= this.getEyeHeight(this.getPose()) * 0.75;
+			this.wilderWild$newSwimming = this.getFluidHeight(FluidTags.WATER) >= this.getEyeHeight(this.getPose()) * 0.75 || this.getFluidHeight(FluidTags.LAVA) >= this.getEyeHeight(this.getPose()) * 0.75;
 		} else {
 			super.travel(travelVector);
-			this.wilderWild$pogSwimming = false;
+			this.wilderWild$newSwimming = false;
 		}
 	}
 
@@ -204,12 +204,14 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 		}
 	}
 
+	@Unique
 	@Override
 	public boolean wilderWild$isTouchingWaterOrLava() {
 		Warden warden = Warden.class.cast(this);
 		return warden.isInWaterOrBubble() || warden.isInLava();
 	}
 
+	@Unique
 	@Override
 	public boolean wilderWild$isSubmergedInWaterOrLava() {
 		Warden warden = Warden.class.cast(this);
