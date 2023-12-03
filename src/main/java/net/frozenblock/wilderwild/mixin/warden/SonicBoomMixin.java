@@ -61,11 +61,6 @@ public class SonicBoomMixin implements WilderSonicBoom {
 	@Unique
 	private boolean wilderWild$particlesEnded = false;
 
-	@ModifyVariable(method = "method_43265", at = @At(value = "CONSTANT", args = "intValue=1", shift = At.Shift.BY, by = 3))
-	private static int wilderWild$modifyInt(int original, @Share("vec32") LocalRef<Vec3> vec32Ref) {
-		return ((WilderSonicBoom) wilderWild$currentBoom).wilderWild$particlesEnded() ? Mth.floor(vec32Ref.get().length()) + 10 : original;
-	}
-
 	@ModifyVariable(
 		method = "method_43265",
 		at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/phys/Vec3;add(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;"),
@@ -74,6 +69,11 @@ public class SonicBoomMixin implements WilderSonicBoom {
 	private static Vec3 wilderWild$modifyVec(Vec3 value, @Share("vec32") LocalRef<Vec3> vec32Ref) {
 		vec32Ref.set(value);
 		return value;
+	}
+
+	@ModifyVariable(method = "method_43265", at = @At(value = "CONSTANT", args = "intValue=1", shift = At.Shift.BY, by = 3))
+	private static int wilderWild$modifyInt(int original, @Share("vec32") LocalRef<Vec3> vec32Ref) {
+		return ((WilderSonicBoom) wilderWild$currentBoom).wilderWild$particlesEnded() ? Mth.floor(vec32Ref.get().length()) + 10 : original;
 	}
 
 	@Inject(
