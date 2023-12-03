@@ -53,7 +53,7 @@ Bug Fixes & Changes
     - This comes alongside BlockGetterMixin having much cleaner code, and the removal of IN_MESOGLEA in WilderSharedConstants
 
 - Osseous Sculk will now cover their branches in Sculk Veins when its base is converted to Sculk
-- Increased the chances of larger Oseeous Sculk generating during worldgen
+- Increased the chances of larger Osseous Sculk generating during worldgen
 - Sculk Shriekers will now only create Sculk Bubbles underwater if the Shrieker Gargling config is enabled
 - Stone Chests will now interact with Redstone Comparators, outputting a signal based on how high their lid is lifted ([#319](https://github.com/FrozenBlock/WilderWild/issues/319))
 - Echo Glass now occludes Vibrations
