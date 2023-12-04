@@ -59,6 +59,9 @@ Bug Fixes & Changes
 - Echo Glass now occludes Vibrations
 - The Warden's death particles will now only spawn at the Warden's position as opposed to spawning within its entire hitbox
 
+- Landing/Potion sound code will no longer attempt to run on the client
+- Landing Ender Pearls will now play sounds in their owner's sound category (Zombies would be Hostile, and Players would be Player)
+
 - The config will now sync between server and client
     - Operators of servers will modify the server's config upon modifying it on their end
     - Non-operators will see that config options that don't solely pertain to the client will be blocked out and set to the server's value
