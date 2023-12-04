@@ -143,7 +143,7 @@ public abstract class SculkBlockMixin {
 		RandomSource randomSource,
 		@NotNull SculkSpreader sculkSpreader,
 		boolean bl,
-		@Share("placingBelow") LocalBooleanRef placingBelow
+		@Share("wilderWild$placingBelow") LocalBooleanRef placingBelow
 	) {
 		return this.wilderWild$canPlaceGrowth(levelAccessor, chargeCursor.getPos(), sculkSpreader.isWorldGeneration(), placingBelow) || original;
 	}
@@ -161,11 +161,11 @@ public abstract class SculkBlockMixin {
 		BlockPos chargePos,
 		int growthSpawnCost,
 		BlockPos aboveChargePos,
-		@Share("placementPos") LocalRef<BlockPos> placementPos,
-		@Share("placementState") LocalRef<BlockState> placementState,
-		@Share("placingBelow") LocalBooleanRef placingBelow,
-		@Share("additionalGrowthCost") LocalRef<Integer> additionalGrowthCost,
-		@Share("canPlace") LocalBooleanRef canPlace
+		@Share("wilderWild$placementPos") LocalRef<BlockPos> placementPos,
+		@Share("wilderWild$placementState") LocalRef<BlockState> placementState,
+		@Share("wilderWild$placingBelow") LocalBooleanRef placingBelow,
+		@Share("wilderWild$additionalGrowthCost") LocalRef<Integer> additionalGrowthCost,
+		@Share("wilderWild$canPlace") LocalBooleanRef canPlace
 	) {
 		placementPos.set(null);
 		placementState.set(null);
@@ -207,11 +207,11 @@ public abstract class SculkBlockMixin {
 	@ModifyArgs(method = "attemptUseCharge", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/LevelAccessor;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"))
 	private void wilderWild$newPlace(
 		Args args,
-		@Share("placementPos") LocalRef<BlockPos> placementPos,
-		@Share("placementState") LocalRef<BlockState> placementState,
-		@Share("canPlace") LocalBooleanRef canPlace,
-		@Share("placedPos") LocalRef<BlockPos> placedPos,
-		@Share("placedState") LocalRef<BlockState> placedState
+		@Share("wilderWild$placementPos") LocalRef<BlockPos> placementPos,
+		@Share("wilderWild$placementState") LocalRef<BlockState> placementState,
+		@Share("wilderWild$canPlace") LocalBooleanRef canPlace,
+		@Share("wilderWild$placedPos") LocalRef<BlockPos> placedPos,
+		@Share("wilderWild$placedState") LocalRef<BlockState> placedState
 	) {
 		if (placementPos.get() == null || placementState.get() == null) {
 			return;
@@ -227,8 +227,8 @@ public abstract class SculkBlockMixin {
 	@ModifyArgs(method = "attemptUseCharge", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/LevelAccessor;playSound(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/BlockPos;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V"))
 	private void wilderWild$newSounds(
 		Args args,
-		@Share("placedPos") LocalRef<BlockPos> placedPos,
-		@Share("placedState") LocalRef<BlockState> placedState
+		@Share("wilderWild$placedPos") LocalRef<BlockPos> placedPos,
+		@Share("wilderWild$placedState") LocalRef<BlockState> placedState
 	) {
 		if (placedPos.get() == null || placedState.get() == null) {
 			return;
@@ -249,8 +249,8 @@ public abstract class SculkBlockMixin {
 		SculkSpreader sculkSpreader,
 		boolean bl,
 		CallbackInfoReturnable<Integer> cir,
-		@Share("placedPos") LocalRef<BlockPos> placedPos,
-		@Share("placedState") LocalRef<BlockState> placedState
+		@Share("wilderWild$placedPos") LocalRef<BlockPos> placedPos,
+		@Share("wilderWild$placedState") LocalRef<BlockState> placedState
 	) {
 		if (placedPos.get() == null || placedState.get() == null) {
 			return;
@@ -270,7 +270,7 @@ public abstract class SculkBlockMixin {
 	@ModifyExpressionValue(method = "attemptUseCharge", at = @At(value = "INVOKE", target = "Ljava/lang/Math;max(II)I"))
 	private int wilderWild$newReturnValue(
 		int original,
-		@Share("additionalGrowthCost") LocalRef<Integer> additionalGrowthCost
+		@Share("wilderWild$additionalGrowthCost") LocalRef<Integer> additionalGrowthCost
 	) {
 		Integer additional = additionalGrowthCost.get();
 		return additional != null ? original + additional : original;

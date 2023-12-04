@@ -19,6 +19,10 @@
 package net.frozenblock.wilderwild.mixin.entity.warden;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
@@ -56,7 +60,6 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -268,27 +271,58 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	@Mixin(Warden.VibrationUser.class)
 	public static class VibrationUserMixin {
 
-		@Shadow
-		@Final
-		Warden field_44600;
-
-		@Inject(method = "onReceiveVibration", at = @At("HEAD"))
-		private void wilderWild$onReceiveVibration(ServerLevel world, BlockPos pos, GameEvent event, Entity sourceEntity, Entity entity, float distance, CallbackInfo ci) {
-			if (!this.field_44600.isDeadOrDying()) {
-				int additionalAnger = 0;
-				if (this.field_44600.level().getBlockState(pos).is(Blocks.SCULK_SENSOR)) {
-					if (this.field_44600.level().getBlockState(pos).getValue(RegisterProperties.HICCUPPING)) {
-						additionalAnger = 65;
-					}
-				}
-				if (sourceEntity != null) {
-					if (this.field_44600.closerThan(sourceEntity, 30.0D)) {
-						this.field_44600.increaseAngerAt(sourceEntity, additionalAnger, false);
-					}
-				} else {
-					this.field_44600.increaseAngerAt(entity, additionalAnger, false);
+		@Inject(
+			method = "onReceiveVibration",
+			at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;broadcastEntityEvent(Lnet/minecraft/world/entity/Entity;B)V", ordinal = 0)
+		)
+		private void wilderWild$captureIsHiccupingSensor(ServerLevel level, BlockPos pos, GameEvent event, Entity sourceEntity, Entity entity, float distance, CallbackInfo info, @Share("wilderWild$isHiccupingSensor") LocalBooleanRef isHiccupingSensorLocalRef
+		) {
+			boolean isHiccuping = false;
+			if (level.getBlockState(pos).is(Blocks.SCULK_SENSOR)) {
+				if (level.getBlockState(pos).getValue(RegisterProperties.HICCUPPING)) {
+					isHiccuping = true;
 				}
 			}
+			isHiccupingSensorLocalRef.set(isHiccuping);
 		}
+
+		@WrapOperation(
+			method = "onReceiveVibration",
+			at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/warden/Warden;increaseAngerAt(Lnet/minecraft/world/entity/Entity;)V", ordinal = 0)
+		)
+		private void wilderWild$increaseAngerWithRecentProjectile(Warden warden, Entity entity, Operation<Void> operation, @Share("wilderWild$isHiccupingSensor") LocalBooleanRef isHiccupingSensorLocalRef) {
+			if (isHiccupingSensorLocalRef.get()) {
+				warden.increaseAngerAt(entity, 100, true);
+			} else {
+				operation.call(warden, entity);
+			}
+		}
+
+		@WrapOperation(
+			method = "onReceiveVibration",
+			at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/warden/Warden;increaseAngerAt(Lnet/minecraft/world/entity/Entity;IZ)V", ordinal = 0)
+		)
+		private void wilderWild$increaseAngerWithoutRecentProjectile(Warden warden, Entity entity, int offset, boolean playListeningSound, Operation<Void> operation, @Share("wilderWild$isHiccupingSensor") LocalBooleanRef isHiccupingSensorLocalRef) {
+			operation.call(
+				warden,
+				entity,
+				isHiccupingSensorLocalRef.get() ? 45 : offset,
+				playListeningSound
+			);
+		}
+
+
+		@WrapOperation(
+			method = "onReceiveVibration",
+			at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/warden/Warden;increaseAngerAt(Lnet/minecraft/world/entity/Entity;)V", ordinal = 1)
+		)
+		private void wilderWild$increaseAngerWithDirectEntity(Warden warden, Entity entity, Operation<Void> operation, @Share("wilderWild$isHiccupingSensor") LocalBooleanRef isHiccupingSensorLocalRef) {
+			if (isHiccupingSensorLocalRef.get()) {
+				warden.increaseAngerAt(entity, 100, true);
+			} else {
+				operation.call(warden, entity);
+			}
+		}
+
 	}
 }
