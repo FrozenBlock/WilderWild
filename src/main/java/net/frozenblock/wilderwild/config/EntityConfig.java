@@ -143,10 +143,18 @@ public final class EntityConfig {
 		@UnsyncableEntry
 		@FieldIdentifier(identifier = "wardenSwimAnimation")
 		public boolean wardenSwimAnimation = true;
+
 		@UnsyncableEntry
 		@FieldIdentifier(identifier = "wardenCustomTendrils")
 		public boolean wardenCustomTendrils = true;
 
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "wardenImprovedDig")
+		public boolean wardenImprovedDig = true;
+
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "wardenImprovedEmerge")
+		public boolean wardenImprovedEmerge = true;
 		@UnsyncableEntry
 		@FieldIdentifier(identifier = "wardenBedrockSniff")
 		public boolean wardenBedrockSniff = true;

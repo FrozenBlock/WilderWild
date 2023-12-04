@@ -18,11 +18,13 @@
 
 package net.frozenblock.wilderwild.mixin.client.warden;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.render.animations.CustomWardenAnimations;
 import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
+import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.model.WardenModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.tags.FluidTags;
@@ -30,6 +32,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.monster.warden.Warden;
 import org.jetbrains.annotations.NotNull;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -90,6 +93,54 @@ public class WardenModelMixin<T extends Warden> {
 			this.leftTendril.zRot = cosDiv;
 			this.rightTendril.zRot = -cosDiv;
 		}
+	}
+
+	@ModifyExpressionValue(
+		method = "setupAnim*",
+		at = @At(
+			value = "FIELD",
+			target = "Lnet/minecraft/client/animation/definitions/WardenAnimation;WARDEN_DIG:Lnet/minecraft/client/animation/AnimationDefinition;",
+			opcode = Opcodes.GETSTATIC
+		),
+		require = 0
+	)
+	private AnimationDefinition wilderWild$newDigAnim(AnimationDefinition WARDEN_DIG) {
+		if (EntityConfig.get().warden.wardenImprovedDig) {
+			return CustomWardenAnimations.WARDEN_DIG;
+		}
+		return WARDEN_DIG;
+	}
+
+	@ModifyExpressionValue(
+		method = "setupAnim*",
+		at = @At(
+			value = "FIELD",
+			target = "Lnet/minecraft/client/animation/definitions/WardenAnimation;WARDEN_EMERGE:Lnet/minecraft/client/animation/AnimationDefinition;",
+			opcode = Opcodes.GETSTATIC
+		),
+		require = 0
+	)
+	private AnimationDefinition wilderWild$newEmergeAnim(AnimationDefinition WARDEN_EMERGE) {
+		if (EntityConfig.get().warden.wardenImprovedDig) {
+			return CustomWardenAnimations.WARDEN_EMERGE;
+		}
+		return WARDEN_EMERGE;
+	}
+
+	@ModifyExpressionValue(
+		method = "setupAnim*",
+		at = @At(
+			value = "FIELD",
+			target = "Lnet/minecraft/client/animation/definitions/WardenAnimation;WARDEN_SNIFF:Lnet/minecraft/client/animation/AnimationDefinition;",
+			opcode = Opcodes.GETSTATIC
+		),
+		require = 0
+	)
+	private AnimationDefinition wilderWild$bedrockSniffAnim(AnimationDefinition WARDEN_SNIFF) {
+		if (EntityConfig.get().warden.wardenImprovedDig) {
+			return CustomWardenAnimations.WARDEN_SNIFF;
+		}
+		return WARDEN_SNIFF;
 	}
 
 	@Inject(

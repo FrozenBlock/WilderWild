@@ -106,7 +106,6 @@
     "client.shrieker.LevelRendererMixin",
     "client.sodium.CloudRendererMixin",
     "client.sodium.FluidRendererMixin",
-    "client.warden.WardenAnimationOverwrites",
     "client.warden.WardenModelMixin",
     "client.wind.BaseAshSmokeParticleMixin",
     "client.wind.CampfireSmokeParticleMixin",

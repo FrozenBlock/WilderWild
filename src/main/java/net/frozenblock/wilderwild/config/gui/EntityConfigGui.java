@@ -76,8 +76,7 @@ public final class EntityConfigGui {
 						text("keyframe_allay_dance"), modifiedAllay.keyframeAllayDance)
 					.setDefaultValue(defaultConfig.allay.keyframeAllayDance)
 					.setSaveConsumer(newValue -> allay.keyframeAllayDance = newValue)
-					.setTooltip(tooltip("keyframe_allay_dance"))
-					.requireRestart(),
+					.setTooltip(tooltip("keyframe_allay_dance")),
 				allay.getClass(),
 				"keyframeAllayDance",
 				configInstance
@@ -286,6 +285,16 @@ public final class EntityConfigGui {
 				configInstance
 			)
 			.build();
+		var wardenImprovedEmerge = FrozenClothConfig.syncedBuilder(
+				entryBuilder.startBooleanToggle(text("warden_improved_emerge"), modifiedWarden.wardenImprovedEmerge)
+					.setDefaultValue(defaultConfig.warden.wardenImprovedEmerge)
+					.setSaveConsumer(newValue -> warden.wardenImprovedEmerge = newValue)
+					.setTooltip(tooltip("warden_improved_emerge")),
+				warden.getClass(),
+				"wardenImprovedEmerge",
+				configInstance
+			)
+			.build();
 		var wardenEmergesFromCommand = FrozenClothConfig.syncedBuilder(
 				entryBuilder.startBooleanToggle(text("warden_emerges_from_command"), modifiedWarden.wardenEmergesFromCommand)
 					.setDefaultValue(defaultConfig.warden.wardenEmergesFromCommand)
@@ -306,6 +315,27 @@ public final class EntityConfigGui {
 				configInstance
 			)
 			.build();
+		var wardenImprovedDig = FrozenClothConfig.syncedBuilder(
+				entryBuilder.startBooleanToggle(text("warden_improved_dig"), modifiedWarden.wardenImprovedDig)
+					.setDefaultValue(defaultConfig.warden.wardenImprovedDig)
+					.setSaveConsumer(newValue -> warden.wardenImprovedDig = newValue)
+					.setTooltip(tooltip("warden_improved_dig")),
+				warden.getClass(),
+				"wardenImprovedDig",
+				configInstance
+			)
+			.build();
+		var wardenBedrockSniff = FrozenClothConfig.syncedBuilder(
+				entryBuilder.startBooleanToggle(text("warden_bedrock_sniff"), modifiedWarden.wardenBedrockSniff)
+					.setDefaultValue(defaultConfig.warden.wardenBedrockSniff)
+					.setSaveConsumer(newValue -> warden.wardenBedrockSniff = newValue)
+					.setYesNoTextSupplier(bool -> text("warden_bedrock_sniff." + bool))
+					.setTooltip(tooltip("warden_bedrock_sniff")),
+				warden.getClass(),
+				"wardenBedrockSniff",
+				configInstance
+			)
+			.build();
 		var wardenCustomTendrils = FrozenClothConfig.syncedBuilder(
 				entryBuilder.startBooleanToggle(text("warden_custom_tendrils"), modifiedWarden.wardenCustomTendrils)
 					.setDefaultValue(defaultConfig.warden.wardenCustomTendrils)
@@ -317,23 +347,11 @@ public final class EntityConfigGui {
 				configInstance
 			)
 			.build();
-		var wardenBedrockSniff = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("warden_bedrock_sniff"), modifiedWarden.wardenBedrockSniff)
-					.setDefaultValue(defaultConfig.warden.wardenBedrockSniff)
-					.setSaveConsumer(newValue -> warden.wardenBedrockSniff = newValue)
-					.setYesNoTextSupplier(bool -> text("warden_bedrock_sniff." + bool))
-					.setTooltip(tooltip("warden_bedrock_sniff"))
-					.requireRestart(),
-				warden.getClass(),
-				"wardenBedrockSniff",
-				configInstance
-			)
-			.build();
 
 		var wardenCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("warden"),
 			false,
 			tooltip("warden"),
-			wardenAttacksImmediately, wardenSwims, wardenSwimAnimation, wardenDyingAnimation, wardenEmergesFromCommand, wardenEmergesFromEgg, wardenCustomTendrils, wardenBedrockSniff
+			wardenAttacksImmediately, wardenSwims, wardenSwimAnimation, wardenDyingAnimation, wardenImprovedEmerge, wardenEmergesFromCommand, wardenEmergesFromEgg, wardenImprovedDig, wardenBedrockSniff, wardenCustomTendrils
 		);
 	}
 }
