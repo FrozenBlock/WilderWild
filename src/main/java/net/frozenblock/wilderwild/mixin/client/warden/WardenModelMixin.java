@@ -121,7 +121,7 @@ public class WardenModelMixin<T extends Warden> {
 		require = 0
 	)
 	private AnimationDefinition wilderWild$newEmergeAnim(AnimationDefinition WARDEN_EMERGE) {
-		if (EntityConfig.get().warden.wardenImprovedDig) {
+		if (EntityConfig.get().warden.wardenImprovedEmerge) {
 			return CustomWardenAnimations.WARDEN_EMERGE;
 		}
 		return WARDEN_EMERGE;
@@ -137,7 +137,7 @@ public class WardenModelMixin<T extends Warden> {
 		require = 0
 	)
 	private AnimationDefinition wilderWild$bedrockSniffAnim(AnimationDefinition WARDEN_SNIFF) {
-		if (EntityConfig.get().warden.wardenImprovedDig) {
+		if (EntityConfig.get().warden.wardenBedrockSniff) {
 			return CustomWardenAnimations.WARDEN_SNIFF;
 		}
 		return WARDEN_SNIFF;
