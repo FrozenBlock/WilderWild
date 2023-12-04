@@ -137,6 +137,13 @@ public final class EntityConfig {
 		public boolean wardenAttacksImmediately = true;
 
 		@UnsyncableEntry
+		@FieldIdentifier(identifier = "wardenSwims")
+		public boolean wardenSwims = true;
+
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "wardenSwimAnimation")
+		public boolean wardenSwimAnimation = true;
+		@UnsyncableEntry
 		@FieldIdentifier(identifier = "wardenCustomTendrils")
 		public boolean wardenCustomTendrils = true;
 
@@ -153,8 +160,8 @@ public final class EntityConfig {
 		@FieldIdentifier(identifier = "wardenEmergesFromEgg")
 		public boolean wardenEmergesFromEgg = false;
 
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "wardenSwimAnimation")
-		public boolean wardenSwimAnimation = true;
+		public boolean swimAndAnimationConfigEnabled() {
+			return this.wardenSwims && this.wardenSwimAnimation;
+		}
 	}
 }

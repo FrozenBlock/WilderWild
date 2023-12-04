@@ -246,7 +246,7 @@ public final class EntityConfigGui {
 			tumbleweedSpawnCap, leashedTumbleweed, tumbleweedDestroysCrops, tumbleweedRotatesToLookDirection
 		);
 
-		var instantAttack = FrozenClothConfig.syncedBuilder(
+		var wardenAttacksImmediately = FrozenClothConfig.syncedBuilder(
 				entryBuilder.startBooleanToggle(text("warden_attacks_immediately"), modifiedWarden.wardenAttacksImmediately)
 					.setDefaultValue(defaultConfig.warden.wardenAttacksImmediately)
 					.setSaveConsumer(newValue -> warden.wardenAttacksImmediately = newValue)
@@ -256,37 +256,17 @@ public final class EntityConfigGui {
 				configInstance
 			)
 			.build();
-		var dying = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("warden_dying_animation"), modifiedWarden.wardenDyingAnimation)
-					.setDefaultValue(defaultConfig.warden.wardenDyingAnimation)
-					.setSaveConsumer(newValue -> warden.wardenDyingAnimation = newValue)
-					.setTooltip(tooltip("warden_dying_animation")),
+		var wardenSwims = FrozenClothConfig.syncedBuilder(
+				entryBuilder.startBooleanToggle(text("warden_swims"), modifiedWarden.wardenSwims)
+					.setDefaultValue(defaultConfig.warden.wardenSwims)
+					.setSaveConsumer(newValue -> warden.wardenSwims = newValue)
+					.setTooltip(tooltip("warden_swims")),
 				warden.getClass(),
-				"wardenDyingAnimation",
+				"wardenSwims",
 				configInstance
 			)
 			.build();
-		var command = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("warden_emerges_from_command"), modifiedWarden.wardenEmergesFromCommand)
-					.setDefaultValue(defaultConfig.warden.wardenEmergesFromCommand)
-					.setSaveConsumer(newValue -> warden.wardenEmergesFromCommand = newValue)
-					.setTooltip(tooltip("warden_emerges_from_command")),
-				warden.getClass(),
-				"wardenEmergesFromCommand",
-				configInstance
-			)
-			.build();
-		var egg = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("warden_emerges_from_egg"), modifiedWarden.wardenEmergesFromEgg)
-					.setDefaultValue(defaultConfig.warden.wardenEmergesFromEgg)
-					.setSaveConsumer(newValue -> warden.wardenEmergesFromEgg = newValue)
-					.setTooltip(tooltip("warden_emerges_from_egg")),
-				warden.getClass(),
-				"wardenEmergesFromEgg",
-				configInstance
-			)
-			.build();
-		var swimming = FrozenClothConfig.syncedBuilder(
+		var wardenSwimAnimation = FrozenClothConfig.syncedBuilder(
 				entryBuilder.startBooleanToggle(text("warden_swim_animation"), modifiedWarden.wardenSwimAnimation)
 					.setDefaultValue(defaultConfig.warden.wardenSwimAnimation)
 					.setSaveConsumer(newValue -> warden.wardenSwimAnimation = newValue)
@@ -296,7 +276,37 @@ public final class EntityConfigGui {
 				configInstance
 			)
 			.build();
-		var tendrils = FrozenClothConfig.syncedBuilder(
+		var wardenDyingAnimation = FrozenClothConfig.syncedBuilder(
+				entryBuilder.startBooleanToggle(text("warden_dying_animation"), modifiedWarden.wardenDyingAnimation)
+					.setDefaultValue(defaultConfig.warden.wardenDyingAnimation)
+					.setSaveConsumer(newValue -> warden.wardenDyingAnimation = newValue)
+					.setTooltip(tooltip("warden_dying_animation")),
+				warden.getClass(),
+				"wardenDyingAnimation",
+				configInstance
+			)
+			.build();
+		var wardenEmergesFromCommand = FrozenClothConfig.syncedBuilder(
+				entryBuilder.startBooleanToggle(text("warden_emerges_from_command"), modifiedWarden.wardenEmergesFromCommand)
+					.setDefaultValue(defaultConfig.warden.wardenEmergesFromCommand)
+					.setSaveConsumer(newValue -> warden.wardenEmergesFromCommand = newValue)
+					.setTooltip(tooltip("warden_emerges_from_command")),
+				warden.getClass(),
+				"wardenEmergesFromCommand",
+				configInstance
+			)
+			.build();
+		var wardenEmergesFromEgg = FrozenClothConfig.syncedBuilder(
+				entryBuilder.startBooleanToggle(text("warden_emerges_from_egg"), modifiedWarden.wardenEmergesFromEgg)
+					.setDefaultValue(defaultConfig.warden.wardenEmergesFromEgg)
+					.setSaveConsumer(newValue -> warden.wardenEmergesFromEgg = newValue)
+					.setTooltip(tooltip("warden_emerges_from_egg")),
+				warden.getClass(),
+				"wardenEmergesFromEgg",
+				configInstance
+			)
+			.build();
+		var wardenCustomTendrils = FrozenClothConfig.syncedBuilder(
 				entryBuilder.startBooleanToggle(text("warden_custom_tendrils"), modifiedWarden.wardenCustomTendrils)
 					.setDefaultValue(defaultConfig.warden.wardenCustomTendrils)
 					.setSaveConsumer(newValue -> warden.wardenCustomTendrils = newValue)
@@ -307,7 +317,7 @@ public final class EntityConfigGui {
 				configInstance
 			)
 			.build();
-		var sniff = FrozenClothConfig.syncedBuilder(
+		var wardenBedrockSniff = FrozenClothConfig.syncedBuilder(
 				entryBuilder.startBooleanToggle(text("warden_bedrock_sniff"), modifiedWarden.wardenBedrockSniff)
 					.setDefaultValue(defaultConfig.warden.wardenBedrockSniff)
 					.setSaveConsumer(newValue -> warden.wardenBedrockSniff = newValue)
@@ -323,7 +333,7 @@ public final class EntityConfigGui {
 		var wardenCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("warden"),
 			false,
 			tooltip("warden"),
-			instantAttack, dying, command, egg, swimming, tendrils, sniff
+			wardenAttacksImmediately, wardenSwims, wardenSwimAnimation, wardenDyingAnimation, wardenEmergesFromCommand, wardenEmergesFromEgg, wardenCustomTendrils, wardenBedrockSniff
 		);
 	}
 }

@@ -103,7 +103,7 @@ public class WardenModelMixin<T extends Warden> {
 		require = 0
 	)
 	private void wilderWild$setupAnim(T warden, float angle, float distance, float anim, float headYaw, float headPitch, CallbackInfo info) {
-		if (EntityConfig.get().warden.wardenSwimAnimation && wilderWild$isSubmerged(warden)) {
+		if (EntityConfig.get().warden.swimAndAnimationConfigEnabled() && wilderWild$isSubmerged(warden)) {
 			this.wilderWild$animateSwimming(
 				warden,
 				angle,

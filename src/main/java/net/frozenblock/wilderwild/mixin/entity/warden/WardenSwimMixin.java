@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.mixin.entity.warden;
 
 import java.util.Optional;
+import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.ai.warden.WardenLookControl;
 import net.frozenblock.wilderwild.entity.ai.warden.WardenMoveControl;
 import net.frozenblock.wilderwild.entity.ai.warden.WardenNavigation;
@@ -121,7 +122,7 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 	@Override
 	public void travel(@NotNull Vec3 travelVector) {
 		Warden warden = Warden.class.cast(this);
-		if (this.isEffectiveAi() && this.wilderWild$isTouchingWaterOrLava()) {
+		if (this.isEffectiveAi() && this.wilderWild$isTouchingWaterOrLava() && EntityConfig.get().warden.wardenSwims) {
 			this.moveRelative(this.getSpeed(), travelVector);
 			this.move(MoverType.SELF, this.getDeltaMovement());
 			this.setDeltaMovement(this.getDeltaMovement().scale(0.9));
@@ -152,23 +153,23 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 
 	@Override
 	public boolean canBreatheUnderwater() {
-		return true;
+		return EntityConfig.get().warden.wardenSwims;
 	}
 
 	@Override
 	public boolean isPushedByFluid() {
-		return false;
+		return !EntityConfig.get().warden.wardenSwims;
 	}
 
 	@Override
 	@NotNull
 	public SoundEvent getSwimSound() {
-		return RegisterSounds.ENTITY_WARDEN_SWIM;
+		return EntityConfig.get().warden.wardenSwims ? RegisterSounds.ENTITY_WARDEN_SWIM : super.getSwimSound();
 	}
 
 	@Override
 	public void jumpInLiquid(@NotNull TagKey<Fluid> fluid) {
-		if (this.getBrain().hasMemoryValue(MemoryModuleType.ROAR_TARGET) || this.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET)) {
+		if (EntityConfig.get().warden.wardenSwims && (this.getBrain().hasMemoryValue(MemoryModuleType.ROAR_TARGET) || this.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET))) {
 			Optional<LivingEntity> ATTACK_TARGET = this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET);
 			Optional<LivingEntity> ROAR_TARGET = this.getBrain().getMemory(MemoryModuleType.ROAR_TARGET);
 			LivingEntity target = ATTACK_TARGET.orElseGet(() -> ROAR_TARGET.orElse(null));
@@ -184,17 +185,21 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 	}
 
 	@Unique
+	@Override
 	public float getSwimAmount(float tickDelta) {
 		return Mth.lerp(tickDelta, this.wilderWild$lastLeaningPitch, this.wilderWild$leaningPitch);
 	}
 
 	@Override
 	protected boolean updateInWaterStateAndDoFluidPushing() {
-		Warden warden = Warden.class.cast(this);
-		this.fluidHeight.clear();
-		warden.updateInWaterStateAndDoWaterCurrentPushing();
-		boolean bl = warden.updateFluidHeightAndDoFluidPushing(FluidTags.LAVA, 0.1D);
-		return this.wilderWild$isTouchingWaterOrLava() || bl;
+		if (EntityConfig.get().warden.wardenSwims) {
+			Warden warden = Warden.class.cast(this);
+			this.fluidHeight.clear();
+			warden.updateInWaterStateAndDoWaterCurrentPushing();
+			boolean bl = warden.updateFluidHeightAndDoFluidPushing(FluidTags.LAVA, 0.1D);
+			return this.wilderWild$isTouchingWaterOrLava() || bl;
+		}
+		return super.updateInWaterStateAndDoFluidPushing();
 	}
 
 	@Inject(method = "getDimensions", at = @At("RETURN"), cancellable = true)
