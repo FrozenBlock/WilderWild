@@ -1141,7 +1141,7 @@ public final class RegisterBlocks {
 	}
 
 	@NotNull
-	private static HollowedLogBlock createHollowedLogBlock(MapColor topMapColor, MapColor sideMapColor, SoundType soundType) {
+	public static HollowedLogBlock createHollowedLogBlock(MapColor topMapColor, MapColor sideMapColor, SoundType soundType) {
 		var settings = FabricBlockSettings.create()
 			.mapColor(state -> state.getValue(HollowedLogBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor)
 			.instrument(NoteBlockInstrument.BASS)
@@ -1153,12 +1153,12 @@ public final class RegisterBlocks {
 	}
 
 	@NotNull
-	private static HollowedLogBlock createHollowedLogBlock(MapColor topMapColor, MapColor sideMapColor) {
+	public static HollowedLogBlock createHollowedLogBlock(MapColor topMapColor, MapColor sideMapColor) {
 		return createHollowedLogBlock(topMapColor, sideMapColor, RegisterBlockSoundTypes.HOLLOWED_LOG);
 	}
 
 	@NotNull
-	private static HollowedLogBlock createHollowedStemBlock(MapColor mapColor) {
+	public static HollowedLogBlock createHollowedStemBlock(MapColor mapColor) {
 		return new HollowedLogBlock(FabricBlockSettings.create()
 			.mapColor(state -> mapColor)
 			.instrument(NoteBlockInstrument.BASS)
@@ -1168,7 +1168,7 @@ public final class RegisterBlocks {
 	}
 
 	@NotNull
-	private static HollowedLogBlock createStrippedHollowedLogBlock(MapColor mapColor, SoundType soundType) {
+	public static HollowedLogBlock createStrippedHollowedLogBlock(MapColor mapColor, SoundType soundType) {
 		var settings = FabricBlockSettings.create()
 			.mapColor(state -> mapColor)
 			.instrument(NoteBlockInstrument.BASS)
@@ -1180,12 +1180,12 @@ public final class RegisterBlocks {
 	}
 
 	@NotNull
-	private static HollowedLogBlock createStrippedHollowedLogBlock(MapColor mapColor) {
+	public static HollowedLogBlock createStrippedHollowedLogBlock(MapColor mapColor) {
 		return createStrippedHollowedLogBlock(mapColor, RegisterBlockSoundTypes.HOLLOWED_LOG);
 	}
 
 	@NotNull
-	private static HollowedLogBlock createStrippedHollowedStemBlock(MapColor mapColor) {
+	public static HollowedLogBlock createStrippedHollowedStemBlock(MapColor mapColor) {
 		return new HollowedLogBlock(FabricBlockSettings.create()
 			.mapColor(state -> mapColor)
 			.instrument(NoteBlockInstrument.BASS)
@@ -1195,7 +1195,7 @@ public final class RegisterBlocks {
 	}
 
 	@NotNull
-	private static MesogleaBlock mesoglea(@NotNull MapColor mapColor, @NotNull SimpleParticleType particleType, boolean pearlescent) {
+	public static MesogleaBlock mesoglea(@NotNull MapColor mapColor, @NotNull SimpleParticleType particleType, boolean pearlescent) {
 		return new MesogleaBlock(
 			FabricBlockSettings.create()
 				.mapColor(mapColor)
@@ -1214,7 +1214,7 @@ public final class RegisterBlocks {
 	}
 
 	@NotNull
-	private static NematocystBlock nematocyst(@NotNull MapColor mapColor) {
+	public static NematocystBlock nematocyst(@NotNull MapColor mapColor) {
 		return new NematocystBlock(
 			FabricBlockSettings.create()
 				.mapColor(mapColor)

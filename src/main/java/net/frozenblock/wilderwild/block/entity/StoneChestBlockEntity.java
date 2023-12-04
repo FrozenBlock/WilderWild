@@ -73,9 +73,9 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 
 		@Override
 		protected boolean isOwnContainer(@NotNull Player player) {
-			if (player.containerMenu instanceof ChestMenu) {
-				Container inventory = ((ChestMenu) player.containerMenu).getContainer();
-				return inventory == StoneChestBlockEntity.this || inventory instanceof CompoundContainer && ((CompoundContainer) inventory).contains(StoneChestBlockEntity.this);
+			if (player.containerMenu instanceof ChestMenu chest) {
+				Container inventory = chest.getContainer();
+				return inventory == StoneChestBlockEntity.this || inventory instanceof CompoundContainer container && container.contains(StoneChestBlockEntity.this);
 			}
 			return false;
 		}
@@ -149,17 +149,17 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 
 	public static void playSound(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull SoundEvent soundEvent, @NotNull SoundEvent waterloggedSoundEvent, float volume) {
 		ChestType chestType = state.getValue(ChestBlock.TYPE);
-		double x = (double) pos.getX() + 0.5;
-		double y = (double) pos.getY() + 0.5;
-		double z = (double) pos.getZ() + 0.5;
+		double x = pos.getX() + 0.5;
+		double y = pos.getY() + 0.5;
+		double z = pos.getZ() + 0.5;
 		if (chestType == ChestType.RIGHT) {
 			Direction direction = ChestBlock.getConnectedDirection(state);
-			x += (double) direction.getStepX() * 0.5;
-			z += (double) direction.getStepZ() * 0.5;
+			x += direction.getStepX() * 0.5;
+			z += direction.getStepZ() * 0.5;
 		} else if (chestType == ChestType.LEFT) {
 			Direction direction = ChestBlock.getConnectedDirection(state);
-			x -= (double) direction.getStepX() * 0.5;
-			z -= (double) direction.getStepZ() * 0.5;
+			x -= direction.getStepX() * 0.5;
+			z -= direction.getStepZ() * 0.5;
 		}
 		level.playSound(null, x, y, z, state.getValue(BlockStateProperties.WATERLOGGED) ? waterloggedSoundEvent : soundEvent, SoundSource.BLOCKS, volume, level.random.nextFloat() * 0.18F + 0.9F);
 	}
@@ -232,7 +232,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		if (this.level.getBlockEntity(this.worldPosition) != this) {
 			return false;
 		}
-		return !(player.distanceToSqr((double) this.worldPosition.getX() + 0.5, (double) this.worldPosition.getY() + 0.5, (double) this.worldPosition.getZ() + 0.5) > 64.0) && ((!this.closing && this.openProgress >= 0.3));
+		return super.stillValid(player) && !this.closing && this.openProgress >= 0.3;
 	}
 
 	public void syncLidValuesWith(@Nullable StoneChestBlockEntity otherStoneChest) {
