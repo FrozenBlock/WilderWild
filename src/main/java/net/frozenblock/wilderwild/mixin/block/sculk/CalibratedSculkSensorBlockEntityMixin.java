@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.mixin.sculk;
+package net.frozenblock.wilderwild.mixin.block.sculk;
 
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.lib.math.api.AdvancedMath;

@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.mixin.warden;
+package net.frozenblock.wilderwild.mixin.entity.warden;
 
 import java.util.Optional;
 import net.frozenblock.wilderwild.entity.ai.warden.WardenLookControl;

@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.mixin.sculk;
+package net.frozenblock.wilderwild.mixin.block.sculk;
 
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.config.BlockConfig;
