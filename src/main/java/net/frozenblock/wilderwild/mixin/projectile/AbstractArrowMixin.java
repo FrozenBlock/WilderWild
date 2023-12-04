@@ -49,8 +49,7 @@ public class AbstractArrowMixin {
 		if (this.lastState != null && ItemConfig.get().projectileBreakParticles) {
 			AbstractArrow arrow = AbstractArrow.class.cast(this);
 			if (!arrow.level().isClientSide && arrow.level() instanceof ServerLevel server) {
-				double lengthSqr = arrow.getDeltaMovement().lengthSqr(); //The distance the arrow travels on this given tick.
-				int particleCalc = ((int) (lengthSqr * 1.5D));
+				int particleCalc = ((int) (arrow.getDeltaMovement().lengthSqr() * 1.5D));
 				if (particleCalc > 1 || (particleCalc == 1 && arrow.level().random.nextBoolean())) {
 					server.sendParticles(
 						new BlockParticleOption(ParticleTypes.BLOCK, this.lastState),
