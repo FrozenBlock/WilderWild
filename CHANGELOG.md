@@ -24,8 +24,9 @@ Additions
 Bug Fixes & Changes
 ---
 
-- Tweaked leaf decay distance to 10 in order to accommodate for Palm Fronds, so they now work like regular leaves
-    - Other leaf types will still cap out at 7, but can be changed with commands or a Debug Stick to go up to 10
+- Tweaked leaf decay distance to 12 in order to accommodate for Palm Fronds, so they now work like regular leaves
+    - Other leaf types will still cap out at 7, but can be changed with commands or a Debug Stick to go up to 12
+- Made Palm Fronds less dense on average
 - Removed the custom distance detection from Palm Crowns
 - Added Palm Crowns to tags it was missing from
 - Reworked how Coconuts are placed on Palms, so they should no longer break upon generation

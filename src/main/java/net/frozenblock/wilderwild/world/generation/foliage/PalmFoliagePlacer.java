@@ -39,7 +39,7 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 	public static final Codec<PalmFoliagePlacer> CODEC = RecordCodecBuilder.create((instance) ->
 		palmCodec(instance).apply(instance, PalmFoliagePlacer::new)
 	);
-	private static final double SURROUNDING_LEAF_THRESHOLD = 0.175;
+	private static final double SURROUNDING_LEAF_THRESHOLD = 0.0;
 	public final IntProvider frondCount;
 	public final BlockStateProvider crownState;
 
