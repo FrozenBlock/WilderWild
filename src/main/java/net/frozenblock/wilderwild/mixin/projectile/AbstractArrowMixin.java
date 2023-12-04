@@ -42,7 +42,7 @@ public class AbstractArrowMixin {
 
 	@Inject(
 		method = "onHitBlock",
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/AbstractArrow;playSound(Lnet/minecraft/sounds/SoundEvent;FF)V", ordinal = 0),
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/AbstractArrow;setDeltaMovement(Lnet/minecraft/world/phys/Vec3;)V", ordinal = 0, shift = At.Shift.BEFORE),
 		locals = LocalCapture.CAPTURE_FAILHARD
 	)
 	public void wilderWild$sendProjectileBreakParticles(BlockHitResult blockHitResult, CallbackInfo info) {
