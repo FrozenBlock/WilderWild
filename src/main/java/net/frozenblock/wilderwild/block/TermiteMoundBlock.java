@@ -44,7 +44,12 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 
 	public TermiteMoundBlock(@NotNull Properties settings) {
 		super(settings);
-		this.registerDefaultState(this.stateDefinition.any().setValue(RegisterProperties.NATURAL, false).setValue(RegisterProperties.TERMITES_AWAKE, false).setValue(RegisterProperties.CAN_SPAWN_TERMITE, false));
+		this.registerDefaultState(
+			this.stateDefinition.any()
+				.setValue(RegisterProperties.NATURAL, false)
+				.setValue(RegisterProperties.TERMITES_AWAKE, false)
+				.setValue(RegisterProperties.CAN_SPAWN_TERMITE, false)
+		);
 	}
 
 	public static boolean canTermitesWaken(@NotNull Level level, @NotNull BlockPos pos) {

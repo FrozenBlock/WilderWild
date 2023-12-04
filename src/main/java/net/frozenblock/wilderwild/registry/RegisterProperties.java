@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.block.property.BubbleDirection;
 import net.frozenblock.wilderwild.block.property.FlowerColor;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;

@@ -48,6 +48,6 @@ public class BaobabLeavesBlock extends LeavesBlock implements BonemealableBlock 
 
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-		level.setBlock(pos.below(), RegisterBlocks.BAOBAB_NUT.getDefaultHangingState(), 2);
+		level.setBlock(pos.below(), RegisterBlocks.BAOBAB_NUT.getDefaultHangingState(), UPDATE_CLIENTS);
 	}
 }

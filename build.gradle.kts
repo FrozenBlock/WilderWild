@@ -254,14 +254,11 @@ dependencies {
     // TerraBlender
     modCompileOnlyApi("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
 
-    // CaffeineConfig
-    //modImplementation("net.caffeinemc:mixin-config:1.0.0+1.17")?.let { include(it) }
-
     // Particle Rain
     modCompileOnly("maven.modrinth:particle-rain:v2.0.5")
 
     // MixinExtras
-    implementation("io.github.llamalad7.mixinextras:mixinextras-fabric:$mixin_extras_version")?.let { annotationProcessor(it); }
+    modApi("io.github.llamalad7:mixinextras-fabric:$mixin_extras_version")?.let { annotationProcessor(it) }
 
     // Sodium
     modCompileOnly("maven.modrinth:sodium:${sodium_version}")
