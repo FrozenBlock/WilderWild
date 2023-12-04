@@ -122,8 +122,8 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	public static boolean isSilkTouchOrShears(@NotNull DamageSource damageSource) {
-		if (damageSource.getDirectEntity() instanceof Player player) {
-			ItemStack stack = player.getMainHandItem();
+		if (damageSource.getDirectEntity() instanceof LivingEntity livingEntity) {
+			ItemStack stack = livingEntity.getMainHandItem();
 			return EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0 || stack.is(Items.SHEARS);
 		}
 		return false;
@@ -492,11 +492,9 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	@Override
 	public void die(@NotNull DamageSource damageSource) {
 		super.die(damageSource);
-		if (!this.level().isClientSide && damageSource.getDirectEntity() instanceof Player) {
-			if (this.level().getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT) && !damageSource.isCreativePlayer()) {
-				if (isSilkTouchOrShears(damageSource)) {
-					this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(RegisterBlocks.TUMBLEWEED)));
-				}
+		if (!this.level().isClientSide && this.level().getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT) && !damageSource.isCreativePlayer()) {
+			if (isSilkTouchOrShears(damageSource)) {
+				this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(RegisterBlocks.TUMBLEWEED)));
 			}
 		}
 		this.destroy(true);
