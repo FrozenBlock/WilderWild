@@ -58,6 +58,8 @@ Bug Fixes & Changes
 - Sculk Shriekers will now only create Sculk Bubbles underwater if the Shrieker Gargling config is enabled
 - Stone Chests will now interact with Redstone Comparators, outputting a signal based on how high their lid is lifted ([#319](https://github.com/FrozenBlock/WilderWild/issues/319))
 - Echo Glass now occludes Vibrations
+- Added a config option to control whether or not the Warden should be able to swim
+  - This config option should now result in all Warden changes becoming toggleable
 - The Warden's death particles will now only spawn at the Warden's position as opposed to spawning within its entire hitbox
 
 - Landing/Potion sound code will no longer attempt to run on the client
