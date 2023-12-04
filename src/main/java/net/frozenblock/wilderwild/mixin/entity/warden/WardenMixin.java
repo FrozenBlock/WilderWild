@@ -292,7 +292,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 		)
 		private void wilderWild$increaseAngerWithRecentProjectile(Warden warden, Entity entity, Operation<Void> operation, @Share("wilderWild$isHiccupingSensor") LocalBooleanRef isHiccupingSensorLocalRef) {
 			if (isHiccupingSensorLocalRef.get()) {
-				warden.increaseAngerAt(entity, 100, true);
+				warden.increaseAngerAt(entity, 70, true);
 			} else {
 				operation.call(warden, entity);
 			}
@@ -306,7 +306,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 			operation.call(
 				warden,
 				entity,
-				isHiccupingSensorLocalRef.get() ? 25 : offset,
+				isHiccupingSensorLocalRef.get() ? 20 : offset,
 				playListeningSound
 			);
 		}
@@ -318,7 +318,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 		)
 		private void wilderWild$increaseAngerWithDirectEntity(Warden warden, Entity entity, Operation<Void> operation, @Share("wilderWild$isHiccupingSensor") LocalBooleanRef isHiccupingSensorLocalRef) {
 			if (isHiccupingSensorLocalRef.get()) {
-				warden.increaseAngerAt(entity, 100, true);
+				warden.increaseAngerAt(entity, 70, true);
 			} else {
 				operation.call(warden, entity);
 			}
