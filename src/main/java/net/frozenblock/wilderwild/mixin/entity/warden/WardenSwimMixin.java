@@ -102,9 +102,9 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 	private void wilderWild$updateSwimAmount() {
 		this.wilderWild$lastLeaningPitch = this.wilderWild$leaningPitch;
 		if (this.isVisuallySwimming()) {
-			this.wilderWild$leaningPitch = Math.min(1.0F, this.wilderWild$leaningPitch + 0.09F);
+			this.wilderWild$leaningPitch = Math.min(1F, this.wilderWild$leaningPitch + 0.09F);
 		} else {
-			this.wilderWild$leaningPitch = Math.max(0.0F, this.wilderWild$leaningPitch - 0.09F);
+			this.wilderWild$leaningPitch = Math.max(0F, this.wilderWild$leaningPitch - 0.09F);
 		}
 	}
 
@@ -143,10 +143,10 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void wilderWild$wardenEntity(EntityType<? extends Monster> entityType, Level level, CallbackInfo ci) {
 		Warden wardenEntity = Warden.class.cast(this);
-		wardenEntity.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-		wardenEntity.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, -1.0F);
-		wardenEntity.setPathfindingMalus(BlockPathTypes.DANGER_POWDER_SNOW, -1.0F);
-		this.moveControl = new WardenMoveControl(wardenEntity, 0.05F, 80.0F, 0.13F, 1.0F);
+		wardenEntity.setPathfindingMalus(BlockPathTypes.WATER, 0F);
+		wardenEntity.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, -1F);
+		wardenEntity.setPathfindingMalus(BlockPathTypes.DANGER_POWDER_SNOW, -1F);
+		this.moveControl = new WardenMoveControl(wardenEntity, 0.05F, 80F, 0.13F, 1F);
 		this.lookControl = new WardenLookControl(wardenEntity, 10);
 	}
 
