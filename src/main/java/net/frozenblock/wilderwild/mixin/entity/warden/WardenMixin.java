@@ -306,7 +306,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 			operation.call(
 				warden,
 				entity,
-				isHiccupingSensorLocalRef.get() ? 45 : offset,
+				isHiccupingSensorLocalRef.get() ? 25 : offset,
 				playListeningSound
 			);
 		}
