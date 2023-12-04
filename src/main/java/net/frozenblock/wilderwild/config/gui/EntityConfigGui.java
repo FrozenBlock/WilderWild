@@ -289,6 +289,7 @@ public final class EntityConfigGui {
 				entryBuilder.startBooleanToggle(text("warden_improved_emerge"), modifiedWarden.wardenImprovedEmerge)
 					.setDefaultValue(defaultConfig.warden.wardenImprovedEmerge)
 					.setSaveConsumer(newValue -> warden.wardenImprovedEmerge = newValue)
+					.setYesNoTextSupplier(bool -> text("improved." + bool))
 					.setTooltip(tooltip("warden_improved_emerge")),
 				warden.getClass(),
 				"wardenImprovedEmerge",
@@ -319,6 +320,7 @@ public final class EntityConfigGui {
 				entryBuilder.startBooleanToggle(text("warden_improved_dig"), modifiedWarden.wardenImprovedDig)
 					.setDefaultValue(defaultConfig.warden.wardenImprovedDig)
 					.setSaveConsumer(newValue -> warden.wardenImprovedDig = newValue)
+					.setYesNoTextSupplier(bool -> text("improved." + bool))
 					.setTooltip(tooltip("warden_improved_dig")),
 				warden.getClass(),
 				"wardenImprovedDig",
@@ -340,7 +342,7 @@ public final class EntityConfigGui {
 				entryBuilder.startBooleanToggle(text("warden_custom_tendrils"), modifiedWarden.wardenCustomTendrils)
 					.setDefaultValue(defaultConfig.warden.wardenCustomTendrils)
 					.setSaveConsumer(newValue -> warden.wardenCustomTendrils = newValue)
-					.setYesNoTextSupplier(bool -> text("warden_custom_tendrils." + bool))
+					.setYesNoTextSupplier(bool -> text("improved." + bool))
 					.setTooltip(tooltip("warden_custom_tendrils")),
 				warden.getClass(),
 				"wardenCustomTendrils",
