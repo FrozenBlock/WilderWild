@@ -135,8 +135,7 @@ public final class EntityConfig {
 	public static class WardenConfig {
 		@FieldIdentifier(identifier = "wardenAttacksImmediately")
 		public boolean wardenAttacksImmediately = true;
-
-		@UnsyncableEntry
+		
 		@FieldIdentifier(identifier = "wardenSwims")
 		public boolean wardenSwims = true;
 
