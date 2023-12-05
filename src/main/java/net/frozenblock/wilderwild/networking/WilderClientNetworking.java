@@ -156,22 +156,22 @@ public class WilderClientNetworking {
 					BlockParticleOption blockParticleOption = new BlockParticleOption(ParticleTypes.BLOCK, blockState);
 
 					for (int a = 0; a < particles; a++) {
-						Vec3 offsetPos = AdvancedMath.rotateAboutXZ(origin, 1D, angle + (((random.nextDouble() * rotAngle) * 0.25D) * (random.nextBoolean() ? 1D : -1D)));
-						double dirX = offsetPos.x - origin.x;
-						double dirZ = offsetPos.z - origin.z;
+						Vec3 offsetPos = AdvancedMath.rotateAboutXZ(origin, 0.25D, angle + (((random.nextDouble() * rotAngle) * 0.25D) * (random.nextBoolean() ? 1D : -1D)));
+						double dirX = (offsetPos.x - origin.x) * ((random.nextFloat() * 0.4F) + 0.6F);
+						double dirZ = (offsetPos.z - origin.z) * ((random.nextFloat() * 0.4F) + 0.6F);
 						Particle particle = ctx.particleEngine.createParticle(
 							blockParticleOption,
-							x + (dirX * 0.25D),
+							x + dirX,
 							y,
-							z + (dirZ * 0.25D),
+							z + dirZ,
 							0D,
 							0D,
 							0D
 						);
 						if (particle != null) {
-							particle.xd = (dirX * 0.1D) / tickCount;
-							particle.yd = (0.5D) / tickCount;
-							particle.zd = (dirZ * 0.1D) / tickCount;
+							particle.xd = (dirX * 0.8D) / tickCount;
+							particle.yd = (0.5D / tickCount) * ((random.nextFloat() * 0.4F) + 0.6F);
+							particle.zd = (dirZ * 0.8D) / tickCount;
 						}
 						angle += rotAngle;
 					}
