@@ -16,10 +16,12 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -149,7 +151,7 @@ public class WilderClientNetworking {
 			double y = byteBuf.readDouble();
 			double z = byteBuf.readDouble();
 			int tickCount = byteBuf.readVarInt();
-			if (ctx.level != null) {
+			if (ctx.level != null && !blockState.isAir()) {
 				RandomSource random = ctx.level.getRandom();
 				if (EntityConfig.get().lightningBlockParticles) {
 					lightningBlockParticles(tickCount, x, y, z, blockState, random, ctx.particleEngine);
@@ -171,7 +173,12 @@ public class WilderClientNetworking {
 		int particles = first ? random.nextInt(25, 40) : random.nextInt(5, 15);
 		double rotAngle = 360D / (double) particles;
 		double angle = random.nextDouble() * 360D;
-		BlockParticleOption blockParticleOption = new BlockParticleOption(ParticleTypes.BLOCK, blockState);
+		ParticleOptions particleOptions = new BlockParticleOption(ParticleTypes.BLOCK, blockState);
+		if (blockState.is(Blocks.WATER)) {
+			particleOptions = ParticleTypes.SPLASH;
+		} else if (blockState.is(Blocks.LAVA)) {
+			particleOptions = ParticleTypes.LAVA;
+		}
 		double speedMultiplier = first ? 1.5D : 1D;
 		double speedMultiplierY = first ? 1.13D : 1D;
 
@@ -180,7 +187,7 @@ public class WilderClientNetworking {
 			double dirX = (offsetPos.x - origin.x) * ((random.nextFloat() * 0.6D) + 0.4D);
 			double dirZ = (offsetPos.z - origin.z) * ((random.nextFloat() * 0.6D) + 0.4D);
 
-			Particle blockParticle = particleEngine.createParticle(blockParticleOption, x + dirX, y, z + dirZ, 0D, 0D, 0D);
+			Particle blockParticle = particleEngine.createParticle(particleOptions, x + dirX, y, z + dirZ, 0D, 0D, 0D);
 			if (blockParticle != null) {
 				blockParticle.xd = ((dirX * 0.8D) / calmDownAge) * speedMultiplier;
 				blockParticle.yd = ((0.4D / calmDownAge) * ((random.nextFloat() * 0.4D) + 0.7D)) * speedMultiplierY;
@@ -205,8 +212,7 @@ public class WilderClientNetworking {
 			return;
 		}
 		boolean first = tickCount == 0;
-		double calmDownAge = Math.max(1, tickCount - 3D);
-		Vec3 origin = new Vec3(x, y, z);
+        Vec3 origin = new Vec3(x, y, z);
 		int particles = random.nextInt(2, 15);
 		double rotAngle = 360D / (double) particles;
 		double angle = random.nextDouble() * 360D;
@@ -215,15 +221,15 @@ public class WilderClientNetworking {
 
 		for (int a = 0; a < particles; a++) {
 			Vec3 offsetPos = AdvancedMath.rotateAboutXZ(origin, 0.4D, angle + (((random.nextDouble() * rotAngle) * 0.35D) * (random.nextBoolean() ? 1D : -1D)));
-			double dirX = (offsetPos.x - origin.x) * ((random.nextFloat() * 0.6D) + 0.4D);
-			double dirZ = (offsetPos.z - origin.z) * ((random.nextFloat() * 0.6D) + 0.4D);
+			double dirX = (offsetPos.x - origin.x) * ((random.nextFloat() * 0.6D) + 0.4D) / (double) tickCount;
+			double dirZ = (offsetPos.z - origin.z) * ((random.nextFloat() * 0.6D) + 0.4D) / (double) tickCount;
 
 			if (random.nextBoolean()) {
 				Particle particle2 = particleEngine.createParticle(ParticleTypes.LARGE_SMOKE, x + dirX * 0.3D, y, z + dirZ * 0.3D, 0D, 0D, 0D);
 				if (particle2 != null) {
-					particle2.xd = ((dirX * 0.2D) / calmDownAge) * speedMultiplier;
-					particle2.yd = ((0.5D / calmDownAge) * ((random.nextFloat() * 0.4D) + 0.7D)) * speedMultiplierY;
-					particle2.zd = ((dirZ * 0.2D) / calmDownAge) * speedMultiplier;
+					particle2.xd = ((dirX * 0.2D)) * speedMultiplier;
+					particle2.yd = ((0.5D / (double) tickCount) * ((random.nextFloat() * 0.4D) + 0.7D)) * speedMultiplierY;
+					particle2.zd = ((dirZ * 0.2D)) * speedMultiplier;
 				}
 			}
 

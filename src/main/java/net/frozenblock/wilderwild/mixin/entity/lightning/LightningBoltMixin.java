@@ -30,7 +30,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -61,7 +60,6 @@ public class LightningBoltMixin {
 				WilderNetworking.sendLightningStrikeToAll(
 					LightningBolt.class.cast(this),
 					state,
-					Vec3.atCenterOf(blockPos).add(0D, 0.5D, 0D),
 					this.wilderWild$age
 				);
 			}
