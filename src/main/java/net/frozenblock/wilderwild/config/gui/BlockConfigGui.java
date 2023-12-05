@@ -50,113 +50,121 @@ public final class BlockConfigGui {
 		var modifiedTermite = modifiedConfig.termite;
 		category.setBackground(WilderSharedConstants.id("textures/config/block.png"));
 		var shriekerGargling = category.addEntry(
-			FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("shrieker_gargling"), modifiedConfig.shriekerGargling)
-						.setDefaultValue(defaultConfig.shriekerGargling)
-						.setSaveConsumer(newValue -> config.shriekerGargling = newValue)
-						.setTooltip(tooltip("shrieker_gargling")),
-					clazz,
-					"shriekerGargling",
-					configInstance
-				)
-				.build()
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("shrieker_gargling"), modifiedConfig.shriekerGargling)
+					.setDefaultValue(defaultConfig.shriekerGargling)
+					.setSaveConsumer(newValue -> config.shriekerGargling = newValue)
+					.setTooltip(tooltip("shrieker_gargling"))
+					.build(),
+				clazz,
+				"shriekerGargling",
+				configInstance
+			)
 		);
+
 		var soulFireSounds = category.addEntry(
-			FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("soul_fire_sounds"), modifiedConfig.soulFireSounds)
-						.setDefaultValue(defaultConfig.soulFireSounds)
-						.setSaveConsumer(newValue -> config.soulFireSounds = newValue)
-						.setTooltip(tooltip("soul_fire_sounds")),
-					clazz,
-					"soulFireSounds",
-					configInstance
-				)
-				.build()
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("soul_fire_sounds"), modifiedConfig.soulFireSounds)
+					.setDefaultValue(defaultConfig.soulFireSounds)
+					.setSaveConsumer(newValue -> config.soulFireSounds = newValue)
+					.setTooltip(tooltip("soul_fire_sounds"))
+					.build(),
+				clazz,
+				"soulFireSounds",
+				configInstance
+			)
 		);
+
 		var billboardTendrils = category.addEntry(
-			FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("billboard_tendrils"), modifiedConfig.billboardTendrils)
-						.setDefaultValue(defaultConfig.billboardTendrils)
-						.setSaveConsumer(newValue -> config.billboardTendrils = newValue)
-						.setTooltip(tooltip("billboard_tendrils")),
-					clazz,
-					"billboardTendrils",
-					configInstance
-				)
-				.build()
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("billboard_tendrils"), modifiedConfig.billboardTendrils)
+					.setDefaultValue(defaultConfig.billboardTendrils)
+					.setSaveConsumer(newValue -> config.billboardTendrils = newValue)
+					.setTooltip(tooltip("billboard_tendrils"))
+					.build(),
+				clazz,
+				"billboardTendrils",
+				configInstance
+			)
 		);
+
 		var tendrilsCarryEvents = category.addEntry(
-			FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("tendrils_carry_events"), modifiedConfig.tendrilsCarryEvents)
-						.setDefaultValue(defaultConfig.tendrilsCarryEvents)
-						.setSaveConsumer(newValue -> config.tendrilsCarryEvents = newValue)
-						.setTooltip(tooltip("tendrils_carry_events")),
-					clazz,
-					"tendrilsCarryEvents",
-					configInstance
-				)
-				.build()
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("tendrils_carry_events"), modifiedConfig.tendrilsCarryEvents)
+					.setDefaultValue(defaultConfig.tendrilsCarryEvents)
+					.setSaveConsumer(newValue -> config.tendrilsCarryEvents = newValue)
+					.setTooltip(tooltip("tendrils_carry_events"))
+					.build(),
+				clazz,
+				"tendrilsCarryEvents",
+				configInstance
+			)
 		);
+
 		var pollenParticles = category.addEntry(
-			FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("pollen_particles"), modifiedConfig.pollenParticles)
-						.setDefaultValue(defaultConfig.pollenParticles)
-						.setSaveConsumer(newValue -> config.pollenParticles = newValue)
-						.setTooltip(tooltip("pollen_particles")),
-					clazz,
-					"pollenParticles",
-					configInstance
-				)
-				.build()
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("pollen_particles"), modifiedConfig.pollenParticles)
+					.setDefaultValue(defaultConfig.pollenParticles)
+					.setSaveConsumer(newValue -> config.pollenParticles = newValue)
+					.setTooltip(tooltip("pollen_particles"))
+					.build(),
+				clazz,
+				"pollenParticles",
+				configInstance
+			)
 		);
+
 		var logHollowing = category.addEntry(
-			FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("log_hollowing"), modifiedConfig.logHollowing)
-						.setDefaultValue(defaultConfig.logHollowing)
-						.setSaveConsumer(newValue -> config.logHollowing = newValue)
-						.setTooltip(tooltip("log_hollowing")),
-					clazz,
-					"logHollowing",
-					configInstance
-				)
-				.build()
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("log_hollowing"), modifiedConfig.logHollowing)
+					.setDefaultValue(defaultConfig.logHollowing)
+					.setSaveConsumer(newValue -> config.logHollowing = newValue)
+					.setTooltip(tooltip("log_hollowing"))
+					.build(),
+				clazz,
+				"logHollowing",
+				configInstance
+			)
 		);
+
 		var cactusPlacement = category.addEntry(
-			FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("cactus_placement"), modifiedConfig.cactusPlacement)
-						.setDefaultValue(defaultConfig.cactusPlacement)
-						.setSaveConsumer(newValue -> config.cactusPlacement = newValue)
-						.setTooltip(tooltip("cactus_placement")),
-					clazz,
-					"cactusPlacement",
-					configInstance
-				)
-				.build()
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("cactus_placement"), modifiedConfig.cactusPlacement)
+					.setDefaultValue(defaultConfig.cactusPlacement)
+					.setSaveConsumer(newValue -> config.cactusPlacement = newValue)
+					.setTooltip(tooltip("cactus_placement"))
+					.build(),
+				clazz,
+				"cactusPlacement",
+				configInstance
+			)
 		);
+
 		var frostedIceCracking = category.addEntry(
-			FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("frosted_ice_cracking"), modifiedConfig.frostedIceCracking)
-						.setDefaultValue(defaultConfig.frostedIceCracking)
-						.setSaveConsumer(newValue -> config.frostedIceCracking = newValue)
-						.setTooltip(tooltip("frosted_ice_cracking")),
-					clazz,
-					"frostedIceCracking",
-					configInstance
-				)
-				.build()
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("frosted_ice_cracking"), modifiedConfig.frostedIceCracking)
+					.setDefaultValue(defaultConfig.frostedIceCracking)
+					.setSaveConsumer(newValue -> config.frostedIceCracking = newValue)
+					.setTooltip(tooltip("frosted_ice_cracking"))
+					.build(),
+				clazz,
+				"frostedIceCracking",
+				configInstance
+			)
 		);
+
 		var dripleafPowering = category.addEntry(
-			FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("dripleaf_powering"), modifiedConfig.dripleafPowering)
-						.setDefaultValue(defaultConfig.dripleafPowering)
-						.setSaveConsumer(newValue -> config.dripleafPowering = newValue)
-						.setTooltip(tooltip("dripleaf_powering"))
-						.requireRestart(),
-					clazz,
-					"dripleafPowering",
-					configInstance
-				)
-				.build()
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("dripleaf_powering"), modifiedConfig.dripleafPowering)
+					.setDefaultValue(defaultConfig.dripleafPowering)
+					.setSaveConsumer(newValue -> config.dripleafPowering = newValue)
+					.setTooltip(tooltip("dripleaf_powering"))
+					.requireRestart()
+					.build(),
+				clazz,
+				"dripleafPowering",
+				configInstance
+			)
 		);
 
 		var cactusSounds = entryBuilder.startBooleanToggle(text("cactus_sounds"), modifiedBlockSounds.cactusSounds)
@@ -276,27 +284,27 @@ public final class BlockConfigGui {
 			sugarCaneSounds, witherRoseSounds, sandstoneSounds
 		);
 
-		var mesogleaLiquid = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("mesoglea_liquid"), modifiedConfig.mesoglea.mesogleaLiquid)
-					.setDefaultValue(defaultConfig.mesoglea.mesogleaLiquid)
-					.setSaveConsumer(newValue -> config.mesoglea.mesogleaLiquid = newValue)
-					.setTooltip(tooltip("mesoglea_liquid")),
-				config.mesoglea.getClass(),
-				"mesogleaLiquid",
-				configInstance
-			)
-			.build();
+		var mesogleaLiquid = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("mesoglea_liquid"), modifiedConfig.mesoglea.mesogleaLiquid)
+				.setDefaultValue(defaultConfig.mesoglea.mesogleaLiquid)
+				.setSaveConsumer(newValue -> config.mesoglea.mesogleaLiquid = newValue)
+				.setTooltip(tooltip("mesoglea_liquid"))
+				.build(),
+			config.mesoglea.getClass(),
+			"mesogleaLiquid",
+			configInstance
+		);
 
-		var mesogleaBubbleColumns = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("mesoglea_bubble_columns"), modifiedConfig.mesoglea.mesogleaBubbleColumns)
-					.setDefaultValue(defaultConfig.mesoglea.mesogleaBubbleColumns)
-					.setSaveConsumer(newValue -> config.mesoglea.mesogleaBubbleColumns = newValue)
-					.setTooltip(tooltip("mesoglea_bubble_columns")),
-				config.mesoglea.getClass(),
-				"mesogleaBubbleColumns",
-				configInstance
-			)
-			.build();
+		var mesogleaBubbleColumns = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("mesoglea_bubble_columns"), modifiedConfig.mesoglea.mesogleaBubbleColumns)
+				.setDefaultValue(defaultConfig.mesoglea.mesogleaBubbleColumns)
+				.setSaveConsumer(newValue -> config.mesoglea.mesogleaBubbleColumns = newValue)
+				.setTooltip(tooltip("mesoglea_bubble_columns"))
+				.build(),
+			config.mesoglea.getClass(),
+			"mesogleaBubbleColumns",
+			configInstance
+		);
 
 		var mesogleaCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("mesoglea"),
 			false,
@@ -304,39 +312,39 @@ public final class BlockConfigGui {
 			mesogleaBubbleColumns, mesogleaLiquid
 		);
 
-		var termitesOnlyEatNaturalBlocks = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("termites_only_eat_natural_blocks"), modifiedTermite.onlyEatNaturalBlocks)
-					.setDefaultValue(defaultConfig.termite.onlyEatNaturalBlocks)
-					.setSaveConsumer(newValue -> termite.onlyEatNaturalBlocks = newValue)
-					.setTooltip(tooltip("termites_only_eat_natural_blocks"))
-					.requireRestart(),
-				termite.getClass(),
-				"onlyEatNaturalBlocks",
-				configInstance
-			)
-			.build();
+		var termitesOnlyEatNaturalBlocks = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("termites_only_eat_natural_blocks"), modifiedTermite.onlyEatNaturalBlocks)
+				.setDefaultValue(defaultConfig.termite.onlyEatNaturalBlocks)
+				.setSaveConsumer(newValue -> termite.onlyEatNaturalBlocks = newValue)
+				.setTooltip(tooltip("termites_only_eat_natural_blocks"))
+				.requireRestart()
+				.build(),
+			termite.getClass(),
+			"onlyEatNaturalBlocks",
+			configInstance
+		);
 
-		var maxTermiteDistance = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startIntSlider(text("max_termite_distance"), modifiedTermite.maxDistance, 1, 72)
-					.setDefaultValue(defaultConfig.termite.maxDistance)
-					.setSaveConsumer(newValue -> termite.maxDistance = newValue)
-					.setTooltip(tooltip("max_termite_distance")),
-				termite.getClass(),
-				"maxDistance",
-				configInstance
-			)
-			.build();
+		var maxTermiteDistance = FrozenClothConfig.syncedEntry(
+			entryBuilder.startIntSlider(text("max_termite_distance"), modifiedTermite.maxDistance, 1, 72)
+				.setDefaultValue(defaultConfig.termite.maxDistance)
+				.setSaveConsumer(newValue -> termite.maxDistance = newValue)
+				.setTooltip(tooltip("max_termite_distance"))
+				.build(),
+			termite.getClass(),
+			"maxDistance",
+			configInstance
+		);
 
-		var maxNaturalTermiteDistance = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startIntSlider(text("max_natural_termite_distance"), modifiedTermite.maxNaturalDistance, 1, 72)
-					.setDefaultValue(defaultConfig.termite.maxNaturalDistance)
-					.setSaveConsumer(newValue -> termite.maxNaturalDistance = newValue)
-					.setTooltip(tooltip("max_natural_termite_distance")),
-				termite.getClass(),
-				"maxNaturalDistance",
-				configInstance
-			)
-			.build();
+		var maxNaturalTermiteDistance = FrozenClothConfig.syncedEntry(
+			entryBuilder.startIntSlider(text("max_natural_termite_distance"), modifiedTermite.maxNaturalDistance, 1, 72)
+				.setDefaultValue(defaultConfig.termite.maxNaturalDistance)
+				.setSaveConsumer(newValue -> termite.maxNaturalDistance = newValue)
+				.setTooltip(tooltip("max_natural_termite_distance"))
+				.build(),
+			termite.getClass(),
+			"maxNaturalDistance",
+			configInstance
+		);
 
 		var termiteCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("termite"),
 			false,
@@ -344,16 +352,16 @@ public final class BlockConfigGui {
 			termitesOnlyEatNaturalBlocks, maxTermiteDistance, maxNaturalTermiteDistance
 		);
 
-		var stoneChestTimer = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startIntSlider(text("stone_chest_timer"), modifiedStoneChest.stoneChestTimer, 50, 200)
-					.setDefaultValue(defaultConfig.stoneChest.stoneChestTimer)
-					.setSaveConsumer(newValue -> stoneChest.stoneChestTimer = newValue)
-					.setTooltip(tooltip("stone_chest_timer")),
-				stoneChest.getClass(),
-				"stoneChestTimer",
-				configInstance
-			)
-			.build();
+		var stoneChestTimer = FrozenClothConfig.syncedEntry(
+			entryBuilder.startIntSlider(text("stone_chest_timer"), modifiedStoneChest.stoneChestTimer, 50, 200)
+				.setDefaultValue(defaultConfig.stoneChest.stoneChestTimer)
+				.setSaveConsumer(newValue -> stoneChest.stoneChestTimer = newValue)
+				.setTooltip(tooltip("stone_chest_timer"))
+				.build(),
+			stoneChest.getClass(),
+			"stoneChestTimer",
+			configInstance
+		);
 
 		var stoneChestCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("stone_chest"),
 			false,
