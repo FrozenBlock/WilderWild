@@ -32,6 +32,7 @@ import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.minecraft.util.Unit;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -52,14 +53,17 @@ import net.minecraft.world.entity.ai.behavior.SetEntityLookTarget;
 import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromAttackTargetIfTargetOutOfReach;
 import net.minecraft.world.entity.ai.behavior.StartAttacking;
 import net.minecraft.world.entity.ai.behavior.StopAttackingIfTargetInvalid;
+import net.minecraft.world.entity.ai.behavior.StopBeingAngryIfTargetDead;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
 import net.minecraft.world.entity.ai.behavior.warden.ForceUnmount;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.GameRules;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -110,7 +114,9 @@ public final class CrabAi {
 		RegisterMemoryModuleTypes.IS_UNDERGROUND,
 		RegisterMemoryModuleTypes.NEARBY_CRABS,
 		RegisterMemoryModuleTypes.HEAL_COOLDOWN_TICKS,
-		RegisterMemoryModuleTypes.FIRST_BRAIN_TICK
+		RegisterMemoryModuleTypes.FIRST_BRAIN_TICK,
+		MemoryModuleType.ANGRY_AT,
+		MemoryModuleType.UNIVERSAL_ANGER
 	);
 
 	private static final BehaviorControl<Crab> DIG_COOLDOWN_SETTER = BehaviorBuilder.create(instance -> instance.group(instance.registered(MemoryModuleType.DIG_COOLDOWN)).apply(instance, memoryAccessor -> (world, crab, l) -> {
@@ -150,7 +156,8 @@ public final class CrabAi {
 			ImmutableList.of(
 				new AnimalPanic(1.65F, pathfinderMob -> (pathfinderMob.getLastHurtByMob() != null && pathfinderMob.isBaby()) || (pathfinderMob.isFreezing() || pathfinderMob.isOnFire()) && !((Crab)pathfinderMob).isDiggingOrEmerging()),
 				new LookAtTargetSink(45, 90),
-				new MoveToTargetSink()
+				new MoveToTargetSink(),
+				StopBeingAngryIfTargetDead.create()
 			)
 		);
 	}
@@ -180,7 +187,8 @@ public final class CrabAi {
 				Pair.of(MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT),
 				Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT),
 				Pair.of(RegisterMemoryModuleTypes.IS_PLAYER_NEARBY, MemoryStatus.VALUE_ABSENT),
-				Pair.of(RegisterMemoryModuleTypes.CAN_DIG, MemoryStatus.VALUE_PRESENT)
+				Pair.of(RegisterMemoryModuleTypes.CAN_DIG, MemoryStatus.VALUE_PRESENT),
+				Pair.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT)
 			)
 		);
 	}
@@ -275,7 +283,20 @@ public final class CrabAi {
 
 	@NotNull
 	private static Optional<? extends LivingEntity> findNearestValidAttackTarget(@NotNull Crab crab) {
-		return crab.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE);
+		Brain<Crab> brain = crab.getBrain();
+		Optional<LivingEntity> optional = BehaviorUtils.getLivingEntityFromUUIDMemory(crab, MemoryModuleType.ANGRY_AT);
+		if (optional.isPresent() && Sensor.isEntityAttackableIgnoringLineOfSight(crab, optional.get())) {
+			return optional;
+		} else {
+			Optional<? extends LivingEntity> optional2;
+			if (brain.hasMemoryValue(MemoryModuleType.UNIVERSAL_ANGER)) {
+				optional2 = brain.getMemory(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER);
+				if (optional2.isPresent()) {
+					return optional2;
+				}
+			}
+			return brain.getMemory(MemoryModuleType.NEAREST_ATTACKABLE);
+		}
 	}
 
 	public static void wasHurtBy(@NotNull Crab crab, LivingEntity target) {
@@ -287,13 +308,21 @@ public final class CrabAi {
 				return;
 			}
 
-			setAngerTarget(crab, target);
-			broadcastAngerTarget(crab, target);
+			if (target.getType() == EntityType.PLAYER && crab.level().getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
+				setAngerTargetToNearestTargetablePlayerIfFound(crab, target);
+				broadcastUniversalAnger(crab);
+			} else {
+				setAngerTarget(crab, target);
+				broadcastAngerTarget(crab, target);
+			}
 		}
 	}
 
 	public static void setAngerTarget(@NotNull Crab crab, LivingEntity target) {
 		if (crab.isBaby()) {
+			if (Sensor.isEntityAttackableIgnoringLineOfSight(crab, target)) {
+				broadcastAngerTarget(crab, target);
+			}
 			return;
 		}
 		if (!Sensor.isEntityAttackableIgnoringLineOfSight(crab, target)) {
@@ -304,6 +333,21 @@ public final class CrabAi {
 		}
 		crab.getBrain().eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
 		crab.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, target);
+		crab.getBrain().setMemoryWithExpiry(MemoryModuleType.ANGRY_AT, target.getUUID(), 600L);
+		if (target.getType() == EntityType.PLAYER && crab.level().getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
+			crab.getBrain().setMemoryWithExpiry(MemoryModuleType.UNIVERSAL_ANGER, true, 600L);
+		}
+	}
+
+	private static void broadcastUniversalAnger(Crab crabEntity) {
+		Optional<List<Crab>> nearbyCrabs = getNearbyCrabs(crabEntity);
+		nearbyCrabs.ifPresent(
+			crabs -> crabs.forEach(
+				(crab) -> getNearestVisibleTargetablePlayer(crab).ifPresent(
+					(player) -> setAngerTarget(crab, player)
+				)
+			)
+		);
 	}
 
 	public static void broadcastAngerTarget(@NotNull Crab crab, LivingEntity target) {
@@ -320,6 +364,16 @@ public final class CrabAi {
 		setAngerTarget(crab, livingEntity);
 	}
 
+	private static void setAngerTargetToNearestTargetablePlayerIfFound(Crab crab, LivingEntity currentTarget) {
+		Optional<Player> optional = getNearestVisibleTargetablePlayer(crab);
+		if (optional.isPresent()) {
+			setAngerTarget(crab, optional.get());
+		} else {
+			setAngerTarget(crab, currentTarget);
+		}
+
+	}
+
 	@NotNull
 	private static Optional<LivingEntity> getAngerTarget(@NotNull Crab crab) {
 		return crab.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET);
@@ -328,6 +382,10 @@ public final class CrabAi {
 	@NotNull
 	private static Optional<List<Crab>> getNearbyCrabs(@NotNull Crab crab) {
 		return crab.getBrain().getMemory(RegisterMemoryModuleTypes.NEARBY_CRABS);
+	}
+
+	public static Optional<Player> getNearestVisibleTargetablePlayer(@NotNull Crab crab) {
+		return crab.getBrain().hasMemoryValue(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER) ? crab.getBrain().getMemory(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER) : Optional.empty();
 	}
 
 	public static void setDigCooldown(@NotNull Crab crab) {
@@ -346,6 +404,10 @@ public final class CrabAi {
 		return crab.getBrain().hasMemoryValue(RegisterMemoryModuleTypes.IS_UNDERGROUND);
 	}
 
+	public static boolean isIdle(@NotNull Crab crab) {
+		return crab.getBrain().isActive(Activity.IDLE);
+	}
+
 	@NotNull
 	public static Ingredient getTemptations() {
 		return Ingredient.of(WilderItemTags.CRAB_TEMPT_ITEMS);
@@ -357,5 +419,10 @@ public final class CrabAi {
 
 	public static int getRandomEmergeCooldown(@NotNull LivingEntity entity) {
 		return entity.getRandom().nextInt(800, 2400);
+	}
+
+	public static void stopWalking(@NotNull Crab crab) {
+		crab.getBrain().eraseMemory(MemoryModuleType.WALK_TARGET);
+		crab.endNavigation();
 	}
 }
