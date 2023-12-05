@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.mixin.entity.lightning;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.frozenblock.wilderwild.block.ScorchedBlock;
+import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.networking.WilderNetworking;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscConfigured;
 import net.minecraft.core.BlockPos;
@@ -89,14 +90,12 @@ public class LightningBoltMixin {
 		if (this.visualOnly || bolt.level().isClientSide) {
 			return;
 		}
-		if (bolt.level() instanceof ServerLevel serverLevel) {
-			if (strikeState.is(BlockTags.SAND)) {
-				ChunkGenerator chunkGenerator = serverLevel.getChunkSource().getGenerator();
-				RandomSource randomSource = serverLevel.getRandom();
-				WilderMiscConfigured.SCORCHED_SAND_DISK_LIGHTNING.getConfiguredFeature(serverLevel).place(serverLevel, chunkGenerator, randomSource, strikePose);
-				WilderMiscConfigured.SCORCHED_RED_SAND_DISK_LIGHTNING.getConfiguredFeature(serverLevel).place(serverLevel, chunkGenerator, randomSource, strikePose);
-				ScorchedBlock.scorch(strikeState, serverLevel, strikePose);
-			}
+		if (bolt.level() instanceof ServerLevel serverLevel && EntityConfig.get().lightning.lightningScorchesSand && strikeState.is(BlockTags.SAND)) {
+			ChunkGenerator chunkGenerator = serverLevel.getChunkSource().getGenerator();
+			RandomSource randomSource = serverLevel.getRandom();
+			WilderMiscConfigured.SCORCHED_SAND_DISK_LIGHTNING.getConfiguredFeature(serverLevel).place(serverLevel, chunkGenerator, randomSource, strikePose);
+			WilderMiscConfigured.SCORCHED_RED_SAND_DISK_LIGHTNING.getConfiguredFeature(serverLevel).place(serverLevel, chunkGenerator, randomSource, strikePose);
+			ScorchedBlock.scorch(strikeState, serverLevel, strikePose);
 		}
 	}
 

@@ -42,6 +42,8 @@ public final class EntityConfigGui {
 		Class<? extends EntityConfig> clazz = config.getClass();
 		Config<?> configInstance = EntityConfig.INSTANCE;
 		var defaultConfig = EntityConfig.INSTANCE.defaultInstance();
+		var lightning = config.lightning;
+		var modifiedLightning = modifiedConfig.lightning;
 		var allay = config.allay;
 		var modifiedAllay = modifiedConfig.allay;
 		var enderMan = config.enderMan;
@@ -72,30 +74,43 @@ public final class EntityConfigGui {
 			)
 		);
 
-		var lightningBlockParticles = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("lightning_block_particles"), modifiedConfig.lightningBlockParticles)
-					.setDefaultValue(defaultConfig.lightningBlockParticles)
-					.setSaveConsumer(newValue -> config.lightningBlockParticles = newValue)
-					.setTooltip(tooltip("lightning_block_particles"))
-					.build(),
-				clazz,
-				"lightningBlockParticles",
-				configInstance
-			)
+		var lightningScorchesSand = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("lightning_scorches_sand"), modifiedLightning.lightningScorchesSand)
+				.setDefaultValue(defaultConfig.lightning.lightningScorchesSand)
+				.setSaveConsumer(newValue -> lightning.lightningScorchesSand = newValue)
+				.setTooltip(tooltip("lightning_scorches_sand"))
+				.build(),
+			lightning.getClass(),
+			"lightningScorchesSand",
+			configInstance
 		);
 
-		var lightningSmokeParticles = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("lightning_smoke_particles"), modifiedConfig.lightningSmokeParticles)
-					.setDefaultValue(defaultConfig.lightningSmokeParticles)
-					.setSaveConsumer(newValue -> config.lightningSmokeParticles = newValue)
-					.setTooltip(tooltip("lightning_smoke_particles"))
-					.build(),
-				clazz,
-				"lightningSmokeParticles",
-				configInstance
-			)
+		var lightningBlockParticles = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("lightning_block_particles"), modifiedLightning.lightningBlockParticles)
+				.setDefaultValue(defaultConfig.lightning.lightningBlockParticles)
+				.setSaveConsumer(newValue -> lightning.lightningBlockParticles = newValue)
+				.setTooltip(tooltip("lightning_block_particles"))
+				.build(),
+			lightning.getClass(),
+			"lightningBlockParticles",
+			configInstance
+		);
+
+		var lightningSmokeParticles = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("lightning_smoke_particles"), modifiedLightning.lightningSmokeParticles)
+				.setDefaultValue(defaultConfig.lightning.lightningSmokeParticles)
+				.setSaveConsumer(newValue -> lightning.lightningSmokeParticles = newValue)
+				.setTooltip(tooltip("lightning_smoke_particles"))
+				.build(),
+			lightning.getClass(),
+			"lightningSmokeParticles",
+			configInstance
+		);
+
+		var lightningCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("lightning"),
+			false,
+			tooltip("lightning"),
+			lightningScorchesSand, lightningBlockParticles, lightningSmokeParticles
 		);
 
 		var keyframeAllayDance = FrozenClothConfig.syncedEntry(

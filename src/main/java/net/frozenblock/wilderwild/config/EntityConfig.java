@@ -41,6 +41,8 @@ public final class EntityConfig {
 			null
 		)
 	);
+	@CollapsibleObject
+	public final LightningConfig lightning = new LightningConfig();
 
 	@CollapsibleObject
 	public final AllayConfig allay = new AllayConfig();
@@ -66,14 +68,6 @@ public final class EntityConfig {
 	@FieldIdentifier(identifier = "unpassableRail")
 	public boolean unpassableRail = false;
 
-	@UnsyncableEntry
-	@FieldIdentifier(identifier = "lightningBlockParticles")
-	public boolean lightningBlockParticles = true;
-
-	@UnsyncableEntry
-	@FieldIdentifier(identifier = "lightningSmokeParticles")
-	public boolean lightningSmokeParticles = true;
-
 	public static EntityConfig get() {
 		return get(false);
 	}
@@ -86,6 +80,19 @@ public final class EntityConfig {
 
 	public static EntityConfig getWithSync() {
 		return INSTANCE.configWithSync();
+	}
+
+	public static class LightningConfig {
+		@FieldIdentifier(identifier = "lightningScorchesSand")
+		public boolean lightningScorchesSand = true;
+
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "lightningBlockParticles")
+		public boolean lightningBlockParticles = true;
+
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "lightningSmokeParticles")
+		public boolean lightningSmokeParticles = true;
 	}
 
 	public static class AllayConfig {

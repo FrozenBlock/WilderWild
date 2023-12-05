@@ -153,10 +153,10 @@ public class WilderClientNetworking {
 			int tickCount = byteBuf.readVarInt();
 			if (ctx.level != null && !blockState.isAir()) {
 				RandomSource random = ctx.level.getRandom();
-				if (EntityConfig.get().lightningBlockParticles) {
+				if (EntityConfig.get().lightning.lightningBlockParticles) {
 					lightningBlockParticles(tickCount, x, y, z, blockState, random, ctx.particleEngine);
 				}
-				if (EntityConfig.get().lightningSmokeParticles) {
+				if (EntityConfig.get().lightning.lightningSmokeParticles) {
 					lightningSmokeParticles(tickCount, x, y, z, blockState, random, ctx.particleEngine);
 				}
 			}
