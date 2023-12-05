@@ -308,6 +308,13 @@ public final class CrabAi {
 				return;
 			}
 
+			if (crab.isBaby()) {
+				if (Sensor.isEntityAttackableIgnoringLineOfSight(crab, target)) {
+					broadcastAngerTarget(crab, target);
+				}
+				return;
+			}
+
 			if (target.getType() == EntityType.PLAYER && crab.level().getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
 				setAngerTargetToNearestTargetablePlayerIfFound(crab, target);
 				broadcastUniversalAnger(crab);
@@ -320,9 +327,6 @@ public final class CrabAi {
 
 	public static void setAngerTarget(@NotNull Crab crab, LivingEntity target) {
 		if (crab.isBaby()) {
-			if (Sensor.isEntityAttackableIgnoringLineOfSight(crab, target)) {
-				broadcastAngerTarget(crab, target);
-			}
 			return;
 		}
 		if (!Sensor.isEntityAttackableIgnoringLineOfSight(crab, target)) {

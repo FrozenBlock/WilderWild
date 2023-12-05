@@ -70,10 +70,10 @@ public abstract class FluidRendererMixin {
 	@Shadow
 	@Final
 	private BlockPos.MutableBlockPos scratchPos;
-	@Shadow
+	@Shadow(remap = false)
 	@Final
 	private ModelQuadViewMutable quad;
-	@Shadow
+	@Shadow(remap = false)
 	@Final
 	private LightPipelineProvider lighters;
 	@Unique
@@ -87,7 +87,7 @@ public abstract class FluidRendererMixin {
 	@Unique
 	private boolean wilderWild$isWater;
 
-	@Shadow
+	@Shadow(remap = false)
 	private static void setVertex(ModelQuadViewMutable quad, int i, float x, float y, float z, float u, float v) {
 	}
 
