@@ -66,6 +66,10 @@ public final class EntityConfig {
 	@FieldIdentifier(identifier = "unpassableRail")
 	public boolean unpassableRail = false;
 
+	@UnsyncableEntry
+	@FieldIdentifier(identifier = "lightningParticles")
+	public boolean lightningParticles = true;
+
 	public static EntityConfig get() {
 		return get(false);
 	}

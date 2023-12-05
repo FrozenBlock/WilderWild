@@ -1,19 +1,24 @@
-package net.frozenblock.wilderwild.networking.client;
+package net.frozenblock.wilderwild.networking;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.wilderwild.networking.WilderNetworking;
+import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.particle.Particle;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 @Environment(EnvType.CLIENT)
@@ -26,6 +31,7 @@ public class WilderClientNetworking {
 		receiveTermitePacket();
 		receiveSensorHiccupPacket();
 		receiveJellyStingPacket();
+		receiveLightningStrikePacket();
 	}
 	private static void receiveEasyEchoerBubblePacket() {
 		ClientPlayNetworking.registerGlobalReceiver(WilderNetworking.FLOATING_SCULK_BUBBLE_PACKET, (ctx, handler, byteBuf, responseSender) -> {
@@ -128,6 +134,47 @@ public class WilderClientNetworking {
 				LocalPlayer player = ctx.player;
 				if (player != null) {
 					ctx.level.playSound(player, player.getX(), player.getY(), player.getZ(), RegisterSounds.ENTITY_JELLYFISH_STING, SoundSource.NEUTRAL, 1.0F, ctx.level.random.nextFloat() * 0.2F + (baby ? 1.2F : 0.9F));
+				}
+			}
+		}));
+	}
+
+	private static void receiveLightningStrikePacket() {
+		ClientPlayNetworking.registerGlobalReceiver(WilderNetworking.LIGHTNING_STRIKE_PACKET, (ctx, handler, byteBuf, responseSender) -> ctx.execute(() -> {
+			BlockState blockState = Block.stateById(byteBuf.readInt());
+			double x = byteBuf.readDouble();
+			double y = byteBuf.readDouble();
+			double z = byteBuf.readDouble();
+			double tickCount = byteBuf.readDouble();
+			if (ctx.level != null) {
+				if (EntityConfig.get().lightningParticles) {
+					RandomSource random = ctx.level.getRandom();
+					Vec3 origin = new Vec3(x, y, z);
+					int particles = ctx.level.getRandom().nextInt(20, 40);
+					double rotAngle = 360D / (double) particles;
+					double angle = ctx.level.getRandom().nextDouble() * 360D;
+					BlockParticleOption blockParticleOption = new BlockParticleOption(ParticleTypes.BLOCK, blockState);
+
+					for (int a = 0; a < particles; a++) {
+						Vec3 offsetPos = AdvancedMath.rotateAboutXZ(origin, 1D, angle + (((random.nextDouble() * rotAngle) * 0.25D) * (random.nextBoolean() ? 1D : -1D)));
+						double dirX = offsetPos.x - origin.x;
+						double dirZ = offsetPos.z - origin.z;
+						Particle particle = ctx.particleEngine.createParticle(
+							blockParticleOption,
+							x + (dirX * 0.25D),
+							y,
+							z + (dirZ * 0.25D),
+							0D,
+							0D,
+							0D
+						);
+						if (particle != null) {
+							particle.xd = (dirX * 0.1D) / tickCount;
+							particle.yd = (0.5D) / tickCount;
+							particle.zd = (dirZ * 0.1D) / tickCount;
+						}
+						angle += rotAngle;
+					}
 				}
 			}
 		}));

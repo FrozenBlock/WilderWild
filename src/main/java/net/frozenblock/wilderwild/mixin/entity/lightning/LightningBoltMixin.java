@@ -18,13 +18,19 @@
 
 package net.frozenblock.wilderwild.mixin.entity.lightning;
 
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import net.frozenblock.wilderwild.block.ScorchedBlock;
+import net.frozenblock.wilderwild.networking.WilderNetworking;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscConfigured;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LightningBolt;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -39,23 +45,60 @@ public class LightningBoltMixin {
 	@Shadow
 	private boolean visualOnly;
 
-	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LightningBolt;spawnFire(I)V", ordinal = 1, shift = At.Shift.AFTER))
-	private void wilderWild$tick(CallbackInfo info) {
-		this.wilderWild$scorchSand(LightningBolt.class.cast(this));
+	@Inject(
+		method = "tick",
+		at = @At(
+			value = "HEAD"
+		)
+	)
+	private void wilderWild$tick(
+		CallbackInfo info,
+		@Share("wilderWild$strikePos") LocalRef<BlockPos> strikePosLocalRef,
+		@Share("wilderWild$strikeState") LocalRef<BlockState> strikeStateLocalRef
+	) {
+		if (LightningBolt.class.cast(this).level() instanceof ServerLevel serverLevel) {
+			BlockPos blockPos = this.getStrikePosition();
+			BlockState state = serverLevel.getBlockState(blockPos);
+			if (!LightningBolt.class.cast(this).level().isClientSide) {
+				WilderNetworking.sendLightningStrikeToAll(
+					LightningBolt.class.cast(this),
+					state,
+					Vec3.atCenterOf(blockPos).add(0D, 0.5D, 0D),
+					Math.max(1, LightningBolt.class.cast(this).tickCount - 6D)
+				);
+			}
+			strikePosLocalRef.set(blockPos);
+			strikeStateLocalRef.set(state);
+		}
+	}
+
+	@Inject(
+		method = "tick",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/entity/LightningBolt;spawnFire(I)V"
+		)
+	)
+	private void wilderWild$scorchTheSand(
+		CallbackInfo info,
+		@Share("wilderWild$strikePos") LocalRef<BlockPos> strikePosLocalRef,
+		@Share("wilderWild$strikeState") LocalRef<BlockState> strikeStateLocalRef
+	) {
+		this.wilderWild$scorchSand(LightningBolt.class.cast(this), strikePosLocalRef.get(), strikeStateLocalRef.get());
 	}
 
 	@Unique
-	private void wilderWild$scorchSand(@NotNull LightningBolt bolt) {
+	private void wilderWild$scorchSand(@NotNull LightningBolt bolt, BlockPos strikePose, BlockState strikeState) {
 		if (this.visualOnly || bolt.level().isClientSide) {
 			return;
 		}
 		if (bolt.level() instanceof ServerLevel serverLevel) {
-			BlockPos blockPos = this.getStrikePosition();
-			if (bolt.level().getBlockState(blockPos).is(BlockTags.SAND)) {
+			if (strikeState.is(BlockTags.SAND)) {
 				ChunkGenerator chunkGenerator = serverLevel.getChunkSource().getGenerator();
 				RandomSource randomSource = serverLevel.getRandom();
-				WilderMiscConfigured.SCORCHED_SAND_DISK_LIGHTNING.getConfiguredFeature(serverLevel).place(serverLevel, chunkGenerator, randomSource, blockPos);
-				WilderMiscConfigured.SCORCHED_RED_SAND_DISK_LIGHTNING.getConfiguredFeature(serverLevel).place(serverLevel, chunkGenerator, randomSource, blockPos);
+				WilderMiscConfigured.SCORCHED_SAND_DISK_LIGHTNING.getConfiguredFeature(serverLevel).place(serverLevel, chunkGenerator, randomSource, strikePose);
+				WilderMiscConfigured.SCORCHED_RED_SAND_DISK_LIGHTNING.getConfiguredFeature(serverLevel).place(serverLevel, chunkGenerator, randomSource, strikePose);
+				ScorchedBlock.scorch(strikeState, serverLevel, strikePose);
 			}
 		}
 	}

@@ -57,6 +57,7 @@ public final class EntityConfigGui {
 		var warden = config.warden;
 		var modifiedWarden = modifiedConfig.warden;
 		category.setBackground(WilderSharedConstants.id("textures/config/entity.png"));
+
 		var unpassableRail = category.addEntry(
 			FrozenClothConfig.syncedBuilder(
 					entryBuilder.startBooleanToggle(text("unpassable_rail"), modifiedConfig.unpassableRail)
@@ -68,8 +69,21 @@ public final class EntityConfigGui {
 					"unpassableRail",
 					configInstance
 				)
+				.build()
+		);
 
-				.build());
+		var lightningParticles = category.addEntry(
+			FrozenClothConfig.syncedBuilder(
+					entryBuilder.startBooleanToggle(text("lightning_particles"), modifiedConfig.lightningParticles)
+						.setDefaultValue(defaultConfig.lightningParticles)
+						.setSaveConsumer(newValue -> config.lightningParticles = newValue)
+						.setTooltip(tooltip("lightning_particles")),
+					clazz,
+					"lightningParticles",
+					configInstance
+				)
+				.build()
+		);
 
 		var keyframeAllayDance = FrozenClothConfig.syncedBuilder(
 				entryBuilder.startBooleanToggle(

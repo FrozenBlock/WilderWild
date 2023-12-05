@@ -70,6 +70,7 @@ Bug Fixes & Changes
 
 - Landing/Potion sound code will no longer attempt to run on the client
 - Landing Ender Pearls will now play sounds in their owner's sound category (Zombies would be Hostile, and Players would be Player)
+- Added a config option for whether or not Block particles will spawn upon a Lightning Bolt striking the ground
 
 - The config will now sync between server and client
     - Operators of servers will modify the server's config upon modifying it on their end

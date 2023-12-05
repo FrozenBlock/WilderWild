@@ -27,7 +27,10 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
@@ -38,11 +41,24 @@ public class WilderNetworking {
 	public static final ResourceLocation TERMITE_PARTICLE_PACKET = WilderSharedConstants.id("termite_particle_packet");
 	public static final ResourceLocation SENSOR_HICCUP_PACKET = WilderSharedConstants.id("sensor_hiccup_packet");
 	public static final ResourceLocation JELLY_STING_PACKET = WilderSharedConstants.id("jelly_sting_packet");
+	public static final ResourceLocation LIGHTNING_STRIKE_PACKET = WilderSharedConstants.id("lightning_strike_packet");
 
 	public static void sendJellySting(ServerPlayer player, boolean baby) {
 		FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
 		byteBuf.writeBoolean(baby);
 		ServerPlayNetworking.send(player, JELLY_STING_PACKET, byteBuf);
+	}
+
+	public static void sendLightningStrikeToAll(Entity entity, BlockState blockState, @NotNull Vec3 pos, double tickCount) {
+		FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
+		byteBuf.writeInt(Block.getId(blockState));
+		byteBuf.writeDouble(pos.x());
+		byteBuf.writeDouble(pos.y());
+		byteBuf.writeDouble(pos.z());
+		byteBuf.writeDouble(tickCount);
+		for (ServerPlayer player : PlayerLookup.tracking(entity)) {
+			ServerPlayNetworking.send(player, LIGHTNING_STRIKE_PACKET, byteBuf);
+		}
 	}
 
 	public static class EasySeedPacket {

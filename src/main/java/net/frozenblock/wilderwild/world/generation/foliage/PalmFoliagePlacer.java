@@ -52,11 +52,8 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 	@Contract("_ -> new")
 	protected static <P extends PalmFoliagePlacer> Products.@NotNull P4<RecordCodecBuilder.Mu<P>, IntProvider, IntProvider, IntProvider, BlockStateProvider> palmCodec(RecordCodecBuilder.Instance<P> builder) {
 		return foliagePlacerParts(builder)
-			.and(
-				IntProvider.codec(0, 16).fieldOf("frond_count").forGetter(placer -> placer.frondCount)
-			).and(
-				BlockStateProvider.CODEC.fieldOf("crown_state").forGetter(placer -> placer.crownState)
-			);
+			.and(IntProvider.codec(0, 16).fieldOf("frond_count").forGetter(placer -> placer.frondCount))
+			.and(BlockStateProvider.CODEC.fieldOf("crown_state").forGetter(placer -> placer.crownState));
 	}
 
 	public static void placeLeavesAtPos(@NotNull LevelSimulatedReader level, @NotNull FoliageSetter blockSetter, @NotNull RandomSource random, @NotNull TreeConfiguration config, @NotNull BlockPos pos, double offX, double offY, double offZ) {
@@ -107,15 +104,15 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 		double radius = minRadius + ((this.radius.getMaxValue() - minRadius) * random.nextDouble());
 		double minus = (Math.PI * radius) / (radius * radius);
 		int fronds = this.frondCount.sample(random);
-		double rotAngle = 360 / (double) fronds;
-		double angle = random.nextDouble() * 360;
+		double rotAngle = 360D / (double) fronds;
+		double angle = random.nextDouble() * 360D;
 
 		for (int a = 0; a < fronds; a++) {
-			Vec3 offsetPos = AdvancedMath.rotateAboutXZ(origin, 1, angle + (((random.nextDouble() * rotAngle) * 0.35) * (random.nextBoolean() ? 1 : -1)));
+			Vec3 offsetPos = AdvancedMath.rotateAboutXZ(origin, 1D, angle + (((random.nextDouble() * rotAngle) * 0.35D) * (random.nextBoolean() ? 1D : -1D)));
 			double dirX = offsetPos.x - origin.x;
 			double dirZ = offsetPos.z - origin.z;
-			for (double r = 0; r < radius; r += 0.2) {
-				double yOffset = (2 * (Math.sin((Math.PI * (r - 0.1)) / radius) - minus)) + (4.2 * (minus * 0.4));
+			for (double r = 0D; r < radius; r += 0.2D) {
+				double yOffset = (2D * (Math.sin((Math.PI * (r - 0.1D)) / radius) - minus)) + (4.2D * (minus * 0.4D));
 				placeLeavesAtPos(level, blockSetter, random, config, blockPos, (dirX * r), yOffset, (dirZ * r));
 			}
 			angle += rotAngle;
