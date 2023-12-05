@@ -45,12 +45,10 @@ public class LightningBoltMixin {
 	@Shadow
 	private boolean visualOnly;
 
-	@Inject(
-		method = "tick",
-		at = @At(
-			value = "HEAD"
-		)
-	)
+	@Unique
+	private int wilderWild$age = 0;
+
+	@Inject(method = "tick", at = @At(value = "HEAD"))
 	private void wilderWild$tick(
 		CallbackInfo info,
 		@Share("wilderWild$strikePos") LocalRef<BlockPos> strikePosLocalRef,
@@ -64,9 +62,10 @@ public class LightningBoltMixin {
 					LightningBolt.class.cast(this),
 					state,
 					Vec3.atCenterOf(blockPos).add(0D, 0.5D, 0D),
-					Math.max(1, LightningBolt.class.cast(this).tickCount - 6D)
+					this.wilderWild$age
 				);
 			}
+			this.wilderWild$age += 1;
 			strikePosLocalRef.set(blockPos);
 			strikeStateLocalRef.set(state);
 		}

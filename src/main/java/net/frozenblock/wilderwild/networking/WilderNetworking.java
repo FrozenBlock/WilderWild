@@ -49,13 +49,13 @@ public class WilderNetworking {
 		ServerPlayNetworking.send(player, JELLY_STING_PACKET, byteBuf);
 	}
 
-	public static void sendLightningStrikeToAll(Entity entity, BlockState blockState, @NotNull Vec3 pos, double tickCount) {
+	public static void sendLightningStrikeToAll(Entity entity, BlockState blockState, @NotNull Vec3 pos, int tickCount) {
 		FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
 		byteBuf.writeInt(Block.getId(blockState));
 		byteBuf.writeDouble(pos.x());
 		byteBuf.writeDouble(pos.y());
 		byteBuf.writeDouble(pos.z());
-		byteBuf.writeDouble(tickCount);
+		byteBuf.writeVarInt(tickCount);
 		for (ServerPlayer player : PlayerLookup.tracking(entity)) {
 			ServerPlayNetworking.send(player, LIGHTNING_STRIKE_PACKET, byteBuf);
 		}

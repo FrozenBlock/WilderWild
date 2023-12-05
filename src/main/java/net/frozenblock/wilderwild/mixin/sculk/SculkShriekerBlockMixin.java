@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.mixin.block.sculk;
+package net.frozenblock.wilderwild.mixin.sculk;
 
 import net.frozenblock.wilderwild.misc.interfaces.SculkShriekerTickInterface;
 import net.frozenblock.wilderwild.registry.RegisterProperties;

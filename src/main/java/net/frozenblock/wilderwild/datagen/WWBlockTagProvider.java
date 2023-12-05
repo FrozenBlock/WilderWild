@@ -336,6 +336,12 @@ final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 			.add(Blocks.CLAY)
 			.add(Blocks.GRAVEL);
 
+		this.getOrCreateTagBuilder(WilderBlockTags.NO_LIGHTNING_BLOCK_PARTICLES)
+			.add(Blocks.LIGHTNING_ROD);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.NO_LIGHTNING_SMOKE_PARTICLES)
+			.add(Blocks.LIGHTNING_ROD);
+
 		this.getOrCreateTagBuilder(WilderBlockTags.CATTAIL_PLACEABLE)
 			.addOptionalTag(BlockTags.DIRT)
 			.addOptionalTag(BlockTags.SAND)

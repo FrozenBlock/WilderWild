@@ -10,8 +10,10 @@ import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOp
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -20,6 +22,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class WilderClientNetworking {
@@ -145,39 +148,87 @@ public class WilderClientNetworking {
 			double x = byteBuf.readDouble();
 			double y = byteBuf.readDouble();
 			double z = byteBuf.readDouble();
-			double tickCount = byteBuf.readDouble();
+			int tickCount = byteBuf.readVarInt();
 			if (ctx.level != null) {
-				if (EntityConfig.get().lightningParticles) {
-					RandomSource random = ctx.level.getRandom();
-					Vec3 origin = new Vec3(x, y, z);
-					int particles = ctx.level.getRandom().nextInt(20, 40);
-					double rotAngle = 360D / (double) particles;
-					double angle = ctx.level.getRandom().nextDouble() * 360D;
-					BlockParticleOption blockParticleOption = new BlockParticleOption(ParticleTypes.BLOCK, blockState);
-
-					for (int a = 0; a < particles; a++) {
-						Vec3 offsetPos = AdvancedMath.rotateAboutXZ(origin, 0.25D, angle + (((random.nextDouble() * rotAngle) * 0.25D) * (random.nextBoolean() ? 1D : -1D)));
-						double dirX = (offsetPos.x - origin.x) * ((random.nextFloat() * 0.4F) + 0.6F);
-						double dirZ = (offsetPos.z - origin.z) * ((random.nextFloat() * 0.4F) + 0.6F);
-						Particle particle = ctx.particleEngine.createParticle(
-							blockParticleOption,
-							x + dirX,
-							y,
-							z + dirZ,
-							0D,
-							0D,
-							0D
-						);
-						if (particle != null) {
-							particle.xd = (dirX * 0.8D) / tickCount;
-							particle.yd = (0.5D / tickCount) * ((random.nextFloat() * 0.4F) + 0.6F);
-							particle.zd = (dirZ * 0.8D) / tickCount;
-						}
-						angle += rotAngle;
-					}
+				RandomSource random = ctx.level.getRandom();
+				if (EntityConfig.get().lightningBlockParticles) {
+					lightningBlockParticles(tickCount, x, y, z, blockState, random, ctx.particleEngine);
+				}
+				if (EntityConfig.get().lightningSmokeParticles) {
+					lightningSmokeParticles(tickCount, x, y, z, blockState, random, ctx.particleEngine);
 				}
 			}
 		}));
+	}
+
+	private static void lightningBlockParticles(int tickCount, double x, double y, double z, @NotNull BlockState blockState, @NotNull RandomSource random, @NotNull ParticleEngine particleEngine) {
+		if (blockState.is(WilderBlockTags.NO_LIGHTNING_BLOCK_PARTICLES)) {
+			return;
+		}
+		boolean first = tickCount == 0;
+		double calmDownAge = Math.max(1, tickCount - 6D);
+		Vec3 origin = new Vec3(x, y, z);
+		int particles = first ? random.nextInt(25, 40) : random.nextInt(5, 15);
+		double rotAngle = 360D / (double) particles;
+		double angle = random.nextDouble() * 360D;
+		BlockParticleOption blockParticleOption = new BlockParticleOption(ParticleTypes.BLOCK, blockState);
+		double speedMultiplier = first ? 1.5D : 1D;
+		double speedMultiplierY = first ? 1.13D : 1D;
+
+		for (int a = 0; a < particles; a++) {
+			Vec3 offsetPos = AdvancedMath.rotateAboutXZ(origin, 0.4D, angle + (((random.nextDouble() * rotAngle) * 0.35D) * (random.nextBoolean() ? 1D : -1D)));
+			double dirX = (offsetPos.x - origin.x) * ((random.nextFloat() * 0.6D) + 0.4D);
+			double dirZ = (offsetPos.z - origin.z) * ((random.nextFloat() * 0.6D) + 0.4D);
+
+			Particle blockParticle = particleEngine.createParticle(blockParticleOption, x + dirX, y, z + dirZ, 0D, 0D, 0D);
+			if (blockParticle != null) {
+				blockParticle.xd = ((dirX * 0.8D) / calmDownAge) * speedMultiplier;
+				blockParticle.yd = ((0.4D / calmDownAge) * ((random.nextFloat() * 0.4D) + 0.7D)) * speedMultiplierY;
+				blockParticle.zd = ((dirZ * 0.8D) / calmDownAge) * speedMultiplier;
+			}
+
+			if (random.nextBoolean()) {
+				Particle particle2 = particleEngine.createParticle(ParticleTypes.LARGE_SMOKE, x + dirX * 0.3D, y, z + dirZ * 0.3D, 0D, 0D, 0D);
+				if (particle2 != null) {
+					particle2.xd = ((dirX * 0.2D) / calmDownAge) * speedMultiplier;
+					particle2.yd = ((0.5D / calmDownAge) * ((random.nextFloat() * 0.4D) + 0.7D)) * speedMultiplierY;
+					particle2.zd = ((dirZ * 0.2D) / calmDownAge) * speedMultiplier;
+				}
+			}
+
+			angle += rotAngle;
+		}
+	}
+
+	private static void lightningSmokeParticles(int tickCount, double x, double y, double z, @NotNull BlockState blockState, @NotNull RandomSource random, @NotNull ParticleEngine particleEngine) {
+		if (blockState.is(WilderBlockTags.NO_LIGHTNING_SMOKE_PARTICLES)) {
+			return;
+		}
+		boolean first = tickCount == 0;
+		double calmDownAge = Math.max(1, tickCount - 3D);
+		Vec3 origin = new Vec3(x, y, z);
+		int particles = random.nextInt(2, 15);
+		double rotAngle = 360D / (double) particles;
+		double angle = random.nextDouble() * 360D;
+		double speedMultiplier = first ? 1.5D : 1D;
+		double speedMultiplierY = first ? 1.13D : 1D;
+
+		for (int a = 0; a < particles; a++) {
+			Vec3 offsetPos = AdvancedMath.rotateAboutXZ(origin, 0.4D, angle + (((random.nextDouble() * rotAngle) * 0.35D) * (random.nextBoolean() ? 1D : -1D)));
+			double dirX = (offsetPos.x - origin.x) * ((random.nextFloat() * 0.6D) + 0.4D);
+			double dirZ = (offsetPos.z - origin.z) * ((random.nextFloat() * 0.6D) + 0.4D);
+
+			if (random.nextBoolean()) {
+				Particle particle2 = particleEngine.createParticle(ParticleTypes.LARGE_SMOKE, x + dirX * 0.3D, y, z + dirZ * 0.3D, 0D, 0D, 0D);
+				if (particle2 != null) {
+					particle2.xd = ((dirX * 0.2D) / calmDownAge) * speedMultiplier;
+					particle2.yd = ((0.5D / calmDownAge) * ((random.nextFloat() * 0.4D) + 0.7D)) * speedMultiplierY;
+					particle2.zd = ((dirZ * 0.2D) / calmDownAge) * speedMultiplier;
+				}
+			}
+
+			angle += rotAngle;
+		}
 	}
 
 }

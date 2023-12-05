@@ -72,14 +72,27 @@ public final class EntityConfigGui {
 				.build()
 		);
 
-		var lightningParticles = category.addEntry(
+		var lightningBlockParticles = category.addEntry(
 			FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("lightning_particles"), modifiedConfig.lightningParticles)
-						.setDefaultValue(defaultConfig.lightningParticles)
-						.setSaveConsumer(newValue -> config.lightningParticles = newValue)
-						.setTooltip(tooltip("lightning_particles")),
+					entryBuilder.startBooleanToggle(text("lightning_block_particles"), modifiedConfig.lightningBlockParticles)
+						.setDefaultValue(defaultConfig.lightningBlockParticles)
+						.setSaveConsumer(newValue -> config.lightningBlockParticles = newValue)
+						.setTooltip(tooltip("lightning_block_particles")),
 					clazz,
-					"lightningParticles",
+					"lightningBlockParticles",
+					configInstance
+				)
+				.build()
+		);
+
+		var lightningSmokeParticles = category.addEntry(
+			FrozenClothConfig.syncedBuilder(
+					entryBuilder.startBooleanToggle(text("lightning_smoke_particles"), modifiedConfig.lightningSmokeParticles)
+						.setDefaultValue(defaultConfig.lightningSmokeParticles)
+						.setSaveConsumer(newValue -> config.lightningSmokeParticles = newValue)
+						.setTooltip(tooltip("lightning_smoke_particles")),
+					clazz,
+					"lightningSmokeParticles",
 					configInstance
 				)
 				.build()
