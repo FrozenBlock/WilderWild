@@ -88,6 +88,7 @@ Bug Fixes & Changes
 - Fixed compatibility with Roughly Enough Resources ([#315](https://github.com/FrozenBlock/WilderWild/issues/315))
 - Hopefully resolved world generation issues with C2ME ([#311](https://github.com/FrozenBlock/WilderWild/issues/311))
 - Instrument items will now properly play on servers instead of immediately cutting out ([#284](https://github.com/FrozenBlock/WilderWild/issues/284))
+- Disabled remapping for some methods and fields referenced in mixins of mods to hopefully prevent possible issues
 - Refactored, cleaned up, and reworked multiple classes and mixins to improve internal organization, stability, and code integrity
 
 Wilder Wild 2.2 Newsletter - *Luna*
