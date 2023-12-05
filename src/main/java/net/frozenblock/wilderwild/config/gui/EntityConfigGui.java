@@ -59,56 +59,55 @@ public final class EntityConfigGui {
 		category.setBackground(WilderSharedConstants.id("textures/config/entity.png"));
 
 		var unpassableRail = category.addEntry(
-			FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("unpassable_rail"), modifiedConfig.unpassableRail)
-						.setDefaultValue(defaultConfig.unpassableRail)
-						.setSaveConsumer(newValue -> config.unpassableRail = newValue)
-						.setTooltip(tooltip("unpassable_rail"))
-						.requireRestart(),
-					clazz,
-					"unpassableRail",
-					configInstance
-				)
-				.build()
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("unpassable_rail"), modifiedConfig.unpassableRail)
+					.setDefaultValue(defaultConfig.unpassableRail)
+					.setSaveConsumer(newValue -> config.unpassableRail = newValue)
+					.setTooltip(tooltip("unpassable_rail"))
+					.requireRestart()
+					.build(),
+				clazz,
+				"unpassableRail",
+				configInstance
+			)
 		);
 
 		var lightningBlockParticles = category.addEntry(
-			FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("lightning_block_particles"), modifiedConfig.lightningBlockParticles)
-						.setDefaultValue(defaultConfig.lightningBlockParticles)
-						.setSaveConsumer(newValue -> config.lightningBlockParticles = newValue)
-						.setTooltip(tooltip("lightning_block_particles")),
-					clazz,
-					"lightningBlockParticles",
-					configInstance
-				)
-				.build()
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("lightning_block_particles"), modifiedConfig.lightningBlockParticles)
+					.setDefaultValue(defaultConfig.lightningBlockParticles)
+					.setSaveConsumer(newValue -> config.lightningBlockParticles = newValue)
+					.setTooltip(tooltip("lightning_block_particles"))
+					.build(),
+				clazz,
+				"lightningBlockParticles",
+				configInstance
+			)
 		);
 
 		var lightningSmokeParticles = category.addEntry(
-			FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("lightning_smoke_particles"), modifiedConfig.lightningSmokeParticles)
-						.setDefaultValue(defaultConfig.lightningSmokeParticles)
-						.setSaveConsumer(newValue -> config.lightningSmokeParticles = newValue)
-						.setTooltip(tooltip("lightning_smoke_particles")),
-					clazz,
-					"lightningSmokeParticles",
-					configInstance
-				)
-				.build()
-		);
-
-		var keyframeAllayDance = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(
-						text("keyframe_allay_dance"), modifiedAllay.keyframeAllayDance)
-					.setDefaultValue(defaultConfig.allay.keyframeAllayDance)
-					.setSaveConsumer(newValue -> allay.keyframeAllayDance = newValue)
-					.setTooltip(tooltip("keyframe_allay_dance")),
-				allay.getClass(),
-				"keyframeAllayDance",
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("lightning_smoke_particles"), modifiedConfig.lightningSmokeParticles)
+					.setDefaultValue(defaultConfig.lightningSmokeParticles)
+					.setSaveConsumer(newValue -> config.lightningSmokeParticles = newValue)
+					.setTooltip(tooltip("lightning_smoke_particles"))
+					.build(),
+				clazz,
+				"lightningSmokeParticles",
 				configInstance
 			)
-			.build();
+		);
+
+		var keyframeAllayDance = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("keyframe_allay_dance"), modifiedAllay.keyframeAllayDance)
+				.setDefaultValue(defaultConfig.allay.keyframeAllayDance)
+				.setSaveConsumer(newValue -> allay.keyframeAllayDance = newValue)
+				.setTooltip(tooltip("keyframe_allay_dance"))
+				.build(),
+			allay.getClass(),
+			"keyframeAllayDance",
+			configInstance
+		);
 
 		var allayCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("allay"),
 			false,
@@ -116,26 +115,27 @@ public final class EntityConfigGui {
 			keyframeAllayDance
 		);
 
-		var angerLoopSound = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("anger_loop_sound"), modifiedEnderMan.angerLoopSound)
-					.setDefaultValue(defaultConfig.enderMan.angerLoopSound)
-					.setSaveConsumer(newValue -> enderMan.angerLoopSound = newValue)
-					.setTooltip(tooltip("anger_loop_sound")),
-				enderMan.getClass(),
-				"angerLoopSound",
-				configInstance
-			)
-			.build();
-		var movingStareSound = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("moving_stare_sound"), modifiedEnderMan.movingStareSound)
-					.setDefaultValue(defaultConfig.enderMan.movingStareSound)
-					.setSaveConsumer(newValue -> enderMan.movingStareSound = newValue)
-					.setTooltip(tooltip("moving_stare_sound")),
-				enderMan.getClass(),
-				"movingStareSound",
-				configInstance
-			)
-			.build();
+		var angerLoopSound = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("anger_loop_sound"), modifiedEnderMan.angerLoopSound)
+				.setDefaultValue(defaultConfig.enderMan.angerLoopSound)
+				.setSaveConsumer(newValue -> enderMan.angerLoopSound = newValue)
+				.setTooltip(tooltip("anger_loop_sound"))
+				.build(),
+			enderMan.getClass(),
+			"angerLoopSound",
+			configInstance
+		);
+
+		var movingStareSound = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("moving_stare_sound"), modifiedEnderMan.movingStareSound)
+				.setDefaultValue(defaultConfig.enderMan.movingStareSound)
+				.setSaveConsumer(newValue -> enderMan.movingStareSound = newValue)
+				.setTooltip(tooltip("moving_stare_sound"))
+				.build(),
+			enderMan.getClass(),
+			"movingStareSound",
+			configInstance
+		);
 
 		var enderManCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("enderman"),
 			false,
@@ -143,17 +143,17 @@ public final class EntityConfigGui {
 			angerLoopSound, movingStareSound
 		);
 
-		var fireflySpawnCap = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startIntSlider(text("firefly_spawn_cap"), modifiedFirefly.fireflySpawnCap, 0, 100)
-					.setDefaultValue(defaultConfig.firefly.fireflySpawnCap)
-					.setSaveConsumer(newValue -> firefly.fireflySpawnCap = newValue)
-					.setTooltip(tooltip("firefly_spawn_cap"))
-					.requireRestart(),
-				firefly.getClass(),
-				"fireflySpawnCap",
-				configInstance
-			)
-			.build();
+		var fireflySpawnCap = FrozenClothConfig.syncedEntry(
+			entryBuilder.startIntSlider(text("firefly_spawn_cap"), modifiedFirefly.fireflySpawnCap, 0, 100)
+				.setDefaultValue(defaultConfig.firefly.fireflySpawnCap)
+				.setSaveConsumer(newValue -> firefly.fireflySpawnCap = newValue)
+				.setTooltip(tooltip("firefly_spawn_cap"))
+				.requireRestart()
+				.build(),
+			firefly.getClass(),
+			"fireflySpawnCap",
+			configInstance
+		);
 
 		var fireflyCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("firefly"),
 			false,
@@ -161,29 +161,29 @@ public final class EntityConfigGui {
 			fireflySpawnCap
 		);
 
-		var jellyfishSpawnCap = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startIntSlider(text("jellyfish_spawn_cap"), modifiedJellyfish.jellyfishSpawnCap, 0, 100)
-					.setDefaultValue(defaultConfig.jellyfish.jellyfishSpawnCap)
-					.setSaveConsumer(newValue -> jellyfish.jellyfishSpawnCap = newValue)
-					.setTooltip(tooltip("jellyfish_spawn_cap"))
-					.requireRestart(),
-				jellyfish.getClass(),
-				"jellyfishSpawnCap",
-				configInstance
-			)
-			.build();
+		var jellyfishSpawnCap = FrozenClothConfig.syncedEntry(
+			entryBuilder.startIntSlider(text("jellyfish_spawn_cap"), modifiedJellyfish.jellyfishSpawnCap, 0, 100)
+				.setDefaultValue(defaultConfig.jellyfish.jellyfishSpawnCap)
+				.setSaveConsumer(newValue -> jellyfish.jellyfishSpawnCap = newValue)
+				.setTooltip(tooltip("jellyfish_spawn_cap"))
+				.requireRestart()
+				.build(),
+			jellyfish.getClass(),
+			"jellyfishSpawnCap",
+			configInstance
+			);
 
-		var jellyfishTentacles = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startIntSlider(text("jellyfish_tentacles"), modifiedJellyfish.jellyfishTentacles, 0, 100)
-					.setDefaultValue(defaultConfig.jellyfish.jellyfishTentacles)
-					.setSaveConsumer(newValue -> jellyfish.jellyfishTentacles = newValue)
-					.setTooltip(tooltip("jellyfish_tentacles"))
-					.requireRestart(),
-				jellyfish.getClass(),
-				"jellyfishTentacles",
-				configInstance
-			)
-			.build();
+		var jellyfishTentacles = FrozenClothConfig.syncedEntry(
+			entryBuilder.startIntSlider(text("jellyfish_tentacles"), modifiedJellyfish.jellyfishTentacles, 0, 100)
+				.setDefaultValue(defaultConfig.jellyfish.jellyfishTentacles)
+				.setSaveConsumer(newValue -> jellyfish.jellyfishTentacles = newValue)
+				.setTooltip(tooltip("jellyfish_tentacles"))
+				.requireRestart()
+				.build(),
+			jellyfish.getClass(),
+			"jellyfishTentacles",
+			configInstance
+		);
 
 		var jellyfishCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("jellyfish"),
 			false,
@@ -191,29 +191,29 @@ public final class EntityConfigGui {
 			jellyfishSpawnCap, jellyfishTentacles
 		);
 
-		var crabSpawnCap = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startIntSlider(text("crab_spawn_cap"), modifiedCrab.crabSpawnCap, 0, 100)
-					.setDefaultValue(defaultConfig.crab.crabSpawnCap)
-					.setSaveConsumer(newValue -> crab.crabSpawnCap = newValue)
-					.setTooltip(tooltip("crab_spawn_cap"))
-					.requireRestart(),
-				crab.getClass(),
-				"crabSpawnCap",
-				configInstance
-			)
-			.build();
+		var crabSpawnCap = FrozenClothConfig.syncedEntry(
+			entryBuilder.startIntSlider(text("crab_spawn_cap"), modifiedCrab.crabSpawnCap, 0, 100)
+				.setDefaultValue(defaultConfig.crab.crabSpawnCap)
+				.setSaveConsumer(newValue -> crab.crabSpawnCap = newValue)
+				.setTooltip(tooltip("crab_spawn_cap"))
+				.requireRestart()
+				.build(),
+			crab.getClass(),
+			"crabSpawnCap",
+			configInstance
+		);
 
-		var reachAffectsAttack = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("reach_affects_attack"), modifiedCrab.reachAffectsAttack)
-					.setDefaultValue(defaultConfig.crab.reachAffectsAttack)
-					.setSaveConsumer(newValue -> crab.reachAffectsAttack = newValue)
-					.setTooltip(tooltip("reach_affects_attack"))
-					.requireRestart(),
-				crab.getClass(),
-				"reachAffectsAttack",
-				configInstance
-			)
-			.build();
+		var reachAffectsAttack = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("reach_affects_attack"), modifiedCrab.reachAffectsAttack)
+				.setDefaultValue(defaultConfig.crab.reachAffectsAttack)
+				.setSaveConsumer(newValue -> crab.reachAffectsAttack = newValue)
+				.setTooltip(tooltip("reach_affects_attack"))
+				.requireRestart()
+				.build(),
+			crab.getClass(),
+			"reachAffectsAttack",
+			configInstance
+		);
 
 		var crabCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("crab"),
 			false,
@@ -221,50 +221,50 @@ public final class EntityConfigGui {
 			crabSpawnCap, reachAffectsAttack
 		);
 
-		var tumbleweedSpawnCap = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startIntSlider(text("tumbleweed_spawn_cap"), modifiedTumbleweed.tumbleweedSpawnCap, 0, 100)
-					.setDefaultValue(defaultConfig.tumbleweed.tumbleweedSpawnCap)
-					.setSaveConsumer(newValue -> tumbleweed.tumbleweedSpawnCap = newValue)
-					.setTooltip(tooltip("tumbleweed_spawn_cap"))
-					.requireRestart(),
-				tumbleweed.getClass(),
-				"tumbleweedSpawnCap",
-				configInstance
-			)
-			.build();
+		var tumbleweedSpawnCap = FrozenClothConfig.syncedEntry(
+			entryBuilder.startIntSlider(text("tumbleweed_spawn_cap"), modifiedTumbleweed.tumbleweedSpawnCap, 0, 100)
+				.setDefaultValue(defaultConfig.tumbleweed.tumbleweedSpawnCap)
+				.setSaveConsumer(newValue -> tumbleweed.tumbleweedSpawnCap = newValue)
+				.setTooltip(tooltip("tumbleweed_spawn_cap"))
+				.requireRestart()
+				.build(),
+			tumbleweed.getClass(),
+			"tumbleweedSpawnCap",
+			configInstance
+		);
 
-		var leashedTumbleweed = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("leashed_tumbleweed"), modifiedTumbleweed.leashedTumbleweed)
-					.setDefaultValue(defaultConfig.tumbleweed.leashedTumbleweed)
-					.setSaveConsumer(newValue -> tumbleweed.leashedTumbleweed = newValue)
-					.setTooltip(tooltip("leashed_tumbleweed")),
-				tumbleweed.getClass(),
-				"leashedTumbleweed",
-				configInstance
-			)
-			.build();
+		var leashedTumbleweed = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("leashed_tumbleweed"), modifiedTumbleweed.leashedTumbleweed)
+				.setDefaultValue(defaultConfig.tumbleweed.leashedTumbleweed)
+				.setSaveConsumer(newValue -> tumbleweed.leashedTumbleweed = newValue)
+				.setTooltip(tooltip("leashed_tumbleweed"))
+				.build(),
+			tumbleweed.getClass(),
+			"leashedTumbleweed",
+			configInstance
+		);
 
-		var tumbleweedDestroysCrops = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("tumbleweed_destroys_crops"), modifiedTumbleweed.tumbleweedDestroysCrops)
-					.setDefaultValue(defaultConfig.tumbleweed.tumbleweedDestroysCrops)
-					.setSaveConsumer(newValue -> tumbleweed.tumbleweedDestroysCrops = newValue)
-					.setTooltip(tooltip("tumbleweed_destroys_crops")),
-				tumbleweed.getClass(),
-				"tumbleweedDestroysCrops",
-				configInstance
-			)
-			.build();
+		var tumbleweedDestroysCrops = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("tumbleweed_destroys_crops"), modifiedTumbleweed.tumbleweedDestroysCrops)
+				.setDefaultValue(defaultConfig.tumbleweed.tumbleweedDestroysCrops)
+				.setSaveConsumer(newValue -> tumbleweed.tumbleweedDestroysCrops = newValue)
+				.setTooltip(tooltip("tumbleweed_destroys_crops"))
+				.build(),
+			tumbleweed.getClass(),
+			"tumbleweedDestroysCrops",
+			configInstance
+		);
 
-		var tumbleweedRotatesToLookDirection = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("tumbleweed_rotates_to_look_direction"), modifiedTumbleweed.tumbleweedRotatesToLookDirection)
-					.setDefaultValue(defaultConfig.tumbleweed.tumbleweedRotatesToLookDirection)
-					.setSaveConsumer(newValue -> tumbleweed.tumbleweedRotatesToLookDirection = newValue)
-					.setTooltip(tooltip("tumbleweed_rotates_to_look_direction")),
-				tumbleweed.getClass(),
-				"tumbleweedRotatesToLookDirection",
-				configInstance
-			)
-			.build();
+		var tumbleweedRotatesToLookDirection = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("tumbleweed_rotates_to_look_direction"), modifiedTumbleweed.tumbleweedRotatesToLookDirection)
+				.setDefaultValue(defaultConfig.tumbleweed.tumbleweedRotatesToLookDirection)
+				.setSaveConsumer(newValue -> tumbleweed.tumbleweedRotatesToLookDirection = newValue)
+				.setTooltip(tooltip("tumbleweed_rotates_to_look_direction"))
+				.build(),
+			tumbleweed.getClass(),
+			"tumbleweedRotatesToLookDirection",
+			configInstance
+		);
 
 		var tumbleweedCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("tumbleweed"),
 			false,
@@ -272,110 +272,120 @@ public final class EntityConfigGui {
 			tumbleweedSpawnCap, leashedTumbleweed, tumbleweedDestroysCrops, tumbleweedRotatesToLookDirection
 		);
 
-		var wardenAttacksImmediately = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("warden_attacks_immediately"), modifiedWarden.wardenAttacksImmediately)
-					.setDefaultValue(defaultConfig.warden.wardenAttacksImmediately)
-					.setSaveConsumer(newValue -> warden.wardenAttacksImmediately = newValue)
-					.setTooltip(tooltip("warden_attacks_immediately")),
-				warden.getClass(),
-				"wardenAttacksImmediately",
-				configInstance
-			)
-			.build();
-		var wardenSwims = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("warden_swims"), modifiedWarden.wardenSwims)
-					.setDefaultValue(defaultConfig.warden.wardenSwims)
-					.setSaveConsumer(newValue -> warden.wardenSwims = newValue)
-					.setTooltip(tooltip("warden_swims")),
-				warden.getClass(),
-				"wardenSwims",
-				configInstance
-			)
-			.build();
-		var wardenSwimAnimation = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("warden_swim_animation"), modifiedWarden.wardenSwimAnimation)
-					.setDefaultValue(defaultConfig.warden.wardenSwimAnimation)
-					.setSaveConsumer(newValue -> warden.wardenSwimAnimation = newValue)
-					.setTooltip(tooltip("warden_swim_animation")),
-				warden.getClass(),
-				"wardenSwimAnimation",
-				configInstance
-			)
-			.build();
-		var wardenDyingAnimation = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("warden_dying_animation"), modifiedWarden.wardenDyingAnimation)
-					.setDefaultValue(defaultConfig.warden.wardenDyingAnimation)
-					.setSaveConsumer(newValue -> warden.wardenDyingAnimation = newValue)
-					.setTooltip(tooltip("warden_dying_animation")),
-				warden.getClass(),
-				"wardenDyingAnimation",
-				configInstance
-			)
-			.build();
-		var wardenImprovedEmerge = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("warden_improved_emerge"), modifiedWarden.wardenImprovedEmerge)
-					.setDefaultValue(defaultConfig.warden.wardenImprovedEmerge)
-					.setSaveConsumer(newValue -> warden.wardenImprovedEmerge = newValue)
-					.setYesNoTextSupplier(bool -> text("improved." + bool))
-					.setTooltip(tooltip("warden_improved_emerge")),
-				warden.getClass(),
-				"wardenImprovedEmerge",
-				configInstance
-			)
-			.build();
-		var wardenEmergesFromCommand = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("warden_emerges_from_command"), modifiedWarden.wardenEmergesFromCommand)
-					.setDefaultValue(defaultConfig.warden.wardenEmergesFromCommand)
-					.setSaveConsumer(newValue -> warden.wardenEmergesFromCommand = newValue)
-					.setTooltip(tooltip("warden_emerges_from_command")),
-				warden.getClass(),
-				"wardenEmergesFromCommand",
-				configInstance
-			)
-			.build();
-		var wardenEmergesFromEgg = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("warden_emerges_from_egg"), modifiedWarden.wardenEmergesFromEgg)
-					.setDefaultValue(defaultConfig.warden.wardenEmergesFromEgg)
-					.setSaveConsumer(newValue -> warden.wardenEmergesFromEgg = newValue)
-					.setTooltip(tooltip("warden_emerges_from_egg")),
-				warden.getClass(),
-				"wardenEmergesFromEgg",
-				configInstance
-			)
-			.build();
-		var wardenImprovedDig = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("warden_improved_dig"), modifiedWarden.wardenImprovedDig)
-					.setDefaultValue(defaultConfig.warden.wardenImprovedDig)
-					.setSaveConsumer(newValue -> warden.wardenImprovedDig = newValue)
-					.setYesNoTextSupplier(bool -> text("improved." + bool))
-					.setTooltip(tooltip("warden_improved_dig")),
-				warden.getClass(),
-				"wardenImprovedDig",
-				configInstance
-			)
-			.build();
-		var wardenBedrockSniff = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("warden_bedrock_sniff"), modifiedWarden.wardenBedrockSniff)
-					.setDefaultValue(defaultConfig.warden.wardenBedrockSniff)
-					.setSaveConsumer(newValue -> warden.wardenBedrockSniff = newValue)
-					.setYesNoTextSupplier(bool -> text("warden_bedrock_sniff." + bool))
-					.setTooltip(tooltip("warden_bedrock_sniff")),
-				warden.getClass(),
-				"wardenBedrockSniff",
-				configInstance
-			)
-			.build();
-		var wardenCustomTendrils = FrozenClothConfig.syncedBuilder(
-				entryBuilder.startBooleanToggle(text("warden_custom_tendrils"), modifiedWarden.wardenCustomTendrils)
-					.setDefaultValue(defaultConfig.warden.wardenCustomTendrils)
-					.setSaveConsumer(newValue -> warden.wardenCustomTendrils = newValue)
-					.setYesNoTextSupplier(bool -> text("improved." + bool))
-					.setTooltip(tooltip("warden_custom_tendrils")),
-				warden.getClass(),
-				"wardenCustomTendrils",
-				configInstance
-			)
-			.build();
+		var wardenAttacksImmediately = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("warden_attacks_immediately"), modifiedWarden.wardenAttacksImmediately)
+				.setDefaultValue(defaultConfig.warden.wardenAttacksImmediately)
+				.setSaveConsumer(newValue -> warden.wardenAttacksImmediately = newValue)
+				.setTooltip(tooltip("warden_attacks_immediately"))
+				.build(),
+			warden.getClass(),
+			"wardenAttacksImmediately",
+			configInstance
+		);
+
+		var wardenSwims = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("warden_swims"), modifiedWarden.wardenSwims)
+				.setDefaultValue(defaultConfig.warden.wardenSwims)
+				.setSaveConsumer(newValue -> warden.wardenSwims = newValue)
+				.setTooltip(tooltip("warden_swims"))
+				.build(),
+			warden.getClass(),
+			"wardenSwims",
+			configInstance
+		);
+
+		var wardenSwimAnimation = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("warden_swim_animation"), modifiedWarden.wardenSwimAnimation)
+				.setDefaultValue(defaultConfig.warden.wardenSwimAnimation)
+				.setSaveConsumer(newValue -> warden.wardenSwimAnimation = newValue)
+				.setTooltip(tooltip("warden_swim_animation"))
+				.build(),
+			warden.getClass(),
+			"wardenSwimAnimation",
+			configInstance
+		);
+
+		var wardenDyingAnimation = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("warden_dying_animation"), modifiedWarden.wardenDyingAnimation)
+				.setDefaultValue(defaultConfig.warden.wardenDyingAnimation)
+				.setSaveConsumer(newValue -> warden.wardenDyingAnimation = newValue)
+				.setTooltip(tooltip("warden_dying_animation"))
+				.build(),
+			warden.getClass(),
+			"wardenDyingAnimation",
+			configInstance
+		);
+
+		var wardenImprovedEmerge = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("warden_improved_emerge"), modifiedWarden.wardenImprovedEmerge)
+				.setDefaultValue(defaultConfig.warden.wardenImprovedEmerge)
+				.setSaveConsumer(newValue -> warden.wardenImprovedEmerge = newValue)
+				.setYesNoTextSupplier(bool -> text("improved." + bool))
+				.setTooltip(tooltip("warden_improved_emerge"))
+				.build(),
+			warden.getClass(),
+			"wardenImprovedEmerge",
+			configInstance
+		);
+
+		var wardenEmergesFromCommand = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("warden_emerges_from_command"), modifiedWarden.wardenEmergesFromCommand)
+				.setDefaultValue(defaultConfig.warden.wardenEmergesFromCommand)
+				.setSaveConsumer(newValue -> warden.wardenEmergesFromCommand = newValue)
+				.setTooltip(tooltip("warden_emerges_from_command"))
+				.build(),
+			warden.getClass(),
+			"wardenEmergesFromCommand",
+			configInstance
+		);
+
+		var wardenEmergesFromEgg = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("warden_emerges_from_egg"), modifiedWarden.wardenEmergesFromEgg)
+				.setDefaultValue(defaultConfig.warden.wardenEmergesFromEgg)
+				.setSaveConsumer(newValue -> warden.wardenEmergesFromEgg = newValue)
+				.setTooltip(tooltip("warden_emerges_from_egg"))
+				.build(),
+			warden.getClass(),
+			"wardenEmergesFromEgg",
+			configInstance
+		);
+
+		var wardenImprovedDig = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("warden_improved_dig"), modifiedWarden.wardenImprovedDig)
+				.setDefaultValue(defaultConfig.warden.wardenImprovedDig)
+				.setSaveConsumer(newValue -> warden.wardenImprovedDig = newValue)
+				.setYesNoTextSupplier(bool -> text("improved." + bool))
+				.setTooltip(tooltip("warden_improved_dig"))
+				.build(),
+			warden.getClass(),
+			"wardenImprovedDig",
+			configInstance
+		);
+
+		var wardenBedrockSniff = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("warden_bedrock_sniff"), modifiedWarden.wardenBedrockSniff)
+				.setDefaultValue(defaultConfig.warden.wardenBedrockSniff)
+				.setSaveConsumer(newValue -> warden.wardenBedrockSniff = newValue)
+				.setYesNoTextSupplier(bool -> text("warden_bedrock_sniff." + bool))
+				.setTooltip(tooltip("warden_bedrock_sniff"))
+				.requireRestart()
+				.build(),
+			warden.getClass(),
+			"wardenBedrockSniff",
+			configInstance
+		);
+
+		var wardenCustomTendrils = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("warden_custom_tendrils"), modifiedWarden.wardenCustomTendrils)
+				.setDefaultValue(defaultConfig.warden.wardenCustomTendrils)
+				.setSaveConsumer(newValue -> warden.wardenCustomTendrils = newValue)
+				.setYesNoTextSupplier(bool -> text("warden_custom_tendrils." + bool))
+				.setTooltip(tooltip("warden_custom_tendrils"))
+				.build(),
+			warden.getClass(),
+			"wardenCustomTendrils",
+			configInstance
+		);
 
 		var wardenCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("warden"),
 			false,

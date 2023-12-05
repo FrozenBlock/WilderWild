@@ -47,16 +47,16 @@ public final class MiscConfigGui {
 		category.setBackground(WilderSharedConstants.id("textures/config/misc.png"));
 
 		var modifyAdvancements = category.addEntry(
-			FrozenClothConfig.syncedBuilder(
-					entryBuilder.startBooleanToggle(text("modify_advancements"), modifiedConfig.modifyAdvancements)
-						.setDefaultValue(defaultConfig.modifyAdvancements)
-						.setSaveConsumer(newValue -> config.modifyAdvancements = newValue)
-						.setTooltip(tooltip("modofy_advancements")),
-					clazz,
-					"modifyAdvancements",
-					configInstance
-				)
-				.build()
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("modify_advancements"), modifiedConfig.modifyAdvancements)
+					.setDefaultValue(defaultConfig.modifyAdvancements)
+					.setSaveConsumer(newValue -> config.modifyAdvancements = newValue)
+					.setTooltip(tooltip("modofy_advancements"))
+					.build(),
+				clazz,
+				"modifyAdvancements",
+				configInstance
+			)
 		);
 
 		var cloudMovement = category.addEntry(entryBuilder.startBooleanToggle(text("cloud_movement"), config.cloudMovement)
