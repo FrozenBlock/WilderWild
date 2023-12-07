@@ -63,7 +63,7 @@ Bug Fixes & Changes
   - Added a config option to control whether or not the Warden should be able to swim
   - Added a config option to control whether or not the improved digging animation should be used
   - Added a config option to control whether or not the improved emerging animation should be used
-  - The warden's animation configs will no longer require the game to restart
+  - The Warden's animation configs will no longer require the game to restart
   - This config option should now result in all Warden changes becoming toggleable
 - The Warden's death particles will now only spawn at the Warden's position as opposed to spawning within its entire hitbox
 - The Allay's keyframed dance animation config will no longer require the game to restart
