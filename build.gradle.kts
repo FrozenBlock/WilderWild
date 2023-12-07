@@ -63,6 +63,8 @@ val terralith_version: String by project
 val fallingleaves_version: String by project
 
 val sodium_version: String by project
+val run_sodium: String by project
+val shouldRunSodium = run_sodium == "true"
 
 base {
     archivesName.set(archives_base_name)
@@ -167,16 +169,6 @@ repositories {
             includeGroup("curse.maven")
         }
     }
-    /*maven {
-        name = "Siphalor's Maven"
-        url = uri("https://maven.siphalor.de")
-    }*/
-    /*maven {
-        url = uri("https://maven.flashyreese.me/releases")
-    }
-    maven {
-        url = uri("https://maven.flashyreese.me/snapshots")
-    }*/
     maven {
         url = uri("https://maven.minecraftforge.net/")
     }
@@ -212,8 +204,6 @@ dependencies {
         }
     })
     modImplementation("net.fabricmc:fabric-loader:$loader_version")
-
-    // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation("net.fabricmc.fabric-api:fabric-api:$fabric_api_version")
 
     // FrozenLib
@@ -247,7 +237,10 @@ dependencies {
     modApi("io.github.llamalad7:mixinextras-fabric:$mixin_extras_version")?.let { annotationProcessor(it) }
 
     // Sodium
-    modImplementation("maven.modrinth:sodium:${sodium_version}")
+    if (shouldRunSodium)
+        modImplementation("maven.modrinth:sodium:${sodium_version}")
+    else
+        modCompileOnly("maven.modrinth:sodium:${sodium_version}")
 
     // FallingLeaves
     modCompileOnly("maven.modrinth:fallingleaves:${fallingleaves_version}")

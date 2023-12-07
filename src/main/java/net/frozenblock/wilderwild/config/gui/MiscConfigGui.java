@@ -51,7 +51,7 @@ public final class MiscConfigGui {
 				entryBuilder.startBooleanToggle(text("modify_advancements"), modifiedConfig.modifyAdvancements)
 					.setDefaultValue(defaultConfig.modifyAdvancements)
 					.setSaveConsumer(newValue -> config.modifyAdvancements = newValue)
-					.setTooltip(tooltip("modofy_advancements"))
+					.setTooltip(tooltip("modify_advancements"))
 					.build(),
 				clazz,
 				"modifyAdvancements",
