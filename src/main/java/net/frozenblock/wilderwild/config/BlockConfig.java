@@ -157,7 +157,7 @@ public final class BlockConfig {
 		public int stoneChestTimer = 100;
 
 		public double getStoneChestTimer() {
-			return ((double) this.stoneChestTimer) * 0.01;
+			return ((double) this.stoneChestTimer) * 0.01D;
 		}
 	}
 
