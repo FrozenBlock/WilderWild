@@ -59,7 +59,6 @@ public final class WorldgenConfig {
 	@FieldIdentifier(identifier = "fallenLogs")
 	public boolean fallenLogs = true;
 
-
 	@FieldIdentifier(identifier = "snappedLogs")
 	public boolean snappedLogs = true;
 
