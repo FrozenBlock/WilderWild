@@ -12,6 +12,8 @@
   "wilderwild:milkweed.foliage": "brush",
   "wilderwild:baobab_nut": "NOT_EMITTER",
   "wilderwild:baobab_nut.foliage": "brush",
+  "wilderwild:coconut": "NOT_EMITTER",
+  "wilderwild:coconut.foliage": "brush",
   "#wilderwild:mesoglea": "slime",
   "#wilderwild:mesoglea[waterlogged=true]": "slime,waterfine",
   "#wilderwild:nematocysts": "NOT_EMITTER",
@@ -24,5 +26,6 @@
   "wilderwild:seeding_dandelion": "NOT_EMITTER",
   "wilderwild:flowering_lily_pad": "waterfine",
   "wilderwild:flowering_lily_pad.carpet": "waterfine",
-  "wilderwild:chiseled_mud_bricks": "brickstone"
+  "wilderwild:chiseled_mud_bricks": "brickstone",
+  "wilderwild:stone_chest": "brickstone"
 }
