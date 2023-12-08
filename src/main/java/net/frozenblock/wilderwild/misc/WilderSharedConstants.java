@@ -32,8 +32,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class WilderSharedConstants {
+	public static final String PROJECT_ID = "Wilder Wild";
 	public static final String MOD_ID = "wilderwild";
-	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+	public static final Logger LOGGER = LoggerFactory.getLogger(PROJECT_ID);
 	public static final int DATA_VERSION = 15;
 	// MEASURING
 	public static final Map<Object, Long> INSTANT_MAP = new Object2ObjectOpenHashMap<>();
