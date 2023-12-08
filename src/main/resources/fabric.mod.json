@@ -82,6 +82,9 @@
       "badges": [
         "frozenblock"
       ]
+    },
+    "frozenlib_registry": {
+      "mod_protocol": $protocol_version
     }
   }
 }

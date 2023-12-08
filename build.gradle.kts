@@ -44,6 +44,7 @@ val loader_version: String by project
 
 val mod_id: String by project
 val mod_version: String by project
+val protocol_version: String by project
 val mod_loader: String by project
 val maven_group: String by project
 val archives_base_name: String by project
@@ -257,6 +258,7 @@ tasks {
         val properties = HashMap<String, Any>()
         properties["mod_id"] = mod_id
         properties["version"] = version
+        properties["protocol_version"] = protocol_version
         properties["minecraft_version"] = "~$minecraft_version-"
 
         properties["fabric_loader_version"] = ">=0.14.22"
