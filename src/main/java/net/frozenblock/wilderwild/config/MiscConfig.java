@@ -76,17 +76,21 @@ public final class MiscConfig {
 
 	public static class BiomeAmbienceConfig {
 		@UnsyncableEntry
+		@FieldIdentifier(identifier = "deepDarkAmbience")
 		public boolean deepDarkAmbience = true;
 
 		@UnsyncableEntry
+		@FieldIdentifier(identifier = "dripstoneCavesAmbience")
 		public boolean dripstoneCavesAmbience = true;
 
 		@UnsyncableEntry
+		@FieldIdentifier(identifier = "lushCavesAmbience")
 		public boolean lushCavesAmbience = true;
 	}
 
 	public static class BiomeMusicConfig {
 		@UnsyncableEntry
+		@FieldIdentifier(identifier = "wilderForestMusic")
 		public boolean wilderForestMusic = true;
 	}
 }

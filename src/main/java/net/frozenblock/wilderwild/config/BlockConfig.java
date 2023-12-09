@@ -98,57 +98,75 @@ public final class BlockConfig {
 
 	public static class BlockSoundsConfig {
 		@UnsyncableEntry
+		@FieldIdentifier(identifier = "cactusSounds")
 		public boolean cactusSounds = true;
 
 		@UnsyncableEntry
+		@FieldIdentifier(identifier = "claySounds")
 		public boolean claySounds = true;
 
 		@UnsyncableEntry
+		@FieldIdentifier(identifier = "coarseDirtSounds")
 		public boolean coarseDirtSounds = true;
 
 		@UnsyncableEntry
+		@FieldIdentifier(identifier = "cobwebSounds")
 		public boolean cobwebSounds = true;
 
 		@UnsyncableEntry
+		@FieldIdentifier(identifier = "deadBushSounds")
 		public boolean deadBushSounds = true;
 
 		@UnsyncableEntry
+		@FieldIdentifier(identifier = "flowerSounds")
 		public boolean flowerSounds = true;
 
 		@UnsyncableEntry
+		@FieldIdentifier(identifier = "saplingSounds")
 		public boolean saplingSounds = true;
 
 		@UnsyncableEntry
+		@FieldIdentifier(identifier = "iceSounds")
 		public boolean iceSounds = true;
 
 		@UnsyncableEntry
+		@FieldIdentifier(identifier = "frostedIceSounds")
 		public boolean frostedIceSounds = true;
 
 		@UnsyncableEntry
+		@FieldIdentifier(identifier = "gravelSounds")
 		public boolean gravelSounds = true;
 
 		@UnsyncableEntry
+		@FieldIdentifier(identifier = "leafSounds")
 		public boolean leafSounds = true;
 
 		@UnsyncableEntry
+		@FieldIdentifier(identifier = "lilyPadSounds")
 		public boolean lilyPadSounds = true;
 
 		@UnsyncableEntry
+		@FieldIdentifier(identifier = "mushroomBlockSounds")
 		public boolean mushroomBlockSounds = true;
 
 		@UnsyncableEntry
+		@FieldIdentifier(identifier = "podzolSounds")
 		public boolean podzolSounds = true;
 
 		@UnsyncableEntry
+		@FieldIdentifier(identifier = "reinforcedDeepslateSounds")
 		public boolean reinforcedDeepslateSounds = true;
 
 		@UnsyncableEntry
+		@FieldIdentifier(identifier = "sandstoneSounds")
 		public boolean sandstoneSounds = true;
 
 		@UnsyncableEntry
+		@FieldIdentifier(identifier = "sugarCaneSounds")
 		public boolean sugarCaneSounds = true;
 
 		@UnsyncableEntry
+		@FieldIdentifier(identifier = "witherRoseSounds")
 		public boolean witherRoseSounds = true;
 	}
 
