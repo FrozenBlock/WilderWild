@@ -19,8 +19,8 @@ buildscript {
         classpath("org.kohsuke:github-api:+")
 
         // remove these 2 to get normal fabric loom versions
-        classpath(files("libs/fabric-loom-1.5.local.jar"))
-        classpath("net.fabricmc:mapping-io:+")
+        //classpath(files("libs/fabric-loom-1.5.local.jar"))
+        //classpath("net.fabricmc:mapping-io:+")
     }
 }
 
@@ -261,7 +261,6 @@ tasks {
         properties["protocol_version"] = protocol_version
         properties["minecraft_version"] = "~$minecraft_version-"
 
-        properties["fabric_loader_version"] = ">=0.14.22"
         properties["fabric_api_version"] = ">=$fabric_api_version"
         properties["frozenlib_version"] = ">=${frozenlib_version.split('-').firstOrNull()}-"
 
