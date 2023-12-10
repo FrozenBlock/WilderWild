@@ -22,11 +22,8 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import java.nio.file.Path;
 import java.util.Map;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,24 +47,6 @@ public class WilderSharedConstants {
 	public static void log(String string, boolean shouldLog) {
 		if (shouldLog) {
 			WilderSharedConstants.LOGGER.info(string);
-		}
-	}
-
-	public static void log(Entity entity, String string, boolean shouldLog) {
-		if (shouldLog) {
-			WilderSharedConstants.LOGGER.info(entity.toString() + " : " + string + " : " + entity.position());
-		}
-	}
-
-	public static void log(Block block, String string, boolean shouldLog) {
-		if (shouldLog) {
-			WilderSharedConstants.LOGGER.info(block.toString() + " : " + string + " : ");
-		}
-	}
-
-	public static void log(Block block, BlockPos pos, String string, boolean shouldLog) {
-		if (shouldLog) {
-			WilderSharedConstants.LOGGER.info(block.toString() + " : " + string + " : " + pos);
 		}
 	}
 

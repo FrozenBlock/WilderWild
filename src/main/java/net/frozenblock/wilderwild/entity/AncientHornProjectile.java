@@ -320,7 +320,6 @@ public class AncientHornProjectile extends AbstractArrow {
 			if (blockState.getBlock() == Blocks.SCULK_SHRIEKER) {
 				if (ItemConfig.get().ancientHorn.ancientHornCanSummonWarden) {
 					BlockPos pos = result.getBlockPos();
-					WilderSharedConstants.log(Blocks.SCULK_SHRIEKER, pos, "Horn Projectile Touched", WilderSharedConstants.UNSTABLE_LOGGING);
 					if (blockState.getValue(RegisterProperties.SOULS_TAKEN) < 2 && !blockState.getValue(SculkShriekerBlock.SHRIEKING)) {
 						if (!blockState.getValue(SculkShriekerBlock.CAN_SUMMON)) {
 							server.setBlockAndUpdate(pos, blockState.setValue(RegisterProperties.SOULS_TAKEN, blockState.getValue(RegisterProperties.SOULS_TAKEN) + 1));
@@ -343,8 +342,6 @@ public class AncientHornProjectile extends AbstractArrow {
 				SculkSensorBlockEntity blockEntity = (SculkSensorBlockEntity) level().getBlockEntity(pos);
 
 				assert blockEntity != null;
-				WilderSharedConstants.log(Blocks.SCULK_SENSOR, pos, "Horn Projectile Touched", WilderSharedConstants.UNSTABLE_LOGGING);
-
 				if (blockState.getValue(RegisterProperties.HICCUPPING)) {
 					server.setBlockAndUpdate(pos, blockState.setValue(RegisterProperties.HICCUPPING, false));
 				} else {
