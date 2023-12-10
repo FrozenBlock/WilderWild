@@ -255,14 +255,15 @@ dependencies {
 
 tasks {
     processResources {
-        val properties = HashMap<String, Any>()
-        properties["mod_id"] = mod_id
-        properties["version"] = version
-        properties["protocol_version"] = protocol_version
-        properties["minecraft_version"] = "~$minecraft_version-"
+        val properties = mapOf(
+            "mod_id" to mod_id,
+            "version" to version,
+            "protocol_version" to protocol_version,
+            "minecraft_version" to minecraft_version,
 
-        properties["fabric_api_version"] = ">=$fabric_api_version"
-        properties["frozenlib_version"] = ">=${frozenlib_version.split('-').firstOrNull()}-"
+            "fabric_api_version" to ">=$fabric_api_version",
+            "frozenlib_version" to ">=${frozenlib_version.split('-').firstOrNull()}-"
+        )
 
         properties.forEach { (a, b) -> inputs.property(a, b) }
 
