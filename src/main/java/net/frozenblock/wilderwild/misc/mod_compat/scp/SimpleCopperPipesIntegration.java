@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.misc.mod_compat.scp;
 
 import net.frozenblock.lib.FrozenBools;
-import net.frozenblock.lib.FrozenMain;
+import net.frozenblock.lib.FrozenSharedConstants;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
@@ -63,7 +63,7 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 	}
 
 	@Override
-	public void init() {
+	public void initPreFreeze() {
 		WilderSharedConstants.log("WILDERWILD AND COPPER PIPES SECRET LOG MESSAGE UNLOCKED!!!", true);
 		RegisterPipeNbtMethods.register(HORN, (nbt, level, pos, blockState, copperPipeEntity) -> {
 			if (!nbt.getCanOnlyBeUsedOnce() || nbt.getUseCount() < 1) {
@@ -78,7 +78,7 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 						projectileEntity.setShotByPlayer(true);
 						projectileEntity.canInteractWithPipe = false;
 						level.addFreshEntity(projectileEntity);
-						FrozenSoundPackets.createMovingRestrictionLoopingSound(level, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, FrozenMain.id("default"), true);
+						FrozenSoundPackets.createMovingRestrictionLoopingSound(level, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, FrozenSharedConstants.id("default"), true);
 					}
 				}
 			}
@@ -254,6 +254,11 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 			return state.getBlock() instanceof CopperPipe;
 		}
 		return false;
+	}
+
+	@Override
+	public void init() {
+
 	}
 
 }
