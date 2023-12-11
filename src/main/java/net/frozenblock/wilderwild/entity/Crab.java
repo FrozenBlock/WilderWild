@@ -310,7 +310,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			if (this.horizontalCollision) {
 				Vec3 usedMovement = this.getDeltaMovement();
 				this.setMoveState(this.getDeltaPos().y() >= 0 ? MoveState.CLIMBING : MoveState.DESCENDING);
-				if (this.isCrabDescending() && this.level().noBlockCollision(this, this.makeBoundingBox().expandTowards(0, -this.getEmptyAreaSearchDistance(), 0))) {
+				if (this.isCrabDescending() && this.level().noCollision(this, this.makeBoundingBox().expandTowards(0, -this.getEmptyAreaSearchDistance(), 0))) {
 					this.cancelMovementToDescend = this.latchOntoWall(LATCH_TO_WALL_FORCE, false);
 				} else if (!this.onGround()) {
 					//this.latchOntoWall(LATCH_TO_WALL_FORCE, false);
@@ -331,7 +331,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 				this.setMoveState(MoveState.WALKING);
 				this.setTargetClimbAnimX(0F);
 				if (!this.onGround() && !this.isInWater()) {
-					if (this.level().noBlockCollision(this, this.makeBoundingBox().expandTowards(0, -this.getEmptyAreaSearchDistance(), 0))) {
+					if (this.level().noCollision(this, this.makeBoundingBox().expandTowards(0, -this.getEmptyAreaSearchDistance(), 0))) {
 						this.cancelMovementToDescend = this.latchOntoWall(LATCH_TO_WALL_FORCE, false);
 					}
 				}
