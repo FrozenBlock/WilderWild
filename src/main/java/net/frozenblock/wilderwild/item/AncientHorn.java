@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.item;
 
 import java.util.Optional;
 import net.frozenblock.lib.FrozenMain;
+import net.frozenblock.lib.FrozenSharedConstants;
 import net.frozenblock.lib.item.impl.CooldownInterface;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
@@ -99,7 +100,7 @@ public class AncientHorn extends InstrumentItem {
 				projectileEntity.shootFromRotation(user, user.getXRot(), user.getYRot(), 0.0F, 1.0F, 0.0F);
 				projectileEntity.setShotByPlayer(true);
 				server.addFreshEntity(projectileEntity);
-				FrozenSoundPackets.createMovingRestrictionLoopingSound(server, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, FrozenMain.id("default"), true);
+				FrozenSoundPackets.createMovingRestrictionLoopingSound(server, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, FrozenSharedConstants.id("default"), true);
 				ItemStack mainHand = user.getItemInHand(InteractionHand.MAIN_HAND);
 				ItemStack offHand = user.getItemInHand(InteractionHand.OFF_HAND);
 				if (mainHand.is(Items.WATER_BUCKET) || mainHand.is(Items.POTION) || offHand.is(Items.WATER_BUCKET) || offHand.is(Items.POTION)) {

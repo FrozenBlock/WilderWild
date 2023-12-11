@@ -40,7 +40,8 @@ final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagProvider 
 			.add(RegisterEntities.JELLYFISH);
 
 		this.getOrCreateTagBuilder(EntityTypeTags.CAN_BREATHE_UNDER_WATER)
-			.add(EntityType.WARDEN);
+			.add(EntityType.WARDEN)
+			.add(RegisterEntities.CRAB);
 
 		this.getOrCreateTagBuilder(WilderEntityTags.CRAB_HUNT_TARGETS)
 			.add(EntityType.SQUID)

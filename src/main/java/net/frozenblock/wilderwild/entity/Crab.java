@@ -91,6 +91,7 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -270,11 +271,6 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		this.entityData.define(DIGGING_TICKS, 0);
 		this.entityData.define(FROM_BUCKET, false);
 		this.entityData.define(CLIMBING_FACE, ClimbingFace.NORTH);
-	}
-
-	@Override
-	public boolean canBreatheUnderwater() {
-		return true;
 	}
 
 	@Override
@@ -512,7 +508,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@Override
-	public boolean ignoreExplosion() {
+	public boolean ignoreExplosion(Explosion explosion) {
 		return this.isDiggingOrEmerging();
 	}
 
