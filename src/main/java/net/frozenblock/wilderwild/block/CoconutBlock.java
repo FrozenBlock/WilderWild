@@ -58,6 +58,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class CoconutBlock extends FallingBlock implements BonemealableBlock {
+	public static final int VALID_FROND_DISTANCE = 2;
 	public static final IntegerProperty STAGE = BlockStateProperties.STAGE;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
@@ -95,7 +96,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 
 	public void advanceTree(@NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull RandomSource random) {
 		if (state.getValue(STAGE) == 0) {
-			level.setBlock(pos, state.cycle(STAGE), 4);
+			level.setBlock(pos, state.cycle(STAGE), UPDATE_INVISIBLE);
 		} else {
 			this.treeGrower.growTree(level, level.getChunkSource().getGenerator(), pos, state, random);
 		}
@@ -148,7 +149,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	@Override
 	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
 		BlockState stateAbove = level.getBlockState(pos.above());
-		return state.is(this) && isHanging(state) ? (stateAbove.is(RegisterBlocks.PALM_FRONDS) && (stateAbove.getValue(BlockStateProperties.DISTANCE) <= 2 || PalmFrondsBlock.updateDistance(stateAbove, level, pos).getValue(BlockStateProperties.DISTANCE) <= 2 || stateAbove.getValue(BlockStateProperties.PERSISTENT))) : this.mayPlaceOn(level.getBlockState(pos.below()));
+		return state.is(this) && isHanging(state) ? (stateAbove.is(RegisterBlocks.PALM_FRONDS) && (stateAbove.getValue(BlockStateProperties.DISTANCE) <= VALID_FROND_DISTANCE || stateAbove.getValue(BlockStateProperties.PERSISTENT))) : this.mayPlaceOn(level.getBlockState(pos.below()));
 	}
 
 	protected boolean mayPlaceOn(@NotNull BlockState state) {
@@ -164,7 +165,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 				}
 			} else {
 				if (random.nextDouble() < 0.4 && !isFullyGrown(state)) {
-					level.setBlock(pos, state.cycle(AGE), 2);
+					level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
 				}
 			}
 		}
@@ -183,7 +184,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
 		if (isHanging(state) && !isFullyGrown(state)) {
-			level.setBlock(pos, state.cycle(AGE), 2);
+			level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
 		} else {
 			this.advanceTree(level, pos, state, random);
 		}
@@ -237,7 +238,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	@Override
 	public void onLand(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull BlockState replaceableState, @NotNull FallingBlockEntity fallingBlock) {
 		if (!level.isClientSide) {
-			level.setBlock(pos, replaceableState, 3);
+			level.setBlock(pos, replaceableState, UPDATE_ALL);
 		}
 	}
 

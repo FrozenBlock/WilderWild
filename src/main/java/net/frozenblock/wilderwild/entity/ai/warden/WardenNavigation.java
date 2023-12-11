@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.entity.ai.warden;
 
+import net.frozenblock.wilderwild.config.EntityConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.Entity;
@@ -51,7 +52,7 @@ public class WardenNavigation extends GroundPathNavigation {
 
 			@Override
 			public float distance(@NotNull Node a, @NotNull Node b) {
-				return this.entitySubmergedInWaterOrLava(mob) ? a.distanceTo(b) : a.distanceToXZ(b);
+				return EntityConfig.get().warden.wardenSwims && this.entitySubmergedInWaterOrLava(mob) ? a.distanceTo(b) : a.distanceToXZ(b);
 			}
 		};
 	}
@@ -59,27 +60,32 @@ public class WardenNavigation extends GroundPathNavigation {
 	@Override
 	@NotNull
 	protected Vec3 getTempMobPos() {
-		return this.isInLiquid() ? new Vec3(this.mob.getX(), this.mob.getY(0.5), this.mob.getZ()) : super.getTempMobPos();
+		return EntityConfig.get().warden.wardenSwims && this.isInLiquid() ? new Vec3(this.mob.getX(), this.mob.getY(0.5), this.mob.getZ()) : super.getTempMobPos();
 	}
 
 	@Override
 	protected double getGroundY(@NotNull Vec3 pos) {
 		BlockPos blockPos = BlockPos.containing(pos);
-		return this.isInLiquid() || this.level.getBlockState(blockPos.below()).isAir() ? pos.y : WardenNodeEvaluator.getFloorLevel(this.level, blockPos);
+		return EntityConfig.get().warden.wardenSwims && (this.isInLiquid() || this.level.getBlockState(blockPos.below()).isAir()) ? pos.y : WardenNodeEvaluator.getFloorLevel(this.level, blockPos);
 	}
 
 	@Override
 	protected boolean canMoveDirectly(@NotNull Vec3 origin, @NotNull Vec3 target) {
-		return this.isInLiquid() ? isClearForMovementBetween(this.mob, origin, target, false) : super.canMoveDirectly(origin, target);
+		return EntityConfig.get().warden.wardenSwims && this.isInLiquid() ? isClearForMovementBetween(this.mob, origin, target, false) : super.canMoveDirectly(origin, target);
 	}
 
 	@Override
 	protected boolean hasValidPathType(@NotNull BlockPathTypes pathType) {
-		return pathType != BlockPathTypes.OPEN;
+		return EntityConfig.get().warden.wardenSwims ? pathType != BlockPathTypes.OPEN : super.hasValidPathType(pathType);
+	}
+
+	@Override
+	protected boolean canUpdatePath() {
+		return super.canUpdatePath() || (this.mob.isVisuallySwimming() && EntityConfig.get().warden.wardenSwims);
 	}
 
 	@Override
 	public boolean isInLiquid() {
-		return super.isInLiquid() || this.mob.isVisuallySwimming();
+		return super.isInLiquid() || (this.mob.isVisuallySwimming() && EntityConfig.get().warden.wardenSwims);
 	}
 }

@@ -108,7 +108,7 @@ public class BaobabNutBlock extends SaplingBlock {
 				}
 			} else {
 				if (random.nextDouble() < 0.4 && !isFullyGrown(state)) {
-					level.setBlock(pos, state.cycle(AGE), 2);
+					level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
 				}
 			}
 		}
@@ -127,7 +127,7 @@ public class BaobabNutBlock extends SaplingBlock {
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
 		if (state.is(this) && isHanging(state) && !isFullyGrown(state)) {
-			level.setBlock(pos, state.cycle(AGE), 2);
+			level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
 		} else {
 			super.performBonemeal(level, random, pos, state);
 		}

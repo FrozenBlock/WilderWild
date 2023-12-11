@@ -43,7 +43,7 @@ public class SoulSandBlockMixin {
 	}
 
 	@ModifyExpressionValue(method = "updateShape", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z"))
-	public boolean wilderWild$Mesoglea(boolean original, BlockState state, Direction direction, BlockState neighborState) {
+	public boolean wilderWild$updateShape(boolean original, BlockState state, Direction direction, BlockState neighborState) {
 		if (BlockConfig.get().mesoglea.mesogleaBubbleColumns) {
 			return original || MesogleaBlock.isColumnSupportingMesoglea(neighborState);
 		}

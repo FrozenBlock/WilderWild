@@ -4,14 +4,15 @@
     "decorators": [
       {
         "type": "wilderwild:shelf_fungus_tree_decorator",
+        "placement_chance": 0.25,
         "probability": 0.064,
         "red_shelf_fungus_chance": 0.0
       },
       {
         "type": "wilderwild:height_based_vine_tree_decorator",
-        "chanceToDecorate": 1.0,
-        "maxHeight": 260,
-        "vinePlaceChance": 0.5
+        "max_height": 260,
+        "placement_chance": 0.5,
+        "probability": 1.0
       }
     ],
     "dirt_provider": {

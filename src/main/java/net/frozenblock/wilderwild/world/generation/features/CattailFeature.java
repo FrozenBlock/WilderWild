@@ -43,8 +43,8 @@ public class CattailFeature extends Feature<CattailFeatureConfig> {
 		super(codec);
 	}
 
-	public static boolean isWaterNearby(@NotNull WorldGenLevel level, @NotNull BlockPos blockPos, int x) {
-		Iterator<BlockPos> var2 = BlockPos.betweenClosed(blockPos.offset(-x, -x, -x), blockPos.offset(x, x, x)).iterator();
+	public static boolean isWaterNearby(@NotNull WorldGenLevel level, @NotNull BlockPos blockPos, int radius) {
+		Iterator<BlockPos> var2 = BlockPos.betweenClosed(blockPos.offset(-radius, -radius, -radius), blockPos.offset(radius, radius, radius)).iterator();
 		BlockPos blockPos2;
 		do {
 			if (!var2.hasNext()) {
@@ -69,8 +69,8 @@ public class CattailFeature extends Feature<CattailFeatureConfig> {
 		BlockPos.MutableBlockPos topBlockPos = blockPos.mutable();
 		BlockState topPlaceState = RegisterBlocks.CATTAIL.defaultBlockState().setValue(WaterloggableTallFlowerBlock.HALF, DoubleBlockHalf.UPPER);
 		int placementAttempts = config.placementAttempts().sample(random);
-		boolean waterPlacement = config.inWater();
-		TagKey<Block> placeableBlocks = config.placeableBlocks();
+		boolean waterPlacement = config.onlyPlaceInWater();
+		TagKey<Block> placeableBlocks = config.canBePlacedOn();
 		for (int l = 0; l < placementAttempts; l++) {
 			int randomX = config.width().sample(random);
 			int randomZ = config.width().sample(random);

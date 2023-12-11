@@ -19,14 +19,14 @@
 package net.frozenblock.wilderwild.misc.mod_compat.scp;
 
 import net.frozenblock.lib.FrozenBools;
-import net.frozenblock.lib.FrozenMain;
+import net.frozenblock.lib.FrozenSharedConstants;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.misc.server.EasyPacket;
+import net.frozenblock.wilderwild.networking.WilderNetworking;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
@@ -63,7 +63,7 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 	}
 
 	@Override
-	public void init() {
+	public void initPreFreeze() {
 		WilderSharedConstants.log("WILDERWILD AND COPPER PIPES SECRET LOG MESSAGE UNLOCKED!!!", true);
 		RegisterPipeNbtMethods.register(HORN, (nbt, level, pos, blockState, copperPipeEntity) -> {
 			if (!nbt.getCanOnlyBeUsedOnce() || nbt.getUseCount() < 1) {
@@ -78,7 +78,7 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 						projectileEntity.setShotByPlayer(true);
 						projectileEntity.canInteractWithPipe = false;
 						level.addFreshEntity(projectileEntity);
-						FrozenSoundPackets.createMovingRestrictionLoopingSound(level, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, FrozenMain.id("default"), true);
+						FrozenSoundPackets.createMovingRestrictionLoopingSound(level, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, FrozenSharedConstants.id("default"), true);
 					}
 				}
 			}
@@ -121,7 +121,7 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 			UniformInt ran2 = UniformInt.of(-1, 1);
 			UniformInt ran3 = UniformInt.of(-3, 3);
 			for (int o = 0; o < random.nextIntBetweenInclusive(10, 30); ++o) {
-				EasyPacket.EasySeedPacket.createControlledParticle(level, new Vec3(d + (double) ran1.sample(level.random) * 0.1D, e + (double) ran2.sample(level.random) * 0.1D, f + (double) ran3.sample(level.random) * 0.1D), velX, velY, velZ, 1, true, 64, 0.3);
+				WilderNetworking.EasySeedPacket.createControlledParticle(level, new Vec3(d + (double) ran1.sample(level.random) * 0.1D, e + (double) ran2.sample(level.random) * 0.1D, f + (double) ran3.sample(level.random) * 0.1D), velX, velY, velZ, 1, true, 64, 0.3);
 			}
 		});
 
@@ -149,7 +149,7 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 			UniformInt ran2 = UniformInt.of(-1, 1);
 			UniformInt ran3 = UniformInt.of(-3, 3);
 			for (int o = 0; o < random.nextIntBetweenInclusive(1, 10); ++o) {
-				EasyPacket.EasySeedPacket.createControlledParticle(level, new Vec3(d + (double) ran1.sample(level.random) * 0.1D, e + (double) ran2.sample(level.random) * 0.1D, f + (double) ran3.sample(level.random) * 0.1D), velX, velY, velZ, 1, false, 64, 0.3);
+				WilderNetworking.EasySeedPacket.createControlledParticle(level, new Vec3(d + (double) ran1.sample(level.random) * 0.1D, e + (double) ran2.sample(level.random) * 0.1D, f + (double) ran3.sample(level.random) * 0.1D), velX, velY, velZ, 1, false, 64, 0.3);
 			}
 		});
 
@@ -173,7 +173,7 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 				UniformInt ran2 = UniformInt.of(-1, 1);
 				UniformInt ran3 = UniformInt.of(-3, 3);
 				for (int o = 0; o < random.nextIntBetweenInclusive(1, 4); ++o) {
-					EasyPacket.EasyFloatingSculkBubblePacket.createParticle(level, new Vec3(d + (double) ran1.sample(level.random) * 0.1D, e + (double) ran2.sample(level.random) * 0.1D, f + (double) ran3.sample(level.random) * 0.1D), AdvancedMath.random().nextDouble() > 0.7 ? 1 : 0, random.nextIntBetweenInclusive(60, 80), velY * 0.05, 1);
+					WilderNetworking.EasyFloatingSculkBubblePacket.createParticle(level, new Vec3(d + (double) ran1.sample(level.random) * 0.1D, e + (double) ran2.sample(level.random) * 0.1D, f + (double) ran3.sample(level.random) * 0.1D), AdvancedMath.random().nextDouble() > 0.7 ? 1 : 0, random.nextIntBetweenInclusive(60, 80), velY * 0.05, 1);
 				}
 			}
 		});
@@ -254,6 +254,11 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 			return state.getBlock() instanceof CopperPipe;
 		}
 		return false;
+	}
+
+	@Override
+	public void init() {
+
 	}
 
 }

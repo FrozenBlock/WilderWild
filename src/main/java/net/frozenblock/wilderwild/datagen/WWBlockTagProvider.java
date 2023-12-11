@@ -1,10 +1,28 @@
+/*
+ * Copyright 2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.datagen;
 
+import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
 import net.frozenblock.lib.tag.api.FrozenBlockTags;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.core.HolderLookup;
@@ -16,8 +34,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.concurrent.CompletableFuture;
 
 final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 	public WWBlockTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture completableFuture) {
@@ -40,16 +56,6 @@ final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 	}
 
 	private void generateCompat() {
-		this.getOrCreateTagBuilder(getTag("c:stripped_logs"))
-			.add(RegisterBlocks.STRIPPED_BAOBAB_LOG)
-			.add(RegisterBlocks.STRIPPED_CYPRESS_LOG)
-			.add(RegisterBlocks.STRIPPED_PALM_LOG);
-
-		this.getOrCreateTagBuilder(getTag("c:stripped_wood"))
-			.add(RegisterBlocks.STRIPPED_BAOBAB_WOOD)
-			.add(RegisterBlocks.STRIPPED_CYPRESS_WOOD)
-			.add(RegisterBlocks.STRIPPED_PALM_WOOD);
-
 		this.getOrCreateTagBuilder(getTag("custom_sculk:ceiling_sculk_activators"))
 			.add(RegisterBlocks.OSSEOUS_SCULK)
 			.add(RegisterBlocks.HANGING_TENDRIL);
@@ -298,6 +304,7 @@ final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 		this.getOrCreateTagBuilder(WilderBlockTags.PALM_LOGS)
 			.add(RegisterBlocks.PALM_LOG)
 			.add(RegisterBlocks.STRIPPED_PALM_LOG)
+			.add(RegisterBlocks.PALM_CROWN)
 			.add(RegisterBlocks.PALM_WOOD)
 			.add(RegisterBlocks.STRIPPED_PALM_WOOD)
 			.addOptionalTag(WilderBlockTags.HOLLOWED_PALM_LOGS);
@@ -322,6 +329,18 @@ final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 			.addOptionalTag(BlockTags.DRAGON_IMMUNE)
 			.addOptionalTag(BlockTags.WITHER_IMMUNE)
 			.addOptionalTag(BlockTags.LOGS);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.CRAB_CAN_HIDE)
+			.addOptionalTag(BlockTags.DIRT)
+			.addOptionalTag(BlockTags.SAND)
+			.add(Blocks.CLAY)
+			.add(Blocks.GRAVEL);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.NO_LIGHTNING_BLOCK_PARTICLES)
+			.add(Blocks.LIGHTNING_ROD);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.NO_LIGHTNING_SMOKE_PARTICLES)
+			.add(Blocks.LIGHTNING_ROD);
 
 		this.getOrCreateTagBuilder(WilderBlockTags.CATTAIL_PLACEABLE)
 			.addOptionalTag(BlockTags.DIRT)
@@ -427,6 +446,9 @@ final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 			.add(Blocks.DEEPSLATE_BRICK_WALL)
 			.add(Blocks.DEEPSLATE_TILE_WALL)
 			.addOptionalTag(WilderBlockTags.SCULK_WALL_REPLACEABLE);
+
+		this.getOrCreateTagBuilder(BlockTags.OCCLUDES_VIBRATION_SIGNALS)
+			.add(RegisterBlocks.ECHO_GLASS);
 	}
 
 	private void generateHollowedAndTermites() {

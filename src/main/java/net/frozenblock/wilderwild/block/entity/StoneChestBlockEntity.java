@@ -73,9 +73,9 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 
 		@Override
 		protected boolean isOwnContainer(@NotNull Player player) {
-			if (player.containerMenu instanceof ChestMenu) {
-				Container inventory = ((ChestMenu) player.containerMenu).getContainer();
-				return inventory == StoneChestBlockEntity.this || inventory instanceof CompoundContainer && ((CompoundContainer) inventory).contains(StoneChestBlockEntity.this);
+			if (player.containerMenu instanceof ChestMenu chest) {
+				Container inventory = chest.getContainer();
+				return inventory == StoneChestBlockEntity.this || inventory instanceof CompoundContainer container && container.contains(StoneChestBlockEntity.this);
 			}
 			return false;
 		}
@@ -105,6 +105,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 			if (stoneChest.stillLidTicks > 0) {
 				stoneChest.stillLidTicks -= 1;
 			} else if (stoneChest.openProgress > 0F) {
+				level.updateNeighbourForOutputSignal(pos, stoneChest.getBlockState().getBlock());
 				serverLevel.gameEvent(null, GameEvent.CONTAINER_CLOSE, pos);
 				stoneChest.openProgress = Math.max(0F, stoneChest.openProgress - 0.0425F);
 				if (!stoneChest.closing) {
@@ -148,17 +149,17 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 
 	public static void playSound(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull SoundEvent soundEvent, @NotNull SoundEvent waterloggedSoundEvent, float volume) {
 		ChestType chestType = state.getValue(ChestBlock.TYPE);
-		double x = (double) pos.getX() + 0.5;
-		double y = (double) pos.getY() + 0.5;
-		double z = (double) pos.getZ() + 0.5;
+		double x = pos.getX() + 0.5;
+		double y = pos.getY() + 0.5;
+		double z = pos.getZ() + 0.5;
 		if (chestType == ChestType.RIGHT) {
 			Direction direction = ChestBlock.getConnectedDirection(state);
-			x += (double) direction.getStepX() * 0.5;
-			z += (double) direction.getStepZ() * 0.5;
+			x += direction.getStepX() * 0.5;
+			z += direction.getStepZ() * 0.5;
 		} else if (chestType == ChestType.LEFT) {
 			Direction direction = ChestBlock.getConnectedDirection(state);
-			x -= (double) direction.getStepX() * 0.5;
-			z -= (double) direction.getStepZ() * 0.5;
+			x -= direction.getStepX() * 0.5;
+			z -= direction.getStepZ() * 0.5;
 		}
 		level.playSound(null, x, y, z, state.getValue(BlockStateProperties.WATERLOGGED) ? waterloggedSoundEvent : soundEvent, SoundSource.BLOCKS, volume, level.random.nextFloat() * 0.18F + 0.9F);
 	}
@@ -191,12 +192,22 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		this.openProgress = Mth.clamp(this.openProgress + (!ancient ? liftAmount * 2 : liftAmount), 0.0F, 0.5F);
 		this.highestLidPoint = this.openProgress;
 		this.stillLidTicks = (int) (Math.max((this.openProgress), 0.2) * (!ancient ? 220 : 160) * BlockConfig.get().stoneChest.getStoneChestTimer());
+		if (this.level != null) {
+			this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
+		}
 	}
 
 	public void setLid(float liftAmount) {
 		this.openProgress = Mth.clamp(liftAmount, 0.0F, 0.5F);
 		this.highestLidPoint = this.openProgress;
 		this.stillLidTicks = (int) (Math.max((this.openProgress), 0.2) * 180 * BlockConfig.get().stoneChest.getStoneChestTimer());
+		if (this.level != null) {
+			this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
+		}
+	}
+
+	public int getComparatorOutput() {
+		return (int) (this.openProgress * 30F);
 	}
 
 	public void onLidSlam(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable StoneChestBlockEntity otherStoneChest) {
@@ -221,12 +232,12 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		if (this.level.getBlockEntity(this.worldPosition) != this) {
 			return false;
 		}
-		return !(player.distanceToSqr((double) this.worldPosition.getX() + 0.5, (double) this.worldPosition.getY() + 0.5, (double) this.worldPosition.getZ() + 0.5) > 64.0) && ((!this.closing && this.openProgress >= 0.3));
+		return super.stillValid(player) && !this.closing && this.openProgress >= 0.3;
 	}
 
 	public void syncLidValuesWith(@Nullable StoneChestBlockEntity otherStoneChest) {
 		if (otherStoneChest != null) {
-			syncValues(otherStoneChest);
+			this.syncValues(otherStoneChest);
 			otherStoneChest.updateSync();
 		}
 		this.updateSync();
@@ -244,6 +255,9 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	}
 
 	private void syncValues(@NotNull StoneChestBlockEntity otherStoneChest) {
+		if (otherStoneChest.openProgress != this.openProgress && this.level != null) {
+			this.level.updateNeighbourForOutputSignal(otherStoneChest.getBlockPos(), otherStoneChest.getBlockState().getBlock());
+		}
 		otherStoneChest.openProgress = this.openProgress;
 		otherStoneChest.prevOpenProgress = this.prevOpenProgress;
 		otherStoneChest.highestLidPoint = this.highestLidPoint;

@@ -71,10 +71,8 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (!isFullyGrown(state)) {
-			if (random.nextInt(0, 3) == 0) {
-				level.setBlockAndUpdate(pos, state.setValue(AGE, state.getValue(AGE) + 1));
-			}
+		if (!isFullyGrown(state) && random.nextInt(0, 3) == 0) {
+			level.setBlockAndUpdate(pos, state.setValue(AGE, state.getValue(AGE) + 1));
 		}
 	}
 
@@ -86,7 +84,7 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 
 	@Override
 	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
-		entity.makeStuckInBlock(state, new Vec3(0.800000011920929, 0.75, 0.800000011920929));
+		entity.makeStuckInBlock(state, new Vec3(0.8, 0.75, 0.8));
 		if (!(entity instanceof ItemEntity)) {
 			entity.hurt(level.damageSources().cactus(), 0.5F);
 		}

@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.block.dripleaf;
 
+import net.frozenblock.wilderwild.config.BlockConfig;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.BigDripleafBlock;
 import net.minecraft.world.level.block.BigDripleafStemBlock;
@@ -35,7 +36,7 @@ public final class BlockMixin {
 
 	@Inject(at = @At("RETURN"), method = "getStateForPlacement", cancellable = true)
 	public void wilderWild$getStateForPlacement(BlockPlaceContext context, CallbackInfoReturnable<BlockState> info) {
-		if (BlockBehaviour.class.cast(this) instanceof BigDripleafStemBlock bigDripleafStemBlock) {
+		if (BlockBehaviour.class.cast(this) instanceof BigDripleafStemBlock bigDripleafStemBlock && BlockConfig.get().dripleafPowering) {
 			info.setReturnValue(bigDripleafStemBlock.defaultBlockState().setValue(BlockStateProperties.POWERED, context.getLevel().hasNeighborSignal(context.getClickedPos())));
 		} else if (BlockBehaviour.class.cast(this) instanceof BigDripleafBlock bigDripleafBlock) {
 			info.setReturnValue(bigDripleafBlock.defaultBlockState().setValue(BlockStateProperties.POWERED, context.getLevel().hasNeighborSignal(context.getClickedPos())));

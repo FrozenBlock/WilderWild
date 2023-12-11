@@ -41,7 +41,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<Tumbleweed>> {
-	private static final float pi180 = Mth.PI / 180;
+	private static final float PI_180 = Mth.PI / 180F;
 	private final ItemRenderer itemRenderer;
 
 	public TumbleweedRenderer(@NotNull Context context) {
@@ -62,9 +62,9 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<
 		if (!stack.isEmpty()) {
 			poseStack.pushPose();
 			poseStack.translate(entity.itemX, 0.4375, entity.itemZ);
-			poseStack.mulPose(Axis.XP.rotation(-Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * pi180));
+			poseStack.mulPose(Axis.XP.rotation(-Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * PI_180));
 			poseStack.pushPose();
-			poseStack.mulPose(Axis.ZP.rotation(Mth.lerp(partialTick, entity.prevRoll, entity.roll) * pi180));
+			poseStack.mulPose(Axis.ZP.rotation(Mth.lerp(partialTick, entity.prevRoll, entity.roll) * PI_180));
 			this.itemRenderer.renderStatic(stack, ItemDisplayContext.GROUND, packedLight, OverlayTexture.NO_OVERLAY, poseStack, buffer, entity.level(), 1);
 			poseStack.popPose();
 			poseStack.popPose();

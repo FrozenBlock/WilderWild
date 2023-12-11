@@ -28,26 +28,25 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.VineBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 import org.jetbrains.annotations.NotNull;
 
 public class HeightBasedVineTreeDecorator extends TreeDecorator {
 	public static final Codec<HeightBasedVineTreeDecorator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-		Codec.floatRange(0.0F, 1.0F).fieldOf("chanceToDecorate").forGetter((treeDecorator) -> treeDecorator.chanceToDecorate),
-		Codec.intRange(-63, 319).fieldOf("maxHeight").forGetter((treeDecorator) -> treeDecorator.maxHeight),
-		Codec.floatRange(0.0F, 1.0F).fieldOf("vinePlaceChance").forGetter((treeDecorator) -> treeDecorator.vinePlaceChance)
+		Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter((treeDecorator) -> treeDecorator.probability),
+		Codec.intRange(-63, 319).fieldOf("max_height").forGetter((treeDecorator) -> treeDecorator.maxHeight),
+		Codec.floatRange(0.0F, 1.0F).fieldOf("placement_chance").forGetter((treeDecorator) -> treeDecorator.placementChance)
 	).apply(instance, HeightBasedVineTreeDecorator::new));
 
-	private final float chanceToDecorate;
+	private final float probability;
 	private final int maxHeight;
-	private final float vinePlaceChance;
+	private final float placementChance;
 
-	public HeightBasedVineTreeDecorator(float chanceToDecorate, int maxHeight, float vinePlaceChance) {
-		this.chanceToDecorate = chanceToDecorate;
+	public HeightBasedVineTreeDecorator(float probability, int maxHeight, float placementChance) {
+		this.probability = probability;
 		this.maxHeight = maxHeight;
-		this.vinePlaceChance = vinePlaceChance;
+		this.placementChance = placementChance;
 	}
 
 	@Override
@@ -59,7 +58,7 @@ public class HeightBasedVineTreeDecorator extends TreeDecorator {
 	@Override
 	public void place(@NotNull Context generator) {
 		RandomSource random = generator.random();
-		if (random.nextFloat() <= this.chanceToDecorate) {
+		if (random.nextFloat() <= this.probability) {
 			ObjectArrayList<BlockPos> poses = new ObjectArrayList<>(generator.logs());
 			poses.addAll(generator.roots());
 			Util.shuffle(poses, random);
@@ -68,11 +67,10 @@ public class HeightBasedVineTreeDecorator extends TreeDecorator {
 			for (BlockPos pos : poses) {
 				if (pos.getY() <= this.maxHeight) {
 					for (Direction direction : Direction.Plane.HORIZONTAL) {
-						if (random.nextFloat() <= this.vinePlaceChance) {
+						if (random.nextFloat() <= this.placementChance) {
 							mutableBlockPos.setWithOffset(pos, direction);
 							if (generator.isAir(mutableBlockPos)) {
-								BooleanProperty dir = direction == Direction.NORTH ? VineBlock.SOUTH : direction == Direction.SOUTH ? VineBlock.NORTH : direction == Direction.WEST ? VineBlock.EAST : VineBlock.WEST;
-								generator.setBlock(mutableBlockPos, vineState.setValue(dir, true));
+								generator.setBlock(mutableBlockPos, vineState.setValue(VineBlock.PROPERTY_BY_DIRECTION.get(direction.getOpposite()), true));
 							}
 						}
 					}

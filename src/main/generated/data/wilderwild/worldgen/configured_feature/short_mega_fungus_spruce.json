@@ -4,11 +4,13 @@
     "decorators": [
       {
         "type": "wilderwild:shelf_fungus_tree_decorator",
+        "placement_chance": 0.25,
         "probability": 0.064,
         "red_shelf_fungus_chance": 0.0
       },
       {
         "type": "wilderwild:shelf_fungus_tree_decorator",
+        "placement_chance": 0.25,
         "probability": 0.064,
         "red_shelf_fungus_chance": 0.0
       }

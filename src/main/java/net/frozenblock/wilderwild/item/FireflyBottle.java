@@ -49,7 +49,7 @@ public class FireflyBottle extends Item {
 	}
 
 	public static boolean isNectar(@NotNull ItemStack stack) {
-		return stack.hasCustomHoverName() && stack.getHoverName().getString().contains("nectar");
+		return stack.hasCustomHoverName() && stack.getHoverName().getString().toLowerCase().contains("nectar");
 	}
 
 	@Override

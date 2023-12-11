@@ -18,10 +18,10 @@
 
 package net.frozenblock.wilderwild.world.generation.foliage;
 
+import com.mojang.datafixers.Products;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -30,14 +30,29 @@ import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class ShortPalmFoliagePlacer extends FoliagePlacer {
-	public static final Codec<ShortPalmFoliagePlacer> CODEC = RecordCodecBuilder.create((instance) -> foliagePlacerParts(instance).apply(instance, ShortPalmFoliagePlacer::new));
+	public static final Codec<ShortPalmFoliagePlacer> CODEC = RecordCodecBuilder.create((instance) ->
+		shortPalmCodec(instance).apply(instance, ShortPalmFoliagePlacer::new)
+	);
 
-	public ShortPalmFoliagePlacer(IntProvider intProvider, IntProvider intProvider2) {
-		super(intProvider, intProvider2);
+	public final BlockStateProvider crownState;
+
+	public ShortPalmFoliagePlacer(IntProvider radius, IntProvider offset, BlockStateProvider crownState) {
+		super(radius, offset);
+		this.crownState = crownState;
+	}
+
+	@Contract("_ -> new")
+	protected static <P extends ShortPalmFoliagePlacer> Products.@NotNull P3<RecordCodecBuilder.Mu<P>, IntProvider, IntProvider, BlockStateProvider> shortPalmCodec(RecordCodecBuilder.Instance<P> builder) {
+		return foliagePlacerParts(builder)
+			.and(
+				BlockStateProvider.CODEC.fieldOf("crown_state").forGetter(placer -> placer.crownState)
+			);
 	}
 
 	@Override
@@ -49,7 +64,8 @@ public class ShortPalmFoliagePlacer extends FoliagePlacer {
 	@Override
 	protected void createFoliage(@NotNull LevelSimulatedReader level, @NotNull FoliageSetter blockSetter, @NotNull RandomSource random, @NotNull TreeConfiguration config, int i, @NotNull FoliageAttachment foliageAttachment, int j, int k, int l) {
 		BlockPos blockPos = foliageAttachment.pos().above(l);
-		blockSetter.set(blockPos.below(), RegisterBlocks.PALM_CROWN.defaultBlockState());
+		BlockPos belowPos = blockPos.below();
+		blockSetter.set(belowPos, this.crownState.getState(random, belowPos));
 		Vec3 origin = new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ());
 		int radius = this.radius.sample(random);
 		int fronds = random.nextInt(15, 30);
@@ -74,11 +90,11 @@ public class ShortPalmFoliagePlacer extends FoliagePlacer {
 	}
 
 	@Override
-	protected boolean shouldSkipLocation(@NotNull RandomSource randomSource, int i, int j, int k, int l, boolean bl) {
-		if (j == 0) {
-			return (i > 1 || k > 1) && i != 0 && k != 0;
+	protected boolean shouldSkipLocation(@NotNull RandomSource random, int localX, int localY, int localZ, int range, boolean large) {
+		if (localY == 0) {
+			return (localX > 1 || localZ > 1) && localX != 0 && localZ != 0;
 		} else {
-			return i == l && k == l && l > 0;
+			return localX == range && localZ == range && range > 0;
 		}
 	}
 }

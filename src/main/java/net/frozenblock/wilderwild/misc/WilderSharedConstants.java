@@ -22,18 +22,16 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import java.nio.file.Path;
 import java.util.Map;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class WilderSharedConstants {
+	public static final String PROJECT_ID = "Wilder Wild";
 	public static final String MOD_ID = "wilderwild";
-	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+	public static final Logger LOGGER = LoggerFactory.getLogger(PROJECT_ID);
 	public static final int DATA_VERSION = 15;
 	// MEASURING
 	public static final Map<Object, Long> INSTANT_MAP = new Object2ObjectOpenHashMap<>();
@@ -44,30 +42,11 @@ public class WilderSharedConstants {
 	 */
 	public static boolean UNSTABLE_LOGGING = FabricLoader.getInstance().isDevelopmentEnvironment();
 	public static boolean MC_LIVE_TENDRILS = false;
-	public static boolean IN_MESOGLEA = false;
 
 	// LOGGING
 	public static void log(String string, boolean shouldLog) {
 		if (shouldLog) {
 			WilderSharedConstants.LOGGER.info(string);
-		}
-	}
-
-	public static void log(Entity entity, String string, boolean shouldLog) {
-		if (shouldLog) {
-			WilderSharedConstants.LOGGER.info(entity.toString() + " : " + string + " : " + entity.position());
-		}
-	}
-
-	public static void log(Block block, String string, boolean shouldLog) {
-		if (shouldLog) {
-			WilderSharedConstants.LOGGER.info(block.toString() + " : " + string + " : ");
-		}
-	}
-
-	public static void log(Block block, BlockPos pos, String string, boolean shouldLog) {
-		if (shouldLog) {
-			WilderSharedConstants.LOGGER.info(block.toString() + " : " + string + " : " + pos);
 		}
 	}
 

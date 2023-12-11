@@ -36,7 +36,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class SlimeMixin {
 
 	@Inject(method = "checkSlimeSpawnRules", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/LevelAccessor;getBiome(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/core/Holder;", shift = At.Shift.BEFORE), cancellable = true)
-	private static void spawnInAlgae(EntityType<Slime> type, @NotNull LevelAccessor level, MobSpawnType spawnReason, BlockPos pos, @NotNull RandomSource random, CallbackInfoReturnable<Boolean> info) {
+	private static void wilderWild$spawnInAlgae(EntityType<Slime> type, @NotNull LevelAccessor level, MobSpawnType spawnReason, BlockPos pos, @NotNull RandomSource random, CallbackInfoReturnable<Boolean> info) {
 		if (level.getBrightness(LightLayer.BLOCK, pos) < random.nextInt(8)) {
 			boolean test = spawnReason == MobSpawnType.SPAWNER || random.nextInt(5) == 0;
 			if (test && RegisterBlocks.ALGAE.hasAmountNearby(level, pos, 1, 3)) {

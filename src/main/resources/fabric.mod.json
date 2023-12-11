@@ -21,7 +21,7 @@
     "Osmiooo"
   ],
   "contact": {
-    "homepage": "https://www.curseforge.com/minecraft/mc-mods/wilder-wild",
+    "homepage": "https://modrinth.com/mod/wilder-wild",
     "sources": "https://github.com/FrozenBlock/WilderWild",
     "issues": "https://github.com/FrozenBlock/WilderWild/issues"
   },
@@ -37,6 +37,9 @@
     ],
     "preLaunch": [
       "net.frozenblock.wilderwild.misc.WilderWildPreLaunch"
+    ],
+    "fabric-gametest": [
+      "net.frozenblock.wilderwild.gametest.WWGameTest"
     ],
     "frozenlib:events": [
       "net.frozenblock.wilderwild.registry.RegisterSurfaceRules"
@@ -60,7 +63,6 @@
   "accessWidener": "wilderwild.accesswidener",
   "depends": {
     "frozenlib": "${frozenlib_version}",
-    "fabricloader": "${fabric_loader_version}",
     "fabric-api": "${fabric_api_version}",
     "minecraft": "${minecraft_version}",
     "java": ">=17"
@@ -73,18 +75,16 @@
     "terrablender": "*"
   },
   "custom": {
-    "modupdater": {
-      "strategy": "curseforge",
-      "projectID": "648511",
-      "strict": "false"
-    },
     "modmenu": {
       "links": {
-        "modmenu.discord": "https://discord.gg/EpkBWm844s"
+        "modmenu.discord": "https://discord.gg/frozenblock-modding-oasis-780746010614956112"
       },
       "badges": [
         "frozenblock"
       ]
+    },
+    "frozenlib_registry": {
+      "mod_protocol": $protocol_version
     }
   }
 }

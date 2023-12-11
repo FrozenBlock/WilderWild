@@ -1,4 +1,8 @@
 {
   "item.boatcontainer.baobab_ender_chest_boat": "Baobab Boat with Ender Chest",
-  "item.boatcontainer.baobab_furnace_boat": "Baobab Boat with Furnace"
+  "item.boatcontainer.baobab_furnace_boat": "Baobab Boat with Furnace",
+  "item.boatcontainer.cypress_ender_chest_boat": "Cypress Boat with Ender Chest",
+  "item.boatcontainer.cypress_furnace_boat": "Cypress Boat with Furnace",
+  "item.boatcontainer.palm_ender_chest_boat": "Palm Boat with Ender Chest",
+  "item.boatcontainer.palm_furnace_boat": "Palm Boat with Furnace"
 }

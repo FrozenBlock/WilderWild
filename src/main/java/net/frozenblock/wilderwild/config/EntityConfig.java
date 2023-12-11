@@ -20,6 +20,8 @@ package net.frozenblock.wilderwild.config;
 
 
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
+import net.frozenblock.lib.config.api.annotation.FieldIdentifier;
+import net.frozenblock.lib.config.api.annotation.UnsyncableEntry;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
@@ -39,6 +41,8 @@ public final class EntityConfig {
 			null
 		)
 	);
+	@CollapsibleObject
+	public final LightningConfig lightning = new LightningConfig();
 
 	@CollapsibleObject
 	public final AllayConfig allay = new AllayConfig();
@@ -53,11 +57,15 @@ public final class EntityConfig {
 	public final JellyfishConfig jellyfish = new JellyfishConfig();
 
 	@CollapsibleObject
+	public final CrabConfig crab = new CrabConfig();
+
+	@CollapsibleObject
 	public final TumbleweedConfig tumbleweed = new TumbleweedConfig();
 
 	@CollapsibleObject
 	public final WardenConfig warden = new WardenConfig();
 
+	@FieldIdentifier(identifier = "unpassableRail")
 	public boolean unpassableRail = false;
 
 	public static EntityConfig get() {
@@ -70,38 +78,113 @@ public final class EntityConfig {
 		return INSTANCE.config();
 	}
 
+	public static EntityConfig getWithSync() {
+		return INSTANCE.configWithSync();
+	}
+
+	public static class LightningConfig {
+		@FieldIdentifier(identifier = "lightningScorchesSand")
+		public boolean lightningScorchesSand = true;
+
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "lightningBlockParticles")
+		public boolean lightningBlockParticles = true;
+
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "lightningSmokeParticles")
+		public boolean lightningSmokeParticles = true;
+	}
+
 	public static class AllayConfig {
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "keyframeAllayDance")
 		public boolean keyframeAllayDance = true;
 	}
 
 	public static class EnderManConfig {
+		@FieldIdentifier(identifier = "angerLoopSound")
 		public boolean angerLoopSound = true;
+
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "movingStareSound")
 		public boolean movingStareSound = true;
 	}
 
 	public static class FireflyConfig {
+		@FieldIdentifier(identifier = "fireflySpawnCap")
 		public int fireflySpawnCap = 56;
 	}
 
 	public static class JellyfishConfig {
+		@FieldIdentifier(identifier = "jellyfishSpawnCap")
 		public int jellyfishSpawnCap = 30;
+
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "jellyfishTentacles")
 		public int jellyfishTentacles = 8;
 	}
 
+	public static class CrabConfig {
+		@FieldIdentifier(identifier = "crabSpawnCap")
+		public int crabSpawnCap = 25;
+
+		@FieldIdentifier(identifier = "reachAffectsAttack")
+		public boolean reachAffectsAttack = false;
+	}
+
 	public static class TumbleweedConfig {
+		@FieldIdentifier(identifier = "tumbleweedSpawnCap")
 		public int tumbleweedSpawnCap = 10;
+
+		@FieldIdentifier(identifier = "leashedTumbleweed")
 		public boolean leashedTumbleweed = false;
+
+		@FieldIdentifier(identifier = "tumbleweedDestroysCrops")
 		public boolean tumbleweedDestroysCrops = true;
+
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "tumbleweedRotatesToLookDirection")
 		public boolean tumbleweedRotatesToLookDirection = false;
 	}
 
 	public static class WardenConfig {
+		@FieldIdentifier(identifier = "wardenAttacksImmediately")
 		public boolean wardenAttacksImmediately = true;
-		public boolean wardenCustomTendrils = true;
-		public boolean wardenBedrockSniff = true;
-		public boolean wardenDyingAnimation = true;
-		public boolean wardenEmergesFromCommand = false;
-		public boolean wardenEmergesFromEgg = false;
+
+		@FieldIdentifier(identifier = "wardenSwims")
+		public boolean wardenSwims = true;
+
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "wardenSwimAnimation")
 		public boolean wardenSwimAnimation = true;
+
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "wardenCustomTendrils")
+		public boolean wardenCustomTendrils = true;
+
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "wardenImprovedDig")
+		public boolean wardenImprovedDig = true;
+
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "wardenImprovedEmerge")
+		public boolean wardenImprovedEmerge = true;
+
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "wardenBedrockSniff")
+		public boolean wardenBedrockSniff = true;
+
+		@FieldIdentifier(identifier = "wardenDyingAnimation")
+		public boolean wardenDyingAnimation = true;
+
+		@FieldIdentifier(identifier = "wardenEmergesFromCommand")
+		public boolean wardenEmergesFromCommand = false;
+
+		@FieldIdentifier(identifier = "wardenEmergesFromEgg")
+		public boolean wardenEmergesFromEgg = false;
+
+		public boolean swimAndAnimationConfigEnabled() {
+			return this.wardenSwims && this.wardenSwimAnimation;
+		}
 	}
 }

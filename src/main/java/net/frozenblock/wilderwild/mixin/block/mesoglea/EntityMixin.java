@@ -21,14 +21,19 @@ package net.frozenblock.wilderwild.mixin.block.mesoglea;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
+import net.frozenblock.wilderwild.misc.interfaces.InMesogleaInterface;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(Entity.class)
-public class EntityMixin {
+public class EntityMixin implements InMesogleaInterface {
+
+	@Unique
+	private boolean wilderWild$clipInMesoglea;
 
 	@WrapOperation(method = "getBlockSpeedFactor", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z", ordinal = 1))
 	public boolean wilderWild$isBubbleColumnOrMesogleaColumn(BlockState state, Block block, Operation<Boolean> operation) {
@@ -40,4 +45,15 @@ public class EntityMixin {
 		return operation.call(state, block) || MesogleaBlock.hasBubbleColumn(state);
 	}
 
+	@Unique
+	@Override
+	public void wilderWild$setClipInMesoglea(boolean clipInMesoglea) {
+		this.wilderWild$clipInMesoglea = clipInMesoglea;
+	}
+
+	@Unique
+	@Override
+	public boolean wilderWild$wasClipInMesoglea() {
+		return this.wilderWild$clipInMesoglea;
+	}
 }

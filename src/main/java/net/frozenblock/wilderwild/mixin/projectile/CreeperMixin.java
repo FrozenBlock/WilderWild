@@ -18,25 +18,26 @@
 
 package net.frozenblock.wilderwild.mixin.projectile;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.frozenblock.wilderwild.config.ItemConfig;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.world.entity.monster.Creeper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Creeper.class)
 public final class CreeperMixin {
 
-	@Inject(method = "spawnLingeringCloud", at = @At("HEAD"))
-	public void wilderWild$spawnLingeringCloud(CallbackInfo info) {
-		if (ItemConfig.get().projectileLandingSounds.potionLandingSounds) {
+	@ModifyExpressionValue(method = "spawnLingeringCloud", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"))
+	public boolean wilderWild$spawnLingeringCloud(boolean original) {
+		if (original && ItemConfig.get().projectileLandingSounds.potionLandingSounds) {
 			Creeper creeper = Creeper.class.cast(this);
 			if (!creeper.getActiveEffects().isEmpty()) {
 				creeper.playSound(RegisterSounds.ITEM_POTION_MAGIC, 1.0F, 1.0F + (creeper.level().random.nextFloat() * 0.2F));
 				creeper.playSound(RegisterSounds.ITEM_POTION_LINGERING, 1.0F, 1.0F + (creeper.level().random.nextFloat() * 0.2F));
 			}
 		}
+		return original;
 	}
+
 }

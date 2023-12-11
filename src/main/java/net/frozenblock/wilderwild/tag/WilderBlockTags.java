@@ -25,6 +25,9 @@ import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
 public final class WilderBlockTags {
+	public static final TagKey<Block> NO_LIGHTNING_BLOCK_PARTICLES = bind("no_lightning_block_particles");
+	public static final TagKey<Block> NO_LIGHTNING_SMOKE_PARTICLES = bind("no_lightning_smoke_particles");
+	public static final TagKey<Block> CRAB_CAN_HIDE = bind("crab_can_hide");
 	public static final TagKey<Block> ANCIENT_CITY_BLOCKS = bind("ancient_city_blocks");
 	public static final TagKey<Block> SCULK_SLAB_REPLACEABLE_WORLDGEN = bind("sculk_slab_replaceable_worldgen");
 	public static final TagKey<Block> SCULK_STAIR_REPLACEABLE_WORLDGEN = bind("sculk_stair_replaceable_worldgen");

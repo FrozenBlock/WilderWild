@@ -25,26 +25,43 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(AbstractArrow.class)
 public class AbstractArrowMixin {
 
-	@Inject(method = "onHitBlock", at = @At("HEAD"))
+	@Shadow
+	@Nullable
+	private BlockState lastState;
+
+	@Inject(
+		method = "onHitBlock",
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/AbstractArrow;setDeltaMovement(Lnet/minecraft/world/phys/Vec3;)V", ordinal = 0, shift = At.Shift.BEFORE),
+		locals = LocalCapture.CAPTURE_FAILHARD
+	)
 	public void wilderWild$sendProjectileBreakParticles(BlockHitResult blockHitResult, CallbackInfo info) {
-		if (ItemConfig.get().projectileBreakParticles) {
+		if (this.lastState != null && ItemConfig.get().projectileBreakParticles) {
 			AbstractArrow arrow = AbstractArrow.class.cast(this);
-			if (!arrow.level().isClientSide) {
-				if (arrow.level() instanceof ServerLevel server) {
-					BlockState state = server.getBlockState(blockHitResult.getBlockPos());
-					double d = arrow.getDeltaMovement().length(); //The distance the arrow travels on this given tick.
-					int particleCalc = ((int) ((d * d) * 1.5));
-					if (particleCalc > 1 || (particleCalc == 1 && arrow.level().random.nextBoolean())) {
-						server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), blockHitResult.getLocation().x(), blockHitResult.getLocation().y(), blockHitResult.getLocation().z(), particleCalc == 1 ? 1 : server.random.nextIntBetweenInclusive(1, particleCalc), 0, 0, 0, 0.05D);
-					}
+			if (!arrow.level().isClientSide && arrow.level() instanceof ServerLevel server) {
+				int particleCalc = ((int) (arrow.getDeltaMovement().lengthSqr() * 1.5D));
+				if (particleCalc > 1 || (particleCalc == 1 && arrow.level().random.nextBoolean())) {
+					server.sendParticles(
+						new BlockParticleOption(ParticleTypes.BLOCK, this.lastState),
+						blockHitResult.getLocation().x(),
+						blockHitResult.getLocation().y(),
+						blockHitResult.getLocation().z(),
+						particleCalc == 1 ? 1 : server.random.nextIntBetweenInclusive(1, particleCalc),
+						0,
+						0,
+						0,
+						0.05D
+					);
 				}
 			}
 		}

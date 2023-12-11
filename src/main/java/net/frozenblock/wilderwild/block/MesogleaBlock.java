@@ -20,8 +20,8 @@ package net.frozenblock.wilderwild.block;
 
 import java.util.Optional;
 import net.frozenblock.lib.block.api.shape.FrozenShapes;
+import net.frozenblock.wilderwild.block.property.BubbleDirection;
 import net.frozenblock.wilderwild.config.BlockConfig;
-import net.frozenblock.wilderwild.misc.BubbleDirection;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.BlockPos;
@@ -78,6 +78,74 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 		this.pearlescent = pearlescent;
 	}
 
+	public static boolean isMesoglea(@NotNull BlockState blockState) {
+		return blockState.hasProperty(BUBBLE_DIRECTION) && blockState.getBlock() instanceof MesogleaBlock;
+	}
+
+	public static boolean isColumnSupportingMesoglea(BlockState blockState) {
+		return isMesoglea(blockState) && blockState.getValue(WATERLOGGED) && BlockConfig.get().mesoglea.mesogleaBubbleColumns;
+	}
+
+	public static boolean hasBubbleColumn(BlockState blockState) {
+		return isColumnSupportingMesoglea(blockState) && blockState.getValue(BUBBLE_DIRECTION) != BubbleDirection.NONE;
+	}
+
+	public static boolean isDraggingDown(BlockState blockState) {
+		return isColumnSupportingMesoglea(blockState) && blockState.getValue(BUBBLE_DIRECTION) == BubbleDirection.DOWN;
+	}
+
+	public static Optional<Direction> getDragDirection(BlockState blockState) {
+		return isColumnSupportingMesoglea(blockState) ? blockState.getValue(BUBBLE_DIRECTION).direction : Optional.empty();
+	}
+
+	public static boolean canColumnSurvive(@NotNull LevelReader level, @NotNull BlockPos pos) {
+		BlockState blockState = level.getBlockState(pos.below());
+		return BlockConfig.get().mesoglea.mesogleaBubbleColumns && (blockState.is(Blocks.BUBBLE_COLUMN) || blockState.is(Blocks.MAGMA_BLOCK) || blockState.is(Blocks.SOUL_SAND) || hasBubbleColumn(blockState));
+	}
+
+	public static void updateColumn(LevelAccessor level, BlockPos pos, BlockState state) {
+		updateColumn(level, pos, level.getBlockState(pos), state);
+	}
+
+	public static void updateColumn(LevelAccessor level, BlockPos pos, BlockState mesoglea, BlockState state) {
+		if (canExistIn(mesoglea)) {
+			level.setBlock(pos, getColumnState(mesoglea, state), 2);
+			BlockPos.MutableBlockPos mutableBlockPos = pos.mutable().move(Direction.UP);
+			BlockState mutableState;
+			while (true) {
+				mutableState = level.getBlockState(mutableBlockPos);
+				if (canExistIn(mutableState)) {
+					if (!level.setBlock(mutableBlockPos, getColumnState(mutableState, state), 2)) {
+						return;
+					}
+					mutableBlockPos.move(Direction.UP);
+				} else {
+					BubbleColumnBlock.updateColumn(level, mutableBlockPos, state);
+					return;
+				}
+			}
+		}
+	}
+
+	@NotNull
+	private static BlockState getColumnState(@NotNull BlockState mesogleaState, @NotNull BlockState blockState) {
+		if (BlockConfig.get().mesoglea.mesogleaBubbleColumns && mesogleaState.getValue(WATERLOGGED)) {
+			//Remember, blockState is for the block below.
+			if (blockState.is(Blocks.BUBBLE_COLUMN)) {
+				return mesogleaState.setValue(BUBBLE_DIRECTION, blockState.getValue(BlockStateProperties.DRAG) ? BubbleDirection.DOWN : BubbleDirection.UP);
+			} else if (blockState.is(Blocks.SOUL_SAND)) {
+				return mesogleaState.setValue(BUBBLE_DIRECTION, BubbleDirection.UP);
+			} else if (blockState.is(Blocks.MAGMA_BLOCK)) {
+				return mesogleaState.setValue(BUBBLE_DIRECTION, BubbleDirection.DOWN);
+			}
+		}
+		return mesogleaState.setValue(BUBBLE_DIRECTION, BubbleDirection.NONE);
+	}
+
+	private static boolean canExistIn(BlockState blockState) {
+		return isColumnSupportingMesoglea(blockState) && blockState.getFluidState().getAmount() >= 8 && blockState.getFluidState().isSource();
+	}
+
 	@Override
 	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
 		Optional<Direction> dragDirection = getDragDirection(state);
@@ -103,37 +171,17 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 			if (blockState.isAir()) {
 				entity.onAboveBubbleCol(dragDirection.get() == Direction.DOWN);
 				if (!level.isClientSide) {
-					ServerLevel serverLevel = (ServerLevel)level;
+					ServerLevel serverLevel = (ServerLevel) level;
 
-					for(int i = 0; i < 2; ++i) {
-						serverLevel.sendParticles(ParticleTypes.SPLASH, (double)pos.getX() + level.random.nextDouble(), pos.getY() + 1, (double)pos.getZ() + level.random.nextDouble(), 1, 0.0, 0.0, 0.0, 1.0);
-						serverLevel.sendParticles(ParticleTypes.BUBBLE, (double)pos.getX() + level.random.nextDouble(), pos.getY() + 1, (double)pos.getZ() + level.random.nextDouble(), 1, 0.0, 0.01, 0.0, 0.2);
+					for (int i = 0; i < 2; ++i) {
+						serverLevel.sendParticles(ParticleTypes.SPLASH, (double) pos.getX() + level.random.nextDouble(), pos.getY() + 1, (double) pos.getZ() + level.random.nextDouble(), 1, 0.0, 0.0, 0.0, 1.0);
+						serverLevel.sendParticles(ParticleTypes.BUBBLE, (double) pos.getX() + level.random.nextDouble(), pos.getY() + 1, (double) pos.getZ() + level.random.nextDouble(), 1, 0.0, 0.01, 0.0, 0.2);
 					}
 				}
 			} else {
 				entity.onInsideBubbleColumn(dragDirection.get() == Direction.DOWN);
 			}
 		}
-	}
-
-	public static boolean isMesoglea(@NotNull BlockState blockState) {
-		return blockState.hasProperty(BUBBLE_DIRECTION) && blockState.getBlock() instanceof MesogleaBlock;
-	}
-
-	public static boolean isColumnSupportingMesoglea(BlockState blockState) {
-		return isMesoglea(blockState) && blockState.getValue(WATERLOGGED) && BlockConfig.get().mesoglea.mesogleaBubbleColumns;
-	}
-
-	public static boolean hasBubbleColumn(BlockState blockState) {
-		return isColumnSupportingMesoglea(blockState) && blockState.getValue(BUBBLE_DIRECTION) != BubbleDirection.NONE;
-	}
-
-	public static boolean isDraggingDown(BlockState blockState) {
-		return isColumnSupportingMesoglea(blockState) && blockState.getValue(BUBBLE_DIRECTION) == BubbleDirection.DOWN;
-	}
-
-	public static Optional<Direction> getDragDirection(BlockState blockState) {
-		return isColumnSupportingMesoglea(blockState) ? blockState.getValue(BUBBLE_DIRECTION).direction : Optional.empty();
 	}
 
 	@Override
@@ -238,11 +286,6 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 		}
 	}
 
-	public static boolean canColumnSurvive(@NotNull LevelReader level, @NotNull BlockPos pos) {
-		BlockState blockState = level.getBlockState(pos.below());
-		return BlockConfig.get().mesoglea.mesogleaBubbleColumns && (blockState.is(Blocks.BUBBLE_COLUMN) || blockState.is(Blocks.MAGMA_BLOCK) || blockState.is(Blocks.SOUL_SAND) || hasBubbleColumn(blockState));
-	}
-
 	@Override
 	public void tick(BlockState state, ServerLevel level, @NotNull BlockPos pos, RandomSource random) {
 		if (BlockConfig.get().mesoglea.mesogleaBubbleColumns) {
@@ -258,49 +301,6 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 			return Fluids.WATER.getSource(false);
 		}
 		return super.getFluidState(blockState);
-	}
-
-	public static void updateColumn(LevelAccessor level, BlockPos pos, BlockState state) {
-		updateColumn(level, pos, level.getBlockState(pos), state);
-	}
-
-	public static void updateColumn(LevelAccessor level, BlockPos pos, BlockState mesoglea, BlockState state) {
-		if (canExistIn(mesoglea)) {
-			level.setBlock(pos, getColumnState(mesoglea, state), 2);
-			BlockPos.MutableBlockPos mutableBlockPos = pos.mutable().move(Direction.UP);
-			BlockState mutableState;
-			while (true) {
-				mutableState = level.getBlockState(mutableBlockPos);
-				if (canExistIn(mutableState)) {
-					if (!level.setBlock(mutableBlockPos, getColumnState(mutableState, state), 2)) {
-						return;
-					}
-					mutableBlockPos.move(Direction.UP);
-				} else {
-					BubbleColumnBlock.updateColumn(level, mutableBlockPos, state);
-					return;
-				}
-			}
-		}
-	}
-
-	@NotNull
-	private static BlockState getColumnState(@NotNull BlockState mesogleaState, @NotNull BlockState blockState) {
-		if (BlockConfig.get().mesoglea.mesogleaBubbleColumns && mesogleaState.getValue(WATERLOGGED)) {
-			//Remember, blockState is for the block below.
-			if (blockState.is(Blocks.BUBBLE_COLUMN)) {
-				return mesogleaState.setValue(BUBBLE_DIRECTION, blockState.getValue(BlockStateProperties.DRAG) ? BubbleDirection.DOWN : BubbleDirection.UP);
-			} else if (blockState.is(Blocks.SOUL_SAND)) {
-				return mesogleaState.setValue(BUBBLE_DIRECTION, BubbleDirection.UP);
-			} else if (blockState.is(Blocks.MAGMA_BLOCK)) {
-				return mesogleaState.setValue(BUBBLE_DIRECTION, BubbleDirection.DOWN);
-			}
-		}
-		return mesogleaState.setValue(BUBBLE_DIRECTION, BubbleDirection.NONE);
-	}
-
-	private static boolean canExistIn(BlockState blockState) {
-		return isColumnSupportingMesoglea(blockState) && blockState.getFluidState().getAmount() >= 8 && blockState.getFluidState().isSource();
 	}
 
 	@Override

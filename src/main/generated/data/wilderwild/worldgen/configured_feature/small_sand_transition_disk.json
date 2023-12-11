@@ -1,25 +1,26 @@
 {
   "type": "frozenlib:fading_disk_tag_except_in_biome_feature",
   "config": {
+    "excluded_biomes": "wilderwild:has_small_sand_transition",
+    "fade_start_distance_percent": 0.5,
     "heightmap": "OCEAN_FLOOR_WG",
-    "innerChance": 0.5,
-    "innerPercent": 0.5,
-    "innerReplaceable": "wilderwild:small_sand_transition_replaceable",
-    "innerState": {
+    "inner_chance": 0.5,
+    "inner_replaceable_blocks": "wilderwild:small_sand_transition_replaceable",
+    "inner_rercent": 0.5,
+    "inner_state": {
       "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "minecraft:sand"
       }
     },
-    "outerReplaceable": "wilderwild:small_sand_transition_replaceable",
-    "outerState": {
+    "outer_replaceable_blocks": "wilderwild:small_sand_transition_replaceable",
+    "outer_state": {
       "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "minecraft:sand"
       }
     },
-    "placeChance": 0.65,
-    "placeExceptIn": "wilderwild:has_small_sand_transition",
+    "placement_chance": 0.65,
     "radius": {
       "type": "minecraft:uniform",
       "value": {
@@ -27,7 +28,6 @@
         "min_inclusive": 6
       }
     },
-    "startFadePercent": 0.5,
-    "useHeightMapAndNotCircular": true
+    "use_heightmap_instead_of_circular_placement": true
   }
 }

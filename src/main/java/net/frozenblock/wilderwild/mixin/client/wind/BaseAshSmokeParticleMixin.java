@@ -44,4 +44,5 @@ public abstract class BaseAshSmokeParticleMixin extends TextureSheetParticle {
 		this.yd += wind.y * 0.000001;
 		this.zd += wind.z * 0.0005;
 	}
+
 }

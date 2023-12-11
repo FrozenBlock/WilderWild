@@ -46,15 +46,15 @@ import org.jetbrains.annotations.Nullable;
 public class BaobabTrunkPlacer extends TrunkPlacer {
 	public static final Codec<BaobabTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) ->
 		baobabCodec(instance).apply(instance, BaobabTrunkPlacer::new));
-	final BlockStateProvider insideBlockState;
+	final BlockStateProvider insideState;
 
-	public BaobabTrunkPlacer(int i, int j, int k, @NotNull BlockStateProvider insideBlockState) {
+	public BaobabTrunkPlacer(int i, int j, int k, @NotNull BlockStateProvider insideState) {
 		super(i, j, k);
-		this.insideBlockState = insideBlockState;
+		this.insideState = insideState;
 	}
 
 	protected static <P extends BaobabTrunkPlacer> Products.@NotNull P4<RecordCodecBuilder.Mu<P>, Integer, Integer, Integer, BlockStateProvider> baobabCodec(RecordCodecBuilder.Instance<P> builder) {
-		return trunkPlacerParts(builder).and((BlockStateProvider.CODEC.fieldOf("inside_block_state")).forGetter(placer -> placer.insideBlockState));
+		return trunkPlacerParts(builder).and((BlockStateProvider.CODEC.fieldOf("inside_state")).forGetter(placer -> placer.insideState));
 	}
 
 	private static void terraformDirtBelow(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, @NotNull BlockPos startPos, @NotNull TreeConfiguration config, @NotNull List<BlockPos> logPoses) {
@@ -199,7 +199,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 				}
 			}
 			if (isSurrounded) {
-				replacer.accept(pos, (BlockState) Function.identity().apply(this.insideBlockState.getState(random, pos)));
+				replacer.accept(pos, (BlockState) Function.identity().apply(this.insideState.getState(random, pos)));
 			}
 		}
 

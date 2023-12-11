@@ -51,12 +51,18 @@ Avoid the use of abbreviations in javadocs, except if they describe the name of 
 
 ### Mixins
 
+`@Redirect` should never be used in a case where a `WrapOperation` could be used.
+
+`@ModifyConstant` should never be used in a case where a `ModifyExpressionValue` could be used.
+
 The `$` character can be used in mixins to mark a semantic separation in the name.
 It allows to separate the actual name of the variable and the namespace, `wilderWild`.
 
 Fields marked as `@Unique` must be prefixed with `wilderWild$` or `WILDERWILD$` if the field is static and final.
-Methods marked with `@Unique` do not need prefixes.
 
+Methods marked with `@Unique` must be prefixed with `wilderWild$`.
+
+Injector or modifier methods do not need to be prefixed. Fabric takes care of that.
 
 ## Licensing & DCO
 

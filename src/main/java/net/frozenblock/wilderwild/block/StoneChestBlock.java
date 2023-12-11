@@ -243,6 +243,7 @@ public class StoneChestBlock extends ChestBlock {
 		return level.isClientSide ? BaseEntityBlock.createTickerHelper(type, RegisterBlockEntities.STONE_CHEST, StoneChestBlockEntity::clientStoneTick) : BaseEntityBlock.createTickerHelper(type, RegisterBlockEntities.STONE_CHEST, StoneChestBlockEntity::serverStoneTick);
 	}
 
+	@Override
 	@Nullable
 	public MenuProvider getMenuProvider(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos) {
 		return this.combine(state, level, pos, false).apply(STONE_NAME_RETRIEVER).orElse(null);
@@ -264,6 +265,7 @@ public class StoneChestBlock extends ChestBlock {
 	@Override
 	@NotNull
 	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
+		if (!state.hasProperty(WATERLOGGED)) return state;
 		if (state.getValue(WATERLOGGED)) {
 			level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 		}
@@ -375,12 +377,12 @@ public class StoneChestBlock extends ChestBlock {
 					double d = EntityType.ITEM.getWidth();
 					double e = 1.0 - d;
 					double f = d / 2.0;
-					double g = (double) pos.getX() + level.random.nextDouble() * e + f;
-					double h = (double) pos.getY() + level.random.nextDouble() * e;
-					double i = (double) pos.getZ() + level.random.nextDouble() * e + f;
+					double g = pos.getX() + level.random.nextDouble() * e + f;
+					double h = pos.getY() + level.random.nextDouble() * e;
+					double i = pos.getZ() + level.random.nextDouble() * e + f;
 					while (!item.isEmpty()) {
 						ItemEntity itemEntity = new ItemEntity(level, g, h, i, item.split(level.random.nextInt(21) + 10));
-						itemEntity.setDeltaMovement(level.random.triangle(0.0, 0.11485000171139836), level.random.triangle(0.2, 0.11485000171139836), level.random.triangle(0.0, 0.11485000171139836));
+						itemEntity.setDeltaMovement(level.random.triangle(0, 0.11485), level.random.triangle(0.2F, 0.11485), level.random.triangle(0, 0.11485));
 						level.addFreshEntity(itemEntity);
 					}
 				}
@@ -390,6 +392,20 @@ public class StoneChestBlock extends ChestBlock {
 		if (state.hasBlockEntity() && !state.is(newState.getBlock())) {
 			level.removeBlockEntity(pos);
 		}
+	}
+
+	@Override
+	public boolean hasAnalogOutputSignal(@NotNull BlockState state) {
+		return true;
+	}
+
+	@Override
+	public int getAnalogOutputSignal(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos) {
+		BlockEntity blockEntity = level.getBlockEntity(pos);
+		if (blockEntity instanceof StoneChestBlockEntity stoneChestBlockEntity) {
+			return stoneChestBlockEntity.getComparatorOutput();
+		}
+		return 0;
 	}
 
 	@Override

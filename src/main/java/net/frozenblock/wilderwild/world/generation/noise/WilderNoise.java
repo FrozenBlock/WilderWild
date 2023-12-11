@@ -24,6 +24,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
+import org.jetbrains.annotations.NotNull;
 
 
 public class WilderNoise {
@@ -93,16 +94,17 @@ public class WilderNoise {
 			-10.0,
 			-10.0
 		);
-
 	}
 
+	@NotNull
 	private static ResourceKey<NormalNoise.NoiseParameters> createKey(String id) {
 		return ResourceKey.create(Registries.NOISE, WilderSharedConstants.id(id));
 	}
 
+	@NotNull
 	public static Holder.Reference<NormalNoise.NoiseParameters> register(
-		BootstapContext<NormalNoise.NoiseParameters> entries,
-		ResourceKey<NormalNoise.NoiseParameters> key,
+		@NotNull BootstapContext<NormalNoise.NoiseParameters> entries,
+		@NotNull ResourceKey<NormalNoise.NoiseParameters> key,
 		int firstOctave,
 		double firstAmplitude,
 		double... amplitudes

@@ -1,22 +1,22 @@
 {
   "type": "frozenlib:noise_path_feature",
   "config": {
-    "block": {
+    "is_3d": false,
+    "max_threshold": 1.0,
+    "min_threshold": 0.12,
+    "noise": 2,
+    "noise_scale": 0.1,
+    "only_place_when_exposed": false,
+    "placement_chance": 0.725,
+    "radius": 9,
+    "replaceable_blocks": "#wilderwild:oasis_path_replaceable",
+    "scale_y": true,
+    "state": {
       "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "minecraft:moss_block"
       }
     },
-    "chance": 0.725,
-    "is3D": false,
-    "maxThresh": 1.0,
-    "minThresh": 0.12,
-    "multiplier": 0.1,
-    "multiplyY": true,
-    "noise": 2,
-    "onlyExposed": false,
-    "radius": 9,
-    "replaceable": "#wilderwild:oasis_path_replaceable",
-    "useY": true
+    "use_y": true
   }
 }

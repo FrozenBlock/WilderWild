@@ -37,7 +37,7 @@ import net.frozenblock.lib.item.api.FrozenCreativeTabs;
 import net.frozenblock.lib.item.api.bonemeal.BonemealBehaviors;
 import net.frozenblock.lib.storage.api.NoInteractionStorage;
 import net.frozenblock.wilderwild.block.AlgaeBlock;
-import net.frozenblock.wilderwild.block.BaobabLeaves;
+import net.frozenblock.wilderwild.block.BaobabLeavesBlock;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
 import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
@@ -51,7 +51,6 @@ import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.block.MilkweedBlock;
 import net.frozenblock.wilderwild.block.NematocystBlock;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
-import net.frozenblock.wilderwild.block.PalmCrownBlock;
 import net.frozenblock.wilderwild.block.PalmFrondsBlock;
 import net.frozenblock.wilderwild.block.PollenBlock;
 import net.frozenblock.wilderwild.block.PricklyPearCactusBlock;
@@ -63,16 +62,16 @@ import net.frozenblock.wilderwild.block.SeedingFlowerBlock;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
 import net.frozenblock.wilderwild.block.SmallSpongeBlock;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
-import net.frozenblock.wilderwild.block.TermiteMound;
+import net.frozenblock.wilderwild.block.TermiteMoundBlock;
 import net.frozenblock.wilderwild.block.TumbleweedBlock;
 import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
 import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
 import net.frozenblock.wilderwild.block.WaterloggableTallFlowerBlock;
 import net.frozenblock.wilderwild.block.WilderBushBlock;
+import net.frozenblock.wilderwild.block.property.FlowerColor;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
-import net.frozenblock.wilderwild.misc.FlowerColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.generation.sapling.CypressSaplingGenerator;
 import net.minecraft.core.BlockSource;
@@ -184,7 +183,7 @@ public final class RegisterBlocks {
 	public static final CoconutBlock COCONUT = new CoconutBlock(FabricBlockSettings.create().breakInstantly().ticksRandomly().sounds(RegisterBlockSoundTypes.COCONUT));
 	public static final FlowerPotBlock POTTED_COCONUT = Blocks.flowerPot(COCONUT);
 	public static final LeavesBlock CYPRESS_LEAVES = Blocks.leaves(SoundType.GRASS); // in front so the other leaves can have a copy of its settings
-	public static final BaobabLeaves BAOBAB_LEAVES = new BaobabLeaves(FabricBlockSettings.copyOf(CYPRESS_LEAVES));
+	public static final BaobabLeavesBlock BAOBAB_LEAVES = new BaobabLeavesBlock(FabricBlockSettings.copyOf(CYPRESS_LEAVES));
 	public static final PalmFrondsBlock PALM_FRONDS = new PalmFrondsBlock(FabricBlockSettings.copyOf(CYPRESS_LEAVES));
 	public static final HollowedLogBlock HOLLOWED_OAK_LOG = createHollowedLogBlock(MapColor.WOOD, MapColor.PODZOL);
 	public static final HollowedLogBlock HOLLOWED_SPRUCE_LOG =  createHollowedLogBlock(MapColor.PODZOL, MapColor.COLOR_BROWN);
@@ -318,7 +317,7 @@ public final class RegisterBlocks {
 
 	// MISC
 
-	public static final TermiteMound TERMITE_MOUND = new TermiteMound(
+	public static final TermiteMoundBlock TERMITE_MOUND = new TermiteMoundBlock(
 		FabricBlockSettings.create()
 			.mapColor(MapColor.COLOR_BROWN)
 			.strength(0.3F)
@@ -484,8 +483,8 @@ public final class RegisterBlocks {
 	);
 
 	public static final DisplayLanternBlock DISPLAY_LANTERN = new DisplayLanternBlock(
-		FabricBlockSettings.copyOf(Blocks.LANTERN)
-			.luminance(state -> state.getValue(RegisterProperties.DISPLAY_LIGHT))
+		FabricBlockSettings.create().mapColor(MapColor.METAL).forceSolidOn().strength(3.5F).sound(SoundType.LANTERN)
+			.lightLevel(state -> state.getValue(RegisterProperties.DISPLAY_LIGHT))
 	);
 
 	private static final MapColor BAOBAB_PLANKS_COLOR = MapColor.COLOR_ORANGE;
@@ -822,7 +821,7 @@ public final class RegisterBlocks {
 		WilderSharedConstants.id("blocks/palm_hanging_sign")
 	);
 
-	public static final PalmCrownBlock PALM_CROWN = new PalmCrownBlock(
+	public static final RotatedPillarBlock PALM_CROWN = new RotatedPillarBlock(
 		FabricBlockSettings.copyOf(Blocks.OAK_LOG)
 			.mapColor(state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? PALM_PLANKS_COLOR : PALM_BARK_COLOR)
 			.sounds(RegisterBlockSoundTypes.PALM_CROWN)
@@ -1146,7 +1145,7 @@ public final class RegisterBlocks {
 	}
 
 	@NotNull
-	private static HollowedLogBlock createHollowedLogBlock(MapColor topMapColor, MapColor sideMapColor, SoundType soundType) {
+	public static HollowedLogBlock createHollowedLogBlock(MapColor topMapColor, MapColor sideMapColor, SoundType soundType) {
 		var settings = FabricBlockSettings.create()
 			.mapColor(state -> state.getValue(HollowedLogBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor)
 			.instrument(NoteBlockInstrument.BASS)
@@ -1158,12 +1157,12 @@ public final class RegisterBlocks {
 	}
 
 	@NotNull
-	private static HollowedLogBlock createHollowedLogBlock(MapColor topMapColor, MapColor sideMapColor) {
+	public static HollowedLogBlock createHollowedLogBlock(MapColor topMapColor, MapColor sideMapColor) {
 		return createHollowedLogBlock(topMapColor, sideMapColor, RegisterBlockSoundTypes.HOLLOWED_LOG);
 	}
 
 	@NotNull
-	private static HollowedLogBlock createHollowedStemBlock(MapColor mapColor) {
+	public static HollowedLogBlock createHollowedStemBlock(MapColor mapColor) {
 		return new HollowedLogBlock(FabricBlockSettings.create()
 			.mapColor(state -> mapColor)
 			.instrument(NoteBlockInstrument.BASS)
@@ -1173,7 +1172,7 @@ public final class RegisterBlocks {
 	}
 
 	@NotNull
-	private static HollowedLogBlock createStrippedHollowedLogBlock(MapColor mapColor, SoundType soundType) {
+	public static HollowedLogBlock createStrippedHollowedLogBlock(MapColor mapColor, SoundType soundType) {
 		var settings = FabricBlockSettings.create()
 			.mapColor(state -> mapColor)
 			.instrument(NoteBlockInstrument.BASS)
@@ -1185,12 +1184,12 @@ public final class RegisterBlocks {
 	}
 
 	@NotNull
-	private static HollowedLogBlock createStrippedHollowedLogBlock(MapColor mapColor) {
+	public static HollowedLogBlock createStrippedHollowedLogBlock(MapColor mapColor) {
 		return createStrippedHollowedLogBlock(mapColor, RegisterBlockSoundTypes.HOLLOWED_LOG);
 	}
 
 	@NotNull
-	private static HollowedLogBlock createStrippedHollowedStemBlock(MapColor mapColor) {
+	public static HollowedLogBlock createStrippedHollowedStemBlock(MapColor mapColor) {
 		return new HollowedLogBlock(FabricBlockSettings.create()
 			.mapColor(state -> mapColor)
 			.instrument(NoteBlockInstrument.BASS)
@@ -1200,7 +1199,7 @@ public final class RegisterBlocks {
 	}
 
 	@NotNull
-	private static MesogleaBlock mesoglea(@NotNull MapColor mapColor, @NotNull SimpleParticleType particleType, boolean pearlescent) {
+	public static MesogleaBlock mesoglea(@NotNull MapColor mapColor, @NotNull SimpleParticleType particleType, boolean pearlescent) {
 		return new MesogleaBlock(
 			FabricBlockSettings.create()
 				.mapColor(mapColor)
@@ -1219,7 +1218,7 @@ public final class RegisterBlocks {
 	}
 
 	@NotNull
-	private static NematocystBlock nematocyst(@NotNull MapColor mapColor) {
+	public static NematocystBlock nematocyst(@NotNull MapColor mapColor) {
 		return new NematocystBlock(
 			FabricBlockSettings.create()
 				.mapColor(mapColor)
