@@ -25,7 +25,6 @@ buildscript {
 
 plugins {
     id("fabric-loom") version("+")
-    id("io.github.juuxel.loom-quiltflower") version("+")
     id("org.quiltmc.gradle.licenser") version("+")
     id("org.ajoberstar.grgit") version("+")
     id("com.modrinth.minotaur") version("+")
@@ -314,9 +313,6 @@ dependencies {
     }
 }
 
-quiltflower {
-    quiltflowerVersion.set("1.8.0")
-}
 
 tasks {
     processResources {
