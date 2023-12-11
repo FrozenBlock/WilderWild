@@ -383,7 +383,6 @@ public final class EntityConfigGui {
 				.setSaveConsumer(newValue -> warden.wardenBedrockSniff = newValue)
 				.setYesNoTextSupplier(bool -> text("warden_bedrock_sniff." + bool))
 				.setTooltip(tooltip("warden_bedrock_sniff"))
-				.requireRestart()
 				.build(),
 			warden.getClass(),
 			"wardenBedrockSniff",
