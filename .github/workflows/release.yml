@@ -23,11 +23,11 @@ jobs:
       MODRINTH_TOKEN: ${{secrets.MODRINTH_TOKEN}}
     steps:
       - name: Checking Out the Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Validating the Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
       - name: Setting up Java ${{ matrix.java }}
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: ${{ matrix.java }}
