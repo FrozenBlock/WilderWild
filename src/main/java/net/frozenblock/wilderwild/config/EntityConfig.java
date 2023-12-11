@@ -169,6 +169,7 @@ public final class EntityConfig {
 		@UnsyncableEntry
 		@FieldIdentifier(identifier = "wardenImprovedEmerge")
 		public boolean wardenImprovedEmerge = true;
+
 		@UnsyncableEntry
 		@FieldIdentifier(identifier = "wardenBedrockSniff")
 		public boolean wardenBedrockSniff = true;
