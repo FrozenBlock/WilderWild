@@ -18,6 +18,8 @@
 
 package net.frozenblock.wilderwild.mixin.loot;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.minecraft.nbt.ByteTag;
 import net.minecraft.world.Container;
@@ -28,27 +30,32 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Mixin(LootTable.class)
 public final class LootTableMixin {
 
 	@Unique
-	private boolean wilderWild$isStoneChest = false;
+	private boolean isStoneChest = false;
 
-	@Inject(at = @At("HEAD"), method = "fill")
-	public void wilderWild$fill(Container container, LootParams parameterSet, long seed, CallbackInfo ci) {
-		this.wilderWild$isStoneChest = container instanceof StoneChestBlockEntity;
+	@Inject(method = "fill", at = @At("HEAD"))
+	public void fill(Container container, LootParams parameterSet, long seed, CallbackInfo ci) {
+		this.isStoneChest = container instanceof StoneChestBlockEntity;
 	}
 
-	@ModifyArgs(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/Container;setItem(ILnet/minecraft/world/item/ItemStack;)V", ordinal = 1), method = "fill")
-	public void wilderWild$setStoneItem(Args args) {
-		if (this.wilderWild$isStoneChest) {
-			ItemStack itemStack = args.get(1);
+	@WrapOperation(
+		method = "fill",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/Container;setItem(ILnet/minecraft/world/item/ItemStack;)V",
+			ordinal = 1
+		)
+	)
+	public void setStoneItem(Container instance, int i, ItemStack itemStack, Operation<Void> original) {
+		if (this.isStoneChest) {
 			itemStack.addTagElement("wilderwild_is_ancient", ByteTag.valueOf(true));
 		}
+		original.call(instance, i, itemStack);
 	}
 
 }

@@ -18,13 +18,9 @@
 
 package net.frozenblock.wilderwild.entity;
 
-import io.netty.buffer.Unpooled;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
-import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
@@ -32,7 +28,7 @@ import net.frozenblock.wilderwild.config.ItemConfig;
 import static net.frozenblock.wilderwild.item.AncientHorn.*;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.mod_compat.WilderModIntegrations;
-import net.frozenblock.wilderwild.misc.server.EasyPacket;
+import net.frozenblock.wilderwild.networking.WilderNetworking;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterDamageTypes;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
@@ -44,17 +40,12 @@ import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.common.ClientCommonPacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -108,7 +99,6 @@ public class AncientHornProjectile extends AbstractArrow {
 	private static final TagKey<Block> NON_COLLIDE = WilderBlockTags.ANCIENT_HORN_NON_COLLIDE;
 	private static final EntityDataAccessor<Float> BOUNDING_BOX_MULTIPLIER = SynchedEntityData.defineId(AncientHornProjectile.class, EntityDataSerializers.FLOAT);
 	public boolean canInteractWithPipe = true;
-	private boolean shot;
 	private boolean leftOwner;
 	private int aliveTicks;
 	private double vecX;
@@ -117,7 +107,7 @@ public class AncientHornProjectile extends AbstractArrow {
 	private boolean shotByPlayer;
 	private int bubbles;
 	private BlockState inBlockState;
-	private IntArrayList hitEntities = new IntArrayList();
+	private List<Integer> hitEntities = new IntArrayList();
 
 	public AncientHornProjectile(@NotNull EntityType<? extends AncientHornProjectile> entityType, @NotNull Level level) {
 		super(entityType, level);
@@ -165,18 +155,20 @@ public class AncientHornProjectile extends AbstractArrow {
 
 	@Override
 	public void tick() {
+		final double pi180 = 180 / Math.PI;
 		this.baseTick();
 		this.shakeTime = 0;
 		if (this.bubbles > 0 && this.level() instanceof ServerLevel server) {
 			--this.bubbles;
-			EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, this.position(), server.random.nextDouble() > 0.7 ? 1 : 0, 20 + server.random.nextInt(40), 0.05, server.random.nextIntBetweenInclusive(1, 3));
+			WilderNetworking.EasyFloatingSculkBubblePacket.createParticle(server, this.position(), server.random.nextDouble() > 0.7 ? 1 : 0, 20 + server.random.nextInt(40), 0.05, server.random.nextIntBetweenInclusive(1, 3));
 		}
 		if (this.aliveTicks > ItemConfig.get().ancientHorn.ancientHornLifespan) {
 			this.remove(RemovalReason.DISCARDED);
 		}
 		++this.aliveTicks;
-		if (!this.shot) {
-			this.shot = true;
+		if (!this.hasBeenShot) {
+			this.gameEvent(GameEvent.PROJECTILE_SHOOT, this.getOwner());
+			this.hasBeenShot = true;
 		}
 		if (!this.leftOwner) {
 			this.leftOwner = this.checkLeftOwner();
@@ -184,8 +176,8 @@ public class AncientHornProjectile extends AbstractArrow {
 		Vec3 deltaMovement = this.getDeltaMovement();
 		if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
 			double horizontalDistance = deltaMovement.horizontalDistance();
-			this.setYRot((float) (Mth.atan2(deltaMovement.x, deltaMovement.z) * 57.2957763671875D));
-			this.setXRot((float) (Mth.atan2(deltaMovement.y, horizontalDistance) * 57.2957763671875D));
+			this.setYRot((float) (Mth.atan2(deltaMovement.x, deltaMovement.z) * pi180));
+			this.setXRot((float) (Mth.atan2(deltaMovement.y, horizontalDistance) * pi180));
 			this.yRotO = this.getYRot();
 			this.xRotO = this.getXRot();
 		}
@@ -194,7 +186,7 @@ public class AncientHornProjectile extends AbstractArrow {
 		Vec3 deltaPosition;
 
 		if (this.isInWater() && level() instanceof ServerLevel server) {
-			EasyPacket.EasyFloatingSculkBubblePacket.createParticle(server, new Vec3(this.xo, this.yo, this.zo), 0, 60, 0.05, 4);
+			WilderNetworking.EasyFloatingSculkBubblePacket.createParticle(server, new Vec3(this.xo, this.yo, this.zo), 0, 60, 0.05, 4);
 		}
 		if (this.isInWaterOrRain() || blockState.is(Blocks.POWDER_SNOW)) {
 			this.clearFire();
@@ -243,20 +235,20 @@ public class AncientHornProjectile extends AbstractArrow {
 		double deltaZ = deltaMovement.z;
 		if (this.isCritArrow()) {
 			for (int i = 0; i < 4; ++i) {
-				this.level().addParticle(ParticleTypes.CRIT, this.getX() + deltaX * (double) i / 4.0D, this.getY() + deltaY * (double) i / 4.0D, this.getZ() + deltaZ * (double) i / 4.0D, -deltaX, -deltaY + 0.2D, -deltaZ);
+				this.level().addParticle(ParticleTypes.CRIT, this.getX() + deltaX * i / 4.0, this.getY() + deltaY * i / 4.0, this.getZ() + deltaZ * i / 4.0, -deltaX, -deltaY + 0.2, -deltaZ);
 			}
 		}
-		float moveDivider = this.getBoundingBoxMultiplier() * 0.5F + 1F;
+		float moveDivider = (float) (this.getBoundingBoxMultiplier() * 0.5 + 1);
 		double x = this.getX() + (deltaX / moveDivider);
 		double y = this.getY() + (deltaY / moveDivider);
 		double z = this.getZ() + (deltaZ / moveDivider);
 		double horizontalDistance = deltaMovement.horizontalDistance();
 		if (noPhysics) {
-			this.setYRot((float) (Mth.atan2(-deltaX, -deltaZ) * 57.2957763671875D));
+			this.setYRot((float) (Mth.atan2(-deltaX, -deltaZ) * pi180));
 		} else {
-			this.setYRot((float) (Mth.atan2(deltaX, deltaZ) * 57.2957763671875D));
+			this.setYRot((float) (Mth.atan2(deltaX, deltaZ) * pi180));
 		}
-		this.setXRot((float) (Mth.atan2(deltaY, horizontalDistance) * 57.2957763671875D));
+		this.setXRot((float) (Mth.atan2(deltaY, horizontalDistance) * pi180));
 		this.setXRot(lerpRotation(this.xRotO, this.getXRot()));
 		this.setYRot(lerpRotation(this.yRotO, this.getYRot()));
 
@@ -271,7 +263,7 @@ public class AncientHornProjectile extends AbstractArrow {
 	@Override
 	@NotNull
 	public AABB makeBoundingBox() {
-		return super.makeBoundingBox().inflate(this.getBoundingBoxMultiplier() / 2F);
+		return super.makeBoundingBox().inflate(this.getBoundingBoxMultiplier() / 2);
 	}
 
 	public void setCooldown(int cooldownTicks) {
@@ -318,7 +310,7 @@ public class AncientHornProjectile extends AbstractArrow {
 		blockState.onProjectileHit(this.level(), blockState, result, this);
 		Vec3 hitVec = result.getLocation().subtract(this.getX(), this.getY(), this.getZ());
 		this.setDeltaMovement(hitVec);
-		Vec3 hitNormal = hitVec.normalize().scale(0.05000000074505806D);
+		Vec3 hitNormal = hitVec.normalize().scale(0.05);
 		this.setPosRaw(this.getX() - hitNormal.x, this.getY() - hitNormal.y, this.getZ() - hitNormal.z);
 		this.playSound(this.getHitGroundSoundEvent(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
 		this.inGround = true;
@@ -328,7 +320,6 @@ public class AncientHornProjectile extends AbstractArrow {
 			if (blockState.getBlock() == Blocks.SCULK_SHRIEKER) {
 				if (ItemConfig.get().ancientHorn.ancientHornCanSummonWarden) {
 					BlockPos pos = result.getBlockPos();
-					WilderSharedConstants.log(Blocks.SCULK_SHRIEKER, pos, "Horn Projectile Touched", WilderSharedConstants.UNSTABLE_LOGGING);
 					if (blockState.getValue(RegisterProperties.SOULS_TAKEN) < 2 && !blockState.getValue(SculkShriekerBlock.SHRIEKING)) {
 						if (!blockState.getValue(SculkShriekerBlock.CAN_SUMMON)) {
 							server.setBlockAndUpdate(pos, blockState.setValue(RegisterProperties.SOULS_TAKEN, blockState.getValue(RegisterProperties.SOULS_TAKEN) + 1));
@@ -351,8 +342,6 @@ public class AncientHornProjectile extends AbstractArrow {
 				SculkSensorBlockEntity blockEntity = (SculkSensorBlockEntity) level().getBlockEntity(pos);
 
 				assert blockEntity != null;
-				WilderSharedConstants.log(Blocks.SCULK_SENSOR, pos, "Horn Projectile Touched", WilderSharedConstants.UNSTABLE_LOGGING);
-
 				if (blockState.getValue(RegisterProperties.HICCUPPING)) {
 					server.setBlockAndUpdate(pos, blockState.setValue(RegisterProperties.HICCUPPING, false));
 				} else {
@@ -463,7 +452,7 @@ public class AncientHornProjectile extends AbstractArrow {
 			if (this.leftOwner) {
 				compound.putBoolean("LeftOwner", true);
 			}
-			compound.putBoolean("HasBeenShot", this.shot);
+			compound.putBoolean("HasBeenShot", this.hasBeenShot);
 			compound.putDouble("originX", this.vecX);
 			compound.putDouble("originY", this.vecY);
 			compound.putDouble("originZ", this.vecZ);
@@ -483,7 +472,7 @@ public class AncientHornProjectile extends AbstractArrow {
 			}
 			this.aliveTicks = compound.getInt("aliveTicks");
 			this.leftOwner = compound.getBoolean("LeftOwner");
-			this.shot = compound.getBoolean("HasBeenShot");
+			this.hasBeenShot = compound.getBoolean("HasBeenShot");
 			this.vecX = compound.getDouble("originX");
 			this.vecY = compound.getDouble("originY");
 			this.vecZ = compound.getDouble("originZ");
@@ -499,9 +488,10 @@ public class AncientHornProjectile extends AbstractArrow {
 
 	@Override
 	public void shootFromRotation(@NotNull Entity shooter, float pitch, float yaw, float roll, float speed, float divergence) {
-		float xRot = -Mth.sin(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F);
-		float yRot = -Mth.sin((pitch + roll) * 0.017453292F);
-		float zRot = Mth.cos(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F);
+		final float pi180 = (float) Math.PI / 180;
+		float xRot = -Mth.sin(yaw * pi180) * Mth.cos(pitch * pi180);
+		float yRot = -Mth.sin((pitch + roll) * pi180);
+		float zRot = Mth.cos(yaw * pi180) * Mth.cos(pitch * pi180);
 		this.shoot(xRot, yRot, zRot, speed, divergence);
 		this.vecX = shooter.getX();
 		this.vecY = shooter.getEyeY();
@@ -606,51 +596,4 @@ public class AncientHornProjectile extends AbstractArrow {
 	public void gameEvent(@NotNull GameEvent event, @Nullable Entity entity) {
 	}
 
-	public static class EntitySpawnPacket { //When the Fabric tutorial WORKS!!!!! BOM BOM BOM BOM BOM BOM BOM, BOBOBOM! DUNDUN!
-		public static Packet<ClientCommonPacketListener> create(@NotNull Entity entity, @NotNull ResourceLocation packetID) {
-			if (entity.level().isClientSide)
-				throw new IllegalStateException("SpawnPacketUtil.create called on the logical client!");
-			FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
-			byteBuf.writeVarInt(BuiltInRegistries.ENTITY_TYPE.getId(entity.getType()));
-			byteBuf.writeUUID(entity.getUUID());
-			byteBuf.writeVarInt(entity.getId());
-			PacketBufUtil.writeVec3d(byteBuf, entity.position());
-			PacketBufUtil.writeAngle(byteBuf, entity.getXRot());
-			PacketBufUtil.writeAngle(byteBuf, entity.getYRot());
-			return ServerPlayNetworking.createS2CPacket(packetID, byteBuf);
-		}
-
-		public static final class PacketBufUtil {
-
-			public static byte packAngle(float angle) {
-				return (byte) Mth.floor(angle * 256 / 360);
-			}
-
-			public static float unpackAngle(byte angleByte) {
-				return (angleByte * 360) / 256F;
-			}
-
-			public static void writeAngle(@NotNull FriendlyByteBuf byteBuf, float angle) {
-				byteBuf.writeByte(packAngle(angle));
-			}
-
-			public static float readAngle(@NotNull FriendlyByteBuf byteBuf) {
-				return unpackAngle(byteBuf.readByte());
-			}
-
-			public static void writeVec3d(@NotNull FriendlyByteBuf byteBuf, @NotNull Vec3 vec3d) {
-				byteBuf.writeDouble(vec3d.x);
-				byteBuf.writeDouble(vec3d.y);
-				byteBuf.writeDouble(vec3d.z);
-			}
-
-			@NotNull
-			public static Vec3 readVec3d(@NotNull FriendlyByteBuf byteBuf) {
-				double x = byteBuf.readDouble();
-				double y = byteBuf.readDouble();
-				double z = byteBuf.readDouble();
-				return new Vec3(x, y, z);
-			}
-		}
-	}
 }

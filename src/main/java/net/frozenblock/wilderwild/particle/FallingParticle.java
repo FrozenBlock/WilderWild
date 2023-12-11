@@ -35,9 +35,9 @@ public class FallingParticle extends TextureSheetParticle {
 
 	FallingParticle(@NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, @NotNull SpriteSet spriteProvider) {
 		this(level, x, y, z, spriteProvider);
-		this.xd *= 0.1f;
-		this.yd *= 0.1f;
-		this.zd *= 0.1f;
+		this.xd *= 0.1F;
+		this.yd *= 0.1F;
+		this.zd *= 0.1F;
 		this.xd += xSpeed;
 		this.yd += ySpeed;
 		this.zd += zSpeed;
@@ -48,7 +48,7 @@ public class FallingParticle extends TextureSheetParticle {
 		super(level, x, y, z, 0.0, 0.0, 0.0);
 		this.spriteProvider = spriteProvider;
 		this.setSpriteFromAge(spriteProvider);
-		this.gravity = 1.0f;
+		this.gravity = 1.0F;
 		this.quadSize = 0.2F;
 	}
 

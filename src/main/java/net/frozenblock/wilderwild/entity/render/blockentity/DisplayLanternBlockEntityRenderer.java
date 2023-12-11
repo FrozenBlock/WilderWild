@@ -40,7 +40,6 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class DisplayLanternBlockEntityRenderer<T extends DisplayLanternBlockEntity> implements BlockEntityRenderer<T> {
-	private static final float pi = (float) Math.PI;
 	private final ItemRenderer itemRenderer;
 
 	public DisplayLanternBlockEntityRenderer(@NotNull Context ctx) {
@@ -54,20 +53,33 @@ public class DisplayLanternBlockEntityRenderer<T extends DisplayLanternBlockEnti
 	}
 
 	@Override
-	public void render(@NotNull T lantern, float partialTick, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light, int overlay) {
+	public void render(@NotNull T lantern, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int light, int overlay) {
 		Optional<ItemStack> stack = lantern.getItem();
 		if (!lantern.invEmpty() && stack.isPresent()) {
-			matrices.pushPose();
-			matrices.translate(0.5F, lantern.clientHanging ? 0.25F : 0.125F, 0.5F);
-			matrices.scale(0.7F, 0.7F, 0.7F);
-			matrices.mulPose(Axis.YP.rotation((lantern.age + partialTick) / 20F));
-			this.itemRenderer.renderStatic(stack.get(), ItemDisplayContext.GROUND, light, OverlayTexture.NO_OVERLAY, matrices, vertexConsumers, lantern.getLevel(), 1);
-			matrices.popPose();
+			poseStack.pushPose();
+			poseStack.translate(0.5F, lantern.clientHanging ? 0.25F : 0.125F, 0.5F);
+			poseStack.scale(0.7F, 0.7F, 0.7F);
+			poseStack.mulPose(Axis.YP.rotation((lantern.age + partialTick) / 20F));
+			this.itemRenderer.renderStatic(stack.get(), ItemDisplayContext.GROUND, light, OverlayTexture.NO_OVERLAY, poseStack, buffer, lantern.getLevel(), 1);
+			poseStack.popPose();
 		} else {
 			for (DisplayLanternBlockEntity.FireflyInLantern entity : lantern.getFireflies()) {
-				int age = entity.age;
-				double ageDelta = age + partialTick;
-				FireflyRenderer.renderFirefly(matrices, vertexConsumers, light, entity.getCustomName().toLowerCase().contains("nectar"), overlay, age, entity.flickers, entity.getColor(), (ageDelta) * pi, 1F, (float) entity.pos.x, lantern.clientHanging ? 0.38F : 0.225F + (float) Math.sin(ageDelta * 0.03F) * 0.15F, (float) entity.pos.z, Minecraft.getInstance().gameRenderer.getMainCamera().rotation());
+				double ageDelta = entity.age + partialTick;
+				FireflyRenderer.renderFirefly(
+					poseStack,
+					buffer,
+					light,
+					entity.getCustomName().toLowerCase().contains("nectar"),
+					overlay,
+					entity.age,
+					partialTick,
+					entity.flickers,
+					entity.getColor(),
+					1F,
+					(float) entity.pos.x,
+					lantern.clientHanging ? 0.38F : 0.225F + (float) Math.sin(ageDelta * 0.03F) * 0.15F,
+					(float) entity.pos.z, Minecraft.getInstance().gameRenderer.getMainCamera().rotation()
+				);
 			}
 		}
 	}

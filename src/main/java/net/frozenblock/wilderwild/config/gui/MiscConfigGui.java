@@ -22,11 +22,13 @@ import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
 import net.frozenblock.wilderwild.config.MiscConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.text;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.tooltip;
+import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public final class MiscConfigGui {
@@ -34,12 +36,28 @@ public final class MiscConfigGui {
 		throw new UnsupportedOperationException("MiscConfigGui contains only static declarations.");
 	}
 
-	public static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
+	public static void setupEntries(@NotNull ConfigCategory category, @NotNull ConfigEntryBuilder entryBuilder) {
 		var config = MiscConfig.get(true);
+		var modifiedConfig = MiscConfig.getWithSync();
+		Class<? extends MiscConfig> clazz = config.getClass();
+		Config<? extends MiscConfig> configInstance = MiscConfig.INSTANCE;
 		var defaultConfig = MiscConfig.INSTANCE.defaultInstance();
 		var biomeAmbience = config.biomeAmbience;
 		var biomeMusic = config.biomeMusic;
 		category.setBackground(WilderSharedConstants.id("textures/config/misc.png"));
+
+		var modifyAdvancements = category.addEntry(
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("modify_advancements"), modifiedConfig.modifyAdvancements)
+					.setDefaultValue(defaultConfig.modifyAdvancements)
+					.setSaveConsumer(newValue -> config.modifyAdvancements = newValue)
+					.setTooltip(tooltip("modify_advancements"))
+					.build(),
+				clazz,
+				"modifyAdvancements",
+				configInstance
+			)
+		);
 
 		var cloudMovement = category.addEntry(entryBuilder.startBooleanToggle(text("cloud_movement"), config.cloudMovement)
 			.setDefaultValue(defaultConfig.cloudMovement)

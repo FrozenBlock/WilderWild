@@ -19,17 +19,15 @@
 package net.frozenblock.wilderwild.advancement;
 
 import com.google.gson.JsonObject;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import java.util.Optional;
 import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
 import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import net.minecraft.advancements.critereon.DeserializationContext;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
-import java.util.Optional;
 
 public class FireflyBottleTrigger extends SimpleCriterionTrigger<FireflyBottleTrigger.TriggerInstance> {
 

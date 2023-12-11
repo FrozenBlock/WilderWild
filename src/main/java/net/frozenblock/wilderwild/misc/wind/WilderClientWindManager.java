@@ -20,12 +20,12 @@ package net.frozenblock.wilderwild.misc.wind;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import static net.frozenblock.lib.wind.api.ClientWindManager.*;
 import net.frozenblock.lib.wind.api.ClientWindManagerExtension;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
-import static net.frozenblock.lib.wind.api.ClientWindManager.*;
 
 @Environment(EnvType.CLIENT)
 public class WilderClientWindManager implements ClientWindManagerExtension {
@@ -41,6 +41,18 @@ public class WilderClientWindManager implements ClientWindManagerExtension {
 	public static double cloudY;
 
 	public static double cloudZ;
+
+	public static double getCloudX(float partialTick) {
+		return Mth.lerp(partialTick, prevCloudX, cloudX);
+	}
+
+	public static double getCloudY(float partialTick) {
+		return Mth.lerp(partialTick, prevCloudY, cloudY);
+	}
+
+	public static double getCloudZ(float partialTick) {
+		return Mth.lerp(partialTick, prevCloudZ, cloudZ);
+	}
 
 	@Override
 	public void clientTick() {
@@ -70,17 +82,5 @@ public class WilderClientWindManager implements ClientWindManagerExtension {
 				WilderClientWindManager.cloudZ = cloudZ;
 			}
 		});
-	}
-
-	public static double getCloudX(float partialTick) {
-		return Mth.lerp(partialTick, prevCloudX, cloudX);
-	}
-
-	public static double getCloudY(float partialTick) {
-		return Mth.lerp(partialTick, prevCloudY, cloudY);
-	}
-
-	public static double getCloudZ(float partialTick) {
-		return Mth.lerp(partialTick, prevCloudZ, cloudZ);
 	}
 }

@@ -76,8 +76,8 @@ public class PollenParticle extends TextureSheetParticle {
 			this.yd *= this.friction;
 			this.zd *= this.friction;
 			if (this.onGround) {
-				this.xd *= 0.7f;
-				this.zd *= 0.7f;
+				this.xd *= 0.7F;
+				this.zd *= 0.7F;
 			}
 			this.prevScale = this.scale;
 			this.scale += (this.targetScale - this.scale) * 0.15F;
@@ -100,11 +100,11 @@ public class PollenParticle extends TextureSheetParticle {
 			this.windIntensity *= 0.945F;
 			boolean onGround = this.onGround;
 			if (!rain) {
-				double multXZ = (onGround ? 0.0005 : 0.007) * this.windIntensity;
-				double multY = (onGround ? 0.0005 : 0.0035) * this.windIntensity;
+				double multXZ = (onGround ? 0.0005D : 0.007D) * this.windIntensity;
+				double multY = (onGround ? 0.0005D : 0.0035D) * this.windIntensity;
 				Vec3 wind = ClientWindManager.getWindMovement(this.level, BlockPos.containing(this.x, this.y, this.z)).scale(MiscConfig.get().getParticleWindIntensity());
 				this.xd += wind.x() * multXZ;
-				this.yd += (wind.y() + 0.1) * multY;
+				this.yd += (wind.y() + 0.1D) * multY;
 				this.zd += wind.z() * multXZ;
 			}
 		} else {
@@ -128,11 +128,11 @@ public class PollenParticle extends TextureSheetParticle {
 		@Override
 		@NotNull
 		public Particle createParticle(@NotNull SimpleParticleType defaultParticleType, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {
-			PollenParticle pollenParticle = new PollenParticle(clientLevel, this.spriteProvider, x, y, z, 0.0D, -0.800000011920929D, 0.0D);
+			PollenParticle pollenParticle = new PollenParticle(clientLevel, this.spriteProvider, x, y, z, 0D, -0.800000011920929D, 0D);
 			pollenParticle.lifetime = Mth.randomBetweenInclusive(clientLevel.random, 500, 1000);
 			pollenParticle.gravity = 0.01F;
 			pollenParticle.setColor(250F / 255F, 171F / 255F, 28F / 255F);
-			pollenParticle.windIntensity = 0.05;
+			pollenParticle.windIntensity = 0.05D;
 			return pollenParticle;
 		}
 	}

@@ -1045,7 +1045,7 @@ public final class WilderPlacedFeatures {
 		);
 
 		FLOWER_MEADOW.makeAndSetHolder(WilderConfiguredFeatures.FLOWER_MEADOW.getHolder(),
-			CountPlacement.of(1), RarityFilter.onAverageOnceEvery(1), InSquarePlacement.spread(),
+			CountPlacement.of(UniformInt.of(1, 2)), InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
 		);
 

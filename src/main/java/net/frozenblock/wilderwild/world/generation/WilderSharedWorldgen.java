@@ -442,6 +442,7 @@ public final class WilderSharedWorldgen {
 			throw new UnsupportedOperationException("Cherry Grove contains only static declarations.");
 		}
 	}
+
 	public static final class StonyShoreTaiga {
 		public static final Climate.Parameter TEMPERATURE = Temperature.COOL;
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.THREE, Humidity.FIVE);

@@ -24,6 +24,7 @@ import net.frozenblock.wilderwild.world.generation.features.AlgaeFeature;
 import net.frozenblock.wilderwild.world.generation.features.CattailFeature;
 import net.frozenblock.wilderwild.world.generation.features.LargeMesogleaFeature;
 import net.frozenblock.wilderwild.world.generation.features.NematocystFeature;
+import net.frozenblock.wilderwild.world.generation.features.PalmTreeFeature;
 import net.frozenblock.wilderwild.world.generation.features.ShelfFungusFeature;
 import net.frozenblock.wilderwild.world.generation.features.SmallSpongeFeature;
 import net.frozenblock.wilderwild.world.generation.features.SnowAndFreezeDiskFeature;
@@ -43,13 +44,14 @@ import net.frozenblock.wilderwild.world.generation.trunk.JuniperTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.LargeSnappedTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.PalmTrunkPlacer;
 import net.frozenblock.wilderwild.world.generation.trunk.SnappedTrunkPlacer;
-import net.frozenblock.wilderwild.world.generation.trunk.StraightTrunkWithLogs;
+import net.frozenblock.wilderwild.world.generation.trunk.StraightTrunkWithBranches;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
@@ -57,7 +59,7 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import org.jetbrains.annotations.NotNull;
 
 public class RegisterFeatures {
-	public static final TrunkPlacerType<StraightTrunkWithLogs> STRAIGHT_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("straight_trunk_logs_placer", StraightTrunkWithLogs.CODEC);
+	public static final TrunkPlacerType<StraightTrunkWithBranches> STRAIGHT_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("straight_trunk_logs_placer", StraightTrunkWithBranches.CODEC);
 	public static final TrunkPlacerType<FallenTrunkWithLogs> FALLEN_TRUNK_WITH_LOGS_PLACER_TYPE = registerTrunk("fallen_trunk_logs_placer", FallenTrunkWithLogs.CODEC);
 	public static final TrunkPlacerType<BaobabTrunkPlacer> BAOBAB_TRUNK_PLACER = registerTrunk("baobab_trunk_placer", BaobabTrunkPlacer.CODEC);
 	public static final TrunkPlacerType<PalmTrunkPlacer> PALM_TRUNK_PLACER = registerTrunk("palm_trunk_placer", PalmTrunkPlacer.CODEC);
@@ -77,7 +79,7 @@ public class RegisterFeatures {
 	public static final LargeMesogleaFeature LARGE_MESOGLEA_FEATURE = register("large_mesoglea_feature", new LargeMesogleaFeature(LargeMesogleaConfig.CODEC));
 	public static final SnowBlanketFeature SNOW_BLANKET_FEATURE = register("snow_blanket_feature", new SnowBlanketFeature(NoneFeatureConfiguration.CODEC));
 	public static final SnowAndFreezeDiskFeature SNOW_AND_FREEZE_DISK_FEATURE = register("snow_and_freeze_disk_feature", new SnowAndFreezeDiskFeature(SnowAndIceDiskFeatureConfig.CODEC));
-
+	public static final PalmTreeFeature PALM_TREE_FEATURE = register("palm_tree", new PalmTreeFeature(TreeConfiguration.CODEC));
 	public static void init() {
 	}
 

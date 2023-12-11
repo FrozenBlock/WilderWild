@@ -19,6 +19,8 @@
 package net.frozenblock.wilderwild.config;
 
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
+import net.frozenblock.lib.config.api.annotation.FieldIdentifier;
+import net.frozenblock.lib.config.api.annotation.UnsyncableEntry;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
@@ -51,19 +53,34 @@ public final class BlockConfig {
 	@CollapsibleObject
 	public final MesogleaConfig mesoglea = new MesogleaConfig();
 
+	@FieldIdentifier(identifier = "shriekerGargling")
 	public boolean shriekerGargling = true;
 
+	@FieldIdentifier(identifier = "soulFireSounds")
 	public boolean soulFireSounds = true;
 
+	@UnsyncableEntry
+	@FieldIdentifier(identifier = "billboardTendrils")
 	public boolean billboardTendrils = true;
 
+	@FieldIdentifier(identifier = "tendrilsCarryEvents")
 	public boolean tendrilsCarryEvents = false;
 
+	@UnsyncableEntry
+	@FieldIdentifier(identifier = "pollenParticles")
 	public boolean pollenParticles = true;
 
+	@FieldIdentifier(identifier = "logHollowing")
 	public boolean logHollowing = true;
 
+	@FieldIdentifier(identifier = "cactusPlacement")
 	public boolean cactusPlacement = true;
+
+	@FieldIdentifier(identifier = "frostedIceCracking")
+	public boolean frostedIceCracking = true;
+
+	@FieldIdentifier(identifier = "dripleafPowering")
+	public boolean dripleafPowering = true;
 
 	public static BlockConfig get() {
 		return get(false);
@@ -75,60 +92,110 @@ public final class BlockConfig {
 		return INSTANCE.config();
 	}
 
+	public static BlockConfig getWithSync() {
+		return INSTANCE.configWithSync();
+	}
+
 	public static class BlockSoundsConfig {
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "cactusSounds")
 		public boolean cactusSounds = true;
 
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "claySounds")
 		public boolean claySounds = true;
 
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "coarseDirtSounds")
 		public boolean coarseDirtSounds = true;
 
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "cobwebSounds")
 		public boolean cobwebSounds = true;
 
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "deadBushSounds")
 		public boolean deadBushSounds = true;
 
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "flowerSounds")
 		public boolean flowerSounds = true;
 
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "saplingSounds")
 		public boolean saplingSounds = true;
 
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "iceSounds")
 		public boolean iceSounds = true;
 
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "frostedIceSounds")
 		public boolean frostedIceSounds = true;
 
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "gravelSounds")
 		public boolean gravelSounds = true;
 
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "leafSounds")
 		public boolean leafSounds = true;
 
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "lilyPadSounds")
 		public boolean lilyPadSounds = true;
 
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "mushroomBlockSounds")
 		public boolean mushroomBlockSounds = true;
 
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "podzolSounds")
 		public boolean podzolSounds = true;
 
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "reinforcedDeepslateSounds")
 		public boolean reinforcedDeepslateSounds = true;
 
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "sandstoneSounds")
 		public boolean sandstoneSounds = true;
 
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "sugarCaneSounds")
 		public boolean sugarCaneSounds = true;
 
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "witherRoseSounds")
 		public boolean witherRoseSounds = true;
 	}
 
 	public static class StoneChestConfig {
+		@FieldIdentifier(identifier = "stoneChestTimer")
 		public int stoneChestTimer = 100;
 
 		public double getStoneChestTimer() {
-			return ((double) this.stoneChestTimer) * 0.01;
+			return ((double) this.stoneChestTimer) * 0.01D;
 		}
 	}
 
 	public static class TermiteConfig {
+		@FieldIdentifier(identifier = "onlyEatNaturalBlocks")
 		public boolean onlyEatNaturalBlocks = true;
+
+		@FieldIdentifier(identifier = "maxDistance")
 		public int maxDistance = 32;
+
+		@FieldIdentifier(identifier = "maxNaturalDistance")
 		public int maxNaturalDistance = 10;
 	}
 
 	public static class MesogleaConfig {
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "mesogleaLiquid")
 		public boolean mesogleaLiquid = false;
+
+		@FieldIdentifier(identifier = "mesogleaBubbleColumns")
 		public boolean mesogleaBubbleColumns = true;
 	}
 }

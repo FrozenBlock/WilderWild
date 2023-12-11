@@ -18,9 +18,9 @@
 
 package net.frozenblock.wilderwild.mixin.block.dripstone;
 
+import net.frozenblock.lib.block.api.dripstone.DripstoneUtils;
 import net.frozenblock.lib.tag.api.FrozenBlockTags;
 import net.frozenblock.wilderwild.block.ScorchedBlock;
-import net.frozenblock.wilderwild.misc.mod_compat.FrozenLibIntegration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -37,8 +37,8 @@ public final class FallingBlockMixin {
 
 	@Inject(at = @At("HEAD"), method = "tick")
 	public void wilderWild$tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
-		if (state.is(FrozenBlockTags.DRIPSTONE_CAN_DRIP_ON) && ScorchedBlock.canScorch(state)) {
-			if (FrozenLibIntegration.getDripstoneFluid(level, pos) == Fluids.LAVA && random.nextBoolean()) {
+		if (state.is(FrozenBlockTags.DRIPSTONE_CAN_DRIP_ON) && random.nextBoolean()) {
+			if (DripstoneUtils.getDripstoneFluid(level, pos) == Fluids.LAVA) {
 				ScorchedBlock.scorch(state, level, pos);
 			}
 		}

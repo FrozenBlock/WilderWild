@@ -25,7 +25,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityEvent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.warden.Warden;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -36,45 +38,43 @@ public class LivingEntityMixin {
 
 	@Inject(method = "isAlive", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$isAlive(CallbackInfoReturnable<Boolean> info) {
-		if (LivingEntity.class.cast(this) instanceof Warden warden) {
-			if (EntityConfig.get().warden.wardenDyingAnimation || ((WilderWarden) warden).wilderWild$isStella()) {
-				info.setReturnValue(((WilderWarden) warden).wilderWild$getDeathTicks() < 70 && !warden.isRemoved());
-			}
+		if (this.wilderWild$isWardenWithDeathAnimation()) {
+			info.setReturnValue(((WilderWarden) this).wilderWild$getDeathTicks() < 70 && !LivingEntity.class.cast(this).isRemoved());
 		}
 	}
 
 	@Inject(method = "tickDeath", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$tickDeath(CallbackInfo info) {
-		if (LivingEntity.class.cast(this) instanceof Warden warden) {
-			if (EntityConfig.get().warden.wardenDyingAnimation || ((WilderWarden) warden).wilderWild$isStella()) {
-				((WilderWarden) warden).wilderWild$setDeathTicks(((WilderWarden) warden).wilderWild$getDeathTicks() + 1);
-
-				if (((WilderWarden) warden).wilderWild$getDeathTicks() == 35 && !warden.level().isClientSide()) {
+		if (this.wilderWild$isWardenWithDeathAnimation()) {
+			Warden warden = Warden.class.cast(this);
+			Level level = warden.level();
+			int deathTicks = ((WilderWarden) this).wilderWild$getDeathTicks() + 1;
+			((WilderWarden) this).wilderWild$setDeathTicks(deathTicks);
+			if (!level.isClientSide()) {
+				if (deathTicks == 35) {
 					warden.deathTime = 35;
-				}
-
-				if (((WilderWarden) warden).wilderWild$getDeathTicks() == 53 && !warden.level().isClientSide()) {
-					warden.level().broadcastEntityEvent(warden, EntityEvent.POOF);
-					warden.level().broadcastEntityEvent(warden, (byte) 69420);
-				}
-
-				if (((WilderWarden) warden).wilderWild$getDeathTicks() == 70 && !warden.level().isClientSide()) {
+				} else if (deathTicks == 53) {
+					level.broadcastEntityEvent(warden, EntityEvent.POOF);
+					level.broadcastEntityEvent(warden, (byte) 69420);
+				} else if (deathTicks == 70) {
 					warden.remove(Entity.RemovalReason.KILLED);
 				}
-
-				info.cancel();
 			}
+			info.cancel();
 		}
 	}
 
 	@Inject(method = "die", at = @At("TAIL"))
 	public void wilderWild$die(DamageSource damageSource, CallbackInfo info) {
-		if (LivingEntity.class.cast(this) instanceof Warden warden) {
-			if (EntityConfig.get().warden.wardenDyingAnimation || ((WilderWarden) warden).wilderWild$isStella()) {
-				warden.getBrain().removeAllBehaviors();
-				warden.setNoAi(true);
-			}
+		if (this.wilderWild$isWardenWithDeathAnimation()) {
+			Warden.class.cast(this).getBrain().removeAllBehaviors();
+			Warden.class.cast(this).setNoAi(true);
 		}
+	}
+
+	@Unique
+	public boolean wilderWild$isWardenWithDeathAnimation() {
+		return LivingEntity.class.cast(this) instanceof Warden warden && (EntityConfig.get().warden.wardenDyingAnimation || ((WilderWarden) warden).wilderWild$isStella());
 	}
 
 }

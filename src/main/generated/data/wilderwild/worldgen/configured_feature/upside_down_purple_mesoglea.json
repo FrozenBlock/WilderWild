@@ -18,7 +18,7 @@
     "surface": "ceiling",
     "vegetation_chance": 0.08,
     "vegetation_feature": {
-      "feature": "wilderwild:downwards_purple_mesoglea_pillar",
+      "feature": "wilderwild:downwards_purple_mesoglea_column",
       "placement": []
     },
     "vertical_range": 2,

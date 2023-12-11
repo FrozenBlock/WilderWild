@@ -21,7 +21,6 @@ package net.frozenblock.wilderwild.mixin.client.shrieker;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.block.ScorchedBlock;
 import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -29,7 +28,6 @@ import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SculkShriekerBlock;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -46,19 +44,18 @@ public class LevelRendererMixin {
 
 	@ModifyExpressionValue(method = "levelEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;getValue(Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/lang/Comparable;", ordinal = 0), require = 0)
 	private Comparable<Boolean> shriekerGargle(Comparable<Boolean> original, int eventId, BlockPos pos, int data) {
-		if (BlockConfig.get().shriekerGargling) {
+		if (this.level != null && BlockConfig.get().shriekerGargling) {
 			if (original.compareTo(true) == 0 || this.level.getFluidState(pos.above()).is(FluidTags.WATER)) {
-				this.level
-					.playLocalSound(
-						(double) pos.getX() + 0.5D,
-						(double) pos.getY() + SculkShriekerBlock.TOP_Y,
-						(double) pos.getZ() + 0.5D,
-						RegisterSounds.BLOCK_SCULK_SHRIEKER_GARGLE,
-						SoundSource.BLOCKS,
-						2.0F,
-						0.6F + this.level.random.nextFloat() * 0.4F,
-						false
-					);
+				this.level.playLocalSound(
+					(double) pos.getX() + 0.5D,
+					(double) pos.getY() + SculkShriekerBlock.TOP_Y,
+					(double) pos.getZ() + 0.5D,
+					RegisterSounds.BLOCK_SCULK_SHRIEKER_GARGLE,
+					SoundSource.BLOCKS,
+					2.0F,
+					0.6F + this.level.random.nextFloat() * 0.4F,
+					false
+				);
 			}
 		}
 		return original;

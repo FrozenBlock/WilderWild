@@ -49,17 +49,28 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 
 	@Unique
 	private static BlockState wilderWild$playedSoundState;
+
 	@Unique
-	boolean wilderWild$canBubble = true;
+	private boolean wilderWild$canBubble = true;
 
 	@Inject(at = @At("HEAD"), method = "playSound")
 	private static void wilderWild$playSound(Level level, BlockPos pos, BlockState state, SoundEvent sound, CallbackInfo info) {
 		wilderWild$playedSoundState = level.getBlockState(pos);
 	}
 
-	@ModifyArgs(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playSound(Lnet/minecraft/world/entity/player/Player;DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V"), method = "playSound")
-	private static void wilderWild$playSound(Args args) {
-		if (wilderWild$playedSoundState != null && wilderWild$playedSoundState.hasProperty(BlockStateProperties.WATERLOGGED) && wilderWild$playedSoundState.getValue(BlockStateProperties.WATERLOGGED)) {
+	@ModifyArgs(
+		method = "playSound",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/Level;playSound(Lnet/minecraft/world/entity/player/Player;DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V"
+		)
+	)
+	private static void playSound(Args args) {
+		if (
+			wilderWild$playedSoundState != null
+			&& wilderWild$playedSoundState.hasProperty(BlockStateProperties.WATERLOGGED)
+			&& wilderWild$playedSoundState.getValue(BlockStateProperties.WATERLOGGED)
+		) {
 			SoundEvent sound = args.get(4);
 			if (sound == SoundEvents.CHEST_OPEN) {
 				args.set(4, RegisterSounds.BLOCK_CHEST_OPEN_UNDERWATER);

@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.block;
 
 import java.util.List;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.wilderwild.misc.FlowerColor;
+import net.frozenblock.wilderwild.block.property.FlowerColor;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
@@ -49,6 +49,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock {
 	public static final EnumProperty<FlowerColor> COLORS = RegisterProperties.FLOWER_COLOR;
@@ -73,27 +74,31 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
 		}
 	}
 
+	public static boolean hasColor(@NotNull BlockState state) {
+		return state.hasProperty(COLORS) && state.getValue(COLORS) != FlowerColor.NONE;
+	}
+
 	@Override
 	@NotNull
 	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		if (level instanceof ServerLevel) {
-			FlowerColor color = state.getValue(COLORS);
-			if (color != FlowerColor.NONE) {
-				ItemStack itemStack = player.getItemInHand(hand);
-				if (itemStack.is(Items.SHEARS)) {
-					Item item = color == FlowerColor.BLUE ? RegisterBlocks.BLUE_GLORY_OF_THE_SNOW.asItem() : color == FlowerColor.PINK ? RegisterBlocks.PINK_GLORY_OF_THE_SNOW.asItem() :
-						color == FlowerColor.PURPLE ? RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW.asItem() : RegisterBlocks.WHITE_GLORY_OF_THE_SNOW.asItem();
-					popResource(level, pos, new ItemStack(item, level.random.nextIntBetweenInclusive(1, 2)));
-					level.setBlockAndUpdate(pos, state.getBlock().defaultBlockState());
-					level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
-					itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
-					level.gameEvent(player, GameEvent.SHEAR, pos);
-					return InteractionResult.SUCCESS;
-				}
+			ItemStack itemStack = player.getItemInHand(hand);
+			if (hasColor(state) && itemStack.is(Items.SHEARS)) {
+				itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
+				return InteractionResult.SUCCESS;
 			}
 		}
 		return super.use(state, level, pos, player, hand, hit);
+	}
 
+	public static void shear(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @Nullable Player player) {
+		FlowerColor color = state.getValue(COLORS);
+		Item item = color == FlowerColor.BLUE ? RegisterBlocks.BLUE_GLORY_OF_THE_SNOW.asItem() : color == FlowerColor.PINK ? RegisterBlocks.PINK_GLORY_OF_THE_SNOW.asItem() :
+			color == FlowerColor.PURPLE ? RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW.asItem() : RegisterBlocks.WHITE_GLORY_OF_THE_SNOW.asItem();
+		popResource(level, pos, new ItemStack(item, level.random.nextIntBetweenInclusive(1, 2)));
+		level.setBlockAndUpdate(pos, state.getBlock().defaultBlockState());
+		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
+		level.gameEvent(player, GameEvent.SHEAR, pos);
 	}
 
 	@Override

@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.mixin.entity.allay;
 
-import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.render.animations.WilderAllay;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.animal.allay.Allay;
@@ -46,7 +45,7 @@ public class AllayMixin implements WilderAllay {
 	@Inject(method = "tick", at = @At(value = "TAIL"))
 	private void wilderWild$tickDancing(CallbackInfo info) {
 		Allay allay = Allay.class.cast(this);
-		if (allay.level().isClientSide && EntityConfig.get().allay.keyframeAllayDance) {
+		if (allay.level().isClientSide) {
 			if (allay.isDancing()) {
 				this.wilderWild$getDancingAnimationState().startIfStopped((int) this.dancingAnimationTicks);
 			} else {

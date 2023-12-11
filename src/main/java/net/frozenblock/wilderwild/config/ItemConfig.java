@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.config;
 
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
+import net.frozenblock.lib.config.api.annotation.FieldIdentifier;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
@@ -46,8 +47,10 @@ public final class ItemConfig {
 	@CollapsibleObject
 	public final ProjectileLandingSoundsConfig projectileLandingSounds = new ProjectileLandingSoundsConfig();
 
+	@FieldIdentifier(identifier = "projectileBreakParticles")
 	public boolean projectileBreakParticles = true;
 
+	@FieldIdentifier(identifier = "restrictInstrumentSound")
 	public boolean restrictInstrumentSound = true;
 
 	public static ItemConfig get() {
@@ -60,19 +63,41 @@ public final class ItemConfig {
 		return INSTANCE.config();
 	}
 
+	public static ItemConfig getWithSync() {
+		return INSTANCE.configWithSync();
+	}
+
 	public static class AncientHornConfig {
+		@FieldIdentifier(identifier = "ancientHornCanSummonWarden")
 		public boolean ancientHornCanSummonWarden = true;
+
+		@FieldIdentifier(identifier = "ancientHornLifespan")
 		public int ancientHornLifespan = AncientHornProjectile.DEFAULT_LIFESPAN;
+
+		@FieldIdentifier(identifier = "ancientHornMobDamage")
 		public int ancientHornMobDamage = 22;
+
+		@FieldIdentifier(identifier = "ancientHornPlayerDamage")
 		public int ancientHornPlayerDamage = 15;
+
+		@FieldIdentifier(identifier = "ancientHornShattersGlass")
 		public boolean ancientHornShattersGlass = false;
+
+		@FieldIdentifier(identifier = "ancientHornSizeMultiplier")
 		public float ancientHornSizeMultiplier = 0F;
 	}
 
 	public static class ProjectileLandingSoundsConfig {
+		@FieldIdentifier(identifier = "snowballLandingSounds")
 		public boolean snowballLandingSounds = true;
+
+		@FieldIdentifier(identifier = "eggLandingSounds")
 		public boolean eggLandingSounds = true;
+
+		@FieldIdentifier(identifier = "enderPearlLandingSounds")
 		public boolean enderPearlLandingSounds = true;
+
+		@FieldIdentifier(identifier = "potionLandingSounds")
 		public boolean potionLandingSounds = true;
 	}
 }

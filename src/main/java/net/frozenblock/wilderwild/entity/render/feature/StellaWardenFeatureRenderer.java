@@ -39,13 +39,13 @@ public class StellaWardenFeatureRenderer<T extends Warden, M extends WardenModel
 	}
 
 	@Override
-	public void render(@NotNull PoseStack matrixStack, @NotNull MultiBufferSource vertexConsumerProvider, int i, @NotNull T wardenEntity, float f, float g, float partialTick, float j, float k, float l) {
+	public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource vertexConsumerProvider, int i, @NotNull T wardenEntity, float f, float g, float partialTick, float j, float k, float l) {
 		if (!wardenEntity.isInvisible() && ((WilderWarden) wardenEntity).wilderWild$isStella()) {
 			this.onlyDrawSelectedParts();
 			VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderType.entityTranslucentEmissive(this.texture));
 			this.getParentModel()
 				.renderToBuffer(
-					matrixStack,
+					poseStack,
 					vertexConsumer,
 					i,
 					LivingEntityRenderer.getOverlayCoords(wardenEntity, 0.0F),

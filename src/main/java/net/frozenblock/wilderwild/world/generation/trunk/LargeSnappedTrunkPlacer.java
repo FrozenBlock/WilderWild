@@ -35,6 +35,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class LargeSnappedTrunkPlacer extends TrunkPlacer {
@@ -48,7 +49,8 @@ public class LargeSnappedTrunkPlacer extends TrunkPlacer {
 		this.additionalHeight = additionalHeight;
 	}
 
-	protected static <P extends LargeSnappedTrunkPlacer> Products.P4<RecordCodecBuilder.Mu<P>, Integer, Integer, Integer, UniformInt> largeSnappedTrunkCodec(RecordCodecBuilder.Instance<P> builder) {
+	@Contract("_ -> new")
+	protected static <P extends LargeSnappedTrunkPlacer> Products.@NotNull P4<RecordCodecBuilder.Mu<P>, Integer, Integer, Integer, UniformInt> largeSnappedTrunkCodec(RecordCodecBuilder.Instance<P> builder) {
 		return trunkPlacerParts(builder)
 			.and(UniformInt.CODEC.fieldOf("additional_height").forGetter((trunkPlacer) -> trunkPlacer.additionalHeight));
 	}

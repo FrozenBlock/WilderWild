@@ -1,5 +1,24 @@
+/*
+ * Copyright 2023 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.datagen;
 
+import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 import net.frozenblock.lib.datagen.api.FrozenBiomeTagProvider;
@@ -11,7 +30,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biomes;
 import org.jetbrains.annotations.NotNull;
-import java.util.concurrent.CompletableFuture;
 
 final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
@@ -322,6 +340,20 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.JELLYFISH_SPECIAL_SPAWN)
 			.addOptional(RegisterWorldgen.JELLYFISH_CAVES);
+
+		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_CRAB)
+			.add(Biomes.BEACH)
+			.addOptional(RegisterWorldgen.WARM_BEACH)
+			.add(Biomes.OCEAN)
+			.add(Biomes.DEEP_OCEAN)
+			.addOptional(RegisterWorldgen.CYPRESS_WETLANDS)
+			.addOptionalTag(WilderBiomeTags.HAS_COMMON_CRAB);
+
+		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COMMON_CRAB)
+			.add(Biomes.LUKEWARM_OCEAN)
+			.add(Biomes.DEEP_LUKEWARM_OCEAN)
+			.add(Biomes.WARM_OCEAN)
+			.add(Biomes.MANGROVE_SWAMP);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_TUMBLEWEED_ENTITY)
 			.add(Biomes.DESERT)
@@ -949,7 +981,6 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_PLAINS_FLOWERS)
 			.add(Biomes.PLAINS)
-			.add(Biomes.MEADOW)
 			.add(Biomes.FOREST)
 			.add(Biomes.BIRCH_FOREST)
 			.add(Biomes.OLD_GROWTH_BIRCH_FOREST)

@@ -35,17 +35,17 @@ public class HeightBasedCobwebTreeDecorator extends TreeDecorator {
 	public static final Codec<HeightBasedCobwebTreeDecorator> CODEC = RecordCodecBuilder.create((instance) ->
 		instance.group(
 			Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter((treeDecorator) -> treeDecorator.probability),
-			Codec.intRange(-63, 319).fieldOf("maxHeight").forGetter((treeDecorator) -> treeDecorator.maxHeight),
-			Codec.floatRange(0.0F, 1.0F).fieldOf("cobweb_count").forGetter((treeDecorator) -> treeDecorator.cobweb_count)
+			Codec.intRange(-63, 319).fieldOf("max_height").forGetter((treeDecorator) -> treeDecorator.maxHeight),
+			Codec.floatRange(0.0F, 1.0F).fieldOf("placement_chance").forGetter((treeDecorator) -> treeDecorator.placementChance)
 		).apply(instance, HeightBasedCobwebTreeDecorator::new));
 	private final float probability;
 	private final int maxHeight;
-	private final float cobweb_count;
+	private final float placementChance;
 
-	public HeightBasedCobwebTreeDecorator(float probability, int maxHeight, float cobweb_count) {
+	public HeightBasedCobwebTreeDecorator(float probability, int maxHeight, float placementChance) {
 		this.probability = probability;
 		this.maxHeight = maxHeight;
-		this.cobweb_count = cobweb_count;
+		this.placementChance = placementChance;
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class HeightBasedCobwebTreeDecorator extends TreeDecorator {
 			for (BlockPos pos : logs) {
 				if (pos.getY() <= this.maxHeight) {
 					for (Direction direction : Direction.Plane.HORIZONTAL) {
-						if (random.nextFloat() <= this.cobweb_count) {
+						if (random.nextFloat() <= this.placementChance) {
 							mutableBlockPos.setWithOffset(pos, direction);
 							if (generator.isAir(mutableBlockPos)) {
 								generator.setBlock(mutableBlockPos, blockState);

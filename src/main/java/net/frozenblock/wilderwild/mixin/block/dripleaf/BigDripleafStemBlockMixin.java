@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.block.dripleaf;
 
+import net.frozenblock.wilderwild.config.BlockConfig;
 import net.minecraft.world.level.block.BigDripleafStemBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
@@ -39,19 +40,25 @@ public final class BigDripleafStemBlockMixin extends HorizontalDirectionalBlock 
 
 	@Inject(method = "<init>", at = @At("RETURN"))
 	public void wilderWild$init(CallbackInfo info) {
-		BigDripleafStemBlock bigDripleafStemBlock = BigDripleafStemBlock.class.cast(this);
-		bigDripleafStemBlock.registerDefaultState(bigDripleafStemBlock.defaultBlockState().setValue(BlockStateProperties.POWERED, false));
+		if (BlockConfig.get().dripleafPowering) {
+			BigDripleafStemBlock bigDripleafStemBlock = BigDripleafStemBlock.class.cast(this);
+			bigDripleafStemBlock.registerDefaultState(bigDripleafStemBlock.defaultBlockState().setValue(BlockStateProperties.POWERED, false));
+		}
 	}
 
 	@Inject(at = @At("TAIL"), method = "createBlockStateDefinition")
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		builder.add(BlockStateProperties.POWERED);
+		if (BlockConfig.get().dripleafPowering) {
+			builder.add(BlockStateProperties.POWERED);
+		}
 	}
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void wilderWild$bigDripleafStemBlock(BlockBehaviour.Properties setting, CallbackInfo info) {
-		BigDripleafStemBlock stem = BigDripleafStemBlock.class.cast(this);
-		stem.registerDefaultState(stem.defaultBlockState().setValue(BlockStateProperties.POWERED, false));
+		if (BlockConfig.get().dripleafPowering) {
+			BigDripleafStemBlock stem = BigDripleafStemBlock.class.cast(this);
+			stem.registerDefaultState(stem.defaultBlockState().setValue(BlockStateProperties.POWERED, false));
+		}
 	}
 
 }

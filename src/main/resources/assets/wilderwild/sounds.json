@@ -1345,6 +1345,15 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.milkweed.rustle": {
+    "sounds": [
+      "wilderwild:block/milkweed/rustle1",
+      "wilderwild:block/milkweed/rustle2",
+      "wilderwild:block/milkweed/rustle3",
+      "wilderwild:block/milkweed/rustle4"
+    ],
+    "subtitle": "subtitles.block.milkweed.rustle"
+  },
   "block.null_block.break": {
     "sounds": [
       "wilderwild:block/null_block/break1",
@@ -2236,6 +2245,53 @@
     ],
     "subtitle": "subtitles.entity.jellyfish.hide"
   },
+  "entity.crab.attack": {
+    "sounds": [
+      "wilderwild:mob/crab/attack1",
+      "wilderwild:mob/crab/attack2",
+      "wilderwild:mob/crab/attack3"
+    ],
+    "subtitle": "subtitles.entity.crab.attack"
+  },
+  "entity.crab.hurt": {
+    "sounds": [
+      "wilderwild:mob/crab/hurt1",
+      "wilderwild:mob/crab/hurt2",
+      "wilderwild:mob/crab/hurt3"
+    ],
+    "subtitle": "subtitles.entity.crab.hurt"
+  },
+  "entity.crab.death": {
+    "sounds": [
+      "wilderwild:mob/crab/hurt1",
+      "wilderwild:mob/crab/hurt2",
+      "wilderwild:mob/crab/hurt3"
+    ],
+    "subtitle": "subtitles.entity.crab.death"
+  },
+  "entity.crab.idle": {
+    "sounds": [
+      "wilderwild:mob/crab/idle1",
+      "wilderwild:mob/crab/idle2",
+      "wilderwild:mob/crab/idle3",
+      "wilderwild:mob/crab/idle4",
+      "wilderwild:mob/crab/idle5",
+      "wilderwild:mob/crab/idle6"
+    ],
+    "subtitle": "subtitles.entity.crab.idle"
+  },
+  "entity.crab.dig": {
+    "sounds": [
+      "wilderwild:mob/crab/dig"
+    ],
+    "subtitle": "subtitles.entity.crab.dig"
+  },
+  "entity.crab.emerge": {
+    "sounds": [
+      "wilderwild:mob/crab/emerge"
+    ],
+    "subtitle": "subtitles.entity.crab.emerge"
+  },
   "entity.tumbleweed.bounce": {
     "sounds": [
       "wilderwild:mob/tumbleweed/bounce1",
@@ -2368,6 +2424,22 @@
       "wilderwild:item/bucket/empty_jellyfish1",
       "wilderwild:item/bucket/empty_jellyfish2",
       "wilderwild:item/bucket/empty_jellyfish3"
+    ],
+    "subtitle": "subtitles.item.bucket.empty"
+  },
+  "item.bucket.fill_crab": {
+    "sounds": [
+      "wilderwild:item/bucket/fill_crab1",
+      "wilderwild:item/bucket/fill_crab2",
+      "wilderwild:item/bucket/fill_crab3"
+    ],
+    "subtitle": "subtitles.item.bucket.fill_crab"
+  },
+  "item.bucket.empty_crab": {
+    "sounds": [
+      "wilderwild:item/bucket/empty_crab1",
+      "wilderwild:item/bucket/empty_crab2",
+      "wilderwild:item/bucket/empty_crab3"
     ],
     "subtitle": "subtitles.item.bucket.empty"
   },

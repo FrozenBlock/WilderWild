@@ -21,13 +21,12 @@ package net.frozenblock.wilderwild.world.additions.feature;
 import java.util.List;
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.api.FrozenFeatures;
-import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskFeatureConfig;
+import net.frozenblock.lib.worldgen.feature.api.features.config.ColumnFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskTagBiomeFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.FadingDiskTagFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.PathFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.PathSwapUnderWaterFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.features.config.PathTagFeatureConfig;
-import net.frozenblock.lib.worldgen.feature.api.features.config.PillarFeatureConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterFeatures;
@@ -125,10 +124,10 @@ public final class WilderMiscConfigured {
 	public static final FrozenConfiguredFeature<OreConfiguration, ConfiguredFeature<OreConfiguration, ?>> ORE_CALCITE = register("ore_calcite");
 	public static final FrozenConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> BLANK_SHUT_UP = register("blank_shut_up");
 	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> STONE_POOL = register("stone_pool");
-	public static final FrozenConfiguredFeature<PillarFeatureConfig, ConfiguredFeature<PillarFeatureConfig, ?>> UPWARDS_MESOGLEA_PILLAR = register("blue_mesoglea_pillar");
-	public static final FrozenConfiguredFeature<PillarFeatureConfig, ConfiguredFeature<PillarFeatureConfig, ?>> PURPLE_MESOGLEA_PILLAR = register("purple_mesoglea_pillar");
-	public static final FrozenConfiguredFeature<PillarFeatureConfig, ConfiguredFeature<PillarFeatureConfig, ?>> DOWNWARDS_MESOGLEA_PILLAR = register("downwards_blue_mesoglea_pillar");
-	public static final FrozenConfiguredFeature<PillarFeatureConfig, ConfiguredFeature<PillarFeatureConfig, ?>> DOWNWARDS_PURPLE_MESOGLEA_PILLAR = register("downwards_purple_mesoglea_pillar");
+	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> BLUE_MESOGLEA_COLUMN = register("blue_mesoglea_column");
+	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> PURPLE_MESOGLEA_COLUMN = register("purple_mesoglea_column");
+	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> DOWNWARDS_BLUE_MESOGLEA_COLUMN = register("downwards_blue_mesoglea_column");
+	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> DOWNWARDS_PURPLE_MESOGLEA_COLUMN = register("downwards_purple_mesoglea_column");
 	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> BLUE_MESOGLEA_PATH = register("blue_mesoglea_path");
 	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> PURPLE_MESOGLEA_PATH = register("purple_mesoglea_path");
 
@@ -784,8 +783,8 @@ public final class WilderMiscConfigured {
 			)
 		);
 
-		UPWARDS_MESOGLEA_PILLAR.makeAndSetHolder(FrozenFeatures.UPWARDS_PILLAR_FEATURE,
-			new PillarFeatureConfig(
+		BLUE_MESOGLEA_COLUMN.makeAndSetHolder(FrozenFeatures.UPWARDS_COLUMN_FEATURE,
+			new ColumnFeatureConfig(
 				RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true),
 				UniformInt.of(4, 12),
 				HolderSet.direct(
@@ -796,8 +795,8 @@ public final class WilderMiscConfigured {
 			)
 		);
 
-		PURPLE_MESOGLEA_PILLAR.makeAndSetHolder(FrozenFeatures.UPWARDS_PILLAR_FEATURE,
-			new PillarFeatureConfig(
+		PURPLE_MESOGLEA_COLUMN.makeAndSetHolder(FrozenFeatures.UPWARDS_COLUMN_FEATURE,
+			new ColumnFeatureConfig(
 				RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true),
 				UniformInt.of(4, 12),
 				HolderSet.direct(
@@ -808,8 +807,8 @@ public final class WilderMiscConfigured {
 			)
 		);
 
-		DOWNWARDS_MESOGLEA_PILLAR.makeAndSetHolder(FrozenFeatures.DOWNWARDS_PILLAR_FEATURE,
-			new PillarFeatureConfig(
+		DOWNWARDS_BLUE_MESOGLEA_COLUMN.makeAndSetHolder(FrozenFeatures.DOWNWARDS_COLUMN_FEATURE,
+			new ColumnFeatureConfig(
 				RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true),
 				UniformInt.of(3, 10),
 				HolderSet.direct(
@@ -820,8 +819,8 @@ public final class WilderMiscConfigured {
 			)
 		);
 
-		DOWNWARDS_PURPLE_MESOGLEA_PILLAR.makeAndSetHolder(FrozenFeatures.DOWNWARDS_PILLAR_FEATURE,
-			new PillarFeatureConfig(
+		DOWNWARDS_PURPLE_MESOGLEA_COLUMN.makeAndSetHolder(FrozenFeatures.DOWNWARDS_COLUMN_FEATURE,
+			new ColumnFeatureConfig(
 				RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true),
 				UniformInt.of(3, 10),
 				HolderSet.direct(

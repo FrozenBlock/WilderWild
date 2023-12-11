@@ -30,7 +30,7 @@ import net.frozenblock.lib.entity.api.NoFlopAbstractFish;
 import net.frozenblock.wilderwild.entity.ai.jellyfish.JellyfishAi;
 import net.frozenblock.wilderwild.entity.ai.jellyfish.JellyfishTemptGoal;
 import net.frozenblock.wilderwild.entity.variant.JellyfishVariant;
-import net.frozenblock.wilderwild.misc.server.EasyPacket;
+import net.frozenblock.wilderwild.networking.WilderNetworking;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -108,8 +108,8 @@ public class Jellyfish extends NoFlopAbstractFish {
 	private static final EntityDataAccessor<JellyfishVariant> VARIANT = SynchedEntityData.defineId(Jellyfish.class, JellyfishVariant.SERIALIZER);
 	private static final EntityDataAccessor<Boolean> CAN_REPRODUCE = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> IS_BABY = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.BOOLEAN);
-	public final TargetingConditions targetingConditions = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().selector(this::canTargetEntity);
 	private static final Map<ServerLevelAccessor, Integer> NON_PEARLESCENT_JELLYFISH_PER_LEVEL = new HashMap<>();
+	public final TargetingConditions targetingConditions = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().selector(this::canTargetEntity);
 	public float xBodyRot;
 	public float xRot1;
 	public float xRot2;
@@ -157,7 +157,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 			return true;
 		}
 		Holder<Biome> biome = level.getBiome(pos);
-		if (biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH) || getJellyfish(level.getLevel(), false) >= type.getCategory().getMaxInstancesPerChunk() / 3) {
+		if (!biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH) && getJellyfish(level.getLevel(), false) >= type.getCategory().getMaxInstancesPerChunk() / 3) {
 			return false;
 		}
 		if (biome.is(WilderBiomeTags.JELLYFISH_SPECIAL_SPAWN)) {
@@ -362,7 +362,6 @@ public class Jellyfish extends NoFlopAbstractFish {
 		} else if (this.vanishing) {
 			if (this.prevScale <= 0F) {
 				this.discard();
-				//TODO: Hide sound
 				this.playSound(RegisterSounds.ENTITY_JELLYFISH_HIDE, 0.8F, 0.9F + this.level().random.nextFloat() * 0.2F);
 			} else {
 				this.scale -= 0.25F;
@@ -439,7 +438,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 					if (entity instanceof ServerPlayer player) {
 						if (player.hurt(this.damageSources().mobAttack(this), damage)) {
 							player.addEffect(new MobEffectInstance(MobEffects.POISON, poisonDuration, 0, false, false), this);
-							EasyPacket.sendJellySting(player, baby);
+							WilderNetworking.sendJellySting(player, baby);
 						}
 					} else if (entity instanceof Mob mob) {
 						if (mob.hurt(this.damageSources().mobAttack(this), damage)) {
@@ -470,6 +469,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public boolean canTargetEntity(@Nullable Entity entity) {
 		return entity instanceof LivingEntity livingEntity
 			&& this.level() == livingEntity.level()
+			&& !this.level().getDifficulty().equals(Difficulty.PEACEFUL)
 			&& EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)
 			&& !this.isAlliedTo(livingEntity)
 			&& livingEntity.getType() != EntityType.ARMOR_STAND
