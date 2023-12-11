@@ -81,6 +81,7 @@ Bug Fixes & Changes
     - Non-operators will see that config options that don't solely pertain to the client will be blocked out and set to the server's value
 - Added a "New Frosted Ice Cracking" config option to control Frosted Ice's updated cracking (playing sounds and spawning particles)
 - Added a config option for whether or not Dripleaves will use updated Redstone powering functionality
+- Added a config option for whether or not advancements will be modified
 - Swapped the placement of the Misc and Worldgen config tabs
 
 - Refactored many aspects Wilder Wild's configured features' field names to be more consistent with Vanilla
