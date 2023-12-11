@@ -86,33 +86,33 @@ public final class RegisterWorldgen {
 		WilderSharedConstants.logWild("Registering Biomes for", WilderSharedConstants.UNSTABLE_LOGGING);
 
 		// MAIN BIOMES
-		register(context, RegisterWorldgen.CYPRESS_WETLANDS, RegisterWorldgen.cypressWetlands(context));
-		register(context, RegisterWorldgen.MIXED_FOREST, RegisterWorldgen.mixedForest(context));
-		register(context, RegisterWorldgen.OASIS, RegisterWorldgen.oasis(context));
-		register(context, RegisterWorldgen.WARM_RIVER, RegisterWorldgen.warmRiver(context));
-		register(context, RegisterWorldgen.WARM_BEACH, RegisterWorldgen.warmBeach(context));
+		register(context, CYPRESS_WETLANDS, cypressWetlands(context));
+		register(context, MIXED_FOREST, mixedForest(context));
+		register(context, OASIS, oasis(context));
+		register(context, WARM_RIVER, warmRiver(context));
+		register(context, WARM_BEACH, warmBeach(context));
 		// CAVE BIOMES
-		register(context, RegisterWorldgen.JELLYFISH_CAVES, RegisterWorldgen.jellyfishCaves(context));
+		register(context, JELLYFISH_CAVES, jellyfishCaves(context));
 		// TRANSITION BIOMES
 		// HOT
-		register(context, RegisterWorldgen.ARID_FOREST, RegisterWorldgen.aridForest(context));
-		register(context, RegisterWorldgen.ARID_SAVANNA, RegisterWorldgen.aridSavanna(context));
-		register(context, RegisterWorldgen.PARCHED_FOREST, RegisterWorldgen.parchedForest(context));
+		register(context, ARID_FOREST, aridForest(context));
+		register(context, ARID_SAVANNA, aridSavanna(context));
+		register(context, PARCHED_FOREST, parchedForest(context));
 		// TROPICAL
-		register(context, RegisterWorldgen.BIRCH_JUNGLE, RegisterWorldgen.birchJungle(context));
-		register(context, RegisterWorldgen.SPARSE_BIRCH_JUNGLE, RegisterWorldgen.sparseBirchJungle(context));
+		register(context, BIRCH_JUNGLE, birchJungle(context));
+		register(context, SPARSE_BIRCH_JUNGLE, sparseBirchJungle(context));
 		// TEMPERATE
-		register(context, RegisterWorldgen.BIRCH_TAIGA, RegisterWorldgen.birchTaiga(context, false));
-		register(context, RegisterWorldgen.SEMI_BIRCH_FOREST, RegisterWorldgen.semiBirchForest(context));
-		register(context, RegisterWorldgen.DARK_BIRCH_FOREST, RegisterWorldgen.darkBirchForest(context));
-		register(context, RegisterWorldgen.FLOWER_FIELD, RegisterWorldgen.flowerField(context));
-		register(context, RegisterWorldgen.TEMPERATE_RAINFOREST, RegisterWorldgen.temperateRainforest(context));
-		register(context, RegisterWorldgen.RAINFOREST, RegisterWorldgen.rainforest(context));
-		register(context, RegisterWorldgen.DARK_TAIGA, RegisterWorldgen.darkTaiga(context));
+		register(context, BIRCH_TAIGA, birchTaiga(context, false));
+		register(context, SEMI_BIRCH_FOREST, semiBirchForest(context));
+		register(context, DARK_BIRCH_FOREST, darkBirchForest(context));
+		register(context, FLOWER_FIELD, flowerField(context));
+		register(context, TEMPERATE_RAINFOREST, temperateRainforest(context));
+		register(context, RAINFOREST, rainforest(context));
+		register(context, DARK_TAIGA, darkTaiga(context));
 		// OLD GROWTH
-		register(context, RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA, RegisterWorldgen.birchTaiga(context, true));
-		register(context, RegisterWorldgen.OLD_GROWTH_DARK_FOREST, RegisterWorldgen.oldGrowthDarkForest(context));
-		register(context, RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA, oldGrowthSnowyTaiga(context));
+		register(context, OLD_GROWTH_BIRCH_TAIGA, birchTaiga(context, true));
+		register(context, OLD_GROWTH_DARK_FOREST, oldGrowthDarkForest(context));
+		register(context, SNOWY_OLD_GROWTH_PINE_TAIGA, oldGrowthSnowyTaiga(context));
 	}
 
 	@NotNull
@@ -120,7 +120,6 @@ public final class RegisterWorldgen {
 		return ResourceKey.create(Registries.BIOME, WilderSharedConstants.id(name));
 	}
 
-	@NotNull
 	private static void register(@NotNull BootstapContext<Biome> entries, @NotNull ResourceKey<Biome> key, @NotNull Biome biome) {
 		WilderSharedConstants.log("Registering biome " + key.location(), true);
 		entries.register(key, biome);

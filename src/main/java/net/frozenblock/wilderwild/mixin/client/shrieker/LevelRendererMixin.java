@@ -44,19 +44,18 @@ public class LevelRendererMixin {
 
 	@ModifyExpressionValue(method = "levelEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;getValue(Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/lang/Comparable;", ordinal = 0), require = 0)
 	private Comparable<Boolean> shriekerGargle(Comparable<Boolean> original, int eventId, BlockPos pos, int data) {
-		if (BlockConfig.get().shriekerGargling) {
+		if (this.level != null && BlockConfig.get().shriekerGargling) {
 			if (original.compareTo(true) == 0 || this.level.getFluidState(pos.above()).is(FluidTags.WATER)) {
-				this.level
-					.playLocalSound(
-						(double) pos.getX() + 0.5D,
-						(double) pos.getY() + SculkShriekerBlock.TOP_Y,
-						(double) pos.getZ() + 0.5D,
-						RegisterSounds.BLOCK_SCULK_SHRIEKER_GARGLE,
-						SoundSource.BLOCKS,
-						2.0F,
-						0.6F + this.level.random.nextFloat() * 0.4F,
-						false
-					);
+				this.level.playLocalSound(
+					(double) pos.getX() + 0.5D,
+					(double) pos.getY() + SculkShriekerBlock.TOP_Y,
+					(double) pos.getZ() + 0.5D,
+					RegisterSounds.BLOCK_SCULK_SHRIEKER_GARGLE,
+					SoundSource.BLOCKS,
+					2.0F,
+					0.6F + this.level.random.nextFloat() * 0.4F,
+					false
+				);
 			}
 		}
 		return original;

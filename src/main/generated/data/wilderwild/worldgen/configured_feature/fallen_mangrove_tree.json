@@ -4,14 +4,14 @@
     "decorators": [
       {
         "type": "wilderwild:height_based_vine_tree_decorator",
-        "chanceToDecorate": 0.12,
-        "maxHeight": 260,
-        "vinePlaceChance": 0.25
+        "max_height": 260,
+        "placement_chance": 0.25,
+        "probability": 0.12
       },
       {
         "type": "wilderwild:moss_carpet_tree_decorator",
-        "chanceToDecorate": 1.0,
-        "mossPlaceChance": 0.3
+        "placement_chance": 0.3,
+        "probability": 1.0
       }
     ],
     "dirt_provider": {
@@ -48,9 +48,10 @@
     "trunk_placer": {
       "type": "wilderwild:fallen_trunk_logs_placer",
       "base_height": 4,
+      "branch_chance": 0.0,
       "height_rand_a": 2,
       "height_rand_b": 1,
-      "hollow_chance": 0.1,
+      "hollowed_log_chance": 0.1,
       "hollowed_state": {
         "type": "minecraft:simple_state_provider",
         "state": {
@@ -62,8 +63,7 @@
           }
         }
       },
-      "max_logs": 1,
-      "place_branch_chance": 0.0,
+      "max_branch_count": 1,
       "success_in_water_chance": 0.8
     },
     "trunk_provider": {

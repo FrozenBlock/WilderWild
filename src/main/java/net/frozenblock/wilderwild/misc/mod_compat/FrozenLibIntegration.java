@@ -18,12 +18,17 @@
 
 package net.frozenblock.wilderwild.misc.mod_compat;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.frozenblock.lib.FrozenBools;
+import net.frozenblock.lib.advancement.api.AdvancementAPI;
+import net.frozenblock.lib.advancement.api.AdvancementEvents;
 import net.frozenblock.lib.block.api.dripstone.DripstoneDripWaterFrom;
+import net.frozenblock.lib.block.api.dripstone.DripstoneUtils;
 import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.lib.item.api.RemoveableItemTags;
 import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.addBlock;
@@ -36,6 +41,7 @@ import net.frozenblock.lib.tick.api.BlockScheduledTicks;
 import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.config.BlockConfig;
+import net.frozenblock.wilderwild.config.MiscConfig;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.wind.WilderClientWindManager;
@@ -44,12 +50,34 @@ import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes;
 import static net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes.*;
 import static net.frozenblock.wilderwild.registry.RegisterBlocks.*;
+import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.frozenblock.wilderwild.registry.RegisterItems;
+import net.frozenblock.wilderwild.registry.RegisterMobEffects;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
+import net.frozenblock.wilderwild.registry.RegisterWorldgen;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementRequirements;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.Criterion;
+import net.minecraft.advancements.critereon.BredAnimalsTrigger;
+import net.minecraft.advancements.critereon.ConsumeItemTrigger;
+import net.minecraft.advancements.critereon.EffectsChangedTrigger;
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.FilledBucketTrigger;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.LocationPredicate;
+import net.minecraft.advancements.critereon.MobEffectsPredicate;
+import net.minecraft.advancements.critereon.PlayerTrigger;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.item.InstrumentItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import static net.minecraft.world.level.block.Blocks.CLAY;
@@ -59,35 +87,46 @@ import static net.minecraft.world.level.block.Blocks.ICE;
 import static net.minecraft.world.level.block.Blocks.SANDSTONE;
 import static net.minecraft.world.level.block.Blocks.*;
 import net.minecraft.world.level.block.LevelEvent;
-import net.minecraft.world.level.block.PointedDripstoneBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
+import org.jetbrains.annotations.NotNull;
 
 public class FrozenLibIntegration extends ModIntegration {
+
 	public FrozenLibIntegration() {
 		super("frozenlib");
 	}
 
-	public static Fluid getDripstoneFluid(ServerLevel level, BlockPos pos) {
-		BlockPos blockPos = PointedDripstoneBlock.findStalactiteTipAboveCauldron(level, pos);
-		if (blockPos == null) {
-			return Fluids.EMPTY;
-		}
-		return PointedDripstoneBlock.getCauldronFillFluidType(level, blockPos);
-	}
-
 	@Override
-	public void init() {
-		WilderSharedConstants.log("FrozenLib mod integration ran!", WilderSharedConstants.UNSTABLE_LOGGING);
+	public void initPreFreeze() {
+		WilderSharedConstants.log("FrozenLib pre-freeze mod integration ran!", WilderSharedConstants.UNSTABLE_LOGGING);
 		SpottingIconPredicate.register(WilderSharedConstants.id("stella"), entity -> entity.hasCustomName() && entity.getCustomName().getString().equalsIgnoreCase("stella"));
-		SoundPredicate.register(WilderSharedConstants.id("instrument"), (SoundPredicate.LoopPredicate<LivingEntity>) entity ->
-			(entity.getUseItem().getItem() instanceof InstrumentItem)
-		);
+		SoundPredicate.register(WilderSharedConstants.id("instrument"), new SoundPredicate.LoopPredicate<LivingEntity>() {
+
+			private boolean firstCheck = true;
+
+			@Override
+			public Boolean firstTickTest(LivingEntity entity) {
+				return true;
+			}
+
+			@Override
+			public boolean test(LivingEntity entity) {
+				if (firstCheck) {
+					firstCheck = false;
+					InteractionHand hand = !entity.getItemInHand(InteractionHand.MAIN_HAND).isEmpty() ? InteractionHand.MAIN_HAND : !entity.getItemInHand(InteractionHand.OFF_HAND).isEmpty() ? InteractionHand.OFF_HAND : null;
+					if (hand == null) return false;
+
+					ItemStack stack = entity.getItemInHand(hand);
+					return stack.getItem() instanceof InstrumentItem;
+				}
+				return entity.getUseItem().getItem() instanceof InstrumentItem;
+			}
+		});
 		SoundPredicate.register(WilderSharedConstants.id("nectar"), (SoundPredicate.LoopPredicate<Firefly>) entity ->
-			!entity.isSilent() && entity.hasCustomName() && Objects.requireNonNull(entity.getCustomName()).getString().toLowerCase().contains("nectar")
+				!entity.isSilent() && entity.hasCustomName() && Objects.requireNonNull(entity.getCustomName()).getString().toLowerCase().contains("nectar")
 		);
 		SoundPredicate.register(WilderSharedConstants.id("enderman_anger"), (SoundPredicate.LoopPredicate<EnderMan>) entity -> {
 			if (entity.isSilent() || entity.isRemoved() || entity.isDeadOrDying()) {
@@ -95,6 +134,11 @@ public class FrozenLibIntegration extends ModIntegration {
 			}
 			return entity.isCreepy() || entity.hasBeenStaredAt();
 		});
+	}
+
+	@Override
+	public void init() {
+		WilderSharedConstants.log("FrozenLib mod integration ran!", WilderSharedConstants.UNSTABLE_LOGGING);
 
 		ServerWorldEvents.LOAD.register((server, level) -> PlayerDamageSourceSounds.addDamageSound(level.damageSources().cactus(), RegisterSounds.PLAYER_HURT_CACTUS, WilderSharedConstants.id("cactus")));
 
@@ -115,7 +159,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			level.levelEvent(LevelEvent.DRIPSTONE_DRIP, blockPos, 0);
 		});
 		BlockScheduledTicks.TICKS.put(Blocks.DIRT, (blockState, serverLevel, blockPos, randomSource) -> {
-			if (getDripstoneFluid(serverLevel, blockPos) == Fluids.WATER) {
+			if (DripstoneUtils.getDripstoneFluid(serverLevel, blockPos) == Fluids.WATER) {
 				serverLevel.setBlock(blockPos, Blocks.MUD.defaultBlockState(), 3);
 			}
 		});
@@ -142,6 +186,115 @@ public class FrozenLibIntegration extends ModIntegration {
 		addBlocks(new Block[]{SANDSTONE, SANDSTONE_SLAB, SANDSTONE_STAIRS, SANDSTONE_WALL, CHISELED_SANDSTONE, CUT_SANDSTONE, SMOOTH_SANDSTONE, SMOOTH_SANDSTONE_SLAB, SMOOTH_SANDSTONE_STAIRS, RED_SANDSTONE, RED_SANDSTONE_SLAB, RED_SANDSTONE_STAIRS, RED_SANDSTONE_WALL, CHISELED_RED_SANDSTONE, CUT_RED_SANDSTONE, SMOOTH_RED_SANDSTONE, SMOOTH_RED_SANDSTONE_SLAB, SMOOTH_RED_SANDSTONE_STAIRS}, RegisterBlockSoundTypes.SANDSTONE, () -> BlockConfig.get().blockSounds.sandstoneSounds);
 		addBlock(SUGAR_CANE, SUGARCANE, () -> BlockConfig.get().blockSounds.sugarCaneSounds);
 		addBlock(WITHER_ROSE, SoundType.SWEET_BERRY_BUSH, () -> BlockConfig.get().blockSounds.witherRoseSounds);
+
+		AdvancementEvents.INIT.register(holder -> {
+			Advancement advancement = holder.value();
+			if (MiscConfig.get().modifyAdvancements) {
+				switch (holder.id().toString()) {
+					case "minecraft:adventure/adventuring_time" -> {
+						addBiomeRequirement(advancement, RegisterWorldgen.CYPRESS_WETLANDS);
+						addBiomeRequirement(advancement, RegisterWorldgen.MIXED_FOREST);
+						addBiomeRequirement(advancement, RegisterWorldgen.OASIS);
+						addBiomeRequirement(advancement, RegisterWorldgen.WARM_RIVER);
+						addBiomeRequirement(advancement, RegisterWorldgen.WARM_BEACH);
+						addBiomeRequirement(advancement, RegisterWorldgen.JELLYFISH_CAVES);
+						addBiomeRequirement(advancement, RegisterWorldgen.ARID_FOREST);
+						addBiomeRequirement(advancement, RegisterWorldgen.ARID_SAVANNA);
+						addBiomeRequirement(advancement, RegisterWorldgen.PARCHED_FOREST);
+						addBiomeRequirement(advancement, RegisterWorldgen.BIRCH_JUNGLE);
+						addBiomeRequirement(advancement, RegisterWorldgen.SPARSE_BIRCH_JUNGLE);
+						addBiomeRequirement(advancement, RegisterWorldgen.BIRCH_TAIGA);
+						addBiomeRequirement(advancement, RegisterWorldgen.SEMI_BIRCH_FOREST);
+						addBiomeRequirement(advancement, RegisterWorldgen.DARK_BIRCH_FOREST);
+						addBiomeRequirement(advancement, RegisterWorldgen.FLOWER_FIELD);
+						addBiomeRequirement(advancement, RegisterWorldgen.TEMPERATE_RAINFOREST);
+						addBiomeRequirement(advancement, RegisterWorldgen.RAINFOREST);
+						addBiomeRequirement(advancement, RegisterWorldgen.DARK_TAIGA);
+						addBiomeRequirement(advancement, RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA);
+						addBiomeRequirement(advancement, RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
+						addBiomeRequirement(advancement, RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
+					}
+					case "minecraft:husbandry/balanced_diet" -> {
+						AdvancementAPI.addCriteria(advancement, "wilderwild:baobab_nut", CriteriaTriggers.CONSUME_ITEM.createCriterion(
+							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.BAOBAB_NUT).triggerInstance())
+						);
+						AdvancementAPI.addCriteria(advancement, "wilderwild:split_coconut", CriteriaTriggers.CONSUME_ITEM.createCriterion(
+							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.SPLIT_COCONUT).triggerInstance())
+						);
+						AdvancementAPI.addCriteria(advancement, "wilderwild:crab_claw", CriteriaTriggers.CONSUME_ITEM.createCriterion(
+							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.CRAB_CLAW).triggerInstance())
+						);
+						AdvancementAPI.addCriteria(advancement, "wilderwild:cooked_crab_claw", CriteriaTriggers.CONSUME_ITEM.createCriterion(
+							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.COOKED_CRAB_CLAW).triggerInstance())
+						);
+						AdvancementAPI.addCriteria(advancement, "wilderwild:prickly_pear", CriteriaTriggers.CONSUME_ITEM.createCriterion(
+							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.PRICKLY_PEAR).triggerInstance())
+						);
+						AdvancementAPI.addCriteria(advancement, "wilderwild:peeled_prickly_pear", CriteriaTriggers.CONSUME_ITEM.createCriterion(
+							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.PEELED_PRICKLY_PEAR).triggerInstance())
+						);
+						AdvancementAPI.addRequirements(advancement,
+							new AdvancementRequirements(new String[][]{{
+								"wilderwild:baobab_nut",
+								"wilderwild:split_coconut",
+								"wilderwild:crab_claw",
+								"wilderwild:cooked_crab_claw",
+								"wilderwild:prickly_pear",
+								"wilderwild:peeled_prickly_pear"
+							}})
+						);
+					}
+					case "minecraft:husbandry/bred_all_animals" -> {
+						AdvancementAPI.addCriteria(advancement, "wilderwild:crab", CriteriaTriggers.BRED_ANIMALS.createCriterion(
+							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(RegisterEntities.CRAB)).triggerInstance())
+						);
+						AdvancementAPI.addRequirements(advancement, new
+								AdvancementRequirements(new String[][]{{
+								"wilderwild:crab"
+							}})
+						);
+					}
+					case "minecraft:husbandry/tactical_fishing" -> {
+						AdvancementAPI.addCriteria(advancement, "wilderwild:crab_bucket", CriteriaTriggers.FILLED_BUCKET.createCriterion(
+							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(RegisterItems.CRAB_BUCKET)).triggerInstance())
+						);
+						AdvancementAPI.addCriteria(advancement, "wilderwild:jellyfish_bucket", CriteriaTriggers.FILLED_BUCKET.createCriterion(
+							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(RegisterItems.JELLYFISH_BUCKET)).triggerInstance())
+						);
+						AdvancementAPI.addRequirements(advancement, new
+								AdvancementRequirements(new String[][]{{
+								"wilderwild:crab_bucket",
+								"wilderwild:jellyfish_bucket"
+							}})
+						);
+					}
+					case "minecraft:nether/all_potions", "minecraft:nether/all_effects" -> {
+                        Criterion<EffectsChangedTrigger.TriggerInstance> criterion = (Criterion<EffectsChangedTrigger.TriggerInstance>) advancement.criteria().get("all_effects");
+						MobEffectsPredicate predicate = criterion.triggerInstance().effects.orElseThrow();
+						Map<Holder<MobEffect>, MobEffectsPredicate.MobEffectInstancePredicate> map = new HashMap<>(predicate.effectMap);
+						map.put(
+							BuiltInRegistries.MOB_EFFECT.getHolderOrThrow(
+								BuiltInRegistries.MOB_EFFECT.getResourceKey(RegisterMobEffects.REACH).orElseThrow()
+							),
+							new MobEffectsPredicate.MobEffectInstancePredicate()
+						);
+						predicate.effectMap = map;
+                    }
+					default -> {}
+				}
+
+			}
+		});
+	}
+
+	private static void addBiomeRequirement(@NotNull Advancement advancement, @NotNull ResourceKey<Biome> key) {
+		AdvancementAPI.addCriteria(advancement, key.location().toString(), inBiome(key));
+		AdvancementAPI.addRequirements(advancement, new AdvancementRequirements(new String[][]{{key.location().toString()}}));
+	}
+
+	@NotNull
+	private static Criterion<PlayerTrigger.TriggerInstance> inBiome(ResourceKey<Biome> key) {
+		return PlayerTrigger.TriggerInstance.located(LocationPredicate.Builder.inBiome(key));
 	}
 
 	@Environment(EnvType.CLIENT)

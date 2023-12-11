@@ -44,6 +44,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.item.ItemStack;
@@ -158,6 +159,9 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		Vec3 newVec = new Vec3(0.5 + (0.15 - random.nextDouble() * 0.3), 0, 0.5 + (0.15 - random.nextDouble() * 0.3));
 		var firefly = new FireflyInLantern(newVec, bottle.color, name, random.nextDouble() > 0.7, random.nextInt(20), 0);
 		this.fireflies.add(firefly);
+		if (this.level != null) {
+			this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
+		}
 	}
 
 	public void removeFirefly(@NotNull FireflyInLantern firefly) {
@@ -196,6 +200,16 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 				}
 			}
 		}
+	}
+
+	public int getComparatorOutput() {
+		if (!this.invEmpty()) {
+			return 15;
+		}
+		if (!this.noFireflies()) {
+			return Mth.clamp(this.getFireflies().size() * 4, 0, 15);
+		}
+		return 0;
 	}
 
 	public static class FireflyInLantern {

@@ -18,13 +18,7 @@
 
 package net.frozenblock.wilderwild.misc.interfaces;
 
-import net.minecraft.world.phys.Vec3;
-
 public interface WilderSonicBoom {
-
-	Vec3 wilderWild$particlePos();
-
-	void wilderWild$setParticlePos(Vec3 pos);
 
 	boolean wilderWild$particlesEnded();
 

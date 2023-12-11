@@ -33,16 +33,16 @@ import org.jetbrains.annotations.NotNull;
 
 public class MossCarpetTreeDecorator extends TreeDecorator {
 	public static final Codec<MossCarpetTreeDecorator> CODEC = RecordCodecBuilder.create((instance) ->
-		instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("chanceToDecorate").forGetter((treeDecorator) -> treeDecorator.chanceToDecorate),
-			Codec.floatRange(0.0F, 1.0F).fieldOf("mossPlaceChance").forGetter((treeDecorator) -> treeDecorator.mossPlaceChance)
+		instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter((treeDecorator) -> treeDecorator.probability),
+			Codec.floatRange(0.0F, 1.0F).fieldOf("placement_chance").forGetter((treeDecorator) -> treeDecorator.placementChance)
 		).apply(instance, MossCarpetTreeDecorator::new));
 
-	private final float chanceToDecorate;
-	private final float mossPlaceChance;
+	private final float probability;
+	private final float placementChance;
 
-	public MossCarpetTreeDecorator(float chanceToDecorate, float mossPlaceChance) {
-		this.chanceToDecorate = chanceToDecorate;
-		this.mossPlaceChance = mossPlaceChance;
+	public MossCarpetTreeDecorator(float probability, float placementChance) {
+		this.probability = probability;
+		this.placementChance = placementChance;
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class MossCarpetTreeDecorator extends TreeDecorator {
 	@Override
 	public void place(@NotNull Context generator) {
 		RandomSource random = generator.random();
-		if (random.nextFloat() <= this.chanceToDecorate) {
+		if (random.nextFloat() <= this.probability) {
 			ObjectArrayList<BlockPos> poses = new ObjectArrayList<>(generator.logs());
 			poses.addAll(generator.leaves());
 			Util.shuffle(poses, random);
@@ -63,7 +63,7 @@ public class MossCarpetTreeDecorator extends TreeDecorator {
 			for (BlockPos pos : poses) {
 				mutableBlockPos.set(pos).move(Direction.UP);
 				if (generator.isAir(mutableBlockPos)) {
-					if (random.nextFloat() <= this.mossPlaceChance) {
+					if (random.nextFloat() <= this.placementChance) {
 						generator.setBlock(mutableBlockPos, mossState);
 					}
 				}

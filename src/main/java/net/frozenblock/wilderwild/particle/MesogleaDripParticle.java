@@ -113,14 +113,19 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 		float f = (float) (Mth.lerp(partialTicks, this.xo, this.x) - vec3.x());
 		float g = (float) (Mth.lerp(partialTicks, this.yo, this.y) - vec3.y());
 		float h = (float) (Mth.lerp(partialTicks, this.zo, this.z) - vec3.z());
-		this.rotation.set(0.0f, 0.0f, 0.0f, 1.0f);
+		this.rotation.set(0F, 0F, 0F, 1F);
 		this.rotation.mul(Axis.YP.rotationDegrees(-renderInfo.getYRot()));
 		this.rotation.mul(Axis.XP.rotationDegrees(renderInfo.getXRot() * (Mth.lerp(partialTicks, this.prevXRotMultiplier, this.xRotMultiplier))));
 		if (this.roll != 0.0f) {
 			float i = Mth.lerp(partialTicks, this.oRoll, this.roll);
 			this.rotation.mul(Axis.ZP.rotation(i));
 		}
-		Vector3f[] vector3fs = new Vector3f[]{new Vector3f(-1.0f, -1.0f, 0.0f), new Vector3f(-1.0f, 1.0f, 0.0f), new Vector3f(1.0f, 1.0f, 0.0f), new Vector3f(1.0f, -1.0f, 0.0f)};
+		Vector3f[] vector3fs = new Vector3f[]{
+			new Vector3f(-1F, -1F, 0F),
+			new Vector3f(-1F, 1F, 0F),
+			new Vector3f(1F, 1F, 0F),
+			new Vector3f(1F, -1F, 0F)
+		};
 		float j = this.getQuadSize(partialTicks);
 		for (int k = 0; k < 4; ++k) {
 			Vector3f vector3f2 = vector3fs[k];
@@ -523,10 +528,10 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 		protected void postMoveUpdate() {
 			if (this.onGround) {
 				this.remove();
-				this.level.addParticle(this.landParticle, this.x, this.y, this.z, 0.0, 0.0, 0.0);
+				this.level.addParticle(this.landParticle, this.x, this.y, this.z, 0D, 0D, 0D);
 				SoundEvent soundEvent = RegisterSounds.PARTICLE_MESOGLEA_DRIP_LAND;
-				float f = Mth.randomBetween(this.random, 0.3F, 1.0F);
-				this.level.playLocalSound(this.x, this.y, this.z, soundEvent, SoundSource.BLOCKS, f, 1.0F, false);
+				float f = Mth.randomBetween(this.random, 0.3F, 1F);
+				this.level.playLocalSound(this.x, this.y, this.z, soundEvent, SoundSource.BLOCKS, f, 1F, false);
 			}
 		}
 	}
@@ -537,7 +542,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 		private final SpriteSet spriteSet;
 
 		DripHangParticle(@NotNull ClientLevel clientLevel, double d, double e, double f, ParticleOptions particleOptions, SpriteSet spriteSet) {
-			super(clientLevel, d, e - 0.1, f);
+			super(clientLevel, d, e - 0.1D, f);
 			this.fallingParticle = particleOptions;
 			this.gravity *= 0.00F;
 			this.lifetime = 40;
@@ -557,7 +562,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 		@Override
 		protected void postMoveUpdate() {
 			if (!this.removed) {
-				this.setSprite(spriteSet.get((int) (this.age * 0.2) + 1, (int) (this.lifetime * 0.2) + 1));
+				this.setSprite(spriteSet.get((int) (this.age * 0.2D) + 1, (int) (this.lifetime * 0.2D) + 1));
 			}
 		}
 	}

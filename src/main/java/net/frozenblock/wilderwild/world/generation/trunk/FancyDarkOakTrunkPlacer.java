@@ -41,17 +41,24 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import org.jetbrains.annotations.NotNull;
 
 public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
-	public static final Codec<FancyDarkOakTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) -> trunkPlacerParts(instance).and(instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("place_branch_chance").forGetter((trunkPlacer) -> trunkPlacer.logChance), IntProvider.NON_NEGATIVE_CODEC.fieldOf("max_logs").forGetter((trunkPlacer) -> trunkPlacer.maxLogs), IntProvider.NON_NEGATIVE_CODEC.fieldOf("extra_branch_length").forGetter((trunkPlacer) -> trunkPlacer.extraBranchLength))).apply(instance, FancyDarkOakTrunkPlacer::new));
+	public static final Codec<FancyDarkOakTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) ->
+		trunkPlacerParts(instance)
+			.and(
+				instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("branch_chance").forGetter((trunkPlacer) -> trunkPlacer.branchChance),
+					IntProvider.NON_NEGATIVE_CODEC.fieldOf("max_branch_count").forGetter((trunkPlacer) -> trunkPlacer.maxLogCount),
+					IntProvider.NON_NEGATIVE_CODEC.fieldOf("branch_length").forGetter((trunkPlacer) -> trunkPlacer.branchLength)
+				)
+			).apply(instance, FancyDarkOakTrunkPlacer::new));
 
-	private final IntProvider extraBranchLength;
-	private final float logChance;
-	private final IntProvider maxLogs;
+	private final float branchChance;
+	private final IntProvider maxLogCount;
+	private final IntProvider branchLength;
 
-	public FancyDarkOakTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight, float logChance, @NotNull IntProvider maxLogs, @NotNull IntProvider extraBranchLength) {
+	public FancyDarkOakTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight, float branchChance, @NotNull IntProvider maxLogCount, @NotNull IntProvider branchLength) {
 		super(baseHeight, firstRandomHeight, secondRandomHeight);
-		this.logChance = logChance;
-		this.maxLogs = maxLogs;
-		this.extraBranchLength = extraBranchLength;
+		this.branchChance = branchChance;
+		this.maxLogCount = maxLogCount;
+		this.branchLength = branchLength;
 	}
 
 	@Override
@@ -72,7 +79,7 @@ public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
 		DarkOakTrunkPlacer.setDirtAt(level, blockSetter, random, blockPos.south(), config);
 		DarkOakTrunkPlacer.setDirtAt(level, blockSetter, random, blockPos.south().east(), config);
 		Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-		int maxLogs = this.maxLogs.sample(random);
+		int maxLogs = this.maxLogCount.sample(random);
 		int extraLogs = 0;
 		int i = freeTreeHeight - random.nextInt(4);
 		int j = 2 - random.nextInt(3);
@@ -94,9 +101,9 @@ public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
 			boolean placedEast = this.placeLog(level, blockSetter, random, blockPos2.east(), config);
 			boolean placedSouth = this.placeLog(level, blockSetter, random, blockPos2.south(), config);
 			boolean placedSouthEast = this.placeLog(level, blockSetter, random, blockPos2.east().south(), config);
-			if (extraLogs < maxLogs && random.nextFloat() < this.logChance && (q * 3) > freeTreeHeight) {
+			if (extraLogs < maxLogs && random.nextFloat() < this.branchChance && (q * 3) > freeTreeHeight) {
 				Direction chosenRandomDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-				int length = this.extraBranchLength.sample(random);
+				int length = this.branchLength.sample(random);
 				BlockPos.MutableBlockPos extraPos = blockPos2.mutable();
 				ArrayList<BlockPos> possiblePoses = new ArrayList<>();
 				if (chosenRandomDirection == Direction.NORTH) {

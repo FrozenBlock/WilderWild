@@ -1,7 +1,17 @@
 {
   "type": "frozenlib:noise_path_swap_under_water_feature",
   "config": {
-    "block": {
+    "is_3d": false,
+    "max_threshold": 1.0,
+    "min_threshold": 0.4,
+    "noise": 4,
+    "noise_scale": 0.15,
+    "only_place_when_exposed": false,
+    "placement_chance": 0.8,
+    "radius": 11,
+    "replaceable_blocks": "#wilderwild:oasis_path_replaceable",
+    "scale_y": false,
+    "state": {
       "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "minecraft:grass_block",
@@ -10,22 +20,12 @@
         }
       }
     },
-    "chance": 0.8,
-    "is3D": false,
-    "maxThresh": 1.0,
-    "minThresh": 0.4,
-    "multiplier": 0.15,
-    "multiplyY": false,
-    "noise": 4,
-    "onlyExposed": false,
-    "radius": 11,
-    "replaceable": "#wilderwild:oasis_path_replaceable",
-    "useY": false,
-    "waterPathBlock": {
+    "under_water_state": {
       "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "minecraft:dirt"
       }
-    }
+    },
+    "use_y": false
   }
 }

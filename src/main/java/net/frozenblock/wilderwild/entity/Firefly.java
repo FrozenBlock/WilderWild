@@ -113,7 +113,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 16.0F);
 		this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
 		this.moveControl = new FlyingMoveControl(this, 20, true);
-		this.setFlickers(level.random.nextInt(5) == 0);
+		this.setFlickers(level.random.nextInt(4) == 0);
 		this.setFlickerAge(level.random.nextIntBetweenInclusive(0, 19));
 		this.setScale(1.5F);
 		this.setColor(FireflyColor.ON);
@@ -515,25 +515,43 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 	@Override
 	public void readAdditionalSaveData(@NotNull CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
-		this.setFromBottle(compound.getBoolean("fromBottle"));
-		this.natural = compound.getBoolean("natural");
-		this.setFlickers(compound.getBoolean("flickers"));
-		this.setFlickerAge(compound.getInt("flickerAge"));
-		this.hasHome = compound.getBoolean("hasHome");
+		if (compound.contains("fromBottle")) {
+			this.setFromBottle(compound.getBoolean("fromBottle"));
+		}
+		if (compound.contains("natural")) {
+			this.natural = compound.getBoolean("natural");
+		}
+		if (compound.contains("flickers")) {
+			this.setFlickers(compound.getBoolean("flickers"));
+		}
+		if (compound.contains("flickerAge")) {
+			this.setFlickerAge(compound.getInt("flickerAge"));
+		}
+		if (compound.contains("hasHome")) {
+			this.hasHome = compound.getBoolean("hasHome");
+		}
 		if (compound.contains("scale")) {
 			this.setScale(compound.getFloat("scale"));
 		}
 		if (compound.contains("prevScale")) {
 			this.setPrevScale(compound.getFloat("prevScale"));
 		}
-		this.despawning = compound.getBoolean("despawning");
+		if (compound.contains("despawning")) {
+			this.despawning = compound.getBoolean("despawning");
+		}
 		FireflyColor color = WilderRegistry.FIREFLY_COLOR.get(ResourceLocation.tryParse(compound.getString("color")));
 		if (color != null) {
 			this.setColor(color);
 		}
-		this.homeCheckCooldown = compound.getInt("homeCheckCooldown");
-		this.wasNamedNectar = compound.getBoolean("wasNamedNectar");
-		this.shouldCheckSpawn = compound.getBoolean("shouldCheckSpawn");
+		if (compound.contains("homeCheckCooldown")) {
+			this.homeCheckCooldown = compound.getInt("homeCheckCooldown");
+		}
+		if (compound.contains("wasNamedNectar")) {
+			this.wasNamedNectar = compound.getBoolean("wasNamedNectar");
+		}
+		if (compound.contains("shouldCheckSpawn")) {
+			this.shouldCheckSpawn = compound.getBoolean("shouldCheckSpawn");
+		}
 	}
 
 	@Override

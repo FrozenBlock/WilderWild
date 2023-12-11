@@ -1,34 +1,7 @@
 {
-  "type": "minecraft:tree",
+  "type": "wilderwild:palm_tree",
   "config": {
-    "decorators": [
-      {
-        "type": "wilderwild:leaves_around_top_decorator",
-        "blockProvider": {
-          "type": "minecraft:randomized_int_state_provider",
-          "property": "age",
-          "source": {
-            "type": "minecraft:simple_state_provider",
-            "state": {
-              "Name": "wilderwild:coconut",
-              "Properties": {
-                "age": "0",
-                "hanging": "true",
-                "stage": "0"
-              }
-            }
-          },
-          "values": 0
-        },
-        "directions": [
-          "down"
-        ],
-        "exclusionRadiusXZ": 0,
-        "exclusionRadiusY": 0,
-        "probability": 0.25,
-        "requiredEmptyBlocks": 4
-      }
-    ],
+    "decorators": [],
     "dirt_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
@@ -37,7 +10,17 @@
     },
     "foliage_placer": {
       "type": "wilderwild:palm_foliage_placer",
-      "fronds": {
+      "crown_state": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "wilderwild:palm_crown",
+          "Properties": {
+            "axis": "y",
+            "termite_edible": "true"
+          }
+        }
+      },
+      "frond_count": {
         "type": "minecraft:uniform",
         "value": {
           "max_inclusive": 9,
@@ -58,7 +41,7 @@
       "state": {
         "Name": "wilderwild:palm_fronds",
         "Properties": {
-          "distance": "7",
+          "distance": "12",
           "persistent": "false",
           "waterlogged": "false"
         }

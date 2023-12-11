@@ -37,4 +37,5 @@ public class SporeBlossomAirProviderMixin {
 			suspendedParticle.wilderWild$setUsesWind(true);
 		}
 	}
+
 }

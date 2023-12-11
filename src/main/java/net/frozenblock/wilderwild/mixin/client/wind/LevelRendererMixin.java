@@ -36,4 +36,5 @@ public class LevelRendererMixin {
 			dripParticle.wilderWild$setUsesWind(true);
 		}
 	}
+
 }

@@ -17,6 +17,10 @@ buildscript {
     }
     dependencies {
         classpath("org.kohsuke:github-api:+")
+
+        // remove these 2 to get normal fabric loom versions
+        //classpath(files("libs/fabric-loom-1.5.local.jar"))
+        //classpath("net.fabricmc:mapping-io:+")
     }
 }
 
@@ -40,6 +44,7 @@ val loader_version: String by project
 
 val mod_id: String by project
 val mod_version: String by project
+val protocol_version: String by project
 val mod_loader: String by project
 val maven_group: String by project
 val archives_base_name: String by project
@@ -59,24 +64,8 @@ val terralith_version: String by project
 val fallingleaves_version: String by project
 
 val sodium_version: String by project
-val iris_version: String by project
-val indium_version: String by project
-val sodium_extra_version: String by project
-val reeses_sodium_options_version: String by project
-val lithium_version: String by project
-val fastanim_version: String by project
-val ferritecore_version: String by project
-val lazydfu_version: String by project
-val starlight_version: String by project
-val entityculling_version: String by project
-val memoryleakfix_version: String by project
-val no_unused_chunks_version: String by project
-val exordium_version: String by project
-val entity_collision_fps_fix_version: String by project
-val cull_less_leaves_version: String by project
-val c2me_version: String by project
-val more_culling_version: String by project
-val smoothboot_version: String by project
+val run_sodium: String by project
+val shouldRunSodium = run_sodium == "true"
 
 base {
     archivesName.set(archives_base_name)
@@ -181,16 +170,6 @@ repositories {
             includeGroup("curse.maven")
         }
     }
-    /*maven {
-        name = "Siphalor's Maven"
-        url = uri("https://maven.siphalor.de")
-    }*/
-    /*maven {
-        url = uri("https://maven.flashyreese.me/releases")
-    }
-    maven {
-        url = uri("https://maven.flashyreese.me/snapshots")
-    }*/
     maven {
         url = uri("https://maven.minecraftforge.net/")
     }
@@ -200,6 +179,12 @@ repositories {
     maven {
         name = "Quilt"
         url = uri("https://maven.quiltmc.org/repository/release")
+    }
+    maven {
+        url = uri("https://maven.jamieswhiteshirt.com/libs-release")
+        content {
+            includeGroup("com.jamieswhiteshirt")
+        }
     }
 
     flatDir {
@@ -220,8 +205,6 @@ dependencies {
         }
     })
     modImplementation("net.fabricmc:fabric-loader:$loader_version")
-
-    // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation("net.fabricmc.fabric-api:fabric-api:$fabric_api_version")
 
     // FrozenLib
@@ -242,20 +225,23 @@ dependencies {
         exclude(group = "com.terraformersmc")
     }
 
+    // Reach Entity Attributes
+    modApi("com.jamieswhiteshirt:reach-entity-attributes:2.4.0")?.let { include(it) }
+
     // TerraBlender
     modCompileOnlyApi("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
-
-    // CaffeineConfig
-    //modImplementation("net.caffeinemc:mixin-config:1.0.0+1.17")?.let { include(it) }
 
     // Particle Rain
     modCompileOnly("maven.modrinth:particle-rain:v2.0.5")
 
     // MixinExtras
-    implementation("com.github.llamalad7.mixinextras:mixinextras-fabric:$mixin_extras_version")?.let { annotationProcessor(it); }
+    modApi("io.github.llamalad7:mixinextras-fabric:$mixin_extras_version")?.let { annotationProcessor(it) }
 
     // Sodium
-    modCompileOnly("maven.modrinth:sodium:${sodium_version}")
+    if (shouldRunSodium)
+        modImplementation("maven.modrinth:sodium:${sodium_version}")
+    else
+        modCompileOnly("maven.modrinth:sodium:${sodium_version}")
 
     // FallingLeaves
     modCompileOnly("maven.modrinth:fallingleaves:${fallingleaves_version}")
@@ -265,55 +251,19 @@ dependencies {
 
     // BetterNether
     modCompileOnly("maven.modrinth:betternether:${betternether_version}")
-/*
-    // only affects runClient, does not affect gradlew build.
-    // add -PuseThirdPartyMods=false to not use these
-    if (findProperty("useThirdPartyMods") != "false") {
-        modRuntimeOnly("maven.modrinth:ferrite-core:${ferritecore_version}")
-        modRuntimeOnly("maven.modrinth:lazydfu:${lazydfu_version}")
-        modRuntimeOnly("maven.modrinth:starlight:${starlight_version}")
-        modRuntimeOnly("maven.modrinth:lithium:${lithium_version}")
-        modRuntimeOnly("maven.modrinth:fastanim:${fastanim_version}")
-
-        modRuntimeOnly("maven.modrinth:entityculling:${entityculling_version}")
-        modRuntimeOnly("maven.modrinth:memoryleakfix:${memoryleakfix_version}")
-        modRuntimeOnly("maven.modrinth:no-unused-chunks:${no_unused_chunks_version}")
-        //modRuntimeOnly("maven.modrinth:exordium:${exordium_version}")
-        //modRuntimeOnly("maven.modrinth:entity-collision-fps-fix:${entity_collision_fps_fix_version}")
-        //modRuntimeOnly("maven.modrinth:cull-less-leaves:${cull_less_leaves_version}")
-        //modRuntimeOnly("maven.modrinth:c2me-fabric:${c2me_version}")
-        //modRuntimeOnly("maven.modrinth:moreculling:${more_culling_version}")
-        //modRuntimeOnly("maven.modrinth:smoothboot-fabric:${smoothboot_version}")
-    }
-
-    // only affects runClient, does not affect gradlew build.
-    // add -PuseExperimentalThirdParty=true to the gradle runClient
-    // command to use these
-    if (findProperty("useExperimentalThirdParty") == "true") {
-        modRuntimeOnly("maven.modrinth:terralith:${terralith_version}")
-        modRuntimeOnly("maven.modrinth:sodium:${sodium_version}")
-        modRuntimeOnly("org.joml:joml:1.10.4")
-        modRuntimeOnly("org.anarres:jcpp:1.4.14")
-        //modRuntimeOnly "maven.modrinth:iris:${iris_version}"
-        modRuntimeOnly("maven.modrinth:indium:${indium_version}")
-        modRuntimeOnly("me.flashyreese.mods:reeses-sodium-options:${reeses_sodium_options_version}") {
-            exclude(group = "net.coderbot.iris_mc1_19", module = "iris")
-        }
-        modRuntimeOnly("me.flashyreese.mods:sodium-extra-fabric:${sodium_extra_version}")
-        modRuntimeOnly("io.github.douira:glsl-transformer:0.27.0")
-    }*/
 }
 
 tasks {
     processResources {
-        val properties = HashMap<String, Any>()
-        properties["mod_id"] = mod_id
-        properties["version"] = version
-        properties["minecraft_version"] = "~1.20.3-"//"~$minecraft_version-"
+        val properties = mapOf(
+            "mod_id" to mod_id,
+            "version" to version,
+            "protocol_version" to protocol_version,
+            "minecraft_version" to minecraft_version,
 
-        properties["fabric_loader_version"] = ">=0.14.22"
-        properties["fabric_api_version"] = ">=$fabric_api_version"
-        properties["frozenlib_version"] = ">=${frozenlib_version.split('-')[0]}-"
+            "fabric_api_version" to ">=$fabric_api_version",
+            "frozenlib_version" to ">=${frozenlib_version.split('-').firstOrNull()}-"
+        )
 
         properties.forEach { (a, b) -> inputs.property(a, b) }
 
@@ -609,7 +559,9 @@ val github by tasks.register("github") {
     }
 }
 
+@Suppress("unreachable_code") // YOU CANT PUBLISH UNTIL YOU TEST ROUGHLY ENOUGH RESOURCES COMPAT
 val publishMod by tasks.register("publishMod") {
+    throw UnsupportedOperationException("YOU CANT PUBLISH UNTIL YOU TEST ROUGHLY ENOUGH RESOURCES COMPAT")
     dependsOn(tasks.publish)
     dependsOn(github)
     dependsOn(tasks.curseforge)

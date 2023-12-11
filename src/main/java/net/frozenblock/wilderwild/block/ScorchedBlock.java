@@ -21,9 +21,9 @@ package net.frozenblock.wilderwild.block;
 import com.mojang.serialization.MapCodec;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import java.util.Map;
+import net.frozenblock.lib.block.api.dripstone.DripstoneUtils;
 import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
 import net.frozenblock.wilderwild.block.entity.ScorchedBlockEntity;
-import net.frozenblock.wilderwild.misc.mod_compat.FrozenLibIntegration;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -148,7 +148,7 @@ public class ScorchedBlock extends BaseEntityBlock {
 
 	@Override
 	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		Fluid fluid = FrozenLibIntegration.getDripstoneFluid(level, pos);
+		Fluid fluid = DripstoneUtils.getDripstoneFluid(level, pos);
 		if (fluid == Fluids.LAVA) {
 			if (random.nextBoolean()) {
 				scorch(state, level, pos);

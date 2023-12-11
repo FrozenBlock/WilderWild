@@ -222,7 +222,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 		SculkSensorBlock.tryResonateVibration(entity, world, pos, j);
 		boolean tendrilsCarryEvents = BlockConfig.get().tendrilsCarryEvents;
 		world.gameEvent(tendrilsCarryEvents ? entity : null, VibrationSystem.getResonanceEventByFrequency(j), pos);
-		world.gameEvent(tendrilsCarryEvents ? entity : null, tendrilsCarryEvents ? gameEvent : GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
+		world.gameEvent(tendrilsCarryEvents ? entity : null, tendrilsCarryEvents && gameEvent != null ? gameEvent : GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
 		if (!state.getValue(WATERLOGGED)) {
 			world.playSound(
 				null,
@@ -248,7 +248,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	public int getAnalogOutputSignal(@NotNull BlockState state, Level level, @NotNull BlockPos pos) {
+	public int getAnalogOutputSignal(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos) {
 		BlockEntity blockEntity = level.getBlockEntity(pos);
 		if (blockEntity instanceof HangingTendrilBlockEntity hangingEntity) {
 			return SculkSensorBlock.getPhase(state) == SculkSensorPhase.ACTIVE ? hangingEntity.getLastVibrationFrequency() : 0;

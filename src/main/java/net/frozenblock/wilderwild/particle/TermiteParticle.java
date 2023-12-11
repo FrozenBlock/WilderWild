@@ -134,7 +134,12 @@ public class TermiteParticle extends TextureSheetParticle {
 			float i = Mth.lerp(partialTicks, this.oRoll, this.roll);
 			quaternion.mul(Axis.ZP.rotation(i));
 		}
-		Vector3f[] vector3fs = new Vector3f[]{new Vector3f(-1.0f, -1.0f, 0.0f), new Vector3f(-1.0f, 1.0f, 0.0f), new Vector3f(1.0f, 1.0f, 0.0f), new Vector3f(1.0f, -1.0f, 0.0f)};
+		Vector3f[] vector3fs = new Vector3f[]{
+			new Vector3f(-1F, -1F, 0F),
+			new Vector3f(-1F, 1F, 0F),
+			new Vector3f(1F, 1F, 0F),
+			new Vector3f(1F, -1F, 0F)
+		};
 		float j = this.getQuadSize(partialTicks);
 		for (int k = 0; k < 4; ++k) {
 			Vector3f vector3f2 = vector3fs[k];

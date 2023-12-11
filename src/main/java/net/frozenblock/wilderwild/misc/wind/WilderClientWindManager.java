@@ -42,6 +42,18 @@ public class WilderClientWindManager implements ClientWindManagerExtension {
 
 	public static double cloudZ;
 
+	public static double getCloudX(float partialTick) {
+		return Mth.lerp(partialTick, prevCloudX, cloudX);
+	}
+
+	public static double getCloudY(float partialTick) {
+		return Mth.lerp(partialTick, prevCloudY, cloudY);
+	}
+
+	public static double getCloudZ(float partialTick) {
+		return Mth.lerp(partialTick, prevCloudZ, cloudZ);
+	}
+
 	@Override
 	public void clientTick() {
 		prevCloudX = cloudX;
@@ -70,17 +82,5 @@ public class WilderClientWindManager implements ClientWindManagerExtension {
 				WilderClientWindManager.cloudZ = cloudZ;
 			}
 		});
-	}
-
-	public static double getCloudX(float partialTick) {
-		return Mth.lerp(partialTick, prevCloudX, cloudX);
-	}
-
-	public static double getCloudY(float partialTick) {
-		return Mth.lerp(partialTick, prevCloudY, cloudY);
-	}
-
-	public static double getCloudZ(float partialTick) {
-		return Mth.lerp(partialTick, prevCloudZ, cloudZ);
 	}
 }

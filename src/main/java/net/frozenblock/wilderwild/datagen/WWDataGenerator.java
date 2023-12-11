@@ -45,6 +45,13 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		WilderFeatureFlags.init();
 		FrozenFeatureFlags.rebuild();
 		final FabricDataGenerator.Pack pack = dataGenerator.createPack();
+
+		// ASSETS
+
+		pack.addProvider(WWModelProvider::new);
+
+		// DATA
+
 		pack.addProvider(WWBlockLootProvider::new);
 		pack.addProvider(WWRegistryProvider::new);
 		pack.addProvider(WWBiomeTagProvider::new);
@@ -52,6 +59,8 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(WWDamageTypeTagProvider::new);
 		pack.addProvider(WWItemTagProvider::new);
 		pack.addProvider(WWEntityTagProvider::new);
+		pack.addProvider(WWGameEventTagProvider::new);
+		pack.addProvider(WWLootProvider::new);
 		pack.addProvider(WWRecipeProvider::new);
 		pack.addProvider(WWAdvancementProvider::new);
 	}

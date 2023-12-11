@@ -1,27 +1,30 @@
-Lunade (AViewFromTheTop) - Gameplay designer, producer, lead developer, QA, etc etc. Did a lot of stuff.
+Luna/Lunade/AViewFromTheTop - Lead developer & gameplay designer, producer, bug fixes, worldgen, almost solely made Crabs, etc. Did a lot of stuff.
 
-Treetrain1 - Bug fixes, Gradle fixes, Mixin fixer, most Mob AI, QA
+Treetrain1 - Bug fixes, Gradle fixes, Mixin fixer, most Mob AI, QA. Also did a lot of stuff. He's a genius.
 
-Soro - Original vegetation/tree generation reworks, biome ideas & gen
+Soro - Original vegetation/tree generation reworks, biome ideas & gen.
 
-LudoCrypt - New music
+Merp - Most textures and sounds, came up with Mesoglea's functionality, most mob animations & models. (Left in mid 2023.)
+    -Last contribution: Initial Crab Claw textures.
 
-Merp - Most textures and sounds, came up with Mesoglea's functionality, most mob animations & models
+Contributors:
 
-LiukRast - Baobab Trees
+Enri - Italian Translation, came up with Jellyfish in chests, Crab Bucket texture.
 
-Enri - Italian Translation, came up with Jellyfish in chests
+LudoCrypt - New music.
 
-JarethTheRad - Structure assistance
+LiukRast - Baobab Tree generation.
 
-Xfrtrex - Prickly Pear and Tumbleweed ideas
+Xfrtrex - Prickly Pear and Tumbleweed ideas.
 
-zozozrob_ - Cattail Textures & Concept Design
+JarethTheRad - Structure assistance.
 
-Sculk Analyzer - Sculk Echoer Concept & Inspiration
+zozozrob_ - Cattail textures & occasional concept artist for a short time.
 
-Osmiooo - French Translation
+Sculk Analyzer - Sculk Echoer concept & inspiration.
 
-nekkok - Spanish Translation
+Osmiooo - French translation.
 
-SaishoVibes - Config Contributor
+nekkok - Spanish translation.
+
+SaishoVibes - Kicked off the initial config.

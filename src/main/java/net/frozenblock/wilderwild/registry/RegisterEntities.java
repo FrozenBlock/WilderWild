@@ -23,6 +23,7 @@ import net.frozenblock.lib.mobcategory.api.FrozenMobCategories;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.entity.ChestBubbleTicker;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
+import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.entity.SculkSpreadTicker;
@@ -76,6 +77,16 @@ public final class RegisterEntities {
 			.defaultAttributes(Tumbleweed::addAttributes)
 			.spawnRestriction(SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Tumbleweed::canSpawn)
 			.dimensions(EntityDimensions.scalable(0.98F, 0.98F))
+			.build()
+	);
+	public static final EntityType<Crab> CRAB = register(
+		"crab",
+		FabricEntityTypeBuilder.createMob()
+			.spawnGroup(FrozenMobCategories.getCategory(WilderSharedConstants.MOD_ID, "crab"))
+			.entityFactory(Crab::new)
+			.defaultAttributes(Crab::addAttributes)
+			.spawnRestriction(SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Crab::canSpawn)
+			.dimensions(EntityDimensions.scalable(0.5F, 0.5F))
 			.build()
 	);
 	public static final EntityType<CoconutProjectile> COCONUT = register(

@@ -30,7 +30,7 @@ public class EasterEggs {
 
 	public static void registerEaster() {
 		EntityTextureOverride.register(WilderSharedConstants.id("stella_warden"), EntityType.WARDEN, WilderSharedConstants.id("textures/entity/warden/stella_warden.png"),
-			(entity -> ((WilderWarden) entity).wilderWild$isStella())
+			(entity -> entity instanceof WilderWarden wilder && wilder.wilderWild$isStella())
 		);
 		EntityTextureOverride.register(WilderSharedConstants.id("treetrain1_goat"), EntityType.GOAT, WilderSharedConstants.id("textures/entity/goat/treetrain1_goat.png"),
 			true, "Treetrain1", "Treetrain"

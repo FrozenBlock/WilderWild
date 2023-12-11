@@ -1,22 +1,22 @@
 {
   "type": "frozenlib:noise_path_tag_feature",
   "config": {
-    "block": {
+    "is_3d": false,
+    "max_threshold": 1.0,
+    "min_threshold": 0.4,
+    "noise": 2,
+    "noise_scale": 0.2,
+    "only_place_when_exposed": false,
+    "placement_chance": 0.65,
+    "radius": 10,
+    "replaceable_blocks": "wilderwild:sandstone_path_replaceable",
+    "scale_y": true,
+    "state": {
       "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "minecraft:sandstone"
       }
     },
-    "chance": 0.65,
-    "is3D": false,
-    "maxThresh": 1.0,
-    "minThresh": 0.4,
-    "multiplier": 0.2,
-    "multiplyY": true,
-    "noise": 2,
-    "onlyExposed": false,
-    "radius": 10,
-    "replaceable": "wilderwild:sandstone_path_replaceable",
-    "useY": true
+    "use_y": true
   }
 }

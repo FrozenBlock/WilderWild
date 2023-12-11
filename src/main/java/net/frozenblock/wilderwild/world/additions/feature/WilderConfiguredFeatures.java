@@ -22,7 +22,7 @@ import java.util.List;
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.api.FrozenFeatures;
 import net.frozenblock.lib.worldgen.feature.api.features.config.ColumnWithDiskFeatureConfig;
-import net.frozenblock.wilderwild.misc.FlowerColor;
+import net.frozenblock.wilderwild.block.property.FlowerColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterFeatures;
@@ -1224,13 +1224,13 @@ public final class WilderConfiguredFeatures {
 							new NormalNoise.NoiseParameters(-3, 1.0),
 							1.0f,
 							List.of(
-								RegisterBlocks.CARNATION.defaultBlockState(),
 								Blocks.ALLIUM.defaultBlockState(),
 								Blocks.POPPY.defaultBlockState(),
 								Blocks.AZURE_BLUET.defaultBlockState(),
-								Blocks.DANDELION.defaultBlockState(),
 								Blocks.CORNFLOWER.defaultBlockState(),
+								RegisterBlocks.CARNATION.defaultBlockState(),
 								Blocks.OXEYE_DAISY.defaultBlockState(),
+								Blocks.DANDELION.defaultBlockState(),
 								RegisterBlocks.SEEDING_DANDELION.defaultBlockState()
 							)
 						)
@@ -1943,7 +1943,7 @@ public final class WilderConfiguredFeatures {
 			new VegetationPatchConfiguration(
 				BlockTags.LUSH_GROUND_REPLACEABLE,
 				BlockStateProvider.simple(RegisterBlocks.BLUE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-				PlacementUtils.inlinePlaced(WilderMiscConfigured.DOWNWARDS_MESOGLEA_PILLAR.getHolder()),
+				PlacementUtils.inlinePlaced(WilderMiscConfigured.DOWNWARDS_BLUE_MESOGLEA_COLUMN.getHolder()),
 				CaveSurface.CEILING,
 				ConstantInt.of(3),
 				0.8F,
@@ -1995,7 +1995,7 @@ public final class WilderConfiguredFeatures {
 			new VegetationPatchConfiguration(
 				BlockTags.LUSH_GROUND_REPLACEABLE,
 				BlockStateProvider.simple(RegisterBlocks.PURPLE_PEARLESCENT_MESOGLEA.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
-				PlacementUtils.inlinePlaced(WilderMiscConfigured.DOWNWARDS_PURPLE_MESOGLEA_PILLAR.getHolder()),
+				PlacementUtils.inlinePlaced(WilderMiscConfigured.DOWNWARDS_PURPLE_MESOGLEA_COLUMN.getHolder()),
 				CaveSurface.CEILING,
 				ConstantInt.of(3),
 				0.8F,

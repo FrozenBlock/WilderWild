@@ -59,4 +59,5 @@ public abstract class CherryParticleMixin extends TextureSheetParticle {
 		this.yd = this.wilderWild$movementWithWindY;
 		this.zd = this.wilderWild$movementWithWindZ;
 	}
+
 }

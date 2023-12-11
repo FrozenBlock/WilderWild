@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.mixin.sculk;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import java.util.Iterator;
-import net.frozenblock.wilderwild.misc.SlabWallStairSculkBehavior;
+import net.frozenblock.wilderwild.block.sculk_behavior.SlabWallStairSculkBehavior;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.core.BlockPos;

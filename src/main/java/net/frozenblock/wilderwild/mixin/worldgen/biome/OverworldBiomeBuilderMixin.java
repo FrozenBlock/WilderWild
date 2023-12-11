@@ -62,6 +62,9 @@ public final class OverworldBiomeBuilderMixin {
 	@Shadow
 	@Final
 	private ResourceKey<Biome>[][] MIDDLE_BIOMES_VARIANT;
+	@Shadow
+	@Final
+	private Climate.Parameter[] temperatures;
 
 	@Unique
 	private static void wilderWild$replaceParameters(
@@ -128,10 +131,6 @@ public final class OverworldBiomeBuilderMixin {
 	@Shadow
 	private void addSurfaceBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, final float offset, ResourceKey<Biome> biome) {
 	}
-
-	@Shadow
-	@Final
-	private Climate.Parameter[] temperatures;
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void wilderWild$injectBiomes(CallbackInfo ci) {
@@ -447,14 +446,14 @@ public final class OverworldBiomeBuilderMixin {
 			if (WorldgenConfig.get().biomePlacement.modifyStonyShorePlacement) {
 				for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.BEACH)) {
 					this.addSurfaceBiome(
-							parameters,
-							WilderSharedWorldgen.StonyShoreTaiga.TEMPERATURE,
-							WilderSharedWorldgen.StonyShoreTaiga.HUMIDITY,
-							WilderSharedWorldgen.StonyShoreTaiga.CONTINENTALNESS,
-							WilderSharedWorldgen.StonyShoreTaiga.EROSION,
-							point.weirdness(),
-							point.offset(),
-							Biomes.STONY_SHORE
+						parameters,
+						WilderSharedWorldgen.StonyShoreTaiga.TEMPERATURE,
+						WilderSharedWorldgen.StonyShoreTaiga.HUMIDITY,
+						WilderSharedWorldgen.StonyShoreTaiga.CONTINENTALNESS,
+						WilderSharedWorldgen.StonyShoreTaiga.EROSION,
+						point.weirdness(),
+						point.offset(),
+						Biomes.STONY_SHORE
 					);
 				}
 			}

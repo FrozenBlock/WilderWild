@@ -1,5 +1,10 @@
 accessWidener    v2    named
 
+# Advancement
+accessible field net/minecraft/advancements/critereon/EffectsChangedTrigger$TriggerInstance effects Ljava/util/Optional;
+accessible field net/minecraft/advancements/critereon/MobEffectsPredicate effectMap Ljava/util/Map;
+mutable field net/minecraft/advancements/critereon/MobEffectsPredicate effectMap Ljava/util/Map;
+
 # Sculk Spreading
 accessible    class    net/minecraft/world/level/block/SculkVeinBlock$SculkVeinSpreaderConfig
 
@@ -12,6 +17,7 @@ accessible    method    net/minecraft/world/level/levelgen/feature/trunkplacers/
 accessible    method    net/minecraft/world/level/levelgen/feature/foliageplacers/FoliagePlacerType    <init>    (Lcom/mojang/serialization/Codec;)V
 accessible    method    net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacer    isDirt    (Lnet/minecraft/world/level/LevelSimulatedReader;Lnet/minecraft/core/BlockPos;)Z
 accessible    method    net/minecraft/data/worldgen/placement/VegetationPlacements    treePlacementBase    (Lnet/minecraft/world/level/levelgen/placement/PlacementModifier;)Lcom/google/common/collect/ImmutableList$Builder;
+accessible method net/minecraft/world/level/levelgen/feature/TreeFeature setBlockKnownShape (Lnet/minecraft/world/level/LevelWriter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
 
 # Items
 extendable    method    net/minecraft/world/item/InstrumentItem    getInstrument    (Lnet/minecraft/world/item/ItemStack;)Ljava/util/Optional;
@@ -50,6 +56,7 @@ accessible    field    net/minecraft/world/entity/LivingEntity    dead    Z
 accessible    method    net/minecraft/world/entity/Entity    updateInWaterStateAndDoWaterCurrentPushing    ()V
 accessible    field    net/minecraft/server/level/ServerLevel    entityManager    Lnet/minecraft/world/level/entity/PersistentEntitySectionManager;
 accessible    class    net/minecraft/world/entity/monster/warden/Warden$VibrationUser
+accessible    field    net/minecraft/world/entity/ai/navigation/WallClimberNavigation    pathToPosition    Lnet/minecraft/core/BlockPos;
 
 # Entity Behaviors
 accessible    field    net/minecraft/world/entity/ai/Brain    availableBehaviorsByPriority    Ljava/util/Map;
@@ -68,6 +75,9 @@ accessible    method    net/minecraft/world/effect/MobEffect    <init>    (Lnet/
 accessible    field    net/minecraft/world/entity/Mob    goalSelector    Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 accessible    field    net/minecraft/world/entity/Mob    targetSelector    Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 accessible    method    net/minecraft/world/entity/monster/warden/Warden    isDiggingOrEmerging    ()Z
+
+# Projectiles
+accessible field net/minecraft/world/entity/projectile/Projectile hasBeenShot Z
 
 # Damage Sources
 accessible    method    net/minecraft/world/damagesource/DamageSources    source    (Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/world/damagesource/DamageSource;

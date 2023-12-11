@@ -23,6 +23,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
+import java.util.function.Supplier;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -47,10 +48,10 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 	private static final RenderType NECTAR_LAYER = RenderType.entityCutout(WilderSharedConstants.id("textures/entity/firefly/nectar.png"));
 	private static final RenderType NECTAR_FLAP_LAYER = RenderType.entityCutout(WilderSharedConstants.id("textures/entity/firefly/nectar_wings_down.png"));
 	private static final RenderType NECTAR_OVERLAY = RenderType.entityTranslucentEmissive(WilderSharedConstants.id("textures/entity/firefly/nectar_overlay.png"), true);
-	private static final float yOffset = 0.155F;
-	private static final Quaternionf one80Quat = Axis.YP.rotationDegrees(180.0F);
-	private static final float pi = (float) Math.PI;
-	public static Object2ObjectMap<ResourceLocation, RenderType> layers = new Object2ObjectLinkedOpenHashMap<>() {{
+	private static final float Y_OFFSET = 0.155F;
+	private static final Quaternionf ONE_HUNDRED_EIGHTY_QUAT = Axis.YP.rotationDegrees(180.0F);
+	private static final float PI = (float) Math.PI;
+	public static final Object2ObjectMap<ResourceLocation, RenderType> LAYERS = new Object2ObjectLinkedOpenHashMap<>() {{
 		Object2ObjectMap<ResourceLocation, ResourceLocation> colors = new Object2ObjectLinkedOpenHashMap<>();
 		WilderRegistry.FIREFLY_COLOR.forEach(color -> colors.put(color.key(), color.texture()));
 		colors.forEach((colorKey, texture) -> put(colorKey, RenderType.entityTranslucentEmissive(texture)));
@@ -60,17 +61,18 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 		super(ctx);
 	}
 
-	public static void renderFirefly(@NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light, boolean nectar, int overlay, int age, boolean flickers, FireflyColor color, double piAgeDelta, float scale, float xOffset, float yOffset, float zOffset, Quaternionf rotation) {
-		matrices.pushPose();
-		matrices.scale(scale, scale, scale);
-		matrices.translate(xOffset, yOffset, zOffset);
-		matrices.mulPose(rotation);
-		matrices.mulPose(one80Quat);
+	public static void renderFirefly(@NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int light, boolean nectar, int overlay, int age, float tickDelta, boolean flickers, FireflyColor color, float scale, float xOffset, float yOffset, float zOffset, Quaternionf rotation) {
+		poseStack.pushPose();
+		poseStack.scale(scale, scale, scale);
+		poseStack.translate(xOffset, yOffset, zOffset);
+		poseStack.mulPose(rotation);
+		poseStack.mulPose(ONE_HUNDRED_EIGHTY_QUAT);
 
-		PoseStack.Pose entry = matrices.last();
+		PoseStack.Pose entry = poseStack.last();
 		Matrix4f matrix4f = entry.pose();
 		Matrix3f matrix3f = entry.normal();
-		VertexConsumer vertexConsumer = vertexConsumers.getBuffer(nectar ? age % 2 == 0 ? NECTAR_LAYER : NECTAR_FLAP_LAYER : LAYER);
+		Supplier<RenderType> nectarLayer = () -> age % 2 == 0 ? NECTAR_LAYER : NECTAR_FLAP_LAYER;
+		VertexConsumer vertexConsumer = buffer.getBuffer(nectar ? nectarLayer.get() : LAYER);
 
 		vertexConsumer
 			.vertex(matrix4f, -0.5F, -0.5F, 0.0F)
@@ -105,17 +107,16 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 			.normal(matrix3f, 0.0F, 1.0F, 0.0F)
 			.endVertex();
 
-		if (color != null && layers.get(color.key()) != null) {
-			if (!nectar) {
-				vertexConsumer = vertexConsumers.getBuffer(layers.get(color.key()));
-			} else {
-				vertexConsumer = vertexConsumers.getBuffer(NECTAR_OVERLAY);
-			}
+		if (color != null && LAYERS.get(color.key()) != null) {
+			RenderType layer = nectar ? NECTAR_OVERLAY : LAYERS.get(color.key());
+			vertexConsumer = buffer.getBuffer(layer);
 		} else {
-			vertexConsumer = vertexConsumers.getBuffer(layers.get(FireflyColor.ON.key()));
+			vertexConsumer = buffer.getBuffer(LAYERS.get(FireflyColor.ON.key()));
 		}
 
-		int calcColor = flickers ? (int) ((255 * (Math.cos((piAgeDelta) * 0.025))) + 127.5) : (int) Math.max((255 * (Math.cos((piAgeDelta) * 0.05))), 0);
+		int calcColor = flickers ?
+			(int) (((age + tickDelta) * PI) * -4D) :
+			(int) Math.max((255D * (Math.cos(((age + tickDelta) * PI) * 0.05D))), 0D);
 
 		vertexConsumer
 			.vertex(matrix4f, -0.5F, -0.5F, 0.0F)
@@ -150,7 +151,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 			.normal(matrix3f, 0.0F, 1.0F, 0.0F)
 			.endVertex();
 
-		matrices.popPose();
+		poseStack.popPose();
 	}
 
 	public static int getOverlay(@NotNull Firefly entity, float whiteOverlayProgress) {
@@ -158,7 +159,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 	}
 
 	@Override
-	public void render(@NotNull Firefly entity, float yaw, float tickDelta, @NotNull PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, int light) {
+	public void render(@NotNull Firefly entity, float yaw, float tickDelta, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int light) {
 		boolean nectar = false;
 
 		Component component = entity.getCustomName();
@@ -172,14 +173,13 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 		int overlay = getOverlay(entity, 0);
 
 		int age = entity.getFlickerAge();
-		float ageDelta = age + tickDelta;
 		boolean flickers = entity.flickers();
 
 
-		renderFirefly(matrices, vertexConsumers, light, nectar, overlay, age, flickers, entity.getColor(), (ageDelta) * pi, scale, 0F, yOffset, 0F, this.entityRenderDispatcher.cameraOrientation());
+		renderFirefly(poseStack, buffer, light, nectar, overlay, age, tickDelta, flickers, entity.getColor(), scale, 0F, Y_OFFSET, 0F, this.entityRenderDispatcher.cameraOrientation());
 
 		if (this.shouldShowName(entity)) {
-			this.renderNameTag(entity, entity.getDisplayName(), matrices, vertexConsumers, light);
+			this.renderNameTag(entity, entity.getDisplayName(), poseStack, buffer, light);
 		}
 	}
 

@@ -19,6 +19,8 @@
 package net.frozenblock.wilderwild.config;
 
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
+import net.frozenblock.lib.config.api.annotation.FieldIdentifier;
+import net.frozenblock.lib.config.api.annotation.UnsyncableEntry;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
@@ -39,8 +41,13 @@ public final class MiscConfig {
 		)
 	);
 
+	@FieldIdentifier(identifier = "modifyAdvancements")
+	public boolean modifyAdvancements = true;
+
+	@UnsyncableEntry
 	public boolean cloudMovement = true;
 
+	@UnsyncableEntry
 	public int particleWindMovement = 100;
 
 	@CollapsibleObject
@@ -59,17 +66,31 @@ public final class MiscConfig {
 		return INSTANCE.config();
 	}
 
+	public static MiscConfig getWithSync() {
+		return INSTANCE.configWithSync();
+	}
+
 	public double getParticleWindIntensity() {
 		return ((double) this.particleWindMovement) * 0.01;
 	}
 
 	public static class BiomeAmbienceConfig {
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "deepDarkAmbience")
 		public boolean deepDarkAmbience = true;
+
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "dripstoneCavesAmbience")
 		public boolean dripstoneCavesAmbience = true;
+
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "lushCavesAmbience")
 		public boolean lushCavesAmbience = true;
 	}
 
 	public static class BiomeMusicConfig {
+		@UnsyncableEntry
+		@FieldIdentifier(identifier = "wilderForestMusic")
 		public boolean wilderForestMusic = true;
 	}
 }

@@ -18,27 +18,27 @@
 
 package net.frozenblock.wilderwild.mixin.block.cactus;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.Slice;
 
 @Mixin(EntityType.class)
 public class EntityTypeMixin {
 
-	@Inject(
+	@WrapOperation(
 		method = "isBlockDangerous",
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z", ordinal = 0, shift = At.Shift.BEFORE),
-		cancellable = true
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z", ordinal = 0),
+		slice = @Slice(from = @At(value = "FIELD", target = "Lnet/minecraft/world/level/block/Blocks;CACTUS:Lnet/minecraft/world/level/block/Block;", opcode = Opcodes.GETSTATIC))
 	)
-	private void wilderWild$isBlockDangerousWithPricklyPear(BlockState state, CallbackInfoReturnable<Boolean> info) {
-		if (state.is(RegisterBlocks.PRICKLY_PEAR_CACTUS)) {
-			info.setReturnValue(true);
-		}
+	private static boolean wilderWild$isBlockDangerousWithPricklyPear(BlockState blockState, Block block, Operation<Boolean> operation) {
+		return operation.call(blockState, block) || operation.call(blockState, RegisterBlocks.PRICKLY_PEAR_CACTUS);
 	}
-
 
 }

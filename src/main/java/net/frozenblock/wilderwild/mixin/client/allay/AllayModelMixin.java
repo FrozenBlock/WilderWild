@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.client.allay;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.config.EntityConfig;
@@ -26,12 +27,9 @@ import net.frozenblock.wilderwild.entity.render.animations.WilderAllay;
 import net.minecraft.client.model.AllayModel;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.HierarchicalModel;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.animal.allay.Allay;
-import org.spongepowered.asm.mixin.Final;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -42,23 +40,29 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class AllayModelMixin extends HierarchicalModel<Allay> implements ArmedModel {
 
 	@Unique
-	private static final float WILDERWILD$PI180 = Mth.PI / 180;
-	@Unique
 	private final AllayModel wilderWild$model = AllayModel.class.cast(this);
-	@Shadow
-	@Final
-	private ModelPart head;
-	@Shadow
-	@Final
-	private ModelPart root;
 
-	@Inject(method = "setupAnim(Lnet/minecraft/world/entity/animal/allay/Allay;FFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Mth;lerp(FFF)F"), require = 0)
-	private void wilderWild$setupAnim(Allay allay, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo info) {
+	@ModifyExpressionValue(
+		method = "setupAnim(Lnet/minecraft/world/entity/animal/allay/Allay;FFFFF)V",
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/animal/allay/Allay;isDancing()Z", ordinal = 0),
+		require = 0
+	)
+	private boolean wilderWild$alterDanceCheck(boolean original) {
+		return original && !EntityConfig.get().allay.keyframeAllayDance;
+	}
+
+	@Inject(
+		method = "setupAnim(Lnet/minecraft/world/entity/animal/allay/Allay;FFFFF)V",
+		at = @At(
+			value = "FIELD", target = "Lnet/minecraft/client/model/AllayModel;right_wing:Lnet/minecraft/client/model/geom/ModelPart;",
+			opcode = Opcodes.GETFIELD,
+			ordinal = 0,
+			shift = At.Shift.BEFORE
+		),
+		require = 0
+	)
+	private void wilderWild$runKeyframeDance(Allay allay, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo info) {
 		if (EntityConfig.get().allay.keyframeAllayDance) {
-			this.root.yRot = 0.0F;
-			this.root.zRot = 0.0F;
-			this.head.xRot = headPitch * WILDERWILD$PI180;
-			this.head.yRot = netHeadYaw * WILDERWILD$PI180;
 			wilderWild$model.animate(((WilderAllay) allay).wilderWild$getDancingAnimationState(), CustomAllayAnimations.DANCING, ageInTicks);
 		}
 	}
