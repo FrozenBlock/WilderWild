@@ -24,7 +24,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
-import net.frozenblock.lib.config.frozenlib_config.FrozenLibConfig;
 import net.frozenblock.wilderwild.config.ItemConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.text;
@@ -38,7 +37,6 @@ public final class ItemConfigGui {
 	}
 
 	public static void setupEntries(@NotNull ConfigCategory category, @NotNull ConfigEntryBuilder entryBuilder) {
-		// WW CONFIG
 		var config = ItemConfig.get(true);
 		Class<? extends ItemConfig> clazz = config.getClass();
 		Config<? extends ItemConfig> configInstance = ItemConfig.INSTANCE;
@@ -46,33 +44,9 @@ public final class ItemConfigGui {
 		var defaultConfig = ItemConfig.INSTANCE.defaultInstance();
 		var ancientHorn = config.ancientHorn;
 		var modifiedAncientHorn = modifiedConfig.ancientHorn;
-		var ancientHornClass = config.ancientHorn.getClass();
 		var projectileLandingSounds = config.projectileLandingSounds;
 		var modifiedProjectileLandingSounds = modifiedConfig.projectileLandingSounds;
-		// FROZENLIB CONFIG
-		var frozenLibConfig = FrozenLibConfig.get(true);
-		Class<? extends FrozenLibConfig> frozenConfigClass = frozenLibConfig.getClass();
-		Config<? extends FrozenLibConfig> frozenConfigInstance = FrozenLibConfig.INSTANCE;
-		var modifiedFrozenConfig = FrozenLibConfig.getWithSync();
-		var defaultFrozenConfig = FrozenLibConfig.INSTANCE.defaultInstance();
-
 		category.setBackground(WilderSharedConstants.id("textures/config/item.png"));
-
-		var itemCooldownsSave = category.addEntry(
-				FrozenClothConfig.syncedEntry(
-						entryBuilder.startBooleanToggle(text("save_item_cooldowns"), modifiedFrozenConfig.saveItemCooldowns)
-								.setDefaultValue(defaultFrozenConfig.saveItemCooldowns)
-								.setSaveConsumer(newValue -> {
-									frozenLibConfig.saveItemCooldowns = newValue;
-									frozenConfigInstance.save();
-								})
-								.setTooltip(tooltip("save_item_cooldowns"))
-								.build(),
-						frozenConfigClass,
-						"saveItemCooldowns",
-						frozenConfigInstance
-				)
-		);
 
 		var summonsWarden = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(text("ancient_horn_can_summon_warden"), modifiedAncientHorn.ancientHornCanSummonWarden)
@@ -80,7 +54,7 @@ public final class ItemConfigGui {
 				.setSaveConsumer(newValue -> ancientHorn.ancientHornCanSummonWarden = newValue)
 				.setTooltip(tooltip("ancient_horn_can_summon_warden"))
 				.build(),
-			ancientHornClass,
+			config.ancientHorn.getClass(),
 			"ancientHornCanSummonWarden",
 			configInstance
 		);
@@ -91,7 +65,7 @@ public final class ItemConfigGui {
 				.setSaveConsumer(newValue -> ancientHorn.ancientHornLifespan = newValue)
 				.setTooltip(tooltip("ancient_horn_lifespan"))
 				.build(),
-			ancientHornClass,
+			config.ancientHorn.getClass(),
 			"ancientHornLifespan",
 			configInstance
 		);
@@ -102,7 +76,7 @@ public final class ItemConfigGui {
 				.setSaveConsumer(newValue -> ancientHorn.ancientHornMobDamage = newValue)
 				.setTooltip(tooltip("ancient_horn_mob_damage"))
 				.build(),
-			ancientHornClass,
+			config.ancientHorn.getClass(),
 			"ancientHornMobDamage",
 			configInstance
 		);
@@ -113,7 +87,7 @@ public final class ItemConfigGui {
 				.setSaveConsumer(newValue -> ancientHorn.ancientHornPlayerDamage = newValue)
 				.setTooltip(tooltip("ancient_horn_player_damage"))
 				.build(),
-			ancientHornClass,
+			config.ancientHorn.getClass(),
 			"ancientHornPlayerDamage",
 			configInstance
 		);
@@ -124,7 +98,7 @@ public final class ItemConfigGui {
 				.setSaveConsumer(newValue -> ancientHorn.ancientHornShattersGlass = newValue)
 				.setTooltip(tooltip("ancient_horn_shatters_glass"))
 				.build(),
-			ancientHornClass,
+			config.ancientHorn.getClass(),
 			"ancientHornShattersGlass",
 			configInstance
 		);
@@ -135,7 +109,7 @@ public final class ItemConfigGui {
 				.setSaveConsumer(newValue -> ancientHorn.ancientHornSizeMultiplier = newValue)
 				.setTooltip(tooltip("ancient_horn_size_multiplier"))
 				.build(),
-			ancientHornClass,
+			config.ancientHorn.getClass(),
 			"ancientHornSizeMultiplier",
 			configInstance
 		);
@@ -215,7 +189,7 @@ public final class ItemConfigGui {
 						.setDefaultValue(defaultConfig.restrictInstrumentSound)
 						.setSaveConsumer(newValue -> config.restrictInstrumentSound = newValue)
 						.setTooltip(tooltip("restrict_instrument_sound"))
-						.build(),
+						.build()	,
 					clazz,
 					"restrictInstrumentSound",
 					configInstance

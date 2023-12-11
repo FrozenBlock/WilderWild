@@ -570,7 +570,7 @@
   "tooltip.wilderwild.podzol_sounds": "Whether or not Podzol sounds should be overridden.",
   "tooltip.wilderwild.projectile_landing_sounds": "Contains toggles for thrown projectile landing sounds.",
   "tooltip.wilderwild.projectile_break_particles": "Whether or not projectiles like Arrows or Tridents\nshould emit block breaking particles when colliding.",
-  "tooltip.wilderwild.item_cooldowns_save": "Whether or not item cooldowns will save instead of being\ncleared upon switching dimensions or rejoining a world.\nAncient Horns will save their cooldowns regardless of this config.",
+  "tooltip.wilderwild.item_cooldowns_save": "Whether or not item cooldowns will save instead of being\ncleared upon switching dimensions or rejoining a world.",
   "tooltip.wilderwild.reinforced_deepslate_sounds": "Whether or not Reinforced Deepslate sounds should be overridden.",
   "tooltip.wilderwild.restrict_instrument_sound": "Whether or not instruments, such as the Goat Horn, should stop their sound when the user releases the mouse button",
   "tooltip.wilderwild.sapling_sounds": "Whether or not Sapling sounds should be overridden.",
