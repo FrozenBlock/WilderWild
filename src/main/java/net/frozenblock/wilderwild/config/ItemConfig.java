@@ -50,7 +50,7 @@ public final class ItemConfig {
 	@EntrySyncData("projectileBreakParticles")
 	public boolean projectileBreakParticles = true;
 
-	@EntrySyncData("restricInstrumentSound")
+	@EntrySyncData("restrictInstrumentSound")
 	public boolean restrictInstrumentSound = true;
 
 	public static ItemConfig get() {
