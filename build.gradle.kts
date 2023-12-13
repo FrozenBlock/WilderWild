@@ -226,7 +226,7 @@ dependencies {
     }
 
     // Reach Entity Attributes
-    modApi("com.jamieswhiteshirt:reach-entity-attributes:2.4.0")?.let { include(it) }
+    modApi("com.github.Treetrain1:reach-entity-attributes:1.20-SNAPSHOT")?.let { include(it) }
 
     // TerraBlender
     modCompileOnlyApi("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
