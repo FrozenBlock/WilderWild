@@ -19,12 +19,12 @@
 package net.frozenblock.wilderwild.config;
 
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
-import net.frozenblock.lib.config.api.annotation.FieldIdentifier;
-import net.frozenblock.lib.config.api.annotation.UnsyncableEntry;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
+import net.frozenblock.lib.config.api.sync.SyncBehavior;
+import net.frozenblock.lib.config.api.sync.annotation.EntrySyncData;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.MOD_ID;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.configPath;
 
@@ -53,33 +53,31 @@ public final class BlockConfig {
 	@CollapsibleObject
 	public final MesogleaConfig mesoglea = new MesogleaConfig();
 
-	@FieldIdentifier(identifier = "shriekerGargling")
+	@EntrySyncData("shriekerGargling")
 	public boolean shriekerGargling = true;
 
-	@FieldIdentifier(identifier = "soulFireSounds")
+	@EntrySyncData("soulFireSounds")
 	public boolean soulFireSounds = true;
 
-	@UnsyncableEntry
-	@FieldIdentifier(identifier = "billboardTendrils")
+	@EntrySyncData(value = "billboardTendrils", behavior = SyncBehavior.UNSYNCABLE)
 	public boolean billboardTendrils = true;
 
-	@FieldIdentifier(identifier = "tendrilsCarryEvents")
+	@EntrySyncData("tendrilsCarryEvents")
 	public boolean tendrilsCarryEvents = false;
 
-	@UnsyncableEntry
-	@FieldIdentifier(identifier = "pollenParticles")
+	@EntrySyncData(value = "pollenParticles", behavior = SyncBehavior.UNSYNCABLE)
 	public boolean pollenParticles = true;
 
-	@FieldIdentifier(identifier = "logHollowing")
+	@EntrySyncData("logHollowing")
 	public boolean logHollowing = true;
 
-	@FieldIdentifier(identifier = "cactusPlacement")
+	@EntrySyncData("cactusPlacement")
 	public boolean cactusPlacement = true;
 
-	@FieldIdentifier(identifier = "frostedIceCracking")
+	@EntrySyncData("frostedIceCracking")
 	public boolean frostedIceCracking = true;
 
-	@FieldIdentifier(identifier = "dripleafPowering")
+	@EntrySyncData("dripleafPowering")
 	public boolean dripleafPowering = true;
 
 	public static BlockConfig get() {
@@ -97,81 +95,63 @@ public final class BlockConfig {
 	}
 
 	public static class BlockSoundsConfig {
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "cactusSounds")
+		@EntrySyncData(value = "cactusSounds", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean cactusSounds = true;
 
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "claySounds")
+		@EntrySyncData(value = "claySounds", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean claySounds = true;
 
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "coarseDirtSounds")
+		@EntrySyncData(value = "coarseDirtSounds", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean coarseDirtSounds = true;
 
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "cobwebSounds")
+		@EntrySyncData(value = "cobwebSounds", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean cobwebSounds = true;
 
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "deadBushSounds")
+		@EntrySyncData(value = "deadBushSounds", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean deadBushSounds = true;
 
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "flowerSounds")
+		@EntrySyncData(value = "flowerSounds", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean flowerSounds = true;
 
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "saplingSounds")
+		@EntrySyncData(value = "saplingSounds", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean saplingSounds = true;
 
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "iceSounds")
+		@EntrySyncData(value = "iceSounds", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean iceSounds = true;
 
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "frostedIceSounds")
+		@EntrySyncData(value = "frostedIceSounds", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean frostedIceSounds = true;
 
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "gravelSounds")
+		@EntrySyncData(value = "gravelSounds", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean gravelSounds = true;
 
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "leafSounds")
+		@EntrySyncData(value = "leafSounds", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean leafSounds = true;
 
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "lilyPadSounds")
+		@EntrySyncData(value = "lilyPadSounds", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean lilyPadSounds = true;
 
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "mushroomBlockSounds")
+		@EntrySyncData(value = "mushromBlockSounds", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean mushroomBlockSounds = true;
 
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "podzolSounds")
+		@EntrySyncData(value = "podzolSounds", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean podzolSounds = true;
 
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "reinforcedDeepslateSounds")
+		@EntrySyncData(value = "reinforcedDeepslateSounds", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean reinforcedDeepslateSounds = true;
 
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "sandstoneSounds")
+		@EntrySyncData(value = "sandstoneSounds", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean sandstoneSounds = true;
 
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "sugarCaneSounds")
+		@EntrySyncData(value = "sugarCaneSounds", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean sugarCaneSounds = true;
 
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "witherRoseSounds")
+		@EntrySyncData(value = "witherRoseSounds", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean witherRoseSounds = true;
 	}
 
 	public static class StoneChestConfig {
-		@FieldIdentifier(identifier = "stoneChestTimer")
+		@EntrySyncData("stoneChestTimer")
 		public int stoneChestTimer = 100;
 
 		public double getStoneChestTimer() {
@@ -180,22 +160,21 @@ public final class BlockConfig {
 	}
 
 	public static class TermiteConfig {
-		@FieldIdentifier(identifier = "onlyEatNaturalBlocks")
+		@EntrySyncData("onlyEatNaturalBlocks")
 		public boolean onlyEatNaturalBlocks = true;
 
-		@FieldIdentifier(identifier = "maxDistance")
+		@EntrySyncData("maxDistance")
 		public int maxDistance = 32;
 
-		@FieldIdentifier(identifier = "maxNaturalDistance")
+		@EntrySyncData("maxNaturalDistance")
 		public int maxNaturalDistance = 10;
 	}
 
 	public static class MesogleaConfig {
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "mesogleaLiquid")
+		@EntrySyncData(value = "mesogleaLiquid", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean mesogleaLiquid = false;
 
-		@FieldIdentifier(identifier = "mesogleaBubbleColumns")
+		@EntrySyncData("mesogleaBubbleColumns")
 		public boolean mesogleaBubbleColumns = true;
 	}
 }

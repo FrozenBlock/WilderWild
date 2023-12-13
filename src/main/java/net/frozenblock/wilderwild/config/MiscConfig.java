@@ -19,12 +19,12 @@
 package net.frozenblock.wilderwild.config;
 
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
-import net.frozenblock.lib.config.api.annotation.FieldIdentifier;
-import net.frozenblock.lib.config.api.annotation.UnsyncableEntry;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
+import net.frozenblock.lib.config.api.sync.SyncBehavior;
+import net.frozenblock.lib.config.api.sync.annotation.EntrySyncData;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.MOD_ID;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.configPath;
 
@@ -41,13 +41,13 @@ public final class MiscConfig {
 		)
 	);
 
-	@FieldIdentifier(identifier = "modifyAdvancements")
+	@EntrySyncData("modifyAdvancements")
 	public boolean modifyAdvancements = true;
 
-	@UnsyncableEntry
+	@EntrySyncData(value = "cloudMovement", behavior = SyncBehavior.UNSYNCABLE)
 	public boolean cloudMovement = true;
 
-	@UnsyncableEntry
+	@EntrySyncData(value = "particleWindMovement", behavior = SyncBehavior.UNSYNCABLE)
 	public int particleWindMovement = 100;
 
 	@CollapsibleObject
@@ -75,22 +75,18 @@ public final class MiscConfig {
 	}
 
 	public static class BiomeAmbienceConfig {
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "deepDarkAmbience")
+		@EntrySyncData(value = "deepDarkAmbience", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean deepDarkAmbience = true;
 
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "dripstoneCavesAmbience")
+		@EntrySyncData(value = "dripstoneCavesAmbience", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean dripstoneCavesAmbience = true;
 
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "lushCavesAmbience")
+		@EntrySyncData(value = "lushCavesAmbience", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean lushCavesAmbience = true;
 	}
 
 	public static class BiomeMusicConfig {
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "wilderForestMusic")
+		@EntrySyncData(value = "wilderForestMusic", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean wilderForestMusic = true;
 	}
 }
