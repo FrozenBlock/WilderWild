@@ -20,12 +20,12 @@ package net.frozenblock.wilderwild.config;
 
 
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
-import net.frozenblock.lib.config.api.annotation.FieldIdentifier;
-import net.frozenblock.lib.config.api.annotation.UnsyncableEntry;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
+import net.frozenblock.lib.config.api.sync.SyncBehavior;
+import net.frozenblock.lib.config.api.sync.annotation.EntrySyncData;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.MOD_ID;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.configPath;
 
@@ -65,7 +65,7 @@ public final class EntityConfig {
 	@CollapsibleObject
 	public final WardenConfig warden = new WardenConfig();
 
-	@FieldIdentifier(identifier = "unpassableRail")
+	@EntrySyncData("unpassableRail")
 	public boolean unpassableRail = false;
 
 	public static EntityConfig get() {
@@ -83,104 +83,93 @@ public final class EntityConfig {
 	}
 
 	public static class LightningConfig {
-		@FieldIdentifier(identifier = "lightningScorchesSand")
+		@EntrySyncData("lightningScorchesSand")
 		public boolean lightningScorchesSand = true;
 
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "lightningBlockParticles")
+		@EntrySyncData(value = "lightningBlockParticles", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean lightningBlockParticles = true;
 
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "lightningSmokeParticles")
+		@EntrySyncData(value = "lightningSmokeParticles", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean lightningSmokeParticles = true;
 	}
 
 	public static class AllayConfig {
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "keyframeAllayDance")
+		@EntrySyncData(value = "keyframeAllayDance", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean keyframeAllayDance = true;
 	}
 
 	public static class EnderManConfig {
-		@FieldIdentifier(identifier = "angerLoopSound")
+		@EntrySyncData("angerLoopSound")
 		public boolean angerLoopSound = true;
 
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "movingStareSound")
+		@EntrySyncData(value = "movingStareSound", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean movingStareSound = true;
 	}
 
 	public static class FireflyConfig {
-		@FieldIdentifier(identifier = "fireflySpawnCap")
+		@EntrySyncData("fireflySpawnCap")
 		public int fireflySpawnCap = 56;
 	}
 
 	public static class JellyfishConfig {
-		@FieldIdentifier(identifier = "jellyfishSpawnCap")
+		@EntrySyncData("jellyfishSpawnCap")
 		public int jellyfishSpawnCap = 30;
 
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "jellyfishTentacles")
+		@EntrySyncData(value = "jellyfishTentacles", behavior = SyncBehavior.UNSYNCABLE)
 		public int jellyfishTentacles = 8;
 	}
 
 	public static class CrabConfig {
-		@FieldIdentifier(identifier = "crabSpawnCap")
+		@EntrySyncData("crabSpawnCap")
 		public int crabSpawnCap = 25;
 
-		@FieldIdentifier(identifier = "reachAffectsAttack")
+		@EntrySyncData("reachAffectsAttack")
 		public boolean reachAffectsAttack = false;
 	}
 
 	public static class TumbleweedConfig {
-		@FieldIdentifier(identifier = "tumbleweedSpawnCap")
+		@EntrySyncData("tumbleweedSpawnCap")
 		public int tumbleweedSpawnCap = 10;
 
-		@FieldIdentifier(identifier = "leashedTumbleweed")
+		@EntrySyncData("leashedTumbleweed")
 		public boolean leashedTumbleweed = false;
 
-		@FieldIdentifier(identifier = "tumbleweedDestroysCrops")
+		@EntrySyncData("tumbleweedDestroysCrops")
 		public boolean tumbleweedDestroysCrops = true;
 
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "tumbleweedRotatesToLookDirection")
+		@EntrySyncData(value = "tumbleweedRotatesToLookDirection", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean tumbleweedRotatesToLookDirection = false;
 	}
 
 	public static class WardenConfig {
-		@FieldIdentifier(identifier = "wardenAttacksImmediately")
+		@EntrySyncData("wardenAttacksImmediately")
 		public boolean wardenAttacksImmediately = true;
 
-		@FieldIdentifier(identifier = "wardenSwims")
+		@EntrySyncData("wardenSwims")
 		public boolean wardenSwims = true;
 
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "wardenSwimAnimation")
+		@EntrySyncData(value = "wardenSwimAnimation", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean wardenSwimAnimation = true;
 
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "wardenCustomTendrils")
+		@EntrySyncData(value = "wardenCustomTendrils", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean wardenCustomTendrils = true;
 
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "wardenImprovedDig")
+		@EntrySyncData(value = "wardenImprovedDig", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean wardenImprovedDig = true;
 
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "wardenImprovedEmerge")
+		@EntrySyncData(value = "wardenImprovedEmerge", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean wardenImprovedEmerge = true;
 
-		@UnsyncableEntry
-		@FieldIdentifier(identifier = "wardenBedrockSniff")
+		@EntrySyncData(value = "wardenBedrockSniff", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean wardenBedrockSniff = true;
 
-		@FieldIdentifier(identifier = "wardenDyingAnimation")
+		@EntrySyncData("wardenDyingAnimation")
 		public boolean wardenDyingAnimation = true;
 
-		@FieldIdentifier(identifier = "wardenEmergesFromCommand")
+		@EntrySyncData("wardenEmergesFromCommand")
 		public boolean wardenEmergesFromCommand = false;
 
-		@FieldIdentifier(identifier = "wardenEmergesFromEgg")
+		@EntrySyncData("wardenEmergesFromEgg")
 		public boolean wardenEmergesFromEgg = false;
 
 		public boolean swimAndAnimationConfigEnabled() {

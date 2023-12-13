@@ -17,13 +17,14 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 public class WWGameTest implements FabricGameTest {
 
 	private static final String AXE_INTERACTION = WilderSharedConstants.MOD_ID + ":gametest/axe_interaction";
 
 	@GameTest(template = AXE_INTERACTION)
-	public void axeInteraction(GameTestHelper helper) {
+	public void axeInteraction(@NotNull GameTestHelper helper) {
 		ServerPlayer player = helper.makeMockServerPlayerInLevel();
 		player.setPos(helper.absoluteVec(new Vec3(7.5, 2.0, 0.5)));
 		ItemStack stack = new ItemStack(Items.DIAMOND_AXE);
