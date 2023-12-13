@@ -19,12 +19,12 @@
 package net.frozenblock.wilderwild.config;
 
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
-import net.frozenblock.lib.config.api.annotation.FieldIdentifier;
-import net.frozenblock.lib.config.api.annotation.UnsyncableEntry;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
+import net.frozenblock.lib.config.api.sync.SyncBehavior;
+import net.frozenblock.lib.config.api.sync.annotation.EntrySyncData;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.MOD_ID;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.configPath;
 
@@ -50,55 +50,55 @@ public final class WorldgenConfig {
 	@CollapsibleObject
 	public final WaterColors waterColors = new WaterColors();
 
-	@FieldIdentifier(identifier = "betaBeaches")
+	@EntrySyncData("betaBeaches")
 	public boolean betaBeaches = true;
 
-	@FieldIdentifier(identifier = "dyingTrees")
+	@EntrySyncData("dyingTrees")
 	public boolean dyingTrees = true;
 
-	@FieldIdentifier(identifier = "fallenLogs")
+	@EntrySyncData("fallenLogs")
 	public boolean fallenLogs = true;
 
-	@FieldIdentifier(identifier = "snappedLogs")
+	@EntrySyncData("snappedLogs")
 	public boolean snappedLogs = true;
 
-	@FieldIdentifier(identifier = "wilderWildTreeGen")
+	@EntrySyncData("wilderWildTreeGen")
 	public boolean wilderWildTreeGen = true;
 
-	@FieldIdentifier(identifier = "wilderWildGrassGen")
+	@EntrySyncData("wilderWildGrassGen")
 	public boolean wilderWildGrassGen = true;
 
-	@FieldIdentifier(identifier = "wilderWildFlowerGen")
+	@EntrySyncData("wilderWildFlowerGen")
 	public boolean wilderWildFlowerGen = true;
 
-	@FieldIdentifier(identifier = "wilderWildBushGen")
+	@EntrySyncData("wilderWildBushGen")
 	public boolean wilderWildBushGen = true;
 
-	@FieldIdentifier(identifier = "wilderWildCactusGen")
+	@EntrySyncData("wilderWildCactusGen")
 	public boolean wilderWildCactusGen = true;
 
-	@FieldIdentifier(identifier = "wilderWildMushroomGen")
+	@EntrySyncData("wilderWildMushroomGen")
 	public boolean wilderWildMushroomGen = true;
 
-	@FieldIdentifier(identifier = "tumbleweed")
+	@EntrySyncData("tumbleweed")
 	public boolean tumbleweed = true;
 
-	@FieldIdentifier(identifier = "algae")
+	@EntrySyncData("algae")
 	public boolean algae = true;
 
-	@FieldIdentifier(identifier = "termiteGen")
+	@EntrySyncData("termiteGen")
 	public boolean termiteGen = true;
 
-	@FieldIdentifier(identifier = "surfaceDecoration")
+	@EntrySyncData("surfaceDecoration")
 	public boolean surfaceDecoration = true;
 
-	@FieldIdentifier(identifier = "snowBelowTrees")
+	@EntrySyncData("snowBelowTrees")
 	public boolean snowBelowTrees = true;
 
-	@FieldIdentifier(identifier = "surfaceTransitions")
+	@EntrySyncData("surfaceTransitions")
 	public boolean surfaceTransitions = true;
 
-	@FieldIdentifier(identifier = "newWitchHuts")
+	@EntrySyncData("newWitchHuts")
 	public boolean newWitchHuts = true;
 
 	public static WorldgenConfig get() {
@@ -116,101 +116,101 @@ public final class WorldgenConfig {
 	}
 
 	public static class BiomePlacement {
-		@FieldIdentifier(identifier = "modifyWindsweptSavannaPlacement")
+		@EntrySyncData("modifyWindsweptSavannaPlacement")
 		public boolean modifyWindsweptSavannaPlacement = true;
 
-		@FieldIdentifier(identifier = "modifyJunglePlacement")
+		@EntrySyncData("modifyJunglePlacement")
 		public boolean modifyJunglePlacement = true;
 
-		@FieldIdentifier(identifier = "modifySwampPlacement")
+		@EntrySyncData("modifySwampPlacement")
 		public boolean modifySwampPlacement = true;
 
-		@FieldIdentifier(identifier = "modifyMangroveSwampPlacement")
+		@EntrySyncData("modifyMangroveSwampPlacement")
 		public boolean modifyMangroveSwampPlacement = true;
 
-		@FieldIdentifier(identifier = "modifyCherryGrovePlacement")
+		@EntrySyncData("modifyCherryGrovePlacement")
 		public boolean modifyCherryGrovePlacement = true;
 
-		@FieldIdentifier(identifier = "modifyStonyShorePlacement")
+		@EntrySyncData("modifyStoneShorePlacement")
 		public boolean modifyStonyShorePlacement = true;
 	}
 
 	public static class BiomeGeneration {
-		@FieldIdentifier(identifier = "generateCypressWetlands")
+		@EntrySyncData("generateCypressWetlands")
 		public boolean generateCypressWetlands = true;
 
-		@FieldIdentifier(identifier = "generateJellyfishCaves")
+		@EntrySyncData("generateJellyfishCaves")
 		public boolean generateJellyfishCaves = true;
 
-		@FieldIdentifier(identifier = "generateMixedForest")
+		@EntrySyncData("generateMixedForest")
 		public boolean generateMixedForest = true;
 
-		@FieldIdentifier(identifier = "generateOasis")
+		@EntrySyncData("generateOasis")
 		public boolean generateOasis = true;
 
-		@FieldIdentifier(identifier = "generateWarmRiver")
+		@EntrySyncData("generateWarmRiver")
 		public boolean generateWarmRiver = true;
 
-		@FieldIdentifier(identifier = "generateWarmBeach")
+		@EntrySyncData("generateWarmBeach")
 		public boolean generateWarmBeach = true;
 
-		@FieldIdentifier(identifier = "generateBirchTaiga")
+		@EntrySyncData("generateBirchTaiga")
 		public boolean generateBirchTaiga = true;
 
-		@FieldIdentifier(identifier = "generateOldGrowthBirchTaiga")
+		@EntrySyncData("generateOldGrowthBirchTaiga")
 		public boolean generateOldGrowthBirchTaiga = true;
 
-		@FieldIdentifier(identifier = "generateFlowerField")
+		@EntrySyncData("generateFlowerField")
 		public boolean generateFlowerField = true;
 
-		@FieldIdentifier(identifier = "generateAridSavanna")
+		@EntrySyncData("generateAridSavanna")
 		public boolean generateAridSavanna = true;
 
-		@FieldIdentifier(identifier = "generateParchedForest")
+		@EntrySyncData("generateParchedForest")
 		public boolean generateParchedForest = true;
 
-		@FieldIdentifier(identifier = "generateAridForest")
+		@EntrySyncData("generateAridForest")
 		public boolean generateAridForest = true;
 
-		@FieldIdentifier(identifier = "generateOldGrowthSnowyTaiga")
+		@EntrySyncData("generateOldGrowthSnowyTaiga")
 		public boolean generateOldGrowthSnowyTaiga = true;
 
-		@FieldIdentifier(identifier = "generateBirchJungle")
+		@EntrySyncData("generateBirchJungle")
 		public boolean generateBirchJungle = true;
 
-		@FieldIdentifier(identifier = "generateSparseBirchJungle")
+		@EntrySyncData("generateSparseBirchJungle")
 		public boolean generateSparseBirchJungle = true;
 
-		@FieldIdentifier(identifier = "generateOldGrowthDarkForest")
+		@EntrySyncData("generateOldGrowthDarkForest")
 		public boolean generateOldGrowthDarkForest = true;
 
-		@FieldIdentifier(identifier = "generateDarkBirchForest")
+		@EntrySyncData("generateDarkBirchForest")
 		public boolean generateDarkBirchForest = true;
 
-		@FieldIdentifier(identifier = "generateSemiBirchForest")
+		@EntrySyncData("generateSemiBirchForest")
 		public boolean generateSemiBirchForest = true;
 
-		@FieldIdentifier(identifier = "generateTemperateRainforest")
+		@EntrySyncData("generateTemperateRainforest")
 		public boolean generateTemperateRainforest = true;
 
-		@FieldIdentifier(identifier = "generateRainforest")
+		@EntrySyncData("generateRainforest")
 		public boolean generateRainforest = true;
 
-		@FieldIdentifier(identifier = "generateDarkTaiga")
+		@EntrySyncData("generateDarkTaiga")
 		public boolean generateDarkTaiga = true;
 	}
 
 	public static class WaterColors {
-		@UnsyncableEntry
+		@EntrySyncData(value = "modifyLukewarmWater", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean modifyLukewarmWater = true;
 
-		@UnsyncableEntry
+		@EntrySyncData(value = "modifyHotWater", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean modifyHotWater = true;
 
-		@UnsyncableEntry
+		@EntrySyncData(value = "modifySnowywater", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean modifySnowyWater = true;
 
-		@UnsyncableEntry
+		@EntrySyncData(value = "modifyFrozenWater", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean modifyFrozenWater = true;
 	}
 }
