@@ -27,6 +27,7 @@ import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.networking.WilderNetworking;
+import net.frozenblock.wilderwild.networking.packet.WilderControlledSeedParticlePacket;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
@@ -121,7 +122,7 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 			UniformInt ran2 = UniformInt.of(-1, 1);
 			UniformInt ran3 = UniformInt.of(-3, 3);
 			for (int o = 0; o < random.nextIntBetweenInclusive(10, 30); ++o) {
-				WilderNetworking.EasySeedPacket.createControlledParticle(level, new Vec3(d + (double) ran1.sample(level.random) * 0.1D, e + (double) ran2.sample(level.random) * 0.1D, f + (double) ran3.sample(level.random) * 0.1D), velX, velY, velZ, 1, true, 64, 0.3);
+				WilderControlledSeedParticlePacket.sendToAll(level, new Vec3(d + (double) ran1.sample(level.random) * 0.1D, e + (double) ran2.sample(level.random) * 0.1D, f + (double) ran3.sample(level.random) * 0.1D), velX, velY, velZ, 1, true, 0.3);
 			}
 		});
 
@@ -149,7 +150,7 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 			UniformInt ran2 = UniformInt.of(-1, 1);
 			UniformInt ran3 = UniformInt.of(-3, 3);
 			for (int o = 0; o < random.nextIntBetweenInclusive(1, 10); ++o) {
-				WilderNetworking.EasySeedPacket.createControlledParticle(level, new Vec3(d + (double) ran1.sample(level.random) * 0.1D, e + (double) ran2.sample(level.random) * 0.1D, f + (double) ran3.sample(level.random) * 0.1D), velX, velY, velZ, 1, false, 64, 0.3);
+				WilderControlledSeedParticlePacket.sendToAll(level, new Vec3(d + (double) ran1.sample(level.random) * 0.1D, e + (double) ran2.sample(level.random) * 0.1D, f + (double) ran3.sample(level.random) * 0.1D), velX, velY, velZ, 1, false, 0.3);
 			}
 		});
 

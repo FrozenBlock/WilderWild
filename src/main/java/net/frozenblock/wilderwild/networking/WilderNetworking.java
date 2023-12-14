@@ -44,28 +44,6 @@ public class WilderNetworking {
 		ServerPlayNetworking.send(player, JELLY_STING_PACKET, byteBuf);
 	}
 
-	public static class EasySeedPacket {
-
-
-		public static void createControlledParticle(@NotNull Level level, Vec3 pos, double xvel, double yvel, double zvel, int count, boolean isMilkweed, int radius, double posRandomizer) {
-			if (level.isClientSide)
-				throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK SPAWN ON SERVER NEXT TIME PLS");
-			FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
-			byteBuf.writeDouble(pos.x);
-			byteBuf.writeDouble(pos.y);
-			byteBuf.writeDouble(pos.z);
-			byteBuf.writeDouble(xvel * 1.5);
-			byteBuf.writeDouble(yvel);
-			byteBuf.writeDouble(zvel * 1.5);
-			byteBuf.writeVarInt(count);
-			byteBuf.writeBoolean(isMilkweed);
-			byteBuf.writeDouble(posRandomizer);
-			for (ServerPlayer player : PlayerLookup.around((ServerLevel) level, pos, radius)) {
-				ServerPlayNetworking.send(player, CONTROLLED_SEED_PACKET, byteBuf);
-			}
-		}
-	}
-
 	public static class EasyFloatingSculkBubblePacket {
 		public static void createParticle(@NotNull Level level, Vec3 pos, double size, int maxAge, double yVel, int count) {
 			if (level.isClientSide)

@@ -5,10 +5,10 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.frozenblock.lib.math.api.AdvancedMath;
+import net.frozenblock.wilderwild.networking.packet.WilderControlledSeedParticlePacket;
 import net.frozenblock.wilderwild.networking.packet.WilderLightningStrikePacket;
 import net.frozenblock.wilderwild.networking.packet.WilderSeedParticlePacket;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
-import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -23,7 +23,7 @@ public class WilderClientNetworking {
 	public static void registerPacketReceivers() {
 		receiveEasyEchoerBubblePacket();
 		WilderSeedParticlePacket.receive();
-		receiveControlledSeedPacket();
+		WilderControlledSeedParticlePacket.receive();
 		receiveTermitePacket();
 		receiveSensorHiccupPacket();
 		receiveJellyStingPacket();
@@ -48,25 +48,6 @@ public class WilderClientNetworking {
 						zVel = (random.nextDouble() - 0.5) / 10.5;
 					}
 					ctx.level.addParticle(new FloatingSculkBubbleParticleOptions(size, age, new Vec3(xVel, yVel, zVel)), pos.x, pos.y, pos.z, 0, 0, 0);
-				}
-			});
-		});
-	}
-
-	private static void receiveControlledSeedPacket() {
-		ClientPlayNetworking.registerGlobalReceiver(WilderNetworking.CONTROLLED_SEED_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-			Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
-			double velx = byteBuf.readDouble();
-			double vely = byteBuf.readDouble();
-			double velz = byteBuf.readDouble();
-			int count = byteBuf.readVarInt();
-			boolean milkweed = byteBuf.readBoolean();
-			double posRandomizer = byteBuf.readDouble();
-			ctx.execute(() -> {
-				if (ctx.level == null)
-					throw new IllegalStateException("why is your world null");
-				for (int i = 0; i < count; i++) {
-					ctx.level.addParticle(new SeedParticleOptions(milkweed, true), pos.x, pos.y + ((ctx.level.random.nextBoolean() ? -1 : 1) * (ctx.level.random.nextDouble() * posRandomizer)), pos.z, velx, vely + (ctx.level.random.nextDouble() * 0.07), velz);
 				}
 			});
 		});
