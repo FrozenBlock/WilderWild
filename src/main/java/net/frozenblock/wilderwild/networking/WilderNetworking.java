@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.networking;
 
 import io.netty.buffer.Unpooled;
-import net.fabricmc.fabric.api.networking.v1.FabricPacket;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -28,10 +27,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
@@ -47,13 +43,6 @@ public class WilderNetworking {
 		FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
 		byteBuf.writeBoolean(baby);
 		ServerPlayNetworking.send(player, JELLY_STING_PACKET, byteBuf);
-	}
-
-	public static void sendLightningStrikeToAll(@NotNull Entity entity, @NotNull BlockState blockState, int tickCount) {
-		FabricPacket packet = new LightningStrikePacket(Block.getId(blockState), entity.getX(), entity.getY(), entity.getZ(), tickCount);
-		for (ServerPlayer player : PlayerLookup.tracking(entity)) {
-			ServerPlayNetworking.send(player, packet);
-		}
 	}
 
 	public static class EasySeedPacket {

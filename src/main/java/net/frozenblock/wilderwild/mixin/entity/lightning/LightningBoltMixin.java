@@ -22,7 +22,7 @@ import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.frozenblock.wilderwild.block.ScorchedBlock;
 import net.frozenblock.wilderwild.config.EntityConfig;
-import net.frozenblock.wilderwild.networking.WilderNetworking;
+import net.frozenblock.wilderwild.networking.packet.WilderLightningStrikePacket;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscConfigured;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -58,7 +58,7 @@ public class LightningBoltMixin {
 			BlockPos blockPos = this.getStrikePosition();
 			BlockState state = serverLevel.getBlockState(blockPos);
 			if (!LightningBolt.class.cast(this).level().isClientSide) {
-				WilderNetworking.sendLightningStrikeToAll(
+				WilderLightningStrikePacket.sendLightningStrikeToAll(
 					LightningBolt.class.cast(this),
 					state,
 					this.wilderWild$age
