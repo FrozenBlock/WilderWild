@@ -32,7 +32,6 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class WilderNetworking {
-	public static final ResourceLocation CONTROLLED_SEED_PACKET = WilderSharedConstants.id("controlled_seed_particle_packet");
 	public static final ResourceLocation FLOATING_SCULK_BUBBLE_PACKET = WilderSharedConstants.id("floating_sculk_bubble_easy_packet");
 	public static final ResourceLocation TERMITE_PARTICLE_PACKET = WilderSharedConstants.id("termite_particle_packet");
 	public static final ResourceLocation SENSOR_HICCUP_PACKET = WilderSharedConstants.id("sensor_hiccup_packet");
@@ -42,24 +41,6 @@ public class WilderNetworking {
 		FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
 		byteBuf.writeBoolean(baby);
 		ServerPlayNetworking.send(player, JELLY_STING_PACKET, byteBuf);
-	}
-
-	public static class EasyFloatingSculkBubblePacket {
-		public static void createParticle(@NotNull Level level, Vec3 pos, double size, int maxAge, double yVel, int count) {
-			if (level.isClientSide)
-				throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK SPAWN ON SERVER NEXT TIME PLS");
-			FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
-			byteBuf.writeDouble(pos.x);
-			byteBuf.writeDouble(pos.y);
-			byteBuf.writeDouble(pos.z);
-			byteBuf.writeDouble(size);
-			byteBuf.writeInt(maxAge);
-			byteBuf.writeDouble(yVel);
-			byteBuf.writeVarInt(count);
-			for (ServerPlayer player : PlayerLookup.around((ServerLevel) level, pos, 32)) {
-				ServerPlayNetworking.send(player, FLOATING_SCULK_BUBBLE_PACKET, byteBuf);
-			}
-		}
 	}
 
 	public static class EasySensorHiccupPacket {

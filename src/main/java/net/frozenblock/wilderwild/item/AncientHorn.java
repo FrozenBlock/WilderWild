@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.item;
 
 import java.util.Optional;
-import net.frozenblock.lib.FrozenMain;
 import net.frozenblock.lib.FrozenSharedConstants;
 import net.frozenblock.lib.item.impl.CooldownInterface;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;

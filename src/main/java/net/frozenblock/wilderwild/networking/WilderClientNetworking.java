@@ -4,11 +4,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.networking.packet.WilderControlledSeedParticlePacket;
+import net.frozenblock.wilderwild.networking.packet.WilderFloatingSculkBubblePacket;
 import net.frozenblock.wilderwild.networking.packet.WilderLightningStrikePacket;
 import net.frozenblock.wilderwild.networking.packet.WilderSeedParticlePacket;
-import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -21,36 +20,13 @@ import net.minecraft.world.phys.Vec3;
 public class WilderClientNetworking {
 
 	public static void registerPacketReceivers() {
-		receiveEasyEchoerBubblePacket();
+		WilderFloatingSculkBubblePacket.receive();
 		WilderSeedParticlePacket.receive();
 		WilderControlledSeedParticlePacket.receive();
 		receiveTermitePacket();
 		receiveSensorHiccupPacket();
 		receiveJellyStingPacket();
 		WilderLightningStrikePacket.receive();
-	}
-	private static void receiveEasyEchoerBubblePacket() {
-		ClientPlayNetworking.registerGlobalReceiver(WilderNetworking.FLOATING_SCULK_BUBBLE_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-			Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
-			double size = byteBuf.readDouble();
-			int age = byteBuf.readInt();
-			double yVel = byteBuf.readDouble();
-			int count = byteBuf.readVarInt();
-			ctx.execute(() -> {
-				if (ctx.level == null)
-					throw new IllegalStateException("why is your world null");
-				var random = AdvancedMath.random();
-				for (int i = 0; i < count; i++) {
-					double xVel = (random.nextDouble() - 0.5) / 9.5;
-					double zVel = (random.nextDouble() - 0.5) / 9.5;
-					if (size >= 1) {
-						xVel = (random.nextDouble() - 0.5) / 10.5;
-						zVel = (random.nextDouble() - 0.5) / 10.5;
-					}
-					ctx.level.addParticle(new FloatingSculkBubbleParticleOptions(size, age, new Vec3(xVel, yVel, zVel)), pos.x, pos.y, pos.z, 0, 0, 0);
-				}
-			});
-		});
 	}
 
 	private static void receiveTermitePacket() {

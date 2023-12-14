@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import net.frozenblock.wilderwild.networking.WilderNetworking;
 import net.frozenblock.wilderwild.networking.packet.WilderSeedParticlePacket;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;

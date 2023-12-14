@@ -56,19 +56,15 @@ public record WilderLightningStrikePacket(int blockStateId, double x, double y, 
 	public static void receive() {
 		ClientPlayNetworking.registerGlobalReceiver(PACKET_TYPE, (packet, player, responseSender) -> {
 			BlockState blockState = Block.stateById(packet.blockStateId());
-			double x = packet.x();
-			double y = packet.y();
-			double z = packet.z();
-			int tickCount = packet.tickCount();
 			Minecraft minecraft = Minecraft.getInstance();
 			ClientLevel clientLevel = player.clientLevel;
 			if (clientLevel != null && !blockState.isAir()) {
 				RandomSource random = clientLevel.getRandom();
 				if (EntityConfig.get().lightning.lightningBlockParticles) {
-					lightningBlockParticles(tickCount, x, y, z, blockState, random, minecraft.particleEngine);
+					lightningBlockParticles(packet.tickCount(), packet.x(), packet.y(), packet.z(), blockState, random, minecraft.particleEngine);
 				}
 				if (EntityConfig.get().lightning.lightningSmokeParticles) {
-					lightningSmokeParticles(tickCount, x, y, z, blockState, random, minecraft.particleEngine);
+					lightningSmokeParticles(packet.tickCount(), packet.x(), packet.y(), packet.z(), blockState, random, minecraft.particleEngine);
 				}
 			}
 		});
