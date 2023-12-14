@@ -25,9 +25,9 @@ Bug Fixes & Changes
 ---
 
 - Added partial Japanese language support
-    - Thank you mayonaka8478
+  - Thank you mayonaka8478
 - Tweaked leaf decay distance to 12 in order to accommodate for Palm Fronds, so they now work like regular leaves
-    - Other leaf types will still cap out at 7, but can be changed with commands or a Debug Stick to go up to 12
+  - Other leaf types will still cap out at 7, but can be changed with commands or a Debug Stick to go up to 12
 - Made Palm Fronds less dense on average
 - Removed the custom distance detection from Palm Crowns
 - Added Palm Crowns to tags it was missing from
@@ -54,7 +54,7 @@ Bug Fixes & Changes
 - Fixed Jellyfish no longer spawning in Jellyfish Caves
 - Slightly optimized Jellyfish rendering with the rainbow easter egg
 - Reworked how clipping works with Waterlogged Mesoglea, as it will now apply to all entities as opposed to just players as is much more stable
-    - This comes alongside BlockGetterMixin having much cleaner code, and the removal of IN_MESOGLEA in WilderSharedConstants
+  - This comes alongside BlockGetterMixin having much cleaner code, and the removal of IN_MESOGLEA in WilderSharedConstants
 
 - Osseous Sculk will now cover their branches in Sculk Veins when its base is converted to Sculk
 - Increased the chances of larger Osseous Sculk generating during worldgen
@@ -78,8 +78,8 @@ Bug Fixes & Changes
 - Added a config option for whether of not Smoke particles will spawn upon a Lightning Bolt striking
 
 - The config will now sync between server and client
-    - Operators of servers will modify the server's config upon modifying it on their end
-    - Non-operators will see that config options that don't solely pertain to the client will be blocked out and set to the server's value
+  - Operators of servers will modify the server's config upon modifying it on their end
+  - Non-operators will see that config options that don't solely pertain to the client will be blocked out and set to the server's value
 - Added a "New Frosted Ice Cracking" config option to control Frosted Ice's updated cracking (playing sounds and spawning particles)
 - Added a config option for whether or not Dripleaves will use updated Redstone powering functionality
 - Added a config option for whether or not advancements will be modified
@@ -116,5 +116,7 @@ Now, I understand how the assortment of Vibrations I chose for the Crab to react
 I almost forgot to mention, too, this behavior was inspired by the Sheargrubs in Pikmin. I want Crabs to occassionally surprise the player when they suddenly emerge, you know? Scary.
 
 The last thing I'd like to mention is that we're open to new sound designers and texture artists! I would prefer to have a few of each so we don't have to pawn all our requests on to one person, and to allow for more flexibility and looser deadlines in our team. It would also be beneficial to be able to review multiple takes on one idea, if need be!
+
+12/14/2023 Update: Whew! That was a long trip. Since I wrote that newsletter, I had a ton of stuff to fix and Treetrain managed to do some of the most insane things ever, including config syncing! I'm hoping this is the day 2.2 releases, there have been so many improvements made and so many challenges overcome (and honestly 80% of which we can all thank Treetrain for,) and I just want to get this over with so I can work on my other mods. And Wilder Wild 2.3... I think I already know what I want it to be.
 
 -Luna.
