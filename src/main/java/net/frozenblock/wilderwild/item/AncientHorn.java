@@ -72,7 +72,7 @@ public class AncientHorn extends InstrumentItem {
 			if (entry != null) {
 				int between = entry.endTime - entry.startTime;
 				if (between > 140 && between >= time) {
-					((CooldownInterface) user.getCooldowns()).changeCooldown(RegisterItems.ANCIENT_HORN, -time);
+					((CooldownInterface) user.getCooldowns()).frozenLib$changeCooldown(RegisterItems.ANCIENT_HORN, -time);
 					return time;
 				}
 			}
