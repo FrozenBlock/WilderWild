@@ -26,7 +26,7 @@ public class WilderClientNetworking {
 		receiveTermitePacket();
 		receiveSensorHiccupPacket();
 		receiveJellyStingPacket();
-		WilderLightningStrikePacket.receiveLightningStrikePacket();
+		WilderLightningStrikePacket.receive();
 	}
 	private static void receiveEasyEchoerBubblePacket() {
 		ClientPlayNetworking.registerGlobalReceiver(WilderNetworking.FLOATING_SCULK_BUBBLE_PACKET, (ctx, handler, byteBuf, responseSender) -> {

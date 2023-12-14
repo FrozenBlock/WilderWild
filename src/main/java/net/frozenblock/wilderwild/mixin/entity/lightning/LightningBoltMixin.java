@@ -58,7 +58,7 @@ public class LightningBoltMixin {
 			BlockPos blockPos = this.getStrikePosition();
 			BlockState state = serverLevel.getBlockState(blockPos);
 			if (!LightningBolt.class.cast(this).level().isClientSide) {
-				WilderLightningStrikePacket.sendLightningStrikeToAll(
+				WilderLightningStrikePacket.sendToAll(
 					LightningBolt.class.cast(this),
 					state,
 					this.wilderWild$age
