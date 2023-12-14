@@ -50,7 +50,6 @@ public class WilderNetworking {
 	}
 
 	public static void sendLightningStrikeToAll(@NotNull Entity entity, @NotNull BlockState blockState, int tickCount) {
-		FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
 		FabricPacket packet = new LightningStrikePacket(Block.getId(blockState), entity.getX(), entity.getY(), entity.getZ(), tickCount);
 		for (ServerPlayer player : PlayerLookup.tracking(entity)) {
 			ServerPlayNetworking.send(player, packet);
