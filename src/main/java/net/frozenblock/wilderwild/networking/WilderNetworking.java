@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.networking;
 
 import io.netty.buffer.Unpooled;
+import net.fabricmc.fabric.api.networking.v1.FabricPacket;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -41,7 +42,6 @@ public class WilderNetworking {
 	public static final ResourceLocation TERMITE_PARTICLE_PACKET = WilderSharedConstants.id("termite_particle_packet");
 	public static final ResourceLocation SENSOR_HICCUP_PACKET = WilderSharedConstants.id("sensor_hiccup_packet");
 	public static final ResourceLocation JELLY_STING_PACKET = WilderSharedConstants.id("jelly_sting_packet");
-	public static final ResourceLocation LIGHTNING_STRIKE_PACKET = WilderSharedConstants.id("lightning_strike_packet");
 
 	public static void sendJellySting(ServerPlayer player, boolean baby) {
 		FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
@@ -51,13 +51,9 @@ public class WilderNetworking {
 
 	public static void sendLightningStrikeToAll(@NotNull Entity entity, @NotNull BlockState blockState, int tickCount) {
 		FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
-		byteBuf.writeInt(Block.getId(blockState));
-		byteBuf.writeDouble(entity.getX());
-		byteBuf.writeDouble(entity.getY());
-		byteBuf.writeDouble(entity.getZ());
-		byteBuf.writeVarInt(tickCount);
+		FabricPacket packet = new LightningStrikePacket(Block.getId(blockState), entity.getX(), entity.getY(), entity.getZ(), tickCount);
 		for (ServerPlayer player : PlayerLookup.tracking(entity)) {
-			ServerPlayNetworking.send(player, LIGHTNING_STRIKE_PACKET, byteBuf);
+			ServerPlayNetworking.send(player, packet);
 		}
 	}
 

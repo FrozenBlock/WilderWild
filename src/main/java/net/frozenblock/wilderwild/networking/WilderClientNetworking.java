@@ -11,6 +11,7 @@ import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleEngine;
@@ -145,22 +146,23 @@ public class WilderClientNetworking {
 	}
 
 	private static void receiveLightningStrikePacket() {
-		ClientPlayNetworking.registerGlobalReceiver(WilderNetworking.LIGHTNING_STRIKE_PACKET, (ctx, handler, byteBuf, responseSender) -> ctx.execute(() -> {
-			BlockState blockState = Block.stateById(byteBuf.readInt());
-			double x = byteBuf.readDouble();
-			double y = byteBuf.readDouble();
-			double z = byteBuf.readDouble();
-			int tickCount = byteBuf.readVarInt();
-			if (ctx.level != null && !blockState.isAir()) {
-				RandomSource random = ctx.level.getRandom();
+		ClientPlayNetworking.registerGlobalReceiver(LightningStrikePacket.PACKET_TYPE, (packet, player, responseSender) -> {
+			BlockState blockState = Block.stateById(packet.blockStateId());
+			double x = packet.x();
+			double y = packet.y();
+			double z = packet.z();
+			int tickCount = packet.tickCount();
+			ClientLevel level = player.clientLevel;
+			if (!blockState.isAir()) {
+				RandomSource random = level.getRandom();
 				if (EntityConfig.get().lightning.lightningBlockParticles) {
-					lightningBlockParticles(tickCount, x, y, z, blockState, random, ctx.particleEngine);
+					lightningBlockParticles(tickCount, x, y, z, blockState, random, Minecraft.getInstance().particleEngine);
 				}
 				if (EntityConfig.get().lightning.lightningSmokeParticles) {
-					lightningSmokeParticles(tickCount, x, y, z, blockState, random, ctx.particleEngine);
+					lightningSmokeParticles(tickCount, x, y, z, blockState, random, Minecraft.getInstance().particleEngine);
 				}
 			}
-		}));
+		});
 	}
 
 	private static void lightningBlockParticles(int tickCount, double x, double y, double z, @NotNull BlockState blockState, @NotNull RandomSource random, @NotNull ParticleEngine particleEngine) {
