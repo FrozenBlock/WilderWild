@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.mixin.item.instrument;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.injector.WrapWithCondition;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.config.ItemConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -48,11 +49,15 @@ public final class InstrumentItemMixin {
 		}
 	}
 
-	@WrapOperation(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemCooldowns;addCooldown(Lnet/minecraft/world/item/Item;I)V"))
-	private void wilderWild$bypassCooldown(ItemCooldowns itemCooldowns, Item item, int useDuration, Operation<Void> original) {
-		if (!ItemConfig.get().restrictInstrumentSound) {
-			original.call(itemCooldowns, item, useDuration);
-		}
+	@WrapWithCondition(
+		method = "use",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/item/ItemCooldowns;addCooldown(Lnet/minecraft/world/item/Item;I)V"
+		)
+	)
+	private void wilderWild$bypassCooldown(ItemCooldowns itemCooldowns, Item item, int useDuration) {
+		return !ItemConfig.get().restrictInstrumentSound;
 	}
 
 }
