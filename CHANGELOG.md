@@ -25,7 +25,7 @@ Bug Fixes & Changes
 ---
 
 - Added partial Japanese language support
-  - Thank you mayonaka8478
+    - Thank you mayonaka8478
 - Tweaked leaf decay distance to 12 in order to accommodate for Palm Fronds, so they now work like regular leaves
     - Other leaf types will still cap out at 7, but can be changed with commands or a Debug Stick to go up to 12
 - Made Palm Fronds less dense on average
