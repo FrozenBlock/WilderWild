@@ -1,14 +1,13 @@
 package net.frozenblock.wilderwild.networking;
 
-import java.util.concurrent.atomic.AtomicInteger;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.frozenblock.wilderwild.networking.packet.WilderControlledSeedParticlePacket;
-import net.frozenblock.wilderwild.networking.packet.WilderFloatingSculkBubblePacket;
+import net.frozenblock.wilderwild.networking.packet.WilderFloatingSculkBubbleParticlePacket;
 import net.frozenblock.wilderwild.networking.packet.WilderLightningStrikePacket;
 import net.frozenblock.wilderwild.networking.packet.WilderSeedParticlePacket;
-import net.frozenblock.wilderwild.registry.RegisterParticles;
+import net.frozenblock.wilderwild.networking.packet.WilderTermiteParticlePacket;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
@@ -20,30 +19,13 @@ import net.minecraft.world.phys.Vec3;
 public class WilderClientNetworking {
 
 	public static void registerPacketReceivers() {
-		WilderFloatingSculkBubblePacket.receive();
+		WilderFloatingSculkBubbleParticlePacket.receive();
 		WilderSeedParticlePacket.receive();
 		WilderControlledSeedParticlePacket.receive();
-		receiveTermitePacket();
+		WilderTermiteParticlePacket.receive();
 		receiveSensorHiccupPacket();
 		receiveJellyStingPacket();
 		WilderLightningStrikePacket.receive();
-	}
-
-	private static void receiveTermitePacket() {
-		ClientPlayNetworking.registerGlobalReceiver(WilderNetworking.TERMITE_PARTICLE_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-			Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
-			AtomicInteger count = new AtomicInteger(byteBuf.readVarInt());
-			ctx.execute(() -> {
-				if (ctx.level == null)
-					throw new IllegalStateException("why is your world null");
-
-				count.addAndGet(-1);
-				ctx.level.addAlwaysVisibleParticle(RegisterParticles.TERMITE, pos.x, pos.y, pos.z, 0, 0, 0);
-				for (int i = 0; i < count.get(); i++) {
-					ctx.level.addParticle(RegisterParticles.TERMITE, pos.x, pos.y, pos.z, 0, 0, 0);
-				}
-			});
-		});
 	}
 
 	private static void receiveSensorHiccupPacket() {

@@ -32,7 +32,7 @@ import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
 import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.networking.WilderNetworking;
+import net.frozenblock.wilderwild.networking.packet.WilderTermiteParticlePacket;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -114,7 +114,7 @@ public class TermiteManager {
 		ArrayList<Termite> termitesToRemove = new ArrayList<>();
 		for (Termite termite : this.termites) {
 			if (termite.tick(level, natural)) {
-				WilderNetworking.EasyTermitePacket.createParticle(level, Vec3.atCenterOf(termite.pos), termite.eating ? 4 : 6);
+				WilderTermiteParticlePacket.sendToAll(level, Vec3.atCenterOf(termite.pos), termite.eating ? 4 : 6);
 			} else {
 				level.playSound(null, termite.pos, RegisterSounds.BLOCK_TERMITE_MOUND_ENTER, SoundSource.NEUTRAL, 0.6F, 1.0F);
 				termitesToRemove.add(termite);

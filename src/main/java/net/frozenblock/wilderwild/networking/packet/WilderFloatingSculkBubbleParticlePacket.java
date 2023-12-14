@@ -7,9 +7,7 @@ import net.fabricmc.fabric.api.networking.v1.FabricPacket;
 import net.fabricmc.fabric.api.networking.v1.PacketType;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.networking.WilderNetworking;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
@@ -21,19 +19,19 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-public record WilderFloatingSculkBubblePacket(double x, double y, double z, double size, int maxAge, double yd, int count) implements FabricPacket {
+public record WilderFloatingSculkBubbleParticlePacket(double x, double y, double z, double size, int maxAge, double yd, int count) implements FabricPacket {
 
-	public static final PacketType<WilderFloatingSculkBubblePacket> PACKET_TYPE = PacketType.create(
+	public static final PacketType<WilderFloatingSculkBubbleParticlePacket> PACKET_TYPE = PacketType.create(
 			WilderSharedConstants.id("floating_sculk_bubble_packet"),
-			WilderFloatingSculkBubblePacket::new
+			WilderFloatingSculkBubbleParticlePacket::new
 	);
 
-	public WilderFloatingSculkBubblePacket(@NotNull FriendlyByteBuf buf) {
+	public WilderFloatingSculkBubbleParticlePacket(@NotNull FriendlyByteBuf buf) {
 		this(buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readVarInt(), buf.readDouble(), buf.readVarInt());
 	}
 
 	public static void sendToAll(@NotNull Level level, @NotNull Vec3 pos, double size, int maxAge, double yVel, int count) {
-		WilderFloatingSculkBubblePacket seedParticlePacket = new WilderFloatingSculkBubblePacket(
+		WilderFloatingSculkBubbleParticlePacket floatingSculkBubbleParticlePacket = new WilderFloatingSculkBubbleParticlePacket(
 				pos.x(),
 				pos.y(),
 				pos.z(),
@@ -43,7 +41,7 @@ public record WilderFloatingSculkBubblePacket(double x, double y, double z, doub
 				count
 		);
 		for (ServerPlayer player : PlayerLookup.tracking((ServerLevel) level, BlockPos.containing(pos))) {
-			ServerPlayNetworking.send(player, seedParticlePacket);
+			ServerPlayNetworking.send(player, floatingSculkBubbleParticlePacket);
 		}
 	}
 
@@ -71,30 +69,6 @@ public record WilderFloatingSculkBubblePacket(double x, double y, double z, doub
 					);
 				}
 			}
-		});
-	}
-
-	private static void receiveEasyEchoerBubblePacket() {
-		ClientPlayNetworking.registerGlobalReceiver(WilderNetworking.FLOATING_SCULK_BUBBLE_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-			Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
-			double size = byteBuf.readDouble();
-			int age = byteBuf.readInt();
-			double yVel = byteBuf.readDouble();
-			int count = byteBuf.readVarInt();
-			ctx.execute(() -> {
-				if (ctx.level == null)
-					throw new IllegalStateException("why is your world null");
-				var random = AdvancedMath.random();
-				for (int i = 0; i < count; i++) {
-					double xVel = (random.nextDouble() - 0.5) / 9.5;
-					double zVel = (random.nextDouble() - 0.5) / 9.5;
-					if (size >= 1) {
-						xVel = (random.nextDouble() - 0.5) / 10.5;
-						zVel = (random.nextDouble() - 0.5) / 10.5;
-					}
-					ctx.level.addParticle(new FloatingSculkBubbleParticleOptions(size, age, new Vec3(xVel, yVel, zVel)), pos.x, pos.y, pos.z, 0, 0, 0);
-				}
-			});
 		});
 	}
 

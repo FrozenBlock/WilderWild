@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.mixin.sculk;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.misc.interfaces.SculkShriekerTickInterface;
-import net.frozenblock.wilderwild.networking.packet.WilderFloatingSculkBubblePacket;
+import net.frozenblock.wilderwild.networking.packet.WilderFloatingSculkBubbleParticlePacket;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -95,7 +95,7 @@ public abstract class SculkShriekerBlockEntityMixin implements SculkShriekerTick
 				--this.wilderWild$bubbles;
 				var random = AdvancedMath.random();
 
-				WilderFloatingSculkBubblePacket.sendToAll(level, Vec3.atCenterOf(pos), random.nextDouble() > 0.7 ? 1 : 0, 20 + random.nextInt(80), 0.075, 1);
+				WilderFloatingSculkBubbleParticlePacket.sendToAll(level, Vec3.atCenterOf(pos), random.nextDouble() > 0.7 ? 1 : 0, 20 + random.nextInt(80), 0.075, 1);
 			}
 		}
 	}

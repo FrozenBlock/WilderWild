@@ -22,7 +22,6 @@ import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -32,8 +31,6 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class WilderNetworking {
-	public static final ResourceLocation FLOATING_SCULK_BUBBLE_PACKET = WilderSharedConstants.id("floating_sculk_bubble_easy_packet");
-	public static final ResourceLocation TERMITE_PARTICLE_PACKET = WilderSharedConstants.id("termite_particle_packet");
 	public static final ResourceLocation SENSOR_HICCUP_PACKET = WilderSharedConstants.id("sensor_hiccup_packet");
 	public static final ResourceLocation JELLY_STING_PACKET = WilderSharedConstants.id("jelly_sting_packet");
 
@@ -53,21 +50,6 @@ public class WilderNetworking {
 			byteBuf.writeDouble(pos.z);
 			for (ServerPlayer player : PlayerLookup.around((ServerLevel) level, pos, 32)) {
 				ServerPlayNetworking.send(player, SENSOR_HICCUP_PACKET, byteBuf);
-			}
-		}
-	}
-
-	public static class EasyTermitePacket {
-		public static void createParticle(@NotNull Level level, Vec3 pos, int count) {
-			if (level.isClientSide)
-				throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK SPAWN ON SERVER NEXT TIME PLS");
-			FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
-			byteBuf.writeDouble(pos.x);
-			byteBuf.writeDouble(pos.y);
-			byteBuf.writeDouble(pos.z);
-			byteBuf.writeVarInt(count);
-			for (ServerPlayer player : PlayerLookup.tracking((ServerLevel) level, BlockPos.containing(pos))) {
-				ServerPlayNetworking.send(player, TERMITE_PARTICLE_PACKET, byteBuf);
 			}
 		}
 	}
