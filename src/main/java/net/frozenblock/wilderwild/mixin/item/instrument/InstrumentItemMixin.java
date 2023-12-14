@@ -56,7 +56,7 @@ public final class InstrumentItemMixin {
 			target = "Lnet/minecraft/world/item/ItemCooldowns;addCooldown(Lnet/minecraft/world/item/Item;I)V"
 		)
 	)
-	private void wilderWild$bypassCooldown(ItemCooldowns itemCooldowns, Item item, int useDuration) {
+	private boolean wilderWild$bypassCooldown(ItemCooldowns itemCooldowns, Item item, int useDuration) {
 		return !ItemConfig.get().restrictInstrumentSound;
 	}
 
