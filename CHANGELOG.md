@@ -61,6 +61,7 @@ Bug Fixes & Changes
 - Sculk Shriekers will now only create Sculk Bubbles underwater if the Shrieker Gargling config is enabled
 - Stone Chests will now interact with Redstone Comparators, outputting a signal based on how high their lid is lifted ([#319](https://github.com/FrozenBlock/WilderWild/issues/319))
 - Echo Glass now occludes Vibrations
+- Finally fixed odd timing on Floating Sculk Bubbles' scaling
 - Added more config options for the warden
   - Added a config option to control whether or not the Warden should be able to swim
   - Added a config option to control whether or not the improved digging animation should be used
