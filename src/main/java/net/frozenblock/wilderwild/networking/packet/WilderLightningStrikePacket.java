@@ -39,7 +39,7 @@ public record WilderLightningStrikePacket(int blockStateId, double x, double y, 
 		this(buf.readInt(), buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readVarInt());
 	}
 
-	public static void sendLightningStrikeToAll(@NotNull Entity entity, @NotNull BlockState blockState, int tickCount) {
+	public static void sendToAll(@NotNull Entity entity, @NotNull BlockState blockState, int tickCount) {
 		WilderLightningStrikePacket lightningStrikePacket = new WilderLightningStrikePacket(
 				Block.getId(blockState),
 				entity.getX(),
@@ -53,7 +53,7 @@ public record WilderLightningStrikePacket(int blockStateId, double x, double y, 
 	}
 
 	@Environment(EnvType.CLIENT)
-	public static void receiveLightningStrikePacket() {
+	public static void receive() {
 		ClientPlayNetworking.registerGlobalReceiver(PACKET_TYPE, (packet, player, responseSender) -> {
 			BlockState blockState = Block.stateById(packet.blockStateId());
 			double x = packet.x();
