@@ -32,7 +32,6 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class WilderNetworking {
-	public static final ResourceLocation SEED_PACKET = WilderSharedConstants.id("seed_particle_packet");
 	public static final ResourceLocation CONTROLLED_SEED_PACKET = WilderSharedConstants.id("controlled_seed_particle_packet");
 	public static final ResourceLocation FLOATING_SCULK_BUBBLE_PACKET = WilderSharedConstants.id("floating_sculk_bubble_easy_packet");
 	public static final ResourceLocation TERMITE_PARTICLE_PACKET = WilderSharedConstants.id("termite_particle_packet");
@@ -46,19 +45,7 @@ public class WilderNetworking {
 	}
 
 	public static class EasySeedPacket {
-		public static void createParticle(@NotNull Level level, Vec3 pos, int count, boolean isMilkweed) {
-			if (level.isClientSide)
-				throw new IllegalStateException("Particle attempting spawning on THE CLIENT JESUS CHRIST WHAT THE HECK SPAWN ON SERVER NEXT TIME PLS");
-			FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
-			byteBuf.writeDouble(pos.x);
-			byteBuf.writeDouble(pos.y);
-			byteBuf.writeDouble(pos.z);
-			byteBuf.writeVarInt(count);
-			byteBuf.writeBoolean(isMilkweed);
-			for (ServerPlayer player : PlayerLookup.around((ServerLevel) level, pos, 128)) {
-				ServerPlayNetworking.send(player, SEED_PACKET, byteBuf);
-			}
-		}
+
 
 		public static void createControlledParticle(@NotNull Level level, Vec3 pos, double xvel, double yvel, double zvel, int count, boolean isMilkweed, int radius, double posRandomizer) {
 			if (level.isClientSide)

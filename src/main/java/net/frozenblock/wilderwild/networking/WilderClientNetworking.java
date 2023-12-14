@@ -6,6 +6,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.networking.packet.WilderLightningStrikePacket;
+import net.frozenblock.wilderwild.networking.packet.WilderSeedParticlePacket;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
@@ -21,7 +22,7 @@ public class WilderClientNetworking {
 
 	public static void registerPacketReceivers() {
 		receiveEasyEchoerBubblePacket();
-		receiveSeedPacket();
+		WilderSeedParticlePacket.receive();
 		receiveControlledSeedPacket();
 		receiveTermitePacket();
 		receiveSensorHiccupPacket();
@@ -47,21 +48,6 @@ public class WilderClientNetworking {
 						zVel = (random.nextDouble() - 0.5) / 10.5;
 					}
 					ctx.level.addParticle(new FloatingSculkBubbleParticleOptions(size, age, new Vec3(xVel, yVel, zVel)), pos.x, pos.y, pos.z, 0, 0, 0);
-				}
-			});
-		});
-	}
-
-	private static void receiveSeedPacket() {
-		ClientPlayNetworking.registerGlobalReceiver(WilderNetworking.SEED_PACKET, (ctx, handler, byteBuf, responseSender) -> {
-			Vec3 pos = new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
-			int count = byteBuf.readVarInt();
-			boolean milkweed = byteBuf.readBoolean();
-			ctx.execute(() -> {
-				if (ctx.level == null)
-					throw new IllegalStateException("why is your world null");
-				for (int i = 0; i < count; i++) {
-					ctx.level.addParticle(new SeedParticleOptions(milkweed, false), pos.x, pos.y, pos.z, 0, 0, 0);
 				}
 			});
 		});

@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.block;
 
-import net.frozenblock.wilderwild.networking.WilderNetworking;
+import net.frozenblock.wilderwild.networking.packet.WilderSeedParticlePacket;
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -49,7 +49,7 @@ public class SeedingFlowerBlock extends FlowerBlock {
 	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
 		if (level instanceof ServerLevel server) {
 			if (server.random.nextFloat() > 0.95) {
-				WilderNetworking.EasySeedPacket.createParticle(level, Vec3.atCenterOf(pos).add(0, 0.3, 0), server.random.nextIntBetweenInclusive(1, 3), false);
+				WilderSeedParticlePacket.sendToAll(level, Vec3.atCenterOf(pos).add(0, 0.3, 0), server.random.nextIntBetweenInclusive(1, 3), false);
 			}
 		}
 	}
@@ -58,7 +58,7 @@ public class SeedingFlowerBlock extends FlowerBlock {
 	public void playerWillDestroy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
 		super.playerWillDestroy(level, pos, state, player);
 		if (level instanceof ServerLevel server) {
-			WilderNetworking.EasySeedPacket.createParticle(level, Vec3.atCenterOf(pos).add(0, 0.3, 0), server.random.nextIntBetweenInclusive(3, 7), false);
+			WilderSeedParticlePacket.sendToAll(level, Vec3.atCenterOf(pos).add(0, 0.3, 0), server.random.nextIntBetweenInclusive(3, 7), false);
 		}
 	}
 }
