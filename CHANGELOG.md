@@ -120,3 +120,13 @@ The last thing I'd like to mention is that we're open to new sound designers and
 12/14/2023 Update: Whew! That was a long trip. Since I wrote that newsletter, I had a ton of stuff to fix and Treetrain managed to do some of the most insane things ever, including config syncing! I'm hoping this is the day 2.2 releases, there have been so many improvements made and so many challenges overcome (and honestly 80% of which we can all thank Treetrain for,) and I just want to get this over with so I can work on my other mods. And Wilder Wild 2.3... I think I already know what I want it to be.
 
 -Luna.
+
+
+Wilder Wild 2.2 Newsletter - *Treetrain1*
+---
+
+What's good gamers, Treetrain1 here.
+
+This is super *Wild*.
+
+-Treetrain1.
