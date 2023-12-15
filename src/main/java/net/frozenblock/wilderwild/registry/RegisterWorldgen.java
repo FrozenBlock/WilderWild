@@ -48,7 +48,6 @@ public final class RegisterWorldgen {
 	// Main Biomes
 	public static final ResourceKey<Biome> CYPRESS_WETLANDS = register("cypress_wetlands");
 	public static final ResourceKey<Biome> MIXED_FOREST = register("mixed_forest");
-	public static final ResourceKey<Biome> DYIED_FOREST = register("dyied_forest");
 	public static final ResourceKey<Biome> OASIS = register("oasis");
 	public static final ResourceKey<Biome> WARM_RIVER = register("warm_river");
 	public static final ResourceKey<Biome> WARM_BEACH = register("warm_beach");
@@ -89,7 +88,6 @@ public final class RegisterWorldgen {
 		// MAIN BIOMES
 		register(context, CYPRESS_WETLANDS, cypressWetlands(context));
 		register(context, MIXED_FOREST, mixedForest(context));
-		register(context, DYIED_FOREST, dyiedForest(context));
 		register(context, OASIS, oasis(context));
 		register(context, WARM_RIVER, warmRiver(context));
 		register(context, WARM_BEACH, warmBeach(context));
@@ -222,42 +220,6 @@ public final class RegisterWorldgen {
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MIXED_TREES.getKey());
 		addBasicFeatures(builder, MIXED_FOREST);
 		BiomeDefaultFeatures.addForestFlowers(builder);
-		BiomeDefaultFeatures.addForestGrass(builder);
-		BiomeDefaultFeatures.addDefaultOres(builder);
-		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
-	}
-
-	// DYIED FOREST
-	@NotNull
-	public static Biome dyiedForest(@NotNull BootstapContext<Biome> entries) {
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-		BiomeDefaultFeatures.commonSpawns(builder);
-		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 5, 4, 4));
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addDyiedForestFeatures(builder2);
-		return new Biome.BiomeBuilder()
-				.hasPrecipitation(true)
-				.temperature(WilderSharedWorldgen.MixedForest.TEMP)
-				.downfall(WilderSharedWorldgen.MixedForest.DOWNFALL)
-				.specialEffects(
-						new BiomeSpecialEffects.Builder()
-								.waterColor(WilderSharedWorldgen.MixedForest.WATER_COLOR)
-								.waterFogColor(WilderSharedWorldgen.MixedForest.WATER_FOG_COLOR)
-								.fogColor(WilderSharedWorldgen.MixedForest.FOG_COLOR)
-								.skyColor(WilderSharedWorldgen.MixedForest.SKY_COLOR)
-								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-								.backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST)).build())
-				.mobSpawnSettings(builder.build())
-				.generationSettings(builder2.build())
-				.build();
-	}
-
-	public static void addDyiedForestFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_DYIED_FOREST.getKey());
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH);
-		addBasicFeatures(builder, DYIED_FOREST);
 		BiomeDefaultFeatures.addForestGrass(builder);
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
