@@ -25,7 +25,6 @@ buildscript {
 
 plugins {
     id("fabric-loom") version("+")
-    id("io.github.juuxel.loom-quiltflower") version("+")
     id("org.quiltmc.gradle.licenser") version("+")
     id("org.ajoberstar.grgit") version("+")
     id("com.modrinth.minotaur") version("+")
@@ -263,7 +262,7 @@ dependencies {
     modCompileOnly("com.github.glitchfiend:TerraBlender-fabric:${minecraft_version}-${terrablender_version}")
 
     // MixinExtras
-    implementation("com.github.llamalad7.mixinextras:mixinextras-fabric:0.2.0-beta.8")?.let { annotationProcessor(it); shadowInclude(it) }
+    implementation("io.github.llamalad7:mixinextras-fabric:0.3.1")?.let { annotationProcessor(it) }
 
     // Sodium
     modCompileOnly("maven.modrinth:sodium:${sodium_version}")
@@ -314,9 +313,6 @@ dependencies {
     }
 }
 
-quiltflower {
-    quiltflowerVersion.set("1.8.0")
-}
 
 tasks {
     processResources {

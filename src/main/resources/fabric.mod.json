@@ -36,9 +36,6 @@
     "client": [
       "net.frozenblock.wilderwild.WilderWildClient"
     ],
-    "preLaunch": [
-      "net.frozenblock.wilderwild.misc.WilderWildPreLaunch"
-    ],
     "fabric-datagen": [
       "net.frozenblock.wilderwild.misc.WilderWildDataGenerator"
     ],
@@ -62,7 +59,7 @@
   "depends": {
     "frozenlib": ">=1.2.0-",
     "nbtcrafting": ">=2.2.3",
-    "fabricloader": ">=0.14.12",
+    "fabricloader": ">=0.15.0",
     "fabric-api": ">=0.73.0",
     "minecraft": ">=${minecraft_version}",
     "java": ">=17"
