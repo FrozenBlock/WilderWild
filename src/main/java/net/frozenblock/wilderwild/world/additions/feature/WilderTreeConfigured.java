@@ -129,6 +129,7 @@ public final class WilderTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_OAK_BEES = register("fancy_oak_bees");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> OLD_FANCY_DYING_OAK_BEES_0004 = register("old_fancy_dying_oak_bees_0004");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_OAK = register("snapped_oak_tree");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_DYIED_OAK = register("fancy_dyied_oak");
 	//DARK OAK
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DYING_DARK_OAK = register("dying_dark_oak");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_DARK_OAK = register("tall_dark_oak");
@@ -656,6 +657,14 @@ public final class WilderTreeConfigured {
 					SHELF_FUNGUS_007
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		FANCY_DYIED_OAK.makeAndSetHolder(Feature.TREE,
+				fancyDyiedOak().decorators(
+						List.of(
+								SHELF_FUNGUS_002
+						)
+				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		// DARK OAK
@@ -1474,6 +1483,11 @@ public final class WilderTreeConfigured {
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fancyOak() {
 		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.OAK_LOG), new FancyTrunkPlacer(5, 16, 0), BlockStateProvider.simple(Blocks.OAK_LEAVES), new FancyFoliagePlacer(ConstantInt.of(3), ConstantInt.of(3), 4), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)))).ignoreVines();
+	}
+
+	@NotNull
+	private static TreeConfiguration.TreeConfigurationBuilder fancyDyiedOak() {
+		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.OAK_LOG), new FancyTrunkPlacer(5, 16, 0), BlockStateProvider.simple(Blocks.AIR), new FancyFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), 1), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)))).ignoreVines();
 	}
 
 	@NotNull
