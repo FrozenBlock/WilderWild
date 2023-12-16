@@ -36,6 +36,7 @@ import net.frozenblock.wilderwild.entity.ai.crab.CrabMoveControl;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
+import net.frozenblock.wilderwild.registry.RegisterMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
@@ -389,6 +390,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		CrabAi.updateActivity(this);
 		this.level().getProfiler().pop();
 		super.customServerAiStep();
+		this.getBrain().setMemory(RegisterMemoryModuleTypes.FIRST_BRAIN_TICK, Unit.INSTANCE);
 	}
 
 	public double getEmptyAreaSearchDistance() {
