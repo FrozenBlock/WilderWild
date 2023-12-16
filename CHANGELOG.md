@@ -5,6 +5,7 @@ Thank you!
 - Fixed Crab idle activities
 
 2.2 Changelog:
+
 Additions
 ---
 
