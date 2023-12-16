@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.mixin.sculk;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.misc.interfaces.SculkSensorTickInterface;
-import net.frozenblock.wilderwild.networking.WilderNetworking;
+import net.frozenblock.wilderwild.networking.packet.WilderSensorHiccupPacket;
 import net.frozenblock.wilderwild.registry.RegisterGameEvents;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -60,13 +60,12 @@ public abstract class CalibratedSculkSensorBlockEntityMixin extends BlockEntity 
 	public void wilderWild$tickServer(ServerLevel level, BlockPos pos, @NotNull BlockState state) {
 		CalibratedSculkSensorBlockEntity sensor = CalibratedSculkSensorBlockEntity.class.cast(this);
 		VibrationSystem.Ticker.tick(level, sensor.getVibrationData(), sensor.createVibrationUser());
-		boolean bl2 = level.random.nextBoolean();
 		if (state.getValue(RegisterProperties.HICCUPPING)) {
-			if (bl2) {
+			if (level.random.nextBoolean() && level.random.nextBoolean()) {
 				double x = (pos.getX() - 0.1) + (level.random.nextFloat() * 1.2);
 				double y = pos.getY() + level.random.nextFloat();
 				double z = (pos.getZ() - 0.1) + (level.random.nextFloat() * 1.2);
-				WilderNetworking.EasySensorHiccupPacket.createParticle(level, new Vec3(x, y, z));
+				WilderSensorHiccupPacket.sendToAll(sensor, new Vec3(x, y, z));
 			}
 			if (SculkSensorBlock.canActivate(state) && level.random.nextInt(320) <= 1) {
 				((SculkSensorBlock) state.getBlock()).activate(null, level, pos, state, AdvancedMath.random().nextInt(15), sensor.getLastVibrationFrequency());

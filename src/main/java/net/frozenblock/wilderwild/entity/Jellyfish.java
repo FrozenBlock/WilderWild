@@ -30,7 +30,7 @@ import net.frozenblock.lib.entity.api.NoFlopAbstractFish;
 import net.frozenblock.wilderwild.entity.ai.jellyfish.JellyfishAi;
 import net.frozenblock.wilderwild.entity.ai.jellyfish.JellyfishTemptGoal;
 import net.frozenblock.wilderwild.entity.variant.JellyfishVariant;
-import net.frozenblock.wilderwild.networking.WilderNetworking;
+import net.frozenblock.wilderwild.networking.packet.WilderJellyfishStingPacket;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -432,13 +432,13 @@ public class Jellyfish extends NoFlopAbstractFish {
 			List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.08));
 			boolean baby = this.isBaby();
 			float damage = baby ? 1F : 3F;
-			int poisonDuration = baby ? this.level().random.nextInt(40, 100) : this.level().random.nextInt(100, 200);
+			int poisonDuration = baby ? this.level().getRandom().nextInt(40, 100) : this.level().getRandom().nextInt(100, 200);
 			for (LivingEntity entity : list) {
 				if (this.targetingConditions.test(this, entity)) {
 					if (entity instanceof ServerPlayer player) {
 						if (player.hurt(this.damageSources().mobAttack(this), damage)) {
 							player.addEffect(new MobEffectInstance(MobEffects.POISON, poisonDuration, 0, false, false), this);
-							WilderNetworking.sendJellySting(player, baby);
+							WilderJellyfishStingPacket.sendTo(player, baby);
 						}
 					} else if (entity instanceof Mob mob) {
 						if (mob.hurt(this.damageSources().mobAttack(this), damage)) {
