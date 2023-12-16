@@ -559,9 +559,7 @@ val github by tasks.register("github") {
     }
 }
 
-@Suppress("unreachable_code") // YOU CANT PUBLISH UNTIL YOU TEST ROUGHLY ENOUGH RESOURCES COMPAT
 val publishMod by tasks.register("publishMod") {
-    throw UnsupportedOperationException("YOU CANT PUBLISH UNTIL YOU TEST ROUGHLY ENOUGH RESOURCES COMPAT")
     dependsOn(tasks.publish)
     dependsOn(github)
     dependsOn(tasks.curseforge)
