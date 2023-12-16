@@ -27,7 +27,7 @@ Bug Fixes & Changes
 - Added partial Japanese language support
   - Thank you mayonaka8478
 - Tweaked leaf decay distance to 12 in order to accommodate for Palm Fronds, so they now work like regular leaves
-    - Other leaf types will still cap out at 7, but can be changed with commands or a Debug Stick to go up to 12
+  - Other leaf types will still cap out at 7, but can be changed with commands or a Debug Stick to go up to 12
 - Made Palm Fronds less dense on average
 - Removed the custom distance detection from Palm Crowns
 - Added Palm Crowns to tags it was missing from
@@ -54,13 +54,14 @@ Bug Fixes & Changes
 - Fixed Jellyfish no longer spawning in Jellyfish Caves
 - Slightly optimized Jellyfish rendering with the rainbow easter egg
 - Reworked how clipping works with Waterlogged Mesoglea, as it will now apply to all entities as opposed to just players as is much more stable
-    - This comes alongside BlockGetterMixin having much cleaner code, and the removal of IN_MESOGLEA in WilderSharedConstants
+  - This comes alongside BlockGetterMixin having much cleaner code, and the removal of IN_MESOGLEA in WilderSharedConstants
 
 - Osseous Sculk will now cover their branches in Sculk Veins when its base is converted to Sculk
 - Increased the chances of larger Osseous Sculk generating during worldgen
 - Sculk Shriekers will now only create Sculk Bubbles underwater if the Shrieker Gargling config is enabled
 - Stone Chests will now interact with Redstone Comparators, outputting a signal based on how high their lid is lifted ([#319](https://github.com/FrozenBlock/WilderWild/issues/319))
 - Echo Glass now occludes Vibrations
+- Finally fixed odd timing on Floating Sculk Bubbles' scaling
 - Added more config options for the warden
   - Added a config option to control whether or not the Warden should be able to swim
   - Added a config option to control whether or not the improved digging animation should be used
@@ -77,8 +78,8 @@ Bug Fixes & Changes
 - Added a config option for whether of not Smoke particles will spawn upon a Lightning Bolt striking
 
 - The config will now sync between server and client
-    - Operators of servers will modify the server's config upon modifying it on their end
-    - Non-operators will see that config options that don't solely pertain to the client will be blocked out and set to the server's value
+  - Operators of servers will modify the server's config upon modifying it on their end
+  - Non-operators will see that config options that don't solely pertain to the client will be blocked out and set to the server's value
 - Added a "New Frosted Ice Cracking" config option to control Frosted Ice's updated cracking (playing sounds and spawning particles)
 - Added a config option for whether or not Dripleaves will use updated Redstone powering functionality
 - Added a config option for whether or not advancements will be modified
@@ -95,6 +96,7 @@ Bug Fixes & Changes
 - Hopefully resolved world generation issues with C2ME ([#311](https://github.com/FrozenBlock/WilderWild/issues/311))
 - Instrument items will now properly play on servers instead of immediately cutting out ([#284](https://github.com/FrozenBlock/WilderWild/issues/284))
 - Disabled remapping for some methods and fields referenced in mixins of mods to hopefully prevent possible issues
+- Moved all packet handling to `FabricPacket` classes to improve the longevity and organization of Wilder Wild's codebase
 - Refactored, cleaned up, and reworked multiple classes and mixins to improve internal organization, stability, and code integrity
 
 Wilder Wild 2.2 Newsletter - *Luna*
@@ -104,7 +106,7 @@ Hey, all! This is Luna/AViewFromTheTop here. :)
 
 I decided to start this "newsletter" of sorts as an easier way to communicate with you all, and to share things that I (or Treetrain, if he decides to write as well) would like our community to look out for and whatnot.
 
-First order of business, I'm hoping I've just been able to fix ([#311](https://github.com/FrozenBlock/WilderWild/issues/311)), The issue where C2ME would sometimes cause crashes while generating a Deep Dark biome. I'd like for you all to test if this issue has actually been fixed, and if not, to create a new [issue for it on our GitHub page](https://github.com/FrozenBlock/WilderWild/issues).
+First order of business, I'm hoping I've just been able to fix [#311](https://github.com/FrozenBlock/WilderWild/issues/311), The issue where C2ME would sometimes cause crashes while generating a Deep Dark biome. I'd like for you all to test if this issue has actually been fixed, and if not, to create a new [issue for it on our GitHub page](https://github.com/FrozenBlock/WilderWild/issues).
 
 Aside from that, I'd appreciate if you all could give us feedback on Crabs! They've been quite troublesome to make and I'm sure I wasn't able to incorporate every idea possible into them, so I'd like to know what you think could be improved upon or what may be missing. On that note, help from other modders to get their rotation and navigation working flawlessly would be very much appreciated!
 
@@ -115,4 +117,16 @@ I almost forgot to mention, too, this behavior was inspired by the Sheargrubs in
 
 The last thing I'd like to mention is that we're open to new sound designers and texture artists! I would prefer to have a few of each so we don't have to pawn all our requests on to one person, and to allow for more flexibility and looser deadlines in our team. It would also be beneficial to be able to review multiple takes on one idea, if need be!
 
+12/14/2023 Update: Whew! That was a long trip. Since I wrote that newsletter, I had a ton of stuff to fix and Treetrain managed to do some of the most insane things ever, including config syncing! I'm hoping this is the day 2.2 releases, there have been so many improvements made and so many challenges overcome (and honestly 80% of which we can all thank Treetrain for,) and I just want to get this over with so I can work on my other mods. And Wilder Wild 2.3... I think I already know what I want it to be.
+
 -Luna.
+
+
+Wilder Wild 2.2 Newsletter - *Treetrain1*
+---
+
+What's good gamers, Treetrain1 here.
+
+This is super *Wild*.
+
+-Treetrain1.

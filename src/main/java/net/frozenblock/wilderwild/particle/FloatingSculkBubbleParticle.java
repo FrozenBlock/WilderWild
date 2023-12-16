@@ -138,19 +138,19 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
 					}
 					case 5 -> {
 						this.currentInflation = 1;
-						this.targetInflation = 1.05F;
-					}
-					case 6 -> {
-						this.currentInflation = 1.05F;
 						this.targetInflation = 1.1F;
 					}
-					case 7 -> {
+					case 6 -> {
 						this.currentInflation = 1.1F;
 						this.targetInflation = 1.4F;
 					}
-					case 8 -> {
+					case 7 -> {
 						this.currentInflation = 1.4F;
 						this.targetInflation = 1.65F;
+					}
+					case 8 -> {
+						this.currentInflation = 1.65F;
+						this.targetInflation = 1.95F;
 					}
 					default -> {
 						this.currentInflation = 1F;
