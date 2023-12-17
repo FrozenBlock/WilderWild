@@ -101,8 +101,9 @@ public class FrozenLibIntegration extends ModIntegration {
 	}
 
 	@Override
-	public void initPreFreeze() {
-		WilderSharedConstants.log("FrozenLib pre-freeze mod integration ran!", WilderSharedConstants.UNSTABLE_LOGGING);
+	public void init() {
+		WilderSharedConstants.log("FrozenLib mod integration ran!", WilderSharedConstants.UNSTABLE_LOGGING);
+
 		SpottingIconPredicate.register(WilderSharedConstants.id("stella"), entity -> entity.hasCustomName() && entity.getCustomName().getString().equalsIgnoreCase("stella"));
 		SoundPredicate.register(WilderSharedConstants.id("instrument"), new SoundPredicate.LoopPredicate<LivingEntity>() {
 
@@ -127,7 +128,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			}
 		});
 		SoundPredicate.register(WilderSharedConstants.id("nectar"), (SoundPredicate.LoopPredicate<Firefly>) entity ->
-				!entity.isSilent() && entity.hasCustomName() && Objects.requireNonNull(entity.getCustomName()).getString().toLowerCase().contains("nectar")
+			!entity.isSilent() && entity.hasCustomName() && Objects.requireNonNull(entity.getCustomName()).getString().toLowerCase().contains("nectar")
 		);
 		SoundPredicate.register(WilderSharedConstants.id("enderman_anger"), (SoundPredicate.LoopPredicate<EnderMan>) entity -> {
 			if (entity.isSilent() || entity.isRemoved() || entity.isDeadOrDying()) {
@@ -135,11 +136,6 @@ public class FrozenLibIntegration extends ModIntegration {
 			}
 			return entity.isCreepy() || entity.hasBeenStaredAt();
 		});
-	}
-
-	@Override
-	public void init() {
-		WilderSharedConstants.log("FrozenLib mod integration ran!", WilderSharedConstants.UNSTABLE_LOGGING);
 
 		ServerWorldEvents.LOAD.register((server, level) -> PlayerDamageSourceSounds.addDamageSound(level.damageSources().cactus(), RegisterSounds.PLAYER_HURT_CACTUS, WilderSharedConstants.id("cactus")));
 
