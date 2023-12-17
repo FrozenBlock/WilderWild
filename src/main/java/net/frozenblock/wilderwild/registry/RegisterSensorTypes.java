@@ -38,7 +38,7 @@ public final class RegisterSensorTypes {
 	}
 
 	public static void register() {
-		WilderSharedConstants.logWild("Registering SensorTypes for", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderSharedConstants.logWithModId("Registering SensorTypes for", WilderSharedConstants.UNSTABLE_LOGGING);
 	}
 
 	public static final SensorType<CrabSpecificSensor> CRAB_SPECIFIC_SENSOR = register("crab_specific_sensor", CrabSpecificSensor::new);

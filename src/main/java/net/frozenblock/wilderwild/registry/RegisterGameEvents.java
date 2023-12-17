@@ -33,7 +33,7 @@ public final class RegisterGameEvents {
 	}
 
 	public static void registerEvents() {
-		WilderSharedConstants.logWild("Registering GameEvents for", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderSharedConstants.logWithModId("Registering GameEvents for", WilderSharedConstants.UNSTABLE_LOGGING);
 	}
 
 	@NotNull

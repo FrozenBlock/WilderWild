@@ -196,7 +196,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 						entity.setCustomName(Component.nullToEmpty(firefly.customName));
 					}
 				} else {
-					WilderSharedConstants.log("Couldn't spawn Firefly from lantern @ " + worldPosition, WilderSharedConstants.UNSTABLE_LOGGING);
+					WilderSharedConstants.printStackTrace("Couldn't spawn Firefly from Display Lantern!", true);
 				}
 			}
 		}

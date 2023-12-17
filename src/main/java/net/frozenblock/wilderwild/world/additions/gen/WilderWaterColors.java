@@ -31,7 +31,7 @@ public final class WilderWaterColors {
 	}
 
 	public static void stirWater() {
-		WilderSharedConstants.logWild("Overriding Water Colors for Wilder Wild", true);
+		WilderSharedConstants.logWithModId("Overriding Water Colors for Wilder Wild", true);
 		BiomeModifications.create(WilderSharedConstants.id("modify_hot_water")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeRegistryEntry().is(WilderBiomeTags.HOT_WATER),
 			(selectionContext, modificationContext) -> {
 				if (WorldgenConfig.get().waterColors.modifyHotWater) {

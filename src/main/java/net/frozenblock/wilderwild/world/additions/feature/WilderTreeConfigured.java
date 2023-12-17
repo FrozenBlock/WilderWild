@@ -223,7 +223,7 @@ public final class WilderTreeConfigured {
 
 	public static void registerTreeConfigured() {
 
-		WilderSharedConstants.logWild("Registering WilderTreeConfigured for", true);
+		WilderSharedConstants.logWithModId("Registering WilderTreeConfigured for", true);
 
 		// BIRCH
 
