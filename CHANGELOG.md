@@ -6,3 +6,4 @@ Thank you!
 - Fixed the Looting enchantment not affecting the Crab claw loot table
 - Fixed log spam of the enderman anger sound predicate
 - Fixed tags on 1.20.4
+- Fixed potted grass loot table on 1.20.4
