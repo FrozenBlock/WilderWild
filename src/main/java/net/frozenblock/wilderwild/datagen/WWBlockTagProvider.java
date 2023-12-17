@@ -330,6 +330,15 @@ final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 			.addOptionalTag(BlockTags.WITHER_IMMUNE)
 			.addOptionalTag(BlockTags.LOGS);
 
+		this.getOrCreateTagBuilder(WilderBlockTags.FIREFLY_HIDEABLE_BLOCKS)
+			.add(Blocks.GRASS)
+			.add(Blocks.TALL_GRASS)
+			.add(Blocks.FERN)
+			.add(Blocks.LARGE_FERN)
+			.add(Blocks.PEONY)
+			.add(Blocks.ROSE_BUSH)
+			.add(RegisterBlocks.CATTAIL);
+
 		this.getOrCreateTagBuilder(WilderBlockTags.CRAB_CAN_HIDE)
 			.addOptionalTag(BlockTags.DIRT)
 			.addOptionalTag(BlockTags.SAND)
