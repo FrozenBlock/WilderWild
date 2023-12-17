@@ -22,6 +22,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
 public class NoOpSimpleCopperPipesIntegration extends AbstractSimpleCopperPipesIntegration {
 	public NoOpSimpleCopperPipesIntegration() {
@@ -29,7 +30,7 @@ public class NoOpSimpleCopperPipesIntegration extends AbstractSimpleCopperPipesI
 	}
 
 	@Override
-	public boolean addHornNbtToBlock(ServerLevel level, BlockPos pos, Entity owner) {
+	public boolean addHornNbtToBlock(ServerLevel level, BlockPos pos, @NotNull Entity owner) {
 		return false;
 	}
 

@@ -119,7 +119,7 @@ public final class RegisterEntities {
 	}
 
 	public static void init() {
-		WilderSharedConstants.logWild("Registering Entities for", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderSharedConstants.logWithModId("Registering Entities for", WilderSharedConstants.UNSTABLE_LOGGING);
 		RegisterDamageTypes.init();
 	}
 

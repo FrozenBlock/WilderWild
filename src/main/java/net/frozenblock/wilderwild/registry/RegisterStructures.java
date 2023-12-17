@@ -70,7 +70,7 @@ public final class RegisterStructures {
 	}
 
 	public static void init() {
-		WilderSharedConstants.logWild("Registering Structures for", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderSharedConstants.logWithModId("Registering Structures for", WilderSharedConstants.UNSTABLE_LOGGING);
 		WilderStructureProcessors.init();
 		AbandonedCabinGenerator.init();
 	}

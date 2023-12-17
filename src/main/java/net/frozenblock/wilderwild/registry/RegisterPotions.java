@@ -42,7 +42,7 @@ public final class RegisterPotions {
 	}
 
 	public static void init() {
-		WilderSharedConstants.logWild("Registering Potions for", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderSharedConstants.logWithModId("Registering Potions for", WilderSharedConstants.UNSTABLE_LOGGING);
 
 		FabricBrewingRecipeRegistry.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(RegisterItems.CRAB_CLAW), REACH);
 		FabricBrewingRecipeRegistry.registerPotionRecipe(REACH, Ingredient.of(Items.REDSTONE), LONG_REACH);

@@ -1028,7 +1028,7 @@ public final class RegisterBlocks {
 	}
 
 	public static void registerBlocks() {
-		WilderSharedConstants.logWild("Registering Blocks for", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderSharedConstants.logWithModId("Registering Blocks for", WilderSharedConstants.UNSTABLE_LOGGING);
 
 		registerOtherBB();
 		registerWoods();
@@ -1293,7 +1293,7 @@ public final class RegisterBlocks {
 	}
 
 	private static void registerFlammability() {
-		WilderSharedConstants.logWild("Registering Flammability for", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderSharedConstants.logWithModId("Registering Flammability for", WilderSharedConstants.UNSTABLE_LOGGING);
 		var flammableBlockRegistry = FlammableBlockRegistry.getDefaultInstance();
 		flammableBlockRegistry.add(RegisterBlocks.POLLEN_BLOCK, 100, 60);
 		flammableBlockRegistry.add(RegisterBlocks.SEEDING_DANDELION, 100, 60);
@@ -1394,7 +1394,7 @@ public final class RegisterBlocks {
 	}
 
 	private static void registerFuels() {
-		WilderSharedConstants.logWild("Registering Fuels for", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderSharedConstants.logWithModId("Registering Fuels for", WilderSharedConstants.UNSTABLE_LOGGING);
 		FuelRegistry registry = FuelRegistry.INSTANCE;
 
 		registry.add(RegisterItems.BAOBAB_BOAT_ITEM, 1200);

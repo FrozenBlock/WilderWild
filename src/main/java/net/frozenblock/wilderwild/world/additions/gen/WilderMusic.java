@@ -34,7 +34,7 @@ public final class WilderMusic {
 	}
 
 	public static void playMusic() {
-		WilderSharedConstants.logWild("Adding Music And Ambience To Biomes for", true);
+		WilderSharedConstants.logWithModId("Adding Music And Ambience To Biomes for", true);
 
 		/** MUSIC */
 		BiomeModifications.create(WilderSharedConstants.id("modify_birch_forest_music")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeKey().equals(Biomes.BIRCH_FOREST),

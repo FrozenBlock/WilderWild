@@ -65,6 +65,7 @@ public class CopperHorn extends InstrumentItem {
 			playSound(optional.get().value(), user, level);
 			return InteractionResultHolder.consume(itemStack);
 		} else {
+			WilderSharedConstants.printStackTrace("Copper Horn use failed!", true);
 			return InteractionResultHolder.fail(itemStack);
 		}
 	}
