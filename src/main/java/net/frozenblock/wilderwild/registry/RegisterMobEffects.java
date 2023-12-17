@@ -51,7 +51,7 @@ public final class RegisterMobEffects {
 	}
 
 	public static void init() {
-		WilderSharedConstants.logWild("Registering MobEffects for", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderSharedConstants.logWithModId("Registering MobEffects for", WilderSharedConstants.UNSTABLE_LOGGING);
 	}
 
 	private static @NotNull MobEffect register(String id, MobEffect entry) {

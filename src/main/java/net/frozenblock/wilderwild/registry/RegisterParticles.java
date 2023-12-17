@@ -64,7 +64,7 @@ public final class RegisterParticles {
 	}
 
 	public static void registerParticles() {
-		WilderSharedConstants.logWild("Registering Particles for", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderSharedConstants.logWithModId("Registering Particles for", WilderSharedConstants.UNSTABLE_LOGGING);
 	}
 
 	@NotNull

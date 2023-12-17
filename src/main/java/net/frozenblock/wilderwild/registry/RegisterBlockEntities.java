@@ -38,7 +38,7 @@ public final class RegisterBlockEntities {
 	}
 
 	public static void register() {
-		WilderSharedConstants.logWild("Registering BlockEntities for", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderSharedConstants.logWithModId("Registering BlockEntities for", WilderSharedConstants.UNSTABLE_LOGGING);
 	}
 
 	@NotNull

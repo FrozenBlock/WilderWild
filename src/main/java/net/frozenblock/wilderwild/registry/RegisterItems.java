@@ -145,7 +145,7 @@ public final class RegisterItems {
 	}
 
 	public static void registerBlockItems() {
-		WilderSharedConstants.logWild("Registering Block Items for", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderSharedConstants.logWithModId("Registering Block Items for", WilderSharedConstants.UNSTABLE_LOGGING);
 		registerItemAfter(Items.GLOW_BERRIES, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.FOOD_AND_DRINKS);
 
 		registerItemAfter(Items.MANGROVE_SIGN, BAOBAB_SIGN, "baobab_sign", CreativeModeTabs.FUNCTIONAL_BLOCKS);
@@ -173,7 +173,7 @@ public final class RegisterItems {
 	}
 
 	public static void registerItems() {
-		WilderSharedConstants.logWild("Registering Items for", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderSharedConstants.logWithModId("Registering Items for", WilderSharedConstants.UNSTABLE_LOGGING);
 		//BOATS
 		registerItemAfter(Items.MANGROVE_CHEST_BOAT, BAOBAB_BOAT_ITEM, "baobab_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItemAfter(BAOBAB_BOAT_ITEM, BAOBAB_CHEST_BOAT_ITEM, "baobab_chest_boat", CreativeModeTabs.TOOLS_AND_UTILITIES);

@@ -328,7 +328,7 @@ public final class RegisterSounds {
 	}
 
 	public static void init() {
-		WilderSharedConstants.logWild("Registering SoundEvents for", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderSharedConstants.logWithModId("Registering SoundEvents for", WilderSharedConstants.UNSTABLE_LOGGING);
 	}
 
 }

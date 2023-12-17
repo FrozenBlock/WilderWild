@@ -139,7 +139,7 @@ public final class WilderMiscPlaced {
 		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
-		WilderSharedConstants.logWild("Registering WilderMiscPlaced for", true);
+		WilderSharedConstants.logWithModId("Registering WilderMiscPlaced for", true);
 
 		COARSE_PATH_RARE.makeAndSetHolder(WilderMiscConfigured.COARSE_DIRT_PATH_RARE.getHolder(),
 			RarityFilter.onAverageOnceEvery(36),
