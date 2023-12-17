@@ -385,7 +385,7 @@ public final class RegisterBlocks {
 			.ticksRandomly()
 	);
 
-	public static final WaterloggableTallFlowerBlock CATTAIL = new WaterloggableTallFlowerBlock(
+	public static final Block CATTAIL = new WaterloggableTallFlowerBlock(
 		FabricBlockSettings.copyOf(Blocks.ROSE_BUSH)
 			.sounds(SoundType.WET_GRASS)
 			.strength(0.0F)
