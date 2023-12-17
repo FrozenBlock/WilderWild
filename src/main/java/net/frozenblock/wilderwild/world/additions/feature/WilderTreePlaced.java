@@ -171,7 +171,7 @@ public final class WilderTreePlaced {
 	}
 
 	public static void registerTreePlaced() {
-		WilderSharedConstants.logWild("Registering WilderTreePlaced for", true);
+		WilderSharedConstants.logWithModId("Registering WilderTreePlaced for", true);
 
 		// BIRCH
 

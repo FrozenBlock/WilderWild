@@ -122,7 +122,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	@Override
 	public void load(@NotNull CompoundTag tag) {
 		super.load(tag);
-		if (tag.contains("Fireflies", 9)) {
+		if (tag.contains("Fireflies", Tag.TAG_LIST)) {
 			this.fireflies.clear();
 			DataResult<List<FireflyInLantern>> var10000 = FireflyInLantern.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE, tag.getList("Fireflies", 10)));
 			Logger var10001 = WilderSharedConstants.LOGGER;
@@ -141,16 +141,16 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	@Override
 	protected void saveAdditional(@NotNull CompoundTag tag) {
 		super.saveAdditional(tag);
-		DataResult<Tag> var10000 = FireflyInLantern.CODEC.listOf().encodeStart(NbtOps.INSTANCE, this.fireflies);
-		Logger var10001 = WilderSharedConstants.LOGGER;
-		Objects.requireNonNull(var10001);
-		var10000.resultOrPartial(var10001::error).ifPresent((cursorsNbt) -> tag.put("Fireflies", cursorsNbt));
+		DataResult<Tag> fireflies = FireflyInLantern.CODEC.listOf().encodeStart(NbtOps.INSTANCE, this.fireflies);
+		Logger logger = WilderSharedConstants.LOGGER;
+		Objects.requireNonNull(logger);
+		fireflies.resultOrPartial(logger::error).ifPresent(cursorsNbt -> tag.put("Fireflies", cursorsNbt));
 		ContainerHelper.saveAllItems(tag, this.inventory);
 		tag.putInt("age", this.age);
 	}
 
 	@NotNull
-	public ArrayList<FireflyInLantern> getFireflies() {
+	public List<FireflyInLantern> getFireflies() {
 		return this.fireflies;
 	}
 
@@ -196,7 +196,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 						entity.setCustomName(Component.nullToEmpty(firefly.customName));
 					}
 				} else {
-					WilderSharedConstants.log("Couldn't spawn Firefly from lantern @ " + worldPosition, WilderSharedConstants.UNSTABLE_LOGGING);
+					WilderSharedConstants.printStackTrace("Couldn't spawn Firefly from Display Lantern!", true);
 				}
 			}
 		}

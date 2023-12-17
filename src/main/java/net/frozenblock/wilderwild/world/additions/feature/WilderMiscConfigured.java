@@ -164,7 +164,7 @@ public final class WilderMiscConfigured {
 	}
 
 	public static void registerMiscPlaced() {
-		WilderSharedConstants.logWild("Registering WilderMiscConfigured for", true);
+		WilderSharedConstants.logWithModId("Registering WilderMiscConfigured for", true);
 
 		COARSE_DIRT_PATH_RARE.makeAndSetHolder(FrozenFeatures.NOISE_PATH_TAG_FEATURE,
 			new PathTagFeatureConfig(

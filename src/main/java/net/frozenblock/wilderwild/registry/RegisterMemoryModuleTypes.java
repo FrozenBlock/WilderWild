@@ -35,7 +35,7 @@ public final class RegisterMemoryModuleTypes {
 	}
 
 	public static void register() {
-		WilderSharedConstants.logWild("Registering MemoryModuleTypes for", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderSharedConstants.logWithModId("Registering MemoryModuleTypes for", WilderSharedConstants.UNSTABLE_LOGGING);
 	}
 
 	public static final MemoryModuleType<Boolean> IS_UNDERGROUND = register("is_underground", Codec.BOOL);

@@ -347,8 +347,8 @@ public final class CrabAi {
 		Optional<List<Crab>> nearbyCrabs = getNearbyCrabs(crabEntity);
 		nearbyCrabs.ifPresent(
 			crabs -> crabs.forEach(
-				(crab) -> getNearestVisibleTargetablePlayer(crab).ifPresent(
-					(player) -> setAngerTarget(crab, player)
+				crab -> getNearestVisibleTargetablePlayer(crab).ifPresent(
+					player -> setAngerTarget(crab, player)
 				)
 			)
 		);

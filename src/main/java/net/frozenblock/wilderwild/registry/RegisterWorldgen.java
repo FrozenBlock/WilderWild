@@ -84,7 +84,7 @@ public final class RegisterWorldgen {
 	}
 
 	public static void bootstrap(@NotNull BootstapContext<Biome> context) {
-		WilderSharedConstants.logWild("Registering Biomes for", WilderSharedConstants.UNSTABLE_LOGGING);
+		WilderSharedConstants.logWithModId("Registering Biomes for", WilderSharedConstants.UNSTABLE_LOGGING);
 
 		// MAIN BIOMES
 		register(context, CYPRESS_WETLANDS, cypressWetlands(context));

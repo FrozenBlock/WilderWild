@@ -68,14 +68,14 @@ val run_sodium: String by project
 val shouldRunSodium = run_sodium == "true"
 
 base {
-    archivesName.set(archives_base_name)
+    archivesName = archives_base_name
 }
 
 version = getModVersion()
 group = maven_group
 
 val local_frozenlib = findProject(":FrozenLib") != null
-val release = findProperty("releaseType")?.equals("stable")
+val release = findProperty("releaseType") == "stable"
 
 loom {
     runtimeOnlyLog4j.set(true)
@@ -142,46 +142,32 @@ repositories {
     // Add repositories to retrieve artifacts from in here.
     // You should only use this when depending on other mods because
     // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-    maven {
-        url = uri("https://jitpack.io")
-    }
-    maven {
+    maven("https://jitpack.io")
+    maven("https://api.modrinth.com/maven") {
         name = "Modrinth"
-        url = uri("https://api.modrinth.com/maven")
 
         content {
             includeGroup("maven.modrinth")
         }
     }
-    maven {
-        url = uri("https://maven.terraformersmc.com")
-
+    maven("https://maven.terraformersmc.com") {
         content {
             includeGroup("com.terraformersmc")
         }
     }
-    maven {
-        url = uri("https://maven.shedaniel.me/")
-    }
-    maven {
-        url = uri("https://cursemaven.com")
 
+    maven("https://maven.shedaniel.me/")
+    maven("https://cursemaven.com") {
         content {
             includeGroup("curse.maven")
         }
     }
-    maven {
-        url = uri("https://maven.minecraftforge.net/")
-    }
-    maven {
-        url = uri("https://maven.parchmentmc.org")
-    }
-    maven {
+    maven("https://maven.minecraftforge.net/")
+    maven("https://maven.parchmentmc.org")
+    maven("https://maven.quiltmc.org/repository/release") {
         name = "Quilt"
-        url = uri("https://maven.quiltmc.org/repository/release")
     }
-    maven {
-        url = uri("https://maven.jamieswhiteshirt.com/libs-release")
+    maven("https://maven.jamieswhiteshirt.com/libs-release") {
         content {
             includeGroup("com.jamieswhiteshirt")
         }
@@ -194,7 +180,7 @@ repositories {
 }
 
 dependencies {
-    // To change the versions see the gradle.properties file
+    // To change the versions, see the gradle.properties file
     minecraft("com.mojang:minecraft:$minecraft_version")
     mappings(loom.layered {
         // please annoy treetrain if this doesnt work
@@ -559,9 +545,7 @@ val github by tasks.register("github") {
     }
 }
 
-@Suppress("unreachable_code") // YOU CANT PUBLISH UNTIL YOU TEST ROUGHLY ENOUGH RESOURCES COMPAT
 val publishMod by tasks.register("publishMod") {
-    throw UnsupportedOperationException("YOU CANT PUBLISH UNTIL YOU TEST ROUGHLY ENOUGH RESOURCES COMPAT")
     dependsOn(tasks.publish)
     dependsOn(github)
     dependsOn(tasks.curseforge)

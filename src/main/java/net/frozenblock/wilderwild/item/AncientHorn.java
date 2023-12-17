@@ -108,7 +108,7 @@ public class AncientHorn extends InstrumentItem {
 			}
 			return InteractionResultHolder.consume(itemStack);
 		} else {
-			WilderSharedConstants.LOGGER.error("Ancient Horn use failed");
+			WilderSharedConstants.printStackTrace("Ancient Horn use failed!", true);
 			return InteractionResultHolder.fail(itemStack);
 		}
 	}

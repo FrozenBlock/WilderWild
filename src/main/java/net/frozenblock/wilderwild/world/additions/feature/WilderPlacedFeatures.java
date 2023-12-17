@@ -267,7 +267,7 @@ public final class WilderPlacedFeatures {
 
 		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 
-		WilderSharedConstants.logWild("Registering WilderPlacedFeatures for ", true);
+		WilderSharedConstants.logWithModId("Registering WilderPlacedFeatures for ", true);
 
 		// FALLEN TREES
 

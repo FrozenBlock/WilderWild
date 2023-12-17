@@ -44,15 +44,33 @@ public class WilderSharedConstants {
 	public static boolean MC_LIVE_TENDRILS = false;
 
 	// LOGGING
-	public static void log(String string, boolean shouldLog) {
+	public static void log(String message, boolean shouldLog) {
 		if (shouldLog) {
-			WilderSharedConstants.LOGGER.info(string);
+			WilderSharedConstants.LOGGER.info(message);
 		}
 	}
 
-	public static void logWild(String string, boolean shouldLog) {
+	public static void logWithModId(String message, boolean shouldLog) {
 		if (shouldLog) {
-			WilderSharedConstants.LOGGER.info(string + " " + WilderSharedConstants.MOD_ID);
+			WilderSharedConstants.LOGGER.info(message + " " + WilderSharedConstants.MOD_ID);
+		}
+	}
+
+	public static void warn(String message, boolean shouldLog) {
+		if (shouldLog) {
+			WilderSharedConstants.LOGGER.warn(message);
+		}
+	}
+
+	public static void error(String message, boolean shouldLog) {
+		if (shouldLog) {
+			WilderSharedConstants.LOGGER.error(message);
+		}
+	}
+
+	public static void printStackTrace(String message, boolean shouldPrint) {
+		if (shouldPrint) {
+			WilderSharedConstants.LOGGER.error(message, new Throwable(message).fillInStackTrace());
 		}
 	}
 
