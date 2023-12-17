@@ -31,6 +31,10 @@
     {
       "id": "wilderwild:dark_taiga",
       "required": false
+    },
+    {
+      "id": "wilderwild:dying_forest",
+      "required": false
     }
   ]
 }

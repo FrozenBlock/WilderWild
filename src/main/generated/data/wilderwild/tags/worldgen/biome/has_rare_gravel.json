@@ -40,6 +40,10 @@
     {
       "id": "wilderwild:sparse_birch_jungle",
       "required": false
+    },
+    {
+      "id": "wilderwild:dying_forest",
+      "required": false
     }
   ]
 }

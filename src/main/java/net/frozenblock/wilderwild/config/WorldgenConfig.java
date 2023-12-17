@@ -198,6 +198,18 @@ public final class WorldgenConfig {
 
 		@EntrySyncData("generateDarkTaiga")
 		public boolean generateDarkTaiga = true;
+
+		@EntrySyncData("generateDyingForest")
+		public boolean generateDyingForest = true;
+
+		@EntrySyncData("generateSnowyDyingForest")
+		public boolean generateSnowyDyingForest = true;
+
+		@EntrySyncData("generateDyingMixedForest")
+		public boolean generateDyingMixedForest = true;
+
+		@EntrySyncData("generateSnowyDyingMixedForest")
+		public boolean generateSnowyDyingMixedForest = true;
 	}
 
 	public static class WaterColors {

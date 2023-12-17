@@ -304,7 +304,7 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 	@NotNull
 	public static SurfaceRules.RuleSource diedForestRules() {
 		return SurfaceRules.ifTrue(
-				SurfaceRules.isBiome(RegisterWorldgen.DIED_FOREST),
+				SurfaceRules.isBiome(RegisterWorldgen.DYING_FOREST),
 				SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
 						SurfaceRules.ifTrue(
 								SurfaceRules.waterBlockCheck(-1, 0),

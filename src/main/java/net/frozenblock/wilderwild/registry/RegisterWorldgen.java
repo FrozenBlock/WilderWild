@@ -48,7 +48,7 @@ public final class RegisterWorldgen {
 	// Main Biomes
 	public static final ResourceKey<Biome> CYPRESS_WETLANDS = register("cypress_wetlands");
 	public static final ResourceKey<Biome> MIXED_FOREST = register("mixed_forest");
-	public static final ResourceKey<Biome> DIED_FOREST = register("died_forest");
+	public static final ResourceKey<Biome> DYING_FOREST = register("dying_forest");
 	public static final ResourceKey<Biome> OASIS = register("oasis");
 	public static final ResourceKey<Biome> WARM_RIVER = register("warm_river");
 	public static final ResourceKey<Biome> WARM_BEACH = register("warm_beach");
@@ -89,7 +89,7 @@ public final class RegisterWorldgen {
 		// MAIN BIOMES
 		register(context, CYPRESS_WETLANDS, cypressWetlands(context));
 		register(context, MIXED_FOREST, mixedForest(context));
-		register(context, DIED_FOREST, diedForest(context));
+		register(context, DYING_FOREST, diedForest(context));
 		register(context, OASIS, oasis(context));
 		register(context, WARM_RIVER, warmRiver(context));
 		register(context, WARM_BEACH, warmBeach(context));
@@ -259,7 +259,7 @@ public final class RegisterWorldgen {
 	public static void addDiedForestFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_DIED_FOREST.getKey());
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH);
-		addBasicFeatures(builder, DIED_FOREST);
+		addBasicFeatures(builder, DYING_FOREST);
 		BiomeDefaultFeatures.addForestGrass(builder);
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);

@@ -31,6 +31,10 @@
     {
       "id": "wilderwild:parched_forest",
       "required": false
+    },
+    {
+      "id": "wilderwild:dying_forest",
+      "required": false
     }
   ]
 }
