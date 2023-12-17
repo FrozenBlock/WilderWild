@@ -59,7 +59,6 @@ public class EchoGlassBlock extends TintedGlassBlock {
 
 	public static void damage(@NotNull Level level, @NotNull BlockPos pos) {
 		BlockState state = level.getBlockState(pos);
-		WilderSharedConstants.log("Echo Glass Damaged @ " + pos, WilderSharedConstants.UNSTABLE_LOGGING);
 		if (state.getValue(DAMAGE) < 3) {
 			level.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) + 1));
 			level.playSound(null, pos, RegisterSounds.BLOCK_ECHO_GLASS_CRACK, SoundSource.BLOCKS, 0.5F, 0.9F + level.getRandom().nextFloat() * 0.2F);
@@ -74,7 +73,6 @@ public class EchoGlassBlock extends TintedGlassBlock {
 	public static void heal(@NotNull Level level, @NotNull BlockPos pos) {
 		BlockState state = level.getBlockState(pos);
 		if (state.getValue(DAMAGE) > 0) {
-			WilderSharedConstants.log("Echo Glass Healed @ " + pos, WilderSharedConstants.UNSTABLE_LOGGING);
 			level.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) - 1));
 			level.playSound(
 				null,

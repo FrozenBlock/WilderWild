@@ -40,7 +40,7 @@ public class CoconutItem extends BlockItem {
 	}
 
 	@Override
-	public InteractionResult useOn(UseOnContext context) {
+	public InteractionResult useOn(@NotNull UseOnContext context) {
 		InteractionResult interactionResult = super.useOn(context);
 		if (interactionResult == InteractionResult.FAIL) {
 			return InteractionResult.PASS;

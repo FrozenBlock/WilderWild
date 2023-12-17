@@ -55,35 +55,33 @@ public class FireflyBottle extends Item {
 	@Override
 	@NotNull
 	public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand usedHand) {
-		if (level instanceof ServerLevel server) {
-			if (player.getAbilities().mayBuild) {
-				float pitch = player.getXRot();
-				float yaw = player.getYRot();
-				float roll = 0.0F;
-				float f = -Mth.sin(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F);
-				float g = -Mth.sin((pitch + roll) * 0.017453292F);
-				float h = Mth.cos(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F);
-				ItemStack stack = player.getItemInHand(usedHand);
-				Firefly entity = RegisterEntities.FIREFLY.create(server);
-				if (entity != null) {
-					entity.setDeltaMovement(f * 0.7, g * 0.7, h * 0.7);
-					entity.moveTo(player.getX(), player.getEyeY(), player.getZ(), player.getXRot(), player.getYRot());
-					entity.setFromBottle(true);
-					boolean spawned = server.addFreshEntity(entity);
-					if (spawned) {
-						player.setItemInHand(usedHand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
-						player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
-						entity.playSound(RegisterSounds.ITEM_BOTTLE_RELEASE_FIREFLY, 1.0F, level.random.nextFloat() * 0.2F + 0.9F);
-						entity.hasHome = true;
-						FireflyAi.rememberHome(entity, entity.blockPosition());
-						entity.setColor(this.color);
-						if (stack.hasCustomHoverName()) {
-							entity.setCustomName(stack.getHoverName());
-						}
-						player.gameEvent(GameEvent.ENTITY_PLACE);
-					} else {
-						WilderSharedConstants.log("Couldn't spawn Firefly from bottle @ " + player.blockPosition().toShortString(), WilderSharedConstants.UNSTABLE_LOGGING);
+		if (level instanceof ServerLevel server && player.getAbilities().mayBuild) {
+			float pitch = player.getXRot();
+			float yaw = player.getYRot();
+			float roll = 0.0F;
+			float f = -Mth.sin(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F);
+			float g = -Mth.sin((pitch + roll) * 0.017453292F);
+			float h = Mth.cos(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F);
+			ItemStack stack = player.getItemInHand(usedHand);
+			Firefly entity = RegisterEntities.FIREFLY.create(server);
+			if (entity != null) {
+				entity.setDeltaMovement(f * 0.7, g * 0.7, h * 0.7);
+				entity.moveTo(player.getX(), player.getEyeY(), player.getZ(), player.getXRot(), player.getYRot());
+				entity.setFromBottle(true);
+				boolean spawned = server.addFreshEntity(entity);
+				if (spawned) {
+					player.setItemInHand(usedHand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
+					player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
+					entity.playSound(RegisterSounds.ITEM_BOTTLE_RELEASE_FIREFLY, 1.0F, level.random.nextFloat() * 0.2F + 0.9F);
+					entity.hasHome = true;
+					FireflyAi.rememberHome(entity, entity.blockPosition());
+					entity.setColor(this.color);
+					if (stack.hasCustomHoverName()) {
+						entity.setCustomName(stack.getHoverName());
 					}
+					player.gameEvent(GameEvent.ENTITY_PLACE);
+				} else {
+					WilderSharedConstants.printStackTrace("Couldn't spawn Firefly from bottle!", true);
 				}
 			}
 		}
@@ -100,4 +98,5 @@ public class FireflyBottle extends Item {
 	public int getUseDuration(@NotNull ItemStack stack) {
 		return 1;
 	}
+
 }
