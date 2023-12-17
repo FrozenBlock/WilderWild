@@ -302,6 +302,28 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 	}
 
 	@NotNull
+	public static SurfaceRules.RuleSource diedForestRules() {
+		return SurfaceRules.ifTrue(
+				SurfaceRules.isBiome(RegisterWorldgen.DIED_FOREST),
+				SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
+						SurfaceRules.ifTrue(
+								SurfaceRules.waterBlockCheck(-1, 0),
+								SurfaceRules.sequence(
+										SurfaceRules.ifTrue(
+												SurfaceRules.noiseCondition(Noises.SURFACE, 0.033, 0.095),
+												FrozenSurfaceRules.makeStateRule(Blocks.PODZOL)
+										),
+										SurfaceRules.ifTrue(
+												SurfaceRules.noiseCondition(Noises.SURFACE_SECONDARY, 0.0667, 0.1),
+												FrozenSurfaceRules.COARSE_DIRT
+										)
+								)
+						)
+				)
+		);
+	}
+
+	@NotNull
 	public static SurfaceRules.RuleSource gravelBetaBeaches() {
 		return SurfaceRules.ifTrue(
 			FrozenSurfaceRules.isBiomeTagOptimized(WilderBiomeTags.GRAVEL_BEACH),
@@ -387,7 +409,8 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 				oldGrowthSnowyTaigaRules(),
 				oldGrowthDarkForestRules(),
 				temperateRainforestRules(),
-				rainforestRules()
+				rainforestRules(),
+				diedForestRules()
 			)
 		);
 		WilderSharedConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);

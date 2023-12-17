@@ -81,7 +81,7 @@ public final class WilderPlacedFeatures {
 	public static final FrozenPlacedFeature SHRUBS_WATER = register("shrubs_water");
 	public static final FrozenPlacedFeature TREES_FLOWER_FIELD = register("trees_flower_field");
 	public static final FrozenPlacedFeature TREES_BIRCH_AND_OAK = register("trees_birch_and_oak");
-	public static final FrozenPlacedFeature TREES_DYIED_FOREST = register("trees_dyied_forest");
+	public static final FrozenPlacedFeature TREES_DIED_FOREST = register("trees_died_forest");
 	public static final FrozenPlacedFeature TREES_BIRCH_AND_OAK_ORIGINAL = register("trees_birch_and_oak_original");
 	public static final FrozenPlacedFeature TREES_SEMI_BIRCH_AND_OAK = register("trees_semi_birch_and_oak");
 	public static final FrozenPlacedFeature TREES_FLOWER_FOREST = register("trees_flower_forest");
@@ -403,7 +403,7 @@ public final class WilderPlacedFeatures {
 				).build()
 		);
 
-		TREES_DYIED_FOREST.makeAndSetHolder(WilderConfiguredFeatures.TREES_DYIED_FOREST.getHolder(),
+		TREES_DIED_FOREST.makeAndSetHolder(WilderConfiguredFeatures.TREES_DIED_FOREST.getHolder(),
 				VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(8, 0.1F, 1))
 						.add(
 								WilderPlacementUtils.TREE_CLEARING_FILTER

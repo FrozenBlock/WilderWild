@@ -3,10 +3,20 @@
   "config": {
     "decorators": [
       {
+        "type": "minecraft:leave_vine",
+        "probability": 0.1
+      },
+      {
         "type": "wilderwild:shelf_fungus_tree_decorator",
         "placement_chance": 0.25,
         "probability": 0.02,
         "red_shelf_fungus_chance": 0.4
+      },
+      {
+        "type": "wilderwild:height_based_vine_tree_decorator",
+        "max_height": 260,
+        "placement_chance": 0.25,
+        "probability": 0.12
       }
     ],
     "dirt_provider": {
@@ -28,19 +38,34 @@
       }
     },
     "force_dirt": false,
-    "ignore_vines": true,
+    "ignore_vines": false,
     "minimum_size": {
       "type": "minecraft:two_layers_feature_size",
-      "limit": 0,
+      "limit": 1,
       "lower_size": 0,
-      "min_clipped_height": 4,
-      "upper_size": 0
+      "upper_size": 1
     },
     "trunk_placer": {
-      "type": "minecraft:fancy_trunk_placer",
-      "base_height": 5,
-      "height_rand_a": 16,
-      "height_rand_b": 0
+      "type": "minecraft:upwards_branching_trunk_placer",
+      "base_height": 6,
+      "can_grow_through": "#minecraft:mangrove_logs_can_grow_through",
+      "extra_branch_length": {
+        "type": "minecraft:uniform",
+        "value": {
+          "max_inclusive": 3,
+          "min_inclusive": 1
+        }
+      },
+      "extra_branch_steps": {
+        "type": "minecraft:uniform",
+        "value": {
+          "max_inclusive": 3,
+          "min_inclusive": 2
+        }
+      },
+      "height_rand_a": 2,
+      "height_rand_b": 1,
+      "place_branch_per_log_probability": 0.2
     },
     "trunk_provider": {
       "type": "minecraft:simple_state_provider",

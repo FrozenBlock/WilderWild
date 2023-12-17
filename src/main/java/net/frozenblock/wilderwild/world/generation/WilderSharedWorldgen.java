@@ -122,6 +122,23 @@ public final class WilderSharedWorldgen {
 		}
 	}
 
+	public static final class DiedForest {
+		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.850F, -0.450F);
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.050F, 0.050F);
+		public static final float TEMP = 0.4F;
+		public static final float DOWNFALL = 0.4F;
+		public static final int WATER_COLOR = 4159204;
+		public static final int WATER_FOG_COLOR = 329011;
+		public static final int FOG_COLOR = 12638463;
+		public static final int GRASS_COLOR = 8955746;
+		public static final int FOLIAGE_COLOR = 7703076;
+		public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
+
+		private DiedForest() {
+			throw new UnsupportedOperationException("DiedForest contains only static declarations.");
+		}
+	}
+
 	public static final class BirchJungle {
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.175F, 0.225F);
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.FOUR, Climate.Parameter.point(0.35F));

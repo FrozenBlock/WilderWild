@@ -129,7 +129,9 @@ public final class WilderTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_OAK_BEES = register("fancy_oak_bees");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> OLD_FANCY_DYING_OAK_BEES_0004 = register("old_fancy_dying_oak_bees_0004");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_OAK = register("snapped_oak_tree");
-	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_DYIED_OAK = register("fancy_dyied_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_DIED_OAK = register("fancy_died_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_SEMI_DIED_OAK = register("fancy_semi_died_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DIED_OAK = register("died_oak");
 	//DARK OAK
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DYING_DARK_OAK = register("dying_dark_oak");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> TALL_DARK_OAK = register("tall_dark_oak");
@@ -659,10 +661,44 @@ public final class WilderTreeConfigured {
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
-		FANCY_DYIED_OAK.makeAndSetHolder(Feature.TREE,
+		FANCY_DIED_OAK.makeAndSetHolder(Feature.TREE,
 				fancyDyiedOak().decorators(
 						List.of(
-								SHELF_FUNGUS_002
+								SHELF_FUNGUS_002,
+								VINES_012_UNDER_260
+						)
+				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		FANCY_SEMI_DIED_OAK.makeAndSetHolder(Feature.TREE,
+				fancySemiDyiedOak().decorators(
+						List.of(
+								SHELF_FUNGUS_002,
+								VINES_012_UNDER_260
+						)
+				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		DIED_OAK.makeAndSetHolder(Feature.TREE,
+				new TreeConfiguration.TreeConfigurationBuilder(
+						BlockStateProvider.simple(Blocks.OAK_LOG),
+						new UpwardsBranchingTrunkPlacer(
+								6,
+								2,
+								1,
+								UniformInt.of(2, 3),
+								0.2F,
+								UniformInt.of(1, 3),
+								BuiltInRegistries.BLOCK.getOrCreateTag(BlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH)
+						),
+						BlockStateProvider.simple(Blocks.AIR),
+						new FancyFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), 1),
+						new TwoLayersFeatureSize(1, 0, 1)
+				).decorators(
+						List.of(
+								new LeaveVineDecorator(0.1F),
+								SHELF_FUNGUS_002,
+								VINES_012_UNDER_260
 						)
 				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -1487,7 +1523,12 @@ public final class WilderTreeConfigured {
 
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fancyDyiedOak() {
-		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.OAK_LOG), new FancyTrunkPlacer(5, 16, 0), BlockStateProvider.simple(Blocks.AIR), new FancyFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), 1), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)))).ignoreVines();
+		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.OAK_LOG), new FancyTrunkPlacer(5, 16, 0), BlockStateProvider.simple(Blocks.AIR), new FancyFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), 1), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(5)))).ignoreVines();
+	}
+
+	@NotNull
+	private static TreeConfiguration.TreeConfigurationBuilder fancySemiDyiedOak() {
+		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.OAK_LOG), new UpwardsBranchingTrunkPlacer(10, 6, 1, UniformInt.of(2, 4), 0.3F, UniformInt.of(2, 5), BuiltInRegistries.BLOCK.getOrCreateTag(BlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH)), BlockStateProvider.simple(Blocks.OAK_LEAVES), new RandomSpreadFoliagePlacer(ConstantInt.of(2), ConstantInt.of(2), ConstantInt.of(2), 1), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(5)))).ignoreVines();
 	}
 
 	@NotNull
