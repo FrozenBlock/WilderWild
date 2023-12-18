@@ -89,7 +89,7 @@ public final class RegisterWorldgen {
 		// MAIN BIOMES
 		register(context, CYPRESS_WETLANDS, cypressWetlands(context));
 		register(context, MIXED_FOREST, mixedForest(context));
-		register(context, DYING_FOREST, diedForest(context));
+		register(context, DYING_FOREST, dyingForest(context));
 		register(context, OASIS, oasis(context));
 		register(context, WARM_RIVER, warmRiver(context));
 		register(context, WARM_BEACH, warmBeach(context));
@@ -227,16 +227,16 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
 	}
 
-	// DIED FOREST
+	// DYING FOREST
 	@NotNull
-	public static Biome diedForest(@NotNull BootstapContext<Biome> entries) {
+	public static Biome dyingForest(@NotNull BootstapContext<Biome> entries) {
 		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
 		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
 		BiomeDefaultFeatures.commonSpawns(builder);
 		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 5, 4, 4));
 		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addDiedForestFeatures(builder2);
+		addDyingForestFeatures(builder2);
 		return new Biome.BiomeBuilder()
 				.hasPrecipitation(true)
 				.temperature(WilderSharedWorldgen.DiedForest.TEMP)
@@ -256,8 +256,8 @@ public final class RegisterWorldgen {
 				.build();
 	}
 
-	public static void addDiedForestFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_DIED_FOREST.getKey());
+	public static void addDyingForestFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_DYING_FOREST.getKey());
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH);
 		addBasicFeatures(builder, DYING_FOREST);
 		BiomeDefaultFeatures.addForestGrass(builder);

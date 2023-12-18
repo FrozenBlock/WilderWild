@@ -13,7 +13,7 @@
       },
       {
         "chance": 0.35,
-        "feature": "wilderwild:fancy_died_oak_checked"
+        "feature": "wilderwild:fancy_dead_oak_checked"
       },
       {
         "chance": 0.04,
@@ -22,6 +22,10 @@
       {
         "chance": 0.155,
         "feature": "wilderwild:short_oak_checked"
+      },
+      {
+        "chance": 0.2,
+        "feature": "wilderwild:dead_oak_branches_checked"
       }
     ]
   }
