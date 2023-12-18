@@ -683,7 +683,7 @@ public final class WilderTreeConfigured {
 		);
 
 		SMALL_FANCY_SEMI_DEAD_OAK.makeAndSetHolder(Feature.TREE,
-				fancySemiDeadOak().decorators(
+				smallFancySemiDeadOak().decorators(
 						List.of(
 								SHELF_FUNGUS_002,
 								VINES_012_UNDER_260
@@ -692,7 +692,7 @@ public final class WilderTreeConfigured {
 		);
 
 		SMALL_FANCY_DEAD_OAK.makeAndSetHolder(Feature.TREE,
-				fancySemiDeadOak().decorators(
+				smallFancySemiDeadOak().decorators(
 						List.of(
 								SHELF_FUNGUS_002,
 								VINES_012_UNDER_260
@@ -703,14 +703,14 @@ public final class WilderTreeConfigured {
 		DEAD_OAK.makeAndSetHolder(Feature.TREE,
 				new TreeConfiguration.TreeConfigurationBuilder(
 						BlockStateProvider.simple(Blocks.OAK_LOG),
-						new UpwardsBranchingTrunkPlacer(
+						new StraightTrunkWithBranches(
 								6,
 								2,
 								1,
-								UniformInt.of(2, 3),
-								0.2F,
-								UniformInt.of(1, 3),
-								BuiltInRegistries.BLOCK.getOrCreateTag(BlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH)
+								0.225F,
+								UniformInt.of(1, 2),
+								UniformInt.of(0, 2),
+								ConstantInt.of(1)
 						),
 						BlockStateProvider.simple(Blocks.AIR),
 						new FancyFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), 1),
@@ -727,14 +727,14 @@ public final class WilderTreeConfigured {
 		DEAD_OAK_BRANCHES.makeAndSetHolder(Feature.TREE,
 				new TreeConfiguration.TreeConfigurationBuilder(
 						BlockStateProvider.simple(Blocks.OAK_LOG),
-						new UpwardsBranchingTrunkPlacer(
-								6,
+						new StraightTrunkWithBranches(
+								7,
 								2,
 								1,
+								0.235F,
 								UniformInt.of(2, 3),
-								0.2F,
 								UniformInt.of(0, 2),
-								BuiltInRegistries.BLOCK.getOrCreateTag(BlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH)
+								UniformInt.of(1, 2)
 						),
 						BlockStateProvider.simple(Blocks.AIR),
 						new FancyFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), 1),

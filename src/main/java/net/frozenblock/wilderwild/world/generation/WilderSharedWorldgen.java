@@ -122,7 +122,7 @@ public final class WilderSharedWorldgen {
 		}
 	}
 
-	public static final class DiedForest {
+	public static final class DeadForest {
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.850F, -0.450F);
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.050F, 0.050F);
 		public static final float TEMP = 0.4F;
@@ -134,8 +134,8 @@ public final class WilderSharedWorldgen {
 		public static final int FOLIAGE_COLOR = 7703076;
 		public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 
-		private DiedForest() {
-			throw new UnsupportedOperationException("DiedForest contains only static declarations.");
+		private DeadForest() {
+			throw new UnsupportedOperationException("DeadForest contains only static declarations.");
 		}
 	}
 

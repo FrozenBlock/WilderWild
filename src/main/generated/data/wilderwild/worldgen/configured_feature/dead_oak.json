@@ -46,26 +46,26 @@
       "upper_size": 1
     },
     "trunk_placer": {
-      "type": "minecraft:upwards_branching_trunk_placer",
+      "type": "wilderwild:straight_trunk_logs_placer",
       "base_height": 6,
-      "can_grow_through": "#minecraft:mangrove_logs_can_grow_through",
-      "extra_branch_length": {
+      "branch_chance": 0.225,
+      "branch_height_from_top": {
         "type": "minecraft:uniform",
         "value": {
-          "max_inclusive": 3,
-          "min_inclusive": 1
+          "max_inclusive": 2,
+          "min_inclusive": 0
         }
       },
-      "extra_branch_steps": {
-        "type": "minecraft:uniform",
-        "value": {
-          "max_inclusive": 3,
-          "min_inclusive": 2
-        }
-      },
+      "extra_branch_length": 1,
       "height_rand_a": 2,
       "height_rand_b": 1,
-      "place_branch_per_log_probability": 0.2
+      "max_log_count": {
+        "type": "minecraft:uniform",
+        "value": {
+          "max_inclusive": 2,
+          "min_inclusive": 1
+        }
+      }
     },
     "trunk_provider": {
       "type": "minecraft:simple_state_provider",

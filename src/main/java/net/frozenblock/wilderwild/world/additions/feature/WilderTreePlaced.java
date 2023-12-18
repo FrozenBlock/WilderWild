@@ -90,6 +90,7 @@ public final class WilderTreePlaced {
 	public static final FrozenPlacedFeature FANCY_SEMI_DEAD_OAK_CHECKED = register("fancy_semi_dead_oak_checked");
 	public static final FrozenPlacedFeature SMALL_FANCY_DEAD_OAK_CHECKED = register("small_fancy_dead_oak_checked");
 	public static final FrozenPlacedFeature SMALL_FANCY_SEMI_DEAD_OAK_CHECKED = register("small_fancy_semi_dead_oak_checked");
+	public static final FrozenPlacedFeature DEAD_OAK_CHECKED = register("dead_oak_checked");
 	public static final FrozenPlacedFeature DEAD_OAK_BRANCHES_CHECKED = register("dead_oak_branches_checked");
 	//DARK OAK
 	public static final FrozenPlacedFeature TALL_DARK_OAK_CHECKED = register("tall_dark_oak_checked");
@@ -348,6 +349,10 @@ public final class WilderTreePlaced {
 		);
 
 		SMALL_FANCY_SEMI_DEAD_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.SMALL_FANCY_SEMI_DEAD_OAK.getHolder(),
+				PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
+		);
+
+		DEAD_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.DEAD_OAK.getHolder(),
 				PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
 		);
 

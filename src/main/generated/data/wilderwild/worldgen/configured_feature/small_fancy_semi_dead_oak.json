@@ -50,7 +50,7 @@
     },
     "trunk_placer": {
       "type": "minecraft:upwards_branching_trunk_placer",
-      "base_height": 10,
+      "base_height": 7,
       "can_grow_through": "#minecraft:mangrove_logs_can_grow_through",
       "extra_branch_length": {
         "type": "minecraft:uniform",
@@ -66,7 +66,7 @@
           "min_inclusive": 2
         }
       },
-      "height_rand_a": 6,
+      "height_rand_a": 3,
       "height_rand_b": 1,
       "place_branch_per_log_probability": 0.3
     },
