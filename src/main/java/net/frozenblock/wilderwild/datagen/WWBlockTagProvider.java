@@ -279,6 +279,14 @@ final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 			.add(Blocks.SAND)
 			.add(Blocks.SANDSTONE);
 
+		this.getOrCreateTagBuilder(WilderBlockTags.COARSE_DIRT_DISK_REPLACEABLE)
+			.addOptionalTag(BlockTags.SAND)
+			.add(Blocks.DIRT)
+			.add(Blocks.GRAVEL)
+			.add(Blocks.CLAY)
+			.add(Blocks.GRASS_BLOCK)
+			.add(Blocks.PODZOL);
+
 		this.getOrCreateTagBuilder(WilderBlockTags.RIVER_POOL_REPLACEABLE)
 			.addOptionalTag(BlockTags.SAND)
 			.addOptionalTag(BlockTags.DIRT)

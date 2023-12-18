@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "wilderwild:dying_forest",
+      "required": false
+    }
+  ]
+}

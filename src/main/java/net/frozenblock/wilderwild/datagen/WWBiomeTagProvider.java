@@ -606,7 +606,8 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
 			.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
 			.addOptional(RegisterWorldgen.RAINFOREST)
-			.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
+			.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
+			.addOptional(RegisterWorldgen.DYING_FOREST);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_BIG_MUSHROOM_PATCH)
 			.addOptional(RegisterWorldgen.RAINFOREST)
@@ -994,7 +995,8 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.SUNFLOWER_PLAINS)
 			.addOptional(RegisterWorldgen.FLOWER_FIELD)
 			.addOptional(RegisterWorldgen.RAINFOREST)
-			.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST);
+			.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
+			.addOptional(RegisterWorldgen.DYING_FOREST);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_PLAINS_FLOWERS)
 			.add(Biomes.PLAINS)
@@ -1150,6 +1152,9 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.DESERT)
 			.addOptional(RegisterWorldgen.ARID_SAVANNA)
 			.addOptional(RegisterWorldgen.ARID_FOREST);
+
+		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COARSE_DIRT_PILE_WITH_DISK)
+			.addOptional(RegisterWorldgen.DYING_FOREST);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COARSE_DIRT_CLEARING)
 			.add(Biomes.FOREST)

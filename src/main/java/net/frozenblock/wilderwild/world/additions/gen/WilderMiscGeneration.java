@@ -150,8 +150,12 @@ public final class WilderMiscGeneration {
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_WATER_POOLS),
 				GenerationStep.Decoration.LAKES, WilderMiscPlaced.RIVER_POOL.getKey());
+
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_WATER_POOLS),
 				GenerationStep.Decoration.LAKES, WilderMiscPlaced.SMALL_RIVER_POOL.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_COARSE_DIRT_PILE_WITH_DISK),
+				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.COARSE_DIRT_DISK_AND_PILE.getKey());
 		}
 
 		if (WorldgenConfig.get().surfaceTransitions) {

@@ -437,7 +437,6 @@ public final class RegisterWorldgen {
 			.build();
 	}
 
-	@NotNull
 	public static void addJellyfishCavesFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
 		BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
 		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, CavePlacements.MONSTER_ROOM_DEEP);
@@ -495,7 +494,6 @@ public final class RegisterWorldgen {
 			.build();
 	}
 
-	@NotNull
 	public static void addAridForestFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_FOREST_TREES.getKey());
 		addBasicFeatures(builder, ARID_FOREST);
@@ -536,7 +534,6 @@ public final class RegisterWorldgen {
 			.build();
 	}
 
-	@NotNull
 	public static void addAridSavannaFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_SAVANNA_TREES.getKey());
 		addBasicFeatures(builder, ARID_SAVANNA);
@@ -577,7 +574,6 @@ public final class RegisterWorldgen {
 			.build();
 	}
 
-	@NotNull
 	public static void addParchedForestFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PARCHED_FOREST_TREES.getKey());
 		addBasicFeatures(builder, PARCHED_FOREST);
