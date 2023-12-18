@@ -131,6 +131,8 @@ public final class WilderTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_OAK = register("snapped_oak_tree");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_DEAD_OAK = register("fancy_dead_oak");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FANCY_SEMI_DEAD_OAK = register("fancy_semi_dead_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SMALL_FANCY_DEAD_OAK = register("small_fancy_dead_oak");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SMALL_FANCY_SEMI_DEAD_OAK = register("small_fancy_semi_dead_oak");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DEAD_OAK = register("dead_oak");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DEAD_OAK_BRANCHES = register("dead_oak_branches");
 	//DARK OAK
@@ -663,7 +665,7 @@ public final class WilderTreeConfigured {
 		);
 
 		FANCY_DEAD_OAK.makeAndSetHolder(Feature.TREE,
-				fancyDyiedOak().decorators(
+				fancyDeadOak().decorators(
 						List.of(
 								SHELF_FUNGUS_002,
 								VINES_012_UNDER_260
@@ -672,7 +674,25 @@ public final class WilderTreeConfigured {
 		);
 
 		FANCY_SEMI_DEAD_OAK.makeAndSetHolder(Feature.TREE,
-				fancySemiDyiedOak().decorators(
+				fancySemiDeadOak().decorators(
+						List.of(
+								SHELF_FUNGUS_002,
+								VINES_012_UNDER_260
+						)
+				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		SMALL_FANCY_SEMI_DEAD_OAK.makeAndSetHolder(Feature.TREE,
+				fancySemiDeadOak().decorators(
+						List.of(
+								SHELF_FUNGUS_002,
+								VINES_012_UNDER_260
+						)
+				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		SMALL_FANCY_DEAD_OAK.makeAndSetHolder(Feature.TREE,
+				fancySemiDeadOak().decorators(
 						List.of(
 								SHELF_FUNGUS_002,
 								VINES_012_UNDER_260
@@ -1547,13 +1567,23 @@ public final class WilderTreeConfigured {
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder fancyDyiedOak() {
+	private static TreeConfiguration.TreeConfigurationBuilder fancyDeadOak() {
 		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.OAK_LOG), new FancyTrunkPlacer(5, 16, 0), BlockStateProvider.simple(Blocks.AIR), new FancyFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), 1), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(5)))).ignoreVines();
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder fancySemiDyiedOak() {
+	private static TreeConfiguration.TreeConfigurationBuilder fancySemiDeadOak() {
 		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.OAK_LOG), new UpwardsBranchingTrunkPlacer(10, 6, 1, UniformInt.of(2, 4), 0.3F, UniformInt.of(2, 5), BuiltInRegistries.BLOCK.getOrCreateTag(BlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH)), BlockStateProvider.simple(Blocks.OAK_LEAVES), new RandomSpreadFoliagePlacer(ConstantInt.of(2), ConstantInt.of(2), ConstantInt.of(2), 1), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(5)))).ignoreVines();
+	}
+
+	@NotNull
+	private static TreeConfiguration.TreeConfigurationBuilder smallFancyDeadOak() {
+		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.OAK_LOG), new FancyTrunkPlacer(5, 8, 2), BlockStateProvider.simple(Blocks.AIR), new FancyFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), 1), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(5)))).ignoreVines();
+	}
+
+	@NotNull
+	private static TreeConfiguration.TreeConfigurationBuilder smallFancySemiDeadOak() {
+		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.OAK_LOG), new UpwardsBranchingTrunkPlacer(7, 3, 1, UniformInt.of(2, 4), 0.3F, UniformInt.of(2, 5), BuiltInRegistries.BLOCK.getOrCreateTag(BlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH)), BlockStateProvider.simple(Blocks.OAK_LEAVES), new RandomSpreadFoliagePlacer(ConstantInt.of(2), ConstantInt.of(2), ConstantInt.of(2), 1), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(5)))).ignoreVines();
 	}
 
 	@NotNull

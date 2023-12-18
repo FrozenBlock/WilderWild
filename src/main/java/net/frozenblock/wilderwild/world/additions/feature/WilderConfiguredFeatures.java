@@ -572,7 +572,10 @@ public final class WilderConfiguredFeatures {
 		TREES_DYING_FOREST.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH_BEES_0004.getHolder(), 0.2F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_CHECKED.getHolder(), 0.055F),
-						new WeightedPlacedFeature(WilderTreePlaced.FANCY_DEAD_OAK_CHECKED.getHolder(), 0.35F),
+						new WeightedPlacedFeature(WilderTreePlaced.FANCY_SEMI_DEAD_OAK_CHECKED.getHolder(), 0.1F),
+						new WeightedPlacedFeature(WilderTreePlaced.FANCY_DEAD_OAK_CHECKED.getHolder(), 0.07F),
+						new WeightedPlacedFeature(WilderTreePlaced.SMALL_FANCY_SEMI_DEAD_OAK_CHECKED.getHolder(), 0.1F),
+						new WeightedPlacedFeature(WilderTreePlaced.SMALL_FANCY_DEAD_OAK_CHECKED.getHolder(), 0.1F),
 						new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED.getHolder(), 0.04F),
 						new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED.getHolder(), 0.155F),
 						new WeightedPlacedFeature(WilderTreePlaced.DEAD_OAK_BRANCHES_CHECKED.getHolder(), 0.2F)
