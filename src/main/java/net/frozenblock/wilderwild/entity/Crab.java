@@ -174,7 +174,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@NotNull
-	public static AttributeSupplier.Builder addAttributes() {
+	public static AttributeSupplier.Builder createAttributes() {
 		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D)
 			.add(Attributes.MOVEMENT_SPEED, MOVEMENT_SPEED)
 			.add(Attributes.JUMP_STRENGTH, 0.0D)

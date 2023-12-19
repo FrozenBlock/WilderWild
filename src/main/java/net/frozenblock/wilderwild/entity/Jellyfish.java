@@ -170,7 +170,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@NotNull
-	public static AttributeSupplier.Builder addAttributes() {
+	public static AttributeSupplier.Builder createAttributes() {
 		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.MOVEMENT_SPEED, 0.5F).add(Attributes.FOLLOW_RANGE, MAX_TARGET_DISTANCE);
 	}
 

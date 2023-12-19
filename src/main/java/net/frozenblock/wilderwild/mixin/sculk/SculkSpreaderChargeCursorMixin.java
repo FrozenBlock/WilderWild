@@ -18,10 +18,10 @@
 
 package net.frozenblock.wilderwild.mixin.sculk;
 
-import com.llamalad7.mixinextras.sugar.Share;
-import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import java.util.Iterator;
 import java.util.List;
 import net.frozenblock.lib.sculk.api.BooleanPropertySculkBehavior;
