@@ -41,6 +41,7 @@ import net.frozenblock.wilderwild.entity.render.easter.EasterEggs;
 import net.frozenblock.wilderwild.entity.render.model.AncientHornProjectileModel;
 import net.frozenblock.wilderwild.entity.render.model.CrabModel;
 import net.frozenblock.wilderwild.entity.render.model.JellyfishModel;
+import net.frozenblock.wilderwild.entity.render.model.OstrichModel;
 import net.frozenblock.wilderwild.entity.render.model.TumbleweedModel;
 import net.frozenblock.wilderwild.entity.render.renderer.AncientHornProjectileRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.CrabRenderer;
@@ -231,6 +232,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		EntityModelLayerRegistry.registerModelLayer(CRAB, CrabModel::createBodyLayer);
 
 		EntityRendererRegistry.register(RegisterEntities.OSTRICH, OstrichRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(OSTRICH, OstrichModel::createBodyLayer);
 
 		EntityRendererRegistry.register(RegisterEntities.COCONUT, ThrownItemRenderer::new);
 
