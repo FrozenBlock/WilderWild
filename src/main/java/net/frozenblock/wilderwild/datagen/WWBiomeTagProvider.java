@@ -429,7 +429,8 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.BIRCH_TAIGA)
 			.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
 			.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
-			.addOptional(RegisterWorldgen.DARK_TAIGA);
+			.addOptional(RegisterWorldgen.DARK_TAIGA)
+			.addOptional(RegisterWorldgen.DYING_FOREST);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.SAND_BEACHES)
 			.add(Biomes.DARK_FOREST)
@@ -440,8 +441,7 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.PARCHED_FOREST)
 			.addOptional(RegisterWorldgen.ARID_FOREST)
 			.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
-			.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
-			.addOptional(RegisterWorldgen.DYING_FOREST);
+			.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.MULTI_LAYER_SAND_BEACHES)
 			.add(Biomes.BAMBOO_JUNGLE)

@@ -56,6 +56,7 @@ public final class WilderTreePlaced {
 	public static final FrozenPlacedFeature FALLEN_BIRCH_CHECKED = register("fallen_birch_checked");
 	public static final FrozenPlacedFeature MOSSY_FALLEN_BIRCH_CHECKED = register("mossy_fallen_birch_checked");
 	public static final FrozenPlacedFeature SNAPPED_BIRCH_CHECKED = register("snapped_birch_checked");
+	public static final FrozenPlacedFeature DEAD_BIRCH = register("dead_birch");
 	//CHERRY
 	public static final FrozenPlacedFeature CHERRY_CHECKED = register("cherry_checked");
 	public static final FrozenPlacedFeature DYING_CHERRY_CHECKED = register("dying_cherry_checked");
@@ -230,6 +231,10 @@ public final class WilderTreePlaced {
 
 		SNAPPED_BIRCH_CHECKED.makeAndSetHolder(WilderTreeConfigured.SNAPPED_BIRCH.getHolder(),
 			PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
+		);
+
+		DEAD_BIRCH.makeAndSetHolder(WilderTreeConfigured.DEAD_BIRCH.getHolder(),
+				PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
 		);
 
 		//CHERRY

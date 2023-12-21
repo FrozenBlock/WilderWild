@@ -570,16 +570,17 @@ public final class WilderConfiguredFeatures {
 		);
 
 		TREES_DYING_FOREST.makeAndSetHolder(Feature.RANDOM_SELECTOR,
-				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH_BEES_0004.getHolder(), 0.125F),
-						new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_CHECKED.getHolder(), 0.035F),
-						new WeightedPlacedFeature(WilderTreePlaced.FANCY_SEMI_DEAD_OAK_CHECKED.getHolder(), 0.055F),
-						new WeightedPlacedFeature(WilderTreePlaced.FANCY_DEAD_OAK_CHECKED.getHolder(), 0.025F),
-						new WeightedPlacedFeature(WilderTreePlaced.SMALL_FANCY_SEMI_DEAD_OAK_CHECKED.getHolder(), 0.067F),
+				new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(WilderTreePlaced.SHORT_BIRCH_BEES_0004.getHolder(), 0.045F),
+						new WeightedPlacedFeature(WilderTreePlaced.DEAD_BIRCH.getHolder(), 0.07F),
+						new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_CHECKED.getHolder(), 0.015F),
+						new WeightedPlacedFeature(WilderTreePlaced.FANCY_SEMI_DEAD_OAK_CHECKED.getHolder(), 0.075F),
+						new WeightedPlacedFeature(WilderTreePlaced.FANCY_DEAD_OAK_CHECKED.getHolder(), 0.06F),
+						new WeightedPlacedFeature(WilderTreePlaced.SMALL_FANCY_SEMI_DEAD_OAK_CHECKED.getHolder(), 0.0433F),
 						new WeightedPlacedFeature(WilderTreePlaced.SMALL_FANCY_DEAD_OAK_CHECKED.getHolder(), 0.025F),
-						new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED.getHolder(), 0.2F),
-						new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED.getHolder(), 0.107F),
-						new WeightedPlacedFeature(WilderTreePlaced.DEAD_OAK_CHECKED.getHolder(), 0.45F),
-						new WeightedPlacedFeature(WilderTreePlaced.OAK_CHECKED.getHolder(), 0.1F)), WilderTreePlaced.DEAD_OAK_BRANCHES_CHECKED.getHolder()
+						new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED.getHolder(), 0.085F),
+						new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED.getHolder(), 0.1F),
+						new WeightedPlacedFeature(WilderTreePlaced.DEAD_OAK_CHECKED.getHolder(), 0.35F),
+						new WeightedPlacedFeature(WilderTreePlaced.OAK_CHECKED.getHolder(), 0.033F)), WilderTreePlaced.DEAD_OAK_BRANCHES_CHECKED.getHolder()
 				)
 		);
 

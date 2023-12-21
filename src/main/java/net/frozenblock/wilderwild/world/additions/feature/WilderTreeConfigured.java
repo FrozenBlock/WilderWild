@@ -101,6 +101,7 @@ public final class WilderTreeConfigured {
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SUPER_BIRCH_BEES = register("super_birch_bees");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SUPER_BIRCH = register("super_birch");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_BIRCH = register("snapped_birch_tree");
+	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DEAD_BIRCH = register("dead_birch");
 	//CHERRY
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> CHERRY_TREE = register("cherry");
 	public static final FrozenConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> DYING_CHERRY_TREE = register("dying_cherry");
@@ -368,6 +369,15 @@ public final class WilderTreeConfigured {
 					SHELF_FUNGUS_007
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		DEAD_BIRCH.makeAndSetHolder(Feature.TREE,
+				deadbirch().decorators(
+						List.of(
+								SHELF_FUNGUS_006,
+								VINES_1_UNDER_260_03
+						)
+				).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		// CHERRY
@@ -1541,6 +1551,10 @@ public final class WilderTreeConfigured {
 		return builder(Blocks.BIRCH_LOG, Blocks.BIRCH_LEAVES, 6, 2, 2, 0.12F, UniformInt.of(1, 2), UniformInt.of(1, 3), ConstantInt.of(1), 2).ignoreVines();
 	}
 
+	private static TreeConfiguration.@NotNull TreeConfigurationBuilder deadbirch() {
+		return builder(Blocks.BIRCH_LOG, Blocks.AIR, 7, 4, 2, 0.355F, UniformInt.of(1, 2), UniformInt.of(1, 3), ConstantInt.of(1), 2).ignoreVines();
+	}
+
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fallenBirch() {
 		return fallenTrunkBuilder(Blocks.BIRCH_LOG, RegisterBlocks.HOLLOWED_BIRCH_LOG, Blocks.BIRCH_LEAVES, 3, 1, 2, 0.15F, UniformInt.of(1, 2), 0.075F).ignoreVines();
@@ -1573,7 +1587,7 @@ public final class WilderTreeConfigured {
 
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fancySemiDeadOak() {
-		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.OAK_LOG), new UpwardsBranchingTrunkPlacer(10, 6, 1, UniformInt.of(2, 4), 0.3F, UniformInt.of(2, 5), BuiltInRegistries.BLOCK.getOrCreateTag(BlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH)), BlockStateProvider.simple(Blocks.OAK_LEAVES), new RandomSpreadFoliagePlacer(ConstantInt.of(2), ConstantInt.of(2), ConstantInt.of(2), 1), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(5)))).ignoreVines();
+		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.OAK_LOG), new UpwardsBranchingTrunkPlacer(10, 6, 1, UniformInt.of(3, 5), 0.3F, UniformInt.of(3, 5), BuiltInRegistries.BLOCK.getOrCreateTag(BlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH)), BlockStateProvider.simple(Blocks.OAK_LEAVES), new RandomSpreadFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), ConstantInt.of(2), 4), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(5)))).ignoreVines();
 	}
 
 	@NotNull

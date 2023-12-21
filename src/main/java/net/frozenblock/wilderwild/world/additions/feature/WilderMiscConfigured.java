@@ -38,6 +38,7 @@ import net.frozenblock.wilderwild.world.generation.features.config.SnowAndIceDis
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -55,6 +56,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfi
 import net.minecraft.world.level.levelgen.feature.configurations.DiskConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleRandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.VegetationPatchConfiguration;
@@ -163,6 +165,7 @@ public final class WilderMiscConfigured {
 	public static final FrozenConfiguredFeature<NoneFeatureConfiguration, ConfiguredFeature<NoneFeatureConfiguration, ?>> SNOW_BLANKET = register("snow_blanket");
 	public static final FrozenConfiguredFeature<SnowAndIceDiskFeatureConfig, ConfiguredFeature<SnowAndIceDiskFeatureConfig, ?>> SNOW_AND_ICE_TRANSITION_DISK = register("snow_and_freeze_transition_disk");
 	private static final RuleTest NATURAL_STONE = new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD);
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> SNOW_CARPET_RANDOM = register("snow_carpet_random");
 
 	private WilderMiscConfigured() {
 		throw new UnsupportedOperationException("WilderMiscConfigured contains only static declarations.");
@@ -1065,6 +1068,15 @@ public final class WilderMiscConfigured {
 				0.65F,
 				0.5F
 			)
+		);
+
+		SNOW_CARPET_RANDOM.makeAndSetHolder(Feature.RANDOM_PATCH,
+				FeatureUtils.simpleRandomPatchConfiguration(
+						64,
+						PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+								new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.SNOW))
+						)
+				)
 		);
 	}
 }
