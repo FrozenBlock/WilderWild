@@ -99,9 +99,19 @@ public class OstrichModel<T extends Ostrich> extends HierarchicalModel<T> {
 	@Override
 	public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		float movementDelta = Math.min(limbSwingAmount * 4F, 1.0F);
-		limbSwing *= 1.75F;
+		limbSwing *= 1.5F;
+		limbSwingAmount = (Math.min(limbSwingAmount * 1.5F, 1F));
+
+		// LEGS
 		animateLeg(this.left_leg, this.left_foot, limbSwing, limbSwingAmount, 0F);
 		animateLeg(this.right_leg, this.right_foot, limbSwing, limbSwingAmount, (float) Math.PI);
+
+		// BODY
+		float fastAngle = limbSwing * 0.3331F;
+		float angleSin = Math.sin(-fastAngle);
+		float angleSinSwingAmount = (angleSin * limbSwingAmount) * 0.5F;
+		this.body.zRot += angleSinSwingAmount;
+		this.neck.zRot -= this.body.zRot;
 	}
 
 	private static void animateLeg(@NotNull ModelPart leg, @NotNull ModelPart foot, float limbSwing, float limbSwingAmount, float animOffset) {
