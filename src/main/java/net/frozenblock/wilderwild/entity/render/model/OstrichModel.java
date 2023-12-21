@@ -109,7 +109,7 @@ public class OstrichModel<T extends Ostrich> extends HierarchicalModel<T> {
 		// BODY
 		float fastAngle = limbSwing * 0.3331F;
 		float angleSin = Math.sin(-fastAngle);
-		float angleSinSwingAmount = (angleSin * limbSwingAmount) * 0.5F;
+		float angleSinSwingAmount = (angleSin * limbSwingAmount) * 0.175F;
 		this.body.zRot += angleSinSwingAmount;
 		this.neck.zRot -= this.body.zRot;
 	}
