@@ -94,11 +94,8 @@ public class OstrichModel<T extends Ostrich> extends HierarchicalModel<T> {
 		return LayerDefinition.create(meshdefinition, 80, 64);
 	}
 
-	private float partialTick;
-
 	@Override
 	public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		float movementDelta = Math.min(limbSwingAmount * 4F, 1.0F);
 		limbSwing *= 1.5F;
 		limbSwingAmount = Math.min(limbSwingAmount * 1.5F, 1F);
 
@@ -113,6 +110,15 @@ public class OstrichModel<T extends Ostrich> extends HierarchicalModel<T> {
 		this.body.zRot += angleSinSwingAmountBody;
 
 		// NECK
+		float beakAnimProgress = entity.getBeakAnimProgress(partialTick);
+		float rotation = beakAnimProgress * 180F * -PI_180;
+
+		this.neck_base.xRot = rotation * 0.3F;
+		this.neck.xRot = rotation * 0.7F;
+
+		headPitch = Mth.lerp(entity.getTargetPassengerProgress(this.partialTick), headPitch, Math.min(headPitch, 0F));
+		headPitch = Mth.lerp(beakAnimProgress, headPitch, 0F);
+
 		float fastAngleNeckBase = limbSwing * 0.3331F + 0.0416375F;
 		float angleSinNeckBase = Math.sin(-fastAngleNeckBase);
 		float angleSinSwingAmountNeckBase = (angleSinNeckBase * limbSwingAmount) * 0.175F * 0.5F;
@@ -130,6 +136,8 @@ public class OstrichModel<T extends Ostrich> extends HierarchicalModel<T> {
 		this.neck.xRot -= headPitch * PI_180 * 0.65F;
 		this.neck.yRot += netHeadYaw * PI_180 * 0.65F;
 	}
+
+	private float partialTick;
 
 	private static void animateLeg(@NotNull ModelPart leg, @NotNull ModelPart foot, float limbSwing, float limbSwingAmount, float animOffset) {
 		float fastAngle = limbSwing * 0.3331F + animOffset;
@@ -167,11 +175,6 @@ public class OstrichModel<T extends Ostrich> extends HierarchicalModel<T> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		super.prepareMobModel(entity, limbSwing, limbSwingAmount, partialTick);
 		this.partialTick = partialTick;
-		float beakAnimProgress = entity.getBeakAnimProgress(partialTick);
-		float rotation = beakAnimProgress * 180F * -PI_180;
-
-		this.neck_base.xRot = Mth.clamp(rotation, -22.5F * PI_180, 22.5F * PI_180);
-		this.neck.xRot = rotation - this.neck_base.xRot;
 	}
 
 	@NotNull
