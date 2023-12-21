@@ -125,10 +125,10 @@ public class OstrichModel<T extends Ostrich> extends HierarchicalModel<T> {
 
 		this.neck.xRot += (limbSwingAmount * 5F * PI_180);
 
-		this.neck_base.xRot += headPitch * PI_180 * 0.25F;
-		this.neck_base.yRot -= netHeadYaw * PI_180 * 0.25F;
-		this.neck.xRot += headPitch * PI_180 * 0.65F;
-		this.neck.yRot -= netHeadYaw * PI_180 * 0.65F;
+		this.neck_base.xRot -= headPitch * PI_180 * 0.25F;
+		this.neck_base.yRot += netHeadYaw * PI_180 * 0.25F;
+		this.neck.xRot -= headPitch * PI_180 * 0.65F;
+		this.neck.yRot += netHeadYaw * PI_180 * 0.65F;
 	}
 
 	private static void animateLeg(@NotNull ModelPart leg, @NotNull ModelPart foot, float limbSwing, float limbSwingAmount, float animOffset) {
