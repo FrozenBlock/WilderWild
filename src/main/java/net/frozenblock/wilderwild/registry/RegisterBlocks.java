@@ -51,6 +51,7 @@ import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.block.MilkweedBlock;
 import net.frozenblock.wilderwild.block.NematocystBlock;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
+import net.frozenblock.wilderwild.block.OstrichEggBlock;
 import net.frozenblock.wilderwild.block.PalmFrondsBlock;
 import net.frozenblock.wilderwild.block.PollenBlock;
 import net.frozenblock.wilderwild.block.PricklyPearCactusBlock;
@@ -476,7 +477,7 @@ public final class RegisterBlocks {
 			.sounds(SoundType.SPONGE)
 	);
 
-	public static final Block OSTRICH_EGG = new Block(
+	public static final Block OSTRICH_EGG = new OstrichEggBlock(
 		FabricBlockSettings.of()
 			.mapColor(MapColor.TERRACOTTA_WHITE)
 			.strength(0.5F)
