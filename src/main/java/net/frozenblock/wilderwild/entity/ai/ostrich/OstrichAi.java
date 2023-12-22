@@ -88,7 +88,6 @@ public class OstrichAi {
 	@NotNull
 	public static Brain<?> makeBrain(Brain<Ostrich> brain) {
 		initCoreActivity(brain);
-		initLaySpawnActivity(brain);
 		initIdleActivity(brain);
 		brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
 		brain.setDefaultActivity(Activity.IDLE);
@@ -104,6 +103,7 @@ public class OstrichAi {
 				new Swim(0.8F),
 				new OstrichPanic(SPEED_MULTIPLIER_WHEN_PANICKING),
 				new OstrichRunAroundLikeCrazy(1.5F),
+				OstrichTryLayEggOnLand.create(RegisterBlocks.OSTRICH_EGG),
 				new LookAtTargetSink(45, 90),
 				new MoveToTargetSink(),
 				new CountDownCooldownTicks(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS),
@@ -143,20 +143,8 @@ public class OstrichAi {
 		);
 	}
 
-	private static void initLaySpawnActivity(@NotNull Brain<Ostrich> brain) {
-		brain.addActivityWithConditions(
-			Activity.LAY_SPAWN,
-			ImmutableList.of(
-				//Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))),
-				//Pair.of(1, StartAttacking.create(FrogAi::canAttack, frog -> frog.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE))),
-				Pair.of(3, OstrichTryLayEggOnLand.create(RegisterBlocks.OSTRICH_EGG))
-			),
-			ImmutableSet.of(Pair.of(MemoryModuleType.IS_PREGNANT, MemoryStatus.VALUE_PRESENT))
-		);
-	}
-
 	public static void updateActivity(@NotNull Ostrich ostrich) {
-		ostrich.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.LAY_SPAWN, Activity.IDLE));
+		ostrich.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.IDLE));
 	}
 
 	public static Ingredient getTemptations() {
