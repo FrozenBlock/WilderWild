@@ -18,19 +18,32 @@
 
 package net.frozenblock.wilderwild.entity;
 
+import com.mojang.serialization.Dynamic;
+import java.util.List;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.particle.api.FrozenParticleTypes;
+import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichAi;
+import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichBodyRotationControl;
+import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichLookControl;
+import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichMoveControl;
 import net.frozenblock.wilderwild.registry.RegisterDamageTypes;
+import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
@@ -39,11 +52,16 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PlayerRideableJumping;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.Saddleable;
+import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -54,9 +72,9 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
-import java.util.List;
 
 public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Saddleable {
+	public static final Ingredient TEMPTATION_ITEM = Ingredient.of(ItemTags.LEAVES);
 	public static final int BEAK_COOLDOWN_TICKS = 60;
 	public static final int BEAK_COOLDOWN_TICKS_SUCCESSFUL_HIT = 20;
 	public static final int BEAK_STUCK_TICKS = 100;
@@ -78,6 +96,8 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	public Ostrich(EntityType<? extends Ostrich> entityType, Level level) {
 		super(entityType, level);
+		this.moveControl = new OstrichMoveControl(this);
+		this.lookControl = new OstrichLookControl(this);
 		GroundPathNavigation groundPathNavigation = (GroundPathNavigation)this.getNavigation();
 		groundPathNavigation.setCanFloat(true);
 	}
@@ -98,6 +118,42 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		this.entityData.define(IS_ATTACKING, false);
 		this.entityData.define(BEAK_COOLDOWN, 0);
 		this.entityData.define(STUCK_TICKS, 0);
+	}
+
+	@Override
+	public void registerGoals() {
+	}
+
+	@NotNull
+	@Override
+	public Brain.Provider<Ostrich> brainProvider() {
+		return OstrichAi.brainProvider();
+	}
+
+	@NotNull
+	@Override
+	@SuppressWarnings("unchecked")
+	public Brain<Ostrich> getBrain() {
+		return (Brain<Ostrich>) super.getBrain();
+	}
+
+	@NotNull
+	@Override
+	@SuppressWarnings("unchecked")
+	public Brain<Ostrich> makeBrain(@NotNull Dynamic<?> dynamic) {
+		return (Brain<Ostrich>) OstrichAi.makeBrain(this.brainProvider().makeBrain(dynamic));
+	}
+
+	@Override
+	public void customServerAiStep() {
+		this.level().getProfiler().push("ostrichBrain");
+		Brain<Ostrich> brain = this.getBrain();
+		brain.tick((ServerLevel)this.level(), this);
+		this.level().getProfiler().pop();
+		this.level().getProfiler().push("ostrichActivityUpdate");
+		OstrichAi.updateActivity(this);
+		this.level().getProfiler().pop();
+		super.customServerAiStep();
 	}
 
 	@Override
@@ -269,11 +325,13 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		return (float)this.getAttributeValue(Attributes.MOVEMENT_SPEED) + additionalSpeed;
 	}
 
+	@NotNull
 	@Override
 	public Vec2 getRiddenRotation(@NotNull LivingEntity entity) {
 		return this.refuseToMove() ? new Vec2(this.getXRot(), this.getYRot()) : super.getRiddenRotation(entity);
 	}
 
+	@NotNull
 	@Override
 	public Vec3 getRiddenInput(@NotNull Player player, @NotNull Vec3 travelVector) {
 		return this.refuseToMove() ? Vec3.ZERO : super.getRiddenInput(player, travelVector);
@@ -299,6 +357,116 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	@Override
 	public boolean isPushedByFluid() {
 		return !this.isBeakTouchingFluid();
+	}
+
+	@Override
+	public boolean isFood(@NotNull ItemStack stack) {
+		return TEMPTATION_ITEM.test(stack);
+	}
+
+	@Override
+	public void onLeashDistance(float distance) {
+		if (distance > 6.0F && this.isStuck()) {
+			this.emergeBeak();
+		}
+	}
+
+	@Override
+	protected boolean handleEating(@NotNull Player player, @NotNull ItemStack stack) {
+		if (!this.isFood(stack)) {
+			return false;
+		} else {
+			boolean bl = this.getHealth() < this.getMaxHealth();
+			if (bl) {
+				this.heal(2.0F);
+			}
+
+			boolean bl2 = this.isTamed() && this.getAge() == 0 && this.canFallInLove();
+			if (bl2) {
+				this.setInLove(player);
+			}
+
+			boolean bl3 = this.isBaby();
+			if (bl3) {
+				this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0), this.getRandomY() + 0.5, this.getRandomZ(1.0), 0.0, 0.0, 0.0);
+				if (!this.level().isClientSide) {
+					this.ageUp(10);
+				}
+			}
+
+			if (!bl && !bl2 && !bl3) {
+				return false;
+			} else {
+				if (!this.isSilent()) {
+					SoundEvent soundEvent = this.getEatingSound();
+					if (soundEvent != null) {
+						this.level().playSound(null, this.getX(), this.getY(), this.getZ(), soundEvent, this.getSoundSource(), 1.0F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
+					}
+				}
+
+				this.gameEvent(GameEvent.EAT);
+				return true;
+			}
+		}
+	}
+
+	@Override
+	protected boolean canPerformRearing() {
+		return false;
+	}
+
+	@Override
+	public boolean canMate(@NotNull Animal otherAnimal) {
+		if (otherAnimal != this && otherAnimal instanceof Ostrich ostrich) {
+            return this.canParent() && ostrich.canParent();
+		}
+		return false;
+	}
+
+	@Nullable
+	@Override
+	public Ostrich getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob otherParent) {
+		return RegisterEntities.OSTRICH.create(level);
+	}
+
+	@Nullable
+	@Override
+	//TODO: OSTRICH EAT SOUND
+	public SoundEvent getEatingSound() {
+		return SoundEvents.CAMEL_EAT;
+	}
+
+	@Override
+	public void actuallyHurt(@NotNull DamageSource damageSource, float damageAmount) {
+		this.emergeBeak();
+		super.actuallyHurt(damageSource, damageAmount);
+	}
+
+	@NotNull
+	@Override
+	public Vec3 getLeashOffset(float partialTick) {
+		Vec3 pos = this.position();
+		Vec3 beakPos = this.getBeakPos();
+		return beakPos.subtract(pos);
+	}
+
+	@Override
+	public void sendDebugPackets() {
+		super.sendDebugPackets();
+		DebugPackets.sendEntityBrain(this);
+	}
+
+	@NotNull
+	@Override
+	public SoundEvent getSaddleSoundEvent() {
+		//TODO: OSTRICH SADDLE SOUND EVENT
+		return SoundEvents.CAMEL_SADDLE;
+	}
+
+	@NotNull
+	@Override
+	public BodyRotationControl createBodyControl() {
+		return new OstrichBodyRotationControl(this);
 	}
 
 	public void setTargetBeakAnimProgress(float progress) {
@@ -379,12 +547,12 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	@NotNull
 	public Vec3 getBeakPos() {
-		return this.beakPosition != null ? this.beakPosition : this.makeBeakPos();
+		return this.beakPosition != null ? this.beakPosition : (this.beakPosition = this.makeBeakPos());
 	}
 
 	@NotNull
 	public BlockState getBeakState() {
-		return this.beakState != null ? this.beakState : this.makeBeakState();
+		return this.beakState != null ? this.beakState : (this.beakState = this.makeBeakState());
 	}
 
 	@NotNull
@@ -415,6 +583,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		return dimensions.height;
 	}
 
+	@NotNull
 	@Override
 	public Vector3f getPassengerAttachmentPoint(@NotNull Entity entity, @NotNull EntityDimensions dimensions, float scale) {
 		return new Vector3f(0.0F, this.getPassengersRidingOffsetY(dimensions, scale), 0);
