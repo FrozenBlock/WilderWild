@@ -24,6 +24,7 @@ import net.frozenblock.wilderwild.entity.ai.crab.CrabAttackablesSensor;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabCanDigSensor;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabNearbyPlayerSensor;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabSpecificSensor;
+import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichAi;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -46,6 +47,7 @@ public final class RegisterSensorTypes {
 	public static final SensorType<CrabNearbyPlayerSensor> CRAB_NEARBY_PLAYER_SENSOR = register("crab_nearby_player_sensor", CrabNearbyPlayerSensor::new);
 	public static final SensorType<CrabCanDigSensor> CRAB_CAN_DIG_SENSOR = register("crab_can_dig_sensor", CrabCanDigSensor::new);
 	public static final SensorType<CrabAttackablesSensor> CRAB_ATTACKABLES = register("crab_attackables", CrabAttackablesSensor::new);
+	public static final SensorType<TemptingSensor> OSTRICH_TEMPTATIONS = register("ostrich_temptations", () -> new TemptingSensor(OstrichAi.getTemptations()));
 
 	@NotNull
 	private static <U extends Sensor<?>> SensorType<U> register(String key, Supplier<U> sensorSupplier) {

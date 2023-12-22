@@ -26,6 +26,7 @@ import java.util.function.Predicate;
 import net.frozenblock.wilderwild.entity.Ostrich;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.frozenblock.wilderwild.registry.RegisterSensorTypes;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.Brain;
@@ -59,7 +60,7 @@ public class OstrichAi {
 	private static final float SPEED_MULTIPLIER_WHEN_MAKING_LOVE = 0.8F;
 	private static final UniformInt ADULT_FOLLOW_RANGE = UniformInt.of(5, 16);
 	private static final ImmutableList<SensorType<? extends Sensor<? super Ostrich>>> SENSOR_TYPES = ImmutableList.of(
-		SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY, SensorType.CAMEL_TEMPTATIONS, SensorType.NEAREST_ADULT
+		SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY, RegisterSensorTypes.OSTRICH_TEMPTATIONS, SensorType.NEAREST_ADULT
 	);
 	private static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
 		MemoryModuleType.IS_PANICKING,
