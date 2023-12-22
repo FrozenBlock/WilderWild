@@ -45,6 +45,7 @@ import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.AABB;
@@ -72,6 +73,8 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	private float beakAnimProgress;
 	@Nullable
 	private Vec3 beakPosition;
+	@Nullable
+	private BlockState beakState;
 
 	public Ostrich(EntityType<? extends Ostrich> entityType, Level level) {
 		super(entityType, level);
@@ -120,7 +123,8 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 		this.prevBeakAnimProgress = this.beakAnimProgress;
 		this.beakAnimProgress = this.beakAnimProgress + ((this.getTargetBeakAnimProgress() - this.beakAnimProgress) * 0.3F);
-		this.beakPosition = this.makeNewBeakPos();
+		this.beakPosition = this.makeBeakPos();
+		this.beakState = this.makeBeakState();
 
 		if (!this.level().isClientSide) {
 			this.handleAttackAndStuck();
@@ -252,6 +256,10 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	}
 
 	public boolean refuseToMove() {
+		return this.isStuck();
+	}
+
+	public boolean isStuck() {
 		return this.getStuckTicks() > 0;
 	}
 
@@ -286,6 +294,11 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	@Override
 	public boolean isPushable() {
 		return !this.refuseToMove() && super.isPushable();
+	}
+
+	@Override
+	public boolean isPushedByFluid() {
+		return !this.isBeakTouchingFluid();
 	}
 
 	public void setTargetBeakAnimProgress(float progress) {
@@ -349,7 +362,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	}
 
 	@NotNull
-	private Vec3 makeNewBeakPos() {
+	private Vec3 makeBeakPos() {
 		Vec3 currentPos = this.position().add(0D, 1.1875D, 0D);
 		Vec3 lookOrientation = this.getLookAngle();
 		lookOrientation = lookOrientation.subtract(0D, lookOrientation.y(), 0D);
@@ -366,29 +379,34 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	@NotNull
 	public Vec3 getBeakPos() {
-		return this.beakPosition != null ? this.beakPosition : this.makeNewBeakPos();
+		return this.beakPosition != null ? this.beakPosition : this.makeBeakPos();
+	}
+
+	@NotNull
+	public BlockState getBeakState() {
+		return this.beakState != null ? this.beakState : this.makeBeakState();
+	}
+
+	@NotNull
+	private BlockState makeBeakState() {
+		return this.level().getBlockState(BlockPos.containing(this.getBeakPos()));
 	}
 
 	public boolean canGetHeadStuck() {
-		Vec3 beakVec = this.getBeakPos();
-		BlockPos beakPos = BlockPos.containing(beakVec);
-
-		return this.level().getBlockState(beakPos).is(BlockTags.MINEABLE_WITH_SHOVEL);
+		return this.getBeakState().is(BlockTags.MINEABLE_WITH_SHOVEL);
 	}
 
 	public boolean isBeakTouchingFluid() {
 		Vec3 beakVec = this.getBeakPos();
 		BlockPos beakPos = BlockPos.containing(beakVec);
-
-		FluidState fluidState = this.level().getFluidState(beakPos);
+		FluidState fluidState = this.getBeakState().getFluidState();
 		return !fluidState.isEmpty() && (fluidState.getHeight(this.level(), beakPos) + beakPos.getY() >= beakVec.y());
 	}
 
 	public boolean isEyeTouchingFluid() {
 		Vec3 eyeVec = this.getEyePosition();
 		BlockPos eyePos = BlockPos.containing(eyeVec);
-
-		FluidState fluidState = this.level().getFluidState(eyePos);
+		FluidState fluidState = this.getBeakState().getFluidState();
 		return !fluidState.isEmpty() && (fluidState.getHeight(this.level(), eyePos) + eyePos.getY() >= eyeVec.y());
 	}
 
