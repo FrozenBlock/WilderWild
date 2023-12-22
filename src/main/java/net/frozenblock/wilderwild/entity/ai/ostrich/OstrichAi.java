@@ -102,6 +102,7 @@ public class OstrichAi {
 			ImmutableList.of(
 				new Swim(0.8F),
 				new OstrichPanic(SPEED_MULTIPLIER_WHEN_PANICKING),
+				new OstrichRunAroundLikeCrazy(1.5F),
 				new LookAtTargetSink(45, 90),
 				new MoveToTargetSink(),
 				new CountDownCooldownTicks(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS),
