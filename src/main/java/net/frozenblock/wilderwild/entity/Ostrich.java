@@ -30,7 +30,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
@@ -52,6 +51,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 import java.util.List;
 
@@ -59,6 +59,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	public static final int BEAK_COOLDOWN_TICKS = 60;
 	public static final int BEAK_COOLDOWN_TICKS_SUCCESSFUL_HIT = 20;
 	public static final int BEAK_STUCK_TICKS = 100;
+	public static final float MAX_ATTACK_DAMAGE = 4F;
 
 	private static final EntityDataAccessor<Float> TARGET_BEAK_ANIM_PROGRESS = SynchedEntityData.defineId(Ostrich.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> TARGET_PASSENGER_PROGRESS = SynchedEntityData.defineId(Ostrich.class, EntityDataSerializers.FLOAT);
@@ -69,6 +70,8 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	private float passengerProgress;
 	private float prevBeakAnimProgress;
 	private float beakAnimProgress;
+	@Nullable
+	private Vec3 beakPosition;
 
 	public Ostrich(EntityType<? extends Ostrich> entityType, Level level) {
 		super(entityType, level);
@@ -117,6 +120,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 		this.prevBeakAnimProgress = this.beakAnimProgress;
 		this.beakAnimProgress = this.beakAnimProgress + ((this.getTargetBeakAnimProgress() - this.beakAnimProgress) * 0.3F);
+		this.beakPosition = this.makeNewBeakPos();
 
 		if (!this.level().isClientSide) {
 			this.handleAttackAndStuck();
@@ -149,13 +153,12 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 				serverLevel.sendParticles(FrozenParticleTypes.DEBUG_POS, attackBox.maxX, attackBox.maxY, attackBox.maxZ, 1, 0, 0, 0, 0);
 			}
 
-			boolean strongEnoughToAttack = this.getBeakAnimProgress(1F) >= 0.2F;
 			if (this.isBeakTouchingFluid()) this.cancelAttack(false);
+			boolean strongEnoughToAttack = this.getBeakAnimProgress(1F) >= 0.2F;
 
 			if (strongEnoughToAttack) {
 				List<Entity> entities = this.level().getEntities(this, attackBox);
-				float beakAverage = (this.getBeakAnimProgress(1F) + this.getClampedTargetBeakAnimProgress()) * 0.5F;
-				float beakDamage = beakAverage * 5F;
+				float beakDamage = ((this.getBeakAnimProgress(1F) + this.getClampedTargetBeakAnimProgress()) * 0.5F) * MAX_ATTACK_DAMAGE;
 				for (Entity entity : entities) {
 					if (!this.hasPassenger(entity) && !this.isAlliedTo(entity)) {
 						if (this.getOwner() instanceof Player player) {
@@ -345,7 +348,8 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		entity.setYHeadRot(i);
 	}
 
-	public Vec3 getBeakPos() {
+	@NotNull
+	private Vec3 makeNewBeakPos() {
 		Vec3 currentPos = this.position().add(0D, 1.1875D, 0D);
 		Vec3 lookOrientation = this.getLookAngle();
 		lookOrientation = lookOrientation.subtract(0D, lookOrientation.y(), 0D);
@@ -358,6 +362,11 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 			serverLevel.sendParticles(FrozenParticleTypes.DEBUG_POS, beakPos.x, beakPos.y, beakPos.z, 1, 0, 0, 0, 0);
 		}
 		return beakPos;
+	}
+
+	@NotNull
+	public Vec3 getBeakPos() {
+		return this.beakPosition != null ? this.beakPosition : this.makeNewBeakPos();
 	}
 
 	public boolean canGetHeadStuck() {
