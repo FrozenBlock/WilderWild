@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.entity;
 
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.particle.api.FrozenParticleTypes;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.registry.RegisterDamageTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -53,6 +53,9 @@ import org.joml.Vector3f;
 import java.util.List;
 
 public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Saddleable {
+	public static final int BEAK_COOLDOWN_TICKS = 40;
+	public static final int BEAK_STUCK_TICKS = 100;
+
 	private static final EntityDataAccessor<Float> TARGET_BEAK_ANIM_PROGRESS = SynchedEntityData.defineId(Ostrich.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> TARGET_PASSENGER_PROGRESS = SynchedEntityData.defineId(Ostrich.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Boolean> IS_ATTACKING = SynchedEntityData.defineId(Ostrich.class, EntityDataSerializers.BOOLEAN);
@@ -90,13 +93,6 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		this.prevBeakAnimProgress = this.getTargetBeakAnimProgress();
 		super.tick();
 
-		if (this.getStuckTicks() > 0) {
-			this.setStuckTicks(this.getStuckTicks() - 1);
-			if (this.getStuckTicks() == 0) {
-
-			}
-		}
-
 		if (this.getBeakCooldown() > 0) {
 			this.setBeakCooldown(this.getBeakCooldown() - 1);
 			if (this.getBeakCooldown() == 0) {
@@ -113,7 +109,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		this.beakAnimProgress = this.beakAnimProgress + ((this.getTargetBeakAnimProgress() - this.beakAnimProgress) * 0.3F);
 
 		if (!this.level().isClientSide) {
-			this.handleAttack();
+			this.handleAttackAndStuck();
 
 			if (this.getFirstPassenger() != null) {
 				this.setTargetPassengerProgress(1F);
@@ -127,19 +123,31 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		this.getBeakPos();
 	}
 
-	private void handleAttack() {
+	private void handleAttackAndStuck() {
 		if (this.isAttacking()) {
 			Vec3 beakPos = this.getBeakPos();
 			boolean hasAttacked = false;
-			AABB attackBox = AABB.ofSize(beakPos, 2D, 1D, 2D);
+			AABB attackBox = AABB.ofSize(beakPos, 0.3D, 0.3D, 0.3D);
+			if (this.level() instanceof ServerLevel serverLevel) {
+				serverLevel.sendParticles(FrozenParticleTypes.DEBUG_POS, attackBox.minX, attackBox.minY, attackBox.minZ, 1, 0, 0, 0, 0);
+				serverLevel.sendParticles(FrozenParticleTypes.DEBUG_POS, attackBox.maxX, attackBox.minY, attackBox.minZ, 1, 0, 0, 0, 0);
+				serverLevel.sendParticles(FrozenParticleTypes.DEBUG_POS, attackBox.minX, attackBox.maxY, attackBox.minZ, 1, 0, 0, 0, 0);
+				serverLevel.sendParticles(FrozenParticleTypes.DEBUG_POS, attackBox.maxX, attackBox.minY, attackBox.maxZ, 1, 0, 0, 0, 0);
+				serverLevel.sendParticles(FrozenParticleTypes.DEBUG_POS, attackBox.maxX, attackBox.maxY, attackBox.minZ, 1, 0, 0, 0, 0);
+				serverLevel.sendParticles(FrozenParticleTypes.DEBUG_POS, attackBox.minX, attackBox.minY, attackBox.maxZ, 1, 0, 0, 0, 0);
+				serverLevel.sendParticles(FrozenParticleTypes.DEBUG_POS, attackBox.minX, attackBox.maxY, attackBox.maxZ, 1, 0, 0, 0, 0);
+				serverLevel.sendParticles(FrozenParticleTypes.DEBUG_POS, attackBox.maxX, attackBox.maxY, attackBox.maxZ, 1, 0, 0, 0, 0);
+			}
 
 			List<Entity> entities = this.level().getEntities(this, attackBox);
+			float beakAverage = (this.beakAnimProgress + this.getTargetBeakAnimProgress()) * 0.5F;
+			float beakDamage = beakAverage * 5F;
 			for (Entity entity : entities) {
 				if (!this.hasPassenger(entity) && !this.isAlliedTo(entity)) {
 					if (this.getOwner() instanceof Player player) {
-						hasAttacked = entity.hurt(this.damageSources().playerAttack(player), 200F);
+						hasAttacked = entity.hurt(this.damageSources().source(RegisterDamageTypes.OSTRICH_PROXY, player, this), beakDamage);
 					} else {
-						hasAttacked = entity.hurt(this.damageSources().mobAttack(this.getOwner() != null ? this.getOwner() : this), 200F);
+						hasAttacked = entity.hurt(this.damageSources().source(RegisterDamageTypes.OSTRICH_PROXY, this.getOwner(), this), beakDamage);
 					}
 				}
 				if (hasAttacked) {
@@ -150,18 +158,27 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 			}
 
 			if (this.canGetHeadStuck()) {
-				this.setBeakCooldown(200);
-				this.setStuckTicks(200);
+				this.setBeakCooldown(BEAK_STUCK_TICKS + BEAK_COOLDOWN_TICKS);
+				this.setStuckTicks(BEAK_STUCK_TICKS);
 				this.setAttacking(false);
-				return;
-			}
-
-			if (this.getBeakAnimProgress(1F) >= 0.975) {
+				this.setTargetBeakAnimProgress(this.beakAnimProgress);
+			} else if (this.getBeakAnimProgress(1F) >= this.getTargetBeakAnimProgress() - 0.025F) {
 				this.setTargetBeakAnimProgress(0F);
 				this.setAttacking(false);
-				return;
+			}
+
+		} else if (this.getStuckTicks() > 0) {
+			this.setStuckTicks(this.getStuckTicks() - 1);
+			if (this.getStuckTicks() == 0 || !this.canGetHeadStuck()) {
+				this.emergeBeak();
 			}
 		}
+	}
+
+	public void emergeBeak() {
+		this.setStuckTicks(0);
+		this.setBeakCooldown(BEAK_COOLDOWN_TICKS);
+		this.setTargetBeakAnimProgress(0F);
 	}
 
 	@Override
@@ -187,19 +204,19 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	@Override
 	public void executeRidersJump(float playerJumpPendingScale, @NotNull Vec3 travelVector) {
-		this.setBeakCooldown(100);
+		this.setBeakCooldown(BEAK_COOLDOWN_TICKS);
 		this.setAttacking(true);
 		this.hasImpulse = true;
 	}
 
 	@Override
 	public void handleStartJump(int jumpPower) {
-		WilderSharedConstants.log("OSTRICH POWER " + jumpPower, true);
-		this.setBeakCooldown(100);
+		this.setBeakCooldown(BEAK_COOLDOWN_TICKS);
 		this.setAttacking(true);
 		this.playSound(SoundEvents.CAMEL_DASH, 1.0F, this.getVoicePitch());
 		this.gameEvent(GameEvent.ENTITY_ACTION);
-		this.setTargetBeakAnimProgress(1F);
+		float powerPercent = ((float) jumpPower) * 0.01F;
+		this.setTargetBeakAnimProgress(powerPercent);
 	}
 
 	@Override
@@ -309,7 +326,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		Vec3 lookOrientation = this.getLookAngle();
 		lookOrientation = lookOrientation.subtract(0D, lookOrientation.y(), 0D);
 		Vec3 headBasePos = currentPos.add(lookOrientation.scale(0.875D));
-		Vec3 rotPos = AdvancedMath.rotateAboutX(Vec3.ZERO, 1.25D, this.getTargetBeakAnimProgress() * 180D);
+		Vec3 rotPos = AdvancedMath.rotateAboutX(Vec3.ZERO, 1.25D, this.beakAnimProgress * 180D);
 		Vec3 beakPos = headBasePos.add(0, rotPos.x(), 0).add(lookOrientation.scale(rotPos.z()));
 
 		if (this.level() instanceof ServerLevel serverLevel) {
@@ -320,10 +337,6 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	}
 
 	public boolean canGetHeadStuck() {
-		if (!this.onGround()) {
-			return false;
-		}
-
 		Vec3 beakVec = this.getBeakPos();
 		BlockPos beakPos = BlockPos.containing(beakVec);
 
@@ -342,7 +355,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	@Override
 	public float getPassengersRidingOffsetY(@NotNull EntityDimensions entityDimensions, float f) {
-		return entityDimensions.height * 0.95F * f;
+		return entityDimensions.height * 0.875F * f;
 	}
 
 	@Override
@@ -353,6 +366,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		compound.putFloat("TargetPassengerProgress", this.getTargetPassengerProgress());
 		compound.putBoolean("IsAttacking", this.isAttacking());
 		compound.putInt("StuckTicks", this.getStuckTicks());
+		compound.putFloat("BeakAnimProgress", this.beakAnimProgress);
 	}
 
 	@Override
@@ -363,5 +377,6 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		this.setTargetPassengerProgress(compound.getFloat("TargetPassengerProgress"));
 		this.setAttacking(compound.getBoolean("IsAttacking"));
 		this.setStuckTicks(compound.getInt("StuckTicks"));
+		this.beakAnimProgress = compound.getFloat("BeakAnimProgress");
 	}
 }
