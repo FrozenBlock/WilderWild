@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.block;
 import net.frozenblock.wilderwild.entity.Ostrich;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -69,7 +70,7 @@ public class OstrichEggBlock extends Block {
 
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (shouldUpdateHatchLevel(level)) {
+		if (shouldUpdateHatchLevel(level, pos)) {
 			if (!this.isReadyToHatch(state)) {
 				//TODO: Ostrich egg crack sound
 				level.playSound(null, pos, SoundEvents.SNIFFER_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
@@ -86,7 +87,8 @@ public class OstrichEggBlock extends Block {
 		level.levelEvent(3009, pos, 0);
 	}
 
-	private boolean shouldUpdateHatchLevel(@NotNull Level level) {
+	private boolean shouldUpdateHatchLevel(@NotNull Level level, @NotNull BlockPos blockPos) {
+		if (!isSafeToHatch(level, blockPos.below())) return false;
 		float time = level.getTimeOfDay(1.0F);
 		if (time < 0.69F && time > 0.65F) {
 			return true;
@@ -112,7 +114,7 @@ public class OstrichEggBlock extends Block {
 			ostrich.setBaby(true);
 			ostrich.moveTo(
 				pos.getX() + 0.5D,
-				pos.getY() - 0.5D,
+				pos.getY(),
 				pos.getZ() + 0.5D,
 				(float)random.nextInt(1, 361),
 				0.0F
@@ -121,6 +123,10 @@ public class OstrichEggBlock extends Block {
 			level.addFreshEntity(ostrich);
 		}
 	}
+
+	public static boolean isSafeToHatch(@NotNull Level level, @NotNull BlockPos belowPos) {
+        return level.getBlockState(belowPos).isFaceSturdy(level, belowPos, Direction.UP);
+    }
 
 	@Override
 	public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull PathComputationType type) {
