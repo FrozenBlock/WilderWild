@@ -96,7 +96,7 @@ public class OstrichModel<T extends Ostrich> extends HierarchicalModel<T> {
 
 	@Override
 	public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		limbSwing *= 1.5F;
+		limbSwing *= 1.65F;
 		limbSwingAmount = Math.min(limbSwingAmount * 1.5F, 1F);
 
 		// LEGS

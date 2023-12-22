@@ -30,6 +30,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
@@ -41,10 +42,12 @@ import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.Saddleable;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
@@ -68,6 +71,8 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	public Ostrich(EntityType<? extends Ostrich> entityType, Level level) {
 		super(entityType, level);
+		GroundPathNavigation groundPathNavigation = (GroundPathNavigation)this.getNavigation();
+		groundPathNavigation.setCanFloat(true);
 	}
 
 	@NotNull
@@ -92,6 +97,10 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	public void tick() {
 		this.prevBeakAnimProgress = this.getTargetBeakAnimProgress();
 		super.tick();
+
+		if (this.isEyeInFluid(FluidTags.WATER) || this.isEyeInFluid(FluidTags.WATER)) {
+			this.setBeakCooldown(this.getBeakCooldown() + 1);
+		}
 
 		if (this.getBeakCooldown() > 0) {
 			this.setBeakCooldown(this.getBeakCooldown() - 1);
@@ -140,6 +149,8 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 			}
 
 			boolean strongEnoughToAttack = this.getBeakAnimProgress(1F) >= 0.2F;
+			if (this.isBeakTouchingFluid()) this.cancelAttack();
+
 			if (strongEnoughToAttack) {
 				List<Entity> entities = this.level().getEntities(this, attackBox);
 				float beakAverage = (this.getBeakAnimProgress(1F) + this.getClampedTargetBeakAnimProgress()) * 0.5F;
@@ -153,8 +164,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 						}
 					}
 					if (hasAttacked) {
-						this.setTargetBeakAnimProgress(0F);
-						this.setAttacking(false);
+						this.cancelAttack();
 						return;
 					}
 				}
@@ -168,10 +178,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 				}
 			}
 
-			if (this.getBeakAnimProgress(1F) >= this.getClampedTargetBeakAnimProgress() - 0.025F) {
-				this.setTargetBeakAnimProgress(0F);
-				this.setAttacking(false);
-			}
+			if (this.getBeakAnimProgress(1F) >= this.getClampedTargetBeakAnimProgress() - 0.025F) this.cancelAttack();
 
 		} else if (this.getStuckTicks() > 0) {
 			this.setStuckTicks(this.getStuckTicks() - 1);
@@ -179,6 +186,11 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 				this.emergeBeak();
 			}
 		}
+	}
+
+	public void cancelAttack() {
+		this.setTargetBeakAnimProgress(0F);
+		this.setAttacking(false);
 	}
 
 	public void emergeBeak() {
@@ -351,6 +363,14 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		BlockPos beakPos = BlockPos.containing(beakVec);
 
 		return this.level().getBlockState(beakPos).is(BlockTags.MINEABLE_WITH_SHOVEL);
+	}
+
+	public boolean isBeakTouchingFluid() {
+		Vec3 beakVec = this.getBeakPos();
+		BlockPos beakPos = BlockPos.containing(beakVec);
+
+		FluidState fluidState = this.level().getFluidState(beakPos);
+		return !fluidState.isEmpty() && (fluidState.getHeight(this.level(), beakPos) + beakPos.getY() >= beakVec.y());
 	}
 
 	@Override
