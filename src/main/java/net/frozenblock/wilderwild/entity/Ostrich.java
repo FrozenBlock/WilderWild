@@ -56,7 +56,8 @@ import org.joml.Vector3f;
 import java.util.List;
 
 public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Saddleable {
-	public static final int BEAK_COOLDOWN_TICKS = 40;
+	public static final int BEAK_COOLDOWN_TICKS = 60;
+	public static final int BEAK_COOLDOWN_TICKS_SUCCESSFUL_HIT = 20;
 	public static final int BEAK_STUCK_TICKS = 100;
 
 	private static final EntityDataAccessor<Float> TARGET_BEAK_ANIM_PROGRESS = SynchedEntityData.defineId(Ostrich.class, EntityDataSerializers.FLOAT);
@@ -149,7 +150,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 			}
 
 			boolean strongEnoughToAttack = this.getBeakAnimProgress(1F) >= 0.2F;
-			if (this.isBeakTouchingFluid()) this.cancelAttack();
+			if (this.isBeakTouchingFluid()) this.cancelAttack(false);
 
 			if (strongEnoughToAttack) {
 				List<Entity> entities = this.level().getEntities(this, attackBox);
@@ -164,7 +165,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 						}
 					}
 					if (hasAttacked) {
-						this.cancelAttack();
+						this.cancelAttack(true);
 						return;
 					}
 				}
@@ -178,7 +179,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 				}
 			}
 
-			if (this.getBeakAnimProgress(1F) >= this.getClampedTargetBeakAnimProgress() - 0.025F) this.cancelAttack();
+			if (this.getBeakAnimProgress(1F) >= this.getClampedTargetBeakAnimProgress() - 0.025F) this.cancelAttack(false);
 
 		} else if (this.getStuckTicks() > 0) {
 			this.setStuckTicks(this.getStuckTicks() - 1);
@@ -188,9 +189,10 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		}
 	}
 
-	public void cancelAttack() {
+	public void cancelAttack(boolean successful) {
 		this.setTargetBeakAnimProgress(0F);
 		this.setAttacking(false);
+		this.setBeakCooldown(successful ? BEAK_COOLDOWN_TICKS_SUCCESSFUL_HIT : BEAK_COOLDOWN_TICKS);
 	}
 
 	public void emergeBeak() {
@@ -383,7 +385,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	@Override
 	public float getStandingEyeHeight(@NotNull Pose pose, @NotNull EntityDimensions dimensions) {
-		return dimensions.height * 0.8F;
+		return dimensions.height;
 	}
 
 	@Override
@@ -393,7 +395,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	@Override
 	public float getPassengersRidingOffsetY(@NotNull EntityDimensions entityDimensions, float f) {
-		return entityDimensions.height * 0.875F * f;
+		return entityDimensions.height * 0.775F * f;
 	}
 
 	@Override
