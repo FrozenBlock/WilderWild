@@ -31,7 +31,7 @@ public class OstrichMoveControl extends MoveControl {
 
 	@Override
 	public void tick() {
-		if (this.operation != Operation.WAIT && !this.mob.isLeashed() && this.mob.isStuck()) return;
+		if (this.mob.isStuck()) return;
 		super.tick();
 	}
 }
