@@ -104,7 +104,7 @@ public final class RegisterEntities {
 			.entityFactory(Ostrich::new)
 			.defaultAttributes(Ostrich::createAttributes)
 			.spawnRestriction(SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules)
-			.dimensions(EntityDimensions.scalable(1.25F, 2F))
+			.dimensions(EntityDimensions.scalable(1.25F, 2.35F))
 			.build()
 	);
 

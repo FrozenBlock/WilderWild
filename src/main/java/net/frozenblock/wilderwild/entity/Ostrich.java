@@ -98,7 +98,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		this.prevBeakAnimProgress = this.getTargetBeakAnimProgress();
 		super.tick();
 
-		if (this.isBeakTouchingFluid()) {
+		if (this.isBeakTouchingFluid() || this.isEyeTouchingFluid()) {
 			this.setBeakCooldown(this.getBeakCooldown() + 1);
 		}
 
@@ -371,6 +371,14 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 		FluidState fluidState = this.level().getFluidState(beakPos);
 		return !fluidState.isEmpty() && (fluidState.getHeight(this.level(), beakPos) + beakPos.getY() >= beakVec.y());
+	}
+
+	public boolean isEyeTouchingFluid() {
+		Vec3 eyeVec = this.getEyePosition();
+		BlockPos eyePos = BlockPos.containing(eyeVec);
+
+		FluidState fluidState = this.level().getFluidState(eyePos);
+		return !fluidState.isEmpty() && (fluidState.getHeight(this.level(), eyePos) + eyePos.getY() >= eyeVec.y());
 	}
 
 	@Override
