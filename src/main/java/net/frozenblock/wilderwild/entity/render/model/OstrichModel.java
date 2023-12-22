@@ -18,6 +18,9 @@
 
 package net.frozenblock.wilderwild.entity.render.model;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Axis;
 import net.frozenblock.wilderwild.entity.Ostrich;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -94,6 +97,10 @@ public class OstrichModel<T extends Ostrich> extends HierarchicalModel<T> {
 		return LayerDefinition.create(meshdefinition, 80, 64);
 	}
 
+	private float partialTick;
+	private float scale;
+	private float yOffset;
+
 	@Override
 	public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		limbSwing *= 1.65F;
@@ -137,8 +144,6 @@ public class OstrichModel<T extends Ostrich> extends HierarchicalModel<T> {
 		this.neck.yRot += netHeadYaw * PI_180 * 0.65F;
 	}
 
-	private float partialTick;
-
 	private static void animateLeg(@NotNull ModelPart leg, @NotNull ModelPart foot, float limbSwing, float limbSwingAmount, float animOffset) {
 		float fastAngle = limbSwing * 0.3331F + animOffset;
 		float angleSin = Math.sin(-fastAngle);
@@ -175,6 +180,24 @@ public class OstrichModel<T extends Ostrich> extends HierarchicalModel<T> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		super.prepareMobModel(entity, limbSwing, limbSwingAmount, partialTick);
 		this.partialTick = partialTick;
+		this.scale = entity.getScale();
+		if (entity.isBaby()) {
+			this.neck.xScale = 1.5F;
+			this.neck.yScale = 1.5F;
+			this.neck.zScale = 1.5F;
+			this.yOffset = 0.75F;
+		} else {
+			this.yOffset = 0F;
+		}
+	}
+
+	@Override
+	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+		poseStack.pushPose();
+		poseStack.translate(0, this.yOffset, 0);
+		poseStack.scale(this.scale, this.scale, this.scale);
+		this.root().render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+		poseStack.popPose();
 	}
 
 	@NotNull
@@ -182,4 +205,5 @@ public class OstrichModel<T extends Ostrich> extends HierarchicalModel<T> {
 	public ModelPart root() {
 		return this.root;
 	}
+
 }
