@@ -41,11 +41,11 @@ public class OstrichTryLayEggOnLand {
 
 	@NotNull
 	public static BehaviorControl<LivingEntity> create(Block spawnBlock) {
-		return BehaviorBuilder.create((instance) -> instance.group(instance.absent(MemoryModuleType.ATTACK_TARGET), instance.present(MemoryModuleType.WALK_TARGET), instance.present(MemoryModuleType.IS_PREGNANT))
-			.apply(instance, (attackTarget, walkTarget, isPregnant) -> (world, livingEntity, l) -> {
+		return BehaviorBuilder.create((instance) -> instance.group(instance.absent(MemoryModuleType.ATTACK_TARGET), instance.present(MemoryModuleType.IS_PREGNANT))
+			.apply(instance, (attackTarget, isPregnant) -> (world, livingEntity, l) -> {
 			if (!livingEntity.isInWater() && livingEntity.onGround()) {
-				BlockPos blockPos = livingEntity.getOnPos();
-				if (attemptPlace(livingEntity, world, spawnBlock, blockPos.above())) {
+				BlockPos blockPos = livingEntity.getOnPos().above();
+				if (attemptPlace(livingEntity, world, spawnBlock, blockPos)) {
 					isPregnant.erase();
 					return true;
 				}
