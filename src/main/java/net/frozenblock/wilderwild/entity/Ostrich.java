@@ -139,9 +139,10 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 				serverLevel.sendParticles(FrozenParticleTypes.DEBUG_POS, attackBox.maxX, attackBox.maxY, attackBox.maxZ, 1, 0, 0, 0, 0);
 			}
 
-			if (this.getBeakAnimProgress(1F) >= 0.2F) {
+			boolean strongEnoughToAttack = this.getBeakAnimProgress(1F) >= 0.2F;
+			if (strongEnoughToAttack) {
 				List<Entity> entities = this.level().getEntities(this, attackBox);
-				float beakAverage = (this.getBeakAnimProgress(1F) + this.getTargetBeakAnimProgress()) * 0.5F;
+				float beakAverage = (this.getBeakAnimProgress(1F) + this.getClampedTargetBeakAnimProgress()) * 0.5F;
 				float beakDamage = beakAverage * 5F;
 				for (Entity entity : entities) {
 					if (!this.hasPassenger(entity) && !this.isAlliedTo(entity)) {
@@ -163,10 +164,13 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 					this.setStuckTicks(BEAK_STUCK_TICKS);
 					this.setAttacking(false);
 					this.setTargetBeakAnimProgress(this.getBeakAnimProgress(1F));
-				} else if (this.getBeakAnimProgress(1F) >= this.getTargetBeakAnimProgress() - 0.025F) {
-					this.setTargetBeakAnimProgress(0F);
-					this.setAttacking(false);
+					return;
 				}
+			}
+
+			if (this.getBeakAnimProgress(1F) >= this.getClampedTargetBeakAnimProgress() - 0.025F) {
+				this.setTargetBeakAnimProgress(0F);
+				this.setAttacking(false);
 			}
 
 		} else if (this.getStuckTicks() > 0) {
@@ -273,6 +277,10 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	private float getTargetBeakAnimProgress() {
 		return this.entityData.get(TARGET_BEAK_ANIM_PROGRESS);
+	}
+
+	private float getClampedTargetBeakAnimProgress() {
+		return Math.min(this.entityData.get(TARGET_BEAK_ANIM_PROGRESS), 1F);
 	}
 
 	public float getBeakAnimProgress(float delta) {
