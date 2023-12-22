@@ -476,6 +476,14 @@ public final class RegisterBlocks {
 			.sounds(SoundType.SPONGE)
 	);
 
+	public static final Block OSTRICH_EGG = new Block(
+		FabricBlockSettings.of()
+			.mapColor(MapColor.TERRACOTTA_WHITE)
+			.strength(0.5F)
+			.sound(SoundType.METAL)
+			.noOcclusion()
+	);
+
 	public static final Block NULL_BLOCK = new Block(
 		FabricBlockSettings.copyOf(Blocks.STONE)
 			.sounds(RegisterBlockSoundTypes.NULL_BLOCK)
@@ -1022,6 +1030,7 @@ public final class RegisterBlocks {
 		Registry.register(BuiltInRegistries.BLOCK, WilderSharedConstants.id("algae"), ALGAE);
 		Registry.register(BuiltInRegistries.BLOCK, WilderSharedConstants.id("flowering_lily_pad"), FLOWERING_LILY_PAD);
 		registerBlockAfter(Items.WET_SPONGE, "small_sponge", SMALL_SPONGE, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Items.SNIFFER_EGG, "ostrich_egg", OSTRICH_EGG, CreativeModeTabs.NATURAL_BLOCKS);
 	}
 
 	public static void registerMisc() {
