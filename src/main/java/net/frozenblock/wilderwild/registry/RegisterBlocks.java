@@ -483,6 +483,7 @@ public final class RegisterBlocks {
 			.strength(0.5F)
 			.sound(SoundType.METAL)
 			.noOcclusion()
+			.randomTicks()
 	);
 
 	public static final Block NULL_BLOCK = new Block(

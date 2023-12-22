@@ -101,9 +101,9 @@ public class OstrichAi {
 			0,
 			ImmutableList.of(
 				new Swim(0.8F),
+				new OstrichLayEgg(RegisterBlocks.OSTRICH_EGG),
 				new OstrichPanic(SPEED_MULTIPLIER_WHEN_PANICKING),
 				new OstrichRunAroundLikeCrazy(1.5F),
-				OstrichTryLayEggOnLand.create(RegisterBlocks.OSTRICH_EGG),
 				new LookAtTargetSink(45, 90),
 				new MoveToTargetSink(),
 				new CountDownCooldownTicks(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS),

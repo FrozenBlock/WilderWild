@@ -456,6 +456,14 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		this.getBrain().setMemory(MemoryModuleType.IS_PREGNANT, Unit.INSTANCE);
 	}
 
+	public boolean isPregnant() {
+		return this.getBrain().hasMemoryValue(MemoryModuleType.IS_PREGNANT);
+	}
+
+	public void revokePregnancy() {
+		this.getBrain().eraseMemory(MemoryModuleType.IS_PREGNANT);
+	}
+
 	@Nullable
 	@Override
 	public Ostrich getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob otherParent) {
