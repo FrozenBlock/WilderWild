@@ -144,12 +144,12 @@ public class OstrichModel<T extends Ostrich> extends HierarchicalModel<T> {
 		float angleSin = Math.sin(-fastAngle);
 
 		float angleSinSwingAmount = angleSin * limbSwingAmount;
-		float legZ = angleSinSwingAmount * 10F;
+		float legZ = angleSinSwingAmount * 11F;
 
 		float earlyAngleSin = Math.sin(-fastAngle - ((float) Math.PI * 0.3331F));
 		float earlyAngleSinSwingAmount = earlyAngleSin * limbSwingAmount;
 		float onlyPositiveEarlyAngleSinSwingAmount = Math.max(earlyAngleSinSwingAmount, 0F);
-		float legY = onlyPositiveEarlyAngleSinSwingAmount * 5F;
+		float legY = onlyPositiveEarlyAngleSinSwingAmount * 6F;
 
 		leg.xRot -= Math.sin(fastAngle) * limbSwingAmount * 0.5F;
 		leg.y -= legY;
