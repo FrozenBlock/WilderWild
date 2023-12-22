@@ -31,12 +31,10 @@ import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.game.ClientboundAnimatePacket;
 import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -46,6 +44,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
@@ -64,10 +63,8 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -386,6 +383,20 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 			this.emergeBeak();
 		}
 	}
+
+	@Override
+	public InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
+		boolean isGrownAndTamedWithShiftHeldDown = !this.isBaby() && this.isTamed() && player.isSecondaryUseActive();
+		if (!this.isVehicle() && !isGrownAndTamedWithShiftHeldDown) {
+			ItemStack itemStack = player.getItemInHand(hand);
+			if (!itemStack.isEmpty()) {
+				if (this.isFood(itemStack)) {
+					return this.fedFood(player, itemStack);
+				}
+			}
+        }
+        return super.mobInteract(player, hand);
+    }
 
 	@Override
 	protected boolean handleEating(@NotNull Player player, @NotNull ItemStack stack) {
