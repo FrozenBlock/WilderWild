@@ -240,7 +240,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 				SoundType soundType = this.getBeakState().getSoundType();
 				BlockPos beakBlockPos = BlockPos.containing(beakPos);
 				this.level().playSound(null, beakBlockPos, soundType.getHitSound(), this.getSoundSource(), soundType.getVolume(), soundType.getPitch());
-				this.spawnBlockParticles(1D);
+				this.spawnBlockParticles(10D);
 				this.cancelAttack(false);
 			}
 
@@ -269,7 +269,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 					this.setAttacking(false);
 					this.setTargetBeakAnimProgress(this.getBeakAnimProgress(1F));
 					this.playSound(RegisterSounds.ENTITY_OSTRICH_BEAK_STUCK);
-					this.spawnBlockParticles(3D);
+					this.spawnBlockParticles(20D);
 					return;
 				}
 			}
@@ -289,8 +289,6 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 			Vec3 particlePos = this.getBeakPos();
 			int particleCalc = ((int) (particlePos.subtract(this.getPrevBeakPos()).lengthSqr() * 1.5D * multiplier));
 			if (particleCalc > 1 || (particleCalc == 1 && this.getRandom().nextBoolean())) {
-				Optional<Vec3> optionalVec3 = FrozenShapes.closestPointTo(BlockPos.containing(particlePos), this.beakVoxelShape, this.position());
-				if (optionalVec3.isPresent()) particlePos = optionalVec3.get();
 				server.sendParticles(
 					new BlockParticleOption(ParticleTypes.BLOCK, this.getBeakState()),
 					particlePos.x(),
