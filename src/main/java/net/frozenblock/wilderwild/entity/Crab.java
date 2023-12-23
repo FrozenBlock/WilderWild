@@ -301,11 +301,19 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	@Override
 	public void tick() {
+		if (this.isDiggingOrEmerging()) {
+			this.xxa = 0.0F;
+			this.zza = 0.0F;
+		}
 		boolean isClient = this.level().isClientSide;
 		if (this.level() instanceof ServerLevel serverLevel) {
 			VibrationSystem.Ticker.tick(serverLevel, this.vibrationData, this.vibrationUser);
 		}
 		super.tick();
+		if (this.isDiggingOrEmerging()) {
+			this.xxa = 0.0F;
+			this.zza = 0.0F;
+		}
 		if (!isClient) {
 			this.cancelMovementToDescend = false;
 			if (this.horizontalCollision) {
@@ -391,6 +399,10 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		this.level().getProfiler().pop();
 		super.customServerAiStep();
 		this.getBrain().setMemory(RegisterMemoryModuleTypes.FIRST_BRAIN_TICK, Unit.INSTANCE);
+		if (this.isDiggingOrEmerging()) {
+			this.xxa = 0.0F;
+			this.zza = 0.0F;
+		}
 	}
 
 	public double getEmptyAreaSearchDistance() {
@@ -516,11 +528,6 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Override
 	public boolean ignoreExplosion() {
 		return this.isDiggingOrEmerging();
-	}
-
-	@Override
-	public boolean isImmobile() {
-		return this.isDiggingOrEmerging() || super.isImmobile();
 	}
 
 	public boolean isDiggingOrEmerging() {
