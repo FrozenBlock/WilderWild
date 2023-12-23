@@ -349,6 +349,11 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	}
 
 	@Override
+	public boolean isImmobile() {
+		return this.refuseToMove() || super.isImmobile();
+	}
+
+	@Override
 	public boolean canSprint() {
 		return true;
 	}

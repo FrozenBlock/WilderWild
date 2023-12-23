@@ -518,6 +518,11 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		return this.isDiggingOrEmerging();
 	}
 
+	@Override
+	public boolean isImmobile() {
+		return this.isDiggingOrEmerging() || super.isImmobile();
+	}
+
 	public boolean isDiggingOrEmerging() {
 		return this.hasPose(Pose.DIGGING) || this.hasPose(Pose.EMERGING);
 	}
