@@ -354,6 +354,11 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	}
 
 	@Override
+	public float getWaterSlowDown() {
+		return 0.96F;
+	}
+
+	@Override
 	public boolean canSprint() {
 		return true;
 	}
