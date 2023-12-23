@@ -43,7 +43,7 @@ public class ShearsDispenseItemBehaviorMixin {
 	@Unique
 	private static boolean wilderWild$tryShearMilkweed(@NotNull ServerLevel level, BlockPos pos) {
 		BlockState blockState = level.getBlockState(pos);
-		if (blockState.getBlock() == RegisterBlocks.MILKWEED && MilkweedBlock.isFullyGrown(blockState)) {
+		if (blockState.getBlock() instanceof MilkweedBlock && MilkweedBlock.isFullyGrown(blockState)) {
 			MilkweedBlock.shear(level, pos, blockState, null);
 			return true;
 		}

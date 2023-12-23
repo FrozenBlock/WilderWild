@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "wilderwild:cypress_trapdoor"
+          "name": "wilderwild:ostrich_egg"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "wilderwild:blocks/cypress_trapdoor"
+  "random_sequence": "wilderwild:blocks/ostrich_egg"
 }

@@ -688,7 +688,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	@Override
 	public boolean isFood(@NotNull ItemStack stack) {
-		return stack.is(WilderItemTags.CRAB_TEMPT_ITEMS);
+		return stack.is(WilderItemTags.CRAB_FOOD);
 	}
 
 	@Override
