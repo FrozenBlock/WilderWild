@@ -31,7 +31,7 @@ public class RegisterDamageTypes {
 	public static final ResourceKey<DamageType> ANCIENT_HORN = bind("ancient_horn");
 	public static final ResourceKey<DamageType> PRICKLY_PEAR = bind("prickly_pear");
 	public static final ResourceKey<DamageType> TUMBLEWEED = bind("tumbleweed");
-	public static final ResourceKey<DamageType> OSTRICH_PROXY = bind("ostrich_proxy");
+	public static final ResourceKey<DamageType> OSTRICH = bind("ostrich");
 
 	public static void init() {
 	}
@@ -40,7 +40,7 @@ public class RegisterDamageTypes {
 		context.register(ANCIENT_HORN, new DamageType("ancient_horn", 0.1F));
 		context.register(PRICKLY_PEAR, new DamageType("prickly_pear", 0.1F));
 		context.register(TUMBLEWEED, new DamageType("tumbleweed", DamageScaling.ALWAYS, 0.1F));
-		context.register(OSTRICH_PROXY, new DamageType("ostrich_proxy", 0.1F));
+		context.register(OSTRICH, new DamageType("ostrich", 0.1F));
 	}
 
 	@NotNull

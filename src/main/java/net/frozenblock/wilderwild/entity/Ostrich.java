@@ -251,10 +251,10 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 				float beakDamage = ((this.getBeakAnimProgress(1F) + this.getClampedTargetBeakAnimProgress()) * 0.5F) * MAX_ATTACK_DAMAGE;
 				for (Entity entity : entities) {
 					if (!this.hasPassenger(entity) && !this.isAlliedTo(entity)) {
-						if (this.getOwner() instanceof Player player) {
-							hasAttacked = entity.hurt(this.damageSources().source(RegisterDamageTypes.OSTRICH_PROXY, player, this), beakDamage);
+						if (this.getOwner() != null) {
+							hasAttacked = entity.hurt(this.damageSources().source(RegisterDamageTypes.OSTRICH, null, this.getOwner()), beakDamage);
 						} else {
-							hasAttacked = entity.hurt(this.damageSources().source(RegisterDamageTypes.OSTRICH_PROXY, this.getOwner(), this), beakDamage);
+							hasAttacked = entity.hurt(this.damageSources().source(RegisterDamageTypes.OSTRICH, null, this), beakDamage);
 						}
 					}
 					if (hasAttacked) {
