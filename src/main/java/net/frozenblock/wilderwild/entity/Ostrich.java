@@ -20,10 +20,7 @@ package net.frozenblock.wilderwild.entity;
 
 import com.mojang.serialization.Dynamic;
 import java.util.List;
-import java.util.Optional;
-import net.frozenblock.lib.block.api.shape.FrozenShapes;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.lib.particle.api.FrozenParticleTypes;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichAi;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichBodyRotationControl;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichLookControl;
@@ -42,7 +39,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.Unit;
@@ -69,15 +65,18 @@ import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -207,7 +206,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 			}
 		}
 		this.prevPassengerProgress = this.passengerProgress;
-		this.passengerProgress = this.passengerProgress + ((this.getTargetPassengerProgress() - this.passengerProgress) * 0.3F);
+		this.passengerProgress = this.passengerProgress + ((this.getTargetPassengerProgress() - this.passengerProgress) * this.getEaseAmount());
 
 		if (this.isStuck()) {
 			Vec3 deltaMovement = this.getDeltaMovement();
@@ -240,7 +239,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 				SoundType soundType = this.getBeakState().getSoundType();
 				BlockPos beakBlockPos = BlockPos.containing(beakPos);
 				this.level().playSound(null, beakBlockPos, soundType.getHitSound(), this.getSoundSource(), soundType.getVolume(), soundType.getPitch());
-				this.spawnBlockParticles(10D);
+				this.spawnBlockParticles(false);
 				this.cancelAttack(false);
 			}
 
@@ -269,7 +268,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 					this.setAttacking(false);
 					this.setTargetBeakAnimProgress(this.getBeakAnimProgress(1F));
 					this.playSound(RegisterSounds.ENTITY_OSTRICH_BEAK_STUCK);
-					this.spawnBlockParticles(20D);
+					this.spawnBlockParticles(true);
 					return;
 				}
 			}
@@ -284,31 +283,57 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		}
 	}
 
-	public void spawnBlockParticles(double multiplier) {
+	public void spawnBlockParticles(boolean beakBury) {
 		if (!this.level().isClientSide && this.level() instanceof ServerLevel server && this.beakVoxelShape != null) {
-			Vec3 particlePos = this.getBeakPos();
-			int particleCalc = ((int) (particlePos.subtract(this.getPrevBeakPos()).lengthSqr() * 1.5D * multiplier));
-			if (particleCalc > 1 || (particleCalc == 1 && this.getRandom().nextBoolean())) {
-				server.sendParticles(
-					new BlockParticleOption(ParticleTypes.BLOCK, this.getBeakState()),
-					particlePos.x(),
-					particlePos.y(),
-					particlePos.z(),
-					particleCalc == 1 ? 1 : server.random.nextIntBetweenInclusive(1, particleCalc),
-					0,
-					0,
-					0,
-					0.05D
-				);
+			if (this.getBeakState().shouldSpawnTerrainParticles() && this.getBeakState().getRenderShape() != RenderShape.INVISIBLE) {
+				Vec3 particlePos = this.getBeakPos();
+				Vec3 deltaBeakPos = particlePos.subtract(this.getPrevBeakPos()).scale(2D);
+				BlockHitResult beakHitResult = this.getBeakHitResult();
+
+				if (beakHitResult.getType() != HitResult.Type.MISS) {
+					int count = !beakBury ? this.getRandom().nextInt(7, 12) : this.getRandom().nextInt(12, 20);
+					BlockParticleOption blockParticleOption = new BlockParticleOption(ParticleTypes.BLOCK, this.getBeakState());
+					Vec3 hitLocation = beakHitResult.getLocation();
+
+					for (int i = 0; i < count; ++i) {
+						server.sendParticles(
+							blockParticleOption,
+							hitLocation.x(),
+							hitLocation.y(),
+							hitLocation.z(),
+							1,
+							0D,
+							0D,
+							0D,
+							0.05D + deltaBeakPos.length()
+						);
+					}
+				}
 			}
 		}
+	}
+
+	public BlockHitResult getBeakHitResult() {
+		return this.level().clip(
+			new ClipContext(
+				this.getPrevBeakPos(),
+				this.getBeakPos(),
+				ClipContext.Block.COLLIDER,
+				ClipContext.Fluid.NONE,
+				this
+			)
+		);
+	}
+
+	public float getEaseAmount() {
+		return this.isAttacking() ? 0.3F : 0.1F;
 	}
 
 	@Override
 	public void swing(@NotNull InteractionHand hand, boolean updateSelf) {
 		if (!this.isAttacking() || this.getBeakCooldown() <= 0 && !this.isStuck()) {
 			this.setAttacking(true);
-			this.setTargetBeakAnimProgress(0.7F + (this.getRandom().nextFloat() * 0.4F));
+			this.setTargetBeakAnimProgress(0.6F + (this.getRandom().nextFloat() * 0.4F));
 			this.setBeakCooldown(BEAK_COOLDOWN_TICKS);
 		}
 	}
