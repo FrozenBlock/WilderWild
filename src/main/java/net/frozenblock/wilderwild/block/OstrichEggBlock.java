@@ -20,10 +20,10 @@ package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.entity.Ostrich;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
@@ -42,7 +42,7 @@ import org.jetbrains.annotations.NotNull;
 public class OstrichEggBlock extends Block {
 	public static final int MAX_HATCH_LEVEL = 2;
 	public static final IntegerProperty HATCH = BlockStateProperties.HATCH;
-	private static final VoxelShape SHAPE = Block.box(4.0, 0.0, 4.0, 12.0, 8.0, 12.0);
+	private static final VoxelShape SHAPE = Block.box(5.0, 0.0, 5.0, 11.0, 8.0, 11.0);
 
 	public OstrichEggBlock(BlockBehaviour.Properties properties) {
 		super(properties);
@@ -72,8 +72,7 @@ public class OstrichEggBlock extends Block {
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if (shouldUpdateHatchLevel(level, pos)) {
 			if (!this.isReadyToHatch(state)) {
-				//TODO: Ostrich egg crack sound
-				level.playSound(null, pos, SoundEvents.SNIFFER_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
+				level.playSound(null, pos, RegisterSounds.BLOCK_OSTRICH_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
 				level.setBlock(pos, state.setValue(HATCH, this.getHatchLevel(state) + 1), 2);
 			} else {
 				this.hatchOstrichEgg(level, pos, random);
@@ -97,9 +96,8 @@ public class OstrichEggBlock extends Block {
 		}
 	}
 
-	private void hatchOstrichEgg(@NotNull ServerLevel level, BlockPos pos, RandomSource random) {
-		//TODO: Ostrich egg hatch sound
-		level.playSound(null, pos, SoundEvents.FROGSPAWN_HATCH, SoundSource.BLOCKS, 1.0F, 1.0F);
+	private void hatchOstrichEgg(@NotNull ServerLevel level, BlockPos pos, @NotNull RandomSource random) {
+		level.playSound(null, pos, RegisterSounds.BLOCK_OSTRICH_EGG_HATCH, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
 		this.destroyBlock(level, pos);
 		this.spawnOstrich(level, pos, random);
 	}

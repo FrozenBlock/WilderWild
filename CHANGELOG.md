@@ -8,3 +8,6 @@ TODO:
 - Add dying trees into normal biomes (more around clearings)
 - Add dying mixed forest
 - Add dying snowy mixed forest
+
+
+- Updated the Crab's digging and emerging sounds to sound slightly more Minecrafty

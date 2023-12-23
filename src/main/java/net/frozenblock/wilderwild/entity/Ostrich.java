@@ -28,6 +28,7 @@ import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichLookControl;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichMoveControl;
 import net.frozenblock.wilderwild.registry.RegisterDamageTypes;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -198,6 +199,9 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		this.prevPassengerProgress = this.passengerProgress;
 		this.passengerProgress = this.passengerProgress + ((this.getTargetPassengerProgress() - this.passengerProgress) * 0.3F);
 
+		if (this.isStuck()) {
+			this.getNavigation().stop();
+		}
 		this.getBeakPos();
 	}
 
@@ -242,6 +246,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 					this.setStuckTicks(BEAK_STUCK_TICKS);
 					this.setAttacking(false);
 					this.setTargetBeakAnimProgress(this.getBeakAnimProgress(1F));
+					this.playSound(RegisterSounds.ENTITY_OSTRICH_BEAK_STUCK);
 					return;
 				}
 			}
@@ -334,8 +339,11 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	@Override
 	public float getRiddenSpeed(@NotNull Player player) {
-		float additionalSpeed = player.isSprinting() && this.getJumpCooldown() == 0 ? 0.2F : 0.0F;
-		return (float)this.getAttributeValue(Attributes.MOVEMENT_SPEED) + additionalSpeed;
+		return (float)this.getAttributeValue(Attributes.MOVEMENT_SPEED) + this.getAdditionalSpeed();
+	}
+
+	public float getAdditionalSpeed() {
+		return this.getFirstPassenger() instanceof Player player && player.isSprinting() && this.getJumpCooldown() == 0 ? 0.2F : 0.0F;
 	}
 
 	@NotNull
@@ -438,6 +446,31 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	}
 
 	@Override
+	public boolean causeFallDamage(float fallDistance, float multiplier, @NotNull DamageSource source) {
+		int i = this.calculateFallDamage(fallDistance, multiplier);
+		if (i <= 0) {
+			return false;
+		} else {
+			if (fallDistance >= 6.0F) {
+				this.hurt(source, (float)i);
+				if (this.isVehicle()) {
+                    for (Entity entity : this.getIndirectPassengers()) {
+                        entity.hurt(source, (float) i);
+                    }
+				}
+			}
+
+			this.playBlockFallSound();
+			return true;
+		}
+	}
+
+	@Override
+	public int getMaxTemper() {
+		return 150;
+	}
+
+	@Override
 	protected boolean canPerformRearing() {
 		return false;
 	}
@@ -470,13 +503,6 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		return RegisterEntities.OSTRICH.create(level);
 	}
 
-	@Nullable
-	@Override
-	//TODO: OSTRICH EAT SOUND
-	public SoundEvent getEatingSound() {
-		return SoundEvents.CAMEL_EAT;
-	}
-
 	@Override
 	public void actuallyHurt(@NotNull DamageSource damageSource, float damageAmount) {
 		this.emergeBeak();
@@ -495,13 +521,6 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	public void sendDebugPackets() {
 		super.sendDebugPackets();
 		DebugPackets.sendEntityBrain(this);
-	}
-
-	@NotNull
-	@Override
-	public SoundEvent getSaddleSoundEvent() {
-		//TODO: OSTRICH SADDLE SOUND EVENT
-		return SoundEvents.CAMEL_SADDLE;
 	}
 
 	@NotNull
@@ -622,6 +641,52 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	@Override
 	public float getStandingEyeHeight(@NotNull Pose pose, @NotNull EntityDimensions dimensions) {
 		return dimensions.height;
+	}
+
+	@Nullable
+	@Override
+	public SoundEvent getEatingSound() {
+		return RegisterSounds.ENTITY_OSTRICH_EAT;
+	}
+
+	@NotNull
+	@Override
+	public SoundEvent getSaddleSoundEvent() {
+		return RegisterSounds.ENTITY_OSTRICH_SADDLE;
+	}
+
+	@Nullable
+	@Override
+	public SoundEvent getAngrySound() {
+		return RegisterSounds.ENTITY_OSTRICH_IDLE;
+	}
+
+	@Nullable
+	@Override
+	public SoundEvent getAmbientSound() {
+		return RegisterSounds.ENTITY_OSTRICH_IDLE;
+	}
+
+	@Nullable
+	@Override
+	public SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
+		return RegisterSounds.ENTITY_OSTRICH_HURT;
+	}
+
+	@Nullable
+	@Override
+	public SoundEvent getDeathSound() {
+		return RegisterSounds.ENTITY_OSTRICH_DEATH;
+	}
+
+	@Override
+	public float nextStep() {
+		return this.moveDist + 1F + (this.isVehicle() ? 0.75F : 0) + (this.getAdditionalSpeed() * 5);
+	}
+
+	@Override
+	public void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
+		this.playSound(RegisterSounds.ENTITY_OSTRICH_STEP, 0.2F, 0.85F + this.getRandom().nextFloat() * 0.3F);
 	}
 
 	@NotNull
