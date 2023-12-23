@@ -191,7 +191,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		}
 
 		this.prevBeakAnimProgress = this.beakAnimProgress;
-		this.beakAnimProgress = this.beakAnimProgress + ((this.getTargetBeakAnimProgress() - this.beakAnimProgress) * 0.3F);
+		this.beakAnimProgress = this.beakAnimProgress + ((this.getTargetBeakAnimProgress() - this.beakAnimProgress) * this.getEaseAmount());
 		this.beakPosition = this.makeBeakPos();
 		this.beakState = this.makeBeakState();
 		this.beakVoxelShape = this.getBeakState().getShape(this.level(), BlockPos.containing(this.getBeakPos()));
@@ -206,7 +206,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 			}
 		}
 		this.prevPassengerProgress = this.passengerProgress;
-		this.passengerProgress = this.passengerProgress + ((this.getTargetPassengerProgress() - this.passengerProgress) * this.getEaseAmount());
+		this.passengerProgress = this.passengerProgress + ((this.getTargetPassengerProgress() - this.passengerProgress) * 0.3F);
 
 		if (this.isStuck()) {
 			Vec3 deltaMovement = this.getDeltaMovement();
@@ -294,20 +294,17 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 					int count = !beakBury ? this.getRandom().nextInt(7, 12) : this.getRandom().nextInt(12, 20);
 					BlockParticleOption blockParticleOption = new BlockParticleOption(ParticleTypes.BLOCK, this.getBeakState());
 					Vec3 hitLocation = beakHitResult.getLocation();
-
-					for (int i = 0; i < count; ++i) {
-						server.sendParticles(
-							blockParticleOption,
-							hitLocation.x(),
-							hitLocation.y(),
-							hitLocation.z(),
-							1,
-							0D,
-							0D,
-							0D,
-							0.05D + deltaBeakPos.length()
-						);
-					}
+					server.sendParticles(
+						blockParticleOption,
+						hitLocation.x(),
+						hitLocation.y(),
+						hitLocation.z(),
+						count,
+						0D,
+						0D,
+						0D,
+						0.05D + deltaBeakPos.length()
+					);
 				}
 			}
 		}
