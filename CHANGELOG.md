@@ -16,10 +16,6 @@ Added the Ostrich
 - Can be bred with Bushes
     - Will lay an egg upon breeding
 
-- Updated the Crab's digging and emerging sounds to sound slightly more Minecrafty
-- Stopped
-- Crabs from moving when they aren't supposed to
-- Renamed the `wilderwild:crab_tempt_items` tag to `wilderwild:crab_food`
 - Added Bush, Tumbleweed, Tumbleweed Stem, Milkweed, Datura, Cattail, Flowering Lily Pad, Algae, Shelf Fungus, Small Sponge, Prickly Pear Cactus, and Nematocyst blocks to the `minecraft:sword_efficient` tag
 - Defined the Random Sequence for every one of Wilder Wild's loot tables
 - Potted Small Dripleaves now use their loot table (renamed `wilderwild:blocks/potted_small.dripleaf` to `wilderwild:blocks/potted_small_dripleaf`)
