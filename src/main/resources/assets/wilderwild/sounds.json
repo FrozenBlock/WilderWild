@@ -2380,11 +2380,13 @@
     ],
     "subtitle": "subtitles.entity.ostrich.beak.stuck"
   },
-  "entity.ostrich.beak.unstuck": {
+  "entity.ostrich.beak.swing": {
     "sounds": [
-      "wilderwild:mob/crab/emerge"
+      "wilderwild:mob/ostrich/swing1",
+      "wilderwild:mob/ostrich/swing2",
+      "wilderwild:mob/ostrich/swing3"
     ],
-    "subtitle": "subtitles.entity.ostrich.beak.unstuck"
+    "subtitle": "subtitles.entity.ostrich.beak.swing"
   },
   "entity.ostrich.eat": {
     "sounds": [

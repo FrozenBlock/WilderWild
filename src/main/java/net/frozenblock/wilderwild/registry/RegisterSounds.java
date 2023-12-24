@@ -261,6 +261,7 @@ public final class RegisterSounds {
 	public static final SoundEvent ENTITY_OSTRICH_STEP = register("entity.ostrich.step");
 	public static final SoundEvent ENTITY_OSTRICH_SADDLE = register("entity.ostrich.saddle");
 	public static final SoundEvent ENTITY_OSTRICH_BEAK_STUCK = register("entity.ostrich.beak.stuck");
+	public static final SoundEvent ENTITY_OSTRICH_SWING = register("entity.ostrich.beak.swing");
 	public static final SoundEvent ENTITY_OSTRICH_EAT = register("entity.ostrich.eat");
 	public static final SoundEvent ENTITY_OSTRICH_BEAK_UNSTUCK = register("entity.ostrich.beak.unstuck");
 	public static final SoundEvent ENTITY_OSTRICH_INBRED_IDLE_BOCK = register("entity.ostrich.inbred.idle.bock");

@@ -89,7 +89,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	public static final int BEAK_COOLDOWN_TICKS = 60;
 	public static final int BEAK_COOLDOWN_TICKS_SUCCESSFUL_HIT = 20;
 	public static final int BEAK_STUCK_TICKS = 100;
-	public static final float MAX_ATTACK_DAMAGE = 4F;
+	public static final float MAX_ATTACK_DAMAGE = 6F;
 
 	public static final EntityDataAccessor<Float> TARGET_BEAK_ANIM_PROGRESS = SynchedEntityData.defineId(Ostrich.class, EntityDataSerializers.FLOAT);
 	public static final EntityDataAccessor<Float> TARGET_PASSENGER_PROGRESS = SynchedEntityData.defineId(Ostrich.class, EntityDataSerializers.FLOAT);
@@ -347,9 +347,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	@Override
 	public void swing(@NotNull InteractionHand hand, boolean updateSelf) {
 		if (!this.isAttacking() || this.getBeakCooldown() <= 0 && !this.isStuck()) {
-			this.setAttacking(true);
-			this.setTargetBeakAnimProgress(0.6F + (this.getRandom().nextFloat() * 0.4F));
-			this.setBeakCooldown(BEAK_COOLDOWN_TICKS);
+			this.performAttack(0.6F + (this.getRandom().nextFloat() * 0.4F), null);
 		}
 	}
 
@@ -441,14 +439,15 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	@Override
 	public void handleStartJump(int jumpPower) {
 		float powerPercent = ((float) jumpPower) * 0.0125F;
-		this.attackWithCommander(powerPercent, this.getFirstPassenger());
+		this.performAttack(powerPercent, this.getFirstPassenger());
 	}
 
-	public void attackWithCommander(float power, @Nullable Entity commander) {
+	public void performAttack(float power, @Nullable Entity commander) {
 		this.setBeakCooldown(BEAK_COOLDOWN_TICKS);
 		this.setAttacking(true);
 		this.setTargetBeakAnimProgress(power);
 		this.setLastAttackCommander(commander);
+		this.playSound(RegisterSounds.ENTITY_OSTRICH_SWING, 0.4F, 0.9F + this.getRandom().nextFloat() * 0.2F);
 	}
 
 	@Override
