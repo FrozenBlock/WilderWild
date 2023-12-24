@@ -16,6 +16,12 @@ Added the Ostrich
 - Can be bred with Bushes
     - Will lay an egg upon breeding
 
-- Added Bush, Tumbleweed, Tumbleweed Stem, Milkweed, Datura, Cattail, Flowering Lily Pad, Algae, Shelf Fungus, Small Sponge, Prickly Pear Cactus, and Nematocyst blocks to the `minecraft:sword_efficient` tag
+- Added the Bush, Tumbleweed, Tumbleweed Stem, Milkweed, Datura, Cattail, Flowering Lily Pad, Algae, Shelf Fungus, Small Sponge, Prickly Pear Cactus, and Nematocyst blocks to the `minecraft:sword_efficient` tag
 - Defined the Random Sequence for every one of Wilder Wild's loot tables
 - Potted Small Dripleaves now use their loot table (renamed `wilderwild:blocks/potted_small.dripleaf` to `wilderwild:blocks/potted_small_dripleaf`)
+- Reimplemented the custom Warden dying sound after it was accidentally removed during a bugfix
+- The Warden's regular death sound will now play on top of its underwater dying sound once again
+- Wardens are no longer considered alive during the custom death animation
+- The Warden will no longer play heartbeat sounds while it is dying
+- Prevented the Warden from moving while it is digging or emerging
+- Changed the Warden's secret death sound from stereo to mono

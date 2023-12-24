@@ -103,6 +103,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	@Nullable
 	private UUID lastAttackCommander;
 	public boolean attackHasCommander;
+	public boolean commanderWasPlayer;
 
 	@Nullable
 	private Vec3 prevBeakPosition;
@@ -356,8 +357,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		this.setTargetBeakAnimProgress(0F);
 		this.setAttacking(false);
 		this.setBeakCooldown(successful ? BEAK_COOLDOWN_TICKS_SUCCESSFUL_HIT : BEAK_COOLDOWN_TICKS);
-		this.attackHasCommander = false;
-		this.lastAttackCommander = null;
+		this.setLastAttackCommander(null);
 	}
 
 	public void emergeBeak() {
@@ -370,10 +370,19 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	public Entity getLastAttackCommander() {
 		Entity commander = null;
 		if (this.lastAttackCommander != null && this.level() instanceof ServerLevel serverLevel) {
-			for (Player player : serverLevel.players()) {
-				if (player.getUUID().equals(this.lastAttackCommander)) {
-					commander = player;
-					break;
+			if (this.commanderWasPlayer) {
+				for (Player player : serverLevel.players()) {
+					if (player.getUUID().equals(this.lastAttackCommander)) {
+						commander = player;
+						break;
+					}
+				}
+			} else {
+				for (Entity entity : serverLevel.entityManager.getEntityGetter().getAll()) {
+					if (entity.getUUID().equals(this.lastAttackCommander)) {
+						commander = entity;
+						break;
+					}
 				}
 			}
 
@@ -383,9 +392,13 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	public void setLastAttackCommander(@Nullable Entity entity) {
 		if (entity != null) {
+			this.attackHasCommander = true;
 			this.lastAttackCommander = entity.getUUID();
+			this.commanderWasPlayer = entity instanceof Player;
 		} else {
+			this.attackHasCommander = false;
 			this.lastAttackCommander = null;
+			this.commanderWasPlayer = false;
 		}
 	}
 
@@ -435,12 +448,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		this.setBeakCooldown(BEAK_COOLDOWN_TICKS);
 		this.setAttacking(true);
 		this.setTargetBeakAnimProgress(power);
-		this.attackHasCommander = commander instanceof Player;
-		if (this.attackHasCommander) {
-			this.lastAttackCommander = commander.getUUID();
-		} else {
-			this.lastAttackCommander = null;
-		}
+		this.setLastAttackCommander(commander);
 	}
 
 	@Override
@@ -853,6 +861,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 			compound.putUUID("LastAttackCommander", this.lastAttackCommander);
 		}
 		compound.putBoolean("AttackHasCommander", this.attackHasCommander);
+		compound.putBoolean("CommanderWasPlayer", this.commanderWasPlayer);
 	}
 
 	@Override
@@ -868,5 +877,6 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 			this.lastAttackCommander = compound.getUUID("LastAttackCommander");
 		}
 		this.attackHasCommander = compound.getBoolean("AttackHasCommander");
+		this.commanderWasPlayer = compound.getBoolean("CommanderWasPlayer");
 	}
 }
