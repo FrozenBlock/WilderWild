@@ -184,7 +184,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 			this.isTouchingStickingBlock = false;
 		}
 		this.isTouchingStoppingBlock = false;
-		if (!this.level().isClientSide && this.getFeetBlockState().is(BlockTags.CROPS) && this.level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !this.onGround()) {
+		if (!this.level().isClientSide && this.getBlockStateOn().is(BlockTags.CROPS) && this.level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !this.onGround()) {
 			if (EntityConfig.get().tumbleweed.tumbleweedDestroysCrops) {
 				this.level().destroyBlock(this.blockPosition(), true, this);
 			}
@@ -246,7 +246,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 	private void checkActive(double brightness) {
 		Player entity = this.level().getNearestPlayer(this, -1.0);
-		if (!this.requiresCustomPersistence() && ((brightness < 7 && (entity == null || entity.distanceTo(this) > 24)) || this.isTouchingStoppingBlock || this.isTouchingStickingBlock || (this.wasTouchingWater && !(this.getFeetBlockState().getBlock() instanceof MesogleaBlock)))) {
+		if (!this.requiresCustomPersistence() && ((brightness < 7 && (entity == null || entity.distanceTo(this) > 24)) || this.isTouchingStoppingBlock || this.isTouchingStickingBlock || (this.wasTouchingWater && !(this.getBlockStateOn().getBlock() instanceof MesogleaBlock)))) {
 			++this.ticksSinceActive;
 			if (this.ticksSinceActive >= 200) {
 				this.destroy(false);
@@ -379,11 +379,6 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	@Override
 	protected boolean canRide(@NotNull Entity vehicle) {
 		return false;
-	}
-
-	@Override
-	protected float getStandingEyeHeight(@NotNull Pose pose, @NotNull EntityDimensions dimensions) {
-		return dimensions.height * 0.5F;
 	}
 
 	@Override

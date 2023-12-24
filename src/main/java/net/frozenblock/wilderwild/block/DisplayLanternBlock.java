@@ -42,6 +42,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -83,6 +84,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("deprecation")
 public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
@@ -106,13 +108,12 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Override
 	@NotNull
-	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+	public ItemInteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		if (level.isClientSide) {
-			return InteractionResult.SUCCESS;
+			return ItemInteractionResult.SUCCESS;
 		}
 		BlockEntity entity = level.getBlockEntity(pos);
 		if (entity instanceof DisplayLanternBlockEntity lantern) {
-			ItemStack stack = player.getItemInHand(hand);
 			if (lantern.invEmpty()) {
 				if (stack.getItem() instanceof FireflyBottle bottle) {
 					if (lantern.getFireflies().size() < 4) {
@@ -129,7 +130,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 						level.playSound(null, pos, RegisterSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.2F + 0.9F);
 						lantern.updateSync();
 						level.updateNeighbourForOutputSignal(pos, this);
-						return InteractionResult.SUCCESS;
+						return ItemInteractionResult.SUCCESS;
 					}
 				}
 				if (stack.is(Items.GLASS_BOTTLE)) {
@@ -153,7 +154,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 						level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(lantern.getFireflies().size() * 3, 0, 15)));
 						lantern.updateSync();
 						level.updateNeighbourForOutputSignal(pos, this);
-						return InteractionResult.SUCCESS;
+						return ItemInteractionResult.SUCCESS;
 					}
 				}
 				if (!stack.isEmpty() && lantern.noFireflies()) {
@@ -167,7 +168,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 					lantern.inventory.set(0, stack.split(1));
 					lantern.updateSync();
 					level.updateNeighbourForOutputSignal(pos, this);
-					return InteractionResult.SUCCESS;
+					return ItemInteractionResult.SUCCESS;
 				}
 			} else if (lantern.noFireflies()) {
 				Optional<ItemStack> stack1 = lantern.inventory.stream().findFirst();
@@ -177,11 +178,11 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 					lantern.updateSync();
 					level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, 0));
 					level.updateNeighbourForOutputSignal(pos, this);
-					return InteractionResult.SUCCESS;
+					return ItemInteractionResult.SUCCESS;
 				}
 			}
 		}
-		return InteractionResult.PASS;
+		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 
 	@Nullable

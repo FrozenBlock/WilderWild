@@ -39,6 +39,7 @@ import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -588,11 +589,11 @@ public class AncientHornProjectile extends AbstractArrow {
 	}
 
 	@Override
-	public void gameEvent(@NotNull GameEvent event) {
+	public void gameEvent(@NotNull Holder<GameEvent> event) {
 	}
 
 	@Override
-	public void gameEvent(@NotNull GameEvent event, @Nullable Entity entity) {
+	public void gameEvent(@NotNull Holder<GameEvent> event, @Nullable Entity entity) {
 	}
 
 }
