@@ -73,6 +73,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.AbstractGlassBlock;
 import net.minecraft.world.level.block.BellBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -111,12 +112,12 @@ public class AncientHornProjectile extends AbstractArrow {
 	private List<Integer> hitEntities = new IntArrayList();
 
 	public AncientHornProjectile(@NotNull EntityType<? extends AncientHornProjectile> entityType, @NotNull Level level) {
-		super(entityType, level, ItemStack.EMPTY);
+		super(entityType, level);
 		this.setSoundEvent(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE);
 	}
 
 	public AncientHornProjectile(@NotNull Level level, double x, double y, double z) {
-		super(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, x, y, z, level, ItemStack.EMPTY);
+		super(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, x, y, z, level);
 		this.setSoundEvent(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE);
 	}
 
@@ -393,7 +394,7 @@ public class AncientHornProjectile extends AbstractArrow {
 			if (this.level() instanceof ServerLevel server) {
 				if (insideState.getBlock() instanceof BellBlock bell) { //BELL INTERACTION
 					bell.onProjectileHit(server, insideState, this.level().clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
-				} else if (insideState.is(ConventionalBlockTags.GLASS_BLOCKS) || insideState.is(ConventionalBlockTags.GLASS_PANES)) {
+				} else if (insideState.getBlock() instanceof AbstractGlassBlock || insideState.is(ConventionalBlockTags.GLASS_BLOCKS) || insideState.is(ConventionalBlockTags.GLASS_PANES)) {
 					if (ItemConfig.get().ancientHorn.ancientHornShattersGlass || insideState.is(RegisterBlocks.ECHO_GLASS)) { //GLASS INTERACTION
 						insideState.onProjectileHit(this.level(), insideState, this.level().clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
 						this.level().destroyBlock(this.blockPosition(), false, this);

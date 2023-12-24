@@ -19,12 +19,10 @@
 package net.frozenblock.wilderwild.block;
 
 import java.util.Optional;
-import com.mojang.serialization.MapCodec;
 import net.frozenblock.lib.block.api.FaceClusterBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.MultifaceSpreader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.PushReaction;
@@ -40,11 +38,6 @@ public class NematocystBlock extends FaceClusterBlock {
 
 	public NematocystBlock(@NotNull Properties properties) {
 		this(7, 3, properties.pushReaction(PushReaction.DESTROY));
-	}
-
-	@Override
-	protected MapCodec<? extends MultifaceBlock> codec() {
-		return null;
 	}
 
 	@Override

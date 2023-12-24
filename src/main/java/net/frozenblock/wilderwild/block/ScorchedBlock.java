@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import java.util.Map;
 import net.frozenblock.lib.block.api.dripstone.DripstoneUtils;
@@ -35,7 +34,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
@@ -165,17 +163,12 @@ public class ScorchedBlock extends BaseEntityBlock {
 
 	@Override
 	@NotNull
-	public ItemStack getCloneItemStack(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public ItemStack getCloneItemStack(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state) {
 		ItemStack superStack = super.getCloneItemStack(level, pos, state);
 		if (state.getValue(RegisterProperties.CRACKED)) {
 			ItemBlockStateTagUtils.setProperty(superStack, RegisterProperties.CRACKED, true);
 		}
 		return superStack;
-	}
-
-	@Override
-	protected MapCodec<? extends BaseEntityBlock> codec() {
-		return null;
 	}
 
 	@Override

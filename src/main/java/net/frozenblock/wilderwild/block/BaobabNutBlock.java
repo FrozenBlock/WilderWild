@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.block;
 
 import java.util.Objects;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.world.generation.sapling.WWTreeGrowers;
+import net.frozenblock.wilderwild.world.generation.sapling.BaobabSaplingGenerator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -58,7 +58,7 @@ public class BaobabNutBlock extends SaplingBlock {
 	};
 
 	public BaobabNutBlock(@NotNull BlockBehaviour.Properties settings) {
-		super(WWTreeGrowers.BAOBAB, settings);
+		super(new BaobabSaplingGenerator(), settings);
 		this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0).setValue(AGE, 0).setValue(HANGING, false));
 	}
 
