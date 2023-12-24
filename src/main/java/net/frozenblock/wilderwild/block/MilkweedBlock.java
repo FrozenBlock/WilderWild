@@ -29,7 +29,6 @@ import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -75,11 +74,13 @@ public class MilkweedBlock extends TallFlowerBlock {
 	}
 
 	@Override
-	public ItemInteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+	@NotNull
+	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		if (isFullyGrown(state)) {
+			ItemStack itemStack = player.getItemInHand(hand);
 			if (!level.isClientSide) {
-				if (stack.is(Items.SHEARS)) {
-					stack.hurtAndBreak(1, player, playerx -> playerx.broadcastBreakEvent(hand));
+				if (itemStack.is(Items.SHEARS)) {
+					itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
 					player.awardStat(Stats.ITEM_USED.get(Items.SHEARS));
 					shear(level, pos, state, player);
 				} else {
@@ -88,9 +89,9 @@ public class MilkweedBlock extends TallFlowerBlock {
 					setAgeOnBothHalves(this, state, level, pos, 0);
 				}
 			}
-			return ItemInteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
-		return super.useItemOn(stack, state, level, pos, player, hand, hit);
+		return super.use(state, level, pos, player, hand, hit);
 	}
 
 	public static void shear(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @Nullable Player player) {

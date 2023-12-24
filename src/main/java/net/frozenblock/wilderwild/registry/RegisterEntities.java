@@ -66,7 +66,7 @@ public final class RegisterEntities {
 			.entityFactory(Jellyfish::new)
 			.defaultAttributes(Jellyfish::addAttributes)
 			.spawnRestriction(SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Jellyfish::canSpawn)
-			.dimensions(EntityDimensions.scalable(0.4F, 0.4F).withEyeHeight(0.4F * 0.5F)) // eye height is the height * 0.5F
+			.dimensions(EntityDimensions.scalable(0.4F, 0.4F))
 			.build()
 	);
 	public static final EntityType<Tumbleweed> TUMBLEWEED = register(
@@ -76,7 +76,7 @@ public final class RegisterEntities {
 			.entityFactory(Tumbleweed::new)
 			.defaultAttributes(Tumbleweed::addAttributes)
 			.spawnRestriction(SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Tumbleweed::canSpawn)
-			.dimensions(EntityDimensions.scalable(0.98F, 0.98F).withEyeHeight(0.98F * 0.5F)) // eye height is the height * 0.5F
+			.dimensions(EntityDimensions.scalable(0.98F, 0.98F))
 			.build()
 	);
 	public static final EntityType<Crab> CRAB = register(
@@ -86,7 +86,7 @@ public final class RegisterEntities {
 			.entityFactory(Crab::new)
 			.defaultAttributes(Crab::createAttributes)
 			.spawnRestriction(SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Crab::canSpawn)
-			.dimensions(EntityDimensions.scalable(0.5F, 0.5F).withEyeHeight(0.5F * 0.65F)) // eye height is the height * 0.65F
+			.dimensions(EntityDimensions.scalable(0.5F, 0.5F))
 			.build()
 	);
 	public static final EntityType<CoconutProjectile> COCONUT = register(

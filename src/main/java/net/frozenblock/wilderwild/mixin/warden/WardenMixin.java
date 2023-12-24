@@ -31,7 +31,6 @@ import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -227,8 +226,8 @@ public final class WardenMixin extends Monster implements WilderWarden {
 		}
 	}
 
-	@Inject(method = "getDefaultDimensions", at = @At("RETURN"), cancellable = true)
-	public void modifyDyingDimensions(Pose pose, CallbackInfoReturnable<EntityDimensions> info) {
+	@Inject(method = "getDimensions", at = @At("RETURN"), cancellable = true)
+	public void wilderWild$getDimensions(Pose pose, CallbackInfoReturnable<EntityDimensions> info) {
 		if (!this.isDiggingOrEmerging() && this.wilderWild$hasDeathAnimation() && this.wilderWild$deathTicks > 0) {
 			info.setReturnValue(EntityDimensions.fixed(this.getType().getWidth(), 0.35F));
 		}
@@ -276,7 +275,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 			method = "onReceiveVibration",
 			at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;broadcastEntityEvent(Lnet/minecraft/world/entity/Entity;B)V", ordinal = 0)
 		)
-		private void wilderWild$captureIsHiccupingSensor(ServerLevel level, BlockPos pos, Holder<GameEvent> event, Entity sourceEntity, Entity entity, float distance, CallbackInfo info, @Share("wilderWild$isHiccupingSensor") LocalBooleanRef isHiccupingSensorLocalRef
+		private void wilderWild$captureIsHiccupingSensor(ServerLevel level, BlockPos pos, GameEvent event, Entity sourceEntity, Entity entity, float distance, CallbackInfo info, @Share("wilderWild$isHiccupingSensor") LocalBooleanRef isHiccupingSensorLocalRef
 		) {
 			boolean isHiccuping = false;
 			if (level.getBlockState(pos).is(Blocks.SCULK_SENSOR)) {

@@ -26,7 +26,6 @@ import net.frozenblock.wilderwild.registry.RegisterGameEvents;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -227,7 +226,7 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 		public BlockPos blockPos;
 
 		@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkSensorBlock;activate(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;II)V", shift = At.Shift.AFTER), method = "onReceiveVibration")
-		private void wilderWild$onReceiveVibration(ServerLevel world, BlockPos pos, Holder<GameEvent> gameEvent, @Nullable Entity entity, @Nullable Entity entity2, float f, CallbackInfo info) {
+		private void wilderWild$onReceiveVibration(ServerLevel world, BlockPos pos, GameEvent gameEvent, @Nullable Entity entity, @Nullable Entity entity2, float f, CallbackInfo info) {
 			world.gameEvent(entity, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, this.blockPos);
 			BlockState blockState = world.getBlockState(this.blockPos);
 			if (blockState.hasProperty(RegisterProperties.HICCUPPING)) {

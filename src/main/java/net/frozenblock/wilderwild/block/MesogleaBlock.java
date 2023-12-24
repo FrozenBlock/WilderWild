@@ -197,7 +197,7 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 						if (entity instanceof Mob mob && mob.isLeashed()) {
 							return shape;
 						}
-						BlockState insideState = entity.getBlockStateOn();
+						BlockState insideState = entity.getFeetBlockState();
 						if (entity.isInWater() || (insideState.getBlock() instanceof MesogleaBlock && insideState.getValue(BlockStateProperties.WATERLOGGED))) {
 							for (Direction direction : Direction.values()) {
 								if (direction != Direction.UP && !blockGetter.getFluidState(blockPos.relative(direction)).is(FluidTags.WATER)) {

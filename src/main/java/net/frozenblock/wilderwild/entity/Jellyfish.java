@@ -242,6 +242,11 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@Override
+	protected float getStandingEyeHeight(@NotNull Pose pose, @NotNull EntityDimensions dimensions) {
+		return dimensions.height * 0.5F;
+	}
+
+	@Override
 	protected SoundEvent getAmbientSound() {
 		return this.isInWaterOrBubble() ? RegisterSounds.ENTITY_JELLYFISH_AMBIENT_WATER : null;
 	}

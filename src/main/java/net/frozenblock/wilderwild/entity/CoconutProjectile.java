@@ -109,7 +109,7 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 				server.addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(RegisterItems.SPLIT_COCONUT)));
 			}
 			EntityDimensions dimensions = this.getDimensions(Pose.STANDING);
-			server.sendParticles(RegisterParticles.COCONUT_SPLASH, this.position().x + (dimensions.width() * 0.5), this.position().y + (dimensions.height() * 0.5), this.position().z + (dimensions.width() * 0.5), this.level().random.nextInt(1, 5), dimensions.width() / 4F, dimensions.height() / 4F, dimensions.width() / 4F, 0.1D);
+			server.sendParticles(RegisterParticles.COCONUT_SPLASH, this.position().x + (dimensions.width * 0.5), this.position().y + (dimensions.height * 0.5), this.position().z + (dimensions.width * 0.5), level().random.nextInt(1, 5), dimensions.width / 4F, dimensions.height / 4F, dimensions.width / 4F, 0.1D);
 			this.discard();
 		}
 	}

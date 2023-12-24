@@ -23,6 +23,7 @@ import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.misc.interfaces.ChestBlockEntityInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -69,8 +70,8 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 		return null;
 	}
 
-	@Inject(method = "useWithoutItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;openMenu(Lnet/minecraft/world/MenuProvider;)Ljava/util/OptionalInt;", shift = At.Shift.BEFORE))
-	public void wilderWild$useBeforeOpenMenu(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit, CallbackInfoReturnable<InteractionResult> info) {
+	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;openMenu(Lnet/minecraft/world/MenuProvider;)Ljava/util/OptionalInt;", shift = At.Shift.BEFORE), method = "use")
+	public void wilderWild$useBeforeOpenMenu(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit, CallbackInfoReturnable<InteractionResult> info) {
 		if (level.getBlockEntity(pos) instanceof ChestBlockEntity sourceChest) {
 			if (sourceChest.lootTable != null && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) && sourceChest.lootTable.getPath().toLowerCase().contains("shipwreck") && level.random.nextInt(0, 3) == 1) {
 				Jellyfish.spawnFromChest(level, state, pos);
@@ -79,7 +80,7 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 		}
 	}
 
-	@Inject(method = "updateShape", at = @At(value = "RETURN"))
+	@Inject(at = @At(value = "RETURN"), method = "updateShape")
 	public void wilderWild$updateShape(BlockState blockStateUnneeded, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos currentPos, BlockPos neighborPos, CallbackInfoReturnable<BlockState> info) {
 		BlockState state = info.getReturnValue();
 		ChestBlockEntity otherChest = wilderWild$getOtherChest(level, currentPos, state);

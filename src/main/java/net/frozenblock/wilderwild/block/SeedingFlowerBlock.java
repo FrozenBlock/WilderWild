@@ -21,7 +21,6 @@ package net.frozenblock.wilderwild.block;
 import net.frozenblock.wilderwild.networking.packet.WilderSeedParticlePacket;
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
@@ -33,10 +32,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-@SuppressWarnings("deprecation")
 public class SeedingFlowerBlock extends FlowerBlock {
 
-	public SeedingFlowerBlock(@NotNull Holder<MobEffect> suspiciousStewEffect, int effectDuration, @NotNull Properties settings) {
+	public SeedingFlowerBlock(@NotNull MobEffect suspiciousStewEffect, int effectDuration, @NotNull Properties settings) {
 		super(suspiciousStewEffect, effectDuration, settings);
 	}
 

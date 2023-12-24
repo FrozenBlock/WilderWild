@@ -29,7 +29,6 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -54,7 +53,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
-@SuppressWarnings("deprecation")
 public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlock {
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 	protected static final VoxelShape OUTLINE_SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 13.0D, 13.0D);
@@ -118,20 +116,20 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 		level.setBlockAndUpdate(pos, state.setValue(AGE, Math.min(3, state.getValue(AGE) + random.nextIntBetweenInclusive(1, 2))));
 	}
 
-	@SuppressWarnings("SpellCheckingInspection")
 	@Override
 	@NotNull
-	public ItemInteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+		ItemStack itemStack = player.getItemInHand(hand);
 		if (isFullyGrown(state)) {
 			level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
-			ItemStack pear = new ItemStack(RegisterItems.PRICKLY_PEAR);
-			pear.setCount(level.random.nextIntBetweenInclusive(1, 2));
-			popResource(level, pos, pear);
+			ItemStack stack = new ItemStack(RegisterItems.PRICKLY_PEAR);
+			stack.setCount(level.random.nextIntBetweenInclusive(1, 2));
+			popResource(level, pos, stack);
 			if (!level.isClientSide) {
-				if (stack.is(Items.SHEARS)) {
+				if (itemStack.is(Items.SHEARS)) {
 					level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
 					level.playSound(null, pos, RegisterSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1.0F, 0.95F + (level.random.nextFloat() * 0.1F));
-					stack.hurtAndBreak(1, player, playerx -> playerx.broadcastBreakEvent(hand));
+					itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
 					level.gameEvent(player, GameEvent.SHEAR, pos);
 				} else {
 					level.playSound(null, pos, RegisterSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1.0F, 0.95F + (level.random.nextFloat() * 0.1F));
@@ -139,9 +137,9 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 					player.hurt(level.damageSources().cactus(), 1F);
 				}
 			}
-			return ItemInteractionResult.sidedSuccess(level.isClientSide);
+			return InteractionResult.sidedSuccess(level.isClientSide);
 		} else {
-			return super.useItemOn(stack, state, level, pos, player, hand, hit);
+			return super.use(state, level, pos, player, hand, hit);
 		}
 	}
 
