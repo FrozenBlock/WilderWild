@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.datagen;
 
-import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 import net.frozenblock.lib.datagen.api.FrozenBiomeTagProvider;
@@ -30,6 +29,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biomes;
 import org.jetbrains.annotations.NotNull;
+import java.util.concurrent.CompletableFuture;
 
 final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 

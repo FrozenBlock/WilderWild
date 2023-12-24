@@ -35,10 +35,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class AbstractTreeGrowerMixin implements AbstractTreeGrowerInterface {
 
 	@Unique
-	private volatile ServerLevel wilderWild$level;
+	private ServerLevel wilderWild$level;
 
 	@Unique
-	private volatile BlockPos wilderWild$pos;
+	private BlockPos wilderWild$pos;
 
 	@Inject(method = "growTree", at = @At("HEAD"))
 	public void wilderWild$growTree(ServerLevel level, ChunkGenerator generator, BlockPos pos, BlockState state, RandomSource random, CallbackInfoReturnable<Boolean> info) {

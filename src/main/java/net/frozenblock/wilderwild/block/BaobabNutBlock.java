@@ -45,6 +45,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings({"DuplicatedCode", "deprecation"})
 public class BaobabNutBlock extends SaplingBlock {
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	public static final int MAX_AGE = 2;
@@ -65,6 +66,7 @@ public class BaobabNutBlock extends SaplingBlock {
 		return state.getValue(HANGING);
 	}
 
+	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 	private static boolean isFullyGrown(@NotNull BlockState state) {
 		return state.getValue(AGE) == MAX_AGE;
 	}
