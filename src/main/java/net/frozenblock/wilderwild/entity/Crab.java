@@ -175,7 +175,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@NotNull
-	public static AttributeSupplier.Builder addAttributes() {
+	public static AttributeSupplier.Builder createAttributes() {
 		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D)
 			.add(Attributes.MOVEMENT_SPEED, MOVEMENT_SPEED)
 			.add(Attributes.JUMP_STRENGTH, 0.0D)
@@ -297,11 +297,19 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	@Override
 	public void tick() {
+		if (this.isDiggingOrEmerging()) {
+			this.xxa = 0.0F;
+			this.zza = 0.0F;
+		}
 		boolean isClient = this.level().isClientSide;
 		if (this.level() instanceof ServerLevel serverLevel) {
 			VibrationSystem.Ticker.tick(serverLevel, this.vibrationData, this.vibrationUser);
 		}
 		super.tick();
+		if (this.isDiggingOrEmerging()) {
+			this.xxa = 0.0F;
+			this.zza = 0.0F;
+		}
 		if (!isClient) {
 			this.cancelMovementToDescend = false;
 			if (this.horizontalCollision) {
@@ -387,6 +395,10 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		this.level().getProfiler().pop();
 		super.customServerAiStep();
 		this.getBrain().setMemory(RegisterMemoryModuleTypes.FIRST_BRAIN_TICK, Unit.INSTANCE);
+		if (this.isDiggingOrEmerging()) {
+			this.xxa = 0.0F;
+			this.zza = 0.0F;
+		}
 	}
 
 	public double getEmptyAreaSearchDistance() {
@@ -684,7 +696,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	@Override
 	public boolean isFood(@NotNull ItemStack stack) {
-		return stack.is(WilderItemTags.CRAB_TEMPT_ITEMS);
+		return stack.is(WilderItemTags.CRAB_FOOD);
 	}
 
 	@Override
