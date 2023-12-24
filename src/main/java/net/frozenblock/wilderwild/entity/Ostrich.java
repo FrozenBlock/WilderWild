@@ -778,7 +778,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	@Override
 	public void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
-		this.playSound(RegisterSounds.ENTITY_OSTRICH_STEP, 0.2F, 0.85F + this.getRandom().nextFloat() * 0.3F);
+		this.playSound(RegisterSounds.ENTITY_OSTRICH_STEP, 0.1F, 0.9F + this.getRandom().nextFloat() * 0.2F);
 	}
 
 	@NotNull
