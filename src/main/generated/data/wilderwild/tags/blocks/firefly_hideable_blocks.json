@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "minecraft:short_grass",
+    "minecraft:grass",
     "minecraft:tall_grass",
     "minecraft:fern",
     "minecraft:large_fern",
