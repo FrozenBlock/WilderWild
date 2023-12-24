@@ -848,6 +848,16 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	}
 
 	@Override
+	public boolean requiresCustomPersistence() {
+		return super.requiresCustomPersistence() || this.isTamed();
+	}
+
+	@Override
+	public boolean removeWhenFarAway(double distanceToClosestPlayer) {
+		return !this.isTamed() && super.removeWhenFarAway(distanceToClosestPlayer);
+	}
+
+	@Override
 	public void addAdditionalSaveData(@NotNull CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
 		compound.putInt("BeakCooldown", this.getBeakCooldown());

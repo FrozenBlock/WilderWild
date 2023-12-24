@@ -114,10 +114,10 @@ public class OstrichEggBlock extends Block {
 				pos.getX() + 0.5D,
 				pos.getY(),
 				pos.getZ() + 0.5D,
-				(float)random.nextInt(1, 361),
+				random.nextInt(1, 361),
 				0.0F
 			);
-			ostrich.setPersistenceRequired();
+			ostrich.setTamed(true);
 			level.addFreshEntity(ostrich);
 		}
 	}
