@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.datagen;
 
-import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
@@ -28,6 +27,8 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.concurrent.CompletableFuture;
 
 final class WWExperimentBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 

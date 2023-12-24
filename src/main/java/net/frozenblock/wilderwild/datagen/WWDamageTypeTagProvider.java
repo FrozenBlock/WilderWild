@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.datagen;
 
-import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.frozenblock.wilderwild.registry.RegisterDamageTypes;
@@ -27,6 +26,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageType;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.concurrent.CompletableFuture;
 
 final class WWDamageTypeTagProvider extends FabricTagProvider<DamageType> {
 

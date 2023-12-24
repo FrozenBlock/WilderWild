@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.datagen;
 
-import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
@@ -27,6 +26,8 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.EntityType;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.concurrent.CompletableFuture;
 
 final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagProvider {
 

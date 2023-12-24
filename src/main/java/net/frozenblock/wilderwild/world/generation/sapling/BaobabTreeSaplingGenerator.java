@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.world.generation.sapling;
 
-import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -33,6 +32,7 @@ import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import java.util.Optional;
 
 public abstract class BaobabTreeSaplingGenerator extends TreeGrower {
 

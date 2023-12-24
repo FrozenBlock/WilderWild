@@ -18,8 +18,8 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import java.util.List;
+import com.mojang.serialization.MapCodec;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.block.property.FlowerColor;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
