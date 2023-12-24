@@ -353,7 +353,7 @@ public final class RegisterBlocks {
 	);
 
 	public static final FlowerLichenBlock WHITE_GLORY_OF_THE_SNOW = new FlowerLichenBlock(
-		FabricBlockSettings.copyOf(Blocks.SHORT_GRASS)
+		FabricBlockSettings.copyOf(Blocks.GRASS)
 			.mapColor(MapColor.QUARTZ)
 			.sounds(SoundType.VINE)
 			.noCollision()
@@ -432,7 +432,7 @@ public final class RegisterBlocks {
 
 	public static final Block POTTED_SMALL_DRIPLEAF = Blocks.flowerPot(Blocks.SMALL_DRIPLEAF);
 
-	public static final Block POTTED_GRASS = Blocks.flowerPot(Blocks.SHORT_GRASS);
+	public static final Block POTTED_GRASS = Blocks.flowerPot(Blocks.GRASS);
 
 	public static final Block POTTED_PRICKLY_PEAR = Blocks.flowerPot(PRICKLY_PEAR_CACTUS);
 
@@ -459,7 +459,7 @@ public final class RegisterBlocks {
 	);
 
 	public static final PollenBlock POLLEN_BLOCK = new PollenBlock(
-		FabricBlockSettings.copyOf(Blocks.SHORT_GRASS)
+		FabricBlockSettings.copyOf(Blocks.GRASS)
 			.mapColor(MapColor.SAND)
 			.sounds(RegisterBlockSoundTypes.POLLEN)
 			.offset(BlockBehaviour.OffsetType.NONE)
