@@ -12,4 +12,6 @@ Thank you!
 - Fixed potted grass loot table on 1.20.4
 - Fixed compat with Simple Copper Pipes to now work 100% of the time
     - Requires Simple Copper Pipes 1.16+ (compat id 3)
-- Updated embedded FrozenLib to 1.5.3
+- Removed embedded Reach Entity Attributes on 1.20.5
+- Updated embedded FrozenLib to 1.5.4
+- Bumped the protocol version to 2
