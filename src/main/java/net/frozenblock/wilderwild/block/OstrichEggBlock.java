@@ -88,8 +88,7 @@ public class OstrichEggBlock extends Block {
 
 	private boolean shouldUpdateHatchLevel(@NotNull Level level, @NotNull BlockPos blockPos) {
 		if (!isSafeToHatch(level, blockPos.below())) return false;
-		float time = level.getTimeOfDay(1.0F);
-		if (time < 0.69F && time > 0.65F) {
+		if (level.isDay()) {
 			return true;
 		} else {
 			return level.random.nextInt(500) == 0;
