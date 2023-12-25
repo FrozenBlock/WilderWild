@@ -25,6 +25,7 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterGameEvents;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -47,7 +48,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
-public class HangingTendrilBlockEntity extends BlockEntity implements GameEventListener.Holder<VibrationSystem.Listener>, VibrationSystem {
+public class HangingTendrilBlockEntity extends BlockEntity implements GameEventListener.Provider<VibrationSystem.Listener>, VibrationSystem {
 
 	private static final Logger LOGGER = LogUtils.getLogger();
 	private static final String BASE_TEXTURE = "textures/entity/hanging_tendril/";
@@ -211,7 +212,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		}
 
 		@Override
-		public boolean canReceiveVibration(@NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull GameEvent gameEvent, @Nullable GameEvent.Context context) {
+		public boolean canReceiveVibration(@NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull Holder<GameEvent> gameEvent, @Nullable GameEvent.Context context) {
 			if (pos.equals(this.blockPos) && (gameEvent == GameEvent.BLOCK_DESTROY || gameEvent == GameEvent.BLOCK_PLACE)) {
 				return false;
 			}
@@ -220,7 +221,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		}
 
 		@Override
-		public void onReceiveVibration(@NotNull ServerLevel world, @NotNull BlockPos pos, @NotNull GameEvent gameEvent, @Nullable Entity entity, @Nullable Entity entity2, float f) {
+		public void onReceiveVibration(@NotNull ServerLevel world, @NotNull BlockPos pos, @NotNull Holder<GameEvent> gameEvent, @Nullable Entity entity, @Nullable Entity entity2, float f) {
 			BlockState blockState = HangingTendrilBlockEntity.this.getBlockState();
 			if (SculkSensorBlock.canActivate(blockState)) {
 				HangingTendrilBlockEntity.this.setLastVibrationFrequency(VibrationSystem.getGameEventFrequency(gameEvent));

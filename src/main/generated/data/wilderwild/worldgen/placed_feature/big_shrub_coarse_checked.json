@@ -20,7 +20,7 @@
         "blocks": [
           "minecraft:red_sand",
           "minecraft:sand",
-          "minecraft:grass"
+          "minecraft:short_grass"
         ],
         "offset": [
           0,

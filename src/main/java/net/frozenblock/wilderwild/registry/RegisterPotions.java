@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistry;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.minecraft.core.Holder.Reference;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
@@ -28,14 +29,13 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public final class RegisterPotions {
 
-	public static final Potion REACH = register("reach", new Potion(new MobEffectInstance(RegisterMobEffects.REACH, 3600)));
-	public static final Potion LONG_REACH = register("long_reach", new Potion("reach", new MobEffectInstance(RegisterMobEffects.REACH, 9600)));
-	public static final Potion STRONG_REACH = register("strong_reach", new Potion("reach", new MobEffectInstance(RegisterMobEffects.REACH, 2700, 1)));
+	public static final Reference<Potion> REACH = register("reach", new Potion(new MobEffectInstance(RegisterMobEffects.REACH, 3600)));
+	public static final Reference<Potion> LONG_REACH = register("long_reach", new Potion("reach", new MobEffectInstance(RegisterMobEffects.REACH, 9600)));
+	public static final Reference<Potion> STRONG_REACH = register("strong_reach", new Potion("reach", new MobEffectInstance(RegisterMobEffects.REACH, 2700, 1)));
 
 	private RegisterPotions() {
 		throw new UnsupportedOperationException("RegisterPotions contains only static declarations.");
@@ -49,12 +49,11 @@ public final class RegisterPotions {
 		FabricBrewingRecipeRegistry.registerPotionRecipe(REACH, Ingredient.of(Items.GLOWSTONE_DUST), STRONG_REACH);
 	}
 
-	private static @NotNull Potion register(String key, Potion potion) {
-		return Registry.register(BuiltInRegistries.POTION, WilderSharedConstants.id(key), potion);
+	private static @NotNull Reference<Potion> register(String key, Potion potion) {
+		return Registry.registerForHolder(BuiltInRegistries.POTION, WilderSharedConstants.id(key), potion);
 	}
 
-	@Contract("_, _ -> param2")
-	private static @NotNull Potion register(ResourceKey<Potion> key, Potion potion) {
-		return Registry.register(BuiltInRegistries.POTION, key, potion);
+	private static @NotNull Reference<Potion> register(ResourceKey<Potion> key, Potion potion) {
+		return Registry.registerForHolder(BuiltInRegistries.POTION, key, potion);
 	}
 }

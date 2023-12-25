@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.block;
 
+import com.mojang.serialization.MapCodec;
 import java.util.List;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.block.property.FlowerColor;
@@ -30,6 +31,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -80,15 +82,14 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
 
 	@Override
 	@NotNull
-	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+	public ItemInteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		if (level instanceof ServerLevel) {
-			ItemStack itemStack = player.getItemInHand(hand);
-			if (hasColor(state) && itemStack.is(Items.SHEARS)) {
-				itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
-				return InteractionResult.SUCCESS;
+			if (hasColor(state) && stack.is(Items.SHEARS)) {
+				stack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
+				return ItemInteractionResult.SUCCESS;
 			}
 		}
-		return super.use(state, level, pos, player, hand, hit);
+		return super.useItemOn(stack, state, level, pos, player, hand, hit);
 	}
 
 	public static void shear(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @Nullable Player player) {
@@ -122,5 +123,10 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
 		level.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FLOWER_COLOR, this.COLOR_LIST.get(AdvancedMath.random().nextInt(this.COLOR_LIST.size()))));
+	}
+
+	@Override
+	protected MapCodec<? extends BushBlock> codec() {
+		return null;
 	}
 }

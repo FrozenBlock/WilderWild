@@ -50,6 +50,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings("deprecation")
 public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterloggedBlock {
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	protected static final VoxelShape X_SHAPE = Shapes.or(Block.box(0, 0, 0, 16, 16, 3), Block.box(0, 13, 0, 16, 16, 16), Block.box(0, 0, 13, 16, 16, 16), Block.box(0, 0, 0, 16, 3, 16));
@@ -98,11 +99,11 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 
 	@Override
 	@NotNull
-	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+	public InteractionResult useWithoutItem(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull BlockHitResult hit) {
 		Direction direction = player.getMotionDirection();
 		Direction hitDirection = hit.getDirection();
 		Direction.Axis axis = state.getValue(BlockStateProperties.AXIS);
-		double crawlingHeight = player.getDimensions(Pose.SWIMMING).height;
+		double crawlingHeight = player.getDimensions(Pose.SWIMMING).height();
 		double playerY = player.getY();
 
 		if (player.isShiftKeyDown()
@@ -132,6 +133,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 	}
 
 	@Override
+	@NotNull
 	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
 		return switch (state.getValue(AXIS)) {
 			default -> X_SHAPE;

@@ -39,6 +39,7 @@ import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -71,7 +72,6 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.AbstractGlassBlock;
 import net.minecraft.world.level.block.BellBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -110,12 +110,12 @@ public class AncientHornProjectile extends AbstractArrow {
 	private List<Integer> hitEntities = new IntArrayList();
 
 	public AncientHornProjectile(@NotNull EntityType<? extends AncientHornProjectile> entityType, @NotNull Level level) {
-		super(entityType, level);
+		super(entityType, level, ItemStack.EMPTY);
 		this.setSoundEvent(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE);
 	}
 
 	public AncientHornProjectile(@NotNull Level level, double x, double y, double z) {
-		super(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, x, y, z, level);
+		super(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, x, y, z, level, ItemStack.EMPTY);
 		this.setSoundEvent(RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE);
 	}
 
@@ -392,7 +392,7 @@ public class AncientHornProjectile extends AbstractArrow {
 			if (this.level() instanceof ServerLevel server) {
 				if (insideState.getBlock() instanceof BellBlock bell) { //BELL INTERACTION
 					bell.onProjectileHit(server, insideState, this.level().clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
-				} else if (insideState.getBlock() instanceof AbstractGlassBlock || insideState.is(ConventionalBlockTags.GLASS_BLOCKS) || insideState.is(ConventionalBlockTags.GLASS_PANES)) {
+				} else if (insideState.is(ConventionalBlockTags.GLASS_BLOCKS) || insideState.is(ConventionalBlockTags.GLASS_PANES)) {
 					if (ItemConfig.get().ancientHorn.ancientHornShattersGlass || insideState.is(RegisterBlocks.ECHO_GLASS)) { //GLASS INTERACTION
 						insideState.onProjectileHit(this.level(), insideState, this.level().clip(new ClipContext(this.position(), new Vec3(this.getBlockX(), this.getBlockY(), this.getBlockZ()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)), this);
 						this.level().destroyBlock(this.blockPosition(), false, this);
@@ -589,11 +589,11 @@ public class AncientHornProjectile extends AbstractArrow {
 	}
 
 	@Override
-	public void gameEvent(@NotNull GameEvent event) {
+	public void gameEvent(@NotNull Holder<GameEvent> event) {
 	}
 
 	@Override
-	public void gameEvent(@NotNull GameEvent event, @Nullable Entity entity) {
+	public void gameEvent(@NotNull Holder<GameEvent> event, @Nullable Entity entity) {
 	}
 
 }

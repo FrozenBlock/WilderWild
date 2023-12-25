@@ -340,7 +340,7 @@ final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 			.addOptionalTag(BlockTags.LOGS);
 
 		this.getOrCreateTagBuilder(WilderBlockTags.FIREFLY_HIDEABLE_BLOCKS)
-			.add(Blocks.GRASS)
+			.add(Blocks.SHORT_GRASS)
 			.add(Blocks.TALL_GRASS)
 			.add(Blocks.FERN)
 			.add(Blocks.LARGE_FERN)

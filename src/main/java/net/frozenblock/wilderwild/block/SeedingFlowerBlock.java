@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.block;
 import net.frozenblock.wilderwild.networking.packet.WilderSeedParticlePacket;
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
@@ -32,9 +33,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings("deprecation")
 public class SeedingFlowerBlock extends FlowerBlock {
 
-	public SeedingFlowerBlock(@NotNull MobEffect suspiciousStewEffect, int effectDuration, @NotNull Properties settings) {
+	public SeedingFlowerBlock(@NotNull Holder<MobEffect> suspiciousStewEffect, int effectDuration, @NotNull Properties settings) {
 		super(suspiciousStewEffect, effectDuration, settings);
 	}
 
@@ -55,10 +57,11 @@ public class SeedingFlowerBlock extends FlowerBlock {
 	}
 
 	@Override
-	public void playerWillDestroy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
-		super.playerWillDestroy(level, pos, state, player);
+	public @NotNull BlockState playerWillDestroy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
+		BlockState original = super.playerWillDestroy(level, pos, state, player);
 		if (level instanceof ServerLevel server) {
 			WilderSeedParticlePacket.sendToAll(level, Vec3.atCenterOf(pos).add(0, 0.3, 0), server.random.nextIntBetweenInclusive(3, 7), false);
 		}
+		return original;
 	}
 }

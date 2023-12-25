@@ -202,8 +202,8 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 		return super.updateInWaterStateAndDoFluidPushing();
 	}
 
-	@Inject(method = "getDimensions", at = @At("RETURN"), cancellable = true)
-	public void wilderWild$getDimensions(Pose pose, CallbackInfoReturnable<EntityDimensions> info) {
+	@Inject(method = "getDefaultDimensions", at = @At("RETURN"), cancellable = true)
+	public void modifySwimmingDimensions(Pose pose, CallbackInfoReturnable<EntityDimensions> info) {
 		if (!this.isDiggingOrEmerging() && this.isVisuallySwimming()) {
 			info.setReturnValue(EntityDimensions.scalable(this.getType().getWidth(), 0.85F));
 		}

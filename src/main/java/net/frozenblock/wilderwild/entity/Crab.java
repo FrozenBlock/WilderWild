@@ -92,6 +92,7 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -115,6 +116,7 @@ import org.joml.Math;
 public class Crab extends Animal implements VibrationSystem, Bucketable {
 	public static final float MAX_TARGET_DISTANCE = 16F;
 	public static final double MOVEMENT_SPEED = 0.16;
+	public static final float STEP_HEIGHT = 0.2F;
 	public static final double WATER_MOVEMENT_SPEED = 0.576;
 	public static final int DIG_LENGTH_IN_TICKS = 95;
 	public static final int EMERGE_LENGTH_IN_TICKS = 29;
@@ -156,7 +158,6 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		this.dynamicGameEventListener = new DynamicGameEventListener<>(new VibrationSystem.Listener(this));
 		this.jumpControl = new CrabJumpControl(this);
 		this.prevMovement = Vec3.ZERO;
-		this.setMaxUpStep(0.2F);
 		this.setPathfindingMalus(BlockPathTypes.LAVA, -1.0F);
 		this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1.0F);
 		this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
@@ -177,6 +178,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	public static AttributeSupplier.Builder createAttributes() {
 		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D)
 			.add(Attributes.MOVEMENT_SPEED, MOVEMENT_SPEED)
+			.add(Attributes.STEP_HEIGHT, STEP_HEIGHT)
 			.add(Attributes.JUMP_STRENGTH, 0.0D)
 			.add(Attributes.ATTACK_DAMAGE, 2.0D)
 			.add(Attributes.FOLLOW_RANGE, MAX_TARGET_DISTANCE);
@@ -271,11 +273,6 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		this.entityData.define(DIGGING_TICKS, 0);
 		this.entityData.define(FROM_BUCKET, false);
 		this.entityData.define(CLIMBING_FACE, ClimbingFace.NORTH);
-	}
-
-	@Override
-	public boolean canBreatheUnderwater() {
-		return true;
 	}
 
 	@Override
@@ -526,7 +523,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@Override
-	public boolean ignoreExplosion() {
+	public boolean ignoreExplosion(Explosion explosion) {
 		return this.isDiggingOrEmerging();
 	}
 
@@ -718,11 +715,6 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		super.calculateEntityAnimation(this.onClimbable() || includeHeight);
 	}
 
-	@Override
-	protected float getStandingEyeHeight(@NotNull Pose pose, @NotNull EntityDimensions dimensions) {
-		return dimensions.height * 0.65F;
-	}
-
 	@Nullable
 	@Override
 	public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob otherParent) {
@@ -907,12 +899,12 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		}
 
 		@Override
-		public boolean canReceiveVibration(@NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull GameEvent gameEvent, GameEvent.@NotNull Context context) {
+		public boolean canReceiveVibration(@NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull Holder<GameEvent> gameEvent, GameEvent.@NotNull Context context) {
 			return Crab.this.isAlive() && Crab.this.isInvisibleWhileUnderground() && (context.sourceEntity() instanceof Player || gameEvent.is(WilderGameEventTags.CRAB_CAN_ALWAYS_DETECT));
 		}
 
 		@Override
-		public void onReceiveVibration(@NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull GameEvent gameEvent, @Nullable Entity entity, @Nullable Entity playerEntity, float distance) {
+		public void onReceiveVibration(@NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull Holder<GameEvent> gameEvent, @Nullable Entity entity, @Nullable Entity playerEntity, float distance) {
 			if (Crab.this.isAlive() && Crab.this.isInvisibleWhileUnderground()) {
 				CrabAi.clearDigCooldown(Crab.this);
 			}

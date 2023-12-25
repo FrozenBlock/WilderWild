@@ -137,12 +137,21 @@ public final class WilderTreePlaced {
 	public static final FrozenPlacedFeature SWAMP_CYPRESS = register("swamp_cypress");
 	public static final FrozenPlacedFeature FALLEN_CYPRESS_CHECKED = register("fallen_cypress_checked");
 	public static final FrozenPlacedFeature SNAPPED_CYPRESS_CHECKED = register("snapped_cypress_checked");
+
 	//TREE ON SAND
-	public static final BlockPredicate SAND_GRASS_TREE_PREDICATE = BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.RED_SAND, Blocks.SAND, Blocks.GRASS);
+
+	public static final BlockPredicate SAND_GRASS_TREE_PREDICATE = BlockPredicate.matchesBlocks(
+		Direction.DOWN.getNormal(),
+		Blocks.RED_SAND,
+		Blocks.SAND,
+		Blocks.SHORT_GRASS
+	);
+
 	public static final List<PlacementModifier> SAND_TREE_FILTER_DECORATOR = List.of(
 		EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.not(BlockPredicate.matchesBlocks(Blocks.SANDSTONE)), 8),
 		BlockPredicateFilter.forPredicate(SAND_GRASS_TREE_PREDICATE)
 	);
+
 	//SHRUB
 	public static final FrozenPlacedFeature BIG_SHRUB_COARSE_CHECKED = register("big_shrub_coarse_checked");
 	public static final FrozenPlacedFeature BIG_SHRUB_COARSE_GRASS_CHECKED = register("big_shrub_coarse_grass_checked");

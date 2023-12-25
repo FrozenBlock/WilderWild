@@ -30,7 +30,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
-import net.minecraft.world.level.block.grower.AbstractTreeGrower;
+import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -43,8 +43,8 @@ import org.jetbrains.annotations.Nullable;
 public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWaterloggedBlock {
 	private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-	public WaterloggableSaplingBlock(@NotNull AbstractTreeGrower generator, @NotNull Properties settings) {
-		super(generator, settings);
+	public WaterloggableSaplingBlock(@NotNull TreeGrower grower, @NotNull Properties settings) {
+		super(grower, settings);
 		this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0).setValue(WATERLOGGED, false));
 	}
 
