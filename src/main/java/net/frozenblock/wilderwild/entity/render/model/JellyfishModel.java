@@ -129,7 +129,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 	public void prepareMobModel(@NotNull T jelly, float limbSwing, float limbSwimgAmount, float partialTick) {
 		this.xRot = -(jelly.xRot1 + partialTick * (jelly.xBodyRot - jelly.xRot1));
 		this.tentXRot = -(jelly.xRot6 + partialTick * (jelly.xRot5 - jelly.xRot6));
-		this.scale = (jelly.prevScale + partialTick * (jelly.scale - jelly.prevScale)) * jelly.getScale();
+		this.scale = (jelly.prevScale + partialTick * (jelly.scale - jelly.prevScale)) * jelly.getAgeScale();
 	}
 
 	@Override

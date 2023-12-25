@@ -167,8 +167,8 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 			nectar = component.getString().toLowerCase().contains("nectar");
 		}
 
-		float prevScale = entity.getPrevScale();
-		float scale = prevScale + (tickDelta * (entity.getScale() - prevScale));
+		float prevScale = entity.getPrevAnimScale();
+		float scale = prevScale + (tickDelta * (entity.getAnimScale() - prevScale));
 
 		int overlay = getOverlay(entity, 0);
 
@@ -176,11 +176,15 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 		boolean flickers = entity.flickers();
 
 
+		poseStack.pushPose();
+		float f = entity.getScale();
+		poseStack.scale(f, f, f);
 		renderFirefly(poseStack, buffer, light, nectar, overlay, age, tickDelta, flickers, entity.getColor(), scale, 0F, Y_OFFSET, 0F, this.entityRenderDispatcher.cameraOrientation());
 
 		if (this.shouldShowName(entity)) {
 			this.renderNameTag(entity, entity.getDisplayName(), poseStack, buffer, light, tickDelta);
 		}
+		poseStack.popPose();
 	}
 
 	@Override
