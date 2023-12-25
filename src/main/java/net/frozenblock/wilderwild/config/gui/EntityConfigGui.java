@@ -243,7 +243,6 @@ public final class EntityConfigGui {
 				.setDefaultValue(defaultConfig.ostrich.spawnOstriches)
 				.setSaveConsumer(newValue -> ostrich.spawnOstriches = newValue)
 				.setTooltip(tooltip("spawn_ostriches"))
-				.requireRestart()
 				.build(),
 			ostrich.getClass(),
 			"spawnOstriches",
@@ -255,7 +254,6 @@ public final class EntityConfigGui {
 				.setDefaultValue(defaultConfig.ostrich.allowAttack)
 				.setSaveConsumer(newValue -> ostrich.allowAttack = newValue)
 				.setTooltip(tooltip("allow_ostrich_attack"))
-				.requireRestart()
 				.build(),
 			ostrich.getClass(),
 			"allowAttack",

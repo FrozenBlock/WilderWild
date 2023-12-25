@@ -617,6 +617,11 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	}
 
 	@Override
+	public boolean canEatGrass() {
+		return false;
+	}
+
+	@Override
 	public boolean canMate(@NotNull Animal otherAnimal) {
 		if (otherAnimal != this && otherAnimal instanceof Ostrich ostrich) {
             return this.canParent() && ostrich.canParent();
@@ -834,9 +839,8 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	@Override
 	public float nextStep() {
-		return this.moveDist + 1F + (this.isVehicle() ? 0.75F : 0) + (this.getAdditionalSpeed() * 5);
+		return this.moveDist + 1F + (this.isVehicle() ? 0.75F : 0F) + (this.getAdditionalSpeed() * 5);
 	}
-
 	@Override
 	public void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
 		this.playSound(RegisterSounds.ENTITY_OSTRICH_STEP, 0.1F, 0.9F + this.getRandom().nextFloat() * 0.2F);
