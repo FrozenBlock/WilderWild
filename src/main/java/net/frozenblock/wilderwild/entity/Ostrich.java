@@ -453,7 +453,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	}
 
 	public void performAttack(float power, @Nullable Entity commander) {
-		if (commander != null && EntityConfig.get().ostrich.allowAttack) return;
+		if (commander != null && !EntityConfig.get().ostrich.allowAttack) return;
 		this.setBeakCooldown(BEAK_COOLDOWN_TICKS);
 		this.setAttacking(true);
 		this.setTargetBeakAnimProgress(power);
