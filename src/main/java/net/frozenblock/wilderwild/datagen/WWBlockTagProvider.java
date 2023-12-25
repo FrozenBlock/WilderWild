@@ -355,7 +355,8 @@ final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 			.add(Blocks.GRAVEL);
 
 		this.getOrCreateTagBuilder(WilderBlockTags.OSTRICH_BEAK_BURYABLE)
-			.addOptionalTag(BlockTags.MINEABLE_WITH_SHOVEL);
+			.addOptionalTag(BlockTags.MINEABLE_WITH_SHOVEL)
+			.addOptionalTag(BlockTags.WOOL);
 
 		this.getOrCreateTagBuilder(WilderBlockTags.NO_LIGHTNING_BLOCK_PARTICLES)
 			.add(Blocks.LIGHTNING_ROD);

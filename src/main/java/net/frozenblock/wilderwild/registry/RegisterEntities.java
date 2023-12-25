@@ -35,7 +35,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -59,7 +58,7 @@ public final class RegisterEntities {
 			.spawnGroup(FrozenMobCategories.getCategory(WilderSharedConstants.MOD_ID, "fireflies"))
 			.entityFactory(Firefly::new)
 			.defaultAttributes(Firefly::createAttributes)
-			.spawnRestriction(SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING, Firefly::canSpawn)
+			.spawnRestriction(SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING, Firefly::checkFireflySpawnRules)
 			.dimensions(EntityDimensions.scalable(0.3F, 0.3F))
 			.build()
 	);
@@ -70,7 +69,7 @@ public final class RegisterEntities {
 			.spawnGroup(FrozenMobCategories.getCategory(WilderSharedConstants.MOD_ID, "jellyfish"))
 			.entityFactory(Jellyfish::new)
 			.defaultAttributes(Jellyfish::createAttributes)
-			.spawnRestriction(SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Jellyfish::canSpawn)
+			.spawnRestriction(SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Jellyfish::checkJellyfishSpawnRules)
 			.dimensions(EntityDimensions.scalable(0.4F, 0.4F).withEyeHeight(0.4F * 0.5F)) // eye height is the height * 0.5F
 			.build()
 	);
@@ -81,7 +80,7 @@ public final class RegisterEntities {
 			.spawnGroup(FrozenMobCategories.getCategory(WilderSharedConstants.MOD_ID, "tumbleweed"))
 			.entityFactory(Tumbleweed::new)
 			.defaultAttributes(Tumbleweed::createAttributes)
-			.spawnRestriction(SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Tumbleweed::canSpawn)
+			.spawnRestriction(SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Tumbleweed::checkTumbleweedSpawnRules)
 			.dimensions(EntityDimensions.scalable(0.98F, 0.98F).withEyeHeight(0.98F * 0.5F)) // eye height is the height * 0.5F
 			.build()
 	);
@@ -92,7 +91,7 @@ public final class RegisterEntities {
 			.spawnGroup(FrozenMobCategories.getCategory(WilderSharedConstants.MOD_ID, "crab"))
 			.entityFactory(Crab::new)
 			.defaultAttributes(Crab::createAttributes)
-			.spawnRestriction(SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Crab::canSpawn)
+			.spawnRestriction(SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Crab::checkCrabSpawnRules)
 			.dimensions(EntityDimensions.scalable(0.5F, 0.5F).withEyeHeight(0.5F * 0.65F)) // eye height is the height * 0.65F
 			.build()
 	);
@@ -103,8 +102,8 @@ public final class RegisterEntities {
 			.spawnGroup(MobCategory.CREATURE)
 			.entityFactory(Ostrich::new)
 			.defaultAttributes(Ostrich::createAttributes)
-			.spawnRestriction(SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules)
-			.dimensions(EntityDimensions.scalable(1.25F, 2.3F))
+			.spawnRestriction(SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Ostrich::checkOstrichSpawnRules)
+			.dimensions(EntityDimensions.scalable(1.25F, 2.3F).withEyeHeight(2.3F)) // eye height is hitbox height
 			.build()
 	);
 

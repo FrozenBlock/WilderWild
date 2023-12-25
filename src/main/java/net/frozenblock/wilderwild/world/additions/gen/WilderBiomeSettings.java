@@ -39,7 +39,8 @@ public final class WilderBiomeSettings {
 		WilderWaterColors.stirWater();
 		WilderSpawns.addFireflies();
 		WilderSpawns.addJellyfish();
-		WilderSpawns.addCrab();
+		WilderSpawns.addCrabs();
+		WilderSpawns.addOstriches();
 		WilderSpawns.addTumbleweed();
 		WilderSpawns.addRabbits();
 	}

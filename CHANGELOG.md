@@ -10,11 +10,17 @@ TODO:
 - Add dying snowy mixed forest
 
 Added the Ostrich
-- Is tamed the same way as Horses, but takes a bit longer
+- Is tamed the same way as Horses, but takes a bit longer due to their feistier nature
 - Instead of jumping, will attack with its beak depending on how strong the meter was charged
-- If its beak hits the ground while trying to attack, it may get stuck temporarily
+    - If its beak hits a softer block while trying to attack, it may get stuck temporarily
+    - Added the `wilderwild:ostrich_beak_buryable` tag to control which blocks these are, currently containing the tags `minecraft:mineable/shovel` and `minecraft:wool`
+    - Added a new `Ostrich Peck Attack` config option to control whether or not players can use the Ostrich's attack
 - Can be bred with Bushes
     - Will lay an egg upon breeding
+    - This egg does not require Silk Touch to be obtained
+- Naturally spawns in the Savanna, Savanna Plateau, and Windswept Savanna biomes
+    - Added the `wilderwild:has_ostrich` biome tag to control the biomes it spawns in
+    - Added the `Spawn Ostriches` config option to control whether or not Ostriches will spawn naturally
 
 - Added the Bush, Tumbleweed, Tumbleweed Stem, Milkweed, Datura, Cattail, Flowering Lily Pad, Algae, Shelf Fungus, Small Sponge, Prickly Pear Cactus, and Nematocyst blocks to the `minecraft:sword_efficient` tag
 - Defined the Random Sequence for every one of Wilder Wild's loot tables
@@ -25,3 +31,4 @@ Added the Ostrich
 - The Warden will no longer play heartbeat sounds while it is dying
 - Prevented the Warden from moving while it is digging or emerging
 - Changed the Warden's secret death sound from stereo to mono
+- Refactored mob's `canSpawn` methods to reflect Vanilla, following the template "checkXSpawnRules"

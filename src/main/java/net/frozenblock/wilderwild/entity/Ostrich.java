@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.UUID;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.particle.api.FrozenParticleTypes;
+import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichAi;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichBodyRotationControl;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichLookControl;
@@ -43,6 +44,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -53,8 +55,8 @@ import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.PlayerRideableJumping;
-import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.Saddleable;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -69,6 +71,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -82,7 +85,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
 
 public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Saddleable {
 	public static final Ingredient TEMPTATION_ITEM = Ingredient.of(WilderItemTags.OSTRICH_FOOD);
@@ -176,6 +178,11 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		super.customServerAiStep();
 	}
 
+	public static boolean checkOstrichSpawnRules(EntityType<? extends Ostrich> ostrich, @NotNull LevelAccessor level, MobSpawnType spawnType, @NotNull BlockPos pos, RandomSource random) {
+		if (!EntityConfig.get().ostrich.spawnOstriches) return false;
+		return Animal.checkAnimalSpawnRules(ostrich, level, spawnType, pos, random);
+	}
+
 	@Override
 	public void tick() {
 		this.prevBeakAnimProgress = this.getTargetBeakAnimProgress();
@@ -183,7 +190,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		super.tick();
 
 		if (this.getBeakCooldown() == 0 && (this.isBeakTouchingFluid() || this.isEyeTouchingFluid() || this.isBeakTouchingHardBlock())) {
-			this.setBeakCooldown(1);
+			this.setBeakCooldown(2);
 		}
 
 		if (this.getBeakCooldown() > 0) {
@@ -224,6 +231,9 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	private void handleAttackAndStuck() {
 		if (this.isAttacking()) {
+			if (!EntityConfig.get().ostrich.allowAttack && this.attackHasCommander) {
+				this.cancelAttack(true);
+			}
 			Vec3 beakPos = this.getBeakPos();
 			boolean hasAttacked = false;
 			AABB attackBox = AABB.ofSize(beakPos, 0.25D, 0.25D, 0.25D);
@@ -424,7 +434,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 			if (travelVector.z <= 0.0) {
 				this.gallopSoundCounter = 0;
 			}
-			if (this.playerJumpPendingScale > 0.0F) {
+			if (EntityConfig.get().ostrich.allowAttack && this.playerJumpPendingScale > 0.0F) {
 				this.executeRidersJump(this.playerJumpPendingScale, travelVector);
 			}
 			this.playerJumpPendingScale = 0.0F;
@@ -443,6 +453,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	}
 
 	public void performAttack(float power, @Nullable Entity commander) {
+		if (commander != null && EntityConfig.get().ostrich.allowAttack) return;
 		this.setBeakCooldown(BEAK_COOLDOWN_TICKS);
 		this.setAttacking(true);
 		this.setTargetBeakAnimProgress(power);
@@ -490,7 +501,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	@Override
 	public boolean canJump() {
-		return !this.refuseToMove() && super.canJump();
+		return EntityConfig.get().ostrich.allowAttack && !this.refuseToMove() && super.canJump();
 	}
 
 	@Override
@@ -785,11 +796,6 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		return !fluidState.isEmpty() && (fluidState.getHeight(this.level(), eyePos) + eyePos.getY() >= eyeVec.y());
 	}
 
-	@Override
-	public float getStandingEyeHeight(@NotNull Pose pose, @NotNull EntityDimensions dimensions) {
-		return dimensions.height;
-	}
-
 	@Nullable
 	@Override
 	public SoundEvent getEatingSound() {
@@ -838,13 +844,8 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	@NotNull
 	@Override
-	public Vector3f getPassengerAttachmentPoint(@NotNull Entity entity, @NotNull EntityDimensions dimensions, float scale) {
-		return new Vector3f(0.0F, this.getPassengersRidingOffsetY(dimensions, scale), 0);
-	}
-
-	@Override
-	public float getPassengersRidingOffsetY(@NotNull EntityDimensions entityDimensions, float f) {
-		return entityDimensions.height * 0.775F * f;
+	public Vec3 getPassengerAttachmentPoint(@NotNull Entity entity, @NotNull EntityDimensions dimensions, float scale) {
+		return new Vec3(0.0F, dimensions.height() * 0.775F * scale, 0);
 	}
 
 	@Override

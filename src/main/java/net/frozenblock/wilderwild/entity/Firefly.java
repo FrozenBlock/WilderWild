@@ -119,7 +119,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		this.setColor(FireflyColor.ON);
 	}
 
-	public static boolean canSpawn(@NotNull EntityType<Firefly> type, @NotNull LevelAccessor level, MobSpawnType reason, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public static boolean checkFireflySpawnRules(@NotNull EntityType<Firefly> type, @NotNull LevelAccessor level, MobSpawnType reason, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		boolean chance = random.nextInt(0, 75) == 0;
 		Holder<Biome> biomeHolder = level.getBiome(pos);
 		if (biomeHolder.is(WilderBiomeTags.FIREFLY_SPAWNABLE_CAVE)) {
