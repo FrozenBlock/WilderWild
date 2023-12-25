@@ -728,8 +728,8 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	}
 
 	@Override
-	protected Vec3 getLeashOffset() {
-		return super.getLeashOffset().subtract(0D, this.getEyeY() / 1.936842105263158D, 0D);
+	public Vec3 getLeashOffset() {
+		return new Vec3(0D, this.getEyeHeight() * 0.5163043478260869D, this.getBbWidth() * 0.4D);
 	}
 
 	private void clampHeadRotationToBody(@NotNull Entity entity, float maxYRot) {

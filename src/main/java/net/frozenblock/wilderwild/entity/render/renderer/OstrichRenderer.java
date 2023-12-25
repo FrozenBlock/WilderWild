@@ -18,8 +18,6 @@
 
 package net.frozenblock.wilderwild.entity.render.renderer;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
 import net.frozenblock.wilderwild.WilderWildClient;
 import net.frozenblock.wilderwild.entity.Ostrich;
 import net.frozenblock.wilderwild.entity.render.model.OstrichModel;
@@ -39,12 +37,6 @@ public class OstrichRenderer<T extends Ostrich> extends MobRenderer<T, OstrichMo
 
 	public OstrichRenderer(EntityRendererProvider.Context context, ModelLayerLocation layer) {
 		super(context, new OstrichModel<>(context.bakeLayer(layer)), 0.9F);
-	}
-
-	@Override
-	public void setupRotations(@NotNull T entityLiving, @NotNull PoseStack matrixStack, float ageInTicks, float rotationYaw, float partialTick) {
-		matrixStack.mulPose(Axis.YP.rotationDegrees(180F));
-		super.setupRotations(entityLiving, matrixStack, ageInTicks, rotationYaw, partialTick);
 	}
 
 	@Override
