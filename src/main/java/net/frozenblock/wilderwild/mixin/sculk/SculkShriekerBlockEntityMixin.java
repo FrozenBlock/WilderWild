@@ -24,6 +24,7 @@ import net.frozenblock.wilderwild.misc.interfaces.SculkShriekerTickInterface;
 import net.frozenblock.wilderwild.networking.packet.WilderFloatingSculkBubbleParticlePacket;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -108,7 +109,7 @@ public abstract class SculkShriekerBlockEntityMixin implements SculkShriekerTick
 		SculkShriekerBlockEntity field_44621;
 
 		@Inject(at = @At("HEAD"), method = "canReceiveVibration", cancellable = true)
-		public void wilderWild$canReceiveVibration(ServerLevel world, BlockPos pos, GameEvent gameEvent, GameEvent.Context context, CallbackInfoReturnable<Boolean> info) {
+		public void wilderWild$canReceiveVibration(ServerLevel world, BlockPos pos, Holder<GameEvent> holder, GameEvent.Context eventContext, CallbackInfoReturnable<Boolean> info) {
 			if (this.field_44621.getBlockState().getValue(RegisterProperties.SOULS_TAKEN) == 2) {
 				info.setReturnValue(false);
 			}
