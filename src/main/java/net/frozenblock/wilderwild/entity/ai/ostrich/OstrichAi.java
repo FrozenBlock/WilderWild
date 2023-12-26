@@ -187,7 +187,7 @@ public class OstrichAi {
 				),
 				SetEntityLookTarget.create(livingEntity -> isTarget(ostrich, livingEntity), (float) ostrich.getAttributeValue(Attributes.FOLLOW_RANGE)),
 				SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(OstrichAi::getSpeedModifierChasing),
-				OstrichMeleeAttack.create(40),
+				OstrichMeleeAttack.create(5),
 				EraseMemoryIf.create(BehaviorUtils::isBreeding, MemoryModuleType.ATTACK_TARGET)
 			),
 			MemoryModuleType.ATTACK_TARGET

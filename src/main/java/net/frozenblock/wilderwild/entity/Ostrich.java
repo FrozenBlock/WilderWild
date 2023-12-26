@@ -95,6 +95,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	public static final int BEAK_COOLDOWN_TICKS = 60;
 	public static final int BEAK_COOLDOWN_TICKS_SUCCESSFUL_HIT = 20;
 	public static final int BEAK_STUCK_TICKS = 100;
+	public static final int BEAK_STUCK_TICKS_AGGRESSIVE = 60;
 	public static final float MAX_ATTACK_DAMAGE = 6F;
 
 	public static final EntityDataAccessor<Float> TARGET_BEAK_ANIM_PROGRESS = SynchedEntityData.defineId(Ostrich.class, EntityDataSerializers.FLOAT);
@@ -296,8 +297,8 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 				}
 
 				if (this.canGetHeadStuck()) {
-					this.setBeakCooldown(BEAK_STUCK_TICKS + BEAK_COOLDOWN_TICKS);
-					this.setStuckTicks(BEAK_STUCK_TICKS);
+					this.setBeakCooldown(this.isAggressive() ? BEAK_STUCK_TICKS_AGGRESSIVE + BEAK_COOLDOWN_TICKS_SUCCESSFUL_HIT : BEAK_STUCK_TICKS + BEAK_COOLDOWN_TICKS);
+					this.setStuckTicks(this.isAggressive() ? BEAK_STUCK_TICKS_AGGRESSIVE : BEAK_STUCK_TICKS);
 					this.setAttacking(false);
 					this.setTargetBeakAnimProgress(this.getBeakAnimProgress(1F));
 					this.playSound(RegisterSounds.ENTITY_OSTRICH_BEAK_STUCK);
@@ -363,7 +364,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	@Override
 	public void swing(@NotNull InteractionHand hand, boolean updateSelf) {
-		if (!this.isAttacking() || this.getBeakCooldown() <= 0 && !this.isStuck()) {
+		if (!this.isAttacking() && this.getBeakCooldown() <= 0 && !this.isStuck()) {
 			this.performAttack(0.6F + (this.getRandom().nextFloat() * 0.4F), null);
 		}
 	}
@@ -377,7 +378,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	public void emergeBeak() {
 		this.setStuckTicks(0);
-		this.setBeakCooldown(BEAK_COOLDOWN_TICKS);
+		this.setBeakCooldown(this.isAggressive() ? BEAK_COOLDOWN_TICKS_SUCCESSFUL_HIT : BEAK_COOLDOWN_TICKS);
 		this.setTargetBeakAnimProgress(0F);
 	}
 
