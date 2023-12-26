@@ -82,6 +82,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -208,7 +209,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		this.beakAnimProgress = this.beakAnimProgress + ((this.getTargetBeakAnimProgress() - this.beakAnimProgress) * this.getBeakEaseAmount());
 		this.beakPosition = this.makeBeakPos();
 		this.beakState = this.makeBeakState();
-		this.beakVoxelShape = this.getBeakState().getShape(this.level(), BlockPos.containing(this.getBeakPos()));
+		this.beakVoxelShape = this.getBeakState().getCollisionShape(this.level(), BlockPos.containing(this.getBeakPos()), CollisionContext.of(this));
 
 		if (!this.level().isClientSide) {
 			this.handleAttackAndStuck();
