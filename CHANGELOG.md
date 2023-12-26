@@ -7,6 +7,7 @@ Thank you!
 - Stopped Crabs from moving when they aren't supposed to
 - Renamed the `wilderwild:crab_tempt_items` tag to `wilderwild:crab_food`
 - Fixed the Looting enchantment not affecting the Crab claw loot table
+- Fixed Display Lanterns not properly saving Fireflies to the item when broken with Silk Touch, and not spawning Fireflies upon breaking without Silk Touch
 - Fixed log spam of the Enderman anger sound predicate
 - Fixed tags on 1.20.4
 - Fixed potted grass loot table on 1.20.4

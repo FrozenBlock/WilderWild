@@ -171,13 +171,15 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	public void spawnFireflies() {
 		if (this.level != null) {
 			if (!this.level.isClientSide) {
-				doFireflySpawns(level);
+				this.doFireflySpawns(level);
 			}
 		}
 	}
 
 	public void spawnFireflies(@NotNull Level level) {
-		doFireflySpawns(level);
+		if (!this.getFireflies().isEmpty()) {
+			this.doFireflySpawns(level);
+		}
 	}
 
 	private void doFireflySpawns(@NotNull Level level) {
@@ -191,7 +193,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 					entity.hasHome = true;
 					FireflyAi.rememberHome(entity, entity.blockPosition());
 					entity.setColor(firefly.color);
-					entity.setScale(1.0F);
+					entity.setAnimScale(1.0F);
 					if (!Objects.equals(firefly.customName, "")) {
 						entity.setCustomName(Component.nullToEmpty(firefly.customName));
 					}
