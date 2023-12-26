@@ -189,7 +189,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		this.prevBeakPosition = this.getBeakPos();
 		super.tick();
 
-		if (this.getBeakCooldown() == 0 && (this.isBeakTouchingFluid() || this.isEyeTouchingFluid() || this.isBeakTouchingHardBlock())) {
+		if (this.getBeakCooldown() <= 1 && (this.isBeakTouchingFluid() || this.isEyeTouchingFluid() || this.isBeakTouchingHardBlock())) {
 			this.setBeakCooldown(2);
 		}
 
