@@ -101,6 +101,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	public static final float MAX_ATTACK_DAMAGE = 6F;
 	public static final double ATTACK_BOX_WIDTH = 0.35F;
 	public static final double ATTACK_BOX_HEIGHT = 0.5F;
+	public static final double DIMENSION_PERCENTAGE_AT_NECK = 0.5163043478260869D;
 
 	public static final EntityDataAccessor<Float> TARGET_BEAK_ANIM_PROGRESS = SynchedEntityData.defineId(Ostrich.class, EntityDataSerializers.FLOAT);
 	public static final EntityDataAccessor<Float> TARGET_STRAIGHT_PROGRESS = SynchedEntityData.defineId(Ostrich.class, EntityDataSerializers.FLOAT);
@@ -615,6 +616,72 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		return bl;
 	}
 
+	@NotNull
+	private Vec3 makeBeakPos() {
+		Vec3 currentPos = this.position().add(0D, DIMENSION_PERCENTAGE_AT_NECK * this.getEyeHeight(), 0D);
+		Vec3 lookOrientation = Vec3.directionFromRotation(new Vec2(0F, this.getYHeadRot()));
+		Vec3 headBasePos = currentPos.add(lookOrientation.scale(0.895D * this.getScale() * this.getAgeScale()));
+		Vec3 rotPos = AdvancedMath.rotateAboutX(Vec3.ZERO, 1.25D * this.getScale() * this.getAgeScale(), this.getBeakAnimProgress(1F) * 180D);
+		Vec3 beakPos = headBasePos.add(0, rotPos.x(), 0).add(lookOrientation.scale(rotPos.z()));
+
+		if (false) {
+			if (this.level() instanceof ServerLevel serverLevel) {
+				serverLevel.sendParticles(FrozenParticleTypes.DEBUG_POS, headBasePos.x, headBasePos.y, headBasePos.z, 1, 0, 0, 0, 0);
+				serverLevel.sendParticles(FrozenParticleTypes.DEBUG_POS, beakPos.x, beakPos.y, beakPos.z, 1, 0, 0, 0, 0);
+			}
+		}
+		return beakPos;
+	}
+
+	@NotNull
+	public Vec3 getPrevBeakPos() {
+		return this.prevBeakPosition != null ? this.prevBeakPosition : (this.prevBeakPosition = this.makeBeakPos());
+	}
+
+	@NotNull
+	public Vec3 getBeakPos() {
+		return this.beakPosition != null ? this.beakPosition : (this.beakPosition = this.makeBeakPos());
+	}
+
+	@NotNull
+	public BlockState getBeakState() {
+		return this.beakState != null ? this.beakState : (this.beakState = this.makeBeakState());
+	}
+
+	@NotNull
+	private BlockState makeBeakState() {
+		return this.level().getBlockState(BlockPos.containing(this.getBeakPos()));
+	}
+
+	public boolean canGetHeadStuck() {
+		return this.getBeakState().is(WilderBlockTags.OSTRICH_BEAK_BURYABLE);
+	}
+
+	public boolean isBeakTouchingFluid() {
+		Vec3 beakVec = this.getBeakPos();
+		BlockPos beakPos = BlockPos.containing(beakVec);
+		FluidState fluidState = this.getBeakState().getFluidState();
+		return !fluidState.isEmpty() && (fluidState.getHeight(this.level(), beakPos) + beakPos.getY() >= beakVec.y());
+	}
+
+	public boolean isBeakTouchingHardBlock() {
+		Vec3 beakVec = this.getBeakPos();
+		BlockPos beakPos = BlockPos.containing(beakVec);
+		if (this.beakVoxelShape != null && !this.beakVoxelShape.isEmpty()) {
+			AABB collisionShape = this.beakVoxelShape.bounds().move(beakPos);
+			return !canGetHeadStuck() && collisionShape.contains(beakVec);
+		}
+		return false;
+	}
+
+	public boolean isEyeTouchingFluid() {
+		Vec3 eyeVec = this.getEyePosition();
+		BlockPos eyePos = BlockPos.containing(eyeVec);
+		FluidState fluidState = this.getBeakState().getFluidState();
+		return !fluidState.isEmpty() && (fluidState.getHeight(this.level(), eyePos) + eyePos.getY() >= eyeVec.y());
+	}
+
+
 	@Override
 	public int getMaxTemper() {
 		return 150;
@@ -676,7 +743,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	@NotNull
 	@Override
 	public Vec3 getLeashOffset() {
-		return new Vec3(0.0, 0.5163043478260869D * this.getEyeHeight(), this.getBbWidth() * 0.45D);
+		return new Vec3(0.0, DIMENSION_PERCENTAGE_AT_NECK * this.getEyeHeight(), this.getBbWidth() * 0.5D);
 	}
 
 	@Override
@@ -755,74 +822,10 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		entity.setYHeadRot(i);
 	}
 
-	@NotNull
-	private Vec3 makeBeakPos() {
-		Vec3 currentPos = this.position().add(0D, 0.5163043478260869D * this.getEyeHeight(), 0D);
-		Vec3 lookOrientation = Vec3.directionFromRotation(new Vec2(0F, this.getYHeadRot()));
-		Vec3 headBasePos = currentPos.add(lookOrientation.scale(0.895D * this.getScale() * this.getAgeScale()));
-		Vec3 rotPos = AdvancedMath.rotateAboutX(Vec3.ZERO, 1.25D * this.getScale() * this.getAgeScale(), this.getBeakAnimProgress(1F) * 180D);
-		Vec3 beakPos = headBasePos.add(0, rotPos.x(), 0).add(lookOrientation.scale(rotPos.z()));
-
-		if (false) {
-			if (this.level() instanceof ServerLevel serverLevel) {
-				serverLevel.sendParticles(FrozenParticleTypes.DEBUG_POS, headBasePos.x, headBasePos.y, headBasePos.z, 1, 0, 0, 0, 0);
-				serverLevel.sendParticles(FrozenParticleTypes.DEBUG_POS, beakPos.x, beakPos.y, beakPos.z, 1, 0, 0, 0, 0);
-			}
-		}
-		return beakPos;
-	}
-
-	@NotNull
-	public Vec3 getPrevBeakPos() {
-		return this.prevBeakPosition != null ? this.prevBeakPosition : (this.prevBeakPosition = this.makeBeakPos());
-	}
-
-	@NotNull
-	public Vec3 getBeakPos() {
-		return this.beakPosition != null ? this.beakPosition : (this.beakPosition = this.makeBeakPos());
-	}
-
-	@NotNull
-	public BlockState getBeakState() {
-		return this.beakState != null ? this.beakState : (this.beakState = this.makeBeakState());
-	}
-
-	@NotNull
-	private BlockState makeBeakState() {
-		return this.level().getBlockState(BlockPos.containing(this.getBeakPos()));
-	}
-
-	public boolean canGetHeadStuck() {
-		return this.getBeakState().is(WilderBlockTags.OSTRICH_BEAK_BURYABLE);
-	}
-
-	public boolean isBeakTouchingFluid() {
-		Vec3 beakVec = this.getBeakPos();
-		BlockPos beakPos = BlockPos.containing(beakVec);
-		FluidState fluidState = this.getBeakState().getFluidState();
-		return !fluidState.isEmpty() && (fluidState.getHeight(this.level(), beakPos) + beakPos.getY() >= beakVec.y());
-	}
-
-	public boolean isBeakTouchingHardBlock() {
-		Vec3 beakVec = this.getBeakPos();
-		BlockPos beakPos = BlockPos.containing(beakVec);
-		if (this.beakVoxelShape != null && !this.beakVoxelShape.isEmpty()) {
-			AABB collisionShape = this.beakVoxelShape.bounds().move(beakPos);
-			return !canGetHeadStuck() && collisionShape.contains(beakVec);
-		}
-		return false;
-	}
-
-	public boolean isEyeTouchingFluid() {
-		Vec3 eyeVec = this.getEyePosition();
-		BlockPos eyePos = BlockPos.containing(eyeVec);
-		FluidState fluidState = this.getBeakState().getFluidState();
-		return !fluidState.isEmpty() && (fluidState.getHeight(this.level(), eyePos) + eyePos.getY() >= eyeVec.y());
-	}
-
 	@Nullable
 	@Override
 	public SoundEvent getEatingSound() {
+		if (this.isInbred()) return RegisterSounds.ENTITY_OSTRICH_INBRED_IDLE_AH;
 		return RegisterSounds.ENTITY_OSTRICH_EAT;
 	}
 
@@ -835,6 +838,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	@Nullable
 	@Override
 	public SoundEvent getAngrySound() {
+		if (this.isInbred()) return RegisterSounds.ENTITY_OSTRICH_INBRED_IDLE_AH;
 		return RegisterSounds.ENTITY_OSTRICH_GRUNT;
 	}
 
@@ -846,6 +850,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	@Nullable
 	@Override
 	public SoundEvent getAmbientSound() {
+		if (this.isInbred()) return this.getRandom().nextFloat() <= 0.555F ? RegisterSounds.ENTITY_OSTRICH_INBRED_IDLE_AH : RegisterSounds.ENTITY_OSTRICH_INBRED_IDLE_BOCK;
 		return !this.isAggressive() ? RegisterSounds.ENTITY_OSTRICH_IDLE :
 			this.getRandom().nextBoolean() ? RegisterSounds.ENTITY_OSTRICH_HISS : RegisterSounds.ENTITY_OSTRICH_GRUNT;
 	}
@@ -853,12 +858,14 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	@Nullable
 	@Override
 	public SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
+		if (this.isInbred()) return RegisterSounds.ENTITY_OSTRICH_INBRED_HURT;
 		return RegisterSounds.ENTITY_OSTRICH_HURT;
 	}
 
 	@Nullable
 	@Override
 	public SoundEvent getDeathSound() {
+		if (this.isInbred()) return RegisterSounds.ENTITY_OSTRICH_INBRED_DEATH;
 		return RegisterSounds.ENTITY_OSTRICH_DEATH;
 	}
 
