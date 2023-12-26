@@ -98,12 +98,12 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	public static final float MAX_ATTACK_DAMAGE = 6F;
 
 	public static final EntityDataAccessor<Float> TARGET_BEAK_ANIM_PROGRESS = SynchedEntityData.defineId(Ostrich.class, EntityDataSerializers.FLOAT);
-	public static final EntityDataAccessor<Float> TARGET_PASSENGER_PROGRESS = SynchedEntityData.defineId(Ostrich.class, EntityDataSerializers.FLOAT);
+	public static final EntityDataAccessor<Float> TARGET_STRAIGHT_PROGRESS = SynchedEntityData.defineId(Ostrich.class, EntityDataSerializers.FLOAT);
 	public static final EntityDataAccessor<Boolean> IS_ATTACKING = SynchedEntityData.defineId(Ostrich.class, EntityDataSerializers.BOOLEAN);
 	public static final EntityDataAccessor<Integer> BEAK_COOLDOWN = SynchedEntityData.defineId(Ostrich.class, EntityDataSerializers.INT);
 	public static final EntityDataAccessor<Integer> STUCK_TICKS = SynchedEntityData.defineId(Ostrich.class, EntityDataSerializers.INT);
-	private float prevPassengerProgress;
-	private float passengerProgress;
+	private float prevStraightProgress;
+	private float straightProgress;
 	private float prevBeakAnimProgress;
 	private float beakAnimProgress;
 	@Nullable
@@ -141,7 +141,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	protected void defineSynchedData() {
 		super.defineSynchedData();
 		this.entityData.define(TARGET_BEAK_ANIM_PROGRESS, 0F);
-		this.entityData.define(TARGET_PASSENGER_PROGRESS, 0F);
+		this.entityData.define(TARGET_STRAIGHT_PROGRESS, 0F);
 		this.entityData.define(IS_ATTACKING, false);
 		this.entityData.define(BEAK_COOLDOWN, 0);
 		this.entityData.define(STUCK_TICKS, 0);
@@ -218,22 +218,22 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		if (!this.level().isClientSide) {
 			this.handleAttackAndStuck();
 
-			if (this.getFirstPassenger() != null) {
-				this.setTargetPassengerProgress(1F);
+			if (this.getFirstPassenger() != null || this.isAggressive()) {
+				this.setTargetStraightProgress(1F);
 			} else {
-				this.setTargetPassengerProgress(0F);
+				this.setTargetStraightProgress(0F);
 			}
+
+			this.setAggressive(this.hasAttackTarget());
 		}
-		this.prevPassengerProgress = this.passengerProgress;
-		this.passengerProgress = this.passengerProgress + ((this.getTargetPassengerProgress() - this.passengerProgress) * 0.3F);
+		this.prevStraightProgress = this.straightProgress;
+		this.straightProgress = this.straightProgress + ((this.getTargetStraightProgress() - this.straightProgress) * 0.3F);
 
 		if (this.isStuck()) {
 			Vec3 deltaMovement = this.getDeltaMovement();
 			this.setDeltaMovement(deltaMovement.x() * 0.25D, deltaMovement.y(), deltaMovement.z() * 0.25D);
 			this.getNavigation().stop();
 		}
-
-        this.setAggressive(this.hasAttackTarget());
 	}
 
 	private void handleAttackAndStuck() {
@@ -748,16 +748,16 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		return Math.min(Mth.lerp(delta, this.prevBeakAnimProgress, this.beakAnimProgress), 1F);
 	}
 
-	public void setTargetPassengerProgress(float progress) {
-		this.entityData.set(TARGET_PASSENGER_PROGRESS, progress);
+	public void setTargetStraightProgress(float progress) {
+		this.entityData.set(TARGET_STRAIGHT_PROGRESS, progress);
 	}
 
-	private float getTargetPassengerProgress() {
-		return this.entityData.get(TARGET_PASSENGER_PROGRESS);
+	private float getTargetStraightProgress() {
+		return this.entityData.get(TARGET_STRAIGHT_PROGRESS);
 	}
 
-	public float getTargetPassengerProgress(float delta) {
-		return Mth.lerp(delta, this.prevPassengerProgress, this.passengerProgress);
+	public float getTargetStraightProgress(float delta) {
+		return Mth.lerp(delta, this.prevStraightProgress, this.straightProgress);
 	}
 
 	private void setAttacking(boolean isAttacking) {
@@ -795,9 +795,8 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	@NotNull
 	private Vec3 makeBeakPos() {
 		Vec3 currentPos = this.position().add(0D, 1.1875D, 0D);
-		Vec3 lookOrientation = this.getLookAngle();
-		lookOrientation = lookOrientation.subtract(0D, lookOrientation.y(), 0D);
-		Vec3 headBasePos = currentPos.add(lookOrientation.scale(0.875D));
+		Vec3 lookOrientation = Vec3.directionFromRotation(new Vec2(0F, this.getYHeadRot()));
+		Vec3 headBasePos = currentPos.add(lookOrientation.scale(0.895D));
 		Vec3 rotPos = AdvancedMath.rotateAboutX(Vec3.ZERO, 1.25D, this.getBeakAnimProgress(1F) * 180D);
 		Vec3 beakPos = headBasePos.add(0, rotPos.x(), 0).add(lookOrientation.scale(rotPos.z()));
 
@@ -934,7 +933,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		super.addAdditionalSaveData(compound);
 		compound.putInt("BeakCooldown", this.getBeakCooldown());
 		compound.putFloat("TargetBeakAnimProgress", this.getTargetBeakAnimProgress());
-		compound.putFloat("TargetPassengerProgress", this.getTargetPassengerProgress());
+		compound.putFloat("TargetStraightProgress", this.getTargetStraightProgress());
 		compound.putBoolean("IsAttacking", this.isAttacking());
 		compound.putInt("StuckTicks", this.getStuckTicks());
 		compound.putFloat("BeakAnimProgress", this.beakAnimProgress);
@@ -950,7 +949,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		super.readAdditionalSaveData(compound);
 		this.setBeakCooldown(compound.getInt("BeakCooldown"));
 		this.setTargetBeakAnimProgress(compound.getFloat("TargetBeakAnimProgress"));
-		this.setTargetPassengerProgress(compound.getFloat("TargetPassengerProgress"));
+		this.setTargetStraightProgress(compound.getFloat("TargetStraightProgress"));
 		this.setAttacking(compound.getBoolean("IsAttacking"));
 		this.setStuckTicks(compound.getInt("StuckTicks"));
 		this.beakAnimProgress = compound.getFloat("BeakAnimProgress");

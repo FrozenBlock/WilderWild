@@ -126,7 +126,7 @@ public class OstrichModel<T extends Ostrich> extends HierarchicalModel<T> {
 		this.neck_base.xRot = rotation * 0.3F;
 		this.neck.xRot = rotation * 0.7F;
 
-		headPitch = Mth.lerp(entity.getTargetPassengerProgress(this.partialTick), headPitch, Math.min(headPitch, 0F));
+		headPitch = Mth.lerp(entity.getTargetStraightProgress(this.partialTick), headPitch, Math.min(headPitch, 0F));
 		headPitch = Mth.lerp(beakAnimProgress, headPitch, 0F);
 
 		float fastAngleNeckBase = limbSwing * 0.3331F + NECK_DELAY;

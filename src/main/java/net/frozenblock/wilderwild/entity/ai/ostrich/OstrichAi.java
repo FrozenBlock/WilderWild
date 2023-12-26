@@ -69,7 +69,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class OstrichAi {
 	private static final float SPEED_MULTIPLIER_WHEN_PANICKING = 2.0F;
-	private static final float SPEED_MULTIPLIER_WHEN_ATTACKING = 1.5F;
+	private static final float SPEED_MULTIPLIER_WHEN_ATTACKING = 1.75F;
 	private static final float SPEED_MULTIPLIER_WHEN_IDLING = 1.0F;
 	private static final float SPEED_MULTIPLIER_WHEN_TEMPTED = 1.25F;
 	private static final float SPEED_MULTIPLIER_WHEN_FOLLOWING_ADULT = 1.25F;
@@ -187,7 +187,7 @@ public class OstrichAi {
 				),
 				SetEntityLookTarget.create(livingEntity -> isTarget(ostrich, livingEntity), (float) ostrich.getAttributeValue(Attributes.FOLLOW_RANGE)),
 				SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(OstrichAi::getSpeedModifierChasing),
-				OstrichMeleeAttack.create(20),
+				OstrichMeleeAttack.create(40),
 				EraseMemoryIf.create(BehaviorUtils::isBreeding, MemoryModuleType.ATTACK_TARGET)
 			),
 			MemoryModuleType.ATTACK_TARGET
