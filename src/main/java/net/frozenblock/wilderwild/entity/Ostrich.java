@@ -269,7 +269,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 					if (!this.hasPassenger(entity)) {
 						Entity commander = this.getLastAttackCommander();
 						if (commander != null) {
-							if (!commander.isAlliedTo(entity)) {
+							if (!commander.isAlliedTo(entity) && commander != entity) {
 								hasAttacked = entity.hurt(this.damageSources().source(RegisterDamageTypes.OSTRICH, null, commander), beakDamage);
 							}
 						} else {
