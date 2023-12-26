@@ -46,12 +46,14 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.Unit;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -84,6 +86,7 @@ import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -164,7 +167,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	@Override
 	@SuppressWarnings("unchecked")
 	public Brain<Ostrich> makeBrain(@NotNull Dynamic<?> dynamic) {
-		return (Brain<Ostrich>) OstrichAi.makeBrain(this.brainProvider().makeBrain(dynamic));
+		return (Brain<Ostrich>) OstrichAi.makeBrain(this, this.brainProvider().makeBrain(dynamic));
 	}
 
 	@Override
@@ -228,6 +231,8 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 			this.setDeltaMovement(deltaMovement.x() * 0.25D, deltaMovement.y(), deltaMovement.z() * 0.25D);
 			this.getNavigation().stop();
 		}
+
+        this.setAggressive(this.hasAttackTarget());
 	}
 
 	private void handleAttackAndStuck() {
@@ -278,7 +283,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 								this.cancelAttack(false);
 								return;
 							}
-							if (!this.isAlliedTo(entity)) {
+							if (this.canTargetEntity(entity)) {
 								hasAttacked = entity.hurt(this.damageSources().source(RegisterDamageTypes.OSTRICH, null, this), beakDamage);
 							}
 						}
@@ -365,7 +370,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	public void cancelAttack(boolean successful) {
 		this.setTargetBeakAnimProgress(0F);
 		this.setAttacking(false);
-		this.setBeakCooldown(successful ? BEAK_COOLDOWN_TICKS_SUCCESSFUL_HIT : BEAK_COOLDOWN_TICKS);
+		this.setBeakCooldown(successful || this.isAggressive() ? BEAK_COOLDOWN_TICKS_SUCCESSFUL_HIT : BEAK_COOLDOWN_TICKS);
 		this.setLastAttackCommander(null);
 	}
 
@@ -432,9 +437,6 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		this.setRot(vec2.y, vec2.x);
 		this.yRotO = this.yBodyRot = this.yHeadRot = this.getYRot();
 		if (this.isControlledByLocalInstance()) {
-			if (travelVector.z <= 0.0) {
-				this.gallopSoundCounter = 0;
-			}
 			if (EntityConfig.get().ostrich.allowAttack && this.playerJumpPendingScale > 0.0F) {
 				this.executeRidersJump(this.playerJumpPendingScale, travelVector);
 			}
@@ -451,6 +453,11 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	public void handleStartJump(int jumpPower) {
 		float powerPercent = ((float) jumpPower) * 0.0125F;
 		this.performAttack(powerPercent, this.getFirstPassenger());
+	}
+
+	@Override
+	public boolean doHurtTarget(Entity target) {
+		return super.doHurtTarget(target);
 	}
 
 	public void performAttack(float power, @Nullable Entity commander) {
@@ -536,17 +543,27 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	@Override
 	public InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
+		if (this.isAggressive() && !this.isTamed()) {
+			return InteractionResult.FAIL;
+		}
 		boolean isGrownAndTamedWithShiftHeldDown = !this.isBaby() && this.isTamed() && player.isSecondaryUseActive();
 		if (!this.isVehicle() && !isGrownAndTamedWithShiftHeldDown) {
 			ItemStack itemStack = player.getItemInHand(hand);
 			if (!itemStack.isEmpty()) {
 				if (this.isFood(itemStack)) {
+					OstrichAi.removeAttackAndAngerTarget(this);
 					return this.fedFood(player, itemStack);
 				}
 			}
         }
         return super.mobInteract(player, hand);
     }
+
+	@Override
+	public void doPlayerRide(Player player) {
+		super.doPlayerRide(player);
+		OstrichAi.removeAttackAndAngerTarget(this);
+	}
 
 	@Override
 	protected boolean handleEating(@NotNull Player player, @NotNull ItemStack stack) {
@@ -587,6 +604,23 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		}
 	}
 
+	@Contract("null->false")
+	public boolean canTargetEntity(@Nullable Entity entity) {
+		return entity instanceof LivingEntity livingEntity
+			&& this.level() == livingEntity.level()
+			&& !this.level().getDifficulty().equals(Difficulty.PEACEFUL)
+			&& EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)
+			&& !this.isAlliedTo(livingEntity)
+			&& livingEntity.getType() != EntityType.ARMOR_STAND
+			&& livingEntity.getType() != RegisterEntities.OSTRICH
+			&& !this.isVehicle()
+			&& !(livingEntity instanceof Player && this.isTamed())
+			&& !livingEntity.isInvulnerable()
+			&& !livingEntity.isDeadOrDying()
+			&& !livingEntity.isRemoved()
+			&& this.level().getWorldBorder().isWithinBounds(livingEntity.getBoundingBox());
+	}
+
 	@Override
 	public boolean causeFallDamage(float fallDistance, float multiplier, @NotNull DamageSource source) {
 		int i = this.calculateFallDamage(fallDistance, multiplier);
@@ -605,6 +639,20 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 			this.playBlockFallSound();
 			return true;
 		}
+	}
+
+	@Override
+	public boolean hurt(@NotNull DamageSource source, float amount) {
+		boolean bl = super.hurt(source, amount);
+		if (this.level().isClientSide) {
+			return false;
+		}
+		if (bl) {
+			if (source.getEntity() instanceof LivingEntity livingEntity) {
+				OstrichAi.wasHurtBy(this, livingEntity);
+			}
+		}
+		return bl;
 	}
 
 	@Override
@@ -628,6 +676,15 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
             return this.canParent() && ostrich.canParent();
 		}
 		return false;
+	}
+
+	@Override
+	public boolean canParent() {
+		return !this.hasAttackTarget() && super.canParent();
+	}
+
+	public boolean hasAttackTarget() {
+		return this.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET);
 	}
 
 	@Override
@@ -818,10 +875,16 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		return RegisterSounds.ENTITY_OSTRICH_GRUNT;
 	}
 
+	@Override
+	public int getAmbientSoundInterval() {
+		return !this.isAggressive() ? super.getAmbientSoundInterval() : 50;
+	}
+
 	@Nullable
 	@Override
 	public SoundEvent getAmbientSound() {
-		return RegisterSounds.ENTITY_OSTRICH_IDLE;
+		return !this.isAggressive() ? RegisterSounds.ENTITY_OSTRICH_IDLE :
+			this.getRandom().nextBoolean() ? RegisterSounds.ENTITY_OSTRICH_HISS : RegisterSounds.ENTITY_OSTRICH_GRUNT;
 	}
 
 	@Nullable

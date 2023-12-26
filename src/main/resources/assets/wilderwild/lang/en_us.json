@@ -630,7 +630,7 @@
   "tooltip.wilderwild.potion_landing_sounds": "Whether or not Potions should make unique sounds upon landing.\n(Sounds vary based on potion type and effect.)",
   "tooltip.wilderwild.modify_advancements": "Whether or not advancements should contain Wilder Wild's criteria.\nDisable this if it causes compatability issues.",
   "tooltip.wilderwild.ostrich": "Contains options for the Ostrich.",
-  "tooltip.wilderwild.spawn_ostriches": "Controls whether or not Ostriches can spawn.",
+  "tooltip.wilderwild.spawn_ostriches": "Whether or not Ostriches can spawn.",
   "tooltip.wilderwild.allow_ostrich_attack": "Whether or not the Ostrich's peck attack can be used.",
   "tooltip.wilderwild.tumbleweed": "Contains options for the Tumbleweed.",
   "tooltip.wilderwild.tumbleweed_spawn_cap": "Controls the Tumbleweed's spawn cap.",

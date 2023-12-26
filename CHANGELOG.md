@@ -21,6 +21,12 @@ Added the Ostrich
 - Naturally spawns in the Savanna, Savanna Plateau, and Windswept Savanna biomes
     - Added the `wilderwild:has_ostrich` biome tag to control the biomes it spawns in
     - Added the `Spawn Ostriches` config option to control whether or not Ostriches will spawn naturally
+- If hurt and not tamed, will chase after their attacker and peck them to death
+    - If they are tamed, this behavior will only apply to other mobs
+    - Will call other Ostriches for backup
+    - While provoked, cannot be ridden or fed unless it's already tamed
+    - If tamed and fed or ridden while provoked, will calm down
+
 
 - Added the Bush, Tumbleweed, Tumbleweed Stem, Milkweed, Datura, Cattail, Flowering Lily Pad, Algae, Shelf Fungus, Small Sponge, Prickly Pear Cactus, and Nematocyst blocks to the `minecraft:sword_efficient` tag
 - Defined the Random Sequence for every one of Wilder Wild's loot tables

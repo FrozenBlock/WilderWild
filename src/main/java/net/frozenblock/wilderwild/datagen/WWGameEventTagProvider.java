@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.datagen;
 
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.frozenblock.wilderwild.tag.WilderGameEventTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.tags.GameEventTagsProvider;

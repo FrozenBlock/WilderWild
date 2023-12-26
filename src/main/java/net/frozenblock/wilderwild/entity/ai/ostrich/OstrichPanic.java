@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.entity.ai.ostrich;
 
+import java.util.function.Predicate;
 import net.frozenblock.wilderwild.entity.Ostrich;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.PathfinderMob;
@@ -26,8 +27,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class OstrichPanic extends AnimalPanic {
 
-	public OstrichPanic(float f) {
-		super(f);
+	public OstrichPanic(float f, Predicate<PathfinderMob> shouldPanic) {
+		super(f, shouldPanic);
 	}
 
 	@Override
