@@ -94,8 +94,8 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 	private static final EntityDataAccessor<Boolean> FROM_BOTTLE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> FLICKERS = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.INT);
-	private static final EntityDataAccessor<Float> ANIM_SCALE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.FLOAT);
-	private static final EntityDataAccessor<Float> PREV_ANIM_SCALE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Float> SCALE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Float> PREV_SCALE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<FireflyColor> COLOR = SynchedEntityData.defineId(Firefly.class, FireflyColor.SERIALIZER);
 
 	public boolean natural;
@@ -115,7 +115,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		this.moveControl = new FlyingMoveControl(this, 20, true);
 		this.setFlickers(level.random.nextInt(4) == 0);
 		this.setFlickerAge(level.random.nextIntBetweenInclusive(0, 19));
-		this.setAnimScale(1.5F);
+		this.setScale(1.5F);
 		this.setColor(FireflyColor.ON);
 	}
 
@@ -152,8 +152,8 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		FireflyAi.rememberHome(this, this.blockPosition());
 
 		if (reason == MobSpawnType.COMMAND) {
-			this.setAnimScale(1.5F);
-			this.setPrevAnimScale(1.5F);
+			this.setScale(1.5F);
+			this.setPrevScale(1.5F);
 			this.setColor(FireflyColor.ON);
 		}
 
@@ -172,8 +172,8 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		this.entityData.define(FROM_BOTTLE, false);
 		this.entityData.define(FLICKERS, false);
 		this.entityData.define(AGE, 0);
-		this.entityData.define(ANIM_SCALE, 1.5F);
-		this.entityData.define(PREV_ANIM_SCALE, 1.5F);
+		this.entityData.define(SCALE, 1.5F);
+		this.entityData.define(PREV_SCALE, 1.5F);
 		this.entityData.define(COLOR, FireflyColor.ON);
 	}
 
@@ -265,20 +265,21 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		this.entityData.set(AGE, value);
 	}
 
-	public float getAnimScale() {
-		return this.entityData.get(ANIM_SCALE);
+	@Override
+	public float getScale() {
+		return this.entityData.get(SCALE);
 	}
 
-	public void setAnimScale(float value) {
-		this.entityData.set(ANIM_SCALE, value);
+	public void setScale(float value) {
+		this.entityData.set(SCALE, value);
 	}
 
-	public float getPrevAnimScale() {
-		return this.entityData.get(PREV_ANIM_SCALE);
+	public float getPrevScale() {
+		return this.entityData.get(PREV_SCALE);
 	}
 
-	public void setPrevAnimScale(float value) {
-		this.entityData.set(PREV_ANIM_SCALE, value);
+	public void setPrevScale(float value) {
+		this.entityData.set(PREV_SCALE, value);
 	}
 
 	public FireflyColor getColor() {
@@ -418,15 +419,15 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 			}
 		}
 
-		this.setPrevAnimScale(this.getAnimScale());
+		this.setPrevScale(this.getScale());
 
 		if (this.despawning) {
-			this.setAnimScale(this.getAnimScale() - 0.5F);
-			if (this.getAnimScale() < 0.0F) {
+			this.setScale(this.getScale() - 0.5F);
+			if (this.getScale() < 0.0F) {
 				this.discard();
 			}
-		} else if (this.getAnimScale() < 1.5F) {
-			this.setAnimScale(Math.min(this.getAnimScale() + 0.025F, 1.5F));
+		} else if (this.getScale() < 1.5F) {
+			this.setScale(Math.min(this.getScale() + 0.025F, 1.5F));
 		}
 	}
 
@@ -502,8 +503,8 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		compound.putBoolean("flickers", this.flickers());
 		compound.putInt("flickerAge", this.getFlickerAge());
 		compound.putBoolean("hasHome", this.hasHome);
-		compound.putFloat("scale", this.getAnimScale());
-		compound.putFloat("prevScale", this.getPrevAnimScale());
+		compound.putFloat("scale", this.getScale());
+		compound.putFloat("prevScale", this.getPrevScale());
 		compound.putBoolean("despawning", this.despawning);
 		compound.putString("color", Objects.requireNonNull(WilderRegistry.FIREFLY_COLOR.getKey(this.getColor())).toString());
 		compound.putInt("homeCheckCooldown", this.homeCheckCooldown);
@@ -530,10 +531,10 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 			this.hasHome = compound.getBoolean("hasHome");
 		}
 		if (compound.contains("scale")) {
-			this.setAnimScale(compound.getFloat("scale"));
+			this.setScale(compound.getFloat("scale"));
 		}
 		if (compound.contains("prevScale")) {
-			this.setPrevAnimScale(compound.getFloat("prevScale"));
+			this.setPrevScale(compound.getFloat("prevScale"));
 		}
 		if (compound.contains("despawning")) {
 			this.despawning = compound.getBoolean("despawning");

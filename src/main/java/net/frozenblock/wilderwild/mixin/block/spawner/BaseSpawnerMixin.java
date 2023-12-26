@@ -46,8 +46,8 @@ public class BaseSpawnerMixin {
 	)
 	public void wilderWild$clientTick(Level level, BlockPos blockPos, CallbackInfo info) {
 		if (this.displayEntity instanceof Firefly firefly) {
-			firefly.setAnimScale(2F);
-			firefly.setPrevAnimScale(2F);
+			firefly.setScale(2F);
+			firefly.setPrevScale(2F);
 		}
 	}
 
