@@ -244,8 +244,8 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 			}
 			Vec3 beakPos = this.getBeakPos();
 			boolean hasAttacked = false;
-			AABB attackBox = AABB.ofSize(beakPos, 0.25D * this.getScale(), 0.25D * this.getScale(), 0.25D * this.getScale());
-			if (false) {
+			AABB attackBox = AABB.ofSize(beakPos.subtract(0D, 0.35D * this.getScale(), 0D), 0.35D * this.getScale(), 0.35D * this.getScale(), 0.35D * this.getScale());
+			if (true) {
 				if (this.level() instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(FrozenParticleTypes.DEBUG_POS, attackBox.minX, attackBox.minY, attackBox.minZ, 1, 0, 0, 0, 0);
 					serverLevel.sendParticles(FrozenParticleTypes.DEBUG_POS, attackBox.maxX, attackBox.minY, attackBox.minZ, 1, 0, 0, 0, 0);
