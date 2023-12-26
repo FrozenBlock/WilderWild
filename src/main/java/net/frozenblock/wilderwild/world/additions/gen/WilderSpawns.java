@@ -53,7 +53,7 @@ public final class WilderSpawns {
 
 	public static void addOstriches() {
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WilderBiomeTags.HAS_OSTRICH),
-			MobCategory.CREATURE, RegisterEntities.OSTRICH, 1, 1, 3);
+			MobCategory.CREATURE, RegisterEntities.OSTRICH, 3, 2, 4);
 	}
 
 	public static void addTumbleweed() {
