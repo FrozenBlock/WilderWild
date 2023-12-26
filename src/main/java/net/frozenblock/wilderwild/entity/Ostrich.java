@@ -814,7 +814,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	@Nullable
 	@Override
 	public SoundEvent getAngrySound() {
-		return RegisterSounds.ENTITY_OSTRICH_IDLE;
+		return RegisterSounds.ENTITY_OSTRICH_GRUNT;
 	}
 
 	@Nullable
@@ -858,6 +858,10 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	@Override
 	public boolean removeWhenFarAway(double distanceToClosestPlayer) {
 		return !this.isTamed() && super.removeWhenFarAway(distanceToClosestPlayer);
+	}
+
+	public boolean isInbred() {
+		return this.hasCustomName() && this.getCustomName().getString().toLowerCase().equals("shadownite64");
 	}
 
 	@Override

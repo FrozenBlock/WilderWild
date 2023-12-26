@@ -256,6 +256,8 @@ public final class RegisterSounds {
 	public static final SoundEvent ENTITY_CRAB_DIG = register("entity.crab.dig");
 	public static final SoundEvent ENTITY_CRAB_EMERGE = register("entity.crab.emerge");
 	public static final SoundEvent ENTITY_OSTRICH_IDLE = register("entity.ostrich.idle");
+	public static final SoundEvent ENTITY_OSTRICH_GRUNT = register("entity.ostrich.grunt");
+	public static final SoundEvent ENTITY_OSTRICH_HISS = register("entity.ostrich.hiss");
 	public static final SoundEvent ENTITY_OSTRICH_HURT = register("entity.ostrich.hurt");
 	public static final SoundEvent ENTITY_OSTRICH_DEATH = register("entity.ostrich.death");
 	public static final SoundEvent ENTITY_OSTRICH_STEP = register("entity.ostrich.step");
@@ -263,7 +265,6 @@ public final class RegisterSounds {
 	public static final SoundEvent ENTITY_OSTRICH_BEAK_STUCK = register("entity.ostrich.beak.stuck");
 	public static final SoundEvent ENTITY_OSTRICH_SWING = register("entity.ostrich.beak.swing");
 	public static final SoundEvent ENTITY_OSTRICH_EAT = register("entity.ostrich.eat");
-	public static final SoundEvent ENTITY_OSTRICH_BEAK_UNSTUCK = register("entity.ostrich.beak.unstuck");
 	public static final SoundEvent ENTITY_OSTRICH_INBRED_IDLE_BOCK = register("entity.ostrich.inbred.idle.bock");
 	public static final SoundEvent ENTITY_OSTRICH_INBRED_IDLE_AH = register("entity.ostrich.inbred.idle.ah");
 	public static final SoundEvent ENTITY_OSTRICH_INBRED_HURT = register("entity.ostrich.inbred.hurt");

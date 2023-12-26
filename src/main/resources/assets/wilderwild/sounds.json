@@ -2334,15 +2334,18 @@
     "sounds": [
       "wilderwild:mob/ostrich/hurt1",
       "wilderwild:mob/ostrich/hurt2",
-      "wilderwild:mob/ostrich/hurt3"
+      "wilderwild:mob/ostrich/hurt3",
+      "wilderwild:mob/ostrich/hurt4"
     ],
     "subtitle": "subtitles.entity.ostrich.hurt"
   },
   "entity.ostrich.death": {
     "sounds": [
-      "wilderwild:mob/ostrich/hurt1",
-      "wilderwild:mob/ostrich/hurt2",
-      "wilderwild:mob/ostrich/hurt3"
+      "wilderwild:mob/ostrich/death1",
+      "wilderwild:mob/ostrich/death2",
+      "wilderwild:mob/ostrich/death3",
+      "wilderwild:mob/ostrich/death4",
+      "wilderwild:mob/ostrich/death5"
     ],
     "subtitle": "subtitles.entity.ostrich.death"
   },
@@ -2353,16 +2356,43 @@
       "wilderwild:mob/ostrich/idle3",
       "wilderwild:mob/ostrich/idle4",
       "wilderwild:mob/ostrich/idle5",
-      "wilderwild:mob/ostrich/idle6",
-      "wilderwild:mob/ostrich/idle7",
-      "wilderwild:mob/ostrich/idle8"
+      "wilderwild:mob/ostrich/idle6"
     ],
     "subtitle": "subtitles.entity.ostrich.idle"
+  },
+  "entity.ostrich.grunt": {
+    "sounds": [
+      "wilderwild:mob/ostrich/grunt1",
+      "wilderwild:mob/ostrich/grunt2",
+      "wilderwild:mob/ostrich/grunt3",
+      "wilderwild:mob/ostrich/grunt4"
+    ],
+    "subtitle": "subtitles.entity.ostrich.grunt"
+  },
+  "entity.ostrich.hiss": {
+    "sounds": [
+      "wilderwild:mob/ostrich/hiss1",
+      "wilderwild:mob/ostrich/hiss2",
+      "wilderwild:mob/ostrich/hiss3",
+      "wilderwild:mob/ostrich/hiss4"
+    ],
+    "subtitle": "subtitles.entity.ostrich.hiss"
+  },
+  "entity.ostrich.eat": {
+    "sounds": [
+      "wilderwild:mob/ostrich/eat1",
+      "wilderwild:mob/ostrich/eat2",
+      "wilderwild:mob/ostrich/eat3",
+      "wilderwild:mob/ostrich/eat4"
+    ],
+    "subtitle": "subtitles.entity.ostrich.eat"
   },
   "entity.ostrich.step": {
     "sounds": [
       "wilderwild:mob/ostrich/step1",
-      "wilderwild:mob/ostrich/step2"
+      "wilderwild:mob/ostrich/step2",
+      "wilderwild:mob/ostrich/step3",
+      "wilderwild:mob/ostrich/step4"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
@@ -2387,14 +2417,6 @@
       "wilderwild:mob/ostrich/swing3"
     ],
     "subtitle": "subtitles.entity.ostrich.beak.swing"
-  },
-  "entity.ostrich.eat": {
-    "sounds": [
-      "wilderwild:mob/ostrich/enthused1",
-      "wilderwild:mob/ostrich/enthused2",
-      "wilderwild:mob/ostrich/enthused3"
-    ],
-    "subtitle": "subtitles.entity.ostrich.eat"
   },
   "entity.ostrich.inbred.idle.bock": {
     "sounds": [
