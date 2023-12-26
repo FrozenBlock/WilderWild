@@ -244,7 +244,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 			}
 			Vec3 beakPos = this.getBeakPos();
 			boolean hasAttacked = false;
-			AABB attackBox = AABB.ofSize(beakPos, 0.25D, 0.25D, 0.25D);
+			AABB attackBox = AABB.ofSize(beakPos, 0.25D * this.getScale(), 0.25D * this.getScale(), 0.25D * this.getScale());
 			if (false) {
 				if (this.level() instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(FrozenParticleTypes.DEBUG_POS, attackBox.minX, attackBox.minY, attackBox.minZ, 1, 0, 0, 0, 0);
@@ -573,7 +573,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	}
 
 	@Override
-	protected boolean handleEating(@NotNull Player player, @NotNull ItemStack stack) {
+	public boolean handleEating(@NotNull Player player, @NotNull ItemStack stack) {
 		if (!this.isFood(stack)) {
 			return false;
 		} else {
@@ -800,10 +800,10 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	@NotNull
 	private Vec3 makeBeakPos() {
-		Vec3 currentPos = this.position().add(0D, 1.1875D, 0D);
+		Vec3 currentPos = this.position().add(0D, 0.5163043478260869D * this.getEyeHeight(), 0D);
 		Vec3 lookOrientation = Vec3.directionFromRotation(new Vec2(0F, this.getYHeadRot()));
-		Vec3 headBasePos = currentPos.add(lookOrientation.scale(0.895D));
-		Vec3 rotPos = AdvancedMath.rotateAboutX(Vec3.ZERO, 1.25D, this.getBeakAnimProgress(1F) * 180D);
+		Vec3 headBasePos = currentPos.add(lookOrientation.scale(0.895D * this.getScale() * this.getAgeScale()));
+		Vec3 rotPos = AdvancedMath.rotateAboutX(Vec3.ZERO, 1.25D * this.getScale() * this.getAgeScale(), this.getBeakAnimProgress(1F) * 180D);
 		Vec3 beakPos = headBasePos.add(0, rotPos.x(), 0).add(lookOrientation.scale(rotPos.z()));
 
 		if (false) {
