@@ -30,6 +30,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.OverworldBiomeBuilder;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -68,7 +69,7 @@ public final class OverworldBiomeBuilderMixin {
 
 	@Unique
 	private static void wilderWild$replaceParameters(
-		Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters,
+		@NotNull Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters,
 		ResourceKey<Biome> biome,
 		Climate.Parameter temperature,
 		Climate.Parameter humidity,
@@ -102,7 +103,7 @@ public final class OverworldBiomeBuilderMixin {
 
 	@Unique
 	private static void wilderWild$addDeepBiome(
-		Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters,
+		@NotNull Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters,
 		Climate.Parameter temperature,
 		Climate.Parameter humidity,
 		Climate.Parameter continentalness,
@@ -116,7 +117,7 @@ public final class OverworldBiomeBuilderMixin {
 
 	@Unique
 	private static void wilderWild$addSemiDeepBiome(
-		Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters,
+		@NotNull Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters,
 		Climate.Parameter temperature,
 		Climate.Parameter humidity,
 		Climate.Parameter continentalness,
@@ -443,19 +444,33 @@ public final class OverworldBiomeBuilderMixin {
 					RegisterWorldgen.SEMI_BIRCH_FOREST
 				);
 			}
-			if (WorldgenConfig.get().biomePlacement.modifyStonyShorePlacement) {
-				for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.BEACH)) {
-					this.addSurfaceBiome(
-						parameters,
-						WilderSharedWorldgen.StonyShoreTaiga.TEMPERATURE,
-						WilderSharedWorldgen.StonyShoreTaiga.HUMIDITY,
-						WilderSharedWorldgen.StonyShoreTaiga.CONTINENTALNESS,
-						WilderSharedWorldgen.StonyShoreTaiga.EROSION,
-						point.weirdness(),
-						point.offset(),
-						Biomes.STONY_SHORE
-					);
-				}
+		}
+		if (WorldgenConfig.get().biomeGeneration.generateDyingForest) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.PLAINS)) {
+				this.addSurfaceBiome(
+					parameters,
+					WilderSharedWorldgen.DyingForest.TEMPERATURE,
+					WilderSharedWorldgen.DyingForest.HUMIDITY,
+					point.continentalness(),
+					point.erosion(),
+					point.weirdness(),
+					point.offset(),
+					RegisterWorldgen.DYING_FOREST
+				);
+			}
+		}
+		if (WorldgenConfig.get().biomePlacement.modifyStonyShorePlacement) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.BEACH)) {
+				this.addSurfaceBiome(
+					parameters,
+					WilderSharedWorldgen.StonyShoreTaiga.TEMPERATURE,
+					WilderSharedWorldgen.StonyShoreTaiga.HUMIDITY,
+					WilderSharedWorldgen.StonyShoreTaiga.CONTINENTALNESS,
+					WilderSharedWorldgen.StonyShoreTaiga.EROSION,
+					point.weirdness(),
+					point.offset(),
+					Biomes.STONY_SHORE
+				);
 			}
 		}
 	}

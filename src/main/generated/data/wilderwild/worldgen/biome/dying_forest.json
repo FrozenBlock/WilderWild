@@ -79,10 +79,11 @@
       "minecraft:spring_lava"
     ],
     [
-      "wilderwild:trees_dying_forest",
-      "minecraft:patch_dead_bush",
       "minecraft:glow_lichen",
-      "minecraft:patch_grass_forest"
+      "minecraft:forest_flowers",
+      "minecraft:patch_grass_forest",
+      "wilderwild:trees_dying_forest",
+      "minecraft:patch_dead_bush"
     ],
     [
       "minecraft:freeze_top_layer"

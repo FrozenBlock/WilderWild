@@ -239,16 +239,16 @@ public final class RegisterWorldgen {
 		addDyingForestFeatures(builder2);
 		return new Biome.BiomeBuilder()
 				.hasPrecipitation(true)
-				.temperature(WilderSharedWorldgen.DeadForest.TEMP)
-				.downfall(WilderSharedWorldgen.DeadForest.DOWNFALL)
+				.temperature(WilderSharedWorldgen.DyingForest.TEMP)
+				.downfall(WilderSharedWorldgen.DyingForest.DOWNFALL)
 				.specialEffects(
 						new BiomeSpecialEffects.Builder()
-								.grassColorOverride(WilderSharedWorldgen.DeadForest.GRASS_COLOR)
-								.foliageColorOverride(WilderSharedWorldgen.DeadForest.FOLIAGE_COLOR)
-								.waterColor(WilderSharedWorldgen.DeadForest.WATER_COLOR)
-								.waterFogColor(WilderSharedWorldgen.DeadForest.WATER_FOG_COLOR)
-								.fogColor(WilderSharedWorldgen.DeadForest.FOG_COLOR)
-								.skyColor(WilderSharedWorldgen.DeadForest.SKY_COLOR)
+								.grassColorOverride(WilderSharedWorldgen.DyingForest.GRASS_COLOR)
+								.foliageColorOverride(WilderSharedWorldgen.DyingForest.FOLIAGE_COLOR)
+								.waterColor(WilderSharedWorldgen.DyingForest.WATER_COLOR)
+								.waterFogColor(WilderSharedWorldgen.DyingForest.WATER_FOG_COLOR)
+								.fogColor(WilderSharedWorldgen.DyingForest.FOG_COLOR)
+								.skyColor(WilderSharedWorldgen.DyingForest.SKY_COLOR)
 								.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
 								.backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST)).build())
 				.mobSpawnSettings(builder.build())
@@ -257,12 +257,13 @@ public final class RegisterWorldgen {
 	}
 
 	public static void addDyingForestFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_DYING_FOREST.getKey());
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH);
 		addBasicFeatures(builder, DYING_FOREST);
+		BiomeDefaultFeatures.addForestFlowers(builder);
 		BiomeDefaultFeatures.addForestGrass(builder);
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_DYING_FOREST.getKey());
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH);
 	}
 
 	// OASIS
