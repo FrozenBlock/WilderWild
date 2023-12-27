@@ -123,8 +123,8 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static final class DyingForest {
-		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.850F, -0.450F);
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.050F, 0.050F);
+		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.580F, -0.325F);
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.175F, 0.000F);
 		public static final float TEMP = 0.4F;
 		public static final float DOWNFALL = 0.4F;
 		public static final int WATER_COLOR = 4159204;

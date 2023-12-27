@@ -446,7 +446,7 @@ public final class OverworldBiomeBuilderMixin {
 			}
 		}
 		if (WorldgenConfig.get().biomeGeneration.generateDyingForest) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.PLAINS)) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_PLAINS)) {
 				this.addSurfaceBiome(
 					parameters,
 					WilderSharedWorldgen.DyingForest.TEMPERATURE,
