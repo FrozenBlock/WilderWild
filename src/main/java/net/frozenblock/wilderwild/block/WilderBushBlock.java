@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.block;
 
+import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.core.BlockPos;
@@ -61,6 +62,11 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 	public WilderBushBlock(@NotNull BlockBehaviour.Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0).setValue(HALF, DoubleBlockHalf.LOWER));
+	}
+
+	@Override
+	protected MapCodec<? extends BushBlock> codec() {
+		return null;
 	}
 
 	public static boolean isFullyGrown(@NotNull BlockState state) {
@@ -203,7 +209,7 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 	}
 
 	@Override
-	public void playerWillDestroy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
+	public BlockState playerWillDestroy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
 		if (isFullyGrown(state) && (!level.isClientSide)) {
 			if (player.isCreative()) {
 				try {
@@ -216,7 +222,7 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 			}
 
 		}
-		super.playerWillDestroy(level, pos, state, player);
+		return super.playerWillDestroy(level, pos, state, player);
 	}
 
 	@Override

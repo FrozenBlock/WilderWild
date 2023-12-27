@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.world.generation.sapling;
 
+import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -26,16 +27,17 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.grower.AbstractMegaTreeGrower;
+import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class BaobabTreeSaplingGenerator extends AbstractMegaTreeGrower {
+public abstract class BaobabTreeSaplingGenerator extends TreeGrower {
 
-	public BaobabTreeSaplingGenerator() {
+	public BaobabTreeSaplingGenerator(String string) {
+		super(string, Optional.empty(), Optional.empty(), Optional.empty());
 	}
 
 	/**
@@ -102,6 +104,11 @@ public abstract class BaobabTreeSaplingGenerator extends AbstractMegaTreeGrower 
 	@Nullable
 	protected abstract ResourceKey<ConfiguredFeature<?, ?>> getBaobabTreeFeature(@NotNull RandomSource random);
 
+	@Override
+	public ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource random, boolean flowers) {
+		return null;
+	}
+
 	/**
 	 * Overrides the parent method and returns null as this feature is not applicable for the current scenario.
 	 *
@@ -109,7 +116,7 @@ public abstract class BaobabTreeSaplingGenerator extends AbstractMegaTreeGrower 
 	 * @return null as this feature is not applicable
 	 */
 	@Override
-	protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredMegaFeature(@NotNull RandomSource random) {
+	public ResourceKey<ConfiguredFeature<?, ?>> getConfiguredMegaFeature(@NotNull RandomSource random) {
 		return null;
 	}
 

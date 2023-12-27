@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.misc.mod_compat;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import net.fabricmc.api.EnvType;
@@ -234,14 +235,16 @@ public class FrozenLibIntegration extends ModIntegration {
 							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.PEELED_PRICKLY_PEAR).triggerInstance())
 						);
 						AdvancementAPI.addRequirements(advancement,
-							new AdvancementRequirements(new String[][]{{
-								"wilderwild:baobab_nut",
-								"wilderwild:split_coconut",
-								"wilderwild:crab_claw",
-								"wilderwild:cooked_crab_claw",
-								"wilderwild:prickly_pear",
-								"wilderwild:peeled_prickly_pear"
-							}})
+							new AdvancementRequirements(List.of(
+								List.of(
+									"wilderwild:baobab_nut",
+									"wilderwild:split_coconut",
+									"wilderwild:crab_claw",
+									"wilderwild:cooked_crab_claw",
+									"wilderwild:prickly_pear",
+									"wilderwild:peeled_prickly_pear"
+								)
+							))
 						);
 					}
 					case "minecraft:husbandry/bred_all_animals" -> {
@@ -249,9 +252,11 @@ public class FrozenLibIntegration extends ModIntegration {
 							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(RegisterEntities.CRAB)).triggerInstance())
 						);
 						AdvancementAPI.addRequirements(advancement, new
-								AdvancementRequirements(new String[][]{{
-								"wilderwild:crab"
-							}})
+							AdvancementRequirements(List.of(
+								List.of(
+									"wilderwild:crab"
+								)
+							))
 						);
 					}
 					case "minecraft:husbandry/tactical_fishing" -> {
@@ -262,10 +267,12 @@ public class FrozenLibIntegration extends ModIntegration {
 							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(RegisterItems.JELLYFISH_BUCKET)).triggerInstance())
 						);
 						AdvancementAPI.addRequirements(advancement, new
-								AdvancementRequirements(new String[][]{{
-								"wilderwild:crab_bucket",
-								"wilderwild:jellyfish_bucket"
-							}})
+							AdvancementRequirements(List.of(
+								List.of(
+									"wilderwild:crab_bucket",
+									"wilderwild:jellyfish_bucket"
+								)
+							))
 						);
 					}
 					case "minecraft:nether/all_potions", "minecraft:nether/all_effects" -> {
@@ -289,7 +296,7 @@ public class FrozenLibIntegration extends ModIntegration {
 
 	private static void addBiomeRequirement(@NotNull Advancement advancement, @NotNull ResourceKey<Biome> key) {
 		AdvancementAPI.addCriteria(advancement, key.location().toString(), inBiome(key));
-		AdvancementAPI.addRequirements(advancement, new AdvancementRequirements(new String[][]{{key.location().toString()}}));
+		AdvancementAPI.addRequirements(advancement, new AdvancementRequirements(List.of(List.of(key.location().toString()))));
 	}
 
 	@NotNull

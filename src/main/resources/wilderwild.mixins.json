@@ -83,12 +83,7 @@
     "warden.WardenSwimMixin",
     "worldgen.biome.OverworldBiomeBuilderMixin",
     "worldgen.structure.SwampHutPieceMixin",
-    "worldgen.tree.AbstractTreeGrowerMixin",
-    "worldgen.tree.BirchTreeGrowerMixin",
-    "worldgen.tree.CherryTreeGrowerMixin",
-    "worldgen.tree.DarkOakTreeGrowerMixin",
-    "worldgen.tree.OakTreeGrowerMixin",
-    "worldgen.tree.SpruceTreeGrowerMixin",
+    "worldgen.tree.TreeGrowerMixin",
     "worldgen.tree.TreeFeatureMixin"
   ],
   "client": [

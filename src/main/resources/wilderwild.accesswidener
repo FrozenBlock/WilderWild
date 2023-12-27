@@ -9,6 +9,9 @@ mutable field net/minecraft/advancements/critereon/MobEffectsPredicate effectMap
 accessible    class    net/minecraft/world/level/block/SculkVeinBlock$SculkVeinSpreaderConfig
 
 # Tree Features
+extendable class net/minecraft/world/level/block/grower/TreeGrower
+extendable method net/minecraft/world/level/block/grower/TreeGrower getConfiguredFeature (Lnet/minecraft/util/RandomSource;Z)Lnet/minecraft/resources/ResourceKey;
+extendable method net/minecraft/world/level/block/grower/TreeGrower getConfiguredMegaFeature (Lnet/minecraft/util/RandomSource;)Lnet/minecraft/resources/ResourceKey;
 accessible    method    net/minecraft/world/level/levelgen/feature/treedecorators/TreeDecoratorType    <init>    (Lcom/mojang/serialization/Codec;)V
 accessible    method    net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacerType    <init>    (Lcom/mojang/serialization/Codec;)V
 accessible    method    net/minecraft/world/level/levelgen/feature/foliageplacers/FoliagePlacerType    <init>    (Lcom/mojang/serialization/Codec;)V
@@ -54,6 +57,7 @@ accessible    method    net/minecraft/world/entity/Entity    updateInWaterStateA
 accessible    field    net/minecraft/server/level/ServerLevel    entityManager    Lnet/minecraft/world/level/entity/PersistentEntitySectionManager;
 accessible    class    net/minecraft/world/entity/monster/warden/Warden$VibrationUser
 accessible    field    net/minecraft/world/entity/ai/navigation/WallClimberNavigation    pathToPosition    Lnet/minecraft/core/BlockPos;
+extendable    method    net/minecraft/world/entity/LivingEntity    canBreatheUnderwater    ()Z
 
 # Entity Behaviors
 accessible    field    net/minecraft/world/entity/ai/Brain    availableBehaviorsByPriority    Ljava/util/Map;

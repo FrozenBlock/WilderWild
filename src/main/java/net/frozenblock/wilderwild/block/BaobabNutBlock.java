@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.block;
 
 import java.util.Objects;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.world.generation.sapling.BaobabSaplingGenerator;
+import net.frozenblock.wilderwild.world.generation.sapling.WWTreeGrowers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -45,6 +45,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings({"DuplicatedCode", "deprecation"})
 public class BaobabNutBlock extends SaplingBlock {
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	public static final int MAX_AGE = 2;
@@ -57,7 +58,7 @@ public class BaobabNutBlock extends SaplingBlock {
 	};
 
 	public BaobabNutBlock(@NotNull BlockBehaviour.Properties settings) {
-		super(new BaobabSaplingGenerator(), settings);
+		super(WWTreeGrowers.BAOBAB, settings);
 		this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0).setValue(AGE, 0).setValue(HANGING, false));
 	}
 
@@ -65,6 +66,7 @@ public class BaobabNutBlock extends SaplingBlock {
 		return state.getValue(HANGING);
 	}
 
+	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 	private static boolean isFullyGrown(@NotNull BlockState state) {
 		return state.getValue(AGE) == MAX_AGE;
 	}

@@ -322,7 +322,7 @@ public final class WilderConfiguredFeatures {
 	//VEGETATION
 	public static final SimpleWeightedRandomList<BlockState> OASIS_GRASS_POOL = SimpleWeightedRandomList.<BlockState>builder()
 		.add(Blocks.TALL_GRASS.defaultBlockState(), 2)
-		.add(Blocks.GRASS.defaultBlockState(), 5)
+		.add(Blocks.SHORT_GRASS.defaultBlockState(), 5)
 		.build();
 
 	public static final SimpleWeightedRandomList<BlockState> OASIS_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder()
@@ -410,17 +410,17 @@ public final class WilderConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> LARGE_FERN_AND_GRASS_2 = register("large_fern_and_grass_2");
 
 	public static final SimpleWeightedRandomList<BlockState> FERN_AND_GRASS_POOL = SimpleWeightedRandomList.<BlockState>builder()
-		.add(Blocks.GRASS.defaultBlockState(), 3)
+		.add(Blocks.SHORT_GRASS.defaultBlockState(), 3)
 		.add(Blocks.FERN.defaultBlockState(), 1)
 		.build();
 
 	public static final SimpleWeightedRandomList<BlockState> GRASS_AND_FERN_POOL = SimpleWeightedRandomList.<BlockState>builder()
-		.add(Blocks.GRASS.defaultBlockState(), 11)
+		.add(Blocks.SHORT_GRASS.defaultBlockState(), 11)
 		.add(Blocks.FERN.defaultBlockState(), 1)
 		.build();
 	public static final SimpleWeightedRandomList<BlockState> TALL_GRASS_AND_GRASS_POOL = SimpleWeightedRandomList.<BlockState>builder()
 		.add(Blocks.TALL_GRASS.defaultBlockState(), 1)
-		.add(Blocks.GRASS.defaultBlockState(), 4)
+		.add(Blocks.SHORT_GRASS.defaultBlockState(), 4)
 		.build();
 
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> TALL_GRASS_AND_GRASS_WATER = register("tall_grass_and_grass_water");
