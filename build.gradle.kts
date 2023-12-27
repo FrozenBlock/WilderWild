@@ -321,7 +321,7 @@ fun getModVersion(): String {
     var version = "$mod_version-$mod_loader+$minecraft_version"
 
     if (release != null && !release) {
-        version += "-unstable"
+        //version += "-unstable"
     }
 
     return version
