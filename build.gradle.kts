@@ -214,9 +214,6 @@ dependencies {
     // Reach Entity Attributes
     modApi("com.github.Treetrain1:reach-entity-attributes:1.20-SNAPSHOT")?.let { include(it) }
 
-    // World Preview
-    modImplementation("maven.modrinth:world-preview:rgZQ9NnU")
-
     // TerraBlender
     modCompileOnlyApi("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
 
