@@ -306,11 +306,11 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.addSnowyTrees(builder);
 		BiomeDefaultFeatures.addDefaultFlowers(builder);
 		BiomeDefaultFeatures.addDefaultGrass(builder);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH);
 		BiomeDefaultFeatures.addDefaultMushrooms(builder);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH_2);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_DYING_FOREST.getKey());
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH);
 	}
 
 	// OASIS
