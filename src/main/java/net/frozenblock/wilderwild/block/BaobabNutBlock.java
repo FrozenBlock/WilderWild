@@ -59,7 +59,7 @@ public class BaobabNutBlock extends SaplingBlock {
 
 	public BaobabNutBlock(@NotNull BlockBehaviour.Properties settings) {
 		super(new BaobabSaplingGenerator(), settings);
-		this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0).setValue(AGE, 0).setValue(HANGING, false));
+		this.registerDefaultState(this.defaultBlockState().setValue(AGE, 0).setValue(HANGING, false));
 	}
 
 	private static boolean isHanging(@NotNull BlockState state) {
