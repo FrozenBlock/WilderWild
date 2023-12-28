@@ -891,6 +891,10 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.PARCHED_FOREST)
 			.addOptional(RegisterWorldgen.RAINFOREST);
 
+		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COMMON_PUMPKIN)
+			.addOptional(RegisterWorldgen.DYING_FOREST)
+			.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
+
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FIELD_FLOWERS)
 			.add(Biomes.FLOWER_FOREST)
 			.addOptional(RegisterWorldgen.FLOWER_FIELD);
