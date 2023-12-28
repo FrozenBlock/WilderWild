@@ -47,8 +47,6 @@ import org.jetbrains.annotations.NotNull;
 public final class RegisterWorldgen {
 	// Main Biomes
 	public static final ResourceKey<Biome> CYPRESS_WETLANDS = register("cypress_wetlands");
-	public static final ResourceKey<Biome> MIXED_FOREST = register("mixed_forest");
-	public static final ResourceKey<Biome> DYING_FOREST = register("dying_forest");
 	public static final ResourceKey<Biome> OASIS = register("oasis");
 	public static final ResourceKey<Biome> WARM_RIVER = register("warm_river");
 	public static final ResourceKey<Biome> WARM_BEACH = register("warm_beach");
@@ -70,6 +68,10 @@ public final class RegisterWorldgen {
 	public static final ResourceKey<Biome> TEMPERATE_RAINFOREST = register("temperate_rainforest");
 	public static final ResourceKey<Biome> RAINFOREST = register("rainforest");
 	public static final ResourceKey<Biome> DARK_TAIGA = register("dark_taiga");
+	public static final ResourceKey<Biome> MIXED_FOREST = register("mixed_forest");
+	// COLD
+	public static final ResourceKey<Biome> DYING_FOREST = register("dying_forest");
+	public static final ResourceKey<Biome> SNOWY_DYING_FOREST = register("snowy_dying_forest");
 	// OLD GROWTH
 	public static final ResourceKey<Biome> OLD_GROWTH_BIRCH_TAIGA = register("old_growth_birch_taiga");
 	public static final ResourceKey<Biome> OLD_GROWTH_DARK_FOREST = register("old_growth_dark_forest");
@@ -90,6 +92,7 @@ public final class RegisterWorldgen {
 		register(context, CYPRESS_WETLANDS, cypressWetlands(context));
 		register(context, MIXED_FOREST, mixedForest(context));
 		register(context, DYING_FOREST, dyingForest(context));
+		register(context, SNOWY_DYING_FOREST, dyingForest(context));
 		register(context, OASIS, oasis(context));
 		register(context, WARM_RIVER, warmRiver(context));
 		register(context, WARM_BEACH, warmBeach(context));
@@ -262,6 +265,48 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.addForestGrass(builder);
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_DYING_FOREST.getKey());
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH);
+	}
+
+	// SNOWY DYING FOREST
+	@NotNull
+	public static Biome snowyDyingForest(@NotNull BootstapContext<Biome> entries) {
+		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
+		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
+		builder.creatureGenerationProbability(0.07F);
+		BiomeDefaultFeatures.snowySpawns(builder);
+		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
+		addDyingForestFeatures(builder2);
+		return new Biome.BiomeBuilder()
+			.hasPrecipitation(true)
+			.temperature(WilderSharedWorldgen.DyingForest.TEMP)
+			.downfall(WilderSharedWorldgen.DyingForest.DOWNFALL)
+			.specialEffects(
+				new BiomeSpecialEffects.Builder()
+					.grassColorOverride(WilderSharedWorldgen.DyingForest.GRASS_COLOR)
+					.foliageColorOverride(WilderSharedWorldgen.DyingForest.FOLIAGE_COLOR)
+					.waterColor(WilderSharedWorldgen.DyingForest.WATER_COLOR)
+					.waterFogColor(WilderSharedWorldgen.DyingForest.WATER_FOG_COLOR)
+					.fogColor(WilderSharedWorldgen.DyingForest.FOG_COLOR)
+					.skyColor(WilderSharedWorldgen.DyingForest.SKY_COLOR)
+					.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+					.backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST)).build())
+			.mobSpawnSettings(builder.build())
+			.generationSettings(builder2.build())
+			.build();
+	}
+
+	public static void addSnowyDyingForestFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
+		addBasicFeatures(builder, SNOWY_DYING_FOREST);
+		BiomeDefaultFeatures.addDefaultOres(builder);
+		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
+		BiomeDefaultFeatures.addSnowyTrees(builder);
+		BiomeDefaultFeatures.addDefaultFlowers(builder);
+		BiomeDefaultFeatures.addDefaultGrass(builder);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH_2);
+		BiomeDefaultFeatures.addDefaultMushrooms(builder);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_DYING_FOREST.getKey());
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH);
 	}

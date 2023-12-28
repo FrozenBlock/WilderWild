@@ -69,7 +69,8 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
 			.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA)
 			.addOptional(RegisterWorldgen.DARK_TAIGA)
-			.addOptional(RegisterWorldgen.DYING_FOREST);
+			.addOptional(RegisterWorldgen.DYING_FOREST)
+			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST);
 
 		this.getOrCreateTagBuilder(BiomeTags.IS_OVERWORLD)
 			.addOptionalTag(WilderBiomeTags.WILDER_WILD_BIOMES);
@@ -177,7 +178,9 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.BIRCH_TAIGA)
 			.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
 			.addOptional(RegisterWorldgen.MIXED_FOREST)
-			.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
+			.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA)
+			.addOptional(RegisterWorldgen.DYING_FOREST)
+			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST);
 
 		this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_WET)
 			.addOptional(RegisterWorldgen.CYPRESS_WETLANDS)
@@ -207,7 +210,8 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
 			.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
 			.addOptional(RegisterWorldgen.DARK_TAIGA)
-			.addOptional(RegisterWorldgen.DYING_FOREST);
+			.addOptional(RegisterWorldgen.DYING_FOREST)
+			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST);
 
 		this.getOrCreateTagBuilder(ConventionalBiomeTags.VEGETATION_DENSE)
 			.addOptional(RegisterWorldgen.RAINFOREST)
@@ -224,7 +228,8 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.CYPRESS_WETLANDS);
 
 		this.getOrCreateTagBuilder(ConventionalBiomeTags.SNOWY)
-			.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
+			.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA)
+			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST);
 
 		this.getOrCreateTagBuilder(ConventionalBiomeTags.AQUATIC)
 			.addOptional(RegisterWorldgen.WARM_RIVER)
@@ -260,7 +265,8 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
 			.addOptional(RegisterWorldgen.SPARSE_BIRCH_JUNGLE)
 			.addOptional(RegisterWorldgen.BIRCH_TAIGA)
-			.addOptional(RegisterWorldgen.DYING_FOREST);
+			.addOptional(RegisterWorldgen.DYING_FOREST)
+			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST);
 
 		this.getOrCreateTagBuilder(ConventionalBiomeTags.RIVER)
 			.addOptional(RegisterWorldgen.WARM_RIVER)
@@ -302,14 +308,16 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.SNOWY_PLAINS)
 			.add(Biomes.SNOWY_SLOPES)
 			.add(Biomes.GROVE)
-			.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
+			.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA)
+			.addOptional(RegisterWorldgen.DYING_FOREST);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.FROZEN_WATER)
 			.add(Biomes.FROZEN_RIVER)
 			.add(Biomes.FROZEN_OCEAN)
 			.add(Biomes.FROZEN_PEAKS)
 			.add(Biomes.ICE_SPIKES)
-			.add(Biomes.FROZEN_PEAKS);
+			.add(Biomes.FROZEN_PEAKS)
+			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST);
 	}
 
 	private void generateUtilityTags() {
@@ -393,7 +401,8 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
 			.addOptional(RegisterWorldgen.BIRCH_TAIGA)
 			.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
-			.addOptional(RegisterWorldgen.DYING_FOREST);
+			.addOptional(RegisterWorldgen.DYING_FOREST)
+			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST);
 
 		this.getOrCreateTagBuilder(BiomeTags.MORE_FREQUENT_DROWNED_SPAWNS)
 			.addOptional(RegisterWorldgen.WARM_RIVER)
@@ -430,7 +439,8 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
 			.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
 			.addOptional(RegisterWorldgen.DARK_TAIGA)
-			.addOptional(RegisterWorldgen.DYING_FOREST);
+			.addOptional(RegisterWorldgen.DYING_FOREST)
+			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.SAND_BEACHES)
 			.add(Biomes.DARK_FOREST)
@@ -471,7 +481,8 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.FLOWER_FOREST)
 			.addOptional(RegisterWorldgen.PARCHED_FOREST)
 			.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
-			.addOptional(RegisterWorldgen.DYING_FOREST);
+			.addOptional(RegisterWorldgen.DYING_FOREST)
+			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_FALLEN_OAK_AND_SPRUCE_TREES)
 			.add(Biomes.WINDSWEPT_FOREST)
@@ -646,7 +657,7 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.RAINFOREST)
 			.addOptional(RegisterWorldgen.DARK_TAIGA)
 			.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
-			.addOptional(RegisterWorldgen.DYING_FOREST);;
+			.addOptional(RegisterWorldgen.DYING_FOREST);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_DATURA)
 			.add(Biomes.BIRCH_FOREST)
@@ -708,7 +719,8 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COMMON_SEEDING_DANDELION)
 			.addOptional(Biomes.CHERRY_GROVE)
-			.addOptional(RegisterWorldgen.DYING_FOREST);
+			.addOptional(RegisterWorldgen.DYING_FOREST)
+			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_RARE_SEEDING_DANDELION)
 			.add(Biomes.PLAINS);
@@ -777,12 +789,14 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.PARCHED_FOREST)
 			.addOptional(RegisterWorldgen.DARK_TAIGA)
 			.addOptional(RegisterWorldgen.OLD_GROWTH_DARK_FOREST)
-			.addOptional(RegisterWorldgen.DYING_FOREST);
+			.addOptional(RegisterWorldgen.DYING_FOREST)
+			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_BIRCH)
 			.add(Biomes.BIRCH_FOREST)
 			.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
-			.addOptional(RegisterWorldgen.DYING_FOREST);;
+			.addOptional(RegisterWorldgen.DYING_FOREST)
+			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_SPRUCE)
 			.add(Biomes.TAIGA)
@@ -818,7 +832,8 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.FLOWER_FOREST)
 			.addOptional(RegisterWorldgen.SEMI_BIRCH_FOREST)
 			.addOptional(RegisterWorldgen.DARK_BIRCH_FOREST)
-			.addOptional(RegisterWorldgen.DYING_FOREST);;
+			.addOptional(RegisterWorldgen.DYING_FOREST)
+			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_SNAPPED_BIRCH_AND_OAK_AND_SPRUCE)
 			.addOptional(RegisterWorldgen.MIXED_FOREST)
@@ -917,7 +932,8 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.RAINFOREST)
 			.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
 			.addOptional(RegisterWorldgen.DARK_TAIGA)
-			.addOptional(RegisterWorldgen.DYING_FOREST);
+			.addOptional(RegisterWorldgen.DYING_FOREST)
+			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_BROWN_SHELF_FUNGUS)
 			.add(Biomes.DARK_FOREST)
@@ -943,7 +959,8 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
 			.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA)
 			.addOptional(RegisterWorldgen.DARK_TAIGA)
-			.addOptional(RegisterWorldgen.DYING_FOREST);
+			.addOptional(RegisterWorldgen.DYING_FOREST)
+			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_RAINFOREST_MUSHROOM)
 			.addOptional(RegisterWorldgen.RAINFOREST)
@@ -1154,7 +1171,8 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.ARID_FOREST);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COARSE_DIRT_PILE_WITH_DISK)
-			.addOptional(RegisterWorldgen.DYING_FOREST);
+			.addOptional(RegisterWorldgen.DYING_FOREST)
+			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_COARSE_DIRT_CLEARING)
 			.add(Biomes.FOREST)
@@ -1177,7 +1195,8 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.MIXED_FOREST)
 			.addOptional(RegisterWorldgen.PARCHED_FOREST)
 			.addOptional(RegisterWorldgen.ARID_FOREST)
-			.addOptional(RegisterWorldgen.DYING_FOREST);
+			.addOptional(RegisterWorldgen.DYING_FOREST)
+			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_ROOTED_DIRT_CLEARING)
 			.add(Biomes.FOREST)
@@ -1199,7 +1218,8 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.MIXED_FOREST)
 			.addOptional(RegisterWorldgen.PARCHED_FOREST)
 			.addOptional(RegisterWorldgen.ARID_FOREST)
-			.addOptional(RegisterWorldgen.DYING_FOREST);
+			.addOptional(RegisterWorldgen.DYING_FOREST)
+			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_GRAVEL_CLEARING)
 			.add(Biomes.TAIGA)
@@ -1439,7 +1459,8 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.OASIS);
 
 		this.getOrCreateTagBuilder(BiomeTags.HAS_IGLOO)
-			.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
+			.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA)
+			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST);
 
 		this.getOrCreateTagBuilder(BiomeTags.HAS_MINESHAFT)
 			.addOptionalTag(WilderBiomeTags.WILDER_WILD_BIOMES);
@@ -1454,8 +1475,7 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.BIRCH_TAIGA)
 			.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
 			.addOptional(RegisterWorldgen.ARID_FOREST)
-			.addOptional(RegisterWorldgen.PARCHED_FOREST)
-			.addOptional(RegisterWorldgen.DYING_FOREST);
+			.addOptional(RegisterWorldgen.PARCHED_FOREST);
 
 		this.getOrCreateTagBuilder(BiomeTags.HAS_RUINED_PORTAL_DESERT)
 			.addOptional(RegisterWorldgen.OASIS)
@@ -1474,7 +1494,8 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.RAINFOREST)
 			.addOptional(RegisterWorldgen.TEMPERATE_RAINFOREST)
 			.addOptional(RegisterWorldgen.DARK_TAIGA)
-			.addOptional(RegisterWorldgen.DYING_FOREST);
+			.addOptional(RegisterWorldgen.DYING_FOREST)
+			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST);
 
 		this.getOrCreateTagBuilder(BiomeTags.HAS_RUINED_PORTAL_JUNGLE)
 			.addOptional(RegisterWorldgen.BIRCH_JUNGLE)
@@ -1510,6 +1531,7 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA)
 			.addOptional(RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA)
 			.addOptional(RegisterWorldgen.DARK_TAIGA)
-			.addOptional(RegisterWorldgen.DYING_FOREST);
+			.addOptional(RegisterWorldgen.DYING_FOREST)
+			.addOptional(RegisterWorldgen.SNOWY_DYING_FOREST);
 	}
 }

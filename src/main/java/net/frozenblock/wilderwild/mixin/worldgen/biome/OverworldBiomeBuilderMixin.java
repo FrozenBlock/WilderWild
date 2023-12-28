@@ -445,7 +445,7 @@ public final class OverworldBiomeBuilderMixin {
 				);
 			}
 		}
-		if (WorldgenConfig.get().biomeGeneration.generateDyingForest) {
+		if (WorldgenConfig.get().biomeGeneration.generateSnowyDyingForest) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_PLAINS)) {
 				this.addSurfaceBiome(
 					parameters,
@@ -456,6 +456,20 @@ public final class OverworldBiomeBuilderMixin {
 					point.weirdness(),
 					point.offset(),
 					RegisterWorldgen.DYING_FOREST
+				);
+			}
+		}
+		if (WorldgenConfig.get().biomeGeneration.generateDyingForest) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_PLAINS)) {
+				this.addSurfaceBiome(
+					parameters,
+					WilderSharedWorldgen.SnowyDyingForest.TEMPERATURE,
+					WilderSharedWorldgen.SnowyDyingForest.HUMIDITY,
+					point.continentalness(),
+					point.erosion(),
+					point.weirdness(),
+					point.offset(),
+					RegisterWorldgen.SNOWY_DYING_FOREST
 				);
 			}
 		}
