@@ -82,10 +82,10 @@
       "minecraft:glow_lichen",
       "minecraft:forest_flowers",
       "minecraft:patch_grass_forest",
+      "minecraft:patch_dead_bush",
       "minecraft:patch_sugar_cane",
       "minecraft:patch_pumpkin",
-      "wilderwild:trees_dying_forest",
-      "minecraft:patch_dead_bush"
+      "wilderwild:trees_dying_forest"
     ],
     [
       "minecraft:freeze_top_layer"

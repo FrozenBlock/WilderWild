@@ -261,13 +261,13 @@ public final class RegisterWorldgen {
 
 	public static void addDyingForestFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
 		addBasicFeatures(builder, DYING_FOREST);
-		BiomeDefaultFeatures.addForestFlowers(builder);
-		BiomeDefaultFeatures.addForestGrass(builder);
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
+		BiomeDefaultFeatures.addForestFlowers(builder);
+		BiomeDefaultFeatures.addForestGrass(builder);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_DYING_FOREST.getKey());
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH);
 	}
 
 	// SNOWY DYING FOREST
