@@ -57,6 +57,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("deprecation")
 public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	public static final int VALID_FROND_DISTANCE = 2;
 	public static final IntegerProperty STAGE = BlockStateProperties.STAGE;
