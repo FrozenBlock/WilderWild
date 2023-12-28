@@ -129,7 +129,7 @@ public final class WorldgenConfig {
 		public boolean modifyMangroveSwampPlacement = true;
 
 		@EntrySyncData("modifyCherryGrovePlacement")
-		public boolean modifyCherryGrovePlacement = true;
+		public boolean modifyCherryGrovePlacement = false;
 
 		@EntrySyncData("modifyStonyShorePlacement")
 		public boolean modifyStonyShorePlacement = true;
