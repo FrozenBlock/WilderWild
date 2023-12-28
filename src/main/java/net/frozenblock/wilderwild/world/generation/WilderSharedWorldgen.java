@@ -26,6 +26,8 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.world.level.biome.Climate;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Contains Wilder Wild's worldgen data.
@@ -43,6 +45,8 @@ public final class WilderSharedWorldgen {
 
 	// MODDED BIOME PARAMETERS
 
+	@NotNull
+	@Contract(value = "_, _, _, _, _, _ -> new", pure = true)
 	public static Climate.ParameterPoint bottomParameters(
 		Climate.Parameter temperature,
 		Climate.Parameter humidity,
@@ -54,6 +58,8 @@ public final class WilderSharedWorldgen {
 		return Climate.parameters(temperature, humidity, continentalness, erosion, BOTTOM_DEPTH, weirdness, offset);
 	}
 
+	@NotNull
+	@Contract(value = "_, _, _, _, _, _ -> new", pure = true)
 	public static Climate.ParameterPoint deepParameters(
 		Climate.Parameter temperature,
 		Climate.Parameter humidity,
@@ -65,6 +71,8 @@ public final class WilderSharedWorldgen {
 		return Climate.parameters(temperature, humidity, continentalness, erosion, DEEP_DEPTH, weirdness, offset);
 	}
 
+	@NotNull
+	@Contract(value = "_, _, _, _, _, _ -> new", pure = true)
 	public static Climate.ParameterPoint semiDeepParameters(
 		Climate.Parameter temperature,
 		Climate.Parameter humidity,
@@ -76,6 +84,8 @@ public final class WilderSharedWorldgen {
 		return Climate.parameters(temperature, humidity, continentalness, erosion, SEMI_DEEP_DEPTH, weirdness, offset);
 	}
 
+	@NotNull
+	@Contract(value = "_, _, _, _, _, _ -> new", pure = true)
 	public static Climate.ParameterPoint surfaceParameters(
 		Climate.Parameter temperature,
 		Climate.Parameter humidity,
@@ -123,7 +133,7 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static final class DyingForest {
-		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.475F, -0.400F);
+		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.475F, -0.375F);
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.100F, 0.050F);
 		public static final float TEMP = 0.35F;
 		public static final float DOWNFALL = 0.65F;
