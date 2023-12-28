@@ -53,6 +53,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("deprecation")
 public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock {
 	public static final EnumProperty<FlowerColor> COLORS = RegisterProperties.FLOWER_COLOR;
 	private static final VoxelShape SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 4.0D, 13.0D);
@@ -125,6 +126,7 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
 		level.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FLOWER_COLOR, this.COLOR_LIST.get(AdvancedMath.random().nextInt(this.COLOR_LIST.size()))));
 	}
 
+	@SuppressWarnings("NullableProblems")
 	@Override
 	protected MapCodec<? extends BushBlock> codec() {
 		return null;

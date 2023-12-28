@@ -39,6 +39,7 @@ public class FlowerLichenBlock extends MultifaceBlock {
 		super(settings);
 	}
 
+	@SuppressWarnings("NullableProblems")
 	@Override
 	protected MapCodec<? extends MultifaceBlock> codec() {
 		return null;

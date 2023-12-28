@@ -58,6 +58,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("deprecation")
 public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	public static final int VALID_FROND_DISTANCE = 2;
 	public static final IntegerProperty STAGE = BlockStateProperties.STAGE;
@@ -77,6 +78,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 		this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0).setValue(AGE, 0).setValue(HANGING, false));
 	}
 
+	@SuppressWarnings("NullableProblems")
 	@Override
 	protected MapCodec<? extends FallingBlock> codec() {
 		return null;
