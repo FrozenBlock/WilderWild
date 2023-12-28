@@ -24,3 +24,5 @@ TODO:
   - Coarse Dirt mounds will also generate here
 
 - Pumpkins generate much more frequently in Old Growth Dark Forests
+- Changed the `Cherry Grove Placement` config to be disabled by default as it wasn't as immersive as anticipated
+- Fixed the `Stony Shore Placement` config lang reading as `CStony Shore Placement

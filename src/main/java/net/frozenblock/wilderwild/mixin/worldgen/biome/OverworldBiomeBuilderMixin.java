@@ -449,8 +449,18 @@ public final class OverworldBiomeBuilderMixin {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_PLAINS)) {
 				this.addSurfaceBiome(
 					parameters,
-					WilderSharedWorldgen.DyingForest.TEMPERATURE,
-					WilderSharedWorldgen.DyingForest.HUMIDITY,
+					WilderSharedWorldgen.DyingForest.TEMPERATURE_A,
+					WilderSharedWorldgen.DyingForest.HUMIDITY_A,
+					point.continentalness(),
+					point.erosion(),
+					point.weirdness(),
+					point.offset(),
+					RegisterWorldgen.DYING_FOREST
+				);
+				this.addSurfaceBiome(
+					parameters,
+					WilderSharedWorldgen.DyingForest.TEMPERATURE_B,
+					WilderSharedWorldgen.DyingForest.HUMIDITY_B,
 					point.continentalness(),
 					point.erosion(),
 					point.weirdness(),
@@ -463,8 +473,18 @@ public final class OverworldBiomeBuilderMixin {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_PLAINS)) {
 				this.addSurfaceBiome(
 					parameters,
-					WilderSharedWorldgen.SnowyDyingForest.TEMPERATURE,
-					WilderSharedWorldgen.SnowyDyingForest.HUMIDITY,
+					WilderSharedWorldgen.SnowyDyingForest.TEMPERATURE_A,
+					WilderSharedWorldgen.SnowyDyingForest.HUMIDITY_A,
+					point.continentalness(),
+					point.erosion(),
+					point.weirdness(),
+					point.offset(),
+					RegisterWorldgen.SNOWY_DYING_FOREST
+				);
+				this.addSurfaceBiome(
+					parameters,
+					WilderSharedWorldgen.SnowyDyingForest.TEMPERATURE_B,
+					WilderSharedWorldgen.SnowyDyingForest.HUMIDITY_B,
 					point.continentalness(),
 					point.erosion(),
 					point.weirdness(),
