@@ -23,7 +23,7 @@
       "replace_current_music": false,
       "sound": "minecraft:music.overworld.forest"
     },
-    "sky_color": 8364543,
+    "sky_color": 8168447,
     "water_color": 4159204,
     "water_fog_color": 329011
   },
@@ -273,5 +273,5 @@
     "wilderwildjellyfish": [],
     "wilderwildtumbleweed": []
   },
-  "temperature": 0.0
+  "temperature": 0.35
 }
