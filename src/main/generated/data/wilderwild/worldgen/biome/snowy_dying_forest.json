@@ -11,7 +11,6 @@
   "effects": {
     "fog_color": 12638463,
     "foliage_color": 7703076,
-    "grass_color": 8955746,
     "mood_sound": {
       "block_search_extent": 8,
       "offset": 2.0,
