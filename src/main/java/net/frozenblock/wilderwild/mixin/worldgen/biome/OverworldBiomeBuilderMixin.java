@@ -459,6 +459,20 @@ public final class OverworldBiomeBuilderMixin {
 				);
 			}
 		}
+		if (WorldgenConfig.get().biomeGeneration.generateDyingMixedForest) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA)) {
+				this.addSurfaceBiome(
+					parameters,
+					WilderSharedWorldgen.DyingMixedForest.TEMPERATURE,
+					WilderSharedWorldgen.DyingMixedForest.HUMIDITY,
+					point.continentalness(),
+					point.erosion(),
+					point.weirdness(),
+					point.offset(),
+					RegisterWorldgen.DYING_MIXED_FOREST
+				);
+			}
+		}
 		if (WorldgenConfig.get().biomeGeneration.generateSnowyDyingForest) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_PLAINS)) {
 				this.addSurfaceBiome(

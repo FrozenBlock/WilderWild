@@ -83,6 +83,7 @@ public final class WilderPlacedFeatures {
 	public static final FrozenPlacedFeature TREES_BIRCH_AND_OAK = register("trees_birch_and_oak");
 	public static final FrozenPlacedFeature TREES_DYING_FOREST = register("trees_dying_forest");
 	public static final FrozenPlacedFeature TREES_SNOWY_DYING_FOREST = register("trees_snowy_dying_forest");
+	public static final FrozenPlacedFeature TREES_DYING_MIXED_FOREST = register("trees_dying_mixed_forest");
 	public static final FrozenPlacedFeature TREES_BIRCH_AND_OAK_ORIGINAL = register("trees_birch_and_oak_original");
 	public static final FrozenPlacedFeature TREES_SEMI_BIRCH_AND_OAK = register("trees_semi_birch_and_oak");
 	public static final FrozenPlacedFeature TREES_FLOWER_FOREST = register("trees_flower_forest");
@@ -414,6 +415,13 @@ public final class WilderPlacedFeatures {
 
 		TREES_SNOWY_DYING_FOREST.makeAndSetHolder(WilderConfiguredFeatures.TREES_SNOWY_DYING_FOREST.getHolder(),
 			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(6, 0.1F, 1))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER
+				).build()
+		);
+
+		TREES_DYING_MIXED_FOREST.makeAndSetHolder(WilderConfiguredFeatures.TREES_DYING_MIXED_FOREST.getHolder(),
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(9, 0.1F, 1))
 				.add(
 					WilderPlacementUtils.TREE_CLEARING_FILTER
 				).build()

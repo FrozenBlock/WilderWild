@@ -101,6 +101,7 @@ public final class WilderConfiguredFeatures {
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_BIRCH_AND_OAK = register("trees_birch_and_oak");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_DYING_FOREST = register("trees_dying_forest");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_SNOWY_DYING_FOREST = register("trees_snowy_dying_forest");
+	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_DYING_MIXED_FOREST = register("trees_dying_mixed_forest");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_SEMI_BIRCH_AND_OAK = register("trees_semi_birch_and_oak");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_BIRCH = register("trees_birch");
 	public static final FrozenConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_BIRCH_TALL = register("trees_birch_tall");
@@ -601,6 +602,25 @@ public final class WilderConfiguredFeatures {
 				new WeightedPlacedFeature(WilderTreePlaced.SMALL_FANCY_DEAD_OAK_CHECKED.getHolder(), 0.025F),
 				new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED.getHolder(), 0.085F),
 				new WeightedPlacedFeature(WilderTreePlaced.DEAD_OAK_CHECKED.getHolder(), 0.483F)), WilderTreePlaced.DEAD_OAK_BRANCHES_CHECKED.getHolder()
+			)
+		);
+
+		TREES_DYING_MIXED_FOREST.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(List.of(
+				new WeightedPlacedFeature(WilderTreePlaced.SPRUCE_CHECKED.getHolder(), 0.39F),
+				new WeightedPlacedFeature(WilderTreePlaced.FUNGUS_PINE_CHECKED.getHolder(), 0.086F),
+				new WeightedPlacedFeature(WilderTreePlaced.DYING_FUNGUS_PINE_CHECKED.getHolder(), 0.02F),
+				new WeightedPlacedFeature(WilderTreePlaced.SPRUCE_SHORT_CHECKED.getHolder(), 0.13F),
+				new WeightedPlacedFeature(WilderTreePlaced.DEAD_BIRCH.getHolder(), 0.07F),
+				new WeightedPlacedFeature(WilderTreePlaced.DYING_FANCY_OAK_CHECKED.getHolder(), 0.015F),
+				new WeightedPlacedFeature(WilderTreePlaced.FANCY_SEMI_DEAD_OAK_CHECKED.getHolder(), 0.075F),
+				new WeightedPlacedFeature(WilderTreePlaced.FANCY_DEAD_OAK_CHECKED.getHolder(), 0.06F),
+				new WeightedPlacedFeature(WilderTreePlaced.SMALL_FANCY_SEMI_DEAD_OAK_CHECKED.getHolder(), 0.0433F),
+				new WeightedPlacedFeature(WilderTreePlaced.SMALL_FANCY_DEAD_OAK_CHECKED.getHolder(), 0.025F),
+				new WeightedPlacedFeature(WilderTreePlaced.DYING_OAK_CHECKED.getHolder(), 0.085F),
+				new WeightedPlacedFeature(WilderTreePlaced.SHORT_OAK_CHECKED.getHolder(), 0.1F),
+				new WeightedPlacedFeature(WilderTreePlaced.DEAD_OAK_CHECKED.getHolder(), 0.35F),
+				new WeightedPlacedFeature(WilderTreePlaced.OAK_CHECKED.getHolder(), 0.033F)), WilderTreePlaced.DEAD_OAK_BRANCHES_CHECKED.getHolder()
 			)
 		);
 
