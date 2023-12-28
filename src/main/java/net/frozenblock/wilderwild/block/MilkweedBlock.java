@@ -45,6 +45,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("deprecation")
 public class MilkweedBlock extends TallFlowerBlock {
 	private static final int MAX_AGE = 3;
 
