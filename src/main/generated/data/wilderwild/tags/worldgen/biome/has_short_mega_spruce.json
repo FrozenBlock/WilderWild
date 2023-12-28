@@ -25,10 +25,6 @@
     {
       "id": "wilderwild:dark_taiga",
       "required": false
-    },
-    {
-      "id": "wilderwild:dying_mixed_forest",
-      "required": false
     }
   ]
 }

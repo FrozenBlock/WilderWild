@@ -302,9 +302,9 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 	}
 
 	@NotNull
-	public static SurfaceRules.RuleSource diedForestRules() {
+	public static SurfaceRules.RuleSource dyingForestRules() {
 		return SurfaceRules.ifTrue(
-				SurfaceRules.isBiome(RegisterWorldgen.DYING_FOREST),
+				SurfaceRules.isBiome(RegisterWorldgen.DYING_FOREST, RegisterWorldgen.DYING_MIXED_FOREST),
 				SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
 						SurfaceRules.ifTrue(
 								SurfaceRules.waterBlockCheck(-1, 0),
@@ -410,7 +410,7 @@ public final class RegisterSurfaceRules implements SurfaceRuleEvents.OverworldSu
 				oldGrowthDarkForestRules(),
 				temperateRainforestRules(),
 				rainforestRules(),
-				diedForestRules()
+				dyingForestRules()
 			)
 		);
 		WilderSharedConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
