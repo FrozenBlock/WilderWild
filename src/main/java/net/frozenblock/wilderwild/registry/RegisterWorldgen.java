@@ -92,7 +92,7 @@ public final class RegisterWorldgen {
 		register(context, CYPRESS_WETLANDS, cypressWetlands(context));
 		register(context, MIXED_FOREST, mixedForest(context));
 		register(context, DYING_FOREST, dyingForest(context));
-		register(context, SNOWY_DYING_FOREST, dyingForest(context));
+		register(context, SNOWY_DYING_FOREST, snowyDyingForest(context));
 		register(context, OASIS, oasis(context));
 		register(context, WARM_RIVER, warmRiver(context));
 		register(context, WARM_BEACH, warmBeach(context));
@@ -278,19 +278,19 @@ public final class RegisterWorldgen {
 		builder.creatureGenerationProbability(0.07F);
 		BiomeDefaultFeatures.snowySpawns(builder);
 		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addDyingForestFeatures(builder2);
+		addSnowyDyingForestFeatures(builder2);
 		return new Biome.BiomeBuilder()
 			.hasPrecipitation(true)
-			.temperature(WilderSharedWorldgen.DyingForest.TEMP)
-			.downfall(WilderSharedWorldgen.DyingForest.DOWNFALL)
+			.temperature(WilderSharedWorldgen.SnowyDyingForest.TEMP)
+			.downfall(WilderSharedWorldgen.SnowyDyingForest.DOWNFALL)
 			.specialEffects(
 				new BiomeSpecialEffects.Builder()
-					.grassColorOverride(WilderSharedWorldgen.DyingForest.GRASS_COLOR)
-					.foliageColorOverride(WilderSharedWorldgen.DyingForest.FOLIAGE_COLOR)
-					.waterColor(WilderSharedWorldgen.DyingForest.WATER_COLOR)
-					.waterFogColor(WilderSharedWorldgen.DyingForest.WATER_FOG_COLOR)
-					.fogColor(WilderSharedWorldgen.DyingForest.FOG_COLOR)
-					.skyColor(WilderSharedWorldgen.DyingForest.SKY_COLOR)
+					.grassColorOverride(WilderSharedWorldgen.SnowyDyingForest.GRASS_COLOR)
+					.foliageColorOverride(WilderSharedWorldgen.SnowyDyingForest.FOLIAGE_COLOR)
+					.waterColor(WilderSharedWorldgen.SnowyDyingForest.WATER_COLOR)
+					.waterFogColor(WilderSharedWorldgen.SnowyDyingForest.WATER_FOG_COLOR)
+					.fogColor(WilderSharedWorldgen.SnowyDyingForest.FOG_COLOR)
+					.skyColor(WilderSharedWorldgen.SnowyDyingForest.SKY_COLOR)
 					.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
 					.backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST)).build())
 			.mobSpawnSettings(builder.build())

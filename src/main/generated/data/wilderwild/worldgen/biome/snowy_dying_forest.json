@@ -6,7 +6,8 @@
       "minecraft:canyon"
     ]
   },
-  "downfall": 0.65,
+  "creature_spawn_probability": 0.07,
+  "downfall": 0.575,
   "effects": {
     "fog_color": 12638463,
     "foliage_color": 7703076,
@@ -23,7 +24,7 @@
       "replace_current_music": false,
       "sound": "minecraft:music.overworld.forest"
     },
-    "sky_color": 8168447,
+    "sky_color": 8364543,
     "water_color": 4159204,
     "water_fog_color": 329011
   },
@@ -80,8 +81,12 @@
     ],
     [
       "minecraft:glow_lichen",
-      "minecraft:forest_flowers",
-      "minecraft:patch_grass_forest",
+      "minecraft:trees_snowy",
+      "minecraft:flower_default",
+      "minecraft:patch_grass_badlands",
+      "minecraft:patch_dead_bush_2",
+      "minecraft:brown_mushroom_normal",
+      "minecraft:red_mushroom_normal",
       "wilderwild:trees_dying_forest",
       "minecraft:patch_dead_bush"
     ],
@@ -103,10 +108,16 @@
     "axolotls": [],
     "creature": [
       {
-        "type": "minecraft:wolf",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 5
+        "type": "minecraft:rabbit",
+        "maxCount": 3,
+        "minCount": 2,
+        "weight": 10
+      },
+      {
+        "type": "minecraft:polar_bear",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 1
       }
     ],
     "misc": [],
@@ -133,7 +144,7 @@
         "type": "minecraft:skeleton",
         "maxCount": 4,
         "minCount": 4,
-        "weight": 100
+        "weight": 20
       },
       {
         "type": "minecraft:creeper",
@@ -158,6 +169,12 @@
         "maxCount": 1,
         "minCount": 1,
         "weight": 5
+      },
+      {
+        "type": "minecraft:stray",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 80
       }
     ],
     "underground_water_creature": [
@@ -175,5 +192,5 @@
     "wilderwildjellyfish": [],
     "wilderwildtumbleweed": []
   },
-  "temperature": 0.35
+  "temperature": 0.05
 }
