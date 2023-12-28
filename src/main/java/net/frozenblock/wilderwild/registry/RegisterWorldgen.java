@@ -304,7 +304,6 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
 		BiomeDefaultFeatures.addSnowyTrees(builder);
-		BiomeDefaultFeatures.addDefaultFlowers(builder);
 		BiomeDefaultFeatures.addDefaultGrass(builder);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH_2);
