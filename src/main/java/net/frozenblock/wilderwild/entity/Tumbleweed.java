@@ -53,14 +53,12 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -112,12 +110,12 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
 	}
 
-	public static boolean canSpawn(EntityType<Tumbleweed> type, @NotNull ServerLevelAccessor level, MobSpawnType reason, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public static boolean checkTumbleweedSpawnRules(EntityType<Tumbleweed> type, @NotNull ServerLevelAccessor level, MobSpawnType reason, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		return level.getBrightness(LightLayer.SKY, pos) > 7 && random.nextInt(0, 60) == 1 && pos.getY() > level.getSeaLevel();
 	}
 
 	@NotNull
-	public static AttributeSupplier.Builder addAttributes() {
+	public static AttributeSupplier.Builder createAttributes() {
 		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 1D);
 	}
 

@@ -95,7 +95,6 @@ A dolphin named "AlexTheDolphin0"
 A slime named "Merp"
 A goat named "Treetrain1"
 A pig named "A View From The Top"
-frozenblock owner jellyfish
 Press Alt-F4!
 Think Outside the Shulker Box!
 Also try Minecraf- wait...
@@ -242,3 +241,10 @@ Only unique mobs!
 I am starving
 Transaction pending...
 Account migration has ended!
+Crabby road!
+It's hiding under the sand!
+Reaching with claws!
+Hey, you can have longer arms!
+Stop ostracizing me!
+inbred ostrich
+Math-based Ostriches!

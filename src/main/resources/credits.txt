@@ -28,3 +28,19 @@ Osmiooo - French translation.
 nekkok - Spanish translation.
 
 SaishoVibes - Kicked off the initial config.
+
+Ostrich Sounds:
+Most sounds are edited and taken from Sonddogs' "Rob Nokes Sound Library" on avosound.com, used with a purchased license per track.
+https://xeno-canto.org/845946
+https://xeno-canto.org/845937
+https://xeno-canto.org/845936
+https://freesound.org/people/monosfera/sounds/571540/
+https://freesound.org/people/Radaral/sounds/564071/
+https://freesound.org/people/annadnewby/sounds/565604/
+https://freesound.org/people/SieuAmThanh/sounds/546291/
+https://freesound.org/people/cognito%20perceptu/sounds/17922/
+https://freesound.org/people/abstraktgeneriert/sounds/348944/
+https://freesound.org/people/Emmalyons1/sounds/594176/
+https://freesound.org/people/julius_galla/sounds/434893/
+https://freesound.org/people/lukabea/sounds/660471/
+Additional sound effects were taken and edited from Minecraft itself.

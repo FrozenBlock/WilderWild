@@ -30,7 +30,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -130,9 +130,8 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 	}
 
 	@Override
-	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
-		ItemStack itemStack = player.getItemInHand(hand);
-		if (itemStack.is(Items.SHEARS) && isFullyGrown(state)) {
+	public ItemInteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+		if (stack.is(Items.SHEARS) && isFullyGrown(state)) {
 			if (!level.isClientSide) {
 				level.playSound(null, pos, RegisterSounds.BLOCK_TUMBLEWEED_SHEAR, SoundSource.BLOCKS, 1.0F, 1.0F);
 				Tumbleweed weed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
@@ -141,12 +140,12 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 				level.levelEvent(2001, pos, Block.getId(state));
 				weed.spawnedFromShears = true;
 				level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
-				itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
+				stack.hurtAndBreak(1, player, playerx -> playerx.broadcastBreakEvent(hand));
 				level.gameEvent(player, GameEvent.SHEAR, pos);
 			}
-			return InteractionResult.sidedSuccess(level.isClientSide);
+			return ItemInteractionResult.sidedSuccess(level.isClientSide);
 		} else {
-			return super.use(state, level, pos, player, hand, hit);
+			return super.useItemOn(stack, state, level, pos, player, hand, hit);
 		}
 	}
 

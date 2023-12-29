@@ -26,11 +26,11 @@ import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.ConstantInt;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -58,7 +58,6 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.SculkSensorPhase;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
@@ -68,6 +67,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("deprecation")
 public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterloggedBlock, SculkBehaviour {
 	public static final int ACTIVE_TICKS = 60;
 	public static final EnumProperty<SculkSensorPhase> PHASE = BlockStateProperties.SCULK_SENSOR_PHASE;
@@ -82,6 +82,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 		this.registerDefaultState(this.stateDefinition.any().setValue(PHASE, SculkSensorPhase.INACTIVE).setValue(WATERLOGGED, false).setValue(TWITCHING, false).setValue(WRINGING_OUT, false).setValue(POWER, 0));
 	}
 
+	@SuppressWarnings("NullableProblems")
 	@Override
 	protected MapCodec<? extends BaseEntityBlock> codec() {
 		return null;
@@ -215,14 +216,13 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 		return ACTIVE_TICKS;
 	}
 
-	public void activate(@Nullable Entity entity, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull GameEvent gameEvent, int power, int j) {
+	public void activate(@Nullable Entity entity, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Holder<GameEvent> gameEvent, int power, int frequency) {
 		world.setBlock(pos, state.setValue(PHASE, SculkSensorPhase.ACTIVE).setValue(POWER, power), 3);
 		world.scheduleTick(pos, state.getBlock(), this.getActiveTicks());
-		SculkSensorBlock.updateNeighbours(world, pos, state);
-		SculkSensorBlock.tryResonateVibration(entity, world, pos, j);
 		boolean tendrilsCarryEvents = BlockConfig.get().tendrilsCarryEvents;
-		world.gameEvent(tendrilsCarryEvents ? entity : null, VibrationSystem.getResonanceEventByFrequency(j), pos);
-		world.gameEvent(tendrilsCarryEvents ? entity : null, tendrilsCarryEvents && gameEvent != null ? gameEvent : GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
+		SculkSensorBlock.updateNeighbours(world, pos, state);
+		SculkSensorBlock.tryResonateVibration(tendrilsCarryEvents ? entity : null, world, pos, frequency);
+		world.gameEvent(tendrilsCarryEvents ? entity : null, tendrilsCarryEvents ? gameEvent : GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
 		if (!state.getValue(WATERLOGGED)) {
 			world.playSound(
 				null,
@@ -274,7 +274,8 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+	@NotNull
+	public InteractionResult useWithoutItem(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull BlockHitResult hit) {
 		if (SculkSensorBlock.canActivate(state) && !state.getValue(WRINGING_OUT)) {
 			if (level.isClientSide) {
 				return InteractionResult.SUCCESS;

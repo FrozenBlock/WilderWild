@@ -229,9 +229,11 @@ public final class RegisterSounds {
 	public static final SoundEvent BLOCK_TUMBLEWEED_PLANT_FALL = register("block.tumbleweed_plant.fall");
 	public static final SoundEvent BLOCK_TUMBLEWEED_SHEAR = register("block.tumbleweed_plant.shear");
 	public static final SoundEvent BLOCK_PRICKLY_PEAR_PICK = register("block.prickly_pear.pick");
-	public static final SoundEvent ENTITY_ANCIENT_HORN_PROJECTILE_BLAST = register("entity.ancient_horn_projectile.blast");
+	public static final SoundEvent BLOCK_OSTRICH_EGG_CRACK = register("block.ostrich_egg.crack");
+	public static final SoundEvent BLOCK_OSTRICH_EGG_HATCH = register("block.ostrich_egg.hatch");
 
 	//ENTITY
+	public static final SoundEvent ENTITY_ANCIENT_HORN_PROJECTILE_BLAST = register("entity.ancient_horn_projectile.blast");
 	public static final SoundEvent ENTITY_ANCIENT_HORN_PROJECTILE_LOOP = register("entity.ancient_horn_projectile.loop");
 	public static final SoundEvent ENTITY_ANCIENT_HORN_PROJECTILE_FLYBY = register("entity.ancient_horn_projectile.flyby");
 	public static final SoundEvent ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE = register("entity.ancient_horn_projectile.dissipate");
@@ -253,6 +255,20 @@ public final class RegisterSounds {
 	public static final SoundEvent ENTITY_CRAB_DEATH = register("entity.crab.death");
 	public static final SoundEvent ENTITY_CRAB_DIG = register("entity.crab.dig");
 	public static final SoundEvent ENTITY_CRAB_EMERGE = register("entity.crab.emerge");
+	public static final SoundEvent ENTITY_OSTRICH_IDLE = register("entity.ostrich.idle");
+	public static final SoundEvent ENTITY_OSTRICH_GRUNT = register("entity.ostrich.grunt");
+	public static final SoundEvent ENTITY_OSTRICH_HISS = register("entity.ostrich.hiss");
+	public static final SoundEvent ENTITY_OSTRICH_HURT = register("entity.ostrich.hurt");
+	public static final SoundEvent ENTITY_OSTRICH_DEATH = register("entity.ostrich.death");
+	public static final SoundEvent ENTITY_OSTRICH_STEP = register("entity.ostrich.step");
+	public static final SoundEvent ENTITY_OSTRICH_SADDLE = register("entity.ostrich.saddle");
+	public static final SoundEvent ENTITY_OSTRICH_BEAK_STUCK = register("entity.ostrich.beak.stuck");
+	public static final SoundEvent ENTITY_OSTRICH_SWING = register("entity.ostrich.beak.swing");
+	public static final SoundEvent ENTITY_OSTRICH_EAT = register("entity.ostrich.eat");
+	public static final SoundEvent ENTITY_OSTRICH_INBRED_IDLE_BOCK = register("entity.ostrich.inbred.idle.bock");
+	public static final SoundEvent ENTITY_OSTRICH_INBRED_IDLE_AH = register("entity.ostrich.inbred.idle.ah");
+	public static final SoundEvent ENTITY_OSTRICH_INBRED_HURT = register("entity.ostrich.inbred.hurt");
+	public static final SoundEvent ENTITY_OSTRICH_INBRED_DEATH = register("entity.ostrich.inbred.death");
 	public static final SoundEvent ENTITY_TUMBLEWEED_BOUNCE = register("entity.tumbleweed.bounce");
 	public static final SoundEvent ENTITY_TUMBLEWEED_BREAK = register("entity.tumbleweed.break");
 	public static final SoundEvent ENTITY_TUMBLEWEED_DAMAGE = register("entity.tumbleweed.damage");

@@ -46,9 +46,14 @@ public final class WilderSpawns {
 			FrozenMobCategories.getCategory(WilderSharedConstants.MOD_ID, "jellyfish"), RegisterEntities.JELLYFISH, 2, 1, 1);
 	}
 
-	public static void addCrab() {
+	public static void addCrabs() {
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WilderBiomeTags.HAS_CRAB),
 			FrozenMobCategories.getCategory(WilderSharedConstants.MOD_ID, "crab"), RegisterEntities.CRAB, 1, 1, 3);
+	}
+
+	public static void addOstriches() {
+		BiomeModifications.addSpawn(BiomeSelectors.tag(WilderBiomeTags.HAS_OSTRICH),
+			MobCategory.CREATURE, RegisterEntities.OSTRICH, 3, 2, 4);
 	}
 
 	public static void addTumbleweed() {

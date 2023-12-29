@@ -60,6 +60,9 @@ public final class EntityConfig {
 	public final CrabConfig crab = new CrabConfig();
 
 	@CollapsibleObject
+	public final OstrichConfig ostrich = new OstrichConfig();
+
+	@CollapsibleObject
 	public final TumbleweedConfig tumbleweed = new TumbleweedConfig();
 
 	@CollapsibleObject
@@ -125,6 +128,14 @@ public final class EntityConfig {
 
 		@EntrySyncData("reachAffectsAttack")
 		public boolean reachAffectsAttack = false;
+	}
+
+	public static class OstrichConfig {
+		@EntrySyncData("spawnOstriches")
+		public boolean spawnOstriches = true;
+
+		@EntrySyncData("allowAttack")
+		public boolean allowAttack = true;
 	}
 
 	public static class TumbleweedConfig {

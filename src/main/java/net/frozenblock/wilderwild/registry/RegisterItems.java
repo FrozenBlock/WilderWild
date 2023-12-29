@@ -94,11 +94,6 @@ public final class RegisterItems {
 	public static final MilkweedPod MILKWEED_POD = new MilkweedPod(new FabricItemSettings().maxCount(64));
 	public static final RecordItem MUSIC_DISC_GOAT_HORN_SYMPHONY = new RecordItem(15, RegisterSounds.MUSIC_DISC_GOATHORN_SYMPHONY, new FabricItemSettings().maxCount(1).rarity(Rarity.RARE), 144);
 	public static final RecordItem MUSIC_DISC_BACK = new RecordItem(15, RegisterSounds.MUSIC_DISC_BACK, new FabricItemSettings().maxCount(1).rarity(Rarity.RARE), 76);
-	public static final SpawnEggItem FIREFLY_SPAWN_EGG = new SpawnEggItem(RegisterEntities.FIREFLY, Integer.parseInt("2A2E2B", 16), Integer.parseInt("AAF644", 16), new FabricItemSettings());
-	public static final SpawnEggItem JELLYFISH_SPAWN_EGG = new SpawnEggItem(RegisterEntities.JELLYFISH, Integer.parseInt("E484E4", 16), Integer.parseInt("DF71DC", 16), new FabricItemSettings());
-	public static final MobBucketItem JELLYFISH_BUCKET = new MobBucketItem(RegisterEntities.JELLYFISH, Fluids.WATER, RegisterSounds.ITEM_BUCKET_EMPTY_JELLYFISH, new FabricItemSettings().maxCount(1));
-	public static final SpawnEggItem CRAB_SPAWN_EGG = new SpawnEggItem(RegisterEntities.CRAB, Integer.parseInt("F98334", 16), Integer.parseInt("F9C366", 16), new FabricItemSettings());
-	public static final MobBucketItem CRAB_BUCKET = new MobBucketItem(RegisterEntities.CRAB, Fluids.WATER, RegisterSounds.ITEM_BUCKET_EMPTY_CRAB, new FabricItemSettings().maxCount(1));
 	public static final Item SPLIT_COCONUT = new Item(new FabricItemSettings().food(new FoodProperties.Builder().nutrition(2).saturationMod(0.4F).build()));
 	public static final BoatItem BAOBAB_BOAT_ITEM = new BoatItem(false, WilderEnumValues.BAOBAB, new FabricItemSettings().maxCount(1));
 	public static final BoatItem BAOBAB_CHEST_BOAT_ITEM = new BoatItem(true, WilderEnumValues.BAOBAB, new FabricItemSettings().maxCount(1));
@@ -125,9 +120,16 @@ public final class RegisterItems {
 	public static final FireflyBottle WHITE_FIREFLY_BOTTLE = new FireflyBottle(new FabricItemSettings().maxCount(32), FireflyColor.WHITE);
 	public static final PrickOnUseBlockItem PRICKLY_PEAR = new PrickOnUseBlockItem(RegisterBlocks.PRICKLY_PEAR_CACTUS, new FabricItemSettings().food(RegisterFood.PRICKLY_PEAR), 2F, RegisterSounds.PLAYER_HURT_CACTUS, RegisterDamageTypes.PRICKLY_PEAR);
 	public static final Item PEELED_PRICKLY_PEAR = new Item(new FabricItemSettings().food(Foods.APPLE));
+	public static final MobBucketItem CRAB_BUCKET = new MobBucketItem(RegisterEntities.CRAB, Fluids.WATER, RegisterSounds.ITEM_BUCKET_EMPTY_CRAB, new FabricItemSettings().maxCount(1));
 	public static final Item CRAB_CLAW = new Item(new FabricItemSettings().food(RegisterFood.CRAB_CLAW));
 	public static final Item COOKED_CRAB_CLAW = new Item(new FabricItemSettings().food(RegisterFood.COOKED_CRAB_CLAW));
 	public static final Item ANCIENT_HORN_FRAGMENT = new Item(new FabricItemSettings().maxCount(64));
+	// SPAWN EGGS
+	public static final SpawnEggItem FIREFLY_SPAWN_EGG = new SpawnEggItem(RegisterEntities.FIREFLY, Integer.parseInt("2A2E2B", 16), Integer.parseInt("AAF644", 16), new FabricItemSettings());
+	public static final SpawnEggItem JELLYFISH_SPAWN_EGG = new SpawnEggItem(RegisterEntities.JELLYFISH, Integer.parseInt("E484E4", 16), Integer.parseInt("DF71DC", 16), new FabricItemSettings());
+	public static final MobBucketItem JELLYFISH_BUCKET = new MobBucketItem(RegisterEntities.JELLYFISH, Fluids.WATER, RegisterSounds.ITEM_BUCKET_EMPTY_JELLYFISH, new FabricItemSettings().maxCount(1));
+	public static final SpawnEggItem CRAB_SPAWN_EGG = new SpawnEggItem(RegisterEntities.CRAB, Integer.parseInt("F98334", 16), Integer.parseInt("F9C366", 16), new FabricItemSettings());
+	public static final SpawnEggItem OSTRICH_SPAWN_EGG = new SpawnEggItem(RegisterEntities.OSTRICH, Integer.parseInt("DBC396", 16), Integer.parseInt("FFB321", 16), new FabricItemSettings());
 	// INSTRUMENT
 	public static final AncientHorn ANCIENT_HORN = new AncientHorn(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC), WilderInstrumentTags.ANCIENT_HORNS);
 	public static final ResourceKey<Instrument> ANCIENT_HORN_INSTRUMENT = ResourceKey.create(Registries.INSTRUMENT, WilderSharedConstants.id("ancient_horn"));
@@ -189,6 +191,7 @@ public final class RegisterItems {
 		registerItemAfter(Items.HUSK_SPAWN_EGG, JELLYFISH_SPAWN_EGG, "jellyfish_spawn_egg", CreativeModeTabs.SPAWN_EGGS);
 		registerItemAfter(Items.AXOLOTL_BUCKET, JELLYFISH_BUCKET, "jellyfish_bucket", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItemBefore(Items.CREEPER_SPAWN_EGG, CRAB_SPAWN_EGG, "crab_spawn_egg", CreativeModeTabs.SPAWN_EGGS);
+		registerItemAfter(Items.OCELOT_SPAWN_EGG, OSTRICH_SPAWN_EGG, "ostrich_spawn_egg", CreativeModeTabs.SPAWN_EGGS);
 		registerItemAfter(JELLYFISH_BUCKET, CRAB_BUCKET, "crab_bucket", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		registerItemAfter(Items.GLOW_BERRIES, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.FOOD_AND_DRINKS);
 		registerItemAfter(Items.MANGROVE_PROPAGULE, BAOBAB_NUT, "baobab_nut", CreativeModeTabs.NATURAL_BLOCKS);
