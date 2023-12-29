@@ -40,3 +40,6 @@ Thank you!
 - Added the Snowy Dying Forest, Snowy Dying Mixed Forest, and Snowy Old Growth Pine Taiga biomes to the `minecraft:spawns_snow_foxes` tag
 - Added the Snowy Dying Forest, Snowy Dying Mixed Forest, and Snowy Old Growth Pine Taiga biomes to the `minecraft:spawns_white_rabbit` tag
 - Baobab Nuts and Palm Fronds are now compostable
+- Removed the `Goat Horn Symphony` and `Back` discs as they don't feel necessary nor do they fit the game
+  - These will be datafixed into `Otheride`
+- Updated the protocol version to 3
