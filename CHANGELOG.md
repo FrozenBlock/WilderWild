@@ -29,13 +29,13 @@ Thank you!
 
 - Added the Snowy Dying Mixed Forest - I, too, would have mixed feelings if I were dying of frostbite.
   - Consists of only dead, semi-dead, fallen, and Spruce trees.
-  - The only flowers present here are  Seeding Dandelions
+  - The only flowers present here are Seeding Dandelions
   - Dead Bushes will generate here
   - Coarse Dirt mounds make their fourth and final grand return in this biome
 
 - Pumpkins generate much more frequently in Old Growth Dark Forests
 - Changed the `Cherry Grove Placement` config to be disabled by default as it wasn't as immersive as anticipated
-- Fixed the `Stony Shore Placement` config lang reading as `CStony Shore Placement
+- Fixed the `Stony Shore Placement` config lang reading as `CStony Shore Placement`
 - Added the Arid Forest, Arid Savanna, and Oasis biomes to the `minecraft:snow_golem_melts` tag
 - Added the Snowy Dying Forest, Snowy Dying Mixed Forest, and Snowy Old Growth Pine Taiga biomes to the `minecraft:spawns_snow_foxes` tag
 - Added the Snowy Dying Forest, Snowy Dying Mixed Forest, and Snowy Old Growth Pine Taiga biomes to the `minecraft:spawns_white_rabbit` tag
