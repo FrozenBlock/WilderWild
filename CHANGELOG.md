@@ -39,7 +39,10 @@ Thank you!
 - Added the Arid Forest, Arid Savanna, and Oasis biomes to the `minecraft:snow_golem_melts` tag
 - Added the Snowy Dying Forest, Snowy Dying Mixed Forest, and Snowy Old Growth Pine Taiga biomes to the `minecraft:spawns_snow_foxes` tag
 - Added the Snowy Dying Forest, Snowy Dying Mixed Forest, and Snowy Old Growth Pine Taiga biomes to the `minecraft:spawns_white_rabbit` tag
+- Added the Palm Hanging Sign to the `wilderwild:hanging_signs` item tag
+- Added the Palm Crown to the `wilderwild:palm_logs` item tag
 - Baobab Nuts and Palm Fronds are now compostable
+- Decreased the amount of String obtained crafting with Cattails from 3 to 1
 - Removed the `Goat Horn Symphony` and `Back` discs as they don't feel necessary nor do they fit the game
-  - These will be datafixed into `Otheride`
+  - These will be datafixed into `Otherside`
 - Updated the protocol version to 3
