@@ -19,15 +19,14 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 
 public final class RegisterGameEvents {
-	public static final Holder.Reference<GameEvent> SCULK_SENSOR_ACTIVATE = register("sculk_sensor_activate", 16);
-	public static final Holder.Reference<GameEvent> TENDRIL_EXTRACT_XP = register("hanging_tendril_extract_xp", 16);
+	public static final GameEvent SCULK_SENSOR_ACTIVATE = register("sculk_sensor_activate", 16);
+	public static final GameEvent TENDRIL_EXTRACT_XP = register("hanging_tendril_extract_xp", 16);
 
 	private RegisterGameEvents() {
 		throw new UnsupportedOperationException("RegisterGameEvents contains only static declarations.");
@@ -38,7 +37,8 @@ public final class RegisterGameEvents {
 	}
 
 	@NotNull
-	private static Holder.Reference<GameEvent> register(@NotNull String path, int notificationRadius) {
-		return Registry.registerForHolder(BuiltInRegistries.GAME_EVENT, WilderSharedConstants.id(path), new GameEvent(notificationRadius));
+	private static GameEvent register(@NotNull String path, int notificationRadius) {
+		var key = WilderSharedConstants.string(path);
+		return Registry.register(BuiltInRegistries.GAME_EVENT, key, new GameEvent(notificationRadius));
 	}
 }
