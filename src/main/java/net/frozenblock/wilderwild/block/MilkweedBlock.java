@@ -45,6 +45,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("deprecation")
 public class MilkweedBlock extends TallFlowerBlock {
 	private static final int MAX_AGE = 3;
 
@@ -74,6 +75,7 @@ public class MilkweedBlock extends TallFlowerBlock {
 	}
 
 	@Override
+	@NotNull
 	public ItemInteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		if (isFullyGrown(state)) {
 			if (!level.isClientSide) {

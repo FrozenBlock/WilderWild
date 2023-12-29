@@ -48,6 +48,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("deprecation")
 public class EchoGlassBlock extends TintedGlassBlock {
 	public static final IntegerProperty DAMAGE = RegisterProperties.DAMAGE;
 
