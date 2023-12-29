@@ -1278,7 +1278,7 @@ public final class RegisterBlocks {
 		CompostingChanceRegistry.INSTANCE.add(RED_SHELF_FUNGUS, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(CYPRESS_LEAVES, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BAOBAB_LEAVES, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(CYPRESS_SAPLING, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(PALM_FRONDS, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(GLORY_OF_THE_SNOW, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(BLUE_GLORY_OF_THE_SNOW, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(WHITE_GLORY_OF_THE_SNOW, 0.65F);
@@ -1288,6 +1288,8 @@ public final class RegisterBlocks {
 		CompostingChanceRegistry.INSTANCE.add(BUSH, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED_PLANT, 0.5F);
 		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(CYPRESS_SAPLING, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(BAOBAB_NUT, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(RegisterItems.COCONUT, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(RegisterItems.SPLIT_COCONUT, 0.3F);
 	}
