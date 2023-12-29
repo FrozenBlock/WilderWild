@@ -2,7 +2,7 @@
   "replace": false,
   "values": [
     {
-      "id": "wilderwild:dying_forest",
+      "id": "wilderwild:snowy_dying_mixed_forest",
       "required": false
     },
     {
@@ -10,11 +10,7 @@
       "required": false
     },
     {
-      "id": "wilderwild:dying_mixed_forest",
-      "required": false
-    },
-    {
-      "id": "wilderwild:snowy_dying_mixed_forest",
+      "id": "wilderwild:snowy_old_growth_pine_taiga",
       "required": false
     }
   ]

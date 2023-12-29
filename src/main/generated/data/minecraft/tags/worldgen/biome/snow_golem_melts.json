@@ -2,15 +2,15 @@
   "replace": false,
   "values": [
     {
-      "id": "wilderwild:snowy_old_growth_pine_taiga",
+      "id": "wilderwild:arid_forest",
       "required": false
     },
     {
-      "id": "wilderwild:snowy_dying_forest",
+      "id": "wilderwild:arid_savanna",
       "required": false
     },
     {
-      "id": "wilderwild:snowy_dying_mixed_forest",
+      "id": "wilderwild:oasis",
       "required": false
     }
   ]

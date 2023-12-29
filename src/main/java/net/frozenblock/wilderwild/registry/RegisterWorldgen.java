@@ -73,6 +73,7 @@ public final class RegisterWorldgen {
 	public static final ResourceKey<Biome> DYING_FOREST = register("dying_forest");
 	public static final ResourceKey<Biome> SNOWY_DYING_FOREST = register("snowy_dying_forest");
 	public static final ResourceKey<Biome> DYING_MIXED_FOREST = register("dying_mixed_forest");
+	public static final ResourceKey<Biome> SNOWY_DYING_MIXED_FOREST = register("snowy_dying_mixed_forest");
 	// OLD GROWTH
 	public static final ResourceKey<Biome> OLD_GROWTH_BIRCH_TAIGA = register("old_growth_birch_taiga");
 	public static final ResourceKey<Biome> OLD_GROWTH_DARK_FOREST = register("old_growth_dark_forest");
@@ -95,6 +96,7 @@ public final class RegisterWorldgen {
 		register(context, DYING_FOREST, dyingForest(context));
 		register(context, SNOWY_DYING_FOREST, snowyDyingForest(context));
 		register(context, DYING_MIXED_FOREST, dyingMixedForest(context));
+		register(context, SNOWY_DYING_MIXED_FOREST, snowyDyingMixedForest(context));
 		register(context, OASIS, oasis(context));
 		register(context, WARM_RIVER, warmRiver(context));
 		register(context, WARM_BEACH, warmBeach(context));
@@ -268,6 +270,7 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.addForestFlowers(builder);
 		BiomeDefaultFeatures.addForestGrass(builder);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH);
+		BiomeDefaultFeatures.addDefaultMushrooms(builder);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_DYING_FOREST.getKey());
 	}
@@ -350,8 +353,51 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.addForestFlowers(builder);
 		BiomeDefaultFeatures.addForestGrass(builder);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH);
+		BiomeDefaultFeatures.addDefaultMushrooms(builder);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_DYING_MIXED_FOREST.getKey());
+	}
+
+	// SNOWY DYING MIXED FOREST
+	@NotNull
+	public static Biome snowyDyingMixedForest(@NotNull BootstapContext<Biome> entries) {
+		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
+		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
+		BiomeDefaultFeatures.farmAnimals(builder);
+		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 8, 4, 4)).addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 4, 2, 3)).addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.FOX, 8, 2, 4));
+		BiomeDefaultFeatures.commonSpawns(builder);
+		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
+		addSnowyDyingMixedForestFeatures(builder2);
+		return new Biome.BiomeBuilder()
+			.hasPrecipitation(true)
+			.temperature(WilderSharedWorldgen.SnowyDyingMixedForest.TEMP)
+			.downfall(WilderSharedWorldgen.SnowyDyingMixedForest.DOWNFALL)
+			.specialEffects(
+				new BiomeSpecialEffects.Builder()
+					.foliageColorOverride(WilderSharedWorldgen.SnowyDyingMixedForest.FOLIAGE_COLOR)
+					.waterColor(WilderSharedWorldgen.SnowyDyingMixedForest.WATER_COLOR)
+					.waterFogColor(WilderSharedWorldgen.SnowyDyingMixedForest.WATER_FOG_COLOR)
+					.fogColor(WilderSharedWorldgen.SnowyDyingMixedForest.FOG_COLOR)
+					.skyColor(WilderSharedWorldgen.SnowyDyingMixedForest.SKY_COLOR)
+					.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+					.backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST)).build())
+			.mobSpawnSettings(builder.build())
+			.generationSettings(builder2.build())
+			.build();
+	}
+
+	public static void addSnowyDyingMixedForestFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
+		addBasicFeatures(builder, SNOWY_DYING_MIXED_FOREST);
+		BiomeDefaultFeatures.addDefaultOres(builder);
+		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
+		BiomeDefaultFeatures.addSnowyTrees(builder);
+		BiomeDefaultFeatures.addDefaultGrass(builder);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH_2);
+		BiomeDefaultFeatures.addDefaultMushrooms(builder);
+		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
+		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_SNOWY_DYING_MIXED_FOREST.getKey());
 	}
 
 	// OASIS

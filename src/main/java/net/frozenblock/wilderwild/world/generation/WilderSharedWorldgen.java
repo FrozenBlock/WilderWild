@@ -168,6 +168,8 @@ public final class WilderSharedWorldgen {
 	public static final class DyingMixedForest {
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.450F, -0.255F);
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.050F, 0.150F);
+		public static final Climate.Parameter TEMPERATURE_WEIRD = Climate.Parameter.span(-0.450F, -0.425F);
+		public static final Climate.Parameter HUMIDITY_WEIRD = Climate.Parameter.span(-0.100F, 0.100F);
 		public static final float TEMP = 0.35F;
 		public static final float DOWNFALL = 0.55F;
 		public static final int WATER_COLOR = 4159204;
@@ -185,12 +187,13 @@ public final class WilderSharedWorldgen {
 	public static final class SnowyDyingMixedForest {
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.485F, -0.450F);
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.050F, 0.155F);
+		public static final Climate.Parameter HUMIDITY_WEIRD = Climate.Parameter.span(-0.105F, 0.155F);
 		public static final float TEMP = -0.4F;
 		public static final float DOWNFALL = 0.425F;
 		public static final int WATER_COLOR = 4159204;
 		public static final int WATER_FOG_COLOR = 329011;
 		public static final int FOG_COLOR = 12638463;
-		public static final int GRASS_COLOR = 8955746;
+		public static final int FOLIAGE_COLOR = 7703076;
 		public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 
 		private SnowyDyingMixedForest() {

@@ -477,15 +477,34 @@ public final class OverworldBiomeBuilderMixin {
 		}
 		if (WorldgenConfig.get().biomeGeneration.generateDyingMixedForest) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA)) {
+				boolean weird = point.weirdness().max() < 0L;
 				this.addSurfaceBiome(
 					parameters,
-					WilderSharedWorldgen.DyingMixedForest.TEMPERATURE,
-					WilderSharedWorldgen.DyingMixedForest.HUMIDITY,
+					weird ? WilderSharedWorldgen.DyingMixedForest.TEMPERATURE_WEIRD
+						: WilderSharedWorldgen.DyingMixedForest.TEMPERATURE,
+					weird ? WilderSharedWorldgen.DyingMixedForest.HUMIDITY_WEIRD
+						: WilderSharedWorldgen.DyingMixedForest.HUMIDITY,
 					point.continentalness(),
 					point.erosion(),
 					point.weirdness(),
 					point.offset(),
 					RegisterWorldgen.DYING_MIXED_FOREST
+				);
+			}
+		}
+		if (WorldgenConfig.get().biomeGeneration.generateSnowyDyingMixedForest) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA)) {
+				boolean weird = point.weirdness().max() < 0L;
+				this.addSurfaceBiome(
+					parameters,
+					WilderSharedWorldgen.SnowyDyingMixedForest.TEMPERATURE,
+					weird ? WilderSharedWorldgen.SnowyDyingMixedForest.HUMIDITY_WEIRD :
+						WilderSharedWorldgen.SnowyDyingMixedForest.HUMIDITY,
+					point.continentalness(),
+					point.erosion(),
+					point.weirdness(),
+					point.offset(),
+					RegisterWorldgen.SNOWY_DYING_MIXED_FOREST
 				);
 			}
 		}
