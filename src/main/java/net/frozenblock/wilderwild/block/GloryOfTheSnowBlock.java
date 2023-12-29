@@ -30,7 +30,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -52,7 +52,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("deprecation")
 public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock {
 	public static final EnumProperty<FlowerColor> COLORS = RegisterProperties.FLOWER_COLOR;
 	private static final VoxelShape SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 4.0D, 13.0D);
@@ -82,14 +81,15 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
 
 	@Override
 	@NotNull
-	public ItemInteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		if (level instanceof ServerLevel) {
-			if (hasColor(state) && stack.is(Items.SHEARS)) {
-				stack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
-				return ItemInteractionResult.SUCCESS;
+			ItemStack itemStack = player.getItemInHand(hand);
+			if (hasColor(state) && itemStack.is(Items.SHEARS)) {
+				itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
+				return InteractionResult.SUCCESS;
 			}
 		}
-		return super.useItemOn(stack, state, level, pos, player, hand, hit);
+		return super.use(state, level, pos, player, hand, hit);
 	}
 
 	public static void shear(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @Nullable Player player) {
@@ -125,7 +125,6 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
 		level.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FLOWER_COLOR, this.COLOR_LIST.get(AdvancedMath.random().nextInt(this.COLOR_LIST.size()))));
 	}
 
-	@SuppressWarnings("NullableProblems")
 	@Override
 	protected MapCodec<? extends BushBlock> codec() {
 		return null;

@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.mixin.warden;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -130,7 +129,9 @@ public final class WardenMixin extends Monster implements WilderWarden {
 
 	@ModifyReturnValue(at = @At("RETURN"), method = "getDeathSound")
 	public SoundEvent wilderWild$getDeathSound(SoundEvent soundEvent) {
-		return this.wilderWild$isStella() ? RegisterSounds.ENTITY_WARDEN_KIRBY_DEATH : soundEvent;
+		return this.wilderWild$isStella() ? RegisterSounds.ENTITY_WARDEN_KIRBY_DEATH
+			: (Warden.class.cast(this) instanceof SwimmingWardenInterface swim && swim.wilderWild$isSubmergedInWaterOrLava()) ? RegisterSounds.ENTITY_WARDEN_UNDERWATER_DYING
+			: soundEvent;
 	}
 
 	@Inject(at = @At("TAIL"), method = "finalizeSpawn")
@@ -189,35 +190,16 @@ public final class WardenMixin extends Monster implements WilderWarden {
 		}
 	}
 
-	@ModifyExpressionValue(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/warden/Warden;isSilent()Z", ordinal = 0))
-	private boolean wilderWild$preventHeartBeatIfDead(boolean original) {
-		return original || Warden.class.cast(this).isDeadOrDying();
-	}
-
-	@Inject(method = "tick", at = @At("HEAD"))
-	private void wilderWild$preventMovementWhileDiggingOrEmerging1(CallbackInfo info) {
-		Warden warden = Warden.class.cast(this);
-		if (warden.isDiggingOrEmerging()) {
-			warden.xxa = 0;
-			warden.zza = 0;
-		}
-	}
-
 	@Inject(method = "tick", at = @At("TAIL"))
 	private void wilderWild$tick(CallbackInfo info) {
 		Warden warden = Warden.class.cast(this);
-		boolean diggingOrEmerging = this.isDiggingOrEmerging();
-		if (diggingOrEmerging) {
-			warden.xxa = 0;
-			warden.zza = 0;
-		}
 		if (this.wilderWild$hasDeathAnimation() && warden.getPose() == Pose.DYING) {
 			this.clientDiggingParticles(this.wilderWild$getDyingAnimationState());
 		}
 		if ((warden.isInWaterOrBubble() || warden.isInLava())
 			&& (!warden.isEyeInFluid(FluidTags.WATER) || !warden.isEyeInFluid(FluidTags.LAVA))
 			&& this.horizontalCollision
-			&& !diggingOrEmerging
+			&& !this.isDiggingOrEmerging()
 			&& this.navigation.isInProgress()
 			&& this.navigation.getTargetPos() != null
 			&& this.navigation.getTargetPos().getY() > this.getBlockY()

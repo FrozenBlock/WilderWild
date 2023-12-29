@@ -51,7 +51,6 @@ import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.block.MilkweedBlock;
 import net.frozenblock.wilderwild.block.NematocystBlock;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
-import net.frozenblock.wilderwild.block.OstrichEggBlock;
 import net.frozenblock.wilderwild.block.PalmFrondsBlock;
 import net.frozenblock.wilderwild.block.PollenBlock;
 import net.frozenblock.wilderwild.block.PricklyPearCactusBlock;
@@ -472,15 +471,6 @@ public final class RegisterBlocks {
 			.noCollision()
 			.nonOpaque()
 			.sounds(SoundType.SPONGE)
-	);
-
-	public static final Block OSTRICH_EGG = new OstrichEggBlock(
-		FabricBlockSettings.of()
-			.mapColor(MapColor.TERRACOTTA_WHITE)
-			.strength(0.5F)
-			.sound(SoundType.METAL)
-			.noOcclusion()
-			.randomTicks()
 	);
 
 	public static final Block NULL_BLOCK = new Block(
@@ -1012,7 +1002,6 @@ public final class RegisterBlocks {
 		Registry.register(BuiltInRegistries.BLOCK, WilderSharedConstants.id("algae"), ALGAE);
 		Registry.register(BuiltInRegistries.BLOCK, WilderSharedConstants.id("flowering_lily_pad"), FLOWERING_LILY_PAD);
 		registerBlockAfter(Items.WET_SPONGE, "small_sponge", SMALL_SPONGE, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(Items.SNIFFER_EGG, "ostrich_egg", OSTRICH_EGG, CreativeModeTabs.NATURAL_BLOCKS);
 	}
 
 	public static void registerMisc() {

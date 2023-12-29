@@ -54,7 +54,7 @@ public class CrabRenderer<T extends Crab> extends MobRenderer<T, CrabModel<T>> {
 
 	@Override
 	protected float getFlipDegrees(@NotNull T livingEntity) {
-		return 180.0F;
+		return 180.0f;
 	}
 
 	@Override

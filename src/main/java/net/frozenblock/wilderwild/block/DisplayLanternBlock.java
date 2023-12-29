@@ -87,7 +87,6 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 		this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, false).setValue(WATERLOGGED, false).setValue(DISPLAY_LIGHT, 0));
 	}
 
-	@SuppressWarnings("NullableProblems")
 	@Override
 	protected MapCodec<? extends BaseEntityBlock> codec() {
 		return null;

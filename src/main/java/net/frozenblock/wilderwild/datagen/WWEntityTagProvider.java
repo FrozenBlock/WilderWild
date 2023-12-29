@@ -50,8 +50,5 @@ final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagProvider 
 			.add(EntityType.SALMON)
 			.add(EntityType.TROPICAL_FISH)
 			.add(EntityType.TADPOLE);
-
-		this.getOrCreateTagBuilder(EntityTypeTags.DISMOUNTS_UNDERWATER)
-			.add(RegisterEntities.OSTRICH);
 	}
 }

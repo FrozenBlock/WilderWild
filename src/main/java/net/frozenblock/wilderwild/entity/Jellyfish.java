@@ -152,7 +152,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		NON_PEARLESCENT_JELLYFISH_PER_LEVEL.clear();
 	}
 
-	public static boolean checkJellyfishSpawnRules(@NotNull EntityType<Jellyfish> type, @NotNull ServerLevelAccessor level, @NotNull MobSpawnType reason, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public static boolean canSpawn(@NotNull EntityType<Jellyfish> type, @NotNull ServerLevelAccessor level, @NotNull MobSpawnType reason, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if (reason == MobSpawnType.SPAWNER) {
 			return true;
 		}
@@ -170,7 +170,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@NotNull
-	public static AttributeSupplier.Builder createAttributes() {
+	public static AttributeSupplier.Builder addAttributes() {
 		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.MOVEMENT_SPEED, 0.5F).add(Attributes.FOLLOW_RANGE, MAX_TARGET_DISTANCE);
 	}
 
