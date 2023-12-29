@@ -636,7 +636,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	public boolean isRGB() {
 		var name = this.getName().getString();
-		return this.hasCustomName() && (name.equalsIgnoreCase("I_am_Merp") || name.equals("AroundTheWorld"));
+		return this.hasCustomName() && (name.equals("AroundTheWorld"));
 	}
 
 	public void ageUp(int amount, boolean forced) {
