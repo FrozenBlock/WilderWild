@@ -480,16 +480,26 @@ public final class OverworldBiomeBuilderMixin {
 				boolean weird = point.weirdness().max() < 0L;
 				this.addSurfaceBiome(
 					parameters,
-					weird ? WilderSharedWorldgen.DyingMixedForest.TEMPERATURE_WEIRD
-						: WilderSharedWorldgen.DyingMixedForest.TEMPERATURE,
-					weird ? WilderSharedWorldgen.DyingMixedForest.HUMIDITY_WEIRD
-						: WilderSharedWorldgen.DyingMixedForest.HUMIDITY,
+					WilderSharedWorldgen.DyingMixedForest.TEMPERATURE,
+					WilderSharedWorldgen.DyingMixedForest.HUMIDITY,
 					point.continentalness(),
 					point.erosion(),
 					point.weirdness(),
 					point.offset(),
 					RegisterWorldgen.DYING_MIXED_FOREST
 				);
+				if (weird) {
+					this.addSurfaceBiome(
+						parameters,
+						WilderSharedWorldgen.DyingMixedForest.TEMPERATURE_WEIRD,
+						WilderSharedWorldgen.DyingMixedForest.HUMIDITY_WEIRD,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						point.offset(),
+						RegisterWorldgen.DYING_MIXED_FOREST
+					);
+				}
 			}
 		}
 		if (WorldgenConfig.get().biomeGeneration.generateSnowyDyingMixedForest) {
