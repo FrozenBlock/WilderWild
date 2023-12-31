@@ -620,14 +620,21 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	@NotNull
 	private Vec3 makeBeakPos() {
+		float beakAnimProgress = this.getBeakAnimProgress(1F);
 		Vec3 currentPos = this.position().add(0D, DIMENSION_PERCENTAGE_AT_NECK * this.getEyeHeight(), 0D);
 		Vec3 lookOrientation = Vec3.directionFromRotation(new Vec2(0F, this.getYHeadRot()));
-		Vec3 headBasePos = currentPos.add(lookOrientation.scale(0.895D * this.getScale() * this.getAgeScale()));
-		Vec3 rotPos = AdvancedMath.rotateAboutX(Vec3.ZERO, 1.15D * this.getScale() * this.getAgeScale(), this.getBeakAnimProgress(1F) * 180D);
-		Vec3 beakPos = headBasePos.add(0, rotPos.x(), 0).add(lookOrientation.scale(rotPos.z()));
+		Vec3 neckBasePos = currentPos.add(lookOrientation.scale(0.475D * this.getScale() * this.getAgeScale()));
+
+		Vec3 headBaseRotPos = AdvancedMath.rotateAboutX(Vec3.ZERO, 0.275D * this.getScale() * this.getAgeScale(), (beakAnimProgress * 180D * 0.3D) + 90D);
+		Vec3 headBasePos = neckBasePos.add(0, headBaseRotPos.x(), 0).add(lookOrientation.scale(headBaseRotPos.z()));
+
+		Vec3 beakRotPos = AdvancedMath.rotateAboutX(Vec3.ZERO, 1.15D * this.getScale() * this.getAgeScale(), (beakAnimProgress * 180D * 0.7D) + 10D);
+		double downFactor = (Math.max(0, beakAnimProgress - 0.5) * 0.75D * 1.25D);
+		Vec3 beakPos = headBasePos.add(0, beakRotPos.x() - downFactor, 0).add(lookOrientation.scale(beakRotPos.z() - downFactor));
 
 		if (WilderSharedConstants.UNSTABLE_LOGGING) {
 			if (this.level() instanceof ServerLevel serverLevel) {
+				serverLevel.sendParticles(FrozenParticleTypes.DEBUG_POS, neckBasePos.x, neckBasePos.y, neckBasePos.z, 1, 0, 0, 0, 0);
 				serverLevel.sendParticles(FrozenParticleTypes.DEBUG_POS, headBasePos.x, headBasePos.y, headBasePos.z, 1, 0, 0, 0, 0);
 				serverLevel.sendParticles(FrozenParticleTypes.DEBUG_POS, beakPos.x, beakPos.y, beakPos.z, 1, 0, 0, 0, 0);
 			}

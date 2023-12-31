@@ -125,7 +125,7 @@ public class OstrichModel<T extends Ostrich> extends HierarchicalModel<T> {
 
 		// NECK
 		float beakAnimProgress = entity.getBeakAnimProgress(partialTick);
-		float rotation = beakAnimProgress * 180F * -PI_180;
+		float rotation = beakAnimProgress * - (float) Math.PI;
 
 		this.neck_base.xRot = rotation * 0.3F;
 		this.neck.xRot = rotation * 0.7F;
