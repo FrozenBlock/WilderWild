@@ -201,7 +201,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		this.prevBeakPosition = this.getBeakPos();
 		super.tick();
 
-		if (this.getBeakCooldown() <= 1 && (this.isBeakTouchingFluid() || this.isEyeTouchingFluid() || this.isBeakTouchingHardBlock())) {
+		if (this.getBeakCooldown() <= 1 && (this.isBeakTouchingFluid() || this.isEyeTouchingFluid() || this.isBeakTouchingCollidingBlock(false))) {
 			this.setBeakCooldown(2);
 		}
 
@@ -263,7 +263,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 			if (this.isBeakTouchingFluid()) this.cancelAttack(false);
 
-			if (this.isBeakTouchingHardBlock()) {
+			if (this.isBeakTouchingCollidingBlock(false)) {
 				SoundType soundType = this.getBeakState().getSoundType();
 				BlockPos beakBlockPos = BlockPos.containing(beakPos);
 				this.level().playSound(null, beakBlockPos, soundType.getHitSound(), this.getSoundSource(), soundType.getVolume(), soundType.getPitch());
@@ -299,7 +299,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 					}
 				}
 
-				if (this.canGetHeadStuck()) {
+				if (this.isBeakTouchingCollidingBlock(true)) {
 					this.setBeakCooldown(this.isAggressive() ? BEAK_STUCK_TICKS_AGGRESSIVE + BEAK_COOLDOWN_TICKS_SUCCESSFUL_HIT : BEAK_STUCK_TICKS + BEAK_COOLDOWN_TICKS);
 					this.setStuckTicks(this.isAggressive() ? BEAK_STUCK_TICKS_AGGRESSIVE : BEAK_STUCK_TICKS);
 					this.setAttacking(false);
@@ -316,7 +316,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 		} else if (this.getStuckTicks() > 0) {
 			this.setStuckTicks(this.getStuckTicks() - 1);
-			if (this.getStuckTicks() == 0 || !this.canGetHeadStuck()) {
+			if (this.getStuckTicks() == 0 || !this.isBeakTouchingCollidingBlock(true)) {
 				this.emergeBeak();
 			}
 		}
@@ -654,8 +654,8 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		return this.level().getBlockState(BlockPos.containing(this.getBeakPos()));
 	}
 
-	public boolean canGetHeadStuck() {
-		return this.getBeakState().is(WilderBlockTags.OSTRICH_BEAK_BURYABLE);
+	public boolean canGetHeadStuckInState(BlockState blockState) {
+		return blockState.is(WilderBlockTags.OSTRICH_BEAK_BURYABLE);
 	}
 
 	public boolean isBeakTouchingFluid() {
@@ -665,12 +665,12 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		return !fluidState.isEmpty() && (fluidState.getHeight(this.level(), beakPos) + beakPos.getY() >= beakVec.y());
 	}
 
-	public boolean isBeakTouchingHardBlock() {
+	public boolean isBeakTouchingCollidingBlock(boolean canGetStuck) {
 		Vec3 beakVec = this.getBeakPos();
 		BlockPos beakPos = BlockPos.containing(beakVec);
 		if (this.beakVoxelShape != null && !this.beakVoxelShape.isEmpty() && this.beakVoxelShape != Shapes.empty()) {
 			AABB collisionShape = this.beakVoxelShape.bounds().move(beakPos);
-			return !canGetHeadStuck() && collisionShape.contains(beakVec);
+			return (canGetStuck == this.canGetHeadStuckInState(this.getBeakState())) && collisionShape.contains(beakVec);
 		}
 		return false;
 	}
