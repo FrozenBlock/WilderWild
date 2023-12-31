@@ -381,7 +381,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	@NotNull
 	@Override
 	public AABB getAttackBoundingBox() {
-		return super.getAttackBoundingBox().inflate(0.5D, 0.8D, 0.5D);
+		return super.getAttackBoundingBox().inflate(0.65D, 0.8D, 0.65D);
 	}
 
 	@Override

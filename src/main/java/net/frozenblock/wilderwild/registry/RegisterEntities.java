@@ -103,7 +103,7 @@ public final class RegisterEntities {
 			.entityFactory(Ostrich::new)
 			.defaultAttributes(Ostrich::createAttributes)
 			.spawnRestriction(SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Ostrich::checkOstrichSpawnRules)
-			.dimensions(EntityDimensions.scalable(1.25F, 2.3F).withEyeHeight(2.3F)) // eye height is hitbox height
+			.dimensions(EntityDimensions.scalable(1.1F, 2.3F).withEyeHeight(2.3F)) // eye height is hitbox height
 			.build()
 	);
 
