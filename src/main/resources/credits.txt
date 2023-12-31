@@ -9,7 +9,7 @@ Merp - Most textures and sounds, came up with Mesoglea's functionality, most mob
 
 Contributors:
 
-Enri - Italian Translation, came up with Jellyfish in chests, Crab Bucket texture.
+Enri - Italian Translation, came up with Jellyfish in chests, Crab Bucket texture, Ostrich texture.
 
 LudoCrypt - New music.
 

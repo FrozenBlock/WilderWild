@@ -87,6 +87,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -667,7 +668,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	public boolean isBeakTouchingHardBlock() {
 		Vec3 beakVec = this.getBeakPos();
 		BlockPos beakPos = BlockPos.containing(beakVec);
-		if (this.beakVoxelShape != null && !this.beakVoxelShape.isEmpty()) {
+		if (this.beakVoxelShape != null && !this.beakVoxelShape.isEmpty() && this.beakVoxelShape != Shapes.empty()) {
 			AABB collisionShape = this.beakVoxelShape.bounds().move(beakPos);
 			return !canGetHeadStuck() && collisionShape.contains(beakVec);
 		}
