@@ -545,6 +545,6 @@ val github by tasks.register("github") {
 val publishMod by tasks.register("publishMod") {
     dependsOn(tasks.publish)
     dependsOn(github)
-    //dependsOn(tasks.curseforge)
+    dependsOn(tasks.curseforge)
     dependsOn(tasks.modrinth)
 }
