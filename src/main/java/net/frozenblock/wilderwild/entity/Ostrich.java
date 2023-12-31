@@ -378,6 +378,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		}
 	}
 
+	@NotNull
 	@Override
 	public AABB getAttackBoundingBox() {
 		return super.getAttackBoundingBox().inflate(0.5D, 0.8D, 0.5D);
@@ -654,7 +655,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		return this.level().getBlockState(BlockPos.containing(this.getBeakPos()));
 	}
 
-	public boolean canGetHeadStuckInState(BlockState blockState) {
+	public boolean canGetHeadStuckInState(@NotNull BlockState blockState) {
 		return blockState.is(WilderBlockTags.OSTRICH_BEAK_BURYABLE);
 	}
 
@@ -681,8 +682,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		FluidState fluidState = this.getBeakState().getFluidState();
 		return !fluidState.isEmpty() && (fluidState.getHeight(this.level(), eyePos) + eyePos.getY() >= eyeVec.y());
 	}
-
-
+	
 	@Override
 	public int getMaxTemper() {
 		return 150;
