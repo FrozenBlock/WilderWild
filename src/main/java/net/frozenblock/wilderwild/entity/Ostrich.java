@@ -626,7 +626,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		Vec3 rotPos = AdvancedMath.rotateAboutX(Vec3.ZERO, 1.15D * this.getScale() * this.getAgeScale(), this.getBeakAnimProgress(1F) * 180D);
 		Vec3 beakPos = headBasePos.add(0, rotPos.x(), 0).add(lookOrientation.scale(rotPos.z()));
 
-		if (false) {
+		if (WilderSharedConstants.UNSTABLE_LOGGING) {
 			if (this.level() instanceof ServerLevel serverLevel) {
 				serverLevel.sendParticles(FrozenParticleTypes.DEBUG_POS, headBasePos.x, headBasePos.y, headBasePos.z, 1, 0, 0, 0, 0);
 				serverLevel.sendParticles(FrozenParticleTypes.DEBUG_POS, beakPos.x, beakPos.y, beakPos.z, 1, 0, 0, 0, 0);
