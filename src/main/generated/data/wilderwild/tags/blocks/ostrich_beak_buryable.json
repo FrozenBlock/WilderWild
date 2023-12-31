@@ -6,6 +6,10 @@
       "required": false
     },
     {
+      "id": "#minecraft:mineable/hoe",
+      "required": false
+    },
+    {
       "id": "#minecraft:wool",
       "required": false
     }

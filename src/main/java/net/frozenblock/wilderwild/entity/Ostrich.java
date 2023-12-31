@@ -95,9 +95,9 @@ import org.jetbrains.annotations.Nullable;
 
 public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Saddleable {
 	public static final Ingredient TEMPTATION_ITEM = Ingredient.of(WilderItemTags.OSTRICH_FOOD);
-	public static final int BEAK_COOLDOWN_TICKS = 60;
+	public static final int BEAK_COOLDOWN_TICKS = 40;
 	public static final int BEAK_COOLDOWN_TICKS_SUCCESSFUL_HIT = 20;
-	public static final int BEAK_STUCK_TICKS = 100;
+	public static final int BEAK_STUCK_TICKS = 80;
 	public static final int BEAK_STUCK_TICKS_AGGRESSIVE = 60;
 	public static final float MAX_ATTACK_DAMAGE = 6F;
 	public static final double ATTACK_BOX_WIDTH = 0.35F;
@@ -620,16 +620,17 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	@NotNull
 	private Vec3 makeBeakPos() {
+		double scale = this.getScale() * this.getAgeScale();
 		float beakAnimProgress = this.getBeakAnimProgress(1F);
 		Vec3 currentPos = this.position().add(0D, DIMENSION_PERCENTAGE_AT_NECK * this.getEyeHeight(), 0D);
 		Vec3 lookOrientation = Vec3.directionFromRotation(new Vec2(0F, this.getYHeadRot()));
-		Vec3 neckBasePos = currentPos.add(lookOrientation.scale(0.475D * this.getScale() * this.getAgeScale()));
+		Vec3 neckBasePos = currentPos.add(lookOrientation.scale(0.475D * scale));
 
-		Vec3 headBaseRotPos = AdvancedMath.rotateAboutX(Vec3.ZERO, 0.275D * this.getScale() * this.getAgeScale(), (beakAnimProgress * 180D * 0.3D) + 90D);
+		Vec3 headBaseRotPos = AdvancedMath.rotateAboutX(Vec3.ZERO, 0.275D * scale, (beakAnimProgress * 180D * 0.3D) + 90D);
 		Vec3 headBasePos = neckBasePos.add(0, headBaseRotPos.x(), 0).add(lookOrientation.scale(headBaseRotPos.z()));
 
-		Vec3 beakRotPos = AdvancedMath.rotateAboutX(Vec3.ZERO, 1.15D * this.getScale() * this.getAgeScale(), (beakAnimProgress * 180D * 0.7D) + 10D);
-		double downFactor = (Math.max(0, beakAnimProgress - 0.5) * 0.75D * 1.75D);
+		Vec3 beakRotPos = AdvancedMath.rotateAboutX(Vec3.ZERO, 1.15D * scale, (beakAnimProgress * 180D * 0.7D) + 10D);
+		double downFactor = (Math.max(0, beakAnimProgress - 0.5) * 0.75D * 1.75D) * scale;
 		Vec3 beakPos = headBasePos.add(0, beakRotPos.x() - downFactor, 0).add(lookOrientation.scale(beakRotPos.z() - downFactor));
 
 		if (WilderSharedConstants.UNSTABLE_LOGGING) {
@@ -678,7 +679,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		BlockPos beakPos = BlockPos.containing(beakVec);
 		if (this.beakVoxelShape != null && !this.beakVoxelShape.isEmpty() && this.beakVoxelShape != Shapes.empty()) {
 			AABB collisionShape = this.beakVoxelShape.bounds().move(beakPos);
-			return (canGetStuck == this.canGetHeadStuckInState(this.getBeakState())) && collisionShape.contains(beakVec);
+			return canGetStuck == this.canGetHeadStuckInState(this.getBeakState()) && collisionShape.contains(beakVec);
 		}
 		return false;
 	}

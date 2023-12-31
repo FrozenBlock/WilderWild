@@ -13,7 +13,7 @@ Added the Ostrich
 - Is tamed the same way as Horses, but takes a bit longer due to their feistier nature
 - Instead of jumping, will attack with its beak depending on how strong the meter was charged
     - If its beak hits a softer block while trying to attack, it may get stuck temporarily
-    - Added the `wilderwild:ostrich_beak_buryable` tag to control which blocks these are, currently containing the tags `minecraft:mineable/shovel` and `minecraft:wool`
+    - Added the `wilderwild:ostrich_beak_buryable` tag to control which blocks these are, currently containing the tags `minecraft:mineable/shovel,` `minecraft:mineable/hoe,` and `minecraft:wool`
     - Added a new `Ostrich Peck Attack` config option to control whether or not players can use the Ostrich's attack
 - Can be bred with Bushes
     - Will lay an egg upon breeding
