@@ -114,8 +114,8 @@ public class OstrichModel<T extends Ostrich> extends HierarchicalModel<T> {
 		limbSwingAmount = Math.min(limbSwingAmount * 1.5F, 1F);
 
 		// LEGS
-		animateLeg(this.left_leg, this.left_foot, limbSwing, limbSwingAmount, 0F);
-		animateLeg(this.right_leg, this.right_foot, limbSwing, limbSwingAmount, (float) Math.PI);
+		animateLeg(this.left_leg, this.left_foot, limbSwing, limbSwingAmount, (float) Math.PI);
+		animateLeg(this.right_leg, this.right_foot, limbSwing, limbSwingAmount, 0F);
 
 		// BODY
 		float fastAngleBody = limbSwing * 0.3331F;
