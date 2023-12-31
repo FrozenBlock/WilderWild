@@ -682,7 +682,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		FluidState fluidState = this.getBeakState().getFluidState();
 		return !fluidState.isEmpty() && (fluidState.getHeight(this.level(), eyePos) + eyePos.getY() >= eyeVec.y());
 	}
-	
+
 	@Override
 	public int getMaxTemper() {
 		return 150;
