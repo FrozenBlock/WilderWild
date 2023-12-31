@@ -82,9 +82,9 @@ public class OstrichModel<T extends Ostrich> extends HierarchicalModel<T> {
 
 		PartDefinition legs = partdefinition.addOrReplaceChild("legs", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, 8.0F, 4.0F, 0.0F, 3.1416F, 0.0F));
 		PartDefinition left_leg = legs.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(86, 44).addBox(-1.0F, -18.0F, -1.0F, 2.0F, 18.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-3.0F, 16.0F, 0.0F));
-		PartDefinition left_foot = left_leg.addOrReplaceChild("left_foot", CubeListBuilder.create().texOffs(88, 58).addBox(-2.0F, 0.0F, 0.0F, 4.0F, 0.0F, 6.0F, new CubeDeformation(0.01F)), PartPose.offset(0.0F, 0.0F, -1.0F));
+		PartDefinition left_foot = left_leg.addOrReplaceChild("left_foot", CubeListBuilder.create().texOffs(88, 58).addBox(-2.0F, 0.0F, 0.0F, 4.0F, 0.0F, 6.0F, new CubeDeformation(0.001F)), PartPose.offset(0.0F, 0.0F, -1.0F));
 		PartDefinition right_leg = legs.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(86, 44).mirror().addBox(-1.0F, -18.0F, -1.0F, 2.0F, 18.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(3.0F, 16.0F, 0.0F));
-		PartDefinition right_foot = right_leg.addOrReplaceChild("right_foot", CubeListBuilder.create().texOffs(88, 58).mirror().addBox(-2.0F, 0.0F, 0.0F, 4.0F, 0.0F, 6.0F, new CubeDeformation(0.01F)).mirror(false), PartPose.offset(0.0F, 0.0F, -1.0F));
+		PartDefinition right_foot = right_leg.addOrReplaceChild("right_foot", CubeListBuilder.create().texOffs(88, 58).mirror().addBox(-2.0F, 0.0F, 0.0F, 4.0F, 0.0F, 6.0F, new CubeDeformation(0.001F)).mirror(false), PartPose.offset(0.0F, 0.0F, -1.0F));
 
 		PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 31).addBox(-6.0F, -12.0F, -7.0F, 12.0F, 14.0F, 19.0F, new CubeDeformation(0.0F))
 			.texOffs(24, 31).addBox(-6.0F, 0.0F, -7.0F, 12.0F, 0.0F, 19.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 8.0F, 4.0F, 0.0F, 3.1416F, 0.0F));
