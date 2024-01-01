@@ -247,10 +247,12 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 				this.cancelAttack(true);
 			}
 			Vec3 beakPos = this.getBeakPos();
+			BlockPos beakBlockPos = BlockPos.containing(beakPos);
 			boolean hasAttacked = false;
 			double height = ATTACK_BOX_HEIGHT * this.getScale();
 			double width = ATTACK_BOX_WIDTH * this.getScale();
-			AABB attackBox = AABB.ofSize(beakPos, width, height, width).move(0D, -height, 0D);
+
+			AABB attackBox = AABB.ofSize(beakPos, width, height, width).move(0D, -height * 0.5D, 0D);
 			if (WilderSharedConstants.UNSTABLE_LOGGING && this.level() instanceof ServerLevel serverLevel) {
 				for (double xCorner : ImmutableList.of(attackBox.minX, attackBox.maxX)) {
 					for (double yCorner :ImmutableList.of(attackBox.minY, attackBox.maxY)) {
@@ -265,8 +267,9 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 			if (this.isBeakTouchingCollidingBlock(false)) {
 				SoundType soundType = this.getBeakState().getSoundType();
-				BlockPos beakBlockPos = BlockPos.containing(beakPos);
-				this.level().playSound(null, beakBlockPos, soundType.getHitSound(), this.getSoundSource(), soundType.getVolume(), soundType.getPitch());
+				if (!this.isSilent()) {
+					this.level().playSound(null, beakBlockPos, soundType.getHitSound(), this.getSoundSource(), soundType.getVolume(), soundType.getPitch());
+				}
 				this.spawnBlockParticles(false, false);
 				this.cancelAttack(false);
 			}
@@ -304,7 +307,9 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 					this.setStuckTicks(this.isAggressive() ? BEAK_STUCK_TICKS_AGGRESSIVE : BEAK_STUCK_TICKS);
 					this.setAttacking(false);
 					this.setTargetBeakAnimProgress(this.getBeakAnimProgress(1F));
-					this.playSound(RegisterSounds.ENTITY_OSTRICH_BEAK_STUCK);
+					if (!this.isSilent()) {
+						this.level().playSound(null, beakBlockPos, RegisterSounds.ENTITY_OSTRICH_BEAK_STUCK, this.getSoundSource(), this.getSoundVolume(), this.getVoicePitch());
+					}
 					this.spawnBlockParticles(true, false);
 					return;
 				}
@@ -381,7 +386,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	@NotNull
 	@Override
 	public AABB getAttackBoundingBox() {
-		return super.getAttackBoundingBox().inflate(0.65D, 0.8D, 0.65D);
+		return super.getAttackBoundingBox().inflate(0.2D, 0D, 0.2D).move(0D, -0.2D, 0D);
 	}
 
 	@Override
@@ -621,7 +626,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	@NotNull
 	private Vec3 makeBeakPos() {
 		double scale = this.getScale() * this.getAgeScale();
-		float beakAnimProgress = this.getBeakAnimProgress(1F);
+		float beakAnimProgress = this.getBeakAnimProgress(0F);
 		Vec3 currentPos = this.position().add(0D, DIMENSION_PERCENTAGE_AT_NECK * this.getEyeHeight(), 0D);
 		Vec3 lookOrientation = Vec3.directionFromRotation(new Vec2(0F, this.getYHeadRot()));
 		Vec3 neckBasePos = currentPos.add(lookOrientation.scale(0.475D * scale));
