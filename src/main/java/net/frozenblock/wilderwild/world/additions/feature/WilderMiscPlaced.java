@@ -132,6 +132,7 @@ public final class WilderMiscPlaced {
 	// SNOW
 	public static final FrozenPlacedFeature SNOW_BLANKET = register("snow_blanket");
 	public static final FrozenPlacedFeature SNOW_AND_ICE_TRANSITION = register("snow_and_freeze_transition");
+	public static final FrozenPlacedFeature SNOW_CARPET_RANDOM = register("snow_carpet_random");
 
 	private WilderMiscPlaced() {
 		throw new UnsupportedOperationException("WilderMiscPlaced contains only static declarations.");
@@ -662,6 +663,13 @@ public final class WilderMiscPlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,
 			BiomeFilter.biome()
+		);
+
+		SNOW_CARPET_RANDOM.makeAndSetHolder(WilderMiscConfigured.SNOW_CARPET_RANDOM.getHolder(),
+				CountPlacement.of(2),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BiomeFilter.biome()
 		);
 	}
 

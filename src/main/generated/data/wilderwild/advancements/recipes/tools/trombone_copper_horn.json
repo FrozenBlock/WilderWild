@@ -30,5 +30,6 @@
     "recipes": [
       "wilderwild:trombone_copper_horn"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

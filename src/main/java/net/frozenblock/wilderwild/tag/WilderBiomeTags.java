@@ -34,7 +34,6 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> JELLYFISH_SPECIAL_SPAWN = bind("jellyfish_special_spawn");
 	public static final TagKey<Biome> HAS_CRAB = bind("has_crab");
 	public static final TagKey<Biome> HAS_COMMON_CRAB = bind("has_common_crab");
-	public static final TagKey<Biome> HAS_OSTRICH = bind("has_ostrich");
 	public static final TagKey<Biome> HAS_TUMBLEWEED_ENTITY = bind("has_tumbleweed_entity");
 	public static final TagKey<Biome> HAS_TUMBLEWEED_PLANT = bind("has_tumbleweed_plant");
 	public static final TagKey<Biome> NO_POOLS = bind("no_pools");
@@ -153,6 +152,7 @@ public final class WilderBiomeTags {
 	public static final TagKey<Biome> HAS_PRICKLY_PEAR = bind("has_prickly_pear");
 	public static final TagKey<Biome> HAS_RARE_PRICKLY_PEAR = bind("has_rare_prickly_pear");
 	public static final TagKey<Biome> HAS_TALL_BADLANDS_CACTUS = bind("has_tall_badlands_cactus");
+	public static final TagKey<Biome> HAS_COMMON_PUMPKIN = bind("has_common_pumpkin");
 	public static final TagKey<Biome> HAS_MOSS_PILE = bind("has_moss_pile");
 	public static final TagKey<Biome> HAS_COARSE_DIRT_PILE_WITH_DISK = bind("has_coarse_dirt_pile_with_disk");
 	public static final TagKey<Biome> HAS_DECORATIVE_MUD = bind("has_decorative_mud");

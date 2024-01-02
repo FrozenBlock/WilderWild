@@ -4,23 +4,27 @@
     "default": "wilderwild:dead_oak_branches_checked",
     "features": [
       {
-        "chance": 0.125,
+        "chance": 0.045,
         "feature": "wilderwild:short_birch_bees_0004"
       },
       {
-        "chance": 0.035,
+        "chance": 0.07,
+        "feature": "wilderwild:dead_birch"
+      },
+      {
+        "chance": 0.015,
         "feature": "wilderwild:dying_fancy_oak_checked"
       },
       {
-        "chance": 0.055,
+        "chance": 0.075,
         "feature": "wilderwild:fancy_semi_dead_oak_checked"
       },
       {
-        "chance": 0.025,
+        "chance": 0.06,
         "feature": "wilderwild:fancy_dead_oak_checked"
       },
       {
-        "chance": 0.067,
+        "chance": 0.0433,
         "feature": "wilderwild:small_fancy_semi_dead_oak_checked"
       },
       {
@@ -28,19 +32,19 @@
         "feature": "wilderwild:small_fancy_dead_oak_checked"
       },
       {
-        "chance": 0.2,
+        "chance": 0.085,
         "feature": "wilderwild:dying_oak_checked"
       },
       {
-        "chance": 0.107,
+        "chance": 0.1,
         "feature": "wilderwild:short_oak_checked"
       },
       {
-        "chance": 0.45,
+        "chance": 0.35,
         "feature": "wilderwild:dead_oak_checked"
       },
       {
-        "chance": 0.1,
+        "chance": 0.033,
         "feature": "wilderwild:oak_checked"
       }
     ]

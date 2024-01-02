@@ -6,7 +6,7 @@
       "minecraft:canyon"
     ]
   },
-  "downfall": 0.4,
+  "downfall": 0.65,
   "effects": {
     "fog_color": 12638463,
     "foliage_color": 7703076,
@@ -23,7 +23,7 @@
       "replace_current_music": false,
       "sound": "minecraft:music.overworld.forest"
     },
-    "sky_color": 8168703,
+    "sky_color": 8168447,
     "water_color": 4159204,
     "water_fog_color": 329011
   },
@@ -79,10 +79,15 @@
       "minecraft:spring_lava"
     ],
     [
-      "wilderwild:trees_dying_forest",
-      "minecraft:patch_dead_bush",
       "minecraft:glow_lichen",
-      "minecraft:patch_grass_forest"
+      "minecraft:forest_flowers",
+      "minecraft:patch_grass_forest",
+      "minecraft:patch_dead_bush",
+      "minecraft:brown_mushroom_normal",
+      "minecraft:red_mushroom_normal",
+      "minecraft:patch_sugar_cane",
+      "minecraft:patch_pumpkin",
+      "wilderwild:trees_dying_forest"
     ],
     [
       "minecraft:freeze_top_layer"
@@ -174,5 +179,5 @@
     "wilderwildjellyfish": [],
     "wilderwildtumbleweed": []
   },
-  "temperature": 0.4
+  "temperature": 0.35
 }
