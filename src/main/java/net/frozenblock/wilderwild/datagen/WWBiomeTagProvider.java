@@ -378,6 +378,11 @@ final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.DEEP_LUKEWARM_OCEAN)
 			.add(Biomes.WARM_OCEAN)
 			.add(Biomes.MANGROVE_SWAMP);
+		
+		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_OSTRICH)
+			.add(Biomes.SAVANNA)
+			.add(Biomes.SAVANNA_PLATEAU)
+			.add(Biomes.WINDSWEPT_SAVANNA);
 
 		this.getOrCreateTagBuilder(WilderBiomeTags.HAS_TUMBLEWEED_ENTITY)
 			.add(Biomes.DESERT)
