@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -69,11 +68,6 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
 	public ShelfFungusBlock(@NotNull Properties settings) {
 		super(settings);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false).setValue(FACE, AttachFace.WALL).setValue(STAGE, 1));
-	}
-
-	@Override
-	protected MapCodec<? extends FaceAttachedHorizontalDirectionalBlock> codec() {
-		return null;
 	}
 
 	@NotNull

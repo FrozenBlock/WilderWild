@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.misc.interfaces;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 
-public interface TreeGrowerInterface {
+public interface AbstractTreeGrowerInterface {
 
 	ServerLevel wilderWild$getLevel();
 

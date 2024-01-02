@@ -55,11 +55,10 @@ public class SeedingFlowerBlock extends FlowerBlock {
 	}
 
 	@Override
-	public @NotNull BlockState playerWillDestroy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
-		BlockState original = super.playerWillDestroy(level, pos, state, player);
+	public void playerWillDestroy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
+		super.playerWillDestroy(level, pos, state, player);
 		if (level instanceof ServerLevel server) {
 			WilderSeedParticlePacket.sendToAll(level, Vec3.atCenterOf(pos).add(0, 0.3, 0), server.random.nextIntBetweenInclusive(3, 7), false);
 		}
-		return original;
 	}
 }

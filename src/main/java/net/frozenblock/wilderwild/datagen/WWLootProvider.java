@@ -21,6 +21,9 @@ package net.frozenblock.wilderwild.datagen;
 import java.util.function.BiConsumer;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
+import net.frozenblock.wilderwild.block.DisplayLanternBlock;
+import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.data.loot.EntityLootSubProvider;
@@ -29,19 +32,22 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.CopyBlockState;
+import net.minecraft.world.level.storage.loot.functions.CopyNbtFunction;
 import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
+import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.jetbrains.annotations.NotNull;
 
-public class WWEntityLootProvider extends SimpleFabricLootTableProvider {
+public class WWLootProvider extends SimpleFabricLootTableProvider {
 
-	public WWEntityLootProvider(FabricDataOutput output) {
+	public WWLootProvider(FabricDataOutput output) {
 		super(output, LootContextParamSets.ENTITY);
 	}
 
@@ -58,6 +64,19 @@ public class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 						.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
 					)
 					.when(LootItemKilledByPlayerCondition.killedByPlayer())
+			)
+		);
+
+		output.accept(
+			WilderSharedConstants.id("blocks/display_lantern_fireflies"),
+			LootTable.lootTable().withPool(
+				LootPool.lootPool()
+					.setRolls(ConstantValue.exactly(1.0F))
+					.add(
+						LootItem.lootTableItem(RegisterBlocks.DISPLAY_LANTERN)
+							.apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy("Fireflies", "BlockEntityTag.Fireflies"))
+							.apply(CopyBlockState.copyState(RegisterBlocks.DISPLAY_LANTERN).copy(DisplayLanternBlock.DISPLAY_LIGHT))
+					)
 			)
 		);
 	}

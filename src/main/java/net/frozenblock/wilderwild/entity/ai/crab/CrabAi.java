@@ -414,7 +414,7 @@ public final class CrabAi {
 
 	@NotNull
 	public static Ingredient getTemptations() {
-		return Ingredient.of(WilderItemTags.CRAB_FOOD);
+		return Ingredient.of(WilderItemTags.CRAB_TEMPT_ITEMS);
 	}
 
 	public static int getRandomDigCooldown(@NotNull LivingEntity entity) {

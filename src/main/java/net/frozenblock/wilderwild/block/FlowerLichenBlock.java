@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -37,11 +36,6 @@ public class FlowerLichenBlock extends MultifaceBlock {
 
 	public FlowerLichenBlock(@NotNull Properties settings) {
 		super(settings);
-	}
-
-	@Override
-	protected MapCodec<? extends MultifaceBlock> codec() {
-		return null;
 	}
 
 	public static boolean canAttachToNoWater(@NotNull BlockGetter level, @NotNull Direction direction, @NotNull BlockPos pos, @NotNull BlockState state) {

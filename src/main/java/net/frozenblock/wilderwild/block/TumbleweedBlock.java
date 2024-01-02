@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import java.util.Objects;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
@@ -62,11 +61,6 @@ public class TumbleweedBlock extends BushBlock implements SimpleWaterloggedBlock
 	public TumbleweedBlock(@NotNull Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
-	}
-
-	@Override
-	protected MapCodec<? extends BushBlock> codec() {
-		return null;
 	}
 
 	@Override
