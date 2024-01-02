@@ -19,8 +19,8 @@ buildscript {
         classpath("org.kohsuke:github-api:+")
 
         // remove these 2 to get normal fabric loom versions
-        classpath(files("libs/fabric-loom-1.5.local.jar"))
-        classpath("net.fabricmc:mapping-io:+")
+        //classpath(files("libs/fabric-loom-1.5.local.jar"))
+        //classpath("net.fabricmc:mapping-io:+")
     }
 }
 
@@ -212,7 +212,7 @@ dependencies {
     }
 
     // Reach Entity Attributes
-    modApi("com.github.Treetrain1:reach-entity-attributes:1.20-SNAPSHOT")?.let { include(it) }
+    modApi("com.jamieswhiteshirt:reach-entity-attributes:2.4.0")?.let { include(it) }
 
     // TerraBlender
     modCompileOnlyApi("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
@@ -324,7 +324,7 @@ fun getModVersion(): String {
     var version = "$mod_version-$mod_loader+$minecraft_version"
 
     if (release != null && !release) {
-        //version += "-unstable"
+        version += "-unstable"
     }
 
     return version

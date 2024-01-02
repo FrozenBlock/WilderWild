@@ -171,15 +171,13 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	public void spawnFireflies() {
 		if (this.level != null) {
 			if (!this.level.isClientSide) {
-				this.doFireflySpawns(level);
+				doFireflySpawns(level);
 			}
 		}
 	}
 
 	public void spawnFireflies(@NotNull Level level) {
-		if (!this.getFireflies().isEmpty()) {
-			this.doFireflySpawns(level);
-		}
+		doFireflySpawns(level);
 	}
 
 	private void doFireflySpawns(@NotNull Level level) {

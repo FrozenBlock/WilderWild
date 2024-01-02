@@ -64,7 +64,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("deprecation")
 public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterloggedBlock {
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final EnumProperty<BubbleDirection> BUBBLE_DIRECTION = RegisterProperties.BUBBLE_DIRECTION;
@@ -281,14 +280,14 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 	}
 
 	@Override
-	public void neighborChanged(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Block neighborBlock, @NotNull BlockPos neighborPos, boolean movedByPiston) {
+	public void neighborChanged(BlockState state, @NotNull Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
 		if (BlockConfig.get().mesoglea.mesogleaBubbleColumns) {
 			level.scheduleTick(pos, this, 5);
 		}
 	}
 
 	@Override
-	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public void tick(BlockState state, ServerLevel level, @NotNull BlockPos pos, RandomSource random) {
 		if (BlockConfig.get().mesoglea.mesogleaBubbleColumns) {
 			updateColumn(level, pos, state, level.getBlockState(pos.below()));
 			BubbleColumnBlock.updateColumn(level, pos.above(), state);

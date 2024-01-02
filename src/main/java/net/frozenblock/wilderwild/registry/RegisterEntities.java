@@ -84,7 +84,7 @@ public final class RegisterEntities {
 		FabricEntityTypeBuilder.createMob()
 			.spawnGroup(FrozenMobCategories.getCategory(WilderSharedConstants.MOD_ID, "crab"))
 			.entityFactory(Crab::new)
-			.defaultAttributes(Crab::createAttributes)
+			.defaultAttributes(Crab::addAttributes)
 			.spawnRestriction(SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Crab::canSpawn)
 			.dimensions(EntityDimensions.scalable(0.5F, 0.5F))
 			.build()

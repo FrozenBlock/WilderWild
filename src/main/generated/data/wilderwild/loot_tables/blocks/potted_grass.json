@@ -26,7 +26,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:short_grass"
+          "name": "minecraft:grass"
         }
       ],
       "rolls": 1.0

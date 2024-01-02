@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
@@ -51,11 +50,6 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 				.setValue(RegisterProperties.TERMITES_AWAKE, false)
 				.setValue(RegisterProperties.CAN_SPAWN_TERMITE, false)
 		);
-	}
-
-	@Override
-	protected MapCodec<? extends BaseEntityBlock> codec() {
-		return null;
 	}
 
 	public static boolean canTermitesWaken(@NotNull Level level, @NotNull BlockPos pos) {

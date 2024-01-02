@@ -24,5 +24,6 @@
     "tag": {
       "instrument": "wilderwild:trumpet_copper_horn"
     }
-  }
+  },
+  "show_notification": true
 }

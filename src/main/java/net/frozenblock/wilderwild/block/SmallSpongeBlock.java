@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -68,11 +67,6 @@ public class SmallSpongeBlock extends FaceAttachedHorizontalDirectionalBlock imp
 	public SmallSpongeBlock(@NotNull Properties settings) {
 		super(settings);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false).setValue(FACE, AttachFace.WALL).setValue(STAGE, 0));
-	}
-
-	@Override
-	protected MapCodec<? extends FaceAttachedHorizontalDirectionalBlock> codec() {
-		return null;
 	}
 
 	public static boolean canAttachTo(@NotNull BlockGetter level, @NotNull Direction direction, @NotNull BlockPos pos, @NotNull BlockState state) {

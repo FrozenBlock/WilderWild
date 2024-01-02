@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
@@ -59,11 +58,6 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 
 	public PricklyPearCactusBlock(@NotNull BlockBehaviour.Properties properties) {
 		super(properties);
-	}
-
-	@Override
-	protected MapCodec<? extends BushBlock> codec() {
-		return null;
 	}
 
 	public static boolean isFullyGrown(@NotNull BlockState state) {

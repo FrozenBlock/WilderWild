@@ -44,7 +44,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SculkShriekerBlock.class)
-public abstract class SculkShriekerBlockMixin extends BaseEntityBlock {
+public class SculkShriekerBlockMixin extends BaseEntityBlock {
 
 	private SculkShriekerBlockMixin(Properties settings) {
 		super(settings);
