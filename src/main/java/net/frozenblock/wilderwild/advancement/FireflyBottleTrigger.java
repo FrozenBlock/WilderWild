@@ -18,54 +18,59 @@
 
 package net.frozenblock.wilderwild.advancement;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Optional;
-import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
+import net.frozenblock.wilderwild.registry.RegisterCriteria;
+import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.ContextAwarePredicate;
-import net.minecraft.advancements.critereon.DeserializationContext;
+import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class FireflyBottleTrigger extends SimpleCriterionTrigger<FireflyBottleTrigger.TriggerInstance> {
 
 	@Override
 	@NotNull
-	public TriggerInstance createInstance(@NotNull JsonObject jsonObject, @NotNull Optional<ContextAwarePredicate> contextAwarePredicate, @NotNull DeserializationContext deserializationContext) {
-		Optional<ItemPredicate> itemPredicate = ItemPredicate.fromJson(jsonObject.get("item"));
-		return new TriggerInstance(itemPredicate, contextAwarePredicate);
+	public Codec<TriggerInstance> codec() {
+		return TriggerInstance.CODEC;
 	}
 
 	public void trigger(@NotNull ServerPlayer player, @NotNull ItemStack stack) {
 		this.trigger(player, conditions -> conditions.matches(stack));
 	}
 
-	public static class TriggerInstance
-		extends AbstractCriterionTriggerInstance {
-		private final Optional<ItemPredicate> item;
+	public record TriggerInstance(Optional<ContextAwarePredicate> player, Optional<ItemPredicate> item) implements SimpleInstance {
 
-		public TriggerInstance(@NotNull Optional<ItemPredicate> item, @NotNull Optional<ContextAwarePredicate> contextAwarePredicate) {
-			super(contextAwarePredicate);
-			this.item = item;
+		public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(instance ->
+			instance.group(
+				ExtraCodecs.strictOptionalField(EntityPredicate.ADVANCEMENT_CODEC, "player").forGetter(TriggerInstance::player),
+				ExtraCodecs.strictOptionalField(ItemPredicate.CODEC, "item").forGetter(TriggerInstance::item)
+			).apply(instance, TriggerInstance::new)
+		);
+
+		@NotNull
+		public static Criterion<TriggerInstance> fireflyBottle() {
+			return fireflyBottle((ItemPredicate) null);
 		}
 
 		@NotNull
-		public static TriggerInstance fireflyBottle(@NotNull ItemPredicate item) {
-			return new TriggerInstance(Optional.of(item), Optional.empty());
+		public static Criterion<TriggerInstance> fireflyBottle(@NotNull ItemPredicate.Builder builder) {
+			return fireflyBottle(builder.build());
 		}
 
-		public boolean matches(@NotNull ItemStack stack) {
-            return this.item.map(itemPredicate -> itemPredicate.matches(stack)).orElse(false);
-        }
-
-		@Override
 		@NotNull
-		public JsonObject serializeToJson() {
-			JsonObject jsonObject = super.serializeToJson();
-			this.item.ifPresent(itemPredicate -> jsonObject.add("item", itemPredicate.serializeToJson()));
-			return jsonObject;
+		public static Criterion<TriggerInstance> fireflyBottle(@Nullable ItemPredicate item) {
+			return RegisterCriteria.FIREFLY_BOTTLE.createCriterion(new TriggerInstance(Optional.empty(), Optional.ofNullable(item)));
+		}
+
+		public boolean matches(ItemStack item) {
+			return this.item.isEmpty() || this.item.get().matches(item);
 		}
 	}
 }

@@ -60,8 +60,9 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(WWItemTagProvider::new);
 		pack.addProvider(WWEntityTagProvider::new);
 		pack.addProvider(WWGameEventTagProvider::new);
-		pack.addProvider(WWLootProvider::new);
+		pack.addProvider(WWEntityLootProvider::new);
 		pack.addProvider(WWRecipeProvider::new);
+		pack.addProvider(WWAdvancementProvider::new);
 	}
 
 	@Override

@@ -73,7 +73,7 @@ import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.world.generation.sapling.CypressSaplingGenerator;
+import net.frozenblock.wilderwild.world.generation.sapling.WWTreeGrowers;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
 import net.minecraft.core.Registry;
@@ -97,14 +97,11 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.FlowerBlock;
-import net.minecraft.world.level.block.FlowerPotBlock;
-import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -168,21 +165,21 @@ public final class RegisterBlocks {
 			.sounds(RegisterBlockSoundTypes.BAOBAB_NUT)
 	);
 
-	public static final FlowerPotBlock POTTED_BAOBAB_NUT = Blocks.flowerPot(BAOBAB_NUT);
+	public static final Block POTTED_BAOBAB_NUT = Blocks.flowerPot(BAOBAB_NUT);
 	public static final PricklyPearCactusBlock PRICKLY_PEAR_CACTUS = new PricklyPearCactusBlock(
 		FabricBlockSettings.copyOf(Blocks.CACTUS)
 			.noCollision()
 			.offsetType(BlockBehaviour.OffsetType.XZ)
 	);
 	public static final WaterloggableSaplingBlock CYPRESS_SAPLING = new WaterloggableSaplingBlock(
-		new CypressSaplingGenerator(),
+		WWTreeGrowers.CYPRESS,
 		FabricBlockSettings.copyOf(Blocks.BIRCH_SAPLING)
 	);
-	public static final FlowerPotBlock POTTED_CYPRESS_SAPLING = Blocks.flowerPot(CYPRESS_SAPLING);
+	public static final Block POTTED_CYPRESS_SAPLING = Blocks.flowerPot(CYPRESS_SAPLING);
 	public static final CoconutBlock COCONUT = new CoconutBlock(FabricBlockSettings.create().breakInstantly().ticksRandomly().sounds(RegisterBlockSoundTypes.COCONUT));
-	public static final FlowerPotBlock POTTED_COCONUT = Blocks.flowerPot(COCONUT);
-	public static final LeavesBlock CYPRESS_LEAVES = Blocks.leaves(SoundType.GRASS); // in front so the other leaves can have a copy of its settings
-	public static final BaobabLeavesBlock BAOBAB_LEAVES = new BaobabLeavesBlock(FabricBlockSettings.copyOf(CYPRESS_LEAVES));
+	public static final Block POTTED_COCONUT = Blocks.flowerPot(COCONUT);
+	public static final Block CYPRESS_LEAVES = Blocks.leaves(SoundType.GRASS); // in front so the other leaves can have a copy of its settings
+	public static final Block BAOBAB_LEAVES = new BaobabLeavesBlock(FabricBlockSettings.copyOf(CYPRESS_LEAVES));
 	public static final PalmFrondsBlock PALM_FRONDS = new PalmFrondsBlock(FabricBlockSettings.copyOf(CYPRESS_LEAVES));
 	public static final HollowedLogBlock HOLLOWED_OAK_LOG = createHollowedLogBlock(MapColor.WOOD, MapColor.PODZOL);
 	public static final HollowedLogBlock HOLLOWED_SPRUCE_LOG =  createHollowedLogBlock(MapColor.PODZOL, MapColor.COLOR_BROWN);
@@ -339,7 +336,7 @@ public final class RegisterBlocks {
 		FabricBlockSettings.copyOf(Blocks.DANDELION)
 	);
 
-	public static final FlowerPotBlock POTTED_SEEDING_DANDELION = Blocks.flowerPot(SEEDING_DANDELION);
+	public static final Block POTTED_SEEDING_DANDELION = Blocks.flowerPot(SEEDING_DANDELION);
 
 	public static final FlowerBlock CARNATION = new FlowerBlock(
 		MobEffects.REGENERATION,
@@ -347,7 +344,7 @@ public final class RegisterBlocks {
 		FabricBlockSettings.copyOf(Blocks.DANDELION)
 	);
 
-	public static final FlowerPotBlock POTTED_CARNATION = Blocks.flowerPot(CARNATION);
+	public static final Block POTTED_CARNATION = Blocks.flowerPot(CARNATION);
 
 	public static final GloryOfTheSnowBlock GLORY_OF_THE_SNOW = new GloryOfTheSnowBlock(
 		FabricBlockSettings.copyOf(Blocks.DANDELION)
@@ -356,7 +353,7 @@ public final class RegisterBlocks {
 	);
 
 	public static final FlowerLichenBlock WHITE_GLORY_OF_THE_SNOW = new FlowerLichenBlock(
-		FabricBlockSettings.copyOf(Blocks.GRASS)
+		FabricBlockSettings.copyOf(Blocks.SHORT_GRASS)
 			.mapColor(MapColor.QUARTZ)
 			.sounds(SoundType.VINE)
 			.noCollision()
@@ -410,7 +407,7 @@ public final class RegisterBlocks {
 			.offsetType(BlockBehaviour.OffsetType.XZ)
 	);
 
-	public static final FlowerPotBlock POTTED_BUSH = Blocks.flowerPot(BUSH);
+	public static final Block POTTED_BUSH = Blocks.flowerPot(BUSH);
 
 	public static final TumbleweedPlantBlock TUMBLEWEED_PLANT = new TumbleweedPlantBlock(
 		FabricBlockSettings.create()
@@ -419,7 +416,7 @@ public final class RegisterBlocks {
 			.ticksRandomly()
 	);
 
-	public static final FlowerPotBlock POTTED_TUMBLEWEED_PLANT = Blocks.flowerPot(TUMBLEWEED_PLANT);
+	public static final Block POTTED_TUMBLEWEED_PLANT = Blocks.flowerPot(TUMBLEWEED_PLANT);
 
 	public static final TumbleweedBlock TUMBLEWEED = new TumbleweedBlock(
 		FabricBlockSettings.create()
@@ -429,15 +426,15 @@ public final class RegisterBlocks {
 			.ticksRandomly()
 	);
 
-	public static final FlowerPotBlock POTTED_TUMBLEWEED = Blocks.flowerPot(TUMBLEWEED);
+	public static final Block POTTED_TUMBLEWEED = Blocks.flowerPot(TUMBLEWEED);
 
-	public static final FlowerPotBlock POTTED_BIG_DRIPLEAF = Blocks.flowerPot(Blocks.BIG_DRIPLEAF);
+	public static final Block POTTED_BIG_DRIPLEAF = Blocks.flowerPot(Blocks.BIG_DRIPLEAF);
 
-	public static final FlowerPotBlock POTTED_SMALL_DRIPLEAF = Blocks.flowerPot(Blocks.SMALL_DRIPLEAF);
+	public static final Block POTTED_SMALL_DRIPLEAF = Blocks.flowerPot(Blocks.SMALL_DRIPLEAF);
 
-	public static final FlowerPotBlock POTTED_GRASS = Blocks.flowerPot(Blocks.GRASS);
+	public static final Block POTTED_GRASS = Blocks.flowerPot(Blocks.SHORT_GRASS);
 
-	public static final FlowerPotBlock POTTED_PRICKLY_PEAR = Blocks.flowerPot(PRICKLY_PEAR_CACTUS);
+	public static final Block POTTED_PRICKLY_PEAR = Blocks.flowerPot(PRICKLY_PEAR_CACTUS);
 
 	public static final ShelfFungusBlock BROWN_SHELF_FUNGUS = new ShelfFungusBlock(
 		FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM_BLOCK)
@@ -462,7 +459,7 @@ public final class RegisterBlocks {
 	);
 
 	public static final PollenBlock POLLEN_BLOCK = new PollenBlock(
-		FabricBlockSettings.copyOf(Blocks.GRASS)
+		FabricBlockSettings.copyOf(Blocks.SHORT_GRASS)
 			.mapColor(MapColor.SAND)
 			.sounds(RegisterBlockSoundTypes.POLLEN)
 			.offset(BlockBehaviour.OffsetType.NONE)
@@ -500,37 +497,32 @@ public final class RegisterBlocks {
 		FabricBlockSettings.copyOf(BAOBAB_PLANKS)
 	);
 
-	public static final FenceGateBlock BAOBAB_FENCE_GATE = new FenceGateBlock(
+	public static final Block BAOBAB_FENCE_GATE = new FenceGateBlock(
+		BAOBAB_WOOD_TYPE,
 		FabricBlockSettings.copyOf(Blocks.OAK_FENCE_GATE)
-			.mapColor(BAOBAB_PLANKS_COLOR),
-		BAOBAB_WOOD_TYPE
+			.mapColor(BAOBAB_PLANKS_COLOR)
 	);
 
-	public static final SlabBlock BAOBAB_SLAB = new SlabBlock(
+	public static final Block BAOBAB_SLAB = new SlabBlock(
 		FabricBlockSettings.copyOf(Blocks.OAK_SLAB)
 			.mapColor(BAOBAB_PLANKS_COLOR)
 	);
 
-	public static final ButtonBlock BAOBAB_BUTTON = new ButtonBlock(
-		FabricBlockSettings.copyOf(Blocks.OAK_BUTTON).mapColor(BAOBAB_PLANKS_COLOR),
-		BAOBAB_SET,
-		30, true
-	);
+	public static final Block BAOBAB_BUTTON = Blocks.woodenButton(BAOBAB_SET);
 
 	public static final PressurePlateBlock BAOBAB_PRESSURE_PLATE = new PressurePlateBlock(
-		PressurePlateBlock.Sensitivity.EVERYTHING,
-		FabricBlockSettings.copyOf(Blocks.OAK_PRESSURE_PLATE).mapColor(BAOBAB_PLANKS_COLOR),
-		BAOBAB_SET
+		BAOBAB_SET,
+		FabricBlockSettings.copyOf(Blocks.OAK_PRESSURE_PLATE).mapColor(BAOBAB_PLANKS_COLOR)
 	);
 
 	public static final DoorBlock BAOBAB_DOOR = new DoorBlock(
-		FabricBlockSettings.copyOf(Blocks.OAK_DOOR).mapColor(BAOBAB_PLANKS_COLOR),
-		BAOBAB_SET
+		BAOBAB_SET,
+		FabricBlockSettings.copyOf(Blocks.OAK_DOOR).mapColor(BAOBAB_PLANKS_COLOR)
 	);
 
 	public static final TrapDoorBlock BAOBAB_TRAPDOOR = new TrapDoorBlock(
-		FabricBlockSettings.copyOf(Blocks.OAK_TRAPDOOR).mapColor(BAOBAB_PLANKS_COLOR),
-		BAOBAB_SET
+		BAOBAB_SET,
+		FabricBlockSettings.copyOf(Blocks.OAK_TRAPDOOR).mapColor(BAOBAB_PLANKS_COLOR)
 	);
 
 	public static final FenceBlock BAOBAB_FENCE = new FenceBlock(
@@ -588,7 +580,7 @@ public final class RegisterBlocks {
 		WilderSharedConstants.id("blocks/baobab_hanging_sign")
 	);
 
-	public static final RotatedPillarBlock STRIPPED_BAOBAB_LOG = Blocks.log(BAOBAB_PLANKS_COLOR, BAOBAB_PLANKS_COLOR);
+	public static final Block STRIPPED_BAOBAB_LOG = Blocks.log(BAOBAB_PLANKS_COLOR, BAOBAB_PLANKS_COLOR);
 
 	public static final RotatedPillarBlock STRIPPED_BAOBAB_WOOD = new RotatedPillarBlock(
 		FabricBlockSettings.copyOf(Blocks.STRIPPED_OAK_WOOD)
@@ -612,10 +604,10 @@ public final class RegisterBlocks {
 		FabricBlockSettings.copyOf(CYPRESS_PLANKS)
 	);
 
-	public static final FenceGateBlock CYPRESS_FENCE_GATE = new FenceGateBlock(
+	public static final Block CYPRESS_FENCE_GATE = new FenceGateBlock(
+		CYPRESS_WOOD_TYPE,
 		FabricBlockSettings.copyOf(Blocks.OAK_FENCE_GATE)
-			.mapColor(CYPRESS_PLANKS_COLOR),
-		CYPRESS_WOOD_TYPE
+			.mapColor(CYPRESS_PLANKS_COLOR)
 	);
 
 	public static final SlabBlock CYPRESS_SLAB = new SlabBlock(
@@ -623,30 +615,24 @@ public final class RegisterBlocks {
 			.mapColor(CYPRESS_PLANKS_COLOR)
 	);
 
-	public static final ButtonBlock CYPRESS_BUTTON = new ButtonBlock(
-		FabricBlockSettings.copyOf(Blocks.OAK_BUTTON)
-			.mapColor(CYPRESS_PLANKS_COLOR),
-		CYPRESS_SET,
-		30, true
-	);
+	public static final Block CYPRESS_BUTTON = Blocks.woodenButton(CYPRESS_SET);
 
 	public static final PressurePlateBlock CYPRESS_PRESSURE_PLATE = new PressurePlateBlock(
-		PressurePlateBlock.Sensitivity.EVERYTHING,
+		CYPRESS_SET,
 		FabricBlockSettings.copyOf(Blocks.OAK_PRESSURE_PLATE)
-			.mapColor(CYPRESS_PLANKS_COLOR),
-		CYPRESS_SET
+			.mapColor(CYPRESS_PLANKS_COLOR)
 	);
 
 	public static final DoorBlock CYPRESS_DOOR = new DoorBlock(
+		CYPRESS_SET,
 		FabricBlockSettings.copyOf(Blocks.OAK_DOOR)
-			.mapColor(CYPRESS_PLANKS_COLOR),
-		CYPRESS_SET
+			.mapColor(CYPRESS_PLANKS_COLOR)
 	);
 
 	public static final TrapDoorBlock CYPRESS_TRAPDOOR = new TrapDoorBlock(
+		CYPRESS_SET,
 		FabricBlockSettings.copyOf(Blocks.OAK_TRAPDOOR)
-			.mapColor(CYPRESS_PLANKS_COLOR),
-		CYPRESS_SET
+			.mapColor(CYPRESS_PLANKS_COLOR)
 	);
 
 	public static final FenceBlock CYPRESS_FENCE = new FenceBlock(
@@ -658,7 +644,7 @@ public final class RegisterBlocks {
 
 	private static final MapColor CYPRESS_BARK_COLOR = MapColor.STONE;
 
-	public static final RotatedPillarBlock CYPRESS_LOG = Blocks.log(CYPRESS_PLANKS_COLOR, CYPRESS_BARK_COLOR);
+	public static final Block CYPRESS_LOG = Blocks.log(CYPRESS_PLANKS_COLOR, CYPRESS_BARK_COLOR);
 
 	public static final FrozenSignBlock CYPRESS_SIGN = new FrozenSignBlock(
 		FabricBlockSettings.copyOf(Blocks.OAK_SIGN)
@@ -704,7 +690,7 @@ public final class RegisterBlocks {
 		WilderSharedConstants.id("blocks/cypress_hanging_sign")
 	);
 
-	public static final RotatedPillarBlock STRIPPED_CYPRESS_LOG = Blocks.log(CYPRESS_PLANKS_COLOR, CYPRESS_BARK_COLOR);
+	public static final Block STRIPPED_CYPRESS_LOG = Blocks.log(CYPRESS_PLANKS_COLOR, CYPRESS_BARK_COLOR);
 
 	public static final RotatedPillarBlock STRIPPED_CYPRESS_WOOD = new RotatedPillarBlock(
 		FabricBlockSettings.copyOf(Blocks.STRIPPED_OAK_WOOD)
@@ -728,10 +714,10 @@ public final class RegisterBlocks {
 		FabricBlockSettings.copyOf(PALM_PLANKS)
 	);
 
-	public static final FenceGateBlock PALM_FENCE_GATE = new FenceGateBlock(
+	public static final Block PALM_FENCE_GATE = new FenceGateBlock(
+		PALM_WOOD_TYPE,
 		FabricBlockSettings.copyOf(Blocks.OAK_FENCE_GATE)
-			.mapColor(PALM_PLANKS.defaultMapColor()),
-		PALM_WOOD_TYPE
+			.mapColor(PALM_PLANKS.defaultMapColor())
 	);
 
 	public static final SlabBlock PALM_SLAB = new SlabBlock(
@@ -739,30 +725,24 @@ public final class RegisterBlocks {
 			.mapColor(PALM_PLANKS_COLOR)
 	);
 
-	public static final ButtonBlock PALM_BUTTON = new ButtonBlock(
-		FabricBlockSettings.copyOf(Blocks.OAK_BUTTON)
-			.mapColor(PALM_PLANKS_COLOR),
-		PALM_SET,
-		30, true
-	);
+	public static final Block PALM_BUTTON = Blocks.woodenButton(PALM_SET);
 
 	public static final PressurePlateBlock PALM_PRESSURE_PLATE = new PressurePlateBlock(
-		PressurePlateBlock.Sensitivity.EVERYTHING,
+		PALM_SET,
 		FabricBlockSettings.copyOf(Blocks.OAK_PRESSURE_PLATE)
-			.mapColor(PALM_PLANKS_COLOR),
-		PALM_SET
+			.mapColor(PALM_PLANKS_COLOR)
 	);
 
 	public static final DoorBlock PALM_DOOR = new DoorBlock(
+		PALM_SET,
 		FabricBlockSettings.copyOf(Blocks.OAK_DOOR)
-			.mapColor(PALM_PLANKS_COLOR),
-		PALM_SET
+			.mapColor(PALM_PLANKS_COLOR)
 	);
 
 	public static final TrapDoorBlock PALM_TRAPDOOR = new TrapDoorBlock(
+		PALM_SET,
 		FabricBlockSettings.copyOf(Blocks.OAK_TRAPDOOR)
-			.mapColor(PALM_PLANKS_COLOR),
-		PALM_SET
+			.mapColor(PALM_PLANKS_COLOR)
 	);
 
 	public static final FenceBlock PALM_FENCE = new FenceBlock(
@@ -774,7 +754,7 @@ public final class RegisterBlocks {
 
 	private static final MapColor PALM_BARK_COLOR = MapColor.COLOR_LIGHT_GRAY;
 
-	public static final RotatedPillarBlock PALM_LOG = Blocks.log(PALM_PLANKS_COLOR, PALM_BARK_COLOR);
+	public static final Block PALM_LOG = Blocks.log(PALM_PLANKS_COLOR, PALM_BARK_COLOR);
 
 	public static final FrozenSignBlock PALM_SIGN = new FrozenSignBlock(
 		FabricBlockSettings.copyOf(Blocks.OAK_SIGN)
@@ -826,7 +806,7 @@ public final class RegisterBlocks {
 			.sounds(RegisterBlockSoundTypes.PALM_CROWN)
 	);
 
-	public static final RotatedPillarBlock STRIPPED_PALM_LOG = Blocks.log(PALM_PLANKS_COLOR, PALM_BARK_COLOR);
+	public static final Block STRIPPED_PALM_LOG = Blocks.log(PALM_PLANKS_COLOR, PALM_BARK_COLOR);
 
 	public static final RotatedPillarBlock STRIPPED_PALM_WOOD = new RotatedPillarBlock(
 		FabricBlockSettings.copyOf(Blocks.STRIPPED_OAK_WOOD)
