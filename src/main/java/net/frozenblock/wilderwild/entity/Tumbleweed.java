@@ -375,11 +375,6 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	@Override
-	protected boolean canRide(@NotNull Entity vehicle) {
-		return false;
-	}
-
-	@Override
 	protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
 		return RegisterSounds.ENTITY_TUMBLEWEED_DAMAGE;
 	}
