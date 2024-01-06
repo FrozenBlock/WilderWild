@@ -34,9 +34,15 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Math;
 
 public class OstrichModel<T extends Ostrich> extends HierarchicalModel<T> {
+	private static final float PI = (float) Math.PI;
 	private static final float NECK_DELAY = 0F;
 	private static final float OLD_NECK_DELAY = 0.0416375F;
 	private static final float PI_180 = Mth.PI / 180F;
+	private static final float NECK_BASE_SWING = 0.175F * 0.5F;
+	private static final float NECK_SWING = 0.175F * 0.65F;
+	private static final float RAD_5 = 5F * PI_180;
+	private static final float RAD_025 = PI_180 * 0.25F;
+	private static final float RAD_065 = PI_180 * 0.65F;
 
 	private final ModelPart root;
 	private final ModelPart legs;
@@ -80,14 +86,14 @@ public class OstrichModel<T extends Ostrich> extends HierarchicalModel<T> {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition legs = partdefinition.addOrReplaceChild("legs", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, 8.0F, 4.0F, 0.0F, 3.1416F, 0.0F));
+		PartDefinition legs = partdefinition.addOrReplaceChild("legs", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, 8.0F, 4.0F, 0.0F, PI, 0.0F));
 		PartDefinition left_leg = legs.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(86, 44).addBox(-1.0F, -18.0F, -1.0F, 2.0F, 18.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-3.0F, 16.0F, 0.0F));
 		PartDefinition left_foot = left_leg.addOrReplaceChild("left_foot", CubeListBuilder.create().texOffs(88, 58).addBox(-2.0F, 0.0F, 0.0F, 4.0F, 0.0F, 6.0F, new CubeDeformation(0.005F)), PartPose.offset(0.0F, 0.0F, -1.0F));
 		PartDefinition right_leg = legs.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(86, 44).mirror().addBox(-1.0F, -18.0F, -1.0F, 2.0F, 18.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(3.0F, 16.0F, 0.0F));
 		PartDefinition right_foot = right_leg.addOrReplaceChild("right_foot", CubeListBuilder.create().texOffs(88, 58).mirror().addBox(-2.0F, 0.0F, 0.0F, 4.0F, 0.0F, 6.0F, new CubeDeformation(0.005F)).mirror(false), PartPose.offset(0.0F, 0.0F, -1.0F));
 
 		PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 31).addBox(-6.0F, -12.0F, -7.0F, 12.0F, 14.0F, 19.0F, new CubeDeformation(0.0F))
-			.texOffs(24, 31).addBox(-6.0F, 0.0F, -7.0F, 12.0F, 0.0F, 19.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 8.0F, 4.0F, 0.0F, 3.1416F, 0.0F));
+			.texOffs(24, 31).addBox(-6.0F, 0.0F, -7.0F, 12.0F, 0.0F, 19.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 8.0F, 4.0F, 0.0F, PI, 0.0F));
 		PartDefinition saddle = body.addOrReplaceChild("saddle", CubeListBuilder.create().texOffs(0, 0).addBox(-6.0F, -12.0F, -7.0F, 12.0F, 12.0F, 19.0F, new CubeDeformation(0.5F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 		PartDefinition left_wing = body.addOrReplaceChild("left_wing", CubeListBuilder.create().texOffs(98, 22).addBox(-1.0F, -4.0F, -14.0F, 1.0F, 8.0F, 14.0F, new CubeDeformation(-0.001F))
 			.texOffs(98, 44).addBox(-1.0F, 1.0F, -14.0F, 1.0F, 0.0F, 14.0F, new CubeDeformation(-0.001F)), PartPose.offset(-6.0F, -4.0F, 5.0F));
@@ -114,7 +120,7 @@ public class OstrichModel<T extends Ostrich> extends HierarchicalModel<T> {
 		limbSwingAmount = Math.min(limbSwingAmount * 1.5F, 1F);
 
 		// LEGS
-		animateLeg(this.left_leg, this.left_foot, limbSwing, limbSwingAmount, (float) Math.PI);
+		animateLeg(this.left_leg, this.left_foot, limbSwing, limbSwingAmount, PI);
 		animateLeg(this.right_leg, this.right_foot, limbSwing, limbSwingAmount, 0F);
 
 		// BODY
@@ -125,7 +131,7 @@ public class OstrichModel<T extends Ostrich> extends HierarchicalModel<T> {
 
 		// NECK
 		float beakAnimProgress = entity.getBeakAnimProgress(partialTick);
-		float rotation = beakAnimProgress * - (float) Math.PI;
+		float rotation = beakAnimProgress * - PI;
 
 		this.neck_base.xRot = rotation * 0.3F;
 		this.neck.xRot = rotation * 0.7F;
@@ -135,20 +141,20 @@ public class OstrichModel<T extends Ostrich> extends HierarchicalModel<T> {
 
 		float fastAngleNeckBase = limbSwing * 0.3331F + NECK_DELAY;
 		float angleSinNeckBase = Math.sin(-fastAngleNeckBase);
-		float angleSinSwingAmountNeckBase = (angleSinNeckBase * limbSwingAmount) * 0.175F * 0.5F;
+		float angleSinSwingAmountNeckBase = (angleSinNeckBase * limbSwingAmount) * NECK_BASE_SWING;
 		this.neck_base.zRot += angleSinSwingAmountNeckBase;
 
 		float fastAngleNeck = limbSwing * 0.3331F + NECK_DELAY;
 		float angleSinNeck = Math.sin(-fastAngleNeck);
-		float angleSinSwingAmountNeck = (angleSinNeck * limbSwingAmount) * 0.175F * 0.65F;
+		float angleSinSwingAmountNeck = (angleSinNeck * limbSwingAmount) * NECK_SWING;
 		this.neck.zRot += angleSinSwingAmountNeck;
 
-		this.neck.xRot += (limbSwingAmount * 5F * PI_180);
+		this.neck.xRot += (limbSwingAmount * RAD_5);
 
-		this.neck_base.xRot -= headPitch * PI_180 * 0.25F;
-		this.neck_base.yRot += netHeadYaw * PI_180 * 0.25F;
-		this.neck.xRot -= headPitch * PI_180 * 0.65F;
-		this.neck.yRot += netHeadYaw * PI_180 * 0.65F;
+		this.neck_base.xRot -= headPitch * RAD_025;
+		this.neck_base.yRot += netHeadYaw * RAD_025;
+		this.neck.xRot -= headPitch * RAD_065;
+		this.neck.yRot += netHeadYaw * RAD_065;
 	}
 
 	private static void animateLeg(@NotNull ModelPart leg, @NotNull ModelPart foot, float limbSwing, float limbSwingAmount, float animOffset) {

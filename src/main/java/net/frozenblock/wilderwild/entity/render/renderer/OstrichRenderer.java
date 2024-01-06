@@ -25,11 +25,13 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.SaddleLayer;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 public class OstrichRenderer<T extends Ostrich> extends MobRenderer<T, OstrichModel<T>> {
 	private static final ResourceLocation OSTRICH_LOCATION = WilderSharedConstants.id("textures/entity/ostrich/ostrich.png");
+	private static final ResourceLocation OSTRICH_SADDLE_LOCATION = WilderSharedConstants.id("textures/entity/ostrich/ostrich_saddle.png");
 
 	public OstrichRenderer(EntityRendererProvider.Context context) {
 		this(context, WilderWildClient.OSTRICH);
@@ -37,6 +39,7 @@ public class OstrichRenderer<T extends Ostrich> extends MobRenderer<T, OstrichMo
 
 	public OstrichRenderer(EntityRendererProvider.Context context, ModelLayerLocation layer) {
 		super(context, new OstrichModel<>(context.bakeLayer(layer)), 0.9F);
+		this.addLayer(new SaddleLayer<>(this, new OstrichModel<>(context.bakeLayer(WilderWildClient.OSTRICH_SADDLE)), OSTRICH_SADDLE_LOCATION));
 	}
 
 	@Override

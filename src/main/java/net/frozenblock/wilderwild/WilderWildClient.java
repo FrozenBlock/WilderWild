@@ -93,6 +93,7 @@ public final class WilderWildClient implements ClientModInitializer {
 	public static final ModelLayerLocation TUMBLEWEED = new ModelLayerLocation(WilderSharedConstants.id("tumbleweed"), "main");
 	public static final ModelLayerLocation CRAB = new ModelLayerLocation(WilderSharedConstants.id("crab"), "main");
 	public static final ModelLayerLocation OSTRICH = new ModelLayerLocation(WilderSharedConstants.id("ostrich"), "main");
+	public static final ModelLayerLocation OSTRICH_SADDLE = new ModelLayerLocation(WilderSharedConstants.id("ostrich"), "saddle");
 
 	@Override
 	public void onInitializeClient() {
@@ -233,6 +234,7 @@ public final class WilderWildClient implements ClientModInitializer {
 
 		EntityRendererRegistry.register(RegisterEntities.OSTRICH, OstrichRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(OSTRICH, OstrichModel::createBodyLayer);
+		EntityModelLayerRegistry.registerModelLayer(OSTRICH_SADDLE, OstrichModel::createBodyLayer);
 
 		EntityRendererRegistry.register(RegisterEntities.COCONUT, ThrownItemRenderer::new);
 
