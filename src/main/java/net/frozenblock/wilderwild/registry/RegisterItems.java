@@ -127,7 +127,7 @@ public final class RegisterItems {
 	public static final SpawnEggItem JELLYFISH_SPAWN_EGG = new SpawnEggItem(RegisterEntities.JELLYFISH, Integer.parseInt("E484E4", 16), Integer.parseInt("DF71DC", 16), new FabricItemSettings());
 	public static final MobBucketItem JELLYFISH_BUCKET = new MobBucketItem(RegisterEntities.JELLYFISH, Fluids.WATER, RegisterSounds.ITEM_BUCKET_EMPTY_JELLYFISH, new FabricItemSettings().maxCount(1));
 	public static final SpawnEggItem CRAB_SPAWN_EGG = new SpawnEggItem(RegisterEntities.CRAB, Integer.parseInt("F98334", 16), Integer.parseInt("F9C366", 16), new FabricItemSettings());
-	public static final SpawnEggItem OSTRICH_SPAWN_EGG = new SpawnEggItem(RegisterEntities.OSTRICH, Integer.parseInt("5B4024", 16), Integer.parseInt("B66F54", 16), new FabricItemSettings());
+	public static final SpawnEggItem OSTRICH_SPAWN_EGG = new SpawnEggItem(RegisterEntities.OSTRICH, Integer.parseInt("FAE0D0", 16), Integer.parseInt("5B4024", 16), new FabricItemSettings());
 	// INSTRUMENT
 	public static final AncientHorn ANCIENT_HORN = new AncientHorn(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC), WilderInstrumentTags.ANCIENT_HORNS);
 	public static final ResourceKey<Instrument> ANCIENT_HORN_INSTRUMENT = ResourceKey.create(Registries.INSTRUMENT, WilderSharedConstants.id("ancient_horn"));
