@@ -60,7 +60,7 @@ Added the Ostrich
 - The Warden will no longer play heartbeat sounds while it is dying
 - Prevented the Warden from moving while it is digging or emerging
 - Changed the Warden's secret death sound from stereo to mono
-- Refactored mob's `canSpawn` methods to reflect Vanilla, following the template "checkXSpawnRules"
+- Refactored mobs' `canSpawn` methods to reflect Vanilla, following the template "checkXSpawnRules"
 - Pumpkins generate much more frequently in Old Growth Dark Forests
 - Changed the `Cherry Grove Placement` config to be disabled by default as it wasn't as immersive as anticipated
 - Fixed the `Stony Shore Placement` config lang reading as `CStony Shore Placement`

@@ -18,16 +18,19 @@
 
 package net.frozenblock.wilderwild.block;
 
+import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public class PollenBlock extends FlowerLichenBlock {
+	public static final MapCodec<PollenBlock> CODEC = simpleCodec(PollenBlock::new);
 
 	public PollenBlock(@NotNull Properties settings) {
 		super(settings);
@@ -48,5 +51,11 @@ public class PollenBlock extends FlowerLichenBlock {
 				}
 			}
 		}
+	}
+
+	@NotNull
+	@Override
+	protected MapCodec<? extends PollenBlock> codec() {
+		return CODEC;
 	}
 }

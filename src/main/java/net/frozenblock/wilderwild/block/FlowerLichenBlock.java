@@ -33,16 +33,17 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import org.jetbrains.annotations.NotNull;
 
 public class FlowerLichenBlock extends MultifaceBlock {
+	public static final MapCodec<FlowerLichenBlock> CODEC = simpleCodec(FlowerLichenBlock::new);
 	private final MultifaceSpreader grower = new MultifaceSpreader(this);
 
 	public FlowerLichenBlock(@NotNull Properties settings) {
 		super(settings);
 	}
 
-	@SuppressWarnings("NullableProblems")
+	@NotNull
 	@Override
 	protected MapCodec<? extends MultifaceBlock> codec() {
-		return null;
+		return CODEC;
 	}
 
 	public static boolean canAttachToNoWater(@NotNull BlockGetter level, @NotNull Direction direction, @NotNull BlockPos pos, @NotNull BlockState state) {

@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.block;
 
+import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -31,6 +32,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public class BaobabLeavesBlock extends LeavesBlock implements BonemealableBlock {
+	public static final MapCodec<BaobabLeavesBlock> CODEC = simpleCodec(BaobabLeavesBlock::new);
 
 	public BaobabLeavesBlock(@NotNull BlockBehaviour.Properties settings) {
 		super(settings);
@@ -49,5 +51,11 @@ public class BaobabLeavesBlock extends LeavesBlock implements BonemealableBlock 
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
 		level.setBlock(pos.below(), RegisterBlocks.BAOBAB_NUT.getDefaultHangingState(), UPDATE_CLIENTS);
+	}
+
+	@NotNull
+	@Override
+	public MapCodec<? extends BaobabLeavesBlock> codec() {
+		return CODEC;
 	}
 }

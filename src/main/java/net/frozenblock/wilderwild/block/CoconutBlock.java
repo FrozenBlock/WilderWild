@@ -19,11 +19,11 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Objects;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.frozenblock.wilderwild.world.generation.sapling.WWTreeGrowers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -60,6 +60,11 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class CoconutBlock extends FallingBlock implements BonemealableBlock {
+	public static final MapCodec<CoconutBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
+		return instance.group(TreeGrower.CODEC.fieldOf("tree").forGetter((coconutBlock) -> {
+			return coconutBlock.treeGrower;
+		}), propertiesCodec()).apply(instance, CoconutBlock::new);
+	});
 	public static final int VALID_FROND_DISTANCE = 2;
 	public static final IntegerProperty STAGE = BlockStateProperties.STAGE;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
@@ -72,16 +77,16 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	};
 	private final TreeGrower treeGrower;
 
-	public CoconutBlock(@NotNull Properties settings) {
+	public CoconutBlock(TreeGrower treeGrower, @NotNull Properties settings) {
 		super(settings);
-		this.treeGrower = WWTreeGrowers.PALM;
+		this.treeGrower = treeGrower;
 		this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0).setValue(AGE, 0).setValue(HANGING, false));
 	}
 
-	@SuppressWarnings("NullableProblems")
+	@NotNull
 	@Override
 	protected MapCodec<? extends FallingBlock> codec() {
-		return null;
+		return CODEC;
 	}
 
 	private static boolean isHanging(@NotNull BlockState state) {

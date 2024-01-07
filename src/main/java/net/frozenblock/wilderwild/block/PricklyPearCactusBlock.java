@@ -55,6 +55,7 @@ import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("deprecation")
 public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlock {
+	public static final MapCodec<PricklyPearCactusBlock> CODEC = simpleCodec(PricklyPearCactusBlock::new);
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 	protected static final VoxelShape OUTLINE_SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 13.0D, 13.0D);
 
@@ -62,9 +63,10 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 		super(properties);
 	}
 
+	@NotNull
 	@Override
-	protected MapCodec<? extends BushBlock> codec() {
-		return null;
+	protected MapCodec<? extends PricklyPearCactusBlock> codec() {
+		return CODEC;
 	}
 
 	public static boolean isFullyGrown(@NotNull BlockState state) {

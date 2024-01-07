@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.block;
 
+import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.entity.Ostrich;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -40,6 +41,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 public class OstrichEggBlock extends Block {
+	public static final MapCodec<OstrichEggBlock> CODEC = simpleCodec(OstrichEggBlock::new);
 	public static final int MAX_HATCH_LEVEL = 2;
 	public static final IntegerProperty HATCH = BlockStateProperties.HATCH;
 	private static final VoxelShape SHAPE = Block.box(5.0, 0.0, 5.0, 11.0, 8.0, 11.0);
@@ -130,4 +132,9 @@ public class OstrichEggBlock extends Block {
 		return false;
 	}
 
+	@NotNull
+	@Override
+	protected MapCodec<? extends OstrichEggBlock> codec() {
+		return CODEC;
+	}
 }

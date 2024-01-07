@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.block;
 
+import com.mojang.serialization.MapCodec;
 import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
 import net.frozenblock.wilderwild.entity.AncientHornProjectile;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
@@ -35,11 +36,13 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.TintedGlassBlock;
+import net.minecraft.world.level.block.TransparentBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -49,12 +52,23 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
-public class EchoGlassBlock extends TintedGlassBlock {
+public class EchoGlassBlock extends TransparentBlock {
+	public static final MapCodec<EchoGlassBlock> CODEC = simpleCodec(EchoGlassBlock::new);
 	public static final IntegerProperty DAMAGE = RegisterProperties.DAMAGE;
 
 	public EchoGlassBlock(@NotNull Properties settings) {
 		super(settings);
 		this.registerDefaultState(this.defaultBlockState().setValue(DAMAGE, 0));
+	}
+
+	@Override
+	public boolean propagatesSkylightDown(BlockState state, BlockGetter level, BlockPos pos) {
+		return false;
+	}
+
+	@Override
+	public int getLightBlock(BlockState state, @NotNull BlockGetter level, BlockPos pos) {
+		return level.getMaxLightLevel();
 	}
 
 	public static void damage(@NotNull Level level, @NotNull BlockPos pos, boolean isSonicBoom) {
@@ -149,5 +163,11 @@ public class EchoGlassBlock extends TintedGlassBlock {
 			ItemBlockStateTagUtils.setProperty(superStack, RegisterProperties.DAMAGE, damage);
 		}
 		return superStack;
+	}
+
+	@NotNull
+	@Override
+	public MapCodec<? extends EchoGlassBlock> codec() {
+		return CODEC;
 	}
 }

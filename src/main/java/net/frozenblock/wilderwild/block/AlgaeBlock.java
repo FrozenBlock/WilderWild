@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.block;
 
 import java.util.Iterator;
 import java.util.List;
+import com.mojang.serialization.MapCodec;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.BlockPos;
@@ -47,6 +48,7 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class AlgaeBlock extends Block implements BonemealableBlock {
+	public static final MapCodec<AlgaeBlock> CODEC = simpleCodec(AlgaeBlock::new);
 	protected static final VoxelShape SHAPE = Block.box(0.0, 0.0, 0.0, 16, 1.0, 16);
 	@SuppressWarnings("SpellCheckingInspection")
 	@Nullable
@@ -139,5 +141,11 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 			}
 		} while (count < neededAmount);
 		return true;
+	}
+
+	@NotNull
+	@Override
+	protected MapCodec<? extends AlgaeBlock> codec() {
+		return CODEC;
 	}
 }

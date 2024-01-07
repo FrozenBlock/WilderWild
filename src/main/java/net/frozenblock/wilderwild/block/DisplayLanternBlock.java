@@ -76,6 +76,7 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
+	public static final MapCodec<DisplayLanternBlock> CODEC = simpleCodec(DisplayLanternBlock::new);
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
 	public static final IntegerProperty DISPLAY_LIGHT = RegisterProperties.DISPLAY_LIGHT;
@@ -87,10 +88,10 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 		this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, false).setValue(WATERLOGGED, false).setValue(DISPLAY_LIGHT, 0));
 	}
 
-	@SuppressWarnings("NullableProblems")
+	@NotNull
 	@Override
-	protected MapCodec<? extends BaseEntityBlock> codec() {
-		return null;
+	protected MapCodec<? extends DisplayLanternBlock> codec() {
+		return CODEC;
 	}
 
 	private static Direction attachedDirection(@NotNull BlockState state) {

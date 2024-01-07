@@ -31,7 +31,7 @@ import net.minecraft.world.level.material.PushReaction;
 import org.jetbrains.annotations.NotNull;
 
 public class NematocystBlock extends FaceClusterBlock {
-
+	public static final MapCodec<NematocystBlock> CODEC = simpleCodec(NematocystBlock::new);
 	private final NematocystSpreader spreader = new NematocystSpreader(this);
 
 	public NematocystBlock(int height, int xzOffset, @NotNull Properties properties) {
@@ -42,9 +42,10 @@ public class NematocystBlock extends FaceClusterBlock {
 		this(7, 3, properties.pushReaction(PushReaction.DESTROY));
 	}
 
+	@NotNull
 	@Override
 	protected MapCodec<? extends MultifaceBlock> codec() {
-		return null;
+		return CODEC;
 	}
 
 	@Override

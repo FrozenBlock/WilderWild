@@ -162,6 +162,7 @@ public final class RegisterBlocks {
 	);
 
 	public static final BaobabNutBlock BAOBAB_NUT = new BaobabNutBlock(
+		WWTreeGrowers.BAOBAB,
 		FabricBlockSettings.copyOf(Blocks.BAMBOO)
 			.sounds(RegisterBlockSoundTypes.BAOBAB_NUT)
 	);
@@ -177,7 +178,7 @@ public final class RegisterBlocks {
 		FabricBlockSettings.copyOf(Blocks.BIRCH_SAPLING)
 	);
 	public static final Block POTTED_CYPRESS_SAPLING = Blocks.flowerPot(CYPRESS_SAPLING);
-	public static final CoconutBlock COCONUT = new CoconutBlock(FabricBlockSettings.create().breakInstantly().ticksRandomly().sounds(RegisterBlockSoundTypes.COCONUT));
+	public static final CoconutBlock COCONUT = new CoconutBlock(WWTreeGrowers.PALM, FabricBlockSettings.create().breakInstantly().ticksRandomly().sounds(RegisterBlockSoundTypes.COCONUT));
 	public static final Block POTTED_COCONUT = Blocks.flowerPot(COCONUT);
 	public static final Block CYPRESS_LEAVES = Blocks.leaves(SoundType.GRASS); // in front so the other leaves can have a copy of its settings
 	public static final Block BAOBAB_LEAVES = new BaobabLeavesBlock(FabricBlockSettings.copyOf(CYPRESS_LEAVES));
@@ -349,8 +350,7 @@ public final class RegisterBlocks {
 
 	public static final GloryOfTheSnowBlock GLORY_OF_THE_SNOW = new GloryOfTheSnowBlock(
 		FabricBlockSettings.copyOf(Blocks.DANDELION)
-			.ticksRandomly(),
-		List.of(FlowerColor.BLUE, FlowerColor.PINK, FlowerColor.PURPLE, FlowerColor.WHITE)
+			.ticksRandomly()
 	);
 
 	public static final FlowerLichenBlock WHITE_GLORY_OF_THE_SNOW = new FlowerLichenBlock(

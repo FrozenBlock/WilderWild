@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.block;
 
+import com.mojang.serialization.MapCodec;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
@@ -46,6 +47,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class OsseousSculkBlock extends Block implements SculkBehaviour {
+	public static final MapCodec<OsseousSculkBlock> CODEC = simpleCodec(OsseousSculkBlock::new);
 	public static final DirectionProperty FACING = BlockStateProperties.FACING;
 	public static final IntegerProperty HEIGHT_LEFT = RegisterProperties.PILLAR_HEIGHT_LEFT;
 	public static final IntegerProperty TOTAL_HEIGHT = RegisterProperties.TOTAL_HEIGHT;
@@ -299,5 +301,11 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 	@Override
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(FACING).add(HEIGHT_LEFT).add(TOTAL_HEIGHT);
+	}
+
+	@NotNull
+	@Override
+	protected MapCodec<? extends OsseousSculkBlock> codec() {
+		return CODEC;
 	}
 }

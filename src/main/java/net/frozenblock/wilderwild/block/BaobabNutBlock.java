@@ -19,6 +19,8 @@
 package net.frozenblock.wilderwild.block;
 
 import java.util.Objects;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.world.generation.sapling.WWTreeGrowers;
 import net.minecraft.core.BlockPos;
@@ -31,6 +33,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -47,6 +50,11 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings({"DuplicatedCode", "deprecation"})
 public class BaobabNutBlock extends SaplingBlock {
+	public static final MapCodec<BaobabNutBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
+		return instance.group(TreeGrower.CODEC.fieldOf("tree").forGetter((baobabNutBlock) -> {
+			return baobabNutBlock.treeGrower;
+		}), propertiesCodec()).apply(instance, BaobabNutBlock::new);
+	});
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	public static final int MAX_AGE = 2;
 	public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
@@ -57,8 +65,8 @@ public class BaobabNutBlock extends SaplingBlock {
 		Block.box(7.0, 3.0, 7.0, 9.0, 16.0, 9.0), Block.box(2.0D, 0.0D, 2.0D, 14.0D, 12.0D, 14.0D)
 	};
 
-	public BaobabNutBlock(@NotNull BlockBehaviour.Properties settings) {
-		super(WWTreeGrowers.BAOBAB, settings);
+	public BaobabNutBlock(TreeGrower treeGrower, @NotNull BlockBehaviour.Properties settings) {
+		super(treeGrower, settings);
 		this.registerDefaultState(this.defaultBlockState().setValue(AGE, 0).setValue(HANGING, false));
 	}
 
@@ -155,5 +163,11 @@ public class BaobabNutBlock extends SaplingBlock {
 	@NotNull
 	public BlockState getHangingState(int age) {
 		return this.defaultBlockState().setValue(HANGING, true).setValue(AGE, age);
+	}
+
+	@NotNull
+	@Override
+	public MapCodec<? extends BaobabNutBlock> codec() {
+		return CODEC;
 	}
 }

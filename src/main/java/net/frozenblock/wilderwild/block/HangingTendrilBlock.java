@@ -69,6 +69,7 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterloggedBlock, SculkBehaviour {
+	public static final MapCodec<HangingTendrilBlock> CODEC = simpleCodec(HangingTendrilBlock::new);
 	public static final int ACTIVE_TICKS = 60;
 	public static final EnumProperty<SculkSensorPhase> PHASE = BlockStateProperties.SCULK_SENSOR_PHASE;
 	public static final IntegerProperty POWER = BlockStateProperties.POWER;
@@ -82,10 +83,10 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 		this.registerDefaultState(this.stateDefinition.any().setValue(PHASE, SculkSensorPhase.INACTIVE).setValue(WATERLOGGED, false).setValue(TWITCHING, false).setValue(WRINGING_OUT, false).setValue(POWER, 0));
 	}
 
-	@SuppressWarnings("NullableProblems")
+	@NotNull
 	@Override
 	protected MapCodec<? extends BaseEntityBlock> codec() {
-		return null;
+		return CODEC;
 	}
 
 	public static void deactivate(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
