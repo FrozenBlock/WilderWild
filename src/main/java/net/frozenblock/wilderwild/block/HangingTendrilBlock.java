@@ -85,7 +85,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@NotNull
 	@Override
-	protected MapCodec<? extends BaseEntityBlock> codec() {
+	protected MapCodec<? extends HangingTendrilBlock> codec() {
 		return CODEC;
 	}
 

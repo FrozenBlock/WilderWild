@@ -38,6 +38,12 @@ public class BaobabLeavesBlock extends LeavesBlock implements BonemealableBlock 
 		super(settings);
 	}
 
+	@NotNull
+	@Override
+	public MapCodec<? extends BaobabLeavesBlock> codec() {
+		return CODEC;
+	}
+
 	@Override
 	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
 		return level.getBlockState(pos.below()).isAir();
@@ -51,11 +57,5 @@ public class BaobabLeavesBlock extends LeavesBlock implements BonemealableBlock 
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
 		level.setBlock(pos.below(), RegisterBlocks.BAOBAB_NUT.getDefaultHangingState(), UPDATE_CLIENTS);
-	}
-
-	@NotNull
-	@Override
-	public MapCodec<? extends BaobabLeavesBlock> codec() {
-		return CODEC;
 	}
 }

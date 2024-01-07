@@ -58,6 +58,12 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP).setValue(HEIGHT_LEFT, 0).setValue(TOTAL_HEIGHT, 0));
 	}
 
+	@NotNull
+	@Override
+	protected MapCodec<? extends OsseousSculkBlock> codec() {
+		return CODEC;
+	}
+
 	public static Direction getDir(@NotNull Direction.Axis axis, @NotNull RandomSource random) {
 		if (axis == Direction.Axis.X) {
 			return random.nextBoolean() ? Direction.EAST : Direction.WEST;
@@ -301,11 +307,5 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 	@Override
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(FACING).add(HEIGHT_LEFT).add(TOTAL_HEIGHT);
-	}
-
-	@NotNull
-	@Override
-	protected MapCodec<? extends OsseousSculkBlock> codec() {
-		return CODEC;
 	}
 }

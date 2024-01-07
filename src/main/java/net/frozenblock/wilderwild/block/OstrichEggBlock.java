@@ -51,6 +51,12 @@ public class OstrichEggBlock extends Block {
 		this.registerDefaultState(this.stateDefinition.any().setValue(HATCH, 0));
 	}
 
+	@NotNull
+	@Override
+	protected MapCodec<? extends OstrichEggBlock> codec() {
+		return CODEC;
+	}
+
 	@Override
 	public void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
 		builder.add(HATCH);
@@ -130,11 +136,5 @@ public class OstrichEggBlock extends Block {
 	@Override
 	public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull PathComputationType type) {
 		return false;
-	}
-
-	@NotNull
-	@Override
-	protected MapCodec<? extends OstrichEggBlock> codec() {
-		return CODEC;
 	}
 }

@@ -18,6 +18,8 @@
 
 package net.frozenblock.wilderwild.block;
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -34,11 +36,21 @@ import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public class SculkStairsBlock extends StairBlock implements SculkBehaviour {
+public class SculkStairBlock extends StairBlock implements SculkBehaviour {
+	public static final MapCodec<SculkStairBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
+		BlockState.CODEC.fieldOf("base_state").forGetter((sculkStairBlock) -> sculkStairBlock.baseState),
+		propertiesCodec()
+	).apply(instance, SculkStairBlock::new));
 	private static final IntProvider EXPERIENCE = ConstantInt.of(1);
 
-	public SculkStairsBlock(@NotNull BlockState baseBlockState, Properties settings) {
+	public SculkStairBlock(@NotNull BlockState baseBlockState, Properties settings) {
 		super(baseBlockState, settings);
+	}
+
+	@NotNull
+	@Override
+	public MapCodec<? extends SculkStairBlock> codec() {
+		return CODEC;
 	}
 
 	@Override

@@ -25,7 +25,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
@@ -34,6 +33,12 @@ public class PollenBlock extends FlowerLichenBlock {
 
 	public PollenBlock(@NotNull Properties settings) {
 		super(settings);
+	}
+
+	@NotNull
+	@Override
+	protected MapCodec<? extends PollenBlock> codec() {
+		return CODEC;
 	}
 
 	@Override
@@ -51,11 +56,5 @@ public class PollenBlock extends FlowerLichenBlock {
 				}
 			}
 		}
-	}
-
-	@NotNull
-	@Override
-	protected MapCodec<? extends PollenBlock> codec() {
-		return CODEC;
 	}
 }

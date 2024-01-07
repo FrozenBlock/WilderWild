@@ -57,6 +57,7 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock implements SimpleWaterloggedBlock, BonemealableBlock {
+	public static final MapCodec<ShelfFungusBlock> CODEC = simpleCodec(ShelfFungusBlock::new);
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	public static final IntegerProperty STAGE = RegisterProperties.FUNGUS_STAGE;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -72,9 +73,10 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false).setValue(FACE, AttachFace.WALL).setValue(STAGE, 1));
 	}
 
+	@NotNull
 	@Override
-	protected MapCodec<? extends FaceAttachedHorizontalDirectionalBlock> codec() {
-		return null;
+	protected MapCodec<? extends ShelfFungusBlock> codec() {
+		return CODEC;
 	}
 
 	@NotNull

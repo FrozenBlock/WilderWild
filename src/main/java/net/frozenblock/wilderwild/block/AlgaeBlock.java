@@ -18,9 +18,9 @@
 
 package net.frozenblock.wilderwild.block;
 
+import com.mojang.serialization.MapCodec;
 import java.util.Iterator;
 import java.util.List;
-import com.mojang.serialization.MapCodec;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.BlockPos;
@@ -56,6 +56,12 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 
 	public AlgaeBlock(@NotNull BlockBehaviour.Properties settings) {
 		super(settings);
+	}
+
+	@NotNull
+	@Override
+	protected MapCodec<? extends AlgaeBlock> codec() {
+		return CODEC;
 	}
 
 	@NotNull
@@ -141,11 +147,5 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 			}
 		} while (count < neededAmount);
 		return true;
-	}
-
-	@NotNull
-	@Override
-	protected MapCodec<? extends AlgaeBlock> codec() {
-		return CODEC;
 	}
 }

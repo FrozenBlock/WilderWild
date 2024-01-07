@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import java.util.List;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
@@ -57,7 +56,7 @@ import net.frozenblock.wilderwild.block.PollenBlock;
 import net.frozenblock.wilderwild.block.PricklyPearCactusBlock;
 import net.frozenblock.wilderwild.block.ScorchedBlock;
 import net.frozenblock.wilderwild.block.SculkSlabBlock;
-import net.frozenblock.wilderwild.block.SculkStairsBlock;
+import net.frozenblock.wilderwild.block.SculkStairBlock;
 import net.frozenblock.wilderwild.block.SculkWallBlock;
 import net.frozenblock.wilderwild.block.SeedingFlowerBlock;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
@@ -69,7 +68,6 @@ import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
 import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
 import net.frozenblock.wilderwild.block.WaterloggableTallFlowerBlock;
 import net.frozenblock.wilderwild.block.WilderBushBlock;
-import net.frozenblock.wilderwild.block.property.FlowerColor;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
@@ -81,7 +79,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
-import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.BlockFamily;
@@ -138,27 +136,27 @@ public final class RegisterBlocks {
 	);
 
 	public static final ScorchedBlock SCORCHED_SAND = new ScorchedBlock(
+		Blocks.SAND.defaultBlockState(),
+		true,
+		SoundEvents.BRUSH_SAND,
+		SoundEvents.BRUSH_SAND_COMPLETED,
 		FabricBlockSettings.create()
 			.strength(1.5F)
 			.sounds(RegisterBlockSoundTypes.SCORCHEDSAND)
 			.mapColor(MapColor.SAND)
-			.ticksRandomly(),
-		Blocks.SAND.defaultBlockState(),
-		true,
-		SoundEvents.BRUSH_SAND,
-		SoundEvents.BRUSH_SAND_COMPLETED
+			.ticksRandomly()
 	);
 
 	public static final ScorchedBlock SCORCHED_RED_SAND = new ScorchedBlock(
+		Blocks.RED_SAND.defaultBlockState(),
+		true,
+		SoundEvents.BRUSH_SAND,
+		SoundEvents.BRUSH_SAND_COMPLETED,
 		FabricBlockSettings.create()
 			.strength(1.5F)
 			.sounds(RegisterBlockSoundTypes.SCORCHEDSAND)
 			.mapColor(MapColor.COLOR_ORANGE)
-			.ticksRandomly(),
-		Blocks.RED_SAND.defaultBlockState(),
-		true,
-		SoundEvents.BRUSH_SAND,
-		SoundEvents.BRUSH_SAND_COMPLETED
+			.ticksRandomly()
 	);
 
 	public static final BaobabNutBlock BAOBAB_NUT = new BaobabNutBlock(
@@ -207,7 +205,7 @@ public final class RegisterBlocks {
 	public static final HollowedLogBlock STRIPPED_HOLLOWED_CRIMSON_STEM = createStrippedHollowedStemBlock(Blocks.STRIPPED_CRIMSON_STEM.defaultMapColor());
 	public static final HollowedLogBlock STRIPPED_HOLLOWED_WARPED_STEM = createStrippedHollowedStemBlock(Blocks.STRIPPED_WARPED_STEM.defaultMapColor());
 	// SCULK
-	public static final SculkStairsBlock SCULK_STAIRS = new SculkStairsBlock(
+	public static final SculkStairBlock SCULK_STAIRS = new SculkStairBlock(
 		Blocks.SCULK.defaultBlockState(),
 		FabricBlockSettings.create()
 			.mapColor(MapColor.COLOR_BLACK)
@@ -1186,8 +1184,9 @@ public final class RegisterBlocks {
 	}
 
 	@NotNull
-	public static MesogleaBlock mesoglea(@NotNull MapColor mapColor, @NotNull SimpleParticleType particleType, boolean pearlescent) {
-		return new MesogleaBlock(
+	public static MesogleaBlock mesoglea(@NotNull MapColor mapColor, @NotNull ParticleOptions particleType, boolean pearlescent) {
+		MesogleaBlock mesogleaBlock = new MesogleaBlock(
+			pearlescent,
 			FabricBlockSettings.create()
 				.mapColor(mapColor)
 				.nonOpaque()
@@ -1198,10 +1197,10 @@ public final class RegisterBlocks {
 				.sounds(RegisterBlockSoundTypes.MESOGLEA)
 				.suffocates(Blocks::never)
 				.blockVision(Blocks::never)
-				.dynamicBounds(),
-			particleType,
-			pearlescent
+				.dynamicBounds()
 		);
+		MesogleaBlock.MesogleaParticleRegistry.registerDripParticle(mesogleaBlock, particleType);
+		return mesogleaBlock;
 	}
 
 	@NotNull

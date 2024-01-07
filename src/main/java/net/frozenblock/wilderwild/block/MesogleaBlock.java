@@ -18,10 +18,16 @@
 
 package net.frozenblock.wilderwild.block;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Optional;
 import net.frozenblock.lib.block.api.shape.FrozenShapes;
 import net.frozenblock.wilderwild.block.property.BubbleDirection;
 import net.frozenblock.wilderwild.config.BlockConfig;
+import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.minecraft.core.BlockPos;
@@ -66,17 +72,25 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterloggedBlock {
+	public static final MapCodec<MesogleaBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
+		Codec.BOOL.fieldOf("pearlescent").forGetter((mesogleaBlock) -> mesogleaBlock.pearlescent),
+		propertiesCodec()
+	).apply(instance, MesogleaBlock::new));
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final EnumProperty<BubbleDirection> BUBBLE_DIRECTION = RegisterProperties.BUBBLE_DIRECTION;
 
-	public final ParticleOptions dripParticle;
 	public final boolean pearlescent;
 
-	public MesogleaBlock(@NotNull Properties properties, @NotNull ParticleOptions dripParticle, boolean pearlescent) {
+	public MesogleaBlock(boolean pearlescent, @NotNull Properties properties) {
 		super(properties.pushReaction(PushReaction.DESTROY));
 		this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false).setValue(BUBBLE_DIRECTION, BubbleDirection.NONE));
-		this.dripParticle = dripParticle;
 		this.pearlescent = pearlescent;
+	}
+
+	@NotNull
+	@Override
+	protected MapCodec<? extends MesogleaBlock> codec() {
+		return CODEC;
 	}
 
 	public static boolean isMesoglea(@NotNull BlockState blockState) {
@@ -225,8 +239,11 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 		double d = blockPos.getX();
 		double e = blockPos.getY();
 		double f = blockPos.getZ();
-		if (randomSource.nextInt(0, 50) == 0 && (blockState.getValue(WATERLOGGED) || level.getFluidState(blockPos.above()).is(FluidTags.WATER)) && level.getFluidState(blockPos.below()).isEmpty() && level.getBlockState(blockPos.below()).isAir()) {
-			level.addParticle(this.dripParticle, d + randomSource.nextDouble(), e, f + randomSource.nextDouble(), 0.0D, 0.0D, 0.0D);
+		if (blockState.getBlock() instanceof MesogleaBlock mesogleaBlock) {
+			Optional<ParticleOptions> dripParticle = MesogleaParticleRegistry.getParticleForMesoglea(mesogleaBlock);
+			if (dripParticle.isPresent() && randomSource.nextInt(0, 50) == 0 && (blockState.getValue(WATERLOGGED) || level.getFluidState(blockPos.above()).is(FluidTags.WATER)) && level.getFluidState(blockPos.below()).isEmpty() && level.getBlockState(blockPos.below()).isAir()) {
+				level.addParticle(dripParticle.get(), d + randomSource.nextDouble(), e, f + randomSource.nextDouble(), 0.0D, 0.0D, 0.0D);
+			}
 		}
 		Optional<Direction> dragDirection = getDragDirection(blockState);
 		if (dragDirection.isPresent()) {
@@ -319,5 +336,22 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 	@NotNull
 	public RenderShape getRenderShape(@NotNull BlockState state) {
 		return state.getValue(BlockStateProperties.WATERLOGGED) && BlockConfig.get().mesoglea.mesogleaLiquid ? RenderShape.INVISIBLE : RenderShape.MODEL;
+	}
+
+	public static class MesogleaParticleRegistry {
+		private static final Map<MesogleaBlock, ParticleOptions> MESOGLEA_PARTICLE_MAP = new LinkedHashMap<>();
+
+		public static ParticleOptions registerDripParticle(@NotNull MesogleaBlock mesogleaBlock, @NotNull ParticleOptions particleOptions) {
+			MESOGLEA_PARTICLE_MAP.put(mesogleaBlock, particleOptions);
+			return particleOptions;
+		}
+
+		public static Optional<ParticleOptions> getParticleForMesoglea(@NotNull MesogleaBlock mesogleaBlock) {
+			return Optional.ofNullable(MESOGLEA_PARTICLE_MAP.getOrDefault(mesogleaBlock, null));
+		}
+
+		public static ParticleOptions getParticleForMesogleaOrDefault(@NotNull MesogleaBlock mesogleaBlock) {
+			return getParticleForMesoglea(mesogleaBlock).orElse(RegisterParticles.BLUE_PEARLESCENT_FALLING_MESOGLEA);
+		}
 	}
 }

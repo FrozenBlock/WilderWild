@@ -54,6 +54,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock {
+	public static final MapCodec<TumbleweedPlantBlock> CODEC = simpleCodec(TumbleweedPlantBlock::new);
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 	private static final VoxelShape FIRST_SHAPE = Block.box(3, 0, 3, 12, 9, 12);
 	private static final VoxelShape SECOND_SHAPE = Block.box(2, 0, 2, 14, 12, 14);
@@ -64,9 +65,10 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 		super(properties);
 	}
 
+	@NotNull
 	@Override
-	protected MapCodec<? extends BushBlock> codec() {
-		return null;
+	protected MapCodec<? extends TumbleweedPlantBlock> codec() {
+		return CODEC;
 	}
 
 	public static boolean isFullyGrown(@NotNull BlockState state) {

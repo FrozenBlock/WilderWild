@@ -57,6 +57,7 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class WilderBushBlock extends BushBlock implements BonemealableBlock {
+	public static final MapCodec<WilderBushBlock> CODEC = simpleCodec(WilderBushBlock::new);
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	private static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
 
@@ -65,9 +66,10 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 		this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0).setValue(HALF, DoubleBlockHalf.LOWER));
 	}
 
+	@NotNull
 	@Override
-	protected MapCodec<? extends BushBlock> codec() {
-		return null;
+	protected MapCodec<? extends WilderBushBlock> codec() {
+		return CODEC;
 	}
 
 	public static boolean isFullyGrown(@NotNull BlockState state) {

@@ -56,6 +56,7 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class TumbleweedBlock extends BushBlock implements SimpleWaterloggedBlock {
+	public static final MapCodec<TumbleweedBlock> CODEC = simpleCodec(TumbleweedBlock::new);
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	protected static final VoxelShape COLLISION_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 14.0D, 15.0D);
 	protected static final VoxelShape OUTLINE_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 14.0D, 15.0D);
@@ -65,9 +66,10 @@ public class TumbleweedBlock extends BushBlock implements SimpleWaterloggedBlock
 		this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
 	}
 
+	@NotNull
 	@Override
-	protected MapCodec<? extends BushBlock> codec() {
-		return null;
+	protected MapCodec<? extends TumbleweedBlock> codec() {
+		return CODEC;
 	}
 
 	@Override

@@ -18,7 +18,9 @@
 
 package net.frozenblock.wilderwild.block;
 
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import java.util.Map;
 import net.frozenblock.lib.block.api.dripstone.DripstoneUtils;
@@ -53,6 +55,13 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ScorchedBlock extends BaseEntityBlock {
+	public static final MapCodec<ScorchedBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
+		BlockState.CODEC.fieldOf("previous_state").forGetter((scorchedBlock) -> scorchedBlock.wetState),
+		Codec.BOOL.fieldOf("brushable").forGetter((scorchedBlock) -> scorchedBlock.canBrush),
+		SoundEvent.DIRECT_CODEC.fieldOf("brush_sound").forGetter((scorchedBlock) -> scorchedBlock.brushSound),
+		SoundEvent.DIRECT_CODEC.fieldOf("brush_completed_sound").forGetter((scorchedBlock) -> scorchedBlock.brushCompletedSound),
+		propertiesCodec()
+	).apply(instance, ScorchedBlock::new));
 	public static final Map<BlockState, BlockState> SCORCH_MAP = new Object2ObjectOpenHashMap<>();
 	public static final Map<BlockState, BlockState> HYDRATE_MAP = new Object2ObjectOpenHashMap<>();
 	public static final int TICK_DELAY = 2;
@@ -63,7 +72,7 @@ public class ScorchedBlock extends BaseEntityBlock {
 	public final SoundEvent brushSound;
 	public final SoundEvent brushCompletedSound;
 
-	public ScorchedBlock(@NotNull Properties settings, @NotNull BlockState wetState, boolean canBrush, @NotNull SoundEvent brushSound, @NotNull SoundEvent brushCompletedSound) {
+	public ScorchedBlock(@NotNull BlockState wetState, boolean canBrush, @NotNull SoundEvent brushSound, @NotNull SoundEvent brushCompletedSound, @NotNull Properties settings) {
 		super(settings);
 		this.registerDefaultState(this.stateDefinition.any().setValue(CRACKEDNESS, false));
 		this.canBrush = canBrush;
@@ -71,6 +80,12 @@ public class ScorchedBlock extends BaseEntityBlock {
 		this.brushCompletedSound = brushCompletedSound;
 		this.wetState = wetState;
 		this.fillScorchMap(this.wetState, this.defaultBlockState(), this.defaultBlockState().setValue(CRACKEDNESS, true));
+	}
+
+	@NotNull
+	@Override
+	protected MapCodec<? extends ScorchedBlock> codec() {
+		return CODEC;
 	}
 
 	public static boolean canScorch(@NotNull BlockState state) {
@@ -170,11 +185,6 @@ public class ScorchedBlock extends BaseEntityBlock {
 			ItemBlockStateTagUtils.setProperty(superStack, RegisterProperties.CRACKED, true);
 		}
 		return superStack;
-	}
-
-	@Override
-	protected MapCodec<? extends BaseEntityBlock> codec() {
-		return null;
 	}
 
 	@Override

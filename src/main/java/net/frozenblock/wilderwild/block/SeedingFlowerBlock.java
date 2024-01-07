@@ -35,14 +35,15 @@ import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("deprecation")
 public class SeedingFlowerBlock extends FlowerBlock {
-
+	public static final float SEED_SPAWN_CHANCE = 0.95F;
+	public static final double SEED_SPAWN_HEIGHT = 0.3D;
 	public SeedingFlowerBlock(@NotNull Holder<MobEffect> suspiciousStewEffect, int effectDuration, @NotNull Properties settings) {
 		super(suspiciousStewEffect, effectDuration, settings);
 	}
 
 	@Override
 	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (random.nextFloat() > 0.95) {
+		if (random.nextFloat() > SEED_SPAWN_CHANCE) {
 			level.addParticle(new SeedParticleOptions(false, false), pos.getX() + 0.5, pos.getY() + 0.8, pos.getZ() + 0.5, 0.0D, 0.0D, 0.0D);
 		}
 	}
@@ -50,18 +51,24 @@ public class SeedingFlowerBlock extends FlowerBlock {
 	@Override
 	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
 		if (level instanceof ServerLevel server) {
-			if (server.random.nextFloat() > 0.95) {
-				WilderSeedParticlePacket.sendToAll(level, Vec3.atCenterOf(pos).add(0, 0.3, 0), server.random.nextIntBetweenInclusive(1, 3), false);
+			if (server.random.nextFloat() > SEED_SPAWN_CHANCE) {
+				WilderSeedParticlePacket.sendToAll(level, getSeedSpawnPos(pos), server.random.nextIntBetweenInclusive(1, 3), false);
 			}
 		}
 	}
 
+	@NotNull
 	@Override
-	public @NotNull BlockState playerWillDestroy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
+	public BlockState playerWillDestroy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
 		BlockState original = super.playerWillDestroy(level, pos, state, player);
 		if (level instanceof ServerLevel server) {
-			WilderSeedParticlePacket.sendToAll(level, Vec3.atCenterOf(pos).add(0, 0.3, 0), server.random.nextIntBetweenInclusive(3, 7), false);
+			WilderSeedParticlePacket.sendToAll(level, getSeedSpawnPos(pos), server.random.nextIntBetweenInclusive(3, 7), false);
 		}
 		return original;
+	}
+
+	@NotNull
+	public static Vec3 getSeedSpawnPos(@NotNull BlockPos pos) {
+		return Vec3.atCenterOf(pos).add(0, SEED_SPAWN_HEIGHT, 0);
 	}
 }

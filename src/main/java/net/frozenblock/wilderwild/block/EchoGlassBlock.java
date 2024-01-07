@@ -41,7 +41,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.TintedGlassBlock;
 import net.minecraft.world.level.block.TransparentBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -61,6 +60,12 @@ public class EchoGlassBlock extends TransparentBlock {
 		this.registerDefaultState(this.defaultBlockState().setValue(DAMAGE, 0));
 	}
 
+	@NotNull
+	@Override
+	public MapCodec<? extends EchoGlassBlock> codec() {
+		return CODEC;
+	}
+
 	@Override
 	public boolean propagatesSkylightDown(BlockState state, BlockGetter level, BlockPos pos) {
 		return false;
@@ -71,7 +76,7 @@ public class EchoGlassBlock extends TransparentBlock {
 		return level.getMaxLightLevel();
 	}
 
-	public static void damage(@NotNull Level level, @NotNull BlockPos pos, boolean isSonicBoom) {
+	public static void damage(@NotNull Level level, @NotNull BlockPos pos, boolean shouldDrop) {
 		BlockState state = level.getBlockState(pos);
 		if (state.getValue(DAMAGE) < 3) {
 			level.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) + 1));
@@ -80,7 +85,7 @@ public class EchoGlassBlock extends TransparentBlock {
 				serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(18, 25), 0.3F, 0.3F, 0.3F, 0.05D);
 			}
 		} else {
-			level.destroyBlock(pos, !isSonicBoom);
+			level.destroyBlock(pos, shouldDrop);
 		}
 	}
 
@@ -124,7 +129,7 @@ public class EchoGlassBlock extends TransparentBlock {
 				heal(level, pos);
 			}
 		} else {
-			damage(level, pos, false);
+			damage(level, pos, true);
 		}
 	}
 
@@ -149,7 +154,7 @@ public class EchoGlassBlock extends TransparentBlock {
 	@Override
 	public void onProjectileHit(@NotNull Level level, @NotNull BlockState state, @NotNull BlockHitResult hit, @NotNull Projectile projectile) {
 		if (projectile instanceof AncientHornProjectile) {
-			damage(level, hit.getBlockPos(), false);
+			damage(level, hit.getBlockPos(), true);
 		}
 		super.onProjectileHit(level, state, hit, projectile);
 	}
@@ -163,11 +168,5 @@ public class EchoGlassBlock extends TransparentBlock {
 			ItemBlockStateTagUtils.setProperty(superStack, RegisterProperties.DAMAGE, damage);
 		}
 		return superStack;
-	}
-
-	@NotNull
-	@Override
-	public MapCodec<? extends EchoGlassBlock> codec() {
-		return CODEC;
 	}
 }

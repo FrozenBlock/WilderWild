@@ -60,11 +60,10 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class CoconutBlock extends FallingBlock implements BonemealableBlock {
-	public static final MapCodec<CoconutBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-		return instance.group(TreeGrower.CODEC.fieldOf("tree").forGetter((coconutBlock) -> {
-			return coconutBlock.treeGrower;
-		}), propertiesCodec()).apply(instance, CoconutBlock::new);
-	});
+	public static final MapCodec<CoconutBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
+		TreeGrower.CODEC.fieldOf("tree").forGetter((coconutBlock) -> coconutBlock.treeGrower),
+		propertiesCodec()
+	).apply(instance, CoconutBlock::new));
 	public static final int VALID_FROND_DISTANCE = 2;
 	public static final IntegerProperty STAGE = BlockStateProperties.STAGE;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
@@ -85,7 +84,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 
 	@NotNull
 	@Override
-	protected MapCodec<? extends FallingBlock> codec() {
+	protected MapCodec<? extends CoconutBlock> codec() {
 		return CODEC;
 	}
 

@@ -77,11 +77,8 @@ public class NematocystBlock extends FaceClusterBlock {
 						return Optional.of(spreadPos);
 					}
 				}
-				return Optional.empty();
-			} else {
-				return Optional.empty();
 			}
+			return Optional.empty();
 		}
 	}
-
 }

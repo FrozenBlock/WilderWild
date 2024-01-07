@@ -51,6 +51,8 @@ Added the Ostrich
     - Dead Bushes will generate here
     - Coarse Dirt mounds make their fourth and final grand return in this biome
 
+- Added codecs to as many blocks as possible (1.20.5+)
+    - This has resulted in some blocks receiving new constructor parameters
 - Added the Bush, Tumbleweed, Tumbleweed Stem, Milkweed, Datura, Cattail, Flowering Lily Pad, Algae, Shelf Fungus, Small Sponge, Prickly Pear Cactus, and Nematocyst blocks to the `minecraft:sword_efficient` tag
 - Defined the Random Sequence for every one of Wilder Wild's loot tables
 - Potted Small Dripleaves now use their loot table (renamed `wilderwild:blocks/potted_small.dripleaf` to `wilderwild:blocks/potted_small_dripleaf`)

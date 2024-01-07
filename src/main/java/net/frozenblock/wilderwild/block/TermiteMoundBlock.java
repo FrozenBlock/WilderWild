@@ -42,6 +42,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class TermiteMoundBlock extends BaseEntityBlock {
+	public static final MapCodec<TermiteMoundBlock> CODEC = simpleCodec(TermiteMoundBlock::new);
 
 	public TermiteMoundBlock(@NotNull Properties settings) {
 		super(settings);
@@ -53,9 +54,10 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 		);
 	}
 
+	@NotNull
 	@Override
-	protected MapCodec<? extends BaseEntityBlock> codec() {
-		return null;
+	protected MapCodec<? extends TermiteMoundBlock> codec() {
+		return CODEC;
 	}
 
 	public static boolean canTermitesWaken(@NotNull Level level, @NotNull BlockPos pos) {

@@ -42,7 +42,7 @@ public class FlowerLichenBlock extends MultifaceBlock {
 
 	@NotNull
 	@Override
-	protected MapCodec<? extends MultifaceBlock> codec() {
+	protected MapCodec<? extends FlowerLichenBlock> codec() {
 		return CODEC;
 	}
 

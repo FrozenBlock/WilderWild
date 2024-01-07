@@ -70,6 +70,12 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 		this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false).setValue(AXIS, Direction.Axis.Y));
 	}
 
+	@NotNull
+	@Override
+	public MapCodec<? extends HollowedLogBlock> codec() {
+		return CODEC;
+	}
+
 	public static void hollowEffects(@NotNull Level level, @NotNull Direction face, @NotNull BlockState state, @NotNull BlockPos pos, boolean isStem) {
 		if (level instanceof ServerLevel serverLevel) {
 			double stepX = face.getStepX();
@@ -195,11 +201,5 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 	@Override
 	public boolean useShapeForLightOcclusion(@NotNull BlockState state) {
 		return true;
-	}
-
-	@NotNull
-	@Override
-	public MapCodec<? extends HollowedLogBlock> codec() {
-		return CODEC;
 	}
 }

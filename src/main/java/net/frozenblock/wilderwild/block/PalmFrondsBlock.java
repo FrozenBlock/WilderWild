@@ -18,8 +18,8 @@
 
 package net.frozenblock.wilderwild.block;
 
-import java.util.OptionalInt;
 import com.mojang.serialization.MapCodec;
+import java.util.OptionalInt;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -44,6 +44,12 @@ public class PalmFrondsBlock extends LeavesBlock implements BonemealableBlock {
 	public PalmFrondsBlock(@NotNull Properties settings) {
 		super(settings);
 		this.registerDefaultState(this.defaultBlockState().setValue(DISTANCE, DECAY_DISTANCE));
+	}
+
+	@NotNull
+	@Override
+	public MapCodec<? extends PalmFrondsBlock> codec() {
+		return CODEC;
 	}
 
 	@Override
@@ -118,11 +124,5 @@ public class PalmFrondsBlock extends LeavesBlock implements BonemealableBlock {
 			return OptionalInt.of(DECAY_DISTANCE);
 		}
 		return OptionalInt.of(distance);
-	}
-
-	@NotNull
-	@Override
-	public MapCodec<? extends PalmFrondsBlock> codec() {
-		return CODEC;
 	}
 }

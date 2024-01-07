@@ -64,6 +64,12 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
 		super(settings);
 	}
 
+	@NotNull
+	@Override
+	protected MapCodec<? extends GloryOfTheSnowBlock> codec() {
+		return CODEC;
+	}
+
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
 		builder.add(COLOR_STATE);
@@ -123,12 +129,5 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
 		level.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FLOWER_COLOR, FLOWER_COLORS.get(AdvancedMath.random().nextInt(FLOWER_COLORS.size()))));
-	}
-
-
-	@NotNull
-	@Override
-	protected MapCodec<? extends BushBlock> codec() {
-		return CODEC;
 	}
 }
