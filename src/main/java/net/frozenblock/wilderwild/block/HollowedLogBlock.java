@@ -195,7 +195,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 
 	@Override
 	public boolean propagatesSkylightDown(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
-		return !(Boolean) state.getValue(WATERLOGGED);
+		return !state.getValue(WATERLOGGED);
 	}
 
 	@Override
