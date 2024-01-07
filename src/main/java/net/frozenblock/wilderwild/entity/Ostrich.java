@@ -386,7 +386,9 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	@NotNull
 	@Override
 	public AABB getAttackBoundingBox() {
-		return super.getAttackBoundingBox().inflate(0.2D, 0D, 0.2D).move(0D, -0.2D, 0D);
+		float scale = this.getScale();
+		double attackBBOffset = 0.2D * scale;
+		return super.getAttackBoundingBox().inflate(attackBBOffset, 0D, attackBBOffset).move(0D, -attackBBOffset, 0D);
 	}
 
 	@Override
@@ -895,7 +897,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	@NotNull
 	@Override
 	public Vec3 getPassengerAttachmentPoint(@NotNull Entity entity, @NotNull EntityDimensions dimensions, float scale) {
-		return new Vec3(0.0F, dimensions.height() * 0.775F * scale, 0);
+		return new Vec3(0D, dimensions.height() * 0.775D, dimensions.width() * -0.1D).yRot(-this.getYRot() * 0.017453292F);
 	}
 
 	@Override
