@@ -102,7 +102,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 				i = Mth.floor(vec32.length()) + 10;
 				info.cancel();
 				if (level.getBlockState(hitPos).is(RegisterBlocks.ECHO_GLASS)) {
-					EchoGlassBlock.damage(level, hitPos);
+					EchoGlassBlock.damage(level, hitPos, true);
 				}
 			}
 		}

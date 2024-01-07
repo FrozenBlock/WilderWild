@@ -55,7 +55,7 @@ public class FloweringLilyPadBlock extends WaterlilyBlock {
 	}
 
 	@Override
-	protected boolean mayPlaceOn(@NotNull BlockState floor, BlockGetter level, @NotNull BlockPos pos) {
+	protected boolean mayPlaceOn(@NotNull BlockState floor, @NotNull BlockGetter level, @NotNull BlockPos pos) {
 		FluidState fluidState = level.getFluidState(pos);
 		FluidState fluidState2 = level.getFluidState(pos.above());
 		return (fluidState.is(FluidTags.WATER) || floor.getBlock() instanceof IceBlock) && fluidState2.getType() == Fluids.EMPTY;

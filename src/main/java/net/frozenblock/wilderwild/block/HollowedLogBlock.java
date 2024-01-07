@@ -59,9 +59,9 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 	protected static final VoxelShape Y_COLLISION_SHAPE = Shapes.or(Block.box(0, 0, 0, 16, 16, 2.25), Block.box(0, 0, 0, 2.25, 16, 16), Block.box(0, 0, 13.75, 16, 16, 16), Block.box(13.75, 0, 0, 16, 16, 16));
 	protected static final VoxelShape Z_COLLISION_SHAPE = Shapes.or(Block.box(13.75, 0, 0, 16, 16, 16), Block.box(0, 0, 0, 2.25, 16, 16), Block.box(0, 13.75, 0, 16, 16, 16), Block.box(0, 0, 0, 16, 2.25, 16));
 	protected static final VoxelShape RAYCAST_SHAPE = Shapes.block();
-	private static final float hollowedAmount = 0.71875F;
-	private static final float edgeAmount = 0.140625F;
-	private static final float crawlHeight = edgeAmount + hollowedAmount;
+	private static final float HOLLOWED_AMOUNT = 0.71875F;
+	private static final float EDGE_AMOUNT = 0.140625F;
+	private static final float CRAWL_HEIGHT = EDGE_AMOUNT + HOLLOWED_AMOUNT;
 
 	public HollowedLogBlock(@NotNull Properties settings) {
 		super(settings);
@@ -110,12 +110,12 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 			&& !player.isPassenger()
 			&& direction.getAxis() != Direction.Axis.Y
 			&& direction.getAxis() == axis
-			&& player.getBbWidth() <= hollowedAmount
-			&& player.getBbHeight() >= hollowedAmount
+			&& player.getBbWidth() <= HOLLOWED_AMOUNT
+			&& player.getBbHeight() >= HOLLOWED_AMOUNT
 			&& player.blockPosition().relative(direction).equals(pos)
 			&& player.position().distanceTo(new Vec3(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5)) <= (0.5 + player.getBbWidth())
 			&& playerY >= pos.getY()
-			&& playerY + crawlingHeight <= pos.getY() + crawlHeight
+			&& playerY + crawlingHeight <= pos.getY() + CRAWL_HEIGHT
 			&& hitDirection.getAxis() == axis
 			&& hitDirection.getOpposite() == direction
 		) {

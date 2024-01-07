@@ -38,7 +38,7 @@ public class OstrichRenderer<T extends Ostrich> extends MobRenderer<T, OstrichMo
 	}
 
 	public OstrichRenderer(EntityRendererProvider.Context context, ModelLayerLocation layer) {
-		super(context, new OstrichModel<>(context.bakeLayer(layer)), 0.9F);
+		super(context, new OstrichModel<>(context.bakeLayer(layer)), 0.75F);
 		this.addLayer(new SaddleLayer<>(this, new OstrichModel<>(context.bakeLayer(WilderWildClient.OSTRICH_SADDLE)), OSTRICH_SADDLE_LOCATION));
 	}
 

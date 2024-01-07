@@ -71,6 +71,7 @@ Added the Ostrich
 - Added the Palm Crown to the `wilderwild:palm_logs` item tag
 - Baobab Nuts and Palm Fronds are now compostable
 - Decreased the amount of String obtained crafting with Cattails from 3 to 1
+- Echo Glass will now drop itself upon breaking due to cracking, only if not hit by a Sonic Boom
 - Removed the `Goat Horn Symphony` and `Back` discs as they don't feel necessary nor do they fit the game
     - These will be datafixed into Lena Raine's `Otherside`
 - Updated the protocol version to 3

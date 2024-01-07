@@ -57,7 +57,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
 		this.registerDefaultState(this.defaultBlockState().setValue(DAMAGE, 0));
 	}
 
-	public static void damage(@NotNull Level level, @NotNull BlockPos pos) {
+	public static void damage(@NotNull Level level, @NotNull BlockPos pos, boolean isSonicBoom) {
 		BlockState state = level.getBlockState(pos);
 		if (state.getValue(DAMAGE) < 3) {
 			level.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) + 1));
@@ -66,7 +66,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
 				serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(18, 25), 0.3F, 0.3F, 0.3F, 0.05D);
 			}
 		} else {
-			level.destroyBlock(pos, false);
+			level.destroyBlock(pos, !isSonicBoom);
 		}
 	}
 
@@ -110,7 +110,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
 				heal(level, pos);
 			}
 		} else {
-			damage(level, pos);
+			damage(level, pos, false);
 		}
 	}
 
@@ -135,7 +135,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
 	@Override
 	public void onProjectileHit(@NotNull Level level, @NotNull BlockState state, @NotNull BlockHitResult hit, @NotNull Projectile projectile) {
 		if (projectile instanceof AncientHornProjectile) {
-			damage(level, hit.getBlockPos());
+			damage(level, hit.getBlockPos(), false);
 		}
 		super.onProjectileHit(level, state, hit, projectile);
 	}
