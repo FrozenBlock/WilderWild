@@ -56,6 +56,13 @@ import org.jetbrains.annotations.NotNull;
 @SuppressWarnings("deprecation")
 public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlock {
 	public static final MapCodec<PricklyPearCactusBlock> CODEC = simpleCodec(PricklyPearCactusBlock::new);
+	public static final int GROWTH_CHANCE = 3;
+	public static final Vec3 ENTITY_SLOWDOWN = new Vec3(0.8D, 0.75D, 0.8D);
+	public static final float DAMAGE = 0.5F;
+	public static final float USE_ON_DAMAGE = 1F;
+	public static final int MIN_PEARS_FROM_HARVEST = 1;
+	public static final int MAX_PEARS_FROM_HARVEST = 2;
+	public static final int MAX_AGE = 3;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 	protected static final VoxelShape OUTLINE_SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 13.0D, 13.0D);
 
@@ -70,7 +77,7 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 	}
 
 	public static boolean isFullyGrown(@NotNull BlockState state) {
-		return state.getValue(AGE) == 3;
+		return state.getValue(AGE) == MAX_AGE;
 	}
 
 	@Override
@@ -80,7 +87,7 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (!isFullyGrown(state) && random.nextInt(0, 3) == 0) {
+		if (!isFullyGrown(state) && random.nextInt(GROWTH_CHANCE) == 0) {
 			level.setBlockAndUpdate(pos, state.setValue(AGE, state.getValue(AGE) + 1));
 		}
 	}
@@ -93,9 +100,9 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 
 	@Override
 	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
-		entity.makeStuckInBlock(state, new Vec3(0.8, 0.75, 0.8));
+		entity.makeStuckInBlock(state, ENTITY_SLOWDOWN);
 		if (!(entity instanceof ItemEntity)) {
-			entity.hurt(level.damageSources().cactus(), 0.5F);
+			entity.hurt(level.damageSources().cactus(), DAMAGE);
 		}
 	}
 
@@ -116,8 +123,9 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-		level.setBlockAndUpdate(pos, state.setValue(AGE, Math.min(3, state.getValue(AGE) + random.nextIntBetweenInclusive(1, 2))));
+		level.setBlockAndUpdate(pos, state.setValue(AGE, Math.min(MAX_AGE, state.getValue(AGE) + random.nextIntBetweenInclusive(1, 2))));
 	}
+
 
 	@SuppressWarnings("SpellCheckingInspection")
 	@Override
@@ -126,18 +134,18 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 		if (isFullyGrown(state)) {
 			level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
 			ItemStack pear = new ItemStack(RegisterItems.PRICKLY_PEAR);
-			pear.setCount(level.random.nextIntBetweenInclusive(1, 2));
+			pear.setCount(level.getRandom().nextIntBetweenInclusive(MIN_PEARS_FROM_HARVEST, MAX_PEARS_FROM_HARVEST));
 			popResource(level, pos, pear);
 			if (!level.isClientSide) {
 				if (stack.is(Items.SHEARS)) {
-					level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
-					level.playSound(null, pos, RegisterSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1.0F, 0.95F + (level.random.nextFloat() * 0.1F));
+					level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
+					level.playSound(null, pos, RegisterSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1F, 0.95F + (level.random.nextFloat() * 0.1F));
 					stack.hurtAndBreak(1, player, playerx -> playerx.broadcastBreakEvent(hand));
 					level.gameEvent(player, GameEvent.SHEAR, pos);
 				} else {
-					level.playSound(null, pos, RegisterSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1.0F, 0.95F + (level.random.nextFloat() * 0.1F));
+					level.playSound(null, pos, RegisterSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1F, 0.95F + (level.random.nextFloat() * 0.1F));
 					level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
-					player.hurt(level.damageSources().cactus(), 1F);
+					player.hurt(level.damageSources().cactus(), USE_ON_DAMAGE);
 				}
 			}
 			return ItemInteractionResult.sidedSuccess(level.isClientSide);

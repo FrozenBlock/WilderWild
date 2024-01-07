@@ -42,7 +42,6 @@ import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.block.FlowerLichenBlock;
-import net.frozenblock.wilderwild.block.FloweringLilyPadBlock;
 import net.frozenblock.wilderwild.block.GloryOfTheSnowBlock;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
@@ -109,6 +108,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
+import net.minecraft.world.level.block.WaterlilyBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
@@ -388,7 +388,7 @@ public final class RegisterBlocks {
 			.nonOpaque()
 	);
 
-	public static final FloweringLilyPadBlock FLOWERING_LILY_PAD = new FloweringLilyPadBlock(
+	public static final WaterlilyBlock FLOWERING_LILY_PAD = new WaterlilyBlock(
 		FabricBlockSettings.copyOf(Blocks.LILY_PAD)
 	);
 

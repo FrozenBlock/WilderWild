@@ -81,7 +81,7 @@ public class OstrichEggBlock extends Block {
 		if (shouldUpdateHatchLevel(level, pos)) {
 			if (!this.isReadyToHatch(state)) {
 				level.playSound(null, pos, RegisterSounds.BLOCK_OSTRICH_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
-				level.setBlock(pos, state.setValue(HATCH, this.getHatchLevel(state) + 1), 2);
+				level.setBlock(pos, state.setValue(HATCH, this.getHatchLevel(state) + 1), UPDATE_CLIENTS);
 			} else {
 				this.hatchOstrichEgg(level, pos, random);
 			}
@@ -99,7 +99,7 @@ public class OstrichEggBlock extends Block {
 		if (level.isDay()) {
 			return true;
 		} else {
-			return level.random.nextInt(500) == 0;
+			return level.getRandom().nextInt(500) == 0;
 		}
 	}
 
@@ -122,7 +122,7 @@ public class OstrichEggBlock extends Block {
 				pos.getY(),
 				pos.getZ() + 0.5D,
 				random.nextInt(1, 361),
-				0.0F
+				0F
 			);
 			ostrich.setTamed(true);
 			level.addFreshEntity(ostrich);

@@ -32,6 +32,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class NematocystBlock extends FaceClusterBlock {
 	public static final MapCodec<NematocystBlock> CODEC = simpleCodec(NematocystBlock::new);
+	public static final int HEIGHT = 7;
+	public static final int XZ_OFFSET = 3;
 	private final NematocystSpreader spreader = new NematocystSpreader(this);
 
 	public NematocystBlock(int height, int xzOffset, @NotNull Properties properties) {
@@ -39,7 +41,7 @@ public class NematocystBlock extends FaceClusterBlock {
 	}
 
 	public NematocystBlock(@NotNull Properties properties) {
-		this(7, 3, properties.pushReaction(PushReaction.DESTROY));
+		this(HEIGHT, XZ_OFFSET, properties.pushReaction(PushReaction.DESTROY));
 	}
 
 	@NotNull

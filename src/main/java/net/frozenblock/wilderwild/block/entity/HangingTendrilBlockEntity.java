@@ -150,7 +150,6 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		tag.putInt("storedXP", this.storedXP);
 		tag.putInt("ringOutTicksLeft", this.ringOutTicksLeft);
 		VibrationSystem.Data.CODEC.encodeStart(NbtOps.INSTANCE, this.vibrationData).resultOrPartial(LOGGER::error).ifPresent(nbt -> tag.put("listener", nbt));
-
 	}
 
 	@NotNull

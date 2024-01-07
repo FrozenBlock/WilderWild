@@ -64,9 +64,15 @@ Bug Fixes & Changes
 - ### Blocks
 ---
   - Added codecs to as many blocks as possible (1.20.5+.)
-      - This has resulted in some blocks receiving reorganized and/or new constructor parameters.
+    - This has resulted in some blocks receiving reorganized and/or new constructor parameters.
+  - Removed the `FloweringLilyPadBlock` class as it was redundant.
+    - Please note that this will not impact the block itself in any way.
+  - Added many public static fields to blocks for better code readability and editability.
+  - Significantly improved the `OsseousSculkBlock` class and merged both growing methods into one.
   - Echo Glass will now drop itself upon cracking if not hit by a Sonic Boom.
   - Baobab Nuts and Palm Fronds are now compostable.
+  - Changed the minimum and maximum amount of Milkweed Pods obtainable by shearing Milkweed to 1 and 3 respectively, previously being 2 and 5.
+  - Tweaked how Pollen chooses where to spawn particles.
   - Added the Bush, Tumbleweed, Tumbleweed Stem, Milkweed, Datura, Cattail, Flowering Lily Pad, Algae, Shelf Fungus, Small Sponge, Prickly Pear Cactus, and Nematocyst blocks to the `minecraft:sword_efficient` tag.
   - Potted Small Dripleaves now use their loot table (renamed `wilderwild:blocks/potted_small.dripleaf` to `wilderwild:blocks/potted_small_dripleaf.`)
 

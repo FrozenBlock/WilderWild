@@ -37,6 +37,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.CompoundContainer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
@@ -135,9 +136,11 @@ public class StoneChestBlock extends ChestBlock {
 		return CODEC;
 	}
 
+	public static final float MIN_OPENABLE_PROGRESS = 0.3F;
+
 	public static boolean hasLid(@NotNull Level level, @NotNull BlockPos pos) {
 		if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity stoneChest) {
-			return stoneChest.openProgress < 0.3F;
+			return stoneChest.openProgress < MIN_OPENABLE_PROGRESS;
 		}
 		return false;
 	}
@@ -151,7 +154,7 @@ public class StoneChestBlock extends ChestBlock {
 
 	public static boolean hasLid(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
 		if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity stoneChest) {
-			return stoneChest.openProgress < 0.3F;
+			return stoneChest.openProgress < MIN_OPENABLE_PROGRESS;
 		}
 		return false;
 	}
@@ -170,7 +173,17 @@ public class StoneChestBlock extends ChestBlock {
 
 	public static void spawnBreakParticles(@NotNull Level level, @NotNull ItemStack stack, @NotNull BlockPos pos) {
 		if (level instanceof ServerLevel server) {
-			server.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack), pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5, level.random.nextIntBetweenInclusive(1, 3), 0.21875F, 0.21875F, 0.21875F, 0.05D);
+			server.sendParticles(
+				new ItemParticleOption(ParticleTypes.ITEM, stack),
+				pos.getX() + 0.5D,
+				pos.getY() + 0.3D,
+				pos.getZ() + 0.5D,
+				level.getRandom().nextIntBetweenInclusive(1, 3),
+				0.21875F,
+				0.21875F,
+				0.21875F,
+				0.05D
+			);
 		}
 	}
 
@@ -190,7 +203,9 @@ public class StoneChestBlock extends ChestBlock {
 		}
 		return null;
 	}
-
+public static final float MAX_OPENABLE_PROGRESS = 0.5F;
+	public static final float LIFT_AMOUNT = 0.25F;
+	public static final float MAX_LIFT_AMOUNT_UNDER_SOLID_BLOCK = 0.05F;
 	@Override
 	@NotNull
 	public InteractionResult useWithoutItem(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull BlockHitResult hit) {
@@ -204,21 +219,21 @@ public class StoneChestBlock extends ChestBlock {
 			boolean ancient = state.getValue(ANCIENT);
 			if (canInteract(level, pos)) {
 				MenuProvider namedScreenHandlerFactory = this.getMenuProvider(state, level, pos);
-				if (!hasLid(level, pos) && (!player.isShiftKeyDown() || stoneChest.openProgress >= 0.5F) && namedScreenHandlerFactory != null) {
+				if (!hasLid(level, pos) && (!player.isShiftKeyDown() || stoneChest.openProgress >= MAX_OPENABLE_PROGRESS) && namedScreenHandlerFactory != null) {
 					player.openMenu(namedScreenHandlerFactory);
 					player.awardStat(this.getOpenChestStat());
 					PiglinAi.angerNearbyPiglins(player, true);
-				} else if (stoneChest.openProgress < 0.5F) {
+				} else if (stoneChest.openProgress < MAX_OPENABLE_PROGRESS) {
 					MenuProvider lidCheck = this.getBlockEntitySourceIgnoreLid(state, level, pos, false).apply(STONE_NAME_RETRIEVER).orElse(null);
 					boolean first = stoneChest.openProgress == 0F;
 					if (lidCheck == null) {
 						if (stoneChest.openProgress < 0.05F) {
-							stoneChest.setLid(!ancient ? stoneChest.openProgress + 0.025F : 0.05F);
+							stoneChest.setLid(!ancient ? stoneChest.openProgress + LIFT_AMOUNT : 0.05F);
 						} else {
 							return InteractionResult.PASS;
 						}
 					} else {
-						stoneChest.liftLid(0.025F, ancient);
+						stoneChest.liftLid(LIFT_AMOUNT, ancient);
 					}
 					if (first) {
 						((ChestBlockEntityInterface) stoneChest).wilderWild$bubble(level, pos, state);
@@ -382,16 +397,17 @@ public class StoneChestBlock extends ChestBlock {
 						}
 					}
 				}
+				RandomSource random = level.getRandom();
 				for (ItemStack item : stoneChestBlock.nonAncientItems()) {
 					double d = EntityType.ITEM.getWidth();
-					double e = 1.0 - d;
-					double f = d / 2.0;
-					double g = pos.getX() + level.random.nextDouble() * e + f;
-					double h = pos.getY() + level.random.nextDouble() * e;
-					double i = pos.getZ() + level.random.nextDouble() * e + f;
+					double e = 1D - d;
+					double f = d / 2D;
+					double g = pos.getX() + random.nextDouble() * e + f;
+					double h = pos.getY() + random.nextDouble() * e;
+					double i = pos.getZ() + random.nextDouble() * e + f;
 					while (!item.isEmpty()) {
-						ItemEntity itemEntity = new ItemEntity(level, g, h, i, item.split(level.random.nextInt(21) + 10));
-						itemEntity.setDeltaMovement(level.random.triangle(0, 0.11485), level.random.triangle(0.2F, 0.11485), level.random.triangle(0, 0.11485));
+						ItemEntity itemEntity = new ItemEntity(level, g, h, i, item.split(random.nextInt(21) + 10));
+						itemEntity.setDeltaMovement(level.getRandom().triangle(0, 0.11485), random.triangle(0.2F, 0.11485), random.triangle(0, 0.11485));
 						level.addFreshEntity(itemEntity);
 					}
 				}

@@ -58,6 +58,7 @@ import org.jetbrains.annotations.Nullable;
 @SuppressWarnings("deprecation")
 public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock implements SimpleWaterloggedBlock, BonemealableBlock {
 	public static final MapCodec<ShelfFungusBlock> CODEC = simpleCodec(ShelfFungusBlock::new);
+	public static final int MAX_STAGE = 4;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	public static final IntegerProperty STAGE = RegisterProperties.FUNGUS_STAGE;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -89,7 +90,7 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
 
 	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 	private static boolean isFullyGrown(@NotNull BlockState state) {
-		return state.getValue(STAGE) == 4;
+		return state.getValue(STAGE) == MAX_STAGE;
 	}
 
 	@Override
@@ -100,7 +101,7 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
 		if (i > 1 && itemStack.is(Items.SHEARS)) {
 			popResource(level, pos, new ItemStack(state.getBlock().asItem()));
 			level.setBlockAndUpdate(pos, state.setValue(STAGE, i - 1));
-			level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
+			level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
 			itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
 			level.gameEvent(player, GameEvent.SHEAR, pos);
 			return ItemInteractionResult.sidedSuccess(level.isClientSide);
@@ -124,7 +125,7 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
 	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
 		BlockState insideState = context.getLevel().getBlockState(context.getClickedPos());
 		if (insideState.is(this)) {
-			return insideState.setValue(STAGE, Math.min(4, insideState.getValue(STAGE) + 1));
+			return insideState.setValue(STAGE, Math.min(MAX_STAGE, insideState.getValue(STAGE) + 1));
 		}
 		boolean waterlogged = insideState.hasProperty(BlockStateProperties.WATERLOGGED) ? insideState.getValue(BlockStateProperties.WATERLOGGED) : false;
 		if (!waterlogged) {
@@ -146,7 +147,7 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
 
 	@Override
 	@NotNull
-	public BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
+	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
 		if (state.getValue(WATERLOGGED)) {
 			level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 		}
@@ -180,11 +181,11 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
 
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (random.nextInt(0, level.getMaxLocalRawBrightness(pos) + 2) == 1) {
+		if (random.nextInt(level.getMaxLocalRawBrightness(pos) + 2) == 1) {
 			if (!isMaxAge(state)) {
 				level.setBlock(pos, state.cycle(AGE), 2);
 			} else if (!isFullyGrown(state)) {
-				level.setBlock(pos, state.cycle(STAGE).setValue(AGE, 0), 2);
+				level.setBlock(pos, state.cycle(STAGE).setValue(AGE, 0), UPDATE_CLIENTS);
 			}
 		}
 	}

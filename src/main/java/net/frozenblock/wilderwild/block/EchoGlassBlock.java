@@ -78,6 +78,8 @@ public class EchoGlassBlock extends TransparentBlock {
 
 	public static void damage(@NotNull Level level, @NotNull BlockPos pos, boolean shouldDrop) {
 		BlockState state = level.getBlockState(pos);
+		if (!state.hasProperty(DAMAGE)) return;
+
 		if (state.getValue(DAMAGE) < 3) {
 			level.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) + 1));
 			level.playSound(null, pos, RegisterSounds.BLOCK_ECHO_GLASS_CRACK, SoundSource.BLOCKS, 0.5F, 0.9F + level.getRandom().nextFloat() * 0.2F);
@@ -91,6 +93,8 @@ public class EchoGlassBlock extends TransparentBlock {
 
 	public static void heal(@NotNull Level level, @NotNull BlockPos pos) {
 		BlockState state = level.getBlockState(pos);
+		if (!state.hasProperty(DAMAGE)) return;
+
 		if (state.getValue(DAMAGE) > 0) {
 			level.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) - 1));
 			level.playSound(

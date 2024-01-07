@@ -162,11 +162,10 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	public void onPlace(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState oldState, boolean isMoving) {
 		if (level.isClientSide() || state.is(oldState.getBlock())) {
 			return;
-		}
-		if (state.getValue(POWER) > 0 && !level.getBlockTicks().hasScheduledTick(pos, this)) {
+		} else if (state.getValue(POWER) > 0 && !level.getBlockTicks().hasScheduledTick(pos, this)) {
 			level.setBlock(pos, state.setValue(POWER, 0), 18);
 		}
-		level.scheduleTick(new BlockPos(pos), state.getBlock(), 1);
+		level.scheduleTick(pos, state.getBlock(), 1);
 	}
 
 	@Override
@@ -181,7 +180,6 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	@Nullable
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new HangingTendrilBlockEntity(pos, state);
 	}
@@ -289,7 +287,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 							RegisterSounds.BLOCK_HANGING_TENDRIL_WRING,
 							SoundSource.BLOCKS,
 							1F,
-							level.random.nextFloat() * 0.1F + 0.9F
+							level.getRandom().nextFloat() * 0.1F + 0.9F
 						);
 						tendrilEntity.ringOutTicksLeft = 5;
 						return InteractionResult.SUCCESS;

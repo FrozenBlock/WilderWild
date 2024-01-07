@@ -69,6 +69,6 @@ public class SeedingFlowerBlock extends FlowerBlock {
 
 	@NotNull
 	public static Vec3 getSeedSpawnPos(@NotNull BlockPos pos) {
-		return Vec3.atCenterOf(pos).add(0, SEED_SPAWN_HEIGHT, 0);
+		return Vec3.atCenterOf(pos).add(0D, SEED_SPAWN_HEIGHT, 0D);
 	}
 }

@@ -56,6 +56,7 @@ public class BaobabNutBlock extends SaplingBlock {
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	public static final int MAX_AGE = 2;
 	public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
+	public static final double HANGING_GROWTH_CHANCE = 0.4D;
 	private static final VoxelShape[] SHAPES = new VoxelShape[]{
 		Shapes.or(Block.box(7.0, 13.0, 7.0, 9.0, 16.0, 9.0), Block.box(5.0, 6.0, 5.0, 11.0, 13.0, 11.0)),
 		Shapes.or(Block.box(7.0, 12.0, 7.0, 9.0, 16.0, 9.0), Block.box(4.0, 3.0, 4.0, 12.0, 12.0, 12.0)),
@@ -121,7 +122,7 @@ public class BaobabNutBlock extends SaplingBlock {
 					this.advanceTree(level, pos, state, random);
 				}
 			} else {
-				if (random.nextDouble() < 0.4 && !isFullyGrown(state)) {
+				if (random.nextDouble() <= HANGING_GROWTH_CHANCE && !isFullyGrown(state)) {
 					level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
 				}
 			}
