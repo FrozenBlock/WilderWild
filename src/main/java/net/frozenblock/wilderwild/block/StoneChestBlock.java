@@ -76,6 +76,10 @@ public class StoneChestBlock extends ChestBlock {
 	public static final MapCodec<StoneChestBlock> CODEC = simpleCodec((properties) ->
 		new StoneChestBlock(properties, () -> RegisterBlockEntities.STONE_CHEST)
 	);
+	public static final float MIN_OPENABLE_PROGRESS = 0.3F;
+	public static final float MAX_OPENABLE_PROGRESS = 0.5F;
+	public static final float LIFT_AMOUNT = 0.025F;
+	public static final float MAX_LIFT_AMOUNT_UNDER_SOLID_BLOCK = 0.05F;
 	public static final BooleanProperty ANCIENT = RegisterProperties.ANCIENT;
 	public static final BooleanProperty SCULK = RegisterProperties.HAS_SCULK;
 	public static final DoubleBlockCombiner.Combiner<ChestBlockEntity, Optional<MenuProvider>> STONE_NAME_RETRIEVER = new DoubleBlockCombiner.Combiner<>() {
@@ -135,8 +139,6 @@ public class StoneChestBlock extends ChestBlock {
 	public MapCodec<? extends StoneChestBlock> codec() {
 		return CODEC;
 	}
-
-	public static final float MIN_OPENABLE_PROGRESS = 0.3F;
 
 	public static boolean hasLid(@NotNull Level level, @NotNull BlockPos pos) {
 		if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity stoneChest) {
@@ -203,9 +205,7 @@ public class StoneChestBlock extends ChestBlock {
 		}
 		return null;
 	}
-public static final float MAX_OPENABLE_PROGRESS = 0.5F;
-	public static final float LIFT_AMOUNT = 0.25F;
-	public static final float MAX_LIFT_AMOUNT_UNDER_SOLID_BLOCK = 0.05F;
+
 	@Override
 	@NotNull
 	public InteractionResult useWithoutItem(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull BlockHitResult hit) {
@@ -227,8 +227,8 @@ public static final float MAX_OPENABLE_PROGRESS = 0.5F;
 					MenuProvider lidCheck = this.getBlockEntitySourceIgnoreLid(state, level, pos, false).apply(STONE_NAME_RETRIEVER).orElse(null);
 					boolean first = stoneChest.openProgress == 0F;
 					if (lidCheck == null) {
-						if (stoneChest.openProgress < 0.05F) {
-							stoneChest.setLid(!ancient ? stoneChest.openProgress + LIFT_AMOUNT : 0.05F);
+						if (stoneChest.openProgress < MAX_LIFT_AMOUNT_UNDER_SOLID_BLOCK) {
+							stoneChest.setLid(!ancient ? stoneChest.openProgress + LIFT_AMOUNT : MAX_LIFT_AMOUNT_UNDER_SOLID_BLOCK);
 						} else {
 							return InteractionResult.PASS;
 						}

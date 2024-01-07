@@ -65,6 +65,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 		propertiesCodec()
 	).apply(instance, CoconutBlock::new));
 	public static final int VALID_FROND_DISTANCE = 2;
+	public static final int MAX_AGE = 2;
 	public static final IntegerProperty STAGE = BlockStateProperties.STAGE;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
@@ -93,7 +94,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	}
 
 	private static boolean isFullyGrown(@NotNull BlockState state) {
-		return state.getValue(AGE) == 2;
+		return state.getValue(AGE) == MAX_AGE;
 	}
 
 	@NotNull
@@ -128,7 +129,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	@Override
 	@Nullable
 	public BlockState getStateForPlacement(@NotNull BlockPlaceContext ctx) {
-		return Objects.requireNonNull(super.getStateForPlacement(ctx)).setValue(AGE, 2);
+		return Objects.requireNonNull(super.getStateForPlacement(ctx)).setValue(AGE, MAX_AGE);
 	}
 
 	@Override

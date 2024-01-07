@@ -83,8 +83,8 @@
     "warden.WardenSwimMixin",
     "worldgen.biome.OverworldBiomeBuilderMixin",
     "worldgen.structure.SwampHutPieceMixin",
-    "worldgen.tree.TreeGrowerMixin",
-    "worldgen.tree.TreeFeatureMixin"
+    "worldgen.tree.TreeFeatureMixin",
+    "worldgen.tree.TreeGrowerMixin"
   ],
   "client": [
     "client.allay.AllayModelMixin",

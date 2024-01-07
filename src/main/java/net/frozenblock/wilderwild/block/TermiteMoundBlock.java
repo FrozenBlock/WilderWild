@@ -43,6 +43,10 @@ import org.jetbrains.annotations.Nullable;
 
 public class TermiteMoundBlock extends BaseEntityBlock {
 	public static final MapCodec<TermiteMoundBlock> CODEC = simpleCodec(TermiteMoundBlock::new);
+	public static final int MIN_PLACEMENT_TICK_DELAY = 40;
+	public static final int MAX_PLACEMENT_TICK_DELAY = 200;
+	public static final int MIN_TICK_DELAY = 90;
+	public static final int MAX_TICK_DELAY = 150;
 
 	public TermiteMoundBlock(@NotNull Properties settings) {
 		super(settings);
@@ -106,7 +110,7 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 
 	@Override
 	public void onPlace(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState oldState, boolean isMoving) {
-		level.scheduleTick(pos, this, level.random.nextInt(40, 200));
+		level.scheduleTick(pos, this, level.random.nextInt(MIN_PLACEMENT_TICK_DELAY, MAX_PLACEMENT_TICK_DELAY));
 	}
 
 	@Override
@@ -129,7 +133,7 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 		if (areTermitesSafe != state.getValue(RegisterProperties.CAN_SPAWN_TERMITE)) {
 			level.setBlock(pos, state.setValue(RegisterProperties.CAN_SPAWN_TERMITE, areTermitesSafe), 3);
 		}
-		level.scheduleTick(pos, this, random.nextInt(90, 150));
+		level.scheduleTick(pos, this, random.nextInt(MIN_TICK_DELAY, MAX_TICK_DELAY));
 	}
 
 	@Override

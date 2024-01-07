@@ -77,10 +77,10 @@ public class TumbleweedBlock extends BushBlock implements SimpleWaterloggedBlock
 	public ItemInteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		if (stack.is(Items.SHEARS)) {
 			if (!level.isClientSide) {
-				level.playSound(null, pos, RegisterSounds.BLOCK_TUMBLEWEED_SHEAR, SoundSource.BLOCKS, 1.0F, 1.0F);
+				level.playSound(null, pos, RegisterSounds.BLOCK_TUMBLEWEED_SHEAR, SoundSource.BLOCKS, 1F, 1F);
 				Tumbleweed weed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
 				level.addFreshEntity(weed);
-				weed.setPos(new Vec3(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5));
+				weed.setPos(Vec3.atBottomCenterOf(pos));
 				weed.spawnedFromShears = true;
 				level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
 				stack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
