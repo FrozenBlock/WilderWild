@@ -75,5 +75,5 @@ Added the Ostrich
 - Decreased the amount of String obtained crafting with Cattails from 3 to 1
 - Echo Glass will now drop itself upon breaking due to cracking, only if not hit by a Sonic Boom
 - Removed the `Goat Horn Symphony` and `Back` discs as they don't feel necessary nor do they fit the game
-    - These will be datafixed into Lena Raine's `Otherside`
+    - These will be datafixed into Lena Raine's `Otherside` and Samuel Åberg's `5` respectively
 - Updated the protocol version to 3

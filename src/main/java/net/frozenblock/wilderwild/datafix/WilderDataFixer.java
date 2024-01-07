@@ -89,7 +89,7 @@ public class WilderDataFixer {
 		Schema schemaV15 = builder.addSchema(15, NamespacedSchema::new);
 		builder.addFixer(new OsseousSculkStateFix(schemaV15, "osseous_sculk_axis_to_direction", WilderSharedConstants.id("osseous_sculk")));
 		Schema schemaV16 = builder.addSchema(16, NamespacedSchema::new);
-		SimpleFixes.addItemRenameFix(builder, "Replace wilderwild:music_disc_back with minecraft:music_disc_otherside", WilderSharedConstants.id("music_disc_back"), WilderSharedConstants.vanillaId("music_disc_otherside"), schemaV16);
+		SimpleFixes.addItemRenameFix(builder, "Replace wilderwild:music_disc_back with minecraft:music_disc_5", WilderSharedConstants.id("music_disc_back"), WilderSharedConstants.vanillaId("music_disc_5"), schemaV16);
 		SimpleFixes.addItemRenameFix(builder, "Replace wilderwild:music_disc_goathorn_symphony with minecraft:music_disc_otherside", WilderSharedConstants.id("music_disc_goathorn_symphony"), WilderSharedConstants.vanillaId("music_disc_otherside"), schemaV16);
 
 		QuiltDataFixes.buildAndRegisterFixer(mod, builder);
