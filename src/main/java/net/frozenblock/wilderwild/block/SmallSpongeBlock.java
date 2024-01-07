@@ -57,6 +57,7 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class SmallSpongeBlock extends FaceAttachedHorizontalDirectionalBlock implements SimpleWaterloggedBlock, BonemealableBlock {
+	public static final MapCodec<SmallSpongeBlock> CODEC = simpleCodec(SmallSpongeBlock::new);
 	public static final IntegerProperty STAGE = BlockStateProperties.AGE_2;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	protected static final VoxelShape NORTH_WALL_SHAPE = Block.box(0.0D, 0.0D, 13.0D, 16.0D, 16.0D, 16.0D);
@@ -71,9 +72,10 @@ public class SmallSpongeBlock extends FaceAttachedHorizontalDirectionalBlock imp
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false).setValue(FACE, AttachFace.WALL).setValue(STAGE, 0));
 	}
 
+	@NotNull
 	@Override
-	protected MapCodec<? extends FaceAttachedHorizontalDirectionalBlock> codec() {
-		return null;
+	protected MapCodec<? extends SmallSpongeBlock> codec() {
+		return CODEC;
 	}
 
 	public static boolean canAttachTo(@NotNull BlockGetter level, @NotNull Direction direction, @NotNull BlockPos pos, @NotNull BlockState state) {

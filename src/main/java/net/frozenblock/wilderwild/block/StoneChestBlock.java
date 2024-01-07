@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.block;
 
+import com.mojang.serialization.MapCodec;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.function.BiPredicate;
@@ -71,6 +72,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class StoneChestBlock extends ChestBlock {
+	public static final MapCodec<StoneChestBlock> CODEC = simpleCodec((properties) ->
+		new StoneChestBlock(properties, () -> RegisterBlockEntities.STONE_CHEST)
+	);
 	public static final BooleanProperty ANCIENT = RegisterProperties.ANCIENT;
 	public static final BooleanProperty SCULK = RegisterProperties.HAS_SCULK;
 	public static final DoubleBlockCombiner.Combiner<ChestBlockEntity, Optional<MenuProvider>> STONE_NAME_RETRIEVER = new DoubleBlockCombiner.Combiner<>() {
@@ -123,6 +127,12 @@ public class StoneChestBlock extends ChestBlock {
 	public StoneChestBlock(@NotNull Properties settings, @NotNull Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier) {
 		super(settings, supplier);
 		this.registerDefaultState(this.defaultBlockState().setValue(ANCIENT, false).setValue(SCULK, false));
+	}
+
+	@NotNull
+	@Override
+	public MapCodec<? extends StoneChestBlock> codec() {
+		return CODEC;
 	}
 
 	public static boolean hasLid(@NotNull Level level, @NotNull BlockPos pos) {
