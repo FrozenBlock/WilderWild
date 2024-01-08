@@ -38,13 +38,46 @@ import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 
 public class PalmFrondsBlock extends LeavesBlock implements BonemealableBlock {
-	public static final MapCodec<PalmFrondsBlock> CODEC = simpleCodec(PalmFrondsBlock::new);
 	public static final int DECAY_DISTANCE = 12;
+	public static final MapCodec<PalmFrondsBlock> CODEC = simpleCodec(PalmFrondsBlock::new);
 	public static final int BONEMEAL_DISTANCE = 1;
 
 	public PalmFrondsBlock(@NotNull Properties settings) {
 		super(settings);
 		this.registerDefaultState(this.defaultBlockState().setValue(DISTANCE, DECAY_DISTANCE));
+	}
+
+	@NotNull
+	private static BlockState updateDistance(@NotNull BlockState state, @NotNull LevelAccessor level, @NotNull BlockPos pos) {
+		int i = DECAY_DISTANCE;
+		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+
+		for (Direction direction : Direction.values()) {
+			mutableBlockPos.setWithOffset(pos, direction);
+			i = Math.min(i, getDistanceAt(level.getBlockState(mutableBlockPos)) + 1);
+			if (i == 1) {
+				break;
+			}
+		}
+
+		return state.setValue(DISTANCE, i);
+	}
+
+	private static int getDistanceAt(BlockState neighbor) {
+		return getOptionalDistanceAt(neighbor).orElse(DECAY_DISTANCE);
+	}
+
+	@NotNull
+	public static OptionalInt getOptionalDistanceAt(@NotNull BlockState state) {
+		if (state.is(BlockTags.LOGS)) return OptionalInt.of(0);
+		if (!state.hasProperty(DISTANCE)) return OptionalInt.empty();
+
+		Block block = state.getBlock();
+		int distance = state.getValue(DISTANCE);
+		if (!(block instanceof PalmFrondsBlock) && distance == LeavesBlock.DECAY_DISTANCE) {
+			return OptionalInt.of(DECAY_DISTANCE);
+		}
+		return OptionalInt.of(distance);
 	}
 
 	@NotNull
@@ -90,38 +123,5 @@ public class PalmFrondsBlock extends LeavesBlock implements BonemealableBlock {
 			.setValue(PERSISTENT, Boolean.TRUE)
 			.setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
 		return updateDistance(blockState, context.getLevel(), context.getClickedPos());
-	}
-
-	@NotNull
-	private static BlockState updateDistance(@NotNull BlockState state, @NotNull LevelAccessor level, @NotNull BlockPos pos) {
-		int i = DECAY_DISTANCE;
-		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-
-		for(Direction direction : Direction.values()) {
-			mutableBlockPos.setWithOffset(pos, direction);
-			i = Math.min(i, getDistanceAt(level.getBlockState(mutableBlockPos)) + 1);
-			if (i == 1) {
-				break;
-			}
-		}
-
-		return state.setValue(DISTANCE, i);
-	}
-
-	private static int getDistanceAt(BlockState neighbor) {
-		return getOptionalDistanceAt(neighbor).orElse(DECAY_DISTANCE);
-	}
-
-	@NotNull
-	public static OptionalInt getOptionalDistanceAt(@NotNull BlockState state) {
-		if (state.is(BlockTags.LOGS)) return OptionalInt.of(0);
-		if (!state.hasProperty(DISTANCE)) return OptionalInt.empty();
-
-		Block block = state.getBlock();
-		int distance = state.getValue(DISTANCE);
-		if (!(block instanceof PalmFrondsBlock) && distance == LeavesBlock.DECAY_DISTANCE) {
-			return OptionalInt.of(DECAY_DISTANCE);
-		}
-		return OptionalInt.of(distance);
 	}
 }

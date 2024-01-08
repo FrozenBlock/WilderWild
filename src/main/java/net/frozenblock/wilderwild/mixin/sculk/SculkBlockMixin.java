@@ -137,26 +137,26 @@ public abstract class SculkBlockMixin {
 	@ModifyExpressionValue(method = "attemptUseCharge", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkBlock;canPlaceGrowth(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)Z"))
 	private boolean wilderWild$newWorldgenCharge(
 		boolean original,
-		SculkSpreader.@NotNull ChargeCursor chargeCursor,
-		LevelAccessor levelAccessor,
+		SculkSpreader.ChargeCursor cursor,
+		LevelAccessor level,
 		BlockPos blockPos,
-		RandomSource randomSource,
-		@NotNull SculkSpreader sculkSpreader,
+		RandomSource random,
+		SculkSpreader spreader,
 		boolean bl,
 		@Share("wilderWild$placingBelow") LocalBooleanRef placingBelow
 	) {
-		return this.wilderWild$canPlaceGrowth(levelAccessor, chargeCursor.getPos(), sculkSpreader.isWorldGeneration(), placingBelow) || original;
+		return this.wilderWild$canPlaceGrowth(level, cursor.getPos(), spreader.isWorldGeneration(), placingBelow) || original;
 	}
 
 	@Inject(method = "attemptUseCharge", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkBlock;getRandomGrowthState(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;Z)Lnet/minecraft/world/level/block/state/BlockState;"), locals = LocalCapture.CAPTURE_FAILHARD)
 	private void wilderWild$getPlacementState(
-		SculkSpreader.ChargeCursor charge,
+		SculkSpreader.ChargeCursor cursor,
 		LevelAccessor level,
 		BlockPos catalystPos,
 		RandomSource random,
-		@NotNull SculkSpreader sculkChargeHandler,
+		@NotNull SculkSpreader spreader,
 		boolean shouldConvertBlocks,
-		CallbackInfoReturnable<Integer> cir,
+		CallbackInfoReturnable<Integer> info,
 		int chargeAmount,
 		BlockPos chargePos,
 		int growthSpawnCost,
@@ -170,7 +170,7 @@ public abstract class SculkBlockMixin {
 		placementPos.set(null);
 		placementState.set(null);
 		additionalGrowthCost.set(null);
-		boolean isWorldgen = sculkChargeHandler.isWorldGeneration();
+		boolean isWorldgen = spreader.isWorldGeneration();
 
 		if (placingBelow.get()) {
 			BlockPos belowCharge = chargePos.below();
@@ -242,12 +242,12 @@ public abstract class SculkBlockMixin {
 
 	@Inject(method = "attemptUseCharge", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/LevelAccessor;playSound(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/BlockPos;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V", shift = At.Shift.AFTER))
 	private void wilderWild$handlePlacement(
-		SculkSpreader.ChargeCursor chargeCursor,
+		SculkSpreader.ChargeCursor cursor,
 		LevelAccessor level,
 		BlockPos blockPos,
-		RandomSource randomSource,
-		SculkSpreader sculkSpreader,
-		boolean bl,
+		RandomSource random,
+		SculkSpreader spreader,
+		boolean shouldConvertBlocks,
 		CallbackInfoReturnable<Integer> cir,
 		@Share("wilderWild$placedPos") LocalRef<BlockPos> placedPos,
 		@Share("wilderWild$placedState") LocalRef<BlockState> placedState
@@ -255,10 +255,10 @@ public abstract class SculkBlockMixin {
 		if (placedPos.get() == null || placedState.get() == null) {
 			return;
 		}
-		if (sculkSpreader.isWorldGeneration() && placedState.get().getBlock() instanceof OsseousSculkBlock osseousSculkBlock) {
+		if (spreader.isWorldGeneration() && placedState.get().getBlock() instanceof OsseousSculkBlock osseousSculkBlock) {
 			int growthAmount = Math.max(0, placedState.get().getValue(OsseousSculkBlock.HEIGHT_LEFT));
 			for (int a = 0; a < growthAmount; a++) {
-				osseousSculkBlock.worldGenSpread(placedPos.get(), level, randomSource);
+				osseousSculkBlock.attemptUseCharge(cursor, level, placedPos.get(), random, spreader, shouldConvertBlocks);
 			}
 		} else if (placedState.get().is(RegisterBlocks.SCULK_STAIRS) || placedState.get().is(RegisterBlocks.SCULK_SLAB) || placedState.get().is(RegisterBlocks.SCULK_WALL)) {
 			SlabWallStairSculkBehavior.clearSculkVeins(level, placedPos.get());

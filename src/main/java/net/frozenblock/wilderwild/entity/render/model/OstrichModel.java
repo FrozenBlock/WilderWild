@@ -58,7 +58,9 @@ public class OstrichModel<T extends Ostrich> extends HierarchicalModel<T> {
 	private final ModelPart neck;
 	private final ModelPart beak;
 	private final ModelPart tail;
-
+	private float partialTick;
+	private float scale;
+	private float yOffset;
 	public OstrichModel(@NotNull ModelPart root) {
 		this.root = root;
 
@@ -110,53 +112,6 @@ public class OstrichModel<T extends Ostrich> extends HierarchicalModel<T> {
 		return LayerDefinition.create(meshdefinition, 128, 64);
 	}
 
-	private float partialTick;
-	private float scale;
-	private float yOffset;
-
-	@Override
-	public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		limbSwing *= 1.65F;
-		limbSwingAmount = Math.min(limbSwingAmount * 1.5F, 1F);
-
-		// LEGS
-		animateLeg(this.left_leg, this.left_foot, limbSwing, limbSwingAmount, PI);
-		animateLeg(this.right_leg, this.right_foot, limbSwing, limbSwingAmount, 0F);
-
-		// BODY
-		float fastAngleBody = limbSwing * 0.3331F;
-		float angleSinBody = Math.sin(-fastAngleBody);
-		float angleSinSwingAmountBody = (angleSinBody * limbSwingAmount) * 0.175F;
-		this.body.zRot += angleSinSwingAmountBody;
-
-		// NECK
-		float beakAnimProgress = entity.getBeakAnimProgress(partialTick);
-		float rotation = beakAnimProgress * - PI;
-
-		this.neck_base.xRot = rotation * 0.3F;
-		this.neck.xRot = rotation * 0.7F;
-
-		headPitch = Mth.lerp(entity.getTargetStraightProgress(this.partialTick), headPitch, Math.min(headPitch, 0F));
-		headPitch = Mth.lerp(beakAnimProgress, headPitch, 0F);
-
-		float fastAngleNeckBase = limbSwing * 0.3331F + NECK_DELAY;
-		float angleSinNeckBase = Math.sin(-fastAngleNeckBase);
-		float angleSinSwingAmountNeckBase = (angleSinNeckBase * limbSwingAmount) * NECK_BASE_SWING;
-		this.neck_base.zRot += angleSinSwingAmountNeckBase;
-
-		float fastAngleNeck = limbSwing * 0.3331F + NECK_DELAY;
-		float angleSinNeck = Math.sin(-fastAngleNeck);
-		float angleSinSwingAmountNeck = (angleSinNeck * limbSwingAmount) * NECK_SWING;
-		this.neck.zRot += angleSinSwingAmountNeck;
-
-		this.neck.xRot += (limbSwingAmount * RAD_5);
-
-		this.neck_base.xRot -= headPitch * RAD_025;
-		this.neck_base.yRot += netHeadYaw * RAD_025;
-		this.neck.xRot -= headPitch * RAD_065;
-		this.neck.yRot += netHeadYaw * RAD_065;
-	}
-
 	private static void animateLeg(@NotNull ModelPart leg, @NotNull ModelPart foot, float limbSwing, float limbSwingAmount, float animOffset) {
 		float fastAngle = limbSwing * 0.3331F + animOffset;
 		float angleSin = Math.sin(-fastAngle);
@@ -186,6 +141,49 @@ public class OstrichModel<T extends Ostrich> extends HierarchicalModel<T> {
 		float laterLegY = onlyPositiveLaterAngleSinSwingAmount * 5F;
 		float additionalLateFoot = Math.min(laterLegY, 1F) * laterAngleSinSwingAmount;
 		foot.y -= additionalLateFoot;
+	}
+
+	@Override
+	public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		limbSwing *= 1.65F;
+		limbSwingAmount = Math.min(limbSwingAmount * 1.5F, 1F);
+
+		// LEGS
+		animateLeg(this.left_leg, this.left_foot, limbSwing, limbSwingAmount, PI);
+		animateLeg(this.right_leg, this.right_foot, limbSwing, limbSwingAmount, 0F);
+
+		// BODY
+		float fastAngleBody = limbSwing * 0.3331F;
+		float angleSinBody = Math.sin(-fastAngleBody);
+		float angleSinSwingAmountBody = (angleSinBody * limbSwingAmount) * 0.175F;
+		this.body.zRot += angleSinSwingAmountBody;
+
+		// NECK
+		float beakAnimProgress = entity.getBeakAnimProgress(partialTick);
+		float rotation = beakAnimProgress * -PI;
+
+		this.neck_base.xRot = rotation * 0.3F;
+		this.neck.xRot = rotation * 0.7F;
+
+		headPitch = Mth.lerp(entity.getTargetStraightProgress(this.partialTick), headPitch, Math.min(headPitch, 0F));
+		headPitch = Mth.lerp(beakAnimProgress, headPitch, 0F);
+
+		float fastAngleNeckBase = limbSwing * 0.3331F + NECK_DELAY;
+		float angleSinNeckBase = Math.sin(-fastAngleNeckBase);
+		float angleSinSwingAmountNeckBase = (angleSinNeckBase * limbSwingAmount) * NECK_BASE_SWING;
+		this.neck_base.zRot += angleSinSwingAmountNeckBase;
+
+		float fastAngleNeck = limbSwing * 0.3331F + NECK_DELAY;
+		float angleSinNeck = Math.sin(-fastAngleNeck);
+		float angleSinSwingAmountNeck = (angleSinNeck * limbSwingAmount) * NECK_SWING;
+		this.neck.zRot += angleSinSwingAmountNeck;
+
+		this.neck.xRot += (limbSwingAmount * RAD_5);
+
+		this.neck_base.xRot -= headPitch * RAD_025;
+		this.neck_base.yRot += netHeadYaw * RAD_025;
+		this.neck.xRot -= headPitch * RAD_065;
+		this.neck.yRot += netHeadYaw * RAD_065;
 	}
 
 	@Override

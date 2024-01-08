@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
-import java.util.Objects;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -56,8 +55,8 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class TumbleweedBlock extends BushBlock implements SimpleWaterloggedBlock {
-	public static final MapCodec<TumbleweedBlock> CODEC = simpleCodec(TumbleweedBlock::new);
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+	public static final MapCodec<TumbleweedBlock> CODEC = simpleCodec(TumbleweedBlock::new);
 	protected static final VoxelShape COLLISION_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 14.0D, 15.0D);
 	protected static final VoxelShape OUTLINE_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 14.0D, 15.0D);
 
@@ -94,9 +93,13 @@ public class TumbleweedBlock extends BushBlock implements SimpleWaterloggedBlock
 
 	@Nullable
 	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
-		FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
-		boolean bl = fluidState.getType() == Fluids.WATER;
-		return Objects.requireNonNull(super.getStateForPlacement(context)).setValue(WATERLOGGED, bl);
+		BlockState state = super.getStateForPlacement(context);
+		if (state != null) {
+			FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
+			boolean waterlogged = fluidState.getType() == Fluids.WATER;
+			return state.setValue(WATERLOGGED, waterlogged);
+		}
+		return null;
 	}
 
 	@Override

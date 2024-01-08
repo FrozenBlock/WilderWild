@@ -162,8 +162,8 @@ public final class WilderMiscConfigured {
 	// SNOW
 	public static final FrozenConfiguredFeature<NoneFeatureConfiguration, ConfiguredFeature<NoneFeatureConfiguration, ?>> SNOW_BLANKET = register("snow_blanket");
 	public static final FrozenConfiguredFeature<SnowAndIceDiskFeatureConfig, ConfiguredFeature<SnowAndIceDiskFeatureConfig, ?>> SNOW_AND_ICE_TRANSITION_DISK = register("snow_and_freeze_transition_disk");
-	private static final RuleTest NATURAL_STONE = new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD);
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> SNOW_CARPET_RANDOM = register("snow_carpet_random");
+	private static final RuleTest NATURAL_STONE = new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD);
 
 	private WilderMiscConfigured() {
 		throw new UnsupportedOperationException("WilderMiscConfigured contains only static declarations.");
@@ -1042,19 +1042,19 @@ public final class WilderMiscConfigured {
 		);
 
 		COARSE_DIRT_DISK_AND_PILE.makeAndSetHolder(FrozenFeatures.FADING_DISK_WITH_PILE_TAG_FEATURE,
-				new FadingDiskTagFeatureConfig(
-						true,
-						BlockStateProvider.simple(Blocks.COARSE_DIRT.defaultBlockState()),
-						BlockStateProvider.simple(Blocks.COARSE_DIRT.defaultBlockState()),
-						UniformInt.of(2, 4),
-						0.95F,
-						0.925F,
-						0.65F,
-						0.8F,
-						WilderBlockTags.COARSE_DIRT_DISK_REPLACEABLE,
-						WilderBlockTags.COARSE_DIRT_DISK_REPLACEABLE,
-						Heightmap.Types.OCEAN_FLOOR_WG
-				)
+			new FadingDiskTagFeatureConfig(
+				true,
+				BlockStateProvider.simple(Blocks.COARSE_DIRT.defaultBlockState()),
+				BlockStateProvider.simple(Blocks.COARSE_DIRT.defaultBlockState()),
+				UniformInt.of(2, 4),
+				0.95F,
+				0.925F,
+				0.65F,
+				0.8F,
+				WilderBlockTags.COARSE_DIRT_DISK_REPLACEABLE,
+				WilderBlockTags.COARSE_DIRT_DISK_REPLACEABLE,
+				Heightmap.Types.OCEAN_FLOOR_WG
+			)
 		);
 
 		SNOW_BLANKET.makeAndSetHolder(RegisterFeatures.SNOW_BLANKET_FEATURE, NoneFeatureConfiguration.INSTANCE);
@@ -1069,12 +1069,12 @@ public final class WilderMiscConfigured {
 		);
 
 		SNOW_CARPET_RANDOM.makeAndSetHolder(Feature.RANDOM_PATCH,
-				FeatureUtils.simpleRandomPatchConfiguration(
-						64,
-						PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-								new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.SNOW))
-						)
+			FeatureUtils.simpleRandomPatchConfiguration(
+				64,
+				PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.SNOW))
 				)
+			)
 		);
 	}
 }

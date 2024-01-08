@@ -61,8 +61,6 @@ Bug Fixes & Changes
 ---
 
 - Updated the protocol version to 3
-- ### Blocks
----
   - Added codecs to as many blocks as possible (1.20.5+.)
     - This has resulted in some blocks receiving reorganized and/or new constructor parameters.
   - Removed the `FloweringLilyPadBlock` class as it was redundant.
@@ -75,9 +73,11 @@ Bug Fixes & Changes
   - Tweaked how Pollen chooses where to spawn particles.
   - Added the Bush, Tumbleweed, Tumbleweed Stem, Milkweed, Datura, Cattail, Flowering Lily Pad, Algae, Shelf Fungus, Small Sponge, Prickly Pear Cactus, and Nematocyst blocks to the `minecraft:sword_efficient` tag.
   - Potted Small Dripleaves now use their loot table (renamed `wilderwild:blocks/potted_small.dripleaf` to `wilderwild:blocks/potted_small_dripleaf.`)
+  - Reworked the `LiquidBlockRendererMixin` for making the underside of Water smooth to now be extremely reliable and much safer.
+    - This also fixes an issue where other liquids like Lava could incorrectly be assigned different textures on occasion.
+  - Optimized how the Tumbleweed Stem's selects its outline/collision shape.
+  - Removed the `WilderSeedParticlePacket` class in favor of using the regular Vanilla particle packet.
 
-- ### Items
----
   - Removed the `Goat Horn Symphony` and `Back` discs as they didn't feel like necessary additions, nor did they fit Vanilla.
     - These will be datafixed into Lena Raine's `Otherside` and Samuel Åberg's `5` respectively.
   - Decreased the amount of String obtained crafting with Cattails from 3 to 1.
@@ -85,8 +85,6 @@ Bug Fixes & Changes
   - Added the Palm Hanging Sign to the `wilderwild:hanging_signs` item tag.
   - Added the Palm Crown to the `wilderwild:palm_logs` item tag.
 
-- ### Entities
----
   - Reimplemented the custom Warden dying sound after it was accidentally removed during a bugfix.
   - The Warden's regular death sound will now play on top of its underwater dying sound once again.
   - Wardens are no longer considered alive during the custom death animation.
@@ -95,11 +93,11 @@ Bug Fixes & Changes
   - Changed the Warden's secret death sound from stereo to mono.
   - Refactored mobs' `canSpawn` methods to reflect Vanilla's, following the template `checkXSpawnRules.`
 
-- ### Biomes
----
   - Pumpkins now generate much more frequently in Old Growth Dark Forests.
   - Changed the `Cherry Grove Placement` config to be disabled by default as it wasn't as immersive as anticipated.
   - Fixed the `Stony Shore Placement` config lang reading as `CStony Shore Placement.`
   - Added the Arid Forest, Arid Savanna, and Oasis biomes to the `minecraft:snow_golem_melts` tag.
   - Added the Snowy Dying Forest, Snowy Dying Mixed Forest, and Snowy Old Growth Pine Taiga biomes to the `minecraft:spawns_snow_foxes` tag.
   - Added the Snowy Dying Forest, Snowy Dying Mixed Forest, and Snowy Old Growth Pine Taiga biomes to the `minecraft:spawns_white_rabbit` tag.
+
+  - And even more refactoring and small fixes!

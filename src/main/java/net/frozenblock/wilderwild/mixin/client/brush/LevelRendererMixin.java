@@ -26,7 +26,7 @@ public class LevelRendererMixin {
 	private Block scorchedBrush(Block original, int eventId, BlockPos pos, int data) {
 		if (this.level == null) return original;
 		if (original instanceof ScorchedBlock scorchedBlock) {
-			this.level.playLocalSound(pos, scorchedBlock.brushCompletedSound, SoundSource.PLAYERS, 1.0F, 1.0F, false);
+			this.level.playLocalSound(pos, scorchedBlock.brushCompletedSound, SoundSource.PLAYERS, 1F, 1F, false);
 		}
 		return original;
 	}

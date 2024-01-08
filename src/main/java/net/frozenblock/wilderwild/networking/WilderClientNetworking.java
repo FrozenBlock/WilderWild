@@ -6,7 +6,6 @@ import net.frozenblock.wilderwild.networking.packet.WilderControlledSeedParticle
 import net.frozenblock.wilderwild.networking.packet.WilderFloatingSculkBubbleParticlePacket;
 import net.frozenblock.wilderwild.networking.packet.WilderJellyfishStingPacket;
 import net.frozenblock.wilderwild.networking.packet.WilderLightningStrikePacket;
-import net.frozenblock.wilderwild.networking.packet.WilderSeedParticlePacket;
 import net.frozenblock.wilderwild.networking.packet.WilderSensorHiccupPacket;
 import net.frozenblock.wilderwild.networking.packet.WilderTermiteParticlePacket;
 
@@ -15,7 +14,6 @@ public class WilderClientNetworking {
 
 	public static void registerPacketReceivers() {
 		WilderFloatingSculkBubbleParticlePacket.receive();
-		WilderSeedParticlePacket.receive();
 		WilderControlledSeedParticlePacket.receive();
 		WilderTermiteParticlePacket.receive();
 		WilderSensorHiccupPacket.receive();

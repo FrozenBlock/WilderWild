@@ -70,7 +70,7 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 	private void setCustomFeatures(RandomSource random, boolean flowers, CallbackInfoReturnable<@Nullable ResourceKey<ConfiguredFeature<?, ?>>> cir) {
 		if (!WorldgenConfig.get().wilderWildTreeGen) return;
 		TreeGrower treeGrower = TreeGrower.class.cast(this);
-		TreeGrowerInterface treeGrowerInterface = TreeGrowerInterface.class.cast(this);
+		TreeGrowerInterface treeGrowerInterface = (TreeGrowerInterface) this;
 
 		if (treeGrower == TreeGrower.OAK) {
 			if (treeGrowerInterface.wilderWild$getLevel() != null && treeGrowerInterface.wilderWild$getPos() != null && random.nextFloat() <= 0.4F) {
@@ -108,7 +108,7 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 	private void setCustomMegaFeatures(RandomSource random, CallbackInfoReturnable<@Nullable ResourceKey<ConfiguredFeature<?, ?>>> cir) {
 		if (!WorldgenConfig.get().wilderWildTreeGen) return;
 		TreeGrower treeGrower = TreeGrower.class.cast(this);
-		TreeGrowerInterface treeGrowerInterface = TreeGrowerInterface.class.cast(this);
+		TreeGrowerInterface treeGrowerInterface = (TreeGrowerInterface) this;
 
 		if (treeGrower == TreeGrower.SPRUCE) {
 			if (random.nextFloat() < 0.25F)

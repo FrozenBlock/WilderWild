@@ -55,6 +55,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ScorchedBlock extends BaseEntityBlock {
+	public static final int TICK_DELAY = 2;
+	public static final float RAIN_HYDRATION_CHANCE = 0.75F;
+	public static final Map<BlockState, BlockState> SCORCH_MAP = new Object2ObjectOpenHashMap<>();
+	public static final Map<BlockState, BlockState> HYDRATE_MAP = new Object2ObjectOpenHashMap<>();
+	private static final BooleanProperty CRACKEDNESS = RegisterProperties.CRACKED;
 	public static final MapCodec<ScorchedBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
 		BlockState.CODEC.fieldOf("previous_state").forGetter((scorchedBlock) -> scorchedBlock.wetState),
 		Codec.BOOL.fieldOf("brushable").forGetter((scorchedBlock) -> scorchedBlock.canBrush),
@@ -62,11 +67,6 @@ public class ScorchedBlock extends BaseEntityBlock {
 		SoundEvent.DIRECT_CODEC.fieldOf("brush_completed_sound").forGetter((scorchedBlock) -> scorchedBlock.brushCompletedSound),
 		propertiesCodec()
 	).apply(instance, ScorchedBlock::new));
-	public static final int TICK_DELAY = 2;
-	public static final float RAIN_HYDRATION_CHANCE = 0.75F;
-	public static final Map<BlockState, BlockState> SCORCH_MAP = new Object2ObjectOpenHashMap<>();
-	public static final Map<BlockState, BlockState> HYDRATE_MAP = new Object2ObjectOpenHashMap<>();
-	private static final BooleanProperty CRACKEDNESS = RegisterProperties.CRACKED;
 	private static final IntegerProperty DUSTED = BlockStateProperties.DUSTED;
 	public final boolean canBrush;
 	public final BlockState wetState;
@@ -81,12 +81,6 @@ public class ScorchedBlock extends BaseEntityBlock {
 		this.brushCompletedSound = brushCompletedSound;
 		this.wetState = wetState;
 		this.fillScorchMap(this.wetState, this.defaultBlockState(), this.defaultBlockState().setValue(CRACKEDNESS, true));
-	}
-
-	@NotNull
-	@Override
-	protected MapCodec<? extends ScorchedBlock> codec() {
-		return CODEC;
 	}
 
 	public static boolean canScorch(@NotNull BlockState state) {
@@ -116,6 +110,12 @@ public class ScorchedBlock extends BaseEntityBlock {
 	@NotNull
 	private static BlockState stateWithoutDusting(@NotNull BlockState state) {
 		return state.hasProperty(DUSTED) ? state.setValue(DUSTED, 0) : state;
+	}
+
+	@NotNull
+	@Override
+	protected MapCodec<? extends ScorchedBlock> codec() {
+		return CODEC;
 	}
 
 	public void fillScorchMap(BlockState wetState, BlockState defaultState, BlockState defaultStateCracked) {

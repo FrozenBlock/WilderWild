@@ -60,15 +60,15 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class CoconutBlock extends FallingBlock implements BonemealableBlock {
-	public static final MapCodec<CoconutBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
-		TreeGrower.CODEC.fieldOf("tree").forGetter((coconutBlock) -> coconutBlock.treeGrower),
-		propertiesCodec()
-	).apply(instance, CoconutBlock::new));
 	public static final int VALID_FROND_DISTANCE = 2;
 	public static final int MAX_AGE = 2;
 	public static final IntegerProperty STAGE = BlockStateProperties.STAGE;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
+	public static final MapCodec<CoconutBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
+		TreeGrower.CODEC.fieldOf("tree").forGetter((coconutBlock) -> coconutBlock.treeGrower),
+		propertiesCodec()
+	).apply(instance, CoconutBlock::new));
 	private static final VoxelShape[] SHAPES = new VoxelShape[]{
 		Shapes.or(Block.box(2, 9, 2, 14, 16, 14)),
 		Shapes.or(Block.box(1, 8, 1, 15, 16, 15)),
@@ -81,12 +81,6 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 		super(settings);
 		this.treeGrower = treeGrower;
 		this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0).setValue(AGE, 0).setValue(HANGING, false));
-	}
-
-	@NotNull
-	@Override
-	protected MapCodec<? extends CoconutBlock> codec() {
-		return CODEC;
 	}
 
 	private static boolean isHanging(@NotNull BlockState state) {
@@ -105,6 +99,12 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	@NotNull
 	public static BlockState getHangingState(int age) {
 		return RegisterBlocks.COCONUT.defaultBlockState().setValue(HANGING, true).setValue(AGE, age);
+	}
+
+	@NotNull
+	@Override
+	protected MapCodec<? extends CoconutBlock> codec() {
+		return CODEC;
 	}
 
 	public void advanceTree(@NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull RandomSource random) {

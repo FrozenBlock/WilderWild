@@ -70,14 +70,14 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 		super(properties);
 	}
 
+	public static boolean isFullyGrown(@NotNull BlockState state) {
+		return state.getValue(AGE) == MAX_AGE;
+	}
+
 	@NotNull
 	@Override
 	protected MapCodec<? extends PricklyPearCactusBlock> codec() {
 		return CODEC;
-	}
-
-	public static boolean isFullyGrown(@NotNull BlockState state) {
-		return state.getValue(AGE) == MAX_AGE;
 	}
 
 	@Override

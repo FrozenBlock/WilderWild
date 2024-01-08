@@ -49,6 +49,8 @@ public class WardenModelMixin<T extends Warden> {
 	@Unique
 	private static final float WILDERWILD$RAD = (float) (Math.PI / 180);
 	@Unique
+	private static final float WILDERWILD$FAST_ANGLE = (float) (Math.PI * 0.2F);
+	@Unique
 	@SuppressWarnings("unchecked")
 	private final WardenModel<T> wilderWild$model = WardenModel.class.cast(this);
 	@Final
@@ -174,9 +176,6 @@ public class WardenModelMixin<T extends Warden> {
 		wilderWild$model.animate(((WilderWarden) warden).wilderWild$getSwimmingDyingAnimationState(), CustomWardenAnimations.WATER_DYING, anim);
 		wilderWild$model.animate(((WilderWarden) warden).wilderWild$getKirbyDeathAnimationState(), CustomWardenAnimations.KIRBY_DEATH, anim);
 	}
-
-	@Unique
-	private static final float WILDERWILD$FAST_ANGLE = (float) (Math.PI * 0.2F);
 
 	@Unique
 	private void wilderWild$animateSwimming(@NotNull T warden, float angle, float distance, float anim, float headYaw, float headPitch, boolean moveLimbs, boolean canSwim) {

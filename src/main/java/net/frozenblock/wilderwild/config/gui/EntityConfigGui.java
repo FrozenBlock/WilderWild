@@ -188,7 +188,7 @@ public final class EntityConfigGui {
 			jellyfish.getClass(),
 			"jellyfishSpawnCap",
 			configInstance
-			);
+		);
 
 		var jellyfishTentacles = FrozenClothConfig.syncedEntry(
 			entryBuilder.startIntSlider(text("jellyfish_tentacles"), modifiedJellyfish.jellyfishTentacles, 0, 100)

@@ -76,10 +76,10 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
-	public static final MapCodec<DisplayLanternBlock> CODEC = simpleCodec(DisplayLanternBlock::new);
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
 	public static final IntegerProperty DISPLAY_LIGHT = RegisterProperties.DISPLAY_LIGHT;
+	public static final MapCodec<DisplayLanternBlock> CODEC = simpleCodec(DisplayLanternBlock::new);
 	protected static final VoxelShape STANDING_SHAPE = Shapes.or(Block.box(5.0D, 0.0D, 5.0D, 11.0D, 7.0D, 11.0D), Block.box(6.0D, 7.0D, 6.0D, 10.0D, 8.0D, 10.0D));
 	protected static final VoxelShape HANGING_SHAPE = Shapes.or(Block.box(5.0D, 2.0D, 5.0D, 11.0D, 9.0D, 11.0D), Block.box(6.0D, 9.0D, 6.0D, 10.0D, 10.0D, 10.0D));
 
@@ -88,14 +88,14 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 		this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, false).setValue(WATERLOGGED, false).setValue(DISPLAY_LIGHT, 0));
 	}
 
+	private static Direction attachedDirection(@NotNull BlockState state) {
+		return state.getValue(HANGING) ? Direction.DOWN : Direction.UP;
+	}
+
 	@NotNull
 	@Override
 	protected MapCodec<? extends DisplayLanternBlock> codec() {
 		return CODEC;
-	}
-
-	private static Direction attachedDirection(@NotNull BlockState state) {
-		return state.getValue(HANGING) ? Direction.DOWN : Direction.UP;
 	}
 
 	@Override

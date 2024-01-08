@@ -52,28 +52,12 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class EchoGlassBlock extends TransparentBlock {
-	public static final MapCodec<EchoGlassBlock> CODEC = simpleCodec(EchoGlassBlock::new);
 	public static final IntegerProperty DAMAGE = RegisterProperties.DAMAGE;
+	public static final MapCodec<EchoGlassBlock> CODEC = simpleCodec(EchoGlassBlock::new);
 
 	public EchoGlassBlock(@NotNull Properties settings) {
 		super(settings);
 		this.registerDefaultState(this.defaultBlockState().setValue(DAMAGE, 0));
-	}
-
-	@NotNull
-	@Override
-	public MapCodec<? extends EchoGlassBlock> codec() {
-		return CODEC;
-	}
-
-	@Override
-	public boolean propagatesSkylightDown(BlockState state, BlockGetter level, BlockPos pos) {
-		return false;
-	}
-
-	@Override
-	public int getLightBlock(BlockState state, @NotNull BlockGetter level, BlockPos pos) {
-		return level.getMaxLightLevel();
 	}
 
 	public static void damage(@NotNull Level level, @NotNull BlockPos pos, boolean shouldDrop) {
@@ -118,6 +102,22 @@ public class EchoGlassBlock extends TransparentBlock {
 			mutableBlockPos.move(direction, -1);
 		}
 		return finalLight;
+	}
+
+	@NotNull
+	@Override
+	public MapCodec<? extends EchoGlassBlock> codec() {
+		return CODEC;
+	}
+
+	@Override
+	public boolean propagatesSkylightDown(BlockState state, BlockGetter level, BlockPos pos) {
+		return false;
+	}
+
+	@Override
+	public int getLightBlock(BlockState state, @NotNull BlockGetter level, BlockPos pos) {
+		return level.getMaxLightLevel();
 	}
 
 	@Override

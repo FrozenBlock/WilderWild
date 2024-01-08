@@ -46,7 +46,7 @@ public class StraightTrunkWithBranches extends TrunkPlacer {
 					IntProvider.NON_NEGATIVE_CODEC.fieldOf("max_log_count").forGetter((trunkPlacer) -> trunkPlacer.maxLogCount),
 					IntProvider.NON_NEGATIVE_CODEC.fieldOf("branch_height_from_top").forGetter((trunkPlacer) -> trunkPlacer.branchHeightFromTop),
 					IntProvider.NON_NEGATIVE_CODEC.fieldOf("extra_branch_length").forGetter((trunkPlacer) -> trunkPlacer.branchLength)
-			)
+				)
 			).apply(instance, StraightTrunkWithBranches::new));
 
 	private final float branchChance;

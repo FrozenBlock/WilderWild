@@ -57,11 +57,11 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class SmallSpongeBlock extends FaceAttachedHorizontalDirectionalBlock implements SimpleWaterloggedBlock, BonemealableBlock {
-	public static final MapCodec<SmallSpongeBlock> CODEC = simpleCodec(SmallSpongeBlock::new);
 	public static final float BONEMEAL_SUCCESS_CHANCE = 0.65F;
 	public static final int MAX_AGE = 2;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+	public static final MapCodec<SmallSpongeBlock> CODEC = simpleCodec(SmallSpongeBlock::new);
 	protected static final VoxelShape NORTH_WALL_SHAPE = Block.box(0.0D, 0.0D, 13.0D, 16.0D, 16.0D, 16.0D);
 	protected static final VoxelShape SOUTH_WALL_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 3.0D);
 	protected static final VoxelShape WEST_WALL_SHAPE = Block.box(13.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);
@@ -74,14 +74,14 @@ public class SmallSpongeBlock extends FaceAttachedHorizontalDirectionalBlock imp
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false).setValue(FACE, AttachFace.WALL).setValue(AGE, 0));
 	}
 
+	public static boolean canAttachTo(@NotNull BlockGetter level, @NotNull Direction direction, @NotNull BlockPos pos, @NotNull BlockState state) {
+		return Block.isFaceFull(state.getBlockSupportShape(level, pos), direction.getOpposite()) || Block.isFaceFull(state.getCollisionShape(level, pos), direction.getOpposite());
+	}
+
 	@NotNull
 	@Override
 	protected MapCodec<? extends SmallSpongeBlock> codec() {
 		return CODEC;
-	}
-
-	public static boolean canAttachTo(@NotNull BlockGetter level, @NotNull Direction direction, @NotNull BlockPos pos, @NotNull BlockState state) {
-		return Block.isFaceFull(state.getBlockSupportShape(level, pos), direction.getOpposite()) || Block.isFaceFull(state.getCollisionShape(level, pos), direction.getOpposite());
 	}
 
 	@Override
@@ -161,7 +161,7 @@ public class SmallSpongeBlock extends FaceAttachedHorizontalDirectionalBlock imp
 				blockState = blockState.setValue(FACE, AttachFace.WALL).setValue(FACING, lookingDirection.getOpposite());
 			}
 
-			return blockState.setValue(SmallSpongeBlock.AGE, EasyNoiseSampler.localRandom.nextInt(MAX_AGE));
+			return blockState.setValue(AGE, EasyNoiseSampler.localRandom.nextInt(MAX_AGE));
 		}
 	}
 

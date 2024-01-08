@@ -138,7 +138,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	public void wilderWild$finalizeSpawn(ServerLevelAccessor serverLevelAccess, DifficultyInstance localDifficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData, @Nullable CompoundTag nbtCompound, CallbackInfoReturnable<SpawnGroupData> info) {
 		if (
 			(EntityConfig.get().warden.wardenEmergesFromEgg && spawnReason == MobSpawnType.SPAWN_EGG)
-			|| (EntityConfig.get().warden.wardenEmergesFromCommand && spawnReason == MobSpawnType.COMMAND)
+				|| (EntityConfig.get().warden.wardenEmergesFromCommand && spawnReason == MobSpawnType.COMMAND)
 		) {
 			this.setPose(Pose.EMERGING);
 			this.getBrain().setMemoryWithExpiry(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, WardenAi.EMERGE_DURATION);

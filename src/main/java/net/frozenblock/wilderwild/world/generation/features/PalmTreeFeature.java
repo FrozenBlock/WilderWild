@@ -37,11 +37,11 @@ public class PalmTreeFeature extends TreeFeature implements TreeFeatureLeavesUpd
 		DiscreteVoxelShape discreteVoxelShape = new BitSetDiscreteVoxelShape(box.getXSpan(), box.getYSpan(), box.getZSpan());
 		List<Set<BlockPos>> list = Lists.newArrayList();
 
-		for(int j = 0; j < MAX_DISTANCE; ++j) {
+		for (int j = 0; j < MAX_DISTANCE; ++j) {
 			list.add(Sets.newHashSet());
 		}
 
-		for(BlockPos blockPos : Lists.newArrayList(Sets.union(trunkPositions, foliagePositions))) {
+		for (BlockPos blockPos : Lists.newArrayList(Sets.union(trunkPositions, foliagePositions))) {
 			if (box.isInside(blockPos)) {
 				discreteVoxelShape.fill(blockPos.getX() - box.minX(), blockPos.getY() - box.minY(), blockPos.getZ() - box.minZ());
 			}
@@ -51,8 +51,8 @@ public class PalmTreeFeature extends TreeFeature implements TreeFeatureLeavesUpd
 		int k = 0;
 		list.get(0).addAll(rootPositions);
 
-		while(true) {
-			while(k >= MAX_DISTANCE || !list.get(k).isEmpty()) {
+		while (true) {
+			while (k >= MAX_DISTANCE || !list.get(k).isEmpty()) {
 				if (k >= MAX_DISTANCE) {
 					return discreteVoxelShape;
 				}
@@ -73,7 +73,7 @@ public class PalmTreeFeature extends TreeFeature implements TreeFeatureLeavesUpd
 
 					discreteVoxelShape.fill(blockPos2.getX() - box.minX(), blockPos2.getY() - box.minY(), blockPos2.getZ() - box.minZ());
 
-					for(Direction direction : Direction.values()) {
+					for (Direction direction : Direction.values()) {
 						mutableBlockPos.setWithOffset(blockPos2, direction);
 						if (box.isInside(mutableBlockPos)) {
 							int l = mutableBlockPos.getX() - box.minX();

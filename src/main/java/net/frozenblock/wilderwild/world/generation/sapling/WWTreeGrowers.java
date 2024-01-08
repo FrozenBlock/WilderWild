@@ -18,15 +18,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class WWTreeGrowers {
-	private WWTreeGrowers() {}
-
 	public static final TreeGrower BAOBAB = new BaobabTreeSaplingGenerator("baobab") {
 		@Override
 		protected @Nullable ResourceKey<ConfiguredFeature<?, ?>> getBaobabTreeFeature(@NotNull RandomSource random) {
 			return random.nextFloat() < 0.856F ? WilderTreeConfigured.BAOBAB.getKey() : WilderTreeConfigured.BAOBAB_TALL.getKey();
 		}
 	};
-
 	public static final TreeGrower CYPRESS = new TreeGrower("cypress", Optional.empty(), Optional.empty(), Optional.empty()) {
 		@Override
 		public ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource random, boolean flowers) {
@@ -48,11 +45,13 @@ public final class WWTreeGrowers {
 			return WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES_SAPLING.getKey();
 		}
 	};
-
 	public static final TreeGrower PALM = new TreeGrower("palm", Optional.empty(), Optional.empty(), Optional.empty()) {
 		@Override
 		public ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource random, boolean flowers) {
 			return random.nextDouble() > 0.4 ? WilderTreeConfigured.PALM.getKey() : random.nextDouble() > 0.3 ? WilderTreeConfigured.TALL_PALM.getKey() : WilderTreeConfigured.TALL_WINE_PALM.getKey();
 		}
 	};
+
+	private WWTreeGrowers() {
+	}
 }

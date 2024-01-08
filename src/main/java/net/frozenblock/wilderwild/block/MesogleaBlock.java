@@ -72,10 +72,6 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterloggedBlock {
-	public static final MapCodec<MesogleaBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
-		Codec.BOOL.fieldOf("pearlescent").forGetter((mesogleaBlock) -> mesogleaBlock.pearlescent),
-		propertiesCodec()
-	).apply(instance, MesogleaBlock::new));
 	public static final float JELLYFISH_COLLISION_FROM_SIDE = 0.25F;
 	public static final float COLLISION_FROM_SIDE = 0.05F;
 	public static final double ITEM_SLOWDOWN = 0.999D;
@@ -89,19 +85,16 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 	public static final int LIGHT_BLOCK = 5;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final EnumProperty<BubbleDirection> BUBBLE_DIRECTION = RegisterProperties.BUBBLE_DIRECTION;
-
+	public static final MapCodec<MesogleaBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
+		Codec.BOOL.fieldOf("pearlescent").forGetter((mesogleaBlock) -> mesogleaBlock.pearlescent),
+		propertiesCodec()
+	).apply(instance, MesogleaBlock::new));
 	public final boolean pearlescent;
 
 	public MesogleaBlock(boolean pearlescent, @NotNull Properties properties) {
 		super(properties.pushReaction(PushReaction.DESTROY));
 		this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false).setValue(BUBBLE_DIRECTION, BubbleDirection.NONE));
 		this.pearlescent = pearlescent;
-	}
-
-	@NotNull
-	@Override
-	protected MapCodec<? extends MesogleaBlock> codec() {
-		return CODEC;
 	}
 
 	public static boolean isMesoglea(@NotNull BlockState blockState) {
@@ -170,6 +163,12 @@ public class MesogleaBlock extends HalfTransparentBlock implements SimpleWaterlo
 
 	private static boolean canExistIn(BlockState blockState) {
 		return isColumnSupportingMesoglea(blockState) && blockState.getFluidState().getAmount() >= 8 && blockState.getFluidState().isSource();
+	}
+
+	@NotNull
+	@Override
+	protected MapCodec<? extends MesogleaBlock> codec() {
+		return CODEC;
 	}
 
 	@Override

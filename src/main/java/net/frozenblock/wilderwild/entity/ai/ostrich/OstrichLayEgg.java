@@ -36,9 +36,25 @@ import org.jetbrains.annotations.NotNull;
 
 public class OstrichLayEgg extends Behavior<Ostrich> {
 	private final Block eggBlock;
+
 	public OstrichLayEgg(Block eggBlock) {
 		super(ImmutableMap.of(MemoryModuleType.IS_PREGNANT, MemoryStatus.VALUE_PRESENT));
 		this.eggBlock = eggBlock;
+	}
+
+	private static boolean attemptPlace(Ostrich entity, @NotNull Level level, Block block, BlockPos placePos) {
+		BlockState blockState = level.getBlockState(placePos);
+		BlockPos belowPos = placePos.below();
+		BlockState belowState = level.getBlockState(belowPos);
+		if (blockState.isAir() && belowState.isFaceSturdy(level, belowPos, Direction.UP)) {
+			BlockState placementState = block.defaultBlockState();
+			level.setBlock(placePos, placementState, 3);
+			level.gameEvent(GameEvent.BLOCK_PLACE, placePos, GameEvent.Context.of(entity, placementState));
+			//TODO: Ostrich lay sounds
+			level.playSound(null, entity, SoundEvents.FROG_LAY_SPAWN, SoundSource.BLOCKS, 1.0F, 1.0F);
+			return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -77,21 +93,6 @@ public class OstrichLayEgg extends Behavior<Ostrich> {
 				}
 			}
 		}
-	}
-
-	private static boolean attemptPlace(Ostrich entity, @NotNull Level level, Block block, BlockPos placePos) {
-		BlockState blockState = level.getBlockState(placePos);
-		BlockPos belowPos = placePos.below();
-		BlockState belowState = level.getBlockState(belowPos);
-		if (blockState.isAir() && belowState.isFaceSturdy(level, belowPos, Direction.UP)) {
-			BlockState placementState = block.defaultBlockState();
-			level.setBlock(placePos, placementState, 3);
-			level.gameEvent(GameEvent.BLOCK_PLACE, placePos, GameEvent.Context.of(entity, placementState));
-			//TODO: Ostrich lay sounds
-			level.playSound(null, entity, SoundEvents.FROG_LAY_SPAWN, SoundSource.BLOCKS, 1.0F, 1.0F);
-			return true;
-		}
-		return false;
 	}
 
 }

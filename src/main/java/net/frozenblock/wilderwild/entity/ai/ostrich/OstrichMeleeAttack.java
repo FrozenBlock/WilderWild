@@ -41,28 +41,28 @@ public class OstrichMeleeAttack {
 				instance.absent(MemoryModuleType.ATTACK_COOLING_DOWN),
 				instance.present(MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES)
 			).apply(
-					instance,
-					(memoryAccessor, memoryAccessor2, memoryAccessor3, memoryAccessor4) -> (world, ostrich, l) -> {
-						LivingEntity livingEntity = instance.get(memoryAccessor2);
-						if (!isHoldingUsableProjectileWeapon(ostrich)
-							&& ostrich.isWithinMeleeAttackRange(livingEntity)
-							&& instance.<NearestVisibleLivingEntities>get(memoryAccessor4).contains(livingEntity)) {
-							memoryAccessor.set(new EntityTracker(livingEntity, true));
-							ostrich.swing(InteractionHand.MAIN_HAND);
-							memoryAccessor3.setWithExpiry(true, cooldownBetweenAttacks);
-							return true;
-						} else {
-							return false;
-						}
+				instance,
+				(memoryAccessor, memoryAccessor2, memoryAccessor3, memoryAccessor4) -> (world, ostrich, l) -> {
+					LivingEntity livingEntity = instance.get(memoryAccessor2);
+					if (!isHoldingUsableProjectileWeapon(ostrich)
+						&& ostrich.isWithinMeleeAttackRange(livingEntity)
+						&& instance.get(memoryAccessor4).contains(livingEntity)) {
+						memoryAccessor.set(new EntityTracker(livingEntity, true));
+						ostrich.swing(InteractionHand.MAIN_HAND);
+						memoryAccessor3.setWithExpiry(true, cooldownBetweenAttacks);
+						return true;
+					} else {
+						return false;
 					}
-				)
+				}
+			)
 		);
 	}
 
 	private static boolean isHoldingUsableProjectileWeapon(@NotNull Ostrich ostrich) {
 		return ostrich.isHolding(stack -> {
 			Item item = stack.getItem();
-			return item instanceof ProjectileWeaponItem && ostrich.canFireProjectileWeapon((ProjectileWeaponItem)item);
+			return item instanceof ProjectileWeaponItem && ostrich.canFireProjectileWeapon((ProjectileWeaponItem) item);
 		});
 	}
 }

@@ -258,9 +258,9 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 			});
 
 			PipeMovementRestrictions.register(
-					WilderSharedConstants.id("stone_chest"),
-					((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false),
-					((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false)
+				WilderSharedConstants.id("stone_chest"),
+				((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false),
+				((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false)
 			);
 		} else {
 			WilderSharedConstants.log("Could not initiate compat with Wilder Wild and Simple Copper Pipes. SCP compat id is not 3 (minimum SCP is 1.16.)", true);

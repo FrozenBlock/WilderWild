@@ -172,28 +172,28 @@ public final class ItemConfigGui {
 
 		var projectileBreakParticles = category.addEntry(
 			FrozenClothConfig.syncedEntry(
-					entryBuilder.startBooleanToggle(text("projectile_break_particles"), modifiedConfig.projectileBreakParticles)
-						.setDefaultValue(defaultConfig.projectileBreakParticles)
-						.setSaveConsumer(newValue -> config.projectileBreakParticles = newValue)
-						.setTooltip(tooltip("projectile_break_particles"))
-						.build(),
-					clazz,
-					"projectileBreakParticles",
-					configInstance
-				)
+				entryBuilder.startBooleanToggle(text("projectile_break_particles"), modifiedConfig.projectileBreakParticles)
+					.setDefaultValue(defaultConfig.projectileBreakParticles)
+					.setSaveConsumer(newValue -> config.projectileBreakParticles = newValue)
+					.setTooltip(tooltip("projectile_break_particles"))
+					.build(),
+				clazz,
+				"projectileBreakParticles",
+				configInstance
+			)
 		);
 
 		var restrictInstrumentSound = category.addEntry(
 			FrozenClothConfig.syncedEntry(
-					entryBuilder.startBooleanToggle(text("restrict_instrument_sound"), modifiedConfig.restrictInstrumentSound)
-						.setDefaultValue(defaultConfig.restrictInstrumentSound)
-						.setSaveConsumer(newValue -> config.restrictInstrumentSound = newValue)
-						.setTooltip(tooltip("restrict_instrument_sound"))
-						.build()	,
-					clazz,
-					"restrictInstrumentSound",
-					configInstance
-				)
+				entryBuilder.startBooleanToggle(text("restrict_instrument_sound"), modifiedConfig.restrictInstrumentSound)
+					.setDefaultValue(defaultConfig.restrictInstrumentSound)
+					.setSaveConsumer(newValue -> config.restrictInstrumentSound = newValue)
+					.setTooltip(tooltip("restrict_instrument_sound"))
+					.build(),
+				clazz,
+				"restrictInstrumentSound",
+				configInstance
+			)
 		);
 	}
 }

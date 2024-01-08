@@ -15,7 +15,7 @@ import net.minecraft.sounds.SoundSource;
 import org.jetbrains.annotations.NotNull;
 
 public record WilderJellyfishStingPacket(boolean isBaby) implements FabricPacket {
-	
+
 	public static final PacketType<WilderJellyfishStingPacket> PACKET_TYPE = PacketType.create(
 			WilderSharedConstants.id("jellyfish_sting_packet"),
 			WilderJellyfishStingPacket::new

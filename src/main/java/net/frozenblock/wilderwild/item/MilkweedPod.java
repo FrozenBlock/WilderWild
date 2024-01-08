@@ -31,6 +31,10 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 public class MilkweedPod extends Item {
+	public static final double SHOOT_DISTANCE_FROM_EYE = -0.1D;
+	public static final double PARTICLE_Y_RANDOMIZER = 0.2D;
+	public static final int MIN_SEEDS = 5;
+	public static final int MAX_SEEDS = 20;
 
 	public MilkweedPod(@NotNull Properties settings) {
 		super(settings);
@@ -43,14 +47,22 @@ public class MilkweedPod extends Item {
 		if (!user.getAbilities().instabuild) {
 			itemStack.shrink(1);
 		}
-		if (level instanceof ServerLevel server) {
+		if (level instanceof ServerLevel serverLevel) {
 			float pitch = user.getXRot();
 			float yaw = user.getYRot();
-			float roll = 0.0F;
 			float f = -Mth.sin(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F);
-			float g = -Mth.sin((pitch + roll) * 0.017453292F);
+			float g = -Mth.sin((pitch) * 0.017453292F);
 			float h = Mth.cos(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F);
-			WilderControlledSeedParticlePacket.sendToAll(level, user.getEyePosition().add(0, -0.1, 0), f, g, h, server.random.nextIntBetweenInclusive(5, 20), true, 0.2);
+			WilderControlledSeedParticlePacket.sendToAll(
+				level,
+				user.getEyePosition().add(0, SHOOT_DISTANCE_FROM_EYE, 0),
+				f,
+				g,
+				h,
+				serverLevel.getRandom().nextIntBetweenInclusive(MIN_SEEDS, MAX_SEEDS),
+				true,
+				PARTICLE_Y_RANDOMIZER
+			);
 		}
 
 		return InteractionResultHolder.consume(itemStack);

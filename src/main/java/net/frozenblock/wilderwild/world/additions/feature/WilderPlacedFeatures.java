@@ -408,10 +408,10 @@ public final class WilderPlacedFeatures {
 		);
 
 		TREES_DYING_FOREST.makeAndSetHolder(WilderConfiguredFeatures.TREES_DYING_FOREST.getHolder(),
-				VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(6, 0.1F, 1))
-					.add(
-						WilderPlacementUtils.TREE_CLEARING_FILTER
-					).build()
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(6, 0.1F, 1))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER
+				).build()
 		);
 
 		TREES_SNOWY_DYING_FOREST.makeAndSetHolder(WilderConfiguredFeatures.TREES_SNOWY_DYING_FOREST.getHolder(),

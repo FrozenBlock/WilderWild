@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.item;
 
-import java.util.Optional;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Holder;
@@ -34,6 +33,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
+import java.util.Optional;
 
 public class CopperHorn extends InstrumentItem {
 

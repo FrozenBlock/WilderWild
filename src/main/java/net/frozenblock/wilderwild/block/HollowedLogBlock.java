@@ -52,8 +52,8 @@ import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("deprecation")
 public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterloggedBlock {
-	public static final MapCodec<HollowedLogBlock> CODEC = simpleCodec(HollowedLogBlock::new);
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+	public static final MapCodec<HollowedLogBlock> CODEC = simpleCodec(HollowedLogBlock::new);
 	protected static final VoxelShape X_SHAPE = Shapes.or(Block.box(0, 0, 0, 16, 16, 3), Block.box(0, 13, 0, 16, 16, 16), Block.box(0, 0, 13, 16, 16, 16), Block.box(0, 0, 0, 16, 3, 16));
 	protected static final VoxelShape Y_SHAPE = Shapes.or(Block.box(0, 0, 0, 16, 16, 3), Block.box(0, 0, 0, 3, 16, 16), Block.box(0, 0, 13, 16, 16, 16), Block.box(13, 0, 0, 16, 16, 16));
 	protected static final VoxelShape Z_SHAPE = Shapes.or(Block.box(13, 0, 0, 16, 16, 16), Block.box(0, 0, 0, 3, 16, 16), Block.box(0, 13, 0, 16, 16, 16), Block.box(0, 0, 0, 16, 3, 16));
@@ -68,12 +68,6 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 	public HollowedLogBlock(@NotNull Properties settings) {
 		super(settings);
 		this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false).setValue(AXIS, Direction.Axis.Y));
-	}
-
-	@NotNull
-	@Override
-	public MapCodec<? extends HollowedLogBlock> codec() {
-		return CODEC;
 	}
 
 	public static void hollowEffects(@NotNull Level level, @NotNull Direction face, @NotNull BlockState state, @NotNull BlockPos pos, boolean isStem) {
@@ -102,6 +96,12 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 			return true;
 		}
 		return false;
+	}
+
+	@NotNull
+	@Override
+	public MapCodec<? extends HollowedLogBlock> codec() {
+		return CODEC;
 	}
 
 	@Override

@@ -31,9 +31,9 @@ import net.minecraft.world.level.material.PushReaction;
 import org.jetbrains.annotations.NotNull;
 
 public class NematocystBlock extends FaceClusterBlock {
-	public static final MapCodec<NematocystBlock> CODEC = simpleCodec(NematocystBlock::new);
 	public static final int HEIGHT = 7;
 	public static final int XZ_OFFSET = 3;
+	public static final MapCodec<NematocystBlock> CODEC = simpleCodec(NematocystBlock::new);
 	private final NematocystSpreader spreader = new NematocystSpreader(this);
 
 	public NematocystBlock(int height, int xzOffset, @NotNull Properties properties) {

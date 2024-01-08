@@ -372,12 +372,12 @@ public final class WilderTreeConfigured {
 		);
 
 		DEAD_BIRCH.makeAndSetHolder(Feature.TREE,
-				deadbirch().decorators(
-						List.of(
-								SHELF_FUNGUS_006,
-								VINES_1_UNDER_260_03
-						)
-				).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+			deadbirch().decorators(
+				List.of(
+					SHELF_FUNGUS_006,
+					VINES_1_UNDER_260_03
+				)
+			).ignoreVines().dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		// CHERRY
@@ -675,87 +675,87 @@ public final class WilderTreeConfigured {
 		);
 
 		FANCY_DEAD_OAK.makeAndSetHolder(Feature.TREE,
-				fancyDeadOak().decorators(
-						List.of(
-								SHELF_FUNGUS_002,
-								VINES_012_UNDER_260
-						)
-				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+			fancyDeadOak().decorators(
+				List.of(
+					SHELF_FUNGUS_002,
+					VINES_012_UNDER_260
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		FANCY_SEMI_DEAD_OAK.makeAndSetHolder(Feature.TREE,
-				fancySemiDeadOak().decorators(
-						List.of(
-								SHELF_FUNGUS_002,
-								VINES_012_UNDER_260
-						)
-				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+			fancySemiDeadOak().decorators(
+				List.of(
+					SHELF_FUNGUS_002,
+					VINES_012_UNDER_260
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		SMALL_FANCY_SEMI_DEAD_OAK.makeAndSetHolder(Feature.TREE,
-				smallFancySemiDeadOak().decorators(
-						List.of(
-								SHELF_FUNGUS_002,
-								VINES_012_UNDER_260
-						)
-				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+			smallFancySemiDeadOak().decorators(
+				List.of(
+					SHELF_FUNGUS_002,
+					VINES_012_UNDER_260
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		SMALL_FANCY_DEAD_OAK.makeAndSetHolder(Feature.TREE,
-				smallFancySemiDeadOak().decorators(
-						List.of(
-								SHELF_FUNGUS_002,
-								VINES_012_UNDER_260
-						)
-				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+			smallFancySemiDeadOak().decorators(
+				List.of(
+					SHELF_FUNGUS_002,
+					VINES_012_UNDER_260
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		DEAD_OAK.makeAndSetHolder(Feature.TREE,
-				new TreeConfiguration.TreeConfigurationBuilder(
-						BlockStateProvider.simple(Blocks.OAK_LOG),
-						new StraightTrunkWithBranches(
-								6,
-								2,
-								1,
-								0.225F,
-								UniformInt.of(1, 2),
-								UniformInt.of(0, 2),
-								ConstantInt.of(1)
-						),
-						BlockStateProvider.simple(Blocks.AIR),
-						new FancyFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), 1),
-						new TwoLayersFeatureSize(1, 0, 1)
-				).decorators(
-						List.of(
-								new LeaveVineDecorator(0.1F),
-								SHELF_FUNGUS_002,
-								VINES_012_UNDER_260
-						)
-				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+			new TreeConfiguration.TreeConfigurationBuilder(
+				BlockStateProvider.simple(Blocks.OAK_LOG),
+				new StraightTrunkWithBranches(
+					6,
+					2,
+					1,
+					0.225F,
+					UniformInt.of(1, 2),
+					UniformInt.of(0, 2),
+					ConstantInt.of(1)
+				),
+				BlockStateProvider.simple(Blocks.AIR),
+				new FancyFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), 1),
+				new TwoLayersFeatureSize(1, 0, 1)
+			).decorators(
+				List.of(
+					new LeaveVineDecorator(0.1F),
+					SHELF_FUNGUS_002,
+					VINES_012_UNDER_260
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		DEAD_OAK_BRANCHES.makeAndSetHolder(Feature.TREE,
-				new TreeConfiguration.TreeConfigurationBuilder(
-						BlockStateProvider.simple(Blocks.OAK_LOG),
-						new StraightTrunkWithBranches(
-								7,
-								2,
-								1,
-								0.235F,
-								UniformInt.of(2, 3),
-								UniformInt.of(0, 2),
-								UniformInt.of(1, 2)
-						),
-						BlockStateProvider.simple(Blocks.AIR),
-						new FancyFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), 1),
-						new TwoLayersFeatureSize(1, 0, 1)
-				).decorators(
-						List.of(
-								new LeaveVineDecorator(0.1F),
-								SHELF_FUNGUS_006,
-								VINES_012_UNDER_260
-						)
-				).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+			new TreeConfiguration.TreeConfigurationBuilder(
+				BlockStateProvider.simple(Blocks.OAK_LOG),
+				new StraightTrunkWithBranches(
+					7,
+					2,
+					1,
+					0.235F,
+					UniformInt.of(2, 3),
+					UniformInt.of(0, 2),
+					UniformInt.of(1, 2)
+				),
+				BlockStateProvider.simple(Blocks.AIR),
+				new FancyFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), 1),
+				new TwoLayersFeatureSize(1, 0, 1)
+			).decorators(
+				List.of(
+					new LeaveVineDecorator(0.1F),
+					SHELF_FUNGUS_006,
+					VINES_012_UNDER_260
+				)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
 		// DARK OAK

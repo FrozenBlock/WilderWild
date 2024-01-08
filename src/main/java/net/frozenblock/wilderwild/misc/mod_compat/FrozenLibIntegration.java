@@ -99,6 +99,16 @@ public class FrozenLibIntegration extends ModIntegration {
 		super("frozenlib");
 	}
 
+	private static void addBiomeRequirement(@NotNull Advancement advancement, @NotNull ResourceKey<Biome> key) {
+		AdvancementAPI.addCriteria(advancement, key.location().toString(), inBiome(key));
+		AdvancementAPI.addRequirements(advancement, new AdvancementRequirements(List.of(List.of(key.location().toString()))));
+	}
+
+	@NotNull
+	private static Criterion<PlayerTrigger.TriggerInstance> inBiome(ResourceKey<Biome> key) {
+		return PlayerTrigger.TriggerInstance.located(LocationPredicate.Builder.inBiome(key));
+	}
+
 	@Override
 	public void initPreFreeze() {
 		WilderSharedConstants.log("FrozenLib pre-freeze mod integration ran!", WilderSharedConstants.UNSTABLE_LOGGING);
@@ -126,7 +136,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			}
 		});
 		SoundPredicate.register(WilderSharedConstants.id("nectar"), (SoundPredicate.LoopPredicate<Firefly>) entity ->
-				!entity.isSilent() && entity.hasCustomName() && Objects.requireNonNull(entity.getCustomName()).getString().toLowerCase().contains("nectar")
+			!entity.isSilent() && entity.hasCustomName() && Objects.requireNonNull(entity.getCustomName()).getString().toLowerCase().contains("nectar")
 		);
 		SoundPredicate.register(WilderSharedConstants.id("enderman_anger"), (SoundPredicate.LoopPredicate<EnderMan>) entity -> {
 			if (entity.isSilent() || entity.isRemoved() || entity.isDeadOrDying()) {
@@ -251,7 +261,7 @@ public class FrozenLibIntegration extends ModIntegration {
 							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(RegisterEntities.CRAB)).triggerInstance())
 						);
 						AdvancementAPI.addRequirements(advancement, new
-							AdvancementRequirements(List.of(
+								AdvancementRequirements(List.of(
 								List.of(
 									"wilderwild:crab"
 								)
@@ -266,7 +276,7 @@ public class FrozenLibIntegration extends ModIntegration {
 							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(RegisterItems.JELLYFISH_BUCKET)).triggerInstance())
 						);
 						AdvancementAPI.addRequirements(advancement, new
-							AdvancementRequirements(List.of(
+								AdvancementRequirements(List.of(
 								List.of(
 									"wilderwild:crab_bucket",
 									"wilderwild:jellyfish_bucket"
@@ -275,27 +285,18 @@ public class FrozenLibIntegration extends ModIntegration {
 						);
 					}
 					case "minecraft:nether/all_potions", "minecraft:nether/all_effects" -> {
-                        Criterion<EffectsChangedTrigger.TriggerInstance> criterion = (Criterion<EffectsChangedTrigger.TriggerInstance>) advancement.criteria().get("all_effects");
+						Criterion<EffectsChangedTrigger.TriggerInstance> criterion = (Criterion<EffectsChangedTrigger.TriggerInstance>) advancement.criteria().get("all_effects");
 						MobEffectsPredicate predicate = criterion.triggerInstance().effects.orElseThrow();
 						Map<Holder<MobEffect>, MobEffectsPredicate.MobEffectInstancePredicate> map = new HashMap<>(predicate.effectMap);
 						map.put(RegisterMobEffects.REACH, new MobEffectsPredicate.MobEffectInstancePredicate());
 						predicate.effectMap = map;
-                    }
-					default -> {}
+					}
+					default -> {
+					}
 				}
 
 			}
 		});
-	}
-
-	private static void addBiomeRequirement(@NotNull Advancement advancement, @NotNull ResourceKey<Biome> key) {
-		AdvancementAPI.addCriteria(advancement, key.location().toString(), inBiome(key));
-		AdvancementAPI.addRequirements(advancement, new AdvancementRequirements(List.of(List.of(key.location().toString()))));
-	}
-
-	@NotNull
-	private static Criterion<PlayerTrigger.TriggerInstance> inBiome(ResourceKey<Biome> key) {
-		return PlayerTrigger.TriggerInstance.located(LocationPredicate.Builder.inBiome(key));
 	}
 
 	@Environment(EnvType.CLIENT)

@@ -644,10 +644,10 @@ public final class WilderMiscPlaced {
 		// DYING FOREST
 
 		COARSE_DIRT_DISK_AND_PILE.makeAndSetHolder(WilderMiscConfigured.COARSE_DIRT_DISK_AND_PILE.getHolder(),
-				RarityFilter.onAverageOnceEvery(9),
-				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP,
-				BiomeFilter.biome()
+			RarityFilter.onAverageOnceEvery(9),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP,
+			BiomeFilter.biome()
 		);
 
 		// SNOW
@@ -666,10 +666,10 @@ public final class WilderMiscPlaced {
 		);
 
 		SNOW_CARPET_RANDOM.makeAndSetHolder(WilderMiscConfigured.SNOW_CARPET_RANDOM.getHolder(),
-				CountPlacement.of(2),
-				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-				BiomeFilter.biome()
+			CountPlacement.of(2),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
 		);
 	}
 

@@ -80,6 +80,14 @@ public class StoneChestBlock extends ChestBlock {
 	public static final float MAX_OPENABLE_PROGRESS = 0.5F;
 	public static final float LIFT_AMOUNT = 0.025F;
 	public static final float MAX_LIFT_AMOUNT_UNDER_SOLID_BLOCK = 0.05F;
+	public static final double BREAK_PARTICLE_Y_OFFSET = 0.3D;
+	public static final float BREAK_PARTICLE_OFFSET = 0.21875F;
+	public static final double BREAK_PARTICLE_SPEED = 0.05D;
+	public static final int MIN_BREAK_PARTICLES = 1;
+	public static final int MAX_BREAK_PARTICLES = 3;
+	public static final double ITEM_DELTA_TRIANGLE_B = 0.11485D;
+	public static final double ITEM_DELTA_TRIANGLE_A_Y = 0.2D;
+	public static final double ITEM_DELTA_TRIANGLE_A_XZ = 0D;
 	public static final BooleanProperty ANCIENT = RegisterProperties.ANCIENT;
 	public static final BooleanProperty SCULK = RegisterProperties.HAS_SCULK;
 	public static final DoubleBlockCombiner.Combiner<ChestBlockEntity, Optional<MenuProvider>> STONE_NAME_RETRIEVER = new DoubleBlockCombiner.Combiner<>() {
@@ -134,12 +142,6 @@ public class StoneChestBlock extends ChestBlock {
 		this.registerDefaultState(this.defaultBlockState().setValue(ANCIENT, false).setValue(SCULK, false));
 	}
 
-	@NotNull
-	@Override
-	public MapCodec<? extends StoneChestBlock> codec() {
-		return CODEC;
-	}
-
 	public static boolean hasLid(@NotNull Level level, @NotNull BlockPos pos) {
 		if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity stoneChest) {
 			return stoneChest.openProgress < MIN_OPENABLE_PROGRESS;
@@ -168,7 +170,6 @@ public class StoneChestBlock extends ChestBlock {
 		return ChestBlock.isChestBlockedAt(level, pos) || !canInteract(level, pos);
 	}
 
-
 	public static boolean isStoneChestBlockedNoLid(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
 		return ChestBlock.isChestBlockedAt(level, pos) || !canInteract(level, pos);
 	}
@@ -178,13 +179,13 @@ public class StoneChestBlock extends ChestBlock {
 			server.sendParticles(
 				new ItemParticleOption(ParticleTypes.ITEM, stack),
 				pos.getX() + 0.5D,
-				pos.getY() + 0.3D,
+				pos.getY() + BREAK_PARTICLE_Y_OFFSET,
 				pos.getZ() + 0.5D,
-				level.getRandom().nextIntBetweenInclusive(1, 3),
-				0.21875F,
-				0.21875F,
-				0.21875F,
-				0.05D
+				level.getRandom().nextIntBetweenInclusive(MIN_BREAK_PARTICLES, MAX_BREAK_PARTICLES),
+				BREAK_PARTICLE_OFFSET,
+				BREAK_PARTICLE_OFFSET,
+				BREAK_PARTICLE_OFFSET,
+				BREAK_PARTICLE_SPEED
 			);
 		}
 	}
@@ -204,6 +205,12 @@ public class StoneChestBlock extends ChestBlock {
 			return chest;
 		}
 		return null;
+	}
+
+	@NotNull
+	@Override
+	public MapCodec<? extends StoneChestBlock> codec() {
+		return CODEC;
 	}
 
 	@Override
@@ -407,7 +414,11 @@ public class StoneChestBlock extends ChestBlock {
 					double i = pos.getZ() + random.nextDouble() * e + f;
 					while (!item.isEmpty()) {
 						ItemEntity itemEntity = new ItemEntity(level, g, h, i, item.split(random.nextInt(21) + 10));
-						itemEntity.setDeltaMovement(level.getRandom().triangle(0, 0.11485), random.triangle(0.2F, 0.11485), random.triangle(0, 0.11485));
+						itemEntity.setDeltaMovement(
+							random.triangle(ITEM_DELTA_TRIANGLE_A_XZ, ITEM_DELTA_TRIANGLE_B),
+							random.triangle(ITEM_DELTA_TRIANGLE_A_Y, ITEM_DELTA_TRIANGLE_B),
+							random.triangle(ITEM_DELTA_TRIANGLE_A_XZ, ITEM_DELTA_TRIANGLE_B)
+						);
 						level.addFreshEntity(itemEntity);
 					}
 				}

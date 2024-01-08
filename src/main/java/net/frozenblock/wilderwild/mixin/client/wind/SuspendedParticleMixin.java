@@ -46,5 +46,5 @@ public abstract class SuspendedParticleMixin extends TextureSheetParticle implem
 	public boolean wilderWild$usesWind() {
 		return this.wilderWild$usesWind;
 	}
-	
+
 }

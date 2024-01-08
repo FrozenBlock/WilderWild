@@ -41,14 +41,18 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 public class OstrichEggBlock extends Block {
-	public static final MapCodec<OstrichEggBlock> CODEC = simpleCodec(OstrichEggBlock::new);
 	public static final int MAX_HATCH_LEVEL = 2;
 	public static final IntegerProperty HATCH = BlockStateProperties.HATCH;
+	public static final MapCodec<OstrichEggBlock> CODEC = simpleCodec(OstrichEggBlock::new);
 	private static final VoxelShape SHAPE = Block.box(5.0, 0.0, 5.0, 11.0, 8.0, 11.0);
 
 	public OstrichEggBlock(BlockBehaviour.Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(HATCH, 0));
+	}
+
+	public static boolean isSafeToHatch(@NotNull Level level, @NotNull BlockPos belowPos) {
+		return level.getBlockState(belowPos).isFaceSturdy(level, belowPos, Direction.UP);
 	}
 
 	@NotNull
@@ -128,10 +132,6 @@ public class OstrichEggBlock extends Block {
 			level.addFreshEntity(ostrich);
 		}
 	}
-
-	public static boolean isSafeToHatch(@NotNull Level level, @NotNull BlockPos belowPos) {
-        return level.getBlockState(belowPos).isFaceSturdy(level, belowPos, Direction.UP);
-    }
 
 	@Override
 	public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull PathComputationType type) {

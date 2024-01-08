@@ -43,6 +43,11 @@ import org.joml.Quaternionf;
 public class FireflyRenderer extends EntityRenderer<Firefly> {
 	//CREDIT TO magistermaks ON GITHUB!!
 
+	public static final Object2ObjectMap<ResourceLocation, RenderType> LAYERS = new Object2ObjectLinkedOpenHashMap<>() {{
+		Object2ObjectMap<ResourceLocation, ResourceLocation> colors = new Object2ObjectLinkedOpenHashMap<>();
+		WilderRegistry.FIREFLY_COLOR.forEach(color -> colors.put(color.key(), color.texture()));
+		colors.forEach((colorKey, texture) -> put(colorKey, RenderType.entityTranslucentEmissive(texture)));
+	}};
 	private static final ResourceLocation TEXTURE = WilderSharedConstants.id("textures/entity/firefly/firefly_off.png");
 	private static final RenderType LAYER = RenderType.entityCutout(TEXTURE);
 	private static final RenderType NECTAR_LAYER = RenderType.entityCutout(WilderSharedConstants.id("textures/entity/firefly/nectar.png"));
@@ -51,11 +56,6 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 	private static final float Y_OFFSET = 0.155F;
 	private static final Quaternionf ONE_HUNDRED_EIGHTY_QUAT = Axis.YP.rotationDegrees(180.0F);
 	private static final float PI = (float) Math.PI;
-	public static final Object2ObjectMap<ResourceLocation, RenderType> LAYERS = new Object2ObjectLinkedOpenHashMap<>() {{
-		Object2ObjectMap<ResourceLocation, ResourceLocation> colors = new Object2ObjectLinkedOpenHashMap<>();
-		WilderRegistry.FIREFLY_COLOR.forEach(color -> colors.put(color.key(), color.texture()));
-		colors.forEach((colorKey, texture) -> put(colorKey, RenderType.entityTranslucentEmissive(texture)));
-	}};
 
 	public FireflyRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx);

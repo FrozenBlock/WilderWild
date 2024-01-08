@@ -59,7 +59,7 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 	public static final int MAX_AGE = 3;
 	public static final int AGE_FOR_SOLID_COLLISION = 2;
 	public static final int SNAP_CHANCE = 4;
-	public static final int PEACEFUL_REPRODUCTION_CHANCE = 20;
+	public static final int REPRODUCTION_CHANCE_PEACEFUL = 20;
 	public static final int REPRODUCTION_CHANCE_DIVIDER_BY_DIFFICULTY = 15;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 	private static final VoxelShape[] SHAPES = new VoxelShape[]{
@@ -73,14 +73,14 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 		super(properties);
 	}
 
+	public static boolean isFullyGrown(@NotNull BlockState state) {
+		return state.getValue(AGE) == MAX_AGE;
+	}
+
 	@NotNull
 	@Override
 	protected MapCodec<? extends TumbleweedPlantBlock> codec() {
 		return CODEC;
-	}
-
-	public static boolean isFullyGrown(@NotNull BlockState state) {
-		return state.getValue(AGE) == MAX_AGE;
 	}
 
 	@Override
@@ -92,7 +92,7 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 				level.addFreshEntity(weed);
 				weed.setPos(Vec3.atBottomCenterOf(pos));
 				int diff = level.getDifficulty().getId();
-				if (level.getRandom().nextInt(diff == 0 ? PEACEFUL_REPRODUCTION_CHANCE : (REPRODUCTION_CHANCE_DIVIDER_BY_DIFFICULTY / diff)) == 0) {
+				if (level.getRandom().nextInt(diff == 0 ? REPRODUCTION_CHANCE_PEACEFUL : (REPRODUCTION_CHANCE_DIVIDER_BY_DIFFICULTY / diff)) == 0) {
 					weed.setItem(new ItemStack(RegisterBlocks.TUMBLEWEED_PLANT), true);
 				}
 				level.playSound(null, pos, RegisterSounds.ENTITY_TUMBLEWEED_DAMAGE, SoundSource.BLOCKS, 1F, 1F);

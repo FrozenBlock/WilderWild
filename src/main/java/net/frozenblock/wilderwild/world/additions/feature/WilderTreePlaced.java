@@ -239,7 +239,7 @@ public final class WilderTreePlaced {
 		);
 
 		DEAD_BIRCH.makeAndSetHolder(WilderTreeConfigured.DEAD_BIRCH.getHolder(),
-				PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
 		);
 
 		//CHERRY
@@ -347,27 +347,27 @@ public final class WilderTreePlaced {
 		);
 
 		FANCY_DEAD_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.FANCY_DEAD_OAK.getHolder(),
-				PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
 		);
 
 		FANCY_SEMI_DEAD_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.FANCY_SEMI_DEAD_OAK.getHolder(),
-				PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
 		);
 
 		SMALL_FANCY_DEAD_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.SMALL_FANCY_DEAD_OAK.getHolder(),
-				PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
 		);
 
 		SMALL_FANCY_SEMI_DEAD_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.SMALL_FANCY_SEMI_DEAD_OAK.getHolder(),
-				PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
 		);
 
 		DEAD_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.DEAD_OAK.getHolder(),
-				PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
 		);
 
 		DEAD_OAK_BRANCHES_CHECKED.makeAndSetHolder(WilderTreeConfigured.DEAD_OAK_BRANCHES.getHolder(),
-				PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
 		);
 
 		// DARK OAK

@@ -57,11 +57,13 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock implements SimpleWaterloggedBlock, BonemealableBlock {
-	public static final MapCodec<ShelfFungusBlock> CODEC = simpleCodec(ShelfFungusBlock::new);
+	public static final int GROWTH_BRIGHTNESS_OFFSET = 2;
 	public static final int MAX_STAGE = 4;
+	public static final int MAX_AGE = 2;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	public static final IntegerProperty STAGE = RegisterProperties.FUNGUS_STAGE;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+	public static final MapCodec<ShelfFungusBlock> CODEC = simpleCodec(ShelfFungusBlock::new);
 	protected static final VoxelShape NORTH_WALL_SHAPE = Block.box(0.0D, 0.0D, 13.0D, 16.0D, 16.0D, 16.0D);
 	protected static final VoxelShape SOUTH_WALL_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 3.0D);
 	protected static final VoxelShape WEST_WALL_SHAPE = Block.box(13.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);
@@ -75,12 +77,6 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
 	}
 
 	@NotNull
-	@Override
-	protected MapCodec<? extends ShelfFungusBlock> codec() {
-		return CODEC;
-	}
-
-	@NotNull
 	public static AttachFace getFace(@NotNull Direction direction) {
 		if (direction.getAxis() == Direction.Axis.Y) {
 			return direction == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR;
@@ -91,6 +87,12 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
 	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 	private static boolean isFullyGrown(@NotNull BlockState state) {
 		return state.getValue(STAGE) == MAX_STAGE;
+	}
+
+	@NotNull
+	@Override
+	protected MapCodec<? extends ShelfFungusBlock> codec() {
+		return CODEC;
 	}
 
 	@Override
@@ -117,7 +119,7 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
 
 	@Override
 	public boolean canBeReplaced(@NotNull BlockState state, @NotNull BlockPlaceContext context) {
-		return !context.isSecondaryUseActive() && context.getItemInHand().is(this.asItem()) && state.getValue(STAGE) < 4 || super.canBeReplaced(state, context);
+		return !context.isSecondaryUseActive() && context.getItemInHand().is(this.asItem()) && state.getValue(STAGE) < MAX_STAGE || super.canBeReplaced(state, context);
 	}
 
 	@Override
@@ -176,14 +178,14 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
 	}
 
 	public boolean isMaxAge(@NotNull BlockState state) {
-		return state.getValue(AGE) == 2;
+		return state.getValue(AGE) == MAX_AGE;
 	}
 
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (random.nextInt(level.getMaxLocalRawBrightness(pos) + 2) == 1) {
+		if (random.nextInt(level.getMaxLocalRawBrightness(pos) + GROWTH_BRIGHTNESS_OFFSET) == 1) {
 			if (!isMaxAge(state)) {
-				level.setBlock(pos, state.cycle(AGE), 2);
+				level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
 			} else if (!isFullyGrown(state)) {
 				level.setBlock(pos, state.cycle(STAGE).setValue(AGE, 0), UPDATE_CLIENTS);
 			}
@@ -202,6 +204,6 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
 
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-		level.setBlock(pos, state.cycle(STAGE).setValue(AGE, 0), 2);
+		level.setBlock(pos, state.cycle(STAGE).setValue(AGE, 0), UPDATE_CLIENTS);
 	}
 }

@@ -68,8 +68,8 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	private static void playSound(Args args) {
 		if (
 			wilderWild$playedSoundState != null
-			&& wilderWild$playedSoundState.hasProperty(BlockStateProperties.WATERLOGGED)
-			&& wilderWild$playedSoundState.getValue(BlockStateProperties.WATERLOGGED)
+				&& wilderWild$playedSoundState.hasProperty(BlockStateProperties.WATERLOGGED)
+				&& wilderWild$playedSoundState.getValue(BlockStateProperties.WATERLOGGED)
 		) {
 			SoundEvent sound = args.get(4);
 			if (sound == SoundEvents.CHEST_OPEN) {

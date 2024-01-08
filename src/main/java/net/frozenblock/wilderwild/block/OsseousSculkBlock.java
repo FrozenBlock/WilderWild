@@ -46,7 +46,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class OsseousSculkBlock extends Block implements SculkBehaviour {
-	public static final MapCodec<OsseousSculkBlock> CODEC = simpleCodec(OsseousSculkBlock::new);
 	public static final int GROWTH_CHANCE = 2;
 	public static final double HANGING_TENDRIL_CHANCE = 0.7D;
 	public static final double HANGING_TENDRIL_WORLDGEN_CHANCE = 0.6D;
@@ -55,17 +54,12 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 	public static final DirectionProperty FACING = BlockStateProperties.FACING;
 	public static final IntegerProperty HEIGHT_LEFT = RegisterProperties.PILLAR_HEIGHT_LEFT;
 	public static final IntegerProperty TOTAL_HEIGHT = RegisterProperties.TOTAL_HEIGHT;
+	public static final MapCodec<OsseousSculkBlock> CODEC = simpleCodec(OsseousSculkBlock::new);
 	private static final ConstantInt EXPERIENCE = ConstantInt.of(3);
 
 	public OsseousSculkBlock(@NotNull Properties settings) {
 		super(settings);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP).setValue(HEIGHT_LEFT, 0).setValue(TOTAL_HEIGHT, 0));
-	}
-
-	@NotNull
-	@Override
-	protected MapCodec<? extends OsseousSculkBlock> codec() {
-		return CODEC;
 	}
 
 	public static Direction getDir(@NotNull Direction.Axis axis, @NotNull RandomSource random) {
@@ -84,6 +78,34 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 		return state.is(Blocks.SCULK_VEIN) || state.isAir() || state.is(Blocks.WATER);
 	}
 
+	public static void placeVeinsAround(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
+		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
+		BlockState stateReplace;
+		Direction oppositeDirection;
+		for (Direction direction : UPDATE_SHAPE_ORDER) {
+			stateReplace = level.getBlockState(mutableBlockPos.move(direction));
+			oppositeDirection = direction.getOpposite();
+			BlockState stateSetTo = null;
+			if (stateReplace.is(Blocks.SCULK_VEIN)) {
+				stateSetTo = stateReplace.setValue(MultifaceBlock.getFaceProperty(oppositeDirection), true);
+			} else if (stateReplace.isAir() && stateReplace.getFluidState().isEmpty()) {
+				stateSetTo = Blocks.SCULK_VEIN.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(oppositeDirection), true);
+			} else if (stateReplace.getBlock() == Blocks.WATER) {
+				stateSetTo = Blocks.SCULK_VEIN.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(oppositeDirection), true).setValue(BlockStateProperties.WATERLOGGED, true);
+			}
+			if (stateSetTo != null) {
+				level.setBlock(mutableBlockPos, stateSetTo, 3);
+			}
+			mutableBlockPos.move(oppositeDirection);
+		}
+	}
+
+	@NotNull
+	@Override
+	protected MapCodec<? extends OsseousSculkBlock> codec() {
+		return CODEC;
+	}
+
 	@Nullable
 	@Override
 	public BlockState getStateForPlacement(@NotNull BlockPlaceContext blockPlaceContext) {
@@ -99,15 +121,15 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 	}
 
 	@Override
-	public int attemptUseCharge(@NotNull SculkSpreader.ChargeCursor cursor, @NotNull LevelAccessor level, @NotNull BlockPos catalystPos, @NotNull RandomSource random, @NotNull SculkSpreader spreadManager, boolean shouldConvertBlocks) {
-		boolean isWorldGeneration = spreadManager.isWorldGeneration();
+	public int attemptUseCharge(@NotNull SculkSpreader.ChargeCursor cursor, @NotNull LevelAccessor level, @NotNull BlockPos catalystPos, @NotNull RandomSource random, @NotNull SculkSpreader spreader, boolean shouldConvertBlocks) {
+		boolean isWorldGeneration = spreader.isWorldGeneration();
 		int i = cursor.getCharge();
 		int j = 1;
 		BlockPos blockPos = cursor.getPos();
 		BlockState firstState = level.getBlockState(blockPos);
 		if (firstState.is(this)) {
 			if ((i != 0 && random.nextInt(GROWTH_CHANCE) == 0) || isWorldGeneration) {
-				if (!blockPos.closerThan(catalystPos, spreadManager.noGrowthRadius()) || isWorldGeneration) {
+				if (!blockPos.closerThan(catalystPos, spreader.noGrowthRadius()) || isWorldGeneration) {
 					int pillarHeightLeft = level.getBlockState(blockPos).getValue(OsseousSculkBlock.HEIGHT_LEFT);
 					if (pillarHeightLeft > 0) {
 						BlockPos topPos = getTop(level, blockPos, pillarHeightLeft);
@@ -193,7 +215,7 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 					if (MultifaceBlock.availableFaces(stateReplace).isEmpty()) {
 						stateReplace = stateReplace.getValue(BlockStateProperties.WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
 					}
-					level.setBlock(mutableBlockPos, stateReplace,  UPDATE_ALL);
+					level.setBlock(mutableBlockPos, stateReplace, UPDATE_ALL);
 				} else if (stateReplace.is(this) && stateReplace.hasProperty(FACING) && stateReplace.getValue(FACING) == direction) {
 					placeVeinsAround(level, mutableBlockPos.mutable());
 				}
@@ -202,28 +224,6 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 			mutableBlockPos.move(state.getValue(FACING));
 			placeVeinsAround(level, mutableBlockPos.mutable());
 			level.setBlock(pos, Blocks.SCULK.defaultBlockState(), UPDATE_ALL);
-		}
-	}
-
-	public static void placeVeinsAround(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
-		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
-		BlockState stateReplace;
-		Direction oppositeDirection;
-		for (Direction direction : UPDATE_SHAPE_ORDER) {
-			stateReplace = level.getBlockState(mutableBlockPos.move(direction));
-			oppositeDirection = direction.getOpposite();
-			BlockState stateSetTo = null;
-			if (stateReplace.is(Blocks.SCULK_VEIN)) {
-				stateSetTo = stateReplace.setValue(MultifaceBlock.getFaceProperty(oppositeDirection), true);
-			} else if (stateReplace.isAir() && stateReplace.getFluidState().isEmpty()) {
-				stateSetTo = Blocks.SCULK_VEIN.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(oppositeDirection), true);
-			} else if (stateReplace.getBlock() == Blocks.WATER) {
-				stateSetTo = Blocks.SCULK_VEIN.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(oppositeDirection), true).setValue(BlockStateProperties.WATERLOGGED, true);
-			}
-			if (stateSetTo != null) {
-				level.setBlock(mutableBlockPos, stateSetTo, 3);
-			}
-			mutableBlockPos.move(oppositeDirection);
 		}
 	}
 

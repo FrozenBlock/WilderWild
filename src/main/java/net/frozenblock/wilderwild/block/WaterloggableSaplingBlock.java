@@ -43,11 +43,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWaterloggedBlock {
+	public static final int WATER_SEARCH_RANGE = 3;
+	private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final MapCodec<WaterloggableSaplingBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
 		TreeGrower.CODEC.fieldOf("tree").forGetter((waterloggableSaplingBlock) -> waterloggableSaplingBlock.treeGrower),
 		propertiesCodec()
 	).apply(instance, WaterloggableSaplingBlock::new));
-	private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
 	public WaterloggableSaplingBlock(@NotNull TreeGrower grower, @NotNull Properties settings) {
 		super(grower, settings);
@@ -75,10 +76,10 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWat
 	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
 		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 		boolean canSkip = false;
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < WATER_SEARCH_RANGE + 1; i++) {
 			if (!canSkip) {
 				if (level.getBlockState(mutableBlockPos.move(Direction.UP)).getFluidState().is(FluidTags.WATER)) {
-					if (i == 3) {
+					if (i == WATER_SEARCH_RANGE) {
 						return false;
 					}
 				} else {
@@ -96,17 +97,19 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWat
 		return Objects.requireNonNull(super.getStateForPlacement(ctx)).setValue(WATERLOGGED, bl);
 	}
 
-	@Override
 	@NotNull
+	@Override
 	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
 		if (state.getValue(WATERLOGGED)) {
 			level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 		}
-		return direction == Direction.UP && !state.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
+		return direction == Direction.UP && !state.canSurvive(level, currentPos) ?
+			Blocks.AIR.defaultBlockState()
+			: super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
 	}
 
-	@Override
 	@NotNull
+	@Override
 	public FluidState getFluidState(@NotNull BlockState state) {
 		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
 	}

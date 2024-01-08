@@ -49,13 +49,13 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings({"DuplicatedCode", "deprecation"})
 public class BaobabNutBlock extends SaplingBlock {
-	public static final MapCodec<BaobabNutBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
-			TreeGrower.CODEC.fieldOf("tree").forGetter((baobabNutBlock) -> baobabNutBlock.treeGrower),
-			propertiesCodec()
-		).apply(instance, BaobabNutBlock::new));
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	public static final int MAX_AGE = 2;
 	public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
+	public static final MapCodec<BaobabNutBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
+		TreeGrower.CODEC.fieldOf("tree").forGetter((baobabNutBlock) -> baobabNutBlock.treeGrower),
+		propertiesCodec()
+	).apply(instance, BaobabNutBlock::new));
 	public static final double HANGING_GROWTH_CHANCE = 0.4D;
 	private static final VoxelShape[] SHAPES = new VoxelShape[]{
 		Shapes.or(Block.box(7.0, 13.0, 7.0, 9.0, 16.0, 9.0), Block.box(5.0, 6.0, 5.0, 11.0, 13.0, 11.0)),
@@ -69,12 +69,6 @@ public class BaobabNutBlock extends SaplingBlock {
 		this.registerDefaultState(this.defaultBlockState().setValue(AGE, 0).setValue(HANGING, false));
 	}
 
-	@NotNull
-	@Override
-	public MapCodec<? extends BaobabNutBlock> codec() {
-		return CODEC;
-	}
-
 	private static boolean isHanging(@NotNull BlockState state) {
 		return state.getValue(HANGING);
 	}
@@ -82,6 +76,12 @@ public class BaobabNutBlock extends SaplingBlock {
 	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 	private static boolean isFullyGrown(@NotNull BlockState state) {
 		return state.getValue(AGE) == MAX_AGE;
+	}
+
+	@NotNull
+	@Override
+	public MapCodec<? extends BaobabNutBlock> codec() {
+		return CODEC;
 	}
 
 	@Override

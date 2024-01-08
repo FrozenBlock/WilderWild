@@ -39,9 +39,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Environment(EnvType.CLIENT)
 @Mixin(WardenRenderer.class)
 public abstract class StellaWardenRenderer extends MobRenderer<Warden, WardenModel<Warden>> {
-
-	@Unique
-	private static final ResourceLocation WILDERWILD$STELLA_TEXTURE = WilderSharedConstants.id("textures/entity/warden/stella_warden.png");
 	@Unique
 	private static final ResourceLocation WILDERWILD$STELLA_BIOLUMINESCENT_LAYER_TEXTURE = WilderSharedConstants.id("textures/entity/warden/stella_warden_bioluminescent_overlay.png");
 	@Unique

@@ -64,6 +64,20 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
 		super(settings);
 	}
 
+	public static boolean hasColor(@NotNull BlockState state) {
+		return state.hasProperty(COLOR_STATE) && state.getValue(COLOR_STATE) != FlowerColor.NONE;
+	}
+
+	public static void shear(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @Nullable Player player) {
+		FlowerColor color = state.getValue(COLOR_STATE);
+		Item item = color == FlowerColor.BLUE ? RegisterBlocks.BLUE_GLORY_OF_THE_SNOW.asItem() : color == FlowerColor.PINK ? RegisterBlocks.PINK_GLORY_OF_THE_SNOW.asItem() :
+			color == FlowerColor.PURPLE ? RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW.asItem() : RegisterBlocks.WHITE_GLORY_OF_THE_SNOW.asItem();
+		popResource(level, pos, new ItemStack(item, level.random.nextIntBetweenInclusive(1, 2)));
+		level.setBlockAndUpdate(pos, state.getBlock().defaultBlockState());
+		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
+		level.gameEvent(player, GameEvent.SHEAR, pos);
+	}
+
 	@NotNull
 	@Override
 	protected MapCodec<? extends GloryOfTheSnowBlock> codec() {
@@ -82,10 +96,6 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
 		}
 	}
 
-	public static boolean hasColor(@NotNull BlockState state) {
-		return state.hasProperty(COLOR_STATE) && state.getValue(COLOR_STATE) != FlowerColor.NONE;
-	}
-
 	@Override
 	@NotNull
 	public ItemInteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
@@ -96,16 +106,6 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
 			}
 		}
 		return super.useItemOn(stack, state, level, pos, player, hand, hit);
-	}
-
-	public static void shear(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @Nullable Player player) {
-		FlowerColor color = state.getValue(COLOR_STATE);
-		Item item = color == FlowerColor.BLUE ? RegisterBlocks.BLUE_GLORY_OF_THE_SNOW.asItem() : color == FlowerColor.PINK ? RegisterBlocks.PINK_GLORY_OF_THE_SNOW.asItem() :
-			color == FlowerColor.PURPLE ? RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW.asItem() : RegisterBlocks.WHITE_GLORY_OF_THE_SNOW.asItem();
-		popResource(level, pos, new ItemStack(item, level.random.nextIntBetweenInclusive(1, 2)));
-		level.setBlockAndUpdate(pos, state.getBlock().defaultBlockState());
-		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
-		level.gameEvent(player, GameEvent.SHEAR, pos);
 	}
 
 	@Override

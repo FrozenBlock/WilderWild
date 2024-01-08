@@ -59,14 +59,14 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 	}
 
 	@NotNull
-	@Override
-	protected MapCodec<? extends AlgaeBlock> codec() {
-		return CODEC;
+	public static List<Direction> shuffleOffsets(@NotNull RandomSource random) {
+		return Direction.Plane.HORIZONTAL.shuffledCopy(random);
 	}
 
 	@NotNull
-	public static List<Direction> shuffleOffsets(@NotNull RandomSource random) {
-		return Direction.Plane.HORIZONTAL.shuffledCopy(random);
+	@Override
+	protected MapCodec<? extends AlgaeBlock> codec() {
+		return CODEC;
 	}
 
 	@Override

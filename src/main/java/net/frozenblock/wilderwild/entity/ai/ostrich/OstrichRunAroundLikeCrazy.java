@@ -96,7 +96,7 @@ public class OstrichRunAroundLikeCrazy extends Behavior<Ostrich> {
 
 			owner.ejectPassengers();
 			owner.makeMad();
-			level.broadcastEntityEvent(owner, (byte)6);
+			level.broadcastEntityEvent(owner, (byte) 6);
 		}
 	}
 

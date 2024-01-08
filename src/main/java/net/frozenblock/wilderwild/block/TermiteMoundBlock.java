@@ -58,12 +58,6 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 		);
 	}
 
-	@NotNull
-	@Override
-	protected MapCodec<? extends TermiteMoundBlock> codec() {
-		return CODEC;
-	}
-
 	public static boolean canTermitesWaken(@NotNull Level level, @NotNull BlockPos pos) {
 		return !shouldTermitesSleep(level, getLightLevel(level, pos));
 	}
@@ -82,6 +76,12 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 			mutableBlockPos.move(direction, -1);
 		}
 		return finalLight;
+	}
+
+	@NotNull
+	@Override
+	protected MapCodec<? extends TermiteMoundBlock> codec() {
+		return CODEC;
 	}
 
 	@Nullable
