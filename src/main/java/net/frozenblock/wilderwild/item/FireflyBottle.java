@@ -52,8 +52,8 @@ public class FireflyBottle extends Item {
 		return stack.hasCustomHoverName() && stack.getHoverName().getString().toLowerCase().contains("nectar");
 	}
 
-	@Override
 	@NotNull
+	@Override
 	public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand usedHand) {
 		if (level instanceof ServerLevel server && player.getAbilities().mayBuild) {
 			float pitch = player.getXRot();
@@ -88,8 +88,8 @@ public class FireflyBottle extends Item {
 		return ItemUtils.startUsingInstantly(level, player, usedHand);
 	}
 
-	@Override
 	@NotNull
+	@Override
 	public UseAnim getUseAnimation(@NotNull ItemStack stack) {
 		return UseAnim.NONE;
 	}

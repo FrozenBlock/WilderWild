@@ -40,8 +40,8 @@ public class MilkweedPod extends Item {
 		super(settings);
 	}
 
-	@Override
 	@NotNull
+	@Override
 	public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player user, @NotNull InteractionHand hand) {
 		ItemStack itemStack = user.getItemInHand(hand);
 		if (!user.getAbilities().instabuild) {
@@ -68,8 +68,8 @@ public class MilkweedPod extends Item {
 		return InteractionResultHolder.consume(itemStack);
 	}
 
-	@Override
 	@NotNull
+	@Override
 	public UseAnim getUseAnimation(@NotNull ItemStack stack) {
 		return UseAnim.TOOT_HORN;
 	}
