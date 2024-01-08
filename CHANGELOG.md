@@ -60,7 +60,8 @@ Additions
 Bug Fixes & Changes
 ---
 
-- Updated the protocol version to 3
+  - Updated the protocol version to 3.
+  - Removed the Coated Sculk item model.
   - Added codecs to as many blocks as possible (1.20.5+.)
     - This has resulted in some blocks receiving reorganized and/or new constructor parameters.
   - Removed the `FloweringLilyPadBlock` class as it was redundant.
@@ -78,14 +79,13 @@ Bug Fixes & Changes
     - This also fixes an issue where other liquids like Lava could incorrectly be assigned different textures on occasion.
   - Optimized how the Tumbleweed Stem's selects its outline/collision shape.
   - Removed the `WilderSeedParticlePacket` class in favor of using the regular Vanilla particle packet.
-
   - Removed the `Goat Horn Symphony` and `Back` discs as they didn't feel like necessary additions, nor did they fit Vanilla.
     - These will be datafixed into Lena Raine's `Otherside` and Samuel Åberg's `5` respectively.
   - Decreased the amount of String obtained crafting with Cattails from 3 to 1.
   - Defined the Random Sequence for every one of Wilder Wild's loot tables.
   - Added the Palm Hanging Sign to the `wilderwild:hanging_signs` item tag.
   - Added the Palm Crown to the `wilderwild:palm_logs` item tag.
-
+  - Optimized the file size of many Block and Item models.
   - Reimplemented the custom Warden dying sound after it was accidentally removed during a bugfix.
   - The Warden's regular death sound will now play on top of its underwater dying sound once again.
   - Wardens are no longer considered alive during the custom death animation.
@@ -93,12 +93,10 @@ Bug Fixes & Changes
   - Prevented the Warden from moving while it is digging or emerging.
   - Changed the Warden's secret death sound from stereo to mono.
   - Refactored mobs' `canSpawn` methods to reflect Vanilla's, following the template `checkXSpawnRules.`
-
   - Pumpkins now generate much more frequently in Old Growth Dark Forests.
   - Changed the `Cherry Grove Placement` config to be disabled by default as it wasn't as immersive as anticipated.
   - Fixed the `Stony Shore Placement` config lang reading as `CStony Shore Placement.`
   - Added the Arid Forest, Arid Savanna, and Oasis biomes to the `minecraft:snow_golem_melts` tag.
   - Added the Snowy Dying Forest, Snowy Dying Mixed Forest, and Snowy Old Growth Pine Taiga biomes to the `minecraft:spawns_snow_foxes` tag.
   - Added the Snowy Dying Forest, Snowy Dying Mixed Forest, and Snowy Old Growth Pine Taiga biomes to the `minecraft:spawns_white_rabbit` tag.
-
-  - And even more refactoring and small fixes!
+  - Much more refactoring and many small fixes!
