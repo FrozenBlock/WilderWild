@@ -120,12 +120,14 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	public static final int DIG_LENGTH_IN_TICKS = 95;
 	public static final int EMERGE_LENGTH_IN_TICKS = 29;
 	public static final double UNDERGROUND_PLAYER_RANGE = 4;
-	private static final Map<ServerLevelAccessor, Integer> CRABS_PER_LEVEL = new Object2IntOpenHashMap<>();
 	private static final int DIG_TICKS_UNTIL_PARTICLES = 17;
 	private static final int DIG_TICKS_UNTIL_STOP_PARTICLES = 82;
 	private static final int EMERGE_TICKS_UNTIL_PARTICLES = 1;
 	private static final int EMERGE_TICKS_UNTIL_STOP_PARTICLES = 16;
 	private static final double LATCH_TO_WALL_FORCE = 0.0195D;
+	public static final int SPAWN_CHANCE = 30;
+	public static final int SPAWN_CHANCE_COMMON = 90;
+	private static final Map<ServerLevelAccessor, Integer> CRABS_PER_LEVEL = new Object2IntOpenHashMap<>();
 	private static final EntityDataAccessor<MoveState> MOVE_STATE = SynchedEntityData.defineId(Crab.class, MoveState.SERIALIZER);
 	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_X = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_Y = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
@@ -156,23 +158,23 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		this.dynamicGameEventListener = new DynamicGameEventListener<>(new VibrationSystem.Listener(this));
 		this.jumpControl = new CrabJumpControl(this);
 		this.prevMovement = Vec3.ZERO;
-		this.setPathfindingMalus(BlockPathTypes.LAVA, -1.0F);
-		this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1.0F);
-		this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-		this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
+		this.setPathfindingMalus(BlockPathTypes.LAVA, -1F);
+		this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1F);
+		this.setPathfindingMalus(BlockPathTypes.WATER, 0F);
+		this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0F);
 		if (EntityConfig.get().unpassableRail) {
-			this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
+			this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0F);
 		}
 		this.moveControl = new CrabMoveControl(this);
 	}
 
 	@NotNull
 	public static AttributeSupplier.Builder createAttributes() {
-		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D)
+		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8D)
 			.add(Attributes.MOVEMENT_SPEED, MOVEMENT_SPEED)
 			.add(Attributes.STEP_HEIGHT, STEP_HEIGHT)
-			.add(Attributes.JUMP_STRENGTH, 0.0D)
-			.add(Attributes.ATTACK_DAMAGE, 2.0D)
+			.add(Attributes.JUMP_STRENGTH, 0D)
+			.add(Attributes.ATTACK_DAMAGE, 2D)
 			.add(Attributes.FOLLOW_RANGE, MAX_TARGET_DISTANCE);
 	}
 
@@ -185,9 +187,9 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			return true;
 		}
 		Holder<Biome> biome = level.getBiome(pos);
-		int randomBound = 30;
+		int randomBound = SPAWN_CHANCE;
 		if (!biome.is(WilderBiomeTags.HAS_COMMON_CRAB)) {
-			randomBound = 90;
+			randomBound = SPAWN_CHANCE_COMMON;
 			if (getCrabs(level.getLevel()) >= type.getCategory().getMaxInstancesPerChunk() / 3) {
 				return false;
 			}
@@ -323,8 +325,8 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Override
 	public void tick() {
 		if (this.isDiggingOrEmerging()) {
-			this.xxa = 0.0F;
-			this.zza = 0.0F;
+			this.xxa = 0F;
+			this.zza = 0F;
 		}
 		boolean isClient = this.level().isClientSide;
 		if (this.level() instanceof ServerLevel serverLevel) {
@@ -332,15 +334,15 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		}
 		super.tick();
 		if (this.isDiggingOrEmerging()) {
-			this.xxa = 0.0F;
-			this.zza = 0.0F;
+			this.xxa = 0F;
+			this.zza = 0F;
 		}
 		if (!isClient) {
 			this.cancelMovementToDescend = false;
 			if (this.horizontalCollision) {
 				Vec3 usedMovement = this.getDeltaMovement();
 				this.setMoveState(this.getDeltaPos().y() >= 0 ? MoveState.CLIMBING : MoveState.DESCENDING);
-				if (this.isCrabDescending() && this.level().noBlockCollision(this, this.makeBoundingBox().expandTowards(0, -this.getEmptyAreaSearchDistance(), 0))) {
+				if (this.isCrabDescending() && this.level().noBlockCollision(this, this.makeBoundingBox().expandTowards(0D, -this.getEmptyAreaSearchDistance(), 0D))) {
 					this.cancelMovementToDescend = this.latchOntoWall(LATCH_TO_WALL_FORCE, false);
 				} else if (!this.onGround()) {
 					//this.latchOntoWall(LATCH_TO_WALL_FORCE, false);
@@ -348,7 +350,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 				//TODO: (Treetrain) find a way to get the face the Crab is walking on
 				Direction climbedDirection = Direction.getNearest(usedMovement.x(), usedMovement.y(), usedMovement.z());
 				this.setClimbingFace(climbedDirection);
-				if (usedMovement.x == 0 && usedMovement.z == 0) usedMovement = this.prevMovement;
+				if (usedMovement.x == 0D && usedMovement.z == 0D) usedMovement = this.prevMovement;
 				this.setTargetClimbAnimX(
 					Math.abs(getAngleFromVec3(usedMovement) - getAngleFromVec3(this.getViewVector(1F))) / 180F
 				);
@@ -361,7 +363,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 				this.setMoveState(MoveState.WALKING);
 				this.setTargetClimbAnimX(0F);
 				if (!this.onGround() && !this.isInWater()) {
-					if (this.level().noBlockCollision(this, this.makeBoundingBox().expandTowards(0, -this.getEmptyAreaSearchDistance(), 0))) {
+					if (this.level().noBlockCollision(this, this.makeBoundingBox().expandTowards(0D, -this.getEmptyAreaSearchDistance(), 0D))) {
 						this.cancelMovementToDescend = this.latchOntoWall(LATCH_TO_WALL_FORCE, false);
 					}
 				}
@@ -422,8 +424,8 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		super.customServerAiStep();
 		this.getBrain().setMemory(RegisterMemoryModuleTypes.FIRST_BRAIN_TICK, Unit.INSTANCE);
 		if (this.isDiggingOrEmerging()) {
-			this.xxa = 0.0F;
-			this.zza = 0.0F;
+			this.xxa = 0F;
+			this.zza = 0F;
 		}
 	}
 

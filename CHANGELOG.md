@@ -84,6 +84,7 @@ Bug Fixes & Changes
     - This also fixes an issue where other liquids like Lava could incorrectly be assigned different textures on occasion.
   - Optimized how the Tumbleweed Stem's selects its outline/collision shape.
   - Removed the `WilderSeedParticlePacket` class in favor of using the regular Vanilla particle packet.
+  - Removed the `WilderTermiteParticlePacket` class in favor of using the regular Vanilla particle packet.
   - Removed the `Goat Horn Symphony` and `Back` discs as they didn't feel like necessary additions, nor did they fit Vanilla.
     - These will be datafixed into Lena Raine's `Otherside` and Samuel Åberg's `5` respectively.
   - Defined the Random Sequence for every one of Wilder Wild's loot tables.
