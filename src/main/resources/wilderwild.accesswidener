@@ -113,6 +113,7 @@ accessible    method    net/minecraft/world/level/block/SculkBlock    getDecayPe
 accessible    field    net/minecraft/world/level/block/entity/RandomizableContainerBlockEntity    lootTable    Lnet/minecraft/resources/ResourceLocation;
 accessible    class    net/minecraft/world/level/block/entity/SculkSensorBlockEntity$VibrationUser
 accessible    class    net/minecraft/world/level/block/entity/SculkShriekerBlockEntity$VibrationUser
+accessible    field    net/minecraft/world/level/block/SculkSpreader$ChargeCursor    pos    Lnet/minecraft/core/BlockPos;
 
 # Render Types
 accessible    class    net/minecraft/client/renderer/RenderType$CompositeState

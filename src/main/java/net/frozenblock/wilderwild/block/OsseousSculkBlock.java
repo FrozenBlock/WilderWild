@@ -163,6 +163,7 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 								SoundType placedSoundType = blockState.getSoundType();
 								level.playSound(null, mutableBlockPos, placedSoundType.getPlaceSound(), SoundSource.BLOCKS, placedSoundType.getVolume(), placedSoundType.getPitch());
 								workOnBottom(level, mutableBlockPos, state);
+								cursor.pos = mutableBlockPos.immutable();
 								if (!isWorldGeneration) {
 									return Math.max(0, i - j);
 								}

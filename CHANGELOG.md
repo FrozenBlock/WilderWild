@@ -68,6 +68,8 @@ Bug Fixes & Changes
     - Please note that this will not impact the block itself in any way.
   - Added many public static fields to blocks for better code readability and editability.
   - Significantly improved the `OsseousSculkBlock` class and merged both growing methods into one.
+  - Sculk Charges will now move to newly placed blocks in Osseous Sculk pillars upon growth.
+    - This doesn't mean they'll only move in one direction, they'll just be snapped to that position initially as the block is set and can still move downwards afterwards.
   - Echo Glass will now drop itself upon cracking if not hit by a Sonic Boom.
   - Baobab Nuts and Palm Fronds are now compostable.
   - Changed the minimum and maximum amount of Milkweed Pods obtainable by shearing Milkweed to 1 and 3 respectively, previously being 2 and 5.
