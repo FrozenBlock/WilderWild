@@ -1,5 +1,5 @@
 {
-	parent": "block/block",
+	"parent": "block/block",
 	"ambientocclusion": false,
 	"textures": {
 		"2": "wilderwild:block/tumbleweed_inner_stage_3",
