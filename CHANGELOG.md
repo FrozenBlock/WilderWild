@@ -73,6 +73,9 @@ Bug Fixes & Changes
   - Echo Glass will now drop itself upon cracking if not hit by a Sonic Boom.
   - Baobab Nuts and Palm Fronds are now compostable.
   - Changed the minimum and maximum amount of Milkweed Pods obtainable by shearing Milkweed to 1 and 3 respectively, previously being 2 and 5.
+    - The Milkweed Pod to String recipe now requires 9 Milkweed Pods instead of just 1.
+  - Decreased the amount of String obtained from crafting with Cattails from 3 to 1.
+    - This recipe now requires 4 Cattails instead of just 1.
   - Tweaked how Pollen chooses where to spawn particles, now being able to spawn particles above itself.
   - Fixed the placement of the seed particle created when a Seeding Dandelion random ticks.
   - Added the Bush, Tumbleweed, Tumbleweed Stem, Milkweed, Datura, Cattail, Flowering Lily Pad, Algae, Shelf Fungus, Small Sponge, Prickly Pear Cactus, and Nematocyst blocks to the `minecraft:sword_efficient` tag.
@@ -83,7 +86,6 @@ Bug Fixes & Changes
   - Removed the `WilderSeedParticlePacket` class in favor of using the regular Vanilla particle packet.
   - Removed the `Goat Horn Symphony` and `Back` discs as they didn't feel like necessary additions, nor did they fit Vanilla.
     - These will be datafixed into Lena Raine's `Otherside` and Samuel Åberg's `5` respectively.
-  - Decreased the amount of String obtained crafting with Cattails from 3 to 1.
   - Defined the Random Sequence for every one of Wilder Wild's loot tables.
   - Added the Palm Hanging Sign to the `wilderwild:hanging_signs` item tag.
   - Added the Palm Crown to the `wilderwild:palm_logs` item tag.
