@@ -74,7 +74,7 @@ Bug Fixes & Changes
   - Baobab Nuts and Palm Fronds are now compostable.
   - Changed the minimum and maximum amount of Milkweed Pods obtainable by shearing Milkweed to 1 and 3 respectively, previously being 2 and 5.
     - The Milkweed Pod to String recipe now requires 9 Milkweed Pods instead of just 1.
-  - Decreased the amount of String obtained from crafting with Cattails from 3 to 1.
+  - The Cattail to String recipe now only yields 1 String as opposed to 3.
     - This recipe now requires 4 Cattails instead of just 1.
   - Tweaked how Pollen chooses where to spawn particles, now being able to spawn particles above itself.
   - Fixed the placement of the seed particle created when a Seeding Dandelion random ticks.
