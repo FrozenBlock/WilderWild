@@ -157,26 +157,28 @@ public class AncientHornVibration extends AbstractArrow {
 		RandomSource random = this.random;
 		if (this.bubbles > 0 && this.level() instanceof ServerLevel server) {
 			--this.bubbles;
-			int size = random.nextDouble() > 0.7D ? 1 : 0;
-			server.sendParticles(
-				new FloatingSculkBubbleParticleOptions(
-					size,
-					20 + random.nextInt(40),
-					new Vec3(
-						FloatingSculkBubbleParticleOptions.getRandomVelocity(random, size),
-						0.05D,
-						FloatingSculkBubbleParticleOptions.getRandomVelocity(random, size)
-					)
-				),
-				pos.x(),
-				pos.y(),
-				pos.z(),
-				random.nextIntBetweenInclusive(MIN_BUBBLE_PARTICLES, MAX_BUBBLE_PARTICLES),
-				0D,
-				0D,
-				0D,
-				0D
-			);
+			for (int i = 0; i < random.nextIntBetweenInclusive(MIN_BUBBLE_PARTICLES, MAX_BUBBLE_PARTICLES); i++) {
+				int size = random.nextDouble() > 0.7D ? 1 : 0;
+				server.sendParticles(
+					new FloatingSculkBubbleParticleOptions(
+						size,
+						20 + random.nextInt(40),
+						new Vec3(
+							FloatingSculkBubbleParticleOptions.getRandomVelocity(random, size),
+							0.05D,
+							FloatingSculkBubbleParticleOptions.getRandomVelocity(random, size)
+						)
+					),
+					pos.x(),
+					pos.y(),
+					pos.z(),
+					1,
+					0D,
+					0D,
+					0D,
+					0D
+				);
+			}
 		}
 		if (this.aliveTicks > ItemConfig.get().ancientHorn.ancientHornLifespan) {
 			this.dissipate();
@@ -201,25 +203,27 @@ public class AncientHornVibration extends AbstractArrow {
 		BlockState blockState = this.level().getBlockState(blockPos);
 
 		if (this.isInWater() && level() instanceof ServerLevel server) {
-			server.sendParticles(
-				new FloatingSculkBubbleParticleOptions(
-					0,
-					60,
-					new Vec3(
-						FloatingSculkBubbleParticleOptions.getRandomVelocity(random, 0),
-						0.05D,
-						FloatingSculkBubbleParticleOptions.getRandomVelocity(random, 0)
-					)
-				),
-				pos.x(),
-				pos.y(),
-				pos.z(),
-				BUBBLE_PARTICLES_WATER,
-				0D,
-				0D,
-				0D,
-				0D
-			);
+			for (int i = 0; i < BUBBLE_PARTICLES_WATER; i++) {
+				server.sendParticles(
+					new FloatingSculkBubbleParticleOptions(
+						0,
+						60,
+						new Vec3(
+							FloatingSculkBubbleParticleOptions.getRandomVelocity(random, 0),
+							0.05D,
+							FloatingSculkBubbleParticleOptions.getRandomVelocity(random, 0)
+						)
+					),
+					pos.x(),
+					pos.y(),
+					pos.z(),
+					1,
+					0D,
+					0D,
+					0D,
+					0D
+				);
+			}
 		}
 
 		if (this.isInWaterOrRain() || blockState.is(Blocks.POWDER_SNOW)) {

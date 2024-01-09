@@ -143,7 +143,6 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 				if (!level.isClientSide) {
 					RandomSource random = level.getRandom();
 					Vec3 outputPos = getOutputPosition(position, direction);
-					Vec3 velocity = getVelocity(random, direction, 7D, i, corroded);
 					UniformInt xzOffset = UniformInt.of(-3, 3);
 					UniformInt yOffset = UniformInt.of(-1, 1);
 					for (int o = 0; o < random.nextIntBetweenInclusive(1, 4); ++o) {
