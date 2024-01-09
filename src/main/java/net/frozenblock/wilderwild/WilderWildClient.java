@@ -100,6 +100,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		SplashTextAPI.addSplashLocation(WilderSharedConstants.id("texts/splashes.txt"));
 		Panoramas.addPanorama(WilderSharedConstants.id("textures/gui/title/first/panorama"));
 		Panoramas.addPanorama(WilderSharedConstants.id("textures/gui/title/second/panorama"));
+		Panoramas.addPanorama(WilderSharedConstants.id("textures/gui/title/third/panorama"));
 		WilderEasterEggs.hatchEasterEggs();
 
 		BlockRenderLayerMap renderLayerRegistry = BlockRenderLayerMap.INSTANCE;

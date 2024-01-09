@@ -133,8 +133,8 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static final class DyingForest {
-		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.450F, -0.255F);
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.100F, 0.050F);
+		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.465F, -0.300F);
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.105F, 0.050F);
 		public static final float TEMP = 0.35F;
 		public static final float DOWNFALL = 0.65F;
 		public static final int WATER_COLOR = 4159204;
@@ -150,7 +150,7 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static final class SnowyDyingForest {
-		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.485F, -0.450F);
+		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.485F, -0.465F);
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.105F, 0.050F);
 		public static final float TEMP = 0.05F;
 		public static final float DOWNFALL = 0.575F;
@@ -166,10 +166,10 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static final class DyingMixedForest {
-		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.450F, -0.255F);
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.050F, 0.150F);
-		public static final Climate.Parameter TEMPERATURE_WEIRD = Climate.Parameter.span(-0.450F, -0.425F);
-		public static final Climate.Parameter HUMIDITY_WEIRD = Climate.Parameter.span(-0.100F, 0.100F);
+		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.465F, -0.255F);
+		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.050F, 0.155F);
+		public static final Climate.Parameter TEMPERATURE_WEIRD = Climate.Parameter.span(-0.465F, -0.425F);
+		public static final Climate.Parameter HUMIDITY_WEIRD = Climate.Parameter.span(-0.105F, 0.100F);
 		public static final float TEMP = 0.35F;
 		public static final float DOWNFALL = 0.55F;
 		public static final int WATER_COLOR = 4159204;
@@ -185,7 +185,7 @@ public final class WilderSharedWorldgen {
 	}
 
 	public static final class SnowyDyingMixedForest {
-		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.485F, -0.450F);
+		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.485F, -0.465F);
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.050F, 0.155F);
 		public static final Climate.Parameter HUMIDITY_WEIRD = Climate.Parameter.span(-0.105F, 0.155F);
 		public static final float TEMP = -0.4F;
