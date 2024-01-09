@@ -26,11 +26,17 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Slice;
 
 @Mixin(FireworkRocketEntity.class)
 public class FireworkRocketEntityMixin {
+
+	@Shadow
+	private int life;
+	@Shadow
+	private int lifetime;
 
 	@WrapOperation(
 		method = "tick",
@@ -43,7 +49,8 @@ public class FireworkRocketEntityMixin {
 		)
 	)
 	private void wilderWild$moveWithWind(FireworkRocketEntity instance, Vec3 vec3, Operation<Void> operation) {
-		Vec3 wind = ClientWindManager.getWindMovement(instance.level(), BlockPos.containing(instance.getX(), instance.getY(), instance.getZ()), 1.5D).scale(MiscConfig.get().getParticleWindIntensity());
+		double intensity = 1.5D * ((double) (lifetime - life) / lifetime);
+		Vec3 wind = ClientWindManager.getWindMovement(instance.level(), BlockPos.containing(instance.getX(), instance.getY(), instance.getZ()), intensity).scale(MiscConfig.get().getParticleWindIntensity());
 		vec3 = vec3.add(wind.x() * 0.001, wind.y() * 0.00005D, wind.z() * 0.001);
 		operation.call(instance, vec3);
 	}
