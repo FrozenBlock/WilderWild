@@ -54,7 +54,7 @@ public class SeedingFlowerBlock extends FlowerBlock {
 	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if (random.nextFloat() > SEED_SPAWN_CHANCE) {
 			level.addParticle(
-				new SeedParticleOptions(false, false),
+				SeedParticleOptions.unControlled(false),
 				pos.getX() + 0.5D,
 				pos.getY() + SEED_SPAWN_HEIGHT,
 				pos.getZ() + 0.5D,
@@ -69,7 +69,7 @@ public class SeedingFlowerBlock extends FlowerBlock {
 	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
 		if (level instanceof ServerLevel server && server.getRandom().nextFloat() > SEED_SPAWN_CHANCE) {
 			server.sendParticles(
-				new SeedParticleOptions(false, false),
+				SeedParticleOptions.unControlled(false),
 				pos.getX() + 0.5D,
 				pos.getY() + SEED_SPAWN_HEIGHT,
 				pos.getZ() + 0.5D,
@@ -88,7 +88,7 @@ public class SeedingFlowerBlock extends FlowerBlock {
 		BlockState original = super.playerWillDestroy(level, pos, state, player);
 		if (level instanceof ServerLevel server) {
 			server.sendParticles(
-				new SeedParticleOptions(false, false),
+				SeedParticleOptions.unControlled(false),
 				pos.getX() + 0.5D,
 				pos.getY() + SEED_SPAWN_HEIGHT,
 				pos.getZ() + 0.5D,

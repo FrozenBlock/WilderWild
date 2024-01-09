@@ -120,7 +120,7 @@ public class MilkweedBlock extends TallFlowerBlock {
 				} else {
 					level.playSound(null, player.getX(), player.getY(), player.getZ(), RegisterSounds.BLOCK_MILKWEED_RUSTLE, SoundSource.BLOCKS, 0.8F, 0.9F + (level.getRandom().nextFloat() * 0.15F));
 					serverLevel.sendParticles(
-						new SeedParticleOptions(true, false),
+						SeedParticleOptions.unControlled(true),
 						pos.getX() + 0.5D,
 						pos.getY() + SEED_SPAWN_HEIGHT,
 						pos.getZ() + 0.5D,

@@ -80,11 +80,14 @@ Bug Fixes & Changes
   - Fixed the placement of the seed particle created when a Seeding Dandelion random ticks.
   - Added the Bush, Tumbleweed, Tumbleweed Stem, Milkweed, Datura, Cattail, Flowering Lily Pad, Algae, Shelf Fungus, Small Sponge, Prickly Pear Cactus, and Nematocyst blocks to the `minecraft:sword_efficient` tag.
   - Potted Small Dripleaves now use their loot table (renamed `wilderwild:blocks/potted_small.dripleaf` to `wilderwild:blocks/potted_small_dripleaf.`)
+  - Optimized how the Tumbleweed Stem's selects its outline/collision shape.
   - Reworked the `LiquidBlockRendererMixin` for making the underside of Water smooth to now be extremely reliable and much safer.
     - This also fixes an issue where other liquids like Lava could incorrectly be assigned different textures on occasion.
-  - Optimized how the Tumbleweed Stem's selects its outline/collision shape.
   - Removed the `WilderSeedParticlePacket` class in favor of using the regular Vanilla particle packet.
+  - Removed the `WilderControlledSeedParticlePacket` class in favor of using the regular Vanilla particle packet.
+    - This change has resulted in the `SeedParticleOptions` class receiving two new invocation methods and new constructor parameters.
   - Removed the `WilderTermiteParticlePacket` class in favor of using the regular Vanilla particle packet.
+  - Significantly cleaned up and reduced the amount of duplicated code in the `SimpleCopperPipesIntegration` class.
   - Removed the `Goat Horn Symphony` and `Back` discs as they didn't feel like necessary additions, nor did they fit Vanilla.
     - These will be datafixed into Lena Raine's `Otherside` and Samuel Åberg's `5` respectively.
   - Defined the Random Sequence for every one of Wilder Wild's loot tables.

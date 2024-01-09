@@ -28,13 +28,17 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class SeedParticleOptions implements ParticleOptions {
 	public static final Codec<SeedParticleOptions> CODEC = RecordCodecBuilder.create((instance) ->
 		instance.group(
-				Codec.BOOL.fieldOf("is_milkweed").forGetter((particleOptions) -> particleOptions.isMilkweed),
-				Codec.BOOL.fieldOf("is_controlled").forGetter((particleOptions) -> particleOptions.controlled)
+				Codec.BOOL.fieldOf("is_milkweed").forGetter(SeedParticleOptions::isMilkweed),
+				Codec.BOOL.fieldOf("is_controlled").forGetter(SeedParticleOptions::isControlled),
+				Codec.DOUBLE.fieldOf("x_speed").forGetter(SeedParticleOptions::getXSpeed),
+				Codec.DOUBLE.fieldOf("y_speed").forGetter(SeedParticleOptions::getYSpeed),
+				Codec.DOUBLE.fieldOf("z_speed").forGetter(SeedParticleOptions::getZSpeed)
 			)
 			.apply(instance, SeedParticleOptions::new)
 	);
@@ -45,22 +49,43 @@ public class SeedParticleOptions implements ParticleOptions {
 		public SeedParticleOptions fromCommand(@NotNull ParticleType<SeedParticleOptions> particleType, @NotNull StringReader stringReader) throws CommandSyntaxException {
 			boolean milkweed = stringReader.readBoolean();
 			boolean controlled = stringReader.readBoolean();
+			double xSpeed = stringReader.readDouble();
+			double ySpeed = stringReader.readDouble();
+			double zSpeed = stringReader.readDouble();
 			stringReader.expect(' ');
-			return new SeedParticleOptions(milkweed, controlled);
+			return new SeedParticleOptions(milkweed, controlled, xSpeed, ySpeed, zSpeed);
 		}
 
 		@Override
 		@NotNull
-		public SeedParticleOptions fromNetwork(@NotNull ParticleType<SeedParticleOptions> particleType, @NotNull FriendlyByteBuf friendlyByteBuf) {
-			return new SeedParticleOptions(friendlyByteBuf.readBoolean(), friendlyByteBuf.readBoolean());
+		public SeedParticleOptions fromNetwork(@NotNull ParticleType<SeedParticleOptions> particleType, @NotNull FriendlyByteBuf byteBuf) {
+			return new SeedParticleOptions(byteBuf.readBoolean(), byteBuf.readBoolean(), byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
 		}
 	};
 	private final boolean isMilkweed;
 	private final boolean controlled;
+	private final double xSpeed;
+	private final double ySpeed;
+	private final double zSpeed;
 
-	public SeedParticleOptions(boolean isMilkweed, boolean controlled) {
+	@NotNull
+	@Contract(value = "_, _, _, _ -> new", pure = true)
+	public static SeedParticleOptions controlled(boolean isMilkweed, double xSpeed, double ySpeed, double zSpeed) {
+		return new SeedParticleOptions(isMilkweed, true, xSpeed, ySpeed, zSpeed);
+	}
+
+	@NotNull
+	@Contract(value = "_ -> new", pure = true)
+	public static SeedParticleOptions unControlled(boolean isMilkweed) {
+		return new SeedParticleOptions(isMilkweed, false, 0D, 0D, 0D);
+	}
+
+	private SeedParticleOptions(boolean isMilkweed, boolean controlled, double xSpeed, double ySpeed, double zSpeed) {
 		this.isMilkweed = isMilkweed;
 		this.controlled = controlled;
+		this.xSpeed = xSpeed;
+		this.ySpeed = ySpeed;
+		this.zSpeed = zSpeed;
 	}
 
 	@Override
@@ -69,9 +94,13 @@ public class SeedParticleOptions implements ParticleOptions {
 		return RegisterParticles.SEED;
 	}
 
+	@Override
 	public void writeToNetwork(@NotNull FriendlyByteBuf buffer) {
 		buffer.writeBoolean(this.isMilkweed);
 		buffer.writeBoolean(this.controlled);
+		buffer.writeDouble(this.xSpeed);
+		buffer.writeDouble(this.ySpeed);
+		buffer.writeDouble(this.zSpeed);
 	}
 
 	@NotNull
@@ -85,6 +114,18 @@ public class SeedParticleOptions implements ParticleOptions {
 
 	public boolean isControlled() {
 		return this.controlled;
+	}
+
+	public double getXSpeed() {
+		return this.xSpeed;
+	}
+
+	public double getYSpeed() {
+		return this.ySpeed;
+	}
+
+	public double getZSpeed() {
+		return this.zSpeed;
 	}
 
 }

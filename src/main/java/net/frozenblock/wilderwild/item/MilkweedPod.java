@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.item;
 
-import net.frozenblock.wilderwild.networking.packet.WilderControlledSeedParticlePacket;
+import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -28,11 +28,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class MilkweedPod extends Item {
 	public static final double SHOOT_DISTANCE_FROM_EYE = -0.1D;
-	public static final double PARTICLE_Y_RANDOMIZER = 0.2D;
+	public static final double PARTICLE_Y_OFFSET = 0.2D;
 	public static final int MIN_SEEDS = 5;
 	public static final int MAX_SEEDS = 20;
 
@@ -50,18 +51,20 @@ public class MilkweedPod extends Item {
 		if (level instanceof ServerLevel serverLevel) {
 			float pitch = user.getXRot();
 			float yaw = user.getYRot();
-			float f = -Mth.sin(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F);
-			float g = -Mth.sin((pitch) * 0.017453292F);
-			float h = Mth.cos(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F);
-			WilderControlledSeedParticlePacket.sendToAll(
-				level,
-				user.getEyePosition().add(0, SHOOT_DISTANCE_FROM_EYE, 0),
-				f,
-				g,
-				h,
+			float f = -Mth.sin(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F) * 1.5F;
+			float g = -Mth.sin((pitch) * 0.017453292F) + 0.035F;
+			float h = Mth.cos(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F) * 1.5F;
+			Vec3 spawnPos = user.getEyePosition().add(0, SHOOT_DISTANCE_FROM_EYE, 0);
+			serverLevel.sendParticles(
+				SeedParticleOptions.controlled(true, f, g, h),
+				spawnPos.x(),
+				spawnPos.y(),
+				spawnPos.z(),
 				serverLevel.getRandom().nextIntBetweenInclusive(MIN_SEEDS, MAX_SEEDS),
-				true,
-				PARTICLE_Y_RANDOMIZER
+				0D,
+				PARTICLE_Y_OFFSET,
+				0D,
+				0D
 			);
 		}
 
