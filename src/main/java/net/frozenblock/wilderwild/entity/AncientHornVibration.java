@@ -395,7 +395,6 @@ public class AncientHornVibration extends AbstractArrow {
 						server.levelEvent(LevelEvent.PARTICLES_SCULK_SHRIEK, pos, 0);
 						server.gameEvent(GameEvent.SHRIEK, pos, GameEvent.Context.of(owner));
 						setCooldown(getCooldown(this.getOwner(), SHRIEKER_COOLDOWN));
-						this.dissipate();
 					}
 				}
 			} else if (block instanceof SculkSensorBlock sculkSensor) {
@@ -567,7 +566,6 @@ public class AncientHornVibration extends AbstractArrow {
 			BlockHitResult blockHitResult = (BlockHitResult) result;
 			if (!level().getBlockState(blockHitResult.getBlockPos()).is(NON_COLLIDE)) {
 				this.onHitBlock(blockHitResult);
-				this.dissipate();
 			}
 		}
 	}
