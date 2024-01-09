@@ -60,6 +60,9 @@ Xicad/Emma:
 Sculk Analyzer:
  - Sculk Echoer concept & inspiration.
 
+Shadownite64:
+ - Ostrich concept.
+
 SaishoVibes:
  - Initial configs.
 
