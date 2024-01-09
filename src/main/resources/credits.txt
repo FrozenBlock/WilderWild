@@ -19,7 +19,7 @@ Treetrain1:
 Soro:
  - Initial biome additions.
  - Most new Tree generation.
- - Biome ideas (Temperate Rainforest, Mixed Forest.)
+ - Biome ideas (Temperate Rainforest, Mixed Forest, Oasis.)
  - Beta Beaches.
  - Water Pools generating near Rivers.
  - Scorched Sand concept.
