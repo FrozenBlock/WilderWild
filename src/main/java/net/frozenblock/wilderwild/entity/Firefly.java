@@ -107,11 +107,11 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 
 	public Firefly(@NotNull EntityType<? extends Firefly> entityType, @NotNull Level level) {
 		super(entityType, level);
-		this.setPathfindingMalus(BlockPathTypes.LAVA, -1.0F);
-		this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1.0F);
-		this.setPathfindingMalus(BlockPathTypes.WATER, -1.0F);
-		this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 16.0F);
-		this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
+		this.setPathfindingMalus(BlockPathTypes.LAVA, -1F);
+		this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1F);
+		this.setPathfindingMalus(BlockPathTypes.WATER, -1F);
+		this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 16F);
+		this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0F);
 		this.moveControl = new FlyingMoveControl(this, 20, true);
 		this.setFlickers(level.random.nextInt(4) == 0);
 		this.setFlickerAge(level.random.nextIntBetweenInclusive(0, 19));
@@ -130,7 +130,11 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 
 	@NotNull
 	public static AttributeSupplier.Builder createAttributes() {
-		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 1.0D).add(Attributes.MOVEMENT_SPEED, 0.08F).add(Attributes.FLYING_SPEED, 0.08F).add(Attributes.FOLLOW_RANGE, 32);
+		return Mob.createMobAttributes()
+			.add(Attributes.MAX_HEALTH, 1D)
+			.add(Attributes.MOVEMENT_SPEED, 0.08D)
+			.add(Attributes.FLYING_SPEED, 0.08D)
+			.add(Attributes.FOLLOW_RANGE, 32D);
 	}
 
 	public static boolean isValidHomePos(@NotNull Level level, @NotNull BlockPos pos) {
@@ -192,14 +196,13 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 	public Optional<InteractionResult> tryCapture(@NotNull Player player, @NotNull InteractionHand hand) {
 		ItemStack itemStack = player.getItemInHand(hand);
 		if (itemStack.getItem() == Items.GLASS_BOTTLE && this.isAlive()) {
-			WilderSharedConstants.log("Firefly capture attempt starting @ " + this.blockPosition().toShortString() + " by " + player.getDisplayName().getString(), WilderSharedConstants.UNSTABLE_LOGGING);
 			FireflyColor color = this.getColor();
 			Optional<Item> optionalItem = BuiltInRegistries.ITEM.getOptional(new ResourceLocation(color.key().getNamespace(), Objects.equals(color, FireflyColor.ON) ? "firefly_bottle" : color.key().getPath() + "_firefly_bottle"));
 			Item item = RegisterItems.FIREFLY_BOTTLE;
 			if (optionalItem.isPresent()) {
 				item = optionalItem.get();
 			}
-			this.playSound(RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, 1.0F, this.random.nextFloat() * 0.2F + 0.8F);
+			this.playSound(RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, 1F, this.random.nextFloat() * 0.2F + 0.8F);
 			if (!player.isCreative()) {
 				player.getItemInHand(hand).shrink(1);
 			}
@@ -296,7 +299,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 
 	@Override
 	public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
-		return 0.0F;
+		return 0F;
 	}
 
 	@Override
@@ -334,15 +337,15 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 				if (this.isInWater()) {
 					this.moveRelative(0.01F, travelVector);
 					this.move(MoverType.SELF, this.getDeltaMovement());
-					this.setDeltaMovement(this.getDeltaMovement().scale(0.800000011920929));
+					this.setDeltaMovement(this.getDeltaMovement().scale(0.800000011920929D));
 				} else if (this.isInLava()) {
 					this.moveRelative(0.01F, travelVector);
 					this.move(MoverType.SELF, this.getDeltaMovement());
-					this.setDeltaMovement(this.getDeltaMovement().scale(0.5));
+					this.setDeltaMovement(this.getDeltaMovement().scale(0.5D));
 				} else {
 					this.moveRelative(this.getSpeed(), travelVector);
 					this.move(MoverType.SELF, this.getDeltaMovement());
-					this.setDeltaMovement(this.getDeltaMovement().scale(0.9100000262260437));
+					this.setDeltaMovement(this.getDeltaMovement().scale(0.9100000262260437D));
 				}
 			} else {
 				super.travel(travelVector);
@@ -422,7 +425,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 
 		if (this.despawning) {
 			this.setAnimScale(this.getAnimScale() - 0.5F);
-			if (this.getAnimScale() < 0.0F) {
+			if (this.getAnimScale() < 0F) {
 				this.discard();
 			}
 		} else if (this.getAnimScale() < 1.5F) {
@@ -467,13 +470,13 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 				this.noActionTime = 0;
 				return;
 			}
-			Player entity = this.level().getNearestPlayer(this, -1.0);
+			Player entity = this.level().getNearestPlayer(this, -1D);
 			if (entity != null) {
 				int i;
 				double d = entity.distanceToSqr(this);
 				boolean dayKey = !this.level().getBiome(this.blockPosition()).is(WilderBiomeTags.FIREFLY_SPAWNABLE_DURING_DAY) && this.level().isDay() && !this.level().getBiome(this.blockPosition()).is(WilderBiomeTags.FIREFLY_SPAWNABLE_CAVE);
 				boolean caveKey = this.level().getBiome(this.blockPosition()).is(WilderBiomeTags.FIREFLY_SPAWNABLE_CAVE) && this.level().getBrightness(LightLayer.SKY, this.blockPosition()) >= 6;
-				if (this.removeWhenFarAway(d) && Math.sqrt(d) > 18) {
+				if (this.removeWhenFarAway(d) && Math.sqrt(d) > 18D) {
 					if (dayKey) {
 						this.despawning = true;
 					} else if (caveKey) {

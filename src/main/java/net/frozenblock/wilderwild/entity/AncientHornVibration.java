@@ -101,7 +101,6 @@ public class AncientHornVibration extends AbstractArrow {
 	public static final int MIN_BUBBLE_PARTICLES = 1;
 	public static final int MAX_BUBBLE_PARTICLES = 3;
 	public static final int BUBBLE_PARTICLES_WATER = 4;
-	public static final double DEGREES_TO_RAD = 180F / Math.PI;
 	private static final TagKey<Block> NON_COLLIDE = WilderBlockTags.ANCIENT_HORN_NON_COLLIDE;
 	private static final EntityDataAccessor<Float> BOUNDING_BOX_MULTIPLIER = SynchedEntityData.defineId(AncientHornVibration.class, EntityDataSerializers.FLOAT);
 	public boolean canInteractWithPipe = true;
@@ -155,9 +154,9 @@ public class AncientHornVibration extends AbstractArrow {
 		this.baseTick();
 		this.shakeTime = 0;
 		Vec3 pos = this.position();
+		RandomSource random = this.random;
 		if (this.bubbles > 0 && this.level() instanceof ServerLevel server) {
 			--this.bubbles;
-			RandomSource random = server.getRandom();
 			int size = random.nextDouble() > 0.7D ? 1 : 0;
 			server.sendParticles(
 				new FloatingSculkBubbleParticleOptions(
@@ -193,8 +192,8 @@ public class AncientHornVibration extends AbstractArrow {
 		Vec3 deltaMovement = this.getDeltaMovement();
 		if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
 			double horizontalDistance = deltaMovement.horizontalDistance();
-			this.setYRot((float) (Mth.atan2(deltaMovement.x, deltaMovement.z) * DEGREES_TO_RAD));
-			this.setXRot((float) (Mth.atan2(deltaMovement.y, horizontalDistance) * DEGREES_TO_RAD));
+			this.setYRot((float) (Mth.atan2(deltaMovement.x, deltaMovement.z) * Mth.DEG_TO_RAD));
+			this.setXRot((float) (Mth.atan2(deltaMovement.y, horizontalDistance) * Mth.DEG_TO_RAD));
 			this.yRotO = this.getYRot();
 			this.xRotO = this.getXRot();
 		}
@@ -273,11 +272,11 @@ public class AncientHornVibration extends AbstractArrow {
 		double newZ = pos.z() + (deltaZ / moveDivider);
 		double horizontalDistance = deltaMovement.horizontalDistance();
 		if (noPhysics) {
-			this.setYRot((float) (Mth.atan2(-deltaX, -deltaZ) * DEGREES_TO_RAD));
+			this.setYRot((float) (Mth.atan2(-deltaX, -deltaZ) * Mth.DEG_TO_RAD));
 		} else {
-			this.setYRot((float) (Mth.atan2(deltaX, deltaZ) * DEGREES_TO_RAD));
+			this.setYRot((float) (Mth.atan2(deltaX, deltaZ) * Mth.DEG_TO_RAD));
 		}
-		this.setXRot((float) (Mth.atan2(deltaY, horizontalDistance) * DEGREES_TO_RAD));
+		this.setXRot((float) (Mth.atan2(deltaY, horizontalDistance) * Mth.DEG_TO_RAD));
 		this.setXRot(lerpRotation(this.xRotO, this.getXRot()));
 		this.setYRot(lerpRotation(this.yRotO, this.getYRot()));
 
@@ -551,9 +550,9 @@ public class AncientHornVibration extends AbstractArrow {
 
 	@Override
 	public void shootFromRotation(@NotNull Entity shooter, float pitch, float yaw, float roll, float speed, float divergence) {
-		float xRot = -Mth.sin((float) (yaw * DEGREES_TO_RAD)) * Mth.cos((float) (pitch * DEGREES_TO_RAD));
-		float yRot = -Mth.sin((float) ((pitch + roll) * DEGREES_TO_RAD));
-		float zRot = Mth.cos((float) (yaw * DEGREES_TO_RAD)) * Mth.cos((float) (pitch * DEGREES_TO_RAD));
+		float xRot = -Mth.sin(yaw * Mth.DEG_TO_RAD) * Mth.cos((float) (pitch * Mth.DEG_TO_RAD));
+		float yRot = -Mth.sin((pitch + roll) * Mth.DEG_TO_RAD);
+		float zRot = Mth.cos(yaw * Mth.DEG_TO_RAD) * Mth.cos((float) (pitch * Mth.DEG_TO_RAD));
 		this.shoot(xRot, yRot, zRot, speed, divergence);
 		this.vecX = shooter.getX();
 		this.vecY = shooter.getEyeY();

@@ -35,6 +35,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
@@ -54,8 +55,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 	private static final RenderType NECTAR_FLAP_LAYER = RenderType.entityCutout(WilderSharedConstants.id("textures/entity/firefly/nectar_wings_down.png"));
 	private static final RenderType NECTAR_OVERLAY = RenderType.entityTranslucentEmissive(WilderSharedConstants.id("textures/entity/firefly/nectar_overlay.png"), true);
 	private static final float Y_OFFSET = 0.155F;
-	private static final Quaternionf ONE_HUNDRED_EIGHTY_QUAT = Axis.YP.rotationDegrees(180.0F);
-	private static final float PI = (float) Math.PI;
+	private static final Quaternionf QUAT_180 = Axis.YP.rotationDegrees(180F);
 
 	public FireflyRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx);
@@ -66,7 +66,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 		poseStack.scale(scale, scale, scale);
 		poseStack.translate(xOffset, yOffset, zOffset);
 		poseStack.mulPose(rotation);
-		poseStack.mulPose(ONE_HUNDRED_EIGHTY_QUAT);
+		poseStack.mulPose(QUAT_180);
 
 		PoseStack.Pose entry = poseStack.last();
 		Matrix4f matrix4f = entry.pose();
@@ -75,36 +75,36 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 		VertexConsumer vertexConsumer = buffer.getBuffer(nectar ? nectarLayer.get() : LAYER);
 
 		vertexConsumer
-			.vertex(matrix4f, -0.5F, -0.5F, 0.0F)
+			.vertex(matrix4f, -0.5F, -0.5F, 0F)
 			.color(255, 255, 255, 255)
 			.uv(0, 1)
 			.overlayCoords(overlay)
 			.uv2(light)
-			.normal(matrix3f, 0.0F, 1.0F, 0.0F)
+			.normal(matrix3f, 0F, 1F, 0F)
 			.endVertex();
 		vertexConsumer
-			.vertex(matrix4f, 0.5F, -0.5F, 0.0F)
+			.vertex(matrix4f, 0.5F, -0.5F, 0F)
 			.color(255, 255, 255, 255)
 			.uv(1, 1)
 			.overlayCoords(overlay)
 			.uv2(light)
-			.normal(matrix3f, 0.0F, 1.0F, 0.0F)
+			.normal(matrix3f, 0F, 1F, 0F)
 			.endVertex();
 		vertexConsumer
-			.vertex(matrix4f, 0.5F, 0.5F, 0.0F)
+			.vertex(matrix4f, 0.5F, 0.5F, 0F)
 			.color(255, 255, 255, 255)
 			.uv(1, 0)
 			.overlayCoords(overlay)
 			.uv2(light)
-			.normal(matrix3f, 0.0F, 1.0F, 0.0F)
+			.normal(matrix3f, 0F, 1F, 0F)
 			.endVertex();
 		vertexConsumer
-			.vertex(matrix4f, -0.5F, 0.5F, 0.0F)
+			.vertex(matrix4f, -0.5F, 0.5F, 0F)
 			.color(255, 255, 255, 255)
 			.uv(0, 0)
 			.overlayCoords(overlay)
 			.uv2(light)
-			.normal(matrix3f, 0.0F, 1.0F, 0.0F)
+			.normal(matrix3f, 0F, 1F, 0F)
 			.endVertex();
 
 		if (color != null && LAYERS.get(color.key()) != null) {
@@ -115,40 +115,40 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 		}
 
 		int calcColor = flickers ?
-			(int) (((age + tickDelta) * PI) * -4D) :
-			(int) Math.max((255D * (Math.cos(((age + tickDelta) * PI) * 0.05D))), 0D);
+			(int) (((age + tickDelta) * Mth.PI) * -4D) :
+			(int) Math.max((255D * (Math.cos(((age + tickDelta) * Mth.PI) * 0.05D))), 0D);
 
 		vertexConsumer
-			.vertex(matrix4f, -0.5F, -0.5F, 0.0F)
+			.vertex(matrix4f, -0.5F, -0.5F, 0F)
 			.color(calcColor, calcColor, calcColor, calcColor)
 			.uv(0, 1)
 			.overlayCoords(overlay)
 			.uv2(light)
-			.normal(matrix3f, 0.0F, 1.0F, 0.0F)
+			.normal(matrix3f, 0F, 1F, 0F)
 			.endVertex();
 		vertexConsumer
-			.vertex(matrix4f, 0.5F, -0.5F, 0.0F)
+			.vertex(matrix4f, 0.5F, -0.5F, 0F)
 			.color(calcColor, calcColor, calcColor, calcColor)
 			.uv(1, 1)
 			.overlayCoords(overlay)
 			.uv2(light)
-			.normal(matrix3f, 0.0F, 1.0F, 0.0F)
+			.normal(matrix3f, 0F, 1F, 0F)
 			.endVertex();
 		vertexConsumer
-			.vertex(matrix4f, 0.5F, 0.5F, 0.0F)
+			.vertex(matrix4f, 0.5F, 0.5F, 0F)
 			.color(calcColor, calcColor, calcColor, calcColor)
 			.uv(1, 0)
 			.overlayCoords(overlay)
 			.uv2(light)
-			.normal(matrix3f, 0.0F, 1.0F, 0.0F)
+			.normal(matrix3f, 0F, 1F, 0F)
 			.endVertex();
 		vertexConsumer
-			.vertex(matrix4f, -0.5F, 0.5F, 0.0F)
+			.vertex(matrix4f, -0.5F, 0.5F, 0F)
 			.color(calcColor, calcColor, calcColor, calcColor)
 			.uv(0, 0)
 			.overlayCoords(overlay)
 			.uv2(light)
-			.normal(matrix3f, 0.0F, 1.0F, 0.0F)
+			.normal(matrix3f, 0F, 1F, 0F)
 			.endVertex();
 
 		poseStack.popPose();

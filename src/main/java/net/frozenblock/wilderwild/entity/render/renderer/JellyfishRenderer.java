@@ -44,7 +44,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
 
 	@Override
 	public void setupRotations(@NotNull Jellyfish jelly, @NotNull PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick) {
-		poseStack.mulPose(Axis.YP.rotationDegrees(180.0F - rotationYaw));
+		poseStack.mulPose(Axis.YP.rotationDegrees(180F - rotationYaw));
 		poseStack.translate(0, jelly.isBaby() ? -1.1 : -1, 0);
 		poseStack.scale(0.8F, 0.8F, 0.8F);
 		JellyfishModel<Jellyfish> model = this.getModel();
@@ -54,8 +54,8 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
 		}
 
 		if (isEntityUpsideDown(jelly)) {
-			poseStack.translate(0.0F, jelly.getBbHeight() + 0.1F, 0.0F);
-			poseStack.mulPose(Axis.ZP.rotationDegrees(180.0F));
+			poseStack.translate(0F, jelly.getBbHeight() + 0.1F, 0F);
+			poseStack.mulPose(Axis.ZP.rotationDegrees(180F));
 		}
 
 		if (jelly.isRGB()) {

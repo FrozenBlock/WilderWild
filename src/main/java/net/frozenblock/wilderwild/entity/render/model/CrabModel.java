@@ -26,7 +26,6 @@ import net.frozenblock.wilderwild.entity.render.animations.CrabAnimations;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
@@ -36,9 +35,8 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Math;
 
 public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
-	private static final float PI_180 = Mth.PI / 180F;
 	private static final float DOUBLE_PI = Mth.PI * 2F;
-	private static final float FIFTY_RADIANS = 50F * PI_180;
+	private static final float RAD_50 = 50F * Mth.DEG_TO_RAD;
 
 	private final ModelPart root;
 	private final ModelPart body;
@@ -84,25 +82,26 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, -2.0F));
+		PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0F, 0F, -2F));
 
-		PartDefinition torso = body.addOrReplaceChild("torso", CubeListBuilder.create().texOffs(0, 2).addBox(-4.0F, -2.0F, -2.0F, 8.0F, 3.0F, 7.0F, new CubeDeformation(0.0F))
-			.texOffs(7, 0).addBox(-4.0F, -4.0F, 5.0F, 8.0F, 2.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition torso = body.addOrReplaceChild("torso", CubeListBuilder.create().texOffs(0, 2).addBox(-4F, -2F, -2F, 8F, 3F, 7F)
+			.texOffs(7, 0).addBox(-4F, -4F, 5F, 8F, 2F, 0F), PartPose.ZERO);
 
-		PartDefinition left_claw = body.addOrReplaceChild("left_claw", CubeListBuilder.create().texOffs(16, 12).addBox(1.0F, -1.0F, -1.0F, 3.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-6.0F, -1.0F, 4.25F, 0.0F, -0.6981F, 0.2618F));
+		PartDefinition left_claw = body.addOrReplaceChild("left_claw", CubeListBuilder.create().texOffs(16, 12).addBox(1.0F, -1.0F, -1F, 3F, 2F, 2F), PartPose.offsetAndRotation(-6F, -1F, 4.25F, 0F, -0.6981F, 0.2618F));
 
-		PartDefinition main_claw = body.addOrReplaceChild("main_claw", CubeListBuilder.create(), PartPose.offsetAndRotation(6.0F, -1.5F, 4.25F, 0.0F, 0.6981F, -0.5236F));
-		PartDefinition claw_top = main_claw.addOrReplaceChild("claw_top", CubeListBuilder.create().texOffs(0, 12).addBox(-6.0F, -1.5F, -1.0F, 6.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0, 0, 0, 0, 0, 0));
-		PartDefinition claw_bottom = main_claw.addOrReplaceChild("claw_bottom", CubeListBuilder.create().texOffs(0, 16).addBox(-6.0F, 0.5F, -1.0F, 6.0F, 1.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0, 0, 0, 0, 0, 0));
+		PartDefinition main_claw = body.addOrReplaceChild("main_claw", CubeListBuilder.create(), PartPose.offsetAndRotation(6F, -1.5F, 4.25F, 0.0F, 0.6981F, -0.5236F));
+		PartDefinition claw_top = main_claw.addOrReplaceChild("claw_top", CubeListBuilder.create().texOffs(0, 12).addBox(-6F, -1.5F, -1F, 6F, 2F, 2F), PartPose.ZERO);
+		PartDefinition claw_bottom = main_claw.addOrReplaceChild("claw_bottom", CubeListBuilder.create().texOffs(0, 16).addBox(-6F, 0.5F, -1F, 6F, 1F, 2F), PartPose.ZERO);
 
 		//LEGS
-		PartDefinition legs = partdefinition.addOrReplaceChild("legs", CubeListBuilder.create(), PartPose.offset(0.0F, -1.0F, -1.0F));
-		PartDefinition back_right_leg = legs.addOrReplaceChild("back_right_leg", CubeListBuilder.create().texOffs(28, 12).addBox(-0.5F, 0.0F, -0.5F, 1.0F, 4.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(4.0F, 1.0F, -2.25F, -0.4876F, -0.0741F, -0.7109F));
-		PartDefinition back_left_leg = legs.addOrReplaceChild("back_left_leg", CubeListBuilder.create().texOffs(28, 12).addBox(-0.5F, 0.0F, -0.5F, 1.0F, 4.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-4.0F, 1.0F, -2.25F, -0.4876F, 0.0741F, 0.7109F));
-		PartDefinition middle_right_leg = legs.addOrReplaceChild("middle_right_leg", CubeListBuilder.create().texOffs(28, 12).addBox(-0.5F, 0.0F, -0.5F, 1.0F, 4.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(4.0F, 1.0F, -0.25F, -0.0949F, -0.0741F, -0.7109F));
-		PartDefinition middle_left_leg = legs.addOrReplaceChild("middle_left_leg", CubeListBuilder.create().texOffs(28, 12).addBox(-0.5F, 0.0F, -0.5F, 1.0F, 4.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-4.0F, 1.0F, -0.25F, -0.0949F, 0.0741F, 0.7109F));
-		PartDefinition front_right_leg = legs.addOrReplaceChild("front_right_leg", CubeListBuilder.create().texOffs(28, 12).addBox(-0.5F, 0.0F, -0.5F, 1.0F, 4.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(4.0F, 1.0F, 1.75F, 0.3414F, -0.0741F, -0.7109F));
-		PartDefinition front_left_leg = legs.addOrReplaceChild("front_left_leg", CubeListBuilder.create().texOffs(28, 12).addBox(-0.5F, 0.0F, -0.5F, 1.0F, 4.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-4.0F, 1.0F, 1.75F, 0.3414F, 0.0741F, 0.7109F));
+		PartDefinition legs = partdefinition.addOrReplaceChild("legs", CubeListBuilder.create(), PartPose.offset(0F, -1F, -1F));
+		CubeListBuilder leg = CubeListBuilder.create().texOffs(28, 12).addBox(-0.5F, 0F, -0.5F, 1F, 4F, 1F);
+		PartDefinition back_right_leg = legs.addOrReplaceChild("back_right_leg", leg, PartPose.offsetAndRotation(4F, 1F, -2.25F, -0.4876F, -0.0741F, -0.7109F));
+		PartDefinition back_left_leg = legs.addOrReplaceChild("back_left_leg", leg, PartPose.offsetAndRotation(-4F, 1F, -2.25F, -0.4876F, 0.0741F, 0.7109F));
+		PartDefinition middle_right_leg = legs.addOrReplaceChild("middle_right_leg", leg, PartPose.offsetAndRotation(4F, 1F, -0.25F, -0.0949F, -0.0741F, -0.7109F));
+		PartDefinition middle_left_leg = legs.addOrReplaceChild("middle_left_leg", leg, PartPose.offsetAndRotation(-4F, 1F, -0.25F, -0.0949F, 0.0741F, 0.7109F));
+		PartDefinition front_right_leg = legs.addOrReplaceChild("front_right_leg", leg, PartPose.offsetAndRotation(4F, 1F, 1.75F, 0.3414F, -0.0741F, -0.7109F));
+		PartDefinition front_left_leg = legs.addOrReplaceChild("front_left_leg", leg, PartPose.offsetAndRotation(-4F, 1F, 1.75F, 0.3414F, 0.0741F, 0.7109F));
 
 		return LayerDefinition.create(meshdefinition, 32, 32);
 	}
@@ -127,7 +126,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		bobClaw(this.main_claw, ageInTicks, 2F);
 		bobClaw(this.left_claw, ageInTicks, -2F);
 
-		float movementDelta = Math.min(limbSwingAmount * 4F, 1.0F);
+		float movementDelta = Math.min(limbSwingAmount * 4F, 1F);
 		limbSwing *= 4.75F;
 		float fastAngle = limbSwing * 0.3331F;
 		float limbSwing5 = Math.min(1F, limbSwingAmount * 5) * 0.5F;
@@ -136,8 +135,8 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		float walkB = Mth.lerp(movementDelta, 0F, ((1F + fastAngleSin) * limbSwing5) - 0.5F);
 
 		float legRoll = Math.sin(fastAngle) * 0.4F * limbSwingAmount;
-		float lerpedWalkA = Mth.lerp(walkA, -legRoll, FIFTY_RADIANS);
-		float lerpedWalkB = Mth.lerp(walkB, legRoll, FIFTY_RADIANS);
+		float lerpedWalkA = Mth.lerp(walkA, -legRoll, RAD_50);
+		float lerpedWalkB = Mth.lerp(walkB, legRoll, RAD_50);
 		this.back_right_leg.zRot += lerpedWalkA;
 		this.middle_right_leg.zRot += lerpedWalkB;
 		this.front_right_leg.zRot += lerpedWalkA;
@@ -166,7 +165,7 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		this.middle_left_leg.x -= walkBDelayed;
 		this.front_left_leg.x -= walkADelayed;
 
-		float climbRotRadians = xRot * PI_180;
+		float climbRotRadians = xRot * Mth.DEG_TO_RAD;
 		this.body.zRot += legRoll + climbRotRadians;
 		this.legs.zRot += climbRotRadians;
 
@@ -174,17 +173,17 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		this.body.yRot = Mth.sin(Mth.sqrt(this.attackTime) * (DOUBLE_PI)) * -0.2F;
 		float attackSin = Mth.sin(this.attackTime * (float) Math.PI);
 		this.main_claw.x += attackSin * 1.5F;
-		this.main_claw.xRot += attackSin * -80F * PI_180;
-		this.main_claw.yRot += attackSin * 100F * PI_180;
-		this.main_claw.zRot += attackSin * 20F * PI_180;
-		this.claw_top.zRot += attackSin * 45F * PI_180;
+		this.main_claw.xRot += attackSin * -80F * Mth.DEG_TO_RAD;
+		this.main_claw.yRot += attackSin * 100F * Mth.DEG_TO_RAD;
+		this.main_claw.zRot += attackSin * 20F * Mth.DEG_TO_RAD;
+		this.claw_top.zRot += attackSin * 45F * Mth.DEG_TO_RAD;
 		this.claw_bottom.zRot -= this.claw_top.zRot;
 	}
 
 	@Override
 	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		poseStack.pushPose();
-		poseStack.translate(0, 1.3F, 0);
+		poseStack.translate(0F, 1.3F, 0F);
 		poseStack.mulPose(Axis.YP.rotationDegrees(90F));
 		poseStack.scale(this.scale, this.scale, this.scale);
 		this.root().render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);

@@ -51,9 +51,9 @@ public class MilkweedPod extends Item {
 		if (level instanceof ServerLevel serverLevel) {
 			float pitch = user.getXRot();
 			float yaw = user.getYRot();
-			float f = -Mth.sin(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F) * 1.5F;
-			float g = -Mth.sin((pitch) * 0.017453292F) + 0.035F;
-			float h = Mth.cos(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F) * 1.5F;
+			float f = -Mth.sin(yaw * Mth.DEG_TO_RAD) * Mth.cos(pitch * Mth.DEG_TO_RAD) * 1.5F;
+			float g = -Mth.sin((pitch) * Mth.DEG_TO_RAD) + 0.035F;
+			float h = Mth.cos(yaw * Mth.DEG_TO_RAD) * Mth.cos(pitch * Mth.DEG_TO_RAD) * 1.5F;
 			Vec3 spawnPos = user.getEyePosition().add(0, SHOOT_DISTANCE_FROM_EYE, 0);
 			serverLevel.sendParticles(
 				SeedParticleOptions.controlled(true, f, g, h),

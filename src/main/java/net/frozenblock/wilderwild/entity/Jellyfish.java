@@ -169,21 +169,24 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@NotNull
 	public static AttributeSupplier.Builder createAttributes() {
-		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.MOVEMENT_SPEED, 0.5F).add(Attributes.FOLLOW_RANGE, MAX_TARGET_DISTANCE);
+		return Mob.createMobAttributes()
+			.add(Attributes.MAX_HEALTH, 8D)
+			.add(Attributes.MOVEMENT_SPEED, 0.5F)
+			.add(Attributes.FOLLOW_RANGE, MAX_TARGET_DISTANCE);
 	}
 
 	public static void spawnFromChest(@NotNull Level level, @NotNull BlockState state, @NotNull BlockPos pos) {
 		Jellyfish jellyfish = new Jellyfish(RegisterEntities.JELLYFISH, level);
 		jellyfish.setVariantFromPos(level, pos);
-		double additionalX = 0;
-		double additionalZ = 0;
+		double additionalX = 0D;
+		double additionalZ = 0D;
 		if (state.hasProperty(BlockStateProperties.CHEST_TYPE) && state.getValue(BlockStateProperties.CHEST_TYPE) != ChestType.SINGLE) {
 			Direction direction = ChestBlock.getConnectedDirection(state);
-			additionalX += direction.getStepX() * 0.25;
-			additionalZ += direction.getStepZ() * 0.25;
+			additionalX += direction.getStepX() * 0.25D;
+			additionalZ += direction.getStepZ() * 0.25D;
 		}
-		jellyfish.setPos(pos.getX() + 0.5 + additionalX, pos.getY() + 0.75, pos.getZ() + 0.5 + additionalZ);
-		jellyfish.setDeltaMovement(0, 0.1 + level.random.nextDouble() * 0.07, 0);
+		jellyfish.setPos(pos.getX() + 0.5D + additionalX, pos.getY() + 0.75D, pos.getZ() + 0.5D + additionalZ);
+		jellyfish.setDeltaMovement(0D, 0.1D + level.random.nextDouble() * 0.07D, 0D);
 		jellyfish.prevScale = 0F;
 		jellyfish.scale = 0F;
 		level.addFreshEntity(jellyfish);
@@ -191,12 +194,12 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	public static int getSpeedUpSecondsWhenFeeding(int ticksUntilAdult) {
-		return (int) ((float) (ticksUntilAdult / 20) * 0.1F);
+		return (int) ((ticksUntilAdult / 20F) * 0.1F);
 	}
 
 	@Override
 	protected void registerGoals() {
-		this.goalSelector.addGoal(3, new JellyfishTemptGoal(this, 1.25));
+		this.goalSelector.addGoal(3, new JellyfishTemptGoal(this, 1.25D));
 	}
 
 	@Nullable
@@ -329,10 +332,10 @@ public class Jellyfish extends NoFlopAbstractFish {
 			this.heal(0.02F);
 			Vec3 vec3 = this.getDeltaMovement();
 			if (vec3.horizontalDistance() > 0.005) {
-				this.yBodyRot += (float) ((-(Mth.atan2(vec3.x, vec3.z)) * 57.295776F - this.yBodyRot) * 0.1F);
+				this.yBodyRot += (float) ((-(Mth.atan2(vec3.x, vec3.z)) * Mth.RAD_TO_DEG - this.yBodyRot) * 0.1F);
 				this.setYRot(this.yBodyRot);
 			}
-			this.xBodyRot += (float) ((-(Mth.atan2(vec3.horizontalDistance(), vec3.y)) * 57.295776F - this.xBodyRot) * 0.1F);
+			this.xBodyRot += (float) ((-(Mth.atan2(vec3.horizontalDistance(), vec3.y)) * Mth.RAD_TO_DEG - this.xBodyRot) * 0.1F);
 		} else {
 			this.xBodyRot += (-90.0F - this.xBodyRot) * 0.02F;
 		}
@@ -342,7 +345,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		LivingEntity target = this.getTarget();
 		if (target != null) {
 			this.getNavigation().stop();
-			this.moveToAccurate(target, 2);
+			this.moveToAccurate(target, 2D);
 		}
 
 		if (this.growing) {
@@ -364,7 +367,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		if (this.level().isClientSide) {
 			if (this.forcedAgeTimer > 0) {
 				if (this.forcedAgeTimer % 4 == 0) {
-					this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0), this.getRandomY(), this.getRandomZ(1.0), 0.0, 0.0, 0.0);
+					this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1F), this.getRandomY(), this.getRandomZ(1F), 0F, 0F, 0F);
 				}
 				--this.forcedAgeTimer;
 			}
@@ -391,7 +394,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 		AttributeInstance attributeInstance = this.getAttributes().getInstance(Attributes.MOVEMENT_SPEED);
 		if (attributeInstance != null) {
-			attributeInstance.setBaseValue(this.isBaby() ? 0.25 : 0.5);
+			attributeInstance.setBaseValue(this.isBaby() ? 0.25D : 0.5D);
 		}
 	}
 
@@ -404,16 +407,16 @@ public class Jellyfish extends NoFlopAbstractFish {
 			this.scale = 0F;
 			this.prevScale = 0F;
 		} else if (id == (byte) 7) {
-			double d = this.random.nextGaussian() * 0.02;
-			double e = this.random.nextGaussian() * 0.02;
-			double f = this.random.nextGaussian() * 0.02;
-			this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0), this.getRandomY() + 0.5, this.getRandomZ(1.0), d, e, f);
+			double d = this.random.nextGaussian() * 0.02D;
+			double e = this.random.nextGaussian() * 0.02D;
+			double f = this.random.nextGaussian() * 0.02D;
+			this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1D), this.getRandomY() + 0.5, this.getRandomZ(1D), d, e, f);
 		} else if (id == (byte) 18) {
 			for (int i = 0; i < 7; ++i) {
-				double d = this.random.nextGaussian() * 0.02;
-				double e = this.random.nextGaussian() * 0.02;
-				double f = this.random.nextGaussian() * 0.02;
-				this.level().addParticle(ParticleTypes.HEART, this.getRandomX(1.0), this.getRandomY() + 0.5, this.getRandomZ(1.0), d, e, f);
+				double d = this.random.nextGaussian() * 0.02D;
+				double e = this.random.nextGaussian() * 0.02D;
+				double f = this.random.nextGaussian() * 0.02D;
+				this.level().addParticle(ParticleTypes.HEART, this.getRandomX(1D), this.getRandomY() + 0.5, this.getRandomZ(1D), d, e, f);
 			}
 		} else {
 			super.handleEntityEvent(id);
@@ -422,7 +425,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	public void stingEntities() {
 		if (this.isAlive()) {
-			List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.08));
+			List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.08D));
 			boolean baby = this.isBaby();
 			float damage = baby ? 1F : 3F;
 			int poisonDuration = baby ? this.level().getRandom().nextInt(40, 100) : this.level().getRandom().nextInt(100, 200);
@@ -552,9 +555,9 @@ public class Jellyfish extends NoFlopAbstractFish {
 		}
 		jellyfish.setBaby(true);
 		float bbHeight = this.getBbHeight();
-		Vec3 vec3 = this.rotateVector(new Vec3(0, -bbHeight, 0)).add(this.getX(), this.getY(), this.getZ());
-		jellyfish.moveTo(vec3.x, vec3.y + (bbHeight * 0.5), vec3.z, -this.getYRot(), -this.getXRot());
-		jellyfish.setDeltaMovement(this.getDeltaMovement().scale(-0.5));
+		Vec3 vec3 = this.rotateVector(new Vec3(0D, -bbHeight, 0D)).add(this.getX(), this.getY(), this.getZ());
+		jellyfish.moveTo(vec3.x, vec3.y + (bbHeight * 0.5D), vec3.z, -this.getYRot(), -this.getXRot());
+		jellyfish.setDeltaMovement(this.getDeltaMovement().scale(-0.5D));
 		jellyfish.setVariant(this.getVariant());
 		level.broadcastEntityEvent(this, (byte) 18);
 		if (level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
@@ -565,8 +568,8 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@NotNull
 	private Vec3 rotateVector(@NotNull Vec3 vector) {
-		Vec3 vec3 = vector.xRot(this.xRot1 * ((float) Math.PI / 180F));
-		vec3 = vec3.yRot(-this.yBodyRotO * ((float) Math.PI / 180F));
+		Vec3 vec3 = vector.xRot(this.xRot1 * Mth.DEG_TO_RAD);
+		vec3 = vec3.yRot(-this.yBodyRotO * Mth.DEG_TO_RAD);
 		return vec3;
 	}
 
@@ -574,11 +577,11 @@ public class Jellyfish extends NoFlopAbstractFish {
 		if (this.level() instanceof ServerLevel serverLevel && !this.isBaby()) {
 			double deltaLength = this.getDeltaMovement().length();
 			float bbHeight = this.getBbHeight();
-			Vec3 vec3 = this.rotateVector(new Vec3(0, -bbHeight, 0)).add(this.getX(), this.getY(), this.getZ());
-			for (int i = 0; i < this.random.nextInt(0, (int) (2 + (deltaLength * 25))); ++i) {
-				Vec3 vec32 = this.rotateVector(new Vec3((double) this.random.nextFloat() * 0.6 - 0.3, -1.0, (double) this.random.nextFloat() * 0.6 - 0.3));
-				Vec3 vec33 = vec32.scale(0.3 + (double) (this.random.nextFloat() * 2.0f));
-				serverLevel.sendParticles(ParticleTypes.BUBBLE, vec3.x, vec3.y + (bbHeight * 0.5), vec3.z, 0, vec33.x, vec33.y, vec33.z, (deltaLength * 2) + 0.1);
+			Vec3 vec3 = this.rotateVector(new Vec3(0D, -bbHeight, 0D)).add(this.getX(), this.getY(), this.getZ());
+			for (int i = 0; i < this.random.nextInt(0, (int) (2D + (deltaLength * 25D))); ++i) {
+				Vec3 vec32 = this.rotateVector(new Vec3((double) this.random.nextFloat() * 0.6D - 0.3D, -1D, (double) this.random.nextFloat() * 0.6D - 0.3D));
+				Vec3 vec33 = vec32.scale(0.3D + (this.random.nextFloat() * 2D));
+				serverLevel.sendParticles(ParticleTypes.BUBBLE, vec3.x, vec3.y + (bbHeight * 0.5), vec3.z, 0, vec33.x, vec33.y, vec33.z, (deltaLength * 2D) + 0.1D);
 			}
 		}
 	}

@@ -136,11 +136,11 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	@NotNull
 	public static AttributeSupplier.Builder createAttributes() {
-		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 20.0D)
+		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 20D)
 			.add(Attributes.MOVEMENT_SPEED, 0.225F)
-			.add(Attributes.JUMP_STRENGTH, 3.0D)
+			.add(Attributes.JUMP_STRENGTH, 3D)
 			.add(Attributes.STEP_HEIGHT, 1.5D)
-			.add(Attributes.ATTACK_DAMAGE, 6.0D);
+			.add(Attributes.ATTACK_DAMAGE, 6D);
 	}
 
 	public static boolean checkOstrichSpawnRules(EntityType<? extends Ostrich> ostrich, @NotNull LevelAccessor level, MobSpawnType spawnType, @NotNull BlockPos pos, RandomSource random) {
@@ -411,10 +411,10 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		this.setRot(vec2.y, vec2.x);
 		this.yRotO = this.yBodyRot = this.yHeadRot = this.getYRot();
 		if (this.isControlledByLocalInstance()) {
-			if (EntityConfig.get().ostrich.allowAttack && this.playerJumpPendingScale > 0.0F) {
+			if (EntityConfig.get().ostrich.allowAttack && this.playerJumpPendingScale > 0F) {
 				this.executeRidersJump(this.playerJumpPendingScale, travelVector);
 			}
-			this.playerJumpPendingScale = 0.0F;
+			this.playerJumpPendingScale = 0F;
 		}
 	}
 
@@ -461,7 +461,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	}
 
 	public float getAdditionalSpeed() {
-		return this.getFirstPassenger() instanceof Player player && player.isSprinting() && this.getJumpCooldown() == 0 ? 0.2F : 0.0F;
+		return this.getFirstPassenger() instanceof Player player && player.isSprinting() && this.getJumpCooldown() == 0 ? 0.2F : 0F;
 	}
 
 	@NotNull
@@ -505,7 +505,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	@Override
 	public void onLeashDistance(float distance) {
-		if (distance > 6.0F && this.isStuck()) {
+		if (distance > 6F && this.isStuck()) {
 			this.emergeBeak();
 		}
 	}
@@ -541,7 +541,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		} else {
 			boolean bl = this.getHealth() < this.getMaxHealth();
 			if (bl) {
-				this.heal(2.0F);
+				this.heal(2F);
 			}
 
 			boolean bl2 = this.isTamed() && this.getAge() == 0 && this.canFallInLove();
@@ -551,7 +551,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 			boolean bl3 = this.isBaby();
 			if (bl3) {
-				this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0), this.getRandomY() + 0.5, this.getRandomZ(1.0), 0.0, 0.0, 0.0);
+				this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1), this.getRandomY() + 0.5, this.getRandomZ(1), 0.0, 0.0, 0.0);
 				if (!this.level().isClientSide) {
 					this.ageUp(10);
 				}
@@ -563,7 +563,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 				if (!this.isSilent()) {
 					SoundEvent soundEvent = this.getEatingSound();
 					if (soundEvent != null) {
-						this.level().playSound(null, this.getX(), this.getY(), this.getZ(), soundEvent, this.getSoundSource(), 1.0F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
+						this.level().playSound(null, this.getX(), this.getY(), this.getZ(), soundEvent, this.getSoundSource(), 1F, 1F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
 					}
 				}
 
@@ -596,7 +596,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		if (i <= 0) {
 			return false;
 		} else {
-			if (fallDistance >= 6.0F) {
+			if (fallDistance >= 6F) {
 				this.hurt(source, (float) i);
 				if (this.isVehicle()) {
 					for (Entity entity : this.getIndirectPassengers()) {
@@ -633,11 +633,11 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		Vec3 neckBasePos = currentPos.add(lookOrientation.scale(0.475D * scale));
 
 		Vec3 headBaseRotPos = AdvancedMath.rotateAboutX(Vec3.ZERO, 0.275D * scale, (beakAnimProgress * 180D * 0.3D) + 90D);
-		Vec3 headBasePos = neckBasePos.add(0, headBaseRotPos.x(), 0).add(lookOrientation.scale(headBaseRotPos.z()));
+		Vec3 headBasePos = neckBasePos.add(0D, headBaseRotPos.x(), 0D).add(lookOrientation.scale(headBaseRotPos.z()));
 
 		Vec3 beakRotPos = AdvancedMath.rotateAboutX(Vec3.ZERO, 1.15D * scale, (beakAnimProgress * 180D * 0.7D) + 10D);
 		double downFactor = (Math.max(0, beakAnimProgress - 0.5) * 0.75D * 1.75D) * scale;
-		Vec3 beakPos = headBasePos.add(0, beakRotPos.x() - downFactor, 0).add(lookOrientation.scale(beakRotPos.z() - downFactor));
+		Vec3 beakPos = headBasePos.add(0D, beakRotPos.x() - downFactor, 0D).add(lookOrientation.scale(beakRotPos.z() - downFactor));
 
 		if (WilderSharedConstants.UNSTABLE_LOGGING) {
 			if (this.level() instanceof ServerLevel serverLevel) {
@@ -758,7 +758,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	@NotNull
 	@Override
 	public Vec3 getLeashOffset() {
-		return new Vec3(0.0, DIMENSION_PERCENTAGE_AT_NECK * this.getEyeHeight(), this.getBbWidth() * 0.5D);
+		return new Vec3(0D, DIMENSION_PERCENTAGE_AT_NECK * this.getEyeHeight(), this.getBbWidth() * 0.5D);
 	}
 
 	@Override
@@ -887,7 +887,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	@Override
 	public float nextStep() {
-		return this.moveDist + 1F + (this.isVehicle() ? 0.75F : 0F) + (this.getAdditionalSpeed() * 5);
+		return this.moveDist + 1F + (this.isVehicle() ? 0.75F : 0F) + (this.getAdditionalSpeed() * 5F);
 	}
 
 	@Override
@@ -898,7 +898,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	@NotNull
 	@Override
 	public Vec3 getPassengerAttachmentPoint(@NotNull Entity entity, @NotNull EntityDimensions dimensions, float scale) {
-		return new Vec3(0D, dimensions.height() * 0.775D, dimensions.width() * -0.1D).yRot(-this.getYRot() * 0.017453292F);
+		return new Vec3(0D, dimensions.height() * 0.775D, dimensions.width() * -0.1D).yRot(-this.getYRot() * Mth.DEG_TO_RAD);
 	}
 
 	@Override

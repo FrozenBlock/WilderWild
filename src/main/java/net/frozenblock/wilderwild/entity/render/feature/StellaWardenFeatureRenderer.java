@@ -48,10 +48,10 @@ public class StellaWardenFeatureRenderer<T extends Warden, M extends WardenModel
 					poseStack,
 					vertexConsumer,
 					i,
-					LivingEntityRenderer.getOverlayCoords(wardenEntity, 0.0F),
-					1.0F,
-					1.0F,
-					1.0F,
+					LivingEntityRenderer.getOverlayCoords(wardenEntity, 0F),
+					1F,
+					1F,
+					1F,
 					this.alphaFunction.apply(wardenEntity, partialTick, j)
 				);
 			this.resetDrawForAllParts();

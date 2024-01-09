@@ -27,19 +27,18 @@ import net.frozenblock.wilderwild.entity.AncientHornVibration;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class AncientHornProjectileModel extends Model {
-	private static final float PI = (float) Math.PI;
 	private static final float BONE_PITCH_YAW = 1.57079632F;
-	private static final float PULSE_2_EXTRA = 8.0F / 1.5F;
-	private static final float PULSE_3_EXTRA = 8.0F / 3.0F;
+	private static final float PULSE_2_EXTRA = 8F / 1.5F;
+	private static final float PULSE_3_EXTRA = 8F / 3F;
 	private final ModelPart bone;
 	private final ModelPart front;
 	private final ModelPart middle;
@@ -59,10 +58,10 @@ public class AncientHornProjectileModel extends Model {
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition modelData = new MeshDefinition();
 		PartDefinition modelPartData = modelData.getRoot();
-		PartDefinition bone = modelPartData.addOrReplaceChild("bone", CubeListBuilder.create(), PartPose.offsetAndRotation(4.0F, 0.0F, 0.0F, BONE_PITCH_YAW, BONE_PITCH_YAW, 0));
-		bone.addOrReplaceChild("front", CubeListBuilder.create().texOffs(0, 32).addBox(-8.0F, -8.0F, 0.0F, 16.0F, 16.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, -4.0F));
-		bone.addOrReplaceChild("middle", CubeListBuilder.create().texOffs(0, 16).addBox(-8.0F, -8.0F, 0.0F, 16.0F, 16.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
-		bone.addOrReplaceChild("back", CubeListBuilder.create().texOffs(0, 0).addBox(-8.0F, -8.0F, 0.0F, 16.0F, 16.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 4.0F));
+		PartDefinition bone = modelPartData.addOrReplaceChild("bone", CubeListBuilder.create(), PartPose.offsetAndRotation(4F, 0F, 0F, BONE_PITCH_YAW, BONE_PITCH_YAW, 0));
+		bone.addOrReplaceChild("front", CubeListBuilder.create().texOffs(0, 32).addBox(-8F, -8F, 0F, 16F, 16F, 0F), PartPose.offset(0F, 0F, -4F));
+		bone.addOrReplaceChild("middle", CubeListBuilder.create().texOffs(0, 16).addBox(-8F, -8F, 0F, 16F, 16F, 0F), PartPose.offset(0F, 0F, 0F));
+		bone.addOrReplaceChild("back", CubeListBuilder.create().texOffs(0, 0).addBox(-8F, -8F, 0F, 16F, 16F, 0F), PartPose.offset(0F, 0F, 4F));
 		return LayerDefinition.create(modelData, 64, 64);
 	}
 
@@ -70,9 +69,9 @@ public class AncientHornProjectileModel extends Model {
 	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		float aliveDelta = this.projectile.getAliveTicks() + this.partialTick;
 
-		float pulse = (((float) Math.sin((aliveDelta * PI) * 0.2F) * 0.16666667F) + 1);
-		float pulse2 = (((float) Math.sin(((aliveDelta + PULSE_2_EXTRA) * PI) * 0.2F) * 0.16666667F) + 1);
-		float pulse3 = (((float) Math.sin(((aliveDelta + PULSE_3_EXTRA) * PI) * 0.2F) * 0.16666667F) + 1);
+		float pulse = (((float) Math.sin((aliveDelta * Mth.PI) * 0.2F) * 0.16666667F) + 1);
+		float pulse2 = (((float) Math.sin(((aliveDelta + PULSE_2_EXTRA) * Mth.PI) * 0.2F) * 0.16666667F) + 1);
+		float pulse3 = (((float) Math.sin(((aliveDelta + PULSE_3_EXTRA) * Mth.PI) * 0.2F) * 0.16666667F) + 1);
 
 		this.front.xScale = pulse;
 		this.front.yScale = pulse;
