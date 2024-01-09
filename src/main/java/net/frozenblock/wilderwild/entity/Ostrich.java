@@ -100,7 +100,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	public static final int BEAK_STUCK_TICKS = 80;
 	public static final int BEAK_STUCK_TICKS_AGGRESSIVE = 60;
 	public static final float MAX_ATTACK_DAMAGE = 6F;
-	public static final double ATTACK_BOX_WIDTH = 0.35F;
+	public static final double ATTACK_BOX_WIDTH = 0.45F;
 	public static final double ATTACK_BOX_HEIGHT = 0.5F;
 	public static final double DIMENSION_PERCENTAGE_AT_NECK = 0.5163043478260869D;
 
