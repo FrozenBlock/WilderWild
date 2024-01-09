@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
-import net.frozenblock.wilderwild.entity.AncientHornProjectile;
+import net.frozenblock.wilderwild.entity.AncientHornVibration;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
@@ -157,7 +157,7 @@ public class EchoGlassBlock extends TransparentBlock {
 
 	@Override
 	public void onProjectileHit(@NotNull Level level, @NotNull BlockState state, @NotNull BlockHitResult hit, @NotNull Projectile projectile) {
-		if (projectile instanceof AncientHornProjectile) {
+		if (projectile instanceof AncientHornVibration) {
 			damage(level, hit.getBlockPos(), true);
 		}
 		super.onProjectileHit(level, state, hit, projectile);

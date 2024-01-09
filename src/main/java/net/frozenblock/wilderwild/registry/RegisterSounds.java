@@ -233,10 +233,10 @@ public final class RegisterSounds {
 	public static final SoundEvent BLOCK_OSTRICH_EGG_HATCH = register("block.ostrich_egg.hatch");
 
 	//ENTITY
-	public static final SoundEvent ENTITY_ANCIENT_HORN_PROJECTILE_BLAST = register("entity.ancient_horn_projectile.blast");
-	public static final SoundEvent ENTITY_ANCIENT_HORN_PROJECTILE_LOOP = register("entity.ancient_horn_projectile.loop");
-	public static final SoundEvent ENTITY_ANCIENT_HORN_PROJECTILE_FLYBY = register("entity.ancient_horn_projectile.flyby");
-	public static final SoundEvent ENTITY_ANCIENT_HORN_PROJECTILE_DISSIPATE = register("entity.ancient_horn_projectile.dissipate");
+	public static final SoundEvent ENTITY_ANCIENT_HORN_VIBRATION_BLAST = register("entity.ancient_horn_vibration.blast");
+	public static final SoundEvent ENTITY_ANCIENT_HORN_VIBRATION_LOOP = register("entity.ancient_horn_vibration.loop");
+	public static final SoundEvent ENTITY_ANCIENT_HORN_VIBRATION_FLYBY = register("entity.ancient_horn_vibration.flyby");
+	public static final SoundEvent ENTITY_ANCIENT_HORN_VIBRATION_DISSIPATE = register("entity.ancient_horn_vibration.dissipate");
 	public static final SoundEvent ENTITY_FIREFLY_HIDE = register("entity.firefly.hide");
 	public static final SoundEvent ENTITY_FIREFLY_HURT = register("entity.firefly.hurt");
 	public static final SoundEvent ENTITY_FIREFLY_NECTAR = register("entity.firefly.nectar");

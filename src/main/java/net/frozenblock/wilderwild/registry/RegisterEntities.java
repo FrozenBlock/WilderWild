@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.frozenblock.lib.mobcategory.api.FrozenMobCategories;
-import net.frozenblock.wilderwild.entity.AncientHornProjectile;
+import net.frozenblock.wilderwild.entity.AncientHornVibration;
 import net.frozenblock.wilderwild.entity.ChestBubbleTicker;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Crab;
@@ -42,9 +42,9 @@ import org.jetbrains.annotations.NotNull;
 
 public final class RegisterEntities {
 
-	public static final EntityType<AncientHornProjectile> ANCIENT_HORN_PROJECTILE_ENTITY = register(
-		"ancient_horn_projectile",
-		FabricEntityTypeBuilder.<AncientHornProjectile>create(MobCategory.MISC, AncientHornProjectile::new)
+	public static final EntityType<AncientHornVibration> ANCIENT_HORN_VIBRATION = register(
+		"ancient_horn_vibration",
+		FabricEntityTypeBuilder.<AncientHornVibration>create(MobCategory.MISC, AncientHornVibration::new)
 			.fireImmune()
 			.dimensions(EntityDimensions.scalable(0.6F, 0.6F))
 			.trackRangeBlocks(64)

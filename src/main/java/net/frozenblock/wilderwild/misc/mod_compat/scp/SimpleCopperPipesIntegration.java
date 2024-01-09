@@ -20,13 +20,12 @@ package net.frozenblock.wilderwild.misc.mod_compat.scp;
 
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.FrozenSharedConstants;
-import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
-import net.frozenblock.wilderwild.entity.AncientHornProjectile;
+import net.frozenblock.wilderwild.entity.AncientHornVibration;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.networking.packet.WilderFloatingSculkBubbleParticlePacket;
+import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
@@ -97,13 +96,13 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 						Direction direction = state.getValue(BlockStateProperties.FACING);
 						if (nbt.getEntity(level) != null) {
 							nbt.withUseCount(nbt.getUseCount() + 1);
-							AncientHornProjectile projectileEntity = new AncientHornProjectile(level, pos.getX() + pipe.getDripX(direction), pos.getY() + pipe.getDripY(direction), pos.getZ() + pipe.getDripZ(direction));
+							AncientHornVibration projectileEntity = new AncientHornVibration(level, pos.getX() + pipe.getDripX(direction), pos.getY() + pipe.getDripY(direction), pos.getZ() + pipe.getDripZ(direction));
 							projectileEntity.shoot(direction.getStepX(), direction.getStepY(), direction.getStepZ(), 1F, 0F);
 							projectileEntity.setOwner(nbt.foundEntity);
 							projectileEntity.setShotByPlayer(true);
 							projectileEntity.canInteractWithPipe = false;
 							level.addFreshEntity(projectileEntity);
-							FrozenSoundPackets.createMovingRestrictionLoopingSound(level, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1F, 1F, FrozenSharedConstants.id("default"), true);
+							FrozenSoundPackets.createMovingRestrictionLoopingSound(level, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_VIBRATION_LOOP, SoundSource.NEUTRAL, 1F, 1F, FrozenSharedConstants.id("default"), true);
 						}
 					}
 				}
@@ -148,17 +147,24 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 					UniformInt xzOffset = UniformInt.of(-3, 3);
 					UniformInt yOffset = UniformInt.of(-1, 1);
 					for (int o = 0; o < random.nextIntBetweenInclusive(1, 4); ++o) {
-						WilderFloatingSculkBubbleParticlePacket.sendToAll(
-							level,
-							new Vec3(
-								outputPos.x() + (double) xzOffset.sample(random) * 0.1D,
-								outputPos.y() + (double) yOffset.sample(random) * 0.1D,
-								outputPos.z() + (double) xzOffset.sample(random) * 0.1D
+						level.sendParticles(
+							new FloatingSculkBubbleParticleOptions(
+								random.nextDouble() > 0.7 ? 1 : 0,
+								random.nextIntBetweenInclusive(60, 80),
+								new Vec3(
+									FloatingSculkBubbleParticleOptions.getRandomVelocity(random, 0),
+									0.075D,
+									FloatingSculkBubbleParticleOptions.getRandomVelocity(random, 0)
+								)
 							),
-							AdvancedMath.random().nextDouble() > 0.7 ? 1 : 0,
-							random.nextIntBetweenInclusive(60, 80),
-							velocity.y() * 0.05,
-							1
+							outputPos.x() + (double) xzOffset.sample(random) * 0.1D,
+							outputPos.y() + (double) yOffset.sample(random) * 0.1D,
+							outputPos.z() + (double) xzOffset.sample(random) * 0.1D,
+							1,
+							0D,
+							0D,
+							0D,
+							0D
 						);
 					}
 				}

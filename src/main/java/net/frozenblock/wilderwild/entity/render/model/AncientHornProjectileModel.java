@@ -23,7 +23,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.entity.api.rendering.FrozenRenderType;
-import net.frozenblock.wilderwild.entity.AncientHornProjectile;
+import net.frozenblock.wilderwild.entity.AncientHornVibration;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -44,7 +44,7 @@ public class AncientHornProjectileModel extends Model {
 	private final ModelPart front;
 	private final ModelPart middle;
 	private final ModelPart back;
-	public AncientHornProjectile projectile;
+	public AncientHornVibration projectile;
 	public float partialTick;
 
 	public AncientHornProjectileModel(@NotNull ModelPart root) {

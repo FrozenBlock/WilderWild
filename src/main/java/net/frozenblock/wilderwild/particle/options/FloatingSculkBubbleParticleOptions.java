@@ -28,6 +28,7 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
@@ -66,6 +67,10 @@ public class FloatingSculkBubbleParticleOptions implements ParticleOptions {
 		this.size = size;
 		this.maxAge = maxAge;
 		this.velocity = velocity;
+	}
+
+	public static double getRandomVelocity(RandomSource random, int size) {
+        return size >= 1 ? (random.nextDouble() - 0.5D) / 10.5D : (random.nextDouble() - 0.5D) / 9.5D;
 	}
 
 	@NotNull

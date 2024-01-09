@@ -18,16 +18,16 @@
 
 package net.frozenblock.wilderwild.mixin.sculk;
 
-import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.misc.interfaces.SculkShriekerTickInterface;
-import net.frozenblock.wilderwild.networking.packet.WilderFloatingSculkBubbleParticlePacket;
+import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.SculkShriekerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -88,15 +88,33 @@ public abstract class SculkShriekerBlockEntityMixin implements SculkShriekerTick
 		tag.putInt("wilderwildBubbles", this.wilderWild$bubbles);
 	}
 
+	@Unique
 	@Override
 	public void wilderWild$tickServer(Level level, BlockPos pos) {
-		if (level != null && !level.isClientSide) {
+		if (level instanceof ServerLevel serverLevel) {
 			VibrationSystem.Ticker.tick(level, this.getVibrationData(), this.getVibrationUser());
 			if (this.wilderWild$bubbles > 0) {
 				--this.wilderWild$bubbles;
-				var random = AdvancedMath.random();
-
-				WilderFloatingSculkBubbleParticlePacket.sendToAll(level, Vec3.atCenterOf(pos), random.nextDouble() > 0.7 ? 1 : 0, 20 + random.nextInt(80), 0.075, 1);
+				RandomSource random = level.getRandom();
+				serverLevel.sendParticles(
+					new FloatingSculkBubbleParticleOptions(
+						random.nextDouble() > 0.7 ? 1 : 0,
+						20 + random.nextInt(80),
+						new Vec3(
+							FloatingSculkBubbleParticleOptions.getRandomVelocity(random, 0),
+							0.075D,
+							FloatingSculkBubbleParticleOptions.getRandomVelocity(random, 0)
+						)
+					),
+					pos.getX() + 0.5D,
+					pos.getY() + 0.5D,
+					pos.getZ() + 0.5D,
+					1,
+					0D,
+					0D,
+					0D,
+					0D
+				);
 			}
 		}
 	}

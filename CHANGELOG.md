@@ -69,7 +69,7 @@ Bug Fixes & Changes
   - Added many public static fields to blocks for better code readability and editability.
   - Significantly improved the `OsseousSculkBlock` class and merged both growing methods into one.
   - Sculk Charges will now move to newly placed blocks in Osseous Sculk pillars upon growth.
-    - This doesn't mean they'll only move in one direction, they'll just be snapped to that position initially as the block is set and can still move downwards afterwards.
+    - This doesn't mean they'll only move in one direction, they'll just be snapped to that position initially as the block is set and can still move downwards afterward.
   - Echo Glass will now drop itself upon cracking if not hit by a Sonic Boom.
   - Baobab Nuts and Palm Fronds are now compostable.
   - Changed the minimum and maximum amount of Milkweed Pods obtainable by shearing Milkweed to 1 and 3 respectively, previously being 2 and 5.
@@ -83,13 +83,18 @@ Bug Fixes & Changes
   - Optimized how the Tumbleweed Stem's selects its outline/collision shape.
   - Reworked the `LiquidBlockRendererMixin` for making the underside of Water smooth to now be extremely reliable and much safer.
     - This also fixes an issue where other liquids like Lava could incorrectly be assigned different textures on occasion.
-  - Removed the `WilderSeedParticlePacket` class in favor of using the regular Vanilla particle packet.
-  - Removed the `WilderControlledSeedParticlePacket` class in favor of using the regular Vanilla particle packet.
-    - This change has resulted in the `SeedParticleOptions` class receiving two new invocation methods and new constructor parameters.
-  - Removed the `WilderTermiteParticlePacket` class in favor of using the regular Vanilla particle packet.
+  - Removed all custom packets related to particles in favor of the regular Vanilla particle packet:
+    - `WilderSeedParticlePacket`
+    - `WilderControlledSeedParticlePacket`
+      - This change has resulted in the `SeedParticleOptions` class receiving two new invocation methods and new constructor parameters.
+    - `WilderTermiteParticlePacket`
+    - `WilderFloatingSculkBubbleParticlePacket`
   - Significantly cleaned up and reduced the amount of duplicated code in the `SimpleCopperPipesIntegration` class.
   - Removed the `Goat Horn Symphony` and `Back` discs as they didn't feel like necessary additions, nor did they fit Vanilla.
     - These will be datafixed into Lena Raine's `Otherside` and Samuel Åberg's `5` respectively.
+  - Removed the `Ancient Horn Projectile` to `Ancient Horn Vibration.`
+  - Ancient Horn Vibrations will now spawn particles upon dissipating.
+  - Ancient Horn Vibrations will no longer play the dissipation sound upon hitting an entity.
   - Defined the Random Sequence for every one of Wilder Wild's loot tables.
   - Added the Palm Hanging Sign to the `wilderwild:hanging_signs` item tag.
   - Added the Palm Crown to the `wilderwild:palm_logs` item tag.

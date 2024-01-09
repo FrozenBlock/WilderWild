@@ -2,7 +2,6 @@ package net.frozenblock.wilderwild.networking;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.networking.packet.WilderFloatingSculkBubbleParticlePacket;
 import net.frozenblock.wilderwild.networking.packet.WilderJellyfishStingPacket;
 import net.frozenblock.wilderwild.networking.packet.WilderLightningStrikePacket;
 import net.frozenblock.wilderwild.networking.packet.WilderSensorHiccupPacket;
@@ -11,7 +10,6 @@ import net.frozenblock.wilderwild.networking.packet.WilderSensorHiccupPacket;
 public class WilderClientNetworking {
 
 	public static void registerPacketReceivers() {
-		WilderFloatingSculkBubbleParticlePacket.receive();
 		WilderSensorHiccupPacket.receive();
 		WilderJellyfishStingPacket.receive();
 		WilderLightningStrikePacket.receive();

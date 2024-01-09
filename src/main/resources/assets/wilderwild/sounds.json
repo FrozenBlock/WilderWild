@@ -2123,40 +2123,40 @@
     ],
     "subtitle": "subtitles.block.ostrich_egg.hatch"
   },
-  "entity.ancient_horn_projectile.blast": {
+  "entity.ancient_horn_vibration.blast": {
     "sounds": [
-      "wilderwild:entity/ancient_horn_projectile/blast1",
-      "wilderwild:entity/ancient_horn_projectile/blast2"
+      "wilderwild:entity/ancient_horn_vibration/blast1",
+      "wilderwild:entity/ancient_horn_vibration/blast2"
     ],
-    "subtitle": "subtitles.entity.ancient_horn_projectile.blast"
+    "subtitle": "subtitles.entity.ancient_horn_vibration.blast"
   },
-  "entity.ancient_horn_projectile.dissipate": {
+  "entity.ancient_horn_vibration.dissipate": {
     "sounds": [
-      "wilderwild:entity/ancient_horn_projectile/dissipate1",
-      "wilderwild:entity/ancient_horn_projectile/dissipate2"
+      "wilderwild:entity/ancient_horn_vibration/dissipate1",
+      "wilderwild:entity/ancient_horn_vibration/dissipate2"
     ],
-    "subtitle": "subtitles.entity.ancient_horn_projectile.dissipate"
+    "subtitle": "subtitles.entity.ancient_horn_vibration.dissipate"
   },
-  "entity.ancient_horn_projectile.flyby": {
+  "entity.ancient_horn_vibration.flyby": {
     "sounds": [
       {
         "attenuation_distance": 32,
-        "name": "wilderwild:entity/ancient_horn_projectile/flyby1"
+        "name": "wilderwild:entity/ancient_horn_vibration/flyby1"
       },
       {
         "attenuation_distance": 32,
-        "name": "wilderwild:entity/ancient_horn_projectile/flyby2"
+        "name": "wilderwild:entity/ancient_horn_vibration/flyby2"
       },
       {
         "attenuation_distance": 32,
-        "name": "wilderwild:entity/ancient_horn_projectile/flyby3"
+        "name": "wilderwild:entity/ancient_horn_vibration/flyby3"
       }
     ],
-    "subtitle": "subtitles.entity.ancient_horn_projectile.flyby"
+    "subtitle": "subtitles.entity.ancient_horn_vibration.flyby"
   },
-  "entity.ancient_horn_projectile.loop": {
+  "entity.ancient_horn_vibration.loop": {
     "sounds": [
-      "wilderwild:entity/ancient_horn_projectile/loop"
+      "wilderwild:entity/ancient_horn_vibration/loop"
     ]
   },
   "entity.firefly.hide": {

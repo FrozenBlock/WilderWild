@@ -24,7 +24,7 @@ import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.lib.config.api.sync.annotation.EntrySyncData;
-import net.frozenblock.wilderwild.entity.AncientHornProjectile;
+import net.frozenblock.wilderwild.entity.AncientHornVibration;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.MOD_ID;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.configPath;
 
@@ -72,7 +72,7 @@ public final class ItemConfig {
 		public boolean ancientHornCanSummonWarden = true;
 
 		@EntrySyncData("ancientHornLifespan")
-		public int ancientHornLifespan = AncientHornProjectile.DEFAULT_LIFESPAN;
+		public int ancientHornLifespan = AncientHornVibration.DEFAULT_LIFESPAN;
 
 		@EntrySyncData("ancientHornMobDamage")
 		public int ancientHornMobDamage = 22;
