@@ -192,8 +192,8 @@ public class AncientHornVibration extends AbstractArrow {
 		Vec3 deltaMovement = this.getDeltaMovement();
 		if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
 			double horizontalDistance = deltaMovement.horizontalDistance();
-			this.setYRot((float) (Mth.atan2(deltaMovement.x, deltaMovement.z) * Mth.DEG_TO_RAD));
-			this.setXRot((float) (Mth.atan2(deltaMovement.y, horizontalDistance) * Mth.DEG_TO_RAD));
+			this.setYRot((float) (Mth.atan2(deltaMovement.x, deltaMovement.z) * Mth.RAD_TO_DEG));
+			this.setXRot((float) (Mth.atan2(deltaMovement.y, horizontalDistance) * Mth.RAD_TO_DEG));
 			this.yRotO = this.getYRot();
 			this.xRotO = this.getXRot();
 		}
@@ -272,11 +272,11 @@ public class AncientHornVibration extends AbstractArrow {
 		double newZ = pos.z() + (deltaZ / moveDivider);
 		double horizontalDistance = deltaMovement.horizontalDistance();
 		if (noPhysics) {
-			this.setYRot((float) (Mth.atan2(-deltaX, -deltaZ) * Mth.DEG_TO_RAD));
+			this.setYRot((float) (Mth.atan2(-deltaX, -deltaZ) * Mth.RAD_TO_DEG));
 		} else {
-			this.setYRot((float) (Mth.atan2(deltaX, deltaZ) * Mth.DEG_TO_RAD));
+			this.setYRot((float) (Mth.atan2(deltaX, deltaZ) * Mth.RAD_TO_DEG));
 		}
-		this.setXRot((float) (Mth.atan2(deltaY, horizontalDistance) * Mth.DEG_TO_RAD));
+		this.setXRot((float) (Mth.atan2(deltaY, horizontalDistance) * Mth.RAD_TO_DEG));
 		this.setXRot(lerpRotation(this.xRotO, this.getXRot()));
 		this.setYRot(lerpRotation(this.yRotO, this.getYRot()));
 
