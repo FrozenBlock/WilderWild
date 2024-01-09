@@ -31,6 +31,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class CrabRenderer<T extends Crab> extends MobRenderer<T, CrabModel<T>> {
 	private static final ResourceLocation CRAB_LOCATION = WilderSharedConstants.id("textures/entity/crab/crab.png");
+	private static final ResourceLocation CRAB_DITTO_LOCATION = WilderSharedConstants.id("textures/entity/crab/crab_ditto.png");
 
 	public CrabRenderer(EntityRendererProvider.Context context) {
 		this(context, WilderWildClient.CRAB);
@@ -61,7 +62,7 @@ public class CrabRenderer<T extends Crab> extends MobRenderer<T, CrabModel<T>> {
 	@Override
 	@NotNull
 	public ResourceLocation getTextureLocation(@NotNull T entity) {
-		return CRAB_LOCATION;
+		return !entity.isDitto() ? CRAB_LOCATION : CRAB_DITTO_LOCATION;
 	}
 
 }

@@ -816,6 +816,10 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		}
 	}
 
+	public boolean isDitto() {
+		return this.hasCustomName() && this.getCustomName().getString().equalsIgnoreCase("ditto");
+	}
+
 	@Override
 	public void addAdditionalSaveData(@NotNull CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
