@@ -107,6 +107,8 @@ public final class MixinsConfig {
 
 	public boolean entity_turtle = true;
 
+	public boolean entity_firework_rocket = true;
+
 	public boolean item_axe = true;
 
 	public boolean item_brush = true;

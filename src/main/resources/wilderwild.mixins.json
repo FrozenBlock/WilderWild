@@ -46,6 +46,7 @@
     "entity.easter.GoatMixin",
     "entity.enderman.EnderManMixin",
     "entity.experience.ExperienceOrbMixin",
+    "entity.firework_rocket.FireworkRocketEntityMixin",
     "entity.jellyfish.NaturalSpawnerMixin",
     "entity.lightning.LightningBoltMixin",
     "entity.slime.SlimeMixin",

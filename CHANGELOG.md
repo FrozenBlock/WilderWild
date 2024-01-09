@@ -83,22 +83,18 @@ Bug Fixes & Changes
   - Optimized how the Tumbleweed Stem's selects its outline/collision shape.
   - Reworked the `LiquidBlockRendererMixin` for making the underside of Water smooth to now be extremely reliable and much safer.
     - This also fixes an issue where other liquids like Lava could incorrectly be assigned different textures on occasion.
-  - Removed all custom packets related to particles in favor of the regular Vanilla particle packet:
-    - `WilderSeedParticlePacket`
-    - `WilderControlledSeedParticlePacket`
-      - This change has resulted in the `SeedParticleOptions` class receiving two new invocation methods and new constructor parameters.
-    - `WilderTermiteParticlePacket`
-    - `WilderFloatingSculkBubbleParticlePacket`
-  - Significantly cleaned up and reduced the amount of duplicated code in the `SimpleCopperPipesIntegration` class.
   - Removed the `Goat Horn Symphony` and `Back` discs as they didn't feel like necessary additions, nor did they fit Vanilla.
     - These will be datafixed into Lena Raine's `Otherside` and Samuel Åberg's `5` respectively.
   - Removed the `Ancient Horn Projectile` to `Ancient Horn Vibration.`
   - Ancient Horn Vibrations will now spawn particles upon dissipating.
   - Ancient Horn Vibrations will no longer play the dissipation sound upon hitting an entity.
+  - Fixed Floating Sculk Bubbles spawned from an Ancient Horn Vibration always being the same size each tick.
   - Defined the Random Sequence for every one of Wilder Wild's loot tables.
   - Added the Palm Hanging Sign to the `wilderwild:hanging_signs` item tag.
   - Added the Palm Crown to the `wilderwild:palm_logs` item tag.
   - Optimized the file size of many Block and Item models.
+  - Firework Rockets are now impacted by wind.
+    - Added `entity_firework_rocket` to the Mixins config to optionally disable this.
   - Reimplemented the custom Warden dying sound after it was accidentally removed during a bugfix.
   - The Warden's regular death sound will now play on top of its underwater dying sound once again.
   - Wardens are no longer considered alive during the custom death animation.
@@ -112,4 +108,11 @@ Bug Fixes & Changes
   - Added the Arid Forest, Arid Savanna, and Oasis biomes to the `minecraft:snow_golem_melts` tag.
   - Added the Snowy Dying Forest, Snowy Dying Mixed Forest, and Snowy Old Growth Pine Taiga biomes to the `minecraft:spawns_snow_foxes` tag.
   - Added the Snowy Dying Forest, Snowy Dying Mixed Forest, and Snowy Old Growth Pine Taiga biomes to the `minecraft:spawns_white_rabbit` tag.
+  -   - Removed all custom packets related to particles in favor of the regular Vanilla particle packet:
+        - `WilderSeedParticlePacket`
+        - `WilderControlledSeedParticlePacket`
+  - This change has resulted in the `SeedParticleOptions` class receiving two new invocation methods and new constructor parameters.
+    - `WilderTermiteParticlePacket`
+    - `WilderFloatingSculkBubbleParticlePacket`
+  - Significantly cleaned up and reduced the amount of duplicated code in the `SimpleCopperPipesIntegration` class.
   - Much more refactoring, reorganization, cleanup and many small fixes!
