@@ -86,7 +86,7 @@ Bug Fixes & Changes
     - This also fixes an issue where other liquids like Lava could incorrectly be assigned different textures on occasion.
   - Removed the `Goat Horn Symphony` and `Back` discs as they didn't feel like necessary additions, nor did they fit Vanilla.
     - These will be datafixed into Lena Raine's `Otherside` and Samuel Åberg's `5` respectively.
-  - Removed the `Ancient Horn Projectile` to `Ancient Horn Vibration.`
+  - Renamed the `Ancient Horn Projectile` to `Ancient Horn Vibration.`
   - Ancient Horn Vibrations will now spawn particles upon dissipating.
   - Ancient Horn Vibrations will no longer play the dissipation sound upon hitting an entity.
   - Fixed Floating Sculk Bubbles spawned from an Ancient Horn Vibration always being the same size each tick.
