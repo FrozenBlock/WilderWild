@@ -41,6 +41,7 @@ import net.frozenblock.wilderwild.entity.render.easter.WilderEasterEggs;
 import net.frozenblock.wilderwild.entity.render.model.AncientHornProjectileModel;
 import net.frozenblock.wilderwild.entity.render.model.CrabModel;
 import net.frozenblock.wilderwild.entity.render.model.JellyfishModel;
+import net.frozenblock.wilderwild.entity.render.model.OstrichInbredModel;
 import net.frozenblock.wilderwild.entity.render.model.OstrichModel;
 import net.frozenblock.wilderwild.entity.render.model.TumbleweedModel;
 import net.frozenblock.wilderwild.entity.render.renderer.AncientHornProjectileRenderer;
@@ -93,6 +94,7 @@ public final class WilderWildClient implements ClientModInitializer {
 	public static final ModelLayerLocation TUMBLEWEED = new ModelLayerLocation(WilderSharedConstants.id("tumbleweed"), "main");
 	public static final ModelLayerLocation CRAB = new ModelLayerLocation(WilderSharedConstants.id("crab"), "main");
 	public static final ModelLayerLocation OSTRICH = new ModelLayerLocation(WilderSharedConstants.id("ostrich"), "main");
+	public static final ModelLayerLocation OSTRICH_INBRED = new ModelLayerLocation(WilderSharedConstants.id("ostrich"), "inbred");
 	public static final ModelLayerLocation OSTRICH_SADDLE = new ModelLayerLocation(WilderSharedConstants.id("ostrich"), "saddle");
 
 	@Override
@@ -235,6 +237,7 @@ public final class WilderWildClient implements ClientModInitializer {
 
 		EntityRendererRegistry.register(RegisterEntities.OSTRICH, OstrichRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(OSTRICH, OstrichModel::createBodyLayer);
+		EntityModelLayerRegistry.registerModelLayer(OSTRICH_INBRED, OstrichInbredModel::createBodyLayer);
 		EntityModelLayerRegistry.registerModelLayer(OSTRICH_SADDLE, OstrichModel::createBodyLayer);
 
 		EntityRendererRegistry.register(RegisterEntities.COCONUT, ThrownItemRenderer::new);
