@@ -604,13 +604,6 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		}
 	}
 
-	public boolean navigationRunning() {
-		if (this.getNavigation() instanceof WallClimberNavigation wallClimberNavigation) {
-			return wallClimberNavigation.pathToPosition == null;
-		}
-		return this.getNavigation().isDone();
-	}
-
 	@NotNull
 	public Vec3 getDeltaPos() {
 		return this.getPosition(1).subtract(this.getPosition(0));
