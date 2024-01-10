@@ -62,6 +62,7 @@ Sculk Analyzer:
 
 Shadownite64:
  - Ostrich concept.
+ - Inbred Ostrich sound suggestions.
 
 SaishoVibes:
  - Initial configs.
@@ -101,6 +102,13 @@ https://freesound.org/people/abstraktgeneriert/sounds/348944/
 https://freesound.org/people/Emmalyons1/sounds/594176/
 https://freesound.org/people/julius_galla/sounds/434893/
 https://freesound.org/people/lukabea/sounds/660471/
+https://freesound.org/people/Zott820/sounds/655706/
+https://freesound.org/people/mhc/sounds/102782/
+https://freesound.org/people/Greg_Surr/sounds/590169/
+https://freesound.org/people/pigeonfriend/sounds/384065/
+https://freesound.org/people/HerbertBoland/sounds/29695/
+https://freesound.org/people/ChrisReierson/sounds/433749/
+https://freesound.org/people/Ezcah/sounds/243715/
 Additional sound effects were taken and edited from Minecraft itself.
 
 Unfortunately I haven't been able to dig up the sources for Crab sounds as I've only been keeping track of these sorts of things since 2.3.

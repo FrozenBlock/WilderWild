@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.UUID;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.particle.api.FrozenParticleTypes;
+import net.frozenblock.lib.screenshake.api.ScreenShakeManager;
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichAi;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichBodyRotationControl;
@@ -307,7 +308,13 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 					this.setAttacking(false);
 					this.setTargetBeakAnimProgress(this.getBeakAnimProgress(1F));
 					if (!this.isSilent()) {
-						this.level().playSound(null, beakBlockPos, RegisterSounds.ENTITY_OSTRICH_BEAK_STUCK, this.getSoundSource(), this.getSoundVolume(), this.getVoicePitch());
+						boolean inbred = this.isInbred();
+						SoundEvent stuckSoundEvent = inbred ? RegisterSounds.ENTITY_OSTRICH_INBRED_BEAK_STUCK : RegisterSounds.ENTITY_OSTRICH_BEAK_STUCK;
+						float volume = inbred ? 8F : this.getSoundVolume();
+						this.level().playSound(null, beakBlockPos, stuckSoundEvent, this.getSoundSource(), volume, this.getVoicePitch());
+						if (inbred) {
+							ScreenShakeManager.addEntityScreenShake(this, 3.5F, 40, 16F);
+						}
 					}
 					this.spawnBlockParticles(true, false);
 					return;
@@ -435,7 +442,8 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		this.setAttacking(true);
 		this.setTargetBeakAnimProgress(power);
 		this.setLastAttackCommander(commander);
-		this.playSound(RegisterSounds.ENTITY_OSTRICH_SWING, 0.4F, 0.9F + this.getRandom().nextFloat() * 0.2F);
+		SoundEvent soundEvent = this.isInbred() ? RegisterSounds.ENTITY_OSTRICH_INBRED_SWING : RegisterSounds.ENTITY_OSTRICH_SWING;
+		this.playSound(soundEvent, 0.4F, 0.9F + this.getRandom().nextFloat() * 0.2F);
 	}
 
 	@Override
@@ -892,7 +900,10 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	@Override
 	public void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
-		this.playSound(RegisterSounds.ENTITY_OSTRICH_STEP, 0.1F, 0.9F + this.getRandom().nextFloat() * 0.2F);
+		boolean inbred = this.isInbred();
+		SoundEvent soundEvent = inbred ? RegisterSounds.ENTITY_OSTRICH_INBRED_STEP : RegisterSounds.ENTITY_OSTRICH_STEP;
+		float volume = inbred ? 0.5F : 0.1F;
+		this.playSound(soundEvent, volume, 0.9F + this.getRandom().nextFloat() * 0.2F);
 	}
 
 	@NotNull

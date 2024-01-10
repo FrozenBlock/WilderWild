@@ -2441,9 +2441,37 @@
   },
   "entity.ostrich.inbred.death": {
     "sounds": [
+      "wilderwild:mob/ostrich/inbred/inbred_death2",
       "wilderwild:mob/ostrich/inbred/inbred_death"
     ],
     "subtitle": "subtitles.entity.ostrich.inbred.death"
+  },
+  "entity.ostrich.inbred.step": {
+    "sounds": [
+      "wilderwild:mob/ostrich/inbred/inbred_step1",
+      "wilderwild:mob/ostrich/inbred/inbred_step2",
+      "wilderwild:mob/ostrich/inbred/inbred_step3",
+      "wilderwild:mob/ostrich/inbred/inbred_step4",
+      "wilderwild:mob/ostrich/inbred/inbred_step5",
+      "wilderwild:mob/ostrich/inbred/inbred_step6",
+      "wilderwild:mob/ostrich/inbred/inbred_step7"
+    ],
+    "subtitle": "subtitles.entity.ostrich.inbred.step"
+  },
+  "entity.ostrich.inbred.beak.stuck": {
+    "sounds": [
+      "wilderwild:mob/ostrich/inbred/inbred_beak_stuck"
+    ],
+    "subtitle": "subtitles.entity.ostrich.inbred.beak.stuck"
+  },
+  "entity.ostrich.inbred.beak.swing": {
+    "sounds": [
+      "wilderwild:mob/ostrich/inbred/inbred_swing1",
+      "wilderwild:mob/ostrich/inbred/inbred_swing2",
+      "wilderwild:mob/ostrich/inbred/inbred_swing3",
+      "wilderwild:mob/ostrich/inbred/inbred_swing4"
+    ],
+    "subtitle": "subtitles.entity.ostrich.inbred.beak.swing"
   },
   "entity.tumbleweed.bounce": {
     "sounds": [
@@ -2811,16 +2839,6 @@
         "volume": 0.8,
         "weight": 6
       }
-    ]
-  },
-  "music_disc.goathorn_symphony": {
-    "sounds": [
-      "wilderwild:records/goathorn_symphony"
-    ]
-  },
-  "music_disc.back": {
-    "sounds": [
-      "wilderwild:records/back"
     ]
   },
   "particle.floating_sculk_bubble.big_pop": {
