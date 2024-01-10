@@ -58,7 +58,7 @@ public record WilderLightningStrikePacket(int blockStateId, double x, double y, 
 			BlockState blockState = Block.stateById(packet.blockStateId());
 			Minecraft minecraft = Minecraft.getInstance();
 			ClientLevel clientLevel = player.clientLevel;
-			if (clientLevel != null && !blockState.isAir()) {
+			if (!blockState.isAir()) {
 				RandomSource random = clientLevel.getRandom();
 				if (EntityConfig.get().lightning.lightningBlockParticles) {
 					lightningBlockParticles(packet.tickCount(), packet.x(), packet.y(), packet.z(), blockState, random, minecraft.particleEngine);

@@ -34,19 +34,17 @@ public record WilderJellyfishStingPacket(boolean isBaby) implements FabricPacket
 	public static void receive() {
 		ClientPlayNetworking.registerGlobalReceiver(PACKET_TYPE, (packet, player, responseSender) -> {
 			ClientLevel clientLevel = player.clientLevel;
-			if (clientLevel != null) {
-				clientLevel.playSound(
-						player,
-						player.getX(),
-						player.getY(),
-						player.getZ(),
-						RegisterSounds.ENTITY_JELLYFISH_STING,
-						SoundSource.NEUTRAL,
-						1.0F,
-						clientLevel.getRandom().nextFloat() * 0.2F + (packet.isBaby() ? 1.2F : 0.9F)
-				);
-			}
-		});
+            clientLevel.playSound(
+                    player,
+                    player.getX(),
+                    player.getY(),
+                    player.getZ(),
+                    RegisterSounds.ENTITY_JELLYFISH_STING,
+                    SoundSource.NEUTRAL,
+                    1F,
+                    clientLevel.getRandom().nextFloat() * 0.2F + (packet.isBaby() ? 1.2F : 0.9F)
+            );
+        });
 	}
 
 	@Override

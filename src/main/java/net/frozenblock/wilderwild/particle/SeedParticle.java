@@ -46,7 +46,7 @@ public class SeedParticle extends TextureSheetParticle {
 		this.setSize(0.01F, 0.02F);
 		this.pickSprite(spriteProvider);
 		this.quadSize *= this.random.nextFloat() * 0.6F + 0.6F;
-		this.lifetime = (int) (16.0D / (AdvancedMath.random().nextDouble() * 0.8D + 0.2D));
+		this.lifetime = (int) (16D / (AdvancedMath.random().nextDouble() * 0.8D + 0.2D));
 		this.hasPhysics = true;
 		this.friction = 1F;
 		this.gravity = 0F;

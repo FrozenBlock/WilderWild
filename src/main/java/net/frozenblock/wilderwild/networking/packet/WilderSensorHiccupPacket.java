@@ -21,13 +21,13 @@ public record WilderSensorHiccupPacket(double x, double y, double z) implements 
 	private static final int PARTICLE_COLOR = 5578058;
 
 	@Environment(EnvType.CLIENT)
-	private static final double COLOR_X = (double) (PARTICLE_COLOR >> 16 & 255) / 255.0D;
+	private static final double COLOR_X = (double) (PARTICLE_COLOR >> 16 & 255) / 255D;
 
 	@Environment(EnvType.CLIENT)
-	private static final double COLOR_Y = (double) (PARTICLE_COLOR >> 8 & 255) / 255.0D;
+	private static final double COLOR_Y = (double) (PARTICLE_COLOR >> 8 & 255) / 255D;
 
 	@Environment(EnvType.CLIENT)
-	private static final double COLOR_Z = (double) (PARTICLE_COLOR & 255) / 255.0D;
+	private static final double COLOR_Z = (double) (PARTICLE_COLOR & 255) / 255D;
 
 	public static final PacketType<WilderSensorHiccupPacket> PACKET_TYPE = PacketType.create(
 			WilderSharedConstants.id("sensor_hiccup_packet"),
@@ -53,18 +53,16 @@ public record WilderSensorHiccupPacket(double x, double y, double z) implements 
 	public static void receive() {
 		ClientPlayNetworking.registerGlobalReceiver(PACKET_TYPE, (packet, player, responseSender) -> {
 			ClientLevel clientLevel = player.clientLevel;
-			if (clientLevel != null) {
-				clientLevel.addParticle(
-						ParticleTypes.ENTITY_EFFECT,
-						packet.x(),
-						packet.y(),
-						packet.z(),
-						COLOR_X,
-						COLOR_Y,
-						COLOR_Z
-				);
-			}
-		});
+            clientLevel.addParticle(
+                    ParticleTypes.ENTITY_EFFECT,
+                    packet.x(),
+                    packet.y(),
+                    packet.z(),
+                    COLOR_X,
+                    COLOR_Y,
+                    COLOR_Z
+            );
+        });
 	}
 
 	@Override

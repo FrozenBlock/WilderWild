@@ -33,6 +33,7 @@ import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
@@ -63,18 +64,19 @@ public class TermiteParticle extends TextureSheetParticle {
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		this.xRot = clientLevel.random.nextBoolean() ? TermiteRotationType.COS : TermiteRotationType.SIN;
-		this.yRot = clientLevel.random.nextBoolean() ? TermiteRotationType.COS : TermiteRotationType.SIN;
-		this.zRot = clientLevel.random.nextBoolean() ? TermiteRotationType.COS : TermiteRotationType.SIN;
-		this.backwardsX = clientLevel.random.nextBoolean();
-		this.backwardsY = clientLevel.random.nextBoolean();
-		this.backwardsZ = clientLevel.random.nextBoolean();
-		this.xOffset = clientLevel.random.nextFloat() * 240F;
-		this.yOffset = clientLevel.random.nextFloat() * 240F;
-		this.zOffset = clientLevel.random.nextFloat() * 240F;
-		this.xSpinSpeed = 8F + (clientLevel.random.nextFloat() * 8F);
-		this.ySpinSpeed = 8F + (clientLevel.random.nextFloat() * 8F);
-		this.zSpinSpeed = 8F + (clientLevel.random.nextFloat() * 8F);
+		RandomSource random = clientLevel.getRandom();
+		this.xRot = random.nextBoolean() ? TermiteRotationType.COS : TermiteRotationType.SIN;
+		this.yRot = random.nextBoolean() ? TermiteRotationType.COS : TermiteRotationType.SIN;
+		this.zRot = random.nextBoolean() ? TermiteRotationType.COS : TermiteRotationType.SIN;
+		this.backwardsX = random.nextBoolean();
+		this.backwardsY = random.nextBoolean();
+		this.backwardsZ = random.nextBoolean();
+		this.xOffset = random.nextFloat() * 240F;
+		this.yOffset = random.nextFloat() * 240F;
+		this.zOffset = random.nextFloat() * 240F;
+		this.xSpinSpeed = 8F + (random.nextFloat() * 8F);
+		this.ySpinSpeed = 8F + (random.nextFloat() * 8F);
+		this.zSpinSpeed = 8F + (random.nextFloat() * 8F);
 	}
 
 	@Override
@@ -192,7 +194,7 @@ public class TermiteParticle extends TextureSheetParticle {
 		public Particle createParticle(@NotNull SimpleParticleType termiteParticleOptions, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {
 			TermiteParticle termite = new TermiteParticle(clientLevel, spriteProvider, x, y, z);
 			termite.setAlpha(1.0F);
-			termite.setLifetime(clientLevel.random.nextInt(10) + 5 + termite.age);
+			termite.setLifetime(clientLevel.getRandom().nextInt(10) + 5 + termite.age);
 			termite.scale(0.75F);
 			return termite;
 		}

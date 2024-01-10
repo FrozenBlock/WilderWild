@@ -18,6 +18,9 @@
 
 package net.frozenblock.wilderwild.mixin.worldgen.biome;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
@@ -37,26 +40,12 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Mixin(value = OverworldBiomeBuilder.class, priority = 69420)
 public final class OverworldBiomeBuilderMixin {
 
-	@Shadow
-	@Final
-	private Climate.Parameter[] erosions;
-	@Shadow
-	@Final
-	private Climate.Parameter coastContinentalness;
-	@Shadow
-	@Final
-	private Climate.Parameter nearInlandContinentalness;
-	@Shadow
-	@Final
-	private Climate.Parameter farInlandContinentalness;
 	@Shadow
 	@Final
 	private ResourceKey<Biome>[][] MIDDLE_BIOMES;
@@ -66,54 +55,6 @@ public final class OverworldBiomeBuilderMixin {
 	@Shadow
 	@Final
 	private Climate.Parameter[] temperatures;
-
-	@Unique
-	private static void wilderWild$replaceParameters(
-		@NotNull Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters,
-		ResourceKey<Biome> biome,
-		Climate.Parameter temperature,
-		Climate.Parameter humidity,
-		Climate.Parameter continentalness,
-		Climate.Parameter erosion,
-		Climate.Parameter weirdness,
-		float offset
-	) {
-		parameters.accept(Pair.of(Climate.parameters(
-				temperature,
-				humidity,
-				continentalness,
-				erosion,
-				Climate.Parameter.point(0.0F),
-				weirdness,
-				offset),
-			biome
-		));
-
-		parameters.accept(Pair.of(Climate.parameters(
-				temperature,
-				humidity,
-				continentalness,
-				erosion,
-				Climate.Parameter.point(1.0F),
-				weirdness,
-				offset),
-			biome
-		));
-	}
-
-	@Unique
-	private static void wilderWild$addDeepBiome(
-		@NotNull Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters,
-		Climate.Parameter temperature,
-		Climate.Parameter humidity,
-		Climate.Parameter continentalness,
-		Climate.Parameter erosion,
-		Climate.Parameter weirdness,
-		float offset,
-		ResourceKey<Biome> biome
-	) {
-		parameters.accept(Pair.of(WilderSharedWorldgen.deepParameters(temperature, humidity, continentalness, erosion, weirdness, offset), biome));
-	}
 
 	@Unique
 	private static void wilderWild$addSemiDeepBiome(
@@ -647,179 +588,6 @@ public final class OverworldBiomeBuilderMixin {
 		}
 	}
 
-	@Inject(method = "maybePickWindsweptSavannaBiome", at = @At("HEAD"), cancellable = true)
-	private void wilderWild$getBiomeOrWindsweptSavanna(int temperature, int humidity, Climate.Parameter weirdness, ResourceKey<Biome> biomeKey, CallbackInfoReturnable<ResourceKey<Biome>> info) {
-		if (WorldgenConfig.get().biomePlacement.modifyWindsweptSavannaPlacement) {
-			info.setReturnValue(temperature > 2 && humidity < 2 && weirdness.max() >= 0L ? Biomes.WINDSWEPT_SAVANNA : biomeKey);
-			info.cancel();
-		}
-	}
-
-	@Inject(method = "addSurfaceBiome", at = @At("HEAD"), cancellable = true)
-	private void wilderWild$modifyPlacement(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, float offset, ResourceKey<Biome> biome, CallbackInfo info) {
-		if (biome.equals(Biomes.MANGROVE_SWAMP) && WorldgenConfig.get().biomePlacement.modifyMangroveSwampPlacement) {
-			wilderWild$replaceParameters(
-				parameters,
-				biome,
-				WilderSharedWorldgen.MangroveSwamp.TEMPERATURE,
-				WilderSharedWorldgen.MangroveSwamp.HUMIDITY,
-				continentalness,
-				erosion,
-				weirdness,
-				offset
-			);
-			info.cancel();
-		} else if (biome.equals(Biomes.SWAMP) && WorldgenConfig.get().biomePlacement.modifySwampPlacement) {
-			wilderWild$replaceParameters(
-				parameters,
-				biome,
-				WilderSharedWorldgen.Swamp.TEMPERATURE,
-				WilderSharedWorldgen.Swamp.HUMIDITY,
-				continentalness,
-				erosion,
-				weirdness,
-				offset
-			);
-			info.cancel();
-		}
-	}
-
-	@Inject(method = "addValleys", at = @At("HEAD"))
-	private void wilderWild$addValleys(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, Climate.Parameter weirdness, CallbackInfo info) {
-		if (WorldgenConfig.get().biomeGeneration.generateWarmRiver) {
-			if (weirdness.max() < 0L) {
-				this.addSurfaceBiome(
-					consumer,
-					this.temperatures[3],
-					WilderSharedWorldgen.WarmRiver.HUMIDITY_TO_TWO,
-					this.coastContinentalness,
-					Climate.Parameter.span(this.erosions[0], this.erosions[1]),
-					weirdness,
-					0.0F,
-					RegisterWorldgen.WARM_RIVER
-				);
-			}
-			this.addSurfaceBiome(
-				consumer,
-				this.temperatures[3],
-				WilderSharedWorldgen.WarmRiver.HUMIDITY_TO_TWO,
-				this.nearInlandContinentalness,
-				Climate.Parameter.span(this.erosions[0], this.erosions[1]),
-				weirdness,
-				0.0F,
-				RegisterWorldgen.WARM_RIVER
-			);
-			this.addSurfaceBiome(
-				consumer,
-				this.temperatures[3],
-				WilderSharedWorldgen.WarmRiver.HUMIDITY_TO_TWO,
-				Climate.Parameter.span(this.coastContinentalness, this.farInlandContinentalness),
-				Climate.Parameter.span(this.erosions[2], this.erosions[5]),
-				weirdness,
-				0.0F,
-				RegisterWorldgen.WARM_RIVER
-			);
-			this.addSurfaceBiome(
-				consumer,
-				this.temperatures[3],
-				WilderSharedWorldgen.WarmRiver.HUMIDITY_TO_TWO,
-				this.coastContinentalness,
-				this.erosions[6],
-				weirdness,
-				0.0F,
-				RegisterWorldgen.WARM_RIVER
-			);
-
-			if (WorldgenConfig.get().biomePlacement.modifyJunglePlacement) {
-				if (weirdness.max() < 0L) {
-					this.addSurfaceBiome(
-						consumer,
-						this.temperatures[4],
-						WilderSharedWorldgen.WarmRiver.HUMIDITY_TO_THREE,
-						this.coastContinentalness,
-						Climate.Parameter.span(this.erosions[0], this.erosions[1]),
-						weirdness,
-						0.0F,
-						RegisterWorldgen.WARM_RIVER
-					);
-				}
-				this.addSurfaceBiome(
-					consumer,
-					this.temperatures[4],
-					WilderSharedWorldgen.WarmRiver.HUMIDITY_TO_THREE,
-					this.nearInlandContinentalness,
-					Climate.Parameter.span(this.erosions[0], this.erosions[1]),
-					weirdness,
-					0.0F,
-					RegisterWorldgen.WARM_RIVER
-				);
-				this.addSurfaceBiome(
-					consumer,
-					this.temperatures[4],
-					WilderSharedWorldgen.WarmRiver.HUMIDITY_TO_THREE,
-					Climate.Parameter.span(this.coastContinentalness, this.farInlandContinentalness),
-					Climate.Parameter.span(this.erosions[2], this.erosions[5]),
-					weirdness,
-					0.0F,
-					RegisterWorldgen.WARM_RIVER
-				);
-				this.addSurfaceBiome(
-					consumer,
-					this.temperatures[4],
-					WilderSharedWorldgen.WarmRiver.HUMIDITY_TO_THREE,
-					this.coastContinentalness,
-					this.erosions[6],
-					weirdness,
-					0.0F,
-					RegisterWorldgen.WARM_RIVER
-				);
-			} else {
-				if (weirdness.max() < 0L) {
-					this.addSurfaceBiome(
-						consumer,
-						this.temperatures[4],
-						Climate.Parameter.span(-1F, 1F),
-						this.coastContinentalness,
-						Climate.Parameter.span(this.erosions[0], this.erosions[1]),
-						weirdness,
-						0.0F,
-						RegisterWorldgen.WARM_RIVER
-					);
-				}
-				this.addSurfaceBiome(
-					consumer,
-					this.temperatures[4],
-					Climate.Parameter.span(-1F, 1F),
-					this.nearInlandContinentalness,
-					Climate.Parameter.span(this.erosions[0], this.erosions[1]),
-					weirdness,
-					0.0F,
-					RegisterWorldgen.WARM_RIVER
-				);
-				this.addSurfaceBiome(
-					consumer,
-					this.temperatures[4],
-					Climate.Parameter.span(-1F, 1F),
-					Climate.Parameter.span(this.coastContinentalness, this.farInlandContinentalness),
-					Climate.Parameter.span(this.erosions[2], this.erosions[5]),
-					weirdness,
-					0.0F,
-					RegisterWorldgen.WARM_RIVER
-				);
-				this.addSurfaceBiome(
-					consumer,
-					this.temperatures[4],
-					Climate.Parameter.span(-1F, 1F),
-					this.coastContinentalness,
-					this.erosions[6],
-					weirdness,
-					0.0F,
-					RegisterWorldgen.WARM_RIVER
-				);
-			}
-		}
-	}
-
 	@Inject(method = "pickBeachBiome", at = @At("HEAD"), cancellable = true)
 	private void wilderWild$injectWarmBeach(int temperature, int humidity, CallbackInfoReturnable<ResourceKey<Biome>> info) {
 		if (WorldgenConfig.get().biomeGeneration.generateWarmBeach && temperature == 3) {
@@ -827,44 +595,46 @@ public final class OverworldBiomeBuilderMixin {
 		}
 	}
 
-	@ModifyArgs(method = "addValleys", at = @At(value = "INVOKE",
-		target = "Lnet/minecraft/world/level/biome/OverworldBiomeBuilder;addSurfaceBiome(Ljava/util/function/Consumer;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;FLnet/minecraft/resources/ResourceKey;)V",
-		ordinal = 1
-	))
-	private void wilderWild$fixPar1(Args args) {
-		if (WorldgenConfig.get().biomeGeneration.generateWarmRiver) {
-			args.set(1, WilderSharedWorldgen.WarmRiver.UNFROZEN_NOT_WARM_RANGE);
+	@WrapOperation(method = "addValleys",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/biome/OverworldBiomeBuilder;addSurfaceBiome(Ljava/util/function/Consumer;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;FLnet/minecraft/resources/ResourceKey;)V"
+		)
+	)
+	private void wilderWild$accountForWarmRivers(OverworldBiomeBuilder instance, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter depth, float weirdness, ResourceKey<Biome> biomeKey, Operation<Void> operation) {
+		if (biomeKey.equals(Biomes.RIVER) && WorldgenConfig.get().biomeGeneration.generateWarmRiver) {
+			temperature = WilderSharedWorldgen.WarmRiver.UNFROZEN_NOT_WARM_RANGE;
+			operation.call(instance, consumer, this.temperatures[3], WilderSharedWorldgen.WarmRiver.HUMIDITY_TO_TWO, continentalness, erosion, depth, weirdness, RegisterWorldgen.WARM_RIVER);
+			Climate.Parameter jungleHumidity = WorldgenConfig.get().biomePlacement.modifyJunglePlacement ? WilderSharedWorldgen.WarmRiver.HUMIDITY_TO_THREE : humidity;
+			operation.call(instance, consumer, this.temperatures[4], jungleHumidity, continentalness, erosion, depth, weirdness, RegisterWorldgen.WARM_RIVER);
 		}
+		operation.call(instance, consumer, temperature, humidity, continentalness, erosion, depth, weirdness, biomeKey);
 	}
 
-	@ModifyArgs(method = "addValleys", at = @At(value = "INVOKE",
-		target = "Lnet/minecraft/world/level/biome/OverworldBiomeBuilder;addSurfaceBiome(Ljava/util/function/Consumer;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;FLnet/minecraft/resources/ResourceKey;)V",
-		ordinal = 3
-	))
-	private void wilderWild$fixPar2(Args args) {
-		if (WorldgenConfig.get().biomeGeneration.generateWarmRiver) {
-			args.set(1, WilderSharedWorldgen.WarmRiver.UNFROZEN_NOT_WARM_RANGE);
+	@WrapOperation(
+		method = {"addMidSlice", "addLowSlice", "addValleys"},
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/biome/OverworldBiomeBuilder;addSurfaceBiome(Ljava/util/function/Consumer;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;FLnet/minecraft/resources/ResourceKey;)V")
+	)
+	public void wilderWild$replaceMidSwamp(OverworldBiomeBuilder instance, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter depth, float weirdness, ResourceKey<Biome> biomeKey, Operation<Void> operation) {
+		if (biomeKey.equals(Biomes.SWAMP) && WorldgenConfig.get().biomePlacement.modifySwampPlacement) {
+			temperature = WilderSharedWorldgen.Swamp.TEMPERATURE;
+			humidity = WilderSharedWorldgen.Swamp.HUMIDITY;
+		} else if (biomeKey.equals(Biomes.MANGROVE_SWAMP) && WorldgenConfig.get().biomePlacement.modifyMangroveSwampPlacement) {
+			temperature = WilderSharedWorldgen.MangroveSwamp.TEMPERATURE;
+			humidity = WilderSharedWorldgen.MangroveSwamp.HUMIDITY;
 		}
+
+		operation.call(instance, consumer, temperature, humidity, continentalness, erosion, depth, weirdness, biomeKey);
 	}
 
-	@ModifyArgs(method = "addValleys", at = @At(value = "INVOKE",
-		target = "Lnet/minecraft/world/level/biome/OverworldBiomeBuilder;addSurfaceBiome(Ljava/util/function/Consumer;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;FLnet/minecraft/resources/ResourceKey;)V",
-		ordinal = 5
-	))
-	private void wilderWild$fixPar3(Args args) {
-		if (WorldgenConfig.get().biomeGeneration.generateWarmRiver) {
-			args.set(1, WilderSharedWorldgen.WarmRiver.UNFROZEN_NOT_WARM_RANGE);
-		}
+	@ModifyExpressionValue(method = "maybePickWindsweptSavannaBiome", at = @At(value = "CONSTANT",  args = "intValue=1"), require = 0)
+	private int wilderWild$fixWindsweptSavannaTemperature(int original) {
+		return 2;
 	}
 
-	@ModifyArgs(method = "addValleys", at = @At(value = "INVOKE",
-		target = "Lnet/minecraft/world/level/biome/OverworldBiomeBuilder;addSurfaceBiome(Ljava/util/function/Consumer;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;Lnet/minecraft/world/level/biome/Climate$Parameter;FLnet/minecraft/resources/ResourceKey;)V",
-		ordinal = 7
-	))
-	private void wilderWild$fixPar4(Args args) {
-		if (WorldgenConfig.get().biomeGeneration.generateWarmRiver) {
-			args.set(1, WilderSharedWorldgen.WarmRiver.UNFROZEN_NOT_WARM_RANGE);
-		}
+	@ModifyExpressionValue(method = "maybePickWindsweptSavannaBiome", at = @At(value = "CONSTANT",  args = "intValue=4"), require = 0)
+	private int wilderWild$fixWindsweptSavannaHumidity(int original) {
+		return 2;
 	}
 
 }

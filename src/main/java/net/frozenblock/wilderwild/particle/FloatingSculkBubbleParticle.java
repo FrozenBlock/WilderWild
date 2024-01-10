@@ -48,7 +48,7 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
 	private float targetInflation = 2F;
 
 	protected FloatingSculkBubbleParticle(@NotNull ClientLevel clientLevel, double x, double y, double z, double size, int maxAge, @NotNull Vec3 velocity, @NotNull SpriteSet spriteProvider) {
-		super(clientLevel, x, y, z, 0, 0, 0);
+		super(clientLevel, x, y, z, 0D, 0D, 0D);
 		this.spriteProvider = spriteProvider;
 		this.setSpriteFromAge(spriteProvider);
 		this.xd = velocity.x();
