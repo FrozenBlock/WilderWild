@@ -101,26 +101,6 @@ public final class WilderSharedWorldgen {
 		return Climate.parameters(temperature, humidity, continentalness, erosion, SURFACE_DEPTH, weirdness, offset);
 	}
 
-	public static final class CypressWetlands {
-		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.COOL, Temperature.WARM);
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.NEUTRAL, Humidity.HUMID);
-		public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(-0.200F, 0.500F);
-		public static final Climate.Parameter EROSION = Climate.Parameter.span(0.500F, 1.000F);
-		public static final float OFFSET = 0.000F;
-		public static final float TEMP = 0.6F;
-		public static final float DOWNFALL = 0.7F;
-		public static final int WATER_COLOR = 4552818;
-		public static final int WATER_FOG_COLOR = 4552818;
-		public static final int FOG_COLOR = 12638463;
-		public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(0.8F);
-		public static final int FOLIAGE_COLOR = 5877296;
-		public static final int GRASS_COLOR = 7979098;
-
-		private CypressWetlands() {
-			throw new UnsupportedOperationException("CypressWetlands contains only static declarations.");
-		}
-	}
-
 	public static final class MixedForest {
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.255F, -0.140F);
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.050F, 0.150F);
@@ -438,28 +418,6 @@ public final class WilderSharedWorldgen {
 
 	// PARAMETER POINTS
 
-	public static final class WarmRiver {
-		public static final Climate.Parameter WARM_RANGE = Climate.Parameter.span(0.550F, 1.000F);
-		public static final Climate.Parameter UNFROZEN_NOT_WARM_RANGE = Climate.Parameter.span(-0.450F, 0.200F);
-		public static final Climate.Parameter HUMIDITY_TO_TWO = Climate.Parameter.span(-0.100F, 0.000F);
-		public static final Climate.Parameter HUMIDITY_TO_THREE = Climate.Parameter.span(0.000F, 0.100F);
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.100F, 0.100F);
-		public static final float TEMP = 1.5F;
-		public static final float DOWNFALL = 0.15F;
-		public static final int NEW_WATER_COLOR = 4566514;
-		public static final int NEW_WATER_FOG_COLOR = 267827;
-		public static final int WATER_COLOR = 4159204;
-		public static final int WATER_FOG_COLOR = 329011;
-		public static final int FOG_COLOR = 12638463;
-		public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
-		public static final int FOLIAGE_COLOR = 11445290;
-		public static final int GRASS_COLOR = 12564309;
-
-		private WarmRiver() {
-			throw new UnsupportedOperationException("WarmRiver contains only static declarations.");
-		}
-	}
-
 	public static final class WarmBeach {
 		public static final float TEMP = 1.1F;
 		public static final float DOWNFALL = 0.6F;
@@ -470,26 +428,6 @@ public final class WilderSharedWorldgen {
 
 		private WarmBeach() {
 			throw new UnsupportedOperationException("WarmBeach contains only static declarations.");
-		}
-	}
-
-	public static final class Oasis {
-		public static final Climate.Parameter TEMPERATURE = Temperature.HOT;
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.THREE, Humidity.FIVE);
-		public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
-		public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_3, Erosion.EROSION_5);
-		public static final float OFFSET = 0F;
-		public static final float TEMP = 2.0F;
-		public static final float DOWNFALL = 0.5F;
-		public static final int WATER_COLOR = 3981763;
-		public static final int WATER_FOG_COLOR = 270131;
-		public static final int FOG_COLOR = 12638463;
-		public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
-		public static final int FOLIAGE_COLOR = 3193611;
-		public static final int GRASS_COLOR = 8569413;
-
-		private Oasis() {
-			throw new UnsupportedOperationException("Oasis contains only static declarations.");
 		}
 	}
 

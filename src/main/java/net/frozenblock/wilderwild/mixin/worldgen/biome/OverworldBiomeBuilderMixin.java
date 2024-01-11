@@ -27,6 +27,9 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderPa
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
+import net.frozenblock.wilderwild.world.biome.CypressWetlands;
+import net.frozenblock.wilderwild.world.biome.Oasis;
+import net.frozenblock.wilderwild.world.biome.WarmRiver;
 import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
@@ -480,24 +483,24 @@ public final class OverworldBiomeBuilderMixin {
 		if (WorldgenConfig.get().biomeGeneration.generateCypressWetlands) {
 			this.addSurfaceBiome(
 				parameters,
-				WilderSharedWorldgen.CypressWetlands.TEMPERATURE,
-				WilderSharedWorldgen.CypressWetlands.HUMIDITY,
-				WilderSharedWorldgen.CypressWetlands.CONTINENTALNESS,
-				WilderSharedWorldgen.CypressWetlands.EROSION,
+				CypressWetlands.TEMPERATURE,
+				CypressWetlands.HUMIDITY,
+				CypressWetlands.CONTINENTALNESS,
+				CypressWetlands.EROSION,
 				weirdness,
-				WilderSharedWorldgen.CypressWetlands.OFFSET,
+				CypressWetlands.OFFSET,
 				RegisterWorldgen.CYPRESS_WETLANDS
 			);
 		}
 		if (WorldgenConfig.get().biomeGeneration.generateOasis) {
 			this.addSurfaceBiome(
 				parameters,
-				WilderSharedWorldgen.Oasis.TEMPERATURE,
-				WilderSharedWorldgen.Oasis.HUMIDITY,
-				WilderSharedWorldgen.Oasis.CONTINENTALNESS,
-				WilderSharedWorldgen.Oasis.EROSION,
+				Oasis.TEMPERATURE,
+				Oasis.HUMIDITY,
+				Oasis.CONTINENTALNESS,
+				Oasis.EROSION,
 				weirdness,
-				WilderSharedWorldgen.Oasis.OFFSET,
+				Oasis.OFFSET,
 				RegisterWorldgen.OASIS
 			);
 		}
@@ -509,24 +512,24 @@ public final class OverworldBiomeBuilderMixin {
 		if (WorldgenConfig.get().biomeGeneration.generateCypressWetlands) {
 			this.addSurfaceBiome(
 				parameters,
-				WilderSharedWorldgen.CypressWetlands.TEMPERATURE,
-				WilderSharedWorldgen.CypressWetlands.HUMIDITY,
-				WilderSharedWorldgen.CypressWetlands.CONTINENTALNESS,
-				WilderSharedWorldgen.CypressWetlands.EROSION,
+				CypressWetlands.TEMPERATURE,
+				CypressWetlands.HUMIDITY,
+				CypressWetlands.CONTINENTALNESS,
+				CypressWetlands.EROSION,
 				weirdness,
-				WilderSharedWorldgen.CypressWetlands.OFFSET,
+				CypressWetlands.OFFSET,
 				RegisterWorldgen.CYPRESS_WETLANDS
 			);
 		}
 		if (WorldgenConfig.get().biomeGeneration.generateOasis) {
 			this.addSurfaceBiome(
 				parameters,
-				WilderSharedWorldgen.Oasis.TEMPERATURE,
-				WilderSharedWorldgen.Oasis.HUMIDITY,
-				WilderSharedWorldgen.Oasis.CONTINENTALNESS,
-				WilderSharedWorldgen.Oasis.EROSION,
+				Oasis.TEMPERATURE,
+				Oasis.HUMIDITY,
+				Oasis.CONTINENTALNESS,
+				Oasis.EROSION,
 				weirdness,
-				WilderSharedWorldgen.Oasis.OFFSET,
+				Oasis.OFFSET,
 				RegisterWorldgen.OASIS
 			);
 		}
@@ -549,24 +552,24 @@ public final class OverworldBiomeBuilderMixin {
 		if (WorldgenConfig.get().biomeGeneration.generateCypressWetlands) {
 			this.addSurfaceBiome(
 				parameters,
-				WilderSharedWorldgen.CypressWetlands.TEMPERATURE,
-				WilderSharedWorldgen.CypressWetlands.HUMIDITY,
-				WilderSharedWorldgen.CypressWetlands.CONTINENTALNESS,
-				WilderSharedWorldgen.CypressWetlands.EROSION,
+				CypressWetlands.TEMPERATURE,
+				CypressWetlands.HUMIDITY,
+				CypressWetlands.CONTINENTALNESS,
+				CypressWetlands.EROSION,
 				weirdness,
-				WilderSharedWorldgen.CypressWetlands.OFFSET,
+				CypressWetlands.OFFSET,
 				RegisterWorldgen.CYPRESS_WETLANDS
 			);
 		}
 		if (WorldgenConfig.get().biomeGeneration.generateOasis) {
 			this.addSurfaceBiome(
 				parameters,
-				WilderSharedWorldgen.Oasis.TEMPERATURE,
-				WilderSharedWorldgen.Oasis.HUMIDITY,
-				WilderSharedWorldgen.Oasis.CONTINENTALNESS,
-				WilderSharedWorldgen.Oasis.EROSION,
+				Oasis.TEMPERATURE,
+				Oasis.HUMIDITY,
+				Oasis.CONTINENTALNESS,
+				Oasis.EROSION,
 				weirdness,
-				WilderSharedWorldgen.Oasis.OFFSET,
+				Oasis.OFFSET,
 				RegisterWorldgen.OASIS
 			);
 		}
@@ -603,9 +606,9 @@ public final class OverworldBiomeBuilderMixin {
 	)
 	private void wilderWild$accountForWarmRivers(OverworldBiomeBuilder instance, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter depth, float weirdness, ResourceKey<Biome> biomeKey, Operation<Void> operation) {
 		if (biomeKey.equals(Biomes.RIVER) && WorldgenConfig.get().biomeGeneration.generateWarmRiver) {
-			temperature = WilderSharedWorldgen.WarmRiver.UNFROZEN_NOT_WARM_RANGE;
-			operation.call(instance, consumer, this.temperatures[3], WilderSharedWorldgen.WarmRiver.HUMIDITY_TO_TWO, continentalness, erosion, depth, weirdness, RegisterWorldgen.WARM_RIVER);
-			Climate.Parameter jungleHumidity = WorldgenConfig.get().biomePlacement.modifyJunglePlacement ? WilderSharedWorldgen.WarmRiver.HUMIDITY_TO_THREE : humidity;
+			temperature = WarmRiver.UNFROZEN_NOT_WARM_RANGE;
+			operation.call(instance, consumer, this.temperatures[3], WarmRiver.HUMIDITY_TO_TWO, continentalness, erosion, depth, weirdness, RegisterWorldgen.WARM_RIVER);
+			Climate.Parameter jungleHumidity = WorldgenConfig.get().biomePlacement.modifyJunglePlacement ? WarmRiver.HUMIDITY_TO_THREE : humidity;
 			operation.call(instance, consumer, this.temperatures[4], jungleHumidity, continentalness, erosion, depth, weirdness, RegisterWorldgen.WARM_RIVER);
 		}
 		operation.call(instance, consumer, temperature, humidity, continentalness, erosion, depth, weirdness, biomeKey);

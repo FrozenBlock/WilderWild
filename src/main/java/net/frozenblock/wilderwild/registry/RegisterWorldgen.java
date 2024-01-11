@@ -22,6 +22,8 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
 import net.frozenblock.wilderwild.world.biome.CypressWetlands;
+import net.frozenblock.wilderwild.world.biome.Oasis;
+import net.frozenblock.wilderwild.world.biome.WarmRiver;
 import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
@@ -48,8 +50,8 @@ import org.jetbrains.annotations.NotNull;
 public final class RegisterWorldgen {
 	// Main Biomes
 	public static final ResourceKey<Biome> CYPRESS_WETLANDS = CypressWetlands.INSTANCE.getKey();
-	public static final ResourceKey<Biome> OASIS = register("oasis");
-	public static final ResourceKey<Biome> WARM_RIVER = register("warm_river");
+	public static final ResourceKey<Biome> OASIS = Oasis.INSTANCE.getKey();
+	public static final ResourceKey<Biome> WARM_RIVER = WarmRiver.INSTANCE.getKey();
 	public static final ResourceKey<Biome> WARM_BEACH = register("warm_beach");
 	// Cave Biomes
 	public static final ResourceKey<Biome> JELLYFISH_CAVES = register("jellyfish_caves");
@@ -98,8 +100,8 @@ public final class RegisterWorldgen {
 		register(context, SNOWY_DYING_FOREST, snowyDyingForest(context));
 		register(context, DYING_MIXED_FOREST, dyingMixedForest(context));
 		register(context, SNOWY_DYING_MIXED_FOREST, snowyDyingMixedForest(context));
-		register(context, OASIS, oasis(context));
-		register(context, WARM_RIVER, warmRiver(context));
+		register(context, OASIS, Oasis.INSTANCE.create(context));
+		register(context, WARM_RIVER, WarmRiver.INSTANCE.create(context));
 		register(context, WARM_BEACH, warmBeach(context));
 		// CAVE BIOMES
 		register(context, JELLYFISH_CAVES, jellyfishCaves(context));
@@ -338,104 +340,6 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.addDefaultMushrooms(builder);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_SNOWY_DYING_MIXED_FOREST.getKey());
-	}
-
-	// OASIS
-	@NotNull
-	public static Biome oasis(@NotNull BootstapContext<Biome> entries) {
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-		BiomeDefaultFeatures.desertSpawns(builder);
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addOasisFeatures(builder2);
-		return new Biome.BiomeBuilder()
-			.hasPrecipitation(false)
-			.temperature(WilderSharedWorldgen.Oasis.TEMP)
-			.downfall(WilderSharedWorldgen.Oasis.DOWNFALL)
-			.specialEffects(
-				new BiomeSpecialEffects.Builder()
-					.grassColorOverride(WilderSharedWorldgen.Oasis.GRASS_COLOR)
-					.foliageColorOverride(WilderSharedWorldgen.Oasis.FOLIAGE_COLOR)
-					.waterColor(WilderSharedWorldgen.Oasis.WATER_COLOR)
-					.waterFogColor(WilderSharedWorldgen.Oasis.WATER_FOG_COLOR)
-					.skyColor(WilderSharedWorldgen.Oasis.SKY_COLOR)
-					.fogColor(WilderSharedWorldgen.Oasis.FOG_COLOR)
-					.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-					.backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_DESERT))
-					.build())
-			.mobSpawnSettings(builder.build())
-			.generationSettings(builder2.build())
-			.build();
-	}
-
-	public static void addOasisFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
-		BiomeDefaultFeatures.addDefaultCarversAndLakes(builder);
-		BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
-		BiomeDefaultFeatures.addDefaultMonsterRoom(builder);
-		BiomeDefaultFeatures.addDefaultUndergroundVariety(builder);
-		BiomeDefaultFeatures.addDefaultSprings(builder);
-		BiomeDefaultFeatures.addSurfaceFreezing(builder);
-		BiomeDefaultFeatures.addDefaultOres(builder);
-		BiomeDefaultFeatures.addDefaultMushrooms(builder);
-		BiomeDefaultFeatures.addDesertExtraDecoration(builder);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_SUGAR_CANE_DESERT);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_RIVER);
-		builder.addFeature(GenerationStep.Decoration.LAKES, WilderMiscPlaced.SAND_POOL.getKey());
-		builder.addFeature(GenerationStep.Decoration.LAKES, WilderMiscPlaced.MESSY_SAND_POOL.getKey());
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.GRASS_PATH.getKey());
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.OASIS_GRASS_PLACED.getKey());
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.OASIS_CACTUS_PLACED.getKey());
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PALMS_OASIS.getKey());
-		builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, WilderMiscPlaced.DESERT_WELL.getKey());
-	}
-
-	// WARM RIVER
-	@NotNull
-	public static Biome warmRiver(@NotNull BootstapContext<Biome> entries) {
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = (new MobSpawnSettings.Builder()).addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(EntityType.SQUID, 2, 1, 4)).addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(EntityType.SALMON, 5, 1, 5));
-		BiomeDefaultFeatures.commonSpawns(builder);
-		builder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.DROWNED, 100, 1, 1));
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addWarmRiverFeatures(builder2);
-		return new Biome.BiomeBuilder()
-			.hasPrecipitation(true)
-			.temperature(WilderSharedWorldgen.WarmRiver.TEMP)
-			.downfall(WilderSharedWorldgen.WarmRiver.DOWNFALL)
-			.specialEffects(
-				new BiomeSpecialEffects.Builder()
-					.grassColorOverride(WilderSharedWorldgen.WarmRiver.GRASS_COLOR)
-					.foliageColorOverride(WilderSharedWorldgen.WarmRiver.FOLIAGE_COLOR)
-					.waterColor(WilderSharedWorldgen.WarmRiver.WATER_COLOR)
-					.waterFogColor(WilderSharedWorldgen.WarmRiver.WATER_FOG_COLOR)
-					.skyColor(WilderSharedWorldgen.WarmRiver.SKY_COLOR)
-					.fogColor(WilderSharedWorldgen.WarmRiver.FOG_COLOR)
-					.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-					.backgroundMusic(null)
-					.build())
-			.mobSpawnSettings(builder.build())
-			.generationSettings(builder2.build())
-			.build();
-	}
-
-	public static void addWarmRiverFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
-		BiomeDefaultFeatures.addDefaultCarversAndLakes(builder);
-		BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
-		BiomeDefaultFeatures.addDefaultMonsterRoom(builder);
-		BiomeDefaultFeatures.addDefaultUndergroundVariety(builder);
-		BiomeDefaultFeatures.addDefaultSprings(builder);
-		BiomeDefaultFeatures.addSurfaceFreezing(builder);
-		BiomeDefaultFeatures.addDefaultOres(builder);
-		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
-		BiomeDefaultFeatures.addWaterTrees(builder);
-		BiomeDefaultFeatures.addDefaultFlowers(builder);
-		BiomeDefaultFeatures.addDefaultGrass(builder);
-		BiomeDefaultFeatures.addDefaultMushrooms(builder);
-		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_RIVER);
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_GRAVEL_PATH_RIVER.getKey());
 	}
 
 	//WARM BEACH

@@ -19,6 +19,8 @@
 package net.frozenblock.wilderwild.world.biome;
 
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -28,6 +30,7 @@ import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
+import net.minecraft.data.worldgen.placement.AquaticPlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
@@ -45,21 +48,21 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class CypressWetlands extends FrozenBiome {
-	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.COOL, Temperature.WARM);
-	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.NEUTRAL, Humidity.HUMID);
-	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(-0.200F, 0.500F);
-	public static final Climate.Parameter EROSION = Climate.Parameter.span(0.500F, 1.000F);
-	public static final float OFFSET = 0.000F;
-	public static final float TEMP = 0.6F;
-	public static final float DOWNFALL = 0.7F;
-	public static final int WATER_COLOR = 4552818;
-	public static final int WATER_FOG_COLOR = 4552818;
+public class Oasis extends FrozenBiome {
+	public static final Climate.Parameter TEMPERATURE = Temperature.HOT;
+	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.THREE, Humidity.FIVE);
+	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
+	public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_3, Erosion.EROSION_5);
+	public static final float OFFSET = 0F;
+	public static final float TEMP = 2F;
+	public static final float DOWNFALL = 0.5F;
+	public static final int WATER_COLOR = 3981763;
+	public static final int WATER_FOG_COLOR = 270131;
 	public static final int FOG_COLOR = 12638463;
-	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(0.8F);
-	public static final int FOLIAGE_COLOR = 5877296;
-	public static final int GRASS_COLOR = 7979098;
-	public static final CypressWetlands INSTANCE = new CypressWetlands();
+	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
+	public static final int FOLIAGE_COLOR = 3193611;
+	public static final int GRASS_COLOR = 8569413;
+	public static final Oasis INSTANCE = new Oasis();
 
 	@Override
 	public String modID() {
@@ -68,7 +71,7 @@ public class CypressWetlands extends FrozenBiome {
 
 	@Override
 	public String biomeID() {
-		return "cypress_wetlands";
+		return "oasis";
 	}
 
 	@Override
@@ -83,7 +86,7 @@ public class CypressWetlands extends FrozenBiome {
 
 	@Override
 	public boolean hasPrecipitation() {
-		return true;
+		return false;
 	}
 
 	@Override
@@ -138,43 +141,34 @@ public class CypressWetlands extends FrozenBiome {
 
 	@Override
 	public @Nullable Music backgroundMusic() {
-		return Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST);
+		return Musics.createGameMusic(SoundEvents.MUSIC_BIOME_DESERT);
 	}
 
 	@Override
 	public void addFeatures(@NotNull BiomeGenerationSettings.Builder features) {
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SEAGRASS_CYPRESS.getKey());
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_FOREST_FLOWERS.getKey());
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DENSE_FLOWER_PLACED.getKey());
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.CYPRESS_WETLANDS_TREES.getKey());
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.CYPRESS_WETLANDS_TREES_WATER.getKey());
-		this.addCypressPaths(features);
-		WilderSharedWorldgen.addBasicFeatures(features, true);
-		BiomeDefaultFeatures.addForestGrass(features);
+		BiomeDefaultFeatures.addDefaultCarversAndLakes(features);
+		BiomeDefaultFeatures.addDefaultCrystalFormations(features);
+		BiomeDefaultFeatures.addDefaultMonsterRoom(features);
+		BiomeDefaultFeatures.addDefaultUndergroundVariety(features);
+		BiomeDefaultFeatures.addDefaultSprings(features);
+		BiomeDefaultFeatures.addSurfaceFreezing(features);
 		BiomeDefaultFeatures.addDefaultOres(features);
-		this.addCypressVegetation(features);
-	}
-
-	public void addCypressPaths(@NotNull BiomeGenerationSettings.Builder builder) {
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_SAND_PATH.getKey());
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_GRAVEL_PATH.getKey());
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_CLAY_PATH.getKey());
-	}
-
-	public void addCypressVegetation(@NotNull BiomeGenerationSettings.Builder builder) {
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_SUGAR_CANE_SWAMP);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_PUMPKIN);
+		BiomeDefaultFeatures.addDefaultMushrooms(features);
+		BiomeDefaultFeatures.addDesertExtraDecoration(features);
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_SUGAR_CANE_DESERT);
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_RIVER);
+		features.addFeature(GenerationStep.Decoration.LAKES, WilderMiscPlaced.SAND_POOL.getKey());
+		features.addFeature(GenerationStep.Decoration.LAKES, WilderMiscPlaced.MESSY_SAND_POOL.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.GRASS_PATH.getKey());
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.OASIS_GRASS_PLACED.getKey());
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.OASIS_CACTUS_PLACED.getKey());
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PALMS_OASIS.getKey());
+		features.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, WilderMiscPlaced.DESERT_WELL.getKey());
 	}
 
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
-		BiomeDefaultFeatures.commonSpawns(spawns);
-		spawns.addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(EntityType.COD, 5, 2, 6))
-			.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.FROG, 14, 4, 5))
-			.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.PIG, 3, 2, 4))
-			.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.CHICKEN, 4, 2, 4))
-			.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.COW, 6, 4, 4))
-			.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 10, 4, 4));
+		BiomeDefaultFeatures.desertSpawns(spawns);
 	}
 
 }

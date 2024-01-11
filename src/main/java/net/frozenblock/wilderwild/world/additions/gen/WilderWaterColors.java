@@ -23,6 +23,7 @@ import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderBiomeTags;
+import net.frozenblock.wilderwild.world.biome.WarmRiver;
 import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
 
 public final class WilderWaterColors {
@@ -35,15 +36,15 @@ public final class WilderWaterColors {
 		BiomeModifications.create(WilderSharedConstants.id("modify_hot_water")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeRegistryEntry().is(WilderBiomeTags.HOT_WATER),
 			(selectionContext, modificationContext) -> {
 				if (WorldgenConfig.get().waterColors.modifyHotWater) {
-					modificationContext.getEffects().setWaterColor(WilderSharedWorldgen.WarmRiver.NEW_WATER_COLOR);
-					modificationContext.getEffects().setWaterFogColor(WilderSharedWorldgen.WarmRiver.NEW_WATER_FOG_COLOR);
+					modificationContext.getEffects().setWaterColor(WarmRiver.NEW_WATER_COLOR);
+					modificationContext.getEffects().setWaterFogColor(WarmRiver.NEW_WATER_FOG_COLOR);
 				}
 			});
 		BiomeModifications.create(WilderSharedConstants.id("modify_lukewarm_water")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeRegistryEntry().is(WilderBiomeTags.LUKEWARM_WATER),
 			(selectionContext, modificationContext) -> {
 				if (WorldgenConfig.get().waterColors.modifyLukewarmWater) {
-					modificationContext.getEffects().setWaterColor(WilderSharedWorldgen.WarmRiver.NEW_WATER_COLOR);
-					modificationContext.getEffects().setWaterFogColor(WilderSharedWorldgen.WarmRiver.NEW_WATER_FOG_COLOR);
+					modificationContext.getEffects().setWaterColor(WarmRiver.NEW_WATER_COLOR);
+					modificationContext.getEffects().setWaterFogColor(WarmRiver.NEW_WATER_FOG_COLOR);
 				}
 			});
 		BiomeModifications.create(WilderSharedConstants.id("modify_snowy_water")).add(ModificationPhase.REPLACEMENTS, (context) -> context.getBiomeRegistryEntry().is(WilderBiomeTags.SNOWY_WATER),
