@@ -35,7 +35,7 @@ public final class WilderSharedWorldgen {
 	private WilderSharedWorldgen() {
 		throw new UnsupportedOperationException("WilderSharedWorldgen contains only static declarations.");
 	}
-	
+
 	public static final class Swamp {
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Climate.Parameter.span(-0.200F, 0.100F), Humidity.WET);
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.COOL, Temperature.WARM);
