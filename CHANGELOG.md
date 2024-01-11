@@ -106,6 +106,7 @@ Bug Fixes & Changes
   - Significantly improved Wilder Wild's biome parameter modifications and cut down `OverworldBiomeBuilderMixin` in size in the process.
   - Moved all biome parameters, feature/spawn building, and most worldgen injects to individual biome classes.
     - This means `WilderSharedWorldgen` will only contain parameters for modified Vanilla biome placement from now on.
+  - Expanded the depth at which Jellyfish Caves can generate.
   - Pumpkins now generate much more frequently in Old Growth Dark Forests.
   - Changed the `Cherry Grove Placement` config to be disabled by default as it wasn't as immersive as anticipated.
   - Fixed the `Stony Shore Placement` config lang reading as `CStony Shore Placement.`

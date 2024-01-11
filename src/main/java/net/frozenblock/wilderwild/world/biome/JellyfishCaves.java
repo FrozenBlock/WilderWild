@@ -192,6 +192,15 @@ public final class JellyfishCaves extends FrozenBiome {
 				WEIRDNESS,
 				OFFSET
 			);
+			this.addUndergroundBiome(
+				parameters,
+				TEMPERATURE,
+				HUMIDITY,
+				CONTINENTALNESS,
+				EROSION,
+				WEIRDNESS,
+				OFFSET
+			);
 		}
 	}
 
