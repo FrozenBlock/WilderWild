@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.world.biome;
 
 import com.mojang.datafixers.util.Pair;
+import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
@@ -41,7 +42,6 @@ import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import java.util.function.Consumer;
 
 public final class WarmBeach extends FrozenBiome {
 	public static final float TEMP = 1.1F;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2024 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.world.biome;
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
+import net.frozenblock.lib.worldgen.biome.api.parameters.FrozenBiomeParameters;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -47,16 +48,16 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class DarkBirchForest extends FrozenBiome {
-	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.125F, 0.2F);
-	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.275F, 0.325F);
-	public static final float TEMP = 0.65F;
-	public static final float DOWNFALL = 0.7F;
+public class OldGrowthDarkForest extends FrozenBiome {
+	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.200F, 0.200F);
+	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.350F, 1.000F);
+	public static final float TEMP = 0.7F;
+	public static final float DOWNFALL = 0.8F;
 	public static final int WATER_COLOR = 4159204;
 	public static final int WATER_FOG_COLOR = 329011;
 	public static final int FOG_COLOR = 12638463;
 	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
-	public static final DarkBirchForest INSTANCE = new DarkBirchForest();
+	public static final OldGrowthDarkForest INSTANCE = new OldGrowthDarkForest();
 
 	@Override
 	public String modID() {
@@ -65,7 +66,7 @@ public class DarkBirchForest extends FrozenBiome {
 
 	@Override
 	public String biomeID() {
-		return "dark_birch_forest";
+		return "old_growth_dark_forest";
 	}
 
 	@Override
@@ -153,7 +154,7 @@ public class DarkBirchForest extends FrozenBiome {
 		BiomeDefaultFeatures.addForestGrass(features);
 		BiomeDefaultFeatures.addDefaultMushrooms(features);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(features);
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DARK_BIRCH_FOREST_VEGETATION.getKey());
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.OLD_GROWTH_DARK_FOREST_VEGETATION.getKey());
 	}
 
 	@Override
@@ -164,17 +165,19 @@ public class DarkBirchForest extends FrozenBiome {
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-		if (WorldgenConfig.get().biomeGeneration.generateDarkBirchForest) {
+		if (WorldgenConfig.get().biomeGeneration.generateOldGrowthDarkForest) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST)) {
-				this.addSurfaceBiome(
-					parameters,
-					TEMPERATURE,
-					HUMIDITY,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset()
-				);
+				if (FrozenBiomeParameters.isWeird(point)) {
+					this.addSurfaceBiome(
+						parameters,
+						TEMPERATURE,
+						HUMIDITY,
+						point.continentalness(),
+						point.erosion(),
+						point.weirdness(),
+						point.offset()
+					);
+				}
 			}
 		}
 	}

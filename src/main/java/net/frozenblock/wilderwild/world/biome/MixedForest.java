@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2024 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -34,12 +34,13 @@ import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.AmbientAdditionsSettings;
 import net.minecraft.world.level.biome.AmbientMoodSettings;
 import net.minecraft.world.level.biome.AmbientParticleSettings;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
-import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MobSpawnSettings;
@@ -47,16 +48,16 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class DarkBirchForest extends FrozenBiome {
-	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.125F, 0.2F);
-	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.275F, 0.325F);
-	public static final float TEMP = 0.65F;
+public class MixedForest extends FrozenBiome {
+	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.255F, -0.140F);
+	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.050F, 0.150F);
+	public static final float TEMP = 0.5F;
 	public static final float DOWNFALL = 0.7F;
 	public static final int WATER_COLOR = 4159204;
 	public static final int WATER_FOG_COLOR = 329011;
 	public static final int FOG_COLOR = 12638463;
 	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
-	public static final DarkBirchForest INSTANCE = new DarkBirchForest();
+	public static final MixedForest INSTANCE = new MixedForest();
 
 	@Override
 	public String modID() {
@@ -65,7 +66,7 @@ public class DarkBirchForest extends FrozenBiome {
 
 	@Override
 	public String biomeID() {
-		return "dark_birch_forest";
+		return "mixed_forest";
 	}
 
 	@Override
@@ -114,11 +115,6 @@ public class DarkBirchForest extends FrozenBiome {
 	}
 
 	@Override
-	public BiomeSpecialEffects.GrassColorModifier grassColorModifier() {
-		return BiomeSpecialEffects.GrassColorModifier.DARK_FOREST;
-	}
-
-	@Override
 	public @Nullable AmbientParticleSettings ambientParticleSettings() {
 		return null;
 	}
@@ -145,27 +141,25 @@ public class DarkBirchForest extends FrozenBiome {
 
 	@Override
 	public void addFeatures(@NotNull BiomeGenerationSettings.Builder features) {
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MIXED_TREES.getKey());
 		WilderSharedWorldgen.addBasicFeatures(features, false);
 		BiomeDefaultFeatures.addForestFlowers(features);
+		BiomeDefaultFeatures.addForestGrass(features);
 		BiomeDefaultFeatures.addDefaultOres(features);
 		BiomeDefaultFeatures.addDefaultSoftDisks(features);
-		BiomeDefaultFeatures.addDefaultFlowers(features);
-		BiomeDefaultFeatures.addForestGrass(features);
-		BiomeDefaultFeatures.addDefaultMushrooms(features);
-		BiomeDefaultFeatures.addDefaultExtraVegetation(features);
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DARK_BIRCH_FOREST_VEGETATION.getKey());
 	}
 
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
-		BiomeDefaultFeatures.farmAnimals(spawns);
 		BiomeDefaultFeatures.commonSpawns(spawns);
+		BiomeDefaultFeatures.plainsSpawns(spawns);
+		spawns.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 5, 4, 4));
 	}
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-		if (WorldgenConfig.get().biomeGeneration.generateDarkBirchForest) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST)) {
+		if (WorldgenConfig.get().biomeGeneration.generateMixedForest) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.TAIGA)) {
 				this.addSurfaceBiome(
 					parameters,
 					TEMPERATURE,

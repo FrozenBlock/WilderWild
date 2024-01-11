@@ -25,7 +25,6 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderPa
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
 import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
 import net.minecraft.core.Holder;
@@ -173,8 +172,7 @@ public class SemiBirchForest extends FrozenBiome {
 					point.continentalness(),
 					point.erosion(),
 					point.weirdness(),
-					point.offset(),
-					this.getKey()
+					point.offset()
 				);
 				this.addSurfaceBiome(
 					parameters,
@@ -183,8 +181,7 @@ public class SemiBirchForest extends FrozenBiome {
 					point.continentalness(),
 					point.erosion(),
 					point.weirdness(),
-					point.offset(),
-					this.getKey()
+					point.offset()
 				);
 			}
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.OLD_GROWTH_BIRCH_FOREST)) {
@@ -195,8 +192,7 @@ public class SemiBirchForest extends FrozenBiome {
 					point.continentalness(),
 					point.erosion(),
 					point.weirdness(),
-					point.offset(),
-					this.getKey()
+					point.offset()
 				);
 				this.addSurfaceBiome(
 					parameters,
@@ -205,8 +201,7 @@ public class SemiBirchForest extends FrozenBiome {
 					point.continentalness(),
 					point.erosion(),
 					point.weirdness(),
-					point.offset(),
-					this.getKey()
+					point.offset()
 				);
 			}
 		}

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2024 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -21,7 +21,9 @@ package net.frozenblock.wilderwild.world.biome;
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
@@ -34,12 +36,13 @@ import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.AmbientAdditionsSettings;
 import net.minecraft.world.level.biome.AmbientMoodSettings;
 import net.minecraft.world.level.biome.AmbientParticleSettings;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
-import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MobSpawnSettings;
@@ -47,16 +50,18 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class DarkBirchForest extends FrozenBiome {
-	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.125F, 0.2F);
-	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.275F, 0.325F);
-	public static final float TEMP = 0.65F;
-	public static final float DOWNFALL = 0.7F;
-	public static final int WATER_COLOR = 4159204;
+public class SnowyOldGrowthPineTaiga extends FrozenBiome {
+	public static final Climate.Parameter TEMPERATURE = Temperature.ONE;
+	public static final Climate.Parameter HUMIDITY = Humidity.HUMID;
+	public static final float TEMP = -0.5F;
+	public static final float DOWNFALL = 0.4F;
+	public static final int WATER_COLOR = 4020182;
 	public static final int WATER_FOG_COLOR = 329011;
 	public static final int FOG_COLOR = 12638463;
 	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
-	public static final DarkBirchForest INSTANCE = new DarkBirchForest();
+	public static final int GRASS_COLOR = 8434839;
+	public static final int FOLIAGE_COLOR = 6332795;
+	public static final SnowyOldGrowthPineTaiga INSTANCE = new SnowyOldGrowthPineTaiga();
 
 	@Override
 	public String modID() {
@@ -65,7 +70,7 @@ public class DarkBirchForest extends FrozenBiome {
 
 	@Override
 	public String biomeID() {
-		return "dark_birch_forest";
+		return "snowy_old_growth_pine_taiga";
 	}
 
 	@Override
@@ -81,6 +86,11 @@ public class DarkBirchForest extends FrozenBiome {
 	@Override
 	public boolean hasPrecipitation() {
 		return true;
+	}
+
+	@Override
+	public Biome.TemperatureModifier temperatureModifier() {
+		return Biome.TemperatureModifier.FROZEN;
 	}
 
 	@Override
@@ -105,17 +115,12 @@ public class DarkBirchForest extends FrozenBiome {
 
 	@Override
 	public @Nullable Integer foliageColorOverride() {
-		return null;
+		return FOLIAGE_COLOR;
 	}
 
 	@Override
 	public @Nullable Integer grassColorOverride() {
-		return null;
-	}
-
-	@Override
-	public BiomeSpecialEffects.GrassColorModifier grassColorModifier() {
-		return BiomeSpecialEffects.GrassColorModifier.DARK_FOREST;
+		return GRASS_COLOR;
 	}
 
 	@Override
@@ -140,32 +145,36 @@ public class DarkBirchForest extends FrozenBiome {
 
 	@Override
 	public @Nullable Music backgroundMusic() {
-		return Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST);
+		return Musics.createGameMusic(SoundEvents.MUSIC_BIOME_OLD_GROWTH_TAIGA);
 	}
 
 	@Override
 	public void addFeatures(@NotNull BiomeGenerationSettings.Builder features) {
 		WilderSharedWorldgen.addBasicFeatures(features, false);
-		BiomeDefaultFeatures.addForestFlowers(features);
 		BiomeDefaultFeatures.addDefaultOres(features);
 		BiomeDefaultFeatures.addDefaultSoftDisks(features);
+		BiomeDefaultFeatures.addMossyStoneBlock(features);
 		BiomeDefaultFeatures.addDefaultFlowers(features);
-		BiomeDefaultFeatures.addForestGrass(features);
+		BiomeDefaultFeatures.addGiantTaigaVegetation(features);
 		BiomeDefaultFeatures.addDefaultMushrooms(features);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(features);
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DARK_BIRCH_FOREST_VEGETATION.getKey());
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_OLD_GROWTH_SNOWY_PINE_TAIGA.getKey());
 	}
 
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
 		BiomeDefaultFeatures.farmAnimals(spawns);
-		BiomeDefaultFeatures.commonSpawns(spawns);
+		spawns.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 8, 4, 4))
+			.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 4, 2, 3))
+			.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.FOX, 8, 2, 4));
+		BiomeDefaultFeatures.caveSpawns(spawns);
+		BiomeDefaultFeatures.monsters(spawns, 100, 25, 100, false);
 	}
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-		if (WorldgenConfig.get().biomeGeneration.generateDarkBirchForest) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST)) {
+		if (WorldgenConfig.get().biomeGeneration.generateOldGrowthSnowyTaiga) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA)) {
 				this.addSurfaceBiome(
 					parameters,
 					TEMPERATURE,

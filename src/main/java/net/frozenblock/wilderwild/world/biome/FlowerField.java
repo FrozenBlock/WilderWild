@@ -26,7 +26,6 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderPa
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
 import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
 import net.minecraft.core.Holder;
@@ -44,7 +43,6 @@ import net.minecraft.world.level.biome.AmbientMoodSettings;
 import net.minecraft.world.level.biome.AmbientParticleSettings;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
-import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MobSpawnSettings;
@@ -176,8 +174,7 @@ public class FlowerField extends FrozenBiome {
 					point.continentalness(),
 					point.erosion(),
 					point.weirdness(),
-					point.offset(),
-					this.getKey()
+					point.offset()
 				);
 				this.addSurfaceBiome(
 					parameters,
@@ -186,8 +183,7 @@ public class FlowerField extends FrozenBiome {
 					point.continentalness(),
 					point.erosion(),
 					point.weirdness(),
-					point.offset(),
-					this.getKey()
+					point.offset()
 				);
 				this.addSurfaceBiome(
 					parameters,
@@ -196,8 +192,7 @@ public class FlowerField extends FrozenBiome {
 					point.continentalness(),
 					point.erosion(),
 					point.weirdness(),
-					point.offset(),
-					this.getKey()
+					point.offset()
 				);
 			}
 		}

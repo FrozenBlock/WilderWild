@@ -70,193 +70,6 @@ public final class OverworldBiomeBuilderMixin {
 		}
 	}
 
-	@Unique
-	private void wilderWild$injectBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-		if (WorldgenConfig.get().biomeGeneration.generateDarkTaiga) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST)) {
-				this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.DarkTaiga.TEMPERATURE,
-					WilderSharedWorldgen.DarkTaiga.HUMIDITY,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset(),
-					RegisterWorldgen.DARK_TAIGA
-				);
-			}
-		}
-		if (WorldgenConfig.get().biomeGeneration.generateMixedForest) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.TAIGA)) {
-				this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.MixedForest.TEMPERATURE,
-					WilderSharedWorldgen.MixedForest.HUMIDITY,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset(),
-					RegisterWorldgen.MIXED_FOREST
-				);
-			}
-		}
-		if (WorldgenConfig.get().biomeGeneration.generateRainforest) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FOREST)) {
-				this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.Rainforest.TEMPERATURE_A,
-					WilderSharedWorldgen.Rainforest.HUMIDITY_A,
-					WilderSharedWorldgen.Rainforest.CONTINENTALNESS_A,
-					WilderSharedWorldgen.Rainforest.EROSION_A,
-					WilderSharedWorldgen.Rainforest.WEIRDNESS_A,
-					point.offset(),
-					RegisterWorldgen.RAINFOREST
-				);
-				if (point.temperature().equals(Temperature.FOUR)) {
-					this.addSurfaceBiome(
-						parameters,
-						WilderSharedWorldgen.Rainforest.TEMPERATURE_B,
-						WilderSharedWorldgen.Rainforest.HUMIDITY_B,
-						point.continentalness(),
-						point.erosion(),
-						point.weirdness(),
-						point.offset(),
-						RegisterWorldgen.RAINFOREST
-					);
-				}
-				if (point.temperature().equals(Temperature.THREE)) {
-					this.addSurfaceBiome(
-						parameters,
-						WilderSharedWorldgen.Rainforest.TEMPERATURE_C,
-						WilderSharedWorldgen.Rainforest.HUMIDITY_C,
-						point.continentalness(),
-						point.erosion(),
-						point.weirdness(),
-						point.offset(),
-						RegisterWorldgen.RAINFOREST
-					);
-				}
-			}
-		}
-		if (WorldgenConfig.get().biomeGeneration.generateOldGrowthSnowyTaiga) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA)) {
-				this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.OldGrowthSnowySpruceTaiga.TEMPERATURE,
-					WilderSharedWorldgen.OldGrowthSnowySpruceTaiga.HUMIDITY,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset(),
-					RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA
-				);
-			}
-		}
-		if (WorldgenConfig.get().biomeGeneration.generateOldGrowthDarkForest) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST)) {
-				if (point.weirdness().max() < 0L) {
-					this.addSurfaceBiome(
-						parameters,
-						WilderSharedWorldgen.OldGrowthDarkForest.TEMPERATURE,
-						WilderSharedWorldgen.OldGrowthDarkForest.HUMIDITY,
-						point.continentalness(),
-						point.erosion(),
-						point.weirdness(),
-						point.offset(),
-						RegisterWorldgen.OLD_GROWTH_DARK_FOREST
-					);
-				}
-			}
-		}
-		if (WorldgenConfig.get().biomeGeneration.generateDyingForest) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FOREST)) {
-				this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.DyingForest.TEMPERATURE,
-					WilderSharedWorldgen.DyingForest.HUMIDITY,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset(),
-					RegisterWorldgen.DYING_FOREST
-				);
-			}
-		}
-		if (WorldgenConfig.get().biomeGeneration.generateSnowyDyingForest) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FOREST)) {
-				if (point.weirdness().max() >= 0L) {
-					this.addSurfaceBiome(
-						parameters,
-						WilderSharedWorldgen.SnowyDyingForest.TEMPERATURE,
-						WilderSharedWorldgen.SnowyDyingForest.HUMIDITY,
-						point.continentalness(),
-						point.erosion(),
-						point.weirdness(),
-						point.offset(),
-						RegisterWorldgen.SNOWY_DYING_FOREST
-					);
-				}
-			}
-		}
-		if (WorldgenConfig.get().biomeGeneration.generateDyingMixedForest) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA)) {
-				boolean weird = point.weirdness().max() < 0L;
-				this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.DyingMixedForest.TEMPERATURE,
-					WilderSharedWorldgen.DyingMixedForest.HUMIDITY,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset(),
-					RegisterWorldgen.DYING_MIXED_FOREST
-				);
-				if (weird) {
-					this.addSurfaceBiome(
-						parameters,
-						WilderSharedWorldgen.DyingMixedForest.TEMPERATURE_WEIRD,
-						WilderSharedWorldgen.DyingMixedForest.HUMIDITY_WEIRD,
-						point.continentalness(),
-						point.erosion(),
-						point.weirdness(),
-						point.offset(),
-						RegisterWorldgen.DYING_MIXED_FOREST
-					);
-				}
-			}
-		}
-		if (WorldgenConfig.get().biomeGeneration.generateSnowyDyingMixedForest) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA)) {
-				boolean weird = point.weirdness().max() < 0L;
-				this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.SnowyDyingMixedForest.TEMPERATURE,
-					weird ? WilderSharedWorldgen.SnowyDyingMixedForest.HUMIDITY_WEIRD :
-						WilderSharedWorldgen.SnowyDyingMixedForest.HUMIDITY,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset(),
-					RegisterWorldgen.SNOWY_DYING_MIXED_FOREST
-				);
-			}
-		}
-		if (WorldgenConfig.get().biomePlacement.modifyStonyShorePlacement) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.BEACH)) {
-				this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.StonyShoreTaiga.TEMPERATURE,
-					WilderSharedWorldgen.StonyShoreTaiga.HUMIDITY,
-					WilderSharedWorldgen.StonyShoreTaiga.CONTINENTALNESS,
-					WilderSharedWorldgen.StonyShoreTaiga.EROSION,
-					point.weirdness(),
-					point.offset(),
-					Biomes.STONY_SHORE
-				);
-			}
-		}
-	}
-
 	@Inject(method = "addLowSlice", at = @At("TAIL"))
 	private void wilderWild$injectLowSlice(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo info) {
 		if (WorldgenConfig.get().biomeGeneration.generateCypressWetlands) {
@@ -283,7 +96,20 @@ public final class OverworldBiomeBuilderMixin {
 				RegisterWorldgen.OASIS
 			);
 		}
-		wilderWild$injectBiomes(parameters);
+		if (WorldgenConfig.get().biomePlacement.modifyStonyShorePlacement) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.BEACH)) {
+				this.addSurfaceBiome(
+					parameters,
+					WilderSharedWorldgen.StonyShoreTaiga.TEMPERATURE,
+					WilderSharedWorldgen.StonyShoreTaiga.HUMIDITY,
+					WilderSharedWorldgen.StonyShoreTaiga.CONTINENTALNESS,
+					WilderSharedWorldgen.StonyShoreTaiga.EROSION,
+					point.weirdness(),
+					point.offset(),
+					Biomes.STONY_SHORE
+				);
+			}
+		}
 	}
 
 	@Inject(method = "addMidSlice", at = @At("TAIL"))

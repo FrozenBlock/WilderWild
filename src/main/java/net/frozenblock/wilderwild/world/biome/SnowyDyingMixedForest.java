@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2024 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.world.biome;
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
+import net.frozenblock.lib.worldgen.biome.api.parameters.FrozenBiomeParameters;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -29,17 +30,19 @@ import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
+import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.AmbientAdditionsSettings;
 import net.minecraft.world.level.biome.AmbientMoodSettings;
 import net.minecraft.world.level.biome.AmbientParticleSettings;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
-import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MobSpawnSettings;
@@ -47,16 +50,18 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class DarkBirchForest extends FrozenBiome {
-	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.125F, 0.2F);
-	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.275F, 0.325F);
-	public static final float TEMP = 0.65F;
-	public static final float DOWNFALL = 0.7F;
+public class SnowyDyingMixedForest extends FrozenBiome {
+	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.485F, -0.465F);
+	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.050F, 0.155F);
+	public static final Climate.Parameter HUMIDITY_WEIRD = Climate.Parameter.span(-0.105F, 0.155F);
+	public static final float TEMP = -0.4F;
+	public static final float DOWNFALL = 0.425F;
 	public static final int WATER_COLOR = 4159204;
 	public static final int WATER_FOG_COLOR = 329011;
 	public static final int FOG_COLOR = 12638463;
+	public static final int FOLIAGE_COLOR = 7703076;
 	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
-	public static final DarkBirchForest INSTANCE = new DarkBirchForest();
+	public static final SnowyDyingMixedForest INSTANCE = new SnowyDyingMixedForest();
 
 	@Override
 	public String modID() {
@@ -65,7 +70,7 @@ public class DarkBirchForest extends FrozenBiome {
 
 	@Override
 	public String biomeID() {
-		return "dark_birch_forest";
+		return "snowy_dying_mixed_forest";
 	}
 
 	@Override
@@ -105,17 +110,12 @@ public class DarkBirchForest extends FrozenBiome {
 
 	@Override
 	public @Nullable Integer foliageColorOverride() {
-		return null;
+		return FOLIAGE_COLOR;
 	}
 
 	@Override
 	public @Nullable Integer grassColorOverride() {
 		return null;
-	}
-
-	@Override
-	public BiomeSpecialEffects.GrassColorModifier grassColorModifier() {
-		return BiomeSpecialEffects.GrassColorModifier.DARK_FOREST;
 	}
 
 	@Override
@@ -146,30 +146,35 @@ public class DarkBirchForest extends FrozenBiome {
 	@Override
 	public void addFeatures(@NotNull BiomeGenerationSettings.Builder features) {
 		WilderSharedWorldgen.addBasicFeatures(features, false);
-		BiomeDefaultFeatures.addForestFlowers(features);
 		BiomeDefaultFeatures.addDefaultOres(features);
 		BiomeDefaultFeatures.addDefaultSoftDisks(features);
-		BiomeDefaultFeatures.addDefaultFlowers(features);
-		BiomeDefaultFeatures.addForestGrass(features);
+		BiomeDefaultFeatures.addSnowyTrees(features);
+		BiomeDefaultFeatures.addDefaultGrass(features);
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH);
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH_2);
 		BiomeDefaultFeatures.addDefaultMushrooms(features);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(features);
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DARK_BIRCH_FOREST_VEGETATION.getKey());
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_SNOWY_DYING_MIXED_FOREST.getKey());
 	}
 
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
 		BiomeDefaultFeatures.farmAnimals(spawns);
+		spawns.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 8, 4, 4))
+			.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 4, 2, 3))
+			.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.FOX, 8, 2, 4));
 		BiomeDefaultFeatures.commonSpawns(spawns);
 	}
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-		if (WorldgenConfig.get().biomeGeneration.generateDarkBirchForest) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST)) {
+		if (WorldgenConfig.get().biomeGeneration.generateSnowyDyingMixedForest) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA)) {
+				boolean weird = FrozenBiomeParameters.isWeird(point);
 				this.addSurfaceBiome(
 					parameters,
 					TEMPERATURE,
-					HUMIDITY,
+					weird ? HUMIDITY_WEIRD : HUMIDITY,
 					point.continentalness(),
 					point.erosion(),
 					point.weirdness(),
