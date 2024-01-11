@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.world.biome;
 
+import com.mojang.datafixers.util.Pair;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
@@ -34,6 +35,7 @@ import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.data.worldgen.placement.AquaticPlacements;
 import net.minecraft.data.worldgen.placement.CavePlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvent;
@@ -41,14 +43,16 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.biome.AmbientAdditionsSettings;
 import net.minecraft.world.level.biome.AmbientMoodSettings;
 import net.minecraft.world.level.biome.AmbientParticleSettings;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import java.util.function.Consumer;
 
-public class JellyfishCaves extends FrozenBiome {
+public final class JellyfishCaves extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Temperature.FULL_RANGE;
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.DRY, Humidity.HUMID);
 	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(-1.200F, -0.749F);
@@ -124,22 +128,22 @@ public class JellyfishCaves extends FrozenBiome {
 	}
 
 	@Override
-	public @Nullable Holder<SoundEvent> ambientLoopSound() {
+	public @NotNull Holder<SoundEvent> ambientLoopSound() {
 		return RegisterSounds.AMBIENT_JELLYFISH_CAVES_LOOP;
 	}
 
 	@Override
-	public @Nullable AmbientMoodSettings ambientMoodSettings() {
+	public @NotNull AmbientMoodSettings ambientMoodSettings() {
 		return AmbientMoodSettings.LEGACY_CAVE_SETTINGS;
 	}
 
 	@Override
-	public @Nullable AmbientAdditionsSettings ambientAdditionsSound() {
+	public @NotNull AmbientAdditionsSettings ambientAdditionsSound() {
 		return new AmbientAdditionsSettings(RegisterSounds.AMBIENT_JELLYFISH_CAVES_ADDITIONS, 0.005D);
 	}
 
 	@Override
-	public @Nullable Music backgroundMusic() {
+	public @NotNull Music backgroundMusic() {
 		return Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_JELLYFISH_CAVES);
 	}
 
@@ -177,6 +181,10 @@ public class JellyfishCaves extends FrozenBiome {
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
 		BiomeDefaultFeatures.commonSpawns(spawns);
+	}
+
+	@Override
+	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 	}
 
 }

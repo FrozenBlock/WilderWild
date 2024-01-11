@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.world.biome;
 
+import com.mojang.datafixers.util.Pair;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
@@ -33,6 +34,7 @@ import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.data.worldgen.placement.AquaticPlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvent;
@@ -41,8 +43,9 @@ import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import java.util.function.Consumer;
 
-public class AridForest extends FrozenBiome {
+public final class AridForest extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.530F, 0.570F);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.095F, 0.15F);
 	public static final Climate.Parameter HUMIDITY_MODIFIED_JUNGLE = Climate.Parameter.span(-0.095F, 0.1F);
@@ -152,6 +155,11 @@ public class AridForest extends FrozenBiome {
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
 		BiomeDefaultFeatures.commonSpawns(spawns);
+	}
+
+	@Override
+	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
+
 	}
 
 }

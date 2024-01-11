@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.world.biome;
 
+import com.mojang.datafixers.util.Pair;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
@@ -25,6 +26,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.data.worldgen.placement.AquaticPlacements;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
@@ -32,14 +34,16 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.AmbientAdditionsSettings;
 import net.minecraft.world.level.biome.AmbientMoodSettings;
 import net.minecraft.world.level.biome.AmbientParticleSettings;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import java.util.function.Consumer;
 
-public class WarmRiver extends FrozenBiome {
+public final class WarmRiver extends FrozenBiome {
 	public static final Climate.Parameter WARM_RANGE = Climate.Parameter.span(0.550F, 1.000F);
 	public static final Climate.Parameter UNFROZEN_NOT_WARM_RANGE = Climate.Parameter.span(-0.450F, 0.200F);
 	public static final Climate.Parameter HUMIDITY_TO_TWO = Climate.Parameter.span(-0.100F, 0.000F);
@@ -162,6 +166,10 @@ public class WarmRiver extends FrozenBiome {
 		spawns.addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(EntityType.SQUID, 2, 1, 4))
 			.addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(EntityType.SALMON, 5, 1, 5))
 			.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.DROWNED, 100, 1, 1));
+	}
+
+	@Override
+	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 	}
 
 }

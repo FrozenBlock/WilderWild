@@ -838,6 +838,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		this.entityData.set(STUCK_TICKS, stuckTicks);
 	}
 
+	@SuppressWarnings("SameParameterValue")
 	private void clampHeadRotationToBody(@NotNull Entity entity, float maxYRot) {
 		float f = entity.getYHeadRot();
 		float g = Mth.wrapDegrees(this.yBodyRot - f);
