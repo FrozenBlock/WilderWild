@@ -519,6 +519,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	}
 
 	@Override
+	@NotNull
 	public InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
 		if (this.isAggressive() && !this.isTamed()) {
 			return InteractionResult.FAIL;
@@ -922,6 +923,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		return !this.isTamed() && super.removeWhenFarAway(distanceToClosestPlayer);
 	}
 
+	@SuppressWarnings("DataFlowIssue")
 	public boolean isInbred() {
 		return this.hasCustomName() && this.getCustomName().getString().equalsIgnoreCase("shadownite64");
 	}
