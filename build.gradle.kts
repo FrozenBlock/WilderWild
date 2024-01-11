@@ -37,6 +37,9 @@ plugins {
     java
 }
 
+val githubActions: Boolean = System.getenv("GITHUB_ACTIONS") == "true"
+val licenseChecks: Boolean = githubActions
+
 val minecraft_version: String by project
 val quilt_mappings: String by project
 val parchment_mappings: String by project
@@ -267,6 +270,14 @@ tasks {
         }
     }
 
+    license {
+        if (licenseChecks) {
+            rule(file("codeformat/HEADER"))
+
+            include("**/*.java")
+        }
+    }
+
 
     register("javadocJar", Jar::class) {
         dependsOn(javadoc)
@@ -293,7 +304,7 @@ tasks {
     }
 }
 
-
+val applyLicenses: Task by tasks
 val test: Task by tasks
 val runClient: Task by tasks
 val runDatagen: Task by tasks
