@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.registry;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
+import net.frozenblock.wilderwild.world.biome.CypressWetlands;
 import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
@@ -46,7 +47,7 @@ import org.jetbrains.annotations.NotNull;
 
 public final class RegisterWorldgen {
 	// Main Biomes
-	public static final ResourceKey<Biome> CYPRESS_WETLANDS = register("cypress_wetlands");
+	public static final ResourceKey<Biome> CYPRESS_WETLANDS = CypressWetlands.INSTANCE.getKey();
 	public static final ResourceKey<Biome> OASIS = register("oasis");
 	public static final ResourceKey<Biome> WARM_RIVER = register("warm_river");
 	public static final ResourceKey<Biome> WARM_BEACH = register("warm_beach");
@@ -91,7 +92,7 @@ public final class RegisterWorldgen {
 		WilderSharedConstants.logWithModId("Registering Biomes for", WilderSharedConstants.UNSTABLE_LOGGING);
 
 		// MAIN BIOMES
-		register(context, CYPRESS_WETLANDS, cypressWetlands(context));
+		register(context, CYPRESS_WETLANDS, CypressWetlands.INSTANCE.create(context));
 		register(context, MIXED_FOREST, mixedForest(context));
 		register(context, DYING_FOREST, dyingForest(context));
 		register(context, SNOWY_DYING_FOREST, snowyDyingForest(context));
@@ -135,67 +136,6 @@ public final class RegisterWorldgen {
 	}
 
 	// MAIN BIOMES
-	// CYPRESS WETLANDS
-	@NotNull
-	public static Biome cypressWetlands(@NotNull BootstapContext<Biome> entries) {
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-		BiomeDefaultFeatures.commonSpawns(builder);
-		addCypressWetlandsMobs(builder);
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addCypressWetlandsFeatures(builder2);
-		return new Biome.BiomeBuilder()
-			.hasPrecipitation(true)
-			.temperature(WilderSharedWorldgen.CypressWetlands.TEMP)
-			.downfall(WilderSharedWorldgen.CypressWetlands.DOWNFALL)
-			.specialEffects(
-				new BiomeSpecialEffects.Builder()
-					.waterColor(WilderSharedWorldgen.CypressWetlands.WATER_COLOR)
-					.waterFogColor(WilderSharedWorldgen.CypressWetlands.WATER_FOG_COLOR)
-					.fogColor(WilderSharedWorldgen.CypressWetlands.FOG_COLOR)
-					.skyColor(WilderSharedWorldgen.CypressWetlands.SKY_COLOR)
-					.foliageColorOverride(WilderSharedWorldgen.CypressWetlands.FOLIAGE_COLOR)
-					.grassColorOverride(WilderSharedWorldgen.CypressWetlands.GRASS_COLOR)
-					.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-					.backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST)).build())
-			.mobSpawnSettings(builder.build())
-			.generationSettings(builder2.build())
-			.build();
-	}
-
-	public static void addCypressPaths(@NotNull BiomeGenerationSettings.Builder builder) {
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_SAND_PATH.getKey());
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_GRAVEL_PATH.getKey());
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_CLAY_PATH.getKey());
-	}
-
-	public static void addCypressWetlandsFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SEAGRASS_CYPRESS.getKey());
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_FOREST_FLOWERS.getKey());
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DENSE_FLOWER_PLACED.getKey());
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.CYPRESS_WETLANDS_TREES.getKey());
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.CYPRESS_WETLANDS_TREES_WATER.getKey());
-		addCypressPaths(builder);
-		addBasicFeatures(builder, CYPRESS_WETLANDS);
-		BiomeDefaultFeatures.addForestGrass(builder);
-		BiomeDefaultFeatures.addDefaultOres(builder);
-		addCypressVegetation(builder);
-	}
-
-	public static void addCypressVegetation(@NotNull BiomeGenerationSettings.Builder builder) {
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_SUGAR_CANE_SWAMP);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_PUMPKIN);
-	}
-
-	public static void addCypressWetlandsMobs(@NotNull MobSpawnSettings.Builder builder) {
-		builder.addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(EntityType.COD, 5, 2, 6));
-		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.FROG, 14, 4, 5));
-		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.PIG, 3, 2, 4));
-		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.CHICKEN, 4, 2, 4));
-		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.COW, 6, 4, 4));
-		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 10, 4, 4));
-	}
 
 	// MIXED FOREST
 	@NotNull
@@ -227,7 +167,7 @@ public final class RegisterWorldgen {
 
 	public static void addMixedForestFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.MIXED_TREES.getKey());
-		addBasicFeatures(builder, MIXED_FOREST);
+		WilderSharedWorldgen.addBasicFeatures(builder, false);
 		BiomeDefaultFeatures.addForestFlowers(builder);
 		BiomeDefaultFeatures.addForestGrass(builder);
 		BiomeDefaultFeatures.addDefaultOres(builder);
@@ -264,7 +204,7 @@ public final class RegisterWorldgen {
 	}
 
 	public static void addDyingForestFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
-		addBasicFeatures(builder, DYING_FOREST);
+		WilderSharedWorldgen.addBasicFeatures(builder, false);
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
 		BiomeDefaultFeatures.addForestFlowers(builder);
@@ -304,7 +244,7 @@ public final class RegisterWorldgen {
 	}
 
 	public static void addSnowyDyingForestFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
-		addBasicFeatures(builder, SNOWY_DYING_FOREST);
+		WilderSharedWorldgen.addBasicFeatures(builder, false);
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
 		BiomeDefaultFeatures.addSnowyTrees(builder);
@@ -347,7 +287,7 @@ public final class RegisterWorldgen {
 	}
 
 	public static void addDyingMixedForestFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
-		addBasicFeatures(builder, DYING_MIXED_FOREST);
+		WilderSharedWorldgen.addBasicFeatures(builder, false);
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
 		BiomeDefaultFeatures.addForestFlowers(builder);
@@ -388,7 +328,7 @@ public final class RegisterWorldgen {
 	}
 
 	public static void addSnowyDyingMixedForestFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
-		addBasicFeatures(builder, SNOWY_DYING_MIXED_FOREST);
+		WilderSharedWorldgen.addBasicFeatures(builder, false);
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
 		BiomeDefaultFeatures.addSnowyTrees(builder);
@@ -631,7 +571,7 @@ public final class RegisterWorldgen {
 
 	public static void addAridForestFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_FOREST_TREES.getKey());
-		addBasicFeatures(builder, ARID_FOREST);
+		WilderSharedWorldgen.addBasicFeatures(builder, false);
 		BiomeDefaultFeatures.addSavannaGrass(builder);
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
@@ -671,7 +611,7 @@ public final class RegisterWorldgen {
 
 	public static void addAridSavannaFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_SAVANNA_TREES.getKey());
-		addBasicFeatures(builder, ARID_SAVANNA);
+		WilderSharedWorldgen.addBasicFeatures(builder, false);
 		BiomeDefaultFeatures.addSavannaGrass(builder);
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
@@ -711,7 +651,7 @@ public final class RegisterWorldgen {
 
 	public static void addParchedForestFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PARCHED_FOREST_TREES.getKey());
-		addBasicFeatures(builder, PARCHED_FOREST);
+		WilderSharedWorldgen.addBasicFeatures(builder, false);
 		BiomeDefaultFeatures.addSavannaGrass(builder);
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
@@ -748,7 +688,7 @@ public final class RegisterWorldgen {
 	}
 
 	public static void addBirchJungleFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
-		addBasicFeatures(builder, BIRCH_JUNGLE);
+		WilderSharedWorldgen.addBasicFeatures(builder, false);
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
 		BiomeDefaultFeatures.addLightBambooVegetation(builder);
@@ -787,7 +727,7 @@ public final class RegisterWorldgen {
 	}
 
 	public static void addSparseBirchJungleFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
-		addBasicFeatures(builder, SPARSE_BIRCH_JUNGLE);
+		WilderSharedWorldgen.addBasicFeatures(builder, false);
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
 		BiomeDefaultFeatures.addWarmFlowers(builder);
@@ -829,7 +769,7 @@ public final class RegisterWorldgen {
 
 	public static void addBirchTaigaFeatures(@NotNull BiomeGenerationSettings.Builder builder, boolean old) {
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, old ? WilderPlacedFeatures.OLD_GROWTH_BIRCH_TAIGA_TREES.getKey() : WilderPlacedFeatures.BIRCH_TAIGA_TREES.getKey());
-		addBasicFeatures(builder, BIRCH_TAIGA);
+		WilderSharedWorldgen.addBasicFeatures(builder, false);
 		BiomeDefaultFeatures.addFerns(builder);
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
@@ -868,7 +808,7 @@ public final class RegisterWorldgen {
 	}
 
 	public static void addSemiBirchForestFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
-		addBasicFeatures(builder, SEMI_BIRCH_FOREST);
+		WilderSharedWorldgen.addBasicFeatures(builder, false);
 		BiomeDefaultFeatures.addForestFlowers(builder);
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
@@ -907,7 +847,7 @@ public final class RegisterWorldgen {
 	}
 
 	public static void addDarkBirchForestFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
-		addBasicFeatures(builder, DARK_BIRCH_FOREST);
+		WilderSharedWorldgen.addBasicFeatures(builder, false);
 		BiomeDefaultFeatures.addForestFlowers(builder);
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
@@ -946,7 +886,7 @@ public final class RegisterWorldgen {
 	}
 
 	public static void addFlowerFieldFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
-		addBasicFeatures(builder, FLOWER_FIELD);
+		WilderSharedWorldgen.addBasicFeatures(builder, false);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TALL_FLOWER_FIELD_FLOWERS.getKey());
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_FIELD_GRASS_PLACED.getKey());
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_FLOWER_FIELD.getKey());
@@ -985,7 +925,7 @@ public final class RegisterWorldgen {
 	}
 
 	public static void addTemperateRainforestFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
-		addBasicFeatures(builder, TEMPERATE_RAINFOREST);
+		WilderSharedWorldgen.addBasicFeatures(builder, false);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TEMPERATE_RAINFOREST_TREES.getKey());
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_TEMPERATE_RAINFOREST_VANILLA.getKey());
 		BiomeDefaultFeatures.addDefaultOres(builder);
@@ -1024,7 +964,7 @@ public final class RegisterWorldgen {
 	}
 
 	public static void addRainforestFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
-		addBasicFeatures(builder, RAINFOREST);
+		WilderSharedWorldgen.addBasicFeatures(builder, false);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.RAINFOREST_TREES.getKey());
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_RAINFOREST_VANILLA.getKey());
 		BiomeDefaultFeatures.addForestFlowers(builder);
@@ -1064,7 +1004,7 @@ public final class RegisterWorldgen {
 	}
 
 	public static void addDarkTaigaFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
-		addBasicFeatures(builder, DARK_TAIGA);
+		WilderSharedWorldgen.addBasicFeatures(builder, false);
 		BiomeDefaultFeatures.addFerns(builder);
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
@@ -1105,7 +1045,7 @@ public final class RegisterWorldgen {
 	}
 
 	public static void addOldGrowthDarkForestFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
-		addBasicFeatures(builder, OLD_GROWTH_DARK_FOREST);
+		WilderSharedWorldgen.addBasicFeatures(builder, false);
 		BiomeDefaultFeatures.addForestFlowers(builder);
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
@@ -1148,7 +1088,7 @@ public final class RegisterWorldgen {
 	}
 
 	public static void addOldGrowthSnowyTaigaFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
-		addBasicFeatures(builder, SNOWY_OLD_GROWTH_PINE_TAIGA);
+		WilderSharedWorldgen.addBasicFeatures(builder, false);
 		BiomeDefaultFeatures.addDefaultOres(builder);
 		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
 		BiomeDefaultFeatures.addMossyStoneBlock(builder);
@@ -1157,18 +1097,5 @@ public final class RegisterWorldgen {
 		BiomeDefaultFeatures.addDefaultMushrooms(builder);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_OLD_GROWTH_SNOWY_PINE_TAIGA.getKey());
-	}
-
-	private static void addBasicFeatures(@NotNull BiomeGenerationSettings.Builder builder, @NotNull ResourceKey<Biome> biome) {
-		BiomeDefaultFeatures.addDefaultCarversAndLakes(builder);
-		BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
-		BiomeDefaultFeatures.addDefaultMonsterRoom(builder);
-		BiomeDefaultFeatures.addDefaultUndergroundVariety(builder);
-		if (biome == CYPRESS_WETLANDS) {
-			builder.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, MiscOverworldPlacements.SPRING_WATER);
-		} else {
-			BiomeDefaultFeatures.addDefaultSprings(builder);
-		}
-		BiomeDefaultFeatures.addSurfaceFreezing(builder);
 	}
 }

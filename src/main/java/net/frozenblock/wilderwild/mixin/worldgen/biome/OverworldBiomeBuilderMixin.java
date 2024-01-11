@@ -75,7 +75,7 @@ public final class OverworldBiomeBuilderMixin {
 	}
 
 	@Inject(method = "<init>", at = @At("TAIL"))
-	private void wilderWild$injectBiomes(CallbackInfo ci) {
+	private void wilderWild$injectBiomes(CallbackInfo info) {
 		if (WorldgenConfig.get().biomePlacement.modifyJunglePlacement) {
 			MIDDLE_BIOMES_VARIANT[4][3] = Biomes.JUNGLE;
 			MIDDLE_BIOMES[4][4] = Biomes.JUNGLE;
@@ -504,8 +504,8 @@ public final class OverworldBiomeBuilderMixin {
 		wilderWild$injectBiomes(parameters);
 	}
 
-	@Inject(method = "addMidSlice", at = @At("TAIL")) // also can be injectMidBiomes
-	private void wilderWild$injectMixedBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo info) {
+	@Inject(method = "addMidSlice", at = @At("TAIL"))
+	private void wilderWild$injectMidBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo info) {
 		if (WorldgenConfig.get().biomeGeneration.generateCypressWetlands) {
 			this.addSurfaceBiome(
 				parameters,

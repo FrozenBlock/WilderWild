@@ -24,8 +24,12 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
+import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
+import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
+import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.Climate;
+import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -533,5 +537,18 @@ public final class WilderSharedWorldgen {
 		private StonyShoreTaiga() {
 			throw new UnsupportedOperationException("Stony Shore Taiga contains only static declarations.");
 		}
+	}
+
+	public static void addBasicFeatures(@NotNull BiomeGenerationSettings.Builder builder, boolean commonSprings) {
+		BiomeDefaultFeatures.addDefaultCarversAndLakes(builder);
+		BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
+		BiomeDefaultFeatures.addDefaultMonsterRoom(builder);
+		BiomeDefaultFeatures.addDefaultUndergroundVariety(builder);
+		if (commonSprings) {
+			builder.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, MiscOverworldPlacements.SPRING_WATER);
+		} else {
+			BiomeDefaultFeatures.addDefaultSprings(builder);
+		}
+		BiomeDefaultFeatures.addSurfaceFreezing(builder);
 	}
 }
