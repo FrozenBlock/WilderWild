@@ -249,21 +249,6 @@ public final class WilderSharedWorldgen {
 		}
 	}
 
-	public static final class AridForest {
-		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.530F, 0.570F);
-		public static final Climate.Parameter HUMIDITY = WorldgenConfig.get().biomePlacement.modifyJunglePlacement ? Climate.Parameter.span(-0.095F, 0.1F) : Climate.Parameter.span(-0.095F, 0.15F);
-		public static final float TEMP = 1.75F;
-		public static final float DOWNFALL = 0.05F;
-		public static final int WATER_COLOR = 4159204;
-		public static final int WATER_FOG_COLOR = 329011;
-		public static final int FOG_COLOR = 12638463;
-		public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
-
-		private AridForest() {
-			throw new UnsupportedOperationException("AridForest contains only static declarations.");
-		}
-	}
-
 	public static final class OldGrowthSnowySpruceTaiga {
 		public static final Climate.Parameter TEMPERATURE = Temperature.ONE;
 		public static final Climate.Parameter HUMIDITY = Humidity.HUMID;
@@ -397,39 +382,7 @@ public final class WilderSharedWorldgen {
 		}
 	}
 
-	public static final class JellyfishCaves {
-		public static final Climate.Parameter TEMPERATURE = Temperature.FULL_RANGE;
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.DRY, Humidity.HUMID);
-		public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(-1.200F, -0.749F);
-		public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_4, Erosion.EROSION_6);
-		public static final Climate.Parameter WEIRDNESS = Weirdness.FULL_RANGE;
-		public static final float OFFSET = 0.000F;
-		public static final float TEMP = 0.4F;
-		public static final float DOWNFALL = 0.4F;
-		public static final int WATER_COLOR = 9817343;
-		public static final int WATER_FOG_COLOR = 6069471;
-		public static final int FOG_COLOR = 0;
-		public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(0.0F);
-
-		private JellyfishCaves() {
-			throw new UnsupportedOperationException("JellyfishCaves contains only static declarations.");
-		}
-	}
-
 	// PARAMETER POINTS
-
-	public static final class WarmBeach {
-		public static final float TEMP = 1.1F;
-		public static final float DOWNFALL = 0.6F;
-		public static final int WATER_COLOR = 4159204;
-		public static final int WATER_FOG_COLOR = 329011;
-		public static final int FOG_COLOR = 12638463;
-		public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
-
-		private WarmBeach() {
-			throw new UnsupportedOperationException("WarmBeach contains only static declarations.");
-		}
-	}
 
 	public static final class Swamp {
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Climate.Parameter.span(-0.200F, 0.100F), Humidity.WET);

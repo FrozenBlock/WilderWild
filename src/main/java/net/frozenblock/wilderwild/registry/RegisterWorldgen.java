@@ -21,8 +21,11 @@ package net.frozenblock.wilderwild.registry;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
+import net.frozenblock.wilderwild.world.biome.AridForest;
 import net.frozenblock.wilderwild.world.biome.CypressWetlands;
+import net.frozenblock.wilderwild.world.biome.JellyfishCaves;
 import net.frozenblock.wilderwild.world.biome.Oasis;
+import net.frozenblock.wilderwild.world.biome.WarmBeach;
 import net.frozenblock.wilderwild.world.biome.WarmRiver;
 import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
 import net.minecraft.core.registries.Registries;
@@ -52,12 +55,12 @@ public final class RegisterWorldgen {
 	public static final ResourceKey<Biome> CYPRESS_WETLANDS = CypressWetlands.INSTANCE.getKey();
 	public static final ResourceKey<Biome> OASIS = Oasis.INSTANCE.getKey();
 	public static final ResourceKey<Biome> WARM_RIVER = WarmRiver.INSTANCE.getKey();
-	public static final ResourceKey<Biome> WARM_BEACH = register("warm_beach");
+	public static final ResourceKey<Biome> WARM_BEACH = WarmBeach.INSTANCE.getKey();
 	// Cave Biomes
-	public static final ResourceKey<Biome> JELLYFISH_CAVES = register("jellyfish_caves");
+	public static final ResourceKey<Biome> JELLYFISH_CAVES = JellyfishCaves.INSTANCE.getKey();
 	// Transition Biomes
 	// HOT
-	public static final ResourceKey<Biome> ARID_FOREST = register("arid_forest");
+	public static final ResourceKey<Biome> ARID_FOREST = AridForest.INSTANCE.getKey();
 	public static final ResourceKey<Biome> ARID_SAVANNA = register("arid_savanna");
 	public static final ResourceKey<Biome> PARCHED_FOREST = register("parched_forest");
 	// TROPICAL
@@ -102,12 +105,12 @@ public final class RegisterWorldgen {
 		register(context, SNOWY_DYING_MIXED_FOREST, snowyDyingMixedForest(context));
 		register(context, OASIS, Oasis.INSTANCE.create(context));
 		register(context, WARM_RIVER, WarmRiver.INSTANCE.create(context));
-		register(context, WARM_BEACH, warmBeach(context));
+		register(context, WARM_BEACH, WarmBeach.INSTANCE.create(context));
 		// CAVE BIOMES
-		register(context, JELLYFISH_CAVES, jellyfishCaves(context));
+		register(context, JELLYFISH_CAVES, JellyfishCaves.INSTANCE.create(context));
 		// TRANSITION BIOMES
 		// HOT
-		register(context, ARID_FOREST, aridForest(context));
+		register(context, ARID_FOREST, AridForest.INSTANCE.create(context));
 		register(context, ARID_SAVANNA, aridSavanna(context));
 		register(context, PARCHED_FOREST, parchedForest(context));
 		// TROPICAL
@@ -342,150 +345,8 @@ public final class RegisterWorldgen {
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_SNOWY_DYING_MIXED_FOREST.getKey());
 	}
 
-	//WARM BEACH
-	@NotNull
-	public static Biome warmBeach(@NotNull BootstapContext<Biome> entries) {
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = (new MobSpawnSettings.Builder()).addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.TURTLE, 5, 2, 5));
-		BiomeDefaultFeatures.commonSpawns(builder);
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addWarmBeachFeatures(builder2);
-		return new Biome.BiomeBuilder()
-			.hasPrecipitation(true)
-			.temperature(WilderSharedWorldgen.WarmBeach.TEMP)
-			.downfall(WilderSharedWorldgen.WarmBeach.DOWNFALL)
-			.specialEffects(
-				new BiomeSpecialEffects.Builder()
-					.waterColor(WilderSharedWorldgen.WarmBeach.WATER_COLOR)
-					.waterFogColor(WilderSharedWorldgen.WarmBeach.WATER_FOG_COLOR)
-					.skyColor(WilderSharedWorldgen.WarmBeach.SKY_COLOR)
-					.fogColor(WilderSharedWorldgen.WarmBeach.FOG_COLOR)
-					.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-					.backgroundMusic(null)
-					.build())
-			.mobSpawnSettings(builder.build())
-			.generationSettings(builder2.build())
-			.build();
-	}
-
-	public static void addWarmBeachFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
-		BiomeDefaultFeatures.addDefaultCarversAndLakes(builder);
-		BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
-		BiomeDefaultFeatures.addDefaultMonsterRoom(builder);
-		BiomeDefaultFeatures.addDefaultUndergroundVariety(builder);
-		BiomeDefaultFeatures.addDefaultSprings(builder);
-		BiomeDefaultFeatures.addSurfaceFreezing(builder);
-		BiomeDefaultFeatures.addDefaultOres(builder);
-		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
-		BiomeDefaultFeatures.addDefaultFlowers(builder);
-		BiomeDefaultFeatures.addDefaultGrass(builder);
-		BiomeDefaultFeatures.addDefaultMushrooms(builder);
-		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_RIVER);
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.UNDER_WATER_GRAVEL_PATH_RIVER.getKey());
-	}
-
-	// CAVE BIOMES
-	// JELLYFISH CAVES
-	@NotNull
-	public static Biome jellyfishCaves(@NotNull BootstapContext<Biome> entries) {
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-		BiomeDefaultFeatures.commonSpawns(builder);
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addJellyfishCavesFeatures(builder2);
-		Music music = Musics.createGameMusic(RegisterSounds.MUSIC_OVERWORLD_JELLYFISH_CAVES);
-		return new Biome.BiomeBuilder()
-			.hasPrecipitation(true)
-			.temperature(WilderSharedWorldgen.JellyfishCaves.TEMP)
-			.downfall(WilderSharedWorldgen.JellyfishCaves.DOWNFALL)
-			.specialEffects(
-				new BiomeSpecialEffects.Builder()
-					.waterColor(WilderSharedWorldgen.JellyfishCaves.WATER_COLOR)
-					.waterFogColor(WilderSharedWorldgen.JellyfishCaves.WATER_FOG_COLOR)
-					.fogColor(WilderSharedWorldgen.JellyfishCaves.FOG_COLOR)
-					.skyColor(WilderSharedWorldgen.JellyfishCaves.SKY_COLOR)
-					.ambientLoopSound(RegisterSounds.AMBIENT_JELLYFISH_CAVES_LOOP)
-					.ambientAdditionsSound(new AmbientAdditionsSettings(RegisterSounds.AMBIENT_JELLYFISH_CAVES_ADDITIONS, 0.005D))
-					.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-					.backgroundMusic(music).build())
-			.mobSpawnSettings(builder.build())
-			.generationSettings(builder2.build())
-			.build();
-	}
-
-	public static void addJellyfishCavesFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
-		BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, CavePlacements.MONSTER_ROOM_DEEP);
-		builder.addFeature(GenerationStep.Decoration.LAKES, WilderMiscPlaced.JELLYFISH_STONE_POOL.getKey());
-		BiomeDefaultFeatures.addDefaultUndergroundVariety(builder);
-		BiomeDefaultFeatures.addSurfaceFreezing(builder);
-		BiomeDefaultFeatures.addPlainGrass(builder);
-		BiomeDefaultFeatures.addDefaultOres(builder, true);
-		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
-		BiomeDefaultFeatures.addPlainVegetation(builder);
-		BiomeDefaultFeatures.addDefaultMushrooms(builder);
-		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
-		BiomeDefaultFeatures.addDefaultCarversAndLakes(builder);
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.JELLYFISH_CAVES_BLUE_MESOGLEA.getKey());
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.JELLYFISH_CAVES_PURPLE_MESOGLEA.getKey());
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.JELLYFISH_CAVES_UPSIDE_DOWN_BLUE_MESOGLEA.getKey());
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderPlacedFeatures.JELLYFISH_CAVES_UPSIDE_DOWN_PURPLE_MESOGLEA.getKey());
-		builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderPlacedFeatures.LARGE_MESOGLEA_PURPLE.getKey());
-		builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderPlacedFeatures.LARGE_MESOGLEA_BLUE.getKey());
-		builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderPlacedFeatures.MESOGLEA_CLUSTER_PURPLE.getKey());
-		builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderPlacedFeatures.MESOGLEA_CLUSTER_BLUE.getKey());
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.MESOGLEA_PILLAR.getKey());
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.PURPLE_MESOGLEA_PILLAR.getKey());
-		builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.BLUE_MESOGLEA_PATH.getKey());
-		builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.PURPLE_MESOGLEA_PATH.getKey());
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.ORE_CALCITE.getKey());
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEMATOCYST_BLUE.getKey());
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.NEMATOCYST_PURPLE.getKey());
-	}
-
 	// TRANSITION BIOMES
 	// HOT
-	@NotNull
-	public static Biome aridForest(@NotNull BootstapContext<Biome> entries) {
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-		BiomeDefaultFeatures.commonSpawns(builder);
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addAridForestFeatures(builder2);
-		return new Biome.BiomeBuilder()
-			.hasPrecipitation(false)
-			.temperature(WilderSharedWorldgen.AridForest.TEMP)
-			.downfall(WilderSharedWorldgen.AridForest.DOWNFALL)
-			.specialEffects(
-				new BiomeSpecialEffects.Builder()
-					.waterColor(WilderSharedWorldgen.AridForest.WATER_COLOR)
-					.waterFogColor(WilderSharedWorldgen.AridForest.WATER_FOG_COLOR)
-					.fogColor(WilderSharedWorldgen.AridForest.FOG_COLOR)
-					.skyColor(WilderSharedWorldgen.AridForest.SKY_COLOR)
-					.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-					.backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST)).build())
-			.mobSpawnSettings(builder.build())
-			.generationSettings(builder2.build())
-			.build();
-	}
-
-	public static void addAridForestFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_FOREST_TREES.getKey());
-		WilderSharedWorldgen.addBasicFeatures(builder, false);
-		BiomeDefaultFeatures.addSavannaGrass(builder);
-		BiomeDefaultFeatures.addDefaultOres(builder);
-		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
-		BiomeDefaultFeatures.addWarmFlowers(builder);
-		BiomeDefaultFeatures.addSavannaExtraGrass(builder);
-		BiomeDefaultFeatures.addDefaultMushrooms(builder);
-		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_CACTUS_PLACED.getKey());
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.GRASS_PATH_RARE.getKey());
-	}
 
 	@NotNull
 	public static Biome aridSavanna(@NotNull BootstapContext<Biome> entries) {

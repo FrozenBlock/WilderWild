@@ -223,6 +223,10 @@ public class FrozenLibIntegration extends ModIntegration {
 						addBiomeRequirement(advancement, RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA);
 						addBiomeRequirement(advancement, RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
 						addBiomeRequirement(advancement, RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
+						addBiomeRequirement(advancement, RegisterWorldgen.DYING_FOREST);
+						addBiomeRequirement(advancement, RegisterWorldgen.SNOWY_DYING_FOREST);
+						addBiomeRequirement(advancement, RegisterWorldgen.DYING_MIXED_FOREST);
+						addBiomeRequirement(advancement, RegisterWorldgen.SNOWY_DYING_MIXED_FOREST);
 					}
 					case "minecraft:husbandry/balanced_diet" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:baobab_nut", CriteriaTriggers.CONSUME_ITEM.createCriterion(

@@ -27,7 +27,9 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderPa
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
+import net.frozenblock.wilderwild.world.biome.AridForest;
 import net.frozenblock.wilderwild.world.biome.CypressWetlands;
+import net.frozenblock.wilderwild.world.biome.JellyfishCaves;
 import net.frozenblock.wilderwild.world.biome.Oasis;
 import net.frozenblock.wilderwild.world.biome.WarmRiver;
 import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
@@ -287,10 +289,11 @@ public final class OverworldBiomeBuilderMixin {
 		}
 		if (WorldgenConfig.get().biomeGeneration.generateAridForest) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.DESERT)) {
+				Climate.Parameter aridForestHumidity = WorldgenConfig.get().biomePlacement.modifyJunglePlacement ? AridForest.HUMIDITY_MODIFIED_JUNGLE : AridForest.HUMIDITY;
 				this.addSurfaceBiome(
 					parameters,
-					WilderSharedWorldgen.AridForest.TEMPERATURE,
-					WilderSharedWorldgen.AridForest.HUMIDITY,
+					AridForest.TEMPERATURE,
+					aridForestHumidity,
 					point.continentalness(),
 					point.erosion(),
 					point.weirdness(),
@@ -580,12 +583,12 @@ public final class OverworldBiomeBuilderMixin {
 		if (WorldgenConfig.get().biomeGeneration.generateJellyfishCaves) {
 			wilderWild$addSemiDeepBiome(
 				consumer,
-				WilderSharedWorldgen.JellyfishCaves.TEMPERATURE,
-				WilderSharedWorldgen.JellyfishCaves.HUMIDITY,
-				WilderSharedWorldgen.JellyfishCaves.CONTINENTALNESS,
-				WilderSharedWorldgen.JellyfishCaves.EROSION,
-				WilderSharedWorldgen.JellyfishCaves.WEIRDNESS,
-				WilderSharedWorldgen.JellyfishCaves.OFFSET,
+				JellyfishCaves.TEMPERATURE,
+				JellyfishCaves.HUMIDITY,
+				JellyfishCaves.CONTINENTALNESS,
+				JellyfishCaves.EROSION,
+				JellyfishCaves.WEIRDNESS,
+				JellyfishCaves.OFFSET,
 				RegisterWorldgen.JELLYFISH_CAVES
 			);
 		}
