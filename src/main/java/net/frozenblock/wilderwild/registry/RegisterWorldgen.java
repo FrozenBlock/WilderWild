@@ -22,9 +22,13 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
 import net.frozenblock.wilderwild.world.biome.AridForest;
+import net.frozenblock.wilderwild.world.biome.AridSavanna;
+import net.frozenblock.wilderwild.world.biome.BirchJungle;
 import net.frozenblock.wilderwild.world.biome.CypressWetlands;
 import net.frozenblock.wilderwild.world.biome.JellyfishCaves;
 import net.frozenblock.wilderwild.world.biome.Oasis;
+import net.frozenblock.wilderwild.world.biome.ParchedForest;
+import net.frozenblock.wilderwild.world.biome.SparseBirchJungle;
 import net.frozenblock.wilderwild.world.biome.WarmBeach;
 import net.frozenblock.wilderwild.world.biome.WarmRiver;
 import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
@@ -61,11 +65,11 @@ public final class RegisterWorldgen {
 	// Transition Biomes
 	// HOT
 	public static final ResourceKey<Biome> ARID_FOREST = AridForest.INSTANCE.getKey();
-	public static final ResourceKey<Biome> ARID_SAVANNA = register("arid_savanna");
-	public static final ResourceKey<Biome> PARCHED_FOREST = register("parched_forest");
+	public static final ResourceKey<Biome> ARID_SAVANNA = AridSavanna.INSTANCE.getKey();
+	public static final ResourceKey<Biome> PARCHED_FOREST = ParchedForest.INSTANCE.getKey();
 	// TROPICAL
-	public static final ResourceKey<Biome> BIRCH_JUNGLE = register("birch_jungle");
-	public static final ResourceKey<Biome> SPARSE_BIRCH_JUNGLE = register("sparse_birch_jungle");
+	public static final ResourceKey<Biome> BIRCH_JUNGLE = BirchJungle.INSTANCE.getKey();
+	public static final ResourceKey<Biome> SPARSE_BIRCH_JUNGLE = SparseBirchJungle.INSTANCE.getKey();
 	// TEMPERATE
 	public static final ResourceKey<Biome> BIRCH_TAIGA = register("birch_taiga");
 	public static final ResourceKey<Biome> SEMI_BIRCH_FOREST = register("semi_birch_forest");
@@ -111,11 +115,11 @@ public final class RegisterWorldgen {
 		// TRANSITION BIOMES
 		// HOT
 		register(context, ARID_FOREST, AridForest.INSTANCE.create(context));
-		register(context, ARID_SAVANNA, aridSavanna(context));
-		register(context, PARCHED_FOREST, parchedForest(context));
+		register(context, ARID_SAVANNA, AridSavanna.INSTANCE.create(context));
+		register(context, PARCHED_FOREST, ParchedForest.INSTANCE.create(context));
 		// TROPICAL
-		register(context, BIRCH_JUNGLE, birchJungle(context));
-		register(context, SPARSE_BIRCH_JUNGLE, sparseBirchJungle(context));
+		register(context, BIRCH_JUNGLE, BirchJungle.INSTANCE.create(context));
+		register(context, SPARSE_BIRCH_JUNGLE, SparseBirchJungle.INSTANCE.create(context));
 		// TEMPERATE
 		register(context, BIRCH_TAIGA, birchTaiga(context, false));
 		register(context, SEMI_BIRCH_FOREST, semiBirchForest(context));
@@ -346,163 +350,6 @@ public final class RegisterWorldgen {
 	}
 
 	// TRANSITION BIOMES
-	// HOT
-
-	@NotNull
-	public static Biome aridSavanna(@NotNull BootstapContext<Biome> entries) {
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-		BiomeDefaultFeatures.farmAnimals(builder);
-		BiomeDefaultFeatures.commonSpawns(builder);
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addAridSavannaFeatures(builder2);
-		return new Biome.BiomeBuilder()
-			.hasPrecipitation(false)
-			.temperature(WilderSharedWorldgen.AridSavanna.TEMP)
-			.downfall(WilderSharedWorldgen.AridSavanna.DOWNFALL)
-			.specialEffects(
-				new BiomeSpecialEffects.Builder()
-					.waterColor(WilderSharedWorldgen.AridSavanna.WATER_COLOR)
-					.waterFogColor(WilderSharedWorldgen.AridSavanna.WATER_FOG_COLOR)
-					.fogColor(WilderSharedWorldgen.AridSavanna.FOG_COLOR)
-					.skyColor(WilderSharedWorldgen.AridSavanna.SKY_COLOR)
-					.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-					.backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_DESERT)).build())
-			.mobSpawnSettings(builder.build())
-			.generationSettings(builder2.build())
-			.build();
-	}
-
-	public static void addAridSavannaFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_SAVANNA_TREES.getKey());
-		WilderSharedWorldgen.addBasicFeatures(builder, false);
-		BiomeDefaultFeatures.addSavannaGrass(builder);
-		BiomeDefaultFeatures.addDefaultOres(builder);
-		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
-		BiomeDefaultFeatures.addWarmFlowers(builder);
-		BiomeDefaultFeatures.addSavannaExtraGrass(builder);
-		BiomeDefaultFeatures.addDefaultMushrooms(builder);
-		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_CACTUS_PLACED.getKey());
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.GRASS_PATH_RARE.getKey());
-	}
-
-	@NotNull
-	public static Biome parchedForest(@NotNull BootstapContext<Biome> entries) {
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-		BiomeDefaultFeatures.commonSpawns(builder);
-		BiomeDefaultFeatures.plainsSpawns(builder);
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addParchedForestFeatures(builder2);
-		return new Biome.BiomeBuilder()
-			.hasPrecipitation(false)
-			.temperature(WilderSharedWorldgen.ParchedForest.TEMP)
-			.downfall(WilderSharedWorldgen.ParchedForest.DOWNFALL)
-			.specialEffects(
-				new BiomeSpecialEffects.Builder()
-					.waterColor(WilderSharedWorldgen.ParchedForest.WATER_COLOR)
-					.waterFogColor(WilderSharedWorldgen.ParchedForest.WATER_FOG_COLOR)
-					.fogColor(WilderSharedWorldgen.ParchedForest.FOG_COLOR)
-					.skyColor(WilderSharedWorldgen.ParchedForest.SKY_COLOR)
-					.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-					.backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST)).build())
-			.mobSpawnSettings(builder.build())
-			.generationSettings(builder2.build())
-			.build();
-	}
-
-	public static void addParchedForestFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PARCHED_FOREST_TREES.getKey());
-		WilderSharedWorldgen.addBasicFeatures(builder, false);
-		BiomeDefaultFeatures.addSavannaGrass(builder);
-		BiomeDefaultFeatures.addDefaultOres(builder);
-		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
-		BiomeDefaultFeatures.addWarmFlowers(builder);
-		BiomeDefaultFeatures.addSavannaExtraGrass(builder);
-		BiomeDefaultFeatures.addDefaultMushrooms(builder);
-		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
-	}
-
-	// TROPICAL
-	@NotNull
-	public static Biome birchJungle(@NotNull BootstapContext<Biome> entries) {
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-		BiomeDefaultFeatures.baseJungleSpawns(builder);
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addBirchJungleFeatures(builder2);
-		return new Biome.BiomeBuilder()
-			.hasPrecipitation(true)
-			.temperature(WilderSharedWorldgen.BirchJungle.TEMP)
-			.downfall(WilderSharedWorldgen.BirchJungle.DOWNFALL)
-			.specialEffects(
-				new BiomeSpecialEffects.Builder()
-					.waterColor(WilderSharedWorldgen.BirchJungle.WATER_COLOR)
-					.waterFogColor(WilderSharedWorldgen.BirchJungle.WATER_FOG_COLOR)
-					.fogColor(WilderSharedWorldgen.BirchJungle.FOG_COLOR)
-					.skyColor(WilderSharedWorldgen.BirchJungle.SKY_COLOR)
-					.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-					.backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_JUNGLE)).build())
-			.mobSpawnSettings(builder.build())
-			.generationSettings(builder2.build())
-			.build();
-	}
-
-	public static void addBirchJungleFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
-		WilderSharedWorldgen.addBasicFeatures(builder, false);
-		BiomeDefaultFeatures.addDefaultOres(builder);
-		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
-		BiomeDefaultFeatures.addLightBambooVegetation(builder);
-		BiomeDefaultFeatures.addWarmFlowers(builder);
-		BiomeDefaultFeatures.addJungleGrass(builder);
-		BiomeDefaultFeatures.addDefaultMushrooms(builder);
-		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
-		BiomeDefaultFeatures.addJungleVines(builder);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_MELON.getKey());
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.BIRCH_JUNGLE_TREES.getKey());
-	}
-
-	@NotNull
-	public static Biome sparseBirchJungle(@NotNull BootstapContext<Biome> entries) {
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-		BiomeDefaultFeatures.baseJungleSpawns(builder);
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addSparseBirchJungleFeatures(builder2);
-		return new Biome.BiomeBuilder()
-			.hasPrecipitation(true)
-			.temperature(WilderSharedWorldgen.BirchJungle.TEMP)
-			.downfall(WilderSharedWorldgen.BirchJungle.DOWNFALL)
-			.specialEffects(
-				new BiomeSpecialEffects.Builder()
-					.waterColor(WilderSharedWorldgen.BirchJungle.WATER_COLOR)
-					.waterFogColor(WilderSharedWorldgen.BirchJungle.WATER_FOG_COLOR)
-					.fogColor(WilderSharedWorldgen.BirchJungle.FOG_COLOR)
-					.skyColor(WilderSharedWorldgen.BirchJungle.SKY_COLOR)
-					.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-					.backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_SPARSE_JUNGLE)).build())
-			.mobSpawnSettings(builder.build())
-			.generationSettings(builder2.build())
-			.build();
-	}
-
-	public static void addSparseBirchJungleFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
-		WilderSharedWorldgen.addBasicFeatures(builder, false);
-		BiomeDefaultFeatures.addDefaultOres(builder);
-		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
-		BiomeDefaultFeatures.addWarmFlowers(builder);
-		BiomeDefaultFeatures.addJungleGrass(builder);
-		BiomeDefaultFeatures.addDefaultMushrooms(builder);
-		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
-		BiomeDefaultFeatures.addJungleVines(builder);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_MELON.getKey());
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.SPARSE_BIRCH_JUNGLE_TREES.getKey());
-	}
 
 	// TEMPERATE
 	@NotNull

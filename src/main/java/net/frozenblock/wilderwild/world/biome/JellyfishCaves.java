@@ -25,8 +25,10 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
+import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
 import net.minecraft.core.Holder;
@@ -185,6 +187,18 @@ public final class JellyfishCaves extends FrozenBiome {
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
+		if (WorldgenConfig.get().biomeGeneration.generateJellyfishCaves) {
+			this.addSemiDeepBiome(
+				parameters,
+				TEMPERATURE,
+				HUMIDITY,
+				CONTINENTALNESS,
+				EROSION,
+				WEIRDNESS,
+				OFFSET,
+				this.getKey()
+			);
+		}
 	}
 
 }

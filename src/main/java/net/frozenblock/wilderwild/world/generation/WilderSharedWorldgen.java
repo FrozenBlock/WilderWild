@@ -37,68 +37,9 @@ import org.jetbrains.annotations.NotNull;
  * Contains Wilder Wild's worldgen data.
  */
 public final class WilderSharedWorldgen {
-	// DEPTHS
-	public static final Climate.Parameter BOTTOM_DEPTH = Climate.Parameter.point(1.1F);
-	public static final Climate.Parameter DEEP_DEPTH = Climate.Parameter.span(0.65F, 1.1F);
-	public static final Climate.Parameter SEMI_DEEP_DEPTH = Climate.Parameter.span(0.4F, 1.0F);
-	public static final Climate.Parameter SURFACE_DEPTH = Climate.Parameter.span(0.0F, 1.0F);
 
 	private WilderSharedWorldgen() {
 		throw new UnsupportedOperationException("WilderSharedWorldgen contains only static declarations.");
-	}
-
-	// MODDED BIOME PARAMETERS
-
-	@NotNull
-	@Contract(value = "_, _, _, _, _, _ -> new", pure = true)
-	public static Climate.ParameterPoint bottomParameters(
-		Climate.Parameter temperature,
-		Climate.Parameter humidity,
-		Climate.Parameter continentalness,
-		Climate.Parameter erosion,
-		Climate.Parameter weirdness,
-		float offset
-	) {
-		return Climate.parameters(temperature, humidity, continentalness, erosion, BOTTOM_DEPTH, weirdness, offset);
-	}
-
-	@NotNull
-	@Contract(value = "_, _, _, _, _, _ -> new", pure = true)
-	public static Climate.ParameterPoint deepParameters(
-		Climate.Parameter temperature,
-		Climate.Parameter humidity,
-		Climate.Parameter continentalness,
-		Climate.Parameter erosion,
-		Climate.Parameter weirdness,
-		float offset
-	) {
-		return Climate.parameters(temperature, humidity, continentalness, erosion, DEEP_DEPTH, weirdness, offset);
-	}
-
-	@NotNull
-	@Contract(value = "_, _, _, _, _, _ -> new", pure = true)
-	public static Climate.ParameterPoint semiDeepParameters(
-		Climate.Parameter temperature,
-		Climate.Parameter humidity,
-		Climate.Parameter continentalness,
-		Climate.Parameter erosion,
-		Climate.Parameter weirdness,
-		float offset
-	) {
-		return Climate.parameters(temperature, humidity, continentalness, erosion, SEMI_DEEP_DEPTH, weirdness, offset);
-	}
-
-	@NotNull
-	@Contract(value = "_, _, _, _, _, _ -> new", pure = true)
-	public static Climate.ParameterPoint surfaceParameters(
-		Climate.Parameter temperature,
-		Climate.Parameter humidity,
-		Climate.Parameter continentalness,
-		Climate.Parameter erosion,
-		Climate.Parameter weirdness,
-		float offset
-	) {
-		return Climate.parameters(temperature, humidity, continentalness, erosion, SURFACE_DEPTH, weirdness, offset);
 	}
 
 	public static final class MixedForest {
@@ -185,21 +126,6 @@ public final class WilderSharedWorldgen {
 		}
 	}
 
-	public static final class BirchJungle {
-		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.175F, 0.225F);
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.FOUR, Climate.Parameter.point(0.35F));
-		public static final float TEMP = 0.825F;
-		public static final float DOWNFALL = 0.85F;
-		public static final int WATER_COLOR = 4159204;
-		public static final int WATER_FOG_COLOR = 329011;
-		public static final int FOG_COLOR = 12638463;
-		public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
-
-		private BirchJungle() {
-			throw new UnsupportedOperationException("BirchJungle contains only static declarations.");
-		}
-	}
-
 	public static final class FlowerField {
 		public static final Climate.Parameter TEMPERATURE_A = Climate.Parameter.span(-0.200F, -0.075F);
 		public static final Climate.Parameter HUMIDITY_A = Humidity.ONE;
@@ -216,36 +142,6 @@ public final class WilderSharedWorldgen {
 
 		private FlowerField() {
 			throw new UnsupportedOperationException("FlowerField contains only static declarations.");
-		}
-	}
-
-	public static final class AridSavanna {
-		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.525F, 0.575F);
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1.000F, -0.125F);
-		public static final float TEMP = 2.0F;
-		public static final float DOWNFALL = 0.0F;
-		public static final int WATER_COLOR = 4159204;
-		public static final int WATER_FOG_COLOR = 329011;
-		public static final int FOG_COLOR = 12638463;
-		public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
-
-		private AridSavanna() {
-			throw new UnsupportedOperationException("AridSavanna contains only static declarations.");
-		}
-	}
-
-	public static final class ParchedForest {
-		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Climate.Parameter.point(0.175F), Temperature.FOUR);
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.150F, -0.050F);
-		public static final float TEMP = 1.35F;
-		public static final float DOWNFALL = 0.2F;
-		public static final int WATER_COLOR = 4159204;
-		public static final int WATER_FOG_COLOR = 329011;
-		public static final int FOG_COLOR = 12638463;
-		public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
-
-		private ParchedForest() {
-			throw new UnsupportedOperationException("ParchedForest contains only static declarations.");
 		}
 	}
 

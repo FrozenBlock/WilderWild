@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2024 FrozenBlock
+ * Copyright 2023 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -19,12 +19,9 @@
 package net.frozenblock.wilderwild.world.biome;
 
 import com.mojang.datafixers.util.Pair;
+import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
-import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
-import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
-import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
-import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
@@ -34,30 +31,33 @@ import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
-import net.minecraft.data.worldgen.placement.AquaticPlacements;
-import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.level.biome.*;
+import net.minecraft.world.level.biome.AmbientAdditionsSettings;
+import net.minecraft.world.level.biome.AmbientMoodSettings;
+import net.minecraft.world.level.biome.AmbientParticleSettings;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeGenerationSettings;
+import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.biome.Climate;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import java.util.function.Consumer;
 
-public final class AridForest extends FrozenBiome {
-	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.530F, 0.570F);
-	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.095F, 0.15F);
-	public static final Climate.Parameter HUMIDITY_MODIFIED_JUNGLE = Climate.Parameter.span(-0.095F, 0.1F);
-	public static final float TEMP = 1.75F;
-	public static final float DOWNFALL = 0.05F;
+public class AridSavanna extends FrozenBiome {
+	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.525F, 0.575F);
+	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1.000F, -0.125F);
+	public static final float TEMP = 2F;
+	public static final float DOWNFALL = 0F;
 	public static final int WATER_COLOR = 4159204;
 	public static final int WATER_FOG_COLOR = 329011;
 	public static final int FOG_COLOR = 12638463;
 	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
-	public static final AridForest INSTANCE = new AridForest();
+	public static final AridSavanna INSTANCE = new AridSavanna();
 
 	@Override
 	public String modID() {
@@ -66,7 +66,7 @@ public final class AridForest extends FrozenBiome {
 
 	@Override
 	public String biomeID() {
-		return "arid_forest";
+		return "arid_savanna";
 	}
 
 	@Override
@@ -136,12 +136,12 @@ public final class AridForest extends FrozenBiome {
 
 	@Override
 	public @Nullable Music backgroundMusic() {
-		return Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST);
+		return Musics.createGameMusic(SoundEvents.MUSIC_BIOME_DESERT);
 	}
 
 	@Override
 	public void addFeatures(@NotNull BiomeGenerationSettings.Builder features) {
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_FOREST_TREES.getKey());
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.ARID_SAVANNA_TREES.getKey());
 		WilderSharedWorldgen.addBasicFeatures(features, false);
 		BiomeDefaultFeatures.addSavannaGrass(features);
 		BiomeDefaultFeatures.addDefaultOres(features);
@@ -156,18 +156,18 @@ public final class AridForest extends FrozenBiome {
 
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
+		BiomeDefaultFeatures.farmAnimals(spawns);
 		BiomeDefaultFeatures.commonSpawns(spawns);
 	}
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-		if (WorldgenConfig.get().biomeGeneration.generateAridForest) {
-			Climate.Parameter humidity = WorldgenConfig.get().biomePlacement.modifyJunglePlacement ? HUMIDITY_MODIFIED_JUNGLE : HUMIDITY;
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.DESERT)) {
+		if (WorldgenConfig.get().biomeGeneration.generateAridSavanna) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SAVANNA)) {
 				this.addSurfaceBiome(
 					parameters,
 					TEMPERATURE,
-					humidity,
+					HUMIDITY,
 					point.continentalness(),
 					point.erosion(),
 					point.weirdness(),

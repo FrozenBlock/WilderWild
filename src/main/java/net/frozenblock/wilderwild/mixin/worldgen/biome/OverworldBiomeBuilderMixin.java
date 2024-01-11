@@ -27,9 +27,7 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderPa
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
-import net.frozenblock.wilderwild.world.biome.AridForest;
 import net.frozenblock.wilderwild.world.biome.CypressWetlands;
-import net.frozenblock.wilderwild.world.biome.JellyfishCaves;
 import net.frozenblock.wilderwild.world.biome.Oasis;
 import net.frozenblock.wilderwild.world.biome.WarmRiver;
 import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
@@ -38,7 +36,6 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.OverworldBiomeBuilder;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -60,20 +57,6 @@ public final class OverworldBiomeBuilderMixin {
 	@Shadow
 	@Final
 	private Climate.Parameter[] temperatures;
-
-	@Unique
-	private static void wilderWild$addSemiDeepBiome(
-		@NotNull Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters,
-		Climate.Parameter temperature,
-		Climate.Parameter humidity,
-		Climate.Parameter continentalness,
-		Climate.Parameter erosion,
-		Climate.Parameter weirdness,
-		float offset,
-		ResourceKey<Biome> biome
-	) {
-		parameters.accept(Pair.of(WilderSharedWorldgen.semiDeepParameters(temperature, humidity, continentalness, erosion, weirdness, offset), biome));
-	}
 
 	@Shadow
 	private void addSurfaceBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter temperature, Climate.Parameter humidity, Climate.Parameter continentalness, Climate.Parameter erosion, Climate.Parameter weirdness, final float offset, ResourceKey<Biome> biome) {
@@ -197,34 +180,6 @@ public final class OverworldBiomeBuilderMixin {
 				);
 			}
 		}
-		if (WorldgenConfig.get().biomeGeneration.generateBirchJungle) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.JUNGLE)) {
-				this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.BirchJungle.TEMPERATURE,
-					WilderSharedWorldgen.BirchJungle.HUMIDITY,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset(),
-					RegisterWorldgen.BIRCH_JUNGLE
-				);
-			}
-		}
-		if (WorldgenConfig.get().biomeGeneration.generateSparseBirchJungle) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SPARSE_JUNGLE)) {
-				this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.BirchJungle.TEMPERATURE,
-					WilderSharedWorldgen.BirchJungle.HUMIDITY,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset(),
-					RegisterWorldgen.SPARSE_BIRCH_JUNGLE
-				);
-			}
-		}
 		if (WorldgenConfig.get().biomeGeneration.generateFlowerField) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FLOWER_FOREST)) {
 				this.addSurfaceBiome(
@@ -256,49 +211,6 @@ public final class OverworldBiomeBuilderMixin {
 					point.weirdness(),
 					point.offset(),
 					RegisterWorldgen.FLOWER_FIELD
-				);
-			}
-		}
-		if (WorldgenConfig.get().biomeGeneration.generateAridSavanna) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SAVANNA)) {
-				this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.AridSavanna.TEMPERATURE,
-					WilderSharedWorldgen.AridSavanna.HUMIDITY,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset(),
-					RegisterWorldgen.ARID_SAVANNA
-				);
-			}
-		}
-		if (WorldgenConfig.get().biomeGeneration.generateParchedForest) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FOREST)) {
-				this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.ParchedForest.TEMPERATURE,
-					WilderSharedWorldgen.ParchedForest.HUMIDITY,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset(),
-					RegisterWorldgen.PARCHED_FOREST
-				);
-			}
-		}
-		if (WorldgenConfig.get().biomeGeneration.generateAridForest) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.DESERT)) {
-				Climate.Parameter aridForestHumidity = WorldgenConfig.get().biomePlacement.modifyJunglePlacement ? AridForest.HUMIDITY_MODIFIED_JUNGLE : AridForest.HUMIDITY;
-				this.addSurfaceBiome(
-					parameters,
-					AridForest.TEMPERATURE,
-					aridForestHumidity,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset(),
-					RegisterWorldgen.ARID_FOREST
 				);
 			}
 		}
@@ -574,22 +486,6 @@ public final class OverworldBiomeBuilderMixin {
 				weirdness,
 				Oasis.OFFSET,
 				RegisterWorldgen.OASIS
-			);
-		}
-	}
-
-	@Inject(method = "addUndergroundBiomes", at = @At("TAIL"))
-	private void wilderWild$addUndergroundBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, CallbackInfo info) {
-		if (WorldgenConfig.get().biomeGeneration.generateJellyfishCaves) {
-			wilderWild$addSemiDeepBiome(
-				consumer,
-				JellyfishCaves.TEMPERATURE,
-				JellyfishCaves.HUMIDITY,
-				JellyfishCaves.CONTINENTALNESS,
-				JellyfishCaves.EROSION,
-				JellyfishCaves.WEIRDNESS,
-				JellyfishCaves.OFFSET,
-				RegisterWorldgen.JELLYFISH_CAVES
 			);
 		}
 	}
