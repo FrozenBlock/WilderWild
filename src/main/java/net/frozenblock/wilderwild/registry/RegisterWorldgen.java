@@ -24,11 +24,17 @@ import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
 import net.frozenblock.wilderwild.world.biome.AridForest;
 import net.frozenblock.wilderwild.world.biome.AridSavanna;
 import net.frozenblock.wilderwild.world.biome.BirchJungle;
+import net.frozenblock.wilderwild.world.biome.BirchTaiga;
 import net.frozenblock.wilderwild.world.biome.CypressWetlands;
+import net.frozenblock.wilderwild.world.biome.DarkBirchForest;
+import net.frozenblock.wilderwild.world.biome.FlowerField;
 import net.frozenblock.wilderwild.world.biome.JellyfishCaves;
 import net.frozenblock.wilderwild.world.biome.Oasis;
+import net.frozenblock.wilderwild.world.biome.OldGrowthBirchTaiga;
 import net.frozenblock.wilderwild.world.biome.ParchedForest;
+import net.frozenblock.wilderwild.world.biome.SemiBirchForest;
 import net.frozenblock.wilderwild.world.biome.SparseBirchJungle;
+import net.frozenblock.wilderwild.world.biome.TemperateRainforest;
 import net.frozenblock.wilderwild.world.biome.WarmBeach;
 import net.frozenblock.wilderwild.world.biome.WarmRiver;
 import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
@@ -71,11 +77,11 @@ public final class RegisterWorldgen {
 	public static final ResourceKey<Biome> BIRCH_JUNGLE = BirchJungle.INSTANCE.getKey();
 	public static final ResourceKey<Biome> SPARSE_BIRCH_JUNGLE = SparseBirchJungle.INSTANCE.getKey();
 	// TEMPERATE
-	public static final ResourceKey<Biome> BIRCH_TAIGA = register("birch_taiga");
-	public static final ResourceKey<Biome> SEMI_BIRCH_FOREST = register("semi_birch_forest");
-	public static final ResourceKey<Biome> DARK_BIRCH_FOREST = register("dark_birch_forest");
-	public static final ResourceKey<Biome> FLOWER_FIELD = register("flower_field");
-	public static final ResourceKey<Biome> TEMPERATE_RAINFOREST = register("temperate_rainforest");
+	public static final ResourceKey<Biome> BIRCH_TAIGA = BirchTaiga.INSTANCE.getKey();
+	public static final ResourceKey<Biome> SEMI_BIRCH_FOREST = SemiBirchForest.INSTANCE.getKey();
+	public static final ResourceKey<Biome> DARK_BIRCH_FOREST = DarkBirchForest.INSTANCE.getKey();
+	public static final ResourceKey<Biome> FLOWER_FIELD = FlowerField.INSTANCE.getKey();
+	public static final ResourceKey<Biome> TEMPERATE_RAINFOREST = TemperateRainforest.INSTANCE.getKey();
 	public static final ResourceKey<Biome> RAINFOREST = register("rainforest");
 	public static final ResourceKey<Biome> DARK_TAIGA = register("dark_taiga");
 	public static final ResourceKey<Biome> MIXED_FOREST = register("mixed_forest");
@@ -85,7 +91,7 @@ public final class RegisterWorldgen {
 	public static final ResourceKey<Biome> DYING_MIXED_FOREST = register("dying_mixed_forest");
 	public static final ResourceKey<Biome> SNOWY_DYING_MIXED_FOREST = register("snowy_dying_mixed_forest");
 	// OLD GROWTH
-	public static final ResourceKey<Biome> OLD_GROWTH_BIRCH_TAIGA = register("old_growth_birch_taiga");
+	public static final ResourceKey<Biome> OLD_GROWTH_BIRCH_TAIGA = OldGrowthBirchTaiga.INSTANCE.getKey();
 	public static final ResourceKey<Biome> OLD_GROWTH_DARK_FOREST = register("old_growth_dark_forest");
 	public static final ResourceKey<Biome> SNOWY_OLD_GROWTH_PINE_TAIGA = register("snowy_old_growth_pine_taiga");
 
@@ -121,15 +127,15 @@ public final class RegisterWorldgen {
 		register(context, BIRCH_JUNGLE, BirchJungle.INSTANCE.create(context));
 		register(context, SPARSE_BIRCH_JUNGLE, SparseBirchJungle.INSTANCE.create(context));
 		// TEMPERATE
-		register(context, BIRCH_TAIGA, birchTaiga(context, false));
-		register(context, SEMI_BIRCH_FOREST, semiBirchForest(context));
-		register(context, DARK_BIRCH_FOREST, darkBirchForest(context));
-		register(context, FLOWER_FIELD, flowerField(context));
-		register(context, TEMPERATE_RAINFOREST, temperateRainforest(context));
+		register(context, BIRCH_TAIGA, BirchTaiga.INSTANCE.create(context));
+		register(context, SEMI_BIRCH_FOREST, SemiBirchForest.INSTANCE.create(context));
+		register(context, DARK_BIRCH_FOREST, DarkBirchForest.INSTANCE.create(context));
+		register(context, FLOWER_FIELD, FlowerField.INSTANCE.create(context));
+		register(context, TEMPERATE_RAINFOREST, TemperateRainforest.INSTANCE.create(context));
 		register(context, RAINFOREST, rainforest(context));
 		register(context, DARK_TAIGA, darkTaiga(context));
 		// OLD GROWTH
-		register(context, OLD_GROWTH_BIRCH_TAIGA, birchTaiga(context, true));
+		register(context, OLD_GROWTH_BIRCH_TAIGA, OldGrowthBirchTaiga.INSTANCE.create(context));
 		register(context, OLD_GROWTH_DARK_FOREST, oldGrowthDarkForest(context));
 		register(context, SNOWY_OLD_GROWTH_PINE_TAIGA, oldGrowthSnowyTaiga(context));
 	}
@@ -352,200 +358,6 @@ public final class RegisterWorldgen {
 	// TRANSITION BIOMES
 
 	// TEMPERATE
-	@NotNull
-	public static Biome birchTaiga(@NotNull BootstapContext<Biome> entries, boolean old) {
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-		BiomeDefaultFeatures.commonSpawns(builder);
-		BiomeDefaultFeatures.farmAnimals(builder);
-		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 2, 4, 4)).addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 2, 2, 3));
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addBirchTaigaFeatures(builder2, old);
-		return new Biome.BiomeBuilder()
-			.hasPrecipitation(true)
-			.temperature(WilderSharedWorldgen.BirchTaiga.TEMP)
-			.downfall(WilderSharedWorldgen.BirchTaiga.DOWNFALL)
-			.specialEffects(
-				new BiomeSpecialEffects.Builder()
-					.waterColor(WilderSharedWorldgen.BirchTaiga.WATER_COLOR)
-					.waterFogColor(WilderSharedWorldgen.BirchTaiga.WATER_FOG_COLOR)
-					.fogColor(WilderSharedWorldgen.BirchTaiga.FOG_COLOR)
-					.skyColor(WilderSharedWorldgen.BirchTaiga.SKY_COLOR)
-					.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-					.backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST)).build())
-			.mobSpawnSettings(builder.build())
-			.generationSettings(builder2.build())
-			.build();
-	}
-
-	public static void addBirchTaigaFeatures(@NotNull BiomeGenerationSettings.Builder builder, boolean old) {
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, old ? WilderPlacedFeatures.OLD_GROWTH_BIRCH_TAIGA_TREES.getKey() : WilderPlacedFeatures.BIRCH_TAIGA_TREES.getKey());
-		WilderSharedWorldgen.addBasicFeatures(builder, false);
-		BiomeDefaultFeatures.addFerns(builder);
-		BiomeDefaultFeatures.addDefaultOres(builder);
-		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
-		BiomeDefaultFeatures.addTaigaTrees(builder);
-		BiomeDefaultFeatures.addDefaultFlowers(builder);
-		BiomeDefaultFeatures.addTaigaGrass(builder);
-		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
-		BiomeDefaultFeatures.addCommonBerryBushes(builder);
-	}
-
-	@NotNull
-	public static Biome semiBirchForest(@NotNull BootstapContext<Biome> entries) {
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-		BiomeDefaultFeatures.farmAnimals(builder);
-		BiomeDefaultFeatures.commonSpawns(builder);
-		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 2, 2, 2));
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addSemiBirchForestFeatures(builder2);
-		return new Biome.BiomeBuilder()
-			.hasPrecipitation(true)
-			.temperature(WilderSharedWorldgen.SemiBirchForest.TEMP)
-			.downfall(WilderSharedWorldgen.SemiBirchForest.DOWNFALL)
-			.specialEffects(
-				new BiomeSpecialEffects.Builder()
-					.waterColor(WilderSharedWorldgen.SemiBirchForest.WATER_COLOR)
-					.waterFogColor(WilderSharedWorldgen.SemiBirchForest.WATER_FOG_COLOR)
-					.fogColor(WilderSharedWorldgen.SemiBirchForest.FOG_COLOR)
-					.skyColor(WilderSharedWorldgen.SemiBirchForest.SKY_COLOR)
-					.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-					.backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST)).build())
-			.mobSpawnSettings(builder.build())
-			.generationSettings(builder2.build())
-			.build();
-	}
-
-	public static void addSemiBirchForestFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
-		WilderSharedWorldgen.addBasicFeatures(builder, false);
-		BiomeDefaultFeatures.addForestFlowers(builder);
-		BiomeDefaultFeatures.addDefaultOres(builder);
-		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
-		BiomeDefaultFeatures.addDefaultFlowers(builder);
-		BiomeDefaultFeatures.addForestGrass(builder);
-		BiomeDefaultFeatures.addDefaultMushrooms(builder);
-		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_SEMI_BIRCH_AND_OAK.getKey());
-	}
-
-	@NotNull
-	public static Biome darkBirchForest(@NotNull BootstapContext<Biome> entries) {
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-		BiomeDefaultFeatures.farmAnimals(builder);
-		BiomeDefaultFeatures.commonSpawns(builder);
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addDarkBirchForestFeatures(builder2);
-		return new Biome.BiomeBuilder()
-			.hasPrecipitation(true)
-			.temperature(WilderSharedWorldgen.DarkBirchForest.TEMP)
-			.downfall(WilderSharedWorldgen.DarkBirchForest.DOWNFALL)
-			.specialEffects(
-				new BiomeSpecialEffects.Builder()
-					.waterColor(WilderSharedWorldgen.DarkBirchForest.WATER_COLOR)
-					.waterFogColor(WilderSharedWorldgen.DarkBirchForest.WATER_FOG_COLOR)
-					.fogColor(WilderSharedWorldgen.DarkBirchForest.FOG_COLOR)
-					.skyColor(WilderSharedWorldgen.DarkBirchForest.SKY_COLOR)
-					.grassColorModifier(BiomeSpecialEffects.GrassColorModifier.DARK_FOREST)
-					.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-					.backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST)).build())
-			.mobSpawnSettings(builder.build())
-			.generationSettings(builder2.build())
-			.build();
-	}
-
-	public static void addDarkBirchForestFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
-		WilderSharedWorldgen.addBasicFeatures(builder, false);
-		BiomeDefaultFeatures.addForestFlowers(builder);
-		BiomeDefaultFeatures.addDefaultOres(builder);
-		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
-		BiomeDefaultFeatures.addDefaultFlowers(builder);
-		BiomeDefaultFeatures.addForestGrass(builder);
-		BiomeDefaultFeatures.addDefaultMushrooms(builder);
-		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.DARK_BIRCH_FOREST_VEGETATION.getKey());
-	}
-
-	@NotNull
-	public static Biome flowerField(@NotNull BootstapContext<Biome> entries) {
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-		BiomeDefaultFeatures.plainsSpawns(builder);
-		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 8, 2, 5));
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addFlowerFieldFeatures(builder2);
-		return new Biome.BiomeBuilder()
-			.hasPrecipitation(true)
-			.temperature(WilderSharedWorldgen.FlowerField.TEMP)
-			.downfall(WilderSharedWorldgen.FlowerField.DOWNFALL)
-			.specialEffects(
-				new BiomeSpecialEffects.Builder()
-					.waterColor(WilderSharedWorldgen.FlowerField.WATER_COLOR)
-					.waterFogColor(WilderSharedWorldgen.FlowerField.WATER_FOG_COLOR)
-					.fogColor(WilderSharedWorldgen.FlowerField.FOG_COLOR)
-					.foliageColorOverride(WilderSharedWorldgen.FlowerField.FOLIAGE_COLOR)
-					.skyColor(WilderSharedWorldgen.FlowerField.SKY_COLOR)
-					.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-					.backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FLOWER_FOREST)).build())
-			.mobSpawnSettings(builder.build())
-			.generationSettings(builder2.build())
-			.build();
-	}
-
-	public static void addFlowerFieldFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
-		WilderSharedWorldgen.addBasicFeatures(builder, false);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TALL_FLOWER_FIELD_FLOWERS.getKey());
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_FIELD_GRASS_PLACED.getKey());
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TREES_FLOWER_FIELD.getKey());
-		BiomeDefaultFeatures.addDefaultOres(builder);
-		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
-		BiomeDefaultFeatures.addDefaultMushrooms(builder);
-		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
-	}
-
-	@NotNull
-	public static Biome temperateRainforest(@NotNull BootstapContext<Biome> entries) {
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		var worldCarvers = entries.lookup(Registries.CONFIGURED_CARVER);
-		MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
-		BiomeDefaultFeatures.commonSpawns(builder);
-		BiomeDefaultFeatures.plainsSpawns(builder);
-		builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 3, 4, 4));
-		BiomeGenerationSettings.Builder builder2 = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-		addTemperateRainforestFeatures(builder2);
-		return new Biome.BiomeBuilder()
-			.hasPrecipitation(true)
-			.temperature(WilderSharedWorldgen.TemperateRainforest.TEMP)
-			.downfall(WilderSharedWorldgen.TemperateRainforest.DOWNFALL)
-			.specialEffects(
-				new BiomeSpecialEffects.Builder()
-					.waterColor(WilderSharedWorldgen.TemperateRainforest.WATER_COLOR)
-					.waterFogColor(WilderSharedWorldgen.TemperateRainforest.WATER_FOG_COLOR)
-					.fogColor(WilderSharedWorldgen.TemperateRainforest.FOG_COLOR)
-					.foliageColorOverride(WilderSharedWorldgen.TemperateRainforest.FOLIAGE_COLOR)
-					.skyColor(WilderSharedWorldgen.TemperateRainforest.SKY_COLOR)
-					.ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-					.backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_SPARSE_JUNGLE)).build())
-			.mobSpawnSettings(builder.build())
-			.generationSettings(builder2.build())
-			.build();
-	}
-
-	public static void addTemperateRainforestFeatures(@NotNull BiomeGenerationSettings.Builder builder) {
-		WilderSharedWorldgen.addBasicFeatures(builder, false);
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.TEMPERATE_RAINFOREST_TREES.getKey());
-		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.FLOWER_TEMPERATE_RAINFOREST_VANILLA.getKey());
-		BiomeDefaultFeatures.addDefaultOres(builder);
-		BiomeDefaultFeatures.addDefaultSoftDisks(builder);
-		BiomeDefaultFeatures.addDefaultFlowers(builder);
-		BiomeDefaultFeatures.addDefaultMushrooms(builder);
-		BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
-	}
 
 	@NotNull
 	public static Biome rainforest(@NotNull BootstapContext<Biome> entries) {

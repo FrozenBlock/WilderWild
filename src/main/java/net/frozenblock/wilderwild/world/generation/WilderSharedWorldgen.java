@@ -126,25 +126,6 @@ public final class WilderSharedWorldgen {
 		}
 	}
 
-	public static final class FlowerField {
-		public static final Climate.Parameter TEMPERATURE_A = Climate.Parameter.span(-0.200F, -0.075F);
-		public static final Climate.Parameter HUMIDITY_A = Humidity.ONE;
-		public static final Climate.Parameter TEMPERATURE_B = Temperature.THREE;
-		public static final Climate.Parameter HUMIDITY_B = Climate.Parameter.span(-0.400F, -0.300F);
-		public static final Climate.Parameter HUMIDITY_AB = Climate.Parameter.span(-0.3675F, -0.3125F);
-		public static final float TEMP = 0.8F;
-		public static final float DOWNFALL = 0.5F;
-		public static final int WATER_COLOR = 4159204;
-		public static final int WATER_FOG_COLOR = 329011;
-		public static final int FOG_COLOR = 12638463;
-		public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
-		public static final int FOLIAGE_COLOR = 5877296;
-
-		private FlowerField() {
-			throw new UnsupportedOperationException("FlowerField contains only static declarations.");
-		}
-	}
-
 	public static final class OldGrowthSnowySpruceTaiga {
 		public static final Climate.Parameter TEMPERATURE = Temperature.ONE;
 		public static final Climate.Parameter HUMIDITY = Humidity.HUMID;
@@ -159,21 +140,6 @@ public final class WilderSharedWorldgen {
 
 		private OldGrowthSnowySpruceTaiga() {
 			throw new UnsupportedOperationException("OldGrowthSnowySpruceTaiga contains only static declarations.");
-		}
-	}
-
-	public static final class BirchTaiga {
-		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.175F, -0.125F);
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.100F, 0.325F);
-		public static final float TEMP = 0.45F;
-		public static final float DOWNFALL = 0.8F;
-		public static final int WATER_COLOR = 4159204;
-		public static final int WATER_FOG_COLOR = 329011;
-		public static final int FOG_COLOR = 12638463;
-		public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
-
-		private BirchTaiga() {
-			throw new UnsupportedOperationException("BirchTaiga contains only static declarations.");
 		}
 	}
 
@@ -192,21 +158,6 @@ public final class WilderSharedWorldgen {
 		}
 	}
 
-	public static final class DarkBirchForest {
-		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.125F, 0.2F);
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.275F, 0.325F);
-		public static final float TEMP = 0.65F;
-		public static final float DOWNFALL = 0.7F;
-		public static final int WATER_COLOR = 4159204;
-		public static final int WATER_FOG_COLOR = 329011;
-		public static final int FOG_COLOR = 12638463;
-		public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
-
-		private DarkBirchForest() {
-			throw new UnsupportedOperationException("DarkBirchForest contains only static declarations.");
-		}
-	}
-
 	public static final class OldGrowthDarkForest {
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.200F, 0.200F);
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.350F, 1.000F);
@@ -219,39 +170,6 @@ public final class WilderSharedWorldgen {
 
 		private OldGrowthDarkForest() {
 			throw new UnsupportedOperationException("OldGrowthDarkForest contains only static declarations.");
-		}
-	}
-
-	public static final class SemiBirchForest {
-		public static final Climate.Parameter TEMPERATURE_A = Temperature.THREE;
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.050F, 0.150F);
-		public static final Climate.Parameter TEMPERATURE_B = Climate.Parameter.span(-0.140F, -0.100F);
-		public static final float TEMP = 0.65F;
-		public static final float DOWNFALL = 0.7F;
-		public static final int WATER_COLOR = 4159204;
-		public static final int WATER_FOG_COLOR = 329011;
-		public static final int FOG_COLOR = 12638463;
-		public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
-
-		private SemiBirchForest() {
-			throw new UnsupportedOperationException("SemiBirchForest contains only static declarations.");
-		}
-	}
-
-	public static final class TemperateRainforest {
-		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.250F, -0.050F);
-		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.250F, 1.0F);
-		public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_0, Erosion.EROSION_3);
-		public static final float TEMP = 0.7F;
-		public static final float DOWNFALL = 0.8F;
-		public static final int WATER_COLOR = 4159204;
-		public static final int WATER_FOG_COLOR = 329011;
-		public static final int FOG_COLOR = 12638463;
-		public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
-		public static final int FOLIAGE_COLOR = 4896834;
-
-		private TemperateRainforest() {
-			throw new UnsupportedOperationException("TemperateRainforest contains only static declarations.");
 		}
 	}
 

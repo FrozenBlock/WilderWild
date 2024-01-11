@@ -100,20 +100,6 @@ public final class OverworldBiomeBuilderMixin {
 				);
 			}
 		}
-		if (WorldgenConfig.get().biomeGeneration.generateTemperateRainforest) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.TAIGA)) {
-				this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.TemperateRainforest.TEMPERATURE,
-					WilderSharedWorldgen.TemperateRainforest.HUMIDITY,
-					point.continentalness(),
-					WilderSharedWorldgen.TemperateRainforest.EROSION,
-					point.weirdness(),
-					point.offset(),
-					RegisterWorldgen.TEMPERATE_RAINFOREST
-				);
-			}
-		}
 		if (WorldgenConfig.get().biomeGeneration.generateRainforest) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FOREST)) {
 				this.addSurfaceBiome(
@@ -152,68 +138,6 @@ public final class OverworldBiomeBuilderMixin {
 				}
 			}
 		}
-		if (WorldgenConfig.get().biomeGeneration.generateBirchTaiga) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.TAIGA)) {
-				this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
-					WilderSharedWorldgen.BirchTaiga.HUMIDITY,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset(),
-					RegisterWorldgen.BIRCH_TAIGA
-				);
-			}
-		}
-		if (WorldgenConfig.get().biomeGeneration.generateOldGrowthBirchTaiga) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.OLD_GROWTH_BIRCH_FOREST)) {
-				this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.BirchTaiga.TEMPERATURE,
-					WilderSharedWorldgen.BirchTaiga.HUMIDITY,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset(),
-					RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA
-				);
-			}
-		}
-		if (WorldgenConfig.get().biomeGeneration.generateFlowerField) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FLOWER_FOREST)) {
-				this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.FlowerField.TEMPERATURE_A,
-					WilderSharedWorldgen.FlowerField.HUMIDITY_A,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset(),
-					RegisterWorldgen.FLOWER_FIELD
-				);
-				this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.FlowerField.TEMPERATURE_B,
-					WilderSharedWorldgen.FlowerField.HUMIDITY_B,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset(),
-					RegisterWorldgen.FLOWER_FIELD
-				);
-				this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.FlowerField.TEMPERATURE_A,
-					WilderSharedWorldgen.FlowerField.HUMIDITY_AB,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset(),
-					RegisterWorldgen.FLOWER_FIELD
-				);
-			}
-		}
 		if (WorldgenConfig.get().biomeGeneration.generateOldGrowthSnowyTaiga) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA)) {
 				this.addSurfaceBiome(
@@ -242,66 +166,6 @@ public final class OverworldBiomeBuilderMixin {
 						RegisterWorldgen.OLD_GROWTH_DARK_FOREST
 					);
 				}
-			}
-		}
-		if (WorldgenConfig.get().biomeGeneration.generateDarkBirchForest) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST)) {
-				this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.DarkBirchForest.TEMPERATURE,
-					WilderSharedWorldgen.DarkBirchForest.HUMIDITY,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset(),
-					RegisterWorldgen.DARK_BIRCH_FOREST
-				);
-			}
-		}
-		if (WorldgenConfig.get().biomeGeneration.generateSemiBirchForest) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.BIRCH_FOREST)) {
-				this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.SemiBirchForest.TEMPERATURE_A,
-					WilderSharedWorldgen.SemiBirchForest.HUMIDITY,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset(),
-					RegisterWorldgen.SEMI_BIRCH_FOREST
-				);
-				this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.SemiBirchForest.TEMPERATURE_B,
-					WilderSharedWorldgen.SemiBirchForest.HUMIDITY,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset(),
-					RegisterWorldgen.SEMI_BIRCH_FOREST
-				);
-			}
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.OLD_GROWTH_BIRCH_FOREST)) {
-				this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.SemiBirchForest.TEMPERATURE_A,
-					WilderSharedWorldgen.SemiBirchForest.HUMIDITY,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset(),
-					RegisterWorldgen.SEMI_BIRCH_FOREST
-				);
-				this.addSurfaceBiome(
-					parameters,
-					WilderSharedWorldgen.SemiBirchForest.TEMPERATURE_B,
-					WilderSharedWorldgen.SemiBirchForest.HUMIDITY,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset(),
-					RegisterWorldgen.SEMI_BIRCH_FOREST
-				);
 			}
 		}
 		if (WorldgenConfig.get().biomeGeneration.generateDyingForest) {
