@@ -30,17 +30,12 @@ import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 
-/**
- * Contains Wilder Wild's worldgen data.
- */
 public final class WilderSharedWorldgen {
 
 	private WilderSharedWorldgen() {
 		throw new UnsupportedOperationException("WilderSharedWorldgen contains only static declarations.");
 	}
-
-	// PARAMETER POINTS
-
+	
 	public static final class Swamp {
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Climate.Parameter.span(-0.200F, 0.100F), Humidity.WET);
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.COOL, Temperature.WARM);
@@ -70,7 +65,7 @@ public final class WilderSharedWorldgen {
 
 
 		private CherryGrove() {
-			throw new UnsupportedOperationException("Cherry Grove contains only static declarations.");
+			throw new UnsupportedOperationException("CherryGrove contains only static declarations.");
 		}
 	}
 
@@ -83,7 +78,7 @@ public final class WilderSharedWorldgen {
 
 
 		private StonyShoreTaiga() {
-			throw new UnsupportedOperationException("Stony Shore Taiga contains only static declarations.");
+			throw new UnsupportedOperationException("StonyShoreTaiga contains only static declarations.");
 		}
 	}
 
