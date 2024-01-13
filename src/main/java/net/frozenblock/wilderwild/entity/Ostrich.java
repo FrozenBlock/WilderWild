@@ -64,6 +64,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.PlayerRideableJumping;
 import net.minecraft.world.entity.Saddleable;
 import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -97,17 +98,19 @@ import org.jetbrains.annotations.Nullable;
 
 public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Saddleable {
 	public static final Ingredient TEMPTATION_ITEM = Ingredient.of(WilderItemTags.OSTRICH_FOOD);
+	public static final UUID ATTACK_MODIFIER_UUID = UUID.fromString("c1ad22f3-df98-4c43-a514-8372c50eda40");
+	public static final UUID KNOCKBACK_MODIFIER_UUID = UUID.fromString("90b60b7b-d960-431b-acca-905b8d122ebb");
 	public static final int BEAK_COOLDOWN_TICKS = 30;
 	public static final int BEAK_COOLDOWN_TICKS_SUCCESSFUL_HIT = 20;
-	public static final int BEAK_STUCK_TICKS = 65;
-	public static final int BEAK_STUCK_TICKS_AGGRESSIVE = 50;
+	public static final int BEAK_STUCK_TICKS = 40;
+	public static final int BEAK_STUCK_TICKS_AGGRESSIVE = 28;
 	public static final float MAX_ATTACK_DAMAGE = 6F;
 	public static final float ADDITIONAL_DAMAGE_RIDER = 1.5F;
 	public static final float ADDITIONAL_KNOCKBACK_RIDER = 0.75F;
-	public static final double ATTACK_BOX_WIDTH = 0.45F;
-	public static final double ATTACK_BOX_HEIGHT = 0.5F;
+	public static final double ATTACK_BOX_WIDTH = 0.5F;
+	public static final double ATTACK_BOX_HEIGHT = 0.6F;
 	public static final double DIMENSION_PERCENTAGE_AT_NECK = 0.5163043478260869D;
-	public static final AttributeModifier ADDITIONAL_DAMAGE_RIDER_MODIFIER = new AttributeModifier("additional_damage_rider", ADDITIONAL_DAMAGE_RIDER, AttributeModifier.Operation.ADDITION);
+	public static final AttributeModifier ADDITIONAL_DAMAGE_RIDER_MODIFIER = new AttributeModifier(ATTACK_MODIFIER_UUID, "additional_damage_rider", ADDITIONAL_DAMAGE_RIDER, AttributeModifier.Operation.ADDITION);
 
 	public static final EntityDataAccessor<Float> TARGET_BEAK_ANIM_PROGRESS = SynchedEntityData.defineId(Ostrich.class, EntityDataSerializers.FLOAT);
 	public static final EntityDataAccessor<Float> TARGET_STRAIGHT_PROGRESS = SynchedEntityData.defineId(Ostrich.class, EntityDataSerializers.FLOAT);
@@ -279,16 +282,14 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 			}
 
 			boolean strongEnoughToAttack = this.getBeakAnimProgress(1F) >= 0.2F;
-
 			if (strongEnoughToAttack) {
 				List<Entity> entities = this.level().getEntities(this, attackBox);
-				float beakDamage = ((this.getBeakAnimProgress(1F) + this.getClampedTargetBeakAnimProgress()) * 0.5F) * (float) this.getAttributeBaseValue(Attributes.ATTACK_DAMAGE);
 				for (Entity entity : entities) {
 					if (!this.hasPassenger(entity)) {
 						Entity commander = this.getLastAttackCommander();
 						if (commander != null) {
 							if (!commander.isAlliedTo(entity) && commander != entity) {
-								hasAttacked = entity.hurt(this.damageSources().source(RegisterDamageTypes.OSTRICH, null, commander), beakDamage);
+								hasAttacked = this.doHurtOnEntity(commander, entity);
 							}
 						} else {
 							if (this.attackHasCommander) {
@@ -296,7 +297,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 								return;
 							}
 							if (this.canTargetEntity(entity)) {
-								hasAttacked = entity.hurt(this.damageSources().source(RegisterDamageTypes.OSTRICH, null, this), beakDamage);
+								hasAttacked = this.doHurtOnEntity(null, entity);
 							}
 						}
 					}
@@ -339,6 +340,18 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		}
 	}
 
+	public boolean doHurtOnEntity(@Nullable Entity commander, @NotNull Entity entity) {
+		float beakProgress = ((this.getBeakAnimProgress(1F) + this.getClampedTargetBeakAnimProgress()) * 0.5F);
+		float beakDamage = beakProgress * (float) this.getAttribute(Attributes.ATTACK_DAMAGE).getValue();
+		AttributeInstance knockback = this.getAttribute(Attributes.ATTACK_KNOCKBACK);
+		knockback.addOrUpdateTransientModifier(
+			new AttributeModifier(KNOCKBACK_MODIFIER_UUID, "additional_knockback_rider", beakProgress * ADDITIONAL_KNOCKBACK_RIDER, AttributeModifier.Operation.ADDITION)
+		);
+		boolean didHurt = entity.hurt(this.damageSources().source(RegisterDamageTypes.OSTRICH, null, commander), beakDamage);
+		if (!didHurt) knockback.removeModifier(KNOCKBACK_MODIFIER_UUID);
+		return didHurt;
+	}
+
 	@Override
 	public void swing(@NotNull InteractionHand hand, boolean updateSelf) {
 		if (!this.isAttacking() && this.getBeakCooldown() <= 0 && !this.isStuck()) {
@@ -351,9 +364,8 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		this.setAttacking(false);
 		this.setBeakCooldown(successful || this.isAggressive() ? BEAK_COOLDOWN_TICKS_SUCCESSFUL_HIT : BEAK_COOLDOWN_TICKS);
 		this.setLastAttackCommander(null);
-		if (this.getAttribute(Attributes.ATTACK_DAMAGE).hasModifier(ADDITIONAL_DAMAGE_RIDER_MODIFIER)) {
-			this.getAttribute(Attributes.ATTACK_DAMAGE).removeModifier(ADDITIONAL_DAMAGE_RIDER_MODIFIER);
-		}
+		this.getAttribute(Attributes.ATTACK_DAMAGE).removeModifier(ATTACK_MODIFIER_UUID);
+		this.getAttribute(Attributes.ATTACK_KNOCKBACK).removeModifier(KNOCKBACK_MODIFIER_UUID);
 	}
 
 	public void emergeBeak() {
