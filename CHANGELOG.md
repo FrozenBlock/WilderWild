@@ -93,6 +93,7 @@ Bug Fixes & Changes
   - Defined the Random Sequence for every one of Wilder Wild's loot tables.
   - Added the Palm Hanging Sign to the `wilderwild:hanging_signs` item tag.
   - Added the Palm Crown to the `wilderwild:palm_logs` item tag.
+  - Thrown Coconuts will no longer play multiple sounds at once upon hitting entities and/or breaking.
   - Optimized the file size of many Block and Item models.
   - Firework Rockets are now impacted by wind.
     - Added `entity_firework_rocket` to the Mixins config to optionally disable this.
