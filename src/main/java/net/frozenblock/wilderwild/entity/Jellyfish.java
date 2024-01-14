@@ -27,6 +27,7 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+import net.frozenblock.lib.entity.api.EntityUtils;
 import net.frozenblock.lib.entity.api.NoFlopAbstractFish;
 import net.frozenblock.wilderwild.entity.ai.jellyfish.JellyfishAi;
 import net.frozenblock.wilderwild.entity.ai.jellyfish.JellyfishTemptGoal;
@@ -145,10 +146,10 @@ public class Jellyfish extends NoFlopAbstractFish {
 		this.getNavigation().setCanFloat(false);
 	}
 
-	public static int getJellyfish(@NotNull ServerLevel level, boolean pearlescent) {
+	public static int getJellyfishPerLevel(@NotNull ServerLevel level, boolean pearlescent) {
 		AtomicInteger count = new AtomicInteger();
 		if (!NON_PEARLESCENT_JELLYFISH_PER_LEVEL.containsKey(level)) {
-			level.entityManager.getEntityGetter().getAll().forEach(entity -> {
+			EntityUtils.getEntitiesPerLevel(level).forEach(entity -> {
 				if (entity instanceof Jellyfish jellyfish && (pearlescent ? jellyfish.getVariant().pearlescent() : jellyfish.getVariant().isNormal())) {
 					count.addAndGet(1);
 				}
@@ -169,7 +170,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 			return true;
 		}
 		Holder<Biome> biome = level.getBiome(pos);
-		if (!biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH) && getJellyfish(level.getLevel(), false) >= type.getCategory().getMaxInstancesPerChunk() / 3) {
+		if (!biome.is(WilderBiomeTags.PEARLESCENT_JELLYFISH) && getJellyfishPerLevel(level.getLevel(), false) >= type.getCategory().getMaxInstancesPerChunk() / 3) {
 			return false;
 		}
 		if (biome.is(WilderBiomeTags.JELLYFISH_SPECIAL_SPAWN)) {

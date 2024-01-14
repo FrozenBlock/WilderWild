@@ -1,23 +1,23 @@
 accessWidener    v2    named
 
 # Advancement
-accessible field net/minecraft/advancements/critereon/EffectsChangedTrigger$TriggerInstance effects Ljava/util/Optional;
-accessible field net/minecraft/advancements/critereon/MobEffectsPredicate effectMap Ljava/util/Map;
-mutable field net/minecraft/advancements/critereon/MobEffectsPredicate effectMap Ljava/util/Map;
+accessible    field    net/minecraft/advancements/critereon/EffectsChangedTrigger$TriggerInstance    effects    Ljava/util/Optional;
+accessible    field    net/minecraft/advancements/critereon/MobEffectsPredicate    effectMap    Ljava/util/Map;
+mutable    field    net/minecraft/advancements/critereon/MobEffectsPredicate    effectMap    Ljava/util/Map;
 
 # Sculk Spreading
 accessible    class    net/minecraft/world/level/block/SculkVeinBlock$SculkVeinSpreaderConfig
 
 # Tree Features
-extendable class net/minecraft/world/level/block/grower/TreeGrower
-extendable method net/minecraft/world/level/block/grower/TreeGrower getConfiguredFeature (Lnet/minecraft/util/RandomSource;Z)Lnet/minecraft/resources/ResourceKey;
-extendable method net/minecraft/world/level/block/grower/TreeGrower getConfiguredMegaFeature (Lnet/minecraft/util/RandomSource;)Lnet/minecraft/resources/ResourceKey;
+extendable    class    net/minecraft/world/level/block/grower/TreeGrower
+extendable    method    net/minecraft/world/level/block/grower/TreeGrower getConfiguredFeature (Lnet/minecraft/util/RandomSource;Z)Lnet/minecraft/resources/ResourceKey;
+extendable    method    net/minecraft/world/level/block/grower/TreeGrower getConfiguredMegaFeature (Lnet/minecraft/util/RandomSource;)Lnet/minecraft/resources/ResourceKey;
 accessible    method    net/minecraft/world/level/levelgen/feature/treedecorators/TreeDecoratorType    <init>    (Lcom/mojang/serialization/Codec;)V
 accessible    method    net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacerType    <init>    (Lcom/mojang/serialization/Codec;)V
 accessible    method    net/minecraft/world/level/levelgen/feature/foliageplacers/FoliagePlacerType    <init>    (Lcom/mojang/serialization/Codec;)V
 accessible    method    net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacer    isDirt    (Lnet/minecraft/world/level/LevelSimulatedReader;Lnet/minecraft/core/BlockPos;)Z
 accessible    method    net/minecraft/data/worldgen/placement/VegetationPlacements    treePlacementBase    (Lnet/minecraft/world/level/levelgen/placement/PlacementModifier;)Lcom/google/common/collect/ImmutableList$Builder;
-accessible method net/minecraft/world/level/levelgen/feature/TreeFeature setBlockKnownShape (Lnet/minecraft/world/level/LevelWriter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
+accessible    method    net/minecraft/world/level/levelgen/feature/TreeFeature    setBlockKnownShape    (Lnet/minecraft/world/level/LevelWriter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
 
 # Items
 extendable    method    net/minecraft/world/item/InstrumentItem    getInstrument    (Lnet/minecraft/world/item/ItemStack;)Ljava/util/Optional;
@@ -53,11 +53,10 @@ accessible    field    net/minecraft/world/level/levelgen/structure/Structure   
 accessible    field    net/minecraft/world/entity/Entity    DATA_POSE    Lnet/minecraft/network/syncher/EntityDataAccessor;
 accessible    method    net/minecraft/client/model/HierarchicalModel    animate    (Lnet/minecraft/world/entity/AnimationState;Lnet/minecraft/client/animation/AnimationDefinition;F)V
 accessible    field    net/minecraft/world/entity/LivingEntity    dead    Z
-accessible    method    net/minecraft/world/entity/Entity    updateInWaterStateAndDoWaterCurrentPushing    ()V
 accessible    field    net/minecraft/server/level/ServerLevel    entityManager    Lnet/minecraft/world/level/entity/PersistentEntitySectionManager;
 accessible    class    net/minecraft/world/entity/monster/warden/Warden$VibrationUser
 accessible    field    net/minecraft/world/entity/ai/navigation/WallClimberNavigation    pathToPosition    Lnet/minecraft/core/BlockPos;
-extendable    method    net/minecraft/world/entity/LivingEntity    canBreatheUnderwater    ()Z
+accessible    method    net/minecraft/world/entity/LivingEntity    canBreatheUnderwater    ()Z
 
 # Entity Behaviors
 accessible    field    net/minecraft/world/entity/ai/Brain    availableBehaviorsByPriority    Ljava/util/Map;

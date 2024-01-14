@@ -29,6 +29,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 import net.frozenblock.lib.block.api.shape.FrozenShapes;
+import net.frozenblock.lib.entity.api.EntityUtils;
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabAi;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabJumpControl;
@@ -193,7 +194,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		int randomBound = SPAWN_CHANCE;
 		if (!biome.is(WilderBiomeTags.HAS_COMMON_CRAB)) {
 			randomBound = SPAWN_CHANCE_COMMON;
-			if (getCrabs(level.getLevel()) >= type.getCategory().getMaxInstancesPerChunk() / 3) {
+			if (getCrabsPerLevel(level.getLevel()) >= type.getCategory().getMaxInstancesPerChunk() / 3) {
 				return false;
 			}
 		}
@@ -201,10 +202,10 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		return random.nextInt(0, randomBound) == 0 && pos.getY() >= seaLevel - 33 && pos.getY() <= seaLevel + 3 && level.getBlockState(pos.below()).is(WilderBlockTags.CRAB_CAN_HIDE);
 	}
 
-	public static int getCrabs(@NotNull ServerLevel level) {
+	public static int getCrabsPerLevel(@NotNull ServerLevel level) {
 		AtomicInteger count = new AtomicInteger();
 		if (!CRABS_PER_LEVEL.containsKey(level)) {
-			level.entityManager.getEntityGetter().getAll().forEach(entity -> {
+			EntityUtils.getEntitiesPerLevel(level).forEach(entity -> {
 				if (entity instanceof Crab) {
 					count.addAndGet(1);
 				}
