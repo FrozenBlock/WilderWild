@@ -73,6 +73,19 @@ public final class MiscConfigGui {
 			.build()
 		);
 
+		var fireworkWindMovement = category.addEntry(
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startIntSlider(text("firework_wind_movement"), modifiedConfig.fireworkWindMovement, 0, 500)
+					.setDefaultValue(defaultConfig.fireworkWindMovement)
+					.setSaveConsumer(newValue -> config.fireworkWindMovement = newValue)
+					.setTooltip(tooltip("firework_wind_movement"))
+					.build(),
+				clazz,
+				"fireworkWindMovement",
+				configInstance
+			)
+		);
+
 		var deepDarkAmbience = entryBuilder.startBooleanToggle(text("deep_dark_ambience"), biomeAmbience.deepDarkAmbience)
 			.setDefaultValue(defaultConfig.biomeAmbience.deepDarkAmbience)
 			.setSaveConsumer(newValue -> biomeAmbience.deepDarkAmbience = newValue)

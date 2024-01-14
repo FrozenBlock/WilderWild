@@ -96,7 +96,8 @@ Bug Fixes & Changes
   - Thrown Coconuts will no longer play multiple sounds at once upon hitting entities and/or breaking.
   - Optimized the file size of many Block and Item models.
   - Firework Rockets are now impacted by wind.
-    - Added `entity_firework_rocket` to the Mixins config to optionally disable this.
+    - Added a `Firework Rocket Wind Intensity` config option to the `Misc` tab to control the percentage of how intense wind will act upon them.
+    - Added `entity_firework_rocket` to the Mixins config to optionally force-disable this.
   - Reimplemented the custom Warden dying sound after it was accidentally removed during a bugfix.
   - The Warden's regular death sound will now play on top of its underwater dying sound once again.
   - Wardens are no longer considered alive during the custom death animation.
