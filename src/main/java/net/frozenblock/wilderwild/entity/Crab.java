@@ -46,6 +46,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
@@ -124,6 +125,8 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	private static final int DIG_TICKS_UNTIL_STOP_PARTICLES = 82;
 	private static final int EMERGE_TICKS_UNTIL_PARTICLES = 1;
 	private static final int EMERGE_TICKS_UNTIL_STOP_PARTICLES = 16;
+	public static final float DIGGING_PARTICLE_OFFSET = 0.25F;
+	public static final float IDLE_SOUND_VOLUME_PERCENTAGE = 0.065F;
 	private static final double LATCH_TO_WALL_FORCE = 0.0195D;
 	public static final int SPAWN_CHANCE = 30;
 	public static final int SPAWN_CHANCE_COMMON = 90;
@@ -512,14 +515,14 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	public void playAmbientSound() {
 		SoundEvent soundEvent = this.getAmbientSound();
 		if (soundEvent != null) {
-			this.playSound(soundEvent, this.getSoundVolume() * 0.065F, this.getVoicePitch());
+			this.playSound(soundEvent, this.getSoundVolume() * IDLE_SOUND_VOLUME_PERCENTAGE, this.getVoicePitch());
 		}
 	}
 
 	@Override
 	public boolean doHurtTarget(@NotNull Entity target) {
 		this.level().broadcastEntityEvent(this, EntityEvent.START_ATTACKING);
-		this.playSound(RegisterSounds.ENTITY_CRAB_ATTACK, 1.0F, this.getVoicePitch());
+		this.playSound(RegisterSounds.ENTITY_CRAB_ATTACK, this.getSoundVolume(), this.getVoicePitch());
 		return super.doHurtTarget(target);
 	}
 
@@ -606,7 +609,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	@NotNull
 	public Vec3 getDeltaPos() {
-		return this.getPosition(1).subtract(this.getPosition(0));
+		return this.getPosition(1F).subtract(this.getPosition(0F));
 	}
 
 	@Override
@@ -800,11 +803,14 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		RandomSource randomSource = this.getRandom();
 		BlockState blockState = this.getBlockStateOn();
 		if (blockState.getRenderShape() != RenderShape.INVISIBLE) {
+			double y = this.getY();
+			double x = this.getX();
+			double z = this.getZ();
+			ParticleOptions particleOptions = new BlockParticleOption(ParticleTypes.BLOCK, blockState);
 			for (int i = 0; i < 8; ++i) {
-				double x = this.getX() + Mth.randomBetween(randomSource, -0.25f, 0.25f);
-				double y = this.getY();
-				double z = this.getZ() + Mth.randomBetween(randomSource, -0.25f, 0.25f);
-				this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, blockState), x, y, z, 0.0, 0.0, 0.0);
+				double particleX = x + Mth.randomBetween(randomSource, -DIGGING_PARTICLE_OFFSET, DIGGING_PARTICLE_OFFSET);
+				double particleZ = z + Mth.randomBetween(randomSource, -DIGGING_PARTICLE_OFFSET, DIGGING_PARTICLE_OFFSET);
+				this.level().addParticle(particleOptions, particleX, y, particleZ, 0D, 0D, 0D);
 			}
 		}
 	}
@@ -916,7 +922,6 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		public CrabGroupData() {
 			super(false);
 		}
-
 	}
 
 	public class VibrationUser implements VibrationSystem.User {
@@ -944,12 +949,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			return WilderGameEventTags.CRAB_CAN_DETECT;
 		}
 
-		@Override
-		public boolean canTriggerAvoidVibration() {
-			return false;
-		}
-
-		@Override
+        @Override
 		public boolean canReceiveVibration(@NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull Holder<GameEvent> gameEvent, GameEvent.@NotNull Context context) {
 			return Crab.this.isAlive() && Crab.this.isInvisibleWhileUnderground() && (context.sourceEntity() instanceof Player || gameEvent.is(WilderGameEventTags.CRAB_CAN_ALWAYS_DETECT));
 		}

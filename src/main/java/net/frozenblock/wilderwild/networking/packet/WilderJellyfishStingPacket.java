@@ -24,6 +24,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.FabricPacket;
 import net.fabricmc.fabric.api.networking.v1.PacketType;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -60,7 +61,7 @@ public record WilderJellyfishStingPacket(boolean isBaby) implements FabricPacket
                     RegisterSounds.ENTITY_JELLYFISH_STING,
                     SoundSource.NEUTRAL,
                     1F,
-                    clientLevel.getRandom().nextFloat() * 0.2F + (packet.isBaby() ? 1.2F : 0.9F)
+                    packet.isBaby() ? Jellyfish.STING_PITCH_BABY : Jellyfish.STING_PITCH
             );
         });
 	}

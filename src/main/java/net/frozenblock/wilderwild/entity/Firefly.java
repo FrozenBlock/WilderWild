@@ -87,9 +87,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Firefly extends PathfinderMob implements FlyingAnimal {
-
+	public static final int FLICKERS_CHANCE = 4;
+	public static final int RANDOM_FLICKER_AGE_MAX = 19;
+	public static final int SPAWN_CHANCE = 75;
 	protected static final List<SensorType<? extends Sensor<? super Firefly>>> SENSORS = List.of(SensorType.NEAREST_LIVING_ENTITIES);
-
 	protected static final List<MemoryModuleType<?>> MEMORY_MODULES = List.of(MemoryModuleType.PATH, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.LOOK_TARGET, MemoryModuleType.HOME);
 	private static final EntityDataAccessor<Boolean> FROM_BOTTLE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> FLICKERS = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
@@ -113,14 +114,14 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 16F);
 		this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0F);
 		this.moveControl = new FlyingMoveControl(this, 20, true);
-		this.setFlickers(level.random.nextInt(4) == 0);
-		this.setFlickerAge(level.random.nextIntBetweenInclusive(0, 19));
+		this.setFlickers(this.random.nextInt(FLICKERS_CHANCE) == 0);
+		this.setFlickerAge(this.random.nextIntBetweenInclusive(0, RANDOM_FLICKER_AGE_MAX));
 		this.setAnimScale(1.5F);
 		this.setColor(FireflyColor.ON);
 	}
 
 	public static boolean checkFireflySpawnRules(@NotNull EntityType<Firefly> type, @NotNull LevelAccessor level, MobSpawnType reason, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		boolean chance = random.nextInt(0, 75) == 0;
+		boolean chance = random.nextInt(0, SPAWN_CHANCE) == 0;
 		Holder<Biome> biomeHolder = level.getBiome(pos);
 		if (biomeHolder.is(WilderBiomeTags.FIREFLY_SPAWNABLE_CAVE)) {
 			return chance && level.getBrightness(LightLayer.SKY, pos) == 0;
@@ -203,7 +204,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 				item = optionalItem.get();
 			}
 			this.playSound(RegisterSounds.ITEM_BOTTLE_CATCH_FIREFLY, 1F, this.random.nextFloat() * 0.2F + 0.8F);
-			if (!player.isCreative()) {
+			if (!player.getAbilities().instabuild) {
 				player.getItemInHand(hand).shrink(1);
 			}
 			ItemStack bottleStack = new ItemStack(item);
@@ -586,9 +587,8 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 	}
 
 	public static class FireflyBiomeColorRegistry {
-
-		public static ArrayList<ResourceLocation> BIOMES = new ArrayList<>();
-		public static ArrayList<FireflyColor> COLORS = new ArrayList<>();
+		public static final ArrayList<ResourceLocation> BIOMES = new ArrayList<>();
+		public static final ArrayList<FireflyColor> COLORS = new ArrayList<>();
 
 		public static void addBiomeColor(@NotNull ResourceLocation biome, @NotNull FireflyColor color) {
 			BIOMES.add(biome);
@@ -613,7 +613,5 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 			}
 			return colors.get(AdvancedMath.random().nextInt(colors.size()));
 		}
-
 	}
-
 }

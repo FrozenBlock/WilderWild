@@ -104,6 +104,11 @@ Bug Fixes & Changes
   - Prevented the Warden from moving while it is digging or emerging.
   - Changed the Warden's secret death sound from stereo to mono.
   - Refactored mobs' `canSpawn` methods to reflect Vanilla's, following the template `checkXSpawnRules.`
+  - Baby Jellyfish now always give Poison I with a duration of 4 seconds, while Adult Jellyfish now always give Poison I with a duration of 10 seconds.
+    - This used to be a random range of time in previous versions.
+  - The Jellyfish sting sound no longer plays at random pitches to be more consistent with Pufferfish.
+  - Bubbles will spawn behind Jellyfish less frequently.
+  - The Baby Jellyfish's movement speed is now determined with an attribute modifier instead of repeatedly setting the base attribute, making this attribute properly modifiable.
   - Significantly improved Wilder Wild's biome parameter modifications and cut down `OverworldBiomeBuilderMixin` in size in the process.
   - Moved all biome parameters, feature/spawn building, and most worldgen injects to individual biome classes.
     - This means `WilderSharedWorldgen` will only contain parameters for modified Vanilla biome placement from now on.

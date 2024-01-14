@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import net.frozenblock.lib.entity.api.NoFlopAbstractFish;
@@ -70,6 +71,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -94,6 +96,19 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Jellyfish extends NoFlopAbstractFish {
+	private static final float MAX_TARGET_DISTANCE = 15F;
+	public static final int POISON_DURATION_IN_SECONDS_BABY = 4;
+	public static final int POISON_DURATION_IN_SECONDS = 10;
+	public static final float STING_PITCH = 1F;
+	public static final float STING_PITCH_BABY = 1.2F;
+	public static final int SPAWN_CHANCE = 110;
+	public static final int SPAWN_HEIGHT_NORMAL_SEA_OFFSET = 13;
+	public static final float BUBBLE_SPAWN_CHANCE = 0.2F;
+	public static final double HIDABLE_PLAYER_DISTANCE = 24D;
+	public static final int HIDABLE_TICKS_SINCE_SPAWN = 150;
+	public static final int HIDING_CHANCE = 25;
+	public static final UUID JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY_UUID = UUID.fromString("6cb0de31-da1e-4136-b338-f30aeac92c3e");
+	public static final AttributeModifier JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY = new AttributeModifier(JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY_UUID, "movement_speed_modifier_baby", 0.5D, AttributeModifier.Operation.MULTIPLY_TOTAL);
 	public static final ArrayList<JellyfishVariant> COLORED_VARIANTS = new ArrayList<>(WilderRegistry.JELLYFISH_VARIANT.stream()
 		.filter(JellyfishVariant::isNormal)
 		.collect(Collectors.toList())
@@ -102,7 +117,6 @@ public class Jellyfish extends NoFlopAbstractFish {
 		.filter(JellyfishVariant::pearlescent)
 		.collect(Collectors.toList())
 	);
-	private static final float MAX_TARGET_DISTANCE = 15F;
 	private static final EntityDataAccessor<JellyfishVariant> VARIANT = SynchedEntityData.defineId(Jellyfish.class, JellyfishVariant.SERIALIZER);
 	private static final EntityDataAccessor<Boolean> CAN_REPRODUCE = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> IS_BABY = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.BOOLEAN);
@@ -159,12 +173,12 @@ public class Jellyfish extends NoFlopAbstractFish {
 			return false;
 		}
 		if (biome.is(WilderBiomeTags.JELLYFISH_SPECIAL_SPAWN)) {
-			if (level.getRawBrightness(pos, 0) <= 7 && random.nextInt(0, level.getRawBrightness(pos, 0) + 3) >= 1) {
+			if (level.getRawBrightness(pos, 0) <= 7 && random.nextInt(level.getRawBrightness(pos, 0) + 3) >= 1) {
 				return true;
 			}
 		}
 		int seaLevel = level.getSeaLevel();
-		return (random.nextInt(0, 110) == 0 && pos.getY() <= seaLevel && pos.getY() >= seaLevel - 13);
+		return (random.nextInt(0, SPAWN_CHANCE) == 0 && pos.getY() <= seaLevel && pos.getY() >= seaLevel - SPAWN_HEIGHT_NORMAL_SEA_OFFSET);
 	}
 
 	@NotNull
@@ -256,7 +270,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@Override
 	protected void playSwimSound(float volume) {
 		super.playSwimSound(volume);
-		if (this.random.nextFloat() < 0.5F) {
+		if (this.random.nextFloat() < BUBBLE_SPAWN_CHANCE) {
 			this.spawnBubbles();
 		}
 	}
@@ -358,7 +372,8 @@ public class Jellyfish extends NoFlopAbstractFish {
 		} else if (this.vanishing) {
 			if (this.prevScale <= 0F) {
 				this.discard();
-				this.playSound(RegisterSounds.ENTITY_JELLYFISH_HIDE, 0.8F, 0.9F + this.level().random.nextFloat() * 0.2F);
+				this.playSound(RegisterSounds.ENTITY_JELLYFISH_HIDE, 0.8F, this.getVoicePitch());
+				return;
 			} else {
 				this.scale -= 0.25F;
 			}
@@ -367,7 +382,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		if (this.level().isClientSide) {
 			if (this.forcedAgeTimer > 0) {
 				if (this.forcedAgeTimer % 4 == 0) {
-					this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1F), this.getRandomY(), this.getRandomZ(1F), 0F, 0F, 0F);
+					this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1D), this.getRandomY(), this.getRandomZ(1D), 0D, 0D, 0D);
 				}
 				--this.forcedAgeTimer;
 			}
@@ -392,9 +407,13 @@ public class Jellyfish extends NoFlopAbstractFish {
 				&& !this.isRemoved()
 		);
 
-		AttributeInstance attributeInstance = this.getAttributes().getInstance(Attributes.MOVEMENT_SPEED);
-		if (attributeInstance != null) {
-			attributeInstance.setBaseValue(this.isBaby() ? 0.25D : 0.5D);
+		AttributeInstance movementSpeed = this.getAttributes().getInstance(Attributes.MOVEMENT_SPEED);
+		if (movementSpeed != null) {
+			if (this.isBaby()) {
+				movementSpeed.addOrUpdateTransientModifier(JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY);
+			} else {
+				movementSpeed.removeModifier(JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY_UUID);
+			}
 		}
 	}
 
@@ -410,13 +429,13 @@ public class Jellyfish extends NoFlopAbstractFish {
 			double d = this.random.nextGaussian() * 0.02D;
 			double e = this.random.nextGaussian() * 0.02D;
 			double f = this.random.nextGaussian() * 0.02D;
-			this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1D), this.getRandomY() + 0.5, this.getRandomZ(1D), d, e, f);
+			this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1D), this.getRandomY() + 0.5D, this.getRandomZ(1D), d, e, f);
 		} else if (id == (byte) 18) {
 			for (int i = 0; i < 7; ++i) {
 				double d = this.random.nextGaussian() * 0.02D;
 				double e = this.random.nextGaussian() * 0.02D;
 				double f = this.random.nextGaussian() * 0.02D;
-				this.level().addParticle(ParticleTypes.HEART, this.getRandomX(1D), this.getRandomY() + 0.5, this.getRandomZ(1D), d, e, f);
+				this.level().addParticle(ParticleTypes.HEART, this.getRandomX(1D), this.getRandomY() + 0.5D, this.getRandomZ(1D), d, e, f);
 			}
 		} else {
 			super.handleEntityEvent(id);
@@ -424,22 +443,23 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	public void stingEntities() {
-		if (this.isAlive()) {
+		if (this.isAlive() && !this.level().isClientSide) {
 			List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.08D));
 			boolean baby = this.isBaby();
 			float damage = baby ? 1F : 3F;
-			int poisonDuration = baby ? this.level().getRandom().nextInt(40, 100) : this.level().getRandom().nextInt(100, 200);
+
+			int poisonDuration = baby ? POISON_DURATION_IN_SECONDS_BABY : POISON_DURATION_IN_SECONDS;
 			for (LivingEntity entity : list) {
 				if (this.targetingConditions.test(this, entity)) {
-					if (entity instanceof ServerPlayer player) {
-						if (player.hurt(this.damageSources().mobAttack(this), damage)) {
-							player.addEffect(new MobEffectInstance(MobEffects.POISON, poisonDuration, 0, false, false), this);
-							WilderJellyfishStingPacket.sendTo(player, baby);
-						}
-					} else if (entity instanceof Mob mob) {
-						if (mob.hurt(this.damageSources().mobAttack(this), damage)) {
-							mob.addEffect(new MobEffectInstance(MobEffects.POISON, poisonDuration, 0), this);
-							this.playSound(RegisterSounds.ENTITY_JELLYFISH_STING, 0.4F, this.random.nextFloat() * 0.2F + (baby ? 1.2F : 0.9F));
+					if (entity.hurt(this.damageSources().mobAttack(this), damage)) {
+						entity.addEffect(new MobEffectInstance(MobEffects.POISON, poisonDuration * 20, 0), this);
+						if (!this.isSilent()) {
+							Player playSoundForExcept = null;
+							if (entity instanceof ServerPlayer player) {
+								playSoundForExcept = player;
+								WilderJellyfishStingPacket.sendTo(player, baby);
+							}
+							this.level().playSound(playSoundForExcept, entity.getX(), entity.getY(), entity.getZ(), RegisterSounds.ENTITY_JELLYFISH_STING, this.getSoundSource(), 1F, baby ? STING_PITCH_BABY : STING_PITCH);
 						}
 					}
 				}
@@ -491,15 +511,15 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	public boolean shouldHide() {
-		return this.level().getNearestPlayer(this, 24) == null
-			&& this.ticksSinceSpawn >= 150
+		return this.level().getNearestPlayer(this, HIDABLE_PLAYER_DISTANCE) == null
+			&& this.ticksSinceSpawn >= HIDABLE_TICKS_SINCE_SPAWN
 			&& !this.requiresCustomPersistence()
 			&& !this.isPersistenceRequired()
 			&& !this.hasCustomName()
 			&& !this.isLeashed()
 			&& this.getPassengers().isEmpty()
 			&& this.getTarget() == null
-			&& this.random.nextInt(0, 50) <= 2;
+			&& this.random.nextInt(HIDING_CHANCE) == 0;
 	}
 
 	@Override
@@ -579,9 +599,9 @@ public class Jellyfish extends NoFlopAbstractFish {
 			float bbHeight = this.getBbHeight();
 			Vec3 vec3 = this.rotateVector(new Vec3(0D, -bbHeight, 0D)).add(this.getX(), this.getY(), this.getZ());
 			for (int i = 0; i < this.random.nextInt(0, (int) (2D + (deltaLength * 25D))); ++i) {
-				Vec3 vec32 = this.rotateVector(new Vec3((double) this.random.nextFloat() * 0.6D - 0.3D, -1D, (double) this.random.nextFloat() * 0.6D - 0.3D));
+				Vec3 vec32 = this.rotateVector(new Vec3(this.random.nextDouble() * 0.6D - 0.3D, -1D, this.random.nextDouble() * 0.6D - 0.3D));
 				Vec3 vec33 = vec32.scale(0.3D + (this.random.nextFloat() * 2D));
-				serverLevel.sendParticles(ParticleTypes.BUBBLE, vec3.x, vec3.y + (bbHeight * 0.5), vec3.z, 0, vec33.x, vec33.y, vec33.z, (deltaLength * 2D) + 0.1D);
+				serverLevel.sendParticles(ParticleTypes.BUBBLE, vec3.x, vec3.y + (bbHeight * 0.5D), vec3.z, 0, vec33.x, vec33.y, vec33.z, (deltaLength * 2D) + 0.1D);
 			}
 		}
 	}
@@ -797,5 +817,4 @@ public class Jellyfish extends NoFlopAbstractFish {
 			return this.babySpawnChance;
 		}
 	}
-
 }

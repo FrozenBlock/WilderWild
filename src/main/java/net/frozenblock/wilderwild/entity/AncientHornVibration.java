@@ -410,7 +410,7 @@ public class AncientHornVibration extends AbstractArrow {
 					}
 
 					if (SculkSensorBlock.canActivate(blockState)) {
-						sculkSensor.activate(null, this.level(), pos, blockState, server.getRandom().nextInt(15), sculkSensorBlockEntity.getLastVibrationFrequency());
+						sculkSensor.activate(null, this.level(), pos, blockState, this.random.nextInt(15), sculkSensorBlockEntity.getLastVibrationFrequency());
 						this.level().gameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);
 						setCooldown(getCooldown(owner, SENSOR_COOLDOWN));
 					}
