@@ -359,7 +359,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	@Override
 	public void swing(@NotNull InteractionHand hand, boolean updateSelf) {
 		if (!this.isAttacking() && this.getBeakCooldown() <= 0 && !this.isStuck()) {
-			this.performAttack(0.6F + (this.getRandom().nextFloat() * 0.4F), null);
+			this.performAttack(0.6F + (this.random.nextFloat() * 0.4F), null);
 		}
 	}
 
@@ -468,7 +468,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		this.setTargetBeakAnimProgress(power);
 		this.setLastAttackCommander(commander);
 		SoundEvent soundEvent = this.isInbred() ? RegisterSounds.ENTITY_OSTRICH_INBRED_SWING : RegisterSounds.ENTITY_OSTRICH_SWING;
-		this.playSound(soundEvent, 0.4F, 0.9F + this.getRandom().nextFloat() * 0.2F);
+		this.playSound(soundEvent, 0.4F, 0.9F + this.random.nextFloat() * 0.2F);
 
 		if (this.attackHasCommander) {
 			this.getAttribute(Attributes.ATTACK_DAMAGE)
@@ -590,7 +590,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 			boolean bl3 = this.isBaby();
 			if (bl3) {
-				this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1), this.getRandomY() + 0.5, this.getRandomZ(1), 0.0, 0.0, 0.0);
+				this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1D), this.getRandomY() + 0.5D, this.getRandomZ(1D), 0.0, 0.0, 0.0);
 				if (!this.level().isClientSide) {
 					this.ageUp(10);
 				}
@@ -906,9 +906,9 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 	@Override
 	public SoundEvent getAmbientSound() {
 		if (this.isInbred())
-			return this.getRandom().nextFloat() <= 0.555F ? RegisterSounds.ENTITY_OSTRICH_INBRED_IDLE_AH : RegisterSounds.ENTITY_OSTRICH_INBRED_IDLE_BOCK;
+			return this.random.nextFloat() <= 0.555F ? RegisterSounds.ENTITY_OSTRICH_INBRED_IDLE_AH : RegisterSounds.ENTITY_OSTRICH_INBRED_IDLE_BOCK;
 		return !this.isAggressive() ? RegisterSounds.ENTITY_OSTRICH_IDLE :
-			this.getRandom().nextBoolean() ? RegisterSounds.ENTITY_OSTRICH_HISS : RegisterSounds.ENTITY_OSTRICH_GRUNT;
+			this.random.nextBoolean() ? RegisterSounds.ENTITY_OSTRICH_HISS : RegisterSounds.ENTITY_OSTRICH_GRUNT;
 	}
 
 	@Nullable
@@ -935,7 +935,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		boolean inbred = this.isInbred();
 		SoundEvent soundEvent = inbred ? RegisterSounds.ENTITY_OSTRICH_INBRED_STEP : RegisterSounds.ENTITY_OSTRICH_STEP;
 		float volume = inbred ? 0.5F : 0.1F;
-		this.playSound(soundEvent, volume, 0.9F + this.getRandom().nextFloat() * 0.2F);
+		this.playSound(soundEvent, volume, 0.9F + this.random.nextFloat() * 0.2F);
 	}
 
 	@NotNull
@@ -967,7 +967,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 				BlockHitResult beakHitResult = this.getBeakHitResult(backwards);
 
 				if (beakHitResult.getType() != HitResult.Type.MISS) {
-					int count = !beakBury ? this.getRandom().nextInt(7, 12) : this.getRandom().nextInt(12, 20);
+					int count = !beakBury ? this.random.nextInt(7, 12) : this.random.nextInt(12, 20);
 					BlockParticleOption blockParticleOption = new BlockParticleOption(ParticleTypes.BLOCK, this.getBeakState());
 					Vec3 hitLocation = beakHitResult.getLocation();
 					server.sendParticles(

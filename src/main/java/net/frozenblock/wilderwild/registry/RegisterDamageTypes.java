@@ -40,7 +40,7 @@ public class RegisterDamageTypes {
 		context.register(ANCIENT_HORN, new DamageType("ancient_horn", 0.1F));
 		context.register(PRICKLY_PEAR, new DamageType("prickly_pear", 0.1F));
 		context.register(TUMBLEWEED, new DamageType("tumbleweed", DamageScaling.ALWAYS, 0.1F));
-		context.register(OSTRICH, new DamageType("ostrich", 0.1F));
+		context.register(OSTRICH, new DamageType("ostrich", DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0.1F));
 	}
 
 	@NotNull

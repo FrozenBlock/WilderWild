@@ -81,13 +81,17 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
-	private static final double windMultiplier = 1.4;
-	private static final double windClamp = 0.2;
-	private static final float rotationAmount = 55F;
+	public static final int SPAWN_CHANCE = 60;
+	private static final double WIND_MULTIPLIER = 1.4D;
+	private static final double WIND_CLAMP = 0.2D;
+	private static final float ROTATION_AMOUNT = 55F;
+	private static final float MAX_ITEM_OFFSET = 0.25F;
+	public static final double INACTIVE_PLAYER_DISTANCE_FROM = 24D;
+	public static final int MAX_INACTIVE_TICKS = 200;
+	public static final int TUMBLEWEED_PLANT_ITEM_CHANCE = 15;
 	private static final EntityDataAccessor<ItemStack> ITEM_STACK = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.ITEM_STACK);
 	private static final EntityDataAccessor<Float> ITEM_X = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> ITEM_Z = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.FLOAT);
-	private static final float maxItemOffset = 0.25F;
 	public NonNullList<ItemStack> inventory;
 	public boolean spawnedFromShears;
 	public int ticksSinceActive;
@@ -111,7 +115,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	public static boolean checkTumbleweedSpawnRules(EntityType<Tumbleweed> type, @NotNull ServerLevelAccessor level, MobSpawnType reason, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		return level.getBrightness(LightLayer.SKY, pos) > 7 && random.nextInt(0, 60) == 1 && pos.getY() > level.getSeaLevel();
+		return level.getBrightness(LightLayer.SKY, pos) > 7 && random.nextInt(SPAWN_CHANCE) == 0 && pos.getY() > level.getSeaLevel();
 	}
 
 	@NotNull
@@ -132,14 +136,14 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
 		if (this.inventory.get(0).isEmpty() && reason == MobSpawnType.NATURAL) {
 			int diff = difficulty.getDifficulty().getId();
-			if (level.getRandom().nextInt(0, diff == 0 ? 32 : (27 / diff)) == 0) {
-				int tagSelector = level.getRandom().nextInt(1, 6);
+			if (this.random.nextInt(0, diff == 0 ? 32 : (27 / diff)) == 0) {
+				int tagSelector = this.random.nextInt(1, 6);
 				TagKey<Item> itemTag = tagSelector <= 1 ? WilderItemTags.TUMBLEWEED_RARE : tagSelector <= 3 ? WilderItemTags.TUMBLEWEED_MEDIUM : WilderItemTags.TUMBLEWEED_COMMON;
-				ItemLike itemLike = TagUtils.getRandomEntry(level.getRandom(), itemTag);
+				ItemLike itemLike = TagUtils.getRandomEntry(this.random, itemTag);
 				if (itemLike != null) {
 					this.setItem(new ItemStack(itemLike), true);
 				}
-			} else if (level.getRandom().nextInt(0, 15) == 0) {
+			} else if (this.random.nextInt(TUMBLEWEED_PLANT_ITEM_CHANCE) == 0) {
 				this.setItem(new ItemStack(RegisterBlocks.TUMBLEWEED_PLANT), true);
 			}
 		}
@@ -148,11 +152,11 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 	@Override
 	protected void doPush(@NotNull Entity entity) {
-		boolean isSmall = entity.getBoundingBox().getSize() < this.getBoundingBox().getSize() * 0.9;
+		boolean isSmall = entity.getBoundingBox().getSize() < this.getBoundingBox().getSize() * 0.9D;
 		if (entity instanceof Tumbleweed) {
 			super.doPush(entity);
 		}
-		if (this.getDeltaPos().length() > (isSmall ? 0.2 : 0.3) && this.isMovingTowards(entity) && !(entity instanceof Tumbleweed)) {
+		if (this.getDeltaPos().length() > (isSmall ? 0.2D : 0.3D) && this.isMovingTowards(entity) && !(entity instanceof Tumbleweed)) {
 			boolean hurt = entity.hurt(this.damageSources().source(RegisterDamageTypes.TUMBLEWEED, this), 2F);
 			isSmall = isSmall || !entity.isAlive() || !hurt;
 			if (!isSmall) {
@@ -213,12 +217,12 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		this.prevPitch = this.pitch;
 		this.prevRoll = this.roll;
 		this.prevTumble = this.tumble;
-		float yRotAmount = (float) ((Math.abs(deltaPos.y) * 0.5F) * rotationAmount);
-		this.pitch -= (float) (deltaPos.z * rotationAmount);
-		this.roll -= (float) (deltaPos.x * rotationAmount);
+		float yRotAmount = (float) ((Math.abs(deltaPos.y) * 0.5F) * ROTATION_AMOUNT);
+		this.pitch -= (float) (deltaPos.z * ROTATION_AMOUNT);
+		this.roll -= (float) (deltaPos.x * ROTATION_AMOUNT);
 		this.pitch += yRotAmount;
 		this.roll += yRotAmount;
-		this.tumble += (float) (((Math.abs(deltaPos.z) + Math.abs(deltaPos.x) + (Math.abs(deltaPos.x) * 0.5F)) * 0.5F) * rotationAmount);
+		this.tumble += (float) (((Math.abs(deltaPos.z) + Math.abs(deltaPos.x) + (Math.abs(deltaPos.x) * 0.5F)) * 0.5F) * ROTATION_AMOUNT);
 		if (this.pitch > 360F) {
 			this.pitch -= 360F;
 			this.prevPitch -= 360F;
@@ -243,10 +247,10 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	private void checkActive(double brightness) {
-		Player entity = this.level().getNearestPlayer(this, -1.0);
-		if (!this.requiresCustomPersistence() && ((brightness < 7 && (entity == null || entity.distanceTo(this) > 24)) || this.isTouchingStoppingBlock || this.isTouchingStickingBlock || (this.wasTouchingWater && !(this.getBlockStateOn().getBlock() instanceof MesogleaBlock)))) {
+		Player entity = this.level().getNearestPlayer(this, -1D);
+		if (!this.requiresCustomPersistence() && ((brightness < 7 && (entity == null || entity.distanceTo(this) > INACTIVE_PLAYER_DISTANCE_FROM)) || this.isTouchingStoppingBlock || this.isTouchingStickingBlock || (this.wasTouchingWater && !(this.getBlockStateOn().getBlock() instanceof MesogleaBlock)))) {
 			++this.ticksSinceActive;
-			if (this.ticksSinceActive >= 200) {
+			if (this.ticksSinceActive >= MAX_INACTIVE_TICKS) {
 				this.destroy(false);
 			}
 		} else {
@@ -258,24 +262,24 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		if (!(this.isTouchingStoppingBlock || this.isTouchingStickingBlock)) {
 			Vec3 deltaMovement = this.getDeltaMovement();
 			WindManager windManager = WindManager.getWindManager(serverLevel);
-			double multiplier = (Math.max((brightness - (Math.max(15 - brightness, 0))), 0) * 0.0667) * (this.wasTouchingWater ? 0.16777216 : 1);
-			double windX = Mth.clamp(windManager.windX * windMultiplier, -windClamp, windClamp);
-			double windZ = Mth.clamp(windManager.windZ * windMultiplier, -windClamp, windClamp);
-			deltaMovement = deltaMovement.add((windX * 0.2) * multiplier, 0, (windZ * 0.2) * multiplier);
-			deltaMovement = new Vec3(deltaMovement.x, deltaMovement.y < 0 ? deltaMovement.y * 0.88 : deltaMovement.y, deltaMovement.z);
-			if (deltaPos.y <= 0 && this.onGround()) {
-				deltaMovement = deltaMovement.add(0, Math.min(0.65, ((deltaPos.horizontalDistance() * 1.2))) * multiplier, 0);
+			double multiplier = (Math.max((brightness - (Math.max(15 - brightness, 0))), 0) * 0.0667D) * (this.wasTouchingWater ? 0.16777216D : 1D);
+			double windX = Mth.clamp(windManager.windX * WIND_MULTIPLIER, -WIND_CLAMP, WIND_CLAMP);
+			double windZ = Mth.clamp(windManager.windZ * WIND_MULTIPLIER, -WIND_CLAMP, WIND_CLAMP);
+			deltaMovement = deltaMovement.add((windX * 0.2D) * multiplier, 0D, (windZ * 0.2D) * multiplier);
+			deltaMovement = new Vec3(deltaMovement.x, deltaMovement.y < 0 ? deltaMovement.y * 0.88D : deltaMovement.y, deltaMovement.z);
+			if (deltaPos.y <= 0D && this.onGround()) {
+				deltaMovement = deltaMovement.add(0D, Math.min(0.65D, ((deltaPos.horizontalDistance() * 1.2D))) * multiplier, 0D);
 			}
-			if (deltaPos.x == 0) {
-				double nonNegX = deltaMovement.x < 0 ? -deltaMovement.x : deltaMovement.x;
-				deltaMovement = deltaMovement.add(0, (nonNegX * 1.8) * multiplier, 0);
+			if (deltaPos.x == 0D) {
+				double nonNegX = deltaMovement.x < 0D ? -deltaMovement.x : deltaMovement.x;
+				deltaMovement = deltaMovement.add(0D, (nonNegX * 1.8D) * multiplier, 0D);
 			}
-			if (deltaPos.z == 0) {
-				double nonNegZ = deltaMovement.z < 0 ? -deltaMovement.z : deltaMovement.z;
-				deltaMovement = deltaMovement.add(0, (nonNegZ * 1.8) * multiplier, 0);
+			if (deltaPos.z == 0D) {
+				double nonNegZ = deltaMovement.z < 0D ? -deltaMovement.z : deltaMovement.z;
+				deltaMovement = deltaMovement.add(0D, (nonNegZ * 1.8D) * multiplier, 0D);
 			}
 			if (this.wasEyeInWater) {
-				deltaMovement = deltaMovement.add(0, 0.01, 0);
+				deltaMovement = deltaMovement.add(0D, 0.01D, 0D);
 			}
 			this.setDeltaMovement(deltaMovement);
 		}
@@ -292,7 +296,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 				double d = (entity.getX() - this.getX()) / (double) f;
 				double e = (entity.getY() - this.getY()) / (double) f;
 				double g = (entity.getZ() - this.getZ()) / (double) f;
-				this.setDeltaMovement(this.getDeltaMovement().add(Math.copySign(d * d * 0.4, d), Math.copySign(e * e * 0.4, e), Math.copySign(g * g * 0.4, g)));
+				this.setDeltaMovement(this.getDeltaMovement().add(Math.copySign(d * d * 0.4D, d), Math.copySign(e * e * 0.4D, e), Math.copySign(g * g * 0.4D, g)));
 			}
 		}
 	}
@@ -303,7 +307,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 			this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), inventoryStack.split(inventoryStack.getCount() - 1)));
 		}
 		if (!this.level().isClientSide && inventoryStack.isEmpty() && this.level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !this.isRemoved()) {
-			List<ItemEntity> list = this.level().getEntitiesOfClass(ItemEntity.class, this.getBoundingBox().inflate(0.15));
+			List<ItemEntity> list = this.level().getEntitiesOfClass(ItemEntity.class, this.getBoundingBox().inflate(0.15D));
 			for (ItemEntity item : list) {
 				if (this.isMovingTowards(item)) {
 					ItemStack stack = item.getItem();
@@ -523,8 +527,8 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	public void randomizeItemOffsets() {
-		this.setItemX((this.random.nextFloat() * (this.random.nextBoolean() ? 1 : -1)) * maxItemOffset);
-		this.setItemZ((this.random.nextFloat() * (this.random.nextBoolean() ? 1 : -1)) * maxItemOffset);
+		this.setItemX((this.random.nextFloat() * (this.random.nextBoolean() ? 1F : -1F)) * MAX_ITEM_OFFSET);
+		this.setItemZ((this.random.nextFloat() * (this.random.nextBoolean() ? 1F : -1F)) * MAX_ITEM_OFFSET);
 	}
 
 	public float getItemX() {
