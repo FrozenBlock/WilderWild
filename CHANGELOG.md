@@ -70,6 +70,7 @@ Bug Fixes & Changes
   - Added many public static fields to blocks for better code readability and editability.
   - Significantly improved the `OsseousSculkBlock` class and merged both growing methods into one.
   - Sculk Charges will now move to newly placed blocks in Osseous Sculk pillars upon growth.
+  - Osseous Sculk no longer strictly requires a Hoe in order to drop, and now only looks for the Silk Touch enchantment.
     - This doesn't mean they'll only move in one direction, they'll just be snapped to that position initially as the block is set and can still move downwards afterward.
   - Echo Glass will now drop itself upon cracking if not hit by a Sonic Boom.
   - Baobab Nuts and Palm Fronds are now compostable.

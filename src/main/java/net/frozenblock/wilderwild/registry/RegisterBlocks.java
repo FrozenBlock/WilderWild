@@ -229,7 +229,6 @@ public final class RegisterBlocks {
 	public static final OsseousSculkBlock OSSEOUS_SCULK = new OsseousSculkBlock(
 		FabricBlockSettings.create()
 			.mapColor(MapColor.SAND)
-			.requiresTool()
 			.strength(2.0F)
 			.sounds(RegisterBlockSoundTypes.OSSEOUS_SCULK)
 	);
