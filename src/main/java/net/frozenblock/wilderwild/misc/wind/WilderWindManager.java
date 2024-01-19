@@ -28,11 +28,8 @@ import org.jetbrains.annotations.NotNull;
 public class WilderWindManager implements WindManagerExtension {
 
 	private final WindManager manager;
-
 	public double cloudX;
-
 	public double cloudY;
-
 	public double cloudZ;
 
 
