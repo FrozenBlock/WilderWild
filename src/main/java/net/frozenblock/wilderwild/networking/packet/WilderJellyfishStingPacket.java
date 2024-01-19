@@ -18,19 +18,12 @@
 
 package net.frozenblock.wilderwild.networking.packet;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.FabricPacket;
 import net.fabricmc.fabric.api.networking.v1.PacketType;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundSource;
 import org.jetbrains.annotations.NotNull;
 
 public record WilderJellyfishStingPacket(boolean isBaby) implements FabricPacket {
@@ -47,23 +40,6 @@ public record WilderJellyfishStingPacket(boolean isBaby) implements FabricPacket
 	public static void sendTo(ServerPlayer serverPlayer, boolean isBaby) {
 		WilderJellyfishStingPacket jellyfishStingPacket = new WilderJellyfishStingPacket(isBaby);
 		ServerPlayNetworking.send(serverPlayer, jellyfishStingPacket);
-	}
-
-	@Environment(EnvType.CLIENT)
-	public static void receive() {
-		ClientPlayNetworking.registerGlobalReceiver(PACKET_TYPE, (packet, player, responseSender) -> {
-			ClientLevel clientLevel = player.clientLevel;
-            clientLevel.playSound(
-                    player,
-                    player.getX(),
-                    player.getY(),
-                    player.getZ(),
-                    RegisterSounds.ENTITY_JELLYFISH_STING,
-                    SoundSource.NEUTRAL,
-                    1F,
-                    packet.isBaby() ? Jellyfish.STING_PITCH_BABY : Jellyfish.STING_PITCH
-            );
-        });
 	}
 
 	@Override

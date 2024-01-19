@@ -20,17 +20,39 @@ package net.frozenblock.wilderwild.networking;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.networking.packet.WilderJellyfishStingPacket;
 import net.frozenblock.wilderwild.networking.packet.WilderLightningStrikePacket;
 import net.frozenblock.wilderwild.networking.packet.WilderSensorHiccupPacket;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.sounds.SoundSource;
 
 @Environment(EnvType.CLIENT)
 public class WilderClientNetworking {
 
 	public static void registerPacketReceivers() {
 		WilderSensorHiccupPacket.receive();
-		WilderJellyfishStingPacket.receive();
+		receiveJellyfishStingPacket();
 		WilderLightningStrikePacket.receive();
+	}
+
+	@Environment(EnvType.CLIENT)
+	public static void receiveJellyfishStingPacket() {
+		ClientPlayNetworking.registerGlobalReceiver(WilderJellyfishStingPacket.PACKET_TYPE, (packet, player, responseSender) -> {
+			ClientLevel clientLevel = player.clientLevel;
+			clientLevel.playSound(
+				player,
+				player.getX(),
+				player.getY(),
+				player.getZ(),
+				RegisterSounds.ENTITY_JELLYFISH_STING,
+				SoundSource.NEUTRAL,
+				1F,
+				packet.isBaby() ? Jellyfish.STING_PITCH_BABY : Jellyfish.STING_PITCH
+			);
+		});
 	}
 
 }
