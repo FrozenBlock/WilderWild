@@ -530,6 +530,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@Override
+	@NotNull
 	public InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
 		ItemStack itemStack = player.getItemInHand(hand);
 		if (itemStack.is(Items.WATER_BUCKET)) {
