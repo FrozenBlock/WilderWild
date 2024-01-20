@@ -22,7 +22,9 @@ import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
+import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
+import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.additions.feature.WilderMiscPlaced;
 import net.frozenblock.wilderwild.world.additions.feature.WilderPlacedFeatures;
@@ -43,6 +45,7 @@ import net.minecraft.world.level.biome.AmbientMoodSettings;
 import net.minecraft.world.level.biome.AmbientParticleSettings;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -54,7 +57,7 @@ public final class CypressWetlands extends FrozenBiome {
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.NEUTRAL, Humidity.HUMID);
 	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(-0.200F, 0.500F);
 	public static final Climate.Parameter EROSION = Climate.Parameter.span(0.500F, 1.000F);
-	public static final float OFFSET = 0.000F;
+	public static final float OFFSET = 0F;
 	public static final float TEMP = 0.6F;
 	public static final float DOWNFALL = 0.7F;
 	public static final int WATER_COLOR = 4552818;
@@ -183,7 +186,19 @@ public final class CypressWetlands extends FrozenBiome {
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-
+		if (WorldgenConfig.get().biomeGeneration.generateCypressWetlands) {
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SWAMP)) {
+				this.addSurfaceBiome(
+					parameters,
+					TEMPERATURE,
+					HUMIDITY,
+					CONTINENTALNESS,
+					EROSION,
+					point.weirdness(),
+					OFFSET
+				);
+			}
+		}
 	}
 
 }

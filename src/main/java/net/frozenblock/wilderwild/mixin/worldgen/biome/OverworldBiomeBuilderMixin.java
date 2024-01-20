@@ -26,8 +26,6 @@ import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.wilderwild.config.WorldgenConfig;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
-import net.frozenblock.wilderwild.world.biome.CypressWetlands;
-import net.frozenblock.wilderwild.world.biome.Oasis;
 import net.frozenblock.wilderwild.world.biome.WarmRiver;
 import net.frozenblock.wilderwild.world.generation.WilderSharedWorldgen;
 import net.minecraft.resources.ResourceKey;
@@ -70,30 +68,6 @@ public final class OverworldBiomeBuilderMixin {
 
 	@Inject(method = "addLowSlice", at = @At("TAIL"))
 	private void wilderWild$injectLowSlice(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo info) {
-		if (WorldgenConfig.get().biomeGeneration.generateCypressWetlands) {
-			this.addSurfaceBiome(
-				parameters,
-				CypressWetlands.TEMPERATURE,
-				CypressWetlands.HUMIDITY,
-				CypressWetlands.CONTINENTALNESS,
-				CypressWetlands.EROSION,
-				weirdness,
-				CypressWetlands.OFFSET,
-				RegisterWorldgen.CYPRESS_WETLANDS
-			);
-		}
-		if (WorldgenConfig.get().biomeGeneration.generateOasis) {
-			this.addSurfaceBiome(
-				parameters,
-				Oasis.TEMPERATURE,
-				Oasis.HUMIDITY,
-				Oasis.CONTINENTALNESS,
-				Oasis.EROSION,
-				weirdness,
-				Oasis.OFFSET,
-				RegisterWorldgen.OASIS
-			);
-		}
 		if (WorldgenConfig.get().biomePlacement.modifyStonyShorePlacement) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.BEACH)) {
 				this.addSurfaceBiome(
@@ -112,30 +86,6 @@ public final class OverworldBiomeBuilderMixin {
 
 	@Inject(method = "addMidSlice", at = @At("TAIL"))
 	private void wilderWild$injectMidBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo info) {
-		if (WorldgenConfig.get().biomeGeneration.generateCypressWetlands) {
-			this.addSurfaceBiome(
-				parameters,
-				CypressWetlands.TEMPERATURE,
-				CypressWetlands.HUMIDITY,
-				CypressWetlands.CONTINENTALNESS,
-				CypressWetlands.EROSION,
-				weirdness,
-				CypressWetlands.OFFSET,
-				RegisterWorldgen.CYPRESS_WETLANDS
-			);
-		}
-		if (WorldgenConfig.get().biomeGeneration.generateOasis) {
-			this.addSurfaceBiome(
-				parameters,
-				Oasis.TEMPERATURE,
-				Oasis.HUMIDITY,
-				Oasis.CONTINENTALNESS,
-				Oasis.EROSION,
-				weirdness,
-				Oasis.OFFSET,
-				RegisterWorldgen.OASIS
-			);
-		}
 		if (WorldgenConfig.get().biomePlacement.modifyCherryGrovePlacement) {
 			this.addSurfaceBiome(
 				parameters,
@@ -146,34 +96,6 @@ public final class OverworldBiomeBuilderMixin {
 				WilderSharedWorldgen.CherryGrove.WEIRDNESS,
 				WilderSharedWorldgen.CherryGrove.OFFSET,
 				Biomes.CHERRY_GROVE
-			);
-		}
-	}
-
-	@Inject(method = "addValleys", at = @At("TAIL"))
-	private void wilderWild$injectRiverBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo info) {
-		if (WorldgenConfig.get().biomeGeneration.generateCypressWetlands) {
-			this.addSurfaceBiome(
-				parameters,
-				CypressWetlands.TEMPERATURE,
-				CypressWetlands.HUMIDITY,
-				CypressWetlands.CONTINENTALNESS,
-				CypressWetlands.EROSION,
-				weirdness,
-				CypressWetlands.OFFSET,
-				RegisterWorldgen.CYPRESS_WETLANDS
-			);
-		}
-		if (WorldgenConfig.get().biomeGeneration.generateOasis) {
-			this.addSurfaceBiome(
-				parameters,
-				Oasis.TEMPERATURE,
-				Oasis.HUMIDITY,
-				Oasis.CONTINENTALNESS,
-				Oasis.EROSION,
-				weirdness,
-				Oasis.OFFSET,
-				RegisterWorldgen.OASIS
 			);
 		}
 	}
