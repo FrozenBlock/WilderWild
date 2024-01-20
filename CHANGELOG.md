@@ -74,6 +74,7 @@ Bug Fixes & Changes
     - This doesn't mean they'll only move in one direction, they'll just be snapped to that position initially as the block is set and can still move downwards afterward.
   - Echo Glass will now drop itself upon cracking if not hit by a Sonic Boom.
   - Stripped Logs can now once again be hollowed with an Axe.
+  - Made the subtitle for hollowing a Log more consistent with the subtitle for stripping a Log.
   - Baobab Nuts and Palm Fronds are now compostable.
   - Changed the minimum and maximum amount of Milkweed Pods obtainable by shearing Milkweed to 1 and 3 respectively, previously being 2 and 5.
     - The Milkweed Pod to String recipe now requires 9 Milkweed Pods instead of just 1.
