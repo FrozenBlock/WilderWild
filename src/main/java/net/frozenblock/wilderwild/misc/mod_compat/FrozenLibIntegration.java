@@ -289,7 +289,7 @@ public class FrozenLibIntegration extends ModIntegration {
 						);
 					}
 					case "minecraft:nether/all_potions", "minecraft:nether/all_effects" -> {
-						if (advancement.criteria().get("all_effects").triggerInstance() instanceof  EffectsChangedTrigger.TriggerInstance) {
+						if (advancement.criteria().get("all_effects") != null && advancement.criteria().get("all_effects").triggerInstance() instanceof EffectsChangedTrigger.TriggerInstance) {
 							Criterion<EffectsChangedTrigger.TriggerInstance> criterion = (Criterion<EffectsChangedTrigger.TriggerInstance>) advancement.criteria().get("all_effects");
 							MobEffectsPredicate predicate = criterion.triggerInstance().effects.orElseThrow();
 							Map<Holder<MobEffect>, MobEffectsPredicate.MobEffectInstancePredicate> map = new HashMap<>(predicate.effectMap);
