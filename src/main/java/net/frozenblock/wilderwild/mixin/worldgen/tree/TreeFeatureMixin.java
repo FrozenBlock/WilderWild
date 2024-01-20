@@ -45,7 +45,7 @@ public abstract class TreeFeatureMixin implements TreeFeatureLeavesUpdate {
 
 	@Shadow
 	private static DiscreteVoxelShape updateLeaves(LevelAccessor level, BoundingBox box, Set<BlockPos> rootPositions, Set<BlockPos> trunkPositions, Set<BlockPos> foliagePositions) {
-		return null;
+		throw new AssertionError("Mixin injection failed - Wilder Wild TreeFeatureMixin.");
 	}
 
 	@Inject(
