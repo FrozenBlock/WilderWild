@@ -75,7 +75,6 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		RegisterItems.registerItems();
 		RegisterItems.registerBlockItems();
 		RegisterGameEvents.registerEvents();
-		RegisterBlocks.registerDispenses();
 
 		RegisterSounds.init();
 		RegisterBlockSoundTypes.init();
@@ -114,6 +113,8 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		WilderModIntegrations.init();
 		// TODO replace this with a config option at some point
 		ConfigRegistry.register(FrozenLibConfig.INSTANCE, new ConfigModification<>(config -> config.saveItemCooldowns = true));
+
+		RegisterBlocks.registerBlockProperties();
 
 		WilderSharedConstants.stopMeasuring(this);
 	}

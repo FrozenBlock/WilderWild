@@ -73,6 +73,7 @@ Bug Fixes & Changes
   - Osseous Sculk no longer strictly requires a Hoe in order to drop, and now only looks for the Silk Touch enchantment.
     - This doesn't mean they'll only move in one direction, they'll just be snapped to that position initially as the block is set and can still move downwards afterward.
   - Echo Glass will now drop itself upon cracking if not hit by a Sonic Boom.
+  - Stripped Logs can now once again be hollowed with an Axe.
   - Baobab Nuts and Palm Fronds are now compostable.
   - Changed the minimum and maximum amount of Milkweed Pods obtainable by shearing Milkweed to 1 and 3 respectively, previously being 2 and 5.
     - The Milkweed Pod to String recipe now requires 9 Milkweed Pods instead of just 1.
@@ -111,6 +112,7 @@ Bug Fixes & Changes
   - The Jellyfish sting sound no longer plays at random pitches to be more consistent with Pufferfish.
   - Bubbles will spawn behind Jellyfish less frequently.
   - The Baby Jellyfish's movement speed is now determined with an attribute modifier instead of repeatedly setting the base attribute, making this attribute properly modifiable.
+  - Jellyfish stings should no longer crash servers. ([#329](https://github.com/FrozenBlock/WilderWild/issues/329))
   - Significantly improved Wilder Wild's biome parameter modifications and cut down `OverworldBiomeBuilderMixin` in size in the process.
   - Moved all biome parameters, feature/spawn building, and most worldgen injects to individual biome classes.
     - This means `WilderSharedWorldgen` will only contain parameters for modified Vanilla biome placement from now on.

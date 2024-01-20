@@ -61,13 +61,22 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 	protected static final VoxelShape Y_COLLISION_SHAPE = Shapes.or(Block.box(0, 0, 0, 16, 16, 2.25), Block.box(0, 0, 0, 2.25, 16, 16), Block.box(0, 0, 13.75, 16, 16, 16), Block.box(13.75, 0, 0, 16, 16, 16));
 	protected static final VoxelShape Z_COLLISION_SHAPE = Shapes.or(Block.box(13.75, 0, 0, 16, 16, 16), Block.box(0, 0, 0, 2.25, 16, 16), Block.box(0, 13.75, 0, 16, 16, 16), Block.box(0, 0, 0, 16, 2.25, 16));
 	protected static final VoxelShape RAYCAST_SHAPE = Shapes.block();
-	private static final float HOLLOWED_AMOUNT = 0.71875F;
-	private static final float EDGE_AMOUNT = 0.140625F;
-	private static final float CRAWL_HEIGHT = EDGE_AMOUNT + HOLLOWED_AMOUNT;
+	private static final double HOLLOWED_AMOUNT = 0.71875D;
+	private static final double EDGE_AMOUNT = 0.140625D;
+	private static final double CRAWL_HEIGHT = EDGE_AMOUNT + HOLLOWED_AMOUNT;
 
 	public HollowedLogBlock(@NotNull Properties settings) {
 		super(settings);
 		this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false).setValue(AXIS, Direction.Axis.Y));
+	}
+
+	public static boolean hollow(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Direction face, @NotNull Block result, boolean isStem) {
+		if (BlockConfig.get().logHollowing && !level.isClientSide && state.hasProperty(BlockStateProperties.AXIS) && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
+			hollowEffects(level, face, state, pos, isStem);
+			level.setBlockAndUpdate(pos, result.withPropertiesOf(state));
+			return true;
+		}
+		return false;
 	}
 
 	public static void hollowEffects(@NotNull Level level, @NotNull Direction face, @NotNull BlockState state, @NotNull BlockPos pos, boolean isStem) {
@@ -75,27 +84,22 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 			double stepX = face.getStepX();
 			double stepY = face.getStepY();
 			double stepZ = face.getStepZ();
-			if (stepX < 0) {
-				stepX *= -1;
-			}
-			if (stepY < 0) {
-				stepY *= -1;
-			}
-			if (stepZ < 0) {
-				stepZ *= -1;
-			}
-			serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(12, 28), 0.1625 + (stepX * 0.3375), 0.1625 + (stepY * 0.3375), 0.1625 + (stepZ * 0.3375), 0.05D);
+			if (stepX < 0D) stepX *= -1D;
+			if (stepY < 0D) stepY *= -1D;
+			if (stepZ < 0D) stepZ *= -1D;
+			serverLevel.sendParticles(
+				new BlockParticleOption(ParticleTypes.BLOCK, state),
+				pos.getX() + 0.5D,
+				pos.getY() + 0.5D,
+				pos.getZ() + 0.5D,
+				level.random.nextInt(12, 28),
+				0.1625D + (stepX * 0.3375D),
+				0.1625D + (stepY * 0.3375D),
+				0.1625D + (stepZ * 0.3375D),
+				0.05D
+			);
 			level.playSound(null, pos, isStem ? RegisterSounds.STEM_HOLLOWED : RegisterSounds.LOG_HOLLOWED, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
 		}
-	}
-
-	public static boolean hollow(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Direction face, @NotNull Block result, boolean isStem) {
-		if (BlockConfig.get().logHollowing && !level.isClientSide && state.hasProperty(BlockStateProperties.AXIS) && face.getAxis().equals(state.getValue(BlockStateProperties.AXIS))) {
-			HollowedLogBlock.hollowEffects(level, face, state, pos, isStem);
-			level.setBlockAndUpdate(pos, result.withPropertiesOf(state));
-			return true;
-		}
-		return false;
 	}
 
 	@NotNull
@@ -121,16 +125,16 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 			&& player.getBbWidth() <= HOLLOWED_AMOUNT
 			&& player.getBbHeight() >= HOLLOWED_AMOUNT
 			&& player.blockPosition().relative(direction).equals(pos)
-			&& player.position().distanceTo(new Vec3(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5)) <= (0.5 + player.getBbWidth())
+			&& player.position().distanceTo(Vec3.atBottomCenterOf(pos)) <= (0.5D + player.getBbWidth())
 			&& playerY >= pos.getY()
 			&& playerY + crawlingHeight <= pos.getY() + CRAWL_HEIGHT
 			&& hitDirection.getAxis() == axis
 			&& hitDirection.getOpposite() == direction
 		) {
 			player.setPos(
-				pos.getX() + 0.5 - direction.getStepX() * 0.475,
+				pos.getX() + 0.5D - direction.getStepX() * 0.475D,
 				pos.getY() + EDGE_AMOUNT,
-				pos.getZ() + 0.5 - direction.getStepZ() * 0.475
+				pos.getZ() + 0.5D - direction.getStepZ() * 0.475D
 			);
 			player.setPose(Pose.SWIMMING);
 			player.setSwimming(true);
