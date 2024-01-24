@@ -30,6 +30,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -140,7 +141,7 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 				if (stack.is(Items.SHEARS)) {
 					level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
 					level.playSound(null, pos, RegisterSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1F, 0.95F + (level.random.nextFloat() * 0.1F));
-					stack.hurtAndBreak(1, player, playerx -> playerx.broadcastBreakEvent(hand));
+					stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 					level.gameEvent(player, GameEvent.SHEAR, pos);
 				} else {
 					level.playSound(null, pos, RegisterSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1F, 0.95F + (level.random.nextFloat() * 0.1F));

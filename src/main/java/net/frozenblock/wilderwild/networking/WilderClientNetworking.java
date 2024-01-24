@@ -25,9 +25,11 @@ import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.Jellyfish;
+import net.frozenblock.wilderwild.misc.wind.WilderClientWindManager;
 import net.frozenblock.wilderwild.networking.packet.WilderJellyfishStingPacket;
 import net.frozenblock.wilderwild.networking.packet.WilderLightningStrikePacket;
 import net.frozenblock.wilderwild.networking.packet.WilderSensorHiccupPacket;
+import net.frozenblock.wilderwild.networking.packet.WilderWindPacket;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.client.Minecraft;
@@ -55,9 +57,20 @@ public class WilderClientNetworking {
 	}
 
 	public static void registerPacketReceivers() {
+		receiveWindExtensionSyncPacket();
 		receiveSensorHiccupPacket();
 		receiveJellyfishStingPacket();
 		receiveLightningStrikePacket();
+	}
+
+	public static void receiveWindExtensionSyncPacket() {
+		registry().register(WilderWindPacket.PACKET_TYPE, WilderWindPacket.CODEC);
+		ClientPlayNetworking.registerGlobalReceiver(WilderWindPacket.PACKET_TYPE, (packet, ctx) -> {
+			Vec3 cloudPos = packet.cloudPos();
+			WilderClientWindManager.cloudX = cloudPos.x();
+			WilderClientWindManager.cloudY = cloudPos.y();
+			WilderClientWindManager.cloudZ = cloudPos.z();
+		});
 	}
 
 	public static void receiveSensorHiccupPacket() {

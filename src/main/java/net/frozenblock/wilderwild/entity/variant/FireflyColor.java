@@ -24,8 +24,6 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.WilderRegistry;
 import net.minecraft.Util;
 import net.minecraft.core.Registry;
-import net.minecraft.network.syncher.EntityDataSerializer;
-import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
@@ -36,8 +34,6 @@ public record FireflyColor(ResourceLocation key, ResourceLocation texture) {
 		.comapFlatMap(
 			list -> Util.fixedSize(list, 2).map(listx -> new FireflyColor(listx.get(0), listx.get(1))), color -> List.of(color.key(), color.texture())
 		);
-
-	public static final EntityDataSerializer<FireflyColor> SERIALIZER = EntityDataSerializer.simpleId(WilderRegistry.FIREFLY_COLOR);
 
 	public static final FireflyColor BLACK = register(WilderSharedConstants.id("black"), WilderSharedConstants.id("textures/entity/firefly/firefly_black.png"));
 	public static final FireflyColor BLUE = register(WilderSharedConstants.id("blue"), WilderSharedConstants.id("textures/entity/firefly/firefly_blue.png"));
@@ -56,10 +52,6 @@ public record FireflyColor(ResourceLocation key, ResourceLocation texture) {
 	public static final FireflyColor RED = register(WilderSharedConstants.id("red"), WilderSharedConstants.id("textures/entity/firefly/firefly_red.png"));
 	public static final FireflyColor WHITE = register(WilderSharedConstants.id("white"), WilderSharedConstants.id("textures/entity/firefly/firefly_white.png"));
 	public static final FireflyColor YELLOW = register(WilderSharedConstants.id("yellow"), WilderSharedConstants.id("textures/entity/firefly/firefly_yellow.png"));
-
-	static {
-		EntityDataSerializers.registerSerializer(SERIALIZER);
-	}
 
 	public FireflyColor(@NotNull ResourceLocation key, @NotNull ResourceLocation texture) {
 		this.key = key;

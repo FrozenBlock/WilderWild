@@ -30,6 +30,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -167,7 +168,7 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 					level.addFreshEntity(itemEntity);
 				}
 				state = this.setAgeOnBothHalves(state, level, pos, state.getValue(AGE) - 1, true);
-				stack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
+				stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 				level.gameEvent(player, GameEvent.SHEAR, pos);
 				this.removeTopHalfIfYoung(state, level, pos);
 			}

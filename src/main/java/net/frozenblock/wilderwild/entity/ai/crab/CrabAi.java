@@ -210,7 +210,7 @@ public final class CrabAi {
 		brain.addActivity(
 			Activity.IDLE,
 			ImmutableList.of(
-				Pair.of(1, new AnimalMakeLove(RegisterEntities.CRAB, 0.8F)),
+				Pair.of(1, new AnimalMakeLove(RegisterEntities.CRAB, 0.8F, 2)),
 				Pair.of(
 					2,
 					new RunOne<>(

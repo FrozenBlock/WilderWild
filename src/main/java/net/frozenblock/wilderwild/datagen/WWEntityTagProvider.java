@@ -41,7 +41,11 @@ final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagProvider 
 
 		this.getOrCreateTagBuilder(EntityTypeTags.CAN_BREATHE_UNDER_WATER)
 			.add(EntityType.WARDEN)
-			.add(RegisterEntities.CRAB);
+			.add(RegisterEntities.CRAB)
+			.add(RegisterEntities.JELLYFISH);
+
+		this.getOrCreateTagBuilder(EntityTypeTags.NOT_SCARY_FOR_PUFFERFISH)
+			.add(RegisterEntities.JELLYFISH);
 
 		this.getOrCreateTagBuilder(WilderEntityTags.CRAB_HUNT_TARGETS)
 			.add(EntityType.SQUID)
@@ -53,5 +57,13 @@ final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagProvider 
 
 		this.getOrCreateTagBuilder(EntityTypeTags.DISMOUNTS_UNDERWATER)
 			.add(RegisterEntities.OSTRICH);
+
+		this.getOrCreateTagBuilder(EntityTypeTags.ARTHROPOD)
+			.add(RegisterEntities.CRAB);
+
+		this.getOrCreateTagBuilder(EntityTypeTags.AQUATIC)
+			.add(RegisterEntities.CRAB)
+			.add(RegisterEntities.JELLYFISH);
+
 	}
 }

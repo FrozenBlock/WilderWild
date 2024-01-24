@@ -42,6 +42,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.DustColorTransitionOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
@@ -446,7 +447,15 @@ public class AncientHornVibration extends AbstractArrow {
 				if (xp > 0) {
 					tendril.setStoredXP(0);
 					this.level().explode(this, this.getX(), this.getY(), this.getZ(), 0, Level.ExplosionInteraction.NONE);
-					FrozenSoundPackets.createLocalSound(this.level(), pos, RegisterSounds.ENTITY_ANCIENT_HORN_VIBRATION_BLAST, SoundSource.NEUTRAL, 1.5F, 1.0F, true);
+					FrozenSoundPackets.createLocalSound(
+						this.level(),
+						pos,
+						BuiltInRegistries.SOUND_EVENT.getHolder(RegisterSounds.ENTITY_ANCIENT_HORN_VIBRATION_BLAST.getLocation()).orElseThrow(),
+						SoundSource.NEUTRAL,
+						1.5F,
+						1F,
+						true
+					);
 					this.level().destroyBlock(this.blockPosition(), false);
 					ExperienceOrb.award(server, Vec3.atCenterOf(pos).add(0, 0, 0), xp);
 					setCooldown(getCooldown(this.getOwner(), TENDRIL_COOLDOWN));
@@ -605,7 +614,7 @@ public class AncientHornVibration extends AbstractArrow {
 			}
 			int fireTicks = entity.getRemainingFireTicks();
 			if (this.isOnFire()) {
-				entity.setSecondsOnFire(5);
+				entity.igniteForSeconds(5);
 			}
 			if (entity instanceof Warden warden && owner != null && canInteract()) {
 				warden.increaseAngerAt(owner, AngerLevel.ANGRY.getMinimumAnger() + 20, true);

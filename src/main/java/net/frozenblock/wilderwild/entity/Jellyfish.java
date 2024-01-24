@@ -118,7 +118,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		.filter(JellyfishVariant::pearlescent)
 		.collect(Collectors.toList())
 	);
-	private static final EntityDataAccessor<JellyfishVariant> VARIANT = SynchedEntityData.defineId(Jellyfish.class, JellyfishVariant.SERIALIZER);
+	private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.STRING);
 	private static final EntityDataAccessor<Boolean> CAN_REPRODUCE = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> IS_BABY = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.BOOLEAN);
 	private static final Map<ServerLevelAccessor, Integer> NON_PEARLESCENT_JELLYFISH_PER_LEVEL = new HashMap<>();
@@ -637,11 +637,11 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@NotNull
 	public JellyfishVariant getVariant() {
-		return this.entityData.get(VARIANT);
+		return WilderRegistry.JELLYFISH_VARIANT.getOptional(new ResourceLocation(this.entityData.get(VARIANT))).orElse(JellyfishVariant.PINK);
 	}
 
 	public void setVariant(@NotNull JellyfishVariant variant) {
-		this.entityData.set(VARIANT, variant);
+		this.entityData.set(VARIANT, variant.key().toString());
 	}
 
 	public boolean canReproduce() {
@@ -715,7 +715,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@Override
 	protected void defineSynchedData() {
 		super.defineSynchedData();
-		this.entityData.define(VARIANT, JellyfishVariant.PINK);
+		this.entityData.define(VARIANT, JellyfishVariant.PINK.key().toString());
 		this.entityData.define(CAN_REPRODUCE, false);
 		this.entityData.define(IS_BABY, false);
 	}

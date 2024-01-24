@@ -150,7 +150,7 @@ public class OstrichAi {
 			Activity.IDLE,
 			ImmutableList.of(
 				Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))),
-				Pair.of(1, new AnimalMakeLove(RegisterEntities.OSTRICH, SPEED_MULTIPLIER_WHEN_MAKING_LOVE)),
+				Pair.of(1, new AnimalMakeLove(RegisterEntities.OSTRICH, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)),
 				Pair.of(
 					2,
 					new RunOne<>(

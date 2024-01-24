@@ -97,7 +97,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 	private static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Float> ANIM_SCALE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> PREV_ANIM_SCALE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.FLOAT);
-	private static final EntityDataAccessor<FireflyColor> COLOR = SynchedEntityData.defineId(Firefly.class, FireflyColor.SERIALIZER);
+	private static final EntityDataAccessor<String> COLOR = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.STRING);
 
 	public boolean natural;
 	public boolean hasHome;
@@ -179,7 +179,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		this.entityData.define(AGE, 0);
 		this.entityData.define(ANIM_SCALE, 1.5F);
 		this.entityData.define(PREV_ANIM_SCALE, 1.5F);
-		this.entityData.define(COLOR, FireflyColor.ON);
+		this.entityData.define(COLOR, FireflyColor.ON.key().toString());
 	}
 
 	@Override
@@ -286,11 +286,11 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 	}
 
 	public FireflyColor getColor() {
-		return this.entityData.get(COLOR);
+		return WilderRegistry.FIREFLY_COLOR.getOptional(new ResourceLocation(this.entityData.get(COLOR))).orElse(FireflyColor.ON);
 	}
 
-	public void setColor(FireflyColor color) {
-		this.entityData.set(COLOR, color);
+	public void setColor(@NotNull FireflyColor color) {
+		this.entityData.set(COLOR, color.key().toString());
 	}
 
 	@Override
@@ -395,7 +395,16 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 		if (this.level() instanceof ServerLevel server) {
 			if (nectar != wasNamedNectar) {
 				if (nectar) {
-					FrozenSoundPackets.createMovingRestrictionLoopingSound(server, this, RegisterSounds.ENTITY_FIREFLY_NECTAR, SoundSource.NEUTRAL, 1.0F, 1.0F, WilderSharedConstants.id("nectar"), true);
+					FrozenSoundPackets.createMovingRestrictionLoopingSound(
+						server,
+						this,
+						BuiltInRegistries.SOUND_EVENT.getHolder(RegisterSounds.ENTITY_FIREFLY_NECTAR.getLocation()).orElseThrow(),
+						SoundSource.NEUTRAL,
+						1F,
+						1F,
+						WilderSharedConstants.id("nectar"),
+						true
+					);
 					this.wasNamedNectar = true;
 				} else {
 					this.wasNamedNectar = false;

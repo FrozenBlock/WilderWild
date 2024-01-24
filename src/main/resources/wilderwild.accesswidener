@@ -109,6 +109,8 @@ accessible    method    net/minecraft/world/level/block/ChestBlock    isCatSitti
 accessible    method    net/minecraft/world/level/block/ChestBlock    isBlockedChestByBlock    (Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z
 accessible    field    net/minecraft/world/level/block/state/BlockBehaviour    UPDATE_SHAPE_ORDER    [Lnet/minecraft/core/Direction;
 accessible    method    net/minecraft/world/level/block/SculkBlock    getDecayPenalty    (Lnet/minecraft/world/level/block/SculkSpreader;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;I)I
+accessible    method    net/minecraft/world/level/block/BellBlock    onProjectileHit    (Lnet/minecraft/world/level/Level;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/phys/BlockHitResult;Lnet/minecraft/world/entity/projectile/Projectile;)V
+accessible    method    net/minecraft/world/level/block/state/BlockBehaviour    getSoundType    (Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/SoundType;
 
 # Block Entities
 accessible    field    net/minecraft/world/level/block/entity/RandomizableContainerBlockEntity    lootTable    Lnet/minecraft/resources/ResourceLocation;

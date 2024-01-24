@@ -43,7 +43,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
 	}
 
 	@Override
-	public void setupRotations(@NotNull Jellyfish jelly, @NotNull PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick) {
+	public void setupRotations(@NotNull Jellyfish jelly, @NotNull PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick, float scale) {
 		poseStack.mulPose(Axis.YP.rotationDegrees(180F - rotationYaw));
 		poseStack.translate(0, jelly.isBaby() ? -1.1 : -1, 0);
 		poseStack.scale(0.8F, 0.8F, 0.8F);

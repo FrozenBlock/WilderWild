@@ -53,7 +53,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
@@ -79,7 +78,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.Brain;
@@ -132,10 +130,10 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	public static final int SPAWN_CHANCE = 30;
 	public static final int SPAWN_CHANCE_COMMON = 90;
 	private static final Map<ServerLevelAccessor, Integer> CRABS_PER_LEVEL = new Object2IntOpenHashMap<>();
-	private static final EntityDataAccessor<MoveState> MOVE_STATE = SynchedEntityData.defineId(Crab.class, MoveState.SERIALIZER);
+	private static final EntityDataAccessor<String> MOVE_STATE = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.STRING);
 	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_X = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_Y = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
-	private static final EntityDataAccessor<ClimbingFace> CLIMBING_FACE = SynchedEntityData.defineId(Crab.class, ClimbingFace.SERIALIZER);
+	private static final EntityDataAccessor<String> CLIMBING_FACE = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.STRING);
 	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_AMOUNT = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Integer> DIGGING_TICKS = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.BOOLEAN);
@@ -296,19 +294,13 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Override
 	protected void defineSynchedData() {
 		super.defineSynchedData();
-		this.entityData.define(MOVE_STATE, MoveState.WALKING);
+		this.entityData.define(MOVE_STATE, MoveState.WALKING.name());
 		this.entityData.define(TARGET_CLIMBING_ANIM_X, 0F);
 		this.entityData.define(TARGET_CLIMBING_ANIM_Y, 0F);
 		this.entityData.define(TARGET_CLIMBING_ANIM_AMOUNT, 0F);
 		this.entityData.define(DIGGING_TICKS, 0);
 		this.entityData.define(FROM_BUCKET, false);
-		this.entityData.define(CLIMBING_FACE, ClimbingFace.NORTH);
-	}
-
-	@Override
-	@NotNull
-	public MobType getMobType() {
-		return MobType.ARTHROPOD;
+		this.entityData.define(CLIMBING_FACE, ClimbingFace.NORTH.name());
 	}
 
 	@Override
@@ -653,7 +645,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	public MoveState moveState() {
-		return this.entityData.get(MOVE_STATE);
+		return MoveState.valueOf(this.entityData.get(MOVE_STATE));
 	}
 
 	public boolean isClimbing() {
@@ -665,20 +657,21 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	public void setMoveState(@NotNull MoveState state) {
-		this.entityData.set(MOVE_STATE, state);
+		this.entityData.set(MOVE_STATE, state.name());
 	}
 
 	public ClimbingFace getClimbingFace() {
-		return this.entityData.get(CLIMBING_FACE);
+		return ClimbingFace.valueOf(this.entityData.get(CLIMBING_FACE));
 	}
 
 	public void setClimbingFace(@NotNull Direction direction) {
-		this.entityData.set(CLIMBING_FACE,
+		this.entityData.set(
+			CLIMBING_FACE,
 			switch (direction) {
-				case EAST -> ClimbingFace.EAST;
-				case WEST -> ClimbingFace.WEST;
-				case SOUTH -> ClimbingFace.SOUTH;
-				default -> ClimbingFace.NORTH;
+				case EAST -> ClimbingFace.EAST.name();
+				case WEST -> ClimbingFace.WEST.name();
+				case SOUTH -> ClimbingFace.SOUTH.name();
+				default -> ClimbingFace.NORTH.name();
 			}
 		);
 	}
@@ -878,14 +871,19 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	public enum MoveState {
-		WALKING,
-		CLIMBING,
-		DESCENDING;
+		WALKING("walking"),
+		CLIMBING("climbing"),
+		DESCENDING("descending");
 
-		public static final EntityDataSerializer<MoveState> SERIALIZER = EntityDataSerializer.simpleEnum(MoveState.class);
+		public final String name;
 
-		static {
-			EntityDataSerializers.registerSerializer(SERIALIZER);
+		MoveState(String name) {
+			this.name = name;
+		}
+
+		@Override
+		public String toString() {
+			return this.name;
 		}
 	}
 
@@ -894,12 +892,6 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		EAST("east", Direction.EAST, 90F),
 		SOUTH("south", Direction.SOUTH, 0F),
 		WEST("west", Direction.WEST, 180F);
-
-		public static final EntityDataSerializer<ClimbingFace> SERIALIZER = EntityDataSerializer.simpleEnum(ClimbingFace.class);
-
-		static {
-			EntityDataSerializers.registerSerializer(SERIALIZER);
-		}
 
 		public final Direction direction;
 		public final String name;

@@ -83,7 +83,7 @@ public class BrushItemMixin {
 				boolean shouldDegrade = scorchedBlockEntity.brush(level.getGameTime());
 				if (shouldDegrade) {
 					EquipmentSlot equipmentSlot = stack.equals(player.getItemBySlot(EquipmentSlot.OFFHAND)) ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
-					stack.hurtAndBreak(1, livingEntity, (entity) -> entity.broadcastBreakEvent(equipmentSlot));
+					stack.hurtAndBreak(1, livingEntity, equipmentSlot);
 				}
 				return true;
 			}
