@@ -27,7 +27,9 @@ import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -42,26 +44,28 @@ public class SeedParticleOptions implements ParticleOptions {
 			)
 			.apply(instance, SeedParticleOptions::new)
 	);
+	public static final StreamCodec<RegistryFriendlyByteBuf, SeedParticleOptions> STREAM_CODEC = StreamCodec.composite(
+		ByteBufCodecs.BOOL, (seedParticleOptions) -> seedParticleOptions.isMilkweed(),
+		ByteBufCodecs.BOOL, (seedParticleOptions) -> seedParticleOptions.isControlled(),
+		ByteBufCodecs.DOUBLE, (seedParticleOptions) -> seedParticleOptions.getXSpeed(),
+		ByteBufCodecs.DOUBLE, (seedParticleOptions) -> seedParticleOptions.getYSpeed(),
+		ByteBufCodecs.DOUBLE, (seedParticleOptions) -> seedParticleOptions.getZSpeed(),
+		SeedParticleOptions::new
+	);
 	public static final Deserializer<SeedParticleOptions> DESERIALIZER = new Deserializer<>() {
+        @Override
+        @NotNull
+        public SeedParticleOptions fromCommand(@NotNull ParticleType<SeedParticleOptions> particleType, @NotNull StringReader stringReader) throws CommandSyntaxException {
+            boolean milkweed = stringReader.readBoolean();
+            boolean controlled = stringReader.readBoolean();
+            double xSpeed = stringReader.readDouble();
+            double ySpeed = stringReader.readDouble();
+            double zSpeed = stringReader.readDouble();
+            stringReader.expect(' ');
+            return new SeedParticleOptions(milkweed, controlled, xSpeed, ySpeed, zSpeed);
+        }
+    };
 
-		@Override
-		@NotNull
-		public SeedParticleOptions fromCommand(@NotNull ParticleType<SeedParticleOptions> particleType, @NotNull StringReader stringReader) throws CommandSyntaxException {
-			boolean milkweed = stringReader.readBoolean();
-			boolean controlled = stringReader.readBoolean();
-			double xSpeed = stringReader.readDouble();
-			double ySpeed = stringReader.readDouble();
-			double zSpeed = stringReader.readDouble();
-			stringReader.expect(' ');
-			return new SeedParticleOptions(milkweed, controlled, xSpeed, ySpeed, zSpeed);
-		}
-
-		@Override
-		@NotNull
-		public SeedParticleOptions fromNetwork(@NotNull ParticleType<SeedParticleOptions> particleType, @NotNull FriendlyByteBuf byteBuf) {
-			return new SeedParticleOptions(byteBuf.readBoolean(), byteBuf.readBoolean(), byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
-		}
-	};
 	private final boolean isMilkweed;
 	private final boolean controlled;
 	private final double xSpeed;
@@ -92,15 +96,6 @@ public class SeedParticleOptions implements ParticleOptions {
 	@NotNull
 	public ParticleType<?> getType() {
 		return RegisterParticles.SEED;
-	}
-
-	@Override
-	public void writeToNetwork(@NotNull FriendlyByteBuf buffer) {
-		buffer.writeBoolean(this.isMilkweed);
-		buffer.writeBoolean(this.controlled);
-		buffer.writeDouble(this.xSpeed);
-		buffer.writeDouble(this.ySpeed);
-		buffer.writeDouble(this.zSpeed);
 	}
 
 	@NotNull

@@ -133,5 +133,6 @@ Bug Fixes & Changes
       - This change has resulted in the `SeedParticleOptions` class receiving two new invocation methods and new constructor parameters.
     - `WilderTermiteParticlePacket`
     - `WilderFloatingSculkBubbleParticlePacket`
+  - All custom `EntityDataSerializers` have been removed and replaced with regular String serializers in order to prevent possible issues. ([#333](https://github.com/FrozenBlock/WilderWild/issues/333))
   - Significantly cleaned up and reduced the amount of duplicated code in the `SimpleCopperPipesIntegration` class.
   - Much more refactoring, reorganization, cleanup and many small fixes!
