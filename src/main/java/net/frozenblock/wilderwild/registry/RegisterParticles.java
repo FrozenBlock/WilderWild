@@ -35,8 +35,8 @@ import org.jetbrains.annotations.NotNull;
 
 public final class RegisterParticles {
 	public static final SimpleParticleType POLLEN = register("pollen");
-	public static final ParticleType<SeedParticleOptions> SEED = register("seed", false, SeedParticleOptions.DESERIALIZER, SeedParticleOptions.CODEC, (particleType) -> SeedParticleOptions.CODEC, (particleType) -> SeedParticleOptions.STREAM_CODEC);
-	public static final ParticleType<FloatingSculkBubbleParticleOptions> FLOATING_SCULK_BUBBLE = register("floating_sculk_bubble", false, FloatingSculkBubbleParticleOptions.DESERIALIZER, particleType -> FloatingSculkBubbleParticleOptions.CODEC);
+	public static final ParticleType<SeedParticleOptions> SEED = register("seed", false, SeedParticleOptions.DESERIALIZER, particleType -> SeedParticleOptions.CODEC, particleType -> SeedParticleOptions.STREAM_CODEC);
+	public static final ParticleType<FloatingSculkBubbleParticleOptions> FLOATING_SCULK_BUBBLE = register("floating_sculk_bubble", false, FloatingSculkBubbleParticleOptions.DESERIALIZER, particleType -> FloatingSculkBubbleParticleOptions.CODEC, particleType -> FloatingSculkBubbleParticleOptions.STREAM_CODEC);
 	public static final SimpleParticleType TERMITE = register("termite");
 	public static final SimpleParticleType COCONUT_SPLASH = register("coconut_splash");
 	public static final SimpleParticleType BLUE_PEARLESCENT_HANGING_MESOGLEA = register("blue_pearlescent_hanging_mesoglea_drip");
@@ -81,23 +81,23 @@ public final class RegisterParticles {
 
 	@NotNull
 	private static <T extends ParticleOptions> ParticleType<T> register(
-		@NotNull String name,
-		boolean alwaysShow,
-		@NotNull ParticleOptions.Deserializer<T> factory,
-		Function<ParticleType<T>, Codec<T>> codecGetter,
-		Function<ParticleType<T>, StreamCodec<? super RegistryFriendlyByteBuf, T>> streamCodecGetter
+		String string,
+		boolean bl,
+		ParticleOptions.Deserializer<T> deserializer,
+		Function<ParticleType<T>, Codec<T>> function,
+		Function<ParticleType<T>, StreamCodec<? super RegistryFriendlyByteBuf, T>> function2
 	) {
-		return Registry.register(BuiltInRegistries.PARTICLE_TYPE, WilderSharedConstants.id(name), new ParticleType<T>(alwaysShow, factory) {
+		return Registry.register(BuiltInRegistries.PARTICLE_TYPE, WilderSharedConstants.id(string), new ParticleType<T>(bl, deserializer) {
 			@NotNull
 			@Override
 			public Codec<T> codec() {
-				return codecGetter.apply(this);
+				return function.apply(this);
 			}
 
 			@NotNull
 			@Override
 			public StreamCodec<? super RegistryFriendlyByteBuf, T> streamCodec() {
-				return streamCodecGetter.apply(this);
+				return function2.apply(this);
 			}
 		});
 	}

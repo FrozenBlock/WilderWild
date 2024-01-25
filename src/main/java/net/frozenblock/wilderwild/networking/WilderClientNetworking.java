@@ -92,8 +92,8 @@ public class WilderClientNetworking {
 	public static void receiveJellyfishStingPacket() {
 		registry().register(WilderJellyfishStingPacket.PACKET_TYPE, WilderJellyfishStingPacket.CODEC);
 		ClientPlayNetworking.registerGlobalReceiver(WilderJellyfishStingPacket.PACKET_TYPE, (packet, ctx) -> {
-			Player player = ctx.player();
-			ClientLevel clientLevel = ctx.player().clientLevel;
+			Player player = Minecraft.getInstance().player;
+			ClientLevel clientLevel = ctx.client().level;
 			clientLevel.playSound(
 				player,
 				player.getX(),

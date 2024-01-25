@@ -24,6 +24,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Locale;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
+import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -32,64 +33,61 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Vector3f;
 
 public class SeedParticleOptions implements ParticleOptions {
 	public static final Codec<SeedParticleOptions> CODEC = RecordCodecBuilder.create((instance) ->
 		instance.group(
-				Codec.BOOL.fieldOf("is_milkweed").forGetter(SeedParticleOptions::isMilkweed),
-				Codec.BOOL.fieldOf("is_controlled").forGetter(SeedParticleOptions::isControlled),
-				Codec.DOUBLE.fieldOf("x_speed").forGetter(SeedParticleOptions::getXSpeed),
-				Codec.DOUBLE.fieldOf("y_speed").forGetter(SeedParticleOptions::getYSpeed),
-				Codec.DOUBLE.fieldOf("z_speed").forGetter(SeedParticleOptions::getZSpeed)
+				Codec.BOOL.fieldOf("isMilkweed").forGetter(SeedParticleOptions::isMilkweed),
+				Codec.BOOL.fieldOf("isControlled").forGetter(SeedParticleOptions::isControlled),
+				Codec.FLOAT.fieldOf("xSpeed").forGetter(seedParticleOptions -> seedParticleOptions.getSpeed().x),
+				Codec.FLOAT.fieldOf("ySpeed").forGetter(seedParticleOptions -> seedParticleOptions.getSpeed().y),
+				Codec.FLOAT.fieldOf("zSpeed").forGetter(seedParticleOptions -> seedParticleOptions.getSpeed().z)
 			)
 			.apply(instance, SeedParticleOptions::new)
 	);
 	public static final StreamCodec<RegistryFriendlyByteBuf, SeedParticleOptions> STREAM_CODEC = StreamCodec.composite(
-		ByteBufCodecs.BOOL, (seedParticleOptions) -> seedParticleOptions.isMilkweed(),
-		ByteBufCodecs.BOOL, (seedParticleOptions) -> seedParticleOptions.isControlled(),
-		ByteBufCodecs.DOUBLE, (seedParticleOptions) -> seedParticleOptions.getXSpeed(),
-		ByteBufCodecs.DOUBLE, (seedParticleOptions) -> seedParticleOptions.getYSpeed(),
-		ByteBufCodecs.DOUBLE, (seedParticleOptions) -> seedParticleOptions.getZSpeed(),
+		ByteBufCodecs.BOOL, SeedParticleOptions::isMilkweed,
+		ByteBufCodecs.BOOL, SeedParticleOptions::isControlled,
+		ByteBufCodecs.VECTOR3F, SeedParticleOptions::getSpeed,
 		SeedParticleOptions::new
 	);
 	public static final Deserializer<SeedParticleOptions> DESERIALIZER = new Deserializer<>() {
         @Override
         @NotNull
-        public SeedParticleOptions fromCommand(@NotNull ParticleType<SeedParticleOptions> particleType, @NotNull StringReader stringReader) throws CommandSyntaxException {
-            boolean milkweed = stringReader.readBoolean();
-            boolean controlled = stringReader.readBoolean();
-            double xSpeed = stringReader.readDouble();
-            double ySpeed = stringReader.readDouble();
-            double zSpeed = stringReader.readDouble();
-            stringReader.expect(' ');
-            return new SeedParticleOptions(milkweed, controlled, xSpeed, ySpeed, zSpeed);
+        public SeedParticleOptions fromCommand(@NotNull ParticleType<SeedParticleOptions> particleType, @NotNull StringReader reader) throws CommandSyntaxException {
+            boolean milkweed = reader.readBoolean();
+            boolean controlled = reader.readBoolean();
+            Vector3f speed = DustParticleOptions.readVector3f(reader);
+			reader.expect(' ');
+            return new SeedParticleOptions(milkweed, controlled, speed);
         }
     };
 
 	private final boolean isMilkweed;
 	private final boolean controlled;
-	private final double xSpeed;
-	private final double ySpeed;
-	private final double zSpeed;
+	private final Vector3f speed;
 
 	@NotNull
 	@Contract(value = "_, _, _, _ -> new", pure = true)
-	public static SeedParticleOptions controlled(boolean isMilkweed, double xSpeed, double ySpeed, double zSpeed) {
+	public static SeedParticleOptions controlled(boolean isMilkweed, float xSpeed, float ySpeed, float zSpeed) {
 		return new SeedParticleOptions(isMilkweed, true, xSpeed, ySpeed, zSpeed);
 	}
 
 	@NotNull
 	@Contract(value = "_ -> new", pure = true)
 	public static SeedParticleOptions unControlled(boolean isMilkweed) {
-		return new SeedParticleOptions(isMilkweed, false, 0D, 0D, 0D);
+		return new SeedParticleOptions(isMilkweed, false, 0F, 0F, 0F);
 	}
 
-	private SeedParticleOptions(boolean isMilkweed, boolean controlled, double xSpeed, double ySpeed, double zSpeed) {
+	private SeedParticleOptions(boolean isMilkweed, boolean controlled, float xSpeed, float ySpeed, float zSpeed) {
+		this(isMilkweed, controlled, new Vector3f(xSpeed, ySpeed, zSpeed));
+	}
+
+	private SeedParticleOptions(boolean isMilkweed, boolean controlled, Vector3f speed) {
 		this.isMilkweed = isMilkweed;
 		this.controlled = controlled;
-		this.xSpeed = xSpeed;
-		this.ySpeed = ySpeed;
-		this.zSpeed = zSpeed;
+		this.speed = speed;
 	}
 
 	@Override
@@ -111,16 +109,8 @@ public class SeedParticleOptions implements ParticleOptions {
 		return this.controlled;
 	}
 
-	public double getXSpeed() {
-		return this.xSpeed;
-	}
-
-	public double getYSpeed() {
-		return this.ySpeed;
-	}
-
-	public double getZSpeed() {
-		return this.zSpeed;
+	public Vector3f getSpeed() {
+		return this.speed;
 	}
 
 }

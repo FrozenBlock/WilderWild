@@ -55,6 +55,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Vector3f;
 
 public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesIntegration {
 	public static final ResourceLocation HORN = WilderSharedConstants.id("ancient_horn");
@@ -102,7 +103,16 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 							projectileEntity.setShotByPlayer(true);
 							projectileEntity.canInteractWithPipe = false;
 							level.addFreshEntity(projectileEntity);
-							FrozenSoundPackets.createMovingRestrictionLoopingSound(level, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_VIBRATION_LOOP, SoundSource.NEUTRAL, 1F, 1F, FrozenSharedConstants.id("default"), true);
+							FrozenSoundPackets.createMovingRestrictionLoopingSound(
+								level,
+								projectileEntity,
+								BuiltInRegistries.SOUND_EVENT.getHolder(RegisterSounds.ENTITY_ANCIENT_HORN_VIBRATION_LOOP.getLocation()).orElseThrow(),
+								SoundSource.NEUTRAL,
+								1F,
+								1F,
+								FrozenSharedConstants.id("default"),
+								true
+							);
 						}
 					}
 				}
@@ -150,9 +160,9 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 							new FloatingSculkBubbleParticleOptions(
 								random.nextDouble() > 0.7 ? 1 : 0,
 								random.nextIntBetweenInclusive(60, 80),
-								new Vec3(
+								new Vector3f(
 									FloatingSculkBubbleParticleOptions.getRandomVelocity(random, 0),
-									0.075D,
+									0.075F,
 									FloatingSculkBubbleParticleOptions.getRandomVelocity(random, 0)
 								)
 							),
@@ -200,7 +210,7 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 		RandomSource random = level.getRandom();
 		Vec3 velocity = getVelocity(random, direction, 3.5D, i, corroded);
 		level.sendParticles(
-			SeedParticleOptions.controlled(isMilkweed, velocity.x() * 1.5F, velocity.y() + 0.035F, velocity.z() * 1.5F),
+			SeedParticleOptions.controlled(isMilkweed, (float) (velocity.x() * 1.5F), (float) (velocity.y() + 0.035F), (float) (velocity.z() * 1.5F)),
 			outputPos.x(),
 			outputPos.y(),
 			outputPos.z(),

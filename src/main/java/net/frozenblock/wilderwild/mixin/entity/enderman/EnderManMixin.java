@@ -24,6 +24,7 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.misc.client.sound.ClientMethodInteractionHandler;
 import net.frozenblock.wilderwild.misc.interfaces.WilderEnderman;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.sounds.SoundSource;
@@ -110,7 +111,16 @@ public abstract class EnderManMixin extends Monster implements WilderEnderman {
 		if (EntityConfig.get().enderMan.angerLoopSound && this.wilderWild$canPlayLoopingSound) {
 			this.wilderWild$canPlayLoopingSound = false;
 			EnderMan enderMan = EnderMan.class.cast(this);
-			FrozenSoundPackets.createMovingRestrictionLoopingSound(enderMan.level(), enderMan, RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP, SoundSource.HOSTILE, 1F, 0.9F, WilderSharedConstants.id("enderman_anger"), true);
+			FrozenSoundPackets.createMovingRestrictionLoopingSound(
+				enderMan.level(),
+				enderMan,
+				BuiltInRegistries.SOUND_EVENT.getHolder(RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP.getLocation()).orElseThrow(),
+				SoundSource.HOSTILE,
+				1F,
+				0.9F,
+				WilderSharedConstants.id("enderman_anger"),
+				true
+			);
 		}
 	}
 

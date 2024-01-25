@@ -22,6 +22,7 @@ import java.util.Optional;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
@@ -43,14 +44,23 @@ public class CopperHorn extends InstrumentItem {
 
 	private static void playSound(@NotNull Instrument instrument, @NotNull Player user, @NotNull Level level) {
 		SoundEvent soundEvent = instrument.soundEvent().value();
-		float range = instrument.range() / 16.0F;
-		int note = (int) ((-user.getXRot() + 90) / 7.5);
+		float range = instrument.range() / 16F;
+		int note = (int) ((-user.getXRot() + 90) / 7.5D);
 
 		if (!level.isClientSide) {
 			float soundPitch = !user.isShiftKeyDown() ?
 				(float) Math.pow(2.0D, (note - 12.0F) / 12.0D) :
 				(float) Math.pow(2.0D, 0.01111F * -user.getXRot());
-			FrozenSoundPackets.createMovingRestrictionLoopingSound(level, user, soundEvent, SoundSource.RECORDS, range, soundPitch, WilderSharedConstants.id("instrument"), true);
+			FrozenSoundPackets.createMovingRestrictionLoopingSound(
+				level,
+				user,
+				BuiltInRegistries.SOUND_EVENT.getHolder(soundEvent.getLocation()).orElseThrow(),
+				SoundSource.RECORDS,
+				range,
+				soundPitch,
+				WilderSharedConstants.id("instrument"),
+				true
+			);
 		}
 		level.gameEvent(GameEvent.INSTRUMENT_PLAY, user.position(), GameEvent.Context.of(user));
 	}

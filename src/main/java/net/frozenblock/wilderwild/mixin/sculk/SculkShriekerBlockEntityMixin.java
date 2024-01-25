@@ -34,8 +34,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -100,9 +100,9 @@ public abstract class SculkShriekerBlockEntityMixin implements SculkShriekerTick
 					new FloatingSculkBubbleParticleOptions(
 						random.nextDouble() > 0.7 ? 1 : 0,
 						20 + random.nextInt(80),
-						new Vec3(
+						new Vector3f(
 							FloatingSculkBubbleParticleOptions.getRandomVelocity(random, 0),
-							0.075D,
+							0.075F,
 							FloatingSculkBubbleParticleOptions.getRandomVelocity(random, 0)
 						)
 					),
