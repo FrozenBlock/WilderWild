@@ -93,6 +93,7 @@ Bug Fixes & Changes
   - Ancient Horn Vibrations will now spawn particles upon dissipating.
   - Ancient Horn Vibrations will no longer play the dissipation sound upon hitting an entity.
   - Fixed Floating Sculk Bubbles spawned from an Ancient Horn Vibration always being the same size each tick.
+  - Made Ancient Horn Fragments slightly rarer in Ancient City loot tables.
   - Defined the Random Sequence for every one of Wilder Wild's loot tables.
   - Added the Palm Hanging Sign to the `wilderwild:hanging_signs` item tag.
   - Added the Palm Crown to the `wilderwild:palm_logs` item tag.
