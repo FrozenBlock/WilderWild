@@ -131,7 +131,11 @@ accessible    field    net/minecraft/client/renderer/RenderStateShard    RENDERT
 accessible    method    net/minecraft/client/renderer/RenderStateShard$ShaderStateShard    <init>    (Ljava/util/function/Supplier;)V
 
 # Spawn Placements
-accessible    method    net/minecraft/world/entity/SpawnPlacements   register    (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/entity/SpawnPlacements$Type;Lnet/minecraft/world/level/levelgen/Heightmap$Types;Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;)V
+accessible    method    net/minecraft/world/entity/SpawnPlacements    register    (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/entity/SpawnPlacementType;Lnet/minecraft/world/level/levelgen/Heightmap$Types;Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;)V
+accessible    field    net/minecraft/world/entity/SpawnPlacements$Data    predicate    Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;
+accessible    field    net/minecraft/world/entity/SpawnPlacements$Data    placement    Lnet/minecraft/world/entity/SpawnPlacementType;
+accessible    field    net/minecraft/world/entity/SpawnPlacements$Data    heightMap    Lnet/minecraft/world/level/levelgen/Heightmap$Types;
+accessible    method    net/minecraft/world/entity/SpawnPlacements$Data    <init>    (Lnet/minecraft/world/level/levelgen/Heightmap$Types;Lnet/minecraft/world/entity/SpawnPlacementType;Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;)V
 
 # Biomes
 accessible    method    net/minecraft/data/worldgen/biome/OverworldBiomes    calculateSkyColor    (F)I
@@ -142,7 +146,7 @@ accessible    field    net/minecraft/data/worldgen/placement/VegetationPlacement
 accessible    method    net/minecraft/data/worldgen/placement/AquaticPlacements    seagrassPlacement    (I)Ljava/util/List;
 
 # Noise
-accessible    method    net/minecraft/data/worldgen/NoiseData    register    (Lnet/minecraft/data/worldgen/BootstapContext;Lnet/minecraft/resources/ResourceKey;ID[D)V
+accessible    method    net/minecraft/data/worldgen/NoiseData    register    (Lnet/minecraft/data/worldgen/BootstrapContext;Lnet/minecraft/resources/ResourceKey;ID[D)V
 
 # Surface Rules
 accessible    method    net/minecraft/world/level/levelgen/SurfaceRules$SequenceRuleSource    <init>    (Ljava/util/List;)V
@@ -154,7 +158,7 @@ accessible    class     net/minecraft/world/level/levelgen/SurfaceRules$LazyYCon
 # Data Generation
 accessible    field    net/minecraft/data/DataGenerator    vanillaPackOutput    Lnet/minecraft/data/PackOutput;
 accessible    method    net/minecraft/data/DataGenerator$PackGenerator    <init>    (Lnet/minecraft/data/DataGenerator;ZLjava/lang/String;Lnet/minecraft/data/PackOutput;)V
-accessible field net/minecraft/data/loot/EntityLootSubProvider ENTITY_ON_FIRE Lnet/minecraft/advancements/critereon/EntityPredicate$Builder;
+accessible    field    net/minecraft/data/loot/EntityLootSubProvider    ENTITY_ON_FIRE    Lnet/minecraft/advancements/critereon/EntityPredicate$Builder;
 
 # Registry
 accessible    method    net/minecraft/data/registries/VanillaRegistries    validateThatAllBiomeFeaturesHaveBiomeFilter    (Lnet/minecraft/core/HolderLookup$Provider;)V

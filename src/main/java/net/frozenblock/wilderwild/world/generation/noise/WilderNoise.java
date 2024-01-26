@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.world.generation.noise;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 import org.jetbrains.annotations.NotNull;
@@ -31,7 +31,7 @@ public class WilderNoise {
 	public static final ResourceKey<NormalNoise.NoiseParameters> SAND_BEACH_KEY = createKey("sand_beach");
 	public static final ResourceKey<NormalNoise.NoiseParameters> GRAVEL_BEACH_KEY = createKey("gravel_beach");
 
-	public static void bootstrap(BootstapContext<NormalNoise.NoiseParameters> entries) {
+	public static void bootstrap(BootstrapContext<NormalNoise.NoiseParameters> entries) {
 		register(entries, SAND_BEACH_KEY, -9,
 			1.0,
 			1.0,
@@ -103,7 +103,7 @@ public class WilderNoise {
 
 	@NotNull
 	public static Holder.Reference<NormalNoise.NoiseParameters> register(
-		@NotNull BootstapContext<NormalNoise.NoiseParameters> entries,
+		@NotNull BootstrapContext<NormalNoise.NoiseParameters> entries,
 		@NotNull ResourceKey<NormalNoise.NoiseParameters> key,
 		int firstOctave,
 		double firstAmplitude,

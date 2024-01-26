@@ -44,7 +44,7 @@ import net.frozenblock.wilderwild.world.biome.SparseBirchJungle;
 import net.frozenblock.wilderwild.world.biome.TemperateRainforest;
 import net.frozenblock.wilderwild.world.biome.WarmBeach;
 import net.frozenblock.wilderwild.world.biome.WarmRiver;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
 import org.jetbrains.annotations.NotNull;
@@ -92,7 +92,7 @@ public final class RegisterWorldgen {
 
 	}
 
-	public static void bootstrap(@NotNull BootstapContext<Biome> context) {
+	public static void bootstrap(@NotNull BootstrapContext<Biome> context) {
 		WilderSharedConstants.logWithModId("Registering Biomes for", WilderSharedConstants.UNSTABLE_LOGGING);
 
 		// MAIN BIOMES
@@ -129,7 +129,7 @@ public final class RegisterWorldgen {
 		register(context, SNOWY_OLD_GROWTH_PINE_TAIGA, SnowyOldGrowthPineTaiga.INSTANCE.create(context));
 	}
 
-	private static void register(@NotNull BootstapContext<Biome> entries, @NotNull ResourceKey<Biome> key, @NotNull Biome biome) {
+	private static void register(@NotNull BootstrapContext<Biome> entries, @NotNull ResourceKey<Biome> key, @NotNull Biome biome) {
 		WilderSharedConstants.log("Registering biome " + key.location(), true);
 		entries.register(key, biome);
 	}

@@ -38,7 +38,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.CaveFeatures;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.features.TreeFeatures;
@@ -470,7 +470,7 @@ public final class WilderConfiguredFeatures {
 		throw new UnsupportedOperationException("WilderConfiguredFeatures contains only static declarations.");
 	}
 
-	public static void registerConfiguredFeatures(@NotNull BootstapContext<ConfiguredFeature<?, ?>> entries) {
+	public static void registerConfiguredFeatures(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> entries) {
 		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 

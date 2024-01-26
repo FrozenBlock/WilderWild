@@ -1,9 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "minecraft:grass_block",
-    "minecraft:coarse_dirt",
-    "minecraft:podzol",
-    "minecraft:moss_block"
-  ]
-}

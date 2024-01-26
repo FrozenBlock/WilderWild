@@ -29,7 +29,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.Pools;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
@@ -90,7 +90,7 @@ public final class RegisterStructures {
 		return structure(holderSet, Map.of(), featureStep, terrainAdaptation);
 	}
 
-	public static void bootstrapProcessor(@NotNull BootstapContext<StructureProcessorList> context) {
+	public static void bootstrapProcessor(@NotNull BootstrapContext<StructureProcessorList> context) {
 		register(
 			context,
 			WilderStructureProcessors.ABANDONED_CABIN,
@@ -111,7 +111,7 @@ public final class RegisterStructures {
 		);
 	}
 
-	public static void bootstrapTemplatePool(@NotNull BootstapContext<StructureTemplatePool> context) {
+	public static void bootstrapTemplatePool(@NotNull BootstrapContext<StructureTemplatePool> context) {
 		HolderGetter<StructureProcessorList> processor = context.lookup(Registries.PROCESSOR_LIST);
 		HolderGetter<StructureTemplatePool> holderGetter2 = context.lookup(Registries.TEMPLATE_POOL);
 		Holder<StructureTemplatePool> holder2 = holderGetter2.getOrThrow(Pools.EMPTY);
@@ -130,7 +130,7 @@ public final class RegisterStructures {
 		);
 	}
 
-	public static void bootstrap(@NotNull BootstapContext<Structure> context) {
+	public static void bootstrap(@NotNull BootstrapContext<Structure> context) {
 		HolderGetter<Biome> holderGetter = context.lookup(Registries.BIOME);
 		HolderGetter<StructureTemplatePool> templatePool = context.lookup(Registries.TEMPLATE_POOL);
 		context.register(
@@ -151,7 +151,7 @@ public final class RegisterStructures {
 		);
 	}
 
-	public static void bootstrapStructureSet(@NotNull BootstapContext<StructureSet> context) {
+	public static void bootstrapStructureSet(@NotNull BootstrapContext<StructureSet> context) {
 		HolderGetter<Structure> structure = context.lookup(Registries.STRUCTURE);
 		context.register(
 			ABANDONED_CABINS_KEY,
@@ -163,7 +163,7 @@ public final class RegisterStructures {
 	}
 
 	@NotNull
-	private static Holder<StructureProcessorList> register(@NotNull BootstapContext<StructureProcessorList> entries, @NotNull ResourceKey<StructureProcessorList> key, @NotNull List<StructureProcessor> list) {
+	private static Holder<StructureProcessorList> register(@NotNull BootstrapContext<StructureProcessorList> entries, @NotNull ResourceKey<StructureProcessorList> key, @NotNull List<StructureProcessor> list) {
 		WilderSharedConstants.log("Registering structure processor list " + key.location(), true);
 		return entries.register(key, new StructureProcessorList(list));
 	}
