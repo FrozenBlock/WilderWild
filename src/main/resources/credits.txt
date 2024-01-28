@@ -56,6 +56,7 @@ zozozrob_:
 
 Xicad/Emma:
  - Echo Glass concept.
+ - Consistently fantastic feedback!! An absolute treasure to have around.
 
 Sculk Analyzer:
  - Sculk Echoer concept & inspiration.
