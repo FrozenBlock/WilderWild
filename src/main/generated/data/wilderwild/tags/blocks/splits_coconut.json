@@ -1,0 +1,29 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#minecraft:mineable/pickaxe",
+      "required": false
+    },
+    {
+      "id": "#minecraft:base_stone_overworld",
+      "required": false
+    },
+    {
+      "id": "#minecraft:base_stone_nether",
+      "required": false
+    },
+    {
+      "id": "#minecraft:dragon_immune",
+      "required": false
+    },
+    {
+      "id": "#minecraft:wither_immune",
+      "required": false
+    },
+    {
+      "id": "#minecraft:logs",
+      "required": false
+    }
+  ]
+}

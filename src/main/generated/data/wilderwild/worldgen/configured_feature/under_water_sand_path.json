@@ -1,0 +1,22 @@
+{
+  "type": "frozenlib:noise_path_tag_under_water_feature",
+  "config": {
+    "is_3d": false,
+    "max_threshold": 0.54,
+    "min_threshold": 0.2,
+    "noise": 4,
+    "noise_scale": 0.05,
+    "only_place_when_exposed": false,
+    "placement_chance": 0.925,
+    "radius": 16,
+    "replaceable_blocks": "wilderwild:under_water_sand_path_replaceable",
+    "scale_y": true,
+    "state": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:sand"
+      }
+    },
+    "use_y": true
+  }
+}

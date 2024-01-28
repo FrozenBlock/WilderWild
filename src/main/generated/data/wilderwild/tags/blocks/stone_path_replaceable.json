@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:dirt",
+    "minecraft:grass_block",
+    {
+      "id": "#minecraft:sand",
+      "required": false
+    }
+  ]
+}

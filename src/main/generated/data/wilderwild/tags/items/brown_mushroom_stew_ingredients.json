@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:brown_mushroom",
+    {
+      "id": "wilderwild:brown_shelf_fungus",
+      "required": false
+    }
+  ]
+}

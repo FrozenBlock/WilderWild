@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:short_grass",
+    "minecraft:tall_grass",
+    "minecraft:fern",
+    "minecraft:large_fern",
+    "minecraft:peony",
+    "minecraft:rose_bush",
+    "wilderwild:cattail"
+  ]
+}

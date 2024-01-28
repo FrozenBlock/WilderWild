@@ -1,0 +1,22 @@
+{
+  "type": "frozenlib:noise_path_tag_feature",
+  "config": {
+    "is_3d": false,
+    "max_threshold": 1.0,
+    "min_threshold": 0.2,
+    "noise": 2,
+    "noise_scale": 0.15,
+    "only_place_when_exposed": false,
+    "placement_chance": 0.715,
+    "radius": 8,
+    "replaceable_blocks": "wilderwild:small_coarse_dirt_path_replaceable",
+    "scale_y": true,
+    "state": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:coarse_dirt"
+      }
+    },
+    "use_y": true
+  }
+}

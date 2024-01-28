@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:sweet_berry_bush",
+    "wilderwild:osseous_sculk",
+    "wilderwild:sculk_slab",
+    "wilderwild:sculk_stairs",
+    "wilderwild:sculk_wall",
+    "wilderwild:hanging_tendril",
+    "wilderwild:baobab_leaves",
+    "wilderwild:cypress_leaves",
+    "wilderwild:palm_fronds",
+    "wilderwild:tumbleweed_plant",
+    "wilderwild:tumbleweed",
+    "wilderwild:prickly_pear",
+    "wilderwild:small_sponge"
+  ]
+}

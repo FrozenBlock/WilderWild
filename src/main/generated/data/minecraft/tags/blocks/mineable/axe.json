@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:cactus",
+    "minecraft:sweet_berry_bush",
+    {
+      "id": "#wilderwild:hollowed_logs",
+      "required": false
+    },
+    "wilderwild:tumbleweed_plant",
+    "wilderwild:tumbleweed",
+    "wilderwild:prickly_pear"
+  ]
+}

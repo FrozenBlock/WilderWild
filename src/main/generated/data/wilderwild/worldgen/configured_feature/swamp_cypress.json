@@ -1,0 +1,87 @@
+{
+  "type": "minecraft:tree",
+  "config": {
+    "decorators": [
+      {
+        "type": "minecraft:leave_vine",
+        "probability": 0.1
+      },
+      {
+        "type": "wilderwild:shelf_fungus_tree_decorator",
+        "placement_chance": 0.25,
+        "probability": 0.064,
+        "red_shelf_fungus_chance": 0.0
+      },
+      {
+        "type": "wilderwild:height_based_vine_tree_decorator",
+        "max_height": 82,
+        "placement_chance": 0.25,
+        "probability": 0.08
+      }
+    ],
+    "dirt_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:dirt"
+      }
+    },
+    "foliage_placer": {
+      "type": "minecraft:random_spread_foliage_placer",
+      "foliage_height": 2,
+      "leaf_placement_attempts": 14,
+      "offset": 1,
+      "radius": 2
+    },
+    "foliage_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "wilderwild:cypress_leaves",
+        "Properties": {
+          "distance": "7",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      }
+    },
+    "force_dirt": false,
+    "ignore_vines": false,
+    "minimum_size": {
+      "type": "minecraft:two_layers_feature_size",
+      "limit": 1,
+      "lower_size": 0,
+      "upper_size": 1
+    },
+    "trunk_placer": {
+      "type": "minecraft:upwards_branching_trunk_placer",
+      "base_height": 15,
+      "can_grow_through": "#minecraft:mangrove_logs_can_grow_through",
+      "extra_branch_length": {
+        "type": "minecraft:uniform",
+        "value": {
+          "max_inclusive": 3,
+          "min_inclusive": 1
+        }
+      },
+      "extra_branch_steps": {
+        "type": "minecraft:uniform",
+        "value": {
+          "max_inclusive": 5,
+          "min_inclusive": 4
+        }
+      },
+      "height_rand_a": 5,
+      "height_rand_b": 2,
+      "place_branch_per_log_probability": 0.2
+    },
+    "trunk_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "wilderwild:cypress_log",
+        "Properties": {
+          "axis": "y",
+          "termite_edible": "true"
+        }
+      }
+    }
+  }
+}

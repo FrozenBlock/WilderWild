@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:frozen_river",
+    "minecraft:frozen_ocean",
+    "minecraft:frozen_peaks",
+    "minecraft:ice_spikes",
+    "minecraft:frozen_peaks",
+    {
+      "id": "wilderwild:snowy_dying_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:snowy_dying_mixed_forest",
+      "required": false
+    }
+  ]
+}
