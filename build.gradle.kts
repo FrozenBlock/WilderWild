@@ -19,8 +19,8 @@ buildscript {
         classpath("org.kohsuke:github-api:+")
 
         // remove these 2 to get normal fabric loom versions
-        classpath(files("libs/fabric-loom-1.5.local.jar"))
-        classpath("net.fabricmc:mapping-io:+")
+        //classpath(files("libs/fabric-loom-1.5.local.jar"))
+        //classpath("net.fabricmc:mapping-io:+")
     }
 }
 
@@ -187,6 +187,8 @@ dependencies {
     minecraft("com.mojang:minecraft:$minecraft_version")
     mappings(loom.layered {
         // please annoy treetrain if this doesnt work
+        mappings("org.quiltmc:quilt-mappings:$quilt_mappings:intermediary-v2")
+        parchment("org.parchmentmc.data:parchment-$parchment_mappings@zip")
         officialMojangMappings {
             nameSyntheticMembers = false
         }
