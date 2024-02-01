@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -37,15 +37,18 @@ import net.frozenblock.wilderwild.entity.render.blockentity.DisplayLanternBlockE
 import net.frozenblock.wilderwild.entity.render.blockentity.HangingTendrilBlockEntityRenderer;
 import net.frozenblock.wilderwild.entity.render.blockentity.SculkSensorBlockEntityRenderer;
 import net.frozenblock.wilderwild.entity.render.blockentity.StoneChestBlockEntityRenderer;
-import net.frozenblock.wilderwild.entity.render.easter.EasterEggs;
+import net.frozenblock.wilderwild.entity.render.easter.WilderEasterEggs;
 import net.frozenblock.wilderwild.entity.render.model.AncientHornProjectileModel;
 import net.frozenblock.wilderwild.entity.render.model.CrabModel;
 import net.frozenblock.wilderwild.entity.render.model.JellyfishModel;
+import net.frozenblock.wilderwild.entity.render.model.OstrichInbredModel;
+import net.frozenblock.wilderwild.entity.render.model.OstrichModel;
 import net.frozenblock.wilderwild.entity.render.model.TumbleweedModel;
 import net.frozenblock.wilderwild.entity.render.renderer.AncientHornProjectileRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.CrabRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.FireflyRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.JellyfishRenderer;
+import net.frozenblock.wilderwild.entity.render.renderer.OstrichRenderer;
 import net.frozenblock.wilderwild.entity.render.renderer.TumbleweedRenderer;
 import net.frozenblock.wilderwild.item.FireflyBottle;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -90,13 +93,17 @@ public final class WilderWildClient implements ClientModInitializer {
 	public static final ModelLayerLocation JELLYFISH = new ModelLayerLocation(WilderSharedConstants.id("jellyfish"), "main");
 	public static final ModelLayerLocation TUMBLEWEED = new ModelLayerLocation(WilderSharedConstants.id("tumbleweed"), "main");
 	public static final ModelLayerLocation CRAB = new ModelLayerLocation(WilderSharedConstants.id("crab"), "main");
+	public static final ModelLayerLocation OSTRICH = new ModelLayerLocation(WilderSharedConstants.id("ostrich"), "main");
+	public static final ModelLayerLocation OSTRICH_INBRED = new ModelLayerLocation(WilderSharedConstants.id("ostrich"), "inbred");
+	public static final ModelLayerLocation OSTRICH_SADDLE = new ModelLayerLocation(WilderSharedConstants.id("ostrich"), "saddle");
 
 	@Override
 	public void onInitializeClient() {
 		SplashTextAPI.addSplashLocation(WilderSharedConstants.id("texts/splashes.txt"));
 		Panoramas.addPanorama(WilderSharedConstants.id("textures/gui/title/first/panorama"));
 		Panoramas.addPanorama(WilderSharedConstants.id("textures/gui/title/second/panorama"));
-		EasterEggs.registerEaster();
+		Panoramas.addPanorama(WilderSharedConstants.id("textures/gui/title/third/panorama"));
+		WilderEasterEggs.hatchEasterEggs();
 
 		BlockRenderLayerMap renderLayerRegistry = BlockRenderLayerMap.INSTANCE;
 
@@ -216,7 +223,7 @@ public final class WilderWildClient implements ClientModInitializer {
 
 		EntityRendererRegistry.register(RegisterEntities.FIREFLY, FireflyRenderer::new);
 
-		EntityRendererRegistry.register(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, AncientHornProjectileRenderer::new);
+		EntityRendererRegistry.register(RegisterEntities.ANCIENT_HORN_VIBRATION, AncientHornProjectileRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(ANCIENT_HORN_PROJECTILE_LAYER, AncientHornProjectileModel::createBodyLayer);
 
 		EntityRendererRegistry.register(RegisterEntities.JELLYFISH, JellyfishRenderer::new);
@@ -227,6 +234,11 @@ public final class WilderWildClient implements ClientModInitializer {
 
 		EntityRendererRegistry.register(RegisterEntities.CRAB, CrabRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(CRAB, CrabModel::createBodyLayer);
+
+		EntityRendererRegistry.register(RegisterEntities.OSTRICH, OstrichRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(OSTRICH, OstrichModel::createBodyLayer);
+		EntityModelLayerRegistry.registerModelLayer(OSTRICH_INBRED, OstrichInbredModel::createBodyLayer);
+		EntityModelLayerRegistry.registerModelLayer(OSTRICH_SADDLE, OstrichModel::createBodyLayer);
 
 		EntityRendererRegistry.register(RegisterEntities.COCONUT, ThrownItemRenderer::new);
 
@@ -247,7 +259,7 @@ public final class WilderWildClient implements ClientModInitializer {
 
 		WilderClientNetworking.registerPacketReceivers();
 
-		FlyBySoundHub.AUTO_ENTITIES_AND_SOUNDS.put(RegisterEntities.ANCIENT_HORN_PROJECTILE_ENTITY, new FlyBySoundHub.FlyBySound(1.0F, 0.5F, SoundSource.PLAYERS, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_FLYBY));
+		FlyBySoundHub.AUTO_ENTITIES_AND_SOUNDS.put(RegisterEntities.ANCIENT_HORN_VIBRATION, new FlyBySoundHub.FlyBySound(1.0F, 0.5F, SoundSource.PLAYERS, RegisterSounds.ENTITY_ANCIENT_HORN_VIBRATION_FLYBY));
 
 		ItemProperties.register(RegisterItems.ANCIENT_HORN, WilderSharedConstants.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
 		ItemProperties.register(RegisterItems.COPPER_HORN, WilderSharedConstants.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);

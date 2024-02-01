@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -20,6 +20,8 @@ package net.frozenblock.wilderwild.mixin.warden;
 
 import net.frozenblock.wilderwild.config.EntityConfig;
 import net.frozenblock.wilderwild.entity.render.animations.WilderWarden;
+import net.frozenblock.wilderwild.misc.interfaces.SwimmingWardenInterface;
+import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityEvent;
@@ -39,7 +41,7 @@ public class LivingEntityMixin {
 	@Inject(method = "isAlive", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$isAlive(CallbackInfoReturnable<Boolean> info) {
 		if (this.wilderWild$isWardenWithDeathAnimation()) {
-			info.setReturnValue(((WilderWarden) this).wilderWild$getDeathTicks() < 70 && !LivingEntity.class.cast(this).isRemoved());
+			info.setReturnValue(((WilderWarden) this).wilderWild$getDeathTicks() <= 0 && !LivingEntity.class.cast(this).isRemoved());
 		}
 	}
 
@@ -47,9 +49,10 @@ public class LivingEntityMixin {
 	public void wilderWild$tickDeath(CallbackInfo info) {
 		if (this.wilderWild$isWardenWithDeathAnimation()) {
 			Warden warden = Warden.class.cast(this);
+			WilderWarden wilderWarden = (WilderWarden) warden;
 			Level level = warden.level();
-			int deathTicks = ((WilderWarden) this).wilderWild$getDeathTicks() + 1;
-			((WilderWarden) this).wilderWild$setDeathTicks(deathTicks);
+			int deathTicks = wilderWarden.wilderWild$getDeathTicks() + 1;
+			wilderWarden.wilderWild$setDeathTicks(deathTicks);
 			if (!level.isClientSide()) {
 				if (deathTicks == 35) {
 					warden.deathTime = 35;
@@ -64,11 +67,20 @@ public class LivingEntityMixin {
 		}
 	}
 
-	@Inject(method = "die", at = @At("TAIL"))
+	@Inject(method = "die", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;broadcastEntityEvent(Lnet/minecraft/world/entity/Entity;B)V"))
 	public void wilderWild$die(DamageSource damageSource, CallbackInfo info) {
 		if (this.wilderWild$isWardenWithDeathAnimation()) {
-			Warden.class.cast(this).getBrain().removeAllBehaviors();
-			Warden.class.cast(this).setNoAi(true);
+			Warden warden = Warden.class.cast(this);
+			warden.getBrain().removeAllBehaviors();
+			warden.setNoAi(true);
+			WilderWarden wilderWarden = (WilderWarden) warden;
+			if (!wilderWarden.wilderWild$isStella()) {
+				if (!(warden instanceof SwimmingWardenInterface swimmingWardenInterface) || !swimmingWardenInterface.wilderWild$isSubmergedInWaterOrLava()) {
+					warden.playSound(RegisterSounds.ENTITY_WARDEN_DYING, 5.0F, 1.0F);
+				} else {
+					warden.playSound(RegisterSounds.ENTITY_WARDEN_UNDERWATER_DYING, 5.0F, warden.getVoicePitch());
+				}
+			}
 		}
 	}
 

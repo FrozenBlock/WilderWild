@@ -95,7 +95,6 @@ A dolphin named "AlexTheDolphin0"
 A slime named "Merp"
 A goat named "Treetrain1"
 A pig named "A View From The Top"
-frozenblock owner jellyfish
 Press Alt-F4!
 Think Outside the Shulker Box!
 Also try Minecraf- wait...
@@ -242,3 +241,31 @@ Only unique mobs!
 I am starving
 Transaction pending...
 Account migration has ended!
+Crabby road!
+It's hiding under the sand!
+Reaching with claws!
+Hey, you can have longer arms!
+Stop ostracizing me!
+inbred ostrich
+Math-based Ostriches!
+Knows when to remove features!
+Fall is coming!
+Autumnal biomes!
+Pumpkins and dead trees!
+Pumpkin patch!
+It got frostbite and died!
+The forest is wilting!
+diarrhea baby
+dead crab
+Sculk Pig!
+What's Arch Linux?
+No Kotlin allowed!
+"if u die from a silverfish irl then you have problems"
+priority = setReturnValue
+Massive Termite Stream!
+Looks like Among Us plunger
+press enter to enable the narrat
+Cannot reproduce.
+Feedback needed!
+FrozenBlock rise, FrozenBlock shine!
+It's coming together!

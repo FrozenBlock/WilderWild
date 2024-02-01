@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -52,27 +52,27 @@ public class FireflyBottle extends Item {
 		return stack.hasCustomHoverName() && stack.getHoverName().getString().toLowerCase().contains("nectar");
 	}
 
-	@Override
 	@NotNull
+	@Override
 	public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand usedHand) {
 		if (level instanceof ServerLevel server && player.getAbilities().mayBuild) {
 			float pitch = player.getXRot();
 			float yaw = player.getYRot();
 			float roll = 0.0F;
-			float f = -Mth.sin(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F);
-			float g = -Mth.sin((pitch + roll) * 0.017453292F);
-			float h = Mth.cos(yaw * 0.017453292F) * Mth.cos(pitch * 0.017453292F);
+			float f = -Mth.sin(yaw * Mth.DEG_TO_RAD) * Mth.cos(pitch * Mth.DEG_TO_RAD);
+			float g = -Mth.sin((pitch + roll) * Mth.DEG_TO_RAD);
+			float h = Mth.cos(yaw * Mth.DEG_TO_RAD) * Mth.cos(pitch * Mth.DEG_TO_RAD);
 			ItemStack stack = player.getItemInHand(usedHand);
 			Firefly entity = RegisterEntities.FIREFLY.create(server);
 			if (entity != null) {
-				entity.setDeltaMovement(f * 0.7, g * 0.7, h * 0.7);
+				entity.setDeltaMovement(f * 0.7D, g * 0.7D, h * 0.7D);
 				entity.moveTo(player.getX(), player.getEyeY(), player.getZ(), player.getXRot(), player.getYRot());
 				entity.setFromBottle(true);
 				boolean spawned = server.addFreshEntity(entity);
 				if (spawned) {
 					player.setItemInHand(usedHand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
 					player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
-					entity.playSound(RegisterSounds.ITEM_BOTTLE_RELEASE_FIREFLY, 1.0F, level.random.nextFloat() * 0.2F + 0.9F);
+					entity.playSound(RegisterSounds.ITEM_BOTTLE_RELEASE_FIREFLY, 1.0F, level.getRandom().nextFloat() * 0.2F + 0.9F);
 					entity.hasHome = true;
 					FireflyAi.rememberHome(entity, entity.blockPosition());
 					entity.setColor(this.color);
@@ -88,8 +88,8 @@ public class FireflyBottle extends Item {
 		return ItemUtils.startUsingInstantly(level, player, usedHand);
 	}
 
-	@Override
 	@NotNull
+	@Override
 	public UseAnim getUseAnimation(@NotNull ItemStack stack) {
 		return UseAnim.NONE;
 	}

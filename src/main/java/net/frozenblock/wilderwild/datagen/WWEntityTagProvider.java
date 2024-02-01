@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -47,5 +47,8 @@ final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagProvider 
 			.add(EntityType.SALMON)
 			.add(EntityType.TROPICAL_FISH)
 			.add(EntityType.TADPOLE);
+
+		this.getOrCreateTagBuilder(EntityTypeTags.DISMOUNTS_UNDERWATER)
+			.add(RegisterEntities.OSTRICH);
 	}
 }

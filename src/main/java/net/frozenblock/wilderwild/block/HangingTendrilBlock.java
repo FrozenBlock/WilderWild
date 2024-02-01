@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -57,7 +57,6 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.SculkSensorPhase;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
@@ -155,11 +154,10 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	public void onPlace(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState oldState, boolean isMoving) {
 		if (level.isClientSide() || state.is(oldState.getBlock())) {
 			return;
-		}
-		if (state.getValue(POWER) > 0 && !level.getBlockTicks().hasScheduledTick(pos, this)) {
+		} else if (state.getValue(POWER) > 0 && !level.getBlockTicks().hasScheduledTick(pos, this)) {
 			level.setBlock(pos, state.setValue(POWER, 0), 18);
 		}
-		level.scheduleTick(new BlockPos(pos), state.getBlock(), 1);
+		level.scheduleTick(pos, state.getBlock(), 1);
 	}
 
 	@Override
@@ -174,7 +172,6 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	@Nullable
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new HangingTendrilBlockEntity(pos, state);
 	}
@@ -282,7 +279,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 							RegisterSounds.BLOCK_HANGING_TENDRIL_WRING,
 							SoundSource.BLOCKS,
 							1F,
-							level.random.nextFloat() * 0.1F + 0.9F
+							level.getRandom().nextFloat() * 0.1F + 0.9F
 						);
 						tendrilEntity.ringOutTicksLeft = 5;
 						return InteractionResult.SUCCESS;

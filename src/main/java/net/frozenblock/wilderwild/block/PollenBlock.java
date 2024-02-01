@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -28,6 +28,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public class PollenBlock extends FlowerLichenBlock {
+	public static final int MIN_PARTICLE_SPAWN_WIDTH = -10;
+	public static final int MAX_PARTICLE_SPAWN_WIDTH = 10;
+	public static final int MIN_PARTICLE_SPAWN_HEIGHT = -10;
+	public static final int MAX_PARTICLE_SPAWN_HEIGHT = 7;
+	public static final int PARTICLE_SPAWN_ATTEMPTS = 7;
 
 	public PollenBlock(@NotNull Properties settings) {
 		super(settings);
@@ -40,11 +45,15 @@ public class PollenBlock extends FlowerLichenBlock {
 			int j = pos.getY();
 			int k = pos.getZ();
 			BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-			for (int l = 0; l < 7; ++l) {
-				mutable.set(i + Mth.nextInt(random, -10, 10), j - random.nextInt(10), k + Mth.nextInt(random, -10, 10));
+			for (int l = 0; l < PARTICLE_SPAWN_ATTEMPTS; ++l) {
+				mutable.set(
+					i + Mth.nextInt(random, MIN_PARTICLE_SPAWN_WIDTH, MAX_PARTICLE_SPAWN_WIDTH),
+					j + Mth.nextInt(random, MIN_PARTICLE_SPAWN_HEIGHT, MAX_PARTICLE_SPAWN_HEIGHT),
+					k + Mth.nextInt(random, MIN_PARTICLE_SPAWN_WIDTH, MAX_PARTICLE_SPAWN_WIDTH)
+				);
 				BlockState blockState = level.getBlockState(mutable);
 				if (!blockState.isCollisionShapeFullBlock(level, mutable) && !level.isRainingAt(mutable)) {
-					level.addParticle(RegisterParticles.POLLEN, mutable.getX() + random.nextDouble(), mutable.getY() + random.nextDouble(), mutable.getZ() + random.nextDouble(), 0.0D, 0.0D, 0.0D);
+					level.addParticle(RegisterParticles.POLLEN, mutable.getX() + random.nextDouble(), mutable.getY() + random.nextDouble(), mutable.getZ() + random.nextDouble(), 0D, 0D, 0D);
 				}
 			}
 		}

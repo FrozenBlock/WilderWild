@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -295,13 +295,57 @@ public final class WorldgenConfigGui {
 			"generateDarkTaiga",
 			configInstance
 		);
+		var dyingForest = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("generate_dying_forest"), modifiedBiomes.generateDyingForest)
+				.setDefaultValue(defaultConfig.biomeGeneration.generateDyingForest)
+				.setSaveConsumer(newValue -> biomes.generateDyingForest = newValue)
+				.setTooltip(tooltip("generate_dying_forest"))
+				.requireRestart()
+				.build(),
+			biomes.getClass(),
+			"generateDyingForest",
+			configInstance
+		);
+		var snowyDyingForest = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("generate_snowy_dying_forest"), modifiedBiomes.generateSnowyDyingForest)
+				.setDefaultValue(defaultConfig.biomeGeneration.generateSnowyDyingForest)
+				.setSaveConsumer(newValue -> biomes.generateSnowyDyingForest = newValue)
+				.setTooltip(tooltip("generate_snowy_dying_forest"))
+				.requireRestart()
+				.build(),
+			biomes.getClass(),
+			"generateSnowyDyingForest",
+			configInstance
+		);
+		var dyingMixedForest = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("generate_dying_mixed_forest"), modifiedBiomes.generateDyingMixedForest)
+				.setDefaultValue(defaultConfig.biomeGeneration.generateDyingMixedForest)
+				.setSaveConsumer(newValue -> biomes.generateDyingMixedForest = newValue)
+				.setTooltip(tooltip("generate_dying_mixed_forest"))
+				.requireRestart()
+				.build(),
+			biomes.getClass(),
+			"generateDyingMixedForest",
+			configInstance
+		);
+		var snowyDyingMixedForest = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("generate_snowy_dying_mixed_forest"), modifiedBiomes.generateSnowyDyingMixedForest)
+				.setDefaultValue(defaultConfig.biomeGeneration.generateSnowyDyingMixedForest)
+				.setSaveConsumer(newValue -> biomes.generateSnowyDyingMixedForest = newValue)
+				.setTooltip(tooltip("generate_snowy_dying_mixed_forest"))
+				.requireRestart()
+				.build(),
+			biomes.getClass(),
+			"generateSnowyDyingMixedForest",
+			configInstance
+		);
 
 		var biomeGenerationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("biome_generation"),
 			false,
 			tooltip("biome_generation"),
-			aridForest, aridSavanna, birchJungle, birchTaiga, cypressWetlands, darkBirchForest, darkTaiga, flowerField, jellyfishCaves, mixedForest,
-			oasis, oldGrowthBirchTaiga, oldGrowthDarkForest, oldGrowthSnowyTaiga, parchedForest, rainforest, semiBirchForest,
-			sparseBirchJungle, temperateRainforest, warmBeach, warmRiver
+			aridForest, aridSavanna, birchJungle, birchTaiga, cypressWetlands, darkBirchForest, darkTaiga, dyingForest, dyingMixedForest, flowerField,
+			jellyfishCaves, mixedForest, oasis, oldGrowthBirchTaiga, oldGrowthDarkForest, oldGrowthSnowyTaiga, parchedForest, rainforest, semiBirchForest,
+			snowyDyingForest, snowyDyingMixedForest, sparseBirchJungle, temperateRainforest, warmBeach, warmRiver
 		);
 
 		var cherryGrove = FrozenClothConfig.syncedEntry(
@@ -442,7 +486,7 @@ public final class WorldgenConfigGui {
 				clazz,
 				"snappedLogs",
 				configInstance
-		));
+			));
 		var wilderWildGrass = category.addEntry(
 			FrozenClothConfig.syncedEntry(
 				entryBuilder.startBooleanToggle(text("wilder_wild_grass"), modifiedConfig.wilderWildGrassGen)
@@ -605,7 +649,6 @@ public final class WorldgenConfigGui {
 					.setDefaultValue(defaultConfig.newWitchHuts)
 					.setSaveConsumer(newValue -> config.newWitchHuts = newValue)
 					.setTooltip(tooltip("new_witch_huts"))
-					.requireRestart()
 					.build(),
 				clazz,
 				"newWitchHuts",

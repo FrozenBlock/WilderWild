@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -22,6 +22,7 @@ import java.util.List;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.User;
+import net.minecraft.client.gui.components.SplashRenderer;
 import net.minecraft.client.resources.SplashManager;
 import net.minecraft.util.RandomSource;
 import org.spongepowered.asm.mixin.Final;
@@ -38,18 +39,20 @@ public class ScottTheWozMixin {
 	@Shadow
 	@Final
 	private static RandomSource RANDOM;
+
 	@Shadow
 	@Final
 	private List<String> splashes;
+
 	@Shadow
 	@Final
 	private User user;
 
 	@Inject(method = "getSplash", at = @At("TAIL"), cancellable = true, require = 0)
-	public void getSplash(CallbackInfoReturnable<String> info) {
+	public void getSplash(CallbackInfoReturnable<SplashRenderer> cir) {
 		String lowerName = this.user.getName().toLowerCase();
 		if (this.user != null && (RANDOM.nextInt(this.splashes.size()) == 42 || lowerName.contains("scot") || lowerName.contains("skot") || lowerName.contains("sct") || lowerName.contains("skt"))) {
-			info.setReturnValue("Hey all, " + this.user.getName() + " here.");
+			cir.setReturnValue(new SplashRenderer("Hey all, " + this.user.getName() + " here."));
 		}
 	}
 }

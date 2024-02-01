@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -69,13 +69,11 @@ import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.advancements.critereon.MobEffectsPredicate;
 import net.minecraft.advancements.critereon.PlayerTrigger;
 import net.minecraft.core.Holder;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.EnderMan;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.InstrumentItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.biome.Biome;
@@ -127,7 +125,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			}
 		});
 		SoundPredicate.register(WilderSharedConstants.id("nectar"), (SoundPredicate.LoopPredicate<Firefly>) entity ->
-				!entity.isSilent() && entity.hasCustomName() && Objects.requireNonNull(entity.getCustomName()).getString().toLowerCase().contains("nectar")
+			!entity.isSilent() && entity.hasCustomName() && Objects.requireNonNull(entity.getCustomName()).getString().toLowerCase().contains("nectar")
 		);
 		SoundPredicate.register(WilderSharedConstants.id("enderman_anger"), (SoundPredicate.LoopPredicate<EnderMan>) entity -> {
 			if (entity.isSilent() || entity.isRemoved() || entity.isDeadOrDying()) {
@@ -214,6 +212,10 @@ public class FrozenLibIntegration extends ModIntegration {
 						addBiomeRequirement(advancement, RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA);
 						addBiomeRequirement(advancement, RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
 						addBiomeRequirement(advancement, RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
+						addBiomeRequirement(advancement, RegisterWorldgen.DYING_FOREST);
+						addBiomeRequirement(advancement, RegisterWorldgen.SNOWY_DYING_FOREST);
+						addBiomeRequirement(advancement, RegisterWorldgen.DYING_MIXED_FOREST);
+						addBiomeRequirement(advancement, RegisterWorldgen.SNOWY_DYING_MIXED_FOREST);
 					}
 					case "minecraft:husbandry/balanced_diet" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:baobab_nut", CriteriaTriggers.CONSUME_ITEM.createCriterion(
@@ -270,18 +272,16 @@ public class FrozenLibIntegration extends ModIntegration {
 						);
 					}
 					case "minecraft:nether/all_potions", "minecraft:nether/all_effects" -> {
-                        Criterion<EffectsChangedTrigger.TriggerInstance> criterion = (Criterion<EffectsChangedTrigger.TriggerInstance>) advancement.criteria().get("all_effects");
-						MobEffectsPredicate predicate = criterion.triggerInstance().effects.orElseThrow();
-						Map<Holder<MobEffect>, MobEffectsPredicate.MobEffectInstancePredicate> map = new HashMap<>(predicate.effectMap);
-						map.put(
-							BuiltInRegistries.MOB_EFFECT.getHolderOrThrow(
-								BuiltInRegistries.MOB_EFFECT.getResourceKey(RegisterMobEffects.REACH).orElseThrow()
-							),
-							new MobEffectsPredicate.MobEffectInstancePredicate()
-						);
-						predicate.effectMap = map;
-                    }
-					default -> {}
+						if (advancement.criteria().get("all_effects") != null && advancement.criteria().get("all_effects").triggerInstance() instanceof EffectsChangedTrigger.TriggerInstance) {
+							Criterion<EffectsChangedTrigger.TriggerInstance> criterion = (Criterion<EffectsChangedTrigger.TriggerInstance>) advancement.criteria().get("all_effects");
+							MobEffectsPredicate predicate = criterion.triggerInstance().effects.orElseThrow();
+							Map<Holder<MobEffect>, MobEffectsPredicate.MobEffectInstancePredicate> map = new HashMap<>(predicate.effectMap);
+							map.put(RegisterMobEffects.REACH.builtInRegistryHolder(), new MobEffectsPredicate.MobEffectInstancePredicate());
+							predicate.effectMap = map;
+						}
+					}
+					default -> {
+					}
 				}
 
 			}

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import java.util.List;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
@@ -43,7 +42,6 @@ import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.block.FlowerLichenBlock;
-import net.frozenblock.wilderwild.block.FloweringLilyPadBlock;
 import net.frozenblock.wilderwild.block.GloryOfTheSnowBlock;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
@@ -51,12 +49,13 @@ import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.block.MilkweedBlock;
 import net.frozenblock.wilderwild.block.NematocystBlock;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
+import net.frozenblock.wilderwild.block.OstrichEggBlock;
 import net.frozenblock.wilderwild.block.PalmFrondsBlock;
 import net.frozenblock.wilderwild.block.PollenBlock;
 import net.frozenblock.wilderwild.block.PricklyPearCactusBlock;
 import net.frozenblock.wilderwild.block.ScorchedBlock;
 import net.frozenblock.wilderwild.block.SculkSlabBlock;
-import net.frozenblock.wilderwild.block.SculkStairsBlock;
+import net.frozenblock.wilderwild.block.SculkStairBlock;
 import net.frozenblock.wilderwild.block.SculkWallBlock;
 import net.frozenblock.wilderwild.block.SeedingFlowerBlock;
 import net.frozenblock.wilderwild.block.ShelfFungusBlock;
@@ -68,19 +67,20 @@ import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
 import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
 import net.frozenblock.wilderwild.block.WaterloggableTallFlowerBlock;
 import net.frozenblock.wilderwild.block.WilderBushBlock;
-import net.frozenblock.wilderwild.block.property.FlowerColor;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.ai.TermiteManager;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.world.generation.sapling.BaobabSaplingGenerator;
 import net.frozenblock.wilderwild.world.generation.sapling.CypressSaplingGenerator;
+import net.frozenblock.wilderwild.world.generation.sapling.PalmSaplingGenerator;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
 import net.minecraft.core.Registry;
 import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
-import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.BlockFamily;
@@ -104,7 +104,6 @@ import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
-import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -113,6 +112,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
+import net.minecraft.world.level.block.WaterlilyBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
@@ -140,30 +140,31 @@ public final class RegisterBlocks {
 	);
 
 	public static final ScorchedBlock SCORCHED_SAND = new ScorchedBlock(
+		Blocks.SAND.defaultBlockState(),
+		true,
+		SoundEvents.BRUSH_SAND,
+		SoundEvents.BRUSH_SAND_COMPLETED,
 		FabricBlockSettings.create()
 			.strength(1.5F)
 			.sounds(RegisterBlockSoundTypes.SCORCHEDSAND)
 			.mapColor(MapColor.SAND)
-			.ticksRandomly(),
-		Blocks.SAND.defaultBlockState(),
-		true,
-		SoundEvents.BRUSH_SAND,
-		SoundEvents.BRUSH_SAND_COMPLETED
+			.ticksRandomly()
 	);
 
 	public static final ScorchedBlock SCORCHED_RED_SAND = new ScorchedBlock(
+		Blocks.RED_SAND.defaultBlockState(),
+		true,
+		SoundEvents.BRUSH_SAND,
+		SoundEvents.BRUSH_SAND_COMPLETED,
 		FabricBlockSettings.create()
 			.strength(1.5F)
 			.sounds(RegisterBlockSoundTypes.SCORCHEDSAND)
 			.mapColor(MapColor.COLOR_ORANGE)
-			.ticksRandomly(),
-		Blocks.RED_SAND.defaultBlockState(),
-		true,
-		SoundEvents.BRUSH_SAND,
-		SoundEvents.BRUSH_SAND_COMPLETED
+			.ticksRandomly()
 	);
 
 	public static final BaobabNutBlock BAOBAB_NUT = new BaobabNutBlock(
+		new BaobabSaplingGenerator(),
 		FabricBlockSettings.copyOf(Blocks.BAMBOO)
 			.sounds(RegisterBlockSoundTypes.BAOBAB_NUT)
 	);
@@ -178,11 +179,14 @@ public final class RegisterBlocks {
 		new CypressSaplingGenerator(),
 		FabricBlockSettings.copyOf(Blocks.BIRCH_SAPLING)
 	);
-	public static final FlowerPotBlock POTTED_CYPRESS_SAPLING = Blocks.flowerPot(CYPRESS_SAPLING);
-	public static final CoconutBlock COCONUT = new CoconutBlock(FabricBlockSettings.create().breakInstantly().ticksRandomly().sounds(RegisterBlockSoundTypes.COCONUT));
-	public static final FlowerPotBlock POTTED_COCONUT = Blocks.flowerPot(COCONUT);
-	public static final LeavesBlock CYPRESS_LEAVES = Blocks.leaves(SoundType.GRASS); // in front so the other leaves can have a copy of its settings
-	public static final BaobabLeavesBlock BAOBAB_LEAVES = new BaobabLeavesBlock(FabricBlockSettings.copyOf(CYPRESS_LEAVES));
+	public static final Block POTTED_CYPRESS_SAPLING = Blocks.flowerPot(CYPRESS_SAPLING);
+	public static final CoconutBlock COCONUT = new CoconutBlock(
+		new PalmSaplingGenerator(),
+		FabricBlockSettings.create().breakInstantly().ticksRandomly().sounds(RegisterBlockSoundTypes.COCONUT)
+	);
+	public static final Block POTTED_COCONUT = Blocks.flowerPot(COCONUT);
+	public static final Block CYPRESS_LEAVES = Blocks.leaves(SoundType.GRASS); // in front so the other leaves can have a copy of its settings
+	public static final Block BAOBAB_LEAVES = new BaobabLeavesBlock(FabricBlockSettings.copyOf(CYPRESS_LEAVES));
 	public static final PalmFrondsBlock PALM_FRONDS = new PalmFrondsBlock(FabricBlockSettings.copyOf(CYPRESS_LEAVES));
 	public static final HollowedLogBlock HOLLOWED_OAK_LOG = createHollowedLogBlock(MapColor.WOOD, MapColor.PODZOL);
 	public static final HollowedLogBlock HOLLOWED_SPRUCE_LOG =  createHollowedLogBlock(MapColor.PODZOL, MapColor.COLOR_BROWN);
@@ -208,7 +212,7 @@ public final class RegisterBlocks {
 	public static final HollowedLogBlock STRIPPED_HOLLOWED_CRIMSON_STEM = createStrippedHollowedStemBlock(Blocks.STRIPPED_CRIMSON_STEM.defaultMapColor());
 	public static final HollowedLogBlock STRIPPED_HOLLOWED_WARPED_STEM = createStrippedHollowedStemBlock(Blocks.STRIPPED_WARPED_STEM.defaultMapColor());
 	// SCULK
-	public static final SculkStairsBlock SCULK_STAIRS = new SculkStairsBlock(
+	public static final SculkStairBlock SCULK_STAIRS = new SculkStairBlock(
 		Blocks.SCULK.defaultBlockState(),
 		FabricBlockSettings.create()
 			.mapColor(MapColor.COLOR_BLACK)
@@ -232,7 +236,6 @@ public final class RegisterBlocks {
 	public static final OsseousSculkBlock OSSEOUS_SCULK = new OsseousSculkBlock(
 		FabricBlockSettings.create()
 			.mapColor(MapColor.SAND)
-			.requiresTool()
 			.strength(2.0F)
 			.sounds(RegisterBlockSoundTypes.OSSEOUS_SCULK)
 	);
@@ -351,8 +354,7 @@ public final class RegisterBlocks {
 
 	public static final GloryOfTheSnowBlock GLORY_OF_THE_SNOW = new GloryOfTheSnowBlock(
 		FabricBlockSettings.copyOf(Blocks.DANDELION)
-			.ticksRandomly(),
-		List.of(FlowerColor.BLUE, FlowerColor.PINK, FlowerColor.PURPLE, FlowerColor.WHITE)
+			.ticksRandomly()
 	);
 
 	public static final FlowerLichenBlock WHITE_GLORY_OF_THE_SNOW = new FlowerLichenBlock(
@@ -392,7 +394,7 @@ public final class RegisterBlocks {
 			.nonOpaque()
 	);
 
-	public static final FloweringLilyPadBlock FLOWERING_LILY_PAD = new FloweringLilyPadBlock(
+	public static final WaterlilyBlock FLOWERING_LILY_PAD = new WaterlilyBlock(
 		FabricBlockSettings.copyOf(Blocks.LILY_PAD)
 	);
 
@@ -474,6 +476,15 @@ public final class RegisterBlocks {
 			.noCollision()
 			.nonOpaque()
 			.sounds(SoundType.SPONGE)
+	);
+
+	public static final Block OSTRICH_EGG = new OstrichEggBlock(
+		FabricBlockSettings.of()
+			.mapColor(MapColor.TERRACOTTA_WHITE)
+			.strength(0.5F)
+			.sound(SoundType.METAL)
+			.noOcclusion()
+			.randomTicks()
 	);
 
 	public static final Block NULL_BLOCK = new Block(
@@ -1022,6 +1033,7 @@ public final class RegisterBlocks {
 		Registry.register(BuiltInRegistries.BLOCK, WilderSharedConstants.id("algae"), ALGAE);
 		Registry.register(BuiltInRegistries.BLOCK, WilderSharedConstants.id("flowering_lily_pad"), FLOWERING_LILY_PAD);
 		registerBlockAfter(Items.WET_SPONGE, "small_sponge", SMALL_SPONGE, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Items.SNIFFER_EGG, "ostrich_egg", OSTRICH_EGG, CreativeModeTabs.NATURAL_BLOCKS);
 	}
 
 	public static void registerMisc() {
@@ -1057,42 +1069,6 @@ public final class RegisterBlocks {
 		registerPlants();
 		registerNotSoPlants();
 		registerMisc();
-	}
-
-	public static void registerDispenses() {
-		DispenserBlock.registerBehavior(RegisterItems.COCONUT, new AbstractProjectileDispenseBehavior() {
-			@Override
-			@NotNull
-			protected Projectile getProjectile(@NotNull Level level, @NotNull Position position, @NotNull ItemStack stack) {
-				return new CoconutProjectile(level, position.x(), position.y(), position.z());
-			}
-
-			@Override
-			protected float getUncertainty() {
-				return 9.0F;
-			}
-
-			@Override
-			protected float getPower() {
-				return 0.75F;
-			}
-		});
-		DispenserBlock.registerBehavior(RegisterBlocks.TUMBLEWEED, new DefaultDispenseItemBehavior() {
-			@Override
-			@NotNull
-			public ItemStack execute(@NotNull BlockSource source, @NotNull ItemStack stack) {
-				Level level = source.level();
-				Direction direction = source.state().getValue(DispenserBlock.FACING);
-				Vec3 position = source.center().add(direction.getStepX(), direction.getStepY(), direction.getStepZ());
-				Tumbleweed tumbleweed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
-				Vec3 vec3 = new Vec3(direction.getStepX(), direction.getStepY() + 0.1, direction.getStepZ()).normalize().add(level.random.triangle(0.0D, 0.0172275D * 6D), level.random.triangle(0.0D, 0.0172275D * 6D), level.random.triangle(0.0D, 0.0172275D * 6D)).scale(1.1);
-				tumbleweed.setDeltaMovement(vec3);
-				tumbleweed.setPos(position);
-				level.addFreshEntity(tumbleweed);
-				stack.shrink(1);
-				return stack;
-			}
-		});
 	}
 
 	private static void registerBlock(String path, Block block) {
@@ -1195,8 +1171,9 @@ public final class RegisterBlocks {
 	}
 
 	@NotNull
-	public static MesogleaBlock mesoglea(@NotNull MapColor mapColor, @NotNull SimpleParticleType particleType, boolean pearlescent) {
-		return new MesogleaBlock(
+	public static MesogleaBlock mesoglea(@NotNull MapColor mapColor, @NotNull ParticleOptions particleType, boolean pearlescent) {
+		MesogleaBlock mesogleaBlock = new MesogleaBlock(
+			pearlescent,
 			FabricBlockSettings.create()
 				.mapColor(mapColor)
 				.nonOpaque()
@@ -1207,10 +1184,10 @@ public final class RegisterBlocks {
 				.sounds(RegisterBlockSoundTypes.MESOGLEA)
 				.suffocates(Blocks::never)
 				.blockVision(Blocks::never)
-				.dynamicBounds(),
-			particleType,
-			pearlescent
+				.dynamicBounds()
 		);
+		MesogleaBlock.MesogleaParticleRegistry.registerDripParticle(mesogleaBlock, particleType);
+		return mesogleaBlock;
 	}
 
 	@NotNull
@@ -1228,6 +1205,7 @@ public final class RegisterBlocks {
 	}
 
 	public static void registerBlockProperties() {
+		registerDispenses();
 		TermiteManager.Termite.addDegradable(BAOBAB_LOG, STRIPPED_BAOBAB_LOG);
 		TermiteManager.Termite.addDegradable(STRIPPED_BAOBAB_LOG, STRIPPED_HOLLOWED_BAOBAB_LOG);
 		TermiteManager.Termite.addDegradable(HOLLOWED_BAOBAB_LOG, STRIPPED_HOLLOWED_BAOBAB_LOG);
@@ -1262,6 +1240,42 @@ public final class RegisterBlocks {
 		registerBonemeal();
 		registerAxe();
 		registerInventories();
+	}
+
+	private static void registerDispenses() {
+		DispenserBlock.registerBehavior(RegisterItems.COCONUT, new AbstractProjectileDispenseBehavior() {
+			@Override
+			@NotNull
+			protected Projectile getProjectile(@NotNull Level level, @NotNull Position position, @NotNull ItemStack stack) {
+				return new CoconutProjectile(level, position.x(), position.y(), position.z());
+			}
+
+			@Override
+			protected float getUncertainty() {
+				return 9F;
+			}
+
+			@Override
+			protected float getPower() {
+				return 0.75F;
+			}
+		});
+		DispenserBlock.registerBehavior(RegisterBlocks.TUMBLEWEED, new DefaultDispenseItemBehavior() {
+			@Override
+			@NotNull
+			public ItemStack execute(@NotNull BlockSource source, @NotNull ItemStack stack) {
+				Level level = source.level();
+				Direction direction = source.state().getValue(DispenserBlock.FACING);
+				Vec3 position = source.center().add(direction.getStepX(), direction.getStepY(), direction.getStepZ());
+				Tumbleweed tumbleweed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
+				Vec3 vec3 = new Vec3(direction.getStepX(), direction.getStepY() + 0.1D, direction.getStepZ()).normalize().add(level.random.triangle(0D, 0.0172275D * 6D), level.random.triangle(0D, 0.0172275D * 6D), level.random.triangle(0D, 0.0172275D * 6D)).scale(1.1D);
+				tumbleweed.setDeltaMovement(vec3);
+				tumbleweed.setPos(position);
+				level.addFreshEntity(tumbleweed);
+				stack.shrink(1);
+				return stack;
+			}
+		});
 	}
 
 	private static void registerStrippable() {

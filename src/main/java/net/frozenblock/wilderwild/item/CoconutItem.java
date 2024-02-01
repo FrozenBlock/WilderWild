@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -39,6 +39,7 @@ public class CoconutItem extends BlockItem {
 		super(block, properties);
 	}
 
+	@NotNull
 	@Override
 	public InteractionResult useOn(@NotNull UseOnContext context) {
 		InteractionResult interactionResult = super.useOn(context);
@@ -53,11 +54,20 @@ public class CoconutItem extends BlockItem {
 	@NotNull
 	public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand usedHand) {
 		ItemStack itemStack = player.getItemInHand(usedHand);
-		level.playSound(null, player.getX(), player.getY(), player.getZ(), RegisterSounds.ITEM_COCONUT_THROW, SoundSource.NEUTRAL, 0.5f, 0.4f / (level.getRandom().nextFloat() * 0.4f + 0.8f));
+		level.playSound(
+			null,
+			player.getX(),
+			player.getY(),
+			player.getZ(),
+			RegisterSounds.ITEM_COCONUT_THROW,
+			SoundSource.NEUTRAL,
+			0.5F,
+			0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F)
+		);
 		if (!level.isClientSide) {
 			CoconutProjectile coconut = new CoconutProjectile(level, player);
 			coconut.setItem(itemStack);
-			coconut.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 0.8f, 1.4f);
+			coconut.shootFromRotation(player, player.getXRot(), player.getYRot(), 0F, 0.8F, 1.4F);
 			level.addFreshEntity(coconut);
 		}
 		player.awardStat(Stats.ITEM_USED.get(this));

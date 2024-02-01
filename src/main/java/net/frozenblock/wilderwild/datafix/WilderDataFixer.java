@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -88,6 +88,10 @@ public class WilderDataFixer {
 		builder.addFixer(new ScorchedSandStateFix2(schemaV14, "scorched_red_sand_integer_to_boolean", WilderSharedConstants.id("scorched_red_sand")));
 		Schema schemaV15 = builder.addSchema(15, NamespacedSchema::new);
 		builder.addFixer(new OsseousSculkStateFix(schemaV15, "osseous_sculk_axis_to_direction", WilderSharedConstants.id("osseous_sculk")));
+		Schema schemaV16 = builder.addSchema(16, NamespacedSchema::new);
+		SimpleFixes.addItemRenameFix(builder, "Replace wilderwild:music_disc_back with minecraft:music_disc_5", WilderSharedConstants.id("music_disc_back"), WilderSharedConstants.vanillaId("music_disc_5"), schemaV16);
+		SimpleFixes.addItemRenameFix(builder, "Replace wilderwild:music_disc_goathorn_symphony with minecraft:music_disc_otherside", WilderSharedConstants.id("music_disc_goathorn_symphony"), WilderSharedConstants.vanillaId("music_disc_otherside"), schemaV16);
+		SimpleFixes.addEntityRenameFix(builder, "Rename ancient_horn_projectile to ancient_horn_vibration", WilderSharedConstants.id("ancient_horn_projectile"), WilderSharedConstants.id("ancient_horn_vibration"), schemaV16);
 
 		QuiltDataFixes.buildAndRegisterFixer(mod, builder);
 		WilderSharedConstants.log("DataFixes for Wilder Wild have been applied", true);

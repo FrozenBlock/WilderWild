@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -54,6 +54,8 @@ public final class EntityConfigGui {
 		var modifiedJellyfish = modifiedConfig.jellyfish;
 		var crab = config.crab;
 		var modifiedCrab = modifiedConfig.crab;
+		var ostrich = config.ostrich;
+		var modifiedOstrich = modifiedConfig.ostrich;
 		var tumbleweed = config.tumbleweed;
 		var modifiedTumbleweed = modifiedConfig.tumbleweed;
 		var warden = config.warden;
@@ -186,7 +188,7 @@ public final class EntityConfigGui {
 			jellyfish.getClass(),
 			"jellyfishSpawnCap",
 			configInstance
-			);
+		);
 
 		var jellyfishTentacles = FrozenClothConfig.syncedEntry(
 			entryBuilder.startIntSlider(text("jellyfish_tentacles"), modifiedJellyfish.jellyfishTentacles, 0, 100)
@@ -234,6 +236,34 @@ public final class EntityConfigGui {
 			false,
 			tooltip("crab"),
 			crabSpawnCap, reachAffectsAttack
+		);
+
+		var spawnOstriches = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("spawn_ostriches"), modifiedOstrich.spawnOstriches)
+				.setDefaultValue(defaultConfig.ostrich.spawnOstriches)
+				.setSaveConsumer(newValue -> ostrich.spawnOstriches = newValue)
+				.setTooltip(tooltip("spawn_ostriches"))
+				.build(),
+			ostrich.getClass(),
+			"spawnOstriches",
+			configInstance
+		);
+
+		var ostrichAttack = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("allow_ostrich_attack"), modifiedOstrich.allowAttack)
+				.setDefaultValue(defaultConfig.ostrich.allowAttack)
+				.setSaveConsumer(newValue -> ostrich.allowAttack = newValue)
+				.setTooltip(tooltip("allow_ostrich_attack"))
+				.build(),
+			ostrich.getClass(),
+			"allowAttack",
+			configInstance
+		);
+
+		var ostrichCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("ostrich"),
+			false,
+			tooltip("ostrich"),
+			spawnOstriches, ostrichAttack
 		);
 
 		var tumbleweedSpawnCap = FrozenClothConfig.syncedEntry(

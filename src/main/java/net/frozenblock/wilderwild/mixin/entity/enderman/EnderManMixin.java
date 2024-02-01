@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -110,7 +110,16 @@ public abstract class EnderManMixin extends Monster implements WilderEnderman {
 		if (EntityConfig.get().enderMan.angerLoopSound && this.wilderWild$canPlayLoopingSound) {
 			this.wilderWild$canPlayLoopingSound = false;
 			EnderMan enderMan = EnderMan.class.cast(this);
-			FrozenSoundPackets.createMovingRestrictionLoopingSound(enderMan.level(), enderMan, RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP, SoundSource.HOSTILE, 1F, 0.9F, WilderSharedConstants.id("enderman_anger"), true);
+			FrozenSoundPackets.createMovingRestrictionLoopingSound(
+				enderMan.level(),
+				enderMan,
+				RegisterSounds.ENTITY_ENDERMAN_ANGER_LOOP,
+				SoundSource.HOSTILE,
+				1F,
+				0.9F,
+				WilderSharedConstants.id("enderman_anger"),
+				true
+			);
 		}
 	}
 

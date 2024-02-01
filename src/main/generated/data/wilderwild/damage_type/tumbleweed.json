@@ -1,5 +1,5 @@
 {
-  "exhaustion": 2.0,
+  "exhaustion": 0.1,
   "message_id": "tumbleweed",
   "scaling": "always"
 }

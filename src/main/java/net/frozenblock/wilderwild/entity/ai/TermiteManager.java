@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -28,12 +28,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
 import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.networking.packet.WilderTermiteParticlePacket;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.registry.RegisterParticles;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
@@ -49,6 +48,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -64,6 +64,13 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
 public class TermiteManager {
+	public static final int TERMITE_COUNT_ASLEEP = 1;
+	public static final int TERMITE_COUNT_ASLEEP_NATURAL = 0;
+	public static final int TERMITE_COUNT = 5;
+	public static final int TERMITE_COUNT_NATURAL = 3;
+	public static final int PARTICLE_COUNT_WHILE_EATING = 4;
+	public static final int PARTICLE_COUNT = 6;
+	public static final float BLOCK_SOUND_VOLUME = 0.6F;
 	private final ArrayList<Termite> termites = new ArrayList<>();
 	public int ticksToNextTermite;
 	public int highestID;
@@ -76,9 +83,9 @@ public class TermiteManager {
 			return 0;
 		}
 		if (!awake) {
-			return natural ? 0 : 1;
+			return natural ? TERMITE_COUNT_ASLEEP_NATURAL : TERMITE_COUNT_ASLEEP;
 		}
-		return natural ? 3 : 5;
+		return natural ? TERMITE_COUNT_NATURAL : TERMITE_COUNT;
 	}
 
 	public static boolean areTermitesSafe(@NotNull Level level, @NotNull BlockPos pos) {
@@ -112,11 +119,25 @@ public class TermiteManager {
 	public void tick(@NotNull Level level, @NotNull BlockPos pos, boolean natural, boolean awake, boolean canSpawn) {
 		int maxTermites = maxTermites(natural, awake, canSpawn);
 		ArrayList<Termite> termitesToRemove = new ArrayList<>();
+		RandomSource random = level.getRandom();
 		for (Termite termite : this.termites) {
-			if (termite.tick(level, natural)) {
-				WilderTermiteParticlePacket.sendToAll(level, Vec3.atCenterOf(termite.pos), termite.eating ? 4 : 6);
+			if (termite.tick(level, natural, random)) {
+				if (level instanceof ServerLevel serverLevel) {
+					BlockPos termitePos = termite.getPos();
+					serverLevel.sendParticles(
+						RegisterParticles.TERMITE,
+						termitePos.getX() + 0.5D,
+						termitePos.getY() + 0.5D,
+						termitePos.getZ() + 0.5D,
+						termite.eating ? PARTICLE_COUNT_WHILE_EATING : PARTICLE_COUNT,
+						0D,
+						0D,
+						0D,
+						0D
+					);
+				}
 			} else {
-				level.playSound(null, termite.pos, RegisterSounds.BLOCK_TERMITE_MOUND_ENTER, SoundSource.NEUTRAL, 0.6F, 1.0F);
+				level.playSound(null, termite.pos, RegisterSounds.BLOCK_TERMITE_MOUND_ENTER, SoundSource.NEUTRAL, BLOCK_SOUND_VOLUME, 1F);
 				termitesToRemove.add(termite);
 			}
 		}
@@ -131,24 +152,26 @@ public class TermiteManager {
 			} else {
 				this.addTermite(pos);
 				level.gameEvent(null, GameEvent.BLOCK_CHANGE, Vec3.atCenterOf(pos));
-				level.playSound(null, pos, RegisterSounds.BLOCK_TERMITE_MOUND_EXIT, SoundSource.NEUTRAL, 0.6F, 1.0F);
-				this.ticksToNextTermite = natural ? 320 : 200;
+				level.playSound(null, pos, RegisterSounds.BLOCK_TERMITE_MOUND_EXIT, SoundSource.NEUTRAL, BLOCK_SOUND_VOLUME, 1F);
+				this.ticksToNextTermite = natural ? TERMITE_RELEASE_COUNTDOWN_NATURAL : TERMITE_RELEASE_COUNTDOWN;
 			}
 		}
 		while (this.termites.size() > maxTermites) {
-			Termite termite = this.termites.get(AdvancedMath.random().nextInt(this.termites.size()));
-			level.playSound(null, termite.pos, RegisterSounds.BLOCK_TERMITE_MOUND_ENTER, SoundSource.NEUTRAL, 0.6F, 1.0F);
+			Termite termite = this.termites.get(random.nextInt(this.termites.size()));
+			level.playSound(null, termite.pos, RegisterSounds.BLOCK_TERMITE_MOUND_ENTER, SoundSource.NEUTRAL, BLOCK_SOUND_VOLUME, 1F);
 			level.gameEvent(null, GameEvent.TELEPORT, Vec3.atCenterOf(termite.pos));
 			this.termites.remove(termite);
 			level.gameEvent(null, GameEvent.BLOCK_CHANGE, Vec3.atCenterOf(pos));
 		}
 		termitesToRemove.clear();
 	}
+	public static final int TERMITE_RELEASE_COUNTDOWN = 200;
+	public static final int TERMITE_RELEASE_COUNTDOWN_NATURAL = 320;
 
 	public void clearTermites(@NotNull Level level) {
 		for (Termite termite : this.termites) {
 			level.gameEvent(null, GameEvent.ENTITY_DIE, Vec3.atCenterOf(termite.pos));
-			level.playSound(null, termite.pos, RegisterSounds.BLOCK_TERMITE_MOUND_ENTER, SoundSource.NEUTRAL, 0.6F, 1.0F);
+			level.playSound(null, termite.pos, RegisterSounds.BLOCK_TERMITE_MOUND_ENTER, SoundSource.NEUTRAL, BLOCK_SOUND_VOLUME, 1F);
 		}
 		this.termites.clear();
 	}
@@ -183,12 +206,24 @@ public class TermiteManager {
 	}
 
 	public static class Termite {
+		public static final int DESTROY_POWER_BEFORE_BLOCK_BREAKS = 200;
+		public static final int DESTROY_POWER_LEAVES = 4;
+		public static final int DESTROY_POWER_BREAKABLE = 2;
+		public static final int DESTROY_POWER = 1;
+		public static final int MAX_IDLE_TICKS = 2000;
+		public static final int MAX_IDLE_TICKS_NATURAL = 1200;
+		public static final int UPDATE_DELAY_IN_TICKS = 1;
+		public static final int GNAW_PARTICLE_CHANCE = 4;
+		public static final int MIN_GNAW_PARTICLES = 0;
+		public static final int MAX_GNAW_PARTICLES = 3;
+		public static final int MIN_EAT_PARTICLES = 18;
+		public static final int MAX_EAT_PARTICLES = 25;
 		public static final Codec<Termite> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
 			BlockPos.CODEC.fieldOf("mound").forGetter(Termite::getMoundPos),
 			BlockPos.CODEC.fieldOf("pos").forGetter(Termite::getPos),
-			Codec.intRange(0, 10000).fieldOf("blockDestroyPower").orElse(0).forGetter(Termite::getPower),
-			Codec.intRange(0, 2002).fieldOf("aliveTicks").orElse(0).forGetter(Termite::getAliveTicks),
-			Codec.intRange(0, 5).fieldOf("update").orElse(0).forGetter(Termite::getUpdateTicks),
+			Codec.intRange(0, DESTROY_POWER_BEFORE_BLOCK_BREAKS + 1).fieldOf("block_destroy_power").orElse(0).forGetter(Termite::getBlockDestroyPower),
+			Codec.INT.fieldOf("idle_ticks").orElse(0).forGetter(Termite::getIdleTicks),
+			Codec.INT.fieldOf("update_delay").orElse(0).forGetter(Termite::getUpdateTicks),
 			Codec.BOOL.fieldOf("eating").orElse(true).forGetter(Termite::getEating),
 			Codec.INT.fieldOf("id").orElse(0).forGetter(Termite::getID)
 		).apply(instance, Termite::new));
@@ -199,7 +234,7 @@ public class TermiteManager {
 		public BlockPos mound;
 		public BlockPos pos;
 		public int blockDestroyPower;
-		public int aliveTicks;
+		public int idleTicks;
 		public int update;
 		public boolean eating;
 		public int id;
@@ -208,7 +243,7 @@ public class TermiteManager {
 			this.mound = mound;
 			this.pos = pos;
 			this.blockDestroyPower = blockDestroyPower;
-			this.aliveTicks = aliveTicks;
+			this.idleTicks = aliveTicks;
 			this.update = update;
 		}
 
@@ -216,10 +251,98 @@ public class TermiteManager {
 			this.mound = mound;
 			this.pos = pos;
 			this.blockDestroyPower = blockDestroyPower;
-			this.aliveTicks = aliveTicks;
+			this.idleTicks = aliveTicks;
 			this.update = update;
 			this.eating = eating;
 			this.id = id;
+		}
+
+		public boolean tick(@NotNull Level level, boolean natural, RandomSource random) {
+			boolean exit = false;
+			++this.idleTicks;
+			if (this.idleTicks > (natural ? MAX_IDLE_TICKS_NATURAL : MAX_IDLE_TICKS) || isTooFar(natural, this.mound, this.pos)) {
+				return false;
+			}
+			if (!areTermitesSafe(level, this.pos)) {
+				return false;
+			}
+			if (canMove(level, this.pos)) {
+				BlockState blockState = level.getBlockState(this.pos);
+				Block block = blockState.getBlock();
+				boolean degradable = !natural ? DEGRADABLE_BLOCKS.containsKey(block) : NATURAL_DEGRADABLE_BLOCKS.containsKey(block);
+				boolean breakable = blockState.is(WilderBlockTags.TERMITE_BREAKABLE);
+				boolean leaves = blockState.is(BlockTags.LEAVES);
+				if ((degradable || breakable) && isEdibleProperty(blockState)) {
+					this.eating = true;
+					exit = true;
+					int additionalPower = breakable ? leaves ? DESTROY_POWER_LEAVES : DESTROY_POWER_BREAKABLE : DESTROY_POWER;
+					this.blockDestroyPower += additionalPower;
+					spawnGnawParticles(level, blockState, this.pos, random);
+					if (this.blockDestroyPower > DESTROY_POWER_BEFORE_BLOCK_BREAKS) {
+						this.blockDestroyPower = 0;
+						this.idleTicks = natural ? Math.max(0, this.idleTicks - (DESTROY_POWER_BEFORE_BLOCK_BREAKS / additionalPower)) : 0;
+						if (breakable) {
+							level.destroyBlock(this.pos, true);
+						} else {
+							level.addDestroyBlockEffect(this.pos, blockState);
+							Block setBlock = !natural ? DEGRADABLE_BLOCKS.get(block) : NATURAL_DEGRADABLE_BLOCKS.get(block);
+							BlockState setState = setBlock.withPropertiesOf(blockState);
+							level.setBlockAndUpdate(this.pos, setState);
+							if (setBlock instanceof HollowedLogBlock) {
+								boolean nether = new ItemStack(setBlock.asItem()).is(ItemTags.NON_FLAMMABLE_WOOD);
+								level.playSound(null, pos, nether ? RegisterSounds.STEM_HOLLOWED : RegisterSounds.LOG_HOLLOWED, SoundSource.BLOCKS, BLOCK_SOUND_VOLUME, 0.95F + (random.nextFloat() * 0.2F));
+							}
+						}
+						spawnEatParticles(level, blockState, this.pos, random);
+						level.playSound(null, pos, RegisterSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW_FINISH, SoundSource.BLOCKS, BLOCK_SOUND_VOLUME, 0.9F + (random.nextFloat() * 0.25F));
+					}
+				} else {
+					this.eating = false;
+					this.blockDestroyPower = 0;
+					Direction direction = Direction.getRandom(random);
+					if (blockState.isAir()) {
+						direction = Direction.DOWN;
+					}
+					BlockPos offset = this.pos.relative(direction);
+					BlockState state = level.getBlockState(offset);
+					if (!isStateSafeForTermites(state)) {
+						return false;
+					}
+
+					if (this.update > 0 && !blockState.isAir()) {
+						--this.update;
+						return true;
+					} else {
+						this.update = UPDATE_DELAY_IN_TICKS;
+						BlockPos priority = degradableBreakablePos(level, this.pos, natural, random);
+						if (priority != null) {
+							this.pos = priority;
+							exit = true;
+						} else {
+							BlockPos ledge = ledgePos(level, offset, natural);
+							BlockPos posUp = this.pos.above();
+							BlockState stateUp = level.getBlockState(posUp);
+							if (exposedToAir(level, offset, natural)
+								&& isBlockMovable(state, direction)
+								&& !(direction != Direction.DOWN && state.isAir() && (!this.mound.closerThan(this.pos, 1.5D)) && ledge == null)
+							) {
+								this.pos = offset;
+								if (ledge != null) {
+									this.pos = ledge;
+								}
+								exit = true;
+							} else if (ledge != null && exposedToAir(level, ledge, natural)) {
+								this.pos = ledge;
+								exit = true;
+							} else if (!stateUp.isAir() && isBlockMovable(stateUp, Direction.UP) && exposedToAir(level, posUp, natural)) {
+								this.pos = posUp;
+								exit = true;
+							}
+						}
+					}
+				}
+			}
+			return exit || (exposedToAir(level, this.pos, natural));
 		}
 
 		@Nullable
@@ -243,9 +366,9 @@ public class TermiteManager {
 		}
 
 		@Nullable
-		public static BlockPos degradableBreakablePos(@NotNull Level level, @NotNull BlockPos pos, boolean natural) {
+		public static BlockPos degradableBreakablePos(@NotNull Level level, @NotNull BlockPos pos, boolean natural, RandomSource random) {
 			BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
-			List<Direction> directions = Util.shuffledCopy(Direction.values(), level.random);
+			List<Direction> directions = Util.shuffledCopy(Direction.values(), random);
 			BlockState upState = level.getBlockState(mutableBlockPos.move(Direction.UP));
 			if (canEatBlock(natural, mutableBlockPos, upState)) return mutableBlockPos;
 			mutableBlockPos.move(Direction.DOWN);
@@ -301,6 +424,71 @@ public class TermiteManager {
 
 		public static boolean isTooFar(boolean natural, @NotNull BlockPos mound, @NotNull BlockPos pos) {
 			return !mound.closerThan(pos, natural ? BlockConfig.get().termite.maxNaturalDistance : BlockConfig.get().termite.maxDistance);
+		}
+
+		public static void spawnGnawParticles(@NotNull Level level, @NotNull BlockState eatState, @NotNull BlockPos pos, RandomSource random) {
+			if (level instanceof ServerLevel serverLevel && random.nextInt(GNAW_PARTICLE_CHANCE) == 0) {
+				int count = random.nextInt(MIN_GNAW_PARTICLES, MAX_GNAW_PARTICLES);
+				if (count > 0) {
+					serverLevel.sendParticles(
+						new BlockParticleOption(ParticleTypes.BLOCK, eatState),
+						pos.getX() + 0.5D,
+						pos.getY() + 0.5D,
+						pos.getZ() + 0.5D,
+						count,
+						0.3F,
+						0.3F,
+						0.3F,
+						0.05D
+					);
+				}
+			}
+		}
+
+		public static void spawnEatParticles(@NotNull Level level, @NotNull BlockState eatState, @NotNull BlockPos pos, RandomSource random) {
+			if (level instanceof ServerLevel serverLevel) {
+				serverLevel.sendParticles(
+					new BlockParticleOption(ParticleTypes.BLOCK, eatState),
+					pos.getX() + 0.5D,
+					pos.getY() + 0.5D,
+					pos.getZ() + 0.5D,
+					random.nextInt(MIN_EAT_PARTICLES, MAX_EAT_PARTICLES),
+					0.3F,
+					0.3F,
+					0.3F,
+					0.05D
+				);
+			}
+		}
+
+		@NotNull
+		public BlockPos getMoundPos() {
+			return this.mound;
+		}
+
+		@NotNull
+		public BlockPos getPos() {
+			return this.pos;
+		}
+
+		public int getBlockDestroyPower() {
+			return this.blockDestroyPower;
+		}
+
+		public int getIdleTicks() {
+			return this.idleTicks;
+		}
+
+		public int getUpdateTicks() {
+			return this.update;
+		}
+
+		public boolean getEating() {
+			return this.eating;
+		}
+
+		public int getID() {
+			return this.id;
 		}
 
 		public static void addDegradableBlocks() {
@@ -368,133 +556,6 @@ public class TermiteManager {
 
 		public static void addNaturalDegradable(@NotNull Block degradable, @NotNull Block result) {
 			NATURAL_DEGRADABLE_BLOCKS.put(degradable, result);
-		}
-
-		public static void spawnGnawParticles(@NotNull Level level, @NotNull BlockState eatState, @NotNull BlockPos pos) {
-			if (level instanceof ServerLevel serverLevel && level.random.nextInt(0, 4) == 3) {
-				serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, eatState), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(0, 3), 0.3F, 0.3F, 0.3F, 0.05D);
-			}
-		}
-
-		public static void spawnEatParticles(Level level, @NotNull BlockState eatState, @NotNull BlockPos pos) {
-			if (level instanceof ServerLevel serverLevel) {
-				serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, eatState), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(18, 25), 0.3F, 0.3F, 0.3F, 0.05D);
-			}
-		}
-
-		public boolean tick(@NotNull Level level, boolean natural) {
-			boolean exit = false;
-			++this.aliveTicks;
-			if (this.aliveTicks > (natural ? 1200 : 2000) || isTooFar(natural, this.mound, this.pos)) {
-				return false;
-			}
-			if (!areTermitesSafe(level, this.pos)) {
-				return false;
-			}
-			if (canMove(level, this.pos)) {
-				BlockState blockState = level.getBlockState(this.pos);
-				Block block = blockState.getBlock();
-				boolean degradable = !natural ? DEGRADABLE_BLOCKS.containsKey(block) : NATURAL_DEGRADABLE_BLOCKS.containsKey(block);
-				boolean breakable = blockState.is(WilderBlockTags.TERMITE_BREAKABLE);
-				boolean leaves = blockState.is(BlockTags.LEAVES);
-				if ((degradable || breakable) && isEdibleProperty(blockState)) {
-					this.eating = true;
-					exit = true;
-					int additionalPower = breakable ? leaves ? 4 : 2 : 1;
-					this.blockDestroyPower += additionalPower;
-					spawnGnawParticles(level, blockState, this.pos);
-					if (this.blockDestroyPower > 200) {
-						this.blockDestroyPower = 0;
-						this.aliveTicks = natural ? Math.max(0, this.aliveTicks - (200 / additionalPower)) : 0;
-						if (breakable) {
-							level.destroyBlock(this.pos, true);
-						} else {
-							level.addDestroyBlockEffect(this.pos, blockState);
-							Block setBlock = !natural ? DEGRADABLE_BLOCKS.get(block) : NATURAL_DEGRADABLE_BLOCKS.get(block);
-							BlockState setState = setBlock.withPropertiesOf(blockState);
-							level.setBlockAndUpdate(this.pos, setState);
-							if (setBlock instanceof HollowedLogBlock) {
-								boolean nether = new ItemStack(setBlock.asItem()).is(ItemTags.NON_FLAMMABLE_WOOD);
-								level.playSound(null, pos, nether ? RegisterSounds.STEM_HOLLOWED : RegisterSounds.LOG_HOLLOWED, SoundSource.BLOCKS, 0.6F, 0.95F + (level.random.nextFloat() * 0.2F));
-							}
-						}
-						spawnEatParticles(level, blockState, this.pos);
-						level.playSound(null, pos, RegisterSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW_FINISH, SoundSource.BLOCKS, 0.6F, 0.9F + (level.random.nextFloat() * 0.25F));
-					}
-				} else {
-					this.eating = false;
-					this.blockDestroyPower = 0;
-					Direction direction = Direction.getRandom(level.getRandom());
-					if (blockState.isAir()) {
-						direction = Direction.DOWN;
-					}
-					BlockPos offset = this.pos.relative(direction);
-					BlockState state = level.getBlockState(offset);
-					if (!isStateSafeForTermites(state)) {
-						return false;
-					}
-
-					if (this.update > 0 && !blockState.isAir()) {
-						--this.update;
-						return true;
-					} else {
-						this.update = 1;
-						BlockPos priority = degradableBreakablePos(level, this.pos, natural);
-						if (priority != null) {
-							this.pos = priority;
-							exit = true;
-						} else {
-							BlockPos ledge = ledgePos(level, offset, natural);
-							BlockPos posUp = this.pos.above();
-							BlockState stateUp = level.getBlockState(posUp);
-							if (exposedToAir(level, offset, natural) && isBlockMovable(state, direction) && !(direction != Direction.DOWN && state.isAir() && (!this.mound.closerThan(this.pos, 1.5)) && ledge == null)) {
-								this.pos = offset;
-								if (ledge != null) {
-									this.pos = ledge;
-								}
-								exit = true;
-							} else if (ledge != null && exposedToAir(level, ledge, natural)) {
-								this.pos = ledge;
-								exit = true;
-							} else if (!stateUp.isAir() && isBlockMovable(stateUp, Direction.UP) && exposedToAir(level, posUp, natural)) {
-								this.pos = posUp;
-								exit = true;
-							}
-						}
-					}
-				}
-			}
-			return exit || (exposedToAir(level, this.pos, natural));
-		}
-
-		@NotNull
-		public BlockPos getMoundPos() {
-			return this.mound;
-		}
-
-		@NotNull
-		public BlockPos getPos() {
-			return this.pos;
-		}
-
-		public int getPower() {
-			return this.blockDestroyPower;
-		}
-
-		public int getAliveTicks() {
-			return this.aliveTicks;
-		}
-
-		public int getUpdateTicks() {
-			return this.update;
-		}
-
-		public boolean getEating() {
-			return this.eating;
-		}
-
-		public int getID() {
-			return this.id;
 		}
 	}
 }

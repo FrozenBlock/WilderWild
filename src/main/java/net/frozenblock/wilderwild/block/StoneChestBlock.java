@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -36,6 +36,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.CompoundContainer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -72,6 +73,18 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class StoneChestBlock extends ChestBlock {
+	public static final float MIN_OPENABLE_PROGRESS = 0.3F;
+	public static final float MAX_OPENABLE_PROGRESS = 0.5F;
+	public static final float LIFT_AMOUNT = 0.025F;
+	public static final float MAX_LIFT_AMOUNT_UNDER_SOLID_BLOCK = 0.05F;
+	public static final double BREAK_PARTICLE_Y_OFFSET = 0.3D;
+	public static final float BREAK_PARTICLE_OFFSET = 0.21875F;
+	public static final double BREAK_PARTICLE_SPEED = 0.05D;
+	public static final int MIN_BREAK_PARTICLES = 1;
+	public static final int MAX_BREAK_PARTICLES = 3;
+	public static final double ITEM_DELTA_TRIANGLE_B = 0.11485D;
+	public static final double ITEM_DELTA_TRIANGLE_A_Y = 0.2D;
+	public static final double ITEM_DELTA_TRIANGLE_A_XZ = 0D;
 	public static final BooleanProperty ANCIENT = RegisterProperties.ANCIENT;
 	public static final BooleanProperty SCULK = RegisterProperties.HAS_SCULK;
 	public static final DoubleBlockCombiner.Combiner<ChestBlockEntity, Optional<MenuProvider>> STONE_NAME_RETRIEVER = new DoubleBlockCombiner.Combiner<>() {
@@ -128,7 +141,7 @@ public class StoneChestBlock extends ChestBlock {
 
 	public static boolean hasLid(@NotNull Level level, @NotNull BlockPos pos) {
 		if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity stoneChest) {
-			return stoneChest.openProgress < 0.3F;
+			return stoneChest.openProgress < MIN_OPENABLE_PROGRESS;
 		}
 		return false;
 	}
@@ -142,7 +155,7 @@ public class StoneChestBlock extends ChestBlock {
 
 	public static boolean hasLid(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
 		if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity stoneChest) {
-			return stoneChest.openProgress < 0.3F;
+			return stoneChest.openProgress < MIN_OPENABLE_PROGRESS;
 		}
 		return false;
 	}
@@ -154,14 +167,23 @@ public class StoneChestBlock extends ChestBlock {
 		return ChestBlock.isChestBlockedAt(level, pos) || !canInteract(level, pos);
 	}
 
-
 	public static boolean isStoneChestBlockedNoLid(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
 		return ChestBlock.isChestBlockedAt(level, pos) || !canInteract(level, pos);
 	}
 
 	public static void spawnBreakParticles(@NotNull Level level, @NotNull ItemStack stack, @NotNull BlockPos pos) {
 		if (level instanceof ServerLevel server) {
-			server.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack), pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5, level.random.nextIntBetweenInclusive(1, 3), 0.21875F, 0.21875F, 0.21875F, 0.05D);
+			server.sendParticles(
+				new ItemParticleOption(ParticleTypes.ITEM, stack),
+				pos.getX() + 0.5D,
+				pos.getY() + BREAK_PARTICLE_Y_OFFSET,
+				pos.getZ() + 0.5D,
+				level.getRandom().nextIntBetweenInclusive(MIN_BREAK_PARTICLES, MAX_BREAK_PARTICLES),
+				BREAK_PARTICLE_OFFSET,
+				BREAK_PARTICLE_OFFSET,
+				BREAK_PARTICLE_OFFSET,
+				BREAK_PARTICLE_SPEED
+			);
 		}
 	}
 
@@ -182,8 +204,8 @@ public class StoneChestBlock extends ChestBlock {
 		return null;
 	}
 
-	@Override
 	@NotNull
+	@Override
 	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		if (level.isClientSide) {
 			return InteractionResult.SUCCESS;
@@ -195,21 +217,21 @@ public class StoneChestBlock extends ChestBlock {
 			boolean ancient = state.getValue(ANCIENT);
 			if (canInteract(level, pos)) {
 				MenuProvider namedScreenHandlerFactory = this.getMenuProvider(state, level, pos);
-				if (!hasLid(level, pos) && (!player.isShiftKeyDown() || stoneChest.openProgress >= 0.5F) && namedScreenHandlerFactory != null) {
+				if (!hasLid(level, pos) && (!player.isShiftKeyDown() || stoneChest.openProgress >= MAX_OPENABLE_PROGRESS) && namedScreenHandlerFactory != null) {
 					player.openMenu(namedScreenHandlerFactory);
 					player.awardStat(this.getOpenChestStat());
 					PiglinAi.angerNearbyPiglins(player, true);
-				} else if (stoneChest.openProgress < 0.5F) {
+				} else if (stoneChest.openProgress < MAX_OPENABLE_PROGRESS) {
 					MenuProvider lidCheck = this.getBlockEntitySourceIgnoreLid(state, level, pos, false).apply(STONE_NAME_RETRIEVER).orElse(null);
 					boolean first = stoneChest.openProgress == 0F;
 					if (lidCheck == null) {
-						if (stoneChest.openProgress < 0.05F) {
-							stoneChest.setLid(!ancient ? stoneChest.openProgress + 0.025F : 0.05F);
+						if (stoneChest.openProgress < MAX_LIFT_AMOUNT_UNDER_SOLID_BLOCK) {
+							stoneChest.setLid(!ancient ? stoneChest.openProgress + LIFT_AMOUNT : MAX_LIFT_AMOUNT_UNDER_SOLID_BLOCK);
 						} else {
 							return InteractionResult.PASS;
 						}
 					} else {
-						stoneChest.liftLid(0.025F, ancient);
+						stoneChest.liftLid(LIFT_AMOUNT, ancient);
 					}
 					if (first) {
 						((ChestBlockEntityInterface) stoneChest).wilderWild$bubble(level, pos, state);
@@ -373,16 +395,21 @@ public class StoneChestBlock extends ChestBlock {
 						}
 					}
 				}
+				RandomSource random = level.getRandom();
 				for (ItemStack item : stoneChestBlock.nonAncientItems()) {
 					double d = EntityType.ITEM.getWidth();
-					double e = 1.0 - d;
-					double f = d / 2.0;
-					double g = pos.getX() + level.random.nextDouble() * e + f;
-					double h = pos.getY() + level.random.nextDouble() * e;
-					double i = pos.getZ() + level.random.nextDouble() * e + f;
+					double e = 1D - d;
+					double f = d / 2D;
+					double g = pos.getX() + random.nextDouble() * e + f;
+					double h = pos.getY() + random.nextDouble() * e;
+					double i = pos.getZ() + random.nextDouble() * e + f;
 					while (!item.isEmpty()) {
-						ItemEntity itemEntity = new ItemEntity(level, g, h, i, item.split(level.random.nextInt(21) + 10));
-						itemEntity.setDeltaMovement(level.random.triangle(0, 0.11485), level.random.triangle(0.2F, 0.11485), level.random.triangle(0, 0.11485));
+						ItemEntity itemEntity = new ItemEntity(level, g, h, i, item.split(random.nextInt(21) + 10));
+						itemEntity.setDeltaMovement(
+							random.triangle(ITEM_DELTA_TRIANGLE_A_XZ, ITEM_DELTA_TRIANGLE_B),
+							random.triangle(ITEM_DELTA_TRIANGLE_A_Y, ITEM_DELTA_TRIANGLE_B),
+							random.triangle(ITEM_DELTA_TRIANGLE_A_XZ, ITEM_DELTA_TRIANGLE_B)
+						);
 						level.addFreshEntity(itemEntity);
 					}
 				}

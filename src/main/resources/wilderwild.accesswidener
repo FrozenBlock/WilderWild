@@ -1,9 +1,9 @@
 accessWidener    v2    named
 
 # Advancement
-accessible field net/minecraft/advancements/critereon/EffectsChangedTrigger$TriggerInstance effects Ljava/util/Optional;
-accessible field net/minecraft/advancements/critereon/MobEffectsPredicate effectMap Ljava/util/Map;
-mutable field net/minecraft/advancements/critereon/MobEffectsPredicate effectMap Ljava/util/Map;
+accessible    field    net/minecraft/advancements/critereon/EffectsChangedTrigger$TriggerInstance    effects    Ljava/util/Optional;
+accessible    field    net/minecraft/advancements/critereon/MobEffectsPredicate    effectMap    Ljava/util/Map;
+mutable    field    net/minecraft/advancements/critereon/MobEffectsPredicate    effectMap    Ljava/util/Map;
 
 # Sculk Spreading
 accessible    class    net/minecraft/world/level/block/SculkVeinBlock$SculkVeinSpreaderConfig
@@ -14,7 +14,7 @@ accessible    method    net/minecraft/world/level/levelgen/feature/trunkplacers/
 accessible    method    net/minecraft/world/level/levelgen/feature/foliageplacers/FoliagePlacerType    <init>    (Lcom/mojang/serialization/Codec;)V
 accessible    method    net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacer    isDirt    (Lnet/minecraft/world/level/LevelSimulatedReader;Lnet/minecraft/core/BlockPos;)Z
 accessible    method    net/minecraft/data/worldgen/placement/VegetationPlacements    treePlacementBase    (Lnet/minecraft/world/level/levelgen/placement/PlacementModifier;)Lcom/google/common/collect/ImmutableList$Builder;
-accessible method net/minecraft/world/level/levelgen/feature/TreeFeature setBlockKnownShape (Lnet/minecraft/world/level/LevelWriter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
+accessible    method    net/minecraft/world/level/levelgen/feature/TreeFeature    setBlockKnownShape    (Lnet/minecraft/world/level/LevelWriter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
 
 # Items
 extendable    method    net/minecraft/world/item/InstrumentItem    getInstrument    (Lnet/minecraft/world/item/ItemStack;)Ljava/util/Optional;
@@ -54,6 +54,8 @@ accessible    method    net/minecraft/world/entity/Entity    updateInWaterStateA
 accessible    field    net/minecraft/server/level/ServerLevel    entityManager    Lnet/minecraft/world/level/entity/PersistentEntitySectionManager;
 accessible    class    net/minecraft/world/entity/monster/warden/Warden$VibrationUser
 accessible    field    net/minecraft/world/entity/ai/navigation/WallClimberNavigation    pathToPosition    Lnet/minecraft/core/BlockPos;
+extendable    method    net/minecraft/world/entity/LivingEntity    canBreatheUnderwater    ()Z
+accessible    method    net/minecraft/world/entity/LivingEntity    canBreatheUnderwater    ()Z
 
 # Entity Behaviors
 accessible    field    net/minecraft/world/entity/ai/Brain    availableBehaviorsByPriority    Ljava/util/Map;
@@ -104,11 +106,14 @@ accessible    method    net/minecraft/world/level/block/ChestBlock    isCatSitti
 accessible    method    net/minecraft/world/level/block/ChestBlock    isBlockedChestByBlock    (Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z
 accessible    field    net/minecraft/world/level/block/state/BlockBehaviour    UPDATE_SHAPE_ORDER    [Lnet/minecraft/core/Direction;
 accessible    method    net/minecraft/world/level/block/SculkBlock    getDecayPenalty    (Lnet/minecraft/world/level/block/SculkSpreader;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;I)I
+accessible    method    net/minecraft/world/level/block/BellBlock    onProjectileHit    (Lnet/minecraft/world/level/Level;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/phys/BlockHitResult;Lnet/minecraft/world/entity/projectile/Projectile;)V
+accessible    method    net/minecraft/world/level/block/state/BlockBehaviour$BlockStateBase    getSoundType    ()Lnet/minecraft/world/level/block/SoundType;
 
 # Block Entities
 accessible    field    net/minecraft/world/level/block/entity/RandomizableContainerBlockEntity    lootTable    Lnet/minecraft/resources/ResourceLocation;
 accessible    class    net/minecraft/world/level/block/entity/SculkSensorBlockEntity$VibrationUser
 accessible    class    net/minecraft/world/level/block/entity/SculkShriekerBlockEntity$VibrationUser
+accessible    field    net/minecraft/world/level/block/SculkSpreader$ChargeCursor    pos    Lnet/minecraft/core/BlockPos;
 
 # Render Types
 accessible    class    net/minecraft/client/renderer/RenderType$CompositeState
@@ -123,7 +128,11 @@ accessible    field    net/minecraft/client/renderer/RenderStateShard    RENDERT
 accessible    method    net/minecraft/client/renderer/RenderStateShard$ShaderStateShard    <init>    (Ljava/util/function/Supplier;)V
 
 # Spawn Placements
-accessible    method    net/minecraft/world/entity/SpawnPlacements   register    (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/entity/SpawnPlacements$Type;Lnet/minecraft/world/level/levelgen/Heightmap$Types;Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;)V
+accessible    method    net/minecraft/world/entity/SpawnPlacements    register    (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/entity/SpawnPlacements$Type;Lnet/minecraft/world/level/levelgen/Heightmap$Types;Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;)V
+accessible    field    net/minecraft/world/entity/SpawnPlacements$Data    predicate    Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;
+accessible    field    net/minecraft/world/entity/SpawnPlacements$Data    placement    Lnet/minecraft/world/entity/SpawnPlacements$Type;
+accessible    field    net/minecraft/world/entity/SpawnPlacements$Data    heightMap    Lnet/minecraft/world/level/levelgen/Heightmap$Types;
+accessible    method    net/minecraft/world/entity/SpawnPlacements$Data    <init>    (Lnet/minecraft/world/level/levelgen/Heightmap$Types;Lnet/minecraft/world/entity/SpawnPlacements$Type;Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;)V
 
 # Biomes
 accessible    method    net/minecraft/data/worldgen/biome/OverworldBiomes    calculateSkyColor    (F)I
@@ -146,7 +155,7 @@ accessible    class     net/minecraft/world/level/levelgen/SurfaceRules$LazyYCon
 # Data Generation
 accessible    field    net/minecraft/data/DataGenerator    vanillaPackOutput    Lnet/minecraft/data/PackOutput;
 accessible    method    net/minecraft/data/DataGenerator$PackGenerator    <init>    (Lnet/minecraft/data/DataGenerator;ZLjava/lang/String;Lnet/minecraft/data/PackOutput;)V
-accessible field net/minecraft/data/loot/EntityLootSubProvider ENTITY_ON_FIRE Lnet/minecraft/advancements/critereon/EntityPredicate$Builder;
+accessible    field    net/minecraft/data/loot/EntityLootSubProvider    ENTITY_ON_FIRE    Lnet/minecraft/advancements/critereon/EntityPredicate$Builder;
 
 # Registry
 accessible    method    net/minecraft/data/registries/VanillaRegistries    validateThatAllBiomeFeaturesHaveBiomeFilter    (Lnet/minecraft/core/HolderLookup$Provider;)V

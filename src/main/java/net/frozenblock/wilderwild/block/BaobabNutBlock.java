@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.block;
 
 import java.util.Objects;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import net.frozenblock.wilderwild.world.generation.sapling.BaobabSaplingGenerator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -31,6 +30,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -50,6 +50,7 @@ public class BaobabNutBlock extends SaplingBlock {
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	public static final int MAX_AGE = 2;
 	public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
+	public static final double HANGING_GROWTH_CHANCE = 0.4D;
 	private static final VoxelShape[] SHAPES = new VoxelShape[]{
 		Shapes.or(Block.box(7.0, 13.0, 7.0, 9.0, 16.0, 9.0), Block.box(5.0, 6.0, 5.0, 11.0, 13.0, 11.0)),
 		Shapes.or(Block.box(7.0, 12.0, 7.0, 9.0, 16.0, 9.0), Block.box(4.0, 3.0, 4.0, 12.0, 12.0, 12.0)),
@@ -57,8 +58,8 @@ public class BaobabNutBlock extends SaplingBlock {
 		Block.box(7.0, 3.0, 7.0, 9.0, 16.0, 9.0), Block.box(2.0D, 0.0D, 2.0D, 14.0D, 12.0D, 14.0D)
 	};
 
-	public BaobabNutBlock(@NotNull BlockBehaviour.Properties settings) {
-		super(new BaobabSaplingGenerator(), settings);
+	public BaobabNutBlock(AbstractTreeGrower treeGrower, @NotNull BlockBehaviour.Properties settings) {
+		super(treeGrower, settings);
 		this.registerDefaultState(this.defaultBlockState().setValue(AGE, 0).setValue(HANGING, false));
 	}
 
@@ -109,7 +110,7 @@ public class BaobabNutBlock extends SaplingBlock {
 					this.advanceTree(level, pos, state, random);
 				}
 			} else {
-				if (random.nextDouble() < 0.4 && !isFullyGrown(state)) {
+				if (random.nextDouble() <= HANGING_GROWTH_CHANCE && !isFullyGrown(state)) {
 					level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
 				}
 			}
