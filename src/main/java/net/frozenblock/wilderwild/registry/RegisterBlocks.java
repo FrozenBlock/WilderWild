@@ -1534,58 +1534,58 @@ public final class RegisterBlocks {
 	}
 
 	private static void registerAxe() {
-		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.OAK_LOG, (context, level, pos, state, face, horizontal) ->
+		AxeBehaviors.register(Blocks.OAK_LOG, (context, level, pos, state, face, horizontal) ->
 			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.HOLLOWED_OAK_LOG, false));
-		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.BIRCH_LOG, (context, level, pos, state, face, horizontal) ->
+		AxeBehaviors.register(Blocks.BIRCH_LOG, (context, level, pos, state, face, horizontal) ->
 			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.HOLLOWED_BIRCH_LOG, false));
-		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.CHERRY_LOG, (context, level, pos, state, face, horizontal) ->
+		AxeBehaviors.register(Blocks.CHERRY_LOG, (context, level, pos, state, face, horizontal) ->
 			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.HOLLOWED_CHERRY_LOG, false));
-		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.SPRUCE_LOG, (context, level, pos, state, face, horizontal) ->
+		AxeBehaviors.register(Blocks.SPRUCE_LOG, (context, level, pos, state, face, horizontal) ->
 			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.HOLLOWED_SPRUCE_LOG, false));
-		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.DARK_OAK_LOG, (context, level, pos, state, face, horizontal) ->
+		AxeBehaviors.register(Blocks.DARK_OAK_LOG, (context, level, pos, state, face, horizontal) ->
 			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.HOLLOWED_DARK_OAK_LOG, false));
-		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.JUNGLE_LOG, (context, level, pos, state, face, horizontal) ->
+		AxeBehaviors.register(Blocks.JUNGLE_LOG, (context, level, pos, state, face, horizontal) ->
 			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.HOLLOWED_JUNGLE_LOG, false));
-		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.ACACIA_LOG, (context, level, pos, state, face, horizontal) ->
+		AxeBehaviors.register(Blocks.ACACIA_LOG, (context, level, pos, state, face, horizontal) ->
 			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.HOLLOWED_ACACIA_LOG, false));
-		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.MANGROVE_LOG, (context, level, pos, state, face, horizontal) ->
+		AxeBehaviors.register(Blocks.MANGROVE_LOG, (context, level, pos, state, face, horizontal) ->
 			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.HOLLOWED_MANGROVE_LOG, false));
-		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.CRIMSON_STEM, (context, level, pos, state, face, horizontal) ->
+		AxeBehaviors.register(Blocks.CRIMSON_STEM, (context, level, pos, state, face, horizontal) ->
 			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.HOLLOWED_CRIMSON_STEM, true));
-		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.WARPED_STEM, (context, level, pos, state, face, horizontal) ->
+		AxeBehaviors.register(Blocks.WARPED_STEM, (context, level, pos, state, face, horizontal) ->
 			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.HOLLOWED_WARPED_STEM, true));
-		AxeBehaviors.AXE_BEHAVIORS.put(RegisterBlocks.BAOBAB_LOG, (context, level, pos, state, face, horizontal) ->
+		AxeBehaviors.register(RegisterBlocks.BAOBAB_LOG, (context, level, pos, state, face, horizontal) ->
 			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.HOLLOWED_BAOBAB_LOG, false));
-		AxeBehaviors.AXE_BEHAVIORS.put(RegisterBlocks.CYPRESS_LOG, (context, level, pos, state, face, horizontal) ->
+		AxeBehaviors.register(RegisterBlocks.CYPRESS_LOG, (context, level, pos, state, face, horizontal) ->
 			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.HOLLOWED_CYPRESS_LOG, false));
-		AxeBehaviors.AXE_BEHAVIORS.put(RegisterBlocks.PALM_LOG, (context, level, pos, state, face, horizontal) ->
+		AxeBehaviors.register(RegisterBlocks.PALM_LOG, (context, level, pos, state, face, horizontal) ->
 			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.HOLLOWED_PALM_LOG, false));
 		//STRIPPED
-		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.STRIPPED_OAK_LOG, (context, level, pos, state, face, horizontal) ->
+		AxeBehaviors.register(Blocks.STRIPPED_OAK_LOG, (context, level, pos, state, face, horizontal) ->
 			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.STRIPPED_HOLLOWED_OAK_LOG, false));
-		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.STRIPPED_BIRCH_LOG, (context, level, pos, state, face, horizontal) ->
+		AxeBehaviors.register(Blocks.STRIPPED_BIRCH_LOG, (context, level, pos, state, face, horizontal) ->
 			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.STRIPPED_HOLLOWED_BIRCH_LOG, false));
-		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.STRIPPED_CHERRY_LOG, (context, level, pos, state, face, horizontal) ->
+		AxeBehaviors.register(Blocks.STRIPPED_CHERRY_LOG, (context, level, pos, state, face, horizontal) ->
 			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.STRIPPED_HOLLOWED_CHERRY_LOG, false));
-		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.STRIPPED_SPRUCE_LOG, (context, level, pos, state, face, horizontal) ->
+		AxeBehaviors.register(Blocks.STRIPPED_SPRUCE_LOG, (context, level, pos, state, face, horizontal) ->
 			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG, false));
-		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.STRIPPED_DARK_OAK_LOG, (context, level, pos, state, face, horizontal) ->
+		AxeBehaviors.register(Blocks.STRIPPED_DARK_OAK_LOG, (context, level, pos, state, face, horizontal) ->
 			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG, false));
-		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.STRIPPED_JUNGLE_LOG, (context, level, pos, state, face, horizontal) ->
+		AxeBehaviors.register(Blocks.STRIPPED_JUNGLE_LOG, (context, level, pos, state, face, horizontal) ->
 			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG, false));
-		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.STRIPPED_ACACIA_LOG, (context, level, pos, state, face, horizontal) ->
+		AxeBehaviors.register(Blocks.STRIPPED_ACACIA_LOG, (context, level, pos, state, face, horizontal) ->
 			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.STRIPPED_HOLLOWED_ACACIA_LOG, false));
-		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.STRIPPED_MANGROVE_LOG, (context, level, pos, state, face, horizontal) ->
+		AxeBehaviors.register(Blocks.STRIPPED_MANGROVE_LOG, (context, level, pos, state, face, horizontal) ->
 			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG, false));
-		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.STRIPPED_CRIMSON_STEM, (context, level, pos, state, face, horizontal) ->
+		AxeBehaviors.register(Blocks.STRIPPED_CRIMSON_STEM, (context, level, pos, state, face, horizontal) ->
 			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM, true));
-		AxeBehaviors.AXE_BEHAVIORS.put(Blocks.STRIPPED_WARPED_STEM, (context, level, pos, state, face, horizontal) ->
+		AxeBehaviors.register(Blocks.STRIPPED_WARPED_STEM, (context, level, pos, state, face, horizontal) ->
 			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.STRIPPED_HOLLOWED_WARPED_STEM, true));
-		AxeBehaviors.AXE_BEHAVIORS.put(RegisterBlocks.STRIPPED_BAOBAB_LOG, (context, level, pos, state, face, horizontal) ->
+		AxeBehaviors.register(RegisterBlocks.STRIPPED_BAOBAB_LOG, (context, level, pos, state, face, horizontal) ->
 			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG, false));
-		AxeBehaviors.AXE_BEHAVIORS.put(RegisterBlocks.STRIPPED_CYPRESS_LOG, (context, level, pos, state, face, horizontal) ->
+		AxeBehaviors.register(RegisterBlocks.STRIPPED_CYPRESS_LOG, (context, level, pos, state, face, horizontal) ->
 			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG, false));
-		AxeBehaviors.AXE_BEHAVIORS.put(RegisterBlocks.STRIPPED_PALM_LOG, (context, level, pos, state, face, horizontal) ->
+		AxeBehaviors.register(RegisterBlocks.STRIPPED_PALM_LOG, (context, level, pos, state, face, horizontal) ->
 			HollowedLogBlock.hollow(level, pos, state, face, RegisterBlocks.STRIPPED_HOLLOWED_PALM_LOG, false));
 	}
 

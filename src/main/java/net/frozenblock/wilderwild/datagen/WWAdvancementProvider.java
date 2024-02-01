@@ -23,6 +23,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.frozenblock.wilderwild.advancement.FireflyBottleTrigger;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.registry.RegisterCriteria;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
@@ -48,7 +49,7 @@ public class WWAdvancementProvider extends FabricAdvancementProvider {
 				true,
 				false
 			)
-			.addCriterion("firefly_bottled", FireflyBottleTrigger.TriggerInstance.fireflyBottle())
+			.addCriterion("firefly_bottled", RegisterCriteria.FIREFLY_BOTTLE.createCriterion(FireflyBottleTrigger.TriggerInstance.fireflyBottle()))
 			.save(writer, WilderSharedConstants.string("husbandry/firefly_in_a_bottle"));
 	}
 }

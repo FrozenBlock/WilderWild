@@ -24,5 +24,6 @@
     [
       "firefly_bottled"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

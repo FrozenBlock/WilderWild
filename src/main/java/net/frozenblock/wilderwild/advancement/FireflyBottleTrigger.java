@@ -36,38 +36,23 @@ public class FireflyBottleTrigger extends SimpleCriterionTrigger<FireflyBottleTr
 	@Override
 	@NotNull
 	public TriggerInstance createInstance(@NotNull JsonObject jsonObject, @NotNull Optional<ContextAwarePredicate> contextAwarePredicate, @NotNull DeserializationContext deserializationContext) {
-		Optional<ItemPredicate> itemPredicate = ItemPredicate.fromJson(jsonObject.get("item"));
-		return new TriggerInstance(itemPredicate, contextAwarePredicate);
+		return new TriggerInstance(contextAwarePredicate);
 	}
 
-	public void trigger(@NotNull ServerPlayer player, @NotNull ItemStack stack) {
-		this.trigger(player, conditions -> conditions.matches(stack));
+	public void trigger(@NotNull ServerPlayer player) {
+		this.trigger(player, conditions -> true);
 	}
 
 	public static class TriggerInstance
 		extends AbstractCriterionTriggerInstance {
-		private final Optional<ItemPredicate> item;
 
-		public TriggerInstance(@NotNull Optional<ItemPredicate> item, @NotNull Optional<ContextAwarePredicate> contextAwarePredicate) {
+		public TriggerInstance(@NotNull Optional<ContextAwarePredicate> contextAwarePredicate) {
 			super(contextAwarePredicate);
-			this.item = item;
 		}
 
 		@NotNull
-		public static TriggerInstance fireflyBottle(@NotNull ItemPredicate item) {
-			return new TriggerInstance(Optional.of(item), Optional.empty());
-		}
-
-		public boolean matches(@NotNull ItemStack stack) {
-            return this.item.map(itemPredicate -> itemPredicate.matches(stack)).orElse(false);
-        }
-
-		@Override
-		@NotNull
-		public JsonObject serializeToJson() {
-			JsonObject jsonObject = super.serializeToJson();
-			this.item.ifPresent(itemPredicate -> jsonObject.add("item", itemPredicate.serializeToJson()));
-			return jsonObject;
+		public static TriggerInstance fireflyBottle() {
+			return new TriggerInstance(Optional.empty());
 		}
 	}
 }
