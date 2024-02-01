@@ -23,6 +23,8 @@ import net.frozenblock.lib.wind.api.WindManagerExtension;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import org.jetbrains.annotations.NotNull;
 
 public class WilderWindManager implements WindManagerExtension {
@@ -38,14 +40,19 @@ public class WilderWindManager implements WindManagerExtension {
 	}
 
 	@Override
-	public void tick() {
+	public ResourceLocation extensionID() {
+		return WilderSharedConstants.id("wind_extension");
+	}
+
+	@Override
+	public void tick(ServerLevel level) {
 		this.cloudX += (manager.laggedWindX * 0.007);
 		this.cloudY += (manager.laggedWindY * 0.01);
 		this.cloudZ += (manager.laggedWindZ * 0.007);
 	}
 
 	@Override
-	public void baseTick() {
+	public void baseTick(ServerLevel level) {
 	}
 
 	@Override
