@@ -99,13 +99,12 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
 	@Override
 	@NotNull
 	public ItemInteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
-		ItemStack itemStack = player.getItemInHand(hand);
 		int i = state.getValue(STAGE);
-		if (i > 1 && itemStack.is(Items.SHEARS)) {
+		if (i > 1 && stack.is(Items.SHEARS)) {
 			popResource(level, pos, new ItemStack(state.getBlock().asItem()));
 			level.setBlockAndUpdate(pos, state.setValue(STAGE, i - 1));
 			level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
-			itemStack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
+			stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 			level.gameEvent(player, GameEvent.SHEAR, pos);
 			return ItemInteractionResult.sidedSuccess(level.isClientSide);
 		} else {
