@@ -133,7 +133,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 	@Nullable
 	@Override
-	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
+	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData) {
 		if (this.inventory.get(0).isEmpty() && reason == MobSpawnType.NATURAL) {
 			int diff = difficulty.getDifficulty().getId();
 			if (this.random.nextInt(0, diff == 0 ? 32 : (27 / diff)) == 0) {
@@ -147,7 +147,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 				this.setItem(new ItemStack(RegisterBlocks.TUMBLEWEED_PLANT), true);
 			}
 		}
-		return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
+		return super.finalizeSpawn(level, difficulty, reason, spawnData);
 	}
 
 	@Override

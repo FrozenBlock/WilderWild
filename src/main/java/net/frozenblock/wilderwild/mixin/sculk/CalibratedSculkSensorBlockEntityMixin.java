@@ -25,6 +25,7 @@ import net.frozenblock.wilderwild.registry.RegisterGameEvents;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -112,10 +113,10 @@ public abstract class CalibratedSculkSensorBlockEntityMixin extends BlockEntity 
 	}
 
 	@Unique
-	@Override
 	@NotNull
-	public CompoundTag getUpdateTag() {
-		return this.saveWithoutMetadata();
+	@Override
+	public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
+		return this.saveWithoutMetadata(provider);
 	}
 
 }

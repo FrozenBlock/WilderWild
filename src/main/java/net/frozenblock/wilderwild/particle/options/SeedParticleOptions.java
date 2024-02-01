@@ -24,6 +24,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Locale;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
@@ -55,7 +56,7 @@ public class SeedParticleOptions implements ParticleOptions {
 	public static final Deserializer<SeedParticleOptions> DESERIALIZER = new Deserializer<>() {
         @Override
         @NotNull
-        public SeedParticleOptions fromCommand(@NotNull ParticleType<SeedParticleOptions> particleType, @NotNull StringReader reader) throws CommandSyntaxException {
+        public SeedParticleOptions fromCommand(ParticleType<SeedParticleOptions> type, @NotNull StringReader reader, HolderLookup.Provider provider) throws CommandSyntaxException {
             boolean milkweed = reader.readBoolean();
             boolean controlled = reader.readBoolean();
             Vector3f speed = DustParticleOptions.readVector3f(reader);
@@ -90,14 +91,15 @@ public class SeedParticleOptions implements ParticleOptions {
 		this.speed = speed;
 	}
 
-	@Override
 	@NotNull
+	@Override
 	public ParticleType<?> getType() {
 		return RegisterParticles.SEED;
 	}
 
 	@NotNull
-	public String writeToString() {
+	@Override
+	public String writeToString(HolderLookup.Provider provider) {
 		return String.format(Locale.ROOT, "%s %b %b", BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), this.isMilkweed, this.controlled);
 	}
 

@@ -37,8 +37,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
-import org.joml.Matrix3f;
-import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 
 public class FireflyRenderer extends EntityRenderer<Firefly> {
@@ -61,51 +59,55 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 		super(ctx);
 	}
 
-	public static void renderFirefly(@NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int light, boolean nectar, int overlay, int age, float tickDelta, boolean flickers, FireflyColor color, float scale, float xOffset, float yOffset, float zOffset, Quaternionf rotation) {
+	public static void renderFirefly(@NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight, boolean nectar, int overlay, int age, float tickDelta, boolean flickers, FireflyColor color, float scale, float xOffset, float yOffset, float zOffset, Quaternionf rotation) {
 		poseStack.pushPose();
 		poseStack.scale(scale, scale, scale);
 		poseStack.translate(xOffset, yOffset, zOffset);
 		poseStack.mulPose(rotation);
 		poseStack.mulPose(QUAT_180);
 
-		PoseStack.Pose entry = poseStack.last();
-		Matrix4f matrix4f = entry.pose();
-		Matrix3f matrix3f = entry.normal();
+		PoseStack.Pose pose = poseStack.last();
 		Supplier<RenderType> nectarLayer = () -> age % 2 == 0 ? NECTAR_LAYER : NECTAR_FLAP_LAYER;
 		VertexConsumer vertexConsumer = buffer.getBuffer(nectar ? nectarLayer.get() : LAYER);
 
+		vertex(vertexConsumer, pose, packedLight, 0F, 0, 0, 1, 255);
+		vertex(vertexConsumer, pose, packedLight, 1F, 0, 1, 1, 255);
+		vertex(vertexConsumer, pose, packedLight, 1F, 1, 1, 0, 255);
+		vertex(vertexConsumer, pose, packedLight, 0F, 1, 0, 0, 255);
+		/*
 		vertexConsumer
-			.vertex(matrix4f, -0.5F, -0.5F, 0F)
+			.vertex(pose, -0.5F, -0.5F, 0F)
 			.color(255, 255, 255, 255)
 			.uv(0, 1)
 			.overlayCoords(overlay)
-			.uv2(light)
-			.normal(matrix3f, 0F, 1F, 0F)
+			.uv2(packedLight)
+			.normal(pose, 0F, 1F, 0F)
 			.endVertex();
 		vertexConsumer
-			.vertex(matrix4f, 0.5F, -0.5F, 0F)
+			.vertex(pose, 0.5F, -0.5F, 0F)
 			.color(255, 255, 255, 255)
 			.uv(1, 1)
 			.overlayCoords(overlay)
-			.uv2(light)
-			.normal(matrix3f, 0F, 1F, 0F)
+			.uv2(packedLight)
+			.normal(pose, 0F, 1F, 0F)
 			.endVertex();
 		vertexConsumer
-			.vertex(matrix4f, 0.5F, 0.5F, 0F)
+			.vertex(pose, 0.5F, 0.5F, 0F)
 			.color(255, 255, 255, 255)
 			.uv(1, 0)
 			.overlayCoords(overlay)
-			.uv2(light)
-			.normal(matrix3f, 0F, 1F, 0F)
+			.uv2(packedLight)
+			.normal(pose, 0F, 1F, 0F)
 			.endVertex();
 		vertexConsumer
-			.vertex(matrix4f, -0.5F, 0.5F, 0F)
+			.vertex(pose, -0.5F, 0.5F, 0F)
 			.color(255, 255, 255, 255)
 			.uv(0, 0)
 			.overlayCoords(overlay)
-			.uv2(light)
-			.normal(matrix3f, 0F, 1F, 0F)
+			.uv2(packedLight)
+			.normal(pose, 0F, 1F, 0F)
 			.endVertex();
+		 */
 
 		if (color != null && LAYERS.get(color.key()) != null) {
 			RenderType layer = nectar ? NECTAR_OVERLAY : LAYERS.get(color.key());
@@ -118,38 +120,45 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 			(int) (((age + tickDelta) * Mth.PI) * -4D) :
 			(int) Math.max((255D * (Math.cos(((age + tickDelta) * Mth.PI) * 0.05D))), 0D);
 
+		vertex(vertexConsumer, pose, packedLight, 0F, 0, 0, 1, calcColor);
+		vertex(vertexConsumer, pose, packedLight, 1F, 0, 1, 1, calcColor);
+		vertex(vertexConsumer, pose, packedLight, 1F, 1, 1, 0, calcColor);
+		vertex(vertexConsumer, pose, packedLight, 0F, 1, 0, 0, calcColor);
+
+		/*
 		vertexConsumer
-			.vertex(matrix4f, -0.5F, -0.5F, 0F)
+			.vertex(pose, -0.5F, -0.5F, 0F)
 			.color(calcColor, calcColor, calcColor, calcColor)
 			.uv(0, 1)
 			.overlayCoords(overlay)
-			.uv2(light)
-			.normal(matrix3f, 0F, 1F, 0F)
+			.uv2(packedLight)
+			.normal(pose, 0F, 1F, 0F)
 			.endVertex();
 		vertexConsumer
-			.vertex(matrix4f, 0.5F, -0.5F, 0F)
+			.vertex(pose, 0.5F, -0.5F, 0F)
 			.color(calcColor, calcColor, calcColor, calcColor)
 			.uv(1, 1)
 			.overlayCoords(overlay)
-			.uv2(light)
-			.normal(matrix3f, 0F, 1F, 0F)
+			.uv2(packedLight)
+			.normal(pose, 0F, 1F, 0F)
 			.endVertex();
 		vertexConsumer
-			.vertex(matrix4f, 0.5F, 0.5F, 0F)
+			.vertex(pose, 0.5F, 0.5F, 0F)
 			.color(calcColor, calcColor, calcColor, calcColor)
 			.uv(1, 0)
 			.overlayCoords(overlay)
-			.uv2(light)
-			.normal(matrix3f, 0F, 1F, 0F)
+			.uv2(packedLight)
+			.normal(pose, 0F, 1F, 0F)
 			.endVertex();
 		vertexConsumer
-			.vertex(matrix4f, -0.5F, 0.5F, 0F)
+			.vertex(pose, -0.5F, 0.5F, 0F)
 			.color(calcColor, calcColor, calcColor, calcColor)
 			.uv(0, 0)
 			.overlayCoords(overlay)
-			.uv2(light)
-			.normal(matrix3f, 0F, 1F, 0F)
+			.uv2(packedLight)
+			.normal(pose, 0F, 1F, 0F)
 			.endVertex();
+		 */
 
 		poseStack.popPose();
 	}
@@ -185,6 +194,16 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 			this.renderNameTag(entity, entity.getDisplayName(), poseStack, buffer, light, tickDelta);
 		}
 		poseStack.popPose();
+	}
+
+	private static void vertex(@NotNull VertexConsumer vertexConsumer, PoseStack.Pose pose, int packedLight, float f, int j, int u, int v, int alpha) {
+		vertexConsumer.vertex(pose, f - 0.5F, (float)j - 0.25F, 0F)
+			.color(alpha, alpha, alpha, alpha)
+			.uv((float)u, (float)v)
+			.overlayCoords(OverlayTexture.NO_OVERLAY)
+			.uv2(packedLight)
+			.normal(pose, 0.0F, 1.0F, 0.0F)
+			.endVertex();
 	}
 
 	@Override

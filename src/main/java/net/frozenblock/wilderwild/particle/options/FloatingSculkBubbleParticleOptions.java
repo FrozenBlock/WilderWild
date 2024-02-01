@@ -24,6 +24,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Locale;
 import net.frozenblock.wilderwild.registry.RegisterParticles;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.DustParticleOptionsBase;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
@@ -32,6 +33,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.RandomSource;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
@@ -53,9 +55,10 @@ public class FloatingSculkBubbleParticleOptions implements ParticleOptions {
 		FloatingSculkBubbleParticleOptions::new
 	);
 	public static final ParticleOptions.Deserializer<FloatingSculkBubbleParticleOptions> DESERIALIZER = new ParticleOptions.Deserializer<>() {
-		@Override
+		@Contract("_, _, _ -> new")
 		@NotNull
-		public FloatingSculkBubbleParticleOptions fromCommand(@NotNull ParticleType<FloatingSculkBubbleParticleOptions> particleType, @NotNull StringReader reader) throws CommandSyntaxException {
+		@Override
+		public FloatingSculkBubbleParticleOptions fromCommand(ParticleType<FloatingSculkBubbleParticleOptions> type, @NotNull StringReader reader, HolderLookup.Provider provider) throws CommandSyntaxException {
 			double d = reader.readDouble();
 			int i = reader.readInt();
 			Vector3f vector3f = DustParticleOptionsBase.readVector3f(reader);
@@ -88,7 +91,8 @@ public class FloatingSculkBubbleParticleOptions implements ParticleOptions {
 	}
 
 	@NotNull
-	public String writeToString() {
+	@Override
+	public String writeToString(HolderLookup.Provider provider) {
 		return String.format(Locale.ROOT, "%s %.2f %d %.2f %.2f %.2f", BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), this.getSize(), this.getMaxAge(), this.velocity.x(), this.velocity.y(), this.velocity.z());
 	}
 

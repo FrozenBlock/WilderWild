@@ -219,7 +219,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@Nullable
 	@Override
-	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
+	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData) {
 		JellyfishGroupData jellyfishGroupData;
 		if (spawnData instanceof JellyfishGroupData jellyGroupData) {
 			this.setVariant(jellyGroupData.variant);
@@ -231,7 +231,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 			this.setBaby(true);
 		}
 		jellyfishGroupData.increaseGroupSizeByOne();
-		return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
+		return super.finalizeSpawn(level, difficulty, reason, spawnData);
 	}
 
 	public void setVariantFromPos(@NotNull Level level, @NotNull BlockPos pos) {

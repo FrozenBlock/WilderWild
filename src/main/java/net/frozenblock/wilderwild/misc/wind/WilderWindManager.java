@@ -25,6 +25,7 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.networking.packet.WilderWindPacket;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
@@ -38,6 +39,11 @@ public class WilderWindManager implements WindManagerExtension {
 
 	public WilderWindManager(WindManager manager) {
 		this.manager = manager;
+	}
+
+	@Override
+	public ResourceLocation extensionID() {
+		return WilderSharedConstants.id("wind_extension");
 	}
 
 	@Override

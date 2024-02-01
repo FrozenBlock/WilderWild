@@ -26,6 +26,7 @@ import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -137,10 +138,10 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 	}
 
 	@Unique
-	@Override
 	@NotNull
-	public CompoundTag getUpdateTag() {
-		return this.saveWithoutMetadata();
+	@Override
+	public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
+		return this.saveWithoutMetadata(provider);
 	}
 
 	@Unique
@@ -203,7 +204,7 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 	}
 
 	@Inject(at = @At("TAIL"), method = "load")
-	private void wilderWild$load(CompoundTag nbt, CallbackInfo info) {
+	private void wilderWild$load(CompoundTag nbt, HolderLookup.Provider provider, CallbackInfo info) {
 		this.wilderWild$setAge(nbt.getInt("age"));
 		this.wilderWild$setAnimTicks(nbt.getInt("animTicks"));
 		this.wilderWild$setPrevAnimTicks(nbt.getInt("prevAnimTicks"));
@@ -212,7 +213,7 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 	}
 
 	@Inject(at = @At("TAIL"), method = "saveAdditional")
-	private void wilderWild$saveAdditional(CompoundTag nbt, CallbackInfo info) {
+	private void wilderWild$saveAdditional(CompoundTag nbt, HolderLookup.Provider provider, CallbackInfo info) {
 		nbt.putInt("age", this.wilderWild$getAge());
 		nbt.putInt("animTicks", this.wilderWild$getAnimTicks());
 		nbt.putInt("prevAnimTicks", this.wilderWild$getPrevAnimTicks());

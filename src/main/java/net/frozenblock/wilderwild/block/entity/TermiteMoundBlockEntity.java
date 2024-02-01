@@ -24,6 +24,7 @@ import net.frozenblock.wilderwild.entity.ai.TermiteManager;
 import net.frozenblock.wilderwild.misc.client.sound.ClientMethodInteractionHandler;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerPlayer;
@@ -77,21 +78,21 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
-	@Override
 	@NotNull
-	public CompoundTag getUpdateTag() {
-		return this.saveWithoutMetadata();
+	@Override
+	public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
+		return this.saveWithoutMetadata(provider);
 	}
 
 	@Override
-	protected void saveAdditional(@NotNull CompoundTag tag) {
-		super.saveAdditional(tag);
+	protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
+		super.saveAdditional(tag, provider);
 		this.termiteManager.saveAdditional(tag);
 	}
 
 	@Override
-	public void load(@NotNull CompoundTag tag) {
-		super.load(tag);
+	public void load(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
+		super.load(tag, provider);
 		this.termiteManager.load(tag);
 	}
 }

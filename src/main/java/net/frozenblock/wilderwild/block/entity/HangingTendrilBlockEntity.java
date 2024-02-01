@@ -26,6 +26,7 @@ import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterGameEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -124,15 +125,15 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
-	@Override
 	@NotNull
-	public CompoundTag getUpdateTag() {
-		return this.saveWithoutMetadata();
+	@Override
+	public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
+		return this.saveWithoutMetadata(provider);
 	}
 
 	@Override
-	public void load(@NotNull CompoundTag tag) {
-		super.load(tag);
+	public void load(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
+		super.load(tag, provider);
 		this.lastVibrationFrequency = tag.getInt("last_vibration_frequency");
 		this.ticksToStopTwitching = tag.getInt("ticksToStopTwitching");
 		this.storedXP = tag.getInt("storedXP");
@@ -143,8 +144,8 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	}
 
 	@Override
-	protected void saveAdditional(@NotNull CompoundTag tag) {
-		super.saveAdditional(tag);
+	protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
+		super.saveAdditional(tag, provider);
 		tag.putInt("last_vibration_frequency", this.lastVibrationFrequency);
 		tag.putInt("ticksToStopTwitching", this.ticksToStopTwitching);
 		tag.putInt("storedXP", this.storedXP);
