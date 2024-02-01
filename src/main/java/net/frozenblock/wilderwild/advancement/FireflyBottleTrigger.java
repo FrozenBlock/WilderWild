@@ -23,19 +23,17 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
 import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import net.minecraft.advancements.critereon.DeserializationContext;
-import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
-import java.util.Optional;
 
 public class FireflyBottleTrigger extends SimpleCriterionTrigger<FireflyBottleTrigger.TriggerInstance> {
+	static final ResourceLocation ID = WilderSharedConstants.id("firefly_bottle");
 
 	@Override
 	@NotNull
-	public TriggerInstance createInstance(@NotNull JsonObject jsonObject, @NotNull Optional<ContextAwarePredicate> contextAwarePredicate, @NotNull DeserializationContext deserializationContext) {
+	public TriggerInstance createInstance(@NotNull JsonObject jsonObject, @NotNull ContextAwarePredicate contextAwarePredicate, @NotNull DeserializationContext deserializationContext) {
 		return new TriggerInstance(contextAwarePredicate);
 	}
 
@@ -43,16 +41,22 @@ public class FireflyBottleTrigger extends SimpleCriterionTrigger<FireflyBottleTr
 		this.trigger(player, conditions -> true);
 	}
 
+	@NotNull
+	@Override
+	public ResourceLocation getId() {
+		return ID;
+	}
+
 	public static class TriggerInstance
 		extends AbstractCriterionTriggerInstance {
 
-		public TriggerInstance(@NotNull Optional<ContextAwarePredicate> contextAwarePredicate) {
-			super(contextAwarePredicate);
+		public TriggerInstance(ContextAwarePredicate player) {
+			super(ID, player);
 		}
 
 		@NotNull
 		public static TriggerInstance fireflyBottle() {
-			return new TriggerInstance(Optional.empty());
+			return new TriggerInstance(ContextAwarePredicate.ANY);
 		}
 	}
 }

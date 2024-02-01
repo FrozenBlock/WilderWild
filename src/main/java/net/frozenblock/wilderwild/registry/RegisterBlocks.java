@@ -74,11 +74,11 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.world.generation.sapling.BaobabSaplingGenerator;
 import net.frozenblock.wilderwild.world.generation.sapling.CypressSaplingGenerator;
 import net.frozenblock.wilderwild.world.generation.sapling.PalmSaplingGenerator;
+import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
 import net.minecraft.core.Registry;
 import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
-import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -475,7 +475,7 @@ public final class RegisterBlocks {
 			.strength(0.1F)
 			.noCollision()
 			.nonOpaque()
-			.sounds(SoundType.SPONGE)
+			.sounds(SoundType.GRASS)
 	);
 
 	public static final Block OSTRICH_EGG = new OstrichEggBlock(
@@ -1264,9 +1264,9 @@ public final class RegisterBlocks {
 			@Override
 			@NotNull
 			public ItemStack execute(@NotNull BlockSource source, @NotNull ItemStack stack) {
-				Level level = source.level();
-				Direction direction = source.state().getValue(DispenserBlock.FACING);
-				Vec3 position = source.center().add(direction.getStepX(), direction.getStepY(), direction.getStepZ());
+				Level level = source.getLevel();
+				Direction direction = source.getBlockState().getValue(DispenserBlock.FACING);
+				Vec3 position = source.getPos().getCenter().add(direction.getStepX(), direction.getStepY(), direction.getStepZ());
 				Tumbleweed tumbleweed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
 				Vec3 vec3 = new Vec3(direction.getStepX(), direction.getStepY() + 0.1D, direction.getStepZ()).normalize().add(level.random.triangle(0D, 0.0172275D * 6D), level.random.triangle(0D, 0.0172275D * 6D), level.random.triangle(0D, 0.0172275D * 6D)).scale(1.1D);
 				tumbleweed.setDeltaMovement(vec3);

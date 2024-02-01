@@ -418,12 +418,9 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		}
 	}
 
-	@NotNull
 	@Override
-	public AABB getAttackBoundingBox() {
-		float scale = this.getScale();
-		double attackBBOffset = 0.2D * scale;
-		return super.getAttackBoundingBox().inflate(attackBBOffset, 0D, attackBBOffset).move(0D, -attackBBOffset, 0D);
+	public double getMeleeAttackRangeSqr(@NotNull LivingEntity entity) {
+		return (this.getBbWidth() + 0.2D) * 2.0F * (this.getBbWidth() + 0.2D) * 2.0F + (entity.getBbWidth() + 0.2D);
 	}
 
 	@Override
@@ -944,10 +941,9 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 		this.playSound(soundEvent, volume, 0.9F + this.random.nextFloat() * 0.2F);
 	}
 
-	@NotNull
 	@Override
-	public Vector3f getPassengerAttachmentPoint(@NotNull Entity entity, @NotNull EntityDimensions dimensions, float scale) {
-		return new Vector3f(0F, dimensions.height * 0.775F, dimensions.width * -0.1F);
+	public double getPassengersRidingOffset() {
+		return (double)this.getDimensions(this.getPose()).height * 0.775D;
 	}
 
 	@Override
@@ -972,7 +968,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	public void spawnBlockParticles(boolean beakBury, boolean backwards) {
 		if (!this.level().isClientSide && this.level() instanceof ServerLevel server && this.beakVoxelShape != null) {
-			if (this.getBeakState().shouldSpawnTerrainParticles() && this.getBeakState().getRenderShape() != RenderShape.INVISIBLE) {
+			if (this.getBeakState().shouldSpawnParticlesOnBreak() && this.getBeakState().getRenderShape() != RenderShape.INVISIBLE) {
 				Vec3 particlePos = this.getBeakPos();
 				Vec3 deltaBeakPos = particlePos.subtract(this.getPrevBeakPos()).scale(!backwards ? 2D : -2D);
 				BlockHitResult beakHitResult = this.getBeakHitResult(backwards);

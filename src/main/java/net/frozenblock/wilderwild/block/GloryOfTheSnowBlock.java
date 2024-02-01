@@ -110,7 +110,7 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
 		return state.getValue(COLOR_STATE) == FlowerColor.NONE;
 	}
 
