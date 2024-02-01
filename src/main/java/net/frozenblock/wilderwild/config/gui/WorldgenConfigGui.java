@@ -649,7 +649,6 @@ public final class WorldgenConfigGui {
 					.setDefaultValue(defaultConfig.newWitchHuts)
 					.setSaveConsumer(newValue -> config.newWitchHuts = newValue)
 					.setTooltip(tooltip("new_witch_huts"))
-					.requireRestart()
 					.build(),
 				clazz,
 				"newWitchHuts",
