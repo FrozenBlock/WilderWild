@@ -63,7 +63,7 @@ Bug Fixes & Changes
   - Updated the protocol version to 3.
   - Removed the Coated Sculk item model.
   - Added a new main menu panorama.
-  - Added codecs to as many blocks as possible (1.20.5+.)
+  - Added codecs to as many blocks as possible.
     - This has resulted in some blocks receiving reorganized and/or new constructor parameters.
   - Removed the `FloweringLilyPadBlock` class as it was redundant.
     - Please note that this will not impact the block itself in any way.
