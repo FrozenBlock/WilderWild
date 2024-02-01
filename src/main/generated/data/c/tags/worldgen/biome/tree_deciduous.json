@@ -20,6 +20,22 @@
     {
       "id": "wilderwild:dark_taiga",
       "required": false
+    },
+    {
+      "id": "wilderwild:dying_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:snowy_dying_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:dying_mixed_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:snowy_dying_mixed_forest",
+      "required": false
     }
   ]
 }

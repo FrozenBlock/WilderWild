@@ -8,6 +8,14 @@
     {
       "id": "wilderwild:temperate_rainforest",
       "required": false
+    },
+    {
+      "id": "wilderwild:dying_mixed_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:snowy_dying_mixed_forest",
+      "required": false
     }
   ]
 }

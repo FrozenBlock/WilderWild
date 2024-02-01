@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.block;
 
+import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -31,9 +32,16 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public class BaobabLeavesBlock extends LeavesBlock implements BonemealableBlock {
+	public static final MapCodec<BaobabLeavesBlock> CODEC = simpleCodec(BaobabLeavesBlock::new);
 
 	public BaobabLeavesBlock(@NotNull BlockBehaviour.Properties settings) {
 		super(settings);
+	}
+
+	@NotNull
+	@Override
+	public MapCodec<? extends BaobabLeavesBlock> codec() {
+		return CODEC;
 	}
 
 	@Override

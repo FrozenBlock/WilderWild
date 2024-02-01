@@ -19,8 +19,8 @@ buildscript {
         classpath("org.kohsuke:github-api:+")
 
         // remove these 2 to get normal fabric loom versions
-        classpath(files("libs/fabric-loom-1.5.local.jar"))
-        classpath("net.fabricmc:mapping-io:+")
+        //classpath(files("libs/fabric-loom-1.5.local.jar"))
+        //classpath("net.fabricmc:mapping-io:+")
     }
 }
 
@@ -36,6 +36,9 @@ plugins {
     `java-library`
     java
 }
+
+val githubActions: Boolean = System.getenv("GITHUB_ACTIONS") == "true"
+val licenseChecks: Boolean = githubActions
 
 val minecraft_version: String by project
 val quilt_mappings: String by project
@@ -211,9 +214,6 @@ dependencies {
         exclude(group = "com.terraformersmc")
     }
 
-    // Reach Entity Attributes
-    modApi("com.github.Treetrain1:reach-entity-attributes:1.20-SNAPSHOT")?.let { include(it) }
-
     // TerraBlender
     modCompileOnlyApi("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
 
@@ -245,7 +245,7 @@ tasks {
             "mod_id" to mod_id,
             "version" to version,
             "protocol_version" to protocol_version,
-            "minecraft_version" to minecraft_version,
+            "minecraft_version" to "~1.20.5-",
 
             "fabric_api_version" to ">=$fabric_api_version",
             "frozenlib_version" to ">=${frozenlib_version.split('-').firstOrNull()}-"
@@ -267,6 +267,14 @@ tasks {
             )
         ) {
             expand(properties)
+        }
+    }
+
+    license {
+        if (licenseChecks) {
+            rule(file("codeformat/HEADER"))
+
+            include("**/*.java")
         }
     }
 
@@ -296,7 +304,7 @@ tasks {
     }
 }
 
-
+val applyLicenses: Task by tasks
 val test: Task by tasks
 val runClient: Task by tasks
 val runDatagen: Task by tasks
@@ -328,11 +336,6 @@ fun getModVersion(): String {
     }
 
     return version
-}
-
-if (!(release == true || System.getenv("GITHUB_ACTIONS") == "true")) {
-    test.dependsOn(runDatagen)
-    runClient.dependsOn(runDatagen)
 }
 
 val env = System.getenv()

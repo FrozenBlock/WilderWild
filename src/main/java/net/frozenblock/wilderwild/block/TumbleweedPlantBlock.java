@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -40,6 +40,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -54,59 +55,65 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock {
+	public static final MapCodec<TumbleweedPlantBlock> CODEC = simpleCodec(TumbleweedPlantBlock::new);
+	public static final int MAX_AGE = 3;
+	public static final int AGE_FOR_SOLID_COLLISION = 2;
+	public static final int SNAP_CHANCE = 4;
+	public static final int REPRODUCTION_CHANCE_PEACEFUL = 20;
+	public static final int REPRODUCTION_CHANCE_DIVIDER_BY_DIFFICULTY = 15;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
-	private static final VoxelShape FIRST_SHAPE = Block.box(3, 0, 3, 12, 9, 12);
-	private static final VoxelShape SECOND_SHAPE = Block.box(2, 0, 2, 14, 12, 14);
-	private static final VoxelShape THIRD_SHAPE = Block.box(1, 0, 1, 15, 14, 15);
-	private static final VoxelShape FOURTH_SHAPE = Block.box(1, 0, 1, 15, 14, 15);
+	private static final VoxelShape[] SHAPES = new VoxelShape[]{
+		Block.box(3, 0, 3, 12, 9, 12),
+		Block.box(2, 0, 2, 14, 12, 14),
+		Block.box(1, 0, 1, 15, 14, 15),
+		Block.box(1, 0, 1, 15, 14, 15)
+	};
 
 	public TumbleweedPlantBlock(@NotNull BlockBehaviour.Properties properties) {
 		super(properties);
 	}
 
-	@Override
-	protected MapCodec<? extends BushBlock> codec() {
-		return null;
+	public static boolean isFullyGrown(@NotNull BlockState state) {
+		return state.getValue(AGE) == MAX_AGE;
 	}
 
-	public static boolean isFullyGrown(@NotNull BlockState state) {
-		return state.getValue(AGE) == 3;
+	@NotNull
+	@Override
+	protected MapCodec<? extends TumbleweedPlantBlock> codec() {
+		return CODEC;
 	}
 
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if (isFullyGrown(state)) {
-			if (random.nextInt(0, 4) == 0) {
-				level.setBlock(pos, state.cycle(AGE), 2);
+			if (random.nextInt(SNAP_CHANCE) == 0) {
+				level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
 				Tumbleweed weed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
 				level.addFreshEntity(weed);
-				weed.setPos(new Vec3(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5));
+				weed.setPos(Vec3.atBottomCenterOf(pos));
 				int diff = level.getDifficulty().getId();
-				if (level.getRandom().nextInt(0, diff == 0 ? 20 : (15 / diff)) == 0) {
+				if (level.getRandom().nextInt(diff == 0 ? REPRODUCTION_CHANCE_PEACEFUL : (REPRODUCTION_CHANCE_DIVIDER_BY_DIFFICULTY / diff)) == 0) {
 					weed.setItem(new ItemStack(RegisterBlocks.TUMBLEWEED_PLANT), true);
 				}
-				level.playSound(null, pos, RegisterSounds.ENTITY_TUMBLEWEED_DAMAGE, SoundSource.BLOCKS, 1.0F, 1.0F);
-				level.levelEvent(2001, pos, Block.getId(state));
+				level.playSound(null, pos, RegisterSounds.ENTITY_TUMBLEWEED_DAMAGE, SoundSource.BLOCKS, 1F, 1F);
+				level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
 				level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 			}
 		} else {
-			level.setBlock(pos, state.cycle(AGE), 2);
+			level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
 		}
 	}
 
+	@NotNull
 	@Override
-	public @NotNull VoxelShape getCollisionShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
-		return blockState.getValue(AGE) < 2 ? Shapes.empty() : super.getCollisionShape(blockState, blockGetter, blockPos, collisionContext);
+	public VoxelShape getCollisionShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
+		return blockState.getValue(AGE) < AGE_FOR_SOLID_COLLISION ? Shapes.empty() : super.getCollisionShape(blockState, blockGetter, blockPos, collisionContext);
 	}
 
+	@NotNull
 	@Override
-	public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-		return switch (state.getValue(AGE)) {
-			case 0 -> FIRST_SHAPE;
-			case 1 -> SECOND_SHAPE;
-			case 2 -> THIRD_SHAPE;
-			default -> FOURTH_SHAPE;
-		};
+	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+		return SHAPES[state.getValue(AGE)];
 	}
 
 	@Override
@@ -126,19 +133,20 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-		level.setBlockAndUpdate(pos, state.setValue(AGE, Math.min(3, state.getValue(AGE) + random.nextIntBetweenInclusive(1, 2))));
+		level.setBlockAndUpdate(pos, state.setValue(AGE, Math.min(MAX_AGE, state.getValue(AGE) + random.nextIntBetweenInclusive(1, 2))));
 	}
 
+	@NotNull
 	@Override
 	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		ItemStack itemStack = player.getItemInHand(hand);
 		if (itemStack.is(Items.SHEARS) && isFullyGrown(state)) {
 			if (!level.isClientSide) {
-				level.playSound(null, pos, RegisterSounds.BLOCK_TUMBLEWEED_SHEAR, SoundSource.BLOCKS, 1.0F, 1.0F);
+				level.playSound(null, pos, RegisterSounds.BLOCK_TUMBLEWEED_SHEAR, SoundSource.BLOCKS, 1F, 1F);
 				Tumbleweed weed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
 				level.addFreshEntity(weed);
-				weed.setPos(new Vec3(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5));
-				level.levelEvent(2001, pos, Block.getId(state));
+				weed.setPos(Vec3.atBottomCenterOf(pos));
+				level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
 				weed.spawnedFromShears = true;
 				level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
 				itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -28,11 +28,8 @@ import org.jetbrains.annotations.NotNull;
 public class WilderWindManager implements WindManagerExtension {
 
 	private final WindManager manager;
-
 	public double cloudX;
-
 	public double cloudY;
-
 	public double cloudZ;
 
 

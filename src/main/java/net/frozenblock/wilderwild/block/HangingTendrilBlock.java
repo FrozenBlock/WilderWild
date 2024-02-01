@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -58,7 +58,6 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.SculkSensorPhase;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
@@ -76,17 +75,12 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final BooleanProperty TWITCHING = RegisterProperties.TWITCHING;
 	public static final BooleanProperty WRINGING_OUT = RegisterProperties.WRINGING_OUT;
+	public static final MapCodec<HangingTendrilBlock> CODEC = simpleCodec(HangingTendrilBlock::new);
 	protected static final VoxelShape OUTLINE_SHAPE = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 16.0D, 11.0D);
 
 	public HangingTendrilBlock(@NotNull Properties settings) {
 		super(settings);
 		this.registerDefaultState(this.stateDefinition.any().setValue(PHASE, SculkSensorPhase.INACTIVE).setValue(WATERLOGGED, false).setValue(TWITCHING, false).setValue(WRINGING_OUT, false).setValue(POWER, 0));
-	}
-
-	@SuppressWarnings("NullableProblems")
-	@Override
-	protected MapCodec<? extends BaseEntityBlock> codec() {
-		return null;
 	}
 
 	public static void deactivate(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
@@ -104,6 +98,12 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 
 	public static boolean canActivate(@NotNull BlockState state) {
 		return SculkSensorBlock.getPhase(state) == SculkSensorPhase.INACTIVE;
+	}
+
+	@NotNull
+	@Override
+	protected MapCodec<? extends HangingTendrilBlock> codec() {
+		return CODEC;
 	}
 
 	@Override
@@ -162,11 +162,10 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	public void onPlace(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState oldState, boolean isMoving) {
 		if (level.isClientSide() || state.is(oldState.getBlock())) {
 			return;
-		}
-		if (state.getValue(POWER) > 0 && !level.getBlockTicks().hasScheduledTick(pos, this)) {
+		} else if (state.getValue(POWER) > 0 && !level.getBlockTicks().hasScheduledTick(pos, this)) {
 			level.setBlock(pos, state.setValue(POWER, 0), 18);
 		}
-		level.scheduleTick(new BlockPos(pos), state.getBlock(), 1);
+		level.scheduleTick(pos, state.getBlock(), 1);
 	}
 
 	@Override
@@ -181,7 +180,6 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	@Nullable
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new HangingTendrilBlockEntity(pos, state);
 	}
@@ -289,7 +287,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 							RegisterSounds.BLOCK_HANGING_TENDRIL_WRING,
 							SoundSource.BLOCKS,
 							1F,
-							level.random.nextFloat() * 0.1F + 0.9F
+							level.getRandom().nextFloat() * 0.1F + 0.9F
 						);
 						tendrilEntity.ringOutTicksLeft = 5;
 						return InteractionResult.SUCCESS;

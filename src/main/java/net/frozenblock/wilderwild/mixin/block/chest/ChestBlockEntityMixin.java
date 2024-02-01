@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -68,8 +68,8 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	private static void playSound(Args args) {
 		if (
 			wilderWild$playedSoundState != null
-			&& wilderWild$playedSoundState.hasProperty(BlockStateProperties.WATERLOGGED)
-			&& wilderWild$playedSoundState.getValue(BlockStateProperties.WATERLOGGED)
+				&& wilderWild$playedSoundState.hasProperty(BlockStateProperties.WATERLOGGED)
+				&& wilderWild$playedSoundState.getValue(BlockStateProperties.WATERLOGGED)
 		) {
 			SoundEvent sound = args.get(4);
 			if (sound == SoundEvents.CHEST_OPEN) {
@@ -122,7 +122,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 		if (level instanceof ServerLevel server) {
 			BlockPos pos = chest.getBlockPos();
 			if (state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) && this.wilderWild$getCanBubble()) {
-				server.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, server.random.nextInt(18, 25), 0.21875F, 0, 0.21875F, 0.25D);
+				server.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5D, pos.getY() + 0.625D, pos.getZ() + 0.5D, server.random.nextInt(18, 25), 0.21875F, 0, 0.21875F, 0.25D);
 			}
 		}
 	}

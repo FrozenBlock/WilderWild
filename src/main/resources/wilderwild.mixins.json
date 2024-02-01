@@ -46,6 +46,7 @@
     "entity.easter.GoatMixin",
     "entity.enderman.EnderManMixin",
     "entity.experience.ExperienceOrbMixin",
+    "entity.firework_rocket.FireworkRocketEntityMixin",
     "entity.jellyfish.NaturalSpawnerMixin",
     "entity.lightning.LightningBoltMixin",
     "entity.slime.SlimeMixin",
@@ -83,8 +84,8 @@
     "warden.WardenSwimMixin",
     "worldgen.biome.OverworldBiomeBuilderMixin",
     "worldgen.structure.SwampHutPieceMixin",
-    "worldgen.tree.TreeGrowerMixin",
-    "worldgen.tree.TreeFeatureMixin"
+    "worldgen.tree.TreeFeatureMixin",
+    "worldgen.tree.TreeGrowerMixin"
   ],
   "client": [
     "client.allay.AllayModelMixin",
@@ -95,9 +96,10 @@
     "client.easter.StellaWardenRenderer",
     "client.easter.UppyBalloo",
     "client.easter.WardenEmissiveLayerMixin",
+    "client.liquid.LiquidBlockRendererMixin",
     "client.mesoglea.BubbleColumnAmbientSoundHandlerMixin",
     "client.mesoglea.EntityRenderDispatcherMixin",
-    "client.mesoglea.LiquidBlockRendererMixin",
+    "client.mesoglea.MesogleaLiquidBlockRendererMixin",
     "client.shrieker.LevelRendererMixin",
     "client.sodium.CloudRendererMixin",
     "client.sodium.FluidRendererMixin",

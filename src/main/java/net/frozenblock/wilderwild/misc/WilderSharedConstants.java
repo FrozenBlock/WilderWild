@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -32,7 +32,7 @@ public class WilderSharedConstants {
 	public static final String PROJECT_ID = "Wilder Wild";
 	public static final String MOD_ID = "wilderwild";
 	public static final Logger LOGGER = LoggerFactory.getLogger(PROJECT_ID);
-	public static final int DATA_VERSION = 15;
+	public static final int DATA_VERSION = 16;
 	// MEASURING
 	public static final Map<Object, Long> INSTANT_MAP = new Object2ObjectOpenHashMap<>();
 	/**

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -46,8 +46,8 @@ public class BaseSpawnerMixin {
 	)
 	public void wilderWild$clientTick(Level level, BlockPos blockPos, CallbackInfo info) {
 		if (this.displayEntity instanceof Firefly firefly) {
-			firefly.setScale(2F);
-			firefly.setPrevScale(2F);
+			firefly.setAnimScale(2F);
+			firefly.setPrevAnimScale(2F);
 		}
 	}
 

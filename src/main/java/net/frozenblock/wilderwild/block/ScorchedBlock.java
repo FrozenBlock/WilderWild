@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -18,7 +18,9 @@
 
 package net.frozenblock.wilderwild.block;
 
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import java.util.Map;
 import net.frozenblock.lib.block.api.dripstone.DripstoneUtils;
@@ -53,17 +55,25 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ScorchedBlock extends BaseEntityBlock {
+	public static final int TICK_DELAY = 2;
+	public static final float RAIN_HYDRATION_CHANCE = 0.75F;
 	public static final Map<BlockState, BlockState> SCORCH_MAP = new Object2ObjectOpenHashMap<>();
 	public static final Map<BlockState, BlockState> HYDRATE_MAP = new Object2ObjectOpenHashMap<>();
-	public static final int TICK_DELAY = 2;
 	private static final BooleanProperty CRACKEDNESS = RegisterProperties.CRACKED;
+	public static final MapCodec<ScorchedBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
+		BlockState.CODEC.fieldOf("previous_state").forGetter((scorchedBlock) -> scorchedBlock.wetState),
+		Codec.BOOL.fieldOf("brushable").forGetter((scorchedBlock) -> scorchedBlock.canBrush),
+		SoundEvent.DIRECT_CODEC.fieldOf("brush_sound").forGetter((scorchedBlock) -> scorchedBlock.brushSound),
+		SoundEvent.DIRECT_CODEC.fieldOf("brush_completed_sound").forGetter((scorchedBlock) -> scorchedBlock.brushCompletedSound),
+		propertiesCodec()
+	).apply(instance, ScorchedBlock::new));
 	private static final IntegerProperty DUSTED = BlockStateProperties.DUSTED;
 	public final boolean canBrush;
 	public final BlockState wetState;
 	public final SoundEvent brushSound;
 	public final SoundEvent brushCompletedSound;
 
-	public ScorchedBlock(@NotNull Properties settings, @NotNull BlockState wetState, boolean canBrush, @NotNull SoundEvent brushSound, @NotNull SoundEvent brushCompletedSound) {
+	public ScorchedBlock(@NotNull BlockState wetState, boolean canBrush, @NotNull SoundEvent brushSound, @NotNull SoundEvent brushCompletedSound, @NotNull Properties settings) {
 		super(settings);
 		this.registerDefaultState(this.stateDefinition.any().setValue(CRACKEDNESS, false));
 		this.canBrush = canBrush;
@@ -102,6 +112,12 @@ public class ScorchedBlock extends BaseEntityBlock {
 		return state.hasProperty(DUSTED) ? state.setValue(DUSTED, 0) : state;
 	}
 
+	@NotNull
+	@Override
+	protected MapCodec<? extends ScorchedBlock> codec() {
+		return CODEC;
+	}
+
 	public void fillScorchMap(BlockState wetState, BlockState defaultState, BlockState defaultStateCracked) {
 		SCORCH_MAP.put(wetState, defaultState);
 		SCORCH_MAP.put(defaultState, defaultStateCracked);
@@ -127,7 +143,7 @@ public class ScorchedBlock extends BaseEntityBlock {
 
 	@Override
 	public void handlePrecipitation(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Biome.@NotNull Precipitation precipitation) {
-		if (precipitation == Biome.Precipitation.RAIN && level.getRandom().nextFloat() < 0.75F) {
+		if (precipitation == Biome.Precipitation.RAIN && level.getRandom().nextFloat() < RAIN_HYDRATION_CHANCE) {
 			hydrate(state, level, pos);
 		}
 	}
@@ -170,11 +186,6 @@ public class ScorchedBlock extends BaseEntityBlock {
 			ItemBlockStateTagUtils.setProperty(superStack, RegisterProperties.CRACKED, true);
 		}
 		return superStack;
-	}
-
-	@Override
-	protected MapCodec<? extends BaseEntityBlock> codec() {
-		return null;
 	}
 
 	@Override

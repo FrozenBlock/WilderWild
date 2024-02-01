@@ -1,14 +1,18 @@
 {
-  "type": "minecraft:crafting_shapeless",
+  "type": "minecraft:crafting_shaped",
   "category": "misc",
   "group": "string",
-  "ingredients": [
-    {
+  "key": {
+    "#": {
       "item": "wilderwild:cattail"
     }
+  },
+  "pattern": [
+    "##",
+    "##"
   ],
   "result": {
     "item": "minecraft:string",
-    "count": 3
+    "count": 1
   }
 }

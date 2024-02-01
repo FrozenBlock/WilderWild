@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -100,8 +100,9 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
-	@Override
+
 	@NotNull
+	@Override
 	public CompoundTag getUpdateTag() {
 		return this.saveWithoutMetadata();
 	}
@@ -193,7 +194,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 					entity.hasHome = true;
 					FireflyAi.rememberHome(entity, entity.blockPosition());
 					entity.setColor(firefly.color);
-					entity.setScale(1.0F);
+					entity.setAnimScale(1.0F);
 					if (!Objects.equals(firefly.customName, "")) {
 						entity.setCustomName(Component.nullToEmpty(firefly.customName));
 					}

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -68,12 +68,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class CrabAi {
-	private static final float SPEED_MODIFIER = 1F;
-	private static final float FOLLOWING_ADULT_SPEED_MODIFIER = 1.2F;
-	private static final float CHASING_SPEED_MODIFIER = 1.3F;
-	private static final UniformInt ADULT_FOLLOW_RANGE = UniformInt.of(5, 16);
-	private static final int DIGGING_DURATION = Crab.DIG_LENGTH_IN_TICKS;
-	private static final int EMERGE_DURATION = Crab.EMERGE_LENGTH_IN_TICKS;
 	public static final double UNDERGROUND_PLAYER_RANGE = Crab.UNDERGROUND_PLAYER_RANGE;
 	public static final List<SensorType<? extends Sensor<? super Crab>>> SENSORS = List.of(
 		SensorType.NEAREST_LIVING_ENTITIES,
@@ -118,7 +112,12 @@ public final class CrabAi {
 		MemoryModuleType.ANGRY_AT,
 		MemoryModuleType.UNIVERSAL_ANGER
 	);
-
+	private static final float SPEED_MODIFIER = 1F;
+	private static final float FOLLOWING_ADULT_SPEED_MODIFIER = 1.2F;
+	private static final float CHASING_SPEED_MODIFIER = 1.3F;
+	private static final UniformInt ADULT_FOLLOW_RANGE = UniformInt.of(5, 16);
+	private static final int DIGGING_DURATION = Crab.DIG_LENGTH_IN_TICKS;
+	private static final int EMERGE_DURATION = Crab.EMERGE_LENGTH_IN_TICKS;
 	private static final BehaviorControl<Crab> DIG_COOLDOWN_SETTER = BehaviorBuilder.create(instance -> instance.group(instance.registered(MemoryModuleType.DIG_COOLDOWN)).apply(instance, memoryAccessor -> (world, crab, l) -> {
 		if (instance.tryGet(memoryAccessor).isPresent()) {
 			memoryAccessor.setWithExpiry(Unit.INSTANCE, getRandomDigCooldown(crab));
@@ -154,7 +153,7 @@ public final class CrabAi {
 			Activity.CORE,
 			0,
 			ImmutableList.of(
-				new AnimalPanic(1.65F, pathfinderMob -> (pathfinderMob.getLastHurtByMob() != null && pathfinderMob.isBaby()) || (pathfinderMob.isFreezing() || pathfinderMob.isOnFire()) && !((Crab)pathfinderMob).isDiggingOrEmerging()),
+				new AnimalPanic(1.65F, pathfinderMob -> (pathfinderMob.getLastHurtByMob() != null && pathfinderMob.isBaby()) || (pathfinderMob.isFreezing() || pathfinderMob.isOnFire()) && !((Crab) pathfinderMob).isDiggingOrEmerging()),
 				new LookAtTargetSink(45, 90),
 				new MoveToTargetSink(),
 				StopBeingAngryIfTargetDead.create()

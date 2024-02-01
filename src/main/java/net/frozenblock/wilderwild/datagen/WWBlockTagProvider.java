@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -51,6 +51,7 @@ final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 		this.generateMinecraft();
 	}
 
+	@NotNull
 	private TagKey<Block> getTag(String id) {
 		return TagKey.create(this.registryKey, new ResourceLocation(id));
 	}
@@ -279,6 +280,14 @@ final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 			.add(Blocks.SAND)
 			.add(Blocks.SANDSTONE);
 
+		this.getOrCreateTagBuilder(WilderBlockTags.COARSE_DIRT_DISK_REPLACEABLE)
+			.addOptionalTag(BlockTags.SAND)
+			.add(Blocks.DIRT)
+			.add(Blocks.GRAVEL)
+			.add(Blocks.CLAY)
+			.add(Blocks.GRASS_BLOCK)
+			.add(Blocks.PODZOL);
+
 		this.getOrCreateTagBuilder(WilderBlockTags.RIVER_POOL_REPLACEABLE)
 			.addOptionalTag(BlockTags.SAND)
 			.addOptionalTag(BlockTags.DIRT)
@@ -344,6 +353,11 @@ final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 			.addOptionalTag(BlockTags.SAND)
 			.add(Blocks.CLAY)
 			.add(Blocks.GRAVEL);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.OSTRICH_BEAK_BURYABLE)
+			.addOptionalTag(BlockTags.MINEABLE_WITH_SHOVEL)
+			.addOptionalTag(BlockTags.MINEABLE_WITH_HOE)
+			.addOptionalTag(BlockTags.WOOL);
 
 		this.getOrCreateTagBuilder(WilderBlockTags.NO_LIGHTNING_BLOCK_PARTICLES)
 			.add(Blocks.LIGHTNING_ROD);
@@ -593,5 +607,20 @@ final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 			.add(RegisterBlocks.SCORCHED_SAND)
 			.add(RegisterBlocks.SCORCHED_RED_SAND)
 			.add(RegisterBlocks.TERMITE_MOUND);
+
+		this.getOrCreateTagBuilder(BlockTags.SWORD_EFFICIENT)
+			.add(RegisterBlocks.BUSH)
+			.add(RegisterBlocks.TUMBLEWEED)
+			.add(RegisterBlocks.TUMBLEWEED_PLANT)
+			.add(RegisterBlocks.MILKWEED)
+			.add(RegisterBlocks.DATURA)
+			.add(RegisterBlocks.CATTAIL)
+			.add(RegisterBlocks.FLOWERING_LILY_PAD)
+			.add(RegisterBlocks.ALGAE)
+			.add(RegisterBlocks.BROWN_SHELF_FUNGUS)
+			.add(RegisterBlocks.RED_SHELF_FUNGUS)
+			.add(RegisterBlocks.SMALL_SPONGE)
+			.add(RegisterBlocks.PRICKLY_PEAR_CACTUS)
+			.addOptionalTag(WilderBlockTags.NEMATOCYSTS);
 	}
 }

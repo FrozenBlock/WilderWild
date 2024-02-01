@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -18,23 +18,23 @@
 
 package net.frozenblock.wilderwild.mixin.sculk;
 
-import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.misc.interfaces.SculkShriekerTickInterface;
-import net.frozenblock.wilderwild.networking.packet.WilderFloatingSculkBubbleParticlePacket;
+import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.SculkShriekerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -87,15 +87,33 @@ public abstract class SculkShriekerBlockEntityMixin implements SculkShriekerTick
 		tag.putInt("wilderwildBubbles", this.wilderWild$bubbles);
 	}
 
+	@Unique
 	@Override
 	public void wilderWild$tickServer(Level level, BlockPos pos) {
-		if (level != null && !level.isClientSide) {
+		if (level instanceof ServerLevel serverLevel) {
 			VibrationSystem.Ticker.tick(level, this.getVibrationData(), this.getVibrationUser());
 			if (this.wilderWild$bubbles > 0) {
 				--this.wilderWild$bubbles;
-				var random = AdvancedMath.random();
-
-				WilderFloatingSculkBubbleParticlePacket.sendToAll(level, Vec3.atCenterOf(pos), random.nextDouble() > 0.7 ? 1 : 0, 20 + random.nextInt(80), 0.075, 1);
+				RandomSource random = level.getRandom();
+				serverLevel.sendParticles(
+					new FloatingSculkBubbleParticleOptions(
+						random.nextDouble() > 0.7 ? 1 : 0,
+						20 + random.nextInt(80),
+						new Vector3f(
+							FloatingSculkBubbleParticleOptions.getRandomVelocity(random, 0),
+							0.075F,
+							FloatingSculkBubbleParticleOptions.getRandomVelocity(random, 0)
+						)
+					),
+					pos.getX() + 0.5D,
+					pos.getY() + 0.5D,
+					pos.getZ() + 0.5D,
+					1,
+					0D,
+					0D,
+					0D,
+					0D
+				);
 			}
 		}
 	}
@@ -108,7 +126,7 @@ public abstract class SculkShriekerBlockEntityMixin implements SculkShriekerTick
 		SculkShriekerBlockEntity field_44621;
 
 		@Inject(at = @At("HEAD"), method = "canReceiveVibration", cancellable = true)
-		public void wilderWild$canReceiveVibration(ServerLevel world, BlockPos pos, GameEvent gameEvent, GameEvent.Context context, CallbackInfoReturnable<Boolean> info) {
+		public void wilderWild$canReceiveVibration(ServerLevel world, BlockPos pos, GameEvent gameEvent, GameEvent.Context eventContext, CallbackInfoReturnable<Boolean> info) {
 			if (this.field_44621.getBlockState().getValue(RegisterProperties.SOULS_TAKEN) == 2) {
 				info.setReturnValue(false);
 			}

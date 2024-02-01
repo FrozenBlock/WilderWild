@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
-import java.util.Objects;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -54,8 +53,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("deprecation")
 public class TumbleweedBlock extends BushBlock implements SimpleWaterloggedBlock {
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+	public static final MapCodec<TumbleweedBlock> CODEC = simpleCodec(TumbleweedBlock::new);
 	protected static final VoxelShape COLLISION_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 14.0D, 15.0D);
 	protected static final VoxelShape OUTLINE_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 14.0D, 15.0D);
 
@@ -64,9 +65,10 @@ public class TumbleweedBlock extends BushBlock implements SimpleWaterloggedBlock
 		this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
 	}
 
+	@NotNull
 	@Override
-	protected MapCodec<? extends BushBlock> codec() {
-		return null;
+	protected MapCodec<? extends TumbleweedBlock> codec() {
+		return CODEC;
 	}
 
 	@Override
@@ -75,10 +77,10 @@ public class TumbleweedBlock extends BushBlock implements SimpleWaterloggedBlock
 		ItemStack itemStack = player.getItemInHand(hand);
 		if (itemStack.is(Items.SHEARS)) {
 			if (!level.isClientSide) {
-				level.playSound(null, pos, RegisterSounds.BLOCK_TUMBLEWEED_SHEAR, SoundSource.BLOCKS, 1.0F, 1.0F);
+				level.playSound(null, pos, RegisterSounds.BLOCK_TUMBLEWEED_SHEAR, SoundSource.BLOCKS, 1F, 1F);
 				Tumbleweed weed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
 				level.addFreshEntity(weed);
-				weed.setPos(new Vec3(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5));
+				weed.setPos(Vec3.atBottomCenterOf(pos));
 				weed.spawnedFromShears = true;
 				level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
 				itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
@@ -92,9 +94,13 @@ public class TumbleweedBlock extends BushBlock implements SimpleWaterloggedBlock
 
 	@Nullable
 	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
-		FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
-		boolean bl = fluidState.getType() == Fluids.WATER;
-		return Objects.requireNonNull(super.getStateForPlacement(context)).setValue(WATERLOGGED, bl);
+		BlockState state = super.getStateForPlacement(context);
+		if (state != null) {
+			FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
+			boolean waterlogged = fluidState.getType() == Fluids.WATER;
+			return state.setValue(WATERLOGGED, waterlogged);
+		}
+		return null;
 	}
 
 	@Override

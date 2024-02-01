@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.block;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -35,10 +36,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public class SculkSlabBlock extends SlabBlock implements SculkBehaviour {
+	public static final MapCodec<SculkSlabBlock> CODEC = simpleCodec(SculkSlabBlock::new);
 	private static final IntProvider EXPERIENCE = ConstantInt.of(1);
 
 	public SculkSlabBlock(@NotNull Properties settings) {
 		super(settings);
+	}
+
+	@NotNull
+	@Override
+	public MapCodec<? extends SculkSlabBlock> codec() {
+		return CODEC;
 	}
 
 	@Override

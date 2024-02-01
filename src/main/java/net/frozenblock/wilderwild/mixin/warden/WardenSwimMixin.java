@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -203,7 +203,7 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 	}
 
 	@Inject(method = "getDimensions", at = @At("RETURN"), cancellable = true)
-	public void wilderWild$getDimensions(Pose pose, CallbackInfoReturnable<EntityDimensions> info) {
+	public void wilderWild$modifySwimmingDimensions(Pose pose, CallbackInfoReturnable<EntityDimensions> info) {
 		if (!this.isDiggingOrEmerging() && this.isVisuallySwimming()) {
 			info.setReturnValue(EntityDimensions.scalable(this.getType().getWidth(), 0.85F));
 		}

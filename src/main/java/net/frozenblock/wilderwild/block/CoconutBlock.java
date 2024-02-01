@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -19,11 +19,11 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Objects;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
-import net.frozenblock.wilderwild.world.generation.sapling.WWTreeGrowers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -61,9 +61,14 @@ import org.jetbrains.annotations.Nullable;
 @SuppressWarnings("deprecation")
 public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	public static final int VALID_FROND_DISTANCE = 2;
+	public static final int MAX_AGE = 2;
 	public static final IntegerProperty STAGE = BlockStateProperties.STAGE;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
+	public static final MapCodec<CoconutBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
+		TreeGrower.CODEC.fieldOf("tree").forGetter((coconutBlock) -> coconutBlock.treeGrower),
+		propertiesCodec()
+	).apply(instance, CoconutBlock::new));
 	private static final VoxelShape[] SHAPES = new VoxelShape[]{
 		Shapes.or(Block.box(2, 9, 2, 14, 16, 14)),
 		Shapes.or(Block.box(1, 8, 1, 15, 16, 15)),
@@ -72,16 +77,10 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	};
 	private final TreeGrower treeGrower;
 
-	public CoconutBlock(@NotNull Properties settings) {
+	public CoconutBlock(TreeGrower treeGrower, @NotNull Properties settings) {
 		super(settings);
-		this.treeGrower = WWTreeGrowers.PALM;
+		this.treeGrower = treeGrower;
 		this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0).setValue(AGE, 0).setValue(HANGING, false));
-	}
-
-	@SuppressWarnings("NullableProblems")
-	@Override
-	protected MapCodec<? extends FallingBlock> codec() {
-		return null;
 	}
 
 	private static boolean isHanging(@NotNull BlockState state) {
@@ -89,12 +88,18 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	}
 
 	private static boolean isFullyGrown(@NotNull BlockState state) {
-		return state.getValue(AGE) == 2;
+		return state.getValue(AGE) == MAX_AGE;
 	}
 
 	@NotNull
 	public static BlockState getDefaultHangingState() {
 		return getHangingState(0);
+	}
+
+	@NotNull
+	@Override
+	protected MapCodec<? extends CoconutBlock> codec() {
+		return CODEC;
 	}
 
 	@NotNull
@@ -124,7 +129,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	@Override
 	@Nullable
 	public BlockState getStateForPlacement(@NotNull BlockPlaceContext ctx) {
-		return Objects.requireNonNull(super.getStateForPlacement(ctx)).setValue(AGE, 2);
+		return Objects.requireNonNull(super.getStateForPlacement(ctx)).setValue(AGE, MAX_AGE);
 	}
 
 	@Override

@@ -1,643 +1,162 @@
 {
-  "credit": "Made with Blockbench",
-  "textures": {
-    "particle": "wilderwild:block/coconut_hanging_stage_2",
-    "nut": "wilderwild:block/coconut_hanging_stage_2"
-  },
-  "elements": [
-    {
-      "name": "coconut",
-      "from": [
-        5,
-        8,
-        5
-      ],
-      "to": [
-        10,
-        13,
-        10
-      ],
-      "faces": {
-        "north": {
-          "uv": [
-            9,
-            6,
-            14,
-            11
-          ],
-          "texture": "#nut"
-        },
-        "east": {
-          "uv": [
-            9,
-            6,
-            14,
-            11
-          ],
-          "texture": "#nut"
-        },
-        "south": {
-          "uv": [
-            9,
-            6,
-            14,
-            11
-          ],
-          "texture": "#nut"
-        },
-        "west": {
-          "uv": [
-            9,
-            6,
-            14,
-            11
-          ],
-          "texture": "#nut"
-        },
-        "up": {
-          "uv": [
-            1,
-            2,
-            6,
-            7
-          ],
-          "texture": "#nut"
-        },
-        "down": {
-          "uv": [
-            1,
-            9,
-            6,
-            14
-          ],
-          "texture": "#nut"
-        }
-      }
-    },
-    {
-      "name": "cross_1",
-      "from": [
-        6,
-        12,
-        7
-      ],
-      "to": [
-        8,
-        16,
-        7
-      ],
-      "faces": {
-        "north": {
-          "uv": [
-            10,
-            1,
-            12,
-            5
-          ],
-          "texture": "#nut"
-        },
-        "south": {
-          "uv": [
-            12,
-            1,
-            10,
-            5
-          ],
-          "texture": "#nut"
-        }
-      }
-    },
-    {
-      "name": "cross_2",
-      "from": [
-        7,
-        12,
-        6
-      ],
-      "to": [
-        7,
-        16,
-        8
-      ],
-      "rotation": {
-        "angle": 0,
-        "axis": "y",
-        "origin": [
-          8,
-          8,
-          8
-        ]
-      },
-      "faces": {
-        "east": {
-          "uv": [
-            10,
-            1,
-            12,
-            5
-          ],
-          "texture": "#nut"
-        },
-        "west": {
-          "uv": [
-            12,
-            1,
-            10,
-            5
-          ],
-          "texture": "#nut"
-        }
-      }
-    },
-    {
-      "name": "coconut",
-      "from": [
-        10,
-        9,
-        1
-      ],
-      "to": [
-        15,
-        14,
-        6
-      ],
-      "faces": {
-        "north": {
-          "uv": [
-            9,
-            6,
-            14,
-            11
-          ],
-          "texture": "#nut"
-        },
-        "east": {
-          "uv": [
-            9,
-            6,
-            14,
-            11
-          ],
-          "texture": "#nut"
-        },
-        "south": {
-          "uv": [
-            9,
-            6,
-            14,
-            11
-          ],
-          "texture": "#nut"
-        },
-        "west": {
-          "uv": [
-            9,
-            6,
-            14,
-            11
-          ],
-          "texture": "#nut"
-        },
-        "up": {
-          "uv": [
-            1,
-            2,
-            6,
-            7
-          ],
-          "texture": "#nut"
-        },
-        "down": {
-          "uv": [
-            1,
-            9,
-            6,
-            14
-          ],
-          "texture": "#nut"
-        }
-      }
-    },
-    {
-      "name": "cross_2",
-      "from": [
-        11,
-        12,
-        3
-      ],
-      "to": [
-        13,
-        16,
-        3
-      ],
-      "faces": {
-        "north": {
-          "uv": [
-            10,
-            1,
-            12,
-            5
-          ],
-          "texture": "#nut"
-        },
-        "south": {
-          "uv": [
-            12,
-            1,
-            10,
-            5
-          ],
-          "texture": "#nut"
-        }
-      }
-    },
-    {
-      "name": "cross_3",
-      "from": [
-        12,
-        12,
-        2
-      ],
-      "to": [
-        12,
-        16,
-        4
-      ],
-      "rotation": {
-        "angle": 0,
-        "axis": "y",
-        "origin": [
-          8,
-          8,
-          8
-        ]
-      },
-      "faces": {
-        "east": {
-          "uv": [
-            10,
-            1,
-            12,
-            5
-          ],
-          "texture": "#nut"
-        },
-        "west": {
-          "uv": [
-            12,
-            1,
-            10,
-            5
-          ],
-          "texture": "#nut"
-        }
-      }
-    },
-    {
-      "name": "coconut",
-      "from": [
-        1,
-        9,
-        8
-      ],
-      "to": [
-        6,
-        14,
-        13
-      ],
-      "faces": {
-        "north": {
-          "uv": [
-            9,
-            6,
-            14,
-            11
-          ],
-          "texture": "#nut"
-        },
-        "east": {
-          "uv": [
-            9,
-            6,
-            14,
-            11
-          ],
-          "texture": "#nut"
-        },
-        "south": {
-          "uv": [
-            9,
-            6,
-            14,
-            11
-          ],
-          "texture": "#nut"
-        },
-        "west": {
-          "uv": [
-            9,
-            6,
-            14,
-            11
-          ],
-          "texture": "#nut"
-        },
-        "up": {
-          "uv": [
-            1,
-            2,
-            6,
-            7
-          ],
-          "texture": "#nut"
-        },
-        "down": {
-          "uv": [
-            1,
-            9,
-            6,
-            14
-          ],
-          "texture": "#nut"
-        }
-      }
-    },
-    {
-      "name": "cross_3",
-      "from": [
-        2,
-        12,
-        10
-      ],
-      "to": [
-        4,
-        16,
-        10
-      ],
-      "faces": {
-        "north": {
-          "uv": [
-            10,
-            1,
-            12,
-            5
-          ],
-          "texture": "#nut"
-        },
-        "south": {
-          "uv": [
-            12,
-            1,
-            10,
-            5
-          ],
-          "texture": "#nut"
-        }
-      }
-    },
-    {
-      "name": "cross_4",
-      "from": [
-        3,
-        12,
-        9
-      ],
-      "to": [
-        3,
-        16,
-        11
-      ],
-      "rotation": {
-        "angle": 0,
-        "axis": "y",
-        "origin": [
-          8,
-          8,
-          8
-        ]
-      },
-      "faces": {
-        "east": {
-          "uv": [
-            10,
-            1,
-            12,
-            5
-          ],
-          "texture": "#nut"
-        },
-        "west": {
-          "uv": [
-            12,
-            1,
-            10,
-            5
-          ],
-          "texture": "#nut"
-        }
-      }
-    },
-    {
-      "name": "coconut",
-      "from": [
-        9,
-        7,
-        10
-      ],
-      "to": [
-        14,
-        12,
-        15
-      ],
-      "faces": {
-        "north": {
-          "uv": [
-            9,
-            6,
-            14,
-            11
-          ],
-          "texture": "#nut"
-        },
-        "east": {
-          "uv": [
-            9,
-            6,
-            14,
-            11
-          ],
-          "texture": "#nut"
-        },
-        "south": {
-          "uv": [
-            9,
-            6,
-            14,
-            11
-          ],
-          "texture": "#nut"
-        },
-        "west": {
-          "uv": [
-            9,
-            6,
-            14,
-            11
-          ],
-          "texture": "#nut"
-        },
-        "up": {
-          "uv": [
-            1,
-            2,
-            6,
-            7
-          ],
-          "texture": "#nut"
-        },
-        "down": {
-          "uv": [
-            1,
-            9,
-            6,
-            14
-          ],
-          "texture": "#nut"
-        }
-      }
-    },
-    {
-      "name": "cross_4",
-      "from": [
-        10,
-        12,
-        12
-      ],
-      "to": [
-        12,
-        16,
-        12
-      ],
-      "faces": {
-        "north": {
-          "uv": [
-            10,
-            1,
-            12,
-            5
-          ],
-          "texture": "#nut"
-        },
-        "south": {
-          "uv": [
-            12,
-            1,
-            10,
-            5
-          ],
-          "texture": "#nut"
-        }
-      }
-    },
-    {
-      "name": "cross_5",
-      "from": [
-        11,
-        12,
-        11
-      ],
-      "to": [
-        11,
-        16,
-        13
-      ],
-      "rotation": {
-        "angle": 0,
-        "axis": "y",
-        "origin": [
-          8,
-          8,
-          8
-        ]
-      },
-      "faces": {
-        "east": {
-          "uv": [
-            10,
-            1,
-            12,
-            5
-          ],
-          "texture": "#nut"
-        },
-        "west": {
-          "uv": [
-            12,
-            1,
-            10,
-            5
-          ],
-          "texture": "#nut"
-        }
-      }
-    }
-  ],
-  "groups": [
-    {
-      "name": "coconut1",
-      "origin": [
-        8,
-        8,
-        8
-      ],
-      "color": 0,
-      "children": [
-        0,
-        1,
-        2
-      ]
-    },
-    {
-      "name": "coconut2",
-      "origin": [
-        8,
-        8,
-        8
-      ],
-      "color": 0,
-      "children": [
-        3,
-        4,
-        5
-      ]
-    },
-    {
-      "name": "coconut3",
-      "origin": [
-        8,
-        8,
-        8
-      ],
-      "color": 0,
-      "children": [
-        6,
-        7,
-        8
-      ]
-    },
-    {
-      "name": "coconut4",
-      "origin": [
-        8,
-        8,
-        8
-      ],
-      "color": 0,
-      "children": [
-        9,
-        10,
-        11
-      ]
-    }
-  ]
+	"textures": {
+		"particle": "wilderwild:block/coconut_hanging_stage_2",
+		"nut": "wilderwild:block/coconut_hanging_stage_2"
+	},
+	"elements": [
+		{
+			"name": "coconut",
+			"from": [5, 8, 5],
+			"to": [10, 13, 10],
+			"faces": {
+				"north": {"uv": [9, 6, 14, 11], "texture": "#nut"},
+				"east": {"uv": [9, 6, 14, 11], "texture": "#nut"},
+				"south": {"uv": [9, 6, 14, 11], "texture": "#nut"},
+				"west": {"uv": [9, 6, 14, 11], "texture": "#nut"},
+				"up": {"uv": [1, 2, 6, 7], "texture": "#nut"},
+				"down": {"uv": [1, 9, 6, 14], "texture": "#nut"}
+			}
+		},
+		{
+			"name": "cross_1",
+			"from": [6, 12, 7],
+			"to": [8, 16, 7],
+			"faces": {
+				"north": {"uv": [10, 1, 12, 5], "texture": "#nut"},
+				"south": {"uv": [12, 1, 10, 5], "texture": "#nut"}
+			}
+		},
+		{
+			"name": "cross_2",
+			"from": [7, 12, 6],
+			"to": [7, 16, 8],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"east": {"uv": [10, 1, 12, 5], "texture": "#nut"},
+				"west": {"uv": [12, 1, 10, 5], "texture": "#nut"}
+			}
+		},
+		{
+			"name": "coconut",
+			"from": [10, 9, 1],
+			"to": [15, 14, 6],
+			"faces": {
+				"north": {"uv": [9, 6, 14, 11], "texture": "#nut"},
+				"east": {"uv": [9, 6, 14, 11], "texture": "#nut"},
+				"south": {"uv": [9, 6, 14, 11], "texture": "#nut"},
+				"west": {"uv": [9, 6, 14, 11], "texture": "#nut"},
+				"up": {"uv": [1, 2, 6, 7], "texture": "#nut"},
+				"down": {"uv": [1, 9, 6, 14], "texture": "#nut"}
+			}
+		},
+		{
+			"name": "cross_2",
+			"from": [11, 12, 3],
+			"to": [13, 16, 3],
+			"faces": {
+				"north": {"uv": [10, 1, 12, 5], "texture": "#nut"},
+				"south": {"uv": [12, 1, 10, 5], "texture": "#nut"}
+			}
+		},
+		{
+			"name": "cross_3",
+			"from": [12, 12, 2],
+			"to": [12, 16, 4],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"east": {"uv": [10, 1, 12, 5], "texture": "#nut"},
+				"west": {"uv": [12, 1, 10, 5], "texture": "#nut"}
+			}
+		},
+		{
+			"name": "coconut",
+			"from": [1, 9, 8],
+			"to": [6, 14, 13],
+			"faces": {
+				"north": {"uv": [9, 6, 14, 11], "texture": "#nut"},
+				"east": {"uv": [9, 6, 14, 11], "texture": "#nut"},
+				"south": {"uv": [9, 6, 14, 11], "texture": "#nut"},
+				"west": {"uv": [9, 6, 14, 11], "texture": "#nut"},
+				"up": {"uv": [1, 2, 6, 7], "texture": "#nut"},
+				"down": {"uv": [1, 9, 6, 14], "texture": "#nut"}
+			}
+		},
+		{
+			"name": "cross_3",
+			"from": [2, 12, 10],
+			"to": [4, 16, 10],
+			"faces": {
+				"north": {"uv": [10, 1, 12, 5], "texture": "#nut"},
+				"south": {"uv": [12, 1, 10, 5], "texture": "#nut"}
+			}
+		},
+		{
+			"name": "cross_4",
+			"from": [3, 12, 9],
+			"to": [3, 16, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"east": {"uv": [10, 1, 12, 5], "texture": "#nut"},
+				"west": {"uv": [12, 1, 10, 5], "texture": "#nut"}
+			}
+		},
+		{
+			"name": "coconut",
+			"from": [9, 7, 10],
+			"to": [14, 12, 15],
+			"faces": {
+				"north": {"uv": [9, 6, 14, 11], "texture": "#nut"},
+				"east": {"uv": [9, 6, 14, 11], "texture": "#nut"},
+				"south": {"uv": [9, 6, 14, 11], "texture": "#nut"},
+				"west": {"uv": [9, 6, 14, 11], "texture": "#nut"},
+				"up": {"uv": [1, 2, 6, 7], "texture": "#nut"},
+				"down": {"uv": [1, 9, 6, 14], "texture": "#nut"}
+			}
+		},
+		{
+			"name": "cross_4",
+			"from": [10, 12, 12],
+			"to": [12, 16, 12],
+			"faces": {
+				"north": {"uv": [10, 1, 12, 5], "texture": "#nut"},
+				"south": {"uv": [12, 1, 10, 5], "texture": "#nut"}
+			}
+		},
+		{
+			"name": "cross_5",
+			"from": [11, 12, 11],
+			"to": [11, 16, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"east": {"uv": [10, 1, 12, 5], "texture": "#nut"},
+				"west": {"uv": [12, 1, 10, 5], "texture": "#nut"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "coconut1",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [0, 1, 2]
+		},
+		{
+			"name": "coconut2",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [3, 4, 5]
+		},
+		{
+			"name": "coconut3",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [6, 7, 8]
+		},
+		{
+			"name": "coconut4",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [9, 10, 11]
+		}
+	]
 }

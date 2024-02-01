@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -150,8 +150,15 @@ public final class WilderMiscGeneration {
 
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_WATER_POOLS),
 				GenerationStep.Decoration.LAKES, WilderMiscPlaced.RIVER_POOL.getKey());
+
 			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_WATER_POOLS),
 				GenerationStep.Decoration.LAKES, WilderMiscPlaced.SMALL_RIVER_POOL.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_COARSE_DIRT_PILE_WITH_DISK),
+				GenerationStep.Decoration.UNDERGROUND_ORES, WilderMiscPlaced.COARSE_DIRT_DISK_AND_PILE.getKey());
+
+			BiomeModifications.addFeature(BiomeSelectors.tag(WilderBiomeTags.HAS_COMMON_PUMPKIN),
+				GenerationStep.Decoration.VEGETAL_DECORATION, WilderPlacedFeatures.PATCH_PUMPKIN_COMMON.getKey());
 		}
 
 		if (WorldgenConfig.get().surfaceTransitions) {

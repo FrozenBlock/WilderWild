@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -63,7 +63,7 @@ public abstract class AllayModelMixin extends HierarchicalModel<Allay> implement
 	)
 	private void wilderWild$runKeyframeDance(Allay allay, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo info) {
 		if (EntityConfig.get().allay.keyframeAllayDance) {
-			wilderWild$model.animate(((WilderAllay) allay).wilderWild$getDancingAnimationState(), CustomAllayAnimations.DANCING, ageInTicks);
+			this.wilderWild$model.animate(((WilderAllay) allay).wilderWild$getDancingAnimationState(), CustomAllayAnimations.DANCING, ageInTicks);
 		}
 	}
 }

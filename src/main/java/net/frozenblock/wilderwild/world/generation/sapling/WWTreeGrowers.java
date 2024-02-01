@@ -1,3 +1,21 @@
+/*
+ * Copyright 2024 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.world.generation.sapling;
 
 import java.util.Optional;
@@ -18,15 +36,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class WWTreeGrowers {
-	private WWTreeGrowers() {}
-
 	public static final TreeGrower BAOBAB = new BaobabTreeSaplingGenerator("baobab") {
 		@Override
 		protected @Nullable ResourceKey<ConfiguredFeature<?, ?>> getBaobabTreeFeature(@NotNull RandomSource random) {
 			return random.nextFloat() < 0.856F ? WilderTreeConfigured.BAOBAB.getKey() : WilderTreeConfigured.BAOBAB_TALL.getKey();
 		}
 	};
-
 	public static final TreeGrower CYPRESS = new TreeGrower("cypress", Optional.empty(), Optional.empty(), Optional.empty()) {
 		@Override
 		public ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource random, boolean flowers) {
@@ -48,11 +63,13 @@ public final class WWTreeGrowers {
 			return WilderConfiguredFeatures.CYPRESS_WETLANDS_TREES_SAPLING.getKey();
 		}
 	};
-
 	public static final TreeGrower PALM = new TreeGrower("palm", Optional.empty(), Optional.empty(), Optional.empty()) {
 		@Override
 		public ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource random, boolean flowers) {
 			return random.nextDouble() > 0.4 ? WilderTreeConfigured.PALM.getKey() : random.nextDouble() > 0.3 ? WilderTreeConfigured.TALL_PALM.getKey() : WilderTreeConfigured.TALL_WINE_PALM.getKey();
 		}
 	};
+
+	private WWTreeGrowers() {
+	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -54,30 +54,46 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock {
-	public static final EnumProperty<FlowerColor> COLORS = RegisterProperties.FLOWER_COLOR;
+	public static final MapCodec<GloryOfTheSnowBlock> CODEC = simpleCodec(GloryOfTheSnowBlock::new);
+	public static final EnumProperty<FlowerColor> COLOR_STATE = RegisterProperties.FLOWER_COLOR;
+	public static final List<FlowerColor> FLOWER_COLORS = List.of(FlowerColor.BLUE, FlowerColor.PINK, FlowerColor.PURPLE, FlowerColor.WHITE);
 	private static final VoxelShape SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 4.0D, 13.0D);
 	private static final VoxelShape GROWN_SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 8.0D, 13.0D);
-	public final List<FlowerColor> COLOR_LIST;
 
-	public GloryOfTheSnowBlock(@NotNull Properties settings, List<FlowerColor> list) {
+	public GloryOfTheSnowBlock(@NotNull Properties settings) {
 		super(settings);
-		this.COLOR_LIST = list;
+	}
+
+	public static boolean hasColor(@NotNull BlockState state) {
+		return state.hasProperty(COLOR_STATE) && state.getValue(COLOR_STATE) != FlowerColor.NONE;
+	}
+
+	public static void shear(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @Nullable Player player) {
+		FlowerColor color = state.getValue(COLOR_STATE);
+		Item item = color == FlowerColor.BLUE ? RegisterBlocks.BLUE_GLORY_OF_THE_SNOW.asItem() : color == FlowerColor.PINK ? RegisterBlocks.PINK_GLORY_OF_THE_SNOW.asItem() :
+			color == FlowerColor.PURPLE ? RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW.asItem() : RegisterBlocks.WHITE_GLORY_OF_THE_SNOW.asItem();
+		popResource(level, pos, new ItemStack(item, level.random.nextIntBetweenInclusive(1, 2)));
+		level.setBlockAndUpdate(pos, state.getBlock().defaultBlockState());
+		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
+		level.gameEvent(player, GameEvent.SHEAR, pos);
+	}
+
+	@NotNull
+	@Override
+	protected MapCodec<? extends GloryOfTheSnowBlock> codec() {
+		return CODEC;
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
-		builder.add(COLORS);
+		builder.add(COLOR_STATE);
 	}
 
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (random.nextFloat() > 0.9F && state.getValue(COLORS) == FlowerColor.NONE) {
-			level.setBlockAndUpdate(pos, state.setValue(COLORS, COLOR_LIST.get(random.nextInt(COLOR_LIST.size()))));
+		if (random.nextFloat() > 0.9F && state.getValue(COLOR_STATE) == FlowerColor.NONE) {
+			level.setBlockAndUpdate(pos, state.setValue(COLOR_STATE, FLOWER_COLORS.get(random.nextInt(FLOWER_COLORS.size()))));
 		}
-	}
-
-	public static boolean hasColor(@NotNull BlockState state) {
-		return state.hasProperty(COLORS) && state.getValue(COLORS) != FlowerColor.NONE;
 	}
 
 	@Override
@@ -93,27 +109,17 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
 		return super.use(state, level, pos, player, hand, hit);
 	}
 
-	public static void shear(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @Nullable Player player) {
-		FlowerColor color = state.getValue(COLORS);
-		Item item = color == FlowerColor.BLUE ? RegisterBlocks.BLUE_GLORY_OF_THE_SNOW.asItem() : color == FlowerColor.PINK ? RegisterBlocks.PINK_GLORY_OF_THE_SNOW.asItem() :
-			color == FlowerColor.PURPLE ? RegisterBlocks.PURPLE_GLORY_OF_THE_SNOW.asItem() : RegisterBlocks.WHITE_GLORY_OF_THE_SNOW.asItem();
-		popResource(level, pos, new ItemStack(item, level.random.nextIntBetweenInclusive(1, 2)));
-		level.setBlockAndUpdate(pos, state.getBlock().defaultBlockState());
-		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
-		level.gameEvent(player, GameEvent.SHEAR, pos);
-	}
-
 	@Override
 	@NotNull
 	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-		VoxelShape shape = state.getValue(COLORS) == FlowerColor.NONE ? SHAPE : GROWN_SHAPE;
+		VoxelShape shape = state.getValue(COLOR_STATE) == FlowerColor.NONE ? SHAPE : GROWN_SHAPE;
 		Vec3 vec3d = state.getOffset(level, pos);
 		return shape.move(vec3d.x, vec3d.y, vec3d.z);
 	}
 
 	@Override
 	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
-		return state.getValue(COLORS) == FlowerColor.NONE;
+		return state.getValue(COLOR_STATE) == FlowerColor.NONE;
 	}
 
 	@Override
@@ -123,12 +129,6 @@ public class GloryOfTheSnowBlock extends BushBlock implements BonemealableBlock 
 
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-		level.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FLOWER_COLOR, this.COLOR_LIST.get(AdvancedMath.random().nextInt(this.COLOR_LIST.size()))));
-	}
-
-	@SuppressWarnings("NullableProblems")
-	@Override
-	protected MapCodec<? extends BushBlock> codec() {
-		return null;
+		level.setBlockAndUpdate(pos, state.setValue(RegisterProperties.FLOWER_COLOR, FLOWER_COLORS.get(AdvancedMath.random().nextInt(FLOWER_COLORS.size()))));
 	}
 }

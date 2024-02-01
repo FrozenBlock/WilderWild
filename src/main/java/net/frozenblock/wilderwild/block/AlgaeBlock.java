@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.block;
 
+import com.mojang.serialization.MapCodec;
 import java.util.Iterator;
 import java.util.List;
 import net.frozenblock.lib.math.api.AdvancedMath;
@@ -47,6 +48,7 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class AlgaeBlock extends Block implements BonemealableBlock {
+	public static final MapCodec<AlgaeBlock> CODEC = simpleCodec(AlgaeBlock::new);
 	protected static final VoxelShape SHAPE = Block.box(0.0, 0.0, 0.0, 16, 1.0, 16);
 	@SuppressWarnings("SpellCheckingInspection")
 	@Nullable
@@ -59,6 +61,12 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 	@NotNull
 	public static List<Direction> shuffleOffsets(@NotNull RandomSource random) {
 		return Direction.Plane.HORIZONTAL.shuffledCopy(random);
+	}
+
+	@NotNull
+	@Override
+	protected MapCodec<? extends AlgaeBlock> codec() {
+		return CODEC;
 	}
 
 	@Override
@@ -127,17 +135,17 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 		this.bonemealPos = null;
 	}
 
-	public boolean hasAmountNearby(@NotNull LevelAccessor level, @NotNull BlockPos blockPos, int x, int neededAmount) {
-		Iterator<BlockPos> iterator = BlockPos.betweenClosed(blockPos.offset(-x, -x, -x), blockPos.offset(x, x, x)).iterator();
+	public boolean hasAmountNearby(@NotNull LevelAccessor level, @NotNull BlockPos blockPos, int x, int threshold) {
+		Iterator<BlockPos> posesToCheck = BlockPos.betweenClosed(blockPos.offset(-x, -x, -x), blockPos.offset(x, x, x)).iterator();
 		int count = 0;
 		do {
-			if (!iterator.hasNext()) {
+			if (!posesToCheck.hasNext()) {
 				return false;
 			}
-			if (level.getBlockState(iterator.next()).is(this)) {
+			if (level.getBlockState(posesToCheck.next()).is(this)) {
 				count = count + 1;
 			}
-		} while (count < neededAmount);
+		} while (count < threshold);
 		return true;
 	}
 }

@@ -1,11 +1,16 @@
 {
-  "type": "minecraft:crafting_shapeless",
+  "type": "minecraft:crafting_shaped",
   "category": "misc",
   "group": "string",
-  "ingredients": [
-    {
+  "key": {
+    "#": {
       "item": "wilderwild:milkweed_pod"
     }
+  },
+  "pattern": [
+    "###",
+    "###",
+    "###"
   ],
   "result": {
     "item": "minecraft:string",

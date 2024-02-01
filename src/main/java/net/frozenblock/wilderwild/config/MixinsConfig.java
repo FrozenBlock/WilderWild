@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -18,11 +18,11 @@
 
 package net.frozenblock.wilderwild.config;
 
+import blue.endless.jankson.Comment;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
-import net.frozenblock.lib.shadow.blue.endless.jankson.Comment;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.MOD_ID;
 import static net.frozenblock.wilderwild.misc.WilderSharedConstants.configPath;
 
@@ -106,6 +106,8 @@ public final class MixinsConfig {
 	public boolean entity_tumbleweed = true;
 
 	public boolean entity_turtle = true;
+
+	public boolean entity_firework_rocket = true;
 
 	public boolean item_axe = true;
 

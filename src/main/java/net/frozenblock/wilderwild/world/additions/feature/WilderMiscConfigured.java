@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -38,6 +38,7 @@ import net.frozenblock.wilderwild.world.generation.features.config.SnowAndIceDis
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -54,6 +55,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfi
 import net.minecraft.world.level.levelgen.feature.configurations.DiskConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleRandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.VegetationPatchConfiguration;
@@ -154,9 +156,13 @@ public final class WilderMiscConfigured {
 	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> BASIN_MUD = register("basin_mud");
 	public static final FrozenConfiguredFeature<LakeFeature.Configuration, ConfiguredFeature<LakeFeature.Configuration, ?>> MUD_LAKE = register("mud_lake");
 
+	// DYING FOREST
+	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> COARSE_DIRT_DISK_AND_PILE = register("coarse_dirt_disk_and_pile");
+
 	// SNOW
 	public static final FrozenConfiguredFeature<NoneFeatureConfiguration, ConfiguredFeature<NoneFeatureConfiguration, ?>> SNOW_BLANKET = register("snow_blanket");
 	public static final FrozenConfiguredFeature<SnowAndIceDiskFeatureConfig, ConfiguredFeature<SnowAndIceDiskFeatureConfig, ?>> SNOW_AND_ICE_TRANSITION_DISK = register("snow_and_freeze_transition_disk");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> SNOW_CARPET_RANDOM = register("snow_carpet_random");
 	private static final RuleTest NATURAL_STONE = new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD);
 
 	private WilderMiscConfigured() {
@@ -1035,6 +1041,22 @@ public final class WilderMiscConfigured {
 			)
 		);
 
+		COARSE_DIRT_DISK_AND_PILE.makeAndSetHolder(FrozenFeatures.FADING_DISK_WITH_PILE_TAG_FEATURE,
+			new FadingDiskTagFeatureConfig(
+				true,
+				BlockStateProvider.simple(Blocks.COARSE_DIRT.defaultBlockState()),
+				BlockStateProvider.simple(Blocks.COARSE_DIRT.defaultBlockState()),
+				UniformInt.of(2, 4),
+				0.95F,
+				0.925F,
+				0.65F,
+				0.8F,
+				WilderBlockTags.COARSE_DIRT_DISK_REPLACEABLE,
+				WilderBlockTags.COARSE_DIRT_DISK_REPLACEABLE,
+				Heightmap.Types.OCEAN_FLOOR_WG
+			)
+		);
+
 		SNOW_BLANKET.makeAndSetHolder(RegisterFeatures.SNOW_BLANKET_FEATURE, NoneFeatureConfiguration.INSTANCE);
 
 		SNOW_AND_ICE_TRANSITION_DISK.makeAndSetHolder(RegisterFeatures.SNOW_AND_FREEZE_DISK_FEATURE,
@@ -1043,6 +1065,15 @@ public final class WilderMiscConfigured {
 				UniformInt.of(2, 4),
 				0.65F,
 				0.5F
+			)
+		);
+
+		SNOW_CARPET_RANDOM.makeAndSetHolder(Feature.RANDOM_PATCH,
+			FeatureUtils.simpleRandomPatchConfiguration(
+				64,
+				PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.SNOW))
+				)
 			)
 		);
 	}

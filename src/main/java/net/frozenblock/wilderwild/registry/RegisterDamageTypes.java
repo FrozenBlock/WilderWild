@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -31,6 +31,7 @@ public class RegisterDamageTypes {
 	public static final ResourceKey<DamageType> ANCIENT_HORN = bind("ancient_horn");
 	public static final ResourceKey<DamageType> PRICKLY_PEAR = bind("prickly_pear");
 	public static final ResourceKey<DamageType> TUMBLEWEED = bind("tumbleweed");
+	public static final ResourceKey<DamageType> OSTRICH = bind("ostrich");
 
 	public static void init() {
 	}
@@ -38,7 +39,8 @@ public class RegisterDamageTypes {
 	public static void bootstrap(@NotNull BootstapContext<DamageType> context) {
 		context.register(ANCIENT_HORN, new DamageType("ancient_horn", 0.1F));
 		context.register(PRICKLY_PEAR, new DamageType("prickly_pear", 0.1F));
-		context.register(TUMBLEWEED, new DamageType("tumbleweed", DamageScaling.ALWAYS, 2F));
+		context.register(TUMBLEWEED, new DamageType("tumbleweed", DamageScaling.ALWAYS, 0.1F));
+		context.register(OSTRICH, new DamageType("ostrich", DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0.1F));
 	}
 
 	@NotNull

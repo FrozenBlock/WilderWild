@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -41,11 +41,11 @@ public class CrabTryToEmerge {
 			if (crab.canEmerge() &&
 				(
 					crab.getBrain().checkMemory(MemoryModuleType.DIG_COOLDOWN, MemoryStatus.VALUE_ABSENT) ||
-					(
-						crab.getBrain().getMemory(MemoryModuleType.NEAREST_PLAYERS).isPresent()
-						&& crab.getBrain().getMemory(MemoryModuleType.NEAREST_PLAYERS).get().stream().anyMatch(player -> player.distanceTo(crab) < CrabAi.UNDERGROUND_PLAYER_RANGE)
-					) ||
-					!crab.canHideOnGround()
+						(
+							crab.getBrain().getMemory(MemoryModuleType.NEAREST_PLAYERS).isPresent()
+								&& crab.getBrain().getMemory(MemoryModuleType.NEAREST_PLAYERS).get().stream().anyMatch(player -> player.distanceTo(crab) < CrabAi.UNDERGROUND_PLAYER_RANGE)
+						) ||
+						!crab.canHideOnGround()
 				)
 			) {
 				isEmerging.setWithExpiry(Unit.INSTANCE, Crab.EMERGE_LENGTH_IN_TICKS);

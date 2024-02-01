@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -129,7 +129,7 @@ public final class WorldgenConfig {
 		public boolean modifyMangroveSwampPlacement = true;
 
 		@EntrySyncData("modifyCherryGrovePlacement")
-		public boolean modifyCherryGrovePlacement = true;
+		public boolean modifyCherryGrovePlacement = false;
 
 		@EntrySyncData("modifyStonyShorePlacement")
 		public boolean modifyStonyShorePlacement = true;
@@ -198,6 +198,18 @@ public final class WorldgenConfig {
 
 		@EntrySyncData("generateDarkTaiga")
 		public boolean generateDarkTaiga = true;
+
+		@EntrySyncData("generateDyingForest")
+		public boolean generateDyingForest = true;
+
+		@EntrySyncData("generateSnowyDyingForest")
+		public boolean generateSnowyDyingForest = true;
+
+		@EntrySyncData("generateDyingMixedForest")
+		public boolean generateDyingMixedForest = true;
+
+		@EntrySyncData("generateSnowyDyingMixedForest")
+		public boolean generateSnowyDyingMixedForest = true;
 	}
 
 	public static class WaterColors {

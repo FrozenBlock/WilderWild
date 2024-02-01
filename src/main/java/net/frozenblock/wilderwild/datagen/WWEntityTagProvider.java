@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -41,7 +41,8 @@ final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagProvider 
 
 		this.getOrCreateTagBuilder(EntityTypeTags.CAN_BREATHE_UNDER_WATER)
 			.add(EntityType.WARDEN)
-			.add(RegisterEntities.CRAB);
+			.add(RegisterEntities.CRAB)
+			.add(RegisterEntities.JELLYFISH);
 
 		this.getOrCreateTagBuilder(WilderEntityTags.CRAB_HUNT_TARGETS)
 			.add(EntityType.SQUID)
@@ -50,5 +51,8 @@ final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagProvider 
 			.add(EntityType.SALMON)
 			.add(EntityType.TROPICAL_FISH)
 			.add(EntityType.TADPOLE);
+
+		this.getOrCreateTagBuilder(EntityTypeTags.DISMOUNTS_UNDERWATER)
+			.add(RegisterEntities.OSTRICH);
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -25,7 +25,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.entity.api.rendering.FrozenRenderType;
 import net.frozenblock.wilderwild.WilderWildClient;
-import net.frozenblock.wilderwild.entity.AncientHornProjectile;
+import net.frozenblock.wilderwild.entity.AncientHornVibration;
 import net.frozenblock.wilderwild.entity.render.model.AncientHornProjectileModel;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -37,7 +37,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class AncientHornProjectileRenderer<T extends AncientHornProjectile> extends EntityRenderer<T> {
+public class AncientHornProjectileRenderer<T extends AncientHornVibration> extends EntityRenderer<T> {
 	private static final ResourceLocation TEXTURE = WilderSharedConstants.id("textures/entity/ancient_horn_projectile.png");
 	private final AncientHornProjectileModel model;
 
@@ -49,20 +49,20 @@ public class AncientHornProjectileRenderer<T extends AncientHornProjectile> exte
 	@Override
 	public void render(@NotNull T projectile, float yaw, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int light) {
 		poseStack.pushPose();
-		poseStack.mulPose(Axis.YP.rotationDegrees((projectile.yRotO + partialTick * (projectile.getYRot() - projectile.yRotO)) - 90.0F));
-		poseStack.mulPose(Axis.ZP.rotationDegrees((projectile.xRotO + partialTick * (projectile.getXRot() - projectile.xRotO)) + 90.0F));
+		poseStack.mulPose(Axis.YP.rotationDegrees((projectile.yRotO + partialTick * (projectile.getYRot() - projectile.yRotO)) - 90F));
+		poseStack.mulPose(Axis.ZP.rotationDegrees((projectile.xRotO + partialTick * (projectile.getXRot() - projectile.xRotO)) + 90F));
 		VertexConsumer vertexConsumer = buffer.getBuffer(FrozenRenderType.ENTITY_TRANSLUCENT_EMISSIVE_FIXED.apply(TEXTURE, false));
 
 		float multiplier = projectile.getBoundingBoxMultiplier();
 		float scale = multiplier + 1F;
-		float alpha = 1.0F - (multiplier / 15F);
+		float alpha = 1F - (multiplier / 15F);
 		float correctedAlpha = Math.max(alpha, 0.01F);
 
 		poseStack.scale(scale, scale, scale);
 
 		this.model.partialTick = partialTick;
 		this.model.projectile = projectile;
-		this.model.renderToBuffer(poseStack, vertexConsumer, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, correctedAlpha);
+		this.model.renderToBuffer(poseStack, vertexConsumer, light, OverlayTexture.NO_OVERLAY, 1F, 1F, 1F, correctedAlpha);
 
 		poseStack.popPose();
 		super.render(projectile, yaw, partialTick, poseStack, buffer, light);

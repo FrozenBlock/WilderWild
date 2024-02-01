@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -127,9 +127,12 @@ public final class WilderMiscPlaced {
 	public static final FrozenPlacedFeature MUD_PILE = register("mud_pile");
 	public static final FrozenPlacedFeature BASIN_MUD = register("basin_mud");
 	public static final FrozenPlacedFeature MUD_LAKE = register("mud_lake");
+	// DYING FOREST
+	public static final FrozenPlacedFeature COARSE_DIRT_DISK_AND_PILE = register("coarse_dirt_disk_and_pile");
 	// SNOW
 	public static final FrozenPlacedFeature SNOW_BLANKET = register("snow_blanket");
 	public static final FrozenPlacedFeature SNOW_AND_ICE_TRANSITION = register("snow_and_freeze_transition");
+	public static final FrozenPlacedFeature SNOW_CARPET_RANDOM = register("snow_carpet_random");
 
 	private WilderMiscPlaced() {
 		throw new UnsupportedOperationException("WilderMiscPlaced contains only static declarations.");
@@ -638,6 +641,15 @@ public final class WilderMiscPlaced {
 			BiomeFilter.biome()
 		);
 
+		// DYING FOREST
+
+		COARSE_DIRT_DISK_AND_PILE.makeAndSetHolder(WilderMiscConfigured.COARSE_DIRT_DISK_AND_PILE.getHolder(),
+			RarityFilter.onAverageOnceEvery(9),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP,
+			BiomeFilter.biome()
+		);
+
 		// SNOW
 
 		SNOW_BLANKET.makeAndSetHolder(WilderMiscConfigured.SNOW_BLANKET.getHolder(),
@@ -650,6 +662,13 @@ public final class WilderMiscPlaced {
 			CountPlacement.of(6),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,
+			BiomeFilter.biome()
+		);
+
+		SNOW_CARPET_RANDOM.makeAndSetHolder(WilderMiscConfigured.SNOW_CARPET_RANDOM.getHolder(),
+			CountPlacement.of(2),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 	}

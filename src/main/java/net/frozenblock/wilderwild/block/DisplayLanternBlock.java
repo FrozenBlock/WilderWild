@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -79,6 +79,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
 	public static final IntegerProperty DISPLAY_LIGHT = RegisterProperties.DISPLAY_LIGHT;
+	public static final MapCodec<DisplayLanternBlock> CODEC = simpleCodec(DisplayLanternBlock::new);
 	protected static final VoxelShape STANDING_SHAPE = Shapes.or(Block.box(5.0D, 0.0D, 5.0D, 11.0D, 7.0D, 11.0D), Block.box(6.0D, 7.0D, 6.0D, 10.0D, 8.0D, 10.0D));
 	protected static final VoxelShape HANGING_SHAPE = Shapes.or(Block.box(5.0D, 2.0D, 5.0D, 11.0D, 9.0D, 11.0D), Block.box(6.0D, 9.0D, 6.0D, 10.0D, 10.0D, 10.0D));
 
@@ -87,14 +88,14 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 		this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, false).setValue(WATERLOGGED, false).setValue(DISPLAY_LIGHT, 0));
 	}
 
-	@SuppressWarnings("NullableProblems")
-	@Override
-	protected MapCodec<? extends BaseEntityBlock> codec() {
-		return null;
-	}
-
 	private static Direction attachedDirection(@NotNull BlockState state) {
 		return state.getValue(HANGING) ? Direction.DOWN : Direction.UP;
+	}
+
+	@NotNull
+	@Override
+	protected MapCodec<? extends DisplayLanternBlock> codec() {
+		return CODEC;
 	}
 
 	@Override
@@ -105,13 +106,13 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 		}
 		BlockEntity entity = level.getBlockEntity(pos);
 		if (entity instanceof DisplayLanternBlockEntity lantern) {
-			ItemStack stack = player.getItemInHand(hand);
+			ItemStack itemStack = player.getItemInHand(hand);
 			if (lantern.invEmpty()) {
-				if (stack.getItem() instanceof FireflyBottle bottle) {
+				if (itemStack.getItem() instanceof FireflyBottle bottle) {
 					if (lantern.getFireflies().size() < 4) {
 						String name = "";
-						if (stack.hasCustomHoverName()) {
-							name = stack.getHoverName().getString();
+						if (itemStack.hasCustomHoverName()) {
+							name = itemStack.getHoverName().getString();
 						}
 						lantern.addFirefly(level, bottle, name);
 						if (!player.isCreative()) {
@@ -125,7 +126,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 						return InteractionResult.SUCCESS;
 					}
 				}
-				if (stack.is(Items.GLASS_BOTTLE)) {
+				if (itemStack.is(Items.GLASS_BOTTLE)) {
 					if (!lantern.getFireflies().isEmpty()) {
 						DisplayLanternBlockEntity.FireflyInLantern fireflyInLantern = lantern.getFireflies().get(AdvancedMath.random().nextInt(lantern.getFireflies().size()));
 						Optional<Item> optionalItem = BuiltInRegistries.ITEM.getOptional(new ResourceLocation(fireflyInLantern.color.key().getNamespace(), Objects.equals(fireflyInLantern.color, FireflyColor.ON) ? "firefly_bottle" : fireflyInLantern.color.key().getPath() + "_firefly_bottle"));
@@ -149,15 +150,15 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 						return InteractionResult.SUCCESS;
 					}
 				}
-				if (!stack.isEmpty() && lantern.noFireflies()) {
+				if (!itemStack.isEmpty() && lantern.noFireflies()) {
 					int light = 0;
-					if (stack.getItem() instanceof BlockItem blockItem) {
+					if (itemStack.getItem() instanceof BlockItem blockItem) {
 						light = blockItem.getBlock().defaultBlockState().getLightEmission();
-					} else if (stack.isEnchanted()) {
-						light = (int) Math.round(stack.getEnchantmentTags().size() * 0.5);
+					} else if (itemStack.isEnchanted()) {
+						light = (int) Math.round(itemStack.getEnchantmentTags().size() * 0.5);
 					}
 					level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(light, 0, 15)));
-					lantern.inventory.set(0, stack.split(1));
+					lantern.inventory.set(0, itemStack.split(1));
 					lantern.updateSync();
 					level.updateNeighbourForOutputSignal(pos, this);
 					return InteractionResult.SUCCESS;

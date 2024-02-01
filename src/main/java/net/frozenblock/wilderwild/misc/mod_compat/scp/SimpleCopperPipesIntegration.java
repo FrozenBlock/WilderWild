@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -20,15 +20,13 @@ package net.frozenblock.wilderwild.misc.mod_compat.scp;
 
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.FrozenSharedConstants;
-import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
-import net.frozenblock.wilderwild.entity.AncientHornProjectile;
+import net.frozenblock.wilderwild.entity.AncientHornVibration;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.networking.packet.WilderControlledSeedParticlePacket;
-import net.frozenblock.wilderwild.networking.packet.WilderFloatingSculkBubbleParticlePacket;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
+import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -42,6 +40,7 @@ import net.lunade.copper.blocks.CopperPipe;
 import net.lunade.copper.pipe_nbt.MoveablePipeDataHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Position;
 import net.minecraft.core.particles.DustColorTransitionOptions;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -50,23 +49,19 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Vector3f;
 
 public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesIntegration {
 	public static final ResourceLocation HORN = WilderSharedConstants.id("ancient_horn");
 
 	public SimpleCopperPipesIntegration() {
 		super();
-	}
-
-	@Override
-	public void initPreFreeze() {
-
 	}
 
 	@Override
@@ -102,13 +97,22 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 						Direction direction = state.getValue(BlockStateProperties.FACING);
 						if (nbt.getEntity(level) != null) {
 							nbt.withUseCount(nbt.getUseCount() + 1);
-							AncientHornProjectile projectileEntity = new AncientHornProjectile(level, pos.getX() + pipe.getDripX(direction), pos.getY() + pipe.getDripY(direction), pos.getZ() + pipe.getDripZ(direction));
-							projectileEntity.shoot(direction.getStepX(), direction.getStepY(), direction.getStepZ(), 1.0F, 0.0F);
+							AncientHornVibration projectileEntity = new AncientHornVibration(level, pos.getX() + pipe.getDripX(direction), pos.getY() + pipe.getDripY(direction), pos.getZ() + pipe.getDripZ(direction));
+							projectileEntity.shoot(direction.getStepX(), direction.getStepY(), direction.getStepZ(), 1F, 0F);
 							projectileEntity.setOwner(nbt.foundEntity);
 							projectileEntity.setShotByPlayer(true);
 							projectileEntity.canInteractWithPipe = false;
 							level.addFreshEntity(projectileEntity);
-							FrozenSoundPackets.createMovingRestrictionLoopingSound(level, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, FrozenSharedConstants.id("default"), true);
+							FrozenSoundPackets.createMovingRestrictionLoopingSound(
+								level,
+								projectileEntity,
+								RegisterSounds.ENTITY_ANCIENT_HORN_VIBRATION_LOOP,
+								SoundSource.NEUTRAL,
+								1F,
+								1F,
+								FrozenSharedConstants.id("default"),
+								true
+							);
 						}
 					}
 				}
@@ -120,153 +124,124 @@ public class SimpleCopperPipesIntegration extends AbstractSimpleCopperPipesInteg
 				}
 				if (blockState.getBlock() instanceof CopperPipe pipe) {
 					Direction direction = blockState.getValue(BlockStateProperties.FACING);
-					final var random = level.getRandom().nextIntBetweenInclusive(10, 20);
-					for (int i = 0; i < random; i++) {
-						level.sendParticles(new DustColorTransitionOptions(DustColorTransitionOptions.SCULK_PARTICLE_COLOR, DustColorTransitionOptions.SCULK_PARTICLE_COLOR, 1.0F), pos.getX() + pipe.getDripX(direction, level.getRandom()), pos.getY() + pipe.getDripY(direction, level.getRandom()), pos.getZ() + pipe.getDripZ(direction, level.getRandom()), 1, 0.0, 0.0, 0.0, 0.7);
+					RandomSource random = level.getRandom();
+					for (int i = 0; i < random.nextIntBetweenInclusive(10, 20); i++) {
+						level.sendParticles(
+							new DustColorTransitionOptions(DustColorTransitionOptions.SCULK_PARTICLE_COLOR, DustColorTransitionOptions.SCULK_PARTICLE_COLOR, 1F),
+							pos.getX() + pipe.getDripX(direction, random),
+							pos.getY() + pipe.getDripY(direction, random),
+							pos.getZ() + pipe.getDripZ(direction, random),
+							1,
+							0D,
+							0D,
+							0D,
+							0.7D
+						);
 					}
 				}
 			}, (nbt, level, pos, blockState, blockEntity) -> true);
 
 			FittingPipeDispenses.register(RegisterItems.MILKWEED_POD, (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
-				double d = position.x();
-				double e = position.y();
-				double f = position.z();
-				RandomSource random = level.random;
-				double random1 = random.nextDouble() * 7.0D - 3.5D;
-				double random2 = random.nextDouble() * 7.0D - 3.5D;
-				Direction.Axis axis = direction.getAxis();
-				if (axis == Direction.Axis.Y) {
-					e -= 0.125D;
-				} else {
-					e -= 0.15625D;
-				}
-
-				int offX = direction.getStepX();
-				int offY = direction.getStepY();
-				int offZ = direction.getStepZ();
-				double velX = axis == Direction.Axis.X ? (double) (i * offX * 2) : (axis == Direction.Axis.Z ? (corroded ? random2 : random2 * 0.1D) : (corroded ? random1 : random1 * 0.1D));
-				double velY = axis == Direction.Axis.Y ? (double) (i * offY * 2) : (corroded ? random1 : random1 * 0.1D);
-				double velZ = axis == Direction.Axis.Z ? (double) (i * offZ * 2) : (corroded ? random2 : random2 * 0.1D);
-				UniformInt ran1 = UniformInt.of(-3, 3);
-				UniformInt ran2 = UniformInt.of(-1, 1);
-				UniformInt ran3 = UniformInt.of(-3, 3);
-				for (int o = 0; o < random.nextIntBetweenInclusive(10, 30); ++o) {
-					WilderControlledSeedParticlePacket.sendToAll(level, new Vec3(d + (double) ran1.sample(level.random) * 0.1D, e + (double) ran2.sample(level.random) * 0.1D, f + (double) ran3.sample(level.random) * 0.1D), velX, velY, velZ, 1, true, 0.3);
-				}
+				spawnSeedParticleFromPipe(true, level, i, direction, position, corroded);
 			});
 
 			FittingPipeDispenses.register(BuiltInRegistries.ITEM.get(WilderSharedConstants.id("seeding_dandelion")), (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
-				double d = position.x();
-				double e = position.y();
-				double f = position.z();
-				RandomSource random = level.random;
-				double random1 = random.nextDouble() * 7.0D - 3.5D;
-				double random2 = random.nextDouble() * 7.0D - 3.5D;
-				Direction.Axis axis = direction.getAxis();
-				if (axis == Direction.Axis.Y) {
-					e -= 0.125D;
-				} else {
-					e -= 0.15625D;
-				}
-
-				int offX = direction.getStepX();
-				int offY = direction.getStepY();
-				int offZ = direction.getStepZ();
-				double velX = axis == Direction.Axis.X ? (double) (i * offX * 2) : (axis == Direction.Axis.Z ? (corroded ? random2 : random2 * 0.1D) : (corroded ? random1 : random1 * 0.1D));
-				double velY = axis == Direction.Axis.Y ? (double) (i * offY * 2) : (corroded ? random1 : random1 * 0.1D);
-				double velZ = axis == Direction.Axis.Z ? (double) (i * offZ * 2) : (corroded ? random2 : random2 * 0.1D);
-				UniformInt ran1 = UniformInt.of(-3, 3);
-				UniformInt ran2 = UniformInt.of(-1, 1);
-				UniformInt ran3 = UniformInt.of(-3, 3);
-				for (int o = 0; o < random.nextIntBetweenInclusive(1, 10); ++o) {
-					WilderControlledSeedParticlePacket.sendToAll(level, new Vec3(d + (double) ran1.sample(level.random) * 0.1D, e + (double) ran2.sample(level.random) * 0.1D, f + (double) ran3.sample(level.random) * 0.1D), velX, velY, velZ, 1, false, 0.3);
-				}
+				spawnSeedParticleFromPipe(false, level, i, direction, position, corroded);
 			});
 
 			FittingPipeDispenses.register(RegisterItems.ANCIENT_HORN, (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
 				if (!level.isClientSide) {
-					double d = position.x();
-					double e = position.y();
-					double f = position.z();
-					RandomSource random = level.random;
-					double random1 = random.nextDouble() * 7.0D - 3.5D;
-					Direction.Axis axis = direction.getAxis();
-					if (axis == Direction.Axis.Y) {
-						e -= 0.125D;
-					} else {
-						e -= 0.15625D;
-					}
-
-					int offY = direction.getStepY();
-					double velY = axis == Direction.Axis.Y ? (double) (i * offY * 2) : (corroded ? random1 : random1 * 0.1D);
-					UniformInt ran1 = UniformInt.of(-3, 3);
-					UniformInt ran2 = UniformInt.of(-1, 1);
-					UniformInt ran3 = UniformInt.of(-3, 3);
+					RandomSource random = level.getRandom();
+					Vec3 outputPos = getOutputPosition(position, direction);
+					UniformInt xzOffset = UniformInt.of(-3, 3);
+					UniformInt yOffset = UniformInt.of(-1, 1);
 					for (int o = 0; o < random.nextIntBetweenInclusive(1, 4); ++o) {
-						WilderFloatingSculkBubbleParticlePacket.sendToAll(level, new Vec3(d + (double) ran1.sample(level.random) * 0.1D, e + (double) ran2.sample(level.random) * 0.1D, f + (double) ran3.sample(level.random) * 0.1D), AdvancedMath.random().nextDouble() > 0.7 ? 1 : 0, random.nextIntBetweenInclusive(60, 80), velY * 0.05, 1);
+						level.sendParticles(
+							new FloatingSculkBubbleParticleOptions(
+								random.nextDouble() > 0.7 ? 1 : 0,
+								random.nextIntBetweenInclusive(60, 80),
+								new Vector3f(
+									FloatingSculkBubbleParticleOptions.getRandomVelocity(random, 0),
+									0.075F,
+									FloatingSculkBubbleParticleOptions.getRandomVelocity(random, 0)
+								)
+							),
+							outputPos.x() + (double) xzOffset.sample(random) * 0.1D,
+							outputPos.y() + (double) yOffset.sample(random) * 0.1D,
+							outputPos.z() + (double) xzOffset.sample(random) * 0.1D,
+							1,
+							0D,
+							0D,
+							0D,
+							0D
+						);
 					}
 				}
 			});
 
 			PoweredPipeDispenses.register(RegisterItems.COCONUT, (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
-				double d = position.x();
-				double e = position.y();
-				double f = position.z();
-				RandomSource random = level.random;
-				double random1 = random.nextDouble() * 10.0D - 5D;
-				double random2 = random.nextDouble() * 10.0D - 5D;
-				Direction.Axis axis = direction.getAxis();
-				if (axis == Direction.Axis.Y) {
-					e -= 0.125D;
-				} else {
-					e -= 0.15625D;
-				}
-
-				int offX = direction.getStepX();
-				int offY = direction.getStepY();
-				int offZ = direction.getStepZ();
-				double velX = axis == Direction.Axis.X ? (double) (i * offX * 2) : (axis == Direction.Axis.Z ? (corroded ? random2 : random2 * 0.1D) : (corroded ? random1 : random1 * 0.1D));
-				double velY = axis == Direction.Axis.Y ? (double) (i * offY * 2) : (corroded ? random1 : random1 * 0.1D);
-				double velZ = axis == Direction.Axis.Z ? (double) (i * offZ * 2) : (corroded ? random2 : random2 * 0.1D);
-				CoconutProjectile coconut = new CoconutProjectile(level, d, e, f);
-				coconut.shoot(velX, velY, velZ, 0.8F, 0.8F);
+				Vec3 outputPos = getOutputPosition(position, direction);
+				Vec3 velocity = getVelocity(level.getRandom(), direction, 5D, i, corroded);
+				CoconutProjectile coconut = new CoconutProjectile(level, outputPos.x(), outputPos.y(), outputPos.z());
+				coconut.shoot(velocity.x(), velocity.y(), velocity.z(), 0.8F, 0.8F);
 				level.addFreshEntity(coconut);
 			});
 
 			PoweredPipeDispenses.register(BuiltInRegistries.ITEM.get(WilderSharedConstants.id("tumbleweed")), (level, stack, i, direction, position, state, corroded, pos, pipe) -> {
-				double d = position.x();
-				double e = position.y();
-				double f = position.z();
-				RandomSource random = level.random;
-				double random1 = random.nextDouble() * 10.0D - 5D;
-				double random2 = random.nextDouble() * 10.0D - 5D;
-				Direction.Axis axis = direction.getAxis();
-				if (axis == Direction.Axis.Y) {
-					e -= 0.125D;
-				} else {
-					e -= 0.15625D;
-				}
-
-				int offX = direction.getStepX();
-				int offY = direction.getStepY();
-				int offZ = direction.getStepZ();
-				double velX = axis == Direction.Axis.X ? (double) (i * offX * 2) : (axis == Direction.Axis.Z ? (corroded ? random2 : random2 * 0.1D) : (corroded ? random1 : random1 * 0.1D));
-				double velY = axis == Direction.Axis.Y ? (double) (i * offY * 2) : (corroded ? random1 : random1 * 0.1D);
-				double velZ = axis == Direction.Axis.Z ? (double) (i * offZ * 2) : (corroded ? random2 : random2 * 0.1D);
+				Vec3 velocity = getVelocity(level.getRandom(), direction, 5D, i, corroded);
 				Tumbleweed tumbleweed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
-				tumbleweed.setDeltaMovement(velX * 0.2, velY * 0.2, velZ * 0.2);
-				tumbleweed.setPos(d, e, f);
+				tumbleweed.setDeltaMovement(velocity.x() * 0.2, velocity.y() * 0.2, velocity.z() * 0.2);
+				tumbleweed.setPos(getOutputPosition(position, direction));
 				level.addFreshEntity(tumbleweed);
 			});
 
 			PipeMovementRestrictions.register(
-					WilderSharedConstants.id("stone_chest"),
-					((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false),
-					((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false)
+				WilderSharedConstants.id("stone_chest"),
+				((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false),
+				((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false)
 			);
 		} else {
 			WilderSharedConstants.log("Could not initiate compat with Wilder Wild and Simple Copper Pipes. SCP compat id is not 3 (minimum SCP is 1.16.)", true);
 		}
+	}
+
+	public static void spawnSeedParticleFromPipe(boolean isMilkweed, @NotNull ServerLevel level, int i, @NotNull Direction direction, @NotNull Position position, boolean corroded) {
+		Vec3 outputPos = getOutputPosition(position, direction);
+		RandomSource random = level.getRandom();
+		Vec3 velocity = getVelocity(random, direction, 3.5D, i, corroded);
+		level.sendParticles(
+			SeedParticleOptions.controlled(isMilkweed, (float) (velocity.x() * 1.5F), (float) (velocity.y() + 0.035F), (float) (velocity.z() * 1.5F)),
+			outputPos.x(),
+			outputPos.y(),
+			outputPos.z(),
+			random.nextIntBetweenInclusive(1, 10),
+			0.3D,
+			0.3D,
+			0.3D,
+			0D
+		);
+	}
+
+	@NotNull
+	@Contract("_, _ -> new")
+	public static Vec3 getOutputPosition(@NotNull Position position, @NotNull Direction direction) {
+		return new Vec3(
+			position.x(),
+			position.y() - (direction.getAxis() == Direction.Axis.Y ? 0.125D : 0.15625D),
+			position.z()
+		);
+	}
+
+	@NotNull
+	public static Vec3 getVelocity(@NotNull RandomSource random, @NotNull Direction direction, double randomRange, int i, boolean corroded) {
+		double xzRandom = random.nextDouble() * (randomRange * 2D) - randomRange;
+		double yRandom = random.nextDouble() * (randomRange * 2D) - randomRange;
+
+		Direction.Axis axis = direction.getAxis();
+		double velX = axis == Direction.Axis.X ? (i * direction.getStepX() * 2D) : (axis == Direction.Axis.Z ? (corroded ? yRandom : yRandom * 0.1D) : (corroded ? xzRandom : xzRandom * 0.1D));
+		double velY = axis == Direction.Axis.Y ? (i * direction.getStepY() * 2D) : (corroded ? xzRandom : xzRandom * 0.1D);
+		double velZ = axis == Direction.Axis.Z ? (i * direction.getStepZ() * 2D) : (corroded ? yRandom : yRandom * 0.1D);
+		return new Vec3(velX, velY, velZ);
 	}
 
 }

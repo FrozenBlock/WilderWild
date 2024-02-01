@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -55,9 +55,13 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("deprecation")
 public class SmallSpongeBlock extends FaceAttachedHorizontalDirectionalBlock implements SimpleWaterloggedBlock, BonemealableBlock {
-	public static final IntegerProperty STAGE = BlockStateProperties.AGE_2;
+	public static final float BONEMEAL_SUCCESS_CHANCE = 0.65F;
+	public static final int MAX_AGE = 2;
+	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+	public static final MapCodec<SmallSpongeBlock> CODEC = simpleCodec(SmallSpongeBlock::new);
 	protected static final VoxelShape NORTH_WALL_SHAPE = Block.box(0.0D, 0.0D, 13.0D, 16.0D, 16.0D, 16.0D);
 	protected static final VoxelShape SOUTH_WALL_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 3.0D);
 	protected static final VoxelShape WEST_WALL_SHAPE = Block.box(13.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);
@@ -67,27 +71,28 @@ public class SmallSpongeBlock extends FaceAttachedHorizontalDirectionalBlock imp
 
 	public SmallSpongeBlock(@NotNull Properties settings) {
 		super(settings);
-		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false).setValue(FACE, AttachFace.WALL).setValue(STAGE, 0));
-	}
-
-	@Override
-	protected MapCodec<? extends FaceAttachedHorizontalDirectionalBlock> codec() {
-		return null;
+		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false).setValue(FACE, AttachFace.WALL).setValue(AGE, 0));
 	}
 
 	public static boolean canAttachTo(@NotNull BlockGetter level, @NotNull Direction direction, @NotNull BlockPos pos, @NotNull BlockState state) {
 		return Block.isFaceFull(state.getBlockSupportShape(level, pos), direction.getOpposite()) || Block.isFaceFull(state.getCollisionShape(level, pos), direction.getOpposite());
 	}
 
+	@NotNull
+	@Override
+	protected MapCodec<? extends SmallSpongeBlock> codec() {
+		return CODEC;
+	}
+
 	@Override
 	@NotNull
 	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		ItemStack itemStack = player.getItemInHand(hand);
-		int i = state.getValue(STAGE);
-		if (i > 0 && itemStack.is(Items.SHEARS)) {
+		int age = state.getValue(AGE);
+		if (age > 0 && itemStack.is(Items.SHEARS)) {
 			popResource(level, pos, new ItemStack(state.getBlock().asItem()));
-			level.setBlockAndUpdate(pos, state.setValue(STAGE, i - 1));
-			level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
+			level.setBlockAndUpdate(pos, state.setValue(AGE, age - 1));
+			level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
 			itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
 			level.gameEvent(player, GameEvent.SHEAR, pos);
 			return InteractionResult.sidedSuccess(level.isClientSide);
@@ -98,12 +103,12 @@ public class SmallSpongeBlock extends FaceAttachedHorizontalDirectionalBlock imp
 
 	@Override
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(FACE, FACING, STAGE, WATERLOGGED);
+		builder.add(FACE, FACING, AGE, WATERLOGGED);
 	}
 
 	@Override
 	public boolean canBeReplaced(@NotNull BlockState state, @NotNull BlockPlaceContext context) {
-		return !context.isSecondaryUseActive() && context.getItemInHand().is(this.asItem()) && state.getValue(STAGE) < 2 || super.canBeReplaced(state, context);
+		return !context.isSecondaryUseActive() && context.getItemInHand().is(this.asItem()) && state.getValue(AGE) < MAX_AGE || super.canBeReplaced(state, context);
 	}
 
 	@Override
@@ -111,7 +116,7 @@ public class SmallSpongeBlock extends FaceAttachedHorizontalDirectionalBlock imp
 	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
 		BlockState insideState = context.getLevel().getBlockState(context.getClickedPos());
 		if (insideState.is(this)) {
-			return insideState.setValue(STAGE, Math.min(2, insideState.getValue(STAGE) + 1));
+			return insideState.setValue(AGE, Math.min(MAX_AGE, insideState.getValue(AGE) + 1));
 		}
 		boolean waterlogged = insideState.hasProperty(BlockStateProperties.WATERLOGGED) ? insideState.getValue(BlockStateProperties.WATERLOGGED) : false;
 		if (!waterlogged) {
@@ -157,7 +162,7 @@ public class SmallSpongeBlock extends FaceAttachedHorizontalDirectionalBlock imp
 				blockState = blockState.setValue(FACE, AttachFace.WALL).setValue(FACING, lookingDirection.getOpposite());
 			}
 
-			return blockState.setValue(SmallSpongeBlock.STAGE, EasyNoiseSampler.localRandom.nextInt(0, 2));
+			return blockState.setValue(AGE, EasyNoiseSampler.localRandom.nextInt(MAX_AGE));
 		}
 	}
 
@@ -193,16 +198,16 @@ public class SmallSpongeBlock extends FaceAttachedHorizontalDirectionalBlock imp
 
 	@Override
 	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
-		return state.getValue(STAGE) < 2;
+		return state.getValue(AGE) < MAX_AGE;
 	}
 
 	@Override
 	public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-		return random.nextFloat() < 0.65F;
+		return random.nextFloat() < BONEMEAL_SUCCESS_CHANCE;
 	}
 
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-		level.setBlock(pos, state.cycle(STAGE), 2);
+		level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -20,18 +20,11 @@ package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
-import net.frozenblock.wilderwild.tag.WilderItemTags;
-import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.tags.EntityTypeTags;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
-import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.entries.TagEntry;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
-import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public final class RegisterLootTables {
@@ -49,7 +42,7 @@ public final class RegisterLootTables {
 					.setWeight(1)
 					.setQuality(Rarity.EPIC.ordinal() + 4)
 					.apply(
-						SetItemCountFunction.setCount(UniformGenerator.between(-3.5F, 1.0F))
+						SetItemCountFunction.setCount(UniformGenerator.between(-3.75F, 1.0F))
 					)
 				);
 
@@ -97,14 +90,6 @@ public final class RegisterLootTables {
 			if (BuiltInLootTables.VILLAGE_DESERT_HOUSE.equals(id) && source.isBuiltin()) {
 				LootPool.Builder pool = LootPool.lootPool()
 					.add(LootItem.lootTableItem(RegisterBlocks.PALM_LOG.asItem()).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
-
-				tableBuilder.withPool(pool);
-			}
-		});
-		//GOAT
-		LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
-			if (EntityType.GOAT.getDefaultLootTable().equals(id)) {
-				var pool = LootPool.lootPool().add(TagEntry.expandTag(WilderItemTags.GOAT_DROP_MUSIC_DISCS)).when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.KILLER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)));
 
 				tableBuilder.withPool(pool);
 			}
