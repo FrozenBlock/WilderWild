@@ -217,6 +217,9 @@ dependencies {
     // TerraBlender
     modCompileOnlyApi("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
 
+    // Reach Entity Attributes
+    modApi("com.github.Treetrain1:reach-entity-attributes:1.20-SNAPSHOT")?.let { include(it) }
+
     // Particle Rain
     modCompileOnly("maven.modrinth:particle-rain:v2.0.5")
 
@@ -245,7 +248,7 @@ tasks {
             "mod_id" to mod_id,
             "version" to version,
             "protocol_version" to protocol_version,
-            "minecraft_version" to "~1.20.5-",
+            "minecraft_version" to "~1.20.4-",
 
             "fabric_api_version" to ">=$fabric_api_version",
             "frozenlib_version" to ">=${frozenlib_version.split('-').firstOrNull()}-"
