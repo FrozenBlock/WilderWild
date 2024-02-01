@@ -26,6 +26,7 @@ import net.frozenblock.wilderwild.networking.packet.WilderWindPacket;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
@@ -47,14 +48,14 @@ public class WilderWindManager implements WindManagerExtension {
 	}
 
 	@Override
-	public void tick() {
+	public void tick(ServerLevel level) {
 		this.cloudX += (manager.laggedWindX * 0.007);
 		this.cloudY += (manager.laggedWindY * 0.01);
 		this.cloudZ += (manager.laggedWindZ * 0.007);
 	}
 
 	@Override
-	public void baseTick() {
+	public void baseTick(ServerLevel level) {
 	}
 
 	@Override
