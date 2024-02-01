@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -22,11 +22,12 @@ import java.util.Optional;
 import net.frozenblock.lib.FrozenSharedConstants;
 import net.frozenblock.lib.item.impl.CooldownInterface;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
-import net.frozenblock.wilderwild.entity.AncientHornProjectile;
+import net.frozenblock.wilderwild.entity.AncientHornVibration;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -95,11 +96,20 @@ public class AncientHorn extends InstrumentItem {
 			play(level, user, optional.get().value());
 			user.getCooldowns().addCooldown(RegisterItems.ANCIENT_HORN, getCooldown(user, DEFAULT_COOLDOWN));
 			if (level instanceof ServerLevel server) {
-				AncientHornProjectile projectileEntity = new AncientHornProjectile(level, user.getX(), user.getEyeY(), user.getZ());
-				projectileEntity.shootFromRotation(user, user.getXRot(), user.getYRot(), 0.0F, 1.0F, 0.0F);
+				AncientHornVibration projectileEntity = new AncientHornVibration(level, user.getX(), user.getEyeY(), user.getZ());
+				projectileEntity.shootFromRotation(user, user.getXRot(), user.getYRot(), 0F, 1F, 0F);
 				projectileEntity.setShotByPlayer(true);
 				server.addFreshEntity(projectileEntity);
-				FrozenSoundPackets.createMovingRestrictionLoopingSound(server, projectileEntity, RegisterSounds.ENTITY_ANCIENT_HORN_PROJECTILE_LOOP, SoundSource.NEUTRAL, 1.0F, 1.0F, FrozenSharedConstants.id("default"), true);
+				FrozenSoundPackets.createMovingRestrictionLoopingSound(
+					server,
+					projectileEntity,
+					BuiltInRegistries.SOUND_EVENT.getHolder(RegisterSounds.ENTITY_ANCIENT_HORN_VIBRATION_LOOP.getLocation()).orElseThrow(),
+					SoundSource.NEUTRAL,
+					1F,
+					1F,
+					FrozenSharedConstants.id("default"),
+					true
+				);
 				ItemStack mainHand = user.getItemInHand(InteractionHand.MAIN_HAND);
 				ItemStack offHand = user.getItemInHand(InteractionHand.OFF_HAND);
 				if (mainHand.is(Items.WATER_BUCKET) || mainHand.is(Items.POTION) || offHand.is(Items.WATER_BUCKET) || offHand.is(Items.POTION)) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -30,7 +30,6 @@ import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
@@ -41,8 +40,7 @@ import org.jetbrains.annotations.NotNull;
 @Environment(EnvType.CLIENT)
 public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 	private static final int JELLYFISH_TENTACLES = EntityConfig.get().jellyfish.jellyfishTentacles;
-	private static final float PI_180 = Mth.PI / 180F;
-	private static final float EIGHT_PI = -8F * PI_180;
+	private static final float EIGHT_PI = -8F * Mth.DEG_TO_RAD;
 	private final ModelPart root;
 	private final ModelPart body;
 	private final ModelPart tentacleBase;
@@ -69,25 +67,25 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshDefinition = new MeshDefinition();
 		PartDefinition partDefinition = meshDefinition.getRoot();
-		PartDefinition bone = partDefinition.addOrReplaceChild("bone", CubeListBuilder.create(), PartPose.offset(0.0F, 14.0F, 0.0F));
-		bone.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -2.0F, -4.0F, 8.0F, 5.0F, 8.0F, new CubeDeformation(0.0F))
-			.texOffs(4, 13).addBox(-3.0F, -1.0F, -3.0F, 6.0F, 3.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
-		PartDefinition tentacleBase = bone.addOrReplaceChild("tentacleBase", CubeListBuilder.create(), PartPose.offset(0.0F, 6.0F, 0.0F));
+		PartDefinition bone = partDefinition.addOrReplaceChild("bone", CubeListBuilder.create(), PartPose.offset(0F, 14F, 0F));
+		bone.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -2F, -4F, 8F, 5F, 8F)
+			.texOffs(4, 13).addBox(-3F, -1F, -3F, 6F, 3F, 6F), PartPose.ZERO);
+		PartDefinition tentacleBase = bone.addOrReplaceChild("tentacleBase", CubeListBuilder.create(), PartPose.offset(0F, 6F, 0F));
 		makeTentacles(tentacleBase, JELLYFISH_TENTACLES);
 		return LayerDefinition.create(meshDefinition, 64, 64);
 	}
 
 	private static void makeTentacles(PartDefinition partDefinition, int amount) {
-		CubeListBuilder tentacle = CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 10.0F, 1.0F, new CubeDeformation(0.0F));
+		CubeListBuilder tentacle = CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0F, 0F, 1F, 10F, 1F);
 		for (int i = 0; i < amount; ++i) {
-			double rot = (double) i * Math.PI * 2.0 / (double) amount;
+			float rot = i * Mth.PI * 2F /  amount;
 			partDefinition.addOrReplaceChild(createTentacleName(i), tentacle, PartPose.offsetAndRotation(
 					(float) Math.cos(rot) * 2.5F,
-					0.0F,
-					(float) Math.sin(rot) * 2.5F,
-					0.0F,
-					(float) (i * Math.PI * -2.0 / (double) amount + 1.5707963267948966),
-					0.0F
+					0F,
+                    (float) (Math.sin(rot) * 2.5F),
+					0F,
+                    i * Mth.PI * -2F / amount + 1.5707963267948966F,
+					0F
 				)
 			);
 		}
@@ -100,12 +98,12 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 
 	private static float fasterRotLerp(float f, float g, float h) {
 		float angleCalc = (h - g) % 360F;
-		if (angleCalc >= 180.0F) {
-			angleCalc -= 360.0F;
+		if (angleCalc >= 180F) {
+			angleCalc -= 360F;
 		}
 
-		if (angleCalc < -180.0F) {
-			angleCalc += 360.0F;
+		if (angleCalc < -180F) {
+			angleCalc += 360F;
 		}
 
 		return g + f * angleCalc;
@@ -129,13 +127,13 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 	public void prepareMobModel(@NotNull T jelly, float limbSwing, float limbSwimgAmount, float partialTick) {
 		this.xRot = -(jelly.xRot1 + partialTick * (jelly.xBodyRot - jelly.xRot1));
 		this.tentXRot = -(jelly.xRot6 + partialTick * (jelly.xRot5 - jelly.xRot6));
-		this.scale = (jelly.prevScale + partialTick * (jelly.scale - jelly.prevScale)) * jelly.getScale();
+		this.scale = (jelly.prevScale + partialTick * (jelly.scale - jelly.prevScale)) * jelly.getAgeScale();
 	}
 
 	@Override
 	public void setupAnim(@NotNull T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		float animation = limbSwing * 2;
-		float movementDelta = Math.min(limbSwingAmount * 26.6666667F, 1.0F);
+		float movementDelta = Math.min(limbSwingAmount * 26.6666667F, 1F);
 
 		//SQUASH & STRETCH
 		float sin = (float) -Math.sin(animation);
@@ -145,14 +143,12 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 
 		this.body.xScale = squash;
 		this.body.zScale = squash;
-		float yScaleSin = -sinIdle + 1;
-		this.body.yScale = yScaleSin + movementDelta * ((1.25F + (sin * 0.75F)) - yScaleSin); //this.body.yScale = MathHelper.lerp(movementDelta, -sinIdle + 1, 1.25F + (sin * 0.75F));
+		this.body.yScale = Mth.lerp(movementDelta, -sinIdle + 1, 1.25F + (sin * 0.75F));
 
-		this.body.y = movementDelta * (3.5F - (squashStretch * 3.5F)); //this.body.y = MathHelper.lerp(movementDelta, 0, 3.5F - (squashStretch * 3.5F));
-		float sinPivotY = (-sinIdle * 2.0F) + 1.8F;
-		this.tentacleBase.y = sinPivotY + movementDelta * (((6F - (squashStretch * 5F)) * 2) - sinPivotY); //this.tentacleBase.y = MathHelper.lerp(movementDelta, (-sinIdle * 2.0F) + 1.8F, (6F - (squashStretch * 5F)) * 2);
+		this.body.y = Mth.lerp(movementDelta, 0, 3.5F - (squashStretch * 3.5F));
+		this.tentacleBase.y = Mth.lerp(movementDelta, (-sinIdle * 2.0F) + 1.8F, (6F - (squashStretch * 5F)) * 2);
 
-		float tentRot = -fasterRotLerp(movementDelta, (float) (-Math.sin((ageInTicks - 10) * 0.1F) * 0.2F) + EIGHT_PI, (float) (-Math.sin(animation + 5) * 20 - 7.5F) * PI_180);
+		float tentRot = -fasterRotLerp(movementDelta, (float) (-Math.sin((ageInTicks - 10) * 0.1F) * 0.2F) + EIGHT_PI, (float) (-Math.sin(animation + 5) * 20 - 7.5F) * Mth.DEG_TO_RAD);
 		for (ModelPart modelPart : this.tentacles) {
 			PartPose initialPose = modelPart.getInitialPose();
 			modelPart.x = initialPose.x * squash;

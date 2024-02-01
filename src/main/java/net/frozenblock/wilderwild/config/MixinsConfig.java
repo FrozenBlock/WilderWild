@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -106,6 +106,8 @@ public final class MixinsConfig {
 	public boolean entity_tumbleweed = true;
 
 	public boolean entity_turtle = true;
+
+	public boolean entity_firework_rocket = true;
 
 	public boolean item_axe = true;
 

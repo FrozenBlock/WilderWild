@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -25,7 +25,7 @@ import static net.frozenblock.wilderwild.world.additions.feature.WilderPlacement
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.AquaticFeatures;
 import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.data.worldgen.features.VegetationFeatures;
@@ -267,7 +267,7 @@ public final class WilderPlacedFeatures {
 		throw new UnsupportedOperationException("WilderPlacedFeatures contains only static declarations.");
 	}
 
-	public static void registerPlacedFeatures(@NotNull BootstapContext<PlacedFeature> entries) {
+	public static void registerPlacedFeatures(@NotNull BootstrapContext<PlacedFeature> entries) {
 
 		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 
@@ -408,10 +408,10 @@ public final class WilderPlacedFeatures {
 		);
 
 		TREES_DYING_FOREST.makeAndSetHolder(WilderConfiguredFeatures.TREES_DYING_FOREST.getHolder(),
-				VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(6, 0.1F, 1))
-					.add(
-						WilderPlacementUtils.TREE_CLEARING_FILTER
-					).build()
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(6, 0.1F, 1))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER
+				).build()
 		);
 
 		TREES_SNOWY_DYING_FOREST.makeAndSetHolder(WilderConfiguredFeatures.TREES_SNOWY_DYING_FOREST.getHolder(),

@@ -1,3 +1,21 @@
+/*
+ * Copyright 2024 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.wilderwild.world.generation.features;
 
 import com.google.common.collect.Lists;
@@ -37,11 +55,11 @@ public class PalmTreeFeature extends TreeFeature implements TreeFeatureLeavesUpd
 		DiscreteVoxelShape discreteVoxelShape = new BitSetDiscreteVoxelShape(box.getXSpan(), box.getYSpan(), box.getZSpan());
 		List<Set<BlockPos>> list = Lists.newArrayList();
 
-		for(int j = 0; j < MAX_DISTANCE; ++j) {
+		for (int j = 0; j < MAX_DISTANCE; ++j) {
 			list.add(Sets.newHashSet());
 		}
 
-		for(BlockPos blockPos : Lists.newArrayList(Sets.union(trunkPositions, foliagePositions))) {
+		for (BlockPos blockPos : Lists.newArrayList(Sets.union(trunkPositions, foliagePositions))) {
 			if (box.isInside(blockPos)) {
 				discreteVoxelShape.fill(blockPos.getX() - box.minX(), blockPos.getY() - box.minY(), blockPos.getZ() - box.minZ());
 			}
@@ -51,8 +69,8 @@ public class PalmTreeFeature extends TreeFeature implements TreeFeatureLeavesUpd
 		int k = 0;
 		list.get(0).addAll(rootPositions);
 
-		while(true) {
-			while(k >= MAX_DISTANCE || !list.get(k).isEmpty()) {
+		while (true) {
+			while (k >= MAX_DISTANCE || !list.get(k).isEmpty()) {
 				if (k >= MAX_DISTANCE) {
 					return discreteVoxelShape;
 				}
@@ -73,7 +91,7 @@ public class PalmTreeFeature extends TreeFeature implements TreeFeatureLeavesUpd
 
 					discreteVoxelShape.fill(blockPos2.getX() - box.minX(), blockPos2.getY() - box.minY(), blockPos2.getZ() - box.minZ());
 
-					for(Direction direction : Direction.values()) {
+					for (Direction direction : Direction.values()) {
 						mutableBlockPos.setWithOffset(blockPos2, direction);
 						if (box.isInside(mutableBlockPos)) {
 							int l = mutableBlockPos.getX() - box.minX();

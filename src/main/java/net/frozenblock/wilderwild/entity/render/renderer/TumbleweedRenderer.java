@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -41,7 +41,6 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<Tumbleweed>> {
-	private static final float PI_180 = Mth.PI / 180F;
 	private final ItemRenderer itemRenderer;
 
 	public TumbleweedRenderer(@NotNull Context context) {
@@ -52,7 +51,7 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<
 	@Override
 	@NotNull
 	public Vec3 getRenderOffset(@NotNull Tumbleweed entity, float partialTicks) {
-		return new Vec3(0, 0.2375, 0);
+		return new Vec3(0D, 0.2375D, 0D);
 	}
 
 	@Override
@@ -61,10 +60,10 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<
 		ItemStack stack = entity.getVisibleItem();
 		if (!stack.isEmpty()) {
 			poseStack.pushPose();
-			poseStack.translate(entity.itemX, 0.4375, entity.itemZ);
-			poseStack.mulPose(Axis.XP.rotation(-Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * PI_180));
+			poseStack.translate(entity.itemX, 0.4375D, entity.itemZ);
+			poseStack.mulPose(Axis.XP.rotation(-Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * Mth.DEG_TO_RAD));
 			poseStack.pushPose();
-			poseStack.mulPose(Axis.ZP.rotation(Mth.lerp(partialTick, entity.prevRoll, entity.roll) * PI_180));
+			poseStack.mulPose(Axis.ZP.rotation(Mth.lerp(partialTick, entity.prevRoll, entity.roll) * Mth.DEG_TO_RAD));
 			this.itemRenderer.renderStatic(stack, ItemDisplayContext.GROUND, packedLight, OverlayTexture.NO_OVERLAY, poseStack, buffer, entity.level(), 1);
 			poseStack.popPose();
 			poseStack.popPose();
@@ -72,9 +71,9 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<
 	}
 
 	@Override
-	protected void setupRotations(@NotNull Tumbleweed entityLiving, @NotNull PoseStack matrixStack, float ageInTicks, float rotationYaw, float partialTick) {
+	protected void setupRotations(@NotNull Tumbleweed entityLiving, @NotNull PoseStack matrixStack, float ageInTicks, float rotationYaw, float partialTick, float scale) {
 		if (EntityConfig.get().tumbleweed.tumbleweedRotatesToLookDirection) {
-			matrixStack.mulPose(Axis.YP.rotationDegrees(180.0f - rotationYaw));
+			matrixStack.mulPose(Axis.YP.rotationDegrees(180F - rotationYaw));
 		}
 	}
 

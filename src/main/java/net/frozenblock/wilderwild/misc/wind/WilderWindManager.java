@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -20,24 +20,30 @@ package net.frozenblock.wilderwild.misc.wind;
 
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.lib.wind.api.WindManagerExtension;
+import net.frozenblock.lib.wind.impl.WindSyncPacket;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.networking.packet.WilderWindPacket;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class WilderWindManager implements WindManagerExtension {
 
 	private final WindManager manager;
-
 	public double cloudX;
-
 	public double cloudY;
-
 	public double cloudZ;
 
 
 	public WilderWindManager(WindManager manager) {
 		this.manager = manager;
+	}
+
+	@Override
+	public ResourceLocation extensionID() {
+		return WilderSharedConstants.id("wind_extension");
 	}
 
 	@Override
@@ -72,10 +78,8 @@ public class WilderWindManager implements WindManagerExtension {
 	}
 
 	@Override
-	public void createSyncByteBuf(@NotNull FriendlyByteBuf original) {
-		original.writeDouble(this.cloudX);
-		original.writeDouble(this.cloudY);
-		original.writeDouble(this.cloudZ);
+	public CustomPacketPayload syncPacket(WindSyncPacket packet) {
+		return new WilderWindPacket(new Vec3(this.cloudX, this.cloudY, this.cloudZ));
 	}
 
 	@Override

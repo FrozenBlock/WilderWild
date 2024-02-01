@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -26,7 +26,7 @@ import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import static net.frozenblock.wilderwild.world.additions.feature.WilderPlacementUtils.register;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.CaveFeatures;
 import net.minecraft.data.worldgen.features.MiscOverworldFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
@@ -138,7 +138,7 @@ public final class WilderMiscPlaced {
 		throw new UnsupportedOperationException("WilderMiscPlaced contains only static declarations.");
 	}
 
-	public static void registerMiscPlaced(BootstapContext<PlacedFeature> entries) {
+	public static void registerMiscPlaced(BootstrapContext<PlacedFeature> entries) {
 		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
@@ -644,10 +644,10 @@ public final class WilderMiscPlaced {
 		// DYING FOREST
 
 		COARSE_DIRT_DISK_AND_PILE.makeAndSetHolder(WilderMiscConfigured.COARSE_DIRT_DISK_AND_PILE.getHolder(),
-				RarityFilter.onAverageOnceEvery(9),
-				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP,
-				BiomeFilter.biome()
+			RarityFilter.onAverageOnceEvery(9),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP,
+			BiomeFilter.biome()
 		);
 
 		// SNOW
@@ -666,10 +666,10 @@ public final class WilderMiscPlaced {
 		);
 
 		SNOW_CARPET_RANDOM.makeAndSetHolder(WilderMiscConfigured.SNOW_CARPET_RANDOM.getHolder(),
-				CountPlacement.of(2),
-				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-				BiomeFilter.biome()
+			CountPlacement.of(2),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
 		);
 	}
 

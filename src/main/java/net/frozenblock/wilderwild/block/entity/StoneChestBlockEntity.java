@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -28,6 +28,7 @@ import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -165,8 +166,8 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	}
 
 	@Override
-	public void load(@NotNull CompoundTag tag) {
-		super.load(tag);
+	public void load(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
+		super.load(tag, provider);
 		this.openProgress = tag.getFloat("openProgress");
 		this.highestLidPoint = tag.getFloat("highestLidPoint");
 		this.stillLidTicks = tag.getInt("stillLidTicks");
@@ -175,8 +176,8 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	}
 
 	@Override
-	protected void saveAdditional(@NotNull CompoundTag tag) {
-		super.saveAdditional(tag);
+	protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
+		super.saveAdditional(tag, provider);
 		tag.putFloat("openProgress", this.openProgress);
 		tag.putFloat("highestLidPoint", this.highestLidPoint);
 		tag.putInt("stillLidTicks", this.stillLidTicks);
@@ -272,14 +273,14 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
-	@Override
 	@NotNull
-	public CompoundTag getUpdateTag() {
-		return this.saveWithoutMetadata();
+	@Override
+	public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
+		return this.saveWithoutMetadata(provider);
 	}
 
-	@Override
 	@NotNull
+	@Override
 	protected Component getDefaultName() {
 		return Component.translatable("container.stone_chest");
 	}

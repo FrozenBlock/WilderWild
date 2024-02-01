@@ -1,10 +1,7 @@
 {
   "replace": false,
   "values": [
-    {
-      "id": "#wilderwild:crab_can_always_detect",
-      "required": false
-    },
+    "#wilderwild:crab_can_always_detect",
     {
       "id": "#minecraft:vibrations",
       "required": false

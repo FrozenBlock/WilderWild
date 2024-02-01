@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -35,7 +35,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -45,22 +45,22 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 
 public class WilderFeatureBootstrap {
 
-	public static void bootstrapConfigured(BootstapContext<ConfiguredFeature<?, ?>> entries) {
+	public static void bootstrapConfigured(BootstrapContext<ConfiguredFeature<?, ?>> entries) {
 		final var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		final var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
-		FrozenFeatureUtils.BOOTSTAP_CONTEXT = (BootstapContext) entries;
+		FrozenFeatureUtils.BOOTSTRAP_CONTEXT = (BootstrapContext) entries;
 
 		WilderTreeConfigured.registerTreeConfigured();
 		WilderMiscConfigured.registerMiscPlaced();
 		WilderConfiguredFeatures.registerConfiguredFeatures(entries);
 	}
 
-	public static void bootstrapPlaced(BootstapContext<PlacedFeature> entries) {
+	public static void bootstrapPlaced(BootstrapContext<PlacedFeature> entries) {
 		final var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		final var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
-		FrozenFeatureUtils.BOOTSTAP_CONTEXT = (BootstapContext) entries;
+		FrozenFeatureUtils.BOOTSTRAP_CONTEXT = (BootstrapContext) entries;
 
 		WilderTreePlaced.registerTreePlaced();
 		WilderMiscPlaced.registerMiscPlaced(entries);
@@ -98,27 +98,27 @@ public class WilderFeatureBootstrap {
 	/**
 	 * @param configuredResourceKey MUST BE A VANILLA CONFIGURED FEATURE
 	 */
-	public static Holder<PlacedFeature> register(BootstapContext<PlacedFeature> entries, ResourceKey<PlacedFeature> resourceKey, ResourceKey<ConfiguredFeature<?, ?>> configuredResourceKey, PlacementModifier... modifiers) {
+	public static Holder<PlacedFeature> register(BootstrapContext<PlacedFeature> entries, ResourceKey<PlacedFeature> resourceKey, ResourceKey<ConfiguredFeature<?, ?>> configuredResourceKey, PlacementModifier... modifiers) {
 		return register(entries, resourceKey, configuredResourceKey, Arrays.asList(modifiers));
 	}
 
 	/**
 	 * @param configuredResourceKey MUST BE A VANILLA CONFIGURED FEATURE
 	 */
-	public static Holder<PlacedFeature> register(BootstapContext<PlacedFeature> entries, ResourceKey<PlacedFeature> resourceKey, ResourceKey<ConfiguredFeature<?, ?>> configuredResourceKey, List<PlacementModifier> modifiers) {
+	public static Holder<PlacedFeature> register(BootstrapContext<PlacedFeature> entries, ResourceKey<PlacedFeature> resourceKey, ResourceKey<ConfiguredFeature<?, ?>> configuredResourceKey, List<PlacementModifier> modifiers) {
 		return FrozenPlacementUtils.register(entries, resourceKey, entries.lookup(Registries.CONFIGURED_FEATURE).getOrThrow(configuredResourceKey), modifiers);
 	}
 
 
-	public static Holder<PlacedFeature> register(BootstapContext<PlacedFeature> entries, ResourceKey<PlacedFeature> resourceKey, Holder<ConfiguredFeature<?, ?>> configuredHolder, PlacementModifier... modifiers) {
+	public static Holder<PlacedFeature> register(BootstrapContext<PlacedFeature> entries, ResourceKey<PlacedFeature> resourceKey, Holder<ConfiguredFeature<?, ?>> configuredHolder, PlacementModifier... modifiers) {
 		return register(entries, resourceKey, configuredHolder, Arrays.asList(modifiers));
 	}
 
-	private static Holder<PlacedFeature> register(BootstapContext<PlacedFeature> entries, ResourceKey<PlacedFeature> resourceKey, Holder<ConfiguredFeature<?, ?>> configuredHolder, List<PlacementModifier> modifiers) {
+	private static Holder<PlacedFeature> register(BootstrapContext<PlacedFeature> entries, ResourceKey<PlacedFeature> resourceKey, Holder<ConfiguredFeature<?, ?>> configuredHolder, List<PlacementModifier> modifiers) {
 		return FrozenPlacementUtils.register(entries, resourceKey, configuredHolder, modifiers);
 	}
 
-	private static <FC extends FeatureConfiguration, F extends Feature<FC>> Holder<ConfiguredFeature<?, ?>> register(BootstapContext<ConfiguredFeature<?, ?>> entries, ResourceKey<ConfiguredFeature<?, ?>> resourceKey, F feature, FC featureConfiguration) {
+	private static <FC extends FeatureConfiguration, F extends Feature<FC>> Holder<ConfiguredFeature<?, ?>> register(BootstrapContext<ConfiguredFeature<?, ?>> entries, ResourceKey<ConfiguredFeature<?, ?>> resourceKey, F feature, FC featureConfiguration) {
 		return FrozenConfiguredFeatureUtils.register(entries, resourceKey, feature, featureConfiguration);
 	}
 

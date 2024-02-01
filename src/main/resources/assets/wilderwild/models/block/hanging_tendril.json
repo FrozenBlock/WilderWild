@@ -1,93 +1,29 @@
 {
-  "ambientocclusion": false,
-  "textures": {
-    "tendril": "wilderwild:block/hanging_tendril",
-    "particle": "#tendril"
-  },
-  "elements": [
-    {
-      "from": [
-        8,
-        0,
-        0
-      ],
-      "to": [
-        8,
-        16,
-        16
-      ],
-      "shade": false,
-      "rotation": {
-        "angle": 0,
-        "axis": "y",
-        "origin": [
-          8,
-          8,
-          8
-        ]
-      },
-      "faces": {
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#tendril"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#tendril"
-        }
-      }
-    },
-    {
-      "from": [
-        0,
-        0,
-        8
-      ],
-      "to": [
-        16,
-        16,
-        8
-      ],
-      "shade": false,
-      "rotation": {
-        "angle": 0,
-        "axis": "y",
-        "origin": [
-          8,
-          8,
-          8
-        ]
-      },
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#tendril"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#tendril"
-        }
-      }
-    }
-  ]
+	"ambientocclusion": false,
+	"textures": {
+		"particle": "wilderwild:block/hanging_tendril",
+		"tendril": "wilderwild:block/hanging_tendril"
+	},
+	"elements": [
+		{
+			"from": [8, 0, 0],
+			"to": [8, 16, 16],
+			"shade": false,
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"east": {"uv": [0, 0, 16, 16], "texture": "#tendril"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#tendril"}
+			}
+		},
+		{
+			"from": [0, 0, 8],
+			"to": [16, 16, 8],
+			"shade": false,
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#tendril"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#tendril"}
+			}
+		}
+	]
 }

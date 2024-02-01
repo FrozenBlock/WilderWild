@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -102,7 +102,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 				i = Mth.floor(vec32.length()) + 10;
 				info.cancel();
 				if (level.getBlockState(hitPos).is(RegisterBlocks.ECHO_GLASS)) {
-					EchoGlassBlock.damage(level, hitPos);
+					EchoGlassBlock.damage(level, hitPos, false);
 				}
 			}
 		}
@@ -113,23 +113,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 		at = @At(value = "FIELD", target = "Lnet/minecraft/sounds/SoundEvents;WARDEN_SONIC_BOOM:Lnet/minecraft/sounds/SoundEvent;", opcode = Opcodes.GETSTATIC)
 	)
 	private static SoundEvent wilderWild$modifySound(SoundEvent original, Warden warden) {
-		return ((WilderWarden)warden).wilderWild$isStella() ? RegisterSounds.ENTITY_WARDEN_BRAP : original;
-	}
-
-	@ModifyArg(
-		method = "tick(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/monster/warden/Warden;J)V",
-		at = @At(value = "INVOKE", target = "Ljava/util/Optional;ifPresent(Ljava/util/function/Consumer;)V", ordinal = 1)
-	)
-	private Consumer<? super LivingEntity> wilderWild$setCurrent(Consumer<? super LivingEntity> original) {
-		return target -> {
-			wilderWild$currentBoom = SonicBoom.class.cast(this);
-			original.accept(target);
-		};
-	}
-
-	@Inject(method = "stop(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/monster/warden/Warden;J)V", at = @At("TAIL"))
-	private void wilderWild$reset(ServerLevel level, Warden entity, long gameTime, CallbackInfo info) {
-		this.wilderWild$particlesEnded = false;
+		return ((WilderWarden) warden).wilderWild$isStella() ? RegisterSounds.ENTITY_WARDEN_BRAP : original;
 	}
 
 	@Unique
@@ -154,6 +138,22 @@ public class SonicBoomMixin implements WilderSonicBoom {
 		} else {
 			return null;
 		}
+	}
+
+	@ModifyArg(
+		method = "tick(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/monster/warden/Warden;J)V",
+		at = @At(value = "INVOKE", target = "Ljava/util/Optional;ifPresent(Ljava/util/function/Consumer;)V", ordinal = 1)
+	)
+	private Consumer<? super LivingEntity> wilderWild$setCurrent(Consumer<? super LivingEntity> original) {
+		return target -> {
+			wilderWild$currentBoom = SonicBoom.class.cast(this);
+			original.accept(target);
+		};
+	}
+
+	@Inject(method = "stop(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/monster/warden/Warden;J)V", at = @At("TAIL"))
+	private void wilderWild$reset(ServerLevel level, Warden entity, long gameTime, CallbackInfo info) {
+		this.wilderWild$particlesEnded = false;
 	}
 
 	@Unique

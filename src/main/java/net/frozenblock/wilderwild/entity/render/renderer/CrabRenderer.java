@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -27,11 +27,11 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
 public class CrabRenderer<T extends Crab> extends MobRenderer<T, CrabModel<T>> {
 	private static final ResourceLocation CRAB_LOCATION = WilderSharedConstants.id("textures/entity/crab/crab.png");
+	private static final ResourceLocation CRAB_DITTO_LOCATION = WilderSharedConstants.id("textures/entity/crab/crab_ditto.png");
 
 	public CrabRenderer(EntityRendererProvider.Context context) {
 		this(context, WilderWildClient.CRAB);
@@ -42,25 +42,27 @@ public class CrabRenderer<T extends Crab> extends MobRenderer<T, CrabModel<T>> {
 	}
 
 	@Override
-	protected void setupRotations(@NotNull T crab, @NotNull PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks) {
-		poseStack.translate(0, crab.isBaby() ? -0.1 : 0, 0);
+	protected void setupRotations(@NotNull T crab, @NotNull PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks, float scale) {
+		poseStack.translate(0D, crab.isBaby() ? -0.1D : 0D, 0D);
+		/*
 		float newYaw = Mth.lerp(
 			Mth.lerp(partialTicks, crab.prevClimbDirectionAmount, crab.climbDirectionAmount),
 			rotationYaw,
 			Mth.lerp(partialTicks, crab.prevClimbAnimY, crab.climbAnimY)
 		);
-		super.setupRotations(crab, poseStack, ageInTicks, rotationYaw, partialTicks);
+		 */
+		super.setupRotations(crab, poseStack, ageInTicks, rotationYaw, partialTicks, scale);
 	}
 
 	@Override
 	protected float getFlipDegrees(@NotNull T livingEntity) {
-		return 180.0f;
+		return 180F;
 	}
 
 	@Override
 	@NotNull
 	public ResourceLocation getTextureLocation(@NotNull T entity) {
-		return CRAB_LOCATION;
+		return !entity.isDitto() ? CRAB_LOCATION : CRAB_DITTO_LOCATION;
 	}
 
 }

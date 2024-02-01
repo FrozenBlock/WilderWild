@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -139,7 +139,12 @@ public final class WilderTreePlaced {
 	public static final FrozenPlacedFeature FALLEN_CYPRESS_CHECKED = register("fallen_cypress_checked");
 	public static final FrozenPlacedFeature SNAPPED_CYPRESS_CHECKED = register("snapped_cypress_checked");
 	//TREE ON SAND
-	public static final BlockPredicate SAND_GRASS_TREE_PREDICATE = BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.RED_SAND, Blocks.SAND, Blocks.GRASS);
+	public static final BlockPredicate SAND_GRASS_TREE_PREDICATE = BlockPredicate.matchesBlocks(
+		Direction.DOWN.getNormal(),
+		Blocks.RED_SAND,
+		Blocks.SAND,
+		Blocks.GRASS_BLOCK
+	);
 	public static final List<PlacementModifier> SAND_TREE_FILTER_DECORATOR = List.of(
 		EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.not(BlockPredicate.matchesBlocks(Blocks.SANDSTONE)), 8),
 		BlockPredicateFilter.forPredicate(SAND_GRASS_TREE_PREDICATE)
@@ -234,7 +239,7 @@ public final class WilderTreePlaced {
 		);
 
 		DEAD_BIRCH.makeAndSetHolder(WilderTreeConfigured.DEAD_BIRCH.getHolder(),
-				PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
 		);
 
 		//CHERRY
@@ -342,27 +347,27 @@ public final class WilderTreePlaced {
 		);
 
 		FANCY_DEAD_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.FANCY_DEAD_OAK.getHolder(),
-				PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
 		);
 
 		FANCY_SEMI_DEAD_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.FANCY_SEMI_DEAD_OAK.getHolder(),
-				PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
 		);
 
 		SMALL_FANCY_DEAD_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.SMALL_FANCY_DEAD_OAK.getHolder(),
-				PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
 		);
 
 		SMALL_FANCY_SEMI_DEAD_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.SMALL_FANCY_SEMI_DEAD_OAK.getHolder(),
-				PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
 		);
 
 		DEAD_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.DEAD_OAK.getHolder(),
-				PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
 		);
 
 		DEAD_OAK_BRANCHES_CHECKED.makeAndSetHolder(WilderTreeConfigured.DEAD_OAK_BRANCHES.getHolder(),
-				PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
 		);
 
 		// DARK OAK

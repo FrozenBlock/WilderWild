@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -19,6 +19,8 @@
 package net.frozenblock.wilderwild.mixin.client.mesoglea;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
@@ -31,7 +33,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -40,21 +41,42 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(EntityRenderDispatcher.class)
 public class EntityRenderDispatcherMixin {
 
-	@Unique
-	private static BlockState wilderWild$currentBlockState;
-
-	@ModifyExpressionValue(method = "renderBlockShadow", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/chunk/ChunkAccess;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;"), require = 0)
-	private static BlockState wilderWild$captureBlockState(BlockState original) {
-		wilderWild$currentBlockState = original;
+	@ModifyExpressionValue(
+		method = "renderBlockShadow",
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/chunk/ChunkAccess;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;"),
+		require = 0
+	)
+	private static BlockState wilderWild$captureBlockState(
+		BlockState original,
+		@Share("wilderWild$currentBlockState") LocalRef<BlockState> currentBlockState
+	) {
+		currentBlockState.set(original);
 		return original;
 	}
 
-	@Inject(method = "renderBlockShadow", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/LightTexture;getBrightness(Lnet/minecraft/world/level/dimension/DimensionType;I)F", shift = At.Shift.BEFORE), cancellable = true, require = 0)
-	private static void wilderWild$stopRenderIfMesoglea(PoseStack.Pose pose, VertexConsumer vertexConsumer, ChunkAccess chunkAccess, LevelReader levelReader, BlockPos blockPos, double d, double e, double f, float g, float h, CallbackInfo info) {
-		if (wilderWild$currentBlockState.getBlock() instanceof MesogleaBlock && (wilderWild$currentBlockState.hasProperty(BlockStateProperties.WATERLOGGED) && wilderWild$currentBlockState.getValue(BlockStateProperties.WATERLOGGED))) {
+	@Inject(
+		method = "renderBlockShadow",
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/LightTexture;getBrightness(Lnet/minecraft/world/level/dimension/DimensionType;I)F", shift = At.Shift.BEFORE),
+		cancellable = true,
+		require = 0
+	)
+	private static void wilderWild$stopShadowRenderingIfMesoglea(
+		PoseStack.Pose pose,
+		VertexConsumer vertexConsumer,
+		ChunkAccess chunkAccess,
+		LevelReader levelReader,
+		BlockPos blockPos,
+		double d,
+		double e,
+		double f,
+		float g,
+		float h,
+		CallbackInfo info,
+		@Share("wilderWild$currentBlockState") LocalRef<BlockState> currentBlockState
+	) {
+		if (currentBlockState.get().getBlock() instanceof MesogleaBlock && (currentBlockState.get().hasProperty(BlockStateProperties.WATERLOGGED) && currentBlockState.get().getValue(BlockStateProperties.WATERLOGGED))) {
 			info.cancel();
 		}
-		wilderWild$currentBlockState = null;
 	}
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -44,7 +44,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SculkShriekerBlock.class)
-public class SculkShriekerBlockMixin extends BaseEntityBlock {
+public abstract class SculkShriekerBlockMixin extends BaseEntityBlock {
 
 	private SculkShriekerBlockMixin(Properties settings) {
 		super(settings);

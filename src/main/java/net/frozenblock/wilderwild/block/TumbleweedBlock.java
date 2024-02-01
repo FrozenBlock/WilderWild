@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.block;
 
-import java.util.Objects;
+import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -27,7 +27,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -53,8 +54,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("deprecation")
 public class TumbleweedBlock extends BushBlock implements SimpleWaterloggedBlock {
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+	public static final MapCodec<TumbleweedBlock> CODEC = simpleCodec(TumbleweedBlock::new);
 	protected static final VoxelShape COLLISION_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 14.0D, 15.0D);
 	protected static final VoxelShape OUTLINE_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 14.0D, 15.0D);
 
@@ -63,32 +66,41 @@ public class TumbleweedBlock extends BushBlock implements SimpleWaterloggedBlock
 		this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
 	}
 
+	@NotNull
+	@Override
+	protected MapCodec<? extends TumbleweedBlock> codec() {
+		return CODEC;
+	}
+
 	@Override
 	@NotNull
-	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
-		ItemStack itemStack = player.getItemInHand(hand);
-		if (itemStack.is(Items.SHEARS)) {
+	public ItemInteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+		if (stack.is(Items.SHEARS)) {
 			if (!level.isClientSide) {
-				level.playSound(null, pos, RegisterSounds.BLOCK_TUMBLEWEED_SHEAR, SoundSource.BLOCKS, 1.0F, 1.0F);
+				level.playSound(null, pos, RegisterSounds.BLOCK_TUMBLEWEED_SHEAR, SoundSource.BLOCKS, 1F, 1F);
 				Tumbleweed weed = new Tumbleweed(RegisterEntities.TUMBLEWEED, level);
 				level.addFreshEntity(weed);
-				weed.setPos(new Vec3(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5));
+				weed.setPos(Vec3.atBottomCenterOf(pos));
 				weed.spawnedFromShears = true;
 				level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
-				itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
+				stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 				level.gameEvent(player, GameEvent.SHEAR, pos);
 			}
-			return InteractionResult.sidedSuccess(level.isClientSide);
+			return ItemInteractionResult.sidedSuccess(level.isClientSide);
 		} else {
-			return super.use(state, level, pos, player, hand, hit);
+			return super.useItemOn(stack, state, level, pos, player, hand, hit);
 		}
 	}
 
 	@Nullable
 	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
-		FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
-		boolean bl = fluidState.getType() == Fluids.WATER;
-		return Objects.requireNonNull(super.getStateForPlacement(context)).setValue(WATERLOGGED, bl);
+		BlockState state = super.getStateForPlacement(context);
+		if (state != null) {
+			FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
+			boolean waterlogged = fluidState.getType() == Fluids.WATER;
+			return state.setValue(WATERLOGGED, waterlogged);
+		}
+		return null;
 	}
 
 	@Override

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -18,18 +18,22 @@
 
 package net.frozenblock.wilderwild.block;
 
+import com.mojang.serialization.MapCodec;
 import java.util.Optional;
 import net.frozenblock.lib.block.api.FaceClusterBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.MultifaceSpreader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.PushReaction;
 import org.jetbrains.annotations.NotNull;
 
 public class NematocystBlock extends FaceClusterBlock {
-
+	public static final int HEIGHT = 7;
+	public static final int XZ_OFFSET = 3;
+	public static final MapCodec<NematocystBlock> CODEC = simpleCodec(NematocystBlock::new);
 	private final NematocystSpreader spreader = new NematocystSpreader(this);
 
 	public NematocystBlock(int height, int xzOffset, @NotNull Properties properties) {
@@ -37,7 +41,13 @@ public class NematocystBlock extends FaceClusterBlock {
 	}
 
 	public NematocystBlock(@NotNull Properties properties) {
-		this(7, 3, properties.pushReaction(PushReaction.DESTROY));
+		this(HEIGHT, XZ_OFFSET, properties.pushReaction(PushReaction.DESTROY));
+	}
+
+	@NotNull
+	@Override
+	protected MapCodec<? extends MultifaceBlock> codec() {
+		return CODEC;
 	}
 
 	@Override
@@ -69,11 +79,8 @@ public class NematocystBlock extends FaceClusterBlock {
 						return Optional.of(spreadPos);
 					}
 				}
-				return Optional.empty();
-			} else {
-				return Optional.empty();
 			}
+			return Optional.empty();
 		}
 	}
-
 }

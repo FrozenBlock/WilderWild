@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -28,6 +28,7 @@ public final class WilderBlockTags {
 	public static final TagKey<Block> NO_LIGHTNING_BLOCK_PARTICLES = bind("no_lightning_block_particles");
 	public static final TagKey<Block> NO_LIGHTNING_SMOKE_PARTICLES = bind("no_lightning_smoke_particles");
 	public static final TagKey<Block> CRAB_CAN_HIDE = bind("crab_can_hide");
+	public static final TagKey<Block> OSTRICH_BEAK_BURYABLE = bind("ostrich_beak_buryable");
 	public static final TagKey<Block> ANCIENT_CITY_BLOCKS = bind("ancient_city_blocks");
 	public static final TagKey<Block> SCULK_SLAB_REPLACEABLE_WORLDGEN = bind("sculk_slab_replaceable_worldgen");
 	public static final TagKey<Block> SCULK_STAIR_REPLACEABLE_WORLDGEN = bind("sculk_stair_replaceable_worldgen");
@@ -101,6 +102,7 @@ public final class WilderBlockTags {
 	public static final TagKey<Block> OASIS_PATH_REPLACEABLE = bind("oasis_path_replaceable");
 	public static final TagKey<Block> COARSE_DIRT_DISK_REPLACEABLE = bind("coarse_dirt_disk_replaceable");
 	public static final TagKey<Block> MESOGLEA = bind("mesoglea");
+	public static final TagKey<Block> NEMATOCYSTS = bind("nematocysts");
 
 	private WilderBlockTags() {
 		throw new UnsupportedOperationException("WilderBlockTags contains only static declarations.");

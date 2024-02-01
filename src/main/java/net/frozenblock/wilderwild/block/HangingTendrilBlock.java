@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.block;
 
+import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
@@ -25,11 +26,11 @@ import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.ConstantInt;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -57,7 +58,6 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.SculkSensorPhase;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
@@ -67,6 +67,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("deprecation")
 public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterloggedBlock, SculkBehaviour {
 	public static final int ACTIVE_TICKS = 60;
 	public static final EnumProperty<SculkSensorPhase> PHASE = BlockStateProperties.SCULK_SENSOR_PHASE;
@@ -74,6 +75,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final BooleanProperty TWITCHING = RegisterProperties.TWITCHING;
 	public static final BooleanProperty WRINGING_OUT = RegisterProperties.WRINGING_OUT;
+	public static final MapCodec<HangingTendrilBlock> CODEC = simpleCodec(HangingTendrilBlock::new);
 	protected static final VoxelShape OUTLINE_SHAPE = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 16.0D, 11.0D);
 
 	public HangingTendrilBlock(@NotNull Properties settings) {
@@ -96,6 +98,12 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 
 	public static boolean canActivate(@NotNull BlockState state) {
 		return SculkSensorBlock.getPhase(state) == SculkSensorPhase.INACTIVE;
+	}
+
+	@NotNull
+	@Override
+	protected MapCodec<? extends HangingTendrilBlock> codec() {
+		return CODEC;
 	}
 
 	@Override
@@ -154,11 +162,10 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	public void onPlace(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState oldState, boolean isMoving) {
 		if (level.isClientSide() || state.is(oldState.getBlock())) {
 			return;
-		}
-		if (state.getValue(POWER) > 0 && !level.getBlockTicks().hasScheduledTick(pos, this)) {
+		} else if (state.getValue(POWER) > 0 && !level.getBlockTicks().hasScheduledTick(pos, this)) {
 			level.setBlock(pos, state.setValue(POWER, 0), 18);
 		}
-		level.scheduleTick(new BlockPos(pos), state.getBlock(), 1);
+		level.scheduleTick(pos, state.getBlock(), 1);
 	}
 
 	@Override
@@ -173,7 +180,6 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	@Nullable
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new HangingTendrilBlockEntity(pos, state);
 	}
@@ -209,14 +215,13 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 		return ACTIVE_TICKS;
 	}
 
-	public void activate(@Nullable Entity entity, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull GameEvent gameEvent, int power, int j) {
+	public void activate(@Nullable Entity entity, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Holder<GameEvent> gameEvent, int power, int frequency) {
 		world.setBlock(pos, state.setValue(PHASE, SculkSensorPhase.ACTIVE).setValue(POWER, power), 3);
 		world.scheduleTick(pos, state.getBlock(), this.getActiveTicks());
-		SculkSensorBlock.updateNeighbours(world, pos, state);
-		SculkSensorBlock.tryResonateVibration(entity, world, pos, j);
 		boolean tendrilsCarryEvents = BlockConfig.get().tendrilsCarryEvents;
-		world.gameEvent(tendrilsCarryEvents ? entity : null, VibrationSystem.getResonanceEventByFrequency(j), pos);
-		world.gameEvent(tendrilsCarryEvents ? entity : null, tendrilsCarryEvents && gameEvent != null ? gameEvent : GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
+		SculkSensorBlock.updateNeighbours(world, pos, state);
+		SculkSensorBlock.tryResonateVibration(tendrilsCarryEvents ? entity : null, world, pos, frequency);
+		world.gameEvent(tendrilsCarryEvents ? entity : null, tendrilsCarryEvents ? gameEvent : GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
 		if (!state.getValue(WATERLOGGED)) {
 			world.playSound(
 				null,
@@ -268,7 +273,8 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+	@NotNull
+	public InteractionResult useWithoutItem(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull BlockHitResult hit) {
 		if (SculkSensorBlock.canActivate(state) && !state.getValue(WRINGING_OUT)) {
 			if (level.isClientSide) {
 				return InteractionResult.SUCCESS;
@@ -281,7 +287,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 							RegisterSounds.BLOCK_HANGING_TENDRIL_WRING,
 							SoundSource.BLOCKS,
 							1F,
-							level.random.nextFloat() * 0.1F + 0.9F
+							level.getRandom().nextFloat() * 0.1F + 0.9F
 						);
 						tendrilEntity.ringOutTicksLeft = 5;
 						return InteractionResult.SUCCESS;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -18,6 +18,8 @@
 
 package net.frozenblock.wilderwild.block;
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Objects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -30,7 +32,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
-import net.minecraft.world.level.block.grower.AbstractTreeGrower;
+import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -41,15 +43,26 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWaterloggedBlock {
+	public static final int WATER_SEARCH_RANGE = 3;
 	private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+	public static final MapCodec<WaterloggableSaplingBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
+		TreeGrower.CODEC.fieldOf("tree").forGetter((waterloggableSaplingBlock) -> waterloggableSaplingBlock.treeGrower),
+		propertiesCodec()
+	).apply(instance, WaterloggableSaplingBlock::new));
 
-	public WaterloggableSaplingBlock(@NotNull AbstractTreeGrower generator, @NotNull Properties settings) {
-		super(generator, settings);
+	public WaterloggableSaplingBlock(@NotNull TreeGrower grower, @NotNull Properties settings) {
+		super(grower, settings);
 		this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0).setValue(WATERLOGGED, false));
 	}
 
+	@NotNull
 	@Override
-	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, net.minecraft.world.level.block.state.BlockState> builder) {
+	public MapCodec<? extends WaterloggableSaplingBlock> codec() {
+		return CODEC;
+	}
+
+	@Override
+	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		builder.add(WATERLOGGED);
 	}
@@ -63,10 +76,10 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWat
 	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
 		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 		boolean canSkip = false;
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < WATER_SEARCH_RANGE + 1; i++) {
 			if (!canSkip) {
 				if (level.getBlockState(mutableBlockPos.move(Direction.UP)).getFluidState().is(FluidTags.WATER)) {
-					if (i == 3) {
+					if (i == WATER_SEARCH_RANGE) {
 						return false;
 					}
 				} else {
@@ -84,17 +97,19 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWat
 		return Objects.requireNonNull(super.getStateForPlacement(ctx)).setValue(WATERLOGGED, bl);
 	}
 
-	@Override
 	@NotNull
+	@Override
 	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
 		if (state.getValue(WATERLOGGED)) {
 			level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 		}
-		return direction == Direction.UP && !state.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
+		return direction == Direction.UP && !state.canSurvive(level, currentPos) ?
+			Blocks.AIR.defaultBlockState()
+			: super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
 	}
 
-	@Override
 	@NotNull
+	@Override
 	public FluidState getFluidState(@NotNull BlockState state) {
 		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
 	}

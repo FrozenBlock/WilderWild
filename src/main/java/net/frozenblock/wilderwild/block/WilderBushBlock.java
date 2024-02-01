@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.block;
 
+import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.core.BlockPos;
@@ -28,7 +29,8 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -41,6 +43,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -54,25 +57,34 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("deprecation")
 public class WilderBushBlock extends BushBlock implements BonemealableBlock {
+	public static final int GROWTH_CHANCE = 5;
+	public static final float ALMOST_FULLY_GROWN_GROWTH_CHANCE = 0.75F;
+	public static final float BONEMEAL_SUCCESS_CHANCE = 0.65F;
+	public static final float ALMOST_FULLY_GROWN_BONEMEAL_SUCCESS_CHANCE = 0.45F;
+	public static final int MAX_AGE = 2;
+	public static final int ALMOST_MAX_AGE = 1;
+	public static final int MIN_AGE = 0;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	private static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
+	public static final MapCodec<WilderBushBlock> CODEC = simpleCodec(WilderBushBlock::new);
 
 	public WilderBushBlock(@NotNull BlockBehaviour.Properties properties) {
 		super(properties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0).setValue(HALF, DoubleBlockHalf.LOWER));
+		this.registerDefaultState(this.stateDefinition.any().setValue(AGE, MIN_AGE).setValue(HALF, DoubleBlockHalf.LOWER));
 	}
 
 	public static boolean isFullyGrown(@NotNull BlockState state) {
-		return state.getValue(AGE) == 2;
+		return state.getValue(AGE) == MAX_AGE;
 	}
 
 	public static boolean isAlmostFullyGrown(@NotNull BlockState state) {
-		return state.getValue(AGE) == 1;
+		return state.getValue(AGE) == ALMOST_MAX_AGE;
 	}
 
 	public static boolean isMinimumAge(@NotNull BlockState state) {
-		return state.getValue(AGE) == 0;
+		return state.getValue(AGE) == MIN_AGE;
 	}
 
 	public static boolean isLower(@NotNull BlockState state) {
@@ -85,12 +97,20 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 		DoubleBlockHalf doubleBlockHalf = state.getValue(HALF);
 		if (doubleBlockHalf == DoubleBlockHalf.UPPER
 			&& (blockState = level.getBlockState(blockPos = pos.below())).is(state.getBlock())
-			&& blockState.getValue(HALF) == DoubleBlockHalf.LOWER) {
-			BlockState blockState2 = blockState.hasProperty(BlockStateProperties.WATERLOGGED) && Boolean.TRUE.equals(blockState.getValue(BlockStateProperties.WATERLOGGED)) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
+			&& blockState.getValue(HALF) == DoubleBlockHalf.LOWER
+		) {
+			BlockState setState = blockState.hasProperty(BlockStateProperties.WATERLOGGED) &&
+				blockState.getValue(BlockStateProperties.WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
 
-			level.setBlock(blockPos, blockState2, 35);
-			level.levelEvent(player, 2001, blockPos, Block.getId(blockState));
+			level.setBlock(blockPos, setState, 35);
+			level.levelEvent(player, LevelEvent.PARTICLES_DESTROY_BLOCK, blockPos, Block.getId(blockState));
 		}
+	}
+
+	@NotNull
+	@Override
+	protected MapCodec<? extends WilderBushBlock> codec() {
+		return CODEC;
 	}
 
 	@Override
@@ -116,8 +136,8 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (!isFullyGrown(state) && random.nextInt(5) == 0 && level.getRawBrightness(pos, 0) >= 9) {
-			if (isAlmostFullyGrown(state) && random.nextFloat() < 0.75F) {
+		if (!isFullyGrown(state) && random.nextInt(GROWTH_CHANCE) == 0 && level.getRawBrightness(pos, 0) >= 9) {
+			if (isAlmostFullyGrown(state) && random.nextFloat() < ALMOST_FULLY_GROWN_GROWTH_CHANCE) {
 				return;
 			}
 			this.grow(level, state, pos);
@@ -129,34 +149,32 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 		if (isAlmostFullyGrown(state)) {
 			BlockPos above = pos.above();
 			if (level.getBlockState(above).isAir()) {
-				level.setBlock(pos, setState, 2);
-				level.setBlock(above, setState.setValue(HALF, DoubleBlockHalf.UPPER), 2);
+				level.setBlock(pos, setState, UPDATE_CLIENTS);
+				level.setBlock(above, setState.setValue(HALF, DoubleBlockHalf.UPPER), UPDATE_CLIENTS);
 			}
 		} else {
-			level.setBlock(pos, setState, 2);
+			level.setBlock(pos, setState, UPDATE_CLIENTS);
 		}
 	}
 
 	@Override
 	@NotNull
-	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
-		ItemStack itemStack = player.getItemInHand(hand);
-		if (itemStack.is(Items.SHEARS) && !isMinimumAge(state)) {
+	public ItemInteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+		if (stack.is(Items.SHEARS) && !isMinimumAge(state)) {
 			if (!level.isClientSide) {
-				level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
+				level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
 				if (isFullyGrown(state)) {
 					ItemEntity itemEntity = new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 0.75, pos.getZ() + 0.5, new ItemStack(RegisterBlocks.BUSH));
 					level.addFreshEntity(itemEntity);
 				}
 				state = this.setAgeOnBothHalves(state, level, pos, state.getValue(AGE) - 1, true);
-				itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
+				stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 				level.gameEvent(player, GameEvent.SHEAR, pos);
 				this.removeTopHalfIfYoung(state, level, pos);
 			}
-			return InteractionResult.sidedSuccess(level.isClientSide);
-		} else {
-			return super.use(state, level, pos, player, hand, hit);
+			return ItemInteractionResult.sidedSuccess(level.isClientSide);
 		}
+		return super.useItemOn(stack, state, level, pos, player, hand, hit);
 	}
 
 	@Override
@@ -181,7 +199,7 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 
 	@Override
 	public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-		return !isAlmostFullyGrown(state) ? level.random.nextFloat() < 0.65 : level.random.nextFloat() < 0.45;
+		return !isAlmostFullyGrown(state) ? level.getRandom().nextFloat() < BONEMEAL_SUCCESS_CHANCE : level.getRandom().nextFloat() < ALMOST_FULLY_GROWN_BONEMEAL_SUCCESS_CHANCE;
 	}
 
 	@Override
@@ -203,7 +221,8 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 	}
 
 	@Override
-	public void playerWillDestroy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
+	@NotNull
+	public BlockState playerWillDestroy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
 		if (isFullyGrown(state) && (!level.isClientSide)) {
 			if (player.isCreative()) {
 				try {
@@ -216,16 +235,12 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 			}
 
 		}
-		super.playerWillDestroy(level, pos, state, player);
+		return super.playerWillDestroy(level, pos, state, player);
 	}
 
 	@Override
 	public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack tool) {
-		if (isFullyGrown(state)) {
-			super.playerDestroy(level, player, pos, Blocks.AIR.defaultBlockState(), blockEntity, tool);
-		} else {
-			super.playerDestroy(level, player, pos, state, blockEntity, tool);
-		}
+		super.playerDestroy(level, player, pos, isFullyGrown(state) ? Blocks.AIR.defaultBlockState() : state, blockEntity, tool);
 	}
 
 	@NotNull
@@ -237,24 +252,24 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 		if (secondState.is(this)) {
 			level.setBlockAndUpdate(movedPos, secondState.setValue(BlockStateProperties.AGE_2, age));
 			if (particles) {
-				level.levelEvent(2001, movedPos, Block.getId(secondState));
+				level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, movedPos, Block.getId(secondState));
 			}
 		}
 		if (particles) {
-			level.levelEvent(2001, pos, Block.getId(state));
+			level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
 		}
 		return setState;
 	}
 
 	public void removeTopHalfIfYoung(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos) {
 		if (state.is(this) && !isLower(state) && !isFullyGrown(state)) {
-			level.setBlock(pos, level.getFluidState(pos).createLegacyBlock(), 3);
+			level.setBlock(pos, level.getFluidState(pos).createLegacyBlock(), UPDATE_ALL);
 			return;
 		}
 		BlockPos movedPos = pos.above();
 		BlockState secondState = level.getBlockState(movedPos);
 		if (secondState.is(this) && !isLower(secondState) && !isFullyGrown(secondState)) {
-			level.setBlock(movedPos, level.getFluidState(movedPos).createLegacyBlock(), 3);
+			level.setBlock(movedPos, level.getFluidState(movedPos).createLegacyBlock(), UPDATE_ALL);
 		}
 	}
 }

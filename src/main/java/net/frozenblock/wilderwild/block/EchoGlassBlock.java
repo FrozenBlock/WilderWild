@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -18,9 +18,9 @@
 
 package net.frozenblock.wilderwild.block;
 
+import com.mojang.serialization.MapCodec;
 import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
-import net.frozenblock.wilderwild.entity.AncientHornProjectile;
-import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.frozenblock.wilderwild.entity.AncientHornVibration;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
@@ -38,9 +38,10 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.TintedGlassBlock;
+import net.minecraft.world.level.block.TransparentBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -49,16 +50,20 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class EchoGlassBlock extends TintedGlassBlock {
+@SuppressWarnings("deprecation")
+public class EchoGlassBlock extends TransparentBlock {
 	public static final IntegerProperty DAMAGE = RegisterProperties.DAMAGE;
+	public static final MapCodec<EchoGlassBlock> CODEC = simpleCodec(EchoGlassBlock::new);
 
 	public EchoGlassBlock(@NotNull Properties settings) {
 		super(settings);
 		this.registerDefaultState(this.defaultBlockState().setValue(DAMAGE, 0));
 	}
 
-	public static void damage(@NotNull Level level, @NotNull BlockPos pos) {
+	public static void damage(@NotNull Level level, @NotNull BlockPos pos, boolean shouldDrop) {
 		BlockState state = level.getBlockState(pos);
+		if (!state.hasProperty(DAMAGE)) return;
+
 		if (state.getValue(DAMAGE) < 3) {
 			level.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) + 1));
 			level.playSound(null, pos, RegisterSounds.BLOCK_ECHO_GLASS_CRACK, SoundSource.BLOCKS, 0.5F, 0.9F + level.getRandom().nextFloat() * 0.2F);
@@ -66,12 +71,14 @@ public class EchoGlassBlock extends TintedGlassBlock {
 				serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextInt(18, 25), 0.3F, 0.3F, 0.3F, 0.05D);
 			}
 		} else {
-			level.destroyBlock(pos, false);
+			level.destroyBlock(pos, shouldDrop);
 		}
 	}
 
 	public static void heal(@NotNull Level level, @NotNull BlockPos pos) {
 		BlockState state = level.getBlockState(pos);
+		if (!state.hasProperty(DAMAGE)) return;
+
 		if (state.getValue(DAMAGE) > 0) {
 			level.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) - 1));
 			level.playSound(
@@ -97,6 +104,22 @@ public class EchoGlassBlock extends TintedGlassBlock {
 		return finalLight;
 	}
 
+	@NotNull
+	@Override
+	public MapCodec<? extends EchoGlassBlock> codec() {
+		return CODEC;
+	}
+
+	@Override
+	public boolean propagatesSkylightDown(BlockState state, BlockGetter level, BlockPos pos) {
+		return false;
+	}
+
+	@Override
+	public int getLightBlock(BlockState state, @NotNull BlockGetter level, BlockPos pos) {
+		return level.getMaxLightLevel();
+	}
+
 	@Override
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(DAMAGE);
@@ -110,7 +133,7 @@ public class EchoGlassBlock extends TintedGlassBlock {
 				heal(level, pos);
 			}
 		} else {
-			damage(level, pos);
+			damage(level, pos, true);
 		}
 	}
 
@@ -134,15 +157,15 @@ public class EchoGlassBlock extends TintedGlassBlock {
 
 	@Override
 	public void onProjectileHit(@NotNull Level level, @NotNull BlockState state, @NotNull BlockHitResult hit, @NotNull Projectile projectile) {
-		if (projectile instanceof AncientHornProjectile) {
-			damage(level, hit.getBlockPos());
+		if (projectile instanceof AncientHornVibration) {
+			damage(level, hit.getBlockPos(), true);
 		}
 		super.onProjectileHit(level, state, hit, projectile);
 	}
 
 	@Override
 	@NotNull
-	public ItemStack getCloneItemStack(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public ItemStack getCloneItemStack(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
 		ItemStack superStack = super.getCloneItemStack(level, pos, state);
 		int damage = state.getValue(RegisterProperties.DAMAGE);
 		if (damage != 0) {

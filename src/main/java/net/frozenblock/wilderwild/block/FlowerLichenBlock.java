@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.block;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -32,6 +33,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import org.jetbrains.annotations.NotNull;
 
 public class FlowerLichenBlock extends MultifaceBlock {
+	public static final MapCodec<FlowerLichenBlock> CODEC = simpleCodec(FlowerLichenBlock::new);
 	private final MultifaceSpreader grower = new MultifaceSpreader(this);
 
 	public FlowerLichenBlock(@NotNull Properties settings) {
@@ -40,6 +42,12 @@ public class FlowerLichenBlock extends MultifaceBlock {
 
 	public static boolean canAttachToNoWater(@NotNull BlockGetter level, @NotNull Direction direction, @NotNull BlockPos pos, @NotNull BlockState state) {
 		return Block.isFaceFull(state.getBlockSupportShape(level, pos), direction.getOpposite()) || Block.isFaceFull(state.getCollisionShape(level, pos), direction.getOpposite()) && !level.getBlockState(pos).is(Blocks.WATER);
+	}
+
+	@NotNull
+	@Override
+	protected MapCodec<? extends FlowerLichenBlock> codec() {
+		return CODEC;
 	}
 
 	@Override

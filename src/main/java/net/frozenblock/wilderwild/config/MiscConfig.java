@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -50,6 +50,9 @@ public final class MiscConfig {
 	@EntrySyncData(value = "particleWindMovement", behavior = SyncBehavior.UNSYNCABLE)
 	public int particleWindMovement = 100;
 
+	@EntrySyncData("fireworkWindMovement")
+	public int fireworkWindMovement = 100;
+
 	@CollapsibleObject
 	public BiomeAmbienceConfig biomeAmbience = new BiomeAmbienceConfig();
 
@@ -72,6 +75,10 @@ public final class MiscConfig {
 
 	public double getParticleWindIntensity() {
 		return ((double) this.particleWindMovement) * 0.01;
+	}
+
+	public double getFireworkWindIntensity() {
+		return ((double) this.fireworkWindMovement) * 0.01;
 	}
 
 	public static class BiomeAmbienceConfig {

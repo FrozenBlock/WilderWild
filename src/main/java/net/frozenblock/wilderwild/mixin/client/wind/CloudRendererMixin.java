@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -49,21 +49,21 @@ public class CloudRendererMixin {
 	}
 
 	@ModifyVariable(method = "renderClouds", at = @At(value = "STORE"), ordinal = 5, require = 0)
-	private double wilderWild$modifyX(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX) {
+	private double wilderWild$modifyX(double original, PoseStack poseStack, Matrix4f projectionMatrix, Matrix4f matrix4f, float partialTick, double camX) {
 		return this.wilderWild$useWind
 			? original - WilderClientWindManager.getCloudX(partialTick)
 			: original;
 	}
 
 	@ModifyVariable(method = "renderClouds", at = @At("STORE"), ordinal = 6, require = 0)
-	private double wilderWild$modifyY(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX, double camY) {
+	private double wilderWild$modifyY(double original, PoseStack poseStack, Matrix4f projectionMatrix, Matrix4f matrix4f, float partialTick, double camX, double camY) {
 		return this.wilderWild$useWind
 			? original + Mth.clamp(WilderClientWindManager.getCloudY(partialTick), -10D, 10D)
 			: original;
 	}
 
 	@ModifyVariable(method = "renderClouds", at = @At("STORE"), ordinal = 7, require = 0)
-	private double wilderWild$modifyZ(double original, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX, double camY, double camZ) {
+	private double wilderWild$modifyZ(double original, PoseStack poseStack, Matrix4f projectionMatrix, Matrix4f matrix4f, float partialTick, double camX, double camY, double camZ) {
 		return this.wilderWild$useWind
 			? original - WilderClientWindManager.getCloudZ(partialTick)
 			: original;

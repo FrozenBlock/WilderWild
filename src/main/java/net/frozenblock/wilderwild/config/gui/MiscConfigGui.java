@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -71,6 +71,19 @@ public final class MiscConfigGui {
 			.setSaveConsumer(newValue -> config.particleWindMovement = newValue)
 			.setTooltip(tooltip("particle_wind_movement"))
 			.build()
+		);
+
+		var fireworkWindMovement = category.addEntry(
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startIntSlider(text("firework_wind_movement"), modifiedConfig.fireworkWindMovement, 0, 500)
+					.setDefaultValue(defaultConfig.fireworkWindMovement)
+					.setSaveConsumer(newValue -> config.fireworkWindMovement = newValue)
+					.setTooltip(tooltip("firework_wind_movement"))
+					.build(),
+				clazz,
+				"fireworkWindMovement",
+				configInstance
+			)
 		);
 
 		var deepDarkAmbience = entryBuilder.startBooleanToggle(text("deep_dark_ambience"), biomeAmbience.deepDarkAmbience)

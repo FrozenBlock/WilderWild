@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -18,12 +18,13 @@
 
 package net.frozenblock.wilderwild.mixin.item.instrument;
 
+import com.llamalad7.mixinextras.injector.WrapWithCondition;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.llamalad7.mixinextras.injector.WrapWithCondition;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.config.ItemConfig;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
@@ -42,7 +43,16 @@ public final class InstrumentItemMixin {
 	private static void wilderWild$playRestrictionSound(Level level, Player player, Entity entity, SoundEvent soundEvent, SoundSource soundSource, float volume, float pitch, Operation<Void> original) {
 		if (ItemConfig.get().restrictInstrumentSound) {
 			if (!level.isClientSide) {
-				FrozenSoundPackets.createMovingRestrictionSound(level, player, soundEvent, soundSource, volume, pitch, WilderSharedConstants.id("instrument"), true);
+				FrozenSoundPackets.createMovingRestrictionSound(
+					level,
+					player,
+					BuiltInRegistries.SOUND_EVENT.getHolder(soundEvent.getLocation()).orElseThrow(),
+					soundSource,
+					volume,
+					pitch,
+					WilderSharedConstants.id("instrument"),
+					true
+				);
 			}
 		} else {
 			original.call(level, player, entity, soundEvent, soundSource, volume, pitch);

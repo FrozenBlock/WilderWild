@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -36,6 +36,7 @@ import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
@@ -100,10 +101,11 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
-	@Override
+
 	@NotNull
-	public CompoundTag getUpdateTag() {
-		return this.saveWithoutMetadata();
+	@Override
+	public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
+		return this.saveWithoutMetadata(provider);
 	}
 
 	public boolean invEmpty() {
@@ -120,8 +122,8 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	public void load(@NotNull CompoundTag tag) {
-		super.load(tag);
+	public void load(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
+		super.load(tag, provider);
 		if (tag.contains("Fireflies", Tag.TAG_LIST)) {
 			this.fireflies.clear();
 			DataResult<List<FireflyInLantern>> var10000 = FireflyInLantern.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE, tag.getList("Fireflies", 10)));
@@ -139,8 +141,8 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	protected void saveAdditional(@NotNull CompoundTag tag) {
-		super.saveAdditional(tag);
+	protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
+		super.saveAdditional(tag, provider);
 		DataResult<Tag> fireflies = FireflyInLantern.CODEC.listOf().encodeStart(NbtOps.INSTANCE, this.fireflies);
 		Logger logger = WilderSharedConstants.LOGGER;
 		Objects.requireNonNull(logger);
@@ -171,13 +173,15 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	public void spawnFireflies() {
 		if (this.level != null) {
 			if (!this.level.isClientSide) {
-				doFireflySpawns(level);
+				this.doFireflySpawns(level);
 			}
 		}
 	}
 
 	public void spawnFireflies(@NotNull Level level) {
-		doFireflySpawns(level);
+		if (!this.getFireflies().isEmpty()) {
+			this.doFireflySpawns(level);
+		}
 	}
 
 	private void doFireflySpawns(@NotNull Level level) {
@@ -191,7 +195,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 					entity.hasHome = true;
 					FireflyAi.rememberHome(entity, entity.blockPosition());
 					entity.setColor(firefly.color);
-					entity.setScale(1.0F);
+					entity.setAnimScale(1.0F);
 					if (!Objects.equals(firefly.customName, "")) {
 						entity.setCustomName(Component.nullToEmpty(firefly.customName));
 					}

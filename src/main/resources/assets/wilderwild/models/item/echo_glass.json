@@ -1,23 +1,8 @@
 {
-  "parent": "wilderwild:block/echo_glass",
-  "overrides": [
-    {
-      "predicate": {
-        "damage": 0.25
-      },
-      "model": "wilderwild:item/echo_glass_1"
-    },
-    {
-      "predicate": {
-        "damage": 0.5
-      },
-      "model": "wilderwild:item/echo_glass_2"
-    },
-    {
-      "predicate": {
-        "damage": 0.75
-      },
-      "model": "wilderwild:item/echo_glass_3"
-    }
-  ]
+	"parent": "wilderwild:block/echo_glass",
+	"overrides": [
+		{"predicate": {"damage": 0.25}, "model": "wilderwild:item/echo_glass_1"},
+		{"predicate": {"damage": 0.5}, "model": "wilderwild:item/echo_glass_2"},
+		{"predicate": {"damage": 0.75}, "model": "wilderwild:item/echo_glass_3"}
+	]
 }

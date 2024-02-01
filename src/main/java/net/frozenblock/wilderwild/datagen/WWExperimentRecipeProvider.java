@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -18,6 +18,8 @@
 
 package net.frozenblock.wilderwild.datagen;
 
+import java.util.concurrent.CompletableFuture;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -25,8 +27,8 @@ import org.jetbrains.annotations.NotNull;
 
 final class WWExperimentRecipeProvider extends RecipeProvider {
 
-	WWExperimentRecipeProvider(@NotNull PackOutput packOutput) {
-		super(packOutput);
+	WWExperimentRecipeProvider(@NotNull PackOutput packOutput, CompletableFuture<HolderLookup.Provider> completableFuture) {
+		super(packOutput, completableFuture);
 	}
 
 	@Override

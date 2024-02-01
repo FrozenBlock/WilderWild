@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -42,7 +42,7 @@ public final class RegisterLootTables {
 					.setWeight(1)
 					.setQuality(Rarity.EPIC.ordinal() + 4)
 					.apply(
-						SetItemCountFunction.setCount(UniformGenerator.between(-3.5F, 1.0F))
+						SetItemCountFunction.setCount(UniformGenerator.between(-3.75F, 1.0F))
 					)
 				);
 

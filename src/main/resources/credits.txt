@@ -1,30 +1,116 @@
-Luna/Lunade/AViewFromTheTop - Lead developer & gameplay designer, producer, bug fixes, worldgen, almost solely made Crabs, etc. Did a lot of stuff.
+Luna/Lunade/AViewFromTheTop:
+ - Lead developer & gameplay designer & idea generator (not gonna take the time to explain everything I did.)
+ - Worldgen (don't forget Soro's worldgen, too!)
+ - Crab entity texture.
+ - Sounds (2.2 onwards.)
+ - QA.
+ - Etc., etc.
 
-Treetrain1 - Bug fixes, Gradle fixes, Mixin fixer, most Mob AI, QA. Also did a lot of stuff. He's a genius.
+Treetrain1:
+ - Porting the mod to newer Minecraft versions (THANK YOU TREE.)
+ - Bug fixer for more complex/technical issues.
+ - Gradle work and fixes.
+ - Lots of mixin help.
+ - Firefly & Jellyfish AI.
+ - QA.
+ - Tons of other fixes and tweaks and reorganization, etc., etc.
+ - He's a genius.
 
-Soro - Original vegetation/tree generation reworks, biome ideas & gen.
+Soro:
+ - Initial biome additions.
+ - Most new Tree generation.
+ - Biome ideas (Temperate Rainforest, Mixed Forest, Oasis.)
+ - Beta Beaches.
+ - Water Pools generating near Rivers.
+ - Scorched Sand concept.
+ - Baobab Nuts.
 
-Merp - Most textures and sounds, came up with Mesoglea's functionality, most mob animations & models. (Left in mid 2023.)
-    -Last contribution: Initial Crab Claw textures.
+Enri:
+ - Italian translation.
+ - Came up with Jellyfish being in Shipwreck Chests.
+ - Textures (2.3)
+ - Crab in Bucket texture.
+
+Merp:
+ - Textures (before 2.3, excluding the Crab entity texture, Crab in Bucket texture, and Cattail texture.)
+ - Sounds (before 2.2.)
+ - Occasional gameplay designer & feedback.
 
 Contributors:
 
-Enri - Italian Translation, came up with Jellyfish in chests, Crab Bucket texture.
+LudoCrypt:
+ - New music.
 
-LudoCrypt - New music.
+LiukRast:
+ - Baobab Tree generation.
 
-LiukRast - Baobab Tree generation.
+Xfrtrex:
+ - Prickly Pear and Tumbleweed ideas.
+ - Came up with Firework Rockets being impacted by the wind.
 
-Xfrtrex - Prickly Pear and Tumbleweed ideas.
+JarethTheRad:
+ - Structure assistance.
 
-JarethTheRad - Structure assistance.
+zozozrob_:
+ - Cattail textures & occasional concept artist for a short time.
 
-zozozrob_ - Cattail textures & occasional concept artist for a short time.
+Xicad/Emma:
+ - Echo Glass concept.
+ - Consistently fantastic feedback!! An absolute treasure to have around.
 
-Sculk Analyzer - Sculk Echoer concept & inspiration.
+Sculk Analyzer:
+ - Sculk Echoer concept & inspiration.
 
-Osmiooo - French translation.
+Shadownite64:
+ - Ostrich concept.
+ - Inbred Ostrich sound suggestions.
 
-nekkok - Spanish translation.
+SaishoVibes:
+ - Initial configs.
 
-SaishoVibes - Kicked off the initial config.
+noah1510:
+ - Fixed a crash relating to Sculk during worldgen.
+
+Fourmisain:
+ - Updated 1.19.2 to work with MixinExtras/Fabric Loader 0.15+.
+
+Osmiooo:
+ - French translation.
+
+nekkok:
+ - Spanish translation.
+
+unroman:
+ - Ukranian translation.
+
+mayonaka8478:
+ - Japanese translation.
+
+Moonisky:
+ - Chinese translation.
+
+Ostrich Sounds:
+Most sounds are edited and taken from Sonddogs' "Rob Nokes Sound Library" on avosound.com, used with a purchased license per track.
+https://xeno-canto.org/845946
+https://xeno-canto.org/845937
+https://xeno-canto.org/845936
+https://freesound.org/people/monosfera/sounds/571540/
+https://freesound.org/people/Radaral/sounds/564071/
+https://freesound.org/people/annadnewby/sounds/565604/
+https://freesound.org/people/SieuAmThanh/sounds/546291/
+https://freesound.org/people/cognito%20perceptu/sounds/17922/
+https://freesound.org/people/abstraktgeneriert/sounds/348944/
+https://freesound.org/people/Emmalyons1/sounds/594176/
+https://freesound.org/people/julius_galla/sounds/434893/
+https://freesound.org/people/lukabea/sounds/660471/
+https://freesound.org/people/Zott820/sounds/655706/
+https://freesound.org/people/mhc/sounds/102782/
+https://freesound.org/people/Greg_Surr/sounds/590169/
+https://freesound.org/people/pigeonfriend/sounds/384065/
+https://freesound.org/people/HerbertBoland/sounds/29695/
+https://freesound.org/people/ChrisReierson/sounds/433749/
+https://freesound.org/people/Ezcah/sounds/243715/
+Additional sound effects were taken and edited from Minecraft itself.
+
+Unfortunately I haven't been able to dig up the sources for Crab sounds as I've only been keeping track of these sorts of things since 2.3.
+However, they all originate from freesound.org with some Minecraft sounds mixed in.

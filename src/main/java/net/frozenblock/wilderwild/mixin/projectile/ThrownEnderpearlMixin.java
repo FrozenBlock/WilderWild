@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.mixin.projectile;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
 import net.frozenblock.wilderwild.config.ItemConfig;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
@@ -46,12 +47,22 @@ public class ThrownEnderpearlMixin {
 			if (!pearl.isSilent()) {
 				float pitch = 0.9F + (pearl.level().random.nextFloat() * 0.2F);
 				pearl.level().playSound(owner, pearl.getX(), pearl.getY(), pearl.getZ(), RegisterSounds.ITEM_ENDER_PEARL_LAND, owner.getSoundSource(), 0.6F, pitch);
-				FrozenSoundPackets.createLocalPlayerSound(owner, RegisterSounds.ITEM_ENDER_PEARL_LAND, 0.6F, pitch);
+				FrozenSoundPackets.createLocalPlayerSound(
+					owner,
+					BuiltInRegistries.SOUND_EVENT.getHolder(RegisterSounds.ITEM_ENDER_PEARL_LAND.getLocation()).orElseThrow(),
+					0.6F,
+					pitch
+				);
 			}
 			if (!owner.isSilent()) {
 				float pitch = 0.9F + (pearl.level().random.nextFloat() * 0.2F);
 				pearl.level().playSound(owner, pearl.getX(), pearl.getY(), pearl.getZ(), SoundEvents.CHORUS_FRUIT_TELEPORT, owner.getSoundSource(), 0.4F, pitch);
-				FrozenSoundPackets.createLocalPlayerSound(owner, SoundEvents.CHORUS_FRUIT_TELEPORT, 0.4F, pitch);
+				FrozenSoundPackets.createLocalPlayerSound(
+					owner,
+					BuiltInRegistries.SOUND_EVENT.getHolder(SoundEvents.CHORUS_FRUIT_TELEPORT.getLocation()).orElseThrow(),
+					0.4F,
+					pitch)
+				;
 			}
 		}
 	}

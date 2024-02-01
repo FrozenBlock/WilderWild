@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -32,7 +32,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(BigDripleafStemBlock.class)
-public final class BigDripleafStemBlockMixin extends HorizontalDirectionalBlock {
+public abstract class BigDripleafStemBlockMixin extends HorizontalDirectionalBlock {
 
 	private BigDripleafStemBlockMixin(Properties properties) {
 		super(properties);

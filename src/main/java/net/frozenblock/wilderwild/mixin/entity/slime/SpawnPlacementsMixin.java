@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -21,6 +21,8 @@ package net.frozenblock.wilderwild.mixin.entity.slime;
 import java.util.Map;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.SpawnPlacementType;
+import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
 import org.spongepowered.asm.mixin.Final;
@@ -38,10 +40,10 @@ public class SpawnPlacementsMixin {
 	private static Map<EntityType<?>, SpawnPlacements.Data> DATA_BY_TYPE;
 
 	@Inject(method = "register", at = @At("HEAD"), cancellable = true)
-	private static <T extends Mob> void wilderWild$register(EntityType<T> type, SpawnPlacements.Type location, Heightmap.Types heightmapType, SpawnPlacements.SpawnPredicate<T> predicate, CallbackInfo info) {
+	private static <T extends Mob> void wilderWild$register(EntityType<T> type, SpawnPlacementType location, Heightmap.Types heightmapType, SpawnPlacements.SpawnPredicate<T> predicate, CallbackInfo info) {
 		if (type == EntityType.SLIME) {
 			info.cancel();
-			DATA_BY_TYPE.put(type, new SpawnPlacements.Data(heightmapType, SpawnPlacements.Type.NO_RESTRICTIONS, predicate));
+			DATA_BY_TYPE.put(type, new SpawnPlacements.Data(heightmapType, SpawnPlacementTypes.NO_RESTRICTIONS, predicate));
 		}
 	}
 
