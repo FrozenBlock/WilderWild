@@ -23,6 +23,7 @@ import net.frozenblock.wilderwild.misc.interfaces.ChestBlockEntityInterface;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -122,20 +123,20 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 		if (level instanceof ServerLevel server) {
 			BlockPos pos = chest.getBlockPos();
 			if (state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) && this.wilderWild$getCanBubble()) {
-				server.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5, server.random.nextInt(18, 25), 0.21875F, 0, 0.21875F, 0.25D);
+				server.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5D, pos.getY() + 0.625D, pos.getZ() + 0.5D, server.random.nextInt(18, 25), 0.21875F, 0, 0.21875F, 0.25D);
 			}
 		}
 	}
 
 	@Inject(at = @At(value = "TAIL"), method = "load")
-	public void load(CompoundTag tag, CallbackInfo info) {
+	public void load(CompoundTag tag, HolderLookup.Provider provider, CallbackInfo info) {
 		if (tag.contains("wilderwild_can_bubble")) {
 			this.wilderWild$canBubble = tag.getBoolean("wilderwild_can_bubble");
 		}
 	}
 
 	@Inject(at = @At(value = "TAIL"), method = "saveAdditional")
-	public void saveAdditional(CompoundTag tag, CallbackInfo info) {
+	public void saveAdditional(CompoundTag tag, HolderLookup.Provider provider, CallbackInfo info) {
 		tag.putBoolean("wilderwild_can_bubble", this.wilderWild$canBubble);
 	}
 

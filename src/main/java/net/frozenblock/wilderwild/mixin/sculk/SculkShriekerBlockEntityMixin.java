@@ -24,6 +24,7 @@ import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOp
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -79,12 +80,12 @@ public abstract class SculkShriekerBlockEntityMixin implements SculkShriekerTick
 	}
 
 	@Inject(at = @At("TAIL"), method = "load")
-	public void wilderWild$load(CompoundTag tag, CallbackInfo info) {
+	public void wilderWild$load(CompoundTag tag, HolderLookup.Provider provider, CallbackInfo info) {
 		this.wilderWild$bubbles = tag.getInt("wilderwildBubbles");
 	}
 
 	@Inject(at = @At("TAIL"), method = "saveAdditional")
-	public void wilderWild$saveAdditional(CompoundTag tag, CallbackInfo info) {
+	public void wilderWild$saveAdditional(CompoundTag tag, HolderLookup.Provider provider, CallbackInfo info) {
 		tag.putInt("wilderwildBubbles", this.wilderWild$bubbles);
 	}
 

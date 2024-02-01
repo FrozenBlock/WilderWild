@@ -70,11 +70,6 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 		Supplier<RenderType> nectarLayer = () -> age % 2 == 0 ? NECTAR_LAYER : NECTAR_FLAP_LAYER;
 		VertexConsumer vertexConsumer = buffer.getBuffer(nectar ? nectarLayer.get() : LAYER);
 
-		vertex(vertexConsumer, pose, packedLight, 0F, 0, 0, 1, 255);
-		vertex(vertexConsumer, pose, packedLight, 1F, 0, 1, 1, 255);
-		vertex(vertexConsumer, pose, packedLight, 1F, 1, 1, 0, 255);
-		vertex(vertexConsumer, pose, packedLight, 0F, 1, 0, 0, 255);
-		/*
 		vertexConsumer
 			.vertex(pose, -0.5F, -0.5F, 0F)
 			.color(255, 255, 255, 255)
@@ -107,7 +102,6 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 			.uv2(packedLight)
 			.normal(pose, 0F, 1F, 0F)
 			.endVertex();
-		 */
 
 		if (color != null && LAYERS.get(color.key()) != null) {
 			RenderType layer = nectar ? NECTAR_OVERLAY : LAYERS.get(color.key());
@@ -120,12 +114,6 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 			(int) (((age + tickDelta) * Mth.PI) * -4D) :
 			(int) Math.max((255D * (Math.cos(((age + tickDelta) * Mth.PI) * 0.05D))), 0D);
 
-		vertex(vertexConsumer, pose, packedLight, 0F, 0, 0, 1, calcColor);
-		vertex(vertexConsumer, pose, packedLight, 1F, 0, 1, 1, calcColor);
-		vertex(vertexConsumer, pose, packedLight, 1F, 1, 1, 0, calcColor);
-		vertex(vertexConsumer, pose, packedLight, 0F, 1, 0, 0, calcColor);
-
-		/*
 		vertexConsumer
 			.vertex(pose, -0.5F, -0.5F, 0F)
 			.color(calcColor, calcColor, calcColor, calcColor)
@@ -158,7 +146,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 			.uv2(packedLight)
 			.normal(pose, 0F, 1F, 0F)
 			.endVertex();
-		 */
+
 
 		poseStack.popPose();
 	}
@@ -194,16 +182,6 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 			this.renderNameTag(entity, entity.getDisplayName(), poseStack, buffer, light, tickDelta);
 		}
 		poseStack.popPose();
-	}
-
-	private static void vertex(@NotNull VertexConsumer vertexConsumer, PoseStack.Pose pose, int packedLight, float f, int j, int u, int v, int alpha) {
-		vertexConsumer.vertex(pose, f - 0.5F, (float)j - 0.25F, 0F)
-			.color(alpha, alpha, alpha, alpha)
-			.uv((float)u, (float)v)
-			.overlayCoords(OverlayTexture.NO_OVERLAY)
-			.uv2(packedLight)
-			.normal(pose, 0.0F, 1.0F, 0.0F)
-			.endVertex();
 	}
 
 	@Override
