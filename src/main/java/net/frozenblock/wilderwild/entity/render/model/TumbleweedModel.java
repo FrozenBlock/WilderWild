@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -28,7 +28,6 @@ import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
@@ -39,7 +38,6 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> {
-	private static final float PI_180 = Mth.PI / 180F;
 	private final ModelPart root;
 	private final ModelPart bone;
 	private float partialTick;
@@ -60,8 +58,8 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		meshdefinition.getRoot().addOrReplaceChild("bone", CubeListBuilder.create()
-			.texOffs(0, 28).addBox(-6.0F, -6.0F, -6.0F, 12.0F, 12.0F, 12.0F, new CubeDeformation(0.0F))
-			.texOffs(0, 0).addBox(-7.0F, -7.0F, -7.0F, 14.0F, 14.0F, 14.0F, new CubeDeformation(0.0F)), PartPose.offset(0F, 0F, 0F));
+			.texOffs(0, 28).addBox(-6F, -6F, -6F, 12F, 12F, 12F)
+			.texOffs(0, 0).addBox(-7F, -7F, -7F, 14F, 14F, 14F), PartPose.ZERO);
 
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
@@ -81,7 +79,7 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 	@Override
 	public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		if (EntityConfig.get().tumbleweed.tumbleweedRotatesToLookDirection) {
-			this.root.xRot = (Mth.lerp(this.partialTick, this.prevTumble, this.tumble)) * PI_180;
+			this.root.xRot = (Mth.lerp(this.partialTick, this.prevTumble, this.tumble)) * Mth.DEG_TO_RAD;
 		} else {
 			this.root.xRot = 0F;
 		}
@@ -90,12 +88,12 @@ public class TumbleweedModel<T extends Tumbleweed> extends HierarchicalModel<T> 
 	@Override
 	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		poseStack.pushPose();
-		poseStack.translate(0, 1.3, 0);
+		poseStack.translate(0D, 1.3D, 0D);
 		if (!EntityConfig.get().tumbleweed.tumbleweedRotatesToLookDirection) {
 			poseStack.pushPose();
-			poseStack.mulPose(Axis.XP.rotation(Mth.lerp(this.partialTick, this.prevPitch, this.pitch) * PI_180));
+			poseStack.mulPose(Axis.XP.rotation(Mth.lerp(this.partialTick, this.prevPitch, this.pitch) * Mth.DEG_TO_RAD));
 			poseStack.pushPose();
-			poseStack.mulPose(Axis.ZP.rotation(Mth.lerp(this.partialTick, this.prevRoll, this.roll) * PI_180));
+			poseStack.mulPose(Axis.ZP.rotation(Mth.lerp(this.partialTick, this.prevRoll, this.roll) * Mth.DEG_TO_RAD));
 			poseStack.pushPose();
 			this.root.render(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, red, green, blue, alpha);
 			poseStack.popPose();

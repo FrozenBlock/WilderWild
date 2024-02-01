@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -18,10 +18,10 @@
 
 package net.frozenblock.wilderwild.mixin.sculk;
 
-import com.llamalad7.mixinextras.sugar.Share;
-import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import java.util.Iterator;
 import java.util.List;
 import net.frozenblock.lib.sculk.api.BooleanPropertySculkBehavior;
@@ -69,54 +69,6 @@ public class SculkSpreaderChargeCursorMixin {
 				info.cancel();
 			}
 			info.setReturnValue(mutable.equals(pos) ? null : mutable);
-		}
-	}
-
-	@Inject(method = "update", at = @At("HEAD"))
-	private void wilderWild$newSculkBehaviour(
-		LevelAccessor level,
-		BlockPos pos,
-		RandomSource random,
-		SculkSpreader spreader,
-		boolean spread,
-		CallbackInfo info,
-		@Share("wilderWild$isWorldGen") LocalBooleanRef isWorldGen
-	) {
-		isWorldGen.set(spreader.isWorldGeneration());
-	}
-
-	@WrapOperation(method = "update", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkSpreader$ChargeCursor;getBlockBehaviour(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/SculkBehaviour;"))
-	private SculkBehaviour wilderWild$newSculkBehaviour(
-		BlockState par1,
-		Operation<SculkBehaviour> operation,
-		@Share("wilderWild$isWorldGen") LocalBooleanRef isWorldGen
-	) {
-		if (isWorldGen.get()) {
-			if (par1.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || par1.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || par1.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN)) {
-				return new SlabWallStairSculkBehavior();
-			} else if (par1.is(RegisterBlocks.STONE_CHEST)) {
-				return new BooleanPropertySculkBehavior(RegisterProperties.HAS_SCULK, true);
-			}
-		} else {
-			if (par1.is(WilderBlockTags.SCULK_WALL_REPLACEABLE) || par1.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE) || par1.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE)) {
-				return new SlabWallStairSculkBehavior();
-			}
-		}
-		return operation.call(par1);
-	}
-
-	@WrapOperation(method = "update", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkSpreader$ChargeCursor;getValidMovementPos(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)Lnet/minecraft/core/BlockPos;"))
-	private BlockPos wilderWild$newValidMovementPos(
-		LevelAccessor levelAccessor,
-		BlockPos blockPos,
-		RandomSource random,
-		Operation<BlockPos> operation,
-		@Share("wilderWild$isWorldGen") LocalBooleanRef isWorldGen
-	) {
-		if (isWorldGen.get()) {
-			return wilderWild$getValidMovementPosWorldgen(levelAccessor, blockPos, random);
-		} else {
-			return operation.call(levelAccessor, blockPos, random);
 		}
 	}
 
@@ -188,6 +140,54 @@ public class SculkSpreaderChargeCursorMixin {
 	@Shadow
 	private static boolean isUnobstructed(LevelAccessor level, BlockPos pos, Direction direction) {
 		throw new AssertionError("Mixin injection failed - WilderWild SculkSpreaderChargeCursorMixin.");
+	}
+
+	@Inject(method = "update", at = @At("HEAD"))
+	private void wilderWild$newSculkBehaviour(
+		LevelAccessor level,
+		BlockPos pos,
+		RandomSource random,
+		SculkSpreader spreader,
+		boolean spread,
+		CallbackInfo info,
+		@Share("wilderWild$isWorldGen") LocalBooleanRef isWorldGen
+	) {
+		isWorldGen.set(spreader.isWorldGeneration());
+	}
+
+	@WrapOperation(method = "update", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkSpreader$ChargeCursor;getBlockBehaviour(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/SculkBehaviour;"))
+	private SculkBehaviour wilderWild$newSculkBehaviour(
+		BlockState par1,
+		Operation<SculkBehaviour> operation,
+		@Share("wilderWild$isWorldGen") LocalBooleanRef isWorldGen
+	) {
+		if (isWorldGen.get()) {
+			if (par1.is(WilderBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || par1.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || par1.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN)) {
+				return new SlabWallStairSculkBehavior();
+			} else if (par1.is(RegisterBlocks.STONE_CHEST)) {
+				return new BooleanPropertySculkBehavior(RegisterProperties.HAS_SCULK, true);
+			}
+		} else {
+			if (par1.is(WilderBlockTags.SCULK_WALL_REPLACEABLE) || par1.is(WilderBlockTags.SCULK_SLAB_REPLACEABLE) || par1.is(WilderBlockTags.SCULK_STAIR_REPLACEABLE)) {
+				return new SlabWallStairSculkBehavior();
+			}
+		}
+		return operation.call(par1);
+	}
+
+	@WrapOperation(method = "update", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/SculkSpreader$ChargeCursor;getValidMovementPos(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)Lnet/minecraft/core/BlockPos;"))
+	private BlockPos wilderWild$newValidMovementPos(
+		LevelAccessor levelAccessor,
+		BlockPos blockPos,
+		RandomSource random,
+		Operation<BlockPos> operation,
+		@Share("wilderWild$isWorldGen") LocalBooleanRef isWorldGen
+	) {
+		if (isWorldGen.get()) {
+			return wilderWild$getValidMovementPosWorldgen(levelAccessor, blockPos, random);
+		} else {
+			return operation.call(levelAccessor, blockPos, random);
+		}
 	}
 
 }

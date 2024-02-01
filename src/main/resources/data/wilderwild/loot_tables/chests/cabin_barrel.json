@@ -453,5 +453,6 @@
         "min": 2.0
       }
     }
-  ]
+  ],
+  "random_sequence": "wilderwild:chests/cabin_barrel"
 }

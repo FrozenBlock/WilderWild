@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -49,7 +49,7 @@ public class WilderFeatureBootstrap {
 		final var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		final var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
-		FrozenFeatureUtils.BOOTSTAP_CONTEXT = (BootstapContext) entries;
+		FrozenFeatureUtils.BOOTSTRAP_CONTEXT = (BootstapContext) entries;
 
 		WilderTreeConfigured.registerTreeConfigured();
 		WilderMiscConfigured.registerMiscPlaced();
@@ -60,7 +60,7 @@ public class WilderFeatureBootstrap {
 		final var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		final var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
-		FrozenFeatureUtils.BOOTSTAP_CONTEXT = (BootstapContext) entries;
+		FrozenFeatureUtils.BOOTSTRAP_CONTEXT = (BootstapContext) entries;
 
 		WilderTreePlaced.registerTreePlaced();
 		WilderMiscPlaced.registerMiscPlaced(entries);

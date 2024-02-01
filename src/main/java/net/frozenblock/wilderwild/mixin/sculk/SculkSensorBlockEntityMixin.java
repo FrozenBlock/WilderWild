@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.mixin.sculk;
 
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.misc.interfaces.SculkSensorTickInterface;
 import net.frozenblock.wilderwild.networking.packet.WilderSensorHiccupPacket;
 import net.frozenblock.wilderwild.registry.RegisterGameEvents;
@@ -33,6 +32,7 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SculkSensorBlock;
@@ -85,17 +85,18 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 		SculkSensorBlockEntity sensor = SculkSensorBlockEntity.class.cast(this);
 		VibrationSystem.Ticker.tick(level, this.getVibrationData(), this.getVibrationUser());
 		if (state.getValue(RegisterProperties.HICCUPPING)) {
-			if (level.random.nextBoolean() && level.random.nextBoolean()) {
-				double x = (pos.getX() - 0.1) + (level.random.nextFloat() * 1.2);
-				double y = pos.getY() + level.random.nextFloat();
-				double z = (pos.getZ() - 0.1) + (level.random.nextFloat() * 1.2);
+			RandomSource random = level.getRandom();
+			if (random.nextBoolean() && random.nextBoolean()) {
+				double x = (pos.getX() - 0.1) + (random.nextFloat() * 1.2);
+				double y = pos.getY() + random.nextFloat();
+				double z = (pos.getZ() - 0.1) + (random.nextFloat() * 1.2);
 				WilderSensorHiccupPacket.sendToAll(sensor, new Vec3(x, y, z));
 			}
-			if (SculkSensorBlock.canActivate(state) && level.random.nextInt(320) <= 1) {
-				((SculkSensorBlock) state.getBlock()).activate(null, level, pos, state, AdvancedMath.random().nextInt(15), sensor.getLastVibrationFrequency());
+			if (SculkSensorBlock.canActivate(state) && random.nextInt(320) <= 1) {
+				((SculkSensorBlock) state.getBlock()).activate(null, level, pos, state, random.nextInt(15), sensor.getLastVibrationFrequency());
 				level.gameEvent(null, GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
 				level.gameEvent(null, RegisterGameEvents.SCULK_SENSOR_ACTIVATE, pos);
-				level.playSound(null, pos, RegisterSounds.BLOCK_SCULK_SENSOR_HICCUP, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.1F + 0.7F);
+				level.playSound(null, pos, RegisterSounds.BLOCK_SCULK_SENSOR_HICCUP, SoundSource.BLOCKS, 1.0F, random.nextFloat() * 0.1F + 0.7F);
 			}
 		}
 		int animTicks = this.wilderWild$getAnimTicks();
@@ -135,8 +136,8 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 	}
 
 	@Unique
-	@Override
 	@NotNull
+	@Override
 	public CompoundTag getUpdateTag() {
 		return this.saveWithoutMetadata();
 	}

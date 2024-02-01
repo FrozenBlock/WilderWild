@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -22,6 +22,7 @@ import com.mojang.serialization.Codec;
 import java.util.List;
 import java.util.Optional;
 import net.frozenblock.wilderwild.entity.Crab;
+import net.frozenblock.wilderwild.entity.Ostrich;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -44,6 +45,7 @@ public final class RegisterMemoryModuleTypes {
 	public static final MemoryModuleType<Boolean> IS_PLAYER_NEARBY = register("is_player_nearby", Codec.BOOL);
 	public static final MemoryModuleType<Boolean> CAN_DIG = register("can_dig", Codec.BOOL);
 	public static final MemoryModuleType<Unit> FIRST_BRAIN_TICK = register("first_brain_tick");
+	public static final MemoryModuleType<List<Ostrich>> NEARBY_OSTRICHES = register("nearby_ostriches");
 
 	@NotNull
 	private static <U> MemoryModuleType<U> register(String identifier, Codec<U> codec) {

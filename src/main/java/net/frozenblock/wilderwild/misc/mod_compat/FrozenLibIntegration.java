@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -29,6 +29,7 @@ import net.frozenblock.lib.advancement.api.AdvancementAPI;
 import net.frozenblock.lib.advancement.api.AdvancementEvents;
 import net.frozenblock.lib.block.api.dripstone.DripstoneDripWaterFrom;
 import net.frozenblock.lib.block.api.dripstone.DripstoneUtils;
+import net.frozenblock.lib.block.api.tick.BlockScheduledTicks;
 import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.lib.item.api.RemoveableItemTags;
 import static net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites.addBlock;
@@ -37,7 +38,6 @@ import net.frozenblock.lib.sound.api.damagesource.PlayerDamageSourceSounds;
 import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
 import net.frozenblock.lib.spotting_icons.api.SpottingIconPredicate;
 import net.frozenblock.lib.storage.api.HopperUntouchableList;
-import net.frozenblock.lib.tick.api.BlockScheduledTicks;
 import net.frozenblock.lib.wind.api.ClientWindManager;
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.config.BlockConfig;
@@ -56,6 +56,7 @@ import net.frozenblock.wilderwild.registry.RegisterMobEffects;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.registry.RegisterWorldgen;
 import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.BredAnimalsTrigger;
@@ -68,13 +69,11 @@ import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.advancements.critereon.MobEffectsPredicate;
 import net.minecraft.advancements.critereon.PlayerTrigger;
 import net.minecraft.core.Holder;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.EnderMan;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.InstrumentItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.biome.Biome;
@@ -126,7 +125,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			}
 		});
 		SoundPredicate.register(WilderSharedConstants.id("nectar"), (SoundPredicate.LoopPredicate<Firefly>) entity ->
-				!entity.isSilent() && entity.hasCustomName() && Objects.requireNonNull(entity.getCustomName()).getString().toLowerCase().contains("nectar")
+			!entity.isSilent() && entity.hasCustomName() && Objects.requireNonNull(entity.getCustomName()).getString().toLowerCase().contains("nectar")
 		);
 		SoundPredicate.register(WilderSharedConstants.id("enderman_anger"), (SoundPredicate.LoopPredicate<EnderMan>) entity -> {
 			if (entity.isSilent() || entity.isRemoved() || entity.isDeadOrDying()) {
@@ -213,73 +212,76 @@ public class FrozenLibIntegration extends ModIntegration {
 						addBiomeRequirement(advancement, RegisterWorldgen.OLD_GROWTH_BIRCH_TAIGA);
 						addBiomeRequirement(advancement, RegisterWorldgen.OLD_GROWTH_DARK_FOREST);
 						addBiomeRequirement(advancement, RegisterWorldgen.SNOWY_OLD_GROWTH_PINE_TAIGA);
+						addBiomeRequirement(advancement, RegisterWorldgen.DYING_FOREST);
+						addBiomeRequirement(advancement, RegisterWorldgen.SNOWY_DYING_FOREST);
+						addBiomeRequirement(advancement, RegisterWorldgen.DYING_MIXED_FOREST);
+						addBiomeRequirement(advancement, RegisterWorldgen.SNOWY_DYING_MIXED_FOREST);
 					}
 					case "minecraft:husbandry/balanced_diet" -> {
-						AdvancementAPI.addCriteria(advancement, "wilderwild:baobab_nut", new Criterion(
-							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.BAOBAB_NUT)
-						));
-						AdvancementAPI.addCriteria(advancement, "wilderwild:split_coconut", new Criterion(
-							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.SPLIT_COCONUT)
-						));
-						AdvancementAPI.addCriteria(advancement, "wilderwild:crab_claw", new Criterion(
-							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.CRAB_CLAW)
-						));
-						AdvancementAPI.addCriteria(advancement, "wilderwild:cooked_crab_claw", new Criterion(
-							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.COOKED_CRAB_CLAW)
-						));
-						AdvancementAPI.addCriteria(advancement, "wilderwild:prickly_pear", new Criterion(
-							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.PRICKLY_PEAR)
-						));
-						AdvancementAPI.addCriteria(advancement, "wilderwild:peeled_prickly_pear", new Criterion(
-							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.PEELED_PRICKLY_PEAR)
-						));
+						AdvancementAPI.addCriteria(advancement, "wilderwild:baobab_nut", CriteriaTriggers.CONSUME_ITEM.createCriterion(
+							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.BAOBAB_NUT).triggerInstance())
+						);
+						AdvancementAPI.addCriteria(advancement, "wilderwild:split_coconut", CriteriaTriggers.CONSUME_ITEM.createCriterion(
+							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.SPLIT_COCONUT).triggerInstance())
+						);
+						AdvancementAPI.addCriteria(advancement, "wilderwild:crab_claw", CriteriaTriggers.CONSUME_ITEM.createCriterion(
+							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.CRAB_CLAW).triggerInstance())
+						);
+						AdvancementAPI.addCriteria(advancement, "wilderwild:cooked_crab_claw", CriteriaTriggers.CONSUME_ITEM.createCriterion(
+							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.COOKED_CRAB_CLAW).triggerInstance())
+						);
+						AdvancementAPI.addCriteria(advancement, "wilderwild:prickly_pear", CriteriaTriggers.CONSUME_ITEM.createCriterion(
+							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.PRICKLY_PEAR).triggerInstance())
+						);
+						AdvancementAPI.addCriteria(advancement, "wilderwild:peeled_prickly_pear", CriteriaTriggers.CONSUME_ITEM.createCriterion(
+							ConsumeItemTrigger.TriggerInstance.usedItem(RegisterItems.PEELED_PRICKLY_PEAR).triggerInstance())
+						);
 						AdvancementAPI.addRequirements(advancement,
-							new String[][]{{
+							new AdvancementRequirements(new String[][]{{
 								"wilderwild:baobab_nut",
 								"wilderwild:split_coconut",
 								"wilderwild:crab_claw",
 								"wilderwild:cooked_crab_claw",
 								"wilderwild:prickly_pear",
 								"wilderwild:peeled_prickly_pear"
-							}}
+							}})
 						);
 					}
 					case "minecraft:husbandry/bred_all_animals" -> {
-						AdvancementAPI.addCriteria(advancement, "wilderwild:crab", new Criterion(
-							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(RegisterEntities.CRAB))
-						));
-						AdvancementAPI.addRequirements(advancement,
-							new String[][]{{
+						AdvancementAPI.addCriteria(advancement, "wilderwild:crab", CriteriaTriggers.BRED_ANIMALS.createCriterion(
+							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(RegisterEntities.CRAB)).triggerInstance())
+						);
+						AdvancementAPI.addRequirements(advancement, new
+								AdvancementRequirements(new String[][]{{
 								"wilderwild:crab"
-							}}
+							}})
 						);
 					}
 					case "minecraft:husbandry/tactical_fishing" -> {
-						AdvancementAPI.addCriteria(advancement, "wilderwild:crab_bucket", new Criterion(
-							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(RegisterItems.CRAB_BUCKET).build())
-						));
-						AdvancementAPI.addCriteria(advancement, "wilderwild:jellyfish_bucket", new Criterion(
-							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(RegisterItems.JELLYFISH_BUCKET).build())
-						));
-						AdvancementAPI.addRequirements(advancement,
-							new String[][]{{
+						AdvancementAPI.addCriteria(advancement, "wilderwild:crab_bucket", CriteriaTriggers.FILLED_BUCKET.createCriterion(
+							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(RegisterItems.CRAB_BUCKET)).triggerInstance())
+						);
+						AdvancementAPI.addCriteria(advancement, "wilderwild:jellyfish_bucket", CriteriaTriggers.FILLED_BUCKET.createCriterion(
+							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(RegisterItems.JELLYFISH_BUCKET)).triggerInstance())
+						);
+						AdvancementAPI.addRequirements(advancement, new
+								AdvancementRequirements(new String[][]{{
 								"wilderwild:crab_bucket",
 								"wilderwild:jellyfish_bucket"
-							}}
+							}})
 						);
 					}
 					case "minecraft:nether/all_potions", "minecraft:nether/all_effects" -> {
-                        Criterion criterion = advancement.getCriteria().get("all_effects");
-						EffectsChangedTrigger.TriggerInstance triggerInstance = (EffectsChangedTrigger.TriggerInstance) criterion.getTrigger();
-						MobEffectsPredicate predicate = triggerInstance.effects;
-						Map<MobEffect, MobEffectsPredicate.MobEffectInstancePredicate> map = new HashMap<>(predicate.effects);
-						map.put(
-							RegisterMobEffects.REACH,
-							new MobEffectsPredicate.MobEffectInstancePredicate()
-						);
-						predicate.effects = map;
-                    }
-					default -> {}
+						if (advancement.criteria().get("all_effects") != null && advancement.criteria().get("all_effects").triggerInstance() instanceof EffectsChangedTrigger.TriggerInstance) {
+							Criterion<EffectsChangedTrigger.TriggerInstance> criterion = (Criterion<EffectsChangedTrigger.TriggerInstance>) advancement.criteria().get("all_effects");
+							MobEffectsPredicate predicate = criterion.triggerInstance().effects.orElseThrow();
+							Map<Holder<MobEffect>, MobEffectsPredicate.MobEffectInstancePredicate> map = new HashMap<>(predicate.effectMap);
+							map.put(RegisterMobEffects.REACH.builtInRegistryHolder(), new MobEffectsPredicate.MobEffectInstancePredicate());
+							predicate.effectMap = map;
+						}
+					}
+					default -> {
+					}
 				}
 
 			}
@@ -288,12 +290,12 @@ public class FrozenLibIntegration extends ModIntegration {
 
 	private static void addBiomeRequirement(@NotNull Advancement advancement, @NotNull ResourceKey<Biome> key) {
 		AdvancementAPI.addCriteria(advancement, key.location().toString(), inBiome(key));
-		AdvancementAPI.addRequirements(advancement, new String[][]{{key.location().toString()}});
+		AdvancementAPI.addRequirements(advancement, new AdvancementRequirements(new String[][]{{key.location().toString()}}));
 	}
 
 	@NotNull
-	private static Criterion inBiome(ResourceKey<Biome> key) {
-		return new Criterion(PlayerTrigger.TriggerInstance.located(LocationPredicate.Builder.location().setBiome(key).build()));
+	private static Criterion<PlayerTrigger.TriggerInstance> inBiome(ResourceKey<Biome> key) {
+		return PlayerTrigger.TriggerInstance.located(LocationPredicate.Builder.inBiome(key));
 	}
 
 	@Environment(EnvType.CLIENT)

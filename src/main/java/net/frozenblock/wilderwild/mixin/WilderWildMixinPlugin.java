@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -94,6 +94,7 @@ public class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("entity.slime")) return config.entity_slime;
 		if (mixinClassName.contains("entity.tumbleweed")) return config.entity_tumbleweed;
 		if (mixinClassName.contains("entity.turtle")) return config.entity_turtle;
+		if (mixinClassName.contains("entity.firework_rocket")) return config.entity_firework_rocket;
 		if (mixinClassName.contains("item.axe")) return config.item_axe;
 		if (mixinClassName.contains("item.brush")) return config.item_brush;
 		if (mixinClassName.contains("item.instrument")) return config.item_instrument;

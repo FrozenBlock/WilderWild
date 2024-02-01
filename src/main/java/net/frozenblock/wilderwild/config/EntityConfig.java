@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -58,6 +58,9 @@ public final class EntityConfig {
 
 	@CollapsibleObject
 	public final CrabConfig crab = new CrabConfig();
+
+	@CollapsibleObject
+	public final OstrichConfig ostrich = new OstrichConfig();
 
 	@CollapsibleObject
 	public final TumbleweedConfig tumbleweed = new TumbleweedConfig();
@@ -125,6 +128,14 @@ public final class EntityConfig {
 
 		@EntrySyncData("reachAffectsAttack")
 		public boolean reachAffectsAttack = false;
+	}
+
+	public static class OstrichConfig {
+		@EntrySyncData("spawnOstriches")
+		public boolean spawnOstriches = true;
+
+		@EntrySyncData("allowAttack")
+		public boolean allowAttack = true;
 	}
 
 	public static class TumbleweedConfig {

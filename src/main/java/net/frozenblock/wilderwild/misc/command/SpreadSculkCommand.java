@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -33,7 +33,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class SpreadSculkCommand {
 
-	public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
+	public static void register(@NotNull CommandDispatcher<CommandSourceStack> dispatcher) {
 		dispatcher.register(Commands.literal("sculkspread")
 			.requires(source -> source.hasPermission(2))
 			.executes(context -> spreadSculk(context.getSource(), context.getSource().getPosition(), false, 10))

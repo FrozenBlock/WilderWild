@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -26,7 +26,8 @@ import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
-public record CattailFeatureConfig(IntProvider width, IntProvider placementAttempts, boolean onlyPlaceInWater, TagKey<Block> canBePlacedOn) implements FeatureConfiguration {
+public record CattailFeatureConfig(IntProvider width, IntProvider placementAttempts, boolean onlyPlaceInWater,
+								   TagKey<Block> canBePlacedOn) implements FeatureConfiguration {
 	public static final Codec<CattailFeatureConfig> CODEC = RecordCodecBuilder.create((instance) ->
 		instance.group(
 			IntProvider.CODEC.fieldOf("width").forGetter(config -> config.width),

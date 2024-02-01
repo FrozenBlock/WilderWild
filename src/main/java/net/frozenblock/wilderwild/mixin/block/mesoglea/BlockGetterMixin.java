@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -48,10 +48,10 @@ public interface BlockGetterMixin {
 	default void wilderWild$setClipInMesoglea(ClipContext context, CallbackInfoReturnable<BlockHitResult> info) {
 		if (context.collisionContext instanceof EntityCollisionContext entityCollisionContext && entityCollisionContext.getEntity() != null) {
 			BlockState eyeState = getBlockState(BlockPos.containing(entityCollisionContext.getEntity().getEyePosition()));
-			((InMesogleaInterface)entityCollisionContext.getEntity()).wilderWild$setClipInMesoglea(
+			((InMesogleaInterface) entityCollisionContext.getEntity()).wilderWild$setClipInMesoglea(
 				eyeState.is(WilderBlockTags.MESOGLEA)
-				&& eyeState.hasProperty(BlockStateProperties.WATERLOGGED)
-				&& eyeState.getValue(BlockStateProperties.WATERLOGGED)
+					&& eyeState.hasProperty(BlockStateProperties.WATERLOGGED)
+					&& eyeState.getValue(BlockStateProperties.WATERLOGGED)
 			);
 		}
 	}
@@ -66,10 +66,10 @@ public interface BlockGetterMixin {
 	default BlockHitResult wilderWild$mesogleaClip(BlockGetter instance, Vec3 startVec, Vec3 endVec, BlockPos pos, VoxelShape shape, BlockState state, Operation<BlockHitResult> operation, ClipContext context) {
 		if (context.collisionContext instanceof EntityCollisionContext entityCollisionContext && entityCollisionContext.getEntity() != null) {
 			if (
-				((InMesogleaInterface)entityCollisionContext.getEntity()).wilderWild$wasClipInMesoglea()
-				&& state.is(WilderBlockTags.MESOGLEA)
-				&& state.hasProperty(BlockStateProperties.WATERLOGGED)
-				&& state.getValue(BlockStateProperties.WATERLOGGED)
+				((InMesogleaInterface) entityCollisionContext.getEntity()).wilderWild$wasClipInMesoglea()
+					&& state.is(WilderBlockTags.MESOGLEA)
+					&& state.hasProperty(BlockStateProperties.WATERLOGGED)
+					&& state.getValue(BlockStateProperties.WATERLOGGED)
 			) {
 				shape = Shapes.empty();
 			}

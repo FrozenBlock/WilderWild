@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -46,7 +46,7 @@ public class StraightTrunkWithBranches extends TrunkPlacer {
 					IntProvider.NON_NEGATIVE_CODEC.fieldOf("max_log_count").forGetter((trunkPlacer) -> trunkPlacer.maxLogCount),
 					IntProvider.NON_NEGATIVE_CODEC.fieldOf("branch_height_from_top").forGetter((trunkPlacer) -> trunkPlacer.branchHeightFromTop),
 					IntProvider.NON_NEGATIVE_CODEC.fieldOf("extra_branch_length").forGetter((trunkPlacer) -> trunkPlacer.branchLength)
-			)
+				)
 			).apply(instance, StraightTrunkWithBranches::new));
 
 	private final float branchChance;

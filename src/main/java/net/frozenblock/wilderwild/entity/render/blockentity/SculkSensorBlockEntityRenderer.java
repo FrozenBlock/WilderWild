@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -40,8 +40,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> implements BlockEntityRenderer<T> {
-	private static final float PI = Mth.PI;
-	private static final float MERP_25 = 25F * (PI / 180F);
+	private static final float RAD_25 = 25F * Mth.DEG_TO_RAD;
 	private static final RenderType SENSOR_LAYER = RenderType.entityCutout(WilderSharedConstants.id("textures/entity/sculk_sensor/inactive.png"));
 	private static final RenderType ACTIVE_SENSOR_LAYER = RenderType.entityCutout(WilderSharedConstants.id("textures/entity/sculk_sensor/active.png"));
 	private final ModelPart root;
@@ -62,10 +61,11 @@ public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> im
 	public static LayerDefinition getTexturedModelData() {
 		MeshDefinition modelData = new MeshDefinition();
 		PartDefinition modelPartData = modelData.getRoot();
-		modelPartData.addOrReplaceChild("ne", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, 0.0F, 8.0F, 8.0F, 0.002F), PartPose.offsetAndRotation(3.0F, 8.0F, 3.0F, 0, -0.7854F, PI));
-		modelPartData.addOrReplaceChild("se", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, 0.0F, 8.0F, 8.0F, 0.002F), PartPose.offsetAndRotation(3.0F, 8.0F, 13.0F, 0, 0.7854F, PI));
-		modelPartData.addOrReplaceChild("nw", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, 0.0F, 8.0F, 8.0F, 0.002F), PartPose.offsetAndRotation(13.0F, 8.0F, 13.0F, 0, -0.7854F, PI));
-		modelPartData.addOrReplaceChild("sw", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, 0.0F, 8.0F, 8.0F, 0.002F), PartPose.offsetAndRotation(13.0F, 8.0F, 3.0F, 0, 0.7854F, PI));
+		CubeListBuilder tendril = CubeListBuilder.create().texOffs(0, 0).addBox(-4F, -8F, 0F, 8F, 8F, 0.002F);
+		modelPartData.addOrReplaceChild("ne", tendril, PartPose.offsetAndRotation(3F, 8F, 3F, 0, -0.7854F, Mth.PI));
+		modelPartData.addOrReplaceChild("se", tendril, PartPose.offsetAndRotation(3F, 8F, 13F, 0, 0.7854F, Mth.PI));
+		modelPartData.addOrReplaceChild("nw", tendril, PartPose.offsetAndRotation(13F, 8F, 13F, 0, -0.7854F, Mth.PI));
+		modelPartData.addOrReplaceChild("sw", tendril, PartPose.offsetAndRotation(13F, 8F, 3F, 0, 0.7854F, Mth.PI));
 		return LayerDefinition.create(modelData, 64, 64);
 	}
 
@@ -75,18 +75,18 @@ public class SculkSensorBlockEntityRenderer<T extends SculkSensorBlockEntity> im
 			SculkSensorTickInterface tickInterface = ((SculkSensorTickInterface) entity);
 			if (tickInterface.wilderWild$isActive()) {
 				int prevTicks = tickInterface.wilderWild$getPrevAnimTicks();
-				float xRot = (prevTicks + partialTick * (tickInterface.wilderWild$getAnimTicks() - prevTicks)) * 0.1F * ((float) Math.cos((tickInterface.wilderWild$getAge() + partialTick) * 2.25F) * MERP_25);
+				float xRot = (prevTicks + partialTick * (tickInterface.wilderWild$getAnimTicks() - prevTicks)) * 0.1F * ((float) Math.cos((tickInterface.wilderWild$getAge() + partialTick) * 2.25F) * RAD_25);
 				this.ne.xRot = xRot;
 				this.se.xRot = -xRot;
 				this.nw.xRot = -xRot;
 				this.sw.xRot = xRot;
-				this.root.render(poseStack, buffer.getBuffer(ACTIVE_SENSOR_LAYER), light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+				this.root.render(poseStack, buffer.getBuffer(ACTIVE_SENSOR_LAYER), light, overlay, 1F, 1F, 1F, 1F);
 			} else {
 				this.ne.xRot = 0;
 				this.se.xRot = 0;
 				this.nw.xRot = 0;
 				this.sw.xRot = 0;
-				this.root.render(poseStack, buffer.getBuffer(SENSOR_LAYER), light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+				this.root.render(poseStack, buffer.getBuffer(SENSOR_LAYER), light, overlay, 1F, 1F, 1F, 1F);
 			}
 		}
 	}

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -81,6 +81,10 @@ public final class WilderPlacedFeatures {
 	public static final FrozenPlacedFeature SHRUBS_WATER = register("shrubs_water");
 	public static final FrozenPlacedFeature TREES_FLOWER_FIELD = register("trees_flower_field");
 	public static final FrozenPlacedFeature TREES_BIRCH_AND_OAK = register("trees_birch_and_oak");
+	public static final FrozenPlacedFeature TREES_DYING_FOREST = register("trees_dying_forest");
+	public static final FrozenPlacedFeature TREES_SNOWY_DYING_FOREST = register("trees_snowy_dying_forest");
+	public static final FrozenPlacedFeature TREES_DYING_MIXED_FOREST = register("trees_dying_mixed_forest");
+	public static final FrozenPlacedFeature TREES_SNOWY_DYING_MIXED_FOREST = register("trees_snowy_dying_mixed_forest");
 	public static final FrozenPlacedFeature TREES_BIRCH_AND_OAK_ORIGINAL = register("trees_birch_and_oak_original");
 	public static final FrozenPlacedFeature TREES_SEMI_BIRCH_AND_OAK = register("trees_semi_birch_and_oak");
 	public static final FrozenPlacedFeature TREES_FLOWER_FOREST = register("trees_flower_forest");
@@ -257,13 +261,13 @@ public final class WilderPlacedFeatures {
 	public static final FrozenPlacedFeature SMALL_SPONGES = register("small_sponges");
 	public static final FrozenPlacedFeature SMALL_SPONGES_RARE = register("small_sponges_rare");
 	public static final FrozenPlacedFeature PATCH_MELON = register("patch_melon");
+	public static final FrozenPlacedFeature PATCH_PUMPKIN_COMMON = register("patch_pumpkin_common");
 
 	private WilderPlacedFeatures() {
 		throw new UnsupportedOperationException("WilderPlacedFeatures contains only static declarations.");
 	}
 
 	public static void registerPlacedFeatures(@NotNull BootstapContext<PlacedFeature> entries) {
-
 		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 
 		WilderSharedConstants.logWithModId("Registering WilderPlacedFeatures for ", true);
@@ -397,6 +401,34 @@ public final class WilderPlacedFeatures {
 
 		TREES_BIRCH_AND_OAK.makeAndSetHolder(WilderConfiguredFeatures.TREES_BIRCH_AND_OAK.getHolder(),
 			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(12, 0.1F, 1))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER
+				).build()
+		);
+
+		TREES_DYING_FOREST.makeAndSetHolder(WilderConfiguredFeatures.TREES_DYING_FOREST.getHolder(),
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(6, 0.1F, 1))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER
+				).build()
+		);
+
+		TREES_SNOWY_DYING_FOREST.makeAndSetHolder(WilderConfiguredFeatures.TREES_SNOWY_DYING_FOREST.getHolder(),
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(6, 0.1F, 1))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER
+				).build()
+		);
+
+		TREES_DYING_MIXED_FOREST.makeAndSetHolder(WilderConfiguredFeatures.TREES_DYING_MIXED_FOREST.getHolder(),
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(9, 0.1F, 1))
+				.add(
+					WilderPlacementUtils.TREE_CLEARING_FILTER
+				).build()
+		);
+
+		TREES_SNOWY_DYING_MIXED_FOREST.makeAndSetHolder(WilderConfiguredFeatures.TREES_SNOWY_DYING_MIXED_FOREST.getHolder(),
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(9, 0.1F, 1))
 				.add(
 					WilderPlacementUtils.TREE_CLEARING_FILTER
 				).build()
@@ -1326,6 +1358,13 @@ public final class WilderPlacedFeatures {
 
 		PATCH_MELON.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_MELON),
 			RarityFilter.onAverageOnceEvery(64),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
+		);
+
+		PATCH_PUMPKIN_COMMON.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_PUMPKIN),
+			RarityFilter.onAverageOnceEvery(12),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()

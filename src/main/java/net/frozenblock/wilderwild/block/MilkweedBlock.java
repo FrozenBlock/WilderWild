@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -18,7 +18,7 @@
 
 package net.frozenblock.wilderwild.block;
 
-import net.frozenblock.wilderwild.networking.packet.WilderSeedParticlePacket;
+import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
@@ -39,6 +39,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
@@ -47,6 +48,13 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class MilkweedBlock extends TallFlowerBlock {
+	public static final float GROWTH_CHANCE = 0.83F;
+	public static final double SEED_SPAWN_HEIGHT = 0.3D;
+	public static final int MIN_SEEDS_ON_RUSTLE = 14;
+	public static final int MAX_SEEDS_ON_RUSTLE = 28;
+	public static final int MIN_PODS_FROM_HARVEST = 1;
+	public static final int MAX_PODS_FROM_HARVEST = 3;
+	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 	private static final int MAX_AGE = 3;
 
 	public MilkweedBlock(@NotNull Properties settings) {
@@ -54,7 +62,7 @@ public class MilkweedBlock extends TallFlowerBlock {
 	}
 
 	public static boolean isFullyGrown(@NotNull BlockState state) {
-		return state.getValue(BlockStateProperties.AGE_3) == MAX_AGE;
+		return state.getValue(AGE) == MAX_AGE;
 	}
 
 	public static boolean isLower(@NotNull BlockState state) {
@@ -62,66 +70,80 @@ public class MilkweedBlock extends TallFlowerBlock {
 	}
 
 	@Override
-	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
-		super.createBlockStateDefinition(builder);
-		builder.add(BlockStateProperties.AGE_3);
-	}
-
-	@Override
-	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (random.nextFloat() > 0.83F && isLower(state) && !isFullyGrown(state)) {
-			setAgeOnBothHalves(this, state, level, pos, state.getValue(BlockStateProperties.AGE_3) + 1);
-		}
-	}
-
-	@Override
 	@NotNull
 	public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		if (isFullyGrown(state)) {
 			ItemStack itemStack = player.getItemInHand(hand);
-			if (!level.isClientSide) {
+			if (level instanceof ServerLevel serverLevel && !serverLevel.isClientSide) {
 				if (itemStack.is(Items.SHEARS)) {
 					itemStack.hurtAndBreak(1, player, (playerx) -> playerx.broadcastBreakEvent(hand));
 					player.awardStat(Stats.ITEM_USED.get(Items.SHEARS));
 					shear(level, pos, state, player);
 				} else {
-					level.playSound(null, player.getX(), player.getY(), player.getZ(), RegisterSounds.BLOCK_MILKWEED_RUSTLE, SoundSource.BLOCKS, 0.8F, 0.9F + (level.random.nextFloat() * 0.15F));
-					WilderSeedParticlePacket.sendToAll(level, Vec3.atCenterOf(pos).add(0, 0.3, 0), level.random.nextIntBetweenInclusive(14, 28), true);
+					level.playSound(null, player.getX(), player.getY(), player.getZ(), RegisterSounds.BLOCK_MILKWEED_RUSTLE, SoundSource.BLOCKS, 0.8F, 0.9F + (level.getRandom().nextFloat() * 0.15F));
+					serverLevel.sendParticles(
+						SeedParticleOptions.unControlled(true),
+						pos.getX() + 0.5D,
+						pos.getY() + SEED_SPAWN_HEIGHT,
+						pos.getZ() + 0.5D,
+						serverLevel.getRandom().nextIntBetweenInclusive(MIN_SEEDS_ON_RUSTLE, MAX_SEEDS_ON_RUSTLE),
+						0D,
+						0D,
+						0D,
+						0D
+					);
 					setAgeOnBothHalves(this, state, level, pos, 0);
 				}
 			}
-			return InteractionResult.SUCCESS;
 		}
 		return super.use(state, level, pos, player, hand, hit);
 	}
 
 	public static void shear(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @Nullable Player player) {
 		ItemStack stack = new ItemStack(RegisterItems.MILKWEED_POD);
-		stack.setCount(level.random.nextIntBetweenInclusive(2, 5));
+		stack.setCount(level.getRandom().nextIntBetweenInclusive(MIN_PODS_FROM_HARVEST, MAX_PODS_FROM_HARVEST));
 		popResource(level, pos, stack);
 		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
 		level.gameEvent(player, GameEvent.SHEAR, pos);
 		setAgeOnBothHalves(state.getBlock(), state, level, pos, 0);
 	}
 
-	@Override
-	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-		if (isLower(state) && !isFullyGrown(state)) {
-			setAgeOnBothHalves(this, state, level, pos, state.getValue(BlockStateProperties.AGE_3) + 1);
-			return;
-		}
-		super.performBonemeal(level, random, pos, state);
-	}
-
 	public static void setAgeOnBothHalves(Block thisBlock, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, int age) {
 		if (age > MAX_AGE) {
 			return;
 		}
-		level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.AGE_3, age));
+		level.setBlockAndUpdate(pos, state.setValue(AGE, age));
 		BlockPos movedPos = state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER ? pos.below() : pos.above();
 		BlockState secondState = level.getBlockState(movedPos);
 		if (secondState.is(thisBlock)) {
-			level.setBlockAndUpdate(movedPos, secondState.setValue(BlockStateProperties.AGE_3, age));
+			level.setBlockAndUpdate(movedPos, secondState.setValue(AGE, age));
 		}
+	}
+
+	@NotNull
+	public static Vec3 getSeedSpawnPos(@NotNull BlockPos pos) {
+		return Vec3.atCenterOf(pos).add(0D, SEED_SPAWN_HEIGHT, 0D);
+	}
+
+	@Override
+	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
+		builder.add(AGE);
+	}
+
+	@Override
+	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+		if (random.nextFloat() > GROWTH_CHANCE && isLower(state) && !isFullyGrown(state)) {
+			setAgeOnBothHalves(this, state, level, pos, state.getValue(AGE) + 1);
+		}
+	}
+
+	@Override
+	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
+		if (isLower(state) && !isFullyGrown(state)) {
+			setAgeOnBothHalves(this, state, level, pos, state.getValue(AGE) + 1);
+			return;
+		}
+		super.performBonemeal(level, random, pos, state);
 	}
 }

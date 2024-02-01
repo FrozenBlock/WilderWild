@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 FrozenBlock
+ * Copyright 2023-2024 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can redistribute it and/or
@@ -52,9 +52,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ScorchedBlock extends BaseEntityBlock {
+	public static final int TICK_DELAY = 2;
+	public static final float RAIN_HYDRATION_CHANCE = 0.75F;
 	public static final Map<BlockState, BlockState> SCORCH_MAP = new Object2ObjectOpenHashMap<>();
 	public static final Map<BlockState, BlockState> HYDRATE_MAP = new Object2ObjectOpenHashMap<>();
-	public static final int TICK_DELAY = 2;
 	private static final BooleanProperty CRACKEDNESS = RegisterProperties.CRACKED;
 	private static final IntegerProperty DUSTED = BlockStateProperties.DUSTED;
 	public final boolean canBrush;
@@ -62,7 +63,7 @@ public class ScorchedBlock extends BaseEntityBlock {
 	public final SoundEvent brushSound;
 	public final SoundEvent brushCompletedSound;
 
-	public ScorchedBlock(@NotNull Properties settings, @NotNull BlockState wetState, boolean canBrush, @NotNull SoundEvent brushSound, @NotNull SoundEvent brushCompletedSound) {
+	public ScorchedBlock(@NotNull BlockState wetState, boolean canBrush, @NotNull SoundEvent brushSound, @NotNull SoundEvent brushCompletedSound, @NotNull Properties settings) {
 		super(settings);
 		this.registerDefaultState(this.stateDefinition.any().setValue(CRACKEDNESS, false));
 		this.canBrush = canBrush;
@@ -126,7 +127,7 @@ public class ScorchedBlock extends BaseEntityBlock {
 
 	@Override
 	public void handlePrecipitation(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Biome.@NotNull Precipitation precipitation) {
-		if (precipitation == Biome.Precipitation.RAIN && level.getRandom().nextFloat() < 0.75F) {
+		if (precipitation == Biome.Precipitation.RAIN && level.getRandom().nextFloat() < RAIN_HYDRATION_CHANCE) {
 			hydrate(state, level, pos);
 		}
 	}
