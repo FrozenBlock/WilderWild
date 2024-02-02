@@ -58,10 +58,12 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.SpawnUtil;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.monster.warden.AngerLevel;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.player.Player;
@@ -84,7 +86,6 @@ import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -113,6 +114,9 @@ public class AncientHornVibration extends AbstractArrow {
 	private int bubbles;
 	private BlockState inBlockState;
 	private List<Integer> hitEntities = new IntArrayList();
+	// Client Variables
+	private float prevScale;
+	private float scale;
 
 	public AncientHornVibration(@NotNull EntityType<? extends AncientHornVibration> entityType, @NotNull Level level) {
 		super(entityType, level, ItemStack.EMPTY);
@@ -129,7 +133,7 @@ public class AncientHornVibration extends AbstractArrow {
 	}
 
 	public List<Entity> collidingEntities() {
-		return this.level().getEntities(this, this.getBoundingBox().expandTowards(this.getDeltaMovement()).inflate(1.0D), this::canHitEntity);
+		return this.level().getEntities(this, this.getBoundingBox().expandTowards(this.getDeltaMovement()).inflate(1D), this::canHitEntity);
 	}
 
 	@Override
@@ -151,6 +155,7 @@ public class AncientHornVibration extends AbstractArrow {
 
 	@Override
 	public void tick() {
+		this.prevScale = this.scale;
 		this.baseTick();
 		this.shakeTime = 0;
 		Vec3 pos = this.position();
@@ -286,16 +291,19 @@ public class AncientHornVibration extends AbstractArrow {
 
 		this.setPos(newX, newY, newZ);
 		this.checkInsideBlocks();
-		float size = this.getBoundingBoxMultiplier() + ItemConfig.get().ancientHorn.ancientHornSizeMultiplier;
-		if (size > MIN_SIZE && size < MAX_SIZE) {
-			this.setBoundingBoxMultiplier(size);
-		}
+		float scale = Mth.clamp(
+			this.getBoundingBoxMultiplier() + ItemConfig.get().ancientHorn.ancientHornSizeMultiplier,
+			MIN_SIZE,
+			MAX_SIZE
+		);
+		this.setBoundingBoxMultiplier(scale);
+		this.scale = scale;
 	}
 
-	@Override
 	@NotNull
-	public AABB makeBoundingBox() {
-		return super.makeBoundingBox().inflate(this.getBoundingBoxMultiplier() / 2);
+	@Override
+	public EntityDimensions getDimensions(Pose pose) {
+		return super.getDimensions(pose).scale(1F + (this.getBoundingBoxMultiplier() / 2F));
 	}
 
 	public void setCooldown(int cooldownTicks) {
@@ -511,8 +519,18 @@ public class AncientHornVibration extends AbstractArrow {
 		return this.entityData.get(BOUNDING_BOX_MULTIPLIER);
 	}
 
+	public float getBoundingBoxMultiplier(float tickDelta) {
+		return Mth.lerp(tickDelta, this.prevScale, this.scale);
+	}
+
 	public void setBoundingBoxMultiplier(float value) {
 		this.entityData.set(BOUNDING_BOX_MULTIPLIER, value);
+		this.refreshDimensions();
+	}
+
+	@Override
+	public float getEyeHeight(Pose pose, @NotNull EntityDimensions dimensions) {
+		return dimensions.height * 0.5F;
 	}
 
 	@Override
@@ -561,9 +579,9 @@ public class AncientHornVibration extends AbstractArrow {
 
 	@Override
 	public void shootFromRotation(@NotNull Entity shooter, float pitch, float yaw, float roll, float speed, float divergence) {
-		float xRot = -Mth.sin(yaw * Mth.DEG_TO_RAD) * Mth.cos((float) (pitch * Mth.DEG_TO_RAD));
+		float xRot = -Mth.sin(yaw * Mth.DEG_TO_RAD) * Mth.cos(pitch * Mth.DEG_TO_RAD);
 		float yRot = -Mth.sin((pitch + roll) * Mth.DEG_TO_RAD);
-		float zRot = Mth.cos(yaw * Mth.DEG_TO_RAD) * Mth.cos((float) (pitch * Mth.DEG_TO_RAD));
+		float zRot = Mth.cos(yaw * Mth.DEG_TO_RAD) * Mth.cos(pitch * Mth.DEG_TO_RAD);
 		this.shoot(xRot, yRot, zRot, speed, divergence);
 		this.vecX = shooter.getX();
 		this.vecY = shooter.getEyeY();
