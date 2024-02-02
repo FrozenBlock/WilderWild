@@ -110,13 +110,15 @@ Bug Fixes & Changes
   - Changed the Warden's secret death sound from stereo to mono.
   - Refactored mobs' `canSpawn` methods to reflect Vanilla's, following the template `checkXSpawnRules.`
   - Crabs are now impacted by both the `Impaling` and `Bane of Arthropods` enchantments. (24w03a+)
+  - Fixed Crabs not properly latching onto walls if they're about to fall, but an entity is below them in 1.20.1.
   - Baby Jellyfish now always give Poison I with a duration of 4 seconds, while Adult Jellyfish now always give Poison I with a duration of 10 seconds.
     - This used to be a random range of time in previous versions.
   - The Jellyfish sting sound no longer plays at random pitches to be more consistent with Pufferfish.
   - Bubbles will spawn behind Jellyfish less frequently.
   - The Baby Jellyfish's movement speed is now determined with an attribute modifier instead of repeatedly setting the base attribute, making this attribute properly modifiable.
   - Jellyfish are no longer considered scary to Pufferfish.
-  - Jellyfish stings should no longer crash servers. ([#329](https://github.com/FrozenBlock/WilderWild/issues/329))
+  - Jellyfish stings no longer crash servers. ([#329](https://github.com/FrozenBlock/WilderWild/issues/329))
+  - Changed the title of the advancement for capturing a Firefly from `Bottle of Lightning` to `Lightning in a Bottle.`
   - Significantly improved Wilder Wild's biome parameter modifications and cut down `OverworldBiomeBuilderMixin` in size in the process.
   - Moved all biome parameters, feature/spawn building, and most worldgen injects to individual biome classes.
     - This means `WilderSharedWorldgen` will only contain parameters for modified Vanilla biome placement from now on.
