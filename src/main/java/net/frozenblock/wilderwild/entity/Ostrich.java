@@ -943,7 +943,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 
 	@Override
 	public double getPassengersRidingOffset() {
-		return (double)this.getDimensions(this.getPose()).height * 0.775D;
+		return (double)this.getDimensions(this.getPose()).height * (0.775D * 0.85);
 	}
 
 	@Override
