@@ -54,7 +54,7 @@ public class AncientHornProjectileRenderer<T extends AncientHornVibration> exten
 		VertexConsumer vertexConsumer = buffer.getBuffer(FrozenRenderType.ENTITY_TRANSLUCENT_EMISSIVE_FIXED.apply(getTextureLocation(projectile), false));
 
 		float multiplier = projectile.getBoundingBoxMultiplier(partialTick);
-		float scale = multiplier + 1F;
+		float scale = (multiplier * 0.5F) + 1F;
 		float alpha = 1F - (multiplier / 15F);
 		float correctedAlpha = Math.max(alpha, 0.01F);
 
