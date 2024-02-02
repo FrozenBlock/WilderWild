@@ -89,7 +89,6 @@ import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -532,6 +531,11 @@ public class AncientHornVibration extends AbstractArrow {
 	public void setBoundingBoxMultiplier(float value) {
 		this.entityData.set(BOUNDING_BOX_MULTIPLIER, value);
 		this.refreshDimensions();
+	}
+
+	@Override
+	public float getEyeHeight(Pose pose, @NotNull EntityDimensions dimensions) {
+		return dimensions.height * 0.5F;
 	}
 
 	@Override
