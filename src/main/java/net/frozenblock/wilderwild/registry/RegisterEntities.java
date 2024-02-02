@@ -46,7 +46,7 @@ public final class RegisterEntities {
 		"ancient_horn_vibration",
 		FabricEntityTypeBuilder.<AncientHornVibration>create(MobCategory.MISC, AncientHornVibration::new)
 			.fireImmune()
-			.dimensions(EntityDimensions.scalable(0.6F, 0.6F).withEyeHeight(0.3F)) // eye height is the height * 0.5F
+			.dimensions(EntityDimensions.scalable(0.6F, 0.6F))
 			.trackRangeBlocks(64)
 			.trackedUpdateRate(2)
 			.build()

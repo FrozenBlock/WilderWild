@@ -97,6 +97,7 @@ Bug Fixes & Changes
     - This is adjustable in the `Ancient Horn Size Multiplier` config, which used to be 0 by default.
     - You will likely need to manually edit this value if you've played with Wilder Wild before, as the config will likely have 0 saved from a previous version.
   - Made the visual scaling of Ancient Horn Vibrations much smoother.
+  - Fixed the visual scaling of Ancient Horn Vibrations to match their bounding boxes.
   - Made Ancient Horn Fragments slightly rarer in Ancient City loot tables.
   - Defined the Random Sequence for every one of Wilder Wild's loot tables.
   - Added the Palm Hanging Sign to the `wilderwild:hanging_signs` item tag.
