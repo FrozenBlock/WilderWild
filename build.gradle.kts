@@ -1,6 +1,3 @@
-import com.matthewprenger.cursegradle.CurseArtifact
-import com.matthewprenger.cursegradle.CurseProject
-import com.matthewprenger.cursegradle.CurseRelation
 import groovy.xml.XmlSlurper
 import org.codehaus.groovy.runtime.ResourceGroovyMethods
 import java.io.FileInputStream
@@ -29,7 +26,6 @@ plugins {
     id("org.quiltmc.gradle.licenser") version("+")
     id("org.ajoberstar.grgit") version("+")
     id("com.modrinth.minotaur") version("+")
-    id("com.matthewprenger.cursegradle") version("+")
     `maven-publish`
     eclipse
     idea
@@ -160,11 +156,6 @@ repositories {
     }
 
     maven("https://maven.shedaniel.me/")
-    maven("https://cursemaven.com") {
-        content {
-            includeGroup("curse.maven")
-        }
-    }
     maven("https://maven.minecraftforge.net/")
     maven("https://maven.parchmentmc.org")
     maven("https://maven.quiltmc.org/repository/release") {
@@ -422,9 +413,7 @@ extra {
 }
 
 val modrinth_id: String by extra
-val curseforge_id: String by extra
 val release_type: String by extra
-val curseforge_minecraft_version: String by extra
 val changelog_file: String by extra
 
 val modrinth_version = makeModrinthVersion(mod_version)
@@ -460,40 +449,6 @@ fun getBranch(): String {
 
     branch = grgit.branch.current().name
     return branch.substring(branch.lastIndexOf("/") + 1)
-}
-
-curseforge {
-    val token = System.getenv("CURSEFORGE_TOKEN")
-    apiKey = if (token == null || token.isEmpty()) "unset" else token
-    val gameVersion = if (curseforge_minecraft_version != "null") curseforge_minecraft_version else minecraft_version
-    project(closureOf<CurseProject> {
-        id = curseforge_id
-        changelog = changelog_text
-        releaseType = release_type
-        addGameVersion("Fabric")
-        addGameVersion("Quilt")
-        addGameVersion(gameVersion)
-        relations(closureOf<CurseRelation> {
-            requiredDependency("fabric-api")
-            optionalDependency("cloth-config")
-            optionalDependency("modmenu")
-            optionalDependency("terrablender-fabric")
-            optionalDependency("simple-copper-pipes")
-            embeddedLibrary("frozenlib")
-        })
-        mainArtifact(remapJar, closureOf<CurseArtifact> {
-            displayName = display_name
-        })
-        //addArtifact(tasks.remapSourcesJar.get())
-        //addArtifact(javadocJar)
-
-        afterEvaluate {
-            uploadTask.dependsOn(remapJar)
-            //uploadTask.dependsOn(tasks.remapSourcesJar.get())
-            //uploadTask.dependsOn(javadocJar)
-        }
-    })
-    curseGradleOptions.forgeGradleIntegration = false
 }
 
 modrinth {
@@ -551,6 +506,5 @@ val github by tasks.register("github") {
 val publishMod by tasks.register("publishMod") {
     dependsOn(tasks.publish)
     dependsOn(github)
-    dependsOn(tasks.curseforge)
     dependsOn(tasks.modrinth)
 }
