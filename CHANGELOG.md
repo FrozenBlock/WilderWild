@@ -110,6 +110,7 @@ Bug Fixes & Changes
   - Changed the Warden's secret death sound from stereo to mono.
   - Refactored mobs' `canSpawn` methods to reflect Vanilla's, following the template `checkXSpawnRules.`
   - Crabs are now impacted by both the `Impaling` and `Bane of Arthropods` enchantments. (24w03a+)
+  - Fixed Crabs not properly latching onto walls if they're about to fall, but an entity is below them in 1.20.1.
   - Baby Jellyfish now always give Poison I with a duration of 4 seconds, while Adult Jellyfish now always give Poison I with a duration of 10 seconds.
     - This used to be a random range of time in previous versions.
   - The Jellyfish sting sound no longer plays at random pitches to be more consistent with Pufferfish.
