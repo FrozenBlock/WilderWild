@@ -116,7 +116,8 @@ Bug Fixes & Changes
   - Bubbles will spawn behind Jellyfish less frequently.
   - The Baby Jellyfish's movement speed is now determined with an attribute modifier instead of repeatedly setting the base attribute, making this attribute properly modifiable.
   - Jellyfish are no longer considered scary to Pufferfish.
-  - Jellyfish stings should no longer crash servers. ([#329](https://github.com/FrozenBlock/WilderWild/issues/329))
+  - Jellyfish stings no longer crash servers. ([#329](https://github.com/FrozenBlock/WilderWild/issues/329))
+  - Changed the title of the advancement for capturing a Firefly from `Bottle of Lightning` to `Lightning in a Bottle.`
   - Significantly improved Wilder Wild's biome parameter modifications and cut down `OverworldBiomeBuilderMixin` in size in the process.
   - Moved all biome parameters, feature/spawn building, and most worldgen injects to individual biome classes.
     - This means `WilderSharedWorldgen` will only contain parameters for modified Vanilla biome placement from now on.
