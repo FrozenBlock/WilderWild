@@ -93,6 +93,10 @@ Bug Fixes & Changes
   - Ancient Horn Vibrations will now spawn particles upon dissipating.
   - Ancient Horn Vibrations will no longer play the dissipation sound upon hitting an entity.
   - Fixed Floating Sculk Bubbles spawned from an Ancient Horn Vibration always being the same size each tick.
+  - Changed the default size growth of the Ancient Horn Vibration from 0 to 0.01 per tick.
+    - This is adjustable in the `Ancient Horn Size Multiplier` config, which used to be 0 by default.
+    - You will likely need to manually edit this value if you've played with Wilder Wild before, as the config will likely have 0 saved from a previous version.
+  - Made the visual scaling of Ancient Horn Vibrations much smoother.
   - Made Ancient Horn Fragments slightly rarer in Ancient City loot tables.
   - Defined the Random Sequence for every one of Wilder Wild's loot tables.
   - Added the Palm Hanging Sign to the `wilderwild:hanging_signs` item tag.
@@ -109,7 +113,7 @@ Bug Fixes & Changes
   - Prevented the Warden from moving while it is digging or emerging.
   - Changed the Warden's secret death sound from stereo to mono.
   - Refactored mobs' `canSpawn` methods to reflect Vanilla's, following the template `checkXSpawnRules.`
-  - Crabs are now impacted by both the `Impaling` and `Bane of Arthropods` enchantments. (24w03a+)
+  - Crabs are now impacted by both the `Impaling` and `Bane of Arthropods` enchantments in 24w03a+.
   - Fixed Crabs not properly latching onto walls if they're about to fall, but an entity is below them in 1.20.1.
   - Baby Jellyfish now always give Poison I with a duration of 4 seconds, while Adult Jellyfish now always give Poison I with a duration of 10 seconds.
     - This used to be a random range of time in previous versions.
@@ -119,6 +123,7 @@ Bug Fixes & Changes
   - Jellyfish are no longer considered scary to Pufferfish.
   - Jellyfish stings no longer crash servers. ([#329](https://github.com/FrozenBlock/WilderWild/issues/329))
   - Changed the title of the advancement for capturing a Firefly from `Bottle of Lightning` to `Lightning in a Bottle.`
+  - Fixed the `Restrict Instrument Sounds` config lang reading as `Restrict Instrument Sound.`
   - Significantly improved Wilder Wild's biome parameter modifications and cut down `OverworldBiomeBuilderMixin` in size in the process.
   - Moved all biome parameters, feature/spawn building, and most worldgen injects to individual biome classes.
     - This means `WilderSharedWorldgen` will only contain parameters for modified Vanilla biome placement from now on.

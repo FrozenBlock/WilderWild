@@ -84,7 +84,7 @@ public final class ItemConfig {
 		public boolean ancientHornShattersGlass = false;
 
 		@EntrySyncData("ancientHornSizeMultiplier")
-		public float ancientHornSizeMultiplier = 0F;
+		public float ancientHornSizeMultiplier = 0.01F;
 	}
 
 	public static class ProjectileLandingSoundsConfig {
