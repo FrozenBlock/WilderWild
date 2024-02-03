@@ -24,6 +24,7 @@ import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import static net.frozenblock.wilderwild.world.additions.feature.WilderPlacementUtils.register;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.world.level.block.Blocks;
@@ -232,11 +233,11 @@ public final class WilderTreePlaced {
 		);
 
 		FALLEN_BIRCH_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_BIRCH_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(BlockPos.ZERO.below(), WilderBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		MOSSY_FALLEN_BIRCH_CHECKED.makeAndSetHolder(WilderTreeConfigured.MOSSY_FALLEN_BIRCH_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(BlockPos.ZERO.below(), WilderBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		SNAPPED_BIRCH_CHECKED.makeAndSetHolder(WilderTreeConfigured.SNAPPED_BIRCH.getHolder(),
@@ -274,15 +275,15 @@ public final class WilderTreePlaced {
 		);
 
 		FALLEN_CHERRY_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_CHERRY_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(BlockPos.ZERO.below(), WilderBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		MOSSY_FALLEN_CHERRY_CHECKED.makeAndSetHolder(WilderTreeConfigured.MOSSY_FALLEN_CHERRY_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(BlockPos.ZERO.below(), WilderBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		SNAPPED_CHERRY_CHECKED.makeAndSetHolder(WilderTreeConfigured.SNAPPED_CHERRY_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(BlockPos.ZERO.below(), WilderBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		// OAK
@@ -332,27 +333,27 @@ public final class WilderTreePlaced {
 		);
 
 		FALLEN_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_OAK_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(BlockPos.ZERO.below(), WilderBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		FALLEN_OAK_NO_MOSS_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_OAK_TREE_NO_MOSS.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(BlockPos.ZERO.below(), WilderBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		MOSSY_FALLEN_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.MOSSY_FALLEN_OAK_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(BlockPos.ZERO.below(), WilderBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		MOSSY_FALLEN_STRAIGHT_OAK_CHECKED.makeAndSetHolder(WilderTreeConfigured.MOSSY_FALLEN_STRAIGHT_OAK_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(BlockPos.ZERO.below(), WilderBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		MOSSY_FALLEN_SPRUCE_CHECKED.makeAndSetHolder(WilderTreeConfigured.MOSSY_FALLEN_SPRUCE_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(BlockPos.ZERO.below(), WilderBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		CLEAN_FALLEN_SPRUCE_CHECKED.makeAndSetHolder(WilderTreeConfigured.CLEAN_FALLEN_SPRUCE_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(BlockPos.ZERO.below(), WilderBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		OLD_DYING_FANCY_OAK_BEES_0004.makeAndSetHolder(WilderTreeConfigured.OLD_FANCY_DYING_OAK_BEES_0004.getHolder(),
@@ -464,7 +465,7 @@ public final class WilderTreePlaced {
 		);
 
 		FALLEN_SPRUCE_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_SPRUCE_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(BlockPos.ZERO.below(), WilderBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		SHORT_MEGA_SPRUCE_CHECKED.makeAndSetHolder(WilderTreeConfigured.SHORT_MEGA_SPRUCE.getHolder(),
@@ -548,7 +549,7 @@ public final class WilderTreePlaced {
 		);
 
 		FALLEN_CYPRESS_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_CYPRESS_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(BlockPos.ZERO.below(), WilderBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		SNAPPED_CYPRESS_CHECKED.makeAndSetHolder(WilderTreeConfigured.SNAPPED_CYPRESS.getHolder(),
@@ -592,7 +593,7 @@ public final class WilderTreePlaced {
 		);
 
 		FALLEN_PALM_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_PALM.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(BlockPos.ZERO.below(), WilderBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		// JUNIPER
@@ -604,7 +605,7 @@ public final class WilderTreePlaced {
 		//JUNGLE
 
 		FALLEN_JUNGLE_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_JUNGLE_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(BlockPos.ZERO.below(), WilderBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		SNAPPED_JUNGLE_CHECKED.makeAndSetHolder(WilderTreeConfigured.SNAPPED_JUNGLE.getHolder(),
@@ -618,7 +619,7 @@ public final class WilderTreePlaced {
 		//ACACIA
 
 		FALLEN_ACACIA_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_ACACIA_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(BlockPos.ZERO.below(), WilderBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		SNAPPED_ACACIA_CHECKED.makeAndSetHolder(WilderTreeConfigured.SNAPPED_ACACIA.getHolder(),
@@ -628,7 +629,7 @@ public final class WilderTreePlaced {
 		//MANGROVE
 
 		FALLEN_MANGROVE_CHECKED.makeAndSetHolder(WilderTreeConfigured.FALLEN_MANGROVE_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WilderBlockTags.FALLEN_TREE_PLACEABLE))
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(BlockPos.ZERO.below(), WilderBlockTags.FALLEN_TREE_PLACEABLE))
 		);
 
 		// TREE ON GRASS
