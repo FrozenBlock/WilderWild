@@ -111,6 +111,8 @@ accessible    field    net/minecraft/world/level/block/state/BlockBehaviour    U
 accessible    method    net/minecraft/world/level/block/SculkBlock    getDecayPenalty    (Lnet/minecraft/world/level/block/SculkSpreader;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;I)I
 accessible    method    net/minecraft/world/level/block/BellBlock    onProjectileHit    (Lnet/minecraft/world/level/Level;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/phys/BlockHitResult;Lnet/minecraft/world/entity/projectile/Projectile;)V
 accessible    method    net/minecraft/world/level/block/state/BlockBehaviour    getSoundType    (Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/SoundType;
+accessible    method    net/minecraft/world/level/block/SnowLayerBlock    canSurvive    (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)Z
+accessible    method    net/minecraft/world/level/block/state/BlockBehaviour    canSurvive    (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)Z
 
 # Block Entities
 accessible    field    net/minecraft/world/level/block/entity/RandomizableContainerBlockEntity    lootTable    Lnet/minecraft/resources/ResourceLocation;

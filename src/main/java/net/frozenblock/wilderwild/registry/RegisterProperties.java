@@ -65,6 +65,7 @@ public final class RegisterProperties {
 	public static final IntegerProperty SOULS_TAKEN = IntegerProperty.create("souls_taken", 0, 2); //Sculk Shrieker
 	public static final BooleanProperty HICCUPPING = BooleanProperty.create("hiccupping"); //Sculk Sensor
 	public static final BooleanProperty TERMITE_EDIBLE = BooleanProperty.create("termite_edible"); //Wood
+	public static final BooleanProperty SNOWLOGGED = BooleanProperty.create("snowlogged");
 
 	private RegisterProperties() {
 		throw new UnsupportedOperationException("RegisterProperties contains only static declarations.");

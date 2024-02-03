@@ -77,6 +77,8 @@
     "sculk.SculkSpreaderChargeCursorMixin",
     "sculk.SculkVeinBlockMixin",
     "sculk.SculkVeinSpreaderConfigMixin",
+    "snowlogging.BushBlockMixin",
+    "snowlogging.SnowLayerBlockMixin",
     "warden.LivingEntityMixin",
     "warden.SonicBoomMixin",
     "warden.WardenMixin",
@@ -120,7 +122,8 @@
     "client.wind.fallingleaves.FallingLeafParticleMixin",
     "client.wind.particlerain.DesertDustParticleMixin",
     "client.wind.particlerain.RainDropParticleMixin",
-    "client.wind.particlerain.SnowFlakeParticleMixin"
+    "client.wind.particlerain.SnowFlakeParticleMixin",
+    "snowlogging.client.BlockRenderDispatcherMixin"
   ],
   "injectors": {
     "defaultRequire": 1
