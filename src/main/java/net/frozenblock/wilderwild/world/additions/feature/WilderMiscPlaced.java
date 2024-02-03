@@ -24,6 +24,7 @@ import net.frozenblock.lib.worldgen.feature.api.placementmodifier.LowerHeightmap
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import static net.frozenblock.wilderwild.world.additions.feature.WilderPlacementUtils.register;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -47,6 +48,10 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
+import net.minecraft.world.level.material.Fluids;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Unmodifiable;
 
 public final class WilderMiscPlaced {
 
@@ -138,7 +143,7 @@ public final class WilderMiscPlaced {
 		throw new UnsupportedOperationException("WilderMiscPlaced contains only static declarations.");
 	}
 
-	public static void registerMiscPlaced(BootstrapContext<PlacedFeature> entries) {
+	public static void registerMiscPlaced(@NotNull BootstrapContext<PlacedFeature> entries) {
 		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
@@ -243,18 +248,21 @@ public final class WilderMiscPlaced {
 		UNDER_WATER_SAND_PATH.makeAndSetHolder(WilderMiscConfigured.UNDER_WATER_SAND_PATH.getHolder(),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_TOP_SOLID,
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesFluids(Fluids.WATER)),
 			BiomeFilter.biome()
 		);
 
 		UNDER_WATER_GRAVEL_PATH.makeAndSetHolder(WilderMiscConfigured.UNDER_WATER_GRAVEL_PATH.getHolder(),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_TOP_SOLID,
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesFluids(Fluids.WATER)),
 			BiomeFilter.biome()
 		);
 
 		UNDER_WATER_CLAY_PATH.makeAndSetHolder(WilderMiscConfigured.UNDER_WATER_CLAY_PATH.getHolder(),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_TOP_SOLID,
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesFluids(Fluids.WATER)),
 			BiomeFilter.biome()
 		);
 
@@ -264,6 +272,7 @@ public final class WilderMiscPlaced {
 			RarityFilter.onAverageOnceEvery(3),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_TOP_SOLID,
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesFluids(Fluids.WATER)),
 			BiomeFilter.biome()
 		);
 
@@ -271,6 +280,7 @@ public final class WilderMiscPlaced {
 			RarityFilter.onAverageOnceEvery(5),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_TOP_SOLID,
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesFluids(Fluids.WATER)),
 			BiomeFilter.biome()
 		);
 
@@ -566,6 +576,7 @@ public final class WilderMiscPlaced {
 			RarityFilter.onAverageOnceEvery(10),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,
+			PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING),
 			BiomeFilter.biome()
 		);
 
@@ -575,6 +586,7 @@ public final class WilderMiscPlaced {
 			RarityFilter.onAverageOnceEvery(9),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,
+			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING),
 			BiomeFilter.biome()
 		);
 
@@ -620,6 +632,7 @@ public final class WilderMiscPlaced {
 			RarityFilter.onAverageOnceEvery(9),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,
+			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING),
 			BiomeFilter.biome()
 		);
 
@@ -673,11 +686,13 @@ public final class WilderMiscPlaced {
 		);
 	}
 
-	private static List<PlacementModifier> modifiers(PlacementModifier countModifier, PlacementModifier heightModifier) {
+	@Contract("_, _ -> new")
+	private static @Unmodifiable List<PlacementModifier> modifiers(PlacementModifier countModifier, PlacementModifier heightModifier) {
 		return List.of(countModifier, InSquarePlacement.spread(), heightModifier, BiomeFilter.biome());
 	}
 
-	private static List<PlacementModifier> modifiersWithCount(int count, PlacementModifier heightModifier) {
+	@Contract("_, _ -> new")
+	private static @Unmodifiable List<PlacementModifier> modifiersWithCount(int count, PlacementModifier heightModifier) {
 		return modifiers(CountPlacement.of(count), heightModifier);
 	}
 

@@ -120,8 +120,7 @@ final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 			.add(Blocks.GRAVEL)
 			.add(Blocks.MUD)
 			.add(Blocks.SAND)
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
-			.addOptionalTag(BlockTags.LEAVES);
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
 		this.getOrCreateTagBuilder(WilderBlockTags.RED_SAND_TRANSITION_PLACEABLE)
 			.add(Blocks.RED_SAND)
@@ -293,6 +292,16 @@ final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 			.addOptionalTag(BlockTags.DIRT)
 			.add(Blocks.GRAVEL)
 			.add(Blocks.CLAY);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.FALLEN_TREE_PLACEABLE)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
+			.addOptionalTag(BlockTags.SAND)
+			.addOptionalTag(BlockTags.DIRT)
+			.add(Blocks.GRAVEL)
+			.add(Blocks.CLAY)
+			.add(Blocks.MOSS_BLOCK)
+			.add(Blocks.PACKED_MUD)
+			.add(Blocks.SNOW);
 	}
 
 	private void generateTags() {
@@ -317,6 +326,15 @@ final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 			.add(RegisterBlocks.PALM_WOOD)
 			.add(RegisterBlocks.STRIPPED_PALM_WOOD)
 			.addOptionalTag(WilderBlockTags.HOLLOWED_PALM_LOGS);
+
+		this.getOrCreateTagBuilder(WilderBlockTags.SMALL_SPONGE_GROWS_ON)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
+			.addOptionalTag(BlockTags.SAND)
+			.add(Blocks.GRAVEL)
+			.add(Blocks.SPONGE)
+			.add(Blocks.CLAY)
+			.add(Blocks.MOSS_BLOCK)
+			.addOptionalTag(WilderBlockTags.MESOGLEA);
 
 		this.getOrCreateTagBuilder(WilderBlockTags.BASIN_REPLACEABLE)
 			.add(Blocks.GRASS_BLOCK)

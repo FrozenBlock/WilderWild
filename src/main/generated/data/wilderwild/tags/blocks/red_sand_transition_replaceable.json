@@ -1,5 +1,4 @@
 {
-  "replace": false,
   "values": [
     "minecraft:grass_block",
     "minecraft:gravel",
@@ -7,10 +6,6 @@
     "minecraft:sand",
     {
       "id": "#minecraft:base_stone_overworld",
-      "required": false
-    },
-    {
-      "id": "#minecraft:leaves",
       "required": false
     }
   ]

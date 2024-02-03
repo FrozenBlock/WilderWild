@@ -13,6 +13,18 @@
       "heightmap": "MOTION_BLOCKING"
     },
     {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:would_survive",
+        "state": {
+          "Name": "minecraft:spruce_sapling",
+          "Properties": {
+            "stage": "0"
+          }
+        }
+      }
+    },
+    {
       "type": "minecraft:biome"
     }
   ]
