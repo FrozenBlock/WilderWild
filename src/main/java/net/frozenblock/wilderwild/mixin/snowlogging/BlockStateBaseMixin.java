@@ -34,7 +34,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(BlockBehaviour.BlockStateBase.class)
@@ -53,7 +52,7 @@ public abstract class BlockStateBaseMixin {
 	public VoxelShape wilderWild$getCollisionShape(VoxelShape original, BlockGetter level, BlockPos pos, CollisionContext context) {
 		BlockState blockState = this.asState();
 		if (RegisterProperties.isSnowlogged(blockState)) {
-			return wilderWild$combineShapesWithNullSafety(original, RegisterProperties.getSnowEquivalent(blockState).getCollisionShape(level, pos, context));
+			return Shapes.or(original, RegisterProperties.getSnowEquivalent(blockState).getCollisionShape(level, pos, context));
 		}
 		return original;
 	}
@@ -65,7 +64,7 @@ public abstract class BlockStateBaseMixin {
 	public VoxelShape wilderWild$getShape(VoxelShape original, BlockGetter level, BlockPos pos, CollisionContext context) {
 		BlockState blockState = this.asState();
 		if (RegisterProperties.isSnowlogged(blockState)) {
-			return wilderWild$combineShapesWithNullSafety(original, RegisterProperties.getSnowEquivalent(blockState).getShape(level, pos, context));
+			return Shapes.or(original, RegisterProperties.getSnowEquivalent(blockState).getShape(level, pos, context));
 		}
 		return original;
 	}
@@ -77,7 +76,7 @@ public abstract class BlockStateBaseMixin {
 	public VoxelShape wilderWild$getVisualShape(VoxelShape original, BlockGetter level, BlockPos pos, CollisionContext context) {
 		BlockState blockState = this.asState();
 		if (RegisterProperties.isSnowlogged(blockState)) {
-			return wilderWild$combineShapesWithNullSafety(original, RegisterProperties.getSnowEquivalent(blockState).getVisualShape(level, pos, context));
+			return Shapes.or(original, RegisterProperties.getSnowEquivalent(blockState).getVisualShape(level, pos, context));
 		}
 		return original;
 	}
@@ -89,7 +88,7 @@ public abstract class BlockStateBaseMixin {
 	public VoxelShape wilderWild$getInteractionShape(VoxelShape original, BlockGetter level, BlockPos pos) {
 		BlockState blockState = this.asState();
 		if (RegisterProperties.isSnowlogged(blockState)) {
-			return wilderWild$combineShapesWithNullSafety(original, RegisterProperties.getSnowEquivalent(blockState).getInteractionShape(level, pos));
+			return Shapes.or(original, RegisterProperties.getSnowEquivalent(blockState).getInteractionShape(level, pos));
 		}
 		return original;
 	}
@@ -101,7 +100,7 @@ public abstract class BlockStateBaseMixin {
 	public VoxelShape wilderWild$getBlockSupportShape(VoxelShape original, BlockGetter level, BlockPos pos) {
 		BlockState blockState = this.asState();
 		if (RegisterProperties.isSnowlogged(blockState)) {
-			return wilderWild$combineShapesWithNullSafety(original, RegisterProperties.getSnowEquivalent(blockState).getBlockSupportShape(level, pos));
+			return Shapes.or(original, RegisterProperties.getSnowEquivalent(blockState).getBlockSupportShape(level, pos));
 		}
 		return original;
 	}
@@ -113,7 +112,7 @@ public abstract class BlockStateBaseMixin {
 	public VoxelShape wilderWild$getOcclusionShape(VoxelShape original, BlockGetter level, BlockPos pos) {
 		BlockState blockState = this.asState();
 		if (RegisterProperties.isSnowlogged(blockState)) {
-			return wilderWild$combineShapesWithNullSafety(original, RegisterProperties.getSnowEquivalent(blockState).getOcclusionShape(level, pos));
+			return Shapes.or(original, RegisterProperties.getSnowEquivalent(blockState).getOcclusionShape(level, pos));
 		}
 		return original;
 	}
@@ -130,17 +129,6 @@ public abstract class BlockStateBaseMixin {
 			finalList.addAll(snowEquivalent.getDrops(lootParams));
 		}
 		return finalList;
-	}
-
-	@Unique
-	private static VoxelShape wilderWild$combineShapesWithNullSafety(VoxelShape shape1, VoxelShape shape2) {
-		if (shape1 == null) {
-			return shape2;
-		}
-		if (shape2 == null) {
-			return shape1;
-		}
-		return Shapes.or(shape1, shape2);
 	}
 
 }
