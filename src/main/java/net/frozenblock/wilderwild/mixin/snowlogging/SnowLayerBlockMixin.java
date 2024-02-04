@@ -49,16 +49,19 @@ public class SnowLayerBlockMixin {
 	public void wilderWild$getStateForPlacement(BlockPlaceContext context, CallbackInfoReturnable<BlockState> info, BlockState blockState) {
 		if (RegisterProperties.canBeSnowlogged(blockState)) {
 			int layers = RegisterProperties.getSnowLayers(blockState);
-			if (layers < 7) {
+			boolean isBreakable = RegisterProperties.isBreakableWithSnow(blockState);
+			if (layers < 7 || (!isBreakable && layers < 8)) {
 				BlockState placementState = blockState.setValue(RegisterProperties.SNOW_LAYERS, layers + 1);
-				BlockState equivalentState = RegisterProperties.getSnowEquivalent(placementState);
-				VoxelShape plantShape = placementState.setValue(RegisterProperties.SNOW_LAYERS, 0).getShape(context.getLevel(), context.getClickedPos());
-				VoxelShape snowLayerShape = equivalentState.getShape(context.getLevel(), context.getClickedPos());
-				if (plantShape.max(Direction.Axis.Y) <= snowLayerShape.max(Direction.Axis.Y)) {
-					if (!context.getLevel().isClientSide()) {
-						context.getLevel().destroyBlock(context.getClickedPos(), true);
+				if (isBreakable) {
+					BlockState equivalentState = RegisterProperties.getSnowEquivalent(placementState);
+					VoxelShape plantShape = placementState.setValue(RegisterProperties.SNOW_LAYERS, 0).getShape(context.getLevel(), context.getClickedPos());
+					VoxelShape snowLayerShape = equivalentState.getShape(context.getLevel(), context.getClickedPos());
+					if (plantShape.max(Direction.Axis.Y) <= snowLayerShape.max(Direction.Axis.Y)) {
+						if (!context.getLevel().isClientSide()) {
+							context.getLevel().destroyBlock(context.getClickedPos(), true);
+						}
+						placementState = equivalentState;
 					}
-					placementState = equivalentState;
 				}
 				info.setReturnValue(placementState);
 			} else {
@@ -79,7 +82,7 @@ public class SnowLayerBlockMixin {
 			if (placementState != null && RegisterProperties.isSnowlogged(placementState)) {
 				VoxelShape plantShape = placementState.getShape(useContext.getLevel(), useContext.getClickedPos());
 				VoxelShape snowLayerShape = state.getShape(useContext.getLevel(), useContext.getClickedPos());
-				if (plantShape.max(Direction.Axis.Y) > snowLayerShape.max(Direction.Axis.Y)) {
+				if (!RegisterProperties.isBreakableWithSnow(placementState) || (plantShape.max(Direction.Axis.Y) > snowLayerShape.max(Direction.Axis.Y))) {
 					info.setReturnValue(true);
 				}
 			}

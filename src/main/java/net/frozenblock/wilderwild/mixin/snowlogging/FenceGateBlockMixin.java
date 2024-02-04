@@ -18,8 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.snowlogging;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -33,7 +32,8 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.FenceGateBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -43,15 +43,23 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(BushBlock.class)
-public class BushBlockMixin extends Block {
+@Mixin(FenceGateBlock.class)
+public abstract class FenceGateBlockMixin extends HorizontalDirectionalBlock {
+
+	@Shadow
+	protected abstract BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos);
+
 	@Unique
 	private static final IntegerProperty WILDERWILD$SNOW_LAYERS = RegisterProperties.SNOW_LAYERS;
 
-	public BushBlockMixin(Properties properties) {
+	public FenceGateBlockMixin(Properties properties) {
 		super(properties);
 	}
 
@@ -63,25 +71,22 @@ public class BushBlockMixin extends Block {
 
 	@Unique
 	@Override
-	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
-		super.createBlockStateDefinition(builder);
-		builder.add(WILDERWILD$SNOW_LAYERS);
-	}
-
-	@Unique
-	@Override
 	protected boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
 		return ((RegisterProperties.canBeSnowlogged(state) && context.getItemInHand().is(Blocks.SNOW.asItem()))
 		&& (RegisterProperties.getSnowLayers(state) <= 0 || (context.replacingClickedOnBlock() && context.getClickedFace() == Direction.UP))
 		) || super.canBeReplaced(state, context);
 	}
 
-	@Unique
-	@Nullable
-	@Override
-	public BlockState getStateForPlacement(BlockPlaceContext context) {
+	@ModifyExpressionValue(
+		method = "getStateForPlacement",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/FenceGateBlock;defaultBlockState()Lnet/minecraft/world/level/block/state/BlockState;"
+		)
+	)
+	public BlockState getStateForPlacement(BlockState original, BlockPlaceContext context) {
 		BlockState blockState = context.getLevel().getBlockState(context.getClickedPos());
-		BlockState placementState = super.getStateForPlacement(context);
+		BlockState placementState = original;
 		if (placementState != null && RegisterProperties.canBeSnowlogged(placementState) && blockState.is(Blocks.SNOW)) {
 			int layers = blockState.getValue(BlockStateProperties.LAYERS);
 			if (layers <= 7) {
@@ -111,7 +116,7 @@ public class BushBlockMixin extends Block {
 	@Unique
 	@Override
 	public SoundType getSoundType(BlockState state) {
-		return wilderWild$isSnowlogged(state) ? Blocks.SNOW.getSoundType(wilderWild$getSnowEquivalent(state)) : super.getSoundType(state);
+		return RegisterProperties.isSnowlogged(state) ? Blocks.SNOW.getSoundType(RegisterProperties.getSnowEquivalent(state)) : super.getSoundType(state);
 	}
 	 */
 
@@ -127,22 +132,21 @@ public class BushBlockMixin extends Block {
 		}
 	}
 
-	@WrapOperation(
-		method = "updateShape",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/Block;updateShape(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;"
-		)
-	)
-	public BlockState wilderWild$updateShape(BushBlock instance, BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos, Operation<BlockState> original) {
+	@Inject(method = "updateShape", at = @At(value = "HEAD"), cancellable = true)
+	public void wilderWild$updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos, CallbackInfoReturnable<BlockState> info) {
 		if (RegisterProperties.isSnowlogged(state)) {
 			BlockState snowEquivalent = RegisterProperties.getSnowEquivalent(state);
 			if (!Blocks.SNOW.canSurvive(snowEquivalent, level, pos)) {
 				level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(snowEquivalent));
 				state = state.setValue(WILDERWILD$SNOW_LAYERS, 0);
+				info.setReturnValue(this.updateShape(state, direction, neighborState, level, pos, neighborPos));
 			}
 		}
-		return original.call(instance, state, direction, neighborState, level, pos, neighborPos);
+	}
+
+	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
+	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
+		builder.add(WILDERWILD$SNOW_LAYERS);
 	}
 
 }

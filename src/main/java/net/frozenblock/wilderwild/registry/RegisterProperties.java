@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.registry;
 import net.frozenblock.wilderwild.block.property.BubbleDirection;
 import net.frozenblock.wilderwild.block.property.FlowerColor;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -94,6 +95,10 @@ public final class RegisterProperties {
 	@NotNull
 	public static BlockState getSnowEquivalent(BlockState state) {
 		return Blocks.SNOW.defaultBlockState().setValue(BlockStateProperties.LAYERS, Math.max(1, getSnowLayers(state)));
+	}
+
+	public static boolean isBreakableWithSnow(@NotNull BlockState state) {
+		return state.getBlock() instanceof BushBlock;
 	}
 
 }
