@@ -86,6 +86,7 @@
     "snowlogging.SnowLayerBlockMixin",
     "snowlogging.SnowyDirtBlockMixin",
     "snowlogging.SpreadingSnowyDirtBlockMixin",
+    "snowlogging.WallBlockMixin",
     "warden.LivingEntityMixin",
     "warden.SonicBoomMixin",
     "warden.WardenMixin",
