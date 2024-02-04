@@ -135,10 +135,10 @@ public abstract class BlockStateBaseMixin {
 	@Unique
 	private static VoxelShape wilderWild$combineShapesWithNullSafety(VoxelShape shape1, VoxelShape shape2) {
 		if (shape1 == null) {
-			return shape2;
+			shape1 = Shapes.empty();
 		}
 		if (shape2 == null) {
-			return shape1;
+			shape2 = Shapes.empty();
 		}
 		return Shapes.or(shape1, shape2);
 	}
