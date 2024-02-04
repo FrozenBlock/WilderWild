@@ -73,8 +73,9 @@ public abstract class FenceBlockMixin extends CrossCollisionBlock {
 	@Unique
 	@Override
 	protected boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
+		int layers;
 		return ((RegisterProperties.canBeSnowlogged(state) && context.getItemInHand().is(Blocks.SNOW.asItem()))
-		&& (RegisterProperties.getSnowLayers(state) <= 0 || (context.replacingClickedOnBlock() && context.getClickedFace() == Direction.UP))
+			&& ((layers = RegisterProperties.getSnowLayers(state)) <= 0 || (context.replacingClickedOnBlock() && context.getClickedFace() == Direction.UP && layers < 8))
 		) || super.canBeReplaced(state, context);
 	}
 
