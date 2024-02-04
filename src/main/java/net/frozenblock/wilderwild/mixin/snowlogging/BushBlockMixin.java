@@ -23,15 +23,23 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.LevelEvent;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -41,7 +49,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(BushBlock.class)
 public class BushBlockMixin extends Block {
 	@Unique
-	private static final BooleanProperty WILDERWILD$SNOWLOGGED = RegisterProperties.SNOWLOGGED;
+	private static final IntegerProperty WILDERWILD$SNOW_LAYERS = RegisterProperties.SNOW_LAYERS;
 
 	public BushBlockMixin(Properties properties) {
 		super(properties);
@@ -50,20 +58,22 @@ public class BushBlockMixin extends Block {
 	@Unique
 	@Override
 	protected boolean isRandomlyTicking(BlockState state) {
-		return super.isRandomlyTicking(state) || (state.hasProperty(WILDERWILD$SNOWLOGGED) && state.getValue(WILDERWILD$SNOWLOGGED));
+		return super.isRandomlyTicking(state) || (RegisterProperties.isSnowlogged(state));
 	}
 
 	@Unique
 	@Override
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
-		builder.add(WILDERWILD$SNOWLOGGED);
+		builder.add(WILDERWILD$SNOW_LAYERS);
 	}
 
 	@Unique
 	@Override
 	protected boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
-		return context.getItemInHand().is(Blocks.SNOW.asItem()) || super.canBeReplaced(state, context);
+		return ((RegisterProperties.canBeSnowlogged(state) && context.getItemInHand().is(Blocks.SNOW.asItem()))
+		&& (RegisterProperties.getSnowLayers(state) <= 0 || (context.replacingClickedOnBlock() && context.getClickedFace() == Direction.UP))
+		) || super.canBeReplaced(state, context);
 	}
 
 	@Unique
@@ -71,19 +81,56 @@ public class BushBlockMixin extends Block {
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		BlockState blockState = context.getLevel().getBlockState(context.getClickedPos());
-		if (wilderWild$canBeSnowlogged(blockState)) {
-			if (blockState.is(this)) {
-				if (!wilderWild$isSnowlogged(blockState)) {
-					return blockState.setValue(WILDERWILD$SNOWLOGGED, true);
-				} else {
-					context.getLevel().destroyBlock(context.getClickedPos(), true);
-					return Blocks.SNOW.defaultBlockState().setValue(BlockStateProperties.LAYERS, 2);
-				}
+		BlockState placementState = super.getStateForPlacement(context);
+		if (placementState != null && RegisterProperties.canBeSnowlogged(placementState) && blockState.is(Blocks.SNOW)) {
+			int layers = blockState.getValue(BlockStateProperties.LAYERS);
+			if (layers <= 7) {
+				placementState = placementState.setValue(WILDERWILD$SNOW_LAYERS, layers);
 			}
 		}
-		return super.getStateForPlacement(context);
+		return placementState;
 	}
 
+	@Override
+	public void destroy(LevelAccessor level, BlockPos pos, BlockState state) {
+		boolean snowlogged = RegisterProperties.isSnowlogged(state);
+		BlockState stateWithoutSnow = snowlogged ? state.setValue(WILDERWILD$SNOW_LAYERS, 0) : state;
+		super.destroy(level, pos, stateWithoutSnow);
+		if (snowlogged) {
+			level.setBlock(pos, RegisterProperties.getSnowEquivalent(state), Block.UPDATE_ALL);
+		}
+	}
+
+	@Override
+	public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
+		BlockState stateWithoutSnow = RegisterProperties.isSnowlogged(state) ? state.setValue(WILDERWILD$SNOW_LAYERS, 0) : state;
+		super.playerDestroy(level, player, pos, stateWithoutSnow, blockEntity, stack);
+	}
+
+	@Override
+	protected void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack stack, boolean dropExperience) {
+		super.spawnAfterBreak(state, level, pos, stack, dropExperience);
+	}
+
+	/*
+	@Unique
+	@Override
+	public SoundType getSoundType(BlockState state) {
+		return wilderWild$isSnowlogged(state) ? Blocks.SNOW.getSoundType(wilderWild$getSnowEquivalent(state)) : super.getSoundType(state);
+	}
+	 */
+
+	@Unique
+	@Override
+	protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+		super.randomTick(state, level, pos, random);
+		if (RegisterProperties.isSnowlogged(state)) {
+			if (level.getBrightness(LightLayer.BLOCK, pos) > 11) {
+				dropResources(RegisterProperties.getSnowEquivalent(state), level, pos);
+				level.setBlock(pos, state.setValue(WILDERWILD$SNOW_LAYERS, 0), Block.UPDATE_ALL);
+			}
+		}
+	}
 
 	@WrapOperation(
 		method = "updateShape",
@@ -93,22 +140,14 @@ public class BushBlockMixin extends Block {
 		)
 	)
 	public BlockState wilderWild$updateShape(BushBlock instance, BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos, Operation<BlockState> original) {
-		if (state.hasProperty(WILDERWILD$SNOWLOGGED) && state.getValue(WILDERWILD$SNOWLOGGED)) {
-			if (!Blocks.SNOW.canSurvive(Blocks.SNOW.defaultBlockState(), level, pos)) {
-				state = state.setValue(WILDERWILD$SNOWLOGGED, false);
+		if (RegisterProperties.isSnowlogged(state)) {
+			BlockState snowEquivalent = RegisterProperties.getSnowEquivalent(state);
+			if (!Blocks.SNOW.canSurvive(snowEquivalent, level, pos)) {
+				level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(snowEquivalent));
+				state = state.setValue(WILDERWILD$SNOW_LAYERS, 0);
 			}
 		}
 		return original.call(instance, state, direction, neighborState, level, pos, neighborPos);
-	}
-
-	@Unique
-	private static boolean wilderWild$canBeSnowlogged(BlockState state) {
-		return state.hasProperty(WILDERWILD$SNOWLOGGED);
-	}
-
-	@Unique
-	private static boolean wilderWild$isSnowlogged(BlockState state) {
-		return wilderWild$canBeSnowlogged(state) && state.getValue(WILDERWILD$SNOWLOGGED);
 	}
 
 }

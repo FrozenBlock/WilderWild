@@ -19,10 +19,13 @@
 package net.frozenblock.wilderwild.mixin.snowlogging;
 
 import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -44,11 +47,41 @@ public class SnowLayerBlockMixin {
 		locals = LocalCapture.CAPTURE_FAILHARD
 	)
 	public void wilderWild$getStateForPlacement(BlockPlaceContext context, CallbackInfoReturnable<BlockState> info, BlockState blockState) {
-		if (blockState.hasProperty(RegisterProperties.SNOWLOGGED)) {
-			if (!blockState.getValue(RegisterProperties.SNOWLOGGED)) {
-				info.setReturnValue(blockState.setValue(RegisterProperties.SNOWLOGGED, true));
+		if (RegisterProperties.canBeSnowlogged(blockState)) {
+			int layers = RegisterProperties.getSnowLayers(blockState);
+			if (layers < 7) {
+				BlockState placementState = blockState.setValue(RegisterProperties.SNOW_LAYERS, layers + 1);
+				BlockState equivalentState = RegisterProperties.getSnowEquivalent(placementState);
+				VoxelShape plantShape = placementState.setValue(RegisterProperties.SNOW_LAYERS, 0).getShape(context.getLevel(), context.getClickedPos());
+				VoxelShape snowLayerShape = equivalentState.getShape(context.getLevel(), context.getClickedPos());
+				if (plantShape.max(Direction.Axis.Y) <= snowLayerShape.max(Direction.Axis.Y)) {
+					if (!context.getLevel().isClientSide()) {
+						context.getLevel().destroyBlock(context.getClickedPos(), true);
+					}
+					placementState = equivalentState;
+				}
+				info.setReturnValue(placementState);
 			} else {
-				info.setReturnValue(SnowLayerBlock.class.cast(this).defaultBlockState().setValue(BlockStateProperties.LAYERS, 2));
+				context.getLevel().destroyBlock(context.getClickedPos(), true);
+				info.setReturnValue(SnowLayerBlock.class.cast(this).defaultBlockState().setValue(BlockStateProperties.LAYERS, 8));
+			}
+		}
+	}
+
+	@Inject(
+		method = "canBeReplaced",
+		at = @At(value = "HEAD"),
+		cancellable = true
+	)
+	public void wilderWild$canBeReplaced(BlockState state, BlockPlaceContext useContext, CallbackInfoReturnable<Boolean> info) {
+		if (useContext.getItemInHand().getItem() instanceof BlockItem blockItem) {
+			BlockState placementState = blockItem.getBlock().getStateForPlacement(useContext);
+			if (placementState != null && RegisterProperties.isSnowlogged(placementState)) {
+				VoxelShape plantShape = placementState.getShape(useContext.getLevel(), useContext.getClickedPos());
+				VoxelShape snowLayerShape = state.getShape(useContext.getLevel(), useContext.getClickedPos());
+				if (plantShape.max(Direction.Axis.Y) > snowLayerShape.max(Direction.Axis.Y)) {
+					info.setReturnValue(true);
+				}
 			}
 		}
 	}

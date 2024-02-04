@@ -20,9 +20,14 @@ package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.block.property.BubbleDirection;
 import net.frozenblock.wilderwild.block.property.FlowerColor;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import org.jetbrains.annotations.NotNull;
+import org.spongepowered.asm.mixin.Unique;
 
 public final class RegisterProperties {
 
@@ -65,13 +70,30 @@ public final class RegisterProperties {
 	public static final IntegerProperty SOULS_TAKEN = IntegerProperty.create("souls_taken", 0, 2); //Sculk Shrieker
 	public static final BooleanProperty HICCUPPING = BooleanProperty.create("hiccupping"); //Sculk Sensor
 	public static final BooleanProperty TERMITE_EDIBLE = BooleanProperty.create("termite_edible"); //Wood
-	public static final BooleanProperty SNOWLOGGED = BooleanProperty.create("snowlogged");
+	public static final IntegerProperty SNOW_LAYERS = IntegerProperty.create("snow_layers", 0, 8);
 
 	private RegisterProperties() {
 		throw new UnsupportedOperationException("RegisterProperties contains only static declarations.");
 	}
 
 	public static void init() {
+	}
+
+	public static boolean canBeSnowlogged(@NotNull BlockState state) {
+		return state.hasProperty(SNOW_LAYERS);
+	}
+
+	public static int getSnowLayers(@NotNull BlockState state) {
+		return state.getValue(SNOW_LAYERS);
+	}
+
+	public static boolean isSnowlogged(BlockState state) {
+		return canBeSnowlogged(state) && getSnowLayers(state) > 0;
+	}
+
+	@NotNull
+	public static BlockState getSnowEquivalent(BlockState state) {
+		return Blocks.SNOW.defaultBlockState().setValue(BlockStateProperties.LAYERS, Math.max(1, getSnowLayers(state)));
 	}
 
 }
