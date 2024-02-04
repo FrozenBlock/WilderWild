@@ -74,7 +74,8 @@ public abstract class WallBlockMixin extends Block {
 	protected boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
 		int layers;
 		return ((RegisterProperties.canBeSnowlogged(state) && context.getItemInHand().is(Blocks.SNOW.asItem()))
-		&& ((layers = RegisterProperties.getSnowLayers(state)) <= 0 || (context.replacingClickedOnBlock() && context.getClickedFace() == Direction.UP && layers < 8))
+			&& Blocks.SNOW.canSurvive(Blocks.SNOW.defaultBlockState(), context.getLevel(), context.getClickedPos())
+			&& ((layers = RegisterProperties.getSnowLayers(state)) <= 0 || (context.replacingClickedOnBlock() && context.getClickedFace() == Direction.UP && layers < 8))
 		) || super.canBeReplaced(state, context);
 	}
 

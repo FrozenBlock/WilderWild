@@ -74,6 +74,7 @@ public abstract class FenceGateBlockMixin extends HorizontalDirectionalBlock {
 	protected boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
 		int layers;
 		return ((RegisterProperties.canBeSnowlogged(state) && context.getItemInHand().is(Blocks.SNOW.asItem()))
+			&& Blocks.SNOW.canSurvive(Blocks.SNOW.defaultBlockState(), context.getLevel(), context.getClickedPos())
 			&& ((layers = RegisterProperties.getSnowLayers(state)) <= 0 || (context.replacingClickedOnBlock() && context.getClickedFace() == Direction.UP && layers < 8))
 		) || super.canBeReplaced(state, context);
 	}
