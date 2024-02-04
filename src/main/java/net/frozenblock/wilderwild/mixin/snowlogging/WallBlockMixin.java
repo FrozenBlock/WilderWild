@@ -19,6 +19,8 @@
 package net.frozenblock.wilderwild.mixin.snowlogging;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -36,6 +38,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -45,6 +48,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import java.util.Map;
 
 @Mixin(WallBlock.class)
 public abstract class WallBlockMixin extends Block {
@@ -71,6 +75,38 @@ public abstract class WallBlockMixin extends Block {
 		return ((RegisterProperties.canBeSnowlogged(state) && context.getItemInHand().is(Blocks.SNOW.asItem()))
 		&& (RegisterProperties.getSnowLayers(state) <= 0 || (context.replacingClickedOnBlock() && context.getClickedFace() == Direction.UP))
 		) || super.canBeReplaced(state, context);
+	}
+
+	@WrapOperation(
+		method = "getShape",
+		at = @At(
+			value = "INVOKE",
+			target = "Ljava/util/Map;get(Ljava/lang/Object;)Ljava/lang/Object;"
+		)
+	)
+	public Object wilderWild$getStateForPlacement(Map instance, Object o, Operation<Object> original) {
+		if (o instanceof BlockState blockState) {
+			if (RegisterProperties.canBeSnowlogged(blockState)) {
+				o = blockState.setValue(RegisterProperties.SNOW_LAYERS, 0);
+			}
+		}
+		return original.call(instance, o);
+	}
+
+	@WrapOperation(
+		method = "getCollisionShape",
+		at = @At(
+			value = "INVOKE",
+			target = "Ljava/util/Map;get(Ljava/lang/Object;)Ljava/lang/Object;"
+		)
+	)
+	public Object wilderWild$getCollisionShape(Map instance, Object o, Operation<Object> original) {
+		if (o instanceof BlockState blockState) {
+			if (RegisterProperties.canBeSnowlogged(blockState)) {
+				o = blockState.setValue(RegisterProperties.SNOW_LAYERS, 0);
+			}
+		}
+		return original.call(instance, o);
 	}
 
 	@ModifyExpressionValue(
