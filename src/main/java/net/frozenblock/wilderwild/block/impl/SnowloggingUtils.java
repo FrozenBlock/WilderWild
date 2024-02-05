@@ -44,7 +44,7 @@ public class SnowloggingUtils {
 	}
 
 	public static boolean canSnowlog(@NotNull BlockState state) {
-		return state.hasProperty(SNOW_LAYERS) && state.getFluidState().isEmpty();
+		return supportsSnowlogging(state) && state.getFluidState().isEmpty();
 	}
 
 	public static int getSnowLayers(@NotNull BlockState state) {

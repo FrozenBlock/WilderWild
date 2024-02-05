@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.world.generation.features;
 
 import com.mojang.serialization.Codec;
+import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -67,9 +68,14 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 		return placeSnowLayer(level, pos, level.getBiome(pos));
 	}
 
-	private static boolean placeSnowLayer(@NotNull WorldGenLevel level, BlockPos.@NotNull MutableBlockPos pos, @NotNull Holder<Biome> biomeHolder) {
+	private static boolean placeSnowLayer(@NotNull WorldGenLevel level, @NotNull BlockPos.MutableBlockPos pos, @NotNull Holder<Biome> biomeHolder) {
 		if (biomeHolder.value().shouldSnow(level, pos)) {
-			level.setBlock(pos, Blocks.SNOW.defaultBlockState(), 2);
+			BlockState replacingState = level.getBlockState(pos);
+			if (SnowloggingUtils.canSnowlog(replacingState) && !SnowloggingUtils.isSnowlogged(replacingState)) {
+				level.setBlock(pos, replacingState.setValue(SnowloggingUtils.SNOW_LAYERS, 1), 2);
+			} else {
+				level.setBlock(pos, Blocks.SNOW.defaultBlockState(), 2);
+			}
 			BlockState belowState = level.getBlockState(pos.move(Direction.DOWN));
 			if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
 				level.setBlock(pos, belowState.setValue(BlockStateProperties.SNOWY, true), 2);

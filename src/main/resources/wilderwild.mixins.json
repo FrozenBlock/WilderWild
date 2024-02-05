@@ -88,6 +88,8 @@
     "snowlogging.SnowyDirtBlockMixin",
     "snowlogging.SpreadingSnowyDirtBlockMixin",
     "snowlogging.WallBlockMixin",
+    "snowlogging.worldgen.BiomeMixin",
+    "snowlogging.worldgen.SnowAndFreezeFeatureMixin",
     "warden.LivingEntityMixin",
     "warden.SonicBoomMixin",
     "warden.WardenMixin",
