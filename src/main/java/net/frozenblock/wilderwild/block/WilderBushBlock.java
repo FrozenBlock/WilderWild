@@ -123,7 +123,6 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 	@Override
 	@NotNull
 	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockPos neighborPos) {
-		state = SnowloggingUtils.onUpdateShape(state, level, pos);
 		if (isFullyGrown(state)) {
 			DoubleBlockHalf doubleBlockHalf = state.getValue(HALF);
 			if (!(direction.getAxis() != Direction.Axis.Y || doubleBlockHalf == DoubleBlockHalf.LOWER != (direction == Direction.UP) || neighborState.is(this) && neighborState.getValue(HALF) != doubleBlockHalf)) {

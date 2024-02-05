@@ -24,7 +24,6 @@ import net.frozenblock.lib.worldgen.feature.api.placementmodifier.LowerHeightmap
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import static net.frozenblock.wilderwild.world.additions.feature.WilderPlacementUtils.register;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;

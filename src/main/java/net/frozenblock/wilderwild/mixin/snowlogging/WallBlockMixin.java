@@ -115,7 +115,10 @@ public abstract class WallBlockMixin extends Block {
 	@Override
 	public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
 		if (SnowloggingUtils.isSnowlogged(state)) {
-			super.playerDestroy(level, player, pos, SnowloggingUtils.getSnowEquivalent(state), blockEntity, stack);
+			BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
+			if (player.hasCorrectToolForDrops(snowEquivalent)) {
+				super.playerDestroy(level, player, pos, snowEquivalent, blockEntity, stack);
+			}
 		} else {
 			super.playerDestroy(level, player, pos, state, blockEntity, stack);
 		}
