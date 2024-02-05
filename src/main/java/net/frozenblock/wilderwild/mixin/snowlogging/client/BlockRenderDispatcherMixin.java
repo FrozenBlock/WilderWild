@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.snowlogging.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -37,8 +37,8 @@ public class BlockRenderDispatcherMixin {
 
 	@Inject(method = "renderBatched", at = @At("HEAD"))
 	public void wilderWild$renderBatched(BlockState state, BlockPos pos, BlockAndTintGetter level, PoseStack poseStack, VertexConsumer consumer, boolean checkSides, RandomSource random, CallbackInfo ci) {
-		if (RegisterProperties.isSnowlogged(state)) {
-			this.renderBatched(RegisterProperties.getSnowEquivalent(state), pos, level, poseStack, consumer, checkSides, random);
+		if (SnowloggingUtils.isSnowlogged(state)) {
+			this.renderBatched(SnowloggingUtils.getSnowEquivalent(state), pos, level, poseStack, consumer, checkSides, random);
 		}
 	}
 

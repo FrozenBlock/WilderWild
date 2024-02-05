@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.mixin.snowlogging;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import java.util.ArrayList;
 import java.util.List;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -51,8 +51,8 @@ public abstract class BlockStateBaseMixin {
 	)
 	public VoxelShape wilderWild$getCollisionShape(VoxelShape original, BlockGetter level, BlockPos pos, CollisionContext context) {
 		BlockState blockState = this.asState();
-		if (RegisterProperties.isSnowlogged(blockState)) {
-			return Shapes.or(original, RegisterProperties.getSnowEquivalent(blockState).getCollisionShape(level, pos, context));
+		if (SnowloggingUtils.isSnowlogged(blockState)) {
+			return Shapes.or(original, SnowloggingUtils.getSnowEquivalent(blockState).getCollisionShape(level, pos, context));
 		}
 		return original;
 	}
@@ -63,8 +63,8 @@ public abstract class BlockStateBaseMixin {
 	)
 	public VoxelShape wilderWild$getShape(VoxelShape original, BlockGetter level, BlockPos pos, CollisionContext context) {
 		BlockState blockState = this.asState();
-		if (RegisterProperties.isSnowlogged(blockState)) {
-			return Shapes.or(original, RegisterProperties.getSnowEquivalent(blockState).getShape(level, pos, context));
+		if (SnowloggingUtils.isSnowlogged(blockState)) {
+			return SnowloggingUtils.getSnowEquivalent(blockState).getShape(level, pos, context);
 		}
 		return original;
 	}
@@ -75,8 +75,8 @@ public abstract class BlockStateBaseMixin {
 	)
 	public VoxelShape wilderWild$getVisualShape(VoxelShape original, BlockGetter level, BlockPos pos, CollisionContext context) {
 		BlockState blockState = this.asState();
-		if (RegisterProperties.isSnowlogged(blockState)) {
-			return Shapes.or(original, RegisterProperties.getSnowEquivalent(blockState).getVisualShape(level, pos, context));
+		if (SnowloggingUtils.isSnowlogged(blockState)) {
+			return Shapes.or(original, SnowloggingUtils.getSnowEquivalent(blockState).getVisualShape(level, pos, context));
 		}
 		return original;
 	}
@@ -87,8 +87,8 @@ public abstract class BlockStateBaseMixin {
 	)
 	public VoxelShape wilderWild$getInteractionShape(VoxelShape original, BlockGetter level, BlockPos pos) {
 		BlockState blockState = this.asState();
-		if (RegisterProperties.isSnowlogged(blockState)) {
-			return Shapes.or(original, RegisterProperties.getSnowEquivalent(blockState).getInteractionShape(level, pos));
+		if (SnowloggingUtils.isSnowlogged(blockState)) {
+			return Shapes.or(original, SnowloggingUtils.getSnowEquivalent(blockState).getInteractionShape(level, pos));
 		}
 		return original;
 	}
@@ -99,8 +99,8 @@ public abstract class BlockStateBaseMixin {
 	)
 	public VoxelShape wilderWild$getBlockSupportShape(VoxelShape original, BlockGetter level, BlockPos pos) {
 		BlockState blockState = this.asState();
-		if (RegisterProperties.isSnowlogged(blockState)) {
-			return Shapes.or(original, RegisterProperties.getSnowEquivalent(blockState).getBlockSupportShape(level, pos));
+		if (SnowloggingUtils.isSnowlogged(blockState)) {
+			return Shapes.or(original, SnowloggingUtils.getSnowEquivalent(blockState).getBlockSupportShape(level, pos));
 		}
 		return original;
 	}
@@ -111,8 +111,8 @@ public abstract class BlockStateBaseMixin {
 	)
 	public VoxelShape wilderWild$getOcclusionShape(VoxelShape original, BlockGetter level, BlockPos pos) {
 		BlockState blockState = this.asState();
-		if (RegisterProperties.isSnowlogged(blockState)) {
-			return Shapes.or(original, RegisterProperties.getSnowEquivalent(blockState).getOcclusionShape(level, pos));
+		if (SnowloggingUtils.isSnowlogged(blockState)) {
+			return Shapes.or(original, SnowloggingUtils.getSnowEquivalent(blockState).getOcclusionShape(level, pos));
 		}
 		return original;
 	}
@@ -124,8 +124,8 @@ public abstract class BlockStateBaseMixin {
 	public List<ItemStack> wilderWild$getDrops(List<ItemStack> original, LootParams.Builder lootParams) {
         List<ItemStack> finalList = new ArrayList<>(original);
 		BlockState state = this.asState();
-		if (RegisterProperties.isSnowlogged(state)) {
-			BlockState snowEquivalent = RegisterProperties.getSnowEquivalent(state);
+		if (SnowloggingUtils.isSnowlogged(state)) {
+			BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
 			finalList.addAll(snowEquivalent.getDrops(lootParams));
 		}
 		return finalList;

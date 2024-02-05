@@ -21,6 +21,8 @@ package net.frozenblock.wilderwild.mixin.snowlogging;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import java.util.Map;
+import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -32,13 +34,14 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LightLayer;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -46,9 +49,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import java.util.Map;
 
 @Mixin(WallBlock.class)
 public abstract class WallBlockMixin extends Block {
@@ -66,17 +68,17 @@ public abstract class WallBlockMixin extends Block {
 	@Unique
 	@Override
 	protected boolean isRandomlyTicking(BlockState state) {
-		return super.isRandomlyTicking(state) || (RegisterProperties.isSnowlogged(state));
+		return super.isRandomlyTicking(state) || (SnowloggingUtils.isSnowlogged(state));
 	}
 
 	@Unique
 	@Override
 	protected boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
-		int layers;
-		return ((RegisterProperties.canBeSnowlogged(state) && context.getItemInHand().is(Blocks.SNOW.asItem()))
-			&& Blocks.SNOW.canSurvive(Blocks.SNOW.defaultBlockState(), context.getLevel(), context.getClickedPos())
-			&& ((layers = RegisterProperties.getSnowLayers(state)) <= 0 || (context.replacingClickedOnBlock() && context.getClickedFace() == Direction.UP && layers < 7))
-		) || super.canBeReplaced(state, context);
+		boolean canBeReplacedWithSnow = SnowloggingUtils.canBeReplacedWithSnow(state, context);
+		if (SnowloggingUtils.isSnowlogged(state)) {
+			return canBeReplacedWithSnow;
+		}
+		return canBeReplacedWithSnow || super.canBeReplaced(state, context);
 	}
 
 	@WrapOperation(
@@ -88,7 +90,7 @@ public abstract class WallBlockMixin extends Block {
 	)
 	public Object wilderWild$getStateForPlacement(Map instance, Object o, Operation<Object> original) {
 		if (o instanceof BlockState blockState) {
-			if (RegisterProperties.canBeSnowlogged(blockState)) {
+			if (SnowloggingUtils.supportsSnowlogging(blockState)) {
 				o = blockState.setValue(RegisterProperties.SNOW_LAYERS, 0);
 			}
 		}
@@ -104,7 +106,7 @@ public abstract class WallBlockMixin extends Block {
 	)
 	public Object wilderWild$getCollisionShape(Map instance, Object o, Operation<Object> original) {
 		if (o instanceof BlockState blockState) {
-			if (RegisterProperties.canBeSnowlogged(blockState)) {
+			if (SnowloggingUtils.supportsSnowlogging(blockState)) {
 				o = blockState.setValue(RegisterProperties.SNOW_LAYERS, 0);
 			}
 		}
@@ -121,7 +123,7 @@ public abstract class WallBlockMixin extends Block {
 	public BlockState getStateForPlacement(BlockState original, BlockPlaceContext context) {
 		BlockState blockState = context.getLevel().getBlockState(context.getClickedPos());
 		BlockState placementState = original;
-		if (placementState != null && RegisterProperties.canBeSnowlogged(placementState) && blockState.is(Blocks.SNOW)) {
+		if (placementState != null && SnowloggingUtils.supportsSnowlogging(placementState) && blockState.is(Blocks.SNOW)) {
 			int layers = blockState.getValue(BlockStateProperties.LAYERS);
 			if (layers <= 7) {
 				placementState = placementState.setValue(WILDERWILD$SNOW_LAYERS, layers);
@@ -132,17 +134,17 @@ public abstract class WallBlockMixin extends Block {
 
 	@Override
 	public void destroy(LevelAccessor level, BlockPos pos, BlockState state) {
-		boolean snowlogged = RegisterProperties.isSnowlogged(state);
+		boolean snowlogged = SnowloggingUtils.isSnowlogged(state);
 		BlockState stateWithoutSnow = snowlogged ? state.setValue(WILDERWILD$SNOW_LAYERS, 0) : state;
 		super.destroy(level, pos, stateWithoutSnow);
 		if (snowlogged) {
-			level.setBlock(pos, RegisterProperties.getSnowEquivalent(state), Block.UPDATE_ALL);
+			level.setBlock(pos, SnowloggingUtils.getSnowEquivalent(state), Block.UPDATE_ALL);
 		}
 	}
 
 	@Override
 	public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
-		BlockState stateWithoutSnow = RegisterProperties.isSnowlogged(state) ? state.setValue(WILDERWILD$SNOW_LAYERS, 0) : state;
+		BlockState stateWithoutSnow = SnowloggingUtils.isSnowlogged(state) ? state.setValue(WILDERWILD$SNOW_LAYERS, 0) : state;
 		super.playerDestroy(level, player, pos, stateWithoutSnow, blockEntity, stack);
 	}
 
@@ -158,28 +160,22 @@ public abstract class WallBlockMixin extends Block {
 	@Override
 	protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		super.randomTick(state, level, pos, random);
-		if (RegisterProperties.isSnowlogged(state)) {
+		if (SnowloggingUtils.isSnowlogged(state)) {
 			if (level.getBrightness(LightLayer.BLOCK, pos) > 11) {
-				dropResources(RegisterProperties.getSnowEquivalent(state), level, pos);
+				dropResources(SnowloggingUtils.getSnowEquivalent(state), level, pos);
 				level.setBlock(pos, state.setValue(WILDERWILD$SNOW_LAYERS, 0), Block.UPDATE_ALL);
 			}
 		}
 	}
 
-	@Inject(
-		method = "Lnet/minecraft/world/level/block/WallBlock;updateShape(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;",
-		at = @At(value = "HEAD"),
-		cancellable = true
+	@ModifyVariable(
+		method = "updateShape(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;",
+		at = @At("HEAD"),
+		ordinal = 0,
+		argsOnly = true
 	)
-	public void wilderWild$updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos, CallbackInfoReturnable<BlockState> info) {
-		if (RegisterProperties.isSnowlogged(state)) {
-			BlockState snowEquivalent = RegisterProperties.getSnowEquivalent(state);
-			if (!Blocks.SNOW.canSurvive(snowEquivalent, level, pos)) {
-				level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(snowEquivalent));
-				state = state.setValue(WILDERWILD$SNOW_LAYERS, 0);
-				info.setReturnValue(this.updateShape(state, direction, neighborState, level, pos, neighborPos));
-			}
-		}
+	public BlockState wilderWild$updateShape(BlockState instance, BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+		return SnowloggingUtils.onUpdateShape(instance, level, pos);
 	}
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))

@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.snowlogging;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
@@ -47,7 +47,7 @@ public class SpreadingSnowyDirtBlockMixin {
 		locals = LocalCapture.CAPTURE_FAILHARD
 	)
 	private static void wilderWild$canBeGrassFirstCheck(BlockState state, LevelReader levelReader, BlockPos pos, CallbackInfoReturnable<Boolean> info, BlockPos blockPos, BlockState blockState) {
-		if (RegisterProperties.isSnowlogged(blockState)) {
+		if (SnowloggingUtils.isSnowlogged(blockState)) {
 			info.setReturnValue(true);
 		}
 	}
@@ -63,7 +63,7 @@ public class SpreadingSnowyDirtBlockMixin {
 		)
 	)
 	public boolean wilderWild$randomTick(BlockState instance, Block block, Operation<Boolean> original) {
-		return original.call(instance, block) || (RegisterProperties.isSnowlogged(instance));
+		return original.call(instance, block) || (SnowloggingUtils.isSnowlogged(instance));
 	}
 
 }

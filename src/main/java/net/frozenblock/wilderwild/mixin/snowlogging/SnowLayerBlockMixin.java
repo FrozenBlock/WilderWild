@@ -18,22 +18,28 @@
 
 package net.frozenblock.wilderwild.mixin.snowlogging;
 
+import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(SnowLayerBlock.class)
-public class SnowLayerBlockMixin {
+public abstract class SnowLayerBlockMixin {
+
+	@Shadow
+	protected abstract boolean canSurvive(BlockState state, LevelReader level, BlockPos pos);
 
 	@Inject(
 		method = "getStateForPlacement",
@@ -47,26 +53,11 @@ public class SnowLayerBlockMixin {
 		locals = LocalCapture.CAPTURE_FAILHARD
 	)
 	public void wilderWild$getStateForPlacement(BlockPlaceContext context, CallbackInfoReturnable<BlockState> info, BlockState blockState) {
-		if (RegisterProperties.canBeSnowlogged(blockState)) {
-			int layers = RegisterProperties.getSnowLayers(blockState);
-			boolean isBreakable = RegisterProperties.isBreakableWithSnow(blockState);
-			if (layers < 7 || (!isBreakable && layers < 8)) {
+		if (SnowloggingUtils.supportsSnowlogging(blockState)) {
+			int layers = SnowloggingUtils.getSnowLayers(blockState);
+			if (layers < 8) {
 				BlockState placementState = blockState.setValue(RegisterProperties.SNOW_LAYERS, layers + 1);
-				if (isBreakable) {
-					BlockState equivalentState = RegisterProperties.getSnowEquivalent(placementState);
-					VoxelShape plantShape = placementState.setValue(RegisterProperties.SNOW_LAYERS, 0).getShape(context.getLevel(), context.getClickedPos());
-					VoxelShape snowLayerShape = equivalentState.getShape(context.getLevel(), context.getClickedPos());
-					if (plantShape.max(Direction.Axis.Y) <= snowLayerShape.max(Direction.Axis.Y)) {
-						if (!context.getLevel().isClientSide()) {
-							context.getLevel().destroyBlock(context.getClickedPos(), true);
-						}
-						placementState = equivalentState;
-					}
-				}
 				info.setReturnValue(placementState);
-			} else {
-				context.getLevel().destroyBlock(context.getClickedPos(), true);
-				info.setReturnValue(SnowLayerBlock.class.cast(this).defaultBlockState().setValue(BlockStateProperties.LAYERS, 8));
 			}
 		}
 	}
@@ -79,12 +70,32 @@ public class SnowLayerBlockMixin {
 	public void wilderWild$canBeReplaced(BlockState state, BlockPlaceContext useContext, CallbackInfoReturnable<Boolean> info) {
 		if (useContext.getItemInHand().getItem() instanceof BlockItem blockItem) {
 			BlockState placementState = blockItem.getBlock().getStateForPlacement(useContext);
-			if (placementState != null && RegisterProperties.isSnowlogged(placementState)) {
-				VoxelShape plantShape = placementState.getShape(useContext.getLevel(), useContext.getClickedPos());
+			if (placementState != null && SnowloggingUtils.isSnowlogged(placementState)) {
+				VoxelShape blockShape = placementState.getShape(useContext.getLevel(), useContext.getClickedPos());
 				VoxelShape snowLayerShape = state.getShape(useContext.getLevel(), useContext.getClickedPos());
-				if (!RegisterProperties.isBreakableWithSnow(placementState) || (plantShape.max(Direction.Axis.Y) > snowLayerShape.max(Direction.Axis.Y))) {
+				if (blockShape.max(Direction.Axis.Y) >= snowLayerShape.max(Direction.Axis.Y)) {
 					info.setReturnValue(true);
 				}
+			}
+		}
+	}
+
+	@Inject(
+		method = "canSurvive",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/tags/TagKey;)Z",
+			ordinal = 0,
+			shift = At.Shift.BEFORE
+		),
+		cancellable = true,
+		locals = LocalCapture.CAPTURE_FAILHARD
+	)
+	public void wilderWild$canSurvive(BlockState state, LevelReader level, BlockPos pos, CallbackInfoReturnable<Boolean> info, BlockState supportState) {
+		if (SnowloggingUtils.isSnowlogged(supportState)) {
+			int layers = SnowloggingUtils.getSnowLayers(supportState);
+			if (layers == 8) {
+				info.setReturnValue(true);
 			}
 		}
 	}

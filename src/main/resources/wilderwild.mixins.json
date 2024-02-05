@@ -79,6 +79,7 @@
     "sculk.SculkVeinSpreaderConfigMixin",
     "snowlogging.BlockItemMixin",
     "snowlogging.BlockStateBaseMixin",
+    "snowlogging.BoneMealItemMixin",
     "snowlogging.BushBlockMixin",
     "snowlogging.EntityMixin",
     "snowlogging.FenceBlockMixin",

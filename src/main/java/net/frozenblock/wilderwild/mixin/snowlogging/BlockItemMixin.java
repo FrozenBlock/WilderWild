@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.snowlogging;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.SoundType;
@@ -35,14 +35,14 @@ public class BlockItemMixin {
 
 	@WrapOperation(method = "place", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;getSoundType()Lnet/minecraft/world/level/block/SoundType;"))
 	public SoundType wilderWild$place(BlockState instance, Operation<SoundType> original) {
-		return (instance.hasProperty(RegisterProperties.SNOW_LAYERS) && instance.getValue(RegisterProperties.SNOW_LAYERS) > 0) ?
-			original.call(RegisterProperties.getSnowEquivalent(instance)) : original.call(instance);
+		return (instance.hasProperty(SnowloggingUtils.SNOW_LAYERS) && instance.getValue(SnowloggingUtils.SNOW_LAYERS) > 0) ?
+			original.call(SnowloggingUtils.getSnowEquivalent(instance)) : original.call(instance);
 	}
 
 	@Inject(method = "getPlaceSound", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$getPlaceSound(BlockState state, CallbackInfoReturnable<SoundEvent> info) {
-		if (state.hasProperty(RegisterProperties.SNOW_LAYERS) && state.getValue(RegisterProperties.SNOW_LAYERS) > 0) {
-			info.setReturnValue(RegisterProperties.getSnowEquivalent(state).getSoundType().getPlaceSound());
+		if (state.hasProperty(SnowloggingUtils.SNOW_LAYERS) && state.getValue(SnowloggingUtils.SNOW_LAYERS) > 0) {
+			info.setReturnValue(SnowloggingUtils.getSnowEquivalent(state).getSoundType().getPlaceSound());
 		}
 	}
 

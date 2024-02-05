@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
+import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.core.BlockPos;
@@ -121,21 +122,23 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 
 	@Override
 	@NotNull
-	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
+	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockPos neighborPos) {
+		state = SnowloggingUtils.onUpdateShape(state, level, pos);
 		if (isFullyGrown(state)) {
 			DoubleBlockHalf doubleBlockHalf = state.getValue(HALF);
 			if (!(direction.getAxis() != Direction.Axis.Y || doubleBlockHalf == DoubleBlockHalf.LOWER != (direction == Direction.UP) || neighborState.is(this) && neighborState.getValue(HALF) != doubleBlockHalf)) {
 				return Blocks.AIR.defaultBlockState();
 			}
-			if (doubleBlockHalf == DoubleBlockHalf.LOWER && direction == Direction.DOWN && !state.canSurvive(level, currentPos)) {
+			if (doubleBlockHalf == DoubleBlockHalf.LOWER && direction == Direction.DOWN && !state.canSurvive(level, pos)) {
 				return Blocks.AIR.defaultBlockState();
 			}
 		}
-		return super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
+		return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
 	}
 
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+		super.randomTick(state, level, pos, random);
 		if (!isFullyGrown(state) && random.nextInt(GROWTH_CHANCE) == 0 && level.getRawBrightness(pos, 0) >= 9) {
 			if (isAlmostFullyGrown(state) && random.nextFloat() < ALMOST_FULLY_GROWN_GROWTH_CHANCE) {
 				return;
@@ -150,7 +153,7 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 			BlockPos above = pos.above();
 			if (level.getBlockState(above).isAir()) {
 				level.setBlock(pos, setState, UPDATE_CLIENTS);
-				level.setBlock(above, setState.setValue(HALF, DoubleBlockHalf.UPPER), UPDATE_CLIENTS);
+				level.setBlock(above, this.defaultBlockState().setValue(AGE, setState.getValue(AGE)).setValue(HALF, DoubleBlockHalf.UPPER), UPDATE_CLIENTS);
 			}
 		} else {
 			level.setBlock(pos, setState, UPDATE_CLIENTS);

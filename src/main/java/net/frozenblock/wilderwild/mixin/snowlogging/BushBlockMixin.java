@@ -18,8 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.snowlogging;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -34,7 +33,6 @@ import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BushBlock;
-import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -45,6 +43,7 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(BushBlock.class)
 public class BushBlockMixin extends Block {
@@ -58,7 +57,7 @@ public class BushBlockMixin extends Block {
 	@Unique
 	@Override
 	protected boolean isRandomlyTicking(BlockState state) {
-		return super.isRandomlyTicking(state) || (RegisterProperties.isSnowlogged(state));
+		return super.isRandomlyTicking(state) || (SnowloggingUtils.isSnowlogged(state));
 	}
 
 	@Unique
@@ -71,9 +70,11 @@ public class BushBlockMixin extends Block {
 	@Unique
 	@Override
 	protected boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
-		return ((RegisterProperties.canBeSnowlogged(state) && context.getItemInHand().is(Blocks.SNOW.asItem()))
-		&& (RegisterProperties.getSnowLayers(state) <= 0 || (context.replacingClickedOnBlock() && context.getClickedFace() == Direction.UP))
-		) || super.canBeReplaced(state, context);
+		boolean canBeReplacedWithSnow = SnowloggingUtils.canBeReplacedWithSnow(state, context);
+		if (SnowloggingUtils.isSnowlogged(state)) {
+			return canBeReplacedWithSnow;
+		}
+		return canBeReplacedWithSnow || super.canBeReplaced(state, context);
 	}
 
 	@Unique
@@ -82,7 +83,7 @@ public class BushBlockMixin extends Block {
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		BlockState blockState = context.getLevel().getBlockState(context.getClickedPos());
 		BlockState placementState = super.getStateForPlacement(context);
-		if (placementState != null && RegisterProperties.canBeSnowlogged(placementState) && blockState.is(Blocks.SNOW)) {
+		if (placementState != null && SnowloggingUtils.supportsSnowlogging(placementState) && blockState.is(Blocks.SNOW)) {
 			int layers = blockState.getValue(BlockStateProperties.LAYERS);
 			if (layers <= 7) {
 				placementState = placementState.setValue(WILDERWILD$SNOW_LAYERS, layers);
@@ -93,17 +94,17 @@ public class BushBlockMixin extends Block {
 
 	@Override
 	public void destroy(LevelAccessor level, BlockPos pos, BlockState state) {
-		boolean snowlogged = RegisterProperties.isSnowlogged(state);
+		boolean snowlogged = SnowloggingUtils.isSnowlogged(state);
 		BlockState stateWithoutSnow = snowlogged ? state.setValue(WILDERWILD$SNOW_LAYERS, 0) : state;
 		super.destroy(level, pos, stateWithoutSnow);
 		if (snowlogged) {
-			level.setBlock(pos, RegisterProperties.getSnowEquivalent(state), Block.UPDATE_ALL);
+			level.setBlock(pos, SnowloggingUtils.getSnowEquivalent(state), Block.UPDATE_ALL);
 		}
 	}
 
 	@Override
 	public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
-		BlockState stateWithoutSnow = RegisterProperties.isSnowlogged(state) ? state.setValue(WILDERWILD$SNOW_LAYERS, 0) : state;
+		BlockState stateWithoutSnow = SnowloggingUtils.isSnowlogged(state) ? state.setValue(WILDERWILD$SNOW_LAYERS, 0) : state;
 		super.playerDestroy(level, player, pos, stateWithoutSnow, blockEntity, stack);
 	}
 
@@ -119,30 +120,17 @@ public class BushBlockMixin extends Block {
 	@Override
 	protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		super.randomTick(state, level, pos, random);
-		if (RegisterProperties.isSnowlogged(state)) {
+		if (SnowloggingUtils.isSnowlogged(state)) {
 			if (level.getBrightness(LightLayer.BLOCK, pos) > 11) {
-				dropResources(RegisterProperties.getSnowEquivalent(state), level, pos);
+				dropResources(SnowloggingUtils.getSnowEquivalent(state), level, pos);
 				level.setBlock(pos, state.setValue(WILDERWILD$SNOW_LAYERS, 0), Block.UPDATE_ALL);
 			}
 		}
 	}
 
-	@WrapOperation(
-		method = "updateShape",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/Block;updateShape(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;"
-		)
-	)
-	public BlockState wilderWild$updateShape(BushBlock instance, BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos, Operation<BlockState> original) {
-		if (RegisterProperties.isSnowlogged(state)) {
-			BlockState snowEquivalent = RegisterProperties.getSnowEquivalent(state);
-			if (!Blocks.SNOW.canSurvive(snowEquivalent, level, pos)) {
-				level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(snowEquivalent));
-				state = state.setValue(WILDERWILD$SNOW_LAYERS, 0);
-			}
-		}
-		return original.call(instance, state, direction, neighborState, level, pos, neighborPos);
+	@ModifyVariable(method = "updateShape", at = @At("HEAD"), ordinal = 0, argsOnly = true)
+	public BlockState wilderWild$updateShape(BlockState instance, BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+		return SnowloggingUtils.onUpdateShape(instance, level, pos);
 	}
 
 }

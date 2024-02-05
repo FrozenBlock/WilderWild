@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.snowlogging.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.fabric.impl.client.indigo.renderer.render.TerrainRenderContext;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
@@ -36,8 +36,8 @@ public class TerrainRenderContextMixin {
 
 	@Inject(method = "tessellateBlock", at = @At("HEAD"))
 	public void wilderWild$tessellateBlock(BlockState blockState, BlockPos blockPos, BakedModel model, PoseStack matrixStack, CallbackInfo info) {
-		if (RegisterProperties.isSnowlogged(blockState)) {
-			BlockState snowState = RegisterProperties.getSnowEquivalent(blockState);
+		if (SnowloggingUtils.isSnowlogged(blockState)) {
+			BlockState snowState = SnowloggingUtils.getSnowEquivalent(blockState);
 			this.tessellateBlock(snowState, blockPos, Minecraft.getInstance().getBlockRenderer().getBlockModel(snowState), matrixStack);
 		}
 	}

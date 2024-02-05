@@ -22,7 +22,7 @@ import java.util.List;
 import net.frozenblock.lib.worldgen.feature.api.FrozenConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.api.FrozenFeatures;
 import net.frozenblock.lib.worldgen.feature.api.features.config.ColumnWithDiskFeatureConfig;
-import net.frozenblock.wilderwild.block.property.FlowerColor;
+import net.frozenblock.wilderwild.block.impl.FlowerColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterFeatures;

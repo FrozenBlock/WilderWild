@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.snowlogging;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.world.entity.Entity;
@@ -33,8 +33,8 @@ public class EntityMixin {
 
 	@WrapOperation(method = "spawnSprintParticle", at = @At(value = "NEW", target = "(Lnet/minecraft/core/particles/ParticleType;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/core/particles/BlockParticleOption;"))
 	public BlockParticleOption wilderWild$spawnSprintParticle(ParticleType type, BlockState state, Operation<BlockParticleOption> original) {
-		if (RegisterProperties.isSnowlogged(state)) {
-			state = RegisterProperties.getSnowEquivalent(state);
+		if (SnowloggingUtils.isSnowlogged(state)) {
+			state = SnowloggingUtils.getSnowEquivalent(state);
 		}
 		return original.call(type, state);
 	}

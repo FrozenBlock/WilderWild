@@ -25,7 +25,7 @@ import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import java.util.Iterator;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
-import net.frozenblock.wilderwild.block.sculk_behavior.SlabWallStairSculkBehavior;
+import net.frozenblock.wilderwild.block.impl.SlabWallStairSculkBehavior;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.core.BlockPos;
