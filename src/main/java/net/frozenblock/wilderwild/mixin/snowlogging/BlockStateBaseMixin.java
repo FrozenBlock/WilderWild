@@ -40,12 +40,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
@@ -224,24 +222,6 @@ public abstract class BlockStateBaseMixin {
 	)
 	public BlockState wilderWild$updateShape(Block instance, BlockState state, Direction direction, BlockState neighborState, LevelAccessor levelAccessor, BlockPos pos, BlockPos neighborPos, Operation<BlockState> original) {
 		return original.call(instance, SnowloggingUtils.onUpdateShape(state, levelAccessor, pos), direction, neighborState, levelAccessor, pos, neighborPos);
-	}
-
-	@WrapOperation(
-		method = "onPlace",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/Block;onPlace(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Z)V"
-		)
-	)
-	public void wilderWild$onPlace(Block instance, BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving, Operation<Void> original) {
-		if (isMoving && SnowloggingUtils.isSnowlogged(state)) {
-			BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
-			if (snowEquivalent.getPistonPushReaction() == PushReaction.DESTROY) {
-				level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(snowEquivalent));
-				state = state.setValue(SnowloggingUtils.SNOW_LAYERS, 0);
-			}
-		}
-		original.call(instance, state, level, pos, oldState, isMoving);
 	}
 
 }
