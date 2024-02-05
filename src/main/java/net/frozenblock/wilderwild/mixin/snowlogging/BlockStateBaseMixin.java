@@ -221,7 +221,14 @@ public abstract class BlockStateBaseMixin {
 		)
 	)
 	public BlockState wilderWild$updateShape(Block instance, BlockState state, Direction direction, BlockState neighborState, LevelAccessor levelAccessor, BlockPos pos, BlockPos neighborPos, Operation<BlockState> original) {
-		return original.call(instance, SnowloggingUtils.onUpdateShape(state, levelAccessor, pos), direction, neighborState, levelAccessor, pos, neighborPos);
+		BlockState newState = original.call(instance, SnowloggingUtils.onUpdateShape(state, levelAccessor, pos), direction, neighborState, levelAccessor, pos, neighborPos);
+		BlockState snowEquivalent;
+		if (newState.isAir() && SnowloggingUtils.isSnowlogged(state) && Blocks.SNOW.canSurvive((snowEquivalent = SnowloggingUtils.getSnowEquivalent(state)), levelAccessor, pos)) {
+			state = snowEquivalent;
+		} else {
+			state = newState;
+		}
+		return state;
 	}
 
 }
