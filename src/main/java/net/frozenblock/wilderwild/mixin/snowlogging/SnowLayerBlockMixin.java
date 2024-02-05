@@ -24,6 +24,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -71,8 +72,10 @@ public abstract class SnowLayerBlockMixin {
 		if (useContext.getItemInHand().getItem() instanceof BlockItem blockItem) {
 			BlockState placementState = blockItem.getBlock().getStateForPlacement(useContext);
 			if (placementState != null && SnowloggingUtils.isSnowlogged(placementState)) {
-				VoxelShape blockShape = placementState.getShape(useContext.getLevel(), useContext.getClickedPos());
-				VoxelShape snowLayerShape = state.getShape(useContext.getLevel(), useContext.getClickedPos());
+				Level level = useContext.getLevel();
+				BlockPos pos = useContext.getClickedPos();
+				VoxelShape blockShape = placementState.getShape(level, pos);
+				VoxelShape snowLayerShape = state.getShape(level, pos);
 				if (blockShape.max(Direction.Axis.Y) >= snowLayerShape.max(Direction.Axis.Y)) {
 					info.setReturnValue(true);
 				}

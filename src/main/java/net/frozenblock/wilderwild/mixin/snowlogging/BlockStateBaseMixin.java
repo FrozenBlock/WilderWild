@@ -19,22 +19,41 @@
 package net.frozenblock.wilderwild.mixin.snowlogging;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import java.util.ArrayList;
 import java.util.List;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BlockBehaviour.BlockStateBase.class)
 public abstract class BlockStateBaseMixin {
@@ -69,10 +88,7 @@ public abstract class BlockStateBaseMixin {
 		return original;
 	}
 
-	@ModifyReturnValue(
-		method = "getVisualShape",
-		at = @At("RETURN")
-	)
+	@ModifyReturnValue(method = "getVisualShape", at = @At("RETURN"))
 	public VoxelShape wilderWild$getVisualShape(VoxelShape original, BlockGetter level, BlockPos pos, CollisionContext context) {
 		BlockState blockState = this.asState();
 		if (SnowloggingUtils.isSnowlogged(blockState)) {
@@ -81,10 +97,7 @@ public abstract class BlockStateBaseMixin {
 		return original;
 	}
 
-	@ModifyReturnValue(
-		method = "getInteractionShape",
-		at = @At("RETURN")
-	)
+	@ModifyReturnValue(method = "getInteractionShape", at = @At("RETURN"))
 	public VoxelShape wilderWild$getInteractionShape(VoxelShape original, BlockGetter level, BlockPos pos) {
 		BlockState blockState = this.asState();
 		if (SnowloggingUtils.isSnowlogged(blockState)) {
@@ -93,10 +106,7 @@ public abstract class BlockStateBaseMixin {
 		return original;
 	}
 
-	@ModifyReturnValue(
-		method = "getBlockSupportShape",
-		at = @At("RETURN")
-	)
+	@ModifyReturnValue(method = "getBlockSupportShape", at = @At("RETURN"))
 	public VoxelShape wilderWild$getBlockSupportShape(VoxelShape original, BlockGetter level, BlockPos pos) {
 		BlockState blockState = this.asState();
 		if (SnowloggingUtils.isSnowlogged(blockState)) {
@@ -105,10 +115,7 @@ public abstract class BlockStateBaseMixin {
 		return original;
 	}
 
-	@ModifyReturnValue(
-		method = "getOcclusionShape",
-		at = @At("RETURN")
-	)
+	@ModifyReturnValue(method = "getOcclusionShape", at = @At("RETURN"))
 	public VoxelShape wilderWild$getOcclusionShape(VoxelShape original, BlockGetter level, BlockPos pos) {
 		BlockState blockState = this.asState();
 		if (SnowloggingUtils.isSnowlogged(blockState)) {
@@ -117,10 +124,15 @@ public abstract class BlockStateBaseMixin {
 		return original;
 	}
 
-	@ModifyReturnValue(
-		method = "getDrops",
-		at = @At("RETURN")
-	)
+	@ModifyReturnValue(method = "getMapColor", at = @At("RETURN"))
+	public MapColor wilderWild$getMapColor(MapColor original, BlockGetter level, BlockPos pos) {
+		if (SnowloggingUtils.isOriginalBlockCovered(this.asState(), level, pos)) {
+			return Blocks.SNOW.defaultMapColor();
+		}
+		return original;
+	}
+
+	@ModifyReturnValue(method = "getDrops", at = @At("RETURN"))
 	public List<ItemStack> wilderWild$getDrops(List<ItemStack> original, LootParams.Builder lootParams) {
         List<ItemStack> finalList = new ArrayList<>(original);
 		BlockState state = this.asState();
@@ -129,6 +141,84 @@ public abstract class BlockStateBaseMixin {
 			finalList.addAll(snowEquivalent.getDrops(lootParams));
 		}
 		return finalList;
+	}
+
+	@ModifyReturnValue(method = "getDestroySpeed", at = @At("RETURN"))
+	public float wilderWild$getDestroySpeed(float original, BlockGetter level, BlockPos pos) {
+		BlockState state = this.asState();
+		if (SnowloggingUtils.isSnowlogged(state)) {
+			return SnowloggingUtils.getSnowDestroySpeed(state, level, pos);
+		}
+		return original;
+	}
+
+	@WrapOperation(
+		method = "getDestroyProgress",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/Block;getDestroyProgress(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)F"
+		)
+	)
+	public float wilderWild$getDestroyProgress(Block instance, BlockState state, Player player, BlockGetter blockGetter, BlockPos pos, Operation<Float> original) {
+		if (SnowloggingUtils.isSnowlogged(state)) {
+			state = SnowloggingUtils.getSnowEquivalent(state);
+			instance = state.getBlock();
+		}
+		return original.call(instance, state, player, blockGetter, pos);
+	}
+
+	@Inject(method = "randomTick", at = @At("HEAD"))
+	public void wilderWild$randomTick(ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
+		SnowloggingUtils.onRandomTick(this.asState(), level, pos);
+	}
+
+	@Inject(method = "useItemOn", at = @At("HEAD"), cancellable = true)
+	public void wilderWild$useItemOn(ItemStack stack, Level level, Player player, InteractionHand hand, BlockHitResult hitResult, CallbackInfoReturnable<ItemInteractionResult> info) {
+		if (SnowloggingUtils.isOriginalBlockCovered(this.asState(), level, hitResult.getBlockPos())) {
+			info.setReturnValue(ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION);
+		}
+	}
+
+	@Inject(method = "useWithoutItem", at = @At("HEAD"), cancellable = true)
+	public void wilderWild$useWithoutItem(Level level, Player player, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> info) {
+		if (SnowloggingUtils.isOriginalBlockCovered(this.asState(), level, hitResult.getBlockPos())) {
+			info.setReturnValue(InteractionResult.PASS);
+		}
+	}
+
+	@Inject(method = "attack", at = @At("HEAD"), cancellable = true)
+	public void wilderWild$attack(Level level, BlockPos pos, Player player, CallbackInfo info) {
+		if (SnowloggingUtils.isOriginalBlockCovered(this.asState(), level, pos)) {
+			info.cancel();
+		}
+	}
+
+	@Inject(method = "canBeReplaced(Lnet/minecraft/world/item/context/BlockPlaceContext;)Z", at = @At("HEAD"), cancellable = true)
+	public void wilderWild$canBeReplaced(BlockPlaceContext context, CallbackInfoReturnable<Boolean> info) {
+		BlockState state = this.asState();
+		if (SnowloggingUtils.canBeReplacedWithSnow(state, context)) {
+			info.setReturnValue(true);
+		} else if (SnowloggingUtils.isSnowlogged(state) && SnowloggingUtils.getSnowLayers(state) == SnowloggingUtils.MAX_LAYERS) {
+			info.setReturnValue(false);
+		}
+	}
+
+	@Inject(method = "canBeReplaced(Lnet/minecraft/world/level/material/Fluid;)Z", at = @At("HEAD"), cancellable = true)
+	public void wilderWild$canBeReplaced(Fluid fluid, CallbackInfoReturnable<Boolean> info) {
+		if (SnowloggingUtils.isSnowlogged(this.asState())) {
+			info.setReturnValue(false);
+		}
+	}
+
+	@WrapOperation(
+		method = "updateShape",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/Block;updateShape(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;"
+		)
+	)
+	public BlockState wilderWild$updateShape(Block instance, BlockState state, Direction direction, BlockState neighborState, LevelAccessor levelAccessor, BlockPos pos, BlockPos neighborPos, Operation<BlockState> original) {
+		return original.call(instance, SnowloggingUtils.onUpdateShape(state, levelAccessor, pos), direction, neighborState, levelAccessor, pos, neighborPos);
 	}
 
 }

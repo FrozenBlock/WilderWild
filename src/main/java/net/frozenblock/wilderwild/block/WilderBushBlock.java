@@ -226,7 +226,7 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 	@Override
 	@NotNull
 	public BlockState playerWillDestroy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
-		if (isFullyGrown(state) && (!level.isClientSide)) {
+		if (isFullyGrown(state) && !level.isClientSide && !SnowloggingUtils.isSnowlogged(state)) {
 			if (player.isCreative()) {
 				try {
 					preventCreativeDropFromBottomPart(level, pos, state, player);
@@ -236,14 +236,17 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 			} else {
 				Block.dropResources(state, level, pos, level.getBlockEntity(pos), player, player.getMainHandItem());
 			}
-
 		}
 		return super.playerWillDestroy(level, pos, state, player);
 	}
 
 	@Override
-	public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack tool) {
-		super.playerDestroy(level, player, pos, isFullyGrown(state) ? Blocks.AIR.defaultBlockState() : state, blockEntity, tool);
+	public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
+		if (SnowloggingUtils.isSnowlogged(state)) {
+			super.playerDestroy(level, player, pos, SnowloggingUtils.getSnowEquivalent(state), blockEntity, stack);
+		} else {
+			super.playerDestroy(level, player, pos, isFullyGrown(state) ? Blocks.AIR.defaultBlockState() : state, blockEntity, stack);
+		}
 	}
 
 	@NotNull

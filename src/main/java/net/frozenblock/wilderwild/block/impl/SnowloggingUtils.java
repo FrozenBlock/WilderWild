@@ -21,14 +21,18 @@ package net.frozenblock.wilderwild.block.impl;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 public class SnowloggingUtils {
@@ -37,6 +41,10 @@ public class SnowloggingUtils {
 
 	public static boolean supportsSnowlogging(@NotNull BlockState state) {
 		return state.hasProperty(SNOW_LAYERS);
+	}
+
+	public static boolean canSnowlog(@NotNull BlockState state) {
+		return state.hasProperty(SNOW_LAYERS) && state.getFluidState().isEmpty();
 	}
 
 	public static int getSnowLayers(@NotNull BlockState state) {
@@ -52,9 +60,14 @@ public class SnowloggingUtils {
 		return Blocks.SNOW.defaultBlockState().setValue(BlockStateProperties.LAYERS, Math.max(1, getSnowLayers(state)));
 	}
 
+	@NotNull
+	public static BlockState getStateWithoutSnow(@NotNull BlockState state) {
+		return isSnowlogged(state) ? state.setValue(SNOW_LAYERS, 0) : state;
+	}
+
 	public static boolean canBeReplacedWithSnow(BlockState state, BlockPlaceContext context) {
 		int layers;
-		return (SnowloggingUtils.supportsSnowlogging(state) && context.getItemInHand().is(Blocks.SNOW.asItem())) &&
+		return (SnowloggingUtils.canSnowlog(state) && context.getItemInHand().is(Blocks.SNOW.asItem())) &&
 			Blocks.SNOW.canSurvive(Blocks.SNOW.defaultBlockState(), context.getLevel(), context.getClickedPos())
 			&& ((layers = SnowloggingUtils.getSnowLayers(state)) <= 0 || (context.replacingClickedOnBlock() && context.getClickedFace() == Direction.UP && layers < MAX_LAYERS));
 	}
@@ -70,5 +83,42 @@ public class SnowloggingUtils {
 		}
 		return state;
 	}
+
+	public static BlockState getSnowPlacementState(BlockState state, @NotNull BlockPlaceContext context) {
+		BlockState blockState;
+		BlockState placementState = state;
+		if (placementState != null
+			&& SnowloggingUtils.supportsSnowlogging(placementState) &&
+			(blockState = context.getLevel().getBlockState(context.getClickedPos())).is(Blocks.SNOW)
+		) {
+			int layers = blockState.getValue(BlockStateProperties.LAYERS);
+			if (layers < 8) {
+				placementState = placementState.setValue(SNOW_LAYERS, layers);
+			}
+		}
+		return placementState;
+	}
+
+	public static float getSnowDestroySpeed(BlockState state, BlockGetter level, BlockPos pos) {
+		return getSnowEquivalent(state).getDestroySpeed(level, pos);
+	}
+
+	public static void onRandomTick(BlockState state, ServerLevel level, BlockPos pos) {
+		if (SnowloggingUtils.isSnowlogged(state)) {
+			if (level.getBrightness(LightLayer.BLOCK, pos) > 11) {
+				Block.dropResources(SnowloggingUtils.getSnowEquivalent(state), level, pos);
+				level.setBlock(pos, state.setValue(SNOW_LAYERS, 0), Block.UPDATE_ALL);
+			}
+		}
+	}
+
+	public static boolean isOriginalBlockCovered(BlockState state, BlockGetter level, BlockPos pos) {
+		if (isSnowlogged(state)) {
+			VoxelShape blockShape = state.getShape(level, pos);
+			VoxelShape snowLayerShape = getSnowEquivalent(state).getShape(level, pos);
+			return blockShape.max(Direction.Axis.Y) <= snowLayerShape.max(Direction.Axis.Y);
+		}
+		return false;
+    }
 
 }
