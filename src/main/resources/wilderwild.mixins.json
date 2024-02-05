@@ -84,6 +84,7 @@
     "snowlogging.EntityMixin",
     "snowlogging.FenceBlockMixin",
     "snowlogging.FenceGateBlockMixin",
+    "snowlogging.SimpleWaterloggedBlockMixin",
     "snowlogging.SnowLayerBlockMixin",
     "snowlogging.SnowyDirtBlockMixin",
     "snowlogging.SpreadingSnowyDirtBlockMixin",
