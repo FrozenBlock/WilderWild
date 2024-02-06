@@ -230,7 +230,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 
 	@Override
 	protected void falling(@NotNull FallingBlockEntity entity) {
-		entity.setHurtsEntities(0.5f, 3);
+		entity.setHurtsEntities(0.5F, 3);
 	}
 
 	@Override

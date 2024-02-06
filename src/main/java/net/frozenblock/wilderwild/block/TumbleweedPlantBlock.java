@@ -19,6 +19,8 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
+import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
@@ -162,5 +164,8 @@ public class TumbleweedPlantBlock extends BushBlock implements BonemealableBlock
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		builder.add(AGE);
+		if (BlockConfig.get().snowloggingConfig.snowlogging) {
+			builder.add(SnowloggingUtils.SNOW_LAYERS);
+		}
 	}
 }

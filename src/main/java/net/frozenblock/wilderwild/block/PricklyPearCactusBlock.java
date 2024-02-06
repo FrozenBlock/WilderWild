@@ -19,6 +19,8 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
+import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
@@ -158,5 +160,8 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 	@Override
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(AGE);
+		if (BlockConfig.get().snowloggingConfig.snowlogging) {
+			builder.add(SnowloggingUtils.SNOW_LAYERS);
+		}
 	}
 }

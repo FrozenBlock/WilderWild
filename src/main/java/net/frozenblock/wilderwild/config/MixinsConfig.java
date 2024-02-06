@@ -85,6 +85,8 @@ public final class MixinsConfig {
 
 	public boolean block_termite = true;
 
+	public boolean snowlogging = true;
+
 	public boolean entity_ai = true;
 
 	public boolean entity_allay = true;

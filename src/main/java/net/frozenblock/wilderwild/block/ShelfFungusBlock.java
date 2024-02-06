@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -122,7 +123,10 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
 	@Override
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
-		builder.add(FACE, FACING, AGE, STAGE, WATERLOGGED, SnowloggingUtils.SNOW_LAYERS);
+		builder.add(FACE, FACING, AGE, STAGE, WATERLOGGED);
+		if (BlockConfig.get().snowloggingConfig.snowlogging) {
+			builder.add(SnowloggingUtils.SNOW_LAYERS);
+		}
 	}
 
 	@Override
