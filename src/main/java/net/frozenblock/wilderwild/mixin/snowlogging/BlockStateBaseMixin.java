@@ -42,7 +42,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -198,18 +197,13 @@ public abstract class BlockStateBaseMixin {
 
 	@Inject(method = "canBeReplaced(Lnet/minecraft/world/item/context/BlockPlaceContext;)Z", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$canBeReplaced(BlockPlaceContext context, CallbackInfoReturnable<Boolean> info) {
-		BlockState state = this.asState();
-		if (SnowloggingUtils.canBeReplacedWithSnow(state, context)) {
-			info.setReturnValue(true);
-		} else if (SnowloggingUtils.isSnowlogged(state) && SnowloggingUtils.getSnowLayers(state) == SnowloggingUtils.MAX_LAYERS) {
-			info.setReturnValue(false);
-		}
-	}
-
-	@Inject(method = "canBeReplaced(Lnet/minecraft/world/level/material/Fluid;)Z", at = @At("HEAD"), cancellable = true)
-	public void wilderWild$canBeReplaced(Fluid fluid, CallbackInfoReturnable<Boolean> info) {
-		if (SnowloggingUtils.isSnowlogged(this.asState())) {
-			info.setReturnValue(false);
+		BlockState state;
+		if (SnowloggingUtils.isItemSnow(context.getItemInHand()) && SnowloggingUtils.supportsSnowlogging(state = this.asState())) {
+			if (SnowloggingUtils.canBeReplacedWithSnow(state, context)) {
+				info.setReturnValue(true);
+			} else {
+				info.setReturnValue(false);
+			}
 		}
 	}
 

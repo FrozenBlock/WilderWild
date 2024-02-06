@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
+import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -41,6 +42,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.FaceAttachedHorizontalDirectionalBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.AttachFace;
@@ -75,6 +77,11 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
 	public ShelfFungusBlock(@NotNull Properties settings) {
 		super(settings);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false).setValue(FACE, AttachFace.WALL).setValue(STAGE, 1));
+	}
+
+	@Override
+	protected boolean isRandomlyTicking(BlockState state) {
+		return super.isRandomlyTicking(state) || SnowloggingUtils.isSnowlogged(state);
 	}
 
 	@NotNull
@@ -114,7 +121,8 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
 
 	@Override
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(FACE, FACING, AGE, STAGE, WATERLOGGED);
+		super.createBlockStateDefinition(builder);
+		builder.add(FACE, FACING, AGE, STAGE, WATERLOGGED, SnowloggingUtils.SNOW_LAYERS);
 	}
 
 	@Override
@@ -141,7 +149,7 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
 				blockState = this.defaultBlockState().setValue(FACE, AttachFace.WALL).setValue(FACING, direction.getOpposite()).setValue(WATERLOGGED, waterlogged);
 			}
 			if (blockState.canSurvive(context.getLevel(), context.getClickedPos())) {
-				return blockState;
+				return SnowloggingUtils.getSnowPlacementState(blockState, context);
 			}
 		}
 		return null;
@@ -205,5 +213,26 @@ public class ShelfFungusBlock extends FaceAttachedHorizontalDirectionalBlock imp
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
 		level.setBlock(pos, state.cycle(STAGE).setValue(AGE, 0), UPDATE_CLIENTS);
+	}
+
+	@Override
+	public void destroy(LevelAccessor level, BlockPos pos, BlockState state) {
+		if (SnowloggingUtils.isSnowlogged(state)) {
+			super.destroy(level, pos, SnowloggingUtils.getSnowEquivalent(state));
+		} else {
+			super.destroy(level, pos, state);
+		}
+	}
+
+	@Override
+	public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
+		if (SnowloggingUtils.isSnowlogged(state)) {
+			BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
+			if (player.hasCorrectToolForDrops(snowEquivalent)) {
+				super.playerDestroy(level, player, pos, snowEquivalent, blockEntity, stack);
+			}
+		} else {
+			super.playerDestroy(level, player, pos, state, blockEntity, stack);
+		}
 	}
 }

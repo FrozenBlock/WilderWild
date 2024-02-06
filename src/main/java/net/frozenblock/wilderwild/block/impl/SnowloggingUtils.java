@@ -22,6 +22,7 @@ import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
@@ -65,11 +66,15 @@ public class SnowloggingUtils {
 		return isSnowlogged(state) ? state.setValue(SNOW_LAYERS, 0) : state;
 	}
 
+	public static boolean isItemSnow(@NotNull ItemStack stack) {
+		return stack.is(Blocks.SNOW.asItem());
+	}
+
 	public static boolean canBeReplacedWithSnow(BlockState state, BlockPlaceContext context) {
 		int layers;
-		return (SnowloggingUtils.canSnowlog(state) && context.getItemInHand().is(Blocks.SNOW.asItem())) &&
-			Blocks.SNOW.canSurvive(Blocks.SNOW.defaultBlockState(), context.getLevel(), context.getClickedPos())
-			&& ((layers = SnowloggingUtils.getSnowLayers(state)) <= 0 || (context.replacingClickedOnBlock() && context.getClickedFace() == Direction.UP && layers < MAX_LAYERS));
+		return (SnowloggingUtils.canSnowlog(state) && isItemSnow(context.getItemInHand())) &&
+			Blocks.SNOW.canSurvive(Blocks.SNOW.defaultBlockState(), context.getLevel(), context.getClickedPos()) &&
+			((layers = SnowloggingUtils.getSnowLayers(state)) <= 0 || (context.replacingClickedOnBlock() && context.getClickedFace() == Direction.UP && layers < MAX_LAYERS));
 	}
 
 	@NotNull

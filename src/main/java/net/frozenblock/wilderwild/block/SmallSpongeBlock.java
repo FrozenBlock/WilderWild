@@ -103,6 +103,7 @@ public class SmallSpongeBlock extends FaceAttachedHorizontalDirectionalBlock imp
 
 	@Override
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
 		builder.add(FACE, FACING, AGE, WATERLOGGED);
 	}
 

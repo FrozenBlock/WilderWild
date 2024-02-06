@@ -18,12 +18,8 @@
 
 package net.frozenblock.wilderwild.mixin.snowlogging;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import java.util.Map;
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -32,7 +28,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.WallBlock;
+import net.minecraft.world.level.block.VineBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -45,10 +41,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(WallBlock.class)
-public abstract class WallBlockMixin extends Block {
+@Mixin(VineBlock.class)
+public abstract class VineBlockMixin extends Block {
 
-	public WallBlockMixin(Properties properties) {
+	public VineBlockMixin(Properties properties) {
 		super(properties);
 	}
 
@@ -58,45 +54,14 @@ public abstract class WallBlockMixin extends Block {
 		return super.isRandomlyTicking(state) || (SnowloggingUtils.isSnowlogged(state));
 	}
 
-	@WrapOperation(
-		method = "getShape",
-		at = @At(
-			value = "INVOKE",
-			target = "Ljava/util/Map;get(Ljava/lang/Object;)Ljava/lang/Object;"
-		)
-	)
-	public Object wilderWild$getShape(Map instance, Object o, Operation<Object> original) {
-		if (o instanceof BlockState blockState) {
-			if (SnowloggingUtils.supportsSnowlogging(blockState)) {
-				o = blockState.setValue(RegisterProperties.SNOW_LAYERS, 0);
-			}
+	@Inject(method = "propagatesSkylightDown", at = @At("HEAD"), cancellable = true)
+	public void wilderWild$propagatesSkylightDown(BlockState state, BlockGetter world, BlockPos pos, CallbackInfoReturnable<Boolean> info) {
+		if (SnowloggingUtils.isSnowlogged(state)) {
+			info.setReturnValue(false);
 		}
-		return original.call(instance, o);
 	}
 
-	@WrapOperation(
-		method = "getCollisionShape",
-		at = @At(
-			value = "INVOKE",
-			target = "Ljava/util/Map;get(Ljava/lang/Object;)Ljava/lang/Object;"
-		)
-	)
-	public Object wilderWild$getCollisionShape(Map instance, Object o, Operation<Object> original) {
-		if (o instanceof BlockState blockState) {
-			if (SnowloggingUtils.supportsSnowlogging(blockState)) {
-				o = blockState.setValue(RegisterProperties.SNOW_LAYERS, 0);
-			}
-		}
-		return original.call(instance, o);
-	}
-
-	@ModifyExpressionValue(
-		method = "getStateForPlacement",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/WallBlock;defaultBlockState()Lnet/minecraft/world/level/block/state/BlockState;"
-		)
-	)
+	@ModifyReturnValue(method = "getStateForPlacement", at = @At("RETURN"))
 	public BlockState wilderWild$getStateForPlacement(BlockState original, BlockPlaceContext context) {
 		return SnowloggingUtils.getSnowPlacementState(original, context);
 	}
@@ -131,13 +96,6 @@ public abstract class WallBlockMixin extends Block {
 		return RegisterProperties.isSnowlogged(state) ? Blocks.SNOW.getSoundType(RegisterProperties.getSnowEquivalent(state)) : super.getSoundType(state);
 	}
 	 */
-
-	@Inject(method = "propagatesSkylightDown", at = @At(value = "HEAD"), cancellable = true)
-	public void wilderWild$propagatesSkylightDown(BlockState state, BlockGetter world, BlockPos pos, CallbackInfoReturnable<Boolean> info) {
-		if (SnowloggingUtils.isSnowlogged(state)) {
-			info.setReturnValue(false);
-		}
-	}
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {

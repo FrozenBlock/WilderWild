@@ -92,7 +92,7 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 		return state.getValue(HALF) == DoubleBlockHalf.LOWER;
 	}
 
-	private static void preventCreativeDropFromBottomPart(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable Player player) {
+	private static void preventDropFromBottomPart(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable Player player) {
 		BlockPos blockPos;
 		BlockState blockState;
 		DoubleBlockHalf doubleBlockHalf = state.getValue(HALF);
@@ -102,6 +102,10 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 		) {
 			BlockState setState = blockState.hasProperty(BlockStateProperties.WATERLOGGED) &&
 				blockState.getValue(BlockStateProperties.WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
+
+			if (setState.isAir() && setState.getFluidState().isEmpty() && SnowloggingUtils.isSnowlogged(state)) {
+				setState = SnowloggingUtils.getSnowEquivalent(state);
+			}
 
 			level.setBlock(blockPos, setState, 35);
 			level.levelEvent(player, LevelEvent.PARTICLES_DESTROY_BLOCK, blockPos, Block.getId(blockState));
@@ -135,6 +139,7 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 		return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
 	}
 
+
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		super.randomTick(state, level, pos, random);
@@ -166,7 +171,7 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 			if (!level.isClientSide) {
 				level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
 				if (isFullyGrown(state)) {
-					ItemEntity itemEntity = new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 0.75, pos.getZ() + 0.5, new ItemStack(RegisterBlocks.BUSH));
+					ItemEntity itemEntity = new ItemEntity(level, pos.getX() + 0.5D, pos.getY() + 0.75D, pos.getZ() + 0.5D, new ItemStack(RegisterBlocks.BUSH));
 					level.addFreshEntity(itemEntity);
 				}
 				state = this.setAgeOnBothHalves(state, level, pos, state.getValue(AGE) - 1, true);
@@ -225,15 +230,15 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 	@Override
 	@NotNull
 	public BlockState playerWillDestroy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
-		if (isFullyGrown(state) && !level.isClientSide && !SnowloggingUtils.isSnowlogged(state)) {
+		if (isFullyGrown(state) && !level.isClientSide) {
 			if (player.isCreative()) {
 				try {
-					preventCreativeDropFromBottomPart(level, pos, state, player);
+					preventDropFromBottomPart(level, pos, state, player);
 				} catch (IllegalArgumentException e) {
-					Block.dropResources(state, level, pos, level.getBlockEntity(pos), player, player.getMainHandItem());
+					Block.dropResources(state, level, pos, null, player, player.getMainHandItem());
 				}
 			} else {
-				Block.dropResources(state, level, pos, level.getBlockEntity(pos), player, player.getMainHandItem());
+				Block.dropResources(state, level, pos, null, player, player.getMainHandItem());
 			}
 		}
 		return super.playerWillDestroy(level, pos, state, player);
@@ -242,7 +247,10 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 	@Override
 	public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
 		if (SnowloggingUtils.isSnowlogged(state)) {
-			super.playerDestroy(level, player, pos, SnowloggingUtils.getSnowEquivalent(state), blockEntity, stack);
+			BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
+			if (player.hasCorrectToolForDrops(snowEquivalent)) {
+				super.playerDestroy(level, player, pos, snowEquivalent, blockEntity, stack);
+			}
 		} else {
 			super.playerDestroy(level, player, pos, isFullyGrown(state) ? Blocks.AIR.defaultBlockState() : state, blockEntity, stack);
 		}
