@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.mixin.snowlogging;
 
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -54,6 +55,7 @@ public abstract class SnowLayerBlockMixin {
 		locals = LocalCapture.CAPTURE_FAILHARD
 	)
 	public void wilderWild$getStateForPlacement(BlockPlaceContext context, CallbackInfoReturnable<BlockState> info, BlockState blockState) {
+		if (!BlockConfig.get().snowloggingConfig.snowlogging) return;
 		if (SnowloggingUtils.supportsSnowlogging(blockState)) {
 			int layers = SnowloggingUtils.getSnowLayers(blockState);
 			if (layers < 8) {
@@ -69,6 +71,7 @@ public abstract class SnowLayerBlockMixin {
 		cancellable = true
 	)
 	public void wilderWild$canBeReplaced(BlockState state, BlockPlaceContext useContext, CallbackInfoReturnable<Boolean> info) {
+		if (!BlockConfig.get().snowloggingConfig.snowlogging) return;
 		if (useContext.getItemInHand().getItem() instanceof BlockItem blockItem) {
 			BlockState placementState = blockItem.getBlock().getStateForPlacement(useContext);
 			if (placementState != null && SnowloggingUtils.isSnowlogged(placementState)) {
@@ -95,6 +98,7 @@ public abstract class SnowLayerBlockMixin {
 		locals = LocalCapture.CAPTURE_FAILHARD
 	)
 	public void wilderWild$canSurvive(BlockState state, LevelReader level, BlockPos pos, CallbackInfoReturnable<Boolean> info, BlockState supportState) {
+		if (!BlockConfig.get().snowloggingConfig.snowlogging) return;
 		if (SnowloggingUtils.isSnowlogged(supportState)) {
 			int layers = SnowloggingUtils.getSnowLayers(supportState);
 			if (layers == 8) {

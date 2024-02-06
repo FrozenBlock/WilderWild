@@ -53,6 +53,9 @@ public final class BlockConfig {
 	@CollapsibleObject
 	public final MesogleaConfig mesoglea = new MesogleaConfig();
 
+	@CollapsibleObject
+	public final SnowloggingConfig snowloggingConfig = new SnowloggingConfig();
+
 	@EntrySyncData("shriekerGargling")
 	public boolean shriekerGargling = true;
 
@@ -72,7 +75,7 @@ public final class BlockConfig {
 	public boolean logHollowing = true;
 
 	@EntrySyncData("cactusPlacement")
-	public boolean cactusPlacement = true;
+	public boolean cactusPlacement = false;
 
 	@EntrySyncData("frostedIceCracking")
 	public boolean frostedIceCracking = true;
@@ -176,5 +179,24 @@ public final class BlockConfig {
 
 		@EntrySyncData("mesogleaBubbleColumns")
 		public boolean mesogleaBubbleColumns = true;
+	}
+
+	public static class SnowloggingConfig {
+		@EntrySyncData("snowlogging")
+		public boolean snowlogging = true;
+
+		@EntrySyncData("snowlogWalls")
+		public boolean snowlogWalls = true;
+
+		@EntrySyncData("naturalSnowlogging")
+		public boolean naturalSnowlogging = true;
+
+		public boolean canSnowlogWalls() {
+			return this.snowlogging && this.snowlogWalls;
+		}
+
+		public boolean canSnowlogNaturally() {
+			return this.snowlogging && this.naturalSnowlogging;
+		}
 	}
 }

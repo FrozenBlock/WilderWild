@@ -48,6 +48,8 @@ public final class BlockConfigGui {
 		var modifiedStoneChest = modifiedConfig.stoneChest;
 		var termite = config.termite;
 		var modifiedTermite = modifiedConfig.termite;
+		var snowlogging = config.snowloggingConfig;
+		var modifiedSnowlogging = modifiedConfig.snowloggingConfig;
 		category.setBackground(WilderSharedConstants.id("textures/config/block.png"));
 		var shriekerGargling = category.addEntry(
 			FrozenClothConfig.syncedEntry(
@@ -167,6 +169,132 @@ public final class BlockConfigGui {
 			)
 		);
 
+		var mesogleaLiquid = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("mesoglea_liquid"), modifiedConfig.mesoglea.mesogleaLiquid)
+				.setDefaultValue(defaultConfig.mesoglea.mesogleaLiquid)
+				.setSaveConsumer(newValue -> config.mesoglea.mesogleaLiquid = newValue)
+				.setTooltip(tooltip("mesoglea_liquid"))
+				.build(),
+			config.mesoglea.getClass(),
+			"mesogleaLiquid",
+			configInstance
+		);
+
+		var mesogleaBubbleColumns = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("mesoglea_bubble_columns"), modifiedConfig.mesoglea.mesogleaBubbleColumns)
+				.setDefaultValue(defaultConfig.mesoglea.mesogleaBubbleColumns)
+				.setSaveConsumer(newValue -> config.mesoglea.mesogleaBubbleColumns = newValue)
+				.setTooltip(tooltip("mesoglea_bubble_columns"))
+				.build(),
+			config.mesoglea.getClass(),
+			"mesogleaBubbleColumns",
+			configInstance
+		);
+
+		var mesogleaCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("mesoglea"),
+			false,
+			tooltip("mesoglea"),
+			mesogleaBubbleColumns, mesogleaLiquid
+		);
+
+		var termitesOnlyEatNaturalBlocks = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("termites_only_eat_natural_blocks"), modifiedTermite.onlyEatNaturalBlocks)
+				.setDefaultValue(defaultConfig.termite.onlyEatNaturalBlocks)
+				.setSaveConsumer(newValue -> termite.onlyEatNaturalBlocks = newValue)
+				.setTooltip(tooltip("termites_only_eat_natural_blocks"))
+				.requireRestart()
+				.build(),
+			termite.getClass(),
+			"onlyEatNaturalBlocks",
+			configInstance
+		);
+
+		var maxTermiteDistance = FrozenClothConfig.syncedEntry(
+			entryBuilder.startIntSlider(text("max_termite_distance"), modifiedTermite.maxDistance, 1, 72)
+				.setDefaultValue(defaultConfig.termite.maxDistance)
+				.setSaveConsumer(newValue -> termite.maxDistance = newValue)
+				.setTooltip(tooltip("max_termite_distance"))
+				.build(),
+			termite.getClass(),
+			"maxDistance",
+			configInstance
+		);
+
+		var maxNaturalTermiteDistance = FrozenClothConfig.syncedEntry(
+			entryBuilder.startIntSlider(text("max_natural_termite_distance"), modifiedTermite.maxNaturalDistance, 1, 72)
+				.setDefaultValue(defaultConfig.termite.maxNaturalDistance)
+				.setSaveConsumer(newValue -> termite.maxNaturalDistance = newValue)
+				.setTooltip(tooltip("max_natural_termite_distance"))
+				.build(),
+			termite.getClass(),
+			"maxNaturalDistance",
+			configInstance
+		);
+
+		var termiteCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("termite"),
+			false,
+			tooltip("termite"),
+			termitesOnlyEatNaturalBlocks, maxTermiteDistance, maxNaturalTermiteDistance
+		);
+
+		var stoneChestTimer = FrozenClothConfig.syncedEntry(
+			entryBuilder.startIntSlider(text("stone_chest_timer"), modifiedStoneChest.stoneChestTimer, 50, 200)
+				.setDefaultValue(defaultConfig.stoneChest.stoneChestTimer)
+				.setSaveConsumer(newValue -> stoneChest.stoneChestTimer = newValue)
+				.setTooltip(tooltip("stone_chest_timer"))
+				.build(),
+			stoneChest.getClass(),
+			"stoneChestTimer",
+			configInstance
+		);
+
+		var stoneChestCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("stone_chest"),
+			false,
+			tooltip("stone_chest"),
+			stoneChestTimer
+		);
+
+		var allowSnowlogging = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("allow_snowlogging"), modifiedSnowlogging.snowlogging)
+				.setDefaultValue(defaultConfig.snowloggingConfig.snowlogging)
+				.setSaveConsumer(newValue -> snowlogging.snowlogging = newValue)
+				.setTooltip(tooltip("allow_snowlogging"))
+				.requireRestart()
+				.build(),
+			stoneChest.getClass(),
+			"snowlogging",
+			configInstance
+		);
+
+		var snowlogWalls = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("snowlog_walls"), modifiedSnowlogging.snowlogWalls)
+				.setDefaultValue(defaultConfig.snowloggingConfig.snowlogWalls)
+				.setSaveConsumer(newValue -> snowlogging.snowlogWalls = newValue)
+				.setTooltip(tooltip("snowlog_walls"))
+				.requireRestart()
+				.build(),
+			stoneChest.getClass(),
+			"snowlogWalls",
+			configInstance
+		);
+
+		var naturalSnowlogging = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("natural_snowlogging"), modifiedSnowlogging.naturalSnowlogging)
+				.setDefaultValue(defaultConfig.snowloggingConfig.naturalSnowlogging)
+				.setSaveConsumer(newValue -> snowlogging.naturalSnowlogging = newValue)
+				.setTooltip(tooltip("natural_snowlogging"))
+				.build(),
+			stoneChest.getClass(),
+			"naturalSnowlogging",
+			configInstance
+		);
+
+		var snowloggingCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("snowlogging"),
+			false,
+			tooltip("snowlogging"),
+			allowSnowlogging, snowlogWalls, naturalSnowlogging
+		);
+
 		var cactusSounds = entryBuilder.startBooleanToggle(text("cactus_sounds"), modifiedBlockSounds.cactusSounds)
 			.setDefaultValue(defaultConfig.blockSounds.cactusSounds)
 			.setSaveConsumer(newValue -> blockSounds.cactusSounds = newValue)
@@ -282,91 +410,6 @@ public final class BlockConfigGui {
 			flowerSounds, saplingSounds, gravelSounds, iceSounds, frostedIceSounds, leafSounds,
 			lilyPadSounds, mushroomBlockSounds, podzolSounds, reinforcedDeepslateSounds,
 			sugarCaneSounds, witherRoseSounds, sandstoneSounds
-		);
-
-		var mesogleaLiquid = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("mesoglea_liquid"), modifiedConfig.mesoglea.mesogleaLiquid)
-				.setDefaultValue(defaultConfig.mesoglea.mesogleaLiquid)
-				.setSaveConsumer(newValue -> config.mesoglea.mesogleaLiquid = newValue)
-				.setTooltip(tooltip("mesoglea_liquid"))
-				.build(),
-			config.mesoglea.getClass(),
-			"mesogleaLiquid",
-			configInstance
-		);
-
-		var mesogleaBubbleColumns = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("mesoglea_bubble_columns"), modifiedConfig.mesoglea.mesogleaBubbleColumns)
-				.setDefaultValue(defaultConfig.mesoglea.mesogleaBubbleColumns)
-				.setSaveConsumer(newValue -> config.mesoglea.mesogleaBubbleColumns = newValue)
-				.setTooltip(tooltip("mesoglea_bubble_columns"))
-				.build(),
-			config.mesoglea.getClass(),
-			"mesogleaBubbleColumns",
-			configInstance
-		);
-
-		var mesogleaCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("mesoglea"),
-			false,
-			tooltip("mesoglea"),
-			mesogleaBubbleColumns, mesogleaLiquid
-		);
-
-		var termitesOnlyEatNaturalBlocks = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("termites_only_eat_natural_blocks"), modifiedTermite.onlyEatNaturalBlocks)
-				.setDefaultValue(defaultConfig.termite.onlyEatNaturalBlocks)
-				.setSaveConsumer(newValue -> termite.onlyEatNaturalBlocks = newValue)
-				.setTooltip(tooltip("termites_only_eat_natural_blocks"))
-				.requireRestart()
-				.build(),
-			termite.getClass(),
-			"onlyEatNaturalBlocks",
-			configInstance
-		);
-
-		var maxTermiteDistance = FrozenClothConfig.syncedEntry(
-			entryBuilder.startIntSlider(text("max_termite_distance"), modifiedTermite.maxDistance, 1, 72)
-				.setDefaultValue(defaultConfig.termite.maxDistance)
-				.setSaveConsumer(newValue -> termite.maxDistance = newValue)
-				.setTooltip(tooltip("max_termite_distance"))
-				.build(),
-			termite.getClass(),
-			"maxDistance",
-			configInstance
-		);
-
-		var maxNaturalTermiteDistance = FrozenClothConfig.syncedEntry(
-			entryBuilder.startIntSlider(text("max_natural_termite_distance"), modifiedTermite.maxNaturalDistance, 1, 72)
-				.setDefaultValue(defaultConfig.termite.maxNaturalDistance)
-				.setSaveConsumer(newValue -> termite.maxNaturalDistance = newValue)
-				.setTooltip(tooltip("max_natural_termite_distance"))
-				.build(),
-			termite.getClass(),
-			"maxNaturalDistance",
-			configInstance
-		);
-
-		var termiteCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("termite"),
-			false,
-			tooltip("termite"),
-			termitesOnlyEatNaturalBlocks, maxTermiteDistance, maxNaturalTermiteDistance
-		);
-
-		var stoneChestTimer = FrozenClothConfig.syncedEntry(
-			entryBuilder.startIntSlider(text("stone_chest_timer"), modifiedStoneChest.stoneChestTimer, 50, 200)
-				.setDefaultValue(defaultConfig.stoneChest.stoneChestTimer)
-				.setSaveConsumer(newValue -> stoneChest.stoneChestTimer = newValue)
-				.setTooltip(tooltip("stone_chest_timer"))
-				.build(),
-			stoneChest.getClass(),
-			"stoneChestTimer",
-			configInstance
-		);
-
-		var stoneChestCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("stone_chest"),
-			false,
-			tooltip("stone_chest"),
-			stoneChestTimer
 		);
 	}
 

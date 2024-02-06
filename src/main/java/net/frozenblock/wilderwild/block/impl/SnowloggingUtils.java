@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.block.impl;
 
+import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -41,6 +42,7 @@ public class SnowloggingUtils {
 	public static final int MAX_LAYERS = 8;
 
 	public static boolean supportsSnowlogging(@NotNull BlockState state) {
+		if (!BlockConfig.get().snowloggingConfig.snowlogging) return false;
 		return state.hasProperty(SNOW_LAYERS);
 	}
 

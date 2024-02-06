@@ -23,6 +23,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import java.util.Map;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
@@ -80,10 +81,8 @@ public abstract class WallBlockMixin extends Block {
 		)
 	)
 	public Object wilderWild$getCollisionShape(Map instance, Object o, Operation<Object> original) {
-		if (o instanceof BlockState blockState) {
-			if (SnowloggingUtils.supportsSnowlogging(blockState)) {
-				o = blockState.setValue(RegisterProperties.SNOW_LAYERS, 0);
-			}
+		if (o instanceof BlockState blockState && SnowloggingUtils.supportsSnowlogging(blockState)) {
+			o = blockState.setValue(RegisterProperties.SNOW_LAYERS, 0);
 		}
 		return original.call(instance, o);
 	}
@@ -132,6 +131,7 @@ public abstract class WallBlockMixin extends Block {
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
+		if (!BlockConfig.get().snowloggingConfig.canSnowlogWalls()) return;
 		builder.add(SnowloggingUtils.SNOW_LAYERS);
 	}
 

@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.mixin.snowlogging;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.config.BlockConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -97,6 +98,7 @@ public abstract class FenceGateBlockMixin extends HorizontalDirectionalBlock {
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
+		if (!BlockConfig.get().snowloggingConfig.canSnowlogWalls()) return;
 		builder.add(SnowloggingUtils.SNOW_LAYERS);
 	}
 

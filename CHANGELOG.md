@@ -5,6 +5,9 @@ Thank you!
 Additions
 ---
 
+  - Added snowlogging to some blocks, namely 1-block tall plants, Bushes, Fences, Fence Gates, Walls, Shelf Fungi, and Vines.
+    - Added the `Allow Snowlogging,` `Snowlog Blockades,` and `Natural Snowlogging` config options.
+
 Bug Fixes & Changes
 ---
 
@@ -12,4 +15,5 @@ Bug Fixes & Changes
   - Restricted the placement of multiple features, so they will no longer generate in unwanted places, like on top of structures.
     - Added the `wilderwild:fallen_tree_placeable` tag to control where Fallen Trees can generate.
   - Refactored the `BubbleDirection,` `FlowerColor,` and `SlabWillStairSculkBehavior` classes to the `block.impl` package.
-  - Added snowlogging to some blocks, namely 1-block tall plants, Bushes, Fences, Fence Gates, Walls, Shelf Fungi, and Vines.
+  - The `New Cactus Placement` config is now set to off by default instead of on.
+  - Moved the `Block Sounds` config category to the bottom of the `Block` config.
