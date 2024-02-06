@@ -7,7 +7,6 @@ Additions
 
   - Added snowlogging to some blocks, namely 1-block tall plants, Bushes, Fences, Fence Gates, Walls, Shelf Fungi, and Vines.
     - Added the `Allow Snowlogging,` `Snowlog Blockades,` and `Natural Snowlogging` config options.
-    - Now includes Tumbleweed Stems, Tumbleweed, and Prickly Pears.
 
 Bug Fixes & Changes
 ---

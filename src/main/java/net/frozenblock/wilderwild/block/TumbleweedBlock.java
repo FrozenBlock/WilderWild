@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
-import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.registry.RegisterEntities;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
@@ -141,8 +140,5 @@ public class TumbleweedBlock extends BushBlock implements SimpleWaterloggedBlock
 	@Override
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(WATERLOGGED);
-		if (BlockConfig.get().snowloggingConfig.snowlogging) {
-			builder.add(SnowloggingUtils.SNOW_LAYERS);
-		}
 	}
 }
