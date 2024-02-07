@@ -236,4 +236,20 @@ public abstract class BlockStateBaseMixin {
 		return original.call(instance, blockState, blockGetter, pos) && !(SnowloggingUtils.isSnowlogged(blockState) && SnowloggingUtils.getSnowLayers(blockState) >= SnowloggingUtils.MAX_LAYERS);
 	}
 
+	@Inject(method = "useShapeForLightOcclusion", at = @At("HEAD"), cancellable = true)
+	public void wilderWild$useShapeForLightOcclusion(CallbackInfoReturnable<Boolean> info) {
+		BlockState state = this.asState();
+		if (SnowloggingUtils.isSnowlogged(state) && SnowloggingUtils.getSnowEquivalent(state).useShapeForLightOcclusion()) {
+			info.setReturnValue(true);
+		}
+	}
+
+	@Inject(method = "canOcclude", at = @At("HEAD"), cancellable = true)
+	public void wilderWild$canOcclude(CallbackInfoReturnable<Boolean> info) {
+		BlockState state = this.asState();
+		if (SnowloggingUtils.isSnowlogged(state) && SnowloggingUtils.getSnowEquivalent(state).canOcclude()) {
+			info.setReturnValue(true);
+		}
+	}
+
 }
