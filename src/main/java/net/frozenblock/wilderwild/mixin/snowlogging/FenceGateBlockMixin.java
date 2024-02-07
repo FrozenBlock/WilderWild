@@ -88,14 +88,6 @@ public abstract class FenceGateBlockMixin extends HorizontalDirectionalBlock {
 		}
 	}
 
-	/*
-	@Unique
-	@Override
-	public SoundType getSoundType(BlockState state) {
-		return RegisterProperties.isSnowlogged(state) ? Blocks.SNOW.getSoundType(RegisterProperties.getSnowEquivalent(state)) : super.getSoundType(state);
-	}
-	 */
-
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
 		if (!BlockConfig.get().snowloggingConfig.canSnowlogWalls()) return;

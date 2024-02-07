@@ -87,12 +87,4 @@ public class BushBlockMixin extends Block {
 		}
 	}
 
-	/*
-	@Unique
-	@Override
-	public SoundType getSoundType(BlockState state) {
-		return wilderWild$isSnowlogged(state) ? Blocks.SNOW.getSoundType(wilderWild$getSnowEquivalent(state)) : super.getSoundType(state);
-	}
-	 */
-
 }

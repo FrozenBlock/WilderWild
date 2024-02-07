@@ -41,6 +41,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
@@ -258,6 +259,20 @@ public abstract class BlockStateBaseMixin {
 	public boolean wilderWild$canOcclude(boolean original) {
 		BlockState blockState = this.asState();
 		return original || SnowloggingUtils.isSnowlogged(blockState);
+	}
+
+	@WrapOperation(
+		method = "getSoundType",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/Block;getSoundType(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/SoundType;"
+		)
+	)
+	public SoundType wilderWild$getSoundType(Block instance, BlockState blockState, Operation<SoundType> original) {
+		if (SnowloggingUtils.isSnowlogged(blockState)) {
+			return SnowloggingUtils.getSnowEquivalent(blockState).getSoundType();
+		}
+		return original.call(instance, blockState);
 	}
 
 }

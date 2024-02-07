@@ -82,14 +82,6 @@ public class SugarCaneBlockMixin extends Block {
 		}
 	}
 
-	/*
-	@Unique
-	@Override
-	public SoundType getSoundType(BlockState state) {
-		return wilderWild$isSnowlogged(state) ? Blocks.SNOW.getSoundType(wilderWild$getSnowEquivalent(state)) : super.getSoundType(state);
-	}
-	 */
-
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
 		if (!BlockConfig.get().snowloggingConfig.snowlogging) return;
