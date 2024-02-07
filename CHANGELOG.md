@@ -7,6 +7,7 @@ Additions
 
   - Added snowlogging to some blocks, namely 1-block tall plants, Bushes, Fences, Fence Gates, Walls, Shelf Fungi, and Vines.
     - Added the `Allow Snowlogging,` `Snowlog Blockades,` and `Natural Snowlogging` config options.
+      - To prevent long load times due to excessive blockstates, `Snowlog Blockades` is off by default.
 
 Bug Fixes & Changes
 ---

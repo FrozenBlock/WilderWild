@@ -186,7 +186,7 @@ public final class BlockConfig {
 		public boolean snowlogging = true;
 
 		@EntrySyncData("snowlogWalls")
-		public boolean snowlogWalls = true;
+		public boolean snowlogWalls = false;
 
 		@EntrySyncData("naturalSnowlogging")
 		public boolean naturalSnowlogging = true;
