@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.snowlogging;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -236,20 +237,27 @@ public abstract class BlockStateBaseMixin {
 		return original.call(instance, blockState, blockGetter, pos) && !(SnowloggingUtils.isSnowlogged(blockState) && SnowloggingUtils.getSnowLayers(blockState) >= SnowloggingUtils.MAX_LAYERS);
 	}
 
-	@Inject(method = "useShapeForLightOcclusion", at = @At("HEAD"), cancellable = true)
-	public void wilderWild$useShapeForLightOcclusion(CallbackInfoReturnable<Boolean> info) {
-		BlockState state = this.asState();
-		if (SnowloggingUtils.isSnowlogged(state) && SnowloggingUtils.getSnowEquivalent(state).useShapeForLightOcclusion()) {
-			info.setReturnValue(true);
-		}
+	@WrapOperation(
+		method = "<init>",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/Block;useShapeForLightOcclusion(Lnet/minecraft/world/level/block/state/BlockState;)Z"
+		)
+	)
+	public boolean wilderWild$useShapeForLightOcclusion(Block instance, BlockState blockState, Operation<Boolean> original) {
+		return original.call(instance, blockState) || SnowloggingUtils.isSnowlogged(blockState);
 	}
 
-	@Inject(method = "canOcclude", at = @At("HEAD"), cancellable = true)
-	public void wilderWild$canOcclude(CallbackInfoReturnable<Boolean> info) {
-		BlockState state = this.asState();
-		if (SnowloggingUtils.isSnowlogged(state) && SnowloggingUtils.getSnowEquivalent(state).canOcclude()) {
-			info.setReturnValue(true);
-		}
+	@ModifyExpressionValue(
+		method = "<init>",
+		at = @At(
+			value = "FIELD",
+			target = "Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;canOcclude:Z"
+		)
+	)
+	public boolean wilderWild$canOcclude(boolean original) {
+		BlockState blockState = this.asState();
+		return original || SnowloggingUtils.isSnowlogged(blockState);
 	}
 
 }
