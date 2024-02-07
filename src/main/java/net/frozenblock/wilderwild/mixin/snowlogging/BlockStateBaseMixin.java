@@ -135,14 +135,15 @@ public abstract class BlockStateBaseMixin {
 
 	@ModifyReturnValue(method = "getDrops", at = @At("RETURN"))
 	public List<ItemStack> wilderWild$getDrops(List<ItemStack> original, LootParams.Builder lootParams) {
-        List<ItemStack> finalList = new ArrayList<>(original);
 		BlockState state = this.asState();
 		Entity entity = lootParams.getOptionalParameter(LootContextParams.THIS_ENTITY);
 		if (SnowloggingUtils.isSnowlogged(state) && !(entity instanceof Player)) {
+			List<ItemStack> finalList = new ArrayList<>(original);
 			BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
 			finalList.addAll(snowEquivalent.getDrops(lootParams));
+			return finalList;
 		}
-		return finalList;
+		return original;
 	}
 
 	@ModifyReturnValue(method = "getDestroySpeed", at = @At("RETURN"))

@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.block;
 
+import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -56,11 +57,12 @@ public class WaterloggableTallFlowerBlock extends TallFlowerBlock implements Sim
 
 	@Nullable
 	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+		BlockState blockState = super.getStateForPlacement(context);
 		BlockPos blockPos = context.getClickedPos();
 		Level level = context.getLevel();
 		FluidState fluidState = level.getFluidState(blockPos);
-		return blockPos.getY() < level.getMaxBuildHeight() - 1 && level.getBlockState(blockPos.above()).canBeReplaced(context) ?
-			this.defaultBlockState().setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER) : null;
+		return blockState != null ?
+			SnowloggingUtils.getSnowPlacementState(blockState.setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER), context) : null;
 	}
 
 	@Override

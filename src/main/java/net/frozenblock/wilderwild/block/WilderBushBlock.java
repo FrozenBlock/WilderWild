@@ -44,6 +44,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -230,15 +231,30 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 	@Override
 	@NotNull
 	public BlockState playerWillDestroy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
-		if (isFullyGrown(state) && !level.isClientSide) {
-			if (player.isCreative()) {
-				try {
-					preventDropFromBottomPart(level, pos, state, player);
-				} catch (IllegalArgumentException e) {
+		if (!level.isClientSide && !SnowloggingUtils.isSnowlogged(state)) {
+			boolean creative = player.isCreative();
+			boolean canContinue = true;
+			if (!creative) {
+				if (state.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER) {
+					BlockPos belowPos = pos.below();
+					BlockState belowState = level.getBlockState(belowPos);
+					if (SnowloggingUtils.isSnowlogged(belowState)) {
+						Block.dropResources(state.setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), level, pos, null, player, player.getMainHandItem());
+						canContinue = false;
+					}
+				}
+			}
+
+			if (canContinue && isFullyGrown(state)) {
+				if (creative) {
+					try {
+						preventDropFromBottomPart(level, pos, state, player);
+					} catch (IllegalArgumentException e) {
+						Block.dropResources(state, level, pos, null, player, player.getMainHandItem());
+					}
+				} else {
 					Block.dropResources(state, level, pos, null, player, player.getMainHandItem());
 				}
-			} else {
-				Block.dropResources(state, level, pos, null, player, player.getMainHandItem());
 			}
 		}
 		return super.playerWillDestroy(level, pos, state, player);
