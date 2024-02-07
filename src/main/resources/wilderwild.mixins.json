@@ -87,6 +87,7 @@
     "snowlogging.FenceBlockMixin",
     "snowlogging.FenceGateBlockMixin",
     "snowlogging.PinkPetalsBlockMixin",
+    "snowlogging.PistonBaseBlockMixin",
     "snowlogging.ServerPlayerGameModeMixin",
     "snowlogging.SimpleWaterloggedBlockMixin",
     "snowlogging.SnowLayerBlockMixin",
