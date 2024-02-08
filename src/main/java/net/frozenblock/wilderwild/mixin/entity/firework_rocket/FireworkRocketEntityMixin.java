@@ -52,7 +52,7 @@ public class FireworkRocketEntityMixin {
 	private void wilderWild$moveWithWind(FireworkRocketEntity instance, Vec3 vec3, Operation<Void> operation) {
 		if (FireworkRocketEntity.class.cast(this).level() instanceof ServerLevel level) {
 			double intensity = (Math.max(1, (double) (this.lifetime - this.life)) / Math.max(1, this.lifetime)) * 0.5D;
-			Vec3 wind = WindManager.getWindManager(level).getWindMovement(instance.level(), BlockPos.containing(instance.getX(), instance.getY(), instance.getZ()), intensity)
+			Vec3 wind = WindManager.getWindManager(level).getWindMovement(BlockPos.containing(instance.getX(), instance.getY(), instance.getZ()), intensity)
 				.scale(MiscConfig.get().getParticleWindIntensity())
 				.scale(MiscConfig.get().getFireworkWindIntensity());
 			vec3 = vec3.add(wind.x() * 0.001D, wind.y() * 0.00005D, wind.z() * 0.001D);
