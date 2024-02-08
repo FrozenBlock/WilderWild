@@ -21,12 +21,14 @@ package net.frozenblock.wilderwild.datagen;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import net.minecraft.core.HolderLookup;
 import org.jetbrains.annotations.NotNull;
+import java.util.concurrent.CompletableFuture;
 
 final class WWExperimentBlockLootTableProvider extends FabricBlockLootTableProvider {
 
-	WWExperimentBlockLootTableProvider(@NotNull FabricDataOutput dataOutput) {
-		super(dataOutput);
+	WWExperimentBlockLootTableProvider(@NotNull FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
+		super(output, registryLookup);
 	}
 
 	@Override

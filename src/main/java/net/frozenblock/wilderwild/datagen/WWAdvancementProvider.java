@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.datagen;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
@@ -27,11 +28,12 @@ import net.frozenblock.wilderwild.registry.RegisterItems;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.Component;
 
 public class WWAdvancementProvider extends FabricAdvancementProvider {
-	protected WWAdvancementProvider(FabricDataOutput output) {
-		super(output);
+	protected WWAdvancementProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
+		super(output, registryLookup);
 	}
 
 	@Override

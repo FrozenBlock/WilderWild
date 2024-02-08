@@ -129,9 +129,9 @@ public class AncientHornVibration extends AbstractArrow {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		this.entityData.define(BOUNDING_BOX_MULTIPLIER, 0F);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(BOUNDING_BOX_MULTIPLIER, 0F);
 	}
 
 	public List<Entity> collidingEntities() {
