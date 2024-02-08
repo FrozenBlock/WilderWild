@@ -20,7 +20,6 @@ Bug Fixes & Changes
     - Added the `wilderwild:fallen_tree_placeable` tag to control where Fallen Trees can generate.
   - Refactored the `BubbleDirection,` `FlowerColor,` and `SlabWillStairSculkBehavior` classes to the `block.impl` package.
   - The `New Cactus Placement` config is now set to off by default instead of on.
-  - Changed the Oasis biome's generation to not take up as much space in Deserts.
 
 2.3.1
 ---
