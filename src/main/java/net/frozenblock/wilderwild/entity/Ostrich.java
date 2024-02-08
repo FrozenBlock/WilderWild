@@ -351,7 +351,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping, Sad
 				new AttributeModifier(KNOCKBACK_MODIFIER_UUID, "additional_knockback_rider", beakProgress * ADDITIONAL_KNOCKBACK_RIDER, AttributeModifier.Operation.ADDITION)
 			);
 		}
-		boolean didHurt = entity.hurt(this.damageSources().source(RegisterDamageTypes.OSTRICH, null, commander), beakDamage);
+		boolean didHurt = entity.hurt(this.damageSources().source(RegisterDamageTypes.OSTRICH, commander != null ? commander : this), beakDamage);
 		if (!didHurt) {
 			knockback.removeModifier(KNOCKBACK_MODIFIER_UUID);
 		} else if (entity instanceof LivingEntity livingEntity) {
