@@ -40,7 +40,7 @@ import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
 public class SeedParticle extends TextureSheetParticle {
-	public double windIntensity;
+	public double windIntensity = 0.5D;
 
 	SeedParticle(@NotNull ClientLevel level, @NotNull SpriteSet spriteProvider, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
 		super(level, x, y - 0.125D, z, velocityX, velocityY, velocityZ);
@@ -56,14 +56,13 @@ public class SeedParticle extends TextureSheetParticle {
 	@Override
 	public void tick() {
 		super.tick();
-		this.windIntensity *= 0.945F;
 		BlockPos blockPos = BlockPos.containing(this.x, this.y, this.z);
 		FluidState fluidState = this.level.getBlockState(blockPos).getFluidState();
 		if (!fluidState.isEmpty() && (fluidState.getHeight(this.level, blockPos) + (float) blockPos.getY()) >= this.y) {
 			return;
 		}
-		double multXZ = (this.onGround ? 0.0005D : 0.007D) * this.windIntensity;
-		double multY = (this.onGround ? 0.0005D : 0.0035D) * this.windIntensity;
+		double multXZ = (this.onGround ? 0.00025D : 0.0035D) * this.windIntensity;
+		double multY = (this.onGround ? 0.00025D : 0.00175D) * this.windIntensity;
 		Vec3 wind = ClientWindManager.getWindMovement(this.level,new Vec3(this.x, this.y, this.z), 1D, 7D, 5D).scale(MiscConfig.get().getParticleWindIntensity());
 		this.xd += wind.x() * multXZ;
 		this.yd += (wind.y() + 0.1D) * multY;
@@ -92,7 +91,6 @@ public class SeedParticle extends TextureSheetParticle {
 			seedParticle.zd = (windZ + random.triangle(0D, 0.8D)) / 17D;
 			seedParticle.yd = options.isControlled() ? controlledVelocity.y / 17D : seedParticle.yd;
 			seedParticle.setColor(250F / 255F, 250F / 255F, 250F / 255F);
-			seedParticle.windIntensity = options.isControlled() ? 0.5D : 1D;
 			return seedParticle;
 		}
 	}

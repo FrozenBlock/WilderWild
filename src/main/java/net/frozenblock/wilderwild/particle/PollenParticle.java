@@ -39,7 +39,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class PollenParticle extends TextureSheetParticle {
-	public double windIntensity;
+	public double windIntensity = 0.1D;
 	private float prevScale = 0F;
 	private float scale = 0F;
 	private float targetScale = 0F;
@@ -97,11 +97,10 @@ public class PollenParticle extends TextureSheetParticle {
 			} else {
 				this.targetScale = 1F;
 			}
-			this.windIntensity *= 0.945F;
 			boolean onGround = this.onGround;
 			if (!rain) {
-				double multXZ = (onGround ? 0.0005D : 0.007D) * this.windIntensity;
-				double multY = (onGround ? 0.0005D : 0.0035D) * this.windIntensity;
+				double multXZ = (onGround ? 0.00025D : 0.0035D) * this.windIntensity;
+				double multY = (onGround ? 0.00025D : 0.00175D) * this.windIntensity;
 				Vec3 wind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1D, 7D, 5D).scale(MiscConfig.get().getParticleWindIntensity());
 				this.xd += wind.x() * multXZ;
 				this.yd += (wind.y() + 0.1D) * multY;
@@ -132,7 +131,6 @@ public class PollenParticle extends TextureSheetParticle {
 			pollenParticle.lifetime = Mth.randomBetweenInclusive(clientLevel.random, 500, 1000);
 			pollenParticle.gravity = 0.01F;
 			pollenParticle.setColor(250F / 255F, 171F / 255F, 28F / 255F);
-			pollenParticle.windIntensity = 0.05D;
 			return pollenParticle;
 		}
 	}

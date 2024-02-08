@@ -10,14 +10,17 @@ Additions
 Bug Fixes & Changes
 ---
 
+## Breezes, Wind Charges, and Wind
+   - Tweaked how wind interacts with Pollen and Seed particles to be more obvious
+   - Breezes and Wind Charges now interact with the Wind System
+    - They will now affect particles, Tumbleweed, and Fireflies
+
   - The `wilderwild:small_sponge_grows_on` tag now includes the `wilderwild:mesoglea` tag instead of only the two Pearlescent Mesoglea types.
   - Restricted the placement of multiple features, so they will no longer generate in unwanted places, like on top of structures.
     - Added the `wilderwild:fallen_tree_placeable` tag to control where Fallen Trees can generate.
   - Refactored the `BubbleDirection,` `FlowerColor,` and `SlabWillStairSculkBehavior` classes to the `block.impl` package.
   - The `New Cactus Placement` config is now set to off by default instead of on.
   - Changed the Oasis biome's generation to not take up as much space in Deserts.
-  - Tumbleweed and Particles are now impacted by wind caused by Breezes and Wind Charges.
-
 
 2.3.1
 ---

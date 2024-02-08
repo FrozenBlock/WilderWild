@@ -25,6 +25,7 @@ import java.util.Objects;
 import java.util.Optional;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.sound.api.FrozenSoundPackets;
+import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
 import net.frozenblock.wilderwild.entity.variant.FireflyColor;
 import net.frozenblock.wilderwild.misc.WilderSharedConstants;
@@ -440,6 +441,12 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 			}
 		} else if (this.getAnimScale() < 1.5F) {
 			this.setAnimScale(Math.min(this.getAnimScale() + 0.025F, 1.5F));
+		}
+
+		if (this.level() instanceof ServerLevel serverLevel) {
+			Vec3 wind = WindManager.getWindManager(serverLevel).getWindMovement(this.position(), 1D, 100D, 100D).scale(0.01D);
+			wind = wind.subtract(0D, wind.y * 0.7D, 0D);
+			this.setDeltaMovement(this.getDeltaMovement().add(wind.scale(0.02D)));
 		}
 	}
 
