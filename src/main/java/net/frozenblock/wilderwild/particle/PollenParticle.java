@@ -39,7 +39,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class PollenParticle extends TextureSheetParticle {
-	public double windIntensity = 0.1D;
+	public double windIntensity = 0.2D;
 	private float prevScale = 0F;
 	private float scale = 0F;
 	private float targetScale = 0F;

@@ -11,9 +11,12 @@ Bug Fixes & Changes
 ---
 
 ## Breezes, Wind Charges, and Wind
-   - Tweaked how wind interacts with Pollen and Seed particles to be more obvious
-   - Breezes and Wind Charges now interact with the Wind System
-    - They will now affect particles, Tumbleweed, and Fireflies
+   - Tweaked how wind interacts with Pollen and Seed particles to be more obvious.
+   - Breezes and Wind Charges now interact with the Wind System.
+     - They will now affect particles, Tumbleweed, and Fireflies.
+   - Breezes are immune to Ancient Horn Vibrations.
+   - Tumbleweed will pass through Breezes.
+     - This is controlled by the `wilderwild:tumbleweed_passes_through` tag.
 
   - The `wilderwild:small_sponge_grows_on` tag now includes the `wilderwild:mesoglea` tag instead of only the two Pearlescent Mesoglea types.
   - Restricted the placement of multiple features, so they will no longer generate in unwanted places, like on top of structures.

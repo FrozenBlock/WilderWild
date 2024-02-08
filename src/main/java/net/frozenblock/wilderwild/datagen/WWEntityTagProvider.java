@@ -36,8 +36,63 @@ final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagProvider 
 
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
+		this.getOrCreateTagBuilder(WilderEntityTags.CAN_SWIM_IN_ALGAE)
+			.add(EntityType.SLIME)
+			.add(EntityType.WARDEN)
+			.add(EntityType.WITHER)
+			.add(RegisterEntities.JELLYFISH);
+
 		this.getOrCreateTagBuilder(WilderEntityTags.STAYS_IN_MESOGLEA)
 			.add(RegisterEntities.JELLYFISH);
+
+		this.getOrCreateTagBuilder(WilderEntityTags.JELLYFISH_CANT_STING)
+			.add(EntityType.SQUID)
+			.add(EntityType.GLOW_SQUID)
+			.add(EntityType.DOLPHIN)
+			.add(EntityType.TROPICAL_FISH)
+			.add(EntityType.PUFFERFISH)
+			.add(EntityType.AXOLOTL)
+			.add(EntityType.TURTLE)
+			.add(RegisterEntities.JELLYFISH)
+			.add(RegisterEntities.TUMBLEWEED);
+
+		this.getOrCreateTagBuilder(WilderEntityTags.COCONUT_CANT_BONK)
+			.add(EntityType.SQUID)
+			.add(EntityType.GLOW_SQUID)
+			.add(EntityType.DOLPHIN)
+			.add(EntityType.SPIDER)
+			.add(EntityType.CAVE_SPIDER)
+			.add(EntityType.GHAST)
+			.add(RegisterEntities.FIREFLY)
+			.add(RegisterEntities.JELLYFISH)
+			.add(RegisterEntities.TUMBLEWEED)
+			.add(EntityType.BREEZE);
+
+		this.getOrCreateTagBuilder(WilderEntityTags.COCONUT_CANT_SPLIT)
+			.add(EntityType.SQUID)
+			.add(EntityType.GLOW_SQUID)
+			.add(EntityType.DOLPHIN)
+			.add(EntityType.COD)
+			.add(EntityType.SALMON)
+			.add(EntityType.TROPICAL_FISH)
+			.add(EntityType.PUFFERFISH)
+			.add(EntityType.SPIDER)
+			.add(EntityType.CAVE_SPIDER)
+			.add(EntityType.GHAST)
+			.add(RegisterEntities.FIREFLY)
+			.add(RegisterEntities.JELLYFISH)
+			.add(RegisterEntities.TUMBLEWEED)
+			.add(EntityType.BREEZE);
+
+		this.getOrCreateTagBuilder(WilderEntityTags.ANCIENT_HORN_IMMUNE)
+			.add(EntityType.WITHER)
+			.add(EntityType.WARDEN)
+			.add(EntityType.ENDER_DRAGON)
+			.add(RegisterEntities.TUMBLEWEED)
+			.add(EntityType.BREEZE);
+
+		this.getOrCreateTagBuilder(WilderEntityTags.TUMBLEWEED_PASSES_THROUGH)
+			.add(EntityType.BREEZE);
 
 		this.getOrCreateTagBuilder(EntityTypeTags.CAN_BREATHE_UNDER_WATER)
 			.add(EntityType.WARDEN)

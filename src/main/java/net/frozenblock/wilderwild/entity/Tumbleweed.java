@@ -28,6 +28,7 @@ import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterDamageTypes;
 import net.frozenblock.wilderwild.registry.RegisterSounds;
 import net.frozenblock.wilderwild.tag.WilderBlockTags;
+import net.frozenblock.wilderwild.tag.WilderEntityTags;
 import net.frozenblock.wilderwild.tag.WilderItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -152,6 +153,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 	@Override
 	protected void doPush(@NotNull Entity entity) {
+		if (entity.getType().is(WilderEntityTags.TUMBLEWEED_PASSES_THROUGH)) return;
 		boolean isSmall = entity.getBoundingBox().getSize() < this.getBoundingBox().getSize() * 0.9D;
 		if (entity instanceof Tumbleweed) {
 			super.doPush(entity);
