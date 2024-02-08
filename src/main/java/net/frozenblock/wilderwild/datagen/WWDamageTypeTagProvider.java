@@ -52,5 +52,8 @@ final class WWDamageTypeTagProvider extends FabricTagProvider<DamageType> {
 
 		this.getOrCreateTagBuilder(DamageTypeTags.WITCH_RESISTANT_TO)
 			.add(RegisterDamageTypes.ANCIENT_HORN);
+
+		this.getOrCreateTagBuilder(DamageTypeTags.CAN_BREAK_ARMOR_STAND)
+			.add(RegisterDamageTypes.OSTRICH);
 	}
 }
