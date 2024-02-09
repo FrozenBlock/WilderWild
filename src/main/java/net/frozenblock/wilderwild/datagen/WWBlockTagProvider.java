@@ -275,6 +275,11 @@ final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 			.add(Blocks.CALCITE)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
+		this.getOrCreateTagBuilder(WilderBlockTags.MAGMA_REPLACEABLE)
+			.add(Blocks.GRAVEL)
+			.addOptionalTag(BlockTags.DIRT)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+
 		this.getOrCreateTagBuilder(WilderBlockTags.OASIS_PATH_REPLACEABLE)
 			.add(Blocks.SAND)
 			.add(Blocks.SANDSTONE);

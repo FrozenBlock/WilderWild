@@ -11,6 +11,10 @@
     {
       "id": "wilderwild:arid_savanna",
       "required": false
+    },
+    {
+      "id": "wilderwild:magma_caves",
+      "required": false
     }
   ]
 }

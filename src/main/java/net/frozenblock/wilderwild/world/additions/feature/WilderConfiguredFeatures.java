@@ -465,6 +465,7 @@ public final class WilderConfiguredFeatures {
 	public static final FrozenConfiguredFeature<LargeMesogleaConfig, ConfiguredFeature<LargeMesogleaConfig, ?>> LARGE_MESOGLEA_PURPLE = register("large_mesoglea_purple");
 	public static final FrozenConfiguredFeature<LargeMesogleaConfig, ConfiguredFeature<LargeMesogleaConfig, ?>> LARGE_MESOGLEA_BLUE = register("large_mesoglea_blue");
 	public static final FrozenConfiguredFeature<SmallSpongeFeatureConfig, ConfiguredFeature<SmallSpongeFeatureConfig, ?>> SMALL_SPONGE = register("small_sponges");
+	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> UPSIDE_DOWN_MAGMA = register("upside_down_magma");
 
 	private WilderConfiguredFeatures() {
 		throw new UnsupportedOperationException("WilderConfiguredFeatures contains only static declarations.");
@@ -2138,6 +2139,21 @@ public final class WilderConfiguredFeatures {
 				true,
 				true,
 				WilderBlockTags.SMALL_SPONGE_GROWS_ON
+			)
+		);
+
+		UPSIDE_DOWN_MAGMA.makeAndSetHolder(Feature.VEGETATION_PATCH,
+			new VegetationPatchConfiguration(
+				WilderBlockTags.MAGMA_REPLACEABLE,
+				BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState()),
+				PlacementUtils.inlinePlaced(WilderMiscConfigured.DOWNWARDS_MAGMA_COLUMN.getHolder()),
+				CaveSurface.CEILING,
+				ConstantInt.of(3),
+				0.8F,
+				2,
+				0.08F,
+				UniformInt.of(2, 6),
+				0.7F
 			)
 		);
 	}

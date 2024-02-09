@@ -108,6 +108,11 @@ public final class WilderMiscPlaced {
 	public static final FrozenPlacedFeature PURPLE_MESOGLEA_PILLAR = register("purple_mesoglea_pillar");
 	public static final FrozenPlacedFeature BLUE_MESOGLEA_PATH = register("blue_mesoglea_path");
 	public static final FrozenPlacedFeature PURPLE_MESOGLEA_PATH = register("purple_mesoglea_path");
+	// MAGMA CAVES
+	public static final FrozenPlacedFeature MAGMA_LAVA_POOL = register("magma_lava_pool");
+	public static final FrozenPlacedFeature ORE_MAGMA = register("ore_magma");
+	public static final FrozenPlacedFeature MAGMA_PATH = register("magma_path");
+	public static final FrozenPlacedFeature MAGMA_DISK = register("magma_disk");
 	// OASIS
 	public static final FrozenPlacedFeature SAND_POOL = register("sand_pool");
 	public static final FrozenPlacedFeature MESSY_SAND_POOL = register("messy_sand_pool");
@@ -499,6 +504,29 @@ public final class WilderMiscPlaced {
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.top()),
 			BiomeFilter.biome()
+		);
+
+		// MAGMA CAVES
+
+		MAGMA_LAVA_POOL.makeAndSetHolder(WilderMiscConfigured.MAGMA_LAVA_POOL.getHolder(),
+			CountPlacement.of(4),
+			InSquarePlacement.spread(),
+			HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(5), VerticalAnchor.aboveBottom(60)),
+			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
+			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			BiomeFilter.biome()
+		);
+
+		ORE_MAGMA.makeAndSetHolder(WilderMiscConfigured.ORE_MAGMA.getHolder(),
+			modifiersWithCount(1, HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(0)))
+		);
+
+		MAGMA_PATH.makeAndSetHolder(WilderMiscConfigured.MAGMA_PATH.getHolder(),
+			modifiersWithCount(1, HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-12)))
+		);
+
+		MAGMA_DISK.makeAndSetHolder(WilderMiscConfigured.MAGMA_DISK.getHolder(),
+			modifiersWithCount(5, HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-12)))
 		);
 
 		// OASIS

@@ -38,10 +38,12 @@ import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
+import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.NoiseThresholdCountPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
@@ -256,6 +258,7 @@ public final class WilderPlacedFeatures {
 	public static final FrozenPlacedFeature MESOGLEA_CLUSTER_BLUE = register("mesoglea_cluster_blue");
 	public static final FrozenPlacedFeature LARGE_MESOGLEA_PURPLE = register("large_mesoglea_purple");
 	public static final FrozenPlacedFeature LARGE_MESOGLEA_BLUE = register("large_mesoglea_blue");
+	public static final FrozenPlacedFeature UPSIDE_DOWN_MAGMA = register("upside_down_magma");
 	public static final FrozenPlacedFeature SMALL_SPONGES = register("small_sponges");
 	public static final FrozenPlacedFeature SMALL_SPONGES_RARE = register("small_sponges_rare");
 	public static final FrozenPlacedFeature PATCH_MELON = register("patch_melon");
@@ -1337,6 +1340,15 @@ public final class WilderPlacedFeatures {
 		LARGE_MESOGLEA_BLUE.makeAndSetHolder(WilderConfiguredFeatures.LARGE_MESOGLEA_BLUE.getHolder(),
 			CountPlacement.of(UniformInt.of(1, 5)), RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome()
+		);
+
+		UPSIDE_DOWN_MAGMA.makeAndSetHolder(WilderConfiguredFeatures.UPSIDE_DOWN_MAGMA.getHolder(),
+			CountPlacement.of(9),
+			InSquarePlacement.spread(),
+			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-12)),
+			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 4),
+			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			BiomeFilter.biome()
 		);
 
 		SMALL_SPONGES.makeAndSetHolder(WilderConfiguredFeatures.SMALL_SPONGE.getHolder(),

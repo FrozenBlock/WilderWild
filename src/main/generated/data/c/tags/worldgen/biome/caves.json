@@ -3,6 +3,10 @@
     {
       "id": "wilderwild:jellyfish_caves",
       "required": false
+    },
+    {
+      "id": "wilderwild:magma_caves",
+      "required": false
     }
   ]
 }

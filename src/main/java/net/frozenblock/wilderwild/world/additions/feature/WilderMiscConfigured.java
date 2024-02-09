@@ -133,6 +133,14 @@ public final class WilderMiscConfigured {
 	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> BLUE_MESOGLEA_PATH = register("blue_mesoglea_path");
 	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> PURPLE_MESOGLEA_PATH = register("purple_mesoglea_path");
 
+	// MAGMA CAVES
+	public static final FrozenConfiguredFeature<OreConfiguration, ConfiguredFeature<OreConfiguration, ?>> ORE_MAGMA = register("ore_magma");
+	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> MAGMA_LAVA_POOL = register("magma_lava_pool");
+	public static final FrozenConfiguredFeature<PathFeatureConfig, ConfiguredFeature<PathFeatureConfig, ?>> MAGMA_PATH = register("magma_path");
+	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> MAGMA_DISK = register("magma_disk");
+	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> MAGMA_COLUMN = register("magma_column");
+	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> DOWNWARDS_MAGMA_COLUMN = register("downwards_magma_column");
+
 	// OASIS
 	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> SAND_POOL = register("sand_pool");
 	public static final FrozenConfiguredFeature<LakeFeature.Configuration, ConfiguredFeature<LakeFeature.Configuration, ?>> MESSY_SAND_POOL = register("messy_sand_pool");
@@ -753,6 +761,8 @@ public final class WilderMiscConfigured {
 			)
 		);
 
+		// JELLYFISH CAVES
+
 		ORE_CALCITE.makeAndSetHolder(Feature.ORE,
 			new OreConfiguration(
 				NATURAL_STONE,
@@ -874,6 +884,88 @@ public final class WilderMiscConfigured {
 					WilderBlockTags.MESOGLEA_PATH_REPLACEABLE
 				),
 				1F
+			)
+		);
+
+		// MAGMA CAVES
+		ORE_MAGMA.makeAndSetHolder(Feature.ORE,
+			new OreConfiguration(
+				NATURAL_STONE,
+				Blocks.MAGMA_BLOCK.defaultBlockState(),
+				24
+			)
+		);
+
+		MAGMA_LAVA_POOL.makeAndSetHolder(FrozenFeatures.CIRCULAR_LAVA_VEGETATION_PATCH_LESS_BORDERS,
+			new VegetationPatchConfiguration(
+				WilderBlockTags.MAGMA_REPLACEABLE,
+				BlockStateProvider.simple(Blocks.MAGMA_BLOCK),
+				PlacementUtils.inlinePlaced(MAGMA_COLUMN.getHolder()),
+				CaveSurface.FLOOR,
+				ConstantInt.of(4),
+				0.8F,
+				2,
+				0.08F,
+				UniformInt.of(3, 10),
+				0.7F
+			)
+		);
+
+		MAGMA_PATH.makeAndSetHolder(FrozenFeatures.NOISE_PATH_FEATURE,
+			new PathFeatureConfig(
+				BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState()),
+				10,
+				4,
+				0.025D,
+				-0.8D,
+				-0.7D,
+				true,
+				true,
+				true,
+				false,
+				new HolderSet.Named<>(
+					BuiltInRegistries.BLOCK.holderOwner(),
+					WilderBlockTags.MAGMA_REPLACEABLE
+				),
+				1F
+			)
+		);
+
+		MAGMA_DISK.makeAndSetHolder(FrozenFeatures.FADING_DISK_TAG_FEATURE,
+			new FadingDiskTagFeatureConfig(
+				false,
+				BlockStateProvider.simple(Blocks.OBSIDIAN.defaultBlockState()),
+				BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState()),
+				UniformInt.of(2, 6),
+				0.8F,
+				0.7F,
+				0.325F,
+				0.675F,
+				WilderBlockTags.MAGMA_REPLACEABLE,
+				WilderBlockTags.MAGMA_REPLACEABLE,
+				Heightmap.Types.OCEAN_FLOOR_WG
+			)
+		);
+
+		MAGMA_COLUMN.makeAndSetHolder(FrozenFeatures.UPWARDS_COLUMN_FEATURE,
+			new ColumnFeatureConfig(
+				Blocks.MAGMA_BLOCK.defaultBlockState(),
+				UniformInt.of(1, 2),
+				HolderSet.direct(
+					Blocks.MAGMA_BLOCK.builtInRegistryHolder(),
+					Blocks.WATER.builtInRegistryHolder()
+				)
+			)
+		);
+
+		DOWNWARDS_MAGMA_COLUMN.makeAndSetHolder(FrozenFeatures.DOWNWARDS_COLUMN_FEATURE,
+			new ColumnFeatureConfig(
+				Blocks.MAGMA_BLOCK.defaultBlockState(),
+				UniformInt.of(1, 4),
+				HolderSet.direct(
+					Blocks.MAGMA_BLOCK.builtInRegistryHolder(),
+					Blocks.WATER.builtInRegistryHolder()
+				)
 			)
 		);
 
