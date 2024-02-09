@@ -53,6 +53,7 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.LakeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockPileConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.ColumnFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.DiskConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
@@ -147,6 +148,9 @@ public final class WilderMiscConfigured {
 	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> DOWNWARDS_MAGMA_COLUMN = register("downwards_magma_column");
 	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FIRE_PATCH_MAGMA = register("fire_patch_magma");
 	public static final FrozenConfiguredFeature<BlockPileConfiguration, ConfiguredFeature<BlockPileConfiguration, ?>> BASALT_PILE = register("basalt_pile");
+	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> DOWNWARDS_BASALT_COLUMN = register("downwards_basalt_column");
+	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> BASALT_COLUMN = register("basalt_column");
+	public static final FrozenConfiguredFeature<ColumnFeatureConfiguration, ConfiguredFeature<ColumnFeatureConfiguration, ?>> BASALT_SPIKE = register("basalt_spike");
 
 	// OASIS
 	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> SAND_POOL = register("sand_pool");
@@ -1038,6 +1042,35 @@ public final class WilderMiscConfigured {
 					Blocks.LAVA.builtInRegistryHolder(),
 					Blocks.WATER.builtInRegistryHolder()
 				)
+			)
+		);
+
+		DOWNWARDS_BASALT_COLUMN.makeAndSetHolder(FrozenFeatures.DOWNWARDS_COLUMN_FEATURE,
+			new ColumnFeatureConfig(
+				Blocks.BASALT.defaultBlockState(),
+				UniformInt.of(1, 6),
+				HolderSet.direct(
+					Blocks.LAVA.builtInRegistryHolder(),
+					Blocks.WATER.builtInRegistryHolder()
+				)
+			)
+		);
+
+		BASALT_COLUMN.makeAndSetHolder(FrozenFeatures.UPWARDS_COLUMN_FEATURE,
+			new ColumnFeatureConfig(
+				Blocks.BASALT.defaultBlockState(),
+				UniformInt.of(1, 6),
+				HolderSet.direct(
+					Blocks.LAVA.builtInRegistryHolder(),
+					Blocks.WATER.builtInRegistryHolder()
+				)
+			)
+		);
+
+		BASALT_SPIKE.makeAndSetHolder(Feature.BASALT_COLUMNS,
+			new ColumnFeatureConfiguration(
+				UniformInt.of(0, 2),
+				UniformInt.of(1, 3)
 			)
 		);
 

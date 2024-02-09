@@ -162,6 +162,8 @@ public final class MagmaCaves extends FrozenBiome {
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.MAGMA_DISK.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.OBSIDIAN_DISK.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.BASALT_PILE.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.BASALT_SPIKE.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WilderMiscPlaced.DOWNWARDS_BASALT_COLUMN.getKey());
 		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.MAGMA_PATH.getKey());
 		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WilderMiscPlaced.FIRE_PATCH_MAGMA.getKey());
 	}

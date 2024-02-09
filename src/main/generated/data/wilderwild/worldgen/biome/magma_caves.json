@@ -92,7 +92,9 @@
       "wilderwild:upside_down_magma",
       "wilderwild:magma_disk",
       "wilderwild:obsidian_disk",
-      "wilderwild:basalt_pile"
+      "wilderwild:basalt_pile",
+      "wilderwild:basalt_spike",
+      "wilderwild:downwards_basalt_column"
     ],
     [
       "wilderwild:lava_spring_extra"
