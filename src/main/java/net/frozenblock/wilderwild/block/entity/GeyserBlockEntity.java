@@ -60,15 +60,106 @@ public class GeyserBlockEntity extends BlockEntity {
 		this.updateSync();
 	}
 
-	public void tickClient(@NotNull Level level, @NotNull BlockPos pos, GeyserType geyserType) {
+	public void tickClient(@NotNull Level level, @NotNull BlockPos pos, GeyserType geyserType, RandomSource random) {
 		if (!GeyserBlock.isInactive(geyserType)) {
-			RandomSource random = level.getRandom();
-			spawnBaseParticles(level, pos.above(), random);
+			if (this.geyserStage == GeyserStage.DORMANT) {
+				spawnDormantParticles(level, pos.above(), geyserType, random);
+			} else if (this.geyserStage == GeyserStage.ACTIVE) {
+				spawnActiveParticles(level, pos.above(), geyserType, random);
+			} else if (this.geyserStage == GeyserStage.ERUPTING) {
+
+			}
 		}
 	}
 
-	public static void spawnBaseParticles(@NotNull Level level, BlockPos blockPos, RandomSource random) {
-		if (random.nextFloat() <= 0.05F) {
+	public static void spawnDormantParticles(@NotNull Level level, BlockPos blockPos, GeyserType geyserType, RandomSource random) {
+		if (geyserType == GeyserType.WATER && random.nextFloat() <= 0.0235F) {
+			level.addAlwaysVisibleParticle(
+				ParticleTypes.BUBBLE,
+				true,
+				blockPos.getX() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
+				blockPos.getY(),
+				blockPos.getZ() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
+				0D,
+				(random.nextFloat() * 0.04D) + 0.06D,
+				0D
+			);
+		}
+		if (random.nextFloat() <= 0.0125F) {
+			level.addAlwaysVisibleParticle(
+				ParticleTypes.CAMPFIRE_COSY_SMOKE,
+				true,
+				blockPos.getX() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
+				blockPos.getY(),
+				blockPos.getZ() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
+				0D,
+				(random.nextFloat() * 0.04D) + 0.06D,
+				0D
+			);
+		}
+	}
+
+	public static void spawnActiveParticles(@NotNull Level level, BlockPos blockPos, GeyserType geyserType, RandomSource random) {
+		if (geyserType == GeyserType.WATER) {
+			if (random.nextFloat() <= 0.0575F) {
+				level.addAlwaysVisibleParticle(
+					ParticleTypes.BUBBLE,
+					true,
+					blockPos.getX() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
+					blockPos.getY(),
+					blockPos.getZ() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
+					0D,
+					(random.nextFloat() * 0.04D) + 0.06D,
+					0D
+				);
+			}
+		} else {
+			if (random.nextFloat() <= 0.0575F) {
+				int count = random.nextInt(1, 2);
+				for (int i = 0; i < count; i++) {
+					level.addAlwaysVisibleParticle(
+						ParticleTypes.LARGE_SMOKE,
+						true,
+						blockPos.getX() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
+						blockPos.getY(),
+						blockPos.getZ() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
+						0D,
+						(random.nextFloat() * 0.04D) + 0.06D,
+						0D
+					);
+				}
+			}
+			if (random.nextFloat() <= 0.0575F) {
+				int count = random.nextInt(1, 4);
+				for (int i = 0; i < count; i++) {
+					level.addAlwaysVisibleParticle(
+						ParticleTypes.DUST_PLUME,
+						true,
+						blockPos.getX() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
+						blockPos.getY(),
+						blockPos.getZ() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
+						0D,
+						(random.nextFloat() * 0.04D) + 0.06D,
+						0D
+					);
+				}
+			}
+			if (geyserType == GeyserType.LAVA) {
+				if (random.nextFloat() <= 0.0575F) {
+					level.addAlwaysVisibleParticle(
+						ParticleTypes.LAVA,
+						true,
+						blockPos.getX() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
+						blockPos.getY(),
+						blockPos.getZ() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
+						0D,
+						(random.nextFloat() * 0.08D) + 0.06D,
+						0D
+					);
+				}
+			}
+		}
+		if (random.nextFloat() <= 0.0375F) {
 			level.addAlwaysVisibleParticle(
 				ParticleTypes.CAMPFIRE_COSY_SMOKE,
 				true,
