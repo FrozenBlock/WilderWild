@@ -140,6 +140,7 @@ public final class WilderMiscConfigured {
 	public static final FrozenConfiguredFeature<FadingDiskTagFeatureConfig, ConfiguredFeature<FadingDiskTagFeatureConfig, ?>> MAGMA_DISK = register("magma_disk");
 	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> MAGMA_COLUMN = register("magma_column");
 	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> DOWNWARDS_MAGMA_COLUMN = register("downwards_magma_column");
+	public static final FrozenConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FIRE_PATCH_MAGMA = register("fire_patch_magma");
 
 	// OASIS
 	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> SAND_POOL = register("sand_pool");
@@ -953,6 +954,7 @@ public final class WilderMiscConfigured {
 				UniformInt.of(1, 2),
 				HolderSet.direct(
 					Blocks.MAGMA_BLOCK.builtInRegistryHolder(),
+					Blocks.LAVA.builtInRegistryHolder(),
 					Blocks.WATER.builtInRegistryHolder()
 				)
 			)
@@ -964,8 +966,15 @@ public final class WilderMiscConfigured {
 				UniformInt.of(1, 4),
 				HolderSet.direct(
 					Blocks.MAGMA_BLOCK.builtInRegistryHolder(),
+					Blocks.LAVA.builtInRegistryHolder(),
 					Blocks.WATER.builtInRegistryHolder()
 				)
+			)
+		);
+
+		FIRE_PATCH_MAGMA.makeAndSetHolder(Feature.RANDOM_PATCH,
+			FeatureUtils.simplePatchConfiguration(
+				Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.FIRE)), List.of(Blocks.MAGMA_BLOCK)
 			)
 		);
 

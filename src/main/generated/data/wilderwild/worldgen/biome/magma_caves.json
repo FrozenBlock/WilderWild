@@ -34,12 +34,15 @@
     [],
     [
       "wilderwild:magma_lava_pool",
+      "wilderwild:lava_lake_extra",
+      "wilderwild:lava_spring_extra",
       "minecraft:lake_lava_underground",
       "minecraft:lake_lava_surface"
     ],
     [
       "minecraft:amethyst_geode",
-      "wilderwild:magma_path"
+      "wilderwild:magma_path",
+      "wilderwild:fire_patch_magma"
     ],
     [
       "minecraft:monster_room_deep"

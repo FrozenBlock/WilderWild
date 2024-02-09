@@ -10,6 +10,7 @@
     },
     "replaceable_blocks": [
       "minecraft:magma_block",
+      "minecraft:lava",
       "minecraft:water"
     ],
     "state": {

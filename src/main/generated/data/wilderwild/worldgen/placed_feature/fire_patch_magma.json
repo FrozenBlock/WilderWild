@@ -1,9 +1,15 @@
 {
-  "feature": "wilderwild:magma_disk",
+  "feature": "wilderwild:fire_patch_magma",
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 6
+      "count": {
+        "type": "minecraft:uniform",
+        "value": {
+          "max_inclusive": 20,
+          "min_inclusive": 12
+        }
+      }
     },
     {
       "type": "minecraft:in_square"
