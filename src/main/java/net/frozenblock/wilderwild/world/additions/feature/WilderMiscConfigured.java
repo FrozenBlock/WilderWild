@@ -1070,7 +1070,7 @@ public final class WilderMiscConfigured {
 		BASALT_SPIKE.makeAndSetHolder(Feature.BASALT_COLUMNS,
 			new ColumnFeatureConfiguration(
 				UniformInt.of(0, 2),
-				UniformInt.of(1, 3)
+				UniformInt.of(2, 4)
 			)
 		);
 

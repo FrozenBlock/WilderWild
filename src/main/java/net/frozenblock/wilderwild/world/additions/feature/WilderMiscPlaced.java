@@ -537,14 +537,14 @@ public final class WilderMiscPlaced {
 		);
 
 		LAVA_SPRING_EXTRA.makeAndSetHolder(configuredFeatures.getOrThrow(MiscOverworldFeatures.SPRING_LAVA_OVERWORLD),
-			CountPlacement.of(UniformInt.of(10, 23)),
+			CountPlacement.of(UniformInt.of(18, 25)),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-12)),
 			BiomeFilter.biome()
 		);
 
 		FIRE_PATCH_MAGMA.makeAndSetHolder(WilderMiscConfigured.FIRE_PATCH_MAGMA.getHolder(),
-			CountPlacement.of(UniformInt.of(25, 40)),
+			CountPlacement.of(UniformInt.of(25, 33)),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-12)),
 			BiomeFilter.biome()
