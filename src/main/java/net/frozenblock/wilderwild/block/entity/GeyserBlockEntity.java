@@ -101,17 +101,20 @@ public class GeyserBlockEntity extends BlockEntity {
 
 	public static void spawnActiveParticles(@NotNull Level level, BlockPos blockPos, GeyserType geyserType, RandomSource random) {
 		if (geyserType == GeyserType.WATER) {
-			if (random.nextFloat() <= 0.0575F) {
-				level.addAlwaysVisibleParticle(
-					ParticleTypes.BUBBLE,
-					true,
-					blockPos.getX() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
-					blockPos.getY(),
-					blockPos.getZ() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
-					0D,
-					(random.nextFloat() * 0.04D) + 0.06D,
-					0D
-				);
+			if (random.nextFloat() <= 0.06F) {
+				int count = random.nextInt(1, 3);
+				for (int i = 0; i < count; i++) {
+					level.addAlwaysVisibleParticle(
+						ParticleTypes.BUBBLE,
+						true,
+						blockPos.getX() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
+						blockPos.getY(),
+						blockPos.getZ() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
+						0D,
+						(random.nextFloat() * 0.04D) + 0.06D,
+						0D
+					);
+				}
 			}
 		} else {
 			if (random.nextFloat() <= 0.0575F) {
@@ -129,7 +132,7 @@ public class GeyserBlockEntity extends BlockEntity {
 					);
 				}
 			}
-			if (random.nextFloat() <= 0.0575F) {
+			if (random.nextFloat() <= 0.125F) {
 				int count = random.nextInt(1, 4);
 				for (int i = 0; i < count; i++) {
 					level.addAlwaysVisibleParticle(
@@ -145,7 +148,7 @@ public class GeyserBlockEntity extends BlockEntity {
 				}
 			}
 			if (geyserType == GeyserType.LAVA) {
-				if (random.nextFloat() <= 0.0575F) {
+				if (random.nextFloat() <= 0.0875F) {
 					level.addAlwaysVisibleParticle(
 						ParticleTypes.LAVA,
 						true,
