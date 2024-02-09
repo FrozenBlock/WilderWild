@@ -116,6 +116,7 @@ public final class WilderMiscPlaced {
 	public static final FrozenPlacedFeature LAVA_SPRING_EXTRA = register("lava_spring_extra");
 	public static final FrozenPlacedFeature FIRE_PATCH_MAGMA = register("fire_patch_magma");
 	public static final FrozenPlacedFeature BASALT_PILE = register("basalt_pile");
+	public static final FrozenPlacedFeature GEYSER_PILE = register("geyser_pile");
 	public static final FrozenPlacedFeature DOWNWARDS_BASALT_COLUMN = register("downwards_basalt_column");
 	public static final FrozenPlacedFeature BASALT_SPIKE = register("basalt_spike");
 	public static final FrozenPlacedFeature LAVA_LAKE_EXTRA = register("lava_lake_extra");
@@ -558,6 +559,14 @@ public final class WilderMiscPlaced {
 			BiomeFilter.biome()
 		);
 
+		GEYSER_PILE.makeAndSetHolder(WilderMiscConfigured.GEYSER_PILE.getHolder(),
+			CountPlacement.of(UniformInt.of(3, 6)),
+			InSquarePlacement.spread(),
+			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-12)),
+			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),
+			BiomeFilter.biome()
+		);
+
 		DOWNWARDS_BASALT_COLUMN.makeAndSetHolder(WilderMiscConfigured.DOWNWARDS_BASALT_COLUMN.getHolder(),
 			CountPlacement.of(UniformInt.of(4, 12)),
 			InSquarePlacement.spread(),
@@ -567,7 +576,7 @@ public final class WilderMiscPlaced {
 		);
 
 		BASALT_SPIKE.makeAndSetHolder(WilderMiscConfigured.BASALT_SPIKE.getHolder(),
-			CountPlacement.of(UniformInt.of(1, 5)),
+			CountPlacement.of(UniformInt.of(2, 5)),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-24)),
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),

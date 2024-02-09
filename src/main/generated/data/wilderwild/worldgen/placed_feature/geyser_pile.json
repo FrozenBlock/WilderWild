@@ -1,13 +1,13 @@
 {
-  "feature": "wilderwild:basalt_spike",
+  "feature": "wilderwild:geyser_pile",
   "placement": [
     {
       "type": "minecraft:count",
       "count": {
         "type": "minecraft:uniform",
         "value": {
-          "max_inclusive": 5,
-          "min_inclusive": 2
+          "max_inclusive": 6,
+          "min_inclusive": 3
         }
       }
     },
@@ -19,7 +19,7 @@
       "height": {
         "type": "minecraft:uniform",
         "max_inclusive": {
-          "absolute": -24
+          "absolute": -12
         },
         "min_inclusive": {
           "absolute": -54

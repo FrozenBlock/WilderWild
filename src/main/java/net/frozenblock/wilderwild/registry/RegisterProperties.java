@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.block.impl.BubbleDirection;
 import net.frozenblock.wilderwild.block.impl.FlowerColor;
+import net.frozenblock.wilderwild.block.impl.GeyserType;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -62,7 +63,7 @@ public final class RegisterProperties {
 	public static final BooleanProperty CRACKED = BooleanProperty.create("cracked");
 
 	//Geyser
-	public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
+	public static final EnumProperty<GeyserType> GEYSER_TYPE = EnumProperty.create("geyser_type", GeyserType.class);
 
 	//Vanilla Blocks
 	public static final IntegerProperty SOULS_TAKEN = IntegerProperty.create("souls_taken", 0, 2); //Sculk Shrieker

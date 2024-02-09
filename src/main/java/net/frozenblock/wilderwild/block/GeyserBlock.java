@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.block;
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.block.entity.GeyserBlockEntity;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
+import net.frozenblock.wilderwild.block.impl.GeyserType;
 import net.frozenblock.wilderwild.registry.RegisterBlockEntities;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
@@ -46,11 +47,10 @@ import org.jetbrains.annotations.Nullable;
 
 public class GeyserBlock extends BaseEntityBlock {
 	public static final MapCodec<GeyserBlock> CODEC = simpleCodec(GeyserBlock::new);
-	public static final int MIN_PLACEMENT_TICK_DELAY = 5;
-	public static final int MAX_PLACEMENT_TICK_DELAY = 20;
 
 	public GeyserBlock(@NotNull Properties settings) {
 		super(settings);
+		this.registerDefaultState(this.getStateDefinition().any().setValue(RegisterProperties.GEYSER_TYPE, GeyserType.NONE));
 	}
 
 	@NotNull
@@ -67,24 +67,19 @@ public class GeyserBlock extends BaseEntityBlock {
 
 	@Override
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(RegisterProperties.ACTIVE);
+		builder.add(RegisterProperties.GEYSER_TYPE);
 	}
 
 	@Override
 	@NotNull
 	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
 		if (direction.equals(Direction.UP)) {
-			boolean isSafe = canBeActive(level, neighborPos);
-			if (isSafe != state.getValue(RegisterProperties.ACTIVE)) {
-				state = state.setValue(RegisterProperties.ACTIVE, isSafe);
+			GeyserType geyserType = getGeyserTypeForPos(level, currentPos);
+			if (geyserType != state.getValue(RegisterProperties.GEYSER_TYPE)) {
+				state = state.setValue(RegisterProperties.GEYSER_TYPE, geyserType);
 			}
 		}
 		return state;
-	}
-
-	@Override
-	public void onPlace(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState oldState, boolean isMoving) {
-		level.scheduleTick(pos, this, level.random.nextInt(MIN_PLACEMENT_TICK_DELAY, MAX_PLACEMENT_TICK_DELAY));
 	}
 
 	@Override
@@ -92,32 +87,44 @@ public class GeyserBlock extends BaseEntityBlock {
 		super.onRemove(state, level, pos, newState, isMoving);
 	}
 
-	public static boolean canBeActive(@NotNull LevelAccessor level, @NotNull BlockPos otherBlockPos) {
-		BlockState state = level.getBlockState(otherBlockPos);
-		return state.is(Blocks.WATER) || state.is(Blocks.LAVA) || state.isAir();
+	public static GeyserType getGeyserTypeForPos(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
+		BlockPos abovePos = pos.above();
+		BlockState state = level.getBlockState(abovePos);
+		if (state.is(Blocks.WATER)) {
+			return GeyserType.WATER;
+		} else if (state.is(Blocks.LAVA)) {
+			return GeyserType.LAVA;
+		} else if (state.isAir()) {
+			return GeyserType.AIR;
+		}
+		return GeyserType.NONE;
 	}
 
 	@Override
 	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		boolean canBeActive = canBeActive(level, pos.above());
-		if (canBeActive != state.getValue(RegisterProperties.ACTIVE)) {
-			level.setBlock(pos, state.setValue(RegisterProperties.ACTIVE, canBeActive), UPDATE_ALL);
+		GeyserType geyserType = getGeyserTypeForPos(level, pos);
+		if (geyserType != state.getValue(RegisterProperties.GEYSER_TYPE)) {
+			level.setBlock(pos, state.setValue(RegisterProperties.GEYSER_TYPE, geyserType), UPDATE_ALL);
 		}
 	}
 
 	@Override
 	public void animateTick(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull RandomSource randomSource) {
-		if (blockState.getValue(RegisterProperties.ACTIVE)) {
-			level.addAlwaysVisibleParticle(
-				ParticleTypes.WHITE_SMOKE,
-				true,
-				(double) blockPos.getX() + 0.5D + randomSource.nextDouble() / 3D * (randomSource.nextBoolean() ? 1D : -1D),
-				blockPos.getY() + 1D,
-				(double) blockPos.getZ() + 0.5D + randomSource.nextDouble() / 3D * (randomSource.nextBoolean() ? 1D : -1D),
-				0D,
-				(randomSource.nextFloat() * 0.004D) + 0.003D,
-				0D
-			);
+		GeyserType geyserType = blockState.getValue(RegisterProperties.GEYSER_TYPE);
+		if (!isInactive(geyserType)) {
+			int count = randomSource.nextInt(2, 5);
+			for (int i = 0; i < count; i++) {
+				level.addAlwaysVisibleParticle(
+					ParticleTypes.WHITE_SMOKE,
+					true,
+					(double) blockPos.getX() + 0.5D + randomSource.nextDouble() / 3D * (randomSource.nextBoolean() ? 1D : -1D),
+					blockPos.getY() + 1D,
+					(double) blockPos.getZ() + 0.5D + randomSource.nextDouble() / 3D * (randomSource.nextBoolean() ? 1D : -1D),
+					0D,
+					(randomSource.nextFloat() * 0.004D) + 0.003D,
+					0D
+				);
+			}
 		}
 	}
 
@@ -129,12 +136,20 @@ public class GeyserBlock extends BaseEntityBlock {
 
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
-		return !level.isClientSide ? createTickerHelper(type, RegisterBlockEntities.GEYSER, (worldx, pos, statex, blockEntity) -> blockEntity.tickServer(worldx, pos, statex.getValue(RegisterProperties.ACTIVE)))
-			: createTickerHelper(type, RegisterBlockEntities.GEYSER, (worldx, pos, statex, blockEntity) -> blockEntity.tickClient(worldx, pos, statex.getValue(RegisterProperties.ACTIVE)));
+		return !level.isClientSide ? createTickerHelper(type, RegisterBlockEntities.GEYSER, (worldx, pos, statex, blockEntity) -> blockEntity.tickServer(worldx, pos, statex.getValue(RegisterProperties.GEYSER_TYPE), worldx.random))
+			: createTickerHelper(type, RegisterBlockEntities.GEYSER, (worldx, pos, statex, blockEntity) -> blockEntity.tickClient(worldx, pos, statex.getValue(RegisterProperties.GEYSER_TYPE)));
 	}
 
 	@Override
 	protected boolean isPathfindable(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, PathComputationType pathComputationType) {
 		return false;
+	}
+
+	public static boolean isInactive(@NotNull BlockState state) {
+		return isInactive(state.getValue(RegisterProperties.GEYSER_TYPE));
+	}
+
+	public static boolean isInactive(GeyserType geyserType) {
+		return geyserType == GeyserType.NONE;
 	}
 }

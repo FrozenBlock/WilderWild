@@ -151,6 +151,7 @@ public final class WilderMiscConfigured {
 	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> DOWNWARDS_BASALT_COLUMN = register("downwards_basalt_column");
 	public static final FrozenConfiguredFeature<ColumnFeatureConfig, ConfiguredFeature<ColumnFeatureConfig, ?>> BASALT_COLUMN = register("basalt_column");
 	public static final FrozenConfiguredFeature<ColumnFeatureConfiguration, ConfiguredFeature<ColumnFeatureConfiguration, ?>> BASALT_SPIKE = register("basalt_spike");
+	public static final FrozenConfiguredFeature<BlockPileConfiguration, ConfiguredFeature<BlockPileConfiguration, ?>> GEYSER_PILE = register("geyser_pile");
 
 	// OASIS
 	public static final FrozenConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> SAND_POOL = register("sand_pool");
@@ -1083,6 +1084,12 @@ public final class WilderMiscConfigured {
 		BASALT_PILE.makeAndSetHolder(Feature.BLOCK_PILE,
 			new BlockPileConfiguration(
 				BlockStateProvider.simple(Blocks.BASALT)
+			)
+		);
+
+		GEYSER_PILE.makeAndSetHolder(Feature.BLOCK_PILE,
+			new BlockPileConfiguration(
+				BlockStateProvider.simple(RegisterBlocks.GEYSER)
 			)
 		);
 
