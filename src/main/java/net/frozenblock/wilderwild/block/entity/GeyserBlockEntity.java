@@ -39,7 +39,7 @@ import org.jetbrains.annotations.NotNull;
 public class GeyserBlockEntity extends BlockEntity {
 	private boolean hasRunFirstCheck = false;
 	private int tickUntilNextEvent;
-	private GeyserStage geyserStage;
+	private GeyserStage geyserStage = GeyserStage.DORMANT;
 
 	public GeyserBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		super(RegisterBlockEntities.GEYSER, pos, state);
